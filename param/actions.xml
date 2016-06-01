@@ -1,0 +1,76 @@
+<navigation>
+	<model action="index.php" droits="gestion" retourko="model" retourlogin="1"
+		retourok="model" retournull="model" loginrequis="1" 
+		 param="param1" ajax="0" droitko="droitko" modulebefore="module1,module2">
+	</model>
+	<default action="framework/default.php"></default>
+	<droitko action="framework/droitko.php"></droitko>
+	<droits menudroits="admin" droits="admin" menulevel="0" menuorder="7" menuvalue="14" menutitle="15" />
+	<gestiondroits action="framework/identification/gestiondroits.php" droits="admin" loginrequis="0" retourlogin="1" droitko="droitko"/>
+	
+	<loginList action="framework/identification/login.php" param="list" droits="admin" retourlogin="1" />
+	<loginChange action="framework/identification/login.php" param="change" droits="admin" />
+	<loginWrite action="framework/identification/login.php" param="write" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange" />
+	<loginDelete action="framework/identification/login.php" param="delete" droits="admin" retourko="loginChange" retoursuppr="loginList" modulebefore="loginChange"/>
+	<loginChangePassword action="framework/identification/login.php" param="changePassword" loginrequis="1" />
+	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" modulebefore="loginChangePassword" />
+
+	<administration action="modules/administration/index.php" droits="admin"
+		retourko="" retourok="" retournull="" droitko="droitko"></administration>
+	<gestion action="modules/gestion/index.php" droits="gestion" retourko=""
+		retournull="" retourok="" droitko="droitko">
+	</gestion>
+	<errorbefore action="framework/errorbefore.php" retourlogin="1" ></errorbefore>
+	<errorlogin action="framework/errorlogin.php" retourlogin="1" ></errorlogin>
+	<test action="test/test.php" retourko=""
+		retournull="">
+	</test>
+	<connexion loginrequis="1" />
+	<disconnect action="framework/identification/disconnect.php" />
+	<apropos action="framework/apropos.php" ></apropos>
+	<phpinfo action="framework/phpinfo.php" droits="admin" retourlogin="1" />
+	<quoideneuf action="doc/quoideneuf.php"  retourlogin="1" ></quoideneuf>
+	<setlanguage action='framework/setlanguage.php'  retourlogin="1" />
+	
+	<docindex action="doc/index.php" param1="index.html" ajax="1"></docindex>
+	<docinstallation action="doc/index.php" param1="Installation.html" />
+	<docdroits action="doc/index.php" param1="Gestion_droits.html" />
+	<docmodulelecture action="doc/index.php" param1="module_lecture.html" />
+	<docparammodule action="doc/index.php" param1="Parametrage_module.html" />
+	<docclasseaccess action="doc/index.php" param1="classe_acces_donnees.html" />
+	<docgestiondoc action="doc/index.php" param1="Gestion_documentation.html" />
+	<docinternationalisation action="doc/index.php" param1="Internationalisation.html" />
+	<docsmarty action="doc/index.php" param1="Utiliser_SMARTY.html" />
+	<docdescriptionorganisation action="doc/index.php" param1="Organisation_application.html"  />
+	<docmodulerecherche action="doc/index.php" param1="module_recherche.html" />
+	
+	<exampleList action="modules/example/example.php" param="list" droits="consult"   />
+	<exampleDisplay action="modules/example/example.php" param="display" droits="consult" />
+	<exampleChange action="modules/example/example.php" param="change" droits="gestion" />
+	<exampleWrite action="modules/example/example.php" param="write" droits="gestion" retourok="exampleList" retourko="exampleChange" modulebefore="exampleChange" />
+	<exampleDelete action="modules/example/example.php" param="delete" droits="admin" retoursuppr="exampleList" retourko="exampleChange" />
+
+<!-- gestion des droits nouvelle formule -->
+	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1"  />
+	<appliDisplay action="framework/droits/appli.php" param="display" droits="admin" />
+	<appliChange action="framework/droits/appli.php" param="change" droits="admin" />
+	<appliWrite action="framework/droits/appli.php" param="write" droits="admin" retourok="appliDisplay" retourko="appliChange" modulebefore="appliChange" />
+	<appliDelete action="framework/droits/appli.php" param="delete" droits="admin" retoursuppr="appliList" retourko="appliChange"  modulebefore="appliChange"/>
+
+	<aclloginList action="framework/droits/login.php" param="list" droits="admin" retourlogin="1" />
+	<aclloginChange action="framework/droits/login.php" param="change" droits="admin" />
+	<aclloginWrite action="framework/droits/login.php" param="write" droits="admin" retourok="aclloginList" retourko="aclloginChange" modulebefore="aclloginChange" />
+	<aclloginDelete action="framework/droits/login.php" param="delete" droits="admin" retoursuppr="aclloginList" retourko="aclloginChange"  modulebefore="aclloginChange"/>
+
+	<groupList action="framework/droits/group.php" param="list" droits="admin" retourlogin="1"  />
+	<groupChange action="framework/droits/group.php" param="change" droits="admin" />
+	<groupWrite action="framework/droits/group.php" param="write" droits="admin" retourok="groupList" retourko="groupChange" modulebefore="groupChange" />
+	<groupDelete action="framework/droits/group.php" param="delete" droits="admin" retoursuppr="groupList" retourko="groupChange"  modulebefore="groupChange"/>
+
+	<acoDisplay action="framework/droits/aco.php" param="display" droits="admin" />
+	<acoChange action="framework/droits/aco.php" param="change" droits="admin" />
+	<acoWrite action="framework/droits/aco.php" param="write" droits="admin" retourok="appliDisplay" retourko="acoChange" modulebefore="acoChange" />
+	<acoDelete action="framework/droits/aco.php" param="delete" droits="admin" retoursuppr="appliDisplay" retourko="acoChange"  modulebefore="acoChange"/>
+
+</navigation>
+	

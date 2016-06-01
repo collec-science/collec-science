@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr-fr">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Organisation de l'application</title>
+    <meta content="Eric Quinton" name="author">
+    <link rel="stylesheet" href="../../display/CSS/blue.css" type="text/css">
+    <link rel="stylesheet" href="display/CSS/blue.css" type="text/css">
+  </head>
+  <body>
+    <h1>Organisation de l'application</h1>
+    <h2>Schéma général de fonctionnement</h2>
+    <p>L'application est bâtie selon un modèle MVC (model - vue - controler). Ce
+      schéma récapitule l'ensemble des opérations réalisées à chaque appel d'un
+      module :</p>
+    <img alt="Schéma général de traitement d'un module" src="schema_general.png">
+    <img alt="Schéma général de traitement d'un module" src="doc/fr/schema_general.png">
+    <h2>Dossiers utilisés par prototypePHP</h2>
+    <h3>display</h3>
+    <p>Contient tous les dossiers utilisés pour l'affichage :</p>
+    <ul>
+      <li>CSS : les feuilles de style</li>
+      <li>images : les images</li>
+      <li>javascript : tout le code javascript, et notamment :</li>
+      <ul>
+        <li>fonctions.js : le code spécifique utilisé par prototypephp ;</li>
+        <li>calendar : un calendrier accessible via un bouton ;</li>
+        <li>datatables : un module jquery utilisé pour afficher les tableaux ;</li>
+        <li>jquery-validation : un module permettant de réaliser des contrôles
+          de saisie avant envoi du formulaire (non implémenté pour le moment)</li>
+      </ul>
+      <li>templates : les modèles de document Smarty ;</li>
+      <li>templates_c : le dossier de travail de Smarty.<br>
+      </li>
+    </ul>
+    <h3>doc</h3>
+    Documentation de l'application, avec un sous-dossier par langue. La page
+    index.php gère les accès à la documentation.<br>
+    <h3>Framework</h3>
+    'L'intelligence" de prototypePHP. Il contient, entre autres :<br>
+    <ul>
+      <li>controller.php : le contrôleur de l'application, appelé
+        systématiquement, et qui gère les droits d'accès, l'appel aux modules,
+        la connexion aux bases de données, etc.</li>
+      <li>common.inc.php : toutes les inclusions de bibliothèques nécessaires ;</li>
+      <li>fonctions.php : les fonctions appelées notamment pour gérer les
+        lectures/écritures en bases de données ;</li>
+      <li>identification : les fichiers utilisés pour gérer l'identification et
+        la gestion des droits ;</li>
+      <li>import : une classe permettant de réaliser des imports et des exports
+        au format csv ;</li>
+      <li>ldap : accès aux annuaires ldap ;</li>
+      <li>navigation : génération du menu à partir de la description réalisée
+        dans le fichier param/actions.xml</li>
+    </ul>
+    <h3>install</h3>
+    Documentation sur l'installation de l'application, scripts de génération de
+    la base de données.<br>
+    <h3>locales</h3>
+    dossier contenant les fichiers de langue. Un fichier par langue supportée.<br>
+    <h3>modules</h3>
+    C'est LE dossier privilégié pour mettre le code de votre application ! Il
+    contient les fichiers et dossiers suivants :<br>
+    <ul>
+      <li>administration : dossier où mettre le code permettant de gérer les
+        tâches d'administration (si nécessaire) ;</li>
+      <li>gestion : idem, mais pour les tâches de gestion ;</li>
+      <li>classes : dossier pour stocker les fichiers de classe. Cela évite
+        d'avoir à chercher les classes dans toute l'arborescence...</li>
+      <li>example : des exemples de code, pour créer des modules</li>
+      <li>beforesession.inc.php : fichier appelé systématiquement <span style="text-decoration: underline;">avant</span>
+        l'ouverture de la session. Permet de charger à chaque appel un fichier
+        de classe, par exemple pour gérer les instances stockées en variables de
+        session ;</li>
+      <li>common.inc.php : fichier appelé systématiquement <span style="text-decoration: underline;">après</span>
+        l'ouverture de la session. Il permet de récupérer les instances de
+        classe qui auraient été stockées en variable de session, par exemple.</li>
+      <li>functions.inc.php : fichier appelé systématiquement, pour stocker les
+        fonctions génériques utiles dans l'application.</li>
+    </ul>
+    <h3>param</h3>
+    Contient tous les fichiers de paramètres et le fichier permettant de décrire
+    les modules et leur enchaînement. Les fichiers sont à adapter au programme :<br>
+    <ul>
+      <li>param.default.inc.php : les paramètres par défaut de l'application. Ce
+        fichier est fourni à chaque nouvelle livraison du code ;</li>
+      <li>param.inc.php : les paramètres spécifiques à l'implémentation. les
+        paramètres sont lus après param.default.inc.php, et surchargent donc les
+        paramètres par défaut. Ce fichier <span style="text-decoration: underline;">doit</span>
+        être livré sous le nom param.inc.php.dist</li>
+      <li>gacl.ini.php : fichier contenant les paramètres utilisés par le plugin
+        phpgacl pour se connecter à la base de données des droits. Il <span style="text-decoration: underline;">doit</span>
+        être livré sous le nom gacl.ini.php.dist</li>
+      <li>actions.xml : contient tout le paramétrage d'accès aux modules et du
+        menu général (cf. document correspondant)</li>
+    </ul>
+    <h3>plugins</h3>
+    Contient tous les plugins "externes" utilisés dans PrototypePHP : adodb,
+    esup-phpcas, objetBDD, phpgacl, smarty...<br>
+    <h3>test</h3>
+    Dossier destiné aux développeurs, quand il faut tester quelques aspects de
+    l'application sans toucher aux autres modules. Pensez à ne pas laisser
+    dedans du code qui pourrait présenter un danger en production !
+  </body>
+</html>

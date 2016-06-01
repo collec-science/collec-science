@@ -1,0 +1,133 @@
+<html>
+<head>
+	<title>OpenOfficeGeneration Documentation</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<script type="text/javascript" src="js/scripts.js"></script>
+</head>
+<body>
+
+<div class="body">
+	<img class="titre" src="imgs/doc.jpg" alt="doc" title="doc" />
+	<h1>Génération de documents OpenOffice 2.0 <span>(Spreadsheet)</span></h1>
+	<h2>Ou comment marier PHP avec la spécification OASIS d'OpenOffice</h2>
+	<ul id="menu">
+		<li><a href="index.html">Accueil</a></li>
+		<li><a href="install.html">Installation</a></li>
+		<li class="ici"><a href="exemples.html">Exemples</a></li>
+		<li><a href="doc.html">Documentation</a></li>
+		<li><a href="forum.html">Forum</a></li>
+		<li><a href="liens.html">Liens</a></li>
+	</ul>
+	<div id="contenu">
+		<div class="gauche">
+			<h3 class="m4">Exemples A</h3>
+			<h4>Comment commencer ?</h4>
+			<p>C'est très simple, procédons donc pas-à-pas. D'abord, on instancie la classe.</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />
+<br />// 2.
+<br />$calc = new OpenOfficeSpreadsheet('exemple_a.ods');
+<br />?&gt;
+			</code>
+			<p>En 1, on inclu la classe principale (ne pas se tromper dans le chemin, mais ça, ça te regarde ;). En 2, on créé un nouvel objet OpenOfficeSpeadsheet, avec un nom. 
+			On peut mettre C:/essai.ods si on désire spécifier son emplacement lors de l'enregistrement. Sinon, le
+			fichier sera généré au même emplacement que le script PHP.</p>
+			<p>A noté qu'on peut choisir de ne pas enregistrer le fichier automatiquement sur le disque, mais plutôt
+			de le télécharger (et par conséquent de laisser le choix à l'utilisateur de le mettre où il le veut).</p>
+			<h4>Ajouter une feuille</h4>
+			<p>Le document est créé, mais il est vide. Il s'agit donc de créer une première feuille. On peut créer 
+			autant de feuille que l'on veut. Ici, on va en faire deux (pour le fun).</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_a.ods');
+<br />
+<br />// 2.
+<br />$feuille_1 = $calc->addSheet('Ma première feuille');
+<br />$feuille_2 = $calc->addSheet('Une deuxième');
+<br />?&gt;
+			</code>
+			<p>En 1, on créé le document (voir ci-dessus pour explications). En 2, on ajoute deux feuilles, à savoir
+			$feuille_1 et $feuille_2. A la méthode, on lui passe le nom de la feuille.</p>
+			<h4>Remplir des cellules avec du texte</h4>
+			<p>A présent, c'est à toi de jouer ! En théorie, il y'a plus ou moins tout ce qu'il faut pour faire 
+			pas mal de choses. On va voir comment insérer du texte dans la première feuille.</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_a.ods');
+<br />$feuille_1 = $calc->addSheet('Ma première feuille');
+<br />$feuille_2 = $calc->addSheet('Une deuxième');
+<br />
+<br />// 2.
+<br />$cell_1 = $feuille_1->getCell(1, 1);
+<br />$cell_2 = $feuille_1->getCell(6, 3);
+<br />
+<br />// 3.
+<br />$cell_1->setContent('Bonjour !');
+<br />$cell_2->setContent('Adjeu');
+<br />
+<br />// 4.
+<br />$cell_3 = $feuille_2->getCell(4, 4);
+<br />$cell_3->setContent('Sur la feuille 2');
+<br />
+<br />// 5.
+<br />$calc->output();
+<br />?&gt;
+			</code>
+			<img src="imgs/exemple_a_1.gif" title="exemple" alt="exemple" />
+			<p>En 1, on instancie la classe et on créé deux feuilles. En 2, on récupère deux cellules, à savoir A1
+			et F3, de la feuille 1. Le premier chiffre correspond à la colonne, le second à la ligne. Malheureusement oui, pour
+			l'instant, la colonne est en numérique. On verra plus loin comment contourner mollement (c'est moche, il
+			faut que je trouve autre chose) ce problème.</p>
+			<p>Ensuite, en 3, on insère du contenu dans chacune des cellules de la feuille 1. On va chercher en 4 la cellule
+			D4 de la feuille 2 et on lui met un contenu.</p>			
+			<img src="imgs/exemple_a_2.gif" title="exemple" alt="exemple" />
+			<p>Enfin, en 5, on envoie le fichier en téléchargement. <a href="download/exemple_a.ods">Ici pour voir le résultat</a>.</p>
+		</div>
+		<div class="droite">
+			<div>
+				<h4>Dernières mise-à-jour</h4>
+				<p>La dernière mise à jour date du 7 mai 2006. La génération de feuilles de calcul est plutôt stable.</p>
+				<p><a href="download/openoffice_generation_v0_2.zip">Téléchargez ici!</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Exemple A</h4>
+				<p>Les bases. Comment créer une feuille et gérer basiquement les cellules.</p>
+				<p><a href="exemples.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Exemple B</h4>
+				<p>Les actions sur les cellules. Entre contenu et couleur de fond, on trouve tout c'qu'on veut!</p>
+				<p><a href="exemples_b.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Sauvegardes</h4>
+				<p>Les moyens de sauvegarder le résultat</p>
+				<p><a href="exemples_d.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Astuces</h4>
+				<p>Deux ou trois bidouilles marrantes pour s'économiser du code et/ou de la prise de tête.</p>
+				<p><a href="exemples_c.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+		</div>
+	</div>
+	<div class="bottom">
+		<p>OpenOffice Generation PHP</p>
+		<p>Le 7 mai 2006, <a href="#" onClick="gereStyle()">Tafel</a>. Optimisé pour Mozilla Firefox</p>
+	</div>
+</div>
+	
+</body>
+</html>

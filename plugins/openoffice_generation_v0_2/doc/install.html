@@ -1,0 +1,75 @@
+<html>
+<head>
+	<title>OpenOfficeGeneration Documentation</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<script type="text/javascript" src="js/scripts.js"></script>
+</head>
+<body>
+
+<div class="body">
+	<img class="titre" src="imgs/doc.jpg" alt="doc" title="doc" />
+	<h1>Génération de documents OpenOffice 2.0 <span>(Spreadsheet)</span></h1>
+	<h2>Ou comment marier PHP avec la spécification OASIS d'OpenOffice</h2>
+	<ul id="menu">
+		<li><a href="index.html">Accueil</a></li>
+		<li class="ici"><a href="install.html">Installation</a></li>
+		<li><a href="exemples.html">Exemples</a></li>
+		<li><a href="doc.html">Documentation</a></li>
+		<li><a href="forum.html">Forum</a></li>
+		<li><a href="liens.html">Liens</a></li>
+	</ul>
+	<div id="contenu">
+		<div class="gauche">
+			<h3 class="m2">Installation</h3>
+			<h4>PHP... 5! et rien d'autre!</h4>
+			<p>Oui, je sais, c'est très restrictif. Mais l'objet est mieux géré en PHP5 qu'en PHP4. Donc c'est la dernière version que 
+			j'ai choisie pour programmer ce machin. Il va donc falloir faire fi des anciennes. Vive la nouvelle génération, quoi, zut :) !</p>
+			<p>Pour ceux qui ont <strong>EasyPHP</strong>, ça ne va pas le faire. La version 2.0 pourra gérer le PHP5. Mais d'ici là, il faudra utiliser un
+			autre serveur (genre <strong>Wamp</strong>).</p>
+			<h4>Le matos</h4>
+			<p>Pour faire fonctionner tout ce binz, rien de plus simple. Il te suffit d'avoir un serveur Apache qui 
+			tourne (forcément), genre <strong>Wamp</strong>, pour celles et ceux qui bossent en local et qui ont Windows. Il y a aussi 
+			<strong>Zend</strong> qui a un serveur Apache intégré à l'IDE.</p>
+			<p>Et il faut bien entendu les scripts PHP, <a href="download/openoffice_generation_v0_2.zip">disponibles ici (version béta 1)</a></p>
+			<h4>Limitations</h4>
+			<p>Cette classe est encore en phase Béta de développement. Ceci ce traduit par une performance relativement moyenne.
+			En l'occurence, le maximum autorisé de cellules traitées, toutes feuilles confondues, est de <strong>25'000</strong>. Le temps de traitement atteint dès lors 2min environ.</p>
+			<p>Ce test a été effectué en local, sur une plate-forme <em>Windows XP</em> avec <em>Apache/2.0.55 (Win32) PHP/5.1.2</em></p>
+			<h4>Fichiers de templates</h4>
+			<p>Ces fichiers sont en fait un document Spreadsheet OpenOffice 2.0 vide et décompressé. On y trouve donc
+			tous les ingrédients d'un future fichier ods. Ils constituent la base sur laquelle viendra se rajouter
+			tout ce que tu auras mis dans ton code PHP. Ces templates sont donc customisables et peuvent éviter un
+			grand nombre de ligne de code, si tu sais quelles informations seront systématiquement toujours là et 
+			toujours les mêmes.</p>
+			<p>C'est également là qu'il faudra placer les images que tu voudras insérer dans ton fichier. Mais là aussi, de
+			plus amples informations sont disponibles dans les exemples, donc je m'arrête là pour cette page.</p>
+		</div>
+		<div class="droite">
+			<div>
+				<h4>Dernières mise-à-jour</h4>
+				<p>La dernière mise à jour date du 7 mai 2006. La génération de feuilles de calcul est plutôt stable.</p>
+				<p><a href="download/openoffice_generation_v0_2.zip">Téléchargez ici!</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Qu'est-ce ?</h4>
+				<p>Il s'agit très précisément d'une génération de document OpenOffice 2.0 Spreadsheet, c'est-à-dire les feuilles de calcul ou tableur (comme Excel, en fait). 
+				Pour l'instant, il est impossible de générer quoique ce soit d'autre.</p>
+				<p><a href="download/recettes.ods">Exemple de fichier généré</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Utilisation optimale</h4>
+				<p>Tout ça fonctionne sous PHP. Il suffit d'avoir un serveur Apache et le tour est joué. Simple non ?</p>
+				<cite>Par Tafel</cite>
+			</div>
+		</div>
+	</div>
+	<div class="bottom">
+		<p>OpenOffice Generation PHP</p>
+		<p>Le 7 mai 2006, <a href="#" onClick="gereStyle()">Tafel</a>. Optimisé pour Mozilla Firefox</p>
+	</div>
+</div>
+	
+</body>
+</html>

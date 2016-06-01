@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="fr">
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <title>Gestion de la documentation</title>
+    <meta content="Eric Quinton" name="author">
+    <link rel="stylesheet" href="../../display/CSS/blue.css" type="text/css">
+    <link rel="stylesheet" href="display/CSS/blue.css" type="text/css">
+  </head>
+  <body>
+    <h1>Rajouter un module de recherche</h1>
+    <p>Plutôt que d'afficher la liste complète des enregistrements d'une table,
+      il est souvent plus cohérent d'en réaliser une sélection au préalable.</p>
+    <p>Cette sélection doit répondre aux critères suivants :</p>
+    <ul>
+      <li>il faut qu'elle soit située en tête de la liste ;</li>
+      <li>la première fois que l'on arrive dans la page, la recherche ne doit
+        pas être lancée (sinon on risque de ramener toute la table) ;</li>
+      <li>ensuite, chaque fois que l'on revient dans la page, la recherche doit
+        être relancée automatiquement avec les critères définis préalablement.</li>
+    </ul>
+    <p>Cela impose donc que les critères de recherche soient conservés. Le plus
+      simple est de les stocker en variable de session.</p>
+    <p>Pour arriver à ce mécanisme, nous allons créer une classe de recherche
+      non instanciable, qui sera héritée pour chaque module de recherche
+      nécessaire.</p>
+    <h2>Classe SearchParam</h2>
+    <pre>&lt;?php<br>/**<br>&nbsp;* Classe de base pour gerer des parametres de recherche<br>&nbsp;* Classe non instanciable, a heriter<br>&nbsp;* L'instance doit etre conservee en variable de session<br>&nbsp;* @author Eric Quinton<br>&nbsp;*<br>&nbsp;*/<br>class SearchParam {<br>&nbsp;&nbsp;&nbsp; /**<br>&nbsp;&nbsp;&nbsp; &nbsp;* Tableau des parametres geres par la classe<br>&nbsp;&nbsp;&nbsp; &nbsp;* La liste des parametres doit etre declaree dans la fonction construct<br>&nbsp;&nbsp;&nbsp; &nbsp;* @var array<br>&nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; public $param;<br>&nbsp;&nbsp;&nbsp; /**<br>&nbsp;&nbsp;&nbsp; &nbsp;* Indique si la lecture des parametres a ete realisee au moins une fois<br>&nbsp;&nbsp;&nbsp; &nbsp;* Permet ainsi de declencher ou non la recherche<br>&nbsp;&nbsp;&nbsp; &nbsp;* @var int<br>&nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; public $isSearch;<br>&nbsp;&nbsp;&nbsp; /**<br>&nbsp;&nbsp;&nbsp; &nbsp;* Constructeur de la classe<br>&nbsp;&nbsp;&nbsp; &nbsp;* A rappeler systematiquement pour initialiser isSearch<br>&nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; function __construct() {<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if (!is_array ($this-&gt;param)) $this-&gt;param = array();<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $this-&gt;isSearch = 0;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; /**<br>&nbsp;&nbsp;&nbsp; &nbsp;* Stocke les parametres fournis<br>&nbsp;&nbsp;&nbsp; &nbsp;* @param array $data<br>&nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; function setParam ($data) {<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; foreach ($this-&gt;param as $key =&gt; $value) {<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* Recherche si une valeur de $data correspond a un parametre<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if (isset($data[$key])) <br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $this-&gt;param[$key] = $data[$key];<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* Gestion de l'indicateur de recherche<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if ($data["isSearch"] == 1) $this-&gt;isSearch = 1;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; /**<br>&nbsp;&nbsp;&nbsp; &nbsp;* Retourne les parametres existants<br>&nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; function getParam() {<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return $this-&gt;param;<br>&nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; /**<br>&nbsp;&nbsp;&nbsp; &nbsp;* Indique si la recherche a ete deja lancee<br>&nbsp;&nbsp;&nbsp; &nbsp;* @return int<br>&nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; function isSearch() {<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if ($this-&gt;isSearch == 1) {<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return 1;<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; } else {<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return 0;<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; }<br>}</pre>
+    <p>Quelques remarques :</p>
+    <ul>
+      <li>la liste des variables utilisées pour la recherche doit être définie
+        dans la classe héritée ;</li>
+      <li>la classe retourne un tableau contenant toutes les variables définies
+        ;</li>
+      <li>elle contient également une variable $isSearch, qui indique si la
+        recherche a été lancée au moins une fois.</li>
+    </ul>
+    <p>Le fichier de cette classe doit impérativement être lu avant le démarrage
+      de la session : on l'introduira donc dans le fichier
+      modules.beforesession.inc.php :</p>
+    <p>include_once 'modules/classes/searchParam.class.php';</p>
+    <h2>Créer une classe qui hérite de la précédente</h2>
+    <p>Cete classe ne contiendra que le constructeur de la classe, qui dfinira
+      les variables nécessaires à la recherche :</p>
+    <pre>/**<br>&nbsp;* Classe de gestion des parametres de recherche de la table Personnel<br>&nbsp;* @author Eric Quinton<br>&nbsp;*<br>&nbsp;*/<br>class SearchPersonnel extends SearchParam {&nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; function __construct() {<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $this-&gt;param = array ("searchNom" =&gt; "", "nbreMini" =&gt; 0, "nbreMaxi" =&gt; 20);<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; parent::__construct();<br>&nbsp;&nbsp;&nbsp; }<br>}</pre>
+    <p>Ici, trois variables sont déclarées : searchNom, nbreMini et nbreMaxi.
+      Par ailleurs, les valeurs par défaut sont (et doivent impérativement, en
+      raison du mode de gestion des tableaux par PHP) définies. Le fichier
+      contenant la classe doit également être chargé avant le démarrage de la
+      session. <br>
+      <br>
+      On peut également déclarer cette classe dans le même fichier que celui de
+      la classe héritée...</p>
+    <h2>Instancier la classe</h2>
+    <p>Nous allons stocker l'instance en variable de session. Comme les
+      paramètres de recherche peuvent être utilisés à plusieurs endroits, nous
+      allons vérifier l'existence de l'instance à chaque appel de l'application.
+      Dans le fichier modules/common.inc.php (appelé à chaque fois), rajoutez
+      les lignes suivantes :</p>
+    <pre>if (!isset($_SESSION["searchPersonnel"])) {<br>&nbsp;&nbsp;&nbsp; $searchPersonnel = new SearchPersonnel();<br>&nbsp;&nbsp;&nbsp; $_SESSION["searchPersonnel"] = $searchPersonnel; <br>} else {<br>&nbsp;&nbsp;&nbsp; $searchPersonnel = $_SESSION["searchPersonnel"];<br>}</pre>
+    <p>Dans cet exemple, l'instance $searchPersonnel contient tous les critères
+      de recherche.</p>
+    <h2>Définir un template smarty</h2>
+    <p>Comme la boite de recherche pourrait être utilisée à plusieurs endroits
+      dans l'application, nous la déclarons dans un fichier smarty indépendant,
+      par exemple display/gestion/searchPersonnel.tpl :</p>
+    <pre>&lt;table id="personnelSearch" class="tableaffichage"&gt;<br>&lt;form method="GET" action="index.php"&gt;<br>&lt;input type="hidden" name="module" value="personnelListe"&gt;<br>&lt;input type="hidden" name="isSearch" value="1"&gt;<br>&lt;tr&gt;<br>&lt;td&gt;<br>Nom à rechercher :<br>&lt;input name="searchNom" value="{$personnelSearch.searchNom}" maxlength="50" size="30"&gt;<br>&lt;br&gt;<br>Nbre mini : <br>&lt;input name="nbreMini" value="{$personnelSearch.nbreMini}" maxlength="2" size="2"&gt;<br>Nbre maxi : <br>&lt;input name="nbreMaxi" value="{$personnelSearch.nbreMaxi}" maxlength="2" size="2"&gt;<br>&lt;br&gt;<br>&lt;div style="text-align:center;"&gt;<br>&lt;input type="submit" name="Rechercher..."&gt;<br>&lt;/div&gt;<br>&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;/form&gt;<br>&lt;/table&gt;</pre>
+    <p>Deux remarques : </p>
+    <ul>
+      <li>le nom du module appelé pourrait être stocké en variable (ici, écrit
+        "en dur")</li>
+      <li>une balise input définit la variable isSearch à 1 : si le formulaire
+        est envoyé, alors nous saurons que la recherche a été déclenchée au
+        moins une fois.</li>
+    </ul>
+    <p>Le modèle Smarty sera inclus dans notre page d'affichage de la liste, en
+      rajoutant le code suivant :</p>
+    <pre>&lt;script&gt;<br>setDataTables("idListe");<br>&lt;/script&gt;<br>&lt;h2&gt;{$LANG.gestion.0}&lt;/h2&gt;<br>&lt;a href="index.php?module=personnelChange&amp;id=0"&gt;{$LANG.gestion.7}&lt;/a&gt;<br>{include file="gestion/personnelSearch.tpl"}<br>{if $isSearch == 1}<br>&lt;form method="get" action="index.php" &gt;<br>&lt;input type="hidden" name="module" value="personnelPdf" &gt;<br>&lt;input type="submit" value="Imprimer la liste au format PDF" &gt;<br>&lt;/form&gt;<br>&lt;table id="idListe" class="tableaffichage"&gt;<br>(...)<br>&lt;/table&gt;<br>{/if}</pre>
+    <p>Ainsi, le tableau (vide normalement la première fois) n'est pas affiché
+      si la recherche n'a pas été déclenchée au moins une fois.</p>
+    <h2>Intégrer la recherche dans le module d'affichage de la liste</h2>
+    <p>Nous allons modifier le comportement de l'affichage de la liste, pour lui
+      faire prendre en compte notre module de recherche.</p>
+    <pre>(...)<br>switch ($t_module ["param"]) {<br>&nbsp;&nbsp;&nbsp; case "list":<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* Gestion des criteres de recherche<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $searchPersonnel-&gt;setParam ( $_REQUEST );<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $dataRecherche = $searchPersonnel-&gt;getParam ();<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if ($searchPersonnel-&gt;isSearch () == 1) {<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $data = $dataClass-&gt;getListeSearch ( $dataRecherche );&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $smarty-&gt;assign ( "data", $data );<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $smarty-&gt;assign ("isSearch", 1);<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; }<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $smarty-&gt;assign ("personnelSearch", $dataRecherche);<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $smarty-&gt;assign ( "corps", "gestion/personnelListe.tpl" );<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; break;</pre>
+    <p>Quelques explications :</p>
+    <ul>
+      <li>dans un premier temps, on transfert l'ensemble des variables du
+        formulaire à la classe de recherche. Elle récupère les variables qui
+        l'intéresse pour mettre à jour les valeurs.</li>
+      <li>dans un second temps, on récupère l'ensemble des variables de la
+        classe de recherche.</li>
+      <li>enfin, si la recherche a déjà été effectuée (retour du formulaire, ou
+        rappel de la page après une première recherche), on lance la recherche,
+        puis on réalise les assignations nécessaires pour Smarty (notez
+        l'assignation de isSearch, qui permettra d'afficher le tableau de
+        résultats)</li>
+      <li>la recherche dans la classe dataClass n'est pas réalisée par un
+        getListe, mais par une fonction écrite spécifiquement pour cet usage. En
+        voici un exemple :</li>
+    </ul>
+    <pre>class Personnel extends ObjetBDD {<br>(...)<br>function getListeSearch( $param) {<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $sql='select personnel.id,<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; personnel.nom,<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; personnel.prenom,<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; personnel.dateNaissance,<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; personnel.nbreEnfants,<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; civilite.libelle as civilite<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; from personnel, civilite';<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $where = ' where personnel.civilite = civilite.id';<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* Rajout des parametres de recherche<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if (strlen($param["searchNom"]) &gt; 0) <br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $where .= ' and upper(personnel.nom) like upper("%'.$param["searchNom"].'%")';<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; if ( $param["nbreMini"] &gt;= 0 &amp;&amp; $param["nbreMaxi"] &gt;= 0)<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $where .= ' and personnel.nbreEnfants &gt;= '.$param["nbreMini"]. " and personnel.nbreEnfants &lt;= ".$param["nbreMaxi"];&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; /*<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;* Criteres de tri<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;*/<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; $order = ' order by nom, prenom ';<br>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; return parent::getListeParam($sql.$where.$order);<br>&nbsp;&nbsp;&nbsp; }<br>}</pre>
+    <p>Notez que la recherche s'effectue indifféremment sur le nom ou le prénom,
+      en utilisant l'opérateur like, et en basculant tous les caractères en
+      majuscules (upper).</p>
+    <p><br>
+    </p>
+  </body>
+</html>

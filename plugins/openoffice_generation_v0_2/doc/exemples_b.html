@@ -1,0 +1,183 @@
+<html>
+<head>
+	<title>OpenOfficeGeneration Documentation</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<script type="text/javascript" src="js/scripts.js"></script>
+</head>
+<body>
+
+<div class="body">
+	<img class="titre" src="imgs/doc.jpg" alt="doc" title="doc" />
+	<h1>Génération de documents OpenOffice 2.0 <span>(Spreadsheet)</span></h1>
+	<h2>Ou comment marier PHP avec la spécification OASIS d'OpenOffice</h2>
+	<ul id="menu">
+		<li><a href="index.html">Accueil</a></li>
+		<li><a href="install.html">Installation</a></li>
+		<li class="ici"><a href="exemples.html">Exemples</a></li>
+		<li><a href="doc.html">Documentation</a></li>
+		<li><a href="forum.html">Forum</a></li>
+		<li><a href="liens.html">Liens</a></li>
+	</ul>
+	<div id="contenu">
+		<div class="gauche">
+			<h3 class="m4">Exemples B</h3>
+			<h4>Les styles</h4>
+			<p>Okay, alors admettons que t'es au clair avec les bases (sinon, rendez-vous <a href="exemples.html">ici</a>). On
+			va maintenant voir ce qu'on peut faire de simple avec une cellule.</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_b.ods');
+<br />$feuille = $calc->addSheet('Une feuille');
+<br />$cell = $feuille->getCell(1, 1);
+<br />
+<br />// 2.
+<br />$cell->setContent('Salut biscuit !');
+<br />$cell->setColor('#FF0000');
+<br />$cell->setBackgroundColor('#00FF00');
+<br />$cell->setFontWeight('bold');
+<br />$cell->setFontStyle('italic');
+<br />$cell->setFontSize('24pt');
+<br />$cell->setFontFamily('Balloon');
+<br />
+<br />// 3.
+<br />$calc->output();
+<br />?&gt;
+			</code>
+			<img src="imgs/exemple_b_1.gif" title="exemple" alt="exemple" />
+			<p>En 1, on instancie l'objet de classe, on créé une feuille et on chope une cellule (A1, en l'occurence).
+			Ensuite, en 2, on lui set du texte, une couleur de texte et de fond, on le met en gras, italique, avec une
+			police Balloon de 24 points.</p>
+			<p>Puis en 3, on envoie le fichier en téléchargement.</p>
+			<h4>Dimensions</h4>
+			<p>On constate que le texte dépasse de la cellule. A priori, ce n'est pas possible de déterminer la
+			largeur de la cellule automatiquement. En tout cas, j'ai pas trouvé comment. Donc il faut lui spécifier
+			soi-même une largeur, et une hauteur, pourquoi pas ?</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_b.ods');
+<br />$feuille = $calc->addSheet('Une feuille');
+<br />$cell = $feuille->getCell(1, 1);
+<br />
+<br />// 2.
+<br />$cell->setContent('Salut biscuit !');
+<br />$cell->setColor('#FF0000');
+<br />$cell->setBackgroundColor('#00FF00');
+<br />$cell->setFontWeight('bold');
+<br />$cell->setFontStyle('italic');
+<br />$cell->setFontSize('24pt');
+<br />$cell->setFontFamily('Balloon');
+<br />
+<br />// 3.
+<br />$cell->setWidth('4cm');
+<br />$cell->setHeight('3cm');
+<br />
+<br />// 4.
+<br />$cell->setTextAlign('center');
+<br />$cell->setVerticalAlign('middle');
+<br />
+<br />// 5.
+<br />$calc->output();
+<br />?&gt;
+			</code>
+			<img src="imgs/exemple_b_2.gif" title="exemple" alt="exemple" />
+			<p>On fait la même chose qu'avant, sauf qu'on rajoute une largeur et une hauteur de cellule. On en profite 
+			pour centrer le texte horizontalement et verticalement.</p>
+			<p>Une chose <strong>très importante ! </strong>Lorsqu'on set une Height pour une cellule, elle sera settée
+			pour toutes les cellules de la ligne (ce qui est normal, c'est juste histoire de le rappeler). Pareil pour
+			la Width. C'est toute la colonne qui subira la nouvelle largeur, et non pas <em>juste</em> la cellule.</p>
+			<p>Mais je le répète, c'est tout à fait normal</p>
+			<h4>Les bordures</h4>
+			<p>Pour les bordures, c'est pareil que pour le CSS, pour ceux qui connaissent. Sauf que la spécification 
+			précise des épaisseurs en centimètre... L'épaisseur <em>normale</em> correspond à <strong>0.02cm</strong>.</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_b.ods');
+<br />$feuille = $calc->addSheet('Une feuille');
+<br />$cell = $feuille->getCell(1, 1);
+<br />
+<br />// 2.
+<br />$cell->setContent('Salut biscuit !');
+<br />$cell->setColor('#FF0000');
+<br />$cell->setBackgroundColor('#00FF00');
+<br />$cell->setFontWeight('bold');
+<br />$cell->setFontStyle('italic');
+<br />$cell->setFontSize('24pt');
+<br />$cell->setFontFamily('Balloon');
+<br />$cell->setWidth('7cm');
+<br />$cell->setHeight('3cm');
+<br />$cell->setTextAlign('center');
+<br />$cell->setVerticalAlign('middle');
+<br />
+<br />// 3. grosse bordure pour bien la voir
+<br />$cell->setBorder('0.2cm solid #0000FF');
+<br />
+<br />// 4.
+<br />$calc->output();
+<br />?&gt;
+			</code>
+			<img src="imgs/exemple_b_3.gif" title="exemple" alt="exemple" />
+			<p>La classe propose différents moyens de s'occuper des bordures. Il y a <em>setBorder</em>, mais il y en a d'autres.</p>
+			<code>
+&lt;?php
+<br />$cell->setBorder('0.2cm solid #0000FF');
+<br />
+<br />// Equivalent :
+<br />$cell->setBorderTop('0.2cm solid #0000FF');
+<br />$cell->setBorderRight('0.2cm solid #0000FF');
+<br />$cell->setBorderBottom('0.2cm solid #0000FF');
+<br />$cell->setBorderLeft('0.2cm solid #0000FF');
+<br />
+<br />// On peut aussi les spécifier par pair
+<br />// top-bottom et right-left :
+<br />$cell->setBorder('0.2cm solid #0000FF', '0.2cm solid #0000FF');
+<br />?&gt;
+			</code>		
+			<p><a href="download/exemple_b.ods">Ici pour voir le résultat de l'exemple B</a>.</p>
+		</div>
+		<div class="droite">
+			<div>
+				<h4>Dernières mise-à-jour</h4>
+				<p>La dernière mise à jour date du 7 mai 2006. La génération de feuilles de calcul est plutôt stable.</p>
+				<p><a href="download/openoffice_generation_v0_2.zip">Téléchargez ici!</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Exemple A</h4>
+				<p>Les bases. Comment créer une feuille et gérer basiquement les cellules.</p>
+				<p><a href="exemples.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Exemple B</h4>
+				<p>Les actions sur les cellules. Entre contenu et couleur de fond, on trouve tout c'qu'on veut!</p>
+				<p><a href="exemples_b.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Sauvegardes</h4>
+				<p>Les moyens de sauvegarder le résultat</p>
+				<p><a href="exemples_d.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Astuces</h4>
+				<p>Deux ou trois bidouilles marrantes pour s'économiser du code et/ou de la prise de tête.</p>
+				<p><a href="exemples_c.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+		</div>
+	</div>
+	<div class="bottom">
+		<p>OpenOffice Generation PHP</p>
+		<p>Le 7 mai 2006, <a href="#" onClick="gereStyle()">Tafel</a>. Optimisé pour Mozilla Firefox</p>
+	</div>
+</div>
+	
+</body>
+</html>

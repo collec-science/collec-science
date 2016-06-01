@@ -1,0 +1,410 @@
+<html>
+<head>
+<title>File Source for EasyZIP.class.php</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+    <td class="header_top">OpenOfficeGeneration</td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td class="header_menu">
+  		  [ <a href="../classtrees_OpenOfficeGeneration.html" class="menu">class tree: OpenOfficeGeneration</a> ]
+		  [ <a href="../elementindex_OpenOfficeGeneration.html" class="menu">index: OpenOfficeGeneration</a> ]
+		  [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+      <b>Packages:</b><br />
+              <a href="../li_OpenOfficeGeneration.html">OpenOfficeGeneration</a><br />
+            <br /><br />
+                  
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1 align="center">Source for file EasyZIP.class.php</h1>
+<p>Documentation is available at <a href="../OpenOfficeGeneration/_EasyZIP_class_php.html">EasyZIP.class.php</a></p>
+<div class="php">
+<div class="listing"><pre><ol><li><a name="a1"></a><span class="src-php">&lt;?php</span></li>
+<li><a name="a2"></a>&nbsp;</li>
+<li><a name="a3"></a><span class="src-doc">/**</span></li>
+<li><a name="a4"></a><span class="src-doc"> *   +----------------------------------------------------------------------+</span></li>
+<li><a name="a5"></a><span class="src-doc"> *   |    EasyZIP.class.php                                                 |</span></li>
+<li><a name="a6"></a><span class="src-doc"> *   +----------------------------------------------------------------------+</span></li>
+<li><a name="a7"></a><span class="src-doc"> *   |    php4 - 14 October 2004                                            |</span></li>
+<li><a name="a8"></a><span class="src-doc"> *   +----------------------------------------------------------------------+</span></li>
+<li><a name="a9"></a><span class="src-doc"> *   |  Cette classe PHP permet de créer des fichiers ZIP (+split)          |</span></li>
+<li><a name="a10"></a><span class="src-doc"> *   |  à la volée. Download sur www.phpclasses.org.                        |</span></li>
+<li><a name="a11"></a><span class="src-doc"> *   +----------------------------------------------------------------------+</span></li>
+<li><a name="a12"></a><span class="src-doc"> *   |  Auteur:   huda m elmatsani (justhuda at netscape dot net)           |</span></li>
+<li><a name="a13"></a><span class="src-doc"> *   |  Modifications:   Cédric Meier                                       |</span></li>
+<li><a name="a14"></a><span class="src-doc"> *   |  Modifications:   Tafel (jan. 2006                                   |</span></li>
+<li><a name="a15"></a><span class="src-doc"> *   |  Version:  1.0 stable                                                |</span></li>
+<li><a name="a16"></a><span class="src-doc"> *   +----------------------------------------------------------------------+</span></li>
+<li><a name="a17"></a><span class="src-doc"> */</span></li>
+<li><a name="a18"></a>&nbsp;</li>
+<li><a name="a19"></a><span class="src-doc">/**</span></li>
+<li><a name="a20"></a><span class="src-doc"> *  Example:</span></li>
+<li><a name="a21"></a><span class="src-doc"> *  --------</span></li>
+<li><a name="a22"></a><span class="src-doc"> *  create zip file</span></li>
+<li><a name="a23"></a><span class="src-doc"> *    $z = new EasyZIP;</span></li>
+<li><a name="a24"></a><span class="src-doc"> *    $z -&gt; addFile(&quot;map.bmp&quot;);</span></li>
+<li><a name="a25"></a><span class="src-doc"> *    $z -&gt; addFile(&quot;guide.pdf&quot;);</span></li>
+<li><a name="a26"></a><span class="src-doc"> *  $z -&gt; addDir(&quot;files/test&quot;);</span></li>
+<li><a name="a27"></a><span class="src-doc"> *  // xyz.zip est optionnel. Si un fichier n'est pas spécifié,</span></li>
+<li><a name="a28"></a><span class="src-doc"> *  // la méthode retourne le flux ZIP. Sinon, retourne true.</span></li>
+<li><a name="a29"></a><span class="src-doc"> *    $z -&gt; zipFile(&quot;xyz.zip&quot;);</span></li>
+<li><a name="a30"></a><span class="src-doc"> *</span></li>
+<li><a name="a31"></a><span class="src-doc"> *  created splitted file</span></li>
+<li><a name="a32"></a><span class="src-doc"> *      $z = new EasyZIP;</span></li>
+<li><a name="a33"></a><span class="src-doc"> *      $z -&gt; addFile(&quot;guide.pdf&quot;);</span></li>
+<li><a name="a34"></a><span class="src-doc"> *    $z -&gt; splitFile(&quot;map.zip&quot;,1048576);</span></li>
+<li><a name="a35"></a><span class="src-doc"> * </span></li>
+<li><a name="a36"></a><span class="src-doc"> *  pack and split</span></li>
+<li><a name="a37"></a><span class="src-doc"> *      $z = new EasyZIP;</span></li>
+<li><a name="a38"></a><span class="src-doc"> *    $z -&gt; addFile(&quot;map.bmp&quot;);</span></li>
+<li><a name="a39"></a><span class="src-doc"> *    $z -&gt; addFile(&quot;guide.pdf&quot;);</span></li>
+<li><a name="a40"></a><span class="src-doc"> *    $z -&gt; splitFile(&quot;xyz.zip&quot;,1048576);</span></li>
+<li><a name="a41"></a><span class="src-doc"> *</span></li>
+<li><a name="a42"></a><span class="src-doc"> *</span></li>
+<li><a name="a43"></a><span class="src-doc"> */</span></li>
+<li><a name="a44"></a>&nbsp;</li>
+<li><a name="a45"></a><span class="src-comm">//simple error message definition</span></li>
+<li><a name="a46"></a><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">'FUNCTION_NOT_FOUND'</span><span class="src-sym">,</span><span class="src-str">'Error: gzcompress() function is not found'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a47"></a><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">'FILE_NOT_FOUND'</span><span class="src-sym">,</span><span class="src-str">'Error: file is not found'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a48"></a><a href="http://www.php.net/define">define</a><span class="src-sym">(</span><span class="src-str">'DIRECTORY_NOT_FOUND'</span><span class="src-sym">,</span><span class="src-str">'Error: directory is not found'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a49"></a>&nbsp;</li>
+<li><a name="a50"></a><span class="src-key">class </span><a href="../OpenOfficeGeneration/EasyZIP.html">EasyZIP</a> <span class="src-sym">{</span></li>
+<li><a name="a51"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filelist">$filelist</a> = <span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a52"></a><span class="src-comm">//    var $pathname = array();</span></li>
+<li><a name="a53"></a>        <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$data_segments">$data_segments</a> = <span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a54"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$data_block">$data_block</a><span class="src-sym">;</span></li>
+<li><a name="a55"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$file_headers">$file_headers</a>  = <span class="src-key">array</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a56"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filename">$filename</a><span class="src-sym">;</span></li>
+<li><a name="a57"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$pathname">$pathname</a><span class="src-sym">;</span></li>
+<li><a name="a58"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filedata">$filedata</a><span class="src-sym">;</span></li>
+<li><a name="a59"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$old_offset">$old_offset</a> = <span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a60"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$splitted">$splitted</a> = <span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a61"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$split_signature">$split_signature</a> = <span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a62"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$split_size">$split_size</a> = <span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a63"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$split_offset">$split_offset</a> = <span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a64"></a>    <span class="src-key">var </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$disk_number">$disk_number</a> = <span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a65"></a>&nbsp;</li>
+<li><a name="a66"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodEasyZIP">EasyZIP</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a67"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-sym">@</span><a href="http://www.php.net/function_exists">function_exists</a><span class="src-sym">(</span><span class="src-str">'gzcompress'</span><span class="src-sym">)) </span><span class="src-key">die</span><span class="src-sym">(</span><span class="src-id"><a href="../OpenOfficeGeneration/_EasyZIP_class_php.html#defineFUNCTION_NOT_FOUND">FUNCTION_NOT_FOUND</a></span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a68"></a>    <span class="src-sym">}</span></li>
+<li><a name="a69"></a> </li>
+<li><a name="a70"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodaddFile">addFile</a><span class="src-sym">(</span><span class="src-var">$filename</span><span class="src-sym">, </span><span class="src-var">$pathname</span>=<span class="src-str">''</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a71"></a>        <span class="src-key">if</span><span class="src-sym">(</span><a href="http://www.php.net/file_exists">file_exists</a><span class="src-sym">(</span><span class="src-var">$pathname</span>.<span class="src-var">$filename</span><span class="src-sym">)) </span><span class="src-sym">{</span></li>
+<li><a name="a72"></a>&nbsp;</li>
+<li><a name="a73"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filelist">filelist</a><span class="src-sym">[</span><span class="src-str">'filename'</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-sym">] </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'\\'</span><span class="src-sym">, </span><span class="src-str">'/'</span><span class="src-sym">, </span><span class="src-var">$filename</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a74"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filelist">filelist</a><span class="src-sym">[</span><span class="src-str">'pathname'</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-sym">] </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'\\'</span><span class="src-sym">, </span><span class="src-str">'/'</span><span class="src-sym">, </span><span class="src-var">$pathname</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a75"></a>&nbsp;</li>
+<li><a name="a76"></a>        <span class="src-sym">} </span><span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a77"></a>            <span class="src-key">die</span><span class="src-sym">(</span><span class="src-id"><a href="../OpenOfficeGeneration/_EasyZIP_class_php.html#defineFILE_NOT_FOUND">FILE_NOT_FOUND</a></span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a78"></a>        <span class="src-sym">}</span></li>
+<li><a name="a79"></a>    <span class="src-sym">}</span></li>
+<li><a name="a80"></a>&nbsp;</li>
+<li><a name="a81"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a82"></a><span class="src-doc">     * Fonction pour ajouter le contenu d'un dossier</span></li>
+<li><a name="a83"></a><span class="src-doc">     *</span></li>
+<li><a name="a84"></a><span class="src-doc">     * Modifié le code pour qu'on puisse ajouter des dossiers en relatif. Spécifiez le dossier</span></li>
+<li><a name="a85"></a><span class="src-doc">     * à ouvrir si vous voulez le comportement par défaut. Sinon, il faut spécifier le dossier</span></li>
+<li><a name="a86"></a><span class="src-doc">     * parent de celui à ouvrir, et juste le dossier à ouvrir dans $path</span></li>
+<li><a name="a87"></a><span class="src-doc">     * Modifié par : FTafel</span></li>
+<li><a name="a88"></a><span class="src-doc">     *</span></li>
+<li><a name="a89"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a90"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@author</span><span class="src-doc">    huda m elmatsani (justhuda at netscape dot net)</span></li>
+<li><a name="a91"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$dirname </span><span class="src-doc">               Le nom du dossier contenant le dossier à ouvrir sans le '/' à la fin</span></li>
+<li><a name="a92"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$path </span><span class="src-doc">                   Le nom du dossier à ouvrir (sans le chemin et sans slash à la fin)</span></li>
+<li><a name="a93"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">   </span><span class="src-doc-type">void </span></li>
+<li><a name="a94"></a><span class="src-doc">     */</span></li>
+<li><a name="a95"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodaddDir">addDir</a><span class="src-sym">(</span><span class="src-var">$dirname</span><span class="src-sym">, </span><span class="src-var">$path </span>= <span class="src-id">false</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a96"></a>        <span class="src-var">$dirnameOpen </span>= <span class="src-sym">(</span><span class="src-var">$path</span><span class="src-sym">) </span>? <span class="src-var">$dirname</span>.<span class="src-str">'/'</span>.<span class="src-var">$path </span>: <span class="src-var">$dirname</span><span class="src-sym">;</span></li>
+<li><a name="a97"></a>        </li>
+<li><a name="a98"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$handle </span>= <a href="http://www.php.net/opendir">opendir</a><span class="src-sym">(</span><span class="src-var">$dirnameOpen</span><span class="src-sym">)) </span><span class="src-sym">{ </span></li>
+<li><a name="a99"></a>           <span class="src-key">while </span><span class="src-sym">(</span><span class="src-id">false </span>!== <span class="src-sym">(</span><span class="src-var">$filename </span>= <a href="http://www.php.net/readdir">readdir</a><span class="src-sym">(</span><span class="src-var">$handle</span><span class="src-sym">))) </span><span class="src-sym">{ </span></li>
+<li><a name="a100"></a>             <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$filename </span>!= <span class="src-str">&quot;.&quot; </span>&amp;&amp; <span class="src-var">$filename </span>!= <span class="src-str">&quot;..&quot;</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a101"></a>                 <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$dirname</span><span class="src-sym">, </span>-<span class="src-num">1</span><span class="src-sym">) </span>== <span class="src-str">'/'</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a102"></a>                     <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$path</span><span class="src-sym">) </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#methodaddFile">addFile</a><span class="src-sym">(</span><span class="src-var">$dirname </span>. <span class="src-var">$filename</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a103"></a>                     <span class="src-key">else        </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#methodaddFile">addFile</a><span class="src-sym">(</span><span class="src-var">$path</span>.<span class="src-str">'/'</span>.<span class="src-var">$filename</span><span class="src-sym">, </span><span class="src-var">$dirname</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a104"></a>                 <span class="src-sym">} </span><span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a105"></a>                      <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$path</span><span class="src-sym">) </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#methodaddFile">addFile</a><span class="src-sym">(</span><span class="src-var">$dirname </span>. <span class="src-str">'/' </span>. <span class="src-var">$filename</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a106"></a>                     <span class="src-key">else        </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#methodaddFile">addFile</a><span class="src-sym">(</span><span class="src-var">$path</span>.<span class="src-str">'/'</span>.<span class="src-var">$filename</span><span class="src-sym">, </span><span class="src-var">$dirname</span>.<span class="src-str">'/'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a107"></a>                <span class="src-sym">}</span></li>
+<li><a name="a108"></a>             <span class="src-sym">}</span></li>
+<li><a name="a109"></a>           <span class="src-sym">} </span></li>
+<li><a name="a110"></a>           <a href="http://www.php.net/closedir">closedir</a><span class="src-sym">(</span><span class="src-var">$handle</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a111"></a>        <span class="src-sym">} </span><span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a112"></a>            <span class="src-key">die</span><span class="src-sym">(</span><span class="src-id"><a href="../OpenOfficeGeneration/_EasyZIP_class_php.html#defineDIRECTORY_NOT_FOUND">DIRECTORY_NOT_FOUND</a></span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a113"></a>        <span class="src-sym">}</span></li>
+<li><a name="a114"></a>    <span class="src-sym">}</span></li>
+<li><a name="a115"></a>&nbsp;</li>
+<li><a name="a116"></a>&nbsp;</li>
+<li><a name="a117"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodzipFile">zipFile</a><span class="src-sym">(</span><span class="src-var">$zipfilename</span>=<span class="src-str">''</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a118"></a>        <span class="src-var">$zip </span>= <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodpackFiles">packFiles</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a119"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$zipfilename </span>!= <span class="src-str">''</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a120"></a>            <span class="src-var">$fp </span>= <a href="http://www.php.net/fopen">fopen</a><span class="src-sym">(</span><span class="src-var">$zipfilename</span><span class="src-sym">, </span><span class="src-str">&quot;w&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a121"></a>            <a href="http://www.php.net/fwrite">fwrite</a><span class="src-sym">(</span><span class="src-var">$fp</span><span class="src-sym">, </span><span class="src-var">$zip</span><span class="src-sym">, </span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$zip</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a122"></a>            <a href="http://www.php.net/fclose">fclose</a><span class="src-sym">(</span><span class="src-var">$fp</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a123"></a>            <span class="src-key">return </span><span class="src-id">true</span><span class="src-sym">;</span></li>
+<li><a name="a124"></a>        <span class="src-sym">} </span><span class="src-key">else </span><span class="src-sym">{</span></li>
+<li><a name="a125"></a>            <span class="src-key">return </span><span class="src-var">$zip</span><span class="src-sym">;</span></li>
+<li><a name="a126"></a>        <span class="src-sym">}</span></li>
+<li><a name="a127"></a>    <span class="src-sym">} </span></li>
+<li><a name="a128"></a>&nbsp;</li>
+<li><a name="a129"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsplitFile">splitFile</a><span class="src-sym">(</span><span class="src-var">$splitfilename</span><span class="src-sym">, </span><span class="src-var">$chunk_size</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a130"></a>&nbsp;</li>
+<li><a name="a131"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">chunk_size </span>= <span class="src-var">$chunk_size</span><span class="src-sym">;</span></li>
+<li><a name="a132"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$splitted">splitted</a> = <span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a133"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$split_offset">split_offset</a> = <span class="src-num">4</span><span class="src-sym">;</span></li>
+<li><a name="a134"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$old_offset">old_offset</a> = <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$split_offset">split_offset</a><span class="src-sym">;</span></li>
+<li><a name="a135"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$split_signature">split_signature</a> = <span class="src-str">&quot;\x50\x4b\x07\x08&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a136"></a>&nbsp;</li>
+<li><a name="a137"></a>        <span class="src-var">$zip </span>= <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodpackFiles">packFiles</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a138"></a>&nbsp;</li>
+<li><a name="a139"></a>        <span class="src-var">$out </span>= <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodstr_split">str_split</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$split_signature">split_signature</a> . <span class="src-var">$zip</span><span class="src-sym">, </span><span class="src-var">$chunk_size</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a140"></a>&nbsp;</li>
+<li><a name="a141"></a>        <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$i </span>= <span class="src-num">0</span><span class="src-sym">; </span><span class="src-var">$i </span>&lt; <a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$out</span><span class="src-sym">)</span><span class="src-sym">; </span><span class="src-var">$i</span>++<span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a142"></a>            <span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$i </span>&lt; <a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$out</span><span class="src-sym">)</span>-<span class="src-num">1</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a143"></a>                <span class="src-var">$sfilename </span>= <a href="http://www.php.net/basename">basename</a> <span class="src-sym">(</span><span class="src-var">$splitfilename</span><span class="src-sym">,</span><span class="src-str">&quot;.zip&quot;</span><span class="src-sym">)</span><span class="src-sym">; </span></li>
+<li><a name="a144"></a>                <span class="src-var">$sfilename </span>= <span class="src-var">$sfilename </span>. <span class="src-str">&quot;.z&quot; </span>. <a href="http://www.php.net/sprintf">sprintf</a><span class="src-sym">(</span><span class="src-str">&quot;%02d&quot;</span><span class="src-sym">,</span><span class="src-var">$i</span>+<span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a145"></a>            <span class="src-sym">}</span></li>
+<li><a name="a146"></a>            <span class="src-key">else </span><span class="src-var">$sfilename </span>= <span class="src-var">$splitfilename</span><span class="src-sym">;</span></li>
+<li><a name="a147"></a>            <span class="src-var">$fp </span>= <a href="http://www.php.net/fopen">fopen</a><span class="src-sym">(</span><span class="src-var">$sfilename</span><span class="src-sym">, </span><span class="src-str">&quot;w&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a148"></a>            <a href="http://www.php.net/fwrite">fwrite</a><span class="src-sym">(</span><span class="src-var">$fp</span><span class="src-sym">, </span><span class="src-var">$out</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">, </span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$out</span><span class="src-sym">[</span><span class="src-var">$i</span><span class="src-sym">]</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a149"></a>            <a href="http://www.php.net/fclose">fclose</a><span class="src-sym">(</span><span class="src-var">$fp</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a150"></a>        <span class="src-sym">}</span></li>
+<li><a name="a151"></a>&nbsp;</li>
+<li><a name="a152"></a>    <span class="src-sym">}</span></li>
+<li><a name="a153"></a>&nbsp;</li>
+<li><a name="a154"></a>&nbsp;</li>
+<li><a name="a155"></a>&nbsp;</li>
+<li><a name="a156"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodpackFiles">packFiles</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a157"></a>&nbsp;</li>
+<li><a name="a158"></a>        <span class="src-var">$counter</span>=<span class="src-num">0</span><span class="src-sym">; </span></li>
+<li><a name="a159"></a>        <span class="src-key">while </span><span class="src-sym">(</span><span class="src-var">$counter</span>&lt;<a href="http://www.php.net/count">count</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filelist">filelist</a><span class="src-sym">[</span><span class="src-str">'filename'</span><span class="src-sym">]</span><span class="src-sym">)) </span><span class="src-sym">{</span></li>
+<li><a name="a160"></a>             <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filename">filename</a> = <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filelist">filelist</a><span class="src-sym">[</span><span class="src-str">'filename'</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-var">$counter</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a161"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$pathname">pathname</a> = <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filelist">filelist</a><span class="src-sym">[</span><span class="src-str">'pathname'</span><span class="src-sym">]</span><span class="src-sym">[</span><span class="src-var">$counter</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a162"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsetFileData">setFileData</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a163"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsetLocalFileHeader">setLocalFileHeader</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a164"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsetDataDescriptor">setDataDescriptor</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a165"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsetDataSegment">setDataSegment</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a166"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsetFileHeader">setFileHeader</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a167"></a>            <span class="src-comm">//echo $this-&gt;filelist['filename'][$counter]; </span></li>
+<li><a name="a168"></a>            <span class="src-comm">//echo $this-&gt;filelist['pathname'][$counter]; </span></li>
+<li><a name="a169"></a>            <span class="src-var">$counter</span>++<span class="src-sym">; </span></li>
+<li><a name="a170"></a>        <span class="src-sym">}</span></li>
+<li><a name="a171"></a>&nbsp;</li>
+<li><a name="a172"></a>        /**</li>
+<li><a name="a173"></a>        foreach($this-&gt;filelist['filename'] as $k =&gt; $filename) {</li>
+<li><a name="a174"></a>             $this -&gt; filename =  $filename;</li>
+<li><a name="a175"></a>            $this -&gt; setFileData();</li>
+<li><a name="a176"></a>            $this -&gt; setLocalFileHeader();</li>
+<li><a name="a177"></a>            $this -&gt; setDataDescriptor();</li>
+<li><a name="a178"></a>            $this -&gt; setDataSegment();</li>
+<li><a name="a179"></a>            $this -&gt; setFileHeader();</li>
+<li><a name="a180"></a>        }</li>
+<li><a name="a181"></a>*         */</li>
+<li><a name="a182"></a>        <span class="src-key">return  </span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodgetDataSegments">getDataSegments</a><span class="src-sym">(</span><span class="src-sym">) </span>. </li>
+<li><a name="a183"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodgetCentralDirectory">getCentralDirectory</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a184"></a>&nbsp;</li>
+<li><a name="a185"></a>    <span class="src-sym">}</span></li>
+<li><a name="a186"></a>&nbsp;</li>
+<li><a name="a187"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsetFileData">setFileData</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a188"></a>            <a href="http://www.php.net/clearstatcache">clearstatcache</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a189"></a>            <span class="src-var">$fd </span>= <a href="http://www.php.net/fopen">fopen</a> <span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$pathname">pathname</a>.<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filename">filename</a><span class="src-sym">, </span><span class="src-str">&quot;rb&quot;</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a190"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filedata">filedata</a> = <a href="http://www.php.net/fread">fread</a> <span class="src-sym">(</span><span class="src-var">$fd</span><span class="src-sym">, </span><a href="http://www.php.net/filesize">filesize</a> <span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$pathname">pathname</a>.<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filename">filename</a><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a191"></a>            <a href="http://www.php.net/fclose">fclose</a> <span class="src-sym">(</span><span class="src-var">$fd</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a192"></a>            <span class="src-var">$filetime </span>= <a href="http://www.php.net/filectime">filectime</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$pathname">pathname</a>.<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filename">filename</a><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a193"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodDOSFileTime">DOSFileTime</a><span class="src-sym">(</span><span class="src-var">$filetime</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a194"></a>&nbsp;</li>
+<li><a name="a195"></a>    <span class="src-sym">}</span></li>
+<li><a name="a196"></a> </li>
+<li><a name="a197"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsetLocalFileHeader">setLocalFileHeader</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a198"></a>&nbsp;</li>
+<li><a name="a199"></a>        <span class="src-var">$local_file_header_signature           </span>= <span class="src-str">&quot;\x50\x4b\x03\x04&quot;</span><span class="src-sym">;</span><span class="src-comm">//4 bytes  (0x04034b50)</span></li>
+<li><a name="a200"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">version_needed_to_extract      </span>= <span class="src-str">&quot;\x14\x00&quot;</span><span class="src-sym">;  </span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a201"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">general_purpose_bit_flag      </span>= <span class="src-str">&quot;\x00\x00&quot;</span><span class="src-sym">;  </span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a202"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">compression_method           </span>= <span class="src-str">&quot;\x08\x00&quot;</span><span class="src-sym">;  </span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a203"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">crc_32                          </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'V'</span><span class="src-sym">, </span><a href="http://www.php.net/crc32">crc32</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filedata">filedata</a><span class="src-sym">))</span><span class="src-sym">;</span><span class="src-comm">//  4 bytes</span></li>
+<li><a name="a204"></a>                <span class="src-comm">//compressing data</span></li>
+<li><a name="a205"></a>                <span class="src-var">$c_data   </span>= <a href="http://www.php.net/gzcompress">gzcompress</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filedata">filedata</a><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a206"></a>                <span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">compressed_filedata    </span>= <a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$c_data</span><span class="src-sym">, </span><span class="src-num">0</span><span class="src-sym">, </span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$c_data</span><span class="src-sym">) </span>- <span class="src-num">4</span><span class="src-sym">)</span><span class="src-sym">, </span><span class="src-num">2</span><span class="src-sym">)</span><span class="src-sym">; </span><span class="src-comm">// fix crc bug</span></li>
+<li><a name="a207"></a>        </li>
+<li><a name="a208"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">compressed_size                </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'V'</span><span class="src-sym">, </span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">compressed_filedata</span><span class="src-sym">))</span><span class="src-sym">;</span><span class="src-comm">// 4 bytes</span></li>
+<li><a name="a209"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">uncompressed_size              </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'V'</span><span class="src-sym">, </span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filedata">filedata</a><span class="src-sym">))</span><span class="src-sym">;</span><span class="src-comm">//4 bytes</span></li>
+<li><a name="a210"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">filename_length              </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filename">filename</a><span class="src-sym">))</span><span class="src-sym">;</span><span class="src-comm">// 2 bytes</span></li>
+<li><a name="a211"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">extra_field_length           </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">;  </span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a212"></a>&nbsp;</li>
+<li><a name="a213"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">local_file_header </span>=     <span class="src-var">$local_file_header_signature </span>.</li>
+<li><a name="a214"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">version_needed_to_extract </span>.</li>
+<li><a name="a215"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">general_purpose_bit_flag </span>.</li>
+<li><a name="a216"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">compression_method </span>.</li>
+<li><a name="a217"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">last_mod_file_time </span>.</li>
+<li><a name="a218"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">last_mod_file_date </span>.</li>
+<li><a name="a219"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">crc_32 </span>.</li>
+<li><a name="a220"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">compressed_size </span>.</li>
+<li><a name="a221"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">uncompressed_size </span>.</li>
+<li><a name="a222"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">filename_length </span>.</li>
+<li><a name="a223"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">extra_field_length </span>.</li>
+<li><a name="a224"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filename">filename</a><span class="src-sym">;</span></li>
+<li><a name="a225"></a>&nbsp;</li>
+<li><a name="a226"></a>        </li>
+<li><a name="a227"></a>    <span class="src-sym">}</span></li>
+<li><a name="a228"></a>&nbsp;</li>
+<li><a name="a229"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsetDataDescriptor">setDataDescriptor</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a230"></a>    </li>
+<li><a name="a231"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">data_descriptor </span>=  <span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">crc_32 </span>.   <span class="src-comm">//4 bytes</span></li>
+<li><a name="a232"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">compressed_size </span>.           <span class="src-comm">//4 bytes</span></li>
+<li><a name="a233"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">uncompressed_size</span><span class="src-sym">;          </span><span class="src-comm">//4 bytes</span></li>
+<li><a name="a234"></a>    <span class="src-sym">}</span></li>
+<li><a name="a235"></a>&nbsp;</li>
+<li><a name="a236"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsetDataSegment">setDataSegment</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a237"></a>    </li>
+<li><a name="a238"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$data_segments">data_segments</a><span class="src-sym">[</span><span class="src-sym">]     </span>=     <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">local_file_header </span>. </li>
+<li><a name="a239"></a>                                    <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">compressed_filedata </span>. </li>
+<li><a name="a240"></a>                                    <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">data_descriptor</span><span class="src-sym">;</span></li>
+<li><a name="a241"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$data_block">data_block</a> = <a href="http://www.php.net/implode">implode</a><span class="src-sym">(</span><span class="src-str">''</span><span class="src-sym">, </span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$data_segments">data_segments</a><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a242"></a>    <span class="src-sym">}</span></li>
+<li><a name="a243"></a>&nbsp;</li>
+<li><a name="a244"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodgetDataSegments">getDataSegments</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a245"></a>        <span class="src-key">return </span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$data_block">data_block</a><span class="src-sym">;</span></li>
+<li><a name="a246"></a>    <span class="src-sym">}</span></li>
+<li><a name="a247"></a>&nbsp;</li>
+<li><a name="a248"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodsetFileHeader">setFileHeader</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a249"></a>&nbsp;</li>
+<li><a name="a250"></a>        <span class="src-var">$new_offset        </span>= <a href="http://www.php.net/strlen">strlen</a><span class="src-sym">( </span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$split_signature">split_signature</a> . <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$data_block">data_block</a> <span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a251"></a>        </li>
+<li><a name="a252"></a>        <span class="src-var">$central_file_header_signature  </span>= <span class="src-str">&quot;\x50\x4b\x01\x02&quot;</span><span class="src-sym">;</span><span class="src-comm">//4 bytes  (0x02014b50)</span></li>
+<li><a name="a253"></a>        <span class="src-var">$version_made_by                </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">;  </span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a254"></a>        </li>
+<li><a name="a255"></a>        <span class="src-var">$file_comment_length            </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">;  </span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a256"></a>        <span class="src-var">$disk_number_start              </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$disk_number">disk_number</a> - <span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">; </span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a257"></a>        <span class="src-var">$internal_file_attributes       </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><span class="src-num">0</span><span class="src-sym">)</span><span class="src-sym">; </span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a258"></a>        <span class="src-var">$external_file_attributes       </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'V'</span><span class="src-sym">, </span><span class="src-num">32</span><span class="src-sym">)</span><span class="src-sym">; </span><span class="src-comm">//4 bytes</span></li>
+<li><a name="a259"></a>        <span class="src-var">$relative_offset_local_header   </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'V'</span><span class="src-sym">, </span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$old_offset">old_offset</a><span class="src-sym">)</span><span class="src-sym">; </span><span class="src-comm">//4 bytes</span></li>
+<li><a name="a260"></a>        </li>
+<li><a name="a261"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$splitted">splitted</a><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a262"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$disk_number">disk_number</a> = <a href="http://www.php.net/ceil">ceil</a><span class="src-sym">(</span><span class="src-var">$new_offset</span>/<span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">chunk_size</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a263"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$old_offset">old_offset</a> = <span class="src-var">$new_offset </span>- <span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">chunk_size </span>* <span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$disk_number">disk_number</a>-<span class="src-num">1</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a264"></a>        <span class="src-sym">} </span><span class="src-key">else </span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$old_offset">old_offset</a> = <span class="src-var">$new_offset</span><span class="src-sym">;</span></li>
+<li><a name="a265"></a>        </li>
+<li><a name="a266"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$file_headers">file_headers</a><span class="src-sym">[</span><span class="src-sym">] </span>=     <span class="src-var">$central_file_header_signature </span>.</li>
+<li><a name="a267"></a>                <span class="src-var">$version_made_by </span>.</li>
+<li><a name="a268"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">version_needed_to_extract </span>.</li>
+<li><a name="a269"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">general_purpose_bit_flag </span>.</li>
+<li><a name="a270"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">compression_method </span>.</li>
+<li><a name="a271"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">last_mod_file_time </span>.</li>
+<li><a name="a272"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">last_mod_file_date </span>.</li>
+<li><a name="a273"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">crc_32 </span>.</li>
+<li><a name="a274"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">compressed_size </span>.</li>
+<li><a name="a275"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">uncompressed_size </span>.</li>
+<li><a name="a276"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">filename_length </span>.</li>
+<li><a name="a277"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">extra_field_length </span>.</li>
+<li><a name="a278"></a>                <span class="src-var">$file_comment_length </span>.</li>
+<li><a name="a279"></a>                <span class="src-var">$disk_number_start </span>.</li>
+<li><a name="a280"></a>                <span class="src-var">$internal_file_attributes </span>.</li>
+<li><a name="a281"></a>                <span class="src-var">$external_file_attributes </span>.</li>
+<li><a name="a282"></a>                <span class="src-var">$relative_offset_local_header </span>.</li>
+<li><a name="a283"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$filename">filename</a><span class="src-sym">;</span></li>
+<li><a name="a284"></a>    <span class="src-sym">}</span></li>
+<li><a name="a285"></a>&nbsp;</li>
+<li><a name="a286"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodgetCentralDirectory">getCentralDirectory</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a287"></a>        <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">central_directory </span>= <a href="http://www.php.net/implode">implode</a><span class="src-sym">(</span><span class="src-str">''</span><span class="src-sym">, </span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$file_headers">file_headers</a><span class="src-sym">)</span><span class="src-sym">;        </span></li>
+<li><a name="a288"></a>        <span class="src-key">return  </span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">central_directory </span>. </li>
+<li><a name="a289"></a>                <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodgetEndCentralDirectory">getEndCentralDirectory</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a290"></a>    <span class="src-sym">}</span></li>
+<li><a name="a291"></a>&nbsp;</li>
+<li><a name="a292"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodgetEndCentralDirectory">getEndCentralDirectory</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a293"></a>                    </li>
+<li><a name="a294"></a>        <span class="src-var">$zipfile_comment </span>= <span class="src-str">&quot;Compressed/Splitted by PHP EasyZIP&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a295"></a>        <span class="src-var">$zipfile_comment </span>= <span class="src-str">&quot;&quot;</span><span class="src-sym">;</span></li>
+<li><a name="a296"></a>&nbsp;</li>
+<li><a name="a297"></a>        <span class="src-key">if</span><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$splitted">splitted</a><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a298"></a>            <span class="src-var">$data_len </span>= <a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$split_signature">split_signature</a> . <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$data_block">data_block</a> . <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">central_directory</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a299"></a>            <span class="src-var">$last_chunk_len </span>= <span class="src-var">$data_len </span>- <a href="http://www.php.net/floor">floor</a><span class="src-sym">(</span><span class="src-var">$data_len </span>/ <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">chunk_size</span><span class="src-sym">) </span>* <span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">chunk_size</span><span class="src-sym">;</span></li>
+<li><a name="a300"></a>            <span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$old_offset">old_offset</a> = <span class="src-var">$last_chunk_len </span>- <a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">central_directory</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a301"></a>        <span class="src-sym">}</span></li>
+<li><a name="a302"></a>&nbsp;</li>
+<li><a name="a303"></a>        <span class="src-var">$end_central_dir_signature    </span>= <span class="src-str">&quot;\x50\x4b\x05\x06&quot;</span><span class="src-sym">;</span><span class="src-comm">//4 bytes  (0x06054b50)</span></li>
+<li><a name="a304"></a>        <span class="src-var">$number_this_disk             </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$disk_number">disk_number</a> - <span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a305"></a>        <span class="src-var">$number_disk_start              </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/EasyZIP.html#var$disk_number">disk_number</a> - <span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span><span class="src-comm">//  2 bytes</span></li>
+<li><a name="a306"></a>        <span class="src-var">$total_number_entries          </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$file_headers">file_headers</a><span class="src-sym">))</span><span class="src-sym">;</span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a307"></a>        <span class="src-var">$total_number_entries_central </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><a href="http://www.php.net/sizeof">sizeof</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$file_headers">file_headers</a><span class="src-sym">))</span><span class="src-sym">;</span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a308"></a>        <span class="src-var">$size_central_directory         </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'V'</span><span class="src-sym">, </span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><span class="src-var">central_directory</span><span class="src-sym">))</span><span class="src-sym">;  </span><span class="src-comm">//4 bytes</span></li>
+<li><a name="a309"></a>&nbsp;</li>
+<li><a name="a310"></a>        <span class="src-var">$offset_start_central         </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'V'</span><span class="src-sym">, </span><span class="src-var">$this </span><span class="src-sym">-&gt; </span><a href="../OpenOfficeGeneration/EasyZIP.html#var$old_offset">old_offset</a><span class="src-sym">)</span><span class="src-sym">; </span><span class="src-comm">//4 bytes     </span></li>
+<li><a name="a311"></a>        <span class="src-var">$zipfile_comment_length       </span>= <a href="http://www.php.net/pack">pack</a><span class="src-sym">(</span><span class="src-str">'v'</span><span class="src-sym">, </span><a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$zipfile_comment</span><span class="src-sym">))</span><span class="src-sym">;</span><span class="src-comm">//2 bytes</span></li>
+<li><a name="a312"></a>        </li>
+<li><a name="a313"></a>        <span class="src-key">return </span><span class="src-var">$end_central_dir_signature </span>.</li>
+<li><a name="a314"></a>            <span class="src-var">$number_this_disk </span>.</li>
+<li><a name="a315"></a>            <span class="src-var">$number_disk_start </span>.</li>
+<li><a name="a316"></a>            <span class="src-var">$total_number_entries </span>.</li>
+<li><a name="a317"></a>            <span class="src-var">$total_number_entries_central </span>.</li>
+<li><a name="a318"></a>            <span class="src-var">$size_central_directory </span>.</li>
+<li><a name="a319"></a>            <span class="src-var">$offset_start_central </span>.</li>
+<li><a name="a320"></a>            <span class="src-var">$zipfile_comment_length </span>.</li>
+<li><a name="a321"></a>            <span class="src-var">$zipfile_comment</span><span class="src-sym">;</span></li>
+<li><a name="a322"></a>    <span class="src-sym">}</span></li>
+<li><a name="a323"></a>&nbsp;</li>
+<li><a name="a324"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodDOSFileTime">DOSFileTime</a><span class="src-sym">(</span><span class="src-var">$unixtime </span>= <span class="src-num">0</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a325"></a>        <span class="src-var">$timearray </span>= <span class="src-sym">(</span><span class="src-var">$unixtime </span>== <span class="src-num">0</span><span class="src-sym">) </span>? <a href="http://www.php.net/getdate">getdate</a><span class="src-sym">(</span><span class="src-sym">) </span>: <a href="http://www.php.net/getdate">getdate</a><span class="src-sym">(</span><span class="src-var">$unixtime</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a326"></a>&nbsp;</li>
+<li><a name="a327"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'year'</span><span class="src-sym">] </span>&lt; <span class="src-num">1980</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a328"></a>            <span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'year'</span><span class="src-sym">]    </span>= <span class="src-num">1980</span><span class="src-sym">;</span></li>
+<li><a name="a329"></a>            <span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'mon'</span><span class="src-sym">]     </span>= <span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a330"></a>            <span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'mday'</span><span class="src-sym">]    </span>= <span class="src-num">1</span><span class="src-sym">;</span></li>
+<li><a name="a331"></a>            <span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'hours'</span><span class="src-sym">]   </span>= <span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a332"></a>            <span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'minutes'</span><span class="src-sym">] </span>= <span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a333"></a>            <span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'seconds'</span><span class="src-sym">] </span>= <span class="src-num">0</span><span class="src-sym">;</span></li>
+<li><a name="a334"></a>        <span class="src-sym">} </span></li>
+<li><a name="a335"></a>&nbsp;</li>
+<li><a name="a336"></a>        <span class="src-var">$dostime </span>= <span class="src-sym">((</span><span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'year'</span><span class="src-sym">] </span>- <span class="src-num">1980</span><span class="src-sym">) </span>&lt;&lt; <span class="src-num">25</span><span class="src-sym">) </span>| </li>
+<li><a name="a337"></a>                    <span class="src-sym">(</span><span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'mon'</span><span class="src-sym">] </span>&lt;&lt; <span class="src-num">21</span><span class="src-sym">) </span>| <span class="src-sym">(</span><span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'mday'</span><span class="src-sym">] </span>&lt;&lt; <span class="src-num">16</span><span class="src-sym">) </span>|</li>
+<li><a name="a338"></a>                    <span class="src-sym">(</span><span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'hours'</span><span class="src-sym">] </span>&lt;&lt; <span class="src-num">11</span><span class="src-sym">) </span>| <span class="src-sym">(</span><span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'minutes'</span><span class="src-sym">] </span>&lt;&lt; <span class="src-num">5</span><span class="src-sym">) </span>| </li>
+<li><a name="a339"></a>                    <span class="src-sym">(</span><span class="src-var">$timearray</span><span class="src-sym">[</span><span class="src-str">'seconds'</span><span class="src-sym">] </span>&gt;&gt; <span class="src-num">1</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a340"></a>                </li>
+<li><a name="a341"></a>        <span class="src-var">$dtime    </span>= <a href="http://www.php.net/dechex">dechex</a><span class="src-sym">(</span><span class="src-var">$dostime</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a342"></a>        <span class="src-var">$hexdtime </span>= <span class="src-str">'\x' </span>. <span class="src-var">$dtime</span><span class="src-sym">[</span><span class="src-num">6</span><span class="src-sym">] </span>. <span class="src-var">$dtime</span><span class="src-sym">[</span><span class="src-num">7</span><span class="src-sym">]</span></li>
+<li><a name="a343"></a>                  . <span class="src-str">'\x' </span>. <span class="src-var">$dtime</span><span class="src-sym">[</span><span class="src-num">4</span><span class="src-sym">] </span>. <span class="src-var">$dtime</span><span class="src-sym">[</span><span class="src-num">5</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a344"></a>                  </li>
+<li><a name="a345"></a>        <span class="src-var">$hexddate </span>= <span class="src-str">'\x' </span>. <span class="src-var">$dtime</span><span class="src-sym">[</span><span class="src-num">2</span><span class="src-sym">] </span>. <span class="src-var">$dtime</span><span class="src-sym">[</span><span class="src-num">3</span><span class="src-sym">]</span></li>
+<li><a name="a346"></a>                  . <span class="src-str">'\x' </span>. <span class="src-var">$dtime</span><span class="src-sym">[</span><span class="src-num">0</span><span class="src-sym">] </span>. <span class="src-var">$dtime</span><span class="src-sym">[</span><span class="src-num">1</span><span class="src-sym">]</span><span class="src-sym">;</span></li>
+<li><a name="a347"></a>        eval<span class="src-sym">(</span><span class="src-str">'$hexdtime = &quot;' </span>. <span class="src-var">$hexdtime </span>. <span class="src-str">'&quot;;'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a348"></a>        eval<span class="src-sym">(</span><span class="src-str">'$hexddate = &quot;' </span>. <span class="src-var">$hexddate </span>. <span class="src-str">'&quot;;'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a349"></a>        </li>
+<li><a name="a350"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">last_mod_file_time </span>= <span class="src-var">$hexdtime</span><span class="src-sym">;</span></li>
+<li><a name="a351"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><span class="src-var">last_mod_file_date </span>= <span class="src-var">$hexddate</span><span class="src-sym">;</span></li>
+<li><a name="a352"></a>    <span class="src-sym">}     </span></li>
+<li><a name="a353"></a>    <span class="src-key">function </span><a href="../OpenOfficeGeneration/EasyZIP.html#methodstr_split">str_split</a><span class="src-sym">(</span><span class="src-var">$string</span><span class="src-sym">, </span><span class="src-var">$length</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a354"></a>        <span class="src-key">for </span><span class="src-sym">(</span><span class="src-var">$i </span>= <span class="src-num">0</span><span class="src-sym">; </span><span class="src-var">$i </span>&lt; <a href="http://www.php.net/strlen">strlen</a><span class="src-sym">(</span><span class="src-var">$string</span><span class="src-sym">)</span><span class="src-sym">; </span><span class="src-var">$i </span>+= <span class="src-var">$length</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a355"></a>            <span class="src-var">$array</span><span class="src-sym">[</span><span class="src-sym">] </span>= <a href="http://www.php.net/substr">substr</a><span class="src-sym">(</span><span class="src-var">$string</span><span class="src-sym">, </span><span class="src-var">$i</span><span class="src-sym">, </span><span class="src-var">$length</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a356"></a>        <span class="src-sym">}</span></li>
+<li><a name="a357"></a>        <span class="src-key">return </span><span class="src-var">$array</span><span class="src-sym">;</span></li>
+<li><a name="a358"></a>    <span class="src-sym">}</span></li>
+<li><a name="a359"></a>&nbsp;</li>
+<li><a name="a360"></a><span class="src-sym">} </span></li>
+<li><a name="a361"></a><span class="src-php">?&gt;</span></li>
+</ol></pre></div>
+</div>
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Sun, 07 May 2006 18:27:40 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

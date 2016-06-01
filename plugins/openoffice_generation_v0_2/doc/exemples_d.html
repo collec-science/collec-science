@@ -1,0 +1,134 @@
+<html>
+<head>
+	<title>OpenOfficeGeneration Documentation</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<script type="text/javascript" src="js/scripts.js"></script>
+</head>
+<body>
+
+<div class="body">
+	<img class="titre" src="imgs/doc.jpg" alt="doc" title="doc" />
+	<h1>Génération de documents OpenOffice 2.0 <span>(Spreadsheet)</span></h1>
+	<h2>Ou comment marier PHP avec la spécification OASIS d'OpenOffice</h2>
+	<ul id="menu">
+		<li><a href="index.html">Accueil</a></li>
+		<li><a href="install.html">Installation</a></li>
+		<li class="ici"><a href="exemples.html">Exemples</a></li>
+		<li><a href="doc.html">Documentation</a></li>
+		<li><a href="forum.html">Forum</a></li>
+		<li><a href="liens.html">Liens</a></li>
+	</ul>
+	<div id="contenu">
+		<div class="gauche">
+			<h3 class="m4">Exemples de sauvegardes</h3>
+			<h4>Principe</h4>
+			<p>La sauvegarde se décline ici en trois points distincts :</p>
+			<ol>
+				<li>Sauvegarde du fichier directement sur le serveur, en suivant un chemin (C:\temp\truc.ods)</li>
+				<li>Popup de demande de téléchargement. Le fichier n'est pas sauvé sur le serveur mais sur le poste client</li>
+				<li>Affichage du flux XML. Pas de sauvegarde, mais affichage de la structure du fichier généré</li>
+			</ol>
+			<p>Quelques exemples pour illustrer ces dires ? Ok, pas de problèmes.</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('C:/temp/exemple_s.ods');
+<br />
+<br />// 2. On sauvegarde quelque part sur le serveur
+<br />$calc->save();
+<br />?&gt;
+			</code>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_s.ods');
+<br />
+<br />// 2. On propose un téléchargement pour le poste client
+<br />$calc->output();
+<br />?&gt;
+			</code>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_s.ods');
+<br />
+<br />// 2. On affiche le flux du fichier
+<br />echo $calc->saveXML();
+<br />?&gt;
+			</code>
+			<p>Dans ce dernier cas, $calc->saveXML() accepte en paramètre le nom du fichier voulu. Si on ne met
+			rien, on aura le flux de tous les fichiers (il y a cinq fichiers XML pour décrire un document OpenOffice).
+			Les noms des fichiers sont les suivants:</p>
+			<ul>
+				<li>content</li>
+				<li>meta</li>
+				<li>manifest</li>
+				<li>settings</li>
+				<li>styles</li>
+			</ul>
+			<h4>Dossier temporaire</h4>
+			<p>Pour la création d'un fichier OpenOffice, il y a un dossier qui se créé sur le serveur. Ce dossier
+			temporaire se nomme <em>temp_{timestamp Unix}</em>. Ce fichier est automatiquement supprimé une fois le
+			fichier sauvé ou téléchargé. Si tu veux conserver le dossier non-zippé, il faut faire appel à la fonction <strong>keepGeneratedDir()</strong> et 
+			lui passer <em>true</em>. Ainsi, les fonctions <em>output()</em> ou <em>save()</em>, qui normalement
+			suppriment le dossier, le laisseront tranquille.</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_s.ods');
+<br />
+<br />// 2. On affiche le flux du fichier
+<br />$calc->keepGeneratedDir(true);
+<br />
+<br />// 2. On affiche le flux du fichier
+<br />$calc->save();
+<br />?&gt;
+			</code>
+			<p>Attention toutefois, on a vite beaucoup de dossiers qui trainent. Donc c'est mieux de les effacer automatiquement,
+			c'est plus propre.</p>
+		</div>
+		<div class="droite">
+			<div>
+				<h4>Dernières mise-à-jour</h4>
+				<p>La dernière mise à jour date du 7 mai 2006. La génération de feuilles de calcul est plutôt stable.</p>
+				<p><a href="download/openoffice_generation_v0_2.zip">Téléchargez ici!</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Exemple A</h4>
+				<p>Les bases. Comment créer une feuille et gérer basiquement les cellules.</p>
+				<p><a href="exemples.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Exemple B</h4>
+				<p>Les actions sur les cellules. Entre contenu et couleur de fond, on trouve tout c'qu'on veut!</p>
+				<p><a href="exemples_b.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Sauvegardes</h4>
+				<p>Les moyens de sauvegarder le résultat</p>
+				<p><a href="exemples_d.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Astuces</h4>
+				<p>Deux ou trois bidouilles marrantes pour s'économiser du code et/ou de la prise de tête.</p>
+				<p><a href="exemples_c.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+		</div>
+	</div>
+	<div class="bottom">
+		<p>OpenOffice Generation PHP</p>
+		<p>Le 7 mai 2006, <a href="#" onClick="gereStyle()">Tafel</a>. Optimisé pour Mozilla Firefox</p>
+	</div>
+</div>
+	
+</body>
+</html>

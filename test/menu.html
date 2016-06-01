@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- Jquery -->
+<script src="../display/javascript/jquery-1.12.4.min.js"></script>
+<script src="../display/javascript/jquery-ui.min.js"></script>
+
+<!-- Bootstrap -->
+<link rel="stylesheet"	href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"	href="bootstrap/css/bootstrap-theme.min.css">
+<script	src="bootstrap/js/bootstrap.min.js"></script>
+
+<!-- extension pour le menu -->
+<script src="smartmenus-1.0.0/jquery.smartmenus.min.js" type="text/javascript"></script>
+<script src="smartmenus-1.0.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js" type="text/javascript"></script>
+
+<!-- Datatables -->
+<link rel="stylesheet" type="text/css" href="DataTables-1.10.12/media/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" type="text/css" href="DataTables-1.10.12/media/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="DataTables-1.10.12/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="DataTables-1.10.12/media/js/dataTables.bootstrap.min.js"></script>
+
+<title>Test</title>
+</head>
+<body>
+	<script>
+		$(document).ready(
+				function() {
+					var table = $('#table_id').DataTable({
+						language : {
+							url : 'fr_FR.json'
+						}
+					});
+				});
+	</script>
+
+		<div class="container-fluid">
+			<h1>
+				<img src="../display/images/logo.png" width="40"> Titre1
+			</h1>
+	<div class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  </div>
+				<ul  class="nav navbar-nav sm sm-blue">
+					<li><a href="index.php?module=gestion"
+						title="Opérations de gestion">Gestion</a>
+						<ul class="dropdown-menu">
+							<li><a href="index.php?module=gestion"
+								title="Opérations de gestion">Gestion</a></li>
+						</ul></li>
+					<li><a href="index.php?module=administration"
+						title="Administration de l'application">Administration</a>
+						<ul class="dropdown-menu">
+							<li><a href="index.php?module=groupeList" title="">test</a></li>
+							<li><a href="index.php?module=loginliste"
+								title="Liste des logins - identification via la base de données">Liste
+									des comptes</a></li>
+							<li><a href="index.php?module=appliList"
+								title="applications et droits gérés">ACL - droits</a></li>
+							<li><a href="index.php?module=aclloginList"
+								title="Logins déclarés dans le module de gestion des droits">ACL
+									- logins</a></li>
+							<li><a href="index.php?module=groupList"
+								title="Groupes de logins et logins rattachés aux groupes">ACL
+									- groupes de logins</a></li>
+							<li><a href="index.php?module=phpinfo"
+								title="configuration générale du serveur PHP">PHP info</a></li>
+						</ul>
+						</li>
+
+					<li><a href="index.php?module=disconnect"
+						title="Déconnexion de l'application">Déconnexion</a></li>
+					<li><a href="index.php?module=docindex"
+						title="Utiliser PrototypePHP">Aide</a>
+						<ul class="dropdown-menu">
+							<li><a href="index.php?module=apropos"
+								title="A propos de prototypePHP">A propos</a></li>
+							<li><a href="index.php?module=quoideneuf"
+								title="Quoi de neuf dans l'application ?">Nouveautés</a></li>
+							<li><a href="index.php?module=docinstallation"
+								title="Installer PrototypePHP">Installation</a></li>
+							<li><a href="index.php?module=docdroits"
+								title="Gérer les droits dans l'application">Gestion des
+									droits</a></li>
+							<li><a href="index.php?module=docmodulelecture"
+								title="Créer un module pour lire ou écrire un enregistrement">Module
+									de lecture-écriture</a></li>
+							<li><a href="index.php?module=docparammodule"
+								title="Configurer le module dans le fichier xml">Paramétrage
+									du module</a></li>
+							<li><a href="index.php?module=docclasseaccess"
+								title="Créer la classe permettant d'accéder à une table">Classe
+									d'accès aux données</a></li>
+							<li><a href="index.php?module=docgestiondoc"
+								title="Gérer les pages de la documentation">Gestion de la
+									documentation</a></li>
+							<li><a href="index.php?module=docinternationalisation"
+								title="Gestion des différentes langues, internationalisation de l'application">Langues</a></li>
+							<li><a href="index.php?module=docsmarty"
+								title="Manipuler les templates SMARTY">SMARTY</a></li>
+							<li><a href="index.php?module=docdescriptionorganisation"
+								title="Organisation de PrototypePHP">Structure</a></li>
+							<li><a href="index.php?module=docmodulerecherche"
+								title="Intégrer un module de recherche">Module de recherche</a></li>
+						</ul>
+						</li>
+				</ul>
+
+
+				<ul class="nav navbar navbar-right">
+					<a href='index.php?module=setlanguage&langue=fr'> <img
+						src='../display/images/drapeau_francais.png' height='20'
+						border='0'>
+					</a>
+					<a href='index.php?module=setlanguage&langue=en'> <img
+						src='../display/images/drapeau_anglais.png' height='20' border='0'>
+					</a> &nbsp;
+					<a href='index.php?module=loginChangePassword'> <img
+						src='../display/images/key.png' height='20' border='0'>
+					</a> &nbsp;
+					<img src='../display/images/key_green.png' height='20' border='0'
+						title="Vous êtes connecté">
+				</ul>
+			</div>
+	</div>
+	<div class="container-fluid">
+	<div class="row">
+	<div class="col-md-6">
+	<a href="index.php?module=loginmodif&id=0">Nouveau login</a>
+	<table class="table table-bordered table-hover" id="table_id"
+		data-order='[[ 1, "asc" ]]' data-page-length='25'>
+		<thead>
+			<tr>
+				<th>login</th>
+				<th>Nom - prénom</th>
+				<th>Mèl</th>
+				<th>actif</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><a href="index.php?module=loginmodif&id=1">admin</a></td>
+				<td>Administrator&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>oui</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<div class="col-md-6">
+	<fieldset class="scheduled-border">
+	<legend class="scheduled-border">Formulaire</legend>
+	<form class="form-inline">
+  <div class="form-group">
+    <label for="nom">Nom :</label>
+    <input type="text" class="form-control" id="nom" placeholder="Nom de famille" required>
+  </div>
+  <div class="form-group">
+    <label for="prenom">Prénom :</label>
+    <input type="text" class="form-control" id="prenom" placeholder="Prénom">
+  </div>
+  <br>
+  <div class="form-group">
+  <label for="dossier_date">Date :</label>
+  <input type="date" class="form-control" id="dossier_date">
+  </div>
+  <button type="submit" class="btn btn-primary">Valider</button>
+  <button type="submit" class="btn btn-danger">Supprimer</button>
+</form>
+</fieldset>
+</div>
+</div>
+</div>
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">Pied de page</div>
+	</nav>
+</body>
+</html>

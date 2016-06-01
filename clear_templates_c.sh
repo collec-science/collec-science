@@ -1,0 +1,1 @@
+/home/quinton/web/clear_templates_c.sh

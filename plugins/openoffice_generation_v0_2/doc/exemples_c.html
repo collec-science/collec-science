@@ -1,0 +1,147 @@
+<html>
+<head>
+	<title>OpenOfficeGeneration Documentation</title>
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+	<script type="text/javascript" src="js/scripts.js"></script>
+</head>
+<body>
+
+<div class="body">
+	<img class="titre" src="imgs/doc.jpg" alt="doc" title="doc" />
+	<h1>Génération de documents OpenOffice 2.0 <span>(Spreadsheet)</span></h1>
+	<h2>Ou comment marier PHP avec la spécification OASIS d'OpenOffice</h2>
+	<ul id="menu">
+		<li><a href="index.html">Accueil</a></li>
+		<li><a href="install.html">Installation</a></li>
+		<li class="ici"><a href="exemples.html">Exemples</a></li>
+		<li><a href="doc.html">Documentation</a></li>
+		<li><a href="forum.html">Forum</a></li>
+		<li><a href="liens.html">Liens</a></li>
+	</ul>
+	<div id="contenu">
+		<div class="gauche">
+			<h3 class="m4">Exemples C</h3>
+			<h4>Colonnes : chiffres ou lettres ?</h4>
+			<p>Peut-être que ça peut paraître un détail, mais parfois, c'est relativement embêtant de savoir quel est l'index numérique de la colonne BG, par exemple. Il y a un moyen qui permet de récupérer cet index, et vice-versa (trouver la lettre en fonction de l'index).</p>
+			<p>Il faut mixer les fonctions de tableau PHP avec une méthode de la classe <strong>Fonction</strong>. Cette classe est automatiquement disponible, pour autant que la classe principale soit chargée (voir point 1 ci-dessous).</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_c.ods');
+<br />
+<br />$feuille = $calc->addSheet('Une feuille');
+<br />
+<br />// 2. On récupère l'index numérique de la colonne C et AA
+<br />$lettres = Fonction::getLetters(true);
+<br />
+<br />$index_C = array_search('c', $lettres); // colonne 3
+<br />$index_AA = array_search('aa', $lettres); // colonne 27
+<br />
+<br />// 3. On peut maintenant récupérer la cellule AA, ligne 1
+<br />$cell = $feuille->getCell($index_AA, 1);
+<br />?&gt;
+			</code>
+			<p>Les lettres passées en premier paramètre de <strong>array_search</strong> <em>doivent</em> être en minuscules, sinon, ça marche pas. A noter également le <em>true</em> passé à la fonction <strong>getLetters</strong>. On peut mettre <em>true</em> ou <em>false</em>. En mettant <em>true</em>, la lettre "a" correspondra à l'index 1 ("b" sera 2, etc). Avec <em>false</em>, la lettre "a" aura l'index 0 ("b" sera 1, et ainsi de suite). En fait, on décale tout de un en mettant <em>true</em>.</p>
+			<code>
+&lt;?php
+<br />$lettres = Fonction::getLetters(true);
+<br />$string_AA = $lettres[27];
+<br />?&gt;
+			</code>
+			<p>Le bout de code ci-dessus illustre comment récupérer le <em>nom</em> de la colonne en partant de son index numérique, si on le connait, bien évidemment.</p>
+			<h4>Modifier un groupe de cellules</h4>
+			<p>Il est possible de faire une même action sur plusieurs cellules en même temps. Suivant comment, on s'économise pas mal de code. C'est toujours bon à prendre.</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_c.ods');
+<br />
+<br />$feuille = $calc->addSheet('Une feuille');
+<br />
+<br />// 2. Cellule du coin haut gauche du groupe
+<br />$cell_h = $feuille->getCell(1, 1); // A1
+<br />
+<br />// 3. Cellule du coin bas droite du groupe
+<br />$cell_b = $feuille->getCell(7, 10); // G10
+<br />
+<br />// 4. On agit sur toutes les cellules
+<br />$feuille->setCellContent('Youpie', $cell_h, $cell_b);
+<br />$feuille->setCellBackgroundColor('#FFCCCC', $cell_h, $cell_b);
+<br />$feuille->setCellColor('#0000FF', $cell_h, $cell_b);
+<br />$feuille->setCellFontWeight('bold', $cell_h, $cell_b);
+<br />$feuille->setCellBorder('0.02cm solid #FF0000', $cell_h, $cell_b);
+<br />$feuille->setCellWidth('3cm', $cell_h, $cell_b);
+<br />$feuille->setCellHeight('3.5cm', $cell_h, $cell_b);
+<br />
+<br />// 5. On envoie le fichier en téléchargement
+<br />$calc->output();
+<br />?&gt;
+			</code>
+			<p>En gros, on récupère la cellule haut-gauche (point 2) et bas-droite (point 3) du groupe de cellules. Ensuite, en 4, on agit au niveau de la feuille (et non au niveau de la cellule). Là, en l'occurence, on y met du texte, des couleurs, du gras, des bordures de tous les cotés, des largeurs et des hauteurs. La totale, quoi.</p>
+			<h4>Seulement le tour avec setCellBorderAround()</h4>
+			<p>Le groupement de cellules permet de gérer facilement les bordures qui feraient <strong>seulement le tour du groupe de cellules</strong>, et non pas le tour de toutes les cellules du groupe (elle est pas clair, ma nuance ?!)</p>
+			<code>
+&lt;?php
+<br />// 1.
+<br />require_once ('calc/classes/OpenOfficeSpreadsheet.class.php');
+<br />$calc = new OpenOfficeSpreadsheet('exemple_c.ods');
+<br />
+<br />$feuille = $calc->addSheet('Une feuille');
+<br />
+<br />// 2. Cellule du coin haut gauche du groupe
+<br />$cell_h = $feuille->getCell(1, 1); // A1
+<br />
+<br />// 3. Cellule du coin bas droite du groupe
+<br />$cell_b = $feuille->getCell(7, 10); // G10
+<br />
+<br />// 4. On agit sur toutes les cellules
+<br />$feuille->setCellBorderAround('0.2cm solid #FF0000', $cell_h, $cell_b);
+<br />
+<br />// 5. On envoie le fichier en téléchargement
+<br />$calc->output();
+<br />?&gt;
+			</code>
+		</div>
+		<div class="droite">
+			<div>
+				<h4>Dernières mise-à-jour</h4>
+				<p>La dernière mise à jour date du 7 mai 2006. La génération de feuilles de calcul est plutôt stable.</p>
+				<p><a href="download/openoffice_generation_v0_2.zip">Téléchargez ici!</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Exemple A</h4>
+				<p>Les bases. Comment créer une feuille et gérer basiquement les cellules.</p>
+				<p><a href="exemples.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Exemple B</h4>
+				<p>Les actions sur les cellules. Entre contenu et couleur de fond, on trouve tout c'qu'on veut!</p>
+				<p><a href="exemples_b.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Sauvegardes</h4>
+				<p>Les moyens de sauvegarder le résultat</p>
+				<p><a href="exemples_d.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+			<div>
+				<h4>Astuces</h4>
+				<p>Deux ou trois bidouilles marrantes pour s'économiser du code et/ou de la prise de tête.</p>
+				<p><a href="exemples_c.html">Voir la page</a></p>
+				<cite>Par Tafel</cite>
+			</div>
+		</div>
+	</div>
+	<div class="bottom">
+		<p>OpenOffice Generation PHP</p>
+		<p>Le 7 mai 2006, <a href="#" onClick="gereStyle()">Tafel</a>. Optimisé pour Mozilla Firefox</p>
+	</div>
+</div>
+	
+</body>
+</html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architect-project version="1.0" appversion="1.0.8">
+ <project-name>eabxcol</project-name>
+ <print-settings numCopies="1" zoom="1.0" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
+ <project-data-sources>
+  <data-source id="DS0">
+   <property key="Logical" value="PlayPen Database" />
+  </data-source>
+ </project-data-sources>
+ <source-databases>
+ </source-databases>
+ <target-database id="ppdb" dbcs-ref="DS0">
+  <table id="TAB1" populated="true" UUID="b531fb4f-9b54-445e-9c38-d4ce6687c31a" name="conteneur" objectType="TABLE" physicalName="conteneur" >
+   <remarks>Liste des conteneurs d&apos;échantillon</remarks>
+   <folder id="FOLTAB11" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL2" populated="true" UUID="66198b0d-d866-4969-b9ed-af15341641c3" autoIncrement="false" autoIncrementSequenceName="objet_objet_id_seq" defaultValue="" name="objet_id" nullable="0" physicalName="objet_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB13" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB12" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB14" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX3" populated="true" UUID="ac7461d2-cd04-4bbd-9c9f-5c932379031f" clustered="false" name="conteneur_pk" physicalName="conteneur_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC4" populated="true" UUID="924ab2d9-d938-4ffd-991a-531268478b9e" ascendingOrDescending="UNSPECIFIED" column-ref="COL2" name="objet_id" physicalName="objet_id" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB5" populated="true" UUID="17ca0f4d-8381-4c36-a963-d4ae59cb7849" name="objet" objectType="TABLE" physicalName="objet" >
+   <remarks>Table des objets
+Contient les identifiants génériques</remarks>
+   <folder id="FOLTAB51" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL6" populated="true" UUID="e44a4a94-5038-4721-ba79-b8fcba9fe3b8" autoIncrement="true" autoIncrementSequenceName="objet_objet_id_seq" defaultValue="" name="objet_id" nullable="0" physicalName="objet_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL7" populated="true" UUID="50d27831-153d-4096-977b-4beb596fa08e" autoIncrement="false" autoIncrementSequenceName="objet_uid_seq" defaultValue="" name="uid" nullable="1" physicalName="uid" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks>Identifiant fourni dans le cadre du projet</remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB53" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB52" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB54" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX8" populated="true" UUID="aa3aa607-ffda-469e-b899-f8fc459b2304" clustered="false" name="objet_pk" physicalName="objet_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC9" populated="true" UUID="66de1674-39a3-40d6-9522-84d8fca8f140" ascendingOrDescending="UNSPECIFIED" column-ref="COL6" name="objet_id" physicalName="objet_id" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB10" populated="true" UUID="57131912-0aaa-47af-bce6-b25f122f71e4" name="echantillon" objectType="TABLE" physicalName="echantillon" >
+   <remarks>Table des échantillons</remarks>
+   <folder id="FOLTAB101" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL11" populated="true" UUID="b0acd678-9e72-4309-b200-a37fe029281d" autoIncrement="false" autoIncrementSequenceName="objet_objet_id_seq" defaultValue="" name="objet_id" nullable="0" physicalName="objet_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB103" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB102" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB104" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX12" populated="true" UUID="1927bf63-2a17-472a-b40a-ac9f2febb625" clustered="false" name="echantillon_pk" physicalName="echantillon_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC13" populated="true" UUID="431d691d-15cd-40c8-8487-1aa0a85a6843" ascendingOrDescending="UNSPECIFIED" column-ref="COL11" name="objet_id" physicalName="objet_id" />
+    </index>
+   </folder>
+  </table>
+  <relationships>
+   <relationship id="REL14" populated="true" UUID="2bda9da6-195b-4dda-9242-052ee665778b" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="true" name="objet_conteneur_fk" physicalName="objet_conteneur_fk" pk-table-ref="TAB5" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP15" populated="true" UUID="dddb90da-3933-4039-be36-c441b824cabb" fk-column-ref="COL2" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL6" />
+   </relationship>
+   <relationship id="REL16" populated="true" UUID="65407077-1fbe-4c3a-b3b8-a802afb30e4b" deferrability="7" deleteRule="3" fk-table-ref="TAB10" fkCardinality="7" identifying="true" name="objet_echantillon_fk" physicalName="objet_echantillon_fk" pk-table-ref="TAB5" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP17" populated="true" UUID="c0e589fb-ab0f-4be3-af83-e7fd82393112" fk-column-ref="COL11" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL6" />
+   </relationship>
+  </relationships>
+ </target-database>
+ <ddl-generator type="ca.sqlpower.architect.ddl.GenericDDLGenerator" allow-connection="true"> </ddl-generator>
+ <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
+ <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+  <table-pane table-ref="TAB1" x="839" y="342" bgColor="0xdfedce" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB5" x="495" y="165" bgColor="0xfbdabb" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB10" x="135" y="337" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-link relationship-ref="REL14" pkConnection="0.4444444444444444" fkConnection="0.5660377358490566" rLineColor="0x484848" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL16" pkConnection="0.5416666666666666" fkConnection="0.41509433962264153" rLineColor="0x484848" pkLabelText="" fkLabelText="" orientation="18"/>
+ </play-pen>
+ <critic-manager>
+  <critic-grouping platformType="Generic" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PrimaryKeyCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.RelationshipMappingTypeCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.EmptyRelationshipCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericSequenceNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetDefaultOnColumnWithNoDefaultCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetNullOnNonNullableColumnCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DuplicateNameCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="DB2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DB2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="H2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.H2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="HSQLDB" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.HSQLDBUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="MySQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLCommentCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="Oracle" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OraclePhysicalNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="PostgreSQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PostgreSQLReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerUnsupportedFeaturesCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2000" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2000UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2005" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2005UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+ </critic-manager>
+ <profiles topNCount="10">
+  </profiles>
+  <olap>
+  </olap>
+  <olap-gui>
+  </olap-gui>
+</architect-project>

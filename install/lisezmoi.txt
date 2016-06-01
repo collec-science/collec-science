@@ -1,0 +1,127 @@
+Nouveautes
+===========
+Version 2.0
+--------------
+- intégration de la version 2.4.2 d'ObjetBDD (rajout d'un paramètre dans getListe($order), pour indiquer le numéro de colonne à trier)
+- intégration de la classe tcpdf_0_6_062
+- ajout de la classe jquery.cookie.js, qui permet de stocker un cookie directement depuis le navigateur
+- ajout de la classe jquery.magnific-popup.min.js, pour afficher des miniatures ou des images à l'écran
+- modifications importantes dans la gestion des connexions :
+	* il est maintenant possible de gérer une connexion LDAP, puis BDD si la première échoue
+	* génération automatique d'un mot de passe aléatoire depuis l'écran de modification d'un compte en base de données
+	* rajout d'une fonction permettant à l'utilisateur de changer son mot de passe
+	* rajout d'une icone, à droite dans le menu, qui passe au vert quand la connexion a été réalisée
+- modification de la feuille de style blue.css, qui permet maintenant :
+	* de définir un champ date avec la classe date
+	* de créer des formulaires de saisie par liste (<dl><dd>), avec largeur par défaut à 800 px (class="formSaisie"), ou à 400 px (class="formSaisie400"). Pour plus d'informations, consultez le fichier display/templates/example/exampleChange.tpl
+- corrections de bogues diverses
+
+Version 1.9
+--------------
+- intégration de la version 2.4 d'ObjetBDD, qui corrige un bogue concernant la gestion des champs géographiques Postgis
+- rajout, dans le menu "administration", d'un item affichant le phpinfo()
+- rajout d'une fonction facilitant le débogage "en ligne" : printr($variable, $mode_dump = 0) affiche la variable considérée, qu'il s'agisse d'une variable simple ou d'un tableau. Le mode dump peut être activé en passant le second paramètre à 1.
+- amélioration du script modules/example/example.php
+- le cookie de session est maintenant régénéré à chaque appel de page, pour éviter une déconnexion de la session intempestive en usage régulier de l'application 
+- rajout de la classe modules/gestion/search.class.php, qui permet de gérer facilement les paramètres des fenêtres de recherche (voir les exemples dans les fichiers modules/example.php et consorts)
+
+Version 1.8
+--------------
+- intégration de la nouvelle version d'ObjetBDD (2.2.5), qui comprend de nombreuses nouveautés pour gérer les bases postgresql (rajout de doubles-quotes si le nom des champs contient des majuscules, rajout du type 4 pour gérer les champs géographiques postgis, etc.)
+- modification de la gestion des langues
+	* par défaut, le programme permet de sélectionner le français ou l'anglais depuis la barre de titre. L'information est stockée dans un cookie ;
+	* la langue principale, définie dans l'application, est surchargée par les traductions dans la langue cible. Ainsi, si une traduction n'existe pas, c'est la valeur de la langue d'origine qui est affichée
+- correction du style utilisé pour l'affichage des boutons javascript de gestion des listes : les boutons sont moins hauts et ne gênent plus l'affichage
+- correction d'un bug de sécurité : l'identifiant de session n'était pas régénéré après identification
+- correction du contrôleur : quand une page est appelée en mode 'ajax', elle n'est plus stockée dans la variable module_before, ce qui pouvait poser quelques problèmes dans les fiches de saisie qui utilisaient des requêtes ajax et où ce paramètre avait été positionné
+- rajout de la possibilité de n'afficher un item du menu que si on n'est pas identifié (par exemple, pour afficher le choix "connexion"). La valeur à utiliser dans actions.xml est onlynoconnect="1"
+- la fonction javascript setDataTables a été complétée pour gérer d'autres paramètres (cf. le descriptif de la fonction)
+- creation d'un script de generation des tables utilisées par PHPGACL pour postgresql dans install(deux scripts : un pour le schéma public, l'autre pour le schéma gacl). Correction des noms utilisés dans phpgacl (ACO notamment).
+	* il est également possible de télécharger phpgacl et d'exécuter le script install.php pour créer la base de données phpgacl
+- rajout de la variable $APPLI_cookie_ttl = 2592000; dans param.default.inc.php, pour indiquer une valeur de conservation des cookies différente de celle de la durée de la session
+
+Version 1.7
+--------------
+- renommage du dossier smarty en display
+- creation de 3 nouvelles fonctions disponibles pour la gestion des fiches : 
+	* dataRead($dataClass, $id, $smartyPage, $idParent=null) : lit un enregistrement en base de donnees, et prepare l'affichage dans Smarty
+	* dataWrite ($dataClass, $data) : ecrit un enregistrement en base de donnees
+	* dataDelete($dataClass, $id) : supprime un enregistrement en base de donnees
+- integration de la version 2.2.4 d'ObjetBDD
+- il est maintenant possible de verifier qu'un module est bien execute apres un autre (ecriture ou suppression apres affichage de la fiche, par exemple). Pour cela : 
+	* rajoutez l'attribut "modulebefore" dans le descripteur du module (actions.xml), p. e. : modulebefore="fichedetail,fichemodif" (separer les differents modules autorises par une virgule)
+- rajout de phpExcelReader pour pouvoir lire directement un fichier Excel
+- rajout d'une classe pour gérer les imports de fichiers externes (CSV ou XLS) dans framework/import/import.class.php
+- creation d'un modele de gestion de fiche (modules/example/example.php), pour faciliter l'apprentissage
+- rajout de la bibliothèque Javascript JQuery DataTables
+
+Version 1.5
+--------------
+Version dont l'arborescence a été revue, pour simplifier la gestion de l'application :
+- doc : la documentation
+- framework : contient tout ce qui concerne le fonctionnement du framemwork. Sauf besoin particulier, le développeur n'a pas besoin de travailler dans ce dossier.
+- install : documentation d'installation, scripts, etc.
+- locales : messages dans les différentes langues gérées par l'application
+- modules : contient le code proprement dit de l'application. Créez un dossier par groupe de modules, regroupez les classes applicatives dans le sous-dossier classes
+- param : tous les paramètres (param.inc.php, param.default.inc.php, gacl.ini.php, mais également actions.xml, qui décrit l'enchaînement des modules et les droits)
+- plugins : tous les programmes complémentaires utilisés (smarty, adodb, etc)
+- smarty : tout ce qui concerne l'affichage web. Contient les dossiers :
+	* CSS : feuille de style
+	* images : images affichées
+	* javascript : fichiers de code javascript
+	* smarty_cache : pour mémoire, en principe pas de cache à utiliser pour une application de gestion
+	* templates : les modèles smarty
+	* templates_c : le dossier contenant les compilations des modèles smarty (accès en écriture pour le serveur web)
+- test : dossier pour réaliser des tests divers...
+La page index renvoie maintenant (via un include) vers la page framework/controler.php
+
+Modification dans la gestion des droits
+Pour améliorer les performances, les droits attribués à un login sont maintenant stockés en variable de session. Pour que cela fonctionne, il faut définir, dans le fichier param/param.default.inc.php, la variable :
+ $GACL_listeDroitsGeres = "admin,gestion";
+(chaque droit géré dans l'application est séparé par une virgule). Les droits doivent toujours être définis dans phpgacl.
+L'ensemble des droits détenus est transféré à Smarty, dans le tableau $droits. Vous pouvez tester un droit particulier ainsi :
+{if $droits.gestion==1}
+ 
+Intégrations des dernières versions des plugins :
+- version 5.16a d'Adodb
+- version 17 de fpdf
+- version 3.1.8 de Smarty
+- version 5.9.067 de tcfpdf
+- version 2.1.3 de pchart
+
+Modifications concernant la gestion des pages web
+- par défaut, le fichier display/javascript/fonctions.js est inclu dans toutes les pages
+- il est maintenant possible de définir quel zone va prendre le focus à l'ouverture de la page. Pour cela :
+	* définissez, pour la zone considérée, l'attribut "id"
+	* dans le code de votre module, rajoutez la ligne suivante : 
+	$smarty->assign("idFocus", "id_de_votre_zone");
+
+Modifications concernant la gestion de l'enregistrement et de la suppression
+Pour être (plus) conforme au modèle MVC, il est préférable de séparer les opérations de création/modification de celles de suppression. Cela permet notamment de définir des droits différents pour chacune de ces opérations. Pour cela :
+- dans votre page web, créez 2 formulaires, 
+	* l'un dédié (le principal) à la modification ;
+	* le second, qui ne comprend que le bouton "supprimer", dédié à la suppression.
+- créez deux modules différents (param/actions.xml), l'un pour la modification, l'autre pour la suppression
+- dans chacune des pages php correspondantes, intégrez les fichiers (via include) :
+	* modules/ecrireFiche.php pour l'affichage/modification
+	* modules/supprimerFiche.php pour la suppression.
+L'utilisation de ces fichiers impose que :
+- la clé soit stockée dans la variable $id ;
+- l'instance de la classe héritée d'objetBDD s'appelle $dataClass
+Smarty récupère le contenu de l'enregistrement dans la variable $data.
+
+Version 1.4.2
+--------------
+- mise en session des classes SMARTY et navigation
+- modification de plugins/phpgacl/admin/index.php, pour ne conserver que la ligne header
+- rajout d'un contrôle de l'adresse IP pour limiter les risques de vols de sessions (en cas de changement, déclenchement d'une déconnexion automatique)
+- possibilité de modifier la durée de vie de la session PHP
+- modification de la classe ldap/ldap.class.php, pour integrer l'identification
+- integration de la version 5.11 d'Adodb
+- integration de la version 1.6 de fpdf
+- integration de la version 1.0.1 d'odtphp
+- integration de openoffice_generation_v0_2 (generation de fichiers ods)
+- integration de pchart.1.27d
+- integration de tcfpdf 5_9_067
+- integration de ObjetBDD 2.1
+

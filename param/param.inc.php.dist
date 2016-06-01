@@ -1,0 +1,47 @@
+<?php
+/** Fichier cree le 4 mai 07 par quinton
+*
+*UTF-8
+*/
+
+$APPLI_modeDeveloppement = true;
+//$APPLI_notSSL = true;
+$APPLI_modeDeveloppement == true ? $ERROR_display=1 : $_ERROR_display = 0;
+$ERROR_level = E_ERROR ;
+$OBJETBDD_debugmode = 1;
+$APPLI_utf8 = true;
+
+$GACL_aco = "appli";
+
+$ident_type = "BDD";
+/*
+ * Parametres concernant la base de donnees
+ */
+$BDD_login = "proto";
+$BDD_passwd = "proto";
+$BDD_dsn = "pgsql:host=localhost;dbname=proto;sslmode=require";
+$BDD_schema = "public";
+
+/*
+ * Rights management, logins and logs records database
+ */
+$GACL_dblogin = "proto";
+$GACL_dbpasswd = "proto";
+$GACL_aco = "appli";
+$GACL_dsn = "pgsql:host=localhost;dbname=proto;sslmode=require";
+$GACL_schema = "gacl";
+
+$APPLI_address = "http://localhost/proto";
+$APPLI_mail = "proto@domain.fr";
+$APPLI_nom = "PROTOTYPEPHP";
+$APPLI_code = 'proto';
+
+$LDAPGROUP_address = "localhost";
+$LDAPGROUP_attributnomgroupe = "cn";
+$LDAPGROUP_attributnomlogin = "memberuid";
+$LDAPGROUP_basedngroup = "ou=Group,ou=example,o=societe,c=fr";
+$LDAP_address = "localhost";
+$LDAP_port = 389;
+$LDAP_basedn = "ou=people,ou=example,o=societe,c=fr";
+
+?>

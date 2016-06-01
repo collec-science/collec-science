@@ -1,0 +1,451 @@
+<html>
+<head>
+<title>File Source for OpenOfficeSpreadsheet.class.php</title>
+<link rel="stylesheet" type="text/css" href="../media/style.css">
+</head>
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr>
+    <td class="header_top">OpenOfficeGeneration</td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+  <tr>
+    <td class="header_menu">
+  		  [ <a href="../classtrees_OpenOfficeGeneration.html" class="menu">class tree: OpenOfficeGeneration</a> ]
+		  [ <a href="../elementindex_OpenOfficeGeneration.html" class="menu">index: OpenOfficeGeneration</a> ]
+		  [ <a href="../elementindex.html" class="menu">all elements</a> ]
+    </td>
+  </tr>
+  <tr><td class="header_line"><img src="../media/empty.png" width="1" height="1" border="0" alt=""  /></td></tr>
+</table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="200" class="menu">
+      <b>Packages:</b><br />
+              <a href="../li_OpenOfficeGeneration.html">OpenOfficeGeneration</a><br />
+            <br /><br />
+                  
+                </td>
+    <td>
+      <table cellpadding="10" cellspacing="0" width="100%" border="0"><tr><td valign="top">
+
+<h1 align="center">Source for file OpenOfficeSpreadsheet.class.php</h1>
+<p>Documentation is available at <a href="../OpenOfficeGeneration/_OpenOfficeSpreadsheet_class_php.html">OpenOfficeSpreadsheet.class.php</a></p>
+<div class="php">
+<div class="listing"><pre><ol><li><a name="a1"></a><span class="src-php">&lt;?php</span></li>
+<li><a name="a2"></a>&nbsp;</li>
+<li><a name="a3"></a><span class="src-comm">// Définition du chemin absolu du dossier openoffice. Comme ce fichier se trouve dans calc/classes, on</span></li>
+<li><a name="a4"></a><span class="src-comm">// fait 2x le array_pop</span></li>
+<li><a name="a5"></a><span class="src-var">$_openoffice_path </span>= <a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'\\'</span><span class="src-sym">, </span><span class="src-str">'/'</span><span class="src-sym">, </span><a href="http://www.php.net/dirname">dirname</a><span class="src-sym">(</span>__FILE__<span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a6"></a><span class="src-var">$_openoffice_path </span>= <a href="http://www.php.net/explode">explode</a><span class="src-sym">(</span><span class="src-str">'/'</span><span class="src-sym">, </span><span class="src-var">$_openoffice_path</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a7"></a><a href="http://www.php.net/array_pop">array_pop</a><span class="src-sym">(</span><span class="src-var">$_openoffice_path</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a8"></a><a href="http://www.php.net/array_pop">array_pop</a><span class="src-sym">(</span><span class="src-var">$_openoffice_path</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a9"></a><span class="src-var">$_openoffice_path </span>= <a href="http://www.php.net/implode">implode</a><span class="src-sym">(</span><span class="src-str">'/'</span><span class="src-sym">, </span><span class="src-var">$_openoffice_path</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a10"></a>&nbsp;</li>
+<li><a name="a11"></a><span class="src-doc">/**</span></li>
+<li><a name="a12"></a><span class="src-doc"> * Définition du chemin du dossier principal où se situent les documents générés et les scripts et tout, en fait</span></li>
+<li><a name="a13"></a><span class="src-doc"> *</span></li>
+<li><a name="a14"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">       PATH_ROOT                    Le chemin depuis la racine vers le dossier openoffice</span></li>
+<li><a name="a15"></a><span class="src-doc"> */</span></li>
+<li><a name="a16"></a><a href="http://www.php.net/define">define</a> <span class="src-sym">(</span><span class="src-str">'PATH_ROOT'</span><span class="src-sym">,                            </span><span class="src-var">$_openoffice_path</span>.<span class="src-str">'/'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a17"></a>&nbsp;</li>
+<li><a name="a18"></a><span class="src-doc">/**</span></li>
+<li><a name="a19"></a><span class="src-doc"> * Les chemins par défaut basés sur le PATH_ROOT</span></li>
+<li><a name="a20"></a><span class="src-doc"> *</span></li>
+<li><a name="a21"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">       PATH_CALC                    Le chemin depuis la racine vers le dossier calc</span></li>
+<li><a name="a22"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">       SAVE_FILE_PATH_CALC            Le chemin depuis la racine vers le dossier des zip générés</span></li>
+<li><a name="a23"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">       TEMPLATE_FILE_PATH_CALC        Le chemin depuis la racine vers le dossier de template (pour la création des zip)</span></li>
+<li><a name="a24"></a><span class="src-doc"> */</span></li>
+<li><a name="a25"></a><a href="http://www.php.net/define">define</a> <span class="src-sym">(</span><span class="src-str">'PATH_CALC'</span><span class="src-sym">,                            </span><span class="src-id">PATH_ROOT</span>.<span class="src-str">'calc/'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a26"></a><a href="http://www.php.net/define">define</a> <span class="src-sym">(</span><span class="src-str">'SAVE_FILE_PATH_CALC'</span><span class="src-sym">,                    </span><span class="src-id">PATH_CALC</span>.<span class="src-str">'generated/'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a27"></a><a href="http://www.php.net/define">define</a> <span class="src-sym">(</span><span class="src-str">'TEMPLATE_FILE_PATH_CALC'</span><span class="src-sym">,                </span><span class="src-id">PATH_CALC</span>.<span class="src-str">'templates/'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a28"></a>&nbsp;</li>
+<li><a name="a29"></a>&nbsp;</li>
+<li><a name="a30"></a>&nbsp;</li>
+<li><a name="a31"></a>&nbsp;</li>
+<li><a name="a32"></a>&nbsp;</li>
+<li><a name="a33"></a>&nbsp;</li>
+<li><a name="a34"></a>&nbsp;</li>
+<li><a name="a35"></a>&nbsp;</li>
+<li><a name="a36"></a>&nbsp;</li>
+<li><a name="a37"></a>&nbsp;</li>
+<li><a name="a38"></a>&nbsp;</li>
+<li><a name="a39"></a>&nbsp;</li>
+<li><a name="a40"></a>&nbsp;</li>
+<li><a name="a41"></a>&nbsp;</li>
+<li><a name="a42"></a>&nbsp;</li>
+<li><a name="a43"></a>&nbsp;</li>
+<li><a name="a44"></a>&nbsp;</li>
+<li><a name="a45"></a>&nbsp;</li>
+<li><a name="a46"></a>&nbsp;</li>
+<li><a name="a47"></a><span class="src-doc">/**</span></li>
+<li><a name="a48"></a><span class="src-doc"> * Insertion des classes requises</span></li>
+<li><a name="a49"></a><span class="src-doc"> */</span></li>
+<li><a name="a50"></a><span class="src-inc">require_once </span><span class="src-sym">(</span><span class="src-str">'EasyZIP.class.php'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a51"></a><span class="src-inc">require_once </span><span class="src-sym">(</span><span class="src-str">'Fonction.class.php'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a52"></a><span class="src-inc">require_once </span><span class="src-sym">(</span><span class="src-str">'Manifest.class.php'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a53"></a><span class="src-inc">require_once </span><span class="src-sym">(</span><span class="src-str">'Meta.class.php'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a54"></a><span class="src-inc">require_once </span><span class="src-sym">(</span><span class="src-str">'Settings.class.php'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a55"></a><span class="src-inc">require_once </span><span class="src-sym">(</span><span class="src-str">'Styles.class.php'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a56"></a><span class="src-inc">require_once </span><span class="src-sym">(</span><span class="src-str">'Content.class.php'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a57"></a>&nbsp;</li>
+<li><a name="a58"></a><span class="src-doc">/**</span></li>
+<li><a name="a59"></a><span class="src-doc"> * OpenOfficeSpreadsheet est un ensemble de classes permettant de générer un document OpenOffice</span></li>
+<li><a name="a60"></a><span class="src-doc"> * Spreadsheet (feuille de calcul ou tableur). Ces classes contiennent un certain nombre de</span></li>
+<li><a name="a61"></a><span class="src-doc"> * fonctions permettant la mise en page et le remplissage de cellules. Euh, sinon c'est tout.</span></li>
+<li><a name="a62"></a><span class="src-doc"> * Mais il y a de quoi faire, notamment au niveau des classes Settings et Styles, mais ça</span></li>
+<li><a name="a63"></a><span class="src-doc"> * viendra (peut-être) plus tard.</span></li>
+<li><a name="a64"></a><span class="src-doc"> *</span></li>
+<li><a name="a65"></a><span class="src-doc"> * Sinon, c'est gratuit, c'est sympa, et même si ça ne sert pas à grand chose, ça sert quand</span></li>
+<li><a name="a66"></a><span class="src-doc"> * même à quelque chose. Donc finalement, c'est cool. Alors enjoy!</span></li>
+<li><a name="a67"></a><span class="src-doc"> *</span></li>
+<li><a name="a68"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@package</span><span class="src-doc">        OpenOfficeGeneration</span></li>
+<li><a name="a69"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@version</span><span class="src-doc">        0.1</span></li>
+<li><a name="a70"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@copyright</span><span class="src-doc">    (C) 2006 Tafel. All rights reserved</span></li>
+<li><a name="a71"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@license</span><span class="src-doc">        http://www.gnu.org/copyleft/lesser.html LGPL License</span></li>
+<li><a name="a72"></a><span class="src-doc"> * </span><span class="src-doc-coretag">@author</span><span class="src-doc">        Tafel &lt;fab_tafelmak@hotmail.com&gt;</span></li>
+<li><a name="a73"></a><span class="src-doc"> *</span></li>
+<li><a name="a74"></a><span class="src-doc"> *  Programme sous licence GPL. Toute reproduction, même patielle, est autorisée, avec ou sans le</span></li>
+<li><a name="a75"></a><span class="src-doc"> *  consentement du programmeur principal (avec, c'est mieux, quand même ;) ...)</span></li>
+<li><a name="a76"></a><span class="src-doc"> */</span></li>
+<li><a name="a77"></a><span class="src-key">class </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html">OpenOfficeSpreadsheet</a> <span class="src-sym">{</span></li>
+<li><a name="a78"></a>    </li>
+<li><a name="a79"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a80"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a81"></a><span class="src-doc">     * Propriétés</span></li>
+<li><a name="a82"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a83"></a><span class="src-doc">     */    </span></li>
+<li><a name="a84"></a>    </li>
+<li><a name="a85"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a86"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    public</span></li>
+<li><a name="a87"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">object </span><span class="src-doc">           </span><span class="src-doc-var">$manifest </span><span class="src-doc">               L'objet DOMDocument du Manifest</span></li>
+<li><a name="a88"></a><span class="src-doc">     */</span></li>
+<li><a name="a89"></a>    <span class="src-key">public </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$manifest">$manifest</a><span class="src-sym">;</span></li>
+<li><a name="a90"></a>    </li>
+<li><a name="a91"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a92"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    public</span></li>
+<li><a name="a93"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">object </span><span class="src-doc">           </span><span class="src-doc-var">$meta </span><span class="src-doc">                   L'objet DOMDocument du Meta</span></li>
+<li><a name="a94"></a><span class="src-doc">     */</span></li>
+<li><a name="a95"></a>    <span class="src-key">public </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$meta">$meta</a><span class="src-sym">;</span></li>
+<li><a name="a96"></a>    </li>
+<li><a name="a97"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a98"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    public</span></li>
+<li><a name="a99"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">object </span><span class="src-doc">           </span><span class="src-doc-var">$settings </span><span class="src-doc">               L'objet DOMDocument des Settings</span></li>
+<li><a name="a100"></a><span class="src-doc">     */</span></li>
+<li><a name="a101"></a>    <span class="src-key">public </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$settings">$settings</a><span class="src-sym">;</span></li>
+<li><a name="a102"></a>    </li>
+<li><a name="a103"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a104"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    public</span></li>
+<li><a name="a105"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">object </span><span class="src-doc">           </span><span class="src-doc-var">$styles </span><span class="src-doc">                   L'objet DOMDocument des Styles</span></li>
+<li><a name="a106"></a><span class="src-doc">     */</span></li>
+<li><a name="a107"></a>    <span class="src-key">public </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$styles">$styles</a><span class="src-sym">;</span></li>
+<li><a name="a108"></a>    </li>
+<li><a name="a109"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a110"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    public</span></li>
+<li><a name="a111"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">object </span><span class="src-doc">           </span><span class="src-doc-var">$content </span><span class="src-doc">               L'objet DOMDocument du Content</span></li>
+<li><a name="a112"></a><span class="src-doc">     */</span></li>
+<li><a name="a113"></a>    <span class="src-key">public </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$content">$content</a><span class="src-sym">;</span></li>
+<li><a name="a114"></a>    </li>
+<li><a name="a115"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a116"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    protected</span></li>
+<li><a name="a117"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$pathTemplates </span><span class="src-doc">           Le chemin vers les templates</span></li>
+<li><a name="a118"></a><span class="src-doc">     */</span></li>
+<li><a name="a119"></a>    <span class="src-key">protected </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">$pathTemplates</a><span class="src-sym">;</span></li>
+<li><a name="a120"></a>    </li>
+<li><a name="a121"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a122"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    protected</span></li>
+<li><a name="a123"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$pathSave </span><span class="src-doc">               Le chemin vers le dossier de sauvegarde</span></li>
+<li><a name="a124"></a><span class="src-doc">     */</span></li>
+<li><a name="a125"></a>    <span class="src-key">protected </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">$pathSave</a><span class="src-sym">;</span></li>
+<li><a name="a126"></a>    </li>
+<li><a name="a127"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a128"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    protected</span></li>
+<li><a name="a129"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$documentName </span><span class="src-doc">           Le nom du document OpenOffice créé</span></li>
+<li><a name="a130"></a><span class="src-doc">     */</span></li>
+<li><a name="a131"></a>    <span class="src-key">protected </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$documentName">$documentName</a><span class="src-sym">;</span></li>
+<li><a name="a132"></a>    </li>
+<li><a name="a133"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a134"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    protected</span></li>
+<li><a name="a135"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$extension </span><span class="src-doc">               L'extension du fichier</span></li>
+<li><a name="a136"></a><span class="src-doc">     */</span></li>
+<li><a name="a137"></a>    <span class="src-key">protected </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$extension">$extension</a><span class="src-sym">;</span></li>
+<li><a name="a138"></a>    </li>
+<li><a name="a139"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a140"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    protected</span></li>
+<li><a name="a141"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$contentType </span><span class="src-doc">           Le type de fichier</span></li>
+<li><a name="a142"></a><span class="src-doc">     */</span></li>
+<li><a name="a143"></a>    <span class="src-key">protected </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$contentType">$contentType</a><span class="src-sym">;</span></li>
+<li><a name="a144"></a>    </li>
+<li><a name="a145"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a146"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">    protected</span></li>
+<li><a name="a147"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@var </span><span class="src-doc">    </span><span class="src-doc-type">boolean </span><span class="src-doc">           </span><span class="src-doc-var">$keepGeneratedRep </span><span class="src-doc">       False pour effacer le dossier généré, True pour le conserver</span></li>
+<li><a name="a148"></a><span class="src-doc">     */</span></li>
+<li><a name="a149"></a>    <span class="src-key">protected </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$keepGeneratedRep">$keepGeneratedRep</a><span class="src-sym">;</span></li>
+<li><a name="a150"></a>    </li>
+<li><a name="a151"></a>    </li>
+<li><a name="a152"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a153"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a154"></a><span class="src-doc">     * Constructeur</span></li>
+<li><a name="a155"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a156"></a><span class="src-doc">     */    </span></li>
+<li><a name="a157"></a>    </li>
+<li><a name="a158"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a159"></a><span class="src-doc">     * Constructeur de classe</span></li>
+<li><a name="a160"></a><span class="src-doc">     *</span></li>
+<li><a name="a161"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a162"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$document_name </span><span class="src-doc">           Le nom du document à créer</span></li>
+<li><a name="a163"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$path_save </span><span class="src-doc">               Le chemin vers le dossier de sauvegarde</span></li>
+<li><a name="a164"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$path_templates </span><span class="src-doc">           Le chemin vers les templates</span></li>
+<li><a name="a165"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">object </span><span class="src-doc">                                   </span><span class="src-doc-type">L'objet </span><span class="src-doc">de classe</span></li>
+<li><a name="a166"></a><span class="src-doc">     */</span></li>
+<li><a name="a167"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#method__construct">__construct</a><span class="src-sym">(</span><span class="src-var">$document_name</span><span class="src-sym">, </span><span class="src-var">$path_save </span>= <span class="src-str">''</span><span class="src-sym">, </span><span class="src-var">$path_templates </span>= <span class="src-str">''</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a168"></a>        <span class="src-var">$docSave                </span>= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#method_setTempDirName">_setTempDirName</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a169"></a>        <span class="src-var">$path_templates         </span>= <span class="src-sym">(</span><span class="src-var">$path_templates </span>== <span class="src-str">''</span><span class="src-sym">) </span>? <span class="src-id"><a href="../OpenOfficeGeneration/_OpenOfficeSpreadsheet_class_php.html#defineTEMPLATE_FILE_PATH_CALC">TEMPLATE_FILE_PATH_CALC</a> </span>: <span class="src-var">$path_templates</span><span class="src-sym">;</span></li>
+<li><a name="a170"></a>        <span class="src-var">$path_save              </span>= <span class="src-sym">(</span><span class="src-var">$path_save </span>== <span class="src-str">''</span><span class="src-sym">) </span>? <span class="src-id"><a href="../OpenOfficeGeneration/_OpenOfficeSpreadsheet_class_php.html#defineSAVE_FILE_PATH_CALC">SAVE_FILE_PATH_CALC</a> </span>: <span class="src-var">$path_save</span><span class="src-sym">;</span></li>
+<li><a name="a171"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$extension">extension</a>        = <span class="src-str">'ods'</span><span class="src-sym">;</span></li>
+<li><a name="a172"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$contentType">contentType</a>      = <span class="src-str">'application/vnd.oasis.opendocument.spreadsheet'</span><span class="src-sym">;</span></li>
+<li><a name="a173"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$keepGeneratedRep">keepGeneratedRep</a> = <span class="src-id">false</span><span class="src-sym">;</span></li>
+<li><a name="a174"></a>        </li>
+<li><a name="a175"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">pathTemplates</a>    = <span class="src-id"><a href="../OpenOfficeGeneration/Fonction.html">Fonction</a></span><span class="src-sym">::</span><a href="../OpenOfficeGeneration/Fonction.html#methodremoveLastSlash">removeLastSlash</a><span class="src-sym">(</span><span class="src-var">$path_templates</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a176"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>         = <span class="src-id"><a href="../OpenOfficeGeneration/Fonction.html">Fonction</a></span><span class="src-sym">::</span><a href="../OpenOfficeGeneration/Fonction.html#methodremoveLastSlash">removeLastSlash</a><span class="src-sym">(</span><span class="src-var">$path_save</span><span class="src-sym">)</span>.<span class="src-str">'/'</span>.<span class="src-var">$docSave</span><span class="src-sym">;</span></li>
+<li><a name="a177"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$documentName">documentName</a>     = <span class="src-id"><a href="../OpenOfficeGeneration/Fonction.html">Fonction</a></span><span class="src-sym">::</span><a href="../OpenOfficeGeneration/Fonction.html#methodcheckFileName">checkFileName</a><span class="src-sym">(</span><span class="src-var">$document_name</span><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$extension">extension</a><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a178"></a>        </li>
+<li><a name="a179"></a>        try <span class="src-sym">{</span></li>
+<li><a name="a180"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$manifest">manifest</a> = <span class="src-key">new </span><span class="src-id"><a href="../OpenOfficeGeneration/Manifest.html">Manifest</a></span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/META-INF'</span><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">pathTemplates</a>.<span class="src-str">'/META-INF'</span><span class="src-sym">, </span><span class="src-id">true</span><span class="src-sym">, </span><span class="src-id">false</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a181"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$meta">meta</a>     = <span class="src-key">new </span><span class="src-id"><a href="../OpenOfficeGeneration/Meta.html">Meta</a></span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">pathTemplates</a><span class="src-sym">, </span><span class="src-id">true</span><span class="src-sym">, </span><span class="src-id">false</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a182"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$settings">settings</a> = <span class="src-key">new </span><span class="src-id"><a href="../OpenOfficeGeneration/Settings.html">Settings</a></span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">pathTemplates</a><span class="src-sym">, </span><span class="src-id">true</span><span class="src-sym">, </span><span class="src-id">false</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a183"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$styles">styles</a>   = <span class="src-key">new </span><span class="src-id"><a href="../OpenOfficeGeneration/Styles.html">Styles</a></span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">pathTemplates</a><span class="src-sym">, </span><span class="src-id">true</span><span class="src-sym">, </span><span class="src-id">false</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a184"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$content">content</a>  = <span class="src-key">new </span><span class="src-id"><a href="../OpenOfficeGeneration/Content.html">Content</a></span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">pathTemplates</a><span class="src-sym">, </span><span class="src-id">true</span><span class="src-sym">, </span><span class="src-id">false</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a185"></a>        <span class="src-sym">} </span>catch <span class="src-sym">(</span><span class="src-id">Exception </span><span class="src-var">$e</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a186"></a>            echo <span class="src-str">'&lt;br&gt;&lt;b&gt;Notice : &lt;/b&gt;'</span>.<span class="src-var">$e</span><span class="src-sym">-&gt;</span><span class="src-id">getMessage</span><span class="src-sym">(</span><span class="src-sym">)</span>.<span class="src-str">'&lt;br&gt;'</span><span class="src-sym">;</span></li>
+<li><a name="a187"></a>        <span class="src-sym">}</span></li>
+<li><a name="a188"></a>    <span class="src-sym">}</span></li>
+<li><a name="a189"></a>    </li>
+<li><a name="a190"></a>    </li>
+<li><a name="a191"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a192"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a193"></a><span class="src-doc">     * Méthodes publiques de gestion de contenu</span></li>
+<li><a name="a194"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a195"></a><span class="src-doc">     */</span></li>
+<li><a name="a196"></a>    </li>
+<li><a name="a197"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a198"></a><span class="src-doc">     * Fonction qui créé une nouvelle feuille</span></li>
+<li><a name="a199"></a><span class="src-doc">     *</span></li>
+<li><a name="a200"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a201"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$sheet </span><span class="src-doc">                   Le nom de la feuille</span></li>
+<li><a name="a202"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">object </span><span class="src-doc">                                   </span><span class="src-doc-type">L'objet </span><span class="src-doc">Sheet</span></li>
+<li><a name="a203"></a><span class="src-doc">     */</span></li>
+<li><a name="a204"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#methodaddSheet">addSheet</a><span class="src-sym">(</span><span class="src-var">$sheet</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a205"></a>        <span class="src-key">return </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$content">content</a><span class="src-sym">-&gt;</span><span class="src-id">addSheet</span><span class="src-sym">(</span><span class="src-var">$sheet</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a206"></a>    <span class="src-sym">}</span></li>
+<li><a name="a207"></a>    </li>
+<li><a name="a208"></a>    </li>
+<li><a name="a209"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a210"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a211"></a><span class="src-doc">     * Méthodes publiques de sauvegarde et affichage</span></li>
+<li><a name="a212"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a213"></a><span class="src-doc">     */</span></li>
+<li><a name="a214"></a>    </li>
+<li><a name="a215"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a216"></a><span class="src-doc">     * Fonction qui créé un ZIP avec tous les fichiers nécessaires</span></li>
+<li><a name="a217"></a><span class="src-doc">     *</span></li>
+<li><a name="a218"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a219"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc">    </span><span class="src-doc-type">boolean </span><span class="src-doc">           </span><span class="src-doc-var">$in_file </span><span class="src-doc">               True pour créer un fichier, false pour renvoyer un flux</span></li>
+<li><a name="a220"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">object</span><span class="src-doc">|</span><span class="src-doc-type">boolean</span><span class="src-doc">                           True ou le pack des fichiers EasyZIP</span></li>
+<li><a name="a221"></a><span class="src-doc">     */</span></li>
+<li><a name="a222"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#methodsave">save</a><span class="src-sym">(</span><span class="src-var">$in_file </span>= <span class="src-id">true</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a223"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#method_saveFile">_saveFile</a><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a224"></a>        <span class="src-var">$zip </span>= <span class="src-key">new </span><span class="src-id"><a href="../OpenOfficeGeneration/EasyZIP.html">EasyZIP</a></span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a225"></a>        <span class="src-comm">// On ajoute tous les fichiers au ZIP</span></li>
+<li><a name="a226"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$handle </span>= <a href="http://www.php.net/opendir">opendir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a><span class="src-sym">)) </span><span class="src-sym">{ </span></li>
+<li><a name="a227"></a>            <span class="src-key">while </span><span class="src-sym">(</span><span class="src-id">false </span>!== <span class="src-sym">(</span><span class="src-var">$filename </span>= <a href="http://www.php.net/readdir">readdir</a><span class="src-sym">(</span><span class="src-var">$handle</span><span class="src-sym">))) </span><span class="src-sym">{</span></li>
+<li><a name="a228"></a>                <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$filename </span>!= <span class="src-str">'.' </span>&amp;&amp; <span class="src-var">$filename </span>!= <span class="src-str">'..'</span><span class="src-sym">)</span><span class="src-sym">{</span></li>
+<li><a name="a229"></a>                    <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/is_dir">is_dir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/'</span>.<span class="src-var">$filename</span><span class="src-sym">))</span></li>
+<li><a name="a230"></a>                        <span class="src-var">$zip</span><span class="src-sym">-&gt;</span><span class="src-id">addDir</span><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a><span class="src-sym">, </span><span class="src-var">$filename</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a231"></a>                    <span class="src-key">else</span></li>
+<li><a name="a232"></a>                        <span class="src-var">$zip</span><span class="src-sym">-&gt;</span><span class="src-id">addFile</span><span class="src-sym">(</span><span class="src-var">$filename</span><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a233"></a>                <span class="src-sym">}</span></li>
+<li><a name="a234"></a>            <span class="src-sym">}</span></li>
+<li><a name="a235"></a>            <a href="http://www.php.net/closedir">closedir</a><span class="src-sym">(</span><span class="src-var">$handle</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a236"></a>        <span class="src-sym">}</span></li>
+<li><a name="a237"></a>        <span class="src-var">$fileName </span>= <span class="src-sym">(</span><span class="src-var">$in_file</span><span class="src-sym">) </span>? <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$documentName">documentName</a> : <span class="src-str">''</span><span class="src-sym">;</span></li>
+<li><a name="a238"></a>        <span class="src-var">$result </span>= <span class="src-var">$zip</span><span class="src-sym">-&gt;</span><span class="src-id">zipFile</span><span class="src-sym">(</span><span class="src-var">$fileName</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a239"></a>        <span class="src-comm">// On supprime le répertoire généré</span></li>
+<li><a name="a240"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$keepGeneratedRep">keepGeneratedRep</a><span class="src-sym">)</span></li>
+<li><a name="a241"></a>            <span class="src-id"><a href="../OpenOfficeGeneration/Fonction.html">Fonction</a></span><span class="src-sym">::</span><a href="../OpenOfficeGeneration/Fonction.html#methoddelDir">delDir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a242"></a>        <span class="src-comm">// On retourne le fichier ZIP</span></li>
+<li><a name="a243"></a>        <span class="src-key">return </span><span class="src-var">$result</span><span class="src-sym">;</span></li>
+<li><a name="a244"></a>    <span class="src-sym">}</span></li>
+<li><a name="a245"></a>    </li>
+<li><a name="a246"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a247"></a><span class="src-doc">     * Fonction qui créé l'output du fichier avec headers et tutti quanti</span></li>
+<li><a name="a248"></a><span class="src-doc">     *</span></li>
+<li><a name="a249"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a250"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">void </span></li>
+<li><a name="a251"></a><span class="src-doc">     */</span></li>
+<li><a name="a252"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#methodoutput">output</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a253"></a>        <a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'Content-type: '</span>.<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$contentType">contentType</a><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a254"></a>        <a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'Content-Disposition: attachment; filename='</span>.<span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$documentName">documentName</a><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a255"></a>        <a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'Cache-control: no-store, no-cache, must-revalidate'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a256"></a>        <a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'Pragma: no-cache'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a257"></a>        <a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'Last-Modified: '</span>.<a href="http://www.php.net/gmdate">gmdate</a><span class="src-sym">(</span><span class="src-str">'D, d M Y H:i:s'</span><span class="src-sym">)</span>.<span class="src-str">' GMT'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a258"></a>        <a href="http://www.php.net/header">header</a><span class="src-sym">(</span><span class="src-str">'Expires: 0'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a259"></a>        </li>
+<li><a name="a260"></a>        echo <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#methodsave">save</a><span class="src-sym">(</span><span class="src-id">false</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a261"></a>    <span class="src-sym">}</span></li>
+<li><a name="a262"></a>    </li>
+<li><a name="a263"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a264"></a><span class="src-doc">     * Fonction qui retourne le flux XML du ou des fichiers composant le document</span></li>
+<li><a name="a265"></a><span class="src-doc">     *</span></li>
+<li><a name="a266"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a267"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">           </span><span class="src-doc-var">$file </span><span class="src-doc">                   Le fichier dont on veut voir le flux</span></li>
+<li><a name="a268"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc">    </span><span class="src-doc-type">boolean </span><span class="src-doc">           </span><span class="src-doc-var">$xmp </span><span class="src-doc">                   True pour afficher le flux entre des balises &lt;xmp&gt;</span></li>
+<li><a name="a269"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">                                   Le flux XML du fichier</span></li>
+<li><a name="a270"></a><span class="src-doc">     */</span></li>
+<li><a name="a271"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#methodsaveXML">saveXML</a><span class="src-sym">(</span><span class="src-var">$file </span>= <span class="src-str">''</span><span class="src-sym">, </span><span class="src-var">$xmp </span>= <span class="src-id">false</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a272"></a>        <span class="src-var">$xml </span>= <span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$xmp</span><span class="src-sym">) </span>? <span class="src-str">'' </span>: <span class="src-str">'&lt;xmp&gt;'</span><span class="src-sym">;</span></li>
+<li><a name="a273"></a>        <span class="src-key">switch </span><span class="src-sym">(</span><span class="src-var">$file</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a274"></a>            <span class="src-key">case </span><span class="src-str">'manifest'</span>: <span class="src-var">$xml </span>.= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$manifest">manifest</a><span class="src-sym">-&gt;</span><span class="src-id">saveXML</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">; </span><span class="src-key">break</span><span class="src-sym">;</span></li>
+<li><a name="a275"></a>            <span class="src-key">case </span><span class="src-str">'meta'</span>:     <span class="src-var">$xml </span>.= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$meta">meta</a><span class="src-sym">-&gt;</span><span class="src-id">saveXML</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;     </span><span class="src-key">break</span><span class="src-sym">;</span></li>
+<li><a name="a276"></a>            <span class="src-key">case </span><span class="src-str">'settings'</span>: <span class="src-var">$xml </span>.= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$settings">settings</a><span class="src-sym">-&gt;</span><span class="src-id">saveXML</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">; </span><span class="src-key">break</span><span class="src-sym">;</span></li>
+<li><a name="a277"></a>            <span class="src-key">case </span><span class="src-str">'styles'</span>:   <span class="src-var">$xml </span>.= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$styles">styles</a><span class="src-sym">-&gt;</span><span class="src-id">saveXML</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;   </span><span class="src-key">break</span><span class="src-sym">;</span></li>
+<li><a name="a278"></a>            <span class="src-key">case </span><span class="src-str">'content'</span>:  <span class="src-var">$xml </span>.= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$content">content</a><span class="src-sym">-&gt;</span><span class="src-id">saveXML</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;  </span><span class="src-key">break</span><span class="src-sym">;</span></li>
+<li><a name="a279"></a>            <span class="src-key">default</span>:</li>
+<li><a name="a280"></a>                <span class="src-var">$xml </span>.= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$manifest">manifest</a><span class="src-sym">-&gt;</span><span class="src-id">saveXML</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;    </span></li>
+<li><a name="a281"></a>                <span class="src-var">$xml </span>.= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$meta">meta</a><span class="src-sym">-&gt;</span><span class="src-id">saveXML</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a282"></a>                <span class="src-var">$xml </span>.= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$settings">settings</a><span class="src-sym">-&gt;</span><span class="src-id">saveXML</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a283"></a>                <span class="src-var">$xml </span>.= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$styles">styles</a><span class="src-sym">-&gt;</span><span class="src-id">saveXML</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a284"></a>                <span class="src-var">$xml </span>.= <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$content">content</a><span class="src-sym">-&gt;</span><span class="src-id">saveXML</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a285"></a>        <span class="src-sym">}</span></li>
+<li><a name="a286"></a>        <span class="src-var">$xml </span>.= <span class="src-sym">(</span><span class="src-sym">!</span><span class="src-var">$xmp</span><span class="src-sym">) </span>? <span class="src-str">'' </span>: <span class="src-str">'&lt;/xmp&gt;'</span><span class="src-sym">;</span></li>
+<li><a name="a287"></a>        <span class="src-key">return </span><span class="src-var">$xml</span><span class="src-sym">;</span></li>
+<li><a name="a288"></a>    <span class="src-sym">}</span></li>
+<li><a name="a289"></a>    </li>
+<li><a name="a290"></a>    </li>
+<li><a name="a291"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a292"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a293"></a><span class="src-doc">     * Méthodes getters et setters</span></li>
+<li><a name="a294"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a295"></a><span class="src-doc">     */</span></li>
+<li><a name="a296"></a>    </li>
+<li><a name="a297"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a298"></a><span class="src-doc">     * Fonction qui détermine si on veut garder le dossier généré ou non</span></li>
+<li><a name="a299"></a><span class="src-doc">     *</span></li>
+<li><a name="a300"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a301"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@param </span><span class="src-doc">    </span><span class="src-doc-type">boolean </span><span class="src-doc">           </span><span class="src-doc-var">$choix </span><span class="src-doc">                   True pour le garder, false pour l'effacer</span></li>
+<li><a name="a302"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">void </span></li>
+<li><a name="a303"></a><span class="src-doc">     */</span></li>
+<li><a name="a304"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#methodkeepGeneratedDir">keepGeneratedDir</a><span class="src-sym">(</span><span class="src-var">$choix</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a305"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-var">$choix</span><span class="src-sym">)</span></li>
+<li><a name="a306"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$keepGeneratedRep">keepGeneratedRep</a> = <span class="src-id">true</span><span class="src-sym">;</span></li>
+<li><a name="a307"></a>        <span class="src-key">else </span></li>
+<li><a name="a308"></a>            <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$keepGeneratedRep">keepGeneratedRep</a> = <span class="src-id">false</span><span class="src-sym">;    </span></li>
+<li><a name="a309"></a>    <span class="src-sym">}</span></li>
+<li><a name="a310"></a>    </li>
+<li><a name="a311"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a312"></a><span class="src-doc">     * Fonction qui retourne le nom du dossier généré pour la sauvegarde</span></li>
+<li><a name="a313"></a><span class="src-doc">     *</span></li>
+<li><a name="a314"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a315"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">                                   Le nom du dossier généré</span></li>
+<li><a name="a316"></a><span class="src-doc">     */</span></li>
+<li><a name="a317"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#methodgetGeneratedDirName">getGeneratedDirName</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a318"></a>        <span class="src-key">return </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a><span class="src-sym">;    </span></li>
+<li><a name="a319"></a>    <span class="src-sym">}</span></li>
+<li><a name="a320"></a>    </li>
+<li><a name="a321"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a322"></a><span class="src-doc">     * Fonction qui retourne le nom du dossier de templates</span></li>
+<li><a name="a323"></a><span class="src-doc">     *</span></li>
+<li><a name="a324"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a325"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">                                   Le nom du dossier de templates</span></li>
+<li><a name="a326"></a><span class="src-doc">     */</span></li>
+<li><a name="a327"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#methodgetTemplatesDirName">getTemplatesDirName</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a328"></a>        <span class="src-key">return </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">pathTemplates</a><span class="src-sym">;    </span></li>
+<li><a name="a329"></a>    <span class="src-sym">}</span></li>
+<li><a name="a330"></a>    </li>
+<li><a name="a331"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a332"></a><span class="src-doc">     * Fonction qui retourne l'extension du document généré</span></li>
+<li><a name="a333"></a><span class="src-doc">     *</span></li>
+<li><a name="a334"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a335"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">                                   L'extension du document généré</span></li>
+<li><a name="a336"></a><span class="src-doc">     */</span></li>
+<li><a name="a337"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#methodgetExtensionFile">getExtensionFile</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a338"></a>        <span class="src-key">return </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$extension">extension</a><span class="src-sym">;    </span></li>
+<li><a name="a339"></a>    <span class="src-sym">}</span></li>
+<li><a name="a340"></a>    </li>
+<li><a name="a341"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a342"></a><span class="src-doc">     * Fonction qui retourne le type de contenu du document généré (content-type)</span></li>
+<li><a name="a343"></a><span class="src-doc">     *</span></li>
+<li><a name="a344"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     public</span></li>
+<li><a name="a345"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">                                   Le type de contenu (content-type)</span></li>
+<li><a name="a346"></a><span class="src-doc">     */</span></li>
+<li><a name="a347"></a>    <span class="src-key">public </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#methodgetContentTypeFile">getContentTypeFile</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a348"></a>        <span class="src-key">return </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$contentType">contentType</a><span class="src-sym">;    </span></li>
+<li><a name="a349"></a>    <span class="src-sym">}</span></li>
+<li><a name="a350"></a>    </li>
+<li><a name="a351"></a>    </li>
+<li><a name="a352"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a353"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a354"></a><span class="src-doc">     * Méthodes privées</span></li>
+<li><a name="a355"></a><span class="src-doc">     *-------------------------------------------------------------------------------</span></li>
+<li><a name="a356"></a><span class="src-doc">     */</span></li>
+<li><a name="a357"></a>    </li>
+<li><a name="a358"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a359"></a><span class="src-doc">     * Fonction qui sauvegarde les fichiers dans le dossier de sauvegarde</span></li>
+<li><a name="a360"></a><span class="src-doc">     *</span></li>
+<li><a name="a361"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     protected</span></li>
+<li><a name="a362"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">void </span></li>
+<li><a name="a363"></a><span class="src-doc">     */</span></li>
+<li><a name="a364"></a>    <span class="src-key">protected </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#method_saveFile">_saveFile</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a365"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/is_dir">is_dir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a><span class="src-sym">))</span></li>
+<li><a name="a366"></a>            <a href="http://www.php.net/mkdir">mkdir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a><span class="src-sym">, </span><span class="src-num">0777</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a367"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/is_dir">is_dir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/Configurations2'</span><span class="src-sym">))</span></li>
+<li><a name="a368"></a>            <a href="http://www.php.net/mkdir">mkdir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/Configurations2'</span><span class="src-sym">, </span><span class="src-num">0777</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a369"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/is_dir">is_dir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/Pictures'</span><span class="src-sym">))</span></li>
+<li><a name="a370"></a>            <a href="http://www.php.net/mkdir">mkdir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/Pictures'</span><span class="src-sym">, </span><span class="src-num">0777</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a371"></a>        <span class="src-key">if </span><span class="src-sym">(</span><span class="src-sym">!</span><a href="http://www.php.net/is_dir">is_dir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/Thumbnails'</span><span class="src-sym">))</span></li>
+<li><a name="a372"></a>            <a href="http://www.php.net/mkdir">mkdir</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/Thumbnails'</span><span class="src-sym">, </span><span class="src-num">0777</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a373"></a>        <a href="http://www.php.net/copy">copy</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">pathTemplates</a>.<span class="src-str">'/Thumbnails/thumbnail.png'</span><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/Thumbnails/thumbnail.png'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a374"></a>        <a href="http://www.php.net/copy">copy</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">pathTemplates</a>.<span class="src-str">'/Configurations2/EMPTY.log'</span><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/Configurations2/EMPTY.log'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a375"></a>        <a href="http://www.php.net/copy">copy</a><span class="src-sym">(</span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathTemplates">pathTemplates</a>.<span class="src-str">'/Pictures/EMPTY.log'</span><span class="src-sym">, </span><span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$pathSave">pathSave</a>.<span class="src-str">'/Pictures/EMPTY.log'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a376"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$manifest">manifest</a><span class="src-sym">-&gt;</span><span class="src-id">saveFile</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a377"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$meta">meta</a><span class="src-sym">-&gt;</span><span class="src-id">saveFile</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a378"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$settings">settings</a><span class="src-sym">-&gt;</span><span class="src-id">saveFile</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a379"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$styles">styles</a><span class="src-sym">-&gt;</span><span class="src-id">saveFile</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a380"></a>        <span class="src-var">$this</span><span class="src-sym">-&gt;</span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#var$content">content</a><span class="src-sym">-&gt;</span><span class="src-id">saveFile</span><span class="src-sym">(</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a381"></a>    <span class="src-sym">}</span></li>
+<li><a name="a382"></a>    </li>
+<li><a name="a383"></a>    <span class="src-doc">/**</span></li>
+<li><a name="a384"></a><span class="src-doc">     * Fonction qui créé un nom de répertoire temporaire</span></li>
+<li><a name="a385"></a><span class="src-doc">     *</span></li>
+<li><a name="a386"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@access</span><span class="src-doc">     protected</span></li>
+<li><a name="a387"></a><span class="src-doc">     * </span><span class="src-doc-coretag">@return </span><span class="src-doc">    </span><span class="src-doc-type">string </span><span class="src-doc">                                   Le nom du répertoire temporaire</span></li>
+<li><a name="a388"></a><span class="src-doc">     */</span></li>
+<li><a name="a389"></a>    <span class="src-key">protected </span><span class="src-key">function </span><a href="../OpenOfficeGeneration/OpenOfficeSpreadsheet.html#method_setTempDirName">_setTempDirName</a><span class="src-sym">(</span><span class="src-sym">) </span><span class="src-sym">{</span></li>
+<li><a name="a390"></a>        <span class="src-comm">// Création du dossier temporaire pour la sauvegarde</span></li>
+<li><a name="a391"></a>        <span class="src-key">if </span><span class="src-sym">(</span><a href="http://www.php.net/function_exists">function_exists</a><span class="src-sym">(</span><span class="src-str">'microtime'</span><span class="src-sym">))</span></li>
+<li><a name="a392"></a>            <span class="src-comm">// Format du nom : temp_{timestamp Unix}{2 digit microsecondes}</span></li>
+<li><a name="a393"></a>            <span class="src-var">$docSave </span>= <span class="src-str">'temp_'</span>.<a href="http://www.php.net/str_replace">str_replace</a><span class="src-sym">(</span><span class="src-str">'.'</span><span class="src-sym">, </span><span class="src-str">''</span><span class="src-sym">, </span><a href="http://www.php.net/microtime">microtime</a><span class="src-sym">(</span><span class="src-id">true</span><span class="src-sym">))</span><span class="src-sym">;</span></li>
+<li><a name="a394"></a>        <span class="src-key">else</span></li>
+<li><a name="a395"></a>            <span class="src-comm">// Format du nom : temp_{timestamp Unix}</span></li>
+<li><a name="a396"></a>            <span class="src-var">$docSave </span>= <span class="src-str">'temp_'</span>.<a href="http://www.php.net/date">date</a><span class="src-sym">(</span><span class="src-str">'U'</span><span class="src-sym">)</span><span class="src-sym">;</span></li>
+<li><a name="a397"></a>        <span class="src-key">return </span><span class="src-var">$docSave</span><span class="src-sym">;</span></li>
+<li><a name="a398"></a>    <span class="src-sym">}</span></li>
+<li><a name="a399"></a>    </li>
+<li><a name="a400"></a><span class="src-sym">}</span></li>
+<li><a name="a401"></a>&nbsp;</li>
+<li><a name="a402"></a><span class="src-php">?&gt;</span></li>
+</ol></pre></div>
+</div>
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Sun, 07 May 2006 18:27:50 +0200 by <a href="http://www.phpdoc.org">phpDocumentor 1.3.0RC4</a>
+	      </div>
+      </td></tr></table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>

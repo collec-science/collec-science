@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="fr-fr">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <title>Gestion des droits</title>
+    <meta content="Eric Quinton" name="author">
+    <link rel="stylesheet" href="../../display/CSS/blue.css" type="text/css">
+    <link rel="stylesheet" href="display/CSS/blue.css" type="text/css">
+  </head>
+  <body>
+    <h1>Gestion des droits</h1>
+    La gestion des droits s'effectue en deux temps. La première, c'est
+    l'identification de l'utilisateur, qui peut être réalisée soit en base de
+    données, soit en s'appuyant sur un annuaire LDAP, soit en utilisant un
+    service unique d'identification (SSO/CAS).<br>
+    <br>
+    A ce login vont être affectés des droits. Les droits sont gérés par
+    l'application phpgacl, application qui permet également de gérer de manière
+    centralisée les droits pour un ensemble d'applications. PhpGACL propose tout
+    un tas de mécanismes pour gérer de façon très fine les droits.<br>
+    <h2>Principe de PhpGACL</h2>
+    PhpGACL gère 2 types d'objets :<br>
+    – ACO ( Access Control Objects ) : objets auxquels ont donne les droits.<br>
+    – ARO ( Access Request Object ) : utilisateur qui souhaite accéder aux
+    objets.<br>
+    PhpGACL permet d'attribuer des droits positifs (accès autorisés) ou bien des
+    droits<br>
+    négatifs (accès refusés).<br>
+    Les utilisateurs ARO peuvent faire partie de plusieurs groupes, qui auront
+    des droits sur les objets ACO.<br>
+    <h2>Se connecter à l'application</h2>
+    Quelque soit le mode d'identification qui est utilisé dans l'application
+    (gestion par base de données, annuaire LDAP ou SSO),&nbsp;vous devez
+    disposer du login admin, qui vous permettra de manipuler les droits. Si vous
+    ne pouvez pas vous connecter avec le login admin, vous avez deux possiblités
+    :<br>
+    - vous basculez temporairement le mode de fonctionnement de l'identification
+    en mode BDD, et vous identifiez avec le login <span style="font-style: italic;">admin</span>
+    (mot de passe par défaut : <span style="font-style: italic;">password</span>).<br>
+    - vous modifiez&nbsp;manuellement la table <span style="font-style: italic;">gaclaro</span>,
+    pour remplacer le login admin par le votre.<br>
+    &nbsp;Vous pourrez alors créer les logins qui vous intéressent dans
+    l'application de gestion des droits, et basculer ensuite sur le mode
+    d'identification qui vous convient.<br>
+    <h2>Manipuler les droits</h2>
+    Lancez l'application, puis cliquez sur Paramétrage, puis
+    Paramétrage&gt;Gestion des droits.<br>
+    <br>
+    Dans l'onglet [ACL admin], cliquer sur Login, puis, dans la zone "Access
+    Request Objects", sur [Edit]. Renseigner alors tous les logins des personnes
+    qui devront soit consulter les données, soit gérer l'application.<br>
+    <br>
+    Dans l'onglet [ARO Group Admin], pour chaque ligne consult, gestion, admin,
+    cliquer sur [Assign ARO], puis sélectionner les logins qui seront autorisés
+    pour ce niveau (clic sur Login, sélection des logins, puis [&gt;&gt;].
+    N'oubliez pas de valider par [Submit].
+  </body>
+</html>

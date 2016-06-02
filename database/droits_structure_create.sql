@@ -1,139 +1,199 @@
-create schema gacl;
 
-CREATE TABLE gacl.aclacl (
+create schema gacl;
+set search_path = gacl;
+
+CREATE TABLE aclacl (
                 aclaco_id INTEGER NOT NULL,
                 aclgroup_id INTEGER NOT NULL,
                 CONSTRAINT aclacl_pk PRIMARY KEY (aclaco_id, aclgroup_id)
 );
-COMMENT ON TABLE gacl.aclacl IS 'Table des droits attribués';
+COMMENT ON TABLE aclacl IS 'Table des droits attribués';
 
 
-CREATE SEQUENCE gacl.aclaco_aclaco_id_seq;
+CREATE SEQUENCE aclaco_aclaco_id_seq;
 
-CREATE TABLE gacl.aclaco (
-                aclaco_id INTEGER NOT NULL DEFAULT nextval('gacl.aclaco_aclaco_id_seq'),
+CREATE TABLE aclaco (
+                aclaco_id INTEGER NOT NULL DEFAULT nextval('aclaco_aclaco_id_seq'),
                 aclappli_id INTEGER NOT NULL,
                 aco VARCHAR NOT NULL,
                 CONSTRAINT aclaco_pk PRIMARY KEY (aclaco_id)
 );
-COMMENT ON TABLE gacl.aclaco IS 'Table des droits gérés';
+COMMENT ON TABLE aclaco IS 'Table des droits gérés';
 
 
-ALTER SEQUENCE gacl.aclaco_aclaco_id_seq OWNED BY gacl.aclaco.aclaco_id;
+ALTER SEQUENCE aclaco_aclaco_id_seq OWNED BY aclaco.aclaco_id;
 
-CREATE SEQUENCE gacl.aclappli_aclappli_id_seq;
+CREATE SEQUENCE aclappli_aclappli_id_seq;
 
-CREATE TABLE gacl.aclappli (
-                aclappli_id INTEGER NOT NULL DEFAULT nextval('gacl.aclappli_aclappli_id_seq'),
+CREATE TABLE aclappli (
+                aclappli_id INTEGER NOT NULL DEFAULT nextval('aclappli_aclappli_id_seq'),
                 appli VARCHAR NOT NULL,
                 applidetail VARCHAR,
                 CONSTRAINT aclappli_pk PRIMARY KEY (aclappli_id)
 );
-COMMENT ON TABLE gacl.aclappli IS 'Table des applications gérées';
-COMMENT ON COLUMN gacl.aclappli.appli IS 'Nom de l''application pour la gestion des droits';
-COMMENT ON COLUMN gacl.aclappli.applidetail IS 'Description de l''application';
+COMMENT ON TABLE aclappli IS 'Table des applications gérées';
+COMMENT ON COLUMN aclappli.appli IS 'Nom de l''application pour la gestion des droits';
+COMMENT ON COLUMN aclappli.applidetail IS 'Description de l''application';
 
 
-ALTER SEQUENCE gacl.aclappli_aclappli_id_seq OWNED BY gacl.aclappli.aclappli_id;
+ALTER SEQUENCE aclappli_aclappli_id_seq OWNED BY aclappli.aclappli_id;
 
-CREATE SEQUENCE gacl.aclgroup_aclgroup_id_seq;
+CREATE SEQUENCE aclgroup_aclgroup_id_seq;
 
-CREATE TABLE gacl.aclgroup (
-                aclgroup_id INTEGER NOT NULL DEFAULT nextval('gacl.aclgroup_aclgroup_id_seq'),
+CREATE TABLE aclgroup (
+                aclgroup_id INTEGER NOT NULL DEFAULT nextval('aclgroup_aclgroup_id_seq'),
                 groupe VARCHAR NOT NULL,
                 aclgroup_id_parent INTEGER,
                 CONSTRAINT aclgroup_pk PRIMARY KEY (aclgroup_id)
 );
-COMMENT ON TABLE gacl.aclgroup IS 'Groupes des logins';
+COMMENT ON TABLE aclgroup IS 'Groupes des logins';
 
 
-ALTER SEQUENCE gacl.aclgroup_aclgroup_id_seq OWNED BY gacl.aclgroup.aclgroup_id;
+ALTER SEQUENCE aclgroup_aclgroup_id_seq OWNED BY aclgroup.aclgroup_id;
 
-CREATE SEQUENCE gacl.acllogin_acllogin_id_seq;
+CREATE SEQUENCE acllogin_acllogin_id_seq;
 
-CREATE TABLE gacl.acllogin (
-                acllogin_id INTEGER NOT NULL DEFAULT nextval('gacl.acllogin_acllogin_id_seq'),
+CREATE TABLE acllogin (
+                acllogin_id INTEGER NOT NULL DEFAULT nextval('acllogin_acllogin_id_seq'),
                 login VARCHAR NOT NULL,
                 logindetail VARCHAR NOT NULL,
                 CONSTRAINT acllogin_pk PRIMARY KEY (acllogin_id)
 );
-COMMENT ON TABLE gacl.acllogin IS 'Table des logins des utilisateurs autorisés';
-COMMENT ON COLUMN gacl.acllogin.logindetail IS 'Nom affiché';
+COMMENT ON TABLE acllogin IS 'Table des logins des utilisateurs autorisés';
+COMMENT ON COLUMN acllogin.logindetail IS 'Nom affiché';
 
 
-ALTER SEQUENCE gacl.acllogin_acllogin_id_seq OWNED BY gacl.acllogin.acllogin_id;
+ALTER SEQUENCE acllogin_acllogin_id_seq OWNED BY acllogin.acllogin_id;
 
-CREATE TABLE gacl.acllogingroup (
+CREATE TABLE acllogingroup (
                 acllogin_id INTEGER NOT NULL,
                 aclgroup_id INTEGER NOT NULL,
                 CONSTRAINT acllogingroup_pk PRIMARY KEY (acllogin_id, aclgroup_id)
 );
-COMMENT ON TABLE gacl.acllogingroup IS 'Table des relations entre les logins et les groupes';
+COMMENT ON TABLE acllogingroup IS 'Table des relations entre les logins et les groupes';
 
 
 
-ALTER TABLE gacl.aclacl ADD CONSTRAINT aclaco_aclacl_fk
+ALTER TABLE aclacl ADD CONSTRAINT aclaco_aclacl_fk
 FOREIGN KEY (aclaco_id)
-REFERENCES gacl.aclaco (aclaco_id)
+REFERENCES aclaco (aclaco_id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE gacl.aclaco ADD CONSTRAINT aclappli_aclaco_fk
+ALTER TABLE aclaco ADD CONSTRAINT aclappli_aclaco_fk
 FOREIGN KEY (aclappli_id)
-REFERENCES gacl.aclappli (aclappli_id)
+REFERENCES aclappli (aclappli_id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE gacl.aclacl ADD CONSTRAINT aclgroup_aclacl_fk
+ALTER TABLE aclacl ADD CONSTRAINT aclgroup_aclacl_fk
 FOREIGN KEY (aclgroup_id)
-REFERENCES gacl.aclgroup (aclgroup_id)
+REFERENCES aclgroup (aclgroup_id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE gacl.aclgroup ADD CONSTRAINT aclgroup_aclgroup_fk
+ALTER TABLE aclgroup ADD CONSTRAINT aclgroup_aclgroup_fk
 FOREIGN KEY (aclgroup_id_parent)
-REFERENCES gacl.aclgroup (aclgroup_id)
+REFERENCES aclgroup (aclgroup_id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE gacl.acllogingroup ADD CONSTRAINT aclgroup_acllogingroup_fk
+ALTER TABLE acllogingroup ADD CONSTRAINT aclgroup_acllogingroup_fk
 FOREIGN KEY (aclgroup_id)
-REFERENCES gacl.aclgroup (aclgroup_id)
+REFERENCES aclgroup (aclgroup_id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE gacl.acllogingroup ADD CONSTRAINT acllogin_acllogingroup_fk
+ALTER TABLE acllogingroup ADD CONSTRAINT acllogin_acllogingroup_fk
 FOREIGN KEY (acllogin_id)
-REFERENCES gacl.acllogin (acllogin_id)
+REFERENCES acllogin (acllogin_id)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-CREATE TABLE gacl.log
+CREATE TABLE log
 (
    log_id       serial        NOT NULL,
    login        varchar(32)   NOT NULL,
    nom_module   varchar,
    log_date     timestamp     NOT NULL,
-   commentaire  varchar
+   commentaire  varchar,
+   ipaddress varchar
 );
 
--- Column log_id is associated with sequence gacl.log_log_id_seq
+-- Column log_id is associated with sequence log_log_id_seq
 
-ALTER TABLE gacl.log
+ALTER TABLE log
    ADD CONSTRAINT log_pk
    PRIMARY KEY (log_id);
 
-CREATE INDEX log_date_idx ON gacl.log USING btree (log_date);
-CREATE INDEX log_login_idx ON gacl.log USING btree (login);
+CREATE INDEX log_date_idx ON log USING btree (log_date);
+CREATE INDEX log_login_idx ON log USING btree (login);
 
 
-COMMENT ON TABLE gacl.log IS 'Liste des connexions ou des actions enregistrées';
-COMMENT ON COLUMN gacl.log.log_date IS 'Heure de connexion';
-COMMENT ON COLUMN gacl.log.commentaire IS 'Donnees complementaires enregistrees';
+COMMENT ON TABLE log IS 'Liste des connexions ou des actions enregistrées';
+COMMENT ON COLUMN log.log_date IS 'Heure de connexion';
+COMMENT ON COLUMN log.commentaire IS 'Donnees complementaires enregistrees';
 
+/*
+ * Gestion des logins de connexion
+ */
+ 
+CREATE TABLE logingestion (
+    id integer NOT NULL,
+    login character varying(32) NOT NULL,
+    password character varying(255),
+    nom character varying(32),
+    prenom character varying(32),
+    mail character varying(255),
+    datemodif date,
+    actif smallint default 1
+);
+ALTER TABLE ONLY logingestion
+    ADD CONSTRAINT pk_logingestion PRIMARY KEY (id);
+	
+CREATE SEQUENCE seq_logingestion_id
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    MAXVALUE 999999
+    CACHE 1;
+
+ALTER TABLE ONLY logingestion ALTER COLUMN id SET DEFAULT nextval('seq_logingestion_id'::regclass);
+
+insert into logingestion (id, login, password, nom) values (1, 'admin', 'cd916028a2d8a1b901e831246dd5b9b4d3832786ddc63bbf5af4b50d9fc98f50', 'Administrator');
+
+CREATE SEQUENCE login_oldpassword_login_oldpassword_id_seq;
+
+CREATE TABLE login_oldpassword (
+                login_oldpassword_id INTEGER NOT NULL DEFAULT nextval('login_oldpassword_login_oldpassword_id_seq'),
+                id INTEGER DEFAULT nextval('seq_logingestion_id'::regclass) NOT NULL,
+                password VARCHAR(255),
+                CONSTRAINT login_oldpassword_pk PRIMARY KEY (login_oldpassword_id)
+);
+COMMENT ON TABLE login_oldpassword IS 'Table contenant les anciens mots de passe';
+
+
+ALTER SEQUENCE login_oldpassword_login_oldpassword_id_seq OWNED BY login_oldpassword.login_oldpassword_id;
+
+ALTER TABLE login_oldpassword ADD CONSTRAINT logingestion_login_oldpassword_fk
+FOREIGN KEY (id)
+REFERENCES logingestion (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+/*
+ * Droits de base
+ */
+insert into aclappli (aclappli_id, appli) values (1, 'appli');
+insert into aclaco (aclaco_id, aclappli_id, aco) values (1, 1, 'admin');
+insert into acllogin (acllogin_id, login, logindetail) values (1, 'admin', 'admin');
+insert into aclgroup (aclgroup_id, groupe) values (1, 'admin');
+insert into acllogingroup (acllogin_id, aclgroup_id) values (1, 1);
+insert into aclacl (aclaco_id, aclgroup_id) values (1, 1);

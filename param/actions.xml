@@ -72,5 +72,11 @@
 	<acoWrite action="framework/droits/aco.php" param="write" droits="admin" retourok="appliDisplay" retourko="acoChange" modulebefore="acoChange" />
 	<acoDelete action="framework/droits/aco.php" param="delete" droits="admin" retoursuppr="appliDisplay" retourko="acoChange"  modulebefore="acoChange"/>
 
+<!-- Modules specifiques de l'application -->
+	<eventTypeList action="modules/param/eventType.php" param="list" droits="param" />
+	<eventTypeChange action="modules/param/eventType.php" param="change" droits="param" />
+	<eventTypeWrite action="modules/param/eventType.php" param="write" droits="param" retourok="eventTypeList" retourko="eventTypeChange" modulebefore="eventTypeChange" />
+	<eventTypeDelete action="modules/param/eventType.php" param="delete" droits="param" retoursuppr="eventTypeList" retourko="eventTypeChange"  modulebefore="eventTypeChange"/>
+
 </navigation>
 	

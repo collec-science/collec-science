@@ -90,7 +90,7 @@ $APPLI_nomDossierStockagePhotoTemp = "temp";
  */
 $GACL_dblogin = "proto";
 $GACL_dbpasswd = "proto";
-$GACL_aco = "appli";
+$GACL_aco = "col";
 $GACL_dsn = "pgsql:host=localhost;dbname=proto";
 $GACL_schema = "gacl";
 

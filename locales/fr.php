@@ -59,8 +59,22 @@ $LANG["menu"]["example2"] = "It's an example !";
 $LANG["menu"]["connexionvalue"] = "Connexion";
 $LANG["menu"]['connexiontitle'] = "S'identifier dans l'application";
 
+/*
+ * Entrees du menu pour l'application
+ */
+$LANG["menu"][50] = "Param";
+$LANG["menu"][51] = "Paramètres";
+$LANG["menu"][52] = "Type événement";
+$LANG["menu"][53] = "Types d'événement";
+$LANG["menu"][54] = "";
+$LANG["menu"][55] = "";
+$LANG["menu"][56] = "";
+$LANG["menu"][57] = "";
+$LANG["menu"][58] = "";
+$LANG["menu"][59] = "";
+
 $LANG["message"][0] = "Bienvenue"; 
-$LANG["message"][1] = "prototypephp - titre de l'application";
+$LANG["message"][1] = "GESTION DES ÉCHANTILLONS";
 $LANG["message"][2] = "Module administration";
 $LANG["message"][3] = "Module gestion";
 $LANG["message"][4] = "Suppression effectuée";

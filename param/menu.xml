@@ -7,6 +7,9 @@
 <item value="50" title="51" droits="consult">
 	<item module="especeList" value="52" title="53" droits="consult"/>
 </item>
+<item module="parametre" value="50" title="51" droits="param">
+	<item module="eventTypeList" droits="param" value="52" title="53" />
+</item>
 <item module="administration" value="4" title="5" droits="admin">
 	<item module="loginList" menulevel="1" menuorder="9" droits="admin" title="3" value="2"/>
 	<item module="appliList" droits="admin" value="appliliste" title="applilistetitle"/>

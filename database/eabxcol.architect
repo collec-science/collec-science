@@ -40,7 +40,7 @@
     <column id="COL6" populated="true" UUID="d2cb61b2-5293-4d24-8c04-cd1a19327d7f" autoIncrement="false" autoIncrementSequenceName="container_type_container_type_id_seq" defaultValue="" name="container_type_id" nullable="0" physicalName="container_type_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL7" populated="true" UUID="43a2525b-4ea7-4368-a946-8eccdf2533af" autoIncrement="false" autoIncrementSequenceName="container_New Column_seq" defaultValue="" name="Parent_container_id" nullable="0" physicalName="Parent_container_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL7" populated="true" UUID="43a2525b-4ea7-4368-a946-8eccdf2533af" autoIncrement="false" autoIncrementSequenceName="container_New Column_seq" defaultValue="" name="parent_container_id" nullable="1" physicalName="parent_container_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL8" populated="true" UUID="1cd65734-b872-4175-bebc-b9a36eb16860" autoIncrement="false" autoIncrementSequenceName="container_container_range_seq" defaultValue="" name="container_range" nullable="1" physicalName="container_range" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -99,7 +99,7 @@ Contient les identifiants génériques</remarks>
     <column id="COL22" populated="true" UUID="af534c77-0be5-44ea-9f12-182712afd08c" autoIncrement="false" autoIncrementSequenceName="sample_sample_date_seq" defaultValue="" name="sample_date" nullable="1" physicalName="sample_date" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
      <remarks>Date de création de l&apos;échantillon physique</remarks>
     </column>
-    <column id="COL23" populated="true" UUID="04011289-d3f1-4e27-98a3-f7391103a68b" autoIncrement="false" autoIncrementSequenceName="sample_New Column_seq" defaultValue="" name="Parent_sample_id" nullable="0" physicalName="Parent_sample_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL23" populated="true" UUID="04011289-d3f1-4e27-98a3-f7391103a68b" autoIncrement="false" autoIncrementSequenceName="sample_New Column_seq" defaultValue="" name="parent_sample_id" nullable="1" physicalName="parent_sample_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     </folder>

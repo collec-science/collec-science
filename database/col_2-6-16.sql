@@ -6,7 +6,7 @@ CREATE TABLE "col"."container" (
                 "container_id" INTEGER NOT NULL DEFAULT nextval('"col"."container_container_id_seq"'),
                 "uid" INTEGER NOT NULL,
                 "container_type_id" INTEGER NOT NULL,
-                "Parent_container_id" INTEGER NOT NULL,
+                "parent_container_id" INTEGER,
                 "container_range" VARCHAR,
                 CONSTRAINT "container_pk" PRIMARY KEY ("container_id")
 );
@@ -159,7 +159,7 @@ CREATE TABLE "col"."sample" (
                 "sample_type_id" INTEGER NOT NULL,
                 "sample_creation_date" TIMESTAMP NOT NULL,
                 "sample_date" TIMESTAMP,
-                "Parent_sample_id" INTEGER NOT NULL,
+                "arent_sample_id" INTEGER,
                 CONSTRAINT "sample_pk" PRIMARY KEY ("sample_id")
 );
 COMMENT ON TABLE "col"."sample" IS 'Table des échantillons';

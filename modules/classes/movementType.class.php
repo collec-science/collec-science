@@ -5,22 +5,22 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-class Classe extends ObjetBDD {
+class MovementType extends ObjetBDD {
 	/**
 	 *
 	 * @param PDO $bdd
 	 * @param array $param
 	 */
 	function __construct($bdd, $param = array()) {
-		$this->table = "table";
+		$this->table = "movement_type";
 		$this->colonnes = array (
-				"id" => array (
+				"movement_type_id" => array (
 						"type" => 1,
 						"key" => 1,
 						"requis" => 1,
 						"defaultValue" => 0
 				),
-				"name" => array (
+				"movement_type_name" => array (
 						"type" => 0,
 						"requis" => 1
 				)
@@ -28,6 +28,5 @@ class Classe extends ObjetBDD {
 		parent::__construct ( $bdd, $param );
 	}
 }
-
 
 ?>

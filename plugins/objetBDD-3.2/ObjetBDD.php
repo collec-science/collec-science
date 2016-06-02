@@ -244,7 +244,6 @@ class ObjetBDD {
 	 * @var integer
 	 */
 	public $transformComma = 1;
-	
 	private $lastResultExec = false;
 	
 	/**
@@ -800,8 +799,8 @@ class ObjetBDD {
 							$valeur .= ", ";
 						}
 						$sql .= $cle;
-						$valeur .=":".$key;
-						$ds[$key] = $value;
+						$valeur .= ":" . $key;
+						$ds [$key] = $value;
 						$i ++;
 					} else {
 						if (strlen ( $value ) > 0) {
@@ -880,7 +879,7 @@ class ObjetBDD {
 			}
 		} else {
 			
-			if ($this->lastResultExec ) {
+			if ($this->lastResultExec) {
 				if ($this->cleMultiple == 1) {
 					$ret = 1;
 				} else {
@@ -1417,7 +1416,7 @@ class ObjetBDD {
 			echo "cle1 : $nomCle1<br>";
 			echo "cle2 : $nomCle2<br>";
 			echo "id : $id<br>";
-			printr($lignes);
+			printr ( $lignes );
 		}
 		/* Verification des types */
 		if (strlen ( $id ) == 0) {
@@ -1470,11 +1469,11 @@ class ObjetBDD {
 		$creation = array_diff ( $lignes, $intersect );
 		if ($this->debug_mode == 2) {
 			echo "intersect : ";
-			printr ($intersect);
+			printr ( $intersect );
 			echo "suppr : ";
-			printr ($suppr);
+			printr ( $suppr );
 			echo "creation : ";
-			printr ($creation);
+			printr ( $creation );
 		}
 		// Lancement des mises en fichier
 		// Gestion des suppressions
@@ -1494,7 +1493,7 @@ class ObjetBDD {
 			} catch ( PDOException $e ) {
 				if ($this->debug_mode > 0)
 					$this->addMessage ( $e->getMessage () );
-				throw new Exception ( $e->getMessage() );
+				throw new Exception ( $e->getMessage () );
 			}
 		}
 		/*
@@ -1517,7 +1516,7 @@ class ObjetBDD {
 			} catch ( PDOException $e ) {
 				if ($this->debug_mode > 0)
 					$this->addMessage ( $e->getMessage () );
-				throw new Exception ( $e->getMessage() );
+				throw new Exception ( $e->getMessage () );
 			}
 		}
 	}
@@ -1678,7 +1677,7 @@ class ObjetBDD {
 	function executeAsPrepared($sql, $data, $onlyExecute = false) {
 		if ($this->debug_mode == 2) {
 			echo "executeAsPrepared - $sql<br>";
-			printr($data);
+			printr ( $data );
 		}
 		try {
 			$stmt = $this->connection->prepare ( $sql );
@@ -1686,7 +1685,7 @@ class ObjetBDD {
 			 * Execution de la requete
 			 */
 			$this->lastResultExec = $stmt->execute ( $data );
-			if ( $this->lastResultExec && $onlyExecute == false) {
+			if ($this->lastResultExec && $onlyExecute == false) {
 				return $stmt->fetchAll ( PDO::FETCH_ASSOC );
 			} else
 				return $this->lastResultExec;

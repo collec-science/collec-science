@@ -99,9 +99,8 @@ setcookie ( session_name (), session_id (), time () + $APPLI_session_ttl, $cooki
  */
 if (is_file ( $paramIniFile )) {
 	$paramAppli = parse_ini_file ( $paramIniFile );
-	foreach ( $paramAppli as $key => $value ) {
+	foreach ( $paramAppli as $key => $value )
 		$$key = $value;
-	}
 }
 
 /*
@@ -147,7 +146,7 @@ if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
 /**
  * Verification du couple session/adresse IP
  */
-$ipaddress = getIPClientAddress();
+$ipaddress = getIPClientAddress ();
 if (isset ( $_SESSION ["remoteIP"] )) {
 	if ($_SESSION ["remoteIP"] != $ipaddress) {
 		// Tentative d'usurpation de session - on ferme la session
@@ -157,9 +156,9 @@ if (isset ( $_SESSION ["remoteIP"] )) {
 			$message = $LANG ["message"] [8];
 		}
 	}
-} else {
+} else
 	$_SESSION ["remoteIP"] = $ipaddress;
-/*
+	/*
  * Connexion a la base de donnees
  */
 if (! isset ( $bdd )) {
@@ -185,7 +184,7 @@ if (! isset ( $bdd )) {
 			$bdd_gacl = new PDO ( $GACL_dsn, $GACL_dblogin, $GACL_dbpasswd );
 		} catch ( PDOException $e ) {
 			if ($APPLI_modeDeveloppement == true)
-			print $e->getMessage () . "<br>";
+				print $e->getMessage () . "<br>";
 			$etaconn = false;
 		}
 		if ($etaconn == true) {
@@ -200,6 +199,7 @@ if (! isset ( $bdd )) {
 	} else
 		echo $LANG ["message"] [22];
 }
+
 /*
  * Activation de SMARTY
  */
@@ -263,4 +263,5 @@ if (! isset ( $_SESSION ["menu"] ) || $APPLI_modeDeveloppement == true) {
  * Chargement des traitements communs specifiques a l'application
  */
 include_once ("modules/common.inc.php");
+
 ?>

@@ -99,7 +99,7 @@ class ObjetBDD {
 	 */
 	public $cleMultiple = 0;
 	/**
-	 * @public $id_auto : booleen definissant le type d'id de la table (0=non auto, 1=auto, auto gere par valeur max())
+	 * @public $id_auto : booleen definissant le type d'id de la table (0=non auto, 1=auto, 2=auto gere par valeur max())
 	 */
 	public $id_auto = 1;
 	/**
@@ -120,7 +120,12 @@ class ObjetBDD {
 	 * array of char
 	 * separateurs utilisables en local (en saisie)
 	 */
-	public $sepValide;
+	public $sepValide = array (
+			"/",
+			"-",
+			".",
+			" " 
+	);
 	/**
 	 * @public $separateurLocal
 	 * char
@@ -257,18 +262,16 @@ class ObjetBDD {
 	 * @param PDO $p_connection        	
 	 * @param array $param        	
 	 */
-	function __construct(PDO &$p_connection, array $param = NULL) {
+	function __construct(PDO &$p_connection, array $param = array()) {
 		$this->connection = $p_connection;
-		$this->param = $param;
-		/**
-		 * valeurs par defaut / Defaults values *
+		if (! is_array ( $this->paramori ))
+			$this->paramori = $param;
+		if ( !is_array($this->param)) 
+			$this->param = $param;
+
+		/*
+		 * configuration de la connexion
 		 */
-		$this->sepValide = array (
-				"/",
-				"-",
-				".",
-				" " 
-		);
 		$this->typeDatabase = $this->connection->getAttribute ( $p_connection::ATTR_DRIVER_NAME );
 		
 		$this->connection->setAttribute ( $p_connection::ATTR_DEFAULT_FETCH_MODE, $p_connection::FETCH_ASSOC );

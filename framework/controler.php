@@ -171,7 +171,7 @@ while ( isset ( $module ) ) {
 		$log->setLog ( $_SESSION ["login"], $module, $motifErreur );
 	} catch ( Exception $e ) {
 		if ($OBJETBDD_debugmode > 0) {
-			$message = $dataClass->getErrorData ( 1 );
+			$message = $log->getErrorData ( 1 );
 		} else
 			$message = $LANG ["message"] [38];
 		if ($ERROR_display == 1)

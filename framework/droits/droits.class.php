@@ -6,10 +6,8 @@
  *  Creation 3 juin 2015
  */
 class Aclappli extends ObjetBDD {
-	function __construct($bdd, $param) {
-		$this->param = $param;
+	function __construct($bdd, $param=array()) {
 		$this->table = "aclappli";
-		$this->id_auto = "1";
 		$this->colonnes = array (
 				"aclappli_id" => array (
 						"type" => 1,
@@ -24,17 +22,12 @@ class Aclappli extends ObjetBDD {
 						"type" => 0 
 				) 
 		);
-		if (! is_array ( $param ))
-			$param == array ();
-		$param ["fullDescription"] = 1;
 		parent::__construct ( $bdd, $param );
 	}
 }
 class Aclaco extends ObjetBDD {
-	function __construct($bdd, $param) {
-		$this->param = $param;
+	function __construct($bdd, $param=array()) {
 		$this->table = "aclaco";
-		$this->id_auto = "1";
 		$this->colonnes = array (
 				"aclaco_id" => array (
 						"type" => 1,
@@ -51,9 +44,6 @@ class Aclaco extends ObjetBDD {
 						"requis" => 0 
 				) 
 		);
-		if (! is_array ( $param ))
-			$param == array ();
-		$param ["fullDescription"] = 1;
 		parent::__construct ( $bdd, $param );
 	}
 	
@@ -123,11 +113,8 @@ class Aclaco extends ObjetBDD {
  *        
  */
 class Acllogin extends ObjetBDD {
-	function __construct($bdd, $param) {
-		$this->param = $param;
-		$this->paramori = $param;
+	function __construct($bdd, $param=array()) {
 		$this->table = "acllogin";
-		$this->id_auto = "1";
 		$this->colonnes = array (
 				"acllogin_id" => array (
 						"type" => 1,
@@ -143,9 +130,6 @@ class Acllogin extends ObjetBDD {
 						"requis" => 1 
 				) 
 		);
-		if (! is_array ( $param ))
-			$param == array ();
-		$param ["fullDescription"] = 1;
 		parent::__construct ( $bdd, $param );
 	}
 	
@@ -260,11 +244,8 @@ class Acllogin extends ObjetBDD {
  *        
  */
 class Aclgroup extends ObjetBDD {
-	function __construct($bdd, $param) {
-		$this->paramori = $param;
-		$this->param = $param;
+	function __construct($bdd, $param=array()) {
 		$this->table = "aclgroup";
-		$this->id_auto = "1";
 		$this->colonnes = array (
 				"aclgroup_id" => array (
 						"type" => 1,
@@ -280,9 +261,6 @@ class Aclgroup extends ObjetBDD {
 						"parentAttrib" => 1 
 				) 
 		);
-		if (! is_array ( $param ))
-			$param == array ();
-		$param ["fullDescription"] = 1;
 		parent::__construct ( $bdd, $param );
 	}
 	/**

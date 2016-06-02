@@ -352,3 +352,8 @@ REFERENCES "col"."sample_type" ("sample_type_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
+/*
+ * Parametres par defaut
+ */
+insert into col.movement_type (movement_type_id, movement_type_name) values (1, 'Entrée/Entry'),(2, 'Sortie/Exit');

@@ -191,9 +191,155 @@ NOT DEFERRABLE;
 /*
  * Droits de base
  */
-insert into aclappli (aclappli_id, appli) values (1, 'appli');
-insert into aclaco (aclaco_id, aclappli_id, aco) values (1, 1, 'admin');
+
+
+INSERT INTO aclappli
+(
+  appli,
+  applidetail
+)
+VALUES
+(
+  'col',
+  'Gestion des collections d''''échantillons'
+);
+
+INSERT INTO aclgroup
+(
+  groupe,
+  aclgroup_id_parent
+)
+VALUES
+(
+  'admin',
+  NULL
+);
+
+INSERT INTO aclgroup
+(
+  groupe,
+  aclgroup_id_parent
+)
+VALUES
+(
+  'projet',
+  2
+);
+
+INSERT INTO aclgroup
+(
+  groupe,
+  aclgroup_id_parent
+)
+VALUES
+(
+  'gestion',
+  NULL
+);
+
+INSERT INTO aclgroup
+(
+  groupe,
+  aclgroup_id_parent
+)
+VALUES
+(
+  'param',
+  NULL
+);
+
+INSERT INTO aclaco
+(
+  aclappli_id,
+  aco
+)
+VALUES
+(
+  1,
+  'admin'
+);
+
+INSERT INTO aclaco
+(
+  aclappli_id,
+  aco
+)
+VALUES
+(
+  1,
+  'gestion'
+);
+
+INSERT INTO aclaco
+(
+  aclappli_id,
+  aco
+)
+VALUES
+(
+  1,
+  'param'
+);
+
+INSERT INTO aclaco
+(
+  aclappli_id,
+  aco
+)
+VALUES
+(
+  1,
+  'projet'
+);
+
+INSERT INTO aclacl
+(
+  aclaco_id,
+  aclgroup_id
+)
+VALUES
+(
+  1,
+  1
+);
+
+INSERT INTO aclacl
+(
+  aclaco_id,
+  aclgroup_id
+)
+VALUES
+(
+  3,
+  3
+);
+
+INSERT INTO aclacl
+(
+  aclaco_id,
+  aclgroup_id
+)
+VALUES
+(
+  4,
+  2
+);
+
+INSERT INTO aclacl
+(
+  aclaco_id,
+  aclgroup_id
+)
+VALUES
+(
+  2,
+  4
+);
+
 insert into acllogin (acllogin_id, login, logindetail) values (1, 'admin', 'admin');
-insert into aclgroup (aclgroup_id, groupe) values (1, 'admin');
 insert into acllogingroup (acllogin_id, aclgroup_id) values (1, 1);
-insert into aclacl (aclaco_id, aclgroup_id) values (1, 1);
+
+select setval('aclaco_aclaco_id_seq', (select max(aclaco_id) from aclaco));
+select setval('aclgroup_aclgroup_id_seq', (select max(aclgroup_id) from aclgroup));
+select setval('acllogin_acllogin_id_seq', (select max(acllogin_id) from acllogin));
+select setval('seq_logingestion_id', (select max(id) from logingestion));

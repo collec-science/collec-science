@@ -105,7 +105,7 @@ class Identification {
 				// }
 				global $log, $LOG_duree;
 				$_SESSION ["login"] = phpCAS::getUser ();
-				$log->setLog ( $_SESSION ["login"], "connexion", "cas-ok - ip:" . $_SESSION ["remoteIP"] );
+				$log->setLog ( $_SESSION ["login"], "connexion", "cas-ok" );
 				/*
 				 * Purge des anciens enregistrements dans log
 				 */
@@ -155,7 +155,7 @@ class Identification {
 			global $log, $LOG_duree, $message, $LANG;
 			if ($rep == 1) {
 				$_SESSION ["login"] = $login;
-				$log->setLog ( $login, "connexion", "ldap-ok - ip:" . $_SESSION ["remoteIP"] );
+				$log->setLog ( $login, "connexion", "ldap-ok" );
 				$message = $LANG ["message"] [10];
 				/*
 				 * Purge des anciens enregistrements dans log
@@ -163,7 +163,7 @@ class Identification {
 				$log->purge ( $LOG_duree );
 				return $login;
 			} else {
-				$log->setLog ( $login, "connexion", "ldap-ko - ip:" . $_SESSION ["remoteIP"] );
+				$log->setLog ( $login, "connexion", "ldap-ko" );
 				$message = $LANG ["message"] [11];
 				return - 1;
 			}
@@ -235,12 +235,8 @@ class Identification {
  */
 class LoginGestion extends ObjetBDD {
 	//
-	function LoginGestion($link, $param = NULL) {
-		$this->paramori = $param;
-		$this->param = $param;
-		if (is_array ( $param ) == false)
-			$param = array ();
-		$this->table = "LoginGestion";
+	function LoginGestion($link, $param = array()) {
+		$this->table = "logingestion";
 		$this->id_auto = 1;
 		$this->colonnes = array (
 				"id" => array (
@@ -268,7 +264,6 @@ class LoginGestion extends ObjetBDD {
 						'longueur' => 256 
 				) 
 		);
-		$param ["fullDescription"] = 1;
 		parent::__construct ( $link, $param );
 	}
 	/**
@@ -479,9 +474,7 @@ class Log extends ObjetBDD {
 	 * @param array $param        	
 	 */
 	function __construct($bdd, $param = NULL) {
-		$this->param = $param;
 		$this->table = "log";
-		$this->id_auto = "1";
 		$this->colonnes = array (
 				"log_id" => array (
 						"type" => 1,
@@ -507,9 +500,6 @@ class Log extends ObjetBDD {
 						"type" => 0
 				)
 		);
-		if (! is_array ( $param ))
-			$param == array ();
-		$param ["fullDescription"] = 1;
 		parent::__construct ( $bdd, $param );
 	}
 	/**
@@ -584,10 +574,8 @@ class LoginOldPassword extends ObjetBDD {
 	 * @param connexion $bdd        	
 	 * @param array $ObjetBDDParam        	
 	 */
-	function __construct($bdd, $ObjetBDDParam) {
-		$this->param = $param;
+	function __construct($bdd, $param) {
 		$this->table = "login_oldpassword";
-		$this->id_auto = "1";
 		$this->colonnes = array (
 				"login_oldpassword_id" => array (
 						"type" => 1,
@@ -604,10 +592,6 @@ class LoginOldPassword extends ObjetBDD {
 						"type" => 0 
 				) 
 		);
-		
-		if (! is_array ( $param ))
-			$param == array ();
-		$param ["fullDescription"] = 1;
 		parent::__construct ( $bdd, $param );
 	}
 	/**

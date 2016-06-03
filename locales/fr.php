@@ -66,12 +66,12 @@ $LANG["menu"][50] = "Param";
 $LANG["menu"][51] = "Paramètres";
 $LANG["menu"][52] = "Type événement";
 $LANG["menu"][53] = "Types d'événement";
-$LANG["menu"][54] = "";
-$LANG["menu"][55] = "";
-$LANG["menu"][56] = "";
-$LANG["menu"][57] = "";
-$LANG["menu"][58] = "";
-$LANG["menu"][59] = "";
+$LANG["menu"][54] = "Familles de conteneurs";
+$LANG["menu"][55] = "Familles de conteneurs (armoires, éprouvettes...)";
+$LANG["menu"][56] = "Conditions de stockage";
+$LANG["menu"][57] = "Liste des conditions de stockage";
+$LANG["menu"][58] = "Types de conteneurs";
+$LANG["menu"][59] = "Liste des types de conteneurs";
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";
@@ -173,5 +173,10 @@ $LANG["ObjetBDDError"][4] = " caractères";
 $LANG["ObjetBDDError"][5] = "Le contenu du champ ";
 $LANG["ObjetBDDError"][6] = " ne correspond pas au format attendu. Masque autorisé : ";
 $LANG["ObjetBDDError"][7] = " est obligatoire, mais n'a pas été renseigné.";
+
+$LANG["appli"][0] = "Nouveau...";
+$LANG["appli"][1] = "Retour à la liste";
+$LANG["appli"][2] = "Choisissez...";
+
 
 ?>

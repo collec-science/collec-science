@@ -1,9 +1,9 @@
 <h2>Modification d'un type d'événement</h2>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module=eventTypeList">Retour à la liste</a>
+<a href="index.php?module=eventTypeList">{$LANG.appli.1}</a>
 
-<form class="form-horizontal protoform" id="loginForm" method="post" action="index.php">
+<form class="form-horizontal protoform" id="eventTypeForm" method="post" action="index.php">
 <input type="hidden" name="moduleBase" value="eventType">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="event_type_id" value="{$data.event_type_id}">

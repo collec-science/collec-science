@@ -4,11 +4,13 @@
 	<item module="gestion" title="1" value="0"/>
 	<item module="exampleList" droits="consult" menuvalue="example1" menutitle="example2"  />
 	</item>
-<item value="50" title="51" droits="consult">
-	<item module="especeList" value="52" title="53" droits="consult"/>
-</item>
-<item module="parametre" value="50" title="51" droits="param">
-	<item module="eventTypeList" droits="param" value="52" title="53" />
+
+<item module="parametre" value="50" title="51" droits="consult">
+	<item module="eventTypeList" droits="consult" value="52" title="53" />
+	<item module="containerFamilyList" droits="consult" value="54" title="55" />
+	<item module="storageConditionList" droits="consult" value="56" title="57" />
+	<item module="containerTypeList" droits="consult" value="58" title="59" />
+		
 </item>
 <item module="administration" value="4" title="5" droits="admin">
 	<item module="loginList" menulevel="1" menuorder="9" droits="admin" title="3" value="2"/>
@@ -22,16 +24,6 @@
 <item module="docindex" title="21" value="20">
 	<item module="apropos" title="9" value="8"/>
 	<item module="quoideneuf" title="41" value="40"/>
-	<item module="docinstallation" title="23" value="22" />
-	<item module="docdroits" title="25" value="24" />
-	<item module="docmodulelecture" title="27" value="26" />
-	<item module="docparammodule" title="29" value="28" />
-	<item module="docclasseaccess" title="31" value="30" />
-	<item module="docgestiondoc" title="33" value="32"  />
-	<item module="docinternationalisation" title="35" value="34" />
-	<item module="docsmarty" title="37" value="36" />
-	<item module="docdescriptionorganisation" title="39" value="38"  />
-	<item module="docmodulerecherche" title="43" value="42" />
-	
+		
 </item>
 </menu>

@@ -5,7 +5,12 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-class Classe extends ObjetBDD {
+class ContainerType extends ObjetBDD {
+	private $sql = "select * 
+			from container_type
+			join container_family using (container_family_id)
+			left outer join storage_condition using (storage_condition_id)";
+	
 	/**
 	 *
 	 * @param PDO $bdd        	
@@ -23,9 +28,32 @@ class Classe extends ObjetBDD {
 				"container_type_name" => array (
 						"type" => 0,
 						"requis" => 1 
+				),
+				"container_family_id" => array (
+						"type" => 1,
+						"requis" => 1 
+				),
+				"container_type_description" => array (
+						"type" => 0 
+				),
+				"storage_condition_id" => array (
+						"type" => 1 
+				),
+				"storage_product" => array (
+						"type" => 0 
+				),
+				"clp_classification" => array (
+						"type" => 0 
 				) 
 		);
 		parent::__construct ( $bdd, $param );
+	}
+	
+	function getListe($order=0) {
+		$order = "";
+		if ($order != 0 && strlen ($order) > 0) 
+			$order = " order by $order";
+		return parent::getListeParam($this->sql.$order);
 	}
 }
 

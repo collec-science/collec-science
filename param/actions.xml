@@ -73,10 +73,27 @@
 	<acoDelete action="framework/droits/aco.php" param="delete" droits="admin" retoursuppr="appliDisplay" retourko="acoChange"  modulebefore="acoChange"/>
 
 <!-- Modules specifiques de l'application -->
-	<eventTypeList action="modules/param/eventType.php" param="list" droits="param" />
+	<parametre droits="consult"/>
+	<eventTypeList action="modules/param/eventType.php" param="list" droits="consult" />
 	<eventTypeChange action="modules/param/eventType.php" param="change" droits="param" />
 	<eventTypeWrite action="modules/param/eventType.php" param="write" droits="param" retourok="eventTypeList" retourko="eventTypeChange" modulebefore="eventTypeChange" />
 	<eventTypeDelete action="modules/param/eventType.php" param="delete" droits="param" retoursuppr="eventTypeList" retourko="eventTypeChange"  modulebefore="eventTypeChange"/>
+
+	<containerFamilyList action="modules/param/containerFamily.php" param="list" droits="consult" />
+	<containerFamilyChange action="modules/param/containerFamily.php" param="change" droits="param" />
+	<containerFamilyWrite action="modules/param/containerFamily.php" param="write" droits="param" retourok="containerFamilyList" retourko="containerFamilyChange" modulebefore="containerFamilyChange" />
+	<containerFamilyDelete action="modules/param/containerFamily.php" param="delete" droits="param" retoursuppr="containerFamilyList" retourko="containerFamilyChange"  modulebefore="containerFamilyChange"/>
+
+	<storageConditionList action="modules/param/storageCondition.php" param="list" droits="consult" />
+	<storageConditionChange action="modules/param/storageCondition.php" param="change" droits="param" />
+	<storageConditionWrite action="modules/param/storageCondition.php" param="write" droits="param" retourok="storageConditionList" retourko="storageConditionChange" modulebefore="storageConditionChange" />
+	<storageConditionDelete action="modules/param/storageCondition.php" param="delete" droits="param" retoursuppr="storageConditionList" retourko="storageConditionChange"  modulebefore="storageConditionChange"/>
+
+	<containerTypeList action="modules/param/containerType.php" param="list" droits="consult" />
+	<containerTypeChange action="modules/param/containerType.php" param="change" droits="param" />
+	<containerTypeWrite action="modules/param/containerType.php" param="write" droits="param" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange" />
+	<containerTypeDelete action="modules/param/containerType.php" param="delete" droits="param" retoursuppr="containerTypeList" retourko="containerTypeChange"  modulebefore="containerTypeChange"/>
+
 
 </navigation>
 	

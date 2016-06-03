@@ -1,42 +1,36 @@
 <?php
 /**
- * Created : 2 juin 2016
+ * Created : 3 juin 2016
  * Creator : quinton
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-class EventType extends ObjetBDD {
+class ContainerFamily extends ObjetBDD {
 	/**
 	 *
 	 * @param PDO $bdd        	
 	 * @param array $param        	
 	 */
 	function __construct($bdd, $param = array()) {
-		$this->table = "event_type";
+		$this->table = "container_family";
 		$this->colonnes = array (
-				"event_type_id" => array (
+				"container_family_id" => array (
 						"type" => 1,
 						"key" => 1,
 						"requis" => 1,
 						"defaultValue" => 0 
 				),
-				"event_type_name" => array (
+				"container_family_name" => array (
 						"type" => 0,
 						"requis" => 1 
 				),
-				"is_sample" => array (
+				"is_movable" => array (
 						"type" => 0,
-						"defaultValue" => "1",
-						"requis" => 1 
-				),
-				"is_container" => array (
-						"type" => 0,
-						"defaultValue" => "1",
-						"requis" => 1 
+						"requis" => 1,
+						"defaultValue" => '1' 
 				) 
 		);
 		parent::__construct ( $bdd, $param );
 	}
 }
-
 ?>

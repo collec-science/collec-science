@@ -13,11 +13,7 @@ class Object extends ObjetBDD {
 	 * @param array $param
 	 */
 	function __construct($bdd, $param = null) {
-		$this->connection = $bdd;
-		$this->paramori = $param;
-		$this->param = $param;
 		$this->table = "object";
-		$this->id_auto = "1";
 		$this->colonnes = array (
 				"uid" => array (
 						"type" => 1,
@@ -29,9 +25,6 @@ class Object extends ObjetBDD {
 						"type" => 0
 				)
 		);
-		if (! is_array ( $param ))
-			$param == array ();
-			$param ["fullDescription"] = 1;
 			parent::__construct ( $bdd, $param );
 	}
 }

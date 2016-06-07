@@ -12,11 +12,7 @@ class Container extends ObjetBDD {
 	 * @param array $param        	
 	 */
 	function __construct($bdd, $param = null) {
-		$this->connection = $bdd;
-		$this->paramori = $param;
-		$this->param = $param;
 		$this->table = "container";
-		$this->id_auto = "1";
 		$this->colonnes = array (
 				"container_id" => array (
 						"type" => 1,
@@ -29,17 +25,28 @@ class Container extends ObjetBDD {
 						"parentAttrib" => 1,
 						"requis" => 1 
 				),
-				"parent_container_id" => array (
-						"type" => 1 
-				),
-				"container_range" => array (
-						"type" => 0 
-				) 
+				"container_type_id"=>array("type"=>1, "requis"=>1)
 		);
-		if (! is_array ( $param ))
-			$param == array ();
-		$param ["fullDescription"] = 1;
 		parent::__construct ( $bdd, $param );
+	}
+	
+	function getChildren($uid) {
+		if ($uid > 0 && is_numeric($uid)) {
+			$sql = "select o.uid, o.identifier, sa.*, container_type_id, container_type_name
+					from object o
+					left outer join sample sa on (sa.uid = o.uid)
+					left outer join container co on (co.uid = o.uid)
+					left outer join container_type using (container_type_id)
+					join storage st on (o.uid = st.uid)
+					where st.storage_id = (
+						select st1.storage_id
+						from storage st1
+						join container co1 on (st1.container_id = co1.container_id)
+						where co1.uid = :uid
+						and st1.movement_type_id = 1
+						order by st1.storage_date desc limit 1)
+					";
+		}
 	}
 }
 

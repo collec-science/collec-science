@@ -12,6 +12,7 @@
 			<span class="navbar-text"><b>{$LANG.message.1}</b></span>
 		</div>
 		<!-- Affichage du menu -->
+		<div class="collapse navbar-collapse" id="navbar_collapse">
 		<ul class="nav navbar-nav sm">{$menu}
 		</ul>
 
@@ -35,6 +36,7 @@
 </a>
 {/if}			
 		</ul>
+		</div>
 	</div>
 </div>
 <div class="container-fluid">

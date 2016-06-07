@@ -5223,7 +5223,7 @@ Le premier chiffre correspond au lundi</remarks>
     <column id="COL1613" populated="true" UUID="0b724fb6-f877-47b4-95b0-51ae328c2036" autoIncrement="false" autoIncrementSequenceName="aclgroup_groupe_seq" defaultValue="" name="groupe" nullable="0" physicalName="groupe" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL1614" populated="true" UUID="445bffc1-a536-4e60-9c27-2a7a199b8a54" autoIncrement="false" autoIncrementSequenceName="aclgroup_aclgroup_id_seq" defaultValue="" name="aclgroup_id_parent" nullable="1" physicalName="aclgroup_id_parent" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL1614" populated="true" UUID="445bffc1-a536-4e60-9c27-2a7a199b8a54" autoIncrement="false" autoIncrementSequenceName="aclgroup_aclgroup_id_seq" defaultValue="" name="aclgroup_id_parent" nullable="1" physicalName="aclgroup_id_parent" precision="0" referenceCount="1" scale="0" source-column-ref="COL1612" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     </folder>
@@ -5243,7 +5243,7 @@ Le premier chiffre correspond au lundi</remarks>
     <column id="COL1618" populated="true" UUID="cef3a820-9466-442f-bae9-883f31e65011" autoIncrement="false" autoIncrementSequenceName="acllogin_acllogin_id_seq" defaultValue="" name="acllogin_id" nullable="0" physicalName="acllogin_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL1619" populated="true" UUID="014da7a9-7400-45cf-bada-83a7e60548d9" autoIncrement="false" autoIncrementSequenceName="aclgroup_aclgroup_id_seq" defaultValue="" name="aclgroup_id" nullable="0" physicalName="aclgroup_id" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL1619" populated="true" UUID="014da7a9-7400-45cf-bada-83a7e60548d9" autoIncrement="false" autoIncrementSequenceName="aclgroup_aclgroup_id_seq" defaultValue="" name="aclgroup_id" nullable="0" physicalName="aclgroup_id" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" source-column-ref="COL1612" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     </folder>

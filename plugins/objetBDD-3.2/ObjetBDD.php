@@ -391,7 +391,7 @@ class ObjetBDD {
 	 * @param int $parentValue        	
 	 * @return boolean Ambigous $data, string>
 	 */
-	function lire($id, $getDefault = false, $parentValue = 0) {
+	function lire($id, $getDefault = true, $parentValue = 0) {
 		$data = array ();
 		// Integration cles multiples
 		if ($this->cleMultiple == 1) {

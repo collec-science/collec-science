@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
 <item module="gestion" title="1" value="0">
-	<item module="gestion" title="1" value="0"/>
-	<item module="exampleList" droits="consult" menuvalue="example1" menutitle="example2"  />
+	<item module="containerList" title="61" value="60"/>
 	</item>
 
 <item module="parametre" value="50" title="51" droits="consult">

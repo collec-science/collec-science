@@ -94,6 +94,13 @@
 	<containerTypeWrite action="modules/param/containerType.php" param="write" droits="param" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange" />
 	<containerTypeDelete action="modules/param/containerType.php" param="delete" droits="param" retoursuppr="containerTypeList" retourko="containerTypeChange"  modulebefore="containerTypeChange"/>
 
+	<gestion droits="consult"/>
+	<containerList action="gestion/container.php" param="list" droits="admin" retourlogin="1"  />
+	<containerDisplay action="gestion/container.php" param="display" droits="admin" />
+	<containerChange action="gestion/container.php" param="change" droits="admin" />
+	<containerWrite action="gestion/container.php" param="write" droits="admin" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
+	<containerDelete action="gestion/container.php" param="delete" droits="admin" retoursuppr="containerList" retourko="containerChange"  modulebefore="containerChange"/>
+
 
 </navigation>
 	

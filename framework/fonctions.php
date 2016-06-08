@@ -55,7 +55,7 @@ function dataWrite($dataClass, $data) {
 	if (strlen ( $message ) > 0)
 		$message .= '<br>';
 	try {
-		$id = $dataClass->write ( $data );
+		$id = $dataClass->ecrire ( $data );
 		$message .= $LANG ["message"] [5];
 		$module_coderetour = 1;
 		$log->setLog ( $_SESSION ["login"], get_class ( $dataClass ) . "-write", $id );

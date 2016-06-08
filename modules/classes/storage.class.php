@@ -5,6 +5,7 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
+require_once 'modules/classes/container.class.php';
 class Storage extends ObjetBDD {
 	/**
 	 *
@@ -119,6 +120,67 @@ class Storage extends ObjetBDD {
 				throw new Exception ( $e->getMessage () );
 			}
 		}
+	}
+
+	/**
+	 * Fonction generique permettant de rajouter des mouvements
+	 * @param int $uid
+	 * @param timestamp $date
+	 * @param int $type
+	 * @param number $container_uid
+	 * @param varchar $login
+	 * @param varchar $range
+	 * @param varchar $comment
+	 * @return Identifier
+	 */
+	function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $range = null, $comment = null) {
+		/*
+		 * Verifications
+		 */
+		$controle = true;
+		if (! ($uid > 0 && is_numeric($uid))  ) 
+			$controle = false;
+		$date = $this->encodeData($date);
+		if (strlen($date) == 0)
+			$controle = false;
+		if ($type != 1 && $type != 2)
+			$controle = false;
+		$container_uid = $this->encodeData($container_uid);
+		if (!is_numeric($container_uid))
+			$controle = false;
+		if (strlen($login) == 0)
+			strlen($_SESSION["login"]) > 0 ? $login = $_SESSION["login"] : $controle = false;
+		$range = $this->encodeData($range);
+		$comment = $this->encodeData($comment);
+		if ($controle) {
+			$data ["uid"] = $uid;
+			$data["storage_date"] = $date;
+			$data ["movement_type_id"] = $type;
+			$data ["login"] = $login;
+			/*
+			 * Recherche de container_id a partir de uid
+			 */
+			$container = new Container($this->connection, $this->param);
+			$container_id = $container->getIdFromUid($container_uid);
+			if ($container_id > 0) 
+				$data["container_id"] = $container_id;
+			if (strlen($range)>0)
+				$data["range"] = $range;
+			if (strlen($comment)>0)
+				$data["storage_comment"] = $comment;
+			return $this->ecrire($data);		
+		}
+	}
+
+	/**
+	 * Retourne le nombre de mouvements impliques dans le controleur fourni
+	 * @param int $id
+	 */
+	function getNbFromControler ($id) {
+		$sql = "select count (*) as nombre from storage where controler_id = :controler_id";
+		$data["controler_id"] = $id;
+		$result = $this->lireParamAsPrepared($sql, $data);
+		return $result["nombre"];
 	}
 }
 

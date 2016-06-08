@@ -4,5 +4,6 @@
  * Utilise notamment pour recuperer les instances de classes stockees en 
  * variables de session
  */
-
+if (!isset($_SESSION["searchContainer"]))
+	$_SESSION["searchContainer"] = new SearchContainer();
 ?>

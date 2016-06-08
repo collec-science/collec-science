@@ -139,4 +139,25 @@ class SearchExample extends SearchParam {
 	}
 }
 
+/**
+ * Classe de recherche des conteneurs
+ * @author quinton
+ *
+ */
+class SearchContainer extends SearchParam {
+	function __construct() {
+		$this->param = array (
+				"container_family_id" => "",
+				"container_type_id" => "",
+				"limit"=>100
+		);
+		$this->paramNum = array (
+				"container_family_id",
+				"container_type_id",
+				"limit"
+		);
+		parent::__construct ();
+	}
+}
+
 ?>

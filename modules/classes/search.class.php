@@ -147,14 +147,17 @@ class SearchExample extends SearchParam {
 class SearchContainer extends SearchParam {
 	function __construct() {
 		$this->param = array (
+				"name" => "",
 				"container_family_id" => "",
 				"container_type_id" => "",
-				"limit"=>100
+				"limit"=>100,
+				"container_status_id" => 1
 		);
 		$this->paramNum = array (
 				"container_family_id",
 				"container_type_id",
-				"limit"
+				"limit",
+				"container_status_id"
 		);
 		parent::__construct ();
 	}

@@ -84,6 +84,11 @@
 	<containerFamilyWrite action="modules/param/containerFamily.php" param="write" droits="param" retourok="containerFamilyList" retourko="containerFamilyChange" modulebefore="containerFamilyChange" />
 	<containerFamilyDelete action="modules/param/containerFamily.php" param="delete" droits="param" retoursuppr="containerFamilyList" retourko="containerFamilyChange"  modulebefore="containerFamilyChange"/>
 
+	<containerStatusList action="modules/param/containerStatus.php" param="list" droits="consult" />
+	<containerStatusChange action="modules/param/containerStatus.php" param="change" droits="param" />
+	<containerStatusWrite action="modules/param/containerStatus.php" param="write" droits="param" retourok="containerStatusList" retourko="containerStatusChange" modulebefore="containerStatusChange" />
+	<containerStatusDelete action="modules/param/containerStatus.php" param="delete" droits="param" retoursuppr="containerStatusList" retourko="containerStatusChange"  modulebefore="containerStatusChange"/>
+
 	<storageConditionList action="modules/param/storageCondition.php" param="list" droits="consult" />
 	<storageConditionChange action="modules/param/storageCondition.php" param="change" droits="param" />
 	<storageConditionWrite action="modules/param/storageCondition.php" param="write" droits="param" retourok="storageConditionList" retourko="storageConditionChange" modulebefore="storageConditionChange" />
@@ -95,11 +100,11 @@
 	<containerTypeDelete action="modules/param/containerType.php" param="delete" droits="param" retoursuppr="containerTypeList" retourko="containerTypeChange"  modulebefore="containerTypeChange"/>
 
 	<gestion droits="consult"/>
-	<containerList action="gestion/container.php" param="list" droits="admin" retourlogin="1"  />
-	<containerDisplay action="gestion/container.php" param="display" droits="admin" />
-	<containerChange action="gestion/container.php" param="change" droits="admin" />
-	<containerWrite action="gestion/container.php" param="write" droits="admin" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
-	<containerDelete action="gestion/container.php" param="delete" droits="admin" retoursuppr="containerList" retourko="containerChange"  modulebefore="containerChange"/>
+	<containerList action="modules/gestion/container.php" param="list" droits="consult" retourlogin="1"  />
+	<containerDisplay action="modules/gestion/container.php" param="display" droits="consult" />
+	<containerChange action="modules/gestion/container.php" param="change" droits="gestion" />
+	<containerWrite action="modules/gestion/container.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
+	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion" retoursuppr="containerList" retourko="containerChange"  modulebefore="containerChange"/>
 
 
 </navigation>

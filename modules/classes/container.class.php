@@ -8,11 +8,12 @@
 require_once 'modules/classes/object.class.php';
 class Container extends ObjetBDD {
 	private $sql = "select container_id, uid, identifier, container_type_id, container_type_name,
-					container_family_id, container_family_name
+					container_family_id, container_family_name, container_status_id, container_status_name
 					from container
 					join object using (uid)
 					join container_type using (container_type_id)
 					join container_family using (container_family_id)
+					left outer join container_status using (container_status_id)
 			";
 	/**
 	 *
@@ -36,7 +37,11 @@ class Container extends ObjetBDD {
 				"container_type_id" => array (
 						"type" => 1,
 						"requis" => 1 
-				) 
+				),
+				"container_status_id" => array (
+						"type"=>1,
+						"defaultValue"=>1
+				)
 		);
 		parent::__construct ( $bdd, $param );
 	}

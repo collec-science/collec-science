@@ -1,6 +1,4 @@
-<div class="row col-md-6">
-<fieldset>
-<legend>Rechercher des conteneurs</legend>
+<div class="row">
 <form class="form-horizontal protoform" id="container_search" action="index.php" method="GET">
 <input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}container{/if}">
 <input id="action" type="hidden" name="action" value="{if strlen($action)>0}{$action}{else}List{/if}">
@@ -51,9 +49,8 @@
 <input type="number" id="limit" name="limit" value="{$search.limit}" class="form-control">
 </div>
 <div class="col-md-6">
-<button type="button" class="btn btn-success">Rechercher</button>
+<input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
 </div>
 </div>
 </form>
-</fieldset>
 </div>

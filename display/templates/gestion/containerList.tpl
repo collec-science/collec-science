@@ -1,7 +1,7 @@
 <h2>Rechercher des conteneurs</h2>
-<div class="col_lg_6">
-<div class="container-fluid">
 
+	<div class="row">
+	<div class="col-md-6">
 {include file='gestion/containerSearch.tpl'}
 {if $search.isSearch > 0}
 {if $droits.gestion == 1}
@@ -52,5 +52,4 @@
 
 {/if}
 </div>
-<div class="col_md_6"></div>
 </div>

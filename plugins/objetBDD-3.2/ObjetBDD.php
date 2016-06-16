@@ -295,7 +295,7 @@ class ObjetBDD {
 				 * Affectation de l'attribut parent
 				 */
 				if (strlen ( $value ["parentAttrib"] ) > 0)
-					$this->parentAttrib = $value ["parentAttrib"];
+					$this->parentAttrib = $key;
 			}
 			
 			/*

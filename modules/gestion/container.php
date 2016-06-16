@@ -25,6 +25,10 @@ switch ($t_module ["param"]) {
 		}
 		$smarty->assign ( "containerSearch", $dataSearch );
 		$smarty->assign ( "corps", "gestion/containerList.tpl" );
+		/*
+		 * Ajout des listes deroulantes
+		 */
+		include 'modules/gestion/container.functions.php';
 		break;
 	case "display":
 		/*
@@ -45,6 +49,7 @@ switch ($t_module ["param"]) {
 		$data = dataRead ( $dataClass, $id, "gestion/containerChange.tpl" );
 		$object = new Object ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
+		include 'modules/gestion/container.functions.php';
 		break;
 	case "write":
 		/*

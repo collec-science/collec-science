@@ -58,5 +58,12 @@ switch ($t_module["param"]) {
 		 */
 		dataDelete($dataClass, $id);
 		break;
+	case "getFromFamily":
+		/*
+		 * Recherche la liste a partir de la famille
+		 */
+		ob_clean();
+		echo json_encode($dataClass->getListFromParent($_REQUEST["container_family_id"], 2));
+		ob_flush();
 }
 ?>

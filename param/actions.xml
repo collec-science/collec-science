@@ -98,6 +98,7 @@
 	<containerTypeChange action="modules/param/containerType.php" param="change" droits="param" />
 	<containerTypeWrite action="modules/param/containerType.php" param="write" droits="param" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange" />
 	<containerTypeDelete action="modules/param/containerType.php" param="delete" droits="param" retoursuppr="containerTypeList" retourko="containerTypeChange"  modulebefore="containerTypeChange"/>
+	<containerTypeGetFromFamily action="modules/param/containerType.php" param="getFromFamily" droits="consult" ajax="1" />
 
 	<gestion droits="consult"/>
 	<containerList action="modules/gestion/container.php" param="list" droits="consult" retourlogin="1"  />

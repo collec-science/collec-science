@@ -31,7 +31,8 @@ class ContainerType extends ObjetBDD {
 				),
 				"container_family_id" => array (
 						"type" => 1,
-						"requis" => 1 
+						"requis" => 1,
+						"parentAttrib"=>1
 				),
 				"container_type_description" => array (
 						"type" => 0 

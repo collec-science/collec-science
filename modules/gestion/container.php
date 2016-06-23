@@ -19,7 +19,7 @@ switch ($t_module ["param"]) {
 		$_SESSION ["searchContainer"]->setParam ( $_REQUEST );
 		$dataSearch = $_SESSION ["searchContainer"]->getParam ();
 		if ($_SESSION ["searchContainer"]->isSearch () == 1) {
-			$data = $dataClass->getListeSearch ( $dataSearch );
+			$data = $dataClass->containerSearch( $dataSearch );
 			$smarty->assign ( "data", $data );
 			$smarty->assign ( "isSearch", 1 );
 		}
@@ -36,7 +36,6 @@ switch ($t_module ["param"]) {
 		 */
 		$data = $dataClass->lire ( $id );
 		$object = new Object ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
 		$smarty->assign ( "data", $data );
 		$smarty->assign ( "corps", "gestion/containerDisplay.tpl" );
 		break;
@@ -47,8 +46,8 @@ switch ($t_module ["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		$data = dataRead ( $dataClass, $id, "gestion/containerChange.tpl" );
-		$object = new Object ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
+		//$object = new Object ( $bdd, $ObjetBDDParam );
+		//$smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
 		include 'modules/gestion/container.functions.php';
 		break;
 	case "write":

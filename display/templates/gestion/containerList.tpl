@@ -3,7 +3,11 @@
 	<div class="row">
 	<div class="col-md-6">
 {include file='gestion/containerSearch.tpl'}
-{if $search.isSearch > 0}
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+{if $isSearch > 0}
 {if $droits.gestion == 1}
 <a href="index.php?module=containerChange&container_id=0"><img src="display/images/new.png" height="25">Nouveau conteneur</a>
 {/if}
@@ -11,6 +15,7 @@
 <thead>
 <tr>
 <th>UID</th>
+<th>Identifiant ou nom</th>
 <th>Statut</th>
 <th>Type</th>
 <th>Condition de stockage</th>
@@ -21,13 +26,14 @@
 <tbody>
 {section name=lst loop=$data}
 <tr>
+<td class="text-center">
+<a href="index.php?module=containerDisplay&container_id={$data[lst].container_id}" title="Consultez le détail">
+{$data[lst].uid}
+</td>
 <td>
-{if $droits.gestion == 1}
-<a href="index.php?module=containerChange&container_id={$data[lst].container_id}">
-{$data[lst].uid}
-{else}
-{$data[lst].uid}
-{/if}
+<a href="index.php?module=containerDisplay&container_id={$data[lst].container_id}" title="Consultez le détail">
+{$data[lst].identifier}
+</a>
 </td>
 <td >
 {$data[lst].container_status_name}

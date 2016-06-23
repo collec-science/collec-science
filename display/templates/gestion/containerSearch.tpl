@@ -8,7 +8,7 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
 		if (data != null) {
 		console.log ("data is not null");
-			options = '';			
+			options = '<option value="">Sélectionnez...</option>';			
 			 for (var i = 0; i < data.length; i++) {
 			        options += '<option value="' + data[i].container_type_id + '"';
 			        if (data[i].container_type_id == type_init) {
@@ -32,6 +32,7 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 <form class="form-horizontal protoform" id="container_search" action="index.php" method="GET">
 <input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}container{/if}">
 <input id="action" type="hidden" name="action" value="{if strlen($action)>0}{$action}{else}List{/if}">
+<input id="isSearch" type="hidden" name="isSearch" value="1">
 <div class="form-group">
 <label for="name" class="col-md-2 control-label">uid :</label>
 <div class="col-md-4">

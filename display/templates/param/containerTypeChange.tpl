@@ -14,9 +14,9 @@
 </div>
 
 <div class="form-group">
-<label for="containerFamilyId" class="control-label col-md-4">Famille<span class="red">*</span> :</label>
+_<label for="container_family_id" class="control-label col-md-4">Famille<span class="red">*</span> :</label>
 <div class="col-md-8">
-<select id="containerFamilyId" name="container_family_id" class="form-control">
+<select id="container_family_id" name="container_family_id" class="form-control">
 {section name=lst loop=$containerFamily}
 <option value="{$containerFamily[lst].container_family_id}" {if $containerFamily[lst].container_family_id == $data.container_family_id}selected{/if}>
 {$containerFamily[lst].container_family_name}

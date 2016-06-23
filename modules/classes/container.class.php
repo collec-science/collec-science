@@ -31,8 +31,8 @@ class Container extends ObjetBDD {
 				),
 				"uid" => array (
 						"type" => 1,
-						"parentAttrib" => 1,
-						"requis" => 1 
+						"requis" => 1,
+						"defaultValue"=>0
 				),
 				"container_type_id" => array (
 						"type" => 1,
@@ -46,9 +46,23 @@ class Container extends ObjetBDD {
 		parent::__construct ( $bdd, $param );
 	}
 	
+	function lire($id, $getDefault, $parentValue) {
+		$sql = $this->sql." where container_id = :container_id";
+		if (is_numeric($id) && $id > 0) {
+		$data["container_id"] = $id;
+		$retour = parent::lireParamAsPrepared($sql, $data);
+		} else {
+			$retour = parent::getDefaultValue($parentValue);
+		}
+		return $retour;
+	}
+	
+	
 	function ecrire($data) {
 		$object = new Object($this->connection, $this->param);
-		if ($object->ecrire($data) > 0) {
+		$uid = $object->ecrire($data);
+		if ($uid > 0) {
+			$data ["uid"] = $uid;
 			return parent::ecrire($data);
 		}
 	}
@@ -95,12 +109,20 @@ class Container extends ObjetBDD {
 		$isFirst = true;
 		$order = " order by container_family_name, container_type_name, identifier, uid";
 		$where = "where";
+		$and = "";
 		if ($param["container_type_id"] > 0) {
 			$where .= " container_type_id = :container_type_id";
 			$data ["container_type_id"] = $param["container_type_id"];
+			$and = " and ";
 		} elseif ($param["container_family_id"] > 0) {
 			$where .=" container_family_id = :container_family_id";
 			$data["container_family_id"] = $param["container_family_id"];
+			$and = " and ";
+		}
+		if ($param["container_status_id"] > 0) {
+			$where .= $and." container_status_id = :container_status_id";
+			$and = " and ";
+			$data["container_status_id"] = $param["container_status_id"];
 		}
 		if ($param["limit"] > 0) {
 			$order .= " limit :limite";

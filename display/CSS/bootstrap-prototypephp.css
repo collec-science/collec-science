@@ -68,3 +68,32 @@ legend {
 .textareaDisplay {
 	white-space:pre-wrap;
 }
+/*
+ * Affichage des informations dans un masque
+ */
+.form-display {
+	border-style: solid;
+	border-width: 1px;
+	/*background:  #98c1e9;*/
+	background-color: rgba(0,158,224, 0.3);
+}
+
+.form-display dd {
+	word-wrap: break-word;
+	border-style: solid;
+	border-width: 1px;
+	/*min-height: 20px;*/
+	border-radius: 0.4em;
+	background-color: white;
+}
+.form-display > row > label {
+	text-align: right;
+}
+.display {
+	word-wrap: break-word;
+	border-style: solid;
+	border-width: 1px;
+	min-height: 20px;
+	border-radius: 0.4em;
+	background-color: white;
+}

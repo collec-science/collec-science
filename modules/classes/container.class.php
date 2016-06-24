@@ -45,11 +45,16 @@ class Container extends ObjetBDD {
 		);
 		parent::__construct ( $bdd, $param );
 	}
-	
-	function lire($id, $getDefault, $parentValue) {
-		$sql = $this->sql." where container_id = :container_id";
-		if (is_numeric($id) && $id > 0) {
-		$data["container_id"] = $id;
+	/**
+	 * Surcharge de lire pour ramener les informations
+	 * generales (table object, notamment)
+	 * {@inheritDoc}
+	 * @see ObjetBDD::lire()
+	 */
+	function lire($uid, $getDefault, $parentValue) {
+		$sql = $this->sql." where uid = :uid";
+		$data["uid"] = $uid;
+		if (is_numeric($uid) && $uid > 0) {
 		$retour = parent::lireParamAsPrepared($sql, $data);
 		} else {
 			$retour = parent::getDefaultValue($parentValue);
@@ -57,33 +62,101 @@ class Container extends ObjetBDD {
 		return $retour;
 	}
 	
-	
+	/**
+	 * Surcharge de la fonction ecrire pour 
+	 * enregistrer les informations dans object
+	 * {@inheritDoc}
+	 * @see ObjetBDD::ecrire()
+	 */
 	function ecrire($data) {
 		$object = new Object($this->connection, $this->param);
 		$uid = $object->ecrire($data);
 		if ($uid > 0) {
 			$data ["uid"] = $uid;
-			return parent::ecrire($data);
+			 parent::ecrire($data);
+			 return $uid;
 		}
 	}
+	
 	/**
-	 * Retourne la liste des contenus d'un conteneur
-	 * @param unknown $uid
+	 * Retourne tous les échantillons contenus
+	 * dans le conteneur
+	 * @param int $uid
+	 * @return array
 	 */
-	function getContent($uid) {
+	function getContentSample($uid) {
 		if ($uid > 0 && is_numeric ( $uid )) {
-			$sql = "select o.uid, o.identifier, sa.*, container_type_id, container_type_name
+			$sql = "select o.uid, o.identifier, sa.*
 					from object o
-					left outer join sample sa on (sa.uid = o.uid)
-					left outer join container co on (co.uid = o.uid)
-					left outer join container_type using (container_type_id)
-					join last_movement lm on (lm.uid = o.uid and lm.controler_uid = :uid)
+					join sample sa on (sa.uid = o.uid)
+					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
+					where lm.movement_type_id = 1
 					order by o.identifier, o.uid
 					";
 			$data ["uid"] = $uid;
 			return $this->getListeParamAsPrepared($sql, $data);
 		}
 	}
+	/**
+	 * Retourne tous les conteneurs contenus
+	 * @param int $uid
+	 * @return array
+	 */
+	function getContentContainer($uid) {
+		if ($uid > 0 && is_numeric ( $uid )) {
+			$sql = "select o.uid, o.identifier, container_type_id, container_type_name
+					from object o
+					join container co on (co.uid = o.uid)
+					join container_type using (container_type_id)
+					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
+					where lm.movement_type_id = 1
+					order by o.identifier, o.uid
+					";
+			$data ["uid"] = $uid;
+			return $this->getListeParamAsPrepared($sql, $data);
+		}
+	}
+
+	/**
+	 * Retourne le conteneur parent
+	 * @param int $uid
+	 * @return array
+	 */
+	function getParent($uid) {
+		if ($uid > 0 && is_numeric ( $uid )) {
+			$sql = "select co.container_id, o.uid, o.identifier, container_type_id, container_type_name
+					from object o
+					join container co on (co.uid = o.uid)
+					join container_type using (container_type_id)
+					join last_movement lm on (lm.uid = :uid and lm.container_uid = o.uid) 
+					where lm.movement_type_id = 1
+					order by o.identifier, o.uid
+					";
+			$data ["uid"] = $uid;
+			return $this->lireParamAsPrepared($sql, $data);
+		}
+	}
+	/**
+	 * Retourne tous les conteneurs parents d'un objet
+	 * @param int $uid
+	 * @return array
+	 */
+	function getAllParents($uid) {
+		$data = array();
+		if ($uid > 0 && is_numeric ( $uid )) {
+			$continue = true;
+			while ($continue) {
+				$parent = $this->getParent($uid);
+				if ($parent["uid"] > 0) {
+					$data[] = $parent;
+					$uid = $parent["uid"];
+				} else 
+					$continue = false;
+			}
+		}
+		return $data;
+	}
+	
 	/**
 	 * Retourne le numero d'un conteneur a partir de son uid
 	 * 

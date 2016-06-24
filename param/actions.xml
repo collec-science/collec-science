@@ -107,6 +107,10 @@
 	<containerWrite action="modules/gestion/container.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
 	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion" retoursuppr="containerList" retourko="containerChange"  modulebefore="containerChange"/>
 
+	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" />
+	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />
+	<containereventDelete action="modules/gestion/event.php" param="change" droits="gestion"  retoursuppr="containerDisplay" retourko="containereventChange" modulebefore="containereventChange"/>
+	
 
 </navigation>
 	

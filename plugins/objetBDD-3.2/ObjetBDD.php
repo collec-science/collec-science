@@ -250,6 +250,7 @@ class ObjetBDD {
 	 */
 	public $transformComma = 1;
 	private $lastResultExec = false;
+	public $isBootstrap = false;
 	
 	/**
 	 * ObjetBDD
@@ -266,10 +267,10 @@ class ObjetBDD {
 		$this->connection = $p_connection;
 		if (! is_array ( $this->paramori ))
 			$this->paramori = $param;
-		if ( !is_array($this->param)) 
+		if (! is_array ( $this->param ))
 			$this->param = $param;
-
-		/*
+			
+			/*
 		 * configuration de la connexion
 		 */
 		$this->typeDatabase = $this->connection->getAttribute ( $p_connection::ATTR_DRIVER_NAME );
@@ -636,7 +637,7 @@ class ObjetBDD {
 	 *        	array with the name of the columns as identifiers of items
 	 * @return Identifier of item, or error code
 	 */
-	function ecrire($dataBrute) {
+	function ecrire($dataBrute, $isBootstrap = false) {
 		/*
 		 * Mise en forme des donnees selon le mode de fonctionnement
 		 */
@@ -672,7 +673,7 @@ class ObjetBDD {
 		/*
 		 * Traitement des dates
 		 */
-		if ($this->auto_date == 1) {
+		if ($this->auto_date == 1 && $isBootstrap == false) {
 			$data = $this->utilDatesLocaleVersDB ( $data );
 		}
 		
@@ -1126,16 +1127,18 @@ class ObjetBDD {
 		/*
 		 * Reformatage de la date
 		 */
-		switch ($this->formatDate) {
-			case 0 :
-				$date = $temp [0] . $this->separateurLocal . $temp [1] . $this->separateurLocal . $temp [2];
-				break;
-			case 1 :
-				$date = $temp [2] . $this->separateurLocal . $temp [1] . $this->separateurLocal . $temp [0];
-				break;
-			case 2 :
-				$date = $temp [1] . $this->separateurLocal . $temp [2] . $this->separateurLocal . $temp [0];
-				break;
+		if ($this->isBootstrap == false) {
+			switch ($this->formatDate) {
+				case 0 :
+					$date = $temp [0] . $this->separateurLocal . $temp [1] . $this->separateurLocal . $temp [2];
+					break;
+				case 1 :
+					$date = $temp [2] . $this->separateurLocal . $temp [1] . $this->separateurLocal . $temp [0];
+					break;
+				case 2 :
+					$date = $temp [1] . $this->separateurLocal . $temp [2] . $this->separateurLocal . $temp [0];
+					break;
+			}
 		}
 		if ($type == 3) {
 			/*
@@ -1548,15 +1551,24 @@ class ObjetBDD {
 		$this->errorData = array ();
 	}
 	/**
-	 * Fonction retournant la date du du jour au format courant
+	 * Fonction retournant la date du du jour au formatee ou non
 	 */
 	function getDateJour() {
-		$data = date ( 'Y-m-d' );
-		return $this->formatDateDBversLocal ( $data );
+		if ($this->isBootstrap) {
+			return (date ( 'Y-m-d' ));
+		} else
+			return $this->formatDateDBversLocal ( date ( 'Y-m-d' ) );
 	}
+	/**
+	 * Fonction retournant la date-heure courante, formatee ou non
+	 * 
+	 * @return string
+	 */
 	function getDateHeure() {
-		$data = date ( 'Y-m-d H:i:s' );
-		return $this->formatDateDBversLocal ( $data, 3 );
+		if ($this->isBootstrap) {
+			return date ( 'Y-m-d H:i:s' );
+		} else
+			return $this->formatDateDBversLocal ( date ( 'Y-m-d H:i:s' ), 3 );
 	}
 	/**
 	 * Retourne le login, pour creer la valeur par defaut
@@ -1573,7 +1585,8 @@ class ObjetBDD {
 	 * @param int $parentValue        	
 	 * @return array
 	 */
-	function getDefaultValue($parentValue = 0) {
+	function getDefaultValue($parentValue = 0, $isBootstrap = false) {
+		$this->isBootstrap = $isBootstrap;
 		$data = array ();
 		/*
 		 * Assignation des valeurs par defaut

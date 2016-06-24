@@ -85,7 +85,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
-      {if $data.aclappli_id > 0 }
+      {if $data.container_id > 0 }
       <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
       {/if}
  </div>

@@ -6,6 +6,8 @@
  * Copyright 2016 - All rights reserved
  */
 class Event extends ObjetBDD {
+	private $sql = "select * from event 
+			join event_type using (event_type_id)";
 	/**
 	 *
 	 * @param PDO $bdd        	
@@ -26,9 +28,9 @@ class Event extends ObjetBDD {
 						"parentAttrib" => 1 
 				),
 				"event_date" => array (
-						"type" => 3,
+						"type" => 2,
 						"requis" => 1,
-						"defaultValue" => "getDateHeure" 
+						"defaultValue" => "getDateJour" 
 				),
 				"event_type_id" => array (
 						"type" => 1,
@@ -42,6 +44,19 @@ class Event extends ObjetBDD {
 				) 
 		);
 		parent::__construct ( $bdd, $param );
+	}
+	/**
+	 * Retourne la liste avec les tables liees pour un uid
+	 * @param unknown $uid
+	 */
+	function getListeFromUid($uid) {
+		if ($uid > 0 && is_numeric($uid)) {
+			$where = " where uid = :uid";
+			$data["uid"] = $uid;
+			$order = " order by event_date desc";
+			return parent::getListeParamAsPrepared($this->sql.$where.$order, $data);
+		}
+		
 	}
 }
 

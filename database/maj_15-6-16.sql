@@ -30,3 +30,6 @@ REFERENCES "eabxcol"."col"."container_status" ("container_status_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
+create sequence "eabxcol"."col"."event_event_id_seq" owned by "eabxcol"."col"."event"."event_id";
+alter table "eabxcol"."col"."event" alter column event_id set default nextval( '"eabxcol"."col"."event_event_id_seq"');

@@ -8,8 +8,9 @@
 include_once 'modules/classes/container.class.php';
 require_once 'modules/classes/object.class.php';
 $dataClass = new Container ( $bdd, $ObjetBDDParam );
-$keyName = "container_id";
+$keyName = "uid";
 $id = $_REQUEST [$keyName];
+$_SESSION["moduleParent"] = "container";
 
 switch ($t_module ["param"]) {
 	case "list":
@@ -20,7 +21,7 @@ switch ($t_module ["param"]) {
 		$dataSearch = $_SESSION ["searchContainer"]->getParam ();
 		if ($_SESSION ["searchContainer"]->isSearch () == 1) {
 			$data = $dataClass->containerSearch( $dataSearch );
-			$smarty->assign ( "data", $data );
+			$smarty->assign ( "containers", $data );
 			$smarty->assign ( "isSearch", 1 );
 		}
 		$smarty->assign ( "containerSearch", $dataSearch );
@@ -35,8 +36,23 @@ switch ($t_module ["param"]) {
 		 * Display the detail of the record
 		 */
 		$data = $dataClass->lire ( $id );
-		$object = new Object ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "data", $data );
+		/*
+		 * Recuperation des conteneurs parents
+		 */
+		$smarty->assign("parents", $dataClass->getAllParents($data["uid"]));
+		/*
+		 * Recuperation des conteneurs  et des échantillons contenus
+		 */
+		$smarty->assign("containers", $dataClass->getContentContainer($data["uid"]));
+		$smarty->assign("samples", $dataClass->getContentSample($data["uid"]));
+		/*
+		 * Recuperation des evenements
+		 */
+		require_once 'modules/classes/event.class.php';
+		$event = new Event($bdd, $ObjetBDDParam);
+		$smarty->assign("events", $event->getListeFromUid($data["uid"]));
+		$smarty->assign("moduleParent", "container");
 		$smarty->assign ( "corps", "gestion/containerDisplay.tpl" );
 		break;
 	case "change":
@@ -55,6 +71,7 @@ switch ($t_module ["param"]) {
 		 * write record in database
 		 */
 		$id = dataWrite ( $dataClass, $_REQUEST );
+		printr($id);
 		if ($id > 0) {
 			$_REQUEST [$keyName] = $id;
 		}

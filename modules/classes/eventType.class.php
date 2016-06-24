@@ -37,6 +37,18 @@ class EventType extends ObjetBDD {
 		);
 		parent::__construct ( $bdd, $param );
 	}
+
+	/**
+	 * Retourne la liste selon la categorie choisie
+	 * @param string $category
+	 */
+	function getListeFromCategory($category) {
+		$sql = "select event_type_id, event_type_name
+				from event_type";
+		$category == "container" ? $sql .= " where is_container = true" : $sql. " where is_sample = true";
+		$sql .= " order by event_type_name";
+		return parent::getListeParam($sql);
+	}
 }
 
 ?>

@@ -35,7 +35,8 @@ class Storage extends ObjetBDD {
 				),
 				"uid" => array (
 						"type" => 1,
-						"requis" => 1 
+						"requis" => 1,
+						"parentAttrib" =>1
 				),
 				"container_id" => array (
 						"type" => 1 
@@ -49,7 +50,8 @@ class Storage extends ObjetBDD {
 						"defaultValue" => "getDateHeure" 
 				),
 				"login" => array (
-						"requis" => 1 
+						"requis" => 1,
+						"defaultValue" => "getLogin"
 				),
 				"range" => array (
 						"type" => 0 

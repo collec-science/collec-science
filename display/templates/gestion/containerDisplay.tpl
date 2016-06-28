@@ -1,17 +1,3 @@
-<script>
-$(document).ready(function() { 
-	$("#input").click(function() { 
-	
-	return false;
-	});
-	$("#output").click(function() { 
-	
-	return false;
-	});
-	
-});
-</script>
-
 <h2>Détail d'un conteneur</h2>
 <a href="index.php?module=containerList"><img src="display/images/list.png" height="25">Retour à la liste</a>
 {if $droits.gestion == 1}
@@ -26,7 +12,7 @@ $(document).ready(function() {
 <img src="display/images/output.png" height="25">Sortie</a></span>
 {else}
 <span id="input">
-<a href="#" id="input">
+<a href="index.php?module=storageContainerInput&storage_id=0&uid={$data.uid}&movement_id=1" id="input">
 <img src="display/images/input.png" height="25">Entrée
 </a>
 </span>

@@ -27,5 +27,13 @@ $(document).ready(function() {
 	}
 	);
 	$('.timepicker').attr('pattern', '[0-9][0-9]\:[0-9][0-9]\:[0-9][0-9]');
+		$('.datepicker').datetimepicker({ 
+		timepicker:false,
+		 format:'d/m/Y'
+	});
+	$('.datetimepicker').datetimepicker({ 
+		format:'d/m/Y H:i'
+	});
+	
 } ) ;
 </script>

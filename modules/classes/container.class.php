@@ -203,6 +203,20 @@ class Container extends ObjetBDD {
 		}
 		return $this->getListeParamAsPrepared($this->sql.$where.$order, $data);
 	}
+
+	/**
+	 * Retourne la liste des conteneurs correspondant au type
+	 * @param int $container_type_id
+	 * @return array
+	 */
+	function getFromType($container_type_id) {
+		if (is_numeric($container_type_id) && $container_type_id > 0) {
+			$data["container_type_id"] = $container_type_id;
+			$where = " where container_type_id = :container_type_id";
+			$order = " order by uid desc";
+			return $this->getListeParamAsPrepared($this->sql.$where.$order, $data);
+		}
+	}
 }
 
 ?>

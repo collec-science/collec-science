@@ -106,10 +106,15 @@
 	<containerChange action="modules/gestion/container.php" param="change" droits="gestion" />
 	<containerWrite action="modules/gestion/container.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
 	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion" retoursuppr="containerList" retourko="containerChange"  modulebefore="containerChange"/>
+	<containerGetFromType action="modules/gestion/container.php" param="getFromType" droits="consult" ajax="1"/>
 
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" />
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />
 	<containereventDelete action="modules/gestion/event.php" param="change" droits="gestion"  retoursuppr="containerDisplay" retourko="containereventChange" modulebefore="containereventChange"/>
+
+	<storageContainerInput action="modules/gestion/storage.php" param="input" droits="gestion" />
+	<storageContainerWrite action="modules/gestion/storage.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="storageContainerChange" modulebefore="storageContainerChange" />
+	<storageContainerDelete action="modules/gestion/storage.php" param="change" droits="gestion"  retoursuppr="containerDisplay" retourko="storageContainerChange" modulebefore="storageContainerChange"/>
 	
 
 </navigation>

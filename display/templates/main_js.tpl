@@ -17,6 +17,25 @@
 <script type="text/javascript" src="display/javascript/DataTables-1.10.12/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="display/javascript/DataTables-1.10.12/media/js/dataTables.bootstrap.min.js"></script>
 
+<!-- datetime -->
+<link rel="stylesheet" type="text/css" href="display/javascript/datetimepicker/jquery.datetimepicker.css" />
+<script type="text/javascript" src="display/javascript/datetimepicker/jquery.datetimepicker.min.js"></script>
+
 <!-- Code specifique -->
 <link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css" >
 <script type="text/javascript" src="display/javascript/bootstrap-prototypephp.js"></script>
+
+<!--  implementation automatique des classes -->
+<script>
+$(document).ready(function() {
+	$.datetimepicker.setLocale('fr');
+	$('.datepicker').datetimepicker( { 
+		timepicker:false,
+		 format:'d/m/Y'
+	});
+	$('.datetimepicker').datetimepicker( { 
+		format:'d/m/Y H:i'
+	});
+});
+
+</script>

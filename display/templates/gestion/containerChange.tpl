@@ -36,7 +36,16 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 <h2>Création - modification d'un conteneur</h2>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module=containerList">Retour à la liste des conteneurs</a>
+<a href="index.php?module=containerList">
+<img src="display/images/list.png" height="25">
+Retour à la liste des conteneurs
+</a>
+{if $data.uid > 0}
+<a href="index.php?module=containerDisplay&uid={$data.uid}">
+<img src="display/images/box.png" height="25">Retour au détail
+</a>
+{/if}
+
 <form class="form-horizontal protoform" id="containerForm" method="post" action="index.php">
 <input type="hidden" name="container_id" value="{$data.container_id}">
 <input type="hidden" name="moduleBase" value="container">

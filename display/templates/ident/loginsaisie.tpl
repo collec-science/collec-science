@@ -8,15 +8,17 @@ $(document).ready(function() {
 		 */
 		 var mdp1 = $("#pass1").val();
 		 var mdp2 = $("#pass2").val();
-		 if (mdp1 != mdp2) {
-		 	error = true;
-		 	message = "{$LANG["message"].39}";
-		 } else if (verifyLength(mdp1) == false) {
-		 	error = true;
-		 	message = "{$LANG["message"].40}";
-		 } else if (verifyComplexity(mdp1) == false) {
-		 	error = true;
-		 	message = "{$LANG["message"].41}";
+		 if (mdp1.length > 0 && mdp2.length > 0) {
+			 if (mdp1 != mdp2) {
+			 	error = true;
+			 	message = "{$LANG["message"].39}";
+			 } else if (verifyLength(mdp1) == false) {
+			 	error = true;
+			 	message = "{$LANG["message"].40}";
+			 } else if (verifyComplexity(mdp1) == false) {
+			 	error = true;
+			 	message = "{$LANG["message"].41}";
+			 }
 		 }
 		 $("#message").text(message);
 		/*

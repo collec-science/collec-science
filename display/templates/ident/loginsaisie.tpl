@@ -1,9 +1,41 @@
+<script >
+$(document).ready(function() {
+	$("#formLogin").submit(function (event) {
+		var error = false;
+		var message = "";
+		/*
+		 * Verifications
+		 */
+		 var mdp1 = $("#pass1").val();
+		 var mdp2 = $("#pass2").val();
+		 if (mdp1 != mdp2) {
+		 	error = true;
+		 	message = "{$LANG["message"].39}";
+		 } else if (verifyLength(mdp1) == false) {
+		 	error = true;
+		 	message = "{$LANG["message"].40}";
+		 } else if (verifyComplexity(mdp1) == false) {
+		 	error = true;
+		 	message = "{$LANG["message"].41}";
+		 }
+		 $("#message").text(message);
+		/*
+	 	 * Blocage de l'envoi du formulaire
+		 */
+		 if (error == true)
+			event.preventDefault();
+	});
+
+});
+
+</script>
+
 <h2>Saisie/modification d'un compte</h2>
 <div class="row">
 <div class="col-lg-6">
 <a href="index.php?module=loginList">Retour à la liste des logins</a>
 
-<form class="form-horizontal protoform" method="post" action="index.php">
+<form class="form-horizontal protoform" id="formLogin" method="post" action="index.php">
 <input type="hidden" name="moduleBase" value="login">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="id" value="{$data.id}">
@@ -43,13 +75,13 @@
 <div class="form-group">
 <label for="pass1" class="col-md-4 control-label">{$LANG.login.1} : </label>
 <div class="col-md-8">
-<input class="form-control" type="password" autocomplete="off" id="pass1" name="pass1" onchange="verifieMdp(this.form.pass1, this.form.pass2)">
+<input class="form-control" type="password" autocomplete="off" id="pass1" name="pass1" >
 </div>
 </div>
 <div class="form-group">
 <label for="pass2" class="col-md-4 control-label">{$LANG.login.12}</label> 
 <div class="col-md-8">
-<input type="password" class="form-control" id="pass2" autocomplete="off" name="pass2" onchange="verifieMdp(this.form.pass1, this.form.pass2)">
+<input type="password" class="form-control" id="pass2" autocomplete="off" name="pass2">
 </div>
 </div>
 <div class="form-group">
@@ -80,6 +112,11 @@
       {/if}
  </div>
 </form>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6">
+<div id="message"></div>
 </div>
 </div>
 <span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>

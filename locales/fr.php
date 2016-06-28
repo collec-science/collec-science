@@ -125,6 +125,10 @@ $LANG["message"][35] = "Le module demandé n'existe pas";
 $LANG["message"][36] = "Donnée obligatoire";
 $LANG["message"][37] = "Erreur de lecture des informations dans la base de données";
 $LANG["message"][38] = "Erreur d'écriture dans le fichier de traces";
+$LANG["message"][39] = "Les mots de passe ne sont pas identiques";
+$LANG["message"][40] = "Le mot de passe est trop court (minimum : 8 caractères)";
+$LANG["message"][41] = "Le mot de passe n'est pas assez complexe (mixez 3 jeux de caractères parmi les minuscules, majuscules, chiffres et signes de ponctuation)";
+
 
 
 $LANG["message"]["yes"] = "oui";

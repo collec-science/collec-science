@@ -94,3 +94,17 @@ legend {
 	border-radius: 0.4em;
 	background-color: white;
 }
+/* Ajouts pour le composant datetimepicker */
+.datepicker {
+	background-image: url("images/calendar-small.gif");
+	background-size: 1em;
+	background-repeat: no-repeat;
+	background-position: 100% 50%;
+}
+
+.datetimepicker {
+	background-image: url("images/clock.png");
+	background-size: 1em;
+	background-repeat: no-repeat;
+	background-position: 100% 50%;
+}

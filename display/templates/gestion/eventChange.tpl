@@ -19,7 +19,7 @@ Retour au détail ({$object.uid} {$object.identifier})
 <div class="form-group">
 <label for="event_date" class="control-label col-md-4">Date :</label>
 <div class="col-md-8">
-<input id="event_date" type="date" name="event_date" required value="{$data.event_date}" class="form-control" >
+<input id="event_date" name="event_date" required value="{$data.event_date}" class="form-control datepicker" >
 </div>
 </div>
 

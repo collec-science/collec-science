@@ -15,11 +15,11 @@ Nouveau conteneur
 <!-- Entrée ou sortie -->
 {if count($parents) > 0}
 <span id="output">
-<a href="index.php?module=storageContainerOutput&storage_id=0&uid={$data.uid}" id="output">
+<a href="index.php?module=storageContainerOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir le conteneur du stock">
 <img src="display/images/output.png" height="25">Sortie</a></span>
 {else}
 <span id="input">
-<a href="index.php?module=storageContainerInput&storage_id=0&uid={$data.uid}" id="input">
+<a href="index.php?module=storageContainerInput&storage_id=0&uid={$data.uid}" id="input" title="Entrée le conteneur dans le stock">
 <img src="display/images/input.png" height="25">Entrée
 </a>
 </span>
@@ -50,7 +50,15 @@ Nouveau conteneur
 </dl>
 <dl class="dl-horizontal">
 <dt>Produit utilisé :</dt>
-<dd>{$data.storage_product} {$data.clp_classification}</dd>
+<dd>{$data.storage_condition_name} 
+{if strlen($data.storage_product) >0 && strlen($data.storage_condition_name) > 0}
+<br>
+{/if}
+{$data.storage_product} 
+{if (strlen($data.storage_product) >0 || strlen($data.storage_condition_name) > 0) && strlen($data.clp_classification) > 0 }
+<br>
+{/if}
+{$data.clp_classification}</dd>
 </dl>
 <dl class="dl-horizontal">
 <dt>Statut :</dt>

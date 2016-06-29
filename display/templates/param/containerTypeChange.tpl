@@ -14,7 +14,7 @@
 </div>
 
 <div class="form-group">
-_<label for="container_family_id" class="control-label col-md-4">Famille<span class="red">*</span> :</label>
+<label for="container_family_id" class="control-label col-md-4">Famille<span class="red">*</span> :</label>
 <div class="col-md-8">
 <select id="container_family_id" name="container_family_id" class="form-control">
 {section name=lst loop=$containerFamily}

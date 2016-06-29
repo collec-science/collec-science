@@ -16,7 +16,7 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		dataRead($dataClass, $id, "gestion/eventChange.tpl", $_REQUEST["uid"], true);
+		dataRead($dataClass, $id, "gestion/eventChange.tpl", $_REQUEST["uid"], false);
 		$smarty->assign("moduleParent", $_SESSION["moduleParent"]);
 		/*
 		 * Recherche des types d'evenement
@@ -36,7 +36,7 @@ switch ($t_module["param"]) {
 		 * write record in database
 		 */
 		//$dataClass->debug_mode = 2;
-		$id = dataWrite($dataClass, $_REQUEST, true);
+		$id = dataWrite($dataClass, $_REQUEST, false);
 		if ($id > 0) {
 			$_REQUEST[$keyName] = $id;
 		}

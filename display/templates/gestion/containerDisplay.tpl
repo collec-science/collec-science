@@ -1,4 +1,6 @@
 <h2>Détail d'un conteneur</h2>
+<div class="row">
+<div class="col-md-12">
 <a href="index.php?module=containerList"><img src="display/images/list.png" height="25">Retour à la liste</a>
 {if $droits.gestion == 1}
 &nbsp;
@@ -23,9 +25,19 @@ Nouveau conteneur
 </span>
 {/if}
 {/if}
-<div class="row">
+&nbsp;
+<a href="#conteneurs">
+<img src="display/images/box.png" height="25">Conteneurs présents
+</a>
+&nbsp;
+<a href="#echantillons">
+<img src="display/images/sample.png" height="25">Échantillons présents
+</a>
+</div>
+</div>
 
-<fieldset class="col-md-6">
+<div class="row">
+<fieldset class="col-md-4">
 <legend>Informations générales</legend>
 <div class="form-display">
 <dl class="dl-horizontal">
@@ -62,12 +74,18 @@ Nouveau conteneur
 </div>
 
 </fieldset>
-<fieldset class="col-md-6">
+<div class="col-md-8">
+<fieldset>
 <legend>Événements</legend>
 {include file="gestion/eventList.tpl"}
 </fieldset>
+<fieldset>
+<legend>Mouvements</legend>
+{include file="gestion/storageList.tpl"}
+</fieldset>
+</div>
 
-<fieldset class="col-md-12">
+<fieldset class="col-md-12" id="conteneurs">
 <legend>Conteneurs présents</legend>
 <a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
 <img src="display/images/new.png" height="25">
@@ -75,7 +93,7 @@ Nouveau conteneur associé
 </a>
 {include file="gestion/containerListDetail.tpl"}
 </fieldset>
-<fieldset class="col-md-12">
+<fieldset class="col-md-12" id="echantillons">
 <legend>Échantillons présents</legend>
 {include file="gestion/sampleListDetail.tpl"}
 </fieldset>

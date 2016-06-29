@@ -52,6 +52,12 @@ switch ($t_module ["param"]) {
 		require_once 'modules/classes/event.class.php';
 		$event = new Event($bdd, $ObjetBDDParam);
 		$smarty->assign("events", $event->getListeFromUid($data["uid"]));
+		/*
+		 * Recuperation des mouvements
+		 */
+		require_once 'modules/classes/storage.class.php';
+		$storage = new Storage($bdd, $ObjetBDDParam);
+		$smarty->assign("storages", $storage->getAllMovements($id));
 		$smarty->assign("moduleParent", "container");
 		$smarty->assign ( "corps", "gestion/containerDisplay.tpl" );
 		break;

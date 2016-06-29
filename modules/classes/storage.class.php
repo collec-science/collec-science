@@ -14,7 +14,7 @@ class Storage extends ObjetBDD {
 	 */
 	private $sql = "select s.uid, container_id, movement_type_id, movement_type_name,
 					storage_date, range, login, storage_comment,
-					identifier, o.uid as parent_uid,
+					identifier, o.uid as parent_uid, o.identifier as parent_identifier,
 					container_type_id, container_type_name
 					from storage s
 					join movement_type using (movement_type_id)
@@ -82,7 +82,7 @@ class Storage extends ObjetBDD {
 	 * @return array
 	 */
 	function getAllMovements($uid) {
-		if (is_numeric ( $id ) && $id > 0) {
+		if (is_numeric ( $uid ) && $uid > 0) {
 			$data ["uid"] = $uid;
 			return $this->getListeParamAsPrepared ( $this->sql . $this->where . $this->order, $data );
 		}

@@ -13,11 +13,11 @@ Nouveau conteneur
 <!-- Entrée ou sortie -->
 {if count($parents) > 0}
 <span id="output">
-<a href="#" id="output">
+<a href="index.php?module=storageContainerOutput&storage_id=0&uid={$data.uid}" id="output">
 <img src="display/images/output.png" height="25">Sortie</a></span>
 {else}
 <span id="input">
-<a href="index.php?module=storageContainerInput&storage_id=0&uid={$data.uid}&movement_id=1" id="input">
+<a href="index.php?module=storageContainerInput&storage_id=0&uid={$data.uid}" id="input">
 <img src="display/images/input.png" height="25">Entrée
 </a>
 </span>

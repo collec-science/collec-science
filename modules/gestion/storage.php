@@ -12,16 +12,31 @@ $id = $_REQUEST [$keyName];
 
 switch ($t_module ["param"]) {
 	case "input" :
-		$data = dataRead ( $dataClass, $id, "gestion/storageInput.tpl", $_REQUEST ["uid"], false );
+		$data = dataRead ( $dataClass, $id, "gestion/storageChange.tpl", $_REQUEST ["uid"], false );
+		$data ["movement_type_id"] = 1;
 		require_once 'modules/classes/containerFamily.class.php';
 		$containerFamily = new ContainerFamily ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "containerFamily", $containerFamily->getListe ( 2 ) );
+		$smarty->assign("data", $data);
 		/*
 		 * Recherche de l'objet
 		 */
 		require_once 'modules/classes/object.class.php';
 		$object = new Object ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "object", $object->lire ( $_REQUEST ["uid"] ) );
+		$smarty->assign("data", $data);
+		break;
+		
+	case "output" :
+		$data = dataRead ( $dataClass, $id, "gestion/storageChange.tpl", $_REQUEST ["uid"], false );
+		$data ["movement_type_id"] = 2;		
+		/*
+		 * Recherche de l'objet
+		 */
+		require_once 'modules/classes/object.class.php';
+		$object = new Object ( $bdd, $ObjetBDDParam );
+		$smarty->assign ( "object", $object->lire ( $_REQUEST ["uid"] ) );
+		$smarty->assign("data", $data);
 		break;
 	case "change":
 		/*

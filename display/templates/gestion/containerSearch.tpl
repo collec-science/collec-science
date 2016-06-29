@@ -34,7 +34,7 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 <input id="action" type="hidden" name="action" value="{if strlen($action)>0}{$action}{else}List{/if}">
 <input id="isSearch" type="hidden" name="isSearch" value="1">
 <div class="form-group">
-<label for="name" class="col-md-2 control-label">uid :</label>
+<label for="name" class="col-md-2 control-label">uid ou identifiant :</label>
 <div class="col-md-4">
 <input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}">
 </div>

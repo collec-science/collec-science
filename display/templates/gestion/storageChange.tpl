@@ -63,7 +63,8 @@ var containerArray;
 		$("#container_id").val(id);
 		$("#uid").val(containerArray[id]);
 	});
-	
+	if($("#movement_type_id").val() == 1 )
+		$("#container_uid").attr("required");
 	 
 });
 
@@ -84,7 +85,7 @@ Retour au détail
 <input type="hidden" name="storage_id" value="{$data.storage_id}">
 <input type="hidden" name="moduleBase" value="storageContainer">
 <input type="hidden" name="action" value="Write">
-<input type="hidden" name="movement_type_id" value="1">
+<input type="hidden" name="movement_type_id" id="movement_type_id" value="{$data.movement_type_id}">
 <input type="hidden" name="container_id" id="container_id" value="{$data.container_id}">
 
 
@@ -95,13 +96,13 @@ Retour au détail
 <input id="identifier" name="identifier" value="{$object.identifier}" readonly>
 </div>
 </div>
-
+{if $data.movement_type_id == 1}
 <fieldset>
 <legend>Rangé dans :</legend>
 <div class="form-group">
 <label for="container_id" class="control-label col-md-4">UID du conteneur :<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="container_uid" name="container_uid" value="{$data.container_uid}" type="number" required class="form-control">
+<input id="container_uid" name="container_uid" value="{$data.container_uid}" type="number" class="form-control">
 </div>
 </div>
 <div class="form-group">
@@ -124,21 +125,24 @@ Retour au détail
 </div>
 </div>
 </fieldset>
+{/if}
 
 <fieldset>
-<legend>Détails du rangement :</legend>
+<legend>Détails :</legend>
 <div class="form-group">
 <label for="storage_date" class="control-label col-md-4">Date<span class="red">*</span> :</label>
 <div class="col-md-8">
 <input id="storage_date" name="storage_date" value="{$data.storage_date}" required class="datetimepicker form-control">
 </div>
 </div>
+{if $data.movement_type_id == 1}
 <div class="form-group">
 <label for="range" class="control-label col-md-4">Emplacement dans le conteneur :</label>
 <div class="col-md-8">
 <input id="range" name="range" value="{$data.range}" type="text" class="form-control">
 </div>
 </div>
+{/if}
 <div class="form-group">
 <label for="storage_comment" class="control-label col-md-4">Commentaire :</label>
 <div class="col-md-8">

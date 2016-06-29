@@ -196,6 +196,19 @@ class Container extends ObjetBDD {
 			$data["container_family_id"] = $param["container_family_id"];
 			$and = " and ";
 		}
+		if (strlen($param["name"]) > 0) {
+			$where .= $and."( ";
+			$or = "";
+			if (is_numeric($param["name"])) {
+				$where .= " uid = :uid";
+				$data["uid"] = $param["name"];
+				$or = " or ";
+			}
+			$identifier = "%".strtoupper($this->encodeData($param["name"]))."%";
+			$where .= "$or upper(identifier) like :identifier )";
+			$and = " and ";
+			$data["identifier"] = $identifier;
+		}
 		if ($param["container_status_id"] > 0) {
 			$where .= $and." container_status_id = :container_status_id";
 			$and = " and ";
@@ -204,8 +217,8 @@ class Container extends ObjetBDD {
 		if ($param["limit"] > 0) {
 			$order .= " limit :limite";
 			$data["limite"] = $param["limit"];
-		}
 		return $this->getListeParamAsPrepared($this->sql.$where.$order, $data);
+		}
 	}
 
 	/**

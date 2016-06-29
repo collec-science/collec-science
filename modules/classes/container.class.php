@@ -104,11 +104,15 @@ class Container extends ObjetBDD {
 	 */
 	function getContentContainer($uid) {
 		if ($uid > 0 && is_numeric ( $uid )) {
-			$sql = "select o.uid, o.identifier, container_type_id, container_type_name
+			$sql = "select o.uid, o.identifier, container_type_id, container_type_name,
+					container_family_id, container_family_name, container_status_id,
+					container_status_name
 					from object o
 					join container co on (co.uid = o.uid)
 					join container_type using (container_type_id)
+					join container_family using (container_family_id)
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
+					left outer join container_status using (container_status_id)
 					where lm.movement_type_id = 1
 					order by o.identifier, o.uid
 					";
@@ -168,7 +172,7 @@ class Container extends ObjetBDD {
 			$sql = "select container_id from container where uid = :uid";
 			$data ["uid"] = $uid;
 			$row = $this->lireParamAsPrepared ( $sql, $data );
-			return $row ["uid"];
+			return $row ["container_id"];
 		} else
 			return - 1;
 	}

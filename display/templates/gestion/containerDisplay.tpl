@@ -2,6 +2,11 @@
 <a href="index.php?module=containerList"><img src="display/images/list.png" height="25">Retour à la liste</a>
 {if $droits.gestion == 1}
 &nbsp;
+<a href="index.php?module=containerChange&uid=0">
+<img src="display/images/new.png" height="25">
+Nouveau conteneur
+</a>
+&nbsp;
 <a href="index.php?module=containerChange&uid={$data.uid}">
 <img src="display/images/edit.gif" height="25">Modifier...
 </a>
@@ -44,7 +49,7 @@
 <dt>Emplacement :</dt>
 <dd>
 {section name=lst loop=$parents}
-<a href="index.php?module=containerDispay&container_id={$parents[lst].container_id}">
+<a href="index.php?module=containerDisplay&uid={$parents[lst].uid}">
 {$parents[lst].uid} {$parents[lst].identifier} {$container_type_name}
 </a>
 {if not $smarty.section.lst.last}
@@ -64,6 +69,10 @@
 
 <fieldset class="col-md-12">
 <legend>Conteneurs présents</legend>
+<a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
+<img src="display/images/new.png" height="25">
+Nouveau conteneur associé
+</a>
 {include file="gestion/containerListDetail.tpl"}
 </fieldset>
 <fieldset class="col-md-12">

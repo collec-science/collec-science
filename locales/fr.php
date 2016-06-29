@@ -193,6 +193,6 @@ $LANG["ObjetBDDError"][7] = " est obligatoire, mais n'a pas été renseigné.";
 $LANG["appli"][0] = "Nouveau...";
 $LANG["appli"][1] = "Retour à la liste";
 $LANG["appli"][2] = "Choisissez...";
-
+$LANG["appli"][3] = "Le conteneur n'a pas été renseigné";
 
 ?>

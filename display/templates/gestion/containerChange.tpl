@@ -29,6 +29,15 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 	options = '<option value="' + {$data.container_type_id} + '" selected> ' + {$data.container_type_name} + '</option>';
 	$("#container_type_id").html(options);
 	{/if}
+	
+	$("#containerForm").submit(function(event) {
+		/*
+	 	 * Blocage de l'envoi du formulaire
+		 */
+		 var containerType = $("#container_type_id").val();
+		 if (!containerType)
+			event.preventDefault();
+	 });
 });
 
 </script>
@@ -50,6 +59,7 @@ Retour à la liste des conteneurs
 <input type="hidden" name="container_id" value="{$data.container_id}">
 <input type="hidden" name="moduleBase" value="container">
 <input type="hidden" name="action" value="Write">
+<input type="hidden" name="container_parent_uid" value="{$container_parent_uid}">
 {include file="gestion/uidChange.tpl"}
 
 <div class="form-group">

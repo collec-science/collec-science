@@ -61,9 +61,12 @@ switch ($t_module ["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		$data = dataRead ( $dataClass, $id, "gestion/containerChange.tpl" );
+		dataRead ( $dataClass, $id, "gestion/containerChange.tpl" );
 		//$object = new Object ( $bdd, $ObjetBDDParam );
 		//$smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
+		if ($_REQUEST["container_parent_uid"] > 0 && is_numeric($_REQUEST["container_parent_uid"])) {
+			$smarty->assign("container_parent_uid", $_REQUEST["container_parent_uid"]);
+		}
 		include 'modules/gestion/container.functions.php';
 		break;
 	case "write":
@@ -71,9 +74,23 @@ switch ($t_module ["param"]) {
 		 * write record in database
 		 */
 		$id = dataWrite ( $dataClass, $_REQUEST );
-		printr($id);
 		if ($id > 0) {
 			$_REQUEST [$keyName] = $id;
+			/*
+			 * Recherche s'il s'agit d'un conteneur a associer dans un autre conteneur
+			 */
+			if ($_REQUEST["container_parent_uid"] > 0 && is_numeric($_REQUEST["container_parent_uid"])) {
+				require_once 'modules/classes/storage.class.php';
+				$storage = new Storage($bdd, $ObjetBDDParam);
+				$data = array ("uid" =>$id,
+						"storage_date"=> date('d/m/Y H:i:s'),
+						"movement_type_id"=>1,
+						"login"=>$_SESSION["login"],
+						"container_id"=>$dataClass->getIdFromUid($_REQUEST["container_parent_uid"]),
+						"storage_id"=>0
+				);
+				$storage->ecrire($data);
+			}
 		}
 		break;
 	case "delete":
@@ -86,7 +103,7 @@ switch ($t_module ["param"]) {
 		require_once 'modules/classes/storage.class.php';
 		$storage = new Storage ( $bdd, $ObjetBDDParam );
 		try {
-			$nb = $storage->getNbFromContainer ( $id );
+			$nb = $storage->getNbFromControler($id);
 		} catch (Exception $e){
 			$nb = 0;
 		}

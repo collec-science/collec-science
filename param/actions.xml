@@ -113,8 +113,8 @@
 	<containereventDelete action="modules/gestion/event.php" param="change" droits="gestion"  retoursuppr="containerDisplay" retourko="containereventChange" modulebefore="containereventChange"/>
 
 	<storageContainerInput action="modules/gestion/storage.php" param="input" droits="gestion" />
-	<storageContainerWrite action="modules/gestion/storage.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="storageContainerChange" modulebefore="storageContainerChange" />
-	<storageContainerDelete action="modules/gestion/storage.php" param="change" droits="gestion"  retoursuppr="containerDisplay" retourko="storageContainerChange" modulebefore="storageContainerChange"/>
+	<storageContainerWrite action="modules/gestion/storage.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="storageContainerInput" modulebefore="storageContainerInput" />
+	<storageContainerDelete action="modules/gestion/storage.php" param="change" droits="gestion"  retoursuppr="containerDisplay" retourko="storageContainerInput" modulebefore="storageContainerInput"/>
 	
 
 </navigation>

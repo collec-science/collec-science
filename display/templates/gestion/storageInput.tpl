@@ -2,6 +2,10 @@
 $(document).ready(function() { 
 var options;
 var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0{/if};
+var containerArray;
+	/*
+	 * Recherche du type a partir de la famille
+	 */
 	function searchType() { 
 	var family = $("#container_family_id").val();
 	console.log ("famille : "+family);
@@ -9,18 +13,21 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
 		if (data != null) {
 		console.log ("data is not null");
-			options = '';			
+			options = '<option value="" selected>{$LANG["appli"].2}</option>';			
 			 for (var i = 0; i < data.length; i++) {
-			        options += '<option value="' + data[i].container_type_id + '"';
-			        if (data[i].container_type_id == type_init) {
-			        	options += ' selected ';
-			        }
+			    options += '<option value="' + data[i].container_type_id + '"';
+			    if (data[i].container_type_id == type_init) {
+			      	options += ' selected ';
+			    }
 			        options += '>' + data[i].container_type_name + '</option>';
 			      };
 			$("#container_type_id").html(options);
 			}
 		} ) ;
 	}
+	/*
+	 * Recherche d'un conteneur a partir du type
+	 */
 	function searchContainer () {
 		var containerType = $("#container_type_id").val();
 		console.log ("ContainerType : "+containerType);
@@ -29,16 +36,20 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 			if (data != null) {
 			console.log ("data is not null");
 			options = '';		
+			containerArray = "";
 			for (var i = 0; i < data.length; i++) {
+			 	containerArray[data[i].container_id] = data[i].uid;
 				options += '<option value="' + data[i].container_id + '"';
 				if (i == 0) {
 					options += ' selected ';
 					$("#container_id").val(data[i].container_id);
 					$("#container_uid").val(data[i].uid);
 				}
-			    options += '>' + data[i].uid + " " + data[i].identifier + "("+data[i].container_status_name + ")" '</option>';
-			      };
+			    options += '>' + data[i].uid + " " + data[i].identifier + "("+data[i].container_status_name + ")</option>";
+			}
 			$("#containers").html(options);
+			}
+			});
 	}
 	
 	$("#container_family_id").change(function () {
@@ -48,7 +59,9 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 		searchContainer();
 	});
 	$("#containers").change(function() { 
-		$("#container_id").val($("#containers").val());
+		var id = $("#containers").val();
+		$("#container_id").val(id);
+		$("#uid").val(containerArray[id]);
 	});
 	
 	 
@@ -69,7 +82,7 @@ Retour au détail
 {/if}
 <form class="form-horizontal protoform" id="containerForm" method="post" action="index.php">
 <input type="hidden" name="storage_id" value="{$data.storage_id}">
-<input type="hidden" name="moduleBase" value="container">
+<input type="hidden" name="moduleBase" value="storageContainer">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="movement_type_id" value="1">
 <input type="hidden" name="container_id" id="container_id" value="{$data.container_id}">
@@ -110,8 +123,6 @@ Retour au détail
 </select>
 </div>
 </div>
-
-
 </fieldset>
 
 <fieldset>
@@ -119,7 +130,7 @@ Retour au détail
 <div class="form-group">
 <label for="storage_date" class="control-label col-md-4">Date<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="storage_date" name="storage_date" value="{$data.storage_date}"   required class="datetimepicker form-control">
+<input id="storage_date" name="storage_date" value="{$data.storage_date}" required class="datetimepicker form-control">
 </div>
 </div>
 <div class="form-group">
@@ -131,7 +142,7 @@ Retour au détail
 <div class="form-group">
 <label for="storage_comment" class="control-label col-md-4">Commentaire :</label>
 <div class="col-md-8">
-<textarea id="storage_comment" name="textarea" class="form-control" rows="3">{$data.storage_comment}</textarea>
+<textarea id="storage_comment" name="storage_comment" class="form-control" rows="3">{$data.storage_comment}</textarea>
 </div>
 </div>
 <div class="form-group">

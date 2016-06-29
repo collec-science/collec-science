@@ -19,7 +19,7 @@
 
 <!-- datetime -->
 <link rel="stylesheet" type="text/css" href="display/javascript/datetimepicker/jquery.datetimepicker.css" />
-<script type="text/javascript" src="display/javascript/datetimepicker/jquery.datetimepicker.min.js"></script>
+<script type="text/javascript" src="display/javascript/datetimepicker/jquery.datetimepicker.full.min.js"></script>
 
 <!-- Code specifique -->
 <link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css" >
@@ -34,7 +34,8 @@ $(document).ready(function() {
 		 format:'d/m/Y'
 	});
 	$('.datetimepicker').datetimepicker( { 
-		format:'d/m/Y H:i'
+		format:'d/m/Y H:i',
+		step: 5
 	});
 });
 

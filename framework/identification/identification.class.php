@@ -193,7 +193,13 @@ class Identification {
 		// le cookie de session.
 		// Note : cela détruira la session et pas seulement les données de session !
 		if (isset ( $_COOKIE [session_name ()] )) {
-			setcookie ( session_name (), '', time () - 42000, '/' );
+			setcookie ( session_name (), '', time () - 42000 );
+		}
+		/*
+		 * Suppression du cookie d'identification
+		 */
+		if (isset ($_COOKIE["tokenIdentity"])) {
+			setcookie("tokenIdentity", '', time() - 42000);
 		}
 		$message = $LANG ["message"] [7];
 		// Finalement, on détruit la session.

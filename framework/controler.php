@@ -53,9 +53,22 @@ while ( isset ( $module ) ) {
 		 */
 		if (! isset ( $_SESSION ["login"] )) {
 			/*
-			 * Verification du login aupres du serveur CAS
+			 * Un cookie d'identification est-il fourni ?
 			 */
-			if ($ident_type == "CAS") {
+			if (isset ( $_COOKIE ["tokenIdentity"] )) {
+				require_once 'framework/identification/token.class.php';
+				$tokenClass = new Token ();
+				try {
+					$login = $tokenClass->openTokenFromJson($_COOKIE ["tokenIdentity"]);
+					if (strlen ( $login ) > 0)
+						$_SESSION ["login"] = $login;
+				} catch ( Exception $e ) {
+					$message = $e->getMessage ();
+				}
+			} elseif ($ident_type == "CAS") {
+				/*
+				 * Verification du login aupres du serveur CAS
+				 */
 				$identification->getLogin ();
 			} else {
 				/*
@@ -86,18 +99,12 @@ while ( isset ( $module ) ) {
 							$_SESSION ["login"] = $_REQUEST ["login"];
 						}
 					}
-					
-					/*
-					 * Reinitialisation du menu
-					 */
-					if (isset ( $_SESSION ["login"] )) {
-						unset ( $_SESSION ["menu"] );
-					}
 				} else {
 					/*
 					 * Gestion de la saisie du login
 					 */
 					$smarty->assign ( "corps", "ident/login.tpl" );
+					$smarty->assign("tokenIdentityValidity", $tokenIdentityValidity);
 					if ($t_module ["retourlogin"] == 1)
 						$smarty->assign ( "module", $_REQUEST ["module"] );
 					$message = $LANG ["login"] [2];
@@ -112,6 +119,10 @@ while ( isset ( $module ) ) {
 				 */
 				session_regenerate_id ();
 				/*
+				 * Reinitialisation du menu
+				 */
+				unset ( $_SESSION ["menu"] );
+				/*
 				 * Recuperation des cookies le cas echeant
 				 */
 				include 'modules/cookies.inc.php';
@@ -123,6 +134,27 @@ while ( isset ( $module ) ) {
 				 * Integration des commandes post login
 				 */
 				include "modules/postLogin.php";
+				/*
+				 * Gestion de l'identification par token
+				 */
+				if ($_REQUEST ["loginByTokenRequested"] == 1) {
+					require_once 'framework/identification/token.class.php';
+					$tokenClass = new Token ();
+					try {
+						$token = $tokenClass->createToken ( $_SESSION ["login"], $tokenIdentityValidity );
+						/*
+						 * Ecriture du cookie
+						 */
+						$cookieParam = session_get_cookie_params ();
+						$cookieParam ["lifetime"] = $tokenIdentityValidity;
+						if ($APPLI_modeDeveloppement == false)
+							$cookieParam ["secure"] = true;
+						$cookieParam ["httponly"] = true;
+						setcookie ( 'tokenIdentity', $token, time () + $tokenIdentityValidity, $cookieParam ["path"], $cookieParam ["domain"], $cookieParam ["secure"], $cookieParam ["httponly"] );
+					} catch ( Exception $e ) {
+						$message = $e->getMessage ();
+					}
+				}
 			}
 		}
 	}
@@ -278,7 +310,7 @@ if ($t_module ["ajax"] != 1) {
 				"message",
 				"texteNews",
 				"doc",
-				"phpinfo"
+				"phpinfo" 
 		) ) == false) {
 			$smarty->assign ( $key, encodehtml ( $value ) );
 		}

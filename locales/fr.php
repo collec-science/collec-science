@@ -179,7 +179,8 @@ $LANG["login"][42] ="Retour à la liste des applications";
 $LANG["login"][43] ="Retour à";
 $LANG["login"][44] ="Nom du droit utilisé dans l'application";
 $LANG["login"][45] ="Groupes disposant du droit";
-$LANG["login"][46] ="";
+$LANG["login"][46] ="Conserver la connexion pendant";
+$LANG["login"][47] = "heures";
 
 $LANG["ObjetBDDError"][0] = "Le champ ";
 $LANG["ObjetBDDError"][1] = " n'est pas numerique.";

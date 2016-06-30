@@ -14,6 +14,12 @@
 		
   <input type="hidden" id="hiddenUsername" name="login"/>
   <input type="hidden" id="hiddenPassword" name="password"/>
+  {if $tokenIdentityValidity > 0}
+  {$duration = $tokenIdentityValidity / 3600}
+  {$LANG.login.46} {$duration} {$LANG.login.47} 
+  <input type="checkbox" name="loginByTokenRequested" value="1" checked>
+  <br>
+  {/if}
 	<input type="submit">
 	</form>
 	

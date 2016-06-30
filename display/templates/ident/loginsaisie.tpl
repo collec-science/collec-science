@@ -71,7 +71,7 @@ $(document).ready(function() {
 <div class="form-group">
 <label for="datemodif" class="col-md-4 control-label">{$LANG.login.11} : </label>
 <div class="col-md-8">
-<input class="form-control" type="date" id="datemodif" name="datemodif" value="{$data.datemodif}" readonly>
+<input class="form-control" id="datemodif" name="datemodif" value="{$data.datemodif}" readonly>
 </div>
 </div>
 <div class="form-group">

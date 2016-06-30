@@ -163,4 +163,21 @@ class SearchContainer extends SearchParam {
 	}
 }
 
+class SearchSample extends SearchParam {
+	function __construct() {
+		$this->param = array (
+				"name" => "",
+				"sample_type_id" => "",
+				"project_id" => "",
+				"limit"=>100
+		);
+		$this->paramNum = array (
+				"sample_type_id",
+				"project_id",
+				"limit"
+		);
+		parent::__construct ();
+	}
+}
+
 ?>

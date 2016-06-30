@@ -6,4 +6,7 @@
  */
 if (!isset($_SESSION["searchContainer"]))
 	$_SESSION["searchContainer"] = new SearchContainer();
+	if (!isset($_SESSION["searchSample"]))
+		$_SESSION["searchSample"] = new SearchSample();
+	
 ?>

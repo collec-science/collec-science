@@ -53,7 +53,7 @@ class Aclaco extends ObjetBDD {
 	 *
 	 * @see ObjetBDD::write()
 	 */
-	function write($data) {
+	function ecrire($data) {
 		$id = parent::ecrire ( $data );
 		echo "id : $id<br>";
 		if ($id > 0)
@@ -428,7 +428,7 @@ class Aclgroup extends ObjetBDD {
 	 *
 	 * @see ObjetBDD::write()
 	 */
-	function write($data) {
+	function ecrire($data) {
 		$id = parent::ecrire ( $data );
 		if ($id > 0)
 			$this->ecrireTableNN ( "acllogingroup", "aclgroup_id", "acllogin_id", $id, $data ["logins"] );

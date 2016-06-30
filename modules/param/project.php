@@ -15,8 +15,12 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
+		try {
 		$smarty->assign("data", $dataClass->getListe(2));
 		$smarty->assign("corps", "param/projectList.tpl");
+		} catch (Exception $e) {
+			$message = $e->getMessage();
+		}
 		break;
 	case "change":
 		/*

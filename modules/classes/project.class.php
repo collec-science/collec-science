@@ -5,6 +5,7 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
+
 class Project extends ObjetBDD {
 	/**
 	 *
@@ -27,8 +28,6 @@ class Project extends ObjetBDD {
 		);
 		parent::__construct ( $bdd, $param );
 	}
-	function getGroups($id) {
-	}
 	/**
 	 * Ajoute la liste des groupes a la liste des projets
 	 *
@@ -36,7 +35,8 @@ class Project extends ObjetBDD {
 	 *
 	 * @see ObjetBDD::getListe()
 	 */
-	function getListe($order = 0) {
+	function getListe ( $order = 0) {
+		echo "test";
 		$sql = "select project_id, project_name, array_to_string(array_agg(groupe),', ') as groupe
 				from project
 				left outer join project_group using (project_id)
@@ -57,7 +57,7 @@ class Project extends ObjetBDD {
 			/*
 			 * Recherche des groupes auquel appartient le login
 			 */
-			require_once 'framework/droits/group.php';
+			require_once 'framework/droits/droits.class.php';
 			$aclGroupe = new Aclgroup ( $this->connection );
 			$groupes = $aclGroupe->getGroupsFromLogin ( $login );
 			/*
@@ -66,10 +66,10 @@ class Project extends ObjetBDD {
 			$comma = false;
 			$in = "(";
 			foreach ( $groupes as $value ) {
-				$in .= $value ["aclgroup_id"];
 				$comma == true ? $in .= ", " : $comma = true;
+				$in .= $value ["aclgroup_id"];
 			}
-			$in = ")";
+			$in .= ")";
 			$sql = "select project_id, project_name
 					from project
 					join project_group using (project_id)
@@ -109,7 +109,7 @@ class Project extends ObjetBDD {
 	}
 	/**
 	 * Supprime un projet
-	 * 
+	 *
 	 * {@inheritDoc}
 	 *
 	 * @see ObjetBDD::supprimer()
@@ -135,7 +135,6 @@ class Project extends ObjetBDD {
 	 * dans le projet (attribut checked a 1)
 	 *
 	 * @param int $project_id        	
-	 * @param PDO $aclconnexion        	
 	 * @return array
 	 */
 	function getAllGroupsFromProject($project_id) {
@@ -145,7 +144,7 @@ class Project extends ObjetBDD {
 			foreach ( $data as $key => $value )
 				$dataGroup [$value ["aclgroup_id"]] = 1;
 		}
-		require_once 'framework/droits/group.php';
+		require_once 'framework/droits/droits.class.php';
 		$aclgroup = new Aclgroup ( $this->connection );
 		$groupes = $aclgroup->getListe ( 2 );
 		foreach ( $groupes as $key => $value )

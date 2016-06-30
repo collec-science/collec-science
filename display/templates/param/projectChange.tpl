@@ -14,9 +14,8 @@
 </div>
 </div>
 <div class="form-group">
-<label for="groupes"  class="control-label col-md-4">Groupes</label>
+<label for="groupes"  class="control-label col-md-4">Groupes :</label>
 <div class="col-md-8">
-<div class="row">
 {section name=lst loop=$groupes}
 <div class="col-md-2 col-sm-offset-2">
       <div class="checkbox">
@@ -27,7 +26,6 @@
 </div>
 </div>
 {/section}
-</div>
 
 </div>
 </div>

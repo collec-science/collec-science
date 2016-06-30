@@ -33,3 +33,5 @@ NOT DEFERRABLE;
 
 create sequence "eabxcol"."col"."event_event_id_seq" owned by "eabxcol"."col"."event"."event_id";
 alter table "eabxcol"."col"."event" alter column event_id set default nextval( '"eabxcol"."col"."event_event_id_seq"');
+
+alter table col.projet_group rename to project_group;

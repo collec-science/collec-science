@@ -117,6 +117,11 @@
 	<storageContainerWrite action="modules/gestion/storage.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="storageContainerInput" modulebefore="storageContainerInput,storageContainerOutput" />
 	<storageContainerDelete action="modules/gestion/storage.php" param="delete" droits="gestion"  retoursuppr="containerDisplay" retourko="storageContainerInput" modulebefore="storageContainerInput,storageContainerOutput"/>
 	
+	<projectList action="modules/param/project.php" param="list" droits="consult"  retourlogin="1"/>
+	<projectChange action="modules/param/project.php" param="change" droits="param"  retourlogin="1"/>
+	<projectWrite action="modules/param/project.php" param="write" droits="param" retourok="projectList" retourko="projectChange" modulebefore="projectChange" />
+	<projectDelete action="modules/param/project.php" param="delete" droits="param" retoursuppr="projectList" retourko="projectChange"  modulebefore="projectChange"/>
+	
 
 </navigation>
 	

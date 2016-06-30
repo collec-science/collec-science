@@ -11,6 +11,10 @@ class SampleType extends ObjetBDD {
 	 * @param PDO $bdd
 	 * @param array $param
 	 */
+	private $sql = "select sample_type_id, sample_type_name, 
+					metadata_set_id, metadata_set_name
+					from sample_type
+					left outer join metadata_set using (metadata_set_id)";
 	function __construct($bdd, $param = array()) {
 		$this->table = "sample_type";
 		$this->colonnes = array (
@@ -29,6 +33,16 @@ class SampleType extends ObjetBDD {
 				)
 		);
 		parent::__construct ( $bdd, $param );
+	}
+	/**
+	 * Ajoute le jeu de métadonnées utilisé
+	 * {@inheritDoc}
+	 * @see ObjetBDD::getListe()
+	 */
+	function getListe($order = 0) {
+		if ($order > 0)
+			$tri = " order by $order";
+		return $this->getListeParam($this->sql.$tri);
 	}
 }
 ?>

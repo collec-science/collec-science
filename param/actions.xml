@@ -99,6 +99,12 @@
 	<containerTypeWrite action="modules/param/containerType.php" param="write" droits="param" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange" />
 	<containerTypeDelete action="modules/param/containerType.php" param="delete" droits="param" retoursuppr="containerTypeList" retourko="containerTypeChange"  modulebefore="containerTypeChange"/>
 	<containerTypeGetFromFamily action="modules/param/containerType.php" param="getFromFamily" droits="consult" ajax="1" />
+	
+	<sampleTypeList action="modules/param/sampleType.php" param="list" droits="consult"  retourlogin="1"/>
+	<sampleTypeChange action="modules/param/sampleType.php" param="change" droits="param"  retourlogin="1"/>
+	<sampleTypeWrite action="modules/param/sampleType.php" param="write" droits="param" retourok="sampleTypeList" retourko="sampleTypeChange" modulebefore="sampleTypeChange" />
+	<sampleTypeDelete action="modules/param/sampleType.php" param="delete" droits="param" retoursuppr="sampleTypeList" retourko="sampleTypeChange"  modulebefore="sampleTypeChange"/>
+	
 
 	<gestion droits="consult"/>
 	<containerList action="modules/gestion/container.php" param="list" droits="consult" retourlogin="1"  />

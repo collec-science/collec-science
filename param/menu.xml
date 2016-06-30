@@ -12,6 +12,7 @@
 	<item module="storageConditionList" droits="consult" value="56" title="57" />
 	<item module="containerTypeList" droits="consult" value="58" title="59" />
 	<item module="containerStatusList" droits="consult" value="62" title="63" />
+	<item module="sampleTypeList" droits="consult" value="66" title="67" />
 		
 </item>
 <item module="administration" value="4" title="5" droits="admin">

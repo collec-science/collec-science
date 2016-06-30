@@ -49,6 +49,21 @@ class Sample extends ObjetBDD {
 		
 		parent::__construct ( $bdd, $param );
 	}
+	/**
+	 * Retourne le nombre d'echantillons attaches a un projet
+	 * @param int $project_id
+	 */
+	function getNbFromProject($project_id) {
+		if ($project_id > 0 ) {
+			$sql = "select count(*)as nb from sample where project_id = :project_id";
+			$var["project_id"] = $project_id;
+			$data = $this->lireParamAsPrepared($sql, $var);
+			if (count($data) > 0) {
+				return $data["nb"];
+			} else 
+				return 0;
+		}
+	}
 }
 
 ?>

@@ -33,4 +33,10 @@ if (strlen ( $APPLI_nomDossierStockagePhotoTemp ) > 0) {
 	}
 	closedir ( $dossier );
 }
+/*
+ * Calcul des projets autorises pour le login
+ */
+require_once 'modules/classes/project.class.php';
+$project = new Project($bdd, $ObjetBDDParam);
+$_SESSION["projects"] = $project->getProjectIdFromLogin($_SESSION["login"]);
 ?>

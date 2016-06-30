@@ -74,46 +74,46 @@
 
 <!-- Modules specifiques de l'application -->
 	<parametre droits="consult"/>
-	<eventTypeList action="modules/param/eventType.php" param="list" droits="consult" />
-	<eventTypeChange action="modules/param/eventType.php" param="change" droits="param" />
+	<eventTypeList action="modules/param/eventType.php" param="list" droits="consult"  retourlogin="1"/>
+	<eventTypeChange action="modules/param/eventType.php" param="change" droits="param"  retourlogin="1"/>
 	<eventTypeWrite action="modules/param/eventType.php" param="write" droits="param" retourok="eventTypeList" retourko="eventTypeChange" modulebefore="eventTypeChange" />
 	<eventTypeDelete action="modules/param/eventType.php" param="delete" droits="param" retoursuppr="eventTypeList" retourko="eventTypeChange"  modulebefore="eventTypeChange"/>
 
-	<containerFamilyList action="modules/param/containerFamily.php" param="list" droits="consult" />
-	<containerFamilyChange action="modules/param/containerFamily.php" param="change" droits="param" />
+	<containerFamilyList action="modules/param/containerFamily.php" param="list" droits="consult" retourlogin="1" />
+	<containerFamilyChange action="modules/param/containerFamily.php" param="change" droits="param"  retourlogin="1"/>
 	<containerFamilyWrite action="modules/param/containerFamily.php" param="write" droits="param" retourok="containerFamilyList" retourko="containerFamilyChange" modulebefore="containerFamilyChange" />
 	<containerFamilyDelete action="modules/param/containerFamily.php" param="delete" droits="param" retoursuppr="containerFamilyList" retourko="containerFamilyChange"  modulebefore="containerFamilyChange"/>
 
-	<containerStatusList action="modules/param/containerStatus.php" param="list" droits="consult" />
-	<containerStatusChange action="modules/param/containerStatus.php" param="change" droits="param" />
+	<containerStatusList action="modules/param/containerStatus.php" param="list" droits="consult"  retourlogin="1"/>
+	<containerStatusChange action="modules/param/containerStatus.php" param="change" droits="param"  retourlogin="1"/>
 	<containerStatusWrite action="modules/param/containerStatus.php" param="write" droits="param" retourok="containerStatusList" retourko="containerStatusChange" modulebefore="containerStatusChange" />
 	<containerStatusDelete action="modules/param/containerStatus.php" param="delete" droits="param" retoursuppr="containerStatusList" retourko="containerStatusChange"  modulebefore="containerStatusChange"/>
 
-	<storageConditionList action="modules/param/storageCondition.php" param="list" droits="consult" />
-	<storageConditionChange action="modules/param/storageCondition.php" param="change" droits="param" />
+	<storageConditionList action="modules/param/storageCondition.php" param="list" droits="consult"  retourlogin="1"/>
+	<storageConditionChange action="modules/param/storageCondition.php" param="change" droits="param"  retourlogin="1"/>
 	<storageConditionWrite action="modules/param/storageCondition.php" param="write" droits="param" retourok="storageConditionList" retourko="storageConditionChange" modulebefore="storageConditionChange" />
 	<storageConditionDelete action="modules/param/storageCondition.php" param="delete" droits="param" retoursuppr="storageConditionList" retourko="storageConditionChange"  modulebefore="storageConditionChange"/>
 
-	<containerTypeList action="modules/param/containerType.php" param="list" droits="consult" />
-	<containerTypeChange action="modules/param/containerType.php" param="change" droits="param" />
+	<containerTypeList action="modules/param/containerType.php" param="list" droits="consult"  retourlogin="1"/>
+	<containerTypeChange action="modules/param/containerType.php" param="change" droits="param"  retourlogin="1"/>
 	<containerTypeWrite action="modules/param/containerType.php" param="write" droits="param" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange" />
 	<containerTypeDelete action="modules/param/containerType.php" param="delete" droits="param" retoursuppr="containerTypeList" retourko="containerTypeChange"  modulebefore="containerTypeChange"/>
 	<containerTypeGetFromFamily action="modules/param/containerType.php" param="getFromFamily" droits="consult" ajax="1" />
 
 	<gestion droits="consult"/>
 	<containerList action="modules/gestion/container.php" param="list" droits="consult" retourlogin="1"  />
-	<containerDisplay action="modules/gestion/container.php" param="display" droits="consult" />
-	<containerChange action="modules/gestion/container.php" param="change" droits="gestion" />
+	<containerDisplay action="modules/gestion/container.php" param="display" droits="consult"  retourlogin="1"/>
+	<containerChange action="modules/gestion/container.php" param="change" droits="gestion"  retourlogin="1"/>
 	<containerWrite action="modules/gestion/container.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
 	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion" retoursuppr="containerList" retourko="containerChange"  modulebefore="containerChange"/>
 	<containerGetFromType action="modules/gestion/container.php" param="getFromType" droits="consult" ajax="1"/>
 
-	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" />
+	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion"  retourlogin="1"/>
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />
 	<containereventDelete action="modules/gestion/event.php" param="change" droits="gestion"  retoursuppr="containerDisplay" retourko="containereventChange" modulebefore="containereventChange"/>
 
-	<storageContainerInput action="modules/gestion/storage.php" param="input" droits="gestion" />
-	<storageContainerOutput action="modules/gestion/storage.php" param="output" droits="gestion" />	
+	<storageContainerInput action="modules/gestion/storage.php" param="input" droits="gestion"  retourlogin="1"/>
+	<storageContainerOutput action="modules/gestion/storage.php" param="output" droits="gestion"  retourlogin="1"/>	
 	<storageContainerWrite action="modules/gestion/storage.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="storageContainerInput" modulebefore="storageContainerInput,storageContainerOutput" />
 	<storageContainerDelete action="modules/gestion/storage.php" param="delete" droits="gestion"  retoursuppr="containerDisplay" retourko="storageContainerInput" modulebefore="storageContainerInput,storageContainerOutput"/>
 	

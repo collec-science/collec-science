@@ -5,7 +5,6 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-
 class Project extends ObjetBDD {
 	/**
 	 *
@@ -31,11 +30,11 @@ class Project extends ObjetBDD {
 	/**
 	 * Ajoute la liste des groupes a la liste des projets
 	 *
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 *
 	 * @see ObjetBDD::getListe()
 	 */
-	function getListe ( $order = 0) {
+	function getListe($order = 0) {
 		echo "test";
 		$sql = "select project_id, project_name, array_to_string(array_agg(groupe),', ') as groupe
 				from project
@@ -59,23 +58,44 @@ class Project extends ObjetBDD {
 			 */
 			require_once 'framework/droits/droits.class.php';
 			$aclGroupe = new Aclgroup ( $this->connection );
-			$groupes = $aclGroupe->getGroupsFromLogin ( $login );
+			$groupeListe = $aclGroupe->getGroupsFromLogin ( $login );
+			/*
+			 * Preparation du tableau ne contenant que le nom des groupes
+			 */
+			$groups = array ();
+			foreach ( $groupeListe as $value )
+				$groups [] = $value ["groupe"];
+			return $this->getProjectsFromGroups ( $groups );
+		}
+	}
+	
+	/**
+	 * Retoune la liste des projets correspondants aux groupes indiques
+	 * 
+	 * @param array $groups        	
+	 * @return tableau
+	 */
+	function getProjectsFromGroups(array $groups) {
+		if (count ( $groups ) > 0) {
 			/*
 			 * Preparation de la clause in
 			 */
 			$comma = false;
 			$in = "(";
-			foreach ( $groupes as $value ) {
+			foreach ( $groups as $value ) {
 				$comma == true ? $in .= ", " : $comma = true;
-				$in .= $value ["aclgroup_id"];
+				$in .= "'$value'";
 			}
 			$in .= ")";
 			$sql = "select project_id, project_name
 					from project
 					join project_group using (project_id)
-					where aclgroup_id in $in";
-			return $this->getListeParam ( $sql );
-		}
+					join aclgroup using (aclgroup_id)
+					where groupe in $in";
+			$order = " order by project_name";
+			return $this->getListeParam ( $sql . $order );
+		} else
+			return array ();
 	}
 	/**
 	 * Retourne un tableau ne contenant que les cles des projets pour le login considere
@@ -93,7 +113,7 @@ class Project extends ObjetBDD {
 	/**
 	 * Surcharge de la fonction ecrire, pour enregistrer les groupes autorises
 	 *
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 *
 	 * @see ObjetBDD::ecrire()
 	 */
@@ -110,7 +130,7 @@ class Project extends ObjetBDD {
 	/**
 	 * Supprime un projet
 	 *
-	 * {@inheritDoc}
+	 * {@inheritdoc}
 	 *
 	 * @see ObjetBDD::supprimer()
 	 */

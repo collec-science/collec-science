@@ -273,7 +273,7 @@ class Aclgroup extends ObjetBDD {
 		if (strlen ( $login ) > 0) {
 			$login = $this->encodeData ( $login );
 			
-			$sql = "select g.aclgroup_id, aclgroup_id_parent
+			$sql = "select g.aclgroup_id, groupe, aclgroup_id_parent
 					from " . $this->table . " g 
 					join acllogingroup lg on (g.aclgroup_id = lg.aclgroup_id)
 					join acllogin l on (lg.acllogin_id = l.acllogin_id)

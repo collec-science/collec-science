@@ -32,24 +32,6 @@
 	<quoideneuf action="doc/quoideneuf.php"  retourlogin="1" ></quoideneuf>
 	<setlanguage action='framework/setlanguage.php'  retourlogin="1" />
 	
-	<docindex action="doc/index.php" param1="index.html" ajax="1"></docindex>
-	<docinstallation action="doc/index.php" param1="Installation.html" />
-	<docdroits action="doc/index.php" param1="Gestion_droits.html" />
-	<docmodulelecture action="doc/index.php" param1="module_lecture.html" />
-	<docparammodule action="doc/index.php" param1="Parametrage_module.html" />
-	<docclasseaccess action="doc/index.php" param1="classe_acces_donnees.html" />
-	<docgestiondoc action="doc/index.php" param1="Gestion_documentation.html" />
-	<docinternationalisation action="doc/index.php" param1="Internationalisation.html" />
-	<docsmarty action="doc/index.php" param1="Utiliser_SMARTY.html" />
-	<docdescriptionorganisation action="doc/index.php" param1="Organisation_application.html"  />
-	<docmodulerecherche action="doc/index.php" param1="module_recherche.html" />
-	
-	<exampleList action="modules/example/example.php" param="list" droits="consult"   />
-	<exampleDisplay action="modules/example/example.php" param="display" droits="consult" />
-	<exampleChange action="modules/example/example.php" param="change" droits="gestion" />
-	<exampleWrite action="modules/example/example.php" param="write" droits="gestion" retourok="exampleList" retourko="exampleChange" modulebefore="exampleChange" />
-	<exampleDelete action="modules/example/example.php" param="delete" droits="admin" retoursuppr="exampleList" retourko="exampleChange" />
-
 <!-- gestion des droits nouvelle formule -->
 	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1"  />
 	<appliDisplay action="framework/droits/appli.php" param="display" droits="admin" />
@@ -80,9 +62,9 @@
 	<eventTypeDelete action="modules/param/eventType.php" param="delete" droits="param" retoursuppr="eventTypeList" retourko="eventTypeChange"  modulebefore="eventTypeChange"/>
 
 	<containerFamilyList action="modules/param/containerFamily.php" param="list" droits="consult" retourlogin="1" />
-	<containerFamilyChange action="modules/param/containerFamily.php" param="change" droits="param"  retourlogin="1"/>
-	<containerFamilyWrite action="modules/param/containerFamily.php" param="write" droits="param" retourok="containerFamilyList" retourko="containerFamilyChange" modulebefore="containerFamilyChange" />
-	<containerFamilyDelete action="modules/param/containerFamily.php" param="delete" droits="param" retoursuppr="containerFamilyList" retourko="containerFamilyChange"  modulebefore="containerFamilyChange"/>
+	<containerFamilyChange action="modules/param/containerFamily.php" param="change" droits="param,projet"  retourlogin="1"/>
+	<containerFamilyWrite action="modules/param/containerFamily.php" param="write" droits="param,projet" retourok="containerFamilyList" retourko="containerFamilyChange" modulebefore="containerFamilyChange" />
+	<containerFamilyDelete action="modules/param/containerFamily.php" param="delete" droits="param,projet" retoursuppr="containerFamilyList" retourko="containerFamilyChange"  modulebefore="containerFamilyChange"/>
 
 	<containerStatusList action="modules/param/containerStatus.php" param="list" droits="consult"  retourlogin="1"/>
 	<containerStatusChange action="modules/param/containerStatus.php" param="change" droits="param"  retourlogin="1"/>
@@ -90,20 +72,20 @@
 	<containerStatusDelete action="modules/param/containerStatus.php" param="delete" droits="param" retoursuppr="containerStatusList" retourko="containerStatusChange"  modulebefore="containerStatusChange"/>
 
 	<storageConditionList action="modules/param/storageCondition.php" param="list" droits="consult"  retourlogin="1"/>
-	<storageConditionChange action="modules/param/storageCondition.php" param="change" droits="param"  retourlogin="1"/>
-	<storageConditionWrite action="modules/param/storageCondition.php" param="write" droits="param" retourok="storageConditionList" retourko="storageConditionChange" modulebefore="storageConditionChange" />
-	<storageConditionDelete action="modules/param/storageCondition.php" param="delete" droits="param" retoursuppr="storageConditionList" retourko="storageConditionChange"  modulebefore="storageConditionChange"/>
+	<storageConditionChange action="modules/param/storageCondition.php" param="change" droits="param,projet"  retourlogin="1"/>
+	<storageConditionWrite action="modules/param/storageCondition.php" param="write" droits="param,projet" retourok="storageConditionList" retourko="storageConditionChange" modulebefore="storageConditionChange" />
+	<storageConditionDelete action="modules/param/storageCondition.php" param="delete" droits="param,projet" retoursuppr="storageConditionList" retourko="storageConditionChange"  modulebefore="storageConditionChange"/>
 
 	<containerTypeList action="modules/param/containerType.php" param="list" droits="consult"  retourlogin="1"/>
-	<containerTypeChange action="modules/param/containerType.php" param="change" droits="param"  retourlogin="1"/>
-	<containerTypeWrite action="modules/param/containerType.php" param="write" droits="param" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange" />
-	<containerTypeDelete action="modules/param/containerType.php" param="delete" droits="param" retoursuppr="containerTypeList" retourko="containerTypeChange"  modulebefore="containerTypeChange"/>
+	<containerTypeChange action="modules/param/containerType.php" param="change" droits="param,projet"  retourlogin="1"/>
+	<containerTypeWrite action="modules/param/containerType.php" param="write" droits="param,projet" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange" />
+	<containerTypeDelete action="modules/param/containerType.php" param="delete" droits="param,projet" retoursuppr="containerTypeList" retourko="containerTypeChange"  modulebefore="containerTypeChange"/>
 	<containerTypeGetFromFamily action="modules/param/containerType.php" param="getFromFamily" droits="consult" ajax="1" />
 	
 	<sampleTypeList action="modules/param/sampleType.php" param="list" droits="consult"  retourlogin="1"/>
-	<sampleTypeChange action="modules/param/sampleType.php" param="change" droits="param"  retourlogin="1"/>
-	<sampleTypeWrite action="modules/param/sampleType.php" param="write" droits="param" retourok="sampleTypeList" retourko="sampleTypeChange" modulebefore="sampleTypeChange" />
-	<sampleTypeDelete action="modules/param/sampleType.php" param="delete" droits="param" retoursuppr="sampleTypeList" retourko="sampleTypeChange"  modulebefore="sampleTypeChange"/>
+	<sampleTypeChange action="modules/param/sampleType.php" param="change" droits="param,projet"  retourlogin="1"/>
+	<sampleTypeWrite action="modules/param/sampleType.php" param="write" droits="param,projet" retourok="sampleTypeList" retourko="sampleTypeChange" modulebefore="sampleTypeChange" />
+	<sampleTypeDelete action="modules/param/sampleType.php" param="delete" droits="param,projet" retoursuppr="sampleTypeList" retourko="sampleTypeChange"  modulebefore="sampleTypeChange"/>
 	
 
 	<gestion droits="consult"/>
@@ -127,6 +109,12 @@
 	<projectChange action="modules/param/project.php" param="change" droits="param"  retourlogin="1"/>
 	<projectWrite action="modules/param/project.php" param="write" droits="param" retourok="projectList" retourko="projectChange" modulebefore="projectChange" />
 	<projectDelete action="modules/param/project.php" param="delete" droits="param" retoursuppr="projectList" retourko="projectChange"  modulebefore="projectChange"/>
+	
+	<sampleList action="modules/gestion/sample.php" param="list" droits="consult" retourlogin="1"  />
+	<sampleDisplay action="modules/gestion/sample.php" param="display" droits="consult"  retourlogin="1"/>
+	<sampleChange action="modules/gestion/sample.php" param="change" droits="gestion"  retourlogin="1"/>
+	<sampleWrite action="modules/gestion/sample.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleChange" modulebefore="sampleChange" />
+	<sampleDelete action="modules/gestion/sample.php" param="delete" droits="gestion" retoursuppr="sampleList" retourko="sampleChange"  modulebefore="sampleChange"/>
 	
 
 </navigation>

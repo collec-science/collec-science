@@ -88,7 +88,10 @@ $APPLI_modeDeveloppementDroit = false;
 $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
 $APPLI_nomDossierStockagePhotoTemp = "temp";
-
+$APPLI_ldapGroupSupport = true;
+$LDAP_groupAttrib = "supannentiteaffectation";
+$LDAP_commonNameAttrib = "displayname";
+$LDAP_mailAttrib = "mail";
 /*
  * Variables liees a GACL et l'identification via base de donnees
  */

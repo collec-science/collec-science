@@ -44,7 +44,7 @@ switch ($t_module["param"]) {
 			/*
 			 * Rechargement eventuel des projets autorises pour l'utilisateur courant
 			 */
-			$_SESSION["projects"] = $dataClass->getProjectIdFromLogin($_SESSION["login"]);
+			$_SESSION["projects"] = $dataClass->getProjectsFromLogin($_SESSION["login"]);
 		}
 		break;
 	case "delete":

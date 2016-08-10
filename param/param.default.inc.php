@@ -88,6 +88,7 @@ $APPLI_modeDeveloppementDroit = false;
 $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
 $APPLI_nomDossierStockagePhotoTemp = "temp";
+$APPLI_titre = "Gestion des échantillons";
 $APPLI_ldapGroupSupport = true;
 $LDAP_groupAttrib = "supannentiteaffectation";
 $LDAP_commonNameAttrib = "displayname";

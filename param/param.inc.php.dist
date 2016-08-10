@@ -44,4 +44,5 @@ $LDAP_address = "localhost";
 $LDAP_port = 389;
 $LDAP_basedn = "ou=people,ou=example,o=societe,c=fr";
 
+$paramIniFile = "./param.ini";
 ?>

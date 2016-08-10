@@ -3,7 +3,9 @@
 <item module="containerList" title="61" value="60" droits="consult">
 
 </item>
+<item module="sampleList" title="69" value="68" droits="consult">
 
+</item>
 
 <item module="parametre" value="50" title="51" droits="consult">
 	<item module="projectList" droits="consult" value="64" title="65" />

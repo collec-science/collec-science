@@ -80,8 +80,8 @@ $LANG["menu"][64] = "Projets";
 $LANG["menu"][65] = "Liste des projets";
 $LANG["menu"][66] = "Type d'échantillons";
 $LANG["menu"][67] = "Liste des types d'échantillons gérés";
-$LANG["menu"][68] = "";
-$LANG["menu"][69] = "";
+$LANG["menu"][68] = "Échantillons";
+$LANG["menu"][69] = "Liste des échantillons";
 $LANG["menu"][70] = "";
 $LANG["menu"][71] = "";
 

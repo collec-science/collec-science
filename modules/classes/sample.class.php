@@ -186,8 +186,10 @@ class Sample extends ObjetBDD {
 		if ($param["limit"] > 0) {
 			$order .= " limit :limite";
 			$data["limite"] = $param["limit"];
-			return $this->getListeParamAsPrepared($this->sql.$where.$order, $data);
 		}
+		if ($where == "where")
+			$where = "";
+		return $this->getListeParamAsPrepared($this->sql.$where.$order, $data);
 	}
 	
 }

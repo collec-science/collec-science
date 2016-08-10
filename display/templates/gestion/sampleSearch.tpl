@@ -13,15 +13,15 @@
 <div class="col-md-4">
 <select id="project_id" name="project_id" class="form-control">
 <option value="" {if $sampleSearch.project_id == ""}selected{/if}>{$LANG.appli.2}</option>
-{section name=lst loop=$projets}
-<option value="{$projets[lst].project_id}" {if $projets[lst].project_id == $sampleSearch.project_id}selected{/if}>
-{$projets[lst].project_name}
+{section name=lst loop=$projects}
+<option value="{$projects[lst].project_id}" {if $projects[lst].project_id == $sampleSearch.project_id}selected{/if}>
+{$projects[lst].project_name}
 </option>
 {/section}
 </select>
 </div>
 </div>
-
+<div class="form-group">
 <label for="sample_type_id" class="col-md-2 control-label">Type :</label>
 <div class="col-md-4">
 <select id="sample_type_id" name="sample_type_id" class="form-control">

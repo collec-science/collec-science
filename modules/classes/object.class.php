@@ -27,6 +27,31 @@ class Object extends ObjetBDD {
 		);
 			parent::__construct ( $bdd, $param );
 	}
+	/**
+	 * Surcharge de la fonction supprimer pour effacer les mouvements et les evenements
+	 * {@inheritDoc}
+	 * @see ObjetBDD::supprimer()
+	 */
+	function supprimer($uid) {
+		if ($uid > 0 && is_numeric($uid)) {
+			/*
+			 * Supprime les mouvements associes
+			 */
+			require_once 'modules/classes/storage.class.php';
+			$storage = new Storage ( $this->connection, $this->paramori );
+			$storage->supprimerChamp($uid, "uid");
+			/*
+			 * Supprime les evenements associes
+			 */
+			require_once 'modules/classes/event.class.php';
+			$event = new Event($this->connection, $this->paramori);
+			$event -> supprimerChamp($uid, "uid");
+			/*
+			 * Supprime l'objet
+			 */
+			parent::supprimer($uid);
+		}
+	}
 }
 
 

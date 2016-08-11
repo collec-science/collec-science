@@ -35,7 +35,7 @@ class Sample extends ObjetBDD {
 						"type" => 1,
 						"parentAttrib" => 1,
 						"requis" => 1,
-						"defaultValue"=>0
+						"defaultValue" => 0 
 				),
 				"project_id" => array (
 						"type" => 1,
@@ -92,7 +92,7 @@ class Sample extends ObjetBDD {
 		 * Verification complementaire par rapport aux donnees deja stockees
 		 */
 		if ($ok && $data ["uid"] > 0)
-			$ok = $this->verifyProject ( $this->lire ( $uid ) );
+			$ok = $this->verifyProject ( $this->lire ( $data ["uid"] ) );
 		if ($ok) {
 			$object = new Object ( $this->connection, $this->param );
 			$uid = $object->ecrire ( $data );
@@ -103,7 +103,7 @@ class Sample extends ObjetBDD {
 			}
 		} else
 			throw new Exception ( $LANG ["appli"] [4] );
-			return - 1;
+		return - 1;
 	}
 	
 	/**
@@ -114,12 +114,25 @@ class Sample extends ObjetBDD {
 	 * @see ObjetBDD::supprimer()
 	 */
 	function supprimer($uid) {
-		global $LANG;
-		$data ["uid"] = $uid;
-		if ($this->verifyProject ( $this->lire ( $uid ) )) {
-			return parent::supprimer ( $id );
-		} else {
-			return - 1;
+		$data = $this->lire ( $uid );
+		if ($this->verifyProject ( $data )) {
+			/*
+			 * Suppression des attributs specifiques
+			 */
+			require_once 'modules/classes/sampleAttribute.class.php';
+			$sampleAttribute = new SampleAttribute ( $this->connection, $this->paramori );
+			$sampleAttribute->supprimerChamp ( $data ["sample_id"], "sample_id" );
+			
+			/*
+			 * suppression de l'echantillon
+			 */
+			parent::supprimer ( $data ["sample_id"] );
+			/*
+			 * Suppression de l'objet
+			 */
+			require_once 'modules/classes/object.class.php';
+			$object = new Object ( $this->connection, $this->paramori );
+			$object->supprimer ( $uid );
 		}
 	}
 	
@@ -133,11 +146,11 @@ class Sample extends ObjetBDD {
 	 */
 	function verifyProject($data) {
 		$retour = false;
-		foreach ($_SESSION["projects"] as $value) {
-			if ($data["project_id"] == $value["project_id"]) {
+		foreach ( $_SESSION ["projects"] as $value ) {
+			if ($data ["project_id"] == $value ["project_id"]) {
 				$retour = true;
 				break;
-			}	
+			}
 		}
 		return $retour;
 	}
@@ -161,7 +174,7 @@ class Sample extends ObjetBDD {
 	
 	/**
 	 * Fonction de recherche des échantillons
-	 * 
+	 *
 	 * @param array $param        	
 	 */
 	function sampleSearch($param) {

@@ -10,7 +10,7 @@ require_once 'modules/classes/object.class.php';
 $dataClass = new Sample ( $bdd, $ObjetBDDParam );
 $keyName = "uid";
 $id = $_REQUEST [$keyName];
-$_SESSION["moduleParent"] = "sample";
+$_SESSION ["moduleParent"] = "sample";
 
 switch ($t_module ["param"]) {
 	case "list":
@@ -20,7 +20,7 @@ switch ($t_module ["param"]) {
 		$_SESSION ["searchSample"]->setParam ( $_REQUEST );
 		$dataSearch = $_SESSION ["searchSample"]->getParam ();
 		if ($_SESSION ["searchSample"]->isSearch () == 1) {
-			$data = $dataClass->sampleSearch( $dataSearch );
+			$data = $dataClass->sampleSearch ( $dataSearch );
 			$smarty->assign ( "samples", $data );
 			$smarty->assign ( "isSearch", 1 );
 		}
@@ -41,28 +41,28 @@ switch ($t_module ["param"]) {
 		 * Recuperation des conteneurs parents
 		 */
 		require_once 'modules/classes/container.class.php';
-		$container = new Container($bdd, $ObjetBDDParam);
-		$smarty->assign("parents", $container->getAllParents($data["uid"]));
+		$container = new Container ( $bdd, $ObjetBDDParam );
+		$smarty->assign ( "parents", $container->getAllParents ( $data ["uid"] ) );
 		/*
 		 * Recuperation des evenements
 		 */
 		require_once 'modules/classes/event.class.php';
-		$event = new Event($bdd, $ObjetBDDParam);
-		$smarty->assign("events", $event->getListeFromUid($data["uid"]));
+		$event = new Event ( $bdd, $ObjetBDDParam );
+		$smarty->assign ( "events", $event->getListeFromUid ( $data ["uid"] ) );
 		/*
 		 * Recuperation des mouvements
 		 */
 		require_once 'modules/classes/storage.class.php';
-		$storage = new Storage($bdd, $ObjetBDDParam);
-		$smarty->assign("storages", $storage->getAllMovements($id));
-		$smarty->assign("moduleParent", "sample");
+		$storage = new Storage ( $bdd, $ObjetBDDParam );
+		$smarty->assign ( "storages", $storage->getAllMovements ( $id ) );
+		$smarty->assign ( "moduleParent", "sample" );
 		$smarty->assign ( "corps", "gestion/sampleDisplay.tpl" );
 		/*
 		 * Verification que l'echantillon peut etre modifie
 		 */
-		$is_modifiable = $dataClass->verifyProject($data);
+		$is_modifiable = $dataClass->verifyProject ( $data );
 		if ($is_modifiable)
-			$smarty->assign("modifiable", 1);
+			$smarty->assign ( "modifiable", 1 );
 		break;
 	case "change":
 		/*
@@ -71,13 +71,13 @@ switch ($t_module ["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		$data = dataRead ( $dataClass, $id, "gestion/sampleChange.tpl" );
-		if ($data["sample_id"] > 0 && $dataClass->verifyProject($data) == false) {
+		if ($data ["sample_id"] > 0 && $dataClass->verifyProject ( $data ) == false) {
 			$message = "Vous ne disposez pas des droits nécessaires pour modifier cet échantillon";
-			$module_coderetour = -1;
+			$module_coderetour = - 1;
 		} else {
 			
-		//$object = new Object ( $bdd, $ObjetBDDParam );
-		//$smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
+			// $object = new Object ( $bdd, $ObjetBDDParam );
+			// $smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
 			include 'modules/gestion/sample.functions.php';
 		}
 		break;
@@ -94,22 +94,7 @@ switch ($t_module ["param"]) {
 		/*
 		 * delete record
 		 */
-		/*
-		 * Recherche si le conteneur est reference
-		 */
-		require_once 'modules/classes/storage.class.php';
-		$storage = new Storage ( $bdd, $ObjetBDDParam );
-		try {
-			$nb = $storage->getNbFromControler($id);
-		} catch (Exception $e){
-			$nb = 0;
-		}
-		if ($nb > 0) {
-			$message = "Le conteneur est référencé dans les mouvements et ne peut être supprimé";
-			$module_coderetour = - 1;
-		} else
-			dataDelete ( $dataClass, $id );
-			break;
-
+		dataDelete ( $dataClass, $_REQUEST["uid"] );
+		break;
 }
 ?>

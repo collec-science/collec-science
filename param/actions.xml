@@ -99,6 +99,9 @@
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion"  retourlogin="1"/>
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />
 	<containereventDelete action="modules/gestion/event.php" param="change" droits="gestion"  retoursuppr="containerDisplay" retourko="containereventChange" modulebefore="containereventChange"/>
+	<sampleeventChange action="modules/gestion/event.php" param="change" droits="gestion"  retourlogin="1"/>
+	<sampleeventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange" />
+	<sampleeventDelete action="modules/gestion/event.php" param="change" droits="gestion"  retoursuppr="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange"/>
 
 	<storageContainerInput action="modules/gestion/storage.php" param="input" droits="gestion"  retourlogin="1"/>
 	<storageContainerOutput action="modules/gestion/storage.php" param="output" droits="gestion"  retourlogin="1"/>	

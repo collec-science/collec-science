@@ -79,6 +79,26 @@ class Container extends ObjetBDD {
 			 return $uid;
 		}
 	}
+	/**
+	 * Surcharge de supprimer pour effacer les donnees liees
+	 * 
+	 * {@inheritDoc}
+	 * @see ObjetBDD::supprimer()
+	 */
+	function supprimer($uid) {
+		$data = $this->lire ( $uid );
+			/*
+			 * suppression de l'echantillon
+			 */
+			parent::supprimer ( $data ["container_id"] );
+			/*
+			 * Suppression de l'objet
+			 */
+			require_once 'modules/classes/object.class.php';
+			$object = new Object ( $this->connection, $this->paramori );
+			$object->supprimer ( $uid );
+	}
+	
 	
 	/**
 	 * Retourne tous les échantillons contenus

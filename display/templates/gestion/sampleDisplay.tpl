@@ -34,11 +34,11 @@ Nouvel échantillon
 <dd>{$data.sample_type_name}</dd>
 </dl>
 <dl class="dl-horizontal">
-<dt>Date de création de l'échantillon :</dt>
+<dt title="Date de création de l'échantillon">Date de création de l'échantillon :</dt>
 <dd>{$data.sample_date}</dd>
 </dl>
 <dl class="dl-horizontal">
-<dt>Date d'import dans la base de données :</dt>
+<dt title="Date d'import dans la base de données">Date d'import dans la base de données :</dt>
 <dd>{$data.sample_creation_date}</dd>
 </dl>
 <dl class="dl-horizontal">

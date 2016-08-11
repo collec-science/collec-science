@@ -250,7 +250,6 @@ class ObjetBDD {
 	 */
 	public $transformComma = 1;
 	private $lastResultExec = false;
-	public $isBootstrap = false;
 	
 	/**
 	 * ObjetBDD
@@ -637,7 +636,7 @@ class ObjetBDD {
 	 *        	array with the name of the columns as identifiers of items
 	 * @return Identifier of item, or error code
 	 */
-	function ecrire($dataBrute, $isBootstrap = false) {
+	function ecrire($dataBrute) {
 		/*
 		 * Mise en forme des donnees selon le mode de fonctionnement
 		 */
@@ -673,7 +672,7 @@ class ObjetBDD {
 		/*
 		 * Traitement des dates
 		 */
-		if ($this->auto_date == 1 && $isBootstrap == false) {
+		if ($this->auto_date == 1 ) {
 			$data = $this->utilDatesLocaleVersDB ( $data );
 		}
 		
@@ -1585,8 +1584,7 @@ class ObjetBDD {
 	 * @param int $parentValue        	
 	 * @return array
 	 */
-	function getDefaultValue($parentValue = 0, $isBootstrap = false) {
-		$this->isBootstrap = $isBootstrap;
+	function getDefaultValue($parentValue = 0) {
 		$data = array ();
 		/*
 		 * Assignation des valeurs par defaut
@@ -1600,7 +1598,7 @@ class ObjetBDD {
 					/*
 					 * Appel de la fonction
 					 */
-					$data [$key] = $this->$colonne ["defaultValue"] ();
+					$data [$key] = $this->{$colonne ["defaultValue"]} ();
 				} else {
 					/*
 					 * Attribution de la valeur par defaut

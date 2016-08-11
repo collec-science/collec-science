@@ -54,7 +54,6 @@ if ($APPLI_ldapGroupSupport) {
 		);
 		$filtre = "(" . $LDAP_user_attrib . "=" . $_SESSION ["login"] . ")";
 		$data = $ldap->getAttributs ( "", $filtre, $attribut );
-		printr($data);
 		if ($data ["count"] == 0) {
 			$message .= "Les données de l'utilisateur n'ont pu être lues dans l'annuaire LDAP";
 		} else {
@@ -69,7 +68,6 @@ if ($APPLI_ldapGroupSupport) {
 				if (is_numeric($key))
 					$groups [] = $value;
 			}
-			printr($groups);
 			$_SESSION["projects"] = $project->getProjectsFromGroups($groups);
 		}
 	} else 

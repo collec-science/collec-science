@@ -34,7 +34,8 @@ class Sample extends ObjetBDD {
 				"uid" => array (
 						"type" => 1,
 						"parentAttrib" => 1,
-						"requis" => 1 
+						"requis" => 1,
+						"defaultValue"=>0
 				),
 				"project_id" => array (
 						"type" => 1,
@@ -57,14 +58,13 @@ class Sample extends ObjetBDD {
 						"defaultValue" => "getDateJour" 
 				) 
 		);
-		
 		parent::__construct ( $bdd, $param );
 	}
 	/**
 	 * Surcharge de lire pour ramener les informations
 	 * generales (table object, notamment)
-	 * 
-	 * {@inheritDoc}
+	 *
+	 * {@inheritdoc}
 	 *
 	 * @see ObjetBDD::lire()
 	 */
@@ -81,8 +81,8 @@ class Sample extends ObjetBDD {
 	
 	/**
 	 * Surcharge de la fonction ecrire pour verifier si l'echantillon est modifiable
-	 * 
-	 * {@inheritDoc}
+	 *
+	 * {@inheritdoc}
 	 *
 	 * @see ObjetBDD::ecrire()
 	 */
@@ -94,15 +94,22 @@ class Sample extends ObjetBDD {
 		if ($ok && $data ["uid"] > 0)
 			$ok = $this->verifyProject ( $this->lire ( $uid ) );
 		if ($ok) {
-			return parent::ecrire ( $data );
+			$object = new Object ( $this->connection, $this->param );
+			$uid = $object->ecrire ( $data );
+			if ($uid > 0) {
+				$data ["uid"] = $uid;
+				parent::ecrire ( $data );
+				return $uid;
+			}
 		} else
+			throw new Exception ( $LANG ["appli"] [4] );
 			return - 1;
 	}
 	
 	/**
 	 * Surcharge de la fonction supprimer pour verifier si l'utilisateur peut supprimer l'echantillon
-	 * 
-	 * {@inheritDoc}
+	 *
+	 * {@inheritdoc}
 	 *
 	 * @see ObjetBDD::supprimer()
 	 */
@@ -119,18 +126,20 @@ class Sample extends ObjetBDD {
 	/**
 	 * Fonction permettant de verifier si l'echantillon peut etre modifie ou non
 	 * par l'utilisateur
-	 * 
+	 *
 	 * @param array $data        	
 	 * @throws Exception
 	 * @return boolean
 	 */
 	function verifyProject($data) {
-		global $LANG;
-		if (! in_array ( $data ["project_id"], $_SESSION ["projects"] )) {
-			throw new Exception ( $LANG ["appli"] [4] );
-			return false;
+		$retour = false;
+		foreach ($_SESSION["projects"] as $value) {
+			if ($data["project_id"] == $value["project_id"]) {
+				$retour = true;
+				break;
+			}	
 		}
-		return true;
+		return $retour;
 	}
 	
 	/**
@@ -149,49 +158,49 @@ class Sample extends ObjetBDD {
 				return 0;
 		}
 	}
-
+	
 	/**
 	 * Fonction de recherche des échantillons
-	 * @param array $param
+	 * 
+	 * @param array $param        	
 	 */
 	function sampleSearch($param) {
-		$data = array();
+		$data = array ();
 		$isFirst = true;
 		$order = " order by project_name, sample_type_name, identifier, uid";
 		$where = "where";
 		$and = "";
-		if ($param["sample_type_id"] > 0) {
+		if ($param ["sample_type_id"] > 0) {
 			$where .= " s.sample_type_id = :sample_type_id";
-			$data ["sample_type_id"] = $param["sample_type_id"];
+			$data ["sample_type_id"] = $param ["sample_type_id"];
 			$and = " and ";
 		}
-		if (strlen($param["name"]) > 0) {
-			$where .= $and."( ";
+		if (strlen ( $param ["name"] ) > 0) {
+			$where .= $and . "( ";
 			$or = "";
-			if (is_numeric($param["name"])) {
+			if (is_numeric ( $param ["name"] )) {
 				$where .= " s.uid = :uid";
-				$data["uid"] = $param["name"];
+				$data ["uid"] = $param ["name"];
 				$or = " or ";
 			}
-			$identifier = "%".strtoupper($this->encodeData($param["name"]))."%";
+			$identifier = "%" . strtoupper ( $this->encodeData ( $param ["name"] ) ) . "%";
 			$where .= "$or upper(s.identifier) like :identifier )";
 			$and = " and ";
-			$data["identifier"] = $identifier;
+			$data ["identifier"] = $identifier;
 		}
-		if ($param["project_id"] > 0) {
-			$where .= $and." s.project_id = :project_id";
+		if ($param ["project_id"] > 0) {
+			$where .= $and . " s.project_id = :project_id";
 			$and = " and ";
-			$data["project_id"] = $param["project_id"];
+			$data ["project_id"] = $param ["project_id"];
 		}
-		if ($param["limit"] > 0) {
+		if ($param ["limit"] > 0) {
 			$order .= " limit :limite";
-			$data["limite"] = $param["limit"];
+			$data ["limite"] = $param ["limit"];
 		}
 		if ($where == "where")
 			$where = "";
-		return $this->getListeParamAsPrepared($this->sql.$where.$order, $data);
+		return $this->getListeParamAsPrepared ( $this->sql . $where . $order, $data );
 	}
-	
 }
 
 ?>

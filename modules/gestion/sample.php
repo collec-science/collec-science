@@ -40,7 +40,9 @@ switch ($t_module ["param"]) {
 		/*
 		 * Recuperation des conteneurs parents
 		 */
-		$smarty->assign("parents", $dataClass->getAllParents($data["uid"]));
+		require_once 'modules/classes/container.class.php';
+		$container = new Container($bdd, $ObjetBDDParam);
+		$smarty->assign("parents", $container->getAllParents($data["uid"]));
 		/*
 		 * Recuperation des evenements
 		 */
@@ -55,6 +57,12 @@ switch ($t_module ["param"]) {
 		$smarty->assign("storages", $storage->getAllMovements($id));
 		$smarty->assign("moduleParent", "sample");
 		$smarty->assign ( "corps", "gestion/sampleDisplay.tpl" );
+		/*
+		 * Verification que l'echantillon peut etre modifie
+		 */
+		$is_modifiable = $dataClass->verifyProject($data);
+		if ($is_modifiable)
+			$smarty->assign("modifiable", 1);
 		break;
 	case "change":
 		/*
@@ -63,14 +71,14 @@ switch ($t_module ["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		$data = dataRead ( $dataClass, $id, "gestion/sampleChange.tpl" );
-		if ($data["sample_id"] > 0 && !in_array($data["project_id"], $_SESSION["projects"])) {
+		if ($data["sample_id"] > 0 && $dataClass->verifyProject($data) == false) {
 			$message = "Vous ne disposez pas des droits nécessaires pour modifier cet échantillon";
 			$module_coderetour = -1;
 		} else {
 			
 		//$object = new Object ( $bdd, $ObjetBDDParam );
 		//$smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
-		include 'modules/gestion/sample.functions.php';
+			include 'modules/gestion/sample.functions.php';
 		}
 		break;
 	case "write":
@@ -80,21 +88,6 @@ switch ($t_module ["param"]) {
 		$id = dataWrite ( $dataClass, $_REQUEST );
 		if ($id > 0) {
 			$_REQUEST [$keyName] = $id;
-			/*
-			 * Recherche s'il s'agit d'un conteneur a associer dans un autre conteneur
-			 */
-			if ($_REQUEST["sample_parent_uid"] > 0 && is_numeric($_REQUEST["sample_parent_uid"])) {
-				require_once 'modules/classes/storage.class.php';
-				$storage = new Storage($bdd, $ObjetBDDParam);
-				$data = array ("uid" =>$id,
-						"storage_date"=> date('d/m/Y H:i:s'),
-						"movement_type_id"=>1,
-						"login"=>$_SESSION["login"],
-						"sample_id"=>$dataClass->getIdFromUid($_REQUEST["sample_parent_uid"]),
-						"storage_id"=>0
-				);
-				$storage->ecrire($data);
-			}
 		}
 		break;
 	case "delete":

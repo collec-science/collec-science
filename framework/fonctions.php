@@ -13,12 +13,11 @@
  * @param int $idParent        	
  * @return array
  */
-function dataRead($dataClass, $id, $smartyPage, $idParent = null, $isBootstrap = false) {
+function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
 	global $smarty, $OBJETBDD_debugmode, $ERROR_display;
 	if (is_numeric ( $id )) {
 		if ($id > 0) {
 			try {	
-				$dataClass->isBootstrap = $isBootstrap;
 				$data = $dataClass->lire ( $id );
 			} catch ( Exception $e ) {
 				if ($OBJETBDD_debugmode > 0) {
@@ -33,7 +32,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null, $isBootstrap =
 			 */
 		} else {
 			if (is_numeric ( $idParent ) || $idParent == null)
-				$data = $dataClass->getDefaultValue ( $idParent, $isBootstrap );
+				$data = $dataClass->getDefaultValue ( $idParent );
 		}
 		/*
 		 * Affectation des donnees a smarty
@@ -51,12 +50,12 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null, $isBootstrap =
  * @param array $data        	
  * @return int
  */
-function dataWrite($dataClass, $data, $isBootstrap = false) {
+function dataWrite($dataClass, $data) {
 	global $message, $LANG, $module_coderetour, $log, $OBJETBDD_debugmode, $ERROR_display;
 	if (strlen ( $message ) > 0)
 		$message .= '<br>';
 	try {
-		$id = $dataClass->ecrire ( $data, $isBootstrap );
+		$id = $dataClass->ecrire ( $data);
 		$message .= $LANG ["message"] [5];
 		$module_coderetour = 1;
 		$log->setLog ( $_SESSION ["login"], get_class ( $dataClass ) . "-write", $id );

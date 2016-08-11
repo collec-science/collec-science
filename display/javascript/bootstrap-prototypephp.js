@@ -1,18 +1,4 @@
 $(document).ready(function() {
-	$('.datatable').DataTable({
-		language : {
-			url : 'display/javascript/fr_FR.json'
-		}
-	});
-	$('.taux,nombre').attr('title', '{$LANG[message].34}');
-	$('.taux').attr({
-		'pattern' : '[0-9]+(\.[0-9]+)?',
-		'maxlength' : "10"
-	});
-	$('.nombre').attr({
-		'pattern' : '[0-9]+',
-		'maxlength' : "10"
-	});
 
 	$('.button-delete').keypress(function() {
 		if (confirm("Confirmez-vous la suppression ?") == true) {

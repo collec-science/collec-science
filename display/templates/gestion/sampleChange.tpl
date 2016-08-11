@@ -52,13 +52,13 @@ Retour à la liste des échantillons
 <div class="form-group">
 <label for="sample_date"  class="control-label col-md-4">Date de création de l'échantillon :</label>
 <div class="col-md-8">
-<input id="identifier" class="form-control datepicker" name="sample_date" value="{$data.sample_date}"></div>
+<input id="sample_date" class="form-control date" name="sample_date" value="{$data.sample_date}"></div>
 </div>
 
 <div class="form-group">
 <label for="sample_creation_date"  class="control-label col-md-4">Date d'import dans la base de données :</label>
 <div class="col-md-8">
-<input id="identifier" class="form-control" name="sample_creation_date" readonly value="{$data.sample_date}"></div>
+<input id="sample_creation_date" class="form-control" name="sample_creation_date" readonly value="{$data.sample_date}"></div>
 </div>
 
 

@@ -14,6 +14,18 @@ Nouvel échantillon
 <img src="display/images/edit.gif" height="25">Modifier...
 </a>
 {/if}
+<!-- Entrée ou sortie -->
+{if count($parents) > 0}
+<span id="output">
+<a href="index.php?module=storagesampleOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir l'échantillon du stock">
+<img src="display/images/output.png" height="25">Sortie</a></span>
+{else}
+<span id="input">
+<a href="index.php?module=storagesampleInput&storage_id=0&uid={$data.uid}" id="input" title="Entrer l'échantillon dans le stock">
+<img src="display/images/input.png" height="25">Entrée
+</a>
+</span>
+{/if}
 {/if}
 
 <div class="row">

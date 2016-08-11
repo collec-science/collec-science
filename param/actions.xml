@@ -103,10 +103,14 @@
 	<sampleeventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange" />
 	<sampleeventDelete action="modules/gestion/event.php" param="change" droits="gestion"  retoursuppr="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange"/>
 
-	<storageContainerInput action="modules/gestion/storage.php" param="input" droits="gestion"  retourlogin="1"/>
-	<storageContainerOutput action="modules/gestion/storage.php" param="output" droits="gestion"  retourlogin="1"/>	
-	<storageContainerWrite action="modules/gestion/storage.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="storageContainerInput" modulebefore="storageContainerInput,storageContainerOutput" />
-	<storageContainerDelete action="modules/gestion/storage.php" param="delete" droits="gestion"  retoursuppr="containerDisplay" retourko="storageContainerInput" modulebefore="storageContainerInput,storageContainerOutput"/>
+	<storagecontainerInput action="modules/gestion/storage.php" param="input" droits="gestion"  retourlogin="1"/>
+	<storagecontainerOutput action="modules/gestion/storage.php" param="output" droits="gestion"  retourlogin="1"/>	
+	<storagecontainerWrite action="modules/gestion/storage.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containerDisplay" modulebefore="storagecontainerInput,storagecontainerOutput" />
+	<storagecontainerDelete action="modules/gestion/storage.php" param="delete" droits="gestion"  retoursuppr="containerDisplay" retourko="containerDisplay" modulebefore="storagecontainerInput,storagecontainerOutput"/>
+	<storagesampleInput action="modules/gestion/storage.php" param="input" droits="gestion"  retourlogin="1"/>
+	<storagesampleOutput action="modules/gestion/storage.php" param="output" droits="gestion"  retourlogin="1"/>	
+	<storagesampleWrite action="modules/gestion/storage.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="storagesampleInput,storagesampleOutput" />
+	<storagesampleDelete action="modules/gestion/storage.php" param="delete" droits="gestion"  retoursuppr="sampleDisplay" retourko="sampleDisplay" modulebefore="storagesampleInput,storagesampleOutput"/>
 	
 	<projectList action="modules/param/project.php" param="list" droits="consult"  retourlogin="1"/>
 	<projectChange action="modules/param/project.php" param="change" droits="param"  retourlogin="1"/>

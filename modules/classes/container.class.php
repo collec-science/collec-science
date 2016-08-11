@@ -116,7 +116,9 @@ class Container extends ObjetBDD {
 					order by o.identifier, o.uid
 					";
 			$data ["uid"] = $uid;
-			return $this->getListeParamAsPrepared($sql, $data);
+			$this->colonnes["sample_creation_date"] = array("type"=>2);
+			$this->colonnes["sample_date"] = array("type"=>2);
+			return $this->getListeParamAsPrepared($sql, $data);			
 		}
 	}
 	/**

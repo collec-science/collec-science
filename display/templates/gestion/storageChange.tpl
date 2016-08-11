@@ -71,19 +71,19 @@ var containerArray;
 </script>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module=containerList">
+<a href="index.php?module={$moduleParent}List">
 <img src="display/images/list.png" height="25">
-Retour à la liste des conteneurs
+Retour à la liste des {if $moduleParent == "container"}conteneurs{else}échantillons{/if}
 </a>
 {if $data.uid > 0}
-<a href="index.php?module=containerDisplay&uid={$data.uid}">
+<a href="index.php?module={$moduleParent}Display&uid={$data.uid}">
 <img src="display/images/box.png" height="25">
 Retour au détail
 </a>
 {/if}
-<form class="form-horizontal protoform" id="containerForm" method="post" action="index.php">
+<form class="form-horizontal protoform" id="storage{$moduleParent}Form" method="post" action="index.php">
 <input type="hidden" name="storage_id" value="{$data.storage_id}">
-<input type="hidden" name="moduleBase" value="storageContainer">
+<input type="hidden" name="moduleBase" value="storage{$moduleParent}">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="movement_type_id" id="movement_type_id" value="{$data.movement_type_id}">
 <input type="hidden" name="container_id" id="container_id" value="{$data.container_id}">

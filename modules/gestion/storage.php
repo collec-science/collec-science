@@ -9,7 +9,7 @@ include_once 'modules/classes/storage.class.php';
 $dataClass = new Storage ( $bdd, $ObjetBDDParam );
 $keyName = "storage_id";
 $id = $_REQUEST [$keyName];
-
+$smarty->assign("moduleParent", $_SESSION["moduleParent"]);
 switch ($t_module ["param"]) {
 	case "input" :
 		$data = dataRead ( $dataClass, $id, "gestion/storageChange.tpl", $_REQUEST ["uid"], false );

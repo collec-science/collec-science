@@ -1,6 +1,6 @@
 <!-- Jquery -->
 <script src="display/javascript/jquery-1.12.4.min.js"></script>
-<script src="display/javascript/jquery-ui.min.js"></script>
+<!-- script src="display/javascript/jquery-ui.min.js"></script-->
 
 <!-- Bootstrap -->
 <link rel="stylesheet"	href="display/javascript/bootstrap/css/bootstrap.min.css">
@@ -22,10 +22,6 @@
 <script type="text/javascript" src="display/javascript/datetimepicker/jquery.datetimepicker.full.min.js"></script>
  -->
  
-<!-- Code specifique -->
-<link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css" >
-<script type="text/javascript" src="display/javascript/bootstrap-prototypephp.js"></script>
-
 <!-- composant date/heure -->
 <script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-1.12.0.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-1.12.0.custom/i18n/datepicker-en.js"></script>
@@ -36,19 +32,15 @@
 <link rel="stylesheet" type="text/css" href="display/javascript/jquery-ui-1.12.0.custom/jquery-ui.theme.min.css"/>
 <link rel="stylesheet" type="text/css" href="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.css"/>
 
+<!-- Code specifique -->
+<link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css" >
+<script type="text/javascript" src="display/javascript/bootstrap-prototypephp.js"></script>
+
 
 <!--  implementation automatique des classes -->
 <script>
 $(document).ready(function() {
-	/*$.datetimepicker.setLocale('fr');
-	$('.datepicker').datetimepicker( { 
-		timepicker:false,
-		 format:'d/m/Y'
-	});
-	$('.datetimepicker').datetimepicker( { 
-		format:'d/m/Y H:i',
-		step: 5
-	});*/
+
 	$('.datatable').DataTable({
 		language : {
 			url : 'display/javascript/fr_FR.json'

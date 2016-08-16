@@ -77,5 +77,17 @@ switch ($t_module ["param"]) {
 		 */
 		dataDelete ( $dataClass, $id );
 		break;
+	case "fastInputChange":
+		
+		break;
+	case "fastInputWrite":
+		
+		break;
+	case "fastOutputChange":
+		
+		break;
+	case "fastOutputWrite":
+		
+		break;
 }
 ?>

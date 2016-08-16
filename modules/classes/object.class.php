@@ -52,6 +52,24 @@ class Object extends ObjetBDD {
 			parent::supprimer($uid);
 		}
 	}
+	
+	function getDetail($uid) {
+		if (is_numeric($uid) && $uid > 0) {
+			$data ["uid"] = $uid;
+			$sql = "select uid, identifier, sample_type_name as type_name
+					from object 
+					join sample using (uid)
+					join sample_type using (sample_type_id)
+					where uid = :uid
+					UNION
+					select uid, identifier, container_type_name as type_name
+					from object 
+					join container using (uid)
+					join container_type using (container_type_id)
+					where uid = :uid";
+			return lireParam($sql);
+		}
+	}
 }
 
 

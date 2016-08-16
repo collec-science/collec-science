@@ -197,7 +197,7 @@ class Sample extends ObjetBDD {
 				$or = " or ";
 			}
 			$identifier = "%" . strtoupper ( $this->encodeData ( $param ["name"] ) ) . "%";
-			$where .= "$or upper(s.identifier) like :identifier )";
+			$where .= "$or upper(so.identifier) like :identifier )";
 			$and = " and ";
 			$data ["identifier"] = $identifier;
 		}

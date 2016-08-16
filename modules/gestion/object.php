@@ -16,7 +16,7 @@ switch ($t_module ["param"]) {
 		 * (independamment du type : sample ou container)
 		 */
 		ob_clean();
-		echo json_encode($object->getDetail($id));
+		echo json_encode($dataClass->getDetail($id, $_REQUEST["is_container"]));
 		ob_flush();
 		break;
 }

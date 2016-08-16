@@ -123,6 +123,14 @@
 	<sampleWrite action="modules/gestion/sample.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleChange" modulebefore="sampleChange" />
 	<sampleDelete action="modules/gestion/sample.php" param="delete" droits="gestion" retoursuppr="sampleList" retourko="sampleChange"  modulebefore="sampleChange"/>
 	
+	<storage droits="consult"/>
+	<objets retourlogin="1"/>
+	<fastInputChange action="modules/gestion/storage.php" param="fastInputChange" droits="gestion"  retourlogin="1"/>
+	<fastInputWrite action="modules/gestion/storage.php" param="fastInputWrite" droits="gestion" retourok="fastInputChange" retourko="fastInputChange" modulebefore="fastInputChange" />
+	<fastOutputChange action="modules/gestion/storage.php" param="fastOutputChange" droits="gestion"  retourlogin="1"/>
+	<fastOutputWrite action="modules/gestion/storage.php" param="fastOutputWrite" droits="gestion" retourok="fastOutputChange" retourko="fastOutputChange" modulebefore="fastOutputChange" />
+	
+	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax" ajax='1'/>
 
 </navigation>
 	

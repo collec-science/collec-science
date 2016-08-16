@@ -9,7 +9,7 @@
 					class="icon-bar"></span>
 			</button>
 			<div class="navbar-brand"><img src="display/images/logo.png" height="25"></div>
-			<span class="navbar-text"><b>{$APPLI_titre}</b></span>
+			<span class="navbar-text hidden-xs hidden-sm"><b>{$APPLI_titre}</b></span>
 		</div>
 		<!-- Affichage du menu -->
 		<div class="collapse navbar-collapse" id="navbar_collapse">

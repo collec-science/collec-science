@@ -1,4 +1,4 @@
-<!-- Ajout rapide d'un échantillon dans un container -->
+<!-- Sortie rapide d'un échantillon du stock -->
 <script>
 $(document).ready(function() { 
 	function getDetail(uid, champ) {
@@ -26,12 +26,6 @@ $(document).ready(function() {
 		});
 	}
 	
-	$("#container_uid").focusout(function () {
-		getDetail($("#container_uid").val(), "container");
-	});
-	$("#container_search").click(function () {
-		getDetail($("#container_uid").val(), "container");
-	});
 	$("#object_uid").focusout(function () {
 		getDetail($("#object_uid").val(), "object");
 	});
@@ -40,34 +34,20 @@ $(document).ready(function() {
 	});
 });
 </script>
-<h2>Entrée rapide d'un échantillon dans le stock</h2>
+<h2>{$LANG["menu"].75}</h2>
+
 <div class="row">
 <div class="col-md-6">
-<form class="form-horizontal protoform" id="fastInputForm" method="post" action="index.php">
-<input type="hidden" name="moduleBase" value="fastInput">
+<form class="form-horizontal protoform" id="fastOutputForm" method="post" action="index.php">
+<input type="hidden" name="moduleBase" value="fastOutput">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="storage_id" value="0">
-
-<div class="form-group">
-<label for="container_groupe" class="control-label col-md-4">UID du conteneur<span class="red">*</span> :</label>
-<div class="col-md-8" id="container_groupe">
-<div class="col-md-3">
-<input id="container_uid" type="text" name="container_uid"  value="{$container_uid}" class="form-control" autocomplete="off" {if strlen($container_uid) == 0}autofocus{/if}>
-</div>
-<div class="col-md-3 col-md-offset-1">
-<button type="button" id="container_search" class="btn btn-default">Chercher...</button>
-</div>
-</div>
-<div class="col-md-8 col-md-offset-4 ">
-<input id="container_detail" type="text" class="form-control" disabled>
-</div>
-</div>
 
 <div class="form-group">
 <label for="object_uid" class="control-label col-md-4">UID de l'objet<span class="red">*</span> :</label>
 <div class="col-md-8" id="object_groupe">
 <div class="col-md-3">
-<input id="object_uid" type="text" name="object_uid"  value="" class="form-control"{if strlen($container_uid) > 0}autofocus{/if} autocomplete="off" >
+<input id="object_uid" type="text" name="object_uid"  value="" class="form-control" autofocus autocomplete="off" >
 </div>
 <div class="col-md-3 col-md-offset-1">
 <button type="button" id="object_search" class="btn btn-default">Chercher...</button>
@@ -75,13 +55,6 @@ $(document).ready(function() {
 </div>
 <div class="col-md-8 col-md-offset-4 ">
 <input id="object_detail" type="text" class="form-control" disabled>
-</div>
-</div>
-
-<div class="form-group">
-<label for="storage_range" class="control-label col-md-4">Emplacement dans le container :</label>
-<div class="col-md-8">
-<input id="storage_range" name="storage_range" value="{$data.storage_range}" class="form-control" >
 </div>
 </div>
 

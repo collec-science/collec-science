@@ -82,8 +82,14 @@ $LANG["menu"][66] = "Type d'échantillons";
 $LANG["menu"][67] = "Liste des types d'échantillons gérés";
 $LANG["menu"][68] = "Échantillons";
 $LANG["menu"][69] = "Liste des échantillons";
-$LANG["menu"][70] = "";
-$LANG["menu"][71] = "";
+$LANG["menu"][70] = "Mouvements";
+$LANG["menu"][71] = "Création de mouvements dans le stock";
+$LANG["menu"][72] = "Entrer un échantillon";
+$LANG["menu"][73] = "Entrée rapide d'un échantillon dans le stock";
+$LANG["menu"][74] = "Sortir un échantillon";
+$LANG["menu"][75] = "Sortie rapide d'un échantillon du stock";
+$LANG["menu"][76] = "Objets";
+$LANG["menu"][77] = "Opérations sur les échantillons ou les containers";
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";
@@ -128,6 +134,7 @@ $LANG["message"][38] = "Erreur d'écriture dans le fichier de traces";
 $LANG["message"][39] = "Les mots de passe ne sont pas identiques";
 $LANG["message"][40] = "Le mot de passe est trop court (minimum : 8 caractères)";
 $LANG["message"][41] = "Le mot de passe n'est pas assez complexe (mixez 3 jeux de caractères parmi les minuscules, majuscules, chiffres et signes de ponctuation)";
+$LANG["message"][42] = "Impossible d'enregistrer le mouvement";
 
 
 
@@ -196,6 +203,7 @@ $LANG["appli"][1] = "Retour à la liste";
 $LANG["appli"][2] = "Choisissez...";
 $LANG["appli"][3] = "Le conteneur n'a pas été renseigné";
 $LANG["appli"][4] = "Vous ne disposez pas des droits pour modifier cet échantillon";
+$LANG["appli"][5] = "Les contrôles de cohérence ne permettent pas d'enregister le mouvement demandé";
 
 
 ?>

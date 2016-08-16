@@ -53,21 +53,23 @@ class Object extends ObjetBDD {
 		}
 	}
 	
-	function getDetail($uid) {
+	function getDetail($uid, $is_container = 0) {
 		if (is_numeric($uid) && $uid > 0) {
 			$data ["uid"] = $uid;
-			$sql = "select uid, identifier, sample_type_name as type_name
-					from object 
-					join sample using (uid)
-					join sample_type using (sample_type_id)
-					where uid = :uid
-					UNION
-					select uid, identifier, container_type_name as type_name
+			$sql = "select uid, identifier, container_type_name as type_name
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)
 					where uid = :uid";
-			return lireParam($sql);
+			if ($is_container == 0) 
+					$sql .= " UNION
+					select uid, identifier, sample_type_name as type_name
+					from object 
+					join sample using (uid)
+					join sample_type using (sample_type_id)
+					where uid = :uid
+					";
+			return $this->getListeParamAsPrepared($sql, $data);
 		}
 	}
 }

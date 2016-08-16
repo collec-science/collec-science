@@ -9,7 +9,7 @@ include_once 'modules/classes/storage.class.php';
 $dataClass = new Storage ( $bdd, $ObjetBDDParam );
 $keyName = "storage_id";
 $id = $_REQUEST [$keyName];
-$smarty->assign("moduleParent", $_SESSION["moduleParent"]);
+$smarty->assign ( "moduleParent", $_SESSION ["moduleParent"] );
 switch ($t_module ["param"]) {
 	case "input" :
 		$data = dataRead ( $dataClass, $id, "gestion/storageChange.tpl", $_REQUEST ["uid"], false );
@@ -17,26 +17,26 @@ switch ($t_module ["param"]) {
 		require_once 'modules/classes/containerFamily.class.php';
 		$containerFamily = new ContainerFamily ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "containerFamily", $containerFamily->getListe ( 2 ) );
-		$smarty->assign("data", $data);
+		$smarty->assign ( "data", $data );
 		/*
 		 * Recherche de l'objet
 		 */
 		require_once 'modules/classes/object.class.php';
 		$object = new Object ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "object", $object->lire ( $_REQUEST ["uid"] ) );
-		$smarty->assign("data", $data);
+		$smarty->assign ( "data", $data );
 		break;
-		
+	
 	case "output" :
 		$data = dataRead ( $dataClass, $id, "gestion/storageChange.tpl", $_REQUEST ["uid"], false );
-		$data ["movement_type_id"] = 2;		
+		$data ["movement_type_id"] = 2;
 		/*
 		 * Recherche de l'objet
 		 */
 		require_once 'modules/classes/object.class.php';
 		$object = new Object ( $bdd, $ObjetBDDParam );
 		$smarty->assign ( "object", $object->lire ( $_REQUEST ["uid"] ) );
-		$smarty->assign("data", $data);
+		$smarty->assign ( "data", $data );
 		break;
 	case "change":
 		/*
@@ -77,17 +77,35 @@ switch ($t_module ["param"]) {
 		 */
 		dataDelete ( $dataClass, $id );
 		break;
-	case "fastInputChange":
-		
+	case "fastInputChange" :
+		if (isset ( $_REQUEST ["container_uid"] ) && is_numeric ( $_REQUEST ["container_uid"] ))
+			$smarty->assign ( "container_uid", $_REQUEST ["container_uid"] );
+		$smarty->assign ( "data", $dataClass->getDefaultValue () );
+		$smarty->assign("corps", "gestion/fastInputChange.tpl");
 		break;
-	case "fastInputWrite":
-		
+	case "fastInputWrite" :
+		try {
+			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 1, $_REQUEST ["container_uid"], $_SESSION ["login"], $_REQUEST ["range"], $_REQUEST ["storage_comment"] );
+			$message = $LANG["message"][5];
+			$module_coderetour = 1;
+		} catch ( Exception $e ) {
+			$message = $LANG["message"][42];
+			$module_coderetour = -1;
+		}
 		break;
-	case "fastOutputChange":
-		
+	case "fastOutputChange" :
+		$smarty->assign ( "data", $dataClass->getDefaultValue () );
+		$smarty->assign("corps", "gestion/fastOutputChange.tpl");
 		break;
-	case "fastOutputWrite":
-		
+	case "fastOutputWrite" :
+		try {
+			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 2, 0, $_SESSION ["login"], $_REQUEST ["range"], $_REQUEST ["storage_comment"] );
+			$message = $LANG["message"][5];
+			$module_coderetour = 1;
+		} catch ( Exception $e ) {
+			$message = $LANG["message"][42];
+			$module_coderetour = -1;
+		}
 		break;
 }
 ?>

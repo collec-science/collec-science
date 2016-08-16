@@ -136,6 +136,7 @@ class Storage extends ObjetBDD {
 	 * @return Identifier
 	 */
 	function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $range = null, $comment = null) {
+		global $LANG;
 		/*
 		 * Verifications
 		 */
@@ -148,7 +149,7 @@ class Storage extends ObjetBDD {
 		if ($type != 1 && $type != 2)
 			$controle = false;
 		$container_uid = $this->encodeData($container_uid);
-		if (!is_numeric($container_uid))
+		if (!is_numeric($container_uid) && strlen($container_uid) > 0)
 			$controle = false;
 		if (strlen($login) == 0)
 			strlen($_SESSION["login"]) > 0 ? $login = $_SESSION["login"] : $controle = false;
@@ -171,7 +172,7 @@ class Storage extends ObjetBDD {
 			if (strlen($comment)>0)
 				$data["storage_comment"] = $comment;
 			return $this->ecrire($data);		
-		}
+		} else throw new Exception($LANG["appli"][5]);
 	}
 
 	/**

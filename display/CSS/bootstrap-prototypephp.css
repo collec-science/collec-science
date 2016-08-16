@@ -108,3 +108,6 @@ legend {
 	background-repeat: no-repeat;
 	background-position: 100% 50%;
 }
+/* Espacement entre deux lignes */
+.top5 { margin-top:5em; }
+.top10 { margin-top:10em; }

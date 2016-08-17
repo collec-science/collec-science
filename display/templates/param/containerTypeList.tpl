@@ -10,6 +10,7 @@
 <thead>
 <tr>
 <th>Nom</th>
+<th>Id</th>
 <th>Famille</th>
 <th>Description</th>
 <th>Condition de stockage</th>
@@ -29,10 +30,10 @@
 {$data[lst].container_type_name}
 {/if}
 </td>
+<td class="center">{$data[lst].container_type_id}</td>
 <td >
 {$data[lst].container_family_name}
 </td>
-
 <td class="textareaDisplay">{$data[lst].container_type_description}</td>
 
 <td>

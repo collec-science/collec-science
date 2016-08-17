@@ -11,32 +11,7 @@ $LANG["menu"][6] = "Déconnexion";
 $LANG["menu"][7] = "Déconnexion de l'application";
 $LANG["menu"][8] = "A propos";
 $LANG["menu"][9] = "A propos de prototypePHP";
-$LANG["menu"][10] = "Aide";
-$LANG["menu"][11] = "Quelques conseils...";
-$LANG["menu"][12] = "Gestion des droits";
-$LANG["menu"][13] = "Gestion des droits d'accès aux modules de l'application";
-$LANG["menu"][14] = "Droits et comptes";
-$LANG["menu"][15] = "Gestion des droits et des comptes";
-$LANG["menu"][20] = "Aide";
-$LANG["menu"][21] = "Utiliser PrototypePHP";
-$LANG["menu"][22] = "Installation";
-$LANG["menu"][23] = "Installer PrototypePHP";
-$LANG["menu"][24] = "Gestion des droits";
-$LANG["menu"][25] = "Gérer les droits dans l'application";
-$LANG["menu"][26] = "Module de lecture-écriture";
-$LANG["menu"][27] = "Créer un module pour lire ou écrire un enregistrement";
-$LANG["menu"][28] = "Paramétrage du module";
-$LANG["menu"][29] = "Configurer le module dans le fichier xml";
-$LANG["menu"][30] = "Classe d'accès aux données";
-$LANG["menu"][31] = "Créer la classe permettant d'accéder à une table";
-$LANG["menu"][32] = "Gestion de la documentation";
-$LANG["menu"][33] = "Gérer les pages de la documentation";
-$LANG["menu"][34] = "Langues";
-$LANG["menu"][35] = "Gestion des différentes langues, internationalisation de l'application";
-$LANG["menu"][36] = "SMARTY";
-$LANG["menu"][37] = "Manipuler les templates SMARTY";
-$LANG["menu"][38] = "Structure";
-$LANG["menu"][39] = "Organisation de PrototypePHP";
+
 $LANG["menu"][40] = "Nouveautés";
 $LANG["menu"][41] = "Quoi de neuf dans l'application ?";
 $LANG["menu"][42] = "Module de recherche";
@@ -62,7 +37,7 @@ $LANG["menu"]['connexiontitle'] = "S'identifier dans l'application";
 /*
  * Entrees du menu pour l'application
  */
-$LANG["menu"][50] = "Param";
+$LANG["menu"][50] = "Paramètres";
 $LANG["menu"][51] = "Paramètres";
 $LANG["menu"][52] = "Type événement";
 $LANG["menu"][53] = "Types d'événement";

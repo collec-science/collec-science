@@ -10,6 +10,7 @@
 <thead>
 <tr>
 <th>Nom</th>
+<th>Id</th>
 </tr>
 </thead>
 <tbody>
@@ -23,6 +24,7 @@
 {$data[lst].container_status_name}
 {/if}
 </td>
+<td class="center">{$data[lst].container_status_id}</td>
 </tr>
 {/section}
 </tbody>

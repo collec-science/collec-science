@@ -10,6 +10,7 @@
 <thead>
 <tr>
 <th>Nom du projet</th>
+<th>Id</th>
 <th>Groupes de login autorisés</th>
 </tr>
 </thead>
@@ -25,6 +26,7 @@
 {$data[lst].project_name}
 {/if}
 </td>
+<td class="center">{$data[lst].project_id}</td>
 <td>
 {$data[lst].groupe}
 </td>

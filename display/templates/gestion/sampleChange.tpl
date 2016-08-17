@@ -1,6 +1,5 @@
 <h2>Création - modification d'un échantillon</h2>
-<div class="row">
-<div class="col-md-6">
+<div class="row col-md-12">
 <a href="index.php?module=sampleList">
 <img src="display/images/list.png" height="25">
 Retour à la liste des échantillons
@@ -14,12 +13,41 @@ Retour à la liste des échantillons
 <img src="display/images/box.png" height="25">Retour au détail
 </a>
 {/if}
-
+</div>
+<div class="row">
+{if $data.parent_sample_id > 0}
+<fieldset class="col-md-6">
+<legend>Échantillon parent</legend>
+<div class="form-display">
+<dl class="dl-horizontal">
+<dt>UID et référence :</dt>
+<dd>
+<a href="index.php?module=sampleDisplay&uid={$parent_sample.uid}">
+{$parent_sample.uid} {$parent_sample.identifier}
+</a>
+</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>Projet :</dt>
+<dd>{$parent_sample.project_name}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>Type :</dt>
+<dd>{$parent_sample.sample_type_name}</dd>
+</dl>
+</div>
+</fieldset>
+{/if}
+</div>
+<div class="row">
+<fieldset class="col-md-6">
+<legend>Échantillon</legend>
 <form class="form-horizontal protoform" id="sampleForm" method="post" action="index.php">
 <input type="hidden" name="sample_id" value="{$data.sample_id}">
 <input type="hidden" name="moduleBase" value="sample">
 <input type="hidden" name="action" value="Write">
-<input type="hidden" name="sample_parent_uid" value="{$sample_parent_uid}">
+<input type="hidden" name="parent_sample_id" value="{$data.parent_sample_id}">
+
 {include file="gestion/uidChange.tpl"}
 
 <div class="form-group">
@@ -70,7 +98,7 @@ Retour à la liste des échantillons
  </div>
 
 </form>
-</div>
+</fieldset>
 </div>
 
 <span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
 <item module="objets" title="77" value="76">
-	<item module="containerList" title="61" value="60" droits="consult"/>
-	<item module="sampleList" title="69" value="68" droits="consult"/>
+	<item module="containerList" title="61" value="60"/>
+	<item module="sampleList" title="69" value="68"/>
 </item>
 
-<item module="storage" title="71" value="70" droits="consult">
+<item module="storage" title="71" value="70" droits="gestion">
 <item module="fastInputChange" title="73" value="72" droits="gestion" />
 <item module="fastOutputChange" title="75" value="74" droits="gestion" />
 </item>

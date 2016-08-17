@@ -214,6 +214,18 @@ class Sample extends ObjetBDD {
 			$where = "";
 		return $this->getListeParamAsPrepared ( $this->sql . $where . $order, $data );
 	}
+	/**
+	 * Retourne les echantillons associes a un parent
+	 * @param int $uid : uid du parent
+	 */
+	function getSampleassociated($uid) {
+		if ($uid > 0 && is_numeric($uid)) {
+			$data ["uid"] = $uid;
+			$where = " where pso.uid = :uid";
+			$order = " order by s.uid";
+			return $this->getListeParamAsPrepared($this->sql.$where. $order, $data);
+		}
+	}
 }
 
 ?>

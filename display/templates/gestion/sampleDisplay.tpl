@@ -53,6 +53,15 @@ Nouvel échantillon
 <dt title="Date d'import dans la base de données">Date d'import dans la base de données :</dt>
 <dd>{$data.sample_creation_date}</dd>
 </dl>
+{if $data.parent_uid > 0}
+<dl class="dl-horizontal">
+<dt title="Échantillon parent">Échantillon parent :</dt>
+<dd><a href="index.php?module=sampleDisplay&uid={$data.parent_uid}">
+{$data.parent_uid} {$data.parent_identifier}
+</a>
+</dd>
+</dl>
+{/if}
 <dl class="dl-horizontal">
 <dt>Emplacement :</dt>
 <dd>
@@ -83,6 +92,15 @@ Nouvel échantillon
 </div>
 
 </div>
-
+<fieldset class="col-md-12" id="echantillons">
+<legend>Échantillons rattachés</legend>
+{if $droits.gestion == 1 && $modifiable == 1}
+<a href="index.php?module=sampleChange&uid=0&parent_uid={$data.uid}">
+<img src="display/images/new.png" height="25">
+Nouvel échantillon rattaché...
+</a>
+{/if}
+{include file="gestion/sampleListDetail.tpl"}
+</fieldset>
 </div>
 </div>

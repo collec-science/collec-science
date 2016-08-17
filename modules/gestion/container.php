@@ -71,7 +71,9 @@ switch ($t_module ["param"]) {
 		//$object = new Object ( $bdd, $ObjetBDDParam );
 		//$smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
 		if ($_REQUEST["container_parent_uid"] > 0 && is_numeric($_REQUEST["container_parent_uid"])) {
-			$smarty->assign("container_parent_uid", $_REQUEST["container_parent_uid"]);
+			$container_parent = $dataClass->lire($_REQUEST["container_parent_uid"]);
+			$smarty->assign("container_parent_uid",$container_parent["uid"]);
+			$smarty->assign("container_parent_identifier", $container_parent["identifier"]);
 		}
 		include 'modules/gestion/container.functions.php';
 		break;

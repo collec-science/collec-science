@@ -55,7 +55,7 @@ Retour à la liste des conteneurs
 </a>
 {elseif $container_parent_uid > 0}
 <a href="index.php?module=containerDisplay&uid={$container_parent_uid}">
-<img src="display/images/box.png" height="25">Retour au détail
+<img src="display/images/box.png" height="25">Retour au parent ({$container_parent_uid} {$container_parent_identifier})
 </a>
 {/if}
 

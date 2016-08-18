@@ -65,6 +65,13 @@ $LANG["menu"][74] = "Sortir un échantillon";
 $LANG["menu"][75] = "Sortie rapide d'un échantillon du stock";
 $LANG["menu"][76] = "Objets";
 $LANG["menu"][77] = "Opérations sur les échantillons ou les containers";
+$LANG["menu"][78] = "Import de masse";
+$LANG["menu"][79] = "IMport de plusieurs échantillons ou containers";
+$LANG["menu"][80] = "";
+$LANG["menu"][81] = "";
+$LANG["menu"][82] = "";
+$LANG["menu"][83] = "";
+$LANG["menu"][84] = "";
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";

@@ -33,6 +33,7 @@ if (isset ( $_REQUEST ["module"] ) && strlen ( $_REQUEST ["module"] ) > 0) {
 	 */
 	$module = "default";
 }
+$moduleRequested = $module;
 /**
  * Gestion des modules
  */
@@ -193,6 +194,8 @@ while ( isset ( $module ) ) {
 		}
 		if ($beforeok == false) {
 			$resident = 0;
+			if ($APPLI_modeDeveloppement == true) 
+				$message = "Module precedent enregistre : ".$_SESSION["moduleBefore"]."<br>";
 			$motifErreur = "errorbefore";
 		}
 	}
@@ -200,7 +203,7 @@ while ( isset ( $module ) ) {
 	 * Enregistrement de l'acces au module
 	 */
 	try {
-		$log->setLog ( $_SESSION ["login"], $module, $motifErreur );
+		$log->setLog ( $_SESSION ["login"], $moduleRequested, $motifErreur );
 	} catch ( Exception $e ) {
 		if ($OBJETBDD_debugmode > 0) {
 			$message = $log->getErrorData ( 1 );
@@ -214,7 +217,7 @@ while ( isset ( $module ) ) {
 	 * fin d'analyse du module
 	 */
 	if ($t_module ["ajax"] != 1)
-		$_SESSION ["moduleBefore"] = $module;
+		$_SESSION ["moduleBefore"] = $moduleRequested;
 	unset ( $module );
 	unset ( $module_coderetour );
 	/*

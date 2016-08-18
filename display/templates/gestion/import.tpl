@@ -30,3 +30,73 @@ L'import sera réalisé ainsi :
 </div>
 </div>
 </div>
+<div class="row col-md-6">
+<form class="form-horizontal protoform" id="controlForm" method="post" action="index.php" enctype="multipart/form-data">
+<input type="hidden" name="module" value="importControl">
+<div class="form-group">
+<label for="upfile" class="control-label col-md-4">Nom du fichier à importer (CSV)<span class="red">*</span> :</label>
+<div class="col-md-8">
+<input type="file" name="upfile" required>
+</div>
+</div>
+<div class="form-group">
+<label for="separator" class="control-label col-md-4">Séparateur utilisé :</label>
+<div class="col-md-8">
+<select id="separator" name="separator">
+<option value="," {if $separator == ","}selected{/if}>Virgule</option>
+<option value=";" {if $separator == ";"}selected{/if}>Point-virgule</option>
+<option value="tab" {if $separator == "tab"}selected{/if}>Tabulation</option>
+</select>
+</div>
+</div>
+<div class="form-group">
+<label for="utf8_encode" class="control-label col-md-4">Encodage du fichier :</label>
+<div class="col-md-8">
+<select id="utf8_encode" name="utf8_encode">
+<option value="0" {if $utf8_encode == 0}selected{/if}>UTF-8</option>
+<option value="1" {if $utf8_encode == 1}selected{/if}>ISO-8859-x</option>
+</select>
+</div>
+</div>
+<div class="form-group center">
+      <button type="submit" class="btn btn-primary">Lancer les contrôles</button>
+</div>
+</form>
+
+
+<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+</div>
+
+
+<!-- Affichage des erreurs decouvertes -->
+{if $erreur == 1}
+<div class="row col-md-12">
+<table id="containerList" class="table table-bordered table-hover datatable " >
+<thead>
+<tr>
+<th>N° de ligne</th>
+<th>Anomalie(s) détectée(s)</th>
+</tr>
+</thead>
+<tbody>
+{section name=lst loop=$erreurs}
+<tr>
+<td class="center">{$erreurs[lst].line}</td>
+<td>{$erreurs[lst].message}</td>
+</tr>
+{/section}
+</tbody>
+</table>
+</div>
+{/if}
+
+<!-- Lancement de l'import -->
+{if $controleOk == 1}
+<div class="row col-md-8">
+<form id="importForm" method="post" action="index.php">
+<input type="hidden" name="module" value="importImport">
+Contrôles OK. Vous pouvez réaliser l'import du fichier {$filename} : 
+<button type="submit" class="btn btn-danger">Déclencher l'import</button>
+</form>
+</div>
+{/if}

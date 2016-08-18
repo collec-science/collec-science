@@ -51,6 +51,14 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 </div>
 </div>
 <div class="form-group">
+<label for="container_family_id" class="col-md-2 control-label">UID entre :</label>
+<div class="col-md-2">
+<input id="uid_min" name="uid_min" class="nombre form-control" value="{$containerSearch.uid_min}">
+</div>
+<div class="col-md-2">
+<input id="uid_max" name="uid_max" class="nombre form-control" value="{$containerSearch.uid_max}">
+</div>
+
 <label for="container_family_id" class="col-md-2 control-label">Famille :</label>
 <div class="col-md-4">
 <select id="container_family_id" name="container_family_id" class="form-control">
@@ -62,6 +70,16 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 {/section}
 </select>
 </div>
+
+</div>
+<div class="form-group">
+<label for="limit" class="col-md-2 control-label">Nbre limite à afficher :</label>
+<div class="col-md-2">
+<input type="number" id="limit" name="limit" value="{$containerSearch.limit}" class="form-control">
+</div>
+<div class="col-md-2">
+<input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
+</div>
 <label for="container_type_id" class="col-md-2 control-label">Type :</label>
 <div class="col-md-4">
 <select id="container_type_id" name="container_type_id" class="form-control">
@@ -72,15 +90,6 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 </option>
 {/section}
 </select>
-</div>
-</div>
-<div class="form-group">
-<label for="limit" class="col-md-2 control-label">Nbre limite à afficher :</label>
-<div class="col-md-4">
-<input type="number" id="limit" name="limit" value="{$containerSearch.limit}" class="form-control">
-</div>
-<div class="col-md-6">
-<input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
 </div>
 </div>
 </form>

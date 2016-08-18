@@ -22,6 +22,14 @@
 </div>
 </div>
 <div class="form-group">
+<label for="container_family_id" class="col-md-2 control-label">UID entre :</label>
+<div class="col-md-2">
+<input id="uid_min" name="uid_min" class="nombre form-control" value="{$sampleSearch.uid_min}">
+</div>
+<div class="col-md-2">
+<input id="uid_max" name="uid_max" class="nombre form-control" value="{$sampleSearch.uid_max}">
+</div>
+
 <label for="sample_type_id" class="col-md-2 control-label">Type :</label>
 <div class="col-md-4">
 <select id="sample_type_id" name="sample_type_id" class="form-control">

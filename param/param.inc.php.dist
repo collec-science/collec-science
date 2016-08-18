@@ -31,10 +31,11 @@ $GACL_aco = "col";
 $GACL_dsn = "pgsql:host=localhost;dbname=proto;sslmode=require";
 $GACL_schema = "gacl";
 
-$APPLI_address = "http://localhost/proto";
-$APPLI_mail = "proto@domain.fr";
-$APPLI_nom = "PROTOTYPEPHP";
-$APPLI_code = 'proto';
+/*
+ * Lien vers le site d'assistance
+ */
+ //$APPLI_mail = "https://gitlab.bordeaux.cemagref.fr/eric.quinton/eabxcol/issues/new";
+$APPLI_mail = "https://sourcesup.renater.fr";
 
 $LDAPGROUP_address = "localhost";
 $LDAPGROUP_attributnomgroupe = "cn";

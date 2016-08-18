@@ -23,5 +23,5 @@ if (isset($_GET["url"])) {
 	}
 	//print_r($_GET);
 }
-include "framework/controler.php";
+include "framework/controller.php";
 ?>

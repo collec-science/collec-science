@@ -206,6 +206,13 @@ class Sample extends ObjetBDD {
 			$and = " and ";
 			$data ["project_id"] = $param ["project_id"];
 		}
+		if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
+			$where .= $and. "s.uid between :uid_min and :uid_max";
+			$and = " and ";
+			$data["uid_min"] = $param["uid_min"];
+			$data["uid_max"] = $param["uid_max"];
+		}
+		
 		if ($param ["limit"] > 0) {
 			$order .= " limit :limite";
 			$data ["limite"] = $param ["limit"];

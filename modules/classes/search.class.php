@@ -151,13 +151,17 @@ class SearchContainer extends SearchParam {
 				"container_family_id" => "",
 				"container_type_id" => "",
 				"limit"=>100,
-				"container_status_id" => 1
+				"container_status_id" => 1,
+				"uid_min"=>0,
+				"uid_max"=>0
 		);
 		$this->paramNum = array (
 				"container_family_id",
 				"container_type_id",
 				"limit",
-				"container_status_id"
+				"container_status_id",
+				"uid_min",
+				"uid_max"
 		);
 		parent::__construct ();
 	}
@@ -169,12 +173,16 @@ class SearchSample extends SearchParam {
 				"name" => "",
 				"sample_type_id" => "",
 				"project_id" => "",
-				"limit"=>100
+				"limit"=>100,
+				"uid_min"=>0,
+				"uid_max"=>0
 		);
 		$this->paramNum = array (
 				"sample_type_id",
 				"project_id",
-				"limit"
+				"limit",
+				"uid_min",
+				"uid_max"
 		);
 		parent::__construct ();
 	}

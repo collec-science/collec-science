@@ -38,10 +38,13 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
+# programmes bases sur PrototypePHP
 templates_c/
 *~
 clear_templates_c.sh
 param.inc.php
+temp/
+
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

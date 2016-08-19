@@ -61,7 +61,14 @@ switch ($t_module ["param"]) {
 		/*
 		 * Verification de l'existence de container_id si entree
 		 */
-		if ($_REQUEST ["movement_type_id"] == 1 && strlen ( $_REQUEST ["container_id"] ) == 0) {
+		$error = false;
+		if ($_REQUEST ["movement_type_id"] == 1 ) {
+			if ($_REQUEST["uid"] == $_REQUEST["container_uid"])
+				$error = true;
+			if ( strlen ( $_REQUEST ["container_id"] ) == 0) 
+				$error = true;
+		}
+		if ($error) {
 			$message = $LANG ["appli"] [3];
 			$module_coderetour = - 1;
 		} else {

@@ -2,7 +2,6 @@
 $(document).ready(function() { 
 var options;
 var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0{/if};
-var containerArray;
 	/*
 	 * Recherche du type a partir de la famille
 	 */
@@ -36,9 +35,7 @@ var containerArray;
 			if (data != null) {
 			console.log ("data is not null");
 			options = '';		
-			containerArray = "";
 			for (var i = 0; i < data.length; i++) {
-			 	containerArray[data[i].container_id] = data[i].uid;
 				options += '<option value="' + data[i].container_id + '"';
 				if (i == 0) {
 					options += ' selected ';
@@ -61,16 +58,21 @@ var containerArray;
 	$("#containers").change(function() { 
 		var id = $("#containers").val();
 		$("#container_id").val(id);
-		$("#uid").val(containerArray[id]);
+		var texte = $( "#containers option:selected" ).text();
+		var a_texte = texte.split(" ");
+		
+		$("#container_uid").val(a_texte[0]);
+		console.log("container_id : "+id);
+		console.log("container_uid : " + a_texte[0] );
 	});
 	if($("#movement_type_id").val() == 1 )
 		$("#container_uid").attr("required");
 	
 	$("#storage{$moduleParent}Form").submit(function (event ) { 
 		var uid = $("#uid").val();
-		var container_uid = $("#uid").val();
-		//console.log("uid : "+uid);
-		//console.log("container_uid" + uid);
+		var container_uid = $("#container_uid").val();
+		console.log("uid : "+uid);
+		console.log("container_uid : " + uid);
 		if (uid == container_uid) {
 			event.preventDefault();
 		}

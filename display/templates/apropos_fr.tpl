@@ -1,25 +1,27 @@
-<h2>A propos de PrototypePHP...
+<h2>A propos de {$APPLI_titre}
 </h2>
 <p>
 Version {$version} du {$versiondate}.
 </p>
-PrototypePHP est un canevas d'application basé sur le modéle MVC
-(modéle - vue - contrôleur), qui s'appuie sur les classes suivantes :<br>
-- <a href="http://adodb.sourceforge.net/">ADODB</a>
-pour l'accés aux bases de données<br>
-- <a href="http://objetbdd.sourceforge.net/">OBJETBDD</a>
-pour gérer les données dans les tables<br>
-- <a href="http://www.smarty.net/">SMARTY</a> pour
-l'affichage des pages<br>
-- <a href="http://phpgacl.sourceforge.net/">PHPGACL</a>
-pour la gestion des droits<br>
-- <a href="https://sourceforge.net/project/showfiles.php?group_id=88445">ESUP-CAS</a>
-pour l'accés au SSO-CAS (également : <a href="http://www.ja-sig.org/wiki/display/CASC/phpCAS">http://www.ja-sig.org/wiki/display/CASC/phpCAS</a>)<br>
+
+L'application permet de garder la trace des échantillons stockés dans des containers. 
 <br>
-La navigation dans l'application est décrite dans un fichier xml. <br>
-<p>publié sous licence LGPL et CECILL-C.
+Chaque échantillon ou container est identifié par un numéro unique, l'UID. 
+<br>D'un point de vue technique, les échantillons et les containers sont, informatiquement parlant, hérités d'une classe appelée Objet. 
 <br>
-Réalisation : Eric Quinton - Copyright 2008-2013 - Tous droits réservés
-</p>
-<h3>Pour tout probléme, contactez <a href="mailto:{$melappli}">l'équipe d'assistance</a>
-</h3>
+Les objets sont porteurs de plusieurs informations : 
+<ul>
+<li>les mouvements d'entrée ou de sortie (ils ne peuvent pas être effacés)</li>
+<li>les événements.
+</ul>
+
+D'autres informations sont spécifiques soit des échantillons, soit des containers. 
+Pour ces derniers, les conditions de stockage (produit utilisé, risque associé normalisé) peuvent être décrits.
+<br>
+Dans les versions futures, il est prévu la possibilité de générer un fichier permettant d'imprimer des étiquettes avec un code-barre.
+<br>
+De même, des études seront menées pour activer la lecture optique des codes-barre directement depuis l'application web, 
+en utilisant la caméra du dispositif (utilisation avec une tablette connectée).
+
+<p>Logiciel publié sous licence GPL
+

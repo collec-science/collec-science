@@ -11,11 +11,11 @@ $LANG["menu"][6] = "Déconnexion";
 $LANG["menu"][7] = "Déconnexion de l'application";
 $LANG["menu"][8] = "A propos";
 $LANG["menu"][9] = "A propos de prototypePHP";
+$LANG["menu"]["help"] = "?";
+$LANG["menu"]["helpTitle"] = "Aide";
 
 $LANG["menu"][40] = "Nouveautés";
 $LANG["menu"][41] = "Quoi de neuf dans l'application ?";
-$LANG["menu"][42] = "Module de recherche";
-$LANG["menu"][43] = "Intégrer un module de recherche";
 $LANG["menu"]["phpinfo"] = "PHP info";
 $LANG["menu"]["phpinfotitle"] = "configuration générale du serveur PHP";
 

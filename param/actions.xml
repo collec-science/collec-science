@@ -22,14 +22,13 @@
 	</gestion>
 	<errorbefore action="framework/errorbefore.php" retourlogin="1" ></errorbefore>
 	<errorlogin action="framework/errorlogin.php" retourlogin="1" ></errorlogin>
-	<test action="test/test.php" retourko=""
-		retournull="">
-	</test>
+
 	<connexion loginrequis="1" />
 	<disconnect action="framework/identification/disconnect.php" />
-	<apropos action="framework/apropos.php" ></apropos>
 	<phpinfo action="framework/phpinfo.php" droits="admin" retourlogin="1" />
-	<quoideneuf action="doc/quoideneuf.php"  retourlogin="1" ></quoideneuf>
+	<aide action="framework/apropos.php"/>
+	<apropos action="framework/apropos.php" />
+	<quoideneuf action="doc/quoideneuf.php"  retourlogin="1" />
 	<setlanguage action='framework/setlanguage.php'  retourlogin="1" />
 	
 <!-- gestion des droits nouvelle formule -->

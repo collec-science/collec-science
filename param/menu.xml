@@ -30,7 +30,7 @@
 </item>
 <item module="connexion" title="connexiontitle" value="connexionvalue" onlynoconnect="1"/>
 <item module="disconnect" title="7" value="6" loginrequis="1"/>
-<item module="docindex" title="21" value="20">
+<item module="aide" title="helpTitle" value="help">
 	<item module="apropos" title="9" value="8"/>
 	<item module="quoideneuf" title="41" value="40"/>
 		

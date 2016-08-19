@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test lecture qrcode</title>
+</head>
+<body>
+	<script src="../display/javascript/jquery-1.12.4.min.js"></script>
+	<script src="dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
+	<script src="dwa012-html5-qrcode/lib/html5-qrcode.min.js"></script>
+	<h1>Test de lecture d'un qrcode</h1>
+	<div id="reader" style="width: 300px; height: 250px"></div>
+	<form id="test">
+		valeur lue : <input id="valeur" name="valeur">
+		<br>
+		valeur 1 : <input id="valeur1" name="valeur1">
+		<br>
+		valeur 2 : <input id="valeur2" name="valeur2">
+	</form>
+	<button id="start">Commencer la lecture - valeur 1 </button>
+	<button id="start2">Commencer la lecture - valeur 2</button>
+	<button id="stop">Arrêter la lecture</button>
+
+	<script>
+		$(document).ready(function() {
+			var is_read = false;
+			var destination = "valeur1";
+			function readChange() {
+				//console.log("destination : "+destination);
+				//console.log("valeur : "+ $("#valeur").val());
+				var valeur = $("#valeur").val();
+				var value = extractUidVal(valeur);
+				$("#"+destination).val(value);
+			}
+			$('#start').click(function () { 
+				destination = "valeur1";
+				if (is_read == false) {
+					readEnable();
+				}
+			});
+			$('#start2').click(function () { 
+				destination = "valeur2";
+				if (is_read == false) {
+					readEnable();
+				}
+			});
+			function extractUidVal(valeur) {
+				/*
+				 * Recherche s'il s'agit d'une adresse web
+				 */
+				 var adresse = valeur.split("?");
+				var variables;
+				var a_variables;
+				var variable;
+				var value = 0;
+				if (adresse.length == 2) {
+					variables = adresse[1];
+				} else
+					variables = adresse[0];
+				/*
+				 * Decoupage des variables
+				 */
+				 a_variables = variables.split("&");
+				for (i = 0; i < a_variables.length; i++) {
+					/*
+					 * extraction du nom de la variable
+					 */
+					 variable = a_variables[i].split("=");
+					if (variable[0] == "uid") {
+						value = variable[1];
+						break;
+					}
+				}
+				return value;
+			}
+			function readEnable() {
+				/*
+				 * Fonction declenchant la lecture des qrcodes
+				 */
+				is_read = true;
+			$('#reader').html5_qrcode(function(data) {
+				// do something when code is read
+				$("#valeur").val(data);
+				readChange();
+			}, function(error) {
+				//show read errors 
+				//console.log(error);
+			}, function(videoError) {
+				//the video stream could be opened
+				console.log(videoError);
+			});
+			}
+			$('#stop').click(function() {
+				$('#reader').html5_qrcode_stop();
+			});
+		});
+	</script>
+</body>
+</html>

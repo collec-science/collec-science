@@ -65,6 +65,16 @@ var containerArray;
 	});
 	if($("#movement_type_id").val() == 1 )
 		$("#container_uid").attr("required");
+	
+	$("#storage{$moduleParent}Form").submit(function (event ) { 
+		var uid = $("#uid").val();
+		var container_uid = $("#uid").val();
+		//console.log("uid : "+uid);
+		//console.log("container_uid" + uid);
+		if (uid == container_uid) {
+			event.preventDefault();
+		}
+	});
 	 
 });
 

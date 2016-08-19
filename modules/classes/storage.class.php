@@ -143,6 +143,8 @@ class Storage extends ObjetBDD {
 		$controle = true;
 		if (! ($uid > 0 && is_numeric($uid))  ) 
 			$controle = false;
+		if ($uid == $container_uid)
+			$controle = false;
 		$date = $this->encodeData($date);
 		if (strlen($date) == 0)
 			$controle = false;

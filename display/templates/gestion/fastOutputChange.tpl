@@ -65,7 +65,7 @@
 					var variables;
 					var a_variables;
 					var variable;
-					var value = 0;
+					var value = "";
 					if (adresse.length == 2) {
 						variables = adresse[1];
 					} else
@@ -181,11 +181,13 @@
 </div>
 <!-- Rajout pour la lecture optique -->
 <div class="row">
+<fieldset>
+	<legend>Lecture optique (QRCode uniquement)</legend>
+
 	<div class="col-md-6">
 		<div class="form-horizontal protoform">
 			<div class="form-group center">
-				<button id="start" class="btn btn-success">Activer la
-					lecture optique</button>
+				<button id="start" class="btn btn-success">Activer la lecture</button>
 				<button id="stop" class="btn btn-danger">Arrêter la lecture</button>
 			</div>
 			<div class="form-group">
@@ -198,6 +200,7 @@
 		</div>
 
 	</div>
+	</fieldset>
 </div>
 <div class="row">
 	<div class="col-md-6">

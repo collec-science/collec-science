@@ -1,4 +1,9 @@
 <!-- Ajout rapide d'un échantillon dans un container -->
+<script
+	src="display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
+<script
+	src="display/javascript/dwa012-html5-qrcode/lib/html5-qrcode.min.js"></script>
+
 <script>
 $(document).ready(function() { 
 	function getDetail(uid, champ) {
@@ -38,6 +43,91 @@ $(document).ready(function() {
 	$("#object_search").click(function () {
 		getDetail($("#object_uid").val(), "object");
 	});
+	/*
+	 * Fonctions pour la lecture du QRCode
+	 */
+	var is_read = false;
+	var destination = "container";
+	function readChange() {
+		//console.log("destination : "+destination);
+		//console.log("valeur : "+ $("#valeur-scan").val());
+		var valeur = $("#valeur-scan").val();
+		var value = extractUidVal(valeur);
+		$("#" + destination +"_uid").val(value);
+		getDetail(value, destination);
+	}
+	function extractUidVal(valeur) {
+		/*
+		 * Recherche s'il s'agit d'une adresse web
+		 */
+		var adresse = valeur.split("?");
+		var variables;
+		var a_variables;
+		var variable;
+		var value = "";
+		if (adresse.length == 2) {
+			variables = adresse[1];
+		} else
+			variables = adresse[0];
+		/*
+		 * Decoupage des variables
+		 */
+		a_variables = variables.split("&");
+		for (i = 0; i < a_variables.length; i++) {
+			/*
+			 * extraction du nom de la variable
+			 */
+			variable = a_variables[i].split("=");
+			if (variable[0] == "uid") {
+				value = variable[1];
+				break;
+			}
+		}
+		return value;
+	}
+	function readEnable() {
+		/*
+		 * Fonction declenchant la lecture des qrcodes
+		 */
+		is_read = true;
+		$("#read_optical").val("1");
+		$('#reader').html5_qrcode(function(data) {
+			// do something when code is read
+			$("#valeur-scan").val(data);
+			readChange();
+		}, function(error) {
+			//show read errors 
+			//console.log(error);
+		}, function(videoError) {
+			//the video stream could be opened
+			$("#valeur-scan").val(videoError);
+			console.log(videoError);
+		});
+	}
+	$('#start').click(function() {
+		destination = "container";
+		if (is_read == false) {
+			readEnable();
+		}
+	});
+	$('#start2').click(function() {
+		destination = "object";
+		if (is_read == false) {
+			readEnable();
+		}
+	});
+
+
+	$('#stop').click(function() {
+		$('#reader').html5_qrcode_stop();
+	});
+/*
+ * Activation automatique de la lecture optique
+ */
+ {if $read_optical == 1}
+readEnable();
+{/if}
+
 });
 </script>
 <h2>Entrée rapide d'un échantillon dans le stock</h2>
@@ -47,6 +137,8 @@ $(document).ready(function() {
 <input type="hidden" name="moduleBase" value="fastInput">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="storage_id" value="0">
+<input type="hidden" id="read_optical" name="read_optical" value="{$read_optical}">
+
 
 <div class="form-group">
 <label for="container_groupe" class="control-label col-md-4">UID du conteneur<span class="red">*</span> :</label>
@@ -104,6 +196,40 @@ $(document).ready(function() {
  </div>
 
 </form>
+<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
 </div> 
 </div>
-<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+<!-- Rajout pour la lecture optique -->
+<div class="row">
+<fieldset>
+	<legend>Lecture optique (QRCode uniquement)</legend>
+	<div class="col-md-6">
+		<div class="form-horizontal protoform">
+			<div class="form-group center">
+				<button id="start" class="btn btn-success">Lecture du container</button>
+				<button id="stop" class="btn btn-danger">Arrêter la lecture</button>
+			</div>
+			<div class="form-group center">
+				<button id="start2" class="btn btn-success">Lecture de l'objet à entrer</button>
+			</div>
+			
+			<div class="form-group">
+				<label for="valeur-scan" class="control-label col-md-4">Valeur
+					lue :</label>
+				<div class="col-md-8">
+					<input id="valeur-scan" type="text" class="form-control" disabled>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	</fieldset>
+</div>
+<div class="row">
+	<div class="col-md-6">
+	<div class="center">
+<div id="reader" style="width: 300px; height: 250px"></div>
+</div>
+
+</div>
+</div>

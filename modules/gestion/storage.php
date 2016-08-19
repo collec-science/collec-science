@@ -82,6 +82,9 @@ switch ($t_module ["param"]) {
 			$smarty->assign ( "container_uid", $_REQUEST ["container_uid"] );
 		$smarty->assign ( "data", $dataClass->getDefaultValue () );
 		$smarty->assign("corps", "gestion/fastInputChange.tpl");
+		if (isset($_REQUEST["read_optical"]))
+			$smarty->assign("read_optical", $_REQUEST["read_optical"]);
+		
 		break;
 	case "fastInputWrite" :
 		try {

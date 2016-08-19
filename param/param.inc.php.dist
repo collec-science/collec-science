@@ -34,7 +34,7 @@ $GACL_schema = "gacl";
 /*
  * Lien vers le site d'assistance
  */
- //$APPLI_mail = "https://gitlab.bordeaux.cemagref.fr/eric.quinton/eabxcol/issues/new";
+//$APPLI_mail = "https://gitlab.bordeaux.cemagref.fr/eabx-applis_web/eabxcol/issues/new";
 $APPLI_mail = "https://sourcesup.renater.fr";
 
 $LDAPGROUP_address = "localhost";

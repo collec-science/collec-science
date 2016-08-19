@@ -96,6 +96,8 @@ switch ($t_module ["param"]) {
 	case "fastOutputChange" :
 		$smarty->assign ( "data", $dataClass->getDefaultValue () );
 		$smarty->assign("corps", "gestion/fastOutputChange.tpl");
+		if (isset($_REQUEST["read_optical"]))
+			$smarty->assign("read_optical", $_REQUEST["read_optical"]);
 		break;
 	case "fastOutputWrite" :
 		try {

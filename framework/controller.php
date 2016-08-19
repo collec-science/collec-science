@@ -217,7 +217,7 @@ while ( isset ( $module ) ) {
 	 * fin d'analyse du module
 	 */
 	if ($t_module ["ajax"] != 1)
-		$_SESSION ["moduleBefore"] = $moduleRequested;
+		$_SESSION ["moduleBefore"] = $module;
 	unset ( $module );
 	unset ( $module_coderetour );
 	/*

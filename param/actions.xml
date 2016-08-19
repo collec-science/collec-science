@@ -133,7 +133,7 @@
 	
 	<importChange action="modules/gestion/import.php" param="change" droits="projet" retourlogin="1" />
 	<importControl action="modules/gestion/import.php" param="control" droits="projet" modulebefore="importChange,importControl,importImport" retourok="importChange" />
-	<importImport action="modules/gestion/import.php" param="import" droits="projet" modulebefore="importControl" retourok="importChange" retourko="importChange" />
+	<importImport action="modules/gestion/import.php" param="import" droits="projet" modulebefore="importControl,importChange" retourok="importChange" retourko="importChange" />
 
 </navigation>
 	

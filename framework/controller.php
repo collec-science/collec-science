@@ -13,7 +13,7 @@ include_once ("framework/common.inc.php");
  * Codage UTF-8
  */
 if (check_encoding ( $_REQUEST ) == false) {
-	$message = "Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu";
+	$message->set( "Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu");
 	$_REQUEST ["module"] = "default";
 }
 /**
@@ -44,7 +44,7 @@ while ( isset ( $module ) ) {
 	$t_module = array ();
 	$t_module = $navigation->getModule ( $module );
 	if (count ( $t_module ) == 0)
-		$message = $LANG ["message"] [35] . " ($module)";
+		$message->set( $LANG ["message"] [35] . " ($module)");
 		/*
 	 * Verification si le login est requis
 	 */
@@ -60,11 +60,11 @@ while ( isset ( $module ) ) {
 				require_once 'framework/identification/token.class.php';
 				$tokenClass = new Token ();
 				try {
-					$login = $tokenClass->openTokenFromJson($_COOKIE ["tokenIdentity"]);
+					$login = $tokenClass->openTokenFromJson ( $_COOKIE ["tokenIdentity"] );
 					if (strlen ( $login ) > 0)
 						$_SESSION ["login"] = $login;
 				} catch ( Exception $e ) {
-					$message = $e->getMessage ();
+					$message->set( $e->getMessage ());
 				}
 			} elseif ($ident_type == "CAS") {
 				/*
@@ -105,10 +105,10 @@ while ( isset ( $module ) ) {
 					 * Gestion de la saisie du login
 					 */
 					$smarty->assign ( "corps", "ident/login.tpl" );
-					$smarty->assign("tokenIdentityValidity", $tokenIdentityValidity);
+					$smarty->assign ( "tokenIdentityValidity", $tokenIdentityValidity );
 					if ($t_module ["retourlogin"] == 1)
 						$smarty->assign ( "module", $_REQUEST ["module"] );
-					$message = $LANG ["login"] [2];
+					$message->set( $LANG ["login"] [2]);
 				}
 			}
 			/*
@@ -153,7 +153,7 @@ while ( isset ( $module ) ) {
 						$cookieParam ["httponly"] = true;
 						setcookie ( 'tokenIdentity', $token, time () + $tokenIdentityValidity, $cookieParam ["path"], $cookieParam ["domain"], $cookieParam ["secure"], $cookieParam ["httponly"] );
 					} catch ( Exception $e ) {
-						$message = $e->getMessage ();
+						$message->set ( $e->getMessage () );
 					}
 				}
 			}
@@ -194,8 +194,8 @@ while ( isset ( $module ) ) {
 		}
 		if ($beforeok == false) {
 			$resident = 0;
-			if ($APPLI_modeDeveloppement == true) 
-				$message = "Module precedent enregistre : ".$_SESSION["moduleBefore"]."<br>";
+			if ($APPLI_modeDeveloppement == true)
+				$message->set ( "Module precedent enregistre : " . $_SESSION ["moduleBefore"] );
 			$motifErreur = "errorbefore";
 		}
 	}
@@ -206,20 +206,35 @@ while ( isset ( $module ) ) {
 		$log->setLog ( $_SESSION ["login"], $moduleRequested, $motifErreur );
 	} catch ( Exception $e ) {
 		if ($OBJETBDD_debugmode > 0) {
-			$message = $log->getErrorData ( 1 );
+			$message->set($log->getErrorData ( 1 ));
 		} else
-			$message = $LANG ["message"] [38];
+			$message->set ( $LANG ["message"] [38] );
 		if ($ERROR_display == 1)
-			$message .= "<br>" . $e->getMessage ();
+			$message->set ( $e->getMessage () );
 	}
 	
 	/*
 	 * fin d'analyse du module
 	 */
-	if ($t_module ["ajax"] != 1)
+	if ($t_module ["type"] != "ajax")
 		$_SESSION ["moduleBefore"] = $module;
 	unset ( $module );
 	unset ( $module_coderetour );
+	/*
+	 * Preparation de la vue
+	 */
+	if (isset ( $vue ) == false && isset ( $t_module ["type"] )) {
+		switch ($t_module ["type"]) {
+			case "ajax" :
+				$vue = new VueAjaxJson ();
+				$paramSend = "";
+				break;
+			case "html" :
+			default :
+				$vue = new VueHtml ( $smarty );
+				$paramSend = $SMARTY_principal;
+		}
+	}
 	/*
 	 * Execution du module
 	 */
@@ -269,13 +284,9 @@ while ( isset ( $module ) ) {
 	}
 }
 
-if ($t_module ["ajax"] != 1) {
-	/*
-	 * Affichage du message d'accueil
-	 */
-	if ($message == "")
-		$message = $LANG ["message"] [0];
-	$smarty->assign ( "message", $message );
+if ($t_module ["type"] == "html") {
+	$vue->set ( $message->getAsHtml (), "message" );
+	
 	/*
 	 * Affichage du menu
 	 */
@@ -285,9 +296,9 @@ if ($t_module ["ajax"] != 1) {
 			$menu = new Menu ( $APPLI_menufile, $LANG );
 		$_SESSION ["menu"] = $menu->generateMenu ();
 	}
-	$smarty->assign ( "menu", $_SESSION ["menu"] );
+	$vue->set ( $_SESSION ["menu"], "menu" );
 	if (isset ( $_SESSION ["login"] ))
-		$smarty->assign ( "isConnected", 1 );
+		$vue->set ( 1, "isConnected" );
 		/*
 	 * Affichage de la page
 	 */
@@ -296,32 +307,26 @@ if ($t_module ["ajax"] != 1) {
 	 */
 	if ($APPLI_modeDeveloppement == true) {
 		$texteDeveloppement = $LANG ["message"] [32] . " : " . $BDD_dsn . ' - schema : ' . $BDD_schema;
-		$smarty->assign ( "developpementMode", $texteDeveloppement );
+		$vue->set ( $texteDeveloppement, "developpementMode" );
 	}
-	$smarty->assign ( "moduleListe", $_SESSION ["moduleListe"] );
+	$vue->set ( $_SESSION ["moduleListe"], "moduleListe" );
 	/*
 	 * execution du code generique avant affichage
 	 */
 	include 'modules/beforeDisplay.php';
-	/*
-	 * Encodage ultime des donnees avant envoi vers le navigateur
-	 */
-	foreach ( $smarty->getTemplateVars () as $key => $value ) {
-		if (in_array ( $key, array (
-				"menu",
-				"LANG",
-				"message",
-				"texteNews",
-				"doc",
-				"phpinfo" 
-		) ) == false) {
-			$smarty->assign ( $key, encodehtml ( $value ) );
-		}
-	}
+	
 	/*
 	 * Envoi des droits
 	 */
-	$smarty->assign ( "droits", $_SESSION ["droits"] );
-	$smarty->display ( $SMARTY_principal );
+	$vue->set ( $_SESSION ["droits"], "droits" );
 }
+/**
+ * Declenchement de l'envoi vers le navigateur
+ */
+if (isset ( $vue ))
+	$vue->send ( $paramSend );
+/**
+ * Fin de traitement
+ */
+
 ?>

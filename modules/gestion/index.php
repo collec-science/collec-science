@@ -3,5 +3,5 @@
 *
 *UTF-8
 */
-$message = $LANG["message"][3];
+$message->set(  $LANG["message"][3]);
 ?>

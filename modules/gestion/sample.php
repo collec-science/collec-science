@@ -80,7 +80,7 @@ switch ($t_module ["param"]) {
 		 */
 		$data = dataRead ( $dataClass, $id, "gestion/sampleChange.tpl" );
 		if ($data ["sample_id"] > 0 && $dataClass->verifyProject ( $data ) == false) {
-			$message = "Vous ne disposez pas des droits nécessaires pour modifier cet échantillon";
+			$message->set(  "Vous ne disposez pas des droits nécessaires pour modifier cet échantillon");
 			$module_coderetour = - 1;
 		} else {
 			/*

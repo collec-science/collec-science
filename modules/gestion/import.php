@@ -61,7 +61,7 @@ switch ($t_module ["param"]) {
 					 */
 					$filename = $APPLI_nomDossierStockagePhotoTemp . '/' . bin2hex ( openssl_random_pseudo_bytes ( 4 ) );
 					if (! copy ( $_FILES ['upfile'] ['tmp_name'], $filename )) {
-						$message = "Impossible de recopier le fichier importé dans le dossier temporaire";
+						$message->set(  "Impossible de recopier le fichier importé dans le dossier temporaire");
 					} else {
 						$_SESSION ["filename"] = $filename;
 						$_SESSION ["separator"] = $_REQUEST ["separator"];
@@ -71,7 +71,7 @@ switch ($t_module ["param"]) {
 					}
 				}
 			} catch ( Exception $e ) {
-				$message = $e->getMessage ();
+				$message->set(  $e->getMessage ());
 			}
 		}
 		$import->fileClose();
@@ -85,10 +85,10 @@ switch ($t_module ["param"]) {
 				try {
 					$import->initFile ( $_SESSION ["filename"], $_SESSION["separator"], $_SESSION["utf8_encode"] );
 					$import->importAll();
-					$message = "Import effectué. ". $import->nbTreated . " lignes traitées";
+					$message->set(  "Import effectué. ". $import->nbTreated . " lignes traitées");
 					$module_coderetour = 1;
 				} catch ( Exception $e ) {
-					$message = $e->getMessage ();
+					$message->set(  $e->getMessage ());
 				}
 			}
 		}

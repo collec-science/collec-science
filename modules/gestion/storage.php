@@ -69,7 +69,7 @@ switch ($t_module ["param"]) {
 				$error = true;
 		}
 		if ($error) {
-			$message = $LANG ["appli"] [3];
+			$message->set( $LANG ["appli"] [3]);
 			$module_coderetour = - 1;
 		} else {
 			$id = dataWrite ( $dataClass, $_REQUEST );
@@ -96,10 +96,10 @@ switch ($t_module ["param"]) {
 	case "fastInputWrite" :
 		try {
 			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 1, $_REQUEST ["container_uid"], $_SESSION ["login"], $_REQUEST ["range"], $_REQUEST ["storage_comment"] );
-			$message = $LANG["message"][5];
+			$message->set(  $LANG["message"][5]);
 			$module_coderetour = 1;
 		} catch ( Exception $e ) {
-			$message = $LANG["message"][42];
+			$message->set(  $LANG["message"][42]);
 			$module_coderetour = -1;
 		}
 		break;
@@ -112,10 +112,10 @@ switch ($t_module ["param"]) {
 	case "fastOutputWrite" :
 		try {
 			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 2, 0, $_SESSION ["login"], $_REQUEST ["range"], $_REQUEST ["storage_comment"] );
-			$message = $LANG["message"][5];
+			$message->set(  $LANG["message"][5]);
 			$module_coderetour = 1;
 		} catch ( Exception $e ) {
-			$message = $LANG["message"][42];
+			$message->set(  $LANG["message"][42]);
 			$module_coderetour = -1;
 		}
 		break;

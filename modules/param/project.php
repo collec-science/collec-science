@@ -19,7 +19,7 @@ switch ($t_module["param"]) {
 		$smarty->assign("data", $dataClass->getListe(2));
 		$smarty->assign("corps", "param/projectList.tpl");
 		} catch (Exception $e) {
-			$message = $e->getMessage();
+			$message ->set( $e->getMessage());
 		}
 		break;
 	case "change":

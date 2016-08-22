@@ -14,18 +14,18 @@
  * @return array
  */
 function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
-	global $smarty, $OBJETBDD_debugmode, $ERROR_display;
+	global $smarty, $OBJETBDD_debugmode, $ERROR_display, $message;
 	if (is_numeric ( $id )) {
 		if ($id > 0) {
 			try {	
 				$data = $dataClass->lire ( $id );
 			} catch ( Exception $e ) {
 				if ($OBJETBDD_debugmode > 0) {
-					$message = $dataClass->getErrorData ( 1 );
+					$message->set( $dataClass->getErrorData ( 1 ));
 				} else
-					$message = $LANG ["message"] [37];
+					$message->set( $LANG ["message"] [37]);
 				if ($ERROR_display == 1)
-					$message .= "<br>" . $e->getMessage ();
+					$message->set( $e->getMessage ());
 			}
 			/*
 			 * Gestion des valeurs par defaut
@@ -52,20 +52,18 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
  */
 function dataWrite($dataClass, $data) {
 	global $message, $LANG, $module_coderetour, $log, $OBJETBDD_debugmode, $ERROR_display;
-	if (strlen ( $message ) > 0)
-		$message .= '<br>';
 	try {
 		$id = $dataClass->ecrire ( $data);
-		$message .= $LANG ["message"] [5];
+		$message->set($LANG ["message"] [5]);
 		$module_coderetour = 1;
 		$log->setLog ( $_SESSION ["login"], get_class ( $dataClass ) . "-write", $id );
 	} catch ( Exception $e ) {
 		if ($OBJETBDD_debugmode > 0) {
-			$message .= $dataClass->getErrorData ( 1 );
+			$message->set($dataClass->getErrorData ( 1 ));
 		} else
 			$message .= $LANG ["message"] [12];
 		if ($ERROR_display == 1)
-			$message .= "<br>" . $e->getMessage ();
+			$message->set($e->getMessage ());
 		$module_coderetour = - 1;
 	}
 	return ($id);
@@ -91,20 +89,18 @@ function dataDelete($dataClass, $id) {
 			$ok = false;
 	}
 	if ($ok == true) {
-		if (strlen ( $message ) > 0)
-			$message .= '<br>';
 		try {
 			$ret = $dataClass->supprimer ( $id );
-			$message = $LANG ["message"] [4];
+			$message->set( $LANG ["message"] [4]);
 			$module_coderetour = 2;
 			$log->setLog ( $_SESSION ["login"], get_class ( $dataClass ) . "-delete", $id );
 		} catch ( Exception $e ) {
 			if ($OBJETBDD_debugmode > 0) {
-				$message .= $dataClass->getErrorData ( 1 );
+				$message->set( $dataClass->getErrorData ( 1 ));
 			} else
-				$message .= $LANG ["message"] [13];
+				$message->set( $LANG ["message"] [13]);
 			if ($ERROR_display == 1)
-				$message .= "<br>" . $e->getMessage ();
+				$message->set( $e->getMessage ());
 			$ret = - 1;
 		}
 	} else
@@ -184,22 +180,6 @@ function check_encoding($data) {
 	return $result;
 }
 
-/**
- * Encode les donnees en html avant envoi vers le navigateur
- *
- * @param unknown $data        	
- * @return string
- */
-function encodehtml($data) {
-	if (is_array ( $data )) {
-		foreach ( $data as $key => $value ) {
-			$data [$key] = encodehtml ( $value );
-		}
-	} else {
-		$data = htmlspecialchars ( $data );
-	}
-	return $data;
-}
 /**
  * Retourne l'adresse IP du client, en tenant compte le cas echeant du reverse-proxy
  * @return string

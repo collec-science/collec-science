@@ -156,7 +156,7 @@ class Identification {
 			if ($rep == 1) {
 				$_SESSION ["login"] = $login;
 				$log->setLog ( $login, "connexion", "ldap-ok" );
-				$message = $LANG ["message"] [10];
+				$message->set( $LANG ["message"] [10]);
 				/*
 				 * Purge des anciens enregistrements dans log
 				 */
@@ -164,7 +164,7 @@ class Identification {
 				return $login;
 			} else {
 				$log->setLog ( $login, "connexion", "ldap-ko" );
-				$message = $LANG ["message"] [11];
+				$message->set( $LANG ["message"] [11]);
 				return - 1;
 			}
 		} else
@@ -201,7 +201,7 @@ class Identification {
 		if (isset ($_COOKIE["tokenIdentity"])) {
 			setcookie("tokenIdentity", '', time() - 42000, "/");
 		}
-		$message = $LANG ["message"] [7];
+		$message->set( $LANG ["message"] [7]);
 		// Finalement, on détruit la session.
 		session_destroy ();
 		return 1;
@@ -289,7 +289,7 @@ class LoginGestion extends ObjetBDD {
 			global $log, $LOG_duree, $message, $LANG;
 			if ($res ["login"] == $login) {
 				$log->setLog ( $login, "connexion", "db-ok" );
-				$message = $LANG ["message"] [10];
+				$message->set( $LANG ["message"] [10]);
 				/*
 				 * Purge des anciens enregistrements dans log
 				 */
@@ -297,7 +297,7 @@ class LoginGestion extends ObjetBDD {
 				return TRUE;
 			} else {
 				$log->setLog ( $login, "connexion", "db-ko" );
-				$message = $LANG ["message"] [11];
+				$message->set( $LANG ["message"] [11]);
 				return FALSE;
 			}
 		} else
@@ -396,25 +396,25 @@ class LoginGestion extends ObjetBDD {
 											 */
 											$loginOldPassword->setPassword ( $oldData ["id"], $oldData ["password"] );
 										}
-										$message = $LANG ["login"] [20];
+										$message->set( $LANG ["login"] [20]);
 									}
 								} else {
-									$message = $LANG ["login"] [14];
+									$message->set( $LANG ["login"] [14]);
 								}
 							} else {
-								$message = $LANG ["login"] [15];
+								$message->set( $LANG ["login"] [15]);
 							}
 						} else {
-							$message = $LANG ["login"] [16];
+							$message->set( $LANG ["login"] [16]);
 						}
 					} else {
-						$message = $LANG ["login"] [17];
+						$message->set( $LANG ["login"] [17]);
 					}
 				} else {
-					$message = $LANG ["login"] [19];
+					$message->set( $LANG ["login"] [19]);
 				}
 			} else {
-				$message = $LANG ["login"] [18];
+				$message->set( $LANG ["login"] [18]);
 			}
 		}
 		$this->errorData [] = array (

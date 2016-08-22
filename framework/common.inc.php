@@ -102,6 +102,12 @@ if (is_file ( $paramIniFile )) {
 	foreach ( $paramAppli as $key => $value )
 		$$key = $value;
 }
+/**
+ * Integration des classes de gestion des vues et des messages
+ * instanciation des messages
+ */
+require_once 'framework/vue.class.php';
+$message = new Message ();
 
 /*
  * Lancement de l'identification
@@ -151,9 +157,9 @@ if (isset ( $_SESSION ["remoteIP"] )) {
 	if ($_SESSION ["remoteIP"] != $ipaddress) {
 		// Tentative d'usurpation de session - on ferme la session
 		if ($identification->disconnect ( $APPLI_address ) == 1) {
-			$message = $LANG ["message"] [7];
+			$message->set ( $LANG ["message"] [7] );
 		} else {
-			$message = $LANG ["message"] [8];
+			$message->set ( $LANG ["message"] [8] );
 		}
 	}
 } else
@@ -167,7 +173,7 @@ if (! isset ( $bdd )) {
 		$bdd = new PDO ( $BDD_dsn, $BDD_login, $BDD_passwd );
 	} catch ( PDOException $e ) {
 		if ($APPLI_modeDeveloppement == true)
-			print $e->getMessage () . "<br>";
+			$message->set ( $e->getMessage () );
 		$etaconn = false;
 	}
 	if ($etaconn == true) {
@@ -184,7 +190,7 @@ if (! isset ( $bdd )) {
 			$bdd_gacl = new PDO ( $GACL_dsn, $GACL_dblogin, $GACL_dbpasswd );
 		} catch ( PDOException $e ) {
 			if ($APPLI_modeDeveloppement == true)
-				print $e->getMessage () . "<br>";
+				$message->set ( $e->getMessage () );
 			$etaconn = false;
 		}
 		if ($etaconn == true) {
@@ -194,10 +200,10 @@ if (! isset ( $bdd )) {
 			if (strlen ( $GACL_schema ) > 0)
 				$bdd_gacl->exec ( "set search_path = " . $GACL_schema );
 		} else {
-			echo ($LANG ["message"] [29]);
+			$message->set ( $LANG ["message"] [29] );
 		}
 	} else
-		echo $LANG ["message"] [22];
+		$message->set ( $LANG ["message"] [22] );
 }
 
 /*
@@ -209,9 +215,7 @@ $smarty->compile_dir = $SMARTY_template_c;
 $smarty->config_dir = $SMARTY_config;
 $smarty->cache_dir = $SMARTY_cache_dir;
 $smarty->caching = $SMARTY_cache;
-if (! isset ( $message ))
-	$message = "";
-	/*
+/*
  * Assignation des variables "standard"
  */
 $smarty->assign ( "melappli", $APPLI_mail );

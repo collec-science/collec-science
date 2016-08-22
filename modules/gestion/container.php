@@ -116,7 +116,7 @@ switch ($t_module ["param"]) {
 			$nb = 0;
 		}
 		if ($nb > 0) {
-			$message = "Le conteneur est référencé dans les mouvements et ne peut être supprimé";
+			$message->set(  "Le conteneur est référencé dans les mouvements et ne peut être supprimé");
 			$module_coderetour = - 1;
 		} else
 			dataDelete ( $dataClass, $id );

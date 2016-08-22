@@ -285,6 +285,9 @@ while ( isset ( $module ) ) {
 }
 
 if ($t_module ["type"] == "html") {
+	/*
+	 * Traitement particulier de l'affichage html
+	 */
 	$vue->set ( $message->getAsHtml (), "message" );
 	
 	/*

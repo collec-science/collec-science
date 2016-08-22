@@ -126,8 +126,6 @@ switch ($t_module ["param"]) {
 		/*
 		 * Recherche la liste a partir du type
 		 */
-		ob_clean();
-		echo json_encode($dataClass->getFromType($_REQUEST["container_type_id"]));
-		ob_flush();
+		$vue->set($dataClass->getFromType($_REQUEST["container_type_id"]));
 }
 ?>

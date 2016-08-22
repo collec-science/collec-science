@@ -163,7 +163,8 @@ class VueAjaxJson extends Vue {
 		/*
 		 * Encodage des donnees
 		 */
-		foreach ( $data as $key => $value )
+		$data = array();
+		foreach ( $this->data as $key => $value )
 			$data [$key] = $this->encodehtml ( $value );
 			/*
 		 * Envoi au navigateur

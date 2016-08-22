@@ -15,9 +15,7 @@ switch ($t_module ["param"]) {
 		 * Retourne le detail d'un objet a partir de son uid
 		 * (independamment du type : sample ou container)
 		 */
-		ob_clean();
-		echo json_encode($dataClass->getDetail($id, $_REQUEST["is_container"]));
-		ob_flush();
+		$vue->set($dataClass->getDetail($id, $_REQUEST["is_container"]));
 		break;
 }
 ?>

@@ -36,7 +36,7 @@ class Storage extends ObjetBDD {
 				"uid" => array (
 						"type" => 1,
 						"requis" => 1,
-						"parentAttrib" =>1
+						"parentAttrib" => 1 
 				),
 				"container_id" => array (
 						"type" => 1 
@@ -51,7 +51,7 @@ class Storage extends ObjetBDD {
 				),
 				"login" => array (
 						"requis" => 1,
-						"defaultValue" => "getLogin"
+						"defaultValue" => "getLogin" 
 				),
 				"range" => array (
 						"type" => 0 
@@ -65,7 +65,7 @@ class Storage extends ObjetBDD {
 	
 	/**
 	 * Retrouve la derniere position connue de l'objet considere
-	 * 
+	 *
 	 * @param int $id        	
 	 * @return array
 	 */
@@ -77,7 +77,7 @@ class Storage extends ObjetBDD {
 	}
 	/**
 	 * Retourne tous les mouvements d'un objet
-	 * 
+	 *
 	 * @param int $uid        	
 	 * @return array
 	 */
@@ -89,7 +89,8 @@ class Storage extends ObjetBDD {
 	}
 	/**
 	 * Retourne la liste de tous les containers parents
-	 * @param int $uid
+	 * 
+	 * @param int $uid        	
 	 * @throws Exception
 	 * @return array
 	 */
@@ -123,16 +124,17 @@ class Storage extends ObjetBDD {
 			}
 		}
 	}
-
+	
 	/**
 	 * Fonction generique permettant de rajouter des mouvements
-	 * @param int $uid
-	 * @param timestamp $date
-	 * @param int $type
-	 * @param number $container_uid
-	 * @param varchar $login
-	 * @param varchar $range
-	 * @param varchar $comment
+	 * 
+	 * @param int $uid        	
+	 * @param timestamp $date        	
+	 * @param int $type        	
+	 * @param number $container_uid        	
+	 * @param varchar $login        	
+	 * @param varchar $range        	
+	 * @param varchar $comment        	
 	 * @return Identifier
 	 */
 	function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $range = null, $comment = null) {
@@ -141,51 +143,60 @@ class Storage extends ObjetBDD {
 		 * Verifications
 		 */
 		$controle = true;
-		if (! ($uid > 0 && is_numeric($uid))  ) 
+		$message = $LANG ["appli"] [5];
+		if (! ($uid > 0 && is_numeric ( $uid )))
 			$controle = false;
-		if ($uid == $container_uid)
+		if ($uid == $container_uid) {
 			$controle = false;
-		$date = $this->encodeData($date);
-		if (strlen($date) == 0)
+			$message = "Création du mouvement impossible : le numéro de l'objet est égal au numéro du conteneur";
+		}
+		$date = $this->encodeData ( $date );
+		if (strlen ( $date ) == 0)
 			$controle = false;
 		if ($type != 1 && $type != 2)
 			$controle = false;
-		$container_uid = $this->encodeData($container_uid);
-		if (!is_numeric($container_uid) && strlen($container_uid) > 0)
+		$container_uid = $this->encodeData ( $container_uid );
+		if (! is_numeric ( $container_uid ) && strlen ( $container_uid ) > 0)
 			$controle = false;
-		if (strlen($login) == 0)
-			strlen($_SESSION["login"]) > 0 ? $login = $_SESSION["login"] : $controle = false;
-		$range = $this->encodeData($range);
-		$comment = $this->encodeData($comment);
+		if (strlen ( $login ) == 0)
+			strlen ( $_SESSION ["login"] ) > 0 ? $login = $_SESSION ["login"] : $controle = false;
+		$range = $this->encodeData ( $range );
+		$comment = $this->encodeData ( $comment );
 		if ($controle) {
 			$data ["uid"] = $uid;
-			$data["storage_date"] = $date;
+			$data ["storage_date"] = $date;
 			$data ["movement_type_id"] = $type;
 			$data ["login"] = $login;
 			/*
 			 * Recherche de container_id a partir de uid
 			 */
-			$container = new Container($this->connection, $this->param);
-			$container_id = $container->getIdFromUid($container_uid);
-			if ($container_id > 0) 
-				$data["container_id"] = $container_id;
-			if (strlen($range)>0)
-				$data["range"] = $range;
-			if (strlen($comment)>0)
-				$data["storage_comment"] = $comment;
-			return $this->ecrire($data);		
-		} else throw new Exception($LANG["appli"][5]);
+			$container = new Container ( $this->connection, $this->param );
+			$container_id = $container->getIdFromUid ( $container_uid );
+			if ($container_id > 0)
+				$data ["container_id"] = $container_id;
+			if (strlen ( $range ) > 0)
+				$data ["range"] = $range;
+			if (strlen ( $comment ) > 0)
+				$data ["storage_comment"] = $comment;
+			return $this->ecrire ( $data );
+		} 		
+		else
+			/*
+			 * Gestion des erreurs
+			 */
+			throw new Exception ( $message );
 	}
-
+	
 	/**
 	 * Retourne le nombre de mouvements impliques dans le controleur fourni
-	 * @param int $id
+	 * 
+	 * @param int $id        	
 	 */
-	function getNbFromControler ($id) {
+	function getNbFromControler($id) {
 		$sql = "select count (*) as nombre from storage where controler_id = :controler_id";
-		$data["controler_id"] = $id;
-		$result = $this->lireParamAsPrepared($sql, $data);
-		return $result["nombre"];
+		$data ["controler_id"] = $id;
+		$result = $this->lireParamAsPrepared ( $sql, $data );
+		return $result ["nombre"];
 	}
 }
 

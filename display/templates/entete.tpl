@@ -39,6 +39,7 @@
 		</div>
 	</div>
 </div>
+{if (strlen($message) > 0) }
 <div class="container-fluid">
 <div class="row">
 	<div class="col-md-12">
@@ -46,3 +47,4 @@
 	</div>
 </div>
 </div>
+{/if}

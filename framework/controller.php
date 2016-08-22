@@ -223,11 +223,14 @@ while ( isset ( $module ) ) {
 	/*
 	 * Preparation de la vue
 	 */
+	$paramSend = "";
 	if (isset ( $vue ) == false && isset ( $t_module ["type"] )) {
 		switch ($t_module ["type"]) {
 			case "ajax" :
 				$vue = new VueAjaxJson ();
-				$paramSend = "";
+				break;
+			case "csv" :
+				$vue = new VueCsv();
 				break;
 			case "html" :
 			default :

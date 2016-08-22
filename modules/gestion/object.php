@@ -17,5 +17,14 @@ switch ($t_module ["param"]) {
 		 */
 		$vue->set($dataClass->getDetail($id, $_REQUEST["is_container"]));
 		break;
+	case "printLabel" :
+		$data = $dataClass->getForPrint($_REQUEST["uid"]);
+		if (count($data) > 0) {
+			$vue->set($data);
+			$vue->setFilename("printlabel.csv");
+		} else {
+			unset($vue);
+			$module_coderetour = -1;
+		}
 }
 ?>

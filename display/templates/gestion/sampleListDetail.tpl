@@ -1,4 +1,30 @@
 <!--  Liste des échantillons pour affichage-->
+<script>
+$(document).ready(function () {
+	$("#check").change( function() {
+		$('.check').prop('checked', this.checked);
+		var libelle="Tout cocher";
+		if (this.checked) {
+			libelle = "Tout décocher";
+		} 
+		$("#lchek").text(libelle);
+	});
+});
+$.extend( true, $.fn.dataTable.defaults, {
+    "paging": false
+} );
+</script>
+{if $droits.gestion == 1}
+<form method="post" id="formListPrint" action="index.php">
+<input type="hidden" id="module" name="module" value="containerPrintLabel">
+<div class="row">
+<div class="col-sm-6 right">
+<label id="lcheck" for="check">Tout décocher</label>
+<input type="checkbox" id="check" checked>
+<button type="submit" class="btn">Fichier pour étiquettes</button>
+</div>
+</div>
+{/if}
 <table id="containerList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
@@ -8,6 +34,9 @@
 <th>Type</th>
 <th>Date</th>
 <th>Date de création dans la base</th>
+{if $droits.gestion == 1}
+<th></th>
+{/if}
 </tr>
 </thead>
 <tbody>
@@ -27,7 +56,15 @@
 <td>{$samples[lst].sample_type_name}</td>
 <td>{$samples[lst].sample_date}</td>
 <td>{$samples[lst].sample_creation_date}</td>
+{if $droits.gestion == 1}
+<td class="center">
+<input type="checkbox" class="check" name="uid[]" value="{$samples[lst].uid}" checked>
+</td>
+{/if}
 </tr>
 {/section}
 </tbody>
 </table>
+{if $droits.gestion == 1}
+</form>
+{/if}

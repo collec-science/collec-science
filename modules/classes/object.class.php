@@ -72,6 +72,45 @@ class Object extends ObjetBDD {
 			return $this->getListeParamAsPrepared($sql, $data);
 		}
 	}
+	/**
+	 * Prepare la liste des objets pour impression des etiquettes
+	 * @param array $list
+	 * @return tableau
+	 */
+	function getForPrint(array $list) {
+		/*
+		 * Verification que la liste ne soit pas vide
+		 */
+		if (count($list) > 0) {
+			/*
+			 * Verification que les uid sont numeriques
+			 * preparation de la clause where
+			 */
+			$comma = false;
+			$uids = "";
+			foreach ($list as $value) {
+				if (is_numeric($value) && $value > 0) {
+					$comma == true ? $uids .= "," : $comma = true;
+					$uids.=$value;
+				}
+			}
+			$sql = "select uid, identifier, container_type_name as type_name, clp_classification as clp
+					from object 
+					join container using (uid)
+					join container_type using (container_type_id)
+					where uid in ($uids)
+					UNION
+					select uid, identifier, sample_type_name as type_name, '' as clp
+					from object 
+					join sample using (uid)
+					join sample_type using (sample_type_id)
+					where uid in ($uids)
+					order by uid
+			";
+			return $this->getListeParam($sql);
+			
+		}
+	}
 }
 
 

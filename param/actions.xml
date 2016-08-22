@@ -130,6 +130,8 @@
 	<fastOutputWrite action="modules/gestion/storage.php" param="fastOutputWrite" droits="gestion" retourok="fastOutputChange" retourko="fastOutputChange" modulebefore="fastOutputChange" />
 	
 	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax"  type="ajax" />
+	<containerPrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="csv" retourko="containerList"/>
+	<samplePrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="csv" retourko="sampleList"/>
 	
 	<importChange action="modules/gestion/import.php" param="change" droits="projet" retourlogin="1"  type="html" />
 	<importControl action="modules/gestion/import.php" param="control" droits="projet" modulebefore="importChange,importControl,importImport" retourok="importChange"  type="html" />

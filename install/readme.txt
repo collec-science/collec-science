@@ -1,8 +1,9 @@
 News
 ===========
-Version 0.2 du 22 août 2016
+Version 0.2 du 23 août 2016
 ---------------------------
 - ajout de la fonction scan en entrée ou sortie rapide
+- ajout de la génération d'un fichier csv pour les impressions d'étiquettes
 - correction d'un bug : il n'est plus possible de rentrer un échantillon en lui-même
 - restructuration interne de l'application
 

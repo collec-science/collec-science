@@ -196,6 +196,7 @@ class VueCsv extends Vue {
 			/*
 			 * Preparation du fichier
 			 */
+			ob_clean ();
 			header ( 'Content-Type: text/csv' );
 			header ( 'Content-Disposition: attachment;filename=' . $param );
 			$fp = fopen ( 'php://output', 'w' );
@@ -209,6 +210,7 @@ class VueCsv extends Vue {
 			foreach ($this->data as $value)
 				fputcsv($fp, $value);
 			fclose ($fp);
+			ob_flush ();
 		}
 	}
 	/**

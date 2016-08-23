@@ -4,6 +4,6 @@ if ($_SESSION["droits"]["admin"] == 1)
 	phpinfo();
 	$phpinfo = ob_get_contents();
 	ob_end_clean();
-	$smarty->assign("phpinfo", $phpinfo);
-	$smarty->assign("corps", "phpinfo.tpl");
+	$vue->set($phpinfo,"phpinfo" );
+	$vue->set("phpinfo.tpl","corps");
 ?>

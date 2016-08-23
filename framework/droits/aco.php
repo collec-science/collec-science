@@ -17,8 +17,8 @@ switch ($t_module["param"]) {
 		 * Display the detail of the record
 		 */
 		$data = $dataClass->lire($id);
-		$smarty->assign("data", $data);
-		$smarty->assign("corps", "droits/appliDisplay.tpl");
+		$vue->set($data , "data");
+		$vue->set("droits/appliDisplay.tpl" , "corps");
 		break;
 	case "change":
 		/*
@@ -28,9 +28,9 @@ switch ($t_module["param"]) {
 		 */
 		$data = dataRead($dataClass, $id, "droits/acoChange.tpl", $_REQUEST["aclappli_id"]);
 		$aclAppli = new Aclappli($bdd_gacl, $ObjetBDDParam);
-		$smarty->assign("dataAppli", $aclAppli->lire($data["aclappli_id"]));
+		$vue->set($aclAppli->lire($data["aclappli_id"]) , "dataAppli");
 		$aclgroup = new Aclgroup($bdd_gacl, $ObjetBDDParam);
-		$smarty->assign("groupes", $aclgroup->getGroupsFromAco($id));
+		$vue->set($aclgroup->getGroupsFromAco($id) , "groupes");
 		break;
 	case "write":
 		/*

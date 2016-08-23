@@ -13,16 +13,8 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$smarty->assign("liste", $dataClass->getListeTriee());
-		$smarty->assign("corps", "ident/loginliste.tpl");
-		break;
-	case "display":
-		/*
-		 * Display the detail of the record
-		 */
-		$data = $dataClass->lire($id);
-		$smarty->assign("data", $data);
-		$smarty->assign("corps", "example/exampleDisplay.tpl");
+		$vue->set($dataClass->getListeTriee() , "liste");
+		$vue->set( "ident/loginliste.tpl", "corps");
 		break;
 	case "change":
 		/*
@@ -57,12 +49,12 @@ switch ($t_module["param"]) {
 		dataDelete($dataClass, $id);
 		break;
 	case "changePassword":
-		$smarty->assign("corps", "ident/loginChangePassword.tpl");
+		$vue->set( "ident/loginChangePassword.tpl", "corps");
 		break;
 	case 'changePasswordExec':
 		$ret = $dataClass->changePassword($_REQUEST["oldPassword"], $_REQUEST["pass1"], $_REQUEST["pass2"]);
 		if ($ret < 1) $module_coderetour = -1;
-		$message .= $dataClass->getErrorData(1);
+		$message->set( $dataClass->getErrorData(1));
 		break;
 }
 ?>

@@ -2,7 +2,7 @@
 /**
 * @author eric.quinton
 */
-$smarty->assign("version",$APPLI_version);
-$smarty->assign("versiondate",$APPLI_versiondate);
-$smarty->assign("corps","apropos_".$language.".tpl");
+$vue->set( $APPLI_version, "version");
+$vue->set($APPLI_versiondate , "versiondate");
+$vue->set("apropos_".$language.".tpl" , "corps");
 ?>

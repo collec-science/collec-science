@@ -52,10 +52,7 @@ $LDAP_user_attrib = "uid";
 $LDAPGROUP_port = 389;
 $LDAP_v3 = true;
 $LDAP_tls = false;
-/*
- * Duree de validite du token d'identification
- */
-$tokenIdentityValidity = 36000; // 10 heures
+
 /*
  * Parametres concernant la base de donnees
  */
@@ -122,4 +119,14 @@ $APPLI_moduleDroitKO = "droitko";
 $APPLI_moduleErrorBefore = "errorbefore";
 $APPLI_moduleNoLogin = "errorlogin";
 $APPLI_notSSL = false;
+/*
+ * Cles privee et publique utilisees 
+ * pour la generation des jetons
+ */
+$privateKey = "/etc/ssl/private/ssl-cert-snakeoil.key";
+$pubKey = "/etc/ssl/certs/ssl-cert-snakeoil.pem";
+/*
+ * Duree de validite du token d'identification
+ */
+$tokenIdentityValidity = 36000; // 10 heures
 ?>

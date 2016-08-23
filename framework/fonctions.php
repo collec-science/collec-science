@@ -14,7 +14,7 @@
  * @return array
  */
 function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
-	global $smarty, $OBJETBDD_debugmode, $ERROR_display, $message;
+	global $vue, $OBJETBDD_debugmode, $ERROR_display, $message;
 	if (is_numeric ( $id )) {
 		if ($id > 0) {
 			try {	
@@ -37,8 +37,8 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
 		/*
 		 * Affectation des donnees a smarty
 		 */
-		$smarty->assign ( "data", $data );
-		$smarty->assign ( "corps", $smartyPage );
+		$vue->set( $data, "data");
+		$vue->set ( $smartyPage, "corps"  );
 		return $data;
 	}
 	;
@@ -61,7 +61,7 @@ function dataWrite($dataClass, $data) {
 		if ($OBJETBDD_debugmode > 0) {
 			$message->set($dataClass->getErrorData ( 1 ));
 		} else
-			$message .= $LANG ["message"] [12];
+			$message->set( $LANG ["message"] [12]);
 		if ($ERROR_display == 1)
 			$message->set($e->getMessage ());
 		$module_coderetour = - 1;

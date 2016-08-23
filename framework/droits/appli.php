@@ -16,18 +16,18 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$smarty->assign("data", $dataClass->getListe(2));
-		$smarty->assign("corps", "droits/appliList.tpl");
+		$vue->set($dataClass->getListe(2) , "data");
+		$vue->set("droits/appliList.tpl" , "corps");
 		break;
 	case "display":
 		/*
 		 * Display the detail of the record
 		 */
 		$data = $dataClass->lire($id);
-		$smarty->assign("data", $data);
-		$smarty->assign("corps", "droits/appliDisplay.tpl");
+		$vue->set($data , "data");
+		$vue->set("droits/appliDisplay.tpl" , "corps");
 		$aclAco = new Aclaco($bdd_gacl, $ObjetBDDParam);
-		$smarty->assign ("dataAco", $aclAco->getListFromParent($id, 3));
+		$vue->set( $aclAco->getListFromParent($id, 3), "dataAco");
 		break;
 	case "change":
 		/*

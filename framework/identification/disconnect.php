@@ -5,9 +5,9 @@
 */
 
 if ($identification->disconnect($APPLI_address)==1) {
-	$message=$LANG["message"][7];	
+	$message->set($LANG["message"][7]);	
 }else{
-	$message=$LANG["message"][8];
+	$message->set($LANG["message"][8]);
 }
 
 ?>

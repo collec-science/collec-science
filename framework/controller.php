@@ -140,7 +140,7 @@ while ( isset ( $module ) ) {
 				 */
 				if ($_REQUEST ["loginByTokenRequested"] == 1) {
 					require_once 'framework/identification/token.class.php';
-					$tokenClass = new Token ();
+					$tokenClass = new Token ($privateKey, $pubKey);
 					try {
 						$token = $tokenClass->createToken ( $_SESSION ["login"], $tokenIdentityValidity );
 						/*

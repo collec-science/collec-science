@@ -16,16 +16,15 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$smarty->assign("data", $dataClass->getGroups());
-		$smarty->assign("corps", "droits/groupList.tpl");
+		$vue->set($dataClass->getGroups() , "data");
+		$vue->set("droits/groupList.tpl" , "corps");
 		break;
 	case "display":
 		/*
 		 * Display the detail of the record
 		 */
-		$data = $dataClass->lire($id);
-		$smarty->assign("data", $data);
-		$smarty->assign("corps", "droits/groupDisplay.tpl");
+		$vue->set( $dataClass->lire($id), "data");
+		$vue->set("droits/groupDisplay.tpl" , "corps");
 		//$aclAco = new Aclaco($bdd_gacl, $ObjetBDDParam);
 		//$smarty->assign ("dataAco", $aclAco->getListFromParent($id, 2));
 		break;
@@ -40,7 +39,7 @@ switch ($t_module["param"]) {
 		 * Recuperation des logins associes
 		 */
 		$acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
-		$smarty->assign("logins", $acllogin->getAllFromGroup($id));
+		$vue->set($acllogin->getAllFromGroup($id) , "logins");
 		break;
 	case "write":
 		/*

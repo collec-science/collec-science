@@ -4,5 +4,5 @@
  */
 if (file_exists ( $SMARTY_template.'/main_' . $langue . '.tpl' )) 
 	$corps = 'main_'.$langue.'.tpl'; else $corps = "main.tpl";
-$smarty->assign("corps",$corps);
+$vue->set($corps , "corps");
 ?>

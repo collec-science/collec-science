@@ -1,3 +1,3 @@
 <?php
-$message .= $LANG["message"][28];
+$message->set( $LANG["message"][28]);
 ?>

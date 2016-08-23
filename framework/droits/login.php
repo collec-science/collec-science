@@ -15,8 +15,8 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$smarty->assign("data", $dataClass->getListe(3));
-		$smarty->assign("corps", "droits/loginList.tpl");
+		$vue->set($dataClass->getListe(3) , "data");
+		$vue->set("droits/loginList.tpl" , "corps");
 		break;
 	case "change":
 		/*
@@ -26,7 +26,7 @@ switch ($t_module["param"]) {
 		 */
 		$data = dataRead($dataClass, $id, "droits/loginChange.tpl");
 		if (strlen($data["login"]) > 0) 
-		$smarty->assign ("loginDroits", $dataClass->getListDroits($data["login"], $GACL_aco));
+			$vue->set(  $dataClass->getListDroits($data["login"], $GACL_aco), "loginDroits");
 		break;
 	case "write":
 		/*

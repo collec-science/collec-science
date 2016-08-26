@@ -15,32 +15,38 @@
  */
 function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
 	global $vue, $OBJETBDD_debugmode, $ERROR_display, $message;
-	if (is_numeric ( $id )) {
-		if ($id > 0) {
-			try {	
-				$data = $dataClass->lire ( $id );
-			} catch ( Exception $e ) {
-				if ($OBJETBDD_debugmode > 0) {
-					$message->set( $dataClass->getErrorData ( 1 ));
-				} else
-					$message->set( $LANG ["message"] [37]);
-				if ($ERROR_display == 1)
-					$message->set( $e->getMessage ());
+	if ( isset ( $vue )) {
+		if (is_numeric ( $id )) {
+			if ($id > 0) {
+				try {
+					$data = $dataClass->lire ( $id );
+				} catch ( Exception $e ) {
+					if ($OBJETBDD_debugmode > 0) {
+						$message->set ( $dataClass->getErrorData ( 1 ) );
+					} else
+						$message->set ( $LANG ["message"] [37] );
+					if ($ERROR_display == 1)
+						$message->set ( $e->getMessage () );
+				}
+				/*
+				 * Gestion des valeurs par defaut
+				 */
+			} else {
+				if (is_numeric ( $idParent ) || $idParent == null)
+					$data = $dataClass->getDefaultValue ( $idParent );
 			}
 			/*
-			 * Gestion des valeurs par defaut
+			 * Affectation des donnees a smarty
 			 */
-		} else {
-			if (is_numeric ( $idParent ) || $idParent == null)
-				$data = $dataClass->getDefaultValue ( $idParent );
+			$vue->set ( $data, "data" );
+			$vue->set ( $smartyPage, "corps" );
+			return $data;
 		}
-		/*
-		 * Affectation des donnees a smarty
-		 */
-		$vue->set( $data, "data");
-		$vue->set ( $smartyPage, "corps"  );
-		return $data;
+	} else {
+		global $module;
+		$message->set ( "Error : vue type not defined for the requested module ($module)" );
 	}
+		
 	;
 }
 /**
@@ -53,17 +59,17 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
 function dataWrite($dataClass, $data) {
 	global $message, $LANG, $module_coderetour, $log, $OBJETBDD_debugmode, $ERROR_display;
 	try {
-		$id = $dataClass->ecrire ( $data);
-		$message->set($LANG ["message"] [5]);
+		$id = $dataClass->ecrire ( $data );
+		$message->set ( $LANG ["message"] [5] );
 		$module_coderetour = 1;
 		$log->setLog ( $_SESSION ["login"], get_class ( $dataClass ) . "-write", $id );
 	} catch ( Exception $e ) {
 		if ($OBJETBDD_debugmode > 0) {
-			$message->set($dataClass->getErrorData ( 1 ));
+			$message->set ( $dataClass->getErrorData ( 1 ) );
 		} else
-			$message->set( $LANG ["message"] [12]);
+			$message->set ( $LANG ["message"] [12] );
 		if ($ERROR_display == 1)
-			$message->set($e->getMessage ());
+			$message->set ( $e->getMessage () );
 		$module_coderetour = - 1;
 	}
 	return ($id);
@@ -91,16 +97,16 @@ function dataDelete($dataClass, $id) {
 	if ($ok == true) {
 		try {
 			$ret = $dataClass->supprimer ( $id );
-			$message->set( $LANG ["message"] [4]);
+			$message->set ( $LANG ["message"] [4] );
 			$module_coderetour = 2;
 			$log->setLog ( $_SESSION ["login"], get_class ( $dataClass ) . "-delete", $id );
 		} catch ( Exception $e ) {
 			if ($OBJETBDD_debugmode > 0) {
-				$message->set( $dataClass->getErrorData ( 1 ));
+				$message->set ( $dataClass->getErrorData ( 1 ) );
 			} else
-				$message->set( $LANG ["message"] [13]);
+				$message->set ( $LANG ["message"] [13] );
 			if ($ERROR_display == 1)
-				$message->set( $e->getMessage ());
+				$message->set ( $e->getMessage () );
 			$ret = - 1;
 		}
 	} else
@@ -144,8 +150,8 @@ function setlanguage($langue) {
 	 * Regeneration du menu
 	 */
 	include_once 'framework/navigation/menu.class.php';
-	$menu = new Menu($APPLI_menufile, $LANG);
-	$_SESSION["menu"]=$menu->generateMenu();
+	$menu = new Menu ( $APPLI_menufile, $LANG );
+	$_SESSION ["menu"] = $menu->generateMenu ();
 	/*
 	 * Ecriture du cookie
 	 */
@@ -182,40 +188,42 @@ function check_encoding($data) {
 
 /**
  * Retourne l'adresse IP du client, en tenant compte le cas echeant du reverse-proxy
+ * 
  * @return string
  */
-function getIPClientAddress(){
+function getIPClientAddress() {
 	/*
 	 * Recherche si le serveur est accessible derriere un reverse-proxy
 	 */
-	if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
-		return  $_SERVER["HTTP_X_FORWARDED_FOR"];
+	if (isset ( $_SERVER ["HTTP_X_FORWARDED_FOR"] )) {
+		return $_SERVER ["HTTP_X_FORWARDED_FOR"];
 		/*
 		 * Cas classique
 		 */
-	}else if (isset ($_SERVER["REMOTE_ADDR"])) {
-		return $_SERVER["REMOTE_ADDR"];
+	} else if (isset ( $_SERVER ["REMOTE_ADDR"] )) {
+		return $_SERVER ["REMOTE_ADDR"];
 	} else
-		return -1;
+		return - 1;
 }
 /**
  * Fonction d'analyse des virus avec clamav
- * @author quinton
- *
- * Exemple d'usage :
  * 
-$nomfiletest = "/tmp/eicar.com.txt";
-try {
-	echo "analyse antivirale de $nomfiletest";
-	testScan ( $nomfiletest );
-	echo "Fichier sans virus reconnu par Clamav<br>";
-} catch ( FileException $f ) {
-	echo $f->getMessage () . "<br>";
-} catch ( VirusException $v ) {
-	echo $v->getMessage () . "<br>";
-} finally {
-	echo "Fin du test";
-}
+ * @author quinton
+ *        
+ *         Exemple d'usage :
+ *        
+ *         $nomfiletest = "/tmp/eicar.com.txt";
+ *         try {
+ *         echo "analyse antivirale de $nomfiletest";
+ *         testScan ( $nomfiletest );
+ *         echo "Fichier sans virus reconnu par Clamav<br>";
+ *         } catch ( FileException $f ) {
+ *         echo $f->getMessage () . "<br>";
+ *         } catch ( VirusException $v ) {
+ *         echo $v->getMessage () . "<br>";
+ *         } finally {
+ *         echo "Fin du test";
+ *         }
  */
 class VirusException extends Exception {
 }
@@ -242,7 +250,7 @@ function testScan($file) {
 				if (count ( $output ) > 0) {
 					foreach ( $output as $value )
 						$message .= $value . " ";
-						throw new VirusException ( $message );
+					throw new VirusException ( $message );
 				}
 			} else
 				throw new FileException ( "clamscan not found" );

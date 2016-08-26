@@ -218,13 +218,12 @@ while ( isset ( $module ) ) {
 	 */
 	if ($t_module ["type"] != "ajax")
 		$_SESSION ["moduleBefore"] = $module;
-	unset ( $module );
 	unset ( $module_coderetour );
 	/*
 	 * Preparation de la vue
 	 */
 	$paramSend = "";
-	if (isset ( $vue ) == false && isset ( $t_module ["type"] )) {
+	if (!isset ( $vue )  && isset ( $t_module ["type"] )) {
 		switch ($t_module ["type"]) {
 			case "ajax" :
 				$vue = new VueAjaxJson ();
@@ -243,6 +242,7 @@ while ( isset ( $module ) ) {
 	 */
 	if ($resident == 1) {
 		include $t_module ["action"];
+		unset ( $module );
 		/*
 		 * Recuperation du code de retour et affectation du nom du nouveau module
 		 */
@@ -283,10 +283,11 @@ while ( isset ( $module ) ) {
 			case "errorbefore" :
 				$module = $APPLI_moduleErrorBefore;
 				break;
+			default: 
+				unset($module);
 		}
 	}
 }
-
 if ($t_module ["type"] == "html") {
 	/*
 	 * Traitement particulier de l'affichage html

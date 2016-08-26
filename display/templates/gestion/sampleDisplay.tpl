@@ -87,6 +87,9 @@ Nouvel échantillon
 </dd>
 </dl>
 </div>
+{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0}
+{include file="gestion/objectMapDisplay.tpl"}
+{/if}
 </fieldset>
 
 <div class="col-md-8">
@@ -103,6 +106,9 @@ Nouvel échantillon
 </div>
 
 </div>
+
+
+
 <fieldset class="col-md-12" id="echantillons">
 <legend>Échantillons rattachés</legend>
 {if $droits.gestion == 1 && $modifiable == 1}

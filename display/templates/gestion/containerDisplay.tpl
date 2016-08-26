@@ -89,7 +89,9 @@ Nouveau conteneur
 </dl>
 
 </div>
-
+{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0}
+{include file="gestion/objectMapDisplay.tpl"}
+{/if}
 </fieldset>
 <div class="col-md-8">
 <fieldset>

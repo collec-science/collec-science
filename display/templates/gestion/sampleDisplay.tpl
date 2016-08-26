@@ -62,6 +62,17 @@ Nouvel échantillon
 </dd>
 </dl>
 {/if}
+{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
+<dl class="dl-horizontal">
+  <dt>Latitude :</dt>
+  <dd>{$data.wgs84_y}</dd>
+</dl>
+<dl class="dl-horizontal">
+  <dt>Longitude :</dt>
+  <dd>{$data.wgs84_x}</dd>
+</dl>
+{/if}
+
 <dl class="dl-horizontal">
 <dt>Emplacement :</dt>
 <dd>

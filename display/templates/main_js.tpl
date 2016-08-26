@@ -48,11 +48,11 @@ $(document).ready(function() {
 	});
 	$('.taux,nombre').attr('title', '{$LANG[message].34}');
 	$('.taux').attr({
-		'pattern' : '[0-9]+(\.[0-9]+)?',
+		'pattern' : '-?[0-9]+(\.[0-9]+)?',
 		'maxlength' : "10"
 	});
 	$('.nombre').attr({
-		'pattern' : '[0-9]+',
+		'pattern' : '-?[0-9]+',
 		'maxlength' : "10"
 	});
 	

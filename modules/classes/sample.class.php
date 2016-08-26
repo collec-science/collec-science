@@ -11,9 +11,10 @@ class Sample extends ObjetBDD {
 	 * @param PDO $bdd        	
 	 * @param array $param        	
 	 */
-	private $sql = "select s.sample_id, s.uid, s.project_id, project_name, s.sample_type_id,
+	private $sql = "select s.sample_id, s.uid,
+					s.project_id, project_name, s.sample_type_id,
 					sample_type_name, s.sample_creation_date, s.sample_date, s.parent_sample_id,
-					so.identifier,
+					so.identifier, so.wgs84_x, so.wgs84_y, 
 					pso.uid as parent_uid, pso.identifier as parent_identifier
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)

@@ -23,7 +23,9 @@ class Object extends ObjetBDD {
 				),
 				"identifier" => array (
 						"type" => 0
-				)
+				),
+				"wgs84_x" => array("type"=>1),
+				"wgs84_y" => array("type"=>1)
 		);
 			parent::__construct ( $bdd, $param );
 	}
@@ -56,14 +58,16 @@ class Object extends ObjetBDD {
 	function getDetail($uid, $is_container = 0) {
 		if (is_numeric($uid) && $uid > 0) {
 			$data ["uid"] = $uid;
-			$sql = "select uid, identifier, container_type_name as type_name
+			$sql = "select uid, identifier, wgs84_x, wgs84_y,
+					container_type_name as type_name
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)
 					where uid = :uid";
 			if ($is_container == 0) 
 					$sql .= " UNION
-					select uid, identifier, sample_type_name as type_name
+					select uid, identifier, wgs84_x, wgs84_y,
+					sample_type_name as type_name
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)

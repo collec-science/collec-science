@@ -8,3 +8,4 @@
 <div class="col-md-8">
 <input id="identifier" type="text" autofocus class="form-control" name="identifier" value="{$objectData.identifier}"></div>
 </div>
+

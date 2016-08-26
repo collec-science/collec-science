@@ -1,5 +1,10 @@
 News
 ===========
+Version 0.3 du 26 août 2016
+---------------------------
+- correction de bugs liés au framework
+- ajout de la saisie des coordonnées gps de l'objet, et affichage dans le détail
+
 Version 0.2 du 23 août 2016
 ---------------------------
 - ajout de la fonction scan en entrée ou sortie rapide

@@ -25,7 +25,7 @@ $.extend( true, $.fn.dataTable.defaults, {
 </div>
 </div>
 {/if}
-<table id="containerList" class="table table-bordered table-hover datatable " >
+<table id="containerList" class="table table-bordered table-hover datatable-nopaging " >
 <thead>
 <tr>
 <th>UID</th>

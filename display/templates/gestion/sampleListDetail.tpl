@@ -10,9 +10,6 @@ $(document).ready(function () {
 		$("#lchek").text(libelle);
 	});
 });
-$.extend( true, $.fn.dataTable.defaults, {
-    "paging": false
-} );
 </script>
 {if $droits.gestion == 1}
 <form method="post" id="formListPrint" action="index.php">
@@ -25,7 +22,7 @@ $.extend( true, $.fn.dataTable.defaults, {
 </div>
 </div>
 {/if}
-<table id="containerList" class="table table-bordered table-hover datatable " >
+<table id="containerList" class="table table-bordered table-hover datatable-nopaging " >
 <thead>
 <tr>
 <th>UID</th>

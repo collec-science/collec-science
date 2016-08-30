@@ -1,6 +1,6 @@
 <h2>Détail d'un échantillon</h2>
 <div class="row">
-<div class="col-md-12">
+<div class="col-sm-12">
 <a href="index.php?module=sampleList"><img src="display/images/list.png" height="25">Retour à la liste</a>
 {if $droits.gestion == 1}
 &nbsp;
@@ -27,10 +27,18 @@ Nouvel échantillon
 </span>
 {/if}
 {/if}
+&nbsp;
+<a href="#echantillons">
+<img src="display/images/sample.png" height="25">Échantillons rattachés
+</a>
+&nbsp;
+<a href="#bookings">
+<img src="display/images/crossed-calendar.png" height="25">Réservations
+</a>
 
 <div class="row">
 
-<fieldset class="col-md-4">
+<fieldset class="col-sm-4">
 <legend>Informations générales</legend>
 <div class="form-display">
 <dl class="dl-horizontal">
@@ -92,7 +100,7 @@ Nouvel échantillon
 {/if}
 </fieldset>
 
-<div class="col-md-8">
+<div class="col-sm-8">
 
 <fieldset>
 <legend>Événements</legend>
@@ -108,8 +116,12 @@ Nouvel échantillon
 </div>
 
 
+<fieldset class="col-sm-12" id="booking">
+<legend>Réservations</legend>
+{include file="gestion/bookingList.tpl"}
+</fieldset>
 
-<fieldset class="col-md-12" id="echantillons">
+<fieldset class="col-sm-12" id="echantillons">
 <legend>Échantillons rattachés</legend>
 {if $droits.gestion == 1 && $modifiable == 1}
 <a href="index.php?module=sampleChange&uid=0&parent_uid={$data.uid}">

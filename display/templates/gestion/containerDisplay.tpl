@@ -33,6 +33,10 @@ Nouveau conteneur
 <a href="#echantillons">
 <img src="display/images/sample.png" height="25">Échantillons présents
 </a>
+&nbsp;
+<a href="#bookings">
+<img src="display/images/crossed-calendar.png" height="25">Réservations
+</a>
 </div>
 </div>
 
@@ -112,6 +116,11 @@ Nouveau conteneur associé
 </a>
 {include file="gestion/containerListDetail.tpl"}
 </fieldset>
+<fieldset class="col-sm-12" id="booking">
+<legend>Réservations</legend>
+{include file="gestion/bookingList.tpl"}
+</fieldset>
+
 <fieldset class="col-md-12" id="echantillons">
 <legend>Échantillons présents</legend>
 {include file="gestion/sampleListDetail.tpl"}

@@ -137,5 +137,12 @@
 	<importControl action="modules/gestion/import.php" param="control" droits="projet" modulebefore="importChange,importControl,importImport" retourok="importChange"  type="html" />
 	<importImport action="modules/gestion/import.php" param="import" droits="projet" modulebefore="importControl,importChange" retourok="importChange" retourko="importChange" />
 
+	<containerbookingChange action="modules/gestion/booking.php" param="change" droits="gestion" retourlogin="1" type="html" />
+	<containerbookingWrite action="modules/gestion/booking.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containerbookingChange" modulebefore="containerbookingChange" />
+	<containerbookingDelete action="modules/gestion/booking.php" param="delete" droits="gestion"  retoursuppr="containerDisplay" retourko="containerbookingChange" modulebefore="containerbookingChange"/>
+	<samplebookingChange action="modules/gestion/booking.php" param="change" droits="gestion"  retourlogin="1" type="html"  />
+	<samplebookingWrite action="modules/gestion/booking.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="samplebookingChange" modulebefore="samplebookingChange" />
+	<samplebookingDelete action="modules/gestion/booking.php" param="delete" droits="gestion"  retoursuppr="sampleDisplay" retourko="samplebookingChange" modulebefore="samplebookingChange"/>
+
 </navigation>
 	

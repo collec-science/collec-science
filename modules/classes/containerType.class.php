@@ -50,7 +50,7 @@ class ContainerType extends ObjetBDD {
 		parent::__construct ( $bdd, $param );
 	}
 	
-	function getListe($order=0) {
+	function getListe($order="") {
 		$order = "";
 		if ($order != 0 && strlen ($order) > 0) 
 			$order = " order by $order";

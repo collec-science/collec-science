@@ -51,7 +51,16 @@ Nouvel échantillon
 </dl>
 <dl class="dl-horizontal">
 <dt>Type :</dt>
-<dd>{$data.sample_type_name}</dd>
+<dd>{$data.sample_type_name}
+{if strlen($data.container_type_name) > 0}
+<br>
+{$data.container_type_name}
+{/if}
+{if strlen($data.clp_classification) > 0}
+<br>
+clp : {$data.clp_classification}
+{/if}
+</dd>
 </dl>
 <dl class="dl-horizontal">
 <dt>Statut :</dt>
@@ -100,7 +109,9 @@ Nouvel échantillon
 </dl>
 </div>
 {if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0}
+
 {include file="gestion/objectMapDisplay.tpl"}
+
 {/if}
 </fieldset>
 
@@ -120,12 +131,12 @@ Nouvel échantillon
 </div>
 
 
-<fieldset class="col-sm-12" id="booking">
+<fieldset class="col-md-6" id="booking">
 <legend>Réservations</legend>
 {include file="gestion/bookingList.tpl"}
 </fieldset>
 
-<fieldset class="col-sm-12" id="echantillons">
+<fieldset class="col-md-6" id="echantillons">
 <legend>Échantillons rattachés</legend>
 {if $droits.gestion == 1 && $modifiable == 1}
 <a href="index.php?module=sampleChange&uid=0&parent_uid={$data.uid}">

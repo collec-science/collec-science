@@ -11,6 +11,7 @@
 <tr>
 <th>Nom</th>
 <th>Id</th>
+<th>Type de conteneur</th>
 <th>Jeu de métadonnées</th>
 </tr>
 </thead>
@@ -27,6 +28,7 @@
 {/if}
 </td>
 <td class="center">{$data[lst].sample_type_id}</td>
+<td>{$data[lst].container_type_name}</td>
 <td>
 {if $data[lst].metadata_set_id > 0}
 <a href="index.php?module=metadataSetDisplay&metadata_set_id={$data[lst].metadata_set_id}>

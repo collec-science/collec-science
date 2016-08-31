@@ -15,16 +15,8 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$smarty->assign("data", $dataClass->getListe("container_type_name"));
-		$smarty->assign("corps", "param/containerTypeList.tpl");
-		break;
-	case "display":
-		/*
-		 * Display the detail of the record
-		 */
-		$data = $dataClass->lire($id);
-		$smarty->assign("data", $data);
-		$smarty->assign("corps", "example/exampleDisplay.tpl");
+		$vue->set($dataClass->getListe("container_type_name"), "data");
+		$vue->set("param/containerTypeList.tpl", "corps");
 		break;
 	case "change":
 		/*
@@ -38,10 +30,11 @@ switch ($t_module["param"]) {
 		 */
 		require_once 'modules/classes/containerFamily.class.php';
 		require_once 'modules/classes/storageCondition.class.php';
+		require_once 'modules/classes/containerType.class.php';
 		$containerFamily = new ContainerFamily($bdd, $ObjetBDDParam);
 		$storageCondition = new StorageCondition($bdd, $ObjetBDDParam);
-		$smarty->assign("storageCondition", $storageCondition->getListe(2));
-		$smarty->assign("containerFamily", $containerFamily->getListe(2));
+		$vue->set($storageCondition->getListe(2),"storageCondition");
+		$vue->set($containerFamily->getListe(2),"containerFamily");
 		break;
 	case "write":
 		/*

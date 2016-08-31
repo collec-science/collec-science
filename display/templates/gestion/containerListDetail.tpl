@@ -10,9 +10,6 @@ $(document).ready(function () {
 		$("#lchek").text(libelle);
 	});
 });
-$.extend( true, $.fn.dataTable.defaults, {
-    "paging": false
-} );
 </script>
 {if $droits.gestion == 1}
 <form method="post" id="formListPrint" action="index.php">

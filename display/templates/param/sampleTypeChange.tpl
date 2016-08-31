@@ -12,10 +12,26 @@
 <div class="col-md-8">
 <input id="sampleTypeName" type="text" class="form-control" name="sample_type_name" value="{$data.sample_type_name}" autofocus required></div>
 </div>
+
+<div class="form-group">
+<label for="container_type_id" class="control-label col-md-4">Type :</label>
+<div class="col-md-8">
+<select id="container_type_id" name="container_type_id" class="form-control">
+<option value="" {if $data.container_type_id == ""}selected{/if}>{$LANG.appli.2}</option>
+{section name=lst loop=$container_type}
+<option value="{$container_type[lst].container_type_id}" {if $container_type[lst].container_type_id == $data.container_type_id}selected{/if}>
+{$container_type[lst].container_type_name}
+</option>
+{/section}
+</select>
+</div>
+</div>
+
+
 <div class="form-group">
 <label for="metadata_set_id"  class="control-label col-md-4">Jeu de métadonnées : </label>
 <div id="is_container"class="col-md-8" >
-<select name="metadata_set_id" id="metadata_set_id" >
+<select name="metadata_set_id" id="metadata_set_id" class="form-control" >
 <option value="" {if $data.metadata_set_id == ""} selected{/if}>
 {$LANG.appli.2}
 </option>

@@ -15,8 +15,8 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$smarty->assign("data", $dataClass->getListe(2));
-		$smarty->assign("corps", "param/sampleTypeList.tpl");
+		$vue->set($dataClass->getListe(2), "data");
+		$vue->set("param/sampleTypeList.tpl", "corps");
 		break;
 	case "change":
 		/*
@@ -27,7 +27,11 @@ switch ($t_module["param"]) {
 		dataRead($dataClass, $id, "param/sampleTypeChange.tpl");
 		require_once 'modules/classes/metadataSet.class.php';
 		$metadataSet = new MetadataSet($bdd, $ObjetBDDParam);
-		$smarty->assign( "metadataSet", $metadataSet->getListe(2));
+		$vue->set($metadataSet->getListe(2),"metadataSet");
+		require_once 'modules/classes/containerType.class.php';
+		$containerType = new ContainerType($bdd, $ObjetBDDParam);
+		$vue->set($containerType->getListe("container_type_name"), "container_type");
+		
 		break;
 	case "write":
 		/*

@@ -3,7 +3,7 @@
 <style type="text/css" >
 @import "display/CSS/ol.css";
 </style>
-<div id="map" class="mapDisplay"></div>
+<div id="map" class="map"></div>
 <script>
 var earth_radius = 6389125.541;
 var zoom = 7;

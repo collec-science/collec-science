@@ -118,4 +118,9 @@ legend {
 	width: 400px;
 	height: 400px;
 }
+.map {
+	/*Affichage des cartes OSM*/
+	width: 100%;
+	height: 400px;
+}
 

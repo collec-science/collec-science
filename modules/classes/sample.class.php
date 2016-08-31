@@ -16,14 +16,16 @@ class Sample extends ObjetBDD {
 					sample_type_name, s.sample_creation_date, s.sample_date, s.parent_sample_id,
 					so.identifier, so.wgs84_x, so.wgs84_y, 
 					so.object_status_id, object_status_name,
-					pso.uid as parent_uid, pso.identifier as parent_identifier
+					pso.uid as parent_uid, pso.identifier as parent_identifier,
+					container_type_name, clp_classification
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join project p on (p.project_id = s.project_id)
 					join object so on (s.uid = so.uid)
 					left outer join object_status os on (so.object_status_id = os.object_status_id)
 					left outer join sample ps on (s.parent_sample_id = ps.sample_id)
-					left outer join object pso on (ps.uid = pso.uid)					
+					left outer join object pso on (ps.uid = pso.uid)	
+					left outer join container_type ct using (container_type_id)
 					";
 	function __construct($bdd, $param = array()) {
 		$this->table = "sample";

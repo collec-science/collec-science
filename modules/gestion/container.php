@@ -36,30 +36,37 @@ switch ($t_module ["param"]) {
 		 * Display the detail of the record
 		 */
 		$data = $dataClass->lire ( $id );
-		$smarty->assign ( "data", $data );
+		$vue->set($data, "data");
 		/*
 		 * Recuperation des conteneurs parents
 		 */
-		$smarty->assign("parents", $dataClass->getAllParents($data["uid"]));
+		$vue->set( $dataClass->getAllParents($data["uid"]),"parents");
 		/*
 		 * Recuperation des conteneurs  et des échantillons contenus
 		 */
-		$smarty->assign("containers", $dataClass->getContentContainer($data["uid"]));
-		$smarty->assign("samples", $dataClass->getContentSample($data["uid"]));
+		$vue->set($dataClass->getContentContainer($data["uid"]),"containers");
+		$vue->set($dataClass->getContentSample($data["uid"]),"samples");
 		/*
 		 * Recuperation des evenements
 		 */
 		require_once 'modules/classes/event.class.php';
 		$event = new Event($bdd, $ObjetBDDParam);
-		$smarty->assign("events", $event->getListeFromUid($data["uid"]));
+		$vue->set($event->getListeFromUid($data["uid"]),"events");
 		/*
 		 * Recuperation des mouvements
 		 */
 		require_once 'modules/classes/storage.class.php';
 		$storage = new Storage($bdd, $ObjetBDDParam);
-		$smarty->assign("storages", $storage->getAllMovements($id));
-		$smarty->assign("moduleParent", "container");
-		$smarty->assign ( "corps", "gestion/containerDisplay.tpl" );
+		$vue->set($storage->getAllMovements($id),"storages" );
+		/*
+		 * Recuperation des reservations
+		 */
+		require_once 'modules/classes/booking.class.php';
+		$booking = new Booking($bdd, $ObjetBDDParam);
+		$vue->set($booking->getListFromParent($data["uid"],'date_from desc'), "bookings");
+
+		$vue->set( "container", "moduleParent");
+		$vue->set("gestion/containerDisplay.tpl", "corps" );
 		break;
 	case "change":
 		/*
@@ -72,8 +79,8 @@ switch ($t_module ["param"]) {
 		//$smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
 		if ($_REQUEST["container_parent_uid"] > 0 && is_numeric($_REQUEST["container_parent_uid"])) {
 			$container_parent = $dataClass->lire($_REQUEST["container_parent_uid"]);
-			$smarty->assign("container_parent_uid",$container_parent["uid"]);
-			$smarty->assign("container_parent_identifier", $container_parent["identifier"]);
+			$vue->set($container_parent["uid"],"container_parent_uid");
+			$vue->set($container_parent["identifier"], "container_parent_identifier");
 		}
 		include 'modules/gestion/container.functions.php';
 		break;

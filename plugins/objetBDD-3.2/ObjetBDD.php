@@ -935,9 +935,9 @@ class ObjetBDD {
 	 *
 	 * @return le contenu de la table
 	 */
-	function getListe($order = 0) {
+	function getListe($order = "") {
 		$sql = "select * from " . $this->table;
-		if ($order > 0)
+		if (strlen($order) > 0)
 			$sql .= " order by " . $order;
 		$collection = $this->execute ( $sql );
 		if ($this->auto_date == 1)

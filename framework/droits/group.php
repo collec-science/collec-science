@@ -25,8 +25,6 @@ switch ($t_module["param"]) {
 		 */
 		$vue->set( $dataClass->lire($id), "data");
 		$vue->set("droits/groupDisplay.tpl" , "corps");
-		//$aclAco = new Aclaco($bdd_gacl, $ObjetBDDParam);
-		//$smarty->assign ("dataAco", $aclAco->getListFromParent($id, 2));
 		break;
 	case "change":
 		/*

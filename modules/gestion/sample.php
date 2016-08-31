@@ -21,11 +21,12 @@ switch ($t_module ["param"]) {
 		$dataSearch = $_SESSION ["searchSample"]->getParam ();
 		if ($_SESSION ["searchSample"]->isSearch () == 1) {
 			$data = $dataClass->sampleSearch ( $dataSearch );
-			$smarty->assign ( "samples", $data );
-			$smarty->assign ( "isSearch", 1 );
+			$vue->set($data  , "samples");
+			$vue->set(1 , "isSearch");
 		}
-		$smarty->assign ( "sampleSearch", $dataSearch );
-		$smarty->assign ( "corps", "gestion/sampleList.tpl" );
+		$vue->set($dataSearch , "sampleSearch");
+		$vue->set( "gestion/sampleList.tpl", "corps");
+
 		/*
 		 * Ajout des listes deroulantes
 		 */
@@ -36,7 +37,7 @@ switch ($t_module ["param"]) {
 		 * Display the detail of the record
 		 */
 		$data = $dataClass->lire ( $id );
-		$smarty->assign ( "data", $data );
+		$vue->set($data  ,  "data");
 		/*
 		 * Recuperation des conteneurs parents
 		 */

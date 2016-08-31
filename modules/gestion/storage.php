@@ -9,22 +9,22 @@ include_once 'modules/classes/storage.class.php';
 $dataClass = new Storage ( $bdd, $ObjetBDDParam );
 $keyName = "storage_id";
 $id = $_REQUEST [$keyName];
-$smarty->assign ( "moduleParent", $_SESSION ["moduleParent"] );
+$vue->set( $_SESSION ["moduleParent"], "moduleParent");
 switch ($t_module ["param"]) {
 	case "input" :
 		$data = dataRead ( $dataClass, $id, "gestion/storageChange.tpl", $_REQUEST ["uid"], false );
 		$data ["movement_type_id"] = 1;
 		require_once 'modules/classes/containerFamily.class.php';
 		$containerFamily = new ContainerFamily ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "containerFamily", $containerFamily->getListe ( 2 ) );
-		$smarty->assign ( "data", $data );
+		$vue->set($containerFamily->getListe ( 2 ) , "containerFamily");
+		$vue->set( $data  ,"data" );
 		/*
 		 * Recherche de l'objet
 		 */
 		require_once 'modules/classes/object.class.php';
 		$object = new Object ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "object", $object->lire ( $_REQUEST ["uid"] ) );
-		$smarty->assign ( "data", $data );
+		$vue->set($object->lire ( $_REQUEST ["uid"] ) , "object");
+		$vue->set($data  ,"data" );
 		break;
 	
 	case "output" :
@@ -35,8 +35,8 @@ switch ($t_module ["param"]) {
 		 */
 		require_once 'modules/classes/object.class.php';
 		$object = new Object ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "object", $object->lire ( $_REQUEST ["uid"] ) );
-		$smarty->assign ( "data", $data );
+		$vue->set($object->lire ( $_REQUEST ["uid"] )  , "object");
+		$vue->set( $data  ,  "data");
 		break;
 	case "change":
 		/*
@@ -86,11 +86,11 @@ switch ($t_module ["param"]) {
 		break;
 	case "fastInputChange" :
 		if (isset ( $_REQUEST ["container_uid"] ) && is_numeric ( $_REQUEST ["container_uid"] ))
-			$smarty->assign ( "container_uid", $_REQUEST ["container_uid"] );
-		$smarty->assign ( "data", $dataClass->getDefaultValue () );
-		$smarty->assign("corps", "gestion/fastInputChange.tpl");
+			$vue->set( $_REQUEST ["container_uid"] , "container_uid");
+		$vue->set($dataClass->getDefaultValue () ,"data" );
+		$vue->set("gestion/fastInputChange.tpl" ,"corps" );
 		if (isset($_REQUEST["read_optical"]))
-			$smarty->assign("read_optical", $_REQUEST["read_optical"]);
+			$vue->set($_REQUEST["read_optical"] ,"read_optical" );
 		
 		break;
 	case "fastInputWrite" :
@@ -105,10 +105,10 @@ switch ($t_module ["param"]) {
 		}
 		break;
 	case "fastOutputChange" :
-		$smarty->assign ( "data", $dataClass->getDefaultValue () );
-		$smarty->assign("corps", "gestion/fastOutputChange.tpl");
+		$vue->set($dataClass->getDefaultValue ()  ,"data" );
+		$vue->set("gestion/fastOutputChange.tpl" ,"corps" );
 		if (isset($_REQUEST["read_optical"]))
-			$smarty->assign("read_optical", $_REQUEST["read_optical"]);
+			$vue->set( $_REQUEST["read_optical"] , "read_optical");
 		break;
 	case "fastOutputWrite" :
 		try {

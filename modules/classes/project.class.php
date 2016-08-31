@@ -35,7 +35,6 @@ class Project extends ObjetBDD {
 	 * @see ObjetBDD::getListe()
 	 */
 	function getListe($order = 0) {
-		echo "test";
 		$sql = "select project_id, project_name, array_to_string(array_agg(groupe),', ') as groupe
 				from project
 				left outer join project_group using (project_id)

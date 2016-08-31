@@ -17,19 +17,19 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		dataRead($dataClass, $id, "gestion/eventChange.tpl", $_REQUEST["uid"], false);
-		$smarty->assign("moduleParent", $_SESSION["moduleParent"]);
+		$vue->set($_SESSION["moduleParent"],"moduleParent");
 		/*
 		 * Recherche des types d'evenement
 		 */
 		require_once 'modules/classes/eventType.class.php';
 		$eventType = new EventType($bdd, $ObjetBDDParam);
-		$smarty->assign("eventType", $eventType->getListeFromCategory($_SESSION["moduleParent"]));
+		$vue->set($eventType->getListeFromCategory($_SESSION["moduleParent"]), "eventType");
 		/*
 		 * Lecture de l'object concerne
 		 */
 		require_once 'modules/classes/object.class.php';
 		$object = new Object($bdd, $ObjetBDDParam);
-		$smarty->assign("object", $object->lire($_REQUEST["uid"]));
+		$vue->set($object->lire($_REQUEST["uid"]) , "object");
 		break;
 	case "write":
 		/*

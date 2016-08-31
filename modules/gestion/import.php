@@ -29,7 +29,7 @@ $import->initControl ( $_SESSION ["projects"], $sampleType->getList(), $containe
 /*
  * Traitement
  */
-$smarty->assign("corps", "gestion/import.tpl");
+$vue->set( "gestion/import.tpl", "corps");
 switch ($t_module ["param"]) {
 	case "change":
 		/*
@@ -53,8 +53,8 @@ switch ($t_module ["param"]) {
 					/*
 					 * Erreurs decouvertes
 					 */
-					$smarty->assign ( "erreur", 1 );
-					$smarty->assign ( "erreurs", $resultat );
+					$vue->set(1 , "erreur");
+					$vue->set( $resultat, "erreurs");
 				} else {
 					/*
 					 * Deplacement du fichier dans le dossier temporaire
@@ -66,8 +66,8 @@ switch ($t_module ["param"]) {
 						$_SESSION ["filename"] = $filename;
 						$_SESSION ["separator"] = $_REQUEST ["separator"];
 						$_SESSION ["utf8_encode"] = $_REQUEST ["utf8_encode"];
-						$smarty->assign ( "controleOk", 1 );
-						$smarty->assign("filename", $_FILES['upfile']['name']);
+						$vue->set(1 , "controleOk");
+						$vue->set($_FILES['upfile']['name'] , "filename");
 					}
 				}
 			} catch ( Exception $e ) {
@@ -76,8 +76,8 @@ switch ($t_module ["param"]) {
 		}
 		$import->fileClose();
 		$module_coderetour = 1;
-		$smarty->assign ( "separator", $_REQUEST ["separator"]);
-		$smarty->assign ( "utf8_encode", $_REQUEST ["utf8_encode"] );
+		$vue->set( $_REQUEST ["separator"] , "separator");
+		$vue->set($_REQUEST ["utf8_encode"] ,"utf8_encode" );
 		break;
 	case "import" :
 		if (isset ( $_SESSION ["filename"] )) {

@@ -6,20 +6,20 @@
  * Copyright 2016 - All rights reserved
  */
 require_once 'modules/classes/project.class.php';
-$dataClass = new Project($bdd,$ObjetBDDParam);
+$dataClass = new Project ( $bdd, $ObjetBDDParam );
 $keyName = "project_id";
-$id = $_REQUEST[$keyName];
+$id = $_REQUEST [$keyName];
 
-switch ($t_module["param"]) {
+switch ($t_module ["param"]) {
 	case "list":
 		/*
 		 * Display the list of all records of the table
 		 */
 		try {
-		$smarty->assign("data", $dataClass->getListe(2));
-		$smarty->assign("corps", "param/projectList.tpl");
-		} catch (Exception $e) {
-			$message ->set( $e->getMessage());
+			$vue->set ( $dataClass->getListe ( 2 ), "data" );
+			$vue->set ( "param/projectList.tpl", "corps" );
+		} catch ( Exception $e ) {
+			$message->set ( $e->getMessage () );
 		}
 		break;
 	case "change":
@@ -28,30 +28,30 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		dataRead($dataClass, $id, "param/projectChange.tpl");
+		dataRead ( $dataClass, $id, "param/projectChange.tpl" );
 		/*
 		 * Recuperation des groupes
 		 */
-		$smarty->assign("groupes", $dataClass->getAllGroupsFromProject($id));
+		$vue->set($dataClass->getAllGroupsFromProject ( $id ) , "groupes");
 		break;
 	case "write":
 		/*
 		 * write record in database
 		 */
-		$id = dataWrite($dataClass, $_REQUEST);
+		$id = dataWrite ( $dataClass, $_REQUEST );
 		if ($id > 0) {
-			$_REQUEST[$keyName] = $id;
+			$_REQUEST [$keyName] = $id;
 			/*
 			 * Rechargement eventuel des projets autorises pour l'utilisateur courant
 			 */
-			$_SESSION["projects"] = $dataClass->getProjectsFromLogin($_SESSION["login"]);
+			$_SESSION ["projects"] = $dataClass->getProjectsFromLogin ( $_SESSION ["login"] );
 		}
 		break;
 	case "delete":
 		/*
 		 * delete record
 		 */
-		dataDelete($dataClass, $id);
+		dataDelete ( $dataClass, $id );
 		break;
 }
 ?>

@@ -8,5 +8,5 @@ if (! isset ( $_SESSION ["searchContainer"] ))
 	$_SESSION ["searchContainer"] = new SearchContainer ();
 if (! isset ( $_SESSION ["searchSample"] ))
 	$_SESSION ["searchSample"] = new SearchSample ();
-$smarty->assign("APPLI_titre", $APPLI_titre);
+	$vue->set($APPLI_titre , "APPLI_titre");
 ?>

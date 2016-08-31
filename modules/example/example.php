@@ -38,21 +38,21 @@ switch ($t_module["param"]) {
 		 $searchExample->setParam ( $_REQUEST );
 		 $dataSearch = $searchExample->getParam ();
 		if ($searchExample->isSearch () == 1) {
-			$data = $dataClass->getListeSearch ( $dataExample );		
-			$smarty->assign ( "data", $data );
-			$smarty->assign ("isSearch", 1);
+			$data = $dataClass->getListeSearch ( $dataExample );	
+			$vue->set( $data  ,"data" );
+			$vue->set(1 ,"isSearch" );
+
 		}
-		$smarty->assign ("exampleSearch", $dataSearch);
-		$smarty->assign("data", $dataClass->getListe());
-		$smarty->assign("corps", "example/exampleList.tpl");
+		$vue->set($dataSearch ,"exampleSearch" );
+		//$vue->set( $dataClass->getListe(),"data" );
+		$vue->set( "example/exampleList.tpl", "corps");
 		break;
 	case "display":
 		/*
 		 * Display the detail of the record
 		 */
-		$data = $dataClass->lire($id);
-		$smarty->assign("data", $data);
-		$smarty->assign("corps", "example/exampleDisplay.tpl");
+		$vue->set($dataClass->lire($id) , "data");
+		$vue->set("example/exampleDisplay.tpl" , "corps");
 		break;
 	case "change":
 		/*

@@ -109,10 +109,11 @@ class Object extends ObjetBDD {
 					join container_type using (container_type_id)
 					where uid in ($uids)
 					UNION
-					select uid, identifier, sample_type_name as type_name, '' as clp
+					select uid, identifier, sample_type_name as type_name, clp_classification as clp
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)
+					left outer join container_type using (container_type_id)
 					where uid in ($uids)
 					order by uid
 			";

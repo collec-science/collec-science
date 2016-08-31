@@ -21,11 +21,11 @@ switch ($t_module ["param"]) {
 		$dataSearch = $_SESSION ["searchContainer"]->getParam ();
 		if ($_SESSION ["searchContainer"]->isSearch () == 1) {
 			$data = $dataClass->containerSearch( $dataSearch );
-			$smarty->assign ( "containers", $data );
-			$smarty->assign ( "isSearch", 1 );
+			$vue->set($data , "containers");
+			$vue->set(1, "isSearch");
 		}
-		$smarty->assign ( "containerSearch", $dataSearch );
-		$smarty->assign ( "corps", "gestion/containerList.tpl" );
+		$vue->set($dataSearch, "containerSearch");
+		$vue->set("gestion/containerList.tpl","corps" );
 		/*
 		 * Ajout des listes deroulantes
 		 */
@@ -75,8 +75,6 @@ switch ($t_module ["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		dataRead ( $dataClass, $id, "gestion/containerChange.tpl" );
-		//$object = new Object ( $bdd, $ObjetBDDParam );
-		//$smarty->assign ( "objectData", $object->lire ( $data ["uid"] ) );
 		if ($_REQUEST["container_parent_uid"] > 0 && is_numeric($_REQUEST["container_parent_uid"])) {
 			$container_parent = $dataClass->lire($_REQUEST["container_parent_uid"]);
 			$vue->set($container_parent["uid"],"container_parent_uid");

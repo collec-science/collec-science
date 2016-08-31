@@ -42,5 +42,9 @@ switch ($t_module["param"]) {
 		 */
 		dataDelete($dataClass, $id);
 		break;
+	case "verifyInterval":
+		$dataClass->verifyInterval($_REQUEST["uid"], $_REQUEST["storage_id"], $_REQUEST["date_from"], $_REQUEST["date_to"]) == true ? $overlaps = 1 : $overlaps = 0;
+		$vue->set(array("overlaps"=>$overlaps));
+		break;
 }
 ?>

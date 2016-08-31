@@ -143,6 +143,6 @@
 	<samplebookingChange action="modules/gestion/booking.php" param="change" droits="gestion"  retourlogin="1" type="html"  />
 	<samplebookingWrite action="modules/gestion/booking.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="samplebookingChange" modulebefore="samplebookingChange" />
 	<samplebookingDelete action="modules/gestion/booking.php" param="delete" droits="gestion"  retoursuppr="sampleDisplay" retourko="samplebookingChange" modulebefore="samplebookingChange"/>
-
+	<bookingVerifyInterval action="modules/gestion/booking.php" param="verifyInterval" droits="gestion" type="ajax" />
 </navigation>
 	

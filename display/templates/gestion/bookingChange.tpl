@@ -1,3 +1,36 @@
+<script>
+$(document).ready( function () {
+	$(".fromto").change( function () { 
+		var from = $("#date_from").val();
+		var to = $("#date_to").val();
+		var uid = parseInt($("#uid").val());
+		var id = $("#booking_id").val();
+		console.log("from : " + from);
+		console.log("to : " + to);
+		console.log("uid :" + uid );
+		console.log("id : " + id);
+		$("#overlaps").text("");
+		if (from.length > 0 && to.length > 0 && uid > 0) {
+			var url = "index.php";
+			$.getJSON ( url, { 
+				"module":"bookingVerifyInterval",
+				"uid":uid,
+				"booking_id":id,
+				"date_from":from,
+				"date_to":to
+				} , function( data ) {
+				if (data != null) {
+					/*console.log("overlaps : "+data["overlaps"]);*/
+					if (data["overlaps"] == 1) {
+						$("#overlaps").text("La période chevauche une réservation existante");
+					}
+				}
+			});			
+		}
+	});
+});
+</script>
+
 <h2>Création - modification d'une réservation</h2>
 
 <div class="row">
@@ -10,24 +43,25 @@ Retour à la liste
 <img src="display/images/edit.gif" height="25">
 Retour au détail ({$object.uid} {$object.identifier})
 </a>
+<div class="red" id="overlaps"></div>
 <form class="form-horizontal protoform" id="{$moduleParent}Form" method="post" action="index.php">
-<input type="hidden" name="booking_id" value="{$data.booking_id}">
+<input type="hidden" id="booking_id" name="booking_id" value="{$data.booking_id}">
 <input type="hidden" name="moduleBase" value="{$moduleParent}booking">
 <input type="hidden" name="action" value="Write">
-<input type="hidden" name="uid" value="{$object.uid}">
+<input type="hidden" id="uid" name="uid" value="{$object.uid}">
 
 
 <div class="form-group">
 <label for="date_from" class="control-label col-md-4">Du<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="date_from" name="date_from" required value="{$data.booking_date}" class="form-control datetimepicker" >
+<input id="date_from" name="date_from" required value="{$data.booking_date}" class="fromto form-control datetimepicker" >
 </div>
 </div>
 
 <div class="form-group">
 <label for="date_to" class="control-label col-md-4">au<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="date_to" name="date_to" required value="{$data.booking_date}" class="form-control datetimepicker" >
+<input id="date_to" name="date_to" required value="{$data.booking_date}" class="fromto form-control datetimepicker" >
 </div>
 </div>
 

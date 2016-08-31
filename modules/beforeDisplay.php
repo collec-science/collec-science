@@ -7,5 +7,5 @@
  *  Fichier appele juste avant l'affichage de la page, pour adresser des variables specifiques dans 
  *  SMARTY, par exemple
  */
-
+$vue->set($APPLI_titre , "APPLI_titre");
 ?>

@@ -11,7 +11,6 @@ $dataClass = new Container ( $bdd, $ObjetBDDParam );
 $keyName = "uid";
 $id = $_REQUEST [$keyName];
 $_SESSION["moduleParent"] = "container";
-
 switch ($t_module ["param"]) {
 	case "list":
 		/*

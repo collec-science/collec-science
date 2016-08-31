@@ -93,19 +93,6 @@ Retour à la liste des conteneurs
 </div>
 </div>
 
-<div class="form-group">
-<label for="container_status_id" class="control-label col-md-4">Statut<span class="red">*</span> :</label>
-<div class="col-md-8">
-<select id="container_status_id" name="container_status_id" class="form-control">
-{section name=lst loop=$containerStatus}
-<option value="{$containerStatus[lst].container_status_id}" {if $containerStatus[lst].container_status_id == $data.container_status_id}selected{/if}>
-{$containerStatus[lst].container_status_name}
-</option>
-{/section}
-</select>
-</div>
-</div>
-
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
       {if $data.container_id > 0 }

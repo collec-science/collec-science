@@ -42,35 +42,40 @@ switch ($t_module ["param"]) {
 		 */
 		require_once 'modules/classes/container.class.php';
 		$container = new Container ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "parents", $container->getAllParents ( $data ["uid"] ) );
+		$vue->set($container->getAllParents ( $data ["uid"] ),"parents");
 		/*
 		 * Recuperation des evenements
 		 */
 		require_once 'modules/classes/event.class.php';
 		$event = new Event ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "events", $event->getListeFromUid ( $data ["uid"] ) );
+		$vue->set($event->getListeFromUid ( $data ["uid"] ),"events");
 		/*
 		 * Recuperation des mouvements
 		 */
 		require_once 'modules/classes/storage.class.php';
 		$storage = new Storage ( $bdd, $ObjetBDDParam );
-		$smarty->assign ( "storages", $storage->getAllMovements ( $id ) );
+		$vue->set($storage->getAllMovements ( $id ),"storages");
 		/*
 		 * Recuperation des echantillons associes
 		 */
-		$smarty->assign("samples", $dataClass->getSampleassociated($data["uid"]));
+		$vue->set($dataClass->getSampleassociated($data["uid"]), "samples");
+		/*
+		 * Recuperation des reservations
+		 */
+		require_once 'modules/classes/booking.class.php';
+		$booking = new Booking($bdd, $ObjetBDDParam);
+		$vue->set($booking->getListFromParent($data["uid"],'date_from desc'), "bookings");
 		/*
 		 * Verification que l'echantillon peut etre modifie
 		 */
 		$is_modifiable = $dataClass->verifyProject ( $data );
 		if ($is_modifiable)
-			$smarty->assign ( "modifiable", 1 );
-		
+			$vue->set(1, "modifiable");		
 		/*
 		 * Affichage
 		 */
-		$smarty->assign ( "moduleParent", "sample" );
-		$smarty->assign ( "corps", "gestion/sampleDisplay.tpl" );
+		$vue->set ("sample", "moduleParent"  );
+		$vue->set("gestion/sampleDisplay.tpl", "corps");
 		break;
 	case "change":
 		/*
@@ -90,8 +95,8 @@ switch ($t_module ["param"]) {
 				$dataParent = $dataClass->lire($_REQUEST["parent_uid"]);
 				if ($dataParent["sample_id"] > 0) {
 					$data["parent_sample_id"] = $dataParent["sample_id"];
-					$smarty->assign("parent_sample", $dataParent);
-					$smarty->assign("data", $data);
+					$vue->set($dataParent, "parent_sample");
+					$vue->set($data, "data");
 				}
 			}
 			include 'modules/gestion/sample.functions.php';

@@ -42,6 +42,19 @@ $(document).ready(function() {
 </div>
 
 <div class="form-group">
+<label for="object_status_id" class="control-label col-md-4">Statut<span class="red">*</span> :</label>
+<div class="col-md-8">
+<select id="object_status_id" name="object_status_id" class="form-control">
+{section name=lst loop=$objectStatus}
+<option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id == $data.object_status_id}selected{/if}>
+{$objectStatus[lst].object_status_name}
+</option>
+{/section}
+</select>
+</div>
+</div>
+
+<div class="form-group">
 <label for="wy" class="control-label col-md-4">Latitude :</label>
 <div class="col-md-8" id="wy">
 <input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">

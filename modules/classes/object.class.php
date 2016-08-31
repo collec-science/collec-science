@@ -25,7 +25,12 @@ class Object extends ObjetBDD {
 						"type" => 0
 				),
 				"wgs84_x" => array("type"=>1),
-				"wgs84_y" => array("type"=>1)
+				"wgs84_y" => array("type"=>1),
+				"object_status_id" => array (
+						"type"=>1,
+						"defaultValue"=>1
+				)
+				
 		);
 			parent::__construct ( $bdd, $param );
 	}

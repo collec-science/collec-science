@@ -66,7 +66,7 @@ Nouveau conteneur
 </dl>
 <dl class="dl-horizontal">
 <dt>Statut :</dt>
-<dd>{$data.container_status_name}</dd>
+<dd>{$data.object_status_name}</dd>
 </dl>
 {if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
 <dl class="dl-horizontal">

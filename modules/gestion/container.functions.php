@@ -7,11 +7,11 @@
  */
  require_once 'modules/classes/containerFamily.class.php';
  $cf = new ContainerFamily($bdd, $ObjetBDDParam);
- $smarty->assign("containerFamily", $cf->getListe(2));
- require_once 'modules/classes/containerStatus.class.php';
- $cs = new ContainerStatus($bdd, $ObjetBDDParam);
- $smarty->assign("containerStatus", $cs->getListe(1));
- require_once 'modules/classes/containerType.class.php';
-// $ct = new ContainerType($bdd, $ObjetBDDParam);
-// $smarty->assign("containerType", $ct->getListe(2));
+ $vue->set($cf->getListe(2),"containerFamily");
+/* require_once 'modules/classes/containerType.class.php';
+ $ct = new ContainerType($bdd, $ObjetBDDParam);
+ $smarty->assign("containerType", $ct->getListe(2));*/
+ require_once 'modules/classes/objectStatus.class.php';
+ $objectStatus = new ObjectStatus($bdd, $ObjetBDDParam);
+ $vue->set($objectStatus->getListe(1), "objectStatus");
 ?>

@@ -44,11 +44,22 @@
 </div>
 <div class="form-group">
 <label for="limit" class="col-md-2 control-label">Nbre limite à afficher :</label>
-<div class="col-md-4">
+<div class="col-md-2">
 <input type="number" id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control">
 </div>
-<div class="col-md-6">
+<div class="col-md-2">
 <input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
+</div>
+<label for="object_status_id" class="col-md-2 control-label">Statut :</label>
+<div class="col-md-4">
+<select id="object_status_id" name="object_status_id" class="form-control">
+<option value="" {if $containerSearch.object_status_id == ""}selected{/if}>Sélectionnez...</option>
+{section name=lst loop=$objectStatus}
+<option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id == $containerSearch.object_status_id}selected{/if}>
+{$objectStatus[lst].object_status_name}
+</option>
+{/section}
+</select>
 </div>
 </div>
 </form>

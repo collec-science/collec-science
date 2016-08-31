@@ -54,6 +54,10 @@ Nouvel échantillon
 <dd>{$data.sample_type_name}</dd>
 </dl>
 <dl class="dl-horizontal">
+<dt>Statut :</dt>
+<dd>{$data.object_status_name}</dd>
+</dl>
+<dl class="dl-horizontal">
 <dt title="Date de création de l'échantillon">Date de création de l'échantillon :</dt>
 <dd>{$data.sample_date}</dd>
 </dl>

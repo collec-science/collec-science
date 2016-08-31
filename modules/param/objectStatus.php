@@ -5,9 +5,9 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-require_once 'modules/classes/containerStatus.class.php';
-$dataClass = new ContainerStatus($bdd,$ObjetBDDParam);
-$keyName = "container_status_id";
+require_once 'modules/classes/objectStatus.class.php';
+$dataClass = new ObjectStatus($bdd,$ObjetBDDParam);
+$keyName = "object_status_id";
 $id = $_REQUEST[$keyName];
 
 switch ($t_module["param"]) {
@@ -15,16 +15,8 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$smarty->assign("data", $dataClass->getListe(2));
-		$smarty->assign("corps", "param/containerStatusList.tpl");
-		break;
-	case "display":
-		/*
-		 * Display the detail of the record
-		 */
-		$data = $dataClass->lire($id);
-		$smarty->assign("data", $data);
-		$smarty->assign("corps", "example/exampleDisplay.tpl");
+		$vue->set($dataClass->getListe(2), "data");
+		$vue->set("param/objectStatusList.tpl", "corps");
 		break;
 	case "change":
 		/*
@@ -32,7 +24,7 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		dataRead($dataClass, $id, "param/containerStatusChange.tpl");
+		dataRead($dataClass, $id, "param/objectStatusChange.tpl");
 		break;
 	case "write":
 		/*

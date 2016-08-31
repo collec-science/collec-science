@@ -8,11 +8,14 @@
 /*
  * Recherche des projets
  */
-$smarty->assign("projects", $_SESSION["projects"]);
+$vue->set($_SESSION["projects"],"projects");
 /*
  * Recherche des types d'échantillons
  */
 require_once 'modules/classes/sampleType.class.php';
 $sampleType = new SampleType($bdd, $ObjetBDDParam);
-$smarty->assign("sample_type", $sampleType->getListe(2));
+$vue->set( $sampleType->getListe(2), "sample_type");
+require_once 'modules/classes/objectStatus.class.php';
+$objectStatus = new ObjectStatus($bdd, $ObjetBDDParam);
+$vue->set($objectStatus->getListe(1), "objectStatus");
 ?>

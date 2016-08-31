@@ -65,10 +65,10 @@
 	<containerFamilyWrite action="modules/param/containerFamily.php" param="write" droits="param,projet" retourok="containerFamilyList" retourko="containerFamilyChange" modulebefore="containerFamilyChange" />
 	<containerFamilyDelete action="modules/param/containerFamily.php" param="delete" droits="param,projet" retoursuppr="containerFamilyList" retourko="containerFamilyChange"  modulebefore="containerFamilyChange"/>
 
-	<containerStatusList action="modules/param/containerStatus.php" param="list" droits="consult"  retourlogin="1" type="html" />
-	<containerStatusChange action="modules/param/containerStatus.php" param="change" droits="param"  retourlogin="1" type="html" />
-	<containerStatusWrite action="modules/param/containerStatus.php" param="write" droits="param" retourok="containerStatusList" retourko="containerStatusChange" modulebefore="containerStatusChange" />
-	<containerStatusDelete action="modules/param/containerStatus.php" param="delete" droits="param" retoursuppr="containerStatusList" retourko="containerStatusChange"  modulebefore="containerStatusChange"/>
+	<objectStatusList action="modules/param/objectStatus.php" param="list" droits="consult"  retourlogin="1" type="html" />
+	<objectStatusChange action="modules/param/objectStatus.php" param="change" droits="param"  retourlogin="1" type="html" />
+	<objectStatusWrite action="modules/param/objectStatus.php" param="write" droits="param" retourok="objectStatusList" retourko="objectStatusChange" modulebefore="objectStatusChange" />
+	<objectStatusDelete action="modules/param/objectStatus.php" param="delete" droits="param" retoursuppr="objectStatusList" retourko="objectStatusChange"  modulebefore="objectStatusChange"/>
 
 	<storageConditionList action="modules/param/storageCondition.php" param="list" droits="consult"  retourlogin="1" type="html" />
 	<storageConditionChange action="modules/param/storageCondition.php" param="change" droits="param,projet"  retourlogin="1" type="html" />

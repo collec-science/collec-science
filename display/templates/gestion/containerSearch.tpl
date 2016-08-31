@@ -38,13 +38,13 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 <div class="col-md-4">
 <input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}">
 </div>
-<label for="container_status_id" class="col-md-2 control-label">Statut :</label>
+<label for="object_status_id" class="col-md-2 control-label">Statut :</label>
 <div class="col-md-4">
-<select id="container_status_id" name="container_status_id" class="form-control">
-<option value="" {if $containerSearch.container_status_id == ""}selected{/if}>Sélectionnez...</option>
-{section name=lst loop=$containerStatus}
-<option value="{$containerStatus[lst].container_status_id}" {if $containerStatus[lst].container_status_id == $containerSearch.container_status_id}selected{/if}>
-{$containerStatus[lst].container_status_name}
+<select id="object_status_id" name="object_status_id" class="form-control">
+<option value="" {if $containerSearch.object_status_id == ""}selected{/if}>Sélectionnez...</option>
+{section name=lst loop=$objectStatus}
+<option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id == $containerSearch.object_status_id}selected{/if}>
+{$objectStatus[lst].object_status_name}
 </option>
 {/section}
 </select>

@@ -13,7 +13,7 @@ require_once 'modules/classes/container.class.php';
 require_once 'modules/classes/storage.class.php';
 require_once 'modules/classes/sampleType.class.php';
 require_once 'modules/classes/containerType.class.php';
-require_once 'modules/classes/containerStatus.class.php';
+require_once 'modules/classes/objectStatus.class.php';
 /*
  * Initialisations
  */

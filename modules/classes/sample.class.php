@@ -15,11 +15,13 @@ class Sample extends ObjetBDD {
 					s.project_id, project_name, s.sample_type_id,
 					sample_type_name, s.sample_creation_date, s.sample_date, s.parent_sample_id,
 					so.identifier, so.wgs84_x, so.wgs84_y, 
+					so.object_status_id, object_status_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join project p on (p.project_id = s.project_id)
 					join object so on (s.uid = so.uid)
+					left outer join object_status os on (so.object_status_id = os.object_status_id)
 					left outer join sample ps on (s.parent_sample_id = ps.sample_id)
 					left outer join object pso on (ps.uid = pso.uid)					
 					";
@@ -207,6 +209,12 @@ class Sample extends ObjetBDD {
 			$and = " and ";
 			$data ["project_id"] = $param ["project_id"];
 		}
+		if ($param ["object_status_id"] > 0) {
+			$where .= $and . " so.object_status_id = :object_status_id";
+			$and = " and ";
+			$data ["object_status_id"] = $param ["object_status_id"];
+		}
+		
 		if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
 			$where .= $and. "s.uid between :uid_min and :uid_max";
 			$and = " and ";

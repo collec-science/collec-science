@@ -965,7 +965,7 @@ class ObjetBDD {
 	 * @param number $order        	
 	 * @return tableau|NULL
 	 */
-	function getListFromParent($parentId, $order = 0) {
+	function getListFromParent($parentId, $order = "") {
 		if ($parentId > 0 && strlen ( $this->parentAttrib ) > 0) {
 			$sql = "select * from " . $this->table;
 			/*
@@ -975,10 +975,13 @@ class ObjetBDD {
 				$cle = $this->quoteIdentifier . $this->parentAttrib . $this->quoteIdentifier;
 			else
 				$cle = $this->parentAttrib;
-			$sql .= " where " . $cle . " = " . $parentId;
-			if ($order > 0)
-				$sql .= " order by " . $order;
-			return $this->getListeParam ( $sql );
+			$sql .= " where " . $cle . " = :parentId";
+			$data ["parentId"] = $parentId;
+			if (strlen($order) > 0) {
+				$sql .= " order by :order";
+				$data["order"] = $order;
+			}
+			return $this->getListeParamAsPrepared( $sql, $data );
 		} else
 			return null;
 	}

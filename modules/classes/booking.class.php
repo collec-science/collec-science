@@ -9,7 +9,7 @@ class Booking extends ObjetBDD {
 	function __construct($bdd, $param = array()) {
 		$this->table = "booking";
 		$this->colonnes = array (
-				"storage_id" => array (
+				"booking_id" => array (
 						"type" => 1,
 						"key" => 1,
 						"requis" => 1,
@@ -42,6 +42,7 @@ class Booking extends ObjetBDD {
 						"type" => 0 
 				) 
 		);
+		parent::__construct ( $bdd, $param );
 	}
 	/**
 	 * Fonction verifiant si un intervalle en chevauche un autre,

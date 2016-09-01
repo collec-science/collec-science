@@ -1,6 +1,6 @@
 <script>
 $(document).ready( function () {
-	$(".fromto").change( function () { 
+	function verifyOverlaps() {
 		var from = $("#date_from").val();
 		var to = $("#date_to").val();
 		var uid = parseInt($("#uid").val());
@@ -20,14 +20,23 @@ $(document).ready( function () {
 				"date_to":to
 				} , function( data ) {
 				if (data != null) {
-					/*console.log("overlaps : "+data["overlaps"]);*/
+					console.log("overlaps : "+data["overlaps"]);
 					if (data["overlaps"] == 1) {
 						$("#overlaps").text("La période chevauche une réservation existante");
 					}
 				}
 			});			
 		}
+	}
+	$(".fromto").change( function () { 
+		verifyOverlaps();
 	});
+	/*
+	 * Declenchement au chargement de la page
+	 */
+	 {if $data.booking_id > 0}
+	 verifyOverlaps();
+	 {/if}
 });
 </script>
 
@@ -54,14 +63,14 @@ Retour au détail ({$object.uid} {$object.identifier})
 <div class="form-group">
 <label for="date_from" class="control-label col-md-4">Du<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="date_from" name="date_from" required value="{$data.booking_date}" class="fromto form-control datetimepicker" >
+<input id="date_from" name="date_from" required value="{$data.date_from}" class="fromto form-control datetimepicker" >
 </div>
 </div>
 
 <div class="form-group">
 <label for="date_to" class="control-label col-md-4">au<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="date_to" name="date_to" required value="{$data.booking_date}" class="fromto form-control datetimepicker" >
+<input id="date_to" name="date_to" required value="{$data.date_to}" class="fromto form-control datetimepicker" >
 </div>
 </div>
 

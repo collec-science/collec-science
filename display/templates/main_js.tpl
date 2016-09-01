@@ -16,6 +16,9 @@
 <link rel="stylesheet" type="text/css" href="display/javascript/DataTables-1.10.12/media/css/dataTables.bootstrap.min.css" />
 <script type="text/javascript" src="display/javascript/DataTables-1.10.12/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="display/javascript/DataTables-1.10.12/media/js/dataTables.bootstrap.min.js"></script>
+<!-- Rajout du tri sur la date/heure -->
+<script type="text/javascript" src="display/javascript/moment.min.js"></script>
+<script type="text/javascript" src="display/javascript/datetime-moment.js"></script>
 
 <!-- datetime
 <link rel="stylesheet" type="text/css" href="display/javascript/datetimepicker/jquery.datetimepicker.css" />
@@ -40,7 +43,8 @@
 <!--  implementation automatique des classes -->
 <script>
 $(document).ready(function() {
-
+	$.fn.dataTable.moment( 'DD/MM/YYYY HH:mm:ss' );
+	$.fn.dataTable.moment( 'DD/MM/YYYY' );
 	$('.datatable').DataTable({
 		language : {
 			url : 'display/javascript/fr_FR.json'

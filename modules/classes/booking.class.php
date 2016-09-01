@@ -53,17 +53,17 @@ class Booking extends ObjetBDD {
 	 * @param string $date_to
 	 * @return boolean
 	 */
-	function verifyInterval($uid, $storage_id, $date_from, $date_to) {
-		if ($uid > 0 && is_numeric ( $uid ) && is_numeric ( $storage_id ) && strlen ( $date_from ) > 0 && strlen ( $date_to ) > 0) {
+	function verifyInterval($uid, $booking_id, $date_from, $date_to) {
+		if ($uid > 0 && is_numeric ( $uid ) && is_numeric ( $booking_id ) && strlen ( $date_from ) > 0 && strlen ( $date_to ) > 0) {
 			$date_from = $this->formatDateLocaleVersDB($date_from, 3);
 			$date_to = $this->formatDateLocaleVersDB($date_to, 3);
 			$sql = "select count(*) as overlaps
 					from $this->table 
 					where 
-					((:date_from, :date_to) overlaps (date_from, date_to)) = true
+					((:date_from::timestamp, :date_to::timestamp) overlaps (date_from, date_to)) = true
 					and uid = :uid
-					and storage_id <> :storage_id";
-			$data = array ("uid"=>$uid, "date_from"=>$date_from, "date_to"=>$date_to, "storage_id"=>$storage_id);
+					and booking_id <> :booking_id";
+			$data = array ("uid"=>$uid, "date_from"=>$date_from, "date_to"=>$date_to, "booking_id"=>$booking_id);
 			$result = $this->lireParamAsPrepared($sql, $data);
 			$result["overlaps"] == 0 ? $retour = true : $retour = false; 
 			return $retour;

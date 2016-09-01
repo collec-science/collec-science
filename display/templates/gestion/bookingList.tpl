@@ -7,7 +7,8 @@
 <table id="bookingList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>Période</th>
+<th>Du</th>
+<th>Au</th>
 <th>Commentaire</th>
 <th>Réservé par</th>
 <th>Le</th>
@@ -18,7 +19,11 @@
 <tr>
 <td>
 <a href="index.php?module={$moduleParent}bookingChange&booking_id={$bookings[lst].booking_id}&uid={$bookings[lst].uid}">
-{$bookings[lst].date_from} - {$bookings[lst].date_to}
+{$bookings[lst].date_from}</a>
+</td>
+<td><a href="index.php?module={$moduleParent}bookingChange&booking_id={$bookings[lst].booking_id}&uid={$bookings[lst].uid}">
+{$bookings[lst].date_to}
+</a>
 </td>
 <td>
 <span class="textareaDisplay">{$bookings[lst].booking_comment}</span>
@@ -33,3 +38,9 @@
 {/section}
 </tbody>
 </table>
+<script>
+$(document).ready(function() {
+	var book = $('#bookingList').DataTable();
+	book.order([0,"desc"]).draw();
+});
+</script>

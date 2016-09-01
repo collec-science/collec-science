@@ -44,7 +44,12 @@ switch ($t_module ["param"]) {
 			/*
 			 * Rechargement eventuel des projets autorises pour l'utilisateur courant
 			 */
-			$_SESSION ["projects"] = $dataClass->getProjectsFromLogin ( $_SESSION ["login"] );
+			try {
+			$_SESSION ["projects"] = $dataClass->getProjectsFromLogin ( $_SESSION ["login"], $LDAP );
+			} catch (Exception $e) {
+				if ($APPLI_modeDeveloppement)
+					$message->set($e->getMessage());
+			}
 		}
 		break;
 	case "delete":

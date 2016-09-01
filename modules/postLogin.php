@@ -35,53 +35,18 @@ if (strlen ( $APPLI_nomDossierStockagePhotoTemp ) > 0) {
 }
 require_once 'modules/classes/project.class.php';
 $project = new Project ( $bdd, $ObjetBDDParam );
-/*
- * Recherche des groupes LDAP
- */
-if ($APPLI_ldapGroupSupport) {
-	
 	/*
-	 * Recuperation des attributs depuis l'annuaire LDAP
+	 * Recuperation des projets attaches directement au login
 	 */
-	include_once "framework/ldap/ldap.class.php";
-	$ldap = new Ldap ( $LDAP_address, $LDAP_basedn );
-	$conn = $ldap->connect ();
-	if ($conn > 0) {
-		$attribut = array (
-				"$LDAP_commonNameAttrib",
-				"$LDAP_mailAttrib",
-				"$LDAP_groupAttrib" 
-		);
-		$filtre = "(" . $LDAP_user_attrib . "=" . $_SESSION ["login"] . ")";
-		$data = $ldap->getAttributs ( "", $filtre, $attribut );
-		if ($data ["count"] == 0) {
-			$message .= "Les données de l'utilisateur n'ont pu être lues dans l'annuaire LDAP";
-		} else {
-			$_SESSION ["loginNom"] = $data [0] ["$LDAP_commonNameAttrib"] [0];
-			$_SESSION ["mail"] = $data [0] ["$LDAP_mailAttrib"] [0];
-			/*
-			 * Affectation des projets
-			 */
-			$groupesLdap =  $data [0] ["$LDAP_groupAttrib"] ;
-			$groups = array();
-			foreach ($groupesLdap as $key=>$value) {
-				if (is_numeric($key))
-					$groups [] = $value;
-			}
-			$_SESSION["projects"] = $project->getProjectsFromGroups($groups);
-		}
-	} else 
-		$message.="Connexion à l'annuaire LDAP impossible";
-} else
-	/*
-	 * Cas sans utiliser l'annuaire ldap
-	 */
-	$_SESSION ["projects"] = $project->getProjectsFromLogin ( $_SESSION ["login"] );
+try {
+	$_SESSION["projects"] = $project->getProjectsFromLogin ( $_SESSION ["login"] , $LDAP);
+} catch (Exception $e) {
+	if ($APPLI_modeDeveloppement)
+		$message->set($e->getMessage());
+}
 /*
- * Attribution des droits dans l'application
+ * Attribution des droits de gestion si attache a un projet
  */
-if (isset($_SESSION["login"]))
-	$_SESSION["droits"]["consult"] = 1;
 if (count($_SESSION["projects"]) > 0)
 	$_SESSION["droits"]["gestion"] = 1;
 ?>

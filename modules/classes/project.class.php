@@ -50,20 +50,20 @@ class Project extends ObjetBDD {
 	 * @param PDO $aclconnexion        	
 	 * @return array
 	 */
-	function getProjectsFromLogin($login) {
+	function getProjectsFromLogin($login, $ldapParam = array()) {
 		if (strlen ( $login ) > 0) {
 			/*
 			 * Recherche des groupes auquel appartient le login
 			 */
 			require_once 'framework/droits/droits.class.php';
 			$aclGroupe = new Aclgroup ( $this->connection );
-			$groupeListe = $aclGroupe->getGroupsFromLogin ( $login );
+			$groupeListe = $aclGroupe->getGroupsFromLogin ( $login, $ldapParam );
 			/*
-			 * Preparation du tableau ne contenant que le nom des groupes
+			 * Preparation du tableau ne contenant que l'identifiant des groupes
 			 */
 			$groups = array ();
 			foreach ( $groupeListe as $value )
-				$groups [] = $value ["groupe"];
+				$groups [] = $value ["aclgroup_id"];
 			return $this->getProjectsFromGroups ( $groups );
 		}
 	}
@@ -83,14 +83,13 @@ class Project extends ObjetBDD {
 			$in = "(";
 			foreach ( $groups as $value ) {
 				$comma == true ? $in .= ", " : $comma = true;
-				$in .= "'$value'";
+				$in .= $value;
 			}
 			$in .= ")";
-			$sql = "select project_id, project_name
+			$sql = "select distinct project_id, project_name
 					from project
 					join project_group using (project_id)
-					join aclgroup using (aclgroup_id)
-					where groupe in $in";
+					where aclgroup_id in $in";
 			$order = " order by project_name";
 			return $this->getListeParam ( $sql . $order );
 		} else

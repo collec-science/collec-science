@@ -5,8 +5,10 @@
  * @license http://www.cecill.info/licences/Licence_CeCILL-C_V1-fr.html LICENCE DE LOGICIEL LIBRE CeCILL-C
  *  Creation 3 juin 2015
  */
+class LdapException extends Exception {
+}
 class Aclappli extends ObjetBDD {
-	function __construct($bdd, $param=array()) {
+	function __construct($bdd, $param = array()) {
 		$this->table = "aclappli";
 		$this->colonnes = array (
 				"aclappli_id" => array (
@@ -26,7 +28,7 @@ class Aclappli extends ObjetBDD {
 	}
 }
 class Aclaco extends ObjetBDD {
-	function __construct($bdd, $param=array()) {
+	function __construct($bdd, $param = array()) {
 		$this->table = "aclaco";
 		$this->colonnes = array (
 				"aclaco_id" => array (
@@ -77,14 +79,16 @@ class Aclaco extends ObjetBDD {
 		} else
 			return false;
 	}
-
+	
 	/**
 	 * Retourne la liste des logins associes a un ACO
-	 * @param string $aco : aco a tester
+	 *
+	 * @param string $aco
+	 *        	: aco a tester
 	 * @return tableau : liste des logins trouves
 	 */
 	function getLogins($aco) {
-		if (strlen($this->encodeData($aco))> 0 ){
+		if (strlen ( $this->encodeData ( $aco ) ) > 0) {
 			$sql = "with recursive first_level (login, aco, aclgroup_id, aclgroup_id_parent) as (
 					(select login, 	aco, aclgroup_id, aclgroup_id_parent
 						from acllogin
@@ -100,9 +104,9 @@ class Aclaco extends ObjetBDD {
 						and g.aclgroup_id = fl.aclgroup_id_parent)
 					)
 					select distinct login from first_level
-					where aco = '".$aco."'
+					where aco = '" . $aco . "'
 					order by login";
-			return $this->getListeParam($sql);
+			return $this->getListeParam ( $sql );
 		}
 	}
 }
@@ -113,7 +117,7 @@ class Aclaco extends ObjetBDD {
  *        
  */
 class Acllogin extends ObjetBDD {
-	function __construct($bdd, $param=array()) {
+	function __construct($bdd, $param = array()) {
 		$this->table = "acllogin";
 		$this->colonnes = array (
 				"acllogin_id" => array (
@@ -194,16 +198,16 @@ class Acllogin extends ObjetBDD {
 	 * @param unknown $login        	
 	 * @return array
 	 */
-	function getListDroits($login, $appli) {
+	function getListDroits($login, $appli, $ldapParam = array()) {
 		$droits = array ();
-		if (strlen ( $login ) > 0 && strlen($appli) > 0) {
+		if (strlen ( $login ) > 0 && strlen ( $appli ) > 0) {
 			$login = $this->encodeData ( $login );
-			$appli = $this->encodeData ($appli);
+			$appli = $this->encodeData ( $appli );
 			/*
 			 * Recherche des groupes associes au login
 			 */
 			$aclgroup = new Aclgroup ( $this->connection, $this->paramori );
-			$groupes = $aclgroup->getGroupsFromLogin ( $login );
+			$groupes = $aclgroup->getGroupsFromLogin ( $login, $ldapParam );
 			if (count ( $groupes ) > 0) {
 				/*
 				 * Recherche des droits. Preparation de la clause IN
@@ -211,18 +215,20 @@ class Acllogin extends ObjetBDD {
 				$inclause = "";
 				$comma = false;
 				foreach ( $groupes as $key => $value ) {
-					if ($comma == true) {
-						$inclause .= ", ";
-					} else
-						$comma = true;
-					$inclause .= $value ["aclgroup_id"];
+					if ($value ["aclgroup_id"] > 0) {
+						if ($comma == true) {
+							$inclause .= ", ";
+						} else
+							$comma = true;
+						$inclause .= $value ["aclgroup_id"];
+					}
 				}
 				$sql = "select distinct aco 
 					from aclaco 
 					join aclacl on (aclaco.aclaco_id = aclacl.aclaco_id)
 					join aclappli on (aclappli.aclappli_id = aclaco.aclappli_id)
 					where aclgroup_id in (" . $inclause . ")
-					and appli = '".$appli."' 
+					and appli = '" . $appli . "' 
 					order by aco";
 				$data = $this->getListeParam ( $sql );
 				/*
@@ -244,7 +250,7 @@ class Acllogin extends ObjetBDD {
  *        
  */
 class Aclgroup extends ObjetBDD {
-	function __construct($bdd, $param=array()) {
+	function __construct($bdd, $param = array()) {
 		$this->table = "aclgroup";
 		$this->colonnes = array (
 				"aclgroup_id" => array (
@@ -265,10 +271,28 @@ class Aclgroup extends ObjetBDD {
 	}
 	/**
 	 * Recherche les groupes auquel appartient le login fourni en parametre
-	 * @param string $login
+	 *
+	 * @param string $login        	
+	 * @param $ldapParam =
+	 *        	array(
+	 *        	"address"=>"localhost",
+	 *        	"port" => 389,
+	 *        	"rdn" => "cn=manager,dc=example,dc=com",
+	 *        	"basedn" => "ou=people,ou=example,o=societe,c=fr",
+	 *        	"user_attrib" => "uid",
+	 *        	"v3" => true,
+	 *        	"tls" => false,
+	 *        	"groupSupport"=>true,
+	 *        	"groupAttrib"=>"supannentiteaffectation",
+	 *        	"commonNameAttrib"=>"displayname",
+	 *        	"mailAttrib"=>"mail",
+	 *        	'attributgroupname' => "cn",
+	 *        	'attributloginname' => "memberuid",
+	 *        	'basedngroup' => 'ou=example,o=societe,c=fr'
+	 *        	);
 	 * @return array
 	 */
-	function getGroupsFromLogin($login) {
+	function getGroupsFromLogin($login, $ldapParam = array()) {
 		$data = array ();
 		if (strlen ( $login ) > 0) {
 			$login = $this->encodeData ( $login );
@@ -290,16 +314,63 @@ class Aclgroup extends ObjetBDD {
 				}
 			}
 		}
+		/*
+		 * Recherche des groupes LDAP
+		 */
+		$groupesLdap = array ();
+		if ($ldapParam ["groupSupport"]) {
+			/*
+			 * Recuperation des attributs depuis l'annuaire LDAP
+			 */
+			include_once "framework/ldap/ldap.class.php";
+			$ldap = new Ldap ( $ldapParam ["address"], $ldapParam ["basedn"] );
+			$conn = $ldap->connect ();
+			if ($conn > 0) {
+				$attribut = array (
+						$ldapParam ['commonNameAttrib'],
+						$ldapParam ["mailAttrib"],
+						$ldapParam ["groupAttrib"] 
+				);
+				$filtre = "(" . $ldapParam ["user_attrib"] . "=" . $_SESSION ["login"] . ")";
+				$dataLdap = $ldap->getAttributs ( $ldapParam ["basedngroup"], $filtre, $attribut );
+				if ($dataLdap ["count"] == 0) {
+					throw new LdapException ( "Les données de l'utilisateur n'ont pu être lues dans l'annuaire LDAP" );
+				} else {
+					$_SESSION ["loginNom"] = $dataLdap [0] [$ldapParam ["commonNameAttrib"]] [0];
+					$_SESSION ["mail"] = $dataLdap [0] [$ldapParam ["mailAttrib"]] [0];
+					/*
+					 * Nettoyage des groupes (structure mixte)
+					 */
+					$groups = $dataLdap [0] [$ldapParam ["groupAttrib"]];
+					foreach ( $groups as $key => $value ) {
+						if (is_numeric ( $key )) {
+							/*
+							 * Recherche de l'identifiant du groupe
+							 */
+							$searchId = $this->getGroupIdFromName ( $value );
+							if ($searchId ["aclgroup_id"] > 0)
+								$groupesLdap [] = $searchId ["aclgroup_id"];
+						}
+					}
+				}
+			} else
+				throw new LdapException ( "Connexion à l'annuaire LDAP impossible" );
+		}
+		/*
+		 * Fusion des groupes
+		 */
+		$data = array_merge ( $data, $groupesLdap );
 		return $data;
 	}
-
+	
 	/**
 	 * Fonction retournant tous les logins appartenant a un groupe
-	 * @param unknown $groupe
+	 *
+	 * @param unknown $groupe        	
 	 */
 	function getLogins($groupe) {
-		if (strlen($groupe)>0) {
-			$groupe = $this->encodeData($groupe);
+		if (strlen ( $groupe ) > 0) {
+			$groupe = $this->encodeData ( $groupe );
 			$sql = "with recursive first_level (login, groupe, aclgroup_id) as (
 					(select login, 	groupe, aclgroup_id, aclgroup_id_parent
 						from acllogin
@@ -312,9 +383,9 @@ class Aclgroup extends ObjetBDD {
 						where g.aclgroup_id = fl.aclgroup_id_parent)
 					)
 					select login from first_level
-					where groupe = '".$groupe.'"
+					where groupe = '" . $groupe . '"
 					order by login';
-			return $this->getListeParam($sql);
+			return $this->getListeParam ( $sql );
 		}
 	}
 	
@@ -421,6 +492,10 @@ class Aclgroup extends ObjetBDD {
 			return $data;
 		} else
 			return null;
+	}
+	function getGroupIdFromName($groupName) {
+		$sql = "select aclgroup_id from aclgroup where groupe = '$groupName'";
+		return $this->lireParam ( $sql );
 	}
 	/**
 	 * Surcharge de la fonction write pour ecrire les logins associes

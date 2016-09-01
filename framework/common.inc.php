@@ -119,7 +119,7 @@ $identification->setidenttype ( $ident_type );
 if ($ident_type == "CAS") {
 	$identification->init_CAS ( $CAS_address, $CAS_port, $CAS_uri );
 } elseif ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
-	$identification->init_LDAP ( $LDAP_address, $LDAP_port, $LDAP_basedn, $LDAP_user_attrib, $LDAP_v3, $LDAP_tls );
+	$identification->init_LDAP ( $LDAP["address"], $LDAP["port"], $LDAP["basedn"], $LDAP["user_attrib"], $LDAP["v3"], $LDAP["tls"] );
 }
 /*
  * Chargement des fonction generiques

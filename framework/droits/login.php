@@ -26,7 +26,7 @@ switch ($t_module["param"]) {
 		 */
 		$data = dataRead($dataClass, $id, "droits/loginChange.tpl");
 		if (strlen($data["login"]) > 0) 
-			$vue->set(  $dataClass->getListDroits($data["login"], $GACL_aco), "loginDroits");
+			$vue->set(  $dataClass->getListDroits($data["login"], $GACL_aco, $LDAP), "loginDroits");
 		break;
 	case "write":
 		/*

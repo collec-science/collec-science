@@ -60,11 +60,11 @@ while ( isset ( $module ) ) {
 			case "csv" :
 				$vue = new VueCsv ();
 				break;
-			case "smarty":
+			case "smarty" :
 			case "html" :
 			default :
 				$isHtml = true;
-				$vue = new VueSmarty( $SMARTY_param, $SMARTY_variables );
+				$vue = new VueSmarty ( $SMARTY_param, $SMARTY_variables );
 		}
 	}
 	
@@ -104,15 +104,20 @@ while ( isset ( $module ) ) {
 					 * Verification de l'identification aupres du serveur LDAP, ou LDAP puis BDD
 					 */
 					if ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
-						$res = $identification->testLoginLdap ( $_REQUEST ["login"], $_REQUEST ["password"] );
-						if ($res == - 1 && $ident_type == "LDAP-BDD") {
-							/*
-							 * L'identification en annuaire LDAP a echoue : verification en base de donnees
-							 */
-							$res = $loginGestion->VerifLogin ( $_REQUEST ['login'], $_REQUEST ['password'] );
-							if ($res == TRUE) {
-								$_SESSION ["login"] = $_REQUEST ["login"];
+						try {
+							$res = $identification->testLoginLdap ( $_REQUEST ["login"], $_REQUEST ["password"] );
+							if ($res == - 1 && $ident_type == "LDAP-BDD") {
+								/*
+								 * L'identification en annuaire LDAP a echoue : verification en base de donnees
+								 */
+								$res = $loginGestion->VerifLogin ( $_REQUEST ['login'], $_REQUEST ['password'] );
+								if ($res == TRUE) {
+									$_SESSION ["login"] = $_REQUEST ["login"];
+								}
 							}
+						} catch ( Exception $e ) {
+							if ($APPLI_modeDeveloppement)
+								$message->set ( $e->getMessage () );
 							/*
 							 * Verification de l'identification uniquement en base de donnees
 							 */

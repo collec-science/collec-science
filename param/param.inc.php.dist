@@ -37,13 +37,11 @@ $GACL_schema = "gacl";
 //$APPLI_mail = "https://gitlab.bordeaux.cemagref.fr/eabx-applis_web/eabxcol/issues/new";
 $APPLI_mail = "https://sourcesup.renater.fr";
 
-$LDAPGROUP_address = "localhost";
-$LDAPGROUP_attributnomgroupe = "cn";
-$LDAPGROUP_attributnomlogin = "memberuid";
-$LDAPGROUP_basedngroup = "ou=Group,ou=example,o=societe,c=fr";
-$LDAP_address = "localhost";
-$LDAP_port = 389;
-$LDAP_basedn = "ou=people,ou=example,o=societe,c=fr";
+$LDAP ["address" ] = "localhost";
+$LDAP ["port" ] = 389;
+$LDAP [ "basedn"] = "ou=people,ou=example,o=societe,c=fr";
+$LDAP [ "tls"] = false;
+$LDAP ['basedngroup' ] ='ou=group,ou=example,o=societe,c=fr' ;
 
 $paramIniFile = "./param.ini";
 $SMARTY_variables["melappli"] = $APPLI_mail;

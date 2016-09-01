@@ -44,14 +44,22 @@ $ident_type = "BDD";
 $CAS_plugin = 'plugins/CAS-1.3.3/CAS.php';
 $CAS_address = "http://localhost/CAS";
 $CAS_port = 443;
-$LDAP_address = "localhost";
-$LDAP_port = 389;
-$LDAP_rdn = "cn=manager,dc=example,dc=com";
-$LDAP_basedn = "ou=people,ou=example,o=societe,c=fr";
-$LDAP_user_attrib = "uid";
-$LDAPGROUP_port = 389;
-$LDAP_v3 = true;
-$LDAP_tls = false;
+$LDAP = array(
+		"address"=>"localhost",
+		"port" => 389,
+		"rdn" => "cn=manager,dc=example,dc=com",
+		"basedn" => "ou=people,ou=example,o=societe,c=fr",
+		"user_attrib" => "uid",
+		"v3" => true,
+		"tls" => false,
+		"groupSupport"=>true,
+		"groupAttrib"=>"supannentiteaffectation",
+		"commonNameAttrib"=>"displayname",
+		"mailAttrib"=>"mail",
+		'attributgroupname' => "cn",
+		'attributloginname' => "memberuid",
+		'basedngroup' => 'ou=example,o=societe,c=fr'
+);
 
 /*
  * Parametres concernant la base de donnees
@@ -94,10 +102,7 @@ $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
 $APPLI_nomDossierStockagePhotoTemp = "temp";
 $APPLI_titre = "Gestion des échantillons";
-$APPLI_ldapGroupSupport = true;
-$LDAP_groupAttrib = "supannentiteaffectation";
-$LDAP_commonNameAttrib = "displayname";
-$LDAP_mailAttrib = "mail";
+
 /*
  * Variables systematiques pour SMARTY
  */

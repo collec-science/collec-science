@@ -99,7 +99,7 @@ class Vue {
  * @author quinton
  *        
  */
-class VueHtml extends Vue {
+class VueSmarty extends Vue {
 	/**
 	 * instance smarty
 	 * 
@@ -120,13 +120,26 @@ class VueHtml extends Vue {
 			"doc",
 			"phpinfo" 
 	);
+	private $templateMain = "main.htm";
 	/**
 	 * Constructeur
 	 * 
 	 * @param Smarty $smarty        	
 	 */
-	function __construct(Smarty &$smarty) {
-		$this->smarty = $smarty;
+	function __construct($param, $var) {
+		$this->smarty = new Smarty();
+		$this->smarty->template_dir = $param["templates"];
+		$this->smarty->compile_dir = $param["templates_c"];
+		//$this->smarty->config_dir = $SMARTY_config;
+		$this->smarty->cache_dir = $param["cache_dir"];
+		$this->smarty->caching = $param["cache"];
+		if (isset($param["template_main"]))
+			$this->templateMain = $param["template_main"];
+		/*
+		 * Traitement des variables assignees
+		 */
+		foreach($var as $key => $value)
+			$this->set($value, $key);
 	}
 	/**
 	 *
@@ -143,7 +156,7 @@ class VueHtml extends Vue {
 	 *
 	 * @see Vue::send()
 	 */
-	function send($template) {
+	function send() {
 		/*
 		 * Encodage des donnees avant envoi vers le navigateur
 		 */
@@ -152,7 +165,7 @@ class VueHtml extends Vue {
 				$this->smarty->assign ( $key, $this->encodehtml ( $value ) );
 			}
 		}
-		$this->smarty->display ( $template );
+		$this->smarty->display ( $this->templateMain );
 	}
 }
 /**

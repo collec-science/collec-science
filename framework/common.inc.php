@@ -130,7 +130,6 @@ include_once 'framework/fonctions.php';
  * Gestion de la langue a afficher
  */
 if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
-	$LANG = $_SESSION ["LANG"];
 } else {
 	/*
 	 * Recuperation le cas echeant du cookie
@@ -149,6 +148,7 @@ if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
 	 */
 	setlanguage ( $langue );
 }
+$SMARTY_variables["LANG"] = $_SESSION ["LANG"];
 /**
  * Verification du couple session/adresse IP
  */
@@ -206,30 +206,6 @@ if (! isset ( $bdd )) {
 		$message->set ( $LANG ["message"] [22] );
 }
 
-/*
- * Activation de SMARTY
- */
-$smarty = new Smarty ();
-$smarty->template_dir = $SMARTY_template;
-$smarty->compile_dir = $SMARTY_template_c;
-$smarty->config_dir = $SMARTY_config;
-$smarty->cache_dir = $SMARTY_cache_dir;
-$smarty->caching = $SMARTY_cache;
-/*
- * Assignation des variables "standard"
- */
-$smarty->assign ( "melappli", $APPLI_mail );
-$smarty->assign ( "fds", $path_inc . $APPLI_fds );
-$smarty->assign ( "entete", $SMARTY_entete );
-$smarty->assign ( "enpied", $SMARTY_enpied );
-$smarty->assign ( "corps", $SMARTY_corps );
-$smarty->assign ( "LANG", $LANG );
-$smarty->assign ( "ident_type", $ident_type );
-
-/*
- * Prepositionnement de idFocus, qui permet de positionner le focus automatiquement a l'ouverture d'une page web
- */
-$smarty->assign ( "idFocus", "" );
 /*
  * Preparation du module de gestion de la navigation
  */

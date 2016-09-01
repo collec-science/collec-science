@@ -51,7 +51,7 @@ while ( isset ( $module ) ) {
 		/*
 	 * Preparation de la vue
 	 */
-	$paramSend = "";
+	$isHtml = false;
 	if (! isset ( $vue ) && isset ( $t_module ["type"] )) {
 		switch ($t_module ["type"]) {
 			case "ajax" :
@@ -60,10 +60,11 @@ while ( isset ( $module ) ) {
 			case "csv" :
 				$vue = new VueCsv ();
 				break;
+			case "smarty":
 			case "html" :
 			default :
-				$vue = new VueHtml ( $smarty );
-				$paramSend = $SMARTY_principal;
+				$isHtml = true;
+				$vue = new VueSmarty( $SMARTY_param, $SMARTY_variables );
 		}
 	}
 	
@@ -293,7 +294,7 @@ while ( isset ( $module ) ) {
 		}
 	}
 }
-if ($t_module ["type"] == "html") {
+if ($isHtml) {
 	/*
 	 * Traitement particulier de l'affichage html
 	 */

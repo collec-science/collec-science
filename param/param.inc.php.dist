@@ -46,4 +46,6 @@ $LDAP_port = 389;
 $LDAP_basedn = "ou=people,ou=example,o=societe,c=fr";
 
 $paramIniFile = "./param.ini";
+$SMARTY_variables["melappli"] = $APPLI_mail;
+$SMARTY_variables["ident_type"] = $ident_type;
 ?>

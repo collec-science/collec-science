@@ -63,7 +63,14 @@ $BDD_schema = "public";
 /*
  * Parametres concernant SMARTY
  */
-$SMARTY_template ='display/templates';
+$SMARTY_param = array("templates"=> 'display/templates',
+		"templates_c"=>'display/templates_c',
+		"cache"=>false,
+		"cache_dir"=>'display/smarty_cache',
+		"template_main"=>"main.htm"
+);
+
+/*$SMARTY_template ='display/templates';
 $SMARTY_template_c = 'display/templates_c';
 $SMARTY_config = 'param/configs_smarty';
 $SMARTY_cache_dir = 'display/smarty_cache';
@@ -72,6 +79,7 @@ $SMARTY_entete = "entete.tpl";
 $SMARTY_enpied = "enpied.tpl";
 $SMARTY_principal = "main.htm";
 $SMARTY_corps = "main.tpl";
+*/
 /*
  * Variables de base de l'application
  */ 
@@ -90,6 +98,16 @@ $APPLI_ldapGroupSupport = true;
 $LDAP_groupAttrib = "supannentiteaffectation";
 $LDAP_commonNameAttrib = "displayname";
 $LDAP_mailAttrib = "mail";
+/*
+ * Variables systematiques pour SMARTY
+ */
+$SMARTY_variables = array(
+		"entete"=>"entete.tpl",
+		"enpied"=>"enpied.tpl",
+		"corps"=>"main.tpl",
+		"melappli"=>$APPLI_mail,
+		"ident_type"=>$ident_type
+);
 /*
  * Variables liees a GACL et l'identification via base de donnees
  */

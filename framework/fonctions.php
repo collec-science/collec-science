@@ -15,7 +15,7 @@
  */
 function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
 	global $vue, $OBJETBDD_debugmode, $ERROR_display, $message;
-	if ( isset ( $vue )) {
+	if (isset ( $vue )) {
 		if (is_numeric ( $id )) {
 			if ($id > 0) {
 				try {
@@ -46,7 +46,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
 		global $module;
 		$message->set ( "Error : vue type not defined for the requested module ($module)" );
 	}
-		
+	
 	;
 }
 /**
@@ -188,7 +188,7 @@ function check_encoding($data) {
 
 /**
  * Retourne l'adresse IP du client, en tenant compte le cas echeant du reverse-proxy
- * 
+ *
  * @return string
  */
 function getIPClientAddress() {
@@ -206,8 +206,23 @@ function getIPClientAddress() {
 		return - 1;
 }
 /**
+ * Fonction recursive decodant le html en retour de navigateur
+ * @param array|string $data
+ * @return array|string
+ */
+function htmlDecode($data) {
+	if (is_array ( $data )) {
+		foreach ( $data as $key => $value )
+			$data [$key] = htmlDecode ( $value );
+	} else {
+		$data = htmlspecialchars_decode ( $data );
+	}
+	return $data;
+}
+
+/**
  * Fonction d'analyse des virus avec clamav
- * 
+ *
  * @author quinton
  *        
  *         Exemple d'usage :

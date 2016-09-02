@@ -17,6 +17,10 @@ if (check_encoding ( $_REQUEST ) == false) {
 	$_REQUEST ["module"] = "default";
 }
 /**
+ * Decodage des variables html
+ */
+$_REQUEST = htmlDecode($_REQUEST);
+/**
  * Recuperation du module
  */
 unset ( $module );

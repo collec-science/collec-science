@@ -651,11 +651,6 @@ class ObjetBDD {
 			$data = $dataBrute;
 		}
 		/*
-		 * Decodage HTML (retour de saisie avec codage prealable)
-		 */
-		// if ($this->codageHtml == true)
-		$data = $this->htmlDecode ( $data );
-		/*
 		 * Verification des donnees entrees
 		 */
 		/*
@@ -1371,37 +1366,7 @@ class ObjetBDD {
 		return $data;
 	}
 	
-	/**
-	 * Retire les codages HTML, et convertit en iso-8859-1 le cas echeant
-	 *
-	 * @param unknown_type $data        	
-	 */
-	private function htmlDecode($data) {
-		if (is_array ( $data )) {
-			foreach ( $data as $key => $value ) {
-				if (is_array ( $value )) {
-					foreach ( $value as $key1 => $value1 ) {
-						$data [$key] [$key1] = htmlspecialchars_decode ( $value1 );
-						/*
-						 * Traitement de l'UTF8
-						 */
-						if ($this->param ["utf8"] == true)
-							$data [$key] [$key1] = utf8_decode ( $data [$key] [$key1] );
-					}
-				} else {
-					$data [$key] = htmlspecialchars_decode ( $value );
-					if ($this->param ["utf8"] == true)
-						$data [$key] = utf8_decode ( $data [$key] );
-				}
-			}
-		} else {
-			$data = htmlspecialchars_decode ( $data );
-			if ($this->param ["utf8"] == true)
-				$data = utf8_decode ( $data );
-		}
-		return $data;
-	}
-	
+
 	/**
 	 * function ecrireTableNN
 	 *

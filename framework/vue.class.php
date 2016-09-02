@@ -122,12 +122,16 @@ class VueSmarty extends Vue {
 			"phpinfo" 
 	);
 	private $templateMain = "main.htm";
+
 	/**
 	 * Constructeur
-	 * 
-	 * @param Smarty $smarty        	
+	 * @param array $param : liste des parametres specifiques d'implementation
+	 * @param array $var : liste des variables assignees systematiquement
 	 */
 	function __construct($param, $var) {
+		/*
+		 * Parametrage de la classe smarty
+		 */
 		$this->smarty = new Smarty();
 		$this->smarty->template_dir = $param["templates"];
 		$this->smarty->compile_dir = $param["templates_c"];
@@ -137,7 +141,7 @@ class VueSmarty extends Vue {
 		if (isset($param["template_main"]))
 			$this->templateMain = $param["template_main"];
 		/*
-		 * Traitement des variables assignees
+		 * Traitement des assignations de variables standard
 		 */
 		foreach($var as $key => $value)
 			$this->set($value, $key);
@@ -167,7 +171,13 @@ class VueSmarty extends Vue {
 				$this->smarty->assign ( $key, $this->encodehtml ( $value ) );
 			}
 		}
+		/*
+		 * Rrecuperation des messages
+		 */
 		$this->smarty->assign("message", $message->getAsHtml());
+		/*
+		 * Declenchement de l'affichage
+		 */
 		$this->smarty->display ( $this->templateMain );
 	}
 }

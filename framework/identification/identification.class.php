@@ -106,16 +106,16 @@ class Identification {
 				global $log, $LOG_duree;
 				$_SESSION ["login"] = phpCAS::getUser ();
 				$log->setLog ( $_SESSION ["login"], "connexion", "cas-ok" );
-				/*
-				 * Purge des anciens enregistrements dans log
-				 */
-				$log->purge ( $LOG_duree );
 			}
 		}
 		
 		if (isset ( $_SESSION ["login"] )) {
 			$this->login = $_SESSION ["login"];
 			unset ( $_SESSION ["menu"] );
+			/*
+			 * Purge des anciens enregistrements dans log
+			 */
+			$log->purge ( $LOG_duree );
 			return $_SESSION ["login"];
 		} else {
 			return - 1;
@@ -129,6 +129,7 @@ class Identification {
 	 * @return string $password |int -1
 	 */
 	function testLoginLdap($login, $password) {
+		global $log, $LOG_duree, $message, $LANG;
 		if (strlen ( $login ) > 0 && strlen ( $password ) > 0) {
 			if (! isset ( $this->ident_type )) {
 				echo "Cette fonction doit être appelee apres init_LDAP";
@@ -152,7 +153,6 @@ class Identification {
 			}
 			$dn = $this->LDAP_user_attrib . "=" . $login . "," . $this->LDAP_basedn;
 			$rep = ldap_bind ( $ldap, $dn, $password );
-			global $log, $LOG_duree, $message, $LANG;
 			if ($rep == 1) {
 				$_SESSION ["login"] = $login;
 				$log->setLog ( $login, "connexion", "ldap-ok" );
@@ -279,21 +279,17 @@ class LoginGestion extends ObjetBDD {
 	 * @param string $password        	
 	 * @return boolean
 	 */
-	function VerifLogin($login, $password) {
+	function controlLogin($login, $password) {
+		global $log, $LOG_duree, $message, $LANG;
 		if (strlen ( $login ) > 0 && strlen ( $password ) > 0) {
 			$login = $this->encodeData ( $login );
 			// $password = md5($password);
 			$password = hash ( "sha256", $password.$login );
 			$sql = "select login from LoginGestion where login ='" . $login . "' and password = '" . $password . "' and actif = 1";
 			$res = ObjetBDD::lireParam ( $sql );
-			global $log, $LOG_duree, $message, $LANG;
 			if ($res ["login"] == $login) {
 				$log->setLog ( $login, "connexion", "db-ok" );
 				$message->set( $LANG ["message"] [10]);
-				/*
-				 * Purge des anciens enregistrements dans log
-				 */
-				$log->purge ( $LOG_duree );
 				return TRUE;
 			} else {
 				$log->setLog ( $login, "connexion", "db-ko" );

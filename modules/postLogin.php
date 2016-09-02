@@ -39,7 +39,7 @@ $project = new Project ( $bdd, $ObjetBDDParam );
 	 * Recuperation des projets attaches directement au login
 	 */
 try {
-	$_SESSION["projects"] = $project->getProjectsFromLogin ( $_SESSION ["login"] , $LDAP);
+	$_SESSION["projects"] = $project->getProjectsFromLogin ();
 } catch (Exception $e) {
 	if ($APPLI_modeDeveloppement)
 		$message->set($e->getMessage());

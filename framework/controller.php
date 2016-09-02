@@ -16,7 +16,6 @@ if (check_encoding ( $_REQUEST ) == false) {
 	$message->set ( "Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu" );
 	$_REQUEST ["module"] = "default";
 }
-
 /**
  * Recuperation du module
  */
@@ -39,19 +38,17 @@ $moduleRequested = $module;
 /**
  * Gestion des modules
  */
-
+$isHtml = false;
 while ( isset ( $module ) ) {
 	/*
 	 * Recuperation du tableau contenant les attributs du module
 	 */
-	$t_module = array ();
 	$t_module = $navigation->getModule ( $module );
 	if (count ( $t_module ) == 0)
 		$message->set ( $LANG ["message"] [35] . " ($module)" );
-		/*
+	/*
 	 * Preparation de la vue
 	 */
-	$isHtml = false;
 	if (! isset ( $vue ) && isset ( $t_module ["type"] )) {
 		switch ($t_module ["type"]) {
 			case "ajax" :
@@ -110,13 +107,13 @@ while ( isset ( $module ) ) {
 								/*
 								 * L'identification en annuaire LDAP a echoue : verification en base de donnees
 								 */
-								$res = $loginGestion->VerifLogin ( $_REQUEST ['login'], $_REQUEST ['password'] );
-								if ($res == TRUE) {
+								$res = $loginGestion->controlLogin ( $_REQUEST ['login'], $_REQUEST ['password'] );
+								if ($res) {
 									$_SESSION ["login"] = $_REQUEST ["login"];
 								}
 							}
 						} catch ( Exception $e ) {
-							if ($APPLI_modeDeveloppement)
+							if ($ERROR_display == 1 )
 								$message->set ( $e->getMessage () );
 							/*
 							 * Verification de l'identification uniquement en base de donnees
@@ -158,7 +155,16 @@ while ( isset ( $module ) ) {
 				/*
 				 * Calcul des droits
 				 */
-				include "framework/identification/setDroits.php";
+				require_once 'framework/droits/droits.class.php';
+				$acllogin = new Acllogin ( $bdd_gacl, $ObjetBDDParam );
+				try {
+					$_SESSION ["droits"] = $acllogin->getListDroits ( $_SESSION ["login"], $GACL_aco, $LDAP );
+				} catch (Exception $e) {
+					if ($APPLI_modeDeveloppement)
+						$message->set($e->getMessage());
+				}
+				
+				//include "framework/identification/setDroits.php";
 				/*
 				 * Integration des commandes post login
 				 */
@@ -300,11 +306,6 @@ while ( isset ( $module ) ) {
 	}
 }
 if ($isHtml) {
-	/*
-	 * Traitement particulier de l'affichage html
-	 */
-	$vue->set ( $message->getAsHtml (), "message" );
-	
 	/*
 	 * Affichage du menu
 	 */

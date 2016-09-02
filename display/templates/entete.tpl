@@ -42,8 +42,8 @@
 {if (strlen($message) > 0) }
 <div class="container-fluid">
 <div class="row">
-	<div class="col-md-12">
-		<p class="message">{$message}</p>
+	<div class="col-md-12 message">
+		{$message}
 	</div>
 </div>
 </div>

@@ -41,6 +41,7 @@ class Message {
 			if ($i > 0)
 				$data .= "<br>";
 			$data .= htmlentities ( $value );
+			$i ++;
 		}
 		return $data;
 	}
@@ -157,6 +158,7 @@ class VueSmarty extends Vue {
 	 * @see Vue::send()
 	 */
 	function send() {
+		global $message;
 		/*
 		 * Encodage des donnees avant envoi vers le navigateur
 		 */
@@ -165,6 +167,7 @@ class VueSmarty extends Vue {
 				$this->smarty->assign ( $key, $this->encodehtml ( $value ) );
 			}
 		}
+		$this->smarty->assign("message", $message->getAsHtml());
 		$this->smarty->display ( $this->templateMain );
 	}
 }

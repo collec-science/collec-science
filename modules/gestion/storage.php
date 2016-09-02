@@ -99,7 +99,6 @@ switch ($t_module ["param"]) {
 			$message->set(  $LANG["message"][5]);
 			$module_coderetour = 1;
 		} catch ( Exception $e ) {
-			//$message->set(  $LANG["message"][42]);
 			$message->set($e->getMessage());
 			$module_coderetour = -1;
 		}
@@ -116,7 +115,7 @@ switch ($t_module ["param"]) {
 			$message->set(  $LANG["message"][5]);
 			$module_coderetour = 1;
 		} catch ( Exception $e ) {
-			$message->set(  $LANG["message"][42]);
+			$message->set(  $LANG["appli"][6]);
 			$module_coderetour = -1;
 		}
 		break;

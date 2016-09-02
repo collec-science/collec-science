@@ -45,7 +45,7 @@ switch ($t_module ["param"]) {
 			 * Rechargement eventuel des projets autorises pour l'utilisateur courant
 			 */
 			try {
-			$_SESSION ["projects"] = $dataClass->getProjectsFromLogin ( $_SESSION ["login"], $LDAP );
+			$_SESSION ["projects"] = $dataClass->getProjectsFromLogin ();
 			} catch (Exception $e) {
 				if ($APPLI_modeDeveloppement)
 					$message->set($e->getMessage());

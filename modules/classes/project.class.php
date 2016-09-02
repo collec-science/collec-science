@@ -50,27 +50,13 @@ class Project extends ObjetBDD {
 	 * @param PDO $aclconnexion        	
 	 * @return array
 	 */
-	function getProjectsFromLogin($login, $ldapParam = array()) {
-		if (strlen ( $login ) > 0) {
-			/*
-			 * Recherche des groupes auquel appartient le login
-			 */
-			require_once 'framework/droits/droits.class.php';
-			$aclGroupe = new Aclgroup ( $this->connection );
-			$groupeListe = $aclGroupe->getGroupsFromLogin ( $login, $ldapParam );
-			/*
-			 * Preparation du tableau ne contenant que l'identifiant des groupes
-			 */
-			$groups = array ();
-			foreach ( $groupeListe as $value )
-				$groups [] = $value ["aclgroup_id"];
-			return $this->getProjectsFromGroups ( $groups );
-		}
+	function getProjectsFromLogin() {
+		return $this->getProjectsFromGroups ( $_SESSION ["groupes"] );
 	}
 	
 	/**
-	 * Retoune la liste des projets correspondants aux groupes indiques
-	 * 
+	 * Retourne la liste des projets correspondants aux groupes indiques
+	 *
 	 * @param array $groups        	
 	 * @return tableau
 	 */
@@ -82,8 +68,10 @@ class Project extends ObjetBDD {
 			$comma = false;
 			$in = "(";
 			foreach ( $groups as $value ) {
-				$comma == true ? $in .= ", " : $comma = true;
-				$in .= $value;
+				if ($value ["aclgroup_id"] > 0) {
+					$comma == true ? $in .= ", " : $comma = true;
+					$in .= $value ["aclgroup_id"];
+				}
 			}
 			$in .= ")";
 			$sql = "select distinct project_id, project_name
@@ -94,19 +82,6 @@ class Project extends ObjetBDD {
 			return $this->getListeParam ( $sql . $order );
 		} else
 			return array ();
-	}
-	/**
-	 * Retourne un tableau ne contenant que les cles des projets pour le login considere
-	 *
-	 * @param string $login        	
-	 * @return array
-	 */
-	function getProjectIdFromLogin($login) {
-		$data = $this->getProjectsFromLogin ( $login );
-		$retour = array ();
-		foreach ( $data as $value )
-			$retour [] = $value ["project_id"];
-		return $retour;
 	}
 	/**
 	 * Surcharge de la fonction ecrire, pour enregistrer les groupes autorises

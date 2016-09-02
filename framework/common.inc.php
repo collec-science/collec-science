@@ -220,12 +220,6 @@ if (isset ( $_SESSION ["navigation"] ) && $APPLI_modeDeveloppement == false) {
  */
 $log = new Log ( $bdd_gacl, $ObjetBDDParam );
 /*
- * Preparation de la gestion des droits
- */
-if (! isset ( $_SESSION ["droits"] ))
-	include "framework/identification/setDroits.php";
-	
-	/*
  * Chargement des fonctions specifiques
  */
 include_once 'modules/fonctions.php';

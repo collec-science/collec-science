@@ -293,7 +293,7 @@ class Aclgroup extends ObjetBDD {
 	 * @return array
 	 */
 	function getGroupsFromLogin($login, $ldapParam = array()) {
-		$data = array ();
+		$groupes = array ();
 		if (strlen ( $login ) > 0) {
 			$login = $this->encodeData ( $login );
 			
@@ -302,17 +302,7 @@ class Aclgroup extends ObjetBDD {
 					join acllogingroup lg on (g.aclgroup_id = lg.aclgroup_id)
 					join acllogin l on (lg.acllogin_id = l.acllogin_id)
 					where login = '" . $login . "'";
-			$data = $this->getListeParam ( $sql );
-			/*
-			 * Recuperation des groupes parents
-			 */
-			foreach ( $data as $key => $value ) {
-				if ($value ["aclgroup_id_parent"] > 0) {
-					$dataParent = $this->getParentGroups ( $value ["aclgroup_id_parent"] );
-					if (count ( $dataParent ) > 0)
-						$data = array_merge ( $data, $dataParent );
-				}
-			}
+			$groupes = $this->getListeParam ( $sql );
 		}
 		/*
 		 * Recherche des groupes LDAP
@@ -333,9 +323,7 @@ class Aclgroup extends ObjetBDD {
 				);
 				$filtre = "(" . $ldapParam ["user_attrib"] . "=" . $_SESSION ["login"] . ")";
 				$dataLdap = $ldap->getAttributs ( $ldapParam ["basedngroup"], $filtre, $attribut );
-				if ($dataLdap ["count"] == 0) {
-					throw new LdapException ( "Les données de l'utilisateur n'ont pu être lues dans l'annuaire LDAP" );
-				} else {
+				if ($dataLdap ["count"]> 0) {
 					$_SESSION ["loginNom"] = $dataLdap [0] [$ldapParam ["commonNameAttrib"]] [0];
 					$_SESSION ["mail"] = $dataLdap [0] [$ldapParam ["mailAttrib"]] [0];
 					/*
@@ -347,9 +335,9 @@ class Aclgroup extends ObjetBDD {
 							/*
 							 * Recherche de l'identifiant du groupe
 							 */
-							$searchId = $this->getGroupIdFromName ( $value );
-							if ($searchId ["aclgroup_id"] > 0)
-								$groupesLdap [] = $searchId ["aclgroup_id"];
+							$search = $this->getGroupFromName ( $value );
+							if ($search ["aclgroup_id"] > 0)
+								$groupesLdap [] = $search;
 						}
 					}
 				}
@@ -359,8 +347,20 @@ class Aclgroup extends ObjetBDD {
 		/*
 		 * Fusion des groupes
 		 */
-		$data = array_merge ( $data, $groupesLdap );
-		return $data;
+		$groupes = array_merge ( $groupes, $groupesLdap );
+		/*
+		 * Recuperation des groupes parents
+		 */
+		foreach ( $groupes as $key => $value ) {
+			if ($value ["aclgroup_id_parent"] > 0) {
+				$dataParent = $this->getParentGroups ( $value ["aclgroup_id_parent"] );
+				if (count ( $dataParent ) > 0)
+					$groupes = array_merge ( $groupes, $dataParent );
+			}
+		}
+		
+		$_SESSION["groupes"] = $groupes;
+		return $groupes;
 	}
 	
 	/**
@@ -493,8 +493,8 @@ class Aclgroup extends ObjetBDD {
 		} else
 			return null;
 	}
-	function getGroupIdFromName($groupName) {
-		$sql = "select aclgroup_id from aclgroup where groupe = '$groupName'";
+	function getGroupFromName($groupName) {
+		$sql = "select * from aclgroup where groupe = '$groupName'";
 		return $this->lireParam ( $sql );
 	}
 	/**
@@ -518,13 +518,14 @@ class Aclgroup extends ObjetBDD {
 	 * @see ObjetBDD::supprimer()
 	 */
 	function supprimer($id) {
+		global $LANG;
 		if ($id > 0) {
 			/*
 			 * Recherche de groupes fils
 			 */
 			$dataFils = $this->getChildGroups ( $id );
 			if (count ( $dataFils ) > 0) {
-				return false;
+				throw new Exception($LANG["message"][43]);
 			} else {
 				/*
 				 * Suppression des logins rattachés

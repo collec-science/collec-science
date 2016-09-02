@@ -605,15 +605,6 @@ class ObjetBDD {
 			$sql = "delete from " . $this->table . " where " . $cle . "= :id";
 			$data ["id"] = $id;
 			return $this->executeAsPrepared ( $sql, $data, true );
-			// try {
-			// $res = $this->connection->exec ( "delete from " . $this->table . " where " . $cle . "=" . $id );
-			// } catch ( PDOException $e ) {
-			// $res = - 1;
-			// if ($this->debug_mode > 0)
-			// $this->addMessage ( $e->getMessage () );
-			// throw new Exception ( $e->getMessage () );
-			// }
-			// return $res;
 		}
 	}
 	/**
@@ -659,15 +650,9 @@ class ObjetBDD {
 		if ($this->cleMultiple == 0 && $data [$this->cle] == "" && $this->id_auto > 0)
 			$data [$this->cle] = 0;
 			/*
-		 * Rajout des slashes devant les quotes et autres caracteres concernes pour eviter les attaques par injection de code, et accessoirement autoriser la saisie de guillemets doubles
-		 */
-		if (get_magic_quotes_gpc () == 0) {
-			$data = $this->encodeData ( $data );
-		}
-		/*
 		 * Traitement des dates
 		 */
-		if ($this->auto_date == 1 ) {
+		if ($this->auto_date == 1) {
 			$data = $this->utilDatesLocaleVersDB ( $data );
 		}
 		
@@ -932,7 +917,7 @@ class ObjetBDD {
 	 */
 	function getListe($order = "") {
 		$sql = "select * from " . $this->table;
-		if (strlen($order) > 0)
+		if (strlen ( $order ) > 0)
 			$sql .= " order by " . $order;
 		$collection = $this->execute ( $sql );
 		if ($this->auto_date == 1)
@@ -972,11 +957,11 @@ class ObjetBDD {
 				$cle = $this->parentAttrib;
 			$sql .= " where " . $cle . " = :parentId";
 			$data ["parentId"] = $parentId;
-			if (strlen($order) > 0) {
+			if (strlen ( $order ) > 0) {
 				$sql .= " order by :order";
-				$data["order"] = $order;
+				$data ["order"] = $order;
 			}
-			return $this->getListeParamAsPrepared( $sql, $data );
+			return $this->getListeParamAsPrepared ( $sql, $data );
 		} else
 			return null;
 	}
@@ -1366,7 +1351,6 @@ class ObjetBDD {
 		return $data;
 	}
 	
-
 	/**
 	 * function ecrireTableNN
 	 *
@@ -1528,7 +1512,7 @@ class ObjetBDD {
 	}
 	/**
 	 * Fonction retournant la date-heure courante, formatee ou non
-	 * 
+	 *
 	 * @return string
 	 */
 	function getDateHeure() {
@@ -1691,8 +1675,6 @@ class ObjetBDD {
 		if ($this->auto_date == 1) {
 			$collection = $this->utilDatesDBVersLocale ( $collection );
 		}
-		if ($this->codageHtml == true)
-			$collection = $this->htmlEncode ( $collection );
 		if ($this->toUTF8 == true)
 			$collection = $this->utf8Encode ( $collection );
 		return $collection;
@@ -1708,8 +1690,6 @@ class ObjetBDD {
 		$collection = $this->executeAsPrepared ( $sql, $data );
 		if ($this->auto_date == 1)
 			$collection = $this->utilDatesDBVersLocale ( $collection );
-		if ($this->codageHtml == true)
-			$collection = $this->htmlEncode ( $collection );
 		if ($this->toUTF8 == true)
 			$collection = $this->utf8Encode ( $collection );
 		return $collection;

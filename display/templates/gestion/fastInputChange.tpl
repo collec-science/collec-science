@@ -1,8 +1,10 @@
 <!-- Ajout rapide d'un échantillon dans un container -->
+<script src="display/javascript/adapter.js"></script>
 <script
 	src="display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
 <script
-	src="display/javascript/dwa012-html5-qrcode/lib/html5-qrcode.min.js"></script>
+	src="display/javascript/html5-qrcode.eq.js"></script>
+	
 
 <script>
 $(document).ready(function() { 

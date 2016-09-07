@@ -50,9 +50,11 @@ $(document).ready(function() {
 	 */
 	var is_read = false;
 	var destination = "container";
+	var snd = new Audio("display/images/sound.ogg"); 
 	function readChange() {
 		//console.log("destination : "+destination);
 		//console.log("valeur : "+ $("#valeur-scan").val());
+		snd.play();
 		var valeur = $("#valeur-scan").val();
 		var value = extractUidVal(valeur);
 		$("#" + destination +"_uid").val(value);
@@ -228,7 +230,7 @@ readEnable();
 <div class="row">
 	<div class="col-md-6">
 	<div class="center">
-<div id="reader" style="width: 300px; height: 250px"></div>
+<div id="reader" style="width: 640px; height: 480px"></div>
 </div>
 
 </div>

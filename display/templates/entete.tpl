@@ -17,7 +17,7 @@
 		</ul>
 
 		<!-- Boutons a droite du menu -->
-		<ul class="nav navbar navbar-right">
+		<ul class="nav navbar navbar-right hidden-xs hidden-sm">
 			<a href='index.php?module=setlanguage&langue=fr'> <img
 				src='display/images/drapeau_francais.png' height='20' border='0'>
 			</a>

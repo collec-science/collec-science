@@ -33,6 +33,8 @@
 <item module="aide" title="helpTitle" value="help">
 	<item module="apropos" title="9" value="8"/>
 	<item module="quoideneuf" title="41" value="40"/>
+	<item module="setlanguagefr" title="frtitle" value="fr"/>
+	<item module="setlanguageen" title="entitle" value="en"/>
 		
 </item>
 </menu>

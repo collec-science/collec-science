@@ -29,7 +29,9 @@
 	<aide action="framework/apropos.php" type="smarty" />
 	<apropos action="framework/apropos.php" type="smarty"  />
 	<quoideneuf action="doc/quoideneuf.php"  retourlogin="1"  type="smarty" />
-	<setlanguage action='framework/setlanguage.php'  retourlogin="1" type="smarty"  />
+	<setlanguage action='framework/setlanguage.php' param="" retourlogin="1" type="smarty" retourok="default"  />
+	<setlanguagefr action='framework/setlanguage.php' param="fr" retourlogin="1" type="smarty" retourok="default" />
+	<setlanguageen action='framework/setlanguage.php' param="en" retourlogin="1" type="smarty" retourok="default" />
 	
 <!-- gestion des droits nouvelle formule -->
 	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1"  type="smarty"  />

@@ -18,6 +18,11 @@ $LANG["menu"][40] = "Nouveautés";
 $LANG["menu"][41] = "Quoi de neuf dans l'application ?";
 $LANG["menu"]["phpinfo"] = "PHP info";
 $LANG["menu"]["phpinfotitle"] = "configuration générale du serveur PHP";
+$LANG["menu"]["fr"] = "français";
+$LANG["menu"]["frtitle"] = "Libellés en français";
+$LANG["menu"]["en"] = "english";
+$LANG["menu"]["entitle"] = "labels in english";
+
 
 /*
  * Gestion des droits nouvelle formule

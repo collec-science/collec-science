@@ -147,17 +147,20 @@ class Object extends ObjetBDD {
 			 * Recuperation des informations generales
 			 */
 			$sql = "select uid, identifier, clp_classification as clp, '' as protocol_name, 
-			 		'$APPLI_code' as project
+			 		'$APPLI_code' as db,
+			 		'' as project_name
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)
 					where uid in ($uids)
 					UNION
 					select uid, identifier, clp_classification as clp, protocol_name, 
-			 		'$APPLI_code' as project
+			 		'$APPLI_code' as db, 
+			 		project_name
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)
+					join project using (project_id)
 					left outer join container_type using (container_type_id)
 			 		left outer join operation using (operation_id)
 			 		left outer join protocol using (protocol_id)
@@ -173,8 +176,10 @@ class Object extends ObjetBDD {
 					"identifier" => "id",
 					"clp_classification" => "clp",
 					"protocol_name" => "pn",
-					"project" => "prj" 
+					"project_name" => "prj",
+					"db" => "db"
 			);
+			$dataConvert = array();
 			/**
 			 * Traitement de chaque ligne, et generation 
 			 * du qrcode
@@ -183,12 +188,15 @@ class Object extends ObjetBDD {
 				$rowq = array ();
 				foreach ( $row as $key => $value )
 					$rowq [$convert [$key]] = $value;
-					/*
+				$dataConvert[] = $rowq;
+				/*
 				 * Generation du qrcode
 				 */
-				QRcode::png ( json_encode ( $rowq ), $APPLI_nomDossierStockagePhotoTemp . '/' . $rowq ["uid"] . ".png" );
+				$filename = $APPLI_nomDossierStockagePhotoTemp . '/' . $rowq ["uid"] . ".png";
+				if (!file_exists($filename))
+				QRcode::png ( json_encode ( $rowq ), $filename );
 			}
-			return $data;
+			return $dataConvert;
 		}
 	}
 }

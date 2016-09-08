@@ -45,19 +45,29 @@ switch ($t_module ["param"]) {
 					$objects->appendChild ( $item );
 				}
 				$doc->appendChild ( $objects );
-				$doc->save ( $APPLI_nomDossierStockagePhotoTemp . '/' . $xml_id . ".xml" );
+				$xmlfile =$APPLI_nomDossierStockagePhotoTemp . '/' . $xml_id . ".xml"; 
+				$doc->save ( $xmlfile );
 				// $data = $dataClass->getForPrint ( $_REQUEST ["uid"] );
-				$vue->set ( $data );
-				$vue->setFilename ( "printlabel.csv" );
+				/*
+				 * Generation de la commande de creation du fichier pdf
+				 */
+				$pdffile = $APPLI_nomDossierStockagePhotoTemp . '/'.$xml_id.".pdf";
+				$command = $APPLI_fop ." -xsl param/label.xsl -xml $xmlfile -pdf $pdffile";
+				exec($command);
+				if ( !file_exists($xmlfile)) {
+					$message->set("Impossible de generer le fichier pdf");
+					$module_coderetour = -1;
+				} else {
+					$vue->setFilename ($pdffile);
+					$vue->setDisposition("inline");
+				}
 			} catch ( Exception $e ) {
-				unset ( $vue );
 				$module_coderetour = - 1;
 				$message->set ( $e->getMessage () );
 				if ($APPLI_modeDeveloppement == true)
 					$message->set ( $e->getTraceAsString () );
 			}
 		} else {
-			unset ( $vue );
 			$module_coderetour = - 1;
 		}
 }

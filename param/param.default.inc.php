@@ -102,7 +102,11 @@ $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
 $APPLI_nomDossierStockagePhotoTemp = "temp";
 $APPLI_titre = "Gestion des échantillons";
-
+/*
+ * Emplacement de fop, programme externe utilise pour generer
+ * les etiquettes au format PDF
+ */
+$APPLI_fop = "/usr/bin/fop";
 /*
  * Variables systematiques pour SMARTY
  */

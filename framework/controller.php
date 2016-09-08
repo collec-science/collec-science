@@ -61,6 +61,9 @@ while ( isset ( $module ) ) {
 			case "csv" :
 				$vue = new VueCsv ();
 				break;
+			case "pdf":
+				$vue = new VuePdf();
+				break;
 			case "smarty" :
 			case "html" :
 			default :
@@ -270,19 +273,14 @@ while ( isset ( $module ) ) {
 		if (isset ( $module_coderetour )) {
 			switch ($module_coderetour) {
 				case - 1 :
+					unset($vue);
 					$module = $t_module ["retourko"];
 					break;
 				case 0 :
-					$module = $t_module ["retournull"];
-					break;
 				case 1 :
-					$module = $t_module ["retourok"];
-					break;
 				case 2 :
-					$module = $t_module ["retoursuppr"];
-					break;
 				case 3 :
-					$module = $t_module ["retournext"];
+					$module = $t_module ["retourok"];
 					break;
 			}
 		}

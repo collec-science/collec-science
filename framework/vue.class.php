@@ -247,4 +247,58 @@ class VueCsv extends Vue {
 		$this->filename = $filename;
 	}
 }
+
+class VuePdf extends Vue {
+	private $filename ;
+	private $disposition = "attachment";
+	/**
+	 * $disposition : attachment|inline
+	 * {@inheritDoc}
+	 * @see Vue::send()
+	 */
+	function send() {
+		if (strlen($this->filename) > 0) {
+			if (file_exists($this->filename)) {
+				/*
+				 * Recuperation du content-type
+				 */
+				$finfo = finfo_open(FILEINFO_MIME_TYPE);
+				header('Content-Type: ' . finfo_file($finfo, $this->filename));
+				finfo_close($finfo);
+				
+				/*
+				 * Mise a disposition
+				 */
+				header('Content-Disposition: '.$this->disposition.'; filename="'.basename($this->filename).'"');
+				
+				/*
+				 * Desactivation du cache
+				 */
+				header('Expires: 0');
+				header('Cache-Control: must-revalidate');
+				header('Pragma: public');
+				header('Content-Length: ' . filesize($this->filename));
+				
+				ob_clean();
+				flush();
+				readfile($this->filename);
+			}
+		}
+	}
+	/**
+	 * Affecte le nom du fichier d'export
+	 * @param string $filename
+	 */
+	function setFilename($filename) {
+		$this->filename = $filename;
+	}
+	/**
+	 * Affecte la disposition du fichier dans le navigateur
+	 * @param string $disp
+	 */
+	function setDisposition($disp="attachment") {
+		$this->disposition = $disp;
+	}
+	
+}
 ?>

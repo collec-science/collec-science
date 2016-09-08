@@ -1,6 +1,6 @@
 <h2>Détail d'un échantillon</h2>
 <div class="row">
-<div class="col-sm-12">
+<div class="col-md-12">
 <a href="index.php?module=sampleList"><img src="display/images/list.png" height="25">Retour à la liste</a>
 {if $droits.gestion == 1}
 &nbsp;
@@ -38,7 +38,7 @@ Nouvel échantillon
 
 <div class="row">
 
-<fieldset class="col-sm-4">
+<fieldset class="col-md-4">
 <legend>Informations générales</legend>
 <div class="form-display">
 <dl class="dl-horizontal">
@@ -115,7 +115,7 @@ clp : {$data.clp_classification}
 {/if}
 </fieldset>
 
-<div class="col-sm-8">
+<div class="col-md-8">
 
 <fieldset>
 <legend>Événements</legend>

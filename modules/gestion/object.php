@@ -33,8 +33,13 @@ switch ($t_module ["param"]) {
 				 */
 				$doc = new DOMDocument ( '1.0', 'utf-8' );
 				$objects = $doc->createElement ( "objects" );
-				
+				$label_id = 0;
 				foreach ( $data as $object ) {
+					/*
+					 * Mise a jour du modele d'etiquette
+					 */
+					if ($object ["label_id"] > 0 && $label_id == 0)
+						$label_id = $object ["label_id"];
 					$item = $doc->createElement ( "object" );
 					foreach ( $object as $key => $value ) {
 						if (strlen ( $key ) > 0 && strlen ( $value ) > 0) {
@@ -45,21 +50,37 @@ switch ($t_module ["param"]) {
 					$objects->appendChild ( $item );
 				}
 				$doc->appendChild ( $objects );
-				$xmlfile =$APPLI_nomDossierStockagePhotoTemp . '/' . $xml_id . ".xml"; 
-				$doc->save ( $xmlfile );
-				// $data = $dataClass->getForPrint ( $_REQUEST ["uid"] );
-				/*
-				 * Generation de la commande de creation du fichier pdf
-				 */
-				$pdffile = $APPLI_nomDossierStockagePhotoTemp . '/'.$xml_id.".pdf";
-				$command = $APPLI_fop ." -xsl param/label.xsl -xml $xmlfile -pdf $pdffile";
-				exec($command);
-				if ( !file_exists($xmlfile)) {
-					$message->set("Impossible de generer le fichier pdf");
-					$module_coderetour = -1;
+				if ($label_id > 0) {
+					$xmlfile = $APPLI_nomDossierStockagePhotoTemp . '/' . $xml_id . ".xml";
+					$doc->save ( $xmlfile );
+					/*
+					 * Recuperation du fichier xsl
+					 */
+					$xslfile = $APPLI_nomDossierStockagePhotoTemp . '/' . $label_id . ".xsl";
+					if (! file_exists ( $xslfile )) {
+						require_once 'modules/classes/label.class.php';
+						$label = new Label ( $bdd, $ObjetBDDParam );
+						$dataLabel = $label->lire ( $label_id );
+						$handle = fopen ( $xslfile, 'w' );
+						fwrite ( $handle, $dataLabel ["label_xsl"] );
+						fclose ( $handle );
+					}
+					/*
+					 * Generation de la commande de creation du fichier pdf
+					 */
+					$pdffile = $APPLI_nomDossierStockagePhotoTemp . '/' . $xml_id . ".pdf";
+					$command = $APPLI_fop . " -xsl $xslfile -xml $xmlfile -pdf $pdffile";
+					exec ( $command );
+					if (! file_exists ( $xmlfile )) {
+						$message->set ( "Impossible de generer le fichier pdf" );
+						$module_coderetour = - 1;
+					} else {
+						$vue->setFilename ( $pdffile );
+						$vue->setDisposition ( "inline" );
+					}
 				} else {
-					$vue->setFilename ($pdffile);
-					$vue->setDisposition("inline");
+					$message->set ( "Pas de modèle d'étiquettes décrit" );
+					$module_coderetour = - 1;
 				}
 			} catch ( Exception $e ) {
 				$module_coderetour = - 1;

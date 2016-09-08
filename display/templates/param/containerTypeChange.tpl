@@ -63,6 +63,22 @@
 </div>
 </div>
 
+<div class="form-group">
+<label for="labelId" class="control-label col-md-4">Modèle d'étiquette :</label>
+<div class="col-md-8">
+<select id="labelId" name="label_id" class="form-control">
+<option value="" {if $data.label_id == ""}selected{/if}>
+{$LANG.appli.2}
+</option>
+{section name=lst loop=$labels}
+<option value="{$labels[lst].label_id}" {if $labels[lst].label_id == $data.label_id}selected{/if}>
+{$labels[lst].label_name}
+</option>
+{/section}
+</select>
+</div>
+</div>
+
 
 
 <div class="form-group center">

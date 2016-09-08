@@ -13,7 +13,7 @@ $(document).ready(function () {
 </script>
 {if $droits.gestion == 1}
 <form method="post" id="formListPrint" action="index.php">
-<input type="hidden" id="module" name="module" value="containerPrintLabel">
+<input type="hidden" id="module" name="module" value="samplePrintLabel">
 <div class="row">
 <div class="col-sm-6 right">
 <label id="lcheck" for="check">Tout décocher</label>

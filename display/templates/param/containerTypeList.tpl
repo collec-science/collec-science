@@ -16,6 +16,7 @@
 <th>Condition de stockage</th>
 <th>Produit utilisé</th>
 <th>Code CLP (risque)</th>
+<th>Modèle d'étiquette</th>
 </tr>
 </thead>
 <tbody>
@@ -44,6 +45,9 @@
 </td>
 <td>
 {$data[lst].clp_classification}
+</td>
+<td>
+{$data[lst].label_name}
 </td>
 </tr>
 {/section}

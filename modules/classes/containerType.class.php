@@ -9,7 +9,8 @@ class ContainerType extends ObjetBDD {
 	private $sql = "select * 
 			from container_type
 			join container_family using (container_family_id)
-			left outer join storage_condition using (storage_condition_id)";
+			left outer join storage_condition using (storage_condition_id)
+			left outer join label using (label_id)";
 	
 	/**
 	 *
@@ -45,7 +46,10 @@ class ContainerType extends ObjetBDD {
 				),
 				"clp_classification" => array (
 						"type" => 0 
-				) 
+				),
+				"label_id" => array (
+						"type" => 1
+				)
 		);
 		parent::__construct ( $bdd, $param );
 	}

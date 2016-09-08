@@ -107,13 +107,15 @@ class Object extends ObjetBDD {
 					$uids .= $value;
 				}
 			}
-			$sql = "select uid, identifier, container_type_name as type_name, clp_classification as clp
+			$sql = "select uid, identifier, container_type_name as type_name, clp_classification as clp,
+					label_id
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)
 					where uid in ($uids)
 					UNION
-					select uid, identifier, sample_type_name as type_name, clp_classification as clp
+					select uid, identifier, sample_type_name as type_name, clp_classification as clp,
+					label_id
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)
@@ -148,7 +150,8 @@ class Object extends ObjetBDD {
 			 */
 			$sql = "select uid, identifier, clp_classification as clp, '' as protocol_name, 
 			 		'$APPLI_code' as db,
-			 		'' as project_name
+			 		'' as project_name,
+			 		label_id
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)
@@ -156,7 +159,8 @@ class Object extends ObjetBDD {
 					UNION
 					select uid, identifier, clp_classification as clp, protocol_name, 
 			 		'$APPLI_code' as db, 
-			 		project_name
+			 		project_name,
+			 		label_id
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)
@@ -174,10 +178,11 @@ class Object extends ObjetBDD {
 			$convert = array (
 					"uid" => "uid",
 					"identifier" => "id",
-					"clp_classification" => "clp",
+					"clp" => "clp",
 					"protocol_name" => "pn",
 					"project_name" => "prj",
-					"db" => "db"
+					"db" => "db",
+					"label_id"=>"label_id"
 			);
 			$dataConvert = array();
 			/**

@@ -98,7 +98,7 @@ function dataDelete($dataClass, $id) {
 		try {
 			$ret = $dataClass->supprimer ( $id );
 			$message->set ( $LANG ["message"] [4] );
-			$module_coderetour = 2;
+			$module_coderetour = 1;
 			$log->setLog ( $_SESSION ["login"], get_class ( $dataClass ) . "-delete", $id );
 		} catch ( Exception $e ) {
 			if ($OBJETBDD_debugmode > 0) {

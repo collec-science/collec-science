@@ -31,10 +31,13 @@ switch ($t_module["param"]) {
 		require_once 'modules/classes/containerFamily.class.php';
 		require_once 'modules/classes/storageCondition.class.php';
 		require_once 'modules/classes/containerType.class.php';
+		require_once 'modules/classes/label.class.php';
 		$containerFamily = new ContainerFamily($bdd, $ObjetBDDParam);
 		$storageCondition = new StorageCondition($bdd, $ObjetBDDParam);
+		$label = new Label($bdd, $ObjetBDDParam);
 		$vue->set($storageCondition->getListe(2),"storageCondition");
 		$vue->set($containerFamily->getListe(2),"containerFamily");
+		$vue->set($label->getListe(2), "labels");
 		break;
 	case "write":
 		/*

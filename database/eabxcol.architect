@@ -1467,7 +1467,7 @@ Contient les identifiants génériques</remarks>
     <column id="COL421" populated="true" UUID="1172c2e6-7fe4-43d5-9cbc-ae0e5a47184a" autoIncrement="false" autoIncrementSequenceName="label_label_name_seq" defaultValue="" name="label_name" nullable="0" physicalName="label_name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Nom du modèle</remarks>
     </column>
-    <column id="COL422" populated="true" UUID="33cfb410-8e08-42f7-b318-725005d9f22b" autoIncrement="false" autoIncrementSequenceName="label_label_xsl_seq" defaultValue="" name="label_xsl" nullable="1" physicalName="label_xsl" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL422" populated="true" UUID="33cfb410-8e08-42f7-b318-725005d9f22b" autoIncrement="false" autoIncrementSequenceName="label_label_xsl_seq" defaultValue="" name="label_xsl" nullable="0" physicalName="label_xsl" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Contenu du fichier XSL utilisé pour la transformation FOP (https://xmlgraphics.apache.org/fop/)</remarks>
     </column>
     </folder>

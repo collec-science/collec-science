@@ -181,25 +181,29 @@ class Object extends ObjetBDD {
 					"clp" => "clp",
 					"protocol_name" => "pn",
 					"project_name" => "prj",
-					"db" => "db",
-					"label_id"=>"label_id"
-			);
-			$dataConvert = array();
+					"db" => "db" 
+			)
+			;
+			$dataConvert = array ();
 			/**
-			 * Traitement de chaque ligne, et generation 
+			 * Traitement de chaque ligne, et generation
 			 * du qrcode
 			 */
 			foreach ( $data as $row ) {
 				$rowq = array ();
 				foreach ( $row as $key => $value )
-					$rowq [$convert [$key]] = $value;
-				$dataConvert[] = $rowq;
+					$rowq [$convert [$key]] = $value;					
 				/*
 				 * Generation du qrcode
 				 */
 				$filename = $APPLI_nomDossierStockagePhotoTemp . '/' . $rowq ["uid"] . ".png";
-				if (!file_exists($filename))
-				QRcode::png ( json_encode ( $rowq ), $filename );
+				if (! file_exists ( $filename ))
+					QRcode::png ( json_encode ( $rowq ), $filename );
+				/*
+				 * Ajout du modele d'etiquette
+				 */
+				$rowq ["label_id"] = $row ["label_id"];
+				$dataConvert [] = $rowq;
 			}
 			return $dataConvert;
 		}

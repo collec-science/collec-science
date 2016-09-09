@@ -191,8 +191,10 @@ class Object extends ObjetBDD {
 			 */
 			foreach ( $data as $row ) {
 				$rowq = array ();
-				foreach ( $row as $key => $value )
-					$rowq [$convert [$key]] = $value;					
+				foreach ( $row as $key => $value ){
+					if (strlen($value) > 0 && isset($convert[$key]))
+						$rowq [$convert [$key]] = $value;
+				}
 				/*
 				 * Generation du qrcode
 				 */

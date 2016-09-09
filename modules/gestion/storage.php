@@ -91,6 +91,10 @@ switch ($t_module ["param"]) {
 		$vue->set("gestion/fastInputChange.tpl" ,"corps" );
 		if (isset($_REQUEST["read_optical"]))
 			$vue->set($_REQUEST["read_optical"] ,"read_optical" );
+		/*
+		 * Assignation du nom de la base
+		 */
+			$vue->set($APPLI_code, "db");
 		
 		break;
 	case "fastInputWrite" :
@@ -108,6 +112,10 @@ switch ($t_module ["param"]) {
 		$vue->set("gestion/fastOutputChange.tpl" ,"corps" );
 		if (isset($_REQUEST["read_optical"]))
 			$vue->set( $_REQUEST["read_optical"] , "read_optical");
+			/*
+			 * Assignation du nom de la base
+			 */
+			$vue->set($APPLI_code, "db");
 		break;
 	case "fastOutputWrite" :
 		try {

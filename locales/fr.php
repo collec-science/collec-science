@@ -74,8 +74,8 @@ $LANG["menu"][78] = "Import de masse";
 $LANG["menu"][79] = "Import de plusieurs échantillons ou containers";
 $LANG["menu"][80] = "Étiquettes";
 $LANG["menu"][81] = "Modèles d'étiquettes";
-$LANG["menu"][82] = "";
-$LANG["menu"][83] = "";
+$LANG["menu"][82] = "Protocoles";
+$LANG["menu"][83] = "Liste des protocoles";
 $LANG["menu"][84] = "";
 
 $LANG["message"][0] = "Bienvenue"; 

@@ -151,5 +151,12 @@
 	<samplebookingWrite action="modules/gestion/booking.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="samplebookingChange" modulebefore="samplebookingChange" />
 	<samplebookingDelete action="modules/gestion/booking.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="samplebookingChange" modulebefore="samplebookingChange"/>
 	<bookingVerifyInterval action="modules/gestion/booking.php" param="verifyInterval" droits="gestion" type="ajax" />
+	
+	<protocolList action="modules/param/protocol.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
+	<protocolChange action="modules/param/protocol.php" param="change" droits="projet"  retourlogin="1" type="smarty" />
+	<protocolWrite action="modules/param/protocol.php" param="write" droits="projet" retourok="protocolList" retourko="protocolChange" modulebefore="protocolChange" />
+	<protocolDelete action="modules/param/protocol.php" param="delete" droits="projet" retourok="protocolList" retourko="protocolChange"  modulebefore="protocolChange"/>
+	<protocolFile action="modules/param/protocol.php" param="file" droits="consult" type="pdf" retourko="protocolList"/>
+	
 </navigation>
 	

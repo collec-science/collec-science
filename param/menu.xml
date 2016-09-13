@@ -13,6 +13,7 @@
 
 <item module="parametre" value="50" title="51" droits="consult">
 	<item module="projectList" droits="consult" value="64" title="65" />
+	<item module="protocolList" droits="consult" value="82" title="83" />
 	<item module="eventTypeList" droits="consult" value="52" title="53" />
 	<item module="containerFamilyList" droits="consult" value="54" title="55" />
 	<item module="storageConditionList" droits="consult" value="56" title="57" />

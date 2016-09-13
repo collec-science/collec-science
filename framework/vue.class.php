@@ -8,14 +8,14 @@
 /**
  * Classe de gestion des messages generes
  * dans l'application
- * 
+ *
  * @author quinton
  *        
  */
 class Message {
 	/**
 	 * Tableau contenant l'ensemble des messages generes
-	 * 
+	 *
 	 * @var array
 	 */
 	private $message = array ();
@@ -31,7 +31,7 @@ class Message {
 	/**
 	 * Retourne le tableau formate avec saut de ligne entre
 	 * chaque message
-	 * 
+	 *
 	 * @return string
 	 */
 	function getAsHtml() {
@@ -48,7 +48,7 @@ class Message {
 }
 /**
  * Classe non instanciable de base pour l'ensemble des vues
- * 
+ *
  * @author quinton
  *        
  */
@@ -62,7 +62,7 @@ class Vue {
 	
 	/**
 	 * Assigne une valeur
-	 * 
+	 *
 	 * @param unknown $value        	
 	 * @param string $variable        	
 	 */
@@ -71,7 +71,7 @@ class Vue {
 	}
 	/**
 	 * Declenche l'affichage
-	 * 
+	 *
 	 * @param string $param        	
 	 */
 	function send($param = "") {
@@ -79,7 +79,7 @@ class Vue {
 	/**
 	 * Fonction recursive d'encodage html
 	 * des variables
-	 * 
+	 *
 	 * @param string|array $data        	
 	 * @return string
 	 */
@@ -96,21 +96,21 @@ class Vue {
 }
 /**
  * Classe encapsulant l'appel a Smarty
- * 
+ *
  * @author quinton
  *        
  */
 class VueSmarty extends Vue {
 	/**
 	 * instance smarty
-	 * 
+	 *
 	 * @var Smarty
 	 */
 	private $smarty;
 	/**
 	 * Tableau des variables ne devant pas etre encodees
 	 * avant envoi au navigateur
-	 * 
+	 *
 	 * @var array
 	 */
 	private $htmlVars = array (
@@ -122,29 +122,32 @@ class VueSmarty extends Vue {
 			"phpinfo" 
 	);
 	private $templateMain = "main.htm";
-
+	
 	/**
 	 * Constructeur
-	 * @param array $param : liste des parametres specifiques d'implementation
-	 * @param array $var : liste des variables assignees systematiquement
+	 *
+	 * @param array $param
+	 *        	: liste des parametres specifiques d'implementation
+	 * @param array $var
+	 *        	: liste des variables assignees systematiquement
 	 */
 	function __construct($param, $var) {
 		/*
 		 * Parametrage de la classe smarty
 		 */
-		$this->smarty = new Smarty();
-		$this->smarty->template_dir = $param["templates"];
-		$this->smarty->compile_dir = $param["templates_c"];
-		//$this->smarty->config_dir = $SMARTY_config;
-		$this->smarty->cache_dir = $param["cache_dir"];
-		$this->smarty->caching = $param["cache"];
-		if (isset($param["template_main"]))
-			$this->templateMain = $param["template_main"];
-		/*
+		$this->smarty = new Smarty ();
+		$this->smarty->template_dir = $param ["templates"];
+		$this->smarty->compile_dir = $param ["templates_c"];
+		// $this->smarty->config_dir = $SMARTY_config;
+		$this->smarty->cache_dir = $param ["cache_dir"];
+		$this->smarty->caching = $param ["cache"];
+		if (isset ( $param ["template_main"] ))
+			$this->templateMain = $param ["template_main"];
+			/*
 		 * Traitement des assignations de variables standard
 		 */
-		foreach($var as $key => $value)
-			$this->set($value, $key);
+		foreach ( $var as $key => $value )
+			$this->set ( $value, $key );
 	}
 	/**
 	 *
@@ -174,7 +177,7 @@ class VueSmarty extends Vue {
 		/*
 		 * Rrecuperation des messages
 		 */
-		$this->smarty->assign("message", $message->getAsHtml());
+		$this->smarty->assign ( "message", $message->getAsHtml () );
 		/*
 		 * Declenchement de l'affichage
 		 */
@@ -184,7 +187,7 @@ class VueSmarty extends Vue {
 /**
  * Classe permettant l'envoi d'un fichier Json au navigateur,
  * en protocole Ajax
- * 
+ *
  * @author quinton
  *        
  */
@@ -211,15 +214,14 @@ class VueAjaxJson extends Vue {
 	}
 }
 class VueCsv extends Vue {
-	private $filename ;
-	
-	function send($param="") {
+	private $filename;
+	function send($param = "") {
 		if (count ( $this->data ) > 0) {
-			if (strlen($param) == 0)
+			if (strlen ( $param ) == 0)
 				$param = $this->filename;
-			if (strlen($param) == 0) 
-				$param = "export-".date('Y-m-d').".csv";
-			/*
+			if (strlen ( $param ) == 0)
+				$param = "export-" . date ( 'Y-m-d' ) . ".csv";
+				/*
 			 * Preparation du fichier
 			 */
 			ob_clean ();
@@ -229,76 +231,99 @@ class VueCsv extends Vue {
 			/*
 			 * Traitement de l'entete
 			 */
-			fputcsv ( $fp, array_keys ( $this->data[0] ) );
+			fputcsv ( $fp, array_keys ( $this->data [0] ) );
 			/*
 			 * Traitement des lignes
 			 */
-			foreach ($this->data as $value)
-				fputcsv($fp, $value);
-			fclose ($fp);
+			foreach ( $this->data as $value )
+				fputcsv ( $fp, $value );
+			fclose ( $fp );
 			ob_flush ();
 		}
 	}
 	/**
 	 * Affecte le nom du fichier d'export
-	 * @param string $filename
+	 *
+	 * @param string $filename        	
 	 */
 	function setFilename($filename) {
 		$this->filename = $filename;
 	}
 }
-
 class VuePdf extends Vue {
-	private $filename ;
+	private $filename;
+	private $reference;
 	private $disposition = "attachment";
 	/**
 	 * $disposition : attachment|inline
-	 * {@inheritDoc}
+	 *
+	 * {@inheritdoc}
+	 *
 	 * @see Vue::send()
 	 */
 	function send() {
-		if (strlen($this->filename) > 0) {
-			if (file_exists($this->filename)) {
-				/*
-				 * Recuperation du content-type
-				 */
-				$finfo = finfo_open(FILEINFO_MIME_TYPE);
-				header('Content-Type: ' . finfo_file($finfo, $this->filename));
-				finfo_close($finfo);
-				
-				/*
-				 * Mise a disposition
-				 */
-				header('Content-Disposition: '.$this->disposition.'; filename="'.basename($this->filename).'"');
-				
-				/*
-				 * Desactivation du cache
-				 */
-				header('Expires: 0');
-				header('Cache-Control: must-revalidate');
-				header('Pragma: public');
-				header('Content-Length: ' . filesize($this->filename));
-				
-				ob_clean();
-				flush();
-				readfile($this->filename);
-			}
-		}
+		global $APPLI_code;
+		if (! is_null ( $this->reference )) {
+			header ( "Content-Type: application/pdf" );
+			if (strlen ( $this->filename ) > 0) {
+				$filename = $this->filename;
+			} else
+				$filename = $APPLI_code . '-' . date ( 'y-m-d' ) . ".pdf";
+			header ( 'Content-Disposition: ' . $this->disposition . '; filename="' . $filename . '"' );
+			echo ($this->reference);
+			if (! rewind ( $this->reference ))
+				throw new Exception ( 'Impossible to rewind resource' );
+			if (! fpassthru ( $this->reference ))
+				throw new Exception ( 'Impossible to send file' );
+		} elseif (file_exists ( $this->filename )) {
+			/*
+			 * Recuperation du content-type
+			 */
+			$finfo = finfo_open ( FILEINFO_MIME_TYPE );
+			header ( 'Content-Type: ' . finfo_file ( $finfo, $this->filename ) );
+			finfo_close ( $finfo );
+			
+			/*
+			 * Mise a disposition
+			 */
+			header ( 'Content-Disposition: ' . $this->disposition . '; filename="' . basename ( $this->filename ) . '"' );
+			
+			/*
+			 * Desactivation du cache
+			 */
+			header ( 'Expires: 0' );
+			header ( 'Cache-Control: must-revalidate' );
+			header ( 'Pragma: public' );
+			header ( 'Content-Length: ' . filesize ( $this->filename ) );
+			
+			ob_clean ();
+			flush ();
+			if (strlen ( $this->filename ) > 0) {
+				readfile ( $this->filename );
+			} else
+				throw new Exception ( "File can't be sent" );
+		} else
+			throw new Exception ( "Nothing to send" );
 	}
 	/**
 	 * Affecte le nom du fichier d'export
-	 * @param string $filename
+	 *
+	 * @param string $filename        	
 	 */
 	function setFilename($filename) {
 		$this->filename = $filename;
 	}
-	/**
-	 * Affecte la disposition du fichier dans le navigateur
-	 * @param string $disp
-	 */
-	function setDisposition($disp="attachment") {
-		$this->disposition = $disp;
+	function setFileReference($ref) {
+		$this->reference = $ref;
 	}
 	
+	/**
+	 * Affecte la disposition du fichier dans le navigateur
+	 *
+	 * @param string $disp        	
+	 */
+	function setDisposition($disp = "attachment") {
+		$this->disposition = $disp;
+	}
 }
 ?>

@@ -78,6 +78,13 @@ class ObjetBDD {
 	 * Exemple : $colonnes = array ( "Id"=> array ("type"=>1,"requis"=>1, "defaultValue"=>0),
 	 * "Nom" => array("longueur"=>20, "pattern"=>"#^[a-zA-Z]+$#", "requis"=>1),
 	 * "attributPere" => array("type"=>1, "parentAttrib"=>1, "requis"=>1);
+	 *
+	 * Types de donnees :
+	 * 0 : texte
+	 * 1 : numerique
+	 * 2 : date
+	 * 3 : datetime
+	 * 4 : champ geographique postgis
 	 */
 	public $colonnes;
 	/**
@@ -1693,6 +1700,33 @@ class ObjetBDD {
 		if ($this->toUTF8 == true)
 			$collection = $this->utf8Encode ( $collection );
 		return $collection;
+	}
+	/**
+	 * Fonction permettant d'ajouter un fichier binaire a un enregistrement
+	 * 
+	 * @param int $id
+	 *        	: cle de l'enregistrement
+	 * @param string $field
+	 *        	: nom de la colonne a mettre a jour
+	 * @param reference $ref
+	 *        	: reference du fichier ouvert
+	 * @throws Exception
+	 */
+	function updateBinaire($id, $field, $ref) {
+		if ($id > 0 && strlen ( $field ) > 0 && ! is_null ( $ref )) {
+			try {
+				$field = $this->encodeData ( $field );
+				$sql = "update $this->table
+				set $field = ?
+				where $this->cle = ?";
+				$stmt = $this->connection->prepare ( $sql );
+				$stmt->bindParam ( 1, $ref, PDO::PARAM_LOB );
+				$stmt->bindParam ( 2, $id );
+				$stmt->execute ();
+			} catch ( PDOException $pe ) {
+				throw new Exception ( $pe->getMessage () );
+			}
+		}
 	}
 }
 ?>

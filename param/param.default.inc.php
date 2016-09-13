@@ -100,7 +100,7 @@ $APPLI_modeDeveloppement = false;
 $APPLI_modeDeveloppementDroit = false;
 $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
-$APPLI_nomDossierStockagePhotoTemp = "temp";
+$APPLI_temp = "temp";
 $APPLI_titre = "Gestion des échantillons";
 /*
  * Emplacement de fop, programme externe utilise pour generer

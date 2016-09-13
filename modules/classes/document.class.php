@@ -180,9 +180,9 @@ class Document extends ObjetBDD {
 	function __construct($bdd, $param = null) {
 		$this->paramori = $param;
 		$this->param = $param;
-		global $APPLI_nomDossierStockagePhotoTemp;
-		if (strlen ( $APPLI_nomDossierStockagePhotoTemp ) > 0)
-			$this->temp = $APPLI_nomDossierStockagePhotoTemp;
+		global $APPLI_temp;
+		if (strlen ( $APPLI_temp ) > 0)
+			$this->temp = $APPLI_temp;
 		
 		$this->table = "document";
 		$this->id_auto = 1;

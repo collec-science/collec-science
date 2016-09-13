@@ -144,7 +144,7 @@ class Object extends ObjetBDD {
 				}
 			}
 			require_once 'plugins/phpqrcode/qrlib.php';
-			global $APPLI_code, $APPLI_nomDossierStockagePhotoTemp;
+			global $APPLI_code, $APPLI_temp;
 			/*
 			 * Recuperation des informations generales
 			 */
@@ -198,7 +198,7 @@ class Object extends ObjetBDD {
 				/*
 				 * Generation du qrcode
 				 */
-				$filename = $APPLI_nomDossierStockagePhotoTemp . '/' . $rowq ["uid"] . ".png";
+				$filename = $APPLI_temp . '/' . $rowq ["uid"] . ".png";
 				if (! file_exists ( $filename ))
 					QRcode::png ( json_encode ( $rowq ), $filename );
 				/*

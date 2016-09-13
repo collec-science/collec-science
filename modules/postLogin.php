@@ -10,15 +10,15 @@
 /*
  * Suppression des documents de plus de 24 heures dans le dossier temporaire
  */
-if (strlen ( $APPLI_nomDossierStockagePhotoTemp ) > 0) {
+if (strlen ( $APPLI_temp ) > 0) {
 	$dureeVie = 3600 * 24; // Suppression de tous les fichiers de plus de 24 heures
 	                       // $dureeVie = 30;
 	/*
 	 * Ouverture du dossier
 	 */
-	$dossier = opendir ( $APPLI_nomDossierStockagePhotoTemp );
+	$dossier = opendir ( $APPLI_temp );
 	while ( false !== ($entry = readdir ( $dossier )) ) {
-		$path = $APPLI_nomDossierStockagePhotoTemp . "/" . $entry;
+		$path = $APPLI_temp . "/" . $entry;
 		$file = fopen ( $path, 'r' );
 		$stat = fstat ( $file );
 		$atime = $stat ["atime"];

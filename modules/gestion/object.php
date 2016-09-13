@@ -51,12 +51,12 @@ switch ($t_module ["param"]) {
 				}
 				$doc->appendChild ( $objects );
 				if ($label_id > 0) {
-					$xmlfile = $APPLI_nomDossierStockagePhotoTemp . '/' . $xml_id . ".xml";
+					$xmlfile = $APPLI_temp . '/' . $xml_id . ".xml";
 					$doc->save ( $xmlfile );
 					/*
 					 * Recuperation du fichier xsl
 					 */
-					$xslfile = $APPLI_nomDossierStockagePhotoTemp . '/' . $label_id . ".xsl";
+					$xslfile = $APPLI_temp . '/' . $label_id . ".xsl";
 					if (! file_exists ( $xslfile )) {
 						require_once 'modules/classes/label.class.php';
 						$label = new Label ( $bdd, $ObjetBDDParam );
@@ -68,7 +68,7 @@ switch ($t_module ["param"]) {
 					/*
 					 * Generation de la commande de creation du fichier pdf
 					 */
-					$pdffile = $APPLI_nomDossierStockagePhotoTemp . '/' . $xml_id . ".pdf";
+					$pdffile = $APPLI_temp . '/' . $xml_id . ".pdf";
 					$command = $APPLI_fop . " -xsl $xslfile -xml $xmlfile -pdf $pdffile";
 					exec ( $command );
 					if (! file_exists ( $xmlfile )) {

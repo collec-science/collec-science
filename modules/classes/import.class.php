@@ -34,6 +34,7 @@ class Import {
 			"sample_identifier",
 			"project_id",
 			"sample_type_id",
+			"sample_status_id",
 			"sample_date",
 			"container_identifier",
 			"container_type_id",
@@ -157,6 +158,7 @@ class Import {
 				$dataSample = $values;
 				$dataSample ["sample_creation_date"] = $date;
 				$dataSample ["identifier"] = $values ["sample_identifier"];
+				$dataSample ["object_status_id"] = $values["sample_status_id"];
 				try {
 					$sample_uid = $this->sample->ecrire ( $dataSample );
 				} catch ( PDOException $pe ) {
@@ -170,6 +172,7 @@ class Import {
 			if (strlen ( $values ["container_identifier"] ) > 0) {
 				$dataContainer = $values;
 				$dataContainer ["identifier"] = $values ["container_identifier"];
+				$dataContainer ["object_status_id"] = $values["container_status_id"];
 				try {
 					$container_uid = $this->container->ecrire ( $dataContainer );
 				} catch ( PDOException $pe ) {

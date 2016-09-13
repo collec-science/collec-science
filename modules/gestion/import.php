@@ -24,8 +24,8 @@ $storage = new Storage ( $bdd, $ObjetBDDParam );
 $import->initClasses ( $sample, $container, $storage );
 $sampleType = new SampleType ( $bdd, $ObjetBDDParam );
 $containerType = new ContainerType ( $bdd, $ObjetBDDParam );
-$containerStatus = new ContainerStatus ( $bdd, $ObjetBDDParam );
-$import->initControl ( $_SESSION ["projects"], $sampleType->getList(), $containerType->getList(), $containerStatus->getList() );
+$objectStatus = new ObjectStatus( $bdd, $ObjetBDDParam );
+$import->initControl ( $_SESSION ["projects"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList() );
 /*
  * Traitement
  */
@@ -59,7 +59,7 @@ switch ($t_module ["param"]) {
 					/*
 					 * Deplacement du fichier dans le dossier temporaire
 					 */
-					$filename = $APPLI_nomDossierStockagePhotoTemp . '/' . bin2hex ( openssl_random_pseudo_bytes ( 4 ) );
+					$filename = $APPLI_temp . '/' . bin2hex ( openssl_random_pseudo_bytes ( 4 ) );
 					if (! copy ( $_FILES ['upfile'] ['tmp_name'], $filename )) {
 						$message->set(  "Impossible de recopier le fichier importé dans le dossier temporaire");
 					} else {

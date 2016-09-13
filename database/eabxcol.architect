@@ -1424,7 +1424,7 @@ Contient les identifiants génériques</remarks>
     <column id="COL410" populated="true" UUID="29b9945c-ae9f-4b34-bbfb-3a24369a9fcc" autoIncrement="false" autoIncrementSequenceName="sample_sample_id_seq" defaultValue="" name="sample_id" nullable="0" physicalName="sample_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL411" populated="true" UUID="d0b61a7d-c1cb-4816-aaaa-7e7112786085" autoIncrement="false" autoIncrementSequenceName="sample_metadata_data_seq" defaultValue="" name="data" nullable="0" physicalName="data" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1111" userDefinedTypeUUID="d9e42a14-4d15-4b55-b176-ecbba383bbdd" >
+    <column id="COL411" populated="true" UUID="d0b61a7d-c1cb-4816-aaaa-7e7112786085" autoIncrement="false" autoIncrementSequenceName="sample_metadata_data_seq" defaultValue="" name="data" nullable="0" physicalName="data" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Champ JSONB pour stockage des données spécifiques de l&apos;échantillon</remarks>
     </column>
     </folder>

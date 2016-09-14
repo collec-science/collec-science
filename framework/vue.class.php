@@ -55,7 +55,7 @@ class Message {
 			$tableau =  array_merge($this->message, $this->syslog);
 		} else 
 			$tableau = $this->message;
-		foreach ( $this->tableau as $value ) {
+		foreach ( $tableau as $value ) {
 			if ($i > 0)
 				$data .= "<br>";
 			$data .= htmlentities ( $value );

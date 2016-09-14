@@ -12,10 +12,13 @@ class SampleType extends ObjetBDD {
 	 * @param array $param
 	 */
 	private $sql = "select sample_type_id, sample_type_name, 
-					metadata_set_id, metadata_set_name, container_type_name
+					metadata_set_id, metadata_set_name, container_type_name,
+					operation_id, operation_name, protocol_name, protocol_year, protocol_version
 					from sample_type
 					left outer join metadata_set using (metadata_set_id)
 					left outer join container_type using (container_type_id)
+					left outer join operation using (operation_id)
+					left outer join protocol using (protocol_id)
 			";
 	function __construct($bdd, $param = array()) {
 		$this->table = "sample_type";
@@ -35,7 +38,8 @@ class SampleType extends ObjetBDD {
 				),
 				"metadata_set_id" => array(
 						"type"=>1
-				)
+				),
+				"operation_id" => array("type"=>1)
 		);
 		parent::__construct ( $bdd, $param );
 	}

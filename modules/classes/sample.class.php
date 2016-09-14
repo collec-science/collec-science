@@ -17,7 +17,8 @@ class Sample extends ObjetBDD {
 					so.identifier, so.wgs84_x, so.wgs84_y, 
 					so.object_status_id, object_status_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
-					container_type_name, clp_classification
+					container_type_name, clp_classification,
+					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join project p on (p.project_id = s.project_id)
@@ -26,6 +27,8 @@ class Sample extends ObjetBDD {
 					left outer join sample ps on (s.parent_sample_id = ps.sample_id)
 					left outer join object pso on (ps.uid = pso.uid)	
 					left outer join container_type ct using (container_type_id)
+					left outer join operation using (operation_id)
+					left outer join protocol using (protocol_id)
 					";
 	function __construct($bdd, $param = array()) {
 		$this->table = "sample";

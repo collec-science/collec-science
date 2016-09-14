@@ -1,7 +1,7 @@
 <navigation>
 	<model action="index.php" droits="gestion" retourko="model" retourlogin="1"
 		retourok="model" loginrequis="1" 
-		 param="param1" type="html|ajax" droitko="droitko" modulebefore="module1,module2">
+		 param="param1" type="html|ajax|pdf|csv" droitko="droitko" modulebefore="module1,module2">
 	</model>
 	<default action="framework/default.php" type="smarty" ></default>
 	<droitko action="framework/droitko.php" type="smarty" ></droitko>
@@ -157,6 +157,11 @@
 	<protocolWrite action="modules/param/protocol.php" param="write" droits="projet" retourok="protocolList" retourko="protocolChange" modulebefore="protocolChange" />
 	<protocolDelete action="modules/param/protocol.php" param="delete" droits="projet" retourok="protocolList" retourko="protocolChange"  modulebefore="protocolChange"/>
 	<protocolFile action="modules/param/protocol.php" param="file" droits="consult" type="pdf" retourko="protocolList"/>
+
+	<operationList action="modules/param/operation.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
+	<operationChange action="modules/param/operation.php" param="change" droits="projet"  retourlogin="1" type="smarty" />
+	<operationWrite action="modules/param/operation.php" param="write" droits="projet" retourok="operationList" retourko="operationChange" modulebefore="operationChange" />
+	<operationDelete action="modules/param/operation.php" param="delete" droits="projet" retourok="operationList" retourko="operationChange"  modulebefore="operationChange"/>
 	
 </navigation>
 	

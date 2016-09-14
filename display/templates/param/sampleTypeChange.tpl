@@ -27,6 +27,20 @@
 </div>
 </div>
 
+<div class="form-group">
+<label for="operation_id" class="control-label col-md-4">Protocole / opération :</label>
+<div class="col-md-8">
+<select id="operation_id" name="operation_id" class="form-control">
+<option value="" {if $data.operation_id == ""}selected{/if}>{$LANG.appli.2}</option>
+{section name=lst loop=$operation}
+<option value="{$operation[lst].operation_id}" {if $operation[lst].operation_id == $data.operation_id}selected{/if}>
+{$operation[lst].protocol_year} {$operation[lst].protocol_name} {$operation[lst].protocol_version} {$operation[lst].operation_name}
+</option>
+{/section}
+</select>
+</div>
+</div>
+
 
 <div class="form-group">
 <label for="metadata_set_id"  class="control-label col-md-4">Jeu de métadonnées : </label>

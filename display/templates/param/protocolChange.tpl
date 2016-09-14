@@ -18,26 +18,26 @@ $(document).ready(function () {
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="protocol_id" value="{$data.protocol_id}">
 <div class="form-group">
-<label for="protocolName"  class="control-protocol col-md-4">Nom du protocole<span class="red">*</span> :</label>
+<label for="protocolName"  class="control-label col-md-4">Nom du protocole<span class="red">*</span> :</label>
 <div class="col-md-8">
 <input id="protocolName" type="text" class="form-control" name="protocol_name" value="{$data.protocol_name}" autofocus required>
 </div>
 </div>
 
 <div class="form-group">
-<label for="protocolVersion"  class="control-protocol col-md-4">Version<span class="red">*</span> :</label>
+<label for="protocolVersion"  class="control-label col-md-4">Version<span class="red">*</span> :</label>
 <div class="col-md-8">
 <input id="protocolVersion" type="text" class="form-control" name="protocol_version" value="{$data.protocol_version}" required>
 </div>
 </div>
 <div class="form-group">
-<label for="protocolYear"  class="control-protocol col-md-4">Année :</label>
+<label for="protocolYear"  class="control-label col-md-4">Année :</label>
 <div class="col-md-8">
 <input id="protocolYear" class="form-control nombre" name="protocol_year" value="{$data.protocol_year}" >
 </div>
 </div>
 <div class="form-group">
-<label for="protocolFile"  class="control-protocol col-md-4">Fichier PDF de description :</label>
+<label for="protocolFile"  class="control-label col-md-4">Fichier PDF de description :</label>
 <div class="col-md-8">
 <input id="protocolFile" type="file" class="form-control" name="protocol_file">
 </div>

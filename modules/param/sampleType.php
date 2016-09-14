@@ -31,7 +31,9 @@ switch ($t_module["param"]) {
 		require_once 'modules/classes/containerType.class.php';
 		$containerType = new ContainerType($bdd, $ObjetBDDParam);
 		$vue->set($containerType->getListe("container_type_name"), "container_type");
-		
+		require_once 'modules/classes/operation.class.php';
+		$operation = new Operation($bdd, $ObjetBDDParam);
+		$vue->set($operation->getListe(), "operation");
 		break;
 	case "write":
 		/*

@@ -62,6 +62,13 @@ clp : {$data.clp_classification}
 {/if}
 </dd>
 </dl>
+{if $data.operation_id > 0}
+<dl class="dl-horizontal">
+<dt>Protocole et opération :</dt>
+<dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name}
+</dd>
+</dl>
+{/if}
 <dl class="dl-horizontal">
 <dt>Statut :</dt>
 <dd>{$data.object_status_name}</dd>

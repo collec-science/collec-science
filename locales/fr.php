@@ -76,7 +76,10 @@ $LANG["menu"][80] = "Étiquettes";
 $LANG["menu"][81] = "Modèles d'étiquettes";
 $LANG["menu"][82] = "Protocoles";
 $LANG["menu"][83] = "Liste des protocoles";
-$LANG["menu"][84] = "";
+$LANG["menu"][85] = "Opérations";
+$LANG["menu"][86] = "Liste des opérations rattachées à un protocole";
+$LANG["menu"][87] = "";
+$LANG["menu"][88] = "";
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";

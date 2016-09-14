@@ -19,14 +19,28 @@ class Message {
 	 * @var array
 	 */
 	private $message = array ();
+	private $syslog = array();
+	private $displaySyslog = false;
+	
+	function __construct($displaySyslog = false) {
+		$this->displaySyslog = $displaySyslog;
+	}
+	
 	function set($value) {
 		$this->message [] = $value;
+	}
+	
+	function setSyslog($value) {
+		$this->syslog[] = $value;
 	}
 	/**
 	 * Retourne le tableau brut
 	 */
 	function get() {
-		return $this->message;
+		if ($this->displaySyslog) {
+			return array_merge($this->message, $this->syslog);
+		} else 
+			return $this->message;
 	}
 	/**
 	 * Retourne le tableau formate avec saut de ligne entre
@@ -37,13 +51,29 @@ class Message {
 	function getAsHtml() {
 		$data = "";
 		$i = 0;
-		foreach ( $this->message as $value ) {
+		if ($this->displaySyslog) {
+			$tableau =  array_merge($this->message, $this->syslog);
+		} else 
+			$tableau = $this->message;
+		foreach ( $this->tableau as $value ) {
 			if ($i > 0)
 				$data .= "<br>";
 			$data .= htmlentities ( $value );
 			$i ++;
 		}
 		return $data;
+	}
+	function sendSyslog() {
+		global $APPLI_code;
+		$dt = new DateTime();
+		$date = $dt->format("D M d H:i:s.u Y");
+		$pid = getmypid();
+		$code_error = "err";
+		$level = "notice";
+		foreach ($this->syslog as $value) {
+		openlog("[$date] [$APPLI_code:$level] [pid $pid] $code_error",LOG_PERROR , LOG_LOCAL7);
+		syslog(LOG_NOTICE, $value);
+		}
 	}
 }
 /**

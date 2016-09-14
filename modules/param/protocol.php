@@ -39,10 +39,8 @@ switch ($t_module ["param"]) {
 				} catch ( FileException $fe ) {
 					$message->set ( $fe->getMessage () );
 				} catch ( Exception $e ) {
-					if ($ERROR_display == 1) {
-						$message->set ( $e->getMessage () );
-					} else
-						$message->set ( "impossible d'enregistrer la pièce jointe" );
+					$message->setSyslog ( $e->getMessage () );
+					$message->set ( "impossible d'enregistrer la pièce jointe" );
 				}
 			}
 			$_REQUEST [$keyName] = $id;
@@ -57,7 +55,7 @@ switch ($t_module ["param"]) {
 	case "file" :
 		$ref = $dataClass->getProtocolFile ( $id );
 		if (! is_null ( $ref )) {
-			$vue->setDisposition("inline");
+			$vue->setDisposition ( "inline" );
 			$vue->setFileReference ( $ref );
 		} else {
 			$module_coderetour = - 1;

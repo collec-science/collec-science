@@ -120,8 +120,7 @@ while ( isset ( $module ) ) {
 								}
 							}
 						} catch ( Exception $e ) {
-							if ($ERROR_display == 1 )
-								$message->set ( $e->getMessage () );
+							$message->setSyslog( $e->getMessage () );
 							/*
 							 * Verification de l'identification uniquement en base de donnees
 							 */
@@ -250,8 +249,7 @@ while ( isset ( $module ) ) {
 			$message->set ( $log->getErrorData ( 1 ) );
 		} else
 			$message->set ( $LANG ["message"] [38] );
-		if ($ERROR_display == 1)
-			$message->set ( $e->getMessage () );
+			$message->setSyslog( $e->getMessage () );
 	}
 	
 	/*
@@ -346,6 +344,10 @@ if ($isHtml) {
  */
 if (isset ( $vue ))
 	$vue->send ( $paramSend );
+/**
+ * Generation des messages d'erreur pour Syslog
+ */
+$message->sendSyslog();
 /**
  * Fin de traitement
  */

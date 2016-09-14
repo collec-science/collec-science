@@ -14,7 +14,7 @@
  * @return array
  */
 function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
-	global $vue, $OBJETBDD_debugmode, $ERROR_display, $message;
+	global $vue, $OBJETBDD_debugmode, $message;
 	if (isset ( $vue )) {
 		if (is_numeric ( $id )) {
 			if ($id > 0) {
@@ -25,8 +25,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
 						$message->set ( $dataClass->getErrorData ( 1 ) );
 					} else
 						$message->set ( $LANG ["message"] [37] );
-					if ($ERROR_display == 1)
-						$message->set ( $e->getMessage () );
+						$message->setSyslog( $e->getMessage () );
 				}
 				/*
 				 * Gestion des valeurs par defaut
@@ -57,7 +56,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
  * @return int
  */
 function dataWrite($dataClass, $data) {
-	global $message, $LANG, $module_coderetour, $log, $OBJETBDD_debugmode, $ERROR_display;
+	global $message, $LANG, $module_coderetour, $log, $OBJETBDD_debugmode;
 	try {
 		$id = $dataClass->ecrire ( $data );
 		$message->set ( $LANG ["message"] [5] );
@@ -68,8 +67,7 @@ function dataWrite($dataClass, $data) {
 			$message->set ( $dataClass->getErrorData ( 1 ) );
 		} else
 			$message->set ( $LANG ["message"] [12] );
-		if ($ERROR_display == 1)
-			$message->set ( $e->getMessage () );
+			$message->setSyslog( $e->getMessage () );
 		$module_coderetour = - 1;
 	}
 	return ($id);
@@ -82,7 +80,7 @@ function dataWrite($dataClass, $data) {
  * @return int
  */
 function dataDelete($dataClass, $id) {
-	global $message, $LANG, $module_coderetour, $log, $OBJETBDD_debugmode, $ERROR_display;
+	global $message, $LANG, $module_coderetour, $log, $OBJETBDD_debugmode;
 	$module_coderetour = - 1;
 	$ok = true;
 	if (is_array ( $id )) {
@@ -105,8 +103,7 @@ function dataDelete($dataClass, $id) {
 				$message->set ( $dataClass->getErrorData ( 1 ) );
 			} else
 				$message->set ( $LANG ["message"] [13] );
-			if ($ERROR_display == 1)
-				$message->set ( $e->getMessage () );
+				$message->setSyslog( $e->getMessage () );
 			$ret = - 1;
 		}
 	} else

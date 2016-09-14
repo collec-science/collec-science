@@ -107,7 +107,8 @@ if (is_file ( $paramIniFile )) {
  * instanciation des messages
  */
 require_once 'framework/vue.class.php';
-$message = new Message ();
+$ERROR_display == 1 ? $displaySyslog = true : $displaySyslog = false;
+$message = new Message ($displaySyslog);
 
 /*
  * Lancement de l'identification

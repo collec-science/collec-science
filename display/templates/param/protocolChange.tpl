@@ -1,3 +1,13 @@
+<script>
+$(document).ready(function () { 
+	$("#spinner").hide();
+	$("#protocolForm").submit( function (event) {
+		$("#spinner").show();
+	});
+	
+});
+</script>
+
 <h2>Modification d'un protocole</h2>
 <div class="row">
 <div class="col-md-6">
@@ -38,6 +48,7 @@
       {if $data.protocol_id > 0 }
       <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
       {/if}
+      <img id="spinner" src="display/images/spinner.gif" height="25" >
  </div>
 </form>
 </div>

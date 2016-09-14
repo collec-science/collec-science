@@ -29,9 +29,12 @@
 </td>
 <td class="center">{$data[lst].protocol_version}</td>
 <td class="center">{$data[lst].protocol_year}</td>
-<td class="center"><a href="index.php?module=protocolFile&protocol_id={$data[lst].protocol_id}">
+<td class="center">
+{if $data[lst].has_file == 1}
+<a href="index.php?module=protocolFile&protocol_id={$data[lst].protocol_id}">
 <img src="display/images/pdf.png" height="25">
 </a>
+{/if}
 </td>
 </tr>
 {/section}

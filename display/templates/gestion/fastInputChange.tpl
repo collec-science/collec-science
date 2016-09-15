@@ -11,10 +11,10 @@
 
 
 <div class="form-group">
-<label for="container_groupe" class="control-label col-sm-4">UID du conteneur<span class="red">*</span> :</label>
+<label for="container_uid" class="control-label col-sm-4">UID du conteneur<span class="red">*</span> :</label>
 <div class="col-sm-8" id="container_groupe">
 <div class="col-sm-3">
-<input id="container_uid" type="text" name="container_uid"  value="{$container_uid}" class="form-control" autocomplete="off" {if strlen($container_uid) == 0}autofocus{/if}>
+<input id="container_uid" type="text" name="container_uid" required value="{$container_uid}" class="form-control" autocomplete="off" {if strlen($container_uid) == 0}autofocus{/if}>
 </div>
 <div class="col-sm-3 col-sm-offset-1">
 <button type="button" id="container_search" class="btn btn-default">Chercher...</button>
@@ -29,7 +29,7 @@
 <label for="object_uid" class="control-label col-sm-4">UID de l'objet<span class="red">*</span> :</label>
 <div class="col-sm-8" id="object_groupe">
 <div class="col-sm-3">
-<input id="object_uid" type="text" name="object_uid"  value="" class="form-control"{if strlen($container_uid) > 0}autofocus{/if} autocomplete="off" >
+<input id="object_uid" type="text" name="object_uid" required value="" class="form-control" {if strlen($container_uid) > 0} autofocus {/if} autocomplete="off" >
 </div>
 <div class="col-sm-3 col-sm-offset-1">
 <button type="button" id="object_search" class="btn btn-default">Chercher...</button>

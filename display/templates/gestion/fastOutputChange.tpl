@@ -18,7 +18,7 @@
 				<div class="col-sm-8" id="object_groupe">
 					<div class="col-sm-3">
 						<input id="object_uid" type="text" name="object_uid" value=""
-							class="form-control" autofocus autocomplete="off">
+							class="form-control" required autofocus autocomplete="off">
 					</div>
 					<div class="col-sm-3 col-sm-offset-1">
 						<button type="button" id="object_search" class="btn btn-default">Chercher...</button>

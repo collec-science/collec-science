@@ -41,7 +41,6 @@
 </div>
 </div>
 
-
 <div class="form-group">
 <label for="metadata_set_id"  class="control-label col-md-4">Jeu de métadonnées : </label>
 <div id="is_container"class="col-md-8" >
@@ -57,6 +56,32 @@
 </select>
 </div>
 </div>
+
+
+<fieldset>
+<legend>Sous-échantillonnage</legend>
+
+<div class="form-group">
+<label for="multiple_type_id" class="control-label col-md-4">Nature :</label>
+<div class="col-md-8">
+<select id="multiple_type_id" name="multiple_type_id" class="form-control">
+<option value="" {if $data.multiple_type_id == ""}selected{/if}>{$LANG.appli.2}</option>
+{section name=lst loop=$multiple_type}
+<option value="{$multiple_type[lst].multiple_type_id}" {if $multiple_type[lst].multiple_type_id == $data.multiple_type_id}selected{/if}>
+{$multiple_type[lst].multiple_type_name}
+</option>
+{/section}
+</select>
+</div>
+</div>
+<div class="form-group">
+<label for="multiple_unit"  class="control-label col-md-4">Unité de base :</label>
+<div class="col-md-8">
+<input id="multiple_unit" type="text" class="form-control" name="multiple_unit" value="{$data.multiple_unit}" placeholder="écaille, mètre, cm3..."></div>
+</div>
+
+</fieldset>
+
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
       {if $data.sample_type_id > 0 }

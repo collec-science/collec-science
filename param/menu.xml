@@ -21,6 +21,7 @@
 	<item module="containerTypeList" droits="consult" value="58" title="59" />
 	<item module="objectStatusList" droits="consult" value="62" title="63" />
 	<item module="sampleTypeList" droits="consult" value="66" title="67" />
+	<item module="multipleTypeList" droits="consult" value="87" title="88" />
 	<item module="labelList" droits="param" value="80" title="81" />
 		
 </item>

@@ -17,30 +17,23 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
 	global $vue, $OBJETBDD_debugmode, $message;
 	if (isset ( $vue )) {
 		if (is_numeric ( $id )) {
-			if ($id > 0) {
-				try {
-					$data = $dataClass->lire ( $id );
-				} catch ( Exception $e ) {
-					if ($OBJETBDD_debugmode > 0) {
-						$message->set ( $dataClass->getErrorData ( 1 ) );
-					} else
-						$message->set ( $LANG ["message"] [37] );
-						$message->setSyslog( $e->getMessage () );
-				}
-				/*
-				 * Gestion des valeurs par defaut
-				 */
-			} else {
-				if (is_numeric ( $idParent ) || $idParent == null)
-					$data = $dataClass->getDefaultValue ( $idParent );
+			
+			try {
+				$data = $dataClass->lire ( $id, true, $idParent );
+			} catch ( Exception $e ) {
+				if ($OBJETBDD_debugmode > 0) {
+					$message->set ( $dataClass->getErrorData ( 1 ) );
+				} else
+					$message->set ( $LANG ["message"] [37] );
+				$message->setSyslog ( $e->getMessage () );
 			}
-			/*
-			 * Affectation des donnees a smarty
-			 */
-			$vue->set ( $data, "data" );
-			$vue->set ( $smartyPage, "corps" );
-			return $data;
 		}
+		/*
+		 * Affectation des donnees a smarty
+		 */
+		$vue->set ( $data, "data" );
+		$vue->set ( $smartyPage, "corps" );
+		return $data;
 	} else {
 		global $module;
 		$message->set ( "Error : vue type not defined for the requested module ($module)" );
@@ -67,7 +60,7 @@ function dataWrite($dataClass, $data) {
 			$message->set ( $dataClass->getErrorData ( 1 ) );
 		} else
 			$message->set ( $LANG ["message"] [12] );
-			$message->setSyslog( $e->getMessage () );
+		$message->setSyslog ( $e->getMessage () );
 		$module_coderetour = - 1;
 	}
 	return ($id);
@@ -103,7 +96,7 @@ function dataDelete($dataClass, $id) {
 				$message->set ( $dataClass->getErrorData ( 1 ) );
 			} else
 				$message->set ( $LANG ["message"] [13] );
-				$message->setSyslog( $e->getMessage () );
+			$message->setSyslog ( $e->getMessage () );
 			$ret = - 1;
 		}
 	} else
@@ -204,7 +197,8 @@ function getIPClientAddress() {
 }
 /**
  * Fonction recursive decodant le html en retour de navigateur
- * @param array|string $data
+ * 
+ * @param array|string $data        	
  * @return array|string
  */
 function htmlDecode($data) {

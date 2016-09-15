@@ -13,6 +13,7 @@
 <th>Id</th>
 <th>Type de conteneur</th>
 <th>Protocole / operation</th>
+<th>Sous-échantillonnage</th>
 <th>Jeu de métadonnées</th>
 </tr>
 </thead>
@@ -32,6 +33,11 @@
 <td>{$data[lst].container_type_name}</td>
 <td>
 {$data[lst].protocol_year} {$data[lst].protocol_name} {$data[lst].protocol_version} {$data[lst].operation_name}
+</td>
+<td>
+{if $data[lst].multiple_type_id > 0}
+{$data[lst].multiple_type_name} : {$data[lst].multiple_unit}
+{/if}
 </td>
 <td>
 {if $data[lst].metadata_set_id > 0}

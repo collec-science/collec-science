@@ -14,6 +14,7 @@ class Sample extends ObjetBDD {
 	private $sql = "select s.sample_id, s.uid,
 					s.project_id, project_name, s.sample_type_id,
 					sample_type_name, s.sample_creation_date, s.sample_date, s.parent_sample_id,
+					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
 					so.identifier, so.wgs84_x, so.wgs84_y, 
 					so.object_status_id, object_status_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
@@ -29,6 +30,7 @@ class Sample extends ObjetBDD {
 					left outer join container_type ct using (container_type_id)
 					left outer join operation using (operation_id)
 					left outer join protocol using (protocol_id)
+					left outer join multiple_type mt on (st.multiple_type_id = mt.multiple_type_id)
 					";
 	function __construct($bdd, $param = array()) {
 		$this->table = "sample";
@@ -64,7 +66,8 @@ class Sample extends ObjetBDD {
 				"sample_date" => array (
 						"type" => 2,
 						"defaultValue" => "getDateJour" 
-				) 
+				),
+				"multiple_value" => array("type"=>1)
 		);
 		parent::__construct ( $bdd, $param );
 	}
@@ -85,6 +88,12 @@ class Sample extends ObjetBDD {
 			$retour = parent::getDefaultValue ( $parentValue );
 		}
 		return $retour;
+	}
+	
+	function lireFromId($sample_id) {
+		$sql = $this->sql . " where s.sample_id = :sample_id";
+		$data ["sample_id"] = $sample_id;
+		return parent::lireParamAsPrepared ( $sql, $data );
 	}
 	
 	/**

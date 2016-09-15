@@ -35,9 +35,13 @@ Nouvel échantillon
 <a href="#bookings">
 <img src="display/images/crossed-calendar.png" height="25">Réservations
 </a>
+{if $data.multiple_type_id > 0}
+<a href="#subsample">
+<img src="display/images/subsample.png" height="25">Sous-échantillonnage
+</a>
+{/if}
 
 <div class="row">
-
 <fieldset class="col-md-4">
 <legend>Informations générales</legend>
 <div class="form-display">
@@ -81,6 +85,12 @@ clp : {$data.clp_classification}
 <dt title="Date d'import dans la base de données">Date d'import dans la base de données :</dt>
 <dd>{$data.sample_creation_date}</dd>
 </dl>
+{if $data.multiple_type_id > 0}
+<dl class="dl-horizontal">
+<dt title="Quantité de sous-échantillons ({$data.multiple_unit})">Qté de sous-échantillons ({$data.multiple_unit}) : </dt>
+<dd>{$data.multiple_value}</dd>
+</dl>
+{/if}
 {if $data.parent_uid > 0}
 <dl class="dl-horizontal">
 <dt title="Échantillon parent">Échantillon parent :</dt>
@@ -155,3 +165,10 @@ Nouvel échantillon rattaché...
 </fieldset>
 </div>
 </div>
+
+{if $data.multiple_type_id > 0}
+<fieldset class="col-md-12" id="subsample">
+<legend>Sous-échantillons</legend>
+{include file="gestion/subsampleList.tpl"}
+</fieldset>
+{/if}

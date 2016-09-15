@@ -1,13 +1,13 @@
 <?php
 /**
- * Created : 24 juin 2016
+ * Created : 15 sept. 2016
  * Creator : quinton
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-include_once 'modules/classes/event.class.php';
-$dataClass = new Event($bdd,$ObjetBDDParam);
-$keyName = "event_id";
+include_once 'modules/classes/subsample.class.php';
+$dataClass = new Subsample($bdd,$ObjetBDDParam);
+$keyName = "subsample_id";
 $id = $_REQUEST[$keyName];
 switch ($t_module["param"]) {
 	case "change":
@@ -16,14 +16,8 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		dataRead($dataClass, $id, "gestion/eventChange.tpl", $_REQUEST["uid"]);
+		dataRead($dataClass, $id, "gestion/subsampleChange.tpl", $_REQUEST["sample_id"]);
 		$vue->set($_SESSION["moduleParent"],"moduleParent");
-		/*
-		 * Recherche des types d'evenement
-		 */
-		require_once 'modules/classes/eventType.class.php';
-		$eventType = new EventType($bdd, $ObjetBDDParam);
-		$vue->set($eventType->getListeFromCategory($_SESSION["moduleParent"]), "eventType");
 		/*
 		 * Lecture de l'object concerne
 		 */

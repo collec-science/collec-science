@@ -70,7 +70,10 @@ Retour à la liste des échantillons
 <select id="sample_type_id" name="sample_type_id" class="form-control">
 {section name=lst loop=$sample_type}
 <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $data.sample_type_id}selected{/if}>
-{$sample_type[lst].sample_type_name}
+{$sample_type[lst].sample_type_name} 
+{if $sample_type[lst].multiple_type_id > 0}
+/{$sample_type[lst].multiple_type_name} : {$sample_type[lst].multiple_unit}
+{/if}
 </option>
 {/section}
 </select>
@@ -88,7 +91,15 @@ Retour à la liste des échantillons
 <div class="col-md-8">
 <input id="sample_creation_date" class="form-control" name="sample_creation_date" readonly value="{$data.sample_date}"></div>
 </div>
-
+<fieldset>
+<legend>Sous-échantillonnage (si le type le permet)</legend>
+<div class="form-group">
+<label for="multiple_value"  class="control-label col-md-4">
+Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.multiple_unit}) :</label>
+<div class="col-md-8">
+<input id="multiple_value" class="form-control taux" name="multiple_value" value="{$data.multiple_value}"></div>
+</div>
+</fieldset>
 
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>

@@ -67,6 +67,14 @@ switch ($t_module ["param"]) {
 		$booking = new Booking($bdd, $ObjetBDDParam);
 		$vue->set($booking->getListFromParent($data["uid"],'date_from desc'), "bookings");
 		/*
+		 * Recuperation des sous-echantillonnages
+		 */
+		if ($data["multiple_type_id"] > 0) {
+			require_once 'modules/classes/subsample.class.php';
+			$subSample = new Subsample($bdd, $ObjetBDDParam);
+			$vue->set($subSample->getListFromParent($data["sample_id"], "subsample_date desc"), "subsample");
+		}
+		/*
 		 * Verification que l'echantillon peut etre modifie
 		 */
 		$is_modifiable = $dataClass->verifyProject ( $data );

@@ -34,6 +34,9 @@ switch ($t_module["param"]) {
 		require_once 'modules/classes/operation.class.php';
 		$operation = new Operation($bdd, $ObjetBDDParam);
 		$vue->set($operation->getListe(), "operation");
+		require_once 'modules/classes/multipleType.class.php';
+		$multipleType = new MultipleType($bdd, $ObjetBDDParam);
+		$vue->set($multipleType->getListe(1), "multiple_type");
 		break;
 	case "write":
 		/*

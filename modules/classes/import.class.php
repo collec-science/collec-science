@@ -36,12 +36,16 @@ class Import {
 			"sample_type_id",
 			"sample_status_id",
 			"sample_date",
+			"sample_multiple_value",
 			"container_identifier",
 			"container_type_id",
 			"container_status_id",
 			"sample_range",
 			"container_parent_uid",
 			"container_range" 
+	);
+	private $colnum = array (
+			"sample_multiple_value" 
 	);
 	private $handle;
 	private $fileColumn = array ();
@@ -158,7 +162,8 @@ class Import {
 				$dataSample = $values;
 				$dataSample ["sample_creation_date"] = $date;
 				$dataSample ["identifier"] = $values ["sample_identifier"];
-				$dataSample ["object_status_id"] = $values["sample_status_id"];
+				$dataSample ["object_status_id"] = $values ["sample_status_id"];
+				$dataSample["multiple_value"] = $values["sample_multiple_value"];
 				try {
 					$sample_uid = $this->sample->ecrire ( $dataSample );
 				} catch ( PDOException $pe ) {
@@ -172,7 +177,7 @@ class Import {
 			if (strlen ( $values ["container_identifier"] ) > 0) {
 				$dataContainer = $values;
 				$dataContainer ["identifier"] = $values ["container_identifier"];
-				$dataContainer ["object_status_id"] = $values["container_status_id"];
+				$dataContainer ["object_status_id"] = $values ["container_status_id"];
 				try {
 					$container_uid = $this->container->ecrire ( $dataContainer );
 				} catch ( PDOException $pe ) {
@@ -339,6 +344,17 @@ class Import {
 				if (! $container_id > 0) {
 					$retour ["code"] = false;
 					$retour ["message"] .= "L'UID du conteneur parent n'existe pas. ";
+				}
+			}
+		}
+		/*
+		 * Verification des champs numeriques
+		 */
+		foreach ( $this->colnum as $key ) {
+			if (strlen ( $data [$key] ) > 0) {
+				if (! is_numeric ( $data [$key] )) {
+					$retour ["code"] = false;
+					$retour ["message"] .= "Le champ $key n'est pas numérique. ";
 				}
 			}
 		}

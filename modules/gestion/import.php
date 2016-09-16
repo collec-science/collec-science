@@ -86,6 +86,8 @@ switch ($t_module ["param"]) {
 					$import->initFile ( $_SESSION ["filename"], $_SESSION["separator"], $_SESSION["utf8_encode"] );
 					$import->importAll();
 					$message->set(  "Import effectué. ". $import->nbTreated . " lignes traitées");
+					$message->set ("Premier UID généré : ".$import->minuid);
+					$message->set ("Dernier UID généré : ". $import->maxuid);
 					$module_coderetour = 1;
 				} catch ( Exception $e ) {
 					$message->set(  $e->getMessage ());

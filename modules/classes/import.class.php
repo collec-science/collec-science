@@ -53,10 +53,11 @@ class Import {
 	private $project = array ();
 	private $sample_type = array ();
 	private $container_type = array ();
-	private $container_status = array ();
+	private $object_status = array ();
 	private $sample;
 	private $container;
 	private $storage;
+	public $minuid, $maxuid;
 	
 	/**
 	 * Initialise la lecture du fichier, et lit la ligne d'entete
@@ -141,6 +142,8 @@ class Import {
 	function importAll() {
 		$date = date ( 'd/m/Y H:i:s' );
 		$num = 1;
+		$maxuid = 0;
+		$minuid = 99999999;
 		while ( ($data = $this->readLine ()) !== false ) {
 			/*
 			 * Preparation du tableau
@@ -163,9 +166,18 @@ class Import {
 				$dataSample ["sample_creation_date"] = $date;
 				$dataSample ["identifier"] = $values ["sample_identifier"];
 				$dataSample ["object_status_id"] = $values ["sample_status_id"];
+				if (!$dataSample["object_status_id"] > 0)
+					$dataSample["object_status_id"] = 1;
 				$dataSample["multiple_value"] = $values["sample_multiple_value"];
 				try {
 					$sample_uid = $this->sample->ecrire ( $dataSample );
+					/*
+					 * Mise a jour des bornes de l'uid
+					 */
+					if ($sample_uid < $minuid)
+						$minuid = $sample_uid;
+					if ($sample_uid > $maxuid)
+						$maxuid = $sample_uid;
 				} catch ( PDOException $pe ) {
 					throw new ImportException ( "Line $num : error when import sample<br>" . $pe->getMessage () );
 				}
@@ -178,8 +190,17 @@ class Import {
 				$dataContainer = $values;
 				$dataContainer ["identifier"] = $values ["container_identifier"];
 				$dataContainer ["object_status_id"] = $values ["container_status_id"];
+				if (!$dataContainer["object_status_id"] > 0)
+					$dataContainer["object_status_id"] = 1;
 				try {
 					$container_uid = $this->container->ecrire ( $dataContainer );
+					/*
+					 * Mise a jour des bornes de l'uid
+					 */
+					if ($container_uid < $minuid)
+						$minuid = $container_uid;
+						if ($container_uid > $maxuid)
+							$maxuid = $container_uid;
 				} catch ( PDOException $pe ) {
 					throw new ImportException ( "Line $num : error when import container<br>" . $pe->getMessage () );
 				}
@@ -206,6 +227,8 @@ class Import {
 			}
 			$this->nbTreated ++;
 		}
+		$this->minuid = $minuid;
+		$this->maxuid = $maxuid;
 	}
 	/**
 	 * Reecrit une ligne, en placant les bonnes valeurs en fonction de l'entete
@@ -228,11 +251,11 @@ class Import {
 	 * @param array $container_type        	
 	 * @param array $container_status        	
 	 */
-	function initControl($project, $sample_type, $container_type, $container_status) {
+	function initControl($project, $sample_type, $container_type, $object_status) {
 		$this->project = $project;
 		$this->sample_type = $sample_type;
 		$this->container_type = $container_type;
-		$this->container_status = $container_status;
+		$this->object_status = $object_status;
 	}
 	/**
 	 * Declenche le controle pour toutes les lignes
@@ -300,6 +323,23 @@ class Import {
 				$retour ["code"] = false;
 				$retour ["message"] .= "Le type d'échantillon n'est pas connu. ";
 			}
+			/*
+			 * Verification du statut
+			 */
+			$ok = false ;
+			if ($data["sample_status_id"] > 0) {
+				foreach ($this->object_status as $value) {
+					if ($data["sample_status_id"] == $value["object_status_id"]) {
+						$ok = true;
+						break;
+					}
+				}
+				if ($ok == false) {
+					$retour ["code"] = false;
+					$retour ["message"] .= "Le statut de l'échantillon n'est pas connu. ";
+				}
+			}
+			
 		}
 		/*
 		 * Traitement du container
@@ -325,8 +365,8 @@ class Import {
 			 */
 			if (strlen ( $data ["container_status_id"] ) > 0) {
 				$ok = false;
-				foreach ( $this->container_status as $value ) {
-					if ($data ["container_status_id"] == $value ["container_status_id"]) {
+				foreach ( $this->object_status as $value ) {
+					if ($data ["container_status_id"] == $value ["object_status_id"]) {
 						$ok = true;
 						break;
 					}

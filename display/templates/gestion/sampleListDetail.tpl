@@ -9,6 +9,10 @@ $(document).ready(function () {
 		} 
 		$("#lchek").text(libelle);
 	});
+	$("#spinner").hide();
+	$("#formListPrint").submit( function (event) {
+		$("#spinner").show();
+	});
 });
 </script>
 {if $droits.gestion == 1}
@@ -19,6 +23,7 @@ $(document).ready(function () {
 <label id="lcheck" for="check">Tout décocher</label>
 <input type="checkbox" id="check" checked>
 <button type="submit" class="btn">Fichier pour étiquettes</button>
+<img id="spinner" src="display/images/spinner.gif" height="25" >
 </div>
 </div>
 {/if}

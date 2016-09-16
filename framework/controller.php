@@ -342,8 +342,13 @@ if ($isHtml) {
 /**
  * Declenchement de l'envoi vers le navigateur
  */
-if (isset ( $vue ))
-	$vue->send ( $paramSend );
+if (isset ( $vue )) {
+	try {
+		$vue->send ( $paramSend );
+	} catch (Exception $e) {
+		$message->setSyslog($e->getMessage());
+	}
+}
 /**
  * Generation des messages d'erreur pour Syslog
  */

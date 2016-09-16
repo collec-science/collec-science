@@ -243,7 +243,7 @@ while ( isset ( $module ) ) {
 	 * Enregistrement de l'acces au module
 	 */
 	try {
-		$log->setLog ( $_SESSION ["login"], $moduleRequested, $motifErreur );
+		$log->setLog ( $_SESSION ["login"], $module, $motifErreur );
 	} catch ( Exception $e ) {
 		if ($OBJETBDD_debugmode > 0) {
 			$message->set ( $log->getErrorData ( 1 ) );

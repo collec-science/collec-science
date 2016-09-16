@@ -50,7 +50,7 @@ $(document).ready(function () {
 </a>
 </td>
 <td >
-{$containers[lst].container_status_name}
+{$containers[lst].object_status_name}
 </td>
 <td>
 {$containers[lst].container_family_name}/

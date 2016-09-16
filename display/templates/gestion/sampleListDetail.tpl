@@ -29,6 +29,7 @@ $(document).ready(function () {
 <th>Identifiant ou nom</th>
 <th>Projet</th>
 <th>Type</th>
+<th>Statut</th>
 <th>Date</th>
 <th>Date de création dans la base</th>
 {if $droits.gestion == 1}
@@ -51,6 +52,7 @@ $(document).ready(function () {
 </td>
 <td>{$samples[lst].project_name}</td>
 <td>{$samples[lst].sample_type_name}</td>
+<td>{$samples[lst].object_status_name}</td>
 <td>{$samples[lst].sample_date}</td>
 <td>{$samples[lst].sample_creation_date}</td>
 {if $droits.gestion == 1}

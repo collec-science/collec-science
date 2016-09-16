@@ -252,7 +252,7 @@ class Container extends ObjetBDD {
 		}
 		
 		if ($param ["uid_max"] > 0 && $param ["uid_max"] >= $param ["uid_min"]) {
-			$where .= $and . "uid between :uid_min and :uid_max";
+			$where .= $and . " uid between :uid_min and :uid_max";
 			$and = " and ";
 			$data ["uid_min"] = $param ["uid_min"];
 			$data ["uid_max"] = $param ["uid_max"];

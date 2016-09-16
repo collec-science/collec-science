@@ -1,5 +1,21 @@
 News
 ===========
+Version 0.5 du 16 septembre 2016
+-------------------------------
+Nouvelles fonctionnalités :
+- ajout de la génération des étiquettes avec QRCODE, et modification de la lecture optique pour prendre en compte le format JSON
+- lors de la lecture d'un QRCODE, vérification que l'UID est bien rattaché à la base de données courante 
+- ajout de la saisie des protocoles et des opérations associées. Un type d'échantillon peut être rattaché à une opération
+- il est maintenant possible de définir qu'un type d'échantillon accepte le sous-échantillonnage (multiples écailles indifférenciées dans un sachet, p. e., ou volume, longueur...). Il est possible d'indiquer les sorties et entrées des sous-échantillons
+- modifications diverses du framework (génération des enregistrements Syslog, simplification des codes de retour des modules, gestion correcte du stockage et de la lecture des fichiers binaires...)
+
+Corrections de bogues :
+- reformatage du menu pour mieux gérer les terminaux de petite taille
+- corrections multiples dans l'import de masse
+- la sélection par fourchette d'uid ne fonctionnait pas
+- l'affichage des listes de containers et échantillons n'intégrait pas correctement le statut
+- les zones UID sont maintenant obligatoires pour valider les formulaires d'entrée ou sortie rapide
+
 Version 0.4 du 2 septembre 2016
 -------------------------------
 Nouvelles fonctionnalités :

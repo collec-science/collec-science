@@ -43,6 +43,7 @@ $moduleRequested = $module;
  * Gestion des modules
  */
 $isHtml = false;
+$isAjax = false;
 while ( isset ( $module ) ) {
 	/*
 	 * Recuperation du tableau contenant les attributs du module
@@ -57,12 +58,19 @@ while ( isset ( $module ) ) {
 		switch ($t_module ["type"]) {
 			case "ajax" :
 				$vue = new VueAjaxJson ();
+				$isAjax = true;
 				break;
 			case "csv" :
 				$vue = new VueCsv ();
+				$isAjax = true;
 				break;
 			case "pdf":
 				$vue = new VuePdf();
+				$isAjax = true;
+				break;
+			case "binaire":
+				$vue = new vueBinaire();
+				$isAjax = true;
 				break;
 			case "smarty" :
 			case "html" :
@@ -255,7 +263,7 @@ while ( isset ( $module ) ) {
 	/*
 	 * fin d'analyse du module
 	 */
-	if ($t_module ["type"] != "ajax")
+	if (! $isAjax)
 		$_SESSION ["moduleBefore"] = $module;
 	unset ( $module_coderetour );
 	

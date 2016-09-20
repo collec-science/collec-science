@@ -172,7 +172,11 @@
 	<subsampleWrite action="modules/gestion/subsample.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange" />
 	<subsampleDelete action="modules/gestion/subsample.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange"/>
 
-	
+	<containerdocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="containerDisplay" />
+	<containerdocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="containerDisplay" />
+	<sampledocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
+	<sampledocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
+	<documentGet action="modules/gestion/document.php" param="get" type="binaire" droits="consult"/>	
 	
 </navigation>
 	

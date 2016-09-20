@@ -84,8 +84,8 @@
  (
  document_id           serial     NOT NULL,
  mime_type_id          integer    NOT NULL,
- document_date_import  date       NOT NULL,
- document_nom          varchar    NOT NULL,
+ document_import_date  timestamp       NOT NULL,
+ document_name          varchar    NOT NULL,
  document_description  varchar,
  data                  bytea,
  size                  integer,
@@ -123,9 +123,7 @@ class MimeType extends ObjetBDD {
 	 * @param array $param        	
 	 */
 	function __construct($bdd, $param = null) {
-		$this->param = $param;
 		$this->table = "mime_type";
-		$this->id_auto = 1;
 		$this->colonnes = array (
 				"mime_type_id" => array (
 						"type" => 1,
@@ -142,9 +140,6 @@ class MimeType extends ObjetBDD {
 						"requis" => 1 
 				) 
 		);
-		if (! is_array ( $param ))
-			$param == array ();
-		$param ["fullDescription"] = 1;
 		parent::__construct ( $bdd, $param );
 	}
 	/**
@@ -170,7 +165,7 @@ class MimeType extends ObjetBDD {
  *        
  */
 class Document extends ObjetBDD {
-	public $temp = "tmp"; // Chemin de stockage des images générées à la volée
+	public $temp = "temp"; // Chemin de stockage des images générées à la volée
 	/**
 	 * Constructeur de la classe
 	 *
@@ -178,14 +173,11 @@ class Document extends ObjetBDD {
 	 * @param array $param        	
 	 */
 	function __construct($bdd, $param = null) {
-		$this->paramori = $param;
-		$this->param = $param;
 		global $APPLI_temp;
 		if (strlen ( $APPLI_temp ) > 0)
 			$this->temp = $APPLI_temp;
 		
 		$this->table = "document";
-		$this->id_auto = 1;
 		$this->colonnes = array (
 				"document_id" => array (
 						"type" => 1,
@@ -193,15 +185,21 @@ class Document extends ObjetBDD {
 						"requis" => 1,
 						"defaultValue" => 0 
 				),
+				"uid" => array(
+						"type"=>1,
+						"requis"=>1,
+						"parentAttrib" => 1
+				),
 				"mime_type_id" => array (
 						"type" => 1,
 						"requis" => 1 
 				),
-				"document_date_import" => array (
+				"document_import_date" => array (
 						"type" => 2,
-						"requis" => 1 
+						"requis" => 1,
+						"defaultValue"=>"getDateJour"
 				),
-				"document_nom" => array (
+				"document_name" => array (
 						"type" => 0,
 						"requis" => 1 
 				),
@@ -217,11 +215,12 @@ class Document extends ObjetBDD {
 				"size" => array (
 						"type" => 1,
 						"defaultValue" => 0 
-				) 
+				),
+				"document_creation_date" => array(
+						"type" => 2,
+						"defaultValue" => "getDateJour"
+				)
 		);
-		if (! is_array ( $param ))
-			$param == array ();
-		$param ["fullDescription"] = 1;
 		parent::__construct ( $bdd, $param );
 	}
 	
@@ -234,8 +233,9 @@ class Document extends ObjetBDD {
 	 *        	string description : description du contenu du document
 	 * @return int
 	 */
-	function ecrire($file, $description = NULL) {
-		if ($file ["error"] == 0 && $file ["size"] > 0) {
+	function ecrire($file, $uid, $description = NULL, $document_creation_date = NULL) {
+		if ($file ["error"] == 0 && $file ["size"] > 0 && is_numeric($uid) && $uid > 0) {
+			global $log, $message;
 			/*
 			 * Recuperation de l'extension
 			 */
@@ -244,24 +244,26 @@ class Document extends ObjetBDD {
 			$mime_type_id = $mimeType->getTypeMime ( $extension );
 			if ($mime_type_id > 0) {
 				$data = array ();
-				$data ["document_nom"] = $file ["name"];
+				$data ["document_name"] = $file ["name"];
 				$data ["size"] = $file ["size"];
 				$data ["mime_type_id"] = $mime_type_id;
 				$data ["document_description"] = $description;
-				$data ["document_date_import"] = date ( "d/m/Y" );
+				$data ["document_import_date"] = date ( "d/m/Y" );
+				$data["uid"] = $uid;
+				if (! is_null ($document_creation_date) ) 
+					$data["document_creation_date"] = $document_creation_date;
 				$dataDoc = array ();
 				/*
 				 * Recherche antivirale
 				 */
 				$virus = false;
-				if (extension_loaded ( 'clamav' )) {
-					$retcode = cl_scanfile ( $file ["tmp_name"], $virusname );
-					if ($retcode == CL_VIRUS) {
-						$virus = true;
-						$texte_erreur = $file ["name"] . " : " . cl_pretcode ( $retcode ) . ". Virus found name : " . $virusname;
-						$message .= "<br>" . $texte_erreur;
-						$log->setLog ( $_SESSION ["login"], "Document-ecrire", $texte_erreur );
-					}
+				try {
+				testScan($file["tmp_name"]);
+				} catch (VirusException $ve) {
+					$message->set($ve->getMessage());
+					$virus = true;
+				} catch (FileException $fe) {
+					$message->set($fe->getMessage());
 				}
 				
 				/*
@@ -309,13 +311,13 @@ class Document extends ObjetBDD {
 	 */
 	function getData($id) {
 		if ($id > 0 && is_numeric ( $id )) {
-			$this->UTF8 = false;
-			$this->codageHtml = false;
-			$sql = "select document_id, document_nom, content_type, mime_type_id, extension
-				from " . $this->table . "
+			$sql = "select document_id, document_name, content_type, mime_type_id, extension,
+					document_import_date, document_creation_date
+				from document
 				join mime_type using (mime_type_id)
-				where document_id = " . $id;
-			return $this->lireParam ( $sql );
+				where document_id = :document_id";
+			
+			return $this->lireParamAsPrepared( $sql, array("document_id"=> $id) );
 		}
 	}
 	
@@ -340,43 +342,18 @@ class Document extends ObjetBDD {
 	 * @param int $resolution
 	 *        	: resolution pour les photos redimensionnees
 	 */
-	function documentSent($id, $phototype, $attached = false, $resolution = 800) {
+	function prepareDocument($id, $phototype = 0, $resolution = 800) {
 		$id = $this->encodeData ( $id );
 		$filename = $this->generateFileName ( $id, $phototype, $resolution );
 		if (strlen ( $filename ) > 0 && is_numeric ( $id ) && $id > 0) {
-			// $filename = $this->temp . "/" . $nomfile;
 			if (! file_exists ( $filename ))
 				$this->writeFileImage ( $id, $phototype, $resolution );
-			if (file_exists ( $filename )) {
-				$this->_documentSent ( $filename, $id, $attached );
-			}
 		}
+		if (file_exists ( $filename )) 
+			return $filename;
+		
 	}
-	
-	/**
-	 * Fonction generant l'envoi au navigateur
-	 *
-	 * @param string $nomfile        	
-	 * @param int $id        	
-	 * @param boolean $attached        	
-	 */
-	private function _documentSent($nomfile, $id, $attached = false) {
-		/*
-		 * Lecture du type mime
-		 */
-		$data = $this->getData ( $id );
-		if (strlen ( $data ["content_type"] ) > 0) {
-			header ( "content-type: " . $data ["content_type"] );
-			header ( 'Content-Transfer-Encoding: binary' );
-			if ($attached == true)
-				header ( 'Content-Disposition: attachment; filename="' . $data ["document_nom"] . '"' );
-			
-			ob_clean ();
-			flush ();
-			readfile ( $nomfile );
-		}
-	}
-	
+		
 	/**
 	 * Calcule le nom de la photo
 	 *
@@ -386,7 +363,7 @@ class Document extends ObjetBDD {
 	 * @param number $resolution        	
 	 * @return string
 	 */
-	function generateFileName($id, $phototype, $resolution = 800) {
+	function generateFileName($id, $phototype = 0, $resolution = 800) {
 		/*
 		 * Preparation du nom de la photo
 		 */
@@ -394,7 +371,7 @@ class Document extends ObjetBDD {
 			case 0 :
 				if (is_numeric ( $id ))
 					$data = $this->getData ( $id );
-				$filename = $this->temp . '/' . $id . "-" . $data ["document_nom"];
+				$filename = $this->temp . '/' . $id . "-" . $data ["document_name"];
 				break;
 			case 1 :
 				$filename = $this->temp . '/' . $id . "x" . $resolution . ".png";
@@ -418,6 +395,10 @@ class Document extends ObjetBDD {
 		if ($id > 0 && is_numeric ( $id ) && is_numeric ( $phototype ) && is_numeric ( $resolution )) {
 			$data = $this->getData ( $id );
 			$okgenerate = false;
+			$redim = false;
+			/*
+			 * Recherche si la photo doit etre generee (en fonction du phototype ou du mimetype)
+			 */
 			switch ($phototype) {
 				case 0 :
 					$okgenerate = true;
@@ -430,6 +411,7 @@ class Document extends ObjetBDD {
 							6 
 					) ))
 						$okgenerate = true;
+						$redim = true;
 					break;
 				case 1 :
 					if (in_array ( $data ["mime_type_id"], array (
@@ -438,11 +420,11 @@ class Document extends ObjetBDD {
 							6 
 					) ))
 						$okgenerate = true;
+						$redim = true;
 					break;
 			}
 			if ($okgenerate) {
 				// $nomPhoto = array ();
-				
 				$writeOk = false;
 				/*
 				 * Selection de la colonne contenant la photo
@@ -463,7 +445,7 @@ class Document extends ObjetBDD {
 						try {
 							$image = new Imagick ();
 							$image->readImageFile ( $docRef );
-							if ($i == 1) {
+							if ($redim) {
 								/*
 								 * Redimensionnement de l'image
 								 */
@@ -514,90 +496,6 @@ class Document extends ObjetBDD {
 			}
 		}
 		return $filename;
-	}
-}
-
-/**
- * ORM permettant de gérer toutes les tables de liaison avec la table Document
- *
- * @author quinton
- *        
- */
-class DocumentLie extends ObjetBDD {
-	public $tableOrigine;
-	/**
-	 * Constructeur de la classe
-	 *
-	 * @param Adodb_instance $bdd        	
-	 * @param array $param        	
-	 */
-	function __construct($bdd, $param = null, $nomTable = "") {
-		$this->param = $param;
-		$this->paramori = $this->param;
-		$this->tableOrigine = $nomTable;
-		$this->table = $nomTable . "_document";
-		$this->id_auto = 0;
-		$this->colonnes = array (
-				$nomTable . "_id" => array (
-						"type" => 1,
-						"requis" => 1,
-						"key" => 1 
-				),
-				"document_id" => array (
-						"type" => 1,
-						"requis" => 1,
-						"key" => 1 
-				) 
-		);
-		if (! is_array ( $param ))
-			$param == array ();
-		$param ["fullDescription"] = 1;
-		parent::__construct ( $bdd, $param );
-	}
-	/**
-	 * Reecriture de la fonction ecrire($data)
-	 * (non-PHPdoc)
-	 *
-	 * @see ObjetBDD::ecrire()
-	 */
-	function ecrire($data) {
-		$nomChamp = $this->tableOrigine . "_id";
-		if ($data ["document_id"] > 0 && $data [$nomChamp] > 0) {
-			$sql = "insert into " . $this->table . "
- 					(document_id, " . $nomChamp . ")
- 					values
- 					(" . $data ["document_id"] . "," . $data [$nomChamp] . ")";
-			$rs = $this->executeSQL ( $sql );
-			
-			if (count ( $rs ) > 0) {
-				return 1;
-			} else {
-				return - 1;
-			}
-		}
-	}
-	
-	/**
-	 * Supprime la reference au document dans la table liee
-	 * (non-PHPdoc)
-	 *
-	 * @see ObjetBDD::supprimer()
-	 */
-	function supprimer($id) {
-		if (is_numeric ( $id ) && $id > 0) {
-			$this->supprimerChamp ( $id, "document_id" );
-		}
-	}
-	
-	/**
-	 * Retourne la liste des documents associes
-	 *
-	 * @param int $id        	
-	 * @return array
-	 */
-	function getListeDocument($id) {
-		$documentUsact = new DocumentUsact ( $this->connection, $this->paramori );
-		return $documentUsact->getListeDocument ( $this->tableOrigine, $id );
 	}
 }
 

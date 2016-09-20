@@ -1,8 +1,5 @@
-<link rel="stylesheet" href="display/javascript/magnific-popup/magnific-popup.css"> 
-<script src="display/javascript/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <script>
 $(document).ready(function() { 
-	setDataTables("documentList");
 	$('.image-popup-no-margins').magnificPopup( {
 		type: 'image',
 		closeOnContentClick: true,
@@ -31,13 +28,13 @@ $(document).ready(function() {
 	});
 } ) ;
 </script>
-{if $droits["gestion"] == 1 } 
+{if $droits["gestion"] == 1 && $modifiable == 1 } 
 <a href="#" id="documentChangeActivate">Saisir un nouveau document...</a>
 <div id="documentChange" hidden="true">
-{include file="document/documentChange.tpl"}
+{include file="gestion/documentChange.tpl"}
 </div>
 {/if}
-<table id="documentList" class="tableliste">
+<table id="documentList" class="table table-bordered table-hover datatable">
 <thead>
 <tr>
 <th>Vignette</th>
@@ -45,12 +42,13 @@ $(document).ready(function() {
 <th>Description</th>
 <th>Taille</th>
 <th>Date<br>d'import</th>
+<th>Date<br>de création</th>
 {if $droits["gestion"] == 1}
 <th>Supprimer</th>
 {/if}
 </tr>
 </thead>
-<tdata>
+<tbody>
 {section name=lst loop=$dataDoc}
 <tr>
 <td class="center">
@@ -64,17 +62,18 @@ $(document).ready(function() {
 </a>
 {/if}
 <td>
-<a href="index.php?module=documentSent&document_id={$dataDoc[lst].document_id}&filename={$dataDoc[lst].photo_name}&attached=1" title="document original">
-{$dataDoc[lst].document_nom}
+<a href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&attached=1&phototype=0" title="document original">
+{$dataDoc[lst].document_name}
 </a>
 </td>
 <td>{$dataDoc[lst].document_description}</td>
 <td>{$dataDoc[lst].size}</td>
-<td>{$dataDoc[lst].document_date_import}</td>
+<td>{$dataDoc[lst].document_import_date}</td>
+<td>{$dataDoc[lst].document_creation_date}</td>
 {if $droits["gestion"] == 1}
 <td>
 <div class="center">
-<a href="index.php?module=documentDelete&document_id={$dataDoc[lst].document_id}&moduleParent={$moduleParent}&parentIdName={$parentIdName}&parent_id={$parent_id}&parentType={$parentType}" onclick="return confirm('Confirmez-vous la suppression ?');">
+<a href="index.php?module={$moduleParent}documentDelete&document_id={$dataDoc[lst].document_id}&uid={$data.uid}" onclick="return confirm('Confirmez-vous la suppression ?');">
 <img src="display/images/corbeille.png" height="20">
 </a>
 </div>
@@ -82,5 +81,11 @@ $(document).ready(function() {
 {/if}
 </tr>
 {/section}
-</tdata>
+</tbody>
 </table>
+<script>
+$(document).ready(function() {
+	var documentList = $("#documentList").DataTable();
+	documentList.order([[5, 'desc'], [4, 'desc']]).draw();
+});
+</script>

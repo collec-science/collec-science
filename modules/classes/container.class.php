@@ -10,13 +10,15 @@ class Container extends ObjetBDD {
 	private $sql = "select container_id, uid, identifier, wgs84_x, wgs84_y, 
 					container_type_id, container_type_name,
 					container_family_id, container_family_name, object_status_id, object_status_name,
-					storage_product, clp_classification, storage_condition_name
+					storage_product, clp_classification, storage_condition_name,
+					document_id
 					from container
 					join object using (uid)
 					join container_type using (container_type_id)
 					join container_family using (container_family_id)
 					left outer join object_status using (object_status_id)
 					left outer join storage_condition using (storage_condition_id)
+					left outer join last_photo using (uid)
 			";
 	/**
 	 *

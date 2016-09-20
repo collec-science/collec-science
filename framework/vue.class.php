@@ -19,27 +19,24 @@ class Message {
 	 * @var array
 	 */
 	private $message = array ();
-	private $syslog = array();
+	private $syslog = array ();
 	private $displaySyslog = false;
-	
 	function __construct($displaySyslog = false) {
 		$this->displaySyslog = $displaySyslog;
 	}
-	
 	function set($value) {
 		$this->message [] = $value;
 	}
-	
 	function setSyslog($value) {
-		$this->syslog[] = $value;
+		$this->syslog [] = $value;
 	}
 	/**
 	 * Retourne le tableau brut
 	 */
 	function get() {
 		if ($this->displaySyslog) {
-			return array_merge($this->message, $this->syslog);
-		} else 
+			return array_merge ( $this->message, $this->syslog );
+		} else
 			return $this->message;
 	}
 	/**
@@ -52,8 +49,8 @@ class Message {
 		$data = "";
 		$i = 0;
 		if ($this->displaySyslog) {
-			$tableau =  array_merge($this->message, $this->syslog);
-		} else 
+			$tableau = array_merge ( $this->message, $this->syslog );
+		} else
 			$tableau = $this->message;
 		foreach ( $tableau as $value ) {
 			if ($i > 0)
@@ -65,14 +62,14 @@ class Message {
 	}
 	function sendSyslog() {
 		global $APPLI_code;
-		$dt = new DateTime();
-		$date = $dt->format("D M d H:i:s.u Y");
-		$pid = getmypid();
+		$dt = new DateTime ();
+		$date = $dt->format ( "D M d H:i:s.u Y" );
+		$pid = getmypid ();
 		$code_error = "err";
 		$level = "notice";
-		foreach ($this->syslog as $value) {
-		openlog("[$date] [$APPLI_code:$level] [pid $pid] $code_error",LOG_PERROR , LOG_LOCAL7);
-		syslog(LOG_NOTICE, $value);
+		foreach ( $this->syslog as $value ) {
+			openlog ( "[$date] [$APPLI_code:$level] [pid $pid] $code_error", LOG_PERROR, LOG_LOCAL7 );
+			syslog ( LOG_NOTICE, $value );
 		}
 	}
 }
@@ -354,6 +351,45 @@ class VuePdf extends Vue {
 	 */
 	function setDisposition($disp = "attachment") {
 		$this->disposition = $disp;
+	}
+}
+class vueBinaire extends Vue {
+	private $param = array (
+			"filename" => "",
+			"disposition" => "attachment",
+			"tmp_name" => ""
+	);
+	private $disposition = "attachment";
+	private $content_type;
+	function send() {
+		if ( strlen($this->param ["tmp_name"]) > 0) {
+			/*
+			 * Recuperation du content-type
+			 */
+			$finfo = finfo_open ( FILEINFO_MIME_TYPE );
+			header ( 'Content-Type: ' . finfo_file ( $finfo, $this->param["tmp_name"] ) );
+			finfo_close ( $finfo );
+			header ( 'Content-Transfer-Encoding: binary' );
+			if ($this->param ["disposition"] == "attachment" && strlen ( $this->param ["filename"] > 0 ))
+				header ( 'Content-Disposition: attachment; filename="' . basename ( $this->param ["filename"] ) . '"' );
+			
+			ob_clean ();
+			flush ();
+			readfile ( $this->param["tmp_name"] );
+		}
+	}
+	
+	/**
+	 * Met a jour les parametres necessaires pour l'export
+	 * 
+	 * @param array $param        	
+	 */
+	function setParam(array $param) {
+		if (is_array ( $param )) {
+			foreach ( $param as $key => $value )
+				$this->param [$key] = $value;
+		}
+		printr($this->param);
 	}
 }
 ?>

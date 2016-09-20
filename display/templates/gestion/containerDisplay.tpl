@@ -34,6 +34,10 @@ Nouveau conteneur
 <img src="display/images/sample.png" height="25">Échantillons présents
 </a>
 &nbsp;
+<a href="#documents">
+<img src="display/images/camera.png" height="25">Documents associés
+</a>
+&nbsp;
 <a href="#bookings">
 <img src="display/images/crossed-calendar.png" height="25">Réservations
 </a>
@@ -110,7 +114,7 @@ Nouveau conteneur
 </fieldset>
 </div>
 
-<fieldset class="col-md-12" id="conteneurs">
+<fieldset class="col-md-6" id="conteneurs">
 <legend>Conteneurs présents</legend>
 <a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
 <img src="display/images/new.png" height="25">
@@ -118,13 +122,17 @@ Nouveau conteneur associé
 </a>
 {include file="gestion/containerListDetail.tpl"}
 </fieldset>
-<fieldset class="col-sm-12" id="booking">
+<fieldset class="col-md-6" id="documents">
+<legend>Documents associés</legend>
+{include file="gestion/documentList.tpl"}
+</fieldset>
+<fieldset class="col-md-6" id="echantillons">
+<legend>Échantillons présents</legend>
+{include file="gestion/sampleListDetail.tpl"}
+</fieldset>
+<fieldset class="col-md-6" id="booking">
 <legend>Réservations</legend>
 {include file="gestion/bookingList.tpl"}
 </fieldset>
 
-<fieldset class="col-md-12" id="echantillons">
-<legend>Échantillons présents</legend>
-{include file="gestion/sampleListDetail.tpl"}
-</fieldset>
 </div>

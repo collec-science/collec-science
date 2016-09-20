@@ -35,6 +35,10 @@
 <link rel="stylesheet" type="text/css" href="display/javascript/jquery-ui-1.12.0.custom/jquery-ui.theme.min.css"/>
 <link rel="stylesheet" type="text/css" href="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.css"/>
 
+<!-- Affichage des photos -->
+<link rel="stylesheet" href="display/javascript/magnific-popup/magnific-popup.css"> 
+<script src="display/javascript/magnific-popup/jquery.magnific-popup.min.js"></script> 
+
 <!-- Code specifique -->
 <link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css" >
 <script type="text/javascript" src="display/javascript/bootstrap-prototypephp.js"></script>

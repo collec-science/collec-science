@@ -32,6 +32,10 @@ Nouvel échantillon
 <img src="display/images/sample.png" height="25">Échantillons rattachés
 </a>
 &nbsp;
+<a href="#documents">
+<img src="display/images/camera.png" height="25">Documents associés
+</a>
+&nbsp;
 <a href="#bookings">
 <img src="display/images/crossed-calendar.png" height="25">Réservations
 </a>
@@ -148,10 +152,7 @@ clp : {$data.clp_classification}
 </div>
 
 
-<fieldset class="col-md-6" id="booking">
-<legend>Réservations</legend>
-{include file="gestion/bookingList.tpl"}
-</fieldset>
+
 
 <fieldset class="col-md-6" id="echantillons">
 <legend>Échantillons rattachés</legend>
@@ -165,9 +166,18 @@ Nouvel échantillon rattaché...
 </fieldset>
 </div>
 </div>
+<fieldset class="col-md-6" id="booking">
+<legend>Réservations</legend>
+{include file="gestion/bookingList.tpl"}
+</fieldset>
+
+<fieldset class="col-md-6" id="documents">
+<legend>Documents associés</legend>
+{include file="gestion/documentList.tpl"}
+</fieldset>
 
 {if $data.multiple_type_id > 0}
-<fieldset class="col-md-12" id="subsample">
+<fieldset class="col-md-6" id="subsample">
 <legend>Sous-échantillons</legend>
 {include file="gestion/subsampleList.tpl"}
 </fieldset>

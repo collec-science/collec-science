@@ -13,6 +13,33 @@ $(document).ready(function () {
 	$("#formListPrint").submit( function (event) {
 		$("#spinner").show();
 	});
+	$('.image-popup-no-margins').magnificPopup( {
+		type: 'image',
+		closeOnContentClick: true,
+		closeBtnInside: false,
+		fixedContentPos: true,
+		mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+		image: {
+			verticalFit: false
+		},
+		zoom: {
+			enabled: true,
+			duration: 300 // don't foget to change the duration also in CSS
+		}
+	});
+	var documentChangeShow = 0;
+	$('#documentChange').hide("") ;
+	$('#documentChangeActivate').click(function () {
+		if (documentChangeShow == 0) {
+			$('#documentChange').show("");
+			documentChangeShow = 1 ;
+			 $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+		} else {
+			$('#documentChange').hide("");
+			documentChangeShow = 0 ;
+		}
+	});
+
 });
 </script>
 {if $droits.gestion == 1}
@@ -35,6 +62,7 @@ $(document).ready(function () {
 <th>Projet</th>
 <th>Type</th>
 <th>Statut</th>
+<th>Photo</th>
 <th>Date</th>
 <th>Date de création dans la base</th>
 {if $droits.gestion == 1}
@@ -58,6 +86,13 @@ $(document).ready(function () {
 <td>{$samples[lst].project_name}</td>
 <td>{$samples[lst].sample_type_name}</td>
 <td>{$samples[lst].object_status_name}</td>
+<td class="center">
+{if $samples[lst].document_id > 0}
+<a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$samples[lst].document_id}&attached=0&phototype=1" title="aperçu de la photo">
+<img src="index.php?module=documentGet&document_id={$samples[lst].document_id}&attached=0&phototype=2" height="30">
+</a>
+{/if}
+</td>
 <td>{$samples[lst].sample_date}</td>
 <td>{$samples[lst].sample_creation_date}</td>
 {if $droits.gestion == 1}

@@ -254,6 +254,7 @@ function testScan($file) {
 			if (file_exists ( $clamscan )) {
 				exec ( "$clamscan $clamscan_options $file", $output );
 				if (count ( $output ) > 0) {
+					$message = $file ["name"] . " : ";
 					foreach ( $output as $value )
 						$message .= $value . " ";
 					throw new VirusException ( $message );

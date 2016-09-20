@@ -71,7 +71,7 @@
 				<label for="valeur-scan" class="control-label col-sm-4">Valeur
 					lue :</label>
 				<div class="col-sm-8">
-					<input id="valeur-scan" type="text" class="form-control" disabled>
+					<input id="valeur-scan" type="text" class="form-control" >
 				</div>
 			</div>
 		</div>

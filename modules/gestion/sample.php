@@ -21,12 +21,12 @@ switch ($t_module ["param"]) {
 		$dataSearch = $_SESSION ["searchSample"]->getParam ();
 		if ($_SESSION ["searchSample"]->isSearch () == 1) {
 			$data = $dataClass->sampleSearch ( $dataSearch );
-			$vue->set($data  , "samples");
-			$vue->set(1 , "isSearch");
+			$vue->set ( $data, "samples" );
+			$vue->set ( 1, "isSearch" );
 		}
-		$vue->set($dataSearch , "sampleSearch");
-		$vue->set( "gestion/sampleList.tpl", "corps");
-
+		$vue->set ( $dataSearch, "sampleSearch" );
+		$vue->set ( "gestion/sampleList.tpl", "corps" );
+		
 		/*
 		 * Ajout des listes deroulantes
 		 */
@@ -37,54 +37,60 @@ switch ($t_module ["param"]) {
 		 * Display the detail of the record
 		 */
 		$data = $dataClass->lire ( $id );
-		$vue->set($data  ,  "data");
+		$vue->set ( $data, "data" );
 		/*
 		 * Recuperation des conteneurs parents
 		 */
 		require_once 'modules/classes/container.class.php';
 		$container = new Container ( $bdd, $ObjetBDDParam );
-		$vue->set($container->getAllParents ( $data ["uid"] ),"parents");
+		$vue->set ( $container->getAllParents ( $data ["uid"] ), "parents" );
 		/*
 		 * Recuperation des evenements
 		 */
 		require_once 'modules/classes/event.class.php';
 		$event = new Event ( $bdd, $ObjetBDDParam );
-		$vue->set($event->getListeFromUid ( $data ["uid"] ),"events");
+		$vue->set ( $event->getListeFromUid ( $data ["uid"] ), "events" );
 		/*
 		 * Recuperation des mouvements
 		 */
 		require_once 'modules/classes/storage.class.php';
 		$storage = new Storage ( $bdd, $ObjetBDDParam );
-		$vue->set($storage->getAllMovements ( $id ),"storages");
+		$vue->set ( $storage->getAllMovements ( $id ), "storages" );
 		/*
 		 * Recuperation des echantillons associes
 		 */
-		$vue->set($dataClass->getSampleassociated($data["uid"]), "samples");
+		$vue->set ( $dataClass->getSampleassociated ( $data ["uid"] ), "samples" );
 		/*
 		 * Recuperation des reservations
 		 */
 		require_once 'modules/classes/booking.class.php';
-		$booking = new Booking($bdd, $ObjetBDDParam);
-		$vue->set($booking->getListFromParent($data["uid"],'date_from desc'), "bookings");
+		$booking = new Booking ( $bdd, $ObjetBDDParam );
+		$vue->set ( $booking->getListFromParent ( $data ["uid"], 'date_from desc' ), "bookings" );
 		/*
 		 * Recuperation des sous-echantillonnages
 		 */
-		if ($data["multiple_type_id"] > 0) {
+		if ($data ["multiple_type_id"] > 0) {
 			require_once 'modules/classes/subsample.class.php';
-			$subSample = new Subsample($bdd, $ObjetBDDParam);
-			$vue->set($subSample->getListFromParent($data["sample_id"], "subsample_date desc"), "subsample");
+			$subSample = new Subsample ( $bdd, $ObjetBDDParam );
+			$vue->set ( $subSample->getListFromParent ( $data ["sample_id"], "subsample_date desc" ), "subsample" );
 		}
 		/*
 		 * Verification que l'echantillon peut etre modifie
 		 */
 		$is_modifiable = $dataClass->verifyProject ( $data );
 		if ($is_modifiable)
-			$vue->set(1, "modifiable");		
+			$vue->set ( 1, "modifiable" );
+		/*
+		 * Recuperation des documents
+		 */
+		require_once 'modules/classes/document.class.php';
+		$document = new Document ( $bdd, $ObjetBDDParam );
+		$vue->set ( $document->getListFromParent ( $data ["uid"] ), "dataDoc" );
 		/*
 		 * Affichage
 		 */
-		$vue->set ("sample", "moduleParent"  );
-		$vue->set("gestion/sampleDisplay.tpl", "corps");
+		$vue->set ( "sample", "moduleParent" );
+		$vue->set ( "gestion/sampleDisplay.tpl", "corps" );
 		break;
 	case "change":
 		/*
@@ -94,18 +100,18 @@ switch ($t_module ["param"]) {
 		 */
 		$data = dataRead ( $dataClass, $id, "gestion/sampleChange.tpl" );
 		if ($data ["sample_id"] > 0 && $dataClass->verifyProject ( $data ) == false) {
-			$message->set(  "Vous ne disposez pas des droits nécessaires pour modifier cet échantillon");
+			$message->set ( "Vous ne disposez pas des droits nécessaires pour modifier cet échantillon" );
 			$module_coderetour = - 1;
 		} else {
 			/*
 			 * Recuperation des informations concernant l'echantillon parent
 			 */
-			if ($_REQUEST["parent_uid"] > 0) {
-				$dataParent = $dataClass->lire($_REQUEST["parent_uid"]);
-				if ($dataParent["sample_id"] > 0) {
-					$data["parent_sample_id"] = $dataParent["sample_id"];
-					$vue->set($dataParent, "parent_sample");
-					$vue->set($data, "data");
+			if ($_REQUEST ["parent_uid"] > 0) {
+				$dataParent = $dataClass->lire ( $_REQUEST ["parent_uid"] );
+				if ($dataParent ["sample_id"] > 0) {
+					$data ["parent_sample_id"] = $dataParent ["sample_id"];
+					$vue->set ( $dataParent, "parent_sample" );
+					$vue->set ( $data, "data" );
 				}
 			}
 			include 'modules/gestion/sample.functions.php';
@@ -124,7 +130,7 @@ switch ($t_module ["param"]) {
 		/*
 		 * delete record
 		 */
-		dataDelete ( $dataClass, $_REQUEST["uid"] );
+		dataDelete ( $dataClass, $_REQUEST ["uid"] );
 		break;
 }
 ?>

@@ -63,9 +63,20 @@ switch ($t_module ["param"]) {
 		require_once 'modules/classes/booking.class.php';
 		$booking = new Booking($bdd, $ObjetBDDParam);
 		$vue->set($booking->getListFromParent($data["uid"],'date_from desc'), "bookings");
-
+		/*
+		 * Recuperation des documents
+		 */
+		require_once 'modules/classes/document.class.php';
+		$document = new Document($bdd, $ObjetBDDParam);
+		$vue->set($document->getListFromParent($data["uid"]), "dataDoc");
+		$vue->set ( 1, "modifiable" );
+		/*
+		 * Affichage
+		 */
 		$vue->set( "container", "moduleParent");
 		$vue->set("gestion/containerDisplay.tpl", "corps" );
+		
+
 		break;
 	case "change":
 		/*

@@ -7,6 +7,8 @@
 
 <script>
 $(document).ready(function() { 
+	var destination = "object";
+
 	var db = "{$db}";	
 	function getDetail(uid, champ) {
 		/*
@@ -18,19 +20,33 @@ $(document).ready(function() {
 		if (champ == "container") {
 			is_container = 1;
 		}
-		console.log("uid : "+uid);
-		$.getJSON ( url, { "module":"objectGetDetail", "uid":uid, "is_container":is_container } , function( data ) {
+		console.log("uid : " + uid);
+		console.log("is_container : "+ is_container);
+		$.ajax ( { url:url, method:"GET", data : { module:"objectGetDetail", uid:uid, is_container:is_container }, success : function ( djs ) {
+			console.log("interrogation Json terminée");
+			console.log("data recuperee depuis le serveur : " + djs);
+			var data = [];
+			for (elem in djs) {
+			   data.push(djs[elem]);
+			}
+			//var data = $.parseJSON('"'+datajson+'"');
+			console.log ("data : "+data[0]);
+			console.log ("data.length : " + data.length );
 			if (data != null) {
+				console.log("traitement de data");
 				if (data.length > 0) {
-					chaine = data[0].identifier + " (" + data[0].type_name +")";
+					console.log("uid recupere : "+ data.uid);
+					chaine = data[1] + " (" + data[4] +")";
 					console.log("Retour objectGetDetail : " + chaine);
+					$("#"+champ+"_uid").val(data[0]);
 					$("#"+champ+"_detail").val(chaine);
 				} else {
 					$("#"+champ+"_uid").val("");
 					$("#"+champ+"_detail").val("");
 				}
 			}
-		});
+		}
+		} ); 
 	}
 	
 	$("#container_uid").focusout(function () {
@@ -45,11 +61,14 @@ $(document).ready(function() {
 	$("#object_search").click(function () {
 		getDetail($("#object_uid").val(), "object");
 	});
+	$("#valeur-scan").change(function () {
+		console.log("#valeur-scan change. Value : " + $(this).val());
+		readChange();
+	});
 	/*
 	 * Fonctions pour la lecture du QRCode
 	 */
 	var is_read = false;
-	var destination = "container";
 	var snd = new Audio("display/images/sound.ogg"); 
 	function readChange() {
 		//console.log("destination : "+destination);
@@ -61,8 +80,15 @@ $(document).ready(function() {
 		getDetail(value, destination);
 	}
 	function extractUidVal(valeur) {
+		/*
+		 * Transformation des [] en { }
+		 */
+		 valeur = valeur.replace("[", String.fromCharCode(123));
+		 valeur = valeur.replace ("]", String.fromCharCode(125));
+		 console.log("valeur après remplacement suite à lecture douchette :" + valeur);
 		var data = eval( '('+valeur+')');
-		console.log("uid : "+data["uid"]);
+		console.log("uid après extraction : "+data["uid"]);
+		console.log ("db après extraction : " + data ["db"]);
 		if (data["db"] == db) {
 			return data["uid"];	
 		} else {

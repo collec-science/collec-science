@@ -235,8 +235,13 @@ class VueAjaxJson extends Vue {
 			/*
 		 * Envoi au navigateur
 		 */
+		if (count ( $data ) == 1) {
+			$json = json_encode ( $data [0], JSON_HEX_QUOT | JSON_FORCE_OBJECT | JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE );
+		} else
+			$json = json_encode ( $data );
 		ob_clean ();
-		echo json_encode ( $data );
+		header ( 'Content-Type: application/json' );
+		echo $json;
 		ob_flush ();
 	}
 }
@@ -369,7 +374,7 @@ class vueBinaire extends Vue {
 	/**
 	 *
 	 * Envoi du fichier au navigateur
-	 * 
+	 *
 	 * {@inheritdoc}
 	 *
 	 * @see Vue::send()

@@ -72,7 +72,7 @@ class Object extends ObjetBDD {
 					join container using (uid)
 					join container_type using (container_type_id)
 					where uid = :uid";
-			if ($is_container == 0)
+			if ($is_container != 1)
 				$sql .= " UNION
 					select uid, identifier, wgs84_x, wgs84_y,
 					sample_type_name as type_name

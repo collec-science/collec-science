@@ -12,6 +12,7 @@ Nouveau conteneur
 <a href="index.php?module=containerChange&uid={$data.uid}">
 <img src="display/images/edit.gif" height="25">Modifier...
 </a>
+
 <!-- Entrée ou sortie -->
 {if count($parents) > 0}
 <span id="output">
@@ -40,6 +41,10 @@ Nouveau conteneur
 &nbsp;
 <a href="#bookings">
 <img src="display/images/crossed-calendar.png" height="25">Réservations
+</a>
+&nbsp;
+<a href="index.php?module=containerDisplay&uid={$data.uid}">
+<img src="display/images/refresh.png" title="Rafraîchir la page" height="15">
 </a>
 </div>
 </div>
@@ -122,15 +127,15 @@ Nouveau conteneur associé
 </a>
 {include file="gestion/containerListDetail.tpl"}
 </fieldset>
-<fieldset class="col-md-6" id="documents">
+<fieldset class="col-md-12" id="documents">
 <legend>Documents associés</legend>
 {include file="gestion/documentList.tpl"}
 </fieldset>
-<fieldset class="col-md-6" id="echantillons">
+<fieldset class="col-md-12" id="echantillons">
 <legend>Échantillons présents</legend>
 {include file="gestion/sampleListDetail.tpl"}
 </fieldset>
-<fieldset class="col-md-6" id="booking">
+<fieldset class="col-md-12" id="booking">
 <legend>Réservations</legend>
 {include file="gestion/bookingList.tpl"}
 </fieldset>

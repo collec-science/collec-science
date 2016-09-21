@@ -10,12 +10,13 @@ $(document).ready(function () {
 		$("#lchek").text(libelle);
 	});
 	
-	$("#spinner").hide();
+	$("#containerSpinner").hide();
 	$("#formListPrint").submit( function (event) {
-		$("#spinner").show();
+		$("#containerSpinner").show();
 	});
 });
 </script>
+{include file="gestion/displayPhotoScript.tpl"}
 {if $droits.gestion == 1}
 <form method="post" id="formListPrint" action="index.php">
 <input type="hidden" id="module" name="module" value="containerPrintLabel">
@@ -24,7 +25,7 @@ $(document).ready(function () {
 <label id="lcheck" for="check">Tout décocher</label>
 <input type="checkbox" id="check" checked>
 <button type="submit" class="btn">Fichier pour étiquettes</button>
-<img id="spinner" src="display/images/spinner.gif" height="25" >
+<img id="containerSpinner" src="display/images/spinner.gif" height="25" >
 </div>
 </div>
 {/if}
@@ -38,6 +39,7 @@ $(document).ready(function () {
 <th>Condition de stockage</th>
 <th>Produit de stockage</th>
 <th>Code CLP</th>
+<th>Photo</th>
 {if $droits.gestion == 1}
 <th></th>
 {/if}
@@ -70,6 +72,13 @@ $(document).ready(function () {
 </td>
 <td>
 {$containers[lst].clp_classification}
+</td>
+<td class="center">
+{if $containers[lst].document_id > 0}
+<a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$containers[lst].document_id}&attached=0&phototype=1" title="aperçu de la photo">
+<img src="index.php?module=documentGet&document_id={$containers[lst].document_id}&attached=0&phototype=2" height="30">
+</a>
+{/if}
 </td>
 {if $droits.gestion == 1}
 <td class="center">

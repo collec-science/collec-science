@@ -353,35 +353,63 @@ class VuePdf extends Vue {
 		$this->disposition = $disp;
 	}
 }
+/**
+ * Classe permettant d'envoyer un fichier au navigateur, quel que soit son type
+ *
+ * @author quinton
+ *        
+ */
 class vueBinaire extends Vue {
 	private $param = array (
-			"filename" => "",
-			"disposition" => "attachment",
-			"tmp_name" => ""
+			"filename" => "", /* nom du fichier tel qu'il apparaitra dans le navigateur */
+			"disposition" => "attachment", /* attachment : le fichier est telecharge, inline : le fichier est affiche */
+			"tmp_name" => "", /* emplacement du fichier dans le serveur */
+			"content_type" => "" /* type mime */
 	);
-	private $disposition = "attachment";
-	private $content_type;
+	/**
+	 *
+	 * Envoi du fichier au navigateur
+	 * 
+	 * {@inheritdoc}
+	 *
+	 * @see Vue::send()
+	 */
 	function send() {
-		if ( strlen($this->param ["tmp_name"]) > 0) {
+		if (strlen ( $this->param ["tmp_name"] ) > 0) {
 			/*
-			 * Recuperation du content-type
+			 * Recuperation du content-type s'il n'a pas ete fourni
 			 */
-			$finfo = finfo_open ( FILEINFO_MIME_TYPE );
-			header ( 'Content-Type: ' . finfo_file ( $finfo, $this->param["tmp_name"] ) );
-			finfo_close ( $finfo );
+			if (strlen ( $this->param ["content_type"] ) == 0) {
+				$finfo = finfo_open ( FILEINFO_MIME_TYPE );
+				$this->param ["content_type"] = finfo_file ( $finfo, $this->param ["tmp_name"] );
+				finfo_close ( $finfo );
+			}
+			header ( 'Content-Type: ' . $this->param ["content_type"] );
 			header ( 'Content-Transfer-Encoding: binary' );
-			if ($this->param ["disposition"] == "attachment" && strlen ( $this->param ["filename"] > 0 ))
+			if ($this->param ["disposition"] == "attachment" && strlen ( $this->param ["filename"] > 0 )) {
 				header ( 'Content-Disposition: attachment; filename="' . basename ( $this->param ["filename"] ) . '"' );
+			} else
+				header ( 'Content-Disposition: inline' );
+			header ( 'Content-Length: ' . filesize ( $this->param ["tmp_name"] ) );
+			/*
+			 * Ajout des entetes de cache
+			 */
+			header ( 'Expires: 0' );
+			header ( 'Cache-Control: must-revalidate' );
+			header ( 'Pragma: no-cache' );
 			
+			/*
+			 * Envoi au navigateur
+			 */
 			ob_clean ();
 			flush ();
-			readfile ( $this->param["tmp_name"] );
+			readfile ( $this->param ["tmp_name"] );
 		}
 	}
 	
 	/**
 	 * Met a jour les parametres necessaires pour l'export
-	 * 
+	 *
 	 * @param array $param        	
 	 */
 	function setParam(array $param) {
@@ -389,7 +417,6 @@ class vueBinaire extends Vue {
 			foreach ( $param as $key => $value )
 				$this->param [$key] = $value;
 		}
-		printr($this->param);
 	}
 }
 ?>

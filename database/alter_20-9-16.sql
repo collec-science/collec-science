@@ -117,6 +117,6 @@ INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
 create or replace view col.last_photo as (
 select document_id, uid
 from col.document
-where mime_type_id in (5,6,7)
+where mime_type_id in (4,5,6)
 order by document_creation_date desc, document_import_date desc, document_id desc
 limit 1);

@@ -44,7 +44,10 @@ Nouvel échantillon
 <img src="display/images/subsample.png" height="25">Sous-échantillonnage
 </a>
 {/if}
-
+&nbsp;
+<a href="index.php?module=sampleDisplay&uid={$data.uid}">
+<img src="display/images/refresh.png" title="Rafraîchir la page" height="15">
+</a>
 <div class="row">
 <fieldset class="col-md-4">
 <legend>Informations générales</legend>

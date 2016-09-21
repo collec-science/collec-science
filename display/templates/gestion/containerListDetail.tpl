@@ -11,9 +11,26 @@ $(document).ready(function () {
 	});
 	
 	$("#containerSpinner").hide();
-	$("#formListPrint").submit( function (event) {
-		$("#containerSpinner").show();
+	$('#containercsvfile').keypress(function() {
+		$(this.form).find("input[name='module']").val("containerExportCSV");
+		$(this.form).submit();
 	});
+	$("#containercsvfile").click(function() {
+		console.log("Demande de generation du fichier csv");
+		$(this.form).find("input[name='module']").val("containerExportCSV");
+		$(this.form).submit();
+	});
+	$("#containerlabels").keypress(function() {
+		$(this.form).find("input[name='module']").val("containerPrintLabel");
+		$("#containerSpinner").show();
+		$(this.form).submit();
+	});
+	$("#containerlabels").click(function() {
+		$(this.form).find("input[name='module']").val("containerPrintLabel");
+		$("#containerSpinner").show();
+		$(this.form).submit();
+	});
+
 });
 </script>
 {include file="gestion/displayPhotoScript.tpl"}
@@ -21,11 +38,12 @@ $(document).ready(function () {
 <form method="post" id="formListPrint" action="index.php">
 <input type="hidden" id="module" name="module" value="containerPrintLabel">
 <div class="row">
-<div class="col-sm-6 right">
+<div class="center">
 <label id="lcheck" for="check">Tout décocher</label>
 <input type="checkbox" id="check" checked>
-<button type="submit" class="btn">Fichier pour étiquettes</button>
-<img id="containerSpinner" src="display/images/spinner.gif" height="25" >
+			<button id="containerlabels" class="btn btn-primary">Étiquettes</button>
+			<img id="containerSpinner" src="display/images/spinner.gif" height="25">
+			<button id="containercsvfile" class="btn btn-primary">Fichier CSV</button>
 </div>
 </div>
 {/if}

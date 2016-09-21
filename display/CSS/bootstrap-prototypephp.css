@@ -124,3 +124,8 @@ legend {
 	height: 400px;
 }
 
+.scrolltotop {
+	position: fixed;
+    bottom: 5px;
+    right: 5px;
+}

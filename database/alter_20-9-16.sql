@@ -115,8 +115,12 @@ INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  (  8,  'text/csv',  'csv');
  
 create or replace view col.last_photo as (
-select document_id, uid
-from col.document
-where mime_type_id in (4,5,6)
-order by document_creation_date desc, document_import_date desc, document_id desc
-limit 1);
+select d.document_id, d.uid
+from col.document d
+where document_id = (
+select d1.document_id from col.document d1
+where d1.mime_type_id in (4,5,6) 
+and d.uid = d1.uid
+order by d1.document_creation_date desc, d1.document_import_date desc, d1.document_id desc
+limit 1)
+);

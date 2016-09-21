@@ -138,7 +138,9 @@
 	
 	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax"  type="ajax" />
 	<containerPrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="containerList"/>
+	<containerExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="containerList"/>
 	<samplePrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="sampleList"/>
+	<sampleExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="sampleList"/>
 	
 	<importChange action="modules/gestion/import.php" param="change" droits="projet" retourlogin="1"  type="smarty" />
 	<importControl action="modules/gestion/import.php" param="control" droits="projet" modulebefore="importChange,importControl,importImport" retourok="importChange"  type="smarty" />

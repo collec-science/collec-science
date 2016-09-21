@@ -91,5 +91,16 @@ switch ($t_module ["param"]) {
 		} else {
 			$module_coderetour = - 1;
 		}
+		break;
+	case "exportCSV" :
+		$data = $dataClass->getForPrint ( $_REQUEST ["uid"] );
+		if (count ( $data ) > 0) {
+			$vue->set ( $data );
+			$vue->setFilename ( "printlabel.csv" );
+		} else {
+			unset ( $vue );
+			$module_coderetour = - 1;
+		}
+		break;
 }
 ?>

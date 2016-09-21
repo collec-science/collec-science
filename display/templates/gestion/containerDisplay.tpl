@@ -119,7 +119,7 @@ Nouveau conteneur
 </fieldset>
 </div>
 
-<fieldset class="col-md-6" id="conteneurs">
+<fieldset class="col-md-8" id="conteneurs">
 <legend>Conteneurs présents</legend>
 <a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
 <img src="display/images/new.png" height="25">

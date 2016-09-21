@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="col-md-6">
-		<form class="form-horizontal protoform" id="fastOutputForm"
+		<form class="form-horizontal protoform fastform" id="fastOutputForm"
 			method="post" action="index.php">
 			<input type="hidden" name="moduleBase" value="fastOutput"> <input
 				type="hidden" name="action" value="Write"> <input

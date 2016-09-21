@@ -3,7 +3,7 @@
 <h2>Entrée rapide d'un échantillon dans le stock</h2>
 <div class="row">
 <div class="col-md-6">
-<form class="form-horizontal protoform" id="fastInputForm" method="post" action="index.php">
+<form class="form-horizontal protoform fastform" id="fastInputForm" method="post" action="index.php">
 <input type="hidden" name="moduleBase" value="fastInput">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="storage_id" value="0">

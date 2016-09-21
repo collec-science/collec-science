@@ -30,13 +30,20 @@ $(document).ready(function() {
 			   data.push(djs[elem]);
 			}
 			//var data = $.parseJSON('"'+datajson+'"');
-			console.log ("data : "+data[0]);
+			console.log ("uid recupere : "+data[0]);
 			console.log ("data.length : " + data.length );
 			if (data != null) {
 				console.log("traitement de data");
-				if (data.length > 0) {
-					console.log("uid recupere : "+ data.uid);
-					chaine = data[1] + " (" + data[4] +")";
+				if (!isNaN(data[0])) {
+					console.log("uid recupere : "+ data[0]);
+					var id = "", type="";
+					if (data[1]) {
+						id = data[1];
+					}
+					if (data[4]) {
+						type = " (" + data[4]+")";
+					}
+					chaine = id + type ;
 					console.log("Retour objectGetDetail : " + chaine);
 					$("#"+champ+"_uid").val(data[0]);
 					$("#"+champ+"_detail").val(chaine);

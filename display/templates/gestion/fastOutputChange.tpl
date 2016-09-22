@@ -8,8 +8,9 @@
 			method="post" action="index.php">
 			<input type="hidden" name="moduleBase" value="fastOutput"> <input
 				type="hidden" name="action" value="Write"> <input
-				type="hidden" name="storage_id" value="0">
-				<input type="hidden" id="read_optical" name="read_optical" value="{$read_optical}">
+				type="hidden" name="storage_id" value="0"> <input
+				type="hidden" id="read_optical" name="read_optical"
+				value="{$read_optical}">
 
 			<div class="form-group">
 				<label for="object_uid" class="control-label col-sm-4">UID
@@ -56,33 +57,48 @@
 		<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
 	</div>
 </div>
-<!-- Rajout pour la lecture optique -->
+<!-- Lecture par douchette -->
 <div class="row">
-<fieldset>
-	<legend>Lecture optique (QRCode uniquement)</legend>
+	<fieldset>
+		<legend>Lecture optique par douchette</legend>
 
-	<div class="col-md-6">
-		<div class="form-horizontal protoform">
-			<div class="form-group center">
-				<button id="start2" class="btn btn-success">Activer la lecture</button>
-				<button id="stop" class="btn btn-danger">Arrêter la lecture</button>
-			</div>
-			<div class="form-group">
-				<label for="valeur-scan" class="control-label col-sm-4">Valeur
-					lue :</label>
-				<div class="col-sm-8">
-					<input id="valeur-scan" type="text" class="form-control" >
+		<div class="col-md-6">
+			<div class="form-horizontal protoform">
+				<div class="form-group">
+					<label for="valeur-scan" class="control-label col-sm-4">Valeur
+						lue :</label>
+					<div class="col-sm-8">
+						<input id="valeur-scan" type="text" class="form-control"
+							placeholder="Positionnez le curseur dans cette zone avant de lire l'étiquette">
+					</div>
 				</div>
 			</div>
 		</div>
+	</fieldset>
+</div>
+<!-- Rajout pour la lecture optique -->
+<div class="row">
+	<fieldset>
+		<legend>Lecture par la caméra de l'ordinateur (ou du smartphone)</legend>
 
-	</div>
+		<div class="col-md-6">
+			<div class="form-horizontal protoform">
+				<div class="form-group center">
+					<button id="start2" class="btn btn-success">Activer la
+						lecture</button>
+					<button id="stop" class="btn btn-danger">Arrêter la
+						lecture</button>
+				</div>
+			</div>
+
+		</div>
 	</fieldset>
 </div>
 <div class="row">
 	<div class="col-md-6">
-	<div class="center">
-<div id="reader" style="width: 640px; height: 480px"></div>
+		<div class="center">
+			<div id="reader" style="width: 640px; height: 480px"></div>
+		</div>
+	</div>
 </div>
-</div>
-</div>
+

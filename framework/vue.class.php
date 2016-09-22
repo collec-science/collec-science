@@ -240,7 +240,7 @@ class VueAjaxJson extends Vue {
 		} else
 			$json = json_encode ( $data );
 		ob_clean ();
-		header ( 'Content-Type: application/json' );
+		//header ( 'Content-Type: application/json' );
 		echo $json;
 		ob_flush ();
 	}

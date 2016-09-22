@@ -1,14 +1,13 @@
 <script src="display/javascript/adapter.js"></script>
 <script
 	src="display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
-<script
-	src="display/javascript/html5-qrcode.eq.js"></script>
-	
+<script src="display/javascript/html5-qrcode.eq.js"></script>
+
 
 <script>
 $(document).ready(function() { 
 	var destination = "object";
-
+	
 	var db = "{$db}";	
 	function getDetail(uid, champ) {
 		/*
@@ -20,38 +19,36 @@ $(document).ready(function() {
 		if (champ == "container") {
 			is_container = 1;
 		}
-		console.log("uid : " + uid);
-		console.log("is_container : "+ is_container);
+		console.log("fonction getDetail - paramètres : uid : "+uid +" is_container : "+ is_container);
+		console.log ("appel ajax");
 		$.ajax ( { url:url, method:"GET", data : { module:"objectGetDetail", uid:uid, is_container:is_container }, success : function ( djs ) {
-			console.log("interrogation Json terminée");
+			console.log("interrogation Ajax terminée");
 			console.log("data recuperee depuis le serveur : " + djs);
-			var data = [];
-			for (elem in djs) {
-			   data.push(djs[elem]);
-			}
-			//var data = $.parseJSON('"'+datajson+'"');
-			console.log ("uid recupere : "+data[0]);
-			console.log ("data.length : " + data.length );
+			var data = JSON.parse(djs);
+			console.log ("uid extrait de data : "+data["uid"]);
 			if (data != null) {
 				console.log("traitement de data");
-				if (!isNaN(data[0])) {
-					console.log("uid recupere : "+ data[0]);
+				if (!isNaN(data["uid"])) {
 					var id = "", type="";
-					if (data[1]) {
-						id = data[1];
+					if (data["identifier"]) {
+						id = data["identifier"];
 					}
-					if (data[4]) {
-						type = " (" + data[4]+")";
+					if (data["type_name"]) {
+						type = " (" + data["type_name"]+")";
 					}
 					chaine = id + type ;
-					console.log("Retour objectGetDetail : " + chaine);
-					$("#"+champ+"_uid").val(data[0]);
+					console.log("Détail associé à l'UID : " + chaine);
+					$("#"+champ+"_uid").val(data["uid"]);
 					$("#"+champ+"_detail").val(chaine);
 				} else {
 					$("#"+champ+"_uid").val("");
 					$("#"+champ+"_detail").val("");
 				}
 			}
+			/*
+			 * Reinitialisation de la zone de lecture
+			 */
+			 $("#valeur-scan").val("");
 		}
 		} ); 
 	}
@@ -69,8 +66,11 @@ $(document).ready(function() {
 		getDetail($("#object_uid").val(), "object");
 	});
 	$("#valeur-scan").change(function () {
-		console.log("#valeur-scan change. Value : " + $(this).val());
-		readChange();
+		var value = $(this).val()
+		console.log("#valeur-scan change. Value : " + value);
+		if (value.length > 0) {
+			readChange();
+		}
 	});
 	/*
 	 * Fonctions pour la lecture du QRCode
@@ -93,7 +93,7 @@ $(document).ready(function() {
 		 valeur = valeur.replace("[", String.fromCharCode(123));
 		 valeur = valeur.replace ("]", String.fromCharCode(125));
 		 console.log("valeur après remplacement suite à lecture douchette :" + valeur);
-		var data = eval( '('+valeur+')');
+		var data = JSON.parse(valeur);
 		console.log("uid après extraction : "+data["uid"]);
 		console.log ("db après extraction : " + data ["db"]);
 		if (data["db"] == db) {
@@ -149,14 +149,27 @@ $(document).ready(function() {
 			console.log(videoError);
 		});
 	}
+	$('#destContainer').click(function() {
+		destination = "container";
+		showArrow("container");
+		$("#valeur-scan").focus();
+	} );
+	$('#destObject').click(function() {
+		destination = "object";
+		showArrow("object");
+		$("#valeur-scan").focus();
+	} );
+	
 	$('#start').click(function() {
 		destination = "container";
+		showArrow("container");
 		if (is_read == false) {
 			readEnable();
 		}
 	});
 	$('#start2').click(function() {
 		destination = "object";
+		showArrow("object");
 		if (is_read == false) {
 			readEnable();
 		}
@@ -166,12 +179,21 @@ $(document).ready(function() {
 	$('#stop').click(function() {
 		$('#reader').html5_qrcode_stop();
 	});
+	function showArrow(type) {
+		if (type == "object") {
+			$("#arrow-object").show();
+			$("#arrow-container").hide();
+		} else {
+			$("#arrow-object").hide();
+			$("#arrow-container").show();
+		}
+	}
 /*
  * Activation automatique de la lecture optique
  */
  {if $read_optical == 1}
 readEnable();
 {/if}
-
+showArrow("object");
 });
 </script>

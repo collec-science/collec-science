@@ -37,6 +37,12 @@ switch ($t_module ["param"]) {
 		$data = $dataClass->lire ( $id );
 		$vue->set($data, "data");
 		/*
+		 * Recuperation des identifiants associes
+		 */
+		require_once 'modules/classes/objectIdentifier.class.php';
+		$oi = new ObjectIdentifier($bdd, $ObjetBDDParam);
+		$vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
+		/*
 		 * Recuperation des conteneurs parents
 		 */
 		$vue->set( $dataClass->getAllParents($data["uid"]),"parents");

@@ -48,3 +48,11 @@ REFERENCES "eabxcol"."col"."object" ("uid")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
+create or replace view col.v_object_identifier as (
+select uid, array_to_string(array_agg(identifier_type_code||':'||object_identifier_value order by identifier_type_code, object_identifier_value),',') as identifiers
+from col.object_identifier
+join col.identifier_type using (identifier_type_id)
+group by uid
+order by uid
+);

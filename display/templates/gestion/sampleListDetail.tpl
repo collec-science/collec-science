@@ -42,7 +42,8 @@
 				type="checkbox" id="check" checked>
 			<button id="samplelabels" class="btn btn-primary">Étiquettes</button>
 			<img id="sampleSpinner" src="display/images/spinner.gif" height="25">
-			<button id="samplecsvfile" class="btn btn-primary">Fichier CSV</button>
+			<button id="samplecsvfile" class="btn btn-primary">Fichier
+				CSV</button>
 		</div>
 	</div>
 	{/if}
@@ -52,6 +53,7 @@
 			<tr>
 				<th>UID</th>
 				<th>Identifiant ou nom</th>
+				<th>Autres identifiants</th>
 				<th>Projet</th>
 				<th>Type</th>
 				<th>Statut</th>
@@ -70,6 +72,7 @@
 				<td><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
 					title="Consultez le détail"> {$samples[lst].identifier} </a></td>
+				<td>{$samples[lst].identifiers}</td>
 				<td>{$samples[lst].project_name}</td>
 				<td>{$samples[lst].sample_type_name}</td>
 				<td>{$samples[lst].object_status_name}</td>

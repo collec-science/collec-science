@@ -80,8 +80,10 @@ $LANG["menu"][85] = "Opérations";
 $LANG["menu"][86] = "Liste des opérations rattachées à un protocole";
 $LANG["menu"][87] = "Sous-échantillonnage";
 $LANG["menu"][88] = "Types de sous-échantillonnage";
-$LANG["menu"][89] = "";
-$LANG["menu"][90] = "";
+$LANG["menu"][89] = "Types d'identifiants";
+$LANG["menu"][90] = "Liste des types d'identifiants rattachables à un objet";
+$LANG["menu"][91] = "";
+$LANG["menu"][92] = "";
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";

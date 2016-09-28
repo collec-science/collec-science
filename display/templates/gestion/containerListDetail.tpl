@@ -52,6 +52,7 @@ $(document).ready(function () {
 <tr>
 <th>UID</th>
 <th>Identifiant ou nom</th>
+<th>Autres identifiants</th>
 <th>Statut</th>
 <th>Type</th>
 <th>Condition de stockage</th>
@@ -74,6 +75,9 @@ $(document).ready(function () {
 <a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="Consultez le détail">
 {$containers[lst].identifier}
 </a>
+</td>
+<td>
+{$containers[lst].identifiers}
 </td>
 <td >
 {$containers[lst].object_status_name}

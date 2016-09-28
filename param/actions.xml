@@ -179,6 +179,18 @@
 	<sampledocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
 	<sampledocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
 	<documentGet action="modules/gestion/document.php" param="get" type="binaire" droits="consult"/>	
+
+	<identifierTypeList action="modules/param/identifierType.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
+	<identifierTypeChange action="modules/param/identifierType.php" param="change" droits="param"  retourlogin="1" type="smarty" />
+	<identifierTypeWrite action="modules/param/identifierType.php" param="write" droits="param" retourok="identifierTypeList" retourko="identifierTypeChange" modulebefore="identifierTypeChange" />
+	<identifierTypeDelete action="modules/param/identifierType.php" param="delete" droits="param" retourok="identifierTypeList" retourko="identifierTypeChange"  modulebefore="identifierTypeChange"/>
+	
+	<containerobjectIdentifierChange action="modules/gestion/objectIdentifier.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
+	<containerobjectIdentifierWrite action="modules/gestion/objectIdentifier.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containerobjectIdentifierChange" modulebefore="containerobjectIdentifierChange" />
+	<containerobjectIdentifierDelete action="modules/gestion/objectIdentifier.php" param="delete" droits="gestion"  retourok="containerDisplay" retourko="containerobjectIdentifierChange" modulebefore="containerobjectIdentifierChange"/>
+	<sampleobjectIdentifierChange action="modules/gestion/objectIdentifier.php" param="change" droits="gestion"  retourlogin="1" type="smarty"  />
+	<sampleobjectIdentifierWrite action="modules/gestion/objectIdentifier.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleobjectIdentifierChange" modulebefore="sampleobjectIdentifierChange" />
+	<sampleobjectIdentifierDelete action="modules/gestion/objectIdentifier.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="sampleobjectIdentifierChange" modulebefore="sampleobjectIdentifierChange"/>
 	
 </navigation>
 	

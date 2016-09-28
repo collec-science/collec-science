@@ -11,4 +11,4 @@
  require_once 'modules/classes/objectStatus.class.php';
  $objectStatus = new ObjectStatus($bdd, $ObjetBDDParam);
  $vue->set($objectStatus->getListe(1), "objectStatus");
-?>
+ ?>

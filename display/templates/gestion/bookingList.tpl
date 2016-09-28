@@ -4,7 +4,7 @@
 <img src="display/images/crossed-calendar.png" height="25">Nouveau...
 </a>
 {/if}
-<table id="bookingList" class="table table-bordered table-hover datatable " >
+<table id="bookingList" class="table table-bordered table-hover datatable " data-order='[0,"desc"]' >
 <thead>
 <tr>
 <th>Du</th>
@@ -38,9 +38,3 @@
 {/section}
 </tbody>
 </table>
-<script>
-$(document).ready(function() {
-	var book = $('#bookingList').DataTable();
-	book.order([0,"desc"]).draw();
-});
-</script>

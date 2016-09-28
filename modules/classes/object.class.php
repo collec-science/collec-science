@@ -222,7 +222,8 @@ class Object extends ObjetBDD {
 					$doi = $oi->getListFromUid ( $row ["uid"] );
 					$rowq = array ();
 					foreach ( $row as $key => $value ) {
-						if (strlen ( $value ) > 0 && isset ( $fields [$key] ))
+						
+						if (strlen ( $value ) > 0 && in_array( $key, $fields ))
 							$rowq [$key] = $value;
 					}
 					foreach ( $doi as $value ) {

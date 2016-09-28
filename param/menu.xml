@@ -23,6 +23,7 @@
 	<item module="sampleTypeList" droits="consult" value="66" title="67" />
 	<item module="multipleTypeList" droits="consult" value="87" title="88" />
 	<item module="labelList" droits="param" value="80" title="81" />
+	<item module="identifierTypeList" droits="consult" value="89" title="90" />
 		
 </item>
 <item module="administration" value="4" title="5" droits="admin">

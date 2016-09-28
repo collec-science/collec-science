@@ -34,7 +34,7 @@ $(document).ready(function() {
 {include file="gestion/documentChange.tpl"}
 </div>
 {/if}
-<table id="documentList" class="table table-bordered table-hover datatable">
+<table id="documentList" class="table table-bordered table-hover datatable" data-order='[[5, "desc"], [4, "desc"]]'>
 <thead>
 <tr>
 <th>Vignette</th>
@@ -83,9 +83,3 @@ $(document).ready(function() {
 {/section}
 </tbody>
 </table>
-<script>
-$(document).ready(function() {
-	var documentList = $("#documentList").DataTable();
-	documentList.order([[5, 'desc'], [4, 'desc']]).draw();
-});
-</script>

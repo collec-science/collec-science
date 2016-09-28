@@ -20,7 +20,7 @@ class Sample extends ObjetBDD {
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
 					container_type_name, clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,
-					document_id
+					document_id, identifiers
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join project p on (p.project_id = s.project_id)
@@ -33,6 +33,7 @@ class Sample extends ObjetBDD {
 					left outer join protocol using (protocol_id)
 					left outer join multiple_type mt on (st.multiple_type_id = mt.multiple_type_id)
 					left outer join last_photo on (so.uid = last_photo.uid)
+					left outer join v_object_identifier voi on  (s.uid = voi.uid)
 					";
 	function __construct($bdd, $param = array()) {
 		$this->table = "sample";

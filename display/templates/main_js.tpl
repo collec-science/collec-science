@@ -52,13 +52,15 @@ $(document).ready(function() {
 	$('.datatable').DataTable({
 		language : {
 			url : 'display/javascript/fr_FR.json'
-		}
+		},
+		 "searching": false
 	});
 	$('.datatable-nopaging').DataTable({
 		language : {
 			url : 'display/javascript/fr_FR.json'
 		},
-		"paging" : false
+		"paging" : false,
+		"searching": false
 	});
 	$('.taux,nombre').attr('title', '{$LANG[message].34}');
 	$('.taux').attr({

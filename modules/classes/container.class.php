@@ -11,7 +11,7 @@ class Container extends ObjetBDD {
 					container_type_id, container_type_name,
 					container_family_id, container_family_name, object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
-					document_id
+					document_id, identifiers
 					from container
 					join object using (uid)
 					join container_type using (container_type_id)
@@ -19,6 +19,7 @@ class Container extends ObjetBDD {
 					left outer join object_status using (object_status_id)
 					left outer join storage_condition using (storage_condition_id)
 					left outer join last_photo using (uid)
+					left outer join v_object_identifier using (uid)
 			";
 	/**
 	 *

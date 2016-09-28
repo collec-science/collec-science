@@ -132,6 +132,8 @@ clp : {$data.clp_classification}
 </dd>
 </dl>
 </div>
+{include file="gestion/objectIdentifierList.tpl"}
+
 {if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0}
 
 {include file="gestion/objectMapDisplay.tpl"}

@@ -217,9 +217,15 @@ class Sample extends ObjetBDD {
 				$or = " or ";
 			}
 			$identifier = "%" . strtoupper ( $this->encodeData ( $param ["name"] ) ) . "%";
-			$where .= "$or upper(so.identifier) like :identifier )";
+			$where .= "$or upper(so.identifier) like :identifier ";
 			$and = " and ";
 			$data ["identifier"] = $identifier;
+			/*
+			 * Recherche sur les identifiants externes
+			 * possibilite de recherche sur cab:valeur, p. e.
+			 */
+			$where .= " or upper(identifiers) like :identifier ";
+			$where .= ")";
 		}
 		if ($param ["project_id"] > 0) {
 			$where .= $and . " s.project_id = :project_id";

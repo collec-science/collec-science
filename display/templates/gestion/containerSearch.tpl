@@ -36,7 +36,7 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 <div class="form-group">
 <label for="name" class="col-md-2 control-label">uid ou identifiant :</label>
 <div class="col-md-4">
-<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}">
+<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible)" >
 </div>
 <label for="object_status_id" class="col-md-2 control-label">Statut :</label>
 <div class="col-md-4">

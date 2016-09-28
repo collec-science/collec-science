@@ -109,7 +109,7 @@ function dataDelete($dataClass, $id) {
  * @param string $langue        	
  */
 function setlanguage($langue) {
-	global $language, $LANG, $APPLI_cookie_ttl, $APPLI_menufile, $menu;
+	global $language, $LANG, $APPLI_cookie_ttl, $APPLI_menufile, $menu, $FORMATDATE;
 	/*
 	 * Chargement de la langue par defaut
 	 */

@@ -7,7 +7,7 @@
 <div class="form-group">
 <label for="name" class="col-md-2 control-label">uid ou identifiant :</label>
 <div class="col-md-4">
-<input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}">
+<input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible)">
 </div>
 <label for="project_id" class="col-md-2 control-label">Projet :</label>
 <div class="col-md-4">

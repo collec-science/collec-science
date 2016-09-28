@@ -132,6 +132,7 @@ function setlanguage($langue) {
 			$LANG = array_replace_recursive ( $LANGORI, $LANGDIFF );
 		}
 	}
+	$ObjetBDDParam["formatDate"] = $FORMATDATE;
 	/*
 	 * Mise en session de la langue
 	 */

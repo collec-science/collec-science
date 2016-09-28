@@ -1,5 +1,5 @@
 <?php
-define("FORMATDATE","fr");
+$FORMATDATE="fr";
 $LANG= array();
 $LANG["menu"][0] = "Gestion";
 $LANG["menu"][1] = "Opérations de gestion";

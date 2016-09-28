@@ -21,8 +21,8 @@ if (!isset($LANG)) {
  */
 if (!isset($ObjetBDDParam)) $ObjetBDDParam = array ();
 if (is_array($ObjetBDDParam)==false) $ObjetBDDParam = array ();
-if (defined("FORMATDATE")) {
-	$ObjetBDDParam["formatDate"]=FORMATDATE;
+if (strlen($FORMATDATE) > 0) {
+	$ObjetBDDParam["formatDate"]=$FORMATDATE;
 } else {
 	$ObjetBDDParam["formatDate"]=$DEFAULT_formatdate;
 }

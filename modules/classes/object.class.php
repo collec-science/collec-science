@@ -145,21 +145,26 @@ class Object extends ObjetBDD {
 			}
 			require_once 'plugins/phpqrcode/qrlib.php';
 			global $APPLI_code, $APPLI_temp;
+			require_once 'modules/classes/objectIdentifier.class.php';
+			$oi = new ObjectIdentifier ( $this->connection, $this->param );
+			require_once 'modules/classes/label.class.php';
+			$label = new Label ( $this->connection, $this->param );
+			
 			/*
 			 * Recuperation des informations generales
 			 */
-			$sql = "select uid, identifier, clp_classification as clp, '' as protocol_name, 
+			$sql = "select uid, identifier as id, clp_classification as clp, '' as pn, 
 			 		'$APPLI_code' as db,
-			 		'' as project_name,
+			 		'' as prj,
 			 		label_id
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)
 					where uid in ($uids)
 					UNION
-					select uid, identifier, clp_classification as clp, protocol_name, 
+					select uid, identifier as id, clp_classification as clp, protocol_name as pn, 
 			 		'$APPLI_code' as db, 
-			 		project_name,
+			 		project_name as prj,
 			 		label_id
 					from object 
 					join sample using (uid)
@@ -171,41 +176,78 @@ class Object extends ObjetBDD {
 					where uid in ($uids)
 			";
 			$data = $this->getListeParam ( $sql );
+			
 			/*
 			 * Preparation du tableau de sortie
 			 * transcodage des noms de champ
 			 */
-			$convert = array (
-					"uid" => "uid",
-					"identifier" => "id",
-					"clp" => "clp",
-					"protocol_name" => "pn",
-					"project_name" => "prj",
-					"db" => "db" 
-			)
-			;
+			/*
+			 * Recuperation de la liste des champs a inserer dans l'etiquette
+			 */
+			
+			/*
+			 * $convert = array (
+			 * "uid" => "uid",
+			 * "identifier" => "id",
+			 * "clp" => "clp",
+			 * "protocol_name" => "pn",
+			 * "project_name" => "prj",
+			 * "db" => "db"
+			 * )
+			 * ;
+			 */
 			$dataConvert = array ();
 			/**
 			 * Traitement de chaque ligne, et generation
 			 * du qrcode
 			 */
+			$labelId = 0;
+			$fields = array ();
 			foreach ( $data as $row ) {
-				$rowq = array ();
-				foreach ( $row as $key => $value ){
-					if (strlen($value) > 0 && isset($convert[$key]))
-						$rowq [$convert [$key]] = $value;
+				if ($row ["label_id"] > 0) {
+					/*
+					 * Lecture des labels
+					 */
+					if ($row ["label_id"] != $labelId) {
+						/*
+						 * Lecture de l'etiquette
+						 */
+						$dlabel = $label->lire ( $row ["label_id"] );
+						$labelId = $row ["label_id"];
+						$fields = explode ( ",", $dlabel ["label_fields"] );
+					}
+					/*
+					 * Recuperation des identifiants complementaires
+					 */
+					$doi = $oi->getListFromUid ( $row ["uid"] );
+					$rowq = array ();
+					foreach ( $row as $key => $value ) {
+						if (strlen ( $value ) > 0 && isset ( $fields [$key] ))
+							$rowq [$key] = $value;
+					}
+					foreach ( $doi as $value ) {
+						if (in_array ( $value ["identifier_type_code"], $fields ))
+							$rowq [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
+					}
+					/*
+					 * Generation du qrcode
+					 */
+					$filename = $APPLI_temp . '/' . $rowq ["uid"] . ".png";
+					if (! file_exists ( $filename ))
+						QRcode::png ( json_encode ( $rowq ), $filename );
+						
+					/*
+					 * Ajout du modele d'etiquette
+					 */
+					foreach ( $doi as $value ) {
+						$rowq [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
+					}
+					$rowq ["label_id"] = $row ["label_id"];
+					/*
+					 * Ajout des identifiants complementaires
+					 */
+					$dataConvert [] = $rowq;
 				}
-				/*
-				 * Generation du qrcode
-				 */
-				$filename = $APPLI_temp . '/' . $rowq ["uid"] . ".png";
-				if (! file_exists ( $filename ))
-					QRcode::png ( json_encode ( $rowq ), $filename );
-				/*
-				 * Ajout du modele d'etiquette
-				 */
-				$rowq ["label_id"] = $row ["label_id"];
-				$dataConvert [] = $rowq;
 			}
 			return $dataConvert;
 		}

@@ -11,6 +11,7 @@
 <tr>
 <th>Nom de l'étiquette</th>
 <th>Id</th>
+<th>Champs dans le QRCode</th>
 </tr>
 </thead>
 <tbody>
@@ -26,6 +27,7 @@
 {/if}
 </td>
 <td class="center">{$data[lst].label_id}</td>
+<td>{$data[lst].label_fields}</td>
 </tr>
 {/section}
 </tbody>

@@ -19,6 +19,13 @@
 <textarea id="label_xsl" name="label_xsl" class="form-control" rows="20" required>{$data.label_xsl}</textarea>
 </div>
 </div>
+<div class="form-group">
+<label for="label_fields"  class="control-label col-md-4">Champs à insérer dans le QRCode (séparés par une virgule, sans espace)<span class="red">*</span> :</label>
+<div class="col-md-8">
+<input id="label_fields" type="text" class="form-control" name="label_fields" value="{$data.label_fields}" required>
+</div>
+</div>
+
 
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>

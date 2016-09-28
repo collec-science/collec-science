@@ -56,3 +56,4 @@ join col.identifier_type using (identifier_type_id)
 group by uid
 order by uid
 );
+

@@ -123,7 +123,40 @@ class Object extends ObjetBDD {
 					where uid in ($uids)
 					order by uid
 			";
-			return $this->getListeParam ( $sql );
+			$data = $this->getListeParam ( $sql );
+			/**
+			 * Rajout des identifiants complementaires
+			 */
+			/*
+			 * Recherche des types d'etiquettes
+			 */
+			require_once 'modules/classes/identifierType.class.php';
+			$it = new IdentifierType($this->connection, $this->param);
+			$dit = $it->getListe("identifier_type_code");
+			require_once 'modules/classes/objectIdentifier.class.php';
+			$oi = new ObjectIdentifier($this->connection, $this->param);
+			
+			/*
+			 * Traitement de la liste
+			 */
+			foreach ($data as $key => $value) {
+				/*
+				 * Recuperation de la liste des identifiants externes
+				 */
+				$doi = $oi->getListFromUid($value["uid"]);
+				/*
+				 * Transformation en tableau direct
+				 */
+				$codes = array();
+				foreach ($doi as $vdoi)
+					$codes[$vdoi["identifier_type_code"]] = $vdoi["object_identifier_value"];
+				/*
+				 * Rajout des codes 
+				 */
+				foreach ($dit as $vdit)
+					$data[$key][$vdit["identifier_type_code"]] = $codes[$vdit["identifier_type_code"]];
+			}
+			return $data;
 		}
 	}
 	function generateQrcode($list) {

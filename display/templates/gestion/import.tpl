@@ -23,6 +23,15 @@ si le type d'échantillons utilisé le permet (valeur numérique, séparateur d�
 </ul>
 Les codes informatiques peuvent être consultés à partir du menu <i>Paramètres</i>.
 <br>
+
+<br>
+Pour les identifiants complémentaires :
+<ul>
+<li>repérez les codes dans le menu des paramètres</li>
+<li>vous ne pouvez indiquer qu'un code par ligne (mais plusieurs types de codes possibles)</li>
+<li>ils seront associés à l'échantillon et au conteneur, si les deux sont indiqués dans la même ligne</li>
+</ul>
+<br>
 L'import sera réalisé ainsi :
 <ol>
 <li>si sample_identifier est renseigné : création de l'échantillon</li>

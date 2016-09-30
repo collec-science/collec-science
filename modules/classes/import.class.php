@@ -57,6 +57,8 @@ class Import {
 	private $sample;
 	private $container;
 	private $storage;
+	private $initIdentifiers = false;
+	private $identifiers = array ();
 	public $minuid, $maxuid;
 	
 	/**
@@ -77,6 +79,7 @@ class Import {
 		 * Ouverture du fichier
 		 */
 		if ($this->handle = fopen ( $filename, 'r' )) {
+			$this->initIdentifiers();
 			/*
 			 * Lecture de la premiere ligne et affectation des colonnes
 			 */
@@ -144,6 +147,10 @@ class Import {
 		$num = 1;
 		$maxuid = 0;
 		$minuid = 99999999;
+		require_once 'modules/classes/objectIdentifier.class.php';
+		global $bdd;
+		$oi = new ObjectIdentifier ( $bdd );
+		$this->initIdentifiers ();
 		while ( ($data = $this->readLine ()) !== false ) {
 			/*
 			 * Preparation du tableau
@@ -166,11 +173,25 @@ class Import {
 				$dataSample ["sample_creation_date"] = $date;
 				$dataSample ["identifier"] = $values ["sample_identifier"];
 				$dataSample ["object_status_id"] = $values ["sample_status_id"];
-				if (!$dataSample["object_status_id"] > 0)
-					$dataSample["object_status_id"] = 1;
-				$dataSample["multiple_value"] = $values["sample_multiple_value"];
+				if (! $dataSample ["object_status_id"] > 0)
+					$dataSample ["object_status_id"] = 1;
+				$dataSample ["multiple_value"] = $values ["sample_multiple_value"];
 				try {
 					$sample_uid = $this->sample->ecrire ( $dataSample );
+					/*
+					 * Traitement des identifiants complementaires
+					 */
+					foreach ( $this->identifiers as $idcode => $typeid ) {
+						if (strlen ( $values [$idcode] ) > 0) {
+							$dataCode = array (
+									"object_identifier_id" => 0,
+									"uid" => $sample_uid,
+									"identifier_type_id" => $typeid,
+									"object_identifier_value" => $values[$idcode]
+							);
+							$oi->ecrire ( $dataCode );
+						}
+					}
 					/*
 					 * Mise a jour des bornes de l'uid
 					 */
@@ -190,17 +211,30 @@ class Import {
 				$dataContainer = $values;
 				$dataContainer ["identifier"] = $values ["container_identifier"];
 				$dataContainer ["object_status_id"] = $values ["container_status_id"];
-				if (!$dataContainer["object_status_id"] > 0)
-					$dataContainer["object_status_id"] = 1;
+				if (! $dataContainer ["object_status_id"] > 0)
+					$dataContainer ["object_status_id"] = 1;
 				try {
 					$container_uid = $this->container->ecrire ( $dataContainer );
+					/*
+					 * Traitement des identifiants complementaires
+					 */
+					foreach ( $this->identifiers as $idcode => $typeid ) {
+						if (strlen ( $values [$idcode] ) > 0) {
+							$dataCode = array (
+									"object_identifier_id" => 0,
+									"uid" => $sample_uid,
+									"identifier_type_id" => $typeid
+							);
+							$oi->ecrire ( $dataCode );
+						}
+					}
 					/*
 					 * Mise a jour des bornes de l'uid
 					 */
 					if ($container_uid < $minuid)
 						$minuid = $container_uid;
-						if ($container_uid > $maxuid)
-							$maxuid = $container_uid;
+					if ($container_uid > $maxuid)
+						$maxuid = $container_uid;
 				} catch ( PDOException $pe ) {
 					throw new ImportException ( "Line $num : error when import container<br>" . $pe->getMessage () );
 				}
@@ -265,6 +299,7 @@ class Import {
 	function controlAll() {
 		$num = 1;
 		$retour = array ();
+		$this->initIdentifiers ();
 		while ( ($data = $this->readLine ()) !== false ) {
 			$values = $this->prepareLine ( $data );
 			$num ++;
@@ -326,10 +361,10 @@ class Import {
 			/*
 			 * Verification du statut
 			 */
-			$ok = false ;
-			if ($data["sample_status_id"] > 0) {
-				foreach ($this->object_status as $value) {
-					if ($data["sample_status_id"] == $value["object_status_id"]) {
+			$ok = false;
+			if ($data ["sample_status_id"] > 0) {
+				foreach ( $this->object_status as $value ) {
+					if ($data ["sample_status_id"] == $value ["object_status_id"]) {
 						$ok = true;
 						break;
 					}
@@ -339,7 +374,6 @@ class Import {
 					$retour ["message"] .= "Le statut de l'échantillon n'est pas connu. ";
 				}
 			}
-			
 		}
 		/*
 		 * Traitement du container
@@ -406,6 +440,25 @@ class Import {
 			$retour ["message"] .= "Aucun échantillon ou container n'est décrit (pas d'identifiant pour l'un ou pour l'autre). ";
 		}
 		return $retour;
+	}
+	/**
+	 * Initialise la liste des identifiants secondaires possibles
+	 */
+	function initIdentifiers() {
+		if (! $this->initIdentifiers) {
+			global $bdd;
+			require_once 'modules/classes/identifierType.class.php';
+			$it = new IdentifierType ( $bdd );
+			$dit = $it->getListe ();
+			/*
+			 * Rajout des codes dans les colonnes autorisees
+			 */
+			foreach ( $dit as $value ) {
+				$this->colonnes [] = $value ["identifier_type_code"];
+				$this->identifiers [$value ["identifier_type_code"]] = $value ["identifier_type_id"];
+			}
+			$this->initIdentifiers = true;
+		}
 	}
 }
 ?>

@@ -136,12 +136,6 @@ class Sample extends ObjetBDD {
 	function supprimer($uid) {
 		$data = $this->lire ( $uid );
 		if ($this->verifyProject ( $data )) {
-			/*
-			 * Suppression des attributs specifiques
-			 */
-			require_once 'modules/classes/sampleAttribute.class.php';
-			$sampleAttribute = new SampleAttribute ( $this->connection, $this->paramori );
-			$sampleAttribute->supprimerChamp ( $data ["sample_id"], "sample_id" );
 			
 			/*
 			 * suppression de l'echantillon

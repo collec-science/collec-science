@@ -9,7 +9,6 @@ include_once 'modules/classes/storage.class.php';
 $dataClass = new Storage ( $bdd, $ObjetBDDParam );
 $keyName = "storage_id";
 $id = $_REQUEST [$keyName];
-$vue->set( $_SESSION ["moduleParent"], "moduleParent");
 switch ($t_module ["param"]) {
 	case "input" :
 		$data = dataRead ( $dataClass, $id, "gestion/storageChange.tpl", $_REQUEST ["uid"], false );
@@ -18,6 +17,8 @@ switch ($t_module ["param"]) {
 		$containerFamily = new ContainerFamily ( $bdd, $ObjetBDDParam );
 		$vue->set($containerFamily->getListe ( 2 ) , "containerFamily");
 		$vue->set( $data  ,"data" );
+		$vue->set( $_SESSION ["moduleParent"], "moduleParent");
+		
 		/*
 		 * Recherche de l'objet
 		 */
@@ -37,14 +38,8 @@ switch ($t_module ["param"]) {
 		$object = new Object ( $bdd, $ObjetBDDParam );
 		$vue->set($object->lire ( $_REQUEST ["uid"] )  , "object");
 		$vue->set( $data  ,  "data");
-		break;
-	case "change":
-		/*
-		 * open the form to modify the record
-		 * If is a new record, generate a new record with default value :
-		 * $_REQUEST["idParent"] contains the identifiant of the parent record
-		 */
-		dataRead ( $dataClass, $id, "example/exampleChange.tpl", $_REQUEST ["idParent"] );
+		$vue->set( $_SESSION ["moduleParent"], "moduleParent");
+		
 		break;
 	case "write":
 		/*

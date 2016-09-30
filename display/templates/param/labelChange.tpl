@@ -1,6 +1,6 @@
 <h2>Modification d'un projet</h2>
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-12">
 <a href="index.php?module=labelList">{$LANG.appli.1}</a>
 
 <form class="form-horizontal protoform" id="labelForm" method="post" action="index.php">
@@ -35,5 +35,17 @@
  </div>
 </form>
 </div>
+</div>
+<div class="bg-info">
+Champs utilisables dans le QRcode et dans le texte de l'étiquette :
+<ul>
+<li>uid (obligatoire) : identifiant unique</li>
+<li>db (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les échantillons entre plusieurs bases)</li>
+<li>id : identifiant général</li>
+<li>prj : code du projet</li>
+<li>clp : code de risque</li>
+<li>pn : nom du protocole</li>
+<li>et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants</li>
+</ul>
 </div>
 <span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>

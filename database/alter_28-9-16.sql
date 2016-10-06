@@ -57,3 +57,23 @@ group by uid
 order by uid
 );
 
+ALTER TABLE "eabxcol"."col"."storage" ADD COLUMN "storage_reason_id" INTEGER;
+
+CREATE SEQUENCE "eabxcol"."col"."storage_reason_storage_reason_id_seq";
+
+CREATE TABLE "eabxcol"."col"."storage_reason" (
+                "storage_reason_id" INTEGER NOT NULL DEFAULT nextval('"eabxcol"."col"."storage_reason_storage_reason_id_seq"'),
+                "storage_reason_name" VARCHAR NOT NULL,
+                CONSTRAINT "storage_reason_pk" PRIMARY KEY ("storage_reason_id")
+);
+COMMENT ON TABLE "eabxcol"."col"."storage_reason" IS 'Table des raisons de stockage/déstockage';
+
+
+ALTER SEQUENCE "eabxcol"."col"."storage_reason_storage_reason_id_seq" OWNED BY "eabxcol"."col"."storage_reason"."storage_reason_id";
+
+ALTER TABLE "eabxcol"."col"."storage" ADD CONSTRAINT "storage_reason_storage_fk"
+FOREIGN KEY ("storage_reason_id")
+REFERENCES "eabxcol"."col"."storage_reason" ("storage_reason_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;

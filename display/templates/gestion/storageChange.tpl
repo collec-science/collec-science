@@ -155,6 +155,21 @@ Retour au détail
 </div>
 </div>
 {/if}
+{if $data.movement_type_id == 2}
+			<div class="form-group">
+				<label for="storage_reason_id" class="control-label col-sm-4">Motif du déstockage :</label>
+				<div class="col-sm-8">
+					<select id="storage_reason_id" name="storage_reason_id">
+					<option value="" {if $data.storage_reason_id == ""}selected{/if}>Sélectionnez...</option>
+					{section name=lst loop=$storageReason}
+					<option value="{$storageReason[lst].storage_reason_id}" {if $data.storage_reason_id == $storageReason[lst].storage_reason_id}selected{/if}>
+					{$storageReason[lst].storage_reason_name}
+					</option>
+					{/section}
+					</select>
+				</div>
+			</div>
+{/if}
 <div class="form-group">
 <label for="storage_comment" class="control-label col-md-4">Commentaire :</label>
 <div class="col-md-8">

@@ -15,17 +15,17 @@ switch ($t_module ["param"]) {
 		$data ["movement_type_id"] = 1;
 		require_once 'modules/classes/containerFamily.class.php';
 		$containerFamily = new ContainerFamily ( $bdd, $ObjetBDDParam );
-		$vue->set($containerFamily->getListe ( 2 ) , "containerFamily");
-		$vue->set( $data  ,"data" );
-		$vue->set( $_SESSION ["moduleParent"], "moduleParent");
+		$vue->set ( $containerFamily->getListe ( 2 ), "containerFamily" );
+		$vue->set ( $data, "data" );
+		$vue->set ( $_SESSION ["moduleParent"], "moduleParent" );
 		
 		/*
 		 * Recherche de l'objet
 		 */
 		require_once 'modules/classes/object.class.php';
 		$object = new Object ( $bdd, $ObjetBDDParam );
-		$vue->set($object->lire ( $_REQUEST ["uid"] ) , "object");
-		$vue->set($data  ,"data" );
+		$vue->set ( $object->lire ( $_REQUEST ["uid"] ), "object" );
+		$vue->set ( $data, "data" );
 		break;
 	
 	case "output" :
@@ -36,10 +36,15 @@ switch ($t_module ["param"]) {
 		 */
 		require_once 'modules/classes/object.class.php';
 		$object = new Object ( $bdd, $ObjetBDDParam );
-		$vue->set($object->lire ( $_REQUEST ["uid"] )  , "object");
-		$vue->set( $data  ,  "data");
-		$vue->set( $_SESSION ["moduleParent"], "moduleParent");
-		
+		$vue->set ( $object->lire ( $_REQUEST ["uid"] ), "object" );
+		$vue->set ( $data, "data" );
+		$vue->set ( $_SESSION ["moduleParent"], "moduleParent" );
+		/*
+		 * Recherche des motifs de sortie
+		 */
+		require_once 'modules/classes/storageReason.class.php';
+		$storageReason = new StorageReason ( $bdd, $ObjetBDDParam );
+		$vue->set ( $storageReason->getListe ( 2 ), "storageReason" );
 		break;
 	case "write":
 		/*
@@ -57,14 +62,14 @@ switch ($t_module ["param"]) {
 		 * Verification de l'existence de container_id si entree
 		 */
 		$error = false;
-		if ($_REQUEST ["movement_type_id"] == 1 ) {
-			if ($_REQUEST["uid"] == $_REQUEST["container_uid"])
+		if ($_REQUEST ["movement_type_id"] == 1) {
+			if ($_REQUEST ["uid"] == $_REQUEST ["container_uid"])
 				$error = true;
-			if ( strlen ( $_REQUEST ["container_id"] ) == 0) 
+			if (strlen ( $_REQUEST ["container_id"] ) == 0)
 				$error = true;
 		}
 		if ($error) {
-			$message->set( $LANG ["appli"] [3]);
+			$message->set ( $LANG ["appli"] [3] );
 			$module_coderetour = - 1;
 		} else {
 			$id = dataWrite ( $dataClass, $_REQUEST );
@@ -81,45 +86,52 @@ switch ($t_module ["param"]) {
 		break;
 	case "fastInputChange" :
 		if (isset ( $_REQUEST ["container_uid"] ) && is_numeric ( $_REQUEST ["container_uid"] ))
-			$vue->set( $_REQUEST ["container_uid"] , "container_uid");
-		$vue->set($dataClass->getDefaultValue () ,"data" );
-		$vue->set("gestion/fastInputChange.tpl" ,"corps" );
-		if (isset($_REQUEST["read_optical"]))
-			$vue->set($_REQUEST["read_optical"] ,"read_optical" );
-		/*
+			$vue->set ( $_REQUEST ["container_uid"], "container_uid" );
+		$vue->set ( $dataClass->getDefaultValue (), "data" );
+		$vue->set ( "gestion/fastInputChange.tpl", "corps" );
+		if (isset ( $_REQUEST ["read_optical"] ))
+			$vue->set ( $_REQUEST ["read_optical"], "read_optical" );
+			/*
 		 * Assignation du nom de la base
 		 */
-			$vue->set($APPLI_code, "db");
+		$vue->set ( $APPLI_code, "db" );
 		
 		break;
 	case "fastInputWrite" :
 		try {
 			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 1, $_REQUEST ["container_uid"], $_SESSION ["login"], $_REQUEST ["range"], $_REQUEST ["storage_comment"] );
-			$message->set(  $LANG["message"][5]);
+			$message->set ( $LANG ["message"] [5] );
 			$module_coderetour = 1;
 		} catch ( Exception $e ) {
-			$message->set($e->getMessage());
-			$module_coderetour = -1;
+			$message->set ( $e->getMessage () );
+			$module_coderetour = - 1;
 		}
 		break;
 	case "fastOutputChange" :
-		$vue->set($dataClass->getDefaultValue ()  ,"data" );
-		$vue->set("gestion/fastOutputChange.tpl" ,"corps" );
-		if (isset($_REQUEST["read_optical"]))
-			$vue->set( $_REQUEST["read_optical"] , "read_optical");
-			/*
-			 * Assignation du nom de la base
-			 */
-			$vue->set($APPLI_code, "db");
+		$vue->set ( $dataClass->getDefaultValue (), "data" );
+		$vue->set ( "gestion/fastOutputChange.tpl", "corps" );
+		if (isset ( $_REQUEST ["read_optical"] ))
+			$vue->set ( $_REQUEST ["read_optical"], "read_optical" );
+		/*
+		 * Assignation du nom de la base
+		 */
+		$vue->set ( $APPLI_code, "db" );
+		/*
+		 * Recherche des motifs de sortie
+		 */
+		require_once 'modules/classes/storageReason.class.php';
+		$storageReason = new StorageReason ( $bdd, $ObjetBDDParam );
+		$vue->set ( $storageReason->getListe ( 2 ), "storageReason" );
+		
 		break;
 	case "fastOutputWrite" :
 		try {
-			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 2, 0, $_SESSION ["login"], $_REQUEST ["range"], $_REQUEST ["storage_comment"] );
-			$message->set(  $LANG["message"][5]);
+			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 2, 0, $_SESSION ["login"], $_REQUEST ["range"], $_REQUEST ["storage_comment"], $_REQUEST["storage_reason_id"] );
+			$message->set ( $LANG ["message"] [5] );
 			$module_coderetour = 1;
 		} catch ( Exception $e ) {
-			$message->set(  $LANG["appli"][6]);
-			$module_coderetour = -1;
+			$message->set ( $LANG ["appli"] [6] );
+			$module_coderetour = - 1;
 		}
 		break;
 }

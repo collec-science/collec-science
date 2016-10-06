@@ -82,8 +82,10 @@ $LANG["menu"][87] = "Sous-échantillonnage";
 $LANG["menu"][88] = "Types de sous-échantillonnage";
 $LANG["menu"][89] = "Types d'identifiants";
 $LANG["menu"][90] = "Liste des types d'identifiants rattachables à un objet";
-$LANG["menu"][91] = "";
-$LANG["menu"][92] = "";
+$LANG["menu"][91] = "Motifs de déstockage";
+$LANG["menu"][92] = "Motifs de sortie du stock";
+$LANG["menu"][93] = "";
+$LANG["menu"][94] = "";
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";

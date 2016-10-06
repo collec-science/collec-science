@@ -18,6 +18,7 @@
 	<item module="eventTypeList" droits="consult" value="52" title="53" />
 	<item module="containerFamilyList" droits="consult" value="54" title="55" />
 	<item module="storageConditionList" droits="consult" value="56" title="57" />
+	<item module="storageReasonList" droits="consult" value="91" title="92" />
 	<item module="containerTypeList" droits="consult" value="58" title="59" />
 	<item module="objectStatusList" droits="consult" value="62" title="63" />
 	<item module="sampleTypeList" droits="consult" value="66" title="67" />

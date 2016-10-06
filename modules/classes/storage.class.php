@@ -15,12 +15,14 @@ class Storage extends ObjetBDD {
 	private $sql = "select s.uid, container_id, movement_type_id, movement_type_name,
 					storage_date, range, login, storage_comment,
 					identifier, o.uid as parent_uid, o.identifier as parent_identifier,
-					container_type_id, container_type_name
+					container_type_id, container_type_name,
+					storage_reason_id, storage_reason_name
 					from storage s
 					join movement_type using (movement_type_id)
 					left outer join container c using (container_id)
 					left outer join object o on (c.uid = o.uid)
 					left outer join container_type using (container_type_id)
+					left outer join storage_reason using (storage_reason_id)
 					";
 	private $order = " order by storage_date desc";
 	private $where = " where s.uid = :uid";
@@ -44,6 +46,9 @@ class Storage extends ObjetBDD {
 				"movement_type_id" => array (
 						"type" => 1,
 						"requis" => 1 
+				),
+				"storage_reason_id" => array(
+						"type"=>1
 				),
 				"storage_date" => array (
 						"type" => 3,
@@ -137,7 +142,7 @@ class Storage extends ObjetBDD {
 	 * @param varchar $comment        	
 	 * @return Identifier
 	 */
-	function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $range = null, $comment = null) {
+	function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $range = null, $comment = null, $storage_reason_id = null) {
 		global $LANG;
 		/*
 		 * Verifications
@@ -162,11 +167,13 @@ class Storage extends ObjetBDD {
 			strlen ( $_SESSION ["login"] ) > 0 ? $login = $_SESSION ["login"] : $controle = false;
 		$range = $this->encodeData ( $range );
 		$comment = $this->encodeData ( $comment );
+		$storage_reason_id = $this->encodeData ($storage_reason_id);
 		if ($controle) {
 			$data ["uid"] = $uid;
 			$data ["storage_date"] = $date;
 			$data ["movement_type_id"] = $type;
 			$data ["login"] = $login;
+			$data["storage_reason_id"] = $storage_reason_id;
 			/*
 			 * Recherche de container_id a partir de uid
 			 */

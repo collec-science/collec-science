@@ -87,6 +87,11 @@
 	<sampleTypeChange action="modules/param/sampleType.php" param="change" droits="param,projet"  retourlogin="1" type="smarty" />
 	<sampleTypeWrite action="modules/param/sampleType.php" param="write" droits="param,projet" retourok="sampleTypeList" retourko="sampleTypeChange" modulebefore="sampleTypeChange" />
 	<sampleTypeDelete action="modules/param/sampleType.php" param="delete" droits="param,projet" retourok="sampleTypeList" retourko="sampleTypeChange"  modulebefore="sampleTypeChange"/>
+
+	<storageReasonList action="modules/param/storageReason.php" param="list" droits="consult" retourlogin="1" type="smarty"  />
+	<storageReasonChange action="modules/param/storageReason.php" param="change" droits="param,projet"  retourlogin="1" type="smarty" />
+	<storageReasonWrite action="modules/param/storageReason.php" param="write" droits="param,projet" retourok="storageReasonList" retourko="storageReasonChange" modulebefore="storageReasonChange" />
+	<storageReasonDelete action="modules/param/storageReason.php" param="delete" droits="param,projet" retourok="storageReasonList" retourko="storageReasonChange"  modulebefore="storageReasonChange"/>
 	
 
 	<gestion droits="consult"/>

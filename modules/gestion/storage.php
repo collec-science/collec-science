@@ -112,7 +112,7 @@ switch ($t_module ["param"]) {
 		$vue->set ( "gestion/fastOutputChange.tpl", "corps" );
 		if (isset ( $_REQUEST ["read_optical"] ))
 			$vue->set ( $_REQUEST ["read_optical"], "read_optical" );
-		/*
+			/*
 		 * Assignation du nom de la base
 		 */
 		$vue->set ( $APPLI_code, "db" );
@@ -126,12 +126,57 @@ switch ($t_module ["param"]) {
 		break;
 	case "fastOutputWrite" :
 		try {
-			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 2, 0, $_SESSION ["login"], $_REQUEST ["range"], $_REQUEST ["storage_comment"], $_REQUEST["storage_reason_id"] );
+			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 2, 0, $_SESSION ["login"], $_REQUEST ["range"], $_REQUEST ["storage_comment"], $_REQUEST ["storage_reason_id"] );
 			$message->set ( $LANG ["message"] [5] );
 			$module_coderetour = 1;
 		} catch ( Exception $e ) {
 			$message->set ( $LANG ["appli"] [6] );
 			$module_coderetour = - 1;
+		}
+		break;
+	case "batchOpen" :
+		$vue->set ( "gestion/storageBatchRead.tpl", "corps" );
+		break;
+	case "batchRead" :
+		require_once 'modules/classes/object.class.php';
+		$object = new Object ( $bdd, $ObjetBDDParam );
+		$vue->set ( $object->batchRead ( $_REQUEST ["reads"] ), "data" );
+		$vue->set ( "gestion/storageBatchConfirm.tpl", "corps" );
+		/*
+		 * Recherche des motifs de sortie
+		 */
+		require_once 'modules/classes/storageReason.class.php';
+		$storageReason = new StorageReason ( $bdd, $ObjetBDDParam );
+		$vue->set ( $storageReason->getListe ( 2 ), "storageReason" );
+		break;
+	case "batchWrite":
+		/*
+		 * Preparation des donnees
+		 */
+		$uid_container = 0;
+		$date = date ( "d/m/Y h:i:s" );
+		$nb = 0;
+		try {
+			foreach ( $_REQUEST ["uid"] as $uid ) {
+				/*
+				 * teste s'il s'agit d'un container pour une entree
+				 */
+				if ($_REQUEST ["container" . $uid] == 1) {
+					$uid_container = $uid;
+				} else {
+					$sens = $_REQUEST ["mvt" . $uid];
+					if (($sens == 1 && $uid_container > 0) || $sens == 2) {
+						$dataClass->addMovement ( $uid, $date, $sens, $uid_container, $_SESSION ["login"], null, null, $_REQUEST ["storage_reason_id"] );
+						$nb ++;
+					}
+				}
+			}
+			$message->set ( $nb . " mouvements générés" );
+			$module_coderetour = 1;
+		} catch ( Exception $e ) {
+			$message->set ( "Erreur lors de la génération des mouvements" );
+			$message->setSyslog ( $e->getMessage () );
+			$module_coderetour = -1;
 		}
 		break;
 }

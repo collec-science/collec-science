@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-12">
-		<form class="form-horizontal protoform fastform" id="fastOutputForm"
+		<form class="form-horizontal protoform" id="fastOutputForm"
 			method="post" action="index.php">
 			<input type="hidden" name="moduleBase" value="storageBatch"> 
 			<input	type="hidden" name="action" value="Read"> 

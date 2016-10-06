@@ -95,35 +95,7 @@ class Object extends ObjetBDD {
 		 * Verification que la liste ne soit pas vide
 		 */
 		if (count ( $list ) > 0) {
-			/*
-			 * Verification que les uid sont numeriques
-			 * preparation de la clause where
-			 */
-			$comma = false;
-			$uids = "";
-			foreach ( $list as $value ) {
-				if (is_numeric ( $value ) && $value > 0) {
-					$comma == true ? $uids .= "," : $comma = true;
-					$uids .= $value;
-				}
-			}
-			$sql = "select uid, identifier, container_type_name as type_name, clp_classification as clp,
-					label_id
-					from object 
-					join container using (uid)
-					join container_type using (container_type_id)
-					where uid in ($uids)
-					UNION
-					select uid, identifier, sample_type_name as type_name, clp_classification as clp,
-					label_id
-					from object 
-					join sample using (uid)
-					join sample_type using (sample_type_id)
-					left outer join container_type using (container_type_id)
-					where uid in ($uids)
-					order by uid
-			";
-			$data = $this->getListeParam ( $sql );
+			$data = $this->getForList($list);
 			/**
 			 * Rajout des identifiants complementaires
 			 */
@@ -159,6 +131,48 @@ class Object extends ObjetBDD {
 			return $data;
 		}
 	}
+	/**
+	 * Recupere la liste des objets 
+	 * @param array $list
+	 * @return tableau
+	 */
+	function getForList(array $list) {
+		/*
+		 * Verification que les uid sont numeriques
+		 * preparation de la clause where
+		 */
+		$comma = false;
+		$uids = "";
+		foreach ( $list as $value ) {
+			if (is_numeric ( $value ) && $value > 0) {
+				$comma == true ? $uids .= "," : $comma = true;
+				$uids .= $value;
+			}
+		}
+		$sql = "select uid, identifier, container_type_name as type_name, clp_classification as clp,
+		label_id, 'container' as object_type
+		from object
+		join container using (uid)
+		join container_type using (container_type_id)
+		where uid in ($uids)
+		UNION
+		select uid, identifier, sample_type_name as type_name, clp_classification as clp,
+		label_id, 'sample' as object_type
+		from object
+		join sample using (uid)
+		join sample_type using (sample_type_id)
+		left outer join container_type using (container_type_id)
+		where uid in ($uids)
+		order by uid
+		";
+		return $this->getListeParam ( $sql );
+		
+	}
+	/**
+	 * Genere le QRCODE
+	 * @param unknown $list
+	 * @return unknown[][]|tableau[][]
+	 */
 	function generateQrcode($list) {
 		/*
 		 * Verification que la liste ne soit pas vide
@@ -286,6 +300,34 @@ class Object extends ObjetBDD {
 			return $dataConvert;
 		}
 	}
+	/**
+	 * Lit les objets a partir des saisies batch
+	 * @param unknown $batchdata
+	 * @return tableau
+	 */
+	function batchRead($batchdata) {
+		global $APPLI_code;
+		if (strlen($batchdata) > 0) {
+			$batchdata = $this->encodeData($batchdata);
+			/*
+			 * Preparation du tableau de travail
+			 */
+			$data = explode("\t", $batchdata);
+			/*
+			 * Extraction des UID de chaque ligne scanee
+			 */
+			$uids = array();
+			foreach ($data as $value) {
+				$datajson = json_decode($value, true);
+				if ($datajson["uid"] > 0 && $datajson["db"] == $APPLI_code)
+					$uids [] = $datajson ["uid"];
+			}
+			if (count($uids) > 0){
+				return $this->getForList($uids);
+			}
+		}
+	}
+	
 }
 
 

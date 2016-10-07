@@ -84,8 +84,10 @@ $LANG["menu"][89] = "Types d'identifiants";
 $LANG["menu"][90] = "Liste des types d'identifiants rattachables à un objet";
 $LANG["menu"][91] = "Motifs de déstockage";
 $LANG["menu"][92] = "Motifs de sortie du stock";
-$LANG["menu"][93] = "";
-$LANG["menu"][94] = "";
+$LANG["menu"][93] = "Entrée/sortie par lots";
+$LANG["menu"][94] = "Entrée / sortie par scan multiple de QRCODE";
+$LANG["menu"][95] = "";
+$LANG["menu"][96] = "";
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";

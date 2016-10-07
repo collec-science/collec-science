@@ -154,21 +154,21 @@ switch ($t_module ["param"]) {
 		 * Preparation des donnees
 		 */
 		$uid_container = 0;
-		$date = date ( "d/m/Y h:i:s" );
+		$date = date ( "d/m/Y H:i:s" );
 		$nb = 0;
 		try {
 			foreach ( $_REQUEST ["uid"] as $uid ) {
+				$sens = $_REQUEST ["mvt" . $uid];
 				/*
 				 * teste s'il s'agit d'un container pour une entree
 				 */
 				if ($_REQUEST ["container" . $uid] == 1) {
 					$uid_container = $uid;
-				} else {
-					$sens = $_REQUEST ["mvt" . $uid];
-					if (($sens == 1 && $uid_container > 0) || $sens == 2) {
-						$dataClass->addMovement ( $uid, $date, $sens, $uid_container, $_SESSION ["login"], null, null, $_REQUEST ["storage_reason_id"] );
-						$nb ++;
-					}
+				}
+				if (($sens == 1 && $uid_container > 0) || $sens == 2) {
+					$sens == 1 ? $uic = $uid_container : $uic = "";
+					$dataClass->addMovement ( $uid, $date, $sens, $uic, $_SESSION ["login"], null, null, $_REQUEST ["storage_reason_id"] );
+					$nb ++;
 				}
 			}
 			$message->set ( $nb . " mouvements générés" );
@@ -176,7 +176,7 @@ switch ($t_module ["param"]) {
 		} catch ( Exception $e ) {
 			$message->set ( "Erreur lors de la génération des mouvements" );
 			$message->setSyslog ( $e->getMessage () );
-			$module_coderetour = -1;
+			$module_coderetour = - 1;
 		}
 		break;
 }

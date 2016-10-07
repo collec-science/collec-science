@@ -44,12 +44,13 @@
 				</div>
 			</div>
 			<table id="storageList"
-				class="table table-bordered table-hover datatable datatable-nopaging datatable-nosort ">
+				class="table table-bordered table-hover datatable-nopaging-nosort ">
 				<thead>
 					<tr>
 						<th>UID</th>
 						<th>Identifiant</th>
 						<th>Type</th>
+						<th>Type détaillé</th>
 						<th>Conteneur<br>(pour entrée)
 						</th>
 						<th>Entrée</th>
@@ -64,17 +65,18 @@
 							value="{$data[lst].uid}"> {$data[lst].uid}</td>
 						<td>{$data[lst].identifier}</td>
 						<td>{$data[lst].object_type}</td>
+						<td>{$data[lst].type_name}</td>
 						<td class="center"><input type="checkbox"
 							name="container{$data[lst].uid}" value="1"
-							{if $data[lst].object_type="container"}checked{/if}></td>
+							{if $data[lst].object_type=="container"}checked{/if}></td>
 						<td class="center"><input class="entree" type="radio"
 							name="mvt{$data[lst].uid}" value="1"
-							{if $data[lst].object_type="sample"}checked{/if}></td>
+							{if $data[lst].object_type=="sample"}checked{/if}></td>
 						<td class="center"><input class="sortie" type="radio"
 							name="mvt{$data[lst].uid}" value="2"></td>
 						<td class="center"><input class="rien" type="radio"
 							name="mvt{$data[lst].uid}" value="0"
-							{if $data[lst].object_type="container"}checked{/if}></td>
+							{if $data[lst].object_type=="container"}checked{/if}></td>
 					</tr>
 					{/section}
 				</tbody>

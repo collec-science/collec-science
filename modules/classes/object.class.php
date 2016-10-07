@@ -95,7 +95,7 @@ class Object extends ObjetBDD {
 		 * Verification que la liste ne soit pas vide
 		 */
 		if (count ( $list ) > 0) {
-			$data = $this->getForList($list);
+			$data = $this->getForList($list, "uid");
 			/**
 			 * Rajout des identifiants complementaires
 			 */
@@ -136,7 +136,7 @@ class Object extends ObjetBDD {
 	 * @param array $list
 	 * @return tableau
 	 */
-	function getForList(array $list) {
+	function getForList(array $list, $order = "") {
 		/*
 		 * Verification que les uid sont numeriques
 		 * preparation de la clause where
@@ -163,9 +163,12 @@ class Object extends ObjetBDD {
 		join sample_type using (sample_type_id)
 		left outer join container_type using (container_type_id)
 		where uid in ($uids)
-		order by uid
 		";
-		return $this->getListeParam ( $sql );
+		if (strlen ($order) > 0) {
+			$sql = "select * from (".$sql.") as a";
+			$order = " order by $order";
+		}
+		return $this->getListeParam ( $sql.$order );
 		
 	}
 	/**
@@ -312,18 +315,24 @@ class Object extends ObjetBDD {
 			/*
 			 * Preparation du tableau de travail
 			 */
-			$data = explode("\t", $batchdata);
+			$data = explode("\n", $batchdata);
 			/*
 			 * Extraction des UID de chaque ligne scanee
 			 */
 			$uids = array();
+			$order = "";
+			$i = 1;
 			foreach ($data as $value) {
 				$datajson = json_decode($value, true);
-				if ($datajson["uid"] > 0 && $datajson["db"] == $APPLI_code)
+				if ($datajson["uid"] > 0 && $datajson["db"] == $APPLI_code){
 					$uids [] = $datajson ["uid"];
+					$order .= " when ". $datajson["uid"]." then $i";
+					$i ++;
+				}
 			}
 			if (count($uids) > 0){
-				return $this->getForList($uids);
+				$order = " case uid ".$order." end";
+				return $this->getForList($uids, "$order");
 			}
 		}
 	}

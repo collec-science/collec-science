@@ -62,6 +62,16 @@ $(document).ready(function() {
 		"paging" : false,
 		"searching": false
 	});
+	$('.datatable-nopaging-nosort').DataTable({
+		language : {
+			url : 'display/javascript/fr_FR.json'
+		},
+		"paging" : false,
+		"searching": false,
+		"ordering": false
+	});
+	
+	
 	$('.taux,nombre').attr('title', '{$LANG[message].34}');
 	$('.taux').attr({
 		'pattern' : '-?[0-9]+(\.[0-9]+)?',

@@ -198,8 +198,8 @@
 	<sampleobjectIdentifierDelete action="modules/gestion/objectIdentifier.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="sampleobjectIdentifierChange" modulebefore="sampleobjectIdentifierChange"/>
 	
 	<storageBatchOpen action="modules/gestion/storage.php" param="batchOpen" droits="gestion" type="smarty" retourlogin="1" />
-	<storageBatchRead action="modules/gestion/storage.php" param="batchRead" droits="gestion" type="smarty" />
-	<storageBatchWrite action="modules/gestion/storage.php" param="batchWrite" droits="gestion" retourok="storageBatchOpen" retourko="storageBatchRead" />
+	<storageBatchRead action="modules/gestion/storage.php" param="batchRead" droits="gestion" type="smarty" modulebefore="storageBatchOpen,storageBatchWrite" />
+	<storageBatchWrite action="modules/gestion/storage.php" param="batchWrite" droits="gestion" modulebefore="storageBatchRead" retourok="storageBatchOpen" retourko="storageBatchRead" />
 	
 	
 </navigation>

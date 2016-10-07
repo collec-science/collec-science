@@ -91,6 +91,12 @@ switch ($t_module ["param"]) {
 		} else {
 			$module_coderetour = - 1;
 		}
+		/*
+		 * Suppression des qrcodes
+		 */
+		foreach ($data as $value) {
+			unlink($APPLI_temp."/".$value["uid"].".png");
+		}
 		break;
 	case "exportCSV" :
 		$data = $dataClass->getForPrint ( $_REQUEST ["uid"] );

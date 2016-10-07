@@ -281,8 +281,8 @@ class Object extends ObjetBDD {
 					 * Generation du qrcode
 					 */
 					$filename = $APPLI_temp . '/' . $rowq ["uid"] . ".png";
-					if (! file_exists ( $filename ))
-						QRcode::png ( json_encode ( $rowq ), $filename );
+					//if (! file_exists ( $filename ))
+					QRcode::png ( json_encode ( $rowq ), $filename );
 						
 					/*
 					 * Ajout du modele d'etiquette

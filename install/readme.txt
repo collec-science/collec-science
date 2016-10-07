@@ -1,5 +1,19 @@
 News
 ===========
+Version 0.6 du 7 octobre 2016
+-------------------------------
+Nouvelles fonctionnalités :
+- ajout d'un spinner d'attente lors de la génération des étiquettes
+- des documents (photos, pdf...) peuvent être associés à un objet
+- lecture par douchette
+- génération des mouvements par scan de lots (traitement batch)
+- le qrcode est maintenant généré dynamiquement : auparavant, son contenu était statique et immuable
+- il est possible de rajouter des identifiants complémentaires typés. Ils peuvent être importés automatiquement
+- le motif de sortie du stock peut être maintenant associé au mouvement (à partir d'une liste paramétrable)
+
+Corrections de bogues :
+- les qrcodes sont supprimés systématiquement du dossier temporaire après génération : si le contenu de l'objet est modifié, le nouveau qrcode réflète maintenant les modifications apportées sans attendre le délai de nettoyage automatique
+
 Version 0.5 du 16 septembre 2016
 -------------------------------
 Nouvelles fonctionnalités :

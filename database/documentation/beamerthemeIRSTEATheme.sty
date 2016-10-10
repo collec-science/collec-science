@@ -1,0 +1,364 @@
+
+% Theme cree par Eric Quinton, IRSTEA, a partir du theme beamerthemeUNLTheme.sty (cf. http://www.docstoc.com/docs/149374652/UNL-Beamer-Theme---The-University-of-Nebraska-Lincoln)
+% Modifications by Eric Quinton
+% Last modified 3/2/2015
+
+% BEGIN sidebar dimension setup
+\newdimen\beamer@sidebarwidth
+\newdimen\beamer@headheight
+\usebeamerfont{frametitle}
+\beamer@sidebarwidth=2.5\baselineskip
+\beamer@headheight=2.5\baselineskip
+\reset@font
+
+\def\beamer@lefttext{left}
+
+% Package options
+
+\DeclareOptionBeamer{hideothersubsections}[]{\beamer@nav@subsectionstyle{show/show/hide}}
+\DeclareOptionBeamer{hideallsubsections}[]{\beamer@nav@subsectionstyle{hide}}
+
+\DeclareOptionBeamer{width}{\beamer@sidebarwidth=#1}
+\DeclareOptionBeamer{height}{\beamer@headheight=#1}
+\DeclareOptionBeamer{left}{\def\beamer@sidebarside{left}}
+\DeclareOptionBeamer{right}{\def\beamer@sidebarside{right}}
+\ExecuteOptionsBeamer{left}
+\ProcessOptionsBeamer
+
+% Default mode (<presentation> encompasses <beamer>, <handout>, and <trans> (transparencies))
+\mode<beamer>
+
+% All Beamer Boxes will be rounded with a drop shadow
+\useinnertheme[shadow=true]{rounded}
+
+% cut-pasted-n-hacked sidebar theme
+\ifdim\beamer@headheight>0pt
+% if head height is 0pt, use default frame title
+
+%  \setbeamercolor*{frametitle}{parent=sidebar}
+\setbeamercolor*{frametitle}{fg=marine,bg=white}
+
+  \defbeamertemplate*{frametitle}{sidebar theme}
+  {%
+    \nointerlineskip%
+    \vskip-\beamer@headheight%
+    \vbox to \beamer@headheight{%
+      \vfil
+      \leftskip=-\beamer@leftmargin%
+      \advance\leftskip by0.3cm%
+      \rightskip=-\beamer@rightmargin%
+      \advance\rightskip by0.3cm plus1fil%
+      {\usebeamercolor[fg]{frametitle}\usebeamerfont{frametitle}
+      \insertframetitle
+      \par}%
+      {\usebeamercolor[fg]{framesubtitle}\usebeamerfont{framesubtitle}\insertframesubtitle\par}%
+      \vbox{}%
+      \vskip-1em%
+      \vfil
+    }%
+  }
+
+  \defbeamertemplate*{headline}{sidebar theme}
+  {%
+    \begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+      \ifx\beamer@sidebarside\beamer@lefttext%
+      \else%
+        \hfill%
+      \fi%
+      \ifdim\beamer@sidebarwidth>0pt%
+        \usebeamercolor[bg]{logo}%
+        \vrule width\beamer@sidebarwidth height \beamer@headheight%
+        \hskip-\beamer@sidebarwidth%
+        \hbox to \beamer@sidebarwidth{\hss\vbox to
+          \beamer@headheight{\vfil\hbox{\color{fg}\insertlogo}}\hss}%
+          \vskip10pt
+      \else%
+        \vrule width0pt height \beamer@headheight%
+      \fi%
+    \end{beamercolorbox}
+  }
+\fi
+
+
+\def\beamer@sidebarformat#1#2#3{%
+  \begin{beamercolorbox}[wd=\beamer@sidebarwidth,leftskip=#1,rightskip=1ex plus1fil,vmode]{#2}
+    \vbox{}%
+    #3\par%
+    \vbox{}%
+    \vskip-1.5ex%
+  \end{beamercolorbox}
+}
+
+\defbeamertemplate*{section in sidebar}{sidebar theme}
+{%
+  \vbox{%
+    \vskip1ex%
+    \beamer@sidebarformat{3pt}{section in sidebar}{\insertsectionhead}%
+  }%
+}
+
+\defbeamertemplate*{section in sidebar shaded}{sidebar theme}
+{%
+  \vbox{%
+    \vskip1ex%
+    \beamer@sidebarformat{3pt}{section in sidebar shaded}{\insertsectionhead}%
+  }%
+}
+
+\defbeamertemplate*{subsection in sidebar}{sidebar theme}
+{%
+  \beamer@sidebarformat{5pt}{subsection in sidebar}{\insertsubsectionhead}%
+}
+
+\defbeamertemplate*{subsection in sidebar shaded}{sidebar theme}
+{%
+  \beamer@sidebarformat{5pt}{subsection in sidebar shaded}{\insertsubsectionhead}%
+}
+
+\defbeamertemplate*{subsubsection in sidebar}{sidebar theme}
+{%
+  \beamer@sidebarformat{7pt}{subsubsection in sidebar}{\insertsubsubsectionhead}%
+}
+
+\defbeamertemplate*{subsubsection in sidebar shaded}{sidebar theme}
+{%
+  \beamer@sidebarformat{7pt}{subsubsection in sidebar shaded}{\insertsubsubsectionhead}%
+}
+
+\ifdim\beamer@sidebarwidth>0pt
+
+ % Sidebar
+  \setbeamersize{sidebar width \beamer@sidebarside=\beamer@sidebarwidth}
+  \defbeamertemplate*{sidebar \beamer@sidebarside}{sidebar theme}
+  {
+    \beamer@tempdim=\beamer@sidebarwidth%
+    \advance\beamer@tempdim by -6pt%
+    {\usebeamerfont{title in sidebar}%
+      \vskip1.5em%
+      \hskip3pt%
+      \usebeamercolor[fg]{title in sidebar}%
+      \insertshorttitle[width=\beamer@tempdim,center,respectlinebreaks]\par%
+      \vskip1.25em%
+    }%
+    {%
+      \hskip3pt%
+      \usebeamercolor[fg]{author in sidebar}%
+      \usebeamerfont{author in sidebar}%
+      \insertshortauthor[width=\beamer@tempdim,center,respectlinebreaks]\par%
+      \insertshortinstitute[width=\beamer@tempdim,center,respectlinebreaks]\par%
+      \vskip1.25em%
+    }%
+    \insertverticalnavigation{\beamer@sidebarwidth}%
+    \vfill
+    \ifx\beamer@sidebarside\beamer@lefttext%
+    \else%
+      \usebeamercolor{normal text}%
+      \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+      \vskip2pt%
+    \fi%
+  }%
+
+  \ifx\beamer@sidebarside\beamer@lefttext%
+    \defbeamertemplate*{sidebar right}{sidebar theme}
+    {%
+      \vfill%
+      \llap{\usebeamertemplate***{navigation symbols}\hskip0.1cm}%
+      \vskip2pt}
+  \fi
+                                % Margins
+  \setbeamersize{text margin left=0.5cm,text margin right=0.5cm}
+\fi
+
+%\usecolortheme{sidebartab} cut-pasted-n-hacked:
+\setbeamercolor*{section in sidebar shaded}{parent=palette sidebar secondary}
+\setbeamercolor*{section in sidebar}
+  {parent=section in sidebar shaded,use={sidebar,section in sidebar shaded},%
+   fg=marine,bg=white}
+
+\setbeamercolor*{subsection in sidebar shaded}{parent=palette sidebar primary}
+\setbeamercolor*{subsection in sidebar}
+  {parent=subsection in sidebar shaded,use=section in sidebar,%
+   bg=section in sidebar.bg, % We simply inherit the section properties
+   fg=section in sidebar.fg} % Here too.
+
+% We use *part* of the outer theme "shadow" but without the "split" theme
+% This gives us a (hacked) drop shadow on the sidebar and frametitle bar
+\pgfdeclarehorizontalshading[frametitle.bg,frametitle right.bg]{beamer@frametitleshade}{\paperheight}{%
+  color(0pt)=(frametitle.bg);
+  color(\paperwidth)=(frametitle right.bg)}
+
+\AtBeginDocument{
+  %
+  \pgfdeclareverticalshading{beamer@topborder}{\paperwidth}{%
+    color(0pt)=(black);
+    color(1pt)=(black)}
+  \pgfdeclarehorizontalshading{beamer@sideborder}{\paperheight}{%
+    color(0pt)=(black);
+    color(1pt)=(black)}
+
+  \pgfdeclareverticalshading{beamer@topshade}{\paperwidth}{%
+    color(0pt)=(bg);
+    color(4pt)=(black!50!bg)}
+  \pgfdeclareverticalshading{beamer@topshadesidebarcover}{\beamer@sidebarwidth}{%
+    color(0pt)=(ocean);
+    color(4pt)=(ocean)}
+  \pgfdeclareverticalshading{beamer@topshadesidebarcoverwhite}{6pt}{%
+    color(0pt)=(white);
+    color(4pt)=(white)}
+
+  \pgfdeclarehorizontalshading{beamer@sideshade}{\paperheight}{%
+    color(0pt)=(black!50!bg);
+    color(4pt)=(bg)}
+% An attempt at getting the shadings to meet nicely, FAILED
+%  \pgfdeclarehorizontalshading{beamer@sidediagshade}{5.66pt}{%
+%    color(0pt)=(green!50!bg);
+%    color(5.66pt)=(bg)}
+}
+
+\addtobeamertemplate{headline}
+{}
+{%
+%  \vskip-0.2pt
+%drop-shadow:
+%old: 
+%\hskip\beamer@sidebarwidth\pgfuseshading{beamer@topshadesidebarcoverwhite}\pgfuseshading{beamer@topshade}
+%border: \hskip\beamer@sidebarwidth\hskip.2cm\pgfuseshading{beamer@topborder}
+% Attempted to combine two drop shadows in a transition, failed
+%*** TRY HERE INSTEAD: declare a horizontal shade, rotate it 45 degrees and clip it.
+%  \pgfmoveto{\pgfxy{0,0}}
+%  \pgflineto{\pgfxy{0,-2}}
+%  \pgflineto{\pgfxy{-2,-2}}
+%  \pgflineto{\pgfxy{2,-2}}
+%  \pgflineto{\pgfxy{2,2}}
+%  \pgflineto{\pgfxy{2,0}}
+%  \pgflineto{\pgfxy{0,0}}
+%  \pgfclip
+  \vskip-4pt
+  \pgfuseshading{beamer@topshadesidebarcover}
+  \vskip-2pt
+}
+
+% Add page numbering to bottom left.
+% simply setting it (\setbeamertemplate{footline}[page number]) defaults to lower right
+\addtobeamertemplate{footline}
+{%
+   \usebeamercolor[fg]{author in sidebar}
+   \vskip-1cm\hskip5pt
+   \insertshortdate
+   \vskip2pt\hskip12pt
+   %\insertpagenumber\,/\,\insertpresentationendpage\kern1em\vskip2pt%
+   \insertframenumber\,/\,\inserttotalframenumber\kern1em\vskip2pt%
+}
+
+\addtobeamertemplate{sidebar \beamer@sidebarside}
+{}
+{
+%Want to "rewind" to the top of the sidebar, but how?
+%drop-shadow:
+\vskip-\paperwidth\hskip\beamer@sidebarwidth\pgfuseshading{beamer@sideshade}
+%border: \vskip-\paperwidth\hskip\beamer@sidebarwidth\pgfuseshading{beamer@sideborder}
+}
+% End Shadow
+
+\usecolortheme[RGB={0,158,224}]{structure}
+
+% Complete color themes:
+% albatross, beetle, crane, dove, fly, seagull
+
+% Inner color themes:
+% lily, orchid, rose
+
+% Outer color themes:
+% whale, seahorse, dolphin(?)
+
+\usecolortheme{orchid} % Establishes inner, dark colors
+\usecolortheme{whale}  % Establishes outer, dark colors
+
+% Customized Various Color elements:
+\setbeamercolor{titlelike}{fg=white,bg=white} %
+\setbeamercolor{sidebar}{fg=white}              %
+\setbeamercolor{frametitle}{fg=marine}           %
+\setbeamercolor{title in sidebar}{fg=marine}      %
+\setbeamercolor{author in sidebar}{fg=white}    %
+\setbeamercolor{section in sidebar shaded}{fg=white}
+\setbeamercolor{subsection in sidebar shaded}{fg=white}
+\setbeamercolor{subsubsection in sidebar shaded}{fg=white}
+
+
+% Set the logo, logo must be into the current directory 
+\setbeamercolor{logo}{fg=black,bg=white}
+\logo{\includegraphics[height=1.3cm,width=1.3cm]{logo_irstea.jpg}}
+
+% Handout Mode - Using the default layouts, no menus, etc.
+\mode
+<handout>
+\usetheme{default}
+\usecolortheme{default}
+% disallow navigation menu
+\setbeamertemplate{navigation symbols}{}
+\useinnertheme{default}
+
+% Settings for every mode
+\mode
+<all>
+% We like algorithms in CS, right?
+
+\newtheorem{algorithmblock}[theorem]{Algorithm}
+\newtheorem{exercise}[theorem]{Exercise}
+%\newtheorem{problem}[theorem]{Problem}
+
+%Two horrible hacks to get a "note page" after every slide.
+\newcommand{\noteframe}{
+\only<handout>{ %
+  \begin{frame}
+   \frametitle{Notes}
+   \begin{center}
+   \begin{tikzpicture}
+    \foreach \y in {0,1,2,3,4,5,6}
+     \draw[thick] (0,\y) -- (11,\y);
+   \end{tikzpicture}
+   \end{center}
+  \end{frame}
+  }%
+}
+
+\newcommand{\noteslide}{%to be used after every \framebreak
+\only<handout>{ %
+   \begin{center}
+   \begin{tikzpicture}
+    \foreach \y in {0,1,2,3,4,5,6}
+     \draw[thick] (0,\y) -- (11,\y);
+   \end{tikzpicture}
+   \end{center}
+   \framebreak
+   }%
+}
+
+% definition des couleurs IRSTEA
+\definecolor{marine}{RGB}{0,58,128}   % Marine
+\definecolor{ocean}{RGB}{0,158,224}   % Ocean
+\definecolor{prairie}{RGB}{164,196,0} % Prairie
+\definecolor{brique}{RGB}{209,4,29}   % Brique
+
+
+% definition of the three blocks
+\setbeamercolor{block title}{fg=white,bg=marine}
+\setbeamercolor{block title example}{fg=white,bg=prairie} %
+\setbeamercolor{block title alerted}{fg=white,bg=brique} %
+
+\setlength{\parskip}{.25cm}
+
+% Fonts
+%\def\mathfamilydefault{\rmdefault}\beamer@sansmathfalse
+%\usefonttheme[onlymath]{serif}
+%\usepackage[scaled]{helvet}
+%\usefonttheme[structurebold]{serif}
+\usepackage{times}
+\beamertemplatetheoremsunnumbered  %This suppresses theorem numbers
+
+% Colors for title, subttitle, author, date...
+\setbeamercolor{title}{fg=marine}
+\setbeamercolor{subtitle}{fg=ocean}
+\setbeamercolor{author}{fg=prairie}
+\setbeamercolor{date}{fg=black}
+\setbeamercolor{beamercolorbox}{bg=marine}

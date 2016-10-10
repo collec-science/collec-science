@@ -1,0 +1,60 @@
+%\setcounter{page}{0}
+\thispagestyle{empty}
+% Logo IRSTEA
+\vspace{-2cm}
+\hspace{-2cm}
+\includegraphics[width=3.06cm,height=3.06cm,keepaspectratio]{logo_irstea}%
+
+
+\vspace*{4cm}
+\hspace{5cm}
+\setlength\unitlength{1mm}
+% Logo de titre
+\begin{overpic}[width=9.44cm,height=9.57cm,keepaspectratio]{logo_fond_droite.png}
+% Titre du document
+\put(-50,50){
+\begin{minipage}{0.7\linewidth}
+\Huge\flushright \color{titreColor}{\bfseries\sffamily\titre{}}\\
+% sous-titre du document
+\color{stitreColor}{\Large \bfseries\sffamily\sousTitre{}}
+\end{minipage}
+}
+\end{overpic}
+
+%  date et auteur
+% creation de l'espace a gauche
+\vspace*{1cm}
+\begin{minipage}{0.5\linewidth}
+\hfill
+\end{minipage}
+% positionnement
+\begin{minipage}{0.5\linewidth}\flushleft{
+% Date
+\textcolor{auteurColor}{\Large\sffamily\dateModif{}}\\
+\vspace*{0.1cm}
+% Auteur
+\textcolor{auteurColor}{\Large\sffamily\auteur{}}\\
+\vspace{0.5cm}
+% Adresse
+\textcolor{texteColor}{\sffamily\textbf{IRSTEA} - Centre de Bordeaux\\
+50, avenue de Verdun, Gazinet\\
+33612 CESTAS Cedex }
+}
+\end{minipage}
+% Ligne de logos
+\begin{minipage}{\linewidth}
+
+% logos complémentaires
+%\vspace{3cm}
+%\hspace{2cm}
+%\includegraphics[width=3cm,height=3cm,keepaspectratio]
+%{emplacement_logo}%
+%\vspace{-1cm}
+%\hspace{1cm}
+%\includegraphics[width=3cm,height=3cm,keepaspectratio]
+%{emplacement_logo}%
+%\vspace{-1cm}
+%\hspace{1cm}
+%\includegraphics[width=3cm,height=3cm,keepaspectratio]
+%{emplacement_logo}%
+\end{minipage}

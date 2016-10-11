@@ -166,25 +166,25 @@ hyphenation
 % Ajout d'un préambule
 \frontmatter
 \cleardoublepage
-\chapter{Préambule}
-\blindtext
+
+% Table des matières
+\tableofcontents
+
 
 % Début réel du texte
 \mainmatter
 %\cleardoublepage
-\chapter{Introduction}
+
+\include{presentation}
+
+\include{installation}
+
 \section{Première section}
 Référence bibliographique au livre \citet{livre}, à l'article \citet{article}, à la thèse \citep{these}.
 
 La bibliographie utilise le fichier \textit{irstea.bib} dans cet exemple.
-\subsection{sous-section}
-\blindtext
-\subsection{autre sous-section}
-\blindtext
 
-\blindtext
 
-\blindtext
 
 % Second chapitre
 %\cleardoublepage
@@ -205,6 +205,4 @@ La bibliographie utilise le fichier \textit{irstea.bib} dans cet exemple.
 \nocite{*}
 \bibliography{collec}
 
-% Table des matières
-\tableofcontents
 \end{document}

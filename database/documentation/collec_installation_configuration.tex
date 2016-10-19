@@ -17,13 +17,17 @@
 
 % gestion des graphiques
 \usepackage{graphicx}
-
+% positionnement flottant des graphiques
+\usepackage{float}
 % Gestion des couleurs
 \usepackage[usenames,dvipsnames]{xcolor}
 
 % Redefinition des liens web
 \usepackage{url}
 \usepackage[colorlinks=false,urlbordercolor=white,linkbordercolor=white]{hyperref}
+
+\usepackage{longtable}
+\usepackage{array}
 
 % Définition des marges de la page
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
@@ -66,7 +70,7 @@ hyphenation
 %\setcounter{secnumdepth}{4}
 
 % Génération du code Ipsum lorem
-\usepackage{blindtext}
+%\usepackage{blindtext}
 
 
 
@@ -120,7 +124,7 @@ hyphenation
 %    nonamebreak: garde tous les noms d'auteurs d'une citation sur une même ligne; celà cause des problèmes de débordement, mais permet de résoudre certains problèmes liés à hyperref.
 
 % En cas de souci, supprimez les fichiers .aux et .bbi après modification des paramètres
-\usepackage[square,sort,comma,numbers]{natbib}
+\usepackage[square,sort,comma]{natbib}
 % styles natbib natifs : abbrvnat, plainnat, unsrtnat
 \bibliographystyle{unsrtnat}
 \usepackage{hypernat}
@@ -179,21 +183,8 @@ hyphenation
 
 \include{installation}
 
-\section{Première section}
-Référence bibliographique au livre \citet{livre}, à l'article \citet{article}, à la thèse \citep{these}.
+\include{administration}
 
-La bibliographie utilise le fichier \textit{irstea.bib} dans cet exemple.
-
-
-
-% Second chapitre
-%\cleardoublepage
-\chapter{Second chapitre}
-% \input{chapitre2}
-
-%Annexes
-\appendix
-\chapter{Première annexe}
 
 %Bibliographie
 \backmatter

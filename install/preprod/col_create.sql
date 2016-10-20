@@ -1,3 +1,11 @@
+/*
+ * COLLEC - 20/10/2016
+ * Script de creation des tables destinees a recevoir les donnees de l'application
+ * version minimale de Postgresql : 9.5. Si la version est 9.4, modifiez le type jsonb en json
+ * Schema par defaut : col. Si vous voulez creer les donnees dans d'autres schemas, modifiez les deux premieres
+ * lignes de code en consequence
+ */
+
 create schema col;
 
 set search_path = col, public;
@@ -712,61 +720,26 @@ left outer join container c using (container_id)
 order by storage_date desc limit 1);
 
 
-insert into movement_type (movement_type_id, movement_type_name) values (1, 'Entrée/Entry'),(2, 'Sortie/Exit');
+insert into movement_type (movement_type_id, movement_type_name) 
+values 
+(1, 'Entrée/Entry'),
+(2, 'Sortie/Exit');
 
 INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
- (  1,  'application/pdf',  'pdf');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  2,  'application/zip',  'zip');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  3,  'audio/mpeg',  'mp3');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  4,  'image/jpeg',  'jpg');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES(  5,  'image/jpeg',  'jpeg');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  6,  'image/png',  'png');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  7,  'image/tiff',  'tiff');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  9,  'application/vnd.oasis.opendocument.text',  'odt');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  10,  'application/vnd.oasis.opendocument.spreadsheet',  'ods');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  11,  'application/vnd.ms-excel',  'xls');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  12,  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  'xlsx');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  13,  'application/msword',  'doc');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  14,  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  'docx');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
+ (  1,  'application/pdf',  'pdf'),
+ (  2,  'application/zip',  'zip'),
+ (  3,  'audio/mpeg',  'mp3'),
+ (  4,  'image/jpeg',  'jpg'),
+ (  5,  'image/jpeg',  'jpeg'),
+ (  6,  'image/png',  'png'),
+ (  7,  'image/tiff',  'tiff'),
+ (  9,  'application/vnd.oasis.opendocument.text',  'odt'),
+ (  10,  'application/vnd.oasis.opendocument.spreadsheet',  'ods'),
+ (  11,  'application/vnd.ms-excel',  'xls'),
+ (  12,  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  'xlsx'),
+ (  13,  'application/msword',  'doc'),
+ (  14,  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  'docx'),
  (  8,  'text/csv',  'csv');
  
 create or replace view last_photo as (
@@ -871,4 +844,49 @@ VALUES
   'uid,id,clp,db,prj'
 );
 select setval('label_label_id_seq',(select max(label_id) from label)); 
+
+/*
+ * Tables de parametres generales
+ */
+ insert into container_family (container_family_id, container_family_name, is_movable)
+ values 
+ (1, 'Immobilier', false),
+ (2, 'Mobilier', false);
+ 
+select setval('container_family_container_family_id_seq', (select max(container_family_id) from container_family));
+insert into container_type (container_type_name, container_family_id)
+values 
+('Site', 1),
+('Bâtiment', 1),
+('Pièce', 1),
+('Armoire', 2),
+('Congélateur', 2);
+
+INSERT INTO event_type
+(
+  event_type_name,
+  is_sample,
+  is_container
+)
+VALUES
+(  'Autre',  TRUE,  TRUE),
+(  'Conteneur cassé',  FALSE,  TRUE),
+(  'Échantillon détruit',  TRUE,  FALSE),
+(  'Prélèvement pour analyse',  TRUE,  FALSE),
+(  'Échantillon totalement analysé, détruit', TRUE,  FALSE);
+
+INSERT INTO multiple_type (  multiple_type_name)
+VALUES
+(  'Unité'),
+(  'Pourcentage'),
+(  'Quantité ou volume'),
+(  'Autre');
+
+INSERT INTO object_status(  object_status_name)
+VALUES
+(  'État normal'),
+(  'Objet pré-réservé pour usage ultérieur'),
+(  'Objet détruit'),
+(  'Echantillon vidé de tout contenu');
+
 

@@ -65,13 +65,13 @@ service apache2 restart
 \subsection{Configuration du dossier d'installation}
 
 \subsubsection{Mécanisme pour faire cohabiter plusieurs instances avec le même code}
-
+\label{dnsmultiple}
 Il est possible d'utiliser le même code applicatif pour alimenter des bases de données différentes (ou des données stockées dans des schémas différents). Cette fonctionnalité est basée sur l'attribution d'entrées DNS différentes. 
 
-Le mécanisme est décrit dans le schéma \ref{dnsmultiple}, page \pageref{dnsmultiple}.
+Le mécanisme est décrit dans le schéma \ref{dnsmultipleschema}, page \pageref{dnsmultipleschema}.
 
 \begin{figure}[H]
-\label{dnsmultiple}
+\label{dnsmultipleschema}
 \includegraphics[width=\linewidth]{images/dnsmultiple}
 \caption{Schéma général d’implémentation pour utiliser le même code avec des noms d’application et des jeux de données différents}
 \end{figure}
@@ -105,6 +105,35 @@ APPLI_code=proto
 
 
 \subsubsection{Droits à attribuer au serveur web}
+
+Le serveur web doit pouvoir accéder en lecture à l'ensemble des fichiers de l'application, et en écriture à deux dossiers :
+\begin{itemize}
+\item \textit{display/templates\_c} : fichier utilisé par Smarty pour compiler les modèles de documents HTML ;
+\item \textit{temp} : dossier de génération des images et des fichiers temporaires
+\end{itemize}
+
+Voici un exemple de script utilisé pour positionner les droits :
+
+\begin{lstlisting}
+#!/bin/bash
+cp ../param/* param/
+chmod -R 770 .
+setfacl -R -m u:www-data:rx .
+setfacl -R -m d:u:www-data:rx .
+mkdir display/templates_c
+setfacl -R -m u:www-data:rwx display/templates_c
+setfacl -R -m d:u:www-data:rwx display/templates_c
+setfacl -R -m u:www-data:rwx temp
+setfacl -R -m d:u:www-data:rwx temp
+setfacl -R -m d:o::- .
+rm -Rf database
+rm -Rf test
+rm -f param.ini
+\end{lstlisting}
+
+Dans cet exemple, le dossier \textit{../param} contient le fichier \textit{param.inc.php}, qui dispose des paramètres spécifiques à l'implémentation.
+
+Le script est à lancer à la racine du dossier contenant l'application.
 
 \section{Configurer l'application}
 
@@ -253,3 +282,62 @@ APPLI\_code & Code interne de l'application. \textbf{Ce code est essentiel} : il
 \end{longtable}
 
 \section{Créer la base de données}
+
+La base de données est composée de deux schémas : l'un pour le stockage des informations d'identification, les droits d'accès, les traces, l'autre pour les données proprement dites.
+
+Le schéma \textit{public} ne devrait jamais être utilisé pour stocker l'information : réservez-le pour les composants communs, comme Postgis si c'est nécessaire.
+
+Les tables de gestion des droits peuvent être communes à plusieurs jeux / applications différentes : la variable \textit{GACL\_aco} permet de séparer la gestion des droits pour chaque application, tout en travaillant à partir des mêmes utilisateurs (répartis le cas échéant dans des groupes différents selon le jeu de données considéré).
+
+Les scripts de création des schémas dans la base de données sont stockés dans le dossier \textit{install}. 
+
+
+
+\subsection{Créer les tables de gestion des droits}
+Script à utiliser : \textit{gacl\_create.sql}. Les tables nécessaires vont être créées dans le schéma \textit{gacl}, à ne pas modifier.
+
+Le script crée un compte d'administration par défaut :
+\begin{itemize}
+\item login : \textbf{admin}
+\item mot de passe : \textbf{password}
+\end{itemize}
+
+Il devra être supprimé quand un autre compte d'administration aura été créé.
+
+D'autre part, les droits par défaut sont positionnés pour le projet \textit{appli} (variable \textit{\$GACL\_aco} dans les fichiers de paramètres de l'application).
+
+
+\subsection{Créer les tables applicatives}
+Script à utiliser : \textit{col\_create.sql}.
+
+Par défaut, le script crée un schéma appelé \textit{col}. Il est possible de créer plusieurs schémas différents, si l'application supporte plusieurs jeux de données (\textit{cf.} \ref{dnsmultiple} \textit{\nameref{dnsmultiple}}, page \pageref{dnsmultiple}). Dans ce cas de figure, remplacez \textit{col} par le nom du schéma voulu dans les deux premières lignes du script.
+
+\subsection{Login de connexion}
+
+Il est fortement conseillé de créer deux logins de connexion, un pour le schéma des droits, l'autre pour les schémas applicatifs. Ces logins ne doivent pouvoir être utilisés que depuis le serveur web hébergeant l'application.
+
+Cette opération est possible en modifiant le fichier \textit{/etc/postgresql/9.5/main/pg\_hba.conf} selon ce principe :
+
+\begin{lstlisting}
+# Connexions pour les serveurs web 
+host nom_database userGacl adresse_serveur/32 md5 
+host nom_database userData adresse_serveur/32 md5
+\end{lstlisting}
+
+et en rechargeant ensuite la configuration de Postgresql avec la commande :
+\begin{lstlisting}
+service postgresql reload
+\end{lstlisting}
+
+\subsection{Droits sur les tables}
+
+Le compte utilisé pour la connexion au schéma des droits doit pouvoir modifier les informations présentes dans l'ensemble des tables de \textit{gacl}. Il ne doit pas pouvoir accéder aux autres schémas (hormis \textit{public}).
+
+Le compte utilisé pour accéder aux schémas des données doit pouvoir modifier l'ensemble des informations dans les schémas de données, et lire la table \textit{gacl.aclgroup}.
+
+Le plus simple est d'utiliser le logiciel \textit{pgAdmin} pour attribuer les droits.
+
+\subsection{Scripts de modification}
+
+Lors de la livraison de nouvelles versions, il est possible que des scripts de modification soient à exécuter pour mettre à niveau la base de données. Ces scripts doivent être exécutés dans tous les schémas contenant des données applicatives.
+

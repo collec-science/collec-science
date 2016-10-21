@@ -73,7 +73,6 @@ hyphenation
 %\usepackage{blindtext}
 
 
-
 % Definition des couleurs IRSTEA
 \definecolor{titreColor}{RGB}{0,58,128}  % Marine
 \definecolor{stitreColor}{RGB}{0,158,224}  % Ocean
@@ -126,7 +125,7 @@ hyphenation
 % En cas de souci, supprimez les fichiers .aux et .bbi après modification des paramètres
 \usepackage[square,sort,comma]{natbib}
 % styles natbib natifs : abbrvnat, plainnat, unsrtnat
-\bibliographystyle{unsrtnat}
+\bibliographystyle{abbrvnat}
 \usepackage{hypernat}
 % Ajout de la référence à la bibliographie dans la table des matières
 \usepackage[nottoc, notlof, notlot]{tocbibind}
@@ -136,7 +135,9 @@ hyphenation
 \newcommand{\sousTitre}{Installation et configuration}
 \newcommand{\auteur}{Éric Quinton}
 \newcommand{\dateModif}{\today}
+\usepackage[final]{pdfpages} 
 
+\usepackage{lscape}
 
 \begin{document}
 %Supprime les veuves et orphelines
@@ -185,9 +186,18 @@ hyphenation
 
 \include{administration}
 
+%Annexes
+\appendix
+\chapter{Structure de la base de données}
+
+\includegraphics[width=\linewidth,angle=90]{images/schema}
+
+
+\includepdf[pages=1-16]{images/collec-structure.pdf}
 
 %Bibliographie
 \backmatter
+
 % Integration de la biblio
 % Pour insérer toutes les références : 
 %\nocite{*}

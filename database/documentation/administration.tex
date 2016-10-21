@@ -30,7 +30,7 @@ Voici la description des tables :
 \item[aclacl] table décrivant les droits détenus par un groupe
 \end{description}
 
-Le module d'administration permet de saisir toutes ces informations. Il faut que l'utilisateur dispose du droit \textit{admin}, c'est à dire faire partie du groupe \textit{admin} (configuration par défaut à l'initialisation de la base des droits) pour pouvoir accéder à ces fonctions.
+Le module d'administration permet de saisir toutes ces informations. Il faut que l'utilisateur dispose du droit \textit{admin}, c'est à dire qu'il fasse partie du groupe \textit{admin} (configuration par défaut à l'initialisation de la base des droits) pour pouvoir accéder à ces fonctions.
 
 \subsection{Droits à positionner}
 Voici les groupes nécessaires pour faire fonctionner correctement l'application :
@@ -42,7 +42,7 @@ Voici les groupes nécessaires pour faire fonctionner correctement l'application
 \endhead
 admin &	Gestion des utilisateurs et des droits\\
 \hline
-param &	Définition des tables de paramètres généraux, Gestion d'un projet\\
+param &	Définition des tables de paramètres généraux, gestion d'un projet\\
 \hline
 projet &	rajout des types d'échantillons ou de conteneurs, import de masse \\
 \hline
@@ -58,10 +58,247 @@ consult	& Consultation des informations, sans possibilité de modification. Le d
 Les échantillons doivent être rattachés à un projet, vous devrez en créer au minimum un à partir du menu d'administration. Un utilisateur avec les droits de gestion ne peut modifier que les échantillons pour lesquels il est autorisé (les projets qui sont rattachés au groupe dont il fait partie).
 
 Voici le principe de gestion des droits pour les projets :
-
-Dans \textit{Administration} > \textit{ACL - Groupes de logins}, déclarez les groupes adéquats. En cas d'utilisation des groupes LDAP, les saisir avec la même casse que dans l'annuaire (EABX p. e.).
+\begin{itemize}
+\item Dans \textit{Administration} > \textit{ACL - Groupes de logins}, déclarez les groupes adéquats. En cas d'utilisation des groupes LDAP, les saisir avec la même casse que dans l'annuaire (EABX p. e.).
 
 Il est possible de définir une hiérarchie des groupes, quelle que soit l'origine de l'affectation (base de données ou annuaire Ldap)
 Dans le cas où l'annuaire Ldap n'est pas utilisé pour gérer les groupes, renseignez les logins en face des groupes dans le même écran.
 
-Dans les projets, sélectionnez les groupes autorisés.
+\item Dans les projets, sélectionnez les groupes autorisés.
+\item les utilisateurs faisant partie des groupes autorisés disposeront des droits de \textit{gestion} pour le projet considéré
+\end{itemize}
+
+\section{Configurer les paramètres généraux}
+\label{param}
+L'ensemble des paramètres sont accessibles à partir du menu \textit{Paramètres}. 
+
+Par défaut, tous les utilisateurs qui disposent du droit de consultation peuvent visualiser les paramètres. La modification n'est possible que pour ceux qui disposent des droits suivants :
+
+\begin{longtable}{|p{4cm}|p{8cm}| p{3cm}|}
+\hline
+\textbf{Nom} & \textbf{Description} & \textbf{Droit nécessaire} \\
+\hline
+\endhead
+Projets & Liste des projets et droits associés & admin \\
+\hline
+Protocoles & Protocoles de prélèvement des échantillons & projet \\
+\hline
+Opérations & Opérations rattachées aux protocoles & projet \\
+\hline
+Type d'événement & Événements survenant aux objets & param \\
+\hline
+Familles de conteneurs & Mécanisme pour retrouver les conteneurs selon leur nature (pièce, caisse...) & param projet\\
+\hline
+Conditions de stockage & Mécanisme de conservation (lyophilisation, p. e.) & param projet\\
+\hline
+Motifs de déstockage & Raisons invoquées pour sortir un objet du stock & param projet\\
+\hline
+Types de conteneurs & Modèles de conteneurs (porteurs des étiquettes, entre autres) & param projet\\
+\hline
+Statut des objets & Liste des statuts que peut prendre un objet & param\\
+\hline
+Type d'échantillon & Modèles des échantillons (rattachables à un type de conteneur) &  param projet\\
+\hline
+Sous-échantillonnage & Pour les échantillons composés d'éléments indifférenciables, unité utilisée pour réaliser le sous-échantillonnage (nombre, volume...) & param \\
+\hline
+Étiquettes & Modèles des étiquettes imprimables & param \\
+\hline
+Types d'identifiants & Types d'identifiants complémentaires des objets & param \\
+\hline
+
+\caption{Liste des paramètres et droits de modification associés}
+\end{longtable}
+
+\section{Créer ou modifier un modèle d'étiquettes}
+
+Les étiquettes sont créées en recourant au logiciel FOP \cite{fop}, écrit en Java. Voici les opérations réalisées par l'application pour générer les étiquettes :
+\begin{itemize}
+\item pour chaque objet concerné (des containers ou des échantillons associés à un type de container, et si le type de container est rattaché à un modèle d'étiquettes), une image du QRcode est générée dans le dossier \textit{temp} ;
+\item dans le dossier \textit{temp}, un fichier au format XML est généré, contenant les informations à imprimer sur l'étiquette ;
+\item un fichier au format XSL, qui contient les ordres de création de l'étiquette, est également créé dans le même dossier. Le contenu de ce fichier figure dans la table \textit{label} ;
+\item le programme PHP fait appel à FOP pour générer, à partir du fichier XML et en utilisant le fichier XSL, un fichier PDF. Une page du fichier correspond à une étiquette (mécanisme utilisé par les imprimantes à étiquettes pour les séparer).
+\end{itemize}
+
+La configuration du modèle d'étiquettes revient à définir à la fois le contenu des informations qui seront insérées dans le QRCODE et la forme que prendra l'étiquette, c'est à dire les informations qui seront imprimées, le format, etc. Cette forme reprend la syntaxe XSL comprise par FOP.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{images/label}
+\caption{Écran de saisie d'un modèle d'étiquette}
+\end{figure}
+
+\subsection{Définir le contenu du QRcode}
+Le QRcode est un format de code barre normalisé en deux dimensions, qui permet de stocker jusqu'à 2000 caractères en 8 bits. 
+
+Le principe retenu dans l'application est de stocker l'information au format JSON. Pour limiter la taille du code barre, les noms des balises doivent être les plus petites possibles. Voici les balises obligatoires à insérer systématiquement dans une étiquette :
+
+\begin{longtable}{|p{3cm}|p{12cm}| }
+\hline
+\textbf{Nom} & \textbf{Description} \\
+\hline
+\endhead
+uid & Identifiant unique de l'objet dans la base de données \\
+\hline
+db & Identifiant de la base de données. C'est la valeur du paramètre \textit{APPLI\_code} (\textit{cf.} \ref{paramspec} \textit{\nameref{paramspec}}, page \pageref{paramspec}) \\
+\hline
+\caption{Liste des balises à insérer obligatoirement dans les QRcodes}
+\end{longtable}
+
+D'autres informations peuvent être également insérées :
+\begin{longtable}{|p{3cm}|p{12cm}| }
+\hline
+\textbf{Nom} & \textbf{Description} \\
+\hline
+\endhead
+id & Identifiant métier principal (champ \textit{identifiant ou nom}, en saisie) \\
+\hline
+prj & Code du projet (pour les échantillons) \\
+\hline
+clp & Code du risque associé au container, en raison du produit de conservation utilisé \\
+\hline
+pn & Nom du protocole de collecte des échantillons \\
+\hline
+autres codes & tous les codes d'identification secondaires définis dans la table de paramètres \textit{Types d'identifiants} (\textit{cf.} \ref{param} \textit{\nameref{param}}, page \pageref{param}). \\
+\hline
+
+\caption{Liste des balises facultatives insérables dans les QRcodes}
+\end{longtable}
+
+\subsection{Configuration du fichier XSL}
+
+La syntaxe particulière du fichier XSL ne doit être modifiée qu'en conservant la version initiale (recopie dans un bloc-notes, par exemple), pour éviter de perdre une configuration opérationnelle suite à un mauvais paramétrage.
+
+Voici la description du contenu du fichier et les zones modifiables.
+
+\subsubsection{Entête du fichier}
+Elle permet de modifier la taille de l'étiquette (largeur et hauteur maximale). Vous ne devez changer que les attributs \textit{page-height} et \textit{page-width}. Pour les marges (attributs \textit{margin-}), soyez prudents et vérifiez notamment que les QRcodes ne soient pas rognés à cause de marges insuffisantes.
+
+\begin{lstlisting}
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <xsl:output method="xml" indent="yes"/>
+  <xsl:template match="objects">
+    <fo:root>
+      <fo:layout-master-set>
+        <fo:simple-page-master master-name="label"
+              page-height="5cm" page-width="10cm" 
+              margin-left="0.5cm" 
+              margin-top="0.5cm" 
+              margin-bottom="0cm" 
+              margin-right="0.5cm">  
+              <fo:region-body/>
+        </fo:simple-page-master>
+      </fo:layout-master-set>
+      
+      <fo:page-sequence master-reference="label">
+         <fo:flow flow-name="xsl-region-body">        
+          <fo:block>
+          <xsl:apply-templates select="object" />
+          </fo:block>
+
+        </fo:flow>
+      </fo:page-sequence>
+    </fo:root>
+   </xsl:template>
+  <xsl:template match="object">
+\end{lstlisting}
+
+\subsubsection{Format de l'étiquette}
+Le contenu de l'étiquette est décrit sous la forme d'un tableau (balises \textit{fo:table}). La première colonne contient le QRCode, la seconde le texte associé.
+
+Ici, deux colonnes de taille identique (4 cm chacune) sont définies.
+
+\begin{lstlisting}
+  <fo:table table-layout="fixed" border-collapse="collapse"  
+  border-style="none" width="8cm" 
+  keep-together.within-page="always">
+  <fo:table-column column-width="4cm"/>
+  <fo:table-column column-width="4cm" />
+ <fo:table-body  border-style="none" >
+\end{lstlisting}
+
+Les cellules (\textit{table-cell}) sont insérées dans une ligne (\textit{table-row}) :
+
+\begin{lstlisting}
+ 	<fo:table-row>
+\end{lstlisting}
+
+\subsubsection{Insertion du QRcode}
+Le QRcode est inséré dans un bloc. Les seules informations modifiables sont celles concernant la hauteur (attribut \textit{height} et la largeur (attribut \textit{content-width})). Veillez à ce que la hauteur et la largeur soient identiques, et ne modifiez pas les autres informations.
+
+\begin{lstlisting}
+  		<fo:table-cell> 
+  		<fo:block>
+  		<fo:external-graphic>
+      <xsl:attribute name="src">
+             <xsl:value-of select="concat(uid,'.png')" />
+       </xsl:attribute>
+       <xsl:attribute name="content-height">
+       scale-to-fit
+       </xsl:attribute>
+       <xsl:attribute name="height">4cm</xsl:attribute>
+        <xsl:attribute name="content-width">4cm</xsl:attribute>
+        <xsl:attribute name="scaling">uniform</xsl:attribute>      
+       </fo:external-graphic>
+ 		</fo:block>
+   		</fo:table-cell>
+\end{lstlisting}
+\subsubsection{Contenu textuel}
+
+Les autres informations sont affichées dans des blocs, avec une ligne par catégorie d'information.
+
+L'étiquette commence ici par indiquer l'établissement (ici, IRSTEA), écrit en gras.
+
+\begin{lstlisting}
+  		<fo:table-cell>
+		<fo:block>
+			<fo:inline font-weight="bold">
+				IRSTEA
+			</fo:inline>
+		</fo:block>
+\end{lstlisting}
+
+Chaque information est affichée dans un bloc, comprenant un titre (par exemple, \textit{uid}), associé à une ou plusieurs valeurs. Ainsi, la première ligne affiche sur la même ligne, et en gras (attribut \textit{font-weight="bold"}), le code de la base de données (\textit{<xsl:value-of select="db"/>}) et l'UID de l'objet (\textit{<xsl:value-of select="uid"/>}).
+
+\begin{lstlisting}   		
+
+  			<fo:block>uid:
+  			<fo:inline font-weight="bold">
+  			<xsl:value-of select="db"/>:
+  			<xsl:value-of select="uid"/></fo:inline>
+  			</fo:block>
+  			<fo:block>id:
+  			<fo:inline font-weight="bold"> 
+  			<xsl:value-of select="id"/></fo:inline>
+  			</fo:block>
+  			<fo:block>prj:
+  			<fo:inline font-weight="bold"> 
+  			<xsl:value-of select="prj"/></fo:inline>
+  			</fo:block>
+  			<fo:block>clp:
+  			<fo:inline font-weight="bold">
+  			<xsl:value-of select="clp"/></fo:inline>
+  			</fo:block>
+\end{lstlisting}
+
+\subsubsection{Fin de l'étiquette}
+
+Une fois toutes les informations affichées, le tableau est fermé, et un saut de page est généré systématiquement :
+\begin{lstlisting}
+  		</fo:table-cell>
+  	  	</fo:table-row>
+  </fo:table-body>
+  </fo:table>
+   <fo:block page-break-after="always"/>
+\end{lstlisting}
+
+Enfin, le fichier XSL est correctement fermé :
+\begin{lstlisting}
+  </xsl:template>
+</xsl:stylesheet>
+\end{lstlisting}
+
+Il est possible de créer des étiquettes avec des formats différents, par exemple en créant plusieurs lignes. Pensez à fermer vos balises, et qu'elles soient correctement imbriquées, pour éviter tout souci.
+
+Pour aller plus loin dans la mise en page, consultez la documentation du projet FOP.

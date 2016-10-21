@@ -18,7 +18,7 @@ Le logiciel a largement évolué suite à ces échanges, de nombreuses fonctionn
 Les délais de développement de la première version opérationnelle se sont étalés sur 9 mois, entre la définition des besoins et le développement proprement dit, mené entre juin et octobre 2016. Environ 160 heures auront été nécessaires pour écrire le logiciel.
 Le code comprend environ 8900 lignes (commentaires compris), dont 3800 concernent l'affichage des pages web.
 
-\section{Principes généraux}
+\section{Fonctionnalités générales}
 
 \begin{figure}[th]
 \includegraphics[width=\linewidth]{images/db_schema_simplifie}
@@ -43,10 +43,11 @@ Tout type de container peut être associé à un modèle d'étiquettes. Les éti
 
 Il est ainsi possible d'imprimer des étiquettes tant pour des containers que pour des échantillons, si ceux-ci sont d'un type rattaché à un type de container.
 
-Un échantillon est forcément rattaché à un projet. D'ailleurs, seuls les membres du projet peuvent modifier les informations générales d'un échantillon. 
-Il est également possible de le rattacher à un protocole et à une opération dans le protocole, ce qui permet de suivre son évolution.
+Un échantillon est forcément rattaché à un projet. Seuls les membres du projet considéré peuvent modifier les informations générales d'un échantillon. 
 
-Un échantillon peut être subdivisé en d'autres échantillons. Par exemple, un poisson peut se voir extrait des otolithes (os de l'oreille), ce qui permettra de créer 2 nouveaux échantillons d'un autre type, qui pourront toujours être rattachés au poisson parent.
+Un type d'échantillon peut être associé à une opération particulière d'un protocole défini, ce qui permet de mieux comprendre les évolutions rencontrées.
+
+Un échantillon peut être subdivisé en d'autres échantillons. Par exemple, des otolithes (os de l'oreille) peuvent être extraits d'un poisson, ce qui permettra de créer 2 nouveaux échantillons ()d'un autre type), qui resteront associés au poisson parent.
 
 Enfin, dans certains cas de figure, un échantillon peut être composé de plusieurs éléments indifférenciés (plusieurs écailles de poisson prélevées et conservées ensemble). Le logiciel permet d'indiquer les prélèvements et les restitutions réalisées, et affiche le solde (théorique !) restant.
 

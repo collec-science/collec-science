@@ -5,13 +5,13 @@
 
 \subsection{Principe général}
 
-Les droits sont gérés selon le principe initialement utilisé dans la bibliothèque PHPGACL, aujourd'hui obsolète. 
+Les droits sont gérés selon le principe initialement utilisé dans la bibliothèque PHPGACL \cite{phpgacl}, aujourd'hui obsolète. 
 
 Les logins sont déclarés dans des groupes organisés de manière hiérarchique : un groupe hérite des droits attribués à ses parents.
 
 Les droits utilisés dans le logiciel sont associés à des groupes. Il est possible d'attribuer plusieurs droits à un même groupe, et un droit peut être détenu par des groupes différents.
 
-Si le paramètre \textit{\$LDAP["groupSupport"]} est positionné à \textit{true}, les groupes dont fait partie le compte LDAP sont également récupérés, et peuvent être détenteurs de droits dans le logiciel (le nom des groupes est sensible à la casse).
+Si le paramètre \textit{\$LDAP["groupSupport"]} est positionné à \textit{true}, les groupes dont fait partie le compte LDAP sont également récupérés. Si ces groupes se voient attribués des droits, les comptes associés les récupéreront automatiquement.
 
 Voici le schéma des tables utilisées pour gérer les droits :
 
@@ -22,15 +22,148 @@ Voici le schéma des tables utilisées pour gérer les droits :
 
 Voici la description des tables :
 \begin{description}
-\item[acllogin] Liste des logins utilisés. Si un compte est créé dans la base locale d'identification, un enregistrement est également créé dans cette table. Pour les identifications LDAP ou CAS, ils doivent être identiques. Si seuls les groupes LDAP sont utilisés pour un compte, il n'a pas besoin d'être décrit ici
-\item[aclappli] Liste des applications gérées. Il est ainsi possible de gérer, à partir de la même base de données, plusieurs ensembles de droits, qui utilisent les mêmes logins
-\item[aclaco] liste des droits déclarés dans l'application
-\item[aclgroup] Liste des groupes contenant les logins, et qui détiennent les droits. Un groupe peut hériter d'un autre groupe. Les droits associés au groupe parent sont également attribués au groupe hérité.
-\item[acllogingroup] table permettant de déclarer les logins associés à un groupe
-\item[aclacl] table décrivant les droits détenus par un groupe
+\item[acllogin] : liste des logins utilisés. Si un compte est créé dans la base locale d'identification, un enregistrement est également créé dans cette table. Pour les identifications LDAP ou CAS, ils doivent être identiques. Si seuls les groupes LDAP sont utilisés pour un compte, il n'a pas besoin d'être décrit ici ;
+\item[aclappli] : liste des applications gérées. Il est possible de gérer, à partir de la même base de données, plusieurs ensembles de droits, qui utilisent les mêmes logins.
+\item[aclaco] : liste des droits déclarés dans l'application ;
+\item[aclgroup] : liste des groupes contenant les logins, et qui détiennent les droits. Un groupe peut hériter d'un autre groupe. Les droits associés au groupe parent sont également attribués au groupe hérité ;
+\item[acllogingroup] : table permettant de déclarer les logins associés à un groupe ;
+\item[aclacl] : table décrivant les droits détenus par un groupe.
 \end{description}
 
 Le module d'administration permet de saisir toutes ces informations. Il faut que l'utilisateur dispose du droit \textit{admin}, c'est à dire qu'il fasse partie du groupe \textit{admin} (configuration par défaut à l'initialisation de la base des droits) pour pouvoir accéder à ces fonctions.
+
+\subsection{Créer un nouvel utilisateur}
+
+Les utilisateurs peuvent être issus soit de l'annuaire LDAP, soit de la base interne. 
+Pour créer un nouvel utilisateur dans la base locale :
+\begin{itemize}
+\item \textit{Administration $\rightarrow$ Liste des comptes }
+\item \textit{Nouveau login}
+\item renseignez au minimum le login.
+\end{itemize}
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{images/user_create}
+\caption{Écran de saisie d'un login de connexion}
+\end{figure}
+
+Pour créer le mot de passe, vous pouvez cliquer sur le bouton \textit{Générez}, qui  en créera un automatiquement. Envoyez-le par mél à son destinataire (par \textit{copier-coller}), en lui demandant de le modifier à la première connexion (icône en forme de clé, dans le bandeau, en haut à droite).
+
+Les mots de passe doivent respecter les règles suivantes :
+\begin{itemize}
+\item ils doivent avoir une longueur minimale de 8 caractères ;
+\item ils doivent comprendre trois types de caractères différents parmi les minuscules, majuscules, chiffres et caractères de ponctuation ;
+\item ils ne peuvent pas être réutilisés pour le même login ;
+\item les mots de passe n'expirent pas.
+\end{itemize}
+
+Les mots de passe sont stockés sous forme d'empreinte, calculée en rajoutant un sel\footnote{chaîne de caractère rajoutée au mot de passe -- en général le login ou un identifiant -- qui permet d'éviter que deux mots de passe identiques, associés à deux logins différents, aient la même empreinte} et encodés en SHA256 : ils ne peuvent pas être retrouvés en cas de perte.
+
+L'application n'intègre pas de module permettant de régénérer automatiquement un mot de passe en cas de perte : c'est au responsable applicatif d'en fournir alors un nouveau.
+
+La création d'un compte entraîne la création d'une entrée identique dans la table des \textit{acllogin}, utilisée pour attribuer les droits.
+
+Pour désactiver temporairement un compte, sélectionnez \textit{non} dans la zone \textit{actif}. Si le compte ne doit plus être utilisé, supprimez-le.
+
+Attention : si le compte disposait des droits d'administration, assurez-vous que vous avez toujours un compte disposant des mêmes droits avant la suppression.
+
+\subsection{Créer un login utilisé dans la gestion des droits}
+
+Indépendamment du compte de connexion, qui peut être soit issu de la base interne, soit récupéré auprès d'un annuaire LDAP ou d'un serveur CAS, l'application a besoin de connaître les utilisateurs pour pouvoir leur attribuer des droits.
+
+À partir du menu, choisissez \textit{Administration $\rightarrow$ ACL - logins}.
+
+Vous pouvez modifier un login existant ou en créer un nouveau. Dans ce cas, vous devrez indiquer au minimum le login utilisé (identique à celui qui est employé pour la connexion à l'application : base de données interne, annuaire LDAP, serveur CAS).
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{images/acl_login}
+\caption{Écran de modification d'un login dans le module de gestion des droits}
+\end{figure}
+
+
+Sous l'écran de saisie figurent la liste des droits attribués à un login (en modification, le calcul n'est réalisé qu'à l'affichage de la page).
+
+\subsection{Définir les groupes d'utilisateur}
+
+Les groupes d'utilisateurs sont gérés selon un mécanisme d'héritage. Un groupe de haut niveau hérite des groupes précédents : si des droits ont été attribués à un groupe de niveau inférieur, un login associé à un groupe de niveau supérieur les récupère également.
+
+Pour définir les groupes, dans le menu, choisissez \textit{Administration $\rightarrow$ ACL - groupes de logins}.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{images/acl_groupe}
+\caption{Liste des groupes de logins}
+\end{figure}
+
+Ainsi, le login déclaré dans le groupe \textit{param} récupérera les droits attribués aux groupes \textit{projet}, \textit{gestion} et \textit{consult}.
+
+Pour créer un groupe, deux possibilités :
+\begin{itemize}
+\item soit le groupe est à la base d'une nouvelle branche : utilisez alors \textit{Nouveau groupe racine...} ;
+\item soit le groupe hérite d'un autre groupe : cliquez sur le signe + (\textit{Rajouter un groupe fils}).
+\end{itemize}
+
+Vous pouvez indiquer les logins qui sont rattachés à ce groupe.
+
+
+\subsection{Créer une application}
+Le moteur utilisé pour faire fonctionner le logiciel COLLEC permet de gérer des droits différents pour des jeux de données différents, à partir du même code applicatif. Chaque couple \textit{logiciel} $\leftrightarrow$ \textit{base de données} constitue donc une \textit{application}, au sens de la gestion des droits.
+
+Il est ainsi possible, à partir de la même base de données, de définir des droits différents selon les jeux de données utilisés (un jeu de données correspond à un schéma de base de données comprenant l'intégralité des tables applicatives).
+
+À partir du menu, choisissez \textit{Administration $\rightarrow$ ACL - droits} :
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{images/liste_appli}
+\caption{Liste des applications déclarées}
+\end{figure}
+
+Pour créer une nouvelle application, choisissez \textit{Nouvelle application...}. 
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{images/appli_change}
+\caption{Écran de saisie d'une application}
+\end{figure}
+
+Le nom de l'application doit impérativement correspondre à la valeur \textit{\$GACL\_appli} dans les fichiers de paramètres : c'est ce qui permet au framework de savoir quels droits appliquer.
+
+\subsection{Définir les droits utilisables dans l'application}
+
+À partir de la liste des applications, cliquez sur le nom de celle pour laquelle vous voulez définir les droits utilisables. 
+À partir de la liste, sélectionnez \textit{Nouveau droit...}.
+
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{images/appli_droit}
+\caption{Écran de saisie des droits associés à une application}
+\end{figure}
+
+Le nom du droit doit être celui défini dans le corps de l'application (les droits sont positionnés dans les fichiers \textit{param/actions.xml}, qui contient la liste des modules utilisables, et \textit{param/menu.xml}, qui sert à générer le menu).
+
+Indiquez les groupes d'utilisateurs qui seront associés au droit courant.
+
+\subsection{Cas particulier des groupes et des logins issus d'un annuaire LDAP}
+
+Si vous avez paramétré l'application pour qu'elle s'appuie sur un annuaire LDAP pour gérer l'affectation des utilisateurs dans les groupes, vous n'êtes pas obligés de les déclarer explicitement dans le module de gestion des droits.
+
+\subsubsection{Droits attribués à un groupe LDAP}
+
+Tous les utilisateurs d'un groupe héritent d'un droit dans l'application.
+
+\begin{itemize}
+\item définissez le nom du groupe (en respectant la casse) dans le tableau des groupes d'utilisateurs ;
+\item sélectionnez le nom de ce groupe dans les droits utilisables ;
+\item tous les utilisateurs de l'annuaire LDAP récupéreront automatiquement les droits attribués à ce groupe.
+\end{itemize}
+
+\subsubsection{Droits attribués à un utilisateur particulier de l'annuaire LDAP}
+
+Un utilisateur s'identifie auprès de l'annuaire LDAP, mais dispose de droits particuliers.
+
+\begin{itemize}
+\item créez son login dans la gestion des droits ;
+\item rajoutez-le dans le groupe d'utilisateurs adéquat.
+\end{itemize}
+
+
+\section{Droits spécifiques de l'application COLLEC}
 
 \subsection{Droits à positionner}
 Voici les groupes nécessaires pour faire fonctionner correctement l'application :
@@ -53,6 +186,8 @@ consult	& Consultation des informations, sans possibilité de modification. Le d
 \caption{Liste des droits utilisés}
 \end{longtable}
 
+Ces droits doivent être définis pour chaque application (couple \textit{logiciel} $\leftrightarrow$ \textit{base de données}) gérée par la base de gestion des droits.
+
 \subsection{Gestion des projets}
 
 Les échantillons doivent être rattachés à un projet, vous devrez en créer au minimum un à partir du menu d'administration. Un utilisateur avec les droits de gestion ne peut modifier que les échantillons pour lesquels il est autorisé (les projets qui sont rattachés au groupe dont il fait partie).
@@ -61,11 +196,10 @@ Voici le principe de gestion des droits pour les projets :
 \begin{itemize}
 \item Dans \textit{Administration} > \textit{ACL - Groupes de logins}, déclarez les groupes adéquats. En cas d'utilisation des groupes LDAP, les saisir avec la même casse que dans l'annuaire (EABX p. e.).
 
-Il est possible de définir une hiérarchie des groupes, quelle que soit l'origine de l'affectation (base de données ou annuaire Ldap)
-Dans le cas où l'annuaire Ldap n'est pas utilisé pour gérer les groupes, renseignez les logins en face des groupes dans le même écran.
-
-\item Dans les projets, sélectionnez les groupes autorisés.
-\item les utilisateurs faisant partie des groupes autorisés disposeront des droits de \textit{gestion} pour le projet considéré
+Il est possible de définir une hiérarchie des groupes, quelle que soit l'origine de l'affectation (base de données ou annuaire Ldap).
+Dans le cas où l'annuaire Ldap n'est pas utilisé pour gérer les groupes, renseignez les logins en face des groupes dans le même écran ;
+\item Dans les projets, sélectionnez les groupes autorisés ;
+\item les utilisateurs faisant partie des groupes autorisés disposeront des droits de \textit{gestion} pour le projet considéré.
 \end{itemize}
 
 \section{Configurer les paramètres généraux}
@@ -87,17 +221,17 @@ Opérations & Opérations rattachées aux protocoles & projet \\
 \hline
 Type d'événement & Événements survenant aux objets & param \\
 \hline
-Familles de conteneurs & Mécanisme pour retrouver les conteneurs selon leur nature (pièce, caisse...) & param projet\\
+Familles de conteneurs & Mécanisme pour retrouver les conteneurs selon leur nature (pièce, caisse...) & param, projet\\
 \hline
-Conditions de stockage & Mécanisme de conservation (lyophilisation, p. e.) & param projet\\
+Conditions de stockage & Mécanisme de conservation (lyophilisation, p. e.) & param, projet\\
 \hline
-Motifs de déstockage & Raisons invoquées pour sortir un objet du stock & param projet\\
+Motifs de déstockage & Raisons invoquées pour sortir un objet du stock & param, projet\\
 \hline
-Types de conteneurs & Modèles de conteneurs (porteurs des étiquettes, entre autres) & param projet\\
+Types de conteneurs & Modèles de conteneurs (porteurs des étiquettes, entre autres) & param, projet\\
 \hline
 Statut des objets & Liste des statuts que peut prendre un objet & param\\
 \hline
-Type d'échantillon & Modèles des échantillons (rattachables à un type de conteneur) &  param projet\\
+Type d'échantillon & Modèles des échantillons (rattachables à un type de conteneur) &  param, projet\\
 \hline
 Sous-échantillonnage & Pour les échantillons composés d'éléments indifférenciables, unité utilisée pour réaliser le sous-échantillonnage (nombre, volume...) & param \\
 \hline
@@ -115,7 +249,7 @@ Les étiquettes sont créées en recourant au logiciel FOP \cite{fop}, écrit en
 \begin{itemize}
 \item pour chaque objet concerné (des containers ou des échantillons associés à un type de container, et si le type de container est rattaché à un modèle d'étiquettes), une image du QRcode est générée dans le dossier \textit{temp} ;
 \item dans le dossier \textit{temp}, un fichier au format XML est généré, contenant les informations à imprimer sur l'étiquette ;
-\item un fichier au format XSL, qui contient les ordres de création de l'étiquette, est également créé dans le même dossier. Le contenu de ce fichier figure dans la table \textit{label} ;
+\item un fichier au format XSL, qui contient les ordres de création de l'étiquette, est également créé dans le même dossier. Le contenu de ce fichier est issu d'un enregistrement provenant de la table \textit{label} ;
 \item le programme PHP fait appel à FOP pour générer, à partir du fichier XML et en utilisant le fichier XSL, un fichier PDF. Une page du fichier correspond à une étiquette (mécanisme utilisé par les imprimantes à étiquettes pour les séparer).
 \end{itemize}
 
@@ -170,7 +304,7 @@ La syntaxe particulière du fichier XSL ne doit être modifiée qu'en conservant
 Voici la description du contenu du fichier et les zones modifiables.
 
 \subsubsection{Entête du fichier}
-Elle permet de modifier la taille de l'étiquette (largeur et hauteur maximale). Vous ne devez changer que les attributs \textit{page-height} et \textit{page-width}. Pour les marges (attributs \textit{margin-}), soyez prudents et vérifiez notamment que les QRcodes ne soient pas rognés à cause de marges insuffisantes.
+Elle permet de modifier la taille de l'étiquette (largeur et hauteur maximale). Vous ne devriez changer que les attributs \textit{page-height} et \textit{page-width}. Pour les marges (attributs \textit{margin-}), soyez prudents et vérifiez notamment que les QRcodes ne soient pas rognés à cause de marges insuffisantes.
 
 \begin{lstlisting}
 <?xml version="1.0" encoding="utf-8"?>

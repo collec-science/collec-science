@@ -4,23 +4,23 @@
 L'unité de recherche \textit{Écosystèmes aquatiques et changements globaux} d'IRSTEA, à Cestas (33), récolte et manipule des échantillons prélevés sur le terrain (ou plutôt, principalement dans l'eau -- estuaires, lacs, rivières...), et les stocke, parfois sur des durées très longues : certaines campagnes de collecte ont eu lieu il y a plus de 40 ans.
 
 De plus en plus, des échantillons anciens sont réanalysés (analyses génétiques, étude des ossements des oreilles ou otolithes...), au gré des questions scientifiques à traiter. 
-Le besoin de recourir à un logiciel pour gérer ces matériels est devenu patent.
+Le besoin de recourir à un logiciel pour gérer ces matériels est devenu une priorité.
 
-Dans un premier temps, une rapide recherche  a été menée, qui a permis de repérer un certain nombre de logiciels susceptibles de répondre au besoin. Toutefois, leurs limites sont vite apparues : problème de pérennité, ancienneté du code, modèle de distribution insatisfaisant (licence OpenSource obligatoire pour le suivi sur le long terme), résistance aux attaques informatiques, fonctionnalités insuffisantes ou inadaptées au besoin.
+Dans un premier temps, quelques logiciels open-source susceptibles d'être utilisés ont été étudiés. Toutefois, leurs limites sont vite apparues : problème de pérennité, ancienneté du code, modèle de distribution parfois insatisfaisant (une licence open-source est obligatoire pour assurer la pérennité à longue échéance), résistance aux attaques informatiques, fonctionnalités insuffisantes ou inadaptées au besoin.
 
 Dans un second temps, une étude des besoins réels a été menée. De nouvelles fonctionnalités ont été rajoutées, comme la gestion du stock de matériel utilisé sur le terrain, stocké dans un hangar.
 
-L'unité de recherche s'intégrant au niveau régional avec d'autres organismes, des collaborations avec l'Organisme Aquitain des Sciences de l'Univers (OASU) ou l'université de La Rochelle ont été envisagées.
-Des échanges productifs ont ainsi pu être mis en place, entre autres sur la gestion de l'étiquetage et le scan des codes-barres.
+L'unité de recherche s'intégrant au niveau régional avec d'autres organismes, des collaborations avec l'Observatoire Aquitain des Sciences de l'Univers (OASU) ou l'université de La Rochelle ont été envisagées.
+Des échanges productifs ont ainsi pu être mis en place, entre autres sur la gestion de l'étiquetage et le scannage des codes-barres.
 
 Le logiciel a largement évolué suite à ces échanges, de nombreuses fonctionnalités ont été rajoutées ou modifiées pour tenir compte des besoin des partenaires potentiels. 
 
-Les délais de développement de la première version opérationnelle se sont étalés sur 9 mois, entre la définition des besoins et le développement proprement dit, mené entre juin et octobre 2016. Environ 160 heures auront été nécessaires pour écrire le logiciel.
-Le code comprend environ 8900 lignes (commentaires compris), dont 3800 concernent l'affichage des pages web.
+Les délais de développement de la première version opérationnelle se sont étalés sur 9 mois, entre la définition des besoins et le développement proprement dit. Cette seconde phase a été réalisée entre juin et octobre 2016. Environ 160 heures de travail auront été nécessaires pour écrire le logiciel.
+Le code comprend environ 8900 lignes (commentaires compris), dont 3800 concernent l'affichage des pages web. Il a été écrit en PHP, les pages web générées en HTML et Javascript.
 
 \section{Fonctionnalités générales}
 
-\begin{figure}[th]
+\begin{figure}[H]
 \includegraphics[width=\linewidth]{images/db_schema_simplifie}
 \caption{Schéma simplifié de la base de données}
 \end{figure}
@@ -28,12 +28,12 @@ Le code comprend environ 8900 lignes (commentaires compris), dont 3800 concernen
 Deux types d'objets sont manipulés dans l'application :
 \begin{itemize}
 \item des containers, qui peuvent contenir des objets de tout type : d'autres containers ou des échantillons. Ils peuvent être de différentes nature : site, bâtiment, salle, armoire, caisse, éprouvette...
-\item des échantillons, qui peuvent être d'un type de container : il y a de nombreux cas où l'échantillon lui-même se confond avec son contenant, par exemple le résultat d'une pêche non triée et stocké dans un bocal.
+\item des échantillons, qui peuvent associés à un type de container : il y a de nombreux cas où l'échantillon lui-même se confond avec son contenant, par exemple quand le résultat d'une pêche n'est pas trié et est stocké dans un bocal.
 \end{itemize}
 
 Un échantillon ou un container sont issus d'un objet unique, qui est doté :
 \begin{itemize}
-\item d'un numéro unique, l'UID, et qui sert de référence dans le logiciel ;
+\item d'un numéro unique, l'\textbf{UID}, et qui sert de référence dans le logiciel ;
 \item d'un identifiant métier, qui servira à le retrouver facilement (le logiciel permet également de définir d'autres identifiants).
 \end{itemize}
 
@@ -41,15 +41,15 @@ Un objet peut être subir un certain nombre d'événements, voire être réserv�
 
 Tout type de container peut être associé à un modèle d'étiquettes. Les étiquettes peuvent comprendre un code-barre 2D de type QRCode, qui pourra être lu soit à partir d'un terminal dédié (douchette), soit avec un tablette, l'application disposant d'un module capable d'activer la caméra depuis le navigateur et de scanner le code-barre.
 
-Il est ainsi possible d'imprimer des étiquettes tant pour des containers que pour des échantillons, si ceux-ci sont d'un type rattaché à un type de container.
+Il est aussi possible d'imprimer des étiquettes tant pour des containers que pour des échantillons, si ceux-ci sont d'un type associé à un type de container.
 
-Un échantillon est forcément rattaché à un projet. Seuls les membres du projet considéré peuvent modifier les informations générales d'un échantillon. 
+Un échantillon est obligatoirement rattaché à un projet. Seuls les membres du projet considéré peuvent modifier les informations le concernant. 
 
-Un type d'échantillon peut être associé à une opération particulière d'un protocole défini, ce qui permet de mieux comprendre les évolutions rencontrées.
+Un type d'échantillon peut être associé à une opération particulière d'un protocole, ce qui permet de mieux comprendre les évolutions rencontrées.
 
-Un échantillon peut être subdivisé en d'autres échantillons. Par exemple, des otolithes (os de l'oreille) peuvent être extraits d'un poisson, ce qui permettra de créer 2 nouveaux échantillons ()d'un autre type), qui resteront associés au poisson parent.
+Un échantillon peut être subdivisé en d'autres échantillons. Par exemple, des otolithes (os de l'oreille) peuvent être extraits d'un poisson. Deux nouveaux échantillons sont ainsi créés (d'un autre type), qui resteront associés au poisson parent.
 
-Enfin, dans certains cas de figure, un échantillon peut être composé de plusieurs éléments indifférenciés (plusieurs écailles de poisson prélevées et conservées ensemble). Le logiciel permet d'indiquer les prélèvements et les restitutions réalisées, et affiche le solde (théorique !) restant.
+Enfin, dans certains cas de figure, un échantillon peut être composé de plusieurs éléments indifférenciés, par exemple plusieurs écailles de poisson prélevées et conservées ensemble. Le logiciel permet d'indiquer les prélèvements et les restitutions réalisées, et affiche le solde (théorique !) restant.
 
 \section{Technologie employée}
 \subsection{Base de données}
@@ -59,13 +59,13 @@ L'application a été conçue pour fonctionner avec Postgresql, en version 9.5. 
 \subsection{Langage de développement et framework utilisé}
 Le logiciel a été écrit en PHP, en s'appuyant sur le framework \textit{Prototypephp}, développé parallèlement par l'auteur du logiciel.
 
-Il a recours à la classe Smarty pour gérer l'affichage des pages HTML. Celles-ci sont générées en utilisant Jquery et divers composants associés. Le rendu général est réalisé avec Bootstrap.
+Il utilise la classe \textit{Smarty} \cite{smarty} pour gérer l'affichage des pages HTML. Celles-ci sont générées en utilisant \textit{Jquery} \cite{jquery}  et divers composants associés. Le rendu général est réalisé avec \textit{Bootstrap} \cite{bootstrap}.
 
-Les étiquettes sont générées en utilisant FOP, une classe Java qui crée des fichiers PDF à partir d'un fichier XML contenant les données et fichier de transformation au format XSL.
+Les étiquettes sont générées en utilisant FOP \cite{fop}, une classe Java qui crée des fichiers PDF à partir d'un fichier XML contenant les données et un fichier de transformation au format XSL.
 
 \section{Sécurité}
 
-L'application a été conçue pour résister aux attaques dites opportunistes selon la nomenclature ASVS v3 de l'OWASP. Des tests d'attaque ont été réalisés en août 2016 avec le logiciel ZapProxy, et n'ont pas détecté de faiblesse particulière.
+L'application a été conçue pour résister aux attaques dites opportunistes selon la nomenclature ASVS v3 \cite{asvs} de l'OWASP \cite{owasp}. Des tests d'attaque ont été réalisés en août 2016 avec le logiciel ZapProxy \cite{zaproxy}, et n'ont pas détecté de faiblesse particulière.
 
 La gestion des droits est conçue pour :
 \begin{itemize}

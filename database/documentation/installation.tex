@@ -4,7 +4,7 @@
 
 Le logiciel a été conçu à partir du framework \textit{Prototypephp}. La documentation associée \cite{pphp-doc} récapitule l'ensemble des informations nécessaires pour réaliser l'installation générale (configuration du serveur, définition des droits d'accès, etc.).
 
-De nombreuses reprises figurent ici, mais il n'est pas inutile de se référer au document d'origine. Seuls les exemples dédiés au logiciel sont présentés, mais d'autres informations utiles pourront y être piochées.
+De nombreuses passages ont été repris ici, mais il n'est pas inutile de se référer au document d'origine. 
 
 \section{Configuration du serveur}
 La configuration est donnée pour un serveur Linux fonctionnant avec Ubuntu 16.04 LTS Server. Elle peut bien sûr être adaptée à d'autres distributions Linux. Par contre, rien n'a été prévu pour faire fonctionner l'application directement dans une plate-forme windows, même si, en théorie, cela devrait être possible.
@@ -47,11 +47,12 @@ L'application ne fonctionne qu'en mode SSL, les cookies de session n'étant pas 
 
     SSLProtocol All -SSLv2 -SSLv3
     SSLHonorCipherOrder On
-    SSLCipherSuite ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:HIGH:!MD5:!aNULL:!EDH:!RC4
+    SSLCipherSuite ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:HIGH:
+    !MD5:!aNULL:!EDH:!RC4
     SSLCompression off
 \end{lstlisting}
 
-La chaîne \textit{SSLCipherSuite} est donnée à titre d'exemple, d'autres configurations plus modernes peuvent être implémentées \cite{tls}.
+La chaîne \textit{SSLCipherSuite} est donnée à titre d'exemple, d'autres configurations plus modernes peuvent être implémentées (\textit{cf.} \cite{tls}).
 
 Pour activer le mode SSL dans Apache :
 \begin{lstlisting}
@@ -145,7 +146,7 @@ Le premier fichier contient les paramètres par défaut. Il est systématiquemen
 
 Le second est spécifique de l'implémentation. Il comprend notamment les informations liées à la connexion à la base de données, à la méthode d'identification, ou à la recherche des attributs dans l'annuaire LDAP. 
 
-le troisième est destiné à traiter la possibilité d'accéder, à partir du même code applicatif, à plusieurs bases de données différentes (\textit{cf.} \ref{dnsmultiple} \textit{\nameref{dnsmultiple}}).
+le troisième est destiné à offrir la possibilité d'accéder, à partir du même code applicatif, à plusieurs bases de données différentes (\textit{cf.} \ref{dnsmultiple} \textit{\nameref{dnsmultiple}}).
 
 Voici les principaux paramètres utilisés :
 
@@ -186,7 +187,7 @@ GACL\_aco & nom du code de l'application utilisé dans la gestion des droits\\
 \textbf{Variable} & \textbf{Signification} \\
 \hline
 \endhead
-ident\_type & Type d'identification supporté. L'application peut gérer \textbf{BDD} (uniquement en base de données),\textbf{LDAP} (uniquement à partir d'un annuaire LDAP) \textbf{LDAP-BDD} (d'abord identification en annuaire LDAP, puis en base de données), et \textbf{CAS} (serveur d'identification \textit{Common Access Service})\\
+ident\_type & Type d'identification supporté. L'application peut gérer \textbf{BDD} (uniquement en base de données),\textbf{LDAP} (uniquement à partir d'un annuaire LDAP) \textbf{LDAP-BDD} (d'abord identification en annuaire LDAP, puis en base de données), et \textbf{CAS} (serveur d'identification \textit{Common Access Service}\footnote{serveur externe gérant l'identification des utilisateurs, et renvoyant à l'application le login utilisé})\\
 \hline
 CAS\_plugin & Nom du plugin utilisé pour une connexion CAS \\
 \hline
@@ -204,6 +205,10 @@ tokenIdentityValidity & durée de validité, en secondes, des jetons d'identific
 \hline
 \caption{Variables utilisées pour paramétrer l'identification}
 \end{longtable}
+
+L'application permet de conserver l'identification plus longtemps que celle définie dans le serveur, en rejouant la connexion avec un jeton d'identification chiffré. Cela évite, par exemple, de devoir se ré-identifier toutes les heures si on accède au logiciel à partir d'un terminal mobile (smartphone ou tablette, par exemple).
+
+Les trois dernières variables permettent de configurer ce mode d'identification. Pour plus d'informations, consultez \cite{token}.
 
 \subsection{Configuration de l'accès à l'annuaire LDAP}
 

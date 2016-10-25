@@ -1,19 +1,39 @@
 <?php
 /** Fichier cree le 4 mai 07 par quinton
-*
-*UTF-8
-*/
-
-$APPLI_modeDeveloppement = true;
-//$APPLI_notSSL = true;
-$APPLI_modeDeveloppement == true ? $ERROR_display=1 : $_ERROR_display = 0;
+ * Renommez le fichier en param.inc.php
+ * ajustez les parametres a votre implementation
+ * conservez une sauvegarde de ces parametres pour ne pas les perdre 
+ * lors de la mise en place d'une nouvelle version
+ * tous les parametres presents dans param.default.inc.php peuvent etre utilises
+ */
+ /*
+  * Affichage des erreurs et des messages
+  */
+$APPLI_modeDeveloppement = false;
+$_ERROR_display = 0;
 $ERROR_level = E_ERROR ;
 $OBJETBDD_debugmode = 1;
-$APPLI_utf8 = true;
 
+/*
+ * code de l'application dans la gestion des droits
+ */
 $GACL_aco = "appli";
-
+/*
+ * Code de l'application - impression sur les etiquettes
+ */
+$APPLI_code = 'proto';
+/*
+ * Mode d'identification
+ * BDD : uniquement a partir des comptes internes
+ * LDAP : uniquement a partir des comptes de l'annuaires LDAP
+ * LDAP-BDD : essai avec le compte LDAP, sinon avec le compte interne
+ * CAS : identification auprès d'un serveur CAS
+ */
 $ident_type = "BDD";
+ /*
+  * Adresse du serveur CAS
+  */
+// $CAS_address = "http://localhost/CAS";
 /*
  * Parametres concernant la base de donnees
  */
@@ -34,16 +54,44 @@ $GACL_schema = "gacl";
 /*
  * Lien vers le site d'assistance
  */
-//$APPLI_mail = "https://gitlab.bordeaux.cemagref.fr/eabx-applis_web/eabxcol/issues/new";
-$APPLI_mail = "https://sourcesup.renater.fr";
-
+$APPLI_mail = "https://site.assistance.com";
+/*
+ * Configuration LDAP
+ */
 $LDAP ["address" ] = "localhost";
+/*
+ * pour une identification en LDAPS :
+ * port = 636
+ * tls = true;
+ */
 $LDAP ["port" ] = 389;
-$LDAP [ "basedn"] = "ou=people,ou=example,o=societe,c=fr";
 $LDAP [ "tls"] = false;
-$LDAP ['basedngroup' ] ='ou=group,ou=example,o=societe,c=fr' ;
+/*
+ * chemin d'accès a l'identification
+ */
+$LDAP [ "basedn"] = "ou=people,ou=example,o=societe,c=fr";
+$LDAP [ "user_attrib" ] = "uid";
 
+/*
+ * Recherche des groupes dans l'annuaire LDAP
+ */
+$LDAP [ "groupSupport" ] = true;
+$LDAP [ "groupAttrib" ] = "supannentiteaffectation";
+$LDAP [ "commonNameAttrib" ] = "displayname";
+$LDAP [ "mailAttrib" ] = "mail";
+$LDAP [ 'attributgroupname' ] = "cn";
+$LDAP [ 'attributloginname' ] = "memberuid";
+$LDAP [ 'basedngroup' ] = 'ou=group,ou=example,o=societe,c=fr';
+
+/*
+ * Chemin d'acces au fichier param.ini
+ * Consultez la documentation pour plus d'informations
+ */
 $paramIniFile = "./param.ini";
+/*
+ * Parametres SMARTY complementaires, charges systematiquement
+ * Ne pas modifier !
+ */
 $SMARTY_variables["melappli"] = $APPLI_mail;
 $SMARTY_variables["ident_type"] = $ident_type;
 ?>

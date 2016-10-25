@@ -4,6 +4,7 @@
 *UTF-8
 * 
 * Parametres par defaut de l'application
+* Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
 */
 $APPLI_version = "1.0";
 $APPLI_versiondate = "25/10/2016";
@@ -78,16 +79,6 @@ $SMARTY_param = array("templates"=> 'display/templates',
 		"template_main"=>"main.htm"
 );
 
-/*$SMARTY_template ='display/templates';
-$SMARTY_template_c = 'display/templates_c';
-$SMARTY_config = 'param/configs_smarty';
-$SMARTY_cache_dir = 'display/smarty_cache';
-$SMARTY_cache = FALSE;
-$SMARTY_entete = "entete.tpl";
-$SMARTY_enpied = "enpied.tpl";
-$SMARTY_principal = "main.htm";
-$SMARTY_corps = "main.tpl";
-*/
 /*
  * Variables de base de l'application
  */ 

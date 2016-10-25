@@ -5,8 +5,8 @@
 * 
 * Parametres par defaut de l'application
 */
-$APPLI_version = "0.6";
-$APPLI_versiondate = "07/10/2016";
+$APPLI_version = "1.0";
+$APPLI_versiondate = "25/10/2016";
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*

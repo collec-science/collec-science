@@ -1,5 +1,5 @@
 <?php
-$fichier = file("install/readme.txt");
+$fichier = file("param/news.txt");
 $doc = "";
 foreach($fichier as $key=>$value) {
 	if (substr($value,1,1)=="*" or substr($value,0,1)=="*"){

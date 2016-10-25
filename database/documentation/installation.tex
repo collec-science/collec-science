@@ -22,17 +22,18 @@ Modules complémentaires nécessaires :
 \begin{itemize}
 \item \textit{php-mbstring}
 \item \textit{php-pgsql}
-\item \textit{php-xdebug} pour les phases de mise au point.
+\item \textit{php-xdebug} pour les phases de mise au point
+îtem \textit{php-curl} (ou \textit{php5-curl} pour PHP5) pour l'identification via un serveur CAS.
 \end{itemize}
 La génération des étiquettes nécessite les paquetages suivants :
 \begin{itemize}
-\item \textit{php-gd} (ou \textit{php5-gd} pour les serveurs en version 5)
+\item \textit{php-gd} (ou \textit{php5-gd} pour PHP5)
 \item \textit{fop} (qui inclut des bibliothèques java)
 \end{itemize}
 
 Le stockage et l'affichage des photos nécessite :
 \begin{itemize}
-\item \textit{php-imagick} (ou \textit{php5-imagick} pour les serveurs en version 5)
+\item \textit{php-imagick} (ou \textit{php5-imagick} pour PHP5)
 \end{itemize}
 
 \subsection{Configuration de l'hôte virtuel et de SSL}
@@ -347,3 +348,14 @@ Le plus simple est d'utiliser le logiciel \textit{pgAdmin} pour attribuer les dr
 
 Lors de la livraison de nouvelles versions, il est possible que des scripts de modification soient livrés pour mettre à niveau la base de données. Ces scripts doivent être exécutés dans tous les schémas contenant des données applicatives.
 
+\section{Mise en production}
+
+Une fois l'application configurée, et après avoir créé un nouveau compte d'administration :
+\begin{itemize}
+\item supprimez le compte \textit{admin}, livré par défaut, qui ne doit pas être conservé. Sa désactivation n'est pas suffisante : si pour une raison ou pour une autre le compte est réactivé, n'importe qui pourra récupérer les droits totaux ;
+\item supprimez le dossier \textit{install} qui contient les scripts de création des tables ;
+\item déplacez le dossier \textit{database}, qui contient la documentation d'installation et de configuration (elle n'a pas à rester accessible depuis le site web) ;
+\item faites une revue des droits, pour vous assurer que tout est correctement configuré.
+\end{itemize}
+
+Vous pouvez également tester si la configuration du serveur est correcte en recourant à ZAProxy (\cite{zaproxy}), qui analysera la communication entre le serveur et un navigateur et identifiera les problèmes éventuels de non conformité (mauvaise réécriture des entêtes HTML suite à une mauvaise configuration du serveur Apache, par exemple).

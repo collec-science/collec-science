@@ -436,3 +436,25 @@ Enfin, le fichier XSL est correctement fermé :
 Il est possible de créer des étiquettes avec des formats différents, par exemple en créant plusieurs lignes. Pensez à fermer vos balises, et qu'elles soient correctement imbriquées, pour éviter tout souci.
 
 Pour aller plus loin dans la mise en page, consultez la documentation du projet FOP.
+
+\section{Gestion des traces}
+
+Tous les appels lancés par les utilisateurs vers les modules de l'application sont enregistrés dans la table \textit{gacl.log}, qui ne doit être accessible qu'aux personnes dûment autorisées. Les traces sont supprimées au bout d'un an (script de nettoyage exécuté lors de la connexion d'un utilisateur).
+
+Voici un exemple de trace générée :
+\begin{lstlisting}
+log_id	login	nom_module	log_date	commentaire	ipaddress
+523437	eric.quinton	col-Sample-write	2016-10-25 14:57:01	16	::1
+523438	eric.quinton	col-sampleDisplay	2016-10-25 14:57:01	ok	::1
+523436	eric.quinton	col-sampleWrite	2016-10-25 14:57:00	ok	::1
+523435	eric.quinton	col-sampleChange	2016-10-25 14:56:58	ok	::1
+523434	eric.quinton	col-sampleDisplay	2016-10-25 14:56:55	ok	::1
+523433	eric.quinton	col-sampleList	2016-10-25 14:56:52	ok	::1
+523431	eric.quinton	col-default	2016-10-25 14:53:05	ok	::1
+523430	eric.quinton	col-connexion	2016-10-25 14:53:04	ldap-ok	::1
+523429	unknown	col-connexion	2016-10-25 14:52:57	ok	::1
+\end{lstlisting}
+
+La colonne \textit{commentaire}, pour la ligne 523437, contient l'identifiant modifié (l'enregistrement 16 a été traité par le module sampleWrite -- Sample (majuscule du S) correspond au nom de la classe qui a été utilisée pour réaliser l'écriture vers la base de données). L'adresse IP est théoriquement celle de l'utilisateur (ici, connexion locale), y compris en prenant en compte le passage par un serveur Reverse-proxy\footnote{serveur mis en entrée du réseau privé, qui permet de masquer les adresses internes et de contrôler les accès depuis Internet}.
+
+Parallèlement, les messages d'erreur sont envoyés au processus Linux SYSLOG, qui enregistre les traces dans le fichier \textit{/var/log/apache2/error.log}.

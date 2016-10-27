@@ -23,7 +23,7 @@ Modules complémentaires nécessaires :
 \item \textit{php-mbstring}
 \item \textit{php-pgsql}
 \item \textit{php-xdebug} pour les phases de mise au point
-îtem \textit{php-curl} (ou \textit{php5-curl} pour PHP5) pour l'identification via un serveur CAS.
+\item \textit{php-curl} (ou \textit{php5-curl} pour PHP5) pour l'identification via un serveur CAS.
 \end{itemize}
 La génération des étiquettes nécessite les paquetages suivants :
 \begin{itemize}
@@ -82,14 +82,14 @@ Dans le paramétrage de l’alias DNS (en principe, dans \textit{/etc/apache2/si
 
 Le dossier \textit{../bin} (donc, dans\textit{ /var/www/appliApp}) est lui aussi un alias qui pointe vers le code réel de l’application, ici \textit{code\_appli}. Le fichier \textit{param.inc.php} décrit l’entrée suivante : 
 \begin{lstlisting}
-$paramIniFile = "../ param . ini "; 
+$paramIniFile = "../param.ini"; 
 \end{lstlisting}
 
 Le fichier \textit{param.ini} sera cherché dans le dossier parent du code de l’application, c’est à dire soit dans \textit{appli1}, soit dans \textit{appli2} dans cet exemple. Il suffit qu’il contienne les paramètres adéquats pour rendre l’application utilisable dans des contextes différents à partir du même code initial.
 
 
 
-Le fichier \textit{param.ini} est le dernier qui est traité par l'application pour récupérer les paramètres.Ceux-ci sont lus dans l'ordre suivant :
+Le fichier \textit{param.ini} est le dernier qui est traité par l'application pour récupérer les paramètres. Ceux-ci sont lus dans l'ordre suivant :
 
 \textbf{param/param.default.inc.php $\rightarrow$ param/param.inc.php $\rightarrow$ ../param.ini}
 
@@ -111,7 +111,7 @@ APPLI_code=proto
 Le serveur web doit pouvoir accéder en lecture à l'ensemble des fichiers de l'application, et en écriture à deux dossiers :
 \begin{itemize}
 \item \textit{display/templates\_c} : fichier utilisé par Smarty pour compiler les modèles de documents HTML ;
-\item \textit{temp} : dossier de génération des images et des fichiers temporaires
+\item \textit{temp} : dossier de génération des images et des fichiers temporaires.
 \end{itemize}
 
 Voici un exemple de script utilisé pour positionner les droits :
@@ -290,7 +290,7 @@ APPLI\_code & Code interne de l'application. \textbf{Ce code est essentiel} : il
 
 \section{Créer la base de données}
 
-La base de données est composée de deux schémas : l'un pour le stockage des informations d'identification, les droits d'accès, les traces, l'autre pour les données proprement dites.
+La base de données est composée de deux schémas : l'un pour stocker les informations d'identification, les droits d'accès et les traces, l'autre pour les données proprement dites.
 
 Le schéma \textit{public} ne devrait jamais être utilisé pour stocker l'information : réservez-le pour les composants communs, comme Postgis si c'est nécessaire.
 
@@ -301,7 +301,7 @@ Les scripts de création des schémas dans la base de données sont stockés dan
 
 
 \subsection{Créer les tables de gestion des droits}
-Script à utiliser : \textit{gacl\_create.sql}. Les tables nécessaires vont être créées dans le schéma \textit{gacl}, à ne pas modifier.
+Script à utiliser : \textit{gacl\_create.sql}. Les tables nécessaires vont être créées dans le schéma \textit{gacl} (ne modifiez pas le nom du schéma).
 
 Le script crée un compte d'administration par défaut :
 \begin{itemize}
@@ -311,7 +311,7 @@ Le script crée un compte d'administration par défaut :
 
 Il devra être supprimé quand un autre compte d'administration aura été créé.
 
-D'autre part, les droits par défaut sont positionnés pour le projet \textit{appli} (variable \textit{\$GACL\_aco} dans les fichiers de paramètres de l'application).
+Lles droits par défaut sont positionnés pour le projet \textit{appli} (variable \textit{\$GACL\_aco} dans les fichiers de paramètres de l'application).
 
 
 \subsection{Créer les tables applicatives}
@@ -342,7 +342,7 @@ Le compte utilisé pour la connexion au schéma des droits doit pouvoir modifier
 
 Le compte utilisé pour accéder aux schémas des données doit pouvoir modifier l'ensemble des informations dans les schémas de données, et lire la table \textit{gacl.aclgroup}.
 
-Le plus simple est d'utiliser le logiciel \textit{pgAdmin} pour attribuer les droits.
+Le plus simple est d'utiliser le logiciel \textit{pgAdmin} \cite{pgadmin} pour attribuer les droits.
 
 \subsection{Scripts de modification}
 

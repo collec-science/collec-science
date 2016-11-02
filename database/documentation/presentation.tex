@@ -47,9 +47,9 @@ Un échantillon est obligatoirement rattaché à un projet. Seuls les membres du
 
 Un type d'échantillon peut être associé à une opération particulière d'un protocole, ce qui permet de mieux tracer l'évolution d'un prélèvement.
 
-Un échantillon peut être subdivisé en d'autres échantillons. Par exemple, des otolithes (os de l'oreille) peuvent être extraits d'un poisson. Deux nouveaux échantillons sont ainsi créés (d'un autre type), qui resteront associés au poisson parent.
+Un échantillon peut être subdivisé en d'autres échantillons. Par exemple, des otolithes (os de l'oreille) peuvent être extraits d'un poisson. Le logiciel permet de créer un nouvel échantillon à partir d'un autre, qui peut être d'un autre type le cas échéant, et qui restera associé au parent. 
 
-Enfin, dans certains cas de figure, un échantillon peut être composé de plusieurs éléments indifférenciés, par exemple plusieurs écailles de poisson prélevées et conservées ensemble. Le logiciel permet d'indiquer les prélèvements et les restitutions réalisées, et affiche le solde (théorique !) restant.
+Enfin, dans certains cas de figures, un échantillon peut être composé de plusieurs éléments indifférenciés, par exemple plusieurs écailles de poisson prélevées et conservées ensemble. Le logiciel permet d'indiquer les prélèvements et les restitutions réalisées, et affiche le solde (théorique !) restant.
 
 \section{Technologie employée}
 \subsection{Base de données}
@@ -112,7 +112,7 @@ La gestion des droits est conçue pour :
 \begin{itemize}
 \item qu'un utilisateur, membre d'un projet, ne puisse modifier que les échantillons qui y sont rattachés ;
 \item que tout utilisateur disposant des droits de gestion peut procéder à une entrée ou une sortie d'un objet, quel qu'il soit ;
-\item que les responsables d'un projet soient les seuls à pouvoir modifier les paramètres comme les types d'échantillons ou de containers.
+\item que les responsables d'un projet soient les seuls à pouvoir modifier les paramètres comme les types d'échantillons ou de containers, les protocoles ou les opérations rattachées.
 \end{itemize}
 L'analyse de sécurité a mis en exergue un besoin de ne pas perdre d'information : si un échantillon est étiqueté et rangé, et que l'information est perdue, il y a de gros risques de ne plus pouvoir l'utiliser ultérieurement. Cela impose la mise en place d'un mécanisme de réplication de la base de données, à implémenter -- ou faire implémenter par des administrateurs du système -- directement dans Postgresql.
 

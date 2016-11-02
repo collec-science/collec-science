@@ -27,7 +27,7 @@ Voici la liste des colonnes utilisables :
 \textbf{Colonne} & \textbf{Description} & \textbf{Obligatoire} \\
 \hline
 \endhead
-sample\_identifier & identifiant de l'échantillon & X \\
+sample\_identifier & identifiant métier de l'échantillon & X \\
 \hline
 project\_id & identifiant du projet de rattachement & X \\
 \hline
@@ -87,3 +87,22 @@ Si les contrôles se sont bien déroulés, le programme proposera alors de décl
 
 \subsection{Autre usage}
 Cette fonctionnalité peut également être utilisée pour déclencher l'import de listes d'échantillons pré-existants, et de créer automatiquement les mouvements adéquats pour les ranger dans leurs containers de stockage.
+
+\subsection{Exemple de fichier}
+\begin{figure}[H]
+\includegraphics[width=\linewidth]{images/importcsv}
+\caption{Exemple d'un fichier CSV}
+\end{figure}
+
+Dans cet exemple, l'import ne sera pas réalisé pour les raisons suivantes :
+\begin{itemize}
+\item en ligne 12, le numéro de container n'existe pas ;
+\item la ligne 13 ne contient ni numéro d'échantillon, ni de numéro de container.
+\end{itemize}
+
+Sans tenir compte des erreurs, voici les opérations qui seraient exécutées :
+\begin{itemize}
+\item lignes 2 à 5, 11 et 12 : création d'échantillons, avec création du mouvement d'entrée dans les containers correspondants ;
+\item lignes 6 à 9 : création de containers ;
+\item ligne 10 : création d'un échantillon non rangé ;
+\end{itemize}

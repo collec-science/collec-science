@@ -67,9 +67,9 @@ L'application ne fonctionne qu'en mode SSL, les cookies de session n'étant pas 
     SSLCompression off
 \end{lstlisting}
 
-La chaîne \textit{SSLCipherSuite} est donnée à titre d'exemple, d'autres configurations plus modernes peuvent être implémentées (\textit{cf.} \cite{tls}).
+La chaîne \textit{SSLCipherSuite} est donnée à titre d'exemple, d'autres configurations plus modernes peuvent être implémentées. L'ANSSI a édité un document récapitulant les entêtes à utiliser \cite{tls}. Il existe également un configurateur, mis à disposition par la fondation Mozilla \cite{mozillagenerator}, qui permet de définir correctement ces paramètres en fonction du serveur et du niveau de compatibilité recherché. 
 
-Pour activer le mode SSL dans Apache :
+Activez ensuite le mode SSL dans Apache :
 \begin{lstlisting}
 chmod -R g+r /etc/ssl/private
 usermod www-data -a -G ssl-cert
@@ -78,18 +78,17 @@ service apache2 restart
 \end{lstlisting}
 
 
-\subsection{Configuration du dossier d'installation}
+\subsection{Configurer le dossier d'installation}
 
 \subsubsection{Mécanisme pour faire cohabiter plusieurs instances avec le même code}
 \label{dnsmultiple}
 Il est possible d'utiliser le même code applicatif pour alimenter des bases de données différentes (ou des données stockées dans des schémas différents). Cette fonctionnalité est basée sur l'attribution d'entrées DNS différentes. 
 
-Le mécanisme est décrit dans le schéma \ref{dnsmultipleschema}, page \pageref{dnsmultipleschema}.
+Le mécanisme est décrit dans la figure \ref{dnsmultipleschema} \textit{\nameref{dnsmultipleschema}}, page \pageref{dnsmultipleschema}.
 
 \begin{figure}[H]
-\label{dnsmultipleschema}
 \includegraphics[width=\linewidth]{images/dnsmultiple}
-\caption{Schéma général d’implémentation pour utiliser le même code avec des noms d’application et des jeux de données différents}
+\caption{\label{dnsmultipleschema}Schéma général d’implémentation pour utiliser le même code avec des noms d’application et des jeux de données différents}
 \end{figure}
 
 Dans le paramétrage de l’alias DNS (en principe, dans \textit{/etc/apache2/sites-available}), l’application pointe vers le dossier \textit{/var/www/appliApp/appli1/bin}. \textit{/var/www} correspond à la racine du site web, \textit{appliApp} au dossier racine de l’application, \textit{appli1} au dossier spécifique de l’alias DNS. Ce dossier \textit{appli1} ne contient que deux fichiers : \textit{param.ini}, qui contient les paramètres spécifiques, et \textit{bin}, qui est un lien symbolique vers le dossier \textit{../bin}.
@@ -161,7 +160,7 @@ Le premier fichier contient les paramètres par défaut. Il est systématiquemen
 
 Le second est spécifique de l'implémentation. Il comprend notamment les informations liées à la connexion à la base de données, à la méthode d'identification, ou à la recherche des attributs dans l'annuaire LDAP. 
 
-le troisième est destiné à offrir la possibilité d'accéder, à partir du même code applicatif, à plusieurs bases de données différentes (\textit{cf.} \ref{dnsmultiple} \textit{\nameref{dnsmultiple}}).
+le troisième est destiné à offrir la possibilité d'accéder, à partir du même code applicatif, à plusieurs bases de données différentes (\textit{cf.} \ref{dnsmultiple} \textit{\nameref{dnsmultiple}}, page \pageref{dnsmultiple}).
 
 Voici les principaux paramètres utilisés :
 
@@ -212,7 +211,7 @@ CAS\_port & Systématiquement 443 (connexion chiffrée)\\
 \hline
 LDAP & tableau contenant tous les paramètres nécessaires pour une identification LDAP \\
 \hline
-privateKey & clé privée utilisée pour générer les jetons d'identification \\
+privateKey & clé privée utilisée pour générer les jetons d'identification (réidentification automatique après une première connexion) \\
 \hline
 pubKey & clé publique utilisée pour générer les jetons d'identification \\
 \hline
@@ -223,7 +222,7 @@ tokenIdentityValidity & durée de validité, en secondes, des jetons d'identific
 
 L'application permet de conserver l'identification plus longtemps que celle définie dans le serveur, en rejouant la connexion avec un jeton d'identification chiffré. Cela évite, par exemple, de devoir se ré-identifier toutes les heures si on accède au logiciel à partir d'un terminal mobile (smartphone ou tablette, par exemple).
 
-Les trois dernières variables permettent de configurer ce mode d'identification. Pour plus d'informations, consultez \cite{token}.
+Les trois dernières variables permettent de configurer ce mode d'identification. Pour plus d'informations, consultez comment fonctionne le mécanisme de ré-identification par jeton \cite{token}.
 
 \subsection{Configuration de l'accès à l'annuaire LDAP}
 
@@ -250,7 +249,7 @@ $LDAP = array(
 
 L'application peut non seulement identifier les utilisateurs auprès de l'annuaire LDAP, mais également récupérer les groupes auxquels ils appartiennent dans celui-ci.
 
-Voici les paramètres à indiquer dans ce cas de figure : 
+Voici les paramètres à indiquer dans ce cas de figure (valable en principe pour tout annuaire compatible OpenLdap) : 
 \begin{longtable}{|p{5cm}|p{10cm}|}
 \hline
 \textbf{Variable} & \textbf{Signification} \\
@@ -297,7 +296,7 @@ basedngroup & base de recherche des groupes \\
 \endhead
 GACL\_aco & nom du code de l'application utilisé dans la gestion des droits (\textit{cf.} \ref{droits} \textit{\nameref{droits}}, page \pageref{droits} )\\
 \hline
-APPLI\_code & Code interne de l'application. \textbf{Ce code est essentiel} : il sera inscrit dans les codes-barres générés, pour s'assurer qu'un échantillon est bien issu de la base de données concernée\\
+APPLI\_code & Code interne de l'application. \textbf{Ce code est essentiel} : il sera inscrit dans les codes-barres générés, pour s'assurer qu'un échantillon est bien issu de l'application (couple logiciel $\leftrightarrow$ base de données) concernée. Il ne doit pas être modifié après avoir été attribué\\
 \hline
 \caption{Variables spécifiques}
 \end{longtable}
@@ -345,6 +344,8 @@ host nom_database userGacl adresse_serveur/32 md5
 host nom_database userData adresse_serveur/32 md5
 \end{lstlisting}
 
+Le login utilisé dans \textit{userGacl} correspond à la variable \textit{\$GACL\_dblogin}, et \textit{userData} à \textit{\$BDD\_login}.
+
 et en rechargeant ensuite la configuration de Postgresql avec la commande :
 \begin{lstlisting}
 service postgresql reload
@@ -372,4 +373,4 @@ Une fois l'application configurée, et après avoir créé un nouveau compte d'a
 \item faites une revue des droits, pour vous assurer que tout est correctement configuré.
 \end{itemize}
 
-Vous pouvez également tester si la configuration du serveur est correcte en recourant à ZAProxy \cite{zaproxy}, qui analysera la communication entre le serveur et un navigateur et identifiera les problèmes éventuels de non conformité (mauvaise réécriture des entêtes HTML suite à une mauvaise configuration du serveur Apache, par exemple).
+Vous pouvez également tester si la configuration du serveur est correcte en recourant à \textit{ZAProxy} \cite{zaproxy}, qui analysera la communication entre le serveur et un navigateur et identifiera les problèmes éventuels de non conformité (mauvaise réécriture des entêtes HTML suite à une mauvaise configuration du serveur Apache, par exemple).

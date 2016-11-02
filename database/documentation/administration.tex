@@ -133,9 +133,10 @@ Le nom de l'application doit impérativement correspondre à la valeur \textit{\
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{images/appli_droit}
 \caption{Écran de saisie des droits associés à une application}
+\label{applidroit}
 \end{figure}
 
-Le nom du droit doit être celui défini dans le corps de l'application (les droits sont positionnés dans les fichiers \textit{param/actions.xml}, qui contient la liste des modules utilisables, et \textit{param/menu.xml}, qui sert à générer le menu).
+Le nom du droit doit être celui défini dans le corps de l'application (les droits sont positionnés dans les fichiers \textit{param/actions.xml}, qui contient la liste des modules utilisables, et \textit{param/menu.xml}, qui sert à générer le menu -- \textit{cf.} table \ref{droitsCollec} \textit{\nameref{droitsCollec}}, page \pageref{droitsCollec}).
 
 Indiquez les groupes d'utilisateurs qui seront associés au droit courant.
 
@@ -148,7 +149,7 @@ Si vous avez paramétré l'application pour qu'elle s'appuie sur un annuaire LDA
 Tous les utilisateurs d'un groupe héritent d'un droit dans l'application.
 
 \begin{itemize}
-\item définissez le nom du groupe (en respectant la casse) dans le tableau des groupes d'utilisateurs ;
+\item définissez le nom du groupe (en respectant la casse) dans le tableau des groupes d'utilisateurs (par exemple, EABX) ;
 \item sélectionnez le nom de ce groupe dans les droits utilisables ;
 \item tous les utilisateurs de l'annuaire LDAP récupéreront automatiquement les droits attribués à ce groupe.
 \end{itemize}
@@ -166,7 +167,7 @@ Un utilisateur s'identifie auprès de l'annuaire LDAP, mais dispose de droits pa
 \section{Droits spécifiques de l'application COLLEC}
 
 \subsection{Droits à positionner}
-Voici les groupes nécessaires pour faire fonctionner correctement l'application :
+Voici les droits nécessaires pour faire fonctionner correctement l'application :
 
 \begin{longtable}{|p{5cm}|p{10cm}|}
 \hline
@@ -183,7 +184,8 @@ gestion &	Ajout d'un échantillon pour les projets autorisés, entrée/sortie. D
 \hline
 consult	& Consultation des informations, sans possibilité de modification. Le droit de consultation doit être indiqué volontairement\\
 \hline
-\caption{Liste des droits utilisés}
+
+\caption{\label{droitsCollec}Liste des droits utilisés}
 \end{longtable}
 
 Ces droits doivent être définis pour chaque application (couple \textit{logiciel} $\leftrightarrow$ \textit{base de données}) gérée par la base de gestion des droits.
@@ -198,7 +200,7 @@ Voici le principe de gestion des droits pour les projets :
 
 Il est possible de définir une hiérarchie des groupes, quelle que soit l'origine de l'affectation (base de données ou annuaire Ldap).
 Dans le cas où l'annuaire Ldap n'est pas utilisé pour gérer les groupes, renseignez les logins en face des groupes dans le même écran ;
-\item Dans les projets, sélectionnez les groupes autorisés ;
+\item Dans les projets, sélectionnez les groupes autorisés (\textit{cf.} \ref{applidroit} \textit{\nameref{applidroit}}, page \pageref{applidroit}) ;
 \item les utilisateurs faisant partie des groupes autorisés disposeront des droits de \textit{gestion} pour le projet considéré.
 \end{itemize}
 
@@ -244,6 +246,12 @@ Types d'identifiants & Types d'identifiants complémentaires des objets & param 
 \end{longtable}
 
 \section{Créer ou modifier un modèle d'étiquettes}
+
+\begin{figure}[H]
+\centering
+\fbox{\includegraphics{images/etiquette}}
+\caption{Exemple d'étiquette}
+\end{figure}
 
 Les étiquettes sont créées en recourant au logiciel FOP \cite{fop}, écrit en Java. Voici les opérations réalisées par l'application pour générer les étiquettes :
 \begin{itemize}

@@ -36,6 +36,20 @@ Le stockage et l'affichage des photos nécessite :
 \item \textit{php-imagick} (ou \textit{php5-imagick} pour PHP5)
 \end{itemize}
 
+\subsection{Configuration de l'antivirus}
+Les pièces téléchargées peuvent être analysées avec l'antivirus CLAMAV \cite{clamav}. Dans un premier temps, Clamav doit être installé. Le plus simple est d'utiliser les paquetages de la distribution.
+
+Suivez les instructions du document \cite{clamavarchlinux} pour l'installation et la vérification du bon fonctionnement.
+
+Ensuite, pour utiliser ClamAV dans l'application PHP, deux options sont possibles :
+\begin{itemize}
+\item si PHP est en version 5, vous pouvez compiler un module qui permettra des analyses directes plus rapides ;
+\item si PHP est en version 7, ou si vous ne voulez pas utiliser le module CLAMAV, le programme utilisera le programme en ligne de commande pour déclencher les analyses.
+\end{itemize}
+
+La version à base du module est plus performante, mais n'est pas disponible pour les versions récentes de PHP. 
+Pour compiler le module, suivez les recommandations du document \cite{clamaveq}.
+
 \subsection{Configuration de l'hôte virtuel et de SSL}
 L'application ne fonctionne qu'en mode SSL, les cookies de session n'étant pas transmis sur des liens non chiffrés. Voici un exemple de configuration à insérer dans le fichier \textit{/etc/apache2/sites-available/default-ssl}
 \begin{lstlisting}

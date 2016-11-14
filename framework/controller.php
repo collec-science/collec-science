@@ -159,6 +159,16 @@ while ( isset ( $module ) ) {
 				 */
 				session_regenerate_id ();
 				/*
+				 * Recuperation de la derniere connexion et affichage a l'ecran
+				 */
+				$lastConnect = $log->getLastConnexion();
+				if (isset($lastConnect["log_date"])) {
+					$texte = $LANG["login"][48];
+					$texte = str_replace(":datelog", $lastConnect["log_date"], $texte);
+					$texte = str_replace (":iplog", $lastConnect["ipaddress"], $texte);
+					$message->set($texte);
+				}
+				/*
 				 * Reinitialisation du menu
 				 */
 				unset ( $_SESSION ["menu"] );

@@ -135,13 +135,24 @@ class Identification {
 				echo "Cette fonction doit être appelee apres init_LDAP";
 				die ();
 			}
-			$login = str_replace(array('\\', '*', '(', ')'), array('\5c', '\2a', '\28', '\29'), $login);
-			for ($i = 0; $i<strlen($login); $i++) {
-				$char = substr($login, $i, 1);
-				if (ord($char)<32) {
-					$hex = dechex(ord($char));
-					if (strlen($hex) == 1) $hex = '0' . $hex;
-					$login = str_replace($char, '\\' . $hex, $login);
+			$login = str_replace ( array (
+					'\\',
+					'*',
+					'(',
+					')' 
+			), array (
+					'\5c',
+					'\2a',
+					'\28',
+					'\29' 
+			), $login );
+			for($i = 0; $i < strlen ( $login ); $i ++) {
+				$char = substr ( $login, $i, 1 );
+				if (ord ( $char ) < 32) {
+					$hex = dechex ( ord ( $char ) );
+					if (strlen ( $hex ) == 1)
+						$hex = '0' . $hex;
+					$login = str_replace ( $char, '\\' . $hex, $login );
 				}
 			}
 			$ldap = @ldap_connect ( $this->LDAP_address, $this->LDAP_port ) or die ( "Impossible de se connecter au serveur LDAP." );
@@ -156,7 +167,7 @@ class Identification {
 			if ($rep == 1) {
 				$_SESSION ["login"] = $login;
 				$log->setLog ( $login, "connexion", "ldap-ok" );
-				$message->set( $LANG ["message"] [10]);
+				$message->set ( $LANG ["message"] [10] );
 				/*
 				 * Purge des anciens enregistrements dans log
 				 */
@@ -164,7 +175,7 @@ class Identification {
 				return $login;
 			} else {
 				$log->setLog ( $login, "connexion", "ldap-ko" );
-				$message->set( $LANG ["message"] [11]);
+				$message->set ( $LANG ["message"] [11] );
 				return - 1;
 			}
 		} else
@@ -198,10 +209,10 @@ class Identification {
 		/*
 		 * Suppression du cookie d'identification
 		 */
-		if (isset ($_COOKIE["tokenIdentity"])) {
-			setcookie("tokenIdentity", '', time() - 42000, "/");
+		if (isset ( $_COOKIE ["tokenIdentity"] )) {
+			setcookie ( "tokenIdentity", '', time () - 42000, "/" );
 		}
-		$message->set( $LANG ["message"] [7]);
+		$message->set ( $LANG ["message"] [7] );
 		// Finalement, on détruit la session.
 		session_destroy ();
 		return 1;
@@ -259,8 +270,12 @@ class LoginGestion extends ObjetBDD {
 				"login" => array (
 						'requis' => 1 
 				),
-				"nom" => array ("type"=>0),
-				"prenom" => array ("type"=>0),
+				"nom" => array (
+						"type" => 0 
+				),
+				"prenom" => array (
+						"type" => 0 
+				),
 				"actif" => array (
 						'type' => 1,
 						'defaultValue' => 1 
@@ -274,7 +289,7 @@ class LoginGestion extends ObjetBDD {
 	}
 	/**
 	 * Vérification du login en mode base de données
-	 * 
+	 *
 	 * @param string $login        	
 	 * @param string $password        	
 	 * @return boolean
@@ -284,16 +299,16 @@ class LoginGestion extends ObjetBDD {
 		if (strlen ( $login ) > 0 && strlen ( $password ) > 0) {
 			$login = $this->encodeData ( $login );
 			// $password = md5($password);
-			$password = hash ( "sha256", $password.$login );
+			$password = hash ( "sha256", $password . $login );
 			$sql = "select login from LoginGestion where login ='" . $login . "' and password = '" . $password . "' and actif = 1";
 			$res = ObjetBDD::lireParam ( $sql );
 			if ($res ["login"] == $login) {
 				$log->setLog ( $login, "connexion", "db-ok" );
-				$message->set( $LANG ["message"] [10]);
+				$message->set ( $LANG ["message"] [10] );
 				return TRUE;
 			} else {
 				$log->setLog ( $login, "connexion", "db-ko" );
-				$message->set( $LANG ["message"] [11]);
+				$message->set ( $LANG ["message"] [11] );
 				return FALSE;
 			}
 		} else
@@ -316,24 +331,26 @@ class LoginGestion extends ObjetBDD {
 	 */
 	function ecrire($liste) {
 		if (isset ( $liste ["pass1"] ) && isset ( $liste ["pass2"] ) && $liste ["pass1"] == $liste ["pass2"] && strlen ( $liste ["pass1"] ) > 3) {
-			$liste ["password"] = hash ( "sha256", $liste ["pass1"].$liste["login"] );
+			$liste ["password"] = hash ( "sha256", $liste ["pass1"] . $liste ["login"] );
 		}
 		$liste ["datemodif"] = date ( 'd-m-y' );
 		return parent::ecrire ( $liste );
 	}
-
+	
 	/**
 	 * Surcharge de la fonction supprimer pour effacer les traces des anciens mots de passe
-	 * {@inheritDoc}
+	 * 
+	 * {@inheritdoc}
+	 *
 	 * @see ObjetBDD::supprimer()
 	 */
 	function supprimer($id) {
 		/*
 		 * Suppression le cas echeant des anciens logins enregistres
 		 */
-		$loginOP = new LoginOldPassword($this->connection, $this->paramori);
-		$loginOP->supprimerChamp($id, "id");
-		return parent::supprimer($id);
+		$loginOP = new LoginOldPassword ( $this->connection, $this->paramori );
+		$loginOP->supprimerChamp ( $id, "id" );
+		return parent::supprimer ( $id );
 	}
 	/**
 	 * Fonction de validation de changement du mot de passe
@@ -349,7 +366,7 @@ class LoginGestion extends ObjetBDD {
 			global $LANG;
 			$oldData = $this->lireByLogin ( $_SESSION ["login"] );
 			if ($oldData ["id"] > 0) {
-				$oldpassword_hash = hash ( "sha256", $oldpassword.$_SESSION["login"] );
+				$oldpassword_hash = hash ( "sha256", $oldpassword . $_SESSION ["login"] );
 				if ($oldpassword_hash == $oldData ["password"]) {
 					
 					$data = $oldData;
@@ -368,7 +385,7 @@ class LoginGestion extends ObjetBDD {
 								/*
 								 * calcul du sha256 du mot de passe
 								 */
-								$password_hash = hash ( "sha256", $pass1.$_SESSION["login"] );
+								$password_hash = hash ( "sha256", $pass1 . $_SESSION ["login"] );
 								/*
 								 * Verification que le mot de passe n'a pas deja ete employe
 								 */
@@ -392,25 +409,25 @@ class LoginGestion extends ObjetBDD {
 											 */
 											$loginOldPassword->setPassword ( $oldData ["id"], $oldData ["password"] );
 										}
-										$message->set( $LANG ["login"] [20]);
+										$message->set ( $LANG ["login"] [20] );
 									}
 								} else {
-									$message->set( $LANG ["login"] [14]);
+									$message->set ( $LANG ["login"] [14] );
 								}
 							} else {
-								$message->set( $LANG ["login"] [15]);
+								$message->set ( $LANG ["login"] [15] );
 							}
 						} else {
-							$message->set( $LANG ["login"] [16]);
+							$message->set ( $LANG ["login"] [16] );
 						}
 					} else {
-						$message->set( $LANG ["login"] [17]);
+						$message->set ( $LANG ["login"] [17] );
 					}
 				} else {
-					$message->set( $LANG ["login"] [19]);
+					$message->set ( $LANG ["login"] [19] );
 				}
 			} else {
-				$message->set( $LANG ["login"] [18]);
+				$message->set ( $LANG ["login"] [18] );
 			}
 		}
 		$this->errorData [] = array (
@@ -499,8 +516,8 @@ class Log extends ObjetBDD {
 						"type" => 0 
 				),
 				"ipaddress" => array (
-						"type" => 0
-				)
+						"type" => 0 
+				) 
 		);
 		parent::__construct ( $bdd, $param );
 	}
@@ -526,9 +543,9 @@ class Log extends ObjetBDD {
 		$data ["login"] = $login;
 		if (is_null ( $module ))
 			$module = "unknown";
-		$data ["nom_module"] = $GACL_aco."-".$module;
+		$data ["nom_module"] = $GACL_aco . "-" . $module;
 		$data ["log_date"] = date ( "d/m/Y H:i:s" );
-		$data ["ipaddress"] = $this->getIPClientAddress();
+		$data ["ipaddress"] = $this->getIPClientAddress ();
 		return $this->ecrire ( $data );
 	}
 	/**
@@ -548,19 +565,35 @@ class Log extends ObjetBDD {
 	/**
 	 * Recupere l'adresse IP de l'agent
 	 */
-	function getIPClientAddress(){
+	function getIPClientAddress() {
 		/*
 		 * Recherche si le serveur est accessible derriere un reverse-proxy
 		 */
-		if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])){
-			return  $_SERVER["HTTP_X_FORWARDED_FOR"];
+		if (isset ( $_SERVER ["HTTP_X_FORWARDED_FOR"] )) {
+			return $_SERVER ["HTTP_X_FORWARDED_FOR"];
 			/*
 			 * Cas classique
 			 */
-		}else if (isset ($_SERVER["REMOTE_ADDR"])) {
-			return $_SERVER["REMOTE_ADDR"];
+		} else if (isset ( $_SERVER ["REMOTE_ADDR"] )) {
+			return $_SERVER ["REMOTE_ADDR"];
 		} else
-			return -1;
+			return - 1;
+	}
+	/**
+	 * Renvoie les informations de derniere connexion
+	 * 
+	 * @return array
+	 */
+	function getLastConnexion() {
+		if (isset ( $_SESSION ["login"] )) {
+			$sql = "select log_date, ipaddress from log where login = :login and nom_module like '%connexion' and commentaire like '%ok'
+order by log_date desc limit 2";
+			$data = $this->executeAsPrepared ( $sql, array (
+					"login" => $_SESSION ["login"] 
+			) );
+			$last = $data [1];
+			return $last;
+		}
 	}
 }
 /**

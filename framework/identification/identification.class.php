@@ -588,7 +588,7 @@ class Log extends ObjetBDD {
 		if (isset ( $_SESSION ["login"] )) {
 			$sql = "select log_date, ipaddress from log where login = :login and nom_module like '%connexion' and commentaire like '%ok'
 order by log_date desc limit 2";
-			$data = $this->executeAsPrepared ( $sql, array (
+			$data = $this->getListeParamAsPrepared ( $sql, array (
 					"login" => $_SESSION ["login"] 
 			) );
 			$last = $data [1];

@@ -96,9 +96,12 @@ while ( isset ( $module ) ) {
 				$tokenClass = new Token ();
 				try {
 					$login = $tokenClass->openTokenFromJson ( $_COOKIE ["tokenIdentity"] );
-					if (strlen ( $login ) > 0)
+					if (strlen ( $login ) > 0) {
 						$_SESSION ["login"] = $login;
+						$log->setLog($login, $module."-connexion", "token-ok");
+					}
 				} catch ( Exception $e ) {
+					$log->setLog($login, $module."-connexion", "token-ko");
 					$message->set ( $e->getMessage () );
 				}
 			} elseif ($ident_type == "CAS") {

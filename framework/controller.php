@@ -171,6 +171,7 @@ while ( isset ( $module ) ) {
 					$texte = str_replace (":iplog", $lastConnect["ipaddress"], $texte);
 					$message->set($texte);
 				}
+				$message->setSyslog("connexion ok for ".$_SESSION["login"]." from ".getIPClientAddress());
 				/*
 				 * Reinitialisation du menu
 				 */
@@ -217,7 +218,8 @@ while ( isset ( $module ) ) {
 						$message->set ( $e->getMessage () );
 					}
 				}
-			}
+			} else 
+				$message->setSyslog("connexion ko from ".getIPClientAddress());
 		}
 	}
 	$resident = 1;

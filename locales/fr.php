@@ -133,6 +133,7 @@ $LANG["message"][39] = "Les mots de passe ne sont pas identiques";
 $LANG["message"][40] = "Le mot de passe est trop court (minimum : 8 caractères)";
 $LANG["message"][41] = "Le mot de passe n'est pas assez complexe (mixez 3 jeux de caractères parmi les minuscules, majuscules, chiffres et signes de ponctuation)";
 $LANG["message"][43] = "Suppression du groupe impossible : d'autres groupes lui sont rattachés";
+$LANG["message"][44] = "Vous avez été déconnecté, votre session était ouverte depuis trop longtemps";
 
 
 $LANG["message"]["yes"] = "oui";

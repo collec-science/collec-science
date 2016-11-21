@@ -15,11 +15,13 @@ include_once ("framework/common.inc.php");
 if (check_encoding ( $_REQUEST ) == false) {
 	$message->set ( "Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu" );
 	$_REQUEST ["module"] = "default";
+	unset ( $_REQUEST ["moduleBase"] );
+	unset ( $_REQUEST ["action"] );
 }
 /**
  * Decodage des variables html
  */
-$_REQUEST = htmlDecode($_REQUEST);
+$_REQUEST = htmlDecode ( $_REQUEST );
 /**
  * Recuperation du module
  */
@@ -44,6 +46,8 @@ $moduleRequested = $module;
  */
 $isHtml = false;
 $isAjax = false;
+if ($APPLI_modeDeveloppement)
+	unset ( $_SESSION ["menu"] );
 while ( isset ( $module ) ) {
 	/*
 	 * Recuperation du tableau contenant les attributs du module
@@ -51,7 +55,7 @@ while ( isset ( $module ) ) {
 	$t_module = $navigation->getModule ( $module );
 	if (count ( $t_module ) == 0)
 		$message->set ( $LANG ["message"] [35] . " ($module)" );
-	/*
+		/*
 	 * Preparation de la vue
 	 */
 	if (! isset ( $vue ) && isset ( $t_module ["type"] )) {
@@ -64,12 +68,12 @@ while ( isset ( $module ) ) {
 				$vue = new VueCsv ();
 				$isAjax = true;
 				break;
-			case "pdf":
-				$vue = new VuePdf();
+			case "pdf" :
+				$vue = new VuePdf ();
 				$isAjax = true;
 				break;
-			case "binaire":
-				$vue = new vueBinaire();
+			case "binaire" :
+				$vue = new vueBinaire ();
 				$isAjax = true;
 				break;
 			case "smarty" :
@@ -98,10 +102,10 @@ while ( isset ( $module ) ) {
 					$login = $tokenClass->openTokenFromJson ( $_COOKIE ["tokenIdentity"] );
 					if (strlen ( $login ) > 0) {
 						$_SESSION ["login"] = $login;
-						$log->setLog($login, $module."-connexion", "token-ok");
+						$log->setLog ( $login, $module . "-connexion", "token-ok" );
 					}
 				} catch ( Exception $e ) {
-					$log->setLog($login, $module."-connexion", "token-ko");
+					$log->setLog ( $login, $module . "-connexion", "token-ko" );
 					$message->set ( $e->getMessage () );
 				}
 			} elseif ($ident_type == "CAS") {
@@ -131,15 +135,19 @@ while ( isset ( $module ) ) {
 								}
 							}
 						} catch ( Exception $e ) {
-							$message->setSyslog( $e->getMessage () );
-							/*
-							 * Verification de l'identification uniquement en base de donnees
-							 */
+							$message->setSyslog ( $e->getMessage () );
 						}
+						/*
+						 * Verification de l'identification uniquement en base de donnees
+						 */
 					} elseif ($ident_type == "BDD") {
-						$res = $loginGestion->VerifLogin ( $_REQUEST ['login'], $_REQUEST ['password'] );
-						if ($res == TRUE) {
-							$_SESSION ["login"] = $_REQUEST ["login"];
+						try {
+							$res = $loginGestion->controlLogin ( $_REQUEST ['login'], $_REQUEST ['password'] );
+							if ($res) {
+								$_SESSION ["login"] = $_REQUEST ["login"];
+							}
+						} catch ( Exception $e ) {
+							$message->setSyslog ( $e->getMessage () );
 						}
 					}
 				} else {
@@ -155,6 +163,7 @@ while ( isset ( $module ) ) {
 			}
 			/*
 			 * Si le login a ete valide, on definit les droits
+			 * $_SESSION["login"] est maintenant defini
 			 */
 			if (isset ( $_SESSION ["login"] )) {
 				/*
@@ -164,18 +173,18 @@ while ( isset ( $module ) ) {
 				/*
 				 * Recuperation de la derniere connexion et affichage a l'ecran
 				 */
-				$lastConnect = $log->getLastConnexion();
-				if (isset($lastConnect["log_date"])) {
-					$texte = $LANG["login"][48];
-					$texte = str_replace(":datelog", $lastConnect["log_date"], $texte);
-					$texte = str_replace (":iplog", $lastConnect["ipaddress"], $texte);
-					$message->set($texte);
+				$lastConnect = $log->getLastConnexion ();
+				if (isset ( $lastConnect ["log_date"] )) {
+					$texte = $LANG ["login"] [48];
+					$texte = str_replace ( ":datelog", $lastConnect ["log_date"], $texte );
+					$texte = str_replace ( ":iplog", $lastConnect ["ipaddress"], $texte );
+					$message->set ( $texte );
 				}
-				$message->setSyslog("connexion ok for ".$_SESSION["login"]." from ".getIPClientAddress());
+				$message->setSyslog ( "connexion ok for " . $_SESSION ["login"] . " from " . getIPClientAddress () );
 				/*
 				 * Reinitialisation du menu
 				 */
-				unset ( $_SESSION ["menu"] );
+				unset ($_SESSION["menu"]);
 				/*
 				 * Recuperation des cookies le cas echeant
 				 */
@@ -187,12 +196,13 @@ while ( isset ( $module ) ) {
 				$acllogin = new Acllogin ( $bdd_gacl, $ObjetBDDParam );
 				try {
 					$_SESSION ["droits"] = $acllogin->getListDroits ( $_SESSION ["login"], $GACL_aco, $LDAP );
-				} catch (Exception $e) {
-					if ($APPLI_modeDeveloppement)
-						$message->set($e->getMessage());
+				} catch ( Exception $e ) {
+					if ($APPLI_modeDeveloppement) {
+						$message->set ( $e->getMessage () );
+					} else 
+						$message->setSyslog($e->getMessage());
 				}
 				
-				//include "framework/identification/setDroits.php";
 				/*
 				 * Integration des commandes post login
 				 */
@@ -218,8 +228,8 @@ while ( isset ( $module ) ) {
 						$message->set ( $e->getMessage () );
 					}
 				}
-			} else 
-				$message->setSyslog("connexion ko from ".getIPClientAddress());
+			} else
+				$message->setSyslog ( "connexion ko from " . getIPClientAddress () );
 		}
 	}
 	$resident = 1;
@@ -272,9 +282,8 @@ while ( isset ( $module ) ) {
 			$message->set ( $log->getErrorData ( 1 ) );
 		} else
 			$message->set ( $LANG ["message"] [38] );
-			$message->setSyslog( $e->getMessage () );
+		$message->setSyslog ( $e->getMessage () );
 	}
-	
 	/*
 	 * fin d'analyse du module
 	 */
@@ -294,7 +303,7 @@ while ( isset ( $module ) ) {
 		if (isset ( $module_coderetour )) {
 			switch ($module_coderetour) {
 				case - 1 :
-					unset($vue);
+					unset ( $vue );
 					$module = $t_module ["retourko"];
 					break;
 				case 0 :
@@ -328,16 +337,19 @@ while ( isset ( $module ) ) {
 		}
 	}
 }
+/*
+ * Traitement de l'affichage vers le navigateur
+ */
 if ($isHtml) {
 	/*
 	 * Affichage du menu
 	 */
-	if (! isset ( $_SESSION ["menu"] )) {
+	if(!isset($_SESSION["menu"])) {
 		include_once 'framework/navigation/menu.class.php';
-		if (! isset ( $menu ))
-			$menu = new Menu ( $APPLI_menufile, $LANG );
+		$menu = new Menu ( $APPLI_menufile, $LANG );
 		$_SESSION ["menu"] = $menu->generateMenu ();
 	}
+	
 	$vue->set ( $_SESSION ["menu"], "menu" );
 	if (isset ( $_SESSION ["login"] ))
 		$vue->set ( 1, "isConnected" );
@@ -368,14 +380,14 @@ if ($isHtml) {
 if (isset ( $vue )) {
 	try {
 		$vue->send ( $paramSend );
-	} catch (Exception $e) {
-		$message->setSyslog($e->getMessage());
+	} catch ( Exception $e ) {
+		$message->setSyslog ( $e->getMessage () );
 	}
 }
 /**
  * Generation des messages d'erreur pour Syslog
  */
-$message->sendSyslog();
+$message->sendSyslog ();
 /**
  * Fin de traitement
  */

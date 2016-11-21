@@ -131,6 +131,7 @@ include_once 'framework/fonctions.php';
  * Gestion de la langue a afficher
  */
 if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
+	$LANG = $_SESSION["LANG"];
 } else {
 	/*
 	 * Recuperation le cas echeant du cookie
@@ -149,8 +150,8 @@ if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
 	 */
 	setlanguage ( $langue );
 }
-$SMARTY_variables["LANG"] = $_SESSION ["LANG"];
 
+$SMARTY_variables["LANG"] = $_SESSION ["LANG"];
 /*
  * Connexion a la base de donnees
  */
@@ -159,8 +160,10 @@ if (! isset ( $bdd )) {
 	try {
 		$bdd = new PDO ( $BDD_dsn, $BDD_login, $BDD_passwd );
 	} catch ( PDOException $e ) {
-		if ($APPLI_modeDeveloppement == true)
+		if ($APPLI_modeDeveloppement == true) {
 			$message->set ( $e->getMessage () );
+		} else 
+			$message->setSyslog($e->getMessage());
 		$etaconn = false;
 	}
 	if ($etaconn == true) {
@@ -176,8 +179,10 @@ if (! isset ( $bdd )) {
 		try {
 			$bdd_gacl = new PDO ( $GACL_dsn, $GACL_dblogin, $GACL_dbpasswd );
 		} catch ( PDOException $e ) {
-			if ($APPLI_modeDeveloppement == true)
+			if ($APPLI_modeDeveloppement == true) {
 				$message->set ( $e->getMessage () );
+			} else 
+				$message->setSyslog($e->getMessage());
 			$etaconn = false;
 		}
 		if ($etaconn == true) {
@@ -245,11 +250,11 @@ include_once 'framework/functionsDebug.php';
 /*
  * Preparation du menu
  */
-if (! isset ( $_SESSION ["menu"] ) || $APPLI_modeDeveloppement == true) {
+/*if (! isset ( $_SESSION ["menu"] ) || $APPLI_modeDeveloppement == true) {
 	include_once 'framework/navigation/menu.class.php';
 	$menu = new Menu ( $APPLI_menufile, $LANG );
 	$_SESSION ["menu"] = $menu->generateMenu ();
-}
+}*/
 /*
  * Chargement des traitements communs specifiques a l'application
  */

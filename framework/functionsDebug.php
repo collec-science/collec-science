@@ -3,9 +3,9 @@
  * Affiche le nom et le contenu d'une variable
  * @param array $tableau
  */
-function printr($tableau, $mode_dump = 0) {
+function printr($tableau, $mode_dump = 0, $force = false) {
 	global $APPLI_modeDeveloppement;
-	if ($APPLI_modeDeveloppement == true) {
+	if ($APPLI_modeDeveloppement || $force) {
 		if ($mode_dump == 1) {
 			var_dump ( $tableau );
 		} else {

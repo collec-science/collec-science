@@ -10,6 +10,7 @@ if (isset ( $_SESSION ["login"] )) {
 	} catch (Exception $e) {
 		if ($APPLI_modeDeveloppement)
 			$message->set($e->getMessage());
+		$message->setSyslog($e->getMessage());
 	}
 }
 ?>

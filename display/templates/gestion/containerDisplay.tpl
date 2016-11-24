@@ -137,7 +137,7 @@ Nouveau conteneur associé
 <legend>Échantillons présents</legend>
 {include file="gestion/sampleListDetail.tpl"}
 </fieldset>
-<fieldset class="col-md-12" id="booking">
+<fieldset class="col-md-12" id="bookings">
 <legend>Réservations</legend>
 {include file="gestion/bookingList.tpl"}
 </fieldset>

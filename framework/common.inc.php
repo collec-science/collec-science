@@ -29,7 +29,7 @@ ini_set ( 'session.gc_maxlifetime', $APPLI_session_ttl );
 /**
  * Integration de SMARTY
  */
-include_once ('plugins/smarty-3.1.24/libs/Smarty.class.php');
+include_once ('plugins/smarty-3.1.30/libs/Smarty.class.php');
 
 /**
  * integration de la classe ObjetBDD et des scripts associes
@@ -77,6 +77,7 @@ if (isset ( $_SESSION ['LAST_ACTIVITY'] ) && (time () - $_SESSION ['LAST_ACTIVIT
 $_SESSION ['LAST_ACTIVITY'] = time (); // update last activity time stamp
 if (! isset ( $_SESSION ['CREATED'] )) {
 	$_SESSION ['CREATED'] = time ();
+	$_SESSION['ABSOLUTE_START'] = time();
 } else if (time () - $_SESSION ['CREATED'] > $APPLI_session_ttl) {
 	/*
 	 * La session a demarre depuis plus du temps de la session : cookie regenere
@@ -109,7 +110,6 @@ if (is_file ( $paramIniFile )) {
 require_once 'framework/vue.class.php';
 $ERROR_display == 1 ? $displaySyslog = true : $displaySyslog = false;
 $message = new Message ($displaySyslog);
-
 /*
  * Lancement de l'identification
  */
@@ -131,6 +131,7 @@ include_once 'framework/fonctions.php';
  * Gestion de la langue a afficher
  */
 if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
+	$LANG = $_SESSION["LANG"];
 } else {
 	/*
 	 * Recuperation le cas echeant du cookie
@@ -149,23 +150,9 @@ if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
 	 */
 	setlanguage ( $langue );
 }
+
 $SMARTY_variables["LANG"] = $_SESSION ["LANG"];
-/**
- * Verification du couple session/adresse IP
- */
-$ipaddress = getIPClientAddress ();
-if (isset ( $_SESSION ["remoteIP"] )) {
-	if ($_SESSION ["remoteIP"] != $ipaddress) {
-		// Tentative d'usurpation de session - on ferme la session
-		if ($identification->disconnect ( $APPLI_address ) == 1) {
-			$message->set ( $LANG ["message"] [7] );
-		} else {
-			$message->set ( $LANG ["message"] [8] );
-		}
-	}
-} else
-	$_SESSION ["remoteIP"] = $ipaddress;
-	/*
+/*
  * Connexion a la base de donnees
  */
 if (! isset ( $bdd )) {
@@ -173,8 +160,10 @@ if (! isset ( $bdd )) {
 	try {
 		$bdd = new PDO ( $BDD_dsn, $BDD_login, $BDD_passwd );
 	} catch ( PDOException $e ) {
-		if ($APPLI_modeDeveloppement == true)
+		if ($APPLI_modeDeveloppement == true) {
 			$message->set ( $e->getMessage () );
+		} else 
+			$message->setSyslog($e->getMessage());
 		$etaconn = false;
 	}
 	if ($etaconn == true) {
@@ -190,8 +179,10 @@ if (! isset ( $bdd )) {
 		try {
 			$bdd_gacl = new PDO ( $GACL_dsn, $GACL_dblogin, $GACL_dbpasswd );
 		} catch ( PDOException $e ) {
-			if ($APPLI_modeDeveloppement == true)
+			if ($APPLI_modeDeveloppement == true) {
 				$message->set ( $e->getMessage () );
+			} else 
+				$message->setSyslog($e->getMessage());
 			$etaconn = false;
 		}
 		if ($etaconn == true) {
@@ -206,6 +197,39 @@ if (! isset ( $bdd )) {
 	} else
 		$message->set ( $LANG ["message"] [22] );
 }
+/*
+ * Activation de la classe d'enregistrement des traces
+ */
+$log = new Log ( $bdd_gacl, $ObjetBDDParam );
+
+/*
+ * Verification de la duree maxi de la session
+ */
+if (time () - $_SESSION ['ABSOLUTE_START'] > $APPLI_absolute_session) {
+	$log->setLog($_SESSION["login"], "disconnect-absolute-time");
+	$identification->disconnect ( $APPLI_address );
+	$message->set($LANG["message"][44]);
+	/*
+	 * Desactivation du cookie d'identification deja charge le cas echeant
+	 */
+	unset($_COOKIE ["tokenIdentity"]);
+}
+/**
+ * Verification du couple session/adresse IP
+ */
+$ipaddress = getIPClientAddress ();
+if (isset ( $_SESSION ["remoteIP"] )) {
+	if ($_SESSION ["remoteIP"] != $ipaddress) {
+		// Tentative d'usurpation de session - on ferme la session
+		$log->setLog($_SESSION["login"], "disconnect-ipaddress-changed", "old:".$_SESSION["remoteIP"]."-new:".$ipaddress);
+		if ($identification->disconnect ( $APPLI_address ) == 1) {
+			$message->set ( $LANG ["message"] [7] );
+		} else {
+			$message->set ( $LANG ["message"] [8] );
+		}
+	}
+} else
+	$_SESSION ["remoteIP"] = $ipaddress;
 
 /*
  * Preparation du module de gestion de la navigation
@@ -216,10 +240,7 @@ if (isset ( $_SESSION ["navigation"] ) && $APPLI_modeDeveloppement == false) {
 	$navigation = new Navigation ( $navigationxml );
 	$_SESSION ['navigation'] = $navigation;
 }
-/*
- * Activation de la classe d'enregistrement des traces
- */
-$log = new Log ( $bdd_gacl, $ObjetBDDParam );
+
 /*
  * Chargement des fonctions specifiques
  */
@@ -229,11 +250,11 @@ include_once 'framework/functionsDebug.php';
 /*
  * Preparation du menu
  */
-if (! isset ( $_SESSION ["menu"] ) || $APPLI_modeDeveloppement == true) {
+/*if (! isset ( $_SESSION ["menu"] ) || $APPLI_modeDeveloppement == true) {
 	include_once 'framework/navigation/menu.class.php';
 	$menu = new Menu ( $APPLI_menufile, $LANG );
 	$_SESSION ["menu"] = $menu->generateMenu ();
-}
+}*/
 /*
  * Chargement des traitements communs specifiques a l'application
  */

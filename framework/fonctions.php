@@ -109,7 +109,7 @@ function dataDelete($dataClass, $id) {
  * @param string $langue        	
  */
 function setlanguage($langue) {
-	global $language, $LANG, $APPLI_cookie_ttl, $APPLI_menufile, $menu, $FORMATDATE;
+	global $language, $LANG, $APPLI_cookie_ttl, $APPLI_menufile, $menu, $ObjetBDDParam;
 	/*
 	 * Chargement de la langue par defaut
 	 */
@@ -143,6 +143,7 @@ function setlanguage($langue) {
 	include_once 'framework/navigation/menu.class.php';
 	$menu = new Menu ( $APPLI_menufile, $LANG );
 	$_SESSION ["menu"] = $menu->generateMenu ();
+
 	/*
 	 * Ecriture du cookie
 	 */

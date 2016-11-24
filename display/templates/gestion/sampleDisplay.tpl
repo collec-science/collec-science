@@ -171,7 +171,7 @@ Nouvel échantillon rattaché...
 </fieldset>
 </div>
 </div>
-<fieldset class="col-md-12" id="booking">
+<fieldset class="col-md-12" id="bookings">
 <legend>Réservations</legend>
 {include file="gestion/bookingList.tpl"}
 </fieldset>

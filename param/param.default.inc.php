@@ -22,6 +22,8 @@ $navigationxml = "param/actions.xml";
 $APPLI_session_ttl = 14400;
 // 3 mois
 $APPLI_cookie_ttl = 7776000; 
+// 10 heures
+$APPLI_absolute_session = 36000;
 /*
  * 
  * Nom du chemin de stockage des sessions

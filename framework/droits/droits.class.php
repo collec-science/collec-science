@@ -334,10 +334,13 @@ class Aclgroup extends ObjetBDD {
 						if (is_numeric ( $key )) {
 							/*
 							 * Recherche de l'identifiant du groupe
+							 * Ajout du 29/11/16 : le meme groupe peut etre declare plusieurs fois
 							 */
 							$search = $this->getGroupFromName ( $value );
-							if ($search ["aclgroup_id"] > 0)
-								$groupesLdap [] = $search;
+							foreach ($search as $value) {
+							if ($value ["aclgroup_id"] > 0)
+								$groupesLdap [] = $value;
+							}
 						}
 					}
 				}
@@ -495,7 +498,7 @@ class Aclgroup extends ObjetBDD {
 	}
 	function getGroupFromName($groupName) {
 		$sql = "select * from aclgroup where groupe = '$groupName'";
-		return $this->lireParam ( $sql );
+		return $this->getListeParam( $sql );
 	}
 	/**
 	 * Surcharge de la fonction write pour ecrire les logins associes

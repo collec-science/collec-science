@@ -94,14 +94,13 @@ Le mécanisme est décrit dans la figure \ref{dnsmultipleschema} \textit{\namere
 
 Dans le paramétrage de l’alias DNS (en principe, dans \textit{/etc/apache2/sites-available}), l’application pointe vers le dossier \textit{/var/www/appliApp/appli1/bin}. \textit{/var/www} correspond à la racine du site web, \textit{appliApp} au dossier racine de l’application, \textit{appli1} au dossier spécifique de l’alias DNS. Ce dossier \textit{appli1} ne contient que deux fichiers : \textit{param.ini}, qui contient les paramètres spécifiques, et \textit{bin}, qui est un lien symbolique vers le dossier \textit{../bin}.
 
-Le dossier \textit{../bin} (donc, dans\textit{ /var/www/appliApp}) est lui aussi un alias qui pointe vers le code réel de l’application, ici \textit{code\_appli}. Le fichier \textit{param.inc.php} décrit l’entrée suivante : 
+Le dossier \textit{../bin} (donc, dans\textit{ /var/www/appliApp}) est lui aussi un alias qui pointe vers le code réel de l’application, ici \textit{code\_appli}. Le fichier \textit{param.inc.php} doit contenir les commandes suivantes pour que le fichier \textit{param.ini} soit correctement chargé selon le contexte :
 \begin{lstlisting}
-$paramIniFile = "../param.ini"; 
+$chemin = substr($_SERVER["DOCUMENT_ROOT"],0, strpos($_SERVER["DOCUMENT_ROOT"],"/bin"));
+$paramIniFile = "$chemin/param.ini";
 \end{lstlisting}
 
 Le fichier \textit{param.ini} sera cherché dans le dossier parent du code de l’application, c’est à dire soit dans \textit{appli1}, soit dans \textit{appli2} dans cet exemple. Il suffit qu’il contienne les paramètres adéquats pour rendre l’application utilisable dans des contextes différents à partir du même code initial.
-
-
 
 Le fichier \textit{param.ini} est le dernier qui est traité par l'application pour récupérer les paramètres. Ceux-ci sont lus dans l'ordre suivant :
 
@@ -109,7 +108,7 @@ Le fichier \textit{param.ini} est le dernier qui est traité par l'application p
 
 \textit{param.ini} contiendra les entrées spécifiques liées au DNS utilisé pour accéder à l'application, en principe tout ou partie de celles-ci :
 \begin{lstlisting}
-APPLI_titre=Gestion des collections EABX
+APPLI_titre="Gestion des collections d'EABX"
 BDD_schema=col, public, gacl
 BDD_login=compte_de_connexion
 BDD_passwd=mot_de_passe_de_connexion
@@ -118,6 +117,7 @@ GACL_aco=col
 APPLI_code=proto
 \end{lstlisting}
 
+Si un libellé contient une apostrophe, la chaîne doit être insérée dans des guillemets doubles, comme ici pour la variable \textit{APPLI\_titre}.
 
 
 \subsubsection{Droits à attribuer au serveur web}

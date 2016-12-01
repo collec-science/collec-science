@@ -78,6 +78,19 @@ a2ensite default-ssl
 service apache2 restart
 \end{lstlisting}
 
+\subsubsection{Cas particulier de l'identification en mode HEADER}
+
+Si vous identifiez vos utilisateurs derrière un proxy d'identification, comme LemonLdap par exemple, vous devrez limiter l'accès de l'application uniquement au proxy. La commande \textit{Directory} devient donc :
+\begin{lstlisting}
+    <Directory /var/www/html>
+        Options FollowSymLinks MultiViews
+        AllowOverride all
+        Order allow,deny
+        allow from 10.1.2.3
+    </Directory>
+
+\end{lstlisting}
+\textit{10.1.2.3} correspond à l'adresse IP du serveur proxy d'identification.
 
 \subsection{Configurer le dossier d'installation}
 
@@ -202,7 +215,7 @@ GACL\_aco & nom du code de l'application utilisé dans la gestion des droits\\
 \textbf{Variable} & \textbf{Signification} \\
 \hline
 \endhead
-ident\_type & Type d'identification supporté. L'application peut gérer \textbf{BDD} (uniquement en base de données),\textbf{LDAP} (uniquement à partir d'un annuaire LDAP) \textbf{LDAP-BDD} (d'abord identification en annuaire LDAP, puis en base de données), et \textbf{CAS} (serveur d'identification \textit{Common Access Service}\footnote{serveur externe gérant l'identification des utilisateurs, et renvoyant à l'application le login utilisé})\\
+ident\_type & Type d'identification supporté. L'application peut gérer \textbf{BDD} (uniquement en base de données),\textbf{LDAP} (uniquement à partir d'un annuaire LDAP) \textbf{LDAP-BDD} (d'abord identification en annuaire LDAP, puis en base de données), \textbf{CAS} (serveur d'identification \textit{Common Access Service}\footnote{serveur externe gérant l'identification des utilisateurs, et renvoyant à l'application le login utilisé}), et enfin \textbf{HEADER} (identification derrière un proxy qui fournit le login dans une variable d'entête HTTP)\\
 \hline
 CAS\_plugin & Nom du plugin utilisé pour une connexion CAS \\
 \hline
@@ -212,7 +225,9 @@ CAS\_port & Systématiquement 443 (connexion chiffrée)\\
 \hline
 LDAP & tableau contenant tous les paramètres nécessaires pour une identification LDAP \\
 \hline
-privateKey & clé privée utilisée pour générer les jetons d'identification (réidentification automatique après une première connexion) \\
+ident\_header\_login\_var & par défaut, AUTH\_USER. Nom de la variable qui contiendra le login dans le cas d'une identification en mode HEADER (le radical HTTP\_  ne doit pas être indiqué) \\
+\hline
+privateKey & clé privée utilisée pour générer les jetons d'identification (ré-identification automatique après une première connexion) \\
 \hline
 pubKey & clé publique utilisée pour générer les jetons d'identification \\
 \hline
@@ -221,9 +236,39 @@ tokenIdentityValidity & durée de validité, en secondes, des jetons d'identific
 \caption{Variables utilisées pour paramétrer l'identification}
 \end{longtable}
 
+\subsubsection{Ré-identification par jeton}
+
 L'application permet de conserver l'identification plus longtemps que celle définie dans le serveur, en rejouant la connexion avec un jeton d'identification chiffré. Cela évite, par exemple, de devoir se ré-identifier toutes les heures si on accède au logiciel à partir d'un terminal mobile (smartphone ou tablette, par exemple).
 
-Les trois dernières variables permettent de configurer ce mode d'identification. Pour plus d'informations, consultez comment fonctionne le mécanisme de ré-identification par jeton \cite{token}.
+Les trois dernières variables permettent de configurer ce mode d'identification. 
+
+Le framework peut générer un jeton chiffré après la première identification, qui sera analysé pour savoir si l'utilisateur peut être ré-identifié automatiquement.
+
+Pour que ce mécanisme fonctionne, il faut :
+\begin{itemize}
+\item que le paramètre \textit{tokenIdentityValidity} ait une durée de validité supérieure à la durée de vie de la session. Il est raisonnable de ne pas fixer une durée de vie supérieure à une journée de travail (10 heures). Le cookie transmis est protégé ;
+\item que les clés privée et publique, utilisées pour le chiffrement du jeton, soient accessibles au serveur web (variables \textit{privateKey} et \textit{publicKey}).
+\end{itemize}
+
+Le jeton est chiffré avec la clé privée, ce qui lui permet d'être lu, le cas échéant, par l'application. Il contient le login et la date d'expiration. 
+
+Si l'utilisateur déclenche une déconnexion, le jeton est supprimé.
+
+Pour plus d'informations, consultez comment fonctionne le mécanisme de ré-identification par jeton \cite{token}.
+
+\subsubsection{Identification par HEADER}
+
+Dans ce mode d'identification, le serveur web est placé derrière un serveur d'identification, appelé proxy d'identification. L'adresse de l'application pointe vers ce dernier. 
+
+Le proxy gère la connexion de l'utilisateur, et fournit à l'application le login dans une variable configurable. Cette variable est accessible dans le tableau \$\_SERVER, par exemple \$\_SERVER [ "HTTP\_AUTH\_USER" ].
+
+Pour activer ce mécanisme, il faut modifier les paramètres suivants dans le fichier \textit{param.ini.php} :
+\begin{lstlisting}
+$ident_type = "HEADER";
+$ident_header_login_var = "AUTH_USER";
+\end{lstlisting}
+
+la variable ne doit pas contenir la racine HTTP\_ (une fonction l'extrait automatiquement).
 
 \subsection{Configuration de l'accès à l'annuaire LDAP}
 

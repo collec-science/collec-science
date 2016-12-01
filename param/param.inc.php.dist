@@ -74,8 +74,9 @@ $LDAP [ "user_attrib" ] = "uid";
 
 /*
  * Recherche des groupes dans l'annuaire LDAP
+ * Decommenter la premiere ligne pour activer la fonction
  */
-$LDAP [ "groupSupport" ] = true;
+ //$LDAP [ "groupSupport" ] = true;
 $LDAP [ "groupAttrib" ] = "supannentiteaffectation";
 $LDAP [ "commonNameAttrib" ] = "displayname";
 $LDAP [ "mailAttrib" ] = "mail";

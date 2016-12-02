@@ -41,7 +41,10 @@ $LOG_duree = 365;
  * CAS : utilisation d'un serveur CAS
  * LDAP : utilisation d'un serveur LDAP
  * LDAP-BDD : test d'abord aupres du serveur LDAP, puis du serveur BDD
+ * HEADER : l'identification est fournie dans une variable HEADER (derriere un proxy comme
+ * LemonLdap, par exemple)
  */
+$ident_header_login_var = "AUTH_USER";
 $ident_type = "BDD";
 //$CAS_plugin="plugins/phpcas-simple/phpcas.php";
 $CAS_plugin = 'plugins/CAS-1.3.3/CAS.php';
@@ -55,7 +58,7 @@ $LDAP = array(
 		"user_attrib" => "uid",
 		"v3" => true,
 		"tls" => false,
-		"groupSupport"=>true,
+		"groupSupport"=>false,
 		"groupAttrib"=>"supannentiteaffectation",
 		"commonNameAttrib"=>"displayname",
 		"mailAttrib"=>"mail",

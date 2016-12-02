@@ -56,6 +56,11 @@ while ( isset ( $module ) ) {
 	if (count ( $t_module ) == 0)
 		$message->set ( $LANG ["message"] [35] . " ($module)" );
 		/*
+	 * Forcage de l'identification si identification en mode HEADER
+	 */
+	if ($ident_type == "HEADER")
+		$t_module ["loginrequis"] = 1;
+		/*
 	 * Preparation de la vue
 	 */
 	if (! isset ( $vue ) && isset ( $t_module ["type"] )) {
@@ -107,6 +112,17 @@ while ( isset ( $module ) ) {
 				} catch ( Exception $e ) {
 					$log->setLog ( $login, $module . "-connexion", "token-ko" );
 					$message->set ( $e->getMessage () );
+				}
+			} elseif ($ident_type == "HEADER") {
+				/*
+				 * Identification via les headers fournis par le serveur web
+				 * dans le cas d'une identification derriere un proxy comme LemonLdap
+				 */
+				$headers = getHeaders ();
+				$login = $headers [strtoupper ( $ident_header_login_var )];
+				if (strlen ( $login ) > 0) {
+					$_SESSION ["login"] = $login;
+					$log->setLog ( $login, "connexion", "HEADER-ok" );
 				}
 			} elseif ($ident_type == "CAS") {
 				/*
@@ -184,7 +200,7 @@ while ( isset ( $module ) ) {
 				/*
 				 * Reinitialisation du menu
 				 */
-				unset ($_SESSION["menu"]);
+				unset ( $_SESSION ["menu"] );
 				/*
 				 * Recuperation des cookies le cas echeant
 				 */
@@ -199,8 +215,8 @@ while ( isset ( $module ) ) {
 				} catch ( Exception $e ) {
 					if ($APPLI_modeDeveloppement) {
 						$message->set ( $e->getMessage () );
-					} else 
-						$message->setSyslog($e->getMessage());
+					} else
+						$message->setSyslog ( $e->getMessage () );
 				}
 				
 				/*
@@ -344,7 +360,7 @@ if ($isHtml) {
 	/*
 	 * Affichage du menu
 	 */
-	if(!isset($_SESSION["menu"])) {
+	if (! isset ( $_SESSION ["menu"] )) {
 		include_once 'framework/navigation/menu.class.php';
 		$menu = new Menu ( $APPLI_menufile, $LANG );
 		$_SESSION ["menu"] = $menu->generateMenu ();

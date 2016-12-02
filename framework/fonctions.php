@@ -132,7 +132,7 @@ function setlanguage($langue) {
 			$LANG = array_replace_recursive ( $LANGORI, $LANGDIFF );
 		}
 	}
-	$ObjetBDDParam["formatDate"] = $FORMATDATE;
+	$ObjetBDDParam ["formatDate"] = $FORMATDATE;
 	/*
 	 * Mise en session de la langue
 	 */
@@ -143,7 +143,7 @@ function setlanguage($langue) {
 	include_once 'framework/navigation/menu.class.php';
 	$menu = new Menu ( $APPLI_menufile, $LANG );
 	$_SESSION ["menu"] = $menu->generateMenu ();
-
+	
 	/*
 	 * Ecriture du cookie
 	 */
@@ -199,7 +199,7 @@ function getIPClientAddress() {
 }
 /**
  * Fonction recursive decodant le html en retour de navigateur
- * 
+ *
  * @param array|string $data        	
  * @return array|string
  */
@@ -266,5 +266,34 @@ function testScan($file) {
 		}
 	} else
 		throw new FileException ( "$file not found" );
+}
+function getHeaders() {
+	$header = array ();
+	foreach ( $_SERVER as $key => $value ) {
+		if (substr ( $key, 0, 4 ) == "HTTP")
+			$header [substr ( $key, 5 )] = $value;
+	}
+	return $header;
+	
+	// if (!function_exists('apache_request_headers')) {
+	/*
+	 * Fonction equivalente pour NGINX
+	 */
+	/*
+	 * function apache_request_headers() {
+	 * foreach($_SERVER as $key=>$value) {
+	 * if (substr($key,0,5)=="HTTP_") {
+	 * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
+	 * $out[$key]=$value;
+	 * }else{
+	 * $out[$key]=$value;
+	 * }
+	 * }
+	 * return $out;
+	 * }
+	 * }
+	 * printr($_SERVER);
+	 * return apache_request_headers();
+	 */
 }
 ?>

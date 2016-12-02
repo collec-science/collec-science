@@ -1,5 +1,33 @@
 News
 ===========
+Version 1.0.2 du 02/12/2016
+---------------------------
+Documentation : 
+- correction des paramètres à indiquer pour une bonne gestion du multi-bases (accès au fichier param.ini) 
+- ajout de la configuration pour une identification en mode HEADER
+
+Améliorations :
+- le titre de l'onglet est maintenant configuré à partir du titre donné à l'application dans les variables (fonction nécessaire pour le multi-bases)
+- ajout de la possibilité de connexion en mode HEADER (login transmis dans une variable d'entête HTML par un serveur proxy d'identification, comme LemonLdap, par exemple)
+
+Corrections :
+- il est maintenant possible de déclarer plusieurs fois le même groupe LDAP pour lui donner des droits différents
+
+Version 1.0.1 du 24/11/2016
+---------------------------
+Améliorations :
+- affichage de la dernière connexion de l'utilisateur
+- ajout d'un contrôle sur la durée absolue de la session
+- ajout de logs dans syslog pour la connexion et la déconnexion
+
+Corrections :
+- ajout de l'enregistrement des logs lors de la reconnexion par token
+- correction d'un bug d'affichage du menu en mode production
+- le lien vers les réservations ne fonctionnait pas dans le détail d'un conteneur ou d'un échantillon
+
+Divers :
+- remplacement de la version de Smarty par la 3.1.30
+
 Version 1.0 du 25/10/2016
 -------------------------
 Première version de production

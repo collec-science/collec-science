@@ -952,13 +952,13 @@ Contient les identifiants génériques</remarks>
     </index>
    </folder>
   </table>
-  <table id="TAB278" populated="true" UUID="da15d463-ca67-420d-b66f-f32ed27c785a" name="projet_group" objectType="TABLE" physicalName="projet_group" >
+  <table id="TAB278" populated="true" UUID="da15d463-ca67-420d-b66f-f32ed27c785a" name="project_group" objectType="TABLE" physicalName="project_group" >
    <remarks>Table des autorisations d&apos;accès à un projet</remarks>
    <folder id="FOLTAB2781" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL279" populated="true" UUID="a51cd0d3-d2d2-4f62-a68d-f364a0b25b95" autoIncrement="false" autoIncrementSequenceName="project_project_id_seq" defaultValue="" name="project_id" nullable="0" physicalName="project_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL279" populated="true" UUID="a51cd0d3-d2d2-4f62-a68d-f364a0b25b95" autoIncrement="false" autoIncrementSequenceName="project_group_project_id_seq" defaultValue="" name="project_id" nullable="0" physicalName="project_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL280" populated="true" UUID="ec152655-c46d-445e-9fd3-2c10b58d4ee3" autoIncrement="false" autoIncrementSequenceName="aclgroup_aclgroup_id_seq" defaultValue="" name="aclgroup_id" nullable="0" physicalName="aclgroup_id" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL280" populated="true" UUID="ec152655-c46d-445e-9fd3-2c10b58d4ee3" autoIncrement="false" autoIncrementSequenceName="project_group_aclgroup_id_seq" defaultValue="" name="aclgroup_id" nullable="0" physicalName="aclgroup_id" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     </folder>
@@ -967,7 +967,7 @@ Contient les identifiants génériques</remarks>
     <folder id="FOLTAB2782" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB2784" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX281" populated="true" UUID="dad76097-e110-4b19-b677-1928545720f1" clustered="false" name="projet_group_pk" physicalName="projet_group_pk" primaryKeyIndex="true" unique="false" >
+    <index id="IDX281" populated="true" UUID="dad76097-e110-4b19-b677-1928545720f1" clustered="false" name="project_group_pk" physicalName="projet_group_pk" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC282" populated="true" UUID="8d0c7ce4-907c-4eab-8b5b-29857482a4cb" ascendingOrDescending="UNSPECIFIED" column-ref="COL279" name="project_id" physicalName="project_id" />
      <index-column id="IDC283" populated="true" UUID="0dbafbec-04a2-4723-8876-3fddad0643c6" ascendingOrDescending="UNSPECIFIED" column-ref="COL280" name="aclgroup_id" physicalName="aclgroup_id" />
     </index>

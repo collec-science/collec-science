@@ -1,5 +1,11 @@
 News
 ===========
+Version 1.0.3 du 08/12/2016
+---------------------------
+Corrections :
+- script de génération des tables : la table project_group était mal nommée
+- fichier param.inc.php.dist : les schémas pour la connexion à la base de données principale étaient incomplets (variable $BDD_schema)
+
 Version 1.0.2 du 02/12/2016
 ---------------------------
 Documentation : 

@@ -341,12 +341,12 @@ COMMENT ON TABLE "project" IS 'Table des projets';
 
 ALTER SEQUENCE "project_project_id_seq" OWNED BY "project"."project_id";
 
-CREATE TABLE "projet_group" (
+CREATE TABLE "project_group" (
                 "project_id" INTEGER NOT NULL,
                 "aclgroup_id" INTEGER NOT NULL,
-                CONSTRAINT "projet_group_pk" PRIMARY KEY ("project_id", "aclgroup_id")
+                CONSTRAINT "project_group_pk" PRIMARY KEY ("project_id", "aclgroup_id")
 );
-COMMENT ON TABLE "projet_group" IS 'Table des autorisations d''accès à un projet';
+COMMENT ON TABLE "project_group" IS 'Table des autorisations d''accès à un projet';
 
 
 CREATE SEQUENCE "protocol_protocol_id_seq";
@@ -650,7 +650,7 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "projet_group" ADD CONSTRAINT "project_projet_group_fk"
+ALTER TABLE "project_group" ADD CONSTRAINT "project_project_group_fk"
 FOREIGN KEY ("project_id")
 REFERENCES "project" ("project_id")
 ON DELETE NO ACTION

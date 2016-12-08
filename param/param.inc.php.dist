@@ -40,7 +40,7 @@ $ident_type = "BDD";
 $BDD_login = "proto";
 $BDD_passwd = "proto";
 $BDD_dsn = "pgsql:host=localhost;dbname=proto;sslmode=require";
-$BDD_schema = "public";
+$BDD_schema = "col,gacl,public";
 
 /*
  * Rights management, logins and logs records database

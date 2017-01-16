@@ -10,8 +10,8 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 	console.log ("famille : "+family);
 	var url = "index.php";
 	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
+		console.log ("data.length : "+data.length);
 		if (data != null) {
-		console.log ("data is not null");
 			options = '<option value="" selected>{$LANG["appli"].2}</option>';			
 			 for (var i = 0; i < data.length; i++) {
 			    options += '<option value="' + data[i].container_type_id + '"';

@@ -21,24 +21,26 @@ $(document).ready(function() {
 		}
 		console.log("fonction getDetail - paramètres : uid : "+uid +" is_container : "+ is_container);
 		console.log ("appel ajax");
+		//$.getJSON ( url, { "module":"objectGetDetail", "container_family_id":family } , function( data ) {
+
 		$.ajax ( { url:url, method:"GET", data : { module:"objectGetDetail", uid:uid, is_container:is_container }, success : function ( djs ) {
 			console.log("interrogation Ajax terminée");
 			console.log("data recuperee depuis le serveur : " + djs);
 			var data = JSON.parse(djs);
-			console.log ("uid extrait de data : "+data["uid"]);
-			if (data != null) {
+			if (data.length > 0) {
+			console.log ("uid extrait de data : "+data[0].uid);
 				console.log("traitement de data");
-				if (!isNaN(data["uid"])) {
+				if (!isNaN(data[0].uid)) {
 					var id = "", type="";
-					if (data["identifier"]) {
-						id = data["identifier"];
+					if (data[0].identifier) {
+						id = data[0].identifier;
 					}
-					if (data["type_name"]) {
-						type = " (" + data["type_name"]+")";
+					if (data[0].type_name) {
+						type = " (" + data[0].type_name+")";
 					}
 					chaine = id + type ;
 					console.log("Détail associé à l'UID : " + chaine);
-					$("#"+champ+"_uid").val(data["uid"]);
+					$("#"+champ+"_uid").val(data[0].uid);
 					$("#"+champ+"_detail").val(chaine);
 				} else {
 					$("#"+champ+"_uid").val("");

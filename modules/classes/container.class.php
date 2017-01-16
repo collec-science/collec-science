@@ -131,6 +131,9 @@ class Container extends ObjetBDD {
 			$this->colonnes ["sample_date"] = array (
 					"type" => 2 
 			);
+			$this->colonnes ["storage_date"] = array (
+					"type" => 3
+			);
 			return $this->getListeParamAsPrepared ( $sql, $data );
 		}
 	}

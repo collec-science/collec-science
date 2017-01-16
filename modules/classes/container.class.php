@@ -7,12 +7,13 @@
  */
 require_once 'modules/classes/object.class.php';
 class Container extends ObjetBDD {
-	private $sql = "select container_id, uid, identifier, wgs84_x, wgs84_y, 
+	private $sql = "select c.container_id, uid, identifier, wgs84_x, wgs84_y, 
 					container_type_id, container_type_name,
 					container_family_id, container_family_name, object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
-					document_id, identifiers
-					from container
+					document_id, identifiers,
+					storage_date, movement_type_name, movement_type_id
+					from container c
 					join object using (uid)
 					join container_type using (container_type_id)
 					join container_family using (container_family_id)
@@ -20,6 +21,8 @@ class Container extends ObjetBDD {
 					left outer join storage_condition using (storage_condition_id)
 					left outer join last_photo using (uid)
 					left outer join v_object_identifier using (uid)
+					left outer join last_movement using (uid)
+					left outer join movement_type using (movement_type_id)
 			";
 	/**
 	 *
@@ -50,7 +53,7 @@ class Container extends ObjetBDD {
 	/**
 	 * Surcharge de lire pour ramener les informations
 	 * generales (table object, notamment)
-	 * 
+	 *
 	 * {@inheritdoc}
 	 *
 	 * @see ObjetBDD::lire()
@@ -69,7 +72,7 @@ class Container extends ObjetBDD {
 	/**
 	 * Surcharge de la fonction ecrire pour
 	 * enregistrer les informations dans object
-	 * 
+	 *
 	 * {@inheritdoc}
 	 *
 	 * @see ObjetBDD::ecrire()
@@ -107,7 +110,7 @@ class Container extends ObjetBDD {
 	/**
 	 * Retourne tous les échantillons contenus
 	 * dans le conteneur
-	 * 
+	 *
 	 * @param int $uid        	
 	 * @return array
 	 */
@@ -132,7 +135,7 @@ class Container extends ObjetBDD {
 	}
 	/**
 	 * Retourne tous les conteneurs contenus
-	 * 
+	 *
 	 * @param int $uid        	
 	 * @return array
 	 */
@@ -159,7 +162,7 @@ class Container extends ObjetBDD {
 	
 	/**
 	 * Retourne le conteneur parent
-	 * 
+	 *
 	 * @param int $uid        	
 	 * @return array
 	 */
@@ -179,7 +182,7 @@ class Container extends ObjetBDD {
 	}
 	/**
 	 * Retourne tous les conteneurs parents d'un objet
-	 * 
+	 *
 	 * @param int $uid        	
 	 * @return array
 	 */
@@ -217,7 +220,7 @@ class Container extends ObjetBDD {
 	
 	/**
 	 * Recherche les conteneurs a partir du tableau de parametres fourni
-	 * 
+	 *
 	 * @param array $param        	
 	 */
 	function containerSearch($param) {
@@ -272,12 +275,16 @@ class Container extends ObjetBDD {
 			$order .= " limit :limite";
 			$data ["limite"] = $param ["limit"];
 		}
+		/*
+		 * Rajout de la date de dernier mouvement pour l'affichage
+		 */
+		$this->colonnes["storage_date"]= array ("type"=>3);
 		return $this->getListeParamAsPrepared ( $this->sql . $where . $order, $data );
 	}
 	
 	/**
 	 * Retourne la liste des conteneurs correspondant au type
-	 * 
+	 *
 	 * @param int $container_type_id        	
 	 * @return array
 	 */

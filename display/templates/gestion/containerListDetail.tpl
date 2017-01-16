@@ -55,6 +55,7 @@ $(document).ready(function () {
 <th>Autres identifiants</th>
 <th>Statut</th>
 <th>Type</th>
+<th>Dernier mouvement</th>
 <th>Condition de stockage</th>
 <th>Produit de stockage</th>
 <th>Code CLP</th>
@@ -86,6 +87,13 @@ $(document).ready(function () {
 {$containers[lst].container_family_name}/
 {$containers[lst].container_type_name}
 </td>
+<td>
+{if strlen($containers[lst].storage_date) > 0 }
+{if $containers[lst].movement_type_id == 1}
+<span class="green">{else}
+<span class="red">{/if}{$containers[lst].storage_date}</span>
+{/if}
+</td> 
 <td>
 {$containers[lst].storage_condition_name}
 </td>

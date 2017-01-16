@@ -58,6 +58,7 @@
 				<th>Type</th>
 				<th>Statut</th>
 				<th>Photo</th>
+				<th>Dernier mouvement</th>
 				<th>Date</th>
 				<th>Date de création dans la base</th> {if $droits.gestion == 1}
 				<th></th> {/if}
@@ -84,6 +85,16 @@
 						height="30">
 				</a> {/if}
 				</td>
+				<td>
+				{if strlen($samples[lst].storage_date) > 0 }
+					{if $samples[lst].movement_type_id == 1}
+						<span class="green">{else}
+						<span class="red">
+					{/if}
+					{$samples[lst].storage_date}
+					</span>
+				{/if}
+				</td> 
 				<td>{$samples[lst].sample_date}</td>
 				<td>{$samples[lst].sample_creation_date}</td> {if $droits.gestion ==
 				1}

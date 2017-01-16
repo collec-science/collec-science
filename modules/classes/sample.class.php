@@ -20,7 +20,8 @@ class Sample extends ObjetBDD {
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
 					container_type_name, clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,
-					document_id, identifiers
+					document_id, identifiers,
+					storage_date, movement_type_name, movement_type_id
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join project p on (p.project_id = s.project_id)
@@ -34,6 +35,8 @@ class Sample extends ObjetBDD {
 					left outer join multiple_type mt on (st.multiple_type_id = mt.multiple_type_id)
 					left outer join last_photo on (so.uid = last_photo.uid)
 					left outer join v_object_identifier voi on  (s.uid = voi.uid)
+					left outer join last_movement lm on (s.uid = lm.uid)
+					left outer join movement_type using (movement_type_id)
 					";
 	function __construct($bdd, $param = array()) {
 		$this->table = "sample";
@@ -245,6 +248,10 @@ class Sample extends ObjetBDD {
 		}
 		if ($where == "where")
 			$where = "";
+		/*
+		 * Rajout de la date de dernier mouvement pour l'affichage
+		 */
+		$this->colonnes["storage_date"]= array ("type"=>3);
 		return $this->getListeParamAsPrepared ( $this->sql . $where . $order, $data );
 	}
 	/**

@@ -116,7 +116,8 @@ class Container extends ObjetBDD {
 	 */
 	function getContentSample($uid) {
 		if ($uid > 0 && is_numeric ( $uid )) {
-			$sql = "select o.uid, o.identifier, sa.*
+			$sql = "select o.uid, o.identifier, sa.*,
+					storage_date, movement_type_id
 					from object o
 					join sample sa on (sa.uid = o.uid)
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
@@ -144,7 +145,8 @@ class Container extends ObjetBDD {
 			$sql = "select o.uid, o.identifier, container_type_id, container_type_name,
 					container_family_id, container_family_name, o.object_status_id,
 					storage_product, storage_condition_name, 
-					object_status_name, clp_classification
+					object_status_name, clp_classification,
+					storage_date, movement_type_id
 					from object o
 					join container co on (co.uid = o.uid)
 					join container_type using (container_type_id)
@@ -156,6 +158,10 @@ class Container extends ObjetBDD {
 					order by o.identifier, o.uid
 					";
 			$data ["uid"] = $uid;
+			/*
+			 * Rajout de la date de dernier mouvement pour l'affichage
+			 */
+			$this->colonnes["storage_date"]= array ("type"=>3);
 			return $this->getListeParamAsPrepared ( $sql, $data );
 		}
 	}

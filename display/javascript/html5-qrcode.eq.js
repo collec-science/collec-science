@@ -54,7 +54,7 @@
 
                 // Call the getUserMedia method with our callback functions
                 if (navigator.getUserMedia) {
-                    navigator.getUserMedia({video: {facingMode: { exact: "environment" }}}, successCallback, function(error) {
+                    navigator.getUserMedia({video: {facingMode: "environment" }}, successCallback, function(error) {
                         videoError(error, localMediaStream);
                     });
                 } else {

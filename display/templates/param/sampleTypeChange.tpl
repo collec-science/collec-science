@@ -14,7 +14,7 @@
 </div>
 
 <div class="form-group">
-<label for="container_type_id" class="control-label col-md-4">Type :</label>
+<label for="container_type_id" class="control-label col-md-4">Type de container :</label>
 <div class="col-md-8">
 <select id="container_type_id" name="container_type_id" class="form-control">
 <option value="" {if $data.container_type_id == ""}selected{/if}>{$LANG.appli.2}</option>

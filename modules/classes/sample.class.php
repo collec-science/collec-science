@@ -62,16 +62,16 @@ class Sample extends ObjetBDD {
 						"requis" => 1 
 				),
 				"sample_creation_date" => array (
-						"type" => 2,
+						"type" => 3,
 						"requis" => 1,
-						"defaultValue" => "getDateJour" 
+						"defaultValue" => "getDateHeure" 
 				),
 				"parent_sample_id" => array (
 						"type" => 1 
 				),
 				"sample_date" => array (
-						"type" => 2,
-						"defaultValue" => "getDateJour" 
+						"type" => 3,
+						"defaultValue" => "getDateHeure" 
 				),
 				"multiple_value" => array("type"=>1)
 		);

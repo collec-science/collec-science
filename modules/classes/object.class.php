@@ -212,7 +212,7 @@ class Object extends ObjetBDD {
 			$sql = "select uid, identifier as id, clp_classification as clp, '' as pn, 
 			 		'$APPLI_code' as db,
 			 		'' as prj,
-			 		label_id
+			 		label_id, wgs84_x as x, wgs84_y as y, null as cd
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)
@@ -221,7 +221,7 @@ class Object extends ObjetBDD {
 					select uid, identifier as id, clp_classification as clp, protocol_name as pn, 
 			 		'$APPLI_code' as db, 
 			 		project_name as prj,
-			 		label_id
+			 		label_id, wgs84_x as x, wgs84_y as y, sample_creation_date as cd
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)

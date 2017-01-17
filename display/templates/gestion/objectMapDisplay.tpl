@@ -4,6 +4,11 @@
 @import "display/CSS/ol.css";
 </style>
 <div id="map" class="map"></div>
+{if $mapIsChange == 1}
+<div id="radar">
+<a href="#">
+<img src="display/images/radar.png" height="30">Repérez votre position !</a></div>
+{/if}
 <script>
 var earth_radius = 6389125.541;
 var zoom = {$mapDefaultZoom};
@@ -112,6 +117,26 @@ map.addLayer(layerPoint);
 map.addControl(mousePosition);
 
 if ( mapIsChange == 1) {
+/*
+ * Traitement de la localisation par clic sur le radar 
+ * (position approximative du terminal)
+ */
+ $("#radar").click(function () { 
+	 if (navigator && navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition( function (position) {
+	        	var lon = position.coords.longitude;
+	        	var lat = position.coords.latitude;
+	        	$("#wgs84_x").val(lon);
+	        	$("#wgs84_y").val(lat);
+	        	var lonlat3857 = ol.proj.transform([lon,lat], 'EPSG:4326', 'EPSG:3857');
+	        	point.setCoordinates (lonlat3857);
+	        });   
+	 }
+	 
+ });
+ 
+
+ 
 map.on('click', function(evt) {
 	  var lonlat3857 = evt.coordinate;
 	  var lonlat = ol.proj.transform(lonlat3857, 'EPSG:3857', 'EPSG:4326');

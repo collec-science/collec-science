@@ -39,7 +39,12 @@ return styleRed;
 var attribution = new ol.control.Attribution({
   collapsible: false
 });
-
+var mousePosition = new ol.control.MousePosition( { 
+    coordinateFormat: ol.coordinate.createStringXY(2),
+    projection: 'EPSG:4326',
+    target: undefined,
+    undefinedHTML: '&nbsp;'
+});
 var map = new ol.Map({
   controls: ol.control.defaults({ attribution: false }).extend([attribution]),
   target: 'map',
@@ -52,6 +57,7 @@ var map = new ol.Map({
 var layer = new ol.layer.Tile({
   source: new ol.source.OSM()
 });
+
 function transform_geometry(element) {
   var current_projection = new ol.proj.Projection({ code: "EPSG:4326" });
   var new_projection = layer.getSource().getProjection();
@@ -97,4 +103,7 @@ var layerPoint = new ol.layer.Vector({
 });
 features.forEach(transform_geometry);
 map.addLayer(layerPoint);
+map.addControl(mousePosition);
+
+
 </script>

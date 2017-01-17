@@ -81,7 +81,7 @@ switch ($t_module ["param"]) {
 		 */
 		$vue->set( "container", "moduleParent");
 		$vue->set("gestion/containerDisplay.tpl", "corps" );
-		
+		include 'modules/gestion/mapInit.php';
 
 		break;
 	case "change":
@@ -97,6 +97,8 @@ switch ($t_module ["param"]) {
 			$vue->set($container_parent["identifier"], "container_parent_identifier");
 		}
 		include 'modules/gestion/container.functions.php';
+		include 'modules/gestion/mapInit.php';
+		$vue->set(1, "mapIsChange");
 		break;
 	case "write":
 		/*

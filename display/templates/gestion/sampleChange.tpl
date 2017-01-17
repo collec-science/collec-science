@@ -110,6 +110,9 @@ Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.mult
 
 </form>
 </fieldset>
+<div class="col-md-6">
+{include file="gestion/objectMapDisplay.tpl"}
+</div>
 </div>
 
 <span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>

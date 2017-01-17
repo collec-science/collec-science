@@ -95,6 +95,7 @@ switch ($t_module ["param"]) {
 		/*
 		 * Affichage
 		 */
+		include 'modules/gestion/mapInit.php';
 		$vue->set ( "sample", "moduleParent" );
 		$vue->set ( "gestion/sampleDisplay.tpl", "corps" );
 		break;
@@ -122,6 +123,8 @@ switch ($t_module ["param"]) {
 			}
 			include 'modules/gestion/sample.functions.php';
 		}
+		include 'modules/gestion/mapInit.php';
+		$vue->set(1, "mapIsChange");
 		break;
 	case "write":
 		/*

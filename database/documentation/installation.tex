@@ -6,10 +6,10 @@ Le logiciel a été conçu à partir du framework \textit{Prototypephp}. La docu
 
 De nombreuses passages ont été repris ici, mais il n'est pas inutile de se référer au document d'origine. 
 
-\section{Configuration du serveur}
+\section{Configurer le serveur}
 La configuration est donnée pour un serveur Linux fonctionnant avec Ubuntu 16.04 LTS Server. Elle peut bien sûr être adaptée à d'autres distributions Linux. Par contre, rien n'a été prévu pour faire fonctionner l'application directement dans une plate-forme windows, même si, en théorie, cela devrait être possible.
 
-\subsection{Configuration d'Apache}
+\subsection{Configurer Apache}
 Les modules suivants doivent être activés :
 \begin{lstlisting}
 a2enmod ssl
@@ -37,7 +37,7 @@ Le stockage et l'affichage des photos nécessite :
 \item \textit{php-imagick} (ou \textit{php5-imagick} pour PHP5)
 \end{itemize}
 
-\subsection{Configuration de l'antivirus}
+\subsection{Configurer antivirus}
 Les pièces téléchargées peuvent être analysées avec l'antivirus CLAMAV \cite{clamav}. Dans un premier temps, Clamav doit être installé. Le plus simple est d'utiliser les paquetages de la distribution.
 
 Suivez les instructions du document \cite{clamavarchlinux} pour l'installation et la vérification du bon fonctionnement.
@@ -51,7 +51,7 @@ Ensuite, pour utiliser ClamAV dans l'application PHP, deux options sont possible
 La version à base du module est plus performante, mais n'est pas disponible pour les versions récentes de PHP. 
 Pour compiler le module, suivez les recommandations du document \cite{clamaveq}.
 
-\subsection{Configuration de l'hôte virtuel et de SSL}
+\subsection{Configurer l'hôte virtuel et SSL}
 L'application ne fonctionne qu'en mode SSL, les cookies de session n'étant pas transmis sur des liens non chiffrés. Voici un exemple de configuration à insérer dans le fichier \textit{/etc/apache2/sites-available/default-ssl}
 \begin{lstlisting}
     <Directory /var/www/html>
@@ -134,7 +134,7 @@ Si un libellé contient une apostrophe, la chaîne doit être insérée dans des
 
 
 \subsubsection{Droits à attribuer au serveur web}
-
+\label{droitsApache}
 Le serveur web doit pouvoir accéder en lecture à l'ensemble des fichiers de l'application, et en écriture à deux dossiers :
 \begin{itemize}
 \item \textit{display/templates\_c} : fichier utilisé par Smarty pour compiler les modèles de documents HTML ;
@@ -182,7 +182,7 @@ Voici les principaux paramètres utilisés :
 
 Dans la pratique, deux connexions sont nécessaires : l'une pour accéder à la base des droits, l'autre aux données proprement dites. Voici les paramètres à définir :
 
-\begin{longtable}{|p{5cm}|p{10cm}|}
+\begin{longtable}{|p{4cm}|p{11cm}|}
 \hline
 \textbf{Variable} & \textbf{Signification} \\
 \hline
@@ -210,7 +210,7 @@ GACL\_aco & nom du code de l'application utilisé dans la gestion des droits\\
 
 \subsection{Identification des utilisateurs}
 
-\begin{longtable}{|p{5cm}|p{10cm}|}
+\begin{longtable}{|p{4cm}|p{11cm}|}
 \hline
 \textbf{Variable} & \textbf{Signification} \\
 \hline
@@ -296,7 +296,7 @@ $LDAP = array(
 L'application peut non seulement identifier les utilisateurs auprès de l'annuaire LDAP, mais également récupérer les groupes auxquels ils appartiennent dans celui-ci.
 
 Voici les paramètres à indiquer dans ce cas de figure (valable en principe pour tout annuaire compatible OpenLdap) : 
-\begin{longtable}{|p{5cm}|p{10cm}|}
+\begin{longtable}{|p{4cm}|p{11cm}|}
 \hline
 \textbf{Variable} & \textbf{Signification} \\
 \hline
@@ -335,7 +335,7 @@ basedngroup & base de recherche des groupes \\
 \subsection{Paramètres spécifiques}
 \label{paramspec}
 
-\begin{longtable}{|p{5cm}|p{10cm}|}
+\begin{longtable}{|p{4cm}|p{11cm}|}
 \hline
 \textbf{Variable} & \textbf{Signification} \\
 \hline
@@ -343,6 +343,12 @@ basedngroup & base de recherche des groupes \\
 GACL\_aco & nom du code de l'application utilisé dans la gestion des droits (\textit{cf.} \ref{droits} \textit{\nameref{droits}}, page \pageref{droits} )\\
 \hline
 APPLI\_code & Code interne de l'application. \textbf{Ce code est essentiel} : il sera inscrit dans les codes-barres générés, pour s'assurer qu'un échantillon est bien issu de l'application (couple logiciel $\leftrightarrow$ base de données) concernée. Il ne doit pas être modifié après avoir été attribué\\
+\hline
+mapDefaultX & Longitude de positionnement du centre de la carte par défaut \\
+\hline
+mapDefaultY & Latitude de positionnement du centre de la carte par défaut \\
+\hline
+mapDefaultZoom & facteur de zoom par défaut lors de l'affichage d'une carte \\
 \hline
 \caption{Variables spécifiques}
 \end{longtable}
@@ -420,3 +426,34 @@ Une fois l'application configurée, et après avoir créé un nouveau compte d'a
 \end{itemize}
 
 Vous pouvez également tester si la configuration du serveur est correcte en recourant à \textit{ZAProxy} \cite{zaproxy}, qui analysera la communication entre le serveur et un navigateur et identifiera les problèmes éventuels de non conformité (mauvaise réécriture des entêtes HTML suite à une mauvaise configuration du serveur Apache, par exemple).
+
+\section{Installer une nouvelle version}
+
+\subsection{Sauvegarder le fichier contenant les paramètres de l'application}
+
+Le fichier \textit{param/param.inc.php} contient vos paramétrages spécifiques. Lors de l'installation d'une nouvelle version, il va être supprimé.
+
+Faites-en une copie, et remettez-le en place après avoir installé la nouvelle version.
+
+\subsection{Consultez le fichier news.txt}
+
+Le fichier \textit{param/news.txt} contient la description des modifications apportées au logiciel. Il précise notamment si une mise à jour de la base de données doit être appliquée.
+
+\subsection{Mise à jour de la structure de la base de données}
+
+Le dossier \textit{install} contient les scripts de création et de mise à jour de la base de données. Les scripts de mise à jour sont nommés ainsi :
+\begin{lstlisting}
+col_alter_versionAnterieure_versionMiseAJour.sql
+\end{lstlisting}
+
+\textit{versionAnterieure} correspond à la version la plus ancienne qui doit être mise à jour, \textit{versionMiseAJour} la version cible. Par exemple :
+\begin{lstlisting}
+col_alter_1.0-1.0.4.sql
+\end{lstlisting}
+indique que toutes les versions entre \textit{1.0} et \textit{1.0.3} doivent être mises à jour avec le script indiqué. Si vous avez \og sauté \fg{} certaines versions du logiciel, il est possible que plusieurs scripts doivent être appliqués.
+
+La mise à jour doit être appliquée dans tous les schémas contenant des données, notamment dans le cas où le même logiciel est utilisé pour gérer plusieurs jeux de données.
+
+\subsection{Reconfigurer les droits d'accès au serveur web}
+
+Après installation de la nouvelle version du code, n'oubliez-pas de reconfigurer les accès en lecture pour le compte utilisé pour faire fonctionner le serveur web, et en écriture pour les dossiers \textit{temp} et \textit{display/templates\_c} (\textit{cf.} \ref{droitsApache} \textit{\nameref{droitsApache}}, page \pageref{droitsApache}).

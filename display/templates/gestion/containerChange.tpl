@@ -26,7 +26,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 	 });
 	searchType();
 	{if $data.container_type_id > 0}
-	options = '<option value="' + {$data.container_type_id} + '" selected> ' + {$data.container_type_name} + '</option>';
+	options = '<option value="' + {$data.container_type_id} + '" selected> {$data.container_type_name} </option>';
 	$("#container_type_id").html(options);
 	{/if}
 	
@@ -101,6 +101,9 @@ Retour à la liste des conteneurs
  </div>
 
 </form>
+</div>
+<div class="col-md-6">
+{include file="gestion/objectMapDisplay.tpl"}
 </div>
 </div>
 

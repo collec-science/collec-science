@@ -152,4 +152,11 @@ $pubKey = "/etc/ssl/certs/ssl-cert-snakeoil.pem";
  * Duree de validite du token d'identification
  */
 $tokenIdentityValidity = 36000; // 10 heures
+
+/*
+ * Affichage par defaut des cartes Openstreetmap
+ */
+$mapDefaultX = -0.70;
+$mapDefaultY = 44.77;
+$mapDefaultZoom = 7;
 ?>

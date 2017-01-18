@@ -1,4 +1,9 @@
 set search_path = col;
+/*
+ * Mise a jour de la base de donnees
+ * A executer dans tous les schemas contenant des donnees
+ * Mise a jour a realiser pour toutes les versions anterieures a la version 1.0.4
+ */
 
 /*
  * Modification de la vue last_movement

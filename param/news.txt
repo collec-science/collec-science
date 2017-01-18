@@ -1,5 +1,29 @@
 News
 ===========
+Version 1.0.4 du 18/01/2017
+---------------------------
+Mise à jour de la base de données nécessaire (script install/col_alter_1.0-1.0.4.sql)
+Corrections d'anomalies :
+- la lecture d'un QRCODE à partir d'une caméra ne fonctionnait pas si l'appareil utilisé ne disposait pas d'une caméra arrière (caméra d'environnement)
+- la sélection du type de container ne fonctionnait pas s'il n'y en avait qu'un dans une famille de containers
+- la recherche de containers ne fonctionnait pas en saisie d'un mouvement
+- en saisie d'un échantillon, le type de container n'était pas assez explicite
+
+Améliorations :
+- la date du dernier mouvement des objets est affichée dans les listes
+- la date de création des objets a été passée en date/heure
+- il est maintenant possible d'intégrer la position gps d'un objet dans une étiquette ou dans le QRCODE
+- il est maintenant possible d'intégrer la date de création d'un objet dans une étiquette ou dans le QRCODE
+- en modification d'un objet, la carte est maintenant affichée, et il est possible de positionner l'emplacement de l'objet en cliquant dessus
+- en modification d'un objet, il est possible de positionner l'objet à partir de la position estimée du terminal (soit en utilisant les coordonnées GPS pour les smartphones ou tablettes, soit l'emplacement calculé à partir du réseau informatique)
+
+Paramétrage :
+- 3 nouveaux paramètres peuvent être définis, qui concernent le pré-positionnement de la carte quand aucune coordonnée n'a été rentrée : $mapDefaultX et $mapDefaultY centrent la carte sur le point indiqué, $mapDefaultZoom est le facteur de zoom par défaut
+
+Documentation :
+- le manuel d'installation et de configuration contient une nouvelle annexe qui explique comment mettre en place la synchronisation de deux serveurs postgresql, pour éviter de perdre des informations
+- une nouvelle section a été rédigée, pour expliquer les opérations à réaliser lors d'une mise à jour du logiciel
+
 Version 1.0.3 du 08/12/2016
 ---------------------------
 Corrections :

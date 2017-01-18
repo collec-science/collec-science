@@ -1,228 +1,164 @@
+\chapter{Mettre en place une réplication de la base postgresql vers un autre serveur}
+
 \section{Présentation}
 L'objectif de ce chapitre est de présenter comment mettre en œuvre une réplication entre deux serveurs Postgresql, pour éviter toute perte accidentelle d'un enregistrement.
 
-Il a été élaboré à partir de documents glanés sur le net : \cite{digitOcean}, 
+Il a été écrit par Alexandra Darrieutort, stagiaire à Irstea en 2016, et complété par Jacques Foury, responsable informatique du centre Irstea de Cestas (33), qui se sont inspirés de divers documents \cite{digitOcean} \cite{zeroPostgres} \cite{replicationPostgres} \cite{replicationTutorial}.
 
-Il a été réalisé par Alexandra Darrieutort, stagiaire à Irstea en 2016, et complété par Jacques Foury, responsable informatique du centre Irstea de Cestas (33).
-
-
-\href{http://www.rassoc.com/gregr/weblog/2013/02/16/zero-to-postgresql-streaming-replication-in-10-mins/}{Zero to postgresql streaming replication in 10 mins}
-\footnote{http://www.rassoc.com/gregr/weblog/2013/02/16/zero-to-postgresql-streaming-replication-in-10-mins/}
-
-\href{http://connect.ed-diamond.com/GNU-Linux-Magazine/GLMF-184/Configurer-la-replication-d-un-serveur-PostgreSQL}{Configurer la replication d'un serveur PostgreSQL}
-\footnote{http://connect.ed-diamond.com/GNU-Linux-Magazine/GLMF-184/Configurer-la-replication-d-un-serveur-PostgreSQL}
-
-\href{https://wiki.postgresql.org/wiki/Binary_Replication_Tutorial}{Binary replication tutorial}
-\footnote{https://wiki.postgresql.org/wiki/Binary_Replication_Tutorial}
-
-\section{Besoins exprimés:}
+\subsection{Besoins exprimés}
 
 Mise en place d'une réplication d'un serveur postgreSQL de sorte qu'il y ait préservation des données, c'est-à-dire qu'une écriture faite sur le serveur maître se retrouve sur le serveur esclave. Le besoin en haute disponibilité n'est pas primordial. 
 
-\section{Principe:}
+\subsection{Principe}
 
-Le mode de réplication correspondant au besoin est \textit{maître/esclave}. On peut lire et écrire sur le maître et seulement lire sur l'esclave si il est configuré en \textit{hot standby}. Ici, le serveur maître est \textit{citerne-8} et le serveur esclave est \textit{chappie}.
+Le mode de réplication correspondant au besoin est \textit{maître/esclave}. On peut lire et écrire sur le maître et seulement lire sur l'esclave s'il est configuré en \textit{hot standby}. Ici, le serveur maître est \textit{citerne-8} et le serveur esclave est \textit{chappie}.
 
 Les modifications de données sont enregistrées dans des journaux de transactions appelés \textbf{WAL (Write-Ahead Log) xlogs}. Ces WAL sont transférés à l'esclave qui les rejoue continuellement de sorte à se retrouver dans le même état que le maître. Il sera alors prêt à prendre la relève en cas d'indisponibilité du maître.
 
 Grâce au principe de \textit{Streaming replication}, on n'attend plus que le fichier WAL (16 Mio) soit rempli mais il sera transmis sans délai du maître à l'esclave.
 
-\textcolor{Red}{Attention:}
-\begin{itemize}
-\item Dans la configuration, comme on va conserver 256 xlogs à l'aide du paramètre \textbf{wal\_keep\_segments}, il faut prévoir assez d'espace disque disponible.
-\item La réplication entre deux serveurs de versions différentes de postgresql est impossible.
-\end{itemize}
+\subsection{Limitations et précautions}
+Dans la configuration, comme on va conserver 256 xlogs à l'aide du paramètre \textbf{wal\_keep\_segments}, il faut prévoir assez d'espace disque disponible.
 
-\newpage
-\section{Mise à jour du serveur (version 9.3) en version 9.4 sur \textit{citerne-8:}}
+La réplication entre deux serveurs de versions différentes de postgresql est impossible.
+
+\section{Mise à jour du serveur (version 9.3) en version 9.4 dans \textit{citerne-8:}}
 
 On installe la dernière version de postgresql, on liste les clusters qui tournent et on supprime le cluster 9.4 existant:
 
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+\begin{lstlisting}
 root@citerne-8:~# apt-get install postgresql-9.4
 root@citerne-8:~# pg_lsclusters
 root@citerne-8:~# pg_dropcluster --stop 9.4 main
-\end{Verbatim}
+\end{lstlisting}
 
+Mise à jour du cluster :
 
-\vspace{2mm}
-
-Mise à jour du cluster:
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+\begin{lstlisting}
 root@citerne-8:~# pg_upgradecluster 9.3 main 
-\end{Verbatim}
+\end{lstlisting}
 
-\vspace{2mm}
-
-Donne la liste des clusters et dit s'ils sont actifs ou non: 
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+Liste des clusters et visualisation de leur activité : 
+\begin{lstlisting}
 root@citerne-8:~# pg_lsclusters
+\end{lstlisting}
+
+Suppression de l'ancien cluster :
+\begin{lstlisting}
 root@citerne-8:~# pg_dropcluster --stop 9.3 main
-\end{Verbatim}
+\end{lstlisting}
 
-\vspace{2mm}
-
-On supprime le cluster de version 9.3:
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
-root@citerne-8:~# pg_dropcluster --stop 9.3 main 
-\end{Verbatim}
-
-\vspace{2mm}
-
-Et on modifie le port du cluster 9.4 dans le fichier \textit{/etc/postgresql/9.4/main/postgresql.conf}:
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+Modification du port du cluster 9.4 dans le fichier \textit{/etc/postgresql/9.4/main/postgresql.conf} :
+\begin{lstlisting}
 port = 5432
-\end{Verbatim}
+\end{lstlisting}
 
-\section{Installation de postgreSQL sur \textit{chappie} et mise en place des clés ssh:}
 
-\bigskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+\section{Installation de postgreSQL sur \textit{chappie} et mise en place des clés ssh}
+\begin{lstlisting}
 root@chappie:~# apt-get install postgresql-9.4
 root@chappie:~# su - postgres
 postgres@chappie:~$ mkdir /var/lib/postgresql/.ssh/
 postgres@chappie:~$ ssh-keygen
-\end{Verbatim}
+\end{lstlisting}
 
 Pour la connexion ssh entre les deux serveurs, il faut mettre la clé de l'utilisateur postgres contenue dans le fichier \textbf{id\_rsa.pub} sur \textit{chappie} dans le fichier \textbf{authorized\_keys} de \textit{citerne-8} et inversement.
 
-\section{Mise en place de la réplication:}
+\section{Mise en place de la réplication}
 
-\subsection{\textcolor{Firebrick3}{\Large Maître}}
+\subsection{ Maître}
 
-Création de l'utilisateur prosgresql chargé de la réplication:
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+Création de l'utilisateur posgresql chargé de la réplication :
+\begin{lstlisting}
 root@citerne-8:~# su - postgres
 postgres:~$ psql -c "CREATE USER rep REPLICATION LOGIN ENCRYPTED PASSWORD 'desperados';"
-\end{Verbatim}
+\end{lstlisting}
 
-\vspace{2mm}
-
-Dans le fichier \textbf{pg\_hba.conf} (\textit{/etc/postgresql/9.4/main/}) ajouter:
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+Dans le fichier \textbf{pg\_hba.conf} (\textit{/etc/postgresql/9.4/main/}) ajoutez :
+\begin{lstlisting}
 host    replication     rep     10.33.192.31/32   md5
-\end{Verbatim}
-
-\vspace{2mm}
+\end{lstlisting}
 
 Pour le paramètre \textbf{wal\_keep\_segments}, on lui donne une valeur assez grande pour éviter d'accumuler un retard trop important entre les deux serveurs en cas d'indisponibilité de l'esclave.
 
-Dans le fichier \textbf{postgresql.conf} ajouter ces lignes:
+Dans le fichier \textbf{postgresql.conf} ajoutez ces lignes\footnote{Attention: Si vous faites un copier-coller, les apostrophes ne sont pas des apostrophes droites donc il faudra les modifier} :
 
-\textit{Attention: Si vous faites un copier-coller, les apostrophes ne sont pas des apostrophes droites donc il faudra les modifier.}
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+\begin{lstlisting}
 listen_address = 'localhost,10.33.192.36' 
 wal_level = hot_standby 
 max_wal_senders = 3 
 max_wal_size = 436MB 
 wal_keep_segments = 256 
-\end{Verbatim}
+\end{lstlisting}
 
-Ensuite, on redémarre le service postgresql.
+Redémarrez ensuite le service postgresql.
 
-\vspace{2mm}
-
-\subsection{\textcolor{Firebrick3}{\Large Esclave}}
-
-On arrête le service postgresql.
-
-\vspace{2mm}
-
-On ajoute ces lignes dans le fichier \textbf{postgresql.conf}:
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+\subsection{Esclave}
+\label{esclave}
+Arrêtez le service postgresql, puis ajoutez ces lignes dans le fichier \textbf{postgresql.conf} :
+\begin{lstlisting}
 wal_level = hot_standby
 max_wal_senders = 3
 max_wal_size = 384MB
 wal_keep_segments = 256
 hot_standby = on
 max_locks_per_transaction = 128
-\end{Verbatim}
+\end{lstlisting}
 
-\vspace{2mm}
-
-Dans le fichier \textbf{pg\_hba.conf}:
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+Modifiez le fichier \textbf{pg\_hba.conf} :
+\begin{lstlisting}
 host    replication     rep     10.33.192.36/32 md5 
-\end{Verbatim}
+\end{lstlisting}
 
-\vspace{2mm}
-
-On effectue la sauvegarde complète des bases sous l'utilisateur postgres:
-
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+Effectuez la sauvegarde complète des bases du serveur maître (depuis l'esclave, toujours) avec l'utilisateur postgres :
+\begin{lstlisting}
 pg_dropcluster 9.5 main
 pg_basebackup -h 10.33.192.36 -D /var/lib/postgresql/9.5/main -U rep -v -P --xlog
-\end{Verbatim}
-On ajoute l'option - -xlog pour garder les derniers journaux de transactions.
+\end{lstlisting}
 
-\vspace{2mm}
+L'option --xlog est ajoutée pour garder les derniers journaux de transactions.
 
-On crée le fichier \textbf{recovery.conf} dans \textit{/var/lib/postgresql/9.5/main/} et on y configure la restauration continue.
+Créez le fichier \textbf{recovery.conf} dans \textit{/var/lib/postgresql/9.5/main/} pour configurer la restauration continue.
 
-La restauration en continu s'active à l'aide du paramètre \textit{standby\_mode}. Pour se connecter au maître et récupérer les WAL, on définit les informations nécessaires dans le paramètre \textit{primary\_conninfo}. Et enfin, pour arrêter la restauration, il faut créer le \textit{trigger\_file}.
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+La restauration en continu s'active à l'aide du paramètre \textit{standby\_mode}. Pour se connecter au maître et récupérer les WAL, on définit les informations nécessaires dans le paramètre \textit{primary\_conninfo}. 
+
+Le paramètre \textit{trigger\_file} indique si la restauration doit être interrompue (si le fichier indiqué est présent, le processus est arrêté).
+\begin{lstlisting}
 standby_mode = on 
 primary_conninfo = 'host=10.33.192.36 port=5432 user=rep password=desperados' 
 trigger_file = '/var/lib/postgresql/9.4/postgresql.trigger' 
-\end{Verbatim}
+\end{lstlisting}
 
-Pour finir on démarre le service postgresql.
+Pour finir, démarrez le service postgresql.
 
-\section{Informations de monitoring:}
+\section{Informations de monitoring}
 
 Le fichier de logs \textbf{postgresql-9.4-main.log} se trouve dans le répertoire \textit{/var/log/postgresql/}
 
-\vspace{4mm}
-
-Pour savoir où en est la réplication du côté du maître:
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+Pour savoir où en est la réplication du côté du maître :
+\begin{lstlisting}
 sudo -u postgres psql -x -c "select * from pg_stat_replication;"
-\end{Verbatim}
+\end{lstlisting}
 
-\vspace{4mm}
-
-Pour savoir depuis quand remonte la dernière synchronisation du côté de l'esclave:
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+Pour savoir à quand remonte la dernière synchronisation du côté de l'esclave :
+\begin{lstlisting}
 sudo -u postgres psql -x -c "SELECT now() - pg_last_xact_replay_timestamp() AS time_lag;"
-\end{Verbatim}
+\end{lstlisting}
 
-\vspace{4mm}
-
-Pour voir le numéro du snapshot actuelle:
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+Pour voir le numéro du snapshot actuel :
+\begin{lstlisting}
 sudo -u postgres psql -x -c "SELECT txid_current_snapshot();"
-\end{Verbatim}
+\end{lstlisting}
 
-\section{Pour tester le failover:}
 
-Le serveur maître est indisponible, on va arrêter la restauration continue sur l'esclave, pour qu'il devienne le maître, en créant le fichier trigger. Les bases vont alors passer en mode read/write et le fichier \textit{recovery.conf} sera renommé \textit{recovery.done}.
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
+\section{Pour tester le failover ou gérer un interruption}
+
+Le serveur maître est indisponible.
+
+Il faut arrêter la restauration continue sur l'esclave pour qu'il devienne le maître, en créant le fichier \textit{trigger}. Les bases vont alors passer en mode read/write et le fichier \textit{recovery.conf} sera renommé \textit{recovery.done}.
+\begin{lstlisting}
 sudo touch /var/lib/postgresql/9.4/postgresql.trigger
-\end{Verbatim}
+\end{lstlisting}
 
-Ensuite, lorsque le maître sera de retour, la réplication ne fonctionnera plus. Il faudra recommencer ces étapes sur l'esclave pour que la réplication se remette en marche.
+Lorsque le maître sera de retour, la réplication ne fonctionnera plus. Vous devrez restaurer les données provenant du serveur esclave dans le serveur maître, puis relancer la réplication, en recréant le fichier \textit{recovery.conf}, comme décrit dans la section \ref{esclave} \textit{\nameref{esclave}}.
 
-\smallskip
-\begin{Verbatim}[frame=single,framerule=1mm,framesep=3mm,rulecolor=\color{brown}]
-service postgresql stop
-rm -rf /var/lib/postgresql/9.4/main/
-pg_basebackup -h 10.33.192.36 -D /var/lib/postgresql/9.4/main -U rep -v -P --xlog
-\end{Verbatim}
-
-Ensuite, il faut recréer le fichier recovery.conf comme dans la \textit{partie 5.2} et on démarre le service.

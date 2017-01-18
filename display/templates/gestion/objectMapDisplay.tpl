@@ -1,4 +1,3 @@
-
 <script type="text/javascript" charset="utf-8" src="display/javascript/ol.js"></script>
 <style type="text/css" >
 @import "display/CSS/ol.css";
@@ -116,6 +115,7 @@ features.forEach(transform_geometry);
 map.addLayer(layerPoint);
 map.addControl(mousePosition);
 
+
 if ( mapIsChange == 1) {
 /*
  * Traitement de la localisation par clic sur le radar 
@@ -126,16 +126,27 @@ if ( mapIsChange == 1) {
 	        navigator.geolocation.getCurrentPosition( function (position) {
 	        	var lon = position.coords.longitude;
 	        	var lat = position.coords.latitude;
+				console.log("longitude calculée : "+ lon);
+				console.log ("latitude calculée : " + lat);
 	        	$("#wgs84_x").val(lon);
 	        	$("#wgs84_y").val(lat);
-	        	var lonlat3857 = ol.proj.transform([lon,lat], 'EPSG:4326', 'EPSG:3857');
+	        	var lonlat3857 = ol.proj.transform([parseFloat(lon),parseFloat(lat)], 'EPSG:4326', 'EPSG:3857');
 	        	point.setCoordinates (lonlat3857);
 	        });   
 	 }
 	 
  });
  
-
+	$(".position").change(function () {
+		var lon = $("#wgs84_x").val();
+		var lat = $("#wgs84_y").val();
+		if (lon.length > 0 && lat.length > 0) {
+			console.log("longitude saisie : "+ lon);
+			console.log ("latitude saisie : " + lat);
+			var lonlat3857 = ol.proj.transform([parseFloat(lon),parseFloat(lat)], 'EPSG:4326', 'EPSG:3857');
+	        point.setCoordinates (lonlat3857);
+		}
+	});
  
 map.on('click', function(evt) {
 	  var lonlat3857 = evt.coordinate;

@@ -81,6 +81,22 @@ Retour à la liste des échantillons
 </div>
 
 <div class="form-group">
+<label for="sampling_place_id" class="control-label col-md-4">Lieu de prélèvement :</label>
+<div class="col-md-8">
+<select id="sampling_place_id" name="sampling_place_id" class="form-control">
+<option value="" {if $data.sampling_place_id == ""}selected{/if}>
+Sélectionnez...
+</option>
+{section name=lst loop=$samplingPlace}
+<option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $data.sampling_place_id}selected{/if}>
+{$samplingPlace[lst].sampling_place_name} 
+</option>
+{/section}
+</select>
+</div>
+</div>
+
+<div class="form-group">
 <label for="sample_date"  class="control-label col-md-4">Date de création de l'échantillon :</label>
 <div class="col-md-8">
 <input id="sample_date" class="form-control datetimepicker" name="sample_date" value="{$data.sample_date}"></div>

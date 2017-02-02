@@ -241,7 +241,7 @@ class Sample extends ObjetBDD {
 			$data ["object_status_id"] = $param ["object_status_id"];
 		}
 		if ($param ["sampling_place_id"] > 0) {
-			$where .= $and . " so.sampling_place_id = :sampling_place_id";
+			$where .= $and . " s.sampling_place_id = :sampling_place_id";
 			$and = " and ";
 			$data ["sampling_place_id"] = $param ["sampling_place_id"];
 		}

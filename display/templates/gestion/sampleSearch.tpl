@@ -51,9 +51,9 @@
 <label for="sampling_place_id" class="col-md-2 control-label">Lieu de prélèvement :</label>
 <div class="col-md-4">
 <select id="sampling_place_id" name="sampling_place_id" class="form-control">
-<option value="" {if $containerSearch.sampling_place_id == ""}selected{/if}>Sélectionnez...</option>
+<option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>Sélectionnez...</option>
 {section name=lst loop=$samplingPlace}
-<option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $containerSearch.sampling_place_id}selected{/if}>
+<option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $sampleSearch.sampling_place_id}selected{/if}>
 {$samplingPlace[lst].sampling_place_name}
 </option>
 {/section}
@@ -63,9 +63,9 @@
 <label for="object_status_id" class="col-md-2 control-label">Statut :</label>
 <div class="col-md-4">
 <select id="object_status_id" name="object_status_id" class="form-control">
-<option value="" {if $containerSearch.object_status_id == ""}selected{/if}>Sélectionnez...</option>
+<option value="" {if $sampleSearch.object_status_id == ""}selected{/if}>Sélectionnez...</option>
 {section name=lst loop=$objectStatus}
-<option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id == $containerSearch.object_status_id}selected{/if}>
+<option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id == $sampleSearch.object_status_id}selected{/if}>
 {$objectStatus[lst].object_status_name}
 </option>
 {/section}

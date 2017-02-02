@@ -1,5 +1,6 @@
 <!-- Ajout rapide d'un échantillon dans un container -->
 {include file="gestion/qrcode_read.tpl"}
+
 <h2>Entrée rapide d'un échantillon dans le stock</h2>
 <div class="row">
 	<div class="col-md-6">
@@ -143,3 +144,4 @@
 
 	</div>
 </div>
+

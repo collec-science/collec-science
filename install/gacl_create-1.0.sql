@@ -120,7 +120,7 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-insert into aclappli (aclappli_id, appli) values (1, 'appli');
+insert into aclappli (aclappli_id, appli) values (1, 'col');
 insert into aclaco (aclaco_id, aclappli_id, aco) values (1, 1, 'admin');
 insert into acllogin (acllogin_id, login, logindetail) values (1, 'admin', 'admin');
 insert into aclgroup (aclgroup_id, groupe) values (1, 'admin');

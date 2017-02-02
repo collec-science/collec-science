@@ -17,7 +17,7 @@ $OBJETBDD_debugmode = 1;
 /*
  * code de l'application dans la gestion des droits
  */
-$GACL_aco = "appli";
+$GACL_aco = "col";
 /*
  * Code de l'application - impression sur les etiquettes
  */

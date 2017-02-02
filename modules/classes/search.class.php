@@ -176,7 +176,8 @@ class SearchSample extends SearchParam {
 				"limit"=>100,
 				"object_status_id" => 1,
 				"uid_min"=>0,
-				"uid_max"=>0
+				"uid_max"=>0,
+				"sampling_place_id" => ""
 		);
 		$this->paramNum = array (
 				"sample_type_id",
@@ -184,7 +185,8 @@ class SearchSample extends SearchParam {
 				"object_status_id" => 1,
 				"limit",
 				"uid_min",
-				"uid_max"
+				"uid_max",
+				"sampling_place_id"
 		);
 		parent::__construct ();
 	}

@@ -86,8 +86,12 @@ $LANG["menu"][91] = "Motifs de déstockage";
 $LANG["menu"][92] = "Motifs de sortie du stock";
 $LANG["menu"][93] = "Entrée/sortie par lots";
 $LANG["menu"][94] = "Entrée / sortie par scan multiple de QRCODE";
-$LANG["menu"][95] = "";
-$LANG["menu"][96] = "";
+$LANG["menu"][95] = "Lieux de prélèvement";
+$LANG["menu"][96] = "Liste des lieux de prélèvement des échantillons";
+$LANG["menu"][97] = "";
+$LANG["menu"][98] = "";
+$LANG["menu"][99] = "";
+$LANG["menu"][100] = "";
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";

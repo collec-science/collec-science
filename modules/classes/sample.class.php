@@ -21,11 +21,13 @@ class Sample extends ObjetBDD {
 					container_type_name, clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,
 					document_id, identifiers,
-					storage_date, movement_type_name, movement_type_id
+					storage_date, movement_type_name, movement_type_id,
+					sp.sampling_place_id, sp.sampling_place_name
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join project p on (p.project_id = s.project_id)
 					join object so on (s.uid = so.uid)
+					left outer join sampling_place sp on (sp.sampling_place_id = s.sampling_place_id)
 					left outer join object_status os on (so.object_status_id = os.object_status_id)
 					left outer join sample ps on (s.parent_sample_id = ps.sample_id)
 					left outer join object pso on (ps.uid = pso.uid)	
@@ -73,7 +75,12 @@ class Sample extends ObjetBDD {
 						"type" => 3,
 						"defaultValue" => "getDateHeure" 
 				),
-				"multiple_value" => array("type"=>1)
+				"multiple_value" => array (
+						"type" => 1 
+				),
+				"sampling_place_id" => array (
+						"type" => 1 
+				) 
 		);
 		parent::__construct ( $bdd, $param );
 	}
@@ -95,7 +102,6 @@ class Sample extends ObjetBDD {
 		}
 		return $retour;
 	}
-	
 	function lireFromId($sample_id) {
 		$sql = $this->sql . " where s.sample_id = :sample_id";
 		$data ["sample_id"] = $sample_id;
@@ -234,12 +240,17 @@ class Sample extends ObjetBDD {
 			$and = " and ";
 			$data ["object_status_id"] = $param ["object_status_id"];
 		}
-		
-		if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
-			$where .= $and. " s.uid between :uid_min and :uid_max";
+		if ($param ["sampling_place_id"] > 0) {
+			$where .= $and . " so.sampling_place_id = :sampling_place_id";
 			$and = " and ";
-			$data["uid_min"] = $param["uid_min"];
-			$data["uid_max"] = $param["uid_max"];
+			$data ["sampling_place_id"] = $param ["sampling_place_id"];
+		}
+		
+		if ($param ["uid_max"] > 0 && $param ["uid_max"] >= $param ["uid_min"]) {
+			$where .= $and . " s.uid between :uid_min and :uid_max";
+			$and = " and ";
+			$data ["uid_min"] = $param ["uid_min"];
+			$data ["uid_max"] = $param ["uid_max"];
 		}
 		
 		if ($param ["limit"] > 0) {
@@ -248,22 +259,26 @@ class Sample extends ObjetBDD {
 		}
 		if ($where == "where")
 			$where = "";
-		/*
+			/*
 		 * Rajout de la date de dernier mouvement pour l'affichage
 		 */
-		$this->colonnes["storage_date"]= array ("type"=>3);
+		$this->colonnes ["storage_date"] = array (
+				"type" => 3 
+		);
 		return $this->getListeParamAsPrepared ( $this->sql . $where . $order, $data );
 	}
 	/**
 	 * Retourne les echantillons associes a un parent
-	 * @param int $uid : uid du parent
+	 * 
+	 * @param int $uid
+	 *        	: uid du parent
 	 */
 	function getSampleassociated($uid) {
-		if ($uid > 0 && is_numeric($uid)) {
+		if ($uid > 0 && is_numeric ( $uid )) {
 			$data ["uid"] = $uid;
 			$where = " where pso.uid = :uid";
 			$order = " order by s.uid";
-			return $this->getListeParamAsPrepared($this->sql.$where. $order, $data);
+			return $this->getListeParamAsPrepared ( $this->sql . $where . $order, $data );
 		}
 	}
 }

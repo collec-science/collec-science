@@ -175,6 +175,12 @@
 	<multipleTypeWrite action="modules/param/multipleType.php" param="write" droits="param" retourok="multipleTypeList" retourko="multipleTypeChange" modulebefore="multipleTypeChange" />
 	<multipleTypeDelete action="modules/param/multipleType.php" param="delete" droits="param" retourok="multipleTypeList" retourko="multipleTypeChange"  modulebefore="multipleTypeChange"/>
 
+	<samplingPlaceList action="modules/param/samplingPlace.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
+	<samplingPlaceChange action="modules/param/samplingPlace.php" param="change" droits="param"  retourlogin="1" type="smarty" />
+	<samplingPlaceWrite action="modules/param/samplingPlace.php" param="write" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceChange" modulebefore="samplingPlaceChange" />
+	<samplingPlaceDelete action="modules/param/samplingPlace.php" param="delete" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceChange"  modulebefore="samplingPlaceChange"/>
+
+
 	<subsampleChange action="modules/gestion/subsample.php" param="change" droits="gestion"  retourlogin="1" type="smarty"  />
 	<subsampleWrite action="modules/gestion/subsample.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange" />
 	<subsampleDelete action="modules/gestion/subsample.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange"/>

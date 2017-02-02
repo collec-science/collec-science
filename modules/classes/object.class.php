@@ -141,7 +141,7 @@ class Object extends ObjetBDD {
 	}
 	/**
 	 * Recupere la liste des objets
-	 * 
+	 *
 	 * @param array $list        	
 	 * @return tableau
 	 */
@@ -187,7 +187,7 @@ class Object extends ObjetBDD {
 	}
 	/**
 	 * Genere le QRCODE
-	 * 
+	 *
 	 * @param unknown $list        	
 	 * @return unknown[][]|tableau[][]
 	 */
@@ -320,7 +320,7 @@ class Object extends ObjetBDD {
 	}
 	/**
 	 * Lit les objets a partir des saisies batch
-	 * 
+	 *
 	 * @param unknown $batchdata        	
 	 * @return tableau
 	 */
@@ -333,16 +333,55 @@ class Object extends ObjetBDD {
 			 */
 			$data = explode ( "\n", $batchdata );
 			/*
+			 * Requete de recherche des uid a partir de l'identifiant metier
+			 */
+			$sql = "select uid from object where upper(identifier) =  upper(:id)";
+			/*
 			 * Extraction des UID de chaque ligne scanee
 			 */
 			$uids = array ();
 			$order = "";
 			$i = 1;
 			foreach ( $data as $value ) {
+				$uid = 0;
 				$datajson = json_decode ( $value, true );
-				if ($datajson ["uid"] > 0 && $datajson ["db"] == $APPLI_code) {
-					$uids [] = $datajson ["uid"];
-					$order .= " when " . $datajson ["uid"] . " then $i";
+				if (is_array ( $datajson )) {
+					if ($datajson ["uid"] > 0 && $datajson ["db"] == $APPLI_code)
+						$uid = $datajson ["uid"];
+				} else {
+					/*
+					 * Recuperation de l'uid associe a l'identifier fourni
+					 * (resultat d'un scan base sur l'identifiant metier)
+					 */
+					$val = "";
+					if (strlen ( $value ) > 0) {
+						/*
+						 * Recherche si la chaine commence par http
+						 */
+						if (substr ( $value, 0, 4 ) == "http") {
+							/*
+							 * Extraction de la derniere valeur (apres le dernier /)
+							 */
+							$aval = explode ( '/', $value );
+							$nbElements = count ( $aval );
+							if ($nbElements > 0)
+								$val = $aval [($nbElements - 1)];
+						} else
+							/*
+							 * la chaine fournie est conservee telle quelle
+							 */
+							$val = $value;
+							 $val = trim ($val);
+						if (strlen ( $val ) > 0) {
+							$valobject = $this->lireParamAsPrepared($sql, array("id"=>$val));
+							if ($valobject ["uid"] > 0)
+								$uid = $valobject ["uid"];
+						}
+					}
+				}
+				if ($uid > 0) {
+					$uids [] = $uid;
+					$order .= " when " . $uid . " then $i";
 					$i ++;
 				}
 			}

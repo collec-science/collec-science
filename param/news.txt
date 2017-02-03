@@ -6,10 +6,12 @@ Mise à jour de la base de données nécessaire (script install/col_alter_1.0.4-
 Correction d'anomalies :
 - lors de l'attribution des droits de gestion aux projets, les groupes LDAP ou hérités n'étaient pas correctement traités
 - en entrée rapide d'échantillons, le container n'était pas correctement relu après le premier mouvement. En cas d'erreur de code, l'uid n'était pas correctement effacé
+- le modèle d'étiquettes n'était pas supprimé après génération dans le dossier temporaire, ce qui interdisait les phases de mise au point
 
 Améliorations :
 - rajout d'une table des zones de prélèvement : il est maintenant possible de rattacher un échantillon à une zone géographique définie préalablement (utilisable en recherche d'échantillons)
 - il est maintenant possible de scanner des codes-barres qui contiennent des identifiants métiers, et qui n'ont pas été générés par l'application (soit code barre 1D avec l'identifiant, soit qrcode avec l'identifiant ou une adresse http)
+- l'export csv (pour générer les étiquettes avec un logiciel tiers) comprend maintenant les coordonnées xy
 
 Documentation :
 - rajout de la procédure d'installation de PHP7 avec Debian 8

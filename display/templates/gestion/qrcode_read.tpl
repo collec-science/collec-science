@@ -46,6 +46,12 @@ $(document).ready(function() {
 					$("#"+champ+"_uid").val("");
 					$("#"+champ+"_detail").val("");
 				}
+			} else {
+				/*
+				 * vidage des champs
+				 */
+				$("#"+champ+"_uid").val("");
+				$("#"+champ+"_detail").val("");
 			}
 			/*
 			 * Reinitialisation de la zone de lecture
@@ -80,16 +86,33 @@ $(document).ready(function() {
 	var is_read = false;
 	var snd = new Audio("display/images/sound.ogg"); 
 	function readChange() {
+		/*
+		 * Lit le contenu de la zone, et declenche la recherche
+		 */
 		//console.log("destination : "+destination);
 		//console.log("valeur : "+ $("#valeur-scan").val());
 		snd.play();
 		var valeur = $("#valeur-scan").val();
-		var value = extractUidVal(valeur);
+		var firstChar = valeur.substring(0,1);
+		var value;
+		if (firstChar == "[" || firstChar == String.fromCharCode(123)) {
+		value = extractUidValFromJson(valeur);
 		$("#" + destination +"_uid").val(value);
+		} else if (valeur.substring(0,4) == "http") {
+			var elements = valeur.split("/");
+			var nbelements = elements.length ;
+			if (nbelements > 0) {
+				value = elements[nbelements - 1];
+			}
+		} else {
+			value = valeur;
+		}
 		getDetail(value, destination);
 	}
-	function extractUidVal(valeur) {
+	
+	function extractUidValFromJson(valeur) {
 		/*
+		 * Extrait le contenu de la chaine json
 		 * Transformation des [] en { }
 		 */
 		 valeur = valeur.replace("[", String.fromCharCode(123));
@@ -197,5 +220,12 @@ $(document).ready(function() {
 readEnable();
 {/if}
 showArrow("object");
+/*
+ * Declenche la recherche du container si l'uid est fourni a l'ouverture de la page
+ */
+ var cuid = $("#container_uid").val();
+if (cuid.length > 0) {
+	getDetail(cuid, "container");
+}
 });
 </script>

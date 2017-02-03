@@ -16,7 +16,6 @@ a2enmod ssl
 a2enmod headers
 a2enmod rewrite
 \end{lstlisting}
-
 \subsection{Modules PHP nécessaires}
 Modules complémentaires nécessaires :
 \begin{itemize}
@@ -37,7 +36,32 @@ Le stockage et l'affichage des photos nécessite :
 \item \textit{php-imagick} (ou \textit{php5-imagick} pour PHP5)
 \end{itemize}
 
-\subsection{Configurer antivirus}
+\subsubsection{Installer PHP7 dans une distribution Debian 8}
+Pour des questions de performance et d'obsolescence prochaine des versions 5 de PHP, il vaut mieux installer la version 7 de PHP. 
+
+Dans la distribution Debian 8, seule la version PHP5 est disponible : il faut rajouter le dépôt \textit{dotdeb} pour pouvoir récupérer la version 7.
+
+Les commandes indiquées ici sont issues du document créé par Stanislas Lange \cite{debphp7}.
+
+Ajoutez le dépôt Dotdeb :
+\begin{lstlisting}
+echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb.list
+wget -O- https://www.dotdeb.org/dotdeb.gpg | apt-key add -
+apt update
+\end{lstlisting}
+
+Supprimez php5 :
+\begin{lstlisting}
+apt-get autoremove --purge php5*
+\end{lstlisting}
+
+Installez ensuite les paquets correspondants à PHP7 :
+
+\begin{lstlisting}
+apt install php7.0 libapache2-mod-php7.0 php7.0-pgsql php7.0-curl php7.0-json php7.0-gd php7.0-mcrypt php7.0-mbstring php7.0-xml php7.0-zip php7.0-imagick php7.0-xdebug fop
+\end{lstlisting}
+
+\subsection{Configurer l'antivirus}
 Les pièces téléchargées peuvent être analysées avec l'antivirus CLAMAV \cite{clamav}. Dans un premier temps, Clamav doit être installé. Le plus simple est d'utiliser les paquetages de la distribution.
 
 Suivez les instructions du document \cite{clamavarchlinux} pour l'installation et la vérification du bon fonctionnement.
@@ -67,6 +91,8 @@ L'application ne fonctionne qu'en mode SSL, les cookies de session n'étant pas 
     !MD5:!aNULL:!EDH:!RC4
     SSLCompression off
 \end{lstlisting}
+
+(attention : pas d'espace entre \textit{Order allow} et la virgule).
 
 La chaîne \textit{SSLCipherSuite} est donnée à titre d'exemple, d'autres configurations plus modernes peuvent être implémentées. L'ANSSI a édité un document récapitulant les entêtes à utiliser \cite{tls}. Il existe également un configurateur, mis à disposition par la fondation Mozilla \cite{mozillagenerator}, qui permet de définir correctement ces paramètres en fonction du serveur et du niveau de compatibilité recherché. 
 

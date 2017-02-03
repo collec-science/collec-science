@@ -59,6 +59,7 @@
 				<th>Statut</th>
 				<th>Photo</th>
 				<th>Dernier mouvement</th>
+				<th>Lieu de prélèvement</th>
 				<th>Date</th>
 				<th>Date de création dans la base</th> {if $droits.gestion == 1}
 				<th></th> {/if}
@@ -95,6 +96,7 @@
 					</span>
 				{/if}
 				</td> 
+				<td>{$samples[lst].sampling_place_name}</td>
 				<td>{$samples[lst].sample_date}</td>
 				<td>{$samples[lst].sample_creation_date}</td> {if $droits.gestion ==
 				1}

@@ -64,23 +64,31 @@ class Object extends ObjetBDD {
 		}
 	}
 	function getDetail($uid, $is_container = 0) {
-		if (is_numeric ( $uid ) && $uid > 0) {
-			$data ["uid"] = $uid;
+		if (strlen ( $uid ) > 0) {
+			if (is_numeric ( $uid ) && $uid > 0) {
+				
+				$data ["uid"] = $uid;
+				$where = " where uid = :uid";
+			} else {
+				/*
+				 * Recherche par identifiant
+				 */
+				$data ["identifier"] = $uid;
+				$where = " where upper(identifier) = upper(:identifier)";
+			}
+			
 			$sql = "select uid, identifier, wgs84_x, wgs84_y,
 					container_type_name as type_name
 					from object 
 					join container using (uid)
-					join container_type using (container_type_id)
-					where uid = :uid";
+					join container_type using (container_type_id)" . $where;
 			if ($is_container != 1)
 				$sql .= " UNION
 					select uid, identifier, wgs84_x, wgs84_y,
 					sample_type_name as type_name
 					from object 
 					join sample using (uid)
-					join sample_type using (sample_type_id)
-					where uid = :uid
-					";
+					join sample_type using (sample_type_id)" . $where;
 			return $this->getListeParamAsPrepared ( $sql, $data );
 		}
 	}
@@ -95,7 +103,7 @@ class Object extends ObjetBDD {
 		 * Verification que la liste ne soit pas vide
 		 */
 		if (count ( $list ) > 0) {
-			$data = $this->getForList($list, "uid");
+			$data = $this->getForList ( $list, "uid" );
 			/**
 			 * Rajout des identifiants complementaires
 			 */
@@ -103,37 +111,38 @@ class Object extends ObjetBDD {
 			 * Recherche des types d'etiquettes
 			 */
 			require_once 'modules/classes/identifierType.class.php';
-			$it = new IdentifierType($this->connection, $this->param);
-			$dit = $it->getListe("identifier_type_code");
+			$it = new IdentifierType ( $this->connection, $this->param );
+			$dit = $it->getListe ( "identifier_type_code" );
 			require_once 'modules/classes/objectIdentifier.class.php';
-			$oi = new ObjectIdentifier($this->connection, $this->param);
+			$oi = new ObjectIdentifier ( $this->connection, $this->param );
 			
 			/*
 			 * Traitement de la liste
 			 */
-			foreach ($data as $key => $value) {
+			foreach ( $data as $key => $value ) {
 				/*
 				 * Recuperation de la liste des identifiants externes
 				 */
-				$doi = $oi->getListFromUid($value["uid"]);
+				$doi = $oi->getListFromUid ( $value ["uid"] );
 				/*
 				 * Transformation en tableau direct
 				 */
-				$codes = array();
-				foreach ($doi as $vdoi)
-					$codes[$vdoi["identifier_type_code"]] = $vdoi["object_identifier_value"];
-				/*
-				 * Rajout des codes 
+				$codes = array ();
+				foreach ( $doi as $vdoi )
+					$codes [$vdoi ["identifier_type_code"]] = $vdoi ["object_identifier_value"];
+					/*
+				 * Rajout des codes
 				 */
-				foreach ($dit as $vdit)
-					$data[$key][$vdit["identifier_type_code"]] = $codes[$vdit["identifier_type_code"]];
+				foreach ( $dit as $vdit )
+					$data [$key] [$vdit ["identifier_type_code"]] = $codes [$vdit ["identifier_type_code"]];
 			}
 			return $data;
 		}
 	}
 	/**
-	 * Recupere la liste des objets 
-	 * @param array $list
+	 * Recupere la liste des objets
+	 *
+	 * @param array $list        	
 	 * @return tableau
 	 */
 	function getForList(array $list, $order = "") {
@@ -151,7 +160,8 @@ class Object extends ObjetBDD {
 		}
 		$sql = "select uid, identifier, container_type_name as type_name, clp_classification as clp,
 		label_id, 'container' as object_type,
-		storage_date, movement_type_name, movement_type_id
+		storage_date, movement_type_name, movement_type_id,
+		wgs84_x as x, wgs84_y as y
 		from object
 		join container using (uid)
 		join container_type using (container_type_id)
@@ -161,7 +171,8 @@ class Object extends ObjetBDD {
 		UNION
 		select uid, identifier, sample_type_name as type_name, clp_classification as clp,
 		label_id, 'sample' as object_type,
-		storage_date, movement_type_name, movement_type_id
+		storage_date, movement_type_name, movement_type_id,
+		wgs84_x as x, wgs84_y as y
 		from object
 		join sample using (uid)
 		join sample_type using (sample_type_id)
@@ -170,16 +181,16 @@ class Object extends ObjetBDD {
 		left outer join movement_type using (movement_type_id)
 		where uid in ($uids)
 		";
-		if (strlen ($order) > 0) {
-			$sql = "select * from (".$sql.") as a";
+		if (strlen ( $order ) > 0) {
+			$sql = "select * from (" . $sql . ") as a";
 			$order = " order by $order";
 		}
-		return $this->getListeParam ( $sql.$order );
-		
+		return $this->getListeParam ( $sql . $order );
 	}
 	/**
 	 * Genere le QRCODE
-	 * @param unknown $list
+	 *
+	 * @param unknown $list        	
 	 * @return unknown[][]|tableau[][]
 	 */
 	function generateQrcode($list) {
@@ -279,7 +290,7 @@ class Object extends ObjetBDD {
 					$rowq = array ();
 					foreach ( $row as $key => $value ) {
 						
-						if (strlen ( $value ) > 0 && in_array( $key, $fields ))
+						if (strlen ( $value ) > 0 && in_array ( $key, $fields ))
 							$rowq [$key] = $value;
 					}
 					foreach ( $doi as $value ) {
@@ -290,9 +301,9 @@ class Object extends ObjetBDD {
 					 * Generation du qrcode
 					 */
 					$filename = $APPLI_temp . '/' . $rowq ["uid"] . ".png";
-					//if (! file_exists ( $filename ))
+					// if (! file_exists ( $filename ))
 					QRcode::png ( json_encode ( $rowq ), $filename );
-						
+					
 					/*
 					 * Ajout du modele d'etiquette
 					 */
@@ -311,38 +322,77 @@ class Object extends ObjetBDD {
 	}
 	/**
 	 * Lit les objets a partir des saisies batch
-	 * @param unknown $batchdata
+	 *
+	 * @param unknown $batchdata        	
 	 * @return tableau
 	 */
 	function batchRead($batchdata) {
 		global $APPLI_code;
-		if (strlen($batchdata) > 0) {
-			$batchdata = $this->encodeData($batchdata);
+		if (strlen ( $batchdata ) > 0) {
+			$batchdata = $this->encodeData ( $batchdata );
 			/*
 			 * Preparation du tableau de travail
 			 */
-			$data = explode("\n", $batchdata);
+			$data = explode ( "\n", $batchdata );
+			/*
+			 * Requete de recherche des uid a partir de l'identifiant metier
+			 */
+			$sql = "select uid from object where upper(identifier) =  upper(:id)";
 			/*
 			 * Extraction des UID de chaque ligne scanee
 			 */
-			$uids = array();
+			$uids = array ();
 			$order = "";
 			$i = 1;
-			foreach ($data as $value) {
-				$datajson = json_decode($value, true);
-				if ($datajson["uid"] > 0 && $datajson["db"] == $APPLI_code){
-					$uids [] = $datajson ["uid"];
-					$order .= " when ". $datajson["uid"]." then $i";
+			foreach ( $data as $value ) {
+				$uid = 0;
+				$datajson = json_decode ( $value, true );
+				if (is_array ( $datajson )) {
+					if ($datajson ["uid"] > 0 && $datajson ["db"] == $APPLI_code)
+						$uid = $datajson ["uid"];
+				} else {
+					/*
+					 * Recuperation de l'uid associe a l'identifier fourni
+					 * (resultat d'un scan base sur l'identifiant metier)
+					 */
+					$val = "";
+					if (strlen ( $value ) > 0) {
+						/*
+						 * Recherche si la chaine commence par http
+						 */
+						if (substr ( $value, 0, 4 ) == "http") {
+							/*
+							 * Extraction de la derniere valeur (apres le dernier /)
+							 */
+							$aval = explode ( '/', $value );
+							$nbElements = count ( $aval );
+							if ($nbElements > 0)
+								$val = $aval [($nbElements - 1)];
+						} else
+							/*
+							 * la chaine fournie est conservee telle quelle
+							 */
+							$val = $value;
+							 $val = trim ($val);
+						if (strlen ( $val ) > 0) {
+							$valobject = $this->lireParamAsPrepared($sql, array("id"=>$val));
+							if ($valobject ["uid"] > 0)
+								$uid = $valobject ["uid"];
+						}
+					}
+				}
+				if ($uid > 0) {
+					$uids [] = $uid;
+					$order .= " when " . $uid . " then $i";
 					$i ++;
 				}
 			}
-			if (count($uids) > 0){
-				$order = " case uid ".$order." end";
-				return $this->getForList($uids, "$order");
+			if (count ( $uids ) > 0) {
+				$order = " case uid " . $order . " end";
+				return $this->getForList ( $uids, "$order" );
 			}
 		}
 	}
-	
 }
 
 

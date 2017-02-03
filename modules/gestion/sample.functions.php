@@ -18,4 +18,7 @@ $vue->set( $sampleType->getListe(2), "sample_type");
 require_once 'modules/classes/objectStatus.class.php';
 $objectStatus = new ObjectStatus($bdd, $ObjetBDDParam);
 $vue->set($objectStatus->getListe(1), "objectStatus");
+require_once 'modules/classes/samplingPlace.class.php';
+$samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
+$vue->set($samplingPlace->getListe(1), "samplingPlace");
 ?>

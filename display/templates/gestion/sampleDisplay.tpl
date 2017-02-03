@@ -84,6 +84,12 @@ clp : {$data.clp_classification}
 <dt>Statut :</dt>
 <dd>{$data.object_status_name}</dd>
 </dl>
+{if $data.sampling_place_id > 0}
+<dl class="dl-horizontal">
+<dt>Lieu de prélèvement :</dt>
+<dd>{$data.sampling_place_name}</dd>
+</dl>
+{/if}
 <dl class="dl-horizontal">
 <dt title="Date de création de l'échantillon">Date de création de l'échantillon :</dt>
 <dd>{$data.sample_date}</dd>

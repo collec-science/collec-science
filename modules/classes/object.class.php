@@ -160,7 +160,8 @@ class Object extends ObjetBDD {
 		}
 		$sql = "select uid, identifier, container_type_name as type_name, clp_classification as clp,
 		label_id, 'container' as object_type,
-		storage_date, movement_type_name, movement_type_id
+		storage_date, movement_type_name, movement_type_id,
+		wgs84_x as x, wgs84_y as y
 		from object
 		join container using (uid)
 		join container_type using (container_type_id)
@@ -170,7 +171,8 @@ class Object extends ObjetBDD {
 		UNION
 		select uid, identifier, sample_type_name as type_name, clp_classification as clp,
 		label_id, 'sample' as object_type,
-		storage_date, movement_type_name, movement_type_id
+		storage_date, movement_type_name, movement_type_id,
+		wgs84_x as x, wgs84_y as y
 		from object
 		join sample using (uid)
 		join sample_type using (sample_type_id)

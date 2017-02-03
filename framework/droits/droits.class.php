@@ -401,7 +401,7 @@ class Aclgroup extends ObjetBDD {
 	function getParentGroups($id) {
 		$data = array ();
 		if ($id > 0) {
-			$sql = "select aclgroup_id, aclgroup_id_parent from " . $this->table . "
+			$sql = "select aclgroup_id, aclgroup_id_parent, groupe from aclgroup
 					where aclgroup_id = " . $id;
 			$data = $this->getListeParam ( $sql );
 			foreach ( $data as $key => $value ) {

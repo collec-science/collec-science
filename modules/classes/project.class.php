@@ -68,16 +68,17 @@ class Project extends ObjetBDD {
 			$comma = false;
 			$in = "(";
 			foreach ( $groups as $value ) {
-				if ($value ["aclgroup_id"] > 0) {
+				if (strlen($value ["groupe"]) > 0) {
 					$comma == true ? $in .= ", " : $comma = true;
-					$in .= $value ["aclgroup_id"];
+					$in .= "'".$value ["groupe"]."'";
 				}
 			}
 			$in .= ")";
 			$sql = "select distinct project_id, project_name
 					from project
 					join project_group using (project_id)
-					where aclgroup_id in $in";
+					join aclgroup using (aclgroup_id)
+					where groupe in $in";
 			$order = " order by project_name";
 			return $this->getListeParam ( $sql . $order );
 		} else

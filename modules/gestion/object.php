@@ -97,6 +97,11 @@ switch ($t_module ["param"]) {
 		foreach ($data as $value) {
 			unlink($APPLI_temp."/".$value["uid"].".png");
 		}
+		/*
+		 * suppression du modele d'etiquette (sinon, impossible de mettre au point un 
+		 * nouveau modele ou de prendre en compte les modifications)
+		 */
+		unlink($xslfile);
 		break;
 	case "exportCSV" :
 		$data = $dataClass->getForPrint ( $_REQUEST ["uid"] );

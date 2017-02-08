@@ -1,5 +1,9 @@
 News
 ===========
+Version 1.0.5a du 08/02/2017
+----------------------------
+Correction d'un bug empêchant la suppression d'un container
+
 Version 1.0.5 du 02/02/2017
 ---------------------------
 Mise à jour de la base de données nécessaire (script install/col_alter_1.0.4-1.0.5.sql)

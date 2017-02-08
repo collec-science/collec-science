@@ -134,7 +134,7 @@ switch ($t_module ["param"]) {
 		require_once 'modules/classes/storage.class.php';
 		$storage = new Storage ( $bdd, $ObjetBDDParam );
 		try {
-			$nb = $storage->getNbFromControler($id);
+			$nb = $storage->getNbFromContainer($id);
 		} catch (Exception $e){
 			$nb = 0;
 		}

@@ -199,9 +199,11 @@ class Storage extends ObjetBDD {
 	 * 
 	 * @param int $id        	
 	 */
-	function getNbFromControler($id) {
-		$sql = "select count (*) as nombre from storage where controler_id = :controler_id";
-		$data ["controler_id"] = $id;
+	function getNbFromContainer($uid) {
+		$sql = "select count (*) as nombre from container c
+				join storage using (container_id)
+				where c.uid = :uid";
+		$data ["uid"] = $uid;
 		$result = $this->lireParamAsPrepared ( $sql, $data );
 		return $result ["nombre"];
 	}

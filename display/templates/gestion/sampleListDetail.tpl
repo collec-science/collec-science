@@ -70,7 +70,11 @@
 			<tr>
 				<td class="text-center"><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
-					title="Consultez le détail"> {$samples[lst].uid} </a></td>
+					title="Consultez le détail"> {$samples[lst].uid} </a>
+					{if strlen($samples[lst].dbuid_origin) > 0}
+					<br>{$samples[lst].dbuid_origin}
+					{/if}
+					</td>
 				<td><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
 					title="Consultez le détail"> {$samples[lst].identifier} </a></td>

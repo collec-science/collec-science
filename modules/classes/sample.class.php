@@ -12,7 +12,7 @@ class Sample extends ObjetBDD {
 	 * @param array $param        	
 	 */
 	private $sql = "select s.sample_id, s.uid,
-					s.project_id, project_name, s.sample_type_id,
+					s.project_id, project_name, s.sample_type_id, s.dbuid_origin,
 					sample_type_name, s.sample_creation_date, s.sample_date, s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
 					so.identifier, so.wgs84_x, so.wgs84_y, 
@@ -80,7 +80,8 @@ class Sample extends ObjetBDD {
 				),
 				"sampling_place_id" => array (
 						"type" => 1 
-				) 
+				),
+				"dbuid_origin" => array("type"=>0)
 		);
 		parent::__construct ( $bdd, $param );
 	}

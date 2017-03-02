@@ -55,6 +55,14 @@ Nouvel échantillon
 <dt>UID et référence :</dt>
 <dd>{$data.uid} {$data.identifier}</dd>
 </dl>
+
+{if strlen($data.dbuid_origin) > 0}
+<dl class="dl-horizontal">
+<dt>DB et UID d'origine :</dt>
+<dd>{$data.dbuid_origin}</dd>
+</dl>
+{/if}
+
 <dl class="dl-horizontal">
 <dt>Projet :</dt>
 <dd>{$data.project_name}</dd>

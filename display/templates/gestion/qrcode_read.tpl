@@ -124,7 +124,7 @@ $(document).ready(function() {
 		if (data["db"] == db) {
 			return data["uid"];	
 		} else {
-			return "";
+			return data["db"]+":"+data["uid"];
 		}
 		
 		/*
@@ -177,11 +177,13 @@ $(document).ready(function() {
 	$('#destContainer').click(function() {
 		destination = "container";
 		showArrow("container");
+		$("#valeur-scan").val("");
 		$("#valeur-scan").focus();
 	} );
 	$('#destObject').click(function() {
 		destination = "object";
 		showArrow("object");
+		$("#valeur-scan").val("");
 		$("#valeur-scan").focus();
 	} );
 	

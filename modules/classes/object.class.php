@@ -71,7 +71,7 @@ class Object extends ObjetBDD {
 				$where = " where uid = :uid";
 			} else {
 				/*
-				 * Recherche par identifiant
+				 * Recherche par identifiant ou par uid parent
 				 */
 				$data ["identifier"] = $uid;
 				$where = " where upper(identifier) = upper(:identifier)";
@@ -82,13 +82,16 @@ class Object extends ObjetBDD {
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)" . $where;
-			if ($is_container != 1)
+			if ($is_container != 1) {
+				if (!is_numeric($uid))
+						$where .= " or upper(dbuid_origin) = upper(:identifier)";
 				$sql .= " UNION
 					select uid, identifier, wgs84_x, wgs84_y,
 					sample_type_name as type_name
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)" . $where;
+			}
 			return $this->getListeParamAsPrepared ( $sql, $data );
 		}
 	}

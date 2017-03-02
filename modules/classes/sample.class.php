@@ -220,10 +220,12 @@ class Sample extends ObjetBDD {
 				$data ["uid"] = $param ["name"];
 				$or = " or ";
 			}
-			$identifier = "%" . strtoupper ( $this->encodeData ( $param ["name"] ) ) . "%";
-			$where .= "$or upper(so.identifier) like :identifier ";
+			$name = $this->encodeData ( $param ["name"] );
+			$identifier = "%" . strtoupper ( $name ) . "%";
+			$where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
 			$and = " and ";
 			$data ["identifier"] = $identifier;
+			$data["dbuid_origin"] = $name;
 			/*
 			 * Recherche sur les identifiants externes
 			 * possibilite de recherche sur cab:valeur, p. e.

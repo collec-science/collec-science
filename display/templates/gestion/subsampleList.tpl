@@ -25,7 +25,7 @@
 {/if}
 <tr>
 <td>
-<a href="index.php?module=subsampleChange&subsample_id={$subsample[lst].subsample_id}&sample_id={$subsample[lst].sample_id}&uid={$data._uid}">
+<a href="index.php?module=subsampleChange&subsample_id={$subsample[lst].subsample_id}&sample_id={$subsample[lst].sample_id}&uid={$data.uid}">
 {$subsample[lst].subsample_date}
 </td>
 <td>

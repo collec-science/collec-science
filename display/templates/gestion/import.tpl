@@ -34,10 +34,11 @@ Pour les identifiants complémentaires :
 <br>
 L'import sera réalisé ainsi :
 <ol>
-<li>si sample_identifier est renseigné : création de l'échantillon</li>
-<li>si container_identifier est renseigné : création du container</li>
-<li>si container_parent_uid est renseigné : création du mouvement d'entrée du container</li>
+<li>si <i>sample_identifier</i> est renseigné : création de l'échantillon</li>
+<li>si <i>container_identifier</i> est renseigné : création du container</li>
+<li>si <i>container_identifier</i> et <i>container_parent_uid</i> sont renseignés : création du mouvement d'entrée du container</li>
 <li>si l'échantillon et le container ont été créés, création du mouvement d'entrée de l'échantillon dans le container</li>
+<li>si l'échantillon est créé, que <i>container_parent_uid</i> est renseigné, et que <i>container_identifier</i> n'est pas rempli, création du mouvement d'entrée de l'échantillon dans le container indiqué</li>
 </ol>
 </div>
 </div>

@@ -89,7 +89,10 @@ switch ($t_module ["param"]) {
 					$message->set ("Premier UID généré : ".$import->minuid);
 					$message->set ("Dernier UID généré : ". $import->maxuid);
 					$module_coderetour = 1;
-				} catch ( Exception $e ) {
+				} catch (ImportException $ie) {
+					$message->set ($ie->getMessage());
+				}
+				catch ( Exception $e ) {
 					$message->set(  $e->getMessage ());
 				}
 			}

@@ -53,7 +53,7 @@ switch ($t_module["param"]) {
 		break;
 	case 'changePasswordExec':
 		$ret = $dataClass->changePassword($_REQUEST["oldPassword"], $_REQUEST["pass1"], $_REQUEST["pass2"]);
-		if ($ret < 1) $module_coderetour = -1;
+		$ret < 1 ? $module_coderetour = -1 : $module_coderetour = 1;
 		$message->set( $dataClass->getErrorData(1));
 		break;
 }

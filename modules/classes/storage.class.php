@@ -168,16 +168,18 @@ class Storage extends ObjetBDD {
 		$range = $this->encodeData ( $range );
 		$comment = $this->encodeData ( $comment );
 		$storage_reason_id = $this->encodeData ( $storage_reason_id );
-		/*
-		 * Recherche de container_id a partir de uid
-		 */
-		$container = new Container ( $this->connection, $this->param );
-		$container_id = $container->getIdFromUid ( $container_uid );
-		if ($container_id > 0) {
-			$data ["container_id"] = $container_id;
-		} else {
-			$message .= "Pas de container correspondant à l'UID " . $container_uid.". ";
-			$controle = false;
+		if ($type == 1) {
+			/*
+			 * Recherche de container_id a partir de uid
+			 */
+			$container = new Container ( $this->connection, $this->param );
+			$container_id = $container->getIdFromUid ( $container_uid );
+			if ($container_id > 0) {
+				$data ["container_id"] = $container_id;
+			} else {
+				$message .= "Pas de container correspondant à l'UID " . $container_uid . ". ";
+				$controle = false;
+			}
 		}
 		if ($controle) {
 			$data ["uid"] = $uid;

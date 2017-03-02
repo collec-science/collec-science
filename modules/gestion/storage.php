@@ -130,6 +130,7 @@ switch ($t_module ["param"]) {
 			$message->set ( $LANG ["message"] [5] );
 			$module_coderetour = 1;
 		} catch ( Exception $e ) {
+			$message->setSyslog($e->getMessage());
 			$message->set ( $LANG ["appli"] [6] );
 			$module_coderetour = - 1;
 		}

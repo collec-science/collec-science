@@ -12,13 +12,13 @@ Il n'accepte que des fichiers au format CSV. La ligne d'entête doit comprendre 
 <li><b>sample_type_id</b> : le numéro informatique du type d'échantillon (obligatoire)</li>
 <li><b>sample_status_id</b> : le numéro du statut de l'échantillon</li>
 <li><b>sample_date</b> : la date de création de l'échantillon, au format dd/mm/yyyy</li>
-<li><b>sample_range</b> : l'emplacement de rangement de l'échantillon dans le container</li>
+<li><b>sample_location</b> : l'emplacement de rangement de l'échantillon dans le container</li>
 <li><b>sample_multiple_value</b> : le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
 si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point)</li>
 <li><b>container_identifier</b> : l'identifiant du container (obligatoire)</li>
 <li><b>container_type_id</b> : le numéro informatique du type de container (obligatoire)</li>
 <li><b>container_status_id</b> : le numéro informatique du statut du container</li>
-<li><b>container_range</b> : l'emplacement de rangement du container dans son parent</li>
+<li><b>container_location</b> : l'emplacement de rangement du container dans son parent</li>
 <li><b>container_parent_uid</b> : l'UID du container parent</li>
 </ul>
 Les codes informatiques peuvent être consultés à partir du menu <i>Paramètres</i>.
@@ -34,10 +34,11 @@ Pour les identifiants complémentaires :
 <br>
 L'import sera réalisé ainsi :
 <ol>
-<li>si sample_identifier est renseigné : création de l'échantillon</li>
-<li>si container_identifier est renseigné : création du container</li>
-<li>si container_parent_uid est renseigné : création du mouvement d'entrée du container</li>
+<li>si <i>sample_identifier</i> est renseigné : création de l'échantillon</li>
+<li>si <i>container_identifier</i> est renseigné : création du container</li>
+<li>si <i>container_identifier</i> et <i>container_parent_uid</i> sont renseignés : création du mouvement d'entrée du container</li>
 <li>si l'échantillon et le container ont été créés, création du mouvement d'entrée de l'échantillon dans le container</li>
+<li>si l'échantillon est créé, que <i>container_parent_uid</i> est renseigné, et que <i>container_identifier</i> n'est pas rempli, création du mouvement d'entrée de l'échantillon dans le container indiqué</li>
 </ol>
 </div>
 </div>

@@ -116,7 +116,7 @@ $LANG["message"][19] = "Valider";
 $LANG["message"][20] = "Supprimer";
 $LANG["message"][21] = "Rechercher";
 $LANG["message"][22] = "Echec de connexion à la base de données principale";
-$LANG["message"][23] = "Copyright (c) 2016 - Tous droits réservés. Auteur : Éric Quinton, pour IRSTEA - Logiciel diffusé sous licence AGPL";
+$LANG["message"][23] = "Copyright (c) 2016-2017 - Tous droits réservés. Auteur : Éric Quinton, pour IRSTEA - Logiciel diffusé sous licence AGPL";
 $LANG["message"][24] = "Logiciel diffusé sous licence AGPL.";
 $LANG["message"][25] = "Pour tout problème : ";
 $LANG["message"][26] = "Vous n'avez pas accès à cette fonction. Veuillez vous identifier, le cas échéant...";
@@ -205,7 +205,7 @@ $LANG["appli"][1] = "Retour à la liste";
 $LANG["appli"][2] = "Choisissez...";
 $LANG["appli"][3] = "Le conteneur n'a pas été renseigné";
 $LANG["appli"][4] = "Vous ne disposez pas des droits pour modifier cet échantillon";
-$LANG["appli"][5] = "Les contrôles de cohérence ne permettent pas d'enregister le mouvement demandé";
+$LANG["appli"][5] = "Les contrôles de cohérence ne permettent pas d'enregister le mouvement demandé. ";
 $LANG["appli"][6] = "Impossible d'enregistrer le mouvement";
 
 

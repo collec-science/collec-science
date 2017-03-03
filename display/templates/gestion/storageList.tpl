@@ -30,7 +30,7 @@
 {/if}
 </td>
 <td>
-{$storages[lst].range}
+{$storages[lst].storage_location}
 </td>
 <td>
 {$storages[lst].storage_reason_name}

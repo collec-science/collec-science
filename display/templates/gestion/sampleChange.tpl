@@ -81,6 +81,14 @@ Retour à la liste des échantillons
 </div>
 
 <div class="form-group">
+<label for="dbuid_origin" class="control-label col-md-4">Base de données et UID d'origine :</label>
+<div class="col-md-8">
+<input id="dbuid_origin" class="form-control" name="dbuid_origin" value="{$data.dbuid_origin}" placeholder="db:uid. Exemple: col:125">
+</div>
+</div>
+
+
+<div class="form-group">
 <label for="sampling_place_id" class="control-label col-md-4">Lieu de prélèvement :</label>
 <div class="col-md-8">
 <select id="sampling_place_id" name="sampling_place_id" class="form-control">
@@ -105,7 +113,7 @@ Sélectionnez...
 <div class="form-group">
 <label for="sample_creation_date"  class="control-label col-md-4">Date d'import dans la base de données :</label>
 <div class="col-md-8">
-<input id="sample_creation_date" class="form-control" name="sample_creation_date" readonly value="{$data.sample_date}"></div>
+<input id="sample_creation_date" class="form-control" name="sample_creation_date" readonly value="{$data.sample_creation_date}"></div>
 </div>
 <fieldset>
 <legend>Sous-échantillonnage (si le type le permet)</legend>

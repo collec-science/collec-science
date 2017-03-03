@@ -13,7 +13,7 @@ class Storage extends ObjetBDD {
 	 * @param array $param        	
 	 */
 	private $sql = "select s.uid, container_id, movement_type_id, movement_type_name,
-					storage_date, range, login, storage_comment,
+					storage_date, storage_location, login, storage_comment,
 					identifier, o.uid as parent_uid, o.identifier as parent_identifier,
 					container_type_id, container_type_name,
 					storage_reason_id, storage_reason_name
@@ -47,8 +47,8 @@ class Storage extends ObjetBDD {
 						"type" => 1,
 						"requis" => 1 
 				),
-				"storage_reason_id" => array(
-						"type"=>1
+				"storage_reason_id" => array (
+						"type" => 1 
 				),
 				"storage_date" => array (
 						"type" => 3,
@@ -58,7 +58,7 @@ class Storage extends ObjetBDD {
 						"requis" => 1,
 						"defaultValue" => "getLogin" 
 				),
-				"range" => array (
+				"storage_location" => array (
 						"type" => 0 
 				),
 				"storage_comment" => array (
@@ -94,7 +94,7 @@ class Storage extends ObjetBDD {
 	}
 	/**
 	 * Retourne la liste de tous les containers parents
-	 * 
+	 *
 	 * @param int $uid        	
 	 * @throws Exception
 	 * @return array
@@ -132,17 +132,17 @@ class Storage extends ObjetBDD {
 	
 	/**
 	 * Fonction generique permettant de rajouter des mouvements
-	 * 
+	 *
 	 * @param int $uid        	
 	 * @param timestamp $date        	
 	 * @param int $type        	
 	 * @param number $container_uid        	
 	 * @param varchar $login        	
-	 * @param varchar $range        	
+	 * @param varchar $storage_location        	
 	 * @param varchar $comment        	
 	 * @return Identifier
 	 */
-	function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $range = null, $comment = null, $storage_reason_id = null) {
+	function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $storage_location = null, $comment = null, $storage_reason_id = null) {
 		global $LANG;
 		/*
 		 * Verifications
@@ -153,7 +153,7 @@ class Storage extends ObjetBDD {
 			$controle = false;
 		if ($uid == $container_uid) {
 			$controle = false;
-			$message = "Création du mouvement impossible : le numéro de l'objet est égal au numéro du conteneur";
+			$message .= "Création du mouvement impossible : le numéro de l'objet est égal au numéro du conteneur. ";
 		}
 		$date = $this->encodeData ( $date );
 		if (strlen ( $date ) == 0)
@@ -165,29 +165,35 @@ class Storage extends ObjetBDD {
 			$controle = false;
 		if (strlen ( $login ) == 0)
 			strlen ( $_SESSION ["login"] ) > 0 ? $login = $_SESSION ["login"] : $controle = false;
-		$range = $this->encodeData ( $range );
+		$storage_location = $this->encodeData ( $storage_location );
 		$comment = $this->encodeData ( $comment );
-		$storage_reason_id = $this->encodeData ($storage_reason_id);
-		if ($controle) {
-			$data ["uid"] = $uid;
-			$data ["storage_date"] = $date;
-			$data ["movement_type_id"] = $type;
-			$data ["login"] = $login;
-			$data["storage_reason_id"] = $storage_reason_id;
+		$storage_reason_id = $this->encodeData ( $storage_reason_id );
+		if ($type == 1) {
 			/*
 			 * Recherche de container_id a partir de uid
 			 */
 			$container = new Container ( $this->connection, $this->param );
 			$container_id = $container->getIdFromUid ( $container_uid );
-			if ($container_id > 0)
+			if ($container_id > 0) {
 				$data ["container_id"] = $container_id;
-			if (strlen ( $range ) > 0)
-				$data ["range"] = $range;
+			} else {
+				$message .= "Pas de container correspondant à l'UID " . $container_uid . ". ";
+				$controle = false;
+			}
+		}
+		if ($controle) {
+			$data ["uid"] = $uid;
+			$data ["storage_date"] = $date;
+			$data ["movement_type_id"] = $type;
+			$data ["login"] = $login;
+			$data ["storage_reason_id"] = $storage_reason_id;
+			
+			if (strlen ( $storage_location ) > 0)
+				$data ["storage_location"] = $storage_location;
 			if (strlen ( $comment ) > 0)
 				$data ["storage_comment"] = $comment;
 			return $this->ecrire ( $data );
-		} 		
-		else
+		} else
 			/*
 			 * Gestion des erreurs
 			 */
@@ -196,7 +202,7 @@ class Storage extends ObjetBDD {
 	
 	/**
 	 * Retourne le nombre de mouvements impliques dans le controleur fourni
-	 * 
+	 *
 	 * @param int $id        	
 	 */
 	function getNbFromContainer($uid) {

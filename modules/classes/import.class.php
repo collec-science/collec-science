@@ -40,9 +40,9 @@ class Import {
 			"container_identifier",
 			"container_type_id",
 			"container_status_id",
-			"sample_range",
+			"sample_location",
 			"container_parent_uid",
-			"container_range" 
+			"container_location" 
 	);
 	private $colnum = array (
 			"sample_multiple_value" 
@@ -79,7 +79,7 @@ class Import {
 		 * Ouverture du fichier
 		 */
 		if ($this->handle = fopen ( $filename, 'r' )) {
-			$this->initIdentifiers();
+			$this->initIdentifiers ();
 			/*
 			 * Lecture de la premiere ligne et affectation des colonnes
 			 */
@@ -187,7 +187,7 @@ class Import {
 									"object_identifier_id" => 0,
 									"uid" => $sample_uid,
 									"identifier_type_id" => $typeid,
-									"object_identifier_value" => $values[$idcode]
+									"object_identifier_value" => $values [$idcode] 
 							);
 							$oi->ecrire ( $dataCode );
 						}
@@ -223,7 +223,7 @@ class Import {
 							$dataCode = array (
 									"object_identifier_id" => 0,
 									"uid" => $sample_uid,
-									"identifier_type_id" => $typeid
+									"identifier_type_id" => $typeid 
 							);
 							$oi->ecrire ( $dataCode );
 						}
@@ -243,7 +243,7 @@ class Import {
 				 */
 				if (strlen ( $values ["container_parent_uid"] ) > 0) {
 					try {
-						$this->storage->addMovement ( $container_uid, $date, 1, $values ["container_parent_uid"], $_SESSION ["login"], $values ["container_range"] );
+						$this->storage->addMovement ( $container_uid, $date, 1, $values ["container_parent_uid"], $_SESSION ["login"], $values ["container_location"] );
 					} catch ( Exception $e ) {
 						throw new ImportException ( "Line $num : error when create input movement for container<br>" . $e->getMessage () );
 					}
@@ -254,7 +254,17 @@ class Import {
 			 */
 			if ($sample_uid > 0 && $container_uid > 0) {
 				try {
-					$this->storage->addMovement ( $sample_uid, $date, 1, $container_uid, $_SESSION ["login"], $values ["sample_range"] );
+					$this->storage->addMovement ( $sample_uid, $date, 1, $container_uid, $_SESSION ["login"], $values ["sample_location"] );
+				} catch ( Exception $e ) {
+					throw new ImportException ( "Line $num : error when create input movement for sample (" . $e->getMessage () + ")" );
+				}
+			}
+			if ($values ["container_parent_uid"] && $sample_uid > 0 && ! ($container_uid > 0)) {
+				/*
+				 * Creation du mouvement d'entree de l'echantillon dans le container
+				 */
+				try {
+					$this->storage->addMovement ( $sample_uid, $date, 1, $values ["container_parent_uid"], $_SESSION ["login"], $values ["sample_location"] );
 				} catch ( Exception $e ) {
 					throw new ImportException ( "Line $num : error when create input movement for sample (" . $e->getMessage () + ")" );
 				}
@@ -410,17 +420,18 @@ class Import {
 					$retour ["message"] .= "Le statut du container n'est pas connu. ";
 				}
 			}
-			/*
-			 * Verification de l'uid du container parent
-			 */
-			if (strlen ( $data ["container_parent_uid"] ) > 0) {
-				$container_id = $this->container->getIdFromUid ( $data ["container_parent_uid"] );
-				if (! $container_id > 0) {
-					$retour ["code"] = false;
-					$retour ["message"] .= "L'UID du conteneur parent n'existe pas. ";
-				}
+		}
+		/*
+		 * Verification de l'uid du container parent
+		 */
+		if (strlen ( $data ["container_parent_uid"] ) > 0) {
+			$container_id = $this->container->getIdFromUid ( $data ["container_parent_uid"] );
+			if (! $container_id > 0) {
+				$retour ["code"] = false;
+				$retour ["message"] .= "L'UID du conteneur parent (".$data["container_parent_uid"].") n'existe pas. ";
 			}
 		}
+		
 		/*
 		 * Verification des champs numeriques
 		 */

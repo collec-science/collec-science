@@ -92,13 +92,13 @@ $(document).ready(function() {
 		//console.log("destination : "+destination);
 		//console.log("valeur : "+ $("#valeur-scan").val());
 		snd.play();
-		var valeur = $("#valeur-scan").val();
+		var valeur = $("#valeur-scan").val().trim();
 		var firstChar = valeur.substring(0,1);
 		var value;
 		if (firstChar == "[" || firstChar == String.fromCharCode(123)) {
 		value = extractUidValFromJson(valeur);
 		$("#" + destination +"_uid").val(value);
-		} else if (valeur.substring(0,4) == "http") {
+		} else if (valeur.substring(0,4) == "http" || valeur.substring(0,3) == "htp") {
 			var elements = valeur.split("/");
 			var nbelements = elements.length ;
 			if (nbelements > 0) {
@@ -124,7 +124,7 @@ $(document).ready(function() {
 		if (data["db"] == db) {
 			return data["uid"];	
 		} else {
-			return "";
+			return data["db"]+":"+data["uid"];
 		}
 		
 		/*
@@ -177,11 +177,13 @@ $(document).ready(function() {
 	$('#destContainer').click(function() {
 		destination = "container";
 		showArrow("container");
+		$("#valeur-scan").val("");
 		$("#valeur-scan").focus();
 	} );
 	$('#destObject').click(function() {
 		destination = "object";
 		showArrow("object");
+		$("#valeur-scan").val("");
 		$("#valeur-scan").focus();
 	} );
 	

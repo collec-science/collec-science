@@ -13,7 +13,7 @@
 	<loginWrite action="framework/identification/login.php" param="write" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange" />
 	<loginDelete action="framework/identification/login.php" param="delete" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange"/>
 	<loginChangePassword action="framework/identification/login.php" param="changePassword" loginrequis="1"  type="smarty" />
-	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" modulebefore="loginChangePassword" />
+	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" retourok="default" modulebefore="loginChangePassword" />
 
 	<administration action="modules/administration/index.php" droits="admin"
 		retourko="" retourok="" retournull="" droitko="droitko" type="smarty" ></administration>
@@ -101,6 +101,7 @@
 	<containerWrite action="modules/gestion/container.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
 	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion" retourok="containerList" retourko="containerChange"  modulebefore="containerChange"/>
 	<containerGetFromType action="modules/gestion/container.php" param="getFromType" droits="consult"  type="ajax" />
+	<containerGetFromUid action="modules/gestion/container.php" param="getFromUid" droits="consult"  type="ajax" />
 
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />

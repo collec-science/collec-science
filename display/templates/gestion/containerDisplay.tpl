@@ -14,17 +14,16 @@ Nouveau conteneur
 </a>
 
 <!-- Entrée ou sortie -->
-{if count($parents) > 0}
-<span id="output">
-<a href="index.php?module=storagecontainerOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir le conteneur du stock">
-<img src="display/images/output.png" height="25">Sortie</a></span>
-{else}
 <span id="input">
 <a href="index.php?module=storagecontainerInput&storage_id=0&uid={$data.uid}" id="input" title="Entrée le conteneur dans le stock">
 <img src="display/images/input.png" height="25">Entrée
 </a>
 </span>
-{/if}
+
+<span id="output">
+<a href="index.php?module=storagecontainerOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir le conteneur du stock">
+<img src="display/images/output.png" height="25">Sortie</a></span>
+
 {/if}
 &nbsp;
 <a href="#conteneurs">

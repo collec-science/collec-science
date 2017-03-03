@@ -15,17 +15,16 @@ Nouvel échantillon
 </a>
 {/if}
 <!-- Entrée ou sortie -->
-{if count($parents) > 0}
-<span id="output">
-<a href="index.php?module=storagesampleOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir l'échantillon du stock">
-<img src="display/images/output.png" height="25">Sortie</a></span>
-{else}
 <span id="input">
 <a href="index.php?module=storagesampleInput&storage_id=0&uid={$data.uid}" id="input" title="Entrer l'échantillon dans le stock">
 <img src="display/images/input.png" height="25">Entrée
 </a>
 </span>
-{/if}
+
+<span id="output">
+<a href="index.php?module=storagesampleOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir l'échantillon du stock">
+<img src="display/images/output.png" height="25">Sortie</a></span>
+
 {/if}
 &nbsp;
 <a href="#echantillons">
@@ -56,6 +55,14 @@ Nouvel échantillon
 <dt>UID et référence :</dt>
 <dd>{$data.uid} {$data.identifier}</dd>
 </dl>
+
+{if strlen($data.dbuid_origin) > 0}
+<dl class="dl-horizontal">
+<dt>DB et UID d'origine :</dt>
+<dd>{$data.dbuid_origin}</dd>
+</dl>
+{/if}
+
 <dl class="dl-horizontal">
 <dt>Projet :</dt>
 <dd>{$data.project_name}</dd>

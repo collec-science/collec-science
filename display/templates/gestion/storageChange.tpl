@@ -42,7 +42,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 					$("#container_id").val(data[i].container_id);
 					$("#container_uid").val(data[i].uid);
 				}
-			    options += '>' + data[i].uid + " " + data[i].identifier + "("+data[i].container_status_name + ")</option>";
+			    options += '>' + data[i].uid + " " + data[i].identifier + " ("+data[i].object_status_name + ")</option>";
 			}
 			$("#containers").html(options);
 			}
@@ -77,6 +77,24 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 			event.preventDefault();
 		}
 	});
+	
+	/*
+	 * Recherche du libelle du container en saisie directe
+	 */
+	 $("#container_uid").change(function () { 
+			var url = "index.php";
+			var uid = $(this).val();
+			console.log ("Recherche container - uid : "+uid);
+			$.getJSON ( url, { "module":"containerGetFromUid", "uid":uid } , function( data ) {
+				if (data != null) {
+				console.log ("data is not null");
+				var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " ("+data.object_status_name + ")</option>";
+				$("#container_id").val(data.container_id);
+				$("#containers").html(options);
+				}
+				});
+
+	 });
 	 
 });
 
@@ -112,7 +130,7 @@ Retour au détail
 <fieldset>
 <legend>Rangé dans :</legend>
 <div class="form-group">
-<label for="container_id" class="control-label col-md-4">UID du conteneur :<span class="red">*</span> :</label>
+<label for="container_uid" class="control-label col-md-4">UID du conteneur :<span class="red">*</span> :</label>
 <div class="col-md-8">
 <input id="container_uid" name="container_uid" value="{$data.container_uid}" type="number" class="form-control">
 </div>
@@ -149,9 +167,9 @@ Retour au détail
 </div>
 {if $data.movement_type_id == 1}
 <div class="form-group">
-<label for="range" class="control-label col-md-4">Emplacement dans le conteneur :</label>
+<label for="storage_location" class="control-label col-md-4">Emplacement dans le conteneur :</label>
 <div class="col-md-8">
-<input id="range" name="range" value="{$data.range}" type="text" class="form-control">
+<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 </div>
 </div>
 {/if}

@@ -71,7 +71,7 @@ class Object extends ObjetBDD {
 				$where = " where uid = :uid";
 			} else {
 				/*
-				 * Recherche par identifiant
+				 * Recherche par identifiant ou par uid parent
 				 */
 				$data ["identifier"] = $uid;
 				$where = " where upper(identifier) = upper(:identifier)";
@@ -82,13 +82,16 @@ class Object extends ObjetBDD {
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)" . $where;
-			if ($is_container != 1)
+			if ($is_container != 1) {
+				if (!is_numeric($uid))
+						$where .= " or upper(dbuid_origin) = upper(:identifier)";
 				$sql .= " UNION
 					select uid, identifier, wgs84_x, wgs84_y,
 					sample_type_name as type_name
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)" . $where;
+			}
 			return $this->getListeParamAsPrepared ( $sql, $data );
 		}
 	}
@@ -346,6 +349,10 @@ class Object extends ObjetBDD {
 			$i = 1;
 			foreach ( $data as $value ) {
 				$uid = 0;
+				/*
+				 * Suppression des espaces
+				 */
+				$value = trim($value, " \t\n\r");
 				$datajson = json_decode ( $value, true );
 				if (is_array ( $datajson )) {
 					if ($datajson ["uid"] > 0 && $datajson ["db"] == $APPLI_code)
@@ -360,7 +367,7 @@ class Object extends ObjetBDD {
 						/*
 						 * Recherche si la chaine commence par http
 						 */
-						if (substr ( $value, 0, 4 ) == "http") {
+						if (substr ( $value, 0, 4 ) == "http" || substr($value,0,3) == "htp") {
 							/*
 							 * Extraction de la derniere valeur (apres le dernier /)
 							 */

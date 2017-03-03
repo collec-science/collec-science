@@ -48,7 +48,7 @@
 	</div>
 	{/if}
 	<table id="containerList"
-		class="table table-bordered table-hover datatable-nopaging ">
+		class="table table-bordered table-hover datatable-export ">
 		<thead>
 			<tr>
 				<th>UID</th>
@@ -57,6 +57,7 @@
 				<th>Projet</th>
 				<th>Type</th>
 				<th>Statut</th>
+				<th>Parent</th>
 				<th>Photo</th>
 				<th>Dernier mouvement</th>
 				<th>Lieu de prélèvement</th>
@@ -82,6 +83,12 @@
 				<td>{$samples[lst].project_name}</td>
 				<td>{$samples[lst].sample_type_name}</td>
 				<td>{$samples[lst].object_status_name}</td>
+				<td>{if strlen($samples[lst].parent_uid) > 0}
+				<a href="index.php?module=sampleDisplay&uid={$samples[lst].parent_uid}">
+				{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}
+				</a>
+				{/if}
+				</td>
 				<td class="center">{if $samples[lst].document_id > 0} <a
 					class="image-popup-no-margins"
 					href="index.php?module=documentGet&document_id={$samples[lst].document_id}&attached=0&phototype=1"

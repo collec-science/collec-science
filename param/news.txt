@@ -17,6 +17,9 @@ Nouvelles fonctionnalités et améliorations :
 - dans le détail d'un échantillon ou d'un container, l'utilisateur a maintenant accès simultanément à la saisie des mouvements d'entrée ou de sortie (auparavant, seule l'opération inverse était possible)
 - en saisie d'un mouvement d'entrée depuis le détail d'un objet, le nom du container est affiché si son uid est saisi manuellement
 
+Version 1.0.5a du 08/02/2017
+----------------------------
+Correction d'un bug empêchant la suppression d'un container
 
 Version 1.0.5 du 02/02/2017
 ---------------------------

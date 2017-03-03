@@ -1,5 +1,23 @@
 News
 ===========
+Version 1.0.6 du 03/03/2017
+---------------------------
+Mise à jour de la base de données nécessaire (script install/col_alter_1.0.5-1.0.6.sql)
+Corrections d'anomalies :
+- la modification des sous-échantillonnages ne fonctionnait pas
+- plusieurs anomalies empêchaient le changement d'un mot de passe par l'utilisateur. Après modification, l'écran était vierge.
+- en import de masse, si le champ container_parent_id était renseigné, et qu'aucun container n'était indiqué, le mouvement n'était pas généré
+- le programme permettant la lecture des scans supprime les espaces potentiellement rajoutés par la douchette avant le libellé lu
+- la colonne storage/range a été renommée en storage/storage_location
+
+Nouvelles fonctionnalités et améliorations :
+- dans le tableau des échantillons, l'échantillon parent est maintenant affiché
+- le tableau des échantillons peut maintenant être exporté dans divers formats
+- il est maintenant possible d'indiquer l'identifiant de la base de données d'origine d'un échantillon. Cela permet de scanner une étiquette générée par une autre implémentation de l'application, pour faciliter les échanges. Champ rajouté : sample/dbuid_origin, format attendu : db:uid
+- dans le détail d'un échantillon ou d'un container, l'utilisateur a maintenant accès simultanément à la saisie des mouvements d'entrée ou de sortie (auparavant, seule l'opération inverse était possible)
+- en saisie d'un mouvement d'entrée depuis le détail d'un objet, le nom du container est affiché si son uid est saisi manuellement
+
+
 Version 1.0.5 du 02/02/2017
 ---------------------------
 Mise à jour de la base de données nécessaire (script install/col_alter_1.0.4-1.0.5.sql)

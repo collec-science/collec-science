@@ -94,7 +94,10 @@ $(document).ready(function() {
             'copy',
             'excel',
             'csv',
-            'pdf',
+            {
+                extend: 'pdfHtml5',
+                orientation: 'landscape'
+            },
             'print'
         ]
 	});

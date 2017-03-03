@@ -149,9 +149,9 @@ Retour au détail
 </div>
 {if $data.movement_type_id == 1}
 <div class="form-group">
-<label for="range" class="control-label col-md-4">Emplacement dans le conteneur :</label>
+<label for="storage_location" class="control-label col-md-4">Emplacement dans le conteneur :</label>
 <div class="col-md-8">
-<input id="range" name="range" value="{$data.range}" type="text" class="form-control">
+<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 </div>
 </div>
 {/if}

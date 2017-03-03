@@ -10,3 +10,4 @@ alter table sample add column dbuid_origin varchar;
 comment on column sample.dbuid_origin is 'référence utilisée dans la base de données d''origine, sous la forme db:uid
 Utilisé pour lire les étiquettes créées dans d''autres instances';
 
+alter table storage rename column range to storage_location;

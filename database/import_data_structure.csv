@@ -1,4 +1,4 @@
-sample_identifier	project_id	sample_type_id	sample_date	sample_range	container_identifier	container_type_id	container_status_id	container_parent_uid	container_range
+sample_identifier	project_id	sample_type_id	sample_date	sample_location	container_identifier	container_type_id	container_status_id	container_parent_uid	container_location
 TESTOTOLITHE1	1	2	01/08/16		C-TEST1	11	1	21	Droite
 TESTOTOLITHE2	1	2	01/08/16		C-TEST2	11	1	21	Gauche
 TESTOTOLITHE3	1	2	01/08/16		C-TEST3	11	1	22	central

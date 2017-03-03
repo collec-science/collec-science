@@ -101,6 +101,7 @@
 	<containerWrite action="modules/gestion/container.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
 	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion" retourok="containerList" retourko="containerChange"  modulebefore="containerChange"/>
 	<containerGetFromType action="modules/gestion/container.php" param="getFromType" droits="consult"  type="ajax" />
+	<containerGetFromUid action="modules/gestion/container.php" param="getFromUid" droits="consult"  type="ajax" />
 
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />

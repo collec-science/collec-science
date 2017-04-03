@@ -150,11 +150,12 @@ switch ($t_module ["param"]) {
 		 * Recherche la liste a partir du type
 		 */
 		$vue->set($dataClass->getFromType($_REQUEST["container_type_id"]));
-		
+		break;
 	case "getFromUid":
 		/*
 		 * Lecture d'un container a partir de son uid
 		 */
 		$vue->set($dataClass->lire($_REQUEST["uid"]));
+		break;
 }
 ?>

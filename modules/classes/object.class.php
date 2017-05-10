@@ -161,10 +161,12 @@ class Object extends ObjetBDD {
 				$uids .= $value;
 			}
 		}
-		$sql = "select uid, identifier, container_type_name as type_name, clp_classification as clp,
+		$sql = "select uid, identifier, container_type_name as type_name, 
+		clp_classification as clp,
 		label_id, 'container' as object_type,
 		storage_date, movement_type_name, movement_type_id,
-		wgs84_x as x, wgs84_y as y
+		wgs84_x as x, wgs84_y as y,
+		'' as prj, storage_product as prod
 		from object
 		join container using (uid)
 		join container_type using (container_type_id)
@@ -175,9 +177,11 @@ class Object extends ObjetBDD {
 		select uid, identifier, sample_type_name as type_name, clp_classification as clp,
 		label_id, 'sample' as object_type,
 		storage_date, movement_type_name, movement_type_id,
-		wgs84_x as x, wgs84_y as y
+		wgs84_x as x, wgs84_y as y,
+		project_name as prj, storage_product as prod
 		from object
 		join sample using (uid)
+		join project using (project_id)
 		join sample_type using (sample_type_id)
 		left outer join container_type using (container_type_id)
 		left outer join last_movement using (uid)
@@ -270,7 +274,7 @@ function generateQrcode($list, $labelId = 0) {
 		 */
 		$sql = "select uid, identifier as id, clp_classification as clp, '' as pn, 
 			 		'$APPLI_code' as db,
-			 		'' as prj,
+			 		'' as prj, storage_product as prod,
 			 		 wgs84_x as x, wgs84_y as y, null as cd
 					from object 
 					join container using (uid)
@@ -279,7 +283,7 @@ function generateQrcode($list, $labelId = 0) {
 					UNION
 					select uid, identifier as id, clp_classification as clp, protocol_name as pn, 
 			 		'$APPLI_code' as db, 
-			 		project_name as prj,
+			 		project_name as prj, storage_product as prod,
 			 		 wgs84_x as x, wgs84_y as y, sample_creation_date as cd
 					from object 
 					join sample using (uid)
@@ -312,6 +316,7 @@ function generateQrcode($list, $labelId = 0) {
 		 * ;
 		 */
 		$dataConvert = array ();
+		//$dataFull = array();
 		/**
 		 * Traitement de chaque ligne, et generation
 		 * du qrcode
@@ -329,6 +334,7 @@ function generateQrcode($list, $labelId = 0) {
 					$rowq [$key] = $value;
 			}
 			foreach ( $doi as $value ) {
+				$row[$value["identifier_type_code"]] = $value ["object_identifier_value"];
 				if (in_array ( $value ["identifier_type_code"], $fields ))
 					$rowq [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
 			}
@@ -349,7 +355,8 @@ function generateQrcode($list, $labelId = 0) {
 			/*
 			 * Ajout des identifiants complementaires
 			 */
-			$dataConvert [] = $rowq;
+			//$dataConvert [] = $rowq;
+			$dataConvert[] = $row;
 		}
 		
 		return $dataConvert;

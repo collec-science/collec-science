@@ -117,10 +117,20 @@ class Container extends ObjetBDD {
 	function getContentSample($uid) {
 		if ($uid > 0 && is_numeric ( $uid )) {
 			$sql = "select o.uid, o.identifier, sa.*,
-					storage_date, movement_type_id
+					storage_date, movement_type_id, identifiers,
+					project_name, sample_type_name, object_status_name,
+					sampling_place_name,
+					pso.uid as parent_uid, pso.identifier as parent_identifier
 					from object o
 					join sample sa on (sa.uid = o.uid)
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
+					join project using (project_id)
+					join sample_type using (sample_type_id)
+					left outer join v_object_identifier voi on (o.uid = voi.uid) 
+					left outer join object_status using (object_status_id)
+					left outer join sampling_place using (sampling_place_id)
+					left outer join sample ps on (sa.parent_sample_id = ps.sample_id)
+					left outer join object pso on (ps.uid = pso.uid)
 					where lm.movement_type_id = 1
 					order by o.identifier, o.uid
 					";

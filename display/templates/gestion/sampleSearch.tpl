@@ -1,3 +1,21 @@
+<script>
+$(document).ready(function () {
+	/*
+	 * Verification que des criteres de selection soient saisis
+	 */
+	 $("#sample_search").submit (function ( event) { 
+		 var ok = false;
+		 if ($("#name").val().length > 0) ok = true;
+		 if ($("#project_id").val() > 0) ok = true;
+		 if ($("#uid_min").val() > 0) ok = true;
+		 if ($("#uid_max").val() > 0) ok = true;
+		 if ($("#sample_type_id").val() > 0) ok = true;
+		 if ($("#sampling_place_id").val() > 0 ) ok = true ;
+		 if ($("#object_status_id").val() > 1) ok = true;
+		 if (ok == false) event.preventDefault();
+	 });
+});
+</script>
 
 <form class="form-horizontal protoform col-md-12" id="sample_search" action="index.php" method="GET">
 <input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}">
@@ -72,17 +90,22 @@
 </select>
 </div>
 </div>
-
+ 
 <div class="row">
 <div class="form-group">
+<!--
 <label for="limit" class="col-md-2 control-label">Nbre limite à afficher :</label>
+ -->
 <div class="col-md-2">
+<!--
 <input type="number" id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control">
+ -->
 </div>
 <div class="col-md-2">
 <input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
 </div>
 </div>
 </div>
+
 </form>
 </div>

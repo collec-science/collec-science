@@ -256,10 +256,10 @@ class Sample extends ObjetBDD {
 			$data ["uid_max"] = $param ["uid_max"];
 		}
 		
-		if ($param ["limit"] > 0) {
+		/*if ($param ["limit"] > 0) {
 			$order .= " limit :limite";
 			$data ["limite"] = $param ["limit"];
-		}
+		}*/
 		if ($where == "where")
 			$where = "";
 			/*
@@ -268,7 +268,7 @@ class Sample extends ObjetBDD {
 		$this->colonnes ["storage_date"] = array (
 				"type" => 3 
 		);
-		return $this->getListeParamAsPrepared ( $this->sql . $where . $order, $data );
+		return $this->getListeParamAsPrepared ( $this->sql . $where /*. $order*/, $data );
 	}
 	/**
 	 * Retourne les echantillons associes a un parent

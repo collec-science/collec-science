@@ -95,13 +95,14 @@ $(document).ready(function () {
 <div class="form-group">
 <!--
 <label for="limit" class="col-md-2 control-label">Nbre limite à afficher :</label>
- -->
+
 <div class="col-md-2">
-<!--
+
 <input type="number" id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control">
- -->
+
 </div>
-<div class="col-md-2">
+ -->
+<div class="col-md-2 col-md-offset-4">
 <input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
 </div>
 </div>

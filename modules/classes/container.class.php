@@ -290,15 +290,15 @@ class Container extends ObjetBDD {
 		}
 		if ($and == "")
 			$where = "";
-		if ($param ["limit"] > 0) {
+/*		if ($param ["limit"] > 0) {
 			$order .= " limit :limite";
 			$data ["limite"] = $param ["limit"];
-		}
+		}*/
 		/*
 		 * Rajout de la date de dernier mouvement pour l'affichage
 		 */
 		$this->colonnes["storage_date"]= array ("type"=>3);
-		return $this->getListeParamAsPrepared ( $this->sql . $where . $order, $data );
+		return $this->getListeParamAsPrepared ( $this->sql . $where /*. $order*/, $data );
 	}
 	
 	/**

@@ -23,6 +23,20 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 	$("#container_family_id").change(function (){
 	searchType();
 	 });
+	/*
+	 * Verification que des criteres de selection soient saisis
+	 */
+	 $("#container_search").submit (function ( event) { 
+		 var ok = false;
+		 if ($("#name").val().length > 0) ok = true;
+		 if ($("#container_family_id").val() > 0) ok = true;
+		 if ($("#uid_min").val() > 0) ok = true;
+		 if ($("#uid_max").val() > 0) ok = true;
+		 if ($("#container_type_id").val() > 0) ok = true;
+		 if ($("#object_status_id").val() > 1) ok = true;
+		 if (ok == false) event.preventDefault();
+	 });
+	
 	searchType();
 });
 
@@ -73,11 +87,13 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 
 </div>
 <div class="form-group">
+<!--  
 <label for="limit" class="col-md-2 control-label">Nbre limite à afficher :</label>
 <div class="col-md-2">
 <input type="number" id="limit" name="limit" value="{$containerSearch.limit}" class="form-control">
 </div>
-<div class="col-md-2">
+-->
+<div class="col-md-2 col-md-offset-4">
 <input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
 </div>
 <label for="container_type_id" class="col-md-2 control-label">Type :</label>

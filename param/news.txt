@@ -1,5 +1,11 @@
 News
 ===========
+Version 1.0.7a du 12/05/2017
+---------------------------
+Correction de bugs :
+- les étiquettes générées n'étaient pas triées
+- si l'échantillon provenait d'une autre base de données, le tri sur l'UID dans le tableau n'était plus numérique, mais alphabétique (déplacement de l'UID d'origine dans la colonne Autres identifiants)
+
 Version 1.0.7 du 10/05/2017
 ---------------------------
 Corrections de bugs :

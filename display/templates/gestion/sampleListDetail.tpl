@@ -80,14 +80,16 @@
 				<td class="text-center"><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
 					title="Consultez le détail"> {$samples[lst].uid} </a>
-					{if strlen($samples[lst].dbuid_origin) > 0}
-					<br>{$samples[lst].dbuid_origin}
-					{/if}
 					</td>
 				<td><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
 					title="Consultez le détail"> {$samples[lst].identifier} </a></td>
-				<td>{$samples[lst].identifiers}</td>
+				<td>{$samples[lst].identifiers}
+				{if strlen($samples[lst].dbuid_origin) > 0}
+				{if strlen($samples[lst].identifiers) > 0}<br>{/if}
+				<span title="UID de la base de données d'origine">{$samples[lst].dbuid_origin}</span>
+				{/if}
+				</td>
 				<td>{$samples[lst].project_name}</td>
 				<td>{$samples[lst].sample_type_name}</td>
 				<td>{$samples[lst].object_status_name}</td>

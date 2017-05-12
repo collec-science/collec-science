@@ -246,33 +246,33 @@ class Object extends ObjetBDD {
 		}
 		return $label_id;
 	}
-
-/**
- * Genere le QRCODE
- *
- * @param unknown $list        	
- * @return unknown[][]|tableau[][]
- */
-function generateQrcode($list, $labelId = 0) {
-	if ($labelId > 0) {
-		$uids = $this->generateArrayUidToString ( $list );
-		require_once 'plugins/phpqrcode/qrlib.php';
-		global $APPLI_code, $APPLI_temp;
-		require_once 'modules/classes/objectIdentifier.class.php';
-		$oi = new ObjectIdentifier ( $this->connection, $this->param );
-		require_once 'modules/classes/label.class.php';
-		$label = new Label ( $this->connection, $this->param );
-		/*
-		 * Recuperation des donnees de l'etiquette
-		 */
-		$fields = array ();
-		
-		$dlabel = $label->lire ( $labelId );
-		$fields = explode ( ",", $dlabel ["label_fields"] );
-		/*
-		 * Recuperation des informations generales
-		 */
-		$sql = "select uid, identifier as id, clp_classification as clp, '' as pn, 
+	
+	/**
+	 * Genere le QRCODE
+	 *
+	 * @param unknown $list        	
+	 * @return unknown[][]|tableau[][]
+	 */
+	function generateQrcode($list, $labelId = 0, $order = "uid") {
+		if ($labelId > 0) {
+			$uids = $this->generateArrayUidToString ( $list );
+			require_once 'plugins/phpqrcode/qrlib.php';
+			global $APPLI_code, $APPLI_temp;
+			require_once 'modules/classes/objectIdentifier.class.php';
+			$oi = new ObjectIdentifier ( $this->connection, $this->param );
+			require_once 'modules/classes/label.class.php';
+			$label = new Label ( $this->connection, $this->param );
+			/*
+			 * Recuperation des donnees de l'etiquette
+			 */
+			$fields = array ();
+			
+			$dlabel = $label->lire ( $labelId );
+			$fields = explode ( ",", $dlabel ["label_fields"] );
+			/*
+			 * Recuperation des informations generales
+			 */
+			$sql = "select uid, identifier as id, clp_classification as clp, '' as pn, 
 			 		'$APPLI_code' as db,
 			 		'' as prj, storage_product as prod,
 			 		 wgs84_x as x, wgs84_y as y, null as cd
@@ -294,154 +294,158 @@ function generateQrcode($list, $labelId = 0) {
 			 		left outer join protocol using (protocol_id)
 					where uid in ($uids)
 			";
-		$data = $this->getListeParam ( $sql );
-		
-		/*
-		 * Preparation du tableau de sortie
-		 * transcodage des noms de champ
-		 */
-		/*
-		 * Recuperation de la liste des champs a inserer dans l'etiquette
-		 */
-		
-		/*
-		 * $convert = array (
-		 * "uid" => "uid",
-		 * "identifier" => "id",
-		 * "clp" => "clp",
-		 * "protocol_name" => "pn",
-		 * "project_name" => "prj",
-		 * "db" => "db"
-		 * )
-		 * ;
-		 */
-		$dataConvert = array ();
-		//$dataFull = array();
-		/**
-		 * Traitement de chaque ligne, et generation
-		 * du qrcode
-		 */
-		
-		foreach ( $data as $row ) {
-			/*
-			 * Recuperation des identifiants complementaires
-			 */
-			$doi = $oi->getListFromUid ( $row ["uid"] );
-			$rowq = array ();
-			foreach ( $row as $key => $value ) {
-				
-				if (strlen ( $value ) > 0 && in_array ( $key, $fields ))
-					$rowq [$key] = $value;
-			}
-			foreach ( $doi as $value ) {
-				$row[$value["identifier_type_code"]] = $value ["object_identifier_value"];
-				if (in_array ( $value ["identifier_type_code"], $fields ))
-					$rowq [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
-			}
-			/*
-			 * Generation du qrcode
-			 */
-			$filename = $APPLI_temp . '/' . $rowq ["uid"] . ".png";
-			// if (! file_exists ( $filename ))
-			QRcode::png ( json_encode ( $rowq ), $filename );
+			if (strlen ( $order ) == 0)
+				$order = "uid";
+			$sql = "select * from (" . $sql . ") as a";
+			$order = " order by $order";
+			$data = $this->getListeParam ( $sql . $order );
 			
 			/*
-			 * Ajout du modele d'etiquette
+			 * Preparation du tableau de sortie
+			 * transcodage des noms de champ
 			 */
-			foreach ( $doi as $value ) {
-				$rowq [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
-			}
-			$rowq ["label_id"] = $row ["label_id"];
 			/*
-			 * Ajout des identifiants complementaires
+			 * Recuperation de la liste des champs a inserer dans l'etiquette
 			 */
-			//$dataConvert [] = $rowq;
-			$dataConvert[] = $row;
-		}
-		
-		return $dataConvert;
-	}
-}
-
-/**
- * Lit les objets a partir des saisies batch
- *
- * @param unknown $batchdata        	
- * @return tableau
- */
-function batchRead($batchdata) {
-	global $APPLI_code;
-	if (strlen ( $batchdata ) > 0) {
-		$batchdata = $this->encodeData ( $batchdata );
-		/*
-		 * Preparation du tableau de travail
-		 */
-		$data = explode ( "\n", $batchdata );
-		/*
-		 * Requete de recherche des uid a partir de l'identifiant metier
-		 */
-		$sql = "select uid from object where upper(identifier) =  upper(:id)";
-		/*
-		 * Extraction des UID de chaque ligne scanee
-		 */
-		$uids = array ();
-		$order = "";
-		$i = 1;
-		foreach ( $data as $value ) {
-			$uid = 0;
+			
 			/*
-			 * Suppression des espaces
+			 * $convert = array (
+			 * "uid" => "uid",
+			 * "identifier" => "id",
+			 * "clp" => "clp",
+			 * "protocol_name" => "pn",
+			 * "project_name" => "prj",
+			 * "db" => "db"
+			 * )
+			 * ;
 			 */
-			$value = trim ( $value, " \t\n\r" );
-			$datajson = json_decode ( $value, true );
-			if (is_array ( $datajson )) {
-				if ($datajson ["uid"] > 0 && $datajson ["db"] == $APPLI_code)
-					$uid = $datajson ["uid"];
-			} else {
+			$dataConvert = array ();
+			// $dataFull = array();
+			/**
+			 * Traitement de chaque ligne, et generation
+			 * du qrcode
+			 */
+			
+			foreach ( $data as $row ) {
 				/*
-				 * Recuperation de l'uid associe a l'identifier fourni
-				 * (resultat d'un scan base sur l'identifiant metier)
+				 * Recuperation des identifiants complementaires
 				 */
-				$val = "";
-				if (strlen ( $value ) > 0) {
+				$doi = $oi->getListFromUid ( $row ["uid"] );
+				$rowq = array ();
+				foreach ( $row as $key => $value ) {
+					
+					if (strlen ( $value ) > 0 && in_array ( $key, $fields ))
+						$rowq [$key] = $value;
+				}
+				foreach ( $doi as $value ) {
+					$row [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
+					if (in_array ( $value ["identifier_type_code"], $fields ))
+						$rowq [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
+				}
+				/*
+				 * Generation du qrcode
+				 */
+				$filename = $APPLI_temp . '/' . $rowq ["uid"] . ".png";
+				// if (! file_exists ( $filename ))
+				QRcode::png ( json_encode ( $rowq ), $filename );
+				
+				/*
+				 * Ajout du modele d'etiquette
+				 */
+				foreach ( $doi as $value ) {
+					$rowq [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
+				}
+				$rowq ["label_id"] = $row ["label_id"];
+				/*
+				 * Ajout des identifiants complementaires
+				 */
+				// $dataConvert [] = $rowq;
+				$dataConvert [] = $row;
+			}
+			
+			return $dataConvert;
+		}
+	}
+	
+	/**
+	 * Lit les objets a partir des saisies batch
+	 *
+	 * @param unknown $batchdata        	
+	 * @return tableau
+	 */
+	function batchRead($batchdata) {
+		global $APPLI_code;
+		if (strlen ( $batchdata ) > 0) {
+			$batchdata = $this->encodeData ( $batchdata );
+			/*
+			 * Preparation du tableau de travail
+			 */
+			$data = explode ( "\n", $batchdata );
+			/*
+			 * Requete de recherche des uid a partir de l'identifiant metier
+			 */
+			$sql = "select uid from object where upper(identifier) =  upper(:id)";
+			/*
+			 * Extraction des UID de chaque ligne scanee
+			 */
+			$uids = array ();
+			$order = "";
+			$i = 1;
+			foreach ( $data as $value ) {
+				$uid = 0;
+				/*
+				 * Suppression des espaces
+				 */
+				$value = trim ( $value, " \t\n\r" );
+				$datajson = json_decode ( $value, true );
+				if (is_array ( $datajson )) {
+					if ($datajson ["uid"] > 0 && $datajson ["db"] == $APPLI_code)
+						$uid = $datajson ["uid"];
+				} else {
 					/*
-					 * Recherche si la chaine commence par http
+					 * Recuperation de l'uid associe a l'identifier fourni
+					 * (resultat d'un scan base sur l'identifiant metier)
 					 */
-					if (substr ( $value, 0, 4 ) == "http" || substr ( $value, 0, 3 ) == "htp") {
+					$val = "";
+					if (strlen ( $value ) > 0) {
 						/*
-						 * Extraction de la derniere valeur (apres le dernier /)
+						 * Recherche si la chaine commence par http
 						 */
-						$aval = explode ( '/', $value );
-						$nbElements = count ( $aval );
-						if ($nbElements > 0)
-							$val = $aval [($nbElements - 1)];
-					} else
-						/*
-						 * la chaine fournie est conservee telle quelle
-						 */
-						$val = $value;
-					$val = trim ( $val );
-					if (strlen ( $val ) > 0) {
-						$valobject = $this->lireParamAsPrepared ( $sql, array (
-								"id" => $val 
-						) );
-						if ($valobject ["uid"] > 0)
-							$uid = $valobject ["uid"];
+						if (substr ( $value, 0, 4 ) == "http" || substr ( $value, 0, 3 ) == "htp") {
+							/*
+							 * Extraction de la derniere valeur (apres le dernier /)
+							 */
+							$aval = explode ( '/', $value );
+							$nbElements = count ( $aval );
+							if ($nbElements > 0)
+								$val = $aval [($nbElements - 1)];
+						} else
+							/*
+							 * la chaine fournie est conservee telle quelle
+							 */
+							$val = $value;
+						$val = trim ( $val );
+						if (strlen ( $val ) > 0) {
+							$valobject = $this->lireParamAsPrepared ( $sql, array (
+									"id" => $val 
+							) );
+							if ($valobject ["uid"] > 0)
+								$uid = $valobject ["uid"];
+						}
 					}
 				}
+				if ($uid > 0) {
+					$uids [] = $uid;
+					$order .= " when " . $uid . " then $i";
+					$i ++;
+				}
 			}
-			if ($uid > 0) {
-				$uids [] = $uid;
-				$order .= " when " . $uid . " then $i";
-				$i ++;
+			if (count ( $uids ) > 0) {
+				$order = " case uid " . $order . " end";
+				return $this->getForList ( $uids, "$order" );
 			}
-		}
-		if (count ( $uids ) > 0) {
-			$order = " case uid " . $order . " end";
-			return $this->getForList ( $uids, "$order" );
 		}
 	}
-}
 }
 
 

@@ -25,9 +25,7 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		dataRead($dataClass, $id, "param/sampleTypeChange.tpl");
-		require_once 'modules/classes/metadataSet.class.php';
-		$metadataSet = new MetadataSet($bdd, $ObjetBDDParam);
-		$vue->set($metadataSet->getListe(2),"metadataSet");
+		
 		require_once 'modules/classes/containerType.class.php';
 		$containerType = new ContainerType($bdd, $ObjetBDDParam);
 		$vue->set($containerType->getListe("container_type_name"), "container_type");

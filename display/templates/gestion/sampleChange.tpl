@@ -1,3 +1,39 @@
+<script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
+
+<script type="text/javascript">
+function updateForm(){
+    //valeur du type d'échantillon sélectionné
+        var $sampleTypeId = document.getElementById("sample_type_id").value;
+
+    //recherche de l'opération associée au type d'échantillon
+        {section name=lst loop=$sample_type}
+        if ($sampleTypeId == {$sample_type[lst].sample_type_id}){
+            var $operationId = {$sample_type[lst].operation_id}
+        }
+        {/section}
+
+    //recherche du schéma du formulaire associée à l'opération
+        {section name=lst loop=$operation}
+        if ($operationId == {$operation[lst].operation_id}){
+            var $metadataFormId = {$operation[lst].metadata_form_id}
+        }
+        {/section}
+
+    //récupération du schéma
+        {section name=lst loop=$metadataForm}
+        if ($metadataFormId == {$metadataForm[lst].metadata_form_id}){
+            var $schemaForm = "{$metadataForm[lst].schema}";
+        }
+        {/section}
+
+
+        $schemaForm = $schemaForm.replace(/&quot;/g,'"');
+        $schemaForm = JSON.parse($schemaForm);
+        showForm($schemaForm);
+
+    }
+</script>
+
 <h2>Création - modification d'un échantillon</h2>
 <div class="row col-md-12">
 <a href="index.php?module=sampleList">
@@ -47,6 +83,8 @@ Retour à la liste des échantillons
 <input type="hidden" name="moduleBase" value="sample">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="parent_sample_id" value="{$data.parent_sample_id}">
+<input type="hidden" name="sample_metadata_id" value="{$data.sample_metadata_id}">
+<input type="hidden" name="metadataField" id="metadataField">
 
 {include file="gestion/uidChange.tpl"}
 
@@ -125,6 +163,13 @@ Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.mult
 </div>
 </fieldset>
 
+<div class="form-group">
+<div class="col-md-8">
+    <legend>Jeu de métadonnées</legend>
+    <div id="metadata" class="col-md-8"></div>
+</div>
+</div>
+
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
       {if $data.sample_id > 0 }
@@ -140,3 +185,26 @@ Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.mult
 </div>
 
 <span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        var $metadataParse ="";
+        var $dataParse ="";
+
+        {if $data.schema != ""}
+        $metadataParse = "{$data.schema}";
+        $metadataParse = $metadataParse.replace(/&quot;/g,'"');
+        $metadataParse = JSON.parse($metadataParse);
+        {/if}
+
+        {if $data.data != ""}
+        $dataParse = "{$data.data}";
+        $dataParse = $dataParse.replace(/&quot;/g,'"');
+        $dataParse = $dataParse.replace(/\n/g,"\\n");
+        $dataParse = JSON.parse($dataParse);
+        {/if}
+        showForm($metadataParse, $dataParse);
+    });
+
+</script>

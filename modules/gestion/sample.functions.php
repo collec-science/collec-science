@@ -21,4 +21,14 @@ $vue->set($objectStatus->getListe(1), "objectStatus");
 require_once 'modules/classes/samplingPlace.class.php';
 $samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
 $vue->set($samplingPlace->getListe(1), "samplingPlace");
+
+//Recuperation des formulaires de métadonnées
+require_once 'modules/classes/metadataForm.class.php';
+$metadataForm = new metadataForm ( $bdd, $ObjetBDDParam );
+$vue->set($metadataForm->getListe(1),"metadataForm");
+
+ //Recuperation des formulaires de opérations
+require_once 'modules/classes/operation.class.php';
+$operation = new operation ( $bdd, $ObjetBDDParam );
+$vue->set($operation->getListe(1),"operation");
 ?>

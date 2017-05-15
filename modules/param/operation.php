@@ -28,11 +28,34 @@ switch ($t_module["param"]) {
 		require_once 'modules/classes/protocol.class.php';
 		$protocol = new Protocol($bdd, $ObjetBDDParam);
 		$vue->set($protocol->getListe("protocol_year desc, protocol_name, protocol_version desc"), "protocol");
+		/*
+		 * Recuperation des métadonnées
+		 */
+		require_once 'modules/classes/metadataForm.class.php';
+		$metadata= new MetadataForm($bdd, $ObjetBDDParam);
+		$vue->set($metadata->getListe(1),"metadata");
+
+		/*
+		 * Recuperation de toutes les opérations
+		 */
+		$vue->set($dataClass->getListe(1),"operations");
 		break;
 	case "write":
 		/*
 		 * write record in database
 		 */
+
+		//gestion des métadonnées
+		require_once 'modules/classes/metadataForm.class.php';
+		$metadata = new MetadataForm($bdd, $ObjetBDDParam);
+		$data = array ("schema" =>$_REQUEST["metadataField"]);
+		
+		if($_REQUEST["metadata_form_id"] > 0){
+			$data["metadata_form_id"] = $_REQUEST["metadata_form_id"];
+		}
+		$idmetadata = $metadata->ecrire($data);
+		$_REQUEST["metadata_form_id"] = $idmetadata;
+		
 		$id = dataWrite($dataClass, $_REQUEST);
 		if ($id > 0) {
 			$_REQUEST[$keyName] = $id;

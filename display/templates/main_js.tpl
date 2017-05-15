@@ -7,6 +7,13 @@
 <link rel="stylesheet"	href="display/javascript/bootstrap/css/bootstrap-theme.min.css">
 <script	src="display/javascript/bootstrap/js/bootstrap.min.js"></script>
 
+<!--handlebars -->
+<script type="text/javascript" src="display/javascript/alpaca/js/handlebars.js"></script>
+
+<!--allpaca -->
+<script type="text/javascript" src="display/javascript/alpaca/js/alpaca.js"></script>
+<link type="text/css" href="display/javascript/alpaca/css/alpaca.css" rel="stylesheet">
+
 <!-- extension pour le menu -->
 <script src="display/javascript/smartmenus-1.0.0/jquery.smartmenus.min.js" type="text/javascript"></script>
 <script src="display/javascript/smartmenus-1.0.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js" type="text/javascript"></script>

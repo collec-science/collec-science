@@ -14,7 +14,6 @@
 <th>Type de conteneur</th>
 <th>Protocole / operation</th>
 <th>Sous-échantillonnage</th>
-<th>Jeu de métadonnées</th>
 </tr>
 </thead>
 <tbody>
@@ -39,13 +38,7 @@
 {$data[lst].multiple_type_name} : {$data[lst].multiple_unit}
 {/if}
 </td>
-<td>
-{if $data[lst].metadata_set_id > 0}
-<a href="index.php?module=metadataSetDisplay&metadata_set_id={$data[lst].metadata_set_id}>
-{$data[lst].metadata_set_name}
-</a>
-{/if}
-</td>
+
 </tr>
 {/section}
 </tbody>

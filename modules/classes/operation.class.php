@@ -7,8 +7,10 @@
  */
 class Operation extends ObjetBDD {
 	private $sql = "select operation_id, operation_name, operation_order,
-					protocol_id, protocol_name, protocol_year, protocol_version
+					protocol_id, protocol_name, protocol_year, protocol_version,
+					metadata_form_id, schema
 					from operation
+					join metadata_form using (metadata_form_id)
 					join protocol using (protocol_id)";
 	private $order = " order by protocol_year desc, protocol_name, protocol_version,
 					operation_order, operation_name";
@@ -38,6 +40,9 @@ class Operation extends ObjetBDD {
 				),
 				"operation_order" => array (
 						"type" => 1
+				),
+				"metadata_form_id" => array (
+						"type" => 1
 				)
 		);
 		parent::__construct ( $bdd, $param );
@@ -50,6 +55,46 @@ class Operation extends ObjetBDD {
 	 */
 	function getListe() {
 		return $this->getListeParam($this->sql.$this->order);
+	}
+
+	/**
+	 * Surcharge de la fonction supprimer pour verifier si l'utilisateur peut supprimer l'echantillon
+	 *
+	 * {@inheritdoc}
+	 *
+	 * @see ObjetBDD::supprimer()
+	 */
+	function supprimer($id) {
+		$data = $this->lire ( $id );
+			/*
+			 * suppression de l'operation
+			 */
+			parent::supprimer ( $data ["operation_id"] );
+			/*
+			*suppression des metadonnées
+			*/
+			require_once 'modules/classes/metadataForm.class.php';
+			$metadata = new metadataForm($this->connection, $this->paramori);
+			$metadata->supprimer($data["metadata_form_id"]);
+
+	}
+
+
+	/**
+	 * Retourne le nombre de types d'échantillons attachés a une opération
+	 *
+	 * @param int $operation_id        	
+	 */
+	function getNbSampleType($operation_id) {
+		if ($operation_id > 0) {
+			$sql = "select count(*) as nb from sample_type where operation_id = :operation_id";
+			$var ["operation_id"] = $operation_id;
+			$data = $this->lireParamAsPrepared ( $sql, $var );
+			if (count ( $data ) > 0) {
+				return $data ["nb"];
+			} else
+				return 0;
+		}
 	}
 }
 ?>

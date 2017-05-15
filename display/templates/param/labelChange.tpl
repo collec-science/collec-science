@@ -47,6 +47,7 @@ Champs utilisables dans le QRcode et dans le texte de l'étiquette :
 <li>pn : nom du protocole</li>
 <li>x : coordonnée wgs84_x de l'objet (lieu de prélèvement ou de stockage suivant le cas)</li>
 <li>y : coordonnée wgs84_y de l'objet</li>
+<li>prod : produit utilisé pour la conservation</li>
 <li>cd : date de création de l'échantillon (date de collecte ou d'extration d'un échantillon pré-existant)</li>
 <li>et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants</li>
 </ul>

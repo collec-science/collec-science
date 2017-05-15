@@ -35,13 +35,21 @@ $(document).ready(function () {
 </script>
 {include file="gestion/displayPhotoScript.tpl"}
 {if $droits.gestion == 1}
-<form method="post" id="formListPrint" action="index.php">
+<form method="GET" id="formListPrint" action="index.php">
 <input type="hidden" id="module" name="module" value="containerPrintLabel">
 <div class="row">
 <div class="center">
 <label id="lcheck" for="check">Tout décocher</label>
 <input type="checkbox" id="check" checked>
 			<button id="containerlabels" class="btn btn-primary">Étiquettes</button>
+			<select id="labels" name="label_id">
+			<option value="" {if $label_id == ""}selected{/if}>Étiquette par défaut</option>
+			{section name=lst loop=$labels}
+			<option value="{$labels[lst].label_id}" {if $labels[lst].label_id == $label_id}selected{/if}>
+			{$labels[lst].label_name}
+			</option>
+			{/section}
+			</select>
 			<img id="containerSpinner" src="display/images/spinner.gif" height="25">
 			<button id="containercsvfile" class="btn btn-primary">Fichier CSV</button>
 </div>

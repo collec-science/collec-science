@@ -1,5 +1,23 @@
 News
 ===========
+Version 1.0.7a du 12/05/2017
+---------------------------
+Correction de bugs :
+- les étiquettes générées n'étaient pas triées
+- si l'échantillon provenait d'une autre base de données, le tri sur l'UID dans le tableau n'était plus numérique, mais alphabétique (déplacement de l'UID d'origine dans la colonne Autres identifiants)
+
+Version 1.0.7 du 10/05/2017
+---------------------------
+Corrections de bugs :
+- dans l'import de masse, les statuts des containers ou des échantillons sont obligatoires, mais ce n'était pas précisé
+- depuis le détail d'un container, la liste des échantillons n'affichait pas les données pour l'ensemble des colonnes, dont les identifiants secondaires
+- en génération d'étiquettes, si un champ n'était pas indiqué dans le QRcode, il n'était pas disponible pour l'affichage dans le corps de l'étiquette
+
+Nouvelles fonctionnalités ou améliorations :
+- il est maintenant possible de créer un nouvel échantillon ou un nouveau container sans lancer une recherche préalable (cela perturbait les utilisateurs)
+- étiquettes : il est possible d'afficher le produit utilisé pour la conservation (colonne storage_product)
+- impression des étiquettes : il est maintenant possible d'utiliser un autre modèle que celui qui est associé au type de container
+
 Version 1.0.6a du 03/04/2017
 ---------------------------
 Correction d'un bug :

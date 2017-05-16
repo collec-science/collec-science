@@ -39,26 +39,34 @@ switch ($t_module["param"]) {
 		 * Recuperation de toutes les opérations
 		 */
 		$vue->set($dataClass->getListe(1),"operations");
+
 		break;
 	case "write":
 		/*
 		 * write record in database
 		 */
 
-		//gestion des métadonnées
-		require_once 'modules/classes/metadataForm.class.php';
-		$metadata = new MetadataForm($bdd, $ObjetBDDParam);
-		$data = array ("schema" =>$_REQUEST["metadataField"]);
-		
-		if($_REQUEST["metadata_form_id"] > 0){
-			$data["metadata_form_id"] = $_REQUEST["metadata_form_id"];
+		//on vérifie si il existe des échantillons rattachés à l'opération
+		if ($dataClass->getNbSample($id)==0){
+			//gestion des métadonnées
+			require_once 'modules/classes/metadataForm.class.php';
+			$metadata = new MetadataForm($bdd, $ObjetBDDParam);
+			$data = array ("schema" =>$_REQUEST["metadataField"]);
+			
+			if($_REQUEST["metadata_form_id"] > 0){
+				$data["metadata_form_id"] = $_REQUEST["metadata_form_id"];
+			}
+			$idmetadata = $metadata->ecrire($data);
+			$_REQUEST["metadata_form_id"] = $idmetadata;
+			
+			$id = dataWrite($dataClass, $_REQUEST);
+			if ($id > 0) {
+				$_REQUEST[$keyName] = $id;
+			}
 		}
-		$idmetadata = $metadata->ecrire($data);
-		$_REQUEST["metadata_form_id"] = $idmetadata;
-		
-		$id = dataWrite($dataClass, $_REQUEST);
-		if ($id > 0) {
-			$_REQUEST[$keyName] = $id;
+		else{
+			$module_coderetour = - 1;
+			$message->set ( "Impossible de modifier une opération à laquelle est rattaché des échantillons" );
 		}
 		break;
 	case "delete":
@@ -68,4 +76,5 @@ switch ($t_module["param"]) {
 		dataDelete($dataClass, $id);
 		break;
 }
+		
 ?>

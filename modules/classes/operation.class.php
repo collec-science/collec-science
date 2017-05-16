@@ -81,13 +81,13 @@ class Operation extends ObjetBDD {
 
 
 	/**
-	 * Retourne le nombre de types d'échantillons attachés a une opération
+	 * Retourne le nombre d'échantillons attachés a une opération
 	 *
 	 * @param int $operation_id        	
 	 */
-	function getNbSampleType($operation_id) {
+	function getNbSample($operation_id) {
 		if ($operation_id > 0) {
-			$sql = "select count(*) as nb from sample_type where operation_id = :operation_id";
+                                        $sql = "select count(*) as nb from sample s, sample_type st where s.sample_type_id = st.sample_type_id and st.operation_id = :operation_id";
 			$var ["operation_id"] = $operation_id;
 			$data = $this->lireParamAsPrepared ( $sql, $var );
 			if (count ( $data ) > 0) {

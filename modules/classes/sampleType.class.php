@@ -61,5 +61,22 @@ class SampleType extends ObjetBDD {
 			$tri = " order by $order";
 		return $this->getListeParam ( $this->sql . $tri );
 	}
+
+	/**
+	 * Retourne le nombre d'échantillons attachés a une opération
+	 *
+	 * @param int $sample_type_id        	
+	 */
+	function getNbSample($sample_type_id) {
+		if ($sample_type_id > 0) {
+                                        $sql = "select count(*) as nb from sample where sample_type_id = :sample_type_id";
+			$var ["sample_type_id"] = $sample_type_id;
+			$data = $this->lireParamAsPrepared ( $sql, $var );
+			if (count ( $data ) > 0) {
+				return $data ["nb"];
+			} else
+				return 0;
+		}
+	}
 }
 ?>

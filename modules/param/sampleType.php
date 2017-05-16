@@ -40,9 +40,17 @@ switch ($t_module["param"]) {
 		/*
 		 * write record in database
 		 */
-		$id = dataWrite($dataClass, $_REQUEST);
-		if ($id > 0) {
-			$_REQUEST[$keyName] = $id;
+
+		//on vérifie si il existe des échantillons rattachés à l'opération
+		if ($dataClass->getNbSample($id)==0){
+			$id = dataWrite($dataClass, $_REQUEST);
+			if ($id > 0) {
+				$_REQUEST[$keyName] = $id;
+			}
+		}
+		else{
+			$module_coderetour = - 1;
+			$message->set ( "Impossible de modifier un type d'échantillon auquel est rattaché des échantillons" );
 		}
 		break;
 	case "delete":

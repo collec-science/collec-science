@@ -96,5 +96,21 @@ class Operation extends ObjetBDD {
 				return 0;
 		}
 	}
+
+	/**
+	 * Retourne le schéma des métadonnées de l'opération
+	 *
+	 * @param int $operation_id        	
+	 */
+	function getMetadataForm($operation_id){
+		if ($operation_id > 0){
+			$sql = "select schema from metadata_form
+			join operation using(metadata_form_id)
+			where operation_id = :operation_id";
+			$var ["operation_id"] = $operation_id;
+			$data = $this->lireParamAsPrepared ( $sql, $var );
+			return $data["schema"];
+		}
+	}
 }
 ?>

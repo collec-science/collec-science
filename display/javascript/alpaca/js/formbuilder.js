@@ -104,6 +104,11 @@ function showForm(value, data=""){
                 var metadataField = document.getElementById("metadataField");
                 metadataField.setAttribute("value",JSON.stringify(value, null,null));
                 });
+                 control.on("mouseout",function(){
+                var value = control.getValue();
+                var metadataField = document.getElementById("metadataField");
+                metadataField.setAttribute("value",JSON.stringify(value, null,null));
+                });
 
                 var value = control.getValue();
                 var metadataField = document.getElementById("metadataField");

@@ -33,3 +33,8 @@ ALTER TABLE "sample_type" DROP COLUMN metadata_set_id_second;
 DROP TABLE "metadata_attribute";
 DROP TABLE "metadata_schema";
 DROP TABLE "metadata_set";
+
+ALTER TABLE label ADD COLUMN operation_id integer,
+ADD constraint label_operation_fk foreign key (operation_id)
+REFERENCES operation (operation_id) match simple
+ON update no action ON delete no action;

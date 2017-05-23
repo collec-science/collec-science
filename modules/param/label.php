@@ -29,6 +29,14 @@ switch ($t_module ["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		dataRead ( $dataClass, $id, "param/labelChange.tpl" );
+
+		if ($_REQUEST["operation_id"] > 0 && is_numeric($_REQUEST["operation_id"])) {
+		            require_once 'modules/classes/operation.class.php';
+		            $operation = new Operation ( $bdd, $ObjetBDDParam );
+		            $operation_schema = $operation->getMetadataForm($_REQUEST["operation_id"]);
+		            $vue->set($operation_schema,"operation_schema");
+		            $vue->set($_REQUEST["operation_id"] ,"operation_id");
+		}
 		break;
 	case "write":
 		/*

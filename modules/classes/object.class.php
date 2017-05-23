@@ -260,6 +260,8 @@ class Object extends ObjetBDD {
 			global $APPLI_code, $APPLI_temp;
 			require_once 'modules/classes/objectIdentifier.class.php';
 			$oi = new ObjectIdentifier ( $this->connection, $this->param );
+			require_once 'modules/classes/sampleMetadata.class.php';
+			$sampleMeta = new SampleMetadata ( $this->connection, $this->param );
 			require_once 'modules/classes/label.class.php';
 			$label = new Label ( $this->connection, $this->param );
 			/*
@@ -327,6 +329,8 @@ class Object extends ObjetBDD {
 			 */
 			
 			foreach ( $data as $row ) {
+				//récupération des métadonnées
+				$metadata = json_decode($sampleMeta->getMetadataFromUid($row ["uid"] ));
 				/*
 				 * Recuperation des identifiants complementaires
 				 */
@@ -341,6 +345,15 @@ class Object extends ObjetBDD {
 					$row [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
 					if (in_array ( $value ["identifier_type_code"], $fields ))
 						$rowq [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
+				}
+				//récupération des métadonnées
+				foreach($metadata as $key => $value){
+					//on remplace les espaces qui ne sont pas gérés par le xml
+					$newKey= str_replace(" ", "_", $key);
+					$row[$newKey] = $value;
+					if(in_array($newKey,$fields)){
+					    $rowq[$newKey] = $value;
+					}
 				}
 				/*
 				 * Generation du qrcode

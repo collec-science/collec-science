@@ -27,5 +27,20 @@ class SampleMetadata extends ObjetBDD {
 		);
 		parent::__construct ( $bdd, $param );
 	}
+	/**
+	 * Récupére le jeu de métadonnées à partir de l'uid d'un échantillon
+	 *
+	 * @param $uid
+	 */
+	function getMetadataFromUid($uid) {
+		if ($uid > 0 && is_numeric ( $uid )) {
+			$sql = "select data from sample_metadata
+			join sample using (sample_metadata_id)
+			where uid = :uid";
+			$var ["uid"] = $uid;
+			$data =$this->lireParamAsPrepared ( $sql, $var );
+			return $data["data"];
+		}
+	}
 }
 ?>

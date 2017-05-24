@@ -19,6 +19,21 @@ if (check_encoding ( $_REQUEST ) == false) {
 	unset ( $_REQUEST ["action"] );
 }
 /**
+ * Verification de la version de la base de donnees
+ */
+if (! isset ( $_SESSION ["dbversion"] )) {
+	require_once "framework/dbversion/dbversion.class.php";
+	$dbversion = new DbVersion ( $bdd, $ObjetBDDParam );
+	if ($dbversion->verifyVersion ( $APPLI_dbversion )) {
+		$_SESSION ["dbversion"] = $APPLI_dbversion;
+	} else {
+		$message->set ( "La base de données n'est pas dans la version attendue ($APPLI_dbversion). Version actuelle : " . $dbversion->getLastVersion () );
+		$_REQUEST ["module"] = "default";
+		unset ( $_REQUEST ["moduleBase"] );
+		unset ( $_REQUEST ["action"] );
+	}
+}
+/**
  * Decodage des variables html
  */
 $_REQUEST = htmlDecode ( $_REQUEST );
@@ -55,12 +70,12 @@ while ( isset ( $module ) ) {
 	$t_module = $navigation->getModule ( $module );
 	if (count ( $t_module ) == 0)
 		$message->set ( $LANG ["message"] [35] . " ($module)" );
-		/*
+	/*
 	 * Forcage de l'identification si identification en mode HEADER
 	 */
 	if ($ident_type == "HEADER")
 		$t_module ["loginrequis"] = 1;
-		/*
+	/*
 	 * Preparation de la vue
 	 */
 	if (! isset ( $vue ) && isset ( $t_module ["type"] )) {
@@ -252,7 +267,7 @@ while ( isset ( $module ) ) {
 	$motifErreur = "ok";
 	if ($t_module ["loginrequis"] == 1 && ! isset ( $_SESSION ["login"] ))
 		$resident = 0;
-		/*
+	/*
 	 * Verification des droits
 	 */
 	if (strlen ( $t_module ["droits"] ) > 1) {
@@ -369,14 +384,14 @@ if ($isHtml) {
 	$vue->set ( $_SESSION ["menu"], "menu" );
 	if (isset ( $_SESSION ["login"] ))
 		$vue->set ( 1, "isConnected" );
-		/*
+	/*
 	 * Affichage de la page
 	 */
-		/*
+	/*
 	 * Alerte Mode developpement
 	 */
 	if ($APPLI_modeDeveloppement == true) {
-		$texteDeveloppement = $LANG ["message"] [32] . " : " . $BDD_dsn . ' - schema : ' . $BDD_schema;
+		$texteDeveloppement = $LANG ["message"] [32] . " :  $BDD_dsn  - schema : $BDD_schema - db version (expected) : $APPLI_dbversion";
 		$vue->set ( $texteDeveloppement, "developpementMode" );
 	}
 	$vue->set ( $_SESSION ["moduleListe"], "moduleListe" );

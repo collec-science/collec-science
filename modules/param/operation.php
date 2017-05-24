@@ -34,12 +34,18 @@ switch ($t_module["param"]) {
 		require_once 'modules/classes/metadataForm.class.php';
 		$metadata= new MetadataForm($bdd, $ObjetBDDParam);
 		$vue->set($metadata->getListe(1),"metadata");
-
+		/*
+		 * Vérification si échantillons existants pour cette opération
+		 */
+		$vue->set($dataClass->getNbSample($id),"nbSample");
 		/*
 		 * Recuperation de toutes les opérations
 		 */
 		$vue->set($dataClass->getListe(1),"operations");
-
+		/*
+		 * Recuperation de l'opération père
+		 */
+		$vue->set($_REQUEST["operation_pere_id"] ,"operation_pere_id");
 		break;
 	case "write":
 		/*
@@ -58,6 +64,9 @@ switch ($t_module["param"]) {
 			}
 			$idmetadata = $metadata->ecrire($data);
 			$_REQUEST["metadata_form_id"] = $idmetadata;
+
+			//mise à jour de la date de dernière edition
+			$_REQUEST["last_edit_date"] = date("Y-m-d H:i:s");
 			
 			$id = dataWrite($dataClass, $_REQUEST);
 			if ($id > 0) {
@@ -66,7 +75,6 @@ switch ($t_module["param"]) {
 		}
 		else{
 			$module_coderetour = - 1;
-			$message->set ( "Impossible de modifier une opération à laquelle est rattaché des échantillons" );
 		}
 		break;
 	case "delete":

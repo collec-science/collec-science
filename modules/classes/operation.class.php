@@ -6,7 +6,7 @@
  * Copyright 2016 - All rights reserved
  */
 class Operation extends ObjetBDD {
-	private $sql = "select operation_id, operation_name, operation_order,
+	private $sql = "select operation_id, operation_name, operation_order,operation_version,last_edit_date,
 					protocol_id, protocol_name, protocol_year, protocol_version,
 					metadata_form_id, schema
 					from operation
@@ -40,6 +40,12 @@ class Operation extends ObjetBDD {
 				),
 				"operation_order" => array (
 						"type" => 1
+				),
+				"operation_version" => array(
+						"type" => 0
+				),
+				"last_edit_date"=> array(
+						"type"=>0
 				),
 				"metadata_form_id" => array (
 						"type" => 1

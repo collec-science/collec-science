@@ -105,7 +105,7 @@ Retour à la liste des échantillons
 <div class="form-group">
 <label for="sample_type_id" class="control-label col-md-4">Type<span class="red">*</span> :</label>
 <div class="col-md-8">
-<select id="sample_type_id" name="sample_type_id" class="form-control">
+<select id="sample_type_id" name="sample_type_id" class="form-control" onchange=" updateForm()">
 {section name=lst loop=$sample_type}
 <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $data.sample_type_id}selected{/if}>
 {$sample_type[lst].sample_type_name} 

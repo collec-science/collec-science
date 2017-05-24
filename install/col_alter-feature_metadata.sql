@@ -15,11 +15,15 @@ CREATE TABLE "sample_metadata"(
     CONSTRAINT sample_metadata_pk PRIMARY KEY (sample_metadata_id)
     );
 
-ALTER TABLE "operation" ADD COLUMN metadata_form_id integer, 
+ALTER TABLE "operation" 
+ADD COLUMN metadata_form_id integer, 
+operation_version varchar,
+ADD COLUMN last_edit_date timestamp,
 ADD CONSTRAINT metadata_form_fk 
 FOREIGN KEY ("metadata_form_id")
 REFERENCES "metadata_form" ("metadata_form_id") MATCH SIMPLE
-ON UPDATE NO ACTION ON DELETE NO ACTION;
+ON UPDATE NO ACTION ON DELETE NO ACTION,
+ADD CONSTRAINT operation_name_version_unique UNIQUE (operation_name,operation_version);
 
 ALTER TABLE "sample" ADD COLUMN sample_metadata_id integer, 
 ADD CONSTRAINT sample_metadata_fk 

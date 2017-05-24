@@ -1,123 +1,6 @@
+<script type="text/javascript" src="display/javascript/alpaca/js/defineForm.js"></script>
+
 <script type="text/javascript">
-function renderForm(data){
-        $("#metadata").alpaca({
-            "data": data,
-            "schema": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "nom": {
-                            "title": "Nom du champ",
-                            "type": "string",
-                            "required": true
-                        },
-                        "type": {
-                            "title": "Type du champ",
-                            "type": "string",
-                            "required": true,
-                            "enum": ["number","string","textarea","date","checkbox","time","datetime","select"],
-                            "default": "string"
-                        },
-                        "choiceList": {
-                            "title": "Choix possibles",
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "require": {
-                        },
-                        "helperChoice": {
-                        },
-                        "helper" :{
-                            "type": "string",
-                            "title": "Message d'aide"
-                        },
-                        "description" :{
-                            "title": "Description du champ",
-                            "type" : "string",
-                            "required": true
-                        },
-                        "meusureUnit" :{
-                            "title": "Unité de mesure (ou modalités)",
-                            "type" : "string",
-                            "required": true
-                        }
-                    },
-                    "dependencies": {
-                        "choiceList": ["type"],
-                        "helper": ["helperChoice"]
-                    }
-                }
-            },
-            "options": {
-                "items": {
-                    "fields": {
-                        "type": {
-                            "optionLabels": ["Nombre","Texte (une ligne)","Texte (multi-ligne)","Date","Checkbox","Temps","Date et Temps","Liste à choix multiple"],
-                            "type": "select",
-                            "hideNone": true,
-                            "sort": function(a, b) { 
-                                            return 0; 
-                                        }
-                        },
-                        "typeList":{
-                            "dependencies": {
-                                "type":"Liste"
-                            }
-                        },
-                        "choiceList":{
-                            "dependencies": {
-                                "type":"select"
-                            }
-                        },
-                        "require": {
-                            "type": "checkbox",
-                            "rightLabel": "Obligatoire"
-                        },
-                        "helperChoice": {
-                            "type": "checkbox",
-                            "rightLabel": "Message d'aide"
-                        },
-                        "helper": {
-                            "dependencies": {
-                                "helperChoice": true
-                            }
-                        },
-                        "description" :{
-                            "type" : "textarea"
-                        },
-                        "meusureUnit" :{
-                            "type" : "textarea"
-                        }
-                    }
-                }
-            },
-            "postRender": function(control) {
-
-                control.on("mouseout",function(){
-                var value = control.getValue();
-                var metadataField = document.getElementById("metadataField");
-                metadataField.setAttribute("value",JSON.stringify(value, null,null));
-                });
-
-                control.on("change",function(){
-                var value = control.getValue();
-                var metadataField = document.getElementById("metadataField");
-                metadataField.setAttribute("value",JSON.stringify(value, null,null));
-                });
-
-                var value = control.getValue();
-                var metadataField = document.getElementById("metadataField");
-                metadataField.setAttribute("value",JSON.stringify(value, null,null));
-                
-                
-            }
-            
-        });
-}
-
 function loadSchema(){
     var $metadataFormId = document.getElementById("copySchema").value;
     {section name=lst loop=$metadata}
@@ -133,6 +16,14 @@ function loadSchema(){
 }
 </script>
 
+{if $nbSample>0}
+<div class="col-md-12 message">
+<span class="red"> Cette opération n'est pas modifiable, car il existe des échantillons qui lui sont associés.</span>
+</div>
+<br/>
+<input type="button" class="btn btn-primary button-valid" value="En créer une nouvelle version" onclick="location.href='index.php?module=operationChange&operation_id=0&operation_pere_id={$data.operation_id}'">
+
+{/if}
 
 <h2>Modification d'une operation</h2>
 <div class="row">
@@ -161,7 +52,14 @@ function loadSchema(){
 <div class="form-group">
 <label for="operationName"  class="control-label col-md-4">Nom de l'opération<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="operationName" type="text" class="form-control" name="operation_name" value="{$data.operation_name}" required>
+<input id="operationName" type="text" class="form-control" name="operation_name" value="{if $operation_pere_id>0}{section name=lst loop=$operations}{if $operations[lst].operation_id == $operation_pere_id}{$operations[lst].operation_name}{/if}{/section}{else}{$data.operation_name}{/if}" required>
+</div>
+</div>
+
+<div class="form-group">
+<label for="operationVersion"  class="control-label col-md-4">Version de l'opération<span class="red">*</span> :</label>
+<div class="col-md-8">
+<input id="operationVersion" type="text" class="form-control" name="operation_version" value="{$data.operation_version}" required>
 </div>
 </div>
 

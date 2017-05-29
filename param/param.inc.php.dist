@@ -37,18 +37,18 @@ $ident_type = "BDD";
 /*
  * Parametres concernant la base de donnees
  */
-$BDD_login = "proto";
-$BDD_passwd = "proto";
-$BDD_dsn = "pgsql:host=localhost;dbname=proto;sslmode=require";
+$BDD_login = "collec";
+$BDD_passwd = "collecPassword";
+$BDD_dsn = "pgsql:host=localhost;dbname=collec";
 $BDD_schema = "col,gacl,public";
 
 /*
  * Rights management, logins and logs records database
  */
-$GACL_dblogin = "proto";
-$GACL_dbpasswd = "proto";
+$GACL_dblogin = "collec";
+$GACL_dbpasswd = "collecPassword";
 $GACL_aco = "col";
-$GACL_dsn = "pgsql:host=localhost;dbname=proto;sslmode=require";
+$GACL_dsn = "pgsql:host=localhost;dbname=collec";
 $GACL_schema = "gacl";
 
 /*

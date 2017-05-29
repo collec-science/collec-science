@@ -2,8 +2,15 @@
  * COLLEC - 29/05/2017
  * Script de creation des tables destinees a recevoir les donnees de l'application
  * version minimale de Postgresql : 9.4.
- * Schema par defaut : col. Si vous voulez creer les donnees dans d'autres schemas, modifiez les deux premieres
- * lignes de code en consequence
+ * Schema par defaut : col. Si vous voulez creer les donnees dans d'autres schemas, modifiez les 
+ * lignes 279 et 280 en consequence
+ * Execution de ce script en ligne de commande, en etant connecte root :
+ * su postgres -c "psql -f init_by_psql.sql"
+ * dans la configuration de postgresql :
+ * /etc/postgresql/version/main/pg_hba.conf
+ * inserez les lignes suivantes (connexion avec uniquement le compte collec en local) :
+ * host    collec             collec             127.0.0.1/32            md5
+ * host    *             collec                  0.0.0.0/0               reject
  */
  
  /*
@@ -270,7 +277,6 @@ select setval('aclgroup_aclgroup_id_seq', (select max(aclgroup_id) from aclgroup
  */
 
 create schema col;
-
 set search_path = col;
 
 create or replace view "aclgroup" as select * from "gacl"."aclgroup";
@@ -1192,6 +1198,9 @@ alter table "sample" add column dbuid_origin varchar;
 comment on column "sample".dbuid_origin is 'référence utilisée dans la base de données d''origine, sous la forme db:uid
 Utilisé pour lire les étiquettes créées dans d''autres instances';
 
+/*
+ * Feature dbversion_verify - 29/05/2017
+ */
 CREATE SEQUENCE "dbversion_dbversion_id_seq";
 
 CREATE TABLE "dbversion" (
@@ -1205,7 +1214,7 @@ COMMENT ON COLUMN "dbversion"."dbversion_number" IS 'Numero de la version';
 COMMENT ON COLUMN "dbversion"."dbversion_date" IS 'Date de la version';
 
 
-ALTER SEQUENCE "dbversion_dbversion_id_seq" OWNED BY "collec"."col"."dbversion"."dbversion_id";
+ALTER SEQUENCE "dbversion_dbversion_id_seq" OWNED BY "dbversion"."dbversion_id";
 
 /*
  * fin du script

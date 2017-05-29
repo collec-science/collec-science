@@ -10,7 +10,7 @@
  * /etc/postgresql/version/main/pg_hba.conf
  * inserez les lignes suivantes (connexion avec uniquement le compte collec en local) :
  * host    collec             collec             127.0.0.1/32            md5
- * host    *             collec                  0.0.0.0/0               reject
+ * host    all            collec                  0.0.0.0/0               reject
  */
  
  /*
@@ -169,7 +169,7 @@ values
 (4, 1, 'gestion'),
 (5, 1, 'consult');
 
-insert into aclgroup (aclgroup_id, group, aclgroup_id_parent) 
+insert into aclgroup (aclgroup_id, groupe, aclgroup_id_parent) 
 values 
 (2, 'consult', null),
 (3, 'gestion', 2),
@@ -183,7 +183,7 @@ values
 (4, 3),
 (5, 2);
 
-insert into (acllogingroup) (acllogin_id, aclgroup_id)
+insert into acllogingroup (acllogin_id, aclgroup_id)
 values
 (1, 5);
 
@@ -700,7 +700,7 @@ CREATE TABLE "storage" (
 );
 COMMENT ON TABLE "storage" IS 'Gestion du stockage des échantillons';
 COMMENT ON COLUMN "storage"."storage_date" IS 'Date/heure du mouvement';
-COMMENT ON COLUMN "storage"."range" IS 'Emplacement de l''échantillon dans le conteneur';
+COMMENT ON COLUMN "storage"."storage_location" IS 'Emplacement de l''échantillon dans le conteneur';
 COMMENT ON COLUMN "storage"."login" IS 'Nom de l''utilisateur ayant réalisé l''opération';
 COMMENT ON COLUMN "storage"."storage_comment" IS 'Commentaire';
 

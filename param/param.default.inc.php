@@ -7,6 +7,7 @@
 * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
 */
 $APPLI_version = "1.0.7a";
+$APPLI_dbversion = "dev 24-05-17";
 $APPLI_versiondate = "12/05/2017";
 $language = "fr";
 $DEFAULT_formatdate = "fr";

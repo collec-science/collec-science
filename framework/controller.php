@@ -13,10 +13,27 @@ include_once ("framework/common.inc.php");
  * Codage UTF-8
  */
 if (check_encoding ( $_REQUEST ) == false) {
-	$message->set ( "Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu" );
+	$message->set ( $LANG ["message"] [45] );
 	$_REQUEST ["module"] = "default";
 	unset ( $_REQUEST ["moduleBase"] );
 	unset ( $_REQUEST ["action"] );
+}
+/**
+ * Verification de la version de la base de donnees
+ */
+if (! isset ( $_SESSION ["dbversion"] )) {
+	require_once "framework/dbversion/dbversion.class.php";
+	$dbversion = new DbVersion ( $bdd, $ObjetBDDParam );
+	if ($dbversion->verifyVersion ( $APPLI_dbversion )) {
+		$_SESSION ["dbversion"] = $APPLI_dbversion;
+	} else {
+		if ($APPLI_modeDeveloppement)
+			unset ( $_SESSION ["dbversion"] );
+		$message->set ( str_replace ( "%", $APPLI_dbversion, $LANG ["message"] [46] ) . $dbversion->getLastVersion () ["dbversion_number"] );
+		$_REQUEST ["module"] = "default";
+		unset ( $_REQUEST ["moduleBase"] );
+		unset ( $_REQUEST ["action"] );
+	}
 }
 /**
  * Decodage des variables html
@@ -55,12 +72,12 @@ while ( isset ( $module ) ) {
 	$t_module = $navigation->getModule ( $module );
 	if (count ( $t_module ) == 0)
 		$message->set ( $LANG ["message"] [35] . " ($module)" );
-		/*
+	/*
 	 * Forcage de l'identification si identification en mode HEADER
 	 */
 	if ($ident_type == "HEADER")
 		$t_module ["loginrequis"] = 1;
-		/*
+	/*
 	 * Preparation de la vue
 	 */
 	if (! isset ( $vue ) && isset ( $t_module ["type"] )) {
@@ -252,7 +269,7 @@ while ( isset ( $module ) ) {
 	$motifErreur = "ok";
 	if ($t_module ["loginrequis"] == 1 && ! isset ( $_SESSION ["login"] ))
 		$resident = 0;
-		/*
+	/*
 	 * Verification des droits
 	 */
 	if (strlen ( $t_module ["droits"] ) > 1) {
@@ -284,7 +301,7 @@ while ( isset ( $module ) ) {
 		if ($beforeok == false) {
 			$resident = 0;
 			if ($APPLI_modeDeveloppement == true)
-				$message->set ( "Module precedent enregistre : " . $_SESSION ["moduleBefore"] );
+				$message->set ( $LANG ["message"] [47] . $_SESSION ["moduleBefore"] );
 			$motifErreur = "errorbefore";
 		}
 	}
@@ -369,14 +386,14 @@ if ($isHtml) {
 	$vue->set ( $_SESSION ["menu"], "menu" );
 	if (isset ( $_SESSION ["login"] ))
 		$vue->set ( 1, "isConnected" );
-		/*
+	/*
 	 * Affichage de la page
 	 */
-		/*
+	/*
 	 * Alerte Mode developpement
 	 */
 	if ($APPLI_modeDeveloppement == true) {
-		$texteDeveloppement = $LANG ["message"] [32] . " : " . $BDD_dsn . ' - schema : ' . $BDD_schema;
+		$texteDeveloppement = $LANG ["message"] [32] . " :  $BDD_dsn  - schema : $BDD_schema - db version (expected) : $APPLI_dbversion";
 		$vue->set ( $texteDeveloppement, "developpementMode" );
 	}
 	$vue->set ( $_SESSION ["moduleListe"], "moduleListe" );

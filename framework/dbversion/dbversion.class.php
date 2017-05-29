@@ -58,6 +58,7 @@ class DbVersion extends ObjetBDD {
 					"dbversion_date" => $this->formatDateDBversLocal ( "1970-01-01", 2 ) 
 			);
 		}
+		return $result;
 	}
 }
 ?>

@@ -13,7 +13,7 @@ include_once ("framework/common.inc.php");
  * Codage UTF-8
  */
 if (check_encoding ( $_REQUEST ) == false) {
-	$message->set ( "Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu" );
+	$message->set ( $LANG ["message"] [45] );
 	$_REQUEST ["module"] = "default";
 	unset ( $_REQUEST ["moduleBase"] );
 	unset ( $_REQUEST ["action"] );
@@ -27,7 +27,9 @@ if (! isset ( $_SESSION ["dbversion"] )) {
 	if ($dbversion->verifyVersion ( $APPLI_dbversion )) {
 		$_SESSION ["dbversion"] = $APPLI_dbversion;
 	} else {
-		$message->set ( "La base de données n'est pas dans la version attendue ($APPLI_dbversion). Version actuelle : " . $dbversion->getLastVersion () );
+		if ($APPLI_modeDeveloppement)
+			unset ( $_SESSION ["dbversion"] );
+		$message->set ( str_replace ( "%", $APPLI_dbversion, $LANG ["message"] [46] ) . $dbversion->getLastVersion () ["dbversion_number"] );
 		$_REQUEST ["module"] = "default";
 		unset ( $_REQUEST ["moduleBase"] );
 		unset ( $_REQUEST ["action"] );
@@ -299,7 +301,7 @@ while ( isset ( $module ) ) {
 		if ($beforeok == false) {
 			$resident = 0;
 			if ($APPLI_modeDeveloppement == true)
-				$message->set ( "Module precedent enregistre : " . $_SESSION ["moduleBefore"] );
+				$message->set ( $LANG ["message"] [47] . $_SESSION ["moduleBefore"] );
 			$motifErreur = "errorbefore";
 		}
 	}

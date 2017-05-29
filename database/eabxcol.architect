@@ -1170,7 +1170,7 @@ Utilisé pour lire les étiquettes créées dans d&apos;autres instances</remark
     <column id="COL340" populated="true" UUID="cdf9101e-9eb4-416c-ab49-9e96e8a14240" autoIncrement="false" autoIncrementSequenceName="storage_storage_date_seq" defaultValue="" name="storage_date" nullable="0" physicalName="storage_date" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
      <remarks>Date/heure du mouvement</remarks>
     </column>
-    <column id="COL341" populated="true" UUID="39321d48-ad47-4a44-9f61-41112207c7a2" autoIncrement="false" autoIncrementSequenceName="storage_range_seq" defaultValue="" name="location" nullable="1" physicalName="location" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL341" populated="true" UUID="39321d48-ad47-4a44-9f61-41112207c7a2" autoIncrement="false" autoIncrementSequenceName="storage_range_seq" defaultValue="" name="storage_location" nullable="1" physicalName="storage_location" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Emplacement de l&apos;échantillon dans le conteneur</remarks>
     </column>
     <column id="COL342" populated="true" UUID="0219622f-da04-49f3-a82b-791f261bcdae" autoIncrement="false" autoIncrementSequenceName="storage_login_seq" defaultValue="" name="login" nullable="0" physicalName="login" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
@@ -1871,7 +1871,7 @@ Utilisé pour lire les étiquettes créées dans d&apos;autres instances</remark
   <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  </compare-dm-settings>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="0.6569463938961267" viewportX="0" viewportY="59" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="0.6569463938961267" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB248" x="1243" y="578" bgColor="0xdfedce" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB254" x="850" y="393" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB262" x="433" y="578" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>

@@ -20,6 +20,7 @@ switch ($t_module ["param"]) {
 		$_SESSION ["searchSample"]->setParam ( $_REQUEST );
 		$dataSearch = $_SESSION ["searchSample"]->getParam ();
 		if ($_SESSION ["searchSample"]->isSearch () == 1) {
+			if (! isset ( $isDelete ))
 			$data = $dataClass->sampleSearch ( $dataSearch );
 			$vue->set ( $data, "samples" );
 			$vue->set ( 1, "isSearch" );
@@ -148,6 +149,7 @@ switch ($t_module ["param"]) {
 		 * delete record
 		 */
 		dataDelete ( $dataClass, $_REQUEST ["uid"] );
+		$isDelete = true;
 		break;
 }
 ?>

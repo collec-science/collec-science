@@ -12,7 +12,7 @@
 <div class="col-md-8">
 <select id="protocolId" name="protocol_id" class="form-control" autofocus>
 {section name=lst loop=$protocol}
-<option value="{$protocol[lst].protocol_id}">
+<option value="{$protocol[lst].protocol_id}" {if $data.protocol_id == $protocol[lst].protocol_id}selected{/if}>
 {$protocol[lst].protocol_year} {$protocol[lst].protocol_name} {$protocol[lst].protocol_version}
 </option>
 {/section}

@@ -16,11 +16,11 @@ switch ($t_module ["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$_SESSION ["searchContainer"]->setParam ( $_REQUEST );
+		if (! isset ( $isDelete ))
+			$_SESSION ["searchContainer"]->setParam ( $_REQUEST );
 		$dataSearch = $_SESSION ["searchContainer"]->getParam ();
 		if ($_SESSION ["searchContainer"]->isSearch () == 1) {
-			if (! isset ( $isDelete ))
-				$data = $dataClass->containerSearch ( $dataSearch );
+			$data = $dataClass->containerSearch ( $dataSearch );
 			$vue->set ( $data, "containers" );
 			$vue->set ( 1, "isSearch" );
 		}

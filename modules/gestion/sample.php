@@ -17,10 +17,10 @@ switch ($t_module ["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$_SESSION ["searchSample"]->setParam ( $_REQUEST );
+		if (! isset ( $isDelete ))
+			$_SESSION ["searchSample"]->setParam ( $_REQUEST );
 		$dataSearch = $_SESSION ["searchSample"]->getParam ();
 		if ($_SESSION ["searchSample"]->isSearch () == 1) {
-			if (! isset ( $isDelete ))
 			$data = $dataClass->sampleSearch ( $dataSearch );
 			$vue->set ( $data, "samples" );
 			$vue->set ( 1, "isSearch" );
@@ -47,8 +47,8 @@ switch ($t_module ["param"]) {
 		 * Recuperation des identifiants associes
 		 */
 		require_once 'modules/classes/objectIdentifier.class.php';
-		$oi = new ObjectIdentifier($bdd, $ObjetBDDParam);
-		$vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
+		$oi = new ObjectIdentifier ( $bdd, $ObjetBDDParam );
+		$vue->set ( $oi->getListFromUid ( $data ["uid"] ), "objectIdentifiers" );
 		/*
 		 * Recuperation des conteneurs parents
 		 */
@@ -133,7 +133,7 @@ switch ($t_module ["param"]) {
 			include 'modules/gestion/sample.functions.php';
 		}
 		include 'modules/gestion/mapInit.php';
-		$vue->set(1, "mapIsChange");
+		$vue->set ( 1, "mapIsChange" );
 		break;
 	case "write":
 		/*

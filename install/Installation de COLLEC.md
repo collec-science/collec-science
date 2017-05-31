@@ -339,7 +339,7 @@ Valider la config et redémarrer postgres
 - `sudo /etc/init.d/postgresql restart -n 9.5`
 
 
-Reporter dans le fichier de config de collec les infos sur la BDD
+Reporter dans le fichier de config de collec les infos sur la BDD (voir le paragraphe 1.6.2)
 - `vi /home/adminuser/Dev/COLLEC/collec/param/param.inc.php`
 
 

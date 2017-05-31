@@ -346,7 +346,7 @@ Reporter dans le fichier de config de collec les infos sur la BDD (voir le parag
 ## 1.6 Configuration de collec
 
 Se placer dans votre répertoire d'installation de collec : /home/adminuser/Dev/COLLEC/collec par exemple
-`cd /home/adminuser/Dev/COLLEC/collec/`
+```cd /home/adminuser/Dev/COLLEC/collec/```
 
 ## 1.6.1 Ne pas oublier
 `mkdir display/templates_c`

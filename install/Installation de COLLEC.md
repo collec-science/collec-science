@@ -9,31 +9,31 @@ Ce manuel est écrit pour une Ubuntu 14.04.4 LTS
 
 Documentation de l'installation sur l'OS Linux Ubuntu
 Aptitude : pour la gestion des packages
-`apt-get install aptitude`
+```apt-get install aptitude```
 
-`aptitude search php`
+```aptitude search php```
 
 Anti-virus
-`apt-get install clamav`
+```apt-get install clamav```
 
 ## 1.1 Installer PostgreSQL et pgAdmin3
 D'abord le SGBD
-`sudo apt-get install postgresql`
+```sudo apt-get install postgresql```
 Puis le client graphique PgAdmin
-`sudo apt-get install pgadmin3`
+```sudo apt-get install pgadmin3```
 
 ![warning](./warning30x30.png) Attention, il faut installer la version Postgres 9.5 au minimum
 Comment faire ? Explications [ici](https://medium.com/@tk512/upgrading-postgresql-from-9-4-to-9-5-on-ubuntu-14-04-lts-dfd93773d4a5#.rjvujw3qi)
 
 Si vous aviez une machine avec 9.3 : 
-`sudo pg_ctlcluster 9.3 main stop`
+```sudo pg_ctlcluster 9.3 main stop```
 
 Rajouter la source du package postgres 9.5 dans apt
- `vi /etc/apt/sources.list.d/pgdg.list`
- `deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main` 
+ ```vi /etc/apt/sources.list.d/pgdg.list```
+ ```deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main``` 
 
 Vérifier apt-get
- `wget -q -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -`
+ ```wget -q -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | sudo apt-key add -```
 
 Installer
 `sudo apt-get install postgresql-9.5`

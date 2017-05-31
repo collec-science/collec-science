@@ -10,7 +10,9 @@ Ce manuel est écrit pour une Ubuntu 14.04.4 LTS
 Documentation de l'installation sur l'OS Linux Ubuntu
 Aptitude : pour la gestion des packages
 `apt-get install aptitude`
+
 `aptitude search php`
+
 Anti-virus
 `apt-get install clamav`
 
@@ -23,6 +25,7 @@ Puis le client graphique PgAdmin
 ![warning](./warning30x30.png) Attention, il faut installer la version Postgres 9.5 au minimum
 Comment faire ? Explications [ici](https://medium.com/@tk512/upgrading-postgresql-from-9-4-to-9-5-on-ubuntu-14-04-lts-dfd93773d4a5#.rjvujw3qi)
 
+Si vous aviez une machine avec 9.3 : 
 `sudo pg_ctlcluster 9.3 main stop`
 
 Rajouter la source du package postgres 9.5 dans apt
@@ -44,9 +47,13 @@ Ver Cluster Port Status Owner    Data directory               Log file
 ```
 
 `sudo pg_dropcluster --stop 9.5 main`
+
 `sudo pg_upgradecluster 9.3 main`
+
 `pg_dropcluster 9.3 main`
+
 `sudo pg_lsclusters`
+
 
 ```
 Ver Cluster Port Status Owner    Data directory               Log file
@@ -56,6 +63,7 @@ Ver Cluster Port Status Owner    Data directory               Log file
 
 Vérifier
 `psql --version`
+
 ```  psql (PostgreSQL) 9.5.6```
 
 ## 1.2 Installer Apache et php7.0
@@ -71,6 +79,7 @@ Sinon, sur Ubuntu il est nécessaire de rajouter ce dépôt pour PHP7
 `sudo add-apt-repository ppa:ondrej/php`
 
 `apt-get install apache2 php7.0`
+
 Le module pour apache
 `apt-get install libapache2-mod-php7.0`
 
@@ -110,7 +119,9 @@ La page [**PHP Info**](https://siza.univ-lr.fr/collec/index.php?module=phpinfo) 
 `cd /etc/apache2/` 
 Activer SSL et le mode redirection
 `a2enmod ssl`
+
 `a2enmod headers`
+
 `a2enmod rewrite`
 
 `cd sites-available/`
@@ -233,12 +244,15 @@ SSLStaplingCache        shmcb:/var/run/ocsp(128000)
 
 Activer les 2 sites (HTTP et HTTPS)
 `a2ensite 000-default.conf`
+
 `a2ensite default-ssl.conf`
 
 Donner les droits à apache2 (www-data user) de lire les certificats placés dans /etc/ssl/ssl-cert
 
 `cd /etc/ssl`
+
 `chmod -R g+r  private`
+
 `usermod www-data -a -G ssl-cert`
 
 
@@ -259,13 +273,17 @@ D'abord se placer dans le repertoire du serveur qui va accueillir les sources du
 Configurer l'environnement GIT avec le nom et mail de la personne qui récupère les sources.
 GIT init pour l'utilisateur cplumejeaud
 `git init`
+
 `git config --global user.email "cplumejeaud@gmail.com"`
+
 `git config --global user.name "cplumejeaud"`
 
 Spécifier l'adresse du GITHUB de collec
 `git remote add origin https://github.com/Irstea/collec.git`
+
 Vérifier la config
 `git config --global --list`
+
 Récupérer les sources de collec (branche master)
 `git clone https://github.com/Irstea/collec.git`
 
@@ -283,7 +301,7 @@ L'interface graphique GIT
 user : collec
 mot de passe : collec
 
-sudo -u postgres psql 
+`sudo -u postgres psql `
 createuser collec superuser password 'collec';
 <!-- va changer -->
 
@@ -304,7 +322,9 @@ Ensuite la BDD d'objets (échantillons et containers)
 
 ![warning](./warning30x30.png) Surveiller le GIT et **les mises à jour du schema de BDD** dans install
 `psql -d collec -U collec -f /home/adminuser/Dev/COLLEC/collec/install/col_alter_1.0-1.0.4.sql`
+
 `psql -d collec -U collec -f /home/adminuser/Dev/COLLEC/collec/install/col_alter_1.0.4-1.0.5.sql`
+
 `psql -d collec -U collec -f /home/adminuser/Dev/COLLEC/collec/install/col_alter-1.0.5-1.0.6.sql`
 
 Initialiser les droits de l'utilisateur admin (qui a le mot de passe 'password' par défaut, à changer)
@@ -330,6 +350,7 @@ Se placer dans votre répertoire d'installation de collec : /home/adminuser/Dev/
 
 ## 1.6.1 Ne pas oublier
 `mkdir display/templates_c`
+
 `chmod 777 display/templates_c`
 Ce dossier est rempli régulièrement lors de la génération d'étiquettes : fop --> XML --> image --> PDF. 
 Il est programmé pour un effacement rotatif des fichiers à chaque connexion d'utilisateur
@@ -337,6 +358,7 @@ Il est programmé pour un effacement rotatif des fichiers à chaque connexion d'
 
 Vérifier que fop trouve java : 
 `java -version`
+
 ```
 java version "1.7.0_121"
 OpenJDK Runtime Environment (IcedTea 2.6.8) (7u121-2.6.8-1ubuntu0.14.04.3)

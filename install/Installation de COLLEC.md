@@ -3,6 +3,8 @@
 Voir la documentation complète sur le GIT 
 https://github.com/Irstea/collec/blob/master/database/documentation/collec_installation_configuration.pdf
 
+Ce manuel est écrit pour une Ubuntu 14.04.4 LTS
+
 # 1. Installation de COLLEC
 
 Documentation de l'installation sur l'OS Linux Ubuntu
@@ -58,7 +60,15 @@ Vérifier
 
 ## 1.2 Installer Apache et php7.0
 Le serveur Web apache (v2) et l'interpréteur PHP version 7
-sudo add-apt-repository ppa:ondrej/php
+
+Si vous êtes sur une Debian, faites ceci.
+```
+deb http://packages.dotdeb.org jessie all
+deb-src http://packages.dotdeb.org jessie all
+```
+
+Sinon, sur Ubuntu il est nécessaire de rajouter ce dépôt pour PHP7
+`sudo add-apt-repository ppa:ondrej/php`
 
 `apt-get install apache2 php7.0`
 Le module pour apache
@@ -66,7 +76,7 @@ Le module pour apache
 
 Les librairies annexes utilisées par COLLEC
 `apt-get install php7.0-mbstring php7.0-pgsql php7.0-xml php-xdebug php7.0-curl php7.0-gd fop php-imagick`
-
+<!-- Je pense qu’il manque un 7.0 a xdebug et imagick -->
 
 ![warning](./warning30x30.png) Rajout du **PDO postgres** (driver base de données postgres pour PHP7)
 `sudo apt-get install php7.0-pgsql`
@@ -82,7 +92,6 @@ ROOT:siza:/home/collec/collec > locate pdo_pgsql.so
 le script suivant permet de vérifier que PHP accède au driver : 
 ```
 <?php
-
 foreach(get_loaded_extensions() as $extension)
 {
     if(strpos(strtolower($extension), 'pdo') !== FALSE)
@@ -90,11 +99,10 @@ foreach(get_loaded_extensions() as $extension)
         echo $extension.'<br/>';
     }
 }
-
 ?>
 ```
 
-Redémarrer Apache ensuite si l'installation a été faite après la configuration d'Apache.
+Redémarrer Apache ensuite **si l'installation a été faite *après* la configuration d'Apache.**
 La page [**PHP Info**](https://siza.univ-lr.fr/collec/index.php?module=phpinfo) dans le menu **Administration** de collec permet de vérifier les modules installés pour PHP : https://localhost/collec/index.php?module=phpinfo
 
 ## 1.3 Configurer apache2
@@ -105,7 +113,7 @@ Activer SSL et le mode redirection
 `a2enmod headers`
 `a2enmod rewrite`
 
-cd sites-available/
+`cd sites-available/`
 
 Rediriger les requêtes entrantes HTTP vers HTTPS : rajouter sur la config par défaut ces instructions
 
@@ -277,21 +285,22 @@ mot de passe : collec
 
 sudo -u postgres psql 
 createuser collec superuser password 'collec';
+<!-- va changer -->
 
 CREATE ROLE collec LOGIN
   ENCRYPTED PASSWORD 'md51a8deeacb23038be992e5c2a2c15826c'
   SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;
 
 ### 1.5.2 Création d'une BDD collec
-`psql -U collec -c "create database collec"`
+`psql -U collec -d postgres -c "create database collec"`
 
 Notez que hstore, postgis et postgis_topology ne sont pas nécessaires pour l'instant. 
 psql -d collec -U collec -c "create extension postgis, postgis_topology, hstore"
 
 D'abord la BDD de droits GACL (qui peut être mutualisée avec d'autres applications)
-`psql -d collec -U collec -f /home/adminuser/Dev/COLLEC/collec/gacl_create-1.0.sql`
+`psql -d collec -U collec -f /home/adminuser/Dev/COLLEC/collec/install/gacl_create-1.0.sql`
 Ensuite la BDD d'objets (échantillons et containers) 
-`psql -d collec -U collec -f /home/adminuser/Dev/COLLEC/collec/col_create-1.0.sql`
+`psql -d collec -U collec -f /home/adminuser/Dev/COLLEC/collec/install/col_create-1.0.sql`
 
 ![warning](./warning30x30.png) Surveiller le GIT et **les mises à jour du schema de BDD** dans install
 `psql -d collec -U collec -f /home/adminuser/Dev/COLLEC/collec/install/col_alter_1.0-1.0.4.sql`
@@ -299,6 +308,7 @@ Ensuite la BDD d'objets (échantillons et containers)
 `psql -d collec -U collec -f /home/adminuser/Dev/COLLEC/collec/install/col_alter-1.0.5-1.0.6.sql`
 
 Initialiser les droits de l'utilisateur admin (qui a le mot de passe 'password' par défaut, à changer)
+Cet utilisateur "admin" est un utilisateur application (stocké dans gacl) et non un rôle postgres. Il a été créé lors de l'exécution du script gacl_create-1.0.sql. Il se trouve provisoirement dans la branche https://github.com/Irstea/collec/tree/feature_metadata/install/gacl_init_droits_groupes.sql
 `psql -d collec -U collec -f /home/adminuser/Dev/COLLEC/collec/install/gacl_init_droits_groupes.sql`
 
 Donner le droit à l'utilisateur collec d'accéder à la base en local : 

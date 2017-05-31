@@ -7,6 +7,7 @@
 <input type="hidden" name="moduleBase" value="label">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="label_id" value="{$data.label_id}">
+<input type="hidden" name="operation_id" value="{$operation_id}">
 <div class="form-group">
 <label for="labelName"  class="control-label col-md-4">Nom de l'étiquette<span class="red">*</span> :</label>
 <div class="col-md-8">
@@ -47,8 +48,36 @@ Champs utilisables dans le QRcode et dans le texte de l'étiquette :
 <li>pn : nom du protocole</li>
 <li>x : coordonnée wgs84_x de l'objet (lieu de prélèvement ou de stockage suivant le cas)</li>
 <li>y : coordonnée wgs84_y de l'objet</li>
+<li>prod : produit utilisé pour la conservation</li>
 <li>cd : date de création de l'échantillon (date de collecte ou d'extration d'un échantillon pré-existant)</li>
 <li>et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants</li>
 </ul>
 </div>
+
+{if $operation_id > 0 || $data.operation_id>0}
+<div class="bg-info">
+Métadonnées utilisables dans le QRcode et dans le texte de l'étiquette :
+<ul id="list_metadata">
+</ul>
+</div>
+<script>
+$(function() {
+    var ul=document.getElementById("list_metadata");
+    var schema;
+    if("{$operation_id}".length > 0){
+      schema = "{$operation_schema}";
+    }else{
+      schema = "{$data.schema}";
+    }
+    schema = schema.replace(/&quot;/g,'"');
+
+     $.each(JSON.parse(schema), function(i, obj) {
+        var li=document.createElement("li");
+        li.appendChild(document.createTextNode(obj.nom.replace(/ /g,"_")));
+        ul.appendChild(li);
+    });
+});
+</script>
+{/if}
+
 <span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>

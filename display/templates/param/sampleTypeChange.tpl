@@ -41,22 +41,6 @@
 </div>
 </div>
 
-<div class="form-group">
-<label for="metadata_set_id"  class="control-label col-md-4">Jeu de métadonnées : </label>
-<div id="is_container"class="col-md-8" >
-<select name="metadata_set_id" id="metadata_set_id" class="form-control" >
-<option value="" {if $data.metadata_set_id == ""} selected{/if}>
-{$LANG.appli.2}
-</option>
-{section name=lst loop=$metadataSet}
-<option value="{$metadataSet[lst].metadata_set_id}" {if $metadataSet[lst].metadata_set_id == $data.metadata_set_id}selected{/if}>
-{$metadataSet[lst].metadata_set_name}
-</option>
-{/section}
-</select>
-</div>
-</div>
-
 
 <fieldset>
 <legend>Sous-échantillonnage</legend>

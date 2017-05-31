@@ -29,6 +29,10 @@ switch ($t_module ["param"]) {
 		 * Ajout des listes deroulantes
 		 */
 		include 'modules/gestion/container.functions.php';
+		/*
+		 * Ajout de la selection des modeles d'etiquettes
+		 */
+		include 'modules/gestion/label.functions.php';
 		break;
 	case "display":
 		/*
@@ -76,6 +80,10 @@ switch ($t_module ["param"]) {
 		$document = new Document($bdd, $ObjetBDDParam);
 		$vue->set($document->getListFromParent($data["uid"]), "dataDoc");
 		$vue->set ( 1, "modifiable" );
+		/*
+		 * Ajout de la selection des modeles d'etiquettes
+		 */
+		include 'modules/gestion/label.functions.php';
 		/*
 		 * Affichage
 		 */

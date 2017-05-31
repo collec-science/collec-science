@@ -31,6 +31,10 @@ switch ($t_module ["param"]) {
 		 * Ajout des listes deroulantes
 		 */
 		include 'modules/gestion/sample.functions.php';
+		/*
+		 * Ajout de la selection des modeles d'etiquettes
+		 */
+		include 'modules/gestion/label.functions.php';
 		break;
 	case "display":
 		/*
@@ -93,6 +97,10 @@ switch ($t_module ["param"]) {
 		$document = new Document ( $bdd, $ObjetBDDParam );
 		$vue->set ( $document->getListFromParent ( $data ["uid"] ), "dataDoc" );
 		/*
+		 * Ajout de la selection des modeles d'etiquettes
+		 */
+		include 'modules/gestion/label.functions.php';
+		/*
 		 * Affichage
 		 */
 		include 'modules/gestion/mapInit.php';
@@ -130,6 +138,19 @@ switch ($t_module ["param"]) {
 		/*
 		 * write record in database
 		 */
+
+		//gestion des métadonnées
+		require_once 'modules/classes/sampleMetadata.class.php';
+		$metadata = new SampleMetadata($bdd, $ObjetBDDParam);
+		$data = array ("data" =>$_REQUEST["metadataField"]);
+
+		if ($_REQUEST["sample_metadata_id"] > 0){
+			$data["sample_metadata_id"] = $_REQUEST["sample_metadata_id"];
+		}
+
+		$idmetadata = $metadata->ecrire($data);
+		$_REQUEST["sample_metadata_id"] = $idmetadata;
+		
 		$id = dataWrite ( $dataClass, $_REQUEST );
 		if ($id > 0) {
 			$_REQUEST [$keyName] = $id;

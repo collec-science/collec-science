@@ -12,6 +12,8 @@
 <th>protocole</th>
 <th>Opération</th>
 <th>N° d'ordre</th>
+<th>Version</th>
+<th>Étiquette</th>
 </tr>
 </thead>
 <tbody>
@@ -30,6 +32,10 @@
 {/if}
 </td>
 <td class="center">{$data[lst].operation_order}</td>
+<td class="center">{$data[lst].operation_version}</td>
+<td>
+<a href="index.php?module=labelChange&uid=0&operation_id={$data[lst].operation_id}">Créer une étiquette pour cette opération</a>
+</td>
 </tr>
 {/section}
 </tbody>
@@ -39,6 +45,6 @@
 <script>
 $(document).ready(function () { 
 	var operationList = $("#operationList").DataTable() ;
-	operationList.order([[0,'desc'],[2,'asc']).draw();
+	operationList.order([[0,'desc'],[2,'asc']]).draw();
 });
 </script>

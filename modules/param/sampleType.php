@@ -25,9 +25,7 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		dataRead($dataClass, $id, "param/sampleTypeChange.tpl");
-		require_once 'modules/classes/metadataSet.class.php';
-		$metadataSet = new MetadataSet($bdd, $ObjetBDDParam);
-		$vue->set($metadataSet->getListe(2),"metadataSet");
+		
 		require_once 'modules/classes/containerType.class.php';
 		$containerType = new ContainerType($bdd, $ObjetBDDParam);
 		$vue->set($containerType->getListe("container_type_name"), "container_type");
@@ -42,9 +40,17 @@ switch ($t_module["param"]) {
 		/*
 		 * write record in database
 		 */
-		$id = dataWrite($dataClass, $_REQUEST);
-		if ($id > 0) {
-			$_REQUEST[$keyName] = $id;
+
+		//on vérifie si il existe des échantillons rattachés à l'opération
+		if ($dataClass->getNbSample($id)==0){
+			$id = dataWrite($dataClass, $_REQUEST);
+			if ($id > 0) {
+				$_REQUEST[$keyName] = $id;
+			}
+		}
+		else{
+			$module_coderetour = - 1;
+			$message->set ( "Impossible de modifier un type d'échantillon auquel est rattaché des échantillons" );
 		}
 		break;
 	case "delete":

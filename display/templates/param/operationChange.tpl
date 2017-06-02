@@ -41,7 +41,7 @@ function loadSchema(){
 <div class="col-md-8">
 <select id="protocolId" name="protocol_id" class="form-control" autofocus>
 {section name=lst loop=$protocol}
-<option value="{$protocol[lst].protocol_id}">
+<option value="{$protocol[lst].protocol_id}" {if $data.protocol_id == $protocol[lst].protocol_id}selected{/if}>
 {$protocol[lst].protocol_year} {$protocol[lst].protocol_name} {$protocol[lst].protocol_version}
 </option>
 {/section}
@@ -70,10 +70,10 @@ function loadSchema(){
 </div>
 </div>
 
-<div class="form-group">
-<div class="col-md-8">
-    <legend>Jeu de métadonnées</legend>
 
+
+    <legend>Jeu de métadonnées</legend>
+<div class="form-group">
     <label for="copySchema"  class="control-label col-md-4">Partir d'un schéma existant :</label>
     <div class="col-md-8">
     <select id="copySchema" name="copySchema" class="form-control" onChange="loadSchema()" autofocus>
@@ -84,10 +84,10 @@ function loadSchema(){
     {/section}
     </select>
     </div>
+</div>
 
     <div id="metadata"></div>
-</div>
-</div>
+
 
 
 <div class="form-group center">

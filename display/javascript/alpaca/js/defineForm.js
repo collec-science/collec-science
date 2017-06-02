@@ -100,7 +100,7 @@ function renderForm(data){
                         },
                         "importFile":{
                             "type": "file",
-                            "label" : "importer un fichier CSV",
+                            "label" : "Importer un fichier CSV",
                             "dependencies": {
                                 "type":"select"
                             },
@@ -126,6 +126,7 @@ function renderForm(data){
                             "rightLabel": "Message d'aide"
                         },
                         "helper": {
+                            "helper": "Vous pouvez copier ici la description et l'unité de mesure",
                             "dependencies": {
                                 "helperChoice": true
                             }

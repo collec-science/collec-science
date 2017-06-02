@@ -45,6 +45,6 @@
 <script>
 $(document).ready(function () { 
 	var operationList = $("#operationList").DataTable() ;
-	operationList.order([[0,'desc'],[2,'asc']]).draw();
+	operationList.order([0,'desc'],[2,'asc']).draw();
 });
 </script>

@@ -163,12 +163,10 @@ Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.mult
 </div>
 </fieldset>
 
-<div class="form-group">
-<div class="col-md-8">
+<fieldset>
     <legend>Jeu de métadonnées</legend>
-    <div id="metadata" class="col-md-8"></div>
-</div>
-</div>
+    <div id="metadata"></div>
+</fieldset>
 
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>

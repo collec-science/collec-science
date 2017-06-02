@@ -205,4 +205,13 @@ Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.mult
         showForm($metadataParse, $dataParse);
     });
 
+    $('#sampleForm').submit(function() {
+        $('#metadata').alpaca().refreshValidationState(true)
+        if(!$('#metadata').alpaca().isValid(true)){
+            alert("La définition des métadonnées n'est pas valide.")
+            return false;
+        }
+        return true;
+    });
+
 </script>

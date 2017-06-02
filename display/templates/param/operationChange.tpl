@@ -117,4 +117,13 @@ function loadSchema(){
         renderForm($metadataParse);
         
     });
+
+    $('#operationForm').submit(function() {
+        $('#metadata').alpaca().refreshValidationState(true)
+        if(!$('#metadata').alpaca().isValid(true)){
+            alert("La définition des métadonnées n'est pas valide.")
+            return false;
+        }
+        return true;
+    });
 </script>

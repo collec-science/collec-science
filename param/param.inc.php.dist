@@ -21,7 +21,12 @@ $GACL_aco = "col";
 /*
  * Code de l'application - impression sur les etiquettes
  */
-$APPLI_code = 'proto';
+$APPLI_code = 'laboXX';
+/*
+ * titre de l'application affiche en haut d'ecran
+ */
+$APPLI_titre = "Collec - labo XX";
+
 /*
  * Mode d'identification
  * BDD : uniquement a partir des comptes internes

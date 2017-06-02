@@ -1,5 +1,17 @@
 News
 ===========
+Version 1.0.8 du 02/06/2017
+---------------------------
+Mise à jour de la base de données nécessaire
+
+Correction de bugs :
+- en modification d'un type d'opération, le protocole déjà saisi n'était pas affiché correctement
+- dans la liste des opérations, le tri ne fonctionnait pas
+- une fois un container ou un échantillon supprimé, la boite de recherche prenait comme arguments les paramètres de l'objet supprimé
+
+Nouvelle fonctionnalité :
+- au lancement de l'application, la version de la base de données est maintenant vérifiée 
+
 Version 1.0.7a du 12/05/2017
 ---------------------------
 Correction de bugs :

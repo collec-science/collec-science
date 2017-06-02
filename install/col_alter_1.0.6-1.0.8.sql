@@ -1,3 +1,6 @@
+/*
+ * Modifiez la ligne 4 si necessaire, pour mettre a jour tous vos schemas de donnees
+ */
 set search_path = 'col';
 
 CREATE SEQUENCE "dbversion_dbversion_id_seq";
@@ -13,6 +16,6 @@ COMMENT ON COLUMN "dbversion"."dbversion_number" IS 'Numero de la version';
 COMMENT ON COLUMN "dbversion"."dbversion_date" IS 'Date de la version';
 
 
-ALTER SEQUENCE "dbversion_dbversion_id_seq" OWNED BY "collec"."col"."dbversion"."dbversion_id";
+ALTER SEQUENCE "dbversion_dbversion_id_seq" OWNED BY "dbversion"."dbversion_id";
 
-insert into dbversion(dbversion_number, dbversion_date) values ('dev 24-05-17', '2017-05-24');
+insert into dbversion(dbversion_number, dbversion_date) values ('1.0.8', '2017-06-02');

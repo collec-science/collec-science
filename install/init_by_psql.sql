@@ -1225,4 +1225,4 @@ ALTER SEQUENCE "dbversion_dbversion_id_seq" OWNED BY "dbversion"."dbversion_id";
  * Derniere ligne systematique, a mettre a jour a chaque evolution (numero de version de la base de donnees)
  */
  
-insert into dbversion(dbversion_number, dbversion_date) values ('dev 24-05-17', '2017-05-24');
+insert into dbversion(dbversion_number, dbversion_date) values ('1.0.8', '2017-06-02');

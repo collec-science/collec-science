@@ -8,9 +8,11 @@ Correction de bugs :
 - en modification d'un type d'opération, le protocole déjà saisi n'était pas affiché correctement
 - dans la liste des opérations, le tri ne fonctionnait pas
 - une fois un container ou un échantillon supprimé, la boite de recherche prenait comme arguments les paramètres de l'objet supprimé
+- en codage standard de la base de données (utf-8), dans les boites de recherche des échantillons ou des containers, si une liste déroulante était utilisée, le temps de recherche était très long. Le problème a été réglé en supprimant le nombre maxi d'objets affichés et en obligeant à indiquer au moins un critère de recherche
 
 Nouvelle fonctionnalité :
 - au lancement de l'application, la version de la base de données est maintenant vérifiée 
+- un script de génération automatique de la base de données est maintenant disponible, pour les nouvelles installations
 
 Version 1.0.7a du 12/05/2017
 ---------------------------

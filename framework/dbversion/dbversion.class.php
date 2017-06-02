@@ -28,10 +28,11 @@ class DbVersion extends ObjetBDD {
 	}
 	/**
 	 * Verifie si la base de donnees est dans la version demandee
-	 * @param string $version
+	 * 
+	 * @param string $version        	
 	 * @return boolean
 	 */
-	function verifyVersion(string $version) {
+	function verifyVersion($version) {
 		$retour = false;
 		$sql = "select dbversion_id from dbversion where dbversion_number = :version";
 		try {

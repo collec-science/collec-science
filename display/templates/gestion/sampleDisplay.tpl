@@ -144,6 +144,20 @@ clp : {$data.clp_classification}
 {/section}
 </dd>
 </dl>
+
+<hr>
+{foreach from=$metadata key=key item=value name=metadatas}
+<dl class="dl-horizontal">
+<dt>{$key} :</dt>
+<dd>
+{$value}
+{if not $smarty.foreach.metadatas.last}
+<br>
+{/if}
+</dd>
+</dl>
+{/foreach}
+
 </div>
 {include file="gestion/objectIdentifierList.tpl"}
 

@@ -43,6 +43,18 @@ switch ($t_module ["param"]) {
 		$data = $dataClass->lire ( $id );
 		$vue->set ( $data, "data" );
 		/*
+		* Récupération des métadonnées dans un tableau pour l'affichage
+		*/
+		$metadata=json_decode($data["data"],true);
+		foreach ($metadata as $key => $value) {
+			if($value===false){
+				$metadata[$key]="false";
+			}elseif($value===true){
+				$metadata[$key]="true";
+			}
+		}
+		$vue->set($metadata, "metadata");
+		/*
 		 * Recuperation des identifiants associes
 		 */
 		require_once 'modules/classes/objectIdentifier.class.php';

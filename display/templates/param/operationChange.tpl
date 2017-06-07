@@ -77,6 +77,7 @@ function loadSchema(){
     <label for="copySchema"  class="control-label col-md-4">Partir d'un schéma existant :</label>
     <div class="col-md-8">
     <select id="copySchema" name="copySchema" class="form-control" onChange="loadSchema()" autofocus>
+    <option disabled selected value >{$LANG["appli"][2]}</option>
     {section name=lst loop=$operations}
     <option value="{$operations[lst].metadata_form_id}">
     {$operations[lst].operation_name}
@@ -86,7 +87,7 @@ function loadSchema(){
     </div>
 </div>
 
-    <div id="metadata"></div>
+<div id="metadata"></div>
 
 
 

@@ -18,7 +18,7 @@ class SearchParam {
 	/**
 	 * Indique si la lecture des parametres a ete realisee au moins une fois
 	 * Permet ainsi de declencher ou non la recherche
-	 *
+
 	 * @var int
 	 */
 	public $isSearch;

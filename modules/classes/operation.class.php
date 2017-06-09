@@ -8,7 +8,7 @@
 class Operation extends ObjetBDD {
 	private $sql = "select operation_id, operation_name, operation_order,operation_version,last_edit_date,
 					protocol_id, protocol_name, protocol_year, protocol_version,
-					metadata_form_id, schema
+					metadata_form_id,  metadata_schema
 					from operation
 					join metadata_form using (metadata_form_id)
 					join protocol using (protocol_id)";
@@ -110,12 +110,12 @@ class Operation extends ObjetBDD {
 	 */
 	function getMetadataForm($operation_id){
 		if ($operation_id > 0){
-			$sql = "select schema from metadata_form
+			$sql = "select metadata_schema from metadata_form
 			join operation using(metadata_form_id)
 			where operation_id = :operation_id";
 			$var ["operation_id"] = $operation_id;
 			$data = $this->lireParamAsPrepared ( $sql, $var );
-			return $data["schema"];
+			return $data["metadata_schema"];
 		}
 	}
 }

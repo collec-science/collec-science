@@ -57,7 +57,7 @@ switch ($t_module["param"]) {
 			//gestion des métadonnées
 			require_once 'modules/classes/metadataForm.class.php';
 			$metadata = new MetadataForm($bdd, $ObjetBDDParam);
-			$data = array ("schema" =>$_REQUEST["metadataField"]);
+			$data = array ("metadata_schema" =>$_REQUEST["metadataField"]);
 			
 			if($_REQUEST["metadata_form_id"] > 0){
 				$data["metadata_form_id"] = $_REQUEST["metadata_form_id"];

@@ -5,7 +5,7 @@ function loadSchema(){
     var $metadataFormId = document.getElementById("copySchema").value;
     {section name=lst loop=$metadata}
         if ($metadataFormId == {$metadata[lst].metadata_form_id}){
-            var $schemaCopy = "{$metadata[lst].schema}";
+            var $schemaCopy = "{$metadata[lst].metadata_schema}";
             $schemaCopy = $schemaCopy.replace(/&quot;/g,'"');
             $schemaCopy = JSON.parse($schemaCopy);
 
@@ -109,7 +109,7 @@ function loadSchema(){
         var $metadataParse="";
         {section name=lst loop=$metadata}
         {if $metadata[lst].metadata_form_id == $data.metadata_form_id}
-        $metadataParse = "{$metadata[lst].schema}";
+        $metadataParse = "{$metadata[lst].metadata_schema}";
         $metadataParse = $metadataParse.replace(/&quot;/g,'"');
         $metadataParse = JSON.parse($metadataParse);
         {/if}

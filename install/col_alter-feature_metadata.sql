@@ -3,7 +3,7 @@ set search_path=col;
 
 CREATE TABLE "metadata_form" (
     metadata_form_id serial NOT NULL, 
-    schema json, 
+    metadata_schema json, 
     CONSTRAINT metadata_form_pk PRIMARY KEY (metadata_form_id)
     );
 

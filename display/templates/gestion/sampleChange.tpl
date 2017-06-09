@@ -21,12 +21,13 @@ function updateForm(){
 
         var $metadataParse ="";
         var $dataParse ="";
-
-        {if $data.schema != ""}
-        $metadataParse = "{$data.schema}";
+        
+        {if $data.metadata_schema != ""}
+        $metadataParse = "{$data.metadata_schema}";
         $metadataParse = $metadataParse.replace(/&quot;/g,'"');
         $metadataParse = JSON.parse($metadataParse);
         {/if}
+
 
         {if $data.data != ""}
         $dataParse = "{$data.data}";
@@ -35,9 +36,8 @@ function updateForm(){
         $dataParse = JSON.parse($dataParse);
         {/if}
         showForm($metadataParse, $dataParse);
-    });
 
-    $('#sampleForm').submit(function() {
+        $('#sampleForm').submit(function() {
         $('#metadata').alpaca().refreshValidationState(true)
         if(!$('#metadata').alpaca().isValid(true)){
             alert("La définition des métadonnées n'est pas valide.")
@@ -45,9 +45,11 @@ function updateForm(){
         }
         return true;
     });
+    });
+
+    
 
 </script>
-
 <h2>Création - modification d'un échantillon</h2>
 <div class="row col-md-12">
 <a href="index.php?module=sampleList">

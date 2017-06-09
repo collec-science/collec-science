@@ -20,7 +20,7 @@ class MetadataForm extends ObjetBDD {
 						"requis" => 1,
 						"defaultValue" => 0
 				),
-				"schema" => array (
+				"metadata_schema" => array (
 						"type" => 0,
 						"requis" => 1
 				)

@@ -8,7 +8,7 @@
 class Label extends ObjetBDD {
 	private $sql="select label_id, label_name, label_xsl, label_fields,
 			operation_id,
-			schema
+			metadata_schema
 			from label
 			left outer join operation using(operation_id)
 			left outer join metadata_form using (metadata_form_id)

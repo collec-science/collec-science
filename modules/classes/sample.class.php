@@ -21,7 +21,7 @@ class Sample extends ObjetBDD {
 					container_type_name, clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,
 					metadata_form_id,
-					schema,
+					metadata_schema,
 					s.sample_metadata_id, data,
 					document_id, identifiers,
 					storage_date, movement_type_name, movement_type_id,

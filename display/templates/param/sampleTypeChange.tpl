@@ -34,7 +34,7 @@
 <option value="" {if $data.operation_id == ""}selected{/if}>{$LANG.appli.2}</option>
 {section name=lst loop=$operation}
 <option value="{$operation[lst].operation_id}" {if $operation[lst].operation_id == $data.operation_id}selected{/if}>
-{$operation[lst].protocol_year} {$operation[lst].protocol_name} {$operation[lst].protocol_version} {$operation[lst].operation_name}
+{$operation[lst].protocol_year} {$operation[lst].protocol_name} {$operation[lst].protocol_version} {$operation[lst].operation_name} {$operation[lst].operation_version}
 </option>
 {/section}
 </select>

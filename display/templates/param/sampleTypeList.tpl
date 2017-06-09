@@ -31,7 +31,7 @@
 <td class="center">{$data[lst].sample_type_id}</td>
 <td>{$data[lst].container_type_name}</td>
 <td>
-{$data[lst].protocol_year} {$data[lst].protocol_name} {$data[lst].protocol_version} {$data[lst].operation_name}
+{$data[lst].protocol_year} {$data[lst].protocol_name} {$data[lst].protocol_version} {$data[lst].operation_name} {$data[lst].operation_version} 
 </td>
 <td>
 {if $data[lst].multiple_type_id > 0}

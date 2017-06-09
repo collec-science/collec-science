@@ -13,7 +13,7 @@ class SampleType extends ObjetBDD {
 	 */
 	private $sql = "select sample_type_id, sample_type_name, 
 					container_type_name,
-					operation_id, operation_name, protocol_name, protocol_year, protocol_version,
+					operation_id, operation_name ,operation_version, protocol_name, protocol_year, protocol_version,
 					multiple_type_id, multiple_unit, multiple_type_name
 					from sample_type
 					left outer join container_type using (container_type_id)

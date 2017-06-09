@@ -19,7 +19,7 @@ class Sample extends ObjetBDD {
 					so.object_status_id, object_status_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
 					container_type_name, clp_classification,
-					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,
+					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
 					metadata_form_id,
 					metadata_schema,
 					s.sample_metadata_id, data,

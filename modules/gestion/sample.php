@@ -53,7 +53,10 @@ switch ($t_module ["param"]) {
 				$metadata[$key]="true";
 			}
 		}
-		$vue->set($metadata, "metadata");
+		$is_modifiable = $dataClass->verifyProject ( $data );
+		if($is_modifiable){
+			$vue->set($metadata, "metadata");
+		}
 		/*
 		 * Recuperation des identifiants associes
 		 */
@@ -99,7 +102,6 @@ switch ($t_module ["param"]) {
 		/*
 		 * Verification que l'echantillon peut etre modifie
 		 */
-		$is_modifiable = $dataClass->verifyProject ( $data );
 		if ($is_modifiable)
 			$vue->set ( 1, "modifiable" );
 		/*

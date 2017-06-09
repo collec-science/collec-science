@@ -1,37 +1,51 @@
 <script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
 
 <script type="text/javascript">
+
 function updateForm(){
     //valeur du type d'échantillon sélectionné
-        var $sampleTypeId = document.getElementById("sample_type_id").value;
+        var sampleTypeId = document.getElementById("sample_type_id").value;
 
-    //recherche de l'opération associée au type d'échantillon
-        {section name=lst loop=$sample_type}
-        if ($sampleTypeId == {$sample_type[lst].sample_type_id}){
-            var $operationId = {$sample_type[lst].operation_id}
+        var $schemaForm;
+        var url = "index.php";
+        $.getJSON ( url, { "module":"metadataFormGetDetail", "sample_type_id":sampleTypeId } , function( data ) {
+        if (data != null) {
+            $schemaForm = data["schema"].replace(/&quot;/g,'"');
+            $schemaForm = JSON.parse($schemaForm);
+            showForm($schemaForm);
         }
-        {/section}
-
-    //recherche du schéma du formulaire associée à l'opération
-        {section name=lst loop=$operation}
-        if ($operationId == {$operation[lst].operation_id}){
-            var $metadataFormId = {$operation[lst].metadata_form_id}
-        }
-        {/section}
-
-    //récupération du schéma
-        {section name=lst loop=$metadataForm}
-        if ($metadataFormId == {$metadataForm[lst].metadata_form_id}){
-            var $schemaForm = "{$metadataForm[lst].schema}";
-        }
-        {/section}
-
-
-        $schemaForm = $schemaForm.replace(/&quot;/g,'"');
-        $schemaForm = JSON.parse($schemaForm);
-        showForm($schemaForm);
-
+        } ) ;
     }
+
+    $(document).ready(function() {
+
+        var $metadataParse ="";
+        var $dataParse ="";
+
+        {if $data.schema != ""}
+        $metadataParse = "{$data.schema}";
+        $metadataParse = $metadataParse.replace(/&quot;/g,'"');
+        $metadataParse = JSON.parse($metadataParse);
+        {/if}
+
+        {if $data.data != ""}
+        $dataParse = "{$data.data}";
+        $dataParse = $dataParse.replace(/&quot;/g,'"');
+        $dataParse = $dataParse.replace(/\n/g,"\\n");
+        $dataParse = JSON.parse($dataParse);
+        {/if}
+        showForm($metadataParse, $dataParse);
+    });
+
+    $('#sampleForm').submit(function() {
+        $('#metadata').alpaca().refreshValidationState(true)
+        if(!$('#metadata').alpaca().isValid(true)){
+            alert("La définition des métadonnées n'est pas valide.")
+            return false;
+        }
+        return true;
+    });
+
 </script>
 
 <h2>Création - modification d'un échantillon</h2>
@@ -184,35 +198,3 @@ Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.mult
 </div>
 
 <span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        var $metadataParse ="";
-        var $dataParse ="";
-
-        {if $data.schema != ""}
-        $metadataParse = "{$data.schema}";
-        $metadataParse = $metadataParse.replace(/&quot;/g,'"');
-        $metadataParse = JSON.parse($metadataParse);
-        {/if}
-
-        {if $data.data != ""}
-        $dataParse = "{$data.data}";
-        $dataParse = $dataParse.replace(/&quot;/g,'"');
-        $dataParse = $dataParse.replace(/\n/g,"\\n");
-        $dataParse = JSON.parse($dataParse);
-        {/if}
-        showForm($metadataParse, $dataParse);
-    });
-
-    $('#sampleForm').submit(function() {
-        $('#metadata').alpaca().refreshValidationState(true)
-        if(!$('#metadata').alpaca().isValid(true)){
-            alert("La définition des métadonnées n'est pas valide.")
-            return false;
-        }
-        return true;
-    });
-
-</script>

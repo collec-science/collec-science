@@ -78,5 +78,22 @@ class SampleType extends ObjetBDD {
 				return 0;
 		}
 	}
+
+	/**
+	 * Retourne le schéma des métadonnées de l'opération
+	 *
+	 * @param int $operation_id        	
+	 */
+	function getMetadataForm($sample_type_id){
+		if ($sample_type_id > 0){
+			$sql = "select schema from metadata_form
+			join operation using(metadata_form_id)
+			join sample_type using (operation_id)
+			where sample_type_id = :sample_type_id";
+			$var ["sample_type_id"] = $sample_type_id;
+			$data = $this->lireParamAsPrepared ( $sql, $var );
+			return $data["schema"];
+		}
+	}
 }
 ?>

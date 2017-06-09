@@ -59,5 +59,9 @@ switch ($t_module["param"]) {
 		 */
 		dataDelete($dataClass, $id);
 		break;
+	case "getDetailFormAjax":
+		$schema=$dataClass->getMetadataForm($_REQUEST ["sample_type_id"]);
+		$vue->set (array("schema"=>$schema));
+		break;
 }
 ?>

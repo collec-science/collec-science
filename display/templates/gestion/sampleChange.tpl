@@ -38,11 +38,13 @@ function updateForm(){
         showForm($metadataParse, $dataParse);
 
         $('#sampleForm').submit(function() {
-        $('#metadata').alpaca().refreshValidationState(true)
-        if(!$('#metadata').alpaca().isValid(true)){
-            alert("La définition des métadonnées n'est pas valide.")
-            return false;
-        }
+            if(document.getElementsByName("action")[0].value=="Write"){
+                $('#metadata').alpaca().refreshValidationState(true)
+                if(!$('#metadata').alpaca().isValid(true)){
+                    alert("La définition des métadonnées n'est pas valide.")
+                    return false;
+                }
+            }    
         return true;
     });
     });

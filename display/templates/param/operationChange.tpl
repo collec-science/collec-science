@@ -14,6 +14,32 @@ function loadSchema(){
         }
     {/section}
 }
+
+$(document).ready(function() {
+
+        var $metadataParse="";
+        {section name=lst loop=$metadata}
+        {if $metadata[lst].metadata_form_id == $data.metadata_form_id}
+        $metadataParse = "{$metadata[lst].metadata_schema}";
+        $metadataParse = $metadataParse.replace(/&quot;/g,'"');
+        $metadataParse = JSON.parse($metadataParse);
+        {/if}
+        {/section}
+        
+        renderForm($metadataParse);
+
+        $('#operationForm').submit(function() {
+            if(document.getElementsByName("action")[0].value=="Write"){
+                $('#metadata').alpaca().refreshValidationState(true)
+                if(!$('#metadata').alpaca().isValid(true)){
+                    alert("La définition des métadonnées n'est pas valide.")
+                    return false;
+                }
+            }
+            return true;
+        });
+        
+    });
 </script>
 
 {if $nbSample>0}
@@ -101,30 +127,3 @@ function loadSchema(){
 </div>
 </div>
 <span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
-
-
-<script type="text/javascript">
-    $(document).ready(function() {
-
-        var $metadataParse="";
-        {section name=lst loop=$metadata}
-        {if $metadata[lst].metadata_form_id == $data.metadata_form_id}
-        $metadataParse = "{$metadata[lst].metadata_schema}";
-        $metadataParse = $metadataParse.replace(/&quot;/g,'"');
-        $metadataParse = JSON.parse($metadataParse);
-        {/if}
-        {/section}
-        
-        renderForm($metadataParse);
-        
-    });
-
-    $('#operationForm').submit(function() {
-        $('#metadata').alpaca().refreshValidationState(true)
-        if(!$('#metadata').alpaca().isValid(true)){
-            alert("La définition des métadonnées n'est pas valide.")
-            return false;
-        }
-        return true;
-    });
-</script>

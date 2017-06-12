@@ -1,49 +1,49 @@
 <h2>Détail d'un conteneur</h2>
 <div class="row">
 <div class="col-md-12">
-<a href="index.php?module=containerList"><img src="display/images/list.png" height="25">Retour à la liste</a>
+<a href="index.php?module=containerList"><img src="/display/images/list.png" height="25">Retour à la liste</a>
 {if $droits.gestion == 1}
 &nbsp;
 <a href="index.php?module=containerChange&uid=0">
-<img src="display/images/new.png" height="25">
+<img src="/display/images/new.png" height="25">
 Nouveau conteneur
 </a>
 &nbsp;
 <a href="index.php?module=containerChange&uid={$data.uid}">
-<img src="display/images/edit.gif" height="25">Modifier...
+<img src="/display/images/edit.gif" height="25">Modifier...
 </a>
 
 <!-- Entrée ou sortie -->
 <span id="input">
 <a href="index.php?module=storagecontainerInput&storage_id=0&uid={$data.uid}" id="input" title="Entrée le conteneur dans le stock">
-<img src="display/images/input.png" height="25">Entrée
+<img src="/display/images/input.png" height="25">Entrée
 </a>
 </span>
 
 <span id="output">
 <a href="index.php?module=storagecontainerOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir le conteneur du stock">
-<img src="display/images/output.png" height="25">Sortie</a></span>
+<img src="/display/images/output.png" height="25">Sortie</a></span>
 
 {/if}
 &nbsp;
 <a href="#conteneurs">
-<img src="display/images/box.png" height="25">Conteneurs présents
+<img src="/display/images/box.png" height="25">Conteneurs présents
 </a>
 &nbsp;
 <a href="#echantillons">
-<img src="display/images/sample.png" height="25">Échantillons présents
+<img src="/display/images/sample.png" height="25">Échantillons présents
 </a>
 &nbsp;
 <a href="#documents">
-<img src="display/images/camera.png" height="25">Documents associés
+<img src="/display/images/camera.png" height="25">Documents associés
 </a>
 &nbsp;
 <a href="#bookings">
-<img src="display/images/crossed-calendar.png" height="25">Réservations
+<img src="/display/images/crossed-calendar.png" height="25">Réservations
 </a>
 &nbsp;
 <a href="index.php?module=containerDisplay&uid={$data.uid}">
-<img src="display/images/refresh.png" title="Rafraîchir la page" height="15">
+<img src="/display/images/refresh.png" title="Rafraîchir la page" height="15">
 </a>
 </div>
 </div>
@@ -123,7 +123,7 @@ Nouveau conteneur
 <fieldset class="col-md-8" id="conteneurs">
 <legend>Conteneurs présents</legend>
 <a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
-<img src="display/images/new.png" height="25">
+<img src="/display/images/new.png" height="25">
 Nouveau conteneur associé
 </a>
 {include file="gestion/containerListDetail.tpl"}

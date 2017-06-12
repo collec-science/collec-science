@@ -6,11 +6,11 @@
 </h2>
 <div class="col-md-6">
 <a href="index.php?module=appliChange&aclappli_id={$data.aclappli_id}">
-<img src="display/images/edit.gif" height="25">
+<img src="/display/images/edit.gif" height="25">
 Modifier...
 </a>
 <a href="index.php?module=acoChange&aclaco_id=0&aclappli_id={$data.aclappli_id}">
-<img src="display/images/new.png" height="25">
+<img src="/display/images/new.png" height="25">
 Nouveau droit...
 </a>
 <table id="acoliste" class="table table-bordered table-hover">

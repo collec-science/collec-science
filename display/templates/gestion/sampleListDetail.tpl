@@ -49,7 +49,7 @@
 			</option>
 			{/section}
 			</select>
-			<img id="sampleSpinner" src="display/images/spinner.gif" height="25">
+			<img id="sampleSpinner" src="/display/images/spinner.gif" height="25">
 			<button id="samplecsvfile" class="btn btn-primary">Fichier
 				CSV</button>
 		</div>

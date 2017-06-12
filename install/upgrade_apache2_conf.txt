@@ -1,0 +1,12 @@
+# Lignes a rajouter en fin de fichier collec.conf (ou equivalent)
+# dans le dossier /etc/apache2/sites-available
+# Le dossier indique doit etre adapte a la configuration locale
+# Ne pas oublier de recharger la configuration ensuite avec la commande
+# service apache2 reload
+<Directory /var/www/html/collec>
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond "/%{REQUEST_FILENAME}" !-f
+    RewriteCond "/%{REQUEST_FILENAME}" !-d
+    RewriteRule "(.*)" "/index.php?$1" [PT,QSA]
+</Directory>

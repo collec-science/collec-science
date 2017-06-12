@@ -36,6 +36,54 @@ if (! isset ( $_SESSION ["dbversion"] )) {
 	}
 }
 /**
+ * Lecture des donnees canoniques
+ * par defaut, les liens canoniques doivent etre de la forme :
+ * /famille/version/modulerecherche/id
+ * La transformation est realisee ainsi :
+ * familleversionmodulerecherche, puis :
+ * si id n'est pas renseigne : List
+ * si id est renseigne :
+ * * la variable $requestId est affectee avec la valeur id
+ * * si method=get : Display
+ * * si method=post : Write
+ * * si method=put : Replace
+ * * si method=delete : Delete
+ */
+if (! isset ( $_REQUEST ["module"] )) {
+	$uri = explode ( "/", $_SERVER ["REQUEST_URI"] );
+	if (count ( $uri ) > 1) {
+		$_REQUEST ["module"] = $uri [1] . $uri [2] . $uri [3];
+		/*
+		 * On recherche si le quatrieme element existe
+		 */
+		if (strlen ( $uri [4] ) == 0) {
+			$_REQUEST ["module"] .= "List";
+		} else {
+			$requestId = $uri [4];
+			/*
+			 * Prepositionnement par defaut de la valeur uid (la plus frequente)
+			 */
+			if (! isset ( $_RESQUEST ["uid"] ))
+				$_REQUEST ["uid"] = $uri [4];
+			switch ($_SERVER ["REQUEST_METHOD"]) {
+				case "GET" :
+					$_REQUEST ["module"] .= "Display";
+					break;
+				case "POST" :
+					$_REQUEST ["module"] .= "Write";
+					break;
+				case "PUT" :
+					$_REQUEST ["module"] .= "Replace";
+					break;
+				case "DELETE" :
+					$_REQUEST ["module"] .= "Delete";
+					break;
+			}
+		}
+	}
+}
+
+/**
  * Decodage des variables html
  */
 $_REQUEST = htmlDecode ( $_REQUEST );

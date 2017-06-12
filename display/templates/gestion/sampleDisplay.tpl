@@ -145,7 +145,9 @@ clp : {$data.clp_classification}
 </dd>
 </dl>
 
+{if count($metadata) >0}
 <hr>
+{/if}
 {foreach from=$metadata key=key item=value name=metadatas}
 <dl class="dl-horizontal">
 <dt>{$key} :</dt>

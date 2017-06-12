@@ -6,6 +6,8 @@ CREATE TABLE "metadata_form" (
     metadata_schema json, 
     CONSTRAINT metadata_form_pk PRIMARY KEY (metadata_form_id)
     );
+COMMENT ON TABLE "metadata_form" IS 'Table des schémas des formulaires de métadonnées';
+COMMENT ON COLUMN "metadata_form"."metadata_schema" IS 'Schéma en JSON du formulaire des métadonnées ';
 
 DROP TABLE sample_metadata;
 
@@ -14,6 +16,9 @@ CREATE TABLE "sample_metadata"(
     data json, 
     CONSTRAINT sample_metadata_pk PRIMARY KEY (sample_metadata_id)
     );
+COMMENT ON TABLE "sample_metadata" IS 'Table des métadonnées';
+COMMENT ON COLUMN "sample_metadata"."data" IS 'Métadonnées en JSON';
+
 
 ALTER TABLE "operation" 
 ADD COLUMN metadata_form_id integer, 
@@ -24,6 +29,8 @@ FOREIGN KEY ("metadata_form_id")
 REFERENCES "metadata_form" ("metadata_form_id") MATCH SIMPLE
 ON UPDATE NO ACTION ON DELETE NO ACTION,
 ADD CONSTRAINT operation_name_version_unique UNIQUE (operation_name,operation_version);
+COMMENT ON COLUMN "operation"."operation_version" IS 'Version de l\'opération';
+COMMENT ON COLUMN "operation"."last_edit_date" IS 'Date de dernière édition de l\'opération';
 
 ALTER TABLE "sample" ADD COLUMN sample_metadata_id integer, 
 ADD CONSTRAINT sample_metadata_fk 

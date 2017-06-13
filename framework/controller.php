@@ -51,7 +51,7 @@ if (! isset ( $_SESSION ["dbversion"] )) {
  */
 if (! isset ( $_REQUEST ["module"] )) {
 	$uri = explode ( "/", $_SERVER ["REQUEST_URI"] );
-	if (count ( $uri ) > 1) {
+	if (count ( $uri ) > 2) {
 		$_REQUEST ["module"] = $uri [1] . $uri [2] . $uri [3];
 		/*
 		 * On recherche si le quatrieme element existe

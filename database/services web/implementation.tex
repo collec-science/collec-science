@@ -1,0 +1,62 @@
+\chapter{Implémentation technique dans Collec}
+\section{Transformation des URL et appel aux modules}
+Les URL conviviales sont transformées en noms de modules, selon le fonctionnement suivant :
+\begin{itemize}
+\item les trois premiers éléments de l'adresse sont fusionnés;
+\item si le quatrième élément est présent, il est stocké dans la variable de requête \textit{\$id}, et :
+\begin{itemize}
+\item si la requête est de type GET, le module est suffixé par \textit{Display};
+\item si la requête est de type POST, le module est suffixé par \textit{Write}\footnote{Dans la version actuelle, l'écriture depuis une instance distante n'est pas implémentée};
+\end{itemize}
+\item sinon, le module est suffixé par \textit{List}.
+\end{itemize}
+
+Les modules doivent être décrits, comme les autres, dans le fichier \textit{param/actions.xml}, et sont exécutés selon le fonctionnement classique de l'application.
+
+\section{Emplacement du code}
+Le code spécifique des modules doit être stocké dans le dossier \textit{modules}, en respectant l'arborescence des URL conviviales, par exemple, pour l'adresse \textit{http://collec.local/sw/v1/sample}, dans le sous-dossier \textit{sw/v1}.
+
+\subsection{Données d'identification de l'utilisateur fournies par l'instance locale}
+
+Toutes les données concernant l'identification ne sont accessibles qu'aux administrateurs (droit \textit{admin}), et sont stockées dans le schéma \textit{gacl}.
+
+L'identification vers un serveur distant nécessite que le serveur appelant fournisse les informations suivantes :
+\begin{itemize}
+\item un code identifiant de manière sûre l'utilisateur ;
+\item un secret connu uniquement par les deux serveurs.
+\end{itemize}
+
+Le code d'identification est généré à partir du mail de l'utilisateur, en utilisant une fonction cryptographique. Compte-tenu de l'absence de risque lié à ce code et du faible risque de collisions\footnote{Une collision se produit quand deux chaînes différentes aboutissent à la même empreinte.}, le code est généré à partir des 12 premiers chiffres hexadécimaux de la fonction de calcul d'empreintes SHA-1 :
+
+\begin{lstlisting}
+contenu...
+\end{lstlisting}
+
+Cette valeur est calculée \og à la volée \fg{}.
+
+Le secret est généré par l'instance distante, en utilisant une fonction aléatoire :
+\begin{lstlisting}
+sha256(random()) x 64 caracteres
+\end{lstlisting}
+
+Cette information est stockée dans la table \textit{login}, dans un champ qui n'est jamais transmis au navigateur (mécanisme d'écrasement s'il est modifié depuis un formulaire, notamment pour l'ajouter).
+
+\subsection{Données d'identification des instances distantes}
+
+Pour identifier les instances clientes, la table \textit{instance} contient les données suivantes :
+\begin{itemize}
+\item l'url de l'instance ;
+\item le nom d'un contact;
+\item son mail;
+\item le code attribué en utilisant le même mécanisme que pour les utilisateurs, mais en se basant sur l'url;
+\item le secret (même mode de calcul);
+\item le type d'instance (cliente ou serveur).
+\end{itemize}
+Ainsi, si une instance est à la fois cliente et serveur, elle aura deux lignes, l'une pour chaque sens de communication. Cela permet de maintenir des secrets différents pour chaque canal.
+
+Pour les instances \og serveurs\fg{}, une table complémentaire permet d'indiquer les URI des services web disponibles :
+\begin{itemize}
+\item le type du service web;
+\item l'URI correspondante;
+\item le type d'identification prévu: \textit{OauthV1}, \textit{OauthV2}, pas d'identification.
+\end{itemize}

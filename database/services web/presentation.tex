@@ -1,0 +1,80 @@
+\chapter{Besoins nécessitant l'utilisation de services web}
+
+\section{Définitions}
+
+\begin{description}
+\item[uid] identifiant unique numérique au sein d'une base de données d'un échantillon ;
+\item[guid] identifiant de type UUID\footnote{Les codes de type GUID ou UUID sont générés à partir de fonctions aléatoires ou cryptographiques, et garantissent qu'ils sont uniques quelle que soit la base de données qui les ont générés. Ainsi, il n'est pas possible d'obtenir deux codes identiques pour deux échantillons différents, ce qui permet de les identifier de manière sûre, comme pourrait le faire l'ADN pour des êtres humains.}, qui garantit de manière certaine l'identification d'un échantillon ;
+\item [identifier] identifiant \og métier \fg d'un échantillon.
+\end{description}
+\section{Présentation}
+Collec est un logiciel de gestion de collections d'échantillons, dont l'objectif principal consiste à permettre de retrouver rapidement un échantillon stocké ou de récupérer les informations générales le concernant.
+
+Écrit en PHP, les données sont stockées dans une base de données PostgreSQL. Le code de l'application est disponible à l'adresse \url{https://gitlab.com/Irstea/collec}. Il est disponible sous licence AGPL.
+
+Le logiciel est bâti sur un modèle MVC, tous les accès étant gérés par l'appel à des modules déclarés dans un fichier spécifique. Il ne gère pas initialement les URL conviviales (implémenté à partir de la version 1.1).
+
+La gestion matérielle des échantillons de laboratoire (ou d'expérimentations scientifiques) est une fonctionnalité largement demandée, mais peu couverte jusqu'à présent par les logiciels disponibles, et particulièrement dans le domaine de l'\textit{Open Source}. Collec, dont la première version remonte à l'automne 2016, fait l'objet d'un réel intérêt de la part de la communauté scientifique, ses fonctionnalités et sa facilité d'utilisation le rendant attractif.
+
+Toutefois, il n'est pas conçu comme un système global de gestion de données à la fois techniques -- stockage des échantillons -- et de résultats d'analyse par exemple (pas d'informations métiers complexes\footnote{Dans la pratique, à partir de la version 1.1, il est possible de renseigner quelques informations métiers, mais de manière relativement frustre et sans permettre la complexité des actions envisageables avec des bases de données dédiées.}).
+Il n'est pas non plus prévu de mettre en place un hébergement centralisé qui permettrait de gérer tous les échantillons de la sphère de recherche.
+
+\textit{A contrario}, cette organisation permet de créer autant d'instances que nécessaires, notamment pour gérer des saisies en mode décentralisé (bateau partant en campagne de sondage dans les mers du Sud, collecte d'échantillons depuis des zones non couvertes par Internet, par exemple).
+
+Cette souplesse nécessite de prévoir des mécanismes soit d'interrogation de diverses instances, soit de récupération des informations concernant des échantillons provenant d'autres bases de données. 
+Pour harmoniser les échanges ou les interrogations, la technologie des services web s'impose, en raison de la normalisation qu'elle apporte.
+
+\subsection{Technique employée}
+
+Les services web sont basés sur des requêtes HTTP, et échangent les données selon des formats définis. Dans la version actuelle des services web, seul le format Json est implémenté pour l'échange des informations.
+
+\subsection{Forme des URL}
+Les URL sont conçues, dans le cadre des services web, sous la forme d'URL conviviales, par exemple : \textit{http://collec/sw/v1/sample/4} pour récupérer l'échantillon numéro 4.
+
+\section{Définition des cas d'utilisation couverts par les services web}
+
+\subsection{Recherche d'échantillons}
+La recherche d'échantillons doit pouvoir s'effectuer selon plusieurs critères :
+\begin{itemize}
+\item l'identifiant interne (\textit{uid});
+\item l'identifiant principal ou des identifiants secondaires;
+\item une fourchette de dates de création des échantillons;
+\item un type d'échantillons;
+\item un projet ou sous-collection;
+\item une fourchette d'identifiants internes;
+\item un code unique de type GUID ou UUID.
+\end{itemize}
+
+Elle retourne une liste d'échantillons correspondant aux critères indiqués. Le détail des informations retournées est spécifié dans la section \ref{sampleSearch}.
+
+Pour permettre cette recherche, d'autres services sont nécessaires, notamment pour récupérer la liste des types d'échantillons ou la liste des projets.
+
+\subsection{Liste des projets ou sous-collections}
+Ce service doit permettre de récupérer la liste des projets ou sous-collections autorisés pour un utilisateur, pour qu'ils puissent servir dans le cadre de la recherche.
+
+\subsection{Liste des types d'échantillons}
+Ce service récupère la liste exhaustive des types d'échantillons utilisés dans l'instance distante, pour une utilisation dans le cadre de la recherche.
+
+\subsection{Liste des types d'identifiants secondaires}
+Ce service récupère la liste exhaustive des types d'échantillons secondaires, pour une utilisation dans le cadre de la recherche des échantillons.
+
+\subsection{Récupération des données d'un échantillon}
+Ce service permet de récupérer l'ensemble des données concernant un échantillon, y compris les données \og métiers \fg{} si l'utilisateur dispose des droits nécessaires pour les consulter.
+
+Les données récupérées sont suffisamment complètes pour être intégrées dans l'instance \textit{Collec} courante, par exemple pour éviter de les ressaisir suite au prêt d'un échantillon par un laboratoire.
+
+Elles permettent également une visualisation détaillée de l'échantillon considéré, et contiennent, le cas échéant\footnote{si l'utilisateur dispose des droits adéquats et si l'échantillon dispose de ces informations}, les données \og métiers \fg{} associées.
+
+\subsection{Récupération des données d'une liste d'échantillons}
+
+Il s'agit d'une variante du service web précédent. La liste des échantillons à récupérer est fournie dans une collection Json, soit en utilisant l'UID, soit en utilisant le GUID.
+
+\section{Contraintes liées à la sécurité}
+
+Les instances Collec sont prévues pour donner un accès en lecture à toutes les données des échantillons disponibles, dès lors que l'utilisateur s'est identifié. Cela permet ainsi de connaître, par exemple, le produit utilisé pour la conservation ou d'autres informations nécessaires pour la gestion quotidienne des collections.
+
+Toutefois, les données \og métiers \fg ne sont accessibles qu'aux personnes habilitées à les consulter. Dans la pratique, les échantillons sont associés à un projet, et seuls les utilisateurs rattachés à celui-ci peuvent prendre connaissance de ces informations.
+Cela impose une gestion particulière des accès lors de l'interrogation par l'intermédiaire des services web, qui sera décrite dans le chapitre \ref{habilitation}.
+
+Le protocole d'identification des utilisateurs dans l'instance distante est basé sur le protocole Oauth v2.
+

@@ -1,0 +1,111 @@
+\chapter{Description des services web}
+\section{Remarques générales}
+\subsection{Format des données transmises ou reçues}
+
+\subsection{Codes d'erreur}
+
+
+\section{Recherche des échantillons}
+\label{sampleSearch}
+\subsection{Variables de recherche}
+Les variables peuvent être indiquées soit directement dans la requête GET, soit dans le champ \textit{jsonval}, encodé en base 64.
+
+% \usepackage{array} is required
+\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{8cm}|}
+\hline 
+Code & Type & Description \\ 
+\hline \endhead
+uid & integer & Identifiant unique de l'échantillon dans l'instance distante \\ 
+\hline 
+ident & varchar & identifiant \og métier\fg{} principal \\
+\hline
+guid & UUID & identifiant unique quel que soit la base de données \\
+\hline
+uidstart & integer & uid inférieur pour une recherche sur une fourchette d'identifiants \\
+\hline
+uidend & integer & uid supérieur pour une recherche sur une fourchette d'identifiants \\
+\hline
+datestart & yyyy-mm-dd & date de début pour une recherche sur une fourchette de dates \\
+\hline
+dateend & yyyy-mm-dd & date de fin pour une recherche sur une fourchette de dates \\
+\hline
+projectid & integer & identifiant du projet ou de la sous-collection (code issu du résultat du service web \ref{projectList}) \\
+\hline
+sampletypeid & integer & identifiant du type d'échantillon (code issu du résultat du service web \ref{sampleTypeList}) \\
+\hline
+idtype & integer & type d'identifiant (code issu du résultat du service web \ref{idtype})\\
+\hline
+idval & varchar & identifiant recherché selon le type spécifié dans \textit{idtype}\\
+\hline
+\end{longtable} 
+
+Exemple de fichier : 
+\begin{lstlisting}
+{"uidstart": 25,
+"uidend": 50,
+"datestart": "2017-01-01",
+"dateend": "2017-06-30",
+"idtype": 2,
+"idval": "AB01"
+}
+\end{lstlisting}
+
+\subsection{Données en retour}
+Collection Json avec, pour chacun, les informations suivantes :
+\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
+\hline 
+Code & Type & Description \\ 
+\hline \endhead
+uid & integer & Identifiant dans l'instance \\
+\hline
+identifier & varchar & identifiant principal \og métier\fg{} \\
+\hline
+guid & uuid & code d'identification global \\
+\hline
+ids & collection & liste de tous les identifiants secondaires, selon la forme idtype: idval \\
+\hline
+project & varchar & nom du projet ou de la sous-collection correspondante \\
+\hline
+createdate & yyyy-mm-dd hh:mm:ss & date de création de l'échantillon dans la base de données d'origine \\
+\hline
+collectdate & yyyy-mm-dd hh:mm:ss & date de collecte ou de génération de l'échantillon\\
+\hline
+DATAMETIER & objet json & données \og métier\fg{} rattachées à l'échantillon \\
+\hline
+sampleparent & objet json & json de même structure que ce tableau comprenant les informations du parent (imbrication des différents parents le cas échéant)\\
+\hline
+storageproduct & varchar & produit de stockage utilisé \\
+\hline
+clp & varchar & risques associés aux produit de stockage \\
+\hline
+subsampletype & varchar & type de sous-échantillonnage \\
+\hline
+subsampleunit & varchar & unité de sous-échantillonnage \\
+\hline
+subsampleqty & double & quantité de sous-échantillons présents initialement \\
+\hline
+
+
+\end{longtable}
+
+\section{Lecture d'un échantillon}
+
+La requête, de type GET, contient soit en quatrième valeur, l'UID de l'échantillon à lire, soit la variable \textit{jsonget=}, dont la valeur, encodée en base 64, permet de spécifier le type d'identifiant utilisé :
+\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
+\hline 
+Code & Type & Description \\ 
+\hline \endhead
+
+\end{longtable}
+
+\section{Lecture d'un jeu d'échantillons}
+
+\section{Liste des projets ou sous-collections}
+\label{projectList}
+
+\section{Liste des types d'échantillons}
+\label{sampleTypeList}
+
+\section{Liste des types d'identifiants}
+\label{idtype}
+

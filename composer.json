@@ -1,0 +1,14 @@
+{
+    "name": "irstea/collec",
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "Eric Quinton",
+            "email": "eric.quinton@irstea.fr"
+        }
+    ],
+    "require": {
+		"smarty/smarty": "~3.1",
+		"jasig/phpcas": "^1.3"
+		}
+}

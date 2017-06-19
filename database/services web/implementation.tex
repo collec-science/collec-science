@@ -17,6 +17,7 @@ Les modules doivent être décrits, comme les autres, dans le fichier \textit{pa
 Le code spécifique des modules doit être stocké dans le dossier \textit{modules}, en respectant l'arborescence des URL conviviales, par exemple, pour l'adresse \textit{http://collec.local/sw/v1/sample}, dans le sous-dossier \textit{sw/v1}.
 
 \subsection{Données d'identification de l'utilisateur fournies par l'instance locale}
+\label{table_user}
 
 Toutes les données concernant l'identification ne sont accessibles qu'aux administrateurs (droit \textit{admin}), et sont stockées dans le schéma \textit{gacl}.
 
@@ -32,8 +33,6 @@ Le code d'identification est généré à partir du mail de l'utilisateur, en ut
 contenu...
 \end{lstlisting}
 
-Cette valeur est calculée \og à la volée \fg{}.
-
 Le secret est généré par l'instance distante, en utilisant une fonction aléatoire :
 \begin{lstlisting}
 sha256(random()) x 64 caracteres
@@ -41,7 +40,19 @@ sha256(random()) x 64 caracteres
 
 Cette information est stockée dans la table \textit{login}, dans un champ qui n'est jamais transmis au navigateur (mécanisme d'écrasement s'il est modifié depuis un formulaire, notamment pour l'ajouter).
 
+Les codes d'identification et les secrets partagés étant, par construction, différents selon les implémentations, la table user\_instance comprend les informations suivantes :
+\begin{itemize}
+\item le mail de l'utilisateur, en tant qu'identifiant unique;
+\item la référence à l'instance distante;
+\item le code généré à partir de l'adresse mail;
+\item le secret ;
+\item la liste des projets auquel l'utilisateur est associé (accessibilité aux données \og métier\fg{};
+\item la date d'expiration de l'autorisation d'accès. Par défaut, cette date est fixée à 1 an.
+\end{itemize}
+
+
 \subsection{Données d'identification des instances distantes}
+\label{table_instance}
 
 Pour identifier les instances clientes, la table \textit{instance} contient les données suivantes :
 \begin{itemize}
@@ -50,9 +61,11 @@ Pour identifier les instances clientes, la table \textit{instance} contient les 
 \item son mail;
 \item le code attribué en utilisant le même mécanisme que pour les utilisateurs, mais en se basant sur l'url;
 \item le secret (même mode de calcul);
-\item le type d'instance (cliente ou serveur).
+\item le type d'instance (cliente ou serveur);
+\item la date de fin d'autorisation d'accès, par défaut, fixée à 5 ans.
 \end{itemize}
-Ainsi, si une instance est à la fois cliente et serveur, elle aura deux lignes, l'une pour chaque sens de communication. Cela permet de maintenir des secrets différents pour chaque canal.
+
+Si une instance est à la fois cliente et serveur, elle aura deux lignes, l'une pour chaque sens de communication. Cela permet de maintenir des secrets différents pour chaque canal.
 
 Pour les instances \og serveurs\fg{}, une table complémentaire permet d'indiquer les URI des services web disponibles :
 \begin{itemize}
@@ -60,3 +73,6 @@ Pour les instances \og serveurs\fg{}, une table complémentaire permet d'indique
 \item l'URI correspondante;
 \item le type d'identification prévu: \textit{OauthV1}, \textit{OauthV2}, pas d'identification.
 \end{itemize}
+
+\subsection{Structure des tables correspondantes}
+

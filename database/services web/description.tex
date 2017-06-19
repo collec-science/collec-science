@@ -91,21 +91,137 @@ subsampleqty & double & quantité de sous-échantillons présents initialement \
 \section{Lecture d'un échantillon}
 
 La requête, de type GET, contient soit en quatrième valeur, l'UID de l'échantillon à lire, soit la variable \textit{jsonget=}, dont la valeur, encodée en base 64, permet de spécifier le type d'identifiant utilisé :
+\begin{longtable}{|c|>{\raggedright\arraybackslash}p{6cm}|}
+\hline 
+Code & Description \\ 
+\hline
+Clé & Nom de la variable utilisée \\
+\hline
+valeur associée & Valeur correspondante\\
+\endhead
+
+\end{longtable}
+
+Les valeurs utilisables dans les champs sont les suivants :
 \begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
 \hline 
-Code & Type & Description \\ 
+id & Format attendu dans val & Description \\ 
+\hline
+uid & integer & Clé utilisée dans la base de données \\
+\hline
+guid & uuid & Identifiant unique global \\
+\hline
+id & varchar & Identifiant principal de l'échantillon\\
+\hline
+xxx & varchar & tout code d'identifiant secondaire utilisable dans la base de données distante \\
 \hline \endhead
 
 \end{longtable}
 
+Voici un exemple de fichier Json, avant son encodage en base 64:
+\begin{lstlisting}
+{"uid":25}
+\end{lstlisting}
+
+Les données en retour sont celles du service de recherche d'un échantillon.
+
 \section{Lecture d'un jeu d'échantillons}
+
+Il s'agit d'une variante du cas précédent. Le fichier json (encodé en base 64) est organisé pour fournir un identifiant par échantillon retourné. Voici un exemple du fichier :
+\begin{lstlisting}
+[{"uid":15},{"id":"A1-B2-C3"}]
+\end{lstlisting}
+Les données en retour sont celles du service de recherche d'un échantillon.
 
 \section{Liste des projets ou sous-collections}
 \label{projectList}
 
+La requête est de type GET.
+\subsection{Données en entrée}
+La requête n'accepte pas de données en entrée.
+
+\subsection{Données en retour}
+La requête retourne la liste des projets ou sous-collections autorisées pour l'utilisateur considéré, sous la forme d'une collection Json contenant les informations suivantes :
+
+\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
+\hline 
+Code & Type & Description \\ 
+\hline
+id & integer & Identifiant interne du projet\\
+\hline
+val & varchar & Nom du projet\\
+\hline
+comment & varchar & Description\\
+\hline \endhead
+\end{longtable}
+
+Exemple :
+\begin{lstlisting}
+[
+{id:1,val:projet1,comment:"Description du projet 1"},
+{id:3,val:projet3,comment:"Descripton du projet 3"}
+]
+\end{lstlisting}
+
+
+
 \section{Liste des types d'échantillons}
 \label{sampleTypeList}
 
+La requête est de type GET.
+\subsection{Données en entrée}
+La requête n'accepte pas de données en entrée.
+
+\subsection{Données en retour}
+La requête retourne la liste des types d'échantillons, sous la forme d'une collection Json contenant les informations suivantes :
+
+\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
+\hline 
+Code & Type & Description \\ 
+\hline
+id & integer & Identifiant interne du type d'échantillon\\
+\hline
+val & varchar & Code du type d'échantillon\\
+\hline
+comment & varchar & Description\\
+\hline \endhead
+\end{longtable}
+
+Exemple :
+\begin{lstlisting}
+[
+{id:1,val:projet1,comment:"Description du projet 1"},
+{id:3,val:projet3,comment:"Descripton du projet 3"}
+]
+\end{lstlisting}
+
 \section{Liste des types d'identifiants}
 \label{idtype}
+
+La requête est de type GET.
+\subsection{Données en entrée}
+La requête n'accepte pas de données en entrée.
+
+\subsection{Données en retour}
+La requête retourne la liste des types d'identifiants utilisés dans la base de données, sous la forme d'une collection Json contenant les informations suivantes :
+
+\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
+\hline 
+Code & Type & Description \\ 
+\hline
+id & integer & Identifiant interne du type d'identifiant\\
+\hline
+val & varchar & Code de l'identifiant\\
+\hline
+comment & varchar & Description\\
+\hline \endhead
+\end{longtable}
+
+Exemple :
+\begin{lstlisting}
+[
+{id:1,val:cab,comment:"Code a barres utilise pour l'inventaire"},
+{id:2,val:igsn,comment:"Code IGSN pour les carottes de prelevement"}
+]
+\end{lstlisting}
 

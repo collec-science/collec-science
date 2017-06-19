@@ -1,2 +1,24 @@
 \chapter{Gestion des habilitations}
 \label{habilitation}
+Pour accéder à des informations distantes, le protocole OAuth v2 est mis en œuvre. Il permet notamment de garantir l'identité de l'utilisateur accédant aux informations ainsi que de l'application cliente.
+
+Dans la pratique, les applications clientes sont identifiées par un identifiant et un mot de passe secret, partagé avec le serveur distant.
+Il en est de même pour les utilisateurs distants, qui sont identifiés dans le serveur distant, et doivent s'authentifier avant de pouvoir récupérer des informations.
+
+Des jetons sont échangés entre l'application serveur et l'application cliente pour garantir l'identification réciproque. 
+
+\section{Opérations préalables à l'interrogation d'une base de données distante}
+\subsection{Identification réciproque des applications}
+
+Les applications clientes doivent se faire identifier par les applications distantes avant tout échange.
+
+Cette étape est manuelle : l'administrateur de l'application distante crée un enregistrement dans la table \textit{instance}, dont le détail est décrit dans la section \ref{table_instance}.
+
+Le code d'identification, ainsi que le secret associé, est envoyé par mail par l'administrateur de la base distante.
+
+Ces informations sont également stockées dans la table \textit{instance} locale, en indiquant en outre les adresses des différents services web disponibles.
+
+\subsection{Identification des utilisateurs}
+Les utilisateurs distants sont identifiés dans le système de gestion des droits de l'application distante, avec un code et un secret partagé. Le détail des informations échangées est décrit dans la section \ref{table_user}.
+
+Les utilisateurs décrits peuvent être rattachés à un projet, pour pouvoir récupérer le cas échéant les données \og métier\fg{}. Ils ne disposent que d'un droit de lecture sur les informations.

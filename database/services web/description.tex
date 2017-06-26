@@ -1,14 +1,120 @@
 \chapter{Description des services web}
+
 \section{Remarques générales}
+
+Les services web sont destinés à fournir des informations aux clients. Leur implémentation dépend des logiciels, ainsi que la manière de traiter les données.
+
+Pour des raisons de compatibilité entre les différents logiciels, si un argument fourni figure dans la requête mais n'est pas utilisable par le service web, ce dernier ne doit pas rejeter la requête, sauf si aucun argument ne permet de discriminer la recherche demandée.
+
 \subsection{Format des données transmises ou reçues}
+Les données sont échangées au format JSON, encodées en base 64. Toutes les données JSON sont encodées en base 64, que ce soit dans les paramètres transmis ou dans les données retournées.
+
+Les requêtes pour obtenir des informations sont de type GET. Actuellement, aucun service web n'est prévu pour mettre à jour des informations dans la base distante.
 
 \subsection{Codes d'erreur}
 
+Voici la liste des codes d'erreur génériques que les services web peuvent retourner :
+\begin{longtable}{|c|>{\raggedright\arraybackslash}p{12cm}|}
+\hline 
+Code &  Description \\ 
+\hline \endhead
+400 & Bad argument : un des arguments fournis n'est pas valide, ou aucun argument utilisable n'a été indiqué\footnote{Dans le cas où des arguments sont fournis, mais non utilisables par le service web considéré, l'exécution de la requête conduisant à renvoyer trop d'informations} \\
+\hline
+401 & Unauthorized : les droits d'accès sont insuffisants pour permettre d'obtenir les informations \\
+\hline
+404 & Not found : la ressource demandée est introuvable\\
+\hline
+408 & RequestTimeOut : la requête n'a pas abouti dans le temps imparti, ou elle a été annulée par le client\\
+\hline
+500 & InternalError : une erreur d'exécution ne permet pas de retourner le résultat de la requête\\
+\hline
+503 & ServiceUnavailable : le service est temporairement indisponible\\
+\hline
+\end{longtable} 
 
-\section{Recherche des échantillons}
+\section{Table des listes techniques}
+
+Ce service web permet de récupérer la liste des tables de référence qui peuvent être utilisées pour lancer une recherche.
+
+\subsection{url type}
+\url{https://sitedistant.fr/sw/v1/params}
+
+\subsection{Données en entrée}
+Le service web ne nécessite pas de paramètre d'entrée.
+
+
+\subsection{Données en retour}
+La requête retourne la liste demandée sous la forme d'une collection Json contenant les informations suivantes :
+
+\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
+\hline 
+Code & Type & Description \\ 
+\hline
+code & varchar & Code de la table de référence. C'est ce code qui sera utilisé pour obtenir la liste des valeurs disponibles dans le service web de récupération du contenu\\
+\hline
+val & varchar & Texte affichable dans un masque de recherche\\
+\hline
+valfr & varchar & Texte affichable dans un masque de recherche, en français\\
+\hline
+valen & varchar & Texte affichable dans un masque de recherche, en anglais\\
+\hline \endhead
+\end{longtable}
+
+Exemple :
+\begin{lstlisting}
+[
+{code:"project",val:"Projets", valen:"projects"},
+{code:"sampletype",val:"Types d'echantillons", valen:"samples types"},
+{code:"identifiertype",val:"Identifiants metier", valen:"business identifiers"},
+{code:"place",val:"Lieux de prelevement des echantillons",valen:"sampling places"}
+]
+\end{lstlisting}
+
+\section{Listes techniques}
+\label{listes}
+
+Ce service web permet de récupérer une liste de référence nécessaire pour comprendre ou rechercher les échantillons de la base distante.
+
+\subsection{url type}
+\url{https://sitedistant.fr/sw/v1/reference/project} ou 
+\url{https://sitedistant.fr/sw/v1/reference/var=project}.
+
+La valeur fournie (\textit{project} ici) est une des valeurs récupérée dans le service web précédent (rubrique \textit{code}).
+
+La requête est de type GET. 
+
+
+\subsection{Données en retour}
+La requête retourne la liste demandée sous la forme d'une collection Json contenant les informations suivantes :
+
+\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{10cm}|}
+\hline 
+Code & Type & Description \\ 
+\hline
+id & integer & Identifiant interne\\
+\hline
+val & varchar & Libellé\\
+\hline
+comment & varchar & Description ou commentaire\\
+\hline \endhead
+\end{longtable}
+
+Exemple :
+\begin{lstlisting}
+[
+{id:1,val:"projet1",comment:"Description du projet 1"},
+{id:3,val:"projet3",comment:"Descripton du projet 3"}
+]
+\end{lstlisting}
+
+
+\section{Rechercher des échantillons}
 \label{sampleSearch}
+\subsection{url type}
+\url{https://sitedistant.fr/sw/v1/sample_search}
+
 \subsection{Variables de recherche}
-Les variables peuvent être indiquées soit directement dans la requête GET, soit dans le champ \textit{jsonval}, encodé en base 64.
+Les variables doivent être fournies sous la forme d'une variable JSON \textit{val}, encodée en base 64.
 
 % \usepackage{array} is required
 \begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{8cm}|}
@@ -29,13 +135,10 @@ datestart & yyyy-mm-dd & date de début pour une recherche sur une fourchette de
 \hline
 dateend & yyyy-mm-dd & date de fin pour une recherche sur une fourchette de dates \\
 \hline
-projectid & integer & identifiant du projet ou de la sous-collection (code issu du résultat du service web \ref{projectList}) \\
-\hline
-sampletypeid & integer & identifiant du type d'échantillon (code issu du résultat du service web \ref{sampleTypeList}) \\
-\hline
-idtype & integer & type d'identifiant (code issu du résultat du service web \ref{idtype})\\
-\hline
-idval & varchar & identifiant recherché selon le type spécifié dans \textit{idtype}\\
+codefamily & objet Json & objet json permettant de rechercher une valeur sur une table de paramètres. \textit{Codefamily} doit être remplacé par le code retourné lors de la recherche des listes de paramètres. L'objet JSON accepte, comme informations associées : \\
+& & \textit{id} : identifiant spécifique à rechercher (par exemple, le code de l'identifiant métier). \textit{id} peut être facultatif, si la recherche ne porte que sur la valeur, par exemple, le lieu de prélèvement; \\
+& & \textit{val} : valeur recherchée\\
+& & si uniquement \textit{val} est indiqué, on peut utiliser un couple classique: \textit{codefamily:val}\\
 \hline
 \end{longtable} 
 
@@ -45,10 +148,12 @@ Exemple de fichier :
 "uidend": 50,
 "datestart": "2017-01-01",
 "dateend": "2017-06-30",
-"idtype": 2,
-"idval": "AB01"
+"identifiertype":{id:10, val:"AB01"},
+"sampletype":2
 }
 \end{lstlisting}
+
+La recherche portera sur les échantillons dont l'UID est entre 25 et 50, dont la date est entre le 1er janvier et le 30 juin 2017, dont l'identifiant métier connu sous le numéro 10 vaut AB01, et dont le type d'échantillons est 2.
 
 \subsection{Données en retour}
 Collection Json avec, pour chacun, les informations suivantes :
@@ -70,7 +175,7 @@ createdate & yyyy-mm-dd hh:mm:ss & date de création de l'échantillon dans la b
 \hline
 collectdate & yyyy-mm-dd hh:mm:ss & date de collecte ou de génération de l'échantillon\\
 \hline
-DATAMETIER & objet json & données \og métier\fg{} rattachées à l'échantillon \\
+metadata & objet json & données \og métier\fg{} rattachées à l'échantillon \\
 \hline
 sampleparent & objet json & json de même structure que ce tableau comprenant les informations du parent (imbrication des différents parents le cas échéant)\\
 \hline
@@ -84,21 +189,26 @@ subsampleunit & varchar & unité de sous-échantillonnage \\
 \hline
 subsampleqty & double & quantité de sous-échantillons présents initialement \\
 \hline
-
-
+samplingplacename & varchar & nom du lieu de collecte \\
+\hline
 \end{longtable}
 
-\section{Lecture d'un échantillon}
+\section{Lire un échantillon}
 
-La requête, de type GET, contient soit en quatrième valeur, l'UID de l'échantillon à lire, soit la variable \textit{jsonget=}, dont la valeur, encodée en base 64, permet de spécifier le type d'identifiant utilisé :
+\subsection{url type}
+\url{https://sitedistant.fr/sw/v1/sample}
+
+La requête, de type GET, contient soit en dernière valeur l'UID de l'échantillon à lire, soit la variable \textit{param=}, encodée en base 64, contenant un fichier json permettant de spécifier le type d'identifiant utilisé :
 \begin{longtable}{|c|>{\raggedright\arraybackslash}p{6cm}|}
 \hline 
 Code & Description \\ 
 \hline
-Clé & Nom de la variable utilisée \\
+Clé & Nom de la variable utilisée -- valeur issue du résultat du service web de recherche des listes techniques (type \textit{identifiertype}) \\
 \hline
 valeur associée & Valeur correspondante\\
+\hline
 \endhead
+
 
 \end{longtable}
 
@@ -112,8 +222,6 @@ uid & integer & Clé utilisée dans la base de données \\
 guid & uuid & Identifiant unique global \\
 \hline
 id & varchar & Identifiant principal de l'échantillon\\
-\hline
-xxx & varchar & tout code d'identifiant secondaire utilisable dans la base de données distante \\
 \hline \endhead
 
 \end{longtable}
@@ -125,7 +233,9 @@ Voici un exemple de fichier Json, avant son encodage en base 64:
 
 Les données en retour sont celles du service de recherche d'un échantillon.
 
-\section{Lecture d'un jeu d'échantillons}
+\section{Lire un jeu d'échantillons}
+\subsection{url type}
+\url{https://sitedistant.fr/sw/v1/samples?param=xxx}
 
 Il s'agit d'une variante du cas précédent. Le fichier json (encodé en base 64) est organisé pour fournir un identifiant par échantillon retourné. Voici un exemple du fichier :
 \begin{lstlisting}
@@ -133,95 +243,5 @@ Il s'agit d'une variante du cas précédent. Le fichier json (encodé en base 64
 \end{lstlisting}
 Les données en retour sont celles du service de recherche d'un échantillon.
 
-\section{Liste des projets ou sous-collections}
-\label{projectList}
 
-La requête est de type GET.
-\subsection{Données en entrée}
-La requête n'accepte pas de données en entrée.
-
-\subsection{Données en retour}
-La requête retourne la liste des projets ou sous-collections autorisées pour l'utilisateur considéré, sous la forme d'une collection Json contenant les informations suivantes :
-
-\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
-\hline 
-Code & Type & Description \\ 
-\hline
-id & integer & Identifiant interne du projet\\
-\hline
-val & varchar & Nom du projet\\
-\hline
-comment & varchar & Description\\
-\hline \endhead
-\end{longtable}
-
-Exemple :
-\begin{lstlisting}
-[
-{id:1,val:projet1,comment:"Description du projet 1"},
-{id:3,val:projet3,comment:"Descripton du projet 3"}
-]
-\end{lstlisting}
-
-
-
-\section{Liste des types d'échantillons}
-\label{sampleTypeList}
-
-La requête est de type GET.
-\subsection{Données en entrée}
-La requête n'accepte pas de données en entrée.
-
-\subsection{Données en retour}
-La requête retourne la liste des types d'échantillons, sous la forme d'une collection Json contenant les informations suivantes :
-
-\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
-\hline 
-Code & Type & Description \\ 
-\hline
-id & integer & Identifiant interne du type d'échantillon\\
-\hline
-val & varchar & Code du type d'échantillon\\
-\hline
-comment & varchar & Description\\
-\hline \endhead
-\end{longtable}
-
-Exemple :
-\begin{lstlisting}
-[
-{id:1,val:projet1,comment:"Description du projet 1"},
-{id:3,val:projet3,comment:"Descripton du projet 3"}
-]
-\end{lstlisting}
-
-\section{Liste des types d'identifiants}
-\label{idtype}
-
-La requête est de type GET.
-\subsection{Données en entrée}
-La requête n'accepte pas de données en entrée.
-
-\subsection{Données en retour}
-La requête retourne la liste des types d'identifiants utilisés dans la base de données, sous la forme d'une collection Json contenant les informations suivantes :
-
-\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
-\hline 
-Code & Type & Description \\ 
-\hline
-id & integer & Identifiant interne du type d'identifiant\\
-\hline
-val & varchar & Code de l'identifiant\\
-\hline
-comment & varchar & Description\\
-\hline \endhead
-\end{longtable}
-
-Exemple :
-\begin{lstlisting}
-[
-{id:1,val:cab,comment:"Code a barres utilise pour l'inventaire"},
-{id:2,val:igsn,comment:"Code IGSN pour les carottes de prelevement"}
-]
-\end{lstlisting}
 

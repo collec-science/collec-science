@@ -10,21 +10,20 @@
 \item [instance, serveur, base de données, application :] implémentation d'une solution de gestion d'échantillons capable soit de fournir des services web, soit d'interroger des services web pour récupérer des informations.
 \end{description}
 \section{Présentation}
-Collec est un logiciel de gestion de collections d'échantillons, dont l'objectif principal consiste à permettre de retrouver rapidement un échantillon stocké ou de récupérer les informations générales le concernant.
 
-Écrit en PHP, les données sont stockées dans une base de données PostgreSQL. Le code de l'application est disponible à l'adresse \url{https://gitlab.com/Irstea/collec}. Il est disponible sous licence AGPL.
+La gestion des échantillons de laboratoire (ou autres) est réalisée par divers logiciels, chacun s'appuyant sur une base de données différente. Dans un contexte d'échange des informations entre laboratoires, il est apparu nécessaire de proposer une méthode d'interrogation des différentes bases de données, pour connaître ce qui est disponible dans d'autres collections.
 
-Le logiciel est bâti sur un modèle MVC, tous les accès étant gérés par l'appel à des modules déclarés dans un fichier spécifique. Il ne gère pas initialement les URL conviviales (implémenté à partir de la version 1.1).
+Deux cas d'utilisation ont ainsi pu être mis en évidence :
+\begin{itemize}
+\item l'interrogation d'une base distante, pour savoir si des échantillons sont disponibles ;
+\item l'import d'informations provenant d'une autre base de données, pour ré\-pondre à deux cas de figure différents :
+\begin{itemize}
+\item le prêt d'un échantillon à un autre laboratoire, sans être obligé de ressaisir toutes les métadonnées associées ;
+\item l'importation de données saisies sur le terrain en mode déconnecté dans une base de données centrale.
+\end{itemize}
+\end{itemize}
 
-La gestion matérielle des échantillons de laboratoire (ou d'expérimentations scientifiques) est une fonctionnalité largement demandée, mais peu couverte jusqu'à présent par les logiciels disponibles, et particulièrement dans le domaine de l'\textit{Open Source}. Collec, dont la première version remonte à l'automne 2016, fait l'objet d'un réel intérêt de la part de la communauté scientifique, ses fonctionnalités et sa facilité d'utilisation le rendant attractif.
-
-Toutefois, il n'est pas conçu comme un système global de gestion de données à la fois techniques -- stockage des échantillons -- et de résultats d'analyse par exemple (pas d'informations métiers complexes\footnote{Dans la pratique, à partir de la version 1.1, il est possible de renseigner quelques informations métiers, mais de manière relativement frustre et sans permettre la complexité des actions envisageables avec des bases de données dédiées.}).
-Il n'est pas non plus prévu de mettre en place un hébergement centralisé qui permettrait de gérer tous les échantillons de la sphère de recherche.
-
-\textit{A contrario}, cette organisation permet de créer autant d'instances que néces\-saires, notamment pour gérer des saisies en mode décentralisé (bateau partant en campagne de sondage dans les mers du Sud, collecte d'échantillons depuis des zones non couvertes par Internet, par exemple).
-
-Cette souplesse nécessite de prévoir des mécanismes soit d'interrogation de diverses instances, soit de récupération des informations concernant des échantillons provenant d'autres bases de données. 
-Pour harmoniser les échanges ou les interrogations, la technologie des services web s'impose, en raison de la normalisation qu'elle apporte.
+La technologie retenue est celle des services web, associée au protocole OAuth v.2 pour la gestion des habilitations.
 
 \subsection{Technique employée}
 
@@ -35,7 +34,15 @@ Les URL sont conçues, dans le cadre des services web, sous la forme d'URL convi
 
 \section{Définition des cas d'utilisation couverts par les services web}
 
-SCHEMA
+\includegraphics[width=\linewidth]{images/sequence}
+
+Cinq services web sont nécessaires :
+\begin{itemize}
+\item les deux premiers permettent de récupérer les listes de référence nécessaires pour faire des recherches selon divers paramètres ;
+\item le troisième permet de lancer une recherche pour trouver des échantillons ;
+\item les deux derniers récupèrent les informations correspondant à un ou plusieurs échantillons respectivement.
+\end{itemize}
+
 
 \subsection{Recherche d'échantillons}
 La recherche d'échantillons doit pouvoir s'effectuer selon plusieurs critères :
@@ -46,26 +53,25 @@ La recherche d'échantillons doit pouvoir s'effectuer selon plusieurs critères 
 \item un type d'échantillons;
 \item un projet ou sous-collection;
 \item une fourchette d'identifiants internes;
-\item un code unique de type GUID ou UUID.
+\item un code unique de type GUID ou UUID;
+\item le lieu de collecte de l'échantillon;
+\item tout autre paramètre traité dans l'application distante.
 \end{itemize}
 
 Elle retourne une liste d'échantillons correspondant aux critères indiqués. Le détail des informations retournées est spécifié dans la section \ref{sampleSearch}.
 
-Pour permettre cette recherche, d'autres services sont nécessaires, notamment pour récupérer la liste des types d'échantillons ou la liste des projets (ou sous-collections).
+Pour permettre cette recherche, il est nécessaire de récupérer les tables de référence (types d'échantillons, projets ou sous-collections, lieux de collecte...). Les tables utilisables pour la recherche peuvent différer selon les logiciels, et cette liste peut être retrouvée par un service web dédié.
 
-\subsection{Liste des projets ou sous-collections}
-Ce service doit permettre de récupérer la liste des projets ou sous-collections autorisés pour un utilisateur, pour qu'ils puissent servir dans le cadre de la recherche.
+\subsection{Liste des tables de référence}
+Ce service permet d'obtenir l'ensemble des tables de référence avec lesquelles il est possible de réaliser une recherche.
 
-\subsection{Liste des types d'échantillons}
-Ce service récupère la liste exhaustive des types d'échantillons utilisés dans l'instance distante, pour une utilisation dans le cadre de la recherche.
-
-\subsection{Liste des types d'identifiants secondaires}
-Ce service récupère la liste exhaustive des types d'échantillons secondaires, pour une utilisation dans le cadre de la recherche des échantillons.
+\subsection{Contenu des tables de référence}
+Ce service récupère le contenu d'une des tables de référence.
 
 \subsection{Récupération des données d'un échantillon}
 Ce service permet de récupérer l'ensemble des données concernant un échan\-tillon, y compris les données \og métiers \fg{} si l'utilisateur dispose des droits néces\-saires pour les consulter.
 
-Les données récupérées sont suffisamment complètes pour être intégrées dans l'instance \textit{Collec} courante, par exemple pour éviter de les ressaisir suite au prêt d'un échantillon par un laboratoire.
+Les données récupérées doivent être suffisamment complètes pour être intégrées dans l'application de gestion des échantillons locale.
 
 Elles permettent également une visualisation détaillée de l'échantillon consi\-déré, et contiennent, le cas échéant\footnote{si l'utilisateur dispose des droits adéquats et si l'échantillon dispose de ces informations}, les données \og métiers \fg{} associées.
 
@@ -75,10 +81,5 @@ Il s'agit d'une variante du service web précédent. La liste des échantillons 
 
 \section{Contraintes liées à la sécurité}
 
-Les instances Collec sont prévues pour donner un accès en lecture à toutes les données des échantillons disponibles, dès lors que l'utilisateur s'est identifié. Cela permet ainsi de connaître, par exemple, le produit utilisé pour la conservation ou d'autres informations nécessaires pour la gestion quotidienne des collections.
-
-Toutefois, les données \og métiers \fg ne sont accessibles qu'aux personnes habilitées à les consulter. Dans la pratique, dans Collec, les échantillons sont associés à un projet, et seuls les utilisateurs rattachés à celui-ci peuvent prendre connaissance de ces informations.
-Cela impose une gestion particulière des accès lors de l'interrogation par l'intermédiaire des services web, qui sera décrite dans le chapitre \ref{habilitation}.
-
-Le protocole d'identification des utilisateurs dans l'instance distante est basé sur le protocole Oauth v2.
+L'accès aux données nécessite une identification préalable de l'utilisateur. Celle-ci est basée sur le protocole OAuth v2 (\textit{cf.} chapitre \ref{oauth}).
 

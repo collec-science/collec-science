@@ -1,7 +1,7 @@
 <!-- Liste des réservations -->
 {if $droits.gestion == 1}
 <a href="index.php?module={$moduleParent}bookingChange&booking_id=0&uid={$data.uid}">
-<img src="display/images/crossed-calendar.png" height="25">Nouveau...
+<img src="/display/images/crossed-calendar.png" height="25">Nouveau...
 </a>
 {/if}
 <table id="bookingList" class="table table-bordered table-hover datatable " data-order='[0,"desc"]' >

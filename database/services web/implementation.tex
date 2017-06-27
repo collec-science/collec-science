@@ -1,0 +1,61 @@
+\chapter{Implémentation technique dans Collec}
+
+Collec est un logiciel de gestion de collections d'échantillons, dont l'objectif principal vise à faciliter la recherche d'un échantillon stocké ou de récupérer les informations générales le concernant.
+
+Écrit en PHP, les données sont stockées dans une base de données PostgreSQL. Le code de l'application est disponible à l'adresse \url{https://gitlab.com/Irstea/collec}. Il est disponible sous licence AGPL.
+
+Le logiciel est bâti sur un modèle MVC, tous les accès étant gérés par l'appel à des modules déclarés dans un fichier spécifique. 
+
+La gestion matérielle des échantillons de laboratoire (ou d'expérimentations scientifiques) est une fonctionnalité largement demandée, mais peu couverte jusqu'à présent par les logiciels disponibles, et particulièrement dans le domaine de l'\textit{Open Source}. Collec, dont la première version remonte à l'automne 2016, fait l'objet d'un réel intérêt de la part de la communauté scientifique, ses fonctionnalités et sa facilité d'utilisation le rendant attractif.
+
+Toutefois, il n'est pas conçu comme un système global de gestion de données à la fois techniques -- stockage des échantillons -- et de résultats d'analyse par exemple (pas d'informations métiers complexes\footnote{Dans la pratique, à partir de la version 1.1, il est possible de renseigner quelques informations métiers, mais de manière relativement frustre et sans permettre la complexité des actions envisageables avec des bases de données dédiées.}).
+Il n'est pas non plus prévu de mettre en place un hébergement centralisé qui permettrait de gérer tous les échantillons de la sphère de recherche.
+
+\textit{A contrario}, cette organisation permet de créer autant d'instances que néces\-saires, notamment pour gérer des saisies en mode décentralisé (bateau partant en campagne de sondage dans les mers du Sud, collecte d'échantillons depuis des zones non couvertes par Internet, par exemple).
+
+Cette souplesse nécessite de prévoir des mécanismes soit d'interrogation de diverses instances, soit de récupération des informations concernant des échantillons provenant d'autres bases de données. 
+
+\section{Transformation des URL et appel aux modules}
+Les URL conviviales sont transformées en noms de modules, selon le fonctionnement suivant :
+\begin{itemize}
+\item les trois premiers éléments de l'adresse sont fusionnés;
+\item si le quatrième élément est présent, il est stocké dans la variable de requête \textit{\$id}, et :
+\begin{itemize}
+\item si la requête est de type GET, le module est suffixé par \textit{Display};
+\item si la requête est de type POST, le module est suffixé par \textit{Write}\footnote{Dans la version actuelle, l'écriture depuis une instance distante n'est pas implémentée};
+\end{itemize}
+\item sinon, le module est suffixé par \textit{List}.
+\end{itemize}
+
+Les modules doivent être décrits, comme les autres, dans le fichier \textit{param/actions.xml}, et sont exécutés selon le fonctionnement classique de l'application.
+
+\section{Emplacement du code}
+Le code spécifique des modules doit être stocké dans le dossier \textit{modules}, en respectant l'arborescence des URL conviviales, par exemple, pour l'adresse \textit{http://collec.local/sw/v1/sample}, dans le sous-dossier \textit{sw/v1}.
+
+
+\subsection{Données d'identification des instances distantes}
+\label{table_instance}
+
+Pour identifier les instances clientes, la table \textit{instance} contient les données suivantes :
+\begin{itemize}
+\item le nom de l'instance;
+\item l'url de l'instance ;
+\item le nom d'un contact;
+\item son mail;
+\item le code attribué en conservant les 8 premiers caractères du calcul d'empreintes sha256 de l'url;
+\item le secret, généré de manière cryptographique ;
+\item le type d'instance (cliente ou serveur);
+\item la date de fin d'autorisation d'accès, par défaut, fixée à 5 ans.
+\end{itemize}
+
+Si une instance est à la fois cliente et serveur, deux lignes devront être créées, l'une pour chaque sens de communication. Cela permet de maintenir des secrets différents pour chaque canal.
+
+Pour les instances \og serveurs\fg{}, une table complémentaire permet d'indiquer les URI des services web disponibles :
+\begin{itemize}
+\item le type du service web;
+\item l'URI correspondante;
+\item le type d'identification prévu: \textit{OauthV1}, \textit{OauthV2}, pas d'identification.
+\end{itemize}
+
+\subsection{Structure des tables correspondantes}
+

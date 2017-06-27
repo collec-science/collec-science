@@ -16,7 +16,7 @@ Nouvelle application...
 {section name=lst loop=$data}
 <tr>
 <td class="center"><a href="index.php?module=appliChange&aclappli_id={$data[lst].aclappli_id}">
-<img src="display/images/edit.gif" height="25">
+<img src="/display/images/edit.gif" height="25">
 </a>
 <td>
 <a href="index.php?module=appliDisplay&aclappli_id={$data[lst].aclappli_id}">

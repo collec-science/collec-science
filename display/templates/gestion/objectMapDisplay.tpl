@@ -1,12 +1,12 @@
-<script type="text/javascript" charset="utf-8" src="display/javascript/ol.js"></script>
+<script type="text/javascript" charset="utf-8" src="/display/javascript/ol.js"></script>
 <style type="text/css" >
-@import "display/CSS/ol.css";
+@import "/display/CSS/ol.css";
 </style>
 <div id="map" class="map"></div>
 {if $mapIsChange == 1}
 <div id="radar">
 <a href="#">
-<img src="display/images/radar.png" height="30">Repérez votre position !</a></div>
+<img src="/display/images/radar.png" height="30">Repérez votre position !</a></div>
 {/if}
 <script>
 var earth_radius = 6389125.541;

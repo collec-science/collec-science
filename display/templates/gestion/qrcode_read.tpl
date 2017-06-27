@@ -1,7 +1,7 @@
-<script src="display/javascript/adapter.js"></script>
+<script src="/display/javascript/adapter.js"></script>
 <script
-	src="display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
-<script src="display/javascript/html5-qrcode.eq.js"></script>
+	src="/display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
+<script src="/display/javascript/html5-qrcode.eq.js"></script>
 
 
 <script>
@@ -84,7 +84,7 @@ $(document).ready(function() {
 	 * Fonctions pour la lecture du QRCode
 	 */
 	var is_read = false;
-	var snd = new Audio("display/images/sound.ogg"); 
+	var snd = new Audio("/display/images/sound.ogg"); 
 	function readChange() {
 		/*
 		 * Lit le contenu de la zone, et declenche la recherche

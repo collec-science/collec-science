@@ -50,7 +50,7 @@ $(document).ready(function () {
 			</option>
 			{/section}
 			</select>
-			<img id="containerSpinner" src="display/images/spinner.gif" height="25">
+			<img id="containerSpinner" src="/display/images/spinner.gif" height="25">
 			<button id="containercsvfile" class="btn btn-primary">Fichier CSV</button>
 </div>
 </div>

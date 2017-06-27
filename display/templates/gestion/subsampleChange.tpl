@@ -3,11 +3,11 @@
 <div class="row">
 <div class="col-md-6">
 <a href="index.php?module={$moduleParent}List">
-<img src="display/images/list.png" height="25">
+<img src="/display/images/list.png" height="25">
 Retour à la liste
 </a>
 <a href="index.php?module={$moduleParent}Display&uid={$object.uid}">
-<img src="display/images/edit.gif" height="25">
+<img src="/display/images/edit.gif" height="25">
 Retour au détail ({$object.uid} {$object.identifier})
 </a>
 <form class="form-horizontal protoform" id="subsampleForm" method="post" action="index.php">

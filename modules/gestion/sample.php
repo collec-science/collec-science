@@ -44,6 +44,21 @@ switch ($t_module ["param"]) {
 		$data = $dataClass->lire ( $id );
 		$vue->set ( $data, "data" );
 		/*
+		* Récupération des métadonnées dans un tableau pour l'affichage
+		*/
+		$metadata=json_decode($data["data"],true);
+		foreach ($metadata as $key => $value) {
+			if($value===false){
+				$metadata[$key]="false";
+			}elseif($value===true){
+				$metadata[$key]="true";
+			}
+		}
+		$is_modifiable = $dataClass->verifyProject ( $data );
+		if($is_modifiable){
+			$vue->set($metadata, "metadata");
+		}
+		/*
 		 * Recuperation des identifiants associes
 		 */
 		require_once 'modules/classes/objectIdentifier.class.php';
@@ -88,7 +103,6 @@ switch ($t_module ["param"]) {
 		/*
 		 * Verification que l'echantillon peut etre modifie
 		 */
-		$is_modifiable = $dataClass->verifyProject ( $data );
 		if ($is_modifiable)
 			$vue->set ( 1, "modifiable" );
 		/*
@@ -139,6 +153,19 @@ switch ($t_module ["param"]) {
 		/*
 		 * write record in database
 		 */
+
+		//gestion des métadonnées
+		require_once 'modules/classes/sampleMetadata.class.php';
+		$metadata = new SampleMetadata($bdd, $ObjetBDDParam);
+		$data = array ("data" =>$_REQUEST["metadataField"]);
+
+		if ($_REQUEST["sample_metadata_id"] > 0){
+			$data["sample_metadata_id"] = $_REQUEST["sample_metadata_id"];
+		}
+
+		$idmetadata = $metadata->ecrire($data);
+		$_REQUEST["sample_metadata_id"] = $idmetadata;
+		
 		$id = dataWrite ( $dataClass, $_REQUEST );
 		if ($id > 0) {
 			$_REQUEST [$keyName] = $id;

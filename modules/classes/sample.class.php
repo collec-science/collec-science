@@ -19,7 +19,10 @@ class Sample extends ObjetBDD {
 					so.object_status_id, object_status_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
 					container_type_name, clp_classification,
-					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,
+					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
+					metadata_form_id,
+					metadata_schema,
+					s.sample_metadata_id, data,
 					document_id, identifiers,
 					storage_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name
@@ -33,12 +36,14 @@ class Sample extends ObjetBDD {
 					left outer join object pso on (ps.uid = pso.uid)	
 					left outer join container_type ct using (container_type_id)
 					left outer join operation using (operation_id)
+					left outer join metadata_form using (metadata_form_id)
 					left outer join protocol using (protocol_id)
 					left outer join multiple_type mt on (st.multiple_type_id = mt.multiple_type_id)
 					left outer join last_photo on (so.uid = last_photo.uid)
 					left outer join v_object_identifier voi on  (s.uid = voi.uid)
 					left outer join last_movement lm on (s.uid = lm.uid)
 					left outer join movement_type using (movement_type_id)
+					left outer join sample_metadata m on  m.sample_metadata_id=s.sample_metadata_id
 					";
 	function __construct($bdd, $param = array()) {
 		$this->table = "sample";
@@ -81,7 +86,11 @@ class Sample extends ObjetBDD {
 				"sampling_place_id" => array (
 						"type" => 1 
 				),
-				"dbuid_origin" => array("type"=>0)
+				"dbuid_origin" => array(
+					"type"=>0
+				),
+				"sample_metadata_id"=>array(
+						"type"=>1)
 		);
 		parent::__construct ( $bdd, $param );
 	}
@@ -151,6 +160,12 @@ class Sample extends ObjetBDD {
 			 * suppression de l'echantillon
 			 */
 			parent::supprimer ( $data ["sample_id"] );
+			/*
+			*suppression des metadonnées
+			*/
+			require_once 'modules/classes/sampleMetadata.class.php';
+			$metadata = new sampleMetadata($this->connection, $this->paramori);
+			$metadata->supprimer($data["sample_metadata_id"]);
 			/*
 			 * Suppression de l'objet
 			 */

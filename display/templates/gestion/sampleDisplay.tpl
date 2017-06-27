@@ -83,7 +83,7 @@ clp : {$data.clp_classification}
 {if $data.operation_id > 0}
 <dl class="dl-horizontal">
 <dt>Protocole et opération :</dt>
-<dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name}
+<dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name} {$data.operation_version} 
 </dd>
 </dl>
 {/if}
@@ -144,6 +144,22 @@ clp : {$data.clp_classification}
 {/section}
 </dd>
 </dl>
+
+{if count($metadata) >0}
+<hr>
+{/if}
+{foreach from=$metadata key=key item=value name=metadatas}
+<dl class="dl-horizontal">
+<dt>{$key} :</dt>
+<dd>
+{$value}
+{if not $smarty.foreach.metadatas.last}
+<br>
+{/if}
+</dd>
+</dl>
+{/foreach}
+
 </div>
 {include file="gestion/objectIdentifierList.tpl"}
 

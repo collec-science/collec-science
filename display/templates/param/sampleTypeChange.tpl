@@ -34,23 +34,7 @@
 <option value="" {if $data.operation_id == ""}selected{/if}>{$LANG.appli.2}</option>
 {section name=lst loop=$operation}
 <option value="{$operation[lst].operation_id}" {if $operation[lst].operation_id == $data.operation_id}selected{/if}>
-{$operation[lst].protocol_year} {$operation[lst].protocol_name} {$operation[lst].protocol_version} {$operation[lst].operation_name}
-</option>
-{/section}
-</select>
-</div>
-</div>
-
-<div class="form-group">
-<label for="metadata_set_id"  class="control-label col-md-4">Jeu de métadonnées : </label>
-<div id="is_container"class="col-md-8" >
-<select name="metadata_set_id" id="metadata_set_id" class="form-control" >
-<option value="" {if $data.metadata_set_id == ""} selected{/if}>
-{$LANG.appli.2}
-</option>
-{section name=lst loop=$metadataSet}
-<option value="{$metadataSet[lst].metadata_set_id}" {if $metadataSet[lst].metadata_set_id == $data.metadata_set_id}selected{/if}>
-{$metadataSet[lst].metadata_set_name}
+{$operation[lst].protocol_year} {$operation[lst].protocol_name} {$operation[lst].protocol_version} {$operation[lst].operation_name} {$operation[lst].operation_version}
 </option>
 {/section}
 </select>

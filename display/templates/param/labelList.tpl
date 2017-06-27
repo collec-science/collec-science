@@ -19,7 +19,7 @@
 <tr>
 <td>
 {if $droits.param == 1}
-<a href="index.php?module=labelChange&label_id={$data[lst].label_id}">
+<a href="index.php?module=labelChange&label_id={$data[lst].label_id}{if $data[lst].operation_id>0}&operation_id={$data[lst].operation_id}{/if}">
 {$data[lst].label_name}
 </a>
 {else}

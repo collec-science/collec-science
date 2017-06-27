@@ -14,7 +14,6 @@
 <th>Type de conteneur</th>
 <th>Protocole / operation</th>
 <th>Sous-échantillonnage</th>
-<th>Jeu de métadonnées</th>
 </tr>
 </thead>
 <tbody>
@@ -32,20 +31,14 @@
 <td class="center">{$data[lst].sample_type_id}</td>
 <td>{$data[lst].container_type_name}</td>
 <td>
-{$data[lst].protocol_year} {$data[lst].protocol_name} {$data[lst].protocol_version} {$data[lst].operation_name}
+{$data[lst].protocol_year} {$data[lst].protocol_name} {$data[lst].protocol_version} {$data[lst].operation_name} {$data[lst].operation_version} 
 </td>
 <td>
 {if $data[lst].multiple_type_id > 0}
 {$data[lst].multiple_type_name} : {$data[lst].multiple_unit}
 {/if}
 </td>
-<td>
-{if $data[lst].metadata_set_id > 0}
-<a href="index.php?module=metadataSetDisplay&metadata_set_id={$data[lst].metadata_set_id}>
-{$data[lst].metadata_set_name}
-</a>
-{/if}
-</td>
+
 </tr>
 {/section}
 </tbody>

@@ -51,8 +51,18 @@ switch ($t_module ["param"]) {
 					foreach ( $data as $object ) {
 						$item = $doc->createElement ( "object" );
 						foreach ( $object as $key => $value ) {
-							if (strlen ( $key ) > 0 && strlen ( $value ) > 0) {
-								$elem = $doc->createElement ( $key, $value );
+							if (strlen ( $key ) > 0 &&( strlen ( $value ) > 0 ||($value===false)) ) {
+								//cas des booléens
+								if($value===true){
+									$elem = $doc->createElement ( $key, "true" );	
+								}
+								elseif($value===false){
+									$elem = $doc->createElement ( $key, "false" );	
+								}
+								else{
+									$elem = $doc->createElement ( $key, $value );
+								}
+								
 								$item->appendChild ( $elem );
 							}
 						}

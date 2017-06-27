@@ -129,6 +129,7 @@
 	<labelWrite action="modules/param/label.php" param="write" droits="param" retourok="labelList" retourko="labelChange" modulebefore="labelChange" />
 	<labelDelete action="modules/param/label.php" param="delete" droits="param" retourok="labelList" retourko="labelChange"  modulebefore="labelChange"/>
 	
+	<metadataFormGetDetail action="modules/param/sampleType.php" param="getDetailFormAjax"  droits="consult"  type="ajax" />
 	<sampleList action="modules/gestion/sample.php" param="list" droits="consult" retourlogin="1"  type="smarty"  />
 	<sampleDisplay action="modules/gestion/sample.php" param="display" droits="consult"  retourlogin="1" type="smarty" />
 	<sampleChange action="modules/gestion/sample.php" param="change" droits="gestion"  retourlogin="1" type="smarty" />

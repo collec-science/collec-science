@@ -28,14 +28,53 @@ switch ($t_module["param"]) {
 		require_once 'modules/classes/protocol.class.php';
 		$protocol = new Protocol($bdd, $ObjetBDDParam);
 		$vue->set($protocol->getListe("protocol_year desc, protocol_name, protocol_version desc"), "protocol");
+		/*
+		 * Recuperation des métadonnées
+		 */
+		require_once 'modules/classes/metadataForm.class.php';
+		$metadata= new MetadataForm($bdd, $ObjetBDDParam);
+		$vue->set($metadata->getListe(1),"metadata");
+		/*
+		 * Vérification si échantillons existants pour cette opération
+		 */
+		$vue->set($dataClass->getNbSample($id),"nbSample");
+		/*
+		 * Recuperation de toutes les opérations
+		 */
+		$vue->set($dataClass->getListe(1),"operations");
+		/*
+		 * Recuperation de l'opération père
+		 */
+		$vue->set($_REQUEST["operation_pere_id"] ,"operation_pere_id");
 		break;
 	case "write":
 		/*
 		 * write record in database
 		 */
-		$id = dataWrite($dataClass, $_REQUEST);
-		if ($id > 0) {
-			$_REQUEST[$keyName] = $id;
+
+		//on vérifie si il existe des échantillons rattachés à l'opération
+		if ($dataClass->getNbSample($id)==0){
+			//gestion des métadonnées
+			require_once 'modules/classes/metadataForm.class.php';
+			$metadata = new MetadataForm($bdd, $ObjetBDDParam);
+			$data = array ("metadata_schema" =>$_REQUEST["metadataField"]);
+			
+			if($_REQUEST["metadata_form_id"] > 0){
+				$data["metadata_form_id"] = $_REQUEST["metadata_form_id"];
+			}
+			$idmetadata = $metadata->ecrire($data);
+			$_REQUEST["metadata_form_id"] = $idmetadata;
+
+			//mise à jour de la date de dernière edition
+			$_REQUEST["last_edit_date"] = date("Y-m-d H:i:s");
+			
+			$id = dataWrite($dataClass, $_REQUEST);
+			if ($id > 0) {
+				$_REQUEST[$keyName] = $id;
+			}
+		}
+		else{
+			$module_coderetour = - 1;
 		}
 		break;
 	case "delete":
@@ -45,4 +84,5 @@ switch ($t_module["param"]) {
 		dataDelete($dataClass, $id);
 		break;
 }
+		
 ?>

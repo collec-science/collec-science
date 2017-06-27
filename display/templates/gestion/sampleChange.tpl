@@ -1,3 +1,57 @@
+<script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
+
+<script type="text/javascript">
+
+function updateForm(){
+    //valeur du type d'échantillon sélectionné
+        var sampleTypeId = document.getElementById("sample_type_id").value;
+
+        var $schemaForm;
+        var url = "index.php";
+        $.getJSON ( url, { "module":"metadataFormGetDetail", "sample_type_id":sampleTypeId } , function( data ) {
+        if (data != null) {
+            $schemaForm = data["schema"].replace(/&quot;/g,'"');
+            $schemaForm = JSON.parse($schemaForm);
+            showForm($schemaForm);
+        }
+        } ) ;
+    }
+
+    $(document).ready(function() {
+
+        var $metadataParse ="";
+        var $dataParse ="";
+        
+        {if $data.metadata_schema != ""}
+        $metadataParse = "{$data.metadata_schema}";
+        $metadataParse = $metadataParse.replace(/&quot;/g,'"');
+        $metadataParse = JSON.parse($metadataParse);
+        {/if}
+
+
+        {if $data.data != ""}
+        $dataParse = "{$data.data}";
+        $dataParse = $dataParse.replace(/&quot;/g,'"');
+        $dataParse = $dataParse.replace(/\n/g,"\\n");
+        $dataParse = JSON.parse($dataParse);
+        {/if}
+        showForm($metadataParse, $dataParse);
+
+        $('#sampleForm').submit(function() {
+            if(document.getElementsByName("action")[0].value=="Write"){
+                $('#metadata').alpaca().refreshValidationState(true)
+                if(!$('#metadata').alpaca().isValid(true)){
+                    alert("La définition des métadonnées n'est pas valide.")
+                    return false;
+                }
+            }    
+        return true;
+    });
+    });
+
+    
+
+</script>
 <h2>Création - modification d'un échantillon</h2>
 <div class="row col-md-12">
 <a href="index.php?module=sampleList">
@@ -47,6 +101,8 @@ Retour à la liste des échantillons
 <input type="hidden" name="moduleBase" value="sample">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="parent_sample_id" value="{$data.parent_sample_id}">
+<input type="hidden" name="sample_metadata_id" value="{$data.sample_metadata_id}">
+<input type="hidden" name="metadataField" id="metadataField">
 
 {include file="gestion/uidChange.tpl"}
 
@@ -67,7 +123,8 @@ Retour à la liste des échantillons
 <div class="form-group">
 <label for="sample_type_id" class="control-label col-md-4">Type<span class="red">*</span> :</label>
 <div class="col-md-8">
-<select id="sample_type_id" name="sample_type_id" class="form-control">
+<select id="sample_type_id" name="sample_type_id" class="form-control" onchange=" updateForm()">
+<option disabled selected value >{$LANG["appli"][2]}</option>
 {section name=lst loop=$sample_type}
 <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $data.sample_type_id}selected{/if}>
 {$sample_type[lst].sample_type_name} 
@@ -123,6 +180,11 @@ Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.mult
 <div class="col-md-8">
 <input id="multiple_value" class="form-control taux" name="multiple_value" value="{$data.multiple_value}"></div>
 </div>
+</fieldset>
+
+<fieldset>
+    <legend>Jeu de métadonnées</legend>
+    <div id="metadata"></div>
 </fieldset>
 
 <div class="form-group center">

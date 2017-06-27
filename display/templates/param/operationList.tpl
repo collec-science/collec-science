@@ -11,7 +11,9 @@
 <tr>
 <th>protocole</th>
 <th>Opération</th>
+<th>Version</th>
 <th>N° d'ordre</th>
+<th>Étiquette</th>
 </tr>
 </thead>
 <tbody>
@@ -29,7 +31,11 @@
 {$data[lst].operation_name}
 {/if}
 </td>
+<td class="center">{$data[lst].operation_version}</td>
 <td class="center">{$data[lst].operation_order}</td>
+<td>
+<a href="index.php?module=labelChange&uid=0&operation_id={$data[lst].operation_id}">Créer une étiquette pour cette opération</a>
+</td>
 </tr>
 {/section}
 </tbody>

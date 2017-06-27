@@ -1,26 +1,26 @@
 <?php
 /**
- * Created : 2 juin 2016
- * Creator : quinton
+ * Created : 04 mai 2017
+ * Creator : hlinyer
  * Encoding : UTF-8
- * Copyright 2016 - All rights reserved
+ * Copyright 2017 - All rights reserved
  */
-class MetadataSet extends ObjetBDD {
+class MetadataForm extends ObjetBDD {
 	/**
 	 *
 	 * @param PDO $bdd
 	 * @param array $param
 	 */
 	function __construct($bdd, $param = array()) {
-		$this->table = "metadata_set";
+		$this->table = "metadata_form";
 		$this->colonnes = array (
-				"metadata_set_id" => array (
+				"metadata_form_id" => array (
 						"type" => 1,
 						"key" => 1,
 						"requis" => 1,
 						"defaultValue" => 0
 				),
-				"metadata_set_name" => array (
+				"metadata_schema" => array (
 						"type" => 0,
 						"requis" => 1
 				)

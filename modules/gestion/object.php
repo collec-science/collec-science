@@ -17,6 +17,7 @@ switch ($t_module ["param"]) {
 		 */
 		$vue->set ( $dataClass->getDetail ( $id, $_REQUEST ["is_container"] ) );
 		break;
+	case "printLabelDirect" :
 	case "printLabel" :
 		/*
 		 * Recuperation du numero d'etiquettes
@@ -95,8 +96,15 @@ switch ($t_module ["param"]) {
 							$message->set ( "Impossible de generer le fichier pdf" );
 							$module_coderetour = - 1;
 						} else {
-							$vue->setFilename ( $pdffile );
-							$vue->setDisposition ( "inline" );
+							if($t_module ["param"] == "printLabelDirect"){
+								require_once 'modules/classes/printer.class.php';
+								$printer = new Printer ( $bdd, $ObjetBDDParam );
+								$printer_name=$printer->getNameFromId($_REQUEST ["printer_id"]) ;
+								$vue->printDirect($printer_name, $pdffile);
+							}else {
+								$vue->setFilename ( $pdffile );
+								$vue->setDisposition ( "inline" );
+							}
 						}
 					} else {
 						$message->set ( "Pas de modèle d'étiquettes décrit" );

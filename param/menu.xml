@@ -26,6 +26,7 @@
 	<item module="multipleTypeList" droits="consult" value="87" title="88" />
 	<item module="samplingPlaceList" droits="consult" value="95" title="96" />	
 	<item module="labelList" droits="param" value="80" title="81" />
+	<item module="printerList" droits="param" value="97" title="98" />
 	<item module="identifierTypeList" droits="consult" value="89" title="90" />
 		
 </item>

@@ -35,6 +35,12 @@ switch ($t_module ["param"]) {
 		 * Ajout de la selection des modeles d'etiquettes
 		 */
 		include 'modules/gestion/label.functions.php';
+		/*
+		* Ajout de la liste des imprimantes
+		*/
+		require_once 'modules/classes/printer.class.php';
+		$printer= new Printer($bdd, $ObjetBDDParam);
+		$vue->set($printer->getListe(1),"printers");
 		break;
 	case "display":
 		/*

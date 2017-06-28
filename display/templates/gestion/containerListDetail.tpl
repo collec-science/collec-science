@@ -30,6 +30,16 @@ $(document).ready(function () {
 		$("#containerSpinner").show();
 		$(this.form).submit();
 	});
+	$("#containerdirect").keypress(function() {
+		$(this.form).find("input[name='module']").val("containerPrintDirect");
+		$("#containerSpinner").show();
+		$(this.form).submit();
+	});
+	$("#containerdirect").click(function() {
+		$(this.form).find("input[name='module']").val("containerPrintDirect");
+		$("#containerSpinner").show();
+		$(this.form).submit();
+	});
 
 });
 </script>
@@ -52,6 +62,14 @@ $(document).ready(function () {
 			</select>
 			<img id="containerSpinner" src="display/images/spinner.gif" height="25">
 			<button id="containercsvfile" class="btn btn-primary">Fichier CSV</button>
+			<select id="printers" name="printer_id">
+			{section name=lst loop=$printers}
+			<option value="{$printers[lst].printer_id}">
+			{$printers[lst].printer_name}
+			</option>
+			{/section}
+			</select>
+			<button id="containerdirect" class="btn btn-primary">Impression directe</button>
 </div>
 </div>
 {/if}

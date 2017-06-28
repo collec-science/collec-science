@@ -81,6 +81,9 @@ while ( isset ( $module ) ) {
 				$vue = new vueBinaire ();
 				$isAjax = true;
 				break;
+			case "printdirect":
+				$vue= new VuePrintDirect();
+				break;
 			case "smarty" :
 			case "html" :
 			default :

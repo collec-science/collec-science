@@ -49,3 +49,27 @@ ALTER TABLE label ADD COLUMN operation_id integer,
 ADD constraint label_operation_fk foreign key (operation_id)
 REFERENCES operation (operation_id) match simple
 ON update no action ON delete no action;
+
+CREATE TABLE "printer"(
+printer_id serial NOT NULL,
+printer_name character varying NOT NULL,
+printer_local boolean NOT NULL,
+printer_site character varying,
+printer_room  character varying,
+printer_ip inet,
+printer_port integer,
+printer_ssh_path character varying,
+printer_user character varying,
+printer_usage text,
+CONSTRAINT printer_pk PRIMARY KEY (printer_id));
+
+COMMENT ON TABLE printer IS 'Liste des imprimantes configurées pour l''impression d''étiquette';
+COMMENT ON COLUMN printer.printer_name IS 'Nom de l''imprimante utilisée pour pairer en bluetooth avec le raspberry (situé à moins de 20m), ou connectée en USB avec';
+COMMENT ON COLUMN printer.printer_local IS 'VRAI si imprimante directement accessible au serveur COLLEC (pas de SSH). Cas du serveur en salle labo, ou du raspberry sur le terrain';
+COMMENT ON COLUMN printer.printer_site IS 'Nom du site où se trouve l''imprimante - champ utile pour l''inventaire des imprimantes.';
+COMMENT ON COLUMN printer.printer_room IS 'Nom de la pièce dans le site où se trouve installée/rangée l''imprimante - champ utile pour l''inventaire des imprimantes.';
+COMMENT ON COLUMN printer.printer_ip IS 'Adresse IP du serveur d''impression (raspberry) pairé avec l''imprimante et accessible depuis COLLEC, pour connexion SSH';
+COMMENT ON COLUMN printer.printer_port IS 'Port du serveur d''impression (raspberry) pairé avec l''imprimante et accessible depuis COLLEC, pour connexion SSH';
+COMMENT ON COLUMN printer.printer_ssh_path IS 'Chemin vers les clés d''authentification SSH du serveur COLLEC, pour connexion SSH';
+COMMENT ON COLUMN printer.printer_user IS 'Utilisateur SSH  du serveur d''impression (raspberry) pairé avec l''imprimante et accessible depuis COLLEC, pour connexion SSH';
+COMMENT ON COLUMN printer.printer_usage IS 'Sert à dire de façon libre : cette imprimante est prévue pour les mini-tubes actuellement. ';

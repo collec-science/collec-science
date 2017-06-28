@@ -146,8 +146,10 @@
 	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax"  type="ajax" />
 	<containerPrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="containerList"/>
 	<containerExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="containerList"/>
+	<containerPrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect" type="printdirect" retourko="containerList"/>
 	<samplePrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="sampleList"/>
 	<sampleExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="sampleList"/>
+	<samplePrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect" type="printdirect" retourko="sampleList"/>
 	
 	<importChange action="modules/gestion/import.php" param="change" droits="projet" retourlogin="1"  type="smarty" />
 	<importControl action="modules/gestion/import.php" param="control" droits="projet" modulebefore="importChange,importControl,importImport" retourok="importChange"  type="smarty" />
@@ -208,6 +210,11 @@
 	<storageBatchOpen action="modules/gestion/storage.php" param="batchOpen" droits="gestion" type="smarty" retourlogin="1" />
 	<storageBatchRead action="modules/gestion/storage.php" param="batchRead" droits="gestion" type="smarty" modulebefore="storageBatchOpen,storageBatchWrite" />
 	<storageBatchWrite action="modules/gestion/storage.php" param="batchWrite" droits="gestion" modulebefore="storageBatchRead" retourok="storageBatchOpen" retourko="storageBatchRead" />
+
+	<printerList action="modules/param/printer.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
+	<printerChange action="modules/param/printer.php" param="change" droits="param"  retourlogin="1" type="smarty" />
+	<printerWrite action="modules/param/printer.php" param="write" droits="param" retourok="printerList" retourko="printerChange" modulebefore="printerChange" />
+	<printerDelete action="modules/param/printer.php" param="delete" droits="param" retourok="printerList" retourko="printerChange"  modulebefore="printerChange"/>
 	
 	
 </navigation>

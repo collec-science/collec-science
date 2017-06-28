@@ -42,7 +42,7 @@ function renderForm(data){
                             "title": "Type du champ",
                             "type": "string",
                             "required": true,
-                            "enum": ["number","string","textarea","date","checkbox","time","datetime","select"],
+                            "enum": ["number","string","textarea","date","checkbox","select"],
                             "default": "string"
                         },
                          "importFile":{
@@ -86,7 +86,7 @@ function renderForm(data){
                 "items": {
                     "fields": {
                         "type": {
-                            "optionLabels": ["Nombre","Texte (une ligne)","Texte (multi-ligne)","Date","Checkbox","Temps","Date et Temps","Liste à choix multiple"],
+                            "optionLabels": ["Nombre","Texte (une ligne)","Texte (multi-ligne)","Date","Checkbox","Liste à choix multiple"],
                             "type": "select",
                             "hideNone": true,
                             "sort": function(a, b) { 

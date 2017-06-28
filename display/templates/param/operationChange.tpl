@@ -57,6 +57,7 @@ $(document).ready(function() {
 <a href="index.php?module=operationList">{$LANG.appli.1}</a>
 
 <form class="form-horizontal protoform" id="operationForm" method="post" action="index.php" >
+{if $nbSample > 0}<fieldset disabled>{/if}
 <input type="hidden" name="moduleBase" value="operation">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="operation_id" value="{$data.operation_id}">
@@ -124,6 +125,7 @@ $(document).ready(function() {
       {/if}
  </div>
  {/if}
+ {if $nbSample > 0}</fieldset>{/if}
 </form>
 </div>
 </div>

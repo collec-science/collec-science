@@ -63,7 +63,7 @@ if (! isset ( $_REQUEST ["module"] )) {
 			/*
 			 * Prepositionnement par defaut de la valeur uid (la plus frequente)
 			 */
-			if (! isset ( $_RESQUEST ["uid"] ))
+			if (! isset ( $_REQUEST ["uid"] ))
 				$_REQUEST ["uid"] = $uri [4];
 			switch ($_SERVER ["REQUEST_METHOD"]) {
 				case "GET" :

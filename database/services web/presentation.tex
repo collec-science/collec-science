@@ -30,13 +30,13 @@ La technologie retenue est celle des services web, associée au protocole OAuth 
 Les services web sont basés sur des requêtes HTTP, et échangent les données selon des formats définis. Dans la version actuelle des services web, seul le format Json est implémenté pour l'échange des informations.
 
 \subsection{Forme des URL}
-Les URL sont conçues, dans le cadre des services web, sous la forme d'URL conviviales, par exemple : \textit{http://collec/sw/v1/sample/4} pour récupérer l'échan\-tillon numéro 4.
+Les URL sont conçues, dans le cadre des services web, sous la forme d'URL conviviales, par exemple : \url{https://collec/sw/v1/sample/4} pour récupérer l'échan\-tillon numéro 4.
 
 \section{Définition des cas d'utilisation couverts par les services web}
 
 \includegraphics[width=\linewidth]{images/sequence}
 
-Cinq services web sont nécessaires :
+Cinq services web ont été identifiés :
 \begin{itemize}
 \item les deux premiers permettent de récupérer les listes de référence nécessaires pour faire des recherches selon divers paramètres ;
 \item le troisième permet de lancer une recherche pour trouver des échantillons ;
@@ -81,5 +81,5 @@ Il s'agit d'une variante du service web précédent. La liste des échantillons 
 
 \section{Contraintes liées à la sécurité}
 
-L'accès aux données nécessite une identification préalable de l'utilisateur. Celle-ci est basée sur le protocole OAuth v2 (\textit{cf.} chapitre \ref{oauth}).
+L'accès aux données nécessite une identification préalable de l'utilisateur. Elle est décrite dans le chapitre \ref{oauth}.
 

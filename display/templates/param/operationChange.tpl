@@ -116,13 +116,14 @@ $(document).ready(function() {
 <div id="metadata"></div>
 
 
-
+{if $nbSample < 1}
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
       {if $data.operation_id > 0 }
       <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
       {/if}
  </div>
+ {/if}
 </form>
 </div>
 </div>

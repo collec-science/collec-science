@@ -57,6 +57,7 @@
         field.sort = function(a, b) { 
                                 return 0; 
                         }
+        field.removeDefaultNone = false;
     }
     if (value.type == "checkbox"){
         field.rightLabel = value.nom;

@@ -15,8 +15,8 @@ SELECT s.uid,
     s.movement_type_id,
     s.container_id,
     c.uid AS container_uid
-   FROM col.storage s
-    left outer JOIN col.container c USING (container_id)
+   FROM storage s
+    left outer JOIN container c USING (container_id)
    where s.storage_id = (
    select st.storage_id from storage st
    where s.uid = st.uid 

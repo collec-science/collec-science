@@ -14,6 +14,7 @@ require_once 'modules/classes/storage.class.php';
 require_once 'modules/classes/sampleType.class.php';
 require_once 'modules/classes/containerType.class.php';
 require_once 'modules/classes/objectStatus.class.php';
+require_once 'modules/classes/samplingPlace.class.php';
 /*
  * Initialisations
  */
@@ -25,7 +26,8 @@ $import->initClasses ( $sample, $container, $storage );
 $sampleType = new SampleType ( $bdd, $ObjetBDDParam );
 $containerType = new ContainerType ( $bdd, $ObjetBDDParam );
 $objectStatus = new ObjectStatus( $bdd, $ObjetBDDParam );
-$import->initControl ( $_SESSION ["projects"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList() );
+$samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
+$import->initControl ( $_SESSION ["projects"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList() );
 /*
  * Traitement
  */

@@ -35,8 +35,12 @@ class Import {
 			"project_id",
 			"sample_type_id",
 			"sample_status_id",
+			"wgs84_x",
+			"wgs84_y",
 			"sample_date",
 			"sample_multiple_value",
+			"sample_metadata_json",
+			"sampling_place",
 			"container_identifier",
 			"container_type_id",
 			"container_status_id",
@@ -54,6 +58,7 @@ class Import {
 	private $sample_type = array ();
 	private $container_type = array ();
 	private $object_status = array ();
+	private $sampling_place = array();
 	private $sample;
 	private $container;
 	private $storage;
@@ -150,6 +155,12 @@ class Import {
 		require_once 'modules/classes/objectIdentifier.class.php';
 		global $bdd;
 		$oi = new ObjectIdentifier ( $bdd );
+		require_once 'modules/classes/sampleMetadata.class.php';
+		$metadata = new SampleMetadata($bdd);
+		require_once 'modules/classes/samplingPlace.class.php';
+		$samplingPlace = new SamplingPlace($bdd);
+		require_once 'modules/classes/sampleType.class.php';
+		$sampleType = new SampleType($bdd);
 		$this->initIdentifiers ();
 		while ( ($data = $this->readLine ()) !== false ) {
 			/*
@@ -176,6 +187,54 @@ class Import {
 				if (! $dataSample ["object_status_id"] > 0)
 					$dataSample ["object_status_id"] = 1;
 				$dataSample ["multiple_value"] = $values ["sample_multiple_value"];
+				/*
+				* Traitement du lieu de prélevement
+				*/
+				if (strlen ( $values ["sampling_place"]) > 0) {
+					$exists=false;
+					$sampling_place_id=0;
+					foreach ( $this->sampling_place as $list ) {
+						if (strtoupper ($dataSample ["sampling_place"]) == strtoupper ($list["sampling_place_name"])) {
+							$exists = true;
+							$sampling_place_id = $list["sampling_place_id"];
+							break;
+						}
+					}
+					if(!$exists){
+						$dataSamplingPlace = array(
+							"sampling_place_name" => $values["sampling_place"]
+						);
+						$sampling_place_id = $samplingPlace->ecrire($dataSamplingPlace);
+					}
+					$dataSample["sampling_place_id"] = $sampling_place_id;
+				}
+
+				/*
+				* Traitement des métadonnées
+				*/
+				if (strlen ($values["sample_metadata_json"]) > 0){
+					$dataMetadata = array(
+							"data" => $values["sample_metadata_json"]
+					);
+					//on vérifie que les données sont cohérentes avec le schéma de métadonnées
+					$metadataSchema = json_decode($sampleType->getMetadataForm($dataSample["sample_type_id"]),true);
+					$metadataSchemaNames=array();
+					$valuesMetadataJson = json_decode($values["sample_metadata_json"],true);
+					$valuesMetadataJsonNames=array();
+					foreach ($metadataSchema as $field) {
+						$metadataSchemaNames[] = $field["nom"];
+					}
+					foreach ($valuesMetadataJson as $key => $field) {
+						$valuesMetadataJsonNames[] = $key;
+					}
+					foreach ($valuesMetadataJsonNames as $name) {
+						if (!in_array ( $name, $metadataSchemaNames )) {
+							throw new FichierException("Les métadonnées ne correspondent pas au type d'échantillon");
+						}
+					}
+					$sample_metadata_id = $metadata->ecrire($dataMetadata);
+					$dataSample["sample_metadata_id"] = $sample_metadata_id;
+				}
 				try {
 					$sample_uid = $this->sample->ecrire ( $dataSample );
 					/*
@@ -295,11 +354,12 @@ class Import {
 	 * @param array $container_type        	
 	 * @param array $container_status        	
 	 */
-	function initControl($project, $sample_type, $container_type, $object_status) {
+	function initControl($project, $sample_type, $container_type, $object_status,$sampling_place) {
 		$this->project = $project;
 		$this->sample_type = $sample_type;
 		$this->container_type = $container_type;
 		$this->object_status = $object_status;
+		$this->sampling_place = $sampling_place;
 	}
 	/**
 	 * Declenche le controle pour toutes les lignes

@@ -11,10 +11,14 @@ Il n'accepte que des fichiers au format CSV. La ligne d'entête doit comprendre 
 <li><b>project_id</b> : le numéro informatique du projet (obligatoire)</li>
 <li><b>sample_type_id</b> : le numéro informatique du type d'échantillon (obligatoire)</li>
 <li><b>sample_status_id</b> : le numéro du statut de l'échantillon (obligatoire)</li>
+<li><b>sampling_place</b> : le nom de l'endroit ou l'échantillon a été crée</li>
+<li><b>wgs84_x</b> : la longitude GPS (valeur décimale)</li>
+<li><b>wgs84_y</b> : la latitude GPS (valeur décimale)</li>
 <li><b>sample_date</b> : la date de création de l'échantillon, au format dd/mm/yyyy</li>
 <li><b>sample_location</b> : l'emplacement de rangement de l'échantillon dans le container</li>
 <li><b>sample_multiple_value</b> : le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
 si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point)</li>
+<li><b>sample_metadata_json</b> : les métadonnées rattachées à l'échantillons (json)</li>
 <li><b>container_identifier</b> : l'identifiant du container (obligatoire)</li>
 <li><b>container_type_id</b> : le numéro informatique du type de container (obligatoire)</li>
 <li><b>container_status_id</b> : le numéro informatique du statut du container (obligatoire)</li>

@@ -9,7 +9,8 @@ Pour des raisons de compatibilité entre les différents logiciels, si un argume
 \subsection{Format des données transmises ou reçues}
 Les données sont échangées au format JSON.
 
-Les requêtes pour obtenir des informations sont de type GET. Actuellement, aucun service web n'est prévu pour mettre à jour des informations dans la base distante.
+Les requêtes sont de type GET\footnote{Les requêtes de type POST sont prévues pour créer un enregistrement, PUT pour mettre à jour une partie d'un enregistrement, DELETE pour le supprimer.}. 
+Actuellement, aucun service web n'est prévu pour mettre à jour des informations dans la base distante.
 
 \subsection{Codes d'erreur}
 
@@ -113,6 +114,8 @@ Exemple :
 \subsection{url type}
 \url{https://sitedistant.fr/sw/v1/sample_search?param={uidstart:10,uidend:15}}
 
+\url{https://sitedistant.fr/sw/v1/sample_search?uidstart=10&uidend=15}
+
 \subsection{Variables de recherche}
 Les variables sont fournies soit dans la requête GET, soit sous la forme d'une variable JSON nommée \textit{param}.
 
@@ -121,6 +124,7 @@ Les variables sont fournies soit dans la requête GET, soit sous la forme d'une 
 \hline 
 Code & Type & Description \\ 
 \hline \endhead
+\hline \endfoot
 uid & integer & Identifiant unique de l'échantillon dans l'instance distante \\ 
 \hline 
 ident & varchar & identifiant \og métier\fg{} principal \\
@@ -207,7 +211,7 @@ samplingplacename & varchar & nom du lieu de collecte \\
 La requête, de type GET, contient soit en dernière valeur l'UID de l'échantillon à lire, soit une variable GET dont le nom correspond à l'identifiant recherché et la valeur associée
 Les valeurs utilisables dans les champs sont les suivants :
 \begin{savenotes}
-\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
+\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{7cm}|}
 \hline 
 id & Format attendu dans val & Description \\ 
 \hline
@@ -217,19 +221,22 @@ guid & uuid & Identifiant unique global \\
 \hline
 id & varchar & Identifiant principal de l'échantillon\\
 \hline
-xxx & varchar & tout identifiant secondaire disponible\footnote{Il est possible que cette fonctionnalité ne soit pas souhaitable, notamment si plusieurs échantillons sont susceptibles de présenter le même identifiant secondaire (projets ou sous-collections différents).}
+xxx & varchar & tout identifiant secondaire disponible
 \\
 \hline \endhead
 
 \end{longtable}
 \end{savenotes}
-
+L'utilisation d'identifiants secondaires n'est pas forcément souhaitable dans tous les cas, notamment si plusieurs échantillons sont susceptibles de présenter le même identifiant secondaire (projets ou sous-collections différents).
 \subsection{Données en retour}
 Les données en retour sont celles du service de recherche d'un échantillon.
 
 \section{Lire un jeu d'échantillons}
 \subsection{url type}
-\url{https://sitedistant.fr/sw/v1/samples/[{xxx}]}
+\url{https://sitedistant.fr/sw/v1/samples/{xxx}}
+
+\url{https://sitedistant.fr/sw/v1/samples?param={xxx}}
+
 \subsection{Variables de recherche}
 Il s'agit d'une variante du cas précédent. Un fichier JSON est fourni dans la variable \textit{param}, organisé pour fournir un identifiant par échantillon retourné. Voici un exemple du fichier :
 \begin{lstlisting}
@@ -237,6 +244,4 @@ Il s'agit d'une variante du cas précédent. Un fichier JSON est fourni dans la 
 \end{lstlisting}
 \subsection{Données en retour}
 Les données en retour sont celles du service de recherche d'un échantillon.
-
-
 

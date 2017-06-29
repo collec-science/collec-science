@@ -1,20 +1,5 @@
 \chapter{Implémentation technique dans Collec}
 
-Collec est un logiciel de gestion de collections d'échantillons, dont l'objectif principal vise à faciliter la recherche d'un échantillon stocké ou de récupérer les informations générales le concernant.
-
-Écrit en PHP, les données sont stockées dans une base de données PostgreSQL. Le code de l'application est disponible à l'adresse \url{https://gitlab.com/Irstea/collec}. Il est disponible sous licence AGPL.
-
-Le logiciel est bâti sur un modèle MVC, tous les accès étant gérés par l'appel à des modules déclarés dans un fichier spécifique. 
-
-La gestion matérielle des échantillons de laboratoire (ou d'expérimentations scientifiques) est une fonctionnalité largement demandée, mais peu couverte jusqu'à présent par les logiciels disponibles, et particulièrement dans le domaine de l'\textit{Open Source}. Collec, dont la première version remonte à l'automne 2016, fait l'objet d'un réel intérêt de la part de la communauté scientifique, ses fonctionnalités et sa facilité d'utilisation le rendant attractif.
-
-Toutefois, il n'est pas conçu comme un système global de gestion de données à la fois techniques -- stockage des échantillons -- et de résultats d'analyse par exemple (pas d'informations métiers complexes\footnote{Dans la pratique, à partir de la version 1.1, il est possible de renseigner quelques informations métiers, mais de manière relativement frustre et sans permettre la complexité des actions envisageables avec des bases de données dédiées.}).
-Il n'est pas non plus prévu de mettre en place un hébergement centralisé qui permettrait de gérer tous les échantillons de la sphère de recherche.
-
-\textit{A contrario}, cette organisation permet de créer autant d'instances que néces\-saires, notamment pour gérer des saisies en mode décentralisé (bateau partant en campagne de sondage dans les mers du Sud, collecte d'échantillons depuis des zones non couvertes par Internet, par exemple).
-
-Cette souplesse nécessite de prévoir des mécanismes soit d'interrogation de diverses instances, soit de récupération des informations concernant des échantillons provenant d'autres bases de données. 
-
 \section{Transformation des URL et appel aux modules}
 Les URL conviviales sont transformées en noms de modules, selon le fonctionnement suivant :
 \begin{itemize}
@@ -45,7 +30,7 @@ Pour identifier les instances clientes, la table \textit{instance} contient les 
 \item le code attribué en conservant les 8 premiers caractères du calcul d'empreintes sha256 de l'url;
 \item le secret, généré de manière cryptographique ;
 \item le type d'instance (cliente ou serveur);
-\item la date de fin d'autorisation d'accès, par défaut, fixée à 5 ans.
+\item la date de fin d'autorisation d'accès fixée, par défaut, à 5 ans.
 \end{itemize}
 
 Si une instance est à la fois cliente et serveur, deux lignes devront être créées, l'une pour chaque sens de communication. Cela permet de maintenir des secrets différents pour chaque canal.
@@ -57,6 +42,7 @@ Pour les instances \og serveurs\fg{}, une table complémentaire permet d'indique
 \item mécanisme d'identification.
 \end{itemize}
 
+\subsection{Codification des services web}
 Afin de permettre les échanges automatisés des paramètres entre les serveurs, le type du service web (son identifiant) doit impérativement respecter le contenu de cette table :
 \begin{longtable}{|c|>{\raggedright\arraybackslash}p{10cm}|}
 \hline 
@@ -81,6 +67,7 @@ Code & Service web  \\
 
 \section{Modules et fonctions nécessaires}
 \subsection{Enregistrement d'une instance distante cliente}
+\label{dist_record}
 Ce module doit permettre d'enregistrer les données concernant une instance cliente qui sera autorisée à interroger la base locale. Il faut notamment prévoir :
 \begin{itemize}
 \item une fonction de génération du secret;
@@ -94,6 +81,7 @@ Ce module doit permettre d'enregistrer les données concernant une instance clie
 \end{itemize}
 \end{itemize}
 
+\pagebreak
 Voici un exemple de la structure du fichier JSON correspondant :
 \begin{lstlisting}
 {
@@ -127,7 +115,7 @@ L'appel doit contenir l'adresse de retour. Le retour doit contenir un jeton, de 
 \subsection{Module d'interrogation d'un serveur distant}
 Le module doit permettre de sélectionner le serveur à interroger. Une fois le serveur sélectionné, la liste des tables de paramètres est récupérée, puis le contenu de ces tables.
 
-FAIRE UN SCHEMA
+\includegraphics[width=\linewidth]{images/sequence_dans_collec}
 
 Un masque de saisie permet de sélectionner les paramètres de recherche. Une fois les échantillons retrouvés depuis le serveur distant, il doit être possible d'en importer un dans la base locale.
 
@@ -136,3 +124,5 @@ Cet import va passer par une phase intermédiaire pour:
 \item associer l'échantillon au type local déclaré;
 \item faire la correspondance entre les informations fournies par les tables de paramètres (identifiants secondaires, etc.). Le cas échéant, certaines informations peuvent ne pas être récupérées.
 \end{itemize}
+
+L'import ne concerne pas les informations de stockage.

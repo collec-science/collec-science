@@ -9,7 +9,7 @@ Pour accéder à des informations distantes, le dialogue entre les deux serveurs
 \begin{enumerate}
 \item l'utilisateur veut déclencher l'appel à un service web distant ;
 \item aucun jeton n'a été récupéré par le serveur local : l'utilisateur est redirigé vers le serveur distant pour obtenir un jeton d'identification;
-\item le serveur distant ne connaît pas l'utilisateur : il lui demande de s'identifier en utilisant la procédure adéquate (login/mot de passe dans la plupart des cas);
+\item le serveur distant ne connaît pas l'utilisateur : il lui demande de s'identifier en utilisant la procédure adéquate (\textit{login/mot de passe} dans la plupart des cas);
 \\une fois identifié, le serveur distant renvoie le navigateur de l'utilisateur vers le serveur local, en fournissant un jeton chiffré;
 \item l'appel au service web peut maintenant être déclenché, en fournissant:
 \begin{itemize}
@@ -27,7 +27,7 @@ Les applications clientes doivent se faire identifier par les applications dista
 
 Cette étape est manuelle : l'administrateur de l'application distante crée un enregistrement dans la table \textit{instance}, dont le détail est décrit dans la section \ref{table_instance}.
 
-Le code d'identification, ainsi que le secret associé, est envoyé par mail par l'administrateur de la base distante.
+Le code d'identification, ainsi que le secret associé, est envoyé par mail (de manière automatique ou semi-automatique de préférence) par l'administrateur de la base distante (\textit{cf.} section \ref{dist_record}).
 
 Ces informations sont stockées dans la table \textit{instance} locale, en indiquant en outre les adresses des différents services web disponibles pour le serveur distant.
 

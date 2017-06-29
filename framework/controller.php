@@ -92,6 +92,7 @@ if (! isset($_REQUEST["module"])) {
  * Decodage des variables html
  */
 $_REQUEST = htmlDecode($_REQUEST);
+
 /**
  * Recuperation du module
  */

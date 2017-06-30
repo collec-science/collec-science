@@ -14,7 +14,7 @@ class Navigation {
 	var $module;
 	var $nommodule = "";
 	var $t_module = array();
-	var $g_module = array();
+	public $g_module = array();
 
 
 	/**

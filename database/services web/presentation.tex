@@ -23,20 +23,20 @@ Deux cas d'utilisation ont ainsi pu être mis en évidence :
 \end{itemize}
 \end{itemize}
 
-La technologie retenue est celle des services web, associée au protocole OAuth v.2 pour la gestion des habilitations.
+La technologie retenue est celle des services web, avec une gestion des habilitations s'inspirant du protocole OAuth v2.
 
 \subsection{Technique employée}
 
 Les services web sont basés sur des requêtes HTTP, et échangent les données selon des formats définis. Dans la version actuelle des services web, seul le format Json est implémenté pour l'échange des informations.
 
 \subsection{Forme des URL}
-Les URL sont conçues, dans le cadre des services web, sous la forme d'URL conviviales, par exemple : \textit{http://collec/sw/v1/sample/4} pour récupérer l'échan\-tillon numéro 4.
+Les URL sont conçues, dans le cadre des services web, sous la forme d'URL conviviales, par exemple : \url{https://collec/sw/v1/sample/4} pour récupérer l'échan\-tillon numéro 4.
 
 \section{Définition des cas d'utilisation couverts par les services web}
 
 \includegraphics[width=\linewidth]{images/sequence}
 
-Cinq services web sont nécessaires :
+Cinq services web ont été identifiés :
 \begin{itemize}
 \item les deux premiers permettent de récupérer les listes de référence nécessaires pour faire des recherches selon divers paramètres ;
 \item le troisième permet de lancer une recherche pour trouver des échantillons ;
@@ -81,5 +81,22 @@ Il s'agit d'une variante du service web précédent. La liste des échantillons 
 
 \section{Contraintes liées à la sécurité}
 
-L'accès aux données nécessite une identification préalable de l'utilisateur. Celle-ci est basée sur le protocole OAuth v2 (\textit{cf.} chapitre \ref{oauth}).
+L'accès aux données nécessite une identification préalable de l'utilisateur. Elle est décrite dans le chapitre \ref{oauth}.
+
+\section{Présentation du logiciel Collec}
+
+Collec est un logiciel de gestion de collections d'échantillons, dont l'objectif principal vise à faciliter la recherche d'un échantillon stocké ou de récupérer les informations générales le concernant.
+
+Écrit en PHP, les données sont stockées dans une base de données PostgreSQL. Le logiciel est bâti sur un modèle MVC, tous les accès étant gérés par l'appel à des modules déclarés dans un fichier spécifique. 
+Le code de l'application est disponible à l'adresse \url{https://gitlab.com/Irstea/collec}, sous licence AGPL.
+
+
+La gestion matérielle des échantillons de laboratoire (ou d'expérimentations scientifiques) est une fonctionnalité largement demandée, mais peu couverte jusqu'à présent par les logiciels disponibles, et particulièrement dans le domaine de l'\textit{Open Source}. Collec, dont la première version remonte à l'automne 2016, fait l'objet d'un réel intérêt de la part de la communauté scientifique, ses fonctionnalités et sa facilité d'utilisation le rendant attractif. De nombreux développements complémentaires ont été menés en 2017 pour l'adapter à des cas d'usage non prévus initialement. Ce document vise d'ailleurs à en couvrir certains.
+
+Toutefois, Collec n'est pas conçu comme un système global de gestion de données à la fois techniques -- stockage des échantillons -- et de résultats d'analyse par exemple (pas d'informations métiers complexes\footnote{Dans la pratique, à partir de la version 1.1, il est possible de renseigner quelques informations métiers, mais de manière relativement frustre et sans permettre la complexité des actions envisageables avec des bases de données dédiées.}).
+Il n'est pas non plus prévu de mettre en place un hébergement centralisé qui permettrait de gérer tous les échantillons de la sphère de recherche.
+
+\textit{A contrario}, cette organisation permet de créer autant d'instances que néces\-saires, notamment pour gérer des saisies en mode décentralisé (bateau partant en campagne de sondage dans les mers du Sud, collecte d'échantillons depuis des zones non couvertes par Internet, par exemple).
+
+Cette souplesse nécessite de prévoir des mécanismes soit d'interrogation de diverses instances, soit de récupération des informations concernant des échantillons provenant d'autres bases de données. 
 

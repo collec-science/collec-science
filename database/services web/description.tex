@@ -7,14 +7,15 @@ Les services web sont destinés à fournir des informations aux clients. Leur im
 Pour des raisons de compatibilité entre les différents logiciels, si un argument fourni figure dans la requête mais n'est pas utilisable par le service web, ce dernier ne doit pas rejeter la requête, sauf si aucun argument ne permet de discriminer la recherche demandée.
 
 \subsection{Format des données transmises ou reçues}
-Les données sont échangées au format JSON, encodées en base 64. Toutes les données JSON sont encodées en base 64, que ce soit dans les paramètres transmis ou dans les données retournées.
+Les données sont échangées au format JSON.
 
-Les requêtes pour obtenir des informations sont de type GET. Actuellement, aucun service web n'est prévu pour mettre à jour des informations dans la base distante.
+Les requêtes sont de type GET\footnote{Les requêtes de type POST sont prévues pour créer un enregistrement, PUT pour mettre à jour une partie d'un enregistrement, DELETE pour le supprimer.}. 
+Actuellement, aucun service web n'est prévu pour mettre à jour des informations dans la base distante.
 
 \subsection{Codes d'erreur}
 
-Voici la liste des codes d'erreur génériques que les services web peuvent retourner :
-\begin{longtable}{|c|>{\raggedright\arraybackslash}p{12cm}|}
+Voici la liste minimale des codes d'erreur génériques que les services web devraient retourner :
+\begin{longtable}{|c|>{\raggedright\arraybackslash}p{10cm}|}
 \hline 
 Code &  Description \\ 
 \hline \endhead
@@ -111,16 +112,19 @@ Exemple :
 \section{Rechercher des échantillons}
 \label{sampleSearch}
 \subsection{url type}
-\url{https://sitedistant.fr/sw/v1/sample_search}
+\url{https://sitedistant.fr/sw/v1/sample_search?param={uidstart:10,uidend:15}}
+
+\url{https://sitedistant.fr/sw/v1/sample_search?uidstart=10&uidend=15}
 
 \subsection{Variables de recherche}
-Les variables doivent être fournies sous la forme d'une variable JSON \textit{val}, encodée en base 64.
+Les variables sont fournies soit dans la requête GET, soit sous la forme d'une variable JSON nommée \textit{param}.
 
 % \usepackage{array} is required
 \begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{8cm}|}
 \hline 
 Code & Type & Description \\ 
 \hline \endhead
+\hline \endfoot
 uid & integer & Identifiant unique de l'échantillon dans l'instance distante \\ 
 \hline 
 ident & varchar & identifiant \og métier\fg{} principal \\
@@ -135,25 +139,26 @@ datestart & yyyy-mm-dd & date de début pour une recherche sur une fourchette de
 \hline
 dateend & yyyy-mm-dd & date de fin pour une recherche sur une fourchette de dates \\
 \hline
-codefamily & objet Json & objet json permettant de rechercher une valeur sur une table de paramètres. \textit{Codefamily} doit être remplacé par le code retourné lors de la recherche des listes de paramètres. L'objet JSON accepte, comme informations associées : \\
+codefamily & objet Json & objet json permettant de rechercher une valeur sur une table de paramètres. \textit{Codefamily} doit être remplacé par le code retourné lors de la recherche des listes de paramètres. \\
+& & L'objet JSON accepte, comme informations associées : \\
 & & \textit{id} : identifiant spécifique à rechercher (par exemple, le code de l'identifiant métier). \textit{id} peut être facultatif, si la recherche ne porte que sur la valeur, par exemple, le lieu de prélèvement; \\
 & & \textit{val} : valeur recherchée\\
 & & si uniquement \textit{val} est indiqué, on peut utiliser un couple classique: \textit{codefamily:val}\\
 \hline
 \end{longtable} 
 
-Exemple de fichier : 
+Exemple de contenu pour la variable \textit{\$param} : 
 \begin{lstlisting}
 {"uidstart": 25,
 "uidend": 50,
 "datestart": "2017-01-01",
 "dateend": "2017-06-30",
-"identifiertype":{id:10, val:"AB01"},
+"identifiertype":{"id":10, "val":"AB01"},
 "sampletype":2
 }
 \end{lstlisting}
 
-La recherche portera sur les échantillons dont l'UID est entre 25 et 50, dont la date est entre le 1er janvier et le 30 juin 2017, dont l'identifiant métier connu sous le numéro 10 vaut AB01, et dont le type d'échantillons est 2.
+La recherche portera sur les échantillons dont l'UID est entre 25 et 50, dont la date est entre le 1\ier{} janvier et le 30 juin 2017, dont l'identifiant métier connu sous le numéro 10 vaut AB01, et dont le type d'échantillons est 2.
 
 \subsection{Données en retour}
 Collection Json avec, pour chacun, les informations suivantes :
@@ -196,24 +201,17 @@ samplingplacename & varchar & nom du lieu de collecte \\
 \section{Lire un échantillon}
 
 \subsection{url type}
-\url{https://sitedistant.fr/sw/v1/sample}
+\url{https://sitedistant.fr/sw/v1/sample/14}
 
-La requête, de type GET, contient soit en dernière valeur l'UID de l'échantillon à lire, soit la variable \textit{param=}, encodée en base 64, contenant un fichier json permettant de spécifier le type d'identifiant utilisé :
-\begin{longtable}{|c|>{\raggedright\arraybackslash}p{6cm}|}
-\hline 
-Code & Description \\ 
-\hline
-Clé & Nom de la variable utilisée -- valeur issue du résultat du service web de recherche des listes techniques (type \textit{identifiertype}) \\
-\hline
-valeur associée & Valeur correspondante\\
-\hline
-\endhead
+\url{https://sitedistant.fr/sw/v1/sample?id=TEST-IDENTIFIANT-METIER}
 
+\url{https://sitedistant.fr/sw/v1/sample/guid=e764aca5-75ee-4d23-87a6-78b91202ba37}
 
-\end{longtable}
-
+\subsection{Variables de recherche}
+La requête, de type GET, contient soit en dernière valeur l'UID de l'échantillon à lire, soit une variable GET dont le nom correspond à l'identifiant recherché et la valeur associée
 Les valeurs utilisables dans les champs sont les suivants :
-\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{6cm}|}
+\begin{savenotes}
+\begin{longtable}{|c|c|>{\raggedright\arraybackslash}p{7cm}|}
 \hline 
 id & Format attendu dans val & Description \\ 
 \hline
@@ -222,26 +220,28 @@ uid & integer & Clé utilisée dans la base de données \\
 guid & uuid & Identifiant unique global \\
 \hline
 id & varchar & Identifiant principal de l'échantillon\\
+\hline
+xxx & varchar & tout identifiant secondaire disponible
+\\
 \hline \endhead
 
 \end{longtable}
-
-Voici un exemple de fichier Json, avant son encodage en base 64:
-\begin{lstlisting}
-{"uid":25}
-\end{lstlisting}
-
+\end{savenotes}
+L'utilisation d'identifiants secondaires n'est pas forcément souhaitable dans tous les cas, notamment si plusieurs échantillons sont susceptibles de présenter le même identifiant secondaire (projets ou sous-collections différents).
+\subsection{Données en retour}
 Les données en retour sont celles du service de recherche d'un échantillon.
 
 \section{Lire un jeu d'échantillons}
 \subsection{url type}
-\url{https://sitedistant.fr/sw/v1/samples?param=xxx}
+\url{https://sitedistant.fr/sw/v1/samples/{xxx}}
 
-Il s'agit d'une variante du cas précédent. Le fichier json (encodé en base 64) est organisé pour fournir un identifiant par échantillon retourné. Voici un exemple du fichier :
+\url{https://sitedistant.fr/sw/v1/samples?param={xxx}}
+
+\subsection{Variables de recherche}
+Il s'agit d'une variante du cas précédent. Un fichier JSON est fourni dans la variable \textit{param}, organisé pour fournir un identifiant par échantillon retourné. Voici un exemple du fichier :
 \begin{lstlisting}
 [{"uid":15},{"id":"A1-B2-C3"}]
 \end{lstlisting}
+\subsection{Données en retour}
 Les données en retour sont celles du service de recherche d'un échantillon.
-
-
 

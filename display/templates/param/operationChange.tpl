@@ -57,6 +57,7 @@ $(document).ready(function() {
 <a href="index.php?module=operationList">{$LANG.appli.1}</a>
 
 <form class="form-horizontal protoform" id="operationForm" method="post" action="index.php" >
+{if $nbSample > 0}<fieldset disabled>{/if}
 <input type="hidden" name="moduleBase" value="operation">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="operation_id" value="{$data.operation_id}">
@@ -116,13 +117,15 @@ $(document).ready(function() {
 <div id="metadata"></div>
 
 
-
+{if $nbSample < 1}
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
       {if $data.operation_id > 0 }
       <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
       {/if}
  </div>
+ {/if}
+ {if $nbSample > 0}</fieldset>{/if}
 </form>
 </div>
 </div>

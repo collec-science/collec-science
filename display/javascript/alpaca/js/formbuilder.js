@@ -48,6 +48,10 @@
     if(value.type=="string"){
         field.type="text";
     }
+
+    if(value.type=="string" || value.type=="number" || value.type=="textarea"){
+        field.placeholder = value.meusureUnit;
+    }
     
     if (value.choiceList){
         
@@ -57,6 +61,7 @@
         field.sort = function(a, b) { 
                                 return 0; 
                         }
+        field.removeDefaultNone = false;
     }
     if (value.type == "checkbox"){
         field.rightLabel = value.nom;

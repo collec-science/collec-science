@@ -3,7 +3,7 @@ set search_path=col;
 
 CREATE TABLE "metadata_form" (
     metadata_form_id serial NOT NULL, 
-    metadata_schema json, 
+    metadata_schema json not null, 
     CONSTRAINT metadata_form_pk PRIMARY KEY (metadata_form_id)
     );
 COMMENT ON TABLE "metadata_form" IS 'Table des schémas des formulaires de métadonnées';
@@ -13,7 +13,7 @@ DROP TABLE sample_metadata;
 
 CREATE TABLE "sample_metadata"(
     sample_metadata_id serial NOT NULL, 
-    data json, 
+    data json not null, 
     CONSTRAINT sample_metadata_pk PRIMARY KEY (sample_metadata_id)
     );
 COMMENT ON TABLE "sample_metadata" IS 'Table des métadonnées';

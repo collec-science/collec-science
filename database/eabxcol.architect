@@ -928,7 +928,7 @@ Contient les identifiants génériques</remarks>
      <remarks>référence utilisée dans la base de données d&apos;origine, sous la forme db:uid
 Utilisé pour lire les étiquettes créées dans d&apos;autres instances</remarks>
     </column>
-    <column id="COL273" populated="true" UUID="f75ac415-3e4e-48da-b3df-81577c98bcac" autoIncrement="false" autoIncrementSequenceName="sample_metadata_sample_metadata_id_seq" defaultValue="" name="sample_metadata_id" nullable="0" physicalName="sample_metadata_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL273" populated="true" UUID="f75ac415-3e4e-48da-b3df-81577c98bcac" autoIncrement="false" autoIncrementSequenceName="sample_metadata_sample_metadata_id_seq" defaultValue="" name="sample_metadata_id" nullable="1" physicalName="sample_metadata_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     </folder>
@@ -1310,7 +1310,7 @@ Utilisé pour lire les étiquettes créées dans d&apos;autres instances</remark
     <column id="COL376" populated="true" UUID="41228f44-c149-49d6-82d8-ae51da292373" autoIncrement="true" autoIncrementSequenceName="sample_metadata_sample_metadata_id_seq" defaultValue="" name="sample_metadata_id" nullable="0" physicalName="sample_metadata_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL377" populated="true" UUID="d0b61a7d-c1cb-4816-aaaa-7e7112786085" autoIncrement="false" autoIncrementSequenceName="sample_metadata_data_seq" defaultValue="" name="data" nullable="1" physicalName="data" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1111" userDefinedTypeUUID="d9e42a14-4d15-4b55-b176-ecbba383bbdd" >
+    <column id="COL377" populated="true" UUID="d0b61a7d-c1cb-4816-aaaa-7e7112786085" autoIncrement="false" autoIncrementSequenceName="sample_metadata_data_seq" defaultValue="" name="data" nullable="0" physicalName="data" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1111" userDefinedTypeUUID="d9e42a14-4d15-4b55-b176-ecbba383bbdd" >
      <remarks>Métadonnées en JSON</remarks>
     </column>
     </folder>
@@ -1681,7 +1681,7 @@ Utilisé pour lire les étiquettes créées dans d&apos;autres instances</remark
     <column id="COL478" populated="true" UUID="db842791-31e2-4d14-9e59-2576633468f0" autoIncrement="true" defaultValue="nextval(&apos;col.metadata_form_metadata_form_id_seq&apos;::regclass)" name="metadata_form_id" nullable="0" physicalName="metadata_form_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL479" populated="true" UUID="eb4c5b26-7b82-42e9-9610-9075fc84aceb" autoIncrement="false" defaultValue="" name="metadata_schema" nullable="1" physicalName="metadata_schema" precision="0" referenceCount="1" scale="0" sourceDataTypeName="json" type="1111" userDefinedTypeUUID="d9e42a14-4d15-4b55-b176-ecbba383bbdd" >
+    <column id="COL479" populated="true" UUID="eb4c5b26-7b82-42e9-9610-9075fc84aceb" autoIncrement="false" defaultValue="" name="metadata_schema" nullable="0" physicalName="metadata_schema" precision="0" referenceCount="1" scale="0" sourceDataTypeName="json" type="1111" userDefinedTypeUUID="d9e42a14-4d15-4b55-b176-ecbba383bbdd" >
      <remarks>Schéma en JSON du formulaire des métadonnées</remarks>
     </column>
     </folder>
@@ -1805,7 +1805,7 @@ Utilisé pour lire les étiquettes créées dans d&apos;autres instances</remark
   <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  </compare-dm-settings>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
- <play-pen zoom="0.6569463938961267" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+ <play-pen zoom="0.6569463938961267" viewportX="0" viewportY="179" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
   <table-pane table-ref="TAB248" x="1268" y="578" bgColor="0xdfedce" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB254" x="875" y="393" bgColor="0xf6bcbc" fgColor="0x000000" rounded="false" dashed="false"/>
   <table-pane table-ref="TAB262" x="453" y="578" bgColor="0xbfd6ff" fgColor="0x000000" rounded="false" dashed="false"/>

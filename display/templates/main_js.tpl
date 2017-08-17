@@ -10,28 +10,27 @@
 <!--handlebars -->
 <script type="text/javascript" src="display/javascript/alpaca/js/handlebars.js"></script>
 
-<!--allpaca -->
+<!--alpaca -->
 <script type="text/javascript" src="display/javascript/alpaca/js/alpaca.js"></script>
 <link type="text/css" href="display/javascript/alpaca/css/alpaca.css" rel="stylesheet">
 
 <!-- extension pour le menu -->
-<script src="/display/javascript/smartmenus-1.0.0/jquery.smartmenus.min.js" type="text/javascript"></script>
-<script src="/display/javascript/smartmenus-1.0.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js" type="text/javascript"></script>
+<script src="/display/javascript/smartmenus-1.0.1/jquery.smartmenus.min.js" type="text/javascript"></script>
+<script src="/display/javascript/smartmenus-1.0.1/addons/bootstrap/jquery.smartmenus.bootstrap.min.js" type="text/javascript"></script>
 
 <!-- Datatables -->
-<link rel="stylesheet" type="text/css" href="/display/javascript/DataTables-1.10.12/media/css/jquery.dataTables.min.css" />
-<link rel="stylesheet" type="text/css" href="/display/javascript/DataTables-1.10.12/media/css/dataTables.bootstrap.min.css" />
-<script type="text/javascript" src="/display/javascript/DataTables-1.10.12/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="/display/javascript/DataTables-1.10.12/media/js/dataTables.bootstrap.min.js"></script>
-
-<!-- Ajout de la fonction d'export des donnees -->
-<script type="text/javascript" charset="utf-8" src="/display/javascript/buttons-1.2.4/js/dataTables.buttons.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/display/javascript/buttons-1.2.4/css/buttons.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="/display/javascript/DataTables-1.10.15/media/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" type="text/css" href="/display/javascript/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css" />
+<script type="text/javascript" src="/display/javascript/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/display/javascript/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
+<!-- Boutons d'export associes aux datatables - classe datatable-export -->
+<script type="text/javascript" src="/display/javascript/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="/display/javascript/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="/display/javascript/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/display/javascript/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.min.css" />
 <script type="text/javascript" charset="utf-8" src="/display/javascript/pdfmake.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="/display/javascript/vfs_fonts.js"></script>
 <script type="text/javascript" charset="utf-8" src="/display/javascript/jszip.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="/display/javascript/buttons-1.2.4/js/buttons.html5.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="/display/javascript/buttons-1.2.4/js/buttons.print.min.js"></script>
 
 <!-- Rajout du tri sur la date/heure -->
 <script type="text/javascript" src="/display/javascript/moment.min.js"></script>
@@ -98,9 +97,9 @@ $(document).ready(function() {
 		"paging" : false,
 		"searching": false,
         buttons: [
-            'copy',
-            'excel',
-            'csv',
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
             {
                 extend: 'pdfHtml5',
                 orientation: 'landscape'

@@ -55,7 +55,7 @@ $(document).ready(function () {
 </div>
 </div>
 {/if}
-<table id="containerList" class="table table-bordered table-hover datatable-nopaging " >
+<table id="containerList" class="table table-bordered table-hover datatable-export " >
 <thead>
 <tr>
 <th>UID</th>

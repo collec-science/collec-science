@@ -321,15 +321,6 @@ class Document extends ObjetBDD {
 		}
 	}
 	
-	/**
-	 * Envoie un fichier au navigateur, pour affichage
-	 *
-	 * @param string $nomfile
-	 *        	: nom du fichier stocke dans le dossier temporaire
-	 *        	
-	 * @param int $id
-	 *        	: cle du document, necessaire pour recuperer le type mime
-	 */
 	
 	/**
 	 * Envoie un fichier au navigateur, pour affichage

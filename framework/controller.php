@@ -37,6 +37,15 @@ if (! isset($_SESSION["dbversion"])) {
 }
 /**
  * Lecture des donnees canoniques
+ * La configuration de l'hote virtuel doit contenir ceci :
+ * <Directory /var/www/html/collec>
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond "/%{REQUEST_FILENAME}" !-f
+    RewriteCond "/%{REQUEST_FILENAME}" !-d
+    RewriteRule "(.*)" "/index.php?$1" [PT,QSA]
+</Directory>
+
  * par defaut, les liens canoniques doivent etre de la forme :
  * /famille/version/modulerecherche/id
  * La transformation est realisee ainsi :

@@ -7,6 +7,8 @@ php_flag session.cookie_secure on
 php_flag register_globals off
 php_flag magic_quotes_gpc true
 php_flag display_errors Off
+Header unset X-WebKit-CSP
+Header add X-WebKit-CSP "default-src 'self'"
 Header unset ETag
 Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"
 Header set Pragma "no-cache"
@@ -14,7 +16,15 @@ Header set X-Frame-Options SAMEORIGIN
 Header set X-XSS-Protection "1; mode=block"
 Header set X-Content-Type-Options "nosniff"
 Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains;"
+Header set Strict-Transport-Security "max-age=63072000"
 <FilesMatch "\.(ico|flv|jpg|jpeg|png|gif|js|css|swf)$">
     Header set Cache-Control "max-age=604800, private"
 </FilesMatch>
+<Directory /var/www/collec>
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond "/%{REQUEST_FILENAME}" !-f
+    RewriteCond "/%{REQUEST_FILENAME}" !-d
+    RewriteRule "(.*)" "/index.php?$1" [PT,QSA]
+</Directory>
 

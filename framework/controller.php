@@ -329,7 +329,7 @@ while (isset($module)) {
         if ($beforeok == false) {
             $resident = 0;
             if ($APPLI_modeDeveloppement == true)
-                $message->set("Module precedent enregistre : " . $_SESSION["moduleBefore"]);
+                $message->set($LANG["message"][47] . $_SESSION["moduleBefore"]);
             $motifErreur = "errorbefore";
         }
     }

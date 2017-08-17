@@ -26,7 +26,8 @@ $LANG["menu"]["fr"] = "français";
 $LANG["menu"]["frtitle"] = "Libellés en français";
 $LANG["menu"]["en"] = "english";
 $LANG["menu"]["entitle"] = "labels in english";
-
+$LANG["menu"]["pwchange"] = "Modifier le mot de passe";
+$LANG["menu"]["pwchangetitle"] = "Modifiez votre mot de passe (identification locale uniquement)";
 
 /*
  * Gestion des droits nouvelle formule
@@ -159,7 +160,7 @@ $LANG["login"][2] = "Veuillez utiliser votre login du domaine pour vous identifi
 $LANG["login"][5] = "Nouveau login";
 $LANG["login"][6] = "login";
 $LANG["login"][7] = "Nom - prénom";
-$LANG["login"][8] = "Mèl";
+$LANG["login"][8] = "Mail";
 $LANG["login"][9] = "Nom";
 $LANG["login"][10] = "Prénom";
 $LANG["login"][11] = "Date";
@@ -201,6 +202,21 @@ $LANG["login"][45] ="Groupes disposant du droit";
 $LANG["login"][46] ="Conserver la connexion pendant";
 $LANG["login"][47] = "heures";
 $LANG["login"][48] = "Dernière connexion le :datelog depuis l'adresse IP :iplog. Si ce n'était pas vous, modifiez votre mot de passe ou contactez l'administrateur de l'application.";
+$LANG["login"][49] = "L'accès au module demandé nécessite une ré-identification. Veuillez saisir votre login et votre mot de passe";
+$LANG["login"][50] = "Echec de modification du mot de passe pour une raison inconnue. Si le problème persiste, contactez l'assistance";
+$LANG["login"][51] = "La modification du mot de passe a échoué";
+$LANG["login"][52] = "Le jeton fourni n'est pas valide";
+$LANG["login"][53] = "<html><body>:prenom :nom,<br>
+<br>Vous avez demandé à réinitialiser votre mot de passe pour l'application :appli. Si ce n'était pas le cas, contactez l'administrateur de l'application.
+<br>Pour réinitaliser votre mot de passe, recopiez le lien suivant dans votre navigateur :<br><a href=':adresse'>Réinitialisez votre mot de passe</a>
+<br>Ne répondez pas à ce mail, qui est généré automatiquement</body></html>";
+$LANG["login"][54] = ":appli - réinitialisation du mot de passe";
+$LANG["login"][55] = "Un mail vient de vous être envoyé. Veuillez copier le lien transmis dans votre navigateur pour pouvoir créer un nouveau mot de passe";
+$LANG["login"][56] = "Impossible d'envoyer le mail";
+$LANG["login"][57] = "Entrez votre mail";
+$LANG["login"][58] = "Mot de passe perdu - lancement de la procédure de récupération";
+$LANG["login"][59] = "Perdu votre mot de passe ?";
+$LANG["login"][60] = "";
 
 $LANG["ObjetBDDError"][0] = "Le champ ";
 $LANG["ObjetBDDError"][1] = " n'est pas numerique.";

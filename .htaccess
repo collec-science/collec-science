@@ -20,11 +20,5 @@ Header set Strict-Transport-Security "max-age=63072000"
 <FilesMatch "\.(ico|flv|jpg|jpeg|png|gif|js|css|swf)$">
     Header set Cache-Control "max-age=604800, private"
 </FilesMatch>
-<Directory /var/www/collec>
-    RewriteEngine On
-    RewriteBase /
-    RewriteCond "/%{REQUEST_FILENAME}" !-f
-    RewriteCond "/%{REQUEST_FILENAME}" !-d
-    RewriteRule "(.*)" "/index.php?$1" [PT,QSA]
-</Directory>
+
 

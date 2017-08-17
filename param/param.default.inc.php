@@ -47,8 +47,6 @@ $LOG_duree = 365;
  */
 $ident_header_login_var = "AUTH_USER";
 $ident_type = "BDD";
-//$CAS_plugin="plugins/phpcas-simple/phpcas.php";
-$CAS_plugin = 'vendor/jasig/phpcas/CAS.php';
 $CAS_address = "http://localhost/CAS";
 $CAS_port = 443;
 $LDAP = array(
@@ -99,6 +97,7 @@ $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
 $APPLI_temp = "temp";
 $APPLI_titre = "Gestion des échantillons";
+$APPLI_assist_address = "https://github.com/Irstea/collec/issues/new";
 /*
  * Emplacement de fop, programme externe utilise pour generer
  * les etiquettes au format PDF
@@ -112,7 +111,8 @@ $SMARTY_variables = array(
 		"enpied"=>"enpied.tpl",
 		"corps"=>"main.tpl",
 		"melappli"=>$APPLI_mail,
-		"ident_type"=>$ident_type
+		"ident_type"=>$ident_type,
+        "appliAssist"=>$APPLI_assist_address
 );
 /*
  * Variables liees a GACL et l'identification via base de donnees
@@ -160,4 +160,20 @@ $tokenIdentityValidity = 36000; // 10 heures
 $mapDefaultX = -0.70;
 $mapDefaultY = 44.77;
 $mapDefaultZoom = 7;
+$MAIL_enabled = 0;
+/*
+ * Nombre maximum d'essais de connexion
+ */
+$CONNEXION_max_attempts = 5;
+/*
+ * Duree de blocage du compte (duree reinitialisee a chaque tentative)
+ */
+$CONNEXION_blocking_duration = 600;
+/*
+ * Laps de temps avant de renvoyer un mail a l'administrateur en cas de blocage de compte
+ */
+$APPLI_mailToAdminPeriod = 7200;
+$APPLI_admin_ttl = 600; // Duree maxi d'inactivite pour acceder a un module d'administration
+$APPLI_lostPassword = 0; // Autorise la recuperation d'un nouveau mot de passe en cas de perte
+
 ?>

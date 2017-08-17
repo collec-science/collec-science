@@ -35,6 +35,10 @@ $(document).ready(function() {
 <div class="col-lg-6">
 <form id="formPassword" method="post" class="form-horizontal protoform" action="index.php">
 <input type="hidden" name="id" value="{$data.id}">
+{if $passwordLost == 1}
+<input type="hidden" name="token" value="{$token}">
+<input type="hidden" name="module" value="passwordlostReinitwrite">
+{else}
 <input type="hidden" name="module" value="loginChangePasswordExec">
 <div class="form-group">
 <label for="oldPassword" class="control-label col-md-4">{$LANG.login.23} :</label>
@@ -42,6 +46,7 @@ $(document).ready(function() {
 <input id="oldPassword" class="form-control" type="password" name="oldPassword" autocomplete="off" autofocus>
 </div>
 </div>
+{/if}
 <div class="form-group">
 <label for="pass1" class="control-label col-md-4">
 {$LANG.login.24} :

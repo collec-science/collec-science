@@ -35,17 +35,18 @@ if (! isset($_SESSION["dbversion"])) {
         unset($_REQUEST["action"]);
     }
 }
+
 /**
  * Lecture des donnees canoniques
  * La configuration de l'hote virtuel doit contenir ceci :
  * <Directory /var/www/html/collec>
-    RewriteEngine On
-    RewriteBase /
-    RewriteCond "/%{REQUEST_FILENAME}" !-f
-    RewriteCond "/%{REQUEST_FILENAME}" !-d
-    RewriteRule "(.*)" "/index.php?$1" [PT,QSA]
-</Directory>
-
+ * RewriteEngine On
+ * RewriteBase /
+ * RewriteCond "/%{REQUEST_FILENAME}" !-f
+ * RewriteCond "/%{REQUEST_FILENAME}" !-d
+ * RewriteRule "(.*)" "/index.php?$1" [PT,QSA]
+ * </Directory>
+ *
  * par defaut, les liens canoniques doivent etre de la forme :
  * /famille/version/modulerecherche/id
  * La transformation est realisee ainsi :
@@ -101,11 +102,11 @@ if (! isset($_REQUEST["module"])) {
  * Decodage des variables html
  */
 $_REQUEST = htmlDecode($_REQUEST);
-
 /**
  * Recuperation du module
  */
 unset($module);
+
 /**
  * Generation du module a partir de moduleBase et action
  */
@@ -119,12 +120,6 @@ if (isset($_REQUEST["module"]) && strlen($_REQUEST["module"]) > 0) {
      */
     $module = "default";
 }
-/*
- * Verification que le module demande existe bien
- */
-if (! isset($navigation->g_module[$module]))
-    $module = "default";
-
 $moduleRequested = $module;
 /**
  * Gestion des modules
@@ -140,6 +135,10 @@ while (isset($module)) {
     $t_module = $navigation->getModule($module);
     if (count($t_module) == 0)
         $message->set($LANG["message"][35] . " ($module)");
+    /*
+     * Extraction des droits necessaires
+     */
+    $droits_array = explode(",", $t_module["droits"]);
     /*
      * Forcage de l'identification si identification en mode HEADER
      */
@@ -178,161 +177,121 @@ while (isset($module)) {
      * Verification si le login est requis
      */
     if (strlen($t_module["droits"]) > 1 || $t_module["loginrequis"] == 1 || isset($_REQUEST["login"])) {
+        $loginForm = false;
         /*
-         * Verification du login
+         * Affichage de l'ecran de saisie du login si necessaire
          */
-        if (! isset($_SESSION["login"])) {
+        if (in_array($ident_type, array(
+            "BDD",
+            "LDAP",
+            "LDAP-BDD"
+        )) && ! isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0) {
             /*
-             * Un cookie d'identification est-il fourni ?
+             * Gestion de la saisie du login
              */
-            if (isset($_COOKIE["tokenIdentity"])) {
-                require_once 'framework/identification/token.class.php';
-                $tokenClass = new Token();
-                try {
-                    $login = $tokenClass->openTokenFromJson($_COOKIE["tokenIdentity"]);
-                    if (strlen($login) > 0) {
-                        $_SESSION["login"] = $login;
-                        $log->setLog($login, $module . "-connexion", "token-ok");
-                    }
-                } catch (Exception $e) {
-                    $log->setLog($login, $module . "-connexion", "token-ko");
-                    $message->set($e->getMessage());
-                }
-            } elseif ($ident_type == "HEADER") {
+            $vue->set("ident/login.tpl", "corps");
+            $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
+            $vue->set($APPLI_lostPassword, "lostPassword");
+            $loginForm = true;
+            if ($t_module["retourlogin"] == 1)
+                $vue->set($_REQUEST["module"], "module");
+            $message->set($LANG["login"][2]);
+        } else {
+            
+            /*
+             * Verification du login
+             */
+            if (! isset($_SESSION["login"])) {
                 /*
-                 * Identification via les headers fournis par le serveur web
-                 * dans le cas d'une identification derriere un proxy comme LemonLdap
+                 * Purge des anciens enregistrements dans log
                  */
-                $headers = getHeaders();
-                $login = $headers[strtoupper($ident_header_login_var)];
+                $log->purge($LOG_duree);
+                /*
+                 * Verification du login
+                 */
+                $login = $identification->verifyLogin($_REQUEST["login"], $_REQUEST["password"]);
                 if (strlen($login) > 0) {
-                    $_SESSION["login"] = $login;
-                    $log->setLog($login, "connexion", "HEADER-ok");
-                }
-            } elseif ($ident_type == "CAS") {
-                /*
-                 * Verification du login aupres du serveur CAS
-                 */
-                $identification->getLogin();
-            } else {
-                /*
-                 * On verifie si on est en retour de validation du login
-                 */
-                if (isset($_REQUEST["login"])) {
-                    $loginGestion = new LoginGestion($bdd_gacl);
                     /*
-                     * Verification de l'identification aupres du serveur LDAP, ou LDAP puis BDD
+                     * Le login a ete valide
+                     * Declenchement de toutes les operations d'initialisation necessaires
                      */
-                    if ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
-                        try {
-                            $res = $identification->testLoginLdap($_REQUEST["login"], $_REQUEST["password"]);
-                            if ($res == - 1 && $ident_type == "LDAP-BDD") {
-                                /*
-                                 * L'identification en annuaire LDAP a echoue : verification en base de donnees
-                                 */
-                                $res = $loginGestion->controlLogin($_REQUEST['login'], $_REQUEST['password']);
-                                if ($res) {
-                                    $_SESSION["login"] = $_REQUEST["login"];
-                                }
-                            }
-                        } catch (Exception $e) {
+                    $_SESSION["login"] = $login;
+                    unset($_SESSION["menu"]);
+                    $message->set($LANG["message"][10]);
+                    
+                    /*
+                     * Regeneration de l'identifiant de session
+                     */
+                    session_regenerate_id();
+                    /*
+                     * Recuperation de la derniere connexion et affichage a l'ecran
+                     */
+                    $lastConnect = $log->getLastConnexion();
+                    if (isset($lastConnect["log_date"])) {
+                        $texte = $LANG["login"][48];
+                        $texte = str_replace(":datelog", $lastConnect["log_date"], $texte);
+                        $texte = str_replace(":iplog", $lastConnect["ipaddress"], $texte);
+                        $message->set($texte);
+                    }
+                    $message->setSyslog("connexion ok for " . $_SESSION["login"] . " from " . getIPClientAddress());
+                    /*
+                     * Reinitialisation du menu
+                     */
+                    unset($_SESSION["menu"]);
+                    /*
+                     * Recuperation des cookies le cas echeant
+                     */
+                    include 'modules/cookies.inc.php';
+                    /*
+                     * Calcul des droits
+                     */
+                    require_once 'framework/droits/droits.class.php';
+                    $acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
+                    try {
+                        $_SESSION["droits"] = $acllogin->getListDroits($_SESSION["login"], $GACL_aco, $LDAP);
+                    } catch (Exception $e) {
+                        if ($APPLI_modeDeveloppement) {
+                            $message->set($e->getMessage());
+                        } else
                             $message->setSyslog($e->getMessage());
-                        }
-                        /*
-                         * Verification de l'identification uniquement en base de donnees
-                         */
-                    } elseif ($ident_type == "BDD") {
+                    }
+                    
+                    /*
+                     * Integration des commandes post login
+                     */
+                    include "modules/postLogin.php";
+                    /*
+                     * Gestion de l'identification par token
+                     */
+                    if ($_REQUEST["loginByTokenRequested"] == 1) {
+                        require_once 'framework/identification/token.class.php';
+                        $tokenClass = new Token($privateKey, $pubKey);
                         try {
-                            $res = $loginGestion->controlLogin($_REQUEST['login'], $_REQUEST['password']);
-                            if ($res) {
-                                $_SESSION["login"] = $_REQUEST["login"];
-                            }
+                            $token = $tokenClass->createToken($_SESSION["login"], $tokenIdentityValidity);
+                            /*
+                             * Ecriture du cookie
+                             */
+                            $cookieParam = session_get_cookie_params();
+                            $cookieParam["lifetime"] = $tokenIdentityValidity;
+                            if ($APPLI_modeDeveloppement == false)
+                                $cookieParam["secure"] = true;
+                            $cookieParam["httponly"] = true;
+                            setcookie('tokenIdentity', $token, time() + $tokenIdentityValidity, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
                         } catch (Exception $e) {
-                            $message->setSyslog($e->getMessage());
+                            $message->set($e->getMessage());
                         }
                     }
                 } else {
-                    /*
-                     * Gestion de la saisie du login
-                     */
-                    $vue->set("ident/login.tpl", "corps");
-                    $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
-                    if ($t_module["retourlogin"] == 1)
-                        $vue->set($_REQUEST["module"], "module");
-                    $message->set($LANG["login"][2]);
+                    $message->set($LANG["message"][11]);
+                    $message->setSyslog("connexion ko from " . getIPClientAddress());
                 }
             }
-            /*
-             * Si le login a ete valide, on definit les droits
-             * $_SESSION["login"] est maintenant defini
-             */
-            if (isset($_SESSION["login"])) {
-                /*
-                 * Regeneration de l'identifiant de session
-                 */
-                session_regenerate_id();
-                /*
-                 * Recuperation de la derniere connexion et affichage a l'ecran
-                 */
-                $lastConnect = $log->getLastConnexion();
-                if (isset($lastConnect["log_date"])) {
-                    $texte = $LANG["login"][48];
-                    $texte = str_replace(":datelog", $lastConnect["log_date"], $texte);
-                    $texte = str_replace(":iplog", $lastConnect["ipaddress"], $texte);
-                    $message->set($texte);
-                }
-                $message->setSyslog("connexion ok for " . $_SESSION["login"] . " from " . getIPClientAddress());
-                /*
-                 * Reinitialisation du menu
-                 */
-                unset($_SESSION["menu"]);
-                /*
-                 * Recuperation des cookies le cas echeant
-                 */
-                include 'modules/cookies.inc.php';
-                /*
-                 * Calcul des droits
-                 */
-                require_once 'framework/droits/droits.class.php';
-                $acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
-                try {
-                    $_SESSION["droits"] = $acllogin->getListDroits($_SESSION["login"], $GACL_aco, $LDAP);
-                } catch (Exception $e) {
-                    if ($APPLI_modeDeveloppement) {
-                        $message->set($e->getMessage());
-                    } else
-                        $message->setSyslog($e->getMessage());
-                }
-                
-                /*
-                 * Integration des commandes post login
-                 */
-                include "modules/postLogin.php";
-                /*
-                 * Gestion de l'identification par token
-                 */
-                if ($_REQUEST["loginByTokenRequested"] == 1) {
-                    require_once 'framework/identification/token.class.php';
-                    $tokenClass = new Token($privateKey, $pubKey);
-                    try {
-                        $token = $tokenClass->createToken($_SESSION["login"], $tokenIdentityValidity);
-                        /*
-                         * Ecriture du cookie
-                         */
-                        $cookieParam = session_get_cookie_params();
-                        $cookieParam["lifetime"] = $tokenIdentityValidity;
-                        if ($APPLI_modeDeveloppement == false)
-                            $cookieParam["secure"] = true;
-                        $cookieParam["httponly"] = true;
-                        setcookie('tokenIdentity', $token, time() + $tokenIdentityValidity, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
-                    } catch (Exception $e) {
-                        $message->set($e->getMessage());
-                    }
-                }
-            } else
-                $message->setSyslog("connexion ko from " . getIPClientAddress());
         }
     }
+    
+    /*
+     * Controles complementaires
+     */
     $resident = 1;
     $motifErreur = "ok";
     if ($t_module["loginrequis"] == 1 && ! isset($_SESSION["login"]))
@@ -345,7 +304,7 @@ while (isset($module)) {
             $resident = 0;
             $motifErreur = "nologin";
         } else {
-            $droits_array = explode(",", $t_module["droits"]);
+            
             $resident = 0;
             foreach ($droits_array as $key => $value) {
                 if ($_SESSION["droits"][$value] == 1)
@@ -357,7 +316,8 @@ while (isset($module)) {
     }
     
     /*
-     * Verification que le module soit bien appele apres le module qui doit le preceder La recherche peut contenir plusieurs noms de modules, separes par le caractere |
+     * Verification que le module soit bien appele apres le module qui doit le preceder
+     * La recherche peut contenir plusieurs noms de modules, separes par le caractere |
      */
     if (strlen($t_module["modulebefore"]) > 0) {
         $before = explode(",", $t_module["modulebefore"]);
@@ -369,10 +329,56 @@ while (isset($module)) {
         if ($beforeok == false) {
             $resident = 0;
             if ($APPLI_modeDeveloppement == true)
-                $message->set($LANG["message"][47] . $_SESSION["moduleBefore"]);
+                $message->set("Module precedent enregistre : " . $_SESSION["moduleBefore"]);
             $motifErreur = "errorbefore";
         }
     }
+    
+    /*
+     * Verification s'il s'agit d'un module d'administration
+     */
+    $moduleAdmin = false;
+    if (in_array("admin", $droits_array)) {
+        $moduleAdmin = true;
+        /*
+         * Verification si la duree de connexion en mode admin est depassee
+         */
+        if (isset($_SESSION["last_activity_admin"]) && (time() - $_SESSION["last_activity_admin"]) < $APPLI_admin_ttl) {
+            /*
+             * L'acces est dans le laps de temps autorise
+             */
+            $_SESSION["last_activity_admin"] = time();
+        } else {
+            if (in_array($ident_type, array(
+                "BDD",
+                "LDAP",
+                "LDAP-BDD"
+            )) && ! isset($_REQUEST["loginAdmin"]) && $loginForm == false) {
+                /*
+                 * saisie du login en mode admin
+                 */
+                $vue->set("ident/loginAdmin.tpl", "corps");
+                $resident = 0;
+                if ($t_module["retourlogin"] == 1)
+                    $vue->set($_REQUEST["module"], "module");
+                $message->set($LANG["login"][49]);
+            } else {
+                /*
+                 * Recuperation de l'identification
+                 */
+                if (strlen($identification->verifyLogin($_REQUEST["loginAdmin"], $_REQUEST["password"], true)) > 0) {
+                    $_SESSION["last_activity_admin"] = time();
+                } else {
+                    $resident = 0;
+                    $motifErreur = "adminko";
+                }
+            }
+        }
+    }
+    
+    /*
+     * fin d'analyse du module
+     */
     /*
      * Enregistrement de l'acces au module
      */
@@ -385,17 +391,18 @@ while (isset($module)) {
             $message->set($LANG["message"][38]);
         $message->setSyslog($e->getMessage());
     }
-    /*
-     * fin d'analyse du module
-     */
-    if (! $isAjax)
-        $_SESSION["moduleBefore"] = $module;
+    
     unset($module_coderetour);
     
     /*
      * Execution du module
      */
     if ($resident == 1) {
+        /*
+         * Mise a niveau de la variable stockant le module precedemment appele
+         */
+        if (! $isAjax)
+            $_SESSION["moduleBefore"] = $module;
         include $t_module["action"];
         unset($module);
         /*
@@ -433,6 +440,9 @@ while (isset($module)) {
             case "errorbefore":
                 $module = $APPLI_moduleErrorBefore;
                 break;
+            case "adminko":
+                $module = $APPLI_moduleAdminLogin;
+                break;
             default:
                 unset($module);
         }
@@ -461,7 +471,7 @@ if ($isHtml) {
      * Alerte Mode developpement
      */
     if ($APPLI_modeDeveloppement == true) {
-        $texteDeveloppement = $LANG["message"][32] . " :  $BDD_dsn  - schema : $BDD_schema - db version (expected) : $APPLI_dbversion";
+        $texteDeveloppement = $LANG["message"][32] . " : " . $BDD_dsn . ' - schema : ' . $BDD_schema;
         $vue->set($texteDeveloppement, "developpementMode");
     }
     $vue->set($_SESSION["moduleListe"], "moduleListe");

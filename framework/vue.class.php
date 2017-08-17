@@ -140,7 +140,7 @@ class VueSmarty extends Vue {
 	 *
 	 * @var array
 	 */
-	private $htmlVars = array (
+	public $htmlVars = array (
 			"menu",
 			"LANG",
 			"message",
@@ -219,6 +219,18 @@ class VueSmarty extends Vue {
  *        
  */
 class VueAjaxJson extends Vue {
+	private $json = "";
+	private $is_json = false;
+	/**
+	 * affecte une valeur directement au format json 
+	 * (resultat d'une programmation manuelle, p. e.)
+	 * @param string $json
+	 */
+	function setJson($json) {
+		$this->json = $json;
+		$this->is_json = true;
+	}
+	
 	/**
 	 *
 	 * {@inheritdoc}
@@ -229,54 +241,77 @@ class VueAjaxJson extends Vue {
 		/*
 		 * Encodage des donnees
 		 */
-		$data = array ();
-		foreach ( $this->data as $key => $value )
-			$data [$key] = $this->encodehtml ( $value );
-			/*
+		if ($this->is_json) {
+			$json = $this->json;
+		} else {
+			$data = array ();
+			foreach ( $this->data as $key => $value )
+				$data [$key] = $this->encodehtml ( $value );
+		$json = json_encode ( $data );
+		}
+		/*
 		 * Envoi au navigateur
 		 */
-			$json = json_encode ( $data );
 		ob_clean ();
+		// header ( 'Content-Type: application/json' );
 		echo $json;
 		ob_flush ();
 	}
 }
+/**
+ * Export de donnees au format csv
+ * @author quinton
+ *
+ */
 class VueCsv extends Vue {
-	private $filename;
-	function send($param = "") {
-		if (count ( $this->data ) > 0) {
-			if (strlen ( $param ) == 0)
-				$param = $this->filename;
-			if (strlen ( $param ) == 0)
-				$param = "export-" . date ( 'Y-m-d' ) . ".csv";
-				/*
-			 * Preparation du fichier
-			 */
-			ob_clean ();
-			header ( 'Content-Type: text/csv' );
-			header ( 'Content-Disposition: attachment;filename=' . $param );
-			$fp = fopen ( 'php://output', 'w' );
-			/*
-			 * Traitement de l'entete
-			 */
-			fputcsv ( $fp, array_keys ( $this->data [0] ) );
-			/*
-			 * Traitement des lignes
-			 */
-			foreach ( $this->data as $value )
-				fputcsv ( $fp, $value );
-			fclose ( $fp );
-			ob_flush ();
-		}
-	}
-	/**
-	 * Affecte le nom du fichier d'export
-	 *
-	 * @param string $filename        	
-	 */
-	function setFilename($filename) {
-		$this->filename = $filename;
-	}
+    private $filename;
+    private $delimiter = ";";
+    function send($filename = "", $delimiter = "") {
+        if (count ( $this->data ) > 0) {
+            if (strlen ( $filename ) == 0)
+                $filename = $this->filename;
+                if (strlen ( $filename ) == 0)
+                    $param = "export-" . date ( 'Y-m-d' ) . ".csv";
+                    if (strlen($delimiter)== 0)
+                        $delimiter = $this->delimiter;
+                        /*
+                         * Preparation du fichier
+                         */
+                        ob_clean ();
+                        header ( 'Content-Type: text/csv' );
+                        header ( 'Content-Disposition: attachment;filename=' . $filename );
+                        $fp = fopen ( 'php://output', 'w' );
+                        /*
+                         * Traitement de l'entete
+                         */
+                        fputcsv ( $fp, array_keys ( $this->data [0] ), $delimiter );
+                        /*
+                         * Traitement des lignes
+                         */
+                        foreach ( $this->data as $value )
+                            fputcsv ( $fp, $value, $delimiter );
+                            fclose ( $fp );
+                            ob_flush ();
+        }
+    }
+    /**
+     * Affecte le nom du fichier d'export
+     *
+     * @param string $filename
+     */
+    function setFilename($filename) {
+        $this->filename = $filename;
+    }
+    /**
+     * Affecte le separateur de champ
+     * @param string $delimiter
+     */
+    function setDelimiter($delimiter) {
+        if ($delimiter == "tab")
+            $delimiter = "\t";
+            $this->delimiter = $delimiter;
+    }
+    
 }
 class VuePdf extends Vue {
 	private $filename;

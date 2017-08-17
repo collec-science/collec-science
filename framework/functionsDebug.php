@@ -3,7 +3,6 @@
  * Affiche le nom et le contenu d'une variable
  * @param array $tableau
  */
-$testOccurrence = 1;
 function printr($tableau, $mode_dump = 0, $force = false) {
 	global $APPLI_modeDeveloppement;
 	if ($APPLI_modeDeveloppement || $force) {
@@ -18,10 +17,9 @@ function printr($tableau, $mode_dump = 0, $force = false) {
 		echo "<br>";
 	}
 }
-
 function test ($content = "") {
     global $testOccurrence;
-    echo "test $testOccurrence : $content  <br>";    
+    echo "test $testOccurrence : $content  <br>";
     $testOccurrence ++;
 }
 ?>

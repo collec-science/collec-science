@@ -49,7 +49,12 @@ switch ($t_module["param"]) {
 		dataDelete($dataClass, $id);
 		break;
 	case "changePassword":
+	    if ($log->getLastConnexionType($_SESSION["login"]) == "db") {
 		$vue->set( "ident/loginChangePassword.tpl", "corps");
+	    } else {
+	        $message->set($LANG["login"][18]);
+	        $vue->set("main.tpl");
+	    }
 		break;
 	case 'changePasswordExec':
 		$ret = $dataClass->changePassword($_REQUEST["oldPassword"], $_REQUEST["pass1"], $_REQUEST["pass2"]);

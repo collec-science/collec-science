@@ -19,7 +19,7 @@ D'autres informations sont spécifiques soit des échantillons, soit des contain
 Pour ces derniers, les conditions de stockage (produit utilisé, risque associé normalisé) peuvent être décrits.
 <br>
 <br>
-    Copyright (C) 2016  Eric Quinton pour IRSTEA
+    Copyright (C) 2016-2017  Eric Quinton pour IRSTEA
 <br>
     This program is free software: you can redistribute it and/or modify<br>
     it under the terms of the GNU Affero General Public License as<br>

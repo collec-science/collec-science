@@ -37,7 +37,9 @@
 	<item module="phpinfo" droits="admin" value="phpinfo" title="phpinfotitle"/>
 </item>
 <item module="connexion" title="connexiontitle" value="connexionvalue" onlynoconnect="1"/>
-<item module="disconnect" title="7" value="6" loginrequis="1"/>
+<item module="disconnect" title="7" value="6" loginrequis="1">
+	<item module="loginChangePassword" loginrequis="1" title="pwchangetitle" value="pwchange" />
+</item>
 <item module="aide" title="helpTitle" value="help">
 	<item module="apropos" title="9" value="8"/>
 	<item module="quoideneuf" title="41" value="40"/>

@@ -65,8 +65,8 @@
 <!--  implementation automatique des classes -->
 <script>
 $(document).ready(function() {
-	$.fn.dataTable.moment( 'DD/MM/YYYY HH:mm:ss' );
-	$.fn.dataTable.moment( 'DD/MM/YYYY' );
+	$.fn.dataTable.moment( '{$LANG["date"]["formatdatetime"]}' );
+	$.fn.dataTable.moment( '{$LANG["date"]["formatdate"]}' );
 	$('.datatable').DataTable({
 		language : {
 			url : 'display/javascript/fr_FR.json'
@@ -118,15 +118,33 @@ $(document).ready(function() {
 		'maxlength' : "10"
 	});
 	
-	$(".date").datepicker( $.datepicker.regional['fr'] );
-	$.datepicker.setDefaults($.datepicker.regional['fr']);
+	$(".date").datepicker( $.datepicker.regional['{$LANG["date"]["locale"]}'] );
+	$(".datepicker").datepicker( $.datepicker.regional['{$LANG["date"]["locale"]}'] );
+	$.datepicker.setDefaults($.datepicker.regional['{$LANG["date"]["locale"]}']);
 	$('.timepicker').attr('pattern', '[0-9][0-9]\:[0-9][0-9]\:[0-9][0-9]');
-	$.timepicker.setDefaults($.timepicker.regional['fr']);
+	$.timepicker.setDefaults($.timepicker.regional['{$LANG["date"]["locale"]}']);
 	$('.datetimepicker').datetimepicker({ 
-		dateFormat: "dd/mm/yy",
+		dateFormat: "{$LANG["date"]["formatdatecourt"]}",
 		timeFormat: 'HH:mm:ss',
 		timeInput: true
 	});
+	var lib = "{$LANG['message'].31}" ;
+	$('.button-delete').keypress(function() {
+		if (confirm(lib) == true) {
+			$(this.form).find("input[name='action']").val("Delete");
+			$(this.form).submit();
+		} else
+			return false;
+	});
+	$(".button-delete").click(function() {
+		if (confirm(lib) == true) {
+			$(this.form).find("input[name='action']").val("Delete");
+			$(this.form).submit();
+		} else {
+			return false;
+		}
+	});
+
 });
 
 </script>

@@ -1,6 +1,10 @@
 <?php
 $FORMATDATE="fr";
 $LANG= array();
+$LANG["date"]["locale"] = "fr";
+$LANG["date"]["formatdate"] = "DD/MM/YYYY";
+$LANG["date"]["formatdatetime"] = "DD/MM/YYYY HH:mm:ss";
+$LANG["date"]["formatdatecourt"] = "dd/mm/yy";
 $LANG["menu"][0] = "Gestion";
 $LANG["menu"][1] = "Opérations de gestion";
 $LANG["menu"][2] = "Liste des comptes";

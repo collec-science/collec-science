@@ -1,60 +1,15 @@
-$(document).ready(function() {
 
-	$('.button-delete').keypress(function() {
-		if (confirm("Confirmez-vous la suppression ?") == true) {
-			$(this.form).find("input[name='action']").val("Delete");
-			$(this.form).submit();
-		} else
-			return false;
-	});
-	$(".button-delete").click(function() {
-		if (confirm("Confirmez-vous la suppression ?") == true) {
-			$(this.form).find("input[name='action']").val("Delete");
-			$(this.form).submit();
-		} else {
-			return false;
-		}
-	});
+$(document).ready(function() {
+	
 
 });
-/**
- * Fonction permettant de verifier que les mots de passe entres dans les deux
- * zones sont identiques
- * 
- * @param pass1
- * @param pass2
- * @returns {Boolean}
- */
-function verifieMdp(pass1, pass2) {
-	if (pass1.value != pass2.value && pass1.value.length > 0
-			&& pass2.value.length > 0) {
-		alert("\erreur: les mots de passes ne correspondent pas");
-		action.value = "X";
-		return false;
-	} else {
-		return true;
-	}
-}
-/**
- * Fonction verifiant la volonte de suppression
- * 
- * @returns {Boolean}
- */
-function confirmSuppression(texte) {
-	if (texte.length == 0)
-		texte = "Confirmez-vous la suppression ?";
-	return confirmEnvoi(texte);
-}
+
 /**
  * Fonction de generation aleatoire d'un mot de passe
  * 
  * @returns {String}
  */
 function GeneratePassword() {
-
-	if (parseInt(navigator.appVersion) <= 3) {
-		alert("Sorry this only works in 4.0+ browsers");
-	}
 
 	var length = 10;
 	var sPassword = "";

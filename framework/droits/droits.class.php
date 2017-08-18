@@ -7,6 +7,8 @@
  */
 class LdapException extends Exception {
 }
+class DroitException extends Exception {}
+
 class Aclappli extends ObjetBDD {
 	function __construct($bdd, $param = array()) {
 		$this->table = "aclappli";
@@ -528,7 +530,7 @@ class Aclgroup extends ObjetBDD {
 			 */
 			$dataFils = $this->getChildGroups ( $id );
 			if (count ( $dataFils ) > 0) {
-				throw new Exception($LANG["message"][43]);
+				throw new DroitException($LANG["message"][43]);
 			} else {
 				/*
 				 * Suppression des logins rattachés

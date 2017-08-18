@@ -6,7 +6,7 @@
  *
  * Classe maîtrisant les aspects identification.
  */
-
+class IdentificationException extends Exception{}
 /**
  * @class Identification
  * Gestion de l'identification - recuperation du login en fonction du type d'acces
@@ -151,7 +151,9 @@ class Identification
                     $login = str_replace($char, '\\' . $hex, $login);
                 }
             }
-            $ldap = @ldap_connect($this->LDAP_address, $this->LDAP_port) or die("Impossible de se connecter au serveur LDAP.");
+            $ldap = @ldap_connect($this->LDAP_address, $this->LDAP_port) ;
+            if ($ldap == false) 
+                throw new LdapException("Impossible de se connecter au serveur LDAP.");
             if ($this->LDAP_v3) {
                 ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
             }
@@ -535,7 +537,7 @@ class LoginGestion extends ObjetBDD
      */
     function passwordHash ($login, $password) {
         if (strlen ($login) == 0 || strlen($password) == 0) {
-            throw new Exception("password hashing not possible");
+            throw new IdentificationException("password hashing not possible");
         } else
         return hash("sha256", $password . $login);
     }

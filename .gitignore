@@ -10,6 +10,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
+sonar-scanner.sh
 
 # Eclipse Core
 .project

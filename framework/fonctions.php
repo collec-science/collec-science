@@ -38,8 +38,6 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
 		global $module;
 		$message->set ( "Error : vue type not defined for the requested module ($module)" );
 	}
-	
-	;
 }
 /**
  * Ecrit un enregistrement en base de donnees
@@ -235,10 +233,10 @@ function htmlDecode($data) {
  */
 class VirusException extends Exception {
 }
-;
+
 class FileException extends Exception {
 }
-;
+
 function testScan($file) {
 	if (file_exists ( $file )) {
 		if (extension_loaded ( 'clamav' )) {

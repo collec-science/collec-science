@@ -12,6 +12,7 @@
  * @author quinton
  *        
  */
+class VueException extends Exception{}
 class Message {
 	/**
 	 * Tableau contenant l'ensemble des messages generes
@@ -333,11 +334,11 @@ class VuePdf extends Vue {
 			} else
 				$filename = $APPLI_code . '-' . date ( 'y-m-d' ) . ".pdf";
 			header ( 'Content-Disposition: ' . $this->disposition . '; filename="' . $filename . '"' );
-			echo ($this->reference);
+			echo $this->reference;
 			if (! rewind ( $this->reference ))
-				throw new Exception ( 'Impossible to rewind resource' );
+				throw new VueException ( 'Impossible to rewind resource' );
 			if (! fpassthru ( $this->reference ))
-				throw new Exception ( 'Impossible to send file' );
+				throw new VueException ( 'Impossible to send file' );
 		} elseif (file_exists ( $this->filename )) {
 			/*
 			 * Recuperation du content-type
@@ -364,9 +365,9 @@ class VuePdf extends Vue {
 			if (strlen ( $this->filename ) > 0) {
 				readfile ( $this->filename );
 			} else
-				throw new Exception ( "File can't be sent" );
+				throw new VueException ( "File can't be sent" );
 		} else
-			throw new Exception ( "Nothing to send" );
+			throw new VueException ( "Nothing to send" );
 	}
 	/**
 	 * Affecte le nom du fichier d'export

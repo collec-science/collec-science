@@ -12,7 +12,7 @@ function printr($tableau, $mode_dump = 0, $force = false) {
 			if (is_array ( $tableau ))
 				print_r ( $tableau );
 			else
-				echo ($tableau);
+				echo $tableau;
 		}
 		echo "<br>";
 	}

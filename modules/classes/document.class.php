@@ -115,6 +115,8 @@
  * @author quinton
  *        
  */
+class DocumentException extends Exception {}
+
 class MimeType extends ObjetBDD {
 	/**
 	 * Constructeur de la classe

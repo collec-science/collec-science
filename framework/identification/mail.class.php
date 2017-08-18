@@ -6,6 +6,7 @@
  * @license http://www.cecill.info/licences/Licence_CeCILL-C_V1-fr.html LICENCE DE LOGICIEL LIBRE CeCILL-C
  *  Creation 30 sept. 2015
  */
+class MailException extends Exception{}
 class Mail
 {
 
@@ -59,7 +60,7 @@ class Mail
         $message = wordwrap($message, 70, PHP_EOL);
         return mail($dest, $subject, $message, $this->getHeaders());
         } else 
-            throw  new Exception("Mail->sendMail : no recipient address");
+            throw  new MailException("Mail->sendMail : no recipient address");
     }
 
     /**

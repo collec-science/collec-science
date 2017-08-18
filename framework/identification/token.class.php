@@ -7,6 +7,7 @@
  * @author quinton
  *
  */
+class TokenException extends Exception{}
 class Token {
 	private $privateKey = "/etc/ssl/private/ssl-cert-snakeoil.key";
 	private $pubKey = "/etc/ssl/certs/ssl-cert-snakeoil.pem";
@@ -65,11 +66,11 @@ class Token {
 					$tokenOk = true;
 					$token = json_encode ( $dataToken );
 				} else
-					throw new Exception ( "Encryption_token_not_realized" );
+					throw new TokenException ( "Encryption_token_not_realized" );
 			} else
-				throw new Exception ( "validity duration not numeric : " . $validityDuration );
+				throw new TokenException ( "validity duration not numeric : " . $validityDuration );
 		} else
-			throw new Exception ( "login_empty" );
+			throw new TokenException ( "login_empty" );
 		return $token;
 	}
 	/**
@@ -100,13 +101,13 @@ class Token {
 					if ($data ["expire"] > $now) {
 						$login = $data ["login"];
 					} else
-						throw new Exception ( 'token_expired' );
+						throw new TokenException ( 'token_expired' );
 				} else
-					throw new Exception ( "parameter_into_token_absent" );
+					throw new TokenException ( "parameter_into_token_absent" );
 			} else
-				throw new Exception ( "token_cannot_be_decrypted" );
+				throw new TokenException ( "token_cannot_be_decrypted" );
 		} else
-			throw new Exception ( "token_empty" );		
+			throw new TokenException ( "token_empty" );		
 		return $login;
 	}
 	/**
@@ -121,7 +122,7 @@ class Token {
 			$token = json_decode ( $jsonData, true );
 			return $this->openToken ( $token );
 		}
-		throw new Exception ( "Json file empty" );
+		throw new TokenException ( "Json file empty" );
 	}
 	
 	/**
@@ -140,14 +141,14 @@ class Token {
 				if (! $handle == false) {
 					$contents = fread ( $handle, filesize ( $filename ) );
 					if ($contents == false)
-						throw new Exception ( "key " . $filename . " is empty" );
+						throw new TokenException ( "key " . $filename . " is empty" );
 					fclose ( $handle );
 				} else
-					throw new Exception ( $filename . " could not be open" );
+					throw new TokenException ( $filename . " could not be open" );
 			} else
-				throw new Exception ( "key " . $filename . " not found" );
+				throw new TokenException ( "key " . $filename . " not found" );
 		} else
-			throw new Exception ( "open key : type not specified" );
+			throw new TokenException ( "open key : type not specified" );
 		return $contents;
 	}
 }

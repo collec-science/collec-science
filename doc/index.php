@@ -16,14 +16,6 @@ if ($handle) {
 	}
 	fclose ( $handle );
 }
-/*
- * header("content-type: text/html");
- * header('Content-Disposition: inline; filename="'.$t_module["param1"].'"');
- * header('Pragma: no-cache');
- * header('Cache-Control:must-revalidate, post-check=0, pre-check=0');
- * header('Expires: 0');
- * echo $doc;
- */
 $vue->set ( $doc, "doc" );
 $vue->set ( "documentation/index.tpl", "corps" );
 

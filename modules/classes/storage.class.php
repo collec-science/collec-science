@@ -6,6 +6,7 @@
  * Copyright 2016 - All rights reserved
  */
 require_once 'modules/classes/container.class.php';
+class StorageException extends Exception{}
 class Storage extends ObjetBDD {
 	/**
 	 *
@@ -125,7 +126,7 @@ class Storage extends ObjetBDD {
 				$this->lastResultExec = false;
 				if ($this->debug_mode > 0)
 					$this->addMessage ( $e->getMessage () );
-				throw new Exception ( $e->getMessage () );
+				throw new StorageException ( $e->getMessage () );
 			}
 		}
 	}
@@ -197,7 +198,7 @@ class Storage extends ObjetBDD {
 			/*
 			 * Gestion des erreurs
 			 */
-			throw new Exception ( $message );
+			throw new StorageException ( $message );
 	}
 	
 	/**

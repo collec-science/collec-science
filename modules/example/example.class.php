@@ -15,7 +15,7 @@ class Example extends ObjetBDD {
 				"comment"=>array("defaultValue"=>"Comment",longueur=>"255"),
 				"dateExample"=>array("type"=>2,"requis"=>1, "defaultValue"=>"getDateJour"),
 		);
-		if(!is_array($param)) $param==array();
+		if(!is_array($param)) $param=array();
 		$param["fullDescription"]=1;
 		parent::__construct($bdd,$param);
 	}

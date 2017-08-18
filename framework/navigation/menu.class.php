@@ -34,11 +34,9 @@ class Menu {
 	 */
 	function generateMenu() {
 		$this->menuList = "";
-		//$this->menuList = "<ul>";
-		foreach ( $this->menuArray ["item"] as $key => $value ) {
+		foreach ( $this->menuArray ["item"] as $value ) {
 			$this->menuList .= $this->lireItem ( $value );
 		}
-		//$this->menuList .= "</ul>";
 		return $this->menuList;
 	}
 	/**
@@ -58,21 +56,24 @@ class Menu {
 			$ok = false;
 			$tdroits = explode ( ",", $attributes ["droits"] );
 			foreach ( $tdroits as $droit ) {
-				if ($_SESSION ["droits"] [$droit] == 1)
+				if ($_SESSION ["droits"] [$droit] == 1){
 					$ok = true;
+				}
 			}
 		}
 		/*
 		 * Recherche si le login est requis
 		 */
-		if ($attributes ["loginrequis"] == 1 && ! isset ( $_SESSION ["login"] ))
+		if ($attributes ["loginrequis"] == 1 && ! isset ( $_SESSION ["login"] )){
 			$ok = false;
+		}
 			/*
 		 * Recherche si l'utilisateur n'est pas connecte
 		 */
-		if ($attributes ["onlynoconnect"] == 1 && isset ( $_SESSION ["login"] ))
+		if ($attributes ["onlynoconnect"] == 1 && isset ( $_SESSION ["login"] )){
 			$ok = false;
-		if ($ok == true) {
+		}
+		if ($ok) {
 			/*
 			 * Traitement de l'item
 			 */
@@ -86,8 +87,9 @@ class Menu {
 				if (count ( $valeur ["item"] ) == 1) {
 					$texte .= $this->lireItem ( $valeur ["item"] );
 				} else {
-					foreach ( $valeur ["item"] as $key => $value )
+					foreach ( $valeur ["item"] as  $value ){
 						$texte .= $this->lireItem ( $value );
+					}
 				}
 				$texte .= "</ul>";
 			}

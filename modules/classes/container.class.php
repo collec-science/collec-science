@@ -12,7 +12,8 @@ class Container extends ObjetBDD {
 					container_family_id, container_family_name, object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
 					document_id, identifiers,
-					storage_date, movement_type_name, movement_type_id
+					storage_date, movement_type_name, movement_type_id,
+                    columns, lines
 					from container c
 					join object using (uid)
 					join container_type using (container_type_id)
@@ -314,6 +315,16 @@ class Container extends ObjetBDD {
 			$order = " order by uid desc";
 			return $this->getListeParamAsPrepared ( $this->sql . $where . $order, $data );
 		}
+	}
+	
+	function getOccupation ($uid) {
+	    if (is_numeric($uid) && $uid > 0) {
+	        /*
+	         * Recuperation du type de container et du nombre d'emplacements
+	         */
+	        $dc = $this->lire($uid);
+	        
+	    }
 	}
 }
 

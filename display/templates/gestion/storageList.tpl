@@ -31,6 +31,8 @@
 </td>
 <td>
 {$storages[lst].storage_location}
+{if strlen($storages[lst].column_number) > 0}C{$storages[lst].column_number}{/if}
+{if strlen($storages[lst].line_number) > 0}L{$storages[lst].line_number}{/if}
 </td>
 <td>
 {$storages[lst].storage_reason_name}

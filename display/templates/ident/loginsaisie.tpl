@@ -41,7 +41,6 @@ $(document).ready(function() {
 <input type="hidden" name="moduleBase" value="login">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="id" value="{$data.id}">
-<input type="hidden" name="password" value="{$data.password}">
 	
 
 <div class="form-group">

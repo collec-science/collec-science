@@ -183,5 +183,7 @@ sympy-plots-for-*.tex/
 # WinEdt
 *.bak
 *.sav
-
-
+/param/param.inc.test.php
+/install/.Rhistory
+/.scannerwork/.sonar_lock
+/.scannerwork/report-task.txt

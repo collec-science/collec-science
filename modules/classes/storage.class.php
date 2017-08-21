@@ -163,7 +163,7 @@ class Storage extends ObjetBDD {
      * @param string $comment
      * @return int
      */
-    function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $storage_location = null, $comment = null, $storage_reason_id = null, $column_number = null, $line_number = null)
+    function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $storage_location = null, $comment = null, $storage_reason_id = null, $column_number = 1, $line_number = 1)
     {
         global $LANG;
         /*

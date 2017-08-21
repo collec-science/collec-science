@@ -15,14 +15,18 @@ Il n'accepte que des fichiers au format CSV. La ligne d'entête doit comprendre 
 <li><b>wgs84_x</b> : la longitude GPS en WGS84 (degrés décimaux)</li>
 <li><b>wgs84_y</b> : la latitude GPS en WGS84 (degrés décimaux)</li>
 <li><b>sample_date</b> : la date de création de l'échantillon, au format dd/mm/yyyy</li>
-<li><b>sample_location</b> : l'emplacement de rangement de l'échantillon dans le container</li>
+<li><b>sample_location</b> : l'emplacement de rangement de l'échantillon dans le container (texte libre)</li>
+<li><b>sample_column</b> : n° de la colonne de stockage dans le container</li>
+<li><b>sample_line</b> : n° de la ligne de stockage dans le container</li>
 <li><b>sample_multiple_value</b> : le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
 si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point)</li>
 <li><b>sample_metadata_json</b> : les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"taxon":"Alosa alosa"&#125;)</li>
 <li><b>container_identifier</b> : l'identifiant du container (obligatoire)</li>
 <li><b>container_type_id</b> : le numéro informatique du type de container (obligatoire)</li>
 <li><b>container_status_id</b> : le numéro informatique du statut du container (obligatoire)</li>
-<li><b>container_location</b> : l'emplacement de rangement du container dans son parent</li>
+<li><b>container_location</b> : l'emplacement de rangement du container dans son parent (texte libre)</li>
+<li><b>container_column</b> : n° de la colonne de stockage dans le container parent</li>
+<li><b>container_line</b> : n° de la ligne de stockage dans le container parent</li>
 <li><b>container_parent_uid</b> : l'UID du container parent</li>
 </ul>
 Les codes informatiques peuvent être consultés à partir du menu <i>Paramètres</i>.

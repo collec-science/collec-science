@@ -55,12 +55,20 @@ class Import
         "container_type_id",
         "container_status_id",
         "sample_location",
+        "sample_column",
+        "sample_line",
         "container_parent_uid",
-        "container_location"
+        "container_location",
+        "container_column",
+        "container_line"
     );
 
     private $colnum = array(
-        "sample_multiple_value"
+        "sample_multiple_value",
+        "sample_column",
+        "sample_line",
+        "container_column",
+        "container_line"
     );
 
     private $handle;
@@ -317,7 +325,7 @@ class Import
                  */
                 if (strlen($values["container_parent_uid"]) > 0) {
                     try {
-                        $this->storage->addMovement($container_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["container_location"]);
+                        $this->storage->addMovement($container_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["container_location"], null, null, $values["container_column"], $values["container_line"]);
                     } catch (Exception $e) {
                         throw new ImportException("Line $num : error when create input movement for container<br>" . $e->getMessage());
                     }
@@ -328,7 +336,7 @@ class Import
              */
             if ($sample_uid > 0 && $container_uid > 0) {
                 try {
-                    $this->storage->addMovement($sample_uid, $date, 1, $container_uid, $_SESSION["login"], $values["sample_location"]);
+                    $this->storage->addMovement($sample_uid, $date, 1, $container_uid, $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
                 } catch (Exception $e) {
                     throw new ImportException("Line $num : error when create input movement for sample (" . $e->getMessage() + ")");
                 }
@@ -338,7 +346,7 @@ class Import
                  * Creation du mouvement d'entree de l'echantillon dans le container
                  */
                 try {
-                    $this->storage->addMovement($sample_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["sample_location"]);
+                    $this->storage->addMovement($sample_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
                 } catch (Exception $e) {
                     throw new ImportException("Line $num : error when create input movement for sample (" . $e->getMessage() + ")");
                 }
@@ -451,6 +459,7 @@ class Import
                 $retour["code"] = false;
                 $retour["message"] .= "Le type d'échantillon n'est pas connu. ";
             }
+            
             /*
              * Verification du statut
              */

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created : 2 juin 2016
  * Creator : quinton
@@ -71,8 +70,9 @@ class ContainerType extends ObjetBDD
     function getListe($order = "")
     {
         $order = "";
-        if ($order != 0 && strlen($order) > 0)
+        if ($order != 0 && strlen($order) > 0) {
             $order = " order by $order";
+        }
         return parent::getListeParam($this->sql . $order);
     }
 }

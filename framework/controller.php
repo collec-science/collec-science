@@ -12,7 +12,7 @@ include_once ("framework/common.inc.php");
  * Verification des donnees entrantes.
  * Codage UTF-8
  */
-if (check_encoding($_REQUEST) == false) {
+if (! check_encoding($_REQUEST)) {
     $message->set($LANG["message"][45]);
     $_REQUEST["module"] = "default";
     unset($_REQUEST["moduleBase"]);
@@ -27,8 +27,9 @@ if (! isset($_SESSION["dbversion"])) {
     if ($dbversion->verifyVersion($APPLI_dbversion)) {
         $_SESSION["dbversion"] = $APPLI_dbversion;
     } else {
-        if ($APPLI_modeDeveloppement)
+        if ($APPLI_modeDeveloppement) {
             unset($_SESSION["dbversion"]);
+        }
         $message->set(str_replace("%", $APPLI_dbversion, $LANG["message"][46]) . $dbversion->getLastVersion()["dbversion_number"]);
         $_REQUEST["module"] = "default";
         unset($_REQUEST["moduleBase"]);
@@ -66,8 +67,9 @@ if (! isset($_REQUEST["module"])) {
          * Extraction le cas echeant des variables GET
          */
         $uri3 = explode("?", $uri[3]);
-        if (count($uri3) == 2)
+        if (count($uri3) == 2) {
             $uri[3] = $uri3[0];
+        }
         $_REQUEST["module"] = $uri[1] . $uri[2] . $uri[3];
         /*
          * On recherche si le quatrieme element existe
@@ -79,8 +81,9 @@ if (! isset($_REQUEST["module"])) {
             /*
              * Prepositionnement par defaut de la valeur uid (la plus frequente)
              */
-            if (! isset($_REQUEST["uid"]))
+            if (! isset($_REQUEST["uid"])) {
                 $_REQUEST["uid"] = $uri[4];
+            }
             switch ($_SERVER["REQUEST_METHOD"]) {
                 case "GET":
                     $_REQUEST["module"] .= "Display";
@@ -93,6 +96,9 @@ if (! isset($_REQUEST["module"])) {
                     break;
                 case "DELETE":
                     $_REQUEST["module"] .= "Delete";
+                    break;
+                default:
+                    $_REQUEST["module"] = "default";
                     break;
             }
         }
@@ -110,8 +116,9 @@ unset($module);
 /**
  * Generation du module a partir de moduleBase et action
  */
-if (isset($_REQUEST["moduleBase"]) && isset($_REQUEST["action"]))
+if (isset($_REQUEST["moduleBase"]) && isset($_REQUEST["action"])) {
     $_REQUEST["module"] = $_REQUEST["moduleBase"] . $_REQUEST["action"];
+}
 if (isset($_REQUEST["module"]) && strlen($_REQUEST["module"]) > 0) {
     $module = $_REQUEST["module"];
 } else {
@@ -126,15 +133,17 @@ $moduleRequested = $module;
  */
 $isHtml = false;
 $isAjax = false;
-if ($APPLI_modeDeveloppement)
+if ($APPLI_modeDeveloppement) {
     unset($_SESSION["menu"]);
+}
 while (isset($module)) {
     /*
      * Recuperation du tableau contenant les attributs du module
      */
     $t_module = $navigation->getModule($module);
-    if (count($t_module) == 0)
+    if (count($t_module) == 0) {
         $message->set($LANG["message"][35] . " ($module)");
+    }
     /*
      * Extraction des droits necessaires
      */
@@ -142,8 +151,9 @@ while (isset($module)) {
     /*
      * Forcage de l'identification si identification en mode HEADER
      */
-    if ($ident_type == "HEADER")
+    if ($ident_type == "HEADER") {
         $t_module["loginrequis"] = 1;
+    }
     /*
      * Preparation de la vue
      */
@@ -193,8 +203,9 @@ while (isset($module)) {
             $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
             $vue->set($APPLI_lostPassword, "lostPassword");
             $loginForm = true;
-            if ($t_module["retourlogin"] == 1)
+            if ($t_module["retourlogin"] == 1) {
                 $vue->set($_REQUEST["module"], "module");
+            }
             $message->set($LANG["login"][2]);
         } else {
             
@@ -252,8 +263,9 @@ while (isset($module)) {
                     } catch (Exception $e) {
                         if ($APPLI_modeDeveloppement) {
                             $message->set($e->getMessage());
-                        } else
+                        } else {
                             $message->setSyslog($e->getMessage());
+                        }
                     }
                     
                     /*
@@ -273,8 +285,9 @@ while (isset($module)) {
                              */
                             $cookieParam = session_get_cookie_params();
                             $cookieParam["lifetime"] = $tokenIdentityValidity;
-                            if ($APPLI_modeDeveloppement == false)
+                            if (! $APPLI_modeDeveloppement) {
                                 $cookieParam["secure"] = true;
+                            }
                             $cookieParam["httponly"] = true;
                             setcookie('tokenIdentity', $token, time() + $tokenIdentityValidity, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
                         } catch (Exception $e) {
@@ -294,8 +307,9 @@ while (isset($module)) {
      */
     $resident = 1;
     $motifErreur = "ok";
-    if ($t_module["loginrequis"] == 1 && ! isset($_SESSION["login"]))
+    if ($t_module["loginrequis"] == 1 && ! isset($_SESSION["login"])) {
         $resident = 0;
+    }
     /*
      * Verification des droits
      */
@@ -307,11 +321,13 @@ while (isset($module)) {
             
             $resident = 0;
             foreach ($droits_array as $key => $value) {
-                if ($_SESSION["droits"][$value] == 1)
+                if ($_SESSION["droits"][$value] == 1) {
                     $resident = 1;
+                }
             }
-            if ($resident == 0)
+            if ($resident == 0) {
                 $motifErreur = "droitko";
+            }
         }
     }
     
@@ -322,14 +338,16 @@ while (isset($module)) {
     if (strlen($t_module["modulebefore"]) > 0) {
         $before = explode(",", $t_module["modulebefore"]);
         $beforeok = false;
-        foreach ($before as $key => $value) {
-            if ($_SESSION["moduleBefore"] == $value)
+        foreach ($before as $value) {
+            if ($_SESSION["moduleBefore"] == $value) {
                 $beforeok = true;
+            }
         }
-        if ($beforeok == false) {
+        if (! $beforeok ) {
             $resident = 0;
-            if ($APPLI_modeDeveloppement == true)
+            if ($APPLI_modeDeveloppement ) {
                 $message->set($LANG["message"][47] . $_SESSION["moduleBefore"]);
+            }
             $motifErreur = "errorbefore";
         }
     }
@@ -353,14 +371,15 @@ while (isset($module)) {
                 "BDD",
                 "LDAP",
                 "LDAP-BDD"
-            )) && ! isset($_REQUEST["loginAdmin"]) && $loginForm == false) {
+            )) && ! isset($_REQUEST["loginAdmin"]) && ! $loginForm ) {
                 /*
                  * saisie du login en mode admin
                  */
                 $vue->set("ident/loginAdmin.tpl", "corps");
                 $resident = 0;
-                if ($t_module["retourlogin"] == 1)
+                if ($t_module["retourlogin"] == 1) {
                     $vue->set($_REQUEST["module"], "module");
+                }
                 $message->set($LANG["login"][49]);
             } else {
                 /*
@@ -387,8 +406,9 @@ while (isset($module)) {
     } catch (Exception $e) {
         if ($OBJETBDD_debugmode > 0) {
             $message->set($log->getErrorData(1));
-        } else
+        } else {
             $message->set($LANG["message"][38]);
+        }
         $message->setSyslog($e->getMessage());
     }
     
@@ -401,8 +421,9 @@ while (isset($module)) {
         /*
          * Mise a niveau de la variable stockant le module precedemment appele
          */
-        if (! $isAjax)
+        if (! $isAjax) {
             $_SESSION["moduleBefore"] = $module;
+        }
         include $t_module["action"];
         unset($module);
         /*
@@ -418,6 +439,7 @@ while (isset($module)) {
                 case 1:
                 case 2:
                 case 3:
+                default:
                     $module = $t_module["retourok"];
                     break;
             }
@@ -462,15 +484,16 @@ if ($isHtml) {
     }
     
     $vue->set($_SESSION["menu"], "menu");
-    if (isset($_SESSION["login"]))
+    if (isset($_SESSION["login"])) {
         $vue->set(1, "isConnected");
+    }
     /*
      * Affichage de la page
      */
     /*
      * Alerte Mode developpement
      */
-    if ($APPLI_modeDeveloppement == true) {
+    if ($APPLI_modeDeveloppement) {
         $texteDeveloppement = $LANG["message"][32] . " : " . $BDD_dsn . ' - schema : ' . $BDD_schema;
         $vue->set($texteDeveloppement, "developpementMode");
     }

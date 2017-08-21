@@ -6,43 +6,44 @@
  *  Creation 3 juin 2015
  */
 include_once 'framework/droits/droits.class.php';
-$dataClass = new Acllogin($bdd_gacl,$ObjetBDDParam);
+$dataClass = new Acllogin($bdd_gacl, $ObjetBDDParam);
 $keyName = "acllogin_id";
 $id = $_REQUEST[$keyName];
 
 switch ($t_module["param"]) {
-	case "list":
+    case "list":
 		/*
 		 * Display the list of all records of the table
 		 */
-		$vue->set($dataClass->getListe(3) , "data");
-		$vue->set("droits/loginList.tpl" , "corps");
-		break;
-	case "change":
+		$vue->set($dataClass->getListe(3), "data");
+        $vue->set("droits/loginList.tpl", "corps");
+        break;
+    case "change":
 		/*
 		 * open the form to modify the record
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		$data = dataRead($dataClass, $id, "droits/loginChange.tpl");
-		if (strlen($data["login"]) > 0) 
-			$vue->set(  $dataClass->getListDroits($data["login"], $GACL_aco, $LDAP), "loginDroits");
-		break;
-	case "write":
+        if (strlen($data["login"]) > 0) {
+            $vue->set($dataClass->getListDroits($data["login"], $GACL_aco, $LDAP), "loginDroits");
+        }
+        break;
+    case "write":
 		/*
 		 * write record in database
 		 */
 		$id = dataWrite($dataClass, $_REQUEST);
-		if ($id > 0) {
-			$_REQUEST[$keyName] = $id;
-		}
-		break;
-	case "delete":
+        if ($id > 0) {
+            $_REQUEST[$keyName] = $id;
+        }
+        break;
+    case "delete":
 		/*
 		 * delete record
 		 */
 		dataDelete($dataClass, $id);
-		break;
+        break;
 }
 
 ?>

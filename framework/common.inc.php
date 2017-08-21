@@ -35,8 +35,9 @@ include_once ("vendor/smarty/smarty/libs/Smarty.class.php");
  */
 include_once ('plugins/objetBDD-3.5/ObjetBDD.php');
 include_once ('plugins/objetBDD-3.5/ObjetBDD_functions.php');
-if ($APPLI_utf8 == true)
+if ($APPLI_utf8) {
 	$ObjetBDDParam ["UTF8"] = true;
+}
 $ObjetBDDParam ["codageHtml"] = false;
 /**
  * Integration de la classe gerant la navigation dans les modules
@@ -87,8 +88,9 @@ if (! isset ( $_SESSION ['CREATED'] )) {
  */
 $cookieParam = session_get_cookie_params ();
 $cookieParam ["lifetime"] = $APPLI_session_ttl;
-if ($APPLI_modeDeveloppement == false)
+if (! $APPLI_modeDeveloppement ) {
 	$cookieParam ["secure"] = true;
+}
 $cookieParam ["httponly"] = true;
 setcookie ( session_name (), session_id (), time () + $APPLI_session_ttl, $cookieParam ["path"], $cookieParam ["domain"], $cookieParam ["secure"], $cookieParam ["httponly"] );
 
@@ -97,8 +99,9 @@ setcookie ( session_name (), session_id (), time () + $APPLI_session_ttl, $cooki
  */
 if (is_file ( $paramIniFile )) {
 	$paramAppli = parse_ini_file ( $paramIniFile );
-	foreach ( $paramAppli as $key => $value )
+	foreach ( $paramAppli as $key => $value ) {
 		$$key = $value;
+	}
 }
 /**
  * Integration des classes de gestion des vues et des messages
@@ -128,7 +131,7 @@ include_once 'framework/fonctions.php';
 /*
  * Gestion de la langue a afficher
  */
-if (isset ( $_SESSION ["LANG"] ) && $APPLI_modeDeveloppement == false) {
+if (isset ( $_SESSION ["LANG"] ) &&  ! $APPLI_modeDeveloppement) {
 	$LANG = $_SESSION["LANG"];
 } else {
 	/*
@@ -158,13 +161,14 @@ if (! isset ( $bdd )) {
 	try {
 		$bdd = new PDO ( $BDD_dsn, $BDD_login, $BDD_passwd );
 	} catch ( PDOException $e ) {
-		if ($APPLI_modeDeveloppement == true) {
+		if ($APPLI_modeDeveloppement) {
 			$message->set ( $e->getMessage () );
-		} else 
+		} else {
 			$message->setSyslog($e->getMessage());
+		}
 		$etaconn = false;
 	}
-	if ($etaconn == true) {
+	if ($etaconn ) {
 		/*
 		 * Mise en place du schema par defaut
 		 */
@@ -177,23 +181,26 @@ if (! isset ( $bdd )) {
 		try {
 			$bdd_gacl = new PDO ( $GACL_dsn, $GACL_dblogin, $GACL_dbpasswd );
 		} catch ( PDOException $e ) {
-			if ($APPLI_modeDeveloppement == true) {
+			if ($APPLI_modeDeveloppement) {
 				$message->set ( $e->getMessage () );
-			} else 
+			} else {
 				$message->setSyslog($e->getMessage());
+			}
 			$etaconn = false;
 		}
-		if ($etaconn == true) {
+		if ($etaconn) {
 			/*
 			 * Mise en place du schema par defaut
 			 */
-			if (strlen ( $GACL_schema ) > 0)
+			if (strlen ( $GACL_schema ) > 0) {
 				$bdd_gacl->exec ( "set search_path = " . $GACL_schema );
+			}
 		} else {
 			$message->set ( $LANG ["message"] [29] );
 		}
-	} else
+	} else {
 		$message->set ( $LANG ["message"] [22] );
+	}
 }
 /*
  * Activation de la classe d'enregistrement des traces
@@ -226,13 +233,14 @@ if (isset ( $_SESSION ["remoteIP"] )) {
 			$message->set ( $LANG ["message"] [8] );
 		}
 	}
-} else
+} else {
 	$_SESSION ["remoteIP"] = $ipaddress;
+}
 
 /*
  * Preparation du module de gestion de la navigation
  */
-if (isset ( $_SESSION ["navigation"] ) && $APPLI_modeDeveloppement == false) {
+if (isset ( $_SESSION ["navigation"] ) && ! $APPLI_modeDeveloppement == false) {
 	$navigation = $_SESSION ['navigation'];
 } else {
 	$navigation = new Navigation ( $navigationxml );
@@ -245,14 +253,7 @@ if (isset ( $_SESSION ["navigation"] ) && $APPLI_modeDeveloppement == false) {
 include_once 'modules/fonctions.php';
 
 include_once 'framework/functionsDebug.php';
-/*
- * Preparation du menu
- */
-/*if (! isset ( $_SESSION ["menu"] ) || $APPLI_modeDeveloppement == true) {
-	include_once 'framework/navigation/menu.class.php';
-	$menu = new Menu ( $APPLI_menufile, $LANG );
-	$_SESSION ["menu"] = $menu->generateMenu ();
-}*/
+
 /*
  * Chargement des traitements communs specifiques a l'application
  */

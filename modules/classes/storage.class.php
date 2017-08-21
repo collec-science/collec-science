@@ -6,16 +6,14 @@
  * Copyright 2016 - All rights reserved
  */
 require_once 'modules/classes/container.class.php';
-
-class Storage extends ObjetBDD
-{
-
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
-    private $sql = "select s.uid, container_id, movement_type_id, movement_type_name,
+class StorageException extends Exception{}
+class Storage extends ObjetBDD {
+	/**
+	 *
+	 * @param PDO $bdd        	
+	 * @param array $param        	
+	 */
+	private $sql = "select s.uid, container_id, movement_type_id, movement_type_name,
 					storage_date, storage_location, login, storage_comment,
 					identifier, o.uid as parent_uid, o.identifier as parent_identifier,
 					container_type_id, container_type_name,

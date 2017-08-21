@@ -12,8 +12,9 @@ $id = $_REQUEST[$keyName];
 
 switch ($t_module["param"]) {
     case "isLost":
-        if ($APPLI_lostPassword == 1)
+        if ($APPLI_lostPassword == 1) {
             $vue->set("ident/identMailInput.tpl", "corps");
+        }
         break;
     case "sendMail":
         $module_coderetour = 1;
@@ -109,8 +110,9 @@ switch ($t_module["param"]) {
                 $message->set($e->getMessage());
                 $message->setSyslog($e->getMessage());
             }
-        } else 
+        } else {
             $module_coderetour = 1;
+        }
         
         break;
 }

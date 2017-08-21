@@ -6,6 +6,9 @@
  *
  * Classe maîtrisant les aspects identification.
  */
+class IdentificationException extends Exception
+{
+}
 
 /**
  * @class Identification
@@ -113,7 +116,6 @@ class Identification
         phpCAS::setDebug();
         phpCAS::setVerbose($true);
         phpCAS::client(CAS_VERSION_2_0, $this->CAS_address, $this->CAS_port, $this->CAS_uri);
-        // if (phpCAS::isAuthenticated()==FALSE) {
         phpCAS::forceAuthentication();
         $login = phpCAS::getUser();
         return $login;
@@ -146,12 +148,16 @@ class Identification
                 $char = substr($login, $i, 1);
                 if (ord($char) < 32) {
                     $hex = dechex(ord($char));
-                    if (strlen($hex) == 1)
+                    if (strlen($hex) == 1) {
                         $hex = '0' . $hex;
+                    }
                     $login = str_replace($char, '\\' . $hex, $login);
                 }
             }
-            $ldap = @ldap_connect($this->LDAP_address, $this->LDAP_port) or die("Impossible de se connecter au serveur LDAP.");
+            $ldap = @ldap_connect($this->LDAP_address, $this->LDAP_port);
+            if (! $ldap) {
+                throw new LdapException("Impossible de se connecter au serveur LDAP.");
+            }
             if ($this->LDAP_v3) {
                 ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
             }
@@ -247,8 +253,9 @@ class Identification
     function getgacl($aco)
     {
         $login = $this->getLogin();
-        if ($login == - 1)
+        if ($login == - 1) {
             return - 1;
+        }
         return $this->gacl->acl_check($this->aco, $aco, $this->aro, $login);
     }
 
@@ -351,8 +358,9 @@ class Identification
         /*
          * Si le nombre total d'essais a ete atteint, le login est refuse
          */
-        if (! $verify)
+        if (! $verify) {
             $login = "";
+        }
         return $login;
     }
 
@@ -383,7 +391,7 @@ class LoginGestion extends ObjetBDD
 {
 
     //
-    function LoginGestion($link, $param = array())
+    function __construct($link, $param = array())
     {
         $this->table = "logingestion";
         $this->id_auto = 1;
@@ -429,11 +437,10 @@ class LoginGestion extends ObjetBDD
      */
     function controlLogin($login, $password)
     {
-        global $log, $LOG_duree;
+        global $log;
         $retour = false;
         if (strlen($login) > 0 && strlen($password) > 0) {
             $login = $this->encodeData($login);
-            // $password = md5($password);
             $password = hash("sha256", $password . $login);
             $sql = "select login from LoginGestion where login ='" . $login . "' and password = '" . $password . "' and actif = 1";
             $res = ObjetBDD::lireParam($sql);
@@ -467,8 +474,9 @@ class LoginGestion extends ObjetBDD
     function ecrire($data)
     {
         if (isset($data["pass1"]) && isset($data["pass2"]) && $data["pass1"] == $data["pass2"]) {
-            if ($this->controleComplexite($data["pass1"]) > 2 && strlen($data["pass1"]) > 9)
+            if ($this->controleComplexite($data["pass1"]) > 2 && strlen($data["pass1"]) > 9) {
                 $data["password"] = hash("sha256", $data["pass1"] . $data["login"]);
+            }
         }
         $data["datemodif"] = date('d-m-y');
         return parent::ecrire($data);
@@ -526,23 +534,27 @@ class LoginGestion extends ObjetBDD
         
         return $retour;
     }
+
     /**
      * Calcule le hash d'un mot de passe
+     * 
      * @param string $login
      * @param string $password
      * @throws Exception
      * @return string
      */
-    function passwordHash ($login, $password) {
-        if (strlen ($login) == 0 || strlen($password) == 0) {
-            throw new Exception("password hashing not possible");
-        } else
-        return hash("sha256", $password . $login);
+    function passwordHash($login, $password)
+    {
+        if (strlen($login) == 0 || strlen($password) == 0) {
+            throw new IdentificationException("password hashing not possible");
+        } else {
+            return hash("sha256", $password . $login);
+        }
     }
 
     /**
      * Declenche le changement de mot de passe apres perte
-     * 
+     *
      * @param string $login
      * @param string $pass1
      * @param string $pass2
@@ -550,7 +562,6 @@ class LoginGestion extends ObjetBDD
      */
     function changePasswordAfterLost($login, $pass1, $pass2)
     {
-        global $log, $LANG, $message;
         $retour = 0;
         if (strlen($login) > 0) {
             if ($this->passwordVerify($login, $pass1, $pass2)) {
@@ -562,7 +573,7 @@ class LoginGestion extends ObjetBDD
 
     /**
      * Ecrit le nouveau mot de passe en base de donnees
-     * 
+     *
      * @param string $login
      * @param string $pass
      * @return number
@@ -664,17 +675,20 @@ class LoginGestion extends ObjetBDD
         );
         for ($i = 0; $i < $long; $i ++) {
             $car = substr($password, $i, 1);
-            if ($type["min"] == 0)
+            if ($type["min"] == 0) {
                 $type["min"] = preg_match("/[a-z]/", $car);
-            if ($type["maj"] == 0)
+            }
+            if ($type["maj"] == 0) {
                 $type["maj"] = preg_match("/[A-Z]/", $car);
-            if ($type["chiffre"] == 0)
+            }
+            if ($type["chiffre"] == 0) {
                 $type["chiffre"] = preg_match("/[0-9]/", $car);
-            if ($type["other"] == 0)
+            }
+            if ($type["other"] == 0) {
                 $type["other"] = preg_match("/[^0-9a-zA-Z]/", $car);
+            }
         }
-        $complexite = $type["min"] + $type["maj"] + $type["chiffre"] + $type["other"];
-        return $complexite;
+        return $type["min"] + $type["maj"] + $type["chiffre"] + $type["other"];
     }
 
     /**
@@ -699,11 +713,10 @@ class LoginGestion extends ObjetBDD
      */
     function getFromMail($mail)
     {
-        
         $mail = $this->encodeData($mail);
         if (strlen($mail) > 0) {
             $sql = "select id, nom, prenom, login, mail, actif ";
-            $sql .= " from ".$this->table;
+            $sql .= " from " . $this->table;
             $sql .= " where mail = :mail";
             $sql .= " order by id desc limit 1";
             return $this->lireParamAsPrepared($sql, array(
@@ -776,12 +789,14 @@ class Log extends ObjetBDD
         if (is_null($login)) {
             if (! is_null($_SESSION["login"]))
                 $login = $_SESSION["login"];
-            else
+            else {
                 $login = "unknown";
+            }
         }
         $data["login"] = $login;
-        if (is_null($module))
+        if (is_null($module)) {
             $module = "unknown";
+        }
         $data["nom_module"] = $GACL_aco . "-" . $module;
         $data["log_date"] = date("d/m/Y H:i:s");
         $data["ipaddress"] = $this->getIPClientAddress();
@@ -819,8 +834,9 @@ class Log extends ObjetBDD
              */
         } else if (isset($_SERVER["REMOTE_ADDR"])) {
             return $_SERVER["REMOTE_ADDR"];
-        } else
+        } else {
             return - 1;
+        }
     }
 
     /**
@@ -836,8 +852,7 @@ order by log_id desc limit 2";
             $data = $this->getListeParamAsPrepared($sql, array(
                 "login" => $_SESSION["login"]
             ));
-            $last = $data[1];
-            return $last;
+            return $data[1];
         }
     }
 
@@ -886,9 +901,9 @@ order by log_id desc limit 2";
             "login" => $login,
             "blockingdate" => $date->format("Y-m-d H:i:s")
         ));
-        if ($data["log_id"] > 0)
+        if ($data["log_id"] > 0) {
             $accountBlocking = true;
-        
+        }
         if (! $accountBlocking) {
             $sql = "select log_date, commentaire from log where login = :login 
                     and nom_module like '%connexion'
@@ -915,8 +930,9 @@ order by log_id desc limit 2";
                  * Verrouillage du compte
                  */
                 $this->blockingAccount($login);
-            } else
+            } else {
                 $is_blocked = false;
+            }
         }
         return $is_blocked;
     }
@@ -961,7 +977,7 @@ order by log_id desc limit 2";
             $lastDate->sub($interval);
             $mail = new Mail($MAIL_param);
             $loginGestion = new LoginGestion($this->connection, $this->paramori);
-            foreach ($logins as $key => $value) {
+            foreach ($logins as $value) {
                 $admin = $value["login"];
                 $dataLogin = $loginGestion->lireByLogin($admin);
                 if (strlen($dataLogin["mail"]) > 0) {

@@ -6,6 +6,10 @@
  * Encoding : UTF-8
  * Copyright 2017 - All rights reserved
  */
+class PasswordException extends Exception
+{
+}
+
 class Passwordlost extends ObjetBDD
 {
 
@@ -71,12 +75,15 @@ class Passwordlost extends ObjetBDD
                         $data["token"] = $this->generateToken();
                         $data["expiration"] = date("Y-m-d H:i:s", time() + $duree_token);
                         $this->ecrire($data);
-                    } else
-                        throw new Exception("Account not active");
-                } else
-                    throw new Exception("Account not allowed to reset password");
-            } else
-                throw new Exception("Account not found from mail");
+                    } else {
+                        throw new PasswordException("Account not active");
+                    }
+                } else {
+                    throw new PasswordException("Account not allowed to reset password");
+                }
+            } else {
+                throw new PasswordException("Account not found from mail");
+            }
         }
         return $data;
     }
@@ -103,13 +110,15 @@ class Passwordlost extends ObjetBDD
             
             if ($data["passwordlost_id"] > 0) {
                 if ($data["actif"] == 0) {
-                    throw new Exception("account desactivated");
+                    throw new PasswordException("account desactivated");
                 }
                 return $data;
-            } else
-                throw new Exception("token not found");
-        } else
-            throw new Exception("token empty");
+            } else {
+                throw new PasswordException("token not found");
+            }
+        } else {
+            throw new PasswordException("token empty");
+        }
     }
 
     /**

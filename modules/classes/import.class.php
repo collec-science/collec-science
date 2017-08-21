@@ -15,17 +15,17 @@
 class FichierException extends Exception
 {
 }
-;
+
 
 class HeaderException extends Exception
 {
 }
-;
+
 
 class ImportException extends Exception
 {
 }
-;
+
 
 /**
  * Classe realisant l'import

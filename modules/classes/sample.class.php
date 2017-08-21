@@ -5,6 +5,8 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
+class SampleException extends Exception{}
+
 class Sample extends ObjetBDD {
 	/**
 	 *
@@ -141,7 +143,7 @@ class Sample extends ObjetBDD {
 				return $uid;
 			}
 		} else
-			throw new Exception ( $LANG ["appli"] [4] );
+			throw new SampleException ( $LANG ["appli"] [4] );
 		return - 1;
 	}
 	

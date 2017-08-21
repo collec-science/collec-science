@@ -8,8 +8,9 @@ if (isset ( $_SESSION ["login"] )) {
 	try {
 	$_SESSION ["droits"] = $acllogin->getListDroits ( $_SESSION ["login"], $GACL_aco, $LDAP );
 	} catch (Exception $e) {
-		if ($APPLI_modeDeveloppement)
+		if ($APPLI_modeDeveloppement) {
 			$message->set($e->getMessage());
+		}
 		$message->setSyslog($e->getMessage());
 	}
 }

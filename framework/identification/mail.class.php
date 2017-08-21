@@ -6,6 +6,7 @@
  * @license http://www.cecill.info/licences/Licence_CeCILL-C_V1-fr.html LICENCE DE LOGICIEL LIBRE CeCILL-C
  *  Creation 30 sept. 2015
  */
+class MailException extends Exception{}
 class Mail
 {
 
@@ -36,8 +37,9 @@ class Mail
     function setParam(array $param)
     {
         foreach ($param as $key => $value) {
-            if (isset($this->param[$key]))
+            if (isset($this->param[$key])) {
                 $this->param[$key] = $value;
+            }
         }
     }
 
@@ -58,8 +60,9 @@ class Mail
         
         $message = wordwrap($message, 70, PHP_EOL);
         return mail($dest, $subject, $message, $this->getHeaders());
-        } else 
-            throw  new Exception("Mail->sendMail : no recipient address");
+        } else {
+            throw  new MailException("Mail->sendMail : no recipient address");
+        }
     }
 
     /**
@@ -72,8 +75,7 @@ class Mail
         /*
          * Preparation de l'entete
          */
-        $headers = 'Content-type: text/html; charset=UTF-8' . PHP_EOL . 'From: ' . $this->param["from"] . PHP_EOL . 'Reply-To: ' . $this->param["replyTo"];
-        return $headers;
+        return 'Content-type: text/html; charset=UTF-8' . PHP_EOL . 'From: ' . $this->param["from"] . PHP_EOL . 'Reply-To: ' . $this->param["replyTo"];
     }
 }
 ?>

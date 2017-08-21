@@ -257,17 +257,20 @@ class Import
                  * Debut d'ecriture en table
                  */
                 try {
+                    $sample_uid = $this->sample->ecrire($dataSample);
+                    $ds = $this->sample->lire($sample_uid);
                     /*
                      * Traitement des métadonnées
                      */
                     if (strlen($values["sample_metadata_json"]) > 0) {
                         $dataMetadata = array(
-                            "data" => $values["sample_metadata_json"]
+                            "data" => $values["sample_metadata_json"],
+                            "sample_id" => $ds["sample_id"]
                         );
-                        $sample_metadata_id = $this->sampleMetadata->ecrire($dataMetadata);
-                        $dataSample["sample_metadata_id"] = $sample_metadata_id;
+                        $this->sampleMetadata->ecrire($dataMetadata);
                     }
-                    $sample_uid = $this->sample->ecrire($dataSample);
+                    
+                    
                     /*
                      * Traitement des identifiants complementaires
                      */

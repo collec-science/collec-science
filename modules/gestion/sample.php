@@ -161,6 +161,7 @@ switch ($t_module ["param"]) {
 
 		if ($_REQUEST["sample_metadata_id"] > 0){
 			$data["sample_metadata_id"] = $_REQUEST["sample_metadata_id"];
+		
 		}
 
 		$idmetadata = $metadata->ecrire($data);
@@ -168,6 +169,15 @@ switch ($t_module ["param"]) {
 		
 		$id = dataWrite ( $dataClass, $_REQUEST );
 		if ($id > 0) {
+		    if ($_REQUEST["sample_metadata_id"] > 0){
+		        $ds = $dataClass->lire($id);
+		        $_REQUEST["sample_id"] = $ds["sample_id"];
+		        require_once 'modules/classes/sampleMetadata.class.php';
+		        $metadata = new SampleMetadata($bdd, $ObjetBDDParam);
+		        $metadata->ecrire ($_REQUEST);
+		    }
+		    
+		    
 			$_REQUEST [$keyName] = $id;
 		}
 		break;

@@ -2,40 +2,47 @@
 
 <script type="text/javascript">
 function loadSchema(){
-    var $metadataFormId = document.getElementById("copySchema").value;
-    {section name=lst loop=$metadata}
-        if ($metadataFormId == {$metadata[lst].metadata_form_id}){
-            var $schemaCopy = "{$metadata[lst].metadata_schema}";
-            $schemaCopy = $schemaCopy.replace(/&quot;/g,'"');
-            $schemaCopy = JSON.parse($schemaCopy);
+    var metadataFormId = $("#copySchema").val();
+    {section name=lst loop=$operations}
+        if (metadataFormId == {$operations[lst].operation_id}){
+            var schemaCopy = "{$operations[lst].metadata_schema}";
+            schemaCopy = schemaCopy.replace(/&quot;/g,'"');
+            schemaCopy = JSON.parse(schemaCopy);
+            
 
             $("#metadata").alpaca("destroy");
-            renderForm($schemaCopy);
+            renderForm(schemaCopy);
         }
     {/section}
 }
 
 $(document).ready(function() {
 
-        var $metadataParse="";
-        {section name=lst loop=$metadata}
-        {if $metadata[lst].metadata_form_id == $data.metadata_form_id}
-        $metadataParse = "{$metadata[lst].metadata_schema}";
-        $metadataParse = $metadataParse.replace(/&quot;/g,'"');
-        $metadataParse = JSON.parse($metadataParse);
+        var metadataParse="";
+        {section name=lst loop=$operations}
+        {if $operations[lst].operation_id == $data.operation_id}
+        metadataParse = "{$operations[lst].metadata_schema}";
+        if (metadataParse.length > 0) {
+        metadataParse = metadataParse.replace(/&quot;/g,'"');
+        metadataParse = JSON.parse(metadataParse);
+        }
         {/if}
         {/section}
         
-        renderForm($metadataParse);
+        renderForm(metadataParse);
 
         $('#operationForm').submit(function() {
+        	console.log("write");
             if(document.getElementsByName("action")[0].value=="Write"){
-                $('#metadata').alpaca().refreshValidationState(true)
+                $('#metadata').alpaca().refreshValidationState(true);
                 if(!$('#metadata').alpaca().isValid(true)){
                     alert("La définition des métadonnées n'est pas valide.")
                     return false;
                 }
             }
+            $("#metadata_schema").val($("#metadata").val());
+            console.log ("test ecriture");
+            console.log ($("#metadata").val());
             return true;
         });
         
@@ -56,13 +63,12 @@ $(document).ready(function() {
 <div class="col-md-6">
 <a href="index.php?module=operationList">{$LANG.appli.1}</a>
 
-<form class="form-horizontal protoform" id="operationForm" method="post" action="index.php" >
+<form class="form-horizontal protoform" id="operationForm" method="post" action="index.php" enctype="multipart/form-data">
 {if $nbSample > 0}<fieldset disabled>{/if}
 <input type="hidden" name="moduleBase" value="operation">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="operation_id" value="{$data.operation_id}">
-<input type="hidden" name="metadata_form_id" value="{$data.metadata_form_id}">
-<input type="hidden" name="metadataField" id="metadataField">
+<input type="hidden" name="metadata_schema" id="metadata_schema">
 <div class="form-group">
 <label for="protocolId"  class="control-label col-md-4">Protocole<span class="red">*</span> :</label>
 <div class="col-md-8">
@@ -79,7 +85,7 @@ $(document).ready(function() {
 <div class="form-group">
 <label for="operationName"  class="control-label col-md-4">Nom de l'opération<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="operationName" type="text" class="form-control" name="operation_name" value="{if $operation_pere_id>0}{section name=lst loop=$operations}{if $operations[lst].operation_id == $operation_pere_id}{$operations[lst].operation_name}{/if}{/section}{else}{$data.operation_name}{/if}" required>
+<input id="operationName" type="text" class="form-control" name="operation_name" value="{if $operation_pere_id>0}{section name=lst loop=$operations}{if $operations[lst].operation_id == $operation_pere_id}{$operations[lst].operation_name}{/if}{/section}{else}{$data.operation_name}{/if}" required autofocus>
 </div>
 </div>
 
@@ -103,10 +109,10 @@ $(document).ready(function() {
 <div class="form-group">
     <label for="copySchema"  class="control-label col-md-4">Partir d'un schéma existant :</label>
     <div class="col-md-8">
-    <select id="copySchema" name="copySchema" class="form-control" onChange="loadSchema()" autofocus>
+    <select id="copySchema" name="copySchema" class="form-control" onChange="loadSchema()" >
     <option disabled selected value >{$LANG["appli"][2]}</option>
     {section name=lst loop=$operations}
-    <option value="{$operations[lst].metadata_form_id}">
+    <option value="{$operations[lst].operation_id}">
     {$operations[lst].operation_name}
     </option>
     {/section}

@@ -29,8 +29,8 @@ function updateForm(){
         {/if}
 
 
-        {if $data.data != ""}
-        $dataParse = "{$data.data}";
+        {if $data.metdadata != ""}
+        $dataParse = "{$data.metadata}";
         $dataParse = $dataParse.replace(/&quot;/g,'"');
         $dataParse = $dataParse.replace(/\n/g,"\\n");
         $dataParse = JSON.parse($dataParse);
@@ -101,8 +101,7 @@ Retour à la liste des échantillons
 <input type="hidden" name="moduleBase" value="sample">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="parent_sample_id" value="{$data.parent_sample_id}">
-<input type="hidden" name="sample_metadata_id" value="{$data.sample_metadata_id}">
-<input type="hidden" name="metadataField" id="metadataField">
+<input type="hidden" name="metadata" id="metadata">
 
 {include file="gestion/uidChange.tpl"}
 

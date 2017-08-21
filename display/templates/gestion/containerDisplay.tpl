@@ -135,7 +135,7 @@ Nouveau conteneur associé
 </fieldset>
 
 {if $nblignes > 1 || $nbcolonnes > 1}
-<fieldset class="col-md-8" id="occupation">
+<fieldset class="col-md-12" id="occupation">
 <legend>Répartition des objets dans le container</legend>
 {include file="gestion/containerDisplayOccupation.tpl"}
 </fieldset>

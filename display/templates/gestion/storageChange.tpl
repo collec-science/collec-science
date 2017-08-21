@@ -182,7 +182,7 @@ Retour au détail
 			<div class="form-group">
 				<label for="column_number" class="control-label col-sm-4">N° de colonne :</label>
 				<div class="col-sm-8">
-					<input id="column_number" name="storage_location"
+					<input id="column_number" name="column_number"
 						value="{$data.column_number}" class="form-control nombre" title="N° de la colonne de rangement dans le container">
 				</div>
 			</div>

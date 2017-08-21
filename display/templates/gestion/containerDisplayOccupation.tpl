@@ -15,7 +15,7 @@
 </tr>
 {foreach $containerOccupation as $line}
 <tr>
-<td class="center">{$ln}</td>
+<td class="center"><b>{$ln}</b></td>
 {$ln = $ln + $incr}
 {foreach $line as $obj}
 <td class="center">

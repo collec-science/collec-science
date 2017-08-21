@@ -20,7 +20,7 @@
 {foreach $line as $obj}
 <td class="center">
 {if $obj["uid"] > 0}
-<a href="index.php?module={if $obj['type'] == 'C'}container{else}sample{/if}Display&uid={$obj['uid']}">{$obj["identifier"]}</a>
+<a href="index.php?module={if $obj['type'] == 'C'}container{else}sample{/if}Display&uid={$obj['uid']}">{$obj["uid"]} {$obj["identifier"]}</a>
 {else}
 &nbsp;
 {/if}

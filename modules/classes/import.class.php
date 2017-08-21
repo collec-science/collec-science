@@ -233,6 +233,14 @@ class Import
                 throw new ImportException("Line $num : " . $resControle["message"]);
             }
             /*
+             * Mise a defaut des champs obligatoires non renseignes
+             */
+            foreach (array("sample_line", "sample_column", "container_column", "container_line") as $field) {
+                if (! strlen($values[$field]) > 0) {
+                    $values[$field] = 1;
+                }
+            }
+            /*
              * Traitement de l'echantillon
              */
             $sample_uid = 0;
@@ -318,7 +326,7 @@ class Import
                     if ($container_uid > $maxuid)
                         $maxuid = $container_uid;
                 } catch (PDOException $pe) {
-                    throw new ImportException("Line $num : error when import container<br>" . $pe->getMessage());
+                    throw new ImportException("Line $num : error when import container - " . $pe->getMessage());
                 }
                 /*
                  * Traitement du rattachement du container
@@ -327,7 +335,7 @@ class Import
                     try {
                         $this->storage->addMovement($container_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["container_location"], null, null, $values["container_column"], $values["container_line"]);
                     } catch (Exception $e) {
-                        throw new ImportException("Line $num : error when create input movement for container<br>" . $e->getMessage());
+                        throw new ImportException("Line $num : error when create input movement for container - " . $e->getMessage());
                     }
                 }
             }

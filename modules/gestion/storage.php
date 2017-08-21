@@ -99,7 +99,7 @@ switch ($t_module ["param"]) {
 		break;
 	case "fastInputWrite" :
 		try {
-			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 1, $_REQUEST ["container_uid"], $_SESSION ["login"], $_REQUEST ["storage_location"], $_REQUEST ["storage_comment"] );
+			$dataClass->addMovement ( $_REQUEST ["object_uid"], $_REQUEST ["storage_date"], 1, $_REQUEST ["container_uid"], $_SESSION ["login"], $_REQUEST ["storage_location"], $_REQUEST ["storage_comment"], $_REQUEST["column"], $_REQUEST["line"] );
 			$message->set ( $LANG ["message"] [5] );
 			$module_coderetour = 1;
 		} catch ( Exception $e ) {
@@ -168,7 +168,7 @@ switch ($t_module ["param"]) {
 				}
 				if (($sens == 1 && $uid_container > 0) || $sens == 2) {
 					$sens == 1 ? $uic = $uid_container : $uic = "";
-					$dataClass->addMovement ( $uid, $date, $sens, $uic, $_SESSION ["login"], null, null, $_REQUEST ["storage_reason_id"] );
+					$dataClass->addMovement ( $uid, $date, $sens, $uic, $_SESSION ["login"], null, null, $_REQUEST ["storage_reason_id"], $_REQUEST["column".$uid], $_REQUEST["line"].$uid );
 					$nb ++;
 				}
 			}

@@ -27,7 +27,8 @@ class Sample extends ObjetBDD {
 					s.sample_metadata_id, data,
 					document_id, identifiers,
 					storage_date, movement_type_name, movement_type_id,
-					sp.sampling_place_id, sp.sampling_place_name
+					sp.sampling_place_id, sp.sampling_place_name,
+                    lm.line_number, lm.column_number
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join project p on (p.project_id = s.project_id)

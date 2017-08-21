@@ -56,12 +56,28 @@
 
 			<div class="form-group">
 				<label for="storage_location" class="control-label col-sm-4">Emplacement
-					dans le container :</label>
+					dans le container (format libre) :</label>
 				<div class="col-sm-8">
 					<input id="storage_location" name="storage_location"
 						value="{$data.storage_location}" class="form-control">
 				</div>
 			</div>
+			<div class="form-group">
+				<label for="line_number" class="control-label col-sm-4">N° de ligne :</label>
+				<div class="col-sm-8">
+					<input id="line_number" name="line_number"
+						value="{$data.line_number}" class="form-control nombre" title="N° de la ligne de rangement dans le container">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="column_number" class="control-label col-sm-4">N° de colonne :</label>
+				<div class="col-sm-8">
+					<input id="column_number" name="storage_location"
+						value="{$data.column_number}" class="form-control nombre" title="N° de la colonne de rangement dans le container">
+				</div>
+			</div>
+			
+			
 
 			<div class="form-group">
 				<label for="storage_date" class="control-label col-sm-4">Date/heure<span

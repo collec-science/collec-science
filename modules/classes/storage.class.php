@@ -71,10 +71,14 @@ class Storage extends ObjetBDD {
                 "type" => 0
             ),
             "column_number" => array(
-                "type" => 1
+                "type" => 1,
+                "requis" => 1,
+                "defaultValue" => 1
             ),
             "line_number" => array(
-                "type" => 1
+                "type" => 1,
+                "requis" => 1,
+                "defaultValue" => 1                
             )
         );
         parent::__construct($bdd, $param);
@@ -142,7 +146,7 @@ class Storage extends ObjetBDD {
                 $this->lastResultExec = false;
                 if ($this->debug_mode > 0)
                     $this->addMessage($e->getMessage());
-                throw new Exception($e->getMessage());
+                throw new StorageException($e->getMessage());
             }
         }
     }
@@ -151,13 +155,13 @@ class Storage extends ObjetBDD {
      * Fonction generique permettant de rajouter des mouvements
      *
      * @param int $uid
-     * @param timestamp $date
+     * @param DateTime $date
      * @param int $type
      * @param number $container_uid
-     * @param varchar $login
-     * @param varchar $storage_location
-     * @param varchar $comment
-     * @return Identifier
+     * @param string $login
+     * @param string $storage_location
+     * @param string $comment
+     * @return int
      */
     function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $storage_location = null, $comment = null, $storage_reason_id = null, $column_number = null, $line_number = null)
     {
@@ -217,7 +221,7 @@ class Storage extends ObjetBDD {
             /*
              * Gestion des erreurs
              */
-            throw new Exception($message);
+            throw new StorageException($message);
     }
 
     /**

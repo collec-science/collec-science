@@ -34,6 +34,35 @@
 </div>
 
 <div class="form-group">
+<label for="lines"  class="control-label col-md-4">Nb de lignes :</label>
+<div class="col-md-8">
+<input id="lines" name="lines" value="{$data.lines}" class="nombre form-control">
+</div>
+</div>
+<div class="form-group">
+<label for="columns"  class="control-label col-md-4">Nb de colonnes :</label>
+<div class="col-md-8">
+<input id="columns" name="columns" value="{$data.columns}" class="nombre form-control">
+</div>
+</div>
+<div class="form-group">
+<label for="columns"  class="control-label col-md-4">Position de la première ligne :</label>
+<div class="col-md-8">
+<div class="radio">
+<label>
+<input type="radio" name="first_line" id="first_line_t" value="T" {if $data.first_line == "T"}checked{/if}>
+En haut
+</label>
+<label>
+<input type="radio" name="first_line" id="first_line_b" value="B" {if $data.first_line == "B"}checked{/if}>
+En bas
+</label>
+
+</div>
+</div>
+</div>
+
+<div class="form-group">
 <label for="storageConditionId" class="control-label col-md-4">Condition de stockage :</label>
 <div class="col-md-8">
 <select id="storageConditionId" name="storage_condition_id" class="form-control">

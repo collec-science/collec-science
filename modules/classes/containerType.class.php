@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created : 2 juin 2016
  * Creator : quinton
@@ -62,6 +63,11 @@ class ContainerType extends ObjetBDD
                 "type" => 1,
                 "requis" => 1,
                 "defaultValue" => 1
+            ),
+            "first_line" => array(
+                "type" => 0,
+                "requis" => 1,
+                "defaultValue" => "T"
             )
         );
         parent::__construct($bdd, $param);

@@ -167,11 +167,26 @@ Retour au détail
 </div>
 {if $data.movement_type_id == 1}
 <div class="form-group">
-<label for="storage_location" class="control-label col-md-4">Emplacement dans le conteneur :</label>
+<label for="storage_location" class="control-label col-md-4">Emplacement dans le conteneur (format libre) :</label>
 <div class="col-md-8">
 <input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 </div>
 </div>
+			<div class="form-group">
+				<label for="line_number" class="control-label col-sm-4">N° de ligne :</label>
+				<div class="col-sm-8">
+					<input id="line_number" name="line_number"
+						value="{$data.line_number}" class="form-control nombre" title="N° de la ligne de rangement dans le container">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="column_number" class="control-label col-sm-4">N° de colonne :</label>
+				<div class="col-sm-8">
+					<input id="column_number" name="storage_location"
+						value="{$data.column_number}" class="form-control nombre" title="N° de la colonne de rangement dans le container">
+				</div>
+			</div>
+
 {/if}
 {if $data.movement_type_id == 2}
 			<div class="form-group">

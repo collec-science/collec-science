@@ -53,6 +53,8 @@
 						<th>Type détaillé</th>
 						<th>Conteneur<br>(pour entrée)
 						</th>
+						<th>N° ligne<br>(entrée)</th>
+						<th>N° colonne<br>(entrée)</th>
 						<th>Entrée</th>
 						<th>Sortie</th>
 						<th>Ne rien faire</th>
@@ -69,6 +71,13 @@
 						<td class="center"><input type="checkbox"
 							name="container{$data[lst].uid}" value="1"
 							{if $data[lst].object_type=="container"}checked{/if}></td>
+						<td class="center">
+						<input class="nombre" name="line{$data[lst].uid}">
+						</td>
+						<td class="center">
+						<input class="nombre" name="column{$data[lst].uid}">
+						</td>
+						
 						<td class="center"><input class="entree" type="radio"
 							name="mvt{$data[lst].uid}" value="1"
 							{if $data[lst].object_type=="sample"}checked{/if}></td>

@@ -128,14 +128,24 @@ Nouveau conteneur associé
 </a>
 {include file="gestion/containerListDetail.tpl"}
 </fieldset>
-<fieldset class="col-md-12" id="documents">
-<legend>Documents associés</legend>
-{include file="gestion/documentList.tpl"}
-</fieldset>
+
 <fieldset class="col-md-12" id="echantillons">
 <legend>Échantillons présents</legend>
 {include file="gestion/sampleListDetail.tpl"}
 </fieldset>
+
+{if $nblignes > 1 || $nbcolonnes > 1}
+<fieldset class="col-md-8" id="occupation">
+<legend>Répartition des objets dans le container</legend>
+{include file="gestion/containerDisplayOccupation.tpl"}
+</fieldset>
+{/if}
+
+<fieldset class="col-md-12" id="documents">
+<legend>Documents associés</legend>
+{include file="gestion/documentList.tpl"}
+</fieldset>
+
 <fieldset class="col-md-12" id="bookings">
 <legend>Réservations</legend>
 {include file="gestion/bookingList.tpl"}

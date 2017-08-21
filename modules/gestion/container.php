@@ -54,8 +54,17 @@ switch ($t_module ["param"]) {
 		/*
 		 * Recuperation des conteneurs et des échantillons contenus
 		 */
-		$vue->set ( $dataClass->getContentContainer ( $data ["uid"] ), "containers" );
-		$vue->set ( $dataClass->getContentSample ( $data ["uid"] ), "samples" );
+		$dcontainer = $dataClass->getContentContainer ( $data ["uid"] );
+		$dsample = $dataClass->getContentSample ( $data ["uid"] );
+		$vue->set ( $dcontainer, "containers" );
+		$vue->set ($dsample , "samples" );
+		/*
+		 * Preparation du tableau d'occupation du container
+		 */
+		$vue->set($dataClass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"]), "containerOccupation");
+		$vue->set($data["lines"], "nblignes");
+		$vue->set($data["columns"], "nbcolonnes");
+		$vue->set($data["first_line"], "first_line");
 		/*
 		 * Recuperation des evenements
 		 */

@@ -13,6 +13,7 @@
 <th>Id</th>
 <th>Famille</th>
 <th>Description</th>
+<th>Nbre<br>d'emplacements</th>
 <th>Condition de stockage</th>
 <th>Produit utilisé</th>
 <th>Code CLP (risque)</th>
@@ -36,6 +37,16 @@
 {$data[lst].container_family_name}
 </td>
 <td class="textareaDisplay">{$data[lst].container_type_description}</td>
+<td>
+L : {$data[lst].lines} C : {$data[lst].columns}
+{if $data[lst].lines > 1}
+<br>
+1ère ligne : 
+{if $data[lst].first_line == "T"}haut
+{else}bas
+{/if}
+{/if}
+</td>
 
 <td>
 {$data[lst].storage_condition_name}

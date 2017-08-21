@@ -15,7 +15,8 @@ class Container extends ObjetBDD
 					container_family_id, container_family_name, object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
 					document_id, identifiers,
-					storage_date, movement_type_name, movement_type_id
+					storage_date, movement_type_name, movement_type_id,
+                    lines, columns, first_line
 					from container c
 					join object using (uid)
 					join container_type using (container_type_id)
@@ -131,7 +132,8 @@ class Container extends ObjetBDD
 					storage_date, movement_type_id, identifiers,
 					project_name, sample_type_name, object_status_name,
 					sampling_place_name,
-					pso.uid as parent_uid, pso.identifier as parent_identifier
+					pso.uid as parent_uid, pso.identifier as parent_identifier,
+                    column_number, line_number
 					from object o
 					join sample sa on (sa.uid = o.uid)
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
@@ -172,7 +174,7 @@ class Container extends ObjetBDD
 					container_family_id, container_family_name, o.object_status_id,
 					storage_product, storage_condition_name, 
 					object_status_name, clp_classification,
-					storage_date, movement_type_id
+					storage_date, movement_type_id, column_number, line_number
 					from object o
 					join container co on (co.uid = o.uid)
 					join container_type using (container_type_id)
@@ -335,6 +337,48 @@ class Container extends ObjetBDD
             $order = " order by uid desc";
             return $this->getListeParamAsPrepared($this->sql . $where . $order, $data);
         }
+    }
+    
+    /**
+     * Genere un tableau permettant d'afficher les objets contenus dans un container
+     * a leur emplacement, dans le cas ou le nb de cellules est > 1
+     * @param array $dcontainer
+     * @param array $dsample
+     * @param number $columns
+     * @param number $lines
+     * @param string $first_line
+     * @return array|string|string[]|array[]
+     */
+    function generateOccupationArray($dcontainer, $dsample, $columns = 1, $lines = 1, $first_line = "T") {
+        $data = array();
+        /*
+         * Generation d'un tableau vide
+         */
+        for($line = 0; $line < $lines; $line ++) {
+            for ($column = 0; $column < $columns; $column ++) {
+                $data [$line][$column] = "";
+            }
+        }
+        /*
+         * Traitement de chaque tableau pour integrer les informations
+         */
+        foreach ($dcontainer as $value) {
+            if ($value["line_number"] > 0 && $value["column_number"] > 0) {
+                $data [$value["line_number"] - 1 ][$value["column_number"] -1] = array("type"=>"C", "uid"=>$value["uid"], "identifier"=>$value["identifier"]);
+            }
+        }
+        foreach ($dsample as $value) {
+            if ($value["line_number"] > 0 && $value["column_number"] > 0) {
+                $data [$value["line_number"] - 1 ][$value["column_number"] -1] = array("type"=>"S", "uid"=>$value["uid"], "identifier"=>$value["identifier"]);
+            }
+        }
+        /*
+         * Tri du tableau
+         */
+        if ($lines > 1 && $first_line == "B") {
+            krsort($data);
+        }
+        return $data;        
     }
 }
 

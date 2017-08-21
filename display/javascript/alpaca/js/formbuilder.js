@@ -103,21 +103,15 @@ function showForm(value, data=""){
         "schema" : schema,
         "options" : options,
         "postRender": function(control) {
-
+        	var value = control.getValue();
+            var metadataField = $("#metadata_schema");
                 control.on("change",function(){
-                var value = control.getValue();
-                var metadataField = document.getElementById("metadataField");
-                metadataField.setAttribute("value",JSON.stringify(value, null,null));
+                metadataField.val(JSON.stringify(value, null,null));
                 });
                  control.on("mouseout",function(){
-                var value = control.getValue();
-                var metadataField = document.getElementById("metadataField");
-                metadataField.setAttribute("value",JSON.stringify(value, null,null));
+                	 metadataField.val(JSON.stringify(value, null,null));
                 });
-
-                var value = control.getValue();
-                var metadataField = document.getElementById("metadataField");
-                metadataField.setAttribute("value",JSON.stringify(value, null,null));
+                 metadataField.val(JSON.stringify(value, null,null));
             }
     }
     var exists = $("#metadata").alpaca("exists");

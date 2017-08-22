@@ -27,10 +27,10 @@
 <script type="text/javascript" src="/display/javascript/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="/display/javascript/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/display/javascript/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.min.css" />
-<script type="text/javascript" charset="utf-8" src="/display/javascript/pdfmake.min.js"></script>
+<!--  <script type="text/javascript" charset="utf-8" src="/display/javascript/pdfmake.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="/display/javascript/vfs_fonts.js"></script>
 <script type="text/javascript" charset="utf-8" src="/display/javascript/jszip.min.js"></script>
-
+ -->
 <!-- Rajout du tri sur la date/heure -->
 <script type="text/javascript" src="/display/javascript/moment.min.js"></script>
 <script type="text/javascript" src="/display/javascript/datetime-moment.js"></script>
@@ -99,10 +99,10 @@ $(document).ready(function() {
             'copyHtml5',
             'excelHtml5',
             'csvHtml5',
-            {
+           /* {
                 extend: 'pdfHtml5',
                 orientation: 'landscape'
-            },
+            },*/
             'print'
         ]
 	});

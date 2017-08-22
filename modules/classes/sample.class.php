@@ -146,6 +146,24 @@ class Sample extends ObjetBDD
         if ($ok && $data["uid"] > 0)
             $ok = $this->verifyProject($this->lire($data["uid"]));
         if ($ok) {
+            /*
+             * Mise en forme des metadonnees
+             */
+            if ($data["sample_type_id"] > 0) {
+                require_once 'modules/classes/sampleType.class.php';
+                $st = new SampleType($this->connection, $this->paramori);
+                $dst = $st->getMetadataForm($data["sample_type_id"]);
+                if (strlen($dst)> 2) {
+                    $schema = json_decode($dst, true);
+                    $metadata = array();
+                    foreach ($schema as $value) {
+                        if (strlen($data[$value["nom"]]) > 0) {
+                            $metadata [$value["nom"]] = $data[$value["nom"]];
+                        }
+                    }
+                    $data ["metadata"] = json_encode($metadata);
+                }
+            }
             $object = new Object($this->connection, $this->param);
             $uid = $object->ecrire($data);
             if ($uid > 0) {

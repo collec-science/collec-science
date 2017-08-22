@@ -45,16 +45,14 @@
             if($("#action").val()=="Write"){
                 $('#metadata').alpaca().refreshValidationState(true);
                 if(!$('#metadata').alpaca().isValid(true)){
-                    alert("La définition des métadonnées n'est pas valide.")
+                    alert("La définition des métadonnées n'est pas valide.");
                     event.preventDefault();
                 }
             }    
     	});
     });
-
-    
-
 </script>
+
 <h2>Création - modification d'un échantillon</h2>
 <div class="row col-md-12">
 <a href="index.php?module=sampleList">
@@ -102,7 +100,7 @@ Retour à la liste des échantillons
 <form class="form-horizontal protoform" id="sampleForm" method="post" action="index.php">
 <input type="hidden" name="sample_id" value="{$data.sample_id}">
 <input type="hidden" name="moduleBase" value="sample">
-<input type="hidden" name="action" value="Write">
+<input type="hidden" id="action" name="action" value="Write">
 <input type="hidden" name="parent_sample_id" value="{$data.parent_sample_id}">
 <input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
 

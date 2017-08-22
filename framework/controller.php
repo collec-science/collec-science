@@ -36,7 +36,10 @@ if (! isset($_SESSION["dbversion"])) {
         unset($_REQUEST["action"]);
     }
 }
-
+/**
+ * Decodage des variables html
+ */
+$_REQUEST = htmlDecode($_REQUEST);
 /**
  * Lecture des donnees canoniques
  * La configuration de l'hote virtuel doit contenir ceci :
@@ -102,31 +105,31 @@ if (! isset($_REQUEST["module"])) {
                     break;
             }
         }
+    } else {
+        /*
+         * recherche des variables de formulaire pour reconstituer 
+         * le nom du module
+         */
+        if (isset($_REQUEST["moduleBase"]) && isset($_REQUEST["action"])) {
+            $_REQUEST["module"] = $_REQUEST["moduleBase"].$_REQUEST["action"];
+        } 
     }
 }
-/**
- * Decodage des variables html
+/*
+ * page par defaut
  */
-$_REQUEST = htmlDecode($_REQUEST);
+if (strlen( $_REQUEST["module"]) == 0) {
+    $_REQUEST["module"]= "default";
+}
+
 /**
  * Recuperation du module
  */
 unset($module);
-
 /**
  * Generation du module a partir de moduleBase et action
  */
-if (isset($_REQUEST["moduleBase"]) && isset($_REQUEST["action"])) {
-    $_REQUEST["module"] = $_REQUEST["moduleBase"] . $_REQUEST["action"];
-}
-if (isset($_REQUEST["module"]) && strlen($_REQUEST["module"]) > 0) {
-    $module = $_REQUEST["module"];
-} else {
-    /*
-     * Definition du module par defaut
-     */
-    $module = "default";
-}
+$module = $_REQUEST["module"];
 $moduleRequested = $module;
 /**
  * Gestion des modules
@@ -143,6 +146,7 @@ while (isset($module)) {
     $t_module = $navigation->getModule($module);
     if (count($t_module) == 0) {
         $message->set($LANG["message"][35] . " ($module)");
+        $t_module = $navigation->getModule("default");
     }
     /*
      * Extraction des droits necessaires
@@ -330,7 +334,6 @@ while (isset($module)) {
             }
         }
     }
-    
     /*
      * Verification que le module soit bien appele apres le module qui doit le preceder
      * La recherche peut contenir plusieurs noms de modules, separes par le caractere |

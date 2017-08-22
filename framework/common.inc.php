@@ -240,7 +240,7 @@ if (isset ( $_SESSION ["remoteIP"] )) {
 /*
  * Preparation du module de gestion de la navigation
  */
-if (isset ( $_SESSION ["navigation"] ) && ! $APPLI_modeDeveloppement == false) {
+if (isset ( $_SESSION ["navigation"] ) &&  $APPLI_modeDeveloppement ) {
 	$navigation = $_SESSION ['navigation'];
 } else {
 	$navigation = new Navigation ( $navigationxml );

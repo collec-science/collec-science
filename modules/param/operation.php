@@ -9,7 +9,6 @@ require_once 'modules/classes/operation.class.php';
 $dataClass = new Operation($bdd, $ObjetBDDParam);
 $keyName = "operation_id";
 $id = $_REQUEST[$keyName];
-
 switch ($t_module["param"]) {
     case "list":
         $vue->set($dataClass->getListe(), "data");
@@ -55,6 +54,22 @@ switch ($t_module["param"]) {
 		 * delete record
 		 */
 		dataDelete($dataClass, $id);
+        break;
+    case "copy":
+        /*
+         * Duplique une operation
+         */
+        $data = $dataClass->lire($id);
+        $data["operation_id"] = 0;
+        $data["operation_version"] = "";
+        $vue->set($data, "data");
+        $vue->set("param/operationChange.tpl", "corps");
+        /*
+         * Recuperation de la liste des protocoles
+         */
+        require_once 'modules/classes/protocol.class.php';
+        $protocol = new Protocol($bdd, $ObjetBDDParam);
+        $vue->set($protocol->getListe("protocol_year desc, protocol_name, protocol_version desc"), "protocol");
         break;
 }
 

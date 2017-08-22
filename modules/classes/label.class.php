@@ -11,7 +11,6 @@ class Label extends ObjetBDD {
 			metadata_schema
 			from label
 			left outer join operation using(operation_id)
-			left outer join metadata_form using (metadata_form_id)
 		";
 
 	function __construct($bdd, $param = array()) {

@@ -1,7 +1,7 @@
 <h2>Opérations rattachées aux protocoles</h2>
 	<div class="row">
 	<div class="col-md-6">
-{if $droits.param == 1}
+{if $droits.projet == 1}
 <a href="index.php?module=operationChange&operation_id=0">
 {$LANG["appli"][0]}
 </a>
@@ -13,7 +13,10 @@
 <th>Opération</th>
 <th>Version</th>
 <th>N° d'ordre</th>
+{if $droits.projet == 1}
 <th>Étiquette</th>
+<th>Dupliquer</th>
+{/if}
 </tr>
 </thead>
 <tbody>
@@ -33,9 +36,16 @@
 </td>
 <td class="center">{$data[lst].operation_version}</td>
 <td class="center">{$data[lst].operation_order}</td>
-<td>
+{if $droits.projet == 1}
+<td class="center">
 <a href="index.php?module=labelChange&uid=0&operation_id={$data[lst].operation_id}">Créer une étiquette pour cette opération</a>
 </td>
+<td class="center">
+<a href="index.php?module=operationCopy&operation_id={$data[lst].operation_id}" title="Dupliquer l'opération (avec ses métadonnées)">
+<img src="display/images/copy.png" height="25">
+</a>
+</td>
+{/if}
 </tr>
 {/section}
 </tbody>

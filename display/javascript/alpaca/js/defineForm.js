@@ -142,19 +142,19 @@ function renderForm(data){
             },
             "postRender": function(control) {
             	console.log("test postRender");
-            	var metadataField = $("#metadata_schema");
-            	 var value = control.getValue();
-                control.on("mouseout",function(){
-                metadataField.val(JSON.stringify(value, null,null));
+            	var value = control.getValue();
+            	$("#metadataField").val(JSON.stringify(value, null, null));
+            	
+                 control.on("mouseout",function(){
+                	var value = control.getValue();
+                	$("#metadataField").val(JSON.stringify(value, null, null));
                 });
 
                 control.on("change",function(){
-                metadataField.val(JSON.stringify(value, null,null));
-                });
-                metadataField.val(JSON.stringify(value, null,null));             
-                
-            }
-            
+                	var value = control.getValue();
+                	$("#metadataField").val(JSON.stringify(value, null, null));
+                 });               
+            }           
         });
 }
 

@@ -174,7 +174,8 @@
 
 	<operationList action="modules/param/operation.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
 	<operationChange action="modules/param/operation.php" param="change" droits="projet"  retourlogin="1" type="smarty" />
-	<operationWrite action="modules/param/operation.php" param="write" droits="projet" retourok="operationList" retourko="operationChange" modulebefore="operationChange" />
+	<operationCopy action="modules/param/operation.php" param="copy" droits="projet" type="smarty" />
+	<operationWrite action="modules/param/operation.php" param="write" droits="projet" retourok="operationList" retourko="operationChange" modulebefore="operationChange,operationCopy" />
 	<operationDelete action="modules/param/operation.php" param="delete" droits="projet" retourok="operationList" retourko="operationChange"  modulebefore="operationChange"/>
 	
 	<multipleTypeList action="modules/param/multipleType.php" param="list" droits="consult"  retourlogin="1" type="smarty" />

@@ -75,7 +75,7 @@ switch ($t_module["param"]) {
         /*
          * Transmet le contenu du formulaire de metadonnees
          */
-        $vue->set($dataClass->getMetadataForm($id));
+        $vue->setJson($dataClass->getMetadataForm($id));
         break;
 }
 

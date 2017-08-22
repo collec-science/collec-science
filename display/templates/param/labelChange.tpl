@@ -1,3 +1,31 @@
+<script>
+$(document).ready( function() {     
+     function getMetadata() {
+    	 $("#list_metadata").empty();
+    	    var schema;
+    	    var oi = $("#operation_id").val();
+    	    if (oi.length > 0) {
+    	    	$.ajax( { 
+    	    		url: "index.php",
+    	    		data: { "module": "operationMetadata", "operation_id": oi }
+    	    	})
+    	    	.done (function (value) {
+    	    		$.each(JSON.parse(value), function(i, obj) {
+    	    			var nom = obj.nom.replace(/ /g,"_");
+    	    			$("#list_metadata").append($("<li>").text(nom));
+    	    		})
+    	    	})
+    	    	;
+    	    }
+     }
+     $("#operation_id").change( function() {
+    	 getMetadata();
+     });
+     getMetadata();
+}) ;
+
+</script>
+
 <h2>Modification d'une étiquette</h2>
 <div class="row">
 <div class="col-md-12">
@@ -26,7 +54,19 @@
 <input id="label_fields" type="text" class="form-control" name="label_fields" value="{$data.label_fields}" required>
 </div>
 </div>
-
+<div class="form-group">
+<label for="operation_id"  class="control-label col-md-4">Opération rattachée à l'étiquette (pour intégrer les métadonnées associées) :</label>
+<div class="col-md-8">
+<select id="operation_id" name="operation_id" class="form-control" >
+<option value="" {if $data.operation_id == ""}selected{/if}>Sélectionnez...</option>
+{foreach $operations as $value}
+<option value="{$value.operation_id}" {if $value.operation_id == $data.operation_id}selected{/if}>
+{$value.protocol_name} - {$value.operation_name} {$value.operation_version}
+</option>
+{/foreach}
+</select>
+</div>
+</div>
 
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
@@ -54,43 +94,11 @@ Champs utilisables dans le QRcode et dans le texte de l'étiquette :
 </ul>
 </div>
 
-<div class="form-group">
-<label for="operation_id"  class="control-label col-md-4">Opération rattachée à l'étiquette :</label>
-<div class="col-md-8">
-<select id="operation_id" name="operation_id" class="form-control" >
-<option value="" {if $data.operation_id == ""}selected{/if}>Sélectionnez...</option>
-{foreach $operations as $value}
-<option value="{$value.operation_id}" {if $value.operation_id == $data.operation_id}selected{/if}>
-{$value.protocol_name} - {$value.operation_name} {$value.operation_version}
-</option>
-{/foreach}
-</select>
-</div>
-</div>
-{if $operation_id > 0 || $data.operation_id>0}
 <div class="bg-info">
 Métadonnées utilisables dans le QRcode et dans le texte de l'étiquette :
 <ul id="list_metadata">
 </ul>
 </div>
-<script>
-$(function() {
-    var ul=document.getElementById("list_metadata");
-    var schema;
-    if("{$operation_id}".length > 0){
-      schema = "{$operation_schema}";
-    }else{
-      schema = "{$data.schema}";
-    }
-    schema = schema.replace(/&quot;/g,'"');
-
-     $.each(JSON.parse(schema), function(i, obj) {
-        var li=document.createElement("li");
-        li.appendChild(document.createTextNode(obj.nom.replace(/ /g,"_")));
-        ul.appendChild(li);
-    });
-});
-</script>
-{/if}
+</fieldset>
 
 <span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>

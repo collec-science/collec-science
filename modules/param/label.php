@@ -32,9 +32,6 @@ switch ($t_module ["param"]) {
 		require_once 'modules/classes/operation.class.php';
 		$operation = new Operation ( $bdd, $ObjetBDDParam );
 		$vue->set($operation->getListe(),"operations");
-		if ($data["operation_id"] > 0) {
-		    $vue->set($operation->getMetadataForm($data["operation_id"]), "operation_schema");
-		}
 		break;
 	case "write":
 		/*
@@ -51,5 +48,18 @@ switch ($t_module ["param"]) {
 		 */
 		dataDelete ( $dataClass, $id );
 		break;
+	case "copy":
+	    /*
+	     * Duplication d'une etiquette
+	     */
+	    $data = $dataClass->lire($id);
+	    $data["label_id"] = 0;
+	    $data["label_name"] = "";
+	    $vue->set($data, "data");
+	    $vue->set("param/labelChange.tpl", "corps");
+	    require_once 'modules/classes/operation.class.php';
+	    $operation = new Operation ( $bdd, $ObjetBDDParam );
+	    $vue->set($operation->getListe(),"operations");
+	    break;
 }
 ?>

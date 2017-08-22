@@ -129,10 +129,11 @@
 	<projectWrite action="modules/param/project.php" param="write" droits="param" retourok="projectList" retourko="projectChange" modulebefore="projectChange" />
 	<projectDelete action="modules/param/project.php" param="delete" droits="param" retourok="projectList" retourko="projectChange"  modulebefore="projectChange"/>
 
-	<labelList action="modules/param/label.php" param="list" droits="param"  retourlogin="1" type="smarty" />
-	<labelChange action="modules/param/label.php" param="change" droits="param"  retourlogin="1" type="smarty" />
-	<labelWrite action="modules/param/label.php" param="write" droits="param" retourok="labelList" retourko="labelChange" modulebefore="labelChange" />
-	<labelDelete action="modules/param/label.php" param="delete" droits="param" retourok="labelList" retourko="labelChange"  modulebefore="labelChange"/>
+	<labelList action="modules/param/label.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
+	<labelChange action="modules/param/label.php" param="change" droits="projet"  retourlogin="1" type="smarty" />
+	<labelWrite action="modules/param/label.php" param="write" droits="projet" retourok="labelList" retourko="labelChange" modulebefore="labelChange,labelCopy" />
+	<labelDelete action="modules/param/label.php" param="delete" droits="projet" retourok="labelList" retourko="labelChange"  modulebefore="labelChange"/>
+	<labelCopy action="modules/param/label.php" param="copy" droits="projet" type="smarty" />
 	
 	<metadataFormGetDetail action="modules/param/sampleType.php" param="getDetailFormAjax"  droits="consult"  type="ajax" />
 	<sampleList action="modules/gestion/sample.php" param="list" droits="consult" retourlogin="1"  type="smarty"  />

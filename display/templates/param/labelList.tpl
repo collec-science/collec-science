@@ -1,7 +1,7 @@
 <h2>Modèles d'étiquette</h2>
 	<div class="row">
 	<div class="col-md-6">
-{if $droits.param == 1}
+{if $droits.projet == 1}
 <a href="index.php?module=labelChange&label_id=0">
 {$LANG["appli"][0]}
 </a>
@@ -12,14 +12,17 @@
 <th>Nom de l'étiquette</th>
 <th>Id</th>
 <th>Champs dans le QRCode</th>
+{if $droits.projet == 1}
+<th>Dupliquer</th>
+{/if}
 </tr>
 </thead>
 <tbody>
 {section name=lst loop=$data}
 <tr>
 <td>
-{if $droits.param == 1}
-<a href="index.php?module=labelChange&label_id={$data[lst].label_id}{if $data[lst].operation_id>0}&operation_id={$data[lst].operation_id}{/if}">
+{if $droits.projet == 1}
+<a href="index.php?module=labelChange&label_id={$data[lst].label_id}">
 {$data[lst].label_name}
 </a>
 {else}
@@ -28,6 +31,12 @@
 </td>
 <td class="center">{$data[lst].label_id}</td>
 <td>{$data[lst].label_fields}</td>
+{if $droits.projet == 1}
+<td class="center">
+<a href="index.php?module=labelCopy&label_id={$data[lst].label_id}" title="Dupliquer l'étiquette">
+<img src="display/images/copy.png" height="25">
+</a>
+{/if}
 </tr>
 {/section}
 </tbody>

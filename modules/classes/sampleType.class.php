@@ -14,7 +14,8 @@ class SampleType extends ObjetBDD {
 	private $sql = "select sample_type_id, sample_type_name, 
 					container_type_name,
 					operation_id, operation_name ,operation_version, protocol_name, protocol_year, protocol_version,
-					multiple_type_id, multiple_unit, multiple_type_name
+					multiple_type_id, multiple_unit, multiple_type_name,
+                    metadata_schema
 					from sample_type
 					left outer join container_type using (container_type_id)
 					left outer join operation using (operation_id)
@@ -86,12 +87,11 @@ class SampleType extends ObjetBDD {
 	 */
 	function getMetadataForm($sample_type_id){
 		if ($sample_type_id > 0){
-			$sql = "select metadata_schema from metadata_form
-			join operation using(metadata_form_id)
-			join sample_type using (operation_id)
+			$sql = "select metadata_schema 
+            from sample_type
+			join operation using(operation_id)
 			where sample_type_id = :sample_type_id";
-			$var ["sample_type_id"] = $sample_type_id;
-			$data = $this->lireParamAsPrepared ( $sql, $var );
+			$data = $this->lireParamAsPrepared ( $sql, array("sample_type_id"=>$sample_type_id) );
 			return $data["metadata_schema"];
 		}
 	}

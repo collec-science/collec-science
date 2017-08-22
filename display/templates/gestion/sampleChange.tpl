@@ -1,52 +1,55 @@
 <script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
 
 <script type="text/javascript">
-
-function updateForm(){
-    //valeur du type d'échantillon sélectionné
-        var sampleTypeId = document.getElementById("sample_type_id").value;
-
-        var $schemaForm;
-        var url = "index.php";
-        $.getJSON ( url, { "module":"metadataFormGetDetail", "sample_type_id":sampleTypeId } , function( data ) {
-        if (data != null) {
-            $schemaForm = data["schema"].replace(/&quot;/g,'"');
-            $schemaForm = JSON.parse($schemaForm);
-            showForm($schemaForm);
-        }
-        } ) ;
-    }
-
     $(document).ready(function() {
+    	
+    	function getMetadata() {
+       	var dataParse = $("#metadata").val();
+         dataParse = dataParse.replace(/&quot;/g,'"');
+         dataParse = dataParse.replace(/\n/g,"\\n");
+         if (dataParse.length > 2) {
+        	 dataParse = JSON.parse(dataParse);
+         }
+         
+       	    var schema;
+       	    var sti = $("#sample_type_id").val();
+       	    if (sti) {
+       	    	$.ajax( { 
+       	    		url: "index.php",
+       	    		data: { "module": "sampleTypeMetadata", "sample_type_id": sti }
+       	    	})
+       	    	.done (function (value) {
+       	    		console.log(value);
+       	    		var schema = value.replace(/&quot;/g,'"');
+       	    		if (dataParse.length > 2) {
+       	    			console.log("affichage metadonnees");
+       	    			showForm(JSON.parse(schema),dataParse);
+       	    		} else {
+       	    			console.log("initialisation schema");
+       	    			showForm(JSON.parse(schema));  
+       	    		}
+       	    	})
+       	    	;
+       	    }
+        }
+        $("#sample_type_id").change( function() {
+       	 getMetadata();
+        });
+        /*
+         * Lecture initiale
+         */
+        getMetadata();
+    	     
 
-        var $metadataParse ="";
-        var $dataParse ="";
-        
-        {if $data.metadata_schema != ""}
-        $metadataParse = "{$data.metadata_schema}";
-        $metadataParse = $metadataParse.replace(/&quot;/g,'"');
-        $metadataParse = JSON.parse($metadataParse);
-        {/if}
-
-
-        {if $data.metdadata != ""}
-        $dataParse = "{$data.metadata}";
-        $dataParse = $dataParse.replace(/&quot;/g,'"');
-        $dataParse = $dataParse.replace(/\n/g,"\\n");
-        $dataParse = JSON.parse($dataParse);
-        {/if}
-        showForm($metadataParse, $dataParse);
-
-        $('#sampleForm').submit(function() {
-            if(document.getElementsByName("action")[0].value=="Write"){
-                $('#metadata').alpaca().refreshValidationState(true)
+        $('#sampleForm').submit(function(event) {
+            if($("#action").val()=="Write"){
+                $('#metadata').alpaca().refreshValidationState(true);
                 if(!$('#metadata').alpaca().isValid(true)){
                     alert("La définition des métadonnées n'est pas valide.")
-                    return false;
+                    event.preventDefault();
                 }
             }    
-        return true;
-    });
+    	});
     });
 
     
@@ -101,7 +104,7 @@ Retour à la liste des échantillons
 <input type="hidden" name="moduleBase" value="sample">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="parent_sample_id" value="{$data.parent_sample_id}">
-<input type="hidden" name="metadata" id="metadata">
+<input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
 
 {include file="gestion/uidChange.tpl"}
 
@@ -122,7 +125,7 @@ Retour à la liste des échantillons
 <div class="form-group">
 <label for="sample_type_id" class="control-label col-md-4">Type<span class="red">*</span> :</label>
 <div class="col-md-8">
-<select id="sample_type_id" name="sample_type_id" class="form-control" onchange=" updateForm()">
+<select id="sample_type_id" name="sample_type_id" class="form-control">
 <option disabled selected value >{$LANG["appli"][2]}</option>
 {section name=lst loop=$sample_type}
 <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $data.sample_type_id}selected{/if}>

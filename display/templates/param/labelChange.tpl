@@ -54,6 +54,19 @@ Champs utilisables dans le QRcode et dans le texte de l'étiquette :
 </ul>
 </div>
 
+<div class="form-group">
+<label for="operation_id"  class="control-label col-md-4">Opération rattachée à l'étiquette :</label>
+<div class="col-md-8">
+<select id="operation_id" name="operation_id" class="form-control" >
+<option value="" {if $data.operation_id == ""}selected{/if}>Sélectionnez...</option>
+{foreach $operations as $value}
+<option value="{$value.operation_id}" {if $value.operation_id == $data.operation_id}selected{/if}>
+{$value.protocol_name} - {$value.operation_name} {$value.operation_version}
+</option>
+{/foreach}
+</select>
+</div>
+</div>
 {if $operation_id > 0 || $data.operation_id>0}
 <div class="bg-info">
 Métadonnées utilisables dans le QRcode et dans le texte de l'étiquette :

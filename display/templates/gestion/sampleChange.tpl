@@ -178,7 +178,11 @@ Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.mult
 
 <fieldset>
     <legend>Jeu de métadonnées</legend>
+    <div class="form-group">
+    <div class="col-md-10 col-sm-offset-1">
     <div id="metadata"></div>
+    </div>
+    </div>
 </fieldset>
 
 <div class="form-group center">

@@ -99,7 +99,7 @@ class Object extends ObjetBDD {
 	 * Prepare la liste des objets pour impression des etiquettes
 	 *
 	 * @param array $list        	
-	 * @return tableau
+	 * @return array
 	 */
 	function getForPrint(array $list) {
 		/*
@@ -123,6 +123,13 @@ class Object extends ObjetBDD {
 			 * Traitement de la liste
 			 */
 			foreach ( $data as $key => $value ) {
+			    /*
+			     * Traitement des metadonnees associees, integration dans le tableau
+			     */
+			    $metadata = json_decode($value["metadata"], true);
+			    foreach ($metadata as $kmd=>$md) {
+			        $data [$key] [$kmd] = $md;
+			    }
 				/*
 				 * Recuperation de la liste des identifiants externes
 				 */
@@ -166,7 +173,8 @@ class Object extends ObjetBDD {
 		label_id, 'container' as object_type,
 		storage_date, movement_type_name, movement_type_id,
 		wgs84_x as x, wgs84_y as y,
-		'' as prj, storage_product as prod
+		'' as prj, storage_product as prod, 
+        '' as metadata
 		from object
 		join container using (uid)
 		join container_type using (container_type_id)
@@ -178,7 +186,8 @@ class Object extends ObjetBDD {
 		label_id, 'sample' as object_type,
 		storage_date, movement_type_name, movement_type_id,
 		wgs84_x as x, wgs84_y as y,
-		project_name as prj, storage_product as prod
+		project_name as prj, storage_product as prod,
+        metadata
 		from object
 		join sample using (uid)
 		join project using (project_id)
@@ -250,8 +259,8 @@ class Object extends ObjetBDD {
 	/**
 	 * Genere le QRCODE
 	 *
-	 * @param unknown $list        	
-	 * @return unknown[][]|tableau[][]
+	 * @param array $list        	
+	 * @return array[][]
 	 */
 	function generateQrcode($list, $labelId = 0, $order = "uid") {
 		if ($labelId > 0) {
@@ -260,8 +269,6 @@ class Object extends ObjetBDD {
 			global $APPLI_code, $APPLI_temp;
 			require_once 'modules/classes/objectIdentifier.class.php';
 			$oi = new ObjectIdentifier ( $this->connection, $this->param );
-			require_once 'modules/classes/sampleMetadata.class.php';
-			$sampleMeta = new SampleMetadata ( $this->connection, $this->param );
 			require_once 'modules/classes/label.class.php';
 			$label = new Label ( $this->connection, $this->param );
 			/*
@@ -277,7 +284,8 @@ class Object extends ObjetBDD {
 			$sql = "select uid, identifier as id, clp_classification as clp, '' as pn, 
 			 		'$APPLI_code' as db,
 			 		'' as prj, storage_product as prod,
-			 		 wgs84_x as x, wgs84_y as y, null as cd
+			 		 wgs84_x as x, wgs84_y as y, null as cd,
+                    null as metadata
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)
@@ -286,7 +294,8 @@ class Object extends ObjetBDD {
 					select uid, identifier as id, clp_classification as clp, protocol_name as pn, 
 			 		'$APPLI_code' as db, 
 			 		project_name as prj, storage_product as prod,
-			 		 wgs84_x as x, wgs84_y as y, sample_creation_date as cd
+			 		 wgs84_x as x, wgs84_y as y, sample_creation_date as cd,
+                    metadata::varchar
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)
@@ -300,6 +309,7 @@ class Object extends ObjetBDD {
 				$order = "uid";
 			$sql = "select * from (" . $sql . ") as a";
 			$order = " order by $order";
+			printr($sql . $order);
 			$data = $this->getListeParam ( $sql . $order );
 			
 			/*
@@ -309,28 +319,14 @@ class Object extends ObjetBDD {
 			/*
 			 * Recuperation de la liste des champs a inserer dans l'etiquette
 			 */
-			
-			/*
-			 * $convert = array (
-			 * "uid" => "uid",
-			 * "identifier" => "id",
-			 * "clp" => "clp",
-			 * "protocol_name" => "pn",
-			 * "project_name" => "prj",
-			 * "db" => "db"
-			 * )
-			 * ;
-			 */
 			$dataConvert = array ();
-			// $dataFull = array();
+
 			/**
 			 * Traitement de chaque ligne, et generation
 			 * du qrcode
 			 */
 			
 			foreach ( $data as $row ) {
-				//récupération des métadonnées
-				$metadata = json_decode($sampleMeta->getMetadataFromUid($row ["uid"] ));
 				/*
 				 * Recuperation des identifiants complementaires
 				 */
@@ -346,12 +342,15 @@ class Object extends ObjetBDD {
 					if (in_array ( $value ["identifier_type_code"], $fields ))
 						$rowq [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
 				}
-				//récupération des métadonnées
+				/*
+				 * Recuperation des metadonnees associees
+				 */
+				$metadata = json_decode($row["metadata"], true);
 				foreach($metadata as $key => $value){
 					//on remplace les espaces qui ne sont pas gérés par le xml
 					$newKey= str_replace(" ", "_", $key);
 					$row[$newKey] = $value;
-					if(in_array($newKey,$fields)){
+					if(strlen ( $value ) > 0 && in_array($newKey,$fields)){
 					    $rowq[$newKey] = $value;
 					}
 				}
@@ -359,23 +358,12 @@ class Object extends ObjetBDD {
 				 * Generation du qrcode
 				 */
 				$filename = $APPLI_temp . '/' . $rowq ["uid"] . ".png";
-				// if (! file_exists ( $filename ))
 				QRcode::png ( json_encode ( $rowq ), $filename );
-				
 				/*
-				 * Ajout du modele d'etiquette
+				 * Stockage des donnees pour la suite du traitement 
 				 */
-				foreach ( $doi as $value ) {
-					$rowq [$value ["identifier_type_code"]] = $value ["object_identifier_value"];
-				}
-				$rowq ["label_id"] = $row ["label_id"];
-				/*
-				 * Ajout des identifiants complementaires
-				 */
-				// $dataConvert [] = $rowq;
 				$dataConvert [] = $row;
 			}
-			
 			return $dataConvert;
 		}
 	}

@@ -59,7 +59,25 @@ $GACL_schema = "gacl";
 /*
  * Lien vers le site d'assistance
  */
-$APPLI_mail = "https://site.assistance.com";
+//$APPLI_assist_address = "https://github.com/Irstea/collec/issues/new";
+/*
+ * Adresse d'acces a l'application (figure dans les mails envoyes)
+ */
+$APPLI_address = "https://collec.adressecomplete.com";
+/*
+ * Adresse mail figurant dans le champ expediteur, lors de l'envoi de mails
+ */
+$APPLI_mail = "nepasrepondre@collec.adressecomplete.com";
+/*
+ * Activer l'envoi de mails
+ */
+//$MAIL_enabled = 1;
+/*
+ * Activer la fonction de reinitialisation d'un mot de passe perdu
+ * identification de type BDD ou LDAP-BDD pour les comptes declares localement
+ * necessite que l'envoi de mails soit possible ($MAIL_enabled = 1)
+ */
+$APPLI_lostPassword = 1;
 /*
  * Configuration LDAP
  */
@@ -105,4 +123,5 @@ $paramIniFile = "./param.ini";
  */
 $SMARTY_variables["melappli"] = $APPLI_mail;
 $SMARTY_variables["ident_type"] = $ident_type;
+$SMARTY_variables["appliAssist"] = $APPLI_assist_address;
 ?>

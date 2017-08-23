@@ -4,13 +4,13 @@
     $(document).ready(function() {
     	
     	function getMetadata() {
-       	var dataParse = $("#metadata").val();
-         dataParse = dataParse.replace(/&quot;/g,'"');
-         dataParse = dataParse.replace(/\n/g,"\\n");
-         if (dataParse.length > 2) {
-        	 dataParse = JSON.parse(dataParse);
-         }
-         
+       		var dataParse = $("#metadataField").val();
+        	 dataParse = dataParse.replace(/&quot;/g,'"');
+        	 dataParse = dataParse.replace(/\n/g,"\\n");
+        	 if (dataParse.length > 2) {
+        		 dataParse = JSON.parse(dataParse);
+        	 }
+        	 //console.log(dataParse);
        	    var schema;
        	    var sti = $("#sample_type_id").val();
        	    if (sti) {
@@ -19,15 +19,9 @@
        	    		data: { "module": "sampleTypeMetadata", "sample_type_id": sti }
        	    	})
        	    	.done (function (value) {
-       	    		console.log(value);
+       	    		//console.log(value);
        	    		var schema = value.replace(/&quot;/g,'"');
-       	    		if (dataParse.length > 2) {
-       	    			console.log("affichage metadonnees");
-       	    			showForm(JSON.parse(schema),dataParse);
-       	    		} else {
-       	    			console.log("initialisation schema");
-       	    			showForm(JSON.parse(schema));  
-       	    		}
+       	    		showForm(JSON.parse(schema),dataParse);
        	    	})
        	    	;
        	    }

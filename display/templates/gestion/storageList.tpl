@@ -50,7 +50,6 @@
 <script>
 $(document).ready(function() {
 if ( $.fn.dataTable.isDataTable( '#storageList' ) ) {
-console.log("storageList is datatable");
 var storageList = $("#storageList").DataTable() ;
 	storageList.order([]).draw();
 	} else {

@@ -21,9 +21,4 @@ $vue->set($objectStatus->getListe(1), "objectStatus");
 require_once 'modules/classes/samplingPlace.class.php';
 $samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
 $vue->set($samplingPlace->getListe(1), "samplingPlace");
-
- //Recuperation des formulaires des operations
-require_once 'modules/classes/operation.class.php';
-$operation = new operation ( $bdd, $ObjetBDDParam );
-$vue->set($operation->getListe(),"operation");
 ?>

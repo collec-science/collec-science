@@ -18,8 +18,18 @@ Les objets sont porteurs de plusieurs informations :
 D'autres informations sont spécifiques soit des échantillons, soit des containers. 
 Pour ces derniers, les conditions de stockage (produit utilisé, risque associé normalisé) peuvent être décrits.
 <br>
-<br>
-    Copyright (C) 2016-2017  Eric Quinton pour IRSTEA
+
+<h3>Liste des contributeurs à Collec-Science (ordre alphabétique)</h3>
+<ul>
+<li>Julien Ancelin (INRA)</li>
+<li>Hector Linyer (Université de La Rochelle)</li>
+<li>Christine Plumejeaud (Université de La Rochelle)</li>
+<li>Éric Quinton (IRSTEA)</li>
+</ul>
+
+    <h3>Copyright (C) 2016-2017  Eric Quinton pour IRSTEA</h3>
+<p>
+la version 1.0 du logiciel a été déposée auprès de l'Agence pour la Protection des Programmes sous le numéro IDDN.FR.001.470013.000.S.C.2016.000.31500
 <br>
     This program is free software: you can redistribute it and/or modify<br>
     it under the terms of the GNU Affero General Public License as<br>
@@ -33,5 +43,5 @@ Pour ces derniers, les conditions de stockage (produit utilisé, risque associé
 <br>
     You should have received a copy of the GNU Affero General Public License<br>
     along with this program.  If not, see <a href=http://www.gnu.org/licenses>http://www.gnu.org/licenses</a>
-<br>
+<p>
 

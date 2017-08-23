@@ -146,7 +146,7 @@ $LANG["message"][44] = "Vous avez été déconnecté, votre session était ouver
 $LANG["message"][45] = "Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu";
 $LANG["message"][46] = "La base de données n'est pas dans la version attendue (%). Version actuelle : ";
 $LANG["message"][47] = "Module precedent enregistré : ";
-$LANG["message"][48] = "";
+$LANG["message"][48] = "L'identification par jeton n'a pas abouti";
 $LANG["message"][49] = "";
 $LANG["message"][50] = "";
 

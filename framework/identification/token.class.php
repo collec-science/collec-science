@@ -42,6 +42,14 @@ class Token
         if (strlen($pubKey) > 0) {
             $this->pubKey = $pubKey;
         }
+        /*
+         * Verification de l'existence des cles
+         */
+        foreach(array($this->privateKey,$this->pubKey) as $filename) {
+            if (! file_exists($filename)) {
+                throw new TokenException("File $filename not readable");
+            }
+        }
     }
 
     /**
@@ -95,15 +103,11 @@ class Token
     /**
      * Decrypt a token, and extract the login
      *
-     * @param array $token
+     * @param json $token
      */
-    function openToken($token)
+    function openToken($json)
     {
-        if (! is_array($token)) {
-            $token = array(
-                "token" => $token
-            );
-        }
+       $token = json_decode($json, true);
         /*
          * decrypt token
          */

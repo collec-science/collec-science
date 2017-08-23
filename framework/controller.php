@@ -107,19 +107,19 @@ if (! isset($_REQUEST["module"])) {
         }
     } else {
         /*
-         * recherche des variables de formulaire pour reconstituer 
+         * recherche des variables de formulaire pour reconstituer
          * le nom du module
          */
         if (isset($_REQUEST["moduleBase"]) && isset($_REQUEST["action"])) {
-            $_REQUEST["module"] = $_REQUEST["moduleBase"].$_REQUEST["action"];
-        } 
+            $_REQUEST["module"] = $_REQUEST["moduleBase"] . $_REQUEST["action"];
+        }
     }
 }
 /*
  * page par defaut
  */
-if (strlen( $_REQUEST["module"]) == 0) {
-    $_REQUEST["module"]= "default";
+if (strlen($_REQUEST["module"]) == 0) {
+    $_REQUEST["module"] = "default";
 }
 
 /**
@@ -199,7 +199,7 @@ while (isset($module)) {
             "BDD",
             "LDAP",
             "LDAP-BDD"
-        )) && ! isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0) {
+        )) && ! isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0 && ! isset($_COOKIE["tokenIdentity"])) {
             /*
              * Gestion de la saisie du login
              */
@@ -222,9 +222,29 @@ while (isset($module)) {
                  */
                 $log->purge($LOG_duree);
                 /*
-                 * Verification du login
+                 * Traitement de l'identification par jeton
                  */
-                $login = $identification->verifyLogin($_REQUEST["login"], $_REQUEST["password"]);
+                if (isset($_COOKIE["tokenIdentity"])) {
+                    try {
+                        require_once 'framework/identification/token.class.php';
+                        $token = new Token($privateKey, $pubKey);
+                        $login = $token->openToken($_COOKIE["tokenIdentity"]);
+                    } catch (Exception $e) {
+                        $message->set($LANG["message"[48]]);
+                        $message->setSyslog($e->getMessage());
+                        $log->setLog("unknown", "connexion", "token-ko");
+                    }
+                    if (strlen($login) > 0) {
+                        $log->setLog($login, "connexion", "token-ok");
+                    } else {
+                        $log->setLog("unknown", "connexion", "token-ko");
+                    }
+                } else {
+                    /*
+                     * Verification du login
+                     */
+                    $login = $identification->verifyLogin($_REQUEST["login"], $_REQUEST["password"]);
+                }
                 if (strlen($login) > 0) {
                     /*
                      * Le login a ete valide
@@ -346,9 +366,9 @@ while (isset($module)) {
                 $beforeok = true;
             }
         }
-        if (! $beforeok ) {
+        if (! $beforeok) {
             $resident = 0;
-            if ($APPLI_modeDeveloppement ) {
+            if ($APPLI_modeDeveloppement) {
                 $message->set($LANG["message"][47] . $_SESSION["moduleBefore"]);
             }
             $motifErreur = "errorbefore";
@@ -374,7 +394,7 @@ while (isset($module)) {
                 "BDD",
                 "LDAP",
                 "LDAP-BDD"
-            )) && ! isset($_REQUEST["loginAdmin"]) && ! $loginForm ) {
+            )) && ! isset($_REQUEST["loginAdmin"]) && ! $loginForm) {
                 /*
                  * saisie du login en mode admin
                  */

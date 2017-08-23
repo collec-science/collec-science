@@ -719,12 +719,12 @@ AS
    FROM storage s
      LEFT JOIN container c USING (container_id)
   WHERE s.storage_id = (( SELECT st.storage_id
-           FROM col.storage st
+           FROM storage st
           WHERE s.uid = st.uid
           ORDER BY st.storage_date DESC
          LIMIT 1));
          
-CREATE OR REPLACE VIEW col.last_photo
+CREATE OR REPLACE VIEW last_photo
 (
   document_id,
   uid
@@ -739,7 +739,7 @@ AS
           ORDER BY d1.document_creation_date DESC, d1.document_import_date DESC, d1.document_id DESC
          LIMIT 1));
 
-CREATE OR REPLACE VIEW col.v_object_identifier
+CREATE OR REPLACE VIEW v_object_identifier
 (
   uid,
   identifiers
@@ -747,8 +747,8 @@ CREATE OR REPLACE VIEW col.v_object_identifier
 AS 
  SELECT object_identifier.uid,
     array_to_string(array_agg((identifier_type.identifier_type_code::text || ':'::text) || object_identifier.object_identifier_value::text ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
-   FROM col.object_identifier
-     JOIN col.identifier_type USING (identifier_type_id)
+   FROM object_identifier
+     JOIN identifier_type USING (identifier_type_id)
   GROUP BY object_identifier.uid
   ORDER BY object_identifier.uid;
 

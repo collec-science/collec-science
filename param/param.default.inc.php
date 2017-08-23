@@ -96,7 +96,7 @@ $APPLI_modeDeveloppementDroit = false;
 $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
 $APPLI_temp = "temp";
-$APPLI_titre = "Gestion des échantillons";
+$APPLI_titre = "Collec-Science";
 $APPLI_assist_address = "https://github.com/Irstea/collec/issues/new";
 /*
  * Emplacement de fop, programme externe utilise pour generer

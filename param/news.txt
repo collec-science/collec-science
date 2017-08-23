@@ -1,5 +1,39 @@
 News
 ===========
+Version 1.1 du 01/09/2017
+---------------------------
+Collec devient Collec-Science.
+
+Mise à jour des schémas de la base de données nécessaire (schémas GACL et COL par défaut). Scripts à utiliser :
+- col_alter_1.0.8-1.1.sql, si vous êtes déjà en version 1.0.8. Si ce n'est pas le cas, vérifiez votre version et exécutez les scripts de montée de version successivement
+- gacl_create-1.1.sql et col_create_1.1.sql successivement, pour toute nouvelle installation.
+
+Corrections de bugs :
+- le script col_alter_1.0-1.0.4.sql contenait un nom de schéma en dur
+
+Évolutions et nouvelles fonctionnalités :
+Import de masse :
+- il est possible d'indiquer maintenant des informations complémentaires, comme les coordonnées géographiques ou les métadonnées associées à un échantillon
+
+Gestion du stockage :
+- il est maintenant possible d'indiquer, pour un type de container, le nombre de lignes et de colonnes disponibles
+- lors d'un mouvement d'entrée, il est possible d'indiquer le n° de ligne et de colonne de rangement
+- la visualisation d'un container permet d'afficher la grille d'occupation
+
+Gestion des métadonnées associées à un échantillon :
+- il est possible de décrire des métadonnées à associer à une opération (protocole / opération)
+- l'opération est associée au type d'échantillon
+- en modification d'un échantillon, il est possible de saisir les métadonnées
+- celles-ci peuvent être intégrées à un modèle d'étiquette, et figurent dans le fichier CSV exporté pour impression hors collec-science
+
+Gestion des droits et des habilitations :
+- installation d'une nouvelle version du moteur de l'application
+- pour les utilisateurs identifiés dans la base de données locale, il est maintenant possible pour eux de demander une réinitialisation du mot de passe (nécessite au préalable que l'adresse mail a été renseignée, et que le serveur supporte l'envoi des mails)
+- l'accès aux modules d'administration nécessite une réidentification
+- en cas d'échecs répétés de connexion, un mail d'alerte est envoyé aux administrateurs (leur mail doit avoir été déclaré préalablement, le serveur doit autoriser l'envoi des mails)
+- la connexion auprès d'un serveur CAS a été corrigée. L'ensemble de la procédure d'identification a été revue
+
+
 Version 1.0.8 du 02/06/2017
 ---------------------------
 Mise à jour de la base de données nécessaire

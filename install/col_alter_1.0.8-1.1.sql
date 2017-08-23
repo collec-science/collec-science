@@ -96,9 +96,9 @@ alter table container_type add column first_line varchar default 'T' not null;
 comment on column container_type.first_line is 'T : top, premiere ligne en haut
 B: bottom, premiere ligne en bas';
 
-DROP VIEW IF EXISTS col.last_movement CASCADE;
+DROP VIEW IF EXISTS last_movement CASCADE;
 
-CREATE OR REPLACE VIEW col.last_movement
+CREATE OR REPLACE VIEW last_movement
 (
   uid,
   storage_id,
@@ -118,15 +118,15 @@ AS
     c.uid AS container_uid,
     line_number,
     column_number
-   FROM col.storage s
-     LEFT JOIN col.container c USING (container_id)
+   FROM storage s
+     LEFT JOIN container c USING (container_id)
   WHERE s.storage_id = (( SELECT st.storage_id
-           FROM col.storage st
+           FROM storage st
           WHERE s.uid = st.uid
           ORDER BY st.storage_date DESC
          LIMIT 1));
 
-COMMENT ON VIEW col.last_movement IS 'Dernier mouvement d''un objet';
+COMMENT ON VIEW last_movement IS 'Dernier mouvement d''un objet';
 
 /*
  * Fin d'execution du script

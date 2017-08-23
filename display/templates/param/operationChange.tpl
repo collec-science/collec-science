@@ -32,7 +32,8 @@ $(document).ready(function() {
 <span class="red"> Cette opération n'est pas modifiable, car il existe des échantillons qui lui sont associés.</span>
 </div>
 <br/>
-<input type="button" class="btn btn-primary button-valid" value="En créer une nouvelle version" onclick="location.href='index.php?module=operationChange&operation_id=0&operation_pere_id={$data.operation_id}'">
+<input type="button" class="btn btn-primary button-valid" value="En créer une nouvelle version" 
+onclick="location.href='index.php?module=operationCopy&operation_id={$data.operation_id}'">
 
 {/if}
 

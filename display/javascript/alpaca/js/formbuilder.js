@@ -1,7 +1,17 @@
- //permet de créer un formulaire à remplir à partir de celui crée avec une opération
+/*
+ * Scripts permettant de gerer un formulaire de saisie des metadonnees
+ * une fois le modele cree
+ */
+
+/**
+ * Cree le formulaire pour la saisie des informations
+ * 
+ * @param formdef
+ * @returns
+ */
 
  function getSchema(formdef){
-    //récupération du schéma du form
+    // récupération du schéma du form
     var schema = {
             "type":"object",
             "properties": {}
@@ -34,8 +44,8 @@
     return schema;
 }
 
-//===========================================================//
-//récupération des options du form
+// ===========================================================//
+// récupération des options du form
  var baseFields = function (index, value) {
      var field = {
         "type": value.type
@@ -92,8 +102,8 @@ function getOptions(formdef){
     return options;
 }
 
-//===========================================================//
-//construction du formulaire
+// ===========================================================//
+// construction du formulaire
 function showForm(value, data=""){
 
     var schema = getSchema(value);

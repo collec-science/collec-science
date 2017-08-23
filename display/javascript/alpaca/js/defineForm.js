@@ -1,3 +1,9 @@
+/*
+ * fonctions permettant de definir les champs qui doivent figurer dans
+ *  un formulaire de saisie des metadonnees
+ * 
+ */
+
 //variable pour pouvoir trouver à quel champ on ajoute les données
 var idChamp;
 
@@ -19,9 +25,6 @@ function setChoiceList(file){
         $("#metadata").alpaca("destroy");
         renderForm(value);
     }
-    else{
-
-    }
 }
 
 
@@ -34,7 +37,7 @@ function renderForm(data){
                     "type": "object",
                     "properties": {
                         "nom": {
-                            "title": "Nom du champ",
+                            "title": "Nom du champ (sans espace)",
                             "type": "string",
                             "required": true
                         },

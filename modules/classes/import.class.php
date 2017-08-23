@@ -95,9 +95,9 @@ class Import
 
     private $samplingPlace;
 
-    private $sampleMetadata;
-
     private $identifierType;
+    
+    private $sampleType;
     
     private $objectIdentifier;
 
@@ -151,14 +151,14 @@ class Import
      * @param Container $container
      * @param Storage $storage
      */
-    function initClasses(Sample $sample, Container $container, Storage $storage, SamplingPlace $samplingPlace, SampleMetadata $sampleMetadata, IdentifierType $identifierType)
+    function initClasses(Sample $sample, Container $container, Storage $storage, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType)
     {
         $this->sample = $sample;
         $this->container = $container;
         $this->storage = $storage;
         $this->samplingPlace = $samplingPlace;
-        $this->sampleMetadata = $sampleMetadata;
         $this->identifierType = $identifierType;
+        $this->sampleType = $sampleType;
     }
 
     /**
@@ -249,28 +249,27 @@ class Import
                 $dataSample["sample_creation_date"] = $date;
                 $dataSample["identifier"] = $values["sample_identifier"];
                 $dataSample["object_status_id"] = $values["sample_status_id"];
-                if (! $dataSample["object_status_id"] > 0)
+                if (! $dataSample["object_status_id"] > 0) {
                     $dataSample["object_status_id"] = 1;
+                }
                 $dataSample["multiple_value"] = $values["sample_multiple_value"];
                 $dataSample["sampling_place_id"] = $values["sampling_place_id"];
+                /*
+                 * Preparation des metadonnees - eclatement du champ en colonnes
+                 */
+                if (strlen($values["sample_metadata_json"]) > 0) {
+                    $metadata = json_decode($values["sample_metadata_json"], true);
+                    foreach ($metadata as $km => $v) {
+                        $dataSample[$km] = $v;
+                    }
+                }
+                
                 /*
                  * Debut d'ecriture en table
                  */
                 try {
                     $sample_uid = $this->sample->ecrire($dataSample);
-                    $ds = $this->sample->lire($sample_uid);
-                    /*
-                     * Traitement des métadonnées
-                     */
-                    if (strlen($values["sample_metadata_json"]) > 0) {
-                        $dataMetadata = array(
-                            "data" => $values["sample_metadata_json"],
-                            "sample_id" => $ds["sample_id"]
-                        );
-                        $this->sampleMetadata->ecrire($dataMetadata);
-                    }
-                    
-                    
+                   
                     /*
                      * Traitement des identifiants complementaires
                      */
@@ -505,24 +504,21 @@ class Import
             }
             /*
              * Verification des metadonnees
+             * Elles doivent correspondre a celles definies dans l'operation
              */
             if (strlen($data["sample_metadata_json"]) > 0) {
-                // on vérifie que les données sont cohérentes avec le schéma de métadonnées
-                $metadataSchema = json_decode($this->sampleType->getMetadataForm($dataSample["sample_type_id"]), true);
+                $metadataSchema = json_decode($this->sampleType->getMetadataForm($data["sample_type_id"]), true);
                 $metadataSchemaNames = array();
-                $valuesMetadataJson = json_decode($values["sample_metadata_json"], true);
+                $valuesMetadataJson = json_decode($data["sample_metadata_json"], true);
                 $valuesMetadataJsonNames = array();
                 foreach ($metadataSchema as $field) {
                     $metadataSchemaNames[] = $field["nom"];
                 }
                 foreach ($valuesMetadataJson as $key => $field) {
-                    $valuesMetadataJsonNames[] = $key;
-                }
-                foreach ($valuesMetadataJsonNames as $name) {
-                    if (! in_array($name, $metadataSchemaNames)) {
+                    if (! in_array($key, $metadataSchemaNames)){
                         $retour["code"] = false;
-                        $retour["message"] .= "Les métadonnées ne correspondent pas au type d'échantillon";
-                    }
+                        $retour["message"] .= "Les métadonnées ne correspondent pas au type d'échantillon ($key inconnu)";
+                    }                        
                 }
             }
         }

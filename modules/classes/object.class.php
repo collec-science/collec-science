@@ -174,7 +174,7 @@ class Object extends ObjetBDD {
 		storage_date, movement_type_name, movement_type_id,
 		wgs84_x as x, wgs84_y as y,
 		'' as prj, storage_product as prod, 
-        '' as metadata
+        null as metadata
 		from object
 		join container using (uid)
 		join container_type using (container_type_id)
@@ -187,7 +187,7 @@ class Object extends ObjetBDD {
 		storage_date, movement_type_name, movement_type_id,
 		wgs84_x as x, wgs84_y as y,
 		project_name as prj, storage_product as prod,
-        metadata
+        metadata::varchar
 		from object
 		join sample using (uid)
 		join project using (project_id)

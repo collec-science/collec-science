@@ -15,7 +15,6 @@ require_once 'modules/classes/sampleType.class.php';
 require_once 'modules/classes/containerType.class.php';
 require_once 'modules/classes/objectStatus.class.php';
 require_once 'modules/classes/samplingPlace.class.php';
-require_once 'modules/classes/sampleMetadata.class.php';
 require_once 'modules/classes/identifierType.class.php';
 require_once 'modules/classes/objectIdentifier.class.php';
 /*
@@ -32,9 +31,8 @@ $containerType = new ContainerType($bdd, $ObjetBDDParam);
 $objectStatus = new ObjectStatus($bdd, $ObjetBDDParam);
 $samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
 $identifierType = new IdentifierType($bdd, $ObjetBDDParam);
-$sampleMetadata = new SampleMetadata($bdd, $ObjetBDDParam);
 $objectIdentifier = new ObjectIdentifier($bdd, $ObjetBDDParam);
-$import->initClasses($sample, $container, $storage, $samplingPlace, $sampleMetadata, $identifierType);
+$import->initClasses($sample, $container, $storage, $samplingPlace, $identifierType, $sampleType);
 $import->initClass("objectIdentifier", $objectIdentifier);
 $import->initControl($_SESSION["projects"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList());
 /*

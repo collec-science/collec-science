@@ -82,7 +82,7 @@ clp : {$data.clp_classification}
 </dl>
 {if $data.operation_id > 0}
 <dl class="dl-horizontal">
-<dt>Protocole et opération :</dt>
+<dt>Protocole et<br>opération :</dt>
 <dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name} {$data.operation_version} 
 </dd>
 </dl>
@@ -98,11 +98,11 @@ clp : {$data.clp_classification}
 </dl>
 {/if}
 <dl class="dl-horizontal">
-<dt title="Date de création de l'échantillon">Date de création de l'échantillon :</dt>
+<dt title="Date de création de l'échantillon">Date de création<br>de l'échantillon :</dt>
 <dd>{$data.sample_date}</dd>
 </dl>
 <dl class="dl-horizontal">
-<dt title="Date d'import dans la base de données">Date d'import dans la base de données :</dt>
+<dt title="Date d'import dans la base de données">Date d'import dans<br>la base de données :</dt>
 <dd>{$data.sample_creation_date}</dd>
 </dl>
 {if $data.multiple_type_id > 0}
@@ -146,20 +146,18 @@ clp : {$data.clp_classification}
 </dl>
 
 {if count($metadata) >0}
-<hr>
+<fieldset>
+<legend>Métadonnées associées</legend>
 {/if}
-{foreach from=$metadata key=key item=value name=metadatas}
+{foreach $metadata as $key=>$value}
 <dl class="dl-horizontal">
 <dt>{$key} :</dt>
 <dd>
 {$value}
-{if not $smarty.foreach.metadatas.last}
-<br>
-{/if}
 </dd>
 </dl>
 {/foreach}
-
+</fieldset>
 </div>
 {include file="gestion/objectIdentifierList.tpl"}
 

@@ -46,14 +46,7 @@ switch ($t_module ["param"]) {
 		/*
 		* Récupération des métadonnées dans un tableau pour l'affichage
 		*/
-		$metadata=json_decode($data["data"],true);
-		foreach ($metadata as $key => $value) {
-			if($value===false){
-				$metadata[$key]="false";
-			}elseif($value===true){
-				$metadata[$key]="true";
-			}
-		}
+		$metadata=json_decode($data["metadata"],true);
 		$is_modifiable = $dataClass->verifyProject ( $data );
 		if($is_modifiable){
 			$vue->set($metadata, "metadata");

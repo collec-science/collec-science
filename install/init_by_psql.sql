@@ -3,7 +3,7 @@
  * Script de creation des tables destinees a recevoir les donnees de l'application
  * version minimale de Postgresql : 9.4.
  * Schema par defaut : col. Si vous voulez creer les donnees dans d'autres schemas, modifiez les 
- * lignes 279 et 280 en consequence
+ * lignes 302 et 303 en consequence
  * Execution de ce script en ligne de commande, en etant connecte root :
  * su postgres -c "psql -f init_by_psql.sql"
  * dans la configuration de postgresql :
@@ -29,7 +29,7 @@ CREATE USER collec WITH
 create database collec owner collec;
 
 /*
- * connexion a la base talend, avec l'utilisateur talend, en localhost,
+ * connexion a la base collec, avec l'utilisateur collec, en localhost,
  * depuis psql
  */
 \c "dbname=collec user=collec password=collecPassword host=localhost"
@@ -262,6 +262,30 @@ CREATE INDEX log_login_idx
  ON log
  ( login );
 
+CREATE SEQUENCE "passwordlost_passwordlost_id_seq";
+
+CREATE TABLE "passwordlost" (
+                "passwordlost_id" INTEGER NOT NULL DEFAULT nextval('"passwordlost_passwordlost_id_seq"'),
+                "id" INTEGER NOT NULL,
+                "token" VARCHAR NOT NULL,
+                "expiration" TIMESTAMP NOT NULL,
+                "usedate" TIMESTAMP,
+                CONSTRAINT "passwordlost_pk" PRIMARY KEY ("passwordlost_id")
+);
+COMMENT ON TABLE "passwordlost" IS 'Table de suivi des pertes de mots de passe';
+COMMENT ON COLUMN "passwordlost"."token" IS 'Jeton utilise pour le renouvellement';
+COMMENT ON COLUMN "passwordlost"."expiration" IS 'Date d''expiration du jeton';
+
+ALTER SEQUENCE "passwordlost_passwordlost_id_seq" OWNED BY "passwordlost"."passwordlost_id";
+
+ALTER TABLE "passwordlost" ADD CONSTRAINT "logingestion_passwordlost_fk"
+FOREIGN KEY ("id")
+REFERENCES "logingestion" ("id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+
 /*
  * Mise a jour des compteurs pour les tables de gestion des droits
  */
@@ -275,11 +299,20 @@ select setval('aclgroup_aclgroup_id_seq', (select max(aclgroup_id) from aclgroup
 /*
  * Creation des tables dans le schema col
  */
-
-create schema col;
+create schema if not exists col;
 set search_path = col;
 
-create or replace view "aclgroup" as select * from "gacl"."aclgroup";
+CREATE OR REPLACE VIEW aclgroup
+(
+  aclgroup_id,
+  groupe,
+  aclgroup_id_parent
+)
+AS 
+ SELECT aclgroup.aclgroup_id,
+    aclgroup.groupe,
+    aclgroup.aclgroup_id_parent
+   FROM gacl.aclgroup;
 
 CREATE SEQUENCE "booking_booking_id_seq";
 
@@ -341,15 +374,37 @@ CREATE TABLE "container_type" (
                 "container_type_description" VARCHAR,
                 "storage_product" VARCHAR,
                 "clp_classification" VARCHAR,
+                "lines" INTEGER DEFAULT 1 NOT NULL,
+                "columns" INTEGER DEFAULT 1 NOT NULL,
+                "first_line" VARCHAR DEFAULT T NOT NULL,
                 CONSTRAINT "container_type_pk" PRIMARY KEY ("container_type_id")
 );
 COMMENT ON TABLE "container_type" IS 'Table des types de conteneurs';
 COMMENT ON COLUMN "container_type"."container_type_description" IS 'Description longue';
 COMMENT ON COLUMN "container_type"."storage_product" IS 'Produit utilisé pour le stockage (formol, alcool...)';
 COMMENT ON COLUMN "container_type"."clp_classification" IS 'Classification du risque conformément à la directive européenne CLP';
+COMMENT ON COLUMN "container_type"."lines" IS 'Nombre de lignes de stockage dans le container';
+COMMENT ON COLUMN "container_type"."columns" IS 'Nombre de colonnes de stockage dans le container';
+COMMENT ON COLUMN "container_type"."first_line" IS 'T : top, premiere ligne en haut
+B: bottom, premiere ligne en bas';
 
 
 ALTER SEQUENCE "container_type_container_type_id_seq" OWNED BY "container_type"."container_type_id";
+
+CREATE SEQUENCE "dbversion_dbversion_id_seq";
+
+CREATE TABLE "dbversion" (
+                "dbversion_id" INTEGER NOT NULL DEFAULT nextval('"dbversion_dbversion_id_seq"'),
+                "dbversion_number" VARCHAR NOT NULL,
+                "dbversion_date" TIMESTAMP NOT NULL,
+                CONSTRAINT "dbversion_pk" PRIMARY KEY ("dbversion_id")
+);
+COMMENT ON TABLE "dbversion" IS 'Table des versions de la base de donnees';
+COMMENT ON COLUMN "dbversion"."dbversion_number" IS 'Numero de la version';
+COMMENT ON COLUMN "dbversion"."dbversion_date" IS 'Date de la version';
+
+
+ALTER SEQUENCE "dbversion_dbversion_id_seq" OWNED BY "dbversion"."dbversion_id";
 
 CREATE SEQUENCE "document_document_id_seq";
 
@@ -434,6 +489,7 @@ CREATE TABLE "label" (
                 "label_name" VARCHAR NOT NULL,
                 "label_xsl" VARCHAR NOT NULL,
                 "label_fields" VARCHAR DEFAULT 'uid,id,clp,db' NOT NULL,
+                "operation_id" INTEGER,
                 CONSTRAINT "label_pk" PRIMARY KEY ("label_id")
 );
 COMMENT ON TABLE "label" IS 'Table des modèles d''étiquettes';
@@ -443,61 +499,6 @@ COMMENT ON COLUMN "label"."label_fields" IS 'Liste des champs à intégrer dans 
 
 
 ALTER SEQUENCE "label_label_id_seq" OWNED BY "label"."label_id";
-
-CREATE SEQUENCE "metadata_attribute_metadata_attribute_id_seq";
-
-CREATE TABLE "metadata_attribute" (
-                "metadata_attribute_id" INTEGER NOT NULL DEFAULT nextval('"metadata_attribute_metadata_attribute_id_seq"'),
-                "metadata_set_id" INTEGER NOT NULL,
-                "metadata_schema_id" INTEGER,
-                "metadata_name" VARCHAR NOT NULL,
-                "metadata_code" VARCHAR,
-                "metadata_order" INTEGER DEFAULT 1 NOT NULL,
-                "metadata_type" VARCHAR DEFAULT 'varchar' NOT NULL,
-                "metadata_defaultvalue" VARCHAR,
-                "metadata_measure_unit" VARCHAR,
-                "metadata_multivalue" BOOLEAN DEFAULT false NOT NULL,
-                "metadata_enum" VARCHAR,
-                CONSTRAINT "metadata_attribute_pk" PRIMARY KEY ("metadata_attribute_id")
-);
-COMMENT ON TABLE "metadata_attribute" IS 'Table des attributs rattachés à un jeu de métadonnées';
-COMMENT ON COLUMN "metadata_attribute"."metadata_name" IS 'Nom de la métadonnée (creator, name...)';
-COMMENT ON COLUMN "metadata_attribute"."metadata_code" IS 'Code normalisé de la métadonnée (ex : dcterms:creator)';
-COMMENT ON COLUMN "metadata_attribute"."metadata_order" IS 'Ordre d''affichage des informations dans la grille de saisie';
-COMMENT ON COLUMN "metadata_attribute"."metadata_measure_unit" IS 'Unité de mesure utilisée';
-COMMENT ON COLUMN "metadata_attribute"."metadata_enum" IS 'Liste des valeurs possibles, séparées par ;';
-
-
-ALTER SEQUENCE "metadata_attribute_metadata_attribute_id_seq" OWNED BY "metadata_attribute"."metadata_attribute_id";
-
-CREATE SEQUENCE "metadata_schema_metadata_schema_id_seq";
-
-CREATE TABLE "metadata_schema" (
-                "metadata_schema_id" INTEGER NOT NULL DEFAULT nextval('"metadata_schema_metadata_schema_id_seq"'),
-                "metadata_schema_name" VARCHAR NOT NULL,
-                "metadata_schema_short_name" VARCHAR,
-                "uri" VARCHAR,
-                CONSTRAINT "metadata_schema_pk" PRIMARY KEY ("metadata_schema_id")
-);
-COMMENT ON TABLE "metadata_schema" IS 'Liste des schémas de métadonnées utilisés';
-COMMENT ON COLUMN "metadata_schema"."metadata_schema_name" IS 'Nom complet du schéma';
-COMMENT ON COLUMN "metadata_schema"."metadata_schema_short_name" IS 'abréviation habituelle (CC, DC...)';
-COMMENT ON COLUMN "metadata_schema"."uri" IS 'Adresse URI d''accès à la description du schéma';
-
-
-ALTER SEQUENCE "metadata_schema_metadata_schema_id_seq" OWNED BY "metadata_schema"."metadata_schema_id";
-
-CREATE SEQUENCE "metadata_set_metadata_set_id_seq";
-
-CREATE TABLE "metadata_set" (
-                "metadata_set_id" INTEGER NOT NULL DEFAULT nextval('"metadata_set_metadata_set_id_seq"'),
-                "metadata_set_name" VARCHAR NOT NULL,
-                CONSTRAINT "metadata_set_pk" PRIMARY KEY ("metadata_set_id")
-);
-COMMENT ON TABLE "metadata_set" IS 'Jeu de métadonnées permettant de décrire précisément un échantillon';
-
-
-ALTER SEQUENCE "metadata_set_metadata_set_id_seq" OWNED BY "metadata_set"."metadata_set_id";
 
 CREATE SEQUENCE "mime_type_mime_type_id_seq";
 
@@ -587,13 +588,19 @@ ALTER SEQUENCE "object_status_object_status_id_seq" OWNED BY "object_status"."ob
 CREATE SEQUENCE "operation_operation_id_seq";
 
 CREATE TABLE "operation" (
-                "operation_id" INTEGER NOT NULL DEFAULT nextval('"operation_operation_id_seq"'),
+                "operation_id" INTEGER DEFAULT nextval('operation_operation_id_seq'::regclass) NOT NULL DEFAULT nextval('"operation_operation_id_seq"'),
                 "protocol_id" INTEGER NOT NULL,
                 "operation_name" VARCHAR NOT NULL,
                 "operation_order" INTEGER,
+                "operation_version" VARCHAR,
+                "last_edit_date" TIMESTAMP,
+                "metadata_schema" json,
                 CONSTRAINT "operation_pk" PRIMARY KEY ("operation_id")
 );
 COMMENT ON COLUMN "operation"."operation_order" IS 'Ordre de réalisation de l''opération dans le protocole';
+COMMENT ON COLUMN "operation"."operation_version" IS 'Version de l''opération';
+COMMENT ON COLUMN "operation"."last_edit_date" IS 'Date de dernière édition de l opération';
+COMMENT ON COLUMN "operation"."metadata_schema" IS 'Schéma en JSON du formulaire des métadonnées';
 
 
 ALTER SEQUENCE "operation_operation_id_seq" OWNED BY "operation"."operation_id";
@@ -646,23 +653,20 @@ CREATE TABLE "sample" (
                 "sample_date" TIMESTAMP,
                 "parent_sample_id" INTEGER,
                 "multiple_value" DOUBLE PRECISION,
+                "sampling_place_id" INTEGER,
+                "dbuid_origin" VARCHAR,
+                "metadata" json,
                 CONSTRAINT "sample_pk" PRIMARY KEY ("sample_id")
 );
 COMMENT ON TABLE "sample" IS 'Table des échantillons';
 COMMENT ON COLUMN "sample"."sample_creation_date" IS 'Date de création de l''enregistrement dans la base de données';
 COMMENT ON COLUMN "sample"."sample_date" IS 'Date de création de l''échantillon physique';
 COMMENT ON COLUMN "sample"."multiple_value" IS 'Nombre initial de sous-échantillons';
+COMMENT ON COLUMN "sample"."dbuid_origin" IS 'référence utilisée dans la base de données d''origine, sous la forme db:uid
+Utilisé pour lire les étiquettes créées dans d''autres instances';
 
 
 ALTER SEQUENCE "sample_sample_id_seq" OWNED BY "sample"."sample_id";
-
-CREATE TABLE "sample_metadata" (
-                "sample_id" INTEGER NOT NULL,
-                "data" json NOT NULL,
-                CONSTRAINT "sample_metadata_pk" PRIMARY KEY ("sample_id")
-);
-COMMENT ON COLUMN "sample_metadata"."data" IS 'Champ JSONB pour stockage des données spécifiques de l''échantillon';
-
 
 CREATE SEQUENCE "sample_type_sample_type_id_seq";
 
@@ -670,19 +674,28 @@ CREATE TABLE "sample_type" (
                 "sample_type_id" INTEGER NOT NULL DEFAULT nextval('"sample_type_sample_type_id_seq"'),
                 "sample_type_name" VARCHAR NOT NULL,
                 "container_type_id" INTEGER,
-                "operation_id" INTEGER,
-                "metadata_set_id" INTEGER,
-                "metadata_set_id_second" INTEGER,
                 "multiple_type_id" INTEGER,
                 "multiple_unit" VARCHAR,
+                "operation_id" INTEGER,
                 CONSTRAINT "sample_type_pk" PRIMARY KEY ("sample_type_id")
 );
 COMMENT ON TABLE "sample_type" IS 'Types d''échantillons';
-COMMENT ON COLUMN "sample_type"."metadata_set_id_second" IS 'Second jeu de métadonnées rattaché au type';
 COMMENT ON COLUMN "sample_type"."multiple_unit" IS 'Unité caractérisant le sous-échantillon';
 
 
 ALTER SEQUENCE "sample_type_sample_type_id_seq" OWNED BY "sample_type"."sample_type_id";
+
+CREATE SEQUENCE "sampling_place_sampling_place_id_seq";
+
+CREATE TABLE "sampling_place" (
+                "sampling_place_id" INTEGER NOT NULL DEFAULT nextval('"sampling_place_sampling_place_id_seq"'),
+                "sampling_place_name" VARCHAR NOT NULL,
+                CONSTRAINT "sampling_place_pk" PRIMARY KEY ("sampling_place_id")
+);
+COMMENT ON TABLE "sampling_place" IS 'Table des lieux génériques d''échantillonnage';
+
+
+ALTER SEQUENCE "sampling_place_sampling_place_id_seq" OWNED BY "sampling_place"."sampling_place_id";
 
 CREATE SEQUENCE "storage_storage_id_seq";
 
@@ -696,6 +709,8 @@ CREATE TABLE "storage" (
                 "storage_location" VARCHAR,
                 "login" VARCHAR NOT NULL,
                 "storage_comment" VARCHAR,
+                "line_number" INTEGER DEFAULT 1 NOT NULL,
+                "column_number" INTEGER DEFAULT 1 NOT NULL,
                 CONSTRAINT "storage_pk" PRIMARY KEY ("storage_id")
 );
 COMMENT ON TABLE "storage" IS 'Gestion du stockage des échantillons';
@@ -703,6 +718,8 @@ COMMENT ON COLUMN "storage"."storage_date" IS 'Date/heure du mouvement';
 COMMENT ON COLUMN "storage"."storage_location" IS 'Emplacement de l''échantillon dans le conteneur';
 COMMENT ON COLUMN "storage"."login" IS 'Nom de l''utilisateur ayant réalisé l''opération';
 COMMENT ON COLUMN "storage"."storage_comment" IS 'Commentaire';
+COMMENT ON COLUMN "storage"."line_number" IS 'N° de la ligne de stockage dans le container';
+COMMENT ON COLUMN "storage"."column_number" IS 'Numéro de la colonne de stockage dans le container';
 
 
 ALTER SEQUENCE "storage_storage_id_seq" OWNED BY "storage"."storage_id";
@@ -751,6 +768,13 @@ COMMENT ON COLUMN "subsample"."subsample_login" IS 'Login de l''utilisateur ayan
 
 ALTER SEQUENCE "subsample_subsample_id_seq" OWNED BY "subsample"."subsample_id";
 
+ALTER TABLE "project_group" ADD CONSTRAINT "aclgroup_projet_group_fk"
+FOREIGN KEY ("aclgroup_id")
+REFERENCES "aclgroup" ("aclgroup_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
 ALTER TABLE "storage" ADD CONSTRAINT "container_storage_fk"
 FOREIGN KEY ("container_id")
 REFERENCES "container" ("container_id")
@@ -796,34 +820,6 @@ NOT DEFERRABLE;
 ALTER TABLE "container_type" ADD CONSTRAINT "label_container_type_fk"
 FOREIGN KEY ("label_id")
 REFERENCES "label" ("label_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "metadata_attribute" ADD CONSTRAINT "metadata_schema_metadata_attribute_fk"
-FOREIGN KEY ("metadata_schema_id")
-REFERENCES "metadata_schema" ("metadata_schema_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "metadata_attribute" ADD CONSTRAINT "metadata_set_metadata_attribute_fk"
-FOREIGN KEY ("metadata_set_id")
-REFERENCES "metadata_set" ("metadata_set_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "sample_type" ADD CONSTRAINT "metadata_set_sample_type_fk"
-FOREIGN KEY ("metadata_set_id")
-REFERENCES "metadata_set" ("metadata_set_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE "sample_type" ADD CONSTRAINT "metadata_set_sample_type_fk1"
-FOREIGN KEY ("metadata_set_id_second")
-REFERENCES "metadata_set" ("metadata_set_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
@@ -912,6 +908,13 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
+ALTER TABLE "label" ADD CONSTRAINT "operation_label_fk"
+FOREIGN KEY ("operation_id")
+REFERENCES "operation" ("operation_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
 ALTER TABLE "sample_type" ADD CONSTRAINT "operation_sample_type_fk"
 FOREIGN KEY ("operation_id")
 REFERENCES "operation" ("operation_id")
@@ -919,7 +922,7 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "project_group" ADD CONSTRAINT "project_project_group_fk"
+ALTER TABLE "project_group" ADD CONSTRAINT "project_projet_group_fk"
 FOREIGN KEY ("project_id")
 REFERENCES "project" ("project_id")
 ON DELETE NO ACTION
@@ -947,13 +950,6 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "sample_metadata" ADD CONSTRAINT "sample_sample_metadata_fk"
-FOREIGN KEY ("sample_id")
-REFERENCES "sample" ("sample_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
 ALTER TABLE "subsample" ADD CONSTRAINT "sample_subsample_fk"
 FOREIGN KEY ("sample_id")
 REFERENCES "sample" ("sample_id")
@@ -964,6 +960,13 @@ NOT DEFERRABLE;
 ALTER TABLE "sample" ADD CONSTRAINT "sample_type_sample_fk"
 FOREIGN KEY ("sample_type_id")
 REFERENCES "sample_type" ("sample_type_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE "sample" ADD CONSTRAINT "sampling_place_sample_fk"
+FOREIGN KEY ("sampling_place_id")
+REFERENCES "sampling_place" ("sampling_place_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
@@ -982,24 +985,69 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-create or replace view last_movement as (
-SELECT s.uid,
+/*
+ * Creation des vues
+ */
+CREATE OR REPLACE VIEW last_movement
+(
+  uid,
+  storage_id,
+  storage_date,
+  movement_type_id,
+  container_id,
+  container_uid,
+  line_number,
+  column_number
+)
+AS 
+ SELECT s.uid,
     s.storage_id,
     s.storage_date,
     s.movement_type_id,
     s.container_id,
-    c.uid AS container_uid
-   FROM col.storage s
-    left outer JOIN col.container c USING (container_id)
-   where s.storage_id = (
-   select st.storage_id from storage st
-   where s.uid = st.uid 
-    order by st.storage_date desc limit 1
-    )
-      );
-      
-comment on view last_movement is 'Dernier mouvement d''un objet';
+    c.uid AS container_uid,
+    s.line_number,
+    s.column_number
+   FROM storage s
+     LEFT JOIN container c USING (container_id)
+  WHERE s.storage_id = (( SELECT st.storage_id
+           FROM storage st
+          WHERE s.uid = st.uid
+          ORDER BY st.storage_date DESC
+         LIMIT 1));
+         
+CREATE OR REPLACE VIEW last_photo
+(
+  document_id,
+  uid
+)
+AS 
+ SELECT d.document_id,
+    d.uid
+   FROM document d
+  WHERE d.document_id = (( SELECT d1.document_id
+           FROM document d1
+          WHERE (d1.mime_type_id = ANY (ARRAY[4, 5, 6])) AND d.uid = d1.uid
+          ORDER BY d1.document_creation_date DESC, d1.document_import_date DESC, d1.document_id DESC
+         LIMIT 1));
 
+CREATE OR REPLACE VIEW v_object_identifier
+(
+  uid,
+  identifiers
+)
+AS 
+ SELECT object_identifier.uid,
+    array_to_string(array_agg((identifier_type.identifier_type_code::text || ':'::text) || object_identifier.object_identifier_value::text ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
+   FROM object_identifier
+     JOIN identifier_type USING (identifier_type_id)
+  GROUP BY object_identifier.uid
+  ORDER BY object_identifier.uid;
+
+  
+ /*
+ * Initialisation par defaut des donnees
+ */
 
 insert into movement_type (movement_type_id, movement_type_name) 
 values 
@@ -1022,38 +1070,7 @@ INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  (  13,  'application/msword',  'doc'),
  (  14,  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  'docx'),
  (  8,  'text/csv',  'csv');
- 
-create or replace view last_photo as (
-select d.document_id, d.uid
-from document d
-where document_id = (
-select d1.document_id from document d1
-where d1.mime_type_id in (4,5,6) 
-and d.uid = d1.uid
-order by d1.document_creation_date desc, d1.document_import_date desc, d1.document_id desc
-limit 1)
-);
 
-CREATE OR REPLACE VIEW last_movement
-AS 
- SELECT s.uid, s.storage_id, s.storage_date, s.movement_type_id, s.container_id, c.uid AS container_uid
-   FROM storage s
-   JOIN container c USING (container_id)
-  WHERE s.storage_date = (( SELECT max(st1.storage_date) AS max
-      FROM storage st1
-     WHERE st1.uid = s.uid));
-     
-CREATE OR REPLACE VIEW v_object_identifier
-AS 
- SELECT object_identifier.uid, array_to_string(array_agg((identifier_type.identifier_type_code::text || ':'::text) || object_identifier.object_identifier_value::text ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
-   FROM object_identifier
-   JOIN identifier_type USING (identifier_type_id)
-  GROUP BY object_identifier.uid
-  ORDER BY object_identifier.uid;
-  
-/*
- * Ajout de donnees par defaut
- */
  INSERT INTO label
 (
   label_name,
@@ -1135,6 +1152,7 @@ select setval('label_label_id_seq',(select max(label_id) from label));
  (2, 'Mobilier', false);
  
 select setval('container_family_container_family_id_seq', (select max(container_family_id) from container_family));
+
 insert into container_type (container_type_name, container_family_id)
 values 
 ('Site', 1),
@@ -1163,6 +1181,7 @@ VALUES
 (  'Quantité ou volume'),
 (  'Autre');
 
+
 INSERT INTO object_status(  object_status_name)
 VALUES
 (  'État normal'),
@@ -1170,59 +1189,12 @@ VALUES
 (  'Objet détruit'),
 (  'Echantillon vidé de tout contenu');
 
-/*
- * ajouts version 1.0.5
- */
-CREATE SEQUENCE "sampling_place_sampling_place_id_seq";
-
-CREATE TABLE "sampling_place" (
-                "sampling_place_id" INTEGER NOT NULL DEFAULT nextval('"sampling_place_sampling_place_id_seq"'),
-                "sampling_place_name" VARCHAR NOT NULL,
-                CONSTRAINT "sampling_place_pk" PRIMARY KEY ("sampling_place_id")
-);
-COMMENT ON TABLE "sampling_place" IS 'Table des lieux génériques d''échantillonnage';
-
-
-ALTER SEQUENCE "sampling_place_sampling_place_id_seq" OWNED BY "sampling_place"."sampling_place_id";
-
-alter table "sample" add column "sampling_place_id" integer;
-
-ALTER TABLE "sample" ADD CONSTRAINT "sampling_place_sample_fk"
-FOREIGN KEY ("sampling_place_id")
-REFERENCES "sampling_place" ("sampling_place_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-alter table "sample" add column dbuid_origin varchar;
-comment on column "sample".dbuid_origin is 'référence utilisée dans la base de données d''origine, sous la forme db:uid
-Utilisé pour lire les étiquettes créées dans d''autres instances';
 
 /*
- * Feature dbversion_verify - 29/05/2017
+ * Fin d'execution du script
+ * Mise a jour de dbversion
  */
-CREATE SEQUENCE "dbversion_dbversion_id_seq";
+insert into dbversion ("dbversion_number", "dbversion_date")
+values 
+('1.1','2017-09-01');
 
-CREATE TABLE "dbversion" (
-                "dbversion_id" INTEGER NOT NULL DEFAULT nextval('"dbversion_dbversion_id_seq"'),
-                "dbversion_number" VARCHAR NOT NULL,
-                "dbversion_date" TIMESTAMP NOT NULL,
-                CONSTRAINT "dbversion_pk" PRIMARY KEY ("dbversion_id")
-);
-COMMENT ON TABLE "dbversion" IS 'Table des versions de la base de donnees';
-COMMENT ON COLUMN "dbversion"."dbversion_number" IS 'Numero de la version';
-COMMENT ON COLUMN "dbversion"."dbversion_date" IS 'Date de la version';
-
-
-ALTER SEQUENCE "dbversion_dbversion_id_seq" OWNED BY "dbversion"."dbversion_id";
-
-/*
- * fin du script
- */
-
-
-/*
- * Derniere ligne systematique, a mettre a jour a chaque evolution (numero de version de la base de donnees)
- */
- 
-insert into dbversion(dbversion_number, dbversion_date) values ('1.0.8', '2017-06-02');

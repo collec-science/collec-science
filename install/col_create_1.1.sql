@@ -756,6 +756,28 @@ AS
  /*
  * Initialisation par defaut des donnees
  */
+ 
+ insert into movement_type (movement_type_id, movement_type_name) 
+values 
+(1, 'Entrée/Entry'),
+(2, 'Sortie/Exit');
+ 
+ INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
+ VALUES
+ (  1,  'application/pdf',  'pdf'),
+ (  2,  'application/zip',  'zip'),
+ (  3,  'audio/mpeg',  'mp3'),
+ (  4,  'image/jpeg',  'jpg'),
+ (  5,  'image/jpeg',  'jpeg'),
+ (  6,  'image/png',  'png'),
+ (  7,  'image/tiff',  'tiff'),
+ (  9,  'application/vnd.oasis.opendocument.text',  'odt'),
+ (  10,  'application/vnd.oasis.opendocument.spreadsheet',  'ods'),
+ (  11,  'application/vnd.ms-excel',  'xls'),
+ (  12,  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  'xlsx'),
+ (  13,  'application/msword',  'doc'),
+ (  14,  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  'docx'),
+ (  8,  'text/csv',  'csv');
  INSERT INTO label
 (
   label_name,

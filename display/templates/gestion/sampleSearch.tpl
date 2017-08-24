@@ -1,5 +1,7 @@
 <script>
 $(document).ready(function () {
+	var metadataFieldInitial = "{$sampleSearch.metadata_field}";
+
 	/*
 	 * Verification que des criteres de selection soient saisis
 	 */
@@ -12,8 +14,42 @@ $(document).ready(function () {
 		 if ($("#sample_type_id").val() > 0) ok = true;
 		 if ($("#sampling_place_id").val() > 0 ) ok = true ;
 		 if ($("#object_status_id").val() > 1) ok = true;
+		 if ($("#metadata_field").val().length > 0 && $("#metadata_value").val().length > 0) ok = true;
 		 if (ok == false) event.preventDefault();
 	 });
+	
+	 function getMetadata() {
+		 var sampleTypeId = $("#sample_type_id").val();
+		 $("#metadata_field").empty();
+		 if (sampleTypeId.length > 0) {
+    	    $.ajax( { 
+    	   		url: "index.php",
+    	    	data: { "module": "sampleTypeMetadata", "sample_type_id": sampleTypeId }
+    	    })
+    	    .done (function (value) {
+    	    	if (value.length > 0) {
+    	    		var selected = "";
+    	    		var option = '<option value="">{$LANG["appli"].2}</option>';
+    	    		$("#metadata_field").append(option);
+    	   			$.each(JSON.parse(value), function(i, obj) {
+    	    			var nom = obj.nom.replace(/ /g,"_");
+    	    			if (nom == metadataFieldInitial) {
+    	    				selected = "selected";
+    	    			}
+    	    			option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
+    	    			$("#metadata_field").append(option);
+    	    			selected = "";
+    	    		})
+    	    	}
+    	   	})
+    	   	;
+	 	}
+     }
+	 
+     $("#sample_type_id").change( function() {
+    	 getMetadata();
+     });
+     getMetadata();
 });
 </script>
 
@@ -102,7 +138,16 @@ $(document).ready(function () {
 
 </div>
  -->
-<div class="col-md-2 col-md-offset-4">
+ <label for="metadata_field" class="col-md-2 control-label">Métadonnées :</label>
+ <div class="col-md-4">
+ <select class="form-control" id="metadata_field" name="metadata_field">
+ <option value="" {if $sampleSearch.metadata_field == ""}selected{/if}>Sélectionnez...</option>
+ </select>
+ </div>
+ <div class="col-md-2">
+ <input class="col-md-2 form-control" id="metadata_value" name="metadata_value" value="{$sampleSearch.metadata_value}" placeholder="valeur exacte à rechercher">
+ </div>
+<div class="col-md-2">
 <input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
 </div>
 </div>

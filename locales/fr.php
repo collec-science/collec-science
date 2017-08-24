@@ -150,7 +150,6 @@ $LANG["message"][48] = "L'identification par jeton n'a pas abouti";
 $LANG["message"][49] = "";
 $LANG["message"][50] = "";
 
-
 $LANG["message"]["yes"] = "oui";
 $LANG["message"]["no"] = "non";
 

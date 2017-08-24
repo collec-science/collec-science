@@ -153,15 +153,15 @@ class Sample extends ObjetBDD
                 require_once 'modules/classes/sampleType.class.php';
                 $st = new SampleType($this->connection, $this->paramori);
                 $dst = $st->getMetadataForm($data["sample_type_id"]);
-                if (strlen($dst)> 2) {
+                if (strlen($dst) > 2) {
                     $schema = json_decode($dst, true);
                     $metadata = array();
                     foreach ($schema as $value) {
                         if (strlen($data[$value["nom"]]) > 0) {
-                            $metadata [$value["nom"]] = $data[$value["nom"]];
+                            $metadata[$value["nom"]] = $data[$value["nom"]];
                         }
                     }
-                    $data ["metadata"] = json_encode($metadata);
+                    $data["metadata"] = json_encode($metadata);
                 }
             }
             $object = new Object($this->connection, $this->param);
@@ -298,6 +298,15 @@ class Sample extends ObjetBDD
             $and = " and ";
             $data["uid_min"] = $param["uid_min"];
             $data["uid_max"] = $param["uid_max"];
+        }
+        /*
+         * Recherche dans les metadonnees
+         */
+        if (strlen($param["metadata_field"]) > 0 && strlen($param["metadata_value"]) > 0) {
+            $mf = $this->encodeData($param["metadata_field"]);
+            $mv = $this->encodeData($param["metadata_value"]);
+            $where .= $and . "s.metadata::jsonb @> '{".'"'.$mf.'":"'.$mv.'"}'."'";
+            $and = " and ";
         }
         
         /*

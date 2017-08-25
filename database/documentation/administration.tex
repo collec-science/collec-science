@@ -3,6 +3,10 @@
 \section{Gérer les droits}
 \label{droits}
 
+Depuis la version 1.1, les scripts de création des bases de données intègrent la génération initiale des groupes et des droits associés, ceci afin de faciliter la phase de mise en route.
+
+Toutefois, vous devrez créer des groupes d'utilisateurs correspondant à vos projets, et modifier ensuite les projets pour donner les droits adéquats aux groupes créés (\textit{cf.} \ref{projet}, page \pageref{projet}).
+
 \subsection{Principe général}
 
 Les droits sont gérés selon le principe initialement utilisé dans la bibliothèque PHPGACL \cite{phpgacl}, aujourd'hui obsolète. 
@@ -191,6 +195,7 @@ consult	& Consultation des informations, sans possibilité de modification. Le d
 Ces droits doivent être définis pour chaque application (couple \textit{logiciel} $\leftrightarrow$ \textit{base de données}) gérée par la base de gestion des droits.
 
 \subsection{Gestion des projets}
+\label{projet}
 
 Les échantillons étant obligatoirement rattachés à un projet, vous devrez en créer au minimum un à partir du menu d'administration. Un utilisateur avec les droits de gestion ne peut modifier que les échantillons pour lesquels il est autorisé (les projets qui sont rattachés au groupe dont il fait partie).
 

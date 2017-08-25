@@ -236,7 +236,7 @@ GACL\_aco & nom du code de l'application utilisé dans la gestion des droits\\
 
 \subsection{Identification des utilisateurs}
 
-\begin{longtable}{|p{4cm}|p{11cm}|}
+\begin{longtable}{|p{6cm}|p{10cm}|}
 \hline
 \textbf{Variable} & \textbf{Signification} \\
 \hline
@@ -259,6 +259,19 @@ pubKey & clé publique utilisée pour générer les jetons d'identification \\
 \hline
 tokenIdentityValidity & durée de validité, en secondes, des jetons d'identification\\
 \hline
+MAIL\_enabled & Si à 1, l'envoi de mail est géré par l'application \\
+\hline
+CONNEXION\_max\_attemps & nombre maximum d'essais de connexion avant blocage temporaire du compte \\
+\hline
+CONNEXION\_blocking\_duration & durée de blocage du compte \\
+\hline
+APPLI\_mailToAdminPeriod & intervalle de temps entre l'envoi d'un mail de notification de blocage de compte à un administrateur \\
+\hline
+APPLI\_admin\_ttl & durée de vie d'une session d'administration (temps maximum entre deux accès à une page d'administration avant réidentification) \\
+\hline
+APPLI\_lostPassword & Si à 1, autorise la récupération du mot de passe perdu, par envoi d'un mail avec un lien chiffré. Nécessite également que MAIL\_enabled soit positionné à 1 \\
+\hline
+
 \caption{Variables utilisées pour paramétrer l'identification}
 \end{longtable}
 
@@ -392,7 +405,7 @@ Les scripts de création des schémas dans la base de données sont stockés dan
 
 
 \subsection{Créer les tables de gestion des droits}
-Script à utiliser : \textit{gacl\_create.sql}. Les tables nécessaires vont être créées dans le schéma \textit{gacl} (ne modifiez pas le nom du schéma).
+Script à utiliser : \textit{gacl\_create\_1.1.sql}. Les tables nécessaires vont être créées dans le schéma \textit{gacl} (ne modifiez pas le nom du schéma).
 
 Le script crée un compte d'administration par défaut :
 \begin{itemize}
@@ -406,7 +419,7 @@ Lles droits par défaut sont positionnés pour le projet \textit{appli} (variabl
 
 
 \subsection{Créer les tables applicatives}
-Script à utiliser : \textit{col\_create.sql}.
+Script à utiliser : \textit{col\_create\_1.1.sql}.
 
 Par défaut, le script crée un schéma appelé \textit{col}. Il est possible de créer plusieurs schémas différents, si l'application supporte plusieurs jeux de données (\textit{cf.} \ref{dnsmultiple} \textit{\nameref{dnsmultiple}}, page \pageref{dnsmultiple}). Dans ce cas de figure, remplacez \textit{col} par le nom du schéma voulu dans les deux premières lignes du script.
 
@@ -439,7 +452,7 @@ Le plus simple est d'utiliser le logiciel \textit{pgAdmin} \cite{pgadmin} pour a
 
 \subsection{Scripts de modification}
 
-Lors de la livraison de nouvelles versions, il est possible que des scripts de modification soient livrés pour mettre à niveau la base de données. Ces scripts doivent être exécutés dans tous les schémas contenant des données applicatives.
+Lors de la livraison de nouvelles versions, il est possible que des scripts de modification soient livrés pour mettre à niveau la base de données. Ces scripts doivent être exécutés dans tous les schémas contenant des données applicatives (pour plus de détails, consultez ci-après \textit{\nameref{newVersion}}).
 
 \section{Mise en production}
 
@@ -454,6 +467,7 @@ Une fois l'application configurée, et après avoir créé un nouveau compte d'a
 Vous pouvez également tester si la configuration du serveur est correcte en recourant à \textit{ZAProxy} \cite{zaproxy}, qui analysera la communication entre le serveur et un navigateur et identifiera les problèmes éventuels de non conformité (mauvaise réécriture des entêtes HTML suite à une mauvaise configuration du serveur Apache, par exemple).
 
 \section{Installer une nouvelle version}
+\label{newVersion}
 
 \subsection{Sauvegarder le fichier contenant les paramètres de l'application}
 
@@ -483,3 +497,9 @@ La mise à jour doit être appliquée dans tous les schémas contenant des donn�
 \subsection{Reconfigurer les droits d'accès au serveur web}
 
 Après installation de la nouvelle version du code, n'oubliez-pas de reconfigurer les accès en lecture pour le compte utilisé pour faire fonctionner le serveur web, et en écriture pour les dossiers \textit{temp} et \textit{display/templates\_c} (\textit{cf.} \ref{droitsApache} \textit{\nameref{droitsApache}}, page \pageref{droitsApache}).
+
+\subsection{Supprimer les dossiers inutiles}
+Une fois la mise en production validée, supprimez les dossiers \textit{install} et \textit{database}, et faites une revue des droits pour vous assurer qu'il n'y a pas eu de modification intempestive ou que la configuration est toujours correcte.
+
+\subsection{Vérifier la configuration du chiffrement}
+Avec un navigateur récent, ou en testant le site (s'il est accessible depuis internet) à partir de \href{https://www.ssllabs.com/ssltest/}{SSLLABS}, vérifiez que l'application soit correctement configurée, notamment au niveau du serveur Apache.

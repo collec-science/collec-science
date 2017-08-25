@@ -145,7 +145,7 @@ $(document).ready(function () {
  </select>
  </div>
  <div class="col-md-2">
- <input class="col-md-2 form-control" id="metadata_value" name="metadata_value" value="{$sampleSearch.metadata_value}" placeholder="valeur exacte à rechercher">
+ <input class="col-md-2 form-control" id="metadata_value" name="metadata_value" value="{$sampleSearch.metadata_value}" title="Libellé à rechercher dans le champ de métadonnées sélectionné">
  </div>
 <div class="col-md-2">
 <input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">

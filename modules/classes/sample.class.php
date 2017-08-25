@@ -303,9 +303,9 @@ class Sample extends ObjetBDD
          * Recherche dans les metadonnees
          */
         if (strlen($param["metadata_field"]) > 0 && strlen($param["metadata_value"]) > 0) {
-            $mf = $this->encodeData($param["metadata_field"]);
-            $mv = $this->encodeData($param["metadata_value"]);
-            $where .= $and . "s.metadata::jsonb @> '{".'"'.$mf.'":"'.$mv.'"}'."'";
+            $where .=  $and . "upper(s.metadata->>:metadata_field) like upper (:metadata_value)";
+            $data ["metadata_field"] = $param["metadata_field"];
+            $data ["metadata_value"] = "%".$param["metadata_value"]."%";
             $and = " and ";
         }
         

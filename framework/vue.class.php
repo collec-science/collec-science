@@ -546,4 +546,50 @@ class vueBinaire extends Vue
         }
     }
 }
+/**
+*Classe permettant l'impression
+*/
+class vuePrintDirect extends Vue {
+
+	function send(){
+		header("Location: " . $_SERVER['PHP_SELF']."?module=sampleList");
+		ob_flush ();
+	}
+
+	function printDirect($printer_name, $pdffile){
+		//On teste si l'imprimante existe localement
+		exec("lpq -P ".$printer_name,$output);
+		if(strpos($output[0],'is ready') !== false){
+			$printCommand = "lpr -P ".$printer_name." -o fit-to-page ".$pdffile;
+			exec($printCommand);
+		}
+		//impression via SSH avec mot de passe en clair
+		/*else{
+			//sinon, impression à distance
+			exec("ping -c 1 ".$Pip,$output,$return);
+			if($return == 0){
+				if($connection = ssh2_connect($Pip)){
+					if(ssh2_auth_password($connection, $Puser,"raspberry")){
+						$printCommand='lpr -P '.$Pname.' -o fit-to-page < '.$pdffile;
+						var_dump(ssh2_exec($connection, $printCommand));
+						ssh2_exec($connection, 'exit');
+						unset($connection);
+					}
+					else {
+						$message->set("L'identification a échouée");
+						$module_coderetour = - 1;
+					}
+				}else {
+					$message->set("La connexion a échouée");
+					$module_coderetour = - 1;
+				}
+														
+			}
+		}*/
+		else {
+			$message->set("L'imprimante n'est pas installée sur cette machine");
+			$module_coderetour = - 1;
+		}
+	}
+}
 ?>

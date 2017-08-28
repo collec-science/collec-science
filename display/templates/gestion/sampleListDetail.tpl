@@ -30,6 +30,16 @@
 			$("#sampleSpinner").show();
 			$(this.form).submit();
 		});
+		$("#sampledirect").keypress(function() {
+			$(this.form).find("input[name='module']").val("samplePrintDirect");
+			$("#sampleSpinner").show();
+			$(this.form).submit();
+		});
+		$("#sampledirect").click(function() {
+			$(this.form).find("input[name='module']").val("samplePrintDirect");
+			$("#sampleSpinner").show();
+			$(this.form).submit();
+		});
 	});
 </script>
 {include file="gestion/displayPhotoScript.tpl"} {if $droits.gestion ==
@@ -52,6 +62,14 @@
 			<img id="sampleSpinner" src="/display/images/spinner.gif" height="25">
 			<button id="samplecsvfile" class="btn btn-primary">Fichier
 				CSV</button>
+			<select id="printers" name="printer_id">
+			{section name=lst loop=$printers}
+			<option value="{$printers[lst].printer_id}">
+			{$printers[lst].printer_name}
+			</option>
+			{/section}
+			</select>
+			<button id="sampledirect" class="btn btn-primary">Impression directe</button>
 		</div>
 	</div>
 	{/if}

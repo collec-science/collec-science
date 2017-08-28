@@ -121,7 +121,11 @@ class Vue
      */
     function set($value, $variable = "")
     {
+        if (strlen($variable) > 0) {
+            $this->data[$variable] = $value;
+        } else {
         $this->data = $value;
+        }
     }
 
     /**
@@ -547,15 +551,33 @@ class vueBinaire extends Vue
     }
 }
 /**
-*Classe permettant l'impression
+* Classe permettant l'impression directe vers une imprimante locale
+* (hebergee dans le serveur)
 */
 class vuePrintDirect extends Vue {
 
+    public $data = array("printer_name"=>"", "options" => " -o fit-to-page ", "filename"=>"") ;
+    
 	function send(){
-		header("Location: " . $_SERVER['PHP_SELF']."?module=sampleList");
-		ob_flush ();
-	}
+	    if (strlen($this->data["printer_name"]) > 0 && strlen($this->data["filename"])>0 ) {
+	        if (file_exists($this->data["filename"])) {
+	            /*
+	             * Test de l'existence de l'imprimante et de son etat
+	             */
+	            exec("lpq -P ".$printer_name,$output);
+	            if(strpos($output[0],'is ready') !== false){
+	                define ("SPACE", " ");
+	                exec("lpr -P ".$this->data["printer_name"].SPACE.$this->data["options"].SPACE.$this->data["filename"]);
+	            } else {
+	                throw new VueException("Printer ".$this->data["filename"]." not ready. Message: ".output[0]);
+	            }
+	        } else {
+	            throw new VueException("Filename ". $this->data["filename"]." not found" );
+	        }
+	    }
 
+	}
+	
 	function printDirect($printer_name, $pdffile){
 		//On teste si l'imprimante existe localement
 		exec("lpq -P ".$printer_name,$output);

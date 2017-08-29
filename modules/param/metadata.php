@@ -5,9 +5,9 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-require_once 'modules/classes/label.class.php';
-$dataClass = new Label ( $bdd, $ObjetBDDParam );
-$keyName = "label_id";
+require_once 'modules/classes/metadata.class.php';
+$dataClass = new Metadata ( $bdd, $ObjetBDDParam );
+$keyName = "metadata_id";
 $id = $_REQUEST [$keyName];
 
 switch ($t_module ["param"]) {
@@ -17,7 +17,7 @@ switch ($t_module ["param"]) {
 		 */
 		try {
 			$vue->set ( $dataClass->getListe ( 2 ), "data" );
-			$vue->set ( "param/labelList.tpl", "corps" );
+			$vue->set ( "param/metadataList.tpl", "corps" );
 		} catch ( Exception $e ) {
 			$message->set ( $e->getMessage () );
 		}
@@ -28,10 +28,7 @@ switch ($t_module ["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		$data = dataRead ( $dataClass, $id, "param/labelChange.tpl" );
-		require_once 'modules/classes/metadata.class.php';
-		$metadata = new metadata ( $bdd, $ObjetBDDParam );
-		$vue->set($metadata->getListe(),"metadata");
+		dataRead ( $dataClass, $id, "param/metadataChange.tpl" );
 		break;
 	case "write":
 		/*
@@ -53,13 +50,14 @@ switch ($t_module ["param"]) {
 	     * Duplication d'une etiquette
 	     */
 	    $data = $dataClass->lire($id);
-	    $data["label_id"] = 0;
-	    $data["label_name"] = "";
+	    $data["metadata_id"] = 0;
+	    $data["metadata_name"] .= " - new version";
 	    $vue->set($data, "data");
-	    $vue->set("param/labelChange.tpl", "corps");
-	    require_once 'modules/classes/metadata.class.php';
-	    $metadata = new Metadata ( $bdd, $ObjetBDDParam );
-	    $vue->set($metadata->getListe(),"metadata");
+	    $vue->set("param/metadataChange.tpl", "corps");
+	    break;
+	case "getSchema":
+	    $data = $dataClass->lire($id);
+	    $vue->setJson($data["metadata_schema"]);
 	    break;
 }
 ?>

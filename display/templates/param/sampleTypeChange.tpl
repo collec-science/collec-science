@@ -41,6 +41,19 @@
 </div>
 </div>
 
+<div class="form-group">
+<label for="metadata_id" class="control-label col-md-4">Modèle de métadonnées :</label>
+<div class="col-md-8">
+<select id="metadata_id" name="metadata_id" class="form-control">
+<option value="" {if $data.metadata_id == ""}selected{/if}>{$LANG.appli.2}</option>
+{section name=lst loop=$metadata}
+<option value="{$metadata[lst].metadata_id}" {if $metadata[lst].metadata_id == $data.metadata_id}selected{/if}>
+{$metadata[lst].metadata_name}
+</option>
+{/section}
+</select>
+</div>
+</div>
 
 <fieldset>
 <legend>Sous-échantillonnage</legend>

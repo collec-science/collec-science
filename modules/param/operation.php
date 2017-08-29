@@ -71,12 +71,7 @@ switch ($t_module["param"]) {
         $protocol = new Protocol($bdd, $ObjetBDDParam);
         $vue->set($protocol->getListe("protocol_year desc, protocol_name, protocol_version desc"), "protocol");
         break;
-    case "metadata":
-        /*
-         * Transmet le contenu du formulaire de metadonnees
-         */
-        $vue->setJson($dataClass->getMetadataForm($id));
-        break;
+
 }
 
 ?>

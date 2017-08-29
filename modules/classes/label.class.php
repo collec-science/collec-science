@@ -7,8 +7,7 @@
  */
 class Label extends ObjetBDD {
 	private $sql="select label_id, label_name, label_xsl, label_fields,
-			operation_id,
-			metadata_schema
+			metadata_id, metadata_schema, metadata_name
 			from label
 			left outer join metadata using(metadata_id)
 		";
@@ -40,6 +39,15 @@ class Label extends ObjetBDD {
 		);
 		parent::__construct ( $bdd, $param );
 	}
+	function getListe($order="") {
+	    if (strlen($order) > 0) {
+	        $order = " order by ".$this->encodeData($order);
+	    } else {
+	        $order = " order by 1";
+	    }
+	    return $this->getListeParam($this->sql.$order);
+	}
+	
 	/**
 	 * Surcharge de lire pour ramener le schéma de métadonnées
 	 *

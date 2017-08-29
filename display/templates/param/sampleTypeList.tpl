@@ -14,6 +14,7 @@
 <th>Type de conteneur</th>
 <th>Protocole / operation</th>
 <th>Sous-échantillonnage</th>
+<th>Modèle de métadonnées</th>
 </tr>
 </thead>
 <tbody>
@@ -38,7 +39,7 @@
 {$data[lst].multiple_type_name} : {$data[lst].multiple_unit}
 {/if}
 </td>
-
+<td>{$data[lst].metadata_name}</td>
 </tr>
 {/section}
 </tbody>

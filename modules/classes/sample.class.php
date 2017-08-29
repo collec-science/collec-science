@@ -49,6 +49,7 @@ class Sample extends ObjetBDD
 					left outer join v_object_identifier voi on  (s.uid = voi.uid)
 					left outer join last_movement lm on (s.uid = lm.uid)
 					left outer join movement_type using (movement_type_id)
+                    left outer join metadata using (metadata_id)
 					";
 
     function __construct($bdd, $param = array())

@@ -3,11 +3,11 @@ $(document).ready( function() {
      function getMetadata() {
     	 $("#list_metadata").empty();
     	    var schema;
-    	    var oi = $("#operation_id").val();
+    	    var oi = $("#metadata_id").val();
     	    if (oi.length > 0) {
     	    	$.ajax( { 
     	    		url: "index.php",
-    	    		data: { "module": "operationMetadata", "operation_id": oi }
+    	    		data: { "module": "metadataGetschema", "metadata_id": oi }
     	    	})
     	    	.done (function (value) {
     	    		$.each(JSON.parse(value), function(i, obj) {
@@ -18,7 +18,7 @@ $(document).ready( function() {
     	    	;
     	    }
      }
-     $("#operation_id").change( function() {
+     $("#metadata_id").change( function() {
     	 getMetadata();
      });
      getMetadata();
@@ -35,7 +35,7 @@ $(document).ready( function() {
 <input type="hidden" name="moduleBase" value="label">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="label_id" value="{$data.label_id}">
-<input type="hidden" name="operation_id" value="{$operation_id}">
+<input type="hidden" name="metadata_id" value="{$metadata_id}">
 <div class="form-group">
 <label for="labelName"  class="control-label col-md-4">Nom de l'étiquette<span class="red">*</span> :</label>
 <div class="col-md-8">
@@ -55,13 +55,13 @@ $(document).ready( function() {
 </div>
 </div>
 <div class="form-group">
-<label for="operation_id"  class="control-label col-md-4">Opération rattachée à l'étiquette (pour intégrer les métadonnées associées) :</label>
+<label for="metadata_id"  class="control-label col-md-4">Modèle de métadonnées rattaché à l'étiquette :</label>
 <div class="col-md-8">
-<select id="operation_id" name="operation_id" class="form-control" >
-<option value="" {if $data.operation_id == ""}selected{/if}>Sélectionnez...</option>
-{foreach $operations as $value}
-<option value="{$value.operation_id}" {if $value.operation_id == $data.operation_id}selected{/if}>
-{$value.protocol_name} - {$value.operation_name} {$value.operation_version}
+<select id="metadata_id" name="metadata_id" class="form-control" >
+<option value="" {if $data.metadata_id == ""}selected{/if}>Sélectionnez...</option>
+{foreach $metadata as $value}
+<option value="{$value.metadata_id}" {if $value.metadata_id == $data.metadata_id}selected{/if}>
+{$value.metadata_name}
 </option>
 {/foreach}
 </select>

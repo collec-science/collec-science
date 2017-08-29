@@ -12,6 +12,7 @@
 <th>Nom de l'étiquette</th>
 <th>Id</th>
 <th>Champs dans le QRCode</th>
+<th>Nom du modèle de métadonnées rattaché</th>
 {if $droits.projet == 1}
 <th>Dupliquer</th>
 {/if}
@@ -31,6 +32,7 @@
 </td>
 <td class="center">{$data[lst].label_id}</td>
 <td>{$data[lst].label_fields}</td>
+<td>{$data[lst].metadata_name}</td>
 {if $droits.projet == 1}
 <td class="center">
 <a href="index.php?module=labelCopy&label_id={$data[lst].label_id}" title="Dupliquer l'étiquette">

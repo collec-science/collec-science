@@ -18,7 +18,7 @@ class SampleType extends ObjetBDD
 					container_type_name,
 					operation_id, operation_name ,operation_version, protocol_name, protocol_year, protocol_version,
 					multiple_type_id, multiple_unit, multiple_type_name,
-                    metadata_schema
+                    metadata_id, metadata_name
 					from sample_type
 					left outer join container_type using (container_type_id)
 					left outer join operation using (operation_id)

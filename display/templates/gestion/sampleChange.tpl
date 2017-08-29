@@ -44,6 +44,19 @@
                 }
             }    
     	});
+        $("#reinit").click(function() {
+        	$("#wgs84_x").val("");
+        	$("#wgs84_y").val("");
+        	$("#sample_date").val("");
+        	$("#project_id").val("");
+        	$("#sample_type_id").val("");
+        	$("#sampling_place_id").val("");
+        	$("#multiple_value").val("");
+        	$("#metadataField").val("");
+        	showForm([],"");
+        	point.setCoordinates ([]);
+        	
+        });
     });
 </script>
 
@@ -88,6 +101,9 @@ Retour à la liste des échantillons
 </fieldset>
 {/if}
 </div>
+{if $data.sample_id == 0}
+<button type="button" class="btn btn-warning" id="reinit">Réinitialiser les champs</button>
+{/if}
 <div class="row">
 <fieldset class="col-md-6">
 <legend>Échantillon</legend>

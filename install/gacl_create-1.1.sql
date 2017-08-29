@@ -15,8 +15,8 @@
  * Creation du schema contenant les donnees
  */
 
-create schema if not exists data;
-set search_path = data;
+create schema if not exists gacl;
+set search_path = gacl;
 
 CREATE SEQUENCE "dbversion_dbversion_id_seq";
 

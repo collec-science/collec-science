@@ -9,9 +9,11 @@
         <table id="printerList" class="table table-bordered table-hover datatable " >
         <thead>
         <tr>
-        <th>Nom</th>
-        <th>Site</th>
-        <th>Salle</th>
+        <th>Nom courant</th>
+        <th>Nom de la<br>file d'impression</th>
+        <th>Serveur</th>
+        <th>Utilisateur</th>
+        <th>Commentaire</th>
         </tr>
         </thead>
         <tbody>
@@ -26,11 +28,18 @@
         {$data[lst].printer_name}
         {/if}
         </td>
-        <td class="center">
-        {$data[lst].printer_site}
+        <td>
+        {$data[lst].printer_queue}
         </td>
-        <td class="center">
-        {$data[lst].printer_room}
+        <td>
+        {$data[lst].printer_server}
+        </td>
+        <td>
+        {$data[lst].printer_user}
+        </td>
+        <td>
+        <div class="textareaDisplay">
+        {$data[lst].printer_comment}</div>
         </td>
         </tr>
         {/section}

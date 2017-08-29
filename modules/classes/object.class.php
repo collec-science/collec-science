@@ -5,13 +5,16 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
+class ObjectException extends Exception {};
+
 class Object extends ObjetBDD {
+    public $dataPrint, $xslFile;
 	/**
 	 *
 	 * @param PDO $bdd        	
 	 * @param array $param        	
 	 */
-	function __construct($bdd, $param = null) {
+    function __construct($bdd, $param = null) {
 		$this->table = "object";
 		$this->colonnes = array (
 				"uid" => array (
@@ -447,6 +450,118 @@ class Object extends ObjetBDD {
 			}
 		}
 	}
+	
+	function generatePdf($id)
+	{
+	    global $message,$APPLI_temp,$APPLI_fop  ;
+	    $pdffile = "";
+	    /*
+	     * Recuperation du numero d'etiquettes
+	     */
+	    /*
+	     * Recuperation du modele d'etiquettes selectionne dans le formulaire
+	     */
+	    if ($_REQUEST["label_id"] > 0 && is_numeric($_REQUEST["label_id"])) {
+	        $label_id = $_REQUEST["label_id"];
+	    } else {
+	        /*
+	         * Recherche de la premiere etiquette par defaut
+	         */
+	        $label_id = $this->getFirstLabelIdFromArrayUid($id);
+	    }
+	    if ($label_id > 0) {
+	        /*
+	         * Generation des qrcodes
+	         */
+	        $data = $this->generateQrcode($id, $label_id);
+	        /*
+	         * Generation du fichier xml
+	         */
+	        if (count($data) > 0) {
+	            $this->dataPrint = $data;
+	            try {
+	                $xml_id = bin2hex(openssl_random_pseudo_bytes(6));
+	                /*
+	                 * Preparation du fichier xml
+	                 */
+	                $doc = new DOMDocument('1.0', 'utf-8');
+	                $objects = $doc->createElement("objects");
+	                foreach ($data as $object) {
+	                    $item = $doc->createElement("object");
+	                    foreach ($object as $key => $value) {
+	                        if (strlen($key) > 0 && (strlen($value) > 0 || ($value === false))) {
+	                            // cas des booléens
+	                            if ($value === true) {
+	                                $elem = $doc->createElement($key, "true");
+	                            } elseif ($value === false) {
+	                                $elem = $doc->createElement($key, "false");
+	                            } else {
+	                                $elem = $doc->createElement($key, $value);
+	                            }
+	                            
+	                            $item->appendChild($elem);
+	                        }
+	                    }
+	                    $objects->appendChild($item);
+	                }
+	                $doc->appendChild($objects);
+	                
+	                if ($label_id > 0) {
+	                    $xmlfile = $APPLI_temp . '/' . $xml_id . ".xml";
+	                    if (!$doc->save($xmlfile)) {
+	                        throw new ObjectException ("Impossible de générer le fichier XML");
+	                    }
+	                    /*
+	                     * Recuperation du fichier xsl
+	                     */
+	                    $xslfile = $APPLI_temp . '/' . $label_id . ".xsl";
+	                    if (! file_exists($xslfile)) {
+	                        require_once 'modules/classes/label.class.php';
+	                        $label = new Label($bdd, $ObjetBDDParam);
+	                        $dataLabel = $label->lire($label_id);
+	                        $handle = fopen($xslfile, 'w');
+	                        fwrite($handle, $dataLabel["label_xsl"]);
+	                        fclose($handle);
+	                    }
+	                    if (! file_exists($xslfile)) {
+	                        throw new ObjectException("Impossible de générer le fichier xsl");
+	                    }
+	                    $this->xslFile = $xslFile;
+	                    /*
+	                     * Generation de la commande de creation du fichier pdf
+	                     */
+	                    $pdffile = $APPLI_temp . '/' . $xml_id . ".pdf";
+	                    $command = $APPLI_fop . " -xsl $xslfile -xml $xmlfile -pdf $pdffile";
+	                    exec($command);
+	                } else {
+	                    $message->set("Pas de modèle d'étiquettes disponible");
+	                }
+	            } catch (Exception $e) {
+	                $message->set("Erreur lors de la génération du fichier xml");
+	                $message->setSyslog($e->getMessage());
+	            }
+	        } else {
+	            $message->set("Pas d'étiquettes à imprimer");
+	        }
+	        if (strlen($pdffile) == 0) {
+	            throw new ObjectException("Fichier PDF non généré");
+	        }
+	        return $pdffile;
+	    }
+	}
+	/**
+	 * Supprime les fichiers png apres generation
+	 * @param unknown $path
+	 */
+	function eraseQrcode($path) {
+	    foreach ($this->dataPrint as $value) {
+	    unlink($path . "/" . $value["uid"] . ".png");
+	    }
+	}
+	/**
+	 * Supprime le fichier xsl, pour regeneration a la prochaine impression
+	 */
+	function eraseXslfile() {
+	    unlink($this->xslFile);
+	}
 }
-
-

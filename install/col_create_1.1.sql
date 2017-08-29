@@ -476,6 +476,28 @@ COMMENT ON COLUMN "subsample"."subsample_login" IS 'Login de l''utilisateur ayan
 
 ALTER SEQUENCE "subsample_subsample_id_seq" OWNED BY "subsample"."subsample_id";
 
+
+CREATE SEQUENCE "printer_printer_id_seq";
+
+CREATE TABLE "printer" (
+                "printer_id" INTEGER NOT NULL DEFAULT nextval('"printer_printer_id_seq"'),
+                "printer_name" VARCHAR NOT NULL,
+                "printer_queue" VARCHAR NOT NULL,
+                "printer_server" VARCHAR,
+                "printer_user" VARCHAR,
+                "printer_comment" VARCHAR,
+                CONSTRAINT "printer_pk" PRIMARY KEY ("printer_id")
+);
+COMMENT ON TABLE "printer" IS 'Table des imprimantes gerees directement par le serveur';
+COMMENT ON COLUMN "printer"."printer_name" IS 'Nom general de l''imprimante, affiche dans les masques de saisie';
+COMMENT ON COLUMN "printer"."printer_queue" IS 'Nom de l''imprimante telle qu''elle est connue par le systeme';
+COMMENT ON COLUMN "printer"."printer_server" IS 'Adresse du serveur, si imprimante non locale';
+COMMENT ON COLUMN "printer"."printer_user" IS 'Utilisateur autorise a imprimer ';
+COMMENT ON COLUMN "printer"."printer_comment" IS 'Commentaire';
+
+
+ALTER SEQUENCE "printer_printer_id_seq" OWNED BY "printer"."printer_id";
+
 ALTER TABLE "project_group" ADD CONSTRAINT "aclgroup_projet_group_fk"
 FOREIGN KEY ("aclgroup_id")
 REFERENCES "aclgroup" ("aclgroup_id")

@@ -96,6 +96,28 @@ alter table container_type add column first_line varchar default 'T' not null;
 comment on column container_type.first_line is 'T : top, premiere ligne en haut
 B: bottom, premiere ligne en bas';
 
+
+CREATE SEQUENCE "printer_printer_id_seq";
+
+CREATE TABLE "printer" (
+                "printer_id" INTEGER NOT NULL DEFAULT nextval('"printer_printer_id_seq"'),
+                "printer_name" VARCHAR NOT NULL,
+                "printer_queue" VARCHAR NOT NULL,
+                "printer_server" VARCHAR,
+                "printer_user" VARCHAR,
+                "printer_comment" VARCHAR,
+                CONSTRAINT "printer_pk" PRIMARY KEY ("printer_id")
+);
+COMMENT ON TABLE "printer" IS 'Table des imprimantes gerees directement par le serveur';
+COMMENT ON COLUMN "printer"."printer_name" IS 'Nom general de l''imprimante, affiche dans les masques de saisie';
+COMMENT ON COLUMN "printer"."printer_queue" IS 'Nom de l''imprimante telle qu''elle est connue par le systeme';
+COMMENT ON COLUMN "printer"."printer_server" IS 'Adresse du serveur, si imprimante non locale';
+COMMENT ON COLUMN "printer"."printer_user" IS 'Utilisateur autorise a imprimer ';
+COMMENT ON COLUMN "printer"."printer_comment" IS 'Commentaire';
+
+
+ALTER SEQUENCE "printer_printer_id_seq" OWNED BY "printer"."printer_id";
+
 DROP VIEW IF EXISTS last_movement CASCADE;
 
 CREATE OR REPLACE VIEW last_movement

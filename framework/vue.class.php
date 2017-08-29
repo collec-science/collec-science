@@ -124,7 +124,7 @@ class Vue
         if (strlen($variable) > 0) {
             $this->data[$variable] = $value;
         } else {
-        $this->data = $value;
+            $this->data = $value;
         }
     }
 
@@ -550,68 +550,5 @@ class vueBinaire extends Vue
         }
     }
 }
-/**
-* Classe permettant l'impression directe vers une imprimante locale
-* (hebergee dans le serveur)
-*/
-class vuePrintDirect extends Vue {
 
-    public $data = array("printer_name"=>"", "options" => " -o fit-to-page ", "filename"=>"") ;
-    
-	function send(){
-	    if (strlen($this->data["printer_name"]) > 0 && strlen($this->data["filename"])>0 ) {
-	        if (file_exists($this->data["filename"])) {
-	            /*
-	             * Test de l'existence de l'imprimante et de son etat
-	             */
-	            exec("lpq -P ".$printer_name,$output);
-	            if(strpos($output[0],'is ready') !== false){
-	                define ("SPACE", " ");
-	                exec("lpr -P ".$this->data["printer_name"].SPACE.$this->data["options"].SPACE.$this->data["filename"]);
-	            } else {
-	                throw new VueException("Printer ".$this->data["filename"]." not ready. Message: ".output[0]);
-	            }
-	        } else {
-	            throw new VueException("Filename ". $this->data["filename"]." not found" );
-	        }
-	    }
-
-	}
-	
-	function printDirect($printer_name, $pdffile){
-		//On teste si l'imprimante existe localement
-		exec("lpq -P ".$printer_name,$output);
-		if(strpos($output[0],'is ready') !== false){
-			$printCommand = "lpr -P ".$printer_name." -o fit-to-page ".$pdffile;
-			exec($printCommand);
-		}
-		//impression via SSH avec mot de passe en clair
-		/*else{
-			//sinon, impression à distance
-			exec("ping -c 1 ".$Pip,$output,$return);
-			if($return == 0){
-				if($connection = ssh2_connect($Pip)){
-					if(ssh2_auth_password($connection, $Puser,"raspberry")){
-						$printCommand='lpr -P '.$Pname.' -o fit-to-page < '.$pdffile;
-						var_dump(ssh2_exec($connection, $printCommand));
-						ssh2_exec($connection, 'exit');
-						unset($connection);
-					}
-					else {
-						$message->set("L'identification a échouée");
-						$module_coderetour = - 1;
-					}
-				}else {
-					$message->set("La connexion a échouée");
-					$module_coderetour = - 1;
-				}
-														
-			}
-		}*/
-		else {
-			$message->set("L'imprimante n'est pas installée sur cette machine");
-			$module_coderetour = - 1;
-		}
-	}
-}
 ?>

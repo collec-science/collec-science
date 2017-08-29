@@ -8,68 +8,36 @@
         <input type="hidden" name="action" value="Write">
         <input type="hidden" name="printer_id" value="{$data.printer_id}">
         <div class="form-group">
-            <label for="printerName"  class="control-label col-md-4">Nom<span class="red">*</span> :</label>
+            <label for="printer_name"  class="control-label col-md-4">Nom courant<span class="red">*</span> :</label>
             <div class="col-md-8">
-                <input id="printerName" type="text" class="form-control" name="printer_name" value="{$data.printer_name}" autofocus required>
+                <input id="printer_name" type="text" class="form-control" name="printer_name" value="{$data.printer_name}" autofocus required>
             </div>
         </div>
-        <!-- Champ nécessaire pour l'impresion par ssh
         <div class="form-group">
-            <label for="printer_local"  class="control-label col-md-4">Branchée en local : </label>
-            <div id="printer_local"class="col-md-8" >
-                <label class="radio-inline">
-                <input type="radio" name="printer_local" id="isSample1" value="t" {if $data.printer_local == 1}checked {/if}> oui
-                </label>
-                <label class="radio-inline">
-                <input type="radio" name="printer_local" id="isSample2" value="f" {if $data.printer_local == ""}checked {/if}> non
-                </label>
-            </div>
-        </div>
-        -->
-        <div class="form-group">
-            <label for="printerSite"  class="control-label col-md-4">Site :</label>
+            <label for="printer_queue"  class="control-label col-md-4">Nom de la file d'impression (nom technique)<span class="red">*</span>  :</label>
             <div class="col-md-8">
-                <input id="printerSite" type="text" class="form-control" name="printer_site" value="{$data.printer_site}" autofocus>
+                <input id="printer_queue" type="text" class="form-control" name="printer_queue" value="{$data.printer_queue}" required>
             </div>
         </div>
         <div class="form-group">
-            <label for="printerRoom"  class="control-label col-md-4">Pièce :</label>
+            <label for="printer_server"  class="control-label col-md-4">Nom du serveur (si impression distante) :</label>
             <div class="col-md-8">
-                <input id="printerRoom" type="text" class="form-control" name="printer_room" value="{$data.printer_room}" autofocus>
+                <input id="printer_server" type="text" class="form-control" name="printer_server" value="{$data.printer_server}" >
             </div>
         </div>
-        <!--Champs nécessaires pour l'impresion par ssh
         <div class="form-group">
-            <label for="printerIp"  class="control-label col-md-4">Adresse IP :</label>
+            <label for="printer_user"  class="control-label col-md-4">Nom de l'utilisateur pour l'identification (si requis) :</label>
             <div class="col-md-8">
-                <input id="printerIp" type="text" class="form-control" name="printer_ip" value="{$data.printer_ip}" autofocus>
+                <input id="printer_user" type="text" class="form-control" name="printer_user" value="{$data.printer_user}" >
             </div>
         </div>
-        <div class="form-group">
-            <label for="printerPort"  class="control-label col-md-4">Port :</label>
+         <div class="form-group">
+            <label for="printer_comment"  class="control-label col-md-4">Commentaire :</label>
             <div class="col-md-8">
-                <input id="printerPort" type="text" class="form-control" name="printer_port" value="{$data.printer_port}" autofocus>
+                <textarea  id="printer_comment" class="form-control" name="printer_comment" rows="5">{$data.printer_comment}</textarea>
             </div>
         </div>
-        <div class="form-group">
-            <label for="printerUser"  class="control-label col-md-4">Nom d'utilisateur :</label>
-            <div class="col-md-8">
-                <input id="printerUser" type="text" class="form-control" name="printer_user" value="{$data.printer_user}" autofocus>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="printerSshPath"  class="control-label col-md-4">Chemin d'accès aux clés ssh :</label>
-            <div class ="col-md-8">
-                <input id="printerSshPath" type="text" class="form-control" name="printer_ssh_path" value="{$data.printer_ssh_path}" autofocus>
-            </div>
-        </div>
-        -->
-        <div class="form-group">
-            <label for="printerUsage"  class="control-label col-md-4">Description de l'utilisation :</label>
-            <div class="col-md-8">
-                <input id="printerUsage" type="text" class="form-control" name="printer_usage" value="{$data.printer_usage}" autofocus>
-            </div>
-        </div>
+        
         <div class="form-group center">
               <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
               {if $data.printer_id > 0 }

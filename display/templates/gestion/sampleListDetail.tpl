@@ -62,6 +62,7 @@
 			<img id="sampleSpinner" src="/display/images/spinner.gif" height="25">
 			<button id="samplecsvfile" class="btn btn-primary">Fichier
 				CSV</button>
+			{if count($printers) > 0}
 			<select id="printers" name="printer_id">
 			{section name=lst loop=$printers}
 			<option value="{$printers[lst].printer_id}">
@@ -70,6 +71,7 @@
 			{/section}
 			</select>
 			<button id="sampledirect" class="btn btn-primary">Impression directe</button>
+			{/if}
 		</div>
 	</div>
 	{/if}

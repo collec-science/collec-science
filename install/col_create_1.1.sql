@@ -197,7 +197,7 @@ CREATE TABLE "label" (
                 "label_name" VARCHAR NOT NULL,
                 "label_xsl" VARCHAR NOT NULL,
                 "label_fields" VARCHAR DEFAULT 'uid,id,clp,db' NOT NULL,
-                "operation_id" INTEGER,
+                "metadata_id" INTEGER,
                 CONSTRAINT "label_pk" PRIMARY KEY ("label_id")
 );
 COMMENT ON TABLE "label" IS 'Table des modèles d''étiquettes';
@@ -302,13 +302,12 @@ CREATE TABLE "operation" (
                 "operation_order" INTEGER,
                 "operation_version" VARCHAR,
                 "last_edit_date" TIMESTAMP,
-                "metadata_schema" json,
-                CONSTRAINT "operation_pk" PRIMARY KEY ("operation_id")
+                CONSTRAINT "operation_pk" PRIMARY KEY ("operation_id"),
+                CONSTRAINT "operation_name_version_unique" UNIQUE ("operation_name","operation_version");
 );
 COMMENT ON COLUMN "operation"."operation_order" IS 'Ordre de réalisation de l''opération dans le protocole';
 COMMENT ON COLUMN "operation"."operation_version" IS 'Version de l''opération';
 COMMENT ON COLUMN "operation"."last_edit_date" IS 'Date de dernière édition de l opération';
-COMMENT ON COLUMN "operation"."metadata_schema" IS 'Schéma en JSON du formulaire des métadonnées';
 
 
 ALTER SEQUENCE "operation_operation_id_seq" OWNED BY "operation"."operation_id";
@@ -495,8 +494,21 @@ COMMENT ON COLUMN "printer"."printer_server" IS 'Adresse du serveur, si impriman
 COMMENT ON COLUMN "printer"."printer_user" IS 'Utilisateur autorise a imprimer ';
 COMMENT ON COLUMN "printer"."printer_comment" IS 'Commentaire';
 
-
 ALTER SEQUENCE "printer_printer_id_seq" OWNED BY "printer"."printer_id";
+
+CREATE SEQUENCE "metadata_metadata_id_seq";
+
+CREATE TABLE "metadata" (
+                "metadata_id" INTEGER NOT NULL DEFAULT nextval('"metadata_metadata_id_seq"'),
+                "metadata_name" VARCHAR NOT NULL,
+                "metadata_schema" json,
+                CONSTRAINT "metadata_pk" PRIMARY KEY ("metadata_id")
+);
+COMMENT ON TABLE "metadata" IS 'Table des metadata utilisables dans les types d''echantillons';
+COMMENT ON COLUMN "metadata"."metadata_name" IS 'Nom du jeu de metadonnees';
+COMMENT ON COLUMN "metadata"."metadata_schema" IS 'Schéma en JSON du formulaire des métadonnées';
+
+ALTER SEQUENCE "metadata_metadata_id_seq" OWNED BY "metadata"."metadata_id";
 
 ALTER TABLE "project_group" ADD CONSTRAINT "aclgroup_projet_group_fk"
 FOREIGN KEY ("aclgroup_id")
@@ -711,6 +723,20 @@ NOT DEFERRABLE;
 ALTER TABLE "storage" ADD CONSTRAINT "storage_reason_storage_fk"
 FOREIGN KEY ("storage_reason_id")
 REFERENCES "storage_reason" ("storage_reason_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE "label" ADD CONSTRAINT "metadata_label_fk"
+FOREIGN KEY ("metadata_id")
+REFERENCES "metadata" ("metadata_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE "sample_type" ADD CONSTRAINT "metadata_sample_type_fk"
+FOREIGN KEY ("metadata_id")
+REFERENCES "metadata" ("metadata_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;

@@ -10,8 +10,7 @@ class Operation extends ObjetBDD
 {
 
     private $sql = "select operation_id, operation_name, operation_order,operation_version,last_edit_date,
-					protocol_id, protocol_name, protocol_year, protocol_version,
-					metadata_schema
+					protocol_id, protocol_name, protocol_year, protocol_version
 					from operation
 					join protocol using (protocol_id)";
 
@@ -50,9 +49,6 @@ class Operation extends ObjetBDD
             ),
             "last_edit_date" => array(
                 "type" => 3
-            ),
-            "metadata_schema" => array(
-                "type" => 0
             )
         );
         parent::__construct($bdd, $param);
@@ -86,22 +82,7 @@ class Operation extends ObjetBDD
         }
     }
 
-    /**
-     * Retourne le schéma des métadonnées de l'opération
-     *
-     * @param int $operation_id
-     */
-    function getMetadataForm($operation_id)
-    {
-        if ($operation_id > 0) {
-            $sql = "select metadata_schema from operation
-			where operation_id = :operation_id";
-            $var["operation_id"] = $operation_id;
-            $data = $this->lireParamAsPrepared($sql,  array("operation_id"=>$operation_id));
-            return $data["metadata_schema"];
-        }
-    }
-    /**
+     /**
      * Surcharge de la fonction ecrire pour integrer la date de derniere modification
      * {@inheritDoc}
      * @see ObjetBDD::ecrire()

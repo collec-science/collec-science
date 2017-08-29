@@ -37,7 +37,7 @@
 <td class="center">{$data[lst].operation_order}</td>
 {if $droits.projet == 1}
 <td class="center">
-<a href="index.php?module=operationCopy&operation_id={$data[lst].operation_id}" title="Dupliquer l'opération (avec ses métadonnées)">
+<a href="index.php?module=operationCopy&operation_id={$data[lst].operation_id}" title="Dupliquer l'opération">
 <img src="display/images/copy.png" height="25">
 </a>
 </td>

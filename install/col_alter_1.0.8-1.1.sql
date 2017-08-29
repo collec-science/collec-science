@@ -58,21 +58,14 @@ set search_path=col;
 
 ALTER TABLE "operation" 
 ADD COLUMN operation_version varchar,
-ADD COLUMN last_edit_date timestamp,
-add column metadata_schema json,
+ADD COLUMN last_edit_date timestamp
 ADD CONSTRAINT operation_name_version_unique UNIQUE (operation_name,operation_version);
 COMMENT ON COLUMN "operation"."operation_version" IS 'Version de l''opération';
 COMMENT ON COLUMN "operation"."last_edit_date" IS 'Date de dernière éditione l''opératon';
-comment on column "operation"."metadata_schema" is 'Schema Json du formulaire des metadonnees';
 
 DROP TABLE IF EXISTS "metadata_attribute" CASCADE;
 DROP TABLE  IF EXISTS "metadata_schema" CASCADE;
 DROP TABLE  IF EXISTS "metadata_set" CASCADE;
-
-ALTER TABLE label ADD COLUMN operation_id integer,
-ADD constraint label_operation_fk foreign key (operation_id)
-REFERENCES operation (operation_id) match simple
-ON update no action ON delete no action;
 
 ALTER TABLE "sample_type" DROP COLUMN metadata_set_id;
 ALTER TABLE "sample_type" DROP COLUMN metadata_set_id_second;
@@ -117,6 +110,51 @@ COMMENT ON COLUMN "printer"."printer_comment" IS 'Commentaire';
 
 
 ALTER SEQUENCE "printer_printer_id_seq" OWNED BY "printer"."printer_id";
+
+/*
+ * Reconfiguration des metadonnees
+ */
+
+ALTER TABLE "label" ADD COLUMN "metadata_id" INTEGER;
+
+CREATE SEQUENCE "metadata_metadata_id_seq";
+
+CREATE TABLE "metadata" (
+                "metadata_id" INTEGER NOT NULL DEFAULT nextval('"metadata_metadata_id_seq"'),
+                "metadata_name" VARCHAR NOT NULL,
+                "metadata_schema" json,
+                CONSTRAINT "metadata_pk" PRIMARY KEY ("metadata_id")
+);
+COMMENT ON TABLE "metadata" IS 'Table des metadata utilisables dans les types d''echantillons';
+COMMENT ON COLUMN "metadata"."metadata_name" IS 'Nom du jeu de metadonnees';
+COMMENT ON COLUMN "metadata"."metadata_schema" IS 'Schéma en JSON du formulaire des métadonnées';
+
+ALTER SEQUENCE "metadata_metadata_id_seq" OWNED BY "metadata"."metadata_id";
+
+ALTER TABLE "sample" DROP COLUMN "sample_metadata_id";
+
+ALTER TABLE "sample_type" ADD COLUMN "metadata_id" INTEGER;
+
+
+ALTER TABLE "label" ADD CONSTRAINT "metadata_label_fk"
+FOREIGN KEY ("metadata_id")
+REFERENCES "metadata" ("metadata_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE "sample_type" ADD CONSTRAINT "metadata_sample_type_fk"
+FOREIGN KEY ("metadata_id")
+REFERENCES "metadata" ("metadata_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+/*
+ * Creation des vues
+ */
+
+
 
 DROP VIEW IF EXISTS last_movement CASCADE;
 

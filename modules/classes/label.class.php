@@ -10,7 +10,7 @@ class Label extends ObjetBDD {
 			operation_id,
 			metadata_schema
 			from label
-			left outer join operation using(operation_id)
+			left outer join metadata using(metadata_id)
 		";
 
 	function __construct($bdd, $param = array()) {
@@ -33,7 +33,7 @@ class Label extends ObjetBDD {
 						"requis" => 1,
 						"defaultValue" => 'uid,id,clp,db'
 				),
-				"operation_id" => array(
+				"metadata_id" => array(
 						"type"=>1,
 						"requis"=> 0
 				)

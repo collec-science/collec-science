@@ -133,9 +133,33 @@ switch ($t_module ["param"]) {
 				$dataParent = $dataClass->lire ( $_REQUEST ["parent_uid"] );
 				if ($dataParent ["sample_id"] > 0) {
 					$data ["parent_sample_id"] = $dataParent ["sample_id"];
+					/*
+					 * Pre-positionnement des informations de base
+					 */
+					$data["project_id"] = $dataParent["project_id"];
+					$data["wgs84_x"] = $dataParent["wgs84_x"];
+					$data["wgs84_y"] = $dataParent["wgs84_y"];
+					$data["metadata"] = $dataParent["metadata"];
+					$data ["sampling_place_id"] = $dataParent["sampling_place_id"];
 					$vue->set ( $dataParent, "parent_sample" );
 					$vue->set ( $data, "data" );
 				}
+			} else {
+			    if ($data["sample_id"] == 0 && $_SESSION["last_sample_id"] > 0) {
+			        /*
+			         * Recuperation des dernieres donnees saisies
+			         */
+			        $dl = $dataClass->lire($_SESSION["last_sample_id"]);
+			        $data ["wgs84_x"] = $dl["wgs84_x"];
+			        $data ["wgs84_y"] = $dl["wgs84_y"];
+			        $data ["project_id"] = $dl["project_id"];
+			        $data ["sample_type_id"] = $dl["sample_type_id"];
+			        $data ["sample_date"] = $dl["sample_date"];
+			        $data ["sampling_place_id"] = $dl["sampling_place_id"];
+			        $data ["metadata"] = $dl["metadata"];
+			        $data ["multiple_value"] = $dl["multiple_value"];
+			        $vue->set ( $data, "data" );
+			    }
 			}
 			include 'modules/gestion/sample.functions.php';
 		}
@@ -149,6 +173,11 @@ switch ($t_module ["param"]) {
 		$id = dataWrite ( $dataClass, $_REQUEST );
 		if ($id > 0) {
 			$_REQUEST [$keyName] = $id;
+			/*
+			 * Stockage en session du dernier echantillon modifie,
+			 * pour recuperation des informations rattachees pour duplication ou autre
+			 */
+			$_SESSION["last_sample_id"] = $id;
 		}
 		break;
 	case "delete":

@@ -51,8 +51,7 @@ $(document).ready(function () {
 <div class="center">
 <label id="lcheck" for="check">Tout décocher</label>
 <input type="checkbox" id="check" checked>
-			<button id="containerlabels" class="btn btn-primary">Étiquettes</button>
-			<select id="labels" name="label_id">
+						<select id="labels" name="label_id">
 			<option value="" {if $label_id == ""}selected{/if}>Étiquette par défaut</option>
 			{section name=lst loop=$labels}
 			<option value="{$labels[lst].label_id}" {if $labels[lst].label_id == $label_id}selected{/if}>
@@ -60,6 +59,7 @@ $(document).ready(function () {
 			</option>
 			{/section}
 			</select>
+			<button id="containerlabels" class="btn btn-primary">Étiquettes</button>
 			<img id="containerSpinner" src="/display/images/spinner.gif" height="25">
 			<button id="containercsvfile" class="btn btn-primary">Fichier CSV</button>
 			{if count($printers) > 0}
@@ -72,6 +72,7 @@ $(document).ready(function () {
 			</select>
 			<button id="containerdirect" class="btn btn-primary">Impression directe</button>
 			{/if}
+			<button id="containercsvfile" class="btn btn-primary">Fichier CSV</button>
 </div>
 </div>
 {/if}

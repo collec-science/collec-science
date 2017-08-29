@@ -33,11 +33,8 @@ class Printer extends ObjetBDD {
                 "printer_user" => array (
                         "type" => 0
                 ),
-                "printer_ip" => array (
-                        "type" => 0 
-                ),
                 "printer_comment" => array (
-                        "type" => 1
+                        "type" => 0
                 )
         );
         parent::__construct ( $bdd, $param );

@@ -50,7 +50,6 @@
 		<div class="center">
 			<label id="lcheck" for="check">Tout décocher</label> <input
 				type="checkbox" id="check" checked>
-			<button id="samplelabels" class="btn btn-primary">Étiquettes</button>
 			<select id="labels" name="label_id">
 			<option value="" {if $label_id == ""}selected{/if}>Étiquette par défaut</option>
 			{section name=lst loop=$labels}
@@ -59,9 +58,9 @@
 			</option>
 			{/section}
 			</select>
+			<button id="samplelabels" class="btn btn-primary">Étiquettes</button>
 			<img id="sampleSpinner" src="/display/images/spinner.gif" height="25">
-			<button id="samplecsvfile" class="btn btn-primary">Fichier
-				CSV</button>
+
 			{if count($printers) > 0}
 			<select id="printers" name="printer_id">
 			{section name=lst loop=$printers}
@@ -72,6 +71,7 @@
 			</select>
 			<button id="sampledirect" class="btn btn-primary">Impression directe</button>
 			{/if}
+			<button id="samplecsvfile" class="btn btn-primary">Fichier CSV</button>
 		</div>
 	</div>
 	{/if}

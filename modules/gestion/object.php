@@ -43,6 +43,8 @@ switch ($t_module["param"]) {
                     }
                     $commande .= SPACE . $destination . SPACE . $server . SPACE . $user . SPACE . $options . SPACE . $pdffile;
                     exec($commande);
+                    $dataClass->eraseQrcode($APPLI_temp);
+                    $dataClass->eraseXslfile();
                     $message->set("Impression lancée");
                 } else {
                     $message->set("Imprimante non connue");
@@ -60,7 +62,7 @@ switch ($t_module["param"]) {
         break;
     case "printLabel":
         try {
-            $vue->setFilename($dataClass->generatePdf($dataClass, $id));
+            $vue->setFilename($dataClass->generatePdf($id));
             $vue->setDisposition("inline");
             $dataClass->eraseQrcode($APPLI_temp);
             $dataClass->eraseXslfile();
@@ -68,6 +70,13 @@ switch ($t_module["param"]) {
         } catch (Exception $e) {
             $message->set($e->getMessage());
             $module_coderetour = - 1;
+        }
+        
+        if ($module_coderetour == -1) {
+            /*
+             * Reinitialisation de la vue
+             */
+            unset($vue);
         }
         break;
     case "exportCSV":

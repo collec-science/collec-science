@@ -312,7 +312,6 @@ class Object extends ObjetBDD {
 				$order = "uid";
 			$sql = "select * from (" . $sql . ") as a";
 			$order = " order by $order";
-			printr($sql . $order);
 			$data = $this->getListeParam ( $sql . $order );
 			
 			/*
@@ -511,28 +510,38 @@ class Object extends ObjetBDD {
 	                    if (!$doc->save($xmlfile)) {
 	                        throw new ObjectException ("Impossible de générer le fichier XML");
 	                    }
+	                    if (!file_exists($xmlfile)) {
+	                        throw new ObjectException("Impossible de générer le fichier XML");
+	                    }
 	                    /*
 	                     * Recuperation du fichier xsl
 	                     */
 	                    $xslfile = $APPLI_temp . '/' . $label_id . ".xsl";
 	                    if (! file_exists($xslfile)) {
+	                        try {
 	                        require_once 'modules/classes/label.class.php';
-	                        $label = new Label($bdd, $ObjetBDDParam);
+	                        $label = new Label($this->connection, $this->paramori);
 	                        $dataLabel = $label->lire($label_id);
 	                        $handle = fopen($xslfile, 'w');
 	                        fwrite($handle, $dataLabel["label_xsl"]);
 	                        fclose($handle);
+	                        } catch (Exception $e) {
+	                            throw new ObjectException($e->getMessage());
+	                        }
 	                    }
 	                    if (! file_exists($xslfile)) {
 	                        throw new ObjectException("Impossible de générer le fichier xsl");
 	                    }
-	                    $this->xslFile = $xslFile;
+	                    $this->xslFile = $xslfile;
 	                    /*
 	                     * Generation de la commande de creation du fichier pdf
 	                     */
 	                    $pdffile = $APPLI_temp . '/' . $xml_id . ".pdf";
 	                    $command = $APPLI_fop . " -xsl $xslfile -xml $xmlfile -pdf $pdffile";
 	                    exec($command);
+	                    if (!file_exists($pdffile)) {
+	                        throw new ObjectException("Fichier PDF non généré");
+	                    }
 	                } else {
 	                    $message->set("Pas de modèle d'étiquettes disponible");
 	                }
@@ -547,6 +556,8 @@ class Object extends ObjetBDD {
 	            throw new ObjectException("Fichier PDF non généré");
 	        }
 	        return $pdffile;
+	    } else {
+	        throw new ObjectException ("Pas d'étiquette sélectionnée");
 	    }
 	}
 	/**

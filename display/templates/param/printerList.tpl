@@ -37,10 +37,7 @@
         <td>
         {$data[lst].printer_user}
         </td>
-        <td>
-        <div class="textareaDisplay">
-        {$data[lst].printer_comment}</div>
-        </td>
+        <td class="textareaDisplay">{$data[lst].printer_comment}</td>
         </tr>
         {/section}
         </tbody>

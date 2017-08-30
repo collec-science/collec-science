@@ -21,10 +21,13 @@ Gestion du stockage :
 - la visualisation d'un container permet d'afficher la grille d'occupation
 
 Gestion des métadonnées associées à un échantillon :
-- il est possible de décrire des métadonnées à associer à une opération (protocole / opération)
-- l'opération est associée au type d'échantillon
+- il est possible de décrire des métadonnées, et les associer avec des types d'échantillons
 - en modification d'un échantillon, il est possible de saisir les métadonnées
 - celles-ci peuvent être intégrées à un modèle d'étiquette, et figurent dans le fichier CSV exporté pour impression hors collec-science
+
+Consultation des protocoles :
+- les protocoles doivent maintenant être associés à des projets
+- seuls les membres du projet (et les administrateurs de l'application) peuvent télécharger le fichier PDF contenant sa description
 
 Gestion des droits et des habilitations :
 - installation d'une nouvelle version du moteur de l'application

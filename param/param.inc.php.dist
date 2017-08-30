@@ -87,8 +87,8 @@ $LDAP ["address" ] = "localhost";
  * port = 636
  * tls = true;
  */
-$LDAP ["port" ] = 389;
-$LDAP [ "tls"] = false;
+$LDAP ["port" ] = 636;
+$LDAP [ "tls"] = true;
 /*
  * chemin d'accès a l'identification
  */

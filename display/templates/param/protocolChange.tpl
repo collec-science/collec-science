@@ -37,6 +37,19 @@ $(document).ready(function () {
 </div>
 </div>
 <div class="form-group">
+<label for="project_id"  class="control-label col-md-4">Projet de rattachement :</label>
+<div class="col-md-8">
+<select name="project_id" id="project_id" class="control-form">
+{foreach $projects as $value}
+<option value="{$value.project_id}" {if $value.project_id == $data.project_id}selected{/if}>
+{$value.project_name}
+</option>
+{/foreach}
+</select>
+</div>
+</div>
+
+<div class="form-group">
 <label for="protocolFile"  class="control-label col-md-4">Fichier PDF de description :</label>
 <div class="col-md-8">
 <input id="protocolFile" type="file" class="form-control" name="protocol_file">

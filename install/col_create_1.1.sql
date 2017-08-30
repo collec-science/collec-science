@@ -340,6 +340,7 @@ CREATE TABLE "protocol" (
                 "protocol_file" BYTEA,
                 "protocol_year" SMALLINT,
                 "protocol_version" VARCHAR DEFAULT 'v1.0' NOT NULL,
+                "project_id" INTEGER,
                 CONSTRAINT "protocol_pk" PRIMARY KEY ("protocol_id")
 );
 COMMENT ON COLUMN "protocol"."protocol_file" IS 'Description PDF du protocole';
@@ -737,6 +738,13 @@ NOT DEFERRABLE;
 ALTER TABLE "sample_type" ADD CONSTRAINT "metadata_sample_type_fk"
 FOREIGN KEY ("metadata_id")
 REFERENCES "metadata" ("metadata_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+ALTER TABLE "protocol" ADD CONSTRAINT "project_protocol_fk"
+FOREIGN KEY ("project_id")
+REFERENCES "project" ("project_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;

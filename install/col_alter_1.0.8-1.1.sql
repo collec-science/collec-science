@@ -150,6 +150,15 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
+ALTER TABLE "protocol" ADD COLUMN "project_id" int;
+
+ALTER TABLE "protocol" ADD CONSTRAINT "project_protocol_fk"
+FOREIGN KEY ("project_id")
+REFERENCES "project" ("project_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
 /*
  * Creation des vues
  */

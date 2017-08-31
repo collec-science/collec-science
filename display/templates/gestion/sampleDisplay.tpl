@@ -28,7 +28,7 @@ Nouvel échantillon
 {/if}
 &nbsp;
 <a href="#echantillons">
-<img src="/display/images/sample.png" height="25">Échantillons rattachés
+<img src="/display/images/sample.png" height="25">Échantillons dérivés
 </a>
 &nbsp;
 <a href="#documents">
@@ -145,19 +145,22 @@ clp : {$data.clp_classification}
 </dd>
 </dl>
 
-{if count($metadata) >0}
+{if count($metadata) >1}
 <fieldset>
 <legend>Métadonnées associées</legend>
-{/if}
+
 {foreach $metadata as $key=>$value}
+{if strlen($value) > 0}
 <dl class="dl-horizontal">
 <dt>{$key} :</dt>
 <dd>
 {$value}
 </dd>
 </dl>
+{/if}
 {/foreach}
 </fieldset>
+{/if}
 </div>
 {include file="gestion/objectIdentifierList.tpl"}
 
@@ -187,11 +190,11 @@ clp : {$data.clp_classification}
 
 
 <fieldset class="col-md-12" id="echantillons">
-<legend>Échantillons rattachés</legend>
+<legend>Échantillons dérivés</legend>
 {if $droits.gestion == 1 && $modifiable == 1}
 <a href="index.php?module=sampleChange&uid=0&parent_uid={$data.uid}">
 <img src="/display/images/new.png" height="25">
-Nouvel échantillon rattaché...
+Nouvel échantillon dérivé...
 </a>
 {/if}
 {include file="gestion/sampleListDetail.tpl"}

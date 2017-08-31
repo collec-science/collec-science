@@ -1,13 +1,13 @@
 <!-- Liste des conteneurs pour affichage -->
 <script>
 $(document).ready(function () {
-	$("#check").change( function() {
-		$('.check').prop('checked', this.checked);
+	$("#checkContainer").change( function() {
+		$('.checkContainer').prop('checked', this.checked);
 		var libelle="Tout cocher";
 		if (this.checked) {
 			libelle = "Tout décocher";
 		} 
-		$("#lchek").text(libelle);
+		$("#lcheckContainer").text(libelle);
 	});
 	
 	$("#containerSpinner").hide();
@@ -49,8 +49,8 @@ $(document).ready(function () {
 <input type="hidden" id="module" name="module" value="containerPrintLabel">
 <div class="row">
 <div class="center">
-<label id="lcheck" for="check">Tout décocher</label>
-<input type="checkbox" id="check" checked>
+<label id="lcheckContainer" for="check">Tout décocher</label>
+<input type="checkbox" id="checkContainer" checked>
 						<select id="labels" name="label_id">
 			<option value="" {if $label_id == ""}selected{/if}>Étiquette par défaut</option>
 			{section name=lst loop=$labels}
@@ -72,7 +72,6 @@ $(document).ready(function () {
 			</select>
 			<button id="containerdirect" class="btn btn-primary">Impression directe</button>
 			{/if}
-			<button id="containercsvfile" class="btn btn-primary">Fichier CSV</button>
 </div>
 </div>
 {/if}
@@ -141,7 +140,7 @@ $(document).ready(function () {
 </td>
 {if $droits.gestion == 1}
 <td class="center">
-<input type="checkbox" class="check" name="uid[]" value="{$containers[lst].uid}" checked>
+<input type="checkbox" class="checkContainer" name="uid[]" value="{$containers[lst].uid}" checked>
 </td>
 {/if}
 </tr>

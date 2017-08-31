@@ -1,13 +1,13 @@
 <!--  Liste des échantillons pour affichage-->
 <script>
 	$(document).ready(function() {
-		$("#check").change(function() {
-			$('.check').prop('checked', this.checked);
+		$("#checkSample").change(function() {
+			$('.checkSample').prop('checked', this.checked);
 			var libelle = "Tout cocher";
 			if (this.checked) {
 				libelle = "Tout décocher";
 			}
-			$("#lchek").text(libelle);
+			$("#lsamplechek").text(libelle);
 		});
 		$("#sampleSpinner").hide();
 
@@ -48,8 +48,8 @@
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
 	<div class="row">
 		<div class="center">
-			<label id="lcheck" for="check">Tout décocher</label> <input
-				type="checkbox" id="check" checked>
+			<label id="lsamplecheck" for="checkSample">Tout décocher</label> <input
+				type="checkbox" id="checkSample" checked>
 			<select id="labels" name="label_id">
 			<option value="" {if $label_id == ""}selected{/if}>Étiquette par défaut</option>
 			{section name=lst loop=$labels}
@@ -141,7 +141,7 @@
 				<td>{$samples[lst].sample_date}</td>
 				<td>{$samples[lst].sample_creation_date}</td> {if $droits.gestion ==
 				1}
-				<td class="center"><input type="checkbox" class="check"
+				<td class="center"><input type="checkbox" class="checkSample"
 					name="uid[]" value="{$samples[lst].uid}" checked></td> {/if}
 			</tr>
 			{/section}

@@ -58,7 +58,7 @@ set search_path=col;
 
 ALTER TABLE "operation" 
 ADD COLUMN operation_version varchar,
-ADD COLUMN last_edit_date timestamp
+ADD COLUMN last_edit_date timestamp,
 ADD CONSTRAINT operation_name_version_unique UNIQUE (operation_name,operation_version);
 COMMENT ON COLUMN "operation"."operation_version" IS 'Version de l''opération';
 COMMENT ON COLUMN "operation"."last_edit_date" IS 'Date de dernière éditione l''opératon';

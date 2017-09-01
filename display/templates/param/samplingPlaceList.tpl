@@ -9,12 +9,14 @@
 <table id="samplingPlaceList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
+<th>Id</th>
 <th>Nom</th>
 </tr>
 </thead>
 <tbody>
 {section name=lst loop=$data}
 <tr>
+<td>{$data[lst].sampling_place_id}</td>
 <td>
 {if $droits.param == 1}
 <a href="index.php?module=samplingPlaceChange&sampling_place_id={$data[lst].sampling_place_id}">

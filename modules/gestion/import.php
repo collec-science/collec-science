@@ -7,7 +7,7 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-require_once 'modules/classes/import.class.php';
+require_once 'modules/classes/importObject.class.php';
 require_once 'modules/classes/sample.class.php';
 require_once 'modules/classes/container.class.php';
 require_once 'modules/classes/storage.class.php';
@@ -20,7 +20,7 @@ require_once 'modules/classes/objectIdentifier.class.php';
 /*
  * Initialisations
  */
-$import = new Import();
+$import = new ImportObject();
 $sample = new Sample($bdd, $ObjetBDDParam);
 $container = new Container($bdd, $ObjetBDDParam);
 $storage = new Storage($bdd, $ObjetBDDParam);
@@ -98,7 +98,7 @@ switch ($t_module["param"]) {
                     $message->set("Premier UID généré : " . $import->minuid);
                     $message->set("Dernier UID généré : " . $import->maxuid);
                     $module_coderetour = 1;
-                } catch (ImportException $ie) {
+                } catch (ImportObjectException $ie) {
                     $message->set($ie->getMessage());
                 } catch (Exception $e) {
                     $message->set($e->getMessage());

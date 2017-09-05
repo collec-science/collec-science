@@ -142,6 +142,7 @@
 	<sampleChange action="modules/gestion/sample.php" param="change" droits="gestion"  retourlogin="1" type="smarty" />
 	<sampleWrite action="modules/gestion/sample.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleChange" modulebefore="sampleChange" />
 	<sampleDelete action="modules/gestion/sample.php" param="delete" droits="gestion" retourok="sampleList" retourko="sampleChange"  modulebefore="sampleChange"/>
+	<sampleExport action="modules/gestion/sample.php" param="export" droits="gestion" retourko="sampleList" type="csv"/>
 	
 	<storage droits="consult" type="smarty" />
 	<objets retourlogin="1" type="smarty" />

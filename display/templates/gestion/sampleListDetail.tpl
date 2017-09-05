@@ -40,6 +40,10 @@
 			$("#sampleSpinner").show();
 			$(this.form).submit();
 		});
+		$("#sampleExport").click(function() { 
+			$(this.form).find("input[name='module']").val("sampleExport");
+			$(this.form).submit();
+		});
 	});
 </script>
 {include file="gestion/displayPhotoScript.tpl"} {if $droits.gestion ==
@@ -72,6 +76,10 @@
 			<button id="sampledirect" class="btn btn-primary">Impression directe</button>
 			{/if}
 			<button id="samplecsvfile" class="btn btn-primary">Fichier CSV</button>
+			{if $droits["gestion"] == 1}
+			<button id="sampleExport" class="btn btn-primary" title="Export pour import dans une autre base Collec-Science">
+			Export vers autre base</button>
+			{/if}
 		</div>
 	</div>
 	{/if}

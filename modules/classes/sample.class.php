@@ -304,9 +304,9 @@ class Sample extends ObjetBDD
          * Recherche dans les metadonnees
          */
         if (strlen($param["metadata_field"]) > 0 && strlen($param["metadata_value"]) > 0) {
-            $where .=  $and . "upper(s.metadata->>:metadata_field) like upper (:metadata_value)";
-            $data ["metadata_field"] = $param["metadata_field"];
-            $data ["metadata_value"] = "%".$param["metadata_value"]."%";
+            $where .= $and . "upper(s.metadata->>:metadata_field) like upper (:metadata_value)";
+            $data["metadata_field"] = $param["metadata_field"];
+            $data["metadata_value"] = "%" . $param["metadata_value"] . "%";
             $and = " and ";
         }
         
@@ -340,6 +340,68 @@ class Sample extends ObjetBDD
             $where = " where pso.uid = :uid";
             $order = " order by s.uid";
             return $this->getListeParamAsPrepared($this->sql . $where . $order, $data);
+        }
+    }
+
+    /**
+     * Retourne la liste des informations pour des echantillons
+     * script d'export pour import
+     *
+     * @param string $uids
+     * @return array
+     */
+    function getForExport($uids)
+    {
+        global $APPLI_code;
+        $sql = "select o.uid, identifier, object_status_id, wgs84_x, wgs84_y, 
+        project_id, sample_type_id, sample_creation_date, sample_date, 
+        multiple_value, sampling_place_id,metadata::varchar, 
+        identifiers 
+        from sample 
+        join object o using(uid) 
+        left outer join v_object_identifier voi on (o.uid = voi.uid) 
+        where o.uid in (" . $uids . ")";
+        $d = $this->getListeParam($sql);
+        /*
+         * genere le dbuid pour import dans base externe
+         */
+        $data = array();
+        foreach ($d as $value) {
+            $value["dbuid_origin"] = $APPLI_code . ":" . $value["uid"];
+            if (in_array($value["project_id"], $_SESSION["projects"])) {
+                $data[] = $value;
+            }
+        }
+        if (count($data) > 0) {
+            return $data;
+        } else {
+            throw new SampleException("No sample found");
+        }
+    }
+
+    /**
+     * Genere une liste des uids separes par une virgule, a partir d'un
+     * tableau contenant la liste des uid
+     * (retour de formulaire a choix multiple)
+     *
+     * @param array $uids
+     */
+    function generateArrayUidToString($uids)
+    {
+        if (count($uids) > 0) {
+            /*
+             * Verification que les uid sont numeriques
+             * preparation de la clause where
+             */
+            $comma = false;
+            $val = "";
+            foreach ($uids as $value) {
+                if (is_numeric($value) && $value > 0) {
+                    $comma == true ? $val .= "," : $comma = true;
+                    $val .= $value;
+                }
+            }
+            return $val;
         }
     }
 }

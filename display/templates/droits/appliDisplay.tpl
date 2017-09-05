@@ -13,7 +13,7 @@ Modifier...
 <img src="/display/images/new.png" height="25">
 Nouveau droit...
 </a>
-<table id="acoliste" class="table table-bordered table-hover">
+<table id="acoliste" class="table table-bordered table-hover datatable">
 <thead>
 <tr>
 <th>Nom du droit d'accès</th>

@@ -323,7 +323,7 @@ class VueAjaxJson extends Vue
 class VueCsv extends Vue
 {
 
-    private $filename;
+    private $filename = "";
 
     private $delimiter = ";";
 
@@ -333,7 +333,7 @@ class VueCsv extends Vue
             if (strlen($filename) == 0)
                 $filename = $this->filename;
             if (strlen($filename) == 0) {
-                $param = "export-" . date('Y-m-d') . ".csv";
+                $filename = "export-" . date('Y-m-d-His') . ".csv";
             }
             if (strlen($delimiter) == 0) {
                 $delimiter = $this->delimiter;

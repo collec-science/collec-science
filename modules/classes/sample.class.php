@@ -352,30 +352,41 @@ class Sample extends ObjetBDD
      */
     function getForExport($uids)
     {
-        global $APPLI_code;
-        $sql = "select o.uid, identifier, object_status_id, wgs84_x, wgs84_y, 
-        project_id, sample_type_id, sample_creation_date, sample_date, 
-        multiple_value, sampling_place_id,metadata::varchar, 
-        identifiers 
-        from sample 
-        join object o using(uid) 
-        left outer join v_object_identifier voi on (o.uid = voi.uid) 
-        where o.uid in (" . $uids . ")";
-        $d = $this->getListeParam($sql);
-        /*
-         * genere le dbuid pour import dans base externe
-         */
-        $data = array();
-        foreach ($d as $value) {
-            $value["dbuid_origin"] = $APPLI_code . ":" . $value["uid"];
-            if (in_array($value["project_id"], $_SESSION["projects"])) {
-                $data[] = $value;
-            }
-        }
-        if (count($data) > 0) {
-            return $data;
+        if (strlen($uids) == 0) {
+            throw new SampleException("Pas d'échantillons sélectionnés");
         } else {
-            throw new SampleException("No sample found");
+            $this->auto_date = 0;
+            global $APPLI_code;
+            $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, 
+             project_id, project_name, sample_type_name, sample_creation_date, sample_date, 
+             multiple_value, sampling_place_name,metadata::varchar, 
+            identifiers 
+            from sample 
+            join object o using(uid) 
+            join project using (project_id)
+            left outer join v_object_identifier voi on (o.uid = voi.uid) 
+            left outer join sampling_place using (sampling_place_id)
+            left outer join sample_type using (sample_type_id)
+            left outer join object_status using (object_status_id)
+             where o.uid in (" . $uids . ")";
+            $d = $this->getListeParam($sql);
+            $this->auto_date = 1;
+            /*
+             * genere le dbuid pour import dans base externe
+             */
+            $data = array();
+            foreach ($d as $value) {
+                if ($this->verifyProject($value)) {
+                    $value["dbuid_origin"] = $APPLI_code . ":" . $value["uid"];
+                    unset ($value["project_id"]);
+                    $data[] = $value;
+                }
+            }
+            if (count($data) > 0) {
+                return $data;
+            } else {
+                throw new SampleException("Droits insuffisants pour exporter les échantillons");
+            }
         }
     }
 

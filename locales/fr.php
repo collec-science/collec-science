@@ -97,6 +97,8 @@ $LANG["menu"][97] = "Imprimantes";
 $LANG["menu"][98] = "Liste des imprimantes";
 $LANG["menu"][99] = "Métadonnées";
 $LANG["menu"][100] = "Modèles de métadonnées";
+$LANG["menu"][101] = "Import d'échantillons externes";
+$LANG["menu"][102] = "Import d'un lot d'échantillons provenant d'une base externe";
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";

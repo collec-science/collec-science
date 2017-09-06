@@ -8,13 +8,36 @@
 class ImportException extends Exception {
     
 }
-
+/**
+ * Classe de gestion des imports csv
+ * @author quinton
+ *
+ */
  class Import {
      private $separator = ",";
      private $utf8_encode = false;
      private $handle;
-     private $fileColumn = array();
+     private $header = array();
      public $minuid, $maxuid;
+     
+     /**
+      * Constructeur
+      * @param string $filename
+      * @param string $separator
+      * @param boolean $utf_encode
+      */
+     function __construct($filename, $separator = ",", $utf_encode = false) {
+         $this->initFile($filename, $separator, $utf_encode);
+     }
+     
+     /**
+      * Fonction d'initialisation du fichier
+      * recupere la premiere ligne pour lire l'entete
+      * @param string $filename
+      * @param string $separator
+      * @param boolean $utf8_encode
+      * @throws ImportException
+      */
      function initFile($filename, $separator = ",", $utf8_encode = false)
      {
          if ($separator == "tab") {
@@ -31,7 +54,7 @@ class ImportException extends Exception {
                   * Preparation des entetes
                   */
                  for ($range = 0; $range < count($data); $range ++) {
-                     $this->fileColumn[$range] = $data[$range];
+                     $this->header[$range] = $data[$range];
                  }
                 
              }else {
@@ -55,7 +78,23 @@ class ImportException extends Exception {
              }
              return $data;
          } else
-             return null;
+             return false;
+     }
+     /**
+      * lit le fichier csv, et le retourne sous forme de tableau associatif
+      * @return mixed[][]
+      */
+     function getContentAsArray() {
+         $data = array();
+         $nb = count($this->header);
+         while (($line = $this->readLine()) !== false) {
+             $dl = array();
+             for ($i = 0; $i < $nb; $i ++) {
+                 $dl[$this->header[$i]] = $line[$i];
+             }
+             $data[] = $dl;
+         }
+         return $data;
      }
      
      /**

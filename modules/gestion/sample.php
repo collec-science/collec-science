@@ -196,5 +196,78 @@ switch ($t_module["param"]) {
             $module_coderetour = - 1;
         }
         break;
+    case "importStage1":
+        $vue->set("gestion/sampleImport.tpl", "corps");
+        $vue->set(";", "separator");
+        $vue->set(0, "utf8_encode");
+        break;
+    case "importStage2":
+        unset($_SESSION["filename"]);
+        if (file_exists($_FILES['upfile']['tmp_name'])) {
+            /*
+             * Deplacement du fichier dans le dossier temporaire
+             */
+            $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
+            
+            if (copy($_FILES['upfile']['tmp_name'], $filename)) {
+                require_once 'modules/classes/import.class.php';
+                $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"]);
+                /*
+                 * Extraction de tous les libelles des tables de reference
+                 */
+                $vue->set($dataClass->getAllNamesFromReference($import->getContentAsArray()), "names");
+                /*
+                 * Assignation de tous les libelles connus dans la base de donnees
+                 */
+                $classes = array(
+                    0 => array(
+                        "filename" => "samplingPlace.class.php",
+                        "classname" => "SamplingPlace",
+                        "field" => "sampling_place_name"
+                    ),
+                    1 => array(
+                        "filename" => "objectStatus.class.php",
+                        "classname" => "ObjectStatus",
+                        "field" => "object_status_name"
+                    ),
+                    2 => array(
+                        "filename" => "project.class.php",
+                        "classname" => "Project",
+                        "field" => "project_name"
+                    ),
+                    3 => array(
+                        "filename" => "sampleType.class.php",
+                        "classname" => "SampleType",
+                        "field" => "sample_type_name"
+                    ),
+                    4 => array(
+                        "filename" => "identifierType.class.php",
+                        "classname" => "IdentifierType",
+                        "field" => "identifier_type_code"
+                    )
+                );
+                $dclasse = array();
+                foreach ($classes as $classe) {
+                    require_once 'modules/classes/' . $classe["filename"];
+                    $instance = new $classe["classname"]($bdd, $ObjetBDDParam);
+                    $dclasse[$classe["field"]] = $instance->getListe(2);
+                    unset($instance);
+                }
+                $vue->set ($dclasse, "dataClass");
+                $vue->set($filename, "realfilename");
+                $vue->set($_REQUEST["separator"], "separator");
+                $vue->set($_REQUEST["utf8_encode"], "utf8_encode");
+                $vue->set(2, "stage");
+                $vue->set($_FILES['upfile']['name'], "filename");
+                $vue->set("gestion/sampleImport.tpl", "corps");
+            } else {
+                $message->set("Impossible de recopier le fichier importé dans le dossier temporaire");
+                $module_coderetour = - 1;
+            }
+        }
+        break;
+    case "importStage3":
+        
+        break;
 }
 ?>

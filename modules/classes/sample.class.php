@@ -415,6 +415,38 @@ class Sample extends ObjetBDD
             return $val;
         }
     }
+    /**
+     * Recupere tous les libelles des tables de reference utilises dans le fichier a importer
+     * import de donnees externes
+     * @param array $data
+     * @return mixed[][]
+     */
+    function getAllNamesFromReference($data) {
+        $names = array();
+        $fields = array ("sampling_place_name", "object_status_name", "project_name", "sample_type_name");
+        foreach ($data as $line) {
+            foreach ($fields as $field) {
+                if (strlen($line[$field]) > 0) {
+                    if (!in_array($line[$field], $names[$field])) {
+                        $names[$field][] = $line[$field];
+                    }
+                }
+            }
+            /*
+             * Traitement des identifiants secondaires
+             */
+            if (strlen($line["identifiers"]) > 0) {
+                $idents = explode(",",$line["identifiers"]);
+                foreach ($idents as $ident) {
+                    $idvalue = explode(":",$ident);
+                    if (!in_array($idvalue[0], $names["identifier_type_code"])) {
+                        $names["identifier_type_code"][] = $idvalue[0];
+                    }
+                }
+            }
+        }
+        return $names;
+    }
 }
 
 ?>

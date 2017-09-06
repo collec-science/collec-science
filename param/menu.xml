@@ -4,6 +4,7 @@
 	<item module="containerList" title="61" value="60"/>
 	<item module="sampleList" title="69" value="68"/>
 	<item module="importChange" title="79" value="78" droits="projet"/>
+	<item module="sampleImportStage1" title="102" value="101" droits="projet"/>
 </item>
 
 <item module="storage" title="71" value="70" droits="gestion">

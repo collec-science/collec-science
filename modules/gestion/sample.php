@@ -7,6 +7,7 @@
  */
 include_once 'modules/classes/sample.class.php';
 require_once 'modules/classes/object.class.php';
+require_once 'modules/gestion/sample.functions.php';
 $dataClass = new Sample($bdd, $ObjetBDDParam);
 $keyName = "uid";
 $id = $_REQUEST[$keyName];
@@ -31,7 +32,7 @@ switch ($t_module["param"]) {
         /*
          * Ajout des listes deroulantes
          */
-        include 'modules/gestion/sample.functions.php';
+        sampleInitDatEntry();
         /*
          * Ajout de la selection des modeles d'etiquettes
          */
@@ -161,7 +162,7 @@ switch ($t_module["param"]) {
                     $vue->set($data, "data");
                 }
             }
-            include 'modules/gestion/sample.functions.php';
+            sampleInitDatEntry();
         }
         include 'modules/gestion/mapInit.php';
         $vue->set(1, "mapIsChange");
@@ -212,54 +213,46 @@ switch ($t_module["param"]) {
             if (copy($_FILES['upfile']['tmp_name'], $filename)) {
                 require_once 'modules/classes/import.class.php';
                 $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"]);
+                $data = $import->getContentAsArray();
+                $import->fileClose();
                 /*
-                 * Extraction de tous les libelles des tables de reference
+                 * Verification si l'import peut etre realise
                  */
-                $vue->set($dataClass->getAllNamesFromReference($import->getContentAsArray()), "names");
-                /*
-                 * Assignation de tous les libelles connus dans la base de donnees
-                 */
-                $classes = array(
-                    0 => array(
-                        "filename" => "samplingPlace.class.php",
-                        "classname" => "SamplingPlace",
-                        "field" => "sampling_place_name"
-                    ),
-                    1 => array(
-                        "filename" => "objectStatus.class.php",
-                        "classname" => "ObjectStatus",
-                        "field" => "object_status_name"
-                    ),
-                    2 => array(
-                        "filename" => "project.class.php",
-                        "classname" => "Project",
-                        "field" => "project_name"
-                    ),
-                    3 => array(
-                        "filename" => "sampleType.class.php",
-                        "classname" => "SampleType",
-                        "field" => "sample_type_name"
-                    ),
-                    4 => array(
-                        "filename" => "identifierType.class.php",
-                        "classname" => "IdentifierType",
-                        "field" => "identifier_type_code"
-                    )
-                );
-                $dclasse = array();
-                foreach ($classes as $classe) {
-                    require_once 'modules/classes/' . $classe["filename"];
-                    $instance = new $classe["classname"]($bdd, $ObjetBDDParam);
-                    $dclasse[$classe["field"]] = $instance->getListe(2);
-                    unset($instance);
+                $line = 1;
+                foreach ($data as $row) {
+                    if (count($row) > 0) {
+                        try {
+                            $dataClass->verifyBeforeImport($row);
+                        } catch (Exception $e) {
+                            $message->set("Ligne $line : " . $e->getMessage());
+                            $module_coderetour = - 1;
+                        }
+                        $line ++;
+                    }
                 }
-                $vue->set ($dclasse, "dataClass");
-                $vue->set($filename, "realfilename");
-                $vue->set($_REQUEST["separator"], "separator");
-                $vue->set($_REQUEST["utf8_encode"], "utf8_encode");
-                $vue->set(2, "stage");
-                $vue->set($_FILES['upfile']['name'], "filename");
-                $vue->set("gestion/sampleImport.tpl", "corps");
+                if ($module_coderetour == - 1) {
+                    /*
+                     * Suppression du fichier temporaire
+                     */
+                    unset($filename);
+                } else {
+                    
+                    /*
+                     * Extraction de tous les libelles des tables de reference
+                     */
+                    $vue->set($dataClass->getAllNamesFromReference($data), "names");
+                    /*
+                     * Recuperation de tous les libelles connus dans la base de donnees
+                     */
+                    $sic = new SampleInitClass();
+                    $vue->set($sic->init(), "dataClass");
+                    $vue->set($filename, "realfilename");
+                    $vue->set($_REQUEST["separator"], "separator");
+                    $vue->set($_REQUEST["utf8_encode"], "utf8_encode");
+                    $vue->set(2, "stage");
+                    $vue->set($_FILES['upfile']['name'], "filename");
+                    $vue->set("gestion/sampleImport.tpl", "corps");
+                }
             } else {
                 $message->set("Impossible de recopier le fichier importé dans le dossier temporaire");
                 $module_coderetour = - 1;
@@ -267,7 +260,110 @@ switch ($t_module["param"]) {
         }
         break;
     case "importStage3":
-        
+        /*
+         * Declenchement de l'import
+         */
+        require_once 'modules/classes/import.class.php';
+        require_once 'modules/classes/objectIdentifier.class.php';
+        $oid = new ObjectIdentifier($bdd, $ObjetBDDParam);
+        $import = new Import($_REQUEST["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"]);
+        $data = $import->getContentAsArray();
+        $sic = new SampleInitClass();
+        $dclass = $sic->init(true);
+        $simpleFields = array(
+            "identifier",
+            "wgs84_x",
+            "wgs84_y",
+            "sample_creation_date",
+            "sample_date",
+            "multiple_value",
+            "dbuid_origin",
+            "metadata"
+        );
+        $refFields = array(
+            "sampling_place_name",
+            "project_name",
+            "object_status_name",
+            "sample_type_name"
+        );
+        $dataClass->auto_date = 0;
+        $uidmin = 999999999;
+        $uidmax = 0;
+        foreach ($data as $row) {
+            /*
+             * Preparation de l'echantillon a importer dans la base
+             */
+            $sample = array();
+            /*
+             * Champs simples, sans transcodage
+             */
+            foreach ($simpleFields as $field) {
+                if (strlen($row[$field]) > 0) {
+                    $sample[$field] = $row[$field];
+                }
+            }
+            /*
+             * Champs transcodes
+             */
+            foreach ($refFields as $field) {
+                if (strlen($row[$field]) > 0) {
+                    /*
+                     * Recheche de la valeur a appliquer dans les donnees post
+                     */
+                    $value = $row[$field];
+                    $newval = $_POST[$field . "-" . $value];
+                    /*
+                     * Recherche de la cle correspondante
+                     */
+                    $id = $dclass[$field][$newval];
+                    if ($id > 0) {
+                        $key = $sic->classes[$field]["id"];
+                        $sample[$key] = $id;
+                    }
+                }
+            }
+            /*
+             * Declenchement de l'ecriture en base
+             */
+            try {
+                $uid = $dataClass->ecrireImport($sample);
+                if ($uid > 0) {
+                    if ($uid < $uidmin) {
+                        $uidmin = $uid;
+                    }
+                    $uidmax = $uid;
+                    /*
+                     * Traitement des identifiants complementaires
+                     */
+                    if (strlen($row["identifiers"]) > 0) {
+                        $idents = explode(",", $row["identifiers"]);
+                        foreach ($idents as $ident) {
+                            $idvalue = explode(":", $ident);
+                            $dataIdent = array();
+                            $dataIdent["uid"] = $uid;
+                            /*
+                             * Recheche de la valeur a appliquer dans les donnees post
+                             */
+                            $value = $row[$field];
+                            $newval = $_POST["identifier_type_code-" . $idvalue[0]];
+                            $dataIdent["identifier_type_id"] = $dclass["identifier_type_code"][$newval];
+                            $dataIdent["object_identifier_value"] = $idvalue[1];
+                            $oid->ecrire($dataIdent);
+                        }
+                    }
+                }
+            } catch (Exception $e) {
+                $message->set($e->getMessage());
+            }
+        }
+        if ($uidmax > 0) {
+            $message->set("Import des données externes réalisé");
+            $message->set("UID minimum généré : " . $uidmin);
+            $message->set("UID maximum généré : " . $uidmax);
+        } else {
+            $message->set("L'import n'a pas abouti, aucun échantillon n'a pu être intégré");
+            $module_coderetour = -1;
+        }
         break;
 }
 ?>

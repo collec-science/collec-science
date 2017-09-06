@@ -172,8 +172,9 @@ class Sample extends ObjetBDD
                 parent::ecrire($data);
                 return $uid;
             }
-        } else
+        } else {
             throw new SampleException($LANG["appli"][4]);
+        }
         return - 1;
     }
 
@@ -378,7 +379,7 @@ class Sample extends ObjetBDD
             foreach ($d as $value) {
                 if ($this->verifyProject($value)) {
                     $value["dbuid_origin"] = $APPLI_code . ":" . $value["uid"];
-                    unset ($value["project_id"]);
+                    unset($value["project_id"]);
                     $data[] = $value;
                 }
             }
@@ -415,19 +416,27 @@ class Sample extends ObjetBDD
             return $val;
         }
     }
+
     /**
      * Recupere tous les libelles des tables de reference utilises dans le fichier a importer
      * import de donnees externes
+     *
      * @param array $data
      * @return mixed[][]
      */
-    function getAllNamesFromReference($data) {
+    function getAllNamesFromReference($data)
+    {
         $names = array();
-        $fields = array ("sampling_place_name", "object_status_name", "project_name", "sample_type_name");
+        $fields = array(
+            "sampling_place_name",
+            "object_status_name",
+            "project_name",
+            "sample_type_name"
+        );
         foreach ($data as $line) {
             foreach ($fields as $field) {
                 if (strlen($line[$field]) > 0) {
-                    if (!in_array($line[$field], $names[$field])) {
+                    if (! in_array($line[$field], $names[$field])) {
                         $names[$field][] = $line[$field];
                     }
                 }
@@ -436,16 +445,65 @@ class Sample extends ObjetBDD
              * Traitement des identifiants secondaires
              */
             if (strlen($line["identifiers"]) > 0) {
-                $idents = explode(",",$line["identifiers"]);
+                $idents = explode(",", $line["identifiers"]);
                 foreach ($idents as $ident) {
-                    $idvalue = explode(":",$ident);
-                    if (!in_array($idvalue[0], $names["identifier_type_code"])) {
+                    $idvalue = explode(":", $ident);
+                    if (! in_array($idvalue[0], $names["identifier_type_code"])) {
                         $names["identifier_type_code"][] = $idvalue[0];
                     }
                 }
             }
         }
         return $names;
+    }
+
+    /**
+     * Verifie que l'echantillon peut etre importe
+     *
+     * @param array $row
+     * @throws SampleException
+     * @return boolean
+     */
+    function verifyBeforeImport($row)
+    {
+        global $APPLI_code;
+        if (count($row) > 0) {
+            if (strlen($row["dbuid_origin"]) > 0) {
+                $ori = explode(":", $row["dbuid_origin"]);
+                if ($APPLI_code == $ori[0]) {
+                    throw new SampleException("Il n'est pas possible d'importer un échantillon issu de la base de données courante");
+                }
+            } else {
+                throw new SampleException("L'identifiant de la base de données d'origine n'a pas été fourni");
+            }
+            /*
+             * Verification de l'existence du projet
+             */
+            if (strlen($row["project_name"]) == 0) {
+                throw new SampleException("Le nom du projet (ou de la sous-collection) n'a pas été renseigné");
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Fonction d'ecriture dans le cadre d'un import externe
+     * @param array $data
+     * @throws SampleException
+     * @return number
+     */
+    function ecrireImport($data)
+    {
+        $object = new Object($this->connection, $this->param);
+        $uid = $object->ecrire($data);
+        if ($uid > 0) {
+            $data["uid"] = $uid;
+            parent::ecrire($data);
+            return $uid;
+        } else {
+            throw new SampleException("Impossible d'écrire dans la table Object");
+        }
+        return - 1;
     }
 }
 

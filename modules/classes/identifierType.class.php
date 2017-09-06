@@ -25,5 +25,16 @@ class IdentifierType extends ObjetBDD {
 		);
 		parent::__construct ( $bdd, $param );
 	}
+	/**
+	 * Retourne uniquement la cle et le code associe
+	 * @param number $order
+	 * @return array
+	 */
+	function getListeWithCode($order = 0) {
+	    $sql = "select identifier_type_id, identifier_type_code 
+            from identifier_type
+            order by identifier_type_code";
+	    return $this->getListeParam($sql);
+	}
 }
 ?>

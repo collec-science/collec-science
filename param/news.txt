@@ -20,10 +20,17 @@ Gestion du stockage :
 - lors d'un mouvement d'entrée, il est possible d'indiquer le n° de ligne et de colonne de rangement
 - la visualisation d'un container permet d'afficher la grille d'occupation
 
+Gestion des échantillons :
+- il est possible d'exporter une liste d'échantillons, pour pouvoir la réimporter dans une autre base. L'interface permet d'indiquer les valeurs à appliquer localement par rapport aux données initiale (projet, type d'échantillon, localisation...)
+
+Impression des étiquettes :
+- il est possible d'intégrer la localisation (lieu de prélèvement des échantillons)
+
 Gestion des métadonnées associées à un échantillon :
 - il est possible de décrire des métadonnées, et les associer avec des types d'échantillons
 - en modification d'un échantillon, il est possible de saisir les métadonnées
 - celles-ci peuvent être intégrées à un modèle d'étiquette, et figurent dans le fichier CSV exporté pour impression hors collec-science
+- les descriptions de métadonnées peuvent être exportées pour être réimportées dans une autre base
 
 Consultation des protocoles :
 - les protocoles doivent maintenant être associés à des projets

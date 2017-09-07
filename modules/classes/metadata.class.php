@@ -35,5 +35,20 @@ class Metadata extends ObjetBDD
         );
         parent::__construct($bdd, $param);
     }
+
+    function getListFromIds($ids)
+    {
+        $comma = "";
+        $sql = "select metadata_id, metadata_name, metadata_schema from metadata";
+        $where = " where metadata_id in (";
+        foreach ($ids as $id) {
+            if (is_numeric($id) && $id > 0) {
+                $where .= $comma . $id;
+                $comma = ",";
+            }
+        }
+        $where .= ")";
+        return $this->getListeParam($sql . $where);
+    }
 }
 ?>

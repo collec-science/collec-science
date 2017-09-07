@@ -235,6 +235,7 @@
 	<metadataDelete action="modules/param/metadata.php" param="delete" droits="projet" retourok="metadataList" retourko="metadataChange"  modulebefore="metadataChange"/>
 	<metadataCopy action="modules/param/metadata.php" param="copy" droits="projet" type="smarty" />
 	<metadataGetschema action="modules/param/metadata.php" param="getSchema" droits="projet" type="ajax" />
-	
+	<metadataExport action="modules/param/metadata.php" param="export" droits="consult" type="csv" />
+	<metadataImport action="modules/param/metadata.php" param="import" droits="projet" retourok="metadataList" retourko="metadataList" />
 </navigation>
 	

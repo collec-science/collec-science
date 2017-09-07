@@ -177,7 +177,7 @@ class Object extends ObjetBDD {
 		storage_date, movement_type_name, movement_type_id,
 		wgs84_x as x, wgs84_y as y,
 		'' as prj, storage_product as prod, 
-        null as metadata
+        null as metadata, null as locality
 		from object
 		join container using (uid)
 		join container_type using (container_type_id)
@@ -190,11 +190,12 @@ class Object extends ObjetBDD {
 		storage_date, movement_type_name, movement_type_id,
 		wgs84_x as x, wgs84_y as y,
 		project_name as prj, storage_product as prod,
-        metadata::varchar
+        metadata::varchar, locality
 		from object
 		join sample using (uid)
 		join project using (project_id)
 		join sample_type using (sample_type_id)
+        left outer join sampling_place using (sampling_place_id)
 		left outer join container_type using (container_type_id)
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
@@ -288,7 +289,7 @@ class Object extends ObjetBDD {
 			 		'$APPLI_code' as db,
 			 		'' as prj, storage_product as prod,
 			 		 wgs84_x as x, wgs84_y as y, null as cd,
-                    null as metadata
+                    null as metadata, null as loc
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)
@@ -298,11 +299,12 @@ class Object extends ObjetBDD {
 			 		'$APPLI_code' as db, 
 			 		project_name as prj, storage_product as prod,
 			 		 wgs84_x as x, wgs84_y as y, sample_creation_date as cd,
-                    metadata::varchar
+                    metadata::varchar, sampling_place_name as loc
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)
 					join project using (project_id)
+                    left outer join sampling_place using (sampling_place_id)
 					left outer join container_type using (container_type_id)
 			 		left outer join operation using (operation_id)
 			 		left outer join protocol using (protocol_id)

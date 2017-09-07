@@ -37,7 +37,7 @@ function renderForm(data){
                     "type": "object",
                     "properties": {
                         "nom": {
-                            "title": "Nom du champ (sans espace)",
+                            "title": "Nom du champ (sans espace, sans accent, en minuscule)",
                             "type": "string",
                             "required": true
                         },

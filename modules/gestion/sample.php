@@ -311,7 +311,12 @@ switch ($t_module["param"]) {
                      * Recheche de la valeur a appliquer dans les donnees post
                      */
                     $value = $row[$field];
-                    $newval = $_POST[$field . "-" . $value];
+                    /*
+                     * Transformation des espaces en underscore,
+                     * pour tenir compte du transcodage opere par le navigateur
+                     */
+                    $fieldHtml = str_replace(" ", "_", $value);
+                    $newval = $_POST[$field . "-" . $fieldHtml];
                     /*
                      * Recherche de la cle correspondante
                      */

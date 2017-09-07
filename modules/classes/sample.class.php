@@ -482,6 +482,12 @@ class Sample extends ObjetBDD
             if (strlen($row["project_name"]) == 0) {
                 throw new SampleException("Le nom du projet (ou de la sous-collection) n'a pas été renseigné");
             }
+            /*
+             * Verification de l'existence d'un type d'echantillon
+             */
+            if (strlen($row["sample_type_name"]) == 0) {
+                throw new SampleException("Le type d'échantillon n'a pas été renseigné");
+            }
         }
         return true;
     }

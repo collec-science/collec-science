@@ -86,11 +86,17 @@ class SampleInitClass
         foreach ($this->classes as $classe) {
             require_once 'modules/classes/' . $classe["filename"];
             $instance = new $classe["classname"]($bdd, $ObjetBDDParam);
-            if ($classe["field"] == "identifier_type_code") {
-                $data = $instance->getListeWithCode();
-            } else {
-                $data = $instance->getListe(2);
+            switch ($classe["field"]) {
+                case "identifier_type_code":
+                    $data = $instance->getListeWithCode();
+                    break;
+                case "project_name":
+                    $data = $_SESSION["projects"];
+                    break;
+                default:
+                    $data = $instance->getListe(2);
             }
+
             if ($reverse) {
                 $donnees = array();
                 foreach ($data as $value) {

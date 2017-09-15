@@ -63,7 +63,7 @@
 			{/section}
 			</select>
 			<button id="samplelabels" class="btn btn-primary">Étiquettes</button>
-			<img id="sampleSpinner" src="/display/images/spinner.gif" height="25">
+			<img id="sampleSpinner" src="{$display}/images/spinner.gif" height="25">
 
 			{if count($printers) > 0}
 			<select id="printers" name="printer_id">

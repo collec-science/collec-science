@@ -1,51 +1,51 @@
 <h2>Détail d'un échantillon</h2>
 <div class="row">
 <div class="col-md-12">
-<a href="index.php?module=sampleList"><img src="/display/images/list.png" height="25">Retour à la liste</a>
+<a href="index.php?module=sampleList"><img src="{$display}/images/list.png" height="25">Retour à la liste</a>
 {if $droits.gestion == 1}
 &nbsp;
 <a href="index.php?module=sampleChange&uid=0">
-<img src="/display/images/new.png" height="25">
+<img src="{$display}/images/new.png" height="25">
 Nouvel échantillon
 </a>
 {if $modifiable == 1}
 &nbsp;
 <a href="index.php?module=sampleChange&uid={$data.uid}">
-<img src="/display/images/edit.gif" height="25">Modifier...
+<img src="{$display}/images/edit.gif" height="25">Modifier...
 </a>
 {/if}
 <!-- Entrée ou sortie -->
 <span id="input">
 <a href="index.php?module=storagesampleInput&storage_id=0&uid={$data.uid}" id="input" title="Entrer l'échantillon dans le stock">
-<img src="/display/images/input.png" height="25">Entrée
+<img src="{$display}/images/input.png" height="25">Entrée
 </a>
 </span>
 
 <span id="output">
 <a href="index.php?module=storagesampleOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir l'échantillon du stock">
-<img src="/display/images/output.png" height="25">Sortie</a></span>
+<img src="{$display}/images/output.png" height="25">Sortie</a></span>
 
 {/if}
 &nbsp;
 <a href="#echantillons">
-<img src="/display/images/sample.png" height="25">Échantillons dérivés
+<img src="{$display}/images/sample.png" height="25">Échantillons dérivés
 </a>
 &nbsp;
 <a href="#documents">
-<img src="/display/images/camera.png" height="25">Documents associés
+<img src="{$display}/images/camera.png" height="25">Documents associés
 </a>
 &nbsp;
 <a href="#bookings">
-<img src="/display/images/crossed-calendar.png" height="25">Réservations
+<img src="{$display}/images/crossed-calendar.png" height="25">Réservations
 </a>
 {if $data.multiple_type_id > 0}
 <a href="#subsample">
-<img src="/display/images/subsample.png" height="25">Sous-échantillonnage
+<img src="{$display}/images/subsample.png" height="25">Sous-échantillonnage
 </a>
 {/if}
 &nbsp;
 <a href="index.php?module=sampleDisplay&uid={$data.uid}">
-<img src="/display/images/refresh.png" title="Rafraîchir la page" height="15">
+<img src="{$display}/images/refresh.png" title="Rafraîchir la page" height="15">
 </a>
 <div class="row">
 <fieldset class="col-md-4">
@@ -193,7 +193,7 @@ clp : {$data.clp_classification}
 <legend>Échantillons dérivés</legend>
 {if $droits.gestion == 1 && $modifiable == 1}
 <a href="index.php?module=sampleChange&uid=0&parent_uid={$data.uid}">
-<img src="/display/images/new.png" height="25">
+<img src="{$display}/images/new.png" height="25">
 Nouvel échantillon dérivé...
 </a>
 {/if}

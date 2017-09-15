@@ -65,7 +65,7 @@ $_REQUEST = htmlDecode($_REQUEST);
  */
 if (! isset($_REQUEST["module"])) {
     $uri = explode("/", $_SERVER["REQUEST_URI"]);
-    if (count($uri) > 2) {
+    if (count($uri) > 2 && $APPLI_isFullDns) {
         /*
          * Extraction le cas echeant des variables GET
          */

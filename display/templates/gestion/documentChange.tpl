@@ -40,7 +40,7 @@
 		</div>
 		<div class="form-group center">
 			<button type="submit" class="btn btn-primary">{$LANG["message"].19}</button>
-			<img id="documentSpinner" src="/display/images/spinner.gif" height="25" >
+			<img id="documentSpinner" src="{$display}/images/spinner.gif" height="25" >
 		</div>
 	</form>
 </div>

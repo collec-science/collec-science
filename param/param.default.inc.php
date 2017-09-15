@@ -98,6 +98,7 @@ $APPLI_menufile = "param/menu.xml";
 $APPLI_temp = "temp";
 $APPLI_titre = "Collec-Science";
 $APPLI_assist_address = "https://github.com/Irstea/collec/issues/new";
+$APPLI_isFullDns = true;
 /*
  * Emplacement de fop, programme externe utilise pour generer
  * les etiquettes au format PDF
@@ -112,7 +113,9 @@ $SMARTY_variables = array(
 		"corps"=>"main.tpl",
 		"melappli"=>$APPLI_mail,
 		"ident_type"=>$ident_type,
-        "appliAssist"=>$APPLI_assist_address
+        "appliAssist"=>$APPLI_assist_address,
+        "display"=>"/display",
+        "favicon"=>"/favicon.png"
 );
 /*
  * Variables liees a GACL et l'identification via base de donnees

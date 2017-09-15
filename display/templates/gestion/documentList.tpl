@@ -74,7 +74,7 @@ $(document).ready(function() {
 <td>
 <div class="center">
 <a href="index.php?module={$moduleParent}documentDelete&document_id={$dataDoc[lst].document_id}&uid={$data.uid}" onclick="return confirm('Confirmez-vous la suppression ?');">
-<img src="/display/images/corbeille.png" height="20">
+<img src="{$display}/images/corbeille.png" height="20">
 </a>
 </div>
 </td>

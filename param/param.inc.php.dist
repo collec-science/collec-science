@@ -118,6 +118,14 @@ $paramIniFile = "./param.ini";
 //$chemin = substr($_SERVER["DOCUMENT_ROOT"],0, strpos($_SERVER["DOCUMENT_ROOT"],"/bin"));
 //$paramIniFile = "$chemin/param.ini";
 /*
+ * Si l'application n'est pas configuree avec un DNS unique 
+ * (chemin de type : https://serveur/collec-science/)
+ */
+ //$SMARTY_variables["display"] = "display";
+ //$SMARTY_variables["favicon"] = "favicon.png";
+ //$APPLI_isFullDns = false;
+
+/*
  * Parametres SMARTY complementaires, charges systematiquement
  * Ne pas modifier !
  */

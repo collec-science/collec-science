@@ -63,16 +63,16 @@
 <h2>Création - modification d'un échantillon</h2>
 <div class="row col-md-12">
 <a href="index.php?module=sampleList">
-<img src="/display/images/list.png" height="25">
+<img src="{$display}/images/list.png" height="25">
 Retour à la liste des échantillons
 </a>
 {if $data.uid > 0}
 <a href="index.php?module=sampleDisplay&uid={$data.uid}">
-<img src="/display/images/box.png" height="25">Retour au détail
+<img src="{$display}/images/box.png" height="25">Retour au détail
 </a>
 {elseif $sample_parent_uid > 0}
 <a href="index.php?module=sampleDisplay&uid={$sample_parent_uid}">
-<img src="/display/images/box.png" height="25">Retour au détail
+<img src="{$display}/images/box.png" height="25">Retour au détail
 </a>
 {/if}
 </div>

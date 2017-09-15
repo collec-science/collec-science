@@ -60,7 +60,7 @@ $(document).ready(function () {
 			{/section}
 			</select>
 			<button id="containerlabels" class="btn btn-primary">Étiquettes</button>
-			<img id="containerSpinner" src="/display/images/spinner.gif" height="25">
+			<img id="containerSpinner" src="{$display}/images/spinner.gif" height="25">
 			<button id="containercsvfile" class="btn btn-primary">Fichier CSV</button>
 			{if count($printers) > 0}
 			<select id="printers" name="printer_id">

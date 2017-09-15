@@ -1,7 +1,7 @@
-<script src="/display/javascript/adapter.js"></script>
+<script src="{$display}/javascript/adapter.js"></script>
 <script
-	src="/display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
-<script src="/display/javascript/html5-qrcode.eq.js"></script>
+	src="{$display}/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
+<script src="{$display}/javascript/html5-qrcode.eq.js"></script>
 
 
 <script>

@@ -1,7 +1,7 @@
 <!-- Liste des sous-échantillonnages réalisés -->
 {if $droits.gestion == 1}
 <a href="index.php?module=subsampleChange&subsample_id=0&sample_id={$data.sample_id}&uid={$data.uid}">
-<img src="/display/images/new.png" height="25">Nouveau...
+<img src="{$display}/images/new.png" height="25">Nouveau...
 </a>
 {/if}
 <!-- Calcul du reste disponible -->

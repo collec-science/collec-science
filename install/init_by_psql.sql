@@ -2,8 +2,9 @@
  * COLLEC - 29/05/2017
  * Script de creation des tables destinees a recevoir les donnees de l'application
  * version minimale de Postgresql : 9.4.
- * Schema par defaut : col. Si vous voulez creer les donnees dans d'autres schemas, modifiez les 
- * lignes 302 et 303 en consequence
+ * Schemas par defaut : col pour les donnees, et gacl pour les droits. 
+ * Si vous voulez utiliser d'autres schemas, modifiez les scripts 
+ * gacl_create_1.1.sql et col_create_1.1.sql en consequence
  * Execution de ce script en ligne de commande, en etant connecte root :
  * su postgres -c "psql -f init_by_psql.sql"
  * dans la configuration de postgresql :
@@ -37,9 +38,9 @@ create database collec owner collec;
 /*
  * Creation des tables dans le schema gacl
  */
-\i "gacl_create-1.1.sql"
+\ir ./gacl_create-1.1.sql
 
 /*
  * Creation des tables dans le schema col
  */
-\i "col_create_1.1.sql"
+\ir ./col_create_1.1.sql

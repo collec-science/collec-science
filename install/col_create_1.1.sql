@@ -6,6 +6,10 @@
  * 
  * Le script de creation du schema des droits doit avoir ete execute auparavant
  * (gacl_create_1.1.sql)
+ * si les noms des schemas par defaut (gacl, col) sont modifies, corrigez les lignes :
+ * 14 et 15 pour le schema contenant les donnees
+ * 27 (FROM gacl.aclgroup),
+ *  en remplacant gacl par le nom du schema utilise pour la gestion des droits
  */
 create schema if not exists col;
 set search_path = col;

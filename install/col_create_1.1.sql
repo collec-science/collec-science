@@ -84,7 +84,7 @@ CREATE TABLE "container_type" (
                 "clp_classification" VARCHAR,
                 "lines" INTEGER DEFAULT 1 NOT NULL,
                 "columns" INTEGER DEFAULT 1 NOT NULL,
-                "first_line" VARCHAR DEFAULT T NOT NULL,
+                "first_line" VARCHAR DEFAULT 'T' NOT NULL,
                 CONSTRAINT "container_type_pk" PRIMARY KEY ("container_type_id")
 );
 COMMENT ON TABLE "container_type" IS 'Table des types de conteneurs';
@@ -296,14 +296,14 @@ ALTER SEQUENCE "object_status_object_status_id_seq" OWNED BY "object_status"."ob
 CREATE SEQUENCE "operation_operation_id_seq";
 
 CREATE TABLE "operation" (
-                "operation_id" INTEGER DEFAULT nextval('operation_operation_id_seq'::regclass) NOT NULL DEFAULT nextval('"operation_operation_id_seq"'),
+                "operation_id" INTEGER DEFAULT nextval('operation_operation_id_seq'::regclass) NOT NULL,
                 "protocol_id" INTEGER NOT NULL,
                 "operation_name" VARCHAR NOT NULL,
                 "operation_order" INTEGER,
                 "operation_version" VARCHAR,
                 "last_edit_date" TIMESTAMP,
                 CONSTRAINT "operation_pk" PRIMARY KEY ("operation_id"),
-                CONSTRAINT "operation_name_version_unique" UNIQUE ("operation_name","operation_version");
+                CONSTRAINT "operation_name_version_unique" UNIQUE ("operation_name","operation_version")
 );
 COMMENT ON COLUMN "operation"."operation_order" IS 'Ordre de réalisation de l''opération dans le protocole';
 COMMENT ON COLUMN "operation"."operation_version" IS 'Version de l''opération';
@@ -385,6 +385,7 @@ CREATE TABLE "sample_type" (
                 "multiple_type_id" INTEGER,
                 "multiple_unit" VARCHAR,
                 "operation_id" INTEGER,
+		"metadata_id" INTEGER,
                 CONSTRAINT "sample_type_pk" PRIMARY KEY ("sample_type_id")
 );
 COMMENT ON TABLE "sample_type" IS 'Types d''échantillons';
@@ -513,7 +514,7 @@ ALTER SEQUENCE "metadata_metadata_id_seq" OWNED BY "metadata"."metadata_id";
 
 ALTER TABLE "project_group" ADD CONSTRAINT "aclgroup_projet_group_fk"
 FOREIGN KEY ("aclgroup_id")
-REFERENCES "aclgroup" ("aclgroup_id")
+REFERENCES gacl.aclgroup ("aclgroup_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
@@ -651,12 +652,6 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "label" ADD CONSTRAINT "operation_label_fk"
-FOREIGN KEY ("operation_id")
-REFERENCES "operation" ("operation_id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
 
 ALTER TABLE "sample_type" ADD CONSTRAINT "operation_sample_type_fk"
 FOREIGN KEY ("operation_id")

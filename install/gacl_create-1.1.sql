@@ -1,39 +1,12 @@
 /*
- * Prototypephp - 24/08/2017
+ * Prototypephp - 15/09/2017
  * Script de creation des tables de base
  * deux schemas sont necessaires, l'un pour les donnees proprement dites, 
- * l'autre pour la gestion des habilitations et des traces.
- * Le script se deroule en deux parties :
- * - creation du schema pour les donnees
- * - creation du schema pour la gestion des droits
- * modifiez si necessaire le nom des schemas :
- * - lignes 18 et 19 pour le schema des donnees
- * - lignes 41 et 42 pour le schema de gestion des droits
+ * l'autre pour la gestion des droits (habilitations et des traces)
+ * Ce script permet la creation du schema pour la gestion des droits
+ * modifiez si necessaire le nom du schema :
+ * - lignes 14 et 15
  */
-
-/*
- * Creation du schema contenant les donnees
- */
-
-create schema if not exists gacl;
-set search_path = gacl;
-
-CREATE SEQUENCE "dbversion_dbversion_id_seq";
-
-CREATE TABLE "dbversion" (
-                "dbversion_id" INTEGER NOT NULL DEFAULT nextval('"dbversion_dbversion_id_seq"'),
-                "dbversion_number" VARCHAR NOT NULL,
-                "dbversion_date" TIMESTAMP NOT NULL,
-                CONSTRAINT "dbversion_pk" PRIMARY KEY ("dbversion_id")
-);
-COMMENT ON TABLE "dbversion" IS 'Table des versions de la base de donnees';
-COMMENT ON COLUMN "dbversion"."dbversion_number" IS 'Numero de la version';
-COMMENT ON COLUMN "dbversion"."dbversion_date" IS 'Date de la version';
-
-
-ALTER SEQUENCE "dbversion_dbversion_id_seq" OWNED BY "dbversion"."dbversion_id";
-
-insert into dbversion(dbversion_number, dbversion_date) values ('1.1', '2017-08-18');
 
 /*
  * Creation du schema de gestion des droits
@@ -154,13 +127,6 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-insert into aclappli (aclappli_id, appli) values (1, 'appli');
-insert into aclaco (aclaco_id, aclappli_id, aco) values (1, 1, 'admin');
-insert into acllogin (acllogin_id, login, logindetail) values (1, 'admin', 'admin');
-insert into aclgroup (aclgroup_id, groupe) values (1, 'admin');
-insert into acllogingroup (acllogin_id, aclgroup_id) values (1, 1);
-insert into aclacl (aclaco_id, aclgroup_id) values (1, 1);
-
 CREATE TABLE logingestion (
     id integer NOT NULL,
     login character varying(32) NOT NULL,
@@ -183,7 +149,6 @@ CREATE SEQUENCE seq_logingestion_id
 
 ALTER TABLE logingestion ALTER COLUMN id SET DEFAULT nextval('seq_logingestion_id'::regclass);
 
-insert into logingestion (id, login, password, nom) values (1, 'admin', 'cd916028a2d8a1b901e831246dd5b9b4d3832786ddc63bbf5af4b50d9fc98f50', 'Administrator');
 
 CREATE SEQUENCE login_oldpassword_login_oldpassword_id_seq;
 
@@ -256,23 +221,35 @@ ON UPDATE NO ACTION
 NOT DEFERRABLE;
  
 /*
- * ajout des autres droits necessaires dans l'application
+ * pre-remplissage du schema
  */
+/*
+ * Compte admin par defaut
+ */
+insert into logingestion (id, login, password, nom) values (1, 'admin', 'cd916028a2d8a1b901e831246dd5b9b4d3832786ddc63bbf5af4b50d9fc98f50', 'Administrator');
+insert into acllogin (acllogin_id, login, logindetail) values (1, 'admin', 'admin');
+/*
+ * Ajout des droits necessaires
+ */
+insert into aclappli (aclappli_id, appli) values (1, 'col');
 insert into aclaco (aclaco_id, aclappli_id, aco) 
 values 
+(1, 1, 'admin'),
 (2, 1, 'param'),
 (3, 1, 'projet'),
 (4, 1, 'gestion'),
 (5, 1, 'consult');
 insert into aclgroup (aclgroup_id, groupe, aclgroup_id_parent) 
 values 
+(1, 'admin', null),
 (2, 'consult', null),
 (3, 'gestion', 2),
 (4, 'projet', 3),
 (5, 'param', 4);
 
 insert into aclacl (aclaco_id, aclgroup_id)
-values 
+values
+(1, 1),
 (2, 5),
 (3, 4),
 (4, 3),
@@ -280,6 +257,7 @@ values
 
 insert into acllogingroup (acllogin_id, aclgroup_id)
 values
+(1, 1),
 (1, 5);
 
 select setval('seq_logingestion_id', (select max(id) from logingestion));

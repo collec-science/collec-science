@@ -230,7 +230,7 @@ while (isset($module)) {
                         $token = new Token($privateKey, $pubKey);
                         $login = $token->openToken($_COOKIE["tokenIdentity"]);
                     } catch (Exception $e) {
-                        $message->set($LANG["message"[48]]);
+                        $message->set($LANG["message"][48]);
                         $message->setSyslog($e->getMessage());
                         $log->setLog("unknown", "connexion", "token-ko");
                     }

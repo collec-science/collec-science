@@ -11,7 +11,7 @@
 
 <h2>Valider les lectures de la douchette</h2>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-sm-12">
 
 		<form id="storageConfirm" class="form-horizontal" method="post" action="index.php">
 			<input type="hidden" name="moduleBase" value="storageBatch">
@@ -43,8 +43,9 @@
 					<button type="submit" class="btn btn-primary">{$LANG["message"].19}</button>
 				</div>
 			</div>
+			<div class="row col-sm-12">
 			<table id="storageList"
-				class="table table-bordered table-hover datatable-nopaging-nosort ">
+				class="table table-bordered table-hover datatable-nopaging-nosort">
 				<thead>
 					<tr>
 						<th>UID</th>
@@ -72,10 +73,10 @@
 							name="container{$data[lst].uid}" value="1"
 							{if $data[lst].object_type=="container"}checked{/if}></td>
 						<td class="center">
-						<input class="nombre" name="line{$data[lst].uid}">
+						<input class="nombre" name="line{$data[lst].uid}" value="1" title="Valeur obligatoire pour les mouvements d'entrée" placeholder="obligatoire en entrée !">
 						</td>
 						<td class="center">
-						<input class="nombre" name="column{$data[lst].uid}">
+						<input class="nombre" name="column{$data[lst].uid}" value="1" title="Valeur obligatoire pour les mouvements d'entrée" placeholder="obligatoire en entrée !">
 						</td>
 						
 						<td class="center"><input class="entree" type="radio"
@@ -90,6 +91,7 @@
 					{/section}
 				</tbody>
 			</table>
+			</div>
 			<div class="row">
 				<div class="center">
 					<button type="submit" class="btn btn-primary">{$LANG["message"].19}</button>

@@ -17,7 +17,23 @@
 <div class="col-md-8">
 <input id="identifierTypeCode" type="text" class="form-control" name="identifier_type_code" value="{$data.identifier_type_code}" required></div>
 </div>
-
+<div class="form-group">
+<label for="search"  class="control-label col-md-4">Identifiant utilisé dans les recherches ?<span class="red">*</span> :</label>
+<div class="col-md-8" id="search">
+<div class="radio">
+ <label>
+    <input type="radio" name="used_for_search" id="ufs1" value="1" {if $data.used_for_search == 1}checked{/if}>
+    oui
+  </label>
+</div>
+<div class="radio">
+ <label>
+    <input type="radio" name="used_for_search" id="ufs2" value="0" {if $data.used_for_search == 0}checked{/if}>
+    non
+  </label>
+ </div>
+ </div>
+ </div>
 
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
@@ -25,6 +41,7 @@
       <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
       {/if}
  </div>
+
 </form>
 </div>
 </div>

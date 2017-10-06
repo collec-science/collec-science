@@ -11,6 +11,7 @@
 <tr>
 <th>Nom</th>
 <th>Code</th>
+<th>Utilisé pour la recherche ?</th>
 </tr>
 </thead>
 <tbody>
@@ -27,6 +28,9 @@
 </td>
 <td>
 {$data[lst].identifier_type_code}
+</td>
+<td>
+{if $data[lst].used_for_search == 1}oui{else}non{/if}
 </td>
 </tr>
 {/section}

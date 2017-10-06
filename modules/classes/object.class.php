@@ -77,23 +77,32 @@ class Object extends ObjetBDD {
 				 * Recherche par identifiant ou par uid parent
 				 */
 				$data ["identifier"] = $uid;
-				$where = " where upper(identifier) = upper(:identifier)";
+				$where = " where upper(identifier) = upper(:identifier) 
+                        or (upper(object_identifier_value) = upper (:identifier)
+                        and used_for_search = 1)";
 			}
 			
 			$sql = "select uid, identifier, wgs84_x, wgs84_y,
 					container_type_name as type_name
 					from object 
 					join container using (uid)
-					join container_type using (container_type_id)" . $where;
+					join container_type using (container_type_id)
+                    left outer join object_identifier oi using (uid)
+                    left outer join identifier_type it using (identifier_type_id) 
+                    " . $where;
 			if ($is_container != 1) {
-				if (! is_numeric ( $uid ))
+				if (! is_numeric ( $uid )) {
 					$where .= " or upper(dbuid_origin) = upper(:identifier)";
+				}
 				$sql .= " UNION
 					select uid, identifier, wgs84_x, wgs84_y,
 					sample_type_name as type_name
 					from object 
 					join sample using (uid)
-					join sample_type using (sample_type_id)" . $where;
+					join sample_type using (sample_type_id)
+                    left outer join object_identifier oi using (uid)
+                    left outer join identifier_type it using (identifier_type_id) 
+                    " . $where;
 			}
 			return $this->getListeParamAsPrepared ( $sql, $data );
 		}
@@ -389,7 +398,13 @@ class Object extends ObjetBDD {
 			/*
 			 * Requete de recherche des uid a partir de l'identifiant metier
 			 */
-			$sql = "select uid from object where upper(identifier) =  upper(:id)";
+			$sql = "select uid 
+                    from object 
+                    left outer join object_identifier oi using (uid)
+                    left outer join identifier_type it using (identifier_type_id) 
+                    where upper(identifier) =  upper(:id)
+                    or (upper(object_identifier_value) = upper (:id1)
+                        and used_for_search = 1)";
 			/*
 			 * Extraction des UID de chaque ligne scanee
 			 */
@@ -432,7 +447,8 @@ class Object extends ObjetBDD {
 						$val = trim ( $val );
 						if (strlen ( $val ) > 0) {
 							$valobject = $this->lireParamAsPrepared ( $sql, array (
-									"id" => $val 
+									"id" => $val ,
+							         "id1"=> $val
 							) );
 							if ($valobject ["uid"] > 0)
 								$uid = $valobject ["uid"];

@@ -7,7 +7,7 @@
  */
 class ObjectIdentifier extends ObjetBDD {
 	private $sql = "select object_identifier_id, uid, object_identifier_value, identifier_type_id,
-					identifier_type_name, identifier_type_code
+					identifier_type_name, identifier_type_code, used_for_search
 					from object_identifier
 					join identifier_type using (identifier_type_id)";
 	function __construct($bdd, $param = array()) {

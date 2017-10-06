@@ -94,7 +94,7 @@ switch ($t_module["param"]) {
         /*
          * Assignation du nom de la base
          */
-        $vue->set($APPLI_code, "db");
+        $vue->set($_SESSION["APPLI_code"], "db");
         
         break;
     case "fastInputWrite":
@@ -115,7 +115,7 @@ switch ($t_module["param"]) {
         /*
          * Assignation du nom de la base
          */
-        $vue->set($APPLI_code, "db");
+        $vue->set($_SESSION["APPLI_code"], "db");
         /*
          * Recherche des motifs de sortie
          */

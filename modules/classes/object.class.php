@@ -270,7 +270,7 @@ class Object extends ObjetBDD {
 		if ($labelId > 0) {
 			$uids = $this->generateArrayUidToString ( $list );
 			require_once 'plugins/phpqrcode/qrlib.php';
-			global $APPLI_code, $APPLI_temp;
+			global $APPLI_temp;
 			require_once 'modules/classes/objectIdentifier.class.php';
 			$oi = new ObjectIdentifier ( $this->connection, $this->param );
 			require_once 'modules/classes/label.class.php';
@@ -282,6 +282,7 @@ class Object extends ObjetBDD {
 			
 			$dlabel = $label->lire ( $labelId );
 			$fields = explode ( ",", $dlabel ["label_fields"] );
+			$APPLI_code = $_SESSION["APPLI_code"];
 			/*
 			 * Recuperation des informations generales
 			 */
@@ -379,7 +380,6 @@ class Object extends ObjetBDD {
 	 * @return tableau
 	 */
 	function batchRead($batchdata) {
-		global $APPLI_code;
 		if (strlen ( $batchdata ) > 0) {
 			$batchdata = $this->encodeData ( $batchdata );
 			/*
@@ -404,7 +404,7 @@ class Object extends ObjetBDD {
 				$value = trim ( $value, " \t\n\r" );
 				$datajson = json_decode ( $value, true );
 				if (is_array ( $datajson )) {
-					if ($datajson ["uid"] > 0 && $datajson ["db"] == $APPLI_code)
+					if ($datajson ["uid"] > 0 && $datajson ["db"] == $_SESSION["APPLI_code"])
 						$uid = $datajson ["uid"];
 				} else {
 					/*

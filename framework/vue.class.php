@@ -84,14 +84,13 @@ class Message
 
     function sendSyslog()
     {
-        global $APPLI_code;
         $dt = new DateTime();
         $date = $dt->format("D M d H:i:s.u Y");
         $pid = getmypid();
         $code_error = "err";
         $level = "notice";
         foreach ($this->syslog as $value) {
-            openlog("[$date] [$APPLI_code:$level] [pid $pid] $code_error", LOG_PERROR, LOG_LOCAL7);
+            openlog("[$date] [".$_SESSION["APPLI_code"].":$level] [pid $pid] $code_error", LOG_PERROR, LOG_LOCAL7);
             syslog(LOG_NOTICE, $value);
         }
     }
@@ -402,13 +401,12 @@ class VuePdf extends Vue
      */
     function send()
     {
-        global $APPLI_code;
         if (! is_null($this->reference)) {
             header("Content-Type: application/pdf");
             if (strlen($this->filename) > 0) {
                 $filename = $this->filename;
             } else {
-                $filename = $APPLI_code . '-' . date('y-m-d') . ".pdf";
+                $filename = $_SESSION["APPLI_code"] . '-' . date('y-m-d') . ".pdf";
             }
             header('Content-Disposition: ' . $this->disposition . '; filename="' . $filename . '"');
             echo $this->reference;

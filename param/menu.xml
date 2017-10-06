@@ -37,6 +37,7 @@
 	<item module="appliList" droits="admin" value="appliliste" title="applilistetitle"/>
 	<item module="aclloginList" droits="admin" value="aclloginliste" title="aclloginlistetitle"/>
 	<item module="groupList" droits="admin" value="groupliste" title="grouplistetitle"/>
+	<item module="dbparamList" droits="admin" value="103" title="104" />
 	<item module="phpinfo" droits="admin" value="phpinfo" title="phpinfotitle"/>
 </item>
 <item module="connexion" title="connexiontitle" value="connexionvalue" onlynoconnect="1"/>

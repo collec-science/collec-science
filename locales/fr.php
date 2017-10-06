@@ -99,6 +99,8 @@ $LANG["menu"][99] = "Métadonnées";
 $LANG["menu"][100] = "Modèles de métadonnées";
 $LANG["menu"][101] = "Import d'échantillons externes";
 $LANG["menu"][102] = "Import d'un lot d'échantillons provenant d'une base externe";
+$LANG["menu"][103] = "Paramètres de l'application";
+$LANG["menu"][104] = "Liste des paramètres pérennes de l'application";
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";

@@ -20,8 +20,9 @@ $OBJETBDD_debugmode = 1;
 $GACL_aco = "col";
 /*
  * Code de l'application - impression sur les etiquettes
+ * Obsolete : a renseigner dans administration > Parametres de l'application
  */
-$APPLI_code = 'laboXX';
+//$APPLI_code = 'laboXX';
 /*
  * titre de l'application affiche en haut d'ecran
  */

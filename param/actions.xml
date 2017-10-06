@@ -99,6 +99,8 @@
 	<storageReasonWrite action="modules/param/storageReason.php" param="write" droits="param,projet" retourok="storageReasonList" retourko="storageReasonChange" modulebefore="storageReasonChange" />
 	<storageReasonDelete action="modules/param/storageReason.php" param="delete" droits="param,projet" retourok="storageReasonList" retourko="storageReasonChange"  modulebefore="storageReasonChange"/>
 	
+	<dbparamList action="modules/param/dbparam.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<dbparamWriteGlobal action="modules/param/dbparam.php" param="writeGlobal" droits="admin" retourok="dbparamList" retourko="dbparamList" />
 
 	<gestion droits="consult"/>
 	<containerList action="modules/gestion/container.php" param="list" droits="consult" retourlogin="1"  type="smarty"  />

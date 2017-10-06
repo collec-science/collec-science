@@ -357,7 +357,6 @@ class Sample extends ObjetBDD
             throw new SampleException("Pas d'échantillons sélectionnés");
         } else {
             $this->auto_date = 0;
-            global $APPLI_code;
             $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, 
              project_id, project_name, sample_type_name, sample_creation_date, sample_date, 
              multiple_value, sampling_place_name,metadata::varchar, 
@@ -378,7 +377,7 @@ class Sample extends ObjetBDD
             $data = array();
             foreach ($d as $value) {
                 if ($this->verifyProject($value)) {
-                    $value["dbuid_origin"] = $APPLI_code . ":" . $value["uid"];
+                    $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
                     unset($value["project_id"]);
                     $data[] = $value;
                 }
@@ -466,11 +465,10 @@ class Sample extends ObjetBDD
      */
     function verifyBeforeImport($row)
     {
-        global $APPLI_code;
         if (count($row) > 0) {
             if (strlen($row["dbuid_origin"]) > 0) {
                 $ori = explode(":", $row["dbuid_origin"]);
-                if ($APPLI_code == $ori[0]) {
+                if ($_SESSION["APPLI_code"] == $ori[0]) {
                     throw new SampleException("Il n'est pas possible d'importer un échantillon issu de la base de données courante");
                 }
             } else {

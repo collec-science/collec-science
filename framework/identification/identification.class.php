@@ -947,7 +947,7 @@ order by log_id desc limit 2";
     function blockingAccount($login)
     {
         $this->setLog($login, "connexionBlocking");
-        global $message, $MAIL_enabled, $APPLI_code, $APPLI_mail, $APPLI_address, $APPLI_mailToAdminPeriod;
+        global $message, $MAIL_enabled, $APPLI_mail, $APPLI_address, $APPLI_mailToAdminPeriod;
         $date = date("Y-m-d H:i:s");
         $message->setSyslog("connexionBlocking for login $login");
         if ($MAIL_enabled == 1) {
@@ -955,7 +955,7 @@ order by log_id desc limit 2";
             require_once 'framework/droits/droits.class.php';
             $MAIL_param = array(
                 "replyTo" => "$APPLI_mail",
-                "subject" => "SECURITY REPORTING - $APPLI_code - account blocked",
+                "subject" => "SECURITY REPORTING - ".$_SESSION["APPLI_code"]." - account blocked",
                 "from" => "$APPLI_mail",
                 "contents" => "<html><body>" . "The account <b>$login<b> was blocked at $date for too many connection attempts" . '<br>Software : <a href="' . $APPLI_address . '">' . $APPLI_address . "</a>" . '</body></html>'
             );

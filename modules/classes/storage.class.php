@@ -6,14 +6,20 @@
  * Copyright 2016 - All rights reserved
  */
 require_once 'modules/classes/container.class.php';
-class StorageException extends Exception{}
-class Storage extends ObjetBDD {
-	/**
-	 *
-	 * @param PDO $bdd        	
-	 * @param array $param        	
-	 */
-	private $sql = "select s.uid, container_id, movement_type_id, movement_type_name,
+
+class StorageException extends Exception
+{
+}
+
+class Storage extends ObjetBDD
+{
+
+    /**
+     *
+     * @param PDO $bdd
+     * @param array $param
+     */
+    private $sql = "select s.uid, container_id, movement_type_id, movement_type_name,
 					storage_date, storage_location, login, storage_comment,
 					identifier, o.uid as parent_uid, o.identifier as parent_identifier,
 					container_type_id, container_type_name,
@@ -78,7 +84,7 @@ class Storage extends ObjetBDD {
             "line_number" => array(
                 "type" => 1,
                 "requis" => 1,
-                "defaultValue" => 1                
+                "defaultValue" => 1
             )
         );
         parent::__construct($bdd, $param);
@@ -237,6 +243,41 @@ class Storage extends ObjetBDD {
         $data["uid"] = $uid;
         $result = $this->lireParamAsPrepared($sql, $data);
         return $result["nombre"];
+    }
+
+    /**
+     * Retourne les mouvements realises par un login 
+     * pour la recherche d'anomalies potentielles
+     * @param string $login
+     * @param string $dateStart
+     * @param string $dateEnd
+     * @return array
+     */
+    function getMovementsFromLogin($login, $dateStart, $dateEnd)
+    {
+        $login = $this->encodeData($login);
+        $dateStart = $this->encodeData($dateStart);
+        $dateEnd = $this->encodeData($dateEnd);
+        $sql = "select s.uid, identifier, storage_date, movement_type_name, storage_location, line_number, column_number,
+        case when sample_type_name is not null then sample_type_name else container_type_name end as type_name
+        from storage s
+        join object o on (o.uid = s.uid)
+        join movement_type using (movement_type_id)
+        left outer join sample sp on (o.uid = sp.uid)
+        left outer join sample_type using (sample_type_id)
+        left outer join container c on (c.uid = s.uid)
+        left outer join container_type ct on (ct.container_type_id = c.container_type_id)
+        where login = :admin
+        and storage_date between :date_start and :date_end
+        order by storage_date desc
+        ";
+        $dateStart = $this->formatDateLocaleVersDB(3);
+        $dateEnd = $this->formatDateLocaleVersDB(3);
+        return $this->getListeParamAsPrepared($sql, array(
+            "admin" => $login,
+            "date_start" => $dateStart,
+            "date_end" => $dateEnd
+        ));
     }
 }
 

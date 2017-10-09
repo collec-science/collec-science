@@ -159,7 +159,7 @@ class SearchExample extends SearchParam
 
 /**
  * Classe de recherche des conteneurs
- * 
+ *
  * @author quinton
  *        
  */
@@ -214,6 +214,22 @@ class SearchSample extends SearchParam
             "uid_min",
             "uid_max",
             "sampling_place_id"
+        );
+        parent::__construct();
+    }
+}
+
+class SearchMovement extends SearchParam
+{
+
+    function __construct()
+    {
+        $ds = new DateTime();
+        $ds->modify("-1 month");
+        $this->param = array(
+            "login" => "",
+            "date_start" => $ds->format("d/m/Y h:i:s"),
+            "date_end" => date("d/m/Y h:i:s")
         );
         parent::__construct();
     }

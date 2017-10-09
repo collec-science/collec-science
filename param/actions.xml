@@ -198,6 +198,7 @@
 	<samplingPlaceChange action="modules/param/samplingPlace.php" param="change" droits="param"  retourlogin="1" type="smarty" />
 	<samplingPlaceWrite action="modules/param/samplingPlace.php" param="write" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceChange" modulebefore="samplingPlaceChange" />
 	<samplingPlaceDelete action="modules/param/samplingPlace.php" param="delete" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceChange"  modulebefore="samplingPlaceChange"/>
+	<samplingPlaceImport action="modules/param/samplingPlace.php" param="import" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceList"  modulebefore="samplingPlaceList,samplingPlaceImport"/>
 
 
 	<subsampleChange action="modules/gestion/subsample.php" param="change" droits="gestion"  retourlogin="1" type="smarty"  />

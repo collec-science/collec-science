@@ -27,5 +27,23 @@ class SamplingPlace extends ObjetBDD {
 		);
 		parent::__construct ( $bdd, $param );
 	}
+	/**
+	 * Teste si un libelle existe deja dans la base
+	 * @param string $name
+	 * @return boolean
+	 */
+	function isExists($name) {
+	    $id = 0;
+	    $name = $this->encodeData($name);
+	    if (strlen($name) > 0) {
+	        $sql  = "select sampling_place_id from sampling_place where sampling_place_name = :name";
+	        $id = $this->lireParamAsPrepared($sql, array("name"=>$name));
+	    }
+	    if ($id > 0) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
 }
 ?>

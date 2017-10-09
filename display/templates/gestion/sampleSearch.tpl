@@ -14,7 +14,12 @@ $(document).ready(function () {
 		 if ($("#sample_type_id").val() > 0) ok = true;
 		 if ($("#sampling_place_id").val() > 0 ) ok = true ;
 		 if ($("#object_status_id").val() > 1) ok = true;
-		 if ($("#metadata_field").val().length > 0 && $("#metadata_value").val().length > 0) ok = true;
+		 var mf = $("#metadata_field").val();
+		 if ( mf != null) {
+			 if (mf.length > 0 && $("#metadata_value").val().length > 0) {
+				 ok = true;			 
+			 }
+		 }
 		 if (ok == false) event.preventDefault();
 	 });
 	

@@ -66,7 +66,15 @@ class Object extends ObjetBDD {
 			parent::supprimer ( $uid );
 		}
 	}
-	function getDetail($uid, $is_container = 0) {
+	/**
+	 * Fonction retournant une liste d'objets en fonction d'un identifiant (uid, identifier, 
+	 * object_idenfier selectionne pour etre utilise dans les recherches
+	 * @param int|string $uid
+	 * @param number $is_container
+	 * @param boolean $is_partial : lance la recherche sur le debut de la chaine
+	 * @return array
+	 */
+	function getDetail($uid, $is_container = 0, $is_partial = false) {
 		if (strlen ( $uid ) > 0) {
 			if (is_numeric ( $uid ) && $uid > 0) {
 				
@@ -76,10 +84,15 @@ class Object extends ObjetBDD {
 				/*
 				 * Recherche par identifiant ou par uid parent
 				 */
+			    $operator = '=';
+			    if ($is_partial) {
+			        $uid .= '%';
+			        $operator = 'like';			        
+			    }
 				$data ["identifier"] = $uid;
-				$where = " where upper(identifier) = upper(:identifier) 
-                        or (upper(object_identifier_value) = upper (:identifier)
-                        and used_for_search = 1)";
+				$where = " where upper(identifier) $operator upper(:identifier) 
+                        or (upper(object_identifier_value) $operator upper (:identifier)
+                        and used_for_search = 't')";
 			}
 			
 			$sql = "select uid, identifier, wgs84_x, wgs84_y,
@@ -404,7 +417,7 @@ class Object extends ObjetBDD {
                     left outer join identifier_type it using (identifier_type_id) 
                     where upper(identifier) =  upper(:id)
                     or (upper(object_identifier_value) = upper (:id1)
-                        and used_for_search = 1)";
+                        and used_for_search = 't')";
 			/*
 			 * Extraction des UID de chaque ligne scanee
 			 */

@@ -1,4 +1,4 @@
-<h2>Motifs de stockage/déstockage</h2>
+<h2>Motifs de déstockage</h2>
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}

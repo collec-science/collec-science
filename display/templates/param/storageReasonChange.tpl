@@ -1,4 +1,4 @@
-<h2>Modification des motifs de stockage/déstockage</h2>
+<h2>Modification des motifs de déstockage</h2>
 <div class="row">
 <div class="col-md-6">
 <a href="index.php?module=storageReasonList">{$LANG.appli.1}</a>

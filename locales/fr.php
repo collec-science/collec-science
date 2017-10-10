@@ -103,8 +103,8 @@ $LANG["menu"][103] = "Paramètres de l'application";
 $LANG["menu"][104] = "Liste des paramètres pérennes de l'application";
 $LANG["menu"][105] = "Liste des mouvements";
 $LANG["menu"][106] = "Recherche des mouvements sur une période donnée";
-$LANG["menu"][107] = "";
-$LANG["menu"][108] = "";
+$LANG["menu"][107] = "Lexique";
+$LANG["menu"][108] = "Lexique des termes utilisés dans le logiciel";
 
 
 $LANG["message"][0] = "Bienvenue"; 

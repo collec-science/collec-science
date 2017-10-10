@@ -61,6 +61,7 @@
 	<passwordlostReinitwrite action="framework/identification/passwordLost.php" param="reinitWrite" modulebefore="passwordlostReinitchange" retourko="default" retourok="connexion"/>
 
 <!-- Modules specifiques de l'application -->
+	<lexique action="doc/lexique.php"  retourlogin="1"  type="smarty" />
 	<parametre droits="consult" type="smarty" />
 	<eventTypeList action="modules/param/eventType.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
 	<eventTypeChange action="modules/param/eventType.php" param="change" droits="param"  retourlogin="1" type="smarty" />

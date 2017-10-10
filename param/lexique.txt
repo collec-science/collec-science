@@ -1,0 +1,2 @@
+échantillon dérivé : échantillon créé à partir d'un autre, de même type ou non, identifié de manière autonome
+sous-échantillon : partie d'un échantillon non identifiable individuellement (prélèvement de x matière, une écaille parmi 10 identiques). En chimie, peut être assimilé à l’aliquote.

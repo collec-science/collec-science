@@ -18,21 +18,24 @@
 	<item module="projectList" droits="consult" value="64" title="65" />
 	<item module="protocolList" droits="consult" value="82" title="83" />
 	<item module="operationList" droits="consult" value="85" title="86" />
-	<item module="eventTypeList" droits="consult" value="52" title="53" />
+	<item divider='1'/>
 	<item module="containerFamilyList" droits="consult" value="54" title="55" />
+	<item module="containerTypeList" droits="consult" value="58" title="59" />
+	<item module="sampleTypeList" droits="consult" value="66" title="67" />
+	<item module="identifierTypeList" droits="consult" value="89" title="90" />
+	<item module="multipleTypeList" droits="consult" value="87" title="88" />
+	<item module="metadataList" droits="consult" value="99" title="100" />
+	<item module="samplingPlaceList" droits="consult" value="95" title="96" />	
+	<item divider='1'/>
+	<item module="eventTypeList" droits="consult" value="52" title="53" />
 	<item module="storageConditionList" droits="consult" value="56" title="57" />
 	<item module="storageReasonList" droits="consult" value="91" title="92" />
-	<item module="containerTypeList" droits="consult" value="58" title="59" />
 	<item module="objectStatusList" droits="consult" value="62" title="63" />
-	<item module="sampleTypeList" droits="consult" value="66" title="67" />
-	<item module="multipleTypeList" droits="consult" value="87" title="88" />
-	<item module="samplingPlaceList" droits="consult" value="95" title="96" />	
-	<item module="metadataList" droits="consult" value="99" title="100" />
+	<item divider='1'/>	
 	<item module="labelList" droits="consult" value="80" title="81" />
-	<item module="printerList" droits="param" value="97" title="98" />
-	<item module="identifierTypeList" droits="consult" value="89" title="90" />
-		
+	<item module="printerList" droits="param" value="97" title="98" />		
 </item>
+
 <item module="administration" value="4" title="5" droits="admin">
 	<item module="loginList" menulevel="1" menuorder="9" droits="admin" title="3" value="2"/>
 	<item module="appliList" droits="admin" value="appliliste" title="applilistetitle"/>

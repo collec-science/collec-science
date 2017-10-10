@@ -14,8 +14,9 @@
 
 
 <!-- extension pour le menu -->
-<script src="{$display}/javascript/smartmenus-1.0.1/jquery.smartmenus.min.js" type="text/javascript"></script>
-<script src="{$display}/javascript/smartmenus-1.0.1/addons/bootstrap/jquery.smartmenus.bootstrap.min.js" type="text/javascript"></script>
+<script src="{$display}/javascript/smartmenus-1.1.0/jquery.smartmenus.min.js" type="text/javascript"></script>
+<link type="text/css" href="display/javascript/smartmenus-1.1.0/addons/bootstrap/jquery.smartmenus.bootstrap.css" rel="stylesheet">
+<script src="{$display}/javascript/smartmenus-1.1.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js" type="text/javascript"></script>
 
 <!-- Datatables -->
 <link rel="stylesheet" type="text/css" href="{$display}/javascript/DataTables-1.10.15/media/css/jquery.dataTables.min.css" />

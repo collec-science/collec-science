@@ -12,7 +12,7 @@
 $APPLI_modeDeveloppement = false;
 $_ERROR_display = 0;
 $ERROR_level = E_ERROR ;
-$OBJETBDD_debugmode = 1;
+$OBJETBDD_debugmode = 0;
 
 /*
  * code de l'application dans la gestion des droits

@@ -11,6 +11,9 @@ if (! isset ( $_SESSION ["searchContainer"] )) {
 if (! isset ( $_SESSION ["searchSample"] )) {
 	$_SESSION ["searchSample"] = new SearchSample ();
 }
+if (! isset ( $_SESSION ["searchMovement"] )) {
+    $_SESSION ["searchMovement"] = new SearchMovement ();
+}
 if (!isset($_SESSION["APPLI_code"])) {
     require_once 'modules/classes/dbparam.class.php';
     $dbparam = new DbParam($bdd, $ObjetBDDParam);

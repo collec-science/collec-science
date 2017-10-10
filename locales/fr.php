@@ -101,6 +101,11 @@ $LANG["menu"][101] = "Import d'échantillons externes";
 $LANG["menu"][102] = "Import d'un lot d'échantillons provenant d'une base externe";
 $LANG["menu"][103] = "Paramètres de l'application";
 $LANG["menu"][104] = "Liste des paramètres pérennes de l'application";
+$LANG["menu"][105] = "Liste des mouvements";
+$LANG["menu"][106] = "Recherche des mouvements sur une période donnée";
+$LANG["menu"][107] = "";
+$LANG["menu"][108] = "";
+
 
 $LANG["message"][0] = "Bienvenue"; 
 $LANG["message"][1] = "GESTION DES ÉCHANTILLONS";

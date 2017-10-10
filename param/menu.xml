@@ -11,6 +11,7 @@
 <item module="fastInputChange" title="73" value="72" droits="gestion" />
 <item module="fastOutputChange" title="75" value="74" droits="gestion" />
 <item module="storageBatchOpen" title="94" value="93" droits="gestion" />
+<item module="storageList" value="105" title="106" droits="projet" />
 </item>
 
 <item module="parametre" value="50" title="51" droits="consult">

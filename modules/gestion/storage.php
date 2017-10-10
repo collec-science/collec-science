@@ -180,5 +180,15 @@ switch ($t_module["param"]) {
             $module_coderetour = - 1;
         }
         break;
+    case "list":
+        $_SESSION["searchMovement"]->setParam($_REQUEST);
+        $dataSearch = $_SESSION["searchMovement"]->getParam();
+        if ($_SESSION["searchMovement"]->isSearch() == 1) {
+            $data = $dataClass->search($dataSearch);
+            $vue->set($data, "data");
+            $vue->set(1, "isSearch");
+        }
+        $vue->set($dataSearch, "movementSearch");
+        $vue->set("gestion/movementList.tpl", "corps");
 }
 ?>

@@ -246,19 +246,25 @@ class Storage extends ObjetBDD
     }
 
     /**
-     * Retourne les mouvements realises par un login 
+     * Retourne les mouvements realises par un login
      * pour la recherche d'anomalies potentielles
-     * @param string $login
-     * @param string $dateStart
-     * @param string $dateEnd
+     *
+     * @param array $values
      * @return array
      */
-    function getMovementsFromLogin($login, $dateStart, $dateEnd)
+    function search($values)   
     {
-        $login = $this->encodeData($login);
-        $dateStart = $this->encodeData($dateStart);
-        $dateEnd = $this->encodeData($dateEnd);
-        $sql = "select s.uid, identifier, storage_date, movement_type_name, storage_location, line_number, column_number,
+        if (strlen($values["login"]) > 0) {
+            $login = "%" . strtolower($this->encodeData($values["login"])) . "%";
+            $searchByLogin = true;
+        } else {
+            $searchByLogin = false;
+        }
+        
+        $dateStart = $this->encodeData($values["date_start"]);
+        $dateEnd = $this->encodeData($values["date_end"]);
+        $data = array();
+        $sql = "select s.login, s.uid, identifier, storage_date, movement_type_id, movement_type_name, storage_location, line_number, column_number,
         case when sample_type_name is not null then sample_type_name else container_type_name end as type_name
         from storage s
         join object o on (o.uid = s.uid)
@@ -266,18 +272,18 @@ class Storage extends ObjetBDD
         left outer join sample sp on (o.uid = sp.uid)
         left outer join sample_type using (sample_type_id)
         left outer join container c on (c.uid = s.uid)
-        left outer join container_type ct on (ct.container_type_id = c.container_type_id)
-        where login = :admin
-        and storage_date between :date_start and :date_end
-        order by storage_date desc
-        ";
-        $dateStart = $this->formatDateLocaleVersDB(3);
-        $dateEnd = $this->formatDateLocaleVersDB(3);
-        return $this->getListeParamAsPrepared($sql, array(
-            "admin" => $login,
-            "date_start" => $dateStart,
-            "date_end" => $dateEnd
-        ));
+        left outer join container_type ct on (ct.container_type_id = c.container_type_id) where ";
+        if ($searchByLogin) {
+            $sql .= "login like :login and ";
+            $data["login"] = $login;
+        }
+        $sql .= "storage_date between :date_start and :date_end
+        order by storage_date desc";
+        //$data["date_start"] = $dateStart;
+        //$data["date_end"] = $dateEnd;
+        $data["date_start"] = $this->formatDateLocaleVersDB($dateStart, 3);
+        $data["date_end"] = $this->formatDateLocaleVersDB($dateEnd, 3);
+        return $this->getListeParamAsPrepared($sql, $data);
     }
 }
 

@@ -151,6 +151,7 @@
 	
 	
 	<storage droits="consult" type="smarty" />
+	<storageList droits="projet" type="smarty" action="modules/gestion/storage.php" param="list" retourlogin="1"/>
 	<objets retourlogin="1" type="smarty" />
 	<fastInputChange action="modules/gestion/storage.php" param="fastInputChange" droits="gestion"  retourlogin="1" type="smarty" />
 	<fastInputWrite action="modules/gestion/storage.php" param="fastInputWrite" droits="gestion" retourok="fastInputChange" retourko="fastInputChange" modulebefore="fastInputChange" />

@@ -18,7 +18,8 @@
 <input id="identifierTypeCode" type="text" class="form-control" name="identifier_type_code" value="{$data.identifier_type_code}" required></div>
 </div>
 <div class="form-group">
-<label for="search"  class="control-label col-md-4">Identifiant utilisé dans les recherches ?<span class="red">*</span> :</label>
+<label for="search"  class="control-label col-md-4">Identifiant utilisé dans les recherches 
+(uniquement des valeurs non numériques) ?<span class="red">*</span> :</label>
 <div class="col-md-8" id="search">
 <div class="radio">
  <label>

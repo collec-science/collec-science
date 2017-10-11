@@ -49,6 +49,24 @@ $(document).ready( function() {
 </div>
 </div>
 <div class="form-group">
+<label for ="identifiers_only" class="control-label col-md-4">Étiquette ne comprenant qu'un identifiant métier ?</label>
+<div class="col-md-8" id="identifiers_only">
+<div class="radio-inline">
+<label>
+<input type="radio" name="identifier_only" id="identifier_only1" value="1" {if $data.identifier_only == 1}checked{/if}>
+oui
+</label>
+</div>
+<div class="radio-inline">
+<label>
+<input type="radio" name="identifier_only" id="identifier_only0" value="0" {if $data.identifier_only == 0}checked{/if}>
+non
+</label>
+</div>
+</div>
+</div>
+
+<div class="form-group">
 <label for="label_fields"  class="control-label col-md-4">Champs à insérer dans le QRCode (séparés par une virgule, sans espace)<span class="red">*</span> :</label>
 <div class="col-md-8">
 <input id="label_fields" type="text" class="form-control" name="label_fields" value="{$data.label_fields}" required>
@@ -80,6 +98,8 @@ $(document).ready( function() {
 <div class="bg-info">
 Champs utilisables dans le QRcode et dans le texte de l'étiquette :
 <ul>
+<li>Cas général : QrCode au format JSON, avec plusieurs informations stockées
+<ul>
 <li>uid (obligatoire) : identifiant unique</li>
 <li>db (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les échantillons entre plusieurs bases)</li>
 <li>id : identifiant général</li>
@@ -92,6 +112,13 @@ Champs utilisables dans le QRcode et dans le texte de l'étiquette :
 <li>prod : produit utilisé pour la conservation</li>
 <li>cd : date de création de l'échantillon (date de collecte ou d'extration d'un échantillon pré-existant)</li>
 <li>et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants</li>
+</ul>
+</li>
+<li>Cas particulier : QrCode avec uniquement un identifiant, au format texte
+<ul>
+<li>id ou tout identifiant secondaire non numérique - cf. paramètres > Types d'identifiants</li>
+</ul>
+</li>
 </ul>
 </div>
 

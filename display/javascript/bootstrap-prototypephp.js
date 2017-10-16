@@ -108,7 +108,7 @@ function verifyComplexity(password) {
  * Verification de la longueur du mot de passe au minimum, 8 caracteres
  */
 function verifyLength(password) {
-	if (password.length < 8) {
+	if (password.length < 10) {
 		return false;
 	} else {
 		return true;

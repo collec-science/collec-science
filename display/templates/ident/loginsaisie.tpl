@@ -8,7 +8,7 @@ $(document).ready(function() {
 		 */
 		 var mdp1 = $("#pass1").val();
 		 var mdp2 = $("#pass2").val();
-		 if (mdp1.length > 0 && mdp2.length > 0) {
+		 if (mdp1.length > 0 || mdp2.length > 0) {
 			 if (mdp1 != mdp2) {
 			 	error = true;
 			 	message = "{$LANG["message"].39}";
@@ -74,13 +74,13 @@ $(document).ready(function() {
 </div>
 </div>
 <div class="form-group">
-<label for="pass1" class="col-md-4 control-label">{$LANG.login.1} : </label>
+<label for="pass1" class="col-md-4 control-label">{$LANG.login.1}<span class="red">*</span> : </label>
 <div class="col-md-8">
 <input class="form-control" type="password" autocomplete="off" id="pass1" name="pass1" >
 </div>
 </div>
 <div class="form-group">
-<label for="pass2" class="col-md-4 control-label">{$LANG.login.12}</label> 
+<label for="pass2" class="col-md-4 control-label">{$LANG.login.12}<span class="red">*</span> : </label> 
 <div class="col-md-8">
 <input type="password" class="form-control" id="pass2" autocomplete="off" name="pass2">
 </div>
@@ -93,6 +93,22 @@ $(document).ready(function() {
 <div class="col-md-6">
 <label for="motdepasse" class="sr-only">Mot de passe généré</label>
 <input name="motdepasse" id="motdepasse" size="20">
+</div>
+</div>
+<div class="col-md-12">
+<div class="bg-info">
+Le mot de passe doit :
+<ul>
+<li>avoir une longueur minimale de 10 caractères</li>
+<li>être composé d'au minimum 3 types de caractères différents parmi :
+<ul>
+<li>des minuscules</li>
+<li>des majuscules</li>
+<li>des chiffres</li>
+<li>des caractères de ponctuation ou spéciaux</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div class="form-group">

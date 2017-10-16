@@ -473,13 +473,20 @@ class LoginGestion extends ObjetBDD
      */
     function ecrire($data)
     {
-        if (isset($data["pass1"]) && isset($data["pass2"]) && $data["pass1"] == $data["pass2"]) {
+        if (strlen($data["pass1"] > 0) && strlen($data["pass2"] > 0) && $data["pass1"] == $data["pass2"]) {
             if ($this->controleComplexite($data["pass1"]) > 2 && strlen($data["pass1"]) > 9) {
                 $data["password"] = hash("sha256", $data["pass1"] . $data["login"]);
+            } else {
+                throw new IdentificationException("Password not enough complex or too small");
             }
         }
         $data["datemodif"] = date('d-m-y');
-        return parent::ecrire($data);
+        $id  = parent::ecrire($data);
+        if ($id > 0 && strlen($data["password"]) > 0) {
+            $lgo = new LoginOldPassword($this->connection, $this->paramori);
+            $lgo->setPassword($id, $data["password"]);
+        }
+        return $id;
     }
 
     /**

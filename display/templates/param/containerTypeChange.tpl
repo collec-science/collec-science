@@ -1,4 +1,4 @@
-<h2>Modification d'un type de conteneur</h2>
+<h2>Modification d'un type de container</h2>
 <div class="row">
 <div class="col-md-6">
 <a href="index.php?module=containerTypeList">{$LANG.appli.1}</a>

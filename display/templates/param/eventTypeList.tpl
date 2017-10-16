@@ -11,7 +11,7 @@
 <tr>
 <th>Nom</th>
 <th>Valide pour les échantillons ?</th>
-<th>Valide pour les conteneurs ?</th>
+<th>Valide pour les containers ?</th>
 </tr>
 </thead>
 <tbody>

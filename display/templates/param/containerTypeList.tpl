@@ -1,4 +1,4 @@
-<h2>Types de conteneurs</h2>
+<h2>Types de containers</h2>
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}

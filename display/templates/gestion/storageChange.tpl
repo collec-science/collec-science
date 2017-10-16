@@ -25,7 +25,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 		} ) ;
 	}
 	/*
-	 * Recherche d'un conteneur a partir du type
+	 * Recherche d'un container a partir du type
 	 */
 	function searchContainer () {
 		var containerType = $("#container_type_id").val();
@@ -103,7 +103,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 <div class="col-md-6">
 <a href="index.php?module={$moduleParent}List">
 <img src="{$display}/images/list.png" height="25">
-Retour à la liste des {if $moduleParent == "container"}conteneurs{else}échantillons{/if}
+Retour à la liste des {if $moduleParent == "container"}containers{else}échantillons{/if}
 </a>
 {if $data.uid > 0}
 <a href="index.php?module={$moduleParent}Display&uid={$data.uid}">
@@ -130,7 +130,7 @@ Retour au détail
 <fieldset>
 <legend>Rangé dans :</legend>
 <div class="form-group">
-<label for="container_uid" class="control-label col-md-4">UID du conteneur :<span class="red">*</span> :</label>
+<label for="container_uid" class="control-label col-md-4">UID du container :<span class="red">*</span> :</label>
 <div class="col-md-8">
 <input id="container_uid" name="container_uid" value="{$data.container_uid}" type="number" class="form-control">
 </div>
@@ -167,7 +167,7 @@ Retour au détail
 </div>
 {if $data.movement_type_id == 1}
 <div class="form-group">
-<label for="storage_location" class="control-label col-md-4">Emplacement dans le conteneur (format libre) :</label>
+<label for="storage_location" class="control-label col-md-4">Emplacement dans le container (format libre) :</label>
 <div class="col-md-8">
 <input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 </div>

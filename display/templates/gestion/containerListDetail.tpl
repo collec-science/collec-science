@@ -1,4 +1,4 @@
-<!-- Liste des conteneurs pour affichage -->
+<!-- Liste des containers pour affichage -->
 <script>
 $(document).ready(function () {
 	$("#checkContainer").change( function() {

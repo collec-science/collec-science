@@ -1,4 +1,4 @@
-<h2>Détail d'un conteneur</h2>
+<h2>Détail d'un container</h2>
 <div class="row">
 <div class="col-md-12">
 <a href="index.php?module=containerList"><img src="{$display}/images/list.png" height="25">Retour à la liste</a>
@@ -6,7 +6,7 @@
 &nbsp;
 <a href="index.php?module=containerChange&uid=0">
 <img src="{$display}/images/new.png" height="25">
-Nouveau conteneur
+Nouveau container
 </a>
 &nbsp;
 <a href="index.php?module=containerChange&uid={$data.uid}">
@@ -15,19 +15,19 @@ Nouveau conteneur
 
 <!-- Entrée ou sortie -->
 <span id="input">
-<a href="index.php?module=storagecontainerInput&storage_id=0&uid={$data.uid}" id="input" title="Entrée le conteneur dans le stock">
+<a href="index.php?module=storagecontainerInput&storage_id=0&uid={$data.uid}" id="input" title="Entrée le container dans le stock">
 <img src="{$display}/images/input.png" height="25">Entrée
 </a>
 </span>
 
 <span id="output">
-<a href="index.php?module=storagecontainerOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir le conteneur du stock">
+<a href="index.php?module=storagecontainerOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir le container du stock">
 <img src="{$display}/images/output.png" height="25">Sortie</a></span>
 
 {/if}
 &nbsp;
-<a href="#conteneurs">
-<img src="{$display}/images/box.png" height="25">Conteneurs présents
+<a href="#containers">
+<img src="{$display}/images/box.png" height="25">containers présents
 </a>
 &nbsp;
 <a href="#echantillons">
@@ -120,11 +120,11 @@ Nouveau conteneur
 </fieldset>
 </div>
 
-<fieldset class="col-md-8" id="conteneurs">
-<legend>Conteneurs présents</legend>
+<fieldset class="col-md-8" id="containers">
+<legend>containers présents</legend>
 <a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
 <img src="{$display}/images/new.png" height="25">
-Nouveau conteneur associé
+Nouveau container associé
 </a>
 {include file="gestion/containerListDetail.tpl"}
 </fieldset>

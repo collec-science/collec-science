@@ -42,12 +42,12 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 
 </script>
 
-<h2>Création - modification d'un conteneur</h2>
+<h2>Création - modification d'un container</h2>
 <div class="row">
 <div class="col-md-6">
 <a href="index.php?module=containerList">
 <img src="{$display}/images/list.png" height="25">
-Retour à la liste des conteneurs
+Retour à la liste des containers
 </a>
 {if $data.uid > 0}
 <a href="index.php?module=containerDisplay&uid={$data.uid}">

@@ -1,4 +1,4 @@
-<h2>Familles de conteneurs</h2>
+<h2>Familles de containers</h2>
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}
@@ -10,7 +10,7 @@
 <thead>
 <tr>
 <th>Nom</th>
-<th>Types de conteneurs facilement déplaçables ?</th>
+<th>Types de containers facilement déplaçables ?</th>
 </tr>
 </thead>
 <tbody>

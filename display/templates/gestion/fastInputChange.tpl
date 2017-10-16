@@ -16,7 +16,7 @@
 			<div class="form-group">
 				<label for="container_uid" class="control-label col-sm-4">
 				<img id="arrow-container" src="{$display}/images/right-arrow.png" height="25">
-				UID	du conteneur<span class="red">*</span> :
+				UID	du container<span class="red">*</span> :
 				</label>
 				<div class="col-sm-8" id="container_groupe">
 					<div class="col-sm-3">

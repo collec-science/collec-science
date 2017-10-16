@@ -22,7 +22,7 @@ $(document).ready(function() {
 			<input type="hidden" name="moduleBase" value="storageBatch"> 
 			<input	type="hidden" name="action" value="Read"> 
 			<div class="bg-info">
-Pour entrer des échantillons dans le stock, commencez toujours par scanner le conteneur.
+Pour entrer des échantillons dans le stock, commencez toujours par scanner le container.
 </div>
 			<div class="form-group">
 <label for="reads"  class="control-label col-md-4">Données scannées<span class="red">*</span> :</label>

@@ -24,7 +24,7 @@
 </div>
 </div>
 <div class="form-group">
-<label for="is_container"  class="control-label col-md-4">Utilisable pour les conteneurs : </label>
+<label for="is_container"  class="control-label col-md-4">Utilisable pour les containers : </label>
 <div id="is_container"class="col-md-8" >
 <label class="radio-inline">
   <input type="radio" name="is_container" id="isContainer1" value="t" {if $data.is_container == 1}checked {/if}> oui

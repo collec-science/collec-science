@@ -52,7 +52,7 @@
 						<th>Identifiant</th>
 						<th>Type</th>
 						<th>Type détaillé</th>
-						<th>Conteneur<br>(pour entrée)
+						<th>container<br>(pour entrée)
 						</th>
 						<th>N° ligne<br>(entrée)</th>
 						<th>N° colonne<br>(entrée)</th>

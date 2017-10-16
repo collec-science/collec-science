@@ -37,7 +37,7 @@ Pour les identifiants complémentaires :
 <ul>
 <li>repérez les codes dans le menu des paramètres > Types d'identifiants</li>
 <li>vous ne pouvez indiquer qu'un code par ligne (mais plusieurs types de codes possibles)</li>
-<li>ils seront associés à l'échantillon et au conteneur, si les deux sont indiqués dans la même ligne</li>
+<li>ils seront associés à l'échantillon et au container, si les deux sont indiqués dans la même ligne</li>
 </ul>
 <br>
 L'import sera réalisé ainsi :

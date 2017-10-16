@@ -11,7 +11,7 @@
 <tr>
 <th>Nom</th>
 <th>Id</th>
-<th>Type de conteneur</th>
+<th>Type de container</th>
 <th>Protocole / operation</th>
 <th>Sous-échantillonnage</th>
 <th>Modèle de métadonnées</th>

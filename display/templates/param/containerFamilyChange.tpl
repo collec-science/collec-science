@@ -1,4 +1,4 @@
-<h2>Modification d'une famille de conteneurs</h2>
+<h2>Modification d'une famille de containers</h2>
 <div class="row">
 <div class="col-md-6">
 <a href="index.php?module=containerFamilyList">{$LANG.appli.1}</a>
@@ -13,7 +13,7 @@
 <input id="containerFamilyName" type="text" class="form-control" name="container_family_name" value="{$data.container_family_name}" autofocus required></div>
 </div>
 <div class="form-group">
-<label for="is_movable"  class="control-label col-md-4">Conteneurs facilement déplaçables (éprouvettes, p. e.) : </label>
+<label for="is_movable"  class="control-label col-md-4">containers facilement déplaçables (éprouvettes, p. e.) : </label>
 <div id="is_movable"class="col-md-8" >
 <label class="radio-inline">
   <input type="radio" name="is_movable" id="isMovable1" value="t" {if $data.is_movable == 1}checked {/if}> oui

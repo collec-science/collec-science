@@ -16,7 +16,11 @@ switch ($t_module["param"]) {
          * Retourne le detail d'un objet a partir de son uid
          * (independamment du type : sample ou container)
          */
-        $vue->set($dataClass->getDetail($id, $_REQUEST["is_container"]));
+        $is_partial = false;
+        if (isset($_REQUEST["is_partial"])) {
+            $is_partial = $_REQUEST["is_partial"];
+        }
+        $vue->set($dataClass->getDetail($id, $_REQUEST["is_container"], $is_partial));
         break;
     case "printLabelDirect":
         if ($_REQUEST["printer_id"]) {

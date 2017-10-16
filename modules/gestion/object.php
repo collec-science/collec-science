@@ -28,24 +28,43 @@ switch ($t_module["param"]) {
                 if (strlen($dp["printer_queue"]) > 0) {
                     $options = " -o fit-to-page";
                     define("SPACE", " ");
-                    $commande = "lpr";
-                    $destination = "-P " . $dp["printer_queue"];
+                    $commande = $APPLI_print_direct_command;
+                    if ($commande == "lpr") {
+                        $cmdopt = array("destination"=>"-P ",
+                          "server" => "-H ",
+                            "user" => "-U "
+                        );
+                    } else {
+                        $cmdopt = array("destination"=>"-d ",
+                            "server" => "-h ",
+                            "user" => "-U "
+                        );
+                    }
+                    /*
+                     * Destination
+                     */
+                    $destination = $cmdopt["destination"] . $dp["printer_queue"];
                     $server = "";
                     if (strlen($dp["printer_server"]) > 0) {
-                        $server = "-H " . $dp["printer_server"];
+                        $server = $cmdopt["server"] . $dp["printer_server"];
                     } else {
                         $server = "";
                     }
                     if (strlen($dp["printer_user"]) > 0) {
-                        $user = "-U " . $dp["printer_user"];
+                        $user = $cmdopt["user"] . $dp["printer_user"];
                     } else {
                         $user = "";
                     }
                     $commande .= SPACE . $destination . SPACE . $server . SPACE . $user . SPACE . $options . SPACE . $pdffile;
-                    exec($commande);
-                    $dataClass->eraseQrcode($APPLI_temp);
+                   exec($commande, $retour, $retour);
+                   $dataClass->eraseQrcode($APPLI_temp);
                     $dataClass->eraseXslfile();
+                    if ($retour == 0) {
                     $message->set("Impression lancée");
+                    } else {
+                        $message->set("L'impression a échoué pour un problème technique");
+                        $message->setSyslog("print command error : $commande");
+                    }
                 } else {
                     $message->set("Imprimante non connue");
                     $module_coderetour = - 1;

@@ -79,6 +79,14 @@ $APPLI_mail = "nepasrepondre@collec.adressecomplete.com";
  * necessite que l'envoi de mails soit possible ($MAIL_enabled = 1)
  */
 $APPLI_lostPassword = 1;
+
+/*
+ * Impression directe vers une imprimante a etiquettes
+ * connectee au serveur
+ * par defaut, lpr. Si lp, decommenter la ligne
+ */
+//$APPLI_print_direct_command = "lp";
+
 /*
  * Configuration LDAP
  */

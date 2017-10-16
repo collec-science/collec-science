@@ -100,6 +100,12 @@ $APPLI_titre = "Collec-Science";
 $APPLI_assist_address = "https://github.com/Irstea/collec/issues/new";
 $APPLI_isFullDns = true;
 /*
+ * Impression directe vers une imprimante a etiquettes
+ * connectee au serveur
+ * lpr|lp
+ */
+$APPLI_print_direct_command = "lpr";
+/*
  * Emplacement de fop, programme externe utilise pour generer
  * les etiquettes au format PDF
  */

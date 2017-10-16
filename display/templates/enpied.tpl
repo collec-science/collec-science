@@ -1,4 +1,4 @@
-  <div class="container">
+  <div class="container hidden-xs">
     <p class="text-muted">
     {$LANG.message.23}
 <br>

@@ -51,6 +51,41 @@ L'import sera réalisé ainsi :
 </div>
 </div>
 </div>
+
+<!-- Lancement de l'import -->
+{if $controleOk == 1}
+<div class="row col-md-8">
+<form id="importForm" method="post" action="index.php">
+<input type="hidden" name="module" value="importImport">
+Contrôles OK. Vous pouvez réaliser l'import du fichier {$filename} : 
+<button type="submit" class="btn btn-danger">Déclencher l'import</button>
+</form>
+</div>
+{/if}
+
+<!-- Affichage des erreurs decouvertes -->
+{if $erreur == 1}
+<div class="row col-md-12">
+<table id="containerList" class="table table-bordered table-hover datatable " >
+<thead>
+<tr>
+<th>N° de ligne</th>
+<th>Anomalie(s) détectée(s)</th>
+</tr>
+</thead>
+<tbody>
+{section name=lst loop=$erreurs}
+<tr>
+<td class="center">{$erreurs[lst].line}</td>
+<td>{$erreurs[lst].message}</td>
+</tr>
+{/section}
+</tbody>
+</table>
+</div>
+{/if}
+
+<!-- Selection du fichier a importer -->
 <div class="row col-md-6">
 <form class="form-horizontal protoform" id="controlForm" method="post" action="index.php" enctype="multipart/form-data">
 <input type="hidden" name="module" value="importControl">
@@ -89,35 +124,6 @@ L'import sera réalisé ainsi :
 </div>
 
 
-<!-- Affichage des erreurs decouvertes -->
-{if $erreur == 1}
-<div class="row col-md-12">
-<table id="containerList" class="table table-bordered table-hover datatable " >
-<thead>
-<tr>
-<th>N° de ligne</th>
-<th>Anomalie(s) détectée(s)</th>
-</tr>
-</thead>
-<tbody>
-{section name=lst loop=$erreurs}
-<tr>
-<td class="center">{$erreurs[lst].line}</td>
-<td>{$erreurs[lst].message}</td>
-</tr>
-{/section}
-</tbody>
-</table>
-</div>
-{/if}
 
-<!-- Lancement de l'import -->
-{if $controleOk == 1}
-<div class="row col-md-8">
-<form id="importForm" method="post" action="index.php">
-<input type="hidden" name="module" value="importImport">
-Contrôles OK. Vous pouvez réaliser l'import du fichier {$filename} : 
-<button type="submit" class="btn btn-danger">Déclencher l'import</button>
-</form>
-</div>
-{/if}
+
+

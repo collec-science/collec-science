@@ -248,6 +248,6 @@ $LANG["appli"][3] = "Le conteneur n'a pas été renseigné";
 $LANG["appli"][4] = "Vous ne disposez pas des droits pour modifier cet échantillon";
 $LANG["appli"][5] = "Les contrôles de cohérence ne permettent pas d'enregister le mouvement demandé. ";
 $LANG["appli"][6] = "Impossible d'enregistrer le mouvement";
-
+$LANG["appli"][7] = "Mouvement enregistré";
 
 ?>

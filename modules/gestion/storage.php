@@ -191,15 +191,25 @@ switch ($t_module["param"]) {
         $vue->set($dataSearch, "movementSearch");
         $vue->set("gestion/movementList.tpl", "corps");
         break;
-        
+    
     case "getLastEntry":
         $vue->set($dataClass->getLastEntry($_REQUEST["uid"]));
         break;
+    
     case "smallMovementChange":
         $vue->set("gestion/smallMovementChange.tpl", "corps");
         break;
+    
     case "smallMovementWrite":
-        
+        try {
+            $dataClass->addMovement($_POST["object_uid"], null, $_POST["movement_type_id"], $_POST["container_uid"], null, null, null, null, $_POST["column_number"], $_POST["line_number"]);
+            $module_coderetour = 1;
+            $message->set($LANG["appli"][7]);
+        } catch (Exception $e) {
+            $message->setSyslog($e->getMessage());
+            $message->set($LANG["appli"][6]);
+            $module_coderetour = - 1;
+        }
         break;
 }
 ?>

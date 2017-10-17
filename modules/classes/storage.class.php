@@ -197,8 +197,9 @@ class Storage extends ObjetBDD
             $message .= "Création du mouvement impossible : le numéro de l'objet est égal au numéro du conteneur. ";
         }
         $date = $this->encodeData($date);
-        if (strlen($date) == 0)
-            $controle = false;
+        if (strlen($date) == 0) {
+            $date = date('d/m/Y H:i:s');
+        }
         if ($type != 1 && $type != 2)
             $controle = false;
         $container_uid = $this->encodeData($container_uid);

@@ -105,6 +105,19 @@ class Storage extends ObjetBDD
     }
 
     /**
+     * Retourne le dernier emplacement connu pour un objet
+     * @param int $id
+     * @return array
+     */
+    function getLastEntry($id) {
+        if (is_numeric($id) && $id > 0) {
+            $data["uid"] = $id;
+            $where = $this->where . " and movement_type_id = 1";
+            return $this->getListeParamAsPrepared($this->sql . $where . $this->order . " limit 1", $data);
+        }
+    }
+
+    /**
      * Retourne tous les mouvements d'un objet
      *
      * @param int $uid

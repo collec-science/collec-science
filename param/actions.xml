@@ -158,6 +158,10 @@
 	<fastInputWrite action="modules/gestion/storage.php" param="fastInputWrite" droits="gestion" retourok="fastInputChange" retourko="fastInputChange" modulebefore="fastInputChange" />
 	<fastOutputChange action="modules/gestion/storage.php" param="fastOutputChange" droits="gestion"  retourlogin="1" type="smarty" />
 	<fastOutputWrite action="modules/gestion/storage.php" param="fastOutputWrite" droits="gestion" retourok="fastOutputChange" retourko="fastOutputChange" modulebefore="fastOutputChange" />
+	<objectGetLastEntry action="modules/gestion/storage.php" param="getLastEntry" droits="gestion" type="ajax" />
+	<smallMovementChange action="module/gestion/storage.php" param="smallMovementChange" droits="gestion" retourlogin="1" type="smarty" />
+	<smallMovementWrite action="module/gestion/storage.php" param="smallMovementWrite" droits="gestion" type="smarty" modulebefore="smallMovementChange" retourok="smallMovementChange" retourko="smallMovementChange" />
+	
 	
 	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax"  type="ajax" />
 	<containerPrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="containerList"/>

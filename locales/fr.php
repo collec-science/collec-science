@@ -105,6 +105,12 @@ $LANG["menu"][105] = "Liste des mouvements";
 $LANG["menu"][106] = "Recherche des mouvements sur une période donnée";
 $LANG["menu"][107] = "Lexique";
 $LANG["menu"][108] = "Lexique des termes utilisés dans le logiciel";
+$LANG["menu"][109] = "Mouvements petit terminal";
+$LANG["menu"][110] = "Lecture d'objets et génération de mouvements sur petits terminaux";
+$LANG["menu"][111] = "";
+$LANG["menu"][112] = "";
+
+
 
 
 $LANG["message"][0] = "Bienvenue"; 

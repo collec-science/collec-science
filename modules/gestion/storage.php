@@ -190,5 +190,16 @@ switch ($t_module["param"]) {
         }
         $vue->set($dataSearch, "movementSearch");
         $vue->set("gestion/movementList.tpl", "corps");
+        break;
+        
+    case "getLastEntry":
+        $vue->set($dataClass->getLastEntry($_REQUEST["uid"]));
+        break;
+    case "smallMovementChange":
+        $vue->set("gestion/smallMovementChange.tpl", "corps");
+        break;
+    case "smallMovementWrite":
+        
+        break;
 }
 ?>

@@ -90,9 +90,9 @@
 	</fieldset>
 </div>
 <!-- Rajout pour la lecture optique -->
-<div class="row">
+<div class="row" id="optical">
 	<fieldset>
-		<legend>Lecture par la caméra de l'ordinateur (ou du smartphone)</legend>
+		<legend>Lecture par la caméra de l'ordinateur ou du smartphone</legend>
 
 		<div class="col-md-6">
 			<div class="form-horizontal protoform">
@@ -103,15 +103,12 @@
 						lecture</button>
 				</div>
 			</div>
-
 		</div>
+		<div class="col-md-6 center">
+			<video id="reader" autoplay width="320" height="240" poster="{$display}/images/webcam.png"></video>
+		</div>
+		
 	</fieldset>
 </div>
-<div class="row">
-	<div class="col-md-6">
-		<div class="center">
-			<div id="reader" style="width: 640px; height: 480px"></div>
-		</div>
-	</div>
-</div>
+
 

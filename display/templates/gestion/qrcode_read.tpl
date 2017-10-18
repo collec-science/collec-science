@@ -1,13 +1,21 @@
+<!-- 
 <script src="{$display}/javascript/adapter.js"></script>
 <script
 	src="{$display}/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
 <script src="{$display}/javascript/html5-qrcode.eq.js"></script>
-
-
+ -->
+ <script src="{$display}/bower_components/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
 $(document).ready(function() { 
+	'use strict';
 	var destination = "object";
-	
+	var video = document.querySelector("#reader");
+    var qr = new QCodeDecoder();
+    if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
+        //alert('Your browser doesn\'t match the required specs.');
+        //throw new Error('Canvas and getUserMedia are required');
+        $("#optical").hide();
+      }
 	var db = "{$db}";	
 	function getDetail(uid, champ) {
 		/*
@@ -115,8 +123,8 @@ $(document).ready(function() {
 		 * Extrait le contenu de la chaine json
 		 * Transformation des [] en { }
 		 */
-		 valeur = valeur.replace("[", String.fromCharCode(123));
-		 valeur = valeur.replace ("]", String.fromCharCode(125));
+		 /*valeur = valeur.replace("[", String.fromCharCode(123));
+		 valeur = valeur.replace ("]", String.fromCharCode(125));*/
 		 console.log("valeur après remplacement suite à lecture douchette :" + valeur);
 		var data = JSON.parse(valeur);
 		console.log("uid après extraction : "+data["uid"]);
@@ -160,7 +168,8 @@ $(document).ready(function() {
 		 * Fonction declenchant la lecture des qrcodes
 		 */
 		is_read = true;
-		$("#read_optical").val("1");
+		 qr.decodeFromCamera(video, resultHandler);
+		/*$("#read_optical").val("1");
 		$('#reader').html5_qrcode(function(data) {
 			// do something when code is read
 			$("#valeur-scan").val(data);
@@ -172,7 +181,7 @@ $(document).ready(function() {
 			//the video stream could be opened
 			$("#valeur-scan").val(videoError);
 			console.log(videoError);
-		});
+		});*/
 	}
 	$('#destContainer').click(function() {
 		destination = "container";
@@ -204,7 +213,9 @@ $(document).ready(function() {
 
 
 	$('#stop').click(function() {
-		$('#reader').html5_qrcode_stop();
+		//$('#reader').html5_qrcode_stop();
+		qr.stop();
+		is_read == false;
 	});
 	function showArrow(type) {
 		if (type == "object") {
@@ -215,13 +226,24 @@ $(document).ready(function() {
 			$("#arrow-container").show();
 		}
 	}
+
+
+showArrow("object");
+
+function resultHandler (err, result) {
+    if (err) {
+      return console.log(err.message);
+    }
+    $("#valeur-scan").val(result);
+  }
+  
 /*
  * Activation automatique de la lecture optique
  */
- {if $read_optical == 1}
+{if $read_optical == 1}
 readEnable();
 {/if}
-showArrow("object");
+
 /*
  * Declenche la recherche du container si l'uid est fourni a l'ouverture de la page
  */

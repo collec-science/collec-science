@@ -235,6 +235,7 @@ function resultHandler (err, result) {
       return console.log(err.message);
     }
     $("#valeur-scan").val(result);
+    readChange();
   }
   
 /*

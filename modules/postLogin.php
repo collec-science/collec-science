@@ -47,6 +47,21 @@ try {
 /*
  * Attribution des droits de gestion si attache a un projet
  */
-if (count($_SESSION["projects"]) > 0)
+if (count($_SESSION["projects"]) > 0) {
 	$_SESSION["droits"]["gestion"] = 1;
+}
+
+	/*
+	 * Mise en session du code de l'instance
+	 */
+	    require_once 'modules/classes/dbparam.class.php';
+	    $dbparam = new DbParam($bdd, $ObjetBDDParam);
+	    $code = $dbparam->getParam("APPLI_code");
+	    printr($code);
+	    if (strlen($code) > 0) {
+	        $_SESSION["APPLI_code"] = $code;
+	    } else {
+	        $_SESSION["APPLI_code"] = $APPLI_code;
+	    }
+	printr($_SESSION["APPLI_code"]);
 ?>

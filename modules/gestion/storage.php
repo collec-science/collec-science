@@ -198,6 +198,10 @@ switch ($t_module["param"]) {
     
     case "smallMovementChange":
         $vue->set("gestion/smallMovementChange.tpl", "corps");
+        /*
+         * Assignation du nom de la base
+         */
+        $vue->set($_SESSION["APPLI_code"], "db");
         break;
     
     case "smallMovementWrite":

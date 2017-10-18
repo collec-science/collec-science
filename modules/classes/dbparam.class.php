@@ -36,7 +36,8 @@
      function getParam($name) {
          if (strlen($name) > 0) {
              $sql = "select dbparam_value from dbparam where dbparam_name = :name";
-             return $this->lireParamAsPrepared($sql, array("name"=>$name));
+             $data = $this->lireParamAsPrepared($sql, array("name"=>$name));
+             return $data["dbparam_value"];
          }
      }
      

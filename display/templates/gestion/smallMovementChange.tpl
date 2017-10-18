@@ -1,17 +1,22 @@
 <script>
 $(document).ready(function() { 
 	var mouvements = {};
+	var db = "{$db}";
 	/*
 	 * Traitement des recherches
 	 */
 	$("#object_search").on ('keyup change', function () { 
 		var val = getVal($("#object_search").val());
-		search("objectGetDetail", "object_uid", val , false );
+		if (val.toString().length > 0) {
+			search("objectGetDetail", "object_uid", val , false );
+		}
 	});
 	
 	$("#container_search").on('keyup change', function () { 
 		var val = getVal($("#container_search").val());
-		search("objectGetDetail","container_uid", val, true );
+		if (val.toString().length > 0) {
+			search("objectGetDetail","container_uid", val, true );
+		}
 	});
 	
 	$("#object_uid").on ("change", function () {
@@ -23,9 +28,17 @@ $(document).ready(function() {
 		 * Extraction de la valeur - cas notamment de la lecture par douchette
 		 */
 		val = val.trim();
+		
 		var firstChar = val.substring(0,1);
-		if (firstChar == "[" || firstChar == String.fromCharCode(123)) {
-			val = extractUidValFromJson(val);
+		var lastChar = val.substring (vallength - 1, vallength);
+		if ( firstChar == "[" || firstChar == String.fromCharCode(123)) {
+			var vallength = val.length;
+			var lastChar = val.substring (vallength - 1, vallength);
+			if (lastChar == "]" || lastChar == String.fromCharCode(125) ) {
+				val = extractUidValFromJson(val);
+			} else {
+				val = "";
+			}
 		} else if (val.substring(0,4) == "http" || val.substring(0,3) == "htp") {
 			var elements = valeur.split("/");
 			var nbelements = elements.length ;
@@ -73,12 +86,9 @@ $(document).ready(function() {
 		 * Extrait le contenu de la chaine json
 		 * Transformation des [] en { }
 		 */
-		 valeur = valeur.replace("[", String.fromCharCode(123));
-		 valeur = valeur.replace ("]", String.fromCharCode(125));
-		 console.log("valeur après remplacement suite à lecture douchette :" + valeur);
+		// valeur = valeur.replace("[", String.fromCharCode(123));
+		 //valeur = valeur.replace ("]", String.fromCharCode(125));
 		var data = JSON.parse(valeur);
-		console.log("uid après extraction : "+data["uid"]);
-		console.log ("db après extraction : " + data ["db"]);
 		if (data["db"] == db) {
 			return data["uid"];	
 		} else {

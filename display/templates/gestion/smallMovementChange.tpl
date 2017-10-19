@@ -177,7 +177,7 @@ $(document).ready(function() {
 				<select id="container_uid" name="container_uid" class="form-control">
 				</select>
 			</div>	
-			<div class="col-xs-12">
+			<div class="col-xs-12 col-md-6">
 			<div class="row">
 				<div class="col-xs-2">Col:</div>
 				<div class="col-xs-4">
@@ -188,6 +188,16 @@ $(document).ready(function() {
 				<input id="line" name="line_number" value="1" class="form-control">
 				</div>
 			</div>
+			</div>
+			<div class="col-xs-12 col-md-6">
+					<select id="storage_reason_id" name="storage_reason_id" class="form-control">
+					<option value="" {if $storage_reason_id == ""}selected{/if}>Motif de sortie...</option>
+					{section name=lst loop=$storageReason}
+					<option value="{$storageReason[lst].storage_reason_id}" {if $storage_reason_id == $storageReason[lst].storage_reason_id}selected{/if}>
+					{$storageReason[lst].storage_reason_name}
+					</option>	
+					{/section}		
+					</select>
 			</div>
 			<div class="row">	
 			<div class="col-xs-12 center">

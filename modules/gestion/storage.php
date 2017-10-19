@@ -202,11 +202,18 @@ switch ($t_module["param"]) {
          * Assignation du nom de la base
          */
         $vue->set($_SESSION["APPLI_code"], "db");
+        /*
+         * Recherche des motifs de sortie
+         */
+        require_once 'modules/classes/storageReason.class.php';
+        $storageReason = new StorageReason($bdd, $ObjetBDDParam);
+        $vue->set($storageReason->getListe(2), "storageReason");
+        $vue->set($_POST["storage_reason_id"], "storage_reason_id");
         break;
     
     case "smallMovementWrite":
         try {
-            $dataClass->addMovement($_POST["object_uid"], null, $_POST["movement_type_id"], $_POST["container_uid"], null, null, null, null, $_POST["column_number"], $_POST["line_number"]);
+            $dataClass->addMovement($_POST["object_uid"], null, $_POST["movement_type_id"], $_POST["container_uid"], null, null, null, $_POST["storage_reason_id"], $_POST["column_number"], $_POST["line_number"]);
             $module_coderetour = 1;
             $message->set($LANG["appli"][7]);
         } catch (Exception $e) {

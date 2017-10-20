@@ -120,7 +120,27 @@ Si vous identifiez vos utilisateurs derrière un proxy d'identification, comme L
 
 \subsection{Configurer le dossier d'installation}
 
-\subsubsection{Mécanisme pour faire cohabiter plusieurs instances avec le même code}
+\subsubsection{Cas général : une seule instance hébergée dans le serveur}
+\begin{itemize}
+\item Créez un dossier \textit{collecApp} dans \textit{/var/www}
+\item  dans ce dossier, créez un dossier correspondant à la version courante, par exemple \textit{1.2}, ainsi que le dossier \textit{param}
+\item décompressez dans ce dossier le code de l'application
+\item recopiez le fichier \textit{collecApp/1.2/param/param.inc.php.dist} vers \textit{param/param.inc.php}
+\item modifiez le fichier \textit{param.inc.php} pour l'adapter à votre instance, notamment si vous voulez vous connecter à partir d'un annuaire ldap, ou si la base de données n'est pas hébergée dans le même serveur
+\item dans \textit{collecApp/1.2/param}, créez un lien vers le fichier \textit{collecApp/param/param.inc.php}
+\item  dans \textit{collecApp}, créez un lien vers la version courante (\textit{1.2}), que vous appellerez \textit{collec}
+\item dans \textit{/var/www/html}, créez un lien vers \textit{/var/www/collecApp/collec} (le lien que nous venons de créer)
+\end{itemize}
+
+Par ce mécanisme, le site virtuel déclaré précédemment pointe vers \textit{/var/www/html/collec}, qui lui-même pointe vers \textit{/var/www/collecApp/collec}, qui lui-même pointe vers la version courante. Cela permet de gérer les nouvelles versions assez simplement. Pour en installer une nouvelle :
+\begin{itemize}
+\item dans \textit{collecApp}, créez un nouveau dossier, par exemple \textit{1.3}, et décompressez la nouvelle version du code
+\item dans \textit{1.3/param}, créez un lien vers \textit{../param/param.inc.php}, pour récupérer les paramétrages locaux
+\item supprimez le lien \textit{collec} dans \textit{collecApp} (qui pointait vers \textit{1.2})
+\item recréez le lien \textit{collec} pour qu'il pointe maintenant vers \textit{1.3}
+\end{itemize}
+
+\subsubsection{Cas particulier : faire cohabiter plusieurs instances avec le même code}
 \label{dnsmultiple}
 Il est possible d'utiliser le même code applicatif pour alimenter des bases de données différentes (ou des données stockées dans des schémas différents). Cette fonctionnalité est basée sur l'attribution d'entrées DNS différentes. 
 
@@ -159,7 +179,7 @@ APPLI_code=proto
 Si un libellé contient une apostrophe, la chaîne doit être insérée dans des guillemets doubles, comme ici pour la variable \textit{APPLI\_titre}.
 
 
-\subsubsection{Droits à attribuer au serveur web}
+\subsection{Droits à attribuer au serveur web}
 \label{droitsApache}
 Le serveur web doit pouvoir accéder en lecture à l'ensemble des fichiers de l'application, et en écriture à deux dossiers :
 \begin{itemize}

@@ -36,7 +36,7 @@ function renderForm(data){
                 "items": {
                     "type": "object",
                     "properties": {
-                        "nom": {
+                        "name": {
                             "title": "Nom du champ (sans espace, sans accent, en minuscule)",
                             "type": "string",
                             "required": true
@@ -59,7 +59,7 @@ function renderForm(data){
                                 "type": "string"
                             }
                         },
-                        "require": {
+                        "required": {
                         },
                         "helperChoice": {
                         },
@@ -72,7 +72,7 @@ function renderForm(data){
                             "type" : "string",
                             "required": true
                         },
-                        "meusureUnit" :{
+                        "measureUnit" :{
                             "title": "Unité de mesure (ou modalités)",
                             "type" : "string",
                             "required": true
@@ -120,7 +120,7 @@ function renderForm(data){
                                 "type":"select"
                             }
                         },
-                        "require": {
+                        "required": {
                             "type": "checkbox",
                             "rightLabel": "Obligatoire"
                         },
@@ -137,7 +137,7 @@ function renderForm(data){
                         "description" :{
                             "type" : "textarea"
                         },
-                        "meusureUnit" :{
+                        "measureUnit" :{
                             "type" : "textarea"
                         }
                     }

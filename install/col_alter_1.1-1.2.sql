@@ -17,3 +17,8 @@ comment on column identifier_type.used_for_search is 'Indique si l''identifiant 
 
 ALTER TABLE "label" ADD COLUMN "identifier_only" BOOLEAN DEFAULT 'f' NOT NULL;
 comment on column label.identifier_only is 'true : le qrcode ne contient qu''un identifiant metier';
+
+update metadata set metadata_schema = replace(metadata_schema::varchar, '"nom":', '"name":')::json ;
+update metadata set metadata_schema = replace(metadata_schema::varchar, '"require":', '"required":')::json ;
+update metadata set metadata_schema = replace(metadata_schema::varchar, '"meusureUnit":', '"measureUnit":')::json ;
+

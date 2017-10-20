@@ -158,8 +158,8 @@ class Sample extends ObjetBDD
                     $schema = json_decode($dst, true);
                     $metadata = array();
                     foreach ($schema as $value) {
-                        if (strlen($data[$value["nom"]]) > 0) {
-                            $metadata[$value["nom"]] = $data[$value["nom"]];
+                        if (strlen($data[$value["name"]]) > 0) {
+                            $metadata[$value["name"]] = $data[$value["name"]];
                         }
                     }
                     $data["metadata"] = json_encode($metadata);

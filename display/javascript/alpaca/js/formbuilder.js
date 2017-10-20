@@ -29,8 +29,8 @@
             }
         }
 
-        if (value.require){
-            prop.required = value.require;
+        if (value.required){
+            prop.required = value.required;
         }
         
         return prop;
@@ -39,7 +39,7 @@
     $.each(formdef,function(index, value){
         var prop = baseProps(index, value);
         
-        schema.properties[value.nom] = prop;
+        schema.properties[value.name] = prop;
     });
     return schema;
 }
@@ -52,7 +52,7 @@
     };
 
     if(value.type != "checkbox"){
-        field.label = value.nom;
+        field.label = value.name;
     }
 
     if(value.type=="string"){
@@ -60,7 +60,7 @@
     }
 
     if(value.type=="string" || value.type=="number" || value.type=="textarea"){
-        field.placeholder = value.meusureUnit;
+        field.placeholder = value.measureUnit;
     }
     
     if (value.choiceList){
@@ -74,7 +74,7 @@
         field.removeDefaultNone = false;
     }
     if (value.type == "checkbox"){
-        field.rightLabel = value.nom;
+        field.rightLabel = value.name;
     }
 
     if(value.type == "time"){
@@ -97,7 +97,7 @@ function getOptions(formdef){
     };
     $.each(formdef,function(index, value){
         var field = baseFields(index, value);
-        options.fields[value.nom] = field;
+        options.fields[value.name] = field;
     });
     return options;
 }

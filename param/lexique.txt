@@ -11,3 +11,11 @@ famille de containers : grande catégorie de containers, pour faciliter la reche
 type de container : type détaillé du container, précisant la capacité, le produit de stockage ou les conditions de stockage le cas échéant, les risques associés en cas de manipulation, etc. Cela peut être un site, un bâtiment, une salle, une armoire, une étagère, une caisse, un bidon, un tube, etc. Lors de la création d'un type de container, il est possible d'indiquer le nombre d'emplacements disponibles (nombre de lignes ou de colonnes), qui contiendront un et un seul objet. C'est une notion qui prend tout son sens pour les boites contenant de multiples tubes, ou les armoires pour lesquelles on ne souhaite pas déclarer les étagères. Si rien n'est précisé, le nombre d'emplacements est au minimum de 1 (une ligne, une colonne, donnée obligatoire pour des raisons techniques)
 
 container : tout objet qui peut en contenir un autre. À ne pas confondre avec les échantillons dérivés ou les sous-échantillons.
+
+lieu de prélèvement : lieu où a été prélevé l'échantillon
+
+latitude et longitude d'un échantillon : lieu où est stocké l'échantillon (coordonnées WGS84 sous forme décimale)
+
+latitude et longitude d'un container : pour un local, un bâtiment, un site, etc., coordonnées WGS84 sous forme décimale
+
+type d’événements : événement qui peut survenir sur un échantillon ou sur un container. L'événement peut être extérieur (par exemple container cassé), volontaire (par exemple analyse) ou involontaire (par exemple échantillon perdu)

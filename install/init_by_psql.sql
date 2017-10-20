@@ -43,4 +43,4 @@ create database collec owner collec;
 /*
  * Creation des tables dans le schema col
  */
-\ir ./col_create_1.1.sql
+\ir ./col_create_1.2.sql

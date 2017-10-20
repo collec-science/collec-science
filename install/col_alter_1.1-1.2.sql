@@ -22,3 +22,10 @@ update metadata set metadata_schema = replace(metadata_schema::varchar, '"nom":'
 update metadata set metadata_schema = replace(metadata_schema::varchar, '"require":', '"required":')::json ;
 update metadata set metadata_schema = replace(metadata_schema::varchar, '"meusureUnit":', '"measureUnit":')::json ;
 
+/*
+ * Fin d'execution du script
+ * Mise a jour de dbversion
+ */
+insert into dbversion ("dbversion_number", "dbversion_date")
+values 
+('1.2','2017-10-20');

@@ -6,9 +6,9 @@
 * Parametres par defaut de l'application
 * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
 */
-$APPLI_version = "1.1.0b";
-$APPLI_dbversion = "1.1";
-$APPLI_versiondate = "03/10/2017";
+$APPLI_version = "1.2";
+$APPLI_dbversion = "1.2";
+$APPLI_versiondate = "20/10/2017";
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -98,7 +98,7 @@ $APPLI_menufile = "param/menu.xml";
 $APPLI_temp = "temp";
 $APPLI_titre = "Collec-Science";
 $APPLI_assist_address = "https://github.com/Irstea/collec/issues/new";
-$APPLI_isFullDns = true;
+$APPLI_isFullDns = false;
 /*
  * Impression directe vers une imprimante a etiquettes
  * connectee au serveur

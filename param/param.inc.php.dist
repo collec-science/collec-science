@@ -132,7 +132,7 @@ $paramIniFile = "./param.ini";
  */
  //$SMARTY_variables["display"] = "display";
  //$SMARTY_variables["favicon"] = "favicon.png";
- //$APPLI_isFullDns = false;
+ //$APPLI_isFullDns = true;
 
 /*
  * Parametres SMARTY complementaires, charges systematiquement

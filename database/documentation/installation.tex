@@ -399,9 +399,9 @@ basedngroup & base de recherche des groupes \\
 \textbf{Variable} & \textbf{Signification} \\
 \hline
 \endhead
-GACL\_aco & nom du code de l'application utilisé dans la gestion des droits (\textit{cf.} \ref{droits} \textit{\nameref{droits}}, page \pageref{droits} )\\
+GACL\_aco & nom du code de l'application utilisé dans la gestion des droits (\textit{cf.} section \ref{droits})\\
 \hline
-APPLI\_code & Code interne de l'application. \textbf{Ce code est essentiel} : il sera inscrit dans les codes-barres générés, pour s'assurer qu'un échantillon est bien issu de l'application (couple logiciel $\leftrightarrow$ base de données) concernée. Il ne doit pas être modifié après avoir été attribué\\
+APPLI\_code & obsolète. Voir la section \ref{paramdb} \\
 \hline
 mapDefaultX & Longitude de positionnement du centre de la carte par défaut \\
 \hline
@@ -409,10 +409,29 @@ mapDefaultY & Latitude de positionnement du centre de la carte par défaut \\
 \hline
 mapDefaultZoom & facteur de zoom par défaut lors de l'affichage d'une carte \\
 \hline
-APPLI\_print\_direct\_command & Commande utilisée pour l'impression directe (depuis le serveur des étiquettes). Par défaut, \textit{lpr}, mais \textit{lp} peut être utilisé pour les Raspberry.
+APPLI\_print\_direct \_command & Commande utilisée pour l'impression directe (depuis le serveur des étiquettes). Par défaut, \textit{lpr}, mais \textit{lp} peut être utilisé pour les Raspberry. \\
 \hline
 \caption{Variables spécifiques}
 \end{longtable}
+
+\subsection{Paramètres stockés en base de données}
+\label{paramdb}
+
+À partir de la version 1.2, certains paramètres peuvent être stockés dans la base de données, pour éviter qu'ils ne soient dépendants de la configuration du serveur.
+
+Ces paramètres sont accessibles depuis le menu \textit{administration}, item \textit{Paramètres de l'application}.
+
+Voici la liste des paramètres actuellement décrits :
+\begin{longtable}{|p{4cm}|p{11cm}|}
+\hline
+\textbf{Variable} & \textbf{Signification} \\
+\hline
+\endhead
+APPLI\_code & Code interne de l'application. \textbf{Ce code est essentiel} : il sera inscrit dans les codes-barres générés, pour s'assurer qu'un échantillon est bien issu de l'application (couple logiciel $\leftrightarrow$ base de données) concernée. Il ne doit pas être modifié après avoir été attribué\\
+\hline
+\caption{Paramètres stockés dans la base de données}
+\end{longtable}
+
 
 \section{Créer la base de données}
 

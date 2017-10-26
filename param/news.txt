@@ -4,7 +4,7 @@ Version 1.2 du 20/10/2017
 ---------------------------
 Mise à jour du schéma de la base de données nécessaire (schéma COL, contenant les données, par défaut). Script à utiliser : 
 - col_alter_1.1-1.2.sql si vous êtes déjà en version 1.1 ou 1.1.0. Si ce n'est pas le cas, exécutez les scripts de montée de version successivement
-- gacl_create_1.1.sql et col_create_1.2.sql successivement, ou bien init_by_psql.sql en ligne de commande dans un serveur Linux, qui exécutera les deux scripts automatiquement
+- gacl_create_1.1.sql et col_create_1.2.sql successivement pour créer un nouveau jeu de données, ou bien init_by_psql.sql en ligne de commande dans un serveur Linux, qui exécutera les deux scripts automatiquement
 
 Corrections de bugs :
 - une erreur SQL survenait lors de la validation des scans multiples
@@ -24,7 +24,7 @@ Corrections de bugs :
 - il est possible de visualiser les entrées-sorties réalisées par un opérateur
 - un lexique a été rajouté dans le menu d'aide
 - il est possible de générer des QR-codes ne contenant qu'un identifiant métier (QR-codes de très petite taille)
-- l'impression des étiquettes vers une imprimante reliée au serveur fonctionnait avec la commande linux lpr. Le programme supporte maintenant la commande lp (pour les Raspberry)
+- l'impression des étiquettes vers une imprimante reliée au serveur fonctionnait avec la commande linux lpr. Pour les Raspberry (entre autres), le programme supporte maintenant la commande lp
 - un nouveau module de scan a été rajouté. Il permet de visualiser où est un échantillon, où il était avant d'être sorti du stock, et autorise la création d'un nouveau mouvement d'entrée (à l'ancien emplacement ou non) ou de sortie
 
 Version 1.1 du 01/09/2017

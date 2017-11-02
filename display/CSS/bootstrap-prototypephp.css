@@ -10,6 +10,9 @@ html,
 body {
   height: 99%;
 }
+@media (max-width: 769px) {
+    .form-control, .btn, li, .center-block, #message, label, a, div {font-size: 18px;}
+}
 #wrap {
   min-height: 100%;
   height: auto !important;

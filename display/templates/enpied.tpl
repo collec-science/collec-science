@@ -1,9 +1,10 @@
-  <div class="container hidden-xs">
-    <p class="text-muted">
+  <div class="container">
+    <p class="text-muted hidden-xs hidden-sm">
     {$LANG.message.23}
 <br>
 {$LANG.message.25}
 <a href="{$appliAssist}">{$appliAssist}</a>
+</p>
  <ul class="nav pull-right scroll-top scrolltotop">
   <li><a href="#" title="Scroll to top"><i class="glyphicon glyphicon-chevron-up"></i></a></li>
 </ul>

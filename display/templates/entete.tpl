@@ -13,7 +13,7 @@
 		</div>
 		<!-- Affichage du menu -->
 		<div class="collapse navbar-collapse" id="navbar_collapse">
-		<ul class="nav navbar-nav sm">{$menu}
+		<ul class="nav navbar-nav md">{$menu}
 		</ul>
 
 		<!-- Boutons a droite du menu -->

@@ -162,35 +162,35 @@ $(document).ready(function() {
 			
 			<div class="col-xs-12 col-md-6">
 				<input id="object_search" type="text" name="object_search" placeholder="Objet cherché"
-							value="" class="form-control" autofocus autocomplete="off" >
+							value="" class="form-control input-lg" autofocus autocomplete="off" >
 			</div>
 			<div class="col-xs-12 col-md-6">
-				<select id="object_uid" name="object_uid" class="form-control">
+				<select id="object_uid" name="object_uid" class="form-control input-lg">
 				
 				</select>
 			</div>
 			<div class="col-xs-12 col-md-6">
 			<input id="container_search" type="text" name="container_search" placeholder="Container cherché"
-							value="" class="form-control" autofocus autocomplete="off" >
+							value="" class="form-control input-lg" autofocus autocomplete="off" >
 			</div>
 			<div class="col-xs-12 col-md-6">
-				<select id="container_uid" name="container_uid" class="form-control">
+				<select id="container_uid" name="container_uid" class="form-control input-lg">
 				</select>
 			</div>	
 			<div class="col-xs-12 col-md-6">
 			<div class="row">
 				<div class="col-xs-2">Col:</div>
 				<div class="col-xs-4">
-				<input id="col" name="column_number" value="1" class="form-control">
+				<input id="col" name="column_number" value="1" class="form-control input-lg">
 				</div>
 				<div class="col-xs-2">Line:</div>
 				<div class="col-xs-4">
-				<input id="line" name="line_number" value="1" class="form-control">
+				<input id="line" name="line_number" value="1" class="form-control input-lg">
 				</div>
 			</div>
 			</div>
 			<div class="col-xs-12 col-md-6">
-					<select id="storage_reason_id" name="storage_reason_id" class="form-control">
+					<select id="storage_reason_id" name="storage_reason_id" class="form-control input-lg">
 					<option value="" {if $storage_reason_id == ""}selected{/if}>Motif de sortie...</option>
 					{section name=lst loop=$storageReason}
 					<option value="{$storageReason[lst].storage_reason_id}" {if $storage_reason_id == $storageReason[lst].storage_reason_id}selected{/if}>
@@ -201,8 +201,8 @@ $(document).ready(function() {
 			</div>
 			<div class="row">	
 			<div class="col-xs-12 center">
-			 <button id="entry" class="btn btn-info">Entrée</button>
-			 <button id="exit" class="btn btn-danger">Sortie</button>
+			 <button id="entry" class="btn btn-info input-lg">Entrée</button>
+			 <button id="exit" class="btn btn-danger input-lg">Sortie</button>
 			</div>
 			</div>
 			

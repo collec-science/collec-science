@@ -1,7 +1,6 @@
 Logiciel COLLEC
-(c) IRSTEA, 2016 - Tous droits réservés
-publié sous licence GPL : monde universitaire et de la recherche
-publié sous licence AGPL : sociétés privées
+(c) IRSTEA, 2016-2017 - Tous droits réservés
+publié sous licence AGPL
 
 DOCUMENTATION D'INSTALLATION ET DE CONFIGURATION
 La documentation est dans le dossier database/documentation (fichier collec_installation_configuration.pdf)

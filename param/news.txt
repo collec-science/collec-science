@@ -1,5 +1,12 @@
 News
 ===========
+Version 1.2.1 du 03/11/2017
+---------------------------
+Évolutions et nouvelles fonctionnalités :
+- la taille de la police est augmentée pour les terminaux de petite taille (smartphones)
+- le menu disparait sur les smartphones et est remplacé par le bouton de sélection du menu
+- le module de création des mouvements sur petit terminal comprend maintenant la lecture optique par l'intermédiaire de la caméra
+
 Version 1.2 du 20/10/2017
 ---------------------------
 Mise à jour du schéma de la base de données nécessaire (schéma COL, contenant les données, par défaut). Script à utiliser : 

@@ -13,9 +13,11 @@ $(document).ready(function() {
     var qr = new QCodeDecoder();
     if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
         //alert('Your browser doesn\'t match the required specs.');
-        //throw new Error('Canvas and getUserMedia are required');
+        throw new Error('Canvas and getUserMedia are required');
+        console.log ('Canvas and getUserMedia are required');
         $("#optical").hide();
       }
+     
 	var db = "{$db}";	
 	function getDetail(uid, champ) {
 		/*
@@ -169,19 +171,6 @@ $(document).ready(function() {
 		 */
 		is_read = true;
 		 qr.decodeFromCamera(video, resultHandler);
-		/*$("#read_optical").val("1");
-		$('#reader').html5_qrcode(function(data) {
-			// do something when code is read
-			$("#valeur-scan").val(data);
-			readChange();
-		}, function(error) {
-			//show read errors 
-			//console.log(error);
-		}, function(videoError) {
-			//the video stream could be opened
-			$("#valeur-scan").val(videoError);
-			console.log(videoError);
-		});*/
 	}
 	$('#destContainer').click(function() {
 		destination = "container";

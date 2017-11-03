@@ -1,5 +1,33 @@
+<script src="{$display}/bower_components/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
 $(document).ready(function() { 
+	'use strict';
+	var destination = "object";
+	var video = document.querySelector("#reader");
+	var is_read = false;
+	var snd = new Audio("{$display}/images/sound.ogg"); 
+    var qr = new QCodeDecoder();
+    if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
+        //alert('Your browser doesn\'t match the required specs.');
+        throw new Error('Canvas and getUserMedia are required');
+        console.log ('Canvas and getUserMedia are required');
+        $("#optical").hide();
+      }
+    function resultHandler (err, result) {
+        if (err) {
+          return console.log(err.message);
+        }
+        $("#"+destination).val(result);
+        snd.play();
+        $("#"+destination).change();
+      }
+    function readEnable() {
+		/*
+		 * Fonction declenchant la lecture des qrcodes
+		 */
+		is_read = true;
+		 qr.decodeFromCamera(video, resultHandler);
+	}
 	var mouvements = {};
 	var db = "{$db}";
 	/*
@@ -22,6 +50,29 @@ $(document).ready(function() {
 	$("#object_uid").on ("change", function () {
 		search ("objectGetLastEntry", "container_uid", $("#object_uid").val(), false);
 	});
+	$('#start').click(function() {
+		destination = "container_search";
+		if (is_read == false) {
+			readEnable();
+		}
+	});
+	$('#start2').click(function() {
+		destination = "object_search";
+		if (is_read == false) {
+			readEnable();
+		}
+	});
+	$('#stop').click(function() {
+		//$('#reader').html5_qrcode_stop();
+		qr.stop();
+		is_read == false;
+	});
+	/*
+	 * Activation automatique de la lecture optique
+	 */
+	{if $read_optical == 1}
+	readEnable();
+	{/if}
 	
 	function getVal(val) {
 		/*
@@ -209,3 +260,25 @@ $(document).ready(function() {
 		</form>
 	</div>
 </div>	
+<!-- Rajout pour la lecture optique -->
+<div class="row" id="optical">
+	<fieldset>
+		<legend>Lecture par la caméra de l'ordinateur ou du smartphone (utiliser firefox)</legend>
+		<div class="col-xs-12 col-md-6">
+			<div class="form-horizontal protoform">
+				<div class="form-group center">
+					<button id="start2" class="btn btn-success">Lecture de
+						l'objet à entrer</button>
+						<button id="start" class="btn btn-success">Lecture du
+						container</button>
+					<button id="stop" class="btn btn-danger">Arrêter la
+						lecture</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6 center">
+			<video id="reader" autoplay width="320" height="240" poster="{$display}/images/webcam.png"></video>
+		</div>
+		
+	</fieldset>
+</div>

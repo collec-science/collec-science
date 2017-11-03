@@ -136,7 +136,7 @@
 <!-- Rajout pour la lecture optique -->
 <div class="row" id="optical">
 	<fieldset>
-		<legend>Lecture par la caméra de l'ordinateur ou du smartphone</legend>
+		<legend>Lecture par la caméra de l'ordinateur ou du smartphone (utiliser firefox)</legend>
 		<div class="col-md-6">
 			<div class="form-horizontal protoform">
 				<div class="form-group center">

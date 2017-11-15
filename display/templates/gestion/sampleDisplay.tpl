@@ -145,7 +145,7 @@ clp : {$data.clp_classification}
 </dd>
 </dl>
 
-{if count($metadata) >1}
+{if count($metadata) >0}
 <fieldset>
 <legend>Métadonnées associées</legend>
 

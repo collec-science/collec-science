@@ -37,7 +37,7 @@ $(document).ready(function () {
     	    		var option = '<option value="">{$LANG["appli"].2}</option>';
     	    		$("#metadata_field").append(option);
     	   			$.each(JSON.parse(value), function(i, obj) {
-    	    			var nom = obj.nom.replace(/ /g,"_");
+    	    			var nom = obj.name.replace(/ /g,"_");
     	    			if (nom == metadataFieldInitial) {
     	    				selected = "selected";
     	    			}
@@ -150,7 +150,7 @@ $(document).ready(function () {
  </select>
  </div>
  <div class="col-md-2">
- <input class="col-md-2 form-control" id="metadata_value" name="metadata_value" value="{$sampleSearch.metadata_value}" title="Libellé à rechercher dans le champ de métadonnées sélectionné">
+ <input class="col-md-2 form-control" id="metadata_value" name="metadata_value" value="{$sampleSearch.metadata_value}" title="Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par % (peut ralentir la requête)">
  </div>
 <div class="col-md-2">
 <input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">

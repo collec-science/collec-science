@@ -37,7 +37,7 @@ $(document).ready(function () {
     	    		var option = '<option value="">{$LANG["appli"].2}</option>';
     	    		$("#metadata_field").append(option);
     	   			$.each(JSON.parse(value), function(i, obj) {
-    	    			var nom = obj.nom.replace(/ /g,"_");
+    	    			var nom = obj.name.replace(/ /g,"_");
     	    			if (nom == metadataFieldInitial) {
     	    				selected = "selected";
     	    			}

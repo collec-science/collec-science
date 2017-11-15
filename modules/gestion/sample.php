@@ -49,7 +49,7 @@ switch ($t_module["param"]) {
          */
         $metadata = json_decode($data["metadata"], true);
         $is_modifiable = $dataClass->verifyProject($data);
-        if ($is_modifiable) {
+        if ($is_modifiable && count($metadata) > 0) {
             $vue->set($metadata, "metadata");
         }
         /*

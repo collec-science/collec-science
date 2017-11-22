@@ -1,5 +1,23 @@
 News
 ===========
+Version 1.2.3 du 22/11/2017
+---------------------------
+Évolutions :
+- l'import de masse accepte maintenant l'UID de l'échantillon parent
+- le droit "import" est créé, il permet d'autoriser un utilisateur à importer les informations via des fichiers csv (import de masse ou d'une autre instance)
+- l'écran d'import de masse a été remanié, en affichant les boîtes de dialogue en haut d'écran
+- les performances lors de la recherche d'un échantillon sont optimisées par l'utilisation d'un nouveau type d'index
+
+Corrections de bugs :
+- lors de l'import de masse, les métadonnées n'étaient pas correctement reconnues (bug introduit en version 1.2)
+- la suppression d'un login ou d'un compte dans la gestion des droits a été améliorée, elle supprime également les dépendances croisées (login, compte déclaré, présence dans les groupes)
+- dans certains cas, la recherche globale de mouvements ne permettait pas de visualiser les mouvements créés dans la journée (borne haute)
+
+Version 1.2.2 du 15/11/2017
+---------------------------
+- corrections de bugs divers concernant les métadonnées
+- amélioration des performances en recherche des échantillons
+
 Version 1.2.1 du 03/11/2017
 ---------------------------
 Évolutions et nouvelles fonctionnalités :

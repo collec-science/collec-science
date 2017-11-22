@@ -29,4 +29,10 @@ create index if not exists sample_dbuid_origin_idx on sample using gin (dbuid_or
  * exemple : 
  * create index sample_metadata_taxon_idx on sample using gin ((metadata->>'taxon') gin_trgm_ops);
  */
- 
+ /*
+ * Fin d'execution du script
+ * Mise a jour de dbversion
+ */
+insert into dbversion ("dbversion_number", "dbversion_date")
+values 
+('1.2.3','2017-11-22');

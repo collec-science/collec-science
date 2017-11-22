@@ -50,6 +50,7 @@ class ImportObject
         "sample_date",
         "sample_multiple_value",
         "sample_metadata_json",
+        "sample_parent_uid",
         "sampling_place_id",
         "container_identifier",
         "container_type_id",
@@ -68,7 +69,9 @@ class ImportObject
         "sample_column",
         "sample_line",
         "container_column",
-        "container_line"
+        "container_line",
+        "container_parent_uid",
+        "sample_parent_uid"
     );
 
     private $handle;
@@ -254,6 +257,7 @@ class ImportObject
                 }
                 $dataSample["multiple_value"] = $values["sample_multiple_value"];
                 $dataSample["sampling_place_id"] = $values["sampling_place_id"];
+                $dataSample["parent_sample_id"] = $values["parent_sample_id"];
                 /*
                  * Preparation des metadonnees - eclatement du champ en colonnes
                  */
@@ -377,8 +381,16 @@ class ImportObject
     {
         $nb = count($data);
         $values = array();
-        for ($i = 0; $i < $nb; $i ++)
+        for ($i = 0; $i < $nb; $i ++) {
             $values[$this->fileColumn[$i]] = $data[$i];
+        }
+        /*
+         * Recherche de la valeur de l'id du sample_parent
+         */
+        if ($values["sample_parent_uid"] > 0) {
+            $dp = $this->sample->lire($values["sample_parent_uid"]);
+            $values["parent_sample_id"] = $dp["sample_id"];
+        }
         return $values;
     }
 
@@ -512,13 +524,22 @@ class ImportObject
                 $valuesMetadataJson = json_decode($data["sample_metadata_json"], true);
                 $valuesMetadataJsonNames = array();
                 foreach ($metadataSchema as $field) {
-                    $metadataSchemaNames[] = $field["nom"];
+                    $metadataSchemaNames[] = $field["name"];
                 }
                 foreach ($valuesMetadataJson as $key => $field) {
                     if (! in_array($key, $metadataSchemaNames)){
                         $retour["code"] = false;
-                        $retour["message"] .= "Les métadonnées ne correspondent pas au type d'échantillon ($key inconnu)";
+                        $retour["message"] .= "Les métadonnées ne correspondent pas au type d'échantillon ($key inconnu). ";
                     }                        
+                }
+            }
+            /*
+             * Verification de l'echantillon parent
+             */
+            if ($data["sample_parent_uid"] > 0) {
+                if (! $data["parent_sample_id"] > 0) {
+                    $retour["code"] = false;
+                    $retour["message"] .= "L'échantillon parent défini n'existe pas (".$dp["uid"]."). ";
                 }
             }
         }

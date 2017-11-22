@@ -46,8 +46,7 @@
 		});
 	});
 </script>
-{include file="gestion/displayPhotoScript.tpl"} {if $droits.gestion ==
-1}
+{include file="gestion/displayPhotoScript.tpl"} {if $droits.gestion == 1}
 <form method="GET" id="formListPrint" action="index.php">
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
 	<div class="row">

@@ -146,9 +146,9 @@
 	<sampleWrite action="modules/gestion/sample.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleChange" modulebefore="sampleChange" />
 	<sampleDelete action="modules/gestion/sample.php" param="delete" droits="gestion" retourok="sampleList" retourko="sampleChange"  modulebefore="sampleChange"/>
 	<sampleExport action="modules/gestion/sample.php" param="export" droits="gestion" retourko="sampleList" type="csv"/>
-	<sampleImportStage1 action="modules/gestion/sample.php" param="importStage1" droits="projet" retourlogin="1" type="smarty"/>
-	<sampleImportStage2 action="modules/gestion/sample.php" param="importStage2" droits="projet" type="smarty" retourko="sampleImportStage1" modulebefore="sampleImportStage1,sampleImportStage2"/>
-	<sampleImportStage3 action="modules/gestion/sample.php" param="importStage3" droits="projet" type="smarty" retourko="sampleImportStage1" modulebefore="sampleImportStage2"/>
+	<sampleImportStage1 action="modules/gestion/sample.php" param="importStage1" droits="import,projet" retourlogin="1" type="smarty"/>
+	<sampleImportStage2 action="modules/gestion/sample.php" param="importStage2" droits="import,projet" type="smarty" retourko="sampleImportStage1" modulebefore="sampleImportStage1,sampleImportStage2"/>
+	<sampleImportStage3 action="modules/gestion/sample.php" param="importStage3" droits="import,projet" type="smarty" retourko="sampleImportStage1" modulebefore="sampleImportStage2"/>
 	
 	
 	<storage droits="consult" type="smarty" />

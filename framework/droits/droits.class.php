@@ -270,6 +270,46 @@ class Acllogin extends ObjetBDD
         }
         return $droits;
     }
+    /**
+     * Retourne l'enregistrement correspondant au login
+     * @param string $login
+     * @return array
+     */
+    function getFromLogin($login) {
+        if (strlen($login) > 0) {
+            $sql = "select * from ".$this->table." where login = :login";
+            return $this->lireParamAsPrepared($sql, array("login"=>$login));
+        }
+    }
+
+    /**
+     * Surcharge de la fonction supprimer pour effacer le login, s'il existe
+     * {@inheritDoc}
+     * @see ObjetBDD::supprimer()
+     */
+    function supprimer($id) {
+        if ($id > 0) {
+            /*
+             * Lecture des donnees
+             */
+            $data = $this->lire($id);
+            /*
+             * Suppression du login dans les groupes
+             */
+            $sql = "delete from acllogingroup where acllogin_id = :id";
+            $this->executeAsPrepared($sql, array("id"=>$id));
+            parent::supprimer($id);
+            /*
+             * Recherche s'il existe un login correspondant
+             */
+            require_once 'framework/identification/identification.class.php';
+            $loginGestion = new LoginGestion($this->connection, $this->paramori);
+            $dlg = $loginGestion->getFromLogin($data["login"]);
+            if ($dlg["id"] > 0) {
+                $loginGestion->supprimer($dlg["id"]);
+            }
+        }
+    }
 }
 
 /**

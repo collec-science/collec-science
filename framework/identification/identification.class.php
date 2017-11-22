@@ -503,7 +503,25 @@ class LoginGestion extends ObjetBDD
          */
         $loginOP = new LoginOldPassword($this->connection, $this->paramori);
         $loginOP->supprimerChamp($id, "id");
-        return parent::supprimer($id);
+        $data = $this->lire($id);
+        if( parent::supprimer($id) > 0) {
+            /*
+             * Recherche si un enregistrement existe dans la gestion des droits
+             */
+            require_once 'framework/droits/droits.class.php';
+            $acllogin = new Acllogin($this->connection, $this->paramori);
+            $datalogin = $acllogin->getFromLogin($data["login"]);
+            if ($datalogin["acllogin_id"] > 0) {
+                $acllogin->supprimer($datalogin["acllogin_id"]);
+            }
+        }
+    }
+    
+    function getFromLogin($login) {
+        if (strlen($login) > 0) {
+            $sql = "select * from ".$this->table." where login = :login";
+            return $this->lireParamAsPrepared($sql, array("login"=>$login));
+        }
     }
 
     /**

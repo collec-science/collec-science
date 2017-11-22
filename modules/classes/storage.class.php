@@ -291,12 +291,12 @@ class Storage extends ObjetBDD
             $sql .= "login like :login and ";
             $data["login"] = $login;
         }
-        $sql .= "storage_date between :date_start and :date_end
+        $sql .= "storage_date::date between :date_start and :date_end
         order by storage_date desc";
         //$data["date_start"] = $dateStart;
         //$data["date_end"] = $dateEnd;
-        $data["date_start"] = $this->formatDateLocaleVersDB($dateStart, 3);
-        $data["date_end"] = $this->formatDateLocaleVersDB($dateEnd, 3);
+        $data["date_start"] = $this->formatDateLocaleVersDB($dateStart, 2);
+        $data["date_end"] = $this->formatDateLocaleVersDB($dateEnd, 2);
         return $this->getListeParamAsPrepared($sql, $data);
     }
 }

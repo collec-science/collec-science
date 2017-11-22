@@ -228,8 +228,8 @@ class SearchMovement extends SearchParam
         $ds->modify("-1 month");
         $this->param = array(
             "login" => "",
-            "date_start" => $ds->format("d/m/Y h:i:s"),
-            "date_end" => date("d/m/Y h:i:s")
+            "date_start" => $ds->format("d/m/Y"),
+            "date_end" => date("d/m/Y")
         );
         parent::__construct();
     }

@@ -16,11 +16,11 @@
 <div class="form-group">
 <label for="date_start" class="col-md-2 control-label">Du : </label>
 <div class="col-md-4">
-<input class="datetimepicker form-control" name="date_start" id="date_start" value="{$movementSearch.date_start}">
+<input class="datepicker form-control" name="date_start" id="date_start" value="{$movementSearch.date_start}">
 </div>
 <label for="date_end" class="col-md-2 control-label">au : </label>
 <div class="col-md-4">
-<input class="datetimepicker form-control" name="date_end" id="date_end" value="{$movementSearch.date_end}">
+<input class="datepicker form-control" name="date_end" id="date_end" value="{$movementSearch.date_end}">
 </div>
 </div>
 </form>

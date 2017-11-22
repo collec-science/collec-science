@@ -171,9 +171,9 @@
 	<sampleExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="sampleList"/>
 	<samplePrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect" type="" retourok="sampleList" retourko="sampleList" />
 	
-	<importChange action="modules/gestion/import.php" param="change" droits="projet" retourlogin="1"  type="smarty" />
-	<importControl action="modules/gestion/import.php" param="control" droits="projet" modulebefore="importChange,importControl,importImport" retourok="importChange"  type="smarty" />
-	<importImport action="modules/gestion/import.php" param="import" droits="projet" modulebefore="importControl,importChange" retourok="importChange" retourko="importChange" type="smarty" />
+	<importChange action="modules/gestion/import.php" param="change" droits="import,projet" retourlogin="1"  type="smarty" />
+	<importControl action="modules/gestion/import.php" param="control" droits="import,projet" modulebefore="importChange,importControl,importImport" retourok="importChange"  type="smarty" />
+	<importImport action="modules/gestion/import.php" param="import" droits="import,projet" modulebefore="importControl,importChange" retourok="importChange" retourko="importChange" type="smarty" />
 
 	<containerbookingChange action="modules/gestion/booking.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containerbookingWrite action="modules/gestion/booking.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containerbookingChange" modulebefore="containerbookingChange" />

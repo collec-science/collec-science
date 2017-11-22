@@ -3,7 +3,7 @@
 <item module="objets" title="77" value="76">
 	<item module="containerList" title="61" value="60"/>
 	<item module="sampleList" title="69" value="68"/>
-	<item module="importChange" title="79" value="78" droits="projet"/>
+	<item module="importChange" title="79" value="78" droits="import,projet"/>
 	<item module="sampleImportStage1" title="102" value="101" droits="projet"/>
 </item>
 

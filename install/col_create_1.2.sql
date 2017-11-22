@@ -971,9 +971,20 @@ ALTER TABLE "label" ADD COLUMN "identifier_only" BOOLEAN DEFAULT 'f' NOT NULL;
 comment on column label.identifier_only is 'true : le qrcode ne contient qu''un identifiant metier';
 
 /*
+ * Ajouts pour les problemes de performance - version 1.2.2
+ */
+create extension pg_trgm;
+
+drop index if exists object_identifier_idx;
+create index object_identifier_idx on object using gin (identifier gin_trgm_ops);
+create index if not exists object_identifier_value_idx on object_identifier using gin (object_identifier_value gin_trgm_ops);
+create index if not exists sample_dbuid_origin_idx on sample using gin (dbuid_origin gin_trgm_ops);
+
+/*
  * Fin d'execution du script
  * Mise a jour de dbversion
  */
 insert into dbversion ("dbversion_number", "dbversion_date")
 values 
-('1.2','2017-10-20');
+('1.2','2017-10-20'),
+('1.2.3','2017-11-22');

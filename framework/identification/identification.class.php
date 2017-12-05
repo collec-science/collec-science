@@ -473,7 +473,7 @@ class LoginGestion extends ObjetBDD
      */
     function ecrire($data)
     {
-        if (strlen($data["pass1"] > 0) && strlen($data["pass2"] > 0) && $data["pass1"] == $data["pass2"]) {
+        if (strlen($data["pass1"]) > 0 && strlen($data["pass2"]) > 0 && $data["pass1"] == $data["pass2"]) {
             if ($this->controleComplexite($data["pass1"]) > 2 && strlen($data["pass1"]) > 9) {
                 $data["password"] = hash("sha256", $data["pass1"] . $data["login"]);
             } else {

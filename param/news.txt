@@ -1,5 +1,10 @@
 News
 ===========
+Version 1.2.4 du 5/12/2017
+---------------------------
+Correction de bugs :
+- la création d'un compte de connexion ne fonctionnait plus : le mot de passe n'était jamais enregistré
+
 Version 1.2.3 du 22/11/2017
 ---------------------------
 Évolutions :

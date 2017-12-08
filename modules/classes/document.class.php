@@ -179,7 +179,8 @@ class Document extends ObjetBDD
 {
 
     public $temp = "temp";
- // Chemin de stockage des images générées à la volée
+
+    // Chemin de stockage des images générées à la volée
     /**
      * Constructeur de la classe
      *
@@ -290,7 +291,7 @@ class Document extends ObjetBDD
                 /*
                  * Ecriture du document
                  */
-                if ( ! $virus ) {
+                if (! $virus) {
                     $dataBinaire = fread(fopen($file["tmp_name"], "r"), $file["size"]);
                     
                     $dataDoc["data"] = pg_escape_bytea($dataBinaire);
@@ -454,7 +455,7 @@ class Document extends ObjetBDD
                     /*
                      * Recuperation des donnees concernant la photo
                      */
-                   $docRef = $this->getBlobReference($id, $colonne);
+                    $docRef = $this->getBlobReference($id, $colonne);
                     if (in_array($data["mime_type_id"], array(
                         4,
                         5,
@@ -496,15 +497,15 @@ class Document extends ObjetBDD
                         if (($data["mime_type_id"] == 1 && $phototype == 2) || $phototype == 0) {
                             $writeOk = true;
                             $document = stream_get_contents($docRef);
-                            if (! $document ) {
-                                throw new DocumentException("Erreur de lecture" .$docRef);
+                            if (! $document) {
+                                throw new DocumentException("Erreur de lecture" . $docRef);
                             }
-                       }
+                        }
                     }
                     /*
                      * Ecriture du document dans le dossier temporaire
                      */
-                    if ($writeOk == true) {
+                    if ($writeOk) {
                         $handle = fopen($filename, 'wb');
                         fwrite($handle, $document);
                         fclose($handle);

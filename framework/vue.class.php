@@ -204,11 +204,11 @@ class VueSmarty extends Vue
         $this->smarty = new Smarty();
         $this->smarty->template_dir = $param["templates"];
         $this->smarty->compile_dir = $param["templates_c"];
-        // $this->smarty->config_dir = $SMARTY_config;
         $this->smarty->cache_dir = $param["cache_dir"];
         $this->smarty->caching = $param["cache"];
-        if (isset($param["template_main"]))
+        if (isset($param["template_main"])) {
             $this->templateMain = $param["template_main"];
+        }
         /*
          * Traitement des assignations de variables standard
          */
@@ -307,7 +307,6 @@ class VueAjaxJson extends Vue
          * Envoi au navigateur
          */
         ob_clean();
-        // header ( 'Content-Type: application/json' );
         echo $json;
         ob_flush();
     }
@@ -329,8 +328,9 @@ class VueCsv extends Vue
     function send($filename = "", $delimiter = "")
     {
         if (count($this->data) > 0) {
-            if (strlen($filename) == 0)
+            if (strlen($filename) == 0) {
                 $filename = $this->filename;
+            }
             if (strlen($filename) == 0) {
                 $filename = "export-" . date('Y-m-d-His') . ".csv";
             }
@@ -481,7 +481,7 @@ class VuePdf extends Vue
  * @author quinton
  *        
  */
-class vueBinaire extends Vue
+class VueBinaire extends Vue
 {
 
     private $param = array(

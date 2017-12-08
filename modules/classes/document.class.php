@@ -189,9 +189,9 @@ class Document extends ObjetBDD
     function __construct($bdd, $param = null)
     {
         global $APPLI_temp;
-        if (strlen($APPLI_temp) > 0)
+        if (strlen($APPLI_temp) > 0) {
             $this->temp = $APPLI_temp;
-        
+        }
         $this->table = "document";
         $this->colonnes = array(
             "document_id" => array(
@@ -266,8 +266,9 @@ class Document extends ObjetBDD
                 $data["document_description"] = $description;
                 $data["document_import_date"] = date("d/m/Y");
                 $data["uid"] = $uid;
-                if (! is_null($document_creation_date))
+                if (! is_null($document_creation_date)) {
                     $data["document_creation_date"] = $document_creation_date;
+                }
                 $dataDoc = array();
                 /*
                  * Recherche antivirale
@@ -289,7 +290,7 @@ class Document extends ObjetBDD
                 /*
                  * Ecriture du document
                  */
-                if ($virus == false) {
+                if ( ! $virus ) {
                     $dataBinaire = fread(fopen($file["tmp_name"], "r"), $file["size"]);
                     
                     $dataDoc["data"] = pg_escape_bytea($dataBinaire);
@@ -356,11 +357,13 @@ class Document extends ObjetBDD
         $id = $this->encodeData($id);
         $filename = $this->generateFileName($id, $phototype, $resolution);
         if (strlen($filename) > 0 && is_numeric($id) && $id > 0) {
-            if (! file_exists($filename))
+            if (! file_exists($filename)) {
                 $this->writeFileImage($id, $phototype, $resolution);
+            }
         }
-        if (file_exists($filename))
+        if (file_exists($filename)) {
             return $filename;
+        }
     }
 
     /**
@@ -379,8 +382,9 @@ class Document extends ObjetBDD
          */
         switch ($phototype) {
             case 0:
-                if (is_numeric($id))
+                if (is_numeric($id)) {
                     $data = $this->getData($id);
+                }
                 $filename = $this->temp . '/' . $id . "-" . $data["document_name"];
                 break;
             case 1:
@@ -388,6 +392,9 @@ class Document extends ObjetBDD
                 break;
             case 2:
                 $filename = $this->temp . '/' . $id . '_vignette.png';
+                break;
+            default:
+                throw new DocumentException("Photo type not correctly defined");
         }
         return $filename;
     }
@@ -437,7 +444,6 @@ class Document extends ObjetBDD
                     break;
             }
             if ($okgenerate) {
-                // $nomPhoto = array ();
                 $writeOk = false;
                 /*
                  * Selection de la colonne contenant la photo
@@ -448,8 +454,7 @@ class Document extends ObjetBDD
                     /*
                      * Recuperation des donnees concernant la photo
                      */
-                    // if ($i != 1)
-                    $docRef = $this->getBlobReference($id, $colonne);
+                   $docRef = $this->getBlobReference($id, $colonne);
                     if (in_array($data["mime_type_id"], array(
                         4,
                         5,
@@ -477,8 +482,9 @@ class Document extends ObjetBDD
                                         $resx = $geo["width"] * ($resolution / $geo["height"]);
                                     }
                                 }
-                                if ($resize == 1)
+                                if ($resize == 1) {
                                     $image->resizeImage($resx, $resy, imagick::FILTER_LANCZOS, 1);
+                                }
                             }
                             $document = $image->getimageblob();
                             $writeOk = true;
@@ -487,7 +493,6 @@ class Document extends ObjetBDD
                         /*
                          * Autres types de documents : ecriture directe du contenu
                          */
-                        // rewind ( $docRef );
                         if (($data["mime_type_id"] == 1 && $phototype == 2) || $phototype == 0) {
                             $writeOk = true;
                             $document = stream_get_contents($docRef);

@@ -117,8 +117,7 @@ class Identification
         phpCAS::setVerbose($true);
         phpCAS::client(CAS_VERSION_2_0, $this->CAS_address, $this->CAS_port, $this->CAS_uri);
         phpCAS::forceAuthentication();
-        $login = phpCAS::getUser();
-        return $login;
+        return phpCAS::getUser();
     }
 
     /**
@@ -807,15 +806,15 @@ class Log extends ObjetBDD
      */
     function setLog($login, $module, $commentaire = NULL)
     {
-        global $GACL_aco;
+        global $GACL_aco, $MASQUEDATELONG;
         $data = array(
             "log_id" => 0,
             "commentaire" => $commentaire
         );
         if (is_null($login)) {
-            if (! is_null($_SESSION["login"]))
+            if (! is_null($_SESSION["login"])) {
                 $login = $_SESSION["login"];
-            else {
+            } else {
                 $login = "unknown";
             }
         }
@@ -824,7 +823,7 @@ class Log extends ObjetBDD
             $module = "unknown";
         }
         $data["nom_module"] = $GACL_aco . "-" . $module;
-        $data["log_date"] = date("d/m/Y H:i:s");
+        $data["log_date"] = date($MASQUEDATELONG);
         $data["ipaddress"] = $this->getIPClientAddress();
         return $this->ecrire($data);
     }
@@ -915,6 +914,7 @@ order by log_id desc limit 2";
      */
     function isAccountBlocked($login, $maxtime = 600, $nbMax = 10)
     {
+        
         $is_blocked = true;
         /*
          * Verification si le compte est bloque, et depuis quand
@@ -925,7 +925,7 @@ order by log_id desc limit 2";
         $sql = "select log_id from log where login = :login " . " and nom_module = 'connexionBlocking'" . " and log_date > :blockingdate " . " order by log_id desc limit 1";
         $data = $this->lireParamAsPrepared($sql, array(
             "login" => $login,
-            "blockingdate" => $date->format("Y-m-d H:i:s")
+            "blockingdate" => $date->format(DATELONGMASK)
         ));
         if ($data["log_id"] > 0) {
             $accountBlocking = true;
@@ -938,7 +938,7 @@ order by log_id desc limit 2";
             $data = $this->getListeParamAsPrepared($sql, array(
                 "login" => $login,
                 "nbmax" => $nbMax,
-                "blockingdate" => $date->format("Y-m-d H:i:s")
+                "blockingdate" => $date->format(DATELONGMASK)
             ));
             $nb = 0;
             /*

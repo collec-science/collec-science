@@ -102,8 +102,9 @@ function dataDelete($dataClass, $id) {
 			$message->setSyslog ( $e->getMessage () );
 			$ret = - 1;
 		}
-	} else
+	} else {
 		$ret = - 1;
+	}
 	return ($ret);
 }
 /**
@@ -170,12 +171,13 @@ function check_encoding($data) {
 	$result = true;
 	if (is_array ( $data )) {
 		foreach ( $data as $value ) {
-			if (check_encoding ( $value ) == false)
+			if ( !check_encoding ( $value ) ) {
 				$result = false;
+			}
 		}
 	} else {
 		if (strlen ( $data ) > 0) {
-			if (mb_check_encoding ( $data, "UTF-8" ) == false) {
+			if (! mb_check_encoding ( $data, "UTF-8" ) ) {
 				$result = false;
 			}
 		}
@@ -211,8 +213,9 @@ function getIPClientAddress() {
  */
 function htmlDecode($data) {
 	if (is_array ( $data )) {
-		foreach ( $data as $key => $value )
+		foreach ( $data as $key => $value ) {
 			$data [$key] = htmlDecode ( $value );
+		}
 	} else {
 		$data = htmlspecialchars_decode ( $data );
 	}
@@ -285,7 +288,6 @@ function getHeaders() {
 	}
 	return $header;
 	
-	// if (!function_exists('apache_request_headers')) {
 	/*
 	 * Fonction equivalente pour NGINX
 	 */

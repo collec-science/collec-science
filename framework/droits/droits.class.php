@@ -419,8 +419,9 @@ class Aclgroup extends ObjetBDD
                         }
                     }
                 }
-            } else
+            } else {
                 throw new LdapException("Connexion à l'annuaire LDAP impossible");
+            }
         }
         /*
          * Fusion des groupes
@@ -482,7 +483,7 @@ class Aclgroup extends ObjetBDD
             $sql = "select aclgroup_id, aclgroup_id_parent, groupe from aclgroup
 					where aclgroup_id = " . $id;
             $data = $this->getListeParam($sql);
-            foreach ($data as $key => $value) {
+            foreach ($data as $value) {
                 if ($value["aclgroup_id_parent"] > 0) {
                     $dataParent = $this->getParentGroups($value["aclgroup_id_parent"]);
                     if (count($dataParent) > 0) {

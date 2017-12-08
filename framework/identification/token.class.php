@@ -62,7 +62,6 @@ class Token
      */
     function createToken($login, $validityDuration = 0)
     {
-        $tokenOk = false;
         if (strlen($login) > 0) {
             if (is_numeric($validityDuration)) {
                 $timestamp = time();
@@ -86,7 +85,6 @@ class Token
                         "expire" => $expire,
                         "timestamp" => $data["timestamp"]
                     );
-                    $tokenOk = true;
                     $token = json_encode($dataToken);
                 } else {
                     throw new TokenException("Encryption_token_not_realized");

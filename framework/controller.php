@@ -176,7 +176,7 @@ while (isset($module)) {
                 $isAjax = true;
                 break;
             case "binaire":
-                $vue = new vueBinaire();
+                $vue = new VueBinaire();
                 $isAjax = true;
                 break;
             case "smarty":

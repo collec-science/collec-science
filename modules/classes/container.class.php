@@ -234,8 +234,9 @@ class Container extends ObjetBDD
                 if ($parent["uid"] > 0) {
                     $data[] = $parent;
                     $uid = $parent["uid"];
-                } else
+                } else {
                     $continue = false;
+                }
             }
         }
         return $data;

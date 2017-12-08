@@ -539,7 +539,7 @@ class ImportObject
             if ($data["sample_parent_uid"] > 0) {
                 if (! $data["parent_sample_id"] > 0) {
                     $retour["code"] = false;
-                    $retour["message"] .= "L'échantillon parent défini n'existe pas (".$dp["uid"]."). ";
+                    $retour["message"] .= "L'échantillon parent défini n'existe pas (".$data["sample_parent_uid"]."). ";
                 }
             }
         }

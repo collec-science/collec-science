@@ -98,9 +98,8 @@ class Storage extends ObjetBDD
      */
     function getLastPosition($uid)
     {
-        if (is_numeric($id) && $id > 0) {
-            $data["uid"] = $id;
-            return $this->getListeParamAsPrepared($this->sql . $this->where . $this->order . " limit 1", $data);
+        if (is_numeric($uid) && $uid > 0) {
+            return $this->getListeParamAsPrepared($this->sql . $this->where . $this->order . " limit 1", array("uid"=>$uid));
         }
     }
 
@@ -140,7 +139,7 @@ class Storage extends ObjetBDD
      */
     function getParents($uid)
     {
-        if (is_numeric($id) && $id > 0) {
+        if (is_numeric($uid) && $uid > 0) {
             $retour = array();
             $data["uid"] = $uid;
             $continue = true;

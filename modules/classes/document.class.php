@@ -488,12 +488,13 @@ class Document extends ObjetBDD
                          * Autres types de documents : ecriture directe du contenu
                          */
                         // rewind ( $docRef );
-                        if ($data["mime_type_id"] == 1 && $i == 2 || $i == 0) {
+                        if (($data["mime_type_id"] == 1 && $phototype == 2) || $phototype == 0) {
                             $writeOk = true;
                             $document = stream_get_contents($docRef);
-                            if ($document == false)
-                                printr("erreur de lecture " . $docRef);
-                        }
+                            if (! $document ) {
+                                throw new DocumentException("Erreur de lecture" .$docRef);
+                            }
+                       }
                     }
                     /*
                      * Ecriture du document dans le dossier temporaire

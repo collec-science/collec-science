@@ -1268,7 +1268,7 @@ class ObjetBDD {
 		 * Verification que tous les champs obligatoires soient renseignes, en mode ajout
 		 */
 		if ($mode == "ajout") {
-			foreach ( $colonnes as $key => $colonne ) {
+			foreach ( $this->colonnes as $key => $colonne ) {
 				if ($colonne ["requis"] == 1 && strlen ( $data [$key] ) == 0) {
 					$this->errorData [] = array (
 							"code" => 4,

@@ -14,7 +14,7 @@
  * @return array
  */
 function dataRead($dataClass, $id, $smartyPage, $idParent = null) {
-	global $vue, $OBJETBDD_debugmode, $message;
+	global $vue, $OBJETBDD_debugmode, $message, $LANG;
 	if (isset ( $vue )) {
 		if (is_numeric ( $id )) {
 			

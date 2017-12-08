@@ -46,6 +46,7 @@ $LOG_duree = 365;
  * LemonLdap, par exemple)
  */
 $ident_header_login_var = "AUTH_USER";
+$ident_header_logout_address = "";
 $ident_type = "BDD";
 $CAS_address = "http://localhost/CAS";
 $CAS_port = 443;

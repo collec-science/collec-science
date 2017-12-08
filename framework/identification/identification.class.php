@@ -215,6 +215,7 @@ class Identification
              * Envoi vers la deconnexion du serveur fournissant le HEADER d'identification
              * En principe, l'url de deconnexion du CAS
              */
+            global $ident_header_logout_address;
             if (strlen($ident_header_logout_address) > 0) {
                 header('Location: ' . $ident_header_logout_address);
                 flush();

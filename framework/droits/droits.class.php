@@ -518,7 +518,7 @@ class Aclgroup extends ObjetBDD
             /*
              * Recherche des groupes enfants
              */
-            $dataChild = $this->getChildGroups($value["aclgroup_id"], $level + 1);
+            $dataChild = $this->getChildGroups($value["aclgroup_id"], 1);
             if (count($dataChild) > 0) {
                 $data = array_merge($data, $dataChild);
             }

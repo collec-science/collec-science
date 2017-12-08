@@ -16,16 +16,13 @@ class FichierException extends Exception
 {
 }
 
-
 class HeaderException extends Exception
 {
 }
 
-
 class ImportObjectException extends Exception
 {
 }
-
 
 /**
  * Classe realisant l'import
@@ -99,9 +96,9 @@ class ImportObject
     private $samplingPlace;
 
     private $identifierType;
-    
+
     private $sampleType;
-    
+
     private $objectIdentifier;
 
     private $initIdentifiers = false;
@@ -121,8 +118,9 @@ class ImportObject
      */
     function initFile($filename, $separator = ",", $utf8_encode = false)
     {
-        if ($separator == "tab")
+        if ($separator == "tab") {
             $separator = "\t";
+        }
         $this->separator = $separator;
         $this->utf8_encode = $utf8_encode;
         /*
@@ -139,8 +137,9 @@ class ImportObject
                 $value = $data[$range];
                 if (in_array($value, $this->colonnes)) {
                     $this->fileColumn[$range] = $value;
-                } else
+                } else {
                     throw new HeaderException("Header column $range is not recognized ($value)");
+                }
             }
         } else {
             throw new FichierException("$filename not found or not readable");
@@ -167,7 +166,7 @@ class ImportObject
     /**
      * Fonction d'initialisation d'une instance de classe
      * pour utilisation dans les scripts
-     * 
+     *
      * @param string $name
      *            : nom de l'instance
      * @param Object $instance
@@ -189,13 +188,15 @@ class ImportObject
             $data = fgetcsv($this->handle, 1000, $this->separator);
             if ($data !== false) {
                 if ($this->utf8_encode) {
-                    foreach ($data as $key => $value)
+                    foreach ($data as $key => $value) {
                         $data[$key] = utf8_encode($value);
+                    }
                 }
             }
             return $data;
-        } else
+        } else {
             return null;
+        }
     }
 
     /**
@@ -203,8 +204,9 @@ class ImportObject
      */
     function fileClose()
     {
-        if ($this->handle)
+        if ($this->handle) {
             fclose($this->handle);
+        }
     }
 
     /**
@@ -232,13 +234,18 @@ class ImportObject
              * Controle de la ligne
              */
             $resControle = $this->controlLine($values);
-            if ($resControle["code"] == false) {
+            if (! $resControle["code"]) {
                 throw new ImportObjectException("Line $num : " . $resControle["message"]);
             }
             /*
              * Mise a defaut des champs obligatoires non renseignes
              */
-            foreach (array("sample_line", "sample_column", "container_column", "container_line") as $field) {
+            foreach (array(
+                "sample_line",
+                "sample_column",
+                "container_column",
+                "container_line"
+            ) as $field) {
                 if (! strlen($values[$field]) > 0) {
                     $values[$field] = 1;
                 }
@@ -273,7 +280,7 @@ class ImportObject
                  */
                 try {
                     $sample_uid = $this->sample->ecrire($dataSample);
-                   
+                    
                     /*
                      * Traitement des identifiants complementaires
                      */
@@ -291,10 +298,12 @@ class ImportObject
                     /*
                      * Mise a jour des bornes de l'uid
                      */
-                    if ($sample_uid < $minuid)
+                    if ($sample_uid < $minuid) {
                         $minuid = $sample_uid;
-                    if ($sample_uid > $maxuid)
+                    }
+                    if ($sample_uid > $maxuid) {
                         $maxuid = $sample_uid;
+                    }
                 } catch (PDOException $pe) {
                     throw new ImportObjectException("Line $num : error when import sample<br>" . $pe->getMessage());
                 }
@@ -307,8 +316,9 @@ class ImportObject
                 $dataContainer = $values;
                 $dataContainer["identifier"] = $values["container_identifier"];
                 $dataContainer["object_status_id"] = $values["container_status_id"];
-                if (! $dataContainer["object_status_id"] > 0)
+                if (! $dataContainer["object_status_id"] > 0) {
                     $dataContainer["object_status_id"] = 1;
+                }
                 try {
                     $container_uid = $this->container->ecrire($dataContainer);
                     /*
@@ -327,10 +337,12 @@ class ImportObject
                     /*
                      * Mise a jour des bornes de l'uid
                      */
-                    if ($container_uid < $minuid)
+                    if ($container_uid < $minuid) {
                         $minuid = $container_uid;
-                    if ($container_uid > $maxuid)
+                    }
+                    if ($container_uid > $maxuid) {
                         $maxuid = $container_uid;
+                    }
                 } catch (PDOException $pe) {
                     throw new ImportObjectException("Line $num : error when import container - " . $pe->getMessage());
                 }
@@ -527,10 +539,10 @@ class ImportObject
                     $metadataSchemaNames[] = $field["name"];
                 }
                 foreach ($valuesMetadataJson as $key => $field) {
-                    if (! in_array($key, $metadataSchemaNames)){
+                    if (! in_array($key, $metadataSchemaNames)) {
                         $retour["code"] = false;
                         $retour["message"] .= "Les métadonnées ne correspondent pas au type d'échantillon ($key inconnu). ";
-                    }                        
+                    }
                 }
             }
             /*
@@ -539,7 +551,7 @@ class ImportObject
             if ($data["sample_parent_uid"] > 0) {
                 if (! $data["parent_sample_id"] > 0) {
                     $retour["code"] = false;
-                    $retour["message"] .= "L'échantillon parent défini n'existe pas (".$data["sample_parent_uid"]."). ";
+                    $retour["message"] .= "L'échantillon parent défini n'existe pas (" . $data["sample_parent_uid"] . "). ";
                 }
             }
         }

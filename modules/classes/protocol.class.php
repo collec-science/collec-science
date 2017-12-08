@@ -62,8 +62,9 @@ class Protocol extends ObjetBDD
                  */
                 $fp = fopen($file['tmp_name'], 'rb');
                 $this->updateBinaire($id, "protocol_file", $fp);
-            } else
+            } else {
                 throw new FileException("Seuls les fichiers PDF peuvent être téléchargés");
+            }
         }
     }
 

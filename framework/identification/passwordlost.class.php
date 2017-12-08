@@ -73,7 +73,7 @@ class Passwordlost extends ObjetBDD
                         $data = array();
                         $data["id"] = $dl["id"];
                         $data["token"] = $this->generateToken();
-                        $data["expiration"] = date("Y-m-d H:i:s", time() + $duree_token);
+                        $data["expiration"] = date(DATELONGMASK, time() + $duree_token);
                         $this->ecrire($data);
                     } else {
                         throw new PasswordException("Account not active");

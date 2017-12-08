@@ -74,24 +74,29 @@ class Operation extends ObjetBDD
     {
         if ($operation_id > 0) {
             $sql = "select count(*) as nb from sample s, sample_type st where s.sample_type_id = st.sample_type_id and st.operation_id = :operation_id";
-            $data = $this->lireParamAsPrepared($sql, array("operation_id"=>$operation_id));
+            $data = $this->lireParamAsPrepared($sql, array(
+                "operation_id" => $operation_id
+            ));
             if (count($data) > 0) {
                 return $data["nb"];
-            } else
+            } else {
                 return 0;
+            }
         }
     }
 
-     /**
+    /**
      * Surcharge de la fonction ecrire pour integrer la date de derniere modification
-     * {@inheritDoc}
+     * 
+     * {@inheritdoc}
      * @see ObjetBDD::ecrire()
      */
-    function ecrire($data) {
+    function ecrire($data)
+    {
         /*
          * integration de l'heure de modification
          */
-        $data["last_edit_date"] = date ("Y-m-d H:i:s");
+        $data["last_edit_date"] = date("Y-m-d H:i:s");
         $this->auto_date = 0;
         return parent::ecrire($data);
     }

@@ -99,16 +99,20 @@ class Storage extends ObjetBDD
     function getLastPosition($uid)
     {
         if (is_numeric($uid) && $uid > 0) {
-            return $this->getListeParamAsPrepared($this->sql . $this->where . $this->order . " limit 1", array("uid"=>$uid));
+            return $this->getListeParamAsPrepared($this->sql . $this->where . $this->order . " limit 1", array(
+                "uid" => $uid
+            ));
         }
     }
 
     /**
      * Retourne le dernier emplacement connu pour un objet
+     *
      * @param int $id
      * @return array
      */
-    function getLastEntry($id) {
+    function getLastEntry($id)
+    {
         if (is_numeric($id) && $id > 0) {
             $data["uid"] = $id;
             $where = $this->where . " and movement_type_id = 1";
@@ -154,16 +158,19 @@ class Storage extends ObjetBDD
                         $retour[] = $result;
                         if ($result["parent_uid"] > 0) {
                             $data["uid"] = $result["parent_uid"];
-                        } else
+                        } else {
                             $continue = false;
-                    } else
+                        }
+                    } else {
                         $continue = false;
+                    }
                 }
                 return $retour;
             } catch (PDOException $e) {
                 $this->lastResultExec = false;
-                if ($this->debug_mode > 0)
+                if ($this->debug_mode > 0) {
                     $this->addMessage($e->getMessage());
+                }
                 throw new StorageException($e->getMessage());
             }
         }
@@ -189,8 +196,9 @@ class Storage extends ObjetBDD
          */
         $controle = true;
         $message = $LANG["appli"][5];
-        if (! ($uid > 0 && is_numeric($uid)))
+        if (! ($uid > 0 && is_numeric($uid))) {
             $controle = false;
+        }
         if ($uid == $container_uid) {
             $controle = false;
             $message .= "Création du mouvement impossible : le numéro de l'objet est égal au numéro du conteneur. ";
@@ -199,13 +207,16 @@ class Storage extends ObjetBDD
         if (strlen($date) == 0) {
             $date = date('d/m/Y H:i:s');
         }
-        if ($type != 1 && $type != 2)
+        if ($type != 1 && $type != 2) {
             $controle = false;
+        }
         $container_uid = $this->encodeData($container_uid);
-        if (! is_numeric($container_uid) && strlen($container_uid) > 0)
+        if (! is_numeric($container_uid) && strlen($container_uid) > 0) {
             $controle = false;
-        if (strlen($login) == 0)
+        }
+        if (strlen($login) == 0) {
             strlen($_SESSION["login"]) > 0 ? $login = $_SESSION["login"] : $controle = false;
+        }
         $storage_location = $this->encodeData($storage_location);
         $comment = $this->encodeData($comment);
         $storage_reason_id = $this->encodeData($storage_reason_id);
@@ -229,10 +240,12 @@ class Storage extends ObjetBDD
             $data["login"] = $login;
             $data["storage_reason_id"] = $storage_reason_id;
             
-            if (strlen($storage_location) > 0)
+            if (strlen($storage_location) > 0) {
                 $data["storage_location"] = $storage_location;
-            if (strlen($comment) > 0)
+            }
+            if (strlen($comment) > 0) {
                 $data["storage_comment"] = $comment;
+            }
             $data["column_number"] = $column_number;
             $data["line_number"] = $line_number;
             return $this->ecrire($data);
@@ -265,7 +278,7 @@ class Storage extends ObjetBDD
      * @param array $values
      * @return array
      */
-    function search($values)   
+    function search($values)
     {
         if (strlen($values["login"]) > 0) {
             $login = "%" . strtolower($this->encodeData($values["login"])) . "%";
@@ -292,8 +305,6 @@ class Storage extends ObjetBDD
         }
         $sql .= "storage_date::date between :date_start and :date_end
         order by storage_date desc";
-        //$data["date_start"] = $dateStart;
-        //$data["date_end"] = $dateEnd;
         $data["date_start"] = $this->formatDateLocaleVersDB($dateStart, 2);
         $data["date_end"] = $this->formatDateLocaleVersDB($dateEnd, 2);
         return $this->getListeParamAsPrepared($sql, $data);

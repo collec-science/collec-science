@@ -70,8 +70,9 @@ class Message
         $i = 0;
         if ($this->displaySyslog) {
             $tableau = array_merge($this->message, $this->syslog);
-        } else
+        } else {
             $tableau = $this->message;
+        }
         foreach ($tableau as $value) {
             if ($i > 0) {
                 $data .= "<br>";
@@ -90,7 +91,7 @@ class Message
         $code_error = "err";
         $level = "notice";
         foreach ($this->syslog as $value) {
-            openlog("[$date] [".$_SESSION["APPLI_code"].":$level] [pid $pid] $code_error", LOG_PERROR, LOG_LOCAL7);
+            openlog("[$date] [" . $_SESSION["APPLI_code"] . ":$level] [pid $pid] $code_error", LOG_PERROR, LOG_LOCAL7);
             syslog(LOG_NOTICE, $value);
         }
     }

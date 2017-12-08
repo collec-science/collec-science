@@ -144,8 +144,9 @@ class Sample extends ObjetBDD
         /*
          * Verification complementaire par rapport aux donnees deja stockees
          */
-        if ($ok && $data["uid"] > 0)
+        if ($ok && $data["uid"] > 0) {
             $ok = $this->verifyProject($this->lire($data["uid"]));
+        }
         if ($ok) {
             /*
              * Mise en forme des metadonnees
@@ -236,8 +237,9 @@ class Sample extends ObjetBDD
             $data = $this->lireParamAsPrepared($sql, $var);
             if (count($data) > 0) {
                 return $data["nb"];
-            } else
+            } else {
                 return 0;
+            }
         }
     }
 
@@ -311,21 +313,16 @@ class Sample extends ObjetBDD
             $and = " and ";
         }
         
-        /*
-         * if ($param ["limit"] > 0) {
-         * $order .= " limit :limite";
-         * $data ["limite"] = $param ["limit"];
-         * }
-         */
-        if ($where == "where")
+        if ($where == "where") {
             $where = "";
+        }
         /*
          * Rajout de la date de dernier mouvement pour l'affichage
          */
         $this->colonnes["storage_date"] = array(
             "type" => 3
         );
-        return $this->getListeParamAsPrepared($this->sql . $where /*. $order*/, $data);
+        return $this->getListeParamAsPrepared($this->sql . $where, $data);
     }
 
     /**
@@ -492,7 +489,7 @@ class Sample extends ObjetBDD
 
     /**
      * Fonction d'ecriture dans le cadre d'un import externe
-     * 
+     *
      * @param array $data
      * @throws SampleException
      * @return number

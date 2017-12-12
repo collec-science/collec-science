@@ -1,6 +1,6 @@
 <?php
 $FORMATDATE="fr";
-$MASQUEDATELONG = "d/m/Y H:i:s";
+$MASKDATELONG = "d/m/Y H:i:s";
 $LANG= array();
 $LANG["date"]["locale"] = "fr";
 $LANG["date"]["formatdate"] = "DD/MM/YYYY";

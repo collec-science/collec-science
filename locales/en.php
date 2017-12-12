@@ -1,6 +1,6 @@
 <?php
 $FORMATDATE="en";
-$MASQUEDATELONG = "m-d-Y H:i:s";
+$MASKDATELONG = "m-d-Y H:i:s";
 $LANG= array();
 $LANG["menu"][0] = "Manage";
 $LANG["menu"][1] = "Managing operations";

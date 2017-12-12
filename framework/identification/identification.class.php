@@ -806,7 +806,7 @@ class Log extends ObjetBDD
      */
     function setLog($login, $module, $commentaire = NULL)
     {
-        global $GACL_aco, $MASQUEDATELONG;
+        global $GACL_aco;
         $data = array(
             "log_id" => 0,
             "commentaire" => $commentaire
@@ -823,7 +823,7 @@ class Log extends ObjetBDD
             $module = "unknown";
         }
         $data["nom_module"] = $GACL_aco . "-" . $module;
-        $data["log_date"] = date($MASQUEDATELONG);
+        $data["log_date"] = date($_SESSION["MASKDATELONG"]);
         $data["ipaddress"] = $this->getIPClientAddress();
         return $this->ecrire($data);
     }

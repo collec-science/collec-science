@@ -141,6 +141,7 @@ function setlanguage($langue) {
 	 * Mise en session de la langue
 	 */
 	$_SESSION ['LANG'] = $LANG;
+	$_SESSION["MASKDATELONG"] = $MASKDATELONG;
 	/*
 	 * Regeneration du menu
 	 */

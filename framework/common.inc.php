@@ -66,6 +66,7 @@ include_once "modules/beforesession.inc.php";
 @session_start ();
 DEFINE ("DATELONGMASK","Y-m-d H:i:s" );
 
+
 /*
  * Verification du cookie de session, et destruction le cas echeant
  */

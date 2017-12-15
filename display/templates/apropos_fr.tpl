@@ -22,6 +22,7 @@ Pour ces derniers, les conditions de stockage (produit utilisé, risque associé
 <h3>Liste des contributeurs à Collec-Science (ordre alphabétique)</h3>
 <ul>
 <li>Julien Ancelin (INRA)</li>
+<li>Arnaud Caillo (OASU - UMS 2567 POREA / EPOC)</li>
 <li>Hector Linyer (Université de La Rochelle)</li>
 <li>Christine Plumejeaud (Université de La Rochelle)</li>
 <li>Éric Quinton (IRSTEA)</li>

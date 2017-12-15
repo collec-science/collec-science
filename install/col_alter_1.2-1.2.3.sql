@@ -16,7 +16,7 @@ select setval('aclgroup_aclgroup_id_seq', (select max(aclgroup_id) from aclgroup
  * Script d'amelioration des performances en recherche d'echantillons
  */
  SET search_path = col;
- create extension pg_trgm;
+ create extension pg_trgm with schema pg_catalog;
 
 drop index if exists object_identifier_idx;
 create index object_identifier_idx on object using gin (identifier gin_trgm_ops);

@@ -13,6 +13,6 @@ create index sample_dbuid_origin_idx on sample using gin (dbuid_origin gin_trgm_
  * amelioration de la recherche pour les metadonnees
  * creez un index pour chaque item utilise dans les recherches
  * exemple : 
- * create index sample_metadata_taxon_idx on sample using gin ((metadata->>'taxon') gin_trgm_ops);
+ * create index sample_metadata_taxon_idx on sample using gin (upper(metadata->>'taxon') gin_trgm_ops);
  */
  

@@ -24,6 +24,12 @@ Sécurité
 - identification possible selon plusieurs modalités : base de comptes interne, annuaire ldap, ldap - base de données (identification mixte), via serveur CAS, ou par délégation à un serveur proxy d'identification, comme LemonLDAP, par exemple
 - gestion des droits pouvant s'appuyer sur les groupes d'un annuaire LDAP
 
+Déploiement
+--------
+- collec peut être installé sur plusieurs serveurs et sites (https://github.com/Irstea/collec/blob/master/install/Installation%20de%20COLLEC.md), il gère les identifiants multiples lors d'échanges d'échantillons
+- collec peut-être déployé comme un service Docker, en suivant les instructions suivantes : https://github.com/jancelin/docker-collec
+- collec fonctionne par exemple en mode autonome sur une tablette Windows 10 Pro ou un raspberry (OS raspbian), exécutant Docker. Ce qui peut faciliter son usage en mobilité hors connexion. 
+
 Licence
 -------
 Logiciel diffusé sous licence AGPL

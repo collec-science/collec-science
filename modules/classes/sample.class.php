@@ -469,7 +469,8 @@ class Sample extends ObjetBDD
             if (strlen($row["dbuid_origin"]) > 0) {
                 $ori = explode(":", $row["dbuid_origin"]);
                 if ($_SESSION["APPLI_code"] == $ori[0]) {
-                    throw new SampleException("Il n'est pas possible d'importer un échantillon issu de la base de données courante");
+		    //CPP : commented to enable the UPDATE of previous samples (@see modules/gestion/sample.php)
+                    //throw new SampleException("Il n'est pas possible d'importer un échantillon issu de la base de données courante");
                 }
             } else {
                 throw new SampleException("L'identifiant de la base de données d'origine n'a pas été fourni");

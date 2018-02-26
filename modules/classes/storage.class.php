@@ -252,7 +252,7 @@ class Storage extends ObjetBDD
     function getNbFromContainer($uid)
     {
         $sql = "select count (*) as nombre from container c
-				join storage using (container_id)
+				join last_movement using (container_id)
 				where c.uid = :uid";
         $data["uid"] = $uid;
         $result = $this->lireParamAsPrepared($sql, $data);

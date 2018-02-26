@@ -331,31 +331,35 @@ class Object extends ObjetBDD
             /*
              * Recuperation des informations generales
              */
-            $sql = "select uid, identifier as id, clp_classification as clp, '' as pn, 
-			 		'$APPLI_code' as db,
-			 		'' as prj, storage_product as prod,
-			 		 wgs84_x as x, wgs84_y as y, null as cd,
-                    null as metadata, null as loc
-					from object 
-					join container using (uid)
-					join container_type using (container_type_id)
-					where uid in ($uids)
-					UNION
-					select uid, identifier as id, clp_classification as clp, protocol_name as pn, 
-			 		'$APPLI_code' as db, 
-			 		project_name as prj, storage_product as prod,
-			 		 wgs84_x as x, wgs84_y as y, sample_creation_date as cd,
-                    metadata::varchar, sampling_place_name as loc
-					from object 
-					join sample using (uid)
-					join sample_type using (sample_type_id)
-					join project using (project_id)
-                    left outer join sampling_place using (sampling_place_id)
-					left outer join container_type using (container_type_id)
-			 		left outer join operation using (operation_id)
-			 		left outer join protocol using (protocol_id)
-					where uid in ($uids)
-			";
+            
+$sql = "select uid, identifier as id, clp_classification as clp, '' as pn,
+                                        '$APPLI_code' as db,
+                                        '' as prj, storage_product as prod,
+                                         wgs84_x as x, wgs84_y as y, storage_date as cd,
+					null as metadata, null as loc, object_status_name as status
+                                        from object
+                                        join container using (uid)
+                                        join container_type using (container_type_id)
+					join object_status using (object_status_id)
+					left outer join last_movement using (uid)
+                                        where uid in ($uids)
+                    UNION
+        select uid, identifier as id, clp_classification as clp, protocol_name as pn,
+                                        '$APPLI_code' as db,
+                                        project_name as prj, storage_product as prod,
+                                         wgs84_x as x, wgs84_y as y, sample_date as cd,
+					metadata::varchar, sampling_place_name as loc, object_status_name as status
+                                        from object
+                                        join sample using (uid)
+                                        join sample_type using (sample_type_id)
+                                        join project using (project_id)
+					join object_status using (object_status_id)
+					left outer join sampling_place using (sampling_place_id)
+                                        left outer join container_type using (container_type_id)
+                                        left outer join operation using (operation_id)
+                                        left outer join protocol using (protocol_id)
+                                        where uid in ($uids)
+                        ";
             if (strlen($order) == 0)
                 $order = "uid";
             $sql = "select * from (" . $sql . ") as a";

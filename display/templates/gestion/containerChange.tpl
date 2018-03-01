@@ -67,7 +67,7 @@ Retour à la liste des containers
 {include file="gestion/uidChange.tpl"}
 
 <div class="form-group">
-<label for="container_family_id" class="control-label col-md-4">Famille :</label>
+<label for="container_family_id" class="control-label col-md-4">Famille<span class="red">*</span> :</label>
 <div class="col-md-8">
 <select id="container_family_id" name="container_family_id" class="form-control">
 <option value="" {if $data.container_family_id == ""}selected{/if}>Sélectionnez...</option>

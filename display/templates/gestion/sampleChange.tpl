@@ -57,6 +57,50 @@
         	point.setCoordinates ([]);
         	
         });
+        
+        $("#scan_label_action").click(function() {
+        	var contenu = $("#scan_label").val();
+        	try {
+        		var data = JSON.parse(contenu);
+        		/*
+        		 * Traitement de chaque cle
+        		 */
+        		 for (var key in data) {
+        			 switch (key) {
+        			 case "uid":
+        				 $("#dbuid_origin").val(data["db"]+":"+data["uid"]);
+        				 break;
+        			 case "id":
+        				 $("#identifier").val(data["id"]);
+        				 break;
+        			 case "prj":
+        				 $('#project_id option[value]="'+data["prj"]+'"]').attr("selected", "selected");
+        				 break;
+        			 case "x":
+        				 $("#wgs84_x").val(data["x"]);
+        				 break;
+        			 case "y":
+        				 $("#wgs84_y").val(data["y"]);
+        				 break;
+        			 case "loc":
+        				 $('#sampling_place_id option[value]="'+data["loc"]+'"]').attr("selected", "selected");
+        				 break;
+        			 case "cd":
+        				 $("#sample_date").val(data["cd"]);
+        				 break;
+        			default:
+        				$('input[name='+key+']').val(data[key]);
+        					 
+        				break;
+        				 
+        				
+        			 }
+        		 }
+        	} catch (e) {
+        		console.error ("Parsing Json error:", e);
+        	}
+        	
+        });
     });
 </script>
 
@@ -113,6 +157,17 @@ Retour à la liste des échantillons
 <input type="hidden" id="action" name="action" value="Write">
 <input type="hidden" name="parent_sample_id" value="{$data.parent_sample_id}">
 <input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
+
+<div class="form-group">
+<label for="scan_label" class="control-label col-md-4">Scannez l'étiquette existante :</label>
+<div class="col-md-5">
+<input id="scan_label" class="form-control" placeholder="Placez le curseur dans la zone et scannez l'étiquette">
+</div>
+<div class="col-md-3">
+<button class="btn btn-info" type="button" id="scan_label_action">Mettre à jour les champs</button>
+</div>
+</div>
+
 
 {include file="gestion/uidChange.tpl"}
 

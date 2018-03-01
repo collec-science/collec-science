@@ -27,6 +27,29 @@ $(document).ready(function() {
 		 if (error == true)
 			event.preventDefault();
 	});
+	$("#password_copy").click(function() { 
+		 var temp = $("<input>");
+		  $("body").append(temp);
+		temp.val($("#motdepasse").val()).select();
+		document.execCommand("copy");
+		 temp.remove();
+	});
+	/*
+	 * Ajouts pour gestion des services web
+	 */
+	$("#tokenws_reset").click(function() { 
+		$("#tokenws").val("");
+	});
+	$("#tokenws_copy").click(function() { 
+		 var temp = $("<input>");
+		  $("body").append(temp);
+		temp.val($("#tokenws").val()).select();
+		document.execCommand("copy");
+		 temp.remove();
+	});
+	$("#is_clientws2").click(function () {
+		$("#tokenws").val("");
+	});
 
 });
 
@@ -74,6 +97,31 @@ $(document).ready(function() {
 </div>
 </div>
 <div class="form-group">
+<label for="is_clientws_group" class="col-md-4 control-label">{$LANG.login.60} : </label>
+<div class="col-md-8 input-group">
+<div id="is_clientws_group" class="form-check form-check-inline">
+<input type="radio" class="form-check-input" id="is_clientws1" name="is_clientws" value="1" {if $data.is_clientws == 1}checked{/if} >
+<label class="form-check-label" for="inlineRadio1">{$LANG.message.yes}</label>
+</div>
+<div id="is_clientws_group2" class="form-check form-check-inline">
+<input type="radio" class="form-check-input" id="is_clientws2" name="is_clientws" value="0" {if $data.is_clientws == 0}checked{/if}>
+<label class="form-check-label" for="inlineRadio1">{$LANG.message.no}</label>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label for="tokenws" class="col-md-4 control-label">{$LANG.login.61} : </label>
+<div class="col-md-8">
+
+<input class="form-control" id="tokenws" name="tokenws" value="{$data.tokenws}" readonly>
+<div class="input-group-append">
+	<button class="btn btn-info" id="tokenws_copy" type="button">{$LANG.login.63}</button>
+    <button class="btn btn-info" id="tokenws_reset" type="button">{$LANG.login.62}</button>
+  </div>
+
+</div>
+</div>
+<div class="form-group">
 <label for="pass1" class="col-md-4 control-label">{$LANG.login.1}<span class="red">*</span> : </label>
 <div class="col-md-8">
 <input class="form-control" type="password" autocomplete="off" id="pass1" name="pass1" >
@@ -92,7 +140,8 @@ $(document).ready(function() {
 </div>
 <div class="col-md-6">
 <label for="motdepasse" class="sr-only">Mot de passe généré</label>
-<input name="motdepasse" id="motdepasse" size="20">
+<input name="motdepasse" id="motdepasse" class="form-control">
+<button class="btn btn-info" id="password_copy" type="button">{$LANG.login.63}</button>
 </div>
 </div>
 <div class="col-md-12">

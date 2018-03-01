@@ -1,7 +1,7 @@
 <navigation>
 	<model action="index.php" droits="gestion" retourko="model" retourlogin="1"
 		retourok="model" loginrequis="1" 
-		 param="param1" type="html|ajax|pdf|csv" droitko="droitko" modulebefore="module1,module2">
+		 param="param1" type="html|ajax|pdf|csv|ws" droitko="droitko" modulebefore="module1,module2">
 	</model>
 	<default action="framework/default.php" type="smarty" ></default>
 	<droitko action="framework/droitko.php" type="smarty" ></droitko>

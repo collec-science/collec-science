@@ -423,6 +423,13 @@ class LoginGestion extends ObjetBDD
             "password" => array(
                 'type' => 0,
                 'longueur' => 256
+            ),
+            "is_clientws" => array(
+                "type" => 1,
+                "defaultValue" => '0'
+            ),
+            "tokenws" => array(
+                'type' => 0
             )
         );
         parent::__construct($link, $param);
@@ -453,7 +460,26 @@ class LoginGestion extends ObjetBDD
         }
         return $retour;
     }
-
+    
+    /**
+     * Recupere le login a partir d'un jeton pour les services web
+     *
+     * @param String $token
+     * @return array
+     */
+    function getLoginFromTokenWS($login, $token)
+    {
+        if (strlen($token) > 0 && strlen($login) > 0) {
+            $sql = "select login from logingestion where is_clientws = '1' and actif = '1'
+            and login = :login
+            and tokenws = :tokenws";
+            return $this->lireParamAsPrepared($sql, array(
+                "login" => $login,
+                "tokenws" => $token
+            ));
+        }
+    }
+    
     /**
      * Retourne la liste des logins existants, triee par nom-prenom
      *
@@ -481,6 +507,12 @@ class LoginGestion extends ObjetBDD
             }
         }
         $data["datemodif"] = date('d-m-y');
+        /*
+         * Traitement de la generation du token d'identification ws
+         */
+        if ($data["is_clientws"] == 1 && strlen($data["tokenws"]) == 0) {
+            $data["tokenws"] = bin2hex(openssl_random_pseudo_bytes(32));
+        }
         $id  = parent::ecrire($data);
         if ($id > 0 && strlen($data["password"]) > 0) {
             $lgo = new LoginOldPassword($this->connection, $this->paramori);
@@ -742,7 +774,7 @@ class LoginGestion extends ObjetBDD
         if (strlen($mail) > 0) {
             $sql = "select id, nom, prenom, login, mail, actif ";
             $sql .= " from " . $this->table;
-            $sql .= " where mail = :mail";
+            $sql .= " where lower(mail) = lower(:mail)";
             $sql .= " order by id desc limit 1";
             return $this->lireParamAsPrepared($sql, array(
                 "mail" => $mail

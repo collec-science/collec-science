@@ -231,7 +231,10 @@ $LANG["login"][56] = "Impossible d'envoyer le mail";
 $LANG["login"][57] = "Entrez votre mail";
 $LANG["login"][58] = "Mot de passe perdu - lancement de la procédure de récupération";
 $LANG["login"][59] = "Perdu votre mot de passe ?";
-$LANG["login"][60] = "";
+$LANG["login"][60] = "Compte utilisé pour service web";
+$LANG["login"][61] = "Jeton d'identification du service web";
+$LANG["login"][62] = "Réinitialiser...";
+$LANG["login"][63] = "Copier dans le presse-papier";
 
 $LANG["ObjetBDDError"][0] = "Le champ ";
 $LANG["ObjetBDDError"][1] = " n'est pas numerique.";

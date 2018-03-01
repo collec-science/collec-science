@@ -1,6 +1,5 @@
 <!-- Jquery -->
-<script src="{$display}/javascript/jquery-1.12.4.min.js"></script>
-<!-- script src="{$display}/javascript/jquery-ui.min.js"></script-->
+<script src="{$display}/javascript/jquery-3.3.1.min.js"></script>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"	href="{$display}/javascript/bootstrap/css/bootstrap.min.css">
@@ -44,13 +43,13 @@
  -->
  
 <!-- composant date/heure -->
-<script type="text/javascript" charset="utf-8" src="{$display}/javascript/jquery-ui-1.12.0.custom/jquery-ui.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="{$display}/javascript/jquery-ui-1.12.0.custom/i18n/datepicker-en.js"></script>
-<script type="text/javascript" charset="utf-8" src="{$display}/javascript/jquery-ui-1.12.0.custom/i18n/datepicker-fr.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$display}/javascript/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$display}/javascript/jquery-ui-1.12.1.custom/i18n/datepicker-en.js"></script>
+<script type="text/javascript" charset="utf-8" src="{$display}/javascript/jquery-ui-1.12.1.custom/i18n/datepicker-fr.js"></script>
 <script type="text/javascript" charset="utf-8" src="{$display}/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="{$display}/javascript/jquery-timepicker-addon/i18n/jquery-ui-timepicker-fr.js"></script>
-<link rel="stylesheet" type="text/css" href="{$display}/javascript/jquery-ui-1.12.0.custom/jquery-ui.min.css"/>
-<link rel="stylesheet" type="text/css" href="{$display}/javascript/jquery-ui-1.12.0.custom/jquery-ui.theme.min.css"/>
+<link rel="stylesheet" type="text/css" href="{$display}/javascript/jquery-ui-1.12.1.custom/jquery-ui.min.css"/>
+<link rel="stylesheet" type="text/css" href="{$display}/javascript/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css"/>
 <link rel="stylesheet" type="text/css" href="{$display}/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.css"/>
 
 <!-- Affichage des photos -->

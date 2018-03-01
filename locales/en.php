@@ -151,6 +151,10 @@ $LANG["login"][43] ="Back to";
 $LANG["login"][44] ="Application right name";
 $LANG["login"][45] ="Groups with the right";
 $LANG["login"][46] ="";
+$LANG["login"][60] = "Account used for web service";
+$LANG["login"][61] = "web service token";
+$LANG["login"][62] = "Reinit ...";
+$LANG["login"][63] = "Copy into the clipboard";
 
 $LANG["ObjetBDDError"][0] = "The field ";
 $LANG["ObjetBDDError"][1] = " is not numeric.";

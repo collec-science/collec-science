@@ -65,7 +65,7 @@ $_REQUEST = htmlDecode($_REQUEST);
  */
 if (! isset($_REQUEST["module"])) {
     $uri = explode("/", $_SERVER["REQUEST_URI"]);
-    if (count($uri) > 2 && $APPLI_isFullDns) {
+    if (count($uri) > 2 && $uri[1] != $display) {
         /*
          * Extraction le cas echeant des variables GET
          */
@@ -77,10 +77,11 @@ if (! isset($_REQUEST["module"])) {
         /*
          * On recherche si le quatrieme element existe
          */
-        if (strlen($uri[4]) == 0 /*&& count($uri3) == 1*/) {
+        if (strlen($uri[4]) == 0 ) {
             $_REQUEST["module"] .= "List";
         } else {
-            $requestId = $uri[4];
+            $uri4 = explode("?", $uri[4]);
+            $requestId = $uri4[0];
             /*
              * Prepositionnement par defaut de la valeur uid (la plus frequente)
              */
@@ -164,6 +165,8 @@ while (isset($module)) {
     if (! isset($vue) && isset($t_module["type"])) {
         switch ($t_module["type"]) {
             case "ajax":
+            case "json":
+            case "ws":
                 $vue = new VueAjaxJson();
                 $isAjax = true;
                 break;
@@ -192,6 +195,26 @@ while (isset($module)) {
      */
     if (strlen($t_module["droits"]) > 1 || $t_module["loginrequis"] == 1 || isset($_REQUEST["login"])) {
         $loginForm = false;
+        /*
+         * Cas du service web
+         */
+        if ($t_module["type"] == "ws") {
+            require_once "framework/identification/identification.class.php";
+            $lg = new LoginGestion($bdd_gacl, $ObjetBDDParam);
+            $dataId = $lg->getLoginFromTokenWS($_REQUEST["login"], $_REQUEST["token"]);
+            if (strlen($dataId["login"]) > 0) {
+                $_SESSION["login"] = $dataId["login"];
+                $log->setLog($_SESSION["login"], "connexion", "swtoken-ok");
+                /*
+                 * Traitement post identification, si necessaire
+                 */
+                if (file_exists("modules/postLoginWS.php")) {
+                    include 'modules/postLoginWS.php';
+                }
+            } else {
+                $log->setLog($_REQUEST["login"], "connexion", "swtoken-ko");
+            }
+        } else {
         /*
          * Affichage de l'ecran de saisie du login si necessaire
          */
@@ -325,6 +348,7 @@ while (isset($module)) {
             }
         }
     }
+    }
     
     /*
      * Controles complementaires
@@ -444,7 +468,7 @@ while (isset($module)) {
         /*
          * Mise a niveau de la variable stockant le module precedemment appele
          */
-        if (! $isAjax) {
+        if (! $isAjax && $module != "default") {
             $_SESSION["moduleBefore"] = $module;
         }
         include $t_module["action"];
@@ -463,7 +487,9 @@ while (isset($module)) {
                 case 2:
                 case 3:
                 default:
+                    if (isset($t_module["retourok"])) {
                     $module = $t_module["retourok"];
+                    }
                     break;
             }
         }

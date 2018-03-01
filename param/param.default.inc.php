@@ -6,9 +6,9 @@
 * Parametres par defaut de l'application
 * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
 */
-$APPLI_version = "1.2.3";
+$APPLI_version = "1.2.4";
 $APPLI_dbversion = "1.2";
-$APPLI_versiondate = "22/11/2017";
+$APPLI_versiondate = "5/12/2017";
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -77,10 +77,11 @@ $BDD_schema = "public";
 /*
  * Parametres concernant SMARTY
  */
-$SMARTY_param = array("templates"=> 'display/templates',
-		"templates_c"=>'display/templates_c',
+$display = "display"; // Dossier de base contenant tout l'affichage
+$SMARTY_param = array("templates"=> "$display/templates",
+		"templates_c"=>"$display/templates_c",
 		"cache"=>false,
-		"cache_dir"=>'display/smarty_cache',
+		"cache_dir"=>"$display/smarty_cache",
 		"template_main"=>"main.htm"
 );
 
@@ -90,7 +91,7 @@ $SMARTY_param = array("templates"=> 'display/templates',
 $APPLI_mail = "proto@proto.com";
 $APPLI_nom = "Prototype d'application";
 $APPLI_code = 'proto';
-$APPLI_fds = "display/CSS/blue.css";
+$APPLI_fds = "$display/CSS/blue.css";
 $APPLI_address = "http://localhost/proto";
 $APPLI_modeDeveloppement = false;
 $APPLI_modeDeveloppementDroit = false;
@@ -121,7 +122,7 @@ $SMARTY_variables = array(
 		"melappli"=>$APPLI_mail,
 		"ident_type"=>$ident_type,
         "appliAssist"=>$APPLI_assist_address,
-        "display"=>"/display",
+        "display"=>"/$display",
         "favicon"=>"/favicon.png"
 );
 /*

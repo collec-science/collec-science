@@ -9,6 +9,7 @@
 		<th>{$LANG.login.7}</th>
 		<th>{$LANG.login.8}</th>
 		<th>{$LANG.login.13}</th>
+		<th>{$LANG.login.60}</th>
 	</tr>
 </thead>
 <tbody>
@@ -17,7 +18,8 @@
 		<td><a href="index.php?module=loginChange&id={$liste[lst].id}">{$liste[lst].login}</a></td>
 		<td>{$liste[lst].nom}&nbsp;{$liste[lst].prenom}</td>
 		<td>{$liste[lst].mail}&nbsp;</td>
-		<td>{if $liste[lst].actif == 1}{$LANG.message.yes}{else}{$LANG.message.no}{/if}</td>
+		<td class="center">{if $liste[lst].actif == 1}{$LANG.message.yes}{/if}</td>
+		<td class="center">{if $liste[lst].is_clientws == 1}{$LANG.message.yes}{/if}</td>
 	</tr>
 	{/section}
 </tbody>	

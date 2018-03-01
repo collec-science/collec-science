@@ -131,6 +131,7 @@ if ( mapIsChange == 1) {
 	        	$("#wgs84_y").val(lat);
 	        	var lonlat3857 = ol.proj.transform([parseFloat(lon),parseFloat(lat)], 'EPSG:4326', 'EPSG:3857');
 	        	point.setCoordinates (lonlat3857);
+	        	map.getView().animate({ center : lonlat3857, duration : 2000 });
 	        });   
 	 }
 	 

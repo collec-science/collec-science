@@ -35,6 +35,10 @@ $(document).ready(function() {
 	 */
 	$("#object_search").on ('keyup change', function () { 
 		var val = getVal($("#object_search").val());
+		/*
+		 * Traitement des caracteres parasites de ean128
+		 */
+		 val = val.replace ( /]C1/g, "");
 		if (val.toString().length > 0) {
 			search("objectGetDetail", "object_uid", val , false );
 		}
@@ -104,6 +108,12 @@ $(document).ready(function() {
 		/*
 		 * Declenchement de la recherche Ajax
 		 */
+		/*
+		 * Traitement des caracteres parasites de ean128
+		 */
+		 if ( value ) {
+		value = value.replace ( /]C1/g, "");
+		 }
 		var url = "index.php";
 		var chaine ;
 		var options = "";

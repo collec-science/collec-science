@@ -103,6 +103,9 @@ $(document).ready(function() {
 		//console.log("valeur : "+ $("#valeur-scan").val());
 		snd.play();
 		var valeur = $("#valeur-scan").val().trim();
+		if (valeur.substring(0,3) == "]C1") {
+			valeur = valeur.substring(3);
+		}
 		var firstChar = valeur.substring(0,1);
 		var value;
 		if (firstChar == "[" || firstChar == String.fromCharCode(123)) {

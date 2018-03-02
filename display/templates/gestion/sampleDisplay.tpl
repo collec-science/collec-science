@@ -1,3 +1,33 @@
+<script>
+	/*
+	 * Impression de l'etiquette correspondant a l'echantillon courant
+	 */
+	$(document).ready(function() {
+		$("#sampleSpinner2").hide();
+
+		$("#samplelabels2").keypress(function() {
+			$(this.form).find("input[name='module']").val("samplePrintLabel");
+			$("#sampleSpinner2").show();
+			$(this.form).submit();
+		});
+		$("#samplelabels2").click(function() {
+			$(this.form).find("input[name='module']").val("samplePrintLabel");
+			$("#sampleSpinner2").show();
+			$(this.form).submit();
+		});
+		$("#sampledirect2").keypress(function() {
+			$(this.form).find("input[name='module']").val("samplePrintDirect");
+			$("#sampleSpinner2").show();
+			$(this.form).submit();
+		});
+		$("#sampledirect2").click(function() {
+			$(this.form).find("input[name='module']").val("samplePrintDirect");
+			$("#sampleSpinner2").show();
+			$(this.form).submit();
+		});
+	});
+</script>
+
 <h2>Détail d'un échantillon</h2>
 <div class="row">
 <div class="col-md-12">
@@ -50,6 +80,38 @@ Nouvel échantillon
 <div class="row">
 <fieldset class="col-md-4">
 <legend>Informations générales</legend>
+{if $droits.gestion == 1}
+<form method="GET" id="formListPrint" action="index.php">
+	<input type="hidden" id="modulePrint" name="module" value="samplePrintLabel">
+	<input type="hidden" id="uid2" name="uid[]" value="{$data.uid}">
+	<div class="row">
+		<div class="center">
+			<select id="labels2" name="label_id">
+			<option value="" {if $label_id == ""}selected{/if}>Étiquette par défaut</option>
+			{section name=lst loop=$labels}
+			<option value="{$labels[lst].label_id}" {if $labels[lst].label_id == $label_id}selected{/if}>
+			{$labels[lst].label_name}
+			</option>
+			{/section}
+			</select>
+			<button id="samplelabels2" class="btn btn-primary">Étiquettes</button>
+			<img id="sampleSpinner2" src="{$display}/images/spinner.gif" height="25">
+
+			{if count($printers) > 0}
+			<select id="printers2" name="printer_id">
+			{section name=lst loop=$printers}
+			<option value="{$printers[lst].printer_id}">
+			{$printers[lst].printer_name}
+			</option>
+			{/section}
+			</select>
+			<button id="sampledirect2" class="btn btn-primary">Impression directe</button>
+			{/if}
+		</div>
+	</div>
+	</form>
+	{/if}
+
 <div class="form-display">
 <dl class="dl-horizontal">
 <dt>UID et référence :</dt>

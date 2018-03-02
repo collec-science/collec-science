@@ -110,12 +110,13 @@ class Object extends ObjetBDD
             }
             
             $sql = "select uid, identifier, wgs84_x, wgs84_y,
-					container_type_name as type_name
+					container_type_name as type_name, movement_type_id as last_movement_type
 					from object 
 					join container using (uid)
 					join container_type using (container_type_id)
                     left outer join object_identifier oi using (uid)
                     left outer join identifier_type it using (identifier_type_id) 
+                    left outer join last_movement using (uid)
                     " . $where;
             if ($is_container != 1) {
                 if (! is_numeric($uid)) {
@@ -123,12 +124,13 @@ class Object extends ObjetBDD
                 }
                 $sql .= " UNION
 					select uid, identifier, wgs84_x, wgs84_y,
-					sample_type_name as type_name
+					sample_type_name as type_name, movement_type_id as last_movement_type
 					from object 
 					join sample using (uid)
 					join sample_type using (sample_type_id)
                     left outer join object_identifier oi using (uid)
                     left outer join identifier_type it using (identifier_type_id) 
+                    left outer join last_movement using (uid) 
                     " . $where;
             }
             return $this->getListeParamAsPrepared($sql, $data);

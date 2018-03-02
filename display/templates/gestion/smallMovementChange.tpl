@@ -1,5 +1,17 @@
 <script src="{$display}/bower_components/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
+var is_scan = false;
+function testScan() {
+	if (is_scan) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+
+		
+
 $(document).ready(function() { 
 	'use strict';
 	var destination = "object";
@@ -29,6 +41,8 @@ $(document).ready(function() {
 		 qr.decodeFromCamera(video, resultHandler);
 	}
 	var mouvements = {};
+	var objets = {};
+	
 	var db = "{$db}";
 	/*
 	 * Traitement des recherches
@@ -50,8 +64,27 @@ $(document).ready(function() {
 			search("objectGetDetail","container_uid", val, true );
 		}
 	});
+    $("#object_search,#container_search").focus(function () {
+    	is_scan = true;
+    });
+	$("#object_search,#container_search").blur(function () {
+    	is_scan = false;
+    });
 	
 	$("#object_uid").on ("change", function () {
+		var uid = $("#object_uid").val();
+		var position = "";
+		if (objets[uid]) {
+		if (objets[uid]["position"]) {
+			if (objets[uid]["position"] == 1) {
+				position = "Dans le stock";
+			} else {
+				position = "Hors du stock";
+			}
+		} 
+		$("#position_stock").val(position);
+		}
+		
 		search ("objectGetLastEntry", "container_uid", $("#object_uid").val(), false);
 	});
 	$('#start').click(function() {
@@ -119,6 +152,8 @@ $(document).ready(function() {
 		var options = "";
 		if (is_container == true) {
 			mouvements = {};
+		} else {
+			objets = {};
 		}
 		$.ajax ( { url:url, method:"GET", data : { module:module, uid:value, is_container:is_container, is_partial:true }, success : function ( djs ) {
 			var data = JSON.parse(djs);
@@ -126,6 +161,10 @@ $(document).ready(function() {
 				var uid = data[i].uid;
 				if (module == "objectGetLastEntry") {
 					uid = data[i].parent_uid;
+				}
+				if (module == "objectGetDetail") {
+					objets[uid] = {};
+					objets[uid]["position"] = data[i].last_movement_type;
 				}
 				options += '<option value="' + uid +'">' + uid + "-" + data[i].identifier; 
 				if (module == "objectGetLastEntry") {
@@ -215,7 +254,7 @@ $(document).ready(function() {
 
 <div class="row">
 	<div class="col-xs-12 col-md-6">
-		<form class="form-horizontal protoform" id="smallMovement"	method="post" action="index.php">
+		<form class="form-horizontal protoform" id="smallMovement"	method="post" action="index.php" onsubmit="return(testScan());">
 			<input type="hidden" name="moduleBase" value="smallMovement"> 
 			<input type="hidden" name="action" value="Write"> 
 			<input type="hidden" name="storage_id" value="0"> 
@@ -261,8 +300,13 @@ $(document).ready(function() {
 					</select>
 			</div>
 			<div class="row">	
-			<div class="col-xs-12 center">
+			<div class="col-xs-2">
 			 <button id="entry" class="btn btn-info input-lg">Entrée</button>
+			 </div>
+			 <div class="col-xs-8">
+			<input id="position_stock" class="form-control input-lg" disabled value="position dans le stock">
+			</div>
+			<div class="col-xs-2">	 
 			 <button id="exit" class="btn btn-danger input-lg">Sortie</button>
 			</div>
 			</div>

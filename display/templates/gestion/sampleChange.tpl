@@ -1,7 +1,23 @@
 <script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
 
 <script type="text/javascript">
+var is_scan = false;
+function testScan() {
+	if (is_scan) {
+		return false;
+	} else {
+		return true;
+	}
+}
     $(document).ready(function() {
+        $("#scan_label").focus(function () {
+        	is_scan = true;
+        });
+		$("#scan_label").blur(function () {
+        	is_scan = false;
+        });
+		
+
     	
     	function getMetadata() {
        		var dataParse = $("#metadataField").val();
@@ -57,9 +73,11 @@
         	point.setCoordinates ([]);
         	
         });
+
         
         $("#scan_label_action").click(function() {
         	var contenu = $("#scan_label").val();
+        	if (contenu.length > 0) {
         	try {
         		var data = JSON.parse(contenu);
         		/*
@@ -98,6 +116,7 @@
         		 }
         	} catch (e) {
         		console.error ("Parsing Json error:", e);
+        	}
         	}
         	
         });
@@ -151,7 +170,7 @@ Retour à la liste des échantillons
 <div class="row">
 <fieldset class="col-md-6">
 <legend>Échantillon</legend>
-<form class="form-horizontal protoform" id="sampleForm" method="post" action="index.php">
+<form class="form-horizontal protoform" id="sampleForm" method="post" action="index.php" onsubmit="return(testScan());">
 <input type="hidden" name="sample_id" value="{$data.sample_id}">
 <input type="hidden" name="moduleBase" value="sample">
 <input type="hidden" id="action" name="action" value="Write">

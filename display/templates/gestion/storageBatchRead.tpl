@@ -3,8 +3,14 @@
 $(document).ready(function() { 
 	$("#storageBatchForm").submit(function(event) { 
 		var valeur = $("#reads").val();
+		/*
+		 * Traitement des caracteres parasites de ean128
+		 */
+		 valeur = valeur.replace ( /]C1/g, "");
+		
 		valeur = valeur.replace ( /\[/g,  String.fromCharCode(123));
 		valeur = valeur.replace ( /\]/g, String.fromCharCode(125));
+		console.log(valeur);
 		$("#reads").val(valeur);
 		//event.preventDefault();
 	});

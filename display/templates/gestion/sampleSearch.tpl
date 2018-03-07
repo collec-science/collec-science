@@ -22,6 +22,8 @@ $(document).ready(function () {
 		 }
 		 if (ok == false) event.preventDefault();
 	 });
+	$("#sampling_place_id").combobox();
+	$("#sample_type_id").combobox();
 	
 	 function getMetadata() {
 		 var sampleTypeId = $("#sample_type_id").val();

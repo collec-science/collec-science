@@ -1,3 +1,10 @@
+<script>
+$(document).ready(function () {
+	$("#container_type_id").combobox();
+	$("#metadata_id").combobox();
+});
+</script>
+
 <h2>Modification d'un type d'échantillon</h2>
 <div class="row">
 <div class="col-md-6">

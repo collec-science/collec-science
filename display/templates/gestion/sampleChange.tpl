@@ -9,6 +9,7 @@ function testScan() {
 		return true;
 	}
 }
+
     $(document).ready(function() {
         $("#scan_label").focus(function () {
         	is_scan = true;
@@ -16,7 +17,8 @@ function testScan() {
 		$("#scan_label").blur(function () {
         	is_scan = false;
         });
-		
+		$("#sampling_place_id").combobox();
+
 
     	
     	function getMetadata() {

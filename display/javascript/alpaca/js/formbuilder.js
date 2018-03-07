@@ -111,18 +111,7 @@ function showForm(value, data=""){
     var config = {
         "data" : data,
         "schema" : schema,
-        "options" : options,
-        "postRender": function(control) {
-        	var value = control.getValue();
-            var metadataField = $("#metadata_schema");
-                control.on("change",function(){
-                metadataField.val(JSON.stringify(value, null,null));
-                });
-                 control.on("mouseout",function(){
-                	 metadataField.val(JSON.stringify(value, null,null));
-                });
-                 metadataField.val(JSON.stringify(value, null,null));
-            }
+        "options" : options
     }
     var exists = $("#metadata").alpaca("exists");
     if (exists){

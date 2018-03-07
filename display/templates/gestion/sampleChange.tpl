@@ -56,7 +56,12 @@ function testScan() {
         $('#sampleForm').submit(function(event) {
             if($("#action").val()=="Write"){
                 $('#metadata').alpaca().refreshValidationState(true);
-                if(!$('#metadata').alpaca().isValid(true)){
+                if($('#metadata').alpaca().isValid(true)){
+                	if($('#metadata').alpaca().isValid(true)){
+                		 var value = $('#metadata').alpaca().getValue();
+                		 // met les metadata en JSON dans le champ (name="metadata") qui sera sauvegardé en base
+                		 $("#metadataField").val(JSON.stringify(value));
+                } else {
                     alert("La définition des métadonnées n'est pas valide.");
                     event.preventDefault();
                 }

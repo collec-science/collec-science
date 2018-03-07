@@ -141,6 +141,7 @@ class Sample extends ObjetBDD
     function ecrire($data)
     {
         $ok = $this->verifyProject($data);
+        $error = false;
         /*
          * Verification complementaire par rapport aux donnees deja stockees
          */
@@ -151,7 +152,7 @@ class Sample extends ObjetBDD
             /*
              * Mise en forme des metadonnees
              */
-            if ($data["sample_type_id"] > 0) {
+/*            if ($data["sample_type_id"] > 0) {
                 require_once 'modules/classes/sampleType.class.php';
                 $st = new SampleType($this->connection, $this->paramori);
                 $dst = $st->getMetadataForm($data["sample_type_id"]);
@@ -165,15 +166,23 @@ class Sample extends ObjetBDD
                     }
                     $data["metadata"] = json_encode($metadata);
                 }
-            }
+         }*/
             $object = new Object($this->connection, $this->param);
             $uid = $object->ecrire($data);
             if ($uid > 0) {
                 $data["uid"] = $uid;
-                parent::ecrire($data);
+                if (parent::ecrire($data) > 0) {
                 return $uid;
+                } else {
+                    $error = true;
+                }
+            } else {
+                $error = true;
             }
         } else {
+            $error = true;
+        }
+        if ($error) {
             throw new SampleException($LANG["appli"][4]);
         }
         return - 1;

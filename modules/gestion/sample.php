@@ -130,22 +130,30 @@ switch ($t_module["param"]) {
             /*
              * Recuperation des informations concernant l'echantillon parent
              */
+            $parent_uid = $data["parent_sample_id"];
+            
             if ($_REQUEST["parent_uid"] > 0) {
-                $dataParent = $dataClass->lire($_REQUEST["parent_uid"]);
+                $parent_uid = $_REQUEST["parent_uid"];
+            }
+            if ($parent_uid > 0) {
+                $dataParent = $dataClass->lire($parent_uid);
+                $vue->set($dataParent, "parent_sample");
                 if ($dataParent["sample_id"] > 0) {
-                    $data["parent_sample_id"] = $dataParent["sample_id"];
-                    /*
-                     * Pre-positionnement des informations de base
-                     */
-                    $data["project_id"] = $dataParent["project_id"];
-                    $data["wgs84_x"] = $dataParent["wgs84_x"];
-                    $data["wgs84_y"] = $dataParent["wgs84_y"];
-                    $data["metadata"] = $dataParent["metadata"];
-                    $data["sampling_place_id"] = $dataParent["sampling_place_id"];
-                    $vue->set($dataParent, "parent_sample");
+                    if ($data["sample_id"] == 0) {
+                        $data["parent_sample_id"] = $dataParent["sample_id"];
+                        /*
+                         * Pre-positionnement des informations de base
+                         */
+                        $data["project_id"] = $dataParent["project_id"];
+                        $data["wgs84_x"] = $dataParent["wgs84_x"];
+                        $data["wgs84_y"] = $dataParent["wgs84_y"];
+                        $data["metadata"] = $dataParent["metadata"];
+                        $data["sampling_place_id"] = $dataParent["sampling_place_id"];
+                    }
                     $vue->set($data, "data");
                 }
             } else {
+                
                 if ($data["sample_id"] == 0 && $_SESSION["last_sample_id"] > 0) {
                     /*
                      * Recuperation des dernieres donnees saisies
@@ -162,10 +170,12 @@ switch ($t_module["param"]) {
                     $vue->set($data, "data");
                 }
             }
+            
             sampleInitDatEntry();
+            
+            include 'modules/gestion/mapInit.php';
+            $vue->set(1, "mapIsChange");
         }
-        include 'modules/gestion/mapInit.php';
-        $vue->set(1, "mapIsChange");
         break;
     case "write":
 		/*
@@ -367,7 +377,7 @@ switch ($t_module["param"]) {
             $message->set("UID maximum généré : " . $uidmax);
         } else {
             $message->set("L'import n'a pas abouti, aucun échantillon n'a pu être intégré");
-            $module_coderetour = -1;
+            $module_coderetour = - 1;
         }
         break;
 }

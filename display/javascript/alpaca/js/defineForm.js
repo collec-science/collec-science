@@ -45,7 +45,7 @@ function renderForm(data){
                             "title": "Type du champ",
                             "type": "string",
                             "required": true,
-                            "enum": ["number","string","textarea","date","checkbox","select"],
+                            "enum": ["number","string","textarea","date","checkbox","select", "radio"],
                             "default": "string"
                         },
                          "importFile":{
@@ -59,6 +59,19 @@ function renderForm(data){
                                 "type": "string"
                             }
                         },
+                        "isSearchable": {
+                        	"type":"radio",
+                        	"default":"no",
+                        	"enum":["yes","no"],
+                        	"optionsLabels":["oui","non"],
+                         	"title":"champ utilisé pour rechercher un échantillon ?",
+                         	"emptySelectFirst":true,
+                         	"required":true
+                       },
+                       /* "enum": {
+                        	"title":"Liste de valeurs possibles (radio-boutons ou cases à cocher)",
+                        	"type": "array"
+                        },*/
                         "required": {
                         },
                         "helperChoice": {
@@ -89,7 +102,7 @@ function renderForm(data){
                 "items": {
                     "fields": {
                         "type": {
-                            "optionLabels": ["Nombre","Texte (une ligne)","Texte (multi-ligne)","Date","Checkbox","Liste à choix multiple"],
+                            "optionLabels": ["Nombre","Texte (une ligne)","Texte (multi-ligne)","Date","Checkbox","Liste à choix multiple","Radio-boutons"],
                             "type": "select",
                             "hideNone": true,
                             "sort": function(a, b) { 
@@ -105,7 +118,7 @@ function renderForm(data){
                             "type": "file",
                             "label" : "Importer un fichier CSV",
                             "dependencies": {
-                                "type":"select"
+                                "type":["select","checkbox","radio"]
                             },
                             "selectionHandler": function(files,data){
                                 $.get(data[0],function(responseText){
@@ -117,7 +130,7 @@ function renderForm(data){
                         },
                         "choiceList":{
                             "dependencies": {
-                                "type":"select"
+                                "type":["select","checkbox","radio"]
                             }
                         },
                         "required": {

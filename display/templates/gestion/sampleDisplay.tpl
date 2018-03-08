@@ -212,11 +212,17 @@ clp : {$data.clp_classification}
 <legend>Métadonnées associées</legend>
 
 {foreach $metadata as $key=>$value}
-{if strlen($value) > 0}
+{if strlen($value) > 0 || count($value) > 0}
 <dl class="dl-horizontal">
 <dt>{$key} :</dt>
 <dd>
+{if is_array($value) }
+{foreach $value as $val}
+{$val}<br>
+{/foreach}
+{else}
 {$value}
+{/if}
 </dd>
 </dl>
 {/if}

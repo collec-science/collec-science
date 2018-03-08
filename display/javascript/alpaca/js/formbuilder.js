@@ -22,11 +22,17 @@
             "type": value.type
         };
 
-        if (value.type=="select"){
+        if (value.type=="select" || value.type=="radio"){
             prop.enum=value.choiceList;
             if (value.required && prop.enum && prop.enum.length > 0){
                 prop.default = prop.enum[0];
+                prop.emptySelectFirst = true;
             }
+        }
+        if (value.type=="checkbox") {
+        	prop.type="array";
+        	prop.items = {};
+        	prop.items.enum = value.choiceList;
         }
 
         if (value.required){
@@ -51,9 +57,10 @@
         "type": value.type
     };
 
-    if(value.type != "checkbox"){
+    /*if(value.type != "checkbox" && value.type != "radio"){
         field.label = value.name;
-    }
+    }*/
+     field.label = value.name;
 
     if(value.type=="string"){
         field.type="text";
@@ -62,9 +69,9 @@
     if(value.type=="string" || value.type=="number" || value.type=="textarea"){
         field.placeholder = value.measureUnit;
     }
+
     
     if (value.choiceList){
-        
         field.optionLabels = $.map( value.choiceList, function( v, i){
             return v.text;
         });
@@ -72,9 +79,17 @@
                                 return 0; 
                         }
         field.removeDefaultNone = false;
+        
     }
-    if (value.type == "checkbox"){
+    if (value.type == "radio") {
+    	field.removeDefaultNone = true;
+    }
+    
+    /*if (value.type == "checkbox"||value.type == "radio"){
         field.rightLabel = value.name;
+    }*/
+    if (value.type == "checkbox") {
+    	field.type="checkbox";
     }
 
     if(value.type == "time"){
@@ -108,6 +123,8 @@ function showForm(value, data=""){
 
     var schema = getSchema(value);
     var options = getOptions(value);
+    console.log(schema);
+    console.log(options);
     var config = {
         "data" : data,
         "schema" : schema,

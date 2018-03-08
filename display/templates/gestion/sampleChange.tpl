@@ -18,8 +18,7 @@ function testScan() {
         	is_scan = false;
         });
 		$("#sampling_place_id").combobox();
-
-
+		
     	
     	function getMetadata() {
        		var dataParse = $("#metadataField").val();
@@ -40,6 +39,7 @@ function testScan() {
        	    		//console.log(value);
        	    		var schema = value.replace(/&quot;/g,'"');
        	    		showForm(JSON.parse(schema),dataParse);
+       	    		$(".alpaca-field-select").combobox();
        	    	})
        	    	;
        	    }
@@ -61,11 +61,13 @@ function testScan() {
                 		 var value = $('#metadata').alpaca().getValue();
                 		 // met les metadata en JSON dans le champ (name="metadata") qui sera sauvegardé en base
                 		 $("#metadataField").val(JSON.stringify(value));
-                } else {
-                    alert("La définition des métadonnées n'est pas valide.");
-                    event.preventDefault();
-                }
-            }    
+                		 console.log($("#metadataField").val());
+                	} else {
+                    	alert("La définition des métadonnées n'est pas valide.");
+                    	event.preventDefault();
+                	}
+            	}
+            }
     	});
         $("#reinit").click(function() {
         	$("#wgs84_x").val("");

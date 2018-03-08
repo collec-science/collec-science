@@ -130,13 +130,15 @@ switch ($t_module["param"]) {
             /*
              * Recuperation des informations concernant l'echantillon parent
              */
-            $parent_uid = $data["parent_sample_id"];
-            
-            if ($_REQUEST["parent_uid"] > 0) {
-                $parent_uid = $_REQUEST["parent_uid"];
+            if ($data["parent_sample_id"] > 0) {
+                $dataParent = $dataClass->lireFromId($data["parent_sample_id"]);
+            } else {
+                if ($_REQUEST["parent_uid"] > 0) {
+                    $dataParent = $dataClass->lire($_REQUEST["parent_uid"]);
+                }
             }
-            if ($parent_uid > 0) {
-                $dataParent = $dataClass->lire($parent_uid);
+            
+            if ($dataParent["sample_id"] > 0) {
                 $vue->set($dataParent, "parent_sample");
                 if ($dataParent["sample_id"] > 0) {
                     if ($data["sample_id"] == 0) {

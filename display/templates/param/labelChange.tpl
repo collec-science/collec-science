@@ -11,7 +11,7 @@ $(document).ready( function() {
     	    	})
     	    	.done (function (value) {
     	    		$.each(JSON.parse(value), function(i, obj) {
-    	    			var nom = obj.nom.replace(/ /g,"_");
+    	    			var nom = obj.name.replace(/ /g,"_");
     	    			$("#list_metadata").append($("<li>").text(nom));
     	    		})
     	    	})

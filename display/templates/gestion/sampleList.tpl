@@ -1,7 +1,7 @@
 <h2>Rechercher des échantillons</h2>
 
 	<div class="row">
-	<div class="col-md-6">
+	<div class="col-md-8">
 {include file='gestion/sampleSearch.tpl'}
 </div>
 </div>

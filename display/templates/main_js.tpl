@@ -144,6 +144,10 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+	/*
+	 * Initialisation des combobox
+	 */
+	$(".combobox").combobox();
 
 });
 

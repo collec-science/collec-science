@@ -91,14 +91,6 @@
     if (value.type == "checkbox") {
     	field.type="checkbox";
     }
-
-    if(value.type == "time"){
-        field.dateFormat = "HH:mm:ss";
-    }
-
-    if(value.type == "date"){
-        field.dateFormat = "DD/MM/YYYY";
-    }
     
     if (value.helperChoice){
         field.helper = value.helper;
@@ -128,7 +120,8 @@ function showForm(value, data=""){
     var config = {
         "data" : data,
         "schema" : schema,
-        "options" : options
+        "options" : options,
+        "view": "bootstrap-edit-horizontal"
     }
     var exists = $("#metadata").alpaca("exists");
     if (exists){

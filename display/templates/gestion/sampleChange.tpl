@@ -17,8 +17,7 @@ function testScan() {
 		$("#scan_label").blur(function () {
         	is_scan = false;
         });
-		$("#sampling_place_id").combobox();
-		
+			
     	
     	function getMetadata() {
        		var dataParse = $("#metadataField").val();
@@ -241,7 +240,7 @@ Retour à la liste des échantillons
 <div class="form-group">
 <label for="sampling_place_id" class="control-label col-md-4">Lieu de prélèvement :</label>
 <div class="col-md-8">
-<select id="sampling_place_id" name="sampling_place_id" class="form-control">
+<select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
 <option value="" {if $data.sampling_place_id == ""}selected{/if}>
 Sélectionnez...
 </option>

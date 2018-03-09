@@ -31,6 +31,7 @@ function setChoiceList(file){
 function renderForm(data){
         $("#metadata").alpaca({
             "data": data,
+            "view": "bootstrap-edit-horizontal",
             "schema": {
                 "type": "array",
                 "items": {
@@ -45,7 +46,7 @@ function renderForm(data){
                             "title": "Type du champ",
                             "type": "string",
                             "required": true,
-                            "enum": ["number","string","textarea","date","checkbox","select", "radio"],
+                            "enum": ["number","string","textarea","checkbox","select", "radio"],
                             "default": "string"
                         },
                          "importFile":{
@@ -66,15 +67,17 @@ function renderForm(data){
                         	"optionsLabels":["oui","non"],
                          	"title":"champ utilisé pour rechercher un échantillon ?",
                          	"emptySelectFirst":true,
-                         	"required":true
+                         	/*"required":true*/
                        },
                        /* "enum": {
                         	"title":"Liste de valeurs possibles (radio-boutons ou cases à cocher)",
                         	"type": "array"
                         },*/
                         "required": {
+                        	"title":"Le champ est-il obligatoire ?"
                         },
                         "helperChoice": {
+                        	"title":"Affichage d'un message d'aide ?"
                         },
                         "helper" :{
                             "type": "string",
@@ -102,7 +105,7 @@ function renderForm(data){
                 "items": {
                     "fields": {
                         "type": {
-                            "optionLabels": ["Nombre","Texte (une ligne)","Texte (multi-ligne)","Date","Checkbox","Liste à choix multiple","Radio-boutons"],
+                            "optionLabels": ["Nombre","Texte (une ligne)","Texte (multi-ligne)","Checkbox","Liste à choix multiple","Radio-boutons"],
                             "type": "select",
                             "hideNone": true,
                             "sort": function(a, b) { 
@@ -132,6 +135,9 @@ function renderForm(data){
                             "dependencies": {
                                 "type":["select","checkbox","radio"]
                             }
+                        },
+                        "isSearchable": {
+                        	"removeDefaultNone":true
                         },
                         "required": {
                             "type": "checkbox",

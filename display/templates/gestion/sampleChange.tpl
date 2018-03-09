@@ -50,7 +50,6 @@ function testScan() {
          * Lecture initiale
          */
         getMetadata();
-    	     
 
         $('#sampleForm').submit(function(event) {
             if($("#action").val()=="Write"){

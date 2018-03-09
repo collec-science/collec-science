@@ -35,6 +35,34 @@ class Metadata extends ObjetBDD
         );
         parent::__construct($bdd, $param);
     }
+    /**
+     * Surcharge de la fonction ecrire pour rajouter la creation de l'index
+     * pour les attributs cherchables
+     * {@inheritDoc}
+     * @see ObjetBDD::ecrire()
+     */
+    function ecrire($data) {
+        $metadata_id = parent::ecrire($data);
+        if ($metadata_id > 0) {
+            $data=$this->encodeData($data);
+            /*
+             * Generation des index si un champ est searchable
+             */
+            $mdata = json_decode($data["metadata_schema"], true);
+            foreach ($mdata as $item) {
+                if ($item["isSearchable"] == "yes") {
+                    /*
+                     * Generation de l'index correspondant
+                     */
+                    $sql = "
+                    CREATE INDEX if not exists sample_metadata_lower_".$item["name"]."_idx
+                    ON sample using gin(lower((metadata->>'".$item["name"]."')) gin_trgm_ops)";
+                    $this->executeSQL($sql);
+                }
+            }
+        }
+        return $metadata_id;
+    }
 
     function getListFromIds($ids)
     {

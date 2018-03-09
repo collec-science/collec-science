@@ -22,12 +22,11 @@ $(document).ready(function () {
 		 }
 		 if (ok == false) event.preventDefault();
 	 });
-	$("#sampling_place_id").combobox();
-	$("#sample_type_id").combobox();
 	
 	 function getMetadata() {
 		 var sampleTypeId = $("#sample_type_id").val();
 		 $("#metadata_field").empty();
+		 $("#metadata_value").empty();
 		 if (sampleTypeId.length > 0) {
     	    $.ajax( { 
     	   		url: "index.php",
@@ -39,6 +38,7 @@ $(document).ready(function () {
     	    		var option = '<option value="">{$LANG["appli"].2}</option>';
     	    		$("#metadata_field").append(option);
     	   			$.each(JSON.parse(value), function(i, obj) {
+    	   				if (obj.isSearchable == "yes") {
     	    			var nom = obj.name.replace(/ /g,"_");
     	    			if (nom == metadataFieldInitial) {
     	    				selected = "selected";
@@ -46,6 +46,7 @@ $(document).ready(function () {
     	    			option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
     	    			$("#metadata_field").append(option);
     	    			selected = "";
+    	   				}
     	    		})
     	    	}
     	   	})
@@ -57,6 +58,12 @@ $(document).ready(function () {
     	 getMetadata();
      });
      getMetadata();
+     $("#sample_type_id").combobox({
+    	 select: function (event, ui) {
+    		 $("#metadata_value").val("");
+    		 getMetadata();
+    	 }
+     });
 });
 </script>
 
@@ -96,7 +103,7 @@ $(document).ready(function () {
 
 <label for="sample_type_id" class="col-md-2 control-label">Type :</label>
 <div class="col-md-4">
-<select id="sample_type_id" name="sample_type_id" class="form-control">
+<select id="sample_type_id" name="sample_type_id" class="form-control combobox">
 <option value="" {if $sampleSearch.sample_type_id == ""}selected{/if}>Sélectionnez...</option>
 {section name=lst loop=$sample_type}
 <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $sampleSearch.sample_type_id}selected{/if} title="{$sample_type[lst].sample_type_description}">
@@ -111,7 +118,7 @@ $(document).ready(function () {
 <div class="row">
 <label for="sampling_place_id" class="col-md-2 control-label">Lieu de prélèvement :</label>
 <div class="col-md-4">
-<select id="sampling_place_id" name="sampling_place_id" class="form-control">
+<select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
 <option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>Sélectionnez...</option>
 {section name=lst loop=$samplingPlace}
 <option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $sampleSearch.sampling_place_id}selected{/if}>

@@ -152,27 +152,29 @@ class Sample extends ObjetBDD
             /*
              * Mise en forme des metadonnees
              */
-/*            if ($data["sample_type_id"] > 0) {
-                require_once 'modules/classes/sampleType.class.php';
-                $st = new SampleType($this->connection, $this->paramori);
-                $dst = $st->getMetadataForm($data["sample_type_id"]);
-                if (strlen($dst) > 2) {
-                    $schema = json_decode($dst, true);
-                    $metadata = array();
-                    foreach ($schema as $value) {
-                        if (strlen($data[$value["name"]]) > 0) {
-                            $metadata[$value["name"]] = $data[$value["name"]];
-                        }
-                    }
-                    $data["metadata"] = json_encode($metadata);
-                }
-         }*/
+            /*
+             * if ($data["sample_type_id"] > 0) {
+             * require_once 'modules/classes/sampleType.class.php';
+             * $st = new SampleType($this->connection, $this->paramori);
+             * $dst = $st->getMetadataForm($data["sample_type_id"]);
+             * if (strlen($dst) > 2) {
+             * $schema = json_decode($dst, true);
+             * $metadata = array();
+             * foreach ($schema as $value) {
+             * if (strlen($data[$value["name"]]) > 0) {
+             * $metadata[$value["name"]] = $data[$value["name"]];
+             * }
+             * }
+             * $data["metadata"] = json_encode($metadata);
+             * }
+             * }
+             */
             $object = new Object($this->connection, $this->param);
             $uid = $object->ecrire($data);
             if ($uid > 0) {
                 $data["uid"] = $uid;
                 if (parent::ecrire($data) > 0) {
-                return $uid;
+                    return $uid;
                 } else {
                     $error = true;
                 }
@@ -315,13 +317,65 @@ class Sample extends ObjetBDD
         /*
          * Recherche dans les metadonnees
          */
-        if (strlen($param["metadata_field"]) > 0 && strlen($param["metadata_value"]) > 0) {
-            $where .= $and . "upper(s.metadata->>:metadata_field) like upper (:metadata_value)";
-            $data["metadata_field"] = $param["metadata_field"];
-            $data["metadata_value"] = $param["metadata_value"] . "%";
+        if (strlen($param["metadata_field"][0]) > 0 && strlen($param["metadata_value"][0]) > 0) {
+            $where .= $and . " ";
+            /*
+             * Traitement des divers champs de metadonnees (3 maxi)
+             * ajout des parentheses si necessaire
+             * si le meme field est utilise, operateur or, sinon operateur and
+             */
+            if ($param["metadata_field"][0] == $param["metadata_field"][1]) {
+                $is_or = true;
+            } else {
+                $is_or = false;
+            }
+            if (strlen($param["metadata_field"][1]) > 0 && $param["metadata_field"][2] == $param["metadata_field"][1]) {
+                $is_or1 = true;
+            } else {
+                $is_or1 = false;
+            }
+            if ($is_or) {
+                $where .= "(";
+            }
+            $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0)";
+            $data["metadata_field0"] = $param["metadata_field"][0];
+            $data["metadata_value0"] = $param["metadata_value"][0] . "%";
+            if (strlen($param["metadata_field"][1]) > 0 && strlen($param["metadata_value"][1]) > 0) {
+                if ($is_or) {
+                    $where .= " or ";
+                } else {
+                    $where .= " and ";
+                }
+                $where .= " lower(s.metadata->>:metadata_field1) like lower (:metadata_value1)";
+                $data["metadata_field1"] = $param["metadata_field"][1];
+                $data["metadata_value1"] = $param["metadata_value"][1] . "%";
+            }
+            if ($is_or && ! $is_or1) {
+                $where .= ")";
+                $is_or = false;
+            }
+            if (! $is_or && $is_or1) {
+                $where .= " (";
+            }
+            
+            if (strlen($param["metadata_field"][2]) > 0 && strlen($param["metadata_value"][2]) > 0) {
+                if ($is_or1) {
+                    $where .= " or ";
+                } else {
+                    $where .= " and ";
+                }
+                $where .= " lower(s.metadata->>:metadata_field2) like lower (:metadata_value2)";
+                $data["metadata_field2"] = $param["metadata_field"][2];
+                $data["metadata_value2"] = $param["metadata_value"][2] . "%";
+            }
+            if ($is_or || $is_or1) {
+                $where .= ")";
+            }
             $and = " and ";
         }
-        
+        /*
+         * Fin de traitement des criteres de recherche
+         */
         if ($where == "where") {
             $where = "";
         }

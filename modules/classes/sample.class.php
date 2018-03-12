@@ -339,7 +339,7 @@ class Sample extends ObjetBDD
             }
             $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0)";
             $data["metadata_field0"] = $param["metadata_field"][0];
-            $data["metadata_value0"] = $param["metadata_value"][0] . "%";
+            $data["metadata_value0"] = "%".$param["metadata_value"][0] . "%";
             if (strlen($param["metadata_field"][1]) > 0 && strlen($param["metadata_value"][1]) > 0) {
                 if ($is_or) {
                     $where .= " or ";
@@ -348,7 +348,7 @@ class Sample extends ObjetBDD
                 }
                 $where .= " lower(s.metadata->>:metadata_field1) like lower (:metadata_value1)";
                 $data["metadata_field1"] = $param["metadata_field"][1];
-                $data["metadata_value1"] = $param["metadata_value"][1] . "%";
+                $data["metadata_value1"] = "%".$param["metadata_value"][1] . "%";
             }
             if ($is_or && ! $is_or1) {
                 $where .= ")";
@@ -366,7 +366,7 @@ class Sample extends ObjetBDD
                 }
                 $where .= " lower(s.metadata->>:metadata_field2) like lower (:metadata_value2)";
                 $data["metadata_field2"] = $param["metadata_field"][2];
-                $data["metadata_value2"] = $param["metadata_value"][2] . "%";
+                $data["metadata_value2"] = "%".$param["metadata_value"][2] . "%";
             }
             if ($is_or || $is_or1) {
                 $where .= ")";

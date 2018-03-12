@@ -30,11 +30,13 @@ $(document).ready(function () {
 	 function getMetadata() {
 		 var sampleTypeId = $("#sample_type_id").val();
 		 $("#metadata_field").empty();
-		 $("#metadata_value").empty();
+		 //$("#metadata_value").val("");
 		 $("#metadata_field1").empty();
-		 $("#metadata_value1").empty();
-		 $("#metadata_field1").empty();
-		 $("#metadata_value1").empty();
+		 //$("#metadata_value_1").val("");
+		 $("#metadata_field2").empty();
+		 //$("#metadata_value_2").val("");
+		 $("#metadatarow1").hide();
+		 $("#metadatarow2").hide();
 		 
 		 if (sampleTypeId.length > 0) {
     	    $.ajax( { 
@@ -89,6 +91,8 @@ $(document).ready(function () {
      $("#sample_type_id").combobox({
     	 select: function (event, ui) {
     		 $("#metadata_value").val("");
+    		 $("#metadata_value_2").val("");
+    		 $("#metadata_value_1").val("");
     		 getMetadata();
     	 }
      });

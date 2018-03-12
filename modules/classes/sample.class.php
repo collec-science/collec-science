@@ -329,7 +329,7 @@ class Sample extends ObjetBDD
             } else {
                 $is_or = false;
             }
-            if (strlen($param["metadata_field"][1]) > 0 && $param["metadata_field"][2] == $param["metadata_field"][1]) {
+            if (strlen($param["metadata_field"][1]) > 0 && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2])> 0) {
                 $is_or1 = true;
             } else {
                 $is_or1 = false;

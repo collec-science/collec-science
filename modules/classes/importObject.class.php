@@ -91,7 +91,7 @@ class ImportObject
 
     private $container;
 
-    private $storage;
+    private $movement;
 
     private $samplingPlace;
 
@@ -151,13 +151,13 @@ class ImportObject
      *
      * @param Sample $sample
      * @param Container $container
-     * @param Storage $storage
+     * @param Movement $movement
      */
-    function initClasses(Sample $sample, Container $container, Storage $storage, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType)
+    function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType)
     {
         $this->sample = $sample;
         $this->container = $container;
-        $this->storage = $storage;
+        $this->movement = $movement;
         $this->samplingPlace = $samplingPlace;
         $this->identifierType = $identifierType;
         $this->sampleType = $sampleType;
@@ -214,7 +214,7 @@ class ImportObject
      *
      * @param Sample $sample
      * @param Container $container
-     * @param Storage $storage
+     * @param Movement $movement
      * @throws ImportObjectException
      */
     function importAll()
@@ -351,7 +351,7 @@ class ImportObject
                  */
                 if (strlen($values["container_parent_uid"]) > 0) {
                     try {
-                        $this->storage->addMovement($container_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["container_location"], null, null, $values["container_column"], $values["container_line"]);
+                        $this->movement->addMovement($container_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["container_location"], null, null, $values["container_column"], $values["container_line"]);
                     } catch (Exception $e) {
                         throw new ImportObjectException("Line $num : error when create input movement for container - " . $e->getMessage());
                     }
@@ -362,7 +362,7 @@ class ImportObject
              */
             if ($sample_uid > 0 && $container_uid > 0) {
                 try {
-                    $this->storage->addMovement($sample_uid, $date, 1, $container_uid, $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
+                    $this->movement->addMovement($sample_uid, $date, 1, $container_uid, $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
                 } catch (Exception $e) {
                     throw new ImportObjectException("Line $num : error when create input movement for sample (" . $e->getMessage() + ")");
                 }
@@ -372,7 +372,7 @@ class ImportObject
                  * Creation du mouvement d'entree de l'echantillon dans le container
                  */
                 try {
-                    $this->storage->addMovement($sample_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
+                    $this->movement->addMovement($sample_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
                 } catch (Exception $e) {
                     throw new ImportObjectException("Line $num : error when create input movement for sample (" . $e->getMessage() + ")");
                 }

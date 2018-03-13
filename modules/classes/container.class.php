@@ -15,7 +15,7 @@ class Container extends ObjetBDD
 					container_family_id, container_family_name, object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
 					document_id, identifiers,
-					storage_date, movement_type_name, movement_type_id,
+					movement_date, movement_type_name, movement_type_id,
                     lines, columns, first_line
 					from container c
 					join object using (uid)
@@ -129,7 +129,7 @@ class Container extends ObjetBDD
     {
         if ($uid > 0 && is_numeric($uid)) {
             $sql = "select o.uid, o.identifier, sa.*,
-					storage_date, movement_type_id, identifiers,
+					movement_date, movement_type_id, identifiers,
 					project_name, sample_type_name, object_status_name,
 					sampling_place_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
@@ -154,7 +154,7 @@ class Container extends ObjetBDD
             $this->colonnes["sample_date"] = array(
                 "type" => 2
             );
-            $this->colonnes["storage_date"] = array(
+            $this->colonnes["movement_date"] = array(
                 "type" => 3
             );
             return $this->getListeParamAsPrepared($sql, $data);
@@ -174,7 +174,7 @@ class Container extends ObjetBDD
 					container_family_id, container_family_name, o.object_status_id,
 					storage_product, storage_condition_name, 
 					object_status_name, clp_classification,
-					storage_date, movement_type_id, column_number, line_number
+					movement_date, movement_type_id, column_number, line_number
 					from object o
 					join container co on (co.uid = o.uid)
 					join container_type using (container_type_id)
@@ -189,7 +189,7 @@ class Container extends ObjetBDD
             /*
              * Rajout de la date de dernier mouvement pour l'affichage
              */
-            $this->colonnes["storage_date"] = array(
+            $this->colonnes["movement_date"] = array(
                 "type" => 3
             );
             return $this->getListeParamAsPrepared($sql, $data);
@@ -318,7 +318,7 @@ class Container extends ObjetBDD
         /*
          * Rajout de la date de dernier mouvement pour l'affichage
          */
-        $this->colonnes["storage_date"] = array(
+        $this->colonnes["movement_date"] = array(
             "type" => 3
         );
         return $this->getListeParamAsPrepared($this->sql . $where /*. $order*/, $data);

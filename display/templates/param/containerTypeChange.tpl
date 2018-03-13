@@ -79,9 +79,9 @@ En bas
 </div>
 
 <div class="form-group">
-<label for="storageProduct"  class="control-label col-md-4">Produit utilisé :</label>
+<label for="movementProduct"  class="control-label col-md-4">Produit utilisé :</label>
 <div class="col-md-8">
-<input id="storageProduct" type="text" class="form-control" name="storage_product" value="{$data.storage_product}" >
+<input id="movementProduct" type="text" class="form-control" name="storage_product" value="{$data.storage_product}" >
 </div>
 </div>
 

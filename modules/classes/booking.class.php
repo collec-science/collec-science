@@ -48,7 +48,7 @@ class Booking extends ObjetBDD {
 	 * Fonction verifiant si un intervalle en chevauche un autre,
 	 * pour verification de la reservation
 	 * @param int $uid
-	 * @param int $storage_id
+	 * @param int $movement_id
 	 * @param string $date_from
 	 * @param string $date_to
 	 * @return boolean

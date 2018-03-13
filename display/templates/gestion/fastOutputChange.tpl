@@ -8,7 +8,7 @@
 			method="post" action="index.php">
 			<input type="hidden" name="moduleBase" value="fastOutput"> <input
 				type="hidden" name="action" value="Write"> <input
-				type="hidden" name="storage_id" value="0"> <input
+				type="hidden" name="movement_id" value="0"> <input
 				type="hidden" id="read_optical" name="read_optical"
 				value="{$read_optical}">
 
@@ -31,12 +31,12 @@
 			</div>
 
 			<div class="form-group">
-				<label for="storage_date" class="control-label col-sm-4">Date/heure<span
+				<label for="movement_date" class="control-label col-sm-4">Date/heure<span
 					class="red">*</span> :
 				</label>
 				<div class="col-sm-8">
-					<input id="storage_date" name="storage_date" required
-						value="{$data.storage_date}" class="form-control datetimepicker">
+					<input id="movement_date" name="movement_date" required
+						value="{$data.movement_date}" class="form-control datetimepicker">
 				</div>
 			</div>
 			<div class="form-group">
@@ -44,9 +44,9 @@
 				<div class="col-sm-8">
 					<select id="movement_reason_id" name="movement_reason_id">
 					<option value="" {if $data.movement_reason_id == ""}selected{/if}>Sélectionnez...</option>
-					{section name=lst loop=$storageReason}
-					<option value="{$storageReason[lst].movement_reason_id}" {if $data.movement_reason_id == $storageReason[lst].movement_reason_id}selected{/if}>
-					{$storageReason[lst].movement_reason_name}
+					{section name=lst loop=$movementReason}
+					<option value="{$movementReason[lst].movement_reason_id}" {if $data.movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
+					{$movementReason[lst].movement_reason_name}
 					</option>	
 					{/section}		
 					</select>
@@ -54,11 +54,11 @@
 			</div>
 					
 			<div class="form-group">
-				<label for="storage_comment" class="control-label col-sm-4">Commentaire
+				<label for="movement_comment" class="control-label col-sm-4">Commentaire
 					:</label>
 				<div class="col-sm-8">
-					<textarea class="form-control" id="storage_comment"
-						name="storage_comment" rows="3"></textarea>
+					<textarea class="form-control" id="movement_comment"
+						name="movement_comment" rows="3"></textarea>
 				</div>
 			</div>
 

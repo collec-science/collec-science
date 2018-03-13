@@ -43,7 +43,7 @@
 </a>
 </div>
 <div class="col-md-3 col-md-offset-1 center">
-<a href="index.php?module=storageBatchOpen">
+<a href="index.php?module=movementBatchOpen">
 <img src="{$display}/images/barcode-scanner.png" height="50">
 <br>
 {$LANG["menu"].94}

@@ -5,13 +5,13 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-include_once 'modules/classes/storage.class.php';
-$dataClass = new Storage($bdd, $ObjetBDDParam);
-$keyName = "storage_id";
+include_once 'modules/classes/movement.class.php';
+$dataClass = new Movement($bdd, $ObjetBDDParam);
+$keyName = "movement_id";
 $id = $_REQUEST[$keyName];
 switch ($t_module["param"]) {
     case "input":
-        $data = dataRead($dataClass, $id, "gestion/storageChange.tpl", $_REQUEST["uid"], false);
+        $data = dataRead($dataClass, $id, "gestion/movementChange.tpl", $_REQUEST["uid"], false);
         $data["movement_type_id"] = 1;
         require_once 'modules/classes/containerFamily.class.php';
         $containerFamily = new ContainerFamily($bdd, $ObjetBDDParam);
@@ -29,7 +29,7 @@ switch ($t_module["param"]) {
         break;
     
     case "output":
-        $data = dataRead($dataClass, $id, "gestion/storageChange.tpl", $_REQUEST["uid"], false);
+        $data = dataRead($dataClass, $id, "gestion/movementChange.tpl", $_REQUEST["uid"], false);
         $data["movement_type_id"] = 2;
         /*
          * Recherche de l'objet
@@ -51,7 +51,7 @@ switch ($t_module["param"]) {
 		 * write record in database
 		 */
 		/*
-		 * Recherche de storage_id si uid renseigne
+		 * Recherche de movement_id si uid renseigne
 		 */
 		if (strlen($_REQUEST["container_id"]) == 0 && strlen($_REQUEST["container_uid"]) > 0) {
             require_once 'modules/classes/container.class.php';
@@ -99,7 +99,7 @@ switch ($t_module["param"]) {
         break;
     case "fastInputWrite":
         try {
-            $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["storage_date"], 1, $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["storage_comment"], null, $_REQUEST["column_number"], $_REQUEST["line_number"]);
+            $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["movement_date"], 1, $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["movement_location"], $_REQUEST["movement_comment"], null, $_REQUEST["column_number"], $_REQUEST["line_number"]);
             $message->set($LANG["message"][5]);
             $module_coderetour = 1;
         } catch (Exception $e) {
@@ -126,7 +126,7 @@ switch ($t_module["param"]) {
         break;
     case "fastOutputWrite":
         try {
-            $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["storage_date"], 2, 0, $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["storage_comment"], $_REQUEST["movement_reason_id"]);
+            $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["movement_date"], 2, 0, $_SESSION["login"], $_REQUEST["movement_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"]);
             $message->set($LANG["message"][5]);
             $module_coderetour = 1;
         } catch (Exception $e) {
@@ -136,13 +136,13 @@ switch ($t_module["param"]) {
         }
         break;
     case "batchOpen":
-        $vue->set("gestion/storageBatchRead.tpl", "corps");
+        $vue->set("gestion/movementBatchRead.tpl", "corps");
         break;
     case "batchRead":
         require_once 'modules/classes/object.class.php';
         $object = new Object($bdd, $ObjetBDDParam);
         $vue->set($object->batchRead($_REQUEST["reads"]), "data");
-        $vue->set("gestion/storageBatchConfirm.tpl", "corps");
+        $vue->set("gestion/movementBatchConfirm.tpl", "corps");
         /*
          * Recherche des motifs de sortie
          */

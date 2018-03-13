@@ -2,11 +2,11 @@
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}
-<a href="index.php?module=storageReasonChange&movement_reason_id=0">
+<a href="index.php?module=movementReasonChange&movement_reason_id=0">
 {$LANG["appli"][0]}
 </a>
 {/if}
-<table id="storageReasonList" class="table table-bordered table-hover datatable " >
+<table id="movementReasonList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
 <th>Nom</th>
@@ -17,7 +17,7 @@
 <tr>
 <td>
 {if $droits.param == 1}
-<a href="index.php?module=storageReasonChange&movement_reason_id={$data[lst].movement_reason_id}">
+<a href="index.php?module=movementReasonChange&movement_reason_id={$data[lst].movement_reason_id}">
 {$data[lst].movement_reason_name}
 {else}
 {$data[lst].movement_reason_name}

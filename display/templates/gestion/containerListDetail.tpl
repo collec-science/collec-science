@@ -116,10 +116,10 @@ $(document).ready(function () {
 {$containers[lst].container_type_name}
 </td>
 <td>
-{if strlen($containers[lst].storage_date) > 0 }
+{if strlen($containers[lst].movement_date) > 0 }
 {if $containers[lst].movement_type_id == 1}
 <span class="green">{else}
-<span class="red">{/if}{$containers[lst].storage_date}</span>
+<span class="red">{/if}{$containers[lst].movement_date}</span>
 {/if}
 </td> 
 <td>

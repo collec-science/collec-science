@@ -61,9 +61,9 @@ class Object extends ObjetBDD
             /*
              * Supprime les mouvements associes
              */
-            require_once 'modules/classes/storage.class.php';
-            $storage = new Storage($this->connection, $this->paramori);
-            $storage->supprimerChamp($uid, "uid");
+            require_once 'modules/classes/movement.class.php';
+            $movement = new Movement($this->connection, $this->paramori);
+            $movement->supprimerChamp($uid, "uid");
             /*
              * Supprime les evenements associes
              */
@@ -216,7 +216,7 @@ class Object extends ObjetBDD
         $sql = "select uid, identifier, container_type_name as type_name, 
 		clp_classification as clp,
 		label_id, 'container' as object_type,
-		storage_date, movement_type_name, movement_type_id,
+		movement_date, movement_type_name, movement_type_id,
 		wgs84_x as x, wgs84_y as y,
 		'' as prj, storage_product as prod, 
         null as metadata
@@ -229,7 +229,7 @@ class Object extends ObjetBDD
 		UNION
 		select uid, identifier, sample_type_name as type_name, clp_classification as clp,
 		label_id, 'sample' as object_type,
-		storage_date, movement_type_name, movement_type_id,
+		movement_date, movement_type_name, movement_type_id,
 		wgs84_x as x, wgs84_y as y,
 		project_name as prj, storage_product as prod,
         metadata::varchar
@@ -336,7 +336,7 @@ class Object extends ObjetBDD
 		$sql = "select uid, identifier as id, clp_classification as clp, '' as pn,
                                         '$APPLI_code' as db,
                                         '' as prj, storage_product as prod,
-                                         wgs84_x as x, wgs84_y as y, storage_date as cd,
+                                         wgs84_x as x, wgs84_y as y, movement_date as cd,
 					null as metadata, null as loc, object_status_name as status
                                         from object
                                         join container using (uid)

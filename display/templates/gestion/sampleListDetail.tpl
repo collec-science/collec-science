@@ -135,12 +135,12 @@
 				</a> {/if}
 				</td>
 				<td>
-				{if strlen($samples[lst].storage_date) > 0 }
+				{if strlen($samples[lst].movement_date) > 0 }
 					{if $samples[lst].movement_type_id == 1}
 						<span class="green">{else}
 						<span class="red">
 					{/if}
-					{$samples[lst].storage_date}
+					{$samples[lst].movement_date}
 					</span>
 				{/if}
 				</td> 

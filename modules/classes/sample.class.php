@@ -30,7 +30,7 @@ class Sample extends ObjetBDD
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
 					metadata_schema,
 					document_id, identifiers,
-					storage_date, movement_type_name, movement_type_id,
+					movement_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,
                     lm.line_number, lm.column_number
 					from sample s
@@ -382,7 +382,7 @@ class Sample extends ObjetBDD
         /*
          * Rajout de la date de dernier mouvement pour l'affichage
          */
-        $this->colonnes["storage_date"] = array(
+        $this->colonnes["movement_date"] = array(
             "type" => 3
         );
         return $this->getListeParamAsPrepared($this->sql . $where, $data);

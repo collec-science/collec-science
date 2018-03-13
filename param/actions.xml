@@ -95,10 +95,10 @@
 	<sampleTypeDelete action="modules/param/sampleType.php" param="delete" droits="param,projet" retourok="sampleTypeList" retourko="sampleTypeChange"  modulebefore="sampleTypeChange"/>
 	<sampleTypeMetadata action="modules/param/sampleType.php" param="metadata" droits="consult" type="ajax"/>
 
-	<storageReasonList action="modules/param/storageReason.php" param="list" droits="consult" retourlogin="1" type="smarty"  />
-	<storageReasonChange action="modules/param/storageReason.php" param="change" droits="param,projet"  retourlogin="1" type="smarty" />
-	<storageReasonWrite action="modules/param/storageReason.php" param="write" droits="param,projet" retourok="storageReasonList" retourko="storageReasonChange" modulebefore="storageReasonChange" />
-	<storageReasonDelete action="modules/param/storageReason.php" param="delete" droits="param,projet" retourok="storageReasonList" retourko="storageReasonChange"  modulebefore="storageReasonChange"/>
+	<movementReasonList action="modules/param/movementReason.php" param="list" droits="consult" retourlogin="1" type="smarty"  />
+	<movementReasonChange action="modules/param/movementReason.php" param="change" droits="param,projet"  retourlogin="1" type="smarty" />
+	<movementReasonWrite action="modules/param/movementReason.php" param="write" droits="param,projet" retourok="movementReasonList" retourko="movementReasonChange" modulebefore="movementReasonChange" />
+	<movementReasonDelete action="modules/param/movementReason.php" param="delete" droits="param,projet" retourok="movementReasonList" retourko="movementReasonChange"  modulebefore="movementReasonChange"/>
 	
 	<dbparamList action="modules/param/dbparam.php" param="list" droits="admin" retourlogin="1" type="smarty" />
 	<dbparamWriteGlobal action="modules/param/dbparam.php" param="writeGlobal" droits="admin" retourok="dbparamList" retourko="dbparamList" />
@@ -119,14 +119,14 @@
 	<sampleeventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange" />
 	<sampleeventDelete action="modules/gestion/event.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange"/>
 
-	<storagecontainerInput action="modules/gestion/storage.php" param="input" droits="gestion"  retourlogin="1" type="smarty" />
-	<storagecontainerOutput action="modules/gestion/storage.php" param="output" droits="gestion"  retourlogin="1" type="smarty" />	
-	<storagecontainerWrite action="modules/gestion/storage.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containerDisplay" modulebefore="storagecontainerInput,storagecontainerOutput" />
-	<storagecontainerDelete action="modules/gestion/storage.php" param="delete" droits="gestion"  retourok="containerDisplay" retourko="containerDisplay" modulebefore="storagecontainerInput,storagecontainerOutput"/>
-	<storagesampleInput action="modules/gestion/storage.php" param="input" droits="gestion"  retourlogin="1" type="smarty" />
-	<storagesampleOutput action="modules/gestion/storage.php" param="output" droits="gestion"  retourlogin="1" type="smarty" />	
-	<storagesampleWrite action="modules/gestion/storage.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="storagesampleInput,storagesampleOutput" />
-	<storagesampleDelete action="modules/gestion/storage.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="storagesampleInput,storagesampleOutput"/>
+	<movementcontainerInput action="modules/gestion/movement.php" param="input" droits="gestion"  retourlogin="1" type="smarty" />
+	<movementcontainerOutput action="modules/gestion/movement.php" param="output" droits="gestion"  retourlogin="1" type="smarty" />	
+	<movementcontainerWrite action="modules/gestion/movement.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containerDisplay" modulebefore="movementcontainerInput,movementcontainerOutput" />
+	<movementcontainerDelete action="modules/gestion/movement.php" param="delete" droits="gestion"  retourok="containerDisplay" retourko="containerDisplay" modulebefore="movementcontainerInput,movementcontainerOutput"/>
+	<movementsampleInput action="modules/gestion/movement.php" param="input" droits="gestion"  retourlogin="1" type="smarty" />
+	<movementsampleOutput action="modules/gestion/movement.php" param="output" droits="gestion"  retourlogin="1" type="smarty" />	
+	<movementsampleWrite action="modules/gestion/movement.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="movementsampleInput,movementsampleOutput" />
+	<movementsampleDelete action="modules/gestion/movement.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="movementsampleInput,movementsampleOutput"/>
 	
 	<projectList action="modules/param/project.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
 	<projectChange action="modules/param/project.php" param="change" droits="param"  retourlogin="1" type="smarty" />
@@ -151,16 +151,16 @@
 	<sampleImportStage3 action="modules/gestion/sample.php" param="importStage3" droits="import,projet" type="smarty" retourko="sampleImportStage1" modulebefore="sampleImportStage2"/>
 	
 	
-	<storage droits="consult" type="smarty" />
-	<storageList droits="projet" type="smarty" action="modules/gestion/storage.php" param="list" retourlogin="1"/>
+	<movement droits="consult" type="smarty" />
+	<movementList droits="projet" type="smarty" action="modules/gestion/movement.php" param="list" retourlogin="1"/>
 	<objets retourlogin="1" type="smarty" />
-	<fastInputChange action="modules/gestion/storage.php" param="fastInputChange" droits="gestion"  retourlogin="1" type="smarty" />
-	<fastInputWrite action="modules/gestion/storage.php" param="fastInputWrite" droits="gestion" retourok="fastInputChange" retourko="fastInputChange" modulebefore="fastInputChange" />
-	<fastOutputChange action="modules/gestion/storage.php" param="fastOutputChange" droits="gestion"  retourlogin="1" type="smarty" />
-	<fastOutputWrite action="modules/gestion/storage.php" param="fastOutputWrite" droits="gestion" retourok="fastOutputChange" retourko="fastOutputChange" modulebefore="fastOutputChange" />
-	<objectGetLastEntry action="modules/gestion/storage.php" param="getLastEntry" droits="gestion" type="ajax" />
-	<smallMovementChange action="modules/gestion/storage.php" param="smallMovementChange" droits="gestion" retourlogin="1" type="smarty" />
-	<smallMovementWrite action="modules/gestion/storage.php" param="smallMovementWrite" droits="gestion" type="smarty" modulebefore="smallMovementChange" retourok="smallMovementChange" retourko="smallMovementChange" />
+	<fastInputChange action="modules/gestion/movement.php" param="fastInputChange" droits="gestion"  retourlogin="1" type="smarty" />
+	<fastInputWrite action="modules/gestion/movement.php" param="fastInputWrite" droits="gestion" retourok="fastInputChange" retourko="fastInputChange" modulebefore="fastInputChange" />
+	<fastOutputChange action="modules/gestion/movement.php" param="fastOutputChange" droits="gestion"  retourlogin="1" type="smarty" />
+	<fastOutputWrite action="modules/gestion/movement.php" param="fastOutputWrite" droits="gestion" retourok="fastOutputChange" retourko="fastOutputChange" modulebefore="fastOutputChange" />
+	<objectGetLastEntry action="modules/gestion/movement.php" param="getLastEntry" droits="gestion" type="ajax" />
+	<smallMovementChange action="modules/gestion/movement.php" param="smallMovementChange" droits="gestion" retourlogin="1" type="smarty" />
+	<smallMovementWrite action="modules/gestion/movement.php" param="smallMovementWrite" droits="gestion" type="smarty" modulebefore="smallMovementChange" retourok="smallMovementChange" retourko="smallMovementChange" />
 	
 	
 	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax"  type="ajax" />
@@ -229,9 +229,9 @@
 	<sampleobjectIdentifierWrite action="modules/gestion/objectIdentifier.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleobjectIdentifierChange" modulebefore="sampleobjectIdentifierChange" />
 	<sampleobjectIdentifierDelete action="modules/gestion/objectIdentifier.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="sampleobjectIdentifierChange" modulebefore="sampleobjectIdentifierChange"/>
 	
-	<storageBatchOpen action="modules/gestion/storage.php" param="batchOpen" droits="gestion" type="smarty" retourlogin="1" />
-	<storageBatchRead action="modules/gestion/storage.php" param="batchRead" droits="gestion" type="smarty" modulebefore="storageBatchOpen,storageBatchWrite" />
-	<storageBatchWrite action="modules/gestion/storage.php" param="batchWrite" droits="gestion" modulebefore="storageBatchRead" retourok="storageBatchOpen" retourko="storageBatchRead" />
+	<movementBatchOpen action="modules/gestion/movement.php" param="batchOpen" droits="gestion" type="smarty" retourlogin="1" />
+	<movementBatchRead action="modules/gestion/movement.php" param="batchRead" droits="gestion" type="smarty" modulebefore="movementBatchOpen,movementBatchWrite" />
+	<movementBatchWrite action="modules/gestion/movement.php" param="batchWrite" droits="gestion" modulebefore="movementBatchRead" retourok="movementBatchOpen" retourko="movementBatchRead" />
 
 	<printerList action="modules/param/printer.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
 	<printerChange action="modules/param/printer.php" param="change" droits="param"  retourlogin="1" type="smarty" />

@@ -73,9 +73,9 @@ switch ($t_module["param"]) {
         /*
          * Recuperation des mouvements
          */
-        require_once 'modules/classes/storage.class.php';
-        $storage = new Storage($bdd, $ObjetBDDParam);
-        $vue->set($storage->getAllMovements($id), "storages");
+        require_once 'modules/classes/movement.class.php';
+        $movement = new Movement($bdd, $ObjetBDDParam);
+        $vue->set($movement->getAllMovements($id), "movements");
         /*
          * Recuperation des echantillons associes
          */

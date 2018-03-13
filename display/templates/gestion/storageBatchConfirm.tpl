@@ -13,17 +13,17 @@
 <div class="row">
 	<div class="col-sm-12">
 
-		<form id="storageConfirm" class="form-horizontal" method="post" action="index.php">
-			<input type="hidden" name="moduleBase" value="storageBatch">
+		<form id="movementConfirm" class="form-horizontal" method="post" action="index.php">
+			<input type="hidden" name="moduleBase" value="movementBatch">
 			<input type="hidden" name="action" value="Write">
 			<div class="form-group">
 				<label for="movement_reason_id" class="control-label col-sm-4">Motif du déstockage :</label>
 				<div class="col-sm-8">
 					<select id="movement_reason_id" name="movement_reason_id">
 					<option value="" {if $data.movement_reason_id == ""}selected{/if}>Sélectionnez...</option>
-					{section name=lst loop=$storageReason}
-					<option value="{$storageReason[lst].movement_reason_id}" {if $data.movement_reason_id == $storageReason[lst].movement_reason_id}selected{/if}>
-					{$storageReason[lst].movement_reason_name}
+					{section name=lst loop=$movementReason}
+					<option value="{$movementReason[lst].movement_reason_id}" {if $data.movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
+					{$movementReason[lst].movement_reason_name}
 					</option>	
 					{/section}		
 					</select>
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 			<div class="row col-sm-12">
-			<table id="storageList"
+			<table id="movementList"
 				class="table table-bordered table-hover datatable-nopaging-nosort">
 				<thead>
 					<tr>

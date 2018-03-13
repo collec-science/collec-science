@@ -10,9 +10,9 @@ function sampleInitDatEntry()
 {
     global $vue, $bdd, $ObjetBDDParam;
     /*
-     * Recherche des projets
+     * Recherche des collections
      */
-    $vue->set($_SESSION["projects"], "projects");
+    $vue->set($_SESSION["collections"], "collections");
     /*
      * Recherche des types d'échantillons
      */
@@ -48,11 +48,11 @@ class SampleInitClass
             "field" => "object_status_name",
             "id" => "object_status_id"
         ),
-        "project_name" => array(
-            "filename" => "project.class.php",
-            "classname" => "Project",
-            "field" => "project_name",
-            "id" => "project_id"
+        "collection_name" => array(
+            "filename" => "collection.class.php",
+            "classname" => "Collection",
+            "field" => "collection_name",
+            "id" => "collection_id"
         ),
         "sample_type_name" => array(
             "filename" => "sampleType.class.php",
@@ -90,8 +90,8 @@ class SampleInitClass
                 case "identifier_type_code":
                     $data = $instance->getListeWithCode();
                     break;
-                case "project_name":
-                    $data = $_SESSION["projects"];
+                case "collection_name":
+                    $data = $_SESSION["collections"];
                     break;
                 default:
                     $data = $instance->getListe(2);

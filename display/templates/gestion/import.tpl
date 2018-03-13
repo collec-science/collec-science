@@ -77,7 +77,7 @@ Il n'accepte que des fichiers au format CSV. La ligne d'entête doit comprendre 
 <br>
 <ul>
 <li><b>sample_identifier</b> : l'identifiant de l'échantillon (obligatoire)</li>
-<li><b>project_id</b> : le numéro informatique du projet (obligatoire)</li>
+<li><b>collection_id</b> : le numéro informatique de la collection (obligatoire)</li>
 <li><b>sample_type_id</b> : le numéro informatique du type d'échantillon (obligatoire)</li>
 <li><b>sample_status_id</b> : le numéro du statut de l'échantillon (obligatoire)</li>
 <li><b>sampling_place_id</b> : le numéro informatique de l'endroit où l'échantillon a été prélevé</li>

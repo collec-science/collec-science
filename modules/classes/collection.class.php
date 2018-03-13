@@ -6,7 +6,7 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-class Project extends ObjetBDD
+class Collection extends ObjetBDD
 {
 
     /**
@@ -16,15 +16,15 @@ class Project extends ObjetBDD
      */
     function __construct($bdd, $param = array())
     {
-        $this->table = "project";
+        $this->table = "collection";
         $this->colonnes = array(
-            "project_id" => array(
+            "collection_id" => array(
                 "type" => 1,
                 "key" => 1,
                 "requis" => 1,
                 "defaultValue" => 0
             ),
-            "project_name" => array(
+            "collection_name" => array(
                 "type" => 0,
                 "requis" => 1
             )
@@ -33,7 +33,7 @@ class Project extends ObjetBDD
     }
 
     /**
-     * Ajoute la liste des groupes a la liste des projets
+     * Ajoute la liste des groupes a la liste des collections
      *
      * {@inheritdoc}
      *
@@ -41,34 +41,34 @@ class Project extends ObjetBDD
      */
     function getListe($order = 0)
     {
-        $sql = "select project_id, project_name, array_to_string(array_agg(groupe),', ') as groupe
-				from project
-				left outer join project_group using (project_id)
+        $sql = "select collection_id, collection_name, array_to_string(array_agg(groupe),', ') as groupe
+				from collection
+				left outer join collection_group using (collection_id)
 				left outer join aclgroup using (aclgroup_id)
-				group by project_id, project_name
+				group by collection_id, collection_name
 				order by $order";
         return $this->getListeParam($sql);
     }
 
     /**
-     * Retourne la liste des projets autorises pour un login
+     * Retourne la liste des collections autorises pour un login
      *
      * @param string $login
      * @param PDO $aclconnexion
      * @return array
      */
-    function getProjectsFromLogin()
+    function getCollectionsFromLogin()
     {
-        return $this->getProjectsFromGroups($_SESSION["groupes"]);
+        return $this->getCollectionsFromGroups($_SESSION["groupes"]);
     }
 
     /**
-     * Retourne la liste des projets correspondants aux groupes indiques
+     * Retourne la liste des collections correspondants aux groupes indiques
      *
      * @param array $groups
      * @return tableau
      */
-    function getProjectsFromGroups(array $groups)
+    function getCollectionsFromGroups(array $groups)
     {
         if (count($groups) > 0) {
             /*
@@ -83,12 +83,12 @@ class Project extends ObjetBDD
                 }
             }
             $in .= ")";
-            $sql = "select distinct project_id, project_name
-					from project
-					join project_group using (project_id)
+            $sql = "select distinct collection_id, collection_name
+					from collection
+					join collection_group using (collection_id)
 					join aclgroup using (aclgroup_id)
 					where groupe in $in";
-            $order = " order by project_name";
+            $order = " order by collection_name";
             return $this->getListeParam($sql . $order);
         } else {
             return array();
@@ -109,13 +109,13 @@ class Project extends ObjetBDD
             /*
              * Ecriture des groupes
              */
-            $this->ecrireTableNN("project_group", "project_id", "aclgroup_id", $id, $data["groupes"]);
+            $this->ecrireTableNN("collection_group", "collection_id", "aclgroup_id", $id, $data["groupes"]);
         }
         return $id;
     }
 
     /**
-     * Supprime un projet
+     * Supprime une collection
      *
      * {@inheritdoc}
      *
@@ -129,9 +129,9 @@ class Project extends ObjetBDD
              */
             require_once 'modules/classes/sample.class.php';
             $sample = new Sample($this->connection);
-            if ($sample->getNbFromProject($id) == 0) {
-                $sql = "delete from project_group where project_id = :project_id";
-                $data["project_id"] = $id;
+            if ($sample->getNbFromCollection($id) == 0) {
+                $sql = "delete from collection_group where collection_id = :collection_id";
+                $data["collection_id"] = $id;
                 $this->executeAsPrepared($sql, $data);
                 return parent::supprimer($id);
             }
@@ -142,13 +142,13 @@ class Project extends ObjetBDD
      * Retourne la liste de tous les groupes, en indiquant s'ils sont ou non presents
      * dans le projet (attribut checked a 1)
      *
-     * @param int $project_id
+     * @param int $collection_id
      * @return array
      */
-    function getAllGroupsFromProject($project_id)
+    function getAllGroupsFromCollection($collection_id)
     {
-        if ($project_id > 0 && is_numeric($project_id)) {
-            $data = $this->getGroupsFromProject($project_id);
+        if ($collection_id > 0 && is_numeric($collection_id)) {
+            $data = $this->getGroupsFromCollection($collection_id);
             $dataGroup = array();
             foreach ($data as $value) {
                 $dataGroup[$value["aclgroup_id"]] = 1;
@@ -166,17 +166,17 @@ class Project extends ObjetBDD
     /**
      * Retourne la liste des groupes attaches a un projet
      *
-     * @param int $project_id
+     * @param int $collection_id
      * @return array
      */
-    function getGroupsFromProject($project_id)
+    function getGroupsFromCollection($collection_id)
     {
         $data = array();
-        if ($project_id > 0 && is_numeric($project_id)) {
-            $sql = "select aclgroup_id, groupe from project_group
+        if ($collection_id > 0 && is_numeric($collection_id)) {
+            $sql = "select aclgroup_id, groupe from collection_group
 					join aclgroup using (aclgroup_id)
-					where project_id = :project_id";
-            $var["project_id"] = $project_id;
+					where collection_id = :collection_id";
+            $var["collection_id"] = $collection_id;
             $data = $this->getListeParamAsPrepared($sql, $var);
         }
         return $data;

@@ -231,11 +231,11 @@ class Object extends ObjetBDD
 		label_id, 'sample' as object_type,
 		movement_date, movement_type_name, movement_type_id,
 		wgs84_x as x, wgs84_y as y,
-		project_name as prj, storage_product as prod,
+		collection_name as prj, storage_product as prod,
         metadata::varchar
 		from object
 		join sample using (uid)
-		join project using (project_id)
+		join collection using (collection_id)
 		join sample_type using (sample_type_id)
         left outer join sampling_place using (sampling_place_id)
 		left outer join container_type using (container_type_id)
@@ -347,13 +347,13 @@ class Object extends ObjetBDD
                     UNION
         select uid, identifier as id, clp_classification as clp, protocol_name as pn,
                                         '$APPLI_code' as db,
-                                        project_name as prj, storage_product as prod,
+                                        collection_name as prj, storage_product as prod,
                                          wgs84_x as x, wgs84_y as y, sample_date as cd,
 					metadata::varchar, sampling_place_name as loc, object_status_name as status
                                         from object
                                         join sample using (uid)
                                         join sample_type using (sample_type_id)
-                                        join project using (project_id)
+                                        join collection using (collection_id)
 					join object_status using (object_status_id)
 					left outer join sampling_place using (sampling_place_id)
                                         left outer join container_type using (container_type_id)

@@ -19,7 +19,7 @@ class Sample extends ObjetBDD
      * @param array $param
      */
     private $sql = "select s.sample_id, s.uid,
-					s.project_id, project_name, s.sample_type_id, s.dbuid_origin,
+					s.collection_id, collection_name, s.sample_type_id, s.dbuid_origin,
 					sample_type_name, s.sample_creation_date, s.sample_date, s.metadata, 
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
@@ -35,7 +35,7 @@ class Sample extends ObjetBDD
                     lm.line_number, lm.column_number
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
-					join project p on (p.project_id = s.project_id)
+					join collection p on (p.collection_id = s.collection_id)
 					join object so on (s.uid = so.uid)
 					left outer join sampling_place sp on (sp.sampling_place_id = s.sampling_place_id)
 					left outer join object_status os on (so.object_status_id = os.object_status_id)
@@ -68,7 +68,7 @@ class Sample extends ObjetBDD
                 "requis" => 1,
                 "defaultValue" => 0
             ),
-            "project_id" => array(
+            "collection_id" => array(
                 "type" => 1,
                 "requis" => 1
             ),
@@ -140,13 +140,13 @@ class Sample extends ObjetBDD
      */
     function ecrire($data)
     {
-        $ok = $this->verifyProject($data);
+        $ok = $this->verifyCollection($data);
         $error = false;
         /*
          * Verification complementaire par rapport aux donnees deja stockees
          */
         if ($ok && $data["uid"] > 0) {
-            $ok = $this->verifyProject($this->lire($data["uid"]));
+            $ok = $this->verifyCollection($this->lire($data["uid"]));
         }
         if ($ok) {
             /*
@@ -200,7 +200,7 @@ class Sample extends ObjetBDD
     function supprimer($uid)
     {
         $data = $this->lire($uid);
-        if ($this->verifyProject($data)) {
+        if ($this->verifyCollection($data)) {
             
             /*
              * suppression de l'echantillon
@@ -223,11 +223,11 @@ class Sample extends ObjetBDD
      * @throws Exception
      * @return boolean
      */
-    function verifyProject($data)
+    function verifyCollection($data)
     {
         $retour = false;
-        foreach ($_SESSION["projects"] as $value) {
-            if ($data["project_id"] == $value["project_id"]) {
+        foreach ($_SESSION["collections"] as $value) {
+            if ($data["collection_id"] == $value["collection_id"]) {
                 $retour = true;
                 break;
             }
@@ -238,13 +238,13 @@ class Sample extends ObjetBDD
     /**
      * Retourne le nombre d'echantillons attaches a un projet
      *
-     * @param int $project_id
+     * @param int $collection_id
      */
-    function getNbFromProject($project_id)
+    function getNbFromCollection($collection_id)
     {
-        if ($project_id > 0) {
-            $sql = "select count(*)as nb from sample where project_id = :project_id";
-            $var["project_id"] = $project_id;
+        if ($collection_id > 0) {
+            $sql = "select count(*)as nb from sample where collection_id = :collection_id";
+            $var["collection_id"] = $collection_id;
             $data = $this->lireParamAsPrepared($sql, $var);
             if (count($data) > 0) {
                 return $data["nb"];
@@ -263,7 +263,7 @@ class Sample extends ObjetBDD
     {
         $data = array();
         $isFirst = true;
-        $order = " order by project_name, sample_type_name, identifier, uid";
+        $order = " order by collection_name, sample_type_name, identifier, uid";
         $where = "where";
         $and = "";
         if ($param["sample_type_id"] > 0) {
@@ -292,10 +292,10 @@ class Sample extends ObjetBDD
             $where .= " or upper(identifiers) like :identifier ";
             $where .= ")";
         }
-        if ($param["project_id"] > 0) {
-            $where .= $and . " s.project_id = :project_id";
+        if ($param["collection_id"] > 0) {
+            $where .= $and . " s.collection_id = :collection_id";
             $and = " and ";
-            $data["project_id"] = $param["project_id"];
+            $data["collection_id"] = $param["collection_id"];
         }
         if ($param["object_status_id"] > 0) {
             $where .= $and . " so.object_status_id = :object_status_id";
@@ -418,12 +418,12 @@ class Sample extends ObjetBDD
         } else {
             $this->auto_date = 0;
             $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, 
-             project_id, project_name, sample_type_name, sample_creation_date, sample_date, 
+             collection_id, collection_name, sample_type_name, sample_creation_date, sample_date, 
              multiple_value, sampling_place_name,metadata::varchar, 
             identifiers 
             from sample 
             join object o using(uid) 
-            join project using (project_id)
+            join collection using (collection_id)
             left outer join v_object_identifier voi on (o.uid = voi.uid) 
             left outer join sampling_place using (sampling_place_id)
             left outer join sample_type using (sample_type_id)
@@ -436,9 +436,9 @@ class Sample extends ObjetBDD
              */
             $data = array();
             foreach ($d as $value) {
-                if ($this->verifyProject($value)) {
+                if ($this->verifyCollection($value)) {
                     $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
-                    unset($value["project_id"]);
+                    unset($value["collection_id"]);
                     $data[] = $value;
                 }
             }
@@ -489,7 +489,7 @@ class Sample extends ObjetBDD
         $fields = array(
             "sampling_place_name",
             "object_status_name",
-            "project_name",
+            "collection_name",
             "sample_type_name"
         );
         foreach ($data as $line) {
@@ -535,10 +535,10 @@ class Sample extends ObjetBDD
                 throw new SampleException("L'identifiant de la base de données d'origine n'a pas été fourni");
             }
             /*
-             * Verification de l'existence du projet
+             * Verification de l'existence de la collection
              */
-            if (strlen($row["project_name"]) == 0) {
-                throw new SampleException("Le nom du projet (ou de la sous-collection) n'a pas été renseigné");
+            if (strlen($row["collection_name"]) == 0) {
+                throw new SampleException("Le nom de la collection (ou de la sous-collection) n'a pas été renseigné");
             }
             /*
              * Verification de l'existence d'un type d'echantillon

@@ -127,7 +127,7 @@ Nouvel échantillon
 
 <dl class="dl-horizontal">
 <dt>Projet :</dt>
-<dd>{$data.project_name}</dd>
+<dd>{$data.collection_name}</dd>
 </dl>
 <dl class="dl-horizontal">
 <dt>Type :</dt>

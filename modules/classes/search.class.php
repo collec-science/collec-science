@@ -197,7 +197,7 @@ class SearchSample extends SearchParam
         $this->param = array(
             "name" => "",
             "sample_type_id" => "",
-            "project_id" => "",
+            "collection_id" => "",
             "limit" => 100,
             "object_status_id" => 1,
             "uid_min" => 0,
@@ -208,7 +208,7 @@ class SearchSample extends SearchParam
         );
         $this->paramNum = array(
             "sample_type_id",
-            "project_id",
+            "collection_id",
             "object_status_id" => 1,
             "limit",
             "uid_min",

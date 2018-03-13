@@ -117,7 +117,7 @@
 				<span title="UID de la base de données d'origine">{$samples[lst].dbuid_origin}</span>
 				{/if}
 				</td>
-				<td>{$samples[lst].project_name}</td>
+				<td>{$samples[lst].collection_name}</td>
 				<td>{$samples[lst].sample_type_name}</td>
 				<td>{$samples[lst].object_status_name}</td>
 				<td>{if strlen($samples[lst].parent_uid) > 0}

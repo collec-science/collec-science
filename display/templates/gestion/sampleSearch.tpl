@@ -12,7 +12,7 @@ $(document).ready(function () {
 	 $("#sample_search").submit (function ( event) { 
 		 var ok = false;
 		 if ($("#name").val().length > 0) ok = true;
-		 if ($("#project_id").val() > 0) ok = true;
+		 if ($("#collection_id").val() > 0) ok = true;
 		 if ($("#uid_min").val() > 0) ok = true;
 		 if ($("#uid_max").val() > 0) ok = true;
 		 if ($("#sample_type_id").val() > 0) ok = true;
@@ -121,13 +121,13 @@ $(document).ready(function () {
 <div class="col-md-4">
 <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible)">
 </div>
-<label for="project_id" class="col-md-2 control-label">Projet :</label>
+<label for="collection_id" class="col-md-2 control-label">Projet :</label>
 <div class="col-md-4">
-<select id="project_id" name="project_id" class="form-control">
-<option value="" {if $sampleSearch.project_id == ""}selected{/if}>{$LANG.appli.2}</option>
-{section name=lst loop=$projects}
-<option value="{$projects[lst].project_id}" {if $projects[lst].project_id == $sampleSearch.project_id}selected{/if}>
-{$projects[lst].project_name}
+<select id="collection_id" name="collection_id" class="form-control">
+<option value="" {if $sampleSearch.collection_id == ""}selected{/if}>{$LANG.appli.2}</option>
+{section name=lst loop=$collections}
+<option value="{$collections[lst].collection_id}" {if $collections[lst].collection_id == $sampleSearch.collection_id}selected{/if}>
+{$collections[lst].collection_name}
 </option>
 {/section}
 </select>

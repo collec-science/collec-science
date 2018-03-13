@@ -34,7 +34,7 @@ $identifierType = new IdentifierType($bdd, $ObjetBDDParam);
 $objectIdentifier = new ObjectIdentifier($bdd, $ObjetBDDParam);
 $import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType);
 $import->initClass("objectIdentifier", $objectIdentifier);
-$import->initControl($_SESSION["projects"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList());
+$import->initControl($_SESSION["collections"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList());
 /*
  * Traitement
  */

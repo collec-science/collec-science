@@ -130,14 +130,14 @@ class Container extends ObjetBDD
         if ($uid > 0 && is_numeric($uid)) {
             $sql = "select o.uid, o.identifier, sa.*,
 					movement_date, movement_type_id, identifiers,
-					project_name, sample_type_name, object_status_name,
+					collection_name, sample_type_name, object_status_name,
 					sampling_place_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
                     column_number, line_number
 					from object o
 					join sample sa on (sa.uid = o.uid)
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
-					join project using (project_id)
+					join collection using (collection_id)
 					join sample_type using (sample_type_id)
 					left outer join v_object_identifier voi on (o.uid = voi.uid) 
 					left outer join object_status using (object_status_id)

@@ -3,8 +3,8 @@
 <item module="objets" title="77" value="76">
 	<item module="containerList" title="61" value="60"/>
 	<item module="sampleList" title="69" value="68"/>
-	<item module="importChange" title="79" value="78" droits="import,projet"/>
-	<item module="sampleImportStage1" title="102" value="101" droits="import,projet"/>
+	<item module="importChange" title="79" value="78" droits="import,collection"/>
+	<item module="sampleImportStage1" title="102" value="101" droits="import,collection"/>
 </item>
 
 <item module="movement" title="71" value="70" droits="gestion">
@@ -12,12 +12,12 @@
 <item module="fastOutputChange" title="75" value="74" droits="gestion" />
 <item module="movementBatchOpen" title="94" value="93" droits="gestion" />
 <item module="smallMovementChange" title="110" value="109" droits="gestion" />
-<item divider='1' droits="projet" />
-<item module="movementList" value="105" title="106" droits="projet" />
+<item divider='1' droits="collection" />
+<item module="movementList" value="105" title="106" droits="collection" />
 </item>
 
 <item module="parametre" value="50" title="51" droits="consult">
-	<item module="projectList" droits="consult" value="64" title="65" />
+	<item module="collectionList" droits="consult" value="64" title="65" />
 	<item module="protocolList" droits="consult" value="82" title="83" />
 	<item module="operationList" droits="consult" value="85" title="86" />
 	<item divider='1'/>

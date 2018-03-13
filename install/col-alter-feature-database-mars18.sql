@@ -31,5 +31,26 @@ AS
            FROM col.movement st
           WHERE s.uid = st.uid
           ORDER BY st.movement_date DESC
-         LIMIT 1));
+         LIMIT 1))
+;
+
+/*
+ * Renommage de project en collection
+ */
+alter table project rename to collection;
+comment on table collection is 'List of all collections into the database';
+alter table collection rename project_id to collection_id;
+alter table collection rename project_name to collection_name;
+alter table protocol rename project_id to collection_id;
+alter table sample rename project_id to collection_id;
+
+alter table project_group rename to collection_group;
+alter table collection_group rename project_id to collection_id;
+
+/*
+ * Renommage du droit projet en collection
+ */
+set search_path = gacl;
+update aclaco set aco = 'collection' where aco = 'projet';
+update aclgroup set groupe = 'collection' where groupe = 'projet';
 

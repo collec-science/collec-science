@@ -8,7 +8,7 @@ Ce module permet d'importer des échantillons provenant d'une base externe, à p
 <li><b>dbuid_origin*</b> : identifiant dans la base de données d'origine, sous la forme : code_base:id</li>
 <li><b>identifier</b> : identifiant métier</li>
 <li><b>sample_type_name*</b> : type d'échantillon</li>
-<li><b>project_name*</b> : nom du projet (ou de la collection) de rattachement</li>
+<li><b>collection_name*</b> : nom de la collection (ou de la collection) de rattachement</li>
 <li><b>object_status_name</b> : statut courant</li>
 <li><b>wgs84_x</b> : longitude GPS en WGS84 (degrés décimaux)</li>
 <li><b>wgs84_y</b> : latitude GPS en WGS84 (degrés décimaux)</li>

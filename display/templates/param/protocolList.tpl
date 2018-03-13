@@ -30,7 +30,7 @@
 </td>
 <td class="center">{$data[lst].protocol_version}</td>
 <td class="center">{$data[lst].protocol_year}</td>
-<td class="center">{$data[lst].project_name}</td>
+<td class="center">{$data[lst].collection_name}</td>
 <td class="center">
 {if $data[lst].has_file == 1}
 <a href="index.php?module=protocolFile&protocol_id={$data[lst].protocol_id}">

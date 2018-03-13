@@ -71,7 +71,7 @@ function testScan() {
         	$("#wgs84_x").val("");
         	$("#wgs84_y").val("");
         	$("#sample_date").val("");
-        	$("#project_id").val("");
+        	$("#collection_id").val("");
         	$("#sample_type_id").val("");
         	$("#sampling_place_id").val("");
         	$("#multiple_value").val("");
@@ -99,7 +99,7 @@ function testScan() {
         				 $("#identifier").val(data["id"]);
         				 break;
         			 case "prj":
-        				 $('#project_id option[value]="'+data["prj"]+'"]').attr("selected", "selected");
+        				 $('#collection_id option[value]="'+data["prj"]+'"]').attr("selected", "selected");
         				 break;
         			 case "x":
         				 $("#wgs84_x").val(data["x"]);
@@ -161,7 +161,7 @@ Retour à la liste des échantillons
 </dl>
 <dl class="dl-horizontal">
 <dt>Projet :</dt>
-<dd>{$parent_sample.project_name}</dd>
+<dd>{$parent_sample.collection_name}</dd>
 </dl>
 <dl class="dl-horizontal">
 <dt>Type :</dt>
@@ -198,12 +198,12 @@ Retour à la liste des échantillons
 {include file="gestion/uidChange.tpl"}
 
 <div class="form-group">
-<label for="project_id" class="control-label col-md-4">Projet<span class="red">*</span> :</label>
+<label for="collection_id" class="control-label col-md-4">Projet<span class="red">*</span> :</label>
 <div class="col-md-8">
-<select id="project_id" name="project_id" class="form-control" autofocus>
-{section name=lst loop=$projects}
-<option value="{$projects[lst].project_id}" {if $data.project_id == $projects[lst].project_id}selected{/if}>
-{$projects[lst].project_name}
+<select id="collection_id" name="collection_id" class="form-control" autofocus>
+{section name=lst loop=$collections}
+<option value="{$collections[lst].collection_id}" {if $data.collection_id == $collections[lst].collection_id}selected{/if}>
+{$collections[lst].collection_name}
 </option>
 {/section}
 </select>

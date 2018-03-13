@@ -311,7 +311,15 @@ switch ($t_module["param"]) {
              */
             foreach ($simpleFields as $field) {
                 if (strlen($row[$field]) > 0) {
-                    $sample[$field] = $row[$field];
+                    if ($field == "metadata") {
+                        /*
+                         * Ajout d'un decodage/encodage pour les champs json, pour 
+                         * eviter les problemes potentiels et verifier la structure
+                         */
+                        $sample[$field] = json_encode(json_decode($row[$field]));
+                    } else {
+                        $sample[$field] = $row[$field];
+                    }
                 }
             }
             /*

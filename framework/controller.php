@@ -64,55 +64,55 @@ $_REQUEST = htmlDecode($_REQUEST);
  * * si method=delete : Delete
  */
 if (! isset($_REQUEST["module"])) {
-    $uri = explode("/", $_SERVER["REQUEST_URI"]);
-    if (count($uri) > 2 && $uri[1] != $display) {
-        /*
-         * Extraction le cas echeant des variables GET
-         */
-        $uri3 = explode("?", $uri[3]);
-        if (count($uri3) == 2) {
-            $uri[3] = $uri3[0];
-        }
-        $_REQUEST["module"] = $uri[1] . $uri[2] . $uri[3];
-        /*
-         * On recherche si le quatrieme element existe
-         */
-        if (strlen($uri[4]) == 0 ) {
-            $_REQUEST["module"] .= "List";
-        } else {
-            $uri4 = explode("?", $uri[4]);
-            $requestId = $uri4[0];
-            /*
-             * Prepositionnement par defaut de la valeur uid (la plus frequente)
-             */
-            if (! isset($_REQUEST["uid"])) {
-                $_REQUEST["uid"] = $uri[4];
-            }
-            switch ($_SERVER["REQUEST_METHOD"]) {
-                case "GET":
-                    $_REQUEST["module"] .= "Display";
-                    break;
-                case "POST":
-                    $_REQUEST["module"] .= "Write";
-                    break;
-                case "PUT":
-                    $_REQUEST["module"] .= "Replace";
-                    break;
-                case "DELETE":
-                    $_REQUEST["module"] .= "Delete";
-                    break;
-                default:
-                    $_REQUEST["module"] = "default";
-                    break;
-            }
-        }
+    if (isset($_REQUEST["moduleBase"]) && isset($_REQUEST["action"])) {
+        $_REQUEST["module"] = $_REQUEST["moduleBase"] . $_REQUEST["action"];
     } else {
-        /*
-         * recherche des variables de formulaire pour reconstituer
-         * le nom du module
-         */
-        if (isset($_REQUEST["moduleBase"]) && isset($_REQUEST["action"])) {
-            $_REQUEST["module"] = $_REQUEST["moduleBase"] . $_REQUEST["action"];
+        $request_uri = $_SERVER["REQUEST_URI"];
+        if (substr($request_uri, 0, 2) == "//") {
+            $request_uri = substr($request_uri, 1);
+        }
+        $uri = explode("/", $request_uri);
+        if (count($uri) > 2 && $uri[1] != $display) {
+            /*
+             * Extraction le cas echeant des variables GET
+             */
+            $uri3 = explode("?", $uri[3]);
+            if (count($uri3) == 2) {
+                $uri[3] = $uri3[0];
+            }
+            $_REQUEST["module"] = $uri[1] . $uri[2] . $uri[3];
+            /*
+             * On recherche si le quatrieme element existe
+             */
+            if (strlen($uri[4]) == 0) {
+                $_REQUEST["module"] .= "List";
+            } else {
+                $uri4 = explode("?", $uri[4]);
+                $requestId = $uri4[0];
+                /*
+                 * Prepositionnement par defaut de la valeur uid (la plus frequente)
+                 */
+                if (! isset($_REQUEST["uid"])) {
+                    $_REQUEST["uid"] = $uri[4];
+                }
+                switch ($_SERVER["REQUEST_METHOD"]) {
+                    case "GET":
+                        $_REQUEST["module"] .= "Display";
+                        break;
+                    case "POST":
+                        $_REQUEST["module"] .= "Write";
+                        break;
+                    case "PUT":
+                        $_REQUEST["module"] .= "Replace";
+                        break;
+                    case "DELETE":
+                        $_REQUEST["module"] .= "Delete";
+                        break;
+                    default:
+                        $_REQUEST["module"] = "default";
+                        break;
+                }
+            }
         }
     }
 }
@@ -215,139 +215,139 @@ while (isset($module)) {
                 $log->setLog($_REQUEST["login"], "connexion", "swtoken-ko");
             }
         } else {
-        /*
-         * Affichage de l'ecran de saisie du login si necessaire
-         */
-        if (in_array($ident_type, array(
-            "BDD",
-            "LDAP",
-            "LDAP-BDD"
-        )) && ! isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0 && ! isset($_COOKIE["tokenIdentity"])) {
             /*
-             * Gestion de la saisie du login
+             * Affichage de l'ecran de saisie du login si necessaire
              */
-            $vue->set("ident/login.tpl", "corps");
-            $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
-            $vue->set($APPLI_lostPassword, "lostPassword");
-            $loginForm = true;
-            if ($t_module["retourlogin"] == 1) {
-                $vue->set($_REQUEST["module"], "module");
-            }
-            $message->set($LANG["login"][2]);
-        } else {
-            
-            /*
-             * Verification du login
-             */
-            if (! isset($_SESSION["login"])) {
+            if (in_array($ident_type, array(
+                "BDD",
+                "LDAP",
+                "LDAP-BDD"
+            )) && ! isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0 && ! isset($_COOKIE["tokenIdentity"])) {
                 /*
-                 * Purge des anciens enregistrements dans log
+                 * Gestion de la saisie du login
                  */
-                $log->purge($LOG_duree);
+                $vue->set("ident/login.tpl", "corps");
+                $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
+                $vue->set($APPLI_lostPassword, "lostPassword");
+                $loginForm = true;
+                if ($t_module["retourlogin"] == 1) {
+                    $vue->set($_REQUEST["module"], "module");
+                }
+                $message->set($LANG["login"][2]);
+            } else {
+                
                 /*
-                 * Traitement de l'identification par jeton
+                 * Verification du login
                  */
-                if (isset($_COOKIE["tokenIdentity"])) {
-                    try {
-                        require_once 'framework/identification/token.class.php';
-                        $token = new Token($privateKey, $pubKey);
-                        $login = $token->openToken($_COOKIE["tokenIdentity"]);
-                    } catch (Exception $e) {
-                        $message->set($LANG["message"][48]);
-                        $message->setSyslog($e->getMessage());
-                        $log->setLog("unknown", "connexion", "token-ko");
+                if (! isset($_SESSION["login"])) {
+                    /*
+                     * Purge des anciens enregistrements dans log
+                     */
+                    $log->purge($LOG_duree);
+                    /*
+                     * Traitement de l'identification par jeton
+                     */
+                    if (isset($_COOKIE["tokenIdentity"])) {
+                        try {
+                            require_once 'framework/identification/token.class.php';
+                            $token = new Token($privateKey, $pubKey);
+                            $login = $token->openToken($_COOKIE["tokenIdentity"]);
+                        } catch (Exception $e) {
+                            $message->set($LANG["message"][48]);
+                            $message->setSyslog($e->getMessage());
+                            $log->setLog("unknown", "connexion", "token-ko");
+                        }
+                        if (strlen($login) > 0) {
+                            $log->setLog($login, "connexion", "token-ok");
+                        } else {
+                            $log->setLog("unknown", "connexion", "token-ko");
+                        }
+                    } else {
+                        /*
+                         * Verification du login
+                         */
+                        $login = $identification->verifyLogin($_REQUEST["login"], $_REQUEST["password"]);
                     }
                     if (strlen($login) > 0) {
-                        $log->setLog($login, "connexion", "token-ok");
-                    } else {
-                        $log->setLog("unknown", "connexion", "token-ko");
-                    }
-                } else {
-                    /*
-                     * Verification du login
-                     */
-                    $login = $identification->verifyLogin($_REQUEST["login"], $_REQUEST["password"]);
-                }
-                if (strlen($login) > 0) {
-                    /*
-                     * Le login a ete valide
-                     * Declenchement de toutes les operations d'initialisation necessaires
-                     */
-                    $_SESSION["login"] = $login;
-                    unset($_SESSION["menu"]);
-                    $message->set($LANG["message"][10]);
-                    
-                    /*
-                     * Regeneration de l'identifiant de session
-                     */
-                    session_regenerate_id();
-                    /*
-                     * Recuperation de la derniere connexion et affichage a l'ecran
-                     */
-                    $lastConnect = $log->getLastConnexion();
-                    if (isset($lastConnect["log_date"])) {
-                        $texte = $LANG["login"][48];
-                        $texte = str_replace(":datelog", $lastConnect["log_date"], $texte);
-                        $texte = str_replace(":iplog", $lastConnect["ipaddress"], $texte);
-                        $message->set($texte);
-                    }
-                    $message->setSyslog("connexion ok for " . $_SESSION["login"] . " from " . getIPClientAddress());
-                    /*
-                     * Reinitialisation du menu
-                     */
-                    unset($_SESSION["menu"]);
-                    /*
-                     * Recuperation des cookies le cas echeant
-                     */
-                    include 'modules/cookies.inc.php';
-                    /*
-                     * Calcul des droits
-                     */
-                    require_once 'framework/droits/droits.class.php';
-                    $acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
-                    try {
-                        $_SESSION["droits"] = $acllogin->getListDroits($_SESSION["login"], $GACL_aco, $LDAP);
-                    } catch (Exception $e) {
-                        if ($APPLI_modeDeveloppement) {
-                            $message->set($e->getMessage());
-                        } else {
-                            $message->setSyslog($e->getMessage());
+                        /*
+                         * Le login a ete valide
+                         * Declenchement de toutes les operations d'initialisation necessaires
+                         */
+                        $_SESSION["login"] = $login;
+                        unset($_SESSION["menu"]);
+                        $message->set($LANG["message"][10]);
+                        
+                        /*
+                         * Regeneration de l'identifiant de session
+                         */
+                        session_regenerate_id();
+                        /*
+                         * Recuperation de la derniere connexion et affichage a l'ecran
+                         */
+                        $lastConnect = $log->getLastConnexion();
+                        if (isset($lastConnect["log_date"])) {
+                            $texte = $LANG["login"][48];
+                            $texte = str_replace(":datelog", $lastConnect["log_date"], $texte);
+                            $texte = str_replace(":iplog", $lastConnect["ipaddress"], $texte);
+                            $message->set($texte);
                         }
-                    }
-                    
-                    /*
-                     * Integration des commandes post login
-                     */
-                    include "modules/postLogin.php";
-                    /*
-                     * Gestion de l'identification par token
-                     */
-                    if ($_REQUEST["loginByTokenRequested"] == 1) {
-                        require_once 'framework/identification/token.class.php';
-                        $tokenClass = new Token($privateKey, $pubKey);
+                        $message->setSyslog("connexion ok for " . $_SESSION["login"] . " from " . getIPClientAddress());
+                        /*
+                         * Reinitialisation du menu
+                         */
+                        unset($_SESSION["menu"]);
+                        /*
+                         * Recuperation des cookies le cas echeant
+                         */
+                        include 'modules/cookies.inc.php';
+                        /*
+                         * Calcul des droits
+                         */
+                        require_once 'framework/droits/droits.class.php';
+                        $acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
                         try {
-                            $token = $tokenClass->createToken($_SESSION["login"], $tokenIdentityValidity);
-                            /*
-                             * Ecriture du cookie
-                             */
-                            $cookieParam = session_get_cookie_params();
-                            $cookieParam["lifetime"] = $tokenIdentityValidity;
-                            if (! $APPLI_modeDeveloppement) {
-                                $cookieParam["secure"] = true;
-                            }
-                            $cookieParam["httponly"] = true;
-                            setcookie('tokenIdentity', $token, time() + $tokenIdentityValidity, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
+                            $_SESSION["droits"] = $acllogin->getListDroits($_SESSION["login"], $GACL_aco, $LDAP);
                         } catch (Exception $e) {
-                            $message->set($e->getMessage());
+                            if ($APPLI_modeDeveloppement) {
+                                $message->set($e->getMessage());
+                            } else {
+                                $message->setSyslog($e->getMessage());
+                            }
                         }
+                        
+                        /*
+                         * Integration des commandes post login
+                         */
+                        include "modules/postLogin.php";
+                        /*
+                         * Gestion de l'identification par token
+                         */
+                        if ($_REQUEST["loginByTokenRequested"] == 1) {
+                            require_once 'framework/identification/token.class.php';
+                            $tokenClass = new Token($privateKey, $pubKey);
+                            try {
+                                $token = $tokenClass->createToken($_SESSION["login"], $tokenIdentityValidity);
+                                /*
+                                 * Ecriture du cookie
+                                 */
+                                $cookieParam = session_get_cookie_params();
+                                $cookieParam["lifetime"] = $tokenIdentityValidity;
+                                if (! $APPLI_modeDeveloppement) {
+                                    $cookieParam["secure"] = true;
+                                }
+                                $cookieParam["httponly"] = true;
+                                setcookie('tokenIdentity', $token, time() + $tokenIdentityValidity, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
+                            } catch (Exception $e) {
+                                $message->set($e->getMessage());
+                            }
+                        }
+                    } else {
+                        $message->set($LANG["message"][11]);
+                        $message->setSyslog("connexion ko from " . getIPClientAddress());
                     }
-                } else {
-                    $message->set($LANG["message"][11]);
-                    $message->setSyslog("connexion ko from " . getIPClientAddress());
                 }
             }
         }
-    }
     }
     
     /*
@@ -488,7 +488,7 @@ while (isset($module)) {
                 case 3:
                 default:
                     if (isset($t_module["retourok"])) {
-                    $module = $t_module["retourok"];
+                        $module = $t_module["retourok"];
                     }
                     break;
             }

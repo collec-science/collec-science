@@ -51,6 +51,24 @@
 <link rel="stylesheet" type="text/css" href="{$display}/javascript/jquery-ui-1.12.1.custom/jquery-ui.min.css"/>
 <link rel="stylesheet" type="text/css" href="{$display}/javascript/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css"/>
 <link rel="stylesheet" type="text/css" href="{$display}/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.css"/>
+<style>
+	/* https://developers.google.com/speed/docs/insights/OptimizeCSSDelivery */
+	.ui-state-default, .ui-button {
+		background: white;
+	}
+	.custom-combobox {
+		position: relative;
+		display: inline-block;
+		width:100%;
+	}
+	.custom-combobox-toggle {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		padding: 0;
+		right: -1px;
+	}
+</style>
 <script type="text/javascript" charset="utf-8" src="{$display}/javascript/jquery-ui-1.12.1.custom/combobox.js"></script>
 
 <!-- Affichage des photos -->

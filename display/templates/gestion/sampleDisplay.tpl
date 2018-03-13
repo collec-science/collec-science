@@ -247,7 +247,7 @@ clp : {$data.clp_classification}
 </fieldset>
 <fieldset>
 <legend>Mouvements</legend>
-{include file="gestion/movementList.tpl"}
+{include file="gestion/objectMovementList.tpl"}
 </fieldset>
 
 </div>

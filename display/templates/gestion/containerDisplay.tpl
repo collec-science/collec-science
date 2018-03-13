@@ -116,7 +116,7 @@ Nouveau container
 </fieldset>
 <fieldset>
 <legend>Mouvements</legend>
-{include file="gestion/movementList.tpl"}
+{include file="gestion/objectMovementList.tpl"}
 </fieldset>
 </div>
 

@@ -535,6 +535,7 @@ if ($isHtml) {
     $vue->set($_SESSION["menu"], "menu");
     if (isset($_SESSION["login"])) {
         $vue->set(1, "isConnected");
+        $vue->set($_SESSION["login"], "login");
     }
     /*
      * Affichage de la page

@@ -40,13 +40,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="storage_reason_id" class="control-label col-sm-4">Motif du déstockage :</label>
+				<label for="movement_reason_id" class="control-label col-sm-4">Motif du déstockage :</label>
 				<div class="col-sm-8">
-					<select id="storage_reason_id" name="storage_reason_id">
-					<option value="" {if $data.storage_reason_id == ""}selected{/if}>Sélectionnez...</option>
+					<select id="movement_reason_id" name="movement_reason_id">
+					<option value="" {if $data.movement_reason_id == ""}selected{/if}>Sélectionnez...</option>
 					{section name=lst loop=$storageReason}
-					<option value="{$storageReason[lst].storage_reason_id}" {if $data.storage_reason_id == $storageReason[lst].storage_reason_id}selected{/if}>
-					{$storageReason[lst].storage_reason_name}
+					<option value="{$storageReason[lst].movement_reason_id}" {if $data.movement_reason_id == $storageReason[lst].movement_reason_id}selected{/if}>
+					{$storageReason[lst].movement_reason_name}
 					</option>	
 					{/section}		
 					</select>

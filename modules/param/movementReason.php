@@ -5,9 +5,9 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-require_once 'modules/classes/storageReason.class.php';
-$dataClass = new StorageReason($bdd,$ObjetBDDParam);
-$keyName = "storage_reason_id";
+require_once 'modules/classes/movementReason.class.php';
+$dataClass = new MovementReason($bdd,$ObjetBDDParam);
+$keyName = "movement_reason_id";
 $id = $_REQUEST[$keyName];
 
 switch ($t_module["param"]) {
@@ -16,7 +16,7 @@ switch ($t_module["param"]) {
 		 * Display the list of all records of the table
 		 */
 		$vue->set($dataClass->getListe(2) , "data");
-		$vue->set("param/storageReasonList.tpl" , "corps");
+		$vue->set("param/movementReasonList.tpl" , "corps");
 		break;
 	case "change":
 		/*
@@ -24,7 +24,7 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		dataRead($dataClass, $id, "param/storageReasonChange.tpl");
+		dataRead($dataClass, $id, "param/movementReasonChange.tpl");
 		break;
 	case "write":
 		/*

@@ -42,9 +42,9 @@ switch ($t_module["param"]) {
         /*
          * Recherche des motifs de sortie
          */
-        require_once 'modules/classes/storageReason.class.php';
-        $storageReason = new StorageReason($bdd, $ObjetBDDParam);
-        $vue->set($storageReason->getListe(2), "storageReason");
+        require_once 'modules/classes/movementReason.class.php';
+        $movementReason = new MovementReason($bdd, $ObjetBDDParam);
+        $vue->set($movementReason->getListe(2), "movementReason");
         break;
     case "write":
 		/*
@@ -119,14 +119,14 @@ switch ($t_module["param"]) {
         /*
          * Recherche des motifs de sortie
          */
-        require_once 'modules/classes/storageReason.class.php';
-        $storageReason = new StorageReason($bdd, $ObjetBDDParam);
-        $vue->set($storageReason->getListe(2), "storageReason");
+        require_once 'modules/classes/movementReason.class.php';
+        $movementReason = new MovementReason($bdd, $ObjetBDDParam);
+        $vue->set($movementReason->getListe(2), "movementReason");
         
         break;
     case "fastOutputWrite":
         try {
-            $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["storage_date"], 2, 0, $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["storage_comment"], $_REQUEST["storage_reason_id"]);
+            $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["storage_date"], 2, 0, $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["storage_comment"], $_REQUEST["movement_reason_id"]);
             $message->set($LANG["message"][5]);
             $module_coderetour = 1;
         } catch (Exception $e) {
@@ -146,9 +146,9 @@ switch ($t_module["param"]) {
         /*
          * Recherche des motifs de sortie
          */
-        require_once 'modules/classes/storageReason.class.php';
-        $storageReason = new StorageReason($bdd, $ObjetBDDParam);
-        $vue->set($storageReason->getListe(2), "storageReason");
+        require_once 'modules/classes/movementReason.class.php';
+        $movementReason = new MovementReason($bdd, $ObjetBDDParam);
+        $vue->set($movementReason->getListe(2), "movementReason");
         break;
     case "batchWrite":
 		/*
@@ -168,7 +168,7 @@ switch ($t_module["param"]) {
                 }
                 if (($sens == 1 && $uid_container > 0) || $sens == 2) {
                     $sens == 1 ? $uic = $uid_container : $uic = "";
-                    $dataClass->addMovement($uid, $date, $sens, $uic, $_SESSION["login"], null, null, $_REQUEST["storage_reason_id"], $_REQUEST["column" . $uid], $_REQUEST["line" . $uid]);
+                    $dataClass->addMovement($uid, $date, $sens, $uic, $_SESSION["login"], null, null, $_REQUEST["movement_reason_id"], $_REQUEST["column" . $uid], $_REQUEST["line" . $uid]);
                     $nb ++;
                 }
             }
@@ -205,15 +205,15 @@ switch ($t_module["param"]) {
         /*
          * Recherche des motifs de sortie
          */
-        require_once 'modules/classes/storageReason.class.php';
-        $storageReason = new StorageReason($bdd, $ObjetBDDParam);
-        $vue->set($storageReason->getListe(2), "storageReason");
-        $vue->set($_POST["storage_reason_id"], "storage_reason_id");
+        require_once 'modules/classes/movementReason.class.php';
+        $movementReason = new MovementReason($bdd, $ObjetBDDParam);
+        $vue->set($movementReason->getListe(2), "movementReason");
+        $vue->set($_POST["movement_reason_id"], "movement_reason_id");
         break;
     
     case "smallMovementWrite":
         try {
-            $dataClass->addMovement($_POST["object_uid"], null, $_POST["movement_type_id"], $_POST["container_uid"], null, null, null, $_POST["storage_reason_id"], $_POST["column_number"], $_POST["line_number"]);
+            $dataClass->addMovement($_POST["object_uid"], null, $_POST["movement_type_id"], $_POST["container_uid"], null, null, null, $_POST["movement_reason_id"], $_POST["column_number"], $_POST["line_number"]);
             $module_coderetour = 1;
             $message->set($LANG["appli"][7]);
         } catch (Exception $e) {

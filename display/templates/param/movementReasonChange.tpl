@@ -6,17 +6,17 @@
 <form class="form-horizontal protoform" id="storageReasonForm" method="post" action="index.php">
 <input type="hidden" name="moduleBase" value="storageReason">
 <input type="hidden" name="action" value="Write">
-<input type="hidden" name="storage_reason_id" value="{$data.storage_reason_id}">
+<input type="hidden" name="movement_reason_id" value="{$data.movement_reason_id}">
 <div class="form-group">
 <label for="storageReasonName"  class="control-label col-md-4">Nom<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="storageReasonName" type="text" class="form-control" name="storage_reason_name" value="{$data.storage_reason_name}" autofocus required></div>
+<input id="storageReasonName" type="text" class="form-control" name="movement_reason_name" value="{$data.movement_reason_name}" autofocus required></div>
 </div>
 
 
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
-      {if $data.storage_reason_id > 0 }
+      {if $data.movement_reason_id > 0 }
       <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
       {/if}
  </div>

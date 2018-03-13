@@ -2,7 +2,7 @@
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}
-<a href="index.php?module=storageReasonChange&storage_reason_id=0">
+<a href="index.php?module=storageReasonChange&movement_reason_id=0">
 {$LANG["appli"][0]}
 </a>
 {/if}
@@ -17,10 +17,10 @@
 <tr>
 <td>
 {if $droits.param == 1}
-<a href="index.php?module=storageReasonChange&storage_reason_id={$data[lst].storage_reason_id}">
-{$data[lst].storage_reason_name}
+<a href="index.php?module=storageReasonChange&movement_reason_id={$data[lst].movement_reason_id}">
+{$data[lst].movement_reason_name}
 {else}
-{$data[lst].storage_reason_name}
+{$data[lst].movement_reason_name}
 {/if}
 </td>
 </tr>

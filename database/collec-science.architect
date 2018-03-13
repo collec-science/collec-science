@@ -235,40 +235,40 @@ B: bottom, premiere ligne en bas</remarks>
     </index>
    </folder>
   </table>
-  <table id="TAB64" populated="true" UUID="c000e48f-20af-415f-81d4-47f7944d4b56" name="storage" objectType="TABLE" physicalName="storage" >
-   <remarks>Gestion du stockage des échantillons</remarks>
+  <table id="TAB64" populated="true" UUID="c000e48f-20af-415f-81d4-47f7944d4b56" name="movement" objectType="TABLE" physicalName="movement" >
+   <remarks>Records of objects movements</remarks>
    <folder id="FOLTAB641" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL65" populated="true" UUID="36317b6a-27c6-4015-bb48-84a117c09651" autoIncrement="true" autoIncrementSequenceName="storage_storage_id_seq" defaultValue="" name="storage_id" nullable="0" physicalName="storage_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL65" populated="true" UUID="36317b6a-27c6-4015-bb48-84a117c09651" autoIncrement="true" autoIncrementSequenceName="movement_storage_id_seq" defaultValue="" name="storage_id" nullable="0" physicalName="storage_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL66" populated="true" UUID="707ddabf-75fa-4d66-88bd-e563f94a6a74" autoIncrement="false" autoIncrementSequenceName="object_uid_seq" defaultValue="" name="uid" nullable="0" physicalName="uid" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL66" populated="true" UUID="707ddabf-75fa-4d66-88bd-e563f94a6a74" autoIncrement="false" autoIncrementSequenceName="movement_uid_seq" defaultValue="" name="uid" nullable="0" physicalName="uid" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL67" populated="true" UUID="29c3c0e3-0c35-4301-8581-0135c133019e" autoIncrement="false" autoIncrementSequenceName="container_New Column_seq" defaultValue="" name="container_id" nullable="1" physicalName="container_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL68" populated="true" UUID="42d1fa32-6ac9-4267-a6c9-f8cc136dcdd6" autoIncrement="false" autoIncrementSequenceName="movement_type_movement_type_id_seq" defaultValue="" name="movement_type_id" nullable="0" physicalName="movement_type_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL68" populated="true" UUID="42d1fa32-6ac9-4267-a6c9-f8cc136dcdd6" autoIncrement="false" autoIncrementSequenceName="movement_movement_type_id_seq" defaultValue="" name="movement_type_id" nullable="0" physicalName="movement_type_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL69" populated="true" UUID="0d82b260-a412-4344-9887-41bd8a8c6cc6" autoIncrement="false" autoIncrementSequenceName="storage_reason_storage_reason_id_seq" defaultValue="" name="storage_reason_id" nullable="1" physicalName="storage_reason_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL69" populated="true" UUID="0d82b260-a412-4344-9887-41bd8a8c6cc6" autoIncrement="false" autoIncrementSequenceName="movement_storage_reason_id_seq" defaultValue="" name="movement_reason_id" nullable="1" physicalName="movement_reason_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL70" populated="true" UUID="cdf9101e-9eb4-416c-ab49-9e96e8a14240" autoIncrement="false" autoIncrementSequenceName="storage_storage_date_seq" defaultValue="" name="storage_date" nullable="0" physicalName="storage_date" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
+    <column id="COL70" populated="true" UUID="cdf9101e-9eb4-416c-ab49-9e96e8a14240" autoIncrement="false" autoIncrementSequenceName="movement_storage_date_seq" defaultValue="" name="movement_date" nullable="0" physicalName="movement_date" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="93" userDefinedTypeUUID="6497d8de-0e00-40d6-a42e-e2adca83be64" >
      <remarks>Date/heure du mouvement</remarks>
     </column>
     <column id="COL71" populated="true" UUID="39321d48-ad47-4a44-9f61-41112207c7a2" autoIncrement="false" autoIncrementSequenceName="storage_range_seq" defaultValue="" name="storage_location" nullable="1" physicalName="storage_location" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Emplacement de l&apos;échantillon dans le conteneur</remarks>
     </column>
-    <column id="COL72" populated="true" UUID="0219622f-da04-49f3-a82b-791f261bcdae" autoIncrement="false" autoIncrementSequenceName="storage_login_seq" defaultValue="" name="login" nullable="0" physicalName="login" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL72" populated="true" UUID="0219622f-da04-49f3-a82b-791f261bcdae" autoIncrement="false" autoIncrementSequenceName="movement_login_seq" defaultValue="" name="login" nullable="0" physicalName="login" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Nom de l&apos;utilisateur ayant réalisé l&apos;opération</remarks>
     </column>
-    <column id="COL73" populated="true" UUID="9852f6c7-d089-4b7d-a218-f96444806154" autoIncrement="false" autoIncrementSequenceName="storage_storage_comment_seq" defaultValue="" name="storage_comment" nullable="1" physicalName="storage_comment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL73" populated="true" UUID="9852f6c7-d089-4b7d-a218-f96444806154" autoIncrement="false" autoIncrementSequenceName="movement_storage_comment_seq" defaultValue="" name="movement_comment" nullable="1" physicalName="movement_comment" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Commentaire</remarks>
     </column>
-    <column id="COL74" populated="true" UUID="224c70e8-47c0-45af-a9a7-c8fec76b849e" autoIncrement="false" autoIncrementSequenceName="storage_line_number_seq" defaultValue="1" name="line_number" nullable="0" physicalName="line_number" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL74" populated="true" UUID="224c70e8-47c0-45af-a9a7-c8fec76b849e" autoIncrement="false" autoIncrementSequenceName="movement_line_number_seq" defaultValue="1" name="line_number" nullable="0" physicalName="line_number" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks>N° de la ligne de stockage dans le container</remarks>
     </column>
-    <column id="COL75" populated="true" UUID="73a4eaa3-6fd0-4be6-9fc5-472a37ee945c" autoIncrement="false" autoIncrementSequenceName="storage_column_number_seq" defaultValue="1" name="column_number" nullable="0" physicalName="column_number" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL75" populated="true" UUID="73a4eaa3-6fd0-4be6-9fc5-472a37ee945c" autoIncrement="false" autoIncrementSequenceName="movement_column_number_seq" defaultValue="1" name="column_number" nullable="0" physicalName="column_number" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks>Numéro de la colonne de stockage dans le container</remarks>
     </column>
     </folder>
@@ -277,7 +277,7 @@ B: bottom, premiere ligne en bas</remarks>
     <folder id="FOLTAB642" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB644" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX76" populated="true" UUID="e1f52254-93a5-44cb-9a86-d9ce6afc8594" clustered="false" name="storage_pk" physicalName="storage_pk" primaryKeyIndex="true" unique="false" >
+    <index id="IDX76" populated="true" UUID="e1f52254-93a5-44cb-9a86-d9ce6afc8594" clustered="false" name="movement_pk" physicalName="storage_pk" primaryKeyIndex="true" unique="false" >
      <index-column id="IDC77" populated="true" UUID="33b3c26a-41bc-4631-b830-fcd58d0f4847" ascendingOrDescending="UNSPECIFIED" column-ref="COL65" name="storage_id" physicalName="storage_id" />
     </index>
    </folder>
@@ -687,13 +687,13 @@ B: bottom, premiere ligne en bas</remarks>
     </index>
    </folder>
   </table>
-  <table id="TAB188" populated="true" UUID="35ff13cb-fc74-4f1a-b93c-8952cb894930" name="storage_reason" objectType="TABLE" physicalName="storage_reason" >
-   <remarks>Table des raisons de stockage/déstockage</remarks>
+  <table id="TAB188" populated="true" UUID="35ff13cb-fc74-4f1a-b93c-8952cb894930" name="movement_reason" objectType="TABLE" physicalName="movement_reason" >
+   <remarks>List of the reasons of the movement</remarks>
    <folder id="FOLTAB1881" populated="true" name="Columns" physicalName="Columns" type="1">
-    <column id="COL189" populated="true" UUID="1c47b6d0-a79a-4b9e-a0f7-835d2b73b3e2" autoIncrement="true" autoIncrementSequenceName="storage_reason_storage_reason_id_seq" defaultValue="" name="storage_reason_id" nullable="0" physicalName="storage_reason_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL189" populated="true" UUID="1c47b6d0-a79a-4b9e-a0f7-835d2b73b3e2" autoIncrement="true" autoIncrementSequenceName="movement_reason_movement_reason_id_seq" defaultValue="" name="movement_reason_id" nullable="0" physicalName="movement_reason_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
-    <column id="COL190" populated="true" UUID="85aff549-c8fe-494f-902c-a2807e6b1e00" autoIncrement="false" autoIncrementSequenceName="storage_reason_storage_reason_name_seq" defaultValue="" name="storage_reason_name" nullable="0" physicalName="storage_reason_name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL190" populated="true" UUID="85aff549-c8fe-494f-902c-a2807e6b1e00" autoIncrement="false" autoIncrementSequenceName="movement_reason_storage_reason_name_seq" defaultValue="" name="movement_reason_name" nullable="0" physicalName="movement_reason_name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
     </folder>
@@ -702,8 +702,8 @@ B: bottom, premiere ligne en bas</remarks>
     <folder id="FOLTAB1882" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
     </folder>
     <folder id="FOLTAB1884" populated="true" name="Indices" physicalName="Indices" type="4">
-    <index id="IDX191" populated="true" UUID="f421c0e4-32bb-4dfb-893d-3c2e83d53712" clustered="false" name="storage_reason_pk" physicalName="storage_reason_pk" primaryKeyIndex="true" unique="false" >
-     <index-column id="IDC192" populated="true" UUID="79b5b5ff-3ccb-40b8-8223-76c169e770e2" ascendingOrDescending="UNSPECIFIED" column-ref="COL189" name="storage_reason_id" physicalName="storage_reason_id" />
+    <index id="IDX191" populated="true" UUID="f421c0e4-32bb-4dfb-893d-3c2e83d53712" clustered="false" name="movement_reason_pk" physicalName="storage_reason_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC192" populated="true" UUID="79b5b5ff-3ccb-40b8-8223-76c169e770e2" ascendingOrDescending="UNSPECIFIED" column-ref="COL189" name="movement_reason_id" physicalName="movement_reason_id" />
     </index>
    </folder>
   </table>

@@ -37,8 +37,8 @@
 {/if}
 </td>
 <td>
-{$storages[lst].storage_reason_name}
-{if strlen($storages[lst].storage_reason_name) > 0}<br>{/if}
+{$storages[lst].movement_reason_name}
+{if strlen($storages[lst].movement_reason_name) > 0}<br>{/if}
 <span class="textareaDisplay">{$storages[lst].storage_comment}</span>
 </td>
 <td>

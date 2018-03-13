@@ -23,14 +23,14 @@ class Storage extends ObjetBDD
 					storage_date, storage_location, login, storage_comment,
 					identifier, o.uid as parent_uid, o.identifier as parent_identifier,
 					container_type_id, container_type_name,
-					storage_reason_id, storage_reason_name,
+					movement_reason_id, movement_reason_name,
                     column_number, line_number
 					from storage s
 					join movement_type using (movement_type_id)
 					left outer join container c using (container_id)
 					left outer join object o on (c.uid = o.uid)
 					left outer join container_type using (container_type_id)
-					left outer join storage_reason using (storage_reason_id)
+					left outer join movement_reason using (movement_reason_id)
 					";
 
     private $order = " order by storage_date desc";
@@ -59,7 +59,7 @@ class Storage extends ObjetBDD
                 "type" => 1,
                 "requis" => 1
             ),
-            "storage_reason_id" => array(
+            "movement_reason_id" => array(
                 "type" => 1
             ),
             "storage_date" => array(
@@ -188,7 +188,7 @@ class Storage extends ObjetBDD
      * @param string $comment
      * @return int
      */
-    function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $storage_location = null, $comment = null, $storage_reason_id = null, $column_number = 1, $line_number = 1)
+    function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $storage_location = null, $comment = null, $movement_reason_id = null, $column_number = 1, $line_number = 1)
     {
         global $LANG;
         /*
@@ -219,7 +219,7 @@ class Storage extends ObjetBDD
         }
         $storage_location = $this->encodeData($storage_location);
         $comment = $this->encodeData($comment);
-        $storage_reason_id = $this->encodeData($storage_reason_id);
+        $movement_reason_id = $this->encodeData($movement_reason_id);
         if ($type == 1) {
             /*
              * Recherche de container_id a partir de uid
@@ -238,7 +238,7 @@ class Storage extends ObjetBDD
             $data["storage_date"] = $date;
             $data["movement_type_id"] = $type;
             $data["login"] = $login;
-            $data["storage_reason_id"] = $storage_reason_id;
+            $data["movement_reason_id"] = $movement_reason_id;
             
             if (strlen($storage_location) > 0) {
                 $data["storage_location"] = $storage_location;

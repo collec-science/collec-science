@@ -21,10 +21,10 @@
 			<li><a href="{if $isConnected}#{else}index.php?module=connexion{/if}">{if $isConnected }{$login}{else}{$LANG["menu"]["connexionvalue"]}{*Connexion*}{/if} <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 				    <li><a href='index.php?module=setlanguage&langue=fr'> <img
-								src='{$display}/images/drapeau_francais.png?refresh180313' height='16' width='16' border='0'> {$LANG["menu"]["fr"]}{*Français*}
+								src='{$display}/images/drapeau_francais.png#180313' height='16' border='0'> {$LANG["menu"]["fr"]}{*Français*}
 							</a></li>
 				    <li><a href='index.php?module=setlanguage&langue=en'> <img
-								src='{$display}/images/drapeau_anglais.png?refresh180313' height='16' width='16' border='0'> {$LANG["menu"]["en"]}{*English*}
+								src='{$display}/images/drapeau_anglais.png#refresh180313' height='16' border='0'> {$LANG["menu"]["en"]}{*English*}
 							</a> </li>
 {if $isConnected}
 				    <li><a href='index.php?module=loginChangePassword' title="{$LANG["login"][31]}"> <img

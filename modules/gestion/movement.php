@@ -99,7 +99,7 @@ switch ($t_module["param"]) {
         break;
     case "fastInputWrite":
         try {
-            $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["movement_date"], 1, $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["movement_location"], $_REQUEST["movement_comment"], null, $_REQUEST["column_number"], $_REQUEST["line_number"]);
+            $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["movement_date"], 1, $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], null, $_REQUEST["column_number"], $_REQUEST["line_number"]);
             $message->set($LANG["message"][5]);
             $module_coderetour = 1;
         } catch (Exception $e) {
@@ -126,7 +126,7 @@ switch ($t_module["param"]) {
         break;
     case "fastOutputWrite":
         try {
-            $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["movement_date"], 2, 0, $_SESSION["login"], $_REQUEST["movement_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"]);
+            $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["movement_date"], 2, 0, $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"]);
             $message->set($LANG["message"][5]);
             $module_coderetour = 1;
         } catch (Exception $e) {

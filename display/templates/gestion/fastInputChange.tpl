@@ -55,11 +55,11 @@
 			</div>
 
 			<div class="form-group">
-				<label for="movement_location" class="control-label col-sm-4">Emplacement
+				<label for="storage_location" class="control-label col-sm-4">Emplacement
 					dans le container (format libre) :</label>
 				<div class="col-sm-8">
-					<input id="movement_location" name="movement_location"
-						value="{$data.movement_location}" class="form-control">
+					<input id="storage_location" name="storage_location"
+						value="{$data.storage_location}" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">

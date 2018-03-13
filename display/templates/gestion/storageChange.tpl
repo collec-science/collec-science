@@ -167,9 +167,9 @@ Retour au détail
 </div>
 {if $data.movement_type_id == 1}
 <div class="form-group">
-<label for="movement_location" class="control-label col-md-4">Emplacement dans le container (format libre) :</label>
+<label for="storage_location" class="control-label col-md-4">Emplacement dans le container (format libre) :</label>
 <div class="col-md-8">
-<input id="movement_location" name="movement_location" value="{$data.movement_location}" type="text" class="form-control">
+<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 </div>
 </div>
 			<div class="form-group">

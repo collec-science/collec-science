@@ -20,7 +20,7 @@ class Movement extends ObjetBDD
      * @param array $param
      */
     private $sql = "select s.uid, container_id, movement_type_id, movement_type_name,
-					movement_date, movement_location, login, movement_comment,
+					movement_date, storage_location, login, movement_comment,
 					identifier, o.uid as parent_uid, o.identifier as parent_identifier,
 					container_type_id, container_type_name,
 					movement_reason_id, movement_reason_name,
@@ -70,7 +70,7 @@ class Movement extends ObjetBDD
                 "requis" => 1,
                 "defaultValue" => "getLogin"
             ),
-            "movement_location" => array(
+            "storage_location" => array(
                 "type" => 0
             ),
             "movement_comment" => array(
@@ -184,11 +184,11 @@ class Movement extends ObjetBDD
      * @param int $type
      * @param number $container_uid
      * @param string $login
-     * @param string $movement_location
+     * @param string $storage_location
      * @param string $comment
      * @return int
      */
-    function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $movement_location = null, $comment = null, $movement_reason_id = null, $column_number = 1, $line_number = 1)
+    function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $storage_location = null, $comment = null, $movement_reason_id = null, $column_number = 1, $line_number = 1)
     {
         global $LANG;
         /*
@@ -217,7 +217,7 @@ class Movement extends ObjetBDD
         if (strlen($login) == 0) {
             strlen($_SESSION["login"]) > 0 ? $login = $_SESSION["login"] : $controle = false;
         }
-        $movement_location = $this->encodeData($movement_location);
+        $storage_location = $this->encodeData($storage_location);
         $comment = $this->encodeData($comment);
         $movement_reason_id = $this->encodeData($movement_reason_id);
         if ($type == 1) {
@@ -240,8 +240,8 @@ class Movement extends ObjetBDD
             $data["login"] = $login;
             $data["movement_reason_id"] = $movement_reason_id;
             
-            if (strlen($movement_location) > 0) {
-                $data["movement_location"] = $movement_location;
+            if (strlen($storage_location) > 0) {
+                $data["storage_location"] = $storage_location;
             }
             if (strlen($comment) > 0) {
                 $data["movement_comment"] = $comment;
@@ -290,7 +290,7 @@ class Movement extends ObjetBDD
         $dateStart = $this->encodeData($values["date_start"]);
         $dateEnd = $this->encodeData($values["date_end"]);
         $data = array();
-        $sql = "select s.login, s.uid, identifier, movement_date, movement_type_id, movement_type_name, movement_location, line_number, column_number,
+        $sql = "select s.login, s.uid, identifier, movement_date, movement_type_id, movement_type_name, storage_location, line_number, column_number,
         case when sample_type_name is not null then sample_type_name else container_type_name end as type_name
         from movement s
         join object o on (o.uid = s.uid)

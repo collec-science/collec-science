@@ -51,8 +51,8 @@
 <td>{$row.identifier}</td>
 <td>{$row.type_name}</td>
 <td>{if $row.movement_type_id == 1}
-{if strlen($row.movement_location) > 0}
-{$row.movement_location}&nbsp;
+{if strlen($row.storage_location) > 0}
+{$row.storage_location}&nbsp;
 {/if}
 C{$row.column_number}L{$row.line_number}
 {/if}

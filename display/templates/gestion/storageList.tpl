@@ -31,7 +31,7 @@
 </td>
 <td>
 {if $movements[lst].movement_type_id == 1}
-{$movements[lst].movement_location}
+{$movements[lst].storage_location}
 {if strlen($movements[lst].column_number) > 0}C{$movements[lst].column_number}{/if}
 {if strlen($movements[lst].line_number) > 0}L{$movements[lst].line_number}{/if}
 {/if}

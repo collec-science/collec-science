@@ -1,7 +1,7 @@
 	<div class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 	
-		<div class="navbar-header">
+		<div class="navbar-header navbar">{* la classe css navbar est là pour conserver une grande taille comme avant. TODO trouver autre solution (css) *}
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target=".navbar-collapse">
 				<span class="sr-only">Toggle navigation</span> <span
@@ -17,26 +17,30 @@
 		</ul>
 
 		<!-- Boutons a droite du menu -->
-		<ul class="nav navbar navbar-right hidden-xs hidden-sm">
-			<a href='index.php?module=setlanguage&langue=fr'> <img
-				src='{$display}/images/drapeau_francais.png' height='20' border='0'>
-			</a>
-			<a href='index.php?module=setlanguage&langue=en'> <img
-				src='{$display}/images/drapeau_anglais.png' height='20' border='0'>
-			</a> &nbsp;
-			{if $isConnected == 1}
-			<a href='index.php?module=loginChangePassword'> <img
-				src='{$display}/images/key.png' height='20' border='0' title="{$LANG["login"][31]}">
-			</a> &nbsp;
-			{/if}
-{if $isConnected == 1}
-<a href="index.php?module=disconnect">
-<img src='{$display}/images/key_green.png' height='20' border='0' title="{$LANG['message'].33}"></a>
-{else}
-<a href="index.php?module=connexion">
-<img src='{$display}/images/key_red.png' height='20' border='0' title="{$LANG['message'].8}">
-</a>
-{/if}			
+		<ul class="nav navbar-nav md navbar-right hidden-xs hidden-sm">
+			<li><a href="{if $isConnected}#{else}index.php?module=connexion{/if}">{if $isConnected }{$login}{else}{$LANG["menu"]["connexionvalue"]}{*Connexion*}{/if} <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+				    <li><a href='index.php?module=setlanguage&langue=fr'> <img
+								src='{$display}/images/drapeau_francais.png#180313' height='16' border='0'> {$LANG["menu"]["fr"]}{*Français*}
+							</a></li>
+				    <li><a href='index.php?module=setlanguage&langue=en'> <img
+								src='{$display}/images/drapeau_anglais.png#refresh180313' height='16' border='0'> {$LANG["menu"]["en"]}{*English*}
+							</a> </li>
+{if $isConnected}
+				    <li><a href='index.php?module=loginChangePassword' title="{$LANG["login"][31]}"> <img
+								src='{$display}/images/key.png' height='16' width='16' border='0' title="{$LANG["login"][31]}">
+							{$LANG["login"][1]}{*Mot de passe*}</a></li>
+					<li><a href="index.php?module=disconnect">
+<img src='{$display}/images/key_red.png' height='16' width='16' border='0' title="{$LANG['message'].33}">
+			{$LANG["menu"][6]}{*Se déconnecter*}</a></li>
+{else}{* not connected *}
+			        <li><a href="index.php?module=connexion">
+<img src='{$display}/images/key_green.png' height='16' width='16' border='0' title="{$LANG['message'].8}">
+			{$LANG["menu"]["connexionvalue"]}{*Se connecter*}</a></li>
+{/if}
+
+				</ul>
+			</li>
 		</ul>
 		</div>
 	</div>

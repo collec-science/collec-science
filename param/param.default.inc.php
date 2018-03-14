@@ -56,6 +56,7 @@ $LDAP = array(
 		"rdn" => "cn=manager,dc=example,dc=com",
 		"basedn" => "ou=people,ou=example,o=societe,c=fr",
 		"user_attrib" => "uid",
+		"upn_suffix" => "", //pour Active Directory
 		"v3" => true,
 		"tls" => false,
 		"groupSupport"=>false,

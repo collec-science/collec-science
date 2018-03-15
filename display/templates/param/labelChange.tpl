@@ -111,7 +111,7 @@ Champs utilisables dans le QRcode et dans le texte de l'étiquette :
 <li>y : coordonnée wgs84_y de l'objet</li>
 <li>loc : localisation du prélèvement (table des lieux de prélèvement)</li>
 <li>prod : produit utilisé pour la conservation</li>
-<li>cd : date de création de l'échantillon (date de collecte ou d'extration d'un échantillon pré-existant)</li>
+<li>cd : date d'import/création dans la base de données</li>
 <li>et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants</li>
 </ul>
 </li>

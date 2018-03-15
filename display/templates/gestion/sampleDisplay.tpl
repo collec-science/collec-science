@@ -161,12 +161,18 @@ clp : {$data.clp_classification}
 {/if}
 <dl class="dl-horizontal">
 <dt title="Date de création de l'échantillon">Date de création<br>de l'échantillon :</dt>
-<dd>{$data.sample_date}</dd>
+<dd>{$data.sampling_date}</dd>
 </dl>
 <dl class="dl-horizontal">
 <dt title="Date d'import dans la base de données">Date d'import dans<br>la base de données :</dt>
 <dd>{$data.sample_creation_date}</dd>
 </dl>
+{if strlen($data.expiration_date) > 0}
+<dl class="dl-horizontal">
+<dt title="Date d'expiration de l'échantillon">Date d'expiration :</dt>
+<dd>{$data.expiration_date}</dd>
+</dl>
+{/if}
 {if $data.multiple_type_id > 0}
 <dl class="dl-horizontal">
 <dt title="Quantité de sous-échantillons ({$data.multiple_unit})">Qté de sous-échantillons ({$data.multiple_unit}) : </dt>

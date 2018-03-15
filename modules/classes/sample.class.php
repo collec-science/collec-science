@@ -20,7 +20,7 @@ class Sample extends ObjetBDD
      */
     private $sql = "select s.sample_id, s.uid,
 					s.collection_id, collection_name, s.sample_type_id, s.dbuid_origin,
-					sample_type_name, s.sample_creation_date, s.sample_date, s.metadata, 
+					sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
 					so.identifier, so.wgs84_x, so.wgs84_y, 
@@ -84,7 +84,7 @@ class Sample extends ObjetBDD
             "parent_sample_id" => array(
                 "type" => 1
             ),
-            "sample_date" => array(
+            "sampling_date" => array(
                 "type" => 3,
                 "defaultValue" => "getDateHeure"
             ),
@@ -99,6 +99,9 @@ class Sample extends ObjetBDD
             ),
             "metadata" => array(
                 "type" => 0
+            ),
+            "expiration_date" => array(
+                "type" => 2
             )
         );
         parent::__construct($bdd, $param);
@@ -315,7 +318,17 @@ class Sample extends ObjetBDD
             $data["uid_max"] = $param["uid_max"];
         }
         if (strlen($param["select_date"]) > 0) {
-            $param["select_date"] == "cd" ? $field = "sample_creation_date" : $field = "sample_date";
+            switch($param["select_date"]) {
+                case "cd":
+                    $field = "sample_creation_date";
+                    break;
+                case "sd":
+                    $field = "sampling_date";
+                    break;
+                case "ed":
+                    $field = "expiration_date";
+                    break;
+            }
             $where .= $and . "s.$field between :date_from and :date_to";
             $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
             $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
@@ -425,7 +438,7 @@ class Sample extends ObjetBDD
         } else {
             $this->auto_date = 0;
             $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, 
-             collection_id, collection_name, sample_type_name, sample_creation_date, sample_date, 
+             collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, 
              multiple_value, sampling_place_name,metadata::varchar, 
             identifiers 
             from sample 

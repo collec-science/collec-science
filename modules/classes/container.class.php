@@ -151,7 +151,7 @@ class Container extends ObjetBDD
             $this->colonnes["sample_creation_date"] = array(
                 "type" => 2
             );
-            $this->colonnes["sample_date"] = array(
+            $this->colonnes["sampling_date"] = array(
                 "type" => 2
             );
             $this->colonnes["movement_date"] = array(

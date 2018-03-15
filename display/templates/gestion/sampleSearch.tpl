@@ -18,6 +18,7 @@ $(document).ready(function () {
 		 if ($("#sample_type_id").val() > 0) ok = true;
 		 if ($("#sampling_place_id").val() > 0 ) ok = true ;
 		 if ($("#object_status_id").val() > 1) ok = true;
+		 if ($("#select_date").val().length > 0) ok = true;
 		 var mf = $("#metadata_field").val();
 		 if ( mf != null) {
 			 if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -202,6 +203,7 @@ $(document).ready(function () {
  <option value="" {if $sampleSearch.select_date == ""}selected{/if}>Sélectionnez...</option>
   <option value="cd" {if $sampleSearch.select_date == "cd"}selected{/if}>Date de création dans la base</option>
   <option value="sd" {if $sampleSearch.select_date == "sd"}selected{/if}>Date d'échantillonnage</option>
+  <option value="ed" {if $sampleSearch.select_date == "ed"}selected{/if}>Date d'expiration</option>
  </select>
  </div>
  <div class="col-md-1">du :</div>

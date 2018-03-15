@@ -6,7 +6,7 @@
  * Copyright 2016 - All rights reserved
  */
 class Subsample extends ObjetBDD {
-	private $sql = "select subsample_id, sample_id, subsample_date,
+	private $sql = "select subsample_id, sample_id, subsampling_date,
 					movement_type_id, subsample_quantity, subsample_comment,
 					subsample_login,
 					multiple_unit
@@ -29,7 +29,7 @@ class Subsample extends ObjetBDD {
 						"requis" => 1,
 						"parentAttrib" => 1 
 				),
-				"subsample_date" => array (
+				"subsampling_date" => array (
 						"type" => 3,
 						"requis" => 1,
 						"defaultValue" => "getDateHeure" 

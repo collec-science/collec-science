@@ -26,7 +26,7 @@
 <tr>
 <td>
 <a href="index.php?module=subsampleChange&subsample_id={$subsample[lst].subsample_id}&sample_id={$subsample[lst].sample_id}&uid={$data.uid}">
-{$subsample[lst].subsample_date}
+{$subsample[lst].subsampling_date}
 </td>
 <td>
 {if $subsample[lst].movement_type_id == 1}

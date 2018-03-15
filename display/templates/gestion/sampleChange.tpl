@@ -70,7 +70,7 @@ function testScan() {
         $("#reinit").click(function() {
         	$("#wgs84_x").val("");
         	$("#wgs84_y").val("");
-        	$("#sample_date").val("");
+        	$("#sampling_date").val("");
         	$("#collection_id").val("");
         	$("#sample_type_id").val("");
         	$("#sampling_place_id").val("");
@@ -110,9 +110,15 @@ function testScan() {
         			 case "loc":
         				 $('#sampling_place_id option[value]="'+data["loc"]+'"]').attr("selected", "selected");
         				 break;
-        			 case "cd":
-        				 $("#sample_date").val(data["cd"]);
+        			 case "sd":
+        				 $("#sampling_date").val(data["sd"]);
         				 break;
+        			 case "cd":
+        				 $("#sample_creation_date").val(data["cd"]);
+        				 break; 
+        			 case "ed":
+        				 $("#expiration_date").val(data["ed"]);
+        				 break; 	 
         			default:
         				$('input[name='+key+']').val(data[key]);
         					 
@@ -253,9 +259,9 @@ Sélectionnez...
 </div>
 
 <div class="form-group">
-<label for="sample_date"  class="control-label col-md-4">Date de création de l'échantillon :</label>
+<label for="sampling_date"  class="control-label col-md-4">Date de création/échantillonnage de l'échantillon :</label>
 <div class="col-md-8">
-<input id="sample_date" class="form-control datetimepicker" name="sample_date" value="{$data.sample_date}"></div>
+<input id="sampling_date" class="form-control datetimepicker" name="sampling_date" value="{$data.sampling_date}"></div>
 </div>
 
 <div class="form-group">
@@ -263,6 +269,12 @@ Sélectionnez...
 <div class="col-md-8">
 <input id="sample_creation_date" class="form-control" name="sample_creation_date" readonly value="{$data.sample_creation_date}"></div>
 </div>
+<div class="form-group">
+<label for="expiration_date"  class="control-label col-md-4">Date d'expiration de l'échantillon :</label>
+<div class="col-md-8">
+<input id="expiration_date" class="form-control datepicker" name="expiration_date"  value="{$data.expiration_date}"></div>
+</div>
+
 <fieldset>
 <legend>Sous-échantillonnage (si le type le permet)</legend>
 <div class="form-group">

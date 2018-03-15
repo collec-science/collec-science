@@ -337,7 +337,8 @@ class Object extends ObjetBDD
                                         '$APPLI_code' as db,
                                         '' as prj, storage_product as prod,
                                          wgs84_x as x, wgs84_y as y, movement_date as cd,
-					null as metadata, null as loc, object_status_name as status
+                                        '' as sd,'' as ed,
+					                    null as metadata, null as loc, object_status_name as status
                                         from object
                                         join container using (uid)
                                         join container_type using (container_type_id)
@@ -348,7 +349,9 @@ class Object extends ObjetBDD
         select uid, identifier as id, clp_classification as clp, protocol_name as pn,
                                         '$APPLI_code' as db,
                                         collection_name as prj, storage_product as prod,
-                                         wgs84_x as x, wgs84_y as y, sample_date as cd,
+                                         wgs84_x as x, wgs84_y as y, sample_creation_date as cd,
+                                        sampling_date as sd,
+                                        expiration_date as ed,
 					metadata::varchar, sampling_place_name as loc, object_status_name as status
                                         from object
                                         join sample using (uid)

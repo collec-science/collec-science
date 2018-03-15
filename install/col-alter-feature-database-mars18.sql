@@ -54,3 +54,13 @@ set search_path = gacl;
 update aclaco set aco = 'collection' where aco = 'projet';
 update aclgroup set groupe = 'collection' where groupe = 'projet';
 
+/*
+ * Ajout de la date d'expiration de l'echantillon
+ */
+alter table sample add column expiration_date timestamp;
+alter table sample rename column sample_date to sampling_date;
+create index sample_sample_creation_date_idx on sample(sample_creation_date);
+create index sample_sampling_date_idx on sample(sampling_date);
+create index sample_expiration_date_idx on sample(expiration_date);
+
+ 

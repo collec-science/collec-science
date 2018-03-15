@@ -92,7 +92,7 @@ switch ($t_module["param"]) {
         if ($data["multiple_type_id"] > 0) {
             require_once 'modules/classes/subsample.class.php';
             $subSample = new Subsample($bdd, $ObjetBDDParam);
-            $vue->set($subSample->getListFromParent($data["sample_id"], "subsample_date desc"), "subsample");
+            $vue->set($subSample->getListFromParent($data["sample_id"], "subsampling_date desc"), "subsample");
         }
         /*
          * Verification que l'echantillon peut etre modifie
@@ -165,7 +165,7 @@ switch ($t_module["param"]) {
                     $data["wgs84_y"] = $dl["wgs84_y"];
                     $data["collection_id"] = $dl["collection_id"];
                     $data["sample_type_id"] = $dl["sample_type_id"];
-                    $data["sample_date"] = $dl["sample_date"];
+                    $data["sampling_date"] = $dl["sampling_date"];
                     $data["sampling_place_id"] = $dl["sampling_place_id"];
                     $data["metadata"] = $dl["metadata"];
                     $data["multiple_value"] = $dl["multiple_value"];
@@ -287,7 +287,7 @@ switch ($t_module["param"]) {
             "wgs84_x",
             "wgs84_y",
             "sample_creation_date",
-            "sample_date",
+            "sampling_date",
             "multiple_value",
             "dbuid_origin",
             "metadata"

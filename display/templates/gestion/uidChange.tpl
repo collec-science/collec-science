@@ -35,8 +35,13 @@ $(document).ready(function() {
 
 <div class="form-group">
 <label for="appli" class="control-label col-md-4">Identifiant ou nom :</label>
-<div class="col-md-8">
+<div class="col-md-6">
 <input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus >
+</div>
+<div class="col-md-2">
+<button class="btn btn-info" type="button" id="identifier_generate" disabled
+title="Générez l'identifiant à partir des informations saisies (échantillon uniquement)">Générer</button>
+
 </div>
 </div>
 

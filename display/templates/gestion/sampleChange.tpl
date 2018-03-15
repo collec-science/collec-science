@@ -1,6 +1,7 @@
 <script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
 
 <script type="text/javascript">
+var identifier_fn = "";
 var is_scan = false;
 function testScan() {
 	if (is_scan) {
@@ -43,13 +44,35 @@ function testScan() {
        	    	;
        	    }
         }
+    	
+    	function getGenerator() {
+    		var sti = $("#sample_type_id").val();
+       	    if (sti) {
+       	    	$.ajax( { 
+       	    		url: "index.php",
+       	    		data: { "module": "sampleTypeGenerator", "sample_type_id": sti }
+       	    	})
+       	    	.done (function (value) {
+       	    		if (value.length > 0) {
+       	    			identifier_fn = value;
+       	    			$("#identifier_generate").prop("disabled", false);
+       	    		} else {
+       	    			$("#identifier_generate").prop("disabled", true);
+       	    		}
+       	    	})
+     		}
+    	}
+    	
         $("#sample_type_id").change( function() {
        	 getMetadata();
+       	 getGenerator();
         });
+        
         /*
          * Lecture initiale
          */
         getMetadata();
+        getGenerator();
 
         $('#sampleForm').submit(function(event) {
             if($("#action").val()=="Write"){
@@ -80,6 +103,11 @@ function testScan() {
         	point.setCoordinates ([]);
         	
         });
+        $("#identifier_generate").click(function () {
+        	if (identifier_fn.length > 0) {
+        		$("#identifier").val(eval(identifier_fn));
+        	}
+        });
 
         
         $("#scan_label_action").click(function() {
@@ -100,6 +128,9 @@ function testScan() {
         				 break;
         			 case "prj":
         				 $('#collection_id option[value]="'+data["prj"]+'"]').attr("selected", "selected");
+        				 break;
+        			 case "col":
+        				 $('#collection_id option[value]="'+data["col"]+'"]').attr("selected", "selected");
         				 break;
         			 case "x":
         				 $("#wgs84_x").val(data["x"]);
@@ -166,7 +197,7 @@ Retour à la liste des échantillons
 </dd>
 </dl>
 <dl class="dl-horizontal">
-<dt>Projet :</dt>
+<dt>Collection :</dt>
 <dd>{$parent_sample.collection_name}</dd>
 </dl>
 <dl class="dl-horizontal">

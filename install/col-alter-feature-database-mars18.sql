@@ -63,4 +63,10 @@ create index sample_sample_creation_date_idx on sample(sample_creation_date);
 create index sample_sampling_date_idx on sample(sampling_date);
 create index sample_expiration_date_idx on sample(expiration_date);
 
+/*
+ * Ajout du champ supportant la fonction javascript utilisee pour generer le code de l'identifiant
+ */
+alter table sample_type add column identifier_generator_js varchar;
+comment on column sample_type.identifier_generator_js is 'Champ comprenant le code de la fonction javascript permettant de générer automatiquement un identifiant à partir des informations saisies';
+
  

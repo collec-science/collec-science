@@ -1,6 +1,6 @@
 <h2>Types d'échantillons</h2>
 	<div class="row">
-	<div class="col-md-6">
+	<div class="col-md-12">
 {if $droits.param == 1}
 <a href="index.php?module=sampleTypeChange&sample_type_id=0">
 {$LANG["appli"][0]}
@@ -15,6 +15,7 @@
 <th>Protocole / operation</th>
 <th>Sous-échantillonnage</th>
 <th>Modèle de métadonnées</th>
+<th>Génération automatique de l'identifiant métier ?</th>
 </tr>
 </thead>
 <tbody>
@@ -40,6 +41,10 @@
 {/if}
 </td>
 <td>{$data[lst].metadata_name}</td>
+<td class="center">
+{if strlen($data[lst].identifier_generator_js) > 0}
+oui
+{/if}
 </tr>
 {/section}
 </tbody>

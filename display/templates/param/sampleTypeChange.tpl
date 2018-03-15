@@ -84,6 +84,12 @@ $(document).ready(function () {
 <input id="multiple_unit" type="text" class="form-control" name="multiple_unit" value="{$data.multiple_unit}" placeholder="écaille, mètre, cm3..."></div>
 </div>
 
+<div class="form-group">
+<label for="identifier_generator_js"  class="control-label col-md-4">Code javascript de génération de l'identifiant :</label>
+<div class="col-md-8">
+<input id="identifier_generator_js" type="text" class="form-control" name="identifier_generator_js" value="{$data.identifier_generator_js}" placeholder='$("#collection_id option:selected").text()+"-"+$("#uid").val()'></div>
+</div>
+
 </fieldset>
 
 <div class="form-group center">
@@ -96,3 +102,45 @@ $(document).ready(function () {
 </div>
 </div>
 <span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+
+<div class="row">
+<div class="col-md-12">
+<div class="bg-info">
+Consignes pour créer le code de génération de l'identifiant :
+<ul>
+<li>il s'agit de code javascript/JQuery, qui doit tenir en une seule instruction</li>
+<li>l'opérateur de concaténation est le signe +
+<li>la syntaxe de JQuery est basée sur $("#id"), où #id correspond à l'objet recherché
+<li>la syntaxe varie en fonction du type de champ dont vous voulez récupérer la valeur :
+<ul>
+<li>pour les champs simples : $("#uid").val()</li>
+<li>pour récupérer le contenu d'une boite de sélection : $("#collection_id option:selected").text()</li>
+<li>pour récupérer le contenu d'une variable simple issue des métadonnées : $("input[name=nom_de_la_metadonnee]").val()</li>
+<li>pour récupérer le contenu d'une métadonnée sélectionnée par bouton-radio : $("input[name=nom_de_la_metadonnee]:checked").val()</li>
+</ul>
+</li>
+<li>Exemple : pour générer cet identifiant : nom_collection-uid-valeur_metadonnee :
+<ul>
+<li>$("#collection_id option:selected").text()+"-"+$("#uid").val()+"-"+$("input[name=espece]").val()</li>
+(espece est le champ de métadonnées recherché)
+</ul>
+</li>
+<li>Liste des champs utilisables :
+<ul>
+<li>uid : identifiant interne</li>
+<li>object_status_id : statut de l'échantillon</li>
+<li>collection_id : nom de la collection</li>
+<li>sample_type_id : type d'échantillon</li>
+<li>sample_creation_date : date de création de l'échantillon</li>
+<li>sampling_date : date d'échantillonnage</li>
+<li>expiration_date : date d'expiration de l'échantillon</li>
+<li>wgs84_x : longitude</li>
+<li>wgs84_y : latitude</li>
+<li>et les variables disponibles dans les champs de métadonnées</li>
+</ul>
+</li>
+
+</ul>
+</div>
+</div>
+</div>

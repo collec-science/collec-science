@@ -112,6 +112,22 @@ legend {
 	background-repeat: no-repeat;
 	background-position: 100% 50%;
 }
+/* Ajouts pour le composant combobox */
+.ui-state-default, .ui-button {
+	background: white;
+}
+.custom-combobox {
+	position: relative;
+	display: inline-block;
+	width:100%;
+}
+.custom-combobox-toggle {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	padding: 0;
+	right: -1px;
+}
 /* Espacement entre deux lignes */
 .top5 { margin-top:5em; }
 .top10 { margin-top:10em; }

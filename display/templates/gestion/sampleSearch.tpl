@@ -196,7 +196,31 @@ $(document).ready(function () {
 
 </div>
  -->
- <label for="metadata_field" class="col-md-2 control-label">Métadonnées :</label>
+ <label for="metadata_field" class="col-md-2 control-label">Recherche par date :</label>
+ <div class="col-md-2">
+ <select class="form-control" id="select_date" name="select_date">
+ <option value="" {if $sampleSearch.select_date == ""}selected{/if}>Sélectionnez...</option>
+  <option value="cd" {if $sampleSearch.select_date == "cd"}selected{/if}>Date de création dans la base</option>
+  <option value="sd" {if $sampleSearch.select_date == "sd"}selected{/if}>Date d'échantillonnage</option>
+ </select>
+ </div>
+ <div class="col-md-1">du :</div>
+<div class="col-md-2">
+<input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
+</div> 
+<div class="col-md-1">au :</div>
+<div class="col-md-2">
+<input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
+</div>
+
+<div class="col-md-2">
+<input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="form-group">
+<label for="metadata_field" class="col-md-2 control-label">Métadonnées :</label>
  <div class="col-md-4">
  <select class="form-control" id="metadata_field" name="metadata_field[]">
  <option value="" {if $sampleSearch.metadata_field.0 == ""}selected{/if}>Sélectionnez...</option>
@@ -205,9 +229,6 @@ $(document).ready(function () {
  <div class="col-md-2">
  <input class="col-md-2 form-control" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %">
  </div>
-<div class="col-md-2">
-<input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
-</div>
 </div>
 </div>
 <!--  metadonnees supplementaires -->

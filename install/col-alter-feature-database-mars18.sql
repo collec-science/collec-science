@@ -69,4 +69,9 @@ create index sample_expiration_date_idx on sample(expiration_date);
 alter table sample_type add column identifier_generator_js varchar;
 comment on column sample_type.identifier_generator_js is 'Champ comprenant le code de la fonction javascript permettant de générer automatiquement un identifiant à partir des informations saisies';
 
+/*
+ * Suppression du champ is_movable pour les familles de containers
+ */
+ alter table container_family drop column is_movable;
+ 
  

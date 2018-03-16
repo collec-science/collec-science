@@ -52,7 +52,7 @@ class Import
      */
     function initFile($filename, $separator = ",", $utf8_encode = false)
     {
-        if ($separator == "tab") {
+        if ($separator == "tab" || $separator == "t") {
             $separator = "\t";
         }
         $this->separator = $separator;

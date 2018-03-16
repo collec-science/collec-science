@@ -6,7 +6,7 @@
 {$LANG["appli"][0]}
 </a>
 {/if}
-<table id="samplingPlaceList" class="table table-bordered table-hover datatable " >
+<table id="samplingPlaceList" class="table table-bordered table-hover datatable-export " >
 <thead>
 <tr>
 <th>Id</th>
@@ -54,13 +54,41 @@
 <input type="file" name="upfile" required>
 </div>
 </div>
+<div class="form-group">
+<label for="separator" class="control-label col-md-4">Séparateur<span class="red">*</span> :</label>
+<div class="col-md-8">
+<select id="separator" class="form-control" name="separator">
+<option value=";">point-virgule</option>
+<option value=",">virgule</option>
+<option value="t">tabulation</option>
+</select>
+</div>
+</div>
+
+<div class="form-group">
+<label for="collection_id" class="control-label col-md-4">Collection éventuelle de rattachement :</label>
+<div class="col-md-8">
+<select id="collection_id" name="collection_id" class="form-control">
+<option value="" {if $data["collection_id"] == ""} selected{/if}>Choisissez...</option>
+{foreach $collections as $collection}
+<option value="{$collection.collection_id}" {if $collection.collection_id == $data.collection_id} selected {/if}>
+{$collection.collection_name}
+</option>
+{/foreach}
+</select>
+</div>
+</div>
 <div class="form-group center">
       <button type="submit" class="btn btn-primary">Importer les localisations</button>
 </div>
 <div class="bg-info">
-Le fichier ne doit contenir qu'une seule colonne, nommée <i>name</i>
-<br>
-Les libellés déjà importés ne seront pas réimportés
+Description du fichier :
+<ul>
+<li>name : nom de la station (obligatoire)</li>
+<li>code : code métier de la station</li>
+<li>x : longitude du point en projection WGS84, sous forme numérique (séparateur : point)</li>
+<li>y : latitude du point</li>
+</ul>
 </div>
 </form>
 </fieldset>

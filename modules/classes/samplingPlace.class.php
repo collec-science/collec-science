@@ -66,6 +66,24 @@ class SamplingPlace extends ObjetBDD
             return false;
         }
     }
+    /**
+     * Recherche l'identifiant a partir du nom de la station
+     * @param string $name
+     * @return int
+     */
+    function getIdFromName($name) {
+        $id = 0;
+        if (strlen($name) > 0) {
+            $sql = "select sampling_place_id from sampling_place where sampling_place_name = :name";
+            $data = $this->lireParamAsPrepared($sql, array(
+                "name" => $name
+            ));
+            if ($data["sampling_place_id"] > 0) {
+                $id = $data["sampling_place_id"];
+            }
+        }
+        return $id;
+    }
 
     /**
      * Retourne la liste des lieux de prelevement attaches a une collection

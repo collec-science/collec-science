@@ -15,7 +15,7 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$vue->set($dataClass->getListe(2) ,"data" );
+		$vue->set($dataClass->getListFromCollection() ,"data" );
 		$vue->set("param/samplingPlaceList.tpl" , "corps");
 		break;
 	case "change":
@@ -25,6 +25,8 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		dataRead($dataClass, $id, "param/samplingPlaceChange.tpl");
+		include 'modules/gestion/mapInit.php';
+		$vue->set($_SESSION["collections"], "collections");
 		break;
 	case "write":
 		/*

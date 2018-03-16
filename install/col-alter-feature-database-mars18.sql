@@ -74,4 +74,20 @@ comment on column sample_type.identifier_generator_js is 'Champ comprenant le co
  */
  alter table container_family drop column is_movable;
  
+ /*
+  * Mise a niveau des lieux de collecte
+  */
+ alter table sampling_place add column collection_id integer,
+ add column sampling_place_code varchar,
+ add column sampling_place_x float8,
+ add column sampling_place_y float8;
+ ALTER TABLE sampling_place
+  ADD CONSTRAINT collection_sampling_place_fk FOREIGN KEY (collection_id)
+  REFERENCES collection (collection_id)
+  ON UPDATE NO ACTION
+  ON DELETE NO ACTION;
+ comment on column sampling_place.sampling_place_code is 'Code métier de la station';
+ comment on column sampling_place.sampling_place_x is 'Longitude de la station, en WGS84';
+ comment on column sampling_place.sampling_place_y is 'Latitude de la station, en WGS84';
  
+  

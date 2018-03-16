@@ -11,6 +11,10 @@
 <tr>
 <th>Id</th>
 <th>Nom</th>
+<th>Code métier</th>
+<th>Collection</th>
+<th>Longitude</th>
+<th>Latitude</th>
 </tr>
 </thead>
 <tbody>
@@ -26,6 +30,10 @@
 {$data[lst].sampling_place_name}
 {/if}
 </td>
+<td>{$data[lst].sampling_place_code}</td>
+<td>{$data[lst].collection_name}</td>
+<td>{$data[lst].sampling_place_x}</td>
+<td>{$data[lst].sampling_place_y}</td>
 </tr>
 {/section}
 </tbody>

@@ -66,6 +66,23 @@ Retour à la liste des containers
 <input type="hidden" name="container_parent_uid" value="{$container_parent_uid}">
 {include file="gestion/uidChange.tpl"}
 
+
+<div class="form-group">
+<label for="wy" class="control-label col-md-4">Latitude :</label>
+<div class="col-md-8" id="wy">
+<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
+<input id="wgs84_y" name="wgs84_y" placeholder="45.01300" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
+</div>
+</div>
+
+<div class="form-group">
+<label for="wx" class="control-label col-md-4">Longitude :</label>
+<div class="col-md-8" id="wx">
+<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
+<input id="wgs84_x" name="wgs84_x" placeholder="-0.0156" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
+</div>
+</div>
+
 <div class="form-group">
 <label for="container_family_id" class="control-label col-md-4">Famille<span class="red">*</span> :</label>
 <div class="col-md-8">

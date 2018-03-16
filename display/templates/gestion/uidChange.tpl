@@ -57,19 +57,3 @@ title="Générez l'identifiant à partir des informations saisies (échantillon 
 </select>
 </div>
 </div>
-
-<div class="form-group">
-<label for="wy" class="control-label col-md-4">Latitude :</label>
-<div class="col-md-8" id="wy">
-<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
-<input id="wgs84_y" name="wgs84_y" placeholder="45.01300" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
-</div>
-</div>
-
-<div class="form-group">
-<label for="wx" class="control-label col-md-4">Longitude :</label>
-<div class="col-md-8" id="wx">
-<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
-<input id="wgs84_x" name="wgs84_x" placeholder="-0.0156" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
-</div>
-</div>

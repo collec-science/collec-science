@@ -58,6 +58,7 @@ $LDAP = array(
 		"user_attrib" => "uid",
 		"v3" => true,
 		"tls" => false,
+		"upn_suffix" => "", //pour Active Directory
 		"groupSupport"=>false,
 		"groupAttrib"=>"supannentiteaffectation",
 		"commonNameAttrib"=>"displayname",

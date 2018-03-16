@@ -70,6 +70,14 @@ class Ldap
     var $LDAP_tls;
 
     /**
+     * Attribut ldap contenant le suffixe de l'UPN (User Principal Name)
+     * de la forme <sAMAccountName>@<UPN Suffix> pour Active Directory
+     * 
+     * @var string
+     */
+    var $LDAP_upn_suffix;
+
+    /**
      * Identifiant de connexion de l'annuaire ldap
      * 
      * @var int
@@ -92,9 +100,10 @@ class Ldap
      * @param string $LDAP_user_attrib
      * @param boolean $LDAP_v3
      * @param boolean $LDAP_tls
+     * @param string $LDAP_upn_suffix
      * @return void;
      */
-    function __construct($LDAP_address, $LDAP_basedn, $LDAP_port = 389, $LDAP_user_attrib = "uid", $LDAP_v3 = 1, $LDAP_tls = 0)
+    function __construct($LDAP_address, $LDAP_basedn, $LDAP_port = 389, $LDAP_user_attrib = "uid", $LDAP_v3 = 1, $LDAP_tls = 0, $LDAP_upn_suffix = "")
     {
         $this->LDAP_address = $LDAP_address;
         $this->LDAP_port = $LDAP_port;
@@ -102,6 +111,7 @@ class Ldap
         $this->LDAP_user_attrib = $LDAP_user_attrib;
         $this->LDAP_v3 = $LDAP_v3;
         $this->LDAP_tls = $LDAP_tls;
+        $this->LDAP_upn_suffix = $LDAP_upn_suffix;
     }
 
     /**
@@ -159,7 +169,19 @@ class Ldap
                 $login = str_replace($char, '\\' . $hex, $login);
             }
         }
-        $this->dn = $this->LDAP_user_attrib . "=" . $login . "," . $this->LDAP_basedn;
+        /* 
+         * Pour OpenLDAP et Active Directory, "bind rdn" de la forme : user_attrib=login,basedn
+         *     avec généralement user_attrib=uid pour OpenLDAP,
+         *                    et user_attrib=cn pour Active Directory
+         * Pour Active Directory aussi, "bind rdn" de la forme : login@upn_suffix
+         * D'où un "bind rdn" de la forme générique suivante :
+         *     (user_attrib=)login(@upn_suffix)(,basedn)
+         */
+        $user_attrib_part = !empty($this->LDAP_user_attrib) ? $this->LDAP_user_attrib . "=" : "";
+        $upn_suffix_part = !empty($this->LDAP_upn_suffix) ? "@" . $this->LDAP_upn_suffix : "";
+        $basedn_part = !empty($this->LDAP_basedn) ? "," . $this->LDAP_basedn : "";
+        //          (user_attrib=)login(@upn_suffix)(,basedn) 
+        $this->dn = $user_attrib_part . $login . $upn_suffix_part . $basedn_part;
         $rep = ldap_bind($this->idldap, $this->dn, $password);
         if ($rep != 1) {
             $this->message .= "Connexion refusee avec le login/mot de passe fournis<br>";

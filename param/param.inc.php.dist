@@ -103,6 +103,18 @@ $LDAP [ "tls"] = true;
  */
 $LDAP [ "basedn"] = "ou=people,ou=example,o=societe,c=fr";
 $LDAP [ "user_attrib" ] = "uid";
+/* 
+ * Pour une authentification LDAP à un Active Directory
+ * avec le User Principal Name (UPN) de la forme sAMAccountName@UPN_Suffix
+ * pour ne demander que le sAMAccountName à l'utilisateur
+ * alors définir le upn_suffix en décommentant les lignes ci-dessous
+ * pour demander l'UPN entier à l'utilisateur
+ * alors définir le upn_suffix à une chaîne vide : $LDAP [ "upn_suffix"] = "";
+ */
+//$LDAP [ "basedn"] = ""; 
+//$LDAP [ "user_attrib" ] = "";
+//$LDAP [ "upn_suffix"] = "mydomain.lan";
+
 
 /*
  * Recherche des groupes dans l'annuaire LDAP

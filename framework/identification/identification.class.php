@@ -42,6 +42,8 @@ class Identification
 
     var $LDAP_tls;
 
+    var $LDAP_upn_suffix; // User Principal Name (UPN) Suffix pour Active Directory
+
     var $password;
 
     var $login;
@@ -97,8 +99,9 @@ class Identification
      * @param String $LDAP_user_attrib
      * @param String $LDAP_v3
      * @param String $LDAP_tls
+     * @param String $LDAP_upn_suffix
      */
-    function init_LDAP($LDAP_address, $LDAP_port, $LDAP_basedn, $LDAP_user_attrib, $LDAP_v3, $LDAP_tls)
+    function init_LDAP($LDAP_address, $LDAP_port, $LDAP_basedn, $LDAP_user_attrib, $LDAP_v3, $LDAP_tls, $LDAP_upn_suffix="" )
     {
         $this->LDAP_address = $LDAP_address;
         $this->LDAP_port = $LDAP_port;
@@ -106,6 +109,7 @@ class Identification
         $this->LDAP_user_attrib = $LDAP_user_attrib;
         $this->LDAP_v3 = $LDAP_v3;
         $this->LDAP_tls = $LDAP_tls;
+        $this->LDAP_upn_suffix = $LDAP_upn_suffix;
     }
 
     /**
@@ -163,7 +167,19 @@ class Identification
             if ($this->LDAP_tls) {
                 ldap_start_tls($ldap);
             }
-            $dn = $this->LDAP_user_attrib . "=" . $login . "," . $this->LDAP_basedn;
+            /* 
+             * Pour OpenLDAP et Active Directory, "bind rdn" de la forme : user_attrib=login,basedn
+             *     avec généralement user_attrib=uid pour OpenLDAP,
+             *                    et user_attrib=cn pour Active Directory
+             * Pour Active Directory aussi, "bind rdn" de la forme : login@upn_suffix
+             * D'où un "bind rdn" de la forme générique suivante :
+             *     (user_attrib=)login(@upn_suffix)(,basedn)
+             */
+            $user_attrib_part = !empty($this->LDAP_user_attrib) ? $this->LDAP_user_attrib . "=" : "";
+            $upn_suffix_part = !empty($this->LDAP_upn_suffix) ? "@" . $this->LDAP_upn_suffix : "";
+            $basedn_part = !empty($this->LDAP_basedn) ? "," . $this->LDAP_basedn : "";
+            //     (user_attrib=)login(@upn_suffix)(,basedn) 
+            $dn = $user_attrib_part . $login . $upn_suffix_part . $basedn_part;
             $rep = ldap_bind($ldap, $dn, $password);
             if ($rep == 1) {
                 $loginOk = $login;

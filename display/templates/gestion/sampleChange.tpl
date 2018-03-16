@@ -3,6 +3,7 @@
 <script type="text/javascript">
 var identifier_fn = "";
 var is_scan = false;
+var sampling_place_init = "{$data.sampling_place_id}";
 function testScan() {
 	if (is_scan) {
 		return false;
@@ -36,14 +37,44 @@ function testScan() {
        	    		data: { "module": "sampleTypeMetadata", "sample_type_id": sti }
        	    	})
        	    	.done (function (value) {
+       	    		if (value) {
        	    		//console.log(value);
        	    		var schema = value.replace(/&quot;/g,'"');
        	    		showForm(JSON.parse(schema),dataParse);
        	    		$(".alpaca-field-select").combobox();
+       	    		}
        	    	})
        	    	;
        	    }
         }
+    	
+    	function getSamplingPlace () {
+    		var colid = $("#collection_id").val();
+    		console.log ("colid:"+colid);
+    		var url = "index.php";
+    		var data = { "module":"samplingPlaceGetFromCollection", "collection_id": colid };
+    		$.ajax ( { url:url, data: data})
+    		.done (function( d ) {
+   				if (d ) {
+    				d = JSON.parse(d);
+    				options = '<option value="">Sélectionnez...</option>';			
+    				 for (var i = 0; i < d.length; i++) {
+    				        options += '<option value="'+d[i].sampling_place_id + '"';
+    				        if (d[i].sampling_place_id == sampling_place_init ) {
+    				        	options += ' selected ';
+    				        }
+    				        options += '>';
+    				        if (d[i].sampling_place_code) {
+    				        	options += d[i].sampling_place_code;
+    				        } else {
+    				        	options += d[i].sampling_place_name;
+    				        }
+    				        options += '</option>';
+    				      };
+    				$("#sampling_place_id").html(options);
+    				}
+    			});
+    	}
     	
     	function getGenerator() {
     		var sti = $("#sample_type_id").val();
@@ -68,11 +99,16 @@ function testScan() {
        	 getGenerator();
         });
         
+        $("#collection_id").change(function() {
+        	getSamplingPlace();
+        });
+        
         /*
          * Lecture initiale
          */
         getMetadata();
         getGenerator();
+        getSamplingPlace();
 
         $('#sampleForm').submit(function(event) {
             if($("#action").val()=="Write"){
@@ -276,7 +312,8 @@ Retour à la liste des échantillons
 <div class="form-group">
 <label for="sampling_place_id" class="control-label col-md-4">Lieu de prélèvement :</label>
 <div class="col-md-8">
-<select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
+<select id="sampling_place_id" name="sampling_place_id" class="form-control ">
+<!-- 
 <option value="" {if $data.sampling_place_id == ""}selected{/if}>
 Sélectionnez...
 </option>
@@ -285,6 +322,7 @@ Sélectionnez...
 {$samplingPlace[lst].sampling_place_name} 
 </option>
 {/section}
+ -->
 </select>
 </div>
 </div>

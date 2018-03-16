@@ -206,7 +206,7 @@
 	<samplingPlaceWrite action="modules/param/samplingPlace.php" param="write" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceChange" modulebefore="samplingPlaceChange" />
 	<samplingPlaceDelete action="modules/param/samplingPlace.php" param="delete" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceChange"  modulebefore="samplingPlaceChange"/>
 	<samplingPlaceImport action="modules/param/samplingPlace.php" param="import" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceList"  modulebefore="samplingPlaceList,samplingPlaceImport"/>
-
+	<samplingPlaceGetFromCollection action="modules/param/samplingPlace.php" param="getFromCollection" droits="gestion" type="ajax"/>
 
 	<subsampleChange action="modules/gestion/subsample.php" param="change" droits="gestion"  retourlogin="1" type="smarty"  />
 	<subsampleWrite action="modules/gestion/subsample.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange" />

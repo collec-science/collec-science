@@ -103,10 +103,10 @@ class SamplingPlace extends ObjetBDD
             $where = " where collection_id is null or ";
         }
         if ($collection_id > 0) {
-            if ($where = "") {
+            if ($where == "") {
                 $where = " where ";
             }
-            $where .= "collection_id = :collection_id";
+            $where .= " collection_id = :collection_id";
             return $this->getListeParamAsPrepared($sql . $where . $order, array(
                 "collection_id" => $collection_id
             ));

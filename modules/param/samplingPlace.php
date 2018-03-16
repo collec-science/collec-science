@@ -79,5 +79,9 @@ switch ($t_module["param"]) {
             $message->set("Impossible de charger le fichier à importer");
             $module_coderetour = - 1;
         }
+        break;
+    case "getFromCollection":
+        $vue->set($dataClass->getListFromCollection($_REQUEST["collection_id"]));
+        break;
 }
 ?>

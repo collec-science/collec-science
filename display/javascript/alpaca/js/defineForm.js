@@ -89,7 +89,7 @@ function renderForm(data){
                             "required": true
                         },
                         "measureUnit" :{
-                            "title": "Unité de mesure (ou modalités)",
+                            "title": "Unité de mesure (ou modalités) - N/A si non applicable",
                             "type" : "string",
                             "required": true
                         }

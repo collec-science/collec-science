@@ -1,4 +1,4 @@
-<h2>Rechercher des containers</h2>
+<h2>Rechercher des conteneurs</h2>
 
 	<div class="row">
 	<div class="col-md-6">

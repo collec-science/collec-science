@@ -9,7 +9,7 @@
 <div class="col-md-4">
 <input id="login" name="login" class="form-control" value="{$movementSearch.login}">
 </div>
-<div class="col-md-2 col-md-offset-4">
+<div class="col-md-2 col-md-offset-3">
 <input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
 </div>
 </div>

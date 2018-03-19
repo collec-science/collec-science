@@ -63,16 +63,25 @@ switch ($t_module["param"]) {
          */
         $error = false;
         if ($_REQUEST["movement_type_id"] == 1) {
-            if ($_REQUEST["uid"] == $_REQUEST["container_uid"])
+            if ($_REQUEST["uid"] == $_REQUEST["container_uid"]) {
                 $error = true;
-            if (strlen($_REQUEST["container_id"]) == 0)
+            }
+            if (strlen($_REQUEST["container_id"]) == 0) {
                 $error = true;
+            }
         }
         if ($error) {
             $message->set($LANG["appli"][3]);
             $module_coderetour = - 1;
         } else {
-            $id = dataWrite($dataClass, $_REQUEST);
+            $data = $_REQUEST;
+            if (! isset($data["line_number"])) {
+                $data["line_number"] = 1;
+            }
+            if (! isset($data["column_number"])) {
+                $data["column_number"] = 1;
+            }
+            $id = dataWrite($dataClass, $data);
             if ($id > 0) {
                 $_REQUEST[$keyName] = $id;
             }

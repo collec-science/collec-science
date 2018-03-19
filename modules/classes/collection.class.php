@@ -59,14 +59,14 @@ class Collection extends ObjetBDD
      */
     function getCollectionsFromLogin()
     {
-        return $this->getCollectionsFromGroups($_SESSION["groupes"]);
+       return $this->getCollectionsFromGroups($_SESSION["groupes"]);
     }
 
     /**
      * Retourne la liste des collections correspondants aux groupes indiques
      *
      * @param array $groups
-     * @return tableau
+     * @return array
      */
     function getCollectionsFromGroups(array $groups)
     {
@@ -180,6 +180,20 @@ class Collection extends ObjetBDD
             $data = $this->getListeParamAsPrepared($sql, $var);
         }
         return $data;
+    }
+
+    /**
+     * Initialise la liste des connexions rattachees au login
+     */
+    function initCollections()
+    {
+        $_SESSION["collections"] = $this->getCollectionsFromLogin();
+        /*
+         * Attribution des droits de gestion si attache a un projet
+         */
+        if (count($_SESSION["collections"]) > 0) {
+            $_SESSION["droits"]["gestion"] = 1;
+        }
     }
 }
 

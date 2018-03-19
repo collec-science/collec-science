@@ -122,7 +122,7 @@ $(document).ready(function () {
 <div class="col-md-4">
 <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible)">
 </div>
-<label for="collection_id" class="col-md-2 control-label">Projet :</label>
+<label for="collection_id" class="col-md-2 control-label">Collection :</label>
 <div class="col-md-4">
 <select id="collection_id" name="collection_id" class="form-control">
 <option value="" {if $sampleSearch.collection_id == ""}selected{/if}>{$LANG.appli.2}</option>

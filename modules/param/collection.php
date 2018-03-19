@@ -45,10 +45,11 @@ switch ($t_module ["param"]) {
 			 * Rechargement eventuel des collections autorises pour l'utilisateur courant
 			 */
 			try {
-			$_SESSION ["collections"] = $dataClass->getCollectionsFromLogin ();
+			$dataClass->initCollections();
 			} catch (Exception $e) {
-				if ($APPLI_modeDeveloppement)
+				if ($APPLI_modeDeveloppement) {
 					$message->set($e->getMessage());
+				}
 			}
 		}
 		break;

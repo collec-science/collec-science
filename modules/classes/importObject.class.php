@@ -267,20 +267,48 @@ class ImportObject
                 $dataSample["sampling_place_id"] = $values["sampling_place_id"];
                 $dataSample["parent_sample_id"] = $values["parent_sample_id"];
                 /*
+                 * Traitement des dates - mise au format de base de donnees avant importation
+                 */
+                $fieldDates = array(
+                    "sampling_date",
+                    "expiration_date"
+                );
+                foreach ($fieldDates as $fieldDate) {
+                    if (strlen($values[$fieldDate]) > 0) {
+                        /*
+                         * Verification du format francais
+                         */
+                        $result = date_parse_from_format("d/m/Y", $data[$fieldDate]);
+                        if ($result["warning_count"] > 0) {
+                            /*
+                             * Test du format general
+                             */
+                            $result = date_parse($data[$fieldDate]);
+                        }
+                        if ($result["warning_count"] == 0) {
+                            $dataSample[$fieldDate] = $result["year"] . "-" . $result["month"] . "-" . $result["day"];
+                            if (strlen($result["hour"]) > 0 && strlen($result["minute"]) > 0) {
+                                $dataSample[$fieldDate] .= " " . $result["hour"] . ":" . $result["minute"];
+                                if (strlen($result["second"]) == 0) {
+                                    $result["second"] == 0;
+                                }
+                                $dataSample[$fieldDate] .= ":" . $result["second"];
+                            }
+                        }
+                    }
+                }
+                /*
                  * Preparation des metadonnees - eclatement du champ en colonnes
                  */
                 if (strlen($values["sample_metadata_json"]) > 0) {
-                    $metadata = json_decode($values["sample_metadata_json"], true);
-                    foreach ($metadata as $km => $v) {
-                        $dataSample[$km] = $v;
-                    }
+                    $dataSample["metadata"] = $values["sample_metadata_json"];
                 }
                 
                 /*
                  * Debut d'ecriture en table
                  */
                 try {
-                    $sample_uid = $this->sample->ecrire($dataSample);
+                    $sample_uid = $this->sample->ecrire($dataSample, true);
                     
                     /*
                      * Traitement des identifiants complementaires
@@ -527,6 +555,32 @@ class ImportObject
                     $retour["message"] .= "L'emplacement de collecte de l'échantillon n'est pas connu. ";
                 }
             }
+            /*
+             * Verification des dates
+             */
+            $fieldDates = array(
+                "sampling_date",
+                "expiration_date"
+            );
+            foreach ($fieldDates as $fieldDate) {
+                if (strlen($data[$fieldDate]) > 0) {
+                    /*
+                     * Verification du format francais
+                     */
+                    $result = date_parse_from_format("d/m/Y", $data[$fieldDate]);
+                    if ($result["warning_count"] > 0) {
+                        /*
+                         * Test du format general
+                         */
+                        $result1 = date_parse($data[$fieldDate]);
+                        if ($result1["warning_count"] > 0) {
+                            $retour["code"] = false;
+                            $retour["message"] .= "Le format de date de $fieldDate n'est pas reconnu. ";
+                        }
+                    }
+                }
+            }
+            
             /*
              * Verification des metadonnees
              * Elles doivent correspondre a celles definies dans l'operation

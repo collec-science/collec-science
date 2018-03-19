@@ -141,7 +141,7 @@ class Sample extends ObjetBDD
      *
      * @see ObjetBDD::ecrire()
      */
-    function ecrire($data)
+    function ecrire($data, $dateFormatNatif = false)
     {
         $ok = $this->verifyCollection($data);
         $error = false;
@@ -152,27 +152,10 @@ class Sample extends ObjetBDD
             $ok = $this->verifyCollection($this->lire($data["uid"]));
         }
         if ($ok) {
-            /*
-             * Mise en forme des metadonnees
-             */
-            /*
-             * if ($data["sample_type_id"] > 0) {
-             * require_once 'modules/classes/sampleType.class.php';
-             * $st = new SampleType($this->connection, $this->paramori);
-             * $dst = $st->getMetadataForm($data["sample_type_id"]);
-             * if (strlen($dst) > 2) {
-             * $schema = json_decode($dst, true);
-             * $metadata = array();
-             * foreach ($schema as $value) {
-             * if (strlen($data[$value["name"]]) > 0) {
-             * $metadata[$value["name"]] = $data[$value["name"]];
-             * }
-             * }
-             * $data["metadata"] = json_encode($metadata);
-             * }
-             * }
-             */
             $object = new Object($this->connection, $this->param);
+            if ($dateFormatNatif) {
+                $object->auto_date = 0;
+            }
             $uid = $object->ecrire($data);
             if ($uid > 0) {
                 $data["uid"] = $uid;

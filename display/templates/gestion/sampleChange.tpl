@@ -138,19 +138,39 @@ function testScan() {
 
         $('#sampleForm').submit(function(event) {
             if($("#action").val()=="Write"){
+            	var error = false;
+            	var sample_type_id = $("#sample_type_id").val();
+            	if (sample_type_id) {
+            		if (sample_type_id.length == 0 ) {
+            			error = true;
+            		} 
+            	} else {
+            		error = true;
+            	}
+            	var project_id = $("#sample_type_id").val();
+            	if (project_id) {
+            		if (project_id.length == 0 ) {
+            			error = true;
+            		} 
+            	} else {
+            		error = true;
+            	}
+        
                 $('#metadata').alpaca().refreshValidationState(true);
                 if($('#metadata').alpaca().isValid(true)){
-                	if($('#metadata').alpaca().isValid(true)){
-                		 var value = $('#metadata').alpaca().getValue();
-                		 // met les metadata en JSON dans le champ (name="metadata") qui sera sauvegardé en base
-                		 $("#metadataField").val(JSON.stringify(value));
-                		 console.log($("#metadataField").val());
-                	} else {
-                    	alert("La définition des métadonnées n'est pas valide.");
-                    	event.preventDefault();
-                	}
-            	}
+                	var value = $('#metadata').alpaca().getValue();
+                	 // met les metadata en JSON dans le champ (name="metadata") qui sera sauvegardé en base
+                	 $("#metadataField").val(JSON.stringify(value));
+                	 console.log($("#metadataField").val());
+                } else {
+                   	error = true;
+                }
+                if (error) {
+                	event.preventDefault();
+                }
+            	
             }
+
     	});
         $("#reinit").click(function() {
         	$("#wgs84_x").val("");

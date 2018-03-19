@@ -1,11 +1,12 @@
 <script>
+var sampling_place_init = "{$sampleSearch.sampling_place_id}";
+
 $(document).ready(function () {
 	var metadataFieldInitial = [];
 	{foreach $sampleSearch.metadata_field as $val}
 	metadataFieldInitial.push ( "{$val}" );
 	{/foreach}
-	console.log (metadataFieldInitial);
-
+	
 	/*
 	 * Verification que des criteres de selection soient saisis
 	 */
@@ -85,6 +86,45 @@ $(document).ready(function () {
 	 	}
      }
 	 
+ 	function getSamplingPlace () {
+		var colid = $("#collection_id").val();
+		console.log ("colid:"+colid);
+		var url = "index.php";
+		var data = { "module":"samplingPlaceGetFromCollection", "collection_id": colid };
+		$.ajax ( { url:url, data: data})
+		.done (function( d ) {
+				if (d ) {
+				d = JSON.parse(d);
+				options = '<option value="">Sélectionnez...</option>';			
+				 for (var i = 0; i < d.length; i++) {
+				        options += '<option value="'+d[i].sampling_place_id + '"';
+				        if (d[i].sampling_place_id == sampling_place_init ) {
+				        	options += ' selected ';
+				        }
+				        options += '>';
+				        if (d[i].sampling_place_code) {
+				        	options += d[i].sampling_place_code + " - ";
+				        } 
+				        options += d[i].sampling_place_name;
+				        
+				        options += '</option>';
+				      };
+				$("#sampling_place_id").html(options);
+				}
+			});
+	}
+ 	
+ 	$("#collection_id").change ( function () { 
+ 		getSamplingPlace();
+ 	});
+ 	/*
+ 	 * Initialisation a l'ouverture de la page
+ 	 */
+ 	 getSamplingPlace();
+
+	 /*
+	  * Gestion des metadonnees
+	  */
      $("#sample_type_id").change( function() {
     	 getMetadata();
      });
@@ -164,9 +204,12 @@ $(document).ready(function () {
 <label for="sampling_place_id" class="col-md-2 control-label">Lieu de prélèvement :</label>
 <div class="col-md-4">
 <select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
-<option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>Sélectionnez...</option>
+ <option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>Sélectionnez...</option>
 {section name=lst loop=$samplingPlace}
 <option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $sampleSearch.sampling_place_id}selected{/if}>
+{if strlen({$samplingPlace[lst].sampling_place_code}) > 0}
+{$samplingPlace[lst].sampling_place_code} -&nbsp;
+{/if}
 {$samplingPlace[lst].sampling_place_name}
 </option>
 {/section}

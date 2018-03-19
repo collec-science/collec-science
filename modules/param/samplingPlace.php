@@ -15,7 +15,7 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$vue->set($dataClass->getListFromCollection(), "data");
+		$vue->set($dataClass->getListFromCollection(0, false), "data");
         $vue->set("param/samplingPlaceList.tpl", "corps");
         $vue->set($_SESSION["collections"], "collections");
         break;

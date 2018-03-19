@@ -66,12 +66,15 @@ class SamplingPlace extends ObjetBDD
             return false;
         }
     }
+
     /**
      * Recherche l'identifiant a partir du nom de la station
+     * 
      * @param string $name
      * @return int
      */
-    function getIdFromName($name) {
+    function getIdFromName($name)
+    {
         $id = 0;
         if (strlen($name) > 0) {
             $sql = "select sampling_place_id from sampling_place where sampling_place_name = :name";
@@ -99,8 +102,11 @@ class SamplingPlace extends ObjetBDD
         $sql = "select * from sampling_place left outer join collection using (collection_id) ";
         $where = "";
         $order = " order by sampling_place_code, sampling_place_name";
+        if ( $with_noaffected ) {
+            $where = " where collection_id is null";
+        }
         if ($with_noaffected && $collection_id > 0) {
-            $where = " where collection_id is null or ";
+            $where .= " or ";
         }
         if ($collection_id > 0) {
             if ($where == "") {

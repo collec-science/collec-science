@@ -10,7 +10,6 @@
 <thead>
 <tr>
 <th>Nom</th>
-<th>Types de containers facilement déplaçables ?</th>
 </tr>
 </thead>
 <tbody>
@@ -23,9 +22,6 @@
 {else}
 {$data[lst].container_family_name}
 {/if}
-</td>
-<td class="center">
-{if $data[lst].is_movable == 1}oui{else}non{/if}
 </td>
 </tr>
 {/section}

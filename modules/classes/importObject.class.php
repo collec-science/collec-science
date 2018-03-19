@@ -39,12 +39,13 @@ class ImportObject
 
     private $colonnes = array(
         "sample_identifier",
-        "project_id",
+        "collection_id",
         "sample_type_id",
         "sample_status_id",
         "wgs84_x",
         "wgs84_y",
-        "sample_date",
+        "sampling_date",
+        "expiration_date",
         "sample_multiple_value",
         "sample_metadata_json",
         "sample_parent_uid",
@@ -77,7 +78,7 @@ class ImportObject
 
     public $nbTreated = 0;
 
-    private $project = array();
+    private $collection = array();
 
     private $sample_type = array();
 
@@ -91,7 +92,7 @@ class ImportObject
 
     private $container;
 
-    private $storage;
+    private $movement;
 
     private $samplingPlace;
 
@@ -151,13 +152,13 @@ class ImportObject
      *
      * @param Sample $sample
      * @param Container $container
-     * @param Storage $storage
+     * @param Movement $movement
      */
-    function initClasses(Sample $sample, Container $container, Storage $storage, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType)
+    function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType)
     {
         $this->sample = $sample;
         $this->container = $container;
-        $this->storage = $storage;
+        $this->movement = $movement;
         $this->samplingPlace = $samplingPlace;
         $this->identifierType = $identifierType;
         $this->sampleType = $sampleType;
@@ -214,7 +215,7 @@ class ImportObject
      *
      * @param Sample $sample
      * @param Container $container
-     * @param Storage $storage
+     * @param Movement $movement
      * @throws ImportObjectException
      */
     function importAll()
@@ -351,7 +352,7 @@ class ImportObject
                  */
                 if (strlen($values["container_parent_uid"]) > 0) {
                     try {
-                        $this->storage->addMovement($container_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["container_location"], null, null, $values["container_column"], $values["container_line"]);
+                        $this->movement->addMovement($container_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["container_location"], null, null, $values["container_column"], $values["container_line"]);
                     } catch (Exception $e) {
                         throw new ImportObjectException("Line $num : error when create input movement for container - " . $e->getMessage());
                     }
@@ -362,7 +363,7 @@ class ImportObject
              */
             if ($sample_uid > 0 && $container_uid > 0) {
                 try {
-                    $this->storage->addMovement($sample_uid, $date, 1, $container_uid, $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
+                    $this->movement->addMovement($sample_uid, $date, 1, $container_uid, $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
                 } catch (Exception $e) {
                     throw new ImportObjectException("Line $num : error when create input movement for sample (" . $e->getMessage() + ")");
                 }
@@ -372,7 +373,7 @@ class ImportObject
                  * Creation du mouvement d'entree de l'echantillon dans le container
                  */
                 try {
-                    $this->storage->addMovement($sample_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
+                    $this->movement->addMovement($sample_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
                 } catch (Exception $e) {
                     throw new ImportObjectException("Line $num : error when create input movement for sample (" . $e->getMessage() + ")");
                 }
@@ -409,14 +410,14 @@ class ImportObject
     /**
      * Initialise les tableaux pour traiter les controles
      *
-     * @param array $project
+     * @param array $collection
      * @param array $sample_type
      * @param array $container_type
      * @param array $container_status
      */
-    function initControl($project, $sample_type, $container_type, $object_status, $sampling_place)
+    function initControl($collection, $sample_type, $container_type, $object_status, $sampling_place)
     {
-        $this->project = $project;
+        $this->collection = $collection;
         $this->sample_type = $sample_type;
         $this->container_type = $container_type;
         $this->object_status = $object_status;
@@ -466,18 +467,18 @@ class ImportObject
         if (strlen($data["sample_identifier"]) > 0) {
             $emptyLine = false;
             /*
-             * Verification du projet
+             * Verification de la collection
              */
             $ok = false;
-            foreach ($this->project as $value) {
-                if ($data["project_id"] == $value["project_id"]) {
+            foreach ($this->collection as $value) {
+                if ($data["collection_id"] == $value["collection_id"]) {
                     $ok = true;
                     break;
                 }
             }
             if ($ok == false) {
                 $retour["code"] = false;
-                $retour["message"] .= "Le numéro du projet indiqué n'est pas reconnu ou autorisé. ";
+                $retour["message"] .= "Le numéro de la collection indiqué n'est pas reconnu ou autorisé. ";
             }
             /*
              * Verification du type d'echantillon

@@ -48,7 +48,7 @@ switch ($t_module["param"]) {
          * Récupération des métadonnées dans un tableau pour l'affichage
          */
         $metadata = json_decode($data["metadata"], true);
-        $is_modifiable = $dataClass->verifyProject($data);
+        $is_modifiable = $dataClass->verifyCollection($data);
         if ($is_modifiable && count($metadata) > 0) {
             $vue->set($metadata, "metadata");
         }
@@ -73,9 +73,9 @@ switch ($t_module["param"]) {
         /*
          * Recuperation des mouvements
          */
-        require_once 'modules/classes/storage.class.php';
-        $storage = new Storage($bdd, $ObjetBDDParam);
-        $vue->set($storage->getAllMovements($id), "storages");
+        require_once 'modules/classes/movement.class.php';
+        $movement = new Movement($bdd, $ObjetBDDParam);
+        $vue->set($movement->getAllMovements($id), "movements");
         /*
          * Recuperation des echantillons associes
          */
@@ -92,7 +92,7 @@ switch ($t_module["param"]) {
         if ($data["multiple_type_id"] > 0) {
             require_once 'modules/classes/subsample.class.php';
             $subSample = new Subsample($bdd, $ObjetBDDParam);
-            $vue->set($subSample->getListFromParent($data["sample_id"], "subsample_date desc"), "subsample");
+            $vue->set($subSample->getListFromParent($data["sample_id"], "subsampling_date desc"), "subsample");
         }
         /*
          * Verification que l'echantillon peut etre modifie
@@ -123,7 +123,7 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		$data = dataRead($dataClass, $id, "gestion/sampleChange.tpl");
-        if ($data["sample_id"] > 0 && $dataClass->verifyProject($data) == false) {
+        if ($data["sample_id"] > 0 && $dataClass->verifyCollection($data) == false) {
             $message->set("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon");
             $module_coderetour = - 1;
         } else {
@@ -146,7 +146,7 @@ switch ($t_module["param"]) {
                         /*
                          * Pre-positionnement des informations de base
                          */
-                        $data["project_id"] = $dataParent["project_id"];
+                        $data["collection_id"] = $dataParent["collection_id"];
                         $data["wgs84_x"] = $dataParent["wgs84_x"];
                         $data["wgs84_y"] = $dataParent["wgs84_y"];
                         $data["metadata"] = $dataParent["metadata"];
@@ -163,9 +163,9 @@ switch ($t_module["param"]) {
                     $dl = $dataClass->lire($_SESSION["last_sample_id"]);
                     $data["wgs84_x"] = $dl["wgs84_x"];
                     $data["wgs84_y"] = $dl["wgs84_y"];
-                    $data["project_id"] = $dl["project_id"];
+                    $data["collection_id"] = $dl["collection_id"];
                     $data["sample_type_id"] = $dl["sample_type_id"];
-                    $data["sample_date"] = $dl["sample_date"];
+                    $data["sampling_date"] = $dl["sampling_date"];
                     $data["sampling_place_id"] = $dl["sampling_place_id"];
                     $data["metadata"] = $dl["metadata"];
                     $data["multiple_value"] = $dl["multiple_value"];
@@ -287,14 +287,14 @@ switch ($t_module["param"]) {
             "wgs84_x",
             "wgs84_y",
             "sample_creation_date",
-            "sample_date",
+            "sampling_date",
             "multiple_value",
             "dbuid_origin",
             "metadata"
         );
         $refFields = array(
             "sampling_place_name",
-            "project_name",
+            "collection_name",
             "object_status_name",
             "sample_type_name"
         );

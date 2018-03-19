@@ -194,21 +194,27 @@ class SearchSample extends SearchParam
 
     function __construct()
     {
+        $ds = new DateTime();
+        $ds->modify("-1 year");
         $this->param = array(
             "name" => "",
             "sample_type_id" => "",
-            "project_id" => "",
+            "collection_id" => "",
             "limit" => 100,
             "object_status_id" => 1,
             "uid_min" => 0,
             "uid_max" => 0,
             "sampling_place_id" => "",
             "metadata_field" => "",
-            "metadata_value" => ""
+            "metadata_value" => "",
+            "select_date" => "",
+            "date_from" => $ds->format($_SESSION["MASKDATE"]),
+            "date_to" => date($_SESSION["MASKDATE"])
+            
         );
         $this->paramNum = array(
             "sample_type_id",
-            "project_id",
+            "collection_id",
             "object_status_id" => 1,
             "limit",
             "uid_min",
@@ -228,8 +234,8 @@ class SearchMovement extends SearchParam
         $ds->modify("-1 month");
         $this->param = array(
             "login" => "",
-            "date_start" => $ds->format("d/m/Y"),
-            "date_end" => date("d/m/Y")
+            "date_start" => $ds->format($_SESSION["MASKDATE"]),
+            "date_end" => date($_SESSION["MASKDATE"])
         );
         parent::__construct();
     }

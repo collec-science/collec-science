@@ -96,8 +96,10 @@
 				<th>Photo</th>
 				<th>Dernier mouvement</th>
 				<th>Lieu de prélèvement</th>
-				<th>Date</th>
-				<th>Date de création dans la base</th> {if $droits.gestion == 1}
+				<th>Date d'échantillonnage</th>
+				<th>Date de création dans la base</th>
+				<th>Date d'expiration</th> 
+				{if $droits.gestion == 1}
 				<th></th> {/if}
 			</tr>
 		</thead>
@@ -117,7 +119,7 @@
 				<span title="UID de la base de données d'origine">{$samples[lst].dbuid_origin}</span>
 				{/if}
 				</td>
-				<td>{$samples[lst].project_name}</td>
+				<td>{$samples[lst].collection_name}</td>
 				<td>{$samples[lst].sample_type_name}</td>
 				<td>{$samples[lst].object_status_name}</td>
 				<td>{if strlen($samples[lst].parent_uid) > 0}
@@ -135,19 +137,20 @@
 				</a> {/if}
 				</td>
 				<td>
-				{if strlen($samples[lst].storage_date) > 0 }
+				{if strlen($samples[lst].movement_date) > 0 }
 					{if $samples[lst].movement_type_id == 1}
 						<span class="green">{else}
 						<span class="red">
 					{/if}
-					{$samples[lst].storage_date}
+					{$samples[lst].movement_date}
 					</span>
 				{/if}
 				</td> 
 				<td>{$samples[lst].sampling_place_name}</td>
-				<td>{$samples[lst].sample_date}</td>
-				<td>{$samples[lst].sample_creation_date}</td> {if $droits.gestion ==
-				1}
+				<td>{$samples[lst].sampling_date}</td>
+				<td>{$samples[lst].sample_creation_date}</td> 
+				<td>{$samples[lst].expiration_date}</td>
+				{if $droits.gestion == 1}
 				<td class="center"><input type="checkbox" class="checkSample"
 					name="uid[]" value="{$samples[lst].uid}" checked></td> {/if}
 			</tr>

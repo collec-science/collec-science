@@ -57,5 +57,8 @@ switch ($t_module["param"]) {
     case "metadata":
         $vue->setJson($dataClass->getMetadataForm($id));
         break;
+    case "generator":
+        $vue->setJson($dataClass->getIdentifierJs($id));
+        break;
 }
 ?>

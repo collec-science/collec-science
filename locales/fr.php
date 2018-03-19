@@ -1,6 +1,8 @@
 <?php
 $FORMATDATE="fr";
 $MASKDATELONG = "d/m/Y H:i:s";
+$_SESSION["MASKDATE"] = "d/m/Y";
+
 $LANG= array();
 $LANG["date"]["locale"] = "fr";
 $LANG["date"]["formatdate"] = "DD/MM/YYYY";
@@ -62,8 +64,8 @@ $LANG["menu"][60] = "Conteneurs";
 $LANG["menu"][61] = "Liste des conteneurs";
 $LANG["menu"][62] = "Statuts des objets";
 $LANG["menu"][63] = "Liste des statuts possibles pour les objets";
-$LANG["menu"][64] = "Projets";
-$LANG["menu"][65] = "Liste des projets";
+$LANG["menu"][64] = "Collections";
+$LANG["menu"][65] = "Liste des collections";
 $LANG["menu"][66] = "Type d'échantillons";
 $LANG["menu"][67] = "Liste des types d'échantillons gérés";
 $LANG["menu"][68] = "Échantillons";

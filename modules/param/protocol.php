@@ -23,9 +23,9 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		dataRead($dataClass, $id, "param/protocolChange.tpl");
-        require_once 'modules/classes/project.class.php';
-        $project = new Project($bdd, $ObjetBDDParam);
-        $vue->set($project->getListe(2), "projects");
+        require_once 'modules/classes/collection.class.php';
+        $collection = new Collection($bdd, $ObjetBDDParam);
+        $vue->set($collection->getListe(2), "collections");
         break;
     case "write":
 		/*

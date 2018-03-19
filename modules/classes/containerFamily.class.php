@@ -23,12 +23,7 @@ class ContainerFamily extends ObjetBDD {
 				"container_family_name" => array (
 						"type" => 0,
 						"requis" => 1 
-				),
-				"is_movable" => array (
-						"type" => 0,
-						"requis" => 1,
-						"defaultValue" => '1' 
-				) 
+				)
 		);
 		parent::__construct ( $bdd, $param );
 	}

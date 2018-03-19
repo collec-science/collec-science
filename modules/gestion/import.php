@@ -10,7 +10,7 @@
 require_once 'modules/classes/importObject.class.php';
 require_once 'modules/classes/sample.class.php';
 require_once 'modules/classes/container.class.php';
-require_once 'modules/classes/storage.class.php';
+require_once 'modules/classes/movement.class.php';
 require_once 'modules/classes/sampleType.class.php';
 require_once 'modules/classes/containerType.class.php';
 require_once 'modules/classes/objectStatus.class.php';
@@ -23,7 +23,7 @@ require_once 'modules/classes/objectIdentifier.class.php';
 $import = new ImportObject();
 $sample = new Sample($bdd, $ObjetBDDParam);
 $container = new Container($bdd, $ObjetBDDParam);
-$storage = new Storage($bdd, $ObjetBDDParam);
+$movement = new Movement($bdd, $ObjetBDDParam);
 
 
 $sampleType = new SampleType($bdd, $ObjetBDDParam);
@@ -32,9 +32,9 @@ $objectStatus = new ObjectStatus($bdd, $ObjetBDDParam);
 $samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
 $identifierType = new IdentifierType($bdd, $ObjetBDDParam);
 $objectIdentifier = new ObjectIdentifier($bdd, $ObjetBDDParam);
-$import->initClasses($sample, $container, $storage, $samplingPlace, $identifierType, $sampleType);
+$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType);
 $import->initClass("objectIdentifier", $objectIdentifier);
-$import->initControl($_SESSION["projects"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList());
+$import->initControl($_SESSION["collections"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList());
 /*
  * Traitement
  */

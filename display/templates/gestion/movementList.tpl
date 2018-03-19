@@ -1,7 +1,7 @@
 <div class="row">
 <div class="col-md-6">
 <form class="form-horizontal protoform" id="movement_search" action="index.php" method="GET">
-<input id="moduleBase" type="hidden" name="moduleBase" value="storage">
+<input id="moduleBase" type="hidden" name="moduleBase" value="movement">
 <input id="action" type="hidden" name="action" value="List">
 <input id="isSearch" type="hidden" name="isSearch" value="1">
 <div class="form-group">
@@ -45,7 +45,7 @@
 {foreach $data as $row}
 <tr>
 <td>{$row.login}</td>
-<td>{$row.storage_date}</td>
+<td>{$row.movement_date}</td>
 <td>{$row.movement_type_name}</td>
 <td>{$row.uid}</td>
 <td>{$row.identifier}</td>

@@ -37,12 +37,12 @@ $(document).ready(function () {
 </div>
 </div>
 <div class="form-group">
-<label for="project_id"  class="control-label col-md-4">Projet de rattachement :</label>
+<label for="collection_id"  class="control-label col-md-4">Projet de rattachement :</label>
 <div class="col-md-8">
-<select name="project_id" id="project_id" class="control-form">
-{foreach $projects as $value}
-<option value="{$value.project_id}" {if $value.project_id == $data.project_id}selected{/if}>
-{$value.project_name}
+<select name="collection_id" id="collection_id" class="control-form">
+{foreach $collections as $value}
+<option value="{$value.collection_id}" {if $value.collection_id == $data.collection_id}selected{/if}>
+{$value.collection_name}
 </option>
 {/foreach}
 </select>

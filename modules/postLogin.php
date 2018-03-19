@@ -33,13 +33,13 @@ if (strlen ( $APPLI_temp ) > 0) {
 	}
 	closedir ( $dossier );
 }
-require_once 'modules/classes/project.class.php';
-$project = new Project ( $bdd, $ObjetBDDParam );
+require_once 'modules/classes/collection.class.php';
+$collection = new Collection ( $bdd, $ObjetBDDParam );
 	/*
-	 * Recuperation des projets attaches directement au login
+	 * Recuperation des collections attaches directement au login
 	 */
 try {
-	$_SESSION["projects"] = $project->getProjectsFromLogin ();
+	$_SESSION["collections"] = $collection->getCollectionsFromLogin ();
 } catch (Exception $e) {
 	if ($APPLI_modeDeveloppement)
 		$message->set($e->getMessage());
@@ -47,7 +47,7 @@ try {
 /*
  * Attribution des droits de gestion si attache a un projet
  */
-if (count($_SESSION["projects"]) > 0) {
+if (count($_SESSION["collections"]) > 0) {
 	$_SESSION["droits"]["gestion"] = 1;
 }
 

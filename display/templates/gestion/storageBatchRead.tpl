@@ -1,7 +1,7 @@
 <script>
 
 $(document).ready(function() { 
-	$("#storageBatchForm").submit(function(event) { 
+	$("#movementBatchForm").submit(function(event) { 
 		var valeur = $("#reads").val();
 		/*
 		 * Traitement des caracteres parasites de ean128
@@ -23,9 +23,9 @@ $(document).ready(function() {
 
 
 
-		<form class="form-horizontal protoform" id="storageBatchForm"
+		<form class="form-horizontal protoform" id="movementBatchForm"
 			method="post" action="index.php">
-			<input type="hidden" name="moduleBase" value="storageBatch"> 
+			<input type="hidden" name="moduleBase" value="movementBatch"> 
 			<input	type="hidden" name="action" value="Read"> 
 			<div class="bg-info">
 Pour entrer des échantillons dans le stock, commencez toujours par scanner le container.

@@ -1,16 +1,16 @@
-<h2>Modification d'un projet</h2>
+<h2>Modification d'une collection</h2>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module=projectList">{$LANG.appli.1}</a>
+<a href="index.php?module=collectionList">{$LANG.appli.1}</a>
 
-<form class="form-horizontal protoform" id="projectForm" method="post" action="index.php">
-<input type="hidden" name="moduleBase" value="project">
+<form class="form-horizontal protoform" id="collectionForm" method="post" action="index.php">
+<input type="hidden" name="moduleBase" value="collection">
 <input type="hidden" name="action" value="Write">
-<input type="hidden" name="project_id" value="{$data.project_id}">
+<input type="hidden" name="collection_id" value="{$data.collection_id}">
 <div class="form-group">
-<label for="projectName"  class="control-label col-md-4">Nom<span class="red">*</span> :</label>
+<label for="collectionName"  class="control-label col-md-4">Nom<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="projectName" type="text" class="form-control" name="project_name" value="{$data.project_name}" autofocus required>
+<input id="collectionName" type="text" class="form-control" name="collection_name" value="{$data.collection_name}" autofocus required>
 </div>
 </div>
 <div class="form-group">
@@ -32,7 +32,7 @@
 
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
-      {if $data.project_id > 0 }
+      {if $data.collection_id > 0 }
       <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
       {/if}
  </div>

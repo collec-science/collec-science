@@ -12,12 +12,13 @@ $(document).ready(function () {
 	 $("#sample_search").submit (function ( event) { 
 		 var ok = false;
 		 if ($("#name").val().length > 0) ok = true;
-		 if ($("#project_id").val() > 0) ok = true;
+		 if ($("#collection_id").val() > 0) ok = true;
 		 if ($("#uid_min").val() > 0) ok = true;
 		 if ($("#uid_max").val() > 0) ok = true;
 		 if ($("#sample_type_id").val() > 0) ok = true;
 		 if ($("#sampling_place_id").val() > 0 ) ok = true ;
 		 if ($("#object_status_id").val() > 1) ok = true;
+		 if ($("#select_date").val().length > 0) ok = true;
 		 var mf = $("#metadata_field").val();
 		 if ( mf != null) {
 			 if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -46,7 +47,7 @@ $(document).ready(function () {
     	    .done (function (value) {
     	    	if (value.length > 0) {
     	    		var selected = "";
-    	    		var option = '<option value="">{$LANG["appli"].2}</option>';
+    	    		var option = '<option value="">Métadonnée :</option>';
     	    		$("#metadata_field").append(option);
     	    		$("#metadata_field1").append(option);
     	    		$("#metadata_field2").append(option);
@@ -121,13 +122,13 @@ $(document).ready(function () {
 <div class="col-md-4">
 <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible)">
 </div>
-<label for="project_id" class="col-md-2 control-label">Projet :</label>
+<label for="collection_id" class="col-md-2 control-label">Projet :</label>
 <div class="col-md-4">
-<select id="project_id" name="project_id" class="form-control">
-<option value="" {if $sampleSearch.project_id == ""}selected{/if}>{$LANG.appli.2}</option>
-{section name=lst loop=$projects}
-<option value="{$projects[lst].project_id}" {if $projects[lst].project_id == $sampleSearch.project_id}selected{/if}>
-{$projects[lst].project_name}
+<select id="collection_id" name="collection_id" class="form-control">
+<option value="" {if $sampleSearch.collection_id == ""}selected{/if}>{$LANG.appli.2}</option>
+{section name=lst loop=$collections}
+<option value="{$collections[lst].collection_id}" {if $collections[lst].collection_id == $sampleSearch.collection_id}selected{/if}>
+{$collections[lst].collection_name}
 </option>
 {/section}
 </select>
@@ -196,47 +197,60 @@ $(document).ready(function () {
 
 </div>
  -->
- <label for="metadata_field" class="col-md-2 control-label">Métadonnées :</label>
- <div class="col-md-4">
- <select class="form-control" id="metadata_field" name="metadata_field[]">
- <option value="" {if $sampleSearch.metadata_field.0 == ""}selected{/if}>Sélectionnez...</option>
+ <label for="metadata_field" class="col-md-2 control-label">Recherche par date :</label>
+ <div class="col-md-2">
+ <select class="form-control" id="select_date" name="select_date">
+ <option value="" {if $sampleSearch.select_date == ""}selected{/if}>Sélectionnez...</option>
+  <option value="cd" {if $sampleSearch.select_date == "cd"}selected{/if}>Date de création dans la base</option>
+  <option value="sd" {if $sampleSearch.select_date == "sd"}selected{/if}>Date d'échantillonnage</option>
+  <option value="ed" {if $sampleSearch.select_date == "ed"}selected{/if}>Date d'expiration</option>
  </select>
  </div>
- <div class="col-md-2">
- <input class="col-md-2 form-control" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %">
- </div>
+ <div class="col-md-1">du :</div>
+<div class="col-md-2">
+<input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
+</div> 
+<div class="col-md-1">au :</div>
+<div class="col-md-2">
+<input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
+</div>
+
 <div class="col-md-2">
 <input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
 </div>
 </div>
 </div>
-<!--  metadonnees supplementaires -->
-<div class="row" id="metadatarow1" >
+<div class="row">
 <div class="form-group">
- <div class="col-md-2"></div>
- <div class="col-md-4">
+<!-- 
+<label for="metadata_field" class="col-md-2 control-label">Métadonnées :</label>
+ -->
+ <div class="col-md-2">
+ <select class="form-control" id="metadata_field" name="metadata_field[]">
+ </select>
+ </div>
+ <div class="col-md-2">
+ <input class="col-md-2 form-control" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %">
+ </div>
+ <!--  metadonnees supplementaires -->
+ <div id="metadatarow1">
+ <div class="col-md-2">
  <select class="form-control"  id="metadata_field1" name="metadata_field[]">
- <option value="" {if $sampleSearch.metadata_field.1 == ""}selected{/if}>Sélectionnez...</option>
  </select>
  </div>
  <div class="col-md-2">
  <input class="col-md-2 form-control" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %">
  </div>
-</div>
-</div>
-<div class="row" id="metadatarow2" >
-<div class="form-group">
- <div class="col-md-2"></div>
- <div class="col-md-4">
- <select class="form-control" id="metadata_field2" name="metadata_field[]">
- <option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>Sélectionnez...</option>
- </select>
+ </div>
+  <div id="metadatarow2">
+ <div class="col-md-2">
+ <select class="form-control"  id="metadata_field2" name="metadata_field[]">
+  </select>
  </div>
  <div class="col-md-2">
  <input class="col-md-2 form-control" id="metadata_value_2" name="metadata_value[]" value="{$sampleSearch.metadata_value.2}" title="Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %">
  </div>
-</div>
-</div>
-
+ </div>
+ </div>
 </form>
 </div>

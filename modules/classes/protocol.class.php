@@ -40,7 +40,7 @@ class Protocol extends ObjetBDD
             "protocol_year" => array(
                 "type" => 1
             ),
-            "project_id" => array(
+            "collection_id" => array(
                 "type" => 1
             )
         );
@@ -80,7 +80,7 @@ class Protocol extends ObjetBDD
             /*
              * Verification si l'utilisateur peut charger le fichier
              */
-            if ($this->verifyProject($this->lire($id))) {
+            if ($this->verifyCollection($this->lire($id))) {
                 $ref = $this->getBlobReference($id, "protocol_file");
                 if (! $ref) {
                     throw new ProtocolException("Pas de fichier à afficher");
@@ -103,9 +103,9 @@ class Protocol extends ObjetBDD
     {
         $sql = "select protocol_id, protocol_name, protocol_version, protocol_year,
 				case when protocol_file is null then 0 else 1 end as has_file,
-                project_name
+                collection_name
 				from protocol
-                left outer join project using (project_id)";
+                left outer join collection using (collection_id)";
         if (strlen($order) > 0) {
             $sql .= " order by " . $this->encodeData($order);
         }
@@ -113,21 +113,21 @@ class Protocol extends ObjetBDD
     }
 
     /**
-     * Fonction permettant de verifier si le protocole fait partie des projets de
+     * Fonction permettant de verifier si le protocole fait partie des collections de
      * l'utilisateur
      *
      * @param array $data
      * @throws Exception
      * @return boolean
      */
-    function verifyProject($data)
+    function verifyCollection($data)
     {
         $retour = false;
-        if ($_SESSION["droits"]["project"] == 1) {
+        if ($_SESSION["droits"]["collection"] == 1) {
             $retour = true;
         } else {
-            foreach ($_SESSION["projects"] as $value) {
-                if ($data["project_id"] == $value["project_id"]) {
+            foreach ($_SESSION["collections"] as $value) {
+                if ($data["collection_id"] == $value["collection_id"]) {
                     $retour = true;
                     break;
                 }

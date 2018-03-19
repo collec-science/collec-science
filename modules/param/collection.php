@@ -5,9 +5,9 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-require_once 'modules/classes/project.class.php';
-$dataClass = new Project ( $bdd, $ObjetBDDParam );
-$keyName = "project_id";
+require_once 'modules/classes/collection.class.php';
+$dataClass = new Collection ( $bdd, $ObjetBDDParam );
+$keyName = "collection_id";
 $id = $_REQUEST [$keyName];
 
 switch ($t_module ["param"]) {
@@ -17,7 +17,7 @@ switch ($t_module ["param"]) {
 		 */
 		try {
 			$vue->set ( $dataClass->getListe ( 2 ), "data" );
-			$vue->set ( "param/projectList.tpl", "corps" );
+			$vue->set ( "param/collectionList.tpl", "corps" );
 		} catch ( Exception $e ) {
 			$message->set ( $e->getMessage () );
 		}
@@ -28,11 +28,11 @@ switch ($t_module ["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		dataRead ( $dataClass, $id, "param/projectChange.tpl" );
+		dataRead ( $dataClass, $id, "param/collectionChange.tpl" );
 		/*
 		 * Recuperation des groupes
 		 */
-		$vue->set($dataClass->getAllGroupsFromProject ( $id ) , "groupes");
+		$vue->set($dataClass->getAllGroupsFromCollection ( $id ) , "groupes");
 		break;
 	case "write":
 		/*
@@ -42,10 +42,10 @@ switch ($t_module ["param"]) {
 		if ($id > 0) {
 			$_REQUEST [$keyName] = $id;
 			/*
-			 * Rechargement eventuel des projets autorises pour l'utilisateur courant
+			 * Rechargement eventuel des collections autorises pour l'utilisateur courant
 			 */
 			try {
-			$_SESSION ["projects"] = $dataClass->getProjectsFromLogin ();
+			$_SESSION ["collections"] = $dataClass->getCollectionsFromLogin ();
 			} catch (Exception $e) {
 				if ($APPLI_modeDeveloppement)
 					$message->set($e->getMessage());

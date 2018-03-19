@@ -46,13 +46,13 @@ Nouvel échantillon
 {/if}
 <!-- Entrée ou sortie -->
 <span id="input">
-<a href="index.php?module=storagesampleInput&storage_id=0&uid={$data.uid}" id="input" title="Entrer l'échantillon dans le stock">
+<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="Entrer l'échantillon dans le stock">
 <img src="{$display}/images/input.png" height="25">Entrée
 </a>
 </span>
 
 <span id="output">
-<a href="index.php?module=storagesampleOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir l'échantillon du stock">
+<a href="index.php?module=movementsampleOutput&movement_id=0&uid={$data.uid}" id="output" title="Sortir l'échantillon du stock">
 <img src="{$display}/images/output.png" height="25">Sortie</a></span>
 
 {/if}
@@ -127,7 +127,7 @@ Nouvel échantillon
 
 <dl class="dl-horizontal">
 <dt>Projet :</dt>
-<dd>{$data.project_name}</dd>
+<dd>{$data.collection_name}</dd>
 </dl>
 <dl class="dl-horizontal">
 <dt>Type :</dt>
@@ -153,20 +153,21 @@ clp : {$data.clp_classification}
 <dt>Statut :</dt>
 <dd>{$data.object_status_name}</dd>
 </dl>
-{if $data.sampling_place_id > 0}
-<dl class="dl-horizontal">
-<dt>Lieu de prélèvement :</dt>
-<dd>{$data.sampling_place_name}</dd>
-</dl>
-{/if}
+
 <dl class="dl-horizontal">
 <dt title="Date de création de l'échantillon">Date de création<br>de l'échantillon :</dt>
-<dd>{$data.sample_date}</dd>
+<dd>{$data.sampling_date}</dd>
 </dl>
 <dl class="dl-horizontal">
 <dt title="Date d'import dans la base de données">Date d'import dans<br>la base de données :</dt>
 <dd>{$data.sample_creation_date}</dd>
 </dl>
+{if strlen($data.expiration_date) > 0}
+<dl class="dl-horizontal">
+<dt title="Date d'expiration de l'échantillon">Date d'expiration :</dt>
+<dd>{$data.expiration_date}</dd>
+</dl>
+{/if}
 {if $data.multiple_type_id > 0}
 <dl class="dl-horizontal">
 <dt title="Quantité de sous-échantillons ({$data.multiple_unit})">Qté de sous-échantillons ({$data.multiple_unit}) : </dt>
@@ -180,6 +181,12 @@ clp : {$data.clp_classification}
 {$data.parent_uid} {$data.parent_identifier}
 </a>
 </dd>
+</dl>
+{/if}
+{if $data.sampling_place_id > 0}
+<dl class="dl-horizontal">
+<dt>Lieu de prélèvement :</dt>
+<dd>{$data.sampling_place_name}</dd>
 </dl>
 {/if}
 {if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
@@ -247,7 +254,7 @@ clp : {$data.clp_classification}
 </fieldset>
 <fieldset>
 <legend>Mouvements</legend>
-{include file="gestion/storageList.tpl"}
+{include file="gestion/objectMovementList.tpl"}
 </fieldset>
 
 </div>

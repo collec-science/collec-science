@@ -15,13 +15,13 @@ Nouveau container
 
 <!-- Entrée ou sortie -->
 <span id="input">
-<a href="index.php?module=storagecontainerInput&storage_id=0&uid={$data.uid}" id="input" title="Entrée le container dans le stock">
+<a href="index.php?module=movementcontainerInput&movement_id=0&uid={$data.uid}" id="input" title="Entrée le container dans le stock">
 <img src="{$display}/images/input.png" height="25">Entrée
 </a>
 </span>
 
 <span id="output">
-<a href="index.php?module=storagecontainerOutput&storage_id=0&uid={$data.uid}" id="output" title="Sortir le container du stock">
+<a href="index.php?module=movementcontainerOutput&movement_id=0&uid={$data.uid}" id="output" title="Sortir le container du stock">
 <img src="{$display}/images/output.png" height="25">Sortie</a></span>
 
 {/if}
@@ -116,7 +116,7 @@ Nouveau container
 </fieldset>
 <fieldset>
 <legend>Mouvements</legend>
-{include file="gestion/storageList.tpl"}
+{include file="gestion/objectMovementList.tpl"}
 </fieldset>
 </div>
 

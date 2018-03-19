@@ -104,14 +104,16 @@ Champs utilisables dans le QRcode et dans le texte de l'étiquette :
 <li>uid (obligatoire) : identifiant unique</li>
 <li>db (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les échantillons entre plusieurs bases)</li>
 <li>id : identifiant général</li>
-<li>prj : code du projet</li>
+<li>prj : code de la collection</li>
 <li>clp : code de risque</li>
 <li>pn : nom du protocole</li>
 <li>x : coordonnée wgs84_x de l'objet (lieu de prélèvement ou de stockage suivant le cas)</li>
 <li>y : coordonnée wgs84_y de l'objet</li>
 <li>loc : localisation du prélèvement (table des lieux de prélèvement)</li>
 <li>prod : produit utilisé pour la conservation</li>
-<li>cd : date d'import/création dans la base de données</li>
+<li>cd : date de création de l'échantillon dans la base de données</li>
+<li>sd : date d'échantillonnage</li>
+<li>ed : date d'expiration de l'échantillon</li>
 <li>et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants</li>
 </ul>
 </li>

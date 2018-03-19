@@ -18,7 +18,8 @@ class SampleType extends ObjetBDD
 					container_type_name,
 					operation_id, operation_name ,operation_version, protocol_name, protocol_year, protocol_version,
 					multiple_type_id, multiple_unit, multiple_type_name,
-                    metadata_id, metadata_name
+                    metadata_id, metadata_name,
+                    identifier_generator_js
 					from sample_type
 					left outer join container_type using (container_type_id)
 					left outer join operation using (operation_id)
@@ -54,6 +55,9 @@ class SampleType extends ObjetBDD
                 "type" => 0
             ),
             "metadata_id" => array(
+                "type" => 0
+            ),
+            "identifier_generator_js" => array(
                 "type" => 0
             )
         );
@@ -108,6 +112,15 @@ class SampleType extends ObjetBDD
                 "sample_type_id" => $sample_type_id
             ));
             return $data["metadata_schema"];
+        }
+    }
+    
+    function getIdentifierJs($sample_type_id) {
+        if ($sample_type_id > 0) {
+            $sql = "select identifier_generator_js from sample_type
+                    where sample_type_id = :sample_type_id";
+            $data = $this->lireParamAsPrepared($sql, array("sample_type_id"=>$sample_type_id));
+            return $data["identifier_generator_js"];
         }
     }
 }

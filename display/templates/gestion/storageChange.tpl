@@ -68,7 +68,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 	if($("#movement_type_id").val() == 1 )
 		$("#container_uid").attr("required");
 	
-	$("#storage{$moduleParent}Form").submit(function (event ) { 
+	$("#movement{$moduleParent}Form").submit(function (event ) { 
 		var uid = $("#uid").val();
 		var container_uid = $("#container_uid").val();
 		console.log("uid : "+uid);
@@ -111,9 +111,9 @@ Retour à la liste des {if $moduleParent == "container"}containers{else}échanti
 Retour au détail
 </a>
 {/if}
-<form class="form-horizontal protoform" id="storage{$moduleParent}Form" method="post" action="index.php">
-<input type="hidden" name="storage_id" value="{$data.storage_id}">
-<input type="hidden" name="moduleBase" value="storage{$moduleParent}">
+<form class="form-horizontal protoform" id="movement{$moduleParent}Form" method="post" action="index.php">
+<input type="hidden" name="movement_id" value="{$data.movement_id}">
+<input type="hidden" name="moduleBase" value="movement{$moduleParent}">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="movement_type_id" id="movement_type_id" value="{$data.movement_type_id}">
 <input type="hidden" name="container_id" id="container_id" value="{$data.container_id}">
@@ -160,9 +160,9 @@ Retour au détail
 <fieldset>
 <legend>Détails :</legend>
 <div class="form-group">
-<label for="storage_date" class="control-label col-md-4">Date<span class="red">*</span> :</label>
+<label for="movement_date" class="control-label col-md-4">Date<span class="red">*</span> :</label>
 <div class="col-md-8">
-<input id="storage_date" name="storage_date" value="{$data.storage_date}" required class="datetimepicker form-control">
+<input id="movement_date" name="movement_date" value="{$data.movement_date}" required class="datetimepicker form-control">
 </div>
 </div>
 {if $data.movement_type_id == 1}
@@ -190,13 +190,13 @@ Retour au détail
 {/if}
 {if $data.movement_type_id == 2}
 			<div class="form-group">
-				<label for="storage_reason_id" class="control-label col-sm-4">Motif du déstockage :</label>
+				<label for="movement_reason_id" class="control-label col-sm-4">Motif du déstockage :</label>
 				<div class="col-sm-8">
-					<select id="storage_reason_id" name="storage_reason_id">
-					<option value="" {if $data.storage_reason_id == ""}selected{/if}>Sélectionnez...</option>
-					{section name=lst loop=$storageReason}
-					<option value="{$storageReason[lst].storage_reason_id}" {if $data.storage_reason_id == $storageReason[lst].storage_reason_id}selected{/if}>
-					{$storageReason[lst].storage_reason_name}
+					<select id="movement_reason_id" name="movement_reason_id">
+					<option value="" {if $data.movement_reason_id == ""}selected{/if}>Sélectionnez...</option>
+					{section name=lst loop=$movementReason}
+					<option value="{$movementReason[lst].movement_reason_id}" {if $data.movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
+					{$movementReason[lst].movement_reason_name}
 					</option>
 					{/section}
 					</select>
@@ -204,9 +204,9 @@ Retour au détail
 			</div>
 {/if}
 <div class="form-group">
-<label for="storage_comment" class="control-label col-md-4">Commentaire :</label>
+<label for="movement_comment" class="control-label col-md-4">Commentaire :</label>
 <div class="col-md-8">
-<textarea id="storage_comment" name="storage_comment" class="form-control" rows="3">{$data.storage_comment}</textarea>
+<textarea id="movement_comment" name="movement_comment" class="form-control" rows="3">{$data.movement_comment}</textarea>
 </div>
 </div>
 <div class="form-group">
@@ -220,7 +220,7 @@ Retour au détail
 
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
-      {if $data.storage_id > 0 }
+      {if $data.movement_id > 0 }
       <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
       {/if}
  </div>

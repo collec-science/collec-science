@@ -1,7 +1,9 @@
 <script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
 
 <script type="text/javascript">
+var identifier_fn = "";
 var is_scan = false;
+var sampling_place_init = "{$data.sampling_place_id}";
 function testScan() {
 	if (is_scan) {
 		return false;
@@ -11,6 +13,32 @@ function testScan() {
 }
 
     $(document).ready(function() {
+    	
+    	function convertGPStoDD(valeur) {
+    		var parts = valeur.trim().split(/[^\d]+/);
+    		var dd = parseFloat(parts[0])
+    				+ parseFloat((parts[1] + "." + parts[2]) / 60);
+    		var lastChar = valeur.substr(-1).toUpperCase();
+    		dd = Math.round(dd * 1000000) / 1000000;
+    		if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
+    			dd *= -1;
+    		}
+    		;
+    		return dd;
+    	}
+    	$("#latitude").change( function () {
+    		var value = $(this).val();
+    		if (value.length > 0) {
+    			$("#wgs84_y").val( convertGPStoDD(value));
+    		}
+    	});
+    	$("#longitude").change( function () {
+    		var value = $(this).val();
+    		if (value.length > 0) {
+    			$("#wgs84_x").val( convertGPStoDD(value));
+    		}
+    	});
+
         $("#scan_label").focus(function () {
         	is_scan = true;
         });
@@ -35,43 +63,120 @@ function testScan() {
        	    		data: { "module": "sampleTypeMetadata", "sample_type_id": sti }
        	    	})
        	    	.done (function (value) {
+       	    		if (value) {
        	    		//console.log(value);
        	    		var schema = value.replace(/&quot;/g,'"');
        	    		showForm(JSON.parse(schema),dataParse);
        	    		$(".alpaca-field-select").combobox();
+       	    		}
        	    	})
        	    	;
        	    }
         }
+    	
+    	function getSamplingPlace () {
+    		var colid = $("#collection_id").val();
+    		console.log ("colid:"+colid);
+    		var url = "index.php";
+    		var data = { "module":"samplingPlaceGetFromCollection", "collection_id": colid };
+    		$.ajax ( { url:url, data: data})
+    		.done (function( d ) {
+   				if (d ) {
+    				d = JSON.parse(d);
+    				options = '<option value="">Sélectionnez...</option>';			
+    				 for (var i = 0; i < d.length; i++) {
+    				        options += '<option value="'+d[i].sampling_place_id + '"';
+    				        if (d[i].sampling_place_id == sampling_place_init ) {
+    				        	options += ' selected ';
+    				        }
+    				        options += '>';
+    				        if (d[i].sampling_place_code) {
+    				        	options += d[i].sampling_place_code;
+    				        } else {
+    				        	options += d[i].sampling_place_name;
+    				        }
+    				        options += '</option>';
+    				      };
+    				$("#sampling_place_id").html(options);
+    				}
+    			});
+    	}
+    	
+    	function getGenerator() {
+    		var sti = $("#sample_type_id").val();
+       	    if (sti) {
+       	    	$.ajax( { 
+       	    		url: "index.php",
+       	    		data: { "module": "sampleTypeGenerator", "sample_type_id": sti }
+       	    	})
+       	    	.done (function (value) {
+       	    		if (value.length > 0) {
+       	    			identifier_fn = value;
+       	    			$("#identifier_generate").prop("disabled", false);
+       	    		} else {
+       	    			$("#identifier_generate").prop("disabled", true);
+       	    		}
+       	    	})
+     		}
+    	}
+    	
         $("#sample_type_id").change( function() {
        	 getMetadata();
+       	 getGenerator();
         });
+        
+        $("#collection_id").change(function() {
+        	getSamplingPlace();
+        });
+        
         /*
          * Lecture initiale
          */
         getMetadata();
+        getGenerator();
+        getSamplingPlace();
 
         $('#sampleForm').submit(function(event) {
             if($("#action").val()=="Write"){
+            	var error = false;
+            	var sample_type_id = $("#sample_type_id").val();
+            	if (sample_type_id) {
+            		if (sample_type_id.length == 0 ) {
+            			error = true;
+            		} 
+            	} else {
+            		error = true;
+            	}
+            	var project_id = $("#sample_type_id").val();
+            	if (project_id) {
+            		if (project_id.length == 0 ) {
+            			error = true;
+            		} 
+            	} else {
+            		error = true;
+            	}
+        
                 $('#metadata').alpaca().refreshValidationState(true);
                 if($('#metadata').alpaca().isValid(true)){
-                	if($('#metadata').alpaca().isValid(true)){
-                		 var value = $('#metadata').alpaca().getValue();
-                		 // met les metadata en JSON dans le champ (name="metadata") qui sera sauvegardé en base
-                		 $("#metadataField").val(JSON.stringify(value));
-                		 console.log($("#metadataField").val());
-                	} else {
-                    	alert("La définition des métadonnées n'est pas valide.");
-                    	event.preventDefault();
-                	}
-            	}
+                	var value = $('#metadata').alpaca().getValue();
+                	 // met les metadata en JSON dans le champ (name="metadata") qui sera sauvegardé en base
+                	 $("#metadataField").val(JSON.stringify(value));
+                	 console.log($("#metadataField").val());
+                } else {
+                   	error = true;
+                }
+                if (error) {
+                	event.preventDefault();
+                }
+            	
             }
+
     	});
         $("#reinit").click(function() {
         	$("#wgs84_x").val("");
         	$("#wgs84_y").val("");
-        	$("#sample_date").val("");
-        	$("#project_id").val("");
+        	$("#sampling_date").val("");
+        	$("#collection_id").val("");
         	$("#sample_type_id").val("");
         	$("#sampling_place_id").val("");
         	$("#multiple_value").val("");
@@ -79,6 +184,11 @@ function testScan() {
         	showForm([],"");
         	point.setCoordinates ([]);
         	
+        });
+        $("#identifier_generate").click(function () {
+        	if (identifier_fn.length > 0) {
+        		$("#identifier").val(eval(identifier_fn));
+        	}
         });
 
         
@@ -99,7 +209,10 @@ function testScan() {
         				 $("#identifier").val(data["id"]);
         				 break;
         			 case "prj":
-        				 $('#project_id option[value]="'+data["prj"]+'"]').attr("selected", "selected");
+        				 $('#collection_id option[value]="'+data["prj"]+'"]').attr("selected", "selected");
+        				 break;
+        			 case "col":
+        				 $('#collection_id option[value]="'+data["col"]+'"]').attr("selected", "selected");
         				 break;
         			 case "x":
         				 $("#wgs84_x").val(data["x"]);
@@ -110,9 +223,15 @@ function testScan() {
         			 case "loc":
         				 $('#sampling_place_id option[value]="'+data["loc"]+'"]').attr("selected", "selected");
         				 break;
-        			 case "cd":
-        				 $("#sample_date").val(data["cd"]);
+        			 case "sd":
+        				 $("#sampling_date").val(data["sd"]);
         				 break;
+        			 case "cd":
+        				 $("#sample_creation_date").val(data["cd"]);
+        				 break; 
+        			 case "ed":
+        				 $("#expiration_date").val(data["ed"]);
+        				 break; 	 
         			default:
         				$('input[name='+key+']').val(data[key]);
         					 
@@ -160,8 +279,8 @@ Retour à la liste des échantillons
 </dd>
 </dl>
 <dl class="dl-horizontal">
-<dt>Projet :</dt>
-<dd>{$parent_sample.project_name}</dd>
+<dt>Collection :</dt>
+<dd>{$parent_sample.collection_name}</dd>
 </dl>
 <dl class="dl-horizontal">
 <dt>Type :</dt>
@@ -183,7 +302,12 @@ Retour à la liste des échantillons
 <input type="hidden" id="action" name="action" value="Write">
 <input type="hidden" name="parent_sample_id" value="{$data.parent_sample_id}">
 <input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
-
+<div class="form-group center">
+      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      {if $data.sample_id > 0 }
+      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      {/if}
+ </div>
 <div class="form-group">
 <label for="scan_label" class="control-label col-md-4">Scannez l'étiquette existante :</label>
 <div class="col-md-5">
@@ -194,16 +318,44 @@ Retour à la liste des échantillons
 </div>
 </div>
 
-
-{include file="gestion/uidChange.tpl"}
+<div class="form-group">
+<label for="uid" class="control-label col-md-4">UID :</label>
+<div class="col-md-8">
+<input id="uid" name="uid" value="{$data.uid}" readonly class="form-control" title="identifiant unique dans la base de données">
+</div>
+</div>
 
 <div class="form-group">
-<label for="project_id" class="control-label col-md-4">Projet<span class="red">*</span> :</label>
+<label for="appli" class="control-label col-md-4">Identifiant ou nom :</label>
+<div class="col-md-6">
+<input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus >
+</div>
+<div class="col-md-2">
+<button class="btn btn-info" type="button" id="identifier_generate" disabled
+title="Générez l'identifiant à partir des informations saisies">Générer</button>
+</div>
+</div>
+
+<div class="form-group">
+<label for="object_status_id" class="control-label col-md-4">Statut<span class="red">*</span> :</label>
 <div class="col-md-8">
-<select id="project_id" name="project_id" class="form-control" autofocus>
-{section name=lst loop=$projects}
-<option value="{$projects[lst].project_id}" {if $data.project_id == $projects[lst].project_id}selected{/if}>
-{$projects[lst].project_name}
+<select id="object_status_id" name="object_status_id" class="form-control">
+{section name=lst loop=$objectStatus}
+<option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id == $data.object_status_id}selected{/if}>
+{$objectStatus[lst].object_status_name}
+</option>
+{/section}
+</select>
+</div>
+</div>
+
+<div class="form-group">
+<label for="collection_id" class="control-label col-md-4">Projet<span class="red">*</span> :</label>
+<div class="col-md-8">
+<select id="collection_id" name="collection_id" class="form-control" autofocus>
+{section name=lst loop=$collections}
+<option value="{$collections[lst].collection_id}" {if $data.collection_id == $collections[lst].collection_id}selected{/if}>
+{$collections[lst].collection_name}
 </option>
 {/section}
 </select>
@@ -235,27 +387,35 @@ Retour à la liste des échantillons
 </div>
 </div>
 
-
 <div class="form-group">
 <label for="sampling_place_id" class="control-label col-md-4">Lieu de prélèvement :</label>
 <div class="col-md-8">
-<select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
-<option value="" {if $data.sampling_place_id == ""}selected{/if}>
-Sélectionnez...
-</option>
-{section name=lst loop=$samplingPlace}
-<option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $data.sampling_place_id}selected{/if}>
-{$samplingPlace[lst].sampling_place_name} 
-</option>
-{/section}
+<select id="sampling_place_id" name="sampling_place_id" class="form-control ">
 </select>
+</div>
+</div>
+<div class="form-group">
+<label for="wy" class="control-label col-md-4">Latitude :</label>
+<div class="col-md-8" id="wy">
+<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
+<input id="wgs84_y" name="wgs84_y" placeholder="45.01300" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
 </div>
 </div>
 
 <div class="form-group">
-<label for="sample_date"  class="control-label col-md-4">Date de création de l'échantillon :</label>
+<label for="wx" class="control-label col-md-4">Longitude :</label>
+<div class="col-md-8" id="wx">
+<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
+<input id="wgs84_x" name="wgs84_x" placeholder="-0.0156" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
+</div>
+</div>
+
+
+
+<div class="form-group">
+<label for="sampling_date"  class="control-label col-md-4">Date de création/échantillonnage de l'échantillon :</label>
 <div class="col-md-8">
-<input id="sample_date" class="form-control datetimepicker" name="sample_date" value="{$data.sample_date}"></div>
+<input id="sampling_date" class="form-control datetimepicker" name="sampling_date" value="{$data.sampling_date}"></div>
 </div>
 
 <div class="form-group">
@@ -263,6 +423,12 @@ Sélectionnez...
 <div class="col-md-8">
 <input id="sample_creation_date" class="form-control" name="sample_creation_date" readonly value="{$data.sample_creation_date}"></div>
 </div>
+<div class="form-group">
+<label for="expiration_date"  class="control-label col-md-4">Date d'expiration de l'échantillon :</label>
+<div class="col-md-8">
+<input id="expiration_date" class="form-control datepicker" name="expiration_date"  value="{$data.expiration_date}"></div>
+</div>
+
 <fieldset>
 <legend>Sous-échantillonnage (si le type le permet)</legend>
 <div class="form-group">

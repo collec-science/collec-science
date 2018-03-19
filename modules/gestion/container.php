@@ -74,9 +74,9 @@ switch ($t_module ["param"]) {
 		/*
 		 * Recuperation des mouvements
 		 */
-		require_once 'modules/classes/storage.class.php';
-		$storage = new Storage ( $bdd, $ObjetBDDParam );
-		$vue->set ( $storage->getAllMovements ( $id ), "storages" );
+		require_once 'modules/classes/movement.class.php';
+		$movement = new Movement ( $bdd, $ObjetBDDParam );
+		$vue->set ( $movement->getAllMovements ( $id ), "movements" );
 		/*
 		 * Recuperation des reservations
 		 */
@@ -129,17 +129,17 @@ switch ($t_module ["param"]) {
 			 * Recherche s'il s'agit d'un conteneur a associer dans un autre conteneur
 			 */
 			if ($_REQUEST ["container_parent_uid"] > 0 && is_numeric ( $_REQUEST ["container_parent_uid"] )) {
-				require_once 'modules/classes/storage.class.php';
-				$storage = new Storage ( $bdd, $ObjetBDDParam );
+				require_once 'modules/classes/movement.class.php';
+				$movement = new Movement ( $bdd, $ObjetBDDParam );
 				$data = array (
 						"uid" => $id,
-						"storage_date" => date ( 'd/m/Y H:i:s' ),
+						"movement_date" => date ( 'd/m/Y H:i:s' ),
 						"movement_type_id" => 1,
 						"login" => $_SESSION ["login"],
 						"container_id" => $dataClass->getIdFromUid ( $_REQUEST ["container_parent_uid"] ),
-						"storage_id" => 0 
+						"movement_id" => 0 
 				);
-				$storage->ecrire ( $data );
+				$movement->ecrire ( $data );
 			}
 		}
 		break;
@@ -150,10 +150,10 @@ switch ($t_module ["param"]) {
 		/*
 		 * Recherche si le conteneur est reference
 		 */
-		require_once 'modules/classes/storage.class.php';
-		$storage = new Storage ( $bdd, $ObjetBDDParam );
+		require_once 'modules/classes/movement.class.php';
+		$movement = new Movement ( $bdd, $ObjetBDDParam );
 		try {
-			$nb = $storage->getNbFromContainer ( $id );
+			$nb = $movement->getNbFromContainer ( $id );
 		} catch ( Exception $e ) {
 			$nb = 0;
 		}

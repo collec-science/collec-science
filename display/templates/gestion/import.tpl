@@ -77,13 +77,14 @@ Il n'accepte que des fichiers au format CSV. La ligne d'entête doit comprendre 
 <br>
 <ul>
 <li><b>sample_identifier</b> : l'identifiant de l'échantillon (obligatoire)</li>
-<li><b>project_id</b> : le numéro informatique du projet (obligatoire)</li>
+<li><b>collection_id</b> : le numéro informatique de la collection (obligatoire)</li>
 <li><b>sample_type_id</b> : le numéro informatique du type d'échantillon (obligatoire)</li>
 <li><b>sample_status_id</b> : le numéro du statut de l'échantillon (obligatoire)</li>
 <li><b>sampling_place_id</b> : le numéro informatique de l'endroit où l'échantillon a été prélevé</li>
 <li><b>wgs84_x</b> : la longitude GPS en WGS84 (degrés décimaux)</li>
 <li><b>wgs84_y</b> : la latitude GPS en WGS84 (degrés décimaux)</li>
-<li><b>sample_date</b> : la date de création de l'échantillon, au format dd/mm/yyyy</li>
+<li><b>sampling_date</b> : la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy</li>
+<li><b>expiration_date</b> : la date d'expiration de l'échantillon, au format dd/mm/yyyy</li>
 <li><b>sample_location</b> : l'emplacement de rangement de l'échantillon dans le container (texte libre)</li>
 <li><b>sample_column</b> : n° de la colonne de stockage dans le container</li>
 <li><b>sample_line</b> : n° de la ligne de stockage dans le container</li>

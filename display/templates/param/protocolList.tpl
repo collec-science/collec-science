@@ -20,7 +20,7 @@
 {section name=lst loop=$data}
 <tr>
 <td>
-{if $droits.projet == 1}
+{if $droits.collection == 1}
 <a href="index.php?module=protocolChange&protocol_id={$data[lst].protocol_id}">
 {$data[lst].protocol_name}
 </a>

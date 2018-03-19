@@ -1,7 +1,7 @@
 <h2>Modèles d'étiquette</h2>
 	<div class="row">
 	<div class="col-md-6">
-{if $droits.projet == 1}
+{if $droits.collection == 1}
 <a href="index.php?module=labelChange&label_id=0">
 {$LANG["appli"][0]}
 </a>
@@ -14,7 +14,7 @@
 <th>QrCode simple<br>(un seul identifiant métier)</th>
 <th>Champs dans le QRCode</th>
 <th>Nom du modèle de métadonnées rattaché</th>
-{if $droits.projet == 1}
+{if $droits.collection == 1}
 <th>Dupliquer</th>
 {/if}
 </tr>
@@ -23,7 +23,7 @@
 {section name=lst loop=$data}
 <tr>
 <td>
-{if $droits.projet == 1}
+{if $droits.collection == 1}
 <a href="index.php?module=labelChange&label_id={$data[lst].label_id}">
 {$data[lst].label_name}
 </a>
@@ -37,7 +37,7 @@
 </td>
 <td>{$data[lst].label_fields}</td>
 <td>{$data[lst].metadata_name}</td>
-{if $droits.projet == 1}
+{if $droits.collection == 1}
 <td class="center">
 <a href="index.php?module=labelCopy&label_id={$data[lst].label_id}" title="Dupliquer l'étiquette">
 <img src="display/images/copy.png" height="25">

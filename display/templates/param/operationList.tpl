@@ -1,7 +1,7 @@
 <h2>Opérations rattachées aux protocoles</h2>
 	<div class="row">
 	<div class="col-md-6">
-{if $droits.projet == 1}
+{if $droits.collection == 1}
 <a href="index.php?module=operationChange&operation_id=0">
 {$LANG["appli"][0]}
 </a>
@@ -13,7 +13,7 @@
 <th>Opération</th>
 <th>Version</th>
 <th>N° d'ordre</th>
-{if $droits.projet == 1}
+{if $droits.collection == 1}
 <th>Dupliquer</th>
 {/if}
 </tr>
@@ -25,7 +25,7 @@
 {$data[lst].protocol_year} {$data[lst].protocol_name} {$data[lst].protocol_version}
 </td>
 <td>
-{if $droits.projet == 1}
+{if $droits.collection == 1}
 <a href="index.php?module=operationChange&operation_id={$data[lst].operation_id}">
 {$data[lst].operation_name}
 </a>
@@ -35,7 +35,7 @@
 </td>
 <td class="center">{$data[lst].operation_version}</td>
 <td class="center">{$data[lst].operation_order}</td>
-{if $droits.projet == 1}
+{if $droits.collection == 1}
 <td class="center">
 <a href="index.php?module=operationCopy&operation_id={$data[lst].operation_id}" title="Dupliquer l'opération">
 <img src="display/images/copy.png" height="25">

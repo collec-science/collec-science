@@ -418,13 +418,14 @@ class ImportObject
             $result = date_parse($date);
         }
         if ($result["warning_count"] == 0) {
-            $val = $result["year"] . "-" . $result["month"] . "-" . $result["day"];
+            $val = $result["year"] . "-" . str_pad($result["month"], 2, "0", STR_PAD_LEFT) .
+            "-" . str_pad($result["day"], 2, "0", STR_PAD_LEFT);
             if (strlen($result["hour"]) > 0 && strlen($result["minute"]) > 0) {
-                $val .= " " . $result["hour"] . ":" . $result["minute"];
+                $val .= " " . str_pad($result["hour"], 2, "0", STR_PAD_LEFT) . ":" . str_pad($result["minute"], 2, "0", STR_PAD_LEFT);
                 if (strlen($result["second"]) == 0) {
                     $result["second"] == 0;
                 }
-                $val .= ":" . $result["second"];
+                $val .= ":" . str_pad($result["second"], 2, "0", STR_PAD_LEFT);
             }
         }
         return $val;
@@ -715,15 +716,13 @@ class ImportObject
             $this->initIdentifiers = true;
         }
     }
-    
-    function importExterneExec() {
-        require_once 'modules/classes/import.class.php';
-        require_once 'modules/classes/objectIdentifier.class.php';
-        $oid = new ObjectIdentifier($bdd, $ObjetBDDParam);
-        $import = new Import($_REQUEST["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"]);
-        $data = $import->getContentAsArray();
-        $sic = new SampleInitClass();
-        $dclass = $sic->init(true);
+    /**
+     * Execution de l'importation d'echantillons provenant d'une base externe
+     * @param array $data : tableau contenant les donnees a importer
+     * @param SampleInitClass $sic : liste des valeurs des tables de reference
+     * @param array $post : tableau des valeurs fournies par le formulaire
+     */
+    function importExterneExec($data, SampleInitClass $sic, $post) {
         $simpleFields = array(
             "identifier",
             "wgs84_x",
@@ -738,7 +737,8 @@ class ImportObject
             "object_status_name",
             "sample_type_name"
         );
-        $sample->auto_date = 0;
+        $this->sample->auto_date = 0;
+        $dclass = $sic->init(true);
         foreach ($data as $row) {
             /*
              * Preparation de l'echantillon a importer dans la base
@@ -784,14 +784,14 @@ class ImportObject
                      * pour tenir compte du transcodage opere par le navigateur
                      */
                     $fieldHtml = str_replace(" ", "_", $value);
-                    $newval = $_POST[$field . "-" . $fieldHtml];
+                    $newval = $post[$field . "-" . $fieldHtml];
                     /*
                      * Recherche de la cle correspondante
                      */
                     $id = $dclass[$field][$newval];
                     if ($id > 0) {
                         $key = $sic->classes[$field]["id"];
-                        $sample[$key] = $id;
+                        $dataSample[$key] = $id;
                     }
                 }
             }
@@ -799,12 +799,13 @@ class ImportObject
              * Declenchement de l'ecriture en base
              */
             try {
-                $uid = $dataClass->ecrireImport($sample);
+                $uid = $this->sample->ecrireImport($dataSample);
                 if ($uid > 0) {
                     if ($uid < $this->minuid) {
                         $this->minuid = $uid;
                     }
                     $this->maxuid = $uid;
+                    $this->nbTreated ++;
                     /*
                      * Traitement des identifiants complementaires
                      */
@@ -815,18 +816,20 @@ class ImportObject
                             $dataIdent = array();
                             $dataIdent["uid"] = $uid;
                             /*
-                             * Recheche de la valeur a appliquer dans les donnees post
+                             * Recherche de la valeur a appliquer dans les donnees post
                              */
                             $value = $row[$field];
                             $newval = $_POST["identifier_type_code-" . $idvalue[0]];
                             $dataIdent["identifier_type_id"] = $dclass["identifier_type_code"][$newval];
                             $dataIdent["object_identifier_value"] = $idvalue[1];
-                            $oid->ecrire($dataIdent);
+                            $this->objectIdentifier->ecrire($dataIdent);
                         }
                     }
+                } else {
+                    throw new ImportObjectException("Problème lors de l'importation - ligne ". $this->nbTreated +1 );
                 }
             } catch (Exception $e) {
-                $message->set($e->getMessage());
+                throw new ImportObjectException($e->getMessage());
             }
         }
         

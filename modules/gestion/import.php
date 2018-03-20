@@ -107,11 +107,58 @@ switch ($t_module["param"]) {
                     $bdd->rollBack();
                     $message->set($ie->getMessage());
                 } catch (Exception $e) {
+                    $bdd->rollBack();
                     $message->set($e->getMessage());
                 }
             }
         }
         unset($_SESSION["filename"]);
+        break;
+    case "importExterneExec":
+        /*
+         * Traitement de l'importation des echantillons provenant d'autres bases de donnees
+         */
+        if (isset($_REQUEST["realfilename"])) {
+            if (file_exists($_REQUEST["realfilename"])) {
+                try {
+                require_once 'modules/classes/import.class.php';
+                $importFile = new Import($_REQUEST["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"]);
+                $data = $importFile->getContentAsArray();
+                }catch (ImportException $ie) {
+                    $message->set($ie->getMessage());
+                    $module_coderetour = -1;
+                }
+                
+                /*
+                 * Recuperation des classes secondaires necessaires pour les tables de references
+                 */
+                require_once 'modules/gestion/sample.functions.php';
+                $sic = new SampleInitClass();
+                $import->initClass("sample", $sample);
+                
+                try {
+                    /*
+                     * Demarrage d'une transaction
+                     */
+                    $bdd->beginTransaction();
+                    $import->importExterneExec($data, $sic, $_POST);
+                    $message->set("Import effectué. " . $import->nbTreated . " lignes traitées");
+                    $message->set("Premier UID généré : " . $import->minuid);
+                    $message->set("Dernier UID généré : " . $import->maxuid);
+                    $module_coderetour = 1;
+                    $bdd->commit();
+                } catch (ImportObjectException $ie) {
+                    $bdd->rollBack();
+                    $message->set($ie->getMessage());
+                    $module_coderetour = -1;
+                } catch (Exception $e) {
+                    $bdd->rollBack();
+                    $message->set($e->getMessage());
+                    $module_coderetour = -1;
+                }
+            }
+        }
+        
         break;
 }
 

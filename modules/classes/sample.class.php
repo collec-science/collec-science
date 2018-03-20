@@ -298,7 +298,7 @@ class Sample extends ObjetBDD
             $data["uid_max"] = $param["uid_max"];
         }
         if (strlen($param["select_date"]) > 0) {
-            switch($param["select_date"]) {
+            switch ($param["select_date"]) {
                 case "cd":
                     $field = "sample_creation_date";
                     break;
@@ -420,7 +420,7 @@ class Sample extends ObjetBDD
             $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, 
              c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
              multiple_value, sampling_place_name, metadata::varchar, 
-            identifiers 
+            identifiers, dbuid_origin
             from sample 
             join object o using(uid) 
             join collection c using (collection_id)
@@ -437,7 +437,9 @@ class Sample extends ObjetBDD
             $data = array();
             foreach ($d as $value) {
                 if ($this->verifyCollection($value)) {
-                    $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
+                    if (strlen(value["dbuid_origin"]) == 0) {
+                        $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
+                    }
                     unset($value["collection_id"]);
                     $data[] = $value;
                 }
@@ -545,6 +547,38 @@ class Sample extends ObjetBDD
              */
             if (strlen($row["sample_type_name"]) == 0) {
                 throw new SampleException("Le type d'échantillon n'a pas été renseigné");
+            }
+            /*
+             * Verification de la coherence des dates
+             */
+            $fieldDates = array(
+                "sampling_date",
+                "expiration_date",
+                "sample_creation_date"
+            );
+            foreach ($fieldDates as $fieldDate) {
+                if (strlen($row[$fieldDate]) > 0) {
+                    /*
+                     * Verification du format francais
+                     */
+                    $result = date_parse_from_format("d/m/Y", $data[$fieldDate]);
+                    if ($result["warning_count"] > 0) {
+                        /*
+                         * Test du format general
+                         */
+                        $result = date_parse($data[$fieldDate]);
+                        if ($result["warning_count"] > 0) {
+                            throw new SampleException("Le format de date de $fieldDate n'est pas reconnu. ");
+                        }
+                    }if ($result["warning_count"] == 0) {
+                        /*
+                         * Verification que la date contienne bien une annee, mois, jour
+                         */
+                        if (strlen($result["year"])== 0 || strlen($result["month"])==0 || strlen($result["day"])==0) {
+                            throw new SampleException("La date de $fieldDate est incomplète ou incohérente. ");
+                        }
+                    }
+                }
             }
         }
         return true;

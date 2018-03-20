@@ -739,6 +739,8 @@ class ImportObject
         );
         $this->sample->auto_date = 0;
         $dclass = $sic->init(true);
+        $this->maxuid = 0;
+        $this->minuid = 99999999;
         foreach ($data as $row) {
             /*
              * Preparation de l'echantillon a importer dans la base

@@ -282,30 +282,11 @@ class ImportObject
                 );
                 foreach ($fieldDates as $fieldDate) {
                     if (strlen($values[$fieldDate]) > 0) {
-                        /*
-                         * Verification du format francais
-                         */
-                        $result = date_parse_from_format("d/m/Y", $data[$fieldDate]);
-                        if ($result["warning_count"] > 0) {
-                            /*
-                             * Test du format general
-                             */
-                            $result = date_parse($data[$fieldDate]);
-                        }
-                        if ($result["warning_count"] == 0) {
-                            $dataSample[$fieldDate] = $result["year"] . "-" . $result["month"] . "-" . $result["day"];
-                            if (strlen($result["hour"]) > 0 && strlen($result["minute"]) > 0) {
-                                $dataSample[$fieldDate] .= " " . $result["hour"] . ":" . $result["minute"];
-                                if (strlen($result["second"]) == 0) {
-                                    $result["second"] == 0;
-                                }
-                                $dataSample[$fieldDate] .= ":" . $result["second"];
-                            }
-                        }
+                        $dataSample[$fieldDate] = $this->formatDate($values[$fieldDate]);
                     }
                 }
                 /*
-                 * Preparation des metadonnees - eclatement du champ en colonnes
+                 * Preparation des metadonnees
                  */
                 if (strlen($values["sample_metadata_json"]) > 0) {
                     $dataSample["metadata"] = $values["sample_metadata_json"];
@@ -419,6 +400,37 @@ class ImportObject
         $this->maxuid = $maxuid;
     }
 
+    /**
+     * Fonction reformatant la date en testant le format francais, puis standard
+     * @param string $date
+     * @return string
+     */
+    function formatDate($date) {
+        $val = "";
+        /*
+         * Verification du format francais
+         */
+        $result = date_parse_from_format("d/m/Y", $date);
+        if ($result["warning_count"] > 0) {
+            /*
+             * Test du format general
+             */
+            $result = date_parse($date);
+        }
+        if ($result["warning_count"] == 0) {
+            $val = $result["year"] . "-" . $result["month"] . "-" . $result["day"];
+            if (strlen($result["hour"]) > 0 && strlen($result["minute"]) > 0) {
+                $val .= " " . $result["hour"] . ":" . $result["minute"];
+                if (strlen($result["second"]) == 0) {
+                    $result["second"] == 0;
+                }
+                $val .= ":" . $result["second"];
+            }
+        }
+        return $val;
+        
+    }
+    
     /**
      * Reecrit une ligne, en placant les bonnes valeurs en fonction de l'entete
      *
@@ -702,6 +714,122 @@ class ImportObject
             }
             $this->initIdentifiers = true;
         }
+    }
+    
+    function importExterneExec() {
+        require_once 'modules/classes/import.class.php';
+        require_once 'modules/classes/objectIdentifier.class.php';
+        $oid = new ObjectIdentifier($bdd, $ObjetBDDParam);
+        $import = new Import($_REQUEST["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"]);
+        $data = $import->getContentAsArray();
+        $sic = new SampleInitClass();
+        $dclass = $sic->init(true);
+        $simpleFields = array(
+            "identifier",
+            "wgs84_x",
+            "wgs84_y",
+            "multiple_value",
+            "dbuid_origin",
+            "metadata"
+        );
+        $refFields = array(
+            "sampling_place_name",
+            "collection_name",
+            "object_status_name",
+            "sample_type_name"
+        );
+        $sample->auto_date = 0;
+        foreach ($data as $row) {
+            /*
+             * Preparation de l'echantillon a importer dans la base
+             */
+            $dataSample = array();
+            /*
+             * Champs simples, sans transcodage
+             */
+            foreach ($simpleFields as $field) {
+                if (strlen($row[$field]) > 0) {
+                    if ($field == "metadata") {
+                        /*
+                         * Ajout d'un decodage/encodage pour les champs json, pour
+                         * eviter les problemes potentiels et verifier la structure
+                         */
+                        $dataSample[$field] = json_encode(json_decode($row[$field]));
+                    } else {
+                        $dataSample[$field] = $row[$field];
+                    }
+                }
+            }
+            $fieldDates = array(
+                "sampling_date",
+                "expiration_date",
+                "sample_creation_date"
+            );
+            foreach ($fieldDates as $fieldDate) {
+                if (strlen($row[$fieldDate]) > 0) {
+                    $dataSample[$fieldDate] = $this->formatDate($row[$fieldDate]);
+                }
+            }
+            /*
+             * Champs transcodes
+             */
+            foreach ($refFields as $field) {
+                if (strlen($row[$field]) > 0) {
+                    /*
+                     * Recheche de la valeur a appliquer dans les donnees post
+                     */
+                    $value = $row[$field];
+                    /*
+                     * Transformation des espaces en underscore,
+                     * pour tenir compte du transcodage opere par le navigateur
+                     */
+                    $fieldHtml = str_replace(" ", "_", $value);
+                    $newval = $_POST[$field . "-" . $fieldHtml];
+                    /*
+                     * Recherche de la cle correspondante
+                     */
+                    $id = $dclass[$field][$newval];
+                    if ($id > 0) {
+                        $key = $sic->classes[$field]["id"];
+                        $sample[$key] = $id;
+                    }
+                }
+            }
+            /*
+             * Declenchement de l'ecriture en base
+             */
+            try {
+                $uid = $dataClass->ecrireImport($sample);
+                if ($uid > 0) {
+                    if ($uid < $this->minuid) {
+                        $this->minuid = $uid;
+                    }
+                    $this->maxuid = $uid;
+                    /*
+                     * Traitement des identifiants complementaires
+                     */
+                    if (strlen($row["identifiers"]) > 0) {
+                        $idents = explode(",", $row["identifiers"]);
+                        foreach ($idents as $ident) {
+                            $idvalue = explode(":", $ident);
+                            $dataIdent = array();
+                            $dataIdent["uid"] = $uid;
+                            /*
+                             * Recheche de la valeur a appliquer dans les donnees post
+                             */
+                            $value = $row[$field];
+                            $newval = $_POST["identifier_type_code-" . $idvalue[0]];
+                            $dataIdent["identifier_type_id"] = $dclass["identifier_type_code"][$newval];
+                            $dataIdent["object_identifier_value"] = $idvalue[1];
+                            $oid->ecrire($dataIdent);
+                        }
+                    }
+                }
+            } catch (Exception $e) {
+                $message->set($e->getMessage());
+            }
+        }
+        
     }
 }
 ?>

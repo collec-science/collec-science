@@ -14,6 +14,7 @@ Ce module permet d'importer des échantillons provenant d'une base externe, à p
 <li><b>wgs84_y</b> : latitude GPS en WGS84 (degrés décimaux)</li>
 <li><b>sample_creation_date</b> : date de création de l'échantillon dans la base de données d'origine, sous la forme YYYY-MM-DD HH:MM:SS</li>
 <li><b>sampling_date</b> : date de référence de l'échantillon dans la base de données d'origine, sous la forme YYYY-MM-DD HH:MM:SS</li>
+<li><b>expiration_date</b> : date d'expiration ou de fin de validité de l'échantillon</li>
 <li><b>multiple_value</b> : Nombre ou quantité de sous-échantillons disponibles</li>
 <li><b>sampling_place_name</b> : lieu de prélèvement de l'échantillon</li>
 <li><b>metadata</b> : liste des métadonnées associées, au format JSON</li>

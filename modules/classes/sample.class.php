@@ -418,12 +418,12 @@ class Sample extends ObjetBDD
         } else {
             $this->auto_date = 0;
             $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, 
-             collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, 
-             multiple_value, sampling_place_name,metadata::varchar, 
+             c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
+             multiple_value, sampling_place_name, metadata::varchar, 
             identifiers 
             from sample 
             join object o using(uid) 
-            join collection using (collection_id)
+            join collection c using (collection_id)
             left outer join v_object_identifier voi on (o.uid = voi.uid) 
             left outer join sampling_place using (sampling_place_id)
             left outer join sample_type using (sample_type_id)

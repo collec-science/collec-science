@@ -561,12 +561,12 @@ class Sample extends ObjetBDD
                     /*
                      * Verification du format francais
                      */
-                    $result = date_parse_from_format("d/m/Y", $data[$fieldDate]);
+                    $result = date_parse_from_format("d/m/Y", $row[$fieldDate]);
                     if ($result["warning_count"] > 0) {
                         /*
                          * Test du format general
                          */
-                        $result = date_parse($data[$fieldDate]);
+                        $result = date_parse($row[$fieldDate]);
                         if ($result["warning_count"] > 0) {
                             throw new SampleException("Le format de date de $fieldDate n'est pas reconnu. ");
                         }
@@ -594,6 +594,15 @@ class Sample extends ObjetBDD
     function ecrireImport($data)
     {
         $object = new Object($this->connection, $this->param);
+        /*
+         * Ajout des informations manquantes
+         */
+        if (strlen($data["object_status_id"])==0) {
+            $data["object_status_id"] = 1;
+        }
+        if (strlen($data["sample_creation_date"])== 0 ){
+            $data["sample_creation_date"] = date(DATE_ATOM);
+        }
         $uid = $object->ecrire($data);
         if ($uid > 0) {
             $data["uid"] = $uid;

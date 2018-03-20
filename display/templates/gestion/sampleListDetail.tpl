@@ -89,7 +89,7 @@
 				<th>UID</th>
 				<th>Identifiant ou nom</th>
 				<th>Autres identifiants</th>
-				<th>Projet</th>
+				<th>Collection</th>
 				<th>Type</th>
 				<th>Statut</th>
 				<th>Parent</th>

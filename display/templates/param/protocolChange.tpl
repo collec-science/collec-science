@@ -37,7 +37,7 @@ $(document).ready(function () {
 </div>
 </div>
 <div class="form-group">
-<label for="collection_id"  class="control-label col-md-4">Projet de rattachement :</label>
+<label for="collection_id"  class="control-label col-md-4">Collection de rattachement :</label>
 <div class="col-md-8">
 <select name="collection_id" id="collection_id" class="control-form">
 {foreach $collections as $value}

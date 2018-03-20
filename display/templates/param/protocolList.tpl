@@ -12,7 +12,7 @@
 <th>Nom du protocole</th>
 <th>Version</th>
 <th>Année</th>
-<th>Projet de<br>rattachement</th>
+<th>Collection de<br>rattachement</th>
 <th>Fichier joint</th>
 </tr>
 </thead>

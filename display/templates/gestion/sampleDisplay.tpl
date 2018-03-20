@@ -126,7 +126,7 @@ Nouvel échantillon
 {/if}
 
 <dl class="dl-horizontal">
-<dt>Projet :</dt>
+<dt>Collection :</dt>
 <dd>{$data.collection_name}</dd>
 </dl>
 <dl class="dl-horizontal">

@@ -83,5 +83,8 @@ switch ($t_module["param"]) {
     case "getFromCollection":
         $vue->set($dataClass->getListFromCollection($_REQUEST["collection_id"]));
         break;
+    case "getCoordinate":
+        $vue->set($dataClass->getCoordinates($_REQUEST["sampling_place_id"]));
+        break;
 }
 ?>

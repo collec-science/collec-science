@@ -120,5 +120,18 @@ class SamplingPlace extends ObjetBDD
             return $this->getListeParam($sql . $where . $order);
         }
     }
+    
+    /**
+     * Recupere les coordonnees geographiques du lieu de prelevement
+     * @param int $sampling_place_id
+     * @return array
+     */
+    function getCoordinates($sampling_place_id) {
+        if ($sampling_place_id > 0) {
+            $sql = "select sampling_place_x, sampling_place_y from sampling_place
+                    where sampling_place_id = :sampling_place_id";
+            return $this->lireParamAsPrepared($sql, array("sampling_place_id"=>$sampling_place_id));
+        }
+    }
 }
 ?>

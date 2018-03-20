@@ -48,6 +48,9 @@ function testScan() {
 			
     	
     	function getMetadata() {
+    		/*
+    		 * Recuperation du modele de metadonnees rattache au type d'echantillon
+    		 */
        		var dataParse = $("#metadataField").val();
         	 dataParse = dataParse.replace(/&quot;/g,'"');
         	 dataParse = dataParse.replace(/\n/g,"\\n");
@@ -75,6 +78,9 @@ function testScan() {
         }
     	
     	function getSamplingPlace () {
+    		/*
+    		 * Recuperation de la liste des lieux de prelevement rattaches a la collection
+    		 */
     		var colid = $("#collection_id").val();
     		console.log ("colid:"+colid);
     		var url = "index.php";
@@ -102,7 +108,35 @@ function testScan() {
     			});
     	}
     	
+    	function getCoordinatesFromLocalisation() {
+    		/*
+    		 * Recuperation des coordonnees geographiques a partir du lieu de prelevement
+    		 */
+    		var locid = $("#sampling_place_id").val();
+    		console.log ("sampling_place_id:"+locid);
+    		if (locid > 0) {
+    			var x = $("#wgs84_x").val();
+    			var y = $("#wgs84_y").val();
+    			if ( x.length == 0 && y.length == 0 ) {
+    				var url = "index.php";
+    	    		var data = { "module":"samplingPlaceGetCoordinate", "sampling_place_id": locid };
+    	    		$.ajax ( { url:url, data: data})
+    	    		.done (function( data ) {
+    	    			data = JSON.parse(data);
+    	    			if (data["sampling_place_x"].length > 0 && data["sampling_place_y"].length > 0) {
+    	    				$("#wgs84_x").val(data["sampling_place_x"]);
+    	    				$("#wgs84_y").val(data["sampling_place_y"]);
+    	    				$("#wgs84_x").trigger("change");
+    	    			}
+    	    		});
+    			}
+    		}
+    	}
+    	
     	function getGenerator() {
+    		/*
+    		 * Recuperation du script utilisable pour generer l'identifiant metier
+    		 */
     		var sti = $("#sample_type_id").val();
        	    if (sti) {
        	    	$.ajax( { 
@@ -127,6 +161,10 @@ function testScan() {
         
         $("#collection_id").change(function() {
         	getSamplingPlace();
+        });
+        
+        $("#sampling_place_id").change (function() {
+        	getCoordinatesFromLocalisation();
         });
         
         /*
@@ -350,7 +388,7 @@ title="Générez l'identifiant à partir des informations saisies">Générer</bu
 </div>
 
 <div class="form-group">
-<label for="collection_id" class="control-label col-md-4">Projet<span class="red">*</span> :</label>
+<label for="collection_id" class="control-label col-md-4">Collection<span class="red">*</span> :</label>
 <div class="col-md-8">
 <select id="collection_id" name="collection_id" class="form-control" autofocus>
 {section name=lst loop=$collections}

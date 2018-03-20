@@ -225,6 +225,13 @@ class ImportObject
         $maxuid = 0;
         $minuid = 99999999;
         $this->initIdentifiers();
+        /*
+         * Inhibition du traitement des dates par la classe
+         */
+        $this->sample->auto_date = 0;
+        /*
+         * Traitement du fichier
+         */
         while (($data = $this->readLine()) !== false) {
             /*
              * Preparation du tableau
@@ -308,7 +315,7 @@ class ImportObject
                  * Debut d'ecriture en table
                  */
                 try {
-                    $sample_uid = $this->sample->ecrire($dataSample, true);
+                    $sample_uid = $this->sample->ecrire($dataSample);
                     
                     /*
                      * Traitement des identifiants complementaires

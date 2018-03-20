@@ -141,7 +141,7 @@ class Sample extends ObjetBDD
      *
      * @see ObjetBDD::ecrire()
      */
-    function ecrire($data, $dateFormatNatif = false)
+    function ecrire($data)
     {
         $ok = $this->verifyCollection($data);
         $error = false;
@@ -153,9 +153,6 @@ class Sample extends ObjetBDD
         }
         if ($ok) {
             $object = new Object($this->connection, $this->param);
-            if ($dateFormatNatif) {
-                $object->auto_date = 0;
-            }
             $uid = $object->ecrire($data);
             if ($uid > 0) {
                 $data["uid"] = $uid;

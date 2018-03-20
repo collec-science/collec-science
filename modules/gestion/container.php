@@ -137,7 +137,10 @@ switch ($t_module ["param"]) {
 						"movement_type_id" => 1,
 						"login" => $_SESSION ["login"],
 						"container_id" => $dataClass->getIdFromUid ( $_REQUEST ["container_parent_uid"] ),
-						"movement_id" => 0 
+						"movement_id" => 0,
+				        "line_number" => 1,
+				        "column_number" =>1
+				        
 				);
 				$movement->ecrire ( $data );
 			}

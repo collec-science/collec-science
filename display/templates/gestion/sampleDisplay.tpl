@@ -155,7 +155,7 @@ clp : {$data.clp_classification}
 </dl>
 
 <dl class="dl-horizontal">
-<dt title="Date de création de l'échantillon">Date de création<br>de l'échantillon :</dt>
+<dt title="Date de création de l'échantillon">Date de création<br>de l'échantillon<br>(d'échantillonnage) :</dt>
 <dd>{$data.sampling_date}</dd>
 </dl>
 <dl class="dl-horizontal">

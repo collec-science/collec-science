@@ -437,7 +437,7 @@ class Sample extends ObjetBDD
             $data = array();
             foreach ($d as $value) {
                 if ($this->verifyCollection($value)) {
-                    if (strlen(value["dbuid_origin"]) == 0) {
+                    if (strlen($value["dbuid_origin"]) == 0) {
                         $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
                     }
                     unset($value["collection_id"]);
@@ -528,12 +528,14 @@ class Sample extends ObjetBDD
     function verifyBeforeImport($row)
     {
         if (count($row) > 0) {
-            if (strlen($row["dbuid_origin"]) > 0) {
-                $ori = explode(":", $row["dbuid_origin"]);
-                if ($_SESSION["APPLI_code"] == $ori[0]) {
-                    throw new SampleException("Il n'est pas possible d'importer un échantillon issu de la base de données courante");
-                }
-            } else {
+            if (strlen($row["dbuid_origin"]) == 0) {
+                /*
+                 * $ori = explode(":", $row["dbuid_origin"]);
+                 * if ($_SESSION["APPLI_code"] == $ori[0]) {
+                 * throw new SampleException("Il n'est pas possible d'importer un échantillon issu de la base de données courante");
+                 * }
+                 * } else {
+                 */
                 throw new SampleException("L'identifiant de la base de données d'origine n'a pas été fourni");
             }
             /*
@@ -570,11 +572,12 @@ class Sample extends ObjetBDD
                         if ($result["warning_count"] > 0) {
                             throw new SampleException("Le format de date de $fieldDate n'est pas reconnu. ");
                         }
-                    }if ($result["warning_count"] == 0) {
+                    }
+                    if ($result["warning_count"] == 0) {
                         /*
                          * Verification que la date contienne bien une annee, mois, jour
                          */
-                        if (strlen($result["year"])== 0 || strlen($result["month"])==0 || strlen($result["day"])==0) {
+                        if (strlen($result["year"]) == 0 || strlen($result["month"]) == 0 || strlen($result["day"]) == 0) {
                             throw new SampleException("La date de $fieldDate est incomplète ou incohérente. ");
                         }
                     }
@@ -597,21 +600,72 @@ class Sample extends ObjetBDD
         /*
          * Ajout des informations manquantes
          */
-        if (strlen($data["object_status_id"])==0) {
+        if (strlen($data["object_status_id"]) == 0) {
             $data["object_status_id"] = 1;
         }
-        if (strlen($data["sample_creation_date"])== 0 ){
+        if (strlen($data["sample_creation_date"]) == 0) {
             $data["sample_creation_date"] = date(DATE_ATOM);
+        }
+        /*
+         * Recherche de l'uid existant a partir de dbuid_origin
+         */
+        if (strlen($data["dbuid_origin"]) > 0) {
+            /*
+             * Recherche si c'est une reintegration dans la base d'origine
+             */
+            $field = explode(":", $data["dbuid_origin"]);
+            if ($field[0] == $_SESSION["APPLI_code"]) {
+                $uid = $field[1];
+                $data["dbuid_origin"] = "";
+            } else {
+                $uid = $this->getUidFromDbuidOrigin($data["dbuid_origin"]);
+            }
+            if ($uid > 0) {
+                $data["uid"] = $uid;
+            }
         }
         $uid = $object->ecrire($data);
         if ($uid > 0) {
             $data["uid"] = $uid;
+            /*
+             * Recherche de l'identifiant d'origine (sample_id)
+             */
+            $dataOrigine = $this->lire($uid);
+            if ($dataOrigine["sample_id"] > 0) {
+                $data["sample_id"] = $dataOrigine["sample_id"];
+            }
             parent::ecrire($data);
             return $uid;
         } else {
             throw new SampleException("Impossible d'écrire dans la table Object");
         }
         return - 1;
+    }
+
+    /**
+     * Recherche l'uid a partir du dbuid_origin
+     *
+     * @param string $dbuidorigin
+     * @return number
+     */
+    function getUidFromDbuidOrigin($dbuidorigin)
+    {
+        $uid = 0;
+        if (strlen($dbuidorigin) > 0) {
+            /*
+             * Recherche si l'echantillon provient de la base de donnees courante
+             * cas de la reintegration d'un echantillon modifie a l'exterieur
+             */
+            
+            $sql = "select uid from sample where dbuid_origin = :dbuid_origin";
+            $data = $this->lireParamAsPrepared($sql, array(
+                "dbuid_origin" => $dbuidorigin
+            ));
+            if ($data["uid"] > 0) {
+                $uid = $data["uid"];
+            }
+        }
+        return $uid;
     }
 }
 

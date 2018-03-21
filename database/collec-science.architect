@@ -221,7 +221,7 @@ B: bottom, premiere ligne en bas</remarks>
     <column id="COL60" populated="true" UUID="93ef04a7-9266-48c2-8052-b7545ff64849" autoIncrement="false" autoIncrementSequenceName="sample_type_multiple_unit_seq" defaultValue="" name="multiple_unit" nullable="1" physicalName="multiple_unit" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Unité caractérisant le sous-échantillon</remarks>
     </column>
-    <column id="COL61" populated="true" UUID="ff9800bf-795e-4318-b92a-fbed1d4d6133" autoIncrement="false" defaultValue="nextval(&apos;operation_operation_id_seq&apos;::regclass)" name="operation_id" nullable="1" physicalName="operation_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+    <column id="COL61" populated="true" UUID="ff9800bf-795e-4318-b92a-fbed1d4d6133" autoIncrement="false" defaultValue="" name="operation_id" nullable="1" physicalName="operation_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="serial" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
      <remarks></remarks>
     </column>
     <column id="COL62" populated="true" UUID="1ddab58e-006c-44e1-973c-93835eb06f36" autoIncrement="false" autoIncrementSequenceName="metadata_metadata_id_seq" defaultValue="" name="metadata_id" nullable="1" physicalName="metadata_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >

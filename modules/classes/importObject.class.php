@@ -136,6 +136,17 @@ class ImportObject
             $range = 0;
             for ($range = 0; $range < count($data); $range ++) {
                 $value = $data[$range];
+                /*
+                 * Traitement du renommage de project_id en collection_id,
+                 * de sample_date en sampling_date
+                 * pour la compatibilité ascendante
+                 */
+                if ($value == "project_id") {
+                    $value = "collection_id";
+                }
+                if ($value == "sample_date") {
+                    $value = "sampling_date";
+                }
                 if (in_array($value, $this->colonnes)) {
                     $this->fileColumn[$range] = $value;
                 } else {
@@ -291,7 +302,6 @@ class ImportObject
                 if (strlen($values["sample_metadata_json"]) > 0) {
                     $dataSample["metadata"] = $values["sample_metadata_json"];
                 }
-                
                 /*
                  * Debut d'ecriture en table
                  */

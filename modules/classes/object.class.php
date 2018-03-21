@@ -80,7 +80,7 @@ class Object extends ObjetBDD
     /**
      * Fonction retournant une liste d'objets en fonction d'un identifiant (uid, identifier,
      * object_idenfier selectionne pour etre utilise dans les recherches
-     * 
+     *
      * @param int|string $uid
      * @param number $is_container
      * @param boolean $is_partial
@@ -333,7 +333,7 @@ class Object extends ObjetBDD
             /*
              * Recuperation des informations generales
              */
-		$sql = "select uid, identifier as id, clp_classification as clp, '' as pn,
+            $sql = "select uid, identifier as id, clp_classification as clp, '' as pn,
                                         '$APPLI_code' as db,
                                         '' as prj, storage_product as prod,
                                          wgs84_x as x, wgs84_y as y, movement_date as cd,
@@ -364,8 +364,7 @@ class Object extends ObjetBDD
                                         left outer join protocol using (protocol_id)
                                         where uid in ($uids)
                         ";
-		
-		
+            
             if (strlen($order) == 0)
                 $order = "uid";
             $sql = "select * from (" . $sql . ") as a";
@@ -453,9 +452,12 @@ class Object extends ObjetBDD
                     from object 
                     left outer join object_identifier oi using (uid)
                     left outer join identifier_type it using (identifier_type_id) 
-                    where upper(identifier) =  upper(:id)
+                    left outer join sample using (uid)";
+            
+            $whereIdent = " where upper(identifier) =  upper(:id)
                     or (upper(object_identifier_value) = upper (:id1)
-                        and used_for_search = 't')";
+                        and used_for_search = 't') ";
+            $whereExterne = " where upper(dbuid_origin) = upper(:id)";
             /*
              * Extraction des UID de chaque ligne scanee
              */
@@ -464,14 +466,23 @@ class Object extends ObjetBDD
             $i = 1;
             foreach ($data as $value) {
                 $uid = 0;
+                $uid_origin = "";
                 /*
                  * Suppression des espaces
                  */
                 $value = trim($value, " \t\n\r");
                 $datajson = json_decode($value, true);
                 if (is_array($datajson)) {
-                    if ($datajson["uid"] > 0 && $datajson["db"] == $_SESSION["APPLI_code"])
+                    if ($datajson["uid"] > 0 && $datajson["db"] == $_SESSION["APPLI_code"]) {
                         $uid = $datajson["uid"];
+                    } else if ($datajson["uid"] > 0 && strlen($datajson["db"]) > 0) {
+                        $valobject = $this->lireParamAsPrepared($sql . $whereExterne, array(
+                            "id" => $datajson["db"] . ":" . $datajson["uid"]
+                        ));
+                        if ($valobject["uid"] > 0) {
+                            $uid = $valobject["uid"];
+                        }
+                    }
                 } else {
                     /*
                      * Recuperation de l'uid associe a l'identifier fourni
@@ -497,7 +508,7 @@ class Object extends ObjetBDD
                             $val = $value;
                         $val = trim($val);
                         if (strlen($val) > 0) {
-                            $valobject = $this->lireParamAsPrepared($sql, array(
+                            $valobject = $this->lireParamAsPrepared($sql.$whereIdent, array(
                                 "id" => $val,
                                 "id1" => $val
                             ));
@@ -632,7 +643,7 @@ class Object extends ObjetBDD
 
     /**
      * Supprime les fichiers png apres generation
-     * 
+     *
      * @param unknown $path
      */
     function eraseQrcode($path)

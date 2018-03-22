@@ -445,10 +445,11 @@ class Sample extends ObjetBDD
                      */
                     if ($value["parent_sample_id"] > 0) {
                         $dparent = $this->lireFromId($value["parent_sample_id"]);
-                        $value["dbuid_parent"] = $_SESSION["APPLI_code"].":".$dparent["uid"];
+                        $value["dbuid_parent"] = $_SESSION["APPLI_code"] . ":" . $dparent["uid"];
                     }
-                    unset ($value["parent_sample_id"]);
+                    unset($value["parent_sample_id"]);
                     unset($value["collection_id"]);
+                    unset ($value["uid"]);
                     $data[] = $value;
                 }
             }
@@ -630,6 +631,23 @@ class Sample extends ObjetBDD
             }
             if ($uid > 0) {
                 $data["uid"] = $uid;
+            }
+        }
+
+        /*
+         * Recuperation de l'echantillon parent, si existant
+         */
+        if (strlen($data["dbuid_parent"]) > 0) {
+            $dbuidparent = explode(":", $data["dbuid_parent"]);
+            if ($dbuidparent[0] == $_SESSION["APPLI_code"]) {
+                $dataParent = $this->lire($dbuidparent[1]);
+            } else {
+                $dataParent = $this->lireParamAsPrepared("select sample_id from sample where dbuid_origin = :dbuidorigin", array(
+                    "dbuidorigin" => $data["dbuid_parent"]
+                ));
+            }
+            if ($dataParent["sample_id"] > 0) {
+                $data["parent_sample_id"] = $dataParent["sample_id"];
             }
         }
         $uid = $object->ecrire($data);

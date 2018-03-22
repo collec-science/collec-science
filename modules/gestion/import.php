@@ -135,7 +135,8 @@ switch ($t_module["param"]) {
                         "multiple_value",
                         "sampling_place_name",
                         "metadata",
-                        "identifiers"
+                        "identifiers",
+                        "dbuid_parent"
                     );
                     $importFile = new Import($_REQUEST["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $importFile->getContentAsArray();

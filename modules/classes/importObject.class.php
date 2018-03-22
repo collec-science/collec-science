@@ -739,7 +739,8 @@ class ImportObject
             "wgs84_y",
             "multiple_value",
             "dbuid_origin",
-            "metadata"
+            "metadata",
+            "dbuid_parent"
         );
         $refFields = array(
             "sampling_place_name",
@@ -834,7 +835,7 @@ class ImportObject
                             $newval = $_POST["identifier_type_code-" . $idvalue[0]];
                             $dataIdent["identifier_type_id"] = $dclass["identifier_type_code"][$newval];
                             $dataIdent["object_identifier_value"] = $idvalue[1];
-                            $this->objectIdentifier->ecrire($dataIdent);
+                            $this->objectIdentifier->writeOrReplace($dataIdent);
                         }
                     }
                 } else {

@@ -1,29 +1,5 @@
 <h2>Import d'échantillons provenant d'une base externe à partir d'un fichier CSV</h2>
-<div class="row">
-<div class="col-sm-12">
-<div class="bg-info">
-Ce module permet d'importer des échantillons provenant d'une base externe, à partir d'un fichier CSV. Liste des colonnes possibles :
-<br>
-<ul>
-<li><b>dbuid_origin*</b> : identifiant <b>unique</b> dans la base de données d'origine, sous la forme : code_base:id</li>
-<li><b>identifier</b> : identifiant métier</li>
-<li><b>sample_type_name*</b> : type d'échantillon</li>
-<li><b>collection_name*</b> : nom de la collection (ou de la collection) de rattachement</li>
-<li><b>object_status_name</b> : statut courant</li>
-<li><b>wgs84_x</b> : longitude GPS en WGS84 (degrés décimaux)</li>
-<li><b>wgs84_y</b> : latitude GPS en WGS84 (degrés décimaux)</li>
-<li><b>sample_creation_date</b> : date de création de l'échantillon dans la base de données d'origine, sous la forme YYYY-MM-DD HH:MM:SS</li>
-<li><b>sampling_date</b> : date de référence de l'échantillon dans la base de données d'origine, sous la forme YYYY-MM-DD HH:MM:SS</li>
-<li><b>expiration_date</b> : date d'expiration ou de fin de validité de l'échantillon</li>
-<li><b>multiple_value</b> : Nombre ou quantité de sous-échantillons disponibles</li>
-<li><b>sampling_place_name</b> : lieu de prélèvement de l'échantillon</li>
-<li><b>metadata</b> : liste des métadonnées associées, au format JSON</li>
-<li><b>identifiers</b> : liste des identifiants secondaires, sous la forme : code1:val1,code2:val2</li>
-</ul>
-Les champs obligatoires sont signalés par une étoile (*).
-</div>
-</div>
-</div>
+
 <div class="row col-md-6">
 <form class="form-horizontal protoform" id="sampleStage1" method="post" action="index.php" enctype="multipart/form-data">
 <input type="hidden" name="module" value="sampleImportStage2">
@@ -98,3 +74,32 @@ Les champs obligatoires sont signalés par une étoile (*).
 </form>
 </fieldset>
 {/if}
+
+<div class="row">
+<div class="col-sm-12">
+<div class="bg-info">
+Ce module permet d'importer des échantillons provenant d'une base externe, à partir d'un fichier CSV. Liste des colonnes possibles :
+<br>
+<ul>
+<li><b>dbuid_origin*</b> : identifiant <b>unique</b> dans la base de données d'origine, sous la forme : code_base:id</li>
+<li><b>identifier</b> : identifiant métier</li>
+<li><b>sample_type_name*</b> : type d'échantillon</li>
+<li><b>collection_name*</b> : nom de la collection (ou de la collection) de rattachement</li>
+<li><b>object_status_name</b> : statut courant</li>
+<li><b>wgs84_x</b> : longitude GPS en WGS84 (degrés décimaux)</li>
+<li><b>wgs84_y</b> : latitude GPS en WGS84 (degrés décimaux)</li>
+<li><b>sample_creation_date</b> : date de création de l'échantillon dans la base de données d'origine, sous la forme YYYY-MM-DD HH:MM:SS</li>
+<li><b>sampling_date</b> : date de référence de l'échantillon dans la base de données d'origine, sous la forme YYYY-MM-DD HH:MM:SS</li>
+<li><b>expiration_date</b> : date d'expiration ou de fin de validité de l'échantillon</li>
+<li><b>multiple_value</b> : Nombre ou quantité de sous-échantillons disponibles</li>
+<li><b>sampling_place_name</b> : lieu de prélèvement de l'échantillon</li>
+<li><b>metadata</b> : liste des métadonnées associées, au format JSON</li>
+<li><b>identifiers</b> : liste des identifiants secondaires, sous la forme : code1:val1,code2:val2</li>
+<li><b>dbuid_parent</b> : dans le cas d'un échantillon dérivé, identifiant du parent sous la forme code_base:identifiant. Cette valeur correspond à la valeur <i>dbuid_origin</i> de l'échantillon parent. 
+Ce dernier doit avoir été importé préalablement pour que la relation puisse être créee
+</li>
+</ul>
+Les champs obligatoires sont signalés par une étoile (*).
+</div>
+</div>
+</div>

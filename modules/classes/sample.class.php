@@ -420,7 +420,7 @@ class Sample extends ObjetBDD
             $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, 
              c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
              multiple_value, sampling_place_name, metadata::varchar, 
-            identifiers, dbuid_origin
+            identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent
             from sample 
             join object o using(uid) 
             join collection c using (collection_id)
@@ -440,6 +440,14 @@ class Sample extends ObjetBDD
                     if (strlen($value["dbuid_origin"]) == 0) {
                         $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
                     }
+                    /*
+                     * Generation du dbuid du parent dans le cas d'un echantillon derive
+                     */
+                    if ($value["parent_sample_id"] > 0) {
+                        $dparent = $this->lireFromId($value["parent_sample_id"]);
+                        $value["dbuid_parent"] = $_SESSION["APPLI_code"].":".$dparent["uid"];
+                    }
+                    unset ($value["parent_sample_id"]);
                     unset($value["collection_id"]);
                     $data[] = $value;
                 }

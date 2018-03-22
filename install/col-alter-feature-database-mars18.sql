@@ -1,3 +1,11 @@
+set search_path = gacl;
+/*
+ * Renommage du droit projet en collection
+ */
+update aclaco set aco = 'collection' where aco = 'projet';
+update aclgroup set groupe = 'collection' where groupe = 'projet';
+
+
 set search_path = col;
 /*
  * Renommage de storage en movement
@@ -33,6 +41,10 @@ AS
           ORDER BY st.movement_date DESC
          LIMIT 1))
 ;
+ /*
+  * Creation d'un index dans movement pour accelerer l'affichage
+  */
+ create index movement_uid_idx on movement(uid);
 
 /*
  * Renommage de project en collection
@@ -46,13 +58,6 @@ alter table sample rename project_id to collection_id;
 
 alter table project_group rename to collection_group;
 alter table collection_group rename project_id to collection_id;
-
-/*
- * Renommage du droit projet en collection
- */
-set search_path = gacl;
-update aclaco set aco = 'collection' where aco = 'projet';
-update aclgroup set groupe = 'collection' where groupe = 'projet';
 
 /*
  * Ajout de la date d'expiration de l'echantillon
@@ -90,4 +95,6 @@ comment on column sample_type.identifier_generator_js is 'Champ comprenant le co
  comment on column sampling_place.sampling_place_x is 'Longitude de la station, en WGS84';
  comment on column sampling_place.sampling_place_y is 'Latitude de la station, en WGS84';
  
-  
+
+ 
+ 

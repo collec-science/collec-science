@@ -224,46 +224,68 @@ switch ($t_module["param"]) {
             
             if (copy($_FILES['upfile']['tmp_name'], $filename)) {
                 require_once 'modules/classes/import.class.php';
-                $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"]);
-                $data = $import->getContentAsArray();
-                $import->fileClose();
-                /*
-                 * Verification si l'import peut etre realise
-                 */
-                $line = 1;
-                foreach ($data as $row) {
-                    if (count($row) > 0) {
-                        try {
-                            $dataClass->verifyBeforeImport($row);
-                        } catch (Exception $e) {
-                            $message->set("Ligne $line : " . $e->getMessage());
-                            $module_coderetour = - 1;
-                        }
-                        $line ++;
-                    }
-                }
-                if ($module_coderetour == - 1) {
-                    /*
-                     * Suppression du fichier temporaire
-                     */
-                    unset($filename);
-                } else {
+                try {
+                    $fields = array(
+                        "dbuid_origin",
+                        "identifier",
+                        "sample_type_name",
+                        "collection_name",
+                        "object_status_name",
+                        "wgs84_x",
+                        "wgs84_y",
+                        "sample_creation_date",
+                        "sampling_date",
+                        "expiration_date",
+                        "multiple_value",
+                        "sampling_place_name",
+                        "metadata",
+                        "identifiers"
+                    );
+                    $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
+                    $data = $import->getContentAsArray();
+                    $import->fileClose();
                     
                     /*
-                     * Extraction de tous les libelles des tables de reference
+                     * Verification si l'import peut etre realise
                      */
-                    $vue->set($dataClass->getAllNamesFromReference($data), "names");
-                    /*
-                     * Recuperation de tous les libelles connus dans la base de donnees
-                     */
-                    $sic = new SampleInitClass();
-                    $vue->set($sic->init(), "dataClass");
-                    $vue->set($filename, "realfilename");
-                    $vue->set($_REQUEST["separator"], "separator");
-                    $vue->set($_REQUEST["utf8_encode"], "utf8_encode");
-                    $vue->set(2, "stage");
-                    $vue->set($_FILES['upfile']['name'], "filename");
-                    $vue->set("gestion/sampleImport.tpl", "corps");
+                    $line = 1;
+                    foreach ($data as $row) {
+                        if (count($row) > 0) {
+                            try {
+                                $dataClass->verifyBeforeImport($row);
+                            } catch (Exception $e) {
+                                $message->set("Ligne $line : " . $e->getMessage());
+                                $module_coderetour = - 1;
+                            }
+                            $line ++;
+                        }
+                    }
+                    if ($module_coderetour == - 1) {
+                        /*
+                         * Suppression du fichier temporaire
+                         */
+                        unset($filename);
+                    } else {
+                        
+                        /*
+                         * Extraction de tous les libelles des tables de reference
+                         */
+                        $vue->set($dataClass->getAllNamesFromReference($data), "names");
+                        /*
+                         * Recuperation de tous les libelles connus dans la base de donnees
+                         */
+                        $sic = new SampleInitClass();
+                        $vue->set($sic->init(), "dataClass");
+                        $vue->set($filename, "realfilename");
+                        $vue->set($_REQUEST["separator"], "separator");
+                        $vue->set($_REQUEST["utf8_encode"], "utf8_encode");
+                        $vue->set(2, "stage");
+                        $vue->set($_FILES['upfile']['name'], "filename");
+                        $vue->set("gestion/sampleImport.tpl", "corps");
+                    }
+                } catch (ImportException $e) {
+                    $module_coderetour = - 1;
+                    $message->set($e->getMessage());
                 }
             } else {
                 $message->set("Impossible de recopier le fichier importé dans le dossier temporaire");

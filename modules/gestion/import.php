@@ -25,7 +25,6 @@ $sample = new Sample($bdd, $ObjetBDDParam);
 $container = new Container($bdd, $ObjetBDDParam);
 $movement = new Movement($bdd, $ObjetBDDParam);
 
-
 $sampleType = new SampleType($bdd, $ObjetBDDParam);
 $containerType = new ContainerType($bdd, $ObjetBDDParam);
 $objectStatus = new ObjectStatus($bdd, $ObjetBDDParam);
@@ -121,12 +120,28 @@ switch ($t_module["param"]) {
         if (isset($_REQUEST["realfilename"])) {
             if (file_exists($_REQUEST["realfilename"])) {
                 try {
-                require_once 'modules/classes/import.class.php';
-                $importFile = new Import($_REQUEST["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"]);
-                $data = $importFile->getContentAsArray();
-                }catch (ImportException $ie) {
+                    require_once 'modules/classes/import.class.php';
+                    $fields = array(
+                        "dbuid_origin",
+                        "identifier",
+                        "sample_type_name",
+                        "collection_name",
+                        "object_status_name",
+                        "wgs84_x",
+                        "wgs84_y",
+                        "sample_creation_date",
+                        "sampling_date",
+                        "expiration_date",
+                        "multiple_value",
+                        "sampling_place_name",
+                        "metadata",
+                        "identifiers"
+                    );
+                    $importFile = new Import($_REQUEST["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
+                    $data = $importFile->getContentAsArray();
+                } catch (ImportException $ie) {
                     $message->set($ie->getMessage());
-                    $module_coderetour = -1;
+                    $module_coderetour = - 1;
                 }
                 
                 /*
@@ -150,11 +165,11 @@ switch ($t_module["param"]) {
                 } catch (ImportObjectException $ie) {
                     $bdd->rollBack();
                     $message->set($ie->getMessage());
-                    $module_coderetour = -1;
+                    $module_coderetour = - 1;
                 } catch (Exception $e) {
                     $bdd->rollBack();
                     $message->set($e->getMessage());
-                    $module_coderetour = -1;
+                    $module_coderetour = - 1;
                 }
             }
         }

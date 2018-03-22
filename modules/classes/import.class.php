@@ -36,9 +36,9 @@ class Import
      * @param string $separator
      * @param boolean $utf_encode
      */
-    function __construct($filename, $separator = ",", $utf_encode = false)
+    function __construct($filename, $separator = ",", $utf_encode = false, $fields = array())
     {
-        $this->initFile($filename, $separator, $utf_encode);
+        $this->initFile($filename, $separator, $utf_encode, $fields);
     }
 
     /**
@@ -50,7 +50,7 @@ class Import
      * @param boolean $utf8_encode
      * @throws ImportException
      */
-    function initFile($filename, $separator = ",", $utf8_encode = false)
+    function initFile($filename, $separator = ",", $utf8_encode = false, $fields = array())
     {
         if ($separator == "tab" || $separator == "t") {
             $separator = "\t";
@@ -66,7 +66,11 @@ class Import
              * Preparation des entetes
              */
             for ($range = 0; $range < count($data); $range ++) {
-                $this->header[$range] = $data[$range];
+                if (in_array($data[$range], $fields)) {
+                $this->header[$range] = $data[$range] ;
+                } else {
+                    throw new ImportException($data[$range]." is an unrecognized field to process the import");
+                }
             }
         } else {
             throw new ImportException("$filename not found or not readable");

@@ -5,7 +5,7 @@
 Ce module permet d'importer des échantillons provenant d'une base externe, à partir d'un fichier CSV. Liste des colonnes possibles :
 <br>
 <ul>
-<li><b>dbuid_origin*</b> : identifiant dans la base de données d'origine, sous la forme : code_base:id</li>
+<li><b>dbuid_origin*</b> : identifiant <b>unique</b> dans la base de données d'origine, sous la forme : code_base:id</li>
 <li><b>identifier</b> : identifiant métier</li>
 <li><b>sample_type_name*</b> : type d'échantillon</li>
 <li><b>collection_name*</b> : nom de la collection (ou de la collection) de rattachement</li>

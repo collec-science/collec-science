@@ -66,7 +66,7 @@ class Import
              * Preparation des entetes
              */
             for ($range = 0; $range < count($data); $range ++) {
-                if (in_array($data[$range], $fields)) {
+                if (in_array($data[$range], $fields) || substr($data[$range], 0, 3) == "md_") {
                 $this->header[$range] = $data[$range] ;
                 } else {
                     throw new ImportException($data[$range]." is an unrecognized field to process the import");

@@ -412,10 +412,12 @@ class ImportObject
 
     /**
      * Fonction reformatant la date en testant le format francais, puis standard
+     * 
      * @param string $date
      * @return string
      */
-    function formatDate($date) {
+    function formatDate($date)
+    {
         $val = "";
         /*
          * Verification du format francais
@@ -428,8 +430,7 @@ class ImportObject
             $result = date_parse($date);
         }
         if ($result["warning_count"] == 0) {
-            $val = $result["year"] . "-" . str_pad($result["month"], 2, "0", STR_PAD_LEFT) .
-            "-" . str_pad($result["day"], 2, "0", STR_PAD_LEFT);
+            $val = $result["year"] . "-" . str_pad($result["month"], 2, "0", STR_PAD_LEFT) . "-" . str_pad($result["day"], 2, "0", STR_PAD_LEFT);
             if (strlen($result["hour"]) > 0 && strlen($result["minute"]) > 0) {
                 $val .= " " . str_pad($result["hour"], 2, "0", STR_PAD_LEFT) . ":" . str_pad($result["minute"], 2, "0", STR_PAD_LEFT);
                 if (strlen($result["second"]) == 0) {
@@ -439,9 +440,8 @@ class ImportObject
             }
         }
         return $val;
-        
     }
-    
+
     /**
      * Reecrit une ligne, en placant les bonnes valeurs en fonction de l'entete
      *
@@ -726,13 +726,19 @@ class ImportObject
             $this->initIdentifiers = true;
         }
     }
+
     /**
      * Execution de l'importation d'echantillons provenant d'une base externe
-     * @param array $data : tableau contenant les donnees a importer
-     * @param SampleInitClass $sic : liste des valeurs des tables de reference
-     * @param array $post : tableau des valeurs fournies par le formulaire
+     * 
+     * @param array $data
+     *            : tableau contenant les donnees a importer
+     * @param SampleInitClass $sic
+     *            : liste des valeurs des tables de reference
+     * @param array $post
+     *            : tableau des valeurs fournies par le formulaire
      */
-    function importExterneExec($data, SampleInitClass $sic, $post) {
+    function importExterneExec($data, SampleInitClass $sic, $post)
+    {
         $simpleFields = array(
             "identifier",
             "wgs84_x",
@@ -809,6 +815,25 @@ class ImportObject
                 }
             }
             /*
+             * Recherche des metadonnees
+             */
+            if (strlen($row["metadata"]) > 0) {
+                $metadata = json_decode($row["metadata"], true);
+            } else {
+                $metadata = array();
+            }
+            foreach ($row as $fieldname => $fieldvalue) {
+                if (substr($fieldname, 0, 3) == "md_") {
+                    if (strlen($fieldvalue) > 0) {
+                        $metadata[substr($fieldname, 3)] = $fieldvalue;
+                    }
+                }
+            }
+            if (count($metadata) > 0) {
+                $dataSample["metadata"] = json_encode($metadata);
+            }
+            
+            /*
              * Declenchement de l'ecriture en base
              */
             try {
@@ -839,13 +864,12 @@ class ImportObject
                         }
                     }
                 } else {
-                    throw new ImportObjectException("Problème lors de l'importation - ligne ". $this->nbTreated +1 );
+                    throw new ImportObjectException("Problème lors de l'importation - ligne " . $this->nbTreated + 1);
                 }
             } catch (Exception $e) {
                 throw new ImportObjectException($e->getMessage());
             }
         }
-        
     }
 }
 ?>

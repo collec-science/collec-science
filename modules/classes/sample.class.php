@@ -551,7 +551,7 @@ class Sample extends ObjetBDD
              * Verification de l'existence de la collection
              */
             if (strlen($row["collection_name"]) == 0) {
-                throw new SampleException("Le nom de la collection (ou de la sous-collection) n'a pas été renseigné");
+                throw new SampleException("Le nom de la collection n'a pas été renseigné");
             }
             /*
              * Verification de l'existence d'un type d'echantillon
@@ -590,6 +590,15 @@ class Sample extends ObjetBDD
                             throw new SampleException("La date de $fieldDate est incomplète ou incohérente. ");
                         }
                     }
+                }
+            }
+            /*
+             * Verification de la colonne metadata
+             */
+            if (strlen($row["metadata"]) > 0) {
+                $a_m = json_decode($row["metadata"], true);
+                if (count($a_m) == 0) {
+                    throw new SampleException("Les métadonnées ne sont pas correctement formatées (champ metadata)");
                 }
             }
         }

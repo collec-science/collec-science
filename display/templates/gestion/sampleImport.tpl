@@ -93,7 +93,13 @@ Ce module permet d'importer des échantillons provenant d'une base externe, à p
 <li><b>expiration_date</b> : date d'expiration ou de fin de validité de l'échantillon</li>
 <li><b>multiple_value</b> : Nombre ou quantité de sous-échantillons disponibles</li>
 <li><b>sampling_place_name</b> : lieu de prélèvement de l'échantillon</li>
-<li><b>metadata</b> : liste des métadonnées associées, au format JSON</li>
+<li><b>metadata</b> : liste des métadonnées associées, au format JSON. Il est également possible de définir des métadonnées au format texte, en respectant les règles suivantes :
+<ul>
+<li>un champ par métadonnée</li>
+<li>chaque champ doit être préfixé par <b>md_</b> pour pouvoir être reconnu comme tel par le logiciel</li>
+<li>le champ ne doit pas être présent dans la colonne <i>metadata</i>
+</ul>
+</li>
 <li><b>identifiers</b> : liste des identifiants secondaires, sous la forme : code1:val1,code2:val2</li>
 <li><b>dbuid_parent</b> : dans le cas d'un échantillon dérivé, identifiant du parent sous la forme code_base:identifiant. Cette valeur correspond à la valeur <i>dbuid_origin</i> de l'échantillon parent. 
 Ce dernier doit avoir été importé préalablement pour que la relation puisse être créee

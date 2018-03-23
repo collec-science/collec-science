@@ -338,7 +338,8 @@ class Object extends ObjetBDD
                                         '' as prj, storage_product as prod,
                                          wgs84_x as x, wgs84_y as y, movement_date as cd,
                                         null as sd, null as ed,
-					                    null as metadata, null as loc, object_status_name as status
+					                    null as metadata, null as loc, 
+                                        object_status_name as status, null as dbuid_origin
                                         from object
                                         join container using (uid)
                                         join container_type using (container_type_id)
@@ -352,7 +353,8 @@ class Object extends ObjetBDD
                                          wgs84_x as x, wgs84_y as y, sample_creation_date as cd,
                                         sampling_date as sd,
                                         expiration_date as ed,
-					metadata::varchar, sampling_place_name as loc, object_status_name as status
+					                    metadata::varchar, sampling_place_name as loc, 
+                                        object_status_name as status, dbuid_origin
                                         from object
                                         join sample using (uid)
                                         join sample_type using (sample_type_id)
@@ -386,6 +388,12 @@ class Object extends ObjetBDD
              */
             
             foreach ($data as $row) {
+                /*
+                 * Generation du dbuid_origin si non existant
+                 */
+                if (strlen($row["dbuid_origin"])== 0) {
+                    $row["dbuid_origin"] = $APPLI_code.":".$row["uid"];
+                }
                 /*
                  * Recuperation des identifiants complementaires
                  */
@@ -434,8 +442,8 @@ class Object extends ObjetBDD
     /**
      * Lit les objets a partir des saisies batch
      *
-     * @param unknown $batchdata
-     * @return tableau
+     * @param string $batchdata
+     * @return array
      */
     function batchRead($batchdata)
     {
@@ -455,8 +463,9 @@ class Object extends ObjetBDD
                     left outer join sample using (uid)";
             
             $whereIdent = " where upper(identifier) =  upper(:id)
+                    or upper(dbuid_origin) = upper (:id2)
                     or (upper(object_identifier_value) = upper (:id1)
-                        and used_for_search = 't') ";
+                         and used_for_search = 't') ";
             $whereExterne = " where upper(dbuid_origin) = upper(:id)";
             /*
              * Extraction des UID de chaque ligne scanee
@@ -501,16 +510,28 @@ class Object extends ObjetBDD
                             $nbElements = count($aval);
                             if ($nbElements > 0)
                                 $val = $aval[($nbElements - 1)];
-                        } else
+                        } else {
                             /*
                              * la chaine fournie est conservee telle quelle
                              */
                             $val = $value;
+                            /*
+                             * Recherche s'il s'agit d'un champ de type dbuid
+                             * provenant de l'instance courante
+                             */
+                            $aval = explode (":", $value);
+                            if (count($aval) == 2) {
+                                if ($aval[0] == $_SESSION["APPLI_code"]) {
+                                    $uid = $aval[1];
+                               }
+                            }
+                        }
                         $val = trim($val);
-                        if (strlen($val) > 0) {
+                        if (strlen($val) > 0 && $uid == 0) {
                             $valobject = $this->lireParamAsPrepared($sql.$whereIdent, array(
                                 "id" => $val,
-                                "id1" => $val
+                                "id1" => $val,
+                                "id2" => $val
                             ));
                             if ($valobject["uid"] > 0)
                                 $uid = $valobject["uid"];

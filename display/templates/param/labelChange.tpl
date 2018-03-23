@@ -117,9 +117,11 @@ Champs utilisables dans le QRcode et dans le texte de l'étiquette :
 <li>et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants</li>
 </ul>
 </li>
-<li>Cas particulier : QrCode avec uniquement un identifiant, au format texte
+<li>Cas particulier : QrCode avec un seul identifiant, au format texte :
 <ul>
-<li>id ou tout identifiant secondaire non numérique - cf. paramètres > Types d'identifiants</li>
+<li>id </li>
+<li>tout identifiant secondaire non numérique - cf. paramètres > Types d'identifiants</li>
+<li>dbuid_origin : identifiant de la base de données d'origine. Pour un échantillon créé dans la base courante, la valeur sera de type <i>db:uid</i></li>
 </ul>
 </li>
 </ul>

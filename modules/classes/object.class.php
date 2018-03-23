@@ -90,6 +90,16 @@ class Object extends ObjetBDD
     function getDetail($uid, $is_container = 0, $is_partial = false)
     {
         if (strlen($uid) > 0) {
+            $operator = '=';
+            /*
+             * Generation de la chaine pour dbuid_origin
+             */
+            $auid = explode(":", $uid);
+            if (count($auid) == 2) {
+                if ($auid[0] == $_SESSION["APPLI_code"]) {
+                    $uid = $auid[1];
+                }
+            }
             if (is_numeric($uid) && $uid > 0) {
                 
                 $data["uid"] = $uid;
@@ -98,12 +108,12 @@ class Object extends ObjetBDD
                 /*
                  * Recherche par identifiant ou par uid parent
                  */
-                $operator = '=';
-                if ($is_partial) {
+               if ($is_partial) {
                     $uid .= '%';
                     $operator = 'like';
                 }
                 $data["identifier"] = $uid;
+                
                 $where = " where upper(identifier) $operator upper(:identifier) 
                         or (upper(object_identifier_value) $operator upper (:identifier)
                         and used_for_search = 't')";
@@ -119,9 +129,8 @@ class Object extends ObjetBDD
                     left outer join last_movement using (uid)
                     " . $where;
             if ($is_container != 1) {
-                if (! is_numeric($uid)) {
-                    $where .= " or upper(dbuid_origin) = upper(:identifier)";
-                }
+                $where .= " or upper(dbuid_origin) $operator upper(:dbuid_origin)";
+                $data["dbuid_origin"] = $uid;
                 $sql .= " UNION
 					select uid, identifier, wgs84_x, wgs84_y,
 					sample_type_name as type_name, movement_type_id as last_movement_type

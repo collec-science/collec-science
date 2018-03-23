@@ -49,13 +49,11 @@ $(document).ready(function() {
 	 */
 	$("#object_search").on ('keyup change', function () { 
 		var val = getVal($("#object_search").val());
-		/*
-		 * Traitement des caracteres parasites de ean128
-		 */
-		 val = val.replace ( /]C1/g, "");
+		if (val) {
 		if (val.toString().length > 0) {
 			search("objectGetDetail", "object_uid", val , false );
 		}
+	}
 	});
 	
 	$("#container_search").on('keyup change', function () { 
@@ -144,9 +142,13 @@ $(document).ready(function() {
 		/*
 		 * Traitement des caracteres parasites de ean128
 		 */
-		 if ( value ) {
-		value = value.replace ( /]C1/g, "");
-		 }
+		 if (value) {
+			/*
+			 * Traitement des caracteres parasites de ean128
+			 */
+			 if (value.length > 0) {
+			 	value = value.replace ( /]C1/g, "");
+			 }
 		var url = "index.php";
 		var chaine ;
 		var options = "";
@@ -155,6 +157,7 @@ $(document).ready(function() {
 		} else {
 			objets = {};
 		}
+		console.log(value);
 		$.ajax ( { url:url, method:"GET", data : { module:module, uid:value, is_container:is_container, is_partial:true }, success : function ( djs ) {
 			var data = JSON.parse(djs);
 			for (var i = 0; i < data.length; i++) {
@@ -179,6 +182,7 @@ $(document).ready(function() {
 			$("#"+fieldid).change();
 		}
 		});
+	}
 	}
 	
 	function extractUidValFromJson(valeur) {
@@ -248,6 +252,31 @@ $(document).ready(function() {
 			 event.preventDefault();
 		 }
 	});
+	/*
+	 * Remise a zero des zones de recherche
+	 */
+	$("#clear_container_search").click(function(event) { 
+		$("#container_search").val("");
+		$("#container_uid").empty();
+		$("#container_search").focus();
+	});
+	$("#clear_object_search").click(function(event) { 
+		$("#object_search").val("");
+		$("#object_uid").empty();
+		$("#object_search").focus();
+	});
+	/*
+	 * Inhibition de l'envoi du formulaire si vide
+	 */
+	 $("#smallMovement").submit(function (event) { 
+		 var valobj = $("#object_uid").val();
+		 if (valobj) {
+		 	if (valobj.length == 0) {
+				 event.preventDefault();
+			 }
+		 }
+	 });
+	
 	
 });
 </script>
@@ -260,18 +289,24 @@ $(document).ready(function() {
 			<input type="hidden" name="movement_id" value="0"> 
 			<input type="hidden" id="movement_type_id" name="movement_type_id" value="1">
 			
-			<div class="col-xs-12 col-md-6">
+			<div class="col-xs-8 col-md-4">
 				<input id="object_search" type="text" name="object_search" placeholder="Objet cherché"
 							value="" class="form-control input-lg" autofocus autocomplete="off" >
+			</div>
+			<div class="col-xs-4 col-md-2">
+			<button id="clear_object_search" class="btn btn-info" type="button">Clear</button>
 			</div>
 			<div class="col-xs-12 col-md-6">
 				<select id="object_uid" name="object_uid" class="form-control input-lg">
 				
 				</select>
 			</div>
-			<div class="col-xs-12 col-md-6">
+			<div class="col-xs-8 col-md-4">
 			<input id="container_search" type="text" name="container_search" placeholder="Container cherché"
 							value="" class="form-control input-lg" autofocus autocomplete="off" >
+			</div>
+			<div class="col-xs-4 col-md-2">
+			<button id="clear_container_search" class="btn btn-info" type="button">Clear</button>
 			</div>
 			<div class="col-xs-12 col-md-6">
 				<select id="container_uid" name="container_uid" class="form-control input-lg">
@@ -301,13 +336,13 @@ $(document).ready(function() {
 			</div>
 			<div class="row">	
 			<div class="col-xs-2">
-			 <button id="entry" class="btn btn-info input-lg">Entrée</button>
+			 <button id="entry" class="btn btn-info input-lg" type="button">Entrée</button>
 			 </div>
 			 <div class="col-xs-8">
 			<input id="position_stock" class="form-control input-lg" disabled value="position dans le stock">
 			</div>
 			<div class="col-xs-2">	 
-			 <button id="exit" class="btn btn-danger input-lg">Sortie</button>
+			 <button id="exit" class="btn btn-danger input-lg" type="button">Sortie</button>
 			</div>
 			</div>
 			
@@ -321,7 +356,7 @@ $(document).ready(function() {
 		<div class="col-xs-12 col-md-6">
 			<div class="form-horizontal protoform">
 				<div class="form-group center">
-					<button id="start2" class="btn btn-success">Lecture de
+					<button id="start2" class="btn btn-success" type="button">Lecture de
 						l'objet à entrer</button>
 						<button id="start" class="btn btn-success">Lecture du
 						container</button>

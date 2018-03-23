@@ -122,7 +122,12 @@ if (! isset($_REQUEST["module"])) {
 if (strlen($_REQUEST["module"]) == 0) {
     $_REQUEST["module"] = "default";
 }
-
+/*
+ * Stockage de l'UID appele, pour lien direct vers le detail d'un echantillon
+ */
+if ($_REQUEST["uid"] > 0) {
+    $_SESSION["uid"] = $_REQUEST["uid"];
+}
 /**
  * Recuperation du module
  */

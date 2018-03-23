@@ -10,7 +10,12 @@ require_once 'modules/classes/object.class.php';
 require_once 'modules/gestion/sample.functions.php';
 $dataClass = new Sample($bdd, $ObjetBDDParam);
 $keyName = "uid";
-$id = $_REQUEST[$keyName];
+if (isset($_SESSION["uid"])) {
+    $id = $_SESSION["uid"];
+    unset($_SESSION["uid"]);
+} else {
+    $id = $_REQUEST[$keyName];
+}
 $_SESSION["moduleParent"] = "sample";
 
 switch ($t_module["param"]) {

@@ -95,6 +95,16 @@ comment on column sample_type.identifier_generator_js is 'Champ comprenant le co
  comment on column sampling_place.sampling_place_x is 'Longitude de la station, en WGS84';
  comment on column sampling_place.sampling_place_y is 'Latitude de la station, en WGS84';
  
-
+/*
+ * Ajouts d'index pour des questions de performance
+ */
+ create index movement_uid_idx on movement(uid);
+ create index movement_container_id_idx on movement(container_id);
+ create index movement_movement_date_desc_idx on movement(movement_date desc);
+ create index movement_login_idx on movement(login);
+ create index container_uid_idx on container(uid);
+ create index object_identifier_uid_idx on object_identifier(uid);
+ create index sample_uid_idx on sample(uid);
+ create index sample_dbuid_origin_idx on sample(dbuid_origin);
  
  

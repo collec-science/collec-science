@@ -60,7 +60,7 @@
 <div class="col-md-8">
 <select id="{$kname}-{$val}" name="{$kname}-{$val}" class="form-control">
 {foreach $dataClass[$kname] as $svalue}
-<option value="{$svalue[$kname]}" {if $svalue[$kname] == $val}selected{/if}>{$svalue[$kname]}</option>
+<option value="{$svalue[$kname]}" {if strtoupper($svalue[$kname]) == strtoupper($val)}selected{/if}>{$svalue[$kname]}</option>
 {/foreach}
 </select>
 </div>

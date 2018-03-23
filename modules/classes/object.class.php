@@ -337,7 +337,7 @@ class Object extends ObjetBDD
                                         '$APPLI_code' as db,
                                         '' as prj, storage_product as prod,
                                          wgs84_x as x, wgs84_y as y, movement_date as cd,
-                                        '' as sd,'' as ed,
+                                        null as sd, null as ed,
 					                    null as metadata, null as loc, object_status_name as status
                                         from object
                                         join container using (uid)

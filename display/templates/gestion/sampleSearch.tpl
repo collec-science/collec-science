@@ -128,7 +128,6 @@ $(document).ready(function () {
      $("#sample_type_id").change( function() {
     	 getMetadata();
      });
-     getMetadata();
      $("#sample_type_id").combobox({
     	 select: function (event, ui) {
     		 $("#metadata_value").val("");
@@ -137,8 +136,19 @@ $(document).ready(function () {
     		 getMetadata();
     	 }
      });
-     $("#metadatarow1").hide();
-     $("#metadatarow2").hide();
+	 /*
+	  * Declenchement de la recherche des metadonnees 
+	  * si sample_type_id est renseigne au demarrage de la page
+	  */
+	 if ($("#sample_type_id").val() > 0 ) {
+		 getMetadata();
+	 }
+	 if ($("#metadata_value").val().length == 0) {
+     	$("#metadatarow1").hide();
+	 }
+	 if ($("#metadata_value_1").val().length == 0) {
+     	$("#metadatarow2").hide();
+	 }
      $("#metadata_value").change(function () { 
     		 if ($(this).val().length > 0) {
     			 $("#metadatarow1").show();
@@ -240,7 +250,7 @@ $(document).ready(function () {
 
 </div>
  -->
- <label for="metadata_field" class="col-md-2 control-label">Recherche par date :</label>
+ <label for="select_date" class="col-md-2 control-label">Recherche par date :</label>
  <div class="col-md-2">
  <select class="form-control" id="select_date" name="select_date">
  <option value="" {if $sampleSearch.select_date == ""}selected{/if}>Sélectionnez...</option>
@@ -270,6 +280,12 @@ $(document).ready(function () {
  -->
  <div class="col-md-2">
  <select class="form-control" id="metadata_field" name="metadata_field[]">
+  <option value="" {if $sampleSearch.metadata_field.0 == ""}selected{/if}>Métadonnée :</option>
+ {foreach $metadatas as $value}
+ <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.0 == $value.fieldname}selected{/if}>
+ {$value.fieldname}
+ </option>
+ {/foreach}
  </select>
  </div>
  <div class="col-md-2">
@@ -279,6 +295,12 @@ $(document).ready(function () {
  <div id="metadatarow1">
  <div class="col-md-2">
  <select class="form-control"  id="metadata_field1" name="metadata_field[]">
+ <option value="" {if $sampleSearch.metadata_field.1 == ""}selected{/if}>Métadonnée :</option>
+ {foreach $metadatas as $value}
+ <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.1 == $value.fieldname}selected{/if}>
+ {$value.fieldname}
+ </option>
+ {/foreach}
  </select>
  </div>
  <div class="col-md-2">
@@ -288,6 +310,12 @@ $(document).ready(function () {
   <div id="metadatarow2">
  <div class="col-md-2">
  <select class="form-control"  id="metadata_field2" name="metadata_field[]">
+  <option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>Métadonnée :</option>
+ {foreach $metadatas as $value}
+ <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.2 == $value.fieldname}selected{/if}>
+ {$value.fieldname}
+ </option>
+ {/foreach}
   </select>
  </div>
  <div class="col-md-2">

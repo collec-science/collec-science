@@ -25,6 +25,9 @@ function sampleInitDatEntry()
     require_once 'modules/classes/samplingPlace.class.php';
     $samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
     $vue->set($samplingPlace->getListFromCollection(), "samplingPlace");
+    require_once 'modules/classes/metadata.class.php';
+    $metadata = new Metadata($bdd, $ObjetBDDParam);
+    $vue->set($metadata->getListSearchable(), "metadatas");
 }
 
 /**

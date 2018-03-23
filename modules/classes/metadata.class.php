@@ -78,5 +78,18 @@ class Metadata extends ObjetBDD
         $where .= ")";
         return $this->getListeParam($sql . $where);
     }
+    
+    /**
+     * Retourne la liste des metadonnees utilisables pour la recherche
+     * @return array
+     */
+    function getListSearchable() {
+        $sql = "with js as 
+                (select json_array_elements(metadata_schema::json) elements from metadata)
+                select distinct elements->>'name' fieldname
+                from js
+                where elements->>'isSearchable' = 'yes'";
+        return $this->getListeParam($sql);
+    }
 }
 ?>

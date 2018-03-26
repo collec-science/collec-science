@@ -19,6 +19,8 @@ $(document).ready(function() {
 	var is_read = false;
 	var snd = new Audio("{$display}/images/sound.ogg"); 
     var qr = new QCodeDecoder();
+    var timer;
+    var timer_duration = 500;
     if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
         //alert('Your browser doesn\'t match the required specs.');
         throw new Error('Canvas and getUserMedia are required');
@@ -48,19 +50,26 @@ $(document).ready(function() {
 	 * Traitement des recherches
 	 */
 	$("#object_search").on ('keyup change', function () { 
+		clearTimeout(timer);
+		timer = setTimeout(object_search, timer_duration);
+	});
+	
+	function object_search() {
 		var val = getVal($("#object_search").val());
 		if (val) {
-		if (val.toString().length > 0) {
 			search("objectGetDetail", "object_uid", val , false );
 		}
 	}
-	});
 	
-	$("#container_search").on('keyup change', function () { 
+	function container_search() {
 		var val = getVal($("#container_search").val());
-		if (val.toString().length > 0) {
+		if (val) {
 			search("objectGetDetail","container_uid", val, true );
 		}
+	}
+	$("#container_search").on('keyup change', function () { 
+		clearTimeout(timer);
+		timer = setTimeout(container_search, timer_duration);
 	});
     $("#object_search,#container_search").focus(function () {
     	is_scan = true;

@@ -107,6 +107,25 @@ $(document).ready(function() {
             'print'
         ]
 	});
+	$('.datatable-export-paging').DataTable({	
+		 dom: 'Bfrtip',
+		language : {
+			url : 'display/javascript/fr_FR.json'
+		},
+		"paging" : true,
+		"searching": true,
+       buttons: [
+           'copyHtml5',
+           'excelHtml5',
+           'csvHtml5',
+          /* {
+               extend: 'pdfHtml5',
+               orientation: 'landscape'
+           },*/
+           'print'
+       ]
+	});
+
 	
 	$('.taux,nombre').attr('title', '{$LANG[message].34}');
 	$('.taux').attr({

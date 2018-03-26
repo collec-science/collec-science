@@ -49,7 +49,12 @@ switch ($t_module["param"]) {
             require_once 'modules/classes/import.class.php';
             $i = 0;
             try {
-                $import = new Import($_FILES['upfile']['tmp_name'], $_POST["separator"]);
+                $import = new Import($_FILES['upfile']['tmp_name'], $_POST["separator"], false, array(
+                    "name",
+                    "code",
+                    "x",
+                    "y"
+                ));
                 $rows = $import->getContentAsArray();
                 foreach ($rows as $row) {
                     if (strlen($row["name"]) > 0) {

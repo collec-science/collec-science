@@ -6,7 +6,7 @@
 {$LANG["appli"][0]}
 </a>
 {/if}
-<table id="samplingPlaceList" class="table table-bordered table-hover datatable-export " >
+<table id="samplingPlaceList" class="table table-bordered table-hover datatable-export-paging " >
 <thead>
 <tr>
 <th>Id</th>

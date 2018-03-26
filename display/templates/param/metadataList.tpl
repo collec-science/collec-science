@@ -86,6 +86,15 @@
 <div class="form-group center">
       <button type="submit" class="btn btn-primary">Importer les métadonnées</button>
 </div>
+<div class="bg-info">
+L'importation est basée sur un fichier exporté depuis une autre instance de Collec-Science.
+<br>
+Description du fichier :
+<ul>
+<li>metadata_name : nom de la métadonnée</li>
+<li>metadata_schema : Description, au format JSON, de la métadonnée</li>
+</ul>
+</div>
 </form>
 </fieldset>
 </div>

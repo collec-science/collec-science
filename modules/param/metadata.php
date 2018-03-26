@@ -67,7 +67,11 @@ switch ($t_module["param"]) {
         if (file_exists($_FILES['upfile']['tmp_name'])) {
             require_once 'modules/classes/import.class.php';
             try {
-                $import = new Import($_FILES['upfile']['tmp_name'], ";");
+                $import = new Import($_FILES['upfile']['tmp_name'], ";", false, array(
+                    "metadata_name",
+                    "metadata_schema",
+                    "metadata_id"
+                ));
                 $rows = $import->getContentAsArray();
                 foreach ($rows as $row) {
                     $data = array(
@@ -77,6 +81,7 @@ switch ($t_module["param"]) {
                     );
                     $dataClass->ecrire($data);
                 }
+                $message->set("Métadonnée(s) importée(s)");
                 $module_coderetour = 1;
             } catch (Exception $e) {
                 $message->set("Impossible d'importer les métadonnées");

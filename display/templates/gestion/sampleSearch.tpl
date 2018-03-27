@@ -88,24 +88,26 @@ $(document).ready(function () {
 	 
  	function getSamplingPlace () {
 		var colid = $("#collection_id").val();
-		console.log ("colid:"+colid);
 		var url = "index.php";
 		var data = { "module":"samplingPlaceGetFromCollection", "collection_id": colid };
 		$.ajax ( { url:url, data: data})
 		.done (function( d ) {
 				if (d ) {
 				d = JSON.parse(d);
-				options = '<option value="">Sélectionnez...</option>';			
+				options = '<option value=""></option>';			
 				 for (var i = 0; i < d.length; i++) {
+					 var libelle = "";
+					 if (d[i].sampling_place_code) {
+				        	libelle = d[i].sampling_place_code + " - ";
+				        } 
+				        libelle += d[i].sampling_place_name;
 				        options += '<option value="'+d[i].sampling_place_id + '"';
 				        if (d[i].sampling_place_id == sampling_place_init ) {
-				        	options += ' selected ';
+				        	options += ' selected="selected" ';
+				        	$("#sampling_place_id").next().find(".custom-combobox-input").val(libelle);
 				        }
 				        options += '>';
-				        if (d[i].sampling_place_code) {
-				        	options += d[i].sampling_place_code + " - ";
-				        } 
-				        options += d[i].sampling_place_name;
+				        options += libelle;
 				        
 				        options += '</option>';
 				      };

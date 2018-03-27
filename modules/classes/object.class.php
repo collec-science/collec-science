@@ -180,8 +180,19 @@ class Object extends ObjetBDD
                  */
                 $metadata = json_decode($value["metadata"], true);
                 foreach ($metadata as $kmd => $md) {
-                    $data[$key][$kmd] = $md;
+                    if (is_array($md)) {
+                        $val = "";
+                        $comma = "";
+                        foreach($md as $v) {
+                            $val .= $comma.$v;
+                            $comma = ", ";
+                        }
+                    } else {
+                        $val = $md;
+                    }
+                    $data[$key][$kmd] = $val;
                 }
+                unset ($data[$key]["metadata"]);
                 /*
                  * Recuperation de la liste des identifiants externes
                  */

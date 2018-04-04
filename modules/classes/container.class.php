@@ -133,7 +133,8 @@ class Container extends ObjetBDD
 					collection_name, sample_type_name, object_status_name,
 					sampling_place_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
-                    column_number, line_number
+                    column_number, line_number,
+                    document_id
 					from object o
 					join sample sa on (sa.uid = o.uid)
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
@@ -144,6 +145,7 @@ class Container extends ObjetBDD
 					left outer join sampling_place using (sampling_place_id)
 					left outer join sample ps on (sa.parent_sample_id = ps.sample_id)
 					left outer join object pso on (ps.uid = pso.uid)
+                    left outer join last_photo on (o.uid = last_photo.uid)
 					where lm.movement_type_id = 1
 					order by o.identifier, o.uid
 					";
@@ -174,7 +176,8 @@ class Container extends ObjetBDD
 					container_family_id, container_family_name, o.object_status_id,
 					storage_product, storage_condition_name, 
 					object_status_name, clp_classification,
-					movement_date, movement_type_id, column_number, line_number
+					movement_date, movement_type_id, column_number, line_number,
+                    document_id
 					from object o
 					join container co on (co.uid = o.uid)
 					join container_type using (container_type_id)
@@ -182,6 +185,7 @@ class Container extends ObjetBDD
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
 					left outer join object_status os on (o.object_status_id = os.object_status_id)
 					left outer join storage_condition using (storage_condition_id)
+                    left outer join  last_photo on (o.uid = last_photo.uid)
 					where lm.movement_type_id = 1
 					order by o.identifier, o.uid
 					";

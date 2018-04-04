@@ -233,27 +233,30 @@ class Object extends ObjetBDD
                 $uids .= $value;
             }
         }
-        $sql = "select uid, identifier, container_type_name as type_name, 
+        $sql = "select o.uid, o.identifier, container_type_name as type_name, 
 		clp_classification as clp,
 		label_id, 'container' as object_type,
 		movement_date, movement_type_name, movement_type_id,
-		wgs84_x as x, wgs84_y as y,
+		o.wgs84_x as x, o.wgs84_y as y,
 		'' as prj, storage_product as prod, 
-        null as metadata
-		from object
+        null as metadata,
+        oc.identifier as container_identifier, container_uid, line_number, column_number
+		from object o
 		join container using (uid)
 		join container_type using (container_type_id)
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
-		where uid in ($uids)
+        left outer join object oc on (container_uid = oc.uid)
+		where o.uid in ($uids)
 		UNION
-		select uid, identifier, sample_type_name as type_name, clp_classification as clp,
+		select o.uid, o.identifier, sample_type_name as type_name, clp_classification as clp,
 		label_id, 'sample' as object_type,
 		movement_date, movement_type_name, movement_type_id,
-		wgs84_x as x, wgs84_y as y,
+		o.wgs84_x as x, o.wgs84_y as y,
 		collection_name as prj, storage_product as prod,
-        metadata::varchar
-		from object
+        metadata::varchar,
+        oc.identifier as container_identifier, container_uid, line_number, column_number
+		from object o
 		join sample using (uid)
 		join collection using (collection_id)
 		join sample_type using (sample_type_id)
@@ -261,7 +264,8 @@ class Object extends ObjetBDD
 		left outer join container_type using (container_type_id)
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
-		where uid in ($uids)
+        left outer join object oc on (container_uid = oc.uid)
+		where o.uid in ($uids)
 		";
         if (strlen($order) > 0) {
             $sql = "select * from (" . $sql . ") as a";

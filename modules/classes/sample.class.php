@@ -32,7 +32,8 @@ class Sample extends ObjetBDD
 					document_id, identifiers,
 					movement_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,
-                    lm.line_number, lm.column_number
+                    lm.line_number, lm.column_number,
+                    container_uid, oc.identifier as container_identifier
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join collection p on (p.collection_id = s.collection_id)
@@ -48,6 +49,7 @@ class Sample extends ObjetBDD
 					left outer join last_photo on (so.uid = last_photo.uid)
 					left outer join v_object_identifier voi on  (s.uid = voi.uid)
 					left outer join last_movement lm on (s.uid = lm.uid)
+                    left outer join object oc on (container_uid = oc.uid)
 					left outer join movement_type using (movement_type_id)
                     left outer join metadata using (metadata_id)
 					";

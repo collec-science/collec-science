@@ -94,7 +94,7 @@
 				<th>Statut</th>
 				<th>Parent</th>
 				<th>Photo</th>
-				<th>Dernier mouvement</th>
+				<th>Dernier mouvement<br>stockage</th>
 				<th>Lieu de prélèvement</th>
 				<th>Date d'échantillonnage</th>
 				<th>Date de création dans la base</th>
@@ -144,6 +144,14 @@
 					{/if}
 					{$samples[lst].movement_date}
 					</span>
+					{if $samples[lst].container_uid > 0}
+					<br>
+					<a href="index.php?module=containerDisplay&uid={$samples[lst].container_uid}">
+					{$samples[lst].container_identifier}
+					</a>
+					<br>col:{$samples[lst].column_number} line:{$samples[lst].line_number}
+					{/if}
+					
 				{/if}
 				</td> 
 				<td>{$samples[lst].sampling_place_name}</td>

@@ -10,22 +10,24 @@ require_once 'modules/classes/object.class.php';
 class Container extends ObjetBDD
 {
 
-    private $sql = "select c.container_id, uid, identifier, wgs84_x, wgs84_y, 
+    private $sql = "select c.container_id, o.uid, o.identifier, o.wgs84_x, o.wgs84_y, 
 					container_type_id, container_type_name,
-					container_family_id, container_family_name, object_status_id, object_status_name,
+					container_family_id, container_family_name, os.object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
 					document_id, identifiers,
 					movement_date, movement_type_name, movement_type_id,
-                    lines, columns, first_line
+                    lines, columns, first_line,
+                    column_number, line_number, container_uid, oc.identifier as container_identifier
 					from container c
-					join object using (uid)
+					join object o using (uid)
 					join container_type using (container_type_id)
 					join container_family using (container_family_id)
-					left outer join object_status using (object_status_id)
+					left outer join object_status os on (o.object_status_id = os.object_status_id)
 					left outer join storage_condition using (storage_condition_id)
 					left outer join last_photo using (uid)
 					left outer join v_object_identifier using (uid)
 					left outer join last_movement using (uid)
+                    left outer join object oc on (container_uid = oc.uid)
 					left outer join movement_type using (movement_type_id)
 			";
 
@@ -67,7 +69,7 @@ class Container extends ObjetBDD
      */
     function lire($uid, $getDefault, $parentValue)
     {
-        $sql = $this->sql . " where uid = :uid";
+        $sql = $this->sql . " where o.uid = :uid";
         $data["uid"] = $uid;
         if (is_numeric($uid) && $uid > 0) {
             $retour = parent::lireParamAsPrepared($sql, $data);
@@ -288,12 +290,12 @@ class Container extends ObjetBDD
             $where .= $and . "( ";
             $or = "";
             if (is_numeric($param["name"])) {
-                $where .= " uid = :uid";
+                $where .= " o.uid = :uid";
                 $data["uid"] = $param["name"];
                 $or = " or ";
             }
             $identifier = "%" . strtoupper($this->encodeData($param["name"])) . "%";
-            $where .= "$or upper(identifier) like :identifier ";
+            $where .= "$or upper(o.identifier) like :identifier ";
             $and = " and ";
             $data["identifier"] = $identifier;
             /*
@@ -304,13 +306,13 @@ class Container extends ObjetBDD
             $where .= ")";
         }
         if ($param["object_status_id"] > 0) {
-            $where .= $and . " object_status_id = :object_status_id";
+            $where .= $and . " os.object_status_id = :object_status_id";
             $and = " and ";
             $data["object_status_id"] = $param["object_status_id"];
         }
         
         if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
-            $where .= $and . " uid between :uid_min and :uid_max";
+            $where .= $and . " o.uid between :uid_min and :uid_max";
             $and = " and ";
             $data["uid_min"] = $param["uid_min"];
             $data["uid_max"] = $param["uid_max"];

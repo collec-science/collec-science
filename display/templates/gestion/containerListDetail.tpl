@@ -119,7 +119,16 @@ $(document).ready(function () {
 {if strlen($containers[lst].movement_date) > 0 }
 {if $containers[lst].movement_type_id == 1}
 <span class="green">{else}
-<span class="red">{/if}{$containers[lst].movement_date}</span>
+<span class="red">{/if}{$containers[lst].movement_date}
+</span>
+					{if $containers[lst].container_uid > 0}
+					<br>
+					<a href="index.php?module=containerDisplay&uid={$containers[lst].container_uid}">
+					{$containers[lst].container_identifier}
+					</a>
+					<br>col:{$containers[lst].column_number} line:{$containers[lst].line_number}
+					{/if}
+
 {/if}
 </td> 
 <td>

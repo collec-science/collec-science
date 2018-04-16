@@ -70,7 +70,7 @@
 						<td>{$data[lst].object_type}</td>
 						<td>{$data[lst].type_name}</td>
 						<td class="center"><input type="checkbox"
-							name="container{$data[lst].uid}" value="1"
+							name="container{$smarty.section.lst.index}:{$data[lst].uid}" value="1"
 							{if $data[lst].object_type=="container"}checked{/if}></td>
 						<td class="center">
 						<input class="nombre" name="line{$data[lst].uid}" value="1" title="Valeur obligatoire pour les mouvements d'entrée" placeholder="obligatoire en entrée !">
@@ -80,12 +80,12 @@
 						</td>
 						
 						<td class="center"><input class="entree" type="radio"
-							name="mvt{$data[lst].uid}" value="1"
+							name="mvt{$smarty.section.lst.index}:{$data[lst].uid}" value="1"
 							{if $data[lst].object_type=="sample"}checked{/if}></td>
 						<td class="center"><input class="sortie" type="radio"
-							name="mvt{$data[lst].uid}" value="2"></td>
+							name="mvt{$smarty.section.lst.index}:{$data[lst].uid}" value="2"></td>
 						<td class="center"><input class="rien" type="radio"
-							name="mvt{$data[lst].uid}" value="0"
+							name="mvt{$smarty.section.lst.index}:{$data[lst].uid}" value="0"
 							{if $data[lst].object_type=="container"}checked{/if}></td>
 					</tr>
 					{/section}

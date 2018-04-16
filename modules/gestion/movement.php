@@ -167,18 +167,23 @@ switch ($t_module["param"]) {
         $date = date("d/m/Y H:i:s");
         $nb = 0;
         try {
-            foreach ($_REQUEST["uid"] as $uid) {
-                $sens = $_REQUEST["mvt" . $uid];
-                /*
-                 * teste s'il s'agit d'un container pour une entree
-                 */
-                if ($_REQUEST["container" . $uid] == 1) {
-                    $uid_container = $uid;
-                }
-                if (($sens == 1 && $uid_container > 0) || $sens == 2) {
-                    $sens == 1 ? $uic = $uid_container : $uic = "";
-                    $dataClass->addMovement($uid, $date, $sens, $uic, $_SESSION["login"], null, null, $_REQUEST["movement_reason_id"], $_REQUEST["column" . $uid], $_REQUEST["line" . $uid]);
-                    $nb ++;
+            // foreach ($_REQUEST["uid"] as $uid) {
+            foreach ($_REQUEST as $key => $sens) {
+                if (substr($key, 0, 3) == "mvt") {
+                    $akey = explode(":", $key);
+                    $uid = $akey[1];
+                    $position = substr($akey[0], 3);
+                    /*
+                     * teste s'il s'agit d'un container pour une entree
+                     */
+                    if ($_REQUEST["container" . $position . ":" . $uid] == 1) {
+                        $uid_container = $uid;
+                    }
+                    if (($sens == 1 && $uid_container > 0) || $sens == 2) {
+                        $sens == 1 ? $uic = $uid_container : $uic = "";
+                        $dataClass->addMovement($uid, $date, $sens, $uic, $_SESSION["login"], null, null, $_REQUEST["movement_reason_id"], $_REQUEST["column" . $uid], $_REQUEST["line" . $uid]);
+                        $nb ++;
+                    }
                 }
             }
             $message->set($nb . " mouvements générés");

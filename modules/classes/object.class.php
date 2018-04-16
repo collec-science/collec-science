@@ -108,7 +108,7 @@ class Object extends ObjetBDD
                 /*
                  * Recherche par identifiant ou par uid parent
                  */
-               if ($is_partial) {
+                if ($is_partial) {
                     $uid .= '%';
                     $operator = 'like';
                 }
@@ -183,8 +183,8 @@ class Object extends ObjetBDD
                     if (is_array($md)) {
                         $val = "";
                         $comma = "";
-                        foreach($md as $v) {
-                            $val .= $comma.$v;
+                        foreach ($md as $v) {
+                            $val .= $comma . $v;
                             $comma = ", ";
                         }
                     } else {
@@ -192,7 +192,7 @@ class Object extends ObjetBDD
                     }
                     $data[$key][$kmd] = $val;
                 }
-                unset ($data[$key]["metadata"]);
+                unset($data[$key]["metadata"]);
                 /*
                  * Recuperation de la liste des identifiants externes
                  */
@@ -217,7 +217,7 @@ class Object extends ObjetBDD
      * Recupere la liste des objets
      *
      * @param array $list
-     * @return tableau
+     * @return array
      */
     function getForList(array $list, $order = "")
     {
@@ -415,8 +415,8 @@ class Object extends ObjetBDD
                 /*
                  * Generation du dbuid_origin si non existant
                  */
-                if (strlen($row["dbuid_origin"])== 0) {
-                    $row["dbuid_origin"] = $APPLI_code.":".$row["uid"];
+                if (strlen($row["dbuid_origin"]) == 0) {
+                    $row["dbuid_origin"] = $APPLI_code . ":" . $row["uid"];
                 }
                 /*
                  * Recuperation des identifiants complementaires
@@ -543,16 +543,16 @@ class Object extends ObjetBDD
                              * Recherche s'il s'agit d'un champ de type dbuid
                              * provenant de l'instance courante
                              */
-                            $aval = explode (":", $value);
+                            $aval = explode(":", $value);
                             if (count($aval) == 2) {
                                 if ($aval[0] == $_SESSION["APPLI_code"]) {
                                     $uid = $aval[1];
-                               }
+                                }
                             }
                         }
                         $val = trim($val);
                         if (strlen($val) > 0 && $uid == 0) {
-                            $valobject = $this->lireParamAsPrepared($sql.$whereIdent, array(
+                            $valobject = $this->lireParamAsPrepared($sql . $whereIdent, array(
                                 "id" => $val,
                                 "id1" => $val,
                                 "id2" => $val
@@ -569,8 +569,18 @@ class Object extends ObjetBDD
                 }
             }
             if (count($uids) > 0) {
-                $order = " case uid " . $order . " end";
-                return $this->getForList($uids, "$order");
+                /*
+                 * $order = " case uid " . $order . " end";
+                 * return $this->getForList($uids, "$order");
+                 */
+                $data = array();
+                foreach ($uids as $uid) {
+                    $line = $this->getForList(array(
+                        $uid
+                    ));
+                    $data[] = $line[0];
+                }
+                return $data;
             }
         }
     }

@@ -528,6 +528,8 @@ class LoginGestion extends ObjetBDD
          */
         if ($data["is_clientws"] == 1 && strlen($data["tokenws"]) == 0) {
             $data["tokenws"] = bin2hex(openssl_random_pseudo_bytes(32));
+        } else {
+            $data["is_clientws"] = 0;
         }
         $id  = parent::ecrire($data);
         if ($id > 0 && strlen($data["password"]) > 0) {

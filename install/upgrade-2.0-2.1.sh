@@ -1,6 +1,10 @@
 #!/bin/bash
 # upgrade an instance 2.0 to 2.1
 # not for use, release 2.1 don't exist the may, 4th 2018 !
+echo "have you a backup of your database and a copy of param/param.inc.php?"
+echo "Is your actual version of Collec-Science is 2.0?"
+read -p "Do you want to continue [ y/n]?" answer
+if [ $answer = "y" ] then
 cd /var/www/html/collec-science
 rm -f *zip
 # download last code
@@ -27,3 +31,4 @@ ln -s collec-2.1 collec
 # upgrade database (if available)
 echo "update database"
 su postgres -c "psql -f upgrade_by_psql.sql"
+fi

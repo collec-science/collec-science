@@ -1,21 +1,37 @@
-échantillon dérivé : échantillon créé à partir d'un autre, de même type ou non, identifié de manière autonome
+base de données et UID d'origine : en saisie d'un échantillon, si celui-ci a été créé dans une autre base de données, il est possible d'indiquer le code de la base de données initiale suivi de l'identifiant attribué. Ce code sera alors utilisé lors des recherches, ce qui permet de conserver les étiquettes apposées initialement.
+
+collection : une collection est un ensemble cohérent d'échantillons se rapportant à un sujet particulier. Les droits d'accès aux échantillons sont gérés par collection. Il est également possible de leur rattacher des lieux de prélèvement.
+
+condition de stockage : caractéristiques principales du mode de conservation (froid, atmosphère contrôlée, lyophilisation, etc.). Peut également être utilisé pour décrire le traitement préalable de l'échantillon en vue de sa conservation.
+
+conteneur ou container : tout objet qui peut en contenir un autre. À ne pas confondre avec les échantillons dérivés ou les sous-échantillons.
+
+échantillon dérivé : échantillon créé à partir d'un autre, de même type ou non, identifié de manière autonome. Autrement dit, échantillon fils d'un autre. Par exemple, une section de carotte est dérivée de la demi-carotte X, qui dérive elle-même de la carotte entière.
+
+famille de containers : grande catégorie de containers, pour faciliter la recherche (salle, site, caisse, bidon...).
+
+latitude et longitude d'un container : pour un local, un bâtiment, un site, etc., coordonnées WGS84 sous forme décimale.
+
+latitude et longitude d'un échantillon : lieu où est prélevé l'échantillon. En fait, le point géographique associé à l'échantillon. Il peut être édité en cliquant dans la carte ou sur le lien "Repérez votre position !". Cette action, si elle est réalisée sur le terrain, déclenchera l'enregistrement du lieu de création/collecte de l'échantillon.
+
+lieu (ou site) de prélèvement : lieu ou site où a été prélevé l'échantillon. Le site est en fait en général une façon de regrouper les échantillons vis à vis d'une organisation spatiale de la collecte. Cette notion n'a pas forcément besoin d'un géo-référencement précis, mais peut servir à codifier le nom de l'échantillon et peut aider le chercheur à définir comment il recherche/regroupe ses échantillons.
+
+méta-données : des éléments (comme le nom des récolteurs, taxons, ...) que l'on souhaite ajouter à chaque échantillon d'une collection
+
+opération : Une opération peut être décrite comme une action modifiant l'état d'un échantillon. Dans le cadre de CS, elle aboutit à la création d'un nouvel échantillon dérivé du précédent.
+
+produit utilisé : produit utilisé pour conserver l'échantillon (par exemple éthanol). Appelé parfois "produit de stockage" dans la documentation.
+
+protocole : protocole utilisé pour collecter les données. Un protocole est une suite d'opérations qui concourent à produire (voire à conserver) des échantillons utilisables pour la recherche. Il s'agit en principe d'un document qui décrit les différentes étapes que suit un prélèvement.
+
 sous-échantillon : partie d'un échantillon non identifiable individuellement (prélèvement de x matière, une écaille parmi 10 identiques). En chimie, peut être assimilé à l’aliquote.
-statut des objets : permet d'indiquer si un objet (échantillon ou container) est toujours utilisable. Les statuts peuvent être variés et dépendre du mode opératoire local (container cassé, échantillon qui ne contient plus de matière exploitable, etc.)
 
-type d'identifiant ou identifiant secondaire : il est possible de rattacher divers identifiants à un objet, par exemple des codes internationaux. Les types d'identifiant permettent de les décrire. S'ils ne sont pas numériques, ces identifiants peuvent en outre être utilisés dans les recherches ou lors des scans pour les entrées-sorties
+statut des objets : permet d'indiquer si un objet (échantillon ou container) est toujours utilisable. Les statuts peuvent être variés et dépendre du mode opératoire local (container cassé, échantillon qui ne contient plus de matière exploitable, etc.).
 
-base de données et UID d'origine : en saisie d'un échantillon, si celui-ci a été créé dans une autre base de données, il est possible d'indiquer le code de la base de données initiale suivi de l'identifiant attribué. Ce code sera alors utilisé lors des recherches, ce qui permet de conserver les étiquettes apposées initialement
+type de conteneur (ou container) : type détaillé du conteneur, précisant la capacité, le produit de stockage ou les conditions de stockage le cas échéant, les risques associés en cas de manipulation, etc. Cela peut être un site, un bâtiment, une salle, une armoire, une étagère, une caisse, un bidon, un tube, etc. Lors de la création d'un type de container, il est possible d'indiquer le nombre d'emplacements disponibles (nombre de lignes ou de colonnes), qui contiendront un et un seul objet. C'est une notion qui prend tout son sens pour les boites contenant de multiples tubes, ou les armoires pour lesquelles on ne souhaite pas déclarer les étagères. Si rien n'est précisé, le nombre d'emplacements est au minimum de 1 (une ligne, une colonne, donnée obligatoire pour des raisons techniques).
 
-famille de containers : grande catégorie de containers, pour faciliter la recherche (salle, site, caisse, bidon...)
+type d'échantillon : permet de définir des types génériques - par type de conteneur (tube, sachet zip, ..) avec possibilité d'associer un modèle de métadonnées.
 
-type de container : type détaillé du container, précisant la capacité, le produit de stockage ou les conditions de stockage le cas échéant, les risques associés en cas de manipulation, etc. Cela peut être un site, un bâtiment, une salle, une armoire, une étagère, une caisse, un bidon, un tube, etc. Lors de la création d'un type de container, il est possible d'indiquer le nombre d'emplacements disponibles (nombre de lignes ou de colonnes), qui contiendront un et un seul objet. C'est une notion qui prend tout son sens pour les boites contenant de multiples tubes, ou les armoires pour lesquelles on ne souhaite pas déclarer les étagères. Si rien n'est précisé, le nombre d'emplacements est au minimum de 1 (une ligne, une colonne, donnée obligatoire pour des raisons techniques)
+type d’événements : événement qui peut survenir sur un échantillon ou sur un conteneur. L'événement peut être extérieur (par exemple conteneur cassé), volontaire (par exemple analyse) ou involontaire (par exemple échantillon perdu).
 
-container : tout objet qui peut en contenir un autre. À ne pas confondre avec les échantillons dérivés ou les sous-échantillons.
-
-lieu de prélèvement : lieu où a été prélevé l'échantillon
-
-latitude et longitude d'un échantillon : lieu où est stocké l'échantillon (coordonnées WGS84 sous forme décimale)
-
-latitude et longitude d'un container : pour un local, un bâtiment, un site, etc., coordonnées WGS84 sous forme décimale
-
-type d’événements : événement qui peut survenir sur un échantillon ou sur un container. L'événement peut être extérieur (par exemple container cassé), volontaire (par exemple analyse) ou involontaire (par exemple échantillon perdu)
+type d'identifiant ou identifiant secondaire : il est possible de rattacher divers identifiants à un objet, par exemple des codes internationaux. Les types d'identifiant permettent de les décrire. S'ils ne sont pas numériques, ces identifiants peuvent en outre être utilisés dans les recherches ou lors des scans pour les entrées-sorties.

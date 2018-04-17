@@ -5,7 +5,11 @@
 PSQL_VERSION=`psql --version | cut -f 3 -d ' ' | cut -d '.' -f 1,2`
 DUMPPATH=/var/lib/postgresql/backup
 #cree le repertoire de backup s'il n'existe pas
-[ -d $DUMPPATH ] && mkdir -p $DUMPPATH
+if [ ! -d $DUMPPATH ] 
+then
+ mkdir -p $DUMPPATH
+ chmod o-r,o-x,o-w $DUMPPATH
+ fi
 # chown -R postgres:postgres $DUMPPATH
 LOG=$DUMPPATH/pgbackup.log
 echo `date` > $LOG

@@ -1,9 +1,9 @@
 /*
  * collec-science
  * Script de creation des tables contenant les donnees
- * version adaptee a la version 1.1 de l'application
- * a n'utiliser que pour une nouvelle installation
- * 
+ * version adaptee a la version 2.0 de l'application
+ * a n'utiliser que pour une nouvelle installation, 
+ * et prevu pour etre appele depuis le script init_by_psql.sql
  * Le script de creation du schema des droits doit avoir ete execute auparavant
  * (gacl_create_2.0.sql)
  * si les noms des schemas par defaut (gacl, col) sont modifies, corrigez les lignes :
@@ -28,11 +28,6 @@ AS
     aclgroup.groupe,
     aclgroup.aclgroup_id_parent
    FROM gacl.aclgroup;
-
-/*
- * Creation de l'extension pour les index de type GIN
- */   
-create extension pg_trgm schema pg_catalog;
 
 CREATE SEQUENCE "booking_booking_id_seq";
 
@@ -77,8 +72,6 @@ CREATE TABLE "container_family" (
                 CONSTRAINT "container_family_pk" PRIMARY KEY ("container_family_id")
 );
 COMMENT ON TABLE "container_family" IS 'Famille générique des conteneurs';
-COMMENT ON COLUMN "container_family"."is_movable" IS 'Indique si la famille de conteneurs est déplçable facilement ou non (éprouvette : oui, armoire : non)';
-
 
 ALTER SEQUENCE "container_family_container_family_id_seq" OWNED BY "container_family"."container_family_id";
 
@@ -784,7 +777,6 @@ ALTER TABLE sampling_place
  create index container_uid_idx on container(uid);
  create index object_identifier_uid_idx on object_identifier(uid);
  create index sample_uid_idx on sample(uid);
- create index sample_dbuid_origin_idx on sample(dbuid_origin);
 create index object_identifier_idx on object using gin (identifier gin_trgm_ops);
 create index object_identifier_value_idx on object_identifier using gin (object_identifier_value gin_trgm_ops);
 create index sample_dbuid_origin_idx on sample using gin (dbuid_origin gin_trgm_ops);

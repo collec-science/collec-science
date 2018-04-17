@@ -4,7 +4,7 @@
  * version minimale de Postgresql : 9.4.
  * Schemas par defaut : col pour les donnees, et gacl pour les droits. 
  * Si vous voulez utiliser d'autres schemas, modifiez les scripts 
- * gacl_create_1.1.sql et col_create_1.1.sql en consequence
+ * gacl_create_2.0.sql et col_create_2.0.sql en consequence
  * Execution de ce script en ligne de commande, en etant connecte root :
  * su postgres -c "psql -f init_by_psql.sql"
  * dans la configuration de postgresql :

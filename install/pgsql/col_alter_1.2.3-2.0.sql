@@ -1,15 +1,34 @@
+/*
+ * Script de mise a jour pour basculer la version 1.2.3 vers la version 2.0
+ * Le script fonctionne avec les schemas gacl et col. Si vous utilisez d'autres noms de schemas,
+ * corrigez les lignes 10 et 24
+ */
+
+/*
+ * Schema des droits
+ */
 set search_path = gacl;
+
+ALTER TABLE "logingestion" ADD COLUMN "is_clientws" BOOLEAN DEFAULT false NOT NULL;
+
+ALTER TABLE "logingestion" ADD COLUMN "tokenws" VARCHAR;
+
 /*
  * Renommage du droit projet en collection
  */
 update aclaco set aco = 'collection' where aco = 'projet';
 update aclgroup set groupe = 'collection' where groupe = 'projet';
-
-
+/*
+ * Schema des donnees
+ */
 set search_path = col;
+
+create extension if not exists pg_trgm schema public;
+
 /*
  * Renommage de storage en movement
  */
+drop view last_movement;
 alter table storage_reason rename to movement_reason;
 comment on  table movement_reason is 'List of the reasons of the movement';
 alter table movement_reason rename storage_reason_id to movement_reason_id;
@@ -22,7 +41,7 @@ alter table movement rename storage_date to movement_date;
 alter table movement rename storage_comment to movement_comment;
 alter table movement rename storage_reason_id to movement_reason_id;
 
-drop view last_movement;
+
 CREATE VIEW last_movement
 AS 
  SELECT s.uid,
@@ -41,10 +60,6 @@ AS
           ORDER BY st.movement_date DESC
          LIMIT 1))
 ;
- /*
-  * Creation d'un index dans movement pour accelerer l'affichage
-  */
- create index movement_uid_idx on movement(uid);
 
 /*
  * Renommage de project en collection
@@ -106,5 +121,15 @@ comment on column sample_type.identifier_generator_js is 'Champ comprenant le co
  create index object_identifier_uid_idx on object_identifier(uid);
  create index sample_uid_idx on sample(uid);
  create index sample_dbuid_origin_idx on sample(dbuid_origin);
+
+ /*
+ * Fin d'execution du script
+ * Mise a jour de dbversion
+ */
+delete from dbversion;
+insert into dbversion ("dbversion_number", "dbversion_date")
+values 
+('2.0','2018-05-04');
+
  
  

@@ -1,5 +1,5 @@
-Logiciel COLLEC
-(c) IRSTEA, 2016-2017 - Tous droits réservés
+Logiciel COLLEC-SCIENCE
+(c) IRSTEA, 2016-2018 - Tous droits réservés
 publié sous licence AGPL
 
 DOCUMENTATION D'INSTALLATION ET DE CONFIGURATION

@@ -5,15 +5,18 @@
  * a n'utiliser que pour une nouvelle installation
  * 
  * Le script de creation du schema des droits doit avoir ete execute auparavant
- * (gacl_create_1.1.sql)
+ * (gacl_create_2.0.sql)
  * si les noms des schemas par defaut (gacl, col) sont modifies, corrigez les lignes :
  * 14 et 15 pour le schema contenant les donnees
- * 27 (FROM gacl.aclgroup),
+ * 30 (FROM gacl.aclgroup),
  *  en remplacant gacl par le nom du schema utilise pour la gestion des droits
  */
 create schema if not exists col;
 set search_path = col;
 
+/*
+ * Creation de la vue vers aclgroup
+ */
 CREATE OR REPLACE VIEW aclgroup
 (
   aclgroup_id,
@@ -25,6 +28,11 @@ AS
     aclgroup.groupe,
     aclgroup.aclgroup_id_parent
    FROM gacl.aclgroup;
+
+/*
+ * Creation de l'extension pour les index de type GIN
+ */   
+create extension pg_trgm schema public;
 
 CREATE SEQUENCE "booking_booking_id_seq";
 
@@ -65,8 +73,7 @@ CREATE SEQUENCE "container_family_container_family_id_seq";
 
 CREATE TABLE "container_family" (
                 "container_family_id" INTEGER NOT NULL DEFAULT nextval('"container_family_container_family_id_seq"'),
-                "container_family_name" VARCHAR NOT NULL,
-                "is_movable" BOOLEAN DEFAULT true NOT NULL,
+                "container_family_name" VARCHAR NOT NULL
                 CONSTRAINT "container_family_pk" PRIMARY KEY ("container_family_id")
 );
 COMMENT ON TABLE "container_family" IS 'Famille générique des conteneurs';
@@ -81,10 +88,10 @@ CREATE TABLE "container_type" (
                 "container_type_id" INTEGER NOT NULL DEFAULT nextval('"container_type_container_type_id_seq"'),
                 "container_type_name" VARCHAR NOT NULL,
                 "container_family_id" INTEGER NOT NULL,
-                "storage_condition_id" INTEGER,
+                "movement_condition_id" INTEGER,
                 "label_id" INTEGER,
                 "container_type_description" VARCHAR,
-                "storage_product" VARCHAR,
+                "movement_product" VARCHAR,
                 "clp_classification" VARCHAR,
                 "lines" INTEGER DEFAULT 1 NOT NULL,
                 "columns" INTEGER DEFAULT 1 NOT NULL,
@@ -93,7 +100,7 @@ CREATE TABLE "container_type" (
 );
 COMMENT ON TABLE "container_type" IS 'Table des types de conteneurs';
 COMMENT ON COLUMN "container_type"."container_type_description" IS 'Description longue';
-COMMENT ON COLUMN "container_type"."storage_product" IS 'Produit utilisé pour le stockage (formol, alcool...)';
+COMMENT ON COLUMN "container_type"."movement_product" IS 'Produit utilisé pour le stockage (formol, alcool...)';
 COMMENT ON COLUMN "container_type"."clp_classification" IS 'Classification du risque conformément à la directive européenne CLP';
 COMMENT ON COLUMN "container_type"."lines" IS 'Nombre de lignes de stockage dans le container';
 COMMENT ON COLUMN "container_type"."columns" IS 'Nombre de colonnes de stockage dans le container';
@@ -316,24 +323,24 @@ COMMENT ON COLUMN "operation"."last_edit_date" IS 'Date de dernière édition de
 
 ALTER SEQUENCE "operation_operation_id_seq" OWNED BY "operation"."operation_id";
 
-CREATE SEQUENCE "project_project_id_seq";
+CREATE SEQUENCE "collection_collection_id_seq";
 
-CREATE TABLE "project" (
-                "project_id" INTEGER NOT NULL DEFAULT nextval('"project_project_id_seq"'),
-                "project_name" VARCHAR NOT NULL,
-                CONSTRAINT "project_pk" PRIMARY KEY ("project_id")
+CREATE TABLE "collection" (
+                "collection_id" INTEGER NOT NULL DEFAULT nextval('"collection_collection_id_seq"'),
+                "collection_name" VARCHAR NOT NULL,
+                CONSTRAINT "collection_pk" PRIMARY KEY ("collection_id")
 );
-COMMENT ON TABLE "project" IS 'Table des projets';
+COMMENT ON TABLE "collection" IS 'Table des projets';
 
 
-ALTER SEQUENCE "project_project_id_seq" OWNED BY "project"."project_id";
+ALTER SEQUENCE "collection_collection_id_seq" OWNED BY "collection"."collection_id";
 
-CREATE TABLE "project_group" (
-                "project_id" INTEGER NOT NULL,
+CREATE TABLE "collection_group" (
+                "collection_id" INTEGER NOT NULL,
                 "aclgroup_id" INTEGER NOT NULL,
-                CONSTRAINT "project_group_pk" PRIMARY KEY ("project_id", "aclgroup_id")
+                CONSTRAINT "collection_group_pk" PRIMARY KEY ("collection_id", "aclgroup_id")
 );
-COMMENT ON TABLE "project_group" IS 'Table des autorisations d''accès à un projet';
+COMMENT ON TABLE "collection_group" IS 'Table des autorisations d''accès à un projet';
 
 
 CREATE SEQUENCE "protocol_protocol_id_seq";
@@ -344,7 +351,7 @@ CREATE TABLE "protocol" (
                 "protocol_file" BYTEA,
                 "protocol_year" SMALLINT,
                 "protocol_version" VARCHAR DEFAULT 'v1.0' NOT NULL,
-                "project_id" INTEGER,
+                "collection_id" INTEGER,
                 CONSTRAINT "protocol_pk" PRIMARY KEY ("protocol_id")
 );
 COMMENT ON COLUMN "protocol"."protocol_file" IS 'Description PDF du protocole';
@@ -359,10 +366,11 @@ CREATE SEQUENCE "sample_sample_id_seq";
 CREATE TABLE "sample" (
                 "sample_id" INTEGER NOT NULL DEFAULT nextval('"sample_sample_id_seq"'),
                 "uid" INTEGER NOT NULL,
-                "project_id" INTEGER NOT NULL,
+                "collection_id" INTEGER NOT NULL,
                 "sample_type_id" INTEGER NOT NULL,
                 "sample_creation_date" TIMESTAMP NOT NULL,
-                "sample_date" TIMESTAMP,
+                "sampling_date" TIMESTAMP,
+                "expiration_date" timestamp,
                 "parent_sample_id" INTEGER,
                 "multiple_value" DOUBLE PRECISION,
                 "sampling_place_id" INTEGER,
@@ -379,6 +387,9 @@ Utilisé pour lire les étiquettes créées dans d''autres instances';
 
 
 ALTER SEQUENCE "sample_sample_id_seq" OWNED BY "sample"."sample_id";
+create index sample_sample_creation_date_idx on sample(sample_creation_date);
+create index sample_sampling_date_idx on sample(sampling_date);
+create index sample_expiration_date_idx on sample(expiration_date);
 
 CREATE SEQUENCE "sample_type_sample_type_id_seq";
 
@@ -390,10 +401,12 @@ CREATE TABLE "sample_type" (
                 "multiple_unit" VARCHAR,
                 "operation_id" INTEGER,
 		"metadata_id" INTEGER,
+		"identifier_generator_js" varchar,
                 CONSTRAINT "sample_type_pk" PRIMARY KEY ("sample_type_id")
 );
 COMMENT ON TABLE "sample_type" IS 'Types d''échantillons';
 COMMENT ON COLUMN "sample_type"."multiple_unit" IS 'Unité caractérisant le sous-échantillon';
+comment on column sample_type.identifier_generator_js is 'Champ comprenant le code de la fonction javascript permettant de générer automatiquement un identifiant à partir des informations saisies';
 
 
 ALTER SEQUENCE "sample_type_sample_type_id_seq" OWNED BY "sample_type"."sample_type_id";
@@ -402,64 +415,71 @@ CREATE SEQUENCE "sampling_place_sampling_place_id_seq";
 
 CREATE TABLE "sampling_place" (
                 "sampling_place_id" INTEGER NOT NULL DEFAULT nextval('"sampling_place_sampling_place_id_seq"'),
+                collection_id integer,
                 "sampling_place_name" VARCHAR NOT NULL,
+                sampling_place_code varchar,
+ 				sampling_place_x float8,
+ 				sampling_place_y float8,
                 CONSTRAINT "sampling_place_pk" PRIMARY KEY ("sampling_place_id")
 );
 COMMENT ON TABLE "sampling_place" IS 'Table des lieux génériques d''échantillonnage';
+comment on column sampling_place.sampling_place_code is 'Code métier de la station';
+ comment on column sampling_place.sampling_place_x is 'Longitude de la station, en WGS84';
+ comment on column sampling_place.sampling_place_y is 'Latitude de la station, en WGS84';
 
 
 ALTER SEQUENCE "sampling_place_sampling_place_id_seq" OWNED BY "sampling_place"."sampling_place_id";
 
-CREATE SEQUENCE "storage_storage_id_seq";
+CREATE SEQUENCE "movement_movement_id_seq";
 
-CREATE TABLE "storage" (
-                "storage_id" INTEGER NOT NULL DEFAULT nextval('"storage_storage_id_seq"'),
+CREATE TABLE "movement" (
+                "movement_id" INTEGER NOT NULL DEFAULT nextval('"movement_movement_id_seq"'),
                 "uid" INTEGER NOT NULL,
                 "container_id" INTEGER,
                 "movement_type_id" INTEGER NOT NULL,
-                "storage_reason_id" INTEGER,
-                "storage_date" TIMESTAMP NOT NULL,
-                "storage_location" VARCHAR,
+                "movement_reason_id" INTEGER,
+                "movement_date" TIMESTAMP NOT NULL,
+                "movement_location" VARCHAR,
                 "login" VARCHAR NOT NULL,
-                "storage_comment" VARCHAR,
+                "movement_comment" VARCHAR,
                 "line_number" INTEGER DEFAULT 1 NOT NULL,
                 "column_number" INTEGER DEFAULT 1 NOT NULL,
-                CONSTRAINT "storage_pk" PRIMARY KEY ("storage_id")
+                CONSTRAINT "movement_pk" PRIMARY KEY ("movement_id")
 );
-COMMENT ON TABLE "storage" IS 'Gestion du stockage des échantillons';
-COMMENT ON COLUMN "storage"."storage_date" IS 'Date/heure du mouvement';
-COMMENT ON COLUMN "storage"."storage_location" IS 'Emplacement de l''échantillon dans le conteneur';
-COMMENT ON COLUMN "storage"."login" IS 'Nom de l''utilisateur ayant réalisé l''opération';
-COMMENT ON COLUMN "storage"."storage_comment" IS 'Commentaire';
-COMMENT ON COLUMN "storage"."line_number" IS 'N° de la ligne de stockage dans le container';
-COMMENT ON COLUMN "storage"."column_number" IS 'Numéro de la colonne de stockage dans le container';
+COMMENT ON TABLE "movement" IS 'Gestion du stockage des échantillons';
+COMMENT ON COLUMN "movement"."movement_date" IS 'Date/heure du mouvement';
+COMMENT ON COLUMN "movement"."movement_location" IS 'Emplacement de l''échantillon dans le conteneur';
+COMMENT ON COLUMN "movement"."login" IS 'Nom de l''utilisateur ayant réalisé l''opération';
+COMMENT ON COLUMN "movement"."movement_comment" IS 'Commentaire';
+COMMENT ON COLUMN "movement"."line_number" IS 'N° de la ligne de stockage dans le container';
+COMMENT ON COLUMN "movement"."column_number" IS 'Numéro de la colonne de stockage dans le container';
 
 
-ALTER SEQUENCE "storage_storage_id_seq" OWNED BY "storage"."storage_id";
+ALTER SEQUENCE "movement_movement_id_seq" OWNED BY "movement"."movement_id";
 
-CREATE SEQUENCE "storage_condition_storage_condition_id_seq";
+CREATE SEQUENCE "movement_condition_movement_condition_id_seq";
 
-CREATE TABLE "storage_condition" (
-                "storage_condition_id" INTEGER NOT NULL DEFAULT nextval('"storage_condition_storage_condition_id_seq"'),
-                "storage_condition_name" VARCHAR NOT NULL,
-                CONSTRAINT "storage_condition_pk" PRIMARY KEY ("storage_condition_id")
+CREATE TABLE "movement_condition" (
+                "movement_condition_id" INTEGER NOT NULL DEFAULT nextval('"movement_condition_movement_condition_id_seq"'),
+                "movement_condition_name" VARCHAR NOT NULL,
+                CONSTRAINT "movement_condition_pk" PRIMARY KEY ("movement_condition_id")
 );
-COMMENT ON TABLE "storage_condition" IS 'Condition de stockage';
+COMMENT ON TABLE "movement_condition" IS 'Condition de stockage';
 
 
-ALTER SEQUENCE "storage_condition_storage_condition_id_seq" OWNED BY "storage_condition"."storage_condition_id";
+ALTER SEQUENCE "movement_condition_movement_condition_id_seq" OWNED BY "movement_condition"."movement_condition_id";
 
-CREATE SEQUENCE "storage_reason_storage_reason_id_seq";
+CREATE SEQUENCE "movement_reason_movement_reason_id_seq";
 
-CREATE TABLE "storage_reason" (
-                "storage_reason_id" INTEGER NOT NULL DEFAULT nextval('"storage_reason_storage_reason_id_seq"'),
-                "storage_reason_name" VARCHAR NOT NULL,
-                CONSTRAINT "storage_reason_pk" PRIMARY KEY ("storage_reason_id")
+CREATE TABLE "movement_reason" (
+                "movement_reason_id" INTEGER NOT NULL DEFAULT nextval('"movement_reason_movement_reason_id_seq"'),
+                "movement_reason_name" VARCHAR NOT NULL,
+                CONSTRAINT "movement_reason_pk" PRIMARY KEY ("movement_reason_id")
 );
-COMMENT ON TABLE "storage_reason" IS 'Table des raisons de stockage/déstockage';
+COMMENT ON TABLE "movement_reason" IS 'Table des raisons de stockage/déstockage';
 
 
-ALTER SEQUENCE "storage_reason_storage_reason_id_seq" OWNED BY "storage_reason"."storage_reason_id";
+ALTER SEQUENCE "movement_reason_movement_reason_id_seq" OWNED BY "movement_reason"."movement_reason_id";
 
 CREATE SEQUENCE "subsample_subsample_id_seq";
 
@@ -516,14 +536,14 @@ COMMENT ON COLUMN "metadata"."metadata_schema" IS 'Schéma en JSON du formulaire
 
 ALTER SEQUENCE "metadata_metadata_id_seq" OWNED BY "metadata"."metadata_id";
 
-ALTER TABLE "project_group" ADD CONSTRAINT "aclgroup_projet_group_fk"
+ALTER TABLE "collection_group" ADD CONSTRAINT "aclgroup_projet_group_fk"
 FOREIGN KEY ("aclgroup_id")
 REFERENCES gacl.aclgroup ("aclgroup_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "storage" ADD CONSTRAINT "container_storage_fk"
+ALTER TABLE "movement" ADD CONSTRAINT "container_movement_fk"
 FOREIGN KEY ("container_id")
 REFERENCES "container" ("container_id")
 ON DELETE NO ACTION
@@ -579,7 +599,7 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "storage" ADD CONSTRAINT "movement_type_storage_fk"
+ALTER TABLE "movement" ADD CONSTRAINT "movement_type_movement_fk"
 FOREIGN KEY ("movement_type_id")
 REFERENCES "movement_type" ("movement_type_id")
 ON DELETE NO ACTION
@@ -642,7 +662,7 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "storage" ADD CONSTRAINT "object_storage_fk"
+ALTER TABLE "movement" ADD CONSTRAINT "object_movement_fk"
 FOREIGN KEY ("uid")
 REFERENCES "object" ("uid")
 ON DELETE NO ACTION
@@ -664,16 +684,16 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "project_group" ADD CONSTRAINT "project_projet_group_fk"
-FOREIGN KEY ("project_id")
-REFERENCES "project" ("project_id")
+ALTER TABLE "collection_group" ADD CONSTRAINT "collection_projet_group_fk"
+FOREIGN KEY ("collection_id")
+REFERENCES "collection" ("collection_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "sample" ADD CONSTRAINT "project_sample_fk"
-FOREIGN KEY ("project_id")
-REFERENCES "project" ("project_id")
+ALTER TABLE "sample" ADD CONSTRAINT "collection_sample_fk"
+FOREIGN KEY ("collection_id")
+REFERENCES "collection" ("collection_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
@@ -713,16 +733,16 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "container_type" ADD CONSTRAINT "storage_condition_container_type_fk"
-FOREIGN KEY ("storage_condition_id")
-REFERENCES "storage_condition" ("storage_condition_id")
+ALTER TABLE "container_type" ADD CONSTRAINT "movement_condition_container_type_fk"
+FOREIGN KEY ("movement_condition_id")
+REFERENCES "movement_condition" ("movement_condition_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "storage" ADD CONSTRAINT "storage_reason_storage_fk"
-FOREIGN KEY ("storage_reason_id")
-REFERENCES "storage_reason" ("storage_reason_id")
+ALTER TABLE "movement" ADD CONSTRAINT "movement_reason_movement_fk"
+FOREIGN KEY ("movement_reason_id")
+REFERENCES "movement_reason" ("movement_reason_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
@@ -741,21 +761,43 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "protocol" ADD CONSTRAINT "project_protocol_fk"
-FOREIGN KEY ("project_id")
-REFERENCES "project" ("project_id")
+ALTER TABLE "protocol" ADD CONSTRAINT "collection_protocol_fk"
+FOREIGN KEY ("collection_id")
+REFERENCES "collection" ("collection_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
+ALTER TABLE sampling_place
+  ADD CONSTRAINT collection_sampling_place_fk FOREIGN KEY (collection_id)
+  REFERENCES collection (collection_id)
+  ON UPDATE NO ACTION
+  ON DELETE NO ACTION;
+
+  /*
+ * Ajouts d'index 
+ */
+ create index movement_uid_idx on movement(uid);
+ create index movement_container_id_idx on movement(container_id);
+ create index movement_movement_date_desc_idx on movement(movement_date desc);
+ create index movement_login_idx on movement(login);
+ create index container_uid_idx on container(uid);
+ create index object_identifier_uid_idx on object_identifier(uid);
+ create index sample_uid_idx on sample(uid);
+ create index sample_dbuid_origin_idx on sample(dbuid_origin);
+create index object_identifier_idx on object using gin (identifier gin_trgm_ops);
+create index object_identifier_value_idx on object_identifier using gin (object_identifier_value gin_trgm_ops);
+create index sample_dbuid_origin_idx on sample using gin (dbuid_origin gin_trgm_ops);
+
+  
 /*
  * Creation des vues
  */
 CREATE OR REPLACE VIEW last_movement
 (
   uid,
-  storage_id,
-  storage_date,
+  movement_id,
+  movement_date,
   movement_type_id,
   container_id,
   container_uid,
@@ -764,19 +806,19 @@ CREATE OR REPLACE VIEW last_movement
 )
 AS 
  SELECT s.uid,
-    s.storage_id,
-    s.storage_date,
+    s.movement_id,
+    s.movement_date,
     s.movement_type_id,
     s.container_id,
     c.uid AS container_uid,
     s.line_number,
     s.column_number
-   FROM storage s
+   FROM movement s
      LEFT JOIN container c USING (container_id)
-  WHERE s.storage_id = (( SELECT st.storage_id
-           FROM storage st
+  WHERE s.movement_id = (( SELECT st.movement_id
+           FROM movement st
           WHERE s.uid = st.uid
-          ORDER BY st.storage_date DESC
+          ORDER BY st.movement_date DESC
          LIMIT 1));
          
 CREATE OR REPLACE VIEW last_photo
@@ -908,10 +950,10 @@ select setval('label_label_id_seq',(select max(label_id) from label));
 /*
  * Tables de parametres generales
  */
- insert into container_family (container_family_id, container_family_name, is_movable)
+ insert into container_family (container_family_id, container_family_name)
  values 
- (1, 'Immobilier', false),
- (2, 'Mobilier', false);
+ (1, 'Immobilier'),
+ (2, 'Mobilier');
  
 select setval('container_family_container_family_id_seq', (select max(container_family_id) from container_family));
 insert into container_type (container_type_name, container_family_id)
@@ -971,20 +1013,9 @@ ALTER TABLE "label" ADD COLUMN "identifier_only" BOOLEAN DEFAULT 'f' NOT NULL;
 comment on column label.identifier_only is 'true : le qrcode ne contient qu''un identifiant metier';
 
 /*
- * Ajouts pour les problemes de performance - version 1.2.2
- */
-create extension pg_trgm;
-
-drop index if exists object_identifier_idx;
-create index object_identifier_idx on object using gin (identifier gin_trgm_ops);
-create index if not exists object_identifier_value_idx on object_identifier using gin (object_identifier_value gin_trgm_ops);
-create index if not exists sample_dbuid_origin_idx on sample using gin (dbuid_origin gin_trgm_ops);
-
-/*
  * Fin d'execution du script
  * Mise a jour de dbversion
  */
 insert into dbversion ("dbversion_number", "dbversion_date")
 values 
-('1.2','2017-10-20'),
-('1.2.3','2017-11-22');
+('2.0','2018-05-04');

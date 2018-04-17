@@ -38,9 +38,9 @@ create database collec owner collec;
 /*
  * Creation des tables dans le schema gacl
  */
-\ir ./gacl_create-1.2.sql
+\ir pgsql/gacl_create-2.0.sql
 
 /*
  * Creation des tables dans le schema col
  */
-\ir ./col_create_1.2.sql
+\ir pgsql/col_create_2.0.sql

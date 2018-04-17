@@ -1,6 +1,6 @@
 /*
- * Prototypephp - 15/09/2017
- * Script de creation des tables de base
+ * Collec-Science - 4 mai 2018
+ * Script de creation des tables necessaires a la gestion des droits
  * deux schemas sont necessaires, l'un pour les donnees proprement dites, 
  * l'autre pour la gestion des droits (habilitations et des traces)
  * Ce script permet la creation du schema pour la gestion des droits
@@ -19,7 +19,7 @@ CREATE TABLE aclacl (
                 aclgroup_id INTEGER NOT NULL,
                 CONSTRAINT aclacl_pk PRIMARY KEY (aclaco_id, aclgroup_id)
 );
-COMMENT ON TABLE aclacl IS 'Table des droits attribués';
+COMMENT ON TABLE aclacl IS 'Rights table';
 
 
 CREATE SEQUENCE aclaco_aclaco_id_seq;
@@ -30,7 +30,7 @@ CREATE TABLE aclaco (
                 aco VARCHAR NOT NULL,
                 CONSTRAINT aclaco_pk PRIMARY KEY (aclaco_id)
 );
-COMMENT ON TABLE aclaco IS 'Table des droits gérés';
+COMMENT ON TABLE aclaco IS 'List of managed rights';
 
 
 ALTER SEQUENCE aclaco_aclaco_id_seq OWNED BY aclaco.aclaco_id;
@@ -43,9 +43,9 @@ CREATE TABLE aclappli (
                 applidetail VARCHAR,
                 CONSTRAINT aclappli_pk PRIMARY KEY (aclappli_id)
 );
-COMMENT ON TABLE aclappli IS 'Table des applications gérées';
-COMMENT ON COLUMN aclappli.appli IS 'Nom de l''application pour la gestion des droits';
-COMMENT ON COLUMN aclappli.applidetail IS 'Description de l''application';
+COMMENT ON TABLE aclappli IS 'Managed software table';
+COMMENT ON COLUMN aclappli.appli IS 'Software name from rights management';
+COMMENT ON COLUMN aclappli.applidetail IS 'Software description';
 
 
 ALTER SEQUENCE aclappli_aclappli_id_seq OWNED BY aclappli.aclappli_id;
@@ -58,7 +58,7 @@ CREATE TABLE aclgroup (
                 aclgroup_id_parent INTEGER,
                 CONSTRAINT aclgroup_pk PRIMARY KEY (aclgroup_id)
 );
-COMMENT ON TABLE aclgroup IS 'Groupes des logins';
+COMMENT ON TABLE aclgroup IS 'Login groups';
 
 
 ALTER SEQUENCE aclgroup_aclgroup_id_seq OWNED BY aclgroup.aclgroup_id;
@@ -71,7 +71,7 @@ CREATE TABLE acllogin (
                 logindetail VARCHAR NOT NULL,
                 CONSTRAINT acllogin_pk PRIMARY KEY (acllogin_id)
 );
-COMMENT ON TABLE acllogin IS 'Table des logins des utilisateurs autorisés';
+COMMENT ON TABLE acllogin IS 'Users login';
 COMMENT ON COLUMN acllogin.logindetail IS 'Nom affiché';
 
 
@@ -82,7 +82,7 @@ CREATE TABLE acllogingroup (
                 aclgroup_id INTEGER NOT NULL,
                 CONSTRAINT acllogingroup_pk PRIMARY KEY (acllogin_id, aclgroup_id)
 );
-COMMENT ON TABLE acllogingroup IS 'Table des relations entre les logins et les groupes';
+COMMENT ON TABLE acllogingroup IS 'Relationship between logins and groups';
 
 
 ALTER TABLE aclacl ADD CONSTRAINT aclaco_aclacl_fk
@@ -135,7 +135,9 @@ CREATE TABLE logingestion (
     prenom character varying(32),
     mail character varying(255),
     datemodif date,
-    actif smallint default 1
+    actif smallint default 1,
+    is_clientws BOOLEAN DEFAULT false NOT NULL,
+    tokenws VARCHAR
 );
 ALTER TABLE  logingestion
     ADD CONSTRAINT pk_logingestion PRIMARY KEY (id);
@@ -158,7 +160,7 @@ CREATE TABLE login_oldpassword (
                 password VARCHAR(255),
                 CONSTRAINT login_oldpassword_pk PRIMARY KEY (login_oldpassword_id)
 );
-COMMENT ON TABLE login_oldpassword IS 'Table contenant les anciens mots de passe';
+COMMENT ON TABLE login_oldpassword IS 'Table with old passwords';
 
 
 ALTER SEQUENCE login_oldpassword_login_oldpassword_id_seq OWNED BY login_oldpassword.login_oldpassword_id;
@@ -181,10 +183,10 @@ CREATE TABLE log (
                 ipaddress varchar,
                 CONSTRAINT log_pk PRIMARY KEY (log_id)
 );
-COMMENT ON TABLE log IS 'Liste des connexions ou des actions enregistrées';
-COMMENT ON COLUMN log.log_date IS 'Heure de connexion';
-COMMENT ON COLUMN log.commentaire IS 'Donnees complementaires enregistrees';
-comment on column log.ipaddress is 'Adresse IP du client';
+COMMENT ON TABLE log IS 'list of connexions and actions recorded';
+COMMENT ON COLUMN log.log_date IS 'Connexion time';
+COMMENT ON COLUMN log.commentaire IS 'others data';
+comment on column log.ipaddress is 'ip address of client';
 
 ALTER SEQUENCE log_log_id_seq OWNED BY log.log_id;
 
@@ -206,9 +208,9 @@ CREATE TABLE "passwordlost" (
                 "usedate" TIMESTAMP,
                 CONSTRAINT "passwordlost_pk" PRIMARY KEY ("passwordlost_id")
 );
-COMMENT ON TABLE "passwordlost" IS 'Table de suivi des pertes de mots de passe';
-COMMENT ON COLUMN "passwordlost"."token" IS 'Jeton utilise pour le renouvellement';
-COMMENT ON COLUMN "passwordlost"."expiration" IS 'Date d''expiration du jeton';
+COMMENT ON TABLE "passwordlost" IS 'password lost table';
+COMMENT ON COLUMN "passwordlost"."token" IS 'token used for renewal';
+COMMENT ON COLUMN "passwordlost"."expiration" IS 'Token expiration date';
 
 
 ALTER SEQUENCE "passwordlost_passwordlost_id_seq" OWNED BY "passwordlost"."passwordlost_id";
@@ -236,7 +238,7 @@ insert into aclaco (aclaco_id, aclappli_id, aco)
 values 
 (1, 1, 'admin'),
 (2, 1, 'param'),
-(3, 1, 'projet'),
+(3, 1, 'collection'),
 (4, 1, 'gestion'),
 (5, 1, 'consult'),
 (6, 1, 'import');
@@ -245,7 +247,7 @@ values
 (1, 'admin', null),
 (2, 'consult', null),
 (3, 'gestion', 2),
-(4, 'projet', 3),
+(4, 'collection', 3),
 (5, 'param', 4),
 (6, 'import', 3);
 

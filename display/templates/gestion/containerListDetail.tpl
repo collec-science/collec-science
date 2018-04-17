@@ -84,6 +84,7 @@ $(document).ready(function () {
 <th>Statut</th>
 <th>Type</th>
 <th>Dernier mouvement</th>
+<th>Emplacement</th>
 <th>Condition de stockage</th>
 <th>Produit de stockage</th>
 <th>Code CLP</th>
@@ -121,16 +122,16 @@ $(document).ready(function () {
 <span class="green">{else}
 <span class="red">{/if}{$containers[lst].movement_date}
 </span>
-					{if $containers[lst].container_uid > 0}
-					<br>
-					<a href="index.php?module=containerDisplay&uid={$containers[lst].container_uid}">
-					{$containers[lst].container_identifier}
-					</a>
-					<br>col:{$containers[lst].column_number} line:{$containers[lst].line_number}
-					{/if}
-
 {/if}
 </td> 
+<td>
+{if $containers[lst].container_uid > 0}
+<a href="index.php?module=containerDisplay&uid={$containers[lst].container_uid}">
+{$containers[lst].container_identifier}
+</a>
+<br>col:{$containers[lst].column_number} line:{$containers[lst].line_number}
+{/if}
+</td>
 <td>
 {$containers[lst].storage_condition_name}
 </td>

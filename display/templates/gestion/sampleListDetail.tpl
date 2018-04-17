@@ -9,45 +9,31 @@
 			}
 			$("#lsamplechek").text(libelle);
 		});
+		
 		$("#sampleSpinner").hide();
 
-		$('#samplecsvfile').keypress(function() {
+		$('#samplecsvfile').on('keypress click', function() {
 			$(this.form).find("input[name='module']").val("sampleExportCSV");
 			$(this.form).submit();
 		});
-		$("#samplecsvfile").click(function() {
-			console.log("Demande de generation du fichier csv");
-			$(this.form).find("input[name='module']").val("sampleExportCSV");
-			$(this.form).submit();
-		});
-		$("#samplelabels").keypress(function() {
+		$("#samplelabels").on ("keypress click",function() {
 			$(this.form).find("input[name='module']").val("samplePrintLabel");
 			$("#sampleSpinner").show();
 			$(this.form).submit();
 		});
-		$("#samplelabels").click(function() {
-			$(this.form).find("input[name='module']").val("samplePrintLabel");
-			$("#sampleSpinner").show();
-			$(this.form).submit();
-		});
-		$("#sampledirect").keypress(function() {
+		$("#sampledirect").on ("keypress click", function() {
 			$(this.form).find("input[name='module']").val("samplePrintDirect");
 			$("#sampleSpinner").show();
 			$(this.form).submit();
 		});
-		$("#sampledirect").click(function() {
-			$(this.form).find("input[name='module']").val("samplePrintDirect");
-			$("#sampleSpinner").show();
-			$(this.form).submit();
-		});
-		$("#sampleExport").click(function() { 
+		$("#sampleExport").on ("keypress click", function() { 
 			$(this.form).find("input[name='module']").val("sampleExport");
 			$(this.form).submit();
 		});
 	});
 </script>
 {include file="gestion/displayPhotoScript.tpl"} {if $droits.gestion == 1}
-<form method="GET" id="formListPrint" action="index.php">
+<form method="POST" id="formListPrint" action="index.php">
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
 	<div class="row">
 		<div class="center">
@@ -94,7 +80,8 @@
 				<th>Statut</th>
 				<th>Parent</th>
 				<th>Photo</th>
-				<th>Dernier mouvement<br>stockage</th>
+				<th>Dernier mouvement</th>
+				<th>Emplacement</th>
 				<th>Lieu de prélèvement</th>
 				<th>Date d'échantillonnage</th>
 				<th>Date de création dans la base</th>
@@ -144,16 +131,16 @@
 					{/if}
 					{$samples[lst].movement_date}
 					</span>
-					{if $samples[lst].container_uid > 0}
-					<br>
+				{/if}
+				</td> 
+				<td>
+				{if $samples[lst].container_uid > 0}
 					<a href="index.php?module=containerDisplay&uid={$samples[lst].container_uid}">
 					{$samples[lst].container_identifier}
 					</a>
 					<br>col:{$samples[lst].column_number} line:{$samples[lst].line_number}
 					{/if}
-					
-				{/if}
-				</td> 
+				</td>
 				<td>{$samples[lst].sampling_place_name}</td>
 				<td>{$samples[lst].sampling_date}</td>
 				<td>{$samples[lst].sample_creation_date}</td> 

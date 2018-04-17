@@ -4,10 +4,10 @@
 
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [ y/n]?" response
-if [ $response = "y" ] then
+if [ "$response" = "y" ] then
 
 # installing packages
-apt-get install apache2 libapache2-mod-php7.0 php7.0 php7.0-ldap php7.0-pgsql php7.0-xml php7.0-zip postgresql postgresql-client
+apt-get install unzip apache2 libapache2-mod-php7.0 php7.0 php7.0-ldap php7.0-pgsql php7.0-xml php7.0-zip postgresql postgresql-client
 a2enmod ssl
 a2enmod headers
 a2enmod rewrite

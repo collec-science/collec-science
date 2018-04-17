@@ -32,7 +32,7 @@ AS
 /*
  * Creation de l'extension pour les index de type GIN
  */   
-create extension pg_trgm schema public;
+create extension pg_trgm schema pg_catalog;
 
 CREATE SEQUENCE "booking_booking_id_seq";
 
@@ -73,7 +73,7 @@ CREATE SEQUENCE "container_family_container_family_id_seq";
 
 CREATE TABLE "container_family" (
                 "container_family_id" INTEGER NOT NULL DEFAULT nextval('"container_family_container_family_id_seq"'),
-                "container_family_name" VARCHAR NOT NULL
+                "container_family_name" VARCHAR NOT NULL,
                 CONSTRAINT "container_family_pk" PRIMARY KEY ("container_family_id")
 );
 COMMENT ON TABLE "container_family" IS 'Famille générique des conteneurs';
@@ -380,7 +380,7 @@ CREATE TABLE "sample" (
 );
 COMMENT ON TABLE "sample" IS 'Table des échantillons';
 COMMENT ON COLUMN "sample"."sample_creation_date" IS 'Date de création de l''enregistrement dans la base de données';
-COMMENT ON COLUMN "sample"."sample_date" IS 'Date de création de l''échantillon physique';
+COMMENT ON COLUMN "sample"."sampling_date" IS 'Date de création de l''échantillon physique';
 COMMENT ON COLUMN "sample"."multiple_value" IS 'Nombre initial de sous-échantillons';
 COMMENT ON COLUMN "sample"."dbuid_origin" IS 'référence utilisée dans la base de données d''origine, sous la forme db:uid
 Utilisé pour lire les étiquettes créées dans d''autres instances';

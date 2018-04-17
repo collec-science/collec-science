@@ -1,5 +1,40 @@
 News
 ===========
+Version 2.0 du 4 mai 2018
+--------------------------
+Évolutions :
+- mise à jour du framework et de la base de données
+- possibilité de générer l'étiquette de l'échantillon en cours de visualisation
+- lors de la création d'un nouvel échantillon, les informations présentes dans l'étiquette pré-existante (format Json) sont récupérées automatiquement après son scannage
+- ajout d'un filtre pour supprimer les caractères parasites lors de la lecture des codes barres 1D de type EAN128
+- lors de la saisie d'un mouvement à partir d'un petit terminal, ajout du dernier statut de l'objet scanné (présent/absent) et d'une temporisation pour limiter les interrogations du serveur
+- ajout d'auto-complétion dans quelques boites déroulantes
+- en recherche d'échantillon, il est maintenant possible de rechercher jusqu'à 3 critères de métadonnées, qui fonctionnent soit en mode "et" (champs différents), soit en mode "ou" (champs identiques). Pour des questions de performance, les champs utilisables pour la recherche doivent avoir été décrits comme tels (création d'index)
+- le terme "projet" a été renommé en "collection", tant dans l'application que dans la base de données
+- meilleure définition des dates associées aux échantillons : création dans la base de données, prélèvement, et ajout d'une date d'expiration
+- il est maintenant possible de rechercher un échantillon par date (de création, de prélèvement, d'expiration)
+- il est possible de générer automatiquement l'identifiant métier à partir des informations saisies (code à définir par type d'échantillon)
+- les informations liées aux lieux de prélèvement ont été complétées par des coordonnées GPS et un code. Les coordonnées sont reportées dans l'échantillon si celui-ci n'en dispose pas. 
+- il est possible de définir des lieux de prélèvement qui sont uniquement attachés à une collection
+- lors de l'importation externe, les champs de métadonnées peuvent être indiqués dans des colonnes séparées, préfixées par "md_"
+- l'importation externe fonctionne maintenant en mode "remplace ou crée", ce qui permet de mettre à jour des échantillons manipulés dans des bases externes
+- lors de l'importation externe, la filiation d'un échantillon est maintenant conservée (si le parent a été créé au préalable)
+- en génération des étiquettes, il est maintenant possible d'imprimer le champ dbuid-origin
+- il est possible d'accéder directement à un échantillon à partir de son lien d'accès
+
+Corrections de bugs :
+- en recherche d'échantillons, correction de la recherche sur les métadonnées 
+- en création des étiquettes, un bug empêchait l'affichage des champs de métadonnées
+- l'importation de métadonnées externes ne récupérait pas correctement le champ Json
+- correction du message de réinitialisation du mot de passe
+- harmonisation des libellés concernant les conteneurs
+- ajout de contrôles supplémentaires lors de l'importation externe, avec test de cohérence des dates
+- la sortie des échantillons, depuis le détail d'un échantillon, n'aboutissait pas
+- en création de mouvements de masse, les échantillons externes n'étaient pas reconnus
+- lors de la procédure d'importation externe, l'appariement était fait en tenant compte de la casse, ce qui a été supprimé
+- en création de mouvements de masse, le logiciel ne savait pas gérer correctement le fait que le même container était scanné plusieurs fois
+
+
 Version 1.2.4 du 5/12/2017
 ---------------------------
 Correction de bugs :

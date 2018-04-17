@@ -1,13 +1,13 @@
-<h2>A propos de {$APPLI_titre}
+<h2>A propos de Collec-Science
 </h2>
 <p>
 Version {$version} du {$versiondate}.
 </p>
 
-L'application permet de garder la trace des échantillons stockés dans des containers. 
+L'application permet de garder la trace des échantillons stockés dans des conteneurs. 
 <br>
-Chaque échantillon ou container est identifié par un numéro unique, l'UID. 
-<br>D'un point de vue technique, les échantillons et les containers sont, informatiquement parlant, hérités d'une classe appelée Objet. 
+Chaque échantillon ou conteneur est identifié par un numéro unique, l'UID. 
+<br>D'un point de vue technique, les échantillons et les conteneurs sont, informatiquement parlant, hérités d'une classe appelée Objet. 
 <br>
 Les objets sont porteurs de plusieurs informations : 
 <ul>
@@ -15,20 +15,26 @@ Les objets sont porteurs de plusieurs informations :
 <li>les événements.
 </ul>
 
-D'autres informations sont spécifiques soit des échantillons, soit des containers. 
+D'autres informations sont spécifiques soit des échantillons, soit des conteneurs. 
 Pour ces derniers, les conditions de stockage (produit utilisé, risque associé normalisé) peuvent être décrits.
 <br>
+Consultez le site du projet : <a href="https://www.collec-science.org" target="_blank">https://www.collec-science.org</a>
 
-<h3>Liste des contributeurs à Collec-Science (ordre alphabétique)</h3>
+<h3>Liste (non exhaustive ?) des contributeurs au projet (ordre alphabétique)</h3>
 <ul>
 <li>Julien Ancelin (INRA)</li>
+<li>Isabelle Billy (Université Bordeaux 1)</li>
 <li>Arnaud Caillo (OASU - UMS 2567 POREA / EPOC)</li>
+<li>Sylvie Damy (Université de Besançon)</li>
 <li>Hector Linyer (Université de La Rochelle)</li>
+<li>Alexandre Maindron (Université de Besançon)</li>
+<li>Cécile Pignol (Université Savoie Mont-Blanc)
 <li>Christine Plumejeaud (Université de La Rochelle)</li>
+<li>Marie-Claude Quidoz (CEFE - CNRS Montpellier)</li>
 <li>Éric Quinton (IRSTEA)</li>
 </ul>
 
-    <h3>Copyright (C) 2016-2017  Eric Quinton pour IRSTEA</h3>
+    <h3>Copyright (C) 2016-2018  Eric Quinton pour IRSTEA</h3>
 <p>
 la version 1.0 du logiciel a été déposée auprès de l'Agence pour la Protection des Programmes sous le numéro IDDN.FR.001.470013.000.S.C.2016.000.31500
 <br>

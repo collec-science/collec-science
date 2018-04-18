@@ -18,6 +18,7 @@ if (isset($_SESSION["uid"])) {
 $_SESSION ["moduleParent"] = "container";
 switch ($t_module ["param"]) {
 	case "list":
+	    $_SESSION["moduleListe"] = "containerList";
 		/*
 		 * Display the list of all records of the table
 		 */

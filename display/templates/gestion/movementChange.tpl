@@ -101,7 +101,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 </script>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module={$moduleParent}List">
+<a href="index.php?module={$moduleListe}">
 <img src="{$display}/images/list.png" height="25">
 Retour à la liste des {if $moduleParent == "container"}containers{else}échantillons{/if}
 </a>

@@ -289,7 +289,7 @@ function testScan() {
 
 <h2>Création - modification d'un échantillon</h2>
 <div class="row col-md-12">
-<a href="index.php?module=sampleList">
+<a href="index.php?module={$moduleListe}">
 <img src="{$display}/images/list.png" height="25">
 Retour à la liste des échantillons
 </a>

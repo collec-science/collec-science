@@ -1,7 +1,7 @@
 <h2>Détail d'un container</h2>
 <div class="row">
 <div class="col-md-12">
-<a href="index.php?module=containerList"><img src="{$display}/images/list.png" height="25">Retour à la liste</a>
+<a href="index.php?module={$moduleListe}"><img src="{$display}/images/list.png" height="25">Retour à la liste</a>
 {if $droits.gestion == 1}
 &nbsp;
 <a href="index.php?module=containerChange&uid=0">

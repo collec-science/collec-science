@@ -70,7 +70,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 <h2>Création - modification d'un container</h2>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module=containerList">
+<a href="index.php?module={$moduleListe}">
 <img src="{$display}/images/list.png" height="25">
 Retour à la liste des containers
 </a>

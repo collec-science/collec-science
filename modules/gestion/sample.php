@@ -20,6 +20,7 @@ $_SESSION["moduleParent"] = "sample";
 
 switch ($t_module["param"]) {
     case "list":
+        $_SESSION["moduleListe"] = "sampleList";
 		/*
 		 * Display the list of all records of the table
 		 */

@@ -21,6 +21,7 @@ Version 2.0 du 4 mai 2018
 - lors de l'importation externe, la filiation d'un échantillon est maintenant conservée (si le parent a été créé au préalable)
 - en génération des étiquettes, il est maintenant possible d'imprimer le champ dbuid-origin
 - il est possible d'accéder directement à un échantillon à partir de son lien d'accès
+- de nouveaux scripts sont disponibles pour faciliter l'installation d'un nouveau serveur ou mettre à jour une base de données
 
 Corrections de bugs :
 - en recherche d'échantillons, correction de la recherche sur les métadonnées 
@@ -33,7 +34,7 @@ Corrections de bugs :
 - en création de mouvements de masse, les échantillons externes n'étaient pas reconnus
 - lors de la procédure d'importation externe, l'appariement était fait en tenant compte de la casse, ce qui a été supprimé
 - en création de mouvements de masse, le logiciel ne savait pas gérer correctement le fait que le même container était scanné plusieurs fois
-
+- le lien "retour à la liste" ne ramenait pas toujours à la liste d'origine, si l'utilisateur avait basculé de la consultation d'un échantillon à un conteneur et vice-versa
 
 Version 1.2.4 du 5/12/2017
 ---------------------------

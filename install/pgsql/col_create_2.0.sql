@@ -81,7 +81,7 @@ CREATE TABLE "container_type" (
                 "container_type_id" INTEGER NOT NULL DEFAULT nextval('"container_type_container_type_id_seq"'),
                 "container_type_name" VARCHAR NOT NULL,
                 "container_family_id" INTEGER NOT NULL,
-                "movement_condition_id" INTEGER,
+                "storage_condition_id" INTEGER,
                 "label_id" INTEGER,
                 "container_type_description" VARCHAR,
                 "movement_product" VARCHAR,
@@ -450,17 +450,17 @@ COMMENT ON COLUMN "movement"."column_number" IS 'Numéro de la colonne de stocka
 
 ALTER SEQUENCE "movement_movement_id_seq" OWNED BY "movement"."movement_id";
 
-CREATE SEQUENCE "movement_condition_movement_condition_id_seq";
+CREATE SEQUENCE "storage_condition_storage_condition_id_seq";
 
-CREATE TABLE "movement_condition" (
-                "movement_condition_id" INTEGER NOT NULL DEFAULT nextval('"movement_condition_movement_condition_id_seq"'),
-                "movement_condition_name" VARCHAR NOT NULL,
-                CONSTRAINT "movement_condition_pk" PRIMARY KEY ("movement_condition_id")
+CREATE TABLE "storage_condition" (
+                "storage_condition_id" INTEGER NOT NULL DEFAULT nextval('"storage_condition_storage_condition_id_seq"'),
+                "storage_condition_name" VARCHAR NOT NULL,
+                CONSTRAINT "storage_condition_pk" PRIMARY KEY ("storage_condition_id")
 );
-COMMENT ON TABLE "movement_condition" IS 'Condition de stockage';
+COMMENT ON TABLE "storage_condition" IS 'Condition de stockage';
 
 
-ALTER SEQUENCE "movement_condition_movement_condition_id_seq" OWNED BY "movement_condition"."movement_condition_id";
+ALTER SEQUENCE "storage_condition_storage_condition_id_seq" OWNED BY "storage_condition"."storage_condition_id";
 
 CREATE SEQUENCE "movement_reason_movement_reason_id_seq";
 
@@ -726,9 +726,9 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-ALTER TABLE "container_type" ADD CONSTRAINT "movement_condition_container_type_fk"
-FOREIGN KEY ("movement_condition_id")
-REFERENCES "movement_condition" ("movement_condition_id")
+ALTER TABLE "container_type" ADD CONSTRAINT "storage_condition_container_type_fk"
+FOREIGN KEY ("storage_condition_id")
+REFERENCES "storage_condition" ("storage_condition_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;

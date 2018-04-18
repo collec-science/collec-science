@@ -84,7 +84,7 @@ CREATE TABLE "container_type" (
                 "storage_condition_id" INTEGER,
                 "label_id" INTEGER,
                 "container_type_description" VARCHAR,
-                "movement_product" VARCHAR,
+                "storage_product" VARCHAR,
                 "clp_classification" VARCHAR,
                 "lines" INTEGER DEFAULT 1 NOT NULL,
                 "columns" INTEGER DEFAULT 1 NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE "container_type" (
 );
 COMMENT ON TABLE "container_type" IS 'Table des types de conteneurs';
 COMMENT ON COLUMN "container_type"."container_type_description" IS 'Description longue';
-COMMENT ON COLUMN "container_type"."movement_product" IS 'Produit utilisé pour le stockage (formol, alcool...)';
+COMMENT ON COLUMN "container_type"."storage_product" IS 'Produit utilisé pour le stockage (formol, alcool...)';
 COMMENT ON COLUMN "container_type"."clp_classification" IS 'Classification du risque conformément à la directive européenne CLP';
 COMMENT ON COLUMN "container_type"."lines" IS 'Nombre de lignes de stockage dans le container';
 COMMENT ON COLUMN "container_type"."columns" IS 'Nombre de colonnes de stockage dans le container';
@@ -432,7 +432,7 @@ CREATE TABLE "movement" (
                 "movement_type_id" INTEGER NOT NULL,
                 "movement_reason_id" INTEGER,
                 "movement_date" TIMESTAMP NOT NULL,
-                "movement_location" VARCHAR,
+                "storage_location" VARCHAR,
                 "login" VARCHAR NOT NULL,
                 "movement_comment" VARCHAR,
                 "line_number" INTEGER DEFAULT 1 NOT NULL,
@@ -441,7 +441,7 @@ CREATE TABLE "movement" (
 );
 COMMENT ON TABLE "movement" IS 'Gestion du stockage des échantillons';
 COMMENT ON COLUMN "movement"."movement_date" IS 'Date/heure du mouvement';
-COMMENT ON COLUMN "movement"."movement_location" IS 'Emplacement de l''échantillon dans le conteneur';
+COMMENT ON COLUMN "movement"."storage_location" IS 'Emplacement de l''échantillon dans le conteneur';
 COMMENT ON COLUMN "movement"."login" IS 'Nom de l''utilisateur ayant réalisé l''opération';
 COMMENT ON COLUMN "movement"."movement_comment" IS 'Commentaire';
 COMMENT ON COLUMN "movement"."line_number" IS 'N° de la ligne de stockage dans le container';

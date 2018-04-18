@@ -36,6 +36,15 @@ echo "creation of the database"
 cd collec/install
 su postgres -c "psql -f init_by_psql.sql"
 cd ../..
+echo "you may verify the configuration of access to postgresql"
+echo "look at /etc/postgresql/9.6/main/pg_hba.conf (verify your version). Only theses lines must be activate:"
+echo '# "local" is for Unix domain socket connections only
+local   all             all                                     peer
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            md5
+# IPv6 local connections:
+host    all             all             ::1/128                 md5'
+
 read -p "Enter to continue" answer
 
 # install backup program
@@ -57,6 +66,7 @@ chmod -R 770 collec/temp
 # creation of virtual host
 cp collec/install/apache2/collec-science.conf /etc/apache2/sites-available/
 a2ensite collec-science
+echo "creation of virtual site"
 echo "you must modify the file /etc/apache2/sites-available/collec-science.conf,"
 echo "then run this command:"
 echo "service apache2 reload"

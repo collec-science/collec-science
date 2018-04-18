@@ -28,7 +28,6 @@ mv collec-release-2.0 collec-2.0
 ln -s collec-2.0 collec
 # update rights on files
 chmod -R 755 .
-chgrp -R www-data .
 
 # create param.inc.php file
 mv collec/param/param.inc.php.dist collec/param/param.inc.php
@@ -41,6 +40,7 @@ read -p "Enter to continue" answer
 
 # install backup program
 echo "backup configuration - dump at 20:00 into /var/lib/postgresql/backup"
+echo "please, set up a data transfert mechanism to deport them to another medium"
 cp collec/install/pgsql/backup.sh /var/lib/postgresql/
 chown postgres /var/lib/postgresql/backup.sh
 line="0 20 * * * /var/lib/postgresql/backup.sh"
@@ -49,14 +49,15 @@ line="0 20 * * * /var/lib/postgresql/backup.sh"
 # update rights to specific software folders
 chmod -R 750 .
 mkdir collec/display/templates_c
+chgrp -R www-data .
 chmod -R 770 collec/display/templates_c
 chmod -R 770 collec/temp
 
 # creation of virtual host
-cp collec/install/apache2/collec_science.conf /etc/apache2/sites-available/
+cp collec/install/apache2/collec-science.conf /etc/apache2/sites-available/
+a2ensite collec-science
 echo "you must modify the file /etc/apache2/sites-available/collec-science.conf,"
-echo "then run theses commands:"
-echo "a2ensite collec-science"
+echo "then run this command:"
 echo "service apache2 reload"
 read -p "Enter to terminate" answer
 

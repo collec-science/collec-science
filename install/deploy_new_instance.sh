@@ -70,8 +70,14 @@ cp collec/install/apache2/collec-science.conf /etc/apache2/sites-available/
 a2ensite collec-science
 echo "creation of virtual site"
 echo "you must modify the file /etc/apache2/sites-available/collec-science.conf,"
+echo "and configure the file /etc/apache2/sites-available/default-ssl.conf"
+echo "with the directives recommended by Mozilla: "
+echo "https://mozilla.github.io/server-side-tls/ssl-config-generator/"
 echo "then run this command:"
 echo "service apache2 reload"
+echo "to find the version of apache2 and openssl:"
+echo "apt show apache2"
+echo "apt show openssl"
 read -p "Enter to terminate" answer
 
 

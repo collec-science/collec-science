@@ -180,9 +180,11 @@ Voici les droits nécessaires pour faire fonctionner correctement l'application 
 \endhead
 admin &	Gestion des utilisateurs et des droits\\
 \hline
-param &	Définition des tables de paramètres généraux, gestion d'un projet\\
+param &	Définition des tables de paramètres généraux, gestion des collections\\
 \hline
-projet &	rajout des types d'échantillons ou de conteneurs, import de masse \\
+collection & rajout des types d'échantillons ou de conteneurs, import de masse \\
+\hline
+import & permet de réaliser des importations de masse \\
 \hline
 gestion &	Ajout d'un échantillon pour les projets autorisés, entrée/sortie. Droit attribué par défaut si l'utilisateur fait partie d'au moins un projet \\
 \hline
@@ -194,19 +196,19 @@ consult	& Consultation des informations, sans possibilité de modification. Le d
 
 Ces droits doivent être définis pour chaque application (couple \textit{logiciel} $\leftrightarrow$ \textit{base de données}) gérée par la base de gestion des droits.
 
-\subsection{Gestion des projets}
+\subsection{Gestion des collections}
 \label{projet}
 
-Les échantillons étant obligatoirement rattachés à un projet, vous devrez en créer au minimum un à partir du menu d'administration. Un utilisateur avec les droits de gestion ne peut modifier que les échantillons pour lesquels il est autorisé (les projets qui sont rattachés au groupe dont il fait partie).
+Les échantillons étant obligatoirement rattachés à une collcction, vous devrez en créer au minimum une à partir du menu de paramétrage. Un utilisateur avec les droits de gestion ne peut modifier que les échantillons pour lesquels il est autorisé (les collections qui sont rattachées au(x) groupe(s) dont il fait partie).
 
-Voici le principe de gestion des droits pour les projets :
+Voici le principe de gestion des droits pour les collections :
 \begin{itemize}
 \item Dans \textit{Administration} > \textit{ACL - Groupes de logins}, déclarez les groupes adéquats. En cas d'utilisation des groupes LDAP, les saisir avec la même casse que dans l'annuaire (EABX p. e.).
 
 Il est possible de définir une hiérarchie des groupes, quelle que soit l'origine de l'affectation (base de données ou annuaire Ldap).
 Dans le cas où l'annuaire Ldap n'est pas utilisé pour gérer les groupes, renseignez les logins en face des groupes dans le même écran ;
-\item Dans les projets, sélectionnez les groupes autorisés (\textit{cf.} \ref{applidroit} \textit{\nameref{applidroit}}, page \pageref{applidroit}) ;
-\item les utilisateurs faisant partie des groupes autorisés disposeront des droits de \textit{gestion} pour le projet considéré.
+\item Dans les collections, sélectionnez les groupes autorisés (\textit{cf.} \ref{applidroit} \textit{\nameref{applidroit}}, page \pageref{applidroit}) ;
+\item les utilisateurs faisant partie des groupes autorisés disposeront des droits de \textit{gestion} pour la collection considérée.
 \end{itemize}
 
 \section{Configurer les paramètres généraux}
@@ -222,25 +224,25 @@ Par défaut, tous les utilisateurs qui disposent du droit de consultation peuven
 \endhead
 Projets & Liste des projets et droits associés & admin \\
 \hline
-Protocoles & Protocoles de prélèvement des échantillons & projet \\
+Protocoles & Protocoles de prélèvement des échantillons & collection \\
 \hline
-Opérations & Opérations rattachées aux protocoles & projet \\
+Opérations & Opérations rattachées aux protocoles & collection \\
 \hline
 Type d'événement & Événements survenant aux objets & param \\
 \hline
 Familles de conteneurs & Mécanisme pour retrouver les conteneurs selon leur nature (pièce, caisse...) & param, projet\\
 \hline
-Conditions de stockage & Mécanisme de conservation (lyophilisation, p. e.) & param, projet\\
+Conditions de stockage & Mécanisme de conservation (lyophilisation, p. e.) & param, collection\\
 \hline
-Motifs de déstockage & Raisons invoquées pour sortir un objet du stock & param, projet\\
+Motifs de déstockage & Raisons invoquées pour sortir un objet du stock & param, collection\\
 \hline
-Types de conteneurs & Modèles de conteneurs (porteurs des étiquettes, entre autres) & param, projet\\
+Types de conteneurs & Modèles de conteneurs (porteurs des étiquettes, entre autres) & param, collection\\
 \hline
 Statut des objets & Liste des statuts que peut prendre un objet & param\\
 \hline
-Type d'échantillon & Modèles des échantillons (rattachables à un type de conteneur) &  param, projet\\
+Type d'échantillon & Modèles des échantillons (rattachables à un type de conteneur) &  param, collection\\
 \hline
-Sous-échantillonnage & Pour les échantillons composés d'éléments indifférenciables, unité utilisée pour réaliser le sous-échantillonnage (nombre, volume...) & param \\
+Sous-échantillonnage & Pour les échantillons composés d'éléments non différenciables, unité utilisée pour réaliser le sous-échantillonnage (nombre, volume...) & param \\
 \hline
 Étiquettes & Modèles des étiquettes imprimables & param \\
 \hline
@@ -298,13 +300,15 @@ D'autres informations peuvent être également insérées :
 \endhead
 id & Identifiant métier principal (champ \textit{identifiant ou nom}, en saisie) \\
 \hline
-prj & Code du projet (pour les échantillons) \\
+prj & Code de la collection (pour les échantillons) \\
 \hline
-clp & Code du risque associé au container, en raison du produit de conservation utilisé \\
+clp & Code du risque associé au conteneur, en raison du produit de conservation utilisé \\
 \hline
 pn & Nom du protocole de collecte des échantillons \\
 \hline
 autres codes & tous les codes d'identification secondaires définis dans la table de paramètres \textit{Types d'identifiants} (\textit{cf.} \ref{param} \textit{\nameref{param}}, page \pageref{param}). \\
+\hline
+les champs utilisés dans les métadonnnées & les codes des champs utilisés dans la description des métadonnées. Un modèle d'étiquette ne peut être associé qu'à un type de métadonnées \\
 \hline
 
 \caption{Liste des balises facultatives insérables dans les QRcodes}

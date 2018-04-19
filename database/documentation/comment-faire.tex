@@ -29,17 +29,33 @@ Voici la liste des colonnes utilisables :
 \endhead
 sample\_identifier & identifiant métier de l'échantillon & X \\
 \hline
-project\_id & identifiant du projet de rattachement & X \\
+collection\_id & identifiant de la collection de rattachement & X \\
 \hline
 sample\_type\_id & identifiant du type d'échantillon & X \\
 \hline
 sample\_status\_id & identifiant du statut à attribuer & X \\
 \hline
-sample\_date & date de création de l'échantillon, au format dd/mm/yyyy & \\
+sampling\_place\_id & le numéro informatique de l'endroit où l'échantillon a été prélevé & \\
 \hline
-sample\_range & emplacement de rangement de l'échantillon dans le conteneur, si le numéro de conteneur est indiqué dans le fichier & \\
+wgs84\_x & longitude GPS en WGS84 (degrés décimaux) & \\
 \hline
-sample\_multiple\_value & nombre total (ou volume total...) de sous-échantillons associés à l'échantillon, si celui-ci est sous-échantillonnable & \\
+wgs84\_y & latitude GPS en WGS84 (degrés décimaux) & \\
+\hline
+sampling\_date & date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy & \\
+\hline
+expiration\_date & date d'expiration de l'échantillon, au format dd/mm/yyyy & \\
+\hline
+sample\_location & emplacement de rangement de l'échantillon dans le container (texte libre) & \\
+\hline
+sample\_column & n° de la colonne de stockage dans le container & \\
+\hline
+sample\_line & n° de la ligne de stockage dans le container & \\
+\hline
+sample\_multiple\_value & le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point) & \\
+\hline
+sample\_parent\_uid & UID du parent (création d'échantillons rattachés) &\\
+\hline
+sample\_metadata\_json & métadonnées rattachées à l'échantillon (au format json, p. e. : \{"taxon":"Alosa alosa"\}) & \\
 \hline
 container\_identifier & identifiant du container & X \\
 \hline
@@ -47,7 +63,9 @@ container\_type\_id & identifiant du type de container & X \\
 \hline
 container\_status\_id & identifiant du statut à attribuer au container & \\
 \hline
-container\_range & emplacement de rangement du container dans son container parent & \\
+container\_column & n° de la colonne de stockage dans le container parent & \\
+\hline
+container\_line & n° de la ligne de stockage dans le container parent & \\
 \hline
 container\_parent\_uid & UID du container dans lequel le container courant est rangé & \\
 \hline
@@ -61,7 +79,7 @@ Les champs obligatoires ne le sont que si l'identifiant de l'objet considéré -
 
 \subsection{Procédure d'import}
 
-À partir du menu, choisissez \textit{Objet $\rightarrow$ import de masse}. Seuls les utilisateurs qui disposent du droit \textit{projet} pourront réaliser l'opération.
+À partir du menu, choisissez \textit{Objet $\rightarrow$ import de masse}. Seuls les utilisateurs qui disposent du droit \textit{projet} ou \textit{import} pourront réaliser l'opération.
 \begin{figure}[H]
 \includegraphics[width=\linewidth]{images/import_controle}
 \caption{Sélection du fichier pour un import de masse}
@@ -71,10 +89,13 @@ Sélectionnez le fichier à importer, vérifiez le séparateur utilisé. Préfé
 
 L'import sera réalisé ainsi :
 \begin{enumerate}
-\item si \textit{sample\_identifier} est renseigné : création de l'échantillon
-\item si \textit{container\_identifier} est renseigné : création du container
-\item si \textit{container\_parent\_uid} est renseigné : création du mouvement d'entrée du container
-\item si l'échantillon et le container ont été créés, création du mouvement d'entrée de l'échantillon dans le container
+
+\item  si sample\_identifier est renseigné : création de l'échantillon
+\item    si container\_identifier est renseigné : création du container
+\item    si container\_identifier et container\_parent\_uid sont renseignés : création du mouvement d'entrée du container
+\item    si l'échantillon et le container ont été créés, création du mouvement d'entrée de l'échantillon dans le container
+\item    si l'échantillon est créé, que container\_parent\_uid est renseigné, et que container\_identifier n'est pas rempli, création du mouvement d'entrée de l'échantillon dans le container indiqué
+
 \end{enumerate}
 
 Si des anomalies sont détectées lors du contrôle, un tableau récapitulant les problèmes rencontrés sera affiché, ressemblant à ceci :

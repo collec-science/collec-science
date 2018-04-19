@@ -40,8 +40,9 @@
 % Insertion de code source dans le texte, à utiliser avec \begin{lstlisting} et \lstset{java|html|php...}
 \usepackage{listings}
 \lstset{ %
-basicstyle=\small, %
+basicstyle=\small\ttfamily, %
 breaklines=true, %
+columns=spaceflexible, %
 }
 
 % Définition des entêtes
@@ -140,10 +141,10 @@ hyphenation
 \usepackage[nottoc, notlof, notlot]{tocbibind}
 
 %Données de titre et d'auteur pour la page de garde
-\newcommand{\titre}{Logiciel COLLEC-SCIENCE}
+\newcommand{\titre}{Logiciel Collec-Science}
 \newcommand{\sousTitre}{Installation et configuration}
 \newcommand{\auteur}{Éric Quinton}
-\newcommand{\dateModif}{\today - v1.2}
+\newcommand{\dateModif}{4/5/2018 - v2.0}
 \usepackage[final]{pdfpages} 
 
 \usepackage{lscape}
@@ -207,7 +208,7 @@ hyphenation
 \includegraphics[width=\linewidth,angle=90]{../collec_schema_tables}
 
 
-\includepdf[pages=1-16]{images/collec-structure.pdf}
+\includepdf[pages=1-16]{../collec-structure.pdf}
 
 %Bibliographie
 \backmatter

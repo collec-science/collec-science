@@ -1,7 +1,7 @@
-\chapter{Le logiciel Collec}
+\chapter{Le logiciel Collec-Science}
 \section{Historique}
 
-L'unité de recherche \textit{Écosystèmes aquatiques et changements globaux} d'IRSTEA, à Cestas (33), récolte et manipule des échantillons prélevés sur le terrain (ou plutôt, principalement dans l'eau -- estuaires, lacs, rivières...), et les stocke, parfois sur des durées très longues : certaines campagnes de collecte ont eu lieu il y a plus de 40 ans.
+L'unité de recherche \textit{Écosystèmes aquatiques et changements globaux} d'IRSTEA, à Cestas (33), récolte et manipule des échantillons prélevés sur le terrain (ou plutôt, principalement dans l'eau -- estuaires, lacs, rivières...), et les stocke, parfois pour des durées très longues : certaines campagnes de collecte ont eu lieu il y a plus de 40 ans.
 
 De plus en plus, des échantillons anciens sont réanalysés (analyses génétiques, étude des ossements des oreilles ou otolithes...), au gré des questions scientifiques à traiter. 
 Le besoin de recourir à un logiciel pour gérer ces matériels est devenu une priorité.
@@ -15,23 +15,26 @@ Des échanges productifs ont ainsi pu être mis en place, entre autres sur la ge
 
 Le logiciel a largement évolué suite à ces échanges, de nombreuses fonctionnalités ont été rajoutées ou modifiées pour tenir compte des besoin des partenaires potentiels. 
 
-Les délais de développement de la première version opérationnelle se sont étalés sur 9 mois, entre la définition des besoins et le développement proprement dit. Cette seconde phase a été réalisée entre juin et octobre 2016. Environ 160 heures de travail auront été nécessaires pour écrire le logiciel.
-Le code comprend environ 8900 lignes (commentaires compris), dont 3800 concernent l'affichage des pages web. Il a été écrit en PHP, les pages web générées en HTML et Javascript.
+Les délais de développement de la première version opérationnelle se sont étalés sur 9 mois, entre la définition des besoins et le développement proprement dit. 
+La première version est parue à l'automne 2016, la version 2.0 est sortie en mai 2018.
+
+Le code comprend environ 15800 lignes (commentaires compris), dont 7600 concernent l'affichage des pages web. Il a été écrit en PHP, les pages web sont générées en HTML et Javascript avec le composant Smarty.
 
 \section{Fonctionnalités générales}
 
 \begin{figure}[H]
-\includegraphics[width=\linewidth]{images/db_schema_simplifie}
-\caption{Schéma simplifié de la base de données}
+\includegraphics[width=\linewidth]{images/classes2}
+\caption{Représentation objet de la base de données}
 \end{figure}
+
 
 Deux types d'objets sont manipulés dans l'application :
 \begin{itemize}
-\item des containers, qui peuvent contenir des objets de tout type : d'autres containers ou des échantillons. Ils peuvent être de différentes nature : site, bâtiment, salle, armoire, caisse, éprouvette...
-\item des échantillons, qui peuvent être associés à un type de container : il y a de nombreux cas où l'échantillon lui-même se confond avec son contenant, par exemple quand le résultat d'une pêche n'est pas trié et est stocké dans un bocal.
+\item des conteneurs (container), qui peuvent contenir des objets de tout type : d'autres conteneurs ou des échantillons. Ils peuvent être de différentes nature : site, bâtiment, salle, armoire, caisse, éprouvette... Les types de conteneurs décrivent également le produit de conservation utilisé et le risque associé (brûlure, cancérogène, etc.) ;
+\item des échantillons (sample), qui peuvent être associés à un type de conteneur : il y a de nombreux cas où l'échantillon lui-même se confond avec son contenant, par exemple quand le résultat d'une pêche n'est pas trié et est stocké dans un bocal.
 \end{itemize}
 
-Un échantillon ou un container sont issus d'un objet unique, qui est doté :
+Un échantillon ou un conteneur sont issus d'un objet unique, qui est doté :
 \begin{itemize}
 \item d'un numéro unique, l'\textbf{UID}, qui sert de référence dans le logiciel ;
 \item d'un identifiant métier, qui servira à le retrouver facilement (le logiciel permet également de définir d'autres identifiants).
@@ -39,13 +42,11 @@ Un échantillon ou un container sont issus d'un objet unique, qui est doté :
 
 Un objet peut subir un certain nombre d'événements, voire être réservé (fonctionnalité très simplifiée, seul le recouvrement de deux périodes de réservation est signalé).
 
-Tout type de container peut être associé à un modèle d'étiquettes. Les étiquettes peuvent comprendre un code-barre 2D de type QRCode, qui pourra être lu soit à partir d'un terminal dédié (douchette), soit avec une tablette ou un smartphone, l'application disposant d'un module capable d'activer la caméra depuis le navigateur et de scanner le code-barre.
+Tout objet peut être étiqueté. Les étiquettes peuvent comprendre un code-barre 2D de type QRCode, qui pourra être lu soit à partir d'un terminal dédié (douchette), soit avec une tablette ou un smartphone, l'application disposant d'un module capable d'activer la caméra depuis le navigateur et de scanner le code-barre.
 
-Il est aussi possible d'imprimer des étiquettes tant pour des containers que pour des échantillons, si ces derniers sont d'un type associé à un type de container.
+Un échantillon est obligatoirement rattaché à une collection. Seuls les les personnes rattachées à celle-ci peuvent modifier les informations le concernant. 
 
-Un échantillon est obligatoirement rattaché à un projet. Seuls les membres du projet considéré peuvent modifier les informations le concernant. 
-
-Un type d'échantillon peut être associé à une opération particulière d'un protocole, ce qui permet de mieux tracer l'évolution d'un prélèvement.
+Pour mieux décrire les échantillons, il est possible de leur rattacher quelques informations \og métier \fg{}, appelées ici \textit{métadonnées}. Les types de métadonnées, totalement paramétrables, sont rattachés aux types d'échantillons.
 
 Un échantillon peut être subdivisé en d'autres échantillons. Par exemple, des otolithes (os de l'oreille) peuvent être extraits d'un poisson. Le logiciel permet de créer un nouvel échantillon à partir d'un autre, qui peut être d'un autre type le cas échéant, et qui restera associé au parent. 
 
@@ -54,7 +55,7 @@ Enfin, dans certains cas de figures, un échantillon peut être composé de plus
 \section{Technologie employée}
 \subsection{Base de données}
 
-L'application a été conçue pour fonctionner avec Postgresql, en version 9.5. Les versions antérieures peuvent être utilisées, mais seule cette version dispose d'un type de données JSON qui permet de stocker les informations métiers (partie non  développée dans la version 1.0).
+L'application a été conçue pour fonctionner avec Postgresql, en version 9.5. Les versions antérieures peuvent être utilisées, mais seule cette version dispose d'un type de données JSON qui permet de stocker les informations métiers.
 
 \subsection{Langage de développement et framework utilisé}
 Le logiciel a été écrit en PHP, en s'appuyant sur le framework \textit{Prototypephp} \cite{prototypephp}, développé parallèlement par l'auteur du logiciel.
@@ -72,35 +73,39 @@ Les étiquettes sont générées en utilisant FOP \cite{fop}, une classe Java qu
 \endhead
 PrototypePHP & branche bootstrap & LGPL & Framework & \href{https://github.com/equinton/prototypephp}{github.com/ equinton/ prototypephp} \\ 
 \hline 
-Smarty & 3.1.24 & LGPL & Générateur de pages HTML & \href{http://www.smarty.net}{www.smarty.net} \\ 
+Smarty & 3.1.31 & LGPL & Générateur de pages HTML & \href{http://www.smarty.net}{www.smarty.net} \\ 
 \hline 
-PHPCAS & 1.3.3 & Apache 2.0 & Identification auprès d'un serveur CAS & \href{https://wiki.jasig.org/display/CASC/phpCAS}{wiki.jasig.org/ display/ CASC/ phpCAS} \\ 
+PHPCAS & 1.3.5 & Apache 2.0 & Identification auprès d'un serveur CAS & \href{https://wiki.jasig.org/display/CASC/phpCAS}{wiki.jasig.org/ display/ CASC/ phpCAS} \\ 
 \hline 
-Bootstrap &  & MIT & Présentation HTML & \href{http://getbootstrap.com}{get.bootstrap.com} \\ 
+Bootstrap & 3.0 & MIT & Présentation HTML & \href{http://getbootstrap.com}{get.bootstrap.com} \\ 
 \hline 
-Carhartl-jquery-cookie & 1.5.1 & MIT & Gestion des cookies dans le navigateur & \href{https://github.com/carhartl/jquery-cookie}{github.com/ carhartl/ jquery-cookie} \\ 
+JavaScript Cookie & 2.1.4 & MIT & Gestion des cookies dans le navigateur & \href{https://github.com/js-cookie/js-cookie}{github.com/ js-cookie/ js-cookie} \\ 
 \hline 
-Datatables & 1.10.12 & MIT & Affichage des tableaux HTML & \href{http://www.datatables.net/}{www.datatables. net} \\ 
+Datatables & 1.10.15 & MIT & Affichage des tableaux HTML & \href{http://www.datatables.net/}{www.datatables. net} \\ 
 \hline 
 Datetime-moment &  & MIT & Formatage des dates dans les tableaux & \href{https://datatables.net/plug-ins/sorting/datetime-moment}{datatables.net/ plug-ins/ sorting/ datetime-moment} \\ 
 \hline 
 Moment &  & MIT & Composant utilisé par datetime-moment & \href{http://momentjs.com} {momentjs.com}\\ 
 \hline 
-JQuery & 1.12.4 & $\approx$ BSD & Commandes Javascript & \href{http://jquery.com/}{jquery.com} \\ 
+JQuery & 3.3.1 & $\approx$ BSD & Commandes Javascript & \href{http://jquery.com/}{jquery.com} \\ 
 \hline 
-JQuery-ui & 1.12.0 & $\approx$ BSD & Commandes Javascript pour les rendus graphiques & \href{http://jqueryui.com/}{jqueryui.com} \\ 
+JQuery-ui & 1.12.1 & $\approx$ BSD & Commandes Javascript pour les rendus graphiques & \href{http://jqueryui.com/}{jqueryui.com} \\ 
 \hline 
 Jquery-timepicker-addon &  & MIT & Time picker & \href{https://github.com/trentrichardson/jQuery-Timepicker-Addon}{github.com/ trentrichardson/ jQuery-Timepicker-Addon} \\ 
 \hline 
-Magnific-popup & 0.9.9 & MIT & Affichage des photos & \href{http://dimsemenov.com/plugins/magnific-popup/}{dimsemenov.com/ plugins/magnific-popup/}\\ 
+Magnific-popup & 1.1.0 & MIT & Affichage des photos & \href{http://dimsemenov.com/plugins/magnific-popup/}{dimsemenov .com/plugins/ magnific-popup/}\\ 
 \hline 
-Smartmenus &  & MIT & Génération du menu HTML & \href{http://www.smartmenus.org}{www.smartmenus. org} \\ 
+Smartmenus &  & MIT & Génération du menu HTML & \href{http://www.smartmenus .org}{www.smartmenus .org} \\ 
 \hline 
-Openlayers & 3.12.1 & BSD & Affichage des cartes & \href{http://openlayers.org/}{openlayers.org} \\ 
+Openlayers & 4.2.0 & BSD & Affichage des cartes & \href{http://openlayers.org/}{openlayers.org} \\ 
 \hline 
-Html5-qrcode &  & MIT & Lecture des QRcodes &  \href{https://github.com/dwa012/html5-qrcode}{github.com/ dwa012/html5-qrcode}\\ 
+qcode-decoder & & MIT & lecture de codes barres & \href{http://cirocosta.github.io/qcode-decoder/}{cirocosta.github .io/qcode-decoder}\\
+\hline
+Html5-qrcode &  & MIT & Lecture des QRcodes &  \href{https://github.com/dwa012/html5-qrcode}{github.com/ dwa012/ html5-qrcode} \\ 
 \hline 
-
+AlpacaJS & 1.5.23 & Apache 2 & Génération et saisie des métadonnées & 
+\href{http://www.alpacajs.org/}{www.alpacajs.org}\\
+\hline
 \caption{Table des composants externes utilisés dans l'application}
 \end{longtable} 
 
@@ -110,9 +115,9 @@ L'application a été conçue pour résister aux attaques dites opportunistes se
 
 La gestion des droits est conçue pour :
 \begin{itemize}
-\item qu'un utilisateur, membre d'un projet, ne puisse modifier que les échantillons qui y sont rattachés ;
+\item qu'un utilisateur, membre d'une collection, ne puisse modifier que les échantillons qui y sont rattachés ;
 \item que tout utilisateur disposant des droits de gestion peut procéder à une entrée ou une sortie d'un objet, quel qu'il soit ;
-\item que les responsables d'un projet soient les seuls à pouvoir modifier les paramètres comme les types d'échantillons ou de containers, les protocoles ou les opérations rattachées.
+\item que les responsables d'une collection soient les seuls à pouvoir modifier les paramètres comme les types d'échantillons ou de conteneurs, les protocoles ou les opérations rattachées.
 \end{itemize}
 L'analyse de sécurité a mis en exergue un besoin de ne pas perdre d'information : si un échantillon est étiqueté et rangé, et que l'information est perdue, il y a de gros risques de ne plus pouvoir l'utiliser ultérieurement. Cela impose la mise en place d'un mécanisme de réplication de la base de données, à implémenter -- ou faire implémenter par des administrateurs du système -- directement dans Postgresql.
 

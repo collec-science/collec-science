@@ -2,14 +2,13 @@ Logiciel COLLEC-SCIENCE
 (c) IRSTEA, 2016-2018 - Tous droits réservés
 publié sous licence AGPL
 
-
 Pour installer quasi-automatiquement une nouvelle instance dans un serveur dédié :
 wget https://github.com/Irstea/collec/raw/master/install/deploy_new_instance.sh
 sudo -s
 ./deploy_new_instance.sh
 
-DOCUMENTATION D'INSTALLATION ET DE CONFIGURATION
-La documentation est dans le dossier database/documentation (fichier collec_installation_configuration.pdf)
+Pour réaliser la mise à jour vers la version 2.0, consultez le fichier 
+https://github.com/Irstea/collec/raw/master/install/maj_vers_2.0.txt
 
-SCRIPTS D'INSTALLATION, DE CONFIGURATION DE LA BASE DE DONNEES, OU DE MISE A JOUR
-Les scripts sont dans le dossier install
+DOCUMENTATION GENERALE D'INSTALLATION ET DE CONFIGURATION
+https://github.com/Irstea/collec/raw/master/database/documentation/collec_installation_configuration.pdf

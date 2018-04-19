@@ -7,7 +7,31 @@ Le logiciel a été conçu à partir du framework \textit{Prototypephp}. La docu
 De nombreuses passages ont été repris ici, mais il n'est pas inutile de se référer au document d'origine. 
 
 \section{Configurer le serveur}
-La configuration est donnée pour un serveur Linux fonctionnant avec Ubuntu 16.04 LTS Server. Elle peut bien sûr être adaptée à d'autres distributions Linux. Par contre, rien n'a été prévu pour faire fonctionner l'application directement dans une plate-forme windows, même si, en théorie, cela devrait être possible.
+
+L'application est conçue pour fonctionner à partir d'une adresse unique de type : {\NoAutoSpacing\textit{https://monsite.com}}. Le chiffrement est obligatoire (protocole https). Il n'est pas possible d'installer l'application dans un sous-dossier, par exemple : {\NoAutoSpacing \textit{https://monsite.com/collec-science}} ne fonctionnera pas.
+
+À partir de la version 2.0, un script d'installation quasi-automatique est disponible et permet :
+\begin{itemize}
+\item d'installer les paquetages nécessaires (Apache, PHP, Postgresql, Fop, Java et divers outils systèmes)
+\item de télécharger la dernière version de l'application
+\item de créer la base de données, avec mise en place d'une sauvegarde automatique
+\item de pré-configurer le serveur pour qu'il soit prêt à être utilisé.
+\end{itemize}
+
+Une fois le serveur installé, dans un terminal, tapez les commandes suivantes :
+\begin{lstlisting}
+wget https://github.com/Irstea/collec/raw/master/install/deploy_new_instance.sh
+sudo -s
+./deploy_new_instance.sh
+\end{lstlisting}
+
+Suivez les messages affichés à l'écran. Vous devrez notamment modifier le fichier :
+\begin{lstlisting}
+/etc/apache2/sites-available/collec-science.conf 
+\end{lstlisting}
+pour indiquer l'adresse DNS utilisée pour accéder à l'application et le certificat de chiffrement associé.
+
+La configuration a été réalisée pour un serveur Linux fonctionnant avec Ubuntu 16.04 LTS Server ou Debian 9. Elle peut bien sûr être adaptée à d'autres distributions Linux. Par contre, rien n'a été prévu pour faire fonctionner l'application directement dans une plate-forme windows, même si, en théorie, cela devrait être possible.
 
 \subsection{Configurer Apache}
 Les modules suivants doivent être activés :
@@ -21,59 +45,28 @@ Modules complémentaires nécessaires :
 \begin{itemize}
 \item \textit{php-mbstring}
 \item \textit{php-pgsql}
-\item \textit{php7.0-xml} ou \textit{php-simplexml}
+\item \textit{php7.0-xml} 
 \item \textit{php-xdebug} pour les phases de mise au point
-\item \textit{php-curl} (ou \textit{php5-curl} pour PHP5) pour l'identification via un serveur CAS.
+\item \textit{php-curl} pour l'identification via un serveur CAS.
 \end{itemize}
 La génération des étiquettes nécessite les paquetages suivants :
 \begin{itemize}
-\item \textit{php-gd} (ou \textit{php5-gd} pour PHP5)
+\item \textit{php-gd} 
 \item \textit{fop} (qui inclut des bibliothèques java)
 \end{itemize}
 
 Le stockage et l'affichage des photos nécessite :
 \begin{itemize}
-\item \textit{php-imagick} (ou \textit{php5-imagick} pour PHP5)
+\item \textit{php-imagick}
 \end{itemize}
 
-\subsubsection{Installer PHP7 dans une distribution Debian 8}
-Pour des questions de performance et d'obsolescence prochaine des versions 5 de PHP, il vaut mieux installer la version 7 de PHP. 
-
-Dans la distribution Debian 8, seule la version PHP5 est disponible : il faut rajouter le dépôt \textit{dotdeb} pour pouvoir récupérer la version 7.
-
-Les commandes indiquées ici sont issues du document créé par Stanislas Lange \cite{debphp7}.
-
-Ajoutez le dépôt Dotdeb :
-\begin{lstlisting}
-echo "deb http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb.list
-wget -O- https://www.dotdeb.org/dotdeb.gpg | apt-key add -
-apt update
-\end{lstlisting}
-
-Supprimez php5 :
-\begin{lstlisting}
-apt-get autoremove --purge php5*
-\end{lstlisting}
-
-Installez ensuite les paquets correspondants à PHP7 :
-
-\begin{lstlisting}
-apt install php7.0 libapache2-mod-php7.0 php7.0-pgsql php7.0-curl php7.0-json php7.0-gd php7.0-mcrypt php7.0-mbstring php7.0-xml php7.0-zip php7.0-imagick php7.0-xdebug fop
-\end{lstlisting}
 
 \subsection{Configurer l'antivirus}
 Les pièces téléchargées peuvent être analysées avec l'antivirus CLAMAV \cite{clamav}. Dans un premier temps, Clamav doit être installé. Le plus simple est d'utiliser les paquetages de la distribution.
 
 Suivez les instructions du document \cite{clamavarchlinux} pour l'installation et la vérification du bon fonctionnement.
 
-Ensuite, pour utiliser ClamAV dans l'application PHP, deux options sont possibles :
-\begin{itemize}
-\item si PHP est en version 5, vous pouvez compiler un module qui permettra des analyses directes plus rapides ;
-\item si PHP est en version 7, ou si vous ne voulez pas utiliser le module CLAMAV, le programme utilisera le programme en ligne de commande pour déclencher les analyses.
-\end{itemize}
-
-La version à base du module est plus performante, mais n'est pas disponible pour les versions récentes de PHP. 
-Pour compiler le module, suivez les recommandations du document \cite{clamaveq}.
+Par défaut, le script d'installation automatique n'installe pas l'antivirus. Si vous souhaitez activer cette fonctionnalité, vous devrez la configurer vous-même.
 
 \subsection{Configurer l'hôte virtuel et SSL}
 L'application ne fonctionne qu'en mode SSL, les cookies de session n'étant pas transmis sur des liens non chiffrés. Voici un exemple de configuration à insérer dans le fichier \textit{/etc/apache2/sites-available/default-ssl}
@@ -84,29 +77,28 @@ L'application ne fonctionne qu'en mode SSL, les cookies de session n'étant pas 
         Order allow,deny
         allow from all
     </Directory>
+SSLProtocol             all -SSLv3
+SSLCipherSuite          ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS
+SSLHonorCipherOrder     on
+SSLCompression          off
+SSLSessionTickets       off
 
-    SSLProtocol All -SSLv2 -SSLv3
-    SSLHonorCipherOrder On
-    SSLCipherSuite ECDHE-RSA-AES128-SHA256:AES128-GCM-SHA256:HIGH:
-    !MD5:!aNULL:!EDH:!RC4
-    SSLCompression off
 \end{lstlisting}
 
 (attention : pas d'espace entre \textit{Order allow} et la virgule).
 
-La chaîne \textit{SSLCipherSuite} est donnée à titre d'exemple, d'autres configurations plus modernes peuvent être implémentées. L'ANSSI a édité un document récapitulant les entêtes à utiliser \cite{tls}. Il existe également un configurateur, mis à disposition par la fondation Mozilla \cite{mozillagenerator}, qui permet de définir correctement ces paramètres en fonction du serveur et du niveau de compatibilité recherché. 
+La chaîne \textit{SSLCipherSuite} est celle qui fonctionne avec Apache 2.4.24 et openssl 1.1.0f, et est issue du configurateur mis à disposition par la fondation Mozilla \cite{mozillagenerator}. 
+Vous pouvez également consulté le document édité par l'ANSSI \cite{tls}. 
 
 Activez ensuite le mode SSL dans Apache :
 \begin{lstlisting}
-chmod -R g+r /etc/ssl/private
-usermod www-data -a -G ssl-cert
 a2ensite default-ssl
 service apache2 restart
 \end{lstlisting}
 
 \subsubsection{Cas particulier de l'identification en mode HEADER}
 
-Si vous identifiez vos utilisateurs derrière un proxy d'identification, comme LemonLdap par exemple, vous devrez limiter l'accès de l'application uniquement au proxy. La commande \textit{Directory} devient donc :
+Si vous identifiez vos utilisateurs derrière un proxy d'identification, comme Lemon\-Ldap par exemple, vous devrez limiter l'accès de l'application uniquement au proxy. La commande \textit{Directory} devient donc :
 \begin{lstlisting}
     <Directory /var/www/html>
         Options FollowSymLinks MultiViews
@@ -120,25 +112,14 @@ Si vous identifiez vos utilisateurs derrière un proxy d'identification, comme L
 
 \subsection{Configurer le dossier d'installation}
 
-\subsubsection{Cas général : une seule instance hébergée dans le serveur}
-\begin{itemize}
-\item Créez un dossier \textit{collecApp} dans \textit{/var/www}
-\item  dans ce dossier, créez un dossier correspondant à la version courante, par exemple \textit{1.2}, ainsi que le dossier \textit{param}
-\item décompressez dans ce dossier le code de l'application
-\item recopiez le fichier \textit{collecApp/1.2/param/param.inc.php.dist} vers \textit{param/param.inc.php}
-\item modifiez le fichier \textit{param.inc.php} pour l'adapter à votre instance, notamment si vous voulez vous connecter à partir d'un annuaire ldap, ou si la base de données n'est pas hébergée dans le même serveur
-\item dans \textit{collecApp/1.2/param}, créez un lien vers le fichier \textit{collecApp/param/param.inc.php}
-\item  dans \textit{collecApp}, créez un lien vers la version courante (\textit{1.2}), que vous appellerez \textit{collec}
-\item dans \textit{/var/www/html}, créez un lien vers \textit{/var/www/collecApp/collec} (le lien que nous venons de créer)
-\end{itemize}
+Le principe général est que le dossier contenant l'application contient, dans son nom, le numero de version (collec-2.0 par exemple), et un lien virtuel (collec) pointe vers celui-ci. C'est le lien qui est la cible de l'adresse web : ainsi, à chaque nouvelle version, il suffit de mettre à jour le code de l'application et de faire pointer le lien vers le nouveau dossier pour que celle-ci soit opérationnelle.
 
-Par ce mécanisme, le site virtuel déclaré précédemment pointe vers \textit{/var/www/html/collec}, qui lui-même pointe vers \textit{/var/www/collecApp/collec}, qui lui-même pointe vers la version courante. Cela permet de gérer les nouvelles versions assez simplement. Pour en installer une nouvelle :
-\begin{itemize}
-\item dans \textit{collecApp}, créez un nouveau dossier, par exemple \textit{1.3}, et décompressez la nouvelle version du code
-\item dans \textit{1.3/param}, créez un lien vers \textit{../param/param.inc.php}, pour récupérer les paramétrages locaux
-\item supprimez le lien \textit{collec} dans \textit{collecApp} (qui pointait vers \textit{1.2})
-\item recréez le lien \textit{collec} pour qu'il pointe maintenant vers \textit{1.3}
-\end{itemize}
+Depuis la version 2.0, des scripts sont fournis pour réaliser automatiquement les mises à jour (dans le cas d'installations mono-instances).
+
+\subsubsection{Cas général : une seule instance hébergée dans le serveur}
+
+Utilisez le script fourni, qui créera automatiquement les dossiers nécessaires. 
+
 
 \subsubsection{Cas particulier : faire cohabiter plusieurs instances avec le même code}
 \label{dnsmultiple}
@@ -187,32 +168,25 @@ Le serveur web doit pouvoir accéder en lecture à l'ensemble des fichiers de l'
 \item \textit{temp} : dossier de génération des images et des fichiers temporaires.
 \end{itemize}
 
-Voici un exemple de script utilisé pour positionner les droits :
+Deux scripts sont fournis pour attribuer les droits : 
+\begin{itemize}
+\item \textbf{install/apache2/upgrade\_rights.sh} : positionne les droits en utilisant les droits standards Linux (owner, group)
+\item \textbf{install/apache2/upgrade\_rights\_with\_acl.sh} : positionne les droits à partir des ACL.
+\end{itemize}
 
+Les scripts doivent être lancés ainsi :
 \begin{lstlisting}
-#!/bin/bash
-cp ../param/* param/
-chmod -R 770 .
-setfacl -R -m u:www-data:rx .
-setfacl -R -m d:u:www-data:rx .
-mkdir display/templates_c
-setfacl -R -m u:www-data:rwx display/templates_c
-setfacl -R -m d:u:www-data:rwx display/templates_c
-setfacl -R -m u:www-data:rwx temp
-setfacl -R -m d:u:www-data:rwx temp
-setfacl -R -m d:o::- .
-rm -Rf database
-rm -Rf test
-rm -f param.ini
+collec-2.0/install/apache2/upgrade_rights.sh collec-2.0
+\end{lstlisting}
+ou 
+\begin{lstlisting}
+collec-2.0/install/apache2/upgrade_rights_with_acl.sh collec-2.0
 \end{lstlisting}
 
-Dans cet exemple, le dossier \textit{../param} contient le fichier \textit{param.inc.php}, qui dispose des paramètres spécifiques à l'implémentation.
-
-Le script est à lancer à la racine du dossier contenant l'application.
 
 \section{Configurer l'application}
 
-L'application est configurable par l'intermédiaire de trois fichiers, comme nous venons de le voir :
+L'application est configurable par l'intermédiaire de trois fichiers :
 
 \textbf{param/param.default.inc.php $\rightarrow$ param/param.inc.php $\rightarrow$ ../param.ini}
 
@@ -441,12 +415,12 @@ Le schéma \textit{public} ne devrait jamais être utilisé pour stocker l'infor
 
 Les tables de gestion des droits peuvent être communes à plusieurs jeux / applications différentes : la variable \textit{GACL\_aco} permet de séparer la gestion des droits pour chaque application, tout en travaillant à partir des mêmes utilisateurs (répartis le cas échéant dans des groupes différents selon le jeu de données considéré).
 
-Les scripts de création des schémas dans la base de données sont stockés dans le dossier \textit{install}. 
+Les scripts de création des schémas dans la base de données sont stockés dans le dossier \textit{install/pgsql}. 
 
 
 
 \subsection{Créer les tables de gestion des droits}
-Script à utiliser : \textit{gacl\_create\_1.1.sql}. Les tables nécessaires vont être créées dans le schéma \textit{gacl} (ne modifiez pas le nom du schéma).
+Script à utiliser : \textit{gacl\_create\_2.0.sql}. Les tables nécessaires vont être créées dans le schéma \textit{gacl} (ne modifiez pas le nom du schéma).
 
 Le script crée un compte d'administration par défaut :
 \begin{itemize}
@@ -456,11 +430,11 @@ Le script crée un compte d'administration par défaut :
 
 Il devra être supprimé quand un autre compte d'administration aura été créé.
 
-Lles droits par défaut sont positionnés pour le projet \textit{appli} (variable \textit{\$GACL\_aco} dans les fichiers de paramètres de l'application).
+Les droits par défaut sont positionnés pour la collection \textit{appli} (variable \textit{\$GACL\_aco} dans les fichiers de paramètres de l'application).
 
 
 \subsection{Créer les tables applicatives}
-Script à utiliser : \textit{col\_create\_1.1.sql}.
+Script à utiliser : \textit{col\_create\_2.0.sql}.
 
 Par défaut, le script crée un schéma appelé \textit{col}. Il est possible de créer plusieurs schémas différents, si l'application supporte plusieurs jeux de données (\textit{cf.} \ref{dnsmultiple} \textit{\nameref{dnsmultiple}}, page \pageref{dnsmultiple}). Dans ce cas de figure, remplacez \textit{col} par le nom du schéma voulu dans les deux premières lignes du script.
 
@@ -509,6 +483,17 @@ Vous pouvez également tester si la configuration du serveur est correcte en rec
 
 \section{Installer une nouvelle version}
 \label{newVersion}
+\subsection{Faites une sauvegarde de la base de données}
+Il arrive fréquemment que la structure de la base de données évolue. Avant toute opération, assurez-vous de disposer d'une sauvegarde, dans un autre support.
+
+Un programme de sauvegarde est disponible dans \textit{install/pgsql/backup.sh}. Vous pouvez l'exécuter manuellement ainsi :
+\begin{lstlisting}
+su postgres -c "install/pgsql/backup.sh"
+\end{lstlisting}
+
+La sauvegarde sera stockée dans \textbf{/var/lib/postgresql/backup}.
+
+Si vous avez utilisé le script d'installation automatique, le programme est également présent dans \textit{/var/lib/postgresql}.
 
 \subsection{Sauvegarder le fichier contenant les paramètres de l'application}
 
@@ -522,18 +507,22 @@ Le fichier \textit{param/news.txt} contient la description des modifications app
 
 \subsection{Mise à jour de la structure de la base de données}
 
-Le dossier \textit{install} contient les scripts de création et de mise à jour de la base de données. Les scripts de mise à jour sont nommés ainsi :
+Le dossier \textit{install/pgsql} contient les scripts de création et de mise à jour de la base de données. Les scripts de mise à jour sont nommés ainsi :
 \begin{lstlisting}
-col_alter_versionAnterieure_versionMiseAJour.sql
+col_alter_versionAnterieure-versionMiseAJour.sql
 \end{lstlisting}
 
 \textit{versionAnterieure} correspond à la version la plus ancienne qui doit être mise à jour, \textit{versionMiseAJour} la version cible. Par exemple :
 \begin{lstlisting}
-col_alter_1.0-1.0.4.sql
+col_alter_1.2-1.2.3.sql
 \end{lstlisting}
-indique que toutes les versions entre \textit{1.0} et \textit{1.0.3} doivent être mises à jour avec le script indiqué. Si vous avez \og sauté \fg{} certaines versions du logiciel, il est possible que plusieurs scripts doivent être appliqués.
+indique que toutes les versions entre \textit{1.2} et \textit{1.2.3} doivent être mises à jour avec le script indiqué. Si vous avez \og sauté \fg{} certaines versions du logiciel, il est possible que plusieurs scripts doivent être appliqués.
 
 La mise à jour doit être appliquée dans tous les schémas contenant des données, notamment dans le cas où le même logiciel est utilisé pour gérer plusieurs jeux de données.
+
+Avant d'exécuter les scripts, vérifiez leur contenu, et notamment le nom des schémas.
+
+Ne relancez jamais l'exécution d'un script.
 
 \subsection{Reconfigurer les droits d'accès au serveur web}
 

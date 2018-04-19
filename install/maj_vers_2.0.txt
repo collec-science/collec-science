@@ -1,3 +1,7 @@
+Collec-Science - procédure de mise à jour vers la version 2.0 depuis une version antérieure
+Document encodé en UTF-8 : si vous avez des problèmes pour le consulter depuis un poste Windows, ouvrez-le avec Notepad++
+-------------------------------------------------------------------------------------------
+
 La mise à jour de l'application vers la version 2.0 peut être menée de diverses façons, en fonction de la manière dont le logiciel a été installé.
 
 Précautions d'usage :

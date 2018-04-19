@@ -54,15 +54,24 @@ unzip master.zip
 mv collec-master collec-2.0
 
 Etape 2 : mise à jour de la base de données
-Selon le niveau de votre version actuelle, éditez les fichiers install/upgrade-1.2-1.2.3.sql et install/upgrade-1.2.3-2.0.sql, et vérifiez/adaptez les paramètres de connexion à la base de données.
-Editez également les fichiers install/pgsql/col_alter_1.2-1.2.3.sql et install/pgsql/col_alter_1.2.3-2.0.sql, et vérifiez les noms des schémas
-Lancez les scripts (selon votre version) :
 cd collec-2.0/install
+Selon le niveau de votre version actuelle, éditez les fichiers :
+- upgrade-1.2-1.2.3.sql
+- upgrade-1.2.3-2.0.sql
+- upgradedb-1.2-1.2.3.sh
+- upgradedb-1.2.3-2.0.sh
+et vérifiez/adaptez les paramètres de connexion à la base de données.
+Editez également les fichiers :
+- pgsql/col_alter_1.2-1.2.3.sql
+- pgsql/col_alter_1.2.3-2.0.sql
+et vérifiez les noms des schémas.
+Lancez les scripts (selon votre version) :
 ./upgradedb-1.2-1.2.3.sh
 ./upgradedb-1.2.3-2.0.sh
 
 Etape 3 : basculer vers la nouvelle version
 - Recopiez la version précédente de param/param.inc.php
+cd ../..
 cp ancien_dossier/param/param.inc.php collec-2.0/param/
 - Mettez à jour les droits :
 collec-2.0/install/apache2/upgrade_rights.sh collec-2.0

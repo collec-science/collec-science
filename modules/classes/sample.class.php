@@ -170,6 +170,7 @@ class Sample extends ObjetBDD
             $error = true;
         }
         if ($error) {
+            global $LANG;
             throw new SampleException($LANG["appli"][4]);
         }
         return - 1;
@@ -248,7 +249,7 @@ class Sample extends ObjetBDD
     {
         $data = array();
         $isFirst = true;
-        $order = " order by collection_name, sample_type_name, identifier, uid";
+        //$order = " order by collection_name, sample_type_name, identifier, uid";
         $where = "where";
         $and = "";
         if ($param["sample_type_id"] > 0) {
@@ -451,7 +452,7 @@ class Sample extends ObjetBDD
                     }
                     unset($value["parent_sample_id"]);
                     unset($value["collection_id"]);
-                    unset ($value["uid"]);
+                    unset($value["uid"]);
                     $data[] = $value;
                 }
             }
@@ -644,7 +645,7 @@ class Sample extends ObjetBDD
                 $data["uid"] = $uid;
             }
         }
-
+        
         /*
          * Recuperation de l'echantillon parent, si existant
          */

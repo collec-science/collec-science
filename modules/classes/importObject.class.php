@@ -434,7 +434,7 @@ class ImportObject
             if (strlen($result["hour"]) > 0 && strlen($result["minute"]) > 0) {
                 $val .= " " . str_pad($result["hour"], 2, "0", STR_PAD_LEFT) . ":" . str_pad($result["minute"], 2, "0", STR_PAD_LEFT);
                 if (strlen($result["second"]) == 0) {
-                    $result["second"] == 0;
+                    $result["second"] = 0;
                 }
                 $val .= ":" . str_pad($result["second"], 2, "0", STR_PAD_LEFT);
             }

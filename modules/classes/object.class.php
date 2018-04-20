@@ -499,7 +499,6 @@ class Object extends ObjetBDD
             $i = 1;
             foreach ($data as $value) {
                 $uid = 0;
-                $uid_origin = "";
                 /*
                  * Suppression des espaces
                  */

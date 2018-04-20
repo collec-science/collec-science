@@ -79,6 +79,11 @@ $APPLI_mail = "nepasrepondre@collec.adressecomplete.com";
  * necessite que l'envoi de mails soit possible ($MAIL_enabled = 1)
  */
 $APPLI_lostPassword = 1;
+/*
+ * Cles utilisees pour la generation des jetons
+ */
+$privateKey = "param/id_collec";
+$pubKey = "param/id_collec.pub";
 
 /*
  * Impression directe vers une imprimante a etiquettes

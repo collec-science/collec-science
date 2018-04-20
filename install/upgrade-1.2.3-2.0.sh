@@ -1,7 +1,6 @@
 #!/bin/bash
-# upgrade an instance 2.0 to 2.1
+# upgrade an instance 1.2.3 to 2.0
 # not for use, release 2.1 don't exist the may, 4th 2018 !
-echo "this script is a proof of concept, please, don't run it"
 echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of Collec-Science is 1.2.3?"
 echo "Is your actual version is in the folder /var/www/collec-science/collec-1.2.3, and the symbolic link collec point to collec-1.2.3?" 
@@ -27,6 +26,12 @@ chmod -R 770 collec/temp
 
 # copy of last param into the new code
 cp collec/param/param.inc.php collec-2.0/param/
+# keys for tokens
+if [ -e collec/param/id_collec]
+then
+cp collec/param/id_collec* collec-2.0/param/
+chown www-data collec-2.0/param/id_collec
+fi
 
 #replacement of symbolic link
 rm -f collec

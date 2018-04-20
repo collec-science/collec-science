@@ -65,19 +65,20 @@ chgrp -R www-data .
 chmod -R 770 collec/display/templates_c
 chmod -R 770 collec/temp
 
+# generate rsa key for encrypted tokens
+echo "generate encryption keys for identification tokens"
+openssl genpkey -algorithm rsa -out collec/param/id_collec -pkeyopt rsa_keygen_bits:2048
+openssl rsa -in collec/param/id_collec -pubout -out collec/param/id_collec.pub
+chown www-data collec/param/id_collec
+
 # creation of virtual host
+echo "creation of virtual site"
 cp collec/install/apache2/collec-science.conf /etc/apache2/sites-available/
 a2ensite collec-science
-echo "creation of virtual site"
-echo "you must modify the file /etc/apache2/sites-available/collec-science.conf,"
-echo "and configure the file /etc/apache2/sites-available/default-ssl.conf"
-echo "with the directives recommended by Mozilla: "
-echo "https://mozilla.github.io/server-side-tls/ssl-config-generator/"
+echo "you must modify the file /etc/apache2/sites-available/collec-science.conf"
+echo "address of your instance, ssl parameters),"
 echo "then run this command:"
 echo "service apache2 reload"
-echo "to find the version of apache2 and openssl:"
-echo "apt show apache2"
-echo "apt show openssl"
 read -p "Enter to terminate" answer
 
 

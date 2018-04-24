@@ -64,19 +64,19 @@
 
 <!--  implementation automatique des classes -->
 <script>
+var language = "{$language}";
+console.log("langage " +language);
+switch (language) {
+case "fr":
+	var urlLanguage = 'display/javascript/fr_FR.json';
+	break;
+case "en":
+	var urlLanguage = 'display/javascript/English.json';
+	break;
+default:
+	var urlLanguage = 'display/javascript/fr_FR.json';
+}
 $(document).ready(function() {
-	var language = "{$language}";
-	switch (language) {
-	case "fr":
-		var urlLanguage = 'display/javascript/fr_FR.json';
-		break;
-	case "en":
-		var urlLanguage = 'display/javascript/English.json';
-		break;
-	default:
-		var urlLanguage = 'display/javascript/fr_FR.json';
-	}
-	
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdatetime"]}' );
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdate"]}' );
 	$('.datatable').DataTable({

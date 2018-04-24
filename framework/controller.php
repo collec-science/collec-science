@@ -545,7 +545,7 @@ if ($isHtml) {
     /*
      * Gestion de l'internationalisation
      */
-    $vue->set($FORMATDATE, "language");
+    $vue->set($_SESSION["FORMATDATE"], "language");
     /*
      * Affichage de la page
      */

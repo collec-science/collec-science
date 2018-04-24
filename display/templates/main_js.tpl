@@ -65,7 +65,6 @@
 <!--  implementation automatique des classes -->
 <script>
 var language = "{$language}";
-console.log("langage " +language);
 switch (language) {
 case "fr":
 	var urlLanguage = 'display/javascript/fr_FR.json';

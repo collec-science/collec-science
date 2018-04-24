@@ -4,6 +4,8 @@
  * @author Eric Quinton
  * 18 aout 2009
  */
+function objetBDDparamInit() {
+    global $ObjetBDDParam, $DEFAULT_formatdate, $OBJETBDD_debugmode, $LANG,  $FORMATDATE;
 if(!isset($DEFAULT_formatdate)) $DEFAULT_formatdate = "fr";
 if (!isset($OBJETBDD_debugmode)) $OBJETBDD_debugmode = 1;
 if (!isset($LANG)) {
@@ -32,6 +34,8 @@ if (isset($FORMATDATE)) {
 	$ObjetBDDParam["utf8"] = false;
 }*/
 $ObjetBDDParam["debug_mode"]=$OBJETBDD_debugmode;
+$_SESSION["ObjetBDDParam"] = $ObjetBDDParam;
+}
 
 /**
  * function _new

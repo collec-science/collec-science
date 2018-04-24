@@ -376,15 +376,6 @@ class ObjetBDD
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
         }
         /*
-         * Forcage des parametres de date
-         */
-        if ($this->formatDate == "fr") {
-            $this->formatDate = 1;
-        }
-        if ($this->formatDate == "en") {
-            $this->formatDate = 2;
-        }
-        /*
          * Ajout du identifier quote character
          */
         if ($this->typeDatabase == 'pgsql') {
@@ -405,6 +396,16 @@ class ObjetBDD
             foreach ($param as $key => $value) {
                 $this->$key = $value;
             }
+        }
+        /*
+         * Forcage des parametres de date
+         */
+        if ($this->formatDate == "fr") {
+            $this->formatDate = 1;
+        }
+        if ($this->formatDate == "en") {
+            $this->formatDate = 2;
+            $this->separateurLocal = "-";
         }
     }
 

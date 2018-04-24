@@ -543,6 +543,10 @@ if ($isHtml) {
         $vue->set($_SESSION["login"], "login");
     }
     /*
+     * Gestion de l'internationalisation
+     */
+    $vue->set($FORMATDATE, "language");
+    /*
      * Affichage de la page
      */
     /*

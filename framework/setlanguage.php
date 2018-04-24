@@ -15,5 +15,9 @@ switch ($t_module["param"]) {
             setlanguage($_REQUEST['langue']);
         }
 }
+/*
+ * Reaffectation des bons parametres pour la classe log
+ */
+$log->setParam($ObjetBDDParam);
 $module_coderetour = 1;
 ?>

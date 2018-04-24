@@ -130,7 +130,14 @@ class SearchParam
         }
         return $data;
     }
+
+    /**
+     * Function used to reinit some fields
+     */
+    function reinit()
+    {}
 }
+
 
 /**
  * Exemple d'instanciation
@@ -194,8 +201,6 @@ class SearchSample extends SearchParam
 
     function __construct()
     {
-        $ds = new DateTime();
-        $ds->modify("-1 year");
         $this->param = array(
             "name" => "",
             "sample_type_id" => "",
@@ -207,11 +212,12 @@ class SearchSample extends SearchParam
             "sampling_place_id" => "",
             "metadata_field" => "",
             "metadata_value" => "",
-            "select_date" => "",
-            "date_from" => $ds->format($_SESSION["MASKDATE"]),
-            "date_to" => date($_SESSION["MASKDATE"])
-            
+            "select_date" => ""
         );
+        /*
+         * Ajout des dates
+         */
+        $this->reinit();
         $this->paramNum = array(
             "sample_type_id",
             "collection_id",
@@ -223,6 +229,13 @@ class SearchSample extends SearchParam
         );
         parent::__construct();
     }
+    
+    function reinit() {
+        $ds = new DateTime();
+        $ds->modify("-1 year");
+        $this->param["date_from"] = $ds->format($_SESSION["MASKDATE"]);
+        $this->param["date_to"] = date($_SESSION["MASKDATE"]);
+    }
 }
 
 class SearchMovement extends SearchParam
@@ -230,14 +243,17 @@ class SearchMovement extends SearchParam
 
     function __construct()
     {
+        $this->param = array(
+            "login" => ""
+        );
+        $this->reinit();
+        parent::__construct();
+    }
+    function reinit() {
         $ds = new DateTime();
         $ds->modify("-1 month");
-        $this->param = array(
-            "login" => "",
-            "date_start" => $ds->format($_SESSION["MASKDATE"]),
-            "date_end" => date($_SESSION["MASKDATE"])
-        );
-        parent::__construct();
+        $this->param["date_start"] = $ds->format($_SESSION["MASKDATE"]);
+        $this->param["date_end"] = date($_SESSION["MASKDATE"]);
     }
 }
 

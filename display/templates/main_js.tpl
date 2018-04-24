@@ -65,24 +65,36 @@
 <!--  implementation automatique des classes -->
 <script>
 $(document).ready(function() {
+	var language = "{$language}";
+	switch (language) {
+	case "fr":
+		var urlLanguage = 'display/javascript/fr_FR.json';
+		break;
+	case "en":
+		var urlLanguage = 'display/javascript/English.json';
+		break;
+	default:
+		var urlLanguage = 'display/javascript/fr_FR.json';
+	}
+	
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdatetime"]}' );
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdate"]}' );
 	$('.datatable').DataTable({
 		language : {
-			url : 'display/javascript/fr_FR.json'
+			url : urlLanguage
 		},
 		 "searching": false
 	});
 	$('.datatable-nopaging').DataTable({
 		language : {
-			url : 'display/javascript/fr_FR.json'
+			url : urlLanguage
 		},
 		"paging" : false,
 		"searching": false
 	});
 	$('.datatable-nopaging-nosort').DataTable({
 		language : {
-			url : 'display/javascript/fr_FR.json'
+			url : urlLanguage
 		},
 		"paging" : false,
 		"searching": false,
@@ -92,7 +104,7 @@ $(document).ready(function() {
 	$('.datatable-export').DataTable({	
 		 dom: 'Bfrtip',
 		language : {
-			url : 'display/javascript/fr_FR.json'
+			url : urlLanguage
 		},
 		"paging" : false,
 		"searching": false,
@@ -110,7 +122,7 @@ $(document).ready(function() {
 	$('.datatable-export-paging').DataTable({	
 		 dom: 'Bfrtip',
 		language : {
-			url : 'display/javascript/fr_FR.json'
+			url : urlLanguage
 		},
 		"paging" : true,
 		"searching": true,

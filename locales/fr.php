@@ -1,6 +1,6 @@
 <?php
-$FORMATDATE="fr";
-$MASKDATELONG = "d/m/Y H:i:s";
+$_SESSION["FORMATDATE"]="fr";
+$_SESSION["MASKDATELONG"] = "d/m/Y H:i:s";
 $_SESSION["MASKDATE"] = "d/m/Y";
 
 $LANG= array();
@@ -8,6 +8,9 @@ $LANG["date"]["locale"] = "fr";
 $LANG["date"]["formatdate"] = "DD/MM/YYYY";
 $LANG["date"]["formatdatetime"] = "DD/MM/YYYY HH:mm:ss";
 $LANG["date"]["formatdatecourt"] = "dd/mm/yy";
+/*
+ * menu
+ */
 $LANG["menu"][0] = "Gestion";
 $LANG["menu"][1] = "Opérations de gestion";
 $LANG["menu"][2] = "Liste des comptes locaux";

@@ -1,7 +1,15 @@
 <?php
-$FORMATDATE="en";
-$MASKDATELONG = "m-d-Y H:i:s";
+$_SESSION["FORMATDATE"]="en";
+$_SESSION["MASKDATELONG"] = "m-d-Y H:i:s";
+$_SESSION["MASKDATE"] = "m-d-Y";
 $LANG= array();
+$LANG["date"]["locale"] = "en";
+$LANG["date"]["formatdate"] = "MM-DD-YYYY";
+$LANG["date"]["formatdatetime"] = "MM-DD-YYYY HH:mm:ss";
+$LANG["date"]["formatdatecourt"] = "mm-dd-yy";
+/*
+ * menu
+ */
 $LANG["menu"][0] = "Manage";
 $LANG["menu"][1] = "Managing operations";
 $LANG["menu"][2] = "Account List";

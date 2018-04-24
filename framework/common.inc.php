@@ -106,6 +106,14 @@ if (is_file ( $paramIniFile )) {
 		$$key = $value;
 	}
 }
+/*
+ * Recuperation des parametres pour ObjetBDDParam
+ */
+if (isset($_SESSION["ObjetBDDParam"])) {
+    $ObjetBDDParam = $_SESSION["ObjetBDDParam"];
+} else {
+    objetBDDparamInit();
+}
 /**
  * Integration des classes de gestion des vues et des messages
  * instanciation des messages

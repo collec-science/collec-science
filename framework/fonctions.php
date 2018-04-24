@@ -136,12 +136,12 @@ function setlanguage($langue) {
 			$LANG = array_replace_recursive ( $LANGORI, $LANGDIFF );
 		}
 	}
-	$ObjetBDDParam ["formatDate"] = $FORMATDATE;
+	$ObjetBDDParam ["formatDate"] = $_SESSION["FORMATDATE"];
+	$_SESSION["ObjetBDDParam"] = $ObjetBDDParam;
 	/*
 	 * Mise en session de la langue
 	 */
 	$_SESSION ['LANG'] = $LANG;
-	$_SESSION["MASKDATELONG"] = $MASKDATELONG;
 	/*
 	 * Regeneration du menu
 	 */
@@ -149,6 +149,10 @@ function setlanguage($langue) {
 	$menu = new Menu ( $APPLI_menufile, $LANG );
 	$_SESSION ["menu"] = $menu->generateMenu ();
 	
+	/*
+	 * Appel des fonctions specifiques de l'application
+	 */
+	include "modules/afterChangeLanguage.php";
 	/*
 	 * Ecriture du cookie
 	 */

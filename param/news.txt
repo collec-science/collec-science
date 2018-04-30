@@ -35,6 +35,7 @@ Corrections de bugs :
 - lors de la procédure d'importation externe, l'appariement était fait en tenant compte de la casse, ce qui a été supprimé
 - en création de mouvements de masse, le logiciel ne savait pas gérer correctement le fait que le même container était scanné plusieurs fois
 - le lien "retour à la liste" ne ramenait pas toujours à la liste d'origine, si l'utilisateur avait basculé de la consultation d'un échantillon à un conteneur et vice-versa
+- le basculement entre le français et l'anglais posait des problèmes de gestion de la date
 
 Version 1.2.4 du 5/12/2017
 ---------------------------

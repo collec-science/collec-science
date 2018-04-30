@@ -114,6 +114,13 @@ function dataDelete($dataClass, $id) {
  */
 function setlanguage($langue) {
 	global $language, $LANG, $APPLI_cookie_ttl, $APPLI_menufile, $menu, $ObjetBDDParam;
+
+    /*
+     * Modifie les informations de localisation pour tout (format de date et d'heure, séparateur décimal...)
+     */
+    //putenv pour windows
+	setlocale(LC_ALL, $langue); // setlocale pour linux
+
 	/*
 	 * Chargement de la langue par defaut
 	 */

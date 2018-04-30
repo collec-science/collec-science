@@ -1,0 +1,12 @@
+msgid ""
+msgstr ""
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: ../display/templates/entete.tpl:22 ../display/templates/entete.tpl:40
+msgid "Sign in"
+msgstr "Connexion"
+
+#: ../display/templates/entete.tpl:33
+msgid "Password"
+msgstr "Mot de passe"

@@ -1,6 +1,7 @@
 #!/bin/bash
 # install a new instance into a server
 # must be executed with login root
+# creation : Eric Quinton - 2017-05-04
 
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [y/n]?" response
@@ -11,8 +12,8 @@ apt-get install unzip apache2 libapache2-mod-php7.0 php7.0 php7.0-ldap php7.0-pg
 a2enmod ssl
 a2enmod headers
 a2enmod rewrite
-chmod -R g+r /etc/ssl/private
-usermod www-data -a -G ssl-cert
+# chmod -R g+r /etc/ssl/private
+# usermod www-data -a -G ssl-cert
 a2ensite default-ssl
 a2ensite 000-default
 
@@ -81,5 +82,5 @@ echo "then run this command:"
 echo "service apache2 reload"
 read -p "Enter to terminate" answer
 
-
 fi
+# end of script

@@ -1,4 +1,4 @@
-COLLEC
+COLLEC-SCIENCE
 ============
 Collec est un logiciel destiné à gérer les collections d'échantillons prélevés sur le terrain.
 

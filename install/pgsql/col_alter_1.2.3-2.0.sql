@@ -52,10 +52,10 @@ AS
     c.uid AS container_uid,
     s.line_number,
     s.column_number
-   FROM col.movement s
-     LEFT JOIN col.container c USING (container_id)
+   FROM movement s
+     LEFT JOIN container c USING (container_id)
   WHERE s.movement_id = (( SELECT st.movement_id AS movement_id
-           FROM col.movement st
+           FROM movement st
           WHERE s.uid = st.uid
           ORDER BY st.movement_date DESC
          LIMIT 1))

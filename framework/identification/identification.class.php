@@ -282,7 +282,7 @@ class Identification
      */
     function verifyLogin($loginEntered = "", $password = "", $modeAdmin = false)
     {
-        global $log, $CONNEXION_blocking_duration, $CONNEXION_max_attempts;
+        global $log, $CONNEXION_blocking_duration, $CONNEXION_max_attempts, $message;
         $login = "";
         $verify = false;
         $ident_type = $this->ident_type;

@@ -1,4 +1,3 @@
-{locale path="../../locales" domain="messages"}
 	<div class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 	
@@ -19,25 +18,27 @@
 
 		<!-- Boutons a droite du menu -->
 		<ul class="nav navbar-nav md navbar-right hidden-xs hidden-sm">
-			<li><a href="{if $isConnected}#{else}index.php?module=connexion{/if}">{if $isConnected }{$login}{else}{t}Sign in{/t}{/if} <span class="caret"></span></a>
+			<li><a href="{if $isConnected}#{else}index.php?module=connexion{/if}">{if $isConnected }{$login}{else}{t}Connexion{/t}{/if} <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 				    <li><a href='index.php?module=setlanguage&langue=fr'> <img
-								src='{$display}/images/drapeau_francais.png#180313' width='16'  border='0'> {$LANG["menu"]["fr"]}{*Français*}
+								src='{$display}/images/drapeau_francais.png#180313' width='16'  border='0'> 
+								Français
 							</a></li>
 				    <li><a href='index.php?module=setlanguage&langue=en'> <img
-								src='{$display}/images/drapeau_anglais.png#refresh180313' width='16'  border='0'> {$LANG["menu"]["en"]}{*English*}
+								src='{$display}/images/drapeau_anglais.png#refresh180313' width='16'  border='0'> 
+								English
 							</a> </li>
 {if $isConnected}
-				    <li><a href='index.php?module=loginChangePassword' title="{$LANG["login"][31]}"> <img
-								src='{$display}/images/key.png' width='16' border='0' title="{$LANG["login"][31]}">
-							{t}Password{/t}</a></li>
+				    <li><a href='index.php?module=loginChangePassword' title="{t}Modifier le mot de passe{/t}"> <img
+								src='{$display}/images/key.png' width='16' border='0' title="{t}Modifier le mot de passe{/t}">
+							{t}Mot de passe{/t}</a></li>
 					<li><a href="index.php?module=disconnect">
-<img src='{$display}/images/key_red.png' height='16' width='16' border='0' title="{$LANG['message'].33}">
-			{$LANG["menu"][6]}{*Se déconnecter*}</a></li>
+<img src='{$display}/images/key_red.png' height='16' width='16' border='0' title="{t}Déconnexion{/t}">
+			{t}Déconnexion{/t}</a></li>
 {else}{* not connected *}
 			        <li><a href="index.php?module=connexion">
-<img src='{$display}/images/key_green.png' height='16' width='16' border='0' title="{$LANG['message'].8}">
-			{t}Sign in{/t}</a></li>
+<img src='{$display}/images/key_green.png' height='16' width='16' border='0' title="{t}Connexion{/t}">
+			{t}Connexion{/t}</a></li>
 {/if}
 
 				</ul>

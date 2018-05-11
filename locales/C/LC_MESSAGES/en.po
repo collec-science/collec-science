@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: ../../../display/templates/main.tpl:6
+msgid "Liste des conteneurs"
+msgstr "List of containers"
+
+#: ../../../display/templates/main.tpl:13
+msgid "Liste des échantillons"
+msgstr "List of samples"
+
+#: ../../../display/templates/main.tpl:20
+#: ../../../display/templates/main.tpl:30
+msgid "Mouvements petit terminal"
+msgstr "Small device movements"
+
+#: ../../../display/templates/main.tpl:42
+msgid "Entrée rapide d'un échantillon dans le stock"
+msgstr "Quick entry of a sample into the stock"
+
+#: ../../../display/templates/main.tpl:49
+msgid "Entrée / sortie par scan multiple de QRCODE"
+msgstr "Entry / Exit by multiple scan of QRCODE"
+
+#: ../../../display/templates/main.tpl:56
+msgid "Sortie rapide d'un échantillon du stock"
+msgstr "Quick exit of a sample from the stock"
+
+#: ../../../display/templates/entete.tpl:21
+#: ../../../display/templates/entete.tpl:40
+#: ../../../display/templates/entete.tpl:41
+msgid "Connexion"
+msgstr "Sign in"
+
+#: ../../../display/templates/entete.tpl:32
+#: ../../../display/templates/entete.tpl:33
+msgid "Modifier le mot de passe"
+msgstr "Change your password"
+
+#: ../../../display/templates/entete.tpl:34
+msgid "Mot de passe"
+msgstr "Password"
+
+#: ../../../display/templates/entete.tpl:36
+#: ../../../display/templates/entete.tpl:37
+msgid "Déconnexion"
+msgstr "Sign out"

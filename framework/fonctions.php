@@ -116,10 +116,35 @@ function setlanguage($langue) {
 	global $language, $LANG, $APPLI_cookie_ttl, $APPLI_menufile, $menu, $ObjetBDDParam;
 
     /*
-     * Modifie les informations de localisation pour tout (format de date et d'heure, séparateur décimal...)
+     * Pour smarty-gettext (gettext)
      */
-    //putenv pour windows
-	setlocale(LC_ALL, $langue); // setlocale pour linux
+
+    /*
+     * Attention :
+     * gettext fonctionne avec setlocale. Le problème est que setlocale dépend des locales installées sur le serveur.
+     * Par exemple, si en_GB n'est pas installé alors setlocale(LC_ALL, "en_GB") ne va rien faire.
+     * L'astuce utilisée ici est de ne pas compter sur setlocale (forcé à C, la localisation portable par défaut)
+     * mais de détourner l'usage du domaine pour préciser la langue !
+     * Va donc chercher par exemple dans locales/C/LC_MESSAGES/en.mo et non locales/en/LC_MESSAGES/mydomain.mo
+     * Permet non seulement d'éviter des problèmes liés à l'environnement
+     * mais en plus rend l'arborescence plus simple en mettant toutes les langues dans le même répertoire
+     * sans avoir à gérer le domaine, souvent superflu et source possible d'erreur.
+     * (il sera toujours possible de rétablir le domaine si besoin, avec un domaine de la forme $domaine_$langue
+     */
+
+	$localeSet = setlocale(LC_ALL, "C.UTF-8"); // setlocale pour linux // C = localisation portable par défaut
+	//Attention : La valeur retournée par setlocale() dépend du système sur lequel PHP est installé. setlocale() retourne exactement ce que la fonction système setlocale retourne.
+	//TODO aide au diagnostic : vérifier que setlocale a réussi ou que le fichier de langue existe bien
+	// $path = realpath("./locales") . "/C/LC_MESSAGES/$langue.mo";
+	// var_dump( $path, file_exists( $path ) );
+	putenv("LANG=C.UTF-8"); //putenv pour windows // non testé
+	bindtextdomain($langue, realpath("./locales")); 
+	bind_textdomain_codeset($langue, "UTF-8"); 
+	textdomain($langue); 
+
+    /*
+     * Fin du code Pour smarty-gettext (gettext)
+     */
 
 	/*
 	 * Chargement de la langue par defaut

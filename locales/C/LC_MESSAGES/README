@@ -1,0 +1,19 @@
+#copier/coller les instructions suivantes dans un terminal ouvert au niveau de ce répertoire
+
+#dans les templates smarty .tpl, remplacer {\$LANG\[.+\].+} par {t}le texte en français{/t}
+
+mv en.po old.po
+
+#extrait les chaines {t}texte{/t} des templates smarty .tpl (attention écrase le fichier, d'où la conservation de l'ancien à l'étape d'avant
+../../../vendor/smarty-gettext/smarty-gettext/tsmarty2c.php -o ./new.po ../../..
+
+#fusionne l'ancien et le nouveau fichier
+msgmerge old.po new.po --output-file=en.po
+
+rm old.po new.po
+
+#faire la traduction dans en.po (avec poedit par exemple)
+poedit en.po
+
+#compiler le .po en .mo
+msgfmt en.po -o en.mo

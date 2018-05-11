@@ -3,21 +3,21 @@
 <a href="index.php?module=containerList">
 <img src="{$display}/images/box.png" height="50">
 <br>
-{$LANG["menu"].61}
+{t}Liste des conteneurs{/t}
 </a>
 </div>
 <div class="col-md-3 col-md-offset-1 center">
 <a href="index.php?module=sampleList">
 <img src="{$display}/images/sample.png" height="50">
 <br>
-{$LANG["menu"].69}
+{t}Liste des échantillons{/t}
 </a>
 </div>
 <div class="col-md-3 col-md-offset-1 center">
 <a href="index.php?module=smallMovementChange">
 <img src="{$display}/images/tablet.png" height="50">
 <br>
-{$LANG["menu"].109}
+{t}Mouvements petit terminal{/t}
 </a>
 </div>
 </div>
@@ -27,7 +27,7 @@
 <a href="index.php?module=smallMovementChange">
 <img src="{$display}/images/tablet.png" height="50">
 <br>
-{$LANG["menu"].109}
+{t}Mouvements petit terminal{/t}
 </a>
 </div>
 </div>
@@ -39,21 +39,21 @@
 <a href="index.php?module=fastInputChange">
 <img src="{$display}/images/input.png" height="50">
 <br>
-{$LANG["menu"].73}
+{t}Entrée rapide d'un échantillon dans le stock{/t}
 </a>
 </div>
 <div class="col-md-3 col-md-offset-1 center">
 <a href="index.php?module=movementBatchOpen">
 <img src="{$display}/images/barcode-scanner.png" height="50">
 <br>
-{$LANG["menu"].94}
+{t}Entrée / sortie par scan multiple de QRCODE{/t}
 </a>
 </div>
 <div class="col-md-3 col-md-offset-1 center">
 <a href="index.php?module=fastOutputChange">
 <img src="{$display}/images/output.png" height="50">
 <br>
-{$LANG["menu"].75}
+{t}Sortie rapide d'un échantillon du stock{/t}
 </a>
 </div>
 </div>

@@ -64,37 +64,42 @@
 
 <!--  implementation automatique des classes -->
 <script>
-var language = "{$language}";
-switch (language) {
-case "fr":
-	var urlLanguage = 'display/javascript/fr_FR.json';
-	break;
-case "en":
-	var urlLanguage = 'display/javascript/English.json';
-	break;
-default:
-	var urlLanguage = 'display/javascript/fr_FR.json';
-}
+var dataTableLanguage = {
+    "sProcessing":     "{t}Traitement en cours...{/t}",
+    "sSearch":         "{t}Rechercher :{/t}",
+    "sLengthMenu":     "{t}Afficher _MENU_ éléments{/t}",
+    "sInfo":           "{t}Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments{/t}",
+    "sInfoEmpty":      "{t}Affichage de l'élément 0 à 0 sur 0 élément{/t}",
+    "sInfoFiltered":   "{t}(filtré de _MAX_ éléments au total){/t}",
+    "sInfoPostFix":    "",
+    "sLoadingRecords": "{t}Chargement en cours...{/t}",
+    "sZeroRecords":    "{t}Aucun élément à afficher{/t}",
+    "sEmptyTable":     "{t}Aucune donnée disponible dans le tableau{/t}",
+    "oPaginate": {
+        "sFirst":      "{t}Premier{/t}",
+        "sPrevious":   "{t}Précédent{/t}",
+        "sNext":       "{t}Suivant{/t}",
+        "sLast":       "{t}Dernier{/t}"
+    },
+    "oAria": {
+        "sSortAscending":  "{t}: activer pour trier la colonne par ordre croissant{/t}",
+        "sSortDescending": "{t}: activer pour trier la colonne par ordre décroissant{/t}"
+    }
+};
 $(document).ready(function() {
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdatetime"]}' );
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdate"]}' );
 	$('.datatable').DataTable({
-		language : {
-			url : urlLanguage
-		},
-		 "searching": false
+		"language" : dataTableLanguage,
+		"searching": false
 	});
 	$('.datatable-nopaging').DataTable({
-		language : {
-			url : urlLanguage
-		},
+		"language" : dataTableLanguage,
 		"paging" : false,
 		"searching": false
 	});
 	$('.datatable-nopaging-nosort').DataTable({
-		language : {
-			url : urlLanguage
-		},
+		"language" : dataTableLanguage,
 		"paging" : false,
 		"searching": false,
 		"ordering": false
@@ -102,9 +107,7 @@ $(document).ready(function() {
 	
 	$('.datatable-export').DataTable({	
 		 dom: 'Bfrtip',
-		language : {
-			url : urlLanguage
-		},
+		"language" : dataTableLanguage,
 		"paging" : false,
 		"searching": false,
         buttons: [
@@ -120,9 +123,7 @@ $(document).ready(function() {
 	});
 	$('.datatable-export-paging').DataTable({	
 		 dom: 'Bfrtip',
-		language : {
-			url : urlLanguage
-		},
+		"language" : dataTableLanguage,
 		"paging" : true,
 		"searching": true,
        buttons: [
@@ -138,7 +139,7 @@ $(document).ready(function() {
 	});
 
 	
-	$('.taux,nombre').attr('title', '{$LANG[message].34}');
+	$('.taux,nombre').attr('title', '{t}Valeur numérique...{/t}');
 	$('.taux').attr({
 		'pattern' : '-?[0-9]+(\.[0-9]+)?',
 		'maxlength' : "10"
@@ -158,7 +159,7 @@ $(document).ready(function() {
 		timeFormat: 'HH:mm:ss',
 		timeInput: true
 	});
-	var lib = "{$LANG['message'].31}" ;
+	var lib = "{t}Confirmez-vous la suppression ?{/t}" ;
 	$('.button-delete').keypress(function() {
 		if (confirm(lib) == true) {
 			$(this.form).find("input[name='action']").val("Delete");

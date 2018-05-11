@@ -36,6 +36,74 @@ msgstr "Entry / Exit by multiple scan of QRCODE"
 msgid "Sortie rapide d'un échantillon du stock"
 msgstr "Quick exit of a sample from the stock"
 
+#: ../../../display/templates/main_js.tpl:68
+msgid "Traitement en cours..."
+msgstr "Processing..."
+
+#: ../../../display/templates/main_js.tpl:69
+msgid "Rechercher :"
+msgstr "Search:"
+
+#: ../../../display/templates/main_js.tpl:70
+msgid "Afficher _MENU_ éléments"
+msgstr "Show _MENU_ entries"
+
+#: ../../../display/templates/main_js.tpl:71
+msgid "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments"
+msgstr "Showing _START_ to _END_ of _TOTAL_ entries"
+
+#: ../../../display/templates/main_js.tpl:72
+msgid "Affichage de l'élément 0 à 0 sur 0 élément"
+msgstr "Showing 0 to 0 of 0 entries"
+
+#: ../../../display/templates/main_js.tpl:73
+msgid "(filtré de _MAX_ éléments au total)"
+msgstr "(filtered from _MAX_ total entries)"
+
+#: ../../../display/templates/main_js.tpl:75
+msgid "Chargement en cours..."
+msgstr "Loading..."
+
+#: ../../../display/templates/main_js.tpl:76
+msgid "Aucun élément à afficher"
+msgstr "No matching records found"
+
+#: ../../../display/templates/main_js.tpl:77
+msgid "Aucune donnée disponible dans le tableau"
+msgstr "No data available in table"
+
+#: ../../../display/templates/main_js.tpl:79
+msgid "Premier"
+msgstr "First"
+
+#: ../../../display/templates/main_js.tpl:80
+msgid "Précédent"
+msgstr "Previous"
+
+#: ../../../display/templates/main_js.tpl:81
+msgid "Suivant"
+msgstr "Next"
+
+#: ../../../display/templates/main_js.tpl:82
+msgid "Dernier"
+msgstr "Last"
+
+#: ../../../display/templates/main_js.tpl:85
+msgid ": activer pour trier la colonne par ordre croissant"
+msgstr ": activate to sort column ascending"
+
+#: ../../../display/templates/main_js.tpl:86
+msgid ": activer pour trier la colonne par ordre décroissant"
+msgstr ": activate to sort column descending"
+
+#: ../../../display/templates/main_js.tpl:142
+msgid "Valeur numérique..."
+msgstr "Numerical value..."
+
+#: ../../../display/templates/main_js.tpl:162
+msgid "Confirmez-vous la suppression ?"
+msgstr "Do you confirm the deletion?"
+
 #: ../../../display/templates/entete.tpl:21
 #: ../../../display/templates/entete.tpl:40
 #: ../../../display/templates/entete.tpl:41

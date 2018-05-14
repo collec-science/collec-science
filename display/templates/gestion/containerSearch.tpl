@@ -8,7 +8,7 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
 		if (data != null) {
 		console.log ("data is not null");
-			options = '<option value="">Sélectionnez...</option>';			
+			options = '<option value="">{t}Sélectionnez...{/t}</option>';			
 			 for (var i = 0; i < data.length; i++) {
 			        options += '<option value="' + data[i].container_type_id + '"';
 			        if (data[i].container_type_id == type_init) {
@@ -48,14 +48,14 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 <input id="action" type="hidden" name="action" value="{if strlen($action)>0}{$action}{else}List{/if}">
 <input id="isSearch" type="hidden" name="isSearch" value="1">
 <div class="form-group">
-<label for="name" class="col-md-2 control-label">uid ou identifiant :</label>
+<label for="name" class="col-md-2 control-label">{t}UID ou identifiant :{/t}</label>
 <div class="col-md-4">
-<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible)" >
+<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="{t}uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible){/t}" >
 </div>
-<label for="object_status_id" class="col-md-2 control-label">Statut :</label>
+<label for="object_status_id" class="col-md-2 control-label">{t}Statut :{/t}</label>
 <div class="col-md-4">
 <select id="object_status_id" name="object_status_id" class="form-control">
-<option value="" {if $containerSearch.object_status_id == ""}selected{/if}>Sélectionnez...</option>
+<option value="" {if $containerSearch.object_status_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
 {section name=lst loop=$objectStatus}
 <option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id == $containerSearch.object_status_id}selected{/if}>
 {$objectStatus[lst].object_status_name}
@@ -65,7 +65,7 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 </div>
 </div>
 <div class="form-group">
-<label for="container_family_id" class="col-md-2 control-label">UID entre :</label>
+<label for="container_family_id" class="col-md-2 control-label">{t}UID entre :{/t}</label>
 <div class="col-md-2">
 <input id="uid_min" name="uid_min" class="nombre form-control" value="{$containerSearch.uid_min}">
 </div>
@@ -73,10 +73,10 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 <input id="uid_max" name="uid_max" class="nombre form-control" value="{$containerSearch.uid_max}">
 </div>
 
-<label for="container_family_id" class="col-md-2 control-label">Famille :</label>
+<label for="container_family_id" class="col-md-2 control-label">{t}Famille :{/t}</label>
 <div class="col-md-4">
 <select id="container_family_id" name="container_family_id" class="form-control">
-<option value="" {if $containerSearch.container_family_id == ""}selected{/if}>Sélectionnez...</option>
+<option value="" {if $containerSearch.container_family_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
 {section name=lst loop=$containerFamily}
 <option value="{$containerFamily[lst].container_family_id}" {if $containerFamily[lst].container_family_id == $containerSearch.container_family_id}selected{/if}>
 {$containerFamily[lst].container_family_name}
@@ -94,12 +94,12 @@ var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.con
 </div>
 -->
 <div class="col-md-2 col-md-offset-4">
-<input type="submit" class="btn btn-success" value="{$LANG['message'][21]}">
+<input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
 </div>
-<label for="container_type_id" class="col-md-2 control-label">Type :</label>
+<label for="container_type_id" class="col-md-2 control-label">{t}Type :{/t}</label>
 <div class="col-md-4">
 <select id="container_type_id" name="container_type_id" class="form-control">
-<option value="" {if $containerSearch.container_type_id == ""}selected{/if}>Sélectionnez...</option>
+<option value="" {if $containerSearch.container_type_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
 {section name=lst loop=$container_type}
 <option value="{$container_type[lst].container_type_id}" {if $container_type[lst].container_type_id == $containerSearch.container_type_id}selected{/if} title="{$container_type[lst].container_type_description}">
 {$container_type[lst].container_type_name}

@@ -12,7 +12,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.11\n"
 
 #: ../../../display/templates/main.tpl:6
-msgid "Liste des conteneurs"
+msgid "Liste des contenants"
 msgstr "List of containers"
 
 #: ../../../display/templates/main.tpl:13
@@ -123,3 +123,138 @@ msgstr "Password"
 #: ../../../display/templates/entete.tpl:37
 msgid "Déconnexion"
 msgstr "Sign out"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:6
+msgid "Tout cocher"
+msgstr "Check all"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:8
+#: ../../../display/templates/gestion/containerListDetail.tpl:52
+msgid "Tout décocher"
+msgstr "Uncheck all"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:55
+msgid "Étiquette par défaut"
+msgstr "Default label"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:62
+msgid "Étiquettes"
+msgstr "Labels"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:64
+msgid "Fichier CSV"
+msgstr "CSV file"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:73
+msgid "Impression directe"
+msgstr "Direct printing"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:81
+msgid "UID"
+msgstr "UID"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:82
+msgid "Identifiant ou nom"
+msgstr "Identifier or name"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:83
+msgid "Autres identifiants"
+msgstr "Other identifiers"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:84
+msgid "Statut"
+msgstr "Status"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:85
+msgid "Type"
+msgstr "Type"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:86
+msgid "Dernier mouvement"
+msgstr "Last movement"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:87
+msgid "Emplacement"
+msgstr "Location"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:88
+msgid "Condition de stockage"
+msgstr "Storage condition"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:89
+msgid "Produit de stockage"
+msgstr "Storage product"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:90
+msgid "Code CLP"
+msgstr "CLP code"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:91
+msgid "Photo"
+msgstr "Photo"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:101
+#: ../../../display/templates/gestion/containerListDetail.tpl:105
+msgid "Consultez le détail"
+msgstr "Consult the detail"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:132
+msgid "col:"
+msgstr "col:"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:132
+msgid "ligne:"
+msgstr "row:"
+
+#: ../../../display/templates/gestion/containerListDetail.tpl:146
+msgid "aperçu de la photo"
+msgstr "preview of the photo"
+
+#: ../../../display/templates/gestion/containerList.tpl:1
+msgid "Rechercher des contenants"
+msgstr "Find containers"
+
+#: ../../../display/templates/gestion/containerList.tpl:11
+msgid "Nouveau contenant"
+msgstr "New container"
+
+#: ../../../display/templates/gestion/containerSearch.tpl:11
+#: ../../../display/templates/gestion/containerSearch.tpl:58
+#: ../../../display/templates/gestion/containerSearch.tpl:79
+#: ../../../display/templates/gestion/containerSearch.tpl:102
+msgid "Sélectionnez..."
+msgstr "Select ..."
+
+#: ../../../display/templates/gestion/containerSearch.tpl:51
+msgid "UID ou identifiant :"
+msgstr "UID or identifier:"
+
+#: ../../../display/templates/gestion/containerSearch.tpl:53
+msgid ""
+"uid, identifiant principal, identifiants secondaires (p. e. : cab:15 "
+"possible)"
+msgstr ""
+"uid, principal identifier, secondary identifiers (eg: cab: 15 possible)"
+
+#: ../../../display/templates/gestion/containerSearch.tpl:55
+msgid "Statut :"
+msgstr "Status:"
+
+#: ../../../display/templates/gestion/containerSearch.tpl:68
+msgid "UID entre :"
+msgstr "UID between:"
+
+#: ../../../display/templates/gestion/containerSearch.tpl:76
+msgid "Famille :"
+msgstr "Family:"
+
+#: ../../../display/templates/gestion/containerSearch.tpl:97
+msgid "Rechercher"
+msgstr "Search"
+
+#: ../../../display/templates/gestion/containerSearch.tpl:99
+msgid "Type :"
+msgstr "Type:"
+
+#~ msgid "line:"
+#~ msgstr "row:"

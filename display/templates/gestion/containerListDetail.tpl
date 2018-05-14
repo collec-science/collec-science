@@ -3,9 +3,9 @@
 $(document).ready(function () {
 	$("#checkContainer").change( function() {
 		$('.checkContainer').prop('checked', this.checked);
-		var libelle="Tout cocher";
+		var libelle="{t}Tout cocher{/t}";
 		if (this.checked) {
-			libelle = "Tout décocher";
+			libelle = "{t}Tout décocher{/t}";
 		} 
 		$("#lcheckContainer").text(libelle);
 	});
@@ -49,19 +49,19 @@ $(document).ready(function () {
 <input type="hidden" id="module" name="module" value="containerPrintLabel">
 <div class="row">
 <div class="center">
-<label id="lcheckContainer" for="check">Tout décocher</label>
+<label id="lcheckContainer" for="check">{t}Tout décocher{/t}</label>
 <input type="checkbox" id="checkContainer" checked>
 						<select id="labels" name="label_id">
-			<option value="" {if $label_id == ""}selected{/if}>Étiquette par défaut</option>
+			<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
 			{section name=lst loop=$labels}
 			<option value="{$labels[lst].label_id}" {if $labels[lst].label_id == $label_id}selected{/if}>
 			{$labels[lst].label_name}
 			</option>
 			{/section}
 			</select>
-			<button id="containerlabels" class="btn btn-primary">Étiquettes</button>
+			<button id="containerlabels" class="btn btn-primary">{t}Étiquettes{/t}</button>
 			<img id="containerSpinner" src="{$display}/images/spinner.gif" height="25">
-			<button id="containercsvfile" class="btn btn-primary">Fichier CSV</button>
+			<button id="containercsvfile" class="btn btn-primary">{t}Fichier CSV{/t}</button>
 			{if count($printers) > 0}
 			<select id="printers" name="printer_id">
 			{section name=lst loop=$printers}
@@ -70,7 +70,7 @@ $(document).ready(function () {
 			</option>
 			{/section}
 			</select>
-			<button id="containerdirect" class="btn btn-primary">Impression directe</button>
+			<button id="containerdirect" class="btn btn-primary">{t}Impression directe{/t}</button>
 			{/if}
 </div>
 </div>
@@ -78,17 +78,17 @@ $(document).ready(function () {
 <table id="containerList" class="table table-bordered table-hover datatable-export " >
 <thead>
 <tr>
-<th>UID</th>
-<th>Identifiant ou nom</th>
-<th>Autres identifiants</th>
-<th>Statut</th>
-<th>Type</th>
-<th>Dernier mouvement</th>
-<th>Emplacement</th>
-<th>Condition de stockage</th>
-<th>Produit de stockage</th>
-<th>Code CLP</th>
-<th>Photo</th>
+<th>{t}UID{/t}</th>
+<th>{t}Identifiant ou nom{/t}</th>
+<th>{t}Autres identifiants{/t}</th>
+<th>{t}Statut{/t}</th>
+<th>{t}Type{/t}</th>
+<th>{t}Dernier mouvement{/t}</th>
+<th>{t}Emplacement{/t}</th>
+<th>{t}Condition de stockage{/t}</th>
+<th>{t}Produit de stockage{/t}</th>
+<th>{t}Code CLP{/t}</th>
+<th>{t}Photo{/t}</th>
 {if $droits.gestion == 1}
 <th></th>
 {/if}
@@ -98,11 +98,11 @@ $(document).ready(function () {
 {section name=lst loop=$containers}
 <tr>
 <td class="text-center">
-<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="Consultez le détail">
+<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="{t}Consultez le détail{/t}">
 {$containers[lst].uid}
 </td>
 <td>
-<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="Consultez le détail">
+<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="{t}Consultez le détail{/t}">
 {$containers[lst].identifier}
 </a>
 </td>
@@ -129,7 +129,7 @@ $(document).ready(function () {
 <a href="index.php?module=containerDisplay&uid={$containers[lst].container_uid}">
 {$containers[lst].container_identifier}
 </a>
-<br>col:{$containers[lst].column_number} line:{$containers[lst].line_number}
+<br>{t}col:{/t}{$containers[lst].column_number} {t}ligne:{/t}{$containers[lst].line_number}
 {/if}
 </td>
 <td>
@@ -143,7 +143,7 @@ $(document).ready(function () {
 </td>
 <td class="center">
 {if $containers[lst].document_id > 0}
-<a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$containers[lst].document_id}&attached=0&phototype=1" title="aperçu de la photo">
+<a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$containers[lst].document_id}&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">
 <img src="index.php?module=documentGet&document_id={$containers[lst].document_id}&attached=0&phototype=2" height="30">
 </a>
 {/if}

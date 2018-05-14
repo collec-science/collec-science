@@ -3,7 +3,7 @@
 <a href="index.php?module=containerList">
 <img src="{$display}/images/box.png" height="50">
 <br>
-{t}Liste des conteneurs{/t}
+{t}Liste des contenants{/t}
 </a>
 </div>
 <div class="col-md-3 col-md-offset-1 center">

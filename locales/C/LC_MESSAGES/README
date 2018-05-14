@@ -8,7 +8,7 @@ mv en.po old.po
 ../../../vendor/smarty-gettext/smarty-gettext/tsmarty2c.php -o ./new.po ../../..
 
 #fusionne l'ancien et le nouveau fichier
-msgmerge old.po new.po --output-file=en.po
+msgmerge old.po new.po -o en.po
 
 rm old.po new.po
 
@@ -17,3 +17,6 @@ poedit en.po
 
 #compiler le .po en .mo
 msgfmt en.po -o en.mo
+
+#pour éviter les problèmes de cache, relancer le serveur :
+sudo service apache2 reload

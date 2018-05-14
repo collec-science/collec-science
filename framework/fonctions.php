@@ -131,6 +131,13 @@ function setlanguage($langue) {
      * sans avoir à gérer le domaine, souvent superflu et source possible d'erreur.
      * (il sera toujours possible de rétablir le domaine si besoin, avec un domaine de la forme $domaine_$langue
      */
+    /*
+     * Attention au cache :
+     * le cache de gettext est coriace et peut amener à l'apparition d'ancienne traduction
+     * lors d'une modification d'un fichier de traduction .mo il est recommander de relancer le serveur : 
+     * sudo service apache2 reload
+     */
+	// var_dump($langue); // aide à la traduction lors du développement
 
 	$localeSet = setlocale(LC_ALL, "C.UTF-8"); // setlocale pour linux // C = localisation portable par défaut
 	//Attention : La valeur retournée par setlocale() dépend du système sur lequel PHP est installé. setlocale() retourne exactement ce que la fonction système setlocale retourne.

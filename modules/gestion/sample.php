@@ -28,9 +28,13 @@ switch ($t_module["param"]) {
             $_SESSION["searchSample"]->setParam($_REQUEST);
         $dataSearch = $_SESSION["searchSample"]->getParam();
         if ($_SESSION["searchSample"]->isSearch() == 1) {
+            try {
             $data = $dataClass->sampleSearch($dataSearch);
             $vue->set($data, "samples");
             $vue->set(1, "isSearch");
+            } catch (Exception $e) {
+                $message->set("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic");
+            }
         }
         $vue->set($dataSearch, "sampleSearch");
         $vue->set("gestion/sampleList.tpl", "corps");

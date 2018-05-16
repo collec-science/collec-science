@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-16 14:58+0200\n"
+"POT-Creation-Date: 2018-05-16 15:27+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -405,6 +405,16 @@ msgstr "New container"
 #: ../../../display/templates/gestion/containerSearch.tpl:76
 msgid "Famille :"
 msgstr "Family:"
+
+#: ../../../display/templates/enpied.tpl:3
+msgid ""
+"Copyright (c) 2016-2018 - Tous droits réservés. Auteur : Éric Quinton, pour "
+"IRSTEA - Logiciel diffusé sous licence AGPL"
+msgstr "Copyright (c) 2007-2016 - All rights reserved. Author: Éric Quinton"
+
+#: ../../../display/templates/enpied.tpl:5
+msgid "Pour tout problème :"
+msgstr "For any problem:"
 
 #~ msgid "line:"
 #~ msgstr "row:"

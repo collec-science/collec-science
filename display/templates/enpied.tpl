@@ -1,9 +1,8 @@
   <div class="container">
     <p class="text-muted hidden-xs hidden-sm">
-    {$LANG.message.23}
+    {t}Copyright (c) 2016-2018 - Tous droits réservés. Auteur : Éric Quinton, pour IRSTEA - Logiciel diffusé sous licence AGPL{/t}
 <br>
-{$LANG.message.25}
-<a href="{$appliAssist}">{$appliAssist}</a>
+{t}Pour tout problème :{/t} <a href="{$appliAssist}">{$appliAssist}</a>
 </p>
  <ul class="nav pull-right scroll-top scrolltotop">
   <li><a href="#" title="Scroll to top"><i class="glyphicon glyphicon-chevron-up"></i></a></li>

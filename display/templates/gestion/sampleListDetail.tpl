@@ -3,9 +3,9 @@
 	$(document).ready(function() {
 		$("#checkSample").change(function() {
 			$('.checkSample').prop('checked', this.checked);
-			var libelle = "Tout cocher";
+			var libelle = "{t}Tout cocher{/t}";
 			if (this.checked) {
-				libelle = "Tout décocher";
+				libelle = "{t}Tout décocher{/t}";
 			}
 			$("#lsamplechek").text(libelle);
 		});
@@ -37,17 +37,17 @@
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
 	<div class="row">
 		<div class="center">
-			<label id="lsamplecheck" for="checkSample">Tout décocher</label> <input
+			<label id="lsamplecheck" for="checkSample">{t}Tout décocher{/t}</label> <input
 				type="checkbox" id="checkSample" checked>
 			<select id="labels" name="label_id">
-			<option value="" {if $label_id == ""}selected{/if}>Étiquette par défaut</option>
+			<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
 			{section name=lst loop=$labels}
 			<option value="{$labels[lst].label_id}" {if $labels[lst].label_id == $label_id}selected{/if}>
 			{$labels[lst].label_name}
 			</option>
 			{/section}
 			</select>
-			<button id="samplelabels" class="btn btn-primary">Étiquettes</button>
+			<button id="samplelabels" class="btn btn-primary">{t}Étiquettes{/t}</button>
 			<img id="sampleSpinner" src="{$display}/images/spinner.gif" height="25">
 
 			{if count($printers) > 0}
@@ -58,12 +58,12 @@
 			</option>
 			{/section}
 			</select>
-			<button id="sampledirect" class="btn btn-primary">Impression directe</button>
+			<button id="sampledirect" class="btn btn-primary">{t}Impression directe{/t}</button>
 			{/if}
-			<button id="samplecsvfile" class="btn btn-primary">Fichier CSV</button>
+			<button id="samplecsvfile" class="btn btn-primary">{t}Fichier CSV{/t}</button>
 			{if $droits["gestion"] == 1}
-			<button id="sampleExport" class="btn btn-primary" title="Export pour import dans une autre base Collec-Science">
-			Export vers autre base</button>
+			<button id="sampleExport" class="btn btn-primary" title="{t}Export pour import dans une autre base Collec-Science{/t}">
+			{t}Export vers autre base{/t}</button>
 			{/if}
 		</div>
 	</div>
@@ -72,20 +72,20 @@
 		class="table table-bordered table-hover datatable-export ">
 		<thead>
 			<tr>
-				<th>UID</th>
-				<th>Identifiant ou nom</th>
-				<th>Autres identifiants</th>
-				<th>Collection</th>
-				<th>Type</th>
-				<th>Statut</th>
-				<th>Parent</th>
-				<th>Photo</th>
-				<th>Dernier mouvement</th>
-				<th>Emplacement</th>
-				<th>Lieu de prélèvement</th>
-				<th>Date d'échantillonnage</th>
-				<th>Date de création dans la base</th>
-				<th>Date d'expiration</th> 
+				<th>{t}UID{/t}</th>
+				<th>{t}Identifiant ou nom{/t}</th>
+				<th>{t}Autres identifiants{/t}</th>
+				<th>{t}Collection{/t}</th>
+				<th>{t}Type{/t}</th>
+				<th>{t}Statut{/t}</th>
+				<th>{t}Parent{/t}</th>
+				<th>{t}Photo{/t}</th>
+				<th>{t}Dernier mouvement{/t}</th>
+				<th>{t}Emplacement{/t}</th>
+				<th>{t}Lieu de prélèvement{/t}</th>
+				<th>{t}Date d'échantillonnage{/t}</th>
+				<th>{t}Date de création dans la base{/t}</th>
+				<th>{t}Date d'expiration{/t}</th> 
 				{if $droits.gestion == 1}
 				<th></th> {/if}
 			</tr>
@@ -95,15 +95,15 @@
 			<tr>
 				<td class="text-center"><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
-					title="Consultez le détail"> {$samples[lst].uid} </a>
+					title="{t}Consultez le détail{/t}"> {$samples[lst].uid} </a>
 					</td>
 				<td><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
-					title="Consultez le détail"> {$samples[lst].identifier} </a></td>
+					title="{t}Consultez le détail{/t}"> {$samples[lst].identifier} </a></td>
 				<td>{$samples[lst].identifiers}
 				{if strlen($samples[lst].dbuid_origin) > 0}
 				{if strlen($samples[lst].identifiers) > 0}<br>{/if}
-				<span title="UID de la base de données d'origine">{$samples[lst].dbuid_origin}</span>
+				<span title="{t}UID de la base de données d'origine{/t}">{$samples[lst].dbuid_origin}</span>
 				{/if}
 				</td>
 				<td>{$samples[lst].collection_name}</td>
@@ -118,7 +118,7 @@
 				<td class="center">{if $samples[lst].document_id > 0} <a
 					class="image-popup-no-margins"
 					href="index.php?module=documentGet&document_id={$samples[lst].document_id}&attached=0&phototype=1"
-					title="aperçu de la photo"> <img
+					title="{t}aperçu de la photo{/t}"> <img
 						src="index.php?module=documentGet&document_id={$samples[lst].document_id}&attached=0&phototype=2"
 						height="30">
 				</a> {/if}
@@ -138,7 +138,7 @@
 					<a href="index.php?module=containerDisplay&uid={$samples[lst].container_uid}">
 					{$samples[lst].container_identifier}
 					</a>
-					<br>col:{$samples[lst].column_number} line:{$samples[lst].line_number}
+					<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
 					{/if}
 				</td>
 				<td>{$samples[lst].sampling_place_name}</td>

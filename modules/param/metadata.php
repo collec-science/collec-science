@@ -81,15 +81,15 @@ switch ($t_module["param"]) {
                     );
                     $dataClass->ecrire($data);
                 }
-                $message->set("Métadonnée(s) importée(s)");
+                $message->set(_("Métadonnée(s) importée(s)"));
                 $module_coderetour = 1;
             } catch (Exception $e) {
-                $message->set("Impossible d'importer les métadonnées");
+                $message->set(_("Impossible d'importer les métadonnées"));
                 $message->set($e->getMessage());
                 $module_coderetour = - 1;
             }
         } else {
-            $message->set("Impossible de charger le fichier à importer");
+            $message->set(_("Impossible de charger le fichier à importer"));
             $module_coderetour = - 1;
         }
         break;

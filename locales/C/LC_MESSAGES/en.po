@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-15 17:00+0200\n"
+"POT-Creation-Date: 2018-05-16 14:58+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,6 +11,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.11\n"
+
+#: ../../../modules/param/dbparam.php:18
+msgid "Enregistrement effectué"
+msgstr "Writing done"
+
+#: ../../../modules/param/dbparam.php:25
+msgid "Problème lors de la mise en fichier..."
+msgstr "Writing problem..."
+
+#: ../../../modules/param/metadata.php:84
+msgid "Métadonnée(s) importée(s)"
+msgstr "Metadata imported"
+
+#: ../../../modules/param/metadata.php:87
+msgid "Impossible d'importer les métadonnées"
+msgstr "Can not import metadata"
+
+#: ../../../modules/param/metadata.php:92
+msgid "Impossible de charger le fichier à importer"
+msgstr "Unable to load the file to import"
 
 #: ../../../modules/gestion/index.php:6
 msgid "Module gestion"
@@ -130,55 +150,69 @@ msgid "Déconnexion"
 msgstr "Sign out"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:6
+#: ../../../display/templates/gestion/sampleListDetail.tpl:6
 msgid "Tout cocher"
 msgstr "Check all"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:8
 #: ../../../display/templates/gestion/containerListDetail.tpl:52
+#: ../../../display/templates/gestion/sampleListDetail.tpl:8
+#: ../../../display/templates/gestion/sampleListDetail.tpl:40
 msgid "Tout décocher"
 msgstr "Uncheck all"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:55
+#: ../../../display/templates/gestion/sampleListDetail.tpl:43
 msgid "Étiquette par défaut"
 msgstr "Default label"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:62
+#: ../../../display/templates/gestion/sampleListDetail.tpl:50
 msgid "Étiquettes"
 msgstr "Labels"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:64
+#: ../../../display/templates/gestion/sampleListDetail.tpl:63
 msgid "Fichier CSV"
 msgstr "CSV file"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:73
+#: ../../../display/templates/gestion/sampleListDetail.tpl:61
 msgid "Impression directe"
 msgstr "Direct printing"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:81
+#: ../../../display/templates/gestion/sampleListDetail.tpl:75
 msgid "UID"
 msgstr "UID"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:82
+#: ../../../display/templates/gestion/sampleListDetail.tpl:76
 msgid "Identifiant ou nom"
 msgstr "Identifier or name"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:83
+#: ../../../display/templates/gestion/sampleListDetail.tpl:77
 msgid "Autres identifiants"
 msgstr "Other identifiers"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:84
+#: ../../../display/templates/gestion/sampleListDetail.tpl:80
 msgid "Statut"
 msgstr "Status"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:85
+#: ../../../display/templates/gestion/sampleListDetail.tpl:79
 msgid "Type"
 msgstr "Type"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:86
+#: ../../../display/templates/gestion/sampleListDetail.tpl:83
 msgid "Dernier mouvement"
 msgstr "Last movement"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:87
+#: ../../../display/templates/gestion/sampleListDetail.tpl:84
 msgid "Emplacement"
 msgstr "Location"
 
@@ -195,25 +229,170 @@ msgid "Code CLP"
 msgstr "CLP code"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:91
+#: ../../../display/templates/gestion/sampleListDetail.tpl:82
 msgid "Photo"
 msgstr "Photo"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:101
 #: ../../../display/templates/gestion/containerListDetail.tpl:105
+#: ../../../display/templates/gestion/sampleListDetail.tpl:98
+#: ../../../display/templates/gestion/sampleListDetail.tpl:102
 msgid "Consultez le détail"
 msgstr "Consult the detail"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:132
+#: ../../../display/templates/gestion/sampleListDetail.tpl:141
 msgid "col:"
 msgstr "col:"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:132
+#: ../../../display/templates/gestion/sampleListDetail.tpl:141
 msgid "ligne:"
 msgstr "row:"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:146
+#: ../../../display/templates/gestion/sampleListDetail.tpl:121
 msgid "aperçu de la photo"
 msgstr "preview of the photo"
+
+#: ../../../display/templates/gestion/sampleList.tpl:1
+msgid "Rechercher des échantillons"
+msgstr "Search samples"
+
+#: ../../../display/templates/gestion/sampleList.tpl:11
+msgid "Nouvel échantillon"
+msgstr "New sample"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:65
+msgid "Export pour import dans une autre base Collec-Science"
+msgstr "Export for import into another Collec-Science database"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:66
+msgid "Export vers autre base"
+msgstr "Export to another database"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:78
+msgid "Collection"
+msgstr "Collection"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:81
+msgid "Parent"
+msgstr "Parent"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:85
+msgid "Lieu de prélèvement"
+msgstr "Sampling place"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:86
+#: ../../../display/templates/gestion/sampleSearch.tpl:260
+msgid "Date d'échantillonnage"
+msgstr "Sampling date"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:87
+#: ../../../display/templates/gestion/sampleSearch.tpl:259
+msgid "Date de création dans la base"
+msgstr "Creation date in the database"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:88
+#: ../../../display/templates/gestion/sampleSearch.tpl:261
+msgid "Date d'expiration"
+msgstr "Expiration date"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:106
+msgid "UID de la base de données d'origine"
+msgstr "UID from the original database"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:51
+#: ../../../display/templates/gestion/sampleSearch.tpl:285
+#: ../../../display/templates/gestion/sampleSearch.tpl:300
+#: ../../../display/templates/gestion/sampleSearch.tpl:315
+msgid "Métadonnée :"
+msgstr "Metadata:"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:173
+#: ../../../display/templates/gestion/containerSearch.tpl:51
+msgid "UID ou identifiant :"
+msgstr "UID or identifier:"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:175
+#: ../../../display/templates/gestion/containerSearch.tpl:53
+msgid ""
+"uid, identifiant principal, identifiants secondaires (p. e. : cab:15 "
+"possible)"
+msgstr ""
+"uid, principal identifier, secondary identifiers (eg: cab: 15 possible)"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:177
+msgid "Collection :"
+msgstr "Collection:"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:180
+msgid "Choisissez..."
+msgstr "Select ..."
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:193
+#: ../../../display/templates/gestion/containerSearch.tpl:68
+msgid "UID entre :"
+msgstr "UID between:"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:201
+#: ../../../display/templates/gestion/containerSearch.tpl:99
+msgid "Type :"
+msgstr "Type:"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:204
+#: ../../../display/templates/gestion/sampleSearch.tpl:219
+#: ../../../display/templates/gestion/sampleSearch.tpl:234
+#: ../../../display/templates/gestion/sampleSearch.tpl:258
+#: ../../../display/templates/gestion/containerSearch.tpl:11
+#: ../../../display/templates/gestion/containerSearch.tpl:58
+#: ../../../display/templates/gestion/containerSearch.tpl:79
+#: ../../../display/templates/gestion/containerSearch.tpl:102
+msgid "Sélectionnez..."
+msgstr "Select ..."
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:216
+msgid "Lieu de prélèvement :"
+msgstr "Sampling place:"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:231
+#: ../../../display/templates/gestion/containerSearch.tpl:55
+msgid "Statut :"
+msgstr "Status:"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:255
+msgid "Recherche par date :"
+msgstr "Search by date:"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:264
+msgid "du :"
+msgstr "from:"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:268
+msgid "au :"
+msgstr "to:"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:274
+#: ../../../display/templates/gestion/containerSearch.tpl:97
+msgid "Rechercher"
+msgstr "Search"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:294
+#: ../../../display/templates/gestion/sampleSearch.tpl:309
+msgid ""
+"Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche "
+"en milieu de texte, préfixez par %"
+msgstr ""
+"Label to search in the selected metadata field. If mid-text search, prefix "
+"by %"
+
+#: ../../../display/templates/gestion/sampleSearch.tpl:324
+msgid ""
+"Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche "
+"en milieu de texte, préfixez par % (cela peut ralentir la requête)"
+msgstr ""
+"Label to search in the selected metadata field. If mid-text search, prefix "
+"by % (this may slow down the query)"
 
 #: ../../../display/templates/gestion/containerList.tpl:1
 msgid "Rechercher des contenants"
@@ -223,43 +402,9 @@ msgstr "Find containers"
 msgid "Nouveau contenant"
 msgstr "New container"
 
-#: ../../../display/templates/gestion/containerSearch.tpl:11
-#: ../../../display/templates/gestion/containerSearch.tpl:58
-#: ../../../display/templates/gestion/containerSearch.tpl:79
-#: ../../../display/templates/gestion/containerSearch.tpl:102
-msgid "Sélectionnez..."
-msgstr "Select ..."
-
-#: ../../../display/templates/gestion/containerSearch.tpl:51
-msgid "UID ou identifiant :"
-msgstr "UID or identifier:"
-
-#: ../../../display/templates/gestion/containerSearch.tpl:53
-msgid ""
-"uid, identifiant principal, identifiants secondaires (p. e. : cab:15 "
-"possible)"
-msgstr ""
-"uid, principal identifier, secondary identifiers (eg: cab: 15 possible)"
-
-#: ../../../display/templates/gestion/containerSearch.tpl:55
-msgid "Statut :"
-msgstr "Status:"
-
-#: ../../../display/templates/gestion/containerSearch.tpl:68
-msgid "UID entre :"
-msgstr "UID between:"
-
 #: ../../../display/templates/gestion/containerSearch.tpl:76
 msgid "Famille :"
 msgstr "Family:"
-
-#: ../../../display/templates/gestion/containerSearch.tpl:97
-msgid "Rechercher"
-msgstr "Search"
-
-#: ../../../display/templates/gestion/containerSearch.tpl:99
-msgid "Type :"
-msgstr "Type:"
 
 #~ msgid "line:"
 #~ msgstr "row:"

@@ -1,4 +1,4 @@
-<h2>Rechercher des échantillons</h2>
+<h2>{t}Rechercher des échantillons{/t}</h2>
 
 	<div class="row">
 	<div class="col-md-8">
@@ -8,7 +8,7 @@
 <div class="row">
 <div class="col-md-12">
 {if $droits.gestion == 1}
-<a href="index.php?module=sampleChange&uid=0"><img src="{$display}/images/new.png" height="25">Nouvel échantillon</a>
+<a href="index.php?module=sampleChange&uid=0"><img src="{$display}/images/new.png" height="25">{t}Nouvel échantillon{/t}</a>
 {/if}
 {if $isSearch > 0}
 

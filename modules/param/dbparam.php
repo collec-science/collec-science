@@ -15,14 +15,14 @@ switch ($t_module["param"]) {
     case "writeGlobal":
         try {
             $dataClass->ecrireGlobal($_REQUEST);
-            $message->set ( $LANG ["message"] [5] );
+            $message->set (_("Enregistrement effectué"));
             $module_coderetour = 1;
             $log->setLog ( $_SESSION ["login"], get_class ( $dataClass ) . "-writeGlobal" );
         }catch (Exception $e) {
             if ($OBJETBDD_debugmode > 0) {
                 $message->set ( $dataClass->getErrorData ( 1 ) );
             } else {
-                $message->set ( $LANG ["message"] [12] );
+                $message->set (_("Problème lors de la mise en fichier..."));
             }
             $message->setSyslog ( $e->getMessage () );
             $module_coderetour = - 1;

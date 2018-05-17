@@ -597,13 +597,13 @@ class LoginGestion extends ObjetBDD
                     if ($this->passwordVerify($_SESSION["login"], $pass1, $pass2)) {
                         $retour = $this->writeNewPassword($_SESSION["login"], $pass1);
                     } else {
-                        $message->set($LANG["login"][51]);
+                        $message->set(_("La modification du mot de passe a échoué"));
                     }
                 } else {
-                    $message->set($LANG["login"][19]);
+                    $message->set(_("L'ancien mot de passe est incorrect"));
                 }
             } else {
-                $message->set($LANG["login"][18]);
+                $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"));
             }
         }
         
@@ -671,12 +671,12 @@ class LoginGestion extends ObjetBDD
                 $loginOldPassword = new LoginOldPassword($this->connection, $this->paramori);
                 $loginOldPassword->setPassword($data["id"], $data["password"]);
                 
-                $message->set($LANG["login"][20]);
+                $message->set(_("Le mot de passe a été modifié"));
             } else {
-                $message->set($LANG["login"][50]);
+                $message->set(_("Echec de modification du mot de passe pour une raison inconnue. Si le problème persiste, contactez l'assistance"));
             }
         } else {
-            $message->set($LANG["login"][18]);
+            $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"));
         }
         return $retour;
     }
@@ -718,16 +718,16 @@ class LoginGestion extends ObjetBDD
                     if ($nb == 0) {
                         $ok = true;
                     } else {
-                        $message->set($LANG["login"][14]);
+                        $message->set(_("Le mot de passe a déjà été utilisé"));
                     }
                 } else {
-                    $message->set($LANG["login"][15]);
+                    $message->set(_("Le mot de passe n'est pas assez complexe"));
                 }
             } else {
-                $message->set($LANG["login"][16]);
+                $message->set(_("Le mot de passe est trop court"));
             }
         } else {
-            $message->set($LANG["login"][17]);
+            $message->set(_("Le mot de passe n'est pas identique dans les deux zones"));
         }
         return $ok;
     }

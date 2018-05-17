@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-16 15:27+0200\n"
+"POT-Creation-Date: 2018-05-17 12:00+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,6 +11,51 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.11\n"
+
+#: ../../../framework/identification/identification.class.php:600
+msgid "La modification du mot de passe a échoué"
+msgstr "Password change failed"
+
+#: ../../../framework/identification/identification.class.php:603
+msgid "L'ancien mot de passe est incorrect"
+msgstr "The old password is incorrect"
+
+#: ../../../framework/identification/identification.class.php:606
+#: ../../../framework/identification/identification.class.php:679
+msgid ""
+"Le mode d'identification utilisé pour votre compte n'autorise pas la "
+"modification du mot de passe depuis cette application"
+msgstr ""
+"The login method used for your account does not allow changing the password "
+"from this app"
+
+#: ../../../framework/identification/identification.class.php:674
+msgid "Le mot de passe a été modifié"
+msgstr "The password has been changed"
+
+#: ../../../framework/identification/identification.class.php:676
+msgid ""
+"Echec de modification du mot de passe pour une raison inconnue. Si le "
+"problème persiste, contactez l'assistance"
+msgstr ""
+"Failed to change the password for an unknown reason. If the problem "
+"persists, contact support"
+
+#: ../../../framework/identification/identification.class.php:721
+msgid "Le mot de passe a déjà été utilisé"
+msgstr "The password has already been used"
+
+#: ../../../framework/identification/identification.class.php:724
+msgid "Le mot de passe n'est pas assez complexe"
+msgstr "Password not complex enough"
+
+#: ../../../framework/identification/identification.class.php:727
+msgid "Le mot de passe est trop court"
+msgstr "Password too short"
+
+#: ../../../framework/identification/identification.class.php:730
+msgid "Le mot de passe n'est pas identique dans les deux zones"
+msgstr "Passwords don't match in both fields"
 
 #: ../../../modules/param/dbparam.php:18
 msgid "Enregistrement effectué"
@@ -137,6 +182,7 @@ msgstr "Sign in"
 
 #: ../../../display/templates/entete.tpl:32
 #: ../../../display/templates/entete.tpl:33
+#: ../../../display/templates/ident/loginChangePassword.tpl:33
 msgid "Modifier le mot de passe"
 msgstr "Change your password"
 
@@ -406,6 +452,219 @@ msgstr "New container"
 msgid "Famille :"
 msgstr "Family:"
 
+#: ../../../display/templates/ident/identMailInput.tpl:2
+#: ../../../display/templates/ident/login.tpl:35
+msgid "Mot de passe oublié ?"
+msgstr "Forgot your password?"
+
+#: ../../../display/templates/ident/identMailInput.tpl:2
+msgid "lancement de la procédure de récupération"
+msgstr "start the recovery procedure"
+
+#: ../../../display/templates/ident/identMailInput.tpl:8
+msgid "Entrez votre adresse e-mail :"
+msgstr "Enter your email address:"
+
+#: ../../../display/templates/ident/identMailInput.tpl:15
+#: ../../../display/templates/ident/loginsaisie.tpl:175
+#: ../../../display/templates/ident/loginAdmin.tpl:24
+#: ../../../display/templates/ident/loginChangePassword.tpl:67
+#: ../../../display/templates/ident/login.tpl:39
+msgid "Valider"
+msgstr "OK"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:14
+#: ../../../display/templates/ident/loginChangePassword.tpl:13
+msgid "Les mots de passe ne sont pas identiques"
+msgstr "Passwords don't match"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:17
+#: ../../../display/templates/ident/loginChangePassword.tpl:16
+msgid "Le mot de passe est trop court (minimum : 10 caractères)"
+msgstr "The password is too short (minimum: 10 characters)"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:20
+#: ../../../display/templates/ident/loginChangePassword.tpl:19
+msgid ""
+"Le mot de passe n'est pas assez complexe (mixez 3 jeux de caractères parmi "
+"les minuscules, majuscules, chiffres et signes de ponctuation)"
+msgstr ""
+"The password is not complex enough (mix 3 character sets among lowercase, "
+"uppercase, numbers, and punctuation)"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:58
+msgid "Saisie/modification d'un compte"
+msgstr "Add / edit an account"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:61
+msgid "Retour à la liste des logins"
+msgstr "Back to the list of logins"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:70
+#: ../../../display/templates/ident/loginAdmin.tpl:5
+#: ../../../display/templates/ident/login.tpl:5
+msgid "Login :"
+msgstr "Login:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:77
+msgid "Nom :"
+msgstr "Last name:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:82
+msgid "Prénom :"
+msgstr "First name:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:88
+msgid "Adresse e-mail :"
+msgstr "Email address:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:94
+msgid "Date :"
+msgstr "Date:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:100
+msgid "Compte utilisé pour service web :"
+msgstr "Account used for web service:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:104
+#: ../../../display/templates/ident/loginsaisie.tpl:167
+#: ../../../display/templates/ident/loginliste.tpl:21
+#: ../../../display/templates/ident/loginliste.tpl:22
+msgid "oui"
+msgstr "yes"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:108
+#: ../../../display/templates/ident/loginsaisie.tpl:170
+msgid "non"
+msgstr "no"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:113
+msgid "Jeton d'identification du service web :"
+msgstr "Identification token of the web service:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:118
+#: ../../../display/templates/ident/loginsaisie.tpl:144
+msgid "Copier dans le presse-papier"
+msgstr "Copy to clipboard"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:119
+msgid "Réinitialiser..."
+msgstr "Reset ..."
+
+#: ../../../display/templates/ident/loginsaisie.tpl:125
+#: ../../../display/templates/ident/loginAdmin.tpl:13
+#: ../../../display/templates/ident/login.tpl:13
+msgid "Mot de passe :"
+msgstr "Password:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:131
+#: ../../../display/templates/ident/loginChangePassword.tpl:60
+msgid "Répétez le mot de passe :"
+msgstr "Repeat password:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:137
+msgid "Générez un mot de passe aléatoire"
+msgstr "Generate a random password"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:139
+msgid "Générez"
+msgstr "Generate"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:142
+msgid "Mot de passe généré"
+msgstr "Password generated"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:149
+msgid "Le mot de passe doit :"
+msgstr "The password must:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:151
+msgid "avoir une longueur minimale de 10 caractères"
+msgstr "have a minimum length of 10 characters"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:152
+msgid "être composé d'au minimum 3 types de caractères différents parmi :"
+msgstr "be composed of at least 3 different types of characters among:"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:154
+msgid "des minuscules"
+msgstr "lowercase characters"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:155
+msgid "des majuscules"
+msgstr "uppercase characters"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:156
+msgid "des chiffres"
+msgstr "numbers"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:157
+msgid "des caractères de ponctuation ou spéciaux"
+msgstr "punctuation or special characters"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:164
+#: ../../../display/templates/ident/loginliste.tpl:11
+msgid "Actif"
+msgstr "Active"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:177
+msgid "Supprimer"
+msgstr "Delete"
+
+#: ../../../display/templates/ident/loginsaisie.tpl:188
+msgid "Donnée obligatoire"
+msgstr "Mandatory data"
+
+#: ../../../display/templates/ident/loginChangePassword.tpl:44
+msgid "Ancien mot de passe :"
+msgstr "Old password:"
+
+#: ../../../display/templates/ident/loginChangePassword.tpl:52
+msgid "Nouveau mot de passe :"
+msgstr "New Password:"
+
+#: ../../../display/templates/ident/loginChangePassword.tpl:69
+msgid ""
+"Le mot de passe doit avoir une longueur minimale de 10 caractères\n"
+"Il doit comprendre au minimum 3 types de caractères différents\n"
+"(minuscule, majuscule, chiffre, ponctuation et autre symboles)"
+msgstr ""
+"The password must be at least 10 characters long\n"
+"It must include at least 3 different types of characters\n"
+"(lowercase, uppercase, number, punctuation and other symbols)"
+
+#: ../../../display/templates/ident/loginliste.tpl:1
+msgid "Liste des logins déclarés dans la base de données"
+msgstr "List of logins declared in the database"
+
+#: ../../../display/templates/ident/loginliste.tpl:4
+msgid "Nouveau login"
+msgstr "New login"
+
+#: ../../../display/templates/ident/loginliste.tpl:8
+msgid "Login"
+msgstr "Login"
+
+#: ../../../display/templates/ident/loginliste.tpl:9
+msgid "Nom - Prénom"
+msgstr "Last name - First name"
+
+#: ../../../display/templates/ident/loginliste.tpl:10
+msgid "Adresse e-mail"
+msgstr "Email address"
+
+#: ../../../display/templates/ident/loginliste.tpl:12
+msgid "Compte utilisé pour service web"
+msgstr "Account used for web service"
+
+#: ../../../display/templates/ident/login.tpl:29
+msgid "Conserver la connexion pendant"
+msgstr "Keep alive the connection for"
+
+#: ../../../display/templates/ident/login.tpl:29
+msgid "heures"
+msgstr "hours"
+
 #: ../../../display/templates/enpied.tpl:3
 msgid ""
 "Copyright (c) 2016-2018 - Tous droits réservés. Auteur : Éric Quinton, pour "
@@ -415,6 +674,16 @@ msgstr "Copyright (c) 2007-2016 - All rights reserved. Author: Éric Quinton"
 #: ../../../display/templates/enpied.tpl:5
 msgid "Pour tout problème :"
 msgstr "For any problem:"
+
+#, fuzzy
+#~ msgid "actif"
+#~ msgstr "Active"
+
+#~ msgid "Mail"
+#~ msgstr "E-mail adress"
+
+#~ msgid "Mot de passe perdu"
+#~ msgstr "Forgot your password?"
 
 #~ msgid "line:"
 #~ msgstr "row:"

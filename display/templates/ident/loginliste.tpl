@@ -1,15 +1,15 @@
-<h2>Liste des logins déclarés dans la base de données</h2>
+<h2>{t}Liste des logins déclarés dans la base de données{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
-<a href="index.php?module=loginChange&id=0">{$LANG.login.5}</a>
+<a href="index.php?module=loginChange&id=0">{t}Nouveau login{/t}</a>
 <table class="table table-bordered table-hover" data-order='[[ 1, "asc" ]]' data-page-length='25'>
 <thead>
 	<tr>
-		<th>{$LANG.login.6}</th>
-		<th>{$LANG.login.7}</th>
-		<th>{$LANG.login.8}</th>
-		<th>{$LANG.login.13}</th>
-		<th>{$LANG.login.60}</th>
+		<th>{t}Login{/t}</th>
+		<th>{t}Nom - Prénom{/t}</th>
+		<th>{t}Adresse e-mail{/t}</th>
+		<th>{t}Actif{/t}</th>
+		<th>{t}Compte utilisé pour service web{/t}</th>
 	</tr>
 </thead>
 <tbody>
@@ -18,8 +18,8 @@
 		<td><a href="index.php?module=loginChange&id={$liste[lst].id}">{$liste[lst].login}</a></td>
 		<td>{$liste[lst].nom}&nbsp;{$liste[lst].prenom}</td>
 		<td>{$liste[lst].mail}&nbsp;</td>
-		<td class="center">{if $liste[lst].actif == 1}{$LANG.message.yes}{/if}</td>
-		<td class="center">{if $liste[lst].is_clientws == 1}{$LANG.message.yes}{/if}</td>
+		<td class="center">{if $liste[lst].actif == 1}{t}oui{/t}{/if}</td>
+		<td class="center">{if $liste[lst].is_clientws == 1}{t}oui{/t}{/if}</td>
 	</tr>
 	{/section}
 </tbody>	

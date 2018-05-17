@@ -10,13 +10,13 @@ $(document).ready(function() {
 		 var mdp2 = $("#pass2").val();
 		 if (mdp1 != mdp2) {
 		 	error = true;
-		 	message = "{$LANG["message"].39}";
+		 	message = "{t}Les mots de passe ne sont pas identiques{/t}";
 		 } else if (verifyLength(mdp1) == false) {
 		 	error = true;
-		 	message = "{$LANG["message"].40}";
+		 	message = "{t}Le mot de passe est trop court (minimum : 10 caractères){/t}";
 		 } else if (verifyComplexity(mdp1) == false) {
 		 	error = true;
-		 	message = "{$LANG["message"].41}";
+		 	message = "{t}Le mot de passe n'est pas assez complexe (mixez 3 jeux de caractères parmi les minuscules, majuscules, chiffres et signes de ponctuation){/t}";
 		 }
 		 $("#message").text(message);
 		/*
@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 </script>
 
-<h2>{$LANG["login"][31]}</h2>
+<h2>{t}Modifier le mot de passe{/t}</h2>
 <div class="row">
 <div class="col-lg-6">
 <form id="formPassword" method="post" class="form-horizontal protoform" action="index.php">
@@ -41,7 +41,7 @@ $(document).ready(function() {
 {else}
 <input type="hidden" name="module" value="loginChangePasswordExec">
 <div class="form-group">
-<label for="oldPassword" class="control-label col-md-4">{$LANG.login.23} :</label>
+<label for="oldPassword" class="control-label col-md-4">{t}Ancien mot de passe :{/t}</label>
 <div class="col-md-8">
 <input id="oldPassword" class="form-control" type="password" name="oldPassword" autocomplete="off" autofocus>
 </div>
@@ -49,7 +49,7 @@ $(document).ready(function() {
 {/if}
 <div class="form-group">
 <label for="pass1" class="control-label col-md-4">
-{$LANG.login.24} :
+{t}Nouveau mot de passe :{/t}
 </label>
 <div class="col-md-8">
 <input type="password" id="pass1" class="form-control" autocomplete="off" name="pass1">
@@ -57,16 +57,18 @@ $(document).ready(function() {
 </div>
 <div class="form-group">
 <label for="pass1" class="control-label col-md-4">
-{$LANG.login.12} :
+{t}Répétez le mot de passe :{/t}
 </label>
 <div class="col-md-8">
 <input type="password" id="pass2" name="pass2" class="form-control" autocomplete="off">
 </div>
 </div>
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 </div>
-<span id="helpBlock" class="help-block center">{$LANG.login.25}</span>
+<span id="helpBlock" class="help-block center">{t}Le mot de passe doit avoir une longueur minimale de 10 caractères
+Il doit comprendre au minimum 3 types de caractères différents
+(minuscule, majuscule, chiffre, ponctuation et autre symboles){/t}</span>
 </form>
 </div>
 </div>

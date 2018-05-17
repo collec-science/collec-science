@@ -2,7 +2,7 @@
 	<div class="form-horizontal protoform">
 	<div class="form-group">
 	<label for="login" class="control-label col-sm-4">
-	{$LANG.login.0} :
+	{t}Login :{/t}
 	</label>
 	<div class="col-sm-8"> 
 	<input class="form-control input-lg" name="login" id="login" maxlength="32" required autofocus>
@@ -10,7 +10,7 @@
 	</div>
 	<div class="form-group">
 	<label for="login" class="control-label col-sm-4">
-	{$LANG.login.1} :
+	{t}Mot de passe :{/t}
 	</label>
 	<div class="col-sm-8">
 	<input  class="form-control input-lg" name="password" id="password" type="password" autocomplete="off" required maxlength="32">
@@ -26,17 +26,17 @@
   	<label>
   {$duration = $tokenIdentityValidity / 3600}
   <input type="checkbox" name="loginByTokenRequested" class="" value="1" checked>
-  {$LANG.login.46} {$duration} {$LANG.login.47} 
+  {t}Conserver la connexion pendant{/t} {$duration} {t}heures{/t} 
   </label>
   </div>
   {/if}
   {if $lostPassword == 1 }
   <div class="form-group center col-sm-12 input-lg">
-  <a href="index.php?module=passwordlostIslost">{$LANG["login"].59}</a>
+  <a href="index.php?module=passwordlostIslost">{t}Mot de passe oublié ?{/t}</a>
   </div>
   {/if}
   <div class="form-group center">
-	<button type="submit" class="btn btn-primary button-valid input-lg">{$LANG["message"].19}</button>
+	<button type="submit" class="btn btn-primary button-valid input-lg">{t}Valider{/t}</button>
 	</div>
 	</form>
 	

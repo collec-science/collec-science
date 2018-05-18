@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 14:29+0200\n"
+"POT-Creation-Date: 2018-05-18 15:14+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -59,7 +59,7 @@ msgstr "Passwords don't match in both fields"
 
 #: ../../../modules/param/dbparam.php:18
 msgid "Enregistrement effectué"
-msgstr "Writing done"
+msgstr "Saved"
 
 #: ../../../modules/param/dbparam.php:25
 msgid "Problème lors de la mise en fichier..."
@@ -353,7 +353,7 @@ msgstr "Sampling date"
 #: ../../../display/templates/gestion/sampleListDetail.tpl:87
 #: ../../../display/templates/gestion/sampleSearch.tpl:259
 msgid "Date de création dans la base"
-msgstr "Creation date in the database"
+msgstr "Date added"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:88
 #: ../../../display/templates/gestion/sampleSearch.tpl:261
@@ -490,11 +490,9 @@ msgstr "Description:"
 #: ../../../display/templates/droits/groupChange.tpl:13
 #: ../../../display/templates/droits/acoChange.tpl:16
 #: ../../../display/templates/droits/loginChange.tpl:23
-#: ../../../display/templates/ident/identMailInput.tpl:15
 #: ../../../display/templates/ident/loginsaisie.tpl:175
 #: ../../../display/templates/ident/loginAdmin.tpl:24
 #: ../../../display/templates/ident/loginChangePassword.tpl:67
-#: ../../../display/templates/ident/login.tpl:39
 msgid "Valider"
 msgstr "Save and return"
 
@@ -651,6 +649,10 @@ msgstr "start the recovery procedure"
 #: ../../../display/templates/ident/identMailInput.tpl:8
 msgid "Entrez votre adresse e-mail :"
 msgstr "Enter your email address:"
+
+#: ../../../display/templates/ident/identMailInput.tpl:15
+msgid "Recevoir un mail de récupération"
+msgstr "Receive a recovery email"
 
 #: ../../../display/templates/ident/loginsaisie.tpl:14
 #: ../../../display/templates/ident/loginChangePassword.tpl:13
@@ -826,11 +828,15 @@ msgstr "Account used for web service"
 
 #: ../../../display/templates/ident/login.tpl:29
 msgid "Conserver la connexion pendant"
-msgstr "Keep alive the connection for"
+msgstr "Keep me signed in for"
 
 #: ../../../display/templates/ident/login.tpl:29
 msgid "heures"
 msgstr "hours"
+
+#: ../../../display/templates/ident/login.tpl:39
+msgid "Se connecter"
+msgstr "Sign in"
 
 #: ../../../display/templates/enpied.tpl:3
 msgid ""

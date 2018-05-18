@@ -12,7 +12,7 @@
 </div>
 </div>
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Recevoir un mail de récupération{/t}</button>
 </div>
 </form>
 </fieldset>

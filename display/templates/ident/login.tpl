@@ -36,7 +36,7 @@
   </div>
   {/if}
   <div class="form-group center">
-	<button type="submit" class="btn btn-primary button-valid input-lg">{t}Valider{/t}</button>
+	<button type="submit" class="btn btn-primary button-valid input-lg">{t}Se connecter{/t}</button>
 	</div>
 	</form>
 	

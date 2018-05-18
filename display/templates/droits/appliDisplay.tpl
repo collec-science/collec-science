@@ -1,22 +1,23 @@
-<a href="index.php?module=appliList">Retour à la liste des applications</a>
-<h2>Liste des droits disponibles pour l'application 
+{* Administration > ACL droits > Nom de l'appli > *}
+<a href="index.php?module=appliList">{t}Retour à la liste des applications{/t}</a>
+<h2>{t}Liste des droits disponibles pour l'application{/t}
 <a href="index.php?module=appliChange&aclappli_id={$data.aclappli_id}">
-{$data.appli} ({$data.applidetail})
+{$data.appli} {if $data.applidetail}({$data.applidetail}){/if}
 </a>
 </h2>
 <div class="col-md-6">
 <a href="index.php?module=appliChange&aclappli_id={$data.aclappli_id}">
 <img src="{$display}/images/edit.gif" height="25">
-Modifier...
+{t}Modifier...{/t}
 </a>
 <a href="index.php?module=acoChange&aclaco_id=0&aclappli_id={$data.aclappli_id}">
 <img src="{$display}/images/new.png" height="25">
-Nouveau droit...
+{t}Nouveau droit...{/t}
 </a>
 <table id="acoliste" class="table table-bordered table-hover datatable">
 <thead>
 <tr>
-<th>Nom du droit d'accès</th>
+<th>{t}Nom du droit d'accès{/t}</th>
 </tr>
 </thead>
 <tbody>

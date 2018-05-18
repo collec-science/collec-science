@@ -1,15 +1,16 @@
-<h2>Liste des applications disponibles dans le module de gestion des droits</h2>
+{* Administration > ACL droits > *}
+<h2>{t}Liste des applications disponibles dans le module de gestion des droits{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
 <a href="index.php?module=appliChange&aclappli_id=0">
-Nouvelle application...
+{t}Nouvelle application...{/t}
 </a>
 <table id="appliListe" class="table table-bordered table-hover datatable" data-order='[[ 0, "asc" ]]' data-page-length='25'>
 <thead>
 <tr>
-<th>Modifier</th>
-<th>Nom de l'application</th>
-<th>Description</th>
+<th>{t}Modifier{/t}</th>
+<th>{t}Nom de l'application{/t}</th>
+<th>{t}Description{/t}</th>
 </tr>
 </thead>
 <tbody>

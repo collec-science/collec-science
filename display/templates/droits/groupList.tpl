@@ -1,16 +1,17 @@
-<h2>{$LANG["login"][33]}</h2>
+{* Administration > ACL - groupes de logins > *}
+<h2>{t}Liste des groupes de logins{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
 <a href="index.php?module=groupChange&aclgroup_id=0">
-{$LANG["login"][34]}
+{t}Nouveau groupe racine...{/t}
 </a>
 
 <table id="groupListe" class="table table-bordered table-hover " >
 <thead>
 <tr>
-<th>{$LANG["login"][35]}</th>
-<th>{$LANG["login"][36]}</th>
-<th>{$LANG["login"][37]}</th>
+<th>{t}Nom du groupe{/t}</th>
+<th>{t}Nombre de logins déclarés{/t}</th>
+<th>{t}Rajouter un groupe fils{/t}</th>
 </tr>
 </thead>
 <tbody>

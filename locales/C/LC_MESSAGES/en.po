@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-17 12:00+0200\n"
+"POT-Creation-Date: 2018-05-18 11:47+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -452,6 +452,177 @@ msgstr "New container"
 msgid "Famille :"
 msgstr "Family:"
 
+#: ../../../display/templates/droits/appliChange.tpl:2
+msgid "Modification d'une application (module de gestion des droits)"
+msgstr "Modify the application (rights management module)"
+
+#: ../../../display/templates/droits/appliChange.tpl:5
+#: ../../../display/templates/droits/appliDisplay.tpl:2
+#: ../../../display/templates/droits/acoChange.tpl:5
+msgid "Retour à la liste des applications"
+msgstr "Back to the list of applications"
+
+#: ../../../display/templates/droits/appliChange.tpl:12
+msgid "Nom de l'application :"
+msgstr "Name of the application:"
+
+#: ../../../display/templates/droits/appliChange.tpl:19
+msgid "Description :"
+msgstr "Description:"
+
+#: ../../../display/templates/droits/appliChange.tpl:25
+#: ../../../display/templates/droits/groupChange.tpl:13
+#: ../../../display/templates/droits/acoChange.tpl:16
+#: ../../../display/templates/droits/loginChange.tpl:23
+#: ../../../display/templates/ident/identMailInput.tpl:15
+#: ../../../display/templates/ident/loginsaisie.tpl:175
+#: ../../../display/templates/ident/loginAdmin.tpl:24
+#: ../../../display/templates/ident/loginChangePassword.tpl:67
+#: ../../../display/templates/ident/login.tpl:39
+msgid "Valider"
+msgstr "Save and return"
+
+#: ../../../display/templates/droits/appliChange.tpl:27
+#: ../../../display/templates/droits/groupChange.tpl:15
+#: ../../../display/templates/droits/acoChange.tpl:18
+#: ../../../display/templates/droits/loginChange.tpl:25
+#: ../../../display/templates/ident/loginsaisie.tpl:177
+msgid "Supprimer"
+msgstr "Delete..."
+
+#: ../../../display/templates/droits/appliChange.tpl:35
+#: ../../../display/templates/droits/groupChange.tpl:45
+#: ../../../display/templates/droits/acoChange.tpl:47
+#: ../../../display/templates/droits/loginChange.tpl:31
+#: ../../../display/templates/ident/loginsaisie.tpl:188
+msgid "Donnée obligatoire"
+msgstr "Mandatory data"
+
+#: ../../../display/templates/droits/groupChange.tpl:2
+msgid "Modification d'un groupe et rattachement des logins"
+msgstr "Edit the group and its attachments to the logins"
+
+#: ../../../display/templates/droits/groupChange.tpl:5
+msgid "Retour à la liste des groupes"
+msgstr "Back to the list of groups"
+
+#: ../../../display/templates/droits/groupChange.tpl:20
+msgid "Nom du groupe :"
+msgstr "Name of the group:"
+
+#: ../../../display/templates/droits/groupChange.tpl:27
+msgid "Logins rattachés"
+msgstr "Logins attached"
+
+#: ../../../display/templates/droits/appliList.tpl:2
+msgid "Liste des applications disponibles dans le module de gestion des droits"
+msgstr "List of applications available in the rights management module"
+
+#: ../../../display/templates/droits/appliList.tpl:6
+msgid "Nouvelle application..."
+msgstr "New application"
+
+#: ../../../display/templates/droits/appliList.tpl:11
+msgid "Modifier"
+msgstr "Edit"
+
+#: ../../../display/templates/droits/appliList.tpl:12
+msgid "Nom de l'application"
+msgstr "Name of the application"
+
+#: ../../../display/templates/droits/appliList.tpl:13
+msgid "Description"
+msgstr "Description"
+
+#: ../../../display/templates/droits/appliDisplay.tpl:3
+msgid "Liste des droits disponibles pour l'application"
+msgstr "List of available rights for the application"
+
+#: ../../../display/templates/droits/appliDisplay.tpl:11
+msgid "Modifier..."
+msgstr "Edit"
+
+#: ../../../display/templates/droits/appliDisplay.tpl:15
+msgid "Nouveau droit..."
+msgstr "New right"
+
+#: ../../../display/templates/droits/appliDisplay.tpl:20
+msgid "Nom du droit d'accès"
+msgstr "Name of the access right"
+
+#: ../../../display/templates/droits/acoChange.tpl:2
+msgid "Modification du droit d'une application (module de gestion des droits)"
+msgstr "Modify the right of an application (rights management module)"
+
+#: ../../../display/templates/droits/acoChange.tpl:7
+msgid "Retour à"
+msgstr "Back to"
+
+#: ../../../display/templates/droits/acoChange.tpl:23
+msgid "Nom du droit utilisé dans l'application :"
+msgstr "Name of the right used in the application:"
+
+#: ../../../display/templates/droits/acoChange.tpl:28
+msgid "Groupes disposant du droit :"
+msgstr "Groups with the right:"
+
+#: ../../../display/templates/droits/groupList.tpl:2
+msgid "Liste des groupes de logins"
+msgstr "List of groups of logins"
+
+#: ../../../display/templates/droits/groupList.tpl:6
+msgid "Nouveau groupe racine..."
+msgstr "New root group"
+
+#: ../../../display/templates/droits/groupList.tpl:12
+msgid "Nom du groupe"
+msgstr "Name of the group"
+
+#: ../../../display/templates/droits/groupList.tpl:13
+msgid "Nombre de logins déclarés"
+msgstr "Number of logins declared"
+
+#: ../../../display/templates/droits/groupList.tpl:14
+msgid "Rajouter un groupe fils"
+msgstr "Add a child group"
+
+#: ../../../display/templates/droits/loginChange.tpl:2
+msgid "Modification d'un login (module de gestion des droits)"
+msgstr "Edit login (rights management module)"
+
+#: ../../../display/templates/droits/loginChange.tpl:5
+#: ../../../display/templates/ident/loginsaisie.tpl:61
+msgid "Retour à la liste des logins"
+msgstr "Back to the list of logins"
+
+#: ../../../display/templates/droits/loginChange.tpl:12
+msgid "Nom de l'utilisateur :"
+msgstr "Username:"
+
+#: ../../../display/templates/droits/loginChange.tpl:17
+msgid "Login utilisé :"
+msgstr "Login used:"
+
+#: ../../../display/templates/droits/loginChange.tpl:35
+msgid "Droits attribués"
+msgstr "Rights granted"
+
+#: ../../../display/templates/droits/loginList.tpl:2
+msgid "Liste des logins déclarés dans le module de gestion des droits"
+msgstr "List of logins declared in the rights management module"
+
+#: ../../../display/templates/droits/loginList.tpl:6
+msgid "Nouveau login..."
+msgstr "New login"
+
+#: ../../../display/templates/droits/loginList.tpl:12
+msgid "Utilisateur"
+msgstr "User"
+
+#: ../../../display/templates/droits/loginList.tpl:13
+msgid "Login employé"
+msgstr "Login used"
+
 #: ../../../display/templates/ident/identMailInput.tpl:2
 #: ../../../display/templates/ident/login.tpl:35
 msgid "Mot de passe oublié ?"
@@ -464,14 +635,6 @@ msgstr "start the recovery procedure"
 #: ../../../display/templates/ident/identMailInput.tpl:8
 msgid "Entrez votre adresse e-mail :"
 msgstr "Enter your email address:"
-
-#: ../../../display/templates/ident/identMailInput.tpl:15
-#: ../../../display/templates/ident/loginsaisie.tpl:175
-#: ../../../display/templates/ident/loginAdmin.tpl:24
-#: ../../../display/templates/ident/loginChangePassword.tpl:67
-#: ../../../display/templates/ident/login.tpl:39
-msgid "Valider"
-msgstr "OK"
 
 #: ../../../display/templates/ident/loginsaisie.tpl:14
 #: ../../../display/templates/ident/loginChangePassword.tpl:13
@@ -495,10 +658,6 @@ msgstr ""
 #: ../../../display/templates/ident/loginsaisie.tpl:58
 msgid "Saisie/modification d'un compte"
 msgstr "Add / edit an account"
-
-#: ../../../display/templates/ident/loginsaisie.tpl:61
-msgid "Retour à la liste des logins"
-msgstr "Back to the list of logins"
 
 #: ../../../display/templates/ident/loginsaisie.tpl:70
 #: ../../../display/templates/ident/loginAdmin.tpl:5
@@ -606,14 +765,6 @@ msgstr "punctuation or special characters"
 #: ../../../display/templates/ident/loginliste.tpl:11
 msgid "Actif"
 msgstr "Active"
-
-#: ../../../display/templates/ident/loginsaisie.tpl:177
-msgid "Supprimer"
-msgstr "Delete"
-
-#: ../../../display/templates/ident/loginsaisie.tpl:188
-msgid "Donnée obligatoire"
-msgstr "Mandatory data"
 
 #: ../../../display/templates/ident/loginChangePassword.tpl:44
 msgid "Ancien mot de passe :"

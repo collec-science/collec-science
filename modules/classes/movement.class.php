@@ -205,7 +205,7 @@ class Movement extends ObjetBDD
         }
         $date = $this->encodeData($date);
         if (strlen($date) == 0) {
-            $date = date('d/m/Y H:i:s');
+            $date = date($_SESSION["MASKDATELONG"]);
         }
         if ($type != 1 && $type != 2) {
             $controle = false;

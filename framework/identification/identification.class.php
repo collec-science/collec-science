@@ -522,7 +522,7 @@ class LoginGestion extends ObjetBDD
                 throw new IdentificationException("Password not enough complex or too small");
             }
         }
-        $data["datemodif"] = date('d-m-y');
+        $data["datemodif"] = date($_SESSION["MASKDATELONG"]);
         /*
          * Traitement de la generation du token d'identification ws
          */

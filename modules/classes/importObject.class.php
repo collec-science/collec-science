@@ -231,7 +231,7 @@ class ImportObject
      */
     function importAll()
     {
-        $date = date('d/m/Y H:i:s');
+        $date = date($_SESSION["MASKDATELONG"]);
         $num = 1;
         $maxuid = 0;
         $minuid = 99999999;
@@ -420,9 +420,9 @@ class ImportObject
     {
         $val = "";
         /*
-         * Verification du format francais
+         * Verification du format de date
          */
-        $result = date_parse_from_format("d/m/Y", $date);
+        $result = date_parse_from_format($_SESSION["MASKDATE"], $date);
         if ($result["warning_count"] > 0) {
             /*
              * Test du format general
@@ -595,9 +595,9 @@ class ImportObject
             foreach ($fieldDates as $fieldDate) {
                 if (strlen($data[$fieldDate]) > 0) {
                     /*
-                     * Verification du format francais
+                     * Verification du format de date
                      */
-                    $result = date_parse_from_format("d/m/Y", $data[$fieldDate]);
+                    $result = date_parse_from_format($_SESSION["MASKDATE"], $data[$fieldDate]);
                     if ($result["warning_count"] > 0) {
                         /*
                          * Test du format general

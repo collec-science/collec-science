@@ -265,7 +265,7 @@ class Document extends ObjetBDD
                 $data["size"] = $file["size"];
                 $data["mime_type_id"] = $mime_type_id;
                 $data["document_description"] = $description;
-                $data["document_import_date"] = date("d/m/Y");
+                $data["document_import_date"] = date($_SESSION["MASKDATE"]);
                 $data["uid"] = $uid;
                 if (! is_null($document_creation_date)) {
                     $data["document_creation_date"] = $document_creation_date;

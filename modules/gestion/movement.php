@@ -164,7 +164,7 @@ switch ($t_module["param"]) {
 		 * Preparation des donnees
 		 */
 		$uid_container = 0;
-        $date = date("d/m/Y H:i:s");
+		$date = date($_SESSION["MASKDATELONG"]);
         $nb = 0;
         try {
             // foreach ($_REQUEST["uid"] as $uid) {

@@ -139,7 +139,7 @@ switch ($t_module ["param"]) {
 				$movement = new Movement ( $bdd, $ObjetBDDParam );
 				$data = array (
 						"uid" => $id,
-						"movement_date" => date ( 'd/m/Y H:i:s' ),
+				    "movement_date" => date ( $_SESSION["MASKDATELONG"] ),
 						"movement_type_id" => 1,
 						"login" => $_SESSION ["login"],
 						"container_id" => $dataClass->getIdFromUid ( $_REQUEST ["container_parent_uid"] ),

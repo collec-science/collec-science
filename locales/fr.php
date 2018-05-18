@@ -2,6 +2,7 @@
 $_SESSION["FORMATDATE"]="fr";
 $_SESSION["MASKDATELONG"] = "d/m/Y H:i:s";
 $_SESSION["MASKDATE"] = "d/m/Y";
+$_SESSION["MASKDATEEXPORT"] = 'd-m-Y';
 
 $LANG= array();
 $LANG["date"]["locale"] = "fr";

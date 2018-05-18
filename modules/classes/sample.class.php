@@ -573,9 +573,9 @@ class Sample extends ObjetBDD
             foreach ($fieldDates as $fieldDate) {
                 if (strlen($row[$fieldDate]) > 0) {
                     /*
-                     * Verification du format francais
+                     * Verification du format de date
                      */
-                    $result = date_parse_from_format("d/m/Y", $row[$fieldDate]);
+                    $result = date_parse_from_format($_SESSION["MASKDATE"], $row[$fieldDate]);
                     if ($result["warning_count"] > 0) {
                         /*
                          * Test du format general

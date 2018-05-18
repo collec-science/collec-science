@@ -50,6 +50,7 @@ $LANG["menu"][40] = "News";
 $LANG["menu"][41] = "What's new ?";
 $LANG["menu"][42] = "Search module";
 $LANG["menu"][43] = "Add a search modul";
+$LANG["menu"][103] = "Application Settings";
 $LANG["menu"]["phpinfo"] = "PHP info";
 $LANG["menu"]["phpinfotitle"] = "PHP configuration";
 

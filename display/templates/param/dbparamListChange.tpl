@@ -1,4 +1,5 @@
-<h2>Paramètres pérennes de l'application</h2>
+{* Administration > Paramètres de l'application > *}
+<h2>{t}Paramètres pérennes de l'application{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
 <form id="dbparam" class="form-horizontal protoform" method="post" action="index.php">
@@ -6,8 +7,8 @@
 <input type="hidden" name="action" value="WriteGlobal">
 <table class="table table-bordered table-hover">
 <tr>
-<th>Paramètre</th>
-<th>Valeur</th>
+<th>{t}Paramètre{/t}</th>
+<th>{t}Valeur{/t}</th>
 </tr>
 {section name=lst loop=$data}
 <tr>
@@ -20,7 +21,7 @@
 
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Enregistrer{/t}</button>
  </div>
 </form>
 	

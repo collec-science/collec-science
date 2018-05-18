@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 11:47+0200\n"
+"POT-Creation-Date: 2018-05-18 14:29+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -173,6 +173,22 @@ msgstr "Numerical value..."
 #: ../../../display/templates/main_js.tpl:162
 msgid "Confirmez-vous la suppression ?"
 msgstr "Do you confirm the deletion?"
+
+#: ../../../display/templates/param/dbparamListChange.tpl:2
+msgid "Paramètres pérennes de l'application"
+msgstr "Long-term settings of the application"
+
+#: ../../../display/templates/param/dbparamListChange.tpl:10
+msgid "Paramètre"
+msgstr "Setting"
+
+#: ../../../display/templates/param/dbparamListChange.tpl:11
+msgid "Valeur"
+msgstr "Value"
+
+#: ../../../display/templates/param/dbparamListChange.tpl:24
+msgid "Enregistrer"
+msgstr "Save"
 
 #: ../../../display/templates/entete.tpl:21
 #: ../../../display/templates/entete.tpl:40

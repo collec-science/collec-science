@@ -8,7 +8,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<div class="navbar-brand"><img src="{$favicon}" height="25"></div>
+			<div class="navbar-brand"><a href='/'><img src="{$favicon}" height="25"></a></div>
 			<a href='/'><span class="navbar-text hidden-xs hidden-sm"><b>{$APPLI_titre}</b></span></a>
 		</div>
 		<!-- Affichage du menu -->

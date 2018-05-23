@@ -57,6 +57,9 @@
 <link rel="stylesheet" href="{$display}/javascript/magnific-popup/magnific-popup.css"> 
 <script src="{$display}/javascript/magnific-popup/jquery.magnific-popup.min.js"></script> 
 
+<!-- Cookies -->
+<script src="/display/javascript/js-cookie-master/src/js.cookie.js"></script> 
+
 <!-- Code specifique -->
 <link rel="stylesheet" type="text/css" href="{$display}/CSS/bootstrap-prototypephp.css" >
 <script type="text/javascript" src="{$display}/javascript/bootstrap-prototypephp.js"></script>

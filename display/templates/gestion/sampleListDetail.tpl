@@ -1,6 +1,14 @@
 <!--  Liste des échantillons pour affichage-->
 <script>
 	$(document).ready(function() {
+		var displayModeFull = Cookies.get("samplelistDisplayMode");
+		if (typeof (displayModeFull) == "undefined") {
+			$(window).width() < 1200 ? displayModeFull = false : displayModeFull = true;
+		} else {
+			displayModeFull == "true" ? displayModeFull = true : displayModeFull = false;
+		}
+
+		
 		$("#checkSample").change(function() {
 			$('.checkSample').prop('checked', this.checked);
 			var libelle = "Tout cocher";
@@ -30,8 +38,43 @@
 			$(this.form).find("input[name='module']").val("sampleExport");
 			$(this.form).submit();
 		});
+		/*
+		 * Gestion de l'affichage des colonnes en fonction de la taille de l'ecran
+		 */
+		function displayMode(mode) {
+			displayModeFull = mode;
+			$("#sampleList").DataTable().columns([3,5,6,7,10,11,12,13]).visible(displayModeFull);
+			if (displayModeFull) {
+				$("#displayModeButton").text("Affichage réduit");
+			} else {
+				$("#displayModeButton").text("Affichage complet");
+			}
+			Cookies.set("samplelistDisplayMode",displayModeFull);
+		}
+		
+		/*
+		 * Masquage des colonnes pour les petits ecrans
+		 */
+		$(window).resize(function() {
+			  if ($(this).width() < 1200) {
+				 displayMode(false);
+			    
+			  } else {
+				  displayMode(true);
+			  }
+			});
+		$("#displayModeButton").on ("keypress click", function() {
+			displayModeFull == true ? displayModeFull = false : displayModeFull = true;
+			displayMode(displayModeFull);
+		});
+		/*
+		 * initialisation a l'ouverture de la fenetre
+		 */
+		displayMode(displayModeFull);
+		
 	});
 </script>
+<button id="displayModeButton" class="btn btn-info">Affichage réduit</button>
 {include file="gestion/displayPhotoScript.tpl"} {if $droits.gestion == 1}
 <form method="POST" id="formListPrint" action="index.php">
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
@@ -68,14 +111,14 @@
 		</div>
 	</div>
 	{/if}
-	<table id="containerList"
-		class="table table-bordered table-hover datatable-export ">
+	<table id="sampleList"
+		class="table table-bordered table-hover datatable-export">
 		<thead>
 			<tr>
 				<th>UID</th>
 				<th>Identifiant ou nom</th>
 				<th>Autres identifiants</th>
-				<th>Collection</th>
+				<th class="d-none d-lg-table-cell">Collection</th>
 				<th>Type</th>
 				<th>Statut</th>
 				<th>Parent</th>
@@ -106,7 +149,7 @@
 				<span title="UID de la base de données d'origine">{$samples[lst].dbuid_origin}</span>
 				{/if}
 				</td>
-				<td>{$samples[lst].collection_name}</td>
+				<td class="d-none d-lg-table-cell">{$samples[lst].collection_name}</td>
 				<td>{$samples[lst].sample_type_name}</td>
 				<td>{$samples[lst].object_status_name}</td>
 				<td>{if strlen($samples[lst].parent_uid) > 0}

@@ -74,7 +74,7 @@
 		
 	});
 </script>
-<button id="displayModeButton" class="btn btn-info">Affichage réduit</button>
+<button id="displayModeButton" class="btn btn-info pull-right">Affichage réduit</button>
 {include file="gestion/displayPhotoScript.tpl"} {if $droits.gestion == 1}
 <form method="POST" id="formListPrint" action="index.php">
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">

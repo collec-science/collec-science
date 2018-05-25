@@ -13,7 +13,7 @@ rm -f *zip
 # download last code
 echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip
-read -p "Ok for install this release [y/n]?" answer
+read -p "Ok to install this release [y/n]?" answer
 if [  -z $answer ]
 then
 answer=y
@@ -37,6 +37,8 @@ chmod -R 770 collec/temp
 
 # copy of last param into the new code
 cp collec/param/param.inc.php $VERSION/param/
+chmod 750 $VERSION/param/param.inc.php
+
 # keys for tokens
 if [ -e collec/param/id_collec ]
 then
@@ -51,5 +53,7 @@ ln -s $VERSION collec
 # upgrade database
 # echo "update database"
 # su postgres -c "psql -f upgrade_1.2.3-2.0.sql"
+
+echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process" 
 fi
 fi

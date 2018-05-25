@@ -27,7 +27,7 @@ mv collec-master/ $VERSION
 
 
 # assign rights to new folder
-mkdir collec-2.1/display/templates_c
+mkdir $VERSION/display/templates_c
 chmod -R 750 $VERSION
 chgrp -R www-data $VERSION
 

@@ -325,6 +325,8 @@ class VueCsv extends Vue
     private $filename = "";
 
     private $delimiter = ";";
+    
+    private $header = array();
 
     function send($filename = "", $delimiter = "")
     {
@@ -357,6 +359,35 @@ class VueCsv extends Vue
             }
             fclose($fp);
             ob_flush();
+        }
+    }
+    
+    /**
+     * Fonction parcourant le tableau de donnees, pour extraire l'ensemble des colonnes
+     * et recreer un tableau utilisable en export csv avec toutes les colonnes possibles
+     */
+    function regenerateHeader() {
+        /*
+         * Recherche toutes les entetes de colonnes
+         */
+        foreach ($this->data as $row) {
+            foreach ($row as $key=>$value) {
+                if (!in_array($key, $this->header)) {
+                    $this->header[] = $key;
+                }
+            }
+        }
+        /*
+         * Reformate le tableau pour integrer l'ensemble des colonnes disponibles
+         */
+        $data = $this->data;
+        $this->data = array();
+        foreach ($data as $row) {
+            $newline = array();
+            foreach ($this->header as $key) {
+                $newline[$key] = $row[$key];
+            }
+            $this->data[] = $newline;
         }
     }
 

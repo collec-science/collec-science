@@ -213,6 +213,7 @@ switch ($t_module["param"]) {
     case "export":
         try {
             $vue->set($dataClass->getForExport($dataClass->generateArrayUidToString($_REQUEST["uid"])));
+            $vue->regenerateHeader();
         } catch (Exception $e) {
             unset($vue);
             $message->set($e->getMessage());

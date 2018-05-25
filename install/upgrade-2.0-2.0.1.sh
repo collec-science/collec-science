@@ -37,7 +37,7 @@ chmod -R 770 collec/temp
 
 # copy of last param into the new code
 cp collec/param/param.inc.php $VERSION/param/
-chmod 750 $VERSION/param/param.inc.php
+chgrp www-data $VERSION/param/param.inc.php
 
 # keys for tokens
 if [ -e collec/param/id_collec ]

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-18 15:14+0200\n"
+"POT-Creation-Date: 2018-05-29 17:59+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,6 +11,448 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ../../../param\n"
+"X-Poedit-SearchPath-0: menu.xml\n"
+
+#. (itstool) path: menu/item@label
+#: ../../../param/menu.xml:7
+msgid "Objets"
+msgstr "Objects"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../../param/menu.xml:7
+msgid "Opérations sur les échantillons ou les contenants"
+msgstr "Operations on samples or containers"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:8
+msgid "Contenants"
+msgstr "Containers"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:8 ../../../display/templates/main.tpl:6
+msgid "Liste des contenants"
+msgstr "List of containers"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:9
+msgid "Échantillons"
+msgstr "Samples"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:9 ../../../display/templates/main.tpl:13
+msgid "Liste des échantillons"
+msgstr "List of samples"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:10
+msgid "Import de masse"
+msgstr "Bulk import"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:10
+msgid "Import de plusieurs échantillons ou contenants"
+msgstr "Import of several samples or containers"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:11
+msgid "Import d'échantillons externes"
+msgstr "Import of external samples"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:11
+msgid "Import d'un lot d'échantillons provenant d'une base externe"
+msgstr "Import a batch of samples from an external base"
+
+#. (itstool) path: menu/item@label
+#: ../../../param/menu.xml:14
+msgid "Mouvements"
+msgstr "Movements"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../../param/menu.xml:14
+msgid "Création de mouvements dans le stock"
+msgstr "Creating movements in the stock"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:15
+msgid "Entrer un échantillon"
+msgstr "Enter a sample"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:15 ../../../display/templates/main.tpl:42
+msgid "Entrée rapide d'un échantillon dans le stock"
+msgstr "Quick entry of a sample into the stock"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:16
+msgid "Sortir un échantillon"
+msgstr "Take out a sample"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:16 ../../../display/templates/main.tpl:56
+msgid "Sortie rapide d'un échantillon du stock"
+msgstr "Quick exit of a sample from the stock"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:17
+msgid "Entrée/sortie par lots"
+msgstr "Batch entry / exit"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:17 ../../../display/templates/main.tpl:49
+msgid "Entrée / sortie par scan multiple de QRCODE"
+msgstr "Entry / Exit by multiple scan of QRCODE"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:18 ../../../display/templates/main.tpl:20
+#: ../../../display/templates/main.tpl:30
+msgid "Mouvements petit terminal"
+msgstr "Small device movements"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:18
+msgid "Lecture d'objets et génération de mouvements sur petits terminaux"
+msgstr "Object reading and movement generation on small terminals"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:20
+msgid "Liste des mouvements"
+msgstr "List of movements"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:20
+msgid "Recherche des mouvements sur une période donnée"
+msgstr "Search for movements over a period of time"
+
+#. (itstool) path: menu/item@label
+#. (itstool) path: menu/item@tooltip
+#: ../../../param/menu.xml:23
+msgid "Paramètres"
+msgstr "Settings"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:24
+msgid "Collections"
+msgstr "Collections"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:24
+msgid "Liste des collections"
+msgstr "List of collections"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:25
+msgid "Protocoles"
+msgstr "Protocols"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:25
+msgid "Liste des protocoles"
+msgstr "List of protocols"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:26
+msgid "Opérations"
+msgstr "Operations"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:26
+msgid "Liste des opérations rattachées à un protocole"
+msgstr "List of operations attached to a protocol"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:28
+msgid "Familles de contenants"
+msgstr "Families of containers"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:28
+msgid "Familles de contenants (armoires, éprouvettes...)"
+msgstr "Families of containers (cabinets, test tubes ...)"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:29
+msgid "Types de contenants"
+msgstr "Types of containers"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:29
+msgid "Liste des types de contenants"
+msgstr "List of types of containers"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:30
+msgid "Type d'échantillons"
+msgstr "Type of samples"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:30
+msgid "Liste des types d'échantillons gérés"
+msgstr "List of managed sample types"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:31
+msgid "Types d'identifiants"
+msgstr "Types of identifiers"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:31
+msgid "Liste des types d'identifiants rattachables à un objet"
+msgstr "List of identifier types that can be attached to an object"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:32
+msgid "Sous-échantillonnage"
+msgstr "Subsampling"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:32
+msgid "Types de sous-échantillonnage"
+msgstr "Types of subsampling"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:33
+msgid "Métadonnées"
+msgstr "Metadata"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:33
+msgid "Modèles de métadonnées"
+msgstr "Metadata templates"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:34
+msgid "Lieux de prélèvement"
+msgstr "Locations of sampling"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:34
+msgid "Liste des lieux de prélèvement des échantillons"
+msgstr "List of sampling locations"
+
+#. (itstool) path: item/item@label
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:36
+msgid "Types d'événement"
+msgstr "Event types"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:37
+msgid "Conditions de stockage"
+msgstr "Storage conditions"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:37
+msgid "Liste des conditions de stockage"
+msgstr "List of storage conditions"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:38
+msgid "Motifs de déstockage"
+msgstr "Reasons for destocking"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:38
+msgid "Motifs de sortie du stock"
+msgstr "Reasons for stock exit"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:39
+msgid "Statuts des objets"
+msgstr "Object statuses"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:39
+msgid "Liste des statuts possibles pour les objets"
+msgstr "List of possible statuses for objects"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:41
+#: ../../../display/templates/gestion/containerListDetail.tpl:62
+#: ../../../display/templates/gestion/sampleListDetail.tpl:50
+msgid "Étiquettes"
+msgstr "Labels"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:41
+msgid "Modèles d'étiquettes"
+msgstr "Label templates"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:42
+msgid "Imprimantes"
+msgstr "Printers"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:42
+msgid "Liste des imprimantes"
+msgstr "List of printers"
+
+#. (itstool) path: menu/item@label
+#: ../../../param/menu.xml:45
+msgid "Administration"
+msgstr "Administration"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../../param/menu.xml:45
+msgid "Administration de l'application"
+msgstr "Application Administration"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:46
+msgid "Liste des comptes locaux"
+msgstr "List of local accounts"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:46
+msgid "Liste des logins - identification via la base de données"
+msgstr "List of logins - identification via the database"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:47
+msgid "ACL - droits"
+msgstr "ACL - rights"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:47
+msgid "applications et droits gérés"
+msgstr "applications and rights managed"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:48
+msgid "ACL - logins"
+msgstr "ACL - logins"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:48
+msgid "Logins déclarés dans le module de gestion des droits"
+msgstr "Logins declared in the rights management module"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:49
+msgid "ACL - groupes de logins"
+msgstr "ACL - login groups"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:49
+msgid "Groupes de logins et logins rattachés aux groupes"
+msgstr "Groups of logins and logins attached to groups"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:50
+msgid "Paramètres de l'application"
+msgstr "Application Settings"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:50
+msgid "Liste des paramètres pérennes de l'application"
+msgstr "List of long-term parameters of the application"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:51
+msgid "PHP info"
+msgstr "PHP info"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:51
+msgid "configuration générale du serveur PHP"
+msgstr "general configuration of the PHP server"
+
+#. (itstool) path: menu/item@label
+#: ../../../param/menu.xml:53 ../../../display/templates/entete.tpl:21
+#: ../../../display/templates/entete.tpl:40
+#: ../../../display/templates/entete.tpl:41
+msgid "Connexion"
+msgstr "Sign in"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../../param/menu.xml:53
+msgid "S'identifier dans l'application"
+msgstr "Sign in to the app"
+
+#. (itstool) path: menu/item@label
+#: ../../../param/menu.xml:54 ../../../display/templates/entete.tpl:36
+#: ../../../display/templates/entete.tpl:37
+msgid "Déconnexion"
+msgstr "Sign out"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../../param/menu.xml:54
+msgid "Déconnexion de l'application"
+msgstr "Sign out of the app"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:55 ../../../display/templates/entete.tpl:32
+#: ../../../display/templates/entete.tpl:33
+#: ../../../display/templates/ident/loginChangePassword.tpl:33
+msgid "Modifier le mot de passe"
+msgstr "Change your password"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:55
+msgid "Modifiez votre mot de passe (identification locale uniquement)"
+msgstr "Change your password (local identification only)"
+
+#. (itstool) path: menu/item@label
+#: ../../../param/menu.xml:57
+msgid "?"
+msgstr "?"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../../param/menu.xml:57
+msgid "Aide"
+msgstr "Help"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:58
+msgid "A propos"
+msgstr "About Collec-Science"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:58
+msgid "A propos de Collec-Science"
+msgstr "About Collec-Science"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:59
+msgid "Nouveautés"
+msgstr "What's new?"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:59
+msgid "Quoi de neuf dans l'application ?"
+msgstr "What's new in the app?"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:60
+msgid "Lexique"
+msgstr "Glossary"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:60
+msgid "Lexique des termes utilisés dans le logiciel"
+msgstr "Glossary of terms used in the software"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:61
+msgid "Français"
+msgstr "Français"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:61
+msgid "Libellés en français"
+msgstr "Libellés en français"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:62
+msgid "English"
+msgstr "English"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:62
+msgid "Labels in English"
+msgstr "Labels in English"
 
 #: ../../../framework/identification/identification.class.php:600
 msgid "La modification du mot de passe a échoué"
@@ -80,31 +522,6 @@ msgstr "Unable to load the file to import"
 #: ../../../modules/gestion/index.php:6
 msgid "Module gestion"
 msgstr "Management module"
-
-#: ../../../display/templates/main.tpl:6
-msgid "Liste des contenants"
-msgstr "List of containers"
-
-#: ../../../display/templates/main.tpl:13
-msgid "Liste des échantillons"
-msgstr "List of samples"
-
-#: ../../../display/templates/main.tpl:20
-#: ../../../display/templates/main.tpl:30
-msgid "Mouvements petit terminal"
-msgstr "Small device movements"
-
-#: ../../../display/templates/main.tpl:42
-msgid "Entrée rapide d'un échantillon dans le stock"
-msgstr "Quick entry of a sample into the stock"
-
-#: ../../../display/templates/main.tpl:49
-msgid "Entrée / sortie par scan multiple de QRCODE"
-msgstr "Entry / Exit by multiple scan of QRCODE"
-
-#: ../../../display/templates/main.tpl:56
-msgid "Sortie rapide d'un échantillon du stock"
-msgstr "Quick exit of a sample from the stock"
 
 #: ../../../display/templates/main_js.tpl:68
 msgid "Traitement en cours..."
@@ -190,26 +607,9 @@ msgstr "Value"
 msgid "Enregistrer"
 msgstr "Save"
 
-#: ../../../display/templates/entete.tpl:21
-#: ../../../display/templates/entete.tpl:40
-#: ../../../display/templates/entete.tpl:41
-msgid "Connexion"
-msgstr "Sign in"
-
-#: ../../../display/templates/entete.tpl:32
-#: ../../../display/templates/entete.tpl:33
-#: ../../../display/templates/ident/loginChangePassword.tpl:33
-msgid "Modifier le mot de passe"
-msgstr "Change your password"
-
 #: ../../../display/templates/entete.tpl:34
 msgid "Mot de passe"
 msgstr "Password"
-
-#: ../../../display/templates/entete.tpl:36
-#: ../../../display/templates/entete.tpl:37
-msgid "Déconnexion"
-msgstr "Sign out"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:6
 #: ../../../display/templates/gestion/sampleListDetail.tpl:6
@@ -227,11 +627,6 @@ msgstr "Uncheck all"
 #: ../../../display/templates/gestion/sampleListDetail.tpl:43
 msgid "Étiquette par défaut"
 msgstr "Default label"
-
-#: ../../../display/templates/gestion/containerListDetail.tpl:62
-#: ../../../display/templates/gestion/sampleListDetail.tpl:50
-msgid "Étiquettes"
-msgstr "Labels"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:64
 #: ../../../display/templates/gestion/sampleListDetail.tpl:63
@@ -847,6 +1242,12 @@ msgstr "Copyright (c) 2007-2016 - All rights reserved. Author: Éric Quinton"
 #: ../../../display/templates/enpied.tpl:5
 msgid "Pour tout problème :"
 msgstr "For any problem:"
+
+#~ msgid "Type événement"
+#~ msgstr "Event type"
+
+#~ msgid "Liste des conteneurs"
+#~ msgstr "List of containers"
 
 #, fuzzy
 #~ msgid "actif"

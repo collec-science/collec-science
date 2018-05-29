@@ -90,7 +90,10 @@ class Menu
                 /*
                  * Traitement de l'item
                  */
-                $texte = '<li><a href="index.php?module=' . $attributes["module"] . '" title="' . $this->language["menu"][$attributes["title"]] . '">' . $this->language["menu"][$attributes["value"]] . '</a>';
+                $label   = $attributes["label"]   ? gettext($attributes["label"])   : $this->language["menu"][$attributes["value"]];
+                $tooltip = $attributes["tooltip"] ? gettext($attributes["tooltip"]) : $this->language["menu"][$attributes["title"]];
+
+                $texte = '<li><a href="index.php?module=' . $attributes["module"] . '" title="' . $tooltip . '">' . $label  . '</a>';
                 
                 if (isset($valeur["item"])) {
                     /*

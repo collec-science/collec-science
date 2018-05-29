@@ -1,61 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<menu>
-<item module="objets" title="77" value="76">
-	<item module="containerList" title="61" value="60"/>
-	<item module="sampleList" title="69" value="68"/>
-	<item module="importChange" title="79" value="78" droits="import,collection"/>
-	<item module="sampleImportStage1" title="102" value="101" droits="import,collection"/>
+<menu xmlns:its="http://www.w3.org/2005/11/its" its:version="2.0">
+<its:rules version="2.0">
+	<its:translateRule selector="//item/@label" translate="yes"/>
+	<its:translateRule selector="//item/@tooltip" translate="yes"/> 
+</its:rules>
+<item module="objets" label="Objets" tooltip="Opérations sur les échantillons ou les contenants">
+	<item module="containerList" label="Contenants" tooltip="Liste des contenants"/>
+	<item module="sampleList" label="Échantillons" tooltip="Liste des échantillons"/>
+	<item module="importChange" label="Import de masse" tooltip="Import de plusieurs échantillons ou contenants" droits="import,collection"/>
+	<item module="sampleImportStage1" label="Import d'échantillons externes" tooltip="Import d'un lot d'échantillons provenant d'une base externe" droits="import,collection"/>
 </item>
 
-<item module="movement" title="71" value="70" droits="gestion">
-<item module="fastInputChange" title="73" value="72" droits="gestion" />
-<item module="fastOutputChange" title="75" value="74" droits="gestion" />
-<item module="movementBatchOpen" title="94" value="93" droits="gestion" />
-<item module="smallMovementChange" title="110" value="109" droits="gestion" />
+<item module="movement" label="Mouvements" tooltip="Création de mouvements dans le stock" droits="gestion">
+<item module="fastInputChange" label="Entrer un échantillon" tooltip="Entrée rapide d'un échantillon dans le stock" droits="gestion" />
+<item module="fastOutputChange" label="Sortir un échantillon" tooltip="Sortie rapide d'un échantillon du stock" droits="gestion" />
+<item module="movementBatchOpen" label="Entrée/sortie par lots" tooltip="Entrée / sortie par scan multiple de QRCODE" droits="gestion" />
+<item module="smallMovementChange" label="Mouvements petit terminal" tooltip="Lecture d'objets et génération de mouvements sur petits terminaux" droits="gestion" />
 <item divider='1' droits="collection" />
-<item module="movementList" value="105" title="106" droits="collection" />
+<item module="movementList" label="Liste des mouvements" tooltip="Recherche des mouvements sur une période donnée" droits="collection" />
 </item>
 
-<item module="parametre" value="50" title="51" droits="consult">
-	<item module="collectionList" droits="consult" value="64" title="65" />
-	<item module="protocolList" droits="consult" value="82" title="83" />
-	<item module="operationList" droits="consult" value="85" title="86" />
+<item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
+	<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" />
+	<item module="protocolList" droits="consult" label="Protocoles" tooltip="Liste des protocoles" />
+	<item module="operationList" droits="consult" label="Opérations" tooltip="Liste des opérations rattachées à un protocole" />
 	<item divider='1'/>
-	<item module="containerFamilyList" droits="consult" value="54" title="55" />
-	<item module="containerTypeList" droits="consult" value="58" title="59" />
-	<item module="sampleTypeList" droits="consult" value="66" title="67" />
-	<item module="identifierTypeList" droits="consult" value="89" title="90" />
-	<item module="multipleTypeList" droits="consult" value="87" title="88" />
-	<item module="metadataList" droits="consult" value="99" title="100" />
-	<item module="samplingPlaceList" droits="consult" value="95" title="96" />	
+	<item module="containerFamilyList" droits="consult" label="Familles de contenants" tooltip="Familles de contenants (armoires, éprouvettes...)" />
+	<item module="containerTypeList" droits="consult" label="Types de contenants" tooltip="Liste des types de contenants" />
+	<item module="sampleTypeList" droits="consult" label="Type d'échantillons" tooltip="Liste des types d'échantillons gérés" />
+	<item module="identifierTypeList" droits="consult" label="Types d'identifiants" tooltip="Liste des types d'identifiants rattachables à un objet" />
+	<item module="multipleTypeList" droits="consult" label="Sous-échantillonnage" tooltip="Types de sous-échantillonnage" />
+	<item module="metadataList" droits="consult" label="Métadonnées" tooltip="Modèles de métadonnées" />
+	<item module="samplingPlaceList" droits="consult" label="Lieux de prélèvement" tooltip="Liste des lieux de prélèvement des échantillons" />	
 	<item divider='1'/>
-	<item module="eventTypeList" droits="consult" value="52" title="53" />
-	<item module="storageConditionList" droits="consult" value="56" title="57" />
-	<item module="movementReasonList" droits="consult" value="91" title="92" />
-	<item module="objectStatusList" droits="consult" value="62" title="63" />
+	<item module="eventTypeList" droits="consult" label="Types d'événement" tooltip="Types d'événement" />
+	<item module="storageConditionList" droits="consult" label="Conditions de stockage" tooltip="Liste des conditions de stockage" />
+	<item module="movementReasonList" droits="consult" label="Motifs de déstockage" tooltip="Motifs de sortie du stock" />
+	<item module="objectStatusList" droits="consult" label="Statuts des objets" tooltip="Liste des statuts possibles pour les objets" />
 	<item divider='1'/>	
-	<item module="labelList" droits="consult" value="80" title="81" />
-	<item module="printerList" droits="param" value="97" title="98" />		
+	<item module="labelList" droits="consult" label="Étiquettes" tooltip="Modèles d'étiquettes" />
+	<item module="printerList" droits="param" label="Imprimantes" tooltip="Liste des imprimantes" />		
 </item>
 
-<item module="administration" value="4" title="5" droits="admin">
-	<item module="loginList" menulevel="1" menuorder="9" droits="admin" title="3" value="2"/>
-	<item module="appliList" droits="admin" value="appliliste" title="applilistetitle"/>
-	<item module="aclloginList" droits="admin" value="aclloginliste" title="aclloginlistetitle"/>
-	<item module="groupList" droits="admin" value="groupliste" title="grouplistetitle"/>
-	<item module="dbparamList" droits="admin" value="103" title="104" />
-	<item module="phpinfo" droits="admin" value="phpinfo" title="phpinfotitle"/>
+<item module="administration" label="Administration" tooltip="Administration de l'application" droits="admin">
+	<item module="loginList" menulevel="1" menuorder="9" droits="admin" label="Liste des comptes locaux" tooltip="Liste des logins - identification via la base de données"/>
+	<item module="appliList" droits="admin" label="ACL - droits" tooltip="applications et droits gérés"/>
+	<item module="aclloginList" droits="admin" label="ACL - logins" tooltip="Logins déclarés dans le module de gestion des droits"/>
+	<item module="groupList" droits="admin" label="ACL - groupes de logins" tooltip="Groupes de logins et logins rattachés aux groupes"/>
+	<item module="dbparamList" droits="admin" label="Paramètres de l'application" tooltip="Liste des paramètres pérennes de l'application" />
+	<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP"/>
 </item>
-<item module="connexion" title="connexiontitle" value="connexionvalue" onlynoconnect="1"/>
-<item module="disconnect" title="7" value="6" loginrequis="1">
-	<item module="loginChangePassword" loginrequis="1" title="pwchangetitle" value="pwchange" />
+<item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1"/>
+<item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1">
+	<item module="loginChangePassword" loginrequis="1" label="Modifier le mot de passe" tooltip="Modifiez votre mot de passe (identification locale uniquement)" />
 </item>
-<item module="aide" title="helpTitle" value="help">
-	<item module="apropos" title="9" value="8"/>
-	<item module="quoideneuf" title="41" value="40"/>
-	<item module="lexique" value="107" title="108" />
-	<item module="setlanguagefr" title="frtitle" value="fr"/>
-	<item module="setlanguageen" title="entitle" value="en"/>
+<item module="aide" label="?" tooltip="Aide">
+	<item module="apropos" label="A propos" tooltip="A propos de Collec-Science"/>
+	<item module="quoideneuf" label="Nouveautés" tooltip="Quoi de neuf dans l'application ?"/>
+	<item module="lexique" label="Lexique" tooltip="Lexique des termes utilisés dans le logiciel" />
+	<item module="setlanguagefr" label="Français" tooltip="Libellés en français"/>
+	<item module="setlanguageen" label="English" tooltip="Labels in English"/>
 		
 </item>
 </menu>

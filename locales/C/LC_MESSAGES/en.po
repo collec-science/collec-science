@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-29 17:59+0200\n"
+"POT-Creation-Date: 2018-05-30 10:57+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -270,7 +270,7 @@ msgstr "List of possible statuses for objects"
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:41
 #: ../../../display/templates/gestion/containerListDetail.tpl:62
-#: ../../../display/templates/gestion/sampleListDetail.tpl:50
+#: ../../../display/templates/gestion/sampleListDetail.tpl:93
 msgid "Étiquettes"
 msgstr "Labels"
 
@@ -523,71 +523,71 @@ msgstr "Unable to load the file to import"
 msgid "Module gestion"
 msgstr "Management module"
 
-#: ../../../display/templates/main_js.tpl:68
+#: ../../../display/templates/main_js.tpl:71
 msgid "Traitement en cours..."
 msgstr "Processing..."
 
-#: ../../../display/templates/main_js.tpl:69
+#: ../../../display/templates/main_js.tpl:72
 msgid "Rechercher :"
 msgstr "Search:"
 
-#: ../../../display/templates/main_js.tpl:70
+#: ../../../display/templates/main_js.tpl:73
 msgid "Afficher _MENU_ éléments"
 msgstr "Show _MENU_ entries"
 
-#: ../../../display/templates/main_js.tpl:71
+#: ../../../display/templates/main_js.tpl:74
 msgid "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments"
 msgstr "Showing _START_ to _END_ of _TOTAL_ entries"
 
-#: ../../../display/templates/main_js.tpl:72
+#: ../../../display/templates/main_js.tpl:75
 msgid "Affichage de l'élément 0 à 0 sur 0 élément"
 msgstr "Showing 0 to 0 of 0 entries"
 
-#: ../../../display/templates/main_js.tpl:73
+#: ../../../display/templates/main_js.tpl:76
 msgid "(filtré de _MAX_ éléments au total)"
 msgstr "(filtered from _MAX_ total entries)"
 
-#: ../../../display/templates/main_js.tpl:75
+#: ../../../display/templates/main_js.tpl:78
 msgid "Chargement en cours..."
 msgstr "Loading..."
 
-#: ../../../display/templates/main_js.tpl:76
+#: ../../../display/templates/main_js.tpl:79
 msgid "Aucun élément à afficher"
 msgstr "No matching records found"
 
-#: ../../../display/templates/main_js.tpl:77
+#: ../../../display/templates/main_js.tpl:80
 msgid "Aucune donnée disponible dans le tableau"
 msgstr "No data available in table"
 
-#: ../../../display/templates/main_js.tpl:79
+#: ../../../display/templates/main_js.tpl:82
 msgid "Premier"
 msgstr "First"
 
-#: ../../../display/templates/main_js.tpl:80
+#: ../../../display/templates/main_js.tpl:83
 msgid "Précédent"
 msgstr "Previous"
 
-#: ../../../display/templates/main_js.tpl:81
+#: ../../../display/templates/main_js.tpl:84
 msgid "Suivant"
 msgstr "Next"
 
-#: ../../../display/templates/main_js.tpl:82
+#: ../../../display/templates/main_js.tpl:85
 msgid "Dernier"
 msgstr "Last"
 
-#: ../../../display/templates/main_js.tpl:85
+#: ../../../display/templates/main_js.tpl:88
 msgid ": activer pour trier la colonne par ordre croissant"
 msgstr ": activate to sort column ascending"
 
-#: ../../../display/templates/main_js.tpl:86
+#: ../../../display/templates/main_js.tpl:89
 msgid ": activer pour trier la colonne par ordre décroissant"
 msgstr ": activate to sort column descending"
 
-#: ../../../display/templates/main_js.tpl:142
+#: ../../../display/templates/main_js.tpl:145
 msgid "Valeur numérique..."
 msgstr "Numerical value..."
 
-#: ../../../display/templates/main_js.tpl:162
+#: ../../../display/templates/main_js.tpl:165
 msgid "Confirmez-vous la suppression ?"
 msgstr "Do you confirm the deletion?"
 
@@ -612,64 +612,64 @@ msgid "Mot de passe"
 msgstr "Password"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:6
-#: ../../../display/templates/gestion/sampleListDetail.tpl:6
+#: ../../../display/templates/gestion/sampleListDetail.tpl:14
 msgid "Tout cocher"
 msgstr "Check all"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:8
 #: ../../../display/templates/gestion/containerListDetail.tpl:52
-#: ../../../display/templates/gestion/sampleListDetail.tpl:8
-#: ../../../display/templates/gestion/sampleListDetail.tpl:40
+#: ../../../display/templates/gestion/sampleListDetail.tpl:16
+#: ../../../display/templates/gestion/sampleListDetail.tpl:83
 msgid "Tout décocher"
 msgstr "Uncheck all"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:55
-#: ../../../display/templates/gestion/sampleListDetail.tpl:43
+#: ../../../display/templates/gestion/sampleListDetail.tpl:86
 msgid "Étiquette par défaut"
 msgstr "Default label"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:64
-#: ../../../display/templates/gestion/sampleListDetail.tpl:63
+#: ../../../display/templates/gestion/sampleListDetail.tpl:106
 msgid "Fichier CSV"
 msgstr "CSV file"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:73
-#: ../../../display/templates/gestion/sampleListDetail.tpl:61
+#: ../../../display/templates/gestion/sampleListDetail.tpl:104
 msgid "Impression directe"
 msgstr "Direct printing"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:81
-#: ../../../display/templates/gestion/sampleListDetail.tpl:75
+#: ../../../display/templates/gestion/sampleListDetail.tpl:118
 msgid "UID"
 msgstr "UID"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:82
-#: ../../../display/templates/gestion/sampleListDetail.tpl:76
+#: ../../../display/templates/gestion/sampleListDetail.tpl:119
 msgid "Identifiant ou nom"
 msgstr "Identifier or name"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:83
-#: ../../../display/templates/gestion/sampleListDetail.tpl:77
+#: ../../../display/templates/gestion/sampleListDetail.tpl:120
 msgid "Autres identifiants"
 msgstr "Other identifiers"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:84
-#: ../../../display/templates/gestion/sampleListDetail.tpl:80
+#: ../../../display/templates/gestion/sampleListDetail.tpl:123
 msgid "Statut"
 msgstr "Status"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:85
-#: ../../../display/templates/gestion/sampleListDetail.tpl:79
+#: ../../../display/templates/gestion/sampleListDetail.tpl:122
 msgid "Type"
 msgstr "Type"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:86
-#: ../../../display/templates/gestion/sampleListDetail.tpl:83
+#: ../../../display/templates/gestion/sampleListDetail.tpl:126
 msgid "Dernier mouvement"
 msgstr "Last movement"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:87
-#: ../../../display/templates/gestion/sampleListDetail.tpl:84
+#: ../../../display/templates/gestion/sampleListDetail.tpl:127
 msgid "Emplacement"
 msgstr "Location"
 
@@ -686,29 +686,29 @@ msgid "Code CLP"
 msgstr "CLP code"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:91
-#: ../../../display/templates/gestion/sampleListDetail.tpl:82
+#: ../../../display/templates/gestion/sampleListDetail.tpl:125
 msgid "Photo"
 msgstr "Photo"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:101
 #: ../../../display/templates/gestion/containerListDetail.tpl:105
-#: ../../../display/templates/gestion/sampleListDetail.tpl:98
-#: ../../../display/templates/gestion/sampleListDetail.tpl:102
+#: ../../../display/templates/gestion/sampleListDetail.tpl:141
+#: ../../../display/templates/gestion/sampleListDetail.tpl:145
 msgid "Consultez le détail"
 msgstr "Consult the detail"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:132
-#: ../../../display/templates/gestion/sampleListDetail.tpl:141
+#: ../../../display/templates/gestion/sampleListDetail.tpl:184
 msgid "col:"
 msgstr "col:"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:132
-#: ../../../display/templates/gestion/sampleListDetail.tpl:141
+#: ../../../display/templates/gestion/sampleListDetail.tpl:184
 msgid "ligne:"
 msgstr "row:"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:146
-#: ../../../display/templates/gestion/sampleListDetail.tpl:121
+#: ../../../display/templates/gestion/sampleListDetail.tpl:164
 msgid "aperçu de la photo"
 msgstr "preview of the photo"
 
@@ -720,42 +720,51 @@ msgstr "Search samples"
 msgid "Nouvel échantillon"
 msgstr "New sample"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:65
+#: ../../../display/templates/gestion/sampleListDetail.tpl:48
+#: ../../../display/templates/gestion/sampleListDetail.tpl:77
+msgid "Affichage réduit"
+msgstr "Collapse display"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:50
+msgid "Affichage complet"
+msgstr "Expand display"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:108
 msgid "Export pour import dans une autre base Collec-Science"
 msgstr "Export for import into another Collec-Science database"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:66
+#: ../../../display/templates/gestion/sampleListDetail.tpl:109
 msgid "Export vers autre base"
 msgstr "Export to another database"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:78
+#: ../../../display/templates/gestion/sampleListDetail.tpl:121
 msgid "Collection"
 msgstr "Collection"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:81
+#: ../../../display/templates/gestion/sampleListDetail.tpl:124
 msgid "Parent"
 msgstr "Parent"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:85
+#: ../../../display/templates/gestion/sampleListDetail.tpl:128
 msgid "Lieu de prélèvement"
 msgstr "Sampling place"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:86
+#: ../../../display/templates/gestion/sampleListDetail.tpl:129
 #: ../../../display/templates/gestion/sampleSearch.tpl:260
 msgid "Date d'échantillonnage"
 msgstr "Sampling date"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:87
+#: ../../../display/templates/gestion/sampleListDetail.tpl:130
 #: ../../../display/templates/gestion/sampleSearch.tpl:259
 msgid "Date de création dans la base"
 msgstr "Date added"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:88
+#: ../../../display/templates/gestion/sampleListDetail.tpl:131
 #: ../../../display/templates/gestion/sampleSearch.tpl:261
 msgid "Date d'expiration"
 msgstr "Expiration date"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:106
+#: ../../../display/templates/gestion/sampleListDetail.tpl:149
 msgid "UID de la base de données d'origine"
 msgstr "UID from the original database"
 

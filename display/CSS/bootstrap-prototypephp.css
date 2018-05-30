@@ -11,8 +11,14 @@ body {
   height: 99%;
 }
 @media (max-width: 991px) {
-    .form-control, .btn, li, ul, .dropdown-menu, .center-block, #message, label, div {font-size: 1.1em;}
+    .form-control, .btn, li, ul, .dropdown-menu, .center-block, 
+    #message, label, div {font-size: 1.1em;},
+	
 }
+@media (max-width: 991px) {
+	select {min-height: 2em;}
+}
+
 
 #wrap {
   min-height: 100%;

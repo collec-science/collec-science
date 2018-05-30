@@ -1,6 +1,14 @@
 <!--  Liste des échantillons pour affichage-->
 <script>
 	$(document).ready(function() {
+		var displayModeFull = Cookies.get("samplelistDisplayMode");
+		if (typeof (displayModeFull) == "undefined") {
+			$(window).width() < 1200 ? displayModeFull = false : displayModeFull = true;
+		} else {
+			displayModeFull == "true" ? displayModeFull = true : displayModeFull = false;
+		}
+
+		
 		$("#checkSample").change(function() {
 			$('.checkSample').prop('checked', this.checked);
 			var libelle = "{t}Tout cocher{/t}";
@@ -30,8 +38,43 @@
 			$(this.form).find("input[name='module']").val("sampleExport");
 			$(this.form).submit();
 		});
+		/*
+		 * Gestion de l'affichage des colonnes en fonction de la taille de l'ecran
+		 */
+		function displayMode(mode) {
+			displayModeFull = mode;
+			$("#sampleList").DataTable().columns([3,5,6,7,10,11,12,13]).visible(displayModeFull);
+			if (displayModeFull) {
+				$("#displayModeButton").text("Affichage réduit");
+			} else {
+				$("#displayModeButton").text("Affichage complet");
+			}
+			Cookies.set("samplelistDisplayMode",displayModeFull);
+		}
+		
+		/*
+		 * Masquage des colonnes pour les petits ecrans
+		 */
+		$(window).resize(function() {
+			  if ($(this).width() < 1200) {
+				 displayMode(false);
+			    
+			  } else {
+				  displayMode(true);
+			  }
+			});
+		$("#displayModeButton").on ("keypress click", function() {
+			displayModeFull == true ? displayModeFull = false : displayModeFull = true;
+			displayMode(displayModeFull);
+		});
+		/*
+		 * initialisation a l'ouverture de la fenetre
+		 */
+		displayMode(displayModeFull);
+		
 	});
 </script>
+<button id="displayModeButton" class="btn btn-info pull-right">Affichage réduit</button>
 {include file="gestion/displayPhotoScript.tpl"} {if $droits.gestion == 1}
 <form method="POST" id="formListPrint" action="index.php">
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
@@ -68,24 +111,24 @@
 		</div>
 	</div>
 	{/if}
-	<table id="containerList"
-		class="table table-bordered table-hover datatable-export ">
+	<table id="sampleList"
+		class="table table-bordered table-hover datatable-export">
 		<thead>
 			<tr>
-				<th>{t}UID{/t}</th>
-				<th>{t}Identifiant ou nom{/t}</th>
-				<th>{t}Autres identifiants{/t}</th>
-				<th>{t}Collection{/t}</th>
-				<th>{t}Type{/t}</th>
-				<th>{t}Statut{/t}</th>
-				<th>{t}Parent{/t}</th>
-				<th>{t}Photo{/t}</th>
-				<th>{t}Dernier mouvement{/t}</th>
-				<th>{t}Emplacement{/t}</th>
-				<th>{t}Lieu de prélèvement{/t}</th>
-				<th>{t}Date d'échantillonnage{/t}</th>
-				<th>{t}Date de création dans la base{/t}</th>
-				<th>{t}Date d'expiration{/t}</th> 
+				<th>UID</th>
+				<th>Identifiant ou nom</th>
+				<th>Autres identifiants</th>
+				<th class="d-none d-lg-table-cell">Collection</th>
+				<th>Type</th>
+				<th>Statut</th>
+				<th>Parent</th>
+				<th>Photo</th>
+				<th>Dernier mouvement</th>
+				<th>Emplacement</th>
+				<th>Lieu de prélèvement</th>
+				<th>Date d'échantillonnage</th>
+				<th>Date de création dans la base</th>
+				<th>Date d'expiration</th> 
 				{if $droits.gestion == 1}
 				<th></th> {/if}
 			</tr>

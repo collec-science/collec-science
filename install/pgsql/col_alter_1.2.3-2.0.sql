@@ -1,7 +1,13 @@
 /*
  * Script de mise a jour pour basculer la version 1.2.3 vers la version 2.0
  * Le script fonctionne avec les schemas gacl et col. Si vous utilisez d'autres noms de schemas,
- * corrigez les lignes 10 et 24
+ * corrigez les lignes 16 et 30
+ * Attention : si vous executez le script en n'etant pas connecte avec le login collec 
+ * (celui utilise par l'application pour se connecter), vous devrez executer la commande suivante
+ * en fin de script :
+ * ALTER TABLE col.last_movement OWNER TO collec;
+ * ou col doit etre, le cas echeant, remplace par votre schema, 
+ * et collec par le login utilise dans l'application
  */
 
 /*

@@ -106,6 +106,7 @@ switch ($t_module["param"]) {
         $data = $dataClass->getForPrint($_REQUEST["uid"]);
         if (count($data) > 0) {
             $vue->set($data);
+            $vue->regenerateHeader();
             $vue->setFilename("printlabel.csv");
         } else {
             unset($vue);

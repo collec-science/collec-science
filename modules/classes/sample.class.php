@@ -453,6 +453,26 @@ class Sample extends ObjetBDD
                     unset($value["parent_sample_id"]);
                     unset($value["collection_id"]);
                     unset($value["uid"]);
+                    /*
+                     * Traitement des metadonnees - ajout de colonnes prefixees avec md_
+                     */
+                    $metadata = json_decode($value["metadata"], true);
+                    foreach ($metadata as $kmd => $md) {
+                        if (is_array($md)) {
+                            $val = "";
+                            $comma = "";
+                            foreach ($md as $v) {
+                                $val .= $comma . $v;
+                                $comma = ", ";
+                            }
+                        } else {
+                            $val = $md;
+                        }
+                        $value["md_".$kmd] = $val;
+                    }
+                    /*
+                     * Fin de traitement - rajout de la ligne reformatee
+                     */
                     $data[] = $value;
                 }
             }
@@ -573,9 +593,9 @@ class Sample extends ObjetBDD
             foreach ($fieldDates as $fieldDate) {
                 if (strlen($row[$fieldDate]) > 0) {
                     /*
-                     * Verification du format francais
+                     * Verification du format de date
                      */
-                    $result = date_parse_from_format("d/m/Y", $row[$fieldDate]);
+                    $result = date_parse_from_format($_SESSION["MASKDATE"], $row[$fieldDate]);
                     if ($result["warning_count"] > 0) {
                         /*
                          * Test du format general

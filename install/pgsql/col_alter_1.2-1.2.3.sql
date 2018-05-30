@@ -7,8 +7,9 @@
   */
 set search_path=gacl;
 insert into aclaco (aclaco_id, aclappli_id, aco) values (6, 1, 'import');
-insert into aclgroup (aclgroup_id, groupe, aclgroup_id_parent) values (6, 'import', 3);
-insert into aclacl (aclaco_id, aclgroup_id) values (6, 6);
+insert into aclgroup (aclgroup_id, groupe, aclgroup_id_parent) values((select max(aclgroup_id)+1 from aclgroup), 'import', 3);
+insert into aclacl (aclaco_id, aclgroup_id) values (6, (select max(aclgroup_id) from aclgroup));
+insert into acllogingroup(acllogin_id, aclgroup_id) values (1, (select max(aclgroup_id)+1 from aclgroup));
 select setval('aclaco_aclaco_id_seq', (select max(aclaco_id) from aclaco));
 select setval('aclgroup_aclgroup_id_seq', (select max(aclgroup_id) from aclgroup));
 

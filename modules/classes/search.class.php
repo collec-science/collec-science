@@ -154,7 +154,7 @@ class SearchExample extends SearchParam
             "comment" => "",
             "numero" => 0,
             "numero1" => "",
-            "dateExample" => date('d/m/Y')
+            "dateExample" => date($_SESSION["MASKDATE"])
         );
         $this->paramNum = array(
             "numero",

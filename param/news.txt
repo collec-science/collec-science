@@ -1,5 +1,19 @@
 News
 ===========
+Version 2.0.1 du 25 mai 2018
+--------------------------
+Corrections de bugs :
+- les listes de choix étaient illisibles sur de petits terminaux
+- quand l'interface était positionnée en anglais, la création d'un nouvel utilisateur générait une erreur de gestion de dates
+- la génération du fichier pour imprimer des étiquettes (export CSV) ne traitait pas correctement les métadonnées, qui étaient mal positionnées dans les colonnes
+- le script col_alter_1.2-1.2.3.sql pouvait générer des erreurs dans certains cas de figure
+- si une requête de recherche des échantillons déclenchait une erreur de la base de données, l'écran restait blanc sans pouvoir savoir ce qu'il se passait
+
+Évolutions :
+- ajout d'un mode d'affichage restreint de la liste des échantillons, soit pour des usages spécifiques, soit pour les petits écrans (seuls quelques colonnes sont affichées). La bascule s'opère via un bouton
+- ajout d'une précision pour gérer correctement les droits dans col_alter_1.2.3-2.0.sql
+- l'export des échantillons vers une autre base crée des colonnes dédiées pour chaque métadonnée, préfixée par md_
+
 Version 2.0 du 4 mai 2018
 --------------------------
 Évolutions :

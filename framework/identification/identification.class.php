@@ -282,7 +282,7 @@ class Identification
      */
     function verifyLogin($loginEntered = "", $password = "", $modeAdmin = false)
     {
-        global $log, $CONNEXION_blocking_duration, $CONNEXION_max_attempts;
+        global $log, $CONNEXION_blocking_duration, $CONNEXION_max_attempts, $message;
         $login = "";
         $verify = false;
         $ident_type = $this->ident_type;
@@ -522,7 +522,7 @@ class LoginGestion extends ObjetBDD
                 throw new IdentificationException("Password not enough complex or too small");
             }
         }
-        $data["datemodif"] = date('d-m-y');
+        $data["datemodif"] = date($_SESSION["MASKDATELONG"]);
         /*
          * Traitement de la generation du token d'identification ws
          */

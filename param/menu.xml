@@ -27,7 +27,7 @@
 	<item divider='1'/>
 	<item module="containerFamilyList" droits="consult" label="Familles de contenants" tooltip="Familles de contenants (armoires, éprouvettes...)" />
 	<item module="containerTypeList" droits="consult" label="Types de contenants" tooltip="Liste des types de contenants" />
-	<item module="sampleTypeList" droits="consult" label="Type d'échantillons" tooltip="Liste des types d'échantillons gérés" />
+	<item module="sampleTypeList" droits="consult" label="Types d'échantillons" tooltip="Liste des types d'échantillons gérés" />
 	<item module="identifierTypeList" droits="consult" label="Types d'identifiants" tooltip="Liste des types d'identifiants rattachables à un objet" />
 	<item module="multipleTypeList" droits="consult" label="Sous-échantillonnage" tooltip="Types de sous-échantillonnage" />
 	<item module="metadataList" droits="consult" label="Métadonnées" tooltip="Modèles de métadonnées" />

@@ -1,3 +1,4 @@
+{* Objets > échantillons > Rechercher > UID d'un échantillon > section Documents associés *}
 <script>
 $(document).ready(function() { 
 	$('.image-popup-no-margins').magnificPopup( {
@@ -29,7 +30,7 @@ $(document).ready(function() {
 } ) ;
 </script>
 {if $droits["gestion"] == 1 && $modifiable == 1 } 
-<a href="#" id="documentChangeActivate">Saisir un nouveau document...</a>
+<a href="#" id="documentChangeActivate">{t}Saisir un nouveau document...{/t}</a>
 <div id="documentChange" hidden="true">
 {include file="gestion/documentChange.tpl"}
 </div>
@@ -37,14 +38,16 @@ $(document).ready(function() {
 <table id="documentList" class="table table-bordered table-hover datatable" data-order='[[5, "desc"], [4, "desc"]]'>
 <thead>
 <tr>
-<th>Vignette</th>
-<th>Nom du document</th>
-<th>Description</th>
-<th>Taille</th>
-<th>Date<br>d'import</th>
-<th>Date<br>de création</th>
+<th>{t}Vignette{/t}</th>
+<th>{t}Nom du document{/t}</th>
+<th>{t}Description{/t}</th>
+<th>{t}Taille{/t}</th>
+<th>{t}Date
+d'import{/t}</th>
+<th>{t}Date
+de création{/t}</th>
 {if $droits["gestion"] == 1}
-<th>Supprimer</th>
+<th>{t}Supprimer{/t}</th>
 {/if}
 </tr>
 </thead>
@@ -53,16 +56,16 @@ $(document).ready(function() {
 <tr>
 <td class="center">
 {if in_array($dataDoc[lst].mime_type_id, array(4, 5, 6)) }
-<a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].photo_preview}&attached=0&phototype=1" title="aperçu de la photo : {substr($dataDoc[lst].photo_name, strrpos($dataDoc[lst].photo_name, '/') + 1)}">
+<a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].photo_preview}&attached=0&phototype=1" title="{t}aperçu de la photo :{/t} {substr($dataDoc[lst].photo_name, strrpos($dataDoc[lst].photo_name, '/') + 1)}">
 <img src="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" height="30">
 </a>
 {elseif  $dataDoc[lst].mime_type_id == 1}
-<a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" title="aperçu du document : {substr($dataDoc[lst].thumbnail_name, strrpos($dataDoc[lst].thumbnail_name, '/') + 1)}">
+<a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" title="{t}aperçu du document :{/t} {substr($dataDoc[lst].thumbnail_name, strrpos($dataDoc[lst].thumbnail_name, '/') + 1)}">
 <img src="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" height="30">
 </a>
 {/if}
 <td>
-<a href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&attached=1&phototype=0" title="document original">
+<a href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&attached=1&phototype=0" title="{t}document original{/t}">
 {$dataDoc[lst].document_name}
 </a>
 </td>
@@ -73,7 +76,7 @@ $(document).ready(function() {
 {if $droits["gestion"] == 1}
 <td>
 <div class="center">
-<a href="index.php?module={$moduleParent}documentDelete&document_id={$dataDoc[lst].document_id}&uid={$data.uid}" onclick="return confirm('Confirmez-vous la suppression ?');">
+<a href="index.php?module={$moduleParent}documentDelete&document_id={$dataDoc[lst].document_id}&uid={$data.uid}" onclick="return confirm('{t}Confirmez-vous la suppression ?{/t}');">
 <img src="{$display}/images/corbeille.png" height="20">
 </a>
 </div>

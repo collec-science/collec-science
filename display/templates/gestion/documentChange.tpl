@@ -1,3 +1,7 @@
+{*pour accéder à ce formulaire : 
+	consulter le détail d'un échantillon /index.php?module=sampleDisplay&uid=1 ou d'un contenant
+	puis dans la section "Documents associés" > Saisir un nouveau document
+*}
 <script>
 	$(document).ready(function() {
 		$("#documentSpinner").hide();
@@ -15,7 +19,7 @@
 			type="hidden" name="module" value="{$moduleParent}documentWrite">
 		<div class="form-group">
 			<label for="documentName" class="control-label col-md-4">
-				Fichier(s) à importer : <br>(doc, jpg, png, pdf, xls, xlsx,
+				{t}Fichier(s) à importer :{/t} <br>(doc, jpg, png, pdf, xls, xlsx,
 				docx, odt, ods, csv)
 			</label>
 			<div class="col-md-8">
@@ -25,21 +29,21 @@
 		</div>
 		<div class="form-group">
 			<label for="documentName" class="control-label col-md-4">
-				Description : </label>
+				{t}Description :{/t} </label>
 			<div class="col-md-8">
 				<input id="document_description" name="document_description" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="document_creation_date" class="control-label col-md-4">
-				Date de création du document : </label>
+				{t}Date de création du document :{/t} </label>
 			<div class="col-md-8">
 				<input id="document_creation_date" name="document_creation_date"
 					class="form-control date">
 			</div>
 		</div>
 		<div class="form-group center">
-			<button type="submit" class="btn btn-primary">{$LANG["message"].19}</button>
+			<button type="submit" class="btn btn-primary">{t}Envoyer le fichier{/t}</button>
 			<img id="documentSpinner" src="{$display}/images/spinner.gif" height="25" >
 		</div>
 	</form>

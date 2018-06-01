@@ -1,3 +1,4 @@
+{* Objets > échantillons > Rechercher > UID d'un échantillon > Modifier > *}
 <script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
 
 <script type="text/javascript">
@@ -89,7 +90,7 @@ function testScan() {
     		.done (function( d ) {
    				if (d ) {
     				d = JSON.parse(d);
-    				options = '<option value="">Sélectionnez...</option>';			
+    				options = '<option value="">{t}Sélectionnez...{/t}</option>';			
     				 for (var i = 0; i < d.length; i++) {
     				        options += '<option value="'+d[i].sampling_place_id + '"';
     				        if (d[i].sampling_place_id == sampling_place_init ) {
@@ -287,29 +288,29 @@ function testScan() {
     });
 </script>
 
-<h2>Création - modification d'un échantillon</h2>
+<h2>{t}Création - modification d'un échantillon{/t}</h2>
 <div class="row col-md-12">
 <a href="index.php?module={$moduleListe}">
 <img src="{$display}/images/list.png" height="25">
-Retour à la liste des échantillons
+{t}Retour à la liste des échantillons{/t}
 </a>
 {if $data.uid > 0}
 <a href="index.php?module=sampleDisplay&uid={$data.uid}">
-<img src="{$display}/images/box.png" height="25">Retour au détail
+<img src="{$display}/images/box.png" height="25">{t}Retour au détail{/t}
 </a>
 {elseif $sample_parent_uid > 0}
 <a href="index.php?module=sampleDisplay&uid={$sample_parent_uid}">
-<img src="{$display}/images/box.png" height="25">Retour au détail
+<img src="{$display}/images/box.png" height="25">{t}Retour au détail{/t}
 </a>
 {/if}
 </div>
 <div class="row">
 {if $data.parent_sample_id > 0}
 <fieldset class="col-md-6">
-<legend>Échantillon parent</legend>
+<legend>{t}Échantillon parent{/t}</legend>
 <div class="form-display">
 <dl class="dl-horizontal">
-<dt>UID et référence :</dt>
+<dt>{t}UID et référence :{/t}</dt>
 <dd>
 <a href="index.php?module=sampleDisplay&uid={$parent_sample.uid}">
 {$parent_sample.uid} {$parent_sample.identifier}
@@ -317,11 +318,11 @@ Retour à la liste des échantillons
 </dd>
 </dl>
 <dl class="dl-horizontal">
-<dt>Collection :</dt>
+<dt>{t}Collection :{/t}</dt>
 <dd>{$parent_sample.collection_name}</dd>
 </dl>
 <dl class="dl-horizontal">
-<dt>Type :</dt>
+<dt>{t}Type :{/t}</dt>
 <dd>{$parent_sample.sample_type_name}</dd>
 </dl>
 </div>
@@ -329,11 +330,11 @@ Retour à la liste des échantillons
 {/if}
 </div>
 {if $data.sample_id == 0}
-<button type="button" class="btn btn-warning" id="reinit">Réinitialiser les champs</button>
+<button type="button" class="btn btn-warning" id="reinit">{t}Réinitialiser les champs{/t}</button>
 {/if}
 <div class="row">
 <fieldset class="col-md-6">
-<legend>Échantillon</legend>
+<legend>{t}Échantillon{/t}</legend>
 <form class="form-horizontal protoform" id="sampleForm" method="post" action="index.php" onsubmit="return(testScan());">
 <input type="hidden" name="sample_id" value="{$data.sample_id}">
 <input type="hidden" name="moduleBase" value="sample">
@@ -341,41 +342,41 @@ Retour à la liste des échantillons
 <input type="hidden" name="parent_sample_id" value="{$data.parent_sample_id}">
 <input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.sample_id > 0 }
-      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
 <div class="form-group">
-<label for="scan_label" class="control-label col-md-4">Scannez l'étiquette existante :</label>
+<label for="scan_label" class="control-label col-md-4">{t}Scannez l'étiquette existante :{/t}</label>
 <div class="col-md-5">
-<input id="scan_label" class="form-control" placeholder="Placez le curseur dans la zone et scannez l'étiquette">
+<input id="scan_label" class="form-control" placeholder="{t}Placez le curseur dans la zone et scannez l'étiquette{/t}">
 </div>
 <div class="col-md-3">
-<button class="btn btn-info" type="button" id="scan_label_action">Mettre à jour les champs</button>
+<button class="btn btn-info" type="button" id="scan_label_action">{t}Mettre à jour les champs{/t}</button>
 </div>
 </div>
 
 <div class="form-group">
-<label for="uid" class="control-label col-md-4">UID :</label>
+<label for="uid" class="control-label col-md-4">{t}UID :{/t}</label>
 <div class="col-md-8">
-<input id="uid" name="uid" value="{$data.uid}" readonly class="form-control" title="identifiant unique dans la base de données">
+<input id="uid" name="uid" value="{$data.uid}" readonly class="form-control" title="{t}identifiant unique dans la base de données{/t}">
 </div>
 </div>
 
 <div class="form-group">
-<label for="appli" class="control-label col-md-4">Identifiant ou nom :</label>
+<label for="appli" class="control-label col-md-4">{t}Identifiant ou nom :{/t}</label>
 <div class="col-md-6">
 <input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus >
 </div>
 <div class="col-md-2">
 <button class="btn btn-info" type="button" id="identifier_generate" disabled
-title="Générez l'identifiant à partir des informations saisies">Générer</button>
+title="{t}Générez l'identifiant à partir des informations saisies{/t}">{t}Générer{/t}</button>
 </div>
 </div>
 
 <div class="form-group">
-<label for="object_status_id" class="control-label col-md-4">Statut<span class="red">*</span> :</label>
+<label for="object_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Statut :{/t}</label>
 <div class="col-md-8">
 <select id="object_status_id" name="object_status_id" class="form-control">
 {section name=lst loop=$objectStatus}
@@ -388,7 +389,7 @@ title="Générez l'identifiant à partir des informations saisies">Générer</bu
 </div>
 
 <div class="form-group">
-<label for="collection_id" class="control-label col-md-4">Collection<span class="red">*</span> :</label>
+<label for="collection_id" class="control-label col-md-4"><span class="red">*</span> {t}Collection :{/t}</label>
 <div class="col-md-8">
 <select id="collection_id" name="collection_id" class="form-control" autofocus>
 {section name=lst loop=$collections}
@@ -402,10 +403,10 @@ title="Générez l'identifiant à partir des informations saisies">Générer</bu
 
 
 <div class="form-group">
-<label for="sample_type_id" class="control-label col-md-4">Type<span class="red">*</span> :</label>
+<label for="sample_type_id" class="control-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
 <div class="col-md-8">
 <select id="sample_type_id" name="sample_type_id" class="form-control">
-<option disabled selected value >{$LANG["appli"][2]}</option>
+<option disabled selected value >{t}Choisissez...{/t}</option>
 {section name=lst loop=$sample_type}
 <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $data.sample_type_id}selected{/if}>
 {$sample_type[lst].sample_type_name} 
@@ -419,21 +420,21 @@ title="Générez l'identifiant à partir des informations saisies">Générer</bu
 </div>
 
 <div class="form-group">
-<label for="dbuid_origin" class="control-label col-md-4">Base de données et UID d'origine :</label>
+<label for="dbuid_origin" class="control-label col-md-4">{t}Base de données et UID d'origine :{/t}</label>
 <div class="col-md-8">
-<input id="dbuid_origin" class="form-control" name="dbuid_origin" value="{$data.dbuid_origin}" placeholder="db:uid. Exemple: col:125">
+<input id="dbuid_origin" class="form-control" name="dbuid_origin" value="{$data.dbuid_origin}" placeholder="{t}db:uid. Exemple: col:125{/t}">
 </div>
 </div>
 
 <div class="form-group">
-<label for="sampling_place_id" class="control-label col-md-4">Lieu de prélèvement :</label>
+<label for="sampling_place_id" class="control-label col-md-4">{t}Lieu de prélèvement :{/t}</label>
 <div class="col-md-8">
 <select id="sampling_place_id" name="sampling_place_id" class="form-control ">
 </select>
 </div>
 </div>
 <div class="form-group">
-<label for="wy" class="control-label col-md-4">Latitude :</label>
+<label for="wy" class="control-label col-md-4">{t}Latitude :{/t}</label>
 <div class="col-md-8" id="wy">
 <input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
 <input id="wgs84_y" name="wgs84_y" placeholder="45.01300" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
@@ -441,7 +442,7 @@ title="Générez l'identifiant à partir des informations saisies">Générer</bu
 </div>
 
 <div class="form-group">
-<label for="wx" class="control-label col-md-4">Longitude :</label>
+<label for="wx" class="control-label col-md-4">{t}Longitude :{/t}</label>
 <div class="col-md-8" id="wx">
 <input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
 <input id="wgs84_x" name="wgs84_x" placeholder="-0.0156" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
@@ -451,34 +452,34 @@ title="Générez l'identifiant à partir des informations saisies">Générer</bu
 
 
 <div class="form-group">
-<label for="sampling_date"  class="control-label col-md-4">Date de création/échantillonnage de l'échantillon :</label>
+<label for="sampling_date"  class="control-label col-md-4">{t}Date de création/échantillonnage de l'échantillon :{/t}</label>
 <div class="col-md-8">
 <input id="sampling_date" class="form-control datetimepicker" name="sampling_date" value="{$data.sampling_date}"></div>
 </div>
 
 <div class="form-group">
-<label for="sample_creation_date"  class="control-label col-md-4">Date d'import dans la base de données :</label>
+<label for="sample_creation_date"  class="control-label col-md-4">{t}Date d'import dans la base de données :{/t}</label>
 <div class="col-md-8">
 <input id="sample_creation_date" class="form-control" name="sample_creation_date" readonly value="{$data.sample_creation_date}"></div>
 </div>
 <div class="form-group">
-<label for="expiration_date"  class="control-label col-md-4">Date d'expiration de l'échantillon :</label>
+<label for="expiration_date"  class="control-label col-md-4">{t}Date d'expiration de l'échantillon :{/t}</label>
 <div class="col-md-8">
 <input id="expiration_date" class="form-control datepicker" name="expiration_date"  value="{$data.expiration_date}"></div>
 </div>
 
 <fieldset>
-<legend>Sous-échantillonnage (si le type le permet)</legend>
+<legend>{t}Sous-échantillonnage (si le type le permet){/t}</legend>
 <div class="form-group">
 <label for="multiple_value"  class="control-label col-md-4">
-Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.multiple_unit}) :</label>
+{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité initiale de sous-échantillons (%1:%2) :{/t}</label>
 <div class="col-md-8">
 <input id="multiple_value" class="form-control taux" name="multiple_value" value="{$data.multiple_value}"></div>
 </div>
 </fieldset>
 
 <fieldset>
-    <legend>Jeu de métadonnées</legend>
+    <legend>{t}Jeu de métadonnées{/t}</legend>
     <div class="form-group">
     <div class="col-md-10 col-sm-offset-1">
     <div id="metadata"></div>
@@ -487,9 +488,9 @@ Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.mult
 </fieldset>
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.sample_id > 0 }
-      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
 
@@ -500,4 +501,4 @@ Quantité initiale de sous-échantillons ({$data.multiple_type_name}:{$data.mult
 </div>
 </div>
 
-<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>

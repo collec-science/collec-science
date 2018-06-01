@@ -1,16 +1,17 @@
+{* Objets > échantillons > Rechercher > UID d'un échantillon > section Événements *}
 <!-- Liste des événements -->
 {if $droits.gestion == 1}
 <a href="index.php?module={$moduleParent}eventChange&event_id=0&uid={$data.uid}">
-<img src="{$display}/images/new.png" height="25">Nouveau...
+<img src="{$display}/images/new.png" height="25">{t}Nouveau...{/t}
 </a>
 {/if}
 <table id="eventList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>Date</th>
-<th>Type</th>
-<th>Reste disponible (échantillons)</th>
-<th>Commentaire</th>
+<th>{t}Date{/t}</th>
+<th>{t}Type{/t}</th>
+<th>{t}Reste disponible (échantillons){/t}</th>
+<th>{t}Commentaire{/t}</th>
 </tr>
 </thead>
 <tbody>

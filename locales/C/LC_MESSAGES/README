@@ -52,9 +52,9 @@ msgcat _xml.pot _php.pot _tpl.pot -o _todo.pot
 msgmerge _old.po _todo.pot -o en.po
 
 #supprime les fichiers temporaires
-rm _xml.pot _tpl.pot _php.pot _todo.pot _old.po
+rm _xml.pot _tpl.pot _php.pot _todo.pot # _old.po
 
-#faire la traduction dans en.po (avec poedit par exemple)
+#faire la traduction dans en.po (avec poedit par exemple ou https://translate.google.com/toolkit)
 poedit en.po
 
 #compiler le .po en .mo

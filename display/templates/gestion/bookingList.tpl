@@ -1,17 +1,18 @@
+{* Objets > échantillons > Rechercher > UID d'un échantillon > section Réservations *}
 <!-- Liste des réservations -->
 {if $droits.gestion == 1}
 <a href="index.php?module={$moduleParent}bookingChange&booking_id=0&uid={$data.uid}">
-<img src="{$display}/images/crossed-calendar.png" height="25">Nouveau...
+<img src="{$display}/images/crossed-calendar.png" height="25">{t}Nouveau...{/t}
 </a>
 {/if}
 <table id="bookingList" class="table table-bordered table-hover datatable " data-order='[0,"desc"]' >
 <thead>
 <tr>
-<th>Du</th>
-<th>Au</th>
-<th>Commentaire</th>
-<th>Réservé par</th>
-<th>Le</th>
+<th>{t}Du{/t}</th>
+<th>{t}Au{/t}</th>
+<th>{t}Commentaire{/t}</th>
+<th>{t}Réservé par{/t}</th>
+<th>{t}Le{/t}</th>
 </tr>
 </thead>
 <tbody>

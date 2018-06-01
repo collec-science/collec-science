@@ -1,3 +1,4 @@
+{* Objets > échantillons > Rechercher > UID d'un échantillon > section Réservations > nouveau > *}
 <script>
 $(document).ready( function () {
 	function verifyOverlaps() {
@@ -22,7 +23,7 @@ $(document).ready( function () {
 				if (data != null) {
 					console.log("overlaps : "+data["overlaps"]);
 					if (data["overlaps"] == 1) {
-						$("#overlaps").text("La période chevauche une réservation existante");
+						$("#overlaps").text("{t}La période chevauche une réservation existante{/t}");
 					}
 				}
 			});			
@@ -40,17 +41,17 @@ $(document).ready( function () {
 });
 </script>
 
-<h2>Création - modification d'une réservation</h2>
+<h2>{t}Création - modification d'une réservation{/t}</h2>
 
 <div class="row">
 <div class="col-md-6">
 <a href="index.php?module={$moduleListe}">
 <img src="{$display}/images/list.png" height="25">
-Retour à la liste
+{t}Retour à la liste{/t}
 </a>
 <a href="index.php?module={$moduleParent}Display&uid={$object.uid}">
 <img src="{$display}/images/edit.gif" height="25">
-Retour au détail ({$object.uid} {$object.identifier})
+{t}Retour au détail{/t} ({$object.uid} {$object.identifier})
 </a>
 <div class="red" id="overlaps"></div>
 <form class="form-horizontal protoform" id="{$moduleParent}Form" method="post" action="index.php">
@@ -61,28 +62,28 @@ Retour au détail ({$object.uid} {$object.identifier})
 
 
 <div class="form-group">
-<label for="date_from" class="control-label col-md-4">Du<span class="red">*</span> :</label>
+<label for="date_from" class="control-label col-md-4"><span class="red">*</span> {t}Du :{/t}</label>
 <div class="col-md-8">
 <input id="date_from" name="date_from" required value="{$data.date_from}" class="fromto form-control datetimepicker" >
 </div>
 </div>
 
 <div class="form-group">
-<label for="date_to" class="control-label col-md-4">au<span class="red">*</span> :</label>
+<label for="date_to" class="control-label col-md-4"><span class="red">*</span> {t}Au :{/t}</label>
 <div class="col-md-8">
 <input id="date_to" name="date_to" required value="{$data.date_to}" class="fromto form-control datetimepicker" >
 </div>
 </div>
 
 <div class="form-group">
-<label for="booking_date" class="control-label col-md-4">Date de la réservation :</label>
+<label for="booking_date" class="control-label col-md-4">{t}Date de la réservation :{/t}</label>
 <div class="col-md-8">
 <input id="booking_date" name="booking_date" readonly value="{$data.booking_date}" class="form-control" >
 </div>
 </div>
 
 <div class="form-group">
-<label for="booking_login" class="control-label col-md-4">Réservation effectuée par :</label>
+<label for="booking_login" class="control-label col-md-4">{t}Réservation effectuée par :{/t}</label>
 <div class="col-md-8">
 <input id="booking_date" name="booking_login" readonly value="{$data.booking_login}" class="form-control" >
 </div>
@@ -90,20 +91,20 @@ Retour au détail ({$object.uid} {$object.identifier})
 
 
 <div class="form-group">
-<label for="booking_comment" class="control-label col-md-4">Commentaire :</label>
+<label for="booking_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
 <div class="col-md-8">
 <textarea id="booking_comment" name="booking_comment"  class="form-control" rows="3">{$data.booking_comment}</textarea>
 </div>
 </div>
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.booking_id > 0 }
-      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
 </form>
 </div>
 </div>
 
-<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>

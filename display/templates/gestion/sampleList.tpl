@@ -1,3 +1,4 @@
+{* Objets > échantillons > *}
 <h2>{t}Rechercher des échantillons{/t}</h2>
 
 	<div class="row">

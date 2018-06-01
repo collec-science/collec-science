@@ -1,14 +1,15 @@
-<h2>Création - modification d'un identifiant</h2>
+{* Objets > échantillons > Rechercher > UID d'un échantillon > section des identifiants > Nouvel identifiant... > *}
+<h2>{t}Création - modification d'un identifiant{/t}</h2>
 
 <div class="row">
 <div class="col-md-6">
 <a href="index.php?module={$moduleListe}">
 <img src="{$display}/images/list.png" height="25">
-Retour à la liste
+{t}Retour à la liste{/t}
 </a>
 <a href="index.php?module={$moduleParent}Display&uid={$object.uid}">
 <img src="{$display}/images/edit.gif" height="25">
-Retour au détail ({$object.uid} {$object.identifier})
+{t}Retour au détail{/t} ({$object.uid} {$object.identifier})
 </a>
 <form class="form-horizontal protoform" id="{$moduleParent}Form" method="post" action="index.php">
 <input type="hidden" name="object_identifier_id" value="{$data.object_identifier_id}">
@@ -20,7 +21,7 @@ Retour au détail ({$object.uid} {$object.identifier})
 
 
 <div class="form-group">
-<label for="identifier_type_id" class="control-label col-md-4">Type d'identifiant<span class="red">*</span> :</label>
+<label for="identifier_type_id" class="control-label col-md-4"><span class="red">*</span> {t}Type d'identifiant :{/t}</label>
 <div class="col-md-8">
 <select id="identifier_type_id" name="identifier_type_id" class="form-control">
 {section name=lst loop=$identifierType}
@@ -33,7 +34,7 @@ Retour au détail ({$object.uid} {$object.identifier})
 </div>
 
 <div class="form-group">
-<label for="object_identifier_value" class="control-label col-md-4">Valeur<span class="red">*</span> :</label>
+<label for="object_identifier_value" class="control-label col-md-4"><span class="red">*</span> {t}Valeur :{/t}</label>
 <div class="col-md-8">
 <input id="object_identifier_value" name="object_identifier_value" required value="{$data.object_identifier_value}" class="form-control" >
 </div>
@@ -41,13 +42,13 @@ Retour au détail ({$object.uid} {$object.identifier})
 
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.object_identifier_id > 0 }
-      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
 </form>
 </div>
 </div>
 
-<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>

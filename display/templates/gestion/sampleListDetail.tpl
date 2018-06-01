@@ -1,3 +1,4 @@
+{* Objets > échantillons > Rechercher > *}
 <!--  Liste des échantillons pour affichage-->
 <script>
 	$(document).ready(function() {

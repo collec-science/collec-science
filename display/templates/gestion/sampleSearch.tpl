@@ -1,3 +1,4 @@
+{* Objets > échantillons > *}
 <script>
 var sampling_place_init = "{$sampleSearch.sampling_place_id}";
 

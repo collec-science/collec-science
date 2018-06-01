@@ -1,7 +1,8 @@
+{* Objets > échantillons > Rechercher > UID d'un échantillon > section Sous-échantillons *}
 <!-- Liste des sous-échantillonnages réalisés -->
 {if $droits.gestion == 1}
 <a href="index.php?module=subsampleChange&subsample_id=0&sample_id={$data.sample_id}&uid={$data.uid}">
-<img src="{$display}/images/new.png" height="25">Nouveau...
+<img src="{$display}/images/new.png" height="25">{t}Nouveau...{/t}
 </a>
 {/if}
 <!-- Calcul du reste disponible -->
@@ -9,11 +10,11 @@
 <table id="subsampleList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>Date</th>
-<th>Mouvement</th>
-<th>Quantité</th>
-<th>Commentaire</th>
-<th>Réalisé par</th>
+<th>{t}Date{/t}</th>
+<th>{t}Mouvement{/t}</th>
+<th>{t}Quantité{/t}</th>
+<th>{t}Commentaire{/t}</th>
+<th>{t}Réalisé par{/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -30,8 +31,8 @@
 </td>
 <td>
 {if $subsample[lst].movement_type_id == 1}
-<span class="green">Entrée</span>{else}
-<span class="red">Sortie</span>
+<span class="green">{t}Entrée{/t}</span>{else}
+<span class="red">{t}Sortie{/t}</span>
 {/if}
 </td>
 <td >
@@ -45,7 +46,7 @@
 {/section}
 </tbody>
 <tfoot>
-<tr><td colspan="5">Quantité restante : {$total}</td></tr>
+<tr><td colspan="5">{t 1=$total}Quantité restante : %1{/t}</td></tr>
 </table>
 <script>
 $(document).ready(function() {

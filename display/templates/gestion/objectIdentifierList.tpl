@@ -1,14 +1,15 @@
+{* Objets > échantillons > Rechercher > UID d'un échantillon > en dessous des metadata *}
 <!-- Liste des identifiants complémentaires -->
 {if $droits.gestion == 1}
 <a href="index.php?module={$moduleParent}objectIdentifierChange&object_identifier_id=0&uid={$data.uid}">
-<img src="{$display}/images/new.png" height="25">Nouvel identifiant...
+<img src="{$display}/images/new.png" height="25">{t}Nouvel identifiant...{/t}
 </a>
 {/if}
 <table id="objectIdentifierList" class="table table-bordered table-hover datatable-nopaging " data-order='[[ 0, "asc" ],[1,"asc"]]' >
 <thead>
 <tr>
-<th>Type</th>
-<th>Numéro</th>
+<th>{t}Type{/t}</th>
+<th>{t}Numéro{/t}</th>
 </tr>
 </thead>
 <tbody>

@@ -1,3 +1,4 @@
+{* Objets > échantillons > Rechercher > UID d'un échantillon *}
 <script>
 	/*
 	 * Impression de l'etiquette correspondant a l'echantillon courant
@@ -28,58 +29,58 @@
 	});
 </script>
 
-<h2>Détail d'un échantillon</h2>
+<h2>{t}Détail d'un échantillon{/t}</h2>
 <div class="row">
 <div class="col-md-12">
-<a href="index.php?module={$moduleListe}"><img src="{$display}/images/list.png" height="25">Retour à la liste</a>
+<a href="index.php?module={$moduleListe}"><img src="{$display}/images/list.png" height="25">{t}Retour à la liste{/t}</a>
 {if $droits.gestion == 1}
 &nbsp;
 <a href="index.php?module=sampleChange&uid=0">
 <img src="{$display}/images/new.png" height="25">
-Nouvel échantillon
+{t}Nouvel échantillon{/t}
 </a>
 {if $modifiable == 1}
 &nbsp;
 <a href="index.php?module=sampleChange&uid={$data.uid}">
-<img src="{$display}/images/edit.gif" height="25">Modifier...
+<img src="{$display}/images/edit.gif" height="25">{t}Modifier...{/t}
 </a>
 {/if}
 <!-- Entrée ou sortie -->
 <span id="input">
-<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="Entrer l'échantillon dans le stock">
-<img src="{$display}/images/input.png" height="25">Entrée
+<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="{t}Entrer l'échantillon dans le stock{/t}">
+<img src="{$display}/images/input.png" height="25">{t}Entrée{/t}
 </a>
 </span>
 
 <span id="output">
-<a href="index.php?module=movementsampleOutput&movement_id=0&uid={$data.uid}" id="output" title="Sortir l'échantillon du stock">
-<img src="{$display}/images/output.png" height="25">Sortie</a></span>
+<a href="index.php?module=movementsampleOutput&movement_id=0&uid={$data.uid}" id="output" title="{t}Sortir l'échantillon du stock{/t}">
+<img src="{$display}/images/output.png" height="25">{t}Sortie{/t}</a></span>
 
 {/if}
 &nbsp;
 <a href="#echantillons">
-<img src="{$display}/images/sample.png" height="25">Échantillons dérivés
+<img src="{$display}/images/sample.png" height="25">{t}Échantillons dérivés{/t}
 </a>
 &nbsp;
 <a href="#documents">
-<img src="{$display}/images/camera.png" height="25">Documents associés
+<img src="{$display}/images/camera.png" height="25">{t}Documents associés{/t}
 </a>
 &nbsp;
 <a href="#bookings">
-<img src="{$display}/images/crossed-calendar.png" height="25">Réservations
+<img src="{$display}/images/crossed-calendar.png" height="25">{t}Réservations{/t}
 </a>
 {if $data.multiple_type_id > 0}
 <a href="#subsample">
-<img src="{$display}/images/subsample.png" height="25">Sous-échantillonnage
+<img src="{$display}/images/subsample.png" height="25">{t}Sous-échantillonnage{/t}
 </a>
 {/if}
 &nbsp;
 <a href="index.php?module=sampleDisplay&uid={$data.uid}">
-<img src="{$display}/images/refresh.png" title="Rafraîchir la page" height="15">
+<img src="{$display}/images/refresh.png" title="{t}Rafraîchir la page{/t}" height="15">
 </a>
 <div class="row">
 <fieldset class="col-md-4">
-<legend>Informations générales</legend>
+<legend>{t}Informations générales{/t}</legend>
 {if $droits.gestion == 1}
 <form method="GET" id="formListPrint" action="index.php">
 	<input type="hidden" id="modulePrint" name="module" value="samplePrintLabel">
@@ -87,14 +88,14 @@ Nouvel échantillon
 	<div class="row">
 		<div class="center">
 			<select id="labels2" name="label_id">
-			<option value="" {if $label_id == ""}selected{/if}>Étiquette par défaut</option>
+			<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
 			{section name=lst loop=$labels}
 			<option value="{$labels[lst].label_id}" {if $labels[lst].label_id == $label_id}selected{/if}>
 			{$labels[lst].label_name}
 			</option>
 			{/section}
 			</select>
-			<button id="samplelabels2" class="btn btn-primary">Étiquettes</button>
+			<button id="samplelabels2" class="btn btn-primary">{t}Étiquettes{/t}</button>
 			<img id="sampleSpinner2" src="{$display}/images/spinner.gif" height="25">
 
 			{if count($printers) > 0}
@@ -105,7 +106,7 @@ Nouvel échantillon
 			</option>
 			{/section}
 			</select>
-			<button id="sampledirect2" class="btn btn-primary">Impression directe</button>
+			<button id="sampledirect2" class="btn btn-primary">{t}Impression directe{/t}</button>
 			{/if}
 		</div>
 	</div>
@@ -114,23 +115,23 @@ Nouvel échantillon
 
 <div class="form-display">
 <dl class="dl-horizontal">
-<dt>UID et référence :</dt>
+<dt>{t}UID et référence :{/t}</dt>
 <dd>{$data.uid} {$data.identifier}</dd>
 </dl>
 
 {if strlen($data.dbuid_origin) > 0}
 <dl class="dl-horizontal">
-<dt>DB et UID d'origine :</dt>
+<dt>{t}DB et UID d'origine :{/t}</dt>
 <dd>{$data.dbuid_origin}</dd>
 </dl>
 {/if}
 
 <dl class="dl-horizontal">
-<dt>Collection :</dt>
+<dt>{t}Collection :{/t}</dt>
 <dd>{$data.collection_name}</dd>
 </dl>
 <dl class="dl-horizontal">
-<dt>Type :</dt>
+<dt>{t}Type :{/t}</dt>
 <dd>{$data.sample_type_name}
 {if strlen($data.container_type_name) > 0}
 <br>
@@ -144,39 +145,43 @@ clp : {$data.clp_classification}
 </dl>
 {if $data.operation_id > 0}
 <dl class="dl-horizontal">
-<dt>Protocole et<br>opération :</dt>
+<dt>{t}Protocole et
+opération :{/t}</dt>
 <dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name} {$data.operation_version} 
 </dd>
 </dl>
 {/if}
 <dl class="dl-horizontal">
-<dt>Statut :</dt>
+<dt>{t}Statut :{/t}</dt>
 <dd>{$data.object_status_name}</dd>
 </dl>
 
 <dl class="dl-horizontal">
-<dt title="Date de création de l'échantillon">Date de création<br>de l'échantillon<br>(d'échantillonnage) :</dt>
+<dt title="{t}Date de création de l'échantillon{/t}">{t}Date de création
+de l'échantillon
+(d'échantillonnage) :{/t}</dt>
 <dd>{$data.sampling_date}</dd>
 </dl>
 <dl class="dl-horizontal">
-<dt title="Date d'import dans la base de données">Date d'import dans<br>la base de données :</dt>
+<dt title="{t}Date d'import dans la base de données{/t}">{t}Date d'import dans
+la base de données :{/t}</dt>
 <dd>{$data.sample_creation_date}</dd>
 </dl>
 {if strlen($data.expiration_date) > 0}
 <dl class="dl-horizontal">
-<dt title="Date d'expiration de l'échantillon">Date d'expiration :</dt>
+<dt title="{t}Date d'expiration de l'échantillon{/t}">{t}Date d'expiration :{/t}</dt>
 <dd>{$data.expiration_date}</dd>
 </dl>
 {/if}
 {if $data.multiple_type_id > 0}
 <dl class="dl-horizontal">
-<dt title="Quantité de sous-échantillons ({$data.multiple_unit})">Qté de sous-échantillons ({$data.multiple_unit}) : </dt>
+<dt title="{t 1=$data.multiple_unit}Quantité de sous-échantillons (%1){/t}">{t 1=$data.multiple_unit}Qté de sous-échantillons (%1) :{/t}</dt>
 <dd>{$data.multiple_value}</dd>
 </dl>
 {/if}
 {if $data.parent_uid > 0}
 <dl class="dl-horizontal">
-<dt title="Échantillon parent">Échantillon parent :</dt>
+<dt title="{t}Échantillon parent{/t}">{t}Échantillon parent :{/t}</dt>
 <dd><a href="index.php?module=sampleDisplay&uid={$data.parent_uid}">
 {$data.parent_uid} {$data.parent_identifier}
 </a>
@@ -185,23 +190,23 @@ clp : {$data.clp_classification}
 {/if}
 {if $data.sampling_place_id > 0}
 <dl class="dl-horizontal">
-<dt>Lieu de prélèvement :</dt>
+<dt>{t}Lieu de prélèvement :{/t}</dt>
 <dd>{$data.sampling_place_name}</dd>
 </dl>
 {/if}
 {if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
 <dl class="dl-horizontal">
-  <dt>Latitude :</dt>
+  <dt>{t}Latitude :{/t}</dt>
   <dd>{$data.wgs84_y}</dd>
 </dl>
 <dl class="dl-horizontal">
-  <dt>Longitude :</dt>
+  <dt>{t}Longitude :{/t}</dt>
   <dd>{$data.wgs84_x}</dd>
 </dl>
 {/if}
 
 <dl class="dl-horizontal">
-<dt>Emplacement :</dt>
+<dt>{t}Emplacement :{/t}</dt>
 <dd>
 {section name=lst loop=$parents}
 <a href="index.php?module=containerDisplay&uid={$parents[lst].uid}">
@@ -216,12 +221,12 @@ clp : {$data.clp_classification}
 
 {if count($metadata) >0}
 <fieldset>
-<legend>Métadonnées associées</legend>
+<legend>{t}Métadonnées associées{/t}</legend>
 
 {foreach $metadata as $key=>$value}
 {if strlen($value) > 0 || count($value) > 0}
 <dl class="dl-horizontal">
-<dt>{$key} :</dt>
+<dt>{t 1=$key}%1 :{/t}</dt>
 <dd>
 {if is_array($value) }
 {foreach $value as $val}
@@ -249,11 +254,11 @@ clp : {$data.clp_classification}
 <div class="col-md-8">
 
 <fieldset>
-<legend>Événements</legend>
+<legend>{t}Événements{/t}</legend>
 {include file="gestion/eventList.tpl"}
 </fieldset>
 <fieldset>
-<legend>Mouvements</legend>
+<legend>{t}Mouvements{/t}</legend>
 {include file="gestion/objectMovementList.tpl"}
 </fieldset>
 
@@ -265,11 +270,11 @@ clp : {$data.clp_classification}
 
 
 <fieldset class="col-md-12" id="echantillons">
-<legend>Échantillons dérivés</legend>
+<legend>{t}Échantillons dérivés{/t}</legend>
 {if $droits.gestion == 1 && $modifiable == 1}
 <a href="index.php?module=sampleChange&uid=0&parent_uid={$data.uid}">
 <img src="{$display}/images/new.png" height="25">
-Nouvel échantillon dérivé...
+{t}Nouvel échantillon dérivé...{/t}
 </a>
 {/if}
 {include file="gestion/sampleListDetail.tpl"}
@@ -277,18 +282,18 @@ Nouvel échantillon dérivé...
 </div>
 </div>
 <fieldset class="col-md-12" id="bookings">
-<legend>Réservations</legend>
+<legend>{t}Réservations{/t}</legend>
 {include file="gestion/bookingList.tpl"}
 </fieldset>
 
 <fieldset class="col-md-12" id="documents">
-<legend>Documents associés</legend>
+<legend>{t}Documents associés{/t}</legend>
 {include file="gestion/documentList.tpl"}
 </fieldset>
 
 {if $data.multiple_type_id > 0}
 <fieldset class="col-md-12" id="subsample">
-<legend>Sous-échantillons</legend>
+<legend>{t}Sous-échantillons{/t}</legend>
 {include file="gestion/subsampleList.tpl"}
 </fieldset>
 {/if}

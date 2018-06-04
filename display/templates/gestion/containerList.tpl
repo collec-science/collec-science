@@ -1,3 +1,4 @@
+{* Objets > Contenants > *}
 <h2>{t}Rechercher des contenants{/t}</h2>
 
 	<div class="row">

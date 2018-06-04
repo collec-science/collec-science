@@ -1,13 +1,16 @@
+{* TODO vérifier que ce fichier est bien utilisé
+   semble avoir été remplacé par movementList.tpl
+*}
 <!-- Liste des mouvements -->
 <table id="movementList" class="table table-bordered table-hover datatable" >
 <thead>
 <tr>
-<th>Date</th>
-<th>Sens</th>
-<th>container</th>
-<th>Emplacement</th>
-<th>Commentaire</th>
-<th>Utilisateur</th>
+<th>{t}Date{/t}</th>
+<th>{t}Sens{/t}</th>
+<th>{t}Contenant{/t}</th>
+<th>{t}Emplacement{/t}</th>
+<th>{t}Commentaire{/t}</th>
+<th>{t}Utilisateur{/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -18,8 +21,8 @@
 </td>
 <td>
 {if $movements[lst].movement_type_id == 1}
-<span class="green">Entrée</span>{else}
-<span class="red">Sortie</span>
+<span class="green">{t}Entrée{/t}</span>{else}
+<span class="red">{t}Sortie{/t}</span>
 {/if}
 </td>
 <td>

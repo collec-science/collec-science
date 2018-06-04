@@ -1,3 +1,4 @@
+{* Objets > Contenants > *}
 <script>
 $(document).ready(function() { 
 var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.container_type_id}{else}0{/if};

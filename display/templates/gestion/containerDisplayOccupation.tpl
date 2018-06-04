@@ -1,3 +1,4 @@
+{* Objets > Contenants > Rechercher > UID d'un contenant > section "Répartition des objets dans le contenant" si visible > *}
 {if $nblignes > 1 || $nbcolonnes > 1}
 {if $first_line == "T"}
 {$ln = 1}
@@ -8,7 +9,7 @@
 {/if}
 <table class="table table-bordered">
 <tr>
-<th class="center">Ligne/colonne</th>
+<th class="center">{t}Ligne/colonne{/t}</th>
 {for $col=1 to $nbcolonnes}
 <th class="center">{$col}</th>
 {/for}

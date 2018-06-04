@@ -1,3 +1,4 @@
+{* Objets > Contenants > Rechercher > *}
 <!-- Liste des containers pour affichage -->
 <script>
 $(document).ready(function () {

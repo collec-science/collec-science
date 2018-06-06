@@ -1,3 +1,4 @@
+{* Mouvements > Entrée/sortie par lots > *}
 <script>
 
 $(document).ready(function() { 
@@ -17,7 +18,7 @@ $(document).ready(function() {
 
 });
 </script>
-<h2>Entrer ou sortir des objets en scannant les QRcodes</h2>
+<h2>{t}Déplacer / Sortir par lots{/t}</h2>
 <div class="row">
 	<div class="col-md-12">
 
@@ -28,21 +29,21 @@ $(document).ready(function() {
 			<input type="hidden" name="moduleBase" value="movementBatch"> 
 			<input	type="hidden" name="action" value="Read"> 
 			<div class="bg-info">
-Pour entrer des échantillons dans le stock, commencez toujours par scanner le container.
+{t}Pour déplacer des objets dans un contenant, commencez toujours par scanner/saisir le contenant puis les objets.{/t}
 </div>
 			<div class="form-group">
-<label for="reads"  class="control-label col-md-4">Données scannées<span class="red">*</span> :</label>
+<label for="reads"  class="control-label col-md-4"><span class="red">*</span> {t}Données à traiter :{/t}</label>
 <div class="col-md-8">
 <textarea id="reads" name="reads" class="form-control" rows="20" required autofocus 
-placeholder="Positionnez le curseur dans cette zone avant de scanner un qrcode ou de décharger la douchette"></textarea>
+placeholder="{t}Placer le curseur dans cette zone avant de scanner un QR Code ou de décharger la scannette{/t}"></textarea>
 </div>
 </div>
 			
 			<div class="form-group center">
-				<button type="submit" class="btn btn-primary">{$LANG["message"].19}</button>
+				<button type="submit" class="btn btn-primary">{t}Suivant{/t}</button>
 			</div>
 
 		</form>
-		<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
 	</div>
 </div>

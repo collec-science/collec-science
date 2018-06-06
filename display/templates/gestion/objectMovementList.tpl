@@ -4,7 +4,7 @@
 <thead>
 <tr>
 <th>{t}Date{/t}</th>
-<th>{t}Sens{/t}</th>
+<th>{t}Type{/t}</th>
 <th>{t}Contenant{/t}</th>
 <th>{t}Emplacement{/t}</th>
 <th>{t}Commentaire{/t}</th>
@@ -19,8 +19,8 @@
 </td>
 <td>
 {if $movements[lst].movement_type_id == 1}
-<span class="green">{t}Entrée{/t}</span>{else}
-<span class="red">{t}Sortie{/t}</span>
+<span class="green">{t}Déplacement{/t}</span>{else}
+<span class="red">{t}Sortie du stock{/t}</span>
 {/if}
 </td>
 <td>

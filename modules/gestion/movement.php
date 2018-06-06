@@ -71,7 +71,7 @@ switch ($t_module["param"]) {
             }
         }
         if ($error) {
-            $message->set($LANG["appli"][3]);
+            $message->set(_("Le contenant n'a pas été renseigné"));
             $module_coderetour = - 1;
         } else {
             $data = $_REQUEST;
@@ -109,7 +109,7 @@ switch ($t_module["param"]) {
     case "fastInputWrite":
         try {
             $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["movement_date"], 1, $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], null, $_REQUEST["column_number"], $_REQUEST["line_number"]);
-            $message->set($LANG["message"][5]);
+            $message->set(_("Enregistrement effectué"));
             $module_coderetour = 1;
         } catch (Exception $e) {
             $message->set($e->getMessage());
@@ -136,11 +136,11 @@ switch ($t_module["param"]) {
     case "fastOutputWrite":
         try {
             $dataClass->addMovement($_REQUEST["object_uid"], $_REQUEST["movement_date"], 2, 0, $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"]);
-            $message->set($LANG["message"][5]);
+            $message->set(_("Enregistrement effectué"));
             $module_coderetour = 1;
         } catch (Exception $e) {
             $message->setSyslog($e->getMessage());
-            $message->set($LANG["appli"][6]);
+            $message->set(_("Impossible d'enregistrer le mouvement"));
             $module_coderetour = - 1;
         }
         break;
@@ -229,10 +229,10 @@ switch ($t_module["param"]) {
         try {
             $dataClass->addMovement($_POST["object_uid"], null, $_POST["movement_type_id"], $_POST["container_uid"], null, null, null, $_POST["movement_reason_id"], $_POST["column_number"], $_POST["line_number"]);
             $module_coderetour = 1;
-            $message->set($LANG["appli"][7]);
+            $message->set(_("Mouvement enregistré"));
         } catch (Exception $e) {
             $message->setSyslog($e->getMessage());
-            $message->set($LANG["appli"][6]);
+            $message->set(_("Impossible d'enregistrer le mouvement"));
             $module_coderetour = - 1;
         }
         break;

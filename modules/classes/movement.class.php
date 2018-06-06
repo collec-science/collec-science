@@ -195,7 +195,7 @@ class Movement extends ObjetBDD
          * Verifications
          */
         $controle = true;
-        $message = $LANG["appli"][5];
+        $message = "Les contrôles de cohérence ne permettent pas d'enregister le mouvement demandé. ";
         if (! ($uid > 0 && is_numeric($uid))) {
             $controle = false;
         }

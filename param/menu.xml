@@ -12,9 +12,9 @@
 </item>
 
 <item module="movement" label="Mouvements" tooltip="Création de mouvements dans le stock" droits="gestion">
-<item module="fastInputChange" label="Entrer un échantillon" tooltip="Entrée rapide d'un échantillon dans le stock" droits="gestion" />
-<item module="fastOutputChange" label="Sortir un échantillon" tooltip="Sortie rapide d'un échantillon du stock" droits="gestion" />
-<item module="movementBatchOpen" label="Entrée/sortie par lots" tooltip="Entrée / sortie par scan multiple de QRCODE" droits="gestion" />
+<item module="fastInputChange" label="Déplacer dans un contenant" tooltip="Déplacer un échantillon/contenant dans un contenant" droits="gestion" />
+<item module="fastOutputChange" label="Sortir du stock" tooltip="Sortir un échantillon/contenant du stock" droits="gestion" />
+<item module="movementBatchOpen" label="Déplacer / Sortir par lots" tooltip="Déplacer / Sortir par scan multiple de QR Code" droits="gestion" />
 <item module="smallMovementChange" label="Mouvements petit terminal" tooltip="Lecture d'objets et génération de mouvements sur petits terminaux" droits="gestion" />
 <item divider='1' droits="collection" />
 <item module="movementList" label="Liste des mouvements" tooltip="Recherche des mouvements sur une période donnée" droits="collection" />

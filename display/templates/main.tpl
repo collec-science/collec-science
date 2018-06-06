@@ -39,21 +39,21 @@
 <a href="index.php?module=fastInputChange">
 <img src="{$display}/images/input.png" height="50">
 <br>
-{t}Entrée rapide d'un échantillon dans le stock{/t}
+{t}Déplacer dans un contenant{/t}
 </a>
 </div>
 <div class="col-md-3 col-md-offset-1 center">
 <a href="index.php?module=movementBatchOpen">
 <img src="{$display}/images/barcode-scanner.png" height="50">
 <br>
-{t}Entrée / sortie par scan multiple de QRCODE{/t}
+{t}Déplacer / Sortir par lots{/t}
 </a>
 </div>
 <div class="col-md-3 col-md-offset-1 center">
 <a href="index.php?module=fastOutputChange">
 <img src="{$display}/images/output.png" height="50">
 <br>
-{t}Sortie rapide d'un échantillon du stock{/t}
+{t}Sortir du stock{/t}
 </a>
 </div>
 </div>

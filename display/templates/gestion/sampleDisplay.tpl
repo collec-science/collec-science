@@ -42,19 +42,19 @@
 {if $modifiable == 1}
 &nbsp;
 <a href="index.php?module=sampleChange&uid={$data.uid}">
-<img src="{$display}/images/edit.gif" height="25">{t}Modifier...{/t}
+<img src="{$display}/images/edit.gif" height="25">{t}Modifier{/t}
 </a>
 {/if}
 <!-- Entrée ou sortie -->
 <span id="input">
-<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="{t}Entrer l'échantillon dans le stock{/t}">
-<img src="{$display}/images/input.png" height="25">{t}Entrée{/t}
+<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="{t}Déplacer l'échantillon dans un contenant{/t}">
+<img src="{$display}/images/input.png" height="25">{t}Déplacer...{/t}
 </a>
 </span>
 
 <span id="output">
 <a href="index.php?module=movementsampleOutput&movement_id=0&uid={$data.uid}" id="output" title="{t}Sortir l'échantillon du stock{/t}">
-<img src="{$display}/images/output.png" height="25">{t}Sortie{/t}</a></span>
+<img src="{$display}/images/output.png" height="25">{t}Sortir du stock...{/t}</a></span>
 
 {/if}
 &nbsp;

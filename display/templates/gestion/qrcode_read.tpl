@@ -1,3 +1,4 @@
+{* Mouvements > Entrer un échantillon > *}
 <!-- 
 <script src="{$display}/javascript/adapter.js"></script>
 <script

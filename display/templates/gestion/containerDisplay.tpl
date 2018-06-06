@@ -11,19 +11,19 @@
 </a>
 &nbsp;
 <a href="index.php?module=containerChange&uid={$data.uid}">
-<img src="{$display}/images/edit.gif" height="25">{t}Modifier...{/t}
+<img src="{$display}/images/edit.gif" height="25">{t}Modifier{/t}
 </a>
 
 <!-- Entrée ou sortie -->
 <span id="input">
-<a href="index.php?module=movementcontainerInput&movement_id=0&uid={$data.uid}" id="input" title="Entrée le container dans le stock">
-<img src="{$display}/images/input.png" height="25">{t}Entrée{/t}
+<a href="index.php?module=movementcontainerInput&movement_id=0&uid={$data.uid}" id="input" title="Déplacer le contenant dans un autre contenant">
+<img src="{$display}/images/input.png" height="25">{t}Déplacer...{/t}
 </a>
 </span>
 
 <span id="output">
-<a href="index.php?module=movementcontainerOutput&movement_id=0&uid={$data.uid}" id="output" title="Sortir le container du stock">
-<img src="{$display}/images/output.png" height="25">{t}Sortie{/t}</a></span>
+<a href="index.php?module=movementcontainerOutput&movement_id=0&uid={$data.uid}" id="output" title="Sortir le contenant du stock">
+<img src="{$display}/images/output.png" height="25">{t}Sortir du stock...{/t}</a></span>
 
 {/if}
 &nbsp;

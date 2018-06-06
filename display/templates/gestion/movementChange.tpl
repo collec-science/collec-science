@@ -1,3 +1,4 @@
+{* Objets > Contenants/Echantillons > Rechercher > UID d'un contenant > Entrée / Sortiee > *}
 <script>
 $(document).ready(function() { 
 var options;
@@ -12,7 +13,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
 		console.log ("data.length : "+data.length);
 		if (data != null) {
-			options = '<option value="" selected>{$LANG["appli"].2}</option>';			
+			options = '<option value="" selected>{t}Choisissez...{/t}</option>';			
 			 for (var i = 0; i < data.length; i++) {
 			    options += '<option value="' + data[i].container_type_id + '"';
 			    if (data[i].container_type_id == type_init) {
@@ -103,12 +104,12 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 <div class="col-md-6">
 <a href="index.php?module={$moduleListe}">
 <img src="{$display}/images/list.png" height="25">
-Retour à la liste des {if $moduleParent == "container"}containers{else}échantillons{/if}
+{if $moduleParent == "container"}{t}Retour à la liste des contenants{/t}{else}{t}Retour à la liste des échantillons{/t}{/if}
 </a>
 {if $data.uid > 0}
 <a href="index.php?module={$moduleParent}Display&uid={$data.uid}">
 <img src="{$display}/images/box.png" height="25">
-Retour au détail
+{t}Retour au détail{/t}
 </a>
 {/if}
 <form class="form-horizontal protoform" id="movement{$moduleParent}Form" method="post" action="index.php">
@@ -120,7 +121,7 @@ Retour au détail
 
 
 <div class="form-group">
-<label for="uid" class="control-label col-md-4">Objet :</label>
+<label for="uid" class="control-label col-md-4">{t}Objet :{/t}</label>
 <div class="col-md-8">
 <input id="uid" name="uid" value="{$data.uid}" readonly >
 <input id="identifier" name="identifier" value="{$object.identifier}" readonly>
@@ -128,18 +129,18 @@ Retour au détail
 </div>
 {if $data.movement_type_id == 1}
 <fieldset>
-<legend>Rangé dans :</legend>
+<legend>{t}Déplacer dans :{/t}</legend>
 <div class="form-group">
-<label for="container_uid" class="control-label col-md-4">UID du container :<span class="red">*</span> :</label>
+<label for="container_uid" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
 <div class="col-md-8">
 <input id="container_uid" name="container_uid" value="{$data.container_uid}" type="number" class="form-control">
 </div>
 </div>
 <div class="form-group">
-<label for="container_family_id" class="control-label col-md-4">ou recherchez :</label>
+<label for="container_family_id" class="control-label col-md-4">{t}ou recherchez :{/t}</label>
 <div class="col-md-8">
 <select id="container_family_id" name="container_family_id" class="form-control">
-<option value="" {if $data.container_family_id == ""}selected{/if}>Sélectionnez...</option>
+<option value="" {if $data.container_family_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
 {section name=lst loop=$containerFamily}
 <option value="{$containerFamily[lst].container_family_id}" {if $data.container_family_id == $containerFamily[lst].container_family_id}selected{/if}>
 {$containerFamily[lst].container_family_name}
@@ -158,42 +159,43 @@ Retour au détail
 {/if}
 
 <fieldset>
-<legend>Détails :</legend>
+<legend>{t}Détails :{/t}</legend>
 <div class="form-group">
-<label for="movement_date" class="control-label col-md-4">Date<span class="red">*</span> :</label>
+<label for="movement_date" class="control-label col-md-4"><span class="red">*</span> {t}Date :{/t}</label>
 <div class="col-md-8">
 <input id="movement_date" name="movement_date" value="{$data.movement_date}" required class="datetimepicker form-control">
 </div>
 </div>
 {if $data.movement_type_id == 1}
 <div class="form-group">
-<label for="storage_location" class="control-label col-md-4">Emplacement dans le container (format libre) :</label>
+<label for="storage_location" class="control-label col-md-4">{t}Emplacement dans le contenant
+(format libre) :{/t}</label>
 <div class="col-md-8">
 <input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 </div>
 </div>
 			<div class="form-group">
-				<label for="line_number" class="control-label col-sm-4">N° de ligne :</label>
+				<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
 				<div class="col-sm-8">
 					<input id="line_number" name="line_number"
-						value="{$data.line_number}" class="form-control nombre" title="N° de la ligne de rangement dans le container">
+						value="{$data.line_number}" class="form-control nombre" title="{t}N° de la ligne de rangement dans le contenant{/t}">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="column_number" class="control-label col-sm-4">N° de colonne :</label>
+				<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
 				<div class="col-sm-8">
 					<input id="column_number" name="column_number"
-						value="{$data.column_number}" class="form-control nombre" title="N° de la colonne de rangement dans le container">
+						value="{$data.column_number}" class="form-control nombre" title="{t}N° de la colonne de rangement dans le contenant{/t}">
 				</div>
 			</div>
 
 {/if}
 {if $data.movement_type_id == 2}
 			<div class="form-group">
-				<label for="movement_reason_id" class="control-label col-sm-4">Motif du déstockage :</label>
+				<label for="movement_reason_id" class="control-label col-sm-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-sm-8">
 					<select id="movement_reason_id" name="movement_reason_id">
-					<option value="" {if $data.movement_reason_id == ""}selected{/if}>Sélectionnez...</option>
+					<option value="" {if $data.movement_reason_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
 					{section name=lst loop=$movementReason}
 					<option value="{$movementReason[lst].movement_reason_id}" {if $data.movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
 					{$movementReason[lst].movement_reason_name}
@@ -204,13 +206,13 @@ Retour au détail
 			</div>
 {/if}
 <div class="form-group">
-<label for="movement_comment" class="control-label col-md-4">Commentaire :</label>
+<label for="movement_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
 <div class="col-md-8">
 <textarea id="movement_comment" name="movement_comment" class="form-control" rows="3">{$data.movement_comment}</textarea>
 </div>
 </div>
 <div class="form-group">
-<label for="login" class="control-label col-md-4">Utilisateur :</label>
+<label for="login" class="control-label col-md-4">{t}Utilisateur :{/t}</label>
 <div class="col-md-8">
 <input id="login" name="login" value="{$data.login}" type="text" readonly class="form-control">
 </div>
@@ -219,9 +221,9 @@ Retour au détail
 </fieldset>
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.movement_id > 0 }
-      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
 
@@ -229,4 +231,4 @@ Retour au détail
 </div>
 </div>
 
-<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>

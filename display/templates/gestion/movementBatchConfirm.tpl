@@ -1,3 +1,4 @@
+{* Mouvements > Entrée/sortie par lots > Valider > *}
 <script>
 	$(document).ready(function() {
 		$("#entree").on("click keypress", function() {
@@ -9,7 +10,7 @@
 	});
 </script>
 
-<h2>Valider les lectures de la douchette</h2>
+<h2>{t}Déplacer dans des contenants ou sortir du stock{/t}</h2>
 <div class="row">
 	<div class="col-sm-12">
 
@@ -17,10 +18,10 @@
 			<input type="hidden" name="moduleBase" value="movementBatch">
 			<input type="hidden" name="action" value="Write">
 			<div class="form-group">
-				<label for="movement_reason_id" class="control-label col-sm-4">Motif du déstockage :</label>
+				<label for="movement_reason_id" class="control-label col-sm-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-sm-8">
 					<select id="movement_reason_id" name="movement_reason_id">
-					<option value="" {if $data.movement_reason_id == ""}selected{/if}>Sélectionnez...</option>
+					<option value="" {if $data.movement_reason_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
 					{section name=lst loop=$movementReason}
 					<option value="{$movementReason[lst].movement_reason_id}" {if $data.movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
 					{$movementReason[lst].movement_reason_name}
@@ -32,15 +33,13 @@
 
 			<div class="row">
 				<div class="center">
-					<button type="button" class="btn btn-warning" id="entree">Entrée
-						des échantillons</button>
-					<button type="button" class="btn btn-warning" id="sortie">Sortie
-						des échantillons</button>
+					<button type="button" class="btn btn-warning" id="entree">{t}Tout déplacer...{/t}</button>
+					<button type="button" class="btn btn-warning" id="sortie">{t}Tout sortir du stock...{/t}</button>
 				</div>
 			</div>
 			<div class="row">
 				<div class="center">
-					<button type="submit" class="btn btn-primary">{$LANG["message"].19}</button>
+					<button type="submit" class="btn btn-primary">{t}Valider{/t}</button>
 				</div>
 			</div>
 			<div class="row col-sm-12">
@@ -48,17 +47,17 @@
 				class="table table-bordered table-hover datatable-nopaging-nosort">
 				<thead>
 					<tr>
-						<th>UID</th>
-						<th>Identifiant</th>
-						<th>Type</th>
-						<th>Type détaillé</th>
-						<th>container<br>(pour entrée)
+						<th>{t}UID{/t}</th>
+						<th>{t}Identifiant{/t}</th>
+						<th>{t}Type{/t}</th>
+						<th>{t}Type détaillé{/t}</th>
+						<th>{t}Est un contenant de destination{/t}
 						</th>
-						<th>N° ligne<br>(entrée)</th>
-						<th>N° colonne<br>(entrée)</th>
-						<th>Entrée</th>
-						<th>Sortie</th>
-						<th>Ne rien faire</th>
+						<th>{t}N° ligne{/t}</th>
+						<th>{t}N° colonne{/t}</th>
+						<th>{t}Déplacer{/t}</th>
+						<th>{t}Sortir du stock{/t}</th>
+						<th>{t}Ne rien faire{/t}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -73,10 +72,10 @@
 							name="container{$smarty.section.lst.index}:{$data[lst].uid}" value="1"
 							{if $data[lst].object_type=="container"}checked{/if}></td>
 						<td class="center">
-						<input class="nombre" name="line{$data[lst].uid}" value="1" title="Valeur obligatoire pour les mouvements d'entrée" placeholder="obligatoire en entrée !">
+						<input class="nombre" name="line{$data[lst].uid}" value="1" title="{t}Valeur obligatoire pour les mouvements d'entrée{/t}" placeholder="{t}obligatoire en entrée !{/t}">
 						</td>
 						<td class="center">
-						<input class="nombre" name="column{$data[lst].uid}" value="1" title="Valeur obligatoire pour les mouvements d'entrée" placeholder="obligatoire en entrée !">
+						<input class="nombre" name="column{$data[lst].uid}" value="1" title="{t}Valeur obligatoire pour les mouvements d'entrée{/t}" placeholder="{t}obligatoire en entrée !{/t}">
 						</td>
 						
 						<td class="center"><input class="entree" type="radio"
@@ -94,7 +93,7 @@
 			</div>
 			<div class="row">
 				<div class="center">
-					<button type="submit" class="btn btn-primary">{$LANG["message"].19}</button>
+					<button type="submit" class="btn btn-primary">{t}Valider{/t}</button>
 				</div>
 			</div>
 		</form>

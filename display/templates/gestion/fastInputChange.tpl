@@ -1,7 +1,8 @@
+{* Mouvements > Entrer un échantillon > *}
 <!-- Ajout rapide d'un échantillon dans un container -->
 {include file="gestion/qrcode_read.tpl"}
 
-<h2>Entrée rapide d'un échantillon dans le stock</h2>
+<h2>{t}Déplacer dans un contenant{/t}</h2>
 <div class="row">
 	<div class="col-md-6">
 		<form class="form-horizontal protoform fastform" id="fastInputForm"
@@ -16,7 +17,7 @@
 			<div class="form-group">
 				<label for="container_uid" class="control-label col-sm-4">
 				<img id="arrow-container" src="{$display}/images/right-arrow.png" height="25">
-				UID	du container<span class="red">*</span> :
+				<span class="red">*</span> {t}UID du contenant :{/t}
 				</label>
 				<div class="col-sm-8" id="container_groupe">
 					<div class="col-sm-3">
@@ -26,7 +27,7 @@
 					</div>
 					<div class="col-sm-3 col-sm-offset-1">
 						<button type="button" id="container_search"
-							class="btn btn-default">Chercher...</button>
+							class="btn btn-default">{t}Chercher...{/t}</button>
 					</div>
 				</div>
 				<div class="col-sm-8 col-sm-offset-4 ">
@@ -38,7 +39,7 @@
 			<div class="form-group">
 				<label for="object_uid" class="control-label col-sm-4">
 				<img id="arrow-object" src="{$display}/images/right-arrow.png" height="25">
-				UID de l'objet<span class="red">*</span> :
+				<span class="red">*</span>  {t}UID de l'objet :{/t}
 				</label>
 				<div class="col-sm-8" id="object_groupe">
 					<div class="col-sm-3">
@@ -46,7 +47,7 @@
 							value="" class="form-control" autofocus autocomplete="off" >
 					</div>
 					<div class="col-sm-3 col-sm-offset-1">
-						<button type="button" id="object_search" class="btn btn-default">Chercher...</button>
+						<button type="button" id="object_search" class="btn btn-default">{t}Chercher...{/t}</button>
 					</div>
 				</div>
 				<div class="col-sm-8 col-sm-offset-4 ">
@@ -55,34 +56,32 @@
 			</div>
 
 			<div class="form-group">
-				<label for="storage_location" class="control-label col-sm-4">Emplacement
-					dans le container (format libre) :</label>
+				<label for="storage_location" class="control-label col-sm-4">{t}Emplacement dans le contenant
+(format libre) :{/t}</label>
 				<div class="col-sm-8">
 					<input id="storage_location" name="storage_location"
 						value="{$data.storage_location}" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="line_number" class="control-label col-sm-4">N° de ligne :</label>
+				<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
 				<div class="col-sm-8">
 					<input id="line_number" name="line_number"
-						value="{$data.line_number}" class="form-control nombre" title="N° de la ligne de rangement dans le container">
+						value="{$data.line_number}" class="form-control nombre" title="{t}N° de la ligne de rangement dans le container{/t}">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="column_number" class="control-label col-sm-4">N° de colonne :</label>
+				<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
 				<div class="col-sm-8">
 					<input id="column_number" name="column_number"
-						value="{$data.column_number}" class="form-control nombre" title="N° de la colonne de rangement dans le container">
+						value="{$data.column_number}" class="form-control nombre" title="{t}N° de la colonne de rangement dans le container{/t}">
 				</div>
 			</div>
 			
 			
 
 			<div class="form-group">
-				<label for="movement_date" class="control-label col-sm-4">Date/heure<span
-					class="red">*</span> :
-				</label>
+				<label for="movement_date" class="control-label col-sm-4"><span class="red">*</span> {t}Date/heure :{/t}</label>
 				<div class="col-sm-8">
 					<input id="movement_date" name="movement_date" required
 						value="{$data.movement_date}" class="form-control datetimepicker">
@@ -90,8 +89,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="movement_comment" class="control-label col-sm-4">Commentaire
-					:</label>
+				<label for="movement_comment" class="control-label col-sm-4">{t}Commentaire :{/t}</label>
 				<div class="col-sm-8">
 					<textarea class="form-control" id="movement_comment"
 						name="movement_comment" rows="3"></textarea>
@@ -99,33 +97,30 @@
 			</div>
 
 			<div class="form-group center">
-				<button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+				<button type="submit" class="btn btn-primary button-valid">{t}Déplacer dans le contenant{/t}</button>
 			</div>
 
 		</form>
-		<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
 	</div>
 </div>
 <!-- Lecture par douchette -->
 <div class="row">
 	<fieldset>
-		<legend>Lecture optique par douchette</legend>
+		<legend>{t}Lecture optique par douchette{/t}</legend>
 
 		<div class="col-md-6">
 			<div class="form-horizontal protoform">
 				<div class="form-group center">
-					<button id="destObject" class="btn btn-success">Lecture de
-						l'objet à entrer</button>
-					<button id="destContainer" class="btn btn-success">Lecture
-						du container</button>
+					<button id="destObject" class="btn btn-success">{t}Lecture de l'objet à déplacer{/t}</button>
+					<button id="destContainer" class="btn btn-success">{t}Lecture du contenant{/t}</button>
 				</div>
 
 				<div class="form-group">
-					<label for="valeur-scan" class="control-label col-sm-4">Valeur
-						lue :</label>
+					<label for="valeur-scan" class="control-label col-sm-4">{t}Valeur lue :{/t}</label>
 					<div class="col-sm-8">
 						<input id="valeur-scan" type="text" class="form-control"
-							placeholder="Positionnez le curseur dans cette zone avant de lire l'étiquette">
+							placeholder="{t}Placez le curseur dans cette zone et scannez l'étiquette{/t}">
 					</div>
 				</div>
 			</div>
@@ -136,16 +131,13 @@
 <!-- Rajout pour la lecture optique -->
 <div class="row" id="optical">
 	<fieldset>
-		<legend>Lecture par la caméra de l'ordinateur ou du smartphone (utiliser firefox)</legend>
+		<legend>{t}Lecture par la caméra de l'ordinateur ou du smartphone (utiliser Firefox){/t}</legend>
 		<div class="col-md-6">
 			<div class="form-horizontal protoform">
 				<div class="form-group center">
-					<button id="start" class="btn btn-success">Lecture du
-						container</button>
-					<button id="start2" class="btn btn-success">Lecture de
-						l'objet à entrer</button>
-					<button id="stop" class="btn btn-danger">Arrêter la
-						lecture</button>
+					<button id="start" class="btn btn-success">{t}Lecture du contenant{/t}</button>
+					<button id="start2" class="btn btn-success">{t}Lecture de l'objet à déplacer{/t}</button>
+					<button id="stop" class="btn btn-danger">{t}Arrêter la lecture{/t}</button>
 				</div>
 			</div>
 		</div>

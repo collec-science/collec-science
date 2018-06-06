@@ -1,3 +1,4 @@
+{* Mouvements > Mouvements petit terminal > *}
 <script src="{$display}/bower_components/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
 var is_scan = false;
@@ -84,9 +85,9 @@ $(document).ready(function() {
 		if (objets[uid]) {
 		if (objets[uid]["position"]) {
 			if (objets[uid]["position"] == 1) {
-				position = "Dans le stock";
+				position = "{t}Dans le stock{/t}";
 			} else {
-				position = "Hors du stock";
+				position = "{t}Hors du stock{/t}";
 			}
 		} 
 		$("#position_stock").val(position);
@@ -298,79 +299,82 @@ $(document).ready(function() {
 			<input type="hidden" name="movement_id" value="0"> 
 			<input type="hidden" id="movement_type_id" name="movement_type_id" value="1">
 			
-			<div class="col-xs-8 col-md-4">
-				<input id="object_search" type="text" name="object_search" placeholder="Objet cherché"
-							value="" class="form-control input-lg" autofocus autocomplete="off" >
-			</div>
-			<div class="col-xs-4 col-md-2">
-			<button id="clear_object_search" class="btn btn-info" type="button">Clear</button>
+			<div class="col-xs-12 col-md-6">
+				<div class="row">
+					<div class="col-xs-9 col-md-8">
+						<input id="object_search" type="text" name="object_search" placeholder="{t}Objet à déplacer / sortir{/t}"
+									value="" class="form-control input-lg" autofocus autocomplete="off" >
+					</div>
+					<div class="col-xs-3 col-md-4">
+						<button id="clear_object_search" class="btn btn-block  btn-info" type="button">{t}Effacer{/t}</button>
+					</div>
+					<div class="col-xs-12 col-md-12">
+						<select id="object_uid" name="object_uid" class="form-control input-lg">
+						</select>
+					</div>
+				    <div class="col-xs-3 col-md-12">
+						<input id="position_stock" class="form-control input-lg" disabled value="">
+					</div>
+					<div class="col-xs-6 col-md-8">
+						<select id="movement_reason_id" name="movement_reason_id" class="form-control input-lg">
+							<option value="" {if $movement_reason_id == ""}selected{/if}>{t}Motif du déstockage...{/t}</option>
+							{section name=lst loop=$movementReason}
+							<option value="{$movementReason[lst].movement_reason_id}" {if $movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
+							{$movementReason[lst].movement_reason_name}
+							</option>	
+							{/section}		
+						</select>
+					</div>
+					<div class="col-xs-3 col-md-4">	 
+					 	<button id="exit" class="btn btn-block btn-danger input-lg" type="button">{t}Sortir{/t}</button>
+					</div>
+					<div class="col-xs-12 col-md-0">	 
+					 	<br/>
+					</div>
+				</div>
 			</div>
 			<div class="col-xs-12 col-md-6">
-				<select id="object_uid" name="object_uid" class="form-control input-lg">
-				
-				</select>
+				<div class="row">
+					<div class="col-xs-9 col-md-8">
+					<input id="container_search" type="text" name="container_search" placeholder="{t}Contenant de destination{/t}"
+									value="" class="form-control input-lg" autofocus autocomplete="off" >
+					</div>
+					<div class="col-xs-3 col-md-4">
+						<button id="clear_container_search" class="btn btn-block btn-info" type="button">{t}Effacer{/t}</button>
+					</div>
+					<div class="col-xs-12 col-md-12">
+						<select id="container_uid" name="container_uid" class="form-control input-lg">
+						</select>
+					</div>
+					<div class="col-xs-2 col-md-2">{t}Col:{/t}</div>
+					<div class="col-xs-4 col-md-4">
+						<input id="col" name="column_number" value="1" class="form-control input-lg">
+					</div>
+					<div class="col-xs-2 col-md-2">{t}Ligne:{/t}</div>
+					<div class="col-xs-4 col-md-4">
+						<input id="line" name="line_number" value="1" class="form-control input-lg">
+					</div>
+					<div class="col-xs-12 col-md-12">
+			 			<button id="entry" class="btn btn-block btn-info input-lg" type="button">{t}Déplacer dans le contenant{/t}</button>
+					</div>
+				</div>
 			</div>
-			<div class="col-xs-8 col-md-4">
-			<input id="container_search" type="text" name="container_search" placeholder="Container cherché"
-							value="" class="form-control input-lg" autofocus autocomplete="off" >
-			</div>
-			<div class="col-xs-4 col-md-2">
-			<button id="clear_container_search" class="btn btn-info" type="button">Clear</button>
-			</div>
-			<div class="col-xs-12 col-md-6">
-				<select id="container_uid" name="container_uid" class="form-control input-lg">
-				</select>
-			</div>	
-			<div class="col-xs-12 col-md-6">
 			<div class="row">
-				<div class="col-xs-2">Col:</div>
-				<div class="col-xs-4">
-				<input id="col" name="column_number" value="1" class="form-control input-lg">
-				</div>
-				<div class="col-xs-2">Line:</div>
-				<div class="col-xs-4">
-				<input id="line" name="line_number" value="1" class="form-control input-lg">
-				</div>
+
 			</div>
-			</div>
-			<div class="col-xs-12 col-md-6">
-					<select id="movement_reason_id" name="movement_reason_id" class="form-control input-lg">
-					<option value="" {if $movement_reason_id == ""}selected{/if}>Motif de sortie...</option>
-					{section name=lst loop=$movementReason}
-					<option value="{$movementReason[lst].movement_reason_id}" {if $movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
-					{$movementReason[lst].movement_reason_name}
-					</option>	
-					{/section}		
-					</select>
-			</div>
-			<div class="row">	
-			<div class="col-xs-2">
-			 <button id="entry" class="btn btn-info input-lg" type="button">Entrée</button>
-			 </div>
-			 <div class="col-xs-8">
-			<input id="position_stock" class="form-control input-lg" disabled value="position dans le stock">
-			</div>
-			<div class="col-xs-2">	 
-			 <button id="exit" class="btn btn-danger input-lg" type="button">Sortie</button>
-			</div>
-			</div>
-			
 		</form>
 	</div>
 </div>	
 <!-- Rajout pour la lecture optique -->
 <div class="row" id="optical">
 	<fieldset>
-		<legend>Lecture par la caméra de l'ordinateur ou du smartphone (utiliser firefox)</legend>
+		<legend>{t}Lecture par la caméra de l'ordinateur ou du smartphone (utiliser Firefox){/t}</legend>
 		<div class="col-xs-12 col-md-6">
 			<div class="form-horizontal protoform">
 				<div class="form-group center">
-					<button id="start2" class="btn btn-success" type="button">Lecture de
-						l'objet à entrer</button>
-						<button id="start" class="btn btn-success">Lecture du
-						container</button>
-					<button id="stop" class="btn btn-danger">Arrêter la
-						lecture</button>
+					<button id="start2" class="btn btn-success" type="button">{t}Lecture de l'objet à déplacer{/t}</button>
+						<button id="start" class="btn btn-success">{t}Lecture du contenant{/t}</button>
+					<button id="stop" class="btn btn-danger">{t}Arrêter la lecture{/t}</button>
 				</div>
 			</div>
 		</div>

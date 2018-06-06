@@ -350,7 +350,7 @@ function testScan() {
 <div class="form-group">
 <label for="scan_label" class="control-label col-md-4">{t}Scannez l'étiquette existante :{/t}</label>
 <div class="col-md-5">
-<input id="scan_label" class="form-control" placeholder="{t}Placez le curseur dans la zone et scannez l'étiquette{/t}">
+<input id="scan_label" class="form-control" placeholder="{t}Placez le curseur dans cette zone et scannez l'étiquette{/t}">
 </div>
 <div class="col-md-3">
 <button class="btn btn-info" type="button" id="scan_label_action">{t}Mettre à jour les champs{/t}</button>

@@ -4,5 +4,5 @@
 */
 $vue->set( $APPLI_version, "version");
 $vue->set($APPLI_versiondate , "versiondate");
-$vue->set("apropos_".$language.".tpl" , "corps");
+$vue->set("apropos.tpl" , "corps");
 ?>

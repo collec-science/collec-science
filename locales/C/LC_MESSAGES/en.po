@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-06 10:03+0200\n"
+"POT-Creation-Date: 2018-06-07 14:58+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -419,7 +419,7 @@ msgid "A propos"
 msgstr "About Collec-Science"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:58
+#: ../../../param/menu.xml:58 ../../../display/templates/apropos_fr.tpl:1
 msgid "A propos de Collec-Science"
 msgstr "About Collec-Science"
 
@@ -2528,6 +2528,73 @@ msgstr ""
 #: ../../../display/templates/enpied.tpl:5
 msgid "Pour tout problème :"
 msgstr "For any problem:"
+
+#: ../../../display/templates/apropos_fr.tpl:4
+msgid "Version %1 du %2."
+msgstr "Version %1 of %2."
+
+#: ../../../display/templates/apropos_fr.tpl:7
+msgid ""
+"L'application permet de garder la trace des échantillons stockés dans des "
+"contenants. \n"
+"\n"
+"Chaque échantillon ou contenant est identifié par un numéro unique, l'UID. \n"
+"D'un point de vue technique, les échantillons et les contenants sont, "
+"informatiquement parlant, hérités d'une classe appelée Objet. \n"
+"\n"
+"Les objets sont porteurs de plusieurs informations :"
+msgstr ""
+"The application keeps track of samples stored in containers.\n"
+"\n"
+"Each sample or container is identified by a unique number, the UID.\n"
+"From a technical point of view, the samples and containers are, inherited "
+"from a class called Object.\n"
+"\n"
+"The objects carry the following information:"
+
+#: ../../../display/templates/apropos_fr.tpl:14
+msgid ""
+"les mouvements de déplacement dans un contenant ou de sortie du stock (ils "
+"ne peuvent pas être effacés)"
+msgstr ""
+"movements: move into container or stock removal (they can not be deleted)"
+
+#: ../../../display/templates/apropos_fr.tpl:15
+msgid "les événements."
+msgstr "the events."
+
+#: ../../../display/templates/apropos_fr.tpl:18
+msgid ""
+"D'autres informations sont spécifiques soit des échantillons, soit des "
+"contenants. \n"
+"Pour ces derniers, les conditions de stockage (produit utilisé, risque "
+"associé normalisé) peuvent être décrits."
+msgstr ""
+"Other information is specific to either samples or containers.\n"
+"For the latter, the storage conditions (product used, standardized "
+"associated risk) can be described."
+
+#: ../../../display/templates/apropos_fr.tpl:21
+msgid "Consultez le site du projet : "
+msgstr "Visit the project site:"
+
+#: ../../../display/templates/apropos_fr.tpl:23
+msgid ""
+"Liste (non exhaustive ?) des contributeurs au projet (ordre alphabétique)"
+msgstr "List of contributors to the project (alphabetical order)"
+
+#: ../../../display/templates/apropos_fr.tpl:37
+msgid "Copyright (C) 2016-2018  Eric Quinton pour IRSTEA"
+msgstr "Copyright (C) 2016-2018 Eric Quinton for IRSTEA"
+
+#: ../../../display/templates/apropos_fr.tpl:39
+#, fuzzy
+msgid ""
+"La version 1.0 du logiciel a été déposée auprès de l'Agence pour la "
+"Protection des Programmes sous le numéro %1"
+msgstr ""
+"Version 1.0 of the software has been registered with the Agency for the "
+"Protection of Programs under number %1"
 
 #~ msgid "Déplacé"
 #~ msgstr "Moved"

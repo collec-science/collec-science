@@ -1,17 +1,18 @@
-<h2>Collections</h2>
+{* Paramètres > Collections > *}
+<h2>{t}Collections{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}
 <a href="index.php?module=collectionChange&collection_id=0">
-{$LANG["appli"][0]}
+{t}Nouveau...{/t}
 </a>
 {/if}
 <table id="collectionList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>Nom de la collection</th>
-<th>Id</th>
-<th>Groupes de login autorisés</th>
+<th>{t}Nom de la collection{/t}</th>
+<th>{t}Id{/t}</th>
+<th>{t}Groupes de login autorisés{/t}</th>
 </tr>
 </thead>
 <tbody>

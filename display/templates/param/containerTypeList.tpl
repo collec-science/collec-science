@@ -1,23 +1,25 @@
-<h2>Types de containers</h2>
+{* Paramètres > Types de contenants > *}
+<h2>{t}Types de contenants{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}
 <a href="index.php?module=containerTypeChange&container_type_id=0">
-{$LANG["appli"][0]}
+{t}Nouveau...{/t}
 </a>
 {/if}
 <table id="containerTypeList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>Nom</th>
-<th>Id</th>
-<th>Famille</th>
-<th>Description</th>
-<th>Nbre<br>d'emplacements</th>
-<th>Condition de stockage</th>
-<th>Produit utilisé</th>
-<th>Code CLP (risque)</th>
-<th>Modèle d'étiquette</th>
+<th>{t}Nom{/t}</th>
+<th>{t}Id{/t}</th>
+<th>{t}Famille{/t}</th>
+<th>{t}Description{/t}</th>
+<th>{t}Nombre
+d'emplacements{/t}</th>
+<th>{t}Condition de stockage{/t}</th>
+<th>{t}Produit utilisé{/t}</th>
+<th>{t}Code CLP (risque){/t}</th>
+<th>{t}Modèle d'étiquette{/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -38,12 +40,12 @@
 </td>
 <td class="textareaDisplay">{$data[lst].container_type_description}</td>
 <td>
-L : {$data[lst].lines} C : {$data[lst].columns}
+{t 1=$data[lst].lines}L : %1{/t} {t 1=$data[lst].columns}C : %1{/t}
 {if $data[lst].lines > 1}
 <br>
-1ère ligne : 
-{if $data[lst].first_line == "T"}haut
-{else}bas
+{t}1ère ligne :{/t}
+{if $data[lst].first_line == "T"}{t}haut{/t}
+{else}{t}bas{/t}
 {/if}
 {/if}
 </td>

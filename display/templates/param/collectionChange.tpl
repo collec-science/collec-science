@@ -1,20 +1,21 @@
-<h2>Modification d'une collection</h2>
+{* Paramètres > Collections > Nouveau *}
+<h2>{t}Création - Modification d'une collection{/t}</h2>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module=collectionList">{$LANG.appli.1}</a>
+<a href="index.php?module=collectionList">{t}Retour à la liste{/t}</a>
 
 <form class="form-horizontal protoform" id="collectionForm" method="post" action="index.php">
 <input type="hidden" name="moduleBase" value="collection">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="collection_id" value="{$data.collection_id}">
 <div class="form-group">
-<label for="collectionName"  class="control-label col-md-4">Nom<span class="red">*</span> :</label>
+<label for="collectionName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
 <div class="col-md-8">
 <input id="collectionName" type="text" class="form-control" name="collection_name" value="{$data.collection_name}" autofocus required>
 </div>
 </div>
 <div class="form-group">
-<label for="groupes"  class="control-label col-md-4">Groupes :</label>
+<label for="groupes"  class="control-label col-md-4">{t}Groupes :{/t}</label>
 <div class="col-md-7">
 {section name=lst loop=$groupes}
 <div class="col-md-2 col-sm-offset-3">
@@ -31,12 +32,12 @@
 </div>
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.collection_id > 0 }
-      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
 </form>
 </div>
 </div>
-<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>

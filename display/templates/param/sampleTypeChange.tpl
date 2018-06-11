@@ -1,3 +1,4 @@
+{* Paramètres > Types d'échantillons > Nouveau > *}
 <script>
 $(document).ready(function () {
 	$("#container_type_id").combobox();
@@ -5,26 +6,26 @@ $(document).ready(function () {
 });
 </script>
 
-<h2>Modification d'un type d'échantillon</h2>
+<h2>{t}Création - Modification d'un type d'échantillon{/t}</h2>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module=sampleTypeList">{$LANG.appli.1}</a>
+<a href="index.php?module=sampleTypeList">{t}Retour à la liste{/t}</a>
 
 <form class="form-horizontal protoform" id="sampleTypeForm" method="post" action="index.php">
 <input type="hidden" name="moduleBase" value="sampleType">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="sample_type_id" value="{$data.sample_type_id}">
 <div class="form-group">
-<label for="sampleTypeName"  class="control-label col-md-4">Nom<span class="red">*</span> :</label>
+<label for="sampleTypeName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
 <div class="col-md-8">
 <input id="sampleTypeName" type="text" class="form-control" name="sample_type_name" value="{$data.sample_type_name}" autofocus required></div>
 </div>
 
 <div class="form-group">
-<label for="container_type_id" class="control-label col-md-4">Type de container :</label>
+<label for="container_type_id" class="control-label col-md-4">{t}Type de contenant :{/t}</label>
 <div class="col-md-8">
 <select id="container_type_id" name="container_type_id" class="form-control">
-<option value="" {if $data.container_type_id == ""}selected{/if}>{$LANG.appli.2}</option>
+<option value="" {if $data.container_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 {section name=lst loop=$container_type}
 <option value="{$container_type[lst].container_type_id}" {if $container_type[lst].container_type_id == $data.container_type_id}selected{/if}>
 {$container_type[lst].container_type_name}
@@ -35,10 +36,10 @@ $(document).ready(function () {
 </div>
 
 <div class="form-group">
-<label for="operation_id" class="control-label col-md-4">Protocole / opération :</label>
+<label for="operation_id" class="control-label col-md-4">{t}Protocole / opération :{/t}</label>
 <div class="col-md-8">
 <select id="operation_id" name="operation_id" class="form-control">
-<option value="" {if $data.operation_id == ""}selected{/if}>{$LANG.appli.2}</option>
+<option value="" {if $data.operation_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 {section name=lst loop=$operation}
 <option value="{$operation[lst].operation_id}" {if $operation[lst].operation_id == $data.operation_id}selected{/if}>
 {$operation[lst].protocol_year} {$operation[lst].protocol_name} {$operation[lst].protocol_version} {$operation[lst].operation_name} {$operation[lst].operation_version}
@@ -49,10 +50,10 @@ $(document).ready(function () {
 </div>
 
 <div class="form-group">
-<label for="metadata_id" class="control-label col-md-4">Modèle de métadonnées :</label>
+<label for="metadata_id" class="control-label col-md-4">{t}Modèle de métadonnées :{/t}</label>
 <div class="col-md-8">
 <select id="metadata_id" name="metadata_id" class="form-control">
-<option value="" {if $data.metadata_id == ""}selected{/if}>{$LANG.appli.2}</option>
+<option value="" {if $data.metadata_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 {section name=lst loop=$metadata}
 <option value="{$metadata[lst].metadata_id}" {if $metadata[lst].metadata_id == $data.metadata_id}selected{/if}>
 {$metadata[lst].metadata_name}
@@ -63,13 +64,13 @@ $(document).ready(function () {
 </div>
 
 <fieldset>
-<legend>Sous-échantillonnage</legend>
+<legend>{t}Sous-échantillonnage{/t}</legend>
 
 <div class="form-group">
-<label for="multiple_type_id" class="control-label col-md-4">Nature :</label>
+<label for="multiple_type_id" class="control-label col-md-4">{t}Nature :{/t}</label>
 <div class="col-md-8">
 <select id="multiple_type_id" name="multiple_type_id" class="form-control">
-<option value="" {if $data.multiple_type_id == ""}selected{/if}>{$LANG.appli.2}</option>
+<option value="" {if $data.multiple_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 {section name=lst loop=$multiple_type}
 <option value="{$multiple_type[lst].multiple_type_id}" {if $multiple_type[lst].multiple_type_id == $data.multiple_type_id}selected{/if}>
 {$multiple_type[lst].multiple_type_name}
@@ -79,13 +80,13 @@ $(document).ready(function () {
 </div>
 </div>
 <div class="form-group">
-<label for="multiple_unit"  class="control-label col-md-4">Unité de base :</label>
+<label for="multiple_unit"  class="control-label col-md-4">{t}Unité de base :{/t}</label>
 <div class="col-md-8">
-<input id="multiple_unit" type="text" class="form-control" name="multiple_unit" value="{$data.multiple_unit}" placeholder="écaille, mètre, cm3..."></div>
+<input id="multiple_unit" type="text" class="form-control" name="multiple_unit" value="{$data.multiple_unit}" placeholder="{t}écaille, mètre, cm3...{/t}"></div>
 </div>
 
 <div class="form-group">
-<label for="identifier_generator_js"  class="control-label col-md-4">Code javascript de génération de l'identifiant :</label>
+<label for="identifier_generator_js"  class="control-label col-md-4">{t}Code javascript de génération de l'identifiant :{/t}</label>
 <div class="col-md-8">
 <input id="identifier_generator_js" type="text" class="form-control" name="identifier_generator_js" value="{$data.identifier_generator_js}" placeholder='$("#collection_id option:selected").text()+"-"+$("#uid").val()'></div>
 </div>
@@ -93,50 +94,50 @@ $(document).ready(function () {
 </fieldset>
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.sample_type_id > 0 }
-      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
 </form>
 </div>
 </div>
-<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
 
 <div class="row">
 <div class="col-md-12">
 <div class="bg-info">
-Consignes pour créer le code de génération de l'identifiant :
+{t}Consignes pour créer le code de génération de l'identifiant :{/t}
 <ul>
-<li>il s'agit de code javascript/JQuery, qui doit tenir en une seule instruction</li>
-<li>l'opérateur de concaténation est le signe +
-<li>la syntaxe de JQuery est basée sur $("#id"), où #id correspond à l'objet recherché
-<li>la syntaxe varie en fonction du type de champ dont vous voulez récupérer la valeur :
+<li>{t}il s'agit de code javascript/JQuery, qui doit tenir en une seule instruction{/t}</li>
+<li>{t}l'opérateur de concaténation est le signe +{/t}
+<li>{t}la syntaxe de JQuery est basée sur $("#id"), où #id correspond à l'objet recherché{/t}
+<li>{t}la syntaxe varie en fonction du type de champ dont vous voulez récupérer la valeur :{/t}
 <ul>
-<li>pour les champs simples : $("#uid").val()</li>
-<li>pour récupérer le contenu d'une boite de sélection : $("#collection_id option:selected").text()</li>
-<li>pour récupérer le contenu d'une variable simple issue des métadonnées : $("input[name=nom_de_la_metadonnee]").val()</li>
-<li>pour récupérer le contenu d'une métadonnée sélectionnée par bouton-radio : $("input[name=nom_de_la_metadonnee]:checked").val()</li>
+<li>{t}pour les champs simples :{/t} $("#uid").val()</li>
+<li>{t}pour récupérer le contenu d'une boite de sélection :{/t} $("#collection_id option:selected").text()</li>
+<li>{t}pour récupérer le contenu d'une variable simple issue des métadonnées :{/t} $("input[name={t}nom_de_la_metadonnee{/t}]").val()</li>
+<li>{t}pour récupérer le contenu d'une métadonnée sélectionnée par bouton-radio :{/t} $("input[name={t}nom_de_la_metadonnee{/t}]:checked").val()</li>
 </ul>
 </li>
-<li>Exemple : pour générer cet identifiant : nom_collection-uid-valeur_metadonnee :
+<li>{t}Exemple : pour générer cet identifiant : nom_collection-uid-valeur_metadonnee :{/t}
 <ul>
-<li>$("#collection_id option:selected").text()+"-"+$("#uid").val()+"-"+$("input[name=espece]").val()</li>
-(espece est le champ de métadonnées recherché)
+<li>$("#collection_id option:selected").text()+"-"+$("#uid").val()+"-"+$("input[name={t}espece{/t}]").val()</li>
+{t}(espece est le champ de métadonnées recherché){/t}
 </ul>
 </li>
-<li>Liste des champs utilisables :
+<li>{t}Liste des champs utilisables :{/t}
 <ul>
-<li>uid : identifiant interne</li>
-<li>object_status_id : statut de l'échantillon</li>
-<li>collection_id : nom de la collection</li>
-<li>sample_type_id : type d'échantillon</li>
-<li>sample_creation_date : date de création de l'échantillon</li>
-<li>sampling_date : date d'échantillonnage</li>
-<li>expiration_date : date d'expiration de l'échantillon</li>
-<li>wgs84_x : longitude</li>
-<li>wgs84_y : latitude</li>
-<li>et les variables disponibles dans les champs de métadonnées</li>
+<li>{t 1='uid'}%1 : identifiant interne{/t}</li>
+<li>{t 1='object_status_id'}%1 : statut de l'échantillon{/t}</li>
+<li>{t 1='collection_id'}%1 : nom de la collection{/t}</li>
+<li>{t 1='sample_type_id'}%1 : type d'échantillon{/t}</li>
+<li>{t 1='sample_creation_date'}%1 : date de création de l'échantillon{/t}</li>
+<li>{t 1='sampling_date'}%1 : date d'échantillonnage{/t}</li>
+<li>{t 1='expiration_date'}%1 : date d'expiration de l'échantillon{/t}</li>
+<li>{t 1='wgs84_x'}%1 : longitude{/t}</li>
+<li>{t 1='wgs84_y'}%1 : latitude{/t}</li>
+<li>{t}et les variables disponibles dans les champs de métadonnées{/t}</li>
 </ul>
 </li>
 

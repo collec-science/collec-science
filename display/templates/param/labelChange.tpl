@@ -1,3 +1,4 @@
+{* Paramètres > Étiquettes > Nouveau > *}
 <script>
 $(document).ready( function() {     
      function getMetadata() {
@@ -27,10 +28,10 @@ $(document).ready( function() {
 
 </script>
 
-<h2>Modification d'une étiquette</h2>
+<h2>{t}Création - Modification d'une étiquette{/t}</h2>
 <div class="row">
 <div class="col-md-12">
-<a href="index.php?module=labelList">{$LANG.appli.1}</a>
+<a href="index.php?module=labelList">{t}Retour à la liste{/t}</a>
 
 <form class="form-horizontal protoform" id="labelForm" method="post" action="index.php">
 <input type="hidden" name="moduleBase" value="label">
@@ -38,46 +39,46 @@ $(document).ready( function() {
 <input type="hidden" name="label_id" value="{$data.label_id}">
 <input type="hidden" name="metadata_id" value="{$metadata_id}">
 <div class="form-group">
-<label for="labelName"  class="control-label col-md-4">Nom de l'étiquette<span class="red">*</span> :</label>
+<label for="labelName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom de l'étiquette :{/t}</label>
 <div class="col-md-8">
 <input id="labelName" type="text" class="form-control" name="label_name" value="{$data.label_name}" autofocus required>
 </div>
 </div>
 <div class="form-group">
-<label for="xsl"  class="control-label col-md-4">Transformation XSL<span class="red">*</span> :</label>
+<label for="xsl"  class="control-label col-md-4"><span class="red">*</span> {t}Transformation XSL :{/t}</label>
 <div class="col-md-8">
 <textarea id="label_xsl" name="label_xsl" class="form-control" rows="20" required>{$data.label_xsl}</textarea>
 </div>
 </div>
 <div class="form-group">
-<label for ="identifiers_only" class="control-label col-md-4">Étiquette ne comprenant qu'un identifiant métier ?</label>
+<label for ="identifiers_only" class="control-label col-md-4">{t}Étiquette ne comprenant qu'un identifiant métier ?{/t}</label>
 <div class="col-md-8" id="identifiers_only">
 <div class="radio-inline">
 <label>
 <input type="radio" name="identifier_only" id="identifier_only1" value="1" {if $data.identifier_only == 1}checked{/if}>
-oui
+{t}oui{/t}
 </label>
 </div>
 <div class="radio-inline">
 <label>
 <input type="radio" name="identifier_only" id="identifier_only0" value="0" {if $data.identifier_only == 0}checked{/if}>
-non
+{t}non{/t}
 </label>
 </div>
 </div>
 </div>
 
 <div class="form-group">
-<label for="label_fields"  class="control-label col-md-4">Champs à insérer dans le QRCode (séparés par une virgule, sans espace)<span class="red">*</span> :</label>
+<label for="label_fields"  class="control-label col-md-4"><span class="red">*</span> {t}Champs à insérer dans le QR Code (séparés par une virgule, sans espace) :{/t}</label>
 <div class="col-md-8">
 <input id="label_fields" type="text" class="form-control" name="label_fields" value="{$data.label_fields}" required>
 </div>
 </div>
 <div class="form-group">
-<label for="metadata_id"  class="control-label col-md-4">Modèle de métadonnées rattaché à l'étiquette :</label>
+<label for="metadata_id"  class="control-label col-md-4">{t}Modèle de métadonnées rattaché à l'étiquette :{/t}</label>
 <div class="col-md-8">
 <select id="metadata_id" name="metadata_id" class="form-control" >
-<option value="" {if $data.metadata_id == ""}selected{/if}>Sélectionnez...</option>
+<option value="" {if $data.metadata_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
 {foreach $metadata as $value}
 <option value="{$value.metadata_id}" {if $value.metadata_id == $data.metadata_id}selected{/if}>
 {$value.metadata_name}
@@ -88,50 +89,50 @@ non
 </div>
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.label_id > 0 }
-      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
 </form>
 </div>
 </div>
 <div class="bg-info">
-Champs utilisables dans le QRcode et dans le texte de l'étiquette :
+{t}Champs utilisables dans le QR Code et dans le texte de l'étiquette :{/t}
 <ul>
-<li>Cas général : QrCode au format JSON, avec plusieurs informations stockées
+<li>{t}Cas général : QR Code au format JSON, avec plusieurs informations stockées{/t}
 <ul>
-<li>uid (obligatoire) : identifiant unique</li>
-<li>db (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les échantillons entre plusieurs bases)</li>
-<li>id : identifiant général</li>
-<li>prj : code de la collection</li>
-<li>clp : code de risque</li>
-<li>pn : nom du protocole</li>
-<li>x : coordonnée wgs84_x de l'objet (lieu de prélèvement ou de stockage suivant le cas)</li>
-<li>y : coordonnée wgs84_y de l'objet</li>
-<li>loc : localisation du prélèvement (table des lieux de prélèvement)</li>
-<li>prod : produit utilisé pour la conservation</li>
-<li>cd : date de création de l'échantillon dans la base de données</li>
-<li>sd : date d'échantillonnage</li>
-<li>ed : date d'expiration de l'échantillon</li>
-<li>et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants</li>
+<li>{t 1='uid'}%1 (obligatoire) : identifiant unique{/t}</li>
+<li>{t 1='db'}%1 (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les échantillons entre plusieurs bases){/t}</li>
+<li>{t 1='id'}%1 : identifiant général{/t}</li>
+<li>{t 1='prj'}%1 : code de la collection{/t}</li>
+<li>{t 1='clp'}%1 : code de risque{/t}</li>
+<li>{t 1='pn'}%1 : nom du protocole{/t}</li>
+<li>{t 1='x'}%1 : coordonnée wgs84_x de l'objet (lieu de prélèvement ou de stockage suivant le cas){/t}</li>
+<li>{t 1='y'}%1 : coordonnée wgs84_y de l'objet{/t}</li>
+<li>{t 1='loc'}%1 : localisation du prélèvement (table des lieux de prélèvement){/t}</li>
+<li>{t 1='prod'}%1 : produit utilisé pour la conservation{/t}</li>
+<li>{t 1='cd'}%1 : date de création de l'échantillon dans la base de données{/t}</li>
+<li>{t 1='sd'}%1 : date d'échantillonnage{/t}</li>
+<li>{t 1='ed'}%1 : date d'expiration de l'échantillon{/t}</li>
+<li>{t}et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants{/t}</li>
 </ul>
 </li>
-<li>Cas particulier : QrCode avec un seul identifiant, au format texte :
+<li>{t}Cas particulier : QR Code avec un seul identifiant, au format texte :{/t}
 <ul>
 <li>id </li>
-<li>tout identifiant secondaire non numérique - cf. paramètres > Types d'identifiants</li>
-<li>dbuid_origin : identifiant de la base de données d'origine. Pour un échantillon créé dans la base courante, la valeur sera de type <i>db:uid</i></li>
+<li>{t}tout identifiant secondaire non numérique - cf. paramètres > Types d'identifiants{/t}</li>
+<li>{t 1='dbuid_origin' escape=no}%1 : identifiant de la base de données d'origine. Pour un échantillon créé dans la base courante, la valeur sera de type <i>db:uid</i>{/t}</li>
 </ul>
 </li>
 </ul>
 </div>
 
 <div class="bg-info">
-Métadonnées utilisables dans le QRcode et dans le texte de l'étiquette :
+{t}Métadonnées utilisables dans le QR Code et dans le texte de l'étiquette :{/t}
 <ul id="list_metadata">
 </ul>
 </div>
 </fieldset>
 
-<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>

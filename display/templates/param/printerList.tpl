@@ -1,19 +1,21 @@
-<h2>Imprimantes</h2>
+{* Paramètres > Imprimantes > *}
+<h2>{t}Imprimantes{/t}</h2>
 <div class="row">
     <div class="col-md-6">
         {if $droits.param == 1}
         <a href="index.php?module=printerChange&printer_id=0">
-        {$LANG["appli"][0]}
+        {t}Nouveau...{/t}
         </a>
         {/if}
         <table id="printerList" class="table table-bordered table-hover datatable " >
         <thead>
         <tr>
-        <th>Nom courant</th>
-        <th>Nom de la<br>file d'impression</th>
-        <th>Serveur</th>
-        <th>Utilisateur</th>
-        <th>Commentaire</th>
+        <th>{t}Nom usuel{/t}</th>
+        <th>{t}Nom de la
+file d'impression{/t}</th>
+        <th>{t}Serveur{/t}</th>
+        <th>{t}Utilisateur{/t}</th>
+        <th>{t}Commentaire{/t}</th>
         </tr>
         </thead>
         <tbody>

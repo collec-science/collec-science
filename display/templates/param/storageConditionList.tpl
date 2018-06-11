@@ -1,15 +1,16 @@
-<h2>Types de conditions de stockage</h2>
+{* Paramètres > Conditions de stockage > *}
+<h2>{t}Conditions de stockage{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}
 <a href="index.php?module=storageConditionChange&storage_condition_id=0">
-{$LANG["appli"][0]}
+{t}Nouveau...{/t}
 </a>
 {/if}
 <table id="storageConditionList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>Nom</th>
+<th>{t}Nom{/t}</th>
 </tr>
 </thead>
 <tbody>

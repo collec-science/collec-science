@@ -43,7 +43,7 @@ switch ($t_module["param"]) {
                     $message->set($fe->getMessage());
                 } catch (Exception $e) {
                     $message->setSyslog($e->getMessage());
-                    $message->set("impossible d'enregistrer la pièce jointe");
+                    $message->set(_("impossible d'enregistrer la pièce jointe"));
                 }
             }
             $_REQUEST[$keyName] = $id;

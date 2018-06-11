@@ -1,16 +1,17 @@
-<h2>Liste des statuts utilisables pour les objets</h2>
+{* Paramètres > Statuts des objets > *}
+<h2>{t}Liste des statuts utilisables pour les objets{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}
 <a href="index.php?module=objectStatusChange&object_status_id=0">
-{$LANG["appli"][0]}
+{t}Nouveau...{/t}
 </a>
 {/if}
 <table id="objectStatusList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>Nom</th>
-<th>Id</th>
+<th>{t}Nom{/t}</th>
+<th>{t}Id{/t}</th>
 </tr>
 </thead>
 <tbody>

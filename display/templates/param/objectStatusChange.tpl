@@ -1,24 +1,25 @@
-<h2>Modification des statuts des objets</h2>
+{* Paramètres > Statuts des objets > Nouveau > *}
+<h2>{t}Création - Modification d'un statut d'objets{/t}</h2>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module=objectStatusList">{$LANG.appli.1}</a>
+<a href="index.php?module=objectStatusList">{t}Retour à la liste{/t}</a>
 
 <form class="form-horizontal protoform" id="objectStatusForm" method="post" action="index.php">
 <input type="hidden" name="moduleBase" value="objectStatus">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="object_status_id" value="{$data.object_status_id}">
 <div class="form-group">
-<label for="objectStatusName"  class="control-label col-md-4">Nom<span class="red">*</span> :</label>
+<label for="objectStatusName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
 <div class="col-md-8">
 <input id="objectStatusName" type="text" class="form-control" name="object_status_name" value="{$data.object_status_name}" autofocus required></div>
 </div>
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.object_status_id > 0 }
-      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
 </form>
 </div>
 </div>
-<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>

@@ -1,15 +1,16 @@
-<h2>Types de sous-échantillonnage</h2>
+{* Paramètres > Sous-échantillonnage > *}
+<h2>{t}Types de sous-échantillonnage{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}
 <a href="index.php?module=multipleTypeChange&multiple_type_id=0">
-{$LANG["appli"][0]}
+{t}Nouveau...{/t}
 </a>
 {/if}
 <table id="multipleTypeList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>Nom</th>
+<th>{t}Nom{/t}</th>
 </tr>
 </thead>
 <tbody>

@@ -29,7 +29,7 @@
 	<item module="containerTypeList" droits="consult" label="Types de contenants" tooltip="Liste des types de contenants" />
 	<item module="sampleTypeList" droits="consult" label="Types d'échantillons" tooltip="Liste des types d'échantillons gérés" />
 	<item module="identifierTypeList" droits="consult" label="Types d'identifiants" tooltip="Liste des types d'identifiants rattachables à un objet" />
-	<item module="multipleTypeList" droits="consult" label="Sous-échantillonnage" tooltip="Types de sous-échantillonnage" />
+	<item module="multipleTypeList" droits="consult" label="Types de sous-échantillonnage" tooltip="Types de sous-échantillonnage" />
 	<item module="metadataList" droits="consult" label="Métadonnées" tooltip="Modèles de métadonnées" />
 	<item module="samplingPlaceList" droits="consult" label="Lieux de prélèvement" tooltip="Liste des lieux de prélèvement des échantillons" />	
 	<item divider='1'/>

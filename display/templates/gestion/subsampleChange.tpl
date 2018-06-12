@@ -22,7 +22,7 @@
 <div class="form-group">
 <label for="subsampling_date" class="control-label col-md-4"><span class="red">*</span> {t}Date :{/t}</label>
 <div class="col-md-8">
-<input id="subsampling_date" name="subsampling_date" required value="{$data.subsampling_date}" class="form-control datetimepicker" >
+<input id="subsample_date" name="subsample_date" required value="{$data.subsample_date}" class="form-control datetimepicker" >
 </div>
 </div>
 

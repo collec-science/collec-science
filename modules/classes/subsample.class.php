@@ -29,7 +29,7 @@ class Subsample extends ObjetBDD {
 						"requis" => 1,
 						"parentAttrib" => 1 
 				),
-				"subsampling_date" => array (
+				"subsample_date" => array (
 						"type" => 3,
 						"requis" => 1,
 						"defaultValue" => "getDateHeure" 

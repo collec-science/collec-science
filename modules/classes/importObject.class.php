@@ -300,7 +300,7 @@ class ImportObject
                  * Preparation des metadonnees
                  */
                 if (strlen($values["sample_metadata_json"]) > 0) {
-                    $dataSample["metadata"] = $values["sample_metadata_json"];
+                    $dataSample["metadata"] = json_encode(json_decode($values["sample_metadata_json"]));
                 }
                 /*
                  * Debut d'ecriture en table
@@ -412,7 +412,7 @@ class ImportObject
 
     /**
      * Fonction reformatant la date en testant le format francais, puis standard
-     * 
+     *
      * @param string $date
      * @return string
      */
@@ -617,8 +617,16 @@ class ImportObject
              */
             if (strlen($data["sample_metadata_json"]) > 0) {
                 $metadataSchema = json_decode($this->sampleType->getMetadataForm($data["sample_type_id"]), true);
+                
                 $metadataSchemaNames = array();
                 $valuesMetadataJson = json_decode($data["sample_metadata_json"], true);
+                /*
+                 * Verification de la colonne metadata
+                 */
+                if (count($valuesMetadataJson) == 0) {
+                    $retour["code"] = false;
+                    $retour["message"] .= "Les métadonnées ne sont pas correctement formatées (champ sample_metadata_json)";
+                }
                 $valuesMetadataJsonNames = array();
                 foreach ($metadataSchema as $field) {
                     $metadataSchemaNames[] = $field["name"];
@@ -729,7 +737,7 @@ class ImportObject
 
     /**
      * Execution de l'importation d'echantillons provenant d'une base externe
-     * 
+     *
      * @param array $data
      *            : tableau contenant les donnees a importer
      * @param SampleInitClass $sic

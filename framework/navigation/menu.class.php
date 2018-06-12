@@ -13,25 +13,19 @@ class Menu
 
     private $menuArray;
 
-    public $language;
-
     /**
      * Charge la classe avec les informations fournies
      *
      * @param string $filename
      * @param string $language
      */
-    function __construct($filename, $language)
+    function __construct($filename)
     {
         /*
          * Transforme le menu en tableau
          */
         $xml = simplexml_load_file($filename);
         $this->menuArray = json_decode(json_encode($xml), true);
-        /*
-         * Stocke les libelles a afficher
-         */
-        $this->language = $language;
     }
 
     /**
@@ -90,10 +84,7 @@ class Menu
                 /*
                  * Traitement de l'item
                  */
-                $label   = $attributes["label"]   ? gettext($attributes["label"])   : $this->language["menu"][$attributes["value"]];
-                $tooltip = $attributes["tooltip"] ? gettext($attributes["tooltip"]) : $this->language["menu"][$attributes["title"]];
-
-                $texte = '<li><a href="index.php?module=' . $attributes["module"] . '" title="' . $tooltip . '">' . $label  . '</a>';
+                $texte = '<li><a href="index.php?module=' . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '">' .  gettext($attributes["label"]) . '</a>';
                 
                 if (isset($valeur["item"])) {
                     /*

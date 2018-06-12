@@ -144,6 +144,7 @@ include_once 'framework/fonctions.php';
  */
 if (isset ( $_SESSION ["LANG"] ) &&  ! $APPLI_modeDeveloppement) {
 	$LANG = $_SESSION["LANG"];
+	initGettext($LANG["date"]["locale"]);
 } else {
 	/*
 	 * Recuperation le cas echeant du cookie

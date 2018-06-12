@@ -1,2 +1,2 @@
-<h2>{$LANG["menu"]["phpinfotitle"]}</h2>
+<h2>{t}PHP info{/t}</h2>
 {$phpinfo}

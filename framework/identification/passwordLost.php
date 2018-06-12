@@ -27,8 +27,11 @@ switch ($t_module["param"]) {
                     $param = array(
                         "replyTo" => $APPLI_mail,
                         "from" => $APPLI_mail,
-                        "subject" => $LANG["login"][54],
-                        "contents" => $LANG["login"][53]
+                        "subject" => _(":appli - réinitialisation du mot de passe"),
+                        "contents" => _("<html><body>:prenom :nom,<br>
+                            <br>Vous avez demandé à réinitialiser votre mot de passe pour l'application :appli. Si ce n'était pas le cas, contactez l'administrateur de l'application.
+                            <br>Pour réinitaliser votre mot de passe, recopiez le lien suivant dans votre navigateur :<br><a href=':adresse'>Réinitialisez votre mot de passe</a>
+                            <br>Ne répondez pas à ce mail, qui est généré automatiquement</body></html>")
                     );
                     $loginGestion = new LoginGestion($bdd_gacl, $ObjetBDDParam);
                     $dl = $loginGestion->lire($data["id"]);
@@ -43,15 +46,15 @@ switch ($t_module["param"]) {
                             ":adresse" => $APPLI_address . "/index.php?module=passwordlostReinitchange&token=" . $data["token"]
                         ))) {
                             $log->setLog("unknown", "passwordlostSendmail", "email send to " . $dl["mail"]);
-                            $message->set($LANG["login"][55]);
+                            $message->set(_("Un mail vient de vous être envoyé. Veuillez copier le lien transmis dans votre navigateur pour pouvoir créer un nouveau mot de passe"));
                         } else {
                             $log->setLog("unknown", "passwordlostSendmail-ko", $dl["mail"]);
-                            $message->set($LANG["login"][56]);
+                            $message->set(_("Impossible d'envoyer le mail");
                             $message->setSyslog('passwordlost : send mail aborted to' . $dl["mail"]);
                         }
                     } else {
                         $log->setLog("unknown", "passwordlostSendmail-ko", "recipient empty");
-                        $message->set($LANG["login"][56]);
+                        $message->set("Impossible d'envoyer le mail");
                     }
                 }
             } catch (Exception $e) {
@@ -77,10 +80,10 @@ switch ($t_module["param"]) {
                     $vue->set($_REQUEST["token"], "token");
                 } else {
                     $vue->set("main.tpl", "corps");
-                    $message->set($LANG["login"][18]);
+                    $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"));
                 }
             } catch (Exception $e) {
-                $message->set($LANG["login"][52]);
+                $message->set(_("Le jeton fourni n'est pas valide"));
                 $message->setSyslog("token " . $_REQUEST["token"] . " not valid. " . $e->getMessage());
                 $vue->set("main.tpl", "corps");
             }
@@ -104,7 +107,7 @@ switch ($t_module["param"]) {
                         $module_coderetour = 1;
                     }
                 } else {
-                    $message->set($LANG["login"][18]);
+                    $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"));
                 }
             } catch (Exception $e) {
                 $message->set($e->getMessage());

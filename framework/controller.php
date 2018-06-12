@@ -238,7 +238,7 @@ while (isset($module)) {
                 if ($t_module["retourlogin"] == 1) {
                     $vue->set($_REQUEST["module"], "module");
                 }
-                $message->set($LANG["login"][2]);
+                $message->set(_("Veuillez utiliser votre login du domaine pour vous identifier"));
             } else {
                 
                 /*
@@ -291,7 +291,7 @@ while (isset($module)) {
                          */
                         $lastConnect = $log->getLastConnexion();
                         if (isset($lastConnect["log_date"])) {
-                            $texte = $LANG["login"][48];
+                            $texte = _("Dernière connexion le :datelog depuis l'adresse IP :iplog. Si ce n'était pas vous, modifiez votre mot de passe ou contactez l'administrateur de l'application.");
                             $texte = str_replace(":datelog", $lastConnect["log_date"], $texte);
                             $texte = str_replace(":iplog", $lastConnect["ipaddress"], $texte);
                             $message->set($texte);
@@ -432,7 +432,7 @@ while (isset($module)) {
                 if ($t_module["retourlogin"] == 1) {
                     $vue->set($_REQUEST["module"], "module");
                 }
-                $message->set($LANG["login"][49]);
+                $message->set(_("L'accès au module demandé nécessite une ré-identification. Veuillez saisir votre login et votre mot de passe"));
             } else {
                 /*
                  * Recuperation de l'identification

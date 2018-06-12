@@ -161,6 +161,5 @@ legend {
 }
 
 .lexique dt {
-	word-wrap: break-word;
-	text-width: 4em;
+  white-space: pre-wrap;
 }

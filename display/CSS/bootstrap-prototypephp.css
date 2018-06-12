@@ -155,3 +155,12 @@ legend {
     bottom: 5px;
     right: 5px;
 }
+
+.lexique dd {
+	margin-bottom: 1em;
+}
+
+.lexique dt {
+	word-wrap: break-word;
+	text-width: 4em;
+}

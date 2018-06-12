@@ -74,7 +74,7 @@ $(document).ready(function() {
 </div>
 
 <div class="form-group">
-<label for="nom" class="col-md-4 control-label">{t}Nom :{/t} </label>
+<label for="nom" class="col-md-4 control-label">{t}Nom de famille :{/t} </label>
 <div class="col-md-8">
 <input id="nom" type="text" class="form-control" name="nom" value="{$data.nom}"></div>
 </div>

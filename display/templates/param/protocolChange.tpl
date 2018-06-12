@@ -1,3 +1,4 @@
+{* Paramètres > Protocoles > Nouveau > *}
 <script>
 $(document).ready(function () { 
 	$("#spinner").hide();
@@ -8,36 +9,36 @@ $(document).ready(function () {
 });
 </script>
 
-<h2>Modification d'un protocole</h2>
+<h2>{t}Création - Modification d'un protocole{/t}</h2>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module=protocolList">{$LANG.appli.1}</a>
+<a href="index.php?module=protocolList">{t}Retour à la liste{/t}</a>
 
 <form class="form-horizontal protoform" id="protocolForm" method="post" action="index.php" enctype="multipart/form-data">
 <input type="hidden" name="moduleBase" value="protocol">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="protocol_id" value="{$data.protocol_id}">
 <div class="form-group">
-<label for="protocolName"  class="control-label col-md-4">Nom du protocole<span class="red">*</span> :</label>
+<label for="protocolName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom du protocole :{/t}</label>
 <div class="col-md-8">
 <input id="protocolName" type="text" class="form-control" name="protocol_name" value="{$data.protocol_name}" autofocus required>
 </div>
 </div>
 
 <div class="form-group">
-<label for="protocolVersion"  class="control-label col-md-4">Version<span class="red">*</span> :</label>
+<label for="protocolVersion"  class="control-label col-md-4"><span class="red">*</span> {t}Version :{/t}</label>
 <div class="col-md-8">
 <input id="protocolVersion" type="text" class="form-control" name="protocol_version" value="{$data.protocol_version}" required>
 </div>
 </div>
 <div class="form-group">
-<label for="protocolYear"  class="control-label col-md-4">Année :</label>
+<label for="protocolYear"  class="control-label col-md-4">{t}Année :{/t}</label>
 <div class="col-md-8">
 <input id="protocolYear" class="form-control nombre" name="protocol_year" value="{$data.protocol_year}" >
 </div>
 </div>
 <div class="form-group">
-<label for="collection_id"  class="control-label col-md-4">Collection de rattachement :</label>
+<label for="collection_id"  class="control-label col-md-4">{t}Collection de rattachement :{/t}</label>
 <div class="col-md-8">
 <select name="collection_id" id="collection_id" class="control-form">
 {foreach $collections as $value}
@@ -50,20 +51,20 @@ $(document).ready(function () {
 </div>
 
 <div class="form-group">
-<label for="protocolFile"  class="control-label col-md-4">Fichier PDF de description :</label>
+<label for="protocolFile"  class="control-label col-md-4">{t}Fichier PDF de description :{/t}</label>
 <div class="col-md-8">
 <input id="protocolFile" type="file" class="form-control" name="protocol_file">
 </div>
 </div>
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{$LANG["message"].19}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.protocol_id > 0 }
-      <button class="btn btn-danger button-delete">{$LANG["message"].20}</button>
+      <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
       <img id="spinner" src="{$display}/images/spinner.gif" height="25" >
  </div>
 </form>
 </div>
 </div>
-<span class="red">*</span><span class="messagebas">{$LANG["message"].36}</span>
+<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>

@@ -30,10 +30,10 @@
 <label for="movement_type_id" class="control-label col-md-4"><span class="red">*</span> {t}Mouvement :{/t}</label>
 <div class="col-md-8">
 <label class="radio-inline">
-  <input type="radio" name="movement_type_id" id="movement_type_id1" value="1" {if $data.movement_type_id ==1}checked{/if}> {t}Entrée{/t}
+  <input type="radio" name="movement_type_id" id="movement_type_id1" value="1" {if $data.movement_type_id ==1}checked{/if}> {t}Déplacement{/t}
 </label>
 <label class="radio-inline">
-  <input type="radio" name="movement_type_id" id="movement_type_id2" value="2" {if $data.movement_type_id ==2}checked{/if}> {t}Sortie{/t}
+  <input type="radio" name="movement_type_id" id="movement_type_id2" value="2" {if $data.movement_type_id ==2}checked{/if}> {t}Sortie du stock{/t}
 </label>
 </div>
 </div>

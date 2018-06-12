@@ -1,19 +1,21 @@
-<h2>Protocoles</h2>
+{* Paramètres > Protocoles > *}
+<h2>{t}Protocoles{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
 {if $droits.param == 1}
 <a href="index.php?module=protocolChange&protocol_id=0">
-{$LANG["appli"][0]}
+{t}Nouveau...{/t}
 </a>
 {/if}
 <table id="protocolList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>Nom du protocole</th>
-<th>Version</th>
-<th>Année</th>
-<th>Collection de<br>rattachement</th>
-<th>Fichier joint</th>
+<th>{t}Nom du protocole{/t}</th>
+<th>{t}Version{/t}</th>
+<th>{t}Année{/t}</th>
+<th>{t}Collection de
+rattachement{/t}</th>
+<th>{t}Fichier joint{/t}</th>
 </tr>
 </thead>
 <tbody>

@@ -73,15 +73,15 @@ switch ($t_module["param"]) {
                         $i ++;
                     }
                 }
-                $message->set($i . " station(x) importée(s)");
+                $message->set(sprintf(_("%d lieux importé(s)"),$i));
                 $module_coderetour = 1;
             } catch (Exception $e) {
-                $message->set("Impossible d'importer les stations de prélèvement");
+                $message->set(_("Impossible d'importer les lieux de prélèvement"));
                 $message->set($e->getMessage());
                 $module_coderetour = - 1;
             }
         } else {
-            $message->set("Impossible de charger le fichier à importer");
+            $message->set(_("Impossible de charger le fichier à importer"));
             $module_coderetour = - 1;
         }
         break;

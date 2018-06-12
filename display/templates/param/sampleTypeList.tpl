@@ -1,21 +1,22 @@
-<h2>Types d'échantillons</h2>
+{* Paramètres > Types d'échantillons > *}
+<h2>{t}Types d'échantillons{/t}</h2>
 	<div class="row">
 	<div class="col-md-12">
 {if $droits.param == 1}
 <a href="index.php?module=sampleTypeChange&sample_type_id=0">
-{$LANG["appli"][0]}
+{t}Nouveau...{/t}
 </a>
 {/if}
 <table id="sampleTypeList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>Nom</th>
-<th>Id</th>
-<th>Type de container</th>
-<th>Protocole / operation</th>
-<th>Sous-échantillonnage</th>
-<th>Modèle de métadonnées</th>
-<th>Génération automatique de l'identifiant métier ?</th>
+<th>{t}Nom{/t}</th>
+<th>{t}Id{/t}</th>
+<th>{t}Type de contenant{/t}</th>
+<th>{t}Protocole / operation{/t}</th>
+<th>{t}Sous-échantillonnage{/t}</th>
+<th>{t}Modèle de métadonnées{/t}</th>
+<th>{t}Génération automatique de l'identifiant métier ?{/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -43,7 +44,7 @@
 <td>{$data[lst].metadata_name}</td>
 <td class="center">
 {if strlen($data[lst].identifier_generator_js) > 0}
-oui
+{t}oui{/t}
 {/if}
 </tr>
 {/section}

@@ -31,8 +31,8 @@
 </td>
 <td>
 {if $subsample[lst].movement_type_id == 1}
-<span class="green">{t}Entrée{/t}</span>{else}
-<span class="red">{t}Sortie{/t}</span>
+<span class="green">{t}Déplacement{/t}</span>{else}
+<span class="red">{t}Sortie du stock{/t}</span>
 {/if}
 </td>
 <td >

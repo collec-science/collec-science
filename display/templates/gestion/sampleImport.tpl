@@ -85,7 +85,7 @@
 <li><b>dbuid_origin*</b> : {t escape=no}identifiant <b>unique</b> dans la base de données d'origine, sous la forme : code_base:id{/t}</li>
 <li><b>identifier</b> : {t}identifiant métier{/t}</li>
 <li><b>sample_type_name*</b> : {t}type d'échantillon{/t}</li>
-<li><b>collection_name*</b> : {t}nom de la collection (ou de la collection) de rattachement{/t}</li>
+<li><b>collection_name*</b> : {t}nom de la collection de rattachement{/t}</li>
 <li><b>object_status_name</b> : {t}statut courant{/t}</li>
 <li><b>wgs84_x</b> : {t}longitude GPS en WGS84 (degrés décimaux){/t}</li>
 <li><b>wgs84_y</b> : {t}latitude GPS en WGS84 (degrés décimaux){/t}</li>

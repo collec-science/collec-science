@@ -170,8 +170,7 @@ class Sample extends ObjetBDD
             $error = true;
         }
         if ($error) {
-            global $LANG;
-            throw new SampleException($LANG["appli"][4]);
+            throw new SampleException(_("Vous ne disposez pas des droits pour modifier cet échantillon"));
         }
         return - 1;
     }

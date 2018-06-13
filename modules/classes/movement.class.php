@@ -190,7 +190,6 @@ class Movement extends ObjetBDD
      */
     function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $storage_location = null, $comment = null, $movement_reason_id = null, $column_number = 1, $line_number = 1)
     {
-        global $LANG;
         /*
          * Verifications
          */

@@ -49,7 +49,7 @@ switch ($t_module["param"]) {
                             $message->set(_("Un mail vient de vous être envoyé. Veuillez copier le lien transmis dans votre navigateur pour pouvoir créer un nouveau mot de passe"));
                         } else {
                             $log->setLog("unknown", "passwordlostSendmail-ko", $dl["mail"]);
-                            $message->set(_("Impossible d'envoyer le mail");
+                            $message->set(_("Impossible d'envoyer le mail"));
                             $message->setSyslog('passwordlost : send mail aborted to' . $dl["mail"]);
                         }
                     } else {

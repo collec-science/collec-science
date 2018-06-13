@@ -536,7 +536,7 @@ class ImportObject
             }
             if ($ok == false) {
                 $retour["code"] = false;
-                $retour["message"] .= "Le numéro de la collection indiqué n'est pas reconnu ou autorisé. ";
+                $retour["message"] .= _("Le numéro de la collection indiqué n'est pas reconnu ou autorisé.");
             }
             /*
              * Verification du type d'echantillon
@@ -550,7 +550,7 @@ class ImportObject
             }
             if ($ok == false) {
                 $retour["code"] = false;
-                $retour["message"] .= "Le type d'échantillon n'est pas connu. ";
+                $retour["message"] .= _("Le type d'échantillon n'est pas connu.");
             }
             
             /*
@@ -566,7 +566,7 @@ class ImportObject
                 }
                 if ($ok == false) {
                     $retour["code"] = false;
-                    $retour["message"] .= "Le statut de l'échantillon n'est pas connu. ";
+                    $retour["message"] .= _("Le statut de l'échantillon n'est pas connu.");
                 }
             }
             /*
@@ -582,7 +582,7 @@ class ImportObject
                 }
                 if ($ok == false) {
                     $retour["code"] = false;
-                    $retour["message"] .= "L'emplacement de collecte de l'échantillon n'est pas connu. ";
+                    $retour["message"] .= _("L'emplacement de collecte de l'échantillon n'est pas connu.");
                 }
             }
             /*
@@ -605,7 +605,7 @@ class ImportObject
                         $result1 = date_parse($data[$fieldDate]);
                         if ($result1["warning_count"] > 0) {
                             $retour["code"] = false;
-                            $retour["message"] .= "Le format de date de $fieldDate n'est pas reconnu. ";
+                            $retour["message"] .= sprintf(_("Le format de date de %s n'est pas reconnu."),$fieldDate);
                         }
                     }
                 }
@@ -625,7 +625,7 @@ class ImportObject
                  */
                 if (count($valuesMetadataJson) == 0) {
                     $retour["code"] = false;
-                    $retour["message"] .= "Les métadonnées ne sont pas correctement formatées (champ sample_metadata_json)";
+                    $retour["message"] .= _("Les métadonnées ne sont pas correctement formatées (champ sample_metadata_json)");
                 }
                 $valuesMetadataJsonNames = array();
                 foreach ($metadataSchema as $field) {
@@ -634,7 +634,7 @@ class ImportObject
                 foreach ($valuesMetadataJson as $key => $field) {
                     if (! in_array($key, $metadataSchemaNames)) {
                         $retour["code"] = false;
-                        $retour["message"] .= "Les métadonnées ne correspondent pas au type d'échantillon ($key inconnu). ";
+                        $retour["message"] .= sprintf(_("Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "),$key);
                     }
                 }
             }
@@ -644,7 +644,7 @@ class ImportObject
             if ($data["sample_parent_uid"] > 0) {
                 if (! $data["parent_sample_id"] > 0) {
                     $retour["code"] = false;
-                    $retour["message"] .= "L'échantillon parent défini n'existe pas (" . $data["sample_parent_uid"] . "). ";
+                    $retour["message"] .= sprintf(_( "L'échantillon parent défini n'existe pas (%s)"),  $data["sample_parent_uid"] );
                 }
             }
         }
@@ -665,7 +665,7 @@ class ImportObject
             }
             if ($ok == false) {
                 $retour["code"] = false;
-                $retour["message"] .= "Le type de container n'est pas connu. ";
+                $retour["message"] .= _("Le type de container n'est pas connu.");
             }
             /*
              * Verification du statut du container
@@ -680,7 +680,7 @@ class ImportObject
                 }
                 if ($ok == false) {
                     $retour["code"] = false;
-                    $retour["message"] .= "Le statut du container n'est pas connu. ";
+                    $retour["message"] .= _("Le statut du container n'est pas connu.");
                 }
             }
         }
@@ -691,7 +691,7 @@ class ImportObject
             $container_id = $this->container->getIdFromUid($data["container_parent_uid"]);
             if (! $container_id > 0) {
                 $retour["code"] = false;
-                $retour["message"] .= "L'UID du conteneur parent (" . $data["container_parent_uid"] . ") n'existe pas. ";
+                $retour["message"] .= sprintf(_("L'UID du conteneur parent (%s) n'existe pas. "),$data["container_parent_uid"]) ;
             }
         }
         
@@ -702,7 +702,7 @@ class ImportObject
             if (strlen($data[$key]) > 0) {
                 if (! is_numeric($data[$key])) {
                     $retour["code"] = false;
-                    $retour["message"] .= "Le champ $key n'est pas numérique. ";
+                    $retour["message"] .= sprintf(_("Le champ %s n'est pas numérique."),$key);
                 }
             }
         }
@@ -711,7 +711,7 @@ class ImportObject
          */
         if ($emptyLine) {
             $retour["code"] = false;
-            $retour["message"] .= "Aucun échantillon ou container n'est décrit (pas d'identifiant pour l'un ou pour l'autre). ";
+            $retour["message"] .= _("Aucun échantillon ou container n'est décrit (pas d'identifiant pour l'un ou pour l'autre).");
         }
         return $retour;
     }

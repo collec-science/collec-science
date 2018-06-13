@@ -6,9 +6,9 @@
 $login = $_SESSION["login"];
 $message->setSyslog("Deconnexion from $login - address " . getIPClientAddress());
 if ($identification->disconnect($APPLI_address) == 1) {
-    $message->set($LANG["message"][7]);
+    $message->set(_("Vous êtes maintenant déconnecté"));
 } else {
-    $message->set($LANG["message"][8]);
+    $message->set(_("Connexion"));
 }
 
 ?>

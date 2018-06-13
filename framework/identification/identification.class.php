@@ -134,7 +134,7 @@ class Identification
     function testLoginLdap($login, $password)
     {
         $loginOk = "";
-        global $log, $LOG_duree, $message, $LANG;
+        global $log, $LOG_duree, $message;
         if (strlen($login) > 0 && strlen($password) > 0) {
             $login = str_replace(array(
                 '\\',
@@ -584,7 +584,7 @@ class LoginGestion extends ObjetBDD
      */
     function changePassword($oldpassword, $pass1, $pass2)
     {
-        global $log, $LANG, $message;
+        global $log,$message;
         $retour = 0;
         if (isset($_SESSION["login"])) {
             $oldData = $this->lireByLogin($_SESSION["login"]);
@@ -655,7 +655,7 @@ class LoginGestion extends ObjetBDD
      */
     private function writeNewPassword($login, $pass)
     {
-        global $log, $message, $LANG;
+        global $log, $message;
         $retour = 0;
         $oldData = $this->lireByLogin($login);
         if ($log->getLastConnexionType($login) == "db") {
@@ -692,7 +692,7 @@ class LoginGestion extends ObjetBDD
      */
     private function passwordVerify($login, $pass1, $pass2)
     {
-        global $message, $LANG;
+        global $message;
         $ok = false;
         /*
          * Verification que le mot de passe soit identique

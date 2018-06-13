@@ -13,7 +13,7 @@ include_once ("framework/common.inc.php");
  * Codage UTF-8
  */
 if (! check_encoding($_REQUEST)) {
-    $message->set($LANG["message"][45]);
+    $message->set(_("Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu"));
     $_REQUEST["module"] = "default";
     unset($_REQUEST["moduleBase"]);
     unset($_REQUEST["action"]);
@@ -30,7 +30,8 @@ if (! isset($_SESSION["dbversion"])) {
         if ($APPLI_modeDeveloppement) {
             unset($_SESSION["dbversion"]);
         }
-        $message->set(str_replace("%", $APPLI_dbversion, $LANG["message"][46]) . $dbversion->getLastVersion()["dbversion_number"]);
+        // traduction: le signe % est utilisé comme caractère joker, le conserver pour qu'il puisse être remplacé par le code de la version
+        $message->set(str_replace("%", $APPLI_dbversion, _("La base de données n'est pas dans la version attendue (%). Version actuelle : ")) . $dbversion->getLastVersion()["dbversion_number"]);
         $_REQUEST["module"] = "default";
         unset($_REQUEST["moduleBase"]);
         unset($_REQUEST["action"]);
@@ -151,7 +152,7 @@ while (isset($module)) {
      */
     $t_module = $navigation->getModule($module);
     if (count($t_module) == 0) {
-        $message->set($LANG["message"][35] . " ($module)");
+        $message->set(_("Le module demandé n'existe pas") . " ($module)");
         $t_module = $navigation->getModule("default");
     }
     /*
@@ -258,7 +259,7 @@ while (isset($module)) {
                             $token = new Token($privateKey, $pubKey);
                             $login = $token->openToken($_COOKIE["tokenIdentity"]);
                         } catch (Exception $e) {
-                            $message->set($LANG["message"][48]);
+                            $message->set(_("L'identification par jeton n'a pas abouti"));
                             $message->setSyslog($e->getMessage());
                             $log->setLog("unknown", "connexion", "token-ko");
                         }
@@ -280,7 +281,7 @@ while (isset($module)) {
                          */
                         $_SESSION["login"] = $login;
                         unset($_SESSION["menu"]);
-                        $message->set($LANG["message"][10]);
+                        $message->set(_("Identification réussie !"));
                         
                         /*
                          * Regeneration de l'identifiant de session
@@ -347,7 +348,7 @@ while (isset($module)) {
                             }
                         }
                     } else {
-                        $message->set($LANG["message"][11]);
+                        $message->set(_("Identification refusée"));
                         $message->setSyslog("connexion ko from " . getIPClientAddress());
                     }
                 }
@@ -398,7 +399,7 @@ while (isset($module)) {
         if (! $beforeok) {
             $resident = 0;
             if ($APPLI_modeDeveloppement) {
-                $message->set($LANG["message"][47] . $_SESSION["moduleBefore"]);
+                $message->set(_("Module précedent enregistré : ") . $_SESSION["moduleBefore"]);
             }
             $motifErreur = "errorbefore";
         }
@@ -459,7 +460,7 @@ while (isset($module)) {
         if ($OBJETBDD_debugmode > 0) {
             $message->set($log->getErrorData(1));
         } else {
-            $message->set($LANG["message"][38]);
+            $message->set(_("Erreur d'écriture dans le fichier de traces"));
         }
         $message->setSyslog($e->getMessage());
     }
@@ -533,7 +534,7 @@ if ($isHtml) {
      */
     if (! isset($_SESSION["menu"])) {
         include_once 'framework/navigation/menu.class.php';
-        $menu = new Menu($APPLI_menufile, $LANG);
+        $menu = new Menu($APPLI_menufile);
         $_SESSION["menu"] = $menu->generateMenu();
     }
     
@@ -553,7 +554,7 @@ if ($isHtml) {
      * Alerte Mode developpement
      */
     if ($APPLI_modeDeveloppement) {
-        $texteDeveloppement = $LANG["message"][32] . " : " . $BDD_dsn . ' - schema : ' . $BDD_schema;
+        $texteDeveloppement = _("Mode développement - base de données") . " : " . $BDD_dsn . ' - schema : ' . $BDD_schema;
         $vue->set($texteDeveloppement, "developpementMode");
     }
     $vue->set($_SESSION["moduleListe"], "moduleListe");

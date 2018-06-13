@@ -208,10 +208,10 @@ if (! isset ( $bdd )) {
 				$bdd_gacl->exec ( "set search_path = " . $GACL_schema );
 			}
 		} else {
-			$message->set ( $LANG ["message"] [29] );
+		    $message->set ( _("Echec de connexion à la base de données de gestion des droits (GACL)"));
 		}
 	} else {
-		$message->set ( $LANG ["message"] [22] );
+	    $message->set ( _("Echec de connexion à la base de données principale") );
 	}
 }
 /*
@@ -225,7 +225,7 @@ $log = new Log ( $bdd_gacl, $ObjetBDDParam );
 if (time () - $_SESSION ['ABSOLUTE_START'] > $APPLI_absolute_session) {
 	$log->setLog($_SESSION["login"], "disconnect-absolute-time");
 	$identification->disconnect ( $APPLI_address );
-	$message->set($LANG["message"][44]);
+	$message->set(_("Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"));
 	/*
 	 * Desactivation du cookie d'identification deja charge le cas echeant
 	 */
@@ -240,9 +240,9 @@ if (isset ( $_SESSION ["remoteIP"] )) {
 		// Tentative d'usurpation de session - on ferme la session
 		$log->setLog($_SESSION["login"], "disconnect-ipaddress-changed", "old:".$_SESSION["remoteIP"]."-new:".$ipaddress);
 		if ($identification->disconnect ( $APPLI_address ) == 1) {
-			$message->set ( $LANG ["message"] [7] );
+		    $message->set ( _("Vous êtes maintenant déconnecté") );
 		} else {
-			$message->set ( $LANG ["message"] [8] );
+		    $message->set ( _("Connexion") );
 		}
 	}
 } else {

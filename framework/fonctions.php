@@ -16,7 +16,7 @@
  */
 function dataRead($dataClass, $id, $smartyPage, $idParent = null)
 {
-    global $vue, $OBJETBDD_debugmode, $message, $LANG;
+    global $vue, $OBJETBDD_debugmode, $message;
     if (isset($vue)) {
         if (is_numeric($id)) {
             
@@ -26,7 +26,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
                 if ($OBJETBDD_debugmode > 0) {
                     $message->set($dataClass->getErrorData(1));
                 } else {
-                    $message->set($LANG["message"][37]);
+                    $message->set(_("Erreur de lecture des informations dans la base de données"));
                 }
                 $message->setSyslog($e->getMessage());
             }
@@ -39,7 +39,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
         return $data;
     } else {
         global $module;
-        $message->set("Error : vue type not defined for the requested module ($module)");
+        $message->set(_("Error : vue type not defined for the requested module:"). $module);
     }
 }
 
@@ -52,17 +52,17 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
  */
 function dataWrite($dataClass, $data)
 {
-    global $message, $LANG, $module_coderetour, $log, $OBJETBDD_debugmode;
+    global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
     try {
         $id = $dataClass->ecrire($data);
-        $message->set($LANG["message"][5]);
+        $message->set(_("Enregistrement effectué"));
         $module_coderetour = 1;
         $log->setLog($_SESSION["login"], get_class($dataClass) . "-write", $id);
     } catch (Exception $e) {
         if ($OBJETBDD_debugmode > 0) {
             $message->set($dataClass->getErrorData(1));
         } else {
-            $message->set($LANG["message"][12]);
+            $message->set(_("Problème lors de l'enregistrement..."));
         }
         $message->setSyslog($e->getMessage());
         $module_coderetour = - 1;
@@ -79,7 +79,7 @@ function dataWrite($dataClass, $data)
  */
 function dataDelete($dataClass, $id)
 {
-    global $message, $LANG, $module_coderetour, $log, $OBJETBDD_debugmode;
+    global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
     $module_coderetour = - 1;
     $ok = true;
     if (is_array($id)) {
@@ -96,14 +96,14 @@ function dataDelete($dataClass, $id)
     if ($ok) {
         try {
             $ret = $dataClass->supprimer($id);
-            $message->set($LANG["message"][4]);
+            $message->set(_("Suppression effectuée"));
             $module_coderetour = 1;
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
         } catch (Exception $e) {
             if ($OBJETBDD_debugmode > 0) {
                 $message->set($dataClass->getErrorData(1));
             } else {
-                $message->set($LANG["message"][13]);
+                $message->set(_("Problème lors de la suppression"));
             }
             $message->setSyslog($e->getMessage());
             $ret = - 1;

@@ -619,14 +619,13 @@ class Aclgroup extends ObjetBDD
      */
     function supprimer($id)
     {
-        global $LANG;
         if ($id > 0) {
             /*
              * Recherche de groupes fils
              */
             $dataFils = $this->getChildGroups($id);
             if (count($dataFils) > 0) {
-                throw new DroitException($LANG["message"][43]);
+                throw new DroitException(_("Suppression du groupe impossible : d'autres groupes lui sont rattachés"));
             } else {
                 /*
                  * Suppression des logins rattachés

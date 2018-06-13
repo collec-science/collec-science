@@ -27,16 +27,19 @@ switch ($t_module["param"]) {
                     $param = array(
                         "replyTo" => $APPLI_mail,
                         "from" => $APPLI_mail,
+                        // traduction: conserver inchangées les chaînes :keyword"
                         "subject" => _(":appli - réinitialisation du mot de passe"),
-                        "contents" => _("<html><body>:prenom :nom,<br>
+                        // traduction: conserver inchangés les chaînes :keyword et les balises <tag>"
+                        "contents" => "<html><body>"._(":prenom :nom,<br>
                             <br>Vous avez demandé à réinitialiser votre mot de passe pour l'application :appli. Si ce n'était pas le cas, contactez l'administrateur de l'application.
                             <br>Pour réinitaliser votre mot de passe, recopiez le lien suivant dans votre navigateur :<br><a href=':adresse'>Réinitialisez votre mot de passe</a>
-                            <br>Ne répondez pas à ce mail, qui est généré automatiquement</body></html>")
+                            <br>Ne répondez pas à ce mail, qui est généré automatiquement")."</body></html>"
                     );
                     $loginGestion = new LoginGestion($bdd_gacl, $ObjetBDDParam);
                     $dl = $loginGestion->lire($data["id"]);
                     if (strlen($dl["mail"]) > 0) {
                         require_once 'framework/identification/mail.class.php';
+
                         $mail = new Mail($param);
                         if ($mail->sendMail($dl["mail"], array(
                             ":nom" => $dl["nom"],
@@ -54,7 +57,7 @@ switch ($t_module["param"]) {
                         }
                     } else {
                         $log->setLog("unknown", "passwordlostSendmail-ko", "recipient empty");
-                        $message->set("Impossible d'envoyer le mail");
+                        $message->set(_("Impossible d'envoyer le mail"));
                     }
                 }
             } catch (Exception $e) {

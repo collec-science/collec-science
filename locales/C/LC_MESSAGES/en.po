@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-13 11:16+0200\n"
+"POT-Creation-Date: 2018-06-13 17:58+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -377,7 +377,10 @@ msgid "configuration générale du serveur PHP"
 msgstr "general configuration of the PHP server"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:53 ../../../display/templates/entete.tpl:21
+#: ../../../param/menu.xml:53
+#: ../../../framework/identification/disconnect.php:11
+#: ../../../framework/common.inc.php:245
+#: ../../../display/templates/entete.tpl:21
 #: ../../../display/templates/entete.tpl:40
 #: ../../../display/templates/entete.tpl:41
 msgid "Connexion"
@@ -479,11 +482,60 @@ msgstr "Unable to read the file containing the news"
 msgid "Impossible de lire le fichier contenant le lexique"
 msgstr "Unable to read the file containing the glossary"
 
+#: ../../../framework/errorlogin.php:2
+msgid "Vous n'êtes pas identifié."
+msgstr "You are not signed in."
+
+#: ../../../framework/fonctions.php:29
+msgid "Erreur de lecture des informations dans la base de données"
+msgstr "Error reading information in the database"
+
+#. traduction: conserver inchangée la chaîne %s
+#: ../../../framework/fonctions.php:43
+#, php-format
+msgid "Erreur: type d'affichage non défini pour le module demandé : %s"
+msgstr "Error: display type not defined for the requested module: %s"
+
+#: ../../../framework/fonctions.php:59 ../../../modules/param/dbparam.php:18
+#: ../../../modules/gestion/movement.php:112
+#: ../../../modules/gestion/movement.php:139
+msgid "Enregistrement effectué"
+msgstr "Saved"
+
+#: ../../../framework/fonctions.php:66
+msgid "Problème lors de l'enregistrement..."
+msgstr "Problem when saving ..."
+
+#: ../../../framework/fonctions.php:100
+msgid "Suppression effectuée"
+msgstr "Deletion done"
+
+#: ../../../framework/fonctions.php:107
+msgid "Problème lors de la suppression"
+msgstr "Problem when deleting"
+
+#: ../../../framework/droits/droits.class.php:628
+msgid "Suppression du groupe impossible : d'autres groupes lui sont rattachés"
+msgstr "Can not delete group: other groups are attached to it"
+
+#: ../../../framework/droitko.php:2
+msgid ""
+"Vous n'avez pas accès à cette fonction. Veuillez vous identifier, le cas "
+"échéant"
+msgstr ""
+"You do not have access to this function. Please identify yourself, if "
+"applicable"
+
+#: ../../../framework/identification/disconnect.php:9
+#: ../../../framework/common.inc.php:243
+msgid "Vous êtes maintenant déconnecté"
+msgstr "You are now signed off"
+
 #: ../../../framework/identification/login.php:57
 #: ../../../framework/identification/identification.class.php:606
 #: ../../../framework/identification/identification.class.php:679
-#: ../../../framework/identification/passwordLost.php:85
-#: ../../../framework/identification/passwordLost.php:112
+#: ../../../framework/identification/passwordLost.php:86
+#: ../../../framework/identification/passwordLost.php:113
 msgid ""
 "Le mode d'identification utilisé pour votre compte n'autorise pas la "
 "modification du mot de passe depuis cette application"
@@ -552,7 +604,7 @@ msgstr ""
 "browser: <br> <a href=':adresse'>Reset your password</a>\n"
 "<br> Do not reply to this mail, which was automatically generated."
 
-#: ../../../framework/identification/passwordLost.php:51
+#: ../../../framework/identification/passwordLost.php:52
 msgid ""
 "Un mail vient de vous être envoyé. Veuillez copier le lien transmis dans "
 "votre navigateur pour pouvoir créer un nouveau mot de passe"
@@ -560,29 +612,78 @@ msgstr ""
 "An email has just been sent to you. Please copy the link sent to your "
 "browser to create a new password"
 
-#: ../../../framework/identification/passwordLost.php:54
-#: ../../../framework/identification/passwordLost.php:59
+#: ../../../framework/identification/passwordLost.php:55
+#: ../../../framework/identification/passwordLost.php:60
 msgid "Impossible d'envoyer le mail"
 msgstr "Could not send email"
 
-#: ../../../framework/identification/passwordLost.php:88
+#: ../../../framework/identification/passwordLost.php:89
 msgid "Le jeton fourni n'est pas valide"
 msgstr "Token provided is not valid"
 
-#: ../../../framework/controller.php:241
+#: ../../../framework/errorbefore.php:2
+msgid ""
+"L'accès au module que vous demandez ne respecte pas la cinématique de "
+"l'application. Peut-être avez-vous essayé de rafraîchir la page ?"
+msgstr ""
+"The access to the module does not respect the order of the sequences in the "
+"application. Maybe you tried to refresh the page?"
+
+#: ../../../framework/controller.php:16
+msgid ""
+"Problème dans les données fournies : l'encodage des caractères n'est pas "
+"celui attendu"
+msgstr ""
+"Problem in the provided data: the character encoding is not the one expected"
+
+#. traduction: bien conserver inchangées les chaînes %1$s, %2$s
+#: ../../../framework/controller.php:34
+#, php-format
+msgid ""
+"La base de données n'est pas dans la version attendue (%1$s). Version "
+"actuelle : %2$s"
+msgstr ""
+"The database is not in the expected version (%1$s). Current version: %2$s"
+
+#. traduction: conserver inchangée la chaîne %s
+#: ../../../framework/controller.php:156
+#, php-format
+msgid "Le module demandé n'existe pas (%s)"
+msgstr "The requested module does not exist (%s)"
+
+#: ../../../framework/controller.php:243
 msgid "Veuillez utiliser votre login du domaine pour vous identifier"
 msgstr "Please use your domain login to login"
 
-#: ../../../framework/controller.php:294
-msgid ""
-"Dernière connexion le :datelog depuis l'adresse IP :iplog. Si ce n'était pas "
-"vous, modifiez votre mot de passe ou contactez l'administrateur de "
-"l'application."
-msgstr ""
-"Last connection on :datelog from the IP address :iplog. If it was not you, "
-"change your password or contact the administrator of the application."
+#: ../../../framework/controller.php:263
+msgid "L'identification par jeton n'a pas abouti"
+msgstr "Token identification was unsuccessful"
 
-#: ../../../framework/controller.php:435
+#: ../../../framework/controller.php:285
+msgid "Identification réussie !"
+msgstr "Authentication successful!"
+
+#. traduction: bien conserver inchangées les chaînes %1$s, %2$s...
+#: ../../../framework/controller.php:297
+#, php-format
+msgid ""
+"Dernière connexion le %1$s depuis l'adresse IP %2$s. Si ce n'était pas vous, "
+"modifiez votre mot de passe ou contactez l'administrateur de l'application."
+msgstr ""
+"Last connection on %1$s from the IP address %2$s. If it was not you, change "
+"your password or contact the administrator of the application."
+
+#: ../../../framework/controller.php:351
+msgid "Identification refusée"
+msgstr "Authentication failed"
+
+#. traduction: conserver inchangée la chaîne %s
+#: ../../../framework/controller.php:403
+#, php-format
+msgid "Module précédent enregistré : %s"
+msgstr "Previous module: %s"
+
+#: ../../../framework/controller.php:437
 msgid ""
 "L'accès au module demandé nécessite une ré-identification. Veuillez saisir "
 "votre login et votre mot de passe"
@@ -590,15 +691,36 @@ msgstr ""
 "Access to the requested module requires re-identification. Please enter your "
 "login and password"
 
+#: ../../../framework/controller.php:464
+msgid "Erreur d'écriture dans le fichier de traces"
+msgstr "Error writing to the trace file"
+
+#. traduction: bien conserver inchangées les chaînes %1$s, %2$s
+#: ../../../framework/controller.php:559
+#, php-format
+msgid "Mode développement - base de données : %1$s - schema : %2$s"
+msgstr "Development mode - database: %1$s - schema: %2$s"
+
+#: ../../../framework/common.inc.php:211
+msgid "Echec de connexion à la base de données de gestion des droits (GACL)"
+msgstr "Failed to connect to rights management database (GACL)"
+
+#: ../../../framework/common.inc.php:214
+msgid "Echec de connexion à la base de données principale"
+msgstr "Failed to connect to the main database"
+
+#: ../../../framework/common.inc.php:228
+msgid ""
+"Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"
+msgstr "You have been disconnected, your session has been open for too long"
+
+#: ../../../modules/administration/index.php:2
+msgid "Module administration"
+msgstr "Administration module"
+
 #: ../../../modules/param/protocol.php:46
 msgid "impossible d'enregistrer la pièce jointe"
 msgstr "unable to save attachment"
-
-#: ../../../modules/param/dbparam.php:18
-#: ../../../modules/gestion/movement.php:112
-#: ../../../modules/gestion/movement.php:139
-msgid "Enregistrement effectué"
-msgstr "Saved"
 
 #: ../../../modules/param/dbparam.php:25
 msgid "Problème lors de la mise en fichier..."
@@ -625,6 +747,10 @@ msgstr "Metadata imported"
 #: ../../../modules/param/metadata.php:87
 msgid "Impossible d'importer les métadonnées"
 msgstr "Can not import metadata"
+
+#: ../../../modules/classes/sample.class.php:173
+msgid "Vous ne disposez pas des droits pour modifier cet échantillon"
+msgstr "You do not have rights to edit this sample"
 
 #: ../../../modules/gestion/index.php:6
 msgid "Module gestion"
@@ -3642,6 +3768,9 @@ msgstr ""
 #: ../../../display/templates/enpied.tpl:5
 msgid "Pour tout problème :"
 msgstr "For any problem:"
+
+#~ msgid "Error : vue type not defined for the requested module:"
+#~ msgstr "Error : vue type not defined for the requested module:"
 
 #~ msgid "Types de conditions de stockage"
 #~ msgstr "Storage condition type"

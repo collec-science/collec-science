@@ -39,7 +39,8 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
         return $data;
     } else {
         global $module;
-        $message->set(_("Error : vue type not defined for the requested module:"). $module);
+        // traduction: conserver inchangée la chaîne %s
+        $message->set(sprintf(_('Erreur: type d\'affichage non défini pour le module demandé : %s'), $module));
     }
 }
 

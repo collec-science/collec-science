@@ -46,15 +46,5 @@ try {
     }
 }
 
-/*
- * Mise en session du code de l'instance
- */
-require_once 'modules/classes/dbparam.class.php';
-$dbparam = new DbParam($bdd, $ObjetBDDParam);
-$code = $dbparam->getParam("APPLI_code");
-if (strlen($code) > 0) {
-    $_SESSION["APPLI_code"] = $code;
-} else {
-    $_SESSION["APPLI_code"] = $APPLI_code;
-}
+
 ?>

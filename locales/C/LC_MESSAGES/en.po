@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-13 17:58+0200\n"
+"POT-Creation-Date: 2018-06-15 09:42+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -751,6 +751,69 @@ msgstr "Can not import metadata"
 #: ../../../modules/classes/sample.class.php:173
 msgid "Vous ne disposez pas des droits pour modifier cet échantillon"
 msgstr "You do not have rights to edit this sample"
+
+#: ../../../modules/classes/importObject.class.php:539
+msgid "Le numéro de la collection indiqué n'est pas reconnu ou autorisé."
+msgstr "The number of the specified collection is not recognized or allowed."
+
+#: ../../../modules/classes/importObject.class.php:553
+msgid "Le type d'échantillon n'est pas connu."
+msgstr "The type of sample is not recognized."
+
+#: ../../../modules/classes/importObject.class.php:569
+msgid "Le statut de l'échantillon n'est pas connu."
+msgstr "The status of the sample is is not recognized."
+
+#: ../../../modules/classes/importObject.class.php:585
+msgid "L'emplacement de collecte de l'échantillon n'est pas connu."
+msgstr "The sample collection location is not recognized."
+
+#: ../../../modules/classes/importObject.class.php:608
+#, php-format
+msgid "Le format de date de %s n'est pas reconnu."
+msgstr "The date format of %s is not recognized."
+
+#: ../../../modules/classes/importObject.class.php:628
+msgid ""
+"Les métadonnées ne sont pas correctement formatées (champ "
+"sample_metadata_json)"
+msgstr "Metadata is not formatted correctly (sample_metadata_json field)"
+
+#: ../../../modules/classes/importObject.class.php:637
+#, php-format
+msgid ""
+"Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "
+msgstr "The metadata do not match the sample type (%s not recognized)."
+
+#: ../../../modules/classes/importObject.class.php:647
+#, php-format
+msgid "L'échantillon parent défini n'existe pas (%s)"
+msgstr "The defined parent sample does not exist (%s)"
+
+#: ../../../modules/classes/importObject.class.php:668
+msgid "Le type de contenant n'est pas connu."
+msgstr "The container type is not recognized."
+
+#: ../../../modules/classes/importObject.class.php:683
+msgid "Le statut du contenant n'est pas connu."
+msgstr "The container's status is not recognized."
+
+#: ../../../modules/classes/importObject.class.php:694
+#, php-format
+msgid "L'UID du contenant parent (%s) n'existe pas. "
+msgstr "The UID of the parent container (%s) does not exist. "
+
+#: ../../../modules/classes/importObject.class.php:705
+#, php-format
+msgid "Le champ %s n'est pas numérique."
+msgstr "The field %s is not numeric."
+
+#: ../../../modules/classes/importObject.class.php:714
+msgid ""
+"Aucun échantillon ou contenant n'est décrit (pas d'identifiant pour l'un ou "
+"pour l'autre)."
+msgstr ""
+"No sample or container is described (no identifier for one or the other)."
 
 #: ../../../modules/gestion/index.php:6
 msgid "Module gestion"

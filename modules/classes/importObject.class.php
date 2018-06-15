@@ -665,7 +665,7 @@ class ImportObject
             }
             if ($ok == false) {
                 $retour["code"] = false;
-                $retour["message"] .= _("Le type de container n'est pas connu.");
+                $retour["message"] .= _("Le type de contenant n'est pas connu.");
             }
             /*
              * Verification du statut du container
@@ -680,7 +680,7 @@ class ImportObject
                 }
                 if ($ok == false) {
                     $retour["code"] = false;
-                    $retour["message"] .= _("Le statut du container n'est pas connu.");
+                    $retour["message"] .= _("Le statut du contenant n'est pas connu.");
                 }
             }
         }
@@ -691,7 +691,7 @@ class ImportObject
             $container_id = $this->container->getIdFromUid($data["container_parent_uid"]);
             if (! $container_id > 0) {
                 $retour["code"] = false;
-                $retour["message"] .= sprintf(_("L'UID du conteneur parent (%s) n'existe pas. "),$data["container_parent_uid"]) ;
+                $retour["message"] .= sprintf(_("L'UID du contenant parent (%s) n'existe pas. "),$data["container_parent_uid"]) ;
             }
         }
         
@@ -711,7 +711,7 @@ class ImportObject
          */
         if ($emptyLine) {
             $retour["code"] = false;
-            $retour["message"] .= _("Aucun échantillon ou container n'est décrit (pas d'identifiant pour l'un ou pour l'autre).");
+            $retour["message"] .= _("Aucun échantillon ou contenant n'est décrit (pas d'identifiant pour l'un ou pour l'autre).");
         }
         return $retour;
     }

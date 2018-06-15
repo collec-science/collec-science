@@ -73,7 +73,7 @@ switch ($t_module["param"]) {
                         $i ++;
                     }
                 }
-                $message->set(sprintf(_("%d lieux importé(s)"),$i));
+                $message->set(sprintf(_("%d lieu(x) importé(s)"),$i));
                 $module_coderetour = 1;
             } catch (Exception $e) {
                 $message->set(_("Impossible d'importer les lieux de prélèvement"));

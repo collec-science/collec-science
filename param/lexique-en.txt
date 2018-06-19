@@ -1,37 +1,38 @@
-database and origin UID : en saisie d'un échantillon, si celui-ci a été créé dans une autre base de données, il est possible d'indiquer le code de la base de données initiale suivi de l'identifiant attribué. Ce code sera alors utilisé lors des recherches, ce qui permet de conserver les étiquettes apposées initialement.
+collection: a collection is a coherent set of samples about a particular subject. Sample access rights are managed by collection. It is also possible to link a sampling location to a collection.
 
-collection : une collection est un ensemble cohérent d'échantillons se rapportant à un sujet particulier. Les droits d'accès aux échantillons sont gérés par collection. Il est également possible de leur rattacher des lieux de prélèvement.
+container type: detailed type of container, specifying the capacity, the storage product or the storage conditions, if any, the associated risks when handling, etc. It can be a site, a building, a room, a cupboard, a shelf, a box, a can, a tube, etc. When creating a container type, it is possible to specify the number of available slots (number of rows or columns), which will contain one and only one object. This is a concept that makes sense for boxes containing multiple tubes, or cabinets for which we do not want to declare the shelves. If nothing is specified, the number of locations is at least 1 (one line, one column, data required for technical reasons).
 
-storage condition : caractéristiques principales du mode de conservation (froid, atmosphère contrôlée, lyophilisation, etc.). Peut également être utilisé pour décrire le traitement préalable de l'échantillon en vue de sa conservation.
- 
-container : tout objet qui peut en contenir un autre. À ne pas confondre avec les échantillons dérivés ou les sous-échantillons.
+container: any object that can contain another one. Not to be confused with derivative samples and subsamples.
 
-derivated sample : échantillon créé à partir d'un autre, de même type ou non, identifié de manière autonome. Autrement dit, échantillon fils d'un autre. Par exemple, une section de carotte est dérivée de la demi-carotte X, qui dérive elle-même de la carotte entière.
+database and original UID: when entering a sample, if it was created in another database, it is possible to indicate the code of the initial database followed by the assigned identifier. This code will then be used during the searches, which makes it possible to keep the labels already used.
 
-containers family : grande catégorie de containers, pour faciliter la recherche (salle, site, caisse, bidon...).
+derivative sample: sample created from another, of the same type or not, identified independently. In other words, a sample child of another. For example, a carrot section is a derivative from the half-carrot X, which itself derivatives from the whole carrot.
 
-latitude et longitude d'un container : pour un local, un bâtiment, un site, etc., coordonnées WGS84 sous forme décimale.
+event type: an event that may occur on a sample or on a container. The event can be external (eg broken container), voluntary (eg analysis) or involuntary (eg lost sample).
 
-latitude et longitude d'un échantillon : lieu où est prélevé l'échantillon. En fait, le point géographique associé à l'échantillon. Il peut être édité en cliquant dans la carte ou sur le lien "Repérez votre position !". Cette action, *si elle est réalisée sur le terrain*, déclenchera l'enregistrement du lieu de création/collecte de l'échantillon.
+family of containers: large category of containers, to facilitate research (room, site, box ...).
 
-lieu (ou site) de prélèvement : lieu ou site où a été prélevé l'échantillon. Le site est en fait en général une façon de regrouper les échantillons vis à vis d'une organisation spatiale de la collecte. Cette notion n'a pas forcément besoin d'un géo-référencement précis, mais peut servir à codifier le nom de l'échantillon et peut aider le chercheur à définir comment il recherche/regroupe ses échantillons.
+identifier type or secondary identifier: it is possible to link various identifiers to an object, for example international codes. The types of identifier allow to describe them. If they are not numeric, these identifiers can also be used in searches or scans for move / removal
 
-méta-données : des éléments (comme le nom des récolteurs, taxons, ...) que l'on souhaite ajouter à chaque échantillon d'une collection
+latitude and longitude of a container: for a room, a building, a site, etc., WGS84 coordinates in decimal format.
 
-opération : Une opération peut être décrite comme une action modifiant l'état d'un échantillon. Dans le cadre de CS, elle aboutit à la création d'un nouvel échantillon dérivé du précédent.
+latitude and longitude of a sample: place where the sample was taken. In fact, the geographic point associated with the sample. It can be edited by clicking on the map or on the link "Locate your position!". This action, * if performed in the field *, will trigger the registration of the location of creation / collection of the sample.
 
-produit utilisé : produit utilisé pour conserver l'échantillon (par exemple éthanol). Appelé parfois "produit de stockage" dans la documentation.
+location of sampling: the place or site where the sample was taken. The site is in general a way of grouping the samples with respect to a spatial organization of the collection. This notion does not necessarily need precise geo-referencing, but can be used to codify the name of the sample and can help researchers to define how to search / group the samples.
 
-protocole : protocole utilisé pour collecter les données. Un protocole est une suite d'opérations qui concourent à produire (voire à conserver) des échantillons utilisables pour la recherche. Il s'agit en principe d'un document qui décrit les différentes étapes que suit un prélèvement.
+metadata: elements (such as the name of the harvesters, taxon ...) that anyone wants to add to each sample of a collection
 
-sous-échantillon : partie d'un échantillon non identifiable individuellement (prélèvement de x matière, une écaille parmi 10 identiques). En chimie, peut être assimilé à l’aliquote.
+object status: allows to indicate if an object (sample or container) is always usable. The statuses can be varied and depend on the local operating mode (broken container, sample which no longer contains exploitable material ...).
 
-statut des objets : permet d'indiquer si un objet (échantillon ou container) est toujours utilisable. Les statuts peuvent être variés et dépendre du mode opératoire local (container cassé, échantillon qui ne contient plus de matière exploitable, etc.).
+operation: an operation can be described as an action that changes the state of a sample. With this software, it results in the creation of a new sample derived from the previous one.
 
-type de conteneur (container) : type détaillé du conteneur, précisant la capacité, le produit de stockage ou les conditions de stockage le cas échéant, les risques associés en cas de manipulation, etc. Cela peut être un site, un bâtiment, une salle, une armoire, une étagère, une caisse, un bidon, un tube, etc. Lors de la création d'un type de container, il est possible d'indiquer le nombre d'emplacements disponibles (nombre de lignes ou de colonnes), qui contiendront un et un seul objet. C'est une notion qui prend tout son sens pour les boites contenant de multiples tubes, ou les armoires pour lesquelles on ne souhaite pas déclarer les étagères. Si rien n'est précisé, le nombre d'emplacements est au minimum de 1 (une ligne, une colonne, donnée obligatoire pour des raisons techniques).
+product used, storage product: product used to store the sample (eg ethanol). Sometimes called "storage product" in the documentation.
 
-type d'échantillon : permet de définir des types génériques - par type de conteneur (tube, sachet zip, ..) avec possibilité d'associer un modèle de métadonnées.
+protocol: protocol used to collect data. A protocol is a series of operations that contribute to producing (or even preserving) samples that can be used for research. This is basically a document that describes the different steps that a sample takes.
 
-type d’événements : événement qui peut survenir sur un échantillon ou sur un conteneur. L'événement peut être extérieur (par exemple conteneur cassé), volontaire (par exemple analyse) ou involontaire (par exemple échantillon perdu). 
+sample type: allows to define generic types - by type of container (tube, zip bag ...) with possibility to link a metadata model.
 
-type d'identifiant ou identifiant secondaire : il est possible de rattacher divers identifiants à un objet, par exemple des codes internationaux. Les types d'identifiant permettent de les décrire. S'ils ne sont pas numériques, ces identifiants peuvent en outre être utilisés dans les recherches ou lors des scans pour les entrées-sorties.
+storage condition: main characteristics of the preservation mode (cold, controlled atmosphere, lyophilization ...). Can also be used to describe the pre-treatment of the sample for preservation.
+
+subsample: part of a sample that is not individually identifiable (sample of x material, one of 10 identical scales). In chemistry, can be assimilated to the aliquot.
+ 

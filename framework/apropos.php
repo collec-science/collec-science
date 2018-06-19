@@ -4,5 +4,9 @@
 */
 $vue->set( $APPLI_version, "version");
 $vue->set($APPLI_versiondate , "versiondate");
-$vue->set("apropos.tpl" , "corps");
+$filename = "apropos_".$LANG["date"]["locale"].".tpl";
+if (!file_exists($SMARTY_params["templates"]."/".$filename)) {
+    $filename = "apropos_fr.tpl";
+}
+$vue->set("apropos_".$LANG["date"]["locale"].".tpl" , "corps");
 ?>

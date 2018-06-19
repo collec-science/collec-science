@@ -27,8 +27,8 @@
 		});
 		$("#samplelabels").on ("keypress click",function() {
 			$(this.form).find("input[name='module']").val("samplePrintLabel");
-			$("#sampleSpinner").show();
-			$(this.form).submit();
+			/*$("#sampleSpinner").show();*/
+			$(this.form).prop('target', '_blank').submit();
 		});
 		$("#sampledirect").on ("keypress click", function() {
 			$(this.form).find("input[name='module']").val("samplePrintDirect");

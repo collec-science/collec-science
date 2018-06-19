@@ -12,31 +12,16 @@ $(document).ready(function () {
 	});
 	
 	$("#containerSpinner").hide();
-	$('#containercsvfile').keypress(function() {
+	$('#containercsvfile').on('keypress click',function() {
 		$(this.form).find("input[name='module']").val("containerExportCSV");
 		$(this.form).submit();
 	});
-	$("#containercsvfile").click(function() {
-		console.log("Demande de generation du fichier csv");
-		$(this.form).find("input[name='module']").val("containerExportCSV");
-		$(this.form).submit();
-	});
-	$("#containerlabels").keypress(function() {
+	$("#containerlabels").on('click keypress', function() {
 		$(this.form).find("input[name='module']").val("containerPrintLabel");
-		$("#containerSpinner").show();
-		$(this.form).submit();
+		/*$("#containerSpinner").show();*/
+		$(this.form).prop('target', '_blank').submit();
 	});
-	$("#containerlabels").click(function() {
-		$(this.form).find("input[name='module']").val("containerPrintLabel");
-		$("#containerSpinner").show();
-		$(this.form).submit();
-	});
-	$("#containerdirect").keypress(function() {
-		$(this.form).find("input[name='module']").val("containerPrintDirect");
-		$("#containerSpinner").show();
-		$(this.form).submit();
-	});
-	$("#containerdirect").click(function() {
+	$("#containerdirect").on('keypress click', function() {
 		$(this.form).find("input[name='module']").val("containerPrintDirect");
 		$("#containerSpinner").show();
 		$(this.form).submit();

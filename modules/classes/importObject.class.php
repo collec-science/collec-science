@@ -106,6 +106,8 @@ class ImportObject
 
     private $identifiers = array();
 
+    private $md_columns = array();
+
     public $minuid, $maxuid;
 
     /**
@@ -136,6 +138,12 @@ class ImportObject
             $range = 0;
             for ($range = 0; $range < count($data); $range ++) {
                 $value = $data[$range];
+                /*
+                 * identification of metadata columns
+                 */
+                if (substr($value, 0, 2) == "md_") {
+                    $this->md_columns[] = $value;
+                }
                 /*
                  * Traitement du renommage de project_id en collection_id,
                  * de sample_date en sampling_date
@@ -299,9 +307,19 @@ class ImportObject
                 /*
                  * Preparation des metadonnees
                  */
-                // TODO gérer les identifiants de colonnes de type md_ pour générer les métadonnées à partir de colonnes séparées
                 if (strlen($values["sample_metadata_json"]) > 0) {
-                    $dataSample["metadata"] = json_encode(json_decode($values["sample_metadata_json"]));
+                    $md_array = json_decode($values["sample_metadata_json"], true);
+                } else {
+                    $md_array = array();
+                }
+                foreach ($this->md_columns as $md_col) {
+                    if (strlen($values[$md_col] > 0)) {
+                        $colname = substr($md_col, 2);
+                        $md_array[$colname] = $values[$md_col];
+                    }
+                }
+                if (count($md_array) > 0) {
+                    $dataSample["metadata"] = json_encode($md_array);
                 }
                 /*
                  * Debut d'ecriture en table
@@ -333,7 +351,7 @@ class ImportObject
                         $maxuid = $sample_uid;
                     }
                 } catch (PDOException $pe) {
-                    throw new ImportObjectException("Line $num : error when import sample<br>" . $pe->getMessage());
+                    throw new ImportObjectException("Line $num : error when import sample - " . $pe->getMessage());
                 }
             }
             /*
@@ -606,7 +624,7 @@ class ImportObject
                         $result1 = date_parse($data[$fieldDate]);
                         if ($result1["warning_count"] > 0) {
                             $retour["code"] = false;
-                            $retour["message"] .= sprintf(_("Le format de date de %s n'est pas reconnu."),$fieldDate);
+                            $retour["message"] .= sprintf(_("Le format de date de %s n'est pas reconnu."), $fieldDate);
                         }
                     }
                 }
@@ -635,7 +653,7 @@ class ImportObject
                 foreach ($valuesMetadataJson as $key => $field) {
                     if (! in_array($key, $metadataSchemaNames)) {
                         $retour["code"] = false;
-                        $retour["message"] .= sprintf(_("Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "),$key);
+                        $retour["message"] .= sprintf(_("Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "), $key);
                     }
                 }
             }
@@ -645,7 +663,7 @@ class ImportObject
             if ($data["sample_parent_uid"] > 0) {
                 if (! $data["parent_sample_id"] > 0) {
                     $retour["code"] = false;
-                    $retour["message"] .= sprintf(_( "L'échantillon parent défini n'existe pas (%s)"),  $data["sample_parent_uid"] );
+                    $retour["message"] .= sprintf(_("L'échantillon parent défini n'existe pas (%s)"), $data["sample_parent_uid"]);
                 }
             }
         }
@@ -692,7 +710,7 @@ class ImportObject
             $container_id = $this->container->getIdFromUid($data["container_parent_uid"]);
             if (! $container_id > 0) {
                 $retour["code"] = false;
-                $retour["message"] .= sprintf(_("L'UID du contenant parent (%s) n'existe pas. "),$data["container_parent_uid"]) ;
+                $retour["message"] .= sprintf(_("L'UID du contenant parent (%s) n'existe pas. "), $data["container_parent_uid"]);
             }
         }
         
@@ -703,7 +721,7 @@ class ImportObject
             if (strlen($data[$key]) > 0) {
                 if (! is_numeric($data[$key])) {
                     $retour["code"] = false;
-                    $retour["message"] .= sprintf(_("Le champ %s n'est pas numérique."),$key);
+                    $retour["message"] .= sprintf(_("Le champ %s n'est pas numérique."), $key);
                 }
             }
         }
@@ -873,7 +891,7 @@ class ImportObject
                         }
                     }
                 } else {
-                    throw new ImportObjectException("Problème lors de l'importation - ligne " . $this->nbTreated + 1);
+                    throw new ImportObjectException("Problem when importing - line " . $this->nbTreated + 1);
                 }
             } catch (Exception $e) {
                 throw new ImportObjectException($e->getMessage());

@@ -478,7 +478,7 @@ class Sample extends ObjetBDD
             if (count($data) > 0) {
                 return $data;
             } else {
-                throw new SampleException("Droits insuffisants pour exporter les échantillons");
+                throw new SampleException(_("Droits insuffisants pour exporter les échantillons"));
             }
         }
     }
@@ -567,19 +567,19 @@ class Sample extends ObjetBDD
                  * }
                  * } else {
                  */
-                throw new SampleException("L'identifiant de la base de données d'origine n'a pas été fourni");
+                throw new SampleException(_("L'identifiant de la base de données d'origine n'a pas été fourni"));
             }
             /*
              * Verification de l'existence de la collection
              */
             if (strlen($row["collection_name"]) == 0) {
-                throw new SampleException("Le nom de la collection n'a pas été renseigné");
+                throw new SampleException(_("Le nom de la collection n'a pas été renseigné"));
             }
             /*
              * Verification de l'existence d'un type d'echantillon
              */
             if (strlen($row["sample_type_name"]) == 0) {
-                throw new SampleException("Le type d'échantillon n'a pas été renseigné");
+                throw new SampleException(_("Le type d'échantillon n'a pas été renseigné"));
             }
             /*
              * Verification de la coherence des dates
@@ -601,7 +601,7 @@ class Sample extends ObjetBDD
                          */
                         $result = date_parse($row[$fieldDate]);
                         if ($result["warning_count"] > 0) {
-                            throw new SampleException("Le format de date de $fieldDate n'est pas reconnu. ");
+                            throw new SampleException(sprintf(_("Le format de date de %s n'est pas reconnu. "), $fieldDate));
                         }
                     }
                     if ($result["warning_count"] == 0) {
@@ -609,7 +609,7 @@ class Sample extends ObjetBDD
                          * Verification que la date contienne bien une annee, mois, jour
                          */
                         if (strlen($result["year"]) == 0 || strlen($result["month"]) == 0 || strlen($result["day"]) == 0) {
-                            throw new SampleException("La date de $fieldDate est incomplète ou incohérente. ");
+                            throw new SampleException(sprintf(_("La date de %s est incomplète ou incohérente. "), $fieldDate));
                         }
                     }
                 }
@@ -620,7 +620,7 @@ class Sample extends ObjetBDD
             if (strlen($row["metadata"]) > 0) {
                 $a_m = json_decode($row["metadata"], true);
                 if (count($a_m) == 0) {
-                    throw new SampleException("Les métadonnées ne sont pas correctement formatées (champ metadata)");
+                    throw new SampleException(_("Les métadonnées ne sont pas correctement formatées (champ metadata)"));
                 }
             }
         }
@@ -694,7 +694,7 @@ class Sample extends ObjetBDD
             parent::ecrire($data);
             return $uid;
         } else {
-            throw new SampleException("Impossible d'écrire dans la table Object");
+            throw new SampleException(_("Impossible d'écrire dans la table Object"));
         }
         return - 1;
     }

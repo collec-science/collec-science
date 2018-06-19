@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-19 14:21+0200\n"
+"POT-Creation-Date: 2018-06-19 15:02+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,7 +29,6 @@ msgstr "Operations on samples or containers"
 msgid "Contenants"
 msgstr "Containers"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:8 ../../../display/templates/main.tpl:6
 msgid "Liste des contenants"
@@ -40,7 +39,6 @@ msgstr "List of containers"
 msgid "Échantillons"
 msgstr "Samples"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:9 ../../../display/templates/main.tpl:13
 msgid "Liste des échantillons"
@@ -66,7 +64,6 @@ msgstr "Import of external samples"
 msgid "Import d'un lot d'échantillons provenant d'une base externe"
 msgstr "Import a batch of samples from an external base"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../../param/menu.xml:14
 #: ../../../display/templates/gestion/containerDisplay.tpl:119
@@ -79,7 +76,6 @@ msgstr "Movements"
 msgid "Création de mouvements dans le stock"
 msgstr "Creating movements in the stock"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:15 ../../../display/templates/main.tpl:42
 #: ../../../display/templates/gestion/fastInputChange.tpl:5
@@ -91,7 +87,6 @@ msgstr "Move into container"
 msgid "Déplacer un échantillon/contenant dans un contenant"
 msgstr "Move a sample / container into a container"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:16 ../../../display/templates/main.tpl:56
 #: ../../../display/templates/gestion/fastOutputChange.tpl:4
@@ -105,7 +100,6 @@ msgstr "Remove from stock"
 msgid "Sortir un échantillon/contenant du stock"
 msgstr "Remove a sample / container from the stock"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:17 ../../../display/templates/main.tpl:49
 #: ../../../display/templates/gestion/movementBatchRead.tpl:21
@@ -117,7 +111,6 @@ msgstr "Move / Remove in batches"
 msgid "Déplacer / Sortir par scan multiple de QR Code"
 msgstr "Move / remove by multiple scan of QR Code"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:18 ../../../display/templates/main.tpl:20
 #: ../../../display/templates/main.tpl:30
@@ -145,7 +138,6 @@ msgstr "Search for movements over a period of time"
 msgid "Paramètres"
 msgstr "Settings"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:24
 #: ../../../display/templates/param/collectionList.tpl:2
@@ -157,7 +149,6 @@ msgstr "Collections"
 msgid "Liste des collections"
 msgstr "List of collections"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:25
 #: ../../../display/templates/param/protocolList.tpl:2
@@ -179,7 +170,6 @@ msgstr "Operations"
 msgid "Liste des opérations rattachées à un protocole"
 msgstr "List of operations attached to a protocol"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:28
 #: ../../../display/templates/param/containerFamilyList.tpl:2
@@ -191,7 +181,6 @@ msgstr "Families of containers"
 msgid "Familles de contenants (armoires, éprouvettes...)"
 msgstr "Families of containers (cabinets, test tubes ...)"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:29
 #: ../../../display/templates/param/containerTypeList.tpl:2
@@ -203,7 +192,6 @@ msgstr "Container types"
 msgid "Liste des types de contenants"
 msgstr "List of container types"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:30
 #: ../../../display/templates/param/sampleTypeList.tpl:2
@@ -215,7 +203,6 @@ msgstr "Sample types"
 msgid "Liste des types d'échantillons gérés"
 msgstr "List of managed sample types"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:31
 #: ../../../display/templates/param/identifierTypeList.tpl:2
@@ -227,7 +214,6 @@ msgstr "Identifier types"
 msgid "Liste des types d'identifiants rattachables à un objet"
 msgstr "List of identifier types that can be attached to an object"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:32
@@ -240,14 +226,12 @@ msgstr "Subsampling types"
 msgid "Métadonnées"
 msgstr "Metadata"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:33
 #: ../../../display/templates/param/metadataList.tpl:15
 msgid "Modèles de métadonnées"
 msgstr "Metadata templates"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:34
 #: ../../../display/templates/param/samplingPlaceList.tpl:2
@@ -259,7 +243,6 @@ msgstr "Locations of sampling"
 msgid "Liste des lieux de prélèvement des échantillons"
 msgstr "List of sampling locations"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:36
@@ -267,7 +250,6 @@ msgstr "List of sampling locations"
 msgid "Types d'événement"
 msgstr "Event types"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:37
 #: ../../../display/templates/param/storageConditionList.tpl:2
@@ -279,7 +261,6 @@ msgstr "Storage conditions"
 msgid "Liste des conditions de stockage"
 msgstr "List of storage conditions"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:38
 #: ../../../display/templates/param/movementReasonList.tpl:2
@@ -301,7 +282,6 @@ msgstr "Object statuses"
 msgid "Liste des statuts possibles pour les objets"
 msgstr "List of possible statuses for objects"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:41
 #: ../../../display/templates/gestion/containerListDetail.tpl:63
@@ -315,7 +295,6 @@ msgstr "Labels"
 msgid "Modèles d'étiquettes"
 msgstr "Label templates"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:42
 #: ../../../display/templates/param/printerList.tpl:2
@@ -387,7 +366,6 @@ msgstr "Application Settings"
 msgid "Liste des paramètres pérennes de l'application"
 msgstr "List of long-term parameters of the application"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:51 ../../../display/templates/phpinfo.tpl:1
 msgid "PHP info"
@@ -398,7 +376,6 @@ msgstr "PHP info"
 msgid "configuration générale du serveur PHP"
 msgstr "general configuration of the PHP server"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../../param/menu.xml:53
 #: ../../../framework/identification/disconnect.php:11
@@ -414,7 +391,6 @@ msgstr "Sign in"
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../../param/menu.xml:54 ../../../display/templates/entete.tpl:36
 #: ../../../display/templates/entete.tpl:37
@@ -426,7 +402,6 @@ msgstr "Sign out"
 msgid "Déconnexion de l'application"
 msgstr "Sign out of the app"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:55 ../../../display/templates/entete.tpl:32
 #: ../../../display/templates/entete.tpl:33
@@ -454,7 +429,6 @@ msgstr "Help"
 msgid "A propos"
 msgstr "About Collec-Science"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:58 ../../../display/templates/apropos.tpl:1
 msgid "A propos de Collec-Science"
@@ -470,7 +444,6 @@ msgstr "What's new?"
 msgid "Quoi de neuf dans l'application ?"
 msgstr "What's new in the app?"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:60
 #: ../../../display/templates/documentation/lexique.tpl:1
@@ -2111,6 +2084,10 @@ msgstr "Name of linked metadata template"
 #: ../../../display/templates/param/labelList.tpl:44
 msgid "Dupliquer l'étiquette"
 msgstr "Duplicate the label"
+
+#: ../../../display/templates/documentation/quoideneuf.tpl:1
+msgid "Les nouveautés..."
+msgstr "What's new?"
 
 #: ../../../display/templates/entete.tpl:34
 msgid "Mot de passe"

@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 });
 </script>
-<h2>{t}Déplacer / Sortir par lots{/t}</h2>
+<h2>{t}Entrer ou déplacer / Sortir par lots{/t}</h2>
 <div class="row">
 	<div class="col-md-12">
 
@@ -29,7 +29,7 @@ $(document).ready(function() {
 			<input type="hidden" name="moduleBase" value="movementBatch"> 
 			<input	type="hidden" name="action" value="Read"> 
 			<div class="bg-info">
-{t}Pour déplacer des objets dans un contenant, commencez toujours par scanner/saisir le contenant puis les objets.{/t}
+{t}Pour Entrer ou déplacer des objets dans un contenant, commencez toujours par scanner/saisir le contenant puis les objets.{/t}
 </div>
 			<div class="form-group">
 <label for="reads"  class="control-label col-md-4"><span class="red">*</span> {t}Données à traiter :{/t}</label>

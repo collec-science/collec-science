@@ -16,8 +16,8 @@
 
 <!-- Entrée ou sortie -->
 <span id="input">
-<a href="index.php?module=movementcontainerInput&movement_id=0&uid={$data.uid}" id="input" title="Déplacer le contenant dans un autre contenant">
-<img src="{$display}/images/input.png" height="25">{t}Déplacer...{/t}
+<a href="index.php?module=movementcontainerInput&movement_id=0&uid={$data.uid}" id="input" title="Entrer ou déplacer le contenant dans un autre contenant">
+<img src="{$display}/images/input.png" height="25">{t}Entrer ou déplacer...{/t}
 </a>
 </span>
 

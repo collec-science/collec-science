@@ -39,14 +39,14 @@
 <a href="index.php?module=fastInputChange">
 <img src="{$display}/images/input.png" height="50">
 <br>
-{t}Déplacer dans un contenant{/t}
+{t}Entrer ou déplacer dans un contenant{/t}
 </a>
 </div>
 <div class="col-md-3 col-md-offset-1 center">
 <a href="index.php?module=movementBatchOpen">
 <img src="{$display}/images/barcode-scanner.png" height="50">
 <br>
-{t}Déplacer / Sortir par lots{/t}
+{t}Entrer ou déplacer / Sortir par lots{/t}
 </a>
 </div>
 <div class="col-md-3 col-md-offset-1 center">

@@ -47,8 +47,8 @@
 {/if}
 <!-- Entrée ou sortie -->
 <span id="input">
-<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="{t}Déplacer l'échantillon dans un contenant{/t}">
-<img src="{$display}/images/input.png" height="25">{t}Déplacer...{/t}
+<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="{t}Entrer ou déplacer l'échantillon dans un contenant{/t}">
+<img src="{$display}/images/input.png" height="25">{t}Entrer ou déplacer...{/t}
 </a>
 </span>
 

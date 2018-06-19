@@ -302,7 +302,7 @@ $(document).ready(function() {
 			<div class="col-xs-12 col-md-6">
 				<div class="row">
 					<div class="col-xs-9 col-md-8">
-						<input id="object_search" type="text" name="object_search" placeholder="{t}Objet à déplacer / sortir{/t}"
+						<input id="object_search" type="text" name="object_search" placeholder="{t}Objet à Entrer ou déplacer / sortir{/t}"
 									value="" class="form-control input-lg" autofocus autocomplete="off" >
 					</div>
 					<div class="col-xs-3 col-md-4">
@@ -355,7 +355,7 @@ $(document).ready(function() {
 						<input id="line" name="line_number" value="1" class="form-control input-lg">
 					</div>
 					<div class="col-xs-12 col-md-12">
-			 			<button id="entry" class="btn btn-block btn-info input-lg" type="button">{t}Déplacer dans le contenant{/t}</button>
+			 			<button id="entry" class="btn btn-block btn-info input-lg" type="button">{t}Entrer ou déplacer dans le contenant{/t}</button>
 					</div>
 				</div>
 			</div>
@@ -372,7 +372,7 @@ $(document).ready(function() {
 		<div class="col-xs-12 col-md-6">
 			<div class="form-horizontal protoform">
 				<div class="form-group center">
-					<button id="start2" class="btn btn-success" type="button">{t}Lecture de l'objet à déplacer{/t}</button>
+					<button id="start2" class="btn btn-success" type="button">{t}Lecture de l'objet à Entrer ou déplacer{/t}</button>
 						<button id="start" class="btn btn-success">{t}Lecture du contenant{/t}</button>
 					<button id="stop" class="btn btn-danger">{t}Arrêter la lecture{/t}</button>
 				</div>

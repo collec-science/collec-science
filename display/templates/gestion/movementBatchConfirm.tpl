@@ -10,7 +10,7 @@
 	});
 </script>
 
-<h2>{t}Déplacer dans des contenants ou sortir du stock{/t}</h2>
+<h2>{t}Entrer ou déplacer dans des contenants ou sortir du stock{/t}</h2>
 <div class="row">
 	<div class="col-sm-12">
 
@@ -33,7 +33,7 @@
 
 			<div class="row">
 				<div class="center">
-					<button type="button" class="btn btn-warning" id="entree">{t}Tout déplacer...{/t}</button>
+					<button type="button" class="btn btn-warning" id="entree">{t}Tout Entrer ou déplacer...{/t}</button>
 					<button type="button" class="btn btn-warning" id="sortie">{t}Tout sortir du stock...{/t}</button>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 						</th>
 						<th>{t}N° ligne{/t}</th>
 						<th>{t}N° colonne{/t}</th>
-						<th>{t}Déplacer{/t}</th>
+						<th>{t}Entrer ou déplacer{/t}</th>
 						<th>{t}Sortir du stock{/t}</th>
 						<th>{t}Ne rien faire{/t}</th>
 					</tr>

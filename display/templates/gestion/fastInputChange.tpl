@@ -2,7 +2,7 @@
 <!-- Ajout rapide d'un échantillon dans un container -->
 {include file="gestion/qrcode_read.tpl"}
 
-<h2>{t}Déplacer dans un contenant{/t}</h2>
+<h2>{t}Entrer ou déplacer dans un contenant{/t}</h2>
 <div class="row">
 	<div class="col-md-6">
 		<form class="form-horizontal protoform fastform" id="fastInputForm"
@@ -97,7 +97,7 @@
 			</div>
 
 			<div class="form-group center">
-				<button type="submit" class="btn btn-primary button-valid">{t}Déplacer dans le contenant{/t}</button>
+				<button type="submit" class="btn btn-primary button-valid">{t}Entrer ou déplacer dans le contenant{/t}</button>
 			</div>
 
 		</form>
@@ -112,7 +112,7 @@
 		<div class="col-md-6">
 			<div class="form-horizontal protoform">
 				<div class="form-group center">
-					<button id="destObject" class="btn btn-success">{t}Lecture de l'objet à déplacer{/t}</button>
+					<button id="destObject" class="btn btn-success">{t}Lecture de l'objet à Entrer ou déplacer{/t}</button>
 					<button id="destContainer" class="btn btn-success">{t}Lecture du contenant{/t}</button>
 				</div>
 
@@ -136,7 +136,7 @@
 			<div class="form-horizontal protoform">
 				<div class="form-group center">
 					<button id="start" class="btn btn-success">{t}Lecture du contenant{/t}</button>
-					<button id="start2" class="btn btn-success">{t}Lecture de l'objet à déplacer{/t}</button>
+					<button id="start2" class="btn btn-success">{t}Lecture de l'objet à Entrer ou déplacer{/t}</button>
 					<button id="stop" class="btn btn-danger">{t}Arrêter la lecture{/t}</button>
 				</div>
 			</div>

@@ -129,7 +129,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 </div>
 {if $data.movement_type_id == 1}
 <fieldset>
-<legend>{t}Déplacer dans :{/t}</legend>
+<legend>{t}Entrer ou déplacer dans :{/t}</legend>
 <div class="form-group">
 <label for="container_uid" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
 <div class="col-md-8">

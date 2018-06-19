@@ -1,4 +1,4 @@
-<h2>Lexique</h2>
+<h2>{t}Lexique{/t}</h2>
 <div class="col-lg-8">
 <div class="row">
 <dl class="dl-horizontal lexique"> 

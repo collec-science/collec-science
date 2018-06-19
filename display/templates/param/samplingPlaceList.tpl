@@ -85,8 +85,8 @@
 <div class="bg-info">
 {t}Description du fichier :{/t}
 <ul>
-<li>{t}name : nom du lieux (obligatoire){/t}</li>
-<li>{t}code : code métier du lieux{/t}</li>
+<li>{t}name : nom du lieu de prélèvement (obligatoire){/t}</li>
+<li>{t}code : code métier du lieu de prélèvement{/t}</li>
 <li>{t}x : longitude du point en projection WGS84, sous forme numérique (séparateur : point){/t}</li>
 <li>{t}y : latitude du point{/t}</li>
 </ul>

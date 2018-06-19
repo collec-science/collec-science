@@ -30,8 +30,8 @@ if (! isset($_SESSION["dbversion"])) {
         if ($APPLI_modeDeveloppement) {
             unset($_SESSION["dbversion"]);
         }
-        // traduction: le signe % est utilisé comme caractère joker, le conserver pour qu'il puisse être remplacé par le code de la version
-        $message->set(str_replace("%", $APPLI_dbversion, _("La base de données n'est pas dans la version attendue (%). Version actuelle : ")) . $dbversion->getLastVersion()["dbversion_number"]);
+        // traduction: bien conserver inchangées les chaînes %1$s, %2$s
+        $message->set(sprintf(_('La base de données n\'est pas dans la version attendue (%1$s). Version actuelle : %2$s'),$APPLI_dbversion,$dbversion->getLastVersion()["dbversion_number"]));
         $_REQUEST["module"] = "default";
         unset($_REQUEST["moduleBase"]);
         unset($_REQUEST["action"]);
@@ -152,7 +152,8 @@ while (isset($module)) {
      */
     $t_module = $navigation->getModule($module);
     if (count($t_module) == 0) {
-        $message->set(_("Le module demandé n'existe pas") . " ($module)");
+        // traduction: conserver inchangée la chaîne %s
+        $message->set(sprintf(_('Le module demandé n\'existe pas (%s)'), $module));
         $t_module = $navigation->getModule("default");
     }
     /*
@@ -292,10 +293,9 @@ while (isset($module)) {
                          */
                         $lastConnect = $log->getLastConnexion();
                         if (isset($lastConnect["log_date"])) {
-                            $texte = _("Dernière connexion le :datelog depuis l'adresse IP :iplog. Si ce n'était pas vous, modifiez votre mot de passe ou contactez l'administrateur de l'application.");
-                            $texte = str_replace(":datelog", $lastConnect["log_date"], $texte);
-                            $texte = str_replace(":iplog", $lastConnect["ipaddress"], $texte);
-                            $message->set($texte);
+                            // traduction: bien conserver inchangées les chaînes %1$s, %2$s...
+                            $texte = _('Dernière connexion le %1$s depuis l\'adresse IP %2$s. Si ce n\'était pas vous, modifiez votre mot de passe ou contactez l\'administrateur de l\'application.');
+                            $message->set(sprintf($texte, $lastConnect["log_date"], $lastConnect["ipaddress"]));
                         }
                         $message->setSyslog("connexion ok for " . $_SESSION["login"] . " from " . getIPClientAddress());
                         /*
@@ -399,7 +399,8 @@ while (isset($module)) {
         if (! $beforeok) {
             $resident = 0;
             if ($APPLI_modeDeveloppement) {
-                $message->set(_("Module précedent enregistré : ") . $_SESSION["moduleBefore"]);
+                // traduction: conserver inchangée la chaîne %s
+                $message->set(sprintf(_('Module précédent enregistré : %s'),$_SESSION["moduleBefore"]));
             }
             $motifErreur = "errorbefore";
         }
@@ -554,7 +555,8 @@ if ($isHtml) {
      * Alerte Mode developpement
      */
     if ($APPLI_modeDeveloppement) {
-        $texteDeveloppement = _("Mode développement - base de données") . " : " . $BDD_dsn . ' - schema : ' . $BDD_schema;
+        // traduction: bien conserver inchangées les chaînes %1$s, %2$s
+        $texteDeveloppement = sprintf(_('Mode développement - base de données : %1$s - schema : %2$s'), $BDD_dsn, $BDD_schema);
         $vue->set($texteDeveloppement, "developpementMode");
     }
     $vue->set($_SESSION["moduleListe"], "moduleListe");

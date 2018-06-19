@@ -147,7 +147,7 @@ class ImportObject
                 if ($value == "sample_date") {
                     $value = "sampling_date";
                 }
-                if (in_array($value, $this->colonnes)) {
+                if (in_array($value, $this->colonnes) || substr($value, 0, 3) == "md_") {
                     $this->fileColumn[$range] = $value;
                 } else {
                     throw new HeaderException("Header column $range is not recognized ($value)");
@@ -299,6 +299,7 @@ class ImportObject
                 /*
                  * Preparation des metadonnees
                  */
+                // TODO gérer les identifiants de colonnes de type md_ pour générer les métadonnées à partir de colonnes séparées
                 if (strlen($values["sample_metadata_json"]) > 0) {
                     $dataSample["metadata"] = json_encode(json_decode($values["sample_metadata_json"]));
                 }

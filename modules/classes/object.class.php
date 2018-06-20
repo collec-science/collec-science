@@ -677,14 +677,14 @@ class Object extends ObjetBDD
                             throw new ObjectException("Fichier PDF non généré");
                         }
                     } else {
-                        $message->set("Pas de modèle d'étiquettes disponible");
+                        $message->set(_("Pas de modèle d'étiquettes disponible"));
                     }
                 } catch (Exception $e) {
                     $message->set("Erreur lors de la génération du fichier xml");
                     $message->setSyslog($e->getMessage());
                 }
             } else {
-                $message->set("Pas d'étiquettes à imprimer");
+                $message->set(_("Pas d'étiquettes à imprimer"));
             }
             if (strlen($pdffile) == 0) {
                 throw new ObjectException("Fichier PDF non généré");

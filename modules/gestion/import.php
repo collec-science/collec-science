@@ -69,7 +69,7 @@ switch ($t_module["param"]) {
                      */
                     $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
                     if (! copy($_FILES['upfile']['tmp_name'], $filename)) {
-                        $message->set("Impossible de recopier le fichier importé dans le dossier temporaire");
+                        $message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"));
                     } else {
                         $_SESSION["filename"] = $filename;
                         $_SESSION["separator"] = $_REQUEST["separator"];
@@ -97,9 +97,9 @@ switch ($t_module["param"]) {
                     $bdd->beginTransaction();
                     $import->initFile($_SESSION["filename"], $_SESSION["separator"], $_SESSION["utf8_encode"]);
                     $import->importAll();
-                    $message->set("Import effectué. " . $import->nbTreated . " lignes traitées");
-                    $message->set("Premier UID généré : " . $import->minuid);
-                    $message->set("Dernier UID généré : " . $import->maxuid);
+                    $message->set(sprintf(_("Import effectué. %s lignes traitées"),$import->nbTreated));
+                    $message->set(sprintf(_("Premier UID généré : %s"),$import->minuid));
+                    $message->set(sprintf(_("Dernier UID généré : %s"),$import->maxuid));
                     $module_coderetour = 1;
                     $bdd->commit();
                 } catch (ImportObjectException $ie) {
@@ -158,9 +158,9 @@ switch ($t_module["param"]) {
                      */
                     $bdd->beginTransaction();
                     $import->importExterneExec($data, $sic, $_POST);
-                    $message->set("Import effectué. " . $import->nbTreated . " lignes traitées");
-                    $message->set("Premier UID généré : " . $import->minuid);
-                    $message->set("Dernier UID généré : " . $import->maxuid);
+                    $message->set(sprintf(_("Import effectué. %s lignes traitées"),$import->nbTreated));
+                    $message->set(sprintf(_("Premier UID généré : %s"),$import->minuid));
+                    $message->set(sprintf(_("Dernier UID généré : %s"),$import->maxuid));
                     $module_coderetour = 1;
                     $bdd->commit();
                 } catch (ImportObjectException $ie) {

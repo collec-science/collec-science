@@ -64,13 +64,13 @@ switch ($t_module["param"]) {
                    $dataClass->eraseQrcode($APPLI_temp);
                     $dataClass->eraseXslfile();
                     if ($retour == 0) {
-                    $message->set("Impression lancée");
+                    $message->set(_("Impression lancée"));
                     } else {
-                        $message->set("L'impression a échoué pour un problème technique");
+                        $message->set(_("L'impression a échoué pour un problème technique"));
                         $message->setSyslog("print command error : $commande");
                     }
                 } else {
-                    $message->set("Imprimante non connue");
+                    $message->set(_("Imprimante non connue"));
                     $module_coderetour = - 1;
                 }
                 $module_coderetour = 1;

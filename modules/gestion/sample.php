@@ -33,7 +33,7 @@ switch ($t_module["param"]) {
             $vue->set($data, "samples");
             $vue->set(1, "isSearch");
             } catch (Exception $e) {
-                $message->set("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic");
+                $message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
             }
         }
         $vue->set($dataSearch, "sampleSearch");
@@ -134,7 +134,7 @@ switch ($t_module["param"]) {
 		 */
 		$data = dataRead($dataClass, $id, "gestion/sampleChange.tpl");
         if ($data["sample_id"] > 0 && $dataClass->verifyCollection($data) == false) {
-            $message->set("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon");
+            $message->set(_("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"));
             $module_coderetour = - 1;
         } else {
             /*

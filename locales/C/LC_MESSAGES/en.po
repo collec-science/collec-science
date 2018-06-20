@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-20 14:53+0200\n"
+"POT-Creation-Date: 2018-06-20 15:56+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -787,6 +787,14 @@ msgstr "Metadata is not formatted correctly (metadata field)"
 msgid "Impossible d'écrire dans la table Object"
 msgstr "Can not write to the Object table"
 
+#: ../../../modules/classes/object.class.php:680
+msgid "Pas de modèle d'étiquettes disponible"
+msgstr "No label template available"
+
+#: ../../../modules/classes/object.class.php:687
+msgid "Pas d'étiquettes à imprimer"
+msgstr "No labels to print"
+
 #: ../../../modules/classes/importObject.class.php:558
 msgid "Le numéro de la collection indiqué n'est pas reconnu ou autorisé."
 msgstr "The number of the specified collection is not recognized or allowed."
@@ -850,6 +858,19 @@ msgid ""
 msgstr ""
 "No sample or container is described (no identifier for one or the other)."
 
+#: ../../../modules/gestion/sample.php:36
+msgid ""
+"Un problème est survenu lors de l'exécution de la requête. Contactez votre "
+"administrateur pour obtenir un diagnostic"
+msgstr ""
+"There was a problem running the query. Contact your administrator for a "
+"diagnosis"
+
+#: ../../../modules/gestion/sample.php:137
+msgid ""
+"Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"
+msgstr "You do not have the necessary rights to modify this sample"
+
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s
 #: ../../../modules/gestion/sample.php:270
 #, php-format
@@ -857,6 +878,7 @@ msgid "Ligne %1$s : %2$s"
 msgstr "Row %1$s: %2$s"
 
 #: ../../../modules/gestion/sample.php:304
+#: ../../../modules/gestion/import.php:72
 msgid "Impossible de recopier le fichier importé dans le dossier temporaire"
 msgstr "Can not copy the imported file to the temporary folder"
 
@@ -873,9 +895,52 @@ msgstr "The container has not been filled"
 msgid "Impossible d'enregistrer le mouvement"
 msgstr "Can not record movement"
 
+#: ../../../modules/gestion/movement.php:189
+#, php-format
+msgid "%d mouvement(s) généré(s)"
+msgstr "%d generated movement(s)"
+
+#: ../../../modules/gestion/movement.php:192
+msgid "Erreur lors de la génération des mouvements"
+msgstr "Error while generating movements"
+
 #: ../../../modules/gestion/movement.php:232
 msgid "Mouvement enregistré"
 msgstr "Movement saved"
+
+#: ../../../modules/gestion/object.php:67
+msgid "Impression lancée"
+msgstr "Printing launched"
+
+#: ../../../modules/gestion/object.php:69
+msgid "L'impression a échoué pour un problème technique"
+msgstr "Printing failed for a technical problem"
+
+#: ../../../modules/gestion/object.php:73
+msgid "Imprimante non connue"
+msgstr "Printer not known"
+
+#: ../../../modules/gestion/container.php:170
+msgid "Le contenant est référencé dans les mouvements et ne peut être supprimé"
+msgstr "The container is referenced in movements and can not be deleted"
+
+#: ../../../modules/gestion/import.php:100
+#: ../../../modules/gestion/import.php:161
+#, php-format
+msgid "Import effectué. %s lignes traitées"
+msgstr "Import done. %s processed line(s)"
+
+#: ../../../modules/gestion/import.php:101
+#: ../../../modules/gestion/import.php:162
+#, php-format
+msgid "Premier UID généré : %s"
+msgstr "First UID generated: %s"
+
+#: ../../../modules/gestion/import.php:102
+#: ../../../modules/gestion/import.php:163
+#, php-format
+msgid "Dernier UID généré : %s"
+msgstr "Last UID generated: %s"
 
 #: ../../../display/templates/main_js.tpl:71
 msgid "Traitement en cours..."

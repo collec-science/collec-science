@@ -186,10 +186,10 @@ switch ($t_module["param"]) {
                     }
                 }
             }
-            $message->set($nb . " mouvements générés");
+            $message->set(sprintf(_("%d mouvement(s) généré(s)"),$nb));
             $module_coderetour = 1;
         } catch (Exception $e) {
-            $message->set("Erreur lors de la génération des mouvements");
+            $message->set(_("Erreur lors de la génération des mouvements"));
             $message->setSyslog($e->getMessage());
             $module_coderetour = - 1;
         }

@@ -1,0 +1,298 @@
+News
+===========
+Version 2.0.1 of May 25, 2018
+--------------------------
+Bug fixes:
+- the choice lists were illegible on small terminals
+- when the interface was set to English, creating a new user generated a date management error
+- the generation of the file to print labels (export CSV) did not treat correctly the metadata, which were badly positioned in the columns
+- The col_alter_1.2-1.2.3.sql script could generate errors in some cases
+- if a request to search for samples triggered an error in the database, the screen remained blank without being able to know what was happening
+
+Enhancements:
+- addition of a restricted display mode of the list of samples, either for specific uses or for small screens (only a few columns are displayed). The flip-flop is operated via a button
+- added precision to properly handle rights in col_alter_1.2.3-2.0.sql
+- exporting samples to another database creates dedicated columns for each metadata, prefixed by md_
+
+Version 2.0 of May 4, 2018
+--------------------------
+Enhancements:
+- update of the framework and the database
+- possibility of generating the label of the sample being viewed
+- when creating a new sample, the information present in the pre-existing label (Json format) is automatically retrieved after its scanning
+- addition of a filter to remove stray characters when reading 1D barcodes type EAN128
+- when entering a movement from a small terminal, adding the last status of the scanned object (present / absent) and a timer to limit server queries
+- addition of auto-completion in some drop-down boxes
+- In search of a sample, it is now possible to search up to 3 metadata criteria, which operate either in "and" mode (different fields) or in "or" mode (identical fields). For performance reasons, the fields that can be used for the search must have been described as such (index creation)
+- the term "project" has been renamed "collection", both in the application and in the database
+- better definition of the dates associated with the samples: creation in the database, sampling, and adding an expiry date
+- it is now possible to search for a sample by date (creation, sampling, expiration)
+- it is possible to automatically generate the business identifier from the information entered (code to be defined by type of sample)
+- The information related to the picking locations has been supplemented by GPS coordinates and a code. The coordinates are reported in the sample if it does not have one.
+- it is possible to define picking locations that are only attached to a collection
+- during the external import, the metadata fields can be indicated in separate columns, prefixed by "md_"
+- the external import now works in "replace or create" mode, which allows to update manipulated samples in external databases
+- during external importation, the parentage of a sample is now preserved (if the parent was created beforehand)
+- in the generation of labels, it is now possible to print the dbuid-origin field
+- it is possible to directly access a sample from its access link
+- new scripts are available to facilitate the installation of a new server or update a database
+
+Bug fixes:
+- in search of samples, correction of research on metadata
+- when creating labels, a bug prevented the display of metadata fields
+- importing external metadata did not correctly retrieve the Json field
+- correction of the password reset message
+- harmonization of the wording concerning containers
+- addition of additional controls during external import, with consistency check of dates
+- the output of the samples, since the detail of a sample, did not succeed
+- in the creation of mass movements, the external samples were not recognized
+- during the external import procedure, the matching was case-sensitive, which was deleted
+- in the creation of mass movements, the software did not manage correctly the fact that the same container was scanned several times
+- the "back to list" link did not always return to the original list, if the user had switched from consulting a sample to a container and vice versa
+- the switchover between French and English posed problems of managing the date
+
+Version 1.2.4 of December 5, 2017
+---------------------------
+Bugfix :
+- creating a login account was no longer working: the password was never registered
+
+Version 1.2.3 of November 22, 2017
+---------------------------
+Enhancements:
+mass import now accepts the UID of the parent sample
+- the "import" right is created, it allows to authorize a user to import information via csv files (mass import or another instance)
+- the mass import screen has been reworked, displaying the dialogs at the top of the screen
+- the performances during the search of a sample are optimized by the use of a new type of index
+
+Bug fixes:
+- during mass import, the metadata were not correctly recognized (bug introduced in version 1.2)
+- the deletion of a login or an account in the management of the rights has been improved, it also removes the crossed dependences (login, declared account, presence in the groups)
+- in some cases, the global search for movements did not allow to visualize the movements created during the day (upper bound)
+
+Version 1.2.2 of November 15, 2017
+---------------------------
+- various bug fixes concerning metadata
+- improved performance in sample search
+
+Version 1.2.1 of November 03, 2017
+---------------------------
+Enhancements and new features:
+- the font size is increased for small terminals (smartphones)
+- the menu disappears on smartphones and is replaced by the menu selection button
+- the module for creating movements on a small terminal now includes optical reading via the camera
+
+Version 1.2 of October 20, 2017
+---------------------------
+Updated schema of the required database (COL schema, containing the data, by default). Script to use:
+- col_alter_1.1-1.2.sql if you are already in version 1.1 or 1.1.0. If it is not, run the version upgrade scripts one after the other
+- gacl_create_1.1.sql and col_create_1.2.sql successively to create a new dataset, or init_by_psql.sql from a command line in a Linux server, which will execute both scripts automatically
+
+Bug fixes:
+- SQL error occurred when validating multiple scans
+- the window allowing multiple scans was poorly drawn
+- the search for samples was triggered, even if no criterion was specified
+- in display of movements, the storage location was displayed even for the movements of exit
+- the labels were inconsistent on the pages of modification of the destocking reasons
+- the labels were harmonized in containers, the software displayed either container or container according to the pages
+- when creating a user, the password entry was tainted by some bugs that could lead to the absence of the creation of the password
+- when entering metadata templates, some field names used to declare them were either in French or had spelling errors
+- the installation documentation has been reviewed to better isolate the case of a single-instance server
+
+Enhancements and new features:
+- the code of the instance is now storable in the database
+- in barcode scan, the program can start the search on secondary identifiers (pre-selection required)
+- it is possible to import a list of sampling locations rather than manually entering them
+- it is possible to visualize the input-output made by an operator
+- a lexicon has been added to the help menu
+- it is possible to generate QR-codes containing only a business identifier (QR-codes of very small size)
+- Printing labels to a printer attached to the server was working with the linux lpr command. For Raspberry (among others), the program now supports the lp command
+- a new scan module has been added. It allows to visualize where is a sample, where it was before being out of stock, and authorizes the creation of a new input movement (at the old location or not) or removal
+
+Version 1.1 of September 01, 2017
+---------------------------
+Collec becomes Collec-Science.
+
+Updated schemas of the required database (default GACL and COL schemas). Scripts to use:
+- col_alter_1.0.8-1.1.sql, if you are already in version 1.0.8. If it does not, check your version and run the version upgrade scripts one after the other
+- gacl_create-1.1.sql and col_create_1.1.sql successively, for any new installation.
+
+Bug fixes:
+- the col_alter_1.0-1.0.4.sql script contained a hard schema name
+
+Enhancements and new features:
+Mass import:
+- it is now possible to indicate additional information, such as geographic coordinates or metadata associated with a sample
+
+Storage Management:
+- it is now possible to indicate, for a type of container, the number of rows and columns available
+- during an input movement, it is possible to indicate the row and column number of storage
+- the visualization of a container makes it possible to display the occupation grid
+
+Sample management:
+- it is possible to export a list of samples, to be able to re-import it into another database. The interface allows to indicate the values to be applied locally compared to the initial data (project, type of sample, localization ...)
+
+Printing labels:
+- it is possible to integrate the localization (sampling location)
+
+Managing the metadata associated with a sample:
+- it is possible to describe metadata, and associate them with types of samples
+- by modifying a sample, it is possible to enter the metadata
+- these can be embedded in a label template, and are included in the exported CSV file for off-collec-science printing
+- the metadata descriptions can be exported to be reimported to another database
+
+Consultation of the protocols:
+- protocols must now be associated with projects
+- only members of the project (and the administrators of the application) can download the PDF file containing its description
+
+Rights and Entitlements Management:
+- installing a new version of the application engine
+- for the users identified in the local database, it is now possible for them to request a reset of the password (requires in advance that the email address has been filled in, and that the server supports the sending of mails)
+- access to administration modules requires re-identification
+- in case of repeated failures of connection, an email alert is sent to the administrators (their email must have been declared beforehand, the server must authorize the sending of mails)
+- the connection to a CAS server has been corrected. The entire identification procedure has been reviewed
+
+Version 1.0.8 of June 02, 2017
+---------------------------
+Update of the necessary database
+
+Bugfix :
+- when modifying a type of operation, the protocol already entered was not displayed correctly
+- in the list of operations, sorting did not work
+- once a container or sample deleted, the search box took as arguments the parameters of the deleted object
+- in the standard coding of the database (utf-8), in the search boxes of samples or containers, if a drop-down list was used, the search time was very long. The problem has been fixed by deleting the maximum number of objects displayed and requiring to indicate at least one search criterion
+
+New feature:
+- when launching the application, the version of the database is now verified
+- an automatic database generation script is now available for new installations
+
+Version 1.0.7a of May 12, 2017
+---------------------------
+Bugfix :
+- generated tags were not sorted
+- if the sample came from another database, the sort on the UID in the table was no longer numeric, but alphabetical (moving the original UID in the Other identifiers column)
+
+Version 1.0.7 of May 10, 2017
+---------------------------
+Bug fixes:
+- in mass import, the status of containers or samples are mandatory, but it was not specified
+- since the detail of a container, the list of the samples did not display the data for all the columns, whose secondary identifiers
+- in label generation, if a field was not specified in the QR Code, it was not available for display in the body of the label
+
+New features or Enhancements:
+- it is now possible to create a new sample or a new container without launching a preliminary search (this disturbed the users)
+- labels: it is possible to display the product used for storage (column storage_product)
+- printing labels: it is now possible to use another model than the one associated with the type of container
+
+Version 1.0.6a of April 03, 2017
+---------------------------
+Fixed a bug:
+- when entering a movement from the detail of an object, the list of containers associated with a type was not displayed
+
+Version 1.0.6 of March 03, 2017
+---------------------------
+Updating the necessary database (script install / col_alter_1.0.5-1.0.6.sql)
+Bug fixes:
+- the modification of the subsamples did not work
+- Several anomalies prevented the user from changing a password. After editing, the screen was blank.
+- in mass import, if the container_parent_id field was filled, and no container was specified, the movement was not generated
+- the program allowing the reading of the scans removes the spaces potentially added by the hand shower before the wording read
+- the storage / range column has been renamed to storage / storage_location
+
+New features and Enhancements:
+- in the sample table, the parent sample is now displayed
+- the sample table can now be exported in various formats
+- It is now possible to indicate the identifier of the original database of a sample. This makes it possible to scan a tag generated by another implementation of the application, to facilitate exchanges. Added field: sample / dbuid_origin, expected format: db: uid
+- in the detail of a sample or a container, the user now has simultaneous access to input or output movements (previously, only the opposite operation was possible)
+- when entering an input movement from the detail of an object, the name of the container is displayed if its uid is entered manuallyainer est affiché si son uid est saisi manuellement
+
+Version 1.0.5a of February 08, 2017
+----------------------------
+Fixed a bug preventing the deletion of a container
+
+Version 1.0.5 of February 02, 2017
+---------------------------
+Updating the necessary database (script install / col_alter_1.0.4-1.0.5.sql)
+Bug fixes:
+- When assigning management rights to projects, LDAP or inherited groups were not properly processed
+- Fast entry of samples, the container was not properly read after the first movement. In case of code error, the uid was not correctly erased
+- the label model was not deleted after generation in the temporary folder, which precluded the development phases
+
+Enhancements:
+- addition of a table of sampling zones: it is now possible to attach a sample to a previously defined geographical area (usable in search of samples)
+- it is now possible to scan barcodes that contain business identifiers, and that have not been generated by the application (either 1D barcode with the identifier, QR Code with the identifier or an http address)
+- csv export (to generate labels with third party software) now includes xy coordinates
+
+Documentation:
+- Adding the installation procedure of PHP7 with Debian 8
+
+Version 1.0.4 of January 18, 2017
+---------------------------
+Updating the necessary database (script install / col_alter_1.0-1.0.4.sql)
+Bug fixes:
+- reading a QR Code from a camera did not work if the camera used did not have a rear camera (environment camera)
+- the selection of the type of container did not work if there was only one in a family of containers
+- the search for containers did not work in capturing a movement
+- when entering a sample, the type of container was not explicit enough
+
+Enhancements:
+- the date of the last movement of the objects is displayed in the lists
+- the creation date of the objects was passed in date / time
+- it is now possible to integrate the GPS position of an object in a label or in the QR Code
+- it is now possible to integrate the creation date of an object in a label or in the QR Code
+- by modifying an object, the map is now displayed, and it is possible to position the location of the object by clicking on it
+- In modification of an object, it is possible to position the object from the estimated position of the terminal (either by using the GPS coordinates for smartphones or tablets, or the location calculated from the computer network)
+
+Setting :
+- 3 new parameters can be defined, which concern the pre-positioning of the map when no coordinates have been entered: $ mapDefaultX and $ mapDefaultY center the map on the indicated point, $mapDefaultZoom is the default zoom factor
+
+Documentation:
+- the installation and configuration manual contains a new appendix that explains how to set up the synchronization of two postgresql servers, to avoid losing information
+- a new section has been written to explain the operations to be performed during a software update
+
+Version 1.0.3 of December 08, 2016
+---------------------------
+Bug fixes:
+- table generation script: the project_group table was incorrectly named
+- file param.inc.php.dist: the schemas for the connection to the main database were incomplete (variable $ BDD_schema)
+
+Version 1.0.2 of December 02, 2016
+---------------------------
+Documentation:
+- correction of the parameters to indicate for a good management of the multi-bases (access to the param.ini file)
+- adding configuration for identification in HEADER mode
+
+Enhancements:
+- the title of the tab is now configured from the title given to the application in the variables (function necessary for multi-databases)
+- addition of the possibility of connection in HEADER mode (login transmitted in an HTML header variable by an identification proxy server, such as LemonLdap, for example)
+
+Bug fixes:
+- it is now possible to declare the same LDAP group multiple times to give it different rights
+
+Version 1.0.1 of November 24, 2016
+---------------------------
+Enhancements:
+- display of the last user connection
+- addition of a control on the absolute duration of the session
+- addition of logs in syslog for connection and disconnection
+
+Bug fixes:
+- addition of the recording of the logs during the reconnection by token
+- Fixed a menu viewing bug in production mode
+- the link to reservations did not work in the detail of a container or sample
+
+Various:
+- replacement of Smarty version by 3.1.30
+
+Version 1.0 of October 25, 2016
+-------------------------
+First production version
+Built-in features:
+- seizure of objects (containers, samples)
+- creation of movements with reason for leaving the stock if necessary
+- booking an object
+- creation of a sample from another sample (extracted documents, p.
+- subsample management: input, output of subsamples of a sample
+- adding attachments to an object (photos p.e.), displaying the most recent photo in the list of objects
+- mass import
+- generation of labels incorporating a QR Code, scan from a handheld shower or a tablet or smartphone type terminal and rapid generation of an input or output movement
+- mass generation of input or output movements (delayed mode spray)

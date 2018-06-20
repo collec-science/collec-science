@@ -297,3 +297,4 @@ Fonctionnalités intégrées :
 - import de masse
 - génération des étiquettes intégrant un QRCODE, scan à partir d'une douchette ou d'un terminal de type tablette ou smartphone et génération rapide d'un mouvement d'entrée ou de sortie 
 - génération en masse des mouvements d'entrée ou de sortie (scan par douchette en mode différé)
+

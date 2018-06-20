@@ -79,7 +79,7 @@ switch ($t_module["param"]) {
                 $module_coderetour = - 1;
             }
         } else {
-            $message->set("Imprimante non définie");
+            $message->set(_("Imprimante non définie"));
             $module_coderetour = - 1;
         }
         break;

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-20 15:56+0200\n"
+"POT-Creation-Date: 2018-06-20 17:04+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -858,6 +858,25 @@ msgid ""
 msgstr ""
 "No sample or container is described (no identifier for one or the other)."
 
+#: ../../../modules/classes/movement.class.php:197
+msgid ""
+"Les contrôles de cohérence ne permettent pas d'enregister le mouvement "
+"demandé. "
+msgstr "Consistency checks do not allow saving the requested movement. "
+
+#: ../../../modules/classes/movement.class.php:203
+msgid ""
+"Création du mouvement impossible : le numéro de l'objet est égal au numéro "
+"du contenant. "
+msgstr ""
+"Can not create the movement: the object number is equal to the container "
+"number."
+
+#: ../../../modules/classes/movement.class.php:231
+#, php-format
+msgid "Pas de contenant correspondant à l'UID %s. "
+msgstr "No container matching to UID %s. "
+
 #: ../../../modules/gestion/sample.php:36
 msgid ""
 "Un problème est survenu lors de l'exécution de la requête. Contactez votre "
@@ -919,6 +938,10 @@ msgstr "Printing failed for a technical problem"
 #: ../../../modules/gestion/object.php:73
 msgid "Imprimante non connue"
 msgstr "Printer not known"
+
+#: ../../../modules/gestion/object.php:82
+msgid "Imprimante non définie"
+msgstr "Printer undefined"
 
 #: ../../../modules/gestion/container.php:170
 msgid "Le contenant est référencé dans les mouvements et ne peut être supprimé"

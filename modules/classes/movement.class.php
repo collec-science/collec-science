@@ -135,7 +135,7 @@ class Movement extends ObjetBDD
     }
 
     /**
-     * Retourne la liste de tous les containers parents
+     * Retourne la liste de tous les contenants parents
      *
      * @param int $uid
      * @throws Exception
@@ -194,13 +194,13 @@ class Movement extends ObjetBDD
          * Verifications
          */
         $controle = true;
-        $message = "Les contrôles de cohérence ne permettent pas d'enregister le mouvement demandé. ";
+        $message = _("Les contrôles de cohérence ne permettent pas d'enregister le mouvement demandé. ");
         if (! ($uid > 0 && is_numeric($uid))) {
             $controle = false;
         }
         if ($uid == $container_uid) {
             $controle = false;
-            $message .= "Création du mouvement impossible : le numéro de l'objet est égal au numéro du contenant. ";
+            $message .= _("Création du mouvement impossible : le numéro de l'objet est égal au numéro du contenant. ");
         }
         $date = $this->encodeData($date);
         if (strlen($date) == 0) {
@@ -228,7 +228,7 @@ class Movement extends ObjetBDD
             if ($container_id > 0) {
                 $data["container_id"] = $container_id;
             } else {
-                $message .= "Pas de container correspondant à l'UID " . $container_uid . ". ";
+                $message .= sprintf(_("Pas de contenant correspondant à l'UID %s. "), $container_uid);
                 $controle = false;
             }
         }

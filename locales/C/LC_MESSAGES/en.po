@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-20 14:45+0200\n"
+"POT-Creation-Date: 2018-06-20 14:53+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1013,7 +1013,7 @@ msgstr "Create / Edit a collection"
 #: ../../../display/templates/param/objectStatusChange.tpl:5
 #: ../../../display/templates/param/operationChange.tpl:5
 #: ../../../display/templates/param/printerChange.tpl:5
-#: ../../../display/templates/param/metadataChange.tpl:218
+#: ../../../display/templates/param/metadataChange.tpl:35
 #: ../../../display/templates/param/eventTypeChange.tpl:5
 #: ../../../display/templates/gestion/bookingChange.tpl:50
 #: ../../../display/templates/gestion/containerDisplay.tpl:5
@@ -1056,7 +1056,7 @@ msgstr "Groups:"
 #: ../../../display/templates/param/objectStatusChange.tpl:17
 #: ../../../display/templates/param/operationChange.tpl:47
 #: ../../../display/templates/param/printerChange.tpl:43
-#: ../../../display/templates/param/metadataChange.tpl:244
+#: ../../../display/templates/param/metadataChange.tpl:61
 #: ../../../display/templates/param/eventTypeChange.tpl:39
 #: ../../../display/templates/gestion/movementChange.tpl:224
 #: ../../../display/templates/gestion/bookingChange.tpl:101
@@ -1092,7 +1092,7 @@ msgstr "Save and return"
 #: ../../../display/templates/param/objectStatusChange.tpl:19
 #: ../../../display/templates/param/operationChange.tpl:49
 #: ../../../display/templates/param/printerChange.tpl:45
-#: ../../../display/templates/param/metadataChange.tpl:246
+#: ../../../display/templates/param/metadataChange.tpl:63
 #: ../../../display/templates/param/eventTypeChange.tpl:41
 #: ../../../display/templates/gestion/movementChange.tpl:226
 #: ../../../display/templates/gestion/bookingChange.tpl:103
@@ -1125,7 +1125,7 @@ msgstr "Delete..."
 #: ../../../display/templates/param/objectStatusChange.tpl:25
 #: ../../../display/templates/param/operationChange.tpl:56
 #: ../../../display/templates/param/printerChange.tpl:51
-#: ../../../display/templates/param/metadataChange.tpl:254
+#: ../../../display/templates/param/metadataChange.tpl:71
 #: ../../../display/templates/param/eventTypeChange.tpl:47
 #: ../../../display/templates/gestion/movementChange.tpl:234
 #: ../../../display/templates/gestion/sampleImport.tpl:38
@@ -1161,6 +1161,7 @@ msgid ""
 msgstr "Is identifier used in searches (only non-numeric values)?"
 
 #: ../../../display/templates/param/identifierTypeChange.tpl:27
+#: ../../../display/templates/param/metadataFormJS.tpl:73
 #: ../../../display/templates/param/identifierTypeList.tpl:34
 #: ../../../display/templates/param/sampleTypeList.tpl:47
 #: ../../../display/templates/param/eventTypeList.tpl:31
@@ -1177,6 +1178,7 @@ msgid "oui"
 msgstr "yes"
 
 #: ../../../display/templates/param/identifierTypeChange.tpl:33
+#: ../../../display/templates/param/metadataFormJS.tpl:73
 #: ../../../display/templates/param/identifierTypeList.tpl:34
 #: ../../../display/templates/param/eventTypeList.tpl:31
 #: ../../../display/templates/param/eventTypeList.tpl:34
@@ -1338,6 +1340,85 @@ msgstr "Label template:"
 #: ../../../display/templates/param/containerFamilyChange.tpl:2
 msgid "Création - Modification d'une famille de contenants"
 msgstr "Create / Edit a container family"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:19
+msgid ""
+"Ce fichier contient plus de 50 entrées. Etes-vous sûr de vouloir l'importer ?"
+msgstr ""
+"This file contains more than 50 entries. Are you sure you want to import it?"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:47
+msgid "Nom du champ (sans espace, sans accent, en minuscule)"
+msgstr "Field name (no space, no accent, lowercase)"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:52
+msgid "Type du champ"
+msgstr "Field type"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:63
+msgid "Choix possibles"
+msgstr "Possible choices"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:74
+msgid "champ utilisé pour rechercher un échantillon ?"
+msgstr "Is this field used to search for a sample?"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:83
+msgid "Le champ est-il obligatoire ?"
+msgstr "Is the field mandatory?"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:86
+msgid "Affichage d'un message d'aide ?"
+msgstr "Display a help message?"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:90
+#: ../../../display/templates/param/metadataFormJS.tpl:154
+msgid "Message d'aide"
+msgstr "Help message"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:93
+msgid "Description du champ"
+msgstr "Description of the field"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:98
+msgid "Unité de mesure (ou modalités) - N/A si non applicable"
+msgstr "Unit of measure (or modalities) - N/A if not applicable"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:114
+msgid "Nombre"
+msgstr "Number"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:114
+msgid "Texte (une ligne)"
+msgstr "Text (one line)"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:114
+msgid "Texte (multi-ligne)"
+msgstr "Text (multi-line)"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:114
+msgid "Case à cocher"
+msgstr "Checkbox"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:114
+msgid "Liste à choix multiple"
+msgstr "Multiple choice list"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:114
+msgid "Boutons Radio"
+msgstr "Radio Buttons"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:128
+msgid "Importer un fichier CSV"
+msgstr "Import a CSV file"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:150
+msgid "Obligatoire"
+msgstr "Mandatory"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:157
+msgid "Vous pouvez copier ici la description et l'unité de mesure"
+msgstr "You can copy here the description and the unit of measure"
 
 #: ../../../display/templates/param/identifierTypeList.tpl:14
 msgid "Code"
@@ -1999,92 +2080,19 @@ msgstr ""
 msgid "Fichier joint"
 msgstr "Attached file"
 
-#: ../../../display/templates/param/metadataChange.tpl:45
-msgid "Nom du champ (sans espace, sans accent, en minuscule)"
-msgstr "Field name (no space, no accent, lowercase)"
-
-#: ../../../display/templates/param/metadataChange.tpl:50
-msgid "Type du champ"
-msgstr "Field type"
-
-#: ../../../display/templates/param/metadataChange.tpl:61
-msgid "Choix possibles"
-msgstr "Possible choices"
-
-#: ../../../display/templates/param/metadataChange.tpl:72
-msgid "champ utilisé pour rechercher un échantillon ?"
-msgstr "Is this field used to search for a sample?"
-
-#: ../../../display/templates/param/metadataChange.tpl:81
-msgid "Le champ est-il obligatoire ?"
-msgstr "Is the field mandatory?"
-
-#: ../../../display/templates/param/metadataChange.tpl:84
-msgid "Affichage d'un message d'aide ?"
-msgstr "Display a help message?"
-
-#: ../../../display/templates/param/metadataChange.tpl:88
-#: ../../../display/templates/param/metadataChange.tpl:152
-msgid "Message d'aide"
-msgstr "Help message"
-
-#: ../../../display/templates/param/metadataChange.tpl:91
-msgid "Description du champ"
-msgstr "Description of the field"
-
-#: ../../../display/templates/param/metadataChange.tpl:96
-msgid "Unité de mesure (ou modalités) - N/A si non applicable"
-msgstr "Unit of measure (or modalities) - N/A if not applicable"
-
-#: ../../../display/templates/param/metadataChange.tpl:112
-msgid "Nombre"
-msgstr "Number"
-
-#: ../../../display/templates/param/metadataChange.tpl:112
-msgid "Texte (une ligne)"
-msgstr "Text (one line)"
-
-#: ../../../display/templates/param/metadataChange.tpl:112
-msgid "Texte (multi-ligne)"
-msgstr "Text (multi-line)"
-
-#: ../../../display/templates/param/metadataChange.tpl:112
-msgid "Case à cocher"
-msgstr "Checkbox"
-
-#: ../../../display/templates/param/metadataChange.tpl:112
-msgid "Liste à choix multiple"
-msgstr "Multiple choice list"
-
-#: ../../../display/templates/param/metadataChange.tpl:112
-msgid "Boutons Radio"
-msgstr "Radio Buttons"
-
-#: ../../../display/templates/param/metadataChange.tpl:126
-msgid "Importer un fichier CSV"
-msgstr "Import a CSV file"
-
-#: ../../../display/templates/param/metadataChange.tpl:148
-msgid "Obligatoire"
-msgstr "Mandatory"
-
-#: ../../../display/templates/param/metadataChange.tpl:155
-msgid "Vous pouvez copier ici la description et l'unité de mesure"
-msgstr "You can copy here the description and the unit of measure"
-
-#: ../../../display/templates/param/metadataChange.tpl:207
+#: ../../../display/templates/param/metadataChange.tpl:24
 msgid "La définition des métadonnées n'est pas valide."
 msgstr "The metadata definition is not valid."
 
-#: ../../../display/templates/param/metadataChange.tpl:215
+#: ../../../display/templates/param/metadataChange.tpl:32
 msgid "Création - Modification d'un modèle de métadonnées"
 msgstr "Create / Edit a metadata template"
 
-#: ../../../display/templates/param/metadataChange.tpl:228
+#: ../../../display/templates/param/metadataChange.tpl:45
 msgid "Nom du modèle :"
 msgstr "Model name:"
 
-#: ../../../display/templates/param/metadataChange.tpl:235
+#: ../../../display/templates/param/metadataChange.tpl:52
 #: ../../../display/templates/gestion/sampleChange.tpl:482
 msgid "Jeu de métadonnées"
 msgstr "Metadata set"

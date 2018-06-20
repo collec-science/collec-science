@@ -266,7 +266,8 @@ switch ($t_module["param"]) {
                             try {
                                 $dataClass->verifyBeforeImport($row);
                             } catch (Exception $e) {
-                                $message->set("Ligne $line : " . $e->getMessage());
+                                // traduction: bien conserver inchangées les chaînes %1$s, %2$s
+                                $message->set(sprintf(_('Ligne %1$s : %2$s'),$line,$e->getMessage()));
                                 $module_coderetour = - 1;
                             }
                             $line ++;
@@ -300,7 +301,7 @@ switch ($t_module["param"]) {
                     $message->set($e->getMessage());
                 }
             } else {
-                $message->set("Impossible de recopier le fichier importé dans le dossier temporaire");
+                $message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"));
                 $module_coderetour = - 1;
             }
         }

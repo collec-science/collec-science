@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-19 15:02+0200\n"
+"POT-Creation-Date: 2018-06-20 14:45+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -79,7 +79,7 @@ msgstr "Creating movements in the stock"
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:15 ../../../display/templates/main.tpl:42
 #: ../../../display/templates/gestion/fastInputChange.tpl:5
-msgid "Déplacer dans un contenant"
+msgid "Entrer ou déplacer dans un contenant"
 msgstr "Move into container"
 
 #. (itstool) path: item/item@tooltip
@@ -103,12 +103,12 @@ msgstr "Remove a sample / container from the stock"
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:17 ../../../display/templates/main.tpl:49
 #: ../../../display/templates/gestion/movementBatchRead.tpl:21
-msgid "Déplacer / Sortir par lots"
+msgid "Entrer ou déplacer / Sortir par lots"
 msgstr "Move / Remove in batches"
 
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:17
-msgid "Déplacer / Sortir par scan multiple de QR Code"
+msgid "Entrer ou déplacer / Sortir par scan multiple de QR Code"
 msgstr "Move / remove by multiple scan of QR Code"
 
 #. (itstool) path: item/item@label
@@ -284,7 +284,7 @@ msgstr "List of possible statuses for objects"
 
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:41
-#: ../../../display/templates/gestion/containerListDetail.tpl:63
+#: ../../../display/templates/gestion/containerListDetail.tpl:48
 #: ../../../display/templates/gestion/sampleDisplay.tpl:98
 #: ../../../display/templates/gestion/sampleListDetail.tpl:94
 msgid "Étiquettes"
@@ -430,7 +430,7 @@ msgid "A propos"
 msgstr "About Collec-Science"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:58 ../../../display/templates/apropos.tpl:1
+#: ../../../param/menu.xml:58
 msgid "A propos de Collec-Science"
 msgstr "About Collec-Science"
 
@@ -475,7 +475,7 @@ msgstr "English"
 msgid "Labels in English"
 msgstr "Labels in English"
 
-#: ../../../doc/quoideneuf.php:35
+#: ../../../doc/quoideneuf.php:67
 msgid "Impossible de lire le fichier contenant les news"
 msgstr "Unable to read the file containing the news"
 
@@ -753,68 +753,112 @@ msgstr "Can not import metadata"
 msgid "Vous ne disposez pas des droits pour modifier cet échantillon"
 msgstr "You do not have rights to edit this sample"
 
-#: ../../../modules/classes/importObject.class.php:539
+#: ../../../modules/classes/sample.class.php:481
+msgid "Droits insuffisants pour exporter les échantillons"
+msgstr "Insufficient rights to export samples"
+
+#: ../../../modules/classes/sample.class.php:570
+msgid "L'identifiant de la base de données d'origine n'a pas été fourni"
+msgstr "The identifier of the original database is missing"
+
+#: ../../../modules/classes/sample.class.php:576
+msgid "Le nom de la collection n'a pas été renseigné"
+msgstr "The name of the collection has not been filled out"
+
+#: ../../../modules/classes/sample.class.php:582
+msgid "Le type d'échantillon n'a pas été renseigné"
+msgstr "The sample type has not been filled out"
+
+#: ../../../modules/classes/sample.class.php:604
+#, php-format
+msgid "Le format de date de %s n'est pas reconnu. "
+msgstr "The date format of %s is not recognized. "
+
+#: ../../../modules/classes/sample.class.php:612
+#, php-format
+msgid "La date de %s est incomplète ou incohérente. "
+msgstr "The date of %s is incomplete or inconsistent."
+
+#: ../../../modules/classes/sample.class.php:623
+msgid "Les métadonnées ne sont pas correctement formatées (champ metadata)"
+msgstr "Metadata is not formatted correctly (metadata field)"
+
+#: ../../../modules/classes/sample.class.php:697
+msgid "Impossible d'écrire dans la table Object"
+msgstr "Can not write to the Object table"
+
+#: ../../../modules/classes/importObject.class.php:558
 msgid "Le numéro de la collection indiqué n'est pas reconnu ou autorisé."
 msgstr "The number of the specified collection is not recognized or allowed."
 
-#: ../../../modules/classes/importObject.class.php:553
+#: ../../../modules/classes/importObject.class.php:572
 msgid "Le type d'échantillon n'est pas connu."
 msgstr "The type of sample is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:569
+#: ../../../modules/classes/importObject.class.php:588
 msgid "Le statut de l'échantillon n'est pas connu."
 msgstr "The status of the sample is is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:585
+#: ../../../modules/classes/importObject.class.php:604
 msgid "L'emplacement de collecte de l'échantillon n'est pas connu."
 msgstr "The sample collection location is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:608
+#: ../../../modules/classes/importObject.class.php:627
 #, php-format
 msgid "Le format de date de %s n'est pas reconnu."
 msgstr "The date format of %s is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:628
+#: ../../../modules/classes/importObject.class.php:647
 msgid ""
 "Les métadonnées ne sont pas correctement formatées (champ "
 "sample_metadata_json)"
 msgstr "Metadata is not formatted correctly (sample_metadata_json field)"
 
-#: ../../../modules/classes/importObject.class.php:637
+#: ../../../modules/classes/importObject.class.php:656
 #, php-format
 msgid ""
 "Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "
 msgstr "The metadata do not match the sample type (%s not recognized)."
 
-#: ../../../modules/classes/importObject.class.php:647
+#: ../../../modules/classes/importObject.class.php:666
 #, php-format
 msgid "L'échantillon parent défini n'existe pas (%s)"
 msgstr "The defined parent sample does not exist (%s)"
 
-#: ../../../modules/classes/importObject.class.php:668
+#: ../../../modules/classes/importObject.class.php:687
 msgid "Le type de contenant n'est pas connu."
 msgstr "The container type is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:683
+#: ../../../modules/classes/importObject.class.php:702
 msgid "Le statut du contenant n'est pas connu."
 msgstr "The container's status is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:694
+#: ../../../modules/classes/importObject.class.php:713
 #, php-format
 msgid "L'UID du contenant parent (%s) n'existe pas. "
 msgstr "The UID of the parent container (%s) does not exist. "
 
-#: ../../../modules/classes/importObject.class.php:705
+#: ../../../modules/classes/importObject.class.php:724
 #, php-format
 msgid "Le champ %s n'est pas numérique."
 msgstr "The field %s is not numeric."
 
-#: ../../../modules/classes/importObject.class.php:714
+#: ../../../modules/classes/importObject.class.php:733
 msgid ""
 "Aucun échantillon ou contenant n'est décrit (pas d'identifiant pour l'un ou "
 "pour l'autre)."
 msgstr ""
 "No sample or container is described (no identifier for one or the other)."
+
+#. traduction: bien conserver inchangées les chaînes %1$s, %2$s
+#: ../../../modules/gestion/sample.php:270
+#, php-format
+msgid "Ligne %1$s : %2$s"
+msgstr "Row %1$s: %2$s"
+
+#: ../../../modules/gestion/sample.php:304
+msgid "Impossible de recopier le fichier importé dans le dossier temporaire"
+msgstr "Can not copy the imported file to the temporary folder"
 
 #: ../../../modules/gestion/index.php:6
 msgid "Module gestion"
@@ -1154,7 +1198,7 @@ msgstr "Check all"
 #: ../../../display/templates/param/metadataList.tpl:8
 #: ../../../display/templates/param/metadataList.tpl:28
 #: ../../../display/templates/gestion/containerListDetail.tpl:9
-#: ../../../display/templates/gestion/containerListDetail.tpl:53
+#: ../../../display/templates/gestion/containerListDetail.tpl:38
 #: ../../../display/templates/gestion/sampleListDetail.tpl:17
 #: ../../../display/templates/gestion/sampleListDetail.tpl:84
 msgid "Tout décocher"
@@ -1529,7 +1573,7 @@ msgstr ""
 "of locations"
 
 #: ../../../display/templates/param/containerTypeList.tpl:19
-#: ../../../display/templates/gestion/containerListDetail.tpl:89
+#: ../../../display/templates/gestion/containerListDetail.tpl:74
 msgid "Condition de stockage"
 msgstr "Storage condition"
 
@@ -2093,46 +2137,46 @@ msgstr "What's new?"
 msgid "Mot de passe"
 msgstr "Password"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:56
+#: ../../../display/templates/gestion/containerListDetail.tpl:41
 #: ../../../display/templates/gestion/sampleDisplay.tpl:91
 #: ../../../display/templates/gestion/sampleListDetail.tpl:87
 msgid "Étiquette par défaut"
 msgstr "Default label"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:65
+#: ../../../display/templates/gestion/containerListDetail.tpl:50
 #: ../../../display/templates/gestion/sampleListDetail.tpl:107
 msgid "Fichier CSV"
 msgstr "CSV file"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:74
+#: ../../../display/templates/gestion/containerListDetail.tpl:59
 #: ../../../display/templates/gestion/sampleDisplay.tpl:109
 #: ../../../display/templates/gestion/sampleListDetail.tpl:105
 msgid "Impression directe"
 msgstr "Direct printing"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:82
+#: ../../../display/templates/gestion/containerListDetail.tpl:67
 #: ../../../display/templates/gestion/sampleListDetail.tpl:119
 #: ../../../display/templates/gestion/movementList.tpl:40
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:50
 msgid "UID"
 msgstr "UID"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:83
+#: ../../../display/templates/gestion/containerListDetail.tpl:68
 #: ../../../display/templates/gestion/sampleListDetail.tpl:120
 msgid "Identifiant ou nom"
 msgstr "Identifier or name"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:84
+#: ../../../display/templates/gestion/containerListDetail.tpl:69
 #: ../../../display/templates/gestion/sampleListDetail.tpl:121
 msgid "Autres identifiants"
 msgstr "Other identifiers"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:85
+#: ../../../display/templates/gestion/containerListDetail.tpl:70
 #: ../../../display/templates/gestion/sampleListDetail.tpl:124
 msgid "Statut"
 msgstr "Status"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:86
+#: ../../../display/templates/gestion/containerListDetail.tpl:71
 #: ../../../display/templates/gestion/objectIdentifierList.tpl:11
 #: ../../../display/templates/gestion/objectMovementList.tpl:7
 #: ../../../display/templates/gestion/sampleListDetail.tpl:123
@@ -2142,12 +2186,12 @@ msgstr "Status"
 msgid "Type"
 msgstr "Type"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:87
+#: ../../../display/templates/gestion/containerListDetail.tpl:72
 #: ../../../display/templates/gestion/sampleListDetail.tpl:127
 msgid "Dernier mouvement"
 msgstr "Last movement"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:88
+#: ../../../display/templates/gestion/containerListDetail.tpl:73
 #: ../../../display/templates/gestion/objectMovementList.tpl:9
 #: ../../../display/templates/gestion/sampleListDetail.tpl:128
 #: ../../../display/templates/gestion/storageList.tpl:11
@@ -2155,37 +2199,37 @@ msgstr "Last movement"
 msgid "Emplacement"
 msgstr "Location"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:90
+#: ../../../display/templates/gestion/containerListDetail.tpl:75
 msgid "Produit de stockage"
 msgstr "Storage product"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:91
+#: ../../../display/templates/gestion/containerListDetail.tpl:76
 msgid "Code CLP"
 msgstr "CLP code"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:92
+#: ../../../display/templates/gestion/containerListDetail.tpl:77
 #: ../../../display/templates/gestion/sampleListDetail.tpl:126
 msgid "Photo"
 msgstr "Photo"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:102
-#: ../../../display/templates/gestion/containerListDetail.tpl:106
+#: ../../../display/templates/gestion/containerListDetail.tpl:87
+#: ../../../display/templates/gestion/containerListDetail.tpl:91
 #: ../../../display/templates/gestion/sampleListDetail.tpl:142
 #: ../../../display/templates/gestion/sampleListDetail.tpl:146
 msgid "Consultez le détail"
 msgstr "Consult the detail"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:133
+#: ../../../display/templates/gestion/containerListDetail.tpl:118
 #: ../../../display/templates/gestion/sampleListDetail.tpl:185
 msgid "col:"
 msgstr "col:"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:133
+#: ../../../display/templates/gestion/containerListDetail.tpl:118
 #: ../../../display/templates/gestion/sampleListDetail.tpl:185
 msgid "ligne:"
 msgstr "row:"
 
-#: ../../../display/templates/gestion/containerListDetail.tpl:147
+#: ../../../display/templates/gestion/containerListDetail.tpl:132
 #: ../../../display/templates/gestion/sampleListDetail.tpl:165
 msgid "aperçu de la photo"
 msgstr "preview of the photo"
@@ -2216,7 +2260,7 @@ msgid "Objet :"
 msgstr "Object:"
 
 #: ../../../display/templates/gestion/movementChange.tpl:132
-msgid "Déplacer dans :"
+msgid "Entrer ou déplacer dans :"
 msgstr "Move into:"
 
 #: ../../../display/templates/gestion/movementChange.tpl:134
@@ -2503,7 +2547,7 @@ msgstr "Edit"
 
 #: ../../../display/templates/gestion/containerDisplay.tpl:20
 #: ../../../display/templates/gestion/sampleDisplay.tpl:51
-msgid "Déplacer..."
+msgid "Entrer ou déplacer..."
 msgstr "Move..."
 
 #: ../../../display/templates/gestion/containerDisplay.tpl:26
@@ -2890,13 +2934,13 @@ msgstr "# of the storage column in the container"
 
 #: ../../../display/templates/gestion/fastInputChange.tpl:100
 #: ../../../display/templates/gestion/smallMovementChange.tpl:358
-msgid "Déplacer dans le contenant"
+msgid "Entrer ou déplacer dans le contenant"
 msgstr "Move into container"
 
 #: ../../../display/templates/gestion/fastInputChange.tpl:115
 #: ../../../display/templates/gestion/fastInputChange.tpl:139
 #: ../../../display/templates/gestion/smallMovementChange.tpl:375
-msgid "Lecture de l'objet à déplacer"
+msgid "Lecture de l'objet à Entrer ou déplacer"
 msgstr "Scan the object to move"
 
 #: ../../../display/templates/gestion/fastInputChange.tpl:116
@@ -2910,7 +2954,7 @@ msgid "Détail d'un échantillon"
 msgstr "Detail of a sample"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:50
-msgid "Déplacer l'échantillon dans un contenant"
+msgid "Entrer ou déplacer l'échantillon dans un contenant"
 msgstr "Move the sample into a container"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:56
@@ -3275,8 +3319,8 @@ msgstr "Remains available:"
 
 #: ../../../display/templates/gestion/movementBatchRead.tpl:32
 msgid ""
-"Pour déplacer des objets dans un contenant, commencez toujours par scanner/"
-"saisir le contenant puis les objets."
+"Pour Entrer ou déplacer des objets dans un contenant, commencez toujours par "
+"scanner/saisir le contenant puis les objets."
 msgstr ""
 "To move objects into a container, always start by scanning the container and "
 "then the objects."
@@ -3302,7 +3346,7 @@ msgid "Hors du stock"
 msgstr "Not in stock"
 
 #: ../../../display/templates/gestion/smallMovementChange.tpl:305
-msgid "Objet à déplacer / sortir"
+msgid "Objet à Entrer ou déplacer / sortir"
 msgstr "Object to move / remove"
 
 #: ../../../display/templates/gestion/smallMovementChange.tpl:309
@@ -3388,11 +3432,11 @@ msgstr ""
 "identifier"
 
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:13
-msgid "Déplacer dans des contenants ou sortir du stock"
+msgid "Entrer ou déplacer dans des contenants ou sortir du stock"
 msgstr "Move into containers or remove from stock"
 
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:36
-msgid "Tout déplacer..."
+msgid "Tout Entrer ou déplacer..."
 msgstr "Move all..."
 
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:37
@@ -3420,7 +3464,7 @@ msgid "N° colonne"
 msgstr "Column number"
 
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:58
-msgid "Déplacer"
+msgid "Entrer ou déplacer"
 msgstr "Move"
 
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:60
@@ -3450,72 +3494,6 @@ msgstr "Movement:"
 #: ../../../display/templates/gestion/subsampleChange.tpl:42
 msgid "Quantité (%1) :"
 msgstr "Quantity (%1):"
-
-#: ../../../display/templates/apropos.tpl:4
-msgid "Version %1 du %2."
-msgstr "Version %1 of %2."
-
-#: ../../../display/templates/apropos.tpl:7
-msgid ""
-"L'application permet de garder la trace des échantillons stockés dans des "
-"contenants. \n"
-"\n"
-"Chaque échantillon ou contenant est identifié par un numéro unique, l'UID. \n"
-"D'un point de vue technique, les échantillons et les contenants sont, "
-"informatiquement parlant, hérités d'une classe appelée Objet. \n"
-"\n"
-"Les objets sont porteurs de plusieurs informations :"
-msgstr ""
-"The application keeps track of samples stored in containers.\n"
-"\n"
-"Each sample or container is identified by a unique number, the UID.\n"
-"From a technical point of view, the samples and containers are, inherited "
-"from a class called Object.\n"
-"\n"
-"The objects carry the following information:"
-
-#: ../../../display/templates/apropos.tpl:14
-msgid ""
-"les mouvements de déplacement dans un contenant ou de sortie du stock (ils "
-"ne peuvent pas être effacés)"
-msgstr ""
-"movements: move into container or stock removal (they can not be deleted)"
-
-#: ../../../display/templates/apropos.tpl:15
-msgid "les événements."
-msgstr "the events."
-
-#: ../../../display/templates/apropos.tpl:18
-msgid ""
-"D'autres informations sont spécifiques soit des échantillons, soit des "
-"contenants. \n"
-"Pour ces derniers, les conditions de stockage (produit utilisé, risque "
-"associé normalisé) peuvent être décrits."
-msgstr ""
-"Other information is specific to either samples or containers.\n"
-"For the latter, the storage conditions (product used, standardized "
-"associated risk) can be described."
-
-#: ../../../display/templates/apropos.tpl:21
-msgid "Consultez le site du projet : "
-msgstr "Visit the project site:"
-
-#: ../../../display/templates/apropos.tpl:23
-msgid ""
-"Liste (non exhaustive ?) des contributeurs au projet (ordre alphabétique)"
-msgstr "List of contributors to the project (alphabetical order)"
-
-#: ../../../display/templates/apropos.tpl:37
-msgid "Copyright (C) 2016-2018  Eric Quinton pour IRSTEA"
-msgstr "Copyright (C) 2016-2018 Eric Quinton for IRSTEA"
-
-#: ../../../display/templates/apropos.tpl:39
-msgid ""
-"La version 1.0 du logiciel a été déposée auprès de l'Agence pour la "
-"Protection des Programmes sous le numéro %1"
-msgstr ""
-"Version 1.0 of the software has been registered with the Agency for the "
-"Protection of Programs under number %1"
 
 #: ../../../display/templates/droits/appliChange.tpl:2
 msgid "Modification d'une application (module de gestion des droits)"
@@ -3837,6 +3815,76 @@ msgstr ""
 msgid "Pour tout problème :"
 msgstr "For any problem:"
 
+#~ msgid "Déplacer dans :"
+#~ msgstr "Move into:"
+
+#~ msgid "Déplacer..."
+#~ msgstr "Move..."
+
+#~ msgid "Lecture de l'objet à déplacer"
+#~ msgstr "Scan the object to move"
+
+#~ msgid "Déplacer"
+#~ msgstr "Move"
+
+#~ msgid "Version %1 du %2."
+#~ msgstr "Version %1 of %2."
+
+#~ msgid ""
+#~ "L'application permet de garder la trace des échantillons stockés dans des "
+#~ "contenants. \n"
+#~ "\n"
+#~ "Chaque échantillon ou contenant est identifié par un numéro unique, "
+#~ "l'UID. \n"
+#~ "D'un point de vue technique, les échantillons et les contenants sont, "
+#~ "informatiquement parlant, hérités d'une classe appelée Objet. \n"
+#~ "\n"
+#~ "Les objets sont porteurs de plusieurs informations :"
+#~ msgstr ""
+#~ "The application keeps track of samples stored in containers.\n"
+#~ "\n"
+#~ "Each sample or container is identified by a unique number, the UID.\n"
+#~ "From a technical point of view, the samples and containers are, inherited "
+#~ "from a class called Object.\n"
+#~ "\n"
+#~ "The objects carry the following information:"
+
+#~ msgid ""
+#~ "les mouvements de déplacement dans un contenant ou de sortie du stock "
+#~ "(ils ne peuvent pas être effacés)"
+#~ msgstr ""
+#~ "movements: move into container or stock removal (they can not be deleted)"
+
+#~ msgid "les événements."
+#~ msgstr "the events."
+
+#~ msgid ""
+#~ "D'autres informations sont spécifiques soit des échantillons, soit des "
+#~ "contenants. \n"
+#~ "Pour ces derniers, les conditions de stockage (produit utilisé, risque "
+#~ "associé normalisé) peuvent être décrits."
+#~ msgstr ""
+#~ "Other information is specific to either samples or containers.\n"
+#~ "For the latter, the storage conditions (product used, standardized "
+#~ "associated risk) can be described."
+
+#~ msgid "Consultez le site du projet : "
+#~ msgstr "Visit the project site:"
+
+#~ msgid ""
+#~ "Liste (non exhaustive ?) des contributeurs au projet (ordre alphabétique)"
+#~ msgstr "List of contributors to the project (alphabetical order)"
+
+#~ msgid "Copyright (C) 2016-2018  Eric Quinton pour IRSTEA"
+#~ msgstr "Copyright (C) 2016-2018 Eric Quinton for IRSTEA"
+
+#~ msgid ""
+#~ "La version 1.0 du logiciel a été déposée auprès de l'Agence pour la "
+#~ "Protection des Programmes sous le numéro %1"
+#~ msgstr ""
+#~ "Version 1.0 of the software has been registered with the Agency for the "
+#~ "Protection of Programs under number %1"
+
 #~ msgid "Error : vue type not defined for the requested module:"
 #~ msgstr "Error : vue type not defined for the requested module:"
 
@@ -4013,12 +4061,6 @@ msgstr "For any problem:"
 
 #~ msgid "Contenant cherché"
 #~ msgstr "Wanted container"
-
-#~ msgid "Lecture de l'objet à entrer / déplacer"
-#~ msgstr "Scan the object to enter / move"
-
-#~ msgid "Entrer / déplacer"
-#~ msgstr "Enter / Move"
 
 #~ msgid "Lecture de l'objet à entrer"
 #~ msgstr "Scan the object to enter"

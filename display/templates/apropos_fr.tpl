@@ -4,11 +4,9 @@
 Version {$version} du {$versiondate}.
 </p>
 
-L'application permet de garder la trace des échantillons stockés dans des conteneurs. 
-<br>
-Chaque échantillon ou conteneur est identifié par un numéro unique, l'UID. 
-<br>D'un point de vue technique, les échantillons et les conteneurs sont, informatiquement parlant, hérités d'une classe appelée Objet. 
-<br>
+L'application permet de garder la trace des échantillons stockés dans des conteneurs. <br>
+Chaque échantillon ou conteneur est identifié par un numéro unique, l'UID. <br>
+D'un point de vue technique, les échantillons et les conteneurs sont, informatiquement parlant, hérités d'une classe appelée Objet.<br>
 Les objets sont porteurs de plusieurs informations : 
 <ul>
 <li>les mouvements d'entrée ou de sortie (ils ne peuvent pas être effacés)</li>
@@ -37,7 +35,7 @@ Consultez le site du projet : <a href="https://www.collec-science.org" target="_
 
     <h3>Copyright (C) 2016-2018  Eric Quinton pour IRSTEA</h3>
 <p>
-la version 1.0 du logiciel a été déposée auprès de l'Agence pour la Protection des Programmes sous le numéro IDDN.FR.001.470013.000.S.C.2016.000.31500
+La version 1.0 du logiciel a été déposée auprès de l'Agence pour la Protection des Programmes sous le numéro IDDN.FR.001.470013.000.S.C.2016.000.31500
 <br>
     This program is free software: you can redistribute it and/or modify<br>
     it under the terms of the GNU Affero General Public License as<br>
@@ -51,4 +49,10 @@ la version 1.0 du logiciel a été déposée auprès de l'Agence pour la Protect
 <br>
     You should have received a copy of the GNU Affero General Public License<br>
     along with this program.  If not, see <a href=http://www.gnu.org/licenses>http://www.gnu.org/licenses</a>
-<p>
+
+{* https://www.gnu.org/licenses/gpl-howto.fr.html#TransNote1
+    Traduction française non officielle :
+    Ce programme est un logiciel libre ; vous pouvez le redistribuer ou le modifier suivant les termes de la GNU General Public License telle que publiée par la Free Software Foundation ; soit la version 3 de la licence, soit (à votre gré) toute version ultérieure.
+    Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public License pour plus de détails.
+    Vous devez avoir reçu une copie de la GNU General Public License en même temps que ce programme ; si ce n'est pas le cas, consultez <http://www.gnu.org/licenses>.
+*}

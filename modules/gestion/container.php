@@ -54,11 +54,11 @@ switch ($t_module ["param"]) {
 		$oi = new ObjectIdentifier ( $bdd, $ObjetBDDParam );
 		$vue->set ( $oi->getListFromUid ( $data ["uid"] ), "objectIdentifiers" );
 		/*
-		 * Recuperation des conteneurs parents
+		 * Recuperation des contenants parents
 		 */
 		$vue->set ( $dataClass->getAllParents ( $data ["uid"] ), "parents" );
 		/*
-		 * Recuperation des conteneurs et des échantillons contenus
+		 * Recuperation des contenants et des échantillons contenus
 		 */
 		$dcontainer = $dataClass->getContentContainer ( $data ["uid"] );
 		$dsample = $dataClass->getContentSample ( $data ["uid"] );
@@ -132,7 +132,7 @@ switch ($t_module ["param"]) {
 		if ($id > 0) {
 			$_REQUEST [$keyName] = $id;
 			/*
-			 * Recherche s'il s'agit d'un conteneur a associer dans un autre conteneur
+			 * Recherche s'il s'agit d'un contenant a associer dans un autre contenant
 			 */
 			if ($_REQUEST ["container_parent_uid"] > 0 && is_numeric ( $_REQUEST ["container_parent_uid"] )) {
 				require_once 'modules/classes/movement.class.php';
@@ -157,7 +157,7 @@ switch ($t_module ["param"]) {
 		 * delete record
 		 */
 		/*
-		 * Recherche si le conteneur est reference
+		 * Recherche si le contenant est reference
 		 */
 		require_once 'modules/classes/movement.class.php';
 		$movement = new Movement ( $bdd, $ObjetBDDParam );

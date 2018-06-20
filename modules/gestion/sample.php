@@ -69,7 +69,7 @@ switch ($t_module["param"]) {
         $oi = new ObjectIdentifier($bdd, $ObjetBDDParam);
         $vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
         /*
-         * Recuperation des conteneurs parents
+         * Recuperation des contenants parents
          */
         require_once 'modules/classes/container.class.php';
         $container = new Container($bdd, $ObjetBDDParam);

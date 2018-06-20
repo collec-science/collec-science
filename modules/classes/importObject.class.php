@@ -355,7 +355,7 @@ class ImportObject
                 }
             }
             /*
-             * Traitement du conteneur
+             * Traitement du contenant
              */
             $container_uid = 0;
             if (strlen($values["container_identifier"]) > 0) {

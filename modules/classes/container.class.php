@@ -122,7 +122,7 @@ class Container extends ObjetBDD
 
     /**
      * Retourne tous les échantillons contenus
-     * dans le conteneur
+     * dans le contenant
      *
      * @param int $uid
      * @return array
@@ -166,7 +166,7 @@ class Container extends ObjetBDD
     }
 
     /**
-     * Retourne tous les conteneurs contenus
+     * Retourne tous les contenants contenus
      *
      * @param int $uid
      * @return array
@@ -203,7 +203,7 @@ class Container extends ObjetBDD
     }
 
     /**
-     * Retourne le conteneur parent
+     * Retourne le contenant parent
      *
      * @param int $uid
      * @return array
@@ -225,7 +225,7 @@ class Container extends ObjetBDD
     }
 
     /**
-     * Retourne tous les conteneurs parents d'un objet
+     * Retourne tous les contenants parents d'un objet
      *
      * @param int $uid
      * @return array
@@ -249,7 +249,7 @@ class Container extends ObjetBDD
     }
 
     /**
-     * Retourne le numero d'un conteneur a partir de son uid
+     * Retourne le numero d'un contenant a partir de son uid
      *
      * @param int $uid
      * @return int;
@@ -267,7 +267,7 @@ class Container extends ObjetBDD
     }
 
     /**
-     * Recherche les conteneurs a partir du tableau de parametres fourni
+     * Recherche les contenants a partir du tableau de parametres fourni
      *
      * @param array $param
      */
@@ -331,7 +331,7 @@ class Container extends ObjetBDD
     }
 
     /**
-     * Retourne la liste des conteneurs correspondant au type
+     * Retourne la liste des contenants correspondant au type
      *
      * @param int $container_type_id
      * @return array

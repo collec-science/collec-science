@@ -200,7 +200,7 @@ class Movement extends ObjetBDD
         }
         if ($uid == $container_uid) {
             $controle = false;
-            $message .= "Création du mouvement impossible : le numéro de l'objet est égal au numéro du conteneur. ";
+            $message .= "Création du mouvement impossible : le numéro de l'objet est égal au numéro du contenant. ";
         }
         $date = $this->encodeData($date);
         if (strlen($date) == 0) {

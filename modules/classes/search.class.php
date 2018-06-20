@@ -165,7 +165,7 @@ class SearchExample extends SearchParam
 }
 
 /**
- * Classe de recherche des conteneurs
+ * Classe de recherche des contenants
  *
  * @author quinton
  *        

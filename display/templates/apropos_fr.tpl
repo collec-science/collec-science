@@ -4,16 +4,16 @@
 Version {$version} du {$versiondate}.
 </p>
 
-L'application permet de garder la trace des échantillons stockés dans des conteneurs. <br>
-Chaque échantillon ou conteneur est identifié par un numéro unique, l'UID. <br>
-D'un point de vue technique, les échantillons et les conteneurs sont, informatiquement parlant, hérités d'une classe appelée Objet.<br>
+L'application permet de garder la trace des échantillons stockés dans des contenants. <br>
+Chaque échantillon ou contenant est identifié par un numéro unique, l'UID. <br>
+D'un point de vue technique, les échantillons et les contenants sont, informatiquement parlant, hérités d'une classe appelée Objet.<br>
 Les objets sont porteurs de plusieurs informations : 
 <ul>
 <li>les mouvements d'entrée ou de sortie (ils ne peuvent pas être effacés)</li>
 <li>les événements.
 </ul>
 
-D'autres informations sont spécifiques soit des échantillons, soit des conteneurs. 
+D'autres informations sont spécifiques soit des échantillons, soit des contenants. 
 Pour ces derniers, les conditions de stockage (produit utilisé, risque associé normalisé) peuvent être décrits.
 <br>
 Consultez le site du projet : <a href="https://www.collec-science.org" target="_blank">https://www.collec-science.org</a>

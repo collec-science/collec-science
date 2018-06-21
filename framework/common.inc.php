@@ -186,6 +186,18 @@ if (! isset ( $bdd )) {
 		 */
 		if (strlen ( $BDD_schema ) > 0) {
 			$bdd->exec ( "set search_path = " . $BDD_schema );
+			/*
+			 * Positionnement des messages dans la langue courante
+			 */
+			switch($LANG["date"]["locale"]) {
+			    case "en":
+			        $bdd->exec("set lc_messages to 'en_US.UTF-8'");
+			        break;
+			    case "fr":
+			    default:
+			        $bdd->exec("set lc_messages to 'fr_FR.UTF-8'");
+			        break;
+			}
 		}
 		/*
 		 * Connexion a la base de gestion des droits
@@ -206,6 +218,18 @@ if (! isset ( $bdd )) {
 			 */
 			if (strlen ( $GACL_schema ) > 0) {
 				$bdd_gacl->exec ( "set search_path = " . $GACL_schema );
+			}
+			/*
+			 * Positionnement des messages dans la langue courante
+			 */
+			switch($LANG["date"]["locale"]) {
+			    case "en":
+			        $bdd_gacl->exec("set lc_messages to 'en_US.UTF-8'");
+			        break;
+			    case "fr":
+			    default:
+			        $bdd_gacl->exec("set lc_messages to 'fr_FR.UTF-8'");
+			        break;
 			}
 		} else {
 		    $message->set ( _("Echec de connexion à la base de données de gestion des droits (GACL)"));

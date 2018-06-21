@@ -489,7 +489,12 @@ class Document extends ObjetBDD
                             }
                             $document = $image->getimageblob();
                             $writeOk = true;
-                        } catch (Exception $e) {}
+                        } catch (Exception $e) {
+                            /*
+                             * Desactivation de la gestion de l'exception
+                             */
+                            //TODO : voir l'impact d'une gestion propre de l'exception
+                        }
                     } else {
                         /*
                          * Autres types de documents : ecriture directe du contenu

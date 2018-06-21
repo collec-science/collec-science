@@ -515,7 +515,7 @@ class ImportObject
             $values = $this->prepareLine($data);
             $num ++;
             $controle = $this->controlLine($values);
-            if ($controle["code"] == false) {
+            if (! $controle["code"]) {
                 $retour[] = array(
                     "line" => $num,
                     "message" => $controle["message"]
@@ -553,7 +553,7 @@ class ImportObject
                     break;
                 }
             }
-            if ($ok == false) {
+            if (! $ok) {
                 $retour["code"] = false;
                 $retour["message"] .= _("Le numéro de la collection indiqué n'est pas reconnu ou autorisé.");
             }
@@ -567,7 +567,7 @@ class ImportObject
                     break;
                 }
             }
-            if ($ok == false) {
+            if (! $ok) {
                 $retour["code"] = false;
                 $retour["message"] .= _("Le type d'échantillon n'est pas connu.");
             }
@@ -583,7 +583,7 @@ class ImportObject
                         break;
                     }
                 }
-                if ($ok == false) {
+                if (! $ok) {
                     $retour["code"] = false;
                     $retour["message"] .= _("Le statut de l'échantillon n'est pas connu.");
                 }
@@ -599,7 +599,7 @@ class ImportObject
                         break;
                     }
                 }
-                if ($ok == false) {
+                if (! $ok) {
                     $retour["code"] = false;
                     $retour["message"] .= _("L'emplacement de collecte de l'échantillon n'est pas connu.");
                 }
@@ -646,7 +646,6 @@ class ImportObject
                     $retour["code"] = false;
                     $retour["message"] .= _("Les métadonnées ne sont pas correctement formatées (champ sample_metadata_json)");
                 }
-                $valuesMetadataJsonNames = array();
                 foreach ($metadataSchema as $field) {
                     $metadataSchemaNames[] = $field["name"];
                 }
@@ -682,7 +681,7 @@ class ImportObject
                     break;
                 }
             }
-            if ($ok == false) {
+            if (! $ok) {
                 $retour["code"] = false;
                 $retour["message"] .= _("Le type de contenant n'est pas connu.");
             }
@@ -697,7 +696,7 @@ class ImportObject
                         break;
                     }
                 }
-                if ($ok == false) {
+                if (! $ok) {
                     $retour["code"] = false;
                     $retour["message"] .= _("Le statut du contenant n'est pas connu.");
                 }

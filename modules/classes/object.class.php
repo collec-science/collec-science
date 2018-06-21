@@ -9,7 +9,7 @@
 class ObjectException extends Exception
 {
 }
-;
+
 
 class Object extends ObjetBDD
 {
@@ -201,13 +201,15 @@ class Object extends ObjetBDD
                  * Transformation en tableau direct
                  */
                 $codes = array();
-                foreach ($doi as $vdoi)
+                foreach ($doi as $vdoi) {
                     $codes[$vdoi["identifier_type_code"]] = $vdoi["object_identifier_value"];
+                }
                 /*
                  * Rajout des codes
                  */
-                foreach ($dit as $vdit)
+                foreach ($dit as $vdit) {
                     $data[$key][$vdit["identifier_type_code"]] = $codes[$vdit["identifier_type_code"]];
+                }
             }
             return $data;
         }
@@ -229,7 +231,7 @@ class Object extends ObjetBDD
         $uids = "";
         foreach ($list as $value) {
             if (is_numeric($value) && $value > 0) {
-                $comma == true ? $uids .= "," : $comma = true;
+                $comma ? $uids .= "," : $comma = true;
                 $uids .= $value;
             }
         }
@@ -292,7 +294,7 @@ class Object extends ObjetBDD
             $val = "";
             foreach ($uids as $value) {
                 if (is_numeric($value) && $value > 0) {
-                    $comma == true ? $val .= "," : $comma = true;
+                    $comma ? $val .= "," : $comma = true;
                     $val .= $value;
                 }
             }
@@ -391,8 +393,9 @@ class Object extends ObjetBDD
                                         where uid in ($uids)
                         ";
             
-            if (strlen($order) == 0)
+            if (strlen($order) == 0) {
                 $order = "uid";
+            }
             $sql = "select * from (" . $sql . ") as a";
             $order = " order by $order";
             $data = $this->getListeParam($sql . $order);
@@ -425,13 +428,15 @@ class Object extends ObjetBDD
                 $rowq = array();
                 foreach ($row as $key => $value) {
                     
-                    if (strlen($value) > 0 && in_array($key, $fields))
+                    if (strlen($value) > 0 && in_array($key, $fields)) {
                         $rowq[$key] = $value;
+                    }
                 }
                 foreach ($doi as $value) {
                     $row[$value["identifier_type_code"]] = $value["object_identifier_value"];
-                    if (in_array($value["identifier_type_code"], $fields))
+                    if (in_array($value["identifier_type_code"], $fields)) {
                         $rowq[$value["identifier_type_code"]] = $value["object_identifier_value"];
+                    }
                 }
                 /*
                  * Recuperation des metadonnees associees
@@ -491,11 +496,11 @@ class Object extends ObjetBDD
                     or (upper(object_identifier_value) = upper (:id1)
                          and used_for_search = 't') ";
             $whereExterne = " where upper(dbuid_origin) = upper(:id)";
+           // $order = "";
             /*
              * Extraction des UID de chaque ligne scanee
              */
             $uids = array();
-            $order = "";
             $i = 1;
             foreach ($data as $value) {
                 $uid = 0;
@@ -531,8 +536,9 @@ class Object extends ObjetBDD
                              */
                             $aval = explode('/', $value);
                             $nbElements = count($aval);
-                            if ($nbElements > 0)
+                            if ($nbElements > 0) {
                                 $val = $aval[($nbElements - 1)];
+                            }
                         } else {
                             /*
                              * la chaine fournie est conservee telle quelle
@@ -556,22 +562,19 @@ class Object extends ObjetBDD
                                 "id1" => $val,
                                 "id2" => $val
                             ));
-                            if ($valobject["uid"] > 0)
+                            if ($valobject["uid"] > 0) {
                                 $uid = $valobject["uid"];
+                            }
                         }
                     }
                 }
                 if ($uid > 0) {
                     $uids[] = $uid;
-                    $order .= " when " . $uid . " then $i";
+                   // $order .= " when " . $uid . " then $i";
                     $i ++;
                 }
             }
             if (count($uids) > 0) {
-                /*
-                 * $order = " case uid " . $order . " end";
-                 * return $this->getForList($uids, "$order");
-                 */
                 $data = array();
                 foreach ($uids as $uid) {
                     $line = $this->getForList(array(

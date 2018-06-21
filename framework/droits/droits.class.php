@@ -241,9 +241,9 @@ class Acllogin extends ObjetBDD
                  */
                 $inclause = "";
                 $comma = false;
-                foreach ($groupes as $key => $value) {
+                foreach ($groupes as $value) {
                     if ($value["aclgroup_id"] > 0) {
-                        if ($comma == true) {
+                        if ($comma) {
                             $inclause .= ", ";
                         } else {
                             $comma = true;
@@ -263,7 +263,7 @@ class Acllogin extends ObjetBDD
                  * Mise en forme des droits
                  */
                 $droits = array();
-                foreach ($data as $key => $value) {
+                foreach ($data as $value) {
                     $droits[$value[aco]] = 1;
                 }
             }

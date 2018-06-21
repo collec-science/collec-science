@@ -21,17 +21,18 @@ $_SESSION["moduleParent"] = "sample";
 switch ($t_module["param"]) {
     case "list":
         $_SESSION["moduleListe"] = "sampleList";
-		/*
-		 * Display the list of all records of the table
-		 */
-		if (! isset($isDelete))
+        /*
+         * Display the list of all records of the table
+         */
+        if (! isset($isDelete)) {
             $_SESSION["searchSample"]->setParam($_REQUEST);
+        }
         $dataSearch = $_SESSION["searchSample"]->getParam();
         if ($_SESSION["searchSample"]->isSearch() == 1) {
             try {
-            $data = $dataClass->sampleSearch($dataSearch);
-            $vue->set($data, "samples");
-            $vue->set(1, "isSearch");
+                $data = $dataClass->sampleSearch($dataSearch);
+                $vue->set($data, "samples");
+                $vue->set(1, "isSearch");
             } catch (Exception $e) {
                 $message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
             }
@@ -107,8 +108,9 @@ switch ($t_module["param"]) {
         /*
          * Verification que l'echantillon peut etre modifie
          */
-        if ($is_modifiable)
+        if ($is_modifiable) {
             $vue->set(1, "modifiable");
+        }
         /*
          * Recuperation des documents
          */
@@ -133,7 +135,7 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		$data = dataRead($dataClass, $id, "gestion/sampleChange.tpl");
-        if ($data["sample_id"] > 0 && $dataClass->verifyCollection($data) == false) {
+        if ($data["sample_id"] > 0 && ! $dataClass->verifyCollection($data)) {
             $message->set(_("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"));
             $module_coderetour = - 1;
         } else {
@@ -267,7 +269,7 @@ switch ($t_module["param"]) {
                                 $dataClass->verifyBeforeImport($row);
                             } catch (Exception $e) {
                                 // traduction: bien conserver inchangées les chaînes %1$s, %2$s
-                                $message->set(sprintf(_('Ligne %1$s : %2$s'),$line,$e->getMessage()));
+                                $message->set(sprintf(_('Ligne %1$s : %2$s'), $line, $e->getMessage()));
                                 $module_coderetour = - 1;
                             }
                             $line ++;

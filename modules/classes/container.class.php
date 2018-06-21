@@ -274,7 +274,6 @@ class Container extends ObjetBDD
     function containerSearch($param)
     {
         $data = array();
-        /* $order = " order by container_family_name, container_type_name, identifier, uid"; */
         $where = "where";
         $and = "";
         if ($param["container_type_id"] > 0) {

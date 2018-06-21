@@ -247,8 +247,6 @@ class Sample extends ObjetBDD
     function sampleSearch($param)
     {
         $data = array();
-        $isFirst = true;
-        //$order = " order by collection_name, sample_type_name, identifier, uid";
         $where = "where";
         $and = "";
         if ($param["sample_type_id"] > 0) {
@@ -501,7 +499,7 @@ class Sample extends ObjetBDD
             $val = "";
             foreach ($uids as $value) {
                 if (is_numeric($value) && $value > 0) {
-                    $comma == true ? $val .= "," : $comma = true;
+                    $comma ? $val .= "," : $comma = true;
                     $val .= $value;
                 }
             }
@@ -560,13 +558,6 @@ class Sample extends ObjetBDD
     {
         if (count($row) > 0) {
             if (strlen($row["dbuid_origin"]) == 0) {
-                /*
-                 * $ori = explode(":", $row["dbuid_origin"]);
-                 * if ($_SESSION["APPLI_code"] == $ori[0]) {
-                 * throw new SampleException("Il n'est pas possible d'importer un échantillon issu de la base de données courante");
-                 * }
-                 * } else {
-                 */
                 throw new SampleException(_("L'identifiant de la base de données d'origine n'a pas été fourni"));
             }
             /*

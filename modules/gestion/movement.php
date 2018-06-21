@@ -94,12 +94,14 @@ switch ($t_module["param"]) {
 		dataDelete($dataClass, $id);
         break;
     case "fastInputChange":
-        if (isset($_REQUEST["container_uid"]) && is_numeric($_REQUEST["container_uid"]))
+        if (isset($_REQUEST["container_uid"]) && is_numeric($_REQUEST["container_uid"])) {
             $vue->set($_REQUEST["container_uid"], "container_uid");
+        }
         $vue->set($dataClass->getDefaultValue(), "data");
         $vue->set("gestion/fastInputChange.tpl", "corps");
-        if (isset($_REQUEST["read_optical"]))
+        if (isset($_REQUEST["read_optical"])) {
             $vue->set($_REQUEST["read_optical"], "read_optical");
+        }
         /*
          * Assignation du nom de la base
          */
@@ -119,8 +121,9 @@ switch ($t_module["param"]) {
     case "fastOutputChange":
         $vue->set($dataClass->getDefaultValue(), "data");
         $vue->set("gestion/fastOutputChange.tpl", "corps");
-        if (isset($_REQUEST["read_optical"]))
+        if (isset($_REQUEST["read_optical"])) {
             $vue->set($_REQUEST["read_optical"], "read_optical");
+        }
         /*
          * Assignation du nom de la base
          */
@@ -164,10 +167,9 @@ switch ($t_module["param"]) {
 		 * Preparation des donnees
 		 */
 		$uid_container = 0;
-		$date = date($_SESSION["MASKDATELONG"]);
+        $date = date($_SESSION["MASKDATELONG"]);
         $nb = 0;
         try {
-            // foreach ($_REQUEST["uid"] as $uid) {
             foreach ($_REQUEST as $key => $sens) {
                 if (substr($key, 0, 3) == "mvt") {
                     $akey = explode(":", $key);
@@ -186,7 +188,7 @@ switch ($t_module["param"]) {
                     }
                 }
             }
-            $message->set(sprintf(_("%d mouvement(s) généré(s)"),$nb));
+            $message->set(sprintf(_("%d mouvement(s) généré(s)"), $nb));
             $module_coderetour = 1;
         } catch (Exception $e) {
             $message->set(_("Erreur lors de la génération des mouvements"));

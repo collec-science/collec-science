@@ -34,12 +34,14 @@ class SearchParam
      */
     function __construct()
     {
-        if (! is_array($this->param))
+        if (! is_array($this->param)) {
             $this->param = array();
+        }
         $this->isSearch = 0;
         $this->param["isSearch"] = 0;
-        if (is_array($this->paramNum))
+        if (is_array($this->paramNum)) {
             $this->paramNum = array_flip($this->paramNum);
+        }
     }
 
     /**
@@ -65,8 +67,9 @@ class SearchParam
                      * Recherche si la valeur doit etre numerique
                      */
                     if (isset($this->paramNum[$key])) {
-                        if (! is_numeric($data[$key]))
+                        if (! is_numeric($data[$key])) {
                             $data[$key] = "";
+                        }
                     }
                     $this->param[$key] = $data[$key];
                 }
@@ -77,8 +80,9 @@ class SearchParam
              */
             if (isset($this->param[$data]) && ! is_null($valeur)) {
                 if (isset($this->paramNum[$data])) {
-                    if (! is_numeric($valeur))
+                    if (! is_numeric($valeur)) {
                         $valeur = "";
+                    }
                 }
                 $this->param[$data] = $valeur;
             }
@@ -86,8 +90,9 @@ class SearchParam
         /*
          * Gestion de l'indicateur de recherche
          */
-        if ($data["isSearch"] == 1)
+        if ($data["isSearch"] == 1) {
             $this->isSearch = 1;
+        }
     }
 
     /**
@@ -95,7 +100,6 @@ class SearchParam
      */
     function getParam()
     {
-        // return $this->encodeData($this->param);
         return $this->param;
     }
 
@@ -137,7 +141,6 @@ class SearchParam
     function reinit()
     {}
 }
-
 
 /**
  * Exemple d'instanciation
@@ -229,8 +232,9 @@ class SearchSample extends SearchParam
         );
         parent::__construct();
     }
-    
-    function reinit() {
+
+    function reinit()
+    {
         $ds = new DateTime();
         $ds->modify("-1 year");
         $this->param["date_from"] = $ds->format($_SESSION["MASKDATE"]);
@@ -249,7 +253,9 @@ class SearchMovement extends SearchParam
         $this->reinit();
         parent::__construct();
     }
-    function reinit() {
+
+    function reinit()
+    {
         $ds = new DateTime();
         $ds->modify("-1 month");
         $this->param["date_start"] = $ds->format($_SESSION["MASKDATE"]);

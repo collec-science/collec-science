@@ -454,8 +454,9 @@ class ObjetBDD
             }
             $where = "";
             foreach ($id as $key => $value) {
-                if ($where != "")
+                if ($where != "") {
                     $where .= " and ";
+                }
                 if (strlen(preg_replace("#[^A-Z]+#", "", $key)) > 0) {
                     $cle = $this->quoteIdentifier . $key . $this->quoteIdentifier;
                 } else {
@@ -478,7 +479,6 @@ class ObjetBDD
             } else {
                 $cle = $this->cle;
             }
-            // $where = $cle . ' = ' . $id;
             $where = $cle . ' = :id';
             $data["id"] = $id;
         }
@@ -515,10 +515,9 @@ class ObjetBDD
         } else {
             $sql = "select * from " . $this->table . " where " . $where;
         }
-        // $collection = $this->execute ( $sql );
         $collection = $this->executeAsPrepared($sql, $data);
         if (count($collection) == 0) {
-            if ($getDefault == true) {
+            if ($getDefault) {
                 $collection = $this->getDefaultValue($parentValue);
             } else {
                 $collection = false;
@@ -531,10 +530,10 @@ class ObjetBDD
             if ($this->auto_date == 1) {
                 $collection = $this->utilDatesDBVersLocale($collection);
             }
-            if ($this->codageHtml == true) {
+            if ($this->codageHtml) {
                 $collection = $this->htmlEncode($collection);
             }
-            if ($this->toUTF8 == true) {
+            if ($this->toUTF8) {
                 $collection = $this->utf8Encode($collection);
             }
         }
@@ -571,10 +570,12 @@ class ObjetBDD
         if ($this->auto_date == 1) {
             $collection = $this->utilDatesDBVersLocale($collection);
         }
-        if ($this->codageHtml == true)
+        if ($this->codageHtml) {
             $collection = $this->htmlEncode($collection);
-        if ($this->toUTF8 == true)
+        }
+        if ($this->toUTF8) {
             $collection = $this->utf8Encode($collection);
+        }
         return $collection;
     }
 
@@ -627,7 +628,7 @@ class ObjetBDD
              * Verification de la cle unique
              */
             if ($this->verifData == 1) {
-                if (is_numeric($id) == false) {
+                if (! is_numeric($id)) {
                     return false;
                 }
             }
@@ -667,8 +668,9 @@ class ObjetBDD
      */
     function supprimerChamp($id, $champ/*:int*/)/* :int */
 {
-        if (! is_numeric($id))
+        if (! is_numeric($id)) {
             return - 1;
+        }
         if ($id > 0) {
             if (strlen(preg_replace("#[^A-Z]+#", "", $champ) > 0)) {
                 $cle = $this->quoteIdentifier . $key . $this->quoteIdentifier;
@@ -723,8 +725,9 @@ class ObjetBDD
         /*
          * Forcage a zero de la cle si cle simple et cle automatique
          */
-        if ($this->cleMultiple == 0 && $data[$this->cle] == "" && $this->id_auto > 0)
+        if ($this->cleMultiple == 0 && $data[$this->cle] == "" && $this->id_auto > 0) {
             $data[$this->cle] = 0;
+        }
         /*
          * Traitement des dates
          */
@@ -818,23 +821,20 @@ class ObjetBDD
         }
         
         if ($this->verifData == 1) {
-            if ($this->verifDonnees($data, $mode) == false) {
+            if (! $this->verifDonnees($data, $mode)) {
                 return false;
             }
         }
         /*
          * Traitement de la mise en fichier
          */
-        $total = count($data);
         
         $ds = array();
         if ($mode == "ajout") {
             $sql = "insert into " . $this->table . "(";
             $i = 0;
             $valeur = ") values (";
-            // echo $this->id_auto."<br>";
             foreach ($data as $key => $value) {
-                // echo $key . " " . $value . "<br>";
                 
                 // Traitement de la cle automatique. Uniquement sur cle unique !
                 if ($this->id_auto == 1 && $key == $this->cle) {
@@ -905,8 +905,9 @@ class ObjetBDD
                 printr($data);
             }
             foreach ($data as $key => $value) {
-                if ($i > 0)
+                if ($i > 0) {
                     $sql .= ",";
+                }
                 $i ++;
                 $sql .= " ";
                 if (strlen(preg_replace("#[^A-Z]+#", "", $key)) > 0) {
@@ -929,7 +930,6 @@ class ObjetBDD
                          */
                         $sql .= $cle . " = ST_GeomFromText( :" . $key . " ," . $this->srid . ")";
                     } else {
-                        // $sql .= $key." = '".addslashes($value)."'";
                         $sql .= $cle . " = :" . $key;
                     }
                 }
@@ -957,8 +957,9 @@ class ObjetBDD
                 } else {
                     $ret = $data[$this->cle];
                 }
-            } else
+            } else {
                 $ret = - 1;
+            }
         }
         return $ret;
     }
@@ -1156,8 +1157,9 @@ class ObjetBDD
         $j = 0;
         do {
             $test = @strpos($date, $this->sepValide[$j]);
-            if ($test === false)
+            if ($test === false) {
                 $j ++;
+            }
         } while ($j < count($this->sepValide) && ($test === false));
         $separateurLocal = $this->sepValide[$j];
         $temp = @explode($separateurLocal, $date);
@@ -1184,8 +1186,9 @@ class ObjetBDD
         /*
          * Prise en compte de l'annee par defaut
          */
-        if ($annee == "")
+        if ($annee == "") {
             $annee = date("Y");
+        }
         
         if ($annee < 100) {
             if ($annee <= $this->dateMini) {
@@ -1199,8 +1202,9 @@ class ObjetBDD
         /*
          * Reintegration de l'heure le cas echeant
          */
-        if ($type == 3)
+        if ($type == 3) {
             $date .= " " . $heure;
+        }
         return $date;
     }
 
@@ -1225,7 +1229,7 @@ class ObjetBDD
         /*
          * Reformatage de la date
          */
-        if ($this->isBootstrap == false) {
+        if (! $this->isBootstrap) {
             switch ($this->formatDate) {
                 case 0:
                     $date = $temp[0] . $this->separateurLocal . $temp[1] . $this->separateurLocal . $temp[2];
@@ -1257,7 +1261,7 @@ class ObjetBDD
      */
     function formatDatesVersLocal($data)
     {
-        return $this->utilDatesDBVersLocale($date);
+        return $this->utilDatesDBVersLocale($data);
     }
 
     /**
@@ -1513,7 +1517,7 @@ class ObjetBDD
         if (strlen($id) == 0) {
             throw new ObjetBDDException("key is empty");
         }
-        if (is_numeric($id) == false) {
+        if (! is_numeric($id)) {
             throw new ObjetBDDException("key is not numeric (" . $id);
         }
         /*
@@ -1523,8 +1527,9 @@ class ObjetBDD
             throw new ObjetBDDException("data is not an array");
         }
         
-        if (! is_array($lignes))
+        if (! is_array($lignes)) {
             $lignes = array();
+        }
         foreach ($lignes as $key => $value) {
             if (! is_numeric($value)) {
                 throw new ObjetBDDException($key . "(" . $value . ") is not numeric");
@@ -1580,8 +1585,9 @@ class ObjetBDD
                     $stmt->execute($ds);
                 }
             } catch (PDOException $e) {
-                if ($this->debug_mode > 0)
+                if ($this->debug_mode > 0) {
                     $this->addMessage($e->getMessage());
+                }
                 throw new ObjetBDDException($e->getMessage());
             }
         }
@@ -1603,8 +1609,9 @@ class ObjetBDD
                     $stmt->execute($ds);
                 }
             } catch (PDOException $e) {
-                if ($this->debug_mode > 0)
+                if ($this->debug_mode > 0) {
                     $this->addMessage($e->getMessage());
+                }
                 throw new ObjetBDDException($e->getMessage());
             }
         }
@@ -1667,8 +1674,9 @@ class ObjetBDD
      */
     function getLogin()
     {
-        if (isset($_SESSION["login"]))
+        if (isset($_SESSION["login"])) {
             return $_SESSION["login"];
+        }
     }
 
     /**
@@ -1703,8 +1711,9 @@ class ObjetBDD
             /*
              * Gestion de l'attribut "pere"
              */
-            if ($parentValue > 0 && strlen($colonne["parentAttrib"]) > 0)
+            if ($parentValue > 0 && strlen($colonne["parentAttrib"]) > 0) {
                 $data[$key] = $parentValue;
+            }
         }
         return $data;
     }
@@ -1730,9 +1739,10 @@ class ObjetBDD
              * Traitement des chaines individuelles
              */
             if ($this->typeDatabase == 'pgsql') {
-                if ($this->UTF8 == true) {
-                    if (mb_detect_encoding($value) != "UTF-8")
+                if ($this->UTF8) {
+                    if (mb_detect_encoding($value) != "UTF-8") {
                         $data = mb_convert_encoding($data, 'UTF-8');
+                    }
                 }
                 $data = pg_escape_string($data);
             } else {
@@ -1796,15 +1806,16 @@ class ObjetBDD
              * Execution de la requete
              */
             $this->lastResultExec = $stmt->execute($data);
-            if ($this->lastResultExec && $onlyExecute == false) {
+            if ($this->lastResultExec && ! $onlyExecute) {
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             } else {
                 return $this->lastResultExec;
             }
         } catch (PDOException $e) {
             $this->lastResultExec = false;
-            if ($this->debug_mode > 0)
+            if ($this->debug_mode > 0) {
                 $this->addMessage($e->getMessage());
+            }
             throw new ObjetBDDException($e->getMessage());
         }
     }
@@ -1823,7 +1834,7 @@ class ObjetBDD
         if ($this->auto_date == 1) {
             $collection = $this->utilDatesDBVersLocale($collection);
         }
-        if ($this->toUTF8 == true) {
+        if ($this->toUTF8) {
             $collection = $this->utf8Encode($collection);
         }
         return $collection;
@@ -1842,7 +1853,7 @@ class ObjetBDD
         if ($this->auto_date == 1) {
             $collection = $this->utilDatesDBVersLocale($collection);
         }
-        if ($this->toUTF8 == true) {
+        if ($this->toUTF8) {
             $collection = $this->utf8Encode($collection);
         }
         return $collection;

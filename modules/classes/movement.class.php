@@ -152,7 +152,7 @@ class Movement extends ObjetBDD
                  * Preparation de la requete
                  */
                 $stmt = $this->connection->prepare($this->sql . $this->where . $this->order . " limit 1");
-                while ($continue == true) {
+                while ($continue) {
                     if ($stmt->execute($data)) {
                         $result = $stmt->fetch(PDO::FETCH_ASSOC);
                         $retour[] = $result;
@@ -248,11 +248,12 @@ class Movement extends ObjetBDD
             $data["column_number"] = $column_number;
             $data["line_number"] = $line_number;
             return $this->ecrire($data);
-        } else
+        } else {
             /*
              * Gestion des erreurs
              */
             throw new MovementException($message);
+        }
     }
 
     /**

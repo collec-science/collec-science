@@ -1375,7 +1375,7 @@ class ObjetBDD
                 } else {
                     $this->errorData[] = array(
                         "code" => 4,
-                        "colonne" => $value
+                        "colonne" => $key
                     );
                     $testok = false;
                     throw new ObjetBDDException("field required - " . $key);
@@ -1424,19 +1424,26 @@ class ObjetBDD
     {
         if ($format == 1) {
             // Formatage du tableau
-            $res = "";
-            foreach ($this->errorData as $key => $value) {
-                $data[$key]["valeur"] = htmlentities($data[$key]["valeur"]);
-                if ($this->errorData[$key]["code"] == 0) {
-                    $res .= $this->errorData[$key]["message"] . "<br>";
-                } elseif ($this->errorData[$key]["code"] == 1) {
-                    $res .= "le champ " . $this->errorData[$key]["colonne"] . " n'est pas numerique. Valeur saisie : " . $this->errorData[$key]["valeur"] . "<br>";
-                } elseif ($this->errorData[$key]["code"] == 2) {
-                    $res .= "Le champ " . $this->errorData[$key]["colonne"] . " est trop grand. Longueur maximale autorisée : " . $this->longueurs[$this->errorData[$key]["colonne"]] . ". Valeur saisie : " . $this->errorData[$key]["valeur"] . " (" . strlen($this->errorData[$key]["valeur"]) . " caracteres)<br>";
-                } elseif ($this->errorData[$key]["code"] == 3) {
-                    $res .= "Le contenu du champ " . $this->errorData[$key]["colonne"] . " ne correspond pas au format attendu. Masque autorisé : " . $this->pattern[$this->errorData[$key]["colonne"]] . ". Valeur saisie : " . $this->errorData[$key]["valeur"] . "<br>";
-                } elseif ($this->errorData[$key]["code"] == 4) {
-                    $res .= "Le champ " . $this->errorData[$key]["colonne"] . " est obligatoire, mais n'a pas été renseigné.<br>";
+            $res = array();
+            foreach ($this->errorData as $value) {
+                $val = htmlentities($value["valeur"]);
+                switch ($value["code"]) {
+                    case 1:
+                        $res[] = sprintf(_("le champ %1$s  n'est pas numerique. Valeur saisie : %2$s"), $value["colonne"], $val);
+                        break;
+                    case 2:
+                        $res[] = sprintf(_("Le champ %1$s est trop grand. Longueur maximale autorisée : %2$s. Valeur saisie : %3$s (%4$s caracteres)"), $value["colonne"], $this->longueurs[$value["colonne"]], $val, strlen($value["valeur"]));
+                        break;
+                    case 3:
+                        $res[] = sprintf(_("Le contenu du champ %1$s ne correspond pas au format attendu. Masque autorisé : %2$s. Valeur saisie : %3$s"), $value["colonne"], $this->pattern[$value["colonne"]], $val);
+                        break;
+                    case 4:
+                        $res[] = sprintf(_("Le champ %s est obligatoire, mais n'a pas été renseigné."), $value["colonne"]);
+                        break;
+                    case 0:
+                    default:
+                        $res[] = $value["message"];
+                        break;
                 }
             }
         } else {

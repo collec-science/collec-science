@@ -24,7 +24,9 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
                 $data = $dataClass->lire($id, true, $idParent);
             } catch (Exception $e) {
                 if ($OBJETBDD_debugmode > 0) {
-                    $message->set($dataClass->getErrorData(1));
+                    foreach ($dataClass->getErrorData(1) as $messageError) {
+                    $message->set($messageError);
+                }
                 } else {
                     $message->set(_("Erreur de lecture des informations dans la base de données"));
                 }
@@ -61,7 +63,9 @@ function dataWrite($dataClass, $data)
         $log->setLog($_SESSION["login"], get_class($dataClass) . "-write", $id);
     } catch (Exception $e) {
         if ($OBJETBDD_debugmode > 0) {
-            $message->set($dataClass->getErrorData(1));
+            foreach ($dataClass->getErrorData(1) as $messageError) {
+                $message->set($messageError);
+            }
         } else {
             $message->set(_("Problème lors de l'enregistrement..."));
         }
@@ -102,7 +106,9 @@ function dataDelete($dataClass, $id)
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
         } catch (Exception $e) {
             if ($OBJETBDD_debugmode > 0) {
-                $message->set($dataClass->getErrorData(1));
+                foreach ($dataClass->getErrorData(1) as $messageError) {
+                    $message->set($messageError);
+                }
             } else {
                 $message->set(_("Problème lors de la suppression"));
             }

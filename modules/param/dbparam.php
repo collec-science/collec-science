@@ -20,7 +20,9 @@ switch ($t_module["param"]) {
             $log->setLog ( $_SESSION ["login"], get_class ( $dataClass ) . "-writeGlobal" );
         }catch (Exception $e) {
             if ($OBJETBDD_debugmode > 0) {
-                $message->set ( $dataClass->getErrorData ( 1 ) );
+                foreach ($dataClass->getErrorData(1) as $messageError) {
+                    $message->set($messageError);
+                }
             } else {
                 $message->set (_("Problème lors de la mise en fichier..."));
             }

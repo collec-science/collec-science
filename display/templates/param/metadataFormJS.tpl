@@ -70,7 +70,6 @@ function renderForm(data){
                             "type":"radio",
                             "default":"no",
                             "enum":["yes","no"],
-                            "optionsLabels":["{t}oui{/t}","{t}non{/t}"],
                             "title":"{t}champ utilisé pour rechercher un échantillon ?{/t}",
                             "emptySelectFirst":true,
                             /*"required":true*/
@@ -143,7 +142,8 @@ function renderForm(data){
                             }
                         },
                         "isSearchable": {
-                            "removeDefaultNone":true
+                            "removeDefaultNone":true,
+                            "optionLabels":["{t}oui{/t}","{t}non{/t}"]
                         },
                         "required": {
                             "type": "checkbox",

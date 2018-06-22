@@ -1,25 +1,21 @@
 #!/bin/bash
-# upgrade an instance 2.0 to 2.0.1
+# upgrade an instance 2.0 to 2.1
 OLDVERSION=collec-2.0
-VERSION=collec-2.0.1
+VERSION=collec-2.1
 echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of Collec-Science is $VERSION ?"
 echo "Is your actual version is in the folder /var/www/collec-science/$OLDVERSION, and the symbolic link collec point to $OLDVERSION?" 
-read -p "Do you want to continue [y/n]?" answer
-if [ $answer = "y" ]
+read -p "Do you want to continue [Y/n]?" answer
+if [ $answer = "y" ] || [ $answer = "Y" ] || [  -z $answer ]
 then
 cd /var/www/html/collec-science
 rm -f *zip
 # download last code
 echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip
-read -p "Ok to install this release [y/n]?" answer
-if [  -z $answer ]
-then
-answer=y
-fi
+read -p "Ok to install this release [Y/n]?" answer
 
-if [  $answer = "y" ]
+if [  $answer = "y" ] || [ $answer = "Y" ] || [  -z $answer ]
 then
 
 unzip master.zip
@@ -51,8 +47,8 @@ rm -f collec
 ln -s $VERSION collec
 
 # upgrade database
-# echo "update database"
-# su postgres -c "psql -f upgrade_1.2.3-2.0.sql"
+echo "update database"
+su postgres -c "psql -f upgrade_2.0-2.1.sql"
 
 echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process" 
 fi

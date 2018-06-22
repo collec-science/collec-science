@@ -1,15 +1,17 @@
 /*
  * collec-science
- * Script de creation des tables contenant les donnees
- * version adaptee a la version 2.0 de l'application
- * a n'utiliser que pour une nouvelle installation, 
- * et prevu pour etre appele depuis le script init_by_psql.sql
- * Le script de creation du schema des droits doit avoir ete execute auparavant
- * (gacl_create_2.0.sql)
+ * Script de creation des tables contenant les donnees / table creation script
+ * version adaptee a la version 2.1 de l'application / for release 2.1
+ * a n'utiliser que pour une nouvelle installation, et prevu pour etre appele depuis le script init_by_psql.sql
+ * use only for a new deployement, may be call from init_by_psql.sql
+ * Le script de creation du schema des droits doit avoir ete execute auparavant : gacl_create_2.1.sql
+ * rights schema script must be execute before: gacl_create_2.1.sql
  * si les noms des schemas par defaut (gacl, col) sont modifies, corrigez les lignes :
- * 14 et 15 pour le schema contenant les donnees
- * 30 (FROM gacl.aclgroup),
+ * if you want to change schemas names, change theses lines
+ * 16 et 17 pour le schema contenant les donnees / data schema
+ * 32 (FROM gacl.aclgroup),
  *  en remplacant gacl par le nom du schema utilise pour la gestion des droits
+ * and replace gacl by the real schema name
  */
 create schema if not exists col;
 set search_path = col;
@@ -1005,9 +1007,14 @@ ALTER TABLE "label" ADD COLUMN "identifier_only" BOOLEAN DEFAULT 'f' NOT NULL;
 comment on column label.identifier_only is 'true : le qrcode ne contient qu''un identifiant metier';
 
 /*
+ * Ajout version 2.1
+ */
+insert into dbparam (dbparam_id, dbparam_name) values (2, 'APPLI_title');
+
+/*
  * Fin d'execution du script
  * Mise a jour de dbversion
  */
 insert into dbversion ("dbversion_number", "dbversion_date")
 values 
-('2.0','2018-05-04');
+('2.1','2018-07-03');

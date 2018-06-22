@@ -1347,7 +1347,7 @@ class ObjetBDD
                         "valeur" => $value,
                         "demande" => $this->colonnes[$key]["longueur"]
                     );
-                    throw new ObjetBDDException("string length to height (" . $this->colonnes[$key]["longueur"] . ") - " . $key . ":" . $value);
+                    throw new ObjetBDDException("string length too height (" . $this->colonnes[$key]["longueur"] . ") - " . $key . ":" . $value);
                 }
             }
             
@@ -1432,20 +1432,20 @@ class ObjetBDD
                 $val = htmlentities($value["valeur"]);
                 switch ($value["code"]) {
                     case 1:
-                        // traduction : conserver les %1$s intacts et supprimer les \ rajoutés
-                        $res[] = sprintf(_("le champ %1\$s  n'est pas numerique. Valeur saisie : %2\$s"), $value["colonne"], $val);
+                        // traduction : conserver les %1$s intacts
+                        $res[] = sprintf(_('le champ %1$s  n\'est pas numerique. Valeur saisie : %2$s'), $value["colonne"], $val);
                         break;
                     case 2:
-                        // traduction : conserver les %1$s intacts et supprimer les \ rajoutés
-                        $res[] = sprintf(_("Le champ %1\$s est trop grand. Longueur maximale autorisée : %2\$s. Valeur saisie : %3\$s (%4\$s caracteres)"), $value["colonne"], $value["demande"], $val, strlen($value["valeur"]));
+                        // traduction : conserver les %1$s intacts
+                        $res[] = sprintf(_('Le champ %1$s est trop grand. Longueur maximale autorisée : %2$s. Valeur saisie : %3$s (%4$s caracteres)'), $value["colonne"], $value["demande"], $val, strlen($value["valeur"]));
                         break;
                     case 3:
-                        // traduction : conserver les %1$s intacts et supprimer les \ rajoutés
-                        $res[] = sprintf(_("Le contenu du champ %1\$s ne correspond pas au format attendu. Masque autorisé : %2\$s. Valeur saisie : %3\$s"), $value["colonne"], $value["demande"], $val);
+                        // traduction : conserver les %1$s intacts
+                        $res[] = sprintf(_('Le contenu du champ %1$s ne correspond pas au format attendu. Masque autorisé : %2$s. Valeur saisie : %3$s'), $value["colonne"], $value["demande"], $val);
                         break;
                     case 4:
                         // traduction : conserver %s intact
-                        $res[] = sprintf(_("Le champ %s est obligatoire, mais n'a pas été renseigné."), $value["colonne"]);
+                        $res[] = sprintf(_('Le champ %s est obligatoire, mais n\'a pas été renseigné.'), $value["colonne"]);
                         break;
                     case 0:
                     default:

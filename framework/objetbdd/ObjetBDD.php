@@ -24,11 +24,14 @@
  *
  *
  * @author Eric Quinton, Franck Huby
- * @copyright (C) Eric Quinton 2006-2016
- * @version 3.2du 13/05/2016
+ * @copyright (C) Eric Quinton 2006-2018
+ * @version 3.6 2018-06-22
  * @package ObjetBDD
  * 
  * News :
+ * 22/06/2018
+ * support du multilangue
+ * 
  * 13/05/2016
  * Rajout de la gestion des exceptions (throw) sur chaque anomalie analysee
  * Basculement de toutes les requetes en mode prepare
@@ -415,7 +418,7 @@ class ObjetBDD
      * @param String $sql
      * @return array
      */
-    private function execute($sql)
+    function execute($sql)
     {
         $rs = array();
         
@@ -1229,19 +1232,19 @@ class ObjetBDD
         /*
          * Reformatage de la date
          */
-        if (! $this->isBootstrap) {
-            switch ($this->formatDate) {
-                case 0:
-                    $date = $temp[0] . $this->separateurLocal . $temp[1] . $this->separateurLocal . $temp[2];
-                    break;
-                case 1:
-                    $date = $temp[2] . $this->separateurLocal . $temp[1] . $this->separateurLocal . $temp[0];
-                    break;
-                case 2:
-                    $date = $temp[1] . $this->separateurLocal . $temp[2] . $this->separateurLocal . $temp[0];
-                    break;
-            }
+        
+        switch ($this->formatDate) {
+            case 0:
+                $date = $temp[0] . $this->separateurLocal . $temp[1] . $this->separateurLocal . $temp[2];
+                break;
+            case 1:
+                $date = $temp[2] . $this->separateurLocal . $temp[1] . $this->separateurLocal . $temp[0];
+                break;
+            case 2:
+                $date = $temp[1] . $this->separateurLocal . $temp[2] . $this->separateurLocal . $temp[0];
+                break;
         }
+        
         if ($type == 3) {
             /*
              * Reincorporation de l'heure
@@ -1429,15 +1432,19 @@ class ObjetBDD
                 $val = htmlentities($value["valeur"]);
                 switch ($value["code"]) {
                     case 1:
-                        $res[] = sprintf(_("le champ %1$s  n'est pas numerique. Valeur saisie : %2$s"), $value["colonne"], $val);
+                        // traduction : conserver les %1$s intacts et supprimer les \ rajoutés
+                        $res[] = sprintf(_("le champ %1\$s  n'est pas numerique. Valeur saisie : %2\$s"), $value["colonne"], $val);
                         break;
                     case 2:
-                        $res[] = sprintf(_("Le champ %1$s est trop grand. Longueur maximale autorisée : %2$s. Valeur saisie : %3$s (%4$s caracteres)"), $value["colonne"], $this->longueurs[$value["colonne"]], $val, strlen($value["valeur"]));
+                        // traduction : conserver les %1$s intacts et supprimer les \ rajoutés
+                        $res[] = sprintf(_("Le champ %1\$s est trop grand. Longueur maximale autorisée : %2\$s. Valeur saisie : %3\$s (%4\$s caracteres)"), $value["colonne"], $value["demande"], $val, strlen($value["valeur"]));
                         break;
                     case 3:
-                        $res[] = sprintf(_("Le contenu du champ %1$s ne correspond pas au format attendu. Masque autorisé : %2$s. Valeur saisie : %3$s"), $value["colonne"], $this->pattern[$value["colonne"]], $val);
+                        // traduction : conserver les %1$s intacts et supprimer les \ rajoutés
+                        $res[] = sprintf(_("Le contenu du champ %1\$s ne correspond pas au format attendu. Masque autorisé : %2\$s. Valeur saisie : %3\$s"), $value["colonne"], $value["demande"], $val);
                         break;
                     case 4:
+                        // traduction : conserver %s intact
                         $res[] = sprintf(_("Le champ %s est obligatoire, mais n'a pas été renseigné."), $value["colonne"]);
                         break;
                     case 0:
@@ -1657,11 +1664,7 @@ class ObjetBDD
      */
     function getDateJour()
     {
-        if ($this->isBootstrap) {
-            return (date('Y-m-d'));
-        } else {
-            return $this->formatDateDBversLocal(date('Y-m-d'));
-        }
+        return $this->formatDateDBversLocal(date('Y-m-d'));
     }
 
     /**

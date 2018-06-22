@@ -1,5 +1,11 @@
 News
 ====
+2018-06-22
+	* support of multilanguage
+
+2016
+	* prepared requests is now usable (news functions for that)
+
 Version 2.5.1 - 03/06/2015
 	* new function : getListFromParent($parentId, $order = 0) : similar to getList($order = 0), but with a where clause to found only rows from parent_id.
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
   <head>
-    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <title>Manuel d'utilisation OBJETBDD</title>
     <meta name="GENERATOR" content="OpenOffice.org 3.1  (Linux)">
     <meta name="AUTHOR" content="Eric Quinton">
@@ -13,8 +13,7 @@
   <body dir="ltr" lang="fr-FR">
     <h1>ObjetBDD - Bibliothèque d'interfaçage avec les tables des bases de
       données pour PHP</h1>
-    <address style="margin-bottom: 0.5cm;"><i>V2.5 - 2 juin 2015 (c) 2007-2015
-        Eric Quinton (<a href="mailto:quinton.eric@gmail.com">quinton.eric@gmail.com</a>)</i></address>
+    <address style="margin-bottom: 0.5cm;"><i>©2007-2018 Eric Quinton (<a href="mailto:quinton.eric@gmail.com">quinton.eric@gmail.com</a>)</i></address>
     <p style="margin-bottom: 0cm;"><br>
     </p>
     <p style="margin-bottom: 0cm;"><font style="font-size: 8pt;" size="1">Ce
@@ -39,144 +38,7 @@
     <p><a href="#R%C3%A9f%C3%A9rence%7Coutline">Référence</a></p>
     <p style="margin-left: 0.95cm;"><a href="#Variables%7Coutline">Variables<br>
       </a><a href="#Fonctions%7Coutline">Fonctions</a></p>
-    <h2><a name="Nouveautés|outline"></a>Nouveautés</h2>
-    <h3>Version 2.5 - 2/6/2015</h3>
-    <ul>
-      <li>Correction de quelques anomalies</li>
-      <li>intégration de contrôles de sécurité complémentaires</li>
-      <li>pour les champs numériques, possibilité de transformer automatiquement
-        les virgules en points</li>
-      <li>séparation des fonctions d'encodage UTF8 : $toUTF8 demande
-        explicitement le codage en UTF8 des valeurs.</li>
-    </ul>
-    <h3>Version 2.3 - 24/10/2013</h3>
-    <ul>
-      <li>&nbsp;&nbsp;&nbsp; Optimisations pour postgresql/postgis :</li>
-      <ul>
-        <li>Nouveau type pour gérer les champs géographiques postgis
-          (positionner "type"=&gt;4). La fonction liste() retourne la commande
-          "asText(the_geom)", et la fonction ecrire encapsule la valeur dans
-          geomFromText($valeur, $this-&gt;srid). Le SRID doit être spécifié dans
-          la fonction __construct de la classe, en indiquant le paramètre
-          $this-&gt;param["srid"] = 4326. Si le SRID n'est pas défini, il est
-          fixé à -1. $valeur doit être un objet géographique ou géométrique, par
-          exemple LINESTRING( X Y, X1 Y1) ou POINT(X,Y).</li>
-        <li>Si le nom d'un champ contient des majuscules, le nom est maintenant
-          encapsulé dans ` pour des bases Mysql et " dans postgresql. Cela
-          fonctionne pour les select, update, insert, delete...</li>
-        <li>Un bug lié à UTF8 a été corrigé.</li>
-      </ul>
-    </ul>
-    <h3>Version 2.2.4 du 25/01/2013</h3>
-    <ul>
-      <li>Une nouvelle fonction est disponible : getDefaultValue($parentId).
-        Cette fonction retourne les valeurs par défaut, et positionne la clé de
-        la table parente dans le champ qui contient, dans sa description,
-        "parentAttrib" =&gt; 1. Les valeurs par défaut doivent être définies en
-        utilisant, dans la description du champ, "defaultValue"=&gt; 0. La
-        fonction lire() peut maintenant être utilisée pour récupérer les valeurs
-        par défaut, si l'enregistrement n'existe pas en base de données :
-        lire($id, $getDefault = false, $parentValue = 0). defaultValue peut être
-        le nom d'une fonction de la classe, qui sera alors appelée - ObjetBDD
-        contient la fonction getDateJour qui permet de charger la date du jour
-        dans les valeurs par défaut, par exemple.</li>
-      <li>rajout de la fonction getDateJour() qui retourne la date du jour, pour
-        les valeurs par défaut</li>
-      <li>Diverses corrections de bogues qui se produisaient lors de la
-        vérification des données avant l'écriture en base</li>
-    </ul>
-    <h3>Version 2.2.2 du 06/09/2012</h3>
-    <ul>
-      <li>Correction d'un bug concernant l'écriture d'un enregistrement dans une
-        table postgresql, contenant une quote : l'écriture s'effectue en
-        utilisant, dans ce cas, la fonction pg_escape_string.</li>
-    </ul>
-    <h3>Version 2.2.1 du 24/08/2012</h3>
-    <ul>
-      <li>Modifications diverses pour rendre la classe compatible avec
-        PostgreSQL</li>
-      <li>Nettoyage de la classe, correction de divers problèmes.<br>
-      </li>
-    </ul>
-    <h3>Version 2.1.0 du 10/08/11</h3>
-    <ul>
-      <li>Mise en place de la gestion des clés multiples : il est possible
-        maintenant de déclarer des clés multiples, mais qui doivent toutes être
-        numériques (comme auparavant, d'ailleurs).</li>
-      <li>Si la table est entièrement décrite dans la classe héritée, la
-        fonction d'écriture construit la requête SQL à partir du tableau "brut"
-        fourni en paramètre (par exemple, $_REQUEST), en vérifiant les variables
-        transmises. Pour cela, dans le constructeur de la classe héritée,
-        positionner la variable $fullDescription à true.</li>
-      <li>Rajout, dans le tableau $colonnes, d'un champ permettant de spécifier
-        s'il s'agit d'une clé ou non ("key" = 1)</li>
-      <li>Rajout de la variable de classe $this-&gt;keys=array(), comprenant la
-        liste des clés de la table</li>
-      <li>Modification de l'année pivot pour la saisie de l'année sur deux
-        chiffres : elle passe de 29 à 49 (49 =&gt; 2049, 50 =&gt; 1950)</li>
-      <li>Si la date est saisie sans année (jj/mm), rajout de l'année courante
-        automatiquement.</li>
-      <li>Lors de la lecture d'un enregistrement (fonction lire($id), la classe
-        vérifie le type des données de $id, qui peut être un tableau. Si le type
-        n'est pas correct, la requête n'est pas exécutée. Idem pour la fonction
-        supprimer($id).</li>
-      <li>Dans la fonction supprimerChamp($id,$champ), le type numérique
-        (obligatoire) de $champ est vérifié avant l'exécution de la requête</li>
-      <li>Avant une mise en fichier (enregistrement ou suppression), la validité
-        des clés est vérifiée (type principalement)<br>
-      </li>
-    </ul>
-    <h3>Version 2.0.1 du 27/08/09</h3>
-    <p>Correction de bugs introduits dans la version 2.0 :</p>
-    <ul style="margin-left: 0.64cm;">
-      <li>
-        <p>appel à une mauvaise fonction pour l'exécution des requêtes SQL.</p>
-      </li>
-    </ul>
-    <p>Si INSERT n'aboutit pas, la classe ne cherche plus à récupérer la
-      dernière clé, quand la table est gérée par des champs automatiques.</p>
-    <p>Rajout des fonctions traduites en langue anglaise (read($id) pour
-      lire($id), p. e.).</p>
-    <h3>Version 2.0 du 15/08/09</h3>
-    <ul style="margin-left: 0.64cm;">
-      <li>
-        <p>Intégration d'un mode débogage ;</p>
-      </li>
-      <li>
-        <p>Rajout de fonctions permettant de vérifier la cohérence des données
-          (champs numériques, masque basé sur les expressions régulières,
-          longueur maxi des champs texte ;</p>
-      </li>
-      <li>
-        <p>rajout du codage et du décodage des caractères spéciaux html
-          (fonction htmlspecialchars et htmlspecialchars_decode) ;</p>
-      </li>
-      <li>
-        <p>modification de la déclaration des colonnes, qui peut être réalisée
-          maintenant dans un tableau ;</p>
-      </li>
-      <li>
-        <p>possibilité de passer les paramètres par l'intermédiaire d'un
-          tableau, dans la fonction constructeur (fortement conseillé) ;</p>
-      </li>
-      <li>
-        <p>rajout d'une fonction pour gérer les tables N-N ;</p>
-      </li>
-      <li>
-        <p>les requêtes SQL s'exécutent maintenant dans une fonction dédiée ;</p>
-      </li>
-      <li>
-        <p>suppression des assignations obsolètes (var) et remplacement par les
-          assignations PHP5 (public $var).</p>
-      </li>
-    </ul>
-    <h2><a name="Installer ObjetBDD|outline"></a>Installer ObjetBDD</h2>
-    <p>Télécharger ObjetBDD à partir de <a href="http://sourceforge.net/projects/objetbdd/files/">http://sourceforge.net/projects/objetbdd/files/</a>.</p>
-    <p>Pour tous commentaires sur le projet : <a href="http://sourceforge.net/projects/objetbdd/">http://sourceforge.net/projects/objetbdd/</a>
-    </p>
-    <p>Décompacter le fichier ObjetBDD.php, par exemple dans plugins/ObjetBDD,
-      puis l'inclure dans l'application :</p>
-    <pre style="margin-bottom: 0.5cm;">include_once('plugins/ObjetBDD/ObjetBDD.php');</pre>
+    <br>
     <h2> <a name="Caractéristiques générales|outline"></a>Caractéristiques
       générales</h2>
     <p>ObjetBDD permet d'éviter de coder les requêtes SQL fastidieuses, celles
@@ -211,7 +73,7 @@
     <h3>Création d'une classe héritée</h3>
     <pre>// Déclaration de la classe<br> class Test inherits ObjetBDD {<br><br>// constructeur<br>function __construct($link, $param=null) {<br>		if (is_array($param)==false) $param=array();<br>		$param["table"]="Test";<br>		$param["id_auto"]=1;<br>		$param["fullDescription"]=1;<br>// Définition des formats des colonnes, et des contrôles à leur appliquer<br>                $this-&gt;colonnes = array(<br>                "id"=&gt;array("type"=&gt;1,"requis"=&gt;1, "key"=&gt;1, "defaultValue"=&gt;0),<br>		"idParent"=&gt;array("type"=&gt;1, "requis"=&gt;1, "parentAttrib"=&gt;1),<br>                "datemodif"=&gt;array("types"=&gt;2, defaultValue=&gt;getDateJour),<br>                "field1"=&gt;array("longueur"=&gt;10,"pattern"=&gt;"#^[a-zA-Z]+$#","requis"=&gt;1),<br>                "field2"=&gt;array("longueur"=&gt;5),<br>                "mel"=&gt;array("pattern"=&gt;"#^.+@.+\.[a-zA-Z]{2,6}$#")<br>                );<br>// Appel du constructeur de la classe ObjetBDD<br>                parent::__construct($link,$param);<br>        }<br>}</pre>
     <h3> Utilisation dans une page PHP</h3>
-    <pre>// intégration des bibliothèques <br> include_once('plugins/adodb5/adodb.inc.php');<br> include_once('plugins/ObjetBDD/ObjetBDD.php');<br><br>// Connexion à la base de données avec ADODB :<br> $bdd = ADONewConnection("mysql");<br> $bdd-&gt;PConnect("localhost", "login", "password", "database");<br><br>// Définition des paramètres spécifiques de fonctionnement de la classe<br> $param = array ("debug_mode"=&gt;2,"id_auto"=&gt;1);<br>// Lecture du fichier contenant la classe Test<br>include ("test/test.class.php");<br>$test = new Test($bdd,$param);<br><b>// Lecture d'un enregistrement</b>
+    <pre>// intégration des bibliothèques <br> include_once('plugins/adodb5/adodb.inc.php');<br> include_once('plugins/ObjetBDD/ObjetBDD.php');<br><br>// Connexion à la base de données avec ADODB :<br> $bdd = ADONewConnection("mysql");<br> $bdd-&gt;connect("localhost", "login", "password", "database");<br><br>// Définition des paramètres spécifiques de fonctionnement de la classe<br> $param = array ("debug_mode"=&gt;2,"id_auto"=&gt;1);<br>// Lecture du fichier contenant la classe Test<br>include ("test/test.class.php");<br>$test = new Test($bdd,$param);<br><b>// Lecture d'un enregistrement</b>
 $id = 5;
 $tableau = $test-&gt;lire($id)
 print_r ($tableau) ;
@@ -234,8 +96,8 @@ $id = 5;
 $res = $test-&gt;supprimer($id);</pre>
     <h2> <a name="Référence|outline"></a>Référence</h2>
     <h3><a name="Variables|outline"></a>Variables</h3>
-    <table style="page-break-inside: avoid;" border="1" cellpadding="4" cellspacing="3"
-      width="738">
+    <table style="page-break-inside: avoid;" width="738" cellspacing="3" cellpadding="4"
+      border="1">
       <colgroup><col width="137"> <col width="574"> </colgroup>
       <thead>
         <tr valign="top">
@@ -508,24 +370,30 @@ $res = $test-&gt;supprimer($id);</pre>
           <td>encode les valeurs en UTF8, si la base de données n'est pas codée
             en UTF8 mais que l'application l'est</td>
         </tr>
+        <tr>
+          <td>$quoteIdentifier</td>
+          <td>Caractère utilisé pour entourer le nom des colonnes</td>
+        </tr>
       </tbody>
     </table>
     <p><br>
       <br>
     </p>
     <h3><a name="Fonctions|outline"></a>Fonctions</h3>
-    <h4>function __construct(&amp;$p_connection, $param=NULL)</h4>
+    <h4>function __construct(&amp;$p_connection, $param=array())</h4>
     <p>$p_connection : instance ADOConnection</p>
     <p>$param : tableau contenant l'ensemble des paramètres de la classe à
       modifier (exemple : $param = array ("debug_mode"=&gt;2);</p>
     <p>Constructeur de la classe. Appelé systématiquement depuis la classe
       héritée, dans le constructeur de la classe héritée.</p>
-    <h4>function ObjetBDD(&amp;$bdd, $param = NULL)</h4>
-    <p>Synonyme de __construct(&amp;$p_connection, $param=NULL)</p>
-    <h4>private function execute($sql)</h4>
+    <h4>function execute($sql)</h4>
+    <h4>function executeSQL($sql)</h4>
     <p>$sql : code SQL à exécuter</p>
-    <p>Fonction exécutant l'ensemble des requêtes SQL. Non utilisable
-      directement</p>
+    <p>Fonction exécutant l'ensemble des requêtes SQL. </p>
+    <h4>function executeAsPrepared($sql, $data, $onlyExecute = false)</h4>
+    <p>Exécute la requête SQL fournie en la préparant, les variables étant
+      fournies sous forme de tableau associatif. Si $onlyExecute, retourne
+      uniquement le code d'exécution</p>
     <h4>function lire($id, $getDefault = false, $parentValue = 0)<br>
       function read($id, $getDefault = false, $parentValue = 0)</h4>
     <p>$id : identifiant numérique de la ligne à lire en base de données<br>
@@ -545,6 +413,8 @@ $res = $test-&gt;supprimer($id);</pre>
     <h4>function getDateJour()</h4>
     <p>Retourne la date du jour. Utilisée pour générer la date du jour lors de
       la lecture des valeurs par défaut.</p>
+    <h4>function getDateHeure()</h4>
+    <p>Retourne la date-heure courante formatée</p>
     <h4>function getListe()<br>
       function getList()</h4>
     <p>Retourne un tableau comprenant la liste complète des enregistrements de
@@ -555,6 +425,9 @@ $res = $test-&gt;supprimer($id);</pre>
     <p>Retourne un tableau contenant la liste des lignes et des colonnes lues
       dans la base de données, suite à l'exécution de la requête $sql. Les dates
       sont transformées.</p>
+    <h4>function getListeParamAsPrepared($sql, $data)</h4>
+    <p>idem, mais avec une requête préparée, les données étant dans le tableau
+      associatif $data</p>
     <h4>function ecrire($data)<br>
       function write($data)</h4>
     <p>$data : tableau contenant la liste des colonnes et leurs valeurs
@@ -585,8 +458,9 @@ $res = $test-&gt;supprimer($id);</pre>
     <p>$format : 0|1</p>
     <p>Retourne la liste des erreurs détectées par la fonction
       verifDonnees($data).</p>
-    <p>Les erreurs sont retournées sous forme de tableau si $format = 0, ou
-      affichées directement à l'écran si $format = 1.</p>
+    <p>Les erreurs sont retournées sous forme de tableau. si $format = 0, le
+      contenu brut du tableau est retourné. Si $format = 1, les libellés sont
+      générés (support multilangue implémenté)</p>
     <p>Le tableau a la structure suivante (exemple) :</p>
     <p>Array ( [0] =&gt; Array ( [code] =&gt; 3 [colonne] =&gt; champtexte
       [valeur] =&gt; Dupont1 [demande] =&gt; #^[a-zA-Z]+$# ) <br>
@@ -629,27 +503,24 @@ $res = $test-&gt;supprimer($id);</pre>
       function deleteFromField($id,$champ)</h4>
     <p>$id : clé numérique de l'enregistrement à supprimer</p>
     <p>$champ : nom de la colonne qui sera utilisée dans la requête WHERE</p>
-    <h4>function executeSQL ($ls_sql)</h4>
-    <p>$ls_sql : code SQL à exécuter</p>
-    <p>Exécute le code SQL indiqué, sans transformation ou contrôles
-      particuliers</p>
-    <h4>private function utilDatesDBVersLocale($types, $dates)</h4>
+    <h4>function utilDatesDBVersLocale($types, $dates)</h4>
     <p>$types : Tableau contenant les types des données (cf. la liste des
       variables)</p>
     <p>$dates : un tableau contenant les données à transformer</p>
     <p>Fonction qui permet de transformer les dates lues dans la base de données
       dans le format défini pour l'affichage. Ne doit être pas être appelée
       depuis la classe héritée.</p>
-    <h4>private function utilDatesLocaleVersDB($types, $dates)</h4>
+    <h4>function utilDatesLocaleVersDB($types, $dates)</h4>
     <p>$types : Tableau contenant les types des données (cf. la liste des
       variables)</p>
     <p>$dates : un tableau contenant les données à transformer</p>
-    <p>Fonction inverse de la précédente. Ne doit pas être appelée depuis la
-      classe héritée.</p>
-    <h4>private function formatDateLocaleVersDB ($date, $type)</h4>
+    <p>Fonction inverse de la précédente. </p>
+    <h4>function formatDateLocaleVersDB ($date, $type=2)</h4>
     <p>$date : champ à transformer</p>
     <p>$type : 2 : champ date, 3 : champ datetime</p>
-    <p>Fonction appelée par utilDatesLocaleVersDB, privée</p>
+    <p>Fonction appelée par utilDatesLocaleVersDB</p>
+    <h4>function formatDateDBversLocale($date, $type=2)</h4>
+    <p>Fonction inverse de la précédente</p>
     <h4>function vidageTable()<br>
       function clearTable()</h4>
     <p>Vide brutalement le contenu de la table</p>
@@ -666,8 +537,26 @@ $res = $test-&gt;supprimer($id);</pre>
     <p>Opération inverse de la fonction htmlEncode ($data)</p>
     <h4>private function utf8encode($data)</h4>
     <p>Transforme les valeurs en UTF8</p>
-    <p><br>
-      <br>
-    </p>
+    <h4>function addMessage($texte)</h4>
+    <p>Ajoute un message dans la pile</p>
+    <h4>function encodeData($data)</h4>
+    <p>fonction récursive encodant toutes les quotes fournies dans le tableau en
+      paramètre, à utiliser avant toute requête non préparée</p>
+    <h4>function getBlobReference($id, $fieldname)</h4>
+    <p>&nbsp;Fonction permettant de recuperer la reference d'un champ binaire,
+      pour traitement<br>
+      par exemple, pour manipuler une image :<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; $image = new Imagick ();<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      $image-&gt;readimagefile($objetBDD-&gt;getBlobReference($id, $fielname));<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ou bien, pour envoyer directement au
+      navigateur :<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; header("Content-Type: image/png");<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; fpassthru ($objetBDD-&gt;getBlobReference($id,
+      $fielname));</p>
+    <h4> function updateBinaire($id, $field, $ref)</h4>
+    <p>Ajoute un fichier binaire dans une table. $ref correspond à la référence
+      du fichier ouvert ($ref= fopen(xxx))</p>
+    <h4> </h4>
   </body>
 </html>

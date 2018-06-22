@@ -6,9 +6,9 @@
 * Parametres par defaut de l'application
 * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
 */
-$APPLI_version = "2.0.1";
-$APPLI_dbversion = "2.0";
-$APPLI_versiondate = "2018-05-25"; // préférer le format année-mois-jour pour être compris dans la version anglaise
+$APPLI_version = "2.1";
+$APPLI_dbversion = "2.1";
+$APPLI_versiondate = "2018-07-03"; // préférer le format année-mois-jour pour être compris dans la version anglaise
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*

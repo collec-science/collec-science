@@ -6,7 +6,7 @@ echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of Collec-Science is $VERSION ?"
 echo "Is your actual version is in the folder /var/www/collec-science/$OLDVERSION, and the symbolic link collec point to $OLDVERSION?" 
 read -p "Do you want to continue [Y/n]?" answer
-if [ $answer = "y" ] || [ $answer = "Y" ] || [  -z $answer ]
+if [[ $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then
 cd /var/www/html/collec-science
 rm -f *zip
@@ -15,7 +15,7 @@ echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip
 read -p "Ok to install this release [Y/n]?" answer
 
-if [  $answer = "y" ] || [ $answer = "Y" ] || [  -z $answer ]
+if [[  $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then
 
 unzip master.zip

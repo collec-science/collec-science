@@ -1,8 +1,8 @@
 #!/bin/bash
 echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of Collec-Science is 2.0?"
-read -p "Do you want to continue [y/n]?" answer
-if [ $answer = "y" ]
+read -p "Do you want to continue [Y/n]?" answer
+if [[  $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then
 echo "update database..."
 # command for upgrade when the database is in the same server than software

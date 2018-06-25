@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-20 17:04+0200\n"
+"POT-Creation-Date: 2018-06-25 14:45+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -379,7 +379,7 @@ msgstr "general configuration of the PHP server"
 #. (itstool) path: menu/item@label
 #: ../../../param/menu.xml:53
 #: ../../../framework/identification/disconnect.php:11
-#: ../../../framework/common.inc.php:245
+#: ../../../framework/common.inc.php:269
 #: ../../../display/templates/entete.tpl:21
 #: ../../../display/templates/entete.tpl:40
 #: ../../../display/templates/entete.tpl:41
@@ -487,31 +487,31 @@ msgstr "Unable to read the file containing the glossary"
 msgid "Vous n'êtes pas identifié."
 msgstr "You are not signed in."
 
-#: ../../../framework/fonctions.php:29
+#: ../../../framework/fonctions.php:31
 msgid "Erreur de lecture des informations dans la base de données"
 msgstr "Error reading information in the database"
 
 #. traduction: conserver inchangée la chaîne %s
-#: ../../../framework/fonctions.php:43
+#: ../../../framework/fonctions.php:45
 #, php-format
 msgid "Erreur: type d'affichage non défini pour le module demandé : %s"
 msgstr "Error: display type not defined for the requested module: %s"
 
-#: ../../../framework/fonctions.php:59 ../../../modules/param/dbparam.php:18
-#: ../../../modules/gestion/movement.php:112
-#: ../../../modules/gestion/movement.php:139
+#: ../../../framework/fonctions.php:61 ../../../modules/param/dbparam.php:18
+#: ../../../modules/gestion/movement.php:114
+#: ../../../modules/gestion/movement.php:142
 msgid "Enregistrement effectué"
 msgstr "Saved"
 
-#: ../../../framework/fonctions.php:66
+#: ../../../framework/fonctions.php:70
 msgid "Problème lors de l'enregistrement..."
 msgstr "Problem when saving ..."
 
-#: ../../../framework/fonctions.php:100
+#: ../../../framework/fonctions.php:104
 msgid "Suppression effectuée"
 msgstr "Deletion done"
 
-#: ../../../framework/fonctions.php:107
+#: ../../../framework/fonctions.php:113
 msgid "Problème lors de la suppression"
 msgstr "Problem when deleting"
 
@@ -528,7 +528,7 @@ msgstr ""
 "applicable"
 
 #: ../../../framework/identification/disconnect.php:9
-#: ../../../framework/common.inc.php:243
+#: ../../../framework/common.inc.php:267
 msgid "Vous êtes maintenant déconnecté"
 msgstr "You are now signed off"
 
@@ -630,6 +630,34 @@ msgstr ""
 "The access to the module does not respect the order of the sequences in the "
 "application. Maybe you tried to refresh the page?"
 
+#: ../../../framework/objetbdd/ObjetBDD.php:1436
+#, php-format
+msgid "le champ %1$s  n'est pas numerique. Valeur saisie : %2$s"
+msgstr "The field %1$s is not numeric. Entered value: %2$s"
+
+#: ../../../framework/objetbdd/ObjetBDD.php:1440
+#, php-format
+msgid ""
+"Le champ %1$s est trop grand. Longueur maximale autorisée : %2$s. Valeur "
+"saisie : %3$s (%4$s caracteres)"
+msgstr ""
+"The %1$s field is too big. Maximum length allowed: %2$s. Entered value: %3$s "
+"(%4$s characters)"
+
+#: ../../../framework/objetbdd/ObjetBDD.php:1444
+#, php-format
+msgid ""
+"Le contenu du champ %1$s ne correspond pas au format attendu. Masque "
+"autorisé : %2$s. Valeur saisie : %3$s"
+msgstr ""
+"The content of the field %1$s does not match the expected format. Authorized "
+"mask: %2$s. Entered value: %3$s"
+
+#: ../../../framework/objetbdd/ObjetBDD.php:1448
+#, php-format
+msgid "Le champ %s est obligatoire, mais n'a pas été renseigné."
+msgstr "The field %s is required, but has not been filled out."
+
 #: ../../../framework/controller.php:16
 msgid ""
 "Problème dans les données fournies : l'encodage des caractères n'est pas "
@@ -702,15 +730,15 @@ msgstr "Error writing to the trace file"
 msgid "Mode développement - base de données : %1$s - schema : %2$s"
 msgstr "Development mode - database: %1$s - schema: %2$s"
 
-#: ../../../framework/common.inc.php:211
+#: ../../../framework/common.inc.php:235
 msgid "Echec de connexion à la base de données de gestion des droits (GACL)"
 msgstr "Failed to connect to rights management database (GACL)"
 
-#: ../../../framework/common.inc.php:214
+#: ../../../framework/common.inc.php:238
 msgid "Echec de connexion à la base de données principale"
 msgstr "Failed to connect to the main database"
 
-#: ../../../framework/common.inc.php:228
+#: ../../../framework/common.inc.php:252
 msgid ""
 "Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"
 msgstr "You have been disconnected, your session has been open for too long"
@@ -723,7 +751,7 @@ msgstr "Administration module"
 msgid "impossible d'enregistrer la pièce jointe"
 msgstr "unable to save attachment"
 
-#: ../../../modules/param/dbparam.php:25
+#: ../../../modules/param/dbparam.php:27
 msgid "Problème lors de la mise en fichier..."
 msgstr "Writing problem..."
 
@@ -753,45 +781,45 @@ msgstr "Can not import metadata"
 msgid "Vous ne disposez pas des droits pour modifier cet échantillon"
 msgstr "You do not have rights to edit this sample"
 
-#: ../../../modules/classes/sample.class.php:481
+#: ../../../modules/classes/sample.class.php:479
 msgid "Droits insuffisants pour exporter les échantillons"
 msgstr "Insufficient rights to export samples"
 
-#: ../../../modules/classes/sample.class.php:570
+#: ../../../modules/classes/sample.class.php:561
 msgid "L'identifiant de la base de données d'origine n'a pas été fourni"
 msgstr "The identifier of the original database is missing"
 
-#: ../../../modules/classes/sample.class.php:576
+#: ../../../modules/classes/sample.class.php:567
 msgid "Le nom de la collection n'a pas été renseigné"
 msgstr "The name of the collection has not been filled out"
 
-#: ../../../modules/classes/sample.class.php:582
+#: ../../../modules/classes/sample.class.php:573
 msgid "Le type d'échantillon n'a pas été renseigné"
 msgstr "The sample type has not been filled out"
 
-#: ../../../modules/classes/sample.class.php:604
+#: ../../../modules/classes/sample.class.php:595
 #, php-format
 msgid "Le format de date de %s n'est pas reconnu. "
 msgstr "The date format of %s is not recognized. "
 
-#: ../../../modules/classes/sample.class.php:612
+#: ../../../modules/classes/sample.class.php:603
 #, php-format
 msgid "La date de %s est incomplète ou incohérente. "
 msgstr "The date of %s is incomplete or inconsistent."
 
-#: ../../../modules/classes/sample.class.php:623
+#: ../../../modules/classes/sample.class.php:614
 msgid "Les métadonnées ne sont pas correctement formatées (champ metadata)"
 msgstr "Metadata is not formatted correctly (metadata field)"
 
-#: ../../../modules/classes/sample.class.php:697
+#: ../../../modules/classes/sample.class.php:688
 msgid "Impossible d'écrire dans la table Object"
 msgstr "Can not write to the Object table"
 
-#: ../../../modules/classes/object.class.php:680
+#: ../../../modules/classes/object.class.php:683
 msgid "Pas de modèle d'étiquettes disponible"
 msgstr "No label template available"
 
-#: ../../../modules/classes/object.class.php:687
+#: ../../../modules/classes/object.class.php:690
 msgid "Pas d'étiquettes à imprimer"
 msgstr "No labels to print"
 
@@ -822,36 +850,36 @@ msgid ""
 "sample_metadata_json)"
 msgstr "Metadata is not formatted correctly (sample_metadata_json field)"
 
-#: ../../../modules/classes/importObject.class.php:656
+#: ../../../modules/classes/importObject.class.php:655
 #, php-format
 msgid ""
 "Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "
 msgstr "The metadata do not match the sample type (%s not recognized)."
 
-#: ../../../modules/classes/importObject.class.php:666
+#: ../../../modules/classes/importObject.class.php:665
 #, php-format
 msgid "L'échantillon parent défini n'existe pas (%s)"
 msgstr "The defined parent sample does not exist (%s)"
 
-#: ../../../modules/classes/importObject.class.php:687
+#: ../../../modules/classes/importObject.class.php:686
 msgid "Le type de contenant n'est pas connu."
 msgstr "The container type is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:702
+#: ../../../modules/classes/importObject.class.php:701
 msgid "Le statut du contenant n'est pas connu."
 msgstr "The container's status is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:713
+#: ../../../modules/classes/importObject.class.php:712
 #, php-format
 msgid "L'UID du contenant parent (%s) n'existe pas. "
 msgstr "The UID of the parent container (%s) does not exist. "
 
-#: ../../../modules/classes/importObject.class.php:724
+#: ../../../modules/classes/importObject.class.php:723
 #, php-format
 msgid "Le champ %s n'est pas numérique."
 msgstr "The field %s is not numeric."
 
-#: ../../../modules/classes/importObject.class.php:733
+#: ../../../modules/classes/importObject.class.php:732
 msgid ""
 "Aucun échantillon ou contenant n'est décrit (pas d'identifiant pour l'un ou "
 "pour l'autre)."
@@ -877,7 +905,7 @@ msgstr ""
 msgid "Pas de contenant correspondant à l'UID %s. "
 msgstr "No container matching to UID %s. "
 
-#: ../../../modules/gestion/sample.php:36
+#: ../../../modules/gestion/sample.php:37
 msgid ""
 "Un problème est survenu lors de l'exécution de la requête. Contactez votre "
 "administrateur pour obtenir un diagnostic"
@@ -885,18 +913,18 @@ msgstr ""
 "There was a problem running the query. Contact your administrator for a "
 "diagnosis"
 
-#: ../../../modules/gestion/sample.php:137
+#: ../../../modules/gestion/sample.php:139
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"
 msgstr "You do not have the necessary rights to modify this sample"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s
-#: ../../../modules/gestion/sample.php:270
+#: ../../../modules/gestion/sample.php:272
 #, php-format
 msgid "Ligne %1$s : %2$s"
 msgstr "Row %1$s: %2$s"
 
-#: ../../../modules/gestion/sample.php:304
+#: ../../../modules/gestion/sample.php:306
 #: ../../../modules/gestion/import.php:72
 msgid "Impossible de recopier le fichier importé dans le dossier temporaire"
 msgstr "Can not copy the imported file to the temporary folder"
@@ -909,21 +937,21 @@ msgstr "Management module"
 msgid "Le contenant n'a pas été renseigné"
 msgstr "The container has not been filled"
 
-#: ../../../modules/gestion/movement.php:143
-#: ../../../modules/gestion/movement.php:235
+#: ../../../modules/gestion/movement.php:146
+#: ../../../modules/gestion/movement.php:237
 msgid "Impossible d'enregistrer le mouvement"
 msgstr "Can not record movement"
 
-#: ../../../modules/gestion/movement.php:189
+#: ../../../modules/gestion/movement.php:191
 #, php-format
 msgid "%d mouvement(s) généré(s)"
 msgstr "%d generated movement(s)"
 
-#: ../../../modules/gestion/movement.php:192
+#: ../../../modules/gestion/movement.php:194
 msgid "Erreur lors de la génération des mouvements"
 msgstr "Error while generating movements"
 
-#: ../../../modules/gestion/movement.php:232
+#: ../../../modules/gestion/movement.php:234
 msgid "Mouvement enregistré"
 msgstr "Movement saved"
 
@@ -1249,7 +1277,7 @@ msgid ""
 msgstr "Is identifier used in searches (only non-numeric values)?"
 
 #: ../../../display/templates/param/identifierTypeChange.tpl:27
-#: ../../../display/templates/param/metadataFormJS.tpl:73
+#: ../../../display/templates/param/metadataFormJS.tpl:146
 #: ../../../display/templates/param/identifierTypeList.tpl:34
 #: ../../../display/templates/param/sampleTypeList.tpl:47
 #: ../../../display/templates/param/eventTypeList.tpl:31
@@ -1266,7 +1294,7 @@ msgid "oui"
 msgstr "yes"
 
 #: ../../../display/templates/param/identifierTypeChange.tpl:33
-#: ../../../display/templates/param/metadataFormJS.tpl:73
+#: ../../../display/templates/param/metadataFormJS.tpl:146
 #: ../../../display/templates/param/identifierTypeList.tpl:34
 #: ../../../display/templates/param/eventTypeList.tpl:31
 #: ../../../display/templates/param/eventTypeList.tpl:34
@@ -1447,56 +1475,56 @@ msgstr "Field type"
 msgid "Choix possibles"
 msgstr "Possible choices"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:74
+#: ../../../display/templates/param/metadataFormJS.tpl:73
 msgid "champ utilisé pour rechercher un échantillon ?"
 msgstr "Is this field used to search for a sample?"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:83
+#: ../../../display/templates/param/metadataFormJS.tpl:82
 msgid "Le champ est-il obligatoire ?"
 msgstr "Is the field mandatory?"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:86
+#: ../../../display/templates/param/metadataFormJS.tpl:85
 msgid "Affichage d'un message d'aide ?"
 msgstr "Display a help message?"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:90
+#: ../../../display/templates/param/metadataFormJS.tpl:89
 #: ../../../display/templates/param/metadataFormJS.tpl:154
 msgid "Message d'aide"
 msgstr "Help message"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:93
+#: ../../../display/templates/param/metadataFormJS.tpl:92
 msgid "Description du champ"
 msgstr "Description of the field"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:98
+#: ../../../display/templates/param/metadataFormJS.tpl:97
 msgid "Unité de mesure (ou modalités) - N/A si non applicable"
 msgstr "Unit of measure (or modalities) - N/A if not applicable"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:114
+#: ../../../display/templates/param/metadataFormJS.tpl:113
 msgid "Nombre"
 msgstr "Number"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:114
+#: ../../../display/templates/param/metadataFormJS.tpl:113
 msgid "Texte (une ligne)"
 msgstr "Text (one line)"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:114
+#: ../../../display/templates/param/metadataFormJS.tpl:113
 msgid "Texte (multi-ligne)"
 msgstr "Text (multi-line)"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:114
+#: ../../../display/templates/param/metadataFormJS.tpl:113
 msgid "Case à cocher"
 msgstr "Checkbox"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:114
+#: ../../../display/templates/param/metadataFormJS.tpl:113
 msgid "Liste à choix multiple"
 msgstr "Multiple choice list"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:114
+#: ../../../display/templates/param/metadataFormJS.tpl:113
 msgid "Boutons Radio"
 msgstr "Radio Buttons"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:128
+#: ../../../display/templates/param/metadataFormJS.tpl:127
 msgid "Importer un fichier CSV"
 msgstr "Import a CSV file"
 

@@ -112,7 +112,7 @@
 		<div class="col-md-6">
 			<div class="form-horizontal protoform">
 				<div class="form-group center">
-					<button id="destObject" class="btn btn-success">{t}Lecture de l'objet à Entrer ou déplacer{/t}</button>
+					<button id="destObject" class="btn btn-success">{t}Lecture de l'objet à entrer ou déplacer{/t}</button>
 					<button id="destContainer" class="btn btn-success">{t}Lecture du contenant{/t}</button>
 				</div>
 
@@ -136,7 +136,7 @@
 			<div class="form-horizontal protoform">
 				<div class="form-group center">
 					<button id="start" class="btn btn-success">{t}Lecture du contenant{/t}</button>
-					<button id="start2" class="btn btn-success">{t}Lecture de l'objet à Entrer ou déplacer{/t}</button>
+					<button id="start2" class="btn btn-success">{t}Lecture de l'objet à entrer ou déplacer{/t}</button>
 					<button id="stop" class="btn btn-danger">{t}Arrêter la lecture{/t}</button>
 				</div>
 			</div>

@@ -33,7 +33,7 @@
 
 			<div class="row">
 				<div class="center">
-					<button type="button" class="btn btn-warning" id="entree">{t}Tout Entrer ou déplacer...{/t}</button>
+					<button type="button" class="btn btn-warning" id="entree">{t}Tout entrer ou déplacer...{/t}</button>
 					<button type="button" class="btn btn-warning" id="sortie">{t}Tout sortir du stock...{/t}</button>
 				</div>
 			</div>

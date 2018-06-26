@@ -7,7 +7,7 @@
 &nbsp;
 <a href="index.php?module=containerChange&uid=0">
 <img src="{$display}/images/new.png" height="25">
-{t}Nouveau container{/t}
+{t}Nouveau contenant{/t}
 </a>
 &nbsp;
 <a href="index.php?module=containerChange&uid={$data.uid}">

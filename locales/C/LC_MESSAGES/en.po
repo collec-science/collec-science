@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-25 15:16+0200\n"
+"POT-Creation-Date: 2018-06-26 16:38+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2686,7 +2686,8 @@ msgid "Détail d'un contenant"
 msgstr "Detail of a container"
 
 #: ../../../display/templates/gestion/containerDisplay.tpl:10
-msgid "Nouveau container"
+#: ../../../display/templates/gestion/containerList.tpl:12
+msgid "Nouveau contenant"
 msgstr "New container"
 
 #: ../../../display/templates/gestion/containerDisplay.tpl:14
@@ -3536,10 +3537,6 @@ msgstr "Remains available (samples)"
 msgid "Rechercher des contenants"
 msgstr "Find containers"
 
-#: ../../../display/templates/gestion/containerList.tpl:12
-msgid "Nouveau contenant"
-msgstr "New container"
-
 #: ../../../display/templates/gestion/subsampleList.tpl:14
 msgid "Mouvement"
 msgstr "Movement"
@@ -3964,6 +3961,9 @@ msgstr ""
 #: ../../../display/templates/enpied.tpl:5
 msgid "Pour tout problème :"
 msgstr "For any problem:"
+
+#~ msgid "Nouveau container"
+#~ msgstr "New container"
 
 #~ msgid "Déplacer dans :"
 #~ msgstr "Move into:"

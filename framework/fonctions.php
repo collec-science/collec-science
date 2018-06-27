@@ -212,7 +212,7 @@ function initGettext($langue)
      * sudo service apache2 reload
      */
     // var_dump($langue); // aide à la traduction lors du développement
-    setlocale(LC_ALL, "C.UTF-8"); // setlocale pour linux // C = localisation portable par défaut
+    setlocale(LC_ALL, "C.UTF-8", "C"); // setlocale pour linux // C = localisation portable par défaut
                                   // Attention : La valeur retournée par setlocale() dépend du système sur lequel PHP est installé. setlocale() retourne exactement ce que la fonction système setlocale retourne.
                                   // TODO aide au diagnostic : vérifier que setlocale a réussi ou que le fichier de langue existe bien
                                   // $path = realpath("./locales") . "/C/LC_MESSAGES/$langue.mo";

@@ -52,7 +52,9 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 	 });
 	searchType();
 	{if $data.container_type_id > 0}
-	options = '<option value="' + {$data.container_type_id} + '" selected> {$data.container_type_name} </option>';
+	var type_libelle = "{$data.container_type_name}";
+	type_libelle = type_libelle.replace(/'/g, "\\'");
+	options = '<option value="' + {$data.container_type_id} + '" selected>'+ type_libelle + ' </option>';
 	$("#container_type_id").html(options);
 	{/if}
 	

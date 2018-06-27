@@ -141,7 +141,7 @@ class ImportObject
                 /*
                  * identification of metadata columns
                  */
-                if (substr($value, 0, 2) == "md_") {
+                if (substr($value, 0, 3) == "md_") {
                     $this->md_columns[] = $value;
                 }
                 /*
@@ -312,9 +312,10 @@ class ImportObject
                 } else {
                     $md_array = array();
                 }
+               
                 foreach ($this->md_columns as $md_col) {
-                    if (strlen($values[$md_col] > 0)) {
-                        $colname = substr($md_col, 2);
+                    if (strlen($values[$md_col]) > 0) {
+                        $colname = substr($md_col, 3);
                         $md_array[$colname] = $values[$md_col];
                     }
                 }

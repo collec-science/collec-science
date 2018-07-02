@@ -92,7 +92,12 @@
 <li><b>sample_multiple_value</b> : {t}le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
 si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point){/t}</li>
 <li><b>sample_parent_uid</b> : {t}UID du parent (création d'échantillons rattachés){/t}</li>
-<li><b>sample_metadata_json</b> : {t escape=no}les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"taxon":"Alosa alosa"&#125;){/t}</li>
+<li>
+<b>sample_metadata_json</b> : {t escape=no}les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"taxon":"Alosa alosa"&#125;){/t}
+<ul>
+<li>{t}il est également possible de définir les métadonnées avec un attribut par colonne. Dans ce cas, la colonne doit être nommée md_nomAttribut, par exemple : md_taxon. La valeur de la colonne md_xxx écrasera celle de l’attribut xxx présent dans la colonne sample_metadata_json{/t}
+</ul>
+</li>
 <li><b>container_identifier</b> : {t}l'identifiant du contenant (obligatoire){/t}</li>
 <li><b>container_type_id</b> : {t}le numéro informatique du type de contenant (obligatoire){/t}</li>
 <li><b>container_status_id</b> : {t}le numéro informatique du statut du contenant (obligatoire){/t}</li>

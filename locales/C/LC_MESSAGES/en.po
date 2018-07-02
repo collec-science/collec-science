@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-02 14:39+0200\n"
+"POT-Creation-Date: 2018-07-02 17:03+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,7 +29,6 @@ msgstr "Operations on samples or containers"
 msgid "Contenants"
 msgstr "Containers"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:8 ../../../display/templates/main.tpl:6
 msgid "Liste des contenants"
@@ -40,7 +39,6 @@ msgstr "List of containers"
 msgid "Échantillons"
 msgstr "Samples"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:9 ../../../display/templates/main.tpl:13
 msgid "Liste des échantillons"
@@ -66,7 +64,6 @@ msgstr "Import of external samples"
 msgid "Import d'un lot d'échantillons provenant d'une base externe"
 msgstr "Import a batch of samples from an external base"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../../param/menu.xml:14
 #: ../../../display/templates/gestion/containerDisplay.tpl:119
@@ -79,7 +76,6 @@ msgstr "Movements"
 msgid "Création de mouvements dans le stock"
 msgstr "Creating movements in the stock"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:15 ../../../display/templates/main.tpl:42
 #: ../../../display/templates/gestion/fastInputChange.tpl:5
@@ -91,7 +87,6 @@ msgstr "Store or move into container"
 msgid "Déplacer un échantillon/contenant dans un contenant"
 msgstr "Move a sample / container into a container"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:16 ../../../display/templates/main.tpl:56
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:59
@@ -105,7 +100,6 @@ msgstr "Remove from stock"
 msgid "Sortir un échantillon/contenant du stock"
 msgstr "Remove a sample / container from the stock"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:17 ../../../display/templates/main.tpl:49
 #: ../../../display/templates/gestion/movementBatchRead.tpl:21
@@ -117,7 +111,6 @@ msgstr "Store or move / Remove in batches"
 msgid "Entrer ou déplacer / Sortir par scan multiple de QR Code"
 msgstr "Store or move / remove by multiple scan of QR Code"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:18 ../../../display/templates/main.tpl:20
 #: ../../../display/templates/main.tpl:30
@@ -145,7 +138,6 @@ msgstr "Search for movements over a period of time"
 msgid "Paramètres"
 msgstr "Settings"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:24
 #: ../../../display/templates/param/collectionList.tpl:2
@@ -157,7 +149,6 @@ msgstr "Collections"
 msgid "Liste des collections"
 msgstr "List of collections"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:25
 #: ../../../display/templates/param/protocolList.tpl:2
@@ -179,7 +170,6 @@ msgstr "Operations"
 msgid "Liste des opérations rattachées à un protocole"
 msgstr "List of operations attached to a protocol"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:28
 #: ../../../display/templates/param/containerFamilyList.tpl:2
@@ -191,7 +181,6 @@ msgstr "Families of containers"
 msgid "Familles de contenants (armoires, éprouvettes...)"
 msgstr "Families of containers (cabinets, test tubes ...)"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:29
 #: ../../../display/templates/param/containerTypeList.tpl:2
@@ -203,7 +192,6 @@ msgstr "Container types"
 msgid "Liste des types de contenants"
 msgstr "List of container types"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:30
 #: ../../../display/templates/param/sampleTypeList.tpl:2
@@ -215,7 +203,6 @@ msgstr "Sample types"
 msgid "Liste des types d'échantillons gérés"
 msgstr "List of managed sample types"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:31
 #: ../../../display/templates/param/identifierTypeList.tpl:2
@@ -227,7 +214,6 @@ msgstr "Identifier types"
 msgid "Liste des types d'identifiants rattachables à un objet"
 msgstr "List of identifier types that can be attached to an object"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:32
@@ -240,14 +226,12 @@ msgstr "Subsampling types"
 msgid "Métadonnées"
 msgstr "Metadata"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:33
 #: ../../../display/templates/param/metadataList.tpl:15
 msgid "Modèles de métadonnées"
 msgstr "Metadata templates"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:34
 #: ../../../display/templates/param/samplingPlaceList.tpl:2
@@ -259,7 +243,6 @@ msgstr "Locations of sampling"
 msgid "Liste des lieux de prélèvement des échantillons"
 msgstr "List of sampling locations"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:36
@@ -267,7 +250,6 @@ msgstr "List of sampling locations"
 msgid "Types d'événement"
 msgstr "Event types"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:37
 #: ../../../display/templates/param/storageConditionList.tpl:2
@@ -279,7 +261,6 @@ msgstr "Storage conditions"
 msgid "Liste des conditions de stockage"
 msgstr "List of storage conditions"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:38
 #: ../../../display/templates/param/movementReasonList.tpl:2
@@ -301,7 +282,6 @@ msgstr "Object statuses"
 msgid "Liste des statuts possibles pour les objets"
 msgstr "List of possible statuses for objects"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:41
 #: ../../../display/templates/gestion/sampleListDetail.tpl:94
@@ -315,7 +295,6 @@ msgstr "Labels"
 msgid "Modèles d'étiquettes"
 msgstr "Label templates"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:42
 #: ../../../display/templates/param/printerList.tpl:2
@@ -387,7 +366,6 @@ msgstr "Application Settings"
 msgid "Liste des paramètres pérennes de l'application"
 msgstr "List of long-term parameters of the application"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:51 ../../../display/templates/phpinfo.tpl:1
 msgid "PHP info"
@@ -398,7 +376,6 @@ msgstr "PHP info"
 msgid "configuration générale du serveur PHP"
 msgstr "general configuration of the PHP server"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../../param/menu.xml:53 ../../../framework/common.inc.php:269
 #: ../../../framework/identification/disconnect.php:11
@@ -413,7 +390,6 @@ msgstr "Sign in"
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../../param/menu.xml:54 ../../../display/templates/entete.tpl:36
 #: ../../../display/templates/entete.tpl:37
@@ -425,7 +401,6 @@ msgstr "Sign out"
 msgid "Déconnexion de l'application"
 msgstr "Sign out of the app"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:55
 #: ../../../display/templates/ident/loginChangePassword.tpl:33
@@ -469,7 +444,6 @@ msgstr "What's new?"
 msgid "Quoi de neuf dans l'application ?"
 msgstr "What's new in the app?"
 
-#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:60
 #: ../../../display/templates/documentation/lexique.tpl:1
@@ -1330,7 +1304,7 @@ msgstr "Delete..."
 #: ../../../display/templates/gestion/containerChange.tpl:181
 #: ../../../display/templates/gestion/sampleImport.tpl:38
 #: ../../../display/templates/gestion/fastInputChange.tpl:104
-#: ../../../display/templates/gestion/import.tpl:126
+#: ../../../display/templates/gestion/import.tpl:131
 #: ../../../display/templates/gestion/movementBatchRead.tpl:47
 #: ../../../display/templates/gestion/bookingChange.tpl:110
 #: ../../../display/templates/gestion/subsampleChange.tpl:66
@@ -2456,7 +2430,7 @@ msgstr ""
 msgid "UID du parent (création d'échantillons rattachés)"
 msgstr "Parent UID (creates attached samples)"
 
-#: ../../../display/templates/gestion/import.tpl:95
+#: ../../../display/templates/gestion/import.tpl:96
 msgid ""
 "les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"
 "\"taxon\":\"Alosa alosa\"&#125;)"
@@ -2464,56 +2438,68 @@ msgstr ""
 "metadata attached to the sample (in json format, eg: &#123;\"taxon\":\"Alosa "
 "alosa\"&#125;)"
 
-#: ../../../display/templates/gestion/import.tpl:96
+#: ../../../display/templates/gestion/import.tpl:98
+msgid ""
+"il est également possible de définir les métadonnées avec un attribut par "
+"colonne. Dans ce cas, la colonne doit être nommée md_nomAttribut, par "
+"exemple : md_taxon. La valeur de la colonne md_xxx écrasera celle de "
+"l’attribut xxx présent dans la colonne sample_metadata_json"
+msgstr ""
+"it is also possible to define the metadata with one attribute per column. In "
+"this case, the column must be named md_attributeName, for example: md_taxon. "
+"The value of the md_xxx column will override the value of the xxx attribute "
+"in the sample_metadata_json column"
+
+#: ../../../display/templates/gestion/import.tpl:101
 msgid "l'identifiant du contenant (obligatoire)"
 msgstr "the container identifier (required)"
 
-#: ../../../display/templates/gestion/import.tpl:97
+#: ../../../display/templates/gestion/import.tpl:102
 msgid "le numéro informatique du type de contenant (obligatoire)"
 msgstr "the number of the container type given by the app (required)"
 
-#: ../../../display/templates/gestion/import.tpl:98
+#: ../../../display/templates/gestion/import.tpl:103
 msgid "le numéro informatique du statut du contenant (obligatoire)"
 msgstr "the number of the container status given by the app (required)"
 
-#: ../../../display/templates/gestion/import.tpl:99
+#: ../../../display/templates/gestion/import.tpl:104
 msgid "l'emplacement de rangement du contenant dans son parent (texte libre)"
 msgstr "the storage location of the container in its parent (free text)"
 
-#: ../../../display/templates/gestion/import.tpl:100
+#: ../../../display/templates/gestion/import.tpl:105
 msgid "n° de la colonne de stockage dans le contenant parent"
 msgstr "# of the storage column in the parent container"
 
-#: ../../../display/templates/gestion/import.tpl:101
+#: ../../../display/templates/gestion/import.tpl:106
 msgid "n° de la ligne de stockage dans le contenant parent"
 msgstr "# of the storage line in the parent container"
 
-#: ../../../display/templates/gestion/import.tpl:102
+#: ../../../display/templates/gestion/import.tpl:107
 msgid "l'UID du contenant parent"
 msgstr "the UID of the parent container"
 
-#: ../../../display/templates/gestion/import.tpl:104
+#: ../../../display/templates/gestion/import.tpl:109
 msgid ""
 "Les codes informatiques peuvent être consultés à partir du menu "
 "<i>Paramètres</i>."
 msgstr "Codes given by the app can be viewed from the <i>Settings</ i> menu."
 
-#: ../../../display/templates/gestion/import.tpl:108
+#: ../../../display/templates/gestion/import.tpl:113
 msgid "Pour les identifiants complémentaires :"
 msgstr "For additional identifiers:"
 
-#: ../../../display/templates/gestion/import.tpl:110
+#: ../../../display/templates/gestion/import.tpl:115
 msgid "repérez les codes dans le menu des paramètres > Types d'identifiants"
 msgstr "find the codes in the menu Settings > Identifier types"
 
-#: ../../../display/templates/gestion/import.tpl:111
+#: ../../../display/templates/gestion/import.tpl:116
 msgid ""
 "vous ne pouvez indiquer qu'un code par ligne (mais plusieurs types de codes "
 "possibles)"
 msgstr ""
 "you can only enter one code per line (but several types of possible codes)"
 
-#: ../../../display/templates/gestion/import.tpl:112
+#: ../../../display/templates/gestion/import.tpl:117
 msgid ""
 "ils seront associés à l'échantillon et au contenant, si les deux sont "
 "indiqués dans la même ligne"
@@ -2521,19 +2507,19 @@ msgstr ""
 "they will be associated with the sample and container, if both are shown in "
 "the same line"
 
-#: ../../../display/templates/gestion/import.tpl:115
+#: ../../../display/templates/gestion/import.tpl:120
 msgid "L'import sera réalisé ainsi :"
 msgstr "The import will be made as following:"
 
-#: ../../../display/templates/gestion/import.tpl:117
+#: ../../../display/templates/gestion/import.tpl:122
 msgid "si <i>sample_identifier</i> est renseigné : création de l'échantillon"
 msgstr "if <i>sample_identifier</i> is specified: creates the sample"
 
-#: ../../../display/templates/gestion/import.tpl:118
+#: ../../../display/templates/gestion/import.tpl:123
 msgid "si <i>container_identifier</i> est renseigné : création du contenant"
 msgstr "if <i>container_identifier</i> is filled: creates container"
 
-#: ../../../display/templates/gestion/import.tpl:119
+#: ../../../display/templates/gestion/import.tpl:124
 msgid ""
 "si <i>container_identifier</i> et <i>container_parent_uid</i> sont "
 "renseignés : création du mouvement d'entrée du contenant"
@@ -2541,7 +2527,7 @@ msgstr ""
 "if <i>container_identifier</i> and <i>container_parent_uid</i> are "
 "specified: creates the entry movement of the container"
 
-#: ../../../display/templates/gestion/import.tpl:120
+#: ../../../display/templates/gestion/import.tpl:125
 msgid ""
 "si l'échantillon et le contenant ont été créés, création du mouvement "
 "d'entrée de l'échantillon dans le contenant"
@@ -2549,7 +2535,7 @@ msgstr ""
 "if the sample and the container were created, create the entry movement of "
 "the sample in the container"
 
-#: ../../../display/templates/gestion/import.tpl:121
+#: ../../../display/templates/gestion/import.tpl:126
 msgid ""
 "si l'échantillon est créé, que <i>container_parent_uid</i> est renseigné, et "
 "que <i>container_identifier</i> n'est pas rempli, création du mouvement "

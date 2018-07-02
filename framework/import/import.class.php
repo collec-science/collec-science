@@ -171,7 +171,7 @@ class Import
     /**
      * Retourne le contenu de la ligne courante
      *
-     * @return Ambigous <array, boolean>
+     * @return <array, boolean>
      */
     function getLigneCourante()
     {

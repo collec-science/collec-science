@@ -116,7 +116,7 @@ class Vue
     /**
      * Assigne une valeur
      *
-     * @param unknown $value
+     * @param $value
      * @param string $variable
      */
     function set($value, $variable = "")
@@ -150,7 +150,7 @@ class Vue
                 $data[$key] = $this->encodehtml($value);
             }
         } else {
-            $data = htmlspecialchars($data);
+            $data = htmlspecialchars($data, ENT_QUOTES);
         }
         return $data;
     }

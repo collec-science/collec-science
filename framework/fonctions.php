@@ -8,7 +8,7 @@
  * Lit un enregistrement dans la base de donnees, affecte le tableau a Smarty,
  * et declenche l'affichage de la page associee
  *
- * @param instance $dataClass
+ * @param ObjetBDD $dataClass
  * @param int $id
  * @param string $smartyPage
  * @param int $idParent
@@ -49,7 +49,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
 /**
  * Ecrit un enregistrement en base de donnees
  *
- * @param instance $dataClass
+ * @param ObjetBDD $dataClass
  * @param array $data
  * @return int
  */
@@ -78,7 +78,7 @@ function dataWrite($dataClass, $data)
 /**
  * Supprime un enregistrement en base de donnees
  *
- * @param instance $dataClass
+ * @param ObjetBDD $dataClass
  * @param int $id
  * @return int
  */
@@ -283,7 +283,7 @@ function htmlDecode($data)
             $data[$key] = htmlDecode($value);
         }
     } else {
-        $data = htmlspecialchars_decode($data);
+        $data = htmlspecialchars_decode($data, ENT_QUOTES);
     }
     return $data;
 }

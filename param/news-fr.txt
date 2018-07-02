@@ -1,5 +1,14 @@
 News
 ===========
+Version 2.1 du 3 juillet 2018
+-----------------------------
+Corrections de bugs :
+- lors de l'édition d'un contenant, le type de contenant n'était pas affiché s'il contenait une apostrophe
+- lors de la création du mail de récupération du mot de passe, le nom de l'application n'était pas correctement initialisé
+
+Évolutions :
+- support complet de l'anglais dans l'ensemble du logiciel
+
 Version 2.0.1 du 25 mai 2018
 --------------------------
 Corrections de bugs :

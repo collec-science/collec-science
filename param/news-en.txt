@@ -1,5 +1,14 @@
 News
 ===========
+Version 2.1 of July 3, 2018
+---------------------------
+Bug fixes:
+- when a container was edited, the container type was not displayed if it contained a quote
+- when creating the password recovery mail, the application name was not correctly initialized
+
+Enhancements:
+- full English support in all software
+
 Version 2.0.1 of May 25, 2018
 --------------------------
 Bug fixes:

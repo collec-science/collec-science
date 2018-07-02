@@ -19,14 +19,14 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
     global $vue, $OBJETBDD_debugmode, $message;
     if (isset($vue)) {
         if (is_numeric($id)) {
-            
+
             try {
                 $data = $dataClass->lire($id, true, $idParent);
             } catch (Exception $e) {
                 if ($OBJETBDD_debugmode > 0) {
                     foreach ($dataClass->getErrorData(1) as $messageError) {
-                    $message->set($messageError);
-                }
+                        $message->set($messageError);
+                    }
                 } else {
                     $message->set(_("Erreur de lecture des informations dans la base de données"));
                 }
@@ -129,12 +129,12 @@ function dataDelete($dataClass, $id)
 function setlanguage($langue)
 {
     global $language, $LANG, $APPLI_cookie_ttl, $APPLI_menufile, $menu, $ObjetBDDParam;
-    
+
     /*
      * Initialisation des parametres pour gettext
      */
     initGettext($langue);
-    
+
     /*
      * Chargement de la langue par defaut
      */
@@ -169,7 +169,6 @@ function setlanguage($langue)
     include_once 'framework/navigation/menu.class.php';
     $menu = new Menu($APPLI_menufile);
     $_SESSION["menu"] = $menu->generateMenu();
-    
     /*
      * Appel des fonctions specifiques de l'application
      */
@@ -183,7 +182,7 @@ function setlanguage($langue)
         $cookieParam["secure"] = true;
     }
     $cookieParam["httponly"] = true;
-    
+
     setcookie('langue', $langue, time() + $APPLI_cookie_ttl, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
 }
 
@@ -192,7 +191,7 @@ function initGettext($langue)
     /*
      * Pour smarty-gettext (gettext)
      */
-    
+
     /*
      * Attention :
      * gettext fonctionne avec setlocale. Le problème est que setlocale dépend des locales installées sur le serveur.
@@ -213,10 +212,10 @@ function initGettext($langue)
      */
     // var_dump($langue); // aide à la traduction lors du développement
     setlocale(LC_ALL, "C.UTF-8", "C"); // setlocale pour linux // C = localisation portable par défaut
-                                  // Attention : La valeur retournée par setlocale() dépend du système sur lequel PHP est installé. setlocale() retourne exactement ce que la fonction système setlocale retourne.
-                                  // TODO aide au diagnostic : vérifier que setlocale a réussi ou que le fichier de langue existe bien
-                                  // $path = realpath("./locales") . "/C/LC_MESSAGES/$langue.mo";
-                                  // var_dump( $path, file_exists( $path ) );
+                                       // Attention : La valeur retournée par setlocale() dépend du système sur lequel PHP est installé. setlocale() retourne exactement ce que la fonction système setlocale retourne.
+                                       // TODO aide au diagnostic : vérifier que setlocale a réussi ou que le fichier de langue existe bien
+                                       // $path = realpath("./locales") . "/C/LC_MESSAGES/$langue.mo";
+                                       // var_dump( $path, file_exists( $path ) );
     putenv("LANG=C.UTF-8"); // putenv pour windows // non testé
     bindtextdomain($langue, realpath("./locales"));
     bind_textdomain_codeset($langue, "UTF-8");
@@ -358,7 +357,7 @@ function getHeaders()
         }
     }
     return $header;
-    
+
     /*
      * Fonction equivalente pour NGINX
      */

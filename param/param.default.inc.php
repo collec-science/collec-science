@@ -8,7 +8,8 @@
 */
 $APPLI_version = "2.1";
 $APPLI_dbversion = "2.1";
-$APPLI_versiondate = "2018-07-03"; // préférer le format année-mois-jour pour être compris dans la version anglaise
+$APPLI_versiondate = _("3/7/2018");
+//$APPLI_versiondate = "3/7/2018";
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*

@@ -1,0 +1,161 @@
+Collec-Science - procédure de mise à jour vers la version 2.0 depuis une version antérieure
+Document encodé en UTF-8 : si vous avez des problèmes pour le consulter depuis un poste Windows, ouvrez-le avec Notepad++
+-------------------------------------------------------------------------------------------
+
+
+Cas n°1
+
+    Collec-Science est installé dans un serveur dédié, qui comprend à la fois l’application et la base de données
+    le compte de connexion à la base de données n’a pas été modifié par rapport à la configuration par défaut
+    l’application est stockée dans le dossier /var/www/html/collec-science/xxxx, le lien /var/www/html/collec-science/collec pointe vers xxxx, et le site virtuel (dans /etc/apache2/sites-available) comprend la ligne : DocumentRoot /var/www/html/collec-science/collec
+    la version actuelle de Collec-Science est 2.0
+
+Connectez-vous à votre serveur, puis :
+
+ sudo -s
+ wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.0-2.1.sh
+chmod +x upgrade-2.0-2.1.sh
+ ./upgrade-2.0-2.1.sh
+
+Le programme va télécharger la nouvelle version et réaliser l’installation.
+
+Cas n° 1bis
+
+    Mêmes pré-requis que pour le cas 1, mais votre version est en 2.0.1 :
+
+Connectez-vous à votre serveur, puis :
+
+ sudo -s
+ wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.0.1-2.1.sh
+chmod +x upgrade-2.0.1-2.1.sh
+ ./upgrade-2.0.1-2.1.sh
+
+Cas n° 2
+
+    Collec-Science est installé dans un serveur dédié, qui comprend à la fois l’application et la base de données
+    le compte de connexion à la base de données n’a pas été modifié par rapport à la configuration par défaut
+    l’application est stockée dans le dossier /var/www/html/collec-science/xxxx, le lien /var/www/html/collec-science/collec pointe vers xxxx, et le site virtuel (dans /etc/apache2/sites-available) comprend la ligne : DocumentRoot /var/www/html/collec-science/collec
+    la version actuelle de Collec-Science est 1.2 ou 1.2.3
+
+Connectez-vous à votre serveur, puis :
+Etape 1 :
+
+ sudo -s
+ cd /var/www/html/collec-science
+ wget https://github.com/Irstea/collec/archive/master.zip
+ unzip collec-master.zip
+ mv collec-master/ collec-2.1
+ collec-2.1/install/apache2/upgrade_rights.sh collec-2.1
+
+Etape 2 :
+
+cd collec-2.1/install
+
+Si vous êtes en version 1.2 :
+
+ ./upgradedb-1.2-1.2.3.sh
+
+dans tous les cas :
+
+ ./upgradedb-1.2.3-2.0.sh
+ ./upgradedb-2.0-2.1.sh
+ cd ../..
+ rm collec
+ ln -s collec-2.1 collec
+
+Cas n° 3
+
+    votre installation ne répond ni au cas 1, ni au cas 2
+    votre instance est en version 1.2, 1.2.3, 2.0 ou 2.0.1
+
+Les opérations à réaliser sont celles du cas 2, en les adaptant.
+
+Connectez-vous à votre serveur, puis :
+Etape 1
+
+ sudo -s
+
+Positionnez-vous dans le dossier d’installation du programme :
+
+ cd /var/www/xxxx
+
+Récupérez le code de l’application :
+
+ wget https://github.com/Irstea/collec/archive/master.zip
+ unzip master.zip
+ mv collec-master collec-2.1
+
+Etape 2 : mise à jour de la base de données
+
+cd collec-2.1/install
+
+Selon le niveau de votre version actuelle, éditez les fichiers :
+
+    upgrade-1.2-1.2.3.sql
+    upgrade-1.2.3-2.0.sql
+    upgradedb-1.2-1.2.3.sh
+    upgradedb-1.2.3-2.0.sh
+    upgradedb-2.0-2.1.sh
+
+et vérifiez/adaptez les paramètres de connexion à la base de données.
+
+Éditez également les fichiers :
+
+    pgsql/col_alter_1.2-1.2.3.sql
+    pgsql/col_alter_1.2.3-2.0.sql
+    pgsql/col_alter_2.0-2.1.sql
+
+et vérifiez les noms des schémas.
+
+Lancez les scripts (selon votre version) :
+
+ ./upgradedb-1.2-1.2.3.sh
+ ./upgradedb-1.2.3-2.0.sh
+ ./upgradedb-2.0-2.1.sh
+
+Etape 3 : basculer vers la nouvelle version
+
+    Recopiez la version précédente de param/param.inc.php
+
+ cd ../..
+ cp ancien_dossier/param/param.inc.php collec-2.1/param/
+
+    Mettez à jour les droits :
+
+collec-2.1/install/apache2/upgrade_rights.sh collec-2.1
+
+    supprimez le lien symbolique (si c’est le mécanisme que vous avez utilisé), et recréez le :
+
+ rm collec
+ ln -s collec-2.1 collec
+
+Cas n° 4
+
+Votre instance est dans une version antérieure à la version 1.2.
+Il s’agit d’une adaptation du cas n° 3, vous devrez mettre à niveau votre base de données pour qu’elle puisse arriver à la version 1.2.
+
+Réalisez l’étape 1 du cas n° 3 : le code de l’application est maintenant téléchargé
+Dans le dossier collec-2.0/install/pgsql, vous retrouvez tous les scripts correspondants aux différentes mises à jour nécessaires.
+
+     éditez chaque fichier à exécuter, et vérifiez le nom des schémas
+    exécutez chaque script jusqu’à atteindre la version 1.2, avec la commande suivante :
+
+psql -h serveur -U username -W -d database -c "col_alter_1.1-1.2.sql"
+
+pour mettre à jour depuis la version 1.1 vers la version 1.2
+
+Réalisez alors les étapes 2 et 3 du cas n°3.
+
+
+Cas n° 5
+
+Votre instance est déjà  en version 2.0, mais votre serveur n’est pas structuré comme indiqué précédemment.
+
+Réalisez l’étape 1 du cas n° 2, en adaptant le script à votre configuration.
+
+Mettez à jour la base de données vers la version 2.1 :
+
+    vérifiez le script pgsql/col_alter_2.0-2.1.sql, et notamment le nom du schéma contenant les données
+    exécutez le script avec la commande :
+
+psql -h serveur -U username -W -d database -c "col_alter_2.0-2.1.sql"

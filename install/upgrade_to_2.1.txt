@@ -1,0 +1,158 @@
+Collec-Science - update procedure to version 2.0 from an earlier version
+
+Case 1
+
+    Collec-Science is installed in a dedicated server, which includes both the application and the database
+    the database connection account has not been changed from the default configuration
+    the application is stored in the /var/www/html/collec-science/xxxx folder, the /var/www/html/collec-science/collec link points to xxxx, and the virtual site (in /etc/apache /sites-available) includes this line: DocumentRoot /var/www/html/collec-science/collec
+    the current version of Collec-Science is 2.0
+
+Log into your server, then:
+
+ sudo -s
+ wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.0-2.1.sh
+ chmod + x upgrade-2.0-2.1.sh
+ ./upgrade-2.0-2.1.sh
+
+The program will download the new version and perform the installation.
+
+Case 1bis
+
+    Same prerequisites as for case 1, but your version is in 2.0.1:
+
+Log in to your server, then:
+
+ sudo -s
+ wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.0.1-2.1.sh
+chmod + x upgrade-2.0.1-2.1.sh
+ ./upgrade-2.0.1-2.1.sh
+
+Case 2
+
+    Collec-Science is installed in a dedicated server, which includes both the application and the database
+    the database connection account has not been changed from the default configuration
+    the application is stored in the /var/www/html/collec-science/xxxx folder, the /var/www/html/collec-science/collec link points to xxxx, and the virtual site (in /etc/apache2/sites-available) includes this line: DocumentRoot /var/www/html/collec-science/collec
+    the current version of Collec-Science is 1.2 or 1.2.3
+
+Log in to your server, then:
+Step 1 :
+
+ sudo -s
+ cd /var/www/html/collec-science
+ wget https://github.com/Irstea/collec/archive/master.zip
+ unzip collec-master.zip
+ mv collec-master/ collec-2.1
+ collec-2.1/install/apache2/upgrade_rights.sh collec-2.1
+
+2nd step :
+
+cd collec-2.1 / install
+
+If you are in version 1.2:
+
+ ./upgradedb-1.2-1.2.3.sh
+
+in all cases :
+
+ ./upgradedb-1.2.3-2.0.sh
+ ./upgradedb-2.0-2.1.sh
+ cd ../ ..
+ rm collec
+ ln -s collec-2.1 collec
+
+Case 3
+
+    your installation does not answer either case 1 or case 2
+    your instance is in version 1.2, 1.2.3, 2.0 or 2.0.1
+
+The operations to be performed are those of case 2, adapting them.
+
+Log in to your server, then:
+Step 1
+
+ sudo -s
+
+Go to the installation folder of the program:
+
+ cd /var/www/xxxx
+
+Get the code of the application:
+
+ wget https://github.com/Irstea/collec/archive/master.zip
+ unzip master.zip
+ mv collec-master collec-2.1
+
+Step 2: update the database
+
+cd collec-2.1 / install
+
+Depending on the level of your current version, edit the files:
+
+    upgrade-1.2-1.2.3.sql
+    upgrade-1.2.3-2.0.sql
+    upgradedb-1.2-1.2.3.sh
+    upgradedb-1.2.3-2.0.sh
+    upgradedb-2.0-2.1.sh
+
+and check / adapt the connection parameters to the database.
+
+Also edit the files:
+
+    pgsql/col_alter_1.2-1.2.3.sql
+    pgsql/col_alter_1.2.3-2.0.sql
+    pgsql/col_alter_2.0-2.1.sql
+
+and check the names of the schemas.
+
+Run the scripts (depending on your version):
+
+ ./upgradedb-1.2-1.2.3.sh
+ ./upgradedb-1.2.3-2.0.sh
+ ./upgradedb-2.0-2.1.sh
+
+Step 3: Switch to the new version
+
+    Copy the previous version of param/param.inc.php
+
+  cd ../..
+ cp old_folder/param/param.inc.php collec-2.1/param/
+
+    Update rights:
+
+collec-2.1/install/apache2/upgrade_rights.sh collec-2.1
+
+    delete the symlink (if that's the mechanism you used), and recreate it:
+
+ rm collec
+ ln -s collec-2.1 collec
+
+Case 4
+
+Your instance is in a version earlier than version 1.2.
+This is an adaptation of Case # 3, you will need to upgrade your database so that it can come to version 1.2.
+
+Realize step 1 of case 3: the application code is now downloaded
+In the folder collec-2.0/install/pgsql, you will find all the scripts corresponding to the different necessary updates.
+
+     edit each file to run, and check the names of the schemas
+    run each script until you reach version 1.2, with the following command:
+
+psql -h server -U username -W -d database -c "col_alter_1.1-1.2.sql"
+
+to update from version 1.1 to version 1.2
+
+Then perform steps 2 and 3 of case # 3.
+
+Case 5
+
+Your instance is already in version 2.0, but your server is not structured as indicated previously.
+
+Perform Step 1 of Case # 2, adapting the script to your configuration.
+
+Update the database to version 2.1:
+
+    check the script pgsql/col_alter_2.0-2.1.sql, and verify the name of the schema containing data
+    run the script with this command:  
+  
+psql -h serveur -U username -W -d database -c "col_alter_2.0-2.1.sql"
+

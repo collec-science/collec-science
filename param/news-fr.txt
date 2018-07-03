@@ -8,6 +8,7 @@ Corrections de bugs :
 
 Évolutions :
 - support complet de l'anglais dans l'ensemble du logiciel
+- une nouvelle variable doit être renseignée dans Administration > Paramètres de l'application : APPLI_title, qui doit contenir le titre de l'application qui est affichée
 
 Version 2.0.1 du 25 mai 2018
 --------------------------

@@ -8,6 +8,7 @@ Bug fixes:
 
 Enhancements:
 - full English support in all software
+- a new variable must be entered in Administration> Application Settings: APPLI_title, which must contain the title of the application that is displayed
 
 Version 2.0.1 of May 25, 2018
 --------------------------

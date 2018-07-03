@@ -41,7 +41,7 @@ ln -s $VERSION collec
 echo "update database"
 chmod 755 /var/www/html/collec-science
 cd collec/install
-su postgres -c "psql -f upgrade_2.0-2.1.sql"
+su postgres -c "psql -f upgrade-2.0-2.1.sql"
 cd ../..
 chmod 750 /var/www/html/collec-science
 

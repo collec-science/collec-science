@@ -2,8 +2,9 @@
 # upgrade an instance 2.0.1 to 2.1
 OLDVERSION=collec-2.0.1
 VERSION=collec-2.1
+echo "This script will install the release $VERSION"
 echo "have you a backup of your database and a copy of param/param.inc.php?"
-echo "Is your actual version of Collec-Science is $VERSION ?"
+echo "Is your actual version of Collec-Science is $OLDVERSION ?"
 echo "Is your actual version is in the folder /var/www/collec-science/$OLDVERSION, and the symbolic link collec point to $OLDVERSION?" 
 read -p "Do you want to continue [Y/n]?" answer
 if [[ $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];

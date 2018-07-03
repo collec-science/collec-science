@@ -158,4 +158,4 @@ Mettez à jour la base de données vers la version 2.1 :
     vérifiez le script pgsql/col_alter_2.0-2.1.sql, et notamment le nom du schéma contenant les données
     exécutez le script avec la commande :
 
-psql -h serveur -U username -W -d database -c "col_alter_2.0-2.1.sql"
+psql -h serveur -U username -W -d database < col_alter_2.0-2.1.sql

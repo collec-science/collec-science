@@ -154,5 +154,5 @@ Update the database to version 2.1:
     check the script pgsql/col_alter_2.0-2.1.sql, and verify the name of the schema containing data
     run the script with this command:  
   
-psql -h serveur -U username -W -d database -c "col_alter_2.0-2.1.sql"
+psql -h serveur -U username -W -d database < col_alter_2.0-2.1.sql
 

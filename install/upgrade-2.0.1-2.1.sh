@@ -49,7 +49,9 @@ ln -s $VERSION collec
 
 # upgrade database
 echo "update database"
+cd collec/install
 su postgres -c "psql -f upgrade_2.0-2.1.sql"
+cd ../..
 
 echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process" 
 fi

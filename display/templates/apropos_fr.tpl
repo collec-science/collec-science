@@ -24,9 +24,9 @@ Consultez le site du projet : <a href="https://www.collec-science.org" target="_
 <li>Isabelle Billy (Université Bordeaux 1)</li>
 <li>Arnaud Caillo (OASU - UMS 2567 POREA / EPOC)</li>
 <li>Oton Copi (Université de Grenoble-Alpes)</li>
-<li>Sylvie Damy (Université de Besançon)</li>
+<li>Sylvie Damy (Université de Franche-Comté)</li>
 <li>Hector Linyer (Université de La Rochelle)</li>
-<li>Alexandre Maindron (Université de Besançon)</li>
+<li>Alexandre Maindron (Université de Franche-Comté)</li>
 <li>Cécile Pignol (Université Savoie Mont-Blanc)
 <li>Christine Plumejeaud (Université de La Rochelle)</li>
 <li>Marie-Claude Quidoz (CEFE - CNRS Montpellier)</li>

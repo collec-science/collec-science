@@ -23,12 +23,12 @@ Visit the project site:<a href="https://www.collec-science.org" target="_blank">
 <li>Julien Ancelin (INRA)</li>
 <li>Isabelle Billy (Université Bordeaux 1)</li>
 <li>Arnaud Caillo (OASU - UMS 2567 POREA / EPOC)</li>
-<li>Oton Copi (Université de Grenoble-Alpes)</li>
-<li>Sylvie Damy (Université de Besançon)</li>
-<li>Hector Linyer (Université de La Rochelle)</li>
-<li>Alexandre Maindron (Université de Besançon)</li>
-<li>Cécile Pignol (Université Savoie Mont-Blanc)
-<li>Christine Plumejeaud (Université de La Rochelle)</li>
+<li>Oton Copi (University of Grenoble-Alpes)</li>
+<li>Sylvie Damy (University of Franche-Comté)</li>
+<li>Hector Linyer (University of La Rochelle)</li>
+<li>Alexandre Maindron (University of Franche-Comté)</li>
+<li>Cécile Pignol (University of Savoie Mont-Blanc)
+<li>Christine Plumejeaud (University of La Rochelle)</li>
 <li>Marie-Claude Quidoz (CEFE - CNRS Montpellier)</li>
 <li>Éric Quinton (IRSTEA)</li>
 </ul>

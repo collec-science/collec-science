@@ -23,14 +23,7 @@ unzip master.zip
 mv collec-master/ $VERSION
 
 
-# assign rights to new folder
-mkdir $VERSION/display/templates_c
-chmod -R 750 $VERSION
-chgrp -R www-data $VERSION
 
-# update rights to specific software folders
-chmod -R 770 $VERSION/display/templates_c
-chmod -R 770 $VERSION/temp
 
 # copy of last param into the new code
 cp collec/param/param.inc.php $VERSION/param/
@@ -54,6 +47,15 @@ cd collec/install
 su postgres -c "psql -f upgrade_2.0-2.1.sql"
 cd ../..
 chmod 750 /var/www/html/collec-science
+
+# assign rights to new folder
+mkdir $VERSION/display/templates_c
+chmod -R 750 $VERSION
+chgrp -R www-data $VERSION
+
+# update rights to specific software folders
+chmod -R 770 $VERSION/display/templates_c
+chmod -R 770 $VERSION/temp
 
 echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process" 
 fi

@@ -49,9 +49,11 @@ ln -s $VERSION collec
 
 # upgrade database
 echo "update database"
+chmod 755 /var/www/html/collec-science
 cd collec/install
 su postgres -c "psql -f upgrade_2.0-2.1.sql"
 cd ../..
+chmod 750 /var/www/html/collec-science
 
 echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process" 
 fi

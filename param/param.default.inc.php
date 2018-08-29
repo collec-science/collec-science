@@ -189,5 +189,5 @@ $APPLI_mailToAdminPeriod = 7200;
 $APPLI_admin_ttl = 600; // Duree maxi d'inactivite pour acceder a un module d'administration
 $APPLI_lostPassword = 0; // Autorise la recuperation d'un nouveau mot de passe en cas de perte
 $APPLI_virusScan = false;
-$APPLI_max_file_size = 1; // Size in Mb
+$APPLI_max_file_size = 10; // Size in Mb
 ?>

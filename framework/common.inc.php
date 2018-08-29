@@ -285,6 +285,19 @@ if (isset ( $_SESSION ["navigation"] ) &&  ! $APPLI_modeDeveloppement ) {
 }
 
 /*
+ * Traitement des parametres stockes en 
+ * base de donnees
+ */
+/*
+ * Traitement des parametres stockes dans la base de donnees
+ */
+if (!$_SESSION["dbparamok"]) {
+    require_once 'framework/dbparam/dbparam.class.php';
+	$dbparam = new DbParam($bdd, $ObjetBDDParam);
+	$dbparam->sessionSet();
+
+}
+/*
  * Chargement des fonctions specifiques
  */
 include_once 'modules/fonctions.php';
@@ -294,6 +307,6 @@ include_once 'framework/functionsDebug.php';
 /*
  * Chargement des traitements communs specifiques a l'application
  */
-include_once ("modules/common.inc.php");
+include ("modules/common.inc.php");
 
 ?>

@@ -8,4 +8,5 @@ if (file_exists($SMARTY_template . '/main_' . $langue . '.tpl')) {
     $corps = "main.tpl";
 }
 $vue->set($corps, "corps");
+
 ?>

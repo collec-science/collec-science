@@ -23,7 +23,7 @@ switch ($t_module["param"]) {
          * Recherche de l'objet
          */
         require_once 'modules/classes/object.class.php';
-        $object = new Object($bdd, $ObjetBDDParam);
+        $object = new ObjectClass($bdd, $ObjetBDDParam);
         $vue->set($object->lire($_REQUEST["uid"]), "object");
         $vue->set($data, "data");
         break;
@@ -35,7 +35,7 @@ switch ($t_module["param"]) {
          * Recherche de l'objet
          */
         require_once 'modules/classes/object.class.php';
-        $object = new Object($bdd, $ObjetBDDParam);
+        $object = new ObjectClass($bdd, $ObjetBDDParam);
         $vue->set($object->lire($_REQUEST["uid"]), "object");
         $vue->set($data, "data");
         $vue->set($_SESSION["moduleParent"], "moduleParent");
@@ -152,7 +152,7 @@ switch ($t_module["param"]) {
         break;
     case "batchRead":
         require_once 'modules/classes/object.class.php';
-        $object = new Object($bdd, $ObjetBDDParam);
+        $object = new ObjectClass($bdd, $ObjetBDDParam);
         $vue->set($object->batchRead($_REQUEST["reads"]), "data");
         $vue->set("gestion/movementBatchConfirm.tpl", "corps");
         /*

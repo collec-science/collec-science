@@ -6,7 +6,7 @@
  * Copyright 2016 - All rights reserved
  */
 include_once 'modules/classes/object.class.php';
-$dataClass = new Object($bdd, $ObjetBDDParam);
+$dataClass = new ObjectClass($bdd, $ObjetBDDParam);
 $keyName = "uid";
 $id = $_REQUEST[$keyName];
 

@@ -11,7 +11,7 @@ class ObjectException extends Exception
 }
 
 
-class Object extends ObjetBDD
+class ObjectClass extends ObjetBDD
 {
 
     public $dataPrint, $xslFile;
@@ -101,7 +101,7 @@ class Object extends ObjetBDD
                 }
             }
             if (is_numeric($uid) && $uid > 0) {
-                
+
                 $data["uid"] = $uid;
                 $where = " where uid = :uid";
             } else {
@@ -113,12 +113,12 @@ class Object extends ObjetBDD
                     $operator = 'like';
                 }
                 $data["identifier"] = $uid;
-                
+
                 $where = " where upper(identifier) $operator upper(:identifier) 
                         or (upper(object_identifier_value) $operator upper (:identifier)
                         and used_for_search = 't')";
             }
-            
+
             $sql = "select uid, identifier, wgs84_x, wgs84_y,
 					container_type_name as type_name, movement_type_id as last_movement_type
 					from object 
@@ -352,7 +352,7 @@ class Object extends ObjetBDD
              * Recuperation des donnees de l'etiquette
              */
             $fields = array();
-            
+
             $dlabel = $label->lire($labelId);
             $fields = explode(",", $dlabel["label_fields"]);
             $APPLI_code = $_SESSION["APPLI_code"];
@@ -392,7 +392,7 @@ class Object extends ObjetBDD
                                         left outer join protocol using (protocol_id)
                                         where uid in ($uids)
                         ";
-            
+
             if (strlen($order) == 0) {
                 $order = "uid";
             }
@@ -408,12 +408,12 @@ class Object extends ObjetBDD
              * Recuperation de la liste des champs a inserer dans l'etiquette
              */
             $dataConvert = array();
-            
+
             /**
              * Traitement de chaque ligne, et generation
              * du qrcode
              */
-            
+
             foreach ($data as $row) {
                 /*
                  * Generation du dbuid_origin si non existant
@@ -427,7 +427,7 @@ class Object extends ObjetBDD
                 $doi = $oi->getListFromUid($row["uid"]);
                 $rowq = array();
                 foreach ($row as $key => $value) {
-                    
+
                     if (strlen($value) > 0 && in_array($key, $fields)) {
                         $rowq[$key] = $value;
                     }
@@ -490,7 +490,7 @@ class Object extends ObjetBDD
                     left outer join object_identifier oi using (uid)
                     left outer join identifier_type it using (identifier_type_id) 
                     left outer join sample using (uid)";
-            
+
             $whereIdent = " where upper(identifier) =  upper(:id)
                     or upper(dbuid_origin) = upper (:id2)
                     or (upper(object_identifier_value) = upper (:id1)
@@ -571,7 +571,7 @@ class Object extends ObjetBDD
                 if ($uid > 0) {
                     $uids[] = $uid;
                    // $order .= " when " . $uid . " then $i";
-                    $i ++;
+                    $i++;
                 }
             }
             if (count($uids) > 0) {
@@ -634,27 +634,27 @@ class Object extends ObjetBDD
                                 } else {
                                     $elem = $doc->createElement($key, $value);
                                 }
-                                
+
                                 $item->appendChild($elem);
                             }
                         }
                         $objects->appendChild($item);
                     }
                     $doc->appendChild($objects);
-                    
+
                     if ($label_id > 0) {
                         $xmlfile = $APPLI_temp . '/' . $xml_id . ".xml";
-                        if (! $doc->save($xmlfile)) {
+                        if (!$doc->save($xmlfile)) {
                             throw new ObjectException("Impossible de générer le fichier XML");
                         }
-                        if (! file_exists($xmlfile)) {
+                        if (!file_exists($xmlfile)) {
                             throw new ObjectException("Impossible de générer le fichier XML");
                         }
                         /*
                          * Recuperation du fichier xsl
                          */
                         $xslfile = $APPLI_temp . '/' . $label_id . ".xsl";
-                        if (! file_exists($xslfile)) {
+                        if (!file_exists($xslfile)) {
                             try {
                                 require_once 'modules/classes/label.class.php';
                                 $label = new Label($this->connection, $this->paramori);
@@ -666,7 +666,7 @@ class Object extends ObjetBDD
                                 throw new ObjectException($e->getMessage());
                             }
                         }
-                        if (! file_exists($xslfile)) {
+                        if (!file_exists($xslfile)) {
                             throw new ObjectException("Impossible de générer le fichier xsl");
                         }
                         $this->xslFile = $xslfile;
@@ -676,7 +676,7 @@ class Object extends ObjetBDD
                         $pdffile = $APPLI_temp . '/' . $xml_id . ".pdf";
                         $command = $APPLI_fop . " -xsl $xslfile -xml $xmlfile -pdf $pdffile";
                         exec($command);
-                        if (! file_exists($pdffile)) {
+                        if (!file_exists($pdffile)) {
                             throw new ObjectException("Fichier PDF non généré");
                         }
                     } else {
@@ -718,3 +718,5 @@ class Object extends ObjetBDD
         unlink($this->xslFile);
     }
 }
+
+?>

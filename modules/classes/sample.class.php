@@ -154,7 +154,7 @@ class Sample extends ObjetBDD
             $ok = $this->verifyCollection($this->lire($data["uid"]));
         }
         if ($ok) {
-            $object = new Object($this->connection, $this->param);
+            $object = new ObjectClass($this->connection, $this->param);
             $uid = $object->ecrire($data);
             if ($uid > 0) {
                 $data["uid"] = $uid;
@@ -195,7 +195,7 @@ class Sample extends ObjetBDD
              * Suppression de l'objet
              */
             require_once 'modules/classes/object.class.php';
-            $object = new Object($this->connection, $this->paramori);
+            $object = new ObjectClass($this->connection, $this->paramori);
             $object->supprimer($uid);
         }
     }
@@ -627,7 +627,7 @@ class Sample extends ObjetBDD
      */
     function ecrireImport($data)
     {
-        $object = new Object($this->connection, $this->param);
+        $object = new ObjectClass($this->connection, $this->param);
         /*
          * Ajout des informations manquantes
          */

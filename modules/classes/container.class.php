@@ -5,7 +5,7 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-require_once 'modules/classes/object.class.php';
+//require_once 'modules/classes/object.class.php';
 
 class Container extends ObjetBDD
 {
@@ -33,8 +33,8 @@ class Container extends ObjetBDD
 
     /**
      *
-     * @param PDO $bdd
-     * @param array $param
+     * @param PDO   : $bdd
+     * @param array : $param
      */
     function __construct($bdd, $param = null)
     {
@@ -89,7 +89,7 @@ class Container extends ObjetBDD
      */
     function ecrire($data)
     {
-        $object = new Object($this->connection, $this->param);
+        $object = new ObjectClass($this->connection, $this->param);
         $uid = $object->ecrire($data);
         if ($uid > 0) {
             $data["uid"] = $uid;
@@ -115,8 +115,7 @@ class Container extends ObjetBDD
         /*
          * Suppression de l'objet
          */
-        require_once 'modules/classes/object.class.php';
-        $object = new Object($this->connection, $this->paramori);
+       $object = new ObjectClass($this->connection, $this->paramori);
         $object->supprimer($uid);
     }
 
@@ -124,7 +123,7 @@ class Container extends ObjetBDD
      * Retourne tous les échantillons contenus
      * dans le contenant
      *
-     * @param int $uid
+     * @param int : $uid
      * @return array
      */
     function getContentSample($uid)
@@ -360,7 +359,7 @@ class Container extends ObjetBDD
         /*
          * Generation d'un tableau vide
          */
-        for($line = 0; $line < $lines; $line ++) {
+        for ($line = 0; $line < $lines; $line ++) {
             for ($column = 0; $column < $columns; $column ++) {
                 $data [$line][$column] = "";
             }

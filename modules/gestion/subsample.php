@@ -22,7 +22,7 @@ switch ($t_module["param"]) {
 		 * Lecture de l'object concerne
 		 */
 		require_once 'modules/classes/object.class.php';
-		$object = new Object($bdd, $ObjetBDDParam);
+		$object = new ObjectClass($bdd, $ObjetBDDParam);
 		$vue->set($object->lire($_REQUEST["uid"]) , "object");
 		break;
 	case "write":

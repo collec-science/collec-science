@@ -50,7 +50,7 @@
 {if (strlen($message) > 0) }
 <div class="container-fluid">
 <div class="row">
-	<div class="col-xs-12 message" id="message">
+	<div class="col-xs-12 message{if $messageError == 1}Error{/if}" id="message">
 		{$message}
 	</div>
 </div>

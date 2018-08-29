@@ -4,6 +4,7 @@ Couleurs IRSTEA :
 marine : 	#003A80; rgb(0,58,128)
 ocean:		#009EE0; rgb(0,158,224)
 prairie :	#A4C400; rgb(164,196,0)
+brique :    #D1041D; rgb(209,4,29)
 */
 /* Wrapper for page content to push down footer */
 html,
@@ -47,7 +48,7 @@ body {
 }
 
 .red {
-	color: red;
+	color: #D1041D;
 }
 .blue {
 	color: #003A80;;
@@ -58,6 +59,9 @@ body {
 .message {
 	font-style: italic;
 	color: #003A80;
+}
+.messageError {
+	color: #D1041D;
 }
 /* italique gris petit*/
 .messagebas {

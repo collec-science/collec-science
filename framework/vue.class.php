@@ -25,25 +25,28 @@ class Message
      *
      * @var array
      */
-    private $message = array();
+    private $_message = array();
 
-    private $syslog = array();
+    private $_syslog = array();
 
-    private $displaySyslog = false;
+    private $_displaySyslog = false;
+
+    public $is_error = false;
 
     function __construct($displaySyslog = false)
     {
-        $this->displaySyslog = $displaySyslog;
+        $this->_displaySyslog = $displaySyslog;
     }
 
-    function set($value)
+    function set($value, $is_error = false)
     {
-        $this->message[] = $value;
+        $this->_message[] = $value;
+        $this->is_error = $is_error;
     }
 
     function setSyslog($value)
     {
-        $this->syslog[] = $value;
+        $this->_syslog[] = $value;
     }
 
     /**
@@ -52,9 +55,9 @@ class Message
     function get()
     {
         if ($this->displaySyslog) {
-            return array_merge($this->message, $this->syslog);
+            return array_merge($this->_message, $this->_syslog);
         } else {
-            return $this->message;
+            return $this->_message;
         }
     }
 
@@ -69,9 +72,9 @@ class Message
         $data = "";
         $i = 0;
         if ($this->displaySyslog) {
-            $tableau = array_merge($this->message, $this->syslog);
+            $tableau = array_merge($this->_message, $this->_syslog);
         } else {
-            $tableau = $this->message;
+            $tableau = $this->_message;
         }
         foreach ($tableau as $value) {
             if ($i > 0) {
@@ -90,7 +93,7 @@ class Message
         $pid = getmypid();
         $code_error = "err";
         $level = "notice";
-        foreach ($this->syslog as $value) {
+        foreach ($this->_syslog as $value) {
             openlog("[$date] [" . $_SESSION["APPLI_code"] . ":$level] [pid $pid] $code_error", LOG_PERROR, LOG_LOCAL7);
             syslog(LOG_NOTICE, $value);
         }

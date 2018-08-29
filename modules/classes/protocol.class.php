@@ -47,12 +47,18 @@ class Protocol extends ObjetBDD
         parent::__construct($bdd, $param);
     }
 
+    /**
+     * Ecriture d'un document joint dans la base
+     */
     function ecrire_document($id, $file)
     {
         if ($file["error"] == 0 && $file["size"] > 0 && $id > 0 && is_numeric($id)) {
-            
+
             $extension = substr($file["name"], strrpos($file["name"], ".") + 1);
             if (strtolower($extension) == "pdf") {
+                if (!is_uploaded_file($file["tmp_name"])) {
+                    throw new FileException(_("Erreur technique : le fichier n'a pas été téléchargé correctement dans le serveur"));
+                }
                 /*
                  * Verification antivirale
                  */
@@ -61,9 +67,16 @@ class Protocol extends ObjetBDD
                  * Ecriture du fichier
                  */
                 $fp = fopen($file['tmp_name'], 'rb');
-                $this->updateBinaire($id, "protocol_file", $fp);
+                if (!$fp > 0) {
+                    throw new FileException(_("Erreur technique : le fichier téléchargé n'est pas accessible par l'application"));
+                }
+                try {
+                    $this->updateBinaire($id, "protocol_file", $fp);
+                } catch (ObjetBDDException $e) {
+                    throw new FileException($e->getMessage());
+                }
             } else {
-                throw new FileException("Seuls les fichiers PDF peuvent être téléchargés");
+                throw new FileException(_("Seuls les fichiers PDF peuvent être téléchargés"));
             }
         }
     }
@@ -82,7 +95,7 @@ class Protocol extends ObjetBDD
              */
             if ($this->verifyCollection($this->lire($id))) {
                 $ref = $this->getBlobReference($id, "protocol_file");
-                if (! $ref) {
+                if (!$ref) {
                     throw new ProtocolException("Pas de fichier à afficher");
                 } else {
                     return $ref;
@@ -99,7 +112,7 @@ class Protocol extends ObjetBDD
      * {@inheritdoc}
      * @see ObjetBDD::getListe()
      */
-    function getListe($order)
+    function getListe($order = "")
     {
         $sql = "select protocol_id, protocol_name, protocol_version, protocol_year,
 				case when protocol_file is null then 0 else 1 end as has_file,

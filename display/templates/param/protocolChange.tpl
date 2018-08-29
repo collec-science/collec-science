@@ -5,7 +5,16 @@ $(document).ready(function () {
 	$("#protocolForm").submit( function (event) {
 		$("#spinner").show();
 	});
-	
+	var maxFileSize = {$maxFileSize} * 1024 * 1024;
+      $("#protocolFile").on("change", function(e) { 
+            var files = e.currentTarget.files;
+            for (var x in files) {
+                  var filesize = files[x].size;
+                  if (filesize > maxFileSize) {
+                        alert( "{t}La taille du fichier est supérieure à celle autorisée : {/t}"+{$maxFileSize}+"Mb");
+                  }
+            }
+      });
 });
 </script>
 

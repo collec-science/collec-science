@@ -53,14 +53,16 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
  * @param array $data
  * @return int
  */
-function dataWrite($dataClass, $data)
+function dataWrite($dataClass, $data, $isPartOfTransaction = false)
 {
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
     try {
         $id = $dataClass->ecrire($data);
-        $message->set(_("Enregistrement effectué"));
-        $module_coderetour = 1;
-        $log->setLog($_SESSION["login"], get_class($dataClass) . "-write", $id);
+        if (!$isPartOfTransaction) {
+            $message->set(_("Enregistrement effectué"));
+            $module_coderetour = 1;
+            $log->setLog($_SESSION["login"], get_class($dataClass) . "-write", $id);
+        }
     } catch (Exception $e) {
         if ($OBJETBDD_debugmode > 0) {
             foreach ($dataClass->getErrorData(1) as $messageError) {
@@ -70,7 +72,7 @@ function dataWrite($dataClass, $data)
             $message->set(_("Problème lors de l'enregistrement..."));
         }
         $message->setSyslog($e->getMessage());
-        $module_coderetour = - 1;
+        $module_coderetour = -1;
     }
     return ($id);
 }
@@ -85,16 +87,16 @@ function dataWrite($dataClass, $data)
 function dataDelete($dataClass, $id)
 {
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
-    $module_coderetour = - 1;
+    $module_coderetour = -1;
     $ok = true;
     if (is_array($id)) {
         foreach ($id as $value) {
-            if (! (is_numeric($value) && $value > 0)) {
+            if (!(is_numeric($value) && $value > 0)) {
                 $ok = false;
             }
         }
     } else {
-        if (! (is_numeric($id) && $id > 0)) {
+        if (!(is_numeric($id) && $id > 0)) {
             $ok = false;
         }
     }
@@ -113,10 +115,10 @@ function dataDelete($dataClass, $id)
                 $message->set(_("Problème lors de la suppression"));
             }
             $message->setSyslog($e->getMessage());
-            $ret = - 1;
+            $ret = -1;
         }
     } else {
-        $ret = - 1;
+        $ret = -1;
     }
     return ($ret);
 }
@@ -138,7 +140,7 @@ function setlanguage($langue)
     /*
      * Chargement de la langue par defaut
      */
-    include ('locales/' . $language . ".php");
+    include('locales/' . $language . ".php");
     /*
      * On gere le cas ou la langue selectionnee n'est pas la langue par defaut
      */
@@ -178,7 +180,7 @@ function setlanguage($langue)
      */
     $cookieParam = session_get_cookie_params();
     $cookieParam["lifetime"] = $APPLI_cookie_ttl;
-    if (! $APPLI_modeDeveloppement) {
+    if (!$APPLI_modeDeveloppement) {
         $cookieParam["secure"] = true;
     }
     $cookieParam["httponly"] = true;
@@ -233,13 +235,13 @@ function check_encoding($data)
     $result = true;
     if (is_array($data)) {
         foreach ($data as $value) {
-            if (! check_encoding($value)) {
+            if (!check_encoding($value)) {
                 $result = false;
             }
         }
     } else {
         if (strlen($data) > 0) {
-            if (! mb_check_encoding($data, "UTF-8")) {
+            if (!mb_check_encoding($data, "UTF-8")) {
                 $result = false;
             }
         }
@@ -265,7 +267,7 @@ function getIPClientAddress()
     } else if (isset($_SERVER["REMOTE_ADDR"])) {
         return $_SERVER["REMOTE_ADDR"];
     } else {
-        return - 1;
+        return -1;
     }
 }
 
@@ -314,37 +316,43 @@ class VirusException extends Exception
 class FileException extends Exception
 {
 }
-
+/**
+ * Test antiviral d'un fichier
+ * @param $file: nom du fichier a analyser
+ */
 function testScan($file)
 {
-    if (file_exists($file)) {
-        if (extension_loaded('clamav')) {
-            $retcode = cl_scanfile($file["tmp_name"], $virusname);
-            if ($retcode == CL_VIRUS) {
-                $message = $file["name"] . " : " . cl_pretcode($retcode) . ". Virus found name : " . $virusname;
-                throw new VirusException($message);
-            }
-        } else {
-            /*
-             * Test avec clamscan
-             */
-            $clamscan = "/usr/bin/clamscan";
-            $clamscan_options = "-i --no-summary";
-            if (file_exists($clamscan)) {
-                exec("$clamscan $clamscan_options $file", $output);
-                if (count($output) > 0) {
-                    $message = $file["name"] . " : ";
-                    foreach ($output as $value) {
-                        $message .= $value . " ";
-                    }
+    global $APPLI_virusScan;
+    if ($APPLI_virusScan) {
+        if (file_exists($file)) {
+            if (extension_loaded('clamav')) {
+                $retcode = cl_scanfile($file["tmp_name"], $virusname);
+                if ($retcode == CL_VIRUS) {
+                    $message = $file["name"] . " : " . cl_pretcode($retcode) . ". Virus found name : " . $virusname;
                     throw new VirusException($message);
                 }
             } else {
-                throw new FileException("clamscan not found");
+            /*
+                 * Test avec clamscan
+                 */
+                $clamscan = "/usr/bin/clamscan";
+                $clamscan_options = "-i --no-summary";
+                if (file_exists($clamscan)) {
+                    exec("$clamscan $clamscan_options $file", $output);
+                    if (count($output) > 0) {
+                        $message = $file["name"] . " : ";
+                        foreach ($output as $value) {
+                            $message .= $value . " ";
+                        }
+                        throw new VirusException($message);
+                    }
+                } else {
+                    throw new FileException("clamscan not found");
+                }
             }
+        } else {
+            throw new FileException("$file not found");
         }
-    } else {
-        throw new FileException("$file not found");
     }
 }
 

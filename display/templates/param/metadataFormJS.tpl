@@ -52,7 +52,7 @@ function renderForm(data){
                             "title": "{t}Type du champ{/t}",
                             "type": "string",
                             "required": true,
-                            "enum": ["number","string","textarea","checkbox","select", "radio"],
+                            "enum": ["number","string","textarea","checkbox","select", "radio", "url"],
                             "default": "string"
                         },
                          "importFile":{
@@ -110,7 +110,7 @@ function renderForm(data){
                 "items": {
                     "fields": {
                         "type": {
-                            "optionLabels": ["{t}Nombre{/t}","{t}Texte (une ligne){/t}","{t}Texte (multi-ligne){/t}","{t}Case à cocher{/t}","{t}Liste à choix multiple{/t}","{t}Boutons Radio{/t}"],
+                            "optionLabels": ["{t}Nombre{/t}","{t}Texte (une ligne){/t}","{t}Texte (multi-ligne){/t}","{t}Case à cocher{/t}","{t}Liste à choix multiple{/t}","{t}Boutons Radio{/t}", "{t}Lien vers un site externe (URL){/t}"],
                             "type": "select",
                             "hideNone": true,
                             "sort": function(a, b) { 

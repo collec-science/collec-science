@@ -233,7 +233,11 @@ la base de données :{/t}</dt>
 {$val}<br>
 {/foreach}
 {else}
+{if substr($value, 0, 5) == "http:" || substr($value, 0, 6) == "https:"}
+<a href="{$value}" target="_blank">{$value}</a>
+{else}
 {$value}
+{/if}
 {/if}
 </dd>
 </dl>

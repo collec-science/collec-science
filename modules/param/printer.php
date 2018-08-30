@@ -1,9 +1,10 @@
 <?php
+
 /**
-*Created : 27 Juin 2017
-*/
-require_once 'modules/classes/printer.class.php' ;
-$dataClass = new Printer($bdd,$ObjetBDDParam);
+ *Created : 27 Juin 2017
+ */
+require_once 'modules/classes/printer.class.php';
+$dataClass = new Printer($bdd, $ObjetBDDParam);
 $keyName = "printer_id";
 $id = $_REQUEST[$keyName];
 
@@ -12,8 +13,8 @@ switch ($t_module["param"]) {
         /*
          * Display the list of all records of the table
          */
-        $vue->set($dataClass->getListe() ,"data" );
-        $vue->set("param/printerList.tpl" , "corps");
+        $vue->set($dataClass->getListe(), "data");
+        $vue->set("param/printerList.tpl", "corps");
         break;
     case "change":
         /*

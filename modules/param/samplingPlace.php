@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created : 2 févr. 2017
  * Creator : quinton
@@ -12,37 +13,37 @@ $id = $_REQUEST[$keyName];
 
 switch ($t_module["param"]) {
     case "list":
-		/*
-		 * Display the list of all records of the table
-		 */
-		$vue->set($dataClass->getListFromCollection(0, false), "data");
+        /*
+         * Display the list of all records of the table
+         */
+        $vue->set($dataClass->getListFromCollection(0, false), "data");
         $vue->set("param/samplingPlaceList.tpl", "corps");
         $vue->set($_SESSION["collections"], "collections");
         break;
     case "change":
-		/*
-		 * open the form to modify the record
-		 * If is a new record, generate a new record with default value :
-		 * $_REQUEST["idParent"] contains the identifiant of the parent record
-		 */
-		dataRead($dataClass, $id, "param/samplingPlaceChange.tpl");
+        /*
+         * open the form to modify the record
+         * If is a new record, generate a new record with default value :
+         * $_REQUEST["idParent"] contains the identifiant of the parent record
+         */
+        dataRead($dataClass, $id, "param/samplingPlaceChange.tpl");
         include 'modules/gestion/mapInit.php';
         $vue->set($_SESSION["collections"], "collections");
         break;
     case "write":
-		/*
-		 * write record in database
-		 */
-		$id = dataWrite($dataClass, $_REQUEST);
+        /*
+         * write record in database
+         */
+        $id = dataWrite($dataClass, $_REQUEST);
         if ($id > 0) {
             $_REQUEST[$keyName] = $id;
         }
         break;
     case "delete":
-		/*
-		 * delete record
-		 */
-		dataDelete($dataClass, $id);
+        /*
+         * delete record
+         */
+        dataDelete($dataClass, $id);
         break;
     case "import":
         if (file_exists($_FILES['upfile']['tmp_name'])) {
@@ -70,19 +71,19 @@ switch ($t_module["param"]) {
                             "sampling_place_id" => $dataClass->getIdFromName($row["name"])
                         );
                         $dataClass->ecrire($data);
-                        $i ++;
+                        $i++;
                     }
                 }
-                $message->set(sprintf(_("%d lieu(x) importé(s)"),$i));
+                $message->set(sprintf(_("%d lieu(x) importé(s)"), $i));
                 $module_coderetour = 1;
             } catch (Exception $e) {
                 $message->set(_("Impossible d'importer les lieux de prélèvement"));
                 $message->set($e->getMessage());
-                $module_coderetour = - 1;
+                $module_coderetour = -1;
             }
         } else {
             $message->set(_("Impossible de charger le fichier à importer"));
-            $module_coderetour = - 1;
+            $module_coderetour = -1;
         }
         break;
     case "getFromCollection":

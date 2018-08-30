@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created : 28 juin 2016
  * Creator : quinton
@@ -27,7 +28,7 @@ switch ($t_module["param"]) {
         $vue->set($object->lire($_REQUEST["uid"]), "object");
         $vue->set($data, "data");
         break;
-    
+
     case "output":
         $data = dataRead($dataClass, $id, "gestion/movementChange.tpl", $_REQUEST["uid"], false);
         $data["movement_type_id"] = 2;
@@ -48,12 +49,12 @@ switch ($t_module["param"]) {
         break;
     case "write":
 		/*
-		 * write record in database
-		 */
+         * write record in database
+         */
 		/*
-		 * Recherche de movement_id si uid renseigne
-		 */
-		if (strlen($_REQUEST["container_id"]) == 0 && strlen($_REQUEST["container_uid"]) > 0) {
+         * Recherche de movement_id si uid renseigne
+         */
+        if (strlen($_REQUEST["container_id"]) == 0 && strlen($_REQUEST["container_uid"]) > 0) {
             require_once 'modules/classes/container.class.php';
             $container = new Container($bdd, $ObjetBDDParam);
             $_REQUEST["container_id"] = $container->getIdFromUid($_REQUEST["container_uid"]);
@@ -71,14 +72,14 @@ switch ($t_module["param"]) {
             }
         }
         if ($error) {
-            $message->set(_("Le contenant n'a pas été renseigné"));
-            $module_coderetour = - 1;
+            $message->set(_("Le contenant n'a pas été renseigné"), true);
+            $module_coderetour = -1;
         } else {
             $data = $_REQUEST;
-            if (! isset($data["line_number"])) {
+            if (!isset($data["line_number"])) {
                 $data["line_number"] = 1;
             }
-            if (! isset($data["column_number"])) {
+            if (!isset($data["column_number"])) {
                 $data["column_number"] = 1;
             }
             $id = dataWrite($dataClass, $data);
@@ -89,9 +90,9 @@ switch ($t_module["param"]) {
         break;
     case "delete":
 		/*
-		 * delete record
-		 */
-		dataDelete($dataClass, $id);
+         * delete record
+         */
+        dataDelete($dataClass, $id);
         break;
     case "fastInputChange":
         if (isset($_REQUEST["container_uid"]) && is_numeric($_REQUEST["container_uid"])) {
@@ -106,7 +107,7 @@ switch ($t_module["param"]) {
          * Assignation du nom de la base
          */
         $vue->set($_SESSION["APPLI_code"], "db");
-        
+
         break;
     case "fastInputWrite":
         try {
@@ -114,8 +115,8 @@ switch ($t_module["param"]) {
             $message->set(_("Enregistrement effectué"));
             $module_coderetour = 1;
         } catch (Exception $e) {
-            $message->set($e->getMessage());
-            $module_coderetour = - 1;
+            $message->set($e->getMessage(), true);
+            $module_coderetour = -1;
         }
         break;
     case "fastOutputChange":
@@ -134,7 +135,7 @@ switch ($t_module["param"]) {
         require_once 'modules/classes/movementReason.class.php';
         $movementReason = new MovementReason($bdd, $ObjetBDDParam);
         $vue->set($movementReason->getListe(2), "movementReason");
-        
+
         break;
     case "fastOutputWrite":
         try {
@@ -143,8 +144,8 @@ switch ($t_module["param"]) {
             $module_coderetour = 1;
         } catch (Exception $e) {
             $message->setSyslog($e->getMessage());
-            $message->set(_("Impossible d'enregistrer le mouvement"));
-            $module_coderetour = - 1;
+            $message->set(_("Impossible d'enregistrer le mouvement"), true);
+            $module_coderetour = -1;
         }
         break;
     case "batchOpen":
@@ -164,9 +165,9 @@ switch ($t_module["param"]) {
         break;
     case "batchWrite":
 		/*
-		 * Preparation des donnees
-		 */
-		$uid_container = 0;
+         * Preparation des donnees
+         */
+        $uid_container = 0;
         $date = date($_SESSION["MASKDATELONG"]);
         $nb = 0;
         try {
@@ -184,7 +185,7 @@ switch ($t_module["param"]) {
                     if (($sens == 1 && $uid_container > 0) || $sens == 2) {
                         $sens == 1 ? $uic = $uid_container : $uic = "";
                         $dataClass->addMovement($uid, $date, $sens, $uic, $_SESSION["login"], null, null, $_REQUEST["movement_reason_id"], $_REQUEST["column" . $uid], $_REQUEST["line" . $uid]);
-                        $nb ++;
+                        $nb++;
                     }
                 }
             }
@@ -192,8 +193,8 @@ switch ($t_module["param"]) {
             $module_coderetour = 1;
         } catch (Exception $e) {
             $message->set(_("Erreur lors de la génération des mouvements"));
-            $message->setSyslog($e->getMessage());
-            $module_coderetour = - 1;
+            $message->setSyslog($e->getMessage(), true);
+            $module_coderetour = -1;
         }
         break;
     case "list":
@@ -207,11 +208,11 @@ switch ($t_module["param"]) {
         $vue->set($dataSearch, "movementSearch");
         $vue->set("gestion/movementList.tpl", "corps");
         break;
-    
+
     case "getLastEntry":
         $vue->set($dataClass->getLastEntry($_REQUEST["uid"]));
         break;
-    
+
     case "smallMovementChange":
         $vue->set("gestion/smallMovementChange.tpl", "corps");
         /*
@@ -226,7 +227,7 @@ switch ($t_module["param"]) {
         $vue->set($movementReason->getListe(2), "movementReason");
         $vue->set($_POST["movement_reason_id"], "movement_reason_id");
         break;
-    
+
     case "smallMovementWrite":
         try {
             $dataClass->addMovement($_POST["object_uid"], null, $_POST["movement_type_id"], $_POST["container_uid"], null, null, null, $_POST["movement_reason_id"], $_POST["column_number"], $_POST["line_number"]);
@@ -234,8 +235,8 @@ switch ($t_module["param"]) {
             $message->set(_("Mouvement enregistré"));
         } catch (Exception $e) {
             $message->setSyslog($e->getMessage());
-            $message->set(_("Impossible d'enregistrer le mouvement"));
-            $module_coderetour = - 1;
+            $message->set(_("Impossible d'enregistrer le mouvement"), true);
+            $module_coderetour = -1;
         }
         break;
 }

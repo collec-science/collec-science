@@ -546,6 +546,12 @@ if ($isHtml) {
         $vue->set($_SESSION["login"], "login");
     }
     /*
+     * Traitement des messages d'erreur - changement de classe d'affichage
+     */
+    if ($message->is_error) {
+        $vue->set(1, "messageError");
+    }
+    /*
      * Gestion de l'internationalisation
      */
     $vue->set($_SESSION["FORMATDATE"], "language");

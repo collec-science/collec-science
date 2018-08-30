@@ -12,7 +12,19 @@
  * @param int $id
  * @param string $smartyPage
  * @param int $idParent
+ * 
  * @return array
+ */
+/**
+ * Lit un enregistrement dans la base de donnees, affecte le tableau a Smarty,
+ * et declenche l'affichage de la page associee
+ * 
+ * @param ObjetBDD $dataClass  : instance de la classe
+ * @param mixed    $id         : identifiant
+ * @param string   $smartyPage : nom du template Smarty a utiliser 
+ * @param int      $idParent   : identifiant du parent
+ * 
+ * @return mixed 
  */
 function dataRead($dataClass, $id, $smartyPage, $idParent = null)
 {
@@ -25,7 +37,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
             } catch (Exception $e) {
                 if ($OBJETBDD_debugmode > 0) {
                     foreach ($dataClass->getErrorData(1) as $messageError) {
-                        $message->set($messageError);
+                        $message->set($messageError, true);
                     }
                 } else {
                     $message->set(_("Erreur de lecture des informations dans la base de données"));
@@ -49,8 +61,10 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
 /**
  * Ecrit un enregistrement en base de donnees
  *
- * @param ObjetBDD $dataClass
- * @param array $data
+ * @param ObjetBDD $dataClass           : instance de la classe
+ * @param array    $data                : donnees a enregistrer
+ * @param boolean  $isPartOfTransaction : si true, requete faisant partie d'une transaction
+ * 
  * @return int
  */
 function dataWrite($dataClass, $data, $isPartOfTransaction = false)
@@ -66,7 +80,7 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
     } catch (Exception $e) {
         if ($OBJETBDD_debugmode > 0) {
             foreach ($dataClass->getErrorData(1) as $messageError) {
-                $message->set($messageError);
+                $message->set($messageError, true);
             }
         } else {
             $message->set(_("Problème lors de l'enregistrement..."));
@@ -80,8 +94,9 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
 /**
  * Supprime un enregistrement en base de donnees
  *
- * @param ObjetBDD $dataClass
- * @param int $id
+ * @param ObjetBDD $dataClass : instance de la classe
+ * @param int      $id        : identifiant
+ * 
  * @return int
  */
 function dataDelete($dataClass, $id)
@@ -109,7 +124,7 @@ function dataDelete($dataClass, $id)
         } catch (Exception $e) {
             if ($OBJETBDD_debugmode > 0) {
                 foreach ($dataClass->getErrorData(1) as $messageError) {
-                    $message->set($messageError);
+                    $message->set($messageError, true);
                 }
             } else {
                 $message->set(_("Problème lors de la suppression"));
@@ -126,7 +141,7 @@ function dataDelete($dataClass, $id)
 /**
  * Modifie la langue utilisee dans l'application
  *
- * @param string $langue
+ * @param string $langue : code du langage
  */
 function setlanguage($langue)
 {
@@ -188,6 +203,13 @@ function setlanguage($langue)
     setcookie('langue', $langue, time() + $APPLI_cookie_ttl, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
 }
 
+/**
+ * Initialisation de la langue pour gettext
+ * 
+ * @param mixed $langue 
+ * 
+ * @return mixed 
+ */
 function initGettext($langue)
 {
     /*
@@ -227,7 +249,8 @@ function initGettext($langue)
 /**
  * Fonction testant si la donnee fournie est de type UTF-8 ou non
  *
- * @param array|string $data
+ * @param array|string $data : tableau a tester
+ * 
  * @return boolean
  */
 function check_encoding($data)
@@ -274,7 +297,8 @@ function getIPClientAddress()
 /**
  * Fonction recursive decodant le html en retour de navigateur
  *
- * @param array|string $data
+ * @param array|string $data : tableau de valeurs
+ * 
  * @return array|string
  */
 function htmlDecode($data)
@@ -313,12 +337,21 @@ class VirusException extends Exception
 {
 }
 
+/**
+ * Gestion des exceptions pour les manipulations de fichiers
+ * 
+ * @var mixed
+ */
 class FileException extends Exception
 {
 }
+
 /**
  * Test antiviral d'un fichier
- * @param $file: nom du fichier a analyser
+ * 
+ * @param mixed $file 
+ * 
+ * @return mixed 
  */
 function testScan($file)
 {
@@ -332,7 +365,7 @@ function testScan($file)
                     throw new VirusException($message);
                 }
             } else {
-            /*
+                /*
                  * Test avec clamscan
                  */
                 $clamscan = "/usr/bin/clamscan";
@@ -356,6 +389,11 @@ function testScan($file)
     }
 }
 
+/**
+ * Retourne la liste des entetes transmises
+ * 
+ * @return mixed 
+ */
 function getHeaders()
 {
     $header = array();

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Import massif d'echantillons ou de containers
  * et creation des mouvements afferents
@@ -41,15 +42,15 @@ $vue->set("gestion/import.tpl", "corps");
 switch ($t_module["param"]) {
     case "change":
 		/*
-		 * Affichage du masque de selection du fichier a importer
-		 */
-		break;
-    
-    case "control" :
+         * Affichage du masque de selection du fichier a importer
+         */
+        break;
+
+    case "control":
 		/*
-		 * Lancement des controles
-		 */
-		unset($_SESSION["filename"]);
+         * Lancement des controles
+         */
+        unset($_SESSION["filename"]);
         if (file_exists($_FILES['upfile']['tmp_name'])) {
             /*
              * Lancement du controle
@@ -68,8 +69,8 @@ switch ($t_module["param"]) {
                      * Deplacement du fichier dans le dossier temporaire
                      */
                     $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
-                    if (! copy($_FILES['upfile']['tmp_name'], $filename)) {
-                        $message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"));
+                    if (!copy($_FILES['upfile']['tmp_name'], $filename)) {
+                        $message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"), true);
                     } else {
                         $_SESSION["filename"] = $filename;
                         $_SESSION["separator"] = $_REQUEST["separator"];
@@ -97,17 +98,17 @@ switch ($t_module["param"]) {
                     $bdd->beginTransaction();
                     $import->initFile($_SESSION["filename"], $_SESSION["separator"], $_SESSION["utf8_encode"]);
                     $import->importAll();
-                    $message->set(sprintf(_("Import effectué. %s lignes traitées"),$import->nbTreated));
-                    $message->set(sprintf(_("Premier UID généré : %s"),$import->minuid));
-                    $message->set(sprintf(_("Dernier UID généré : %s"),$import->maxuid));
+                    $message->set(sprintf(_("Import effectué. %s lignes traitées"), $import->nbTreated));
+                    $message->set(sprintf(_("Premier UID généré : %s"), $import->minuid));
+                    $message->set(sprintf(_("Dernier UID généré : %s"), $import->maxuid));
                     $module_coderetour = 1;
                     $bdd->commit();
                 } catch (ImportObjectException $ie) {
                     $bdd->rollBack();
-                    $message->set($ie->getMessage());
+                    $message->set($ie->getMessage(), true);
                 } catch (Exception $e) {
                     $bdd->rollBack();
-                    $message->set($e->getMessage());
+                    $message->set($e->getMessage(), true);
                 }
             }
         }
@@ -141,8 +142,8 @@ switch ($t_module["param"]) {
                     $importFile = new Import($_REQUEST["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $importFile->getContentAsArray();
                 } catch (ImportException $ie) {
-                    $message->set($ie->getMessage());
-                    $module_coderetour = - 1;
+                    $message->set($ie->getMessage(), true);
+                    $module_coderetour = -1;
                 }
                 
                 /*
@@ -151,30 +152,30 @@ switch ($t_module["param"]) {
                 require_once 'modules/gestion/sample.functions.php';
                 $sic = new SampleInitClass();
                 $import->initClass("sample", $sample);
-                
+
                 try {
                     /*
                      * Demarrage d'une transaction
                      */
                     $bdd->beginTransaction();
                     $import->importExterneExec($data, $sic, $_POST);
-                    $message->set(sprintf(_("Import effectué. %s lignes traitées"),$import->nbTreated));
-                    $message->set(sprintf(_("Premier UID généré : %s"),$import->minuid));
-                    $message->set(sprintf(_("Dernier UID généré : %s"),$import->maxuid));
+                    $message->set(sprintf(_("Import effectué. %s lignes traitées"), $import->nbTreated));
+                    $message->set(sprintf(_("Premier UID généré : %s"), $import->minuid));
+                    $message->set(sprintf(_("Dernier UID généré : %s"), $import->maxuid));
                     $module_coderetour = 1;
                     $bdd->commit();
                 } catch (ImportObjectException $ie) {
                     $bdd->rollBack();
-                    $message->set($ie->getMessage());
-                    $module_coderetour = - 1;
+                    $message->set($ie->getMessage(), true);
+                    $module_coderetour = -1;
                 } catch (Exception $e) {
                     $bdd->rollBack();
-                    $message->set($e->getMessage());
-                    $module_coderetour = - 1;
+                    $message->set($e->getMessage(), true);
+                    $module_coderetour = -1;
                 }
             }
         }
-        
+
         break;
 }
 

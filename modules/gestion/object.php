@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created : 16 août 2016
  * Creator : quinton
@@ -34,12 +35,14 @@ switch ($t_module["param"]) {
                     define("SPACE", " ");
                     $commande = $APPLI_print_direct_command;
                     if ($commande == "lpr") {
-                        $cmdopt = array("destination"=>"-P ",
-                          "server" => "-H ",
+                        $cmdopt = array(
+                            "destination" => "-P ",
+                            "server" => "-H ",
                             "user" => "-U "
                         );
                     } else {
-                        $cmdopt = array("destination"=>"-d ",
+                        $cmdopt = array(
+                            "destination" => "-d ",
                             "server" => "-h ",
                             "user" => "-U "
                         );
@@ -60,27 +63,27 @@ switch ($t_module["param"]) {
                         $user = "";
                     }
                     $commande .= SPACE . $destination . SPACE . $server . SPACE . $user . SPACE . $options . SPACE . $pdffile;
-                   exec($commande, $retour, $retour);
-                   $dataClass->eraseQrcode($APPLI_temp);
+                    exec($commande, $retour, $retour);
+                    $dataClass->eraseQrcode($APPLI_temp);
                     $dataClass->eraseXslfile();
                     if ($retour == 0) {
-                    $message->set(_("Impression lancée"));
+                        $message->set(_("Impression lancée"));
                     } else {
-                        $message->set(_("L'impression a échoué pour un problème technique"));
+                        $message->set(_("L'impression a échoué pour un problème technique"), true);
                         $message->setSyslog("print command error : $commande");
                     }
                 } else {
-                    $message->set(_("Imprimante non connue"));
-                    $module_coderetour = - 1;
+                    $message->set(_("Imprimante non connue"), true);
+                    $module_coderetour = -1;
                 }
                 $module_coderetour = 1;
             } catch (Exception $e) {
                 $message->set($e->getMessage());
-                $module_coderetour = - 1;
+                $module_coderetour = -1;
             }
         } else {
-            $message->set(_("Imprimante non définie"));
-            $module_coderetour = - 1;
+            $message->set(_("Imprimante non définie"), true);
+            $module_coderetour = -1;
         }
         break;
     case "printLabel":
@@ -91,10 +94,10 @@ switch ($t_module["param"]) {
             $dataClass->eraseXslfile();
             $module_coderetour = 1;
         } catch (Exception $e) {
-            $message->set($e->getMessage());
-            $module_coderetour = - 1;
+            $message->set($e->getMessage(), true);
+            $module_coderetour = -1;
         }
-        
+
         if ($module_coderetour == -1) {
             /*
              * Reinitialisation de la vue
@@ -110,7 +113,7 @@ switch ($t_module["param"]) {
             $vue->setFilename("printlabel.csv");
         } else {
             unset($vue);
-            $module_coderetour = - 1;
+            $module_coderetour = -1;
         }
         break;
 }

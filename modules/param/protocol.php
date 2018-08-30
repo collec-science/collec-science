@@ -18,7 +18,7 @@ switch ($t_module["param"]) {
         $vue->set("param/protocolList.tpl", "corps");
         break;
     case "change":
-		/*
+        /*
          * open the form to modify the record
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
@@ -30,7 +30,7 @@ switch ($t_module["param"]) {
         $vue->set($APPLI_max_file_size, "maxFileSize");
         break;
     case "write":
-		/*
+        /*
          * write record in database
          */
         try {
@@ -38,7 +38,7 @@ switch ($t_module["param"]) {
             $id = dataWrite($dataClass, $_REQUEST, true);
             if ($id > 0) {
                 if ($_FILES["protocol_file"]["error"] == 1) {
-                    throw new FileException(_("Problème rencontré pendant le téléchargement du fichier joint"));
+                    throw new FileException(_("Problème rencontré pendant le téléchargement du fichier joint"), true);
                 }
             /*
                  * Traitement du fichier eventuellement joint
@@ -50,7 +50,7 @@ switch ($t_module["param"]) {
                         $message->set($fe->getMessage());
                     } catch (Exception $e) {
                         $message->setSyslog($e->getMessage());
-                        $message->set(_("impossible d'enregistrer la pièce jointe"));
+                        $message->set(_("impossible d'enregistrer la pièce jointe"), true);
                     }
                 }
                 $_REQUEST[$keyName] = $id;
@@ -61,11 +61,11 @@ switch ($t_module["param"]) {
         } catch (Exception $e) {
             $bdd->rollback();
             $module_coderetour = -1;
-            $message->set($e->getMessage());
+            $message->set($e->getMessage(), true);
         }
         break;
     case "delete":
-		/*
+        /*
          * delete record
          */
         dataDelete($dataClass, $id);
@@ -77,7 +77,7 @@ switch ($t_module["param"]) {
             $vue->setFileReference($ref);
         } catch (Exception $e) {
             $module_coderetour = -1;
-            $message->set($e->getMessage());
+            $message->set($e->getMessage(), true);
             unset($vue);
         }
         break;

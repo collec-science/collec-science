@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created : 30 juin 2016
  * Creator : quinton
@@ -24,7 +25,7 @@ switch ($t_module["param"]) {
         /*
          * Display the list of all records of the table
          */
-        if (! isset($isDelete)) {
+        if (!isset($isDelete)) {
             $_SESSION["searchSample"]->setParam($_REQUEST);
         }
         $dataSearch = $_SESSION["searchSample"]->getParam();
@@ -51,9 +52,9 @@ switch ($t_module["param"]) {
         break;
     case "display":
 		/*
-		 * Display the detail of the record
-		 */
-		$data = $dataClass->lire($id);
+         * Display the detail of the record
+         */
+        $data = $dataClass->lire($id);
         $vue->set($data, "data");
         /*
          * Récupération des métadonnées dans un tableau pour l'affichage
@@ -130,14 +131,14 @@ switch ($t_module["param"]) {
         break;
     case "change":
 		/*
-		 * open the form to modify the record
-		 * If is a new record, generate a new record with default value :
-		 * $_REQUEST["idParent"] contains the identifiant of the parent record
-		 */
-		$data = dataRead($dataClass, $id, "gestion/sampleChange.tpl");
-        if ($data["sample_id"] > 0 && ! $dataClass->verifyCollection($data)) {
-            $message->set(_("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"));
-            $module_coderetour = - 1;
+         * open the form to modify the record
+         * If is a new record, generate a new record with default value :
+         * $_REQUEST["idParent"] contains the identifiant of the parent record
+         */
+        $data = dataRead($dataClass, $id, "gestion/sampleChange.tpl");
+        if ($data["sample_id"] > 0 && !$dataClass->verifyCollection($data)) {
+            $message->set(_("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"), true);
+            $module_coderetour = -1;
         } else {
             /*
              * Recuperation des informations concernant l'echantillon parent
@@ -149,7 +150,7 @@ switch ($t_module["param"]) {
                     $dataParent = $dataClass->lire($_REQUEST["parent_uid"]);
                 }
             }
-            
+
             if ($dataParent["sample_id"] > 0) {
                 $vue->set($dataParent, "parent_sample");
                 if ($dataParent["sample_id"] > 0) {
@@ -167,7 +168,7 @@ switch ($t_module["param"]) {
                     $vue->set($data, "data");
                 }
             } else {
-                
+
                 if ($data["sample_id"] == 0 && $_SESSION["last_sample_id"] > 0) {
                     /*
                      * Recuperation des dernieres donnees saisies
@@ -184,18 +185,18 @@ switch ($t_module["param"]) {
                     $vue->set($data, "data");
                 }
             }
-            
+
             sampleInitDatEntry();
-            
+
             include 'modules/gestion/mapInit.php';
             $vue->set(1, "mapIsChange");
         }
         break;
     case "write":
 		/*
-		 * write record in database
-		 */
-		$id = dataWrite($dataClass, $_REQUEST);
+         * write record in database
+         */
+        $id = dataWrite($dataClass, $_REQUEST);
         if ($id > 0) {
             $_REQUEST[$keyName] = $id;
             /*
@@ -207,9 +208,9 @@ switch ($t_module["param"]) {
         break;
     case "delete":
 		/*
-		 * delete record
-		 */
-		dataDelete($dataClass, $_REQUEST["uid"]);
+         * delete record
+         */
+        dataDelete($dataClass, $_REQUEST["uid"]);
         $isDelete = true;
         break;
     case "export":
@@ -218,8 +219,8 @@ switch ($t_module["param"]) {
             $vue->regenerateHeader();
         } catch (Exception $e) {
             unset($vue);
-            $message->set($e->getMessage());
-            $module_coderetour = - 1;
+            $message->set($e->getMessage(), true);
+            $module_coderetour = -1;
         }
         break;
     case "importStage1":
@@ -234,7 +235,7 @@ switch ($t_module["param"]) {
              * Deplacement du fichier dans le dossier temporaire
              */
             $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
-            
+
             if (copy($_FILES['upfile']['tmp_name'], $filename)) {
                 require_once 'modules/classes/import.class.php';
                 try {
@@ -269,13 +270,13 @@ switch ($t_module["param"]) {
                                 $dataClass->verifyBeforeImport($row);
                             } catch (Exception $e) {
                                 // traduction: bien conserver inchangées les chaînes %1$s, %2$s
-                                $message->set(sprintf(_('Ligne %1$s : %2$s'), $line, $e->getMessage()));
-                                $module_coderetour = - 1;
+                                $message->set(sprintf(_('Ligne %1$s : %2$s'), $line, $e->getMessage()), true);
+                                $module_coderetour = -1;
                             }
-                            $line ++;
+                            $line++;
                         }
                     }
-                    if ($module_coderetour == - 1) {
+                    if ($module_coderetour == -1) {
                         /*
                          * Suppression du fichier temporaire
                          */
@@ -299,12 +300,12 @@ switch ($t_module["param"]) {
                         $vue->set("gestion/sampleImport.tpl", "corps");
                     }
                 } catch (ImportException $e) {
-                    $module_coderetour = - 1;
-                    $message->set($e->getMessage());
+                    $module_coderetour = -1;
+                    $message->set($e->getMessage(), true);
                 }
             } else {
-                $message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"));
-                $module_coderetour = - 1;
+                $message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"), true);
+                $module_coderetour = -1;
             }
         }
         break;

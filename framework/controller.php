@@ -13,7 +13,7 @@ include_once ("framework/common.inc.php");
  * Codage UTF-8
  */
 if (! check_encoding($_REQUEST)) {
-    $message->set(_("Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu"));
+    $message->set(_("Problème dans les données fournies : l'encodage des caractères n'est pas celui attendu"), true);
     $_REQUEST["module"] = "default";
     unset($_REQUEST["moduleBase"]);
     unset($_REQUEST["action"]);
@@ -153,7 +153,7 @@ while (isset($module)) {
     $t_module = $navigation->getModule($module);
     if (count($t_module) == 0) {
         // traduction: conserver inchangée la chaîne %s
-        $message->set(sprintf(_('Le module demandé n\'existe pas (%s)'), $module));
+        $message->set(sprintf(_('Le module demandé n\'existe pas (%s)'), $module), true);
         $t_module = $navigation->getModule("default");
     }
     /*
@@ -196,7 +196,6 @@ while (isset($module)) {
                 $vue = new VueSmarty($SMARTY_param, $SMARTY_variables);
         }
     }
-    
     /*
      * Verification si le login est requis
      */
@@ -355,7 +354,6 @@ while (isset($module)) {
             }
         }
     }
-    
     /*
      * Controles complementaires
      */

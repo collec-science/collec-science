@@ -47,10 +47,12 @@ switch ($t_module["param"]) {
                     try {
                         $dataClass->ecrire_document($id, $_FILES["protocol_file"]);
                     } catch (FileException $fe) {
-                        $message->set($fe->getMessage());
+                        $message->set($fe->getMessage(), true);
+                        $bdd->rollback();
                     } catch (Exception $e) {
                         $message->setSyslog($e->getMessage());
                         $message->set(_("impossible d'enregistrer la pièce jointe"), true);
+                        $bdd->rollback();
                     }
                 }
                 $_REQUEST[$keyName] = $id;

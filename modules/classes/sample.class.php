@@ -117,7 +117,7 @@ class Sample extends ObjetBDD
      *
      * @see ObjetBDD::lire()
      */
-    function lire($uid, $getDefault, $parentValue)
+    function lire($uid, $getDefault = true, $parentValue = null)
     {
         $sql = $this->sql . " where s.uid = :uid";
         $data["uid"] = $uid;

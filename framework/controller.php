@@ -31,7 +31,7 @@ if (! isset($_SESSION["dbversion"])) {
             unset($_SESSION["dbversion"]);
         }
         // traduction: bien conserver inchangées les chaînes %1$s, %2$s
-        $message->set(sprintf(_('La base de données n\'est pas dans la version attendue (%1$s). Version actuelle : %2$s'),$APPLI_dbversion,$dbversion->getLastVersion()["dbversion_number"]));
+        $message->set(sprintf(_('La base de données n\'est pas dans la version attendue (%1$s). Version actuelle : %2$s'),$APPLI_dbversion,$dbversion->getLastVersion()["dbversion_number"]), true);
         $_REQUEST["module"] = "default";
         unset($_REQUEST["moduleBase"]);
         unset($_REQUEST["action"]);

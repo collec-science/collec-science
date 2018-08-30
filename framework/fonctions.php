@@ -126,9 +126,17 @@ function dataDelete($dataClass, $id)
                 foreach ($dataClass->getErrorData(1) as $messageError) {
                     $message->set($messageError, true);
                 }
+            } 
+            /*
+             * recherche des erreurs liees a une violation de cle etrangere
+             */
+
+            if (strpos($e->getMessage(), "key violation")) {
+                $message->set(_("La suppression n'est pas possible : des informations sont référencées par cet enregistrement"), true);
             } else {
-                $message->set(_("Problème lors de la suppression"));
+                $message->set(_("Problème lors de la suppression"), true);
             }
+
             $message->setSyslog($e->getMessage());
             $ret = -1;
         }

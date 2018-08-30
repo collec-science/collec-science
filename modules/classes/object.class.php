@@ -43,7 +43,8 @@ class ObjectClass extends ObjetBDD
             "object_status_id" => array(
                 "type" => 1,
                 "defaultValue" => 1
-            )
+            ),
+            "referent_id" => array("type" => 1)
         );
         parent::__construct($bdd, $param);
     }

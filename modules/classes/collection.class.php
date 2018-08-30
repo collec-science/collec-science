@@ -27,7 +27,8 @@ class Collection extends ObjetBDD
             "collection_name" => array(
                 "type" => 0,
                 "requis" => 1
-            )
+            ),
+            "referent_id" => array("type" => 1)
         );
         parent::__construct($bdd, $param);
     }
@@ -59,7 +60,7 @@ class Collection extends ObjetBDD
      */
     function getCollectionsFromLogin()
     {
-       return $this->getCollectionsFromGroups($_SESSION["groupes"]);
+        return $this->getCollectionsFromGroups($_SESSION["groupes"]);
     }
 
     /**

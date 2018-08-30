@@ -40,19 +40,17 @@ switch ($t_module["param"]) {
                 if ($_FILES["protocol_file"]["error"] == 1) {
                     throw new FileException(_("Problème rencontré pendant le téléchargement du fichier joint"), true);
                 }
-            /*
+                /*
                  * Traitement du fichier eventuellement joint
                  */
                 if ($_FILES["protocol_file"]["size"] > 0) {
                     try {
                         $dataClass->ecrire_document($id, $_FILES["protocol_file"]);
                     } catch (FileException $fe) {
-                        $message->set($fe->getMessage(), true);
-                        $bdd->rollback();
+                        throw new FileException($fe->getMessage());
                     } catch (Exception $e) {
                         $message->setSyslog($e->getMessage());
-                        $message->set(_("impossible d'enregistrer la pièce jointe"), true);
-                        $bdd->rollback();
+                        throw new FileException(_("impossible d'enregistrer la pièce jointe"));
                     }
                 }
                 $_REQUEST[$keyName] = $id;

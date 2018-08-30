@@ -213,6 +213,25 @@ switch ($t_module["param"]) {
         dataDelete($dataClass, $_REQUEST["uid"]);
         $isDelete = true;
         break;
+    case "deleteMulti":
+        /*
+         * Delete all records in uid array
+         */
+        if (count($_POST["uid"]) > 0) {
+            $bdd->beginTransaction();
+            try {
+                foreach ($_POST["uid"] as $uid) {
+                    dataDelete($dataClass, $uid, true);
+                }
+                $bdd->commit();
+                $message->set(_("Suppression effectuée"));
+            } catch (Exception $e) {
+                $message->set(_("La suppression des échantillons a échoué"), true);
+                $message->set($e->getMessage());
+                $bdd->rollback();
+            }
+        }
+        break;
     case "export":
         try {
             $vue->set($dataClass->getForExport($dataClass->generateArrayUidToString($_REQUEST["uid"])));

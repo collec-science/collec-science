@@ -99,7 +99,7 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
  * 
  * @return int
  */
-function dataDelete($dataClass, $id)
+function dataDelete($dataClass, $id, $isPartOfTransaction = false )
 {
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
     $module_coderetour = -1;
@@ -118,9 +118,12 @@ function dataDelete($dataClass, $id)
     if ($ok) {
         try {
             $ret = $dataClass->supprimer($id);
+            if (!$isPartOfTransaction) {
             $message->set(_("Suppression effectuée"));
             $module_coderetour = 1;
+            }
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
+
         } catch (Exception $e) {
             if ($OBJETBDD_debugmode > 0) {
                 foreach ($dataClass->getErrorData(1) as $messageError) {

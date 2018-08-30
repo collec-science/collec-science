@@ -72,6 +72,22 @@
 		 * initialisation a l'ouverture de la fenetre
 		 */
 		displayMode(displayModeFull);
+
+		$("#checkedButton").on ("keypress click", function(event) {
+			
+			var action = $("#checkedAction").val();
+			if (action.length > 0) {
+				var conf = confirm("{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
+				if ( conf  == true) {
+					$(this.form).find("input[name='module']").val(action);
+					$(this.form).submit();
+				} else {
+					event.preventDefault();
+				}
+			} else {
+				event.preventDefault();
+			}
+		});
 		
 	});
 </script>
@@ -196,6 +212,14 @@
 			{/section}
 		</tbody>
 	</table>
-	{if $droits.gestion == 1}
+	{if $droits.collection == 1}
+	<div class="row">
+		{t}Pour les éléments cochés :{/t}
+		<select id="checkedAction">
+		<option value="" selected>{t}Sélectionnez{/t}</option>
+		<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
+		</select>
+		<button id="checkedButton" class="btn btn-danger" >{t}Exécuter{/t}</button>
+	</div>
 </form>
 {/if}

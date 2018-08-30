@@ -197,6 +197,8 @@ class Sample extends ObjetBDD
             require_once 'modules/classes/object.class.php';
             $object = new ObjectClass($this->connection, $this->paramori);
             $object->supprimer($uid);
+        } else {
+            throw new SampleException(sprintf(_("Vous ne disposez pas des droits nécessaires pour supprimer l'échantillon %1s"), $uid));
         }
     }
 

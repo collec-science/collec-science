@@ -150,7 +150,7 @@
 	<sampleImportStage1 action="modules/gestion/sample.php" param="importStage1" droits="import,collection" retourlogin="1" type="smarty"/>
 	<sampleImportStage2 action="modules/gestion/sample.php" param="importStage2" droits="import,collection" type="smarty" retourko="sampleImportStage1" modulebefore="sampleImportStage1,sampleImportStage2"/>
 	<sampleImportStage3 action="modules/gestion/import.php" param="importExterneExec" droits="import,collection" type="smarty" retourok="sampleImportStage1" retourko="sampleImportStage1" modulebefore="sampleImportStage2"/>
-	
+	<samplesDelete action="modules/gestion/sample.php" param="deleteMulti" modulebefore="sampleList,samplesDelete" retourok="sampleList" retourko="sampleList" droits="collection"/>
 	
 	<movement droits="consult" type="smarty" />
 	<movementList droits="collection" type="smarty" action="modules/gestion/movement.php" param="list" retourlogin="1"/>

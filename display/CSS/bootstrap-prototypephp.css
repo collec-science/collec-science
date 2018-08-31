@@ -167,3 +167,13 @@ legend {
 .lexique dt {
   white-space: pre-wrap;
 }
+
+/* Affichage de la structure de la base de donnees */
+.tablename {
+	background: #003A80;
+	font-size: large;
+	color: white;
+}
+.tablecomment {
+	color:#009EE0;
+}

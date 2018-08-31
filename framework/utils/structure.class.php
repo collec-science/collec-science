@@ -73,7 +73,7 @@ class Structure extends ObjetBDD
         join pg_catalog.pg_description on (relid = objoid and objsubid = 0)
         where schemaname = :schema";
 
-        $this->_tables = $this->getListParamAsPrepared(
+        $this->_tables = $this->getListeParamAsPrepared(
             $sql,
             array("schema" => $this->_schema)
         );
@@ -120,7 +120,7 @@ class Structure extends ObjetBDD
        ORDER BY tablename, field ASC)
         select * from req order by tablename, attnum;
        ';
-        $this->_colonnes = $this->getListParamAsPrepared(
+        $this->_colonnes = $this->getListeParamAsPrepared(
             $sql,
             array("schema" => $this->_schema)
         );
@@ -166,6 +166,48 @@ class Structure extends ObjetBDD
         }
 
         return $val;
+    }
+
+    function generateLatex(
+        $structureLevel = "subsection",
+        $headerTable = "\\begin{tabular}{|l|l|c|l|l|l|}",
+        $closeTable = "\\end{tabular}"
+    ) {
+        $val = "";
+        foreach ($this->tables as $table) {
+            $val .= "\\" . $structureLevel . "{"
+                . $this->el($table["tablename"]) . "}"
+                . "<br>";
+            $val .= $this->el($table["description"]) . "<br><br>";
+            $val .= $headerTable . "<br>";
+            $val .= "\\hline" . "<br>";
+            $val .= "Column name & Type & Not null & Key & Foreign key 
+            & Comment \\\\" . "<br>"
+                . "\\hline" . "<br>";
+            foreach ($table["columns"] as $column) {
+                $val .= $this->el($column["field"]) . " & "
+                    . $this->el($column["type"]) . " & ";
+                ($column["notnull"] == 1) ? $val .= "X & " : $val .= " & ";
+                strlen($column["key"]) > 0 ? $val .= "X & " : $val .= " & ";
+                strlen($column["ckey"]) > 0 ? $val .= "X & " : $val .= " & ";
+                $val .= $this->el($column["comment"])
+                    . "\\\\" . "<br>"
+                    . "\\hline" . "<br>";
+            }
+            $val .= $closeTable . "<br>";
+        }
+        return $val;
+    }
+
+    /**
+     * Echappe les _ par \_ pour l'encodage Latex
+     * @param string $chaine
+     *  
+     * @return string 
+     */
+    function el($chaine)
+    {
+        return str_replace("_", "\\_", $chaine);
     }
 }
 

@@ -1628,6 +1628,16 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</constraint>
 </table>
 
+<index name="referent_referent_name_idx" table="col.referent"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+	<tablespace name="pg_default"/>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="referent_name"/>
+			<collation name="pg_catalog.&quot;default&quot;"/>
+		</idxelement>
+</index>
+
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
 	<columns names="uid" ref-type="src-columns"/>

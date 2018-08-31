@@ -31,7 +31,6 @@ class Referent extends ObjetBDD
             ),
             "referent_email" => array("type" => 0),
             "address_name" => array("type" => 0),
-            "address_line1" => array("type" => 0),
             "address_line2" => array("type" => 0),
             "address_line3" => array("type" => 0),
             "address_city" => array("type" => 0),
@@ -39,6 +38,22 @@ class Referent extends ObjetBDD
             "referent_phone" => array("type" => 0)
         );
         parent::__construct($bdd, $param);
+    }
+
+    /**
+     * Recupere l'enregistrement a partir du nom du referent
+     * 
+     * @param string $name 
+     * 
+     * @return array 
+     */
+    function getFromName($name)
+    {
+        if (strlen($name) > 0) {
+            $sql = "select * from referent 
+                    where referent_name = :name";
+            return $this->lireParamAsPrepared($sql, array("name" => $name));
+        }
     }
 }
 ?>

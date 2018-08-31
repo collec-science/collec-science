@@ -46,3 +46,10 @@ REFERENCES "referent" ("referent_id")
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
+CREATE UNIQUE INDEX referent_referent_name_idx ON col.referent
+	USING btree
+	(
+	  referent_name COLLATE pg_catalog."default" ASC NULLS LAST
+	)
+	TABLESPACE pg_default;

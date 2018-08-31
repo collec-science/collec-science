@@ -108,6 +108,12 @@
 	<dbparamList action="modules/param/dbparam.php" param="list" droits="admin" retourlogin="1" type="smarty" />
 	<dbparamWriteGlobal action="modules/param/dbparam.php" param="writeGlobal" droits="admin" retourok="dbparamList" retourko="dbparamList" />
 
+<referentList action="modules/param/referent.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
+	<referentChange action="modules/param/referent.php" param="change" droits="param,collection"  retourlogin="1" type="smarty" />
+	<referentWrite action="modules/param/referent.php" param="write" droits="param,collection" retourok="referentList" retourko="referentChange" modulebefore="referentChange" />
+	<referentDelete action="modules/param/referent.php" param="delete" droits="param,collection" retourok="referentList" retourko="referentChange"  modulebefore="referentChange"/>
+	<referentGetFromName action="modules/param/referent.php" param="getFromName" droits="consult" type="ajax"/>
+
 	<gestion droits="consult"/>
 	<containerList action="modules/gestion/container.php" param="list" droits="consult" retourlogin="1"  type="smarty"  />
 	<containerDisplay action="modules/gestion/container.php" param="display" droits="consult"  retourlogin="1" type="smarty" />

@@ -24,6 +24,7 @@
 	<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" />
 	<item module="protocolList" droits="consult" label="Protocoles" tooltip="Liste des protocoles" />
 	<item module="operationList" droits="consult" label="Opérations" tooltip="Liste des opérations rattachées à un protocole" />
+	<item module="referentList" droits="consult" label="Référents" tooltip="Liste des référents des objets ou des collections"/>
 	<item divider='1'/>
 	<item module="containerFamilyList" droits="consult" label="Familles de contenants" tooltip="Familles de contenants (armoires, éprouvettes...)" />
 	<item module="containerTypeList" droits="consult" label="Types de contenants" tooltip="Liste des types de contenants" />

@@ -12,6 +12,7 @@
 <tr>
 <th>{t}Nom de la collection{/t}</th>
 <th>{t}Id{/t}</th>
+<th>{t}Référent{/t}</th>
 <th>{t}Groupes de login autorisés{/t}</th>
 </tr>
 </thead>
@@ -28,6 +29,7 @@
 {/if}
 </td>
 <td class="center">{$data[lst].collection_id}</td>
+<td>{$data[lst].referent_name}</td>
 <td>
 {$data[lst].groupe}
 </td>

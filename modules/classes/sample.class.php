@@ -24,7 +24,7 @@ class Sample extends ObjetBDD
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
 					so.identifier, so.wgs84_x, so.wgs84_y, 
-					so.object_status_id, object_status_name,
+					so.object_status_id, object_status_name,so.referent_id,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
 					container_type_name, clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
@@ -33,7 +33,8 @@ class Sample extends ObjetBDD
 					movement_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,
                     lm.line_number, lm.column_number,
-                    container_uid, oc.identifier as container_identifier
+                    container_uid, oc.identifier as container_identifier,
+                    case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join collection p on (p.collection_id = s.collection_id)
@@ -52,6 +53,8 @@ class Sample extends ObjetBDD
                     left outer join object oc on (container_uid = oc.uid)
 					left outer join movement_type using (movement_type_id)
                     left outer join metadata using (metadata_id)
+                    left outer join referent ro on (so.referent_id = ro.referent_id)
+                    left outer join referent cr on (p.referent_id = cr.referent_id)
 					";
 
     function __construct($bdd, $param = array())

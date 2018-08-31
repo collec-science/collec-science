@@ -49,7 +49,7 @@ $(document).ready(function () {
 <div class="form-group">
 <label for="collection_id"  class="control-label col-md-4">{t}Collection de rattachement :{/t}</label>
 <div class="col-md-8">
-<select name="collection_id" id="collection_id" class="control-form">
+<select name="collection_id" id="collection_id" class="form-control">
 {foreach $collections as $value}
 <option value="{$value.collection_id}" {if $value.collection_id == $data.collection_id}selected{/if}>
 {$value.collection_name}

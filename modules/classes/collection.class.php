@@ -42,11 +42,14 @@ class Collection extends ObjetBDD
      */
     function getListe($order = 0)
     {
-        $sql = "select collection_id, collection_name, array_to_string(array_agg(groupe),', ') as groupe
+        $sql = "select collection_id, collection_name, 
+                array_to_string(array_agg(groupe),', ') as groupe,
+                referent_name
 				from collection
-				left outer join collection_group using (collection_id)
+                left outer join collection_group using (collection_id)
+                left outer join referent using (referent_id)
 				left outer join aclgroup using (aclgroup_id)
-				group by collection_id, collection_name
+				group by collection_id, collection_name, referent_name
 				order by $order";
         return $this->getListeParam($sql);
     }
@@ -54,8 +57,6 @@ class Collection extends ObjetBDD
     /**
      * Retourne la liste des collections autorises pour un login
      *
-     * @param string $login
-     * @param PDO $aclconnexion
      * @return array
      */
     function getCollectionsFromLogin()
@@ -66,7 +67,8 @@ class Collection extends ObjetBDD
     /**
      * Retourne la liste des collections correspondants aux groupes indiques
      *
-     * @param array $groups
+     * @param array $groups 
+     * 
      * @return array
      */
     function getCollectionsFromGroups(array $groups)

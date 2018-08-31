@@ -182,9 +182,17 @@ switch ($t_module["param"]) {
                     $data["sampling_place_id"] = $dl["sampling_place_id"];
                     $data["metadata"] = $dl["metadata"];
                     $data["multiple_value"] = $dl["multiple_value"];
+                    $data["referent_id"] = $dl["referent_id"];
                     $vue->set($data, "data");
                 }
             }
+
+            /* 
+             * Recuperation des referents
+             */
+            require_once 'modules/classes/referent.class.php';
+            $referent = new Referent($bdd, $ObjetBDDParam);
+            $vue->set($referent->getListe(2), "referents");
 
             sampleInitDatEntry();
 

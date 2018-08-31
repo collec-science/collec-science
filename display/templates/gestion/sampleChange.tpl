@@ -401,6 +401,19 @@ title="{t}Générez l'identifiant à partir des informations saisies{/t}">{t}Gé
 </div>
 </div>
 
+<div class="form-group">
+<label for="referentId"  class="control-label col-md-4">{t}Référent de l'échantillon :{/t}</label>
+<div class="col-md-8">
+<select id="referentId" name="referent_id" class="form-control">
+      <option value="" {if $data.referent_id == ""}selected{/if}>Choisissez...</option>
+      {foreach $referents as $referent}
+            <option value="{$referent.referent_id}" {if $data.referent_id == $referent.referent_id}selected{/if}>
+            {$referent.referent_name}
+            </option>
+      {/foreach}
+</select>
+</div>
+</div>
 
 <div class="form-group">
 <label for="sample_type_id" class="control-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>

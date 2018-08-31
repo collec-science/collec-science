@@ -26,6 +26,24 @@
 			$("#sampleSpinner2").show();
 			$(this.form).submit();
 		});
+		$("#referent_name").click(function() { 
+			var referentName = $(this).text();
+			if (referentName.length > 0) {
+			$.ajax( { 
+    	   		url: "index.php",
+    	    	data: { "module": "referentGetFromName", "referent_name": referentName }
+    	    })
+    	    .done (function (value) {
+				value = JSON.parse(value);
+				var newval = value.referent_name + "<br>" + value.referent_email + "<br>" +
+						value.referent_phone + "<br>" + value.address_name + "<br>"
+						+ value.address_line2 + "<br>" + value.address_line3 + "<br>"
+						+ value.address_city + "<br>" + value.address_country;
+						$("#referent_name").html (newval);
+					;
+			});
+			}
+		});
 	});
 </script>
 
@@ -129,6 +147,10 @@
 <dl class="dl-horizontal">
 <dt>{t}Collection :{/t}</dt>
 <dd>{$data.collection_name}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Référent :{/t}</dt>
+<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}">{$data.referent_name}</dd>
 </dl>
 <dl class="dl-horizontal">
 <dt>{t}Type :{/t}</dt>

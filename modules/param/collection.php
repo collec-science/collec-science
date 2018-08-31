@@ -20,7 +20,7 @@ switch ($t_module["param"]) {
             $vue->set($dataClass->getListe(2), "data");
             $vue->set("param/collectionList.tpl", "corps");
         } catch (Exception $e) {
-            $message->set($e->getMessage());
+            $message->set($e->getMessage(), true);
         }
         break;
     case "change":
@@ -34,6 +34,12 @@ switch ($t_module["param"]) {
          * Recuperation des groupes
          */
         $vue->set($dataClass->getAllGroupsFromCollection($id), "groupes");
+        /* 
+        * Recuperation des referents
+         */
+        require_once 'modules/classes/referent.class.php';
+        $referent = new Referent($bdd, $ObjetBDDParam);
+        $vue->set($referent->getListe(2), "referents");
         break;
     case "write":
         /*

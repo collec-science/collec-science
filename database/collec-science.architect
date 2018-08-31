@@ -932,7 +932,7 @@ B: bottom, premiere ligne en bas</remarks>
     <column id="COL257" populated="true" UUID="83110b82-7744-492a-9edc-3ffff4ca74f8" autoIncrement="false" autoIncrementSequenceName="referent_referent_email_seq" defaultValue="" name="referent_email" nullable="1" physicalName="referent_email" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Email of contact</remarks>
     </column>
-    <column id="COL258" populated="true" UUID="68f6a792-0d59-4ab4-902b-fc4f6e725787" autoIncrement="false" autoIncrementSequenceName="referent_addressee_name_seq" defaultValue="" name="addressee_name" nullable="1" physicalName="addressee_name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+    <column id="COL258" populated="true" UUID="68f6a792-0d59-4ab4-902b-fc4f6e725787" autoIncrement="false" autoIncrementSequenceName="referent_addressee_name_seq" defaultValue="" name="address_name" nullable="1" physicalName="address_name" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks>Name in address</remarks>
     </column>
     <column id="COL259" populated="true" UUID="1f7dbd84-055d-41df-925b-cf9c9e449c9b" autoIncrement="false" autoIncrementSequenceName="referent_address_line2_seq" defaultValue="" name="address_line2" nullable="1" physicalName="address_line2" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >

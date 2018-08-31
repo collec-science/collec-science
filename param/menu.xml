@@ -51,6 +51,7 @@
 	<item divider='1'/>
 	<item module="dbstructureHtml" droits='admin' label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes"/>
 	<item module="dbstructureLatex" droits='admin' label="Structure de la base de données (Latex)" tooltip="Liste des tables et des colonnes sous forme de tableaux Latex"/>
+	<item module="dbstructureGacl" droits="admin" label="Structure de la base de données des droits (HTML)" tooltip="Liste des tables et des colonnes de la base de données de gestion des droits"/>
 	<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP"/>
 </item>
 

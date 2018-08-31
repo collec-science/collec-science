@@ -60,8 +60,9 @@
 	<passwordlostReinitchange action="framework/identification/passwordLost.php" param="reinitChange" type="smarty" />
 	<passwordlostReinitwrite action="framework/identification/passwordLost.php" param="reinitWrite" modulebefore="passwordlostReinitchange" retourko="default" retourok="connexion"/>
 
-	<dbstructureHtml action="framework/utils/structure.php" param="html" type="smarty" droits="admin"/>
-	<dbstructureLatex action="framework/utils/structure.php" param="latex" type="smarty" droits="admin"/>
+	<dbstructureHtml action="framework/utils/structure.php" param="html" retourlogin="1" type="smarty" droits="admin"/>
+	<dbstructureGacl action="framework/utils/structure.php" param="gacl" retourlogin="1" type="smarty" droits="admin"/>
+	<dbstructureLatex action="framework/utils/structure.php" param="latex" retourlogin="1" type="smarty" droits="admin"/>
 
 <!-- Modules specifiques de l'application -->
 	<lexique action="doc/lexique.php"  retourlogin="1"  type="smarty" />

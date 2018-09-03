@@ -126,6 +126,13 @@ switch ($t_module["param"]) {
         include 'modules/gestion/container.functions.php';
         include 'modules/gestion/mapInit.php';
         $vue->set(1, "mapIsChange");
+        /* 
+         * Recuperation des referents
+         */
+        require_once 'modules/classes/referent.class.php';
+        $referent = new Referent($bdd, $ObjetBDDParam);
+        $vue->set($referent->getListe(2), "referents");
+
         break;
     case "write":
         /*

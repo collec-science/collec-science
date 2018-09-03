@@ -1,4 +1,28 @@
 {* Objets > Contenants > Rechercher > UID d'un contenant > *}
+<script>
+$(document).ready(function() {
+		$("#referent_name").click(function() { 
+			var referentName = $(this).text();
+			if (referentName.length > 0) {
+			$.ajax( { 
+    	   		url: "index.php",
+    	    	data: { "module": "referentGetFromName", "referent_name": referentName }
+    	    })
+    	    .done (function (value) {
+				value = JSON.parse(value);
+				var newval = value.referent_name + "<br>" + value.referent_email + "<br>" +
+						value.referent_phone + "<br>" + value.address_name + "<br>"
+						+ value.address_line2 + "<br>" + value.address_line3 + "<br>"
+						+ value.address_city + "<br>" + value.address_country;
+						$("#referent_name").html (newval);
+					;
+			});
+			}
+		});
+});
+</script>
+
+
 <h2>{t}Détail d'un contenant{/t}</h2>
 <div class="row">
 <div class="col-md-12">
@@ -56,6 +80,10 @@
 <dl class="dl-horizontal">
 <dt>{t}UID et référence :{/t}</dt>
 <dd>{$data.uid} {$data.identifier}</dd>
+</dl>
+<dl class="dl-horizontal">
+<dt>{t}Référent :{/t}</dt>
+<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}"><a href="#">{$data.referent_name}</a></dd>
 </dl>
 <dl class="dl-horizontal">
 <dt>{t}Type :{/t}</dt>

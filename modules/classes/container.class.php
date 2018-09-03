@@ -17,7 +17,8 @@ class Container extends ObjetBDD
 					document_id, identifiers,
 					movement_date, movement_type_name, movement_type_id,
                     lines, columns, first_line,
-                    column_number, line_number, container_uid, oc.identifier as container_identifier
+                    column_number, line_number, container_uid, oc.identifier as container_identifier,
+                    o.referent_id, referent_name
 					from container c
 					join object o using (uid)
 					join container_type using (container_type_id)
@@ -28,7 +29,8 @@ class Container extends ObjetBDD
 					left outer join v_object_identifier using (uid)
 					left outer join last_movement using (uid)
                     left outer join object oc on (container_uid = oc.uid)
-					left outer join movement_type using (movement_type_id)
+                    left outer join movement_type using (movement_type_id)
+                    left outer join referent r on (o.referent_id = r.referent_id)
 			";
 
     /**
@@ -67,7 +69,7 @@ class Container extends ObjetBDD
      *
      * @see ObjetBDD::lire()
      */
-    function lire($uid, $getDefault, $parentValue)
+    function lire($uid, $getDefault = false, $parentValue = "")
     {
         $sql = $this->sql . " where o.uid = :uid";
         $data["uid"] = $uid;

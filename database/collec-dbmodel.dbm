@@ -2162,7 +2162,11 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 custom-color="#1f15e0"
 	 src-table="gacl.acllogingroup"
 	 dst-table="gacl.acllogin" reference-fk="acllogin_acllogingroup_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="src-label">
+		<position x="1.68148" y="2.85"/>
+	</label>
+</relationship>
 
 <relationship name="rel_login_oldpassword_logingestion" type="relfk"
 	 custom-color="#a14665"

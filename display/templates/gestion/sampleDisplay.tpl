@@ -150,7 +150,7 @@
 </dl>
 <dl class="dl-horizontal">
 <dt>{t}Référent :{/t}</dt>
-<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}">{$data.referent_name}</dd>
+<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}"><a href="#">{$data.referent_name}</a></dd>
 </dl>
 <dl class="dl-horizontal">
 <dt>{t}Type :{/t}</dt>

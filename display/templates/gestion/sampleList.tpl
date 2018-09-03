@@ -2,7 +2,7 @@
 <h2>{t}Rechercher des échantillons{/t}</h2>
 
 	<div class="row">
-	<div class="col-lg-8">
+	<div class="col-lg-12">
 {include file='gestion/sampleSearch.tpl'}
 </div>
 </div>

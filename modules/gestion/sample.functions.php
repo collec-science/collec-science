@@ -28,6 +28,9 @@ function sampleInitDatEntry()
     require_once 'modules/classes/metadata.class.php';
     $metadata = new Metadata($bdd, $ObjetBDDParam);
     $vue->set($metadata->getListSearchable(), "metadatas");
+    require_once 'modules/classes/referent.class.php';
+    $referent = new Referent($bdd, $ObjetBDDParam);
+    $vue->set($referent->getListe(2), "referents");
 }
 
 /**

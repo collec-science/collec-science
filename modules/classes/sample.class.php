@@ -295,6 +295,11 @@ class Sample extends ObjetBDD
             $and = " and ";
             $data["sampling_place_id"] = $param["sampling_place_id"];
         }
+        if ($param["referent_id"] > 0) {
+            $where .= $and . "ro.referent_id = :referent_id";
+            $and = " and ";
+            $data["referent_id"] = $param["referent_id"];
+        }
         
         if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
             $where .= $and . " s.uid between :uid_min and :uid_max";

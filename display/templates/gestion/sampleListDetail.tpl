@@ -88,6 +88,15 @@
 				event.preventDefault();
 			}
 		});
+
+		$("#checkedAction").change(function () { 
+			var action = $(this).val();
+			if (action == "samplesAssignReferent") {
+				$("#referentid").show();
+			} else {
+				$("#referentid").hide();
+			}
+		});
 		
 	});
 </script>
@@ -217,7 +226,16 @@
 		{t}Pour les éléments cochés :{/t}
 		<select id="checkedAction">
 		<option value="" selected>{t}Sélectionnez{/t}</option>
+		<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
 		<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
+		</select>
+		<select id="referentid" name="referent_id" hidden>
+				<option value="">{t}Choisissez...{/t}</option>
+				{foreach $referents as $referent}
+				<option value="{$referent.referent_id}">
+				{$referent.referent_name}
+				</option>
+				{/foreach}
 		</select>
 		<button id="checkedButton" class="btn btn-danger" >{t}Exécuter{/t}</button>
 	</div>

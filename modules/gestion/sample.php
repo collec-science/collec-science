@@ -240,6 +240,37 @@ switch ($t_module["param"]) {
             }
         }
         break;
+    case "referentAssignMulti":
+        /* 
+         * change all referents for records in uid array
+         */
+        if (count($_POST["uid"]) > 0) {
+            require_once 'modules/classes/object.class.php';
+            $object = new ObjectClass($bdd, $ObjetBDDParam);
+            $bdd->beginTransaction();
+            try {
+                foreach ($_POST["uid"] as $uid) {
+                    $dataClass->setReferent($uid, $object, $_REQUEST["referent_id"]);
+                }
+                $bdd->commit();
+                $message->set(_("Affectation effectuée"));
+                $module_coderetour = 1;
+            } catch (ObjectException $oe) {
+                $message->set(_("Erreur d'écriture dans la base de données"), true);
+                $bdd->rollback();
+                $module_coderetour = -1;
+            } catch (Exception $e) {
+                $message->set(
+                    _("L'affectation des référents aux échantillons a échoué"),
+                    true
+                );
+                $message->set($e->getMessage());
+                $module_coderetour = -1;
+                $bdd->rollback();
+            }
+        }
+        break;
+
     case "export":
         try {
             $vue->set($dataClass->getForExport($dataClass->generateArrayUidToString($_REQUEST["uid"])));

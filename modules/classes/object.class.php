@@ -718,6 +718,25 @@ class ObjectClass extends ObjetBDD
     {
         unlink($this->xslFile);
     }
+
+    /**
+     * Change the referent in an object
+     * 
+     * @param int $uid 
+     * @param int $referent_id 
+     * 
+     * @return mixed 
+     */
+    function setReferent($uid, $referent_id) {
+        if ($uid > 0) {
+            $data = array ("uid"=>$uid, "referent_id"=>$referent_id);
+            try {
+                $this->ecrire($data);
+            } catch (ObjetBDDException $oe) {
+                throw new ObjectException(( $oe->getMessage()));
+            }
+        }
+    }
 }
 
 ?>

@@ -175,7 +175,7 @@ class Sample extends ObjetBDD
         if ($error) {
             throw new SampleException(_("Vous ne disposez pas des droits pour modifier cet échantillon"));
         }
-        return - 1;
+        return -1;
     }
 
     /**
@@ -209,8 +209,10 @@ class Sample extends ObjetBDD
      * Fonction permettant de verifier si l'echantillon peut etre modifie ou non
      * par l'utilisateur
      *
-     * @param array $data
+     * @param array $data 
+     * 
      * @throws Exception
+     * 
      * @return boolean
      */
     function verifyCollection($data)
@@ -226,14 +228,33 @@ class Sample extends ObjetBDD
     }
 
     /**
+     * Verify if user is granted to modify the sample identified by uid
+     * 
+     * @param int $uid 
+     * 
+     * @return boolean 
+     */
+    function verifyCollectionFromUid($uid)
+    {
+        if ($uid > 0) {
+            $data = $this->lire($uid);
+            return $this->verifyCollection($data);
+        }
+        return true;
+    }
+
+    /**
      * Retourne le nombre d'echantillons attaches a un projet
      *
-     * @param int $collection_id
+     * @param int $collection_id 
+     * 
+     * @return int
      */
     function getNbFromCollection($collection_id)
     {
         if ($collection_id > 0) {
-            $sql = "select count(*)as nb from sample where collection_id = :collection_id";
+            $sql = "select count(*)as nb from sample 
+            where collection_id = :collection_id";
             $var["collection_id"] = $collection_id;
             $data = $this->lireParamAsPrepared($sql, $var);
             if (count($data) > 0) {
@@ -248,6 +269,8 @@ class Sample extends ObjetBDD
      * Fonction de recherche des échantillons
      *
      * @param array $param
+     * 
+     * @return array
      */
     function sampleSearch($param)
     {
@@ -300,7 +323,7 @@ class Sample extends ObjetBDD
             $and = " and ";
             $data["referent_id"] = $param["referent_id"];
         }
-        
+
         if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
             $where .= $and . " s.uid between :uid_min and :uid_max";
             $and = " and ";
@@ -360,14 +383,14 @@ class Sample extends ObjetBDD
                 $data["metadata_field1"] = $param["metadata_field"][1];
                 $data["metadata_value1"] = "%" . $param["metadata_value"][1] . "%";
             }
-            if ($is_or && ! $is_or1) {
+            if ($is_or && !$is_or1) {
                 $where .= ")";
                 $is_or = false;
             }
-            if (! $is_or && $is_or1) {
+            if (!$is_or && $is_or1) {
                 $where .= " (";
             }
-            
+
             if (strlen($param["metadata_field"][2]) > 0 && strlen($param["metadata_value"][2]) > 0) {
                 if ($is_or1) {
                     $where .= " or ";
@@ -475,7 +498,7 @@ class Sample extends ObjetBDD
                         } else {
                             $val = $md;
                         }
-                        $value["md_".$kmd] = $val;
+                        $value["md_" . $kmd] = $val;
                     }
                     /*
                      * Fin de traitement - rajout de la ligne reformatee
@@ -536,7 +559,7 @@ class Sample extends ObjetBDD
         foreach ($data as $line) {
             foreach ($fields as $field) {
                 if (strlen($line[$field]) > 0) {
-                    if (! in_array($line[$field], $names[$field])) {
+                    if (!in_array($line[$field], $names[$field])) {
                         $names[$field][] = $line[$field];
                     }
                 }
@@ -548,7 +571,7 @@ class Sample extends ObjetBDD
                 $idents = explode(",", $line["identifiers"]);
                 foreach ($idents as $ident) {
                     $idvalue = explode(":", $ident);
-                    if (! in_array($idvalue[0], $names["identifier_type_code"])) {
+                    if (!in_array($idvalue[0], $names["identifier_type_code"])) {
                         $names["identifier_type_code"][] = $idvalue[0];
                     }
                 }
@@ -697,7 +720,7 @@ class Sample extends ObjetBDD
         } else {
             throw new SampleException(_("Impossible d'écrire dans la table Object"));
         }
-        return - 1;
+        return -1;
     }
 
     /**
@@ -714,16 +737,45 @@ class Sample extends ObjetBDD
              * Recherche si l'echantillon provient de la base de donnees courante
              * cas de la reintegration d'un echantillon modifie a l'exterieur
              */
-            
+
             $sql = "select uid from sample where dbuid_origin = :dbuid_origin";
-            $data = $this->lireParamAsPrepared($sql, array(
-                "dbuid_origin" => $dbuidorigin
-            ));
+            $data = $this->lireParamAsPrepared(
+                $sql,
+                array(
+                    "dbuid_origin" => $dbuidorigin
+                )
+            );
             if ($data["uid"] > 0) {
                 $uid = $data["uid"];
             }
         }
         return $uid;
+    }
+
+    /**
+     * Assign the referent at the sample
+     * Verify before if the user is unable to modify the sample
+     * 
+     * @param int         $uid 
+     * @param ObjectClass $objectClass 
+     * @param id          $referent_id 
+     * 
+     * @return void
+     */
+    function setReferent($uid, $objectClass, $referent_id)
+    {
+        if ($uid > 0) {
+            if ($this->verifyCollectionFromUid($uid)) {
+                $objectClass->setReferent($uid, $referent_id);
+            } else {
+                throw new SampleException(
+                    sprintf(
+                        _("Vous ne disposez pas des droits nécessaires pour modifier l'échantillon %1s"),
+                        $uid
+                    )
+                );
+            }
+        }
     }
 }
 

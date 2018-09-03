@@ -110,9 +110,10 @@
 
 <referentList action="modules/param/referent.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
 	<referentChange action="modules/param/referent.php" param="change" droits="param,collection"  retourlogin="1" type="smarty" />
-	<referentWrite action="modules/param/referent.php" param="write" droits="param,collection" retourok="referentList" retourko="referentChange" modulebefore="referentChange" />
+	<referentWrite action="modules/param/referent.php" param="write" droits="param,collection" retourok="referentList" retourko="referentChange" modulebefore="referentChange,referentCopy" />
 	<referentDelete action="modules/param/referent.php" param="delete" droits="param,collection" retourok="referentList" retourko="referentChange"  modulebefore="referentChange"/>
 	<referentGetFromName action="modules/param/referent.php" param="getFromName" droits="consult" type="ajax"/>
+	<referentCopy action="modules/param/referent.php" param="copy" droits="collection,param" type="smarty"/>
 
 	<gestion droits="consult"/>
 	<containerList action="modules/gestion/container.php" param="list" droits="consult" retourlogin="1"  type="smarty"  />

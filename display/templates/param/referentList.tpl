@@ -15,6 +15,9 @@
 <th>{t}Mail{/t}</th>
 <th>{t}Téléphone{/t}</th>
 <th>{t}Adresse postale{/t}</th>
+{if $droits.param == 1}
+<th>{t}Dupliquer{/t}</th>
+{/if}
 </tr>
 </thead>
 <tbody>
@@ -46,7 +49,13 @@
 <br>{$data[lst].address_country}
 {/if}
 </td>
-
+{if $droits.param == 1}
+<td class="center">
+<a href="index.php?module=referentCopy&referent_id={$data[lst].referent_id}" title="{t}Dupliquer le référent{/t}">
+<img src="display/images/copy.png" height="25">
+</a>
+</td>
+{/if}
 </tr>
 {/section}
 </tbody>

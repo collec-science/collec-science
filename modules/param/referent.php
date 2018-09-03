@@ -44,6 +44,13 @@ switch ($t_module["param"]) {
          */
         $vue->set($dataClass->getFromName($_REQUEST["referent_name"]));
         break;
+        case "copy":
+        $data = $dataClass->lire($id);
+        $data["referent_id"] = 0;
+        $data["referent_name"] = "";
+        $vue->set($data, "data");
+        $vue->set("param/referentChange.tpl", "corps");
+        break;
 
 }
 ?>

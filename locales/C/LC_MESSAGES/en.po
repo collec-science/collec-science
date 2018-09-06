@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-06 15:26+0200\n"
+"POT-Creation-Date: 2018-09-06 17:09+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -593,6 +593,18 @@ msgstr "Development mode - database: %1$s - schema: %2$s"
 msgid "Vous n'êtes pas identifié."
 msgstr "You are not signed in."
 
+#: ../../../framework/dbparam/dbparam.php:19
+#: ../../../framework/fonctions.php:76
+#: ../../../modules/gestion/movement.php:115
+#: ../../../modules/gestion/movement.php:143
+#: ../../../modules/param/protocol.php:58
+msgid "Enregistrement effectué"
+msgstr "Saved"
+
+#: ../../../framework/dbparam/dbparam.php:32
+msgid "Problème lors de la mise en fichier..."
+msgstr "Writing problem..."
+
 #: ../../../framework/droitko.php:2
 msgid ""
 "Vous n'avez pas accès à cette fonction. Veuillez vous identifier, le cas "
@@ -628,13 +640,6 @@ msgstr "Error reading information in the database"
 #, php-format
 msgid "Erreur: type d'affichage non défini pour le module demandé : %s"
 msgstr "Error: display type not defined for the requested module: %s"
-
-#: ../../../framework/fonctions.php:76
-#: ../../../modules/gestion/movement.php:115
-#: ../../../modules/gestion/movement.php:143
-#: ../../../modules/param/dbparam.php:19 ../../../modules/param/protocol.php:58
-msgid "Enregistrement effectué"
-msgstr "Saved"
 
 #: ../../../framework/fonctions.php:86
 msgid "Problème lors de l'enregistrement..."
@@ -1049,10 +1054,6 @@ msgstr "Error while generating movements"
 msgid "Mouvement enregistré"
 msgstr "Movement saved"
 
-#: ../../../modules/param/dbparam.php:32
-msgid "Problème lors de la mise en fichier..."
-msgstr "Writing problem..."
-
 #: ../../../modules/param/metadata.php:85
 msgid "Métadonnée(s) importée(s)"
 msgstr "Metadata imported"
@@ -1084,8 +1085,8 @@ msgid "Impossible d'importer les lieux de prélèvement"
 msgstr "Could not import sampling locations"
 
 #: ../../../param/param.default.inc.php:11
-msgid "3/7/2018"
-msgstr "2018-07-03"
+msgid "6/9/2018"
+msgstr "2018-09-06"
 
 #: ../../../doc/quoideneuf.php:67
 msgid "Impossible de lire le fichier contenant les news"
@@ -1431,6 +1432,27 @@ msgstr "Delete..."
 msgid "Donnée obligatoire"
 msgstr "Mandatory data"
 
+#: ../../../display/templates/framework/dbparamListChange.tpl:2
+msgid "Paramètres pérennes de l'application"
+msgstr "Long-term settings of the application"
+
+#: ../../../display/templates/framework/dbparamListChange.tpl:10
+msgid "Paramètre"
+msgstr "Setting"
+
+#: ../../../display/templates/framework/dbparamListChange.tpl:11
+msgid "Valeur"
+msgstr "Value"
+
+#: ../../../display/templates/framework/dbparamListChange.tpl:24
+#: ../../../display/templates/document/documentChange.tpl:25
+msgid "Enregistrer"
+msgstr "Save"
+
+#: ../../../display/templates/framework/dbstructure.tpl:1
+msgid "Structure de la base de données"
+msgstr "Database structure"
+
 #: ../../../display/templates/enpied.tpl:3
 msgid ""
 "Copyright (c) 2016-2018 - Tous droits réservés. Auteur : Éric Quinton, pour "
@@ -1664,10 +1686,6 @@ msgstr "Do you confirm the deletion?"
 #: ../../../display/templates/documentation/quoideneuf.tpl:1
 msgid "Les nouveautés..."
 msgstr "What's new?"
-
-#: ../../../display/templates/dbstructure.tpl:1
-msgid "Structure de la base de données"
-msgstr "Database structure"
 
 #: ../../../display/templates/gestion/sampleList.tpl:2
 msgid "Rechercher des échantillons"
@@ -3250,11 +3268,6 @@ msgstr "Initial quantity of subsamples (%1:%2):"
 msgid "Jeu de métadonnées"
 msgstr "Metadata set"
 
-#: ../../../display/templates/document/documentChange.tpl:25
-#: ../../../display/templates/param/dbparamListChange.tpl:24
-msgid "Enregistrer"
-msgstr "Save"
-
 #: ../../../display/templates/param/printerChange.tpl:2
 msgid "Création - Modification d'une imprimante"
 msgstr "Create / Edit a printer"
@@ -3585,18 +3598,6 @@ msgstr "Collection referent:"
 #: ../../../display/templates/param/collectionChange.tpl:32
 msgid "Groupes :"
 msgstr "Groups:"
-
-#: ../../../display/templates/param/dbparamListChange.tpl:2
-msgid "Paramètres pérennes de l'application"
-msgstr "Long-term settings of the application"
-
-#: ../../../display/templates/param/dbparamListChange.tpl:10
-msgid "Paramètre"
-msgstr "Setting"
-
-#: ../../../display/templates/param/dbparamListChange.tpl:11
-msgid "Valeur"
-msgstr "Value"
 
 #: ../../../display/templates/param/protocolChange.tpl:14
 msgid "La taille du fichier est supérieure à celle autorisée : "

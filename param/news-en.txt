@@ -7,6 +7,7 @@ Bugs fixes:
 - the title of the application, which appears next to the icon, disappeared just after the disconnection
 - if the title of the application was updated, it was necessary to wait for the reconnection for the new value to be displayed
 - the removal of a family of containers could give the impression that it was proceeding correctly, but this was not the case if container types were attached to it
+- the application didn't work with PHP 7.2
 
 Enhancements:
 - new parameter variables are now attached to the database and overwrite the data in the param.xxx files: mapDefaultX, mapDefaultY, mapDefaultZoom

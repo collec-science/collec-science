@@ -453,7 +453,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<schema name="col"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Types mime des fichiers importés]]></comment>
-	<position x="1820" y="780"/>
+	<position x="1800" y="800"/>
 	<column name="mime_type_id" not-null="true" sequence="col.mime_type_mime_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1205,7 +1205,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="logingestion" hide-ext-attribs="true" faded-out="true">
 	<schema name="gacl"/>
 	<role name="postgres"/>
-	<position x="1080" y="140"/>
+	<position x="920" y="140"/>
 	<column name="id" not-null="true" sequence="gacl.seq_logingestion_id">
 		<type name="integer" length="0"/>
 	</column>

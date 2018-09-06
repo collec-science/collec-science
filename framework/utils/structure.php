@@ -3,6 +3,7 @@
  * Recuperation de la structure de la base de donnees
  */
 require_once 'framework/utils/structure.class.php';
+$vue->set("framework/dbstructure.tpl", "corps");
 
 switch ($t_module["param"]) {
     case "html":
@@ -16,7 +17,7 @@ switch ($t_module["param"]) {
             "data"
         );
         $vue->htmlVars[] = "data";
-        $vue->set("dbstructure.tpl", "corps");
+
         break;
     case "latex":
         $dataclass = new Structure($bdd);
@@ -29,7 +30,7 @@ switch ($t_module["param"]) {
             "data"
         );
         $vue->htmlVars[] = "data";
-        $vue->set("dbstructure.tpl", "corps");
+
         break;
     case "gacl":
         $dataclass = new Structure($bdd_gacl);
@@ -42,7 +43,7 @@ switch ($t_module["param"]) {
             "data"
         );
         $vue->htmlVars[] = "data";
-        $vue->set("dbstructure.tpl", "corps");
+
         break;
 }
 

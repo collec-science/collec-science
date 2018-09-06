@@ -15,6 +15,7 @@ Correction de bugs :
 - suppression multiple d'échantillons : depuis la liste des échantillons, il est maintenant possible de réaliser diverses opérations sur ceux qui sont cochés, dont leur suppression. La fonction nécessite un droit "collection"
 - ajout de la notion de référent dans l'application. Un référent peut être rattaché à une collection dans son ensemble, ou a un objet particulier (échantillon ou contenant). Pour les échantillons, le référent affiché est soit celui de la collection, soit celui assigné en particulier.
 - assignation multiple d'un référent : depuis la liste des échantillons, il est possible d'affecter automatiquement un référent à ceux qui sont cochés
+- les administrateurs peuvent afficher la structure de la base de données soit au format HTML, soit au format LATEX
 
 Version 2.1 du 3 juillet 2018
 -----------------------------

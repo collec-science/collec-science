@@ -47,9 +47,17 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
-CREATE UNIQUE INDEX referent_referent_name_idx ON col.referent
+CREATE UNIQUE INDEX referent_referent_name_idx ON referent
 	USING btree
 	(
 	  referent_name COLLATE pg_catalog."default" ASC NULLS LAST
 	)
 	TABLESPACE pg_default;
+
+/*
+ * Fin d'execution du script
+ * Mise a jour de dbversion
+ */
+insert into dbversion ("dbversion_number", "dbversion_date")
+values 
+('2.2','2018-09-06');

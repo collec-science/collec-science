@@ -105,8 +105,8 @@
 	<movementReasonWrite action="modules/param/movementReason.php" param="write" droits="param,collection" retourok="movementReasonList" retourko="movementReasonChange" modulebefore="movementReasonChange" />
 	<movementReasonDelete action="modules/param/movementReason.php" param="delete" droits="param,collection" retourok="movementReasonList" retourko="movementReasonChange"  modulebefore="movementReasonChange"/>
 	
-	<dbparamList action="modules/param/dbparam.php" param="list" droits="admin" retourlogin="1" type="smarty" />
-	<dbparamWriteGlobal action="modules/param/dbparam.php" param="writeGlobal" droits="admin" retourok="dbparamList" retourko="dbparamList" />
+	<dbparamList action="framework/dbparam/dbparam.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<dbparamWriteGlobal action="framework/dbparam/dbparam.php" param="writeGlobal" droits="admin" retourok="dbparamList" retourko="dbparamList" />
 
 <referentList action="modules/param/referent.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
 	<referentChange action="modules/param/referent.php" param="change" droits="param,collection"  retourlogin="1" type="smarty" />

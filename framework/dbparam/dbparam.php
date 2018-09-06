@@ -6,12 +6,12 @@
  * Encoding : UTF-8
  * Copyright 2017 - All rights reserved
  */
-require_once 'modules/classes/dbparam.class.php';
+require_once 'framework/dbparam/dbparam.class.php';
 $dataClass = new DbParam($bdd, $ObjetBDDParam);
 switch ($t_module["param"]) {
     case "list":
         $vue->set($dataClass->getListe(2), "data");
-        $vue->set("param/dbparamListChange.tpl", "corps");
+        $vue->set("framework/dbparamListChange.tpl", "corps");
         break;
     case "writeGlobal":
         try {

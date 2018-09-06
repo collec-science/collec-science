@@ -259,6 +259,7 @@ CREATE TABLE "object" (
                 "uid" INTEGER NOT NULL DEFAULT nextval('"object_uid_seq"'),
                 "identifier" VARCHAR,
                 "object_status_id" INTEGER,
+                "referent_id" INTEGER,
                 "wgs84_x" DOUBLE PRECISION,
                 "wgs84_y" DOUBLE PRECISION,
                 CONSTRAINT "object_pk" PRIMARY KEY ("uid")
@@ -323,9 +324,10 @@ CREATE SEQUENCE "collection_collection_id_seq";
 CREATE TABLE "collection" (
                 "collection_id" INTEGER NOT NULL DEFAULT nextval('"collection_collection_id_seq"'),
                 "collection_name" VARCHAR NOT NULL,
+                "referent_id" INTEGER
                 CONSTRAINT "collection_pk" PRIMARY KEY ("collection_id")
 );
-COMMENT ON TABLE "collection" IS 'Table des projets';
+COMMENT ON TABLE "collection" IS 'Table des collections';
 
 
 ALTER SEQUENCE "collection_collection_id_seq" OWNED BY "collection"."collection_id";
@@ -769,6 +771,22 @@ ALTER TABLE sampling_place
   ON UPDATE NO ACTION
   ON DELETE NO ACTION;
 
+alter table object 
+ADD CONSTRAINT "referent_object_fk"
+FOREIGN KEY ("referent_id")
+REFERENCES "referent" ("referent_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
+alter table collection 
+ADD CONSTRAINT "referent_collection_fk"
+FOREIGN KEY ("referent_id")
+REFERENCES "referent" ("referent_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
   /*
  * Ajouts d'index 
  */
@@ -782,6 +800,12 @@ ALTER TABLE sampling_place
 create index object_identifier_idx on object using gin (identifier gin_trgm_ops);
 create index object_identifier_value_idx on object_identifier using gin (object_identifier_value gin_trgm_ops);
 create index sample_dbuid_origin_idx on sample using gin (dbuid_origin gin_trgm_ops);
+CREATE UNIQUE INDEX referent_referent_name_idx ON referent
+	USING btree
+	(
+	  referent_name COLLATE pg_catalog."default" ASC NULLS LAST
+	)
+	TABLESPACE pg_default;
 
   
 /*
@@ -998,7 +1022,14 @@ COMMENT ON TABLE "dbparam" IS 'Table des parametres associes de maniere intrinse
 COMMENT ON COLUMN "dbparam"."dbparam_name" IS 'Nom du parametre';
 COMMENT ON COLUMN "dbparam"."dbparam_value" IS 'Valeur du paramètre';
 
-insert into dbparam(dbparam_id, dbparam_name) values (1, 'APPLI_code');
+insert into dbparam(dbparam_id, dbparam_name) values
+ (1, 'APPLI_code'),
+ (2, 'APPLI_title'),
+ (3, 'mapDefaultX', -0.70),
+ (4, 'mapDefaultY', 44.77),
+ (5, 'mapDefaultZoom', 7)
+
+ ;
 
 ALTER TABLE "identifier_type" ADD COLUMN "used_for_search" BOOLEAN DEFAULT 'f' NOT NULL;
 comment on column identifier_type.used_for_search is 'Indique si l''identifiant doit être utilise pour les recherches a partir des codes-barres';
@@ -1006,10 +1037,31 @@ comment on column identifier_type.used_for_search is 'Indique si l''identifiant 
 ALTER TABLE "label" ADD COLUMN "identifier_only" BOOLEAN DEFAULT 'f' NOT NULL;
 comment on column label.identifier_only is 'true : le qrcode ne contient qu''un identifiant metier';
 
-/*
- * Ajout version 2.1
- */
-insert into dbparam (dbparam_id, dbparam_name) values (2, 'APPLI_title');
+CREATE SEQUENCE "referent_referent_id_seq";
+
+CREATE TABLE "referent" (
+                "referent_id" INTEGER NOT NULL DEFAULT nextval('"referent_referent_id_seq"'),
+                referent_name varchar not null,
+                referent_email varchar,
+                address_name varchar,
+                address_line2 varchar,
+                address_line3 varchar,
+                address_city varchar,
+                address_country varchar,
+                referent_phone varchar,
+                CONSTRAINT referent_pk PRIMARY KEY (referent_id)
+);
+comment on table referent is 'Table of sample referents';
+comment on column referent.referent_name is 'Name, firstname-lastname or department name';
+comment on column referent.referent_email is 'Email for contact';
+comment on column referent.address_name is 'Name for postal address';
+comment on column referent.address_line2 is 'second line in postal address';
+comment on column referent.address_line3 is 'third line in postal address';
+comment on column referent.address_city is 'ZIPCode and City in postal address';
+comment on column referent.address_country is 'Country in postal address';
+comment on column referent.referent_phone is 'Contact phone';
+alter sequence referent_referent_id_seq OWNED BY referent.referent_id;
+
 
 /*
  * Fin d'execution du script
@@ -1017,4 +1069,4 @@ insert into dbparam (dbparam_id, dbparam_name) values (2, 'APPLI_title');
  */
 insert into dbversion ("dbversion_number", "dbversion_date")
 values 
-('2.1','2018-07-03');
+('2.2','2018-09-06');

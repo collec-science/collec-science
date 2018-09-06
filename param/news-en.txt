@@ -15,6 +15,7 @@ Enhancements:
 - multiple deletion of samples: from the list of samples, it is now possible to perform various operations on those that are checked, including their removal. The function requires a "collection" right
 - adding the notion of referent in the application. A referent can be attached to a collection as a whole, or to a particular object (sample or container). For samples, the displayed referent is either the one in the collection or the one assigned in particular.
 - multiple assignment of a referent: from the list of samples, it is possible to automatically assign a referent to those which are checked
+- admins can display the database structure in HTML or LATEX format
 
 Version 2.1 of July 3, 2018
 ---------------------------

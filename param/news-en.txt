@@ -1,5 +1,21 @@
 News
 ===========
+Version 2.2 of september 6, 2018
+---------------------------
+Bugs fixes:
+- The addition of PDF files to the protocols could fail due to limitations placed in the server as to the size of the files. In this case, no error message was displayed
+- the title of the application, which appears next to the icon, disappeared just after the disconnection
+- if the title of the application was updated, it was necessary to wait for the reconnection for the new value to be displayed
+- the removal of a family of containers could give the impression that it was proceeding correctly, but this was not the case if container types were attached to it
+
+Enhancements:
+- new parameter variables are now attached to the database and overwrite the data in the param.xxx files: mapDefaultX, mapDefaultY, mapDefaultZoom
+- the error messages are now displayed in red. Database-related anomalies (including failed deletes due to integrity constraints) are now better explained
+- it is now possible to describe a URL type metadata field. The link is directly displayed in the browser during the consultation of the sample
+- multiple deletion of samples: from the list of samples, it is now possible to perform various operations on those that are checked, including their removal. The function requires a "collection" right
+- adding the notion of referent in the application. A referent can be attached to a collection as a whole, or to a particular object (sample or container). For samples, the displayed referent is either the one in the collection or the one assigned in particular.
+- multiple assignment of a referent: from the list of samples, it is possible to automatically assign a referent to those which are checked
+
 Version 2.1 of July 3, 2018
 ---------------------------
 Bug fixes:

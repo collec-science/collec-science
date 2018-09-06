@@ -55,7 +55,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </schema>
 
-<schema name="gacl" rect-visible="true" fill-color="#72ab47">
+<schema name="gacl" rect-visible="true" fill-color="#72ab47" faded-out="true">
 	<role name="postgres"/>
 </schema>
 
@@ -993,7 +993,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</reference>
 </view>
 
-<table name="aclacl" hide-ext-attribs="true">
+<table name="aclacl" hide-ext-attribs="true" faded-out="true">
 	<schema name="gacl"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des droits attribués]]></comment>
@@ -1017,7 +1017,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 </sequence>
 
-<table name="aclaco" hide-ext-attribs="true">
+<table name="aclaco" hide-ext-attribs="true" faded-out="true">
 	<schema name="gacl"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des droits gérés]]></comment>
@@ -1044,7 +1044,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 </sequence>
 
-<table name="aclappli" hide-ext-attribs="true">
+<table name="aclappli" hide-ext-attribs="true" faded-out="true">
 	<schema name="gacl"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des applications gérées]]></comment>
@@ -1065,7 +1065,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</constraint>
 </table>
 
-<table name="aclgroup" hide-ext-attribs="true">
+<table name="aclgroup" hide-ext-attribs="true" faded-out="true">
 	<schema name="gacl"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Groupes des logins]]></comment>
@@ -1092,7 +1092,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 </sequence>
 
-<table name="acllogin">
+<table name="acllogin" faded-out="true">
 	<schema name="gacl"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des logins des utilisateurs autorisés]]></comment>
@@ -1112,7 +1112,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</constraint>
 </table>
 
-<table name="acllogingroup" hide-ext-attribs="true">
+<table name="acllogingroup" hide-ext-attribs="true" faded-out="true">
 	<schema name="gacl"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des relations entre les logins et les groupes]]></comment>
@@ -1136,7 +1136,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 </sequence>
 
-<table name="log" hide-ext-attribs="true">
+<table name="log" hide-ext-attribs="true" faded-out="true">
 	<schema name="gacl"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Liste des connexions ou des actions enregistrées]]></comment>
@@ -1183,7 +1183,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 </sequence>
 
-<table name="login_oldpassword" hide-ext-attribs="true">
+<table name="login_oldpassword" hide-ext-attribs="true" faded-out="true">
 	<schema name="gacl"/>
 	<role name="postgres"/>
 	<comment><![CDATA[Table contenant les anciens mots de passe]]></comment>
@@ -1202,10 +1202,10 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</constraint>
 </table>
 
-<table name="logingestion" hide-ext-attribs="true">
+<table name="logingestion" hide-ext-attribs="true" faded-out="true">
 	<schema name="gacl"/>
 	<role name="postgres"/>
-	<position x="920" y="140"/>
+	<position x="1080" y="140"/>
 	<column name="id" not-null="true" sequence="gacl.seq_logingestion_id">
 		<type name="integer" length="0"/>
 	</column>
@@ -1294,7 +1294,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="quinton"/>
 </sequence>
 
-<table name="passwordlost" hide-ext-attribs="true">
+<table name="passwordlost" hide-ext-attribs="true" faded-out="true">
 	<schema name="gacl"/>
 	<role name="quinton"/>
 	<comment><![CDATA[Table de suivi des pertes de mots de passe]]></comment>
@@ -1903,7 +1903,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 </constraint>
 
 <relationship name="rel_aclgroup_aclgroup" type="relfk"
-	 custom-color="#d8f7d1"
+	 custom-color="#d8f7d1" faded-out="true"
 	 src-table="gacl.aclgroup"
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_aclgroup_fk"
 	 src-required="false" dst-required="false">
@@ -2041,7 +2041,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_collection_group_aclgroup" type="relfk"
-	 custom-color="#74304d"
+	 custom-color="#74304d" faded-out="true"
 	 src-table="col.collection_group"
 	 dst-table="gacl.aclgroup" reference-fk="group_projet_aclgroup_fk"
 	 src-required="false" dst-required="false"/>
@@ -2131,19 +2131,19 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_aclacl_aclaco" type="relfk"
-	 custom-color="#596269"
+	 custom-color="#596269" faded-out="true"
 	 src-table="gacl.aclacl"
 	 dst-table="gacl.aclaco" reference-fk="aclaco_aclacl_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_aclacl_aclgroup" type="relfk"
-	 custom-color="#820f67"
+	 custom-color="#820f67" faded-out="true"
 	 src-table="gacl.aclacl"
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_aclacl_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_aclaco_aclappli" type="relfk"
-	 custom-color="#46c83b"
+	 custom-color="#46c83b" faded-out="true"
 	 src-table="gacl.aclaco"
 	 dst-table="gacl.aclappli" reference-fk="aclappli_aclaco_fk"
 	 src-required="false" dst-required="false">
@@ -2153,13 +2153,13 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 </relationship>
 
 <relationship name="rel_acllogingroup_aclgroup" type="relfk"
-	 custom-color="#387793"
+	 custom-color="#387793" faded-out="true"
 	 src-table="gacl.acllogingroup"
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_acllogingroup_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_acllogingroup_acllogin" type="relfk"
-	 custom-color="#1f15e0"
+	 custom-color="#1f15e0" faded-out="true"
 	 src-table="gacl.acllogingroup"
 	 dst-table="gacl.acllogin" reference-fk="acllogin_acllogingroup_fk"
 	 src-required="false" dst-required="false">
@@ -2169,13 +2169,17 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 </relationship>
 
 <relationship name="rel_login_oldpassword_logingestion" type="relfk"
-	 custom-color="#a14665"
+	 custom-color="#a14665" faded-out="true"
 	 src-table="gacl.login_oldpassword"
 	 dst-table="gacl.logingestion" reference-fk="logingestion_login_oldpassword_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="src-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <relationship name="rel_passwordlost_logingestion" type="relfk"
-	 custom-color="#f83d60"
+	 custom-color="#f83d60" faded-out="true"
 	 src-table="gacl.passwordlost"
 	 dst-table="gacl.logingestion" reference-fk="logingestion_passwordlost_fk"
 	 src-required="false" dst-required="false"/>

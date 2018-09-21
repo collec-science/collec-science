@@ -13,6 +13,7 @@ Enhancements:
 - new parameter variables are now attached to the database and overwrite the data in the param.xxx files: mapDefaultX, mapDefaultY, mapDefaultZoom
 - the error messages are now displayed in red. Database-related anomalies (including failed deletes due to integrity constraints) are now better explained
 - it is now possible to describe a URL type metadata field. The link is directly displayed in the browser during the consultation of the sample
+- metadata fields can accept now a default value
 - multiple deletion of samples: from the list of samples, it is now possible to perform various operations on those that are checked, including their removal. The function requires a "collection" right
 - adding the notion of referent in the application. A referent can be attached to a collection as a whole, or to a particular object (sample or container). For samples, the displayed referent is either the one in the collection or the one assigned in particular.
 - multiple assignment of a referent: from the list of samples, it is possible to automatically assign a referent to those which are checked

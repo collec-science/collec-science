@@ -13,6 +13,7 @@ Correction de bugs :
 - de nouvelles variables de paramétrage sont maintenant rattachées à la base de données et écrasent les données présentes dans les fichiers param.xxx : mapDefaultX, mapDefaultY, mapDefaultZoom
 - les messages d'erreur sont maintenant affichés en rouge. Les anomalies liées à la base de données (notamment les suppressions en échec pour des raisons de contraintes d'intégrité) sont maintenant mieux expliquées
 - il est maintenant possible de décrire un champ de métadonnées de type URL. Le lien est directement affiché dans le navigateur lors de la consultation de l'échantillon
+- les champs de métadonnées acceptent maintenant des valeurs par défaut
 - suppression multiple d'échantillons : depuis la liste des échantillons, il est maintenant possible de réaliser diverses opérations sur ceux qui sont cochés, dont leur suppression. La fonction nécessite un droit "collection"
 - ajout de la notion de référent dans l'application. Un référent peut être rattaché à une collection dans son ensemble, ou a un objet particulier (échantillon ou contenant). Pour les échantillons, le référent affiché est soit celui de la collection, soit celui assigné en particulier.
 - assignation multiple d'un référent : depuis la liste des échantillons, il est possible d'affecter automatiquement un référent à ceux qui sont cochés

@@ -81,6 +81,9 @@ function renderForm(data){
                         "required": {
                             "title":"{t}Le champ est-il obligatoire ?{/t}"
                         },
+                        "defaultValue": {
+                            "title":"{t}Valeur par défaut{/t}"
+                        },
                         "helperChoice": {
                             "title":"{t}Affichage d'un message d'aide ?{/t}"
                         },
@@ -148,6 +151,9 @@ function renderForm(data){
                         "required": {
                             "type": "checkbox",
                             "rightLabel": "{t}Obligatoire{/t}"
+                        },
+                        "defaultValue": {
+                            "type": "text"                            
                         },
                         "helperChoice": {
                             "type": "checkbox",

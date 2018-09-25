@@ -6,6 +6,7 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
+require_once 'modules/classes/object.class.php';
 class SampleException extends Exception
 {
 }

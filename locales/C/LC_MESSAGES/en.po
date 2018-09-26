@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-06 17:09+0200\n"
+"POT-Creation-Date: 2018-09-26 12:35+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -810,51 +810,51 @@ msgstr ""
 msgid "Seuls les fichiers PDF peuvent être téléchargés"
 msgstr "Only PDF files can be downloaded"
 
-#: ../../../modules/classes/sample.class.php:176
+#: ../../../modules/classes/sample.class.php:177
 msgid "Vous ne disposez pas des droits pour modifier cet échantillon"
 msgstr "You do not have rights to edit this sample"
 
-#: ../../../modules/classes/sample.class.php:204
+#: ../../../modules/classes/sample.class.php:205
 #, php-format
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour supprimer l'échantillon %1s"
 msgstr "You do not have the necessary rights to delete the sample %1s"
 
-#: ../../../modules/classes/sample.class.php:512
+#: ../../../modules/classes/sample.class.php:513
 msgid "Droits insuffisants pour exporter les échantillons"
 msgstr "Insufficient rights to export samples"
 
-#: ../../../modules/classes/sample.class.php:594
+#: ../../../modules/classes/sample.class.php:595
 msgid "L'identifiant de la base de données d'origine n'a pas été fourni"
 msgstr "The identifier of the original database is missing"
 
-#: ../../../modules/classes/sample.class.php:600
+#: ../../../modules/classes/sample.class.php:601
 msgid "Le nom de la collection n'a pas été renseigné"
 msgstr "The name of the collection has not been filled out"
 
-#: ../../../modules/classes/sample.class.php:606
+#: ../../../modules/classes/sample.class.php:607
 msgid "Le type d'échantillon n'a pas été renseigné"
 msgstr "The sample type has not been filled out"
 
-#: ../../../modules/classes/sample.class.php:628
+#: ../../../modules/classes/sample.class.php:629
 #, php-format
 msgid "Le format de date de %s n'est pas reconnu. "
 msgstr "The date format of %s is not recognized. "
 
-#: ../../../modules/classes/sample.class.php:636
+#: ../../../modules/classes/sample.class.php:637
 #, php-format
 msgid "La date de %s est incomplète ou incohérente. "
 msgstr "The date of %s is incomplete or inconsistent."
 
-#: ../../../modules/classes/sample.class.php:647
+#: ../../../modules/classes/sample.class.php:648
 msgid "Les métadonnées ne sont pas correctement formatées (champ metadata)"
 msgstr "Metadata is not formatted correctly (metadata field)"
 
-#: ../../../modules/classes/sample.class.php:721
+#: ../../../modules/classes/sample.class.php:722
 msgid "Impossible d'écrire dans la table Object"
 msgstr "Can not write to the Object table"
 
-#: ../../../modules/classes/sample.class.php:773
+#: ../../../modules/classes/sample.class.php:774
 #, php-format
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour modifier l'échantillon %1s"
@@ -1130,7 +1130,7 @@ msgstr "Account used for web service"
 #: ../../../display/templates/ident/loginliste.tpl:22
 #: ../../../display/templates/ident/loginsaisie.tpl:104
 #: ../../../display/templates/ident/loginsaisie.tpl:167
-#: ../../../display/templates/param/metadataFormJS.tpl:146
+#: ../../../display/templates/param/metadataFormJS.tpl:149
 #: ../../../display/templates/param/eventTypeList.tpl:31
 #: ../../../display/templates/param/eventTypeList.tpl:34
 #: ../../../display/templates/param/labelList.tpl:38
@@ -1297,7 +1297,7 @@ msgstr "Account used for web service:"
 
 #: ../../../display/templates/ident/loginsaisie.tpl:108
 #: ../../../display/templates/ident/loginsaisie.tpl:170
-#: ../../../display/templates/param/metadataFormJS.tpl:146
+#: ../../../display/templates/param/metadataFormJS.tpl:149
 #: ../../../display/templates/param/eventTypeList.tpl:31
 #: ../../../display/templates/param/eventTypeList.tpl:34
 #: ../../../display/templates/param/labelList.tpl:38
@@ -2577,12 +2577,13 @@ msgid "la latitude GPS en WGS84 (degrés décimaux)"
 msgstr "GPS latitude in WGS84 (decimal degrees)"
 
 #: ../../../display/templates/gestion/import.tpl:87
-msgid "la date de création/échantillonnage de l'échantillon, au format"
-msgstr "date of creation / sampling of the sample, in the format"
+msgid ""
+"la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy"
+msgstr "date of creation / sampling of the sample, in the format mm-dd-yyyy"
 
 #: ../../../display/templates/gestion/import.tpl:88
-msgid "la date d'expiration de l'échantillon, au format"
-msgstr "expiry date of the sample, in the format"
+msgid "la date d'expiration de l'échantillon, au format dd/mm/yyyy"
+msgstr "expiry date of the sample, in the format mm-dd-yyyy"
 
 #: ../../../display/templates/gestion/import.tpl:89
 msgid ""
@@ -3414,59 +3415,63 @@ msgid "Le champ est-il obligatoire ?"
 msgstr "Is the field mandatory?"
 
 #: ../../../display/templates/param/metadataFormJS.tpl:85
+msgid "Valeur par défaut"
+msgstr "Default value"
+
+#: ../../../display/templates/param/metadataFormJS.tpl:88
 msgid "Affichage d'un message d'aide ?"
 msgstr "Display a help message?"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:89
-#: ../../../display/templates/param/metadataFormJS.tpl:154
+#: ../../../display/templates/param/metadataFormJS.tpl:92
+#: ../../../display/templates/param/metadataFormJS.tpl:160
 msgid "Message d'aide"
 msgstr "Help message"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:92
+#: ../../../display/templates/param/metadataFormJS.tpl:95
 msgid "Description du champ"
 msgstr "Description of the field"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:97
+#: ../../../display/templates/param/metadataFormJS.tpl:100
 msgid "Unité de mesure (ou modalités) - N/A si non applicable"
 msgstr "Unit of measure (or modalities) - N/A if not applicable"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:113
+#: ../../../display/templates/param/metadataFormJS.tpl:116
 msgid "Nombre"
 msgstr "Number"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:113
+#: ../../../display/templates/param/metadataFormJS.tpl:116
 msgid "Texte (une ligne)"
 msgstr "Text (one line)"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:113
+#: ../../../display/templates/param/metadataFormJS.tpl:116
 msgid "Texte (multi-ligne)"
 msgstr "Text (multi-line)"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:113
+#: ../../../display/templates/param/metadataFormJS.tpl:116
 msgid "Case à cocher"
 msgstr "Checkbox"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:113
+#: ../../../display/templates/param/metadataFormJS.tpl:116
 msgid "Liste à choix multiple"
 msgstr "Multiple choice list"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:113
+#: ../../../display/templates/param/metadataFormJS.tpl:116
 msgid "Boutons Radio"
 msgstr "Radio Buttons"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:113
+#: ../../../display/templates/param/metadataFormJS.tpl:116
 msgid "Lien vers un site externe (URL)"
 msgstr "Link to an external site (URL)"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:127
+#: ../../../display/templates/param/metadataFormJS.tpl:130
 msgid "Importer un fichier CSV"
 msgstr "Import a CSV file"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:150
+#: ../../../display/templates/param/metadataFormJS.tpl:153
 msgid "Obligatoire"
 msgstr "Mandatory"
 
-#: ../../../display/templates/param/metadataFormJS.tpl:157
+#: ../../../display/templates/param/metadataFormJS.tpl:163
 msgid "Vous pouvez copier ici la description et l'unité de mesure"
 msgstr "You can copy here the description and the unit of measure"
 

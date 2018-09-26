@@ -239,7 +239,7 @@ class ImportObject
      */
     function importAll()
     {
-        $date = date($_SESSION["MASKDATELONG"]);
+        $date = date("Y-m-d H:i:s");
         $num = 1;
         $maxuid = 0;
         $minuid = 99999999;

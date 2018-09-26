@@ -84,8 +84,8 @@
 <li><b>sampling_place_id</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé{/t}</li>
 <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux){/t}</li>
 <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux){/t}</li>
-<li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format{/t} dd/mm/yyyy</li>
-<li><b>expiration_date</b> : {t}la date d'expiration de l'échantillon, au format{/t} dd/mm/yyyy</li>
+<li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy{/t}</li>
+<li><b>expiration_date</b> : {t}la date d'expiration de l'échantillon, au format dd/mm/yyyy{/t}</li>
 <li><b>sample_location</b> : {t}l'emplacement de rangement de l'échantillon dans le contenant (texte libre){/t}</li>
 <li><b>sample_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
 <li><b>sample_line</b> : {t}n° de la ligne de stockage dans le contenant{/t}</li>

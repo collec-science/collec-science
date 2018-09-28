@@ -11,7 +11,7 @@ Log into your server, then:
 
  sudo -s
  wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.1-2.2.sh
- chmod + x upgrade-2.1-2.2.sh
+ chmod +x upgrade-2.1-2.2.sh
  ./upgrade-2.1-2.2.sh
 
 The program will download the new version and perform the installation.

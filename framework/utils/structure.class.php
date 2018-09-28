@@ -71,7 +71,9 @@ class Structure extends ObjetBDD
         $sql = "select relname as tablename, description
         from pg_catalog.pg_statio_all_tables st
         join pg_catalog.pg_description on (relid = objoid and objsubid = 0)
-        where schemaname = :schema";
+        where schemaname = :schema
+        order by relname"
+        ;
 
         $this->_tables = $this->getListeParamAsPrepared(
             $sql,

@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "have you a backup of your database and a copy of param/param.inc.php?"
-echo "Is your actual version of Collec-Science is 2.0?"
+echo "Is your actual version of Collec-Science is 2.1?"
 read -p "Do you want to continue [Y/n]?" answer
 if [[  $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then

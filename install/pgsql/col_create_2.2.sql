@@ -13,6 +13,8 @@
  *  en remplacant gacl par le nom du schema utilise pour la gestion des droits
  * and replace gacl by the real schema name
  */
+ create extension btree_gin schema pg_catalog;
+ create extension pg_trgm schema pg_catalog;
 create schema if not exists col;
 set search_path = col;
 
@@ -324,7 +326,7 @@ CREATE SEQUENCE "collection_collection_id_seq";
 CREATE TABLE "collection" (
                 "collection_id" INTEGER NOT NULL DEFAULT nextval('"collection_collection_id_seq"'),
                 "collection_name" VARCHAR NOT NULL,
-                "referent_id" INTEGER
+                "referent_id" INTEGER,
                 CONSTRAINT "collection_pk" PRIMARY KEY ("collection_id")
 );
 COMMENT ON TABLE "collection" IS 'Table des collections';
@@ -532,6 +534,31 @@ COMMENT ON COLUMN "metadata"."metadata_name" IS 'Nom du jeu de metadonnees';
 COMMENT ON COLUMN "metadata"."metadata_schema" IS 'Schéma en JSON du formulaire des métadonnées';
 
 ALTER SEQUENCE "metadata_metadata_id_seq" OWNED BY "metadata"."metadata_id";
+
+CREATE SEQUENCE "referent_referent_id_seq";
+
+CREATE TABLE "referent" (
+                "referent_id" INTEGER NOT NULL DEFAULT nextval('"referent_referent_id_seq"'),
+                referent_name varchar not null,
+                referent_email varchar,
+                address_name varchar,
+                address_line2 varchar,
+                address_line3 varchar,
+                address_city varchar,
+                address_country varchar,
+                referent_phone varchar,
+                CONSTRAINT referent_pk PRIMARY KEY (referent_id)
+);
+comment on table referent is 'Table of sample referents';
+comment on column referent.referent_name is 'Name, firstname-lastname or department name';
+comment on column referent.referent_email is 'Email for contact';
+comment on column referent.address_name is 'Name for postal address';
+comment on column referent.address_line2 is 'second line in postal address';
+comment on column referent.address_line3 is 'third line in postal address';
+comment on column referent.address_city is 'ZIPCode and City in postal address';
+comment on column referent.address_country is 'Country in postal address';
+comment on column referent.referent_phone is 'Contact phone';
+alter sequence referent_referent_id_seq OWNED BY referent.referent_id;
 
 ALTER TABLE "collection_group" ADD CONSTRAINT "aclgroup_projet_group_fk"
 FOREIGN KEY ("aclgroup_id")
@@ -1022,12 +1049,12 @@ COMMENT ON TABLE "dbparam" IS 'Table des parametres associes de maniere intrinse
 COMMENT ON COLUMN "dbparam"."dbparam_name" IS 'Nom du parametre';
 COMMENT ON COLUMN "dbparam"."dbparam_value" IS 'Valeur du paramètre';
 
-insert into dbparam(dbparam_id, dbparam_name) values
- (1, 'APPLI_code'),
- (2, 'APPLI_title'),
- (3, 'mapDefaultX', -0.70),
- (4, 'mapDefaultY', 44.77),
- (5, 'mapDefaultZoom', 7)
+insert into dbparam(dbparam_id, dbparam_name, dbparam_value) values
+ (1, 'APPLI_code', 'cs_code'),
+ (2, 'APPLI_title', 'Collec-Science - instance for '),
+ (3, 'mapDefaultX', '-0.70'),
+ (4, 'mapDefaultY', '44.77'),
+ (5, 'mapDefaultZoom', '7')
 
  ;
 
@@ -1037,30 +1064,7 @@ comment on column identifier_type.used_for_search is 'Indique si l''identifiant 
 ALTER TABLE "label" ADD COLUMN "identifier_only" BOOLEAN DEFAULT 'f' NOT NULL;
 comment on column label.identifier_only is 'true : le qrcode ne contient qu''un identifiant metier';
 
-CREATE SEQUENCE "referent_referent_id_seq";
 
-CREATE TABLE "referent" (
-                "referent_id" INTEGER NOT NULL DEFAULT nextval('"referent_referent_id_seq"'),
-                referent_name varchar not null,
-                referent_email varchar,
-                address_name varchar,
-                address_line2 varchar,
-                address_line3 varchar,
-                address_city varchar,
-                address_country varchar,
-                referent_phone varchar,
-                CONSTRAINT referent_pk PRIMARY KEY (referent_id)
-);
-comment on table referent is 'Table of sample referents';
-comment on column referent.referent_name is 'Name, firstname-lastname or department name';
-comment on column referent.referent_email is 'Email for contact';
-comment on column referent.address_name is 'Name for postal address';
-comment on column referent.address_line2 is 'second line in postal address';
-comment on column referent.address_line3 is 'third line in postal address';
-comment on column referent.address_city is 'ZIPCode and City in postal address';
-comment on column referent.address_country is 'Country in postal address';
-comment on column referent.referent_phone is 'Contact phone';
-alter sequence referent_referent_id_seq OWNED BY referent.referent_id;
 
 
 /*

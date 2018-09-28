@@ -14,7 +14,7 @@ Log into your server, then:
  chmod +x upgrade-2.1-2.2.sh
  ./upgrade-2.1-2.2.sh
 
-The program will download the new version and perform the installation.
+The program will download the release and perform the installation.
 
 
 Case 2
@@ -25,16 +25,15 @@ Case 2
     the current version of Collec-Science is 1.2, 1.2.3 or 2.0
 
 Log in to your server, then:
-Step 1 :
+Step 1: download the release
 
  sudo -s
  cd /var/www/html/collec-science
  wget https://github.com/Irstea/collec/archive/master.zip
  unzip collec-master.zip
  mv collec-master/ collec-2.2
- collec-2.2/install/apache2/upgrade_rights.sh collec-2.2
-
-2nd step :
+ 
+step 2 upgrade the database:
 
 cd collec-2.2/install
 
@@ -49,6 +48,21 @@ in all cases :
  ./upgradedb-2.0-2.1.sh
  ./upgradedb-2.1-2.2.sh
  cd ../..
+
+ Step 3: Switch to the new version
+
+    Copy the previous version of parameters
+
+ cd ../..
+ cp old_folder/param/param.inc.php collec-2.2/param/
+ cp old_folder/param/id_collec* collec-2.2/param/
+
+ Update rights:
+
+ collec-2.2/install/apache2/upgrade_rights.sh collec-2.2
+
+ Recreate the symlink:
+
  rm collec
  ln -s collec-2.2 collec
 
@@ -107,10 +121,11 @@ Run the scripts (depending on your version):
 
 Step 3: Switch to the new version
 
-    Copy the previous version of param/param.inc.php
+    Copy the previous version of parameters
 
   cd ../..
  cp old_folder/param/param.inc.php collec-2.2/param/
+ cp old_folder/param/id_collec* collec-2.2/param/
 
     Update rights:
 
@@ -140,7 +155,7 @@ Then perform steps 2 and 3 of case # 3.
 
 Case 5
 
-Your instance is already in version 2.0, but your server is not structured as indicated previously.
+Your instance is already in version 2.1, but your server is not structured as indicated previously.
 
 Perform Step 1 of Case # 2, adapting the script to your configuration.
 

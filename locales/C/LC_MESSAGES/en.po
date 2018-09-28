@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-26 12:35+0200\n"
+"POT-Creation-Date: 2018-09-28 09:52+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1085,8 +1085,8 @@ msgid "Impossible d'importer les lieux de prélèvement"
 msgstr "Could not import sampling locations"
 
 #: ../../../param/param.default.inc.php:11
-msgid "6/9/2018"
-msgstr "2018-09-06"
+msgid "28/9/2018"
+msgstr "2018-09-28"
 
 #: ../../../doc/quoideneuf.php:67
 msgid "Impossible de lire le fichier contenant les news"

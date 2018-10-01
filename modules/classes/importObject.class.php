@@ -248,6 +248,7 @@ class ImportObject
          * Inhibition du traitement des dates par la classe
          */
         $this->sample->auto_date = 0;
+        $this->movement->auto_date = 0;
         /*
          * Traitement du fichier
          */

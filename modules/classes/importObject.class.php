@@ -352,7 +352,7 @@ class ImportObject
                     if ($sample_uid > $maxuid) {
                         $maxuid = $sample_uid;
                     }
-                } catch (PDOException $pe) {
+                } catch (Exception $pe) {
                     throw new ImportObjectException("Line $num : error when import sample - " . $pe->getMessage());
                 }
             }
@@ -391,7 +391,7 @@ class ImportObject
                     if ($container_uid > $maxuid) {
                         $maxuid = $container_uid;
                     }
-                } catch (PDOException $pe) {
+                } catch (Exception $pe) {
                     throw new ImportObjectException("Line $num : error when import container - " . $pe->getMessage());
                 }
                 /*
@@ -412,7 +412,7 @@ class ImportObject
                 try {
                     $this->movement->addMovement($sample_uid, $date, 1, $container_uid, $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
                 } catch (Exception $e) {
-                    throw new ImportObjectException("Line $num : error when create input movement for sample (" . $e->getMessage() + ")");
+                    throw new ImportObjectException("Line $num : error when create input movement for sample (" . $e->getMessage() . ")");
                 }
             }
             if ($values["container_parent_uid"] && $sample_uid > 0 && ! ($container_uid > 0)) {
@@ -422,7 +422,7 @@ class ImportObject
                 try {
                     $this->movement->addMovement($sample_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["sample_location"], null, null, $values["sample_column"], $values["sample_line"]);
                 } catch (Exception $e) {
-                    throw new ImportObjectException("Line $num : error when create input movement for sample (" . $e->getMessage() + ")");
+                    throw new ImportObjectException("Line $num : error when create input movement for sample (" . $e->getMessage() . ")");
                 }
             }
             $this->nbTreated ++;

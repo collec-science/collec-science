@@ -12,19 +12,19 @@
  * @param int $id
  * @param string $smartyPage
  * @param int $idParent
- * 
+ *
  * @return array
  */
 /**
  * Lit un enregistrement dans la base de donnees, affecte le tableau a Smarty,
  * et declenche l'affichage de la page associee
- * 
+ *
  * @param ObjetBDD $dataClass  : instance de la classe
  * @param mixed    $id         : identifiant
- * @param string   $smartyPage : nom du template Smarty a utiliser 
+ * @param string   $smartyPage : nom du template Smarty a utiliser
  * @param int      $idParent   : identifiant du parent
- * 
- * @return mixed 
+ *
+ * @return mixed
  */
 function dataRead($dataClass, $id, $smartyPage, $idParent = null)
 {
@@ -64,7 +64,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
  * @param ObjetBDD $dataClass           : instance de la classe
  * @param array    $data                : donnees a enregistrer
  * @param boolean  $isPartOfTransaction : si true, requete faisant partie d'une transaction
- * 
+ *
  * @return int
  */
 function dataWrite($dataClass, $data, $isPartOfTransaction = false)
@@ -96,10 +96,10 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
  *
  * @param ObjetBDD $dataClass : instance de la classe
  * @param int      $id        : identifiant
- * 
+ *
  * @return int
  */
-function dataDelete($dataClass, $id, $isPartOfTransaction = false )
+function dataDelete($dataClass, $id, $isPartOfTransaction = false)
 {
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
     $module_coderetour = -1;
@@ -119,8 +119,8 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false )
         try {
             $ret = $dataClass->supprimer($id);
             if (!$isPartOfTransaction) {
-            $message->set(_("Suppression effectuée"));
-            $module_coderetour = 1;
+                $message->set(_("Suppression effectuée"));
+                $module_coderetour = 1;
             }
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
 
@@ -129,7 +129,7 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false )
                 foreach ($dataClass->getErrorData(1) as $messageError) {
                     $message->set($messageError, true);
                 }
-            } 
+            }
             /*
              * recherche des erreurs liees a une violation de cle etrangere
              */
@@ -166,7 +166,7 @@ function setlanguage($langue)
     /*
      * Chargement de la langue par defaut
      */
-    include('locales/' . $language . ".php");
+    include 'locales/' . $language . ".php";
     /*
      * On gere le cas ou la langue selectionnee n'est pas la langue par defaut
      */
@@ -216,10 +216,10 @@ function setlanguage($langue)
 
 /**
  * Initialisation de la langue pour gettext
- * 
- * @param mixed $langue 
- * 
- * @return mixed 
+ *
+ * @param mixed $langue : code du langage
+ *
+ * @return mixed
  */
 function initGettext($langue)
 {
@@ -247,10 +247,10 @@ function initGettext($langue)
      */
     // var_dump($langue); // aide à la traduction lors du développement
     setlocale(LC_ALL, "C.UTF-8", "C"); // setlocale pour linux // C = localisation portable par défaut
-                                       // Attention : La valeur retournée par setlocale() dépend du système sur lequel PHP est installé. setlocale() retourne exactement ce que la fonction système setlocale retourne.
-                                       // TODO aide au diagnostic : vérifier que setlocale a réussi ou que le fichier de langue existe bien
-                                       // $path = realpath("./locales") . "/C/LC_MESSAGES/$langue.mo";
-                                       // var_dump( $path, file_exists( $path ) );
+    // Attention : La valeur retournée par setlocale() dépend du système sur lequel PHP est installé. setlocale() retourne exactement ce que la fonction système setlocale retourne.
+    // TODO aide au diagnostic : vérifier que setlocale a réussi ou que le fichier de langue existe bien
+    // $path = realpath("./locales") . "/C/LC_MESSAGES/$langue.mo";
+    // var_dump( $path, file_exists( $path ) );
     putenv("LANG=C.UTF-8"); // putenv pour windows // non testé
     bindtextdomain($langue, realpath("./locales"));
     bind_textdomain_codeset($langue, "UTF-8");
@@ -261,7 +261,7 @@ function initGettext($langue)
  * Fonction testant si la donnee fournie est de type UTF-8 ou non
  *
  * @param array|string $data : tableau a tester
- * 
+ *
  * @return boolean
  */
 function check_encoding($data)
@@ -295,10 +295,10 @@ function getIPClientAddress()
      */
     if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
         return $_SERVER["HTTP_X_FORWARDED_FOR"];
+    } else if (isset($_SERVER["REMOTE_ADDR"])) {
         /*
          * Cas classique
          */
-    } else if (isset($_SERVER["REMOTE_ADDR"])) {
         return $_SERVER["REMOTE_ADDR"];
     } else {
         return -1;
@@ -309,7 +309,7 @@ function getIPClientAddress()
  * Fonction recursive decodant le html en retour de navigateur
  *
  * @param array|string $data : tableau de valeurs
- * 
+ *
  * @return array|string
  */
 function htmlDecode($data)
@@ -328,9 +328,9 @@ function htmlDecode($data)
  * Fonction d'analyse des virus avec clamav
  *
  * @author quinton
- *        
+ *
  *         Exemple d'usage :
- *        
+ *
  *         $nomfiletest = "/tmp/eicar.com.txt";
  *         try {
  *         echo "analyse antivirale de $nomfiletest";
@@ -350,7 +350,7 @@ class VirusException extends Exception
 
 /**
  * Gestion des exceptions pour les manipulations de fichiers
- * 
+ *
  * @var mixed
  */
 class FileException extends Exception
@@ -359,10 +359,10 @@ class FileException extends Exception
 
 /**
  * Test antiviral d'un fichier
- * 
- * @param mixed $file 
- * 
- * @return mixed 
+ *
+ * @param mixed $file
+ *
+ * @return mixed
  */
 function testScan($file)
 {
@@ -402,8 +402,8 @@ function testScan($file)
 
 /**
  * Retourne la liste des entetes transmises
- * 
- * @return mixed 
+ *
+ * @return mixed
  */
 function getHeaders()
 {
@@ -419,20 +419,19 @@ function getHeaders()
      * Fonction equivalente pour NGINX
      */
     /*
-     * function apache_request_headers() {
-     * foreach($_SERVER as $key=>$value) {
-     * if (substr($key,0,5)=="HTTP_") {
-     * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
-     * $out[$key]=$value;
-     * }else{
-     * $out[$key]=$value;
-     * }
-     * }
-     * return $out;
-     * }
-     * }
-     * printr($_SERVER);
-     * return apache_request_headers();
-     */
+ * function apache_request_headers() {
+ * foreach($_SERVER as $key=>$value) {
+ * if (substr($key,0,5)=="HTTP_") {
+ * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
+ * $out[$key]=$value;
+ * }else{
+ * $out[$key]=$value;
+ * }
+ * }
+ * return $out;
+ * }
+ * }
+ * printr($_SERVER);
+ * return apache_request_headers();
+ */
 }
-?>

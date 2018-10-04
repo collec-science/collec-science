@@ -9,7 +9,7 @@
 class DbVersion extends ObjetBDD
 {
 
-    function __construct($bdd, $param = array())
+    public function __construct($bdd, $param = array())
     {
         $this->table = "container_type";
         $this->colonnes = array(
@@ -17,16 +17,16 @@ class DbVersion extends ObjetBDD
                 "type" => 1,
                 "key" => 1,
                 "requis" => 1,
-                "defaultValue" => 0
+                "defaultValue" => 0,
             ),
             "dbversion_number" => array(
                 "type" => 0,
-                "requis" => 1
+                "requis" => 1,
             ),
             "dbversion_date" => array(
                 "type" => 2,
-                "requis" => 1
-            )
+                "requis" => 1,
+            ),
         );
         parent::__construct($bdd, $param);
     }
@@ -37,25 +37,26 @@ class DbVersion extends ObjetBDD
      * @param string $version
      * @return boolean
      */
-    function verifyVersion($version)
+    public function verifyVersion($version)
     {
         $retour = false;
         $sql = "select dbversion_id from dbversion where dbversion_number = :version";
-        try {
-            $result = $this->lireParamAsPrepared($sql, array(
-                "version" => $version
-            ));
-            if ($result["dbversion_id"] > 0) {
-                $retour = true;
-            }
-        } catch (Exception $e) {}
+
+        $result = $this->lireParamAsPrepared(
+            $sql, array(
+                "version" => $version,
+            )
+        );
+        if ($result["dbversion_id"] > 0) {
+            $retour = true;
+        }
         return $retour;
     }
 
     /**
      * Recherche la version courante de la base de donnees
      */
-    function getLastVersion()
+    public function getLastVersion()
     {
         $sql = "select * from dbversion order by dbversion_date desc limit 1";
         try {
@@ -64,10 +65,9 @@ class DbVersion extends ObjetBDD
             $result = array(
                 "dbversion_id" => 0,
                 "dbversion_number" => "unknown",
-                "dbversion_date" => $this->formatDateDBversLocal("1970-01-01", 2)
+                "dbversion_date" => $this->formatDateDBversLocal("1970-01-01", 2),
             );
         }
         return $result;
     }
 }
-?>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-28 09:52+0200\n"
+"POT-Creation-Date: 2018-10-04 12:03+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -419,7 +419,7 @@ msgid "configuration générale du serveur PHP"
 msgstr "general configuration of the PHP server"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:59 ../../../framework/common.inc.php:269
+#: ../../../param/menu.xml:59 ../../../framework/common.inc.php:288
 #: ../../../framework/identification/disconnect.php:18
 #: ../../../display/templates/entete.tpl:21
 #: ../../../display/templates/entete.tpl:40
@@ -525,7 +525,7 @@ msgstr ""
 "Problem in the provided data: the character encoding is not the one expected"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s
-#: ../../../framework/controller.php:34
+#: ../../../framework/controller.php:35
 #, php-format
 msgid ""
 "La base de données n'est pas dans la version attendue (%1$s). Version "
@@ -533,26 +533,32 @@ msgid ""
 msgstr ""
 "The database is not in the expected version (%1$s). Current version: %2$s"
 
+#: ../../../framework/controller.php:42
+msgid ""
+"Problème rencontré lors de la vérification de la version de la base de "
+"données"
+msgstr "Problem encountered while checking the version of the database"
+
 #. traduction: conserver inchangée la chaîne %s
-#: ../../../framework/controller.php:156
+#: ../../../framework/controller.php:164
 #, php-format
 msgid "Le module demandé n'existe pas (%s)"
 msgstr "The requested module does not exist (%s)"
 
-#: ../../../framework/controller.php:242
+#: ../../../framework/controller.php:250
 msgid "Veuillez utiliser votre login du domaine pour vous identifier"
 msgstr "Please use your domain login to login"
 
-#: ../../../framework/controller.php:262
+#: ../../../framework/controller.php:270
 msgid "L'identification par jeton n'a pas abouti"
 msgstr "Token identification was unsuccessful"
 
-#: ../../../framework/controller.php:284
+#: ../../../framework/controller.php:292
 msgid "Identification réussie !"
 msgstr "Authentication successful!"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s...
-#: ../../../framework/controller.php:296
+#: ../../../framework/controller.php:304
 #, php-format
 msgid ""
 "Dernière connexion le %1$s depuis l'adresse IP %2$s. Si ce n'était pas vous, "
@@ -561,17 +567,17 @@ msgstr ""
 "Last connection on %1$s from the IP address %2$s. If it was not you, change "
 "your password or contact the administrator of the application."
 
-#: ../../../framework/controller.php:350
+#: ../../../framework/controller.php:358
 msgid "Identification refusée"
 msgstr "Authentication failed"
 
 #. traduction: conserver inchangée la chaîne %s
-#: ../../../framework/controller.php:401
+#: ../../../framework/controller.php:409
 #, php-format
 msgid "Module précédent enregistré : %s"
 msgstr "Previous module: %s"
 
-#: ../../../framework/controller.php:435
+#: ../../../framework/controller.php:443
 msgid ""
 "L'accès au module demandé nécessite une ré-identification. Veuillez saisir "
 "votre login et votre mot de passe"
@@ -579,12 +585,12 @@ msgstr ""
 "Access to the requested module requires re-identification. Please enter your "
 "login and password"
 
-#: ../../../framework/controller.php:462
+#: ../../../framework/controller.php:470
 msgid "Erreur d'écriture dans le fichier de traces"
 msgstr "Error writing to the trace file"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s
-#: ../../../framework/controller.php:564
+#: ../../../framework/controller.php:572
 #, php-format
 msgid "Mode développement - base de données : %1$s - schema : %2$s"
 msgstr "Development mode - database: %1$s - schema: %2$s"
@@ -613,23 +619,27 @@ msgstr ""
 "You do not have access to this function. Please identify yourself, if "
 "applicable"
 
-#: ../../../framework/common.inc.php:235
+#: ../../../framework/common.inc.php:251
 msgid "Echec de connexion à la base de données de gestion des droits (GACL)"
 msgstr "Failed to connect to rights management database (GACL)"
 
-#: ../../../framework/common.inc.php:238
+#: ../../../framework/common.inc.php:254
 msgid "Echec de connexion à la base de données principale"
 msgstr "Failed to connect to the main database"
 
-#: ../../../framework/common.inc.php:252
+#: ../../../framework/common.inc.php:268
 msgid ""
 "Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"
 msgstr "You have been disconnected, your session has been open for too long"
 
-#: ../../../framework/common.inc.php:267
+#: ../../../framework/common.inc.php:286
 #: ../../../framework/identification/disconnect.php:10
 msgid "Vous êtes maintenant déconnecté"
 msgstr "You are now signed off"
+
+#: ../../../framework/common.inc.php:320
+msgid "Problème rencontré lors de la lecture de la table des paramètres"
+msgstr "Problem encountered while reading the parameter table"
 
 #: ../../../framework/fonctions.php:43
 msgid "Erreur de lecture des informations dans la base de données"
@@ -879,63 +889,63 @@ msgstr ""
 msgid "Pas de contenant correspondant à l'UID %s. "
 msgstr "No container matching to UID %s. "
 
-#: ../../../modules/classes/importObject.class.php:559
+#: ../../../modules/classes/importObject.class.php:560
 msgid "Le numéro de la collection indiqué n'est pas reconnu ou autorisé."
 msgstr "The number of the specified collection is not recognized or allowed."
 
-#: ../../../modules/classes/importObject.class.php:573
+#: ../../../modules/classes/importObject.class.php:574
 msgid "Le type d'échantillon n'est pas connu."
 msgstr "The type of sample is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:589
+#: ../../../modules/classes/importObject.class.php:590
 msgid "Le statut de l'échantillon n'est pas connu."
 msgstr "The status of the sample is is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:605
+#: ../../../modules/classes/importObject.class.php:606
 msgid "L'emplacement de collecte de l'échantillon n'est pas connu."
 msgstr "The sample collection location is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:628
+#: ../../../modules/classes/importObject.class.php:629
 #, php-format
 msgid "Le format de date de %s n'est pas reconnu."
 msgstr "The date format of %s is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:648
+#: ../../../modules/classes/importObject.class.php:649
 msgid ""
 "Les métadonnées ne sont pas correctement formatées (champ "
 "sample_metadata_json)"
 msgstr "Metadata is not formatted correctly (sample_metadata_json field)"
 
-#: ../../../modules/classes/importObject.class.php:656
+#: ../../../modules/classes/importObject.class.php:657
 #, php-format
 msgid ""
 "Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "
 msgstr "The metadata do not match the sample type (%s not recognized)."
 
-#: ../../../modules/classes/importObject.class.php:666
+#: ../../../modules/classes/importObject.class.php:667
 #, php-format
 msgid "L'échantillon parent défini n'existe pas (%s)"
 msgstr "The defined parent sample does not exist (%s)"
 
-#: ../../../modules/classes/importObject.class.php:687
+#: ../../../modules/classes/importObject.class.php:688
 msgid "Le type de contenant n'est pas connu."
 msgstr "The container type is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:702
+#: ../../../modules/classes/importObject.class.php:703
 msgid "Le statut du contenant n'est pas connu."
 msgstr "The container's status is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:713
+#: ../../../modules/classes/importObject.class.php:714
 #, php-format
 msgid "L'UID du contenant parent (%s) n'existe pas. "
 msgstr "The UID of the parent container (%s) does not exist. "
 
-#: ../../../modules/classes/importObject.class.php:724
+#: ../../../modules/classes/importObject.class.php:725
 #, php-format
 msgid "Le champ %s n'est pas numérique."
 msgstr "The field %s is not numeric."
 
-#: ../../../modules/classes/importObject.class.php:733
+#: ../../../modules/classes/importObject.class.php:734
 msgid ""
 "Aucun échantillon ou contenant n'est décrit (pas d'identifiant pour l'un ou "
 "pour l'autre)."
@@ -2755,7 +2765,6 @@ msgstr "Container"
 
 #: ../../../display/templates/gestion/objectMovementList.tpl:22
 #: ../../../display/templates/gestion/movementList.tpl:53
-#: ../../../display/templates/gestion/subsampleChange.tpl:33
 #: ../../../display/templates/gestion/storageList.tpl:24
 #: ../../../display/templates/gestion/subsampleList.tpl:34
 msgid "Déplacement"
@@ -3045,6 +3054,10 @@ msgstr "Create / Edit a sample or a sub-sample return"
 #: ../../../display/templates/gestion/subsampleChange.tpl:30
 msgid "Mouvement :"
 msgstr "Movement:"
+
+#: ../../../display/templates/gestion/subsampleChange.tpl:33
+msgid "Entrée dans le stock"
+msgstr "Enter in the stock"
 
 #: ../../../display/templates/gestion/subsampleChange.tpl:42
 msgid "Quantité (%1) :"
@@ -4409,9 +4422,6 @@ msgstr "Password"
 
 #~ msgid "Rangé dans :"
 #~ msgstr "Stored in:"
-
-#~ msgid "Entrer l'échantillon dans le stock"
-#~ msgstr "Enter the sample in the stock"
 
 #~ msgid "Entrer ou sortir des objets"
 #~ msgstr "Enter or exit objects"

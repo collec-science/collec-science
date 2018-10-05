@@ -39,7 +39,7 @@ Etape 1 :
  sudo -s
  cd /var/www/html/collec-science
  wget https://github.com/Irstea/collec/archive/master.zip
- unzip collec-master.zip
+ unzip master.zip
  mv collec-master/ collec-2.2.1
  collec-2.2.1/install/apache2/upgrade_rights.sh collec-2.2.1
 

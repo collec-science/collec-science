@@ -36,7 +36,7 @@ Step 1: download the release
  sudo -s
  cd /var/www/html/collec-science
  wget https://github.com/Irstea/collec/archive/master.zip
- unzip collec-master.zip
+ unzip master.zip
  mv collec-master/ collec-2.2.1
  
 step 2 upgrade the database:

@@ -5,6 +5,7 @@
 	 */
 	$(document).ready(function() {
 		$("#sampleSpinner2").hide();
+		var isReferentDisplayed = false;
 
 		$("#samplelabels2").keypress(function() {
 			$(this.form).find("input[name='module']").val("samplePrintLabel");
@@ -28,7 +29,8 @@
 		});
 		$("#referent_name").click(function() { 
 			var referentName = $(this).text();
-			if (referentName.length > 0) {
+			if (referentName.length > 0 && !isReferentDisplayed) {
+				isReferentDisplayed = true;
 			$.ajax( { 
     	   		url: "index.php",
     	    	data: { "module": "referentGetFromName", "referent_name": referentName }

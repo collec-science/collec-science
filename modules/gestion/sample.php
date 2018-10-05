@@ -40,7 +40,7 @@ switch ($t_module["param"]) {
         }
         $vue->set($dataSearch, "sampleSearch");
         $vue->set("gestion/sampleList.tpl", "corps");
-        
+
         /*
          * Ajout des listes deroulantes
          */
@@ -51,7 +51,7 @@ switch ($t_module["param"]) {
         include 'modules/gestion/label.functions.php';
         break;
     case "display":
-		/*
+        /*
          * Display the detail of the record
          */
         $data = $dataClass->lire($id);
@@ -130,7 +130,7 @@ switch ($t_module["param"]) {
         $vue->set("gestion/sampleDisplay.tpl", "corps");
         break;
     case "change":
-		/*
+        /*
          * open the form to modify the record
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
@@ -187,7 +187,7 @@ switch ($t_module["param"]) {
                 }
             }
 
-            /* 
+            /*
              * Recuperation des referents
              */
             require_once 'modules/classes/referent.class.php';
@@ -201,7 +201,7 @@ switch ($t_module["param"]) {
         }
         break;
     case "write":
-		/*
+        /*
          * write record in database
          */
         $id = dataWrite($dataClass, $_REQUEST);
@@ -215,7 +215,7 @@ switch ($t_module["param"]) {
         }
         break;
     case "delete":
-		/*
+        /*
          * delete record
          */
         dataDelete($dataClass, $_REQUEST["uid"]);
@@ -241,7 +241,7 @@ switch ($t_module["param"]) {
         }
         break;
     case "referentAssignMulti":
-        /* 
+        /*
          * change all referents for records in uid array
          */
         if (count($_POST["uid"]) > 0) {
@@ -273,7 +273,11 @@ switch ($t_module["param"]) {
 
     case "export":
         try {
-            $vue->set($dataClass->getForExport($dataClass->generateArrayUidToString($_REQUEST["uid"])));
+            $vue->set(
+                $dataClass->getForExport(
+                    $dataClass->generateArrayUidToString($_REQUEST["uid"])
+                )
+            );
             $vue->regenerateHeader();
         } catch (Exception $e) {
             unset($vue);
@@ -312,12 +316,13 @@ switch ($t_module["param"]) {
                         "sampling_place_name",
                         "metadata",
                         "identifiers",
-                        "dbuid_parent"
+                        "dbuid_parent",
+                        "referent_name",
                     );
                     $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $import->getContentAsArray();
                     $import->fileClose();
-                    
+
                     /*
                      * Verification si l'import peut etre realise
                      */
@@ -340,7 +345,7 @@ switch ($t_module["param"]) {
                          */
                         unset($filename);
                     } else {
-                        
+
                         /*
                          * Extraction de tous les libelles des tables de reference
                          */
@@ -368,4 +373,3 @@ switch ($t_module["param"]) {
         }
         break;
 }
-?>

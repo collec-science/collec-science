@@ -24,7 +24,7 @@ class Sample extends ObjetBDD
 					sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
-					so.identifier, so.wgs84_x, so.wgs84_y, 
+					so.identifier, so.wgs84_x, so.wgs84_y,
 					so.object_status_id, object_status_name,so.referent_id,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
 					container_type_name, clp_classification,
@@ -43,7 +43,7 @@ class Sample extends ObjetBDD
 					left outer join sampling_place sp on (sp.sampling_place_id = s.sampling_place_id)
 					left outer join object_status os on (so.object_status_id = os.object_status_id)
 					left outer join sample ps on (s.parent_sample_id = ps.sample_id)
-					left outer join object pso on (ps.uid = pso.uid)	
+					left outer join object pso on (ps.uid = pso.uid)
 					left outer join container_type ct using (container_type_id)
 					left outer join operation using (operation_id)
 					left outer join protocol using (protocol_id)
@@ -58,7 +58,7 @@ class Sample extends ObjetBDD
                     left outer join referent cr on (p.referent_id = cr.referent_id)
 					";
 
-    function __construct($bdd, $param = array())
+    public function __construct($bdd, $param = array())
     {
         $this->table = "sample";
         $this->colonnes = array(
@@ -66,49 +66,49 @@ class Sample extends ObjetBDD
                 "type" => 1,
                 "key" => 1,
                 "requis" => 1,
-                "defaultValue" => 0
+                "defaultValue" => 0,
             ),
             "uid" => array(
                 "type" => 1,
                 "parentAttrib" => 1,
                 "requis" => 1,
-                "defaultValue" => 0
+                "defaultValue" => 0,
             ),
             "collection_id" => array(
                 "type" => 1,
-                "requis" => 1
+                "requis" => 1,
             ),
             "sample_type_id" => array(
                 "type" => 1,
-                "requis" => 1
+                "requis" => 1,
             ),
             "sample_creation_date" => array(
                 "type" => 3,
                 "requis" => 1,
-                "defaultValue" => "getDateHeure"
+                "defaultValue" => "getDateHeure",
             ),
             "parent_sample_id" => array(
-                "type" => 1
+                "type" => 1,
             ),
             "sampling_date" => array(
                 "type" => 3,
-                "defaultValue" => "getDateHeure"
+                "defaultValue" => "getDateHeure",
             ),
             "multiple_value" => array(
-                "type" => 1
+                "type" => 1,
             ),
             "sampling_place_id" => array(
-                "type" => 1
+                "type" => 1,
             ),
             "dbuid_origin" => array(
-                "type" => 0
+                "type" => 0,
             ),
             "metadata" => array(
-                "type" => 0
+                "type" => 0,
             ),
             "expiration_date" => array(
-                "type" => 2
-            )
+                "type" => 2,
+            ),
         );
         parent::__construct($bdd, $param);
     }
@@ -121,7 +121,7 @@ class Sample extends ObjetBDD
      *
      * @see ObjetBDD::lire()
      */
-    function lire($uid, $getDefault = true, $parentValue = null)
+    public function lire($uid, $getDefault = true, $parentValue = null)
     {
         $sql = $this->sql . " where s.uid = :uid";
         $data["uid"] = $uid;
@@ -133,7 +133,7 @@ class Sample extends ObjetBDD
         return $retour;
     }
 
-    function lireFromId($sample_id)
+    public function lireFromId($sample_id)
     {
         $sql = $this->sql . " where s.sample_id = :sample_id";
         $data["sample_id"] = $sample_id;
@@ -147,7 +147,7 @@ class Sample extends ObjetBDD
      *
      * @see ObjetBDD::ecrire()
      */
-    function ecrire($data)
+    public function ecrire($data)
     {
         $ok = $this->verifyCollection($data);
         $error = false;
@@ -186,11 +186,11 @@ class Sample extends ObjetBDD
      *
      * @see ObjetBDD::supprimer()
      */
-    function supprimer($uid)
+    public function supprimer($uid)
     {
         $data = $this->lire($uid);
         if ($this->verifyCollection($data)) {
-            
+
             /*
              * suppression de l'echantillon
              */
@@ -210,13 +210,13 @@ class Sample extends ObjetBDD
      * Fonction permettant de verifier si l'echantillon peut etre modifie ou non
      * par l'utilisateur
      *
-     * @param array $data 
-     * 
+     * @param array $data
+     *
      * @throws Exception
-     * 
+     *
      * @return boolean
      */
-    function verifyCollection($data)
+    public function verifyCollection($data)
     {
         $retour = false;
         foreach ($_SESSION["collections"] as $value) {
@@ -230,12 +230,12 @@ class Sample extends ObjetBDD
 
     /**
      * Verify if user is granted to modify the sample identified by uid
-     * 
-     * @param int $uid 
-     * 
-     * @return boolean 
+     *
+     * @param int $uid
+     *
+     * @return boolean
      */
-    function verifyCollectionFromUid($uid)
+    public function verifyCollectionFromUid($uid)
     {
         if ($uid > 0) {
             $data = $this->lire($uid);
@@ -247,14 +247,14 @@ class Sample extends ObjetBDD
     /**
      * Retourne le nombre d'echantillons attaches a un projet
      *
-     * @param int $collection_id 
-     * 
+     * @param int $collection_id
+     *
      * @return int
      */
-    function getNbFromCollection($collection_id)
+    public function getNbFromCollection($collection_id)
     {
         if ($collection_id > 0) {
-            $sql = "select count(*)as nb from sample 
+            $sql = "select count(*)as nb from sample
             where collection_id = :collection_id";
             $var["collection_id"] = $collection_id;
             $data = $this->lireParamAsPrepared($sql, $var);
@@ -270,10 +270,10 @@ class Sample extends ObjetBDD
      * Fonction de recherche des échantillons
      *
      * @param array $param
-     * 
+     *
      * @return array
      */
-    function sampleSearch($param)
+    public function sampleSearch($param)
     {
         $data = array();
         $where = "where";
@@ -417,7 +417,7 @@ class Sample extends ObjetBDD
          * Rajout de la date de dernier mouvement pour l'affichage
          */
         $this->colonnes["movement_date"] = array(
-            "type" => 3
+            "type" => 3,
         );
         return $this->getListeParamAsPrepared($this->sql . $where, $data);
     }
@@ -428,7 +428,7 @@ class Sample extends ObjetBDD
      * @param int $uid
      *            : uid du parent
      */
-    function getSampleassociated($uid)
+    public function getSampleassociated($uid)
     {
         if ($uid > 0 && is_numeric($uid)) {
             $data["uid"] = $uid;
@@ -445,23 +445,26 @@ class Sample extends ObjetBDD
      * @param string $uids
      * @return array
      */
-    function getForExport($uids)
+    public function getForExport($uids)
     {
         if (strlen($uids) == 0) {
             throw new SampleException("Pas d'échantillons sélectionnés");
         } else {
             $this->auto_date = 0;
-            $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, 
+            $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y,
              c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
-             multiple_value, sampling_place_name, metadata::varchar, 
-            identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent
-            from sample 
-            join object o using(uid) 
+             multiple_value, sampling_place_name, metadata::varchar,
+            identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,
+            case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
+            from sample
+            join object o using(uid)
             join collection c using (collection_id)
-            left outer join v_object_identifier voi on (o.uid = voi.uid) 
+            left outer join v_object_identifier voi on (o.uid = voi.uid)
             left outer join sampling_place using (sampling_place_id)
             left outer join sample_type using (sample_type_id)
             left outer join object_status using (object_status_id)
+            left outer join referent ro on (o.referent_id = ro.referent_id)
+            left outer join referent cr on (c.referent_id = cr.referent_id)
              where o.uid in (" . $uids . ")";
             $d = $this->getListeParam($sql);
             $this->auto_date = 1;
@@ -522,7 +525,7 @@ class Sample extends ObjetBDD
      *
      * @param array $uids
      */
-    function generateArrayUidToString($uids)
+    public function generateArrayUidToString($uids)
     {
         if (count($uids) > 0) {
             /*
@@ -548,14 +551,15 @@ class Sample extends ObjetBDD
      * @param array $data
      * @return mixed[][]
      */
-    function getAllNamesFromReference($data)
+    public function getAllNamesFromReference($data)
     {
         $names = array();
         $fields = array(
             "sampling_place_name",
             "object_status_name",
             "collection_name",
-            "sample_type_name"
+            "sample_type_name",
+            "referent_name",
         );
         foreach ($data as $line) {
             foreach ($fields as $field) {
@@ -588,7 +592,7 @@ class Sample extends ObjetBDD
      * @throws SampleException
      * @return boolean
      */
-    function verifyBeforeImport($row)
+    public function verifyBeforeImport($row)
     {
         if (count($row) > 0) {
             if (strlen($row["dbuid_origin"]) == 0) {
@@ -612,7 +616,7 @@ class Sample extends ObjetBDD
             $fieldDates = array(
                 "sampling_date",
                 "expiration_date",
-                "sample_creation_date"
+                "sample_creation_date",
             );
             foreach ($fieldDates as $fieldDate) {
                 if (strlen($row[$fieldDate]) > 0) {
@@ -659,7 +663,7 @@ class Sample extends ObjetBDD
      * @throws SampleException
      * @return number
      */
-    function ecrireImport($data)
+    public function ecrireImport($data)
     {
         $object = new ObjectClass($this->connection, $this->param);
         /*
@@ -689,7 +693,7 @@ class Sample extends ObjetBDD
                 $data["uid"] = $uid;
             }
         }
-        
+
         /*
          * Recuperation de l'echantillon parent, si existant
          */
@@ -698,9 +702,12 @@ class Sample extends ObjetBDD
             if ($dbuidparent[0] == $_SESSION["APPLI_code"]) {
                 $dataParent = $this->lire($dbuidparent[1]);
             } else {
-                $dataParent = $this->lireParamAsPrepared("select sample_id from sample where dbuid_origin = :dbuidorigin", array(
-                    "dbuidorigin" => $data["dbuid_parent"]
-                ));
+                $dataParent = $this->lireParamAsPrepared(
+                    "select sample_id from sample where dbuid_origin = :dbuidorigin", 
+                    array(
+                        "dbuidorigin" => $data["dbuid_parent"],
+                    )
+                );
             }
             if ($dataParent["sample_id"] > 0) {
                 $data["parent_sample_id"] = $dataParent["sample_id"];
@@ -730,7 +737,7 @@ class Sample extends ObjetBDD
      * @param string $dbuidorigin
      * @return number
      */
-    function getUidFromDbuidOrigin($dbuidorigin)
+    public function getUidFromDbuidOrigin($dbuidorigin)
     {
         $uid = 0;
         if (strlen($dbuidorigin) > 0) {
@@ -743,7 +750,7 @@ class Sample extends ObjetBDD
             $data = $this->lireParamAsPrepared(
                 $sql,
                 array(
-                    "dbuid_origin" => $dbuidorigin
+                    "dbuid_origin" => $dbuidorigin,
                 )
             );
             if ($data["uid"] > 0) {
@@ -756,14 +763,14 @@ class Sample extends ObjetBDD
     /**
      * Assign the referent at the sample
      * Verify before if the user is unable to modify the sample
-     * 
-     * @param int         $uid 
-     * @param ObjectClass $objectClass 
-     * @param id          $referent_id 
-     * 
+     *
+     * @param int         $uid
+     * @param ObjectClass $objectClass
+     * @param id          $referent_id
+     *
      * @return void
      */
-    function setReferent($uid, $objectClass, $referent_id)
+    public function setReferent($uid, $objectClass, $referent_id)
     {
         if ($uid > 0) {
             if ($this->verifyCollectionFromUid($uid)) {
@@ -779,5 +786,3 @@ class Sample extends ObjetBDD
         }
     }
 }
-
-?>

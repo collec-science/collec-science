@@ -1,5 +1,13 @@
 News
 ===========
+Version 2.2.1 of october 5, 2018
+--------------------------------
+bugs fixes:
+- in mass import, if the sample had to be associated with a container, the creation of the movement failed as well as the import of the whole file
+- a database query failed when a subsampling move was displayed
+- if the table containing the version numbers was not accessible, the application displayed an incorrect message
+- if the parameter table was not accessible, the application crashed with an error message
+
 Version 2.2 of september 6, 2018
 ---------------------------
 Bugs fixes:

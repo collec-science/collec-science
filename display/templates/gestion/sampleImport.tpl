@@ -87,6 +87,7 @@
 <li><b>sample_type_name*</b> : {t}type d'échantillon{/t}</li>
 <li><b>collection_name*</b> : {t}nom de la collection de rattachement{/t}</li>
 <li><b>object_status_name</b> : {t}statut courant{/t}</li>
+<li><b>referent_name</b> : {t}nom du référent{/t}</li>
 <li><b>wgs84_x</b> : {t}longitude GPS en WGS84 (degrés décimaux){/t}</li>
 <li><b>wgs84_y</b> : {t}latitude GPS en WGS84 (degrés décimaux){/t}</li>
 <li><b>sample_creation_date</b> : {t 1="YYYY-MM-DD HH:MM:SS"}date de création de l'échantillon dans la base de données d'origine, sous la forme %1{/t}</li>

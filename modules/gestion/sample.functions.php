@@ -16,19 +16,19 @@ function sampleInitDatEntry()
     /*
      * Recherche des types d'échantillons
      */
-    require_once 'modules/classes/sampleType.class.php';
+    include_once 'modules/classes/sampleType.class.php';
     $sampleType = new SampleType($bdd, $ObjetBDDParam);
     $vue->set($sampleType->getListe(2), "sample_type");
-    require_once 'modules/classes/objectStatus.class.php';
+    include_once 'modules/classes/objectStatus.class.php';
     $objectStatus = new ObjectStatus($bdd, $ObjetBDDParam);
     $vue->set($objectStatus->getListe(1), "objectStatus");
-    require_once 'modules/classes/samplingPlace.class.php';
+    include_once 'modules/classes/samplingPlace.class.php';
     $samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
     $vue->set($samplingPlace->getListFromCollection(), "samplingPlace");
-    require_once 'modules/classes/metadata.class.php';
+    include_once 'modules/classes/metadata.class.php';
     $metadata = new Metadata($bdd, $ObjetBDDParam);
     $vue->set($metadata->getListSearchable(), "metadatas");
-    require_once 'modules/classes/referent.class.php';
+    include_once 'modules/classes/referent.class.php';
     $referent = new Referent($bdd, $ObjetBDDParam);
     $vue->set($referent->getListe(2), "referents");
 }
@@ -71,6 +71,12 @@ class SampleInitClass
             "classname" => "IdentifierType",
             "field" => "identifier_type_code",
             "id" => "identifier_type_id"
+        ),
+        "referent_name" => array(
+            "filename"=> "referent.class.php",
+            "classname"=>"Referent",
+            "field"=>"referent_name",
+            "id"=>"referent_id"
         )
     );
 

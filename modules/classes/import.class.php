@@ -32,8 +32,8 @@ class Import
     /**
      * Constructeur
      * 
-     * @param string $filename
-     * @param string $separator
+     * @param string  $filename
+     * @param string  $separator
      * @param boolean $utf_encode
      */
     function __construct($filename, $separator = ",", $utf_encode = false, $fields = array())
@@ -45,9 +45,10 @@ class Import
      * Fonction d'initialisation du fichier
      * recupere la premiere ligne pour lire l'entete
      * 
-     * @param string $filename
-     * @param string $separator
+     * @param string  $filename
+     * @param string  $separator
      * @param boolean $utf8_encode
+     * 
      * @throws ImportException
      */
     function initFile($filename, $separator = ",", $utf8_encode = false, $fields = array())
@@ -67,7 +68,7 @@ class Import
              */
             for ($range = 0; $range < count($data); $range ++) {
                 if (in_array($data[$range], $fields) || substr($data[$range], 0, 3) == "md_") {
-                $this->header[$range] = $data[$range] ;
+                    $this->header[$range] = $data[$range] ;
                 } else {
                     throw new ImportException($data[$range]." is an unrecognized field to process the import");
                 }

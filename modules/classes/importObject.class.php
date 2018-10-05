@@ -780,7 +780,8 @@ class ImportObject
             "sampling_place_name",
             "collection_name",
             "object_status_name",
-            "sample_type_name"
+            "sample_type_name",
+            "referent_name"
         );
         $this->sample->auto_date = 0;
         $dclass = $sic->init(true);

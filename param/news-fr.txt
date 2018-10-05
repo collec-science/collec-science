@@ -7,6 +7,8 @@ Correction de bugs :
 - une requête d'interrogation de la base de données échouait lors de la consultation d'un mouvement de sous-échantillonnage
 - si la table contenant les numéros de version n'était pas accessible, l'application affichait un message erroné
 - si la table des paramètres n'était pas accessible, l'application plantait avec un message d'erreur
+- l'exportation, puis l'importation d'une liste d'échantillons (pour échange avec d'autres bases de données) ne prenait pas en compte le référent
+- en consultation d'un échantillon, après avoir cliqué une seconde fois dans la zone référent, l'affichage était remplacé par le libellé undefined
 
 Version 2.2 du 6 septembre 2018
 ----------------------------

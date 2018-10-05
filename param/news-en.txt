@@ -7,6 +7,8 @@ bugs fixes:
 - a database query failed when a subsampling move was displayed
 - if the table containing the version numbers was not accessible, the application displayed an incorrect message
 - if the parameter table was not accessible, the application crashed with an error message
+- exporting, then importing a list of samples (for exchange with other databases) did not take into account the referent
+-  when consulting a sample, after having clicked a second time in the reference zone, the display was replaced by the label undefined
 
 Version 2.2 of september 6, 2018
 ---------------------------

@@ -7,8 +7,8 @@ wget https://github.com/Irstea/collec/raw/master/install/deploy_new_instance.sh
 sudo -s
 ./deploy_new_instance.sh
 
-For upgrade to release 2.2, see the file (in french):
-https://github.com/Irstea/collec/raw/master/install/upgrade_to_2.2.txt
+For upgrade to release 2.2.1, see the file:
+https://github.com/Irstea/collec/raw/master/install/upgrade_to_2.2.1.txt
 
 GENERAL INSTALLATION AND CONFIGURATION DOCUMENTATION (in french):
 https://github.com/Irstea/collec/raw/master/database/documentation/collec_installation_configuration.pdf

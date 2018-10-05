@@ -13,11 +13,18 @@ Cas n°1
 Connectez-vous à votre serveur, puis :
 
  sudo -s
- wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.1-2.2.sh
-chmod +x upgrade-2.1-2.2.sh
- ./upgrade-2.1-2.2.sh
+ wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.1-2.2.1.sh
+chmod +x upgrade-2.1-2.2.1.sh
+ ./upgrade-2.1-2.2.1.sh
 
 Le programme va télécharger la nouvelle version et réaliser l’installation.
+
+Cas n°1 bis
+    Même situation, mais vous avez déjà installé la version 2.2 :
+     sudo -s
+    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2-2.2.1.sh
+    chmod +x upgrade-2.2-2.2.1.sh
+    ./upgrade-2.2-2.2.1.sh
 
 Cas n° 2
 
@@ -33,12 +40,12 @@ Etape 1 :
  cd /var/www/html/collec-science
  wget https://github.com/Irstea/collec/archive/master.zip
  unzip collec-master.zip
- mv collec-master/ collec-2.2
- collec-2.2/install/apache2/upgrade_rights.sh collec-2.2
+ mv collec-master/ collec-2.2.1
+ collec-2.2.1/install/apache2/upgrade_rights.sh collec-2.2.1
 
 Etape 2 :
 
-cd collec-2.2/install
+cd collec-2.2.1/install
 
 Si vous êtes en version 1.2 :
 
@@ -49,10 +56,10 @@ Si vous êtes en version 1.2 :
 
 dans tous les cas :
 
- ./upgradedb-2.1-2.2.sh
+ ./upgradedb-2.1-2.2.1.sh
  cd ../..
  rm collec
- ln -s collec-2.2 collec
+ ln -s collec-2.2.1 collec
 
 Cas n° 3
 
@@ -74,11 +81,11 @@ Récupérez le code de l’application :
 
  wget https://github.com/Irstea/collec/archive/master.zip
  unzip master.zip
- mv collec-master collec-2.2
+ mv collec-master collec-2.2.1
 
 Etape 2 : mise à jour de la base de données
 
-cd collec-2.1/install
+cd collec-2.2.1/install
 
 Selon le niveau de votre version actuelle, éditez les fichiers :
 
@@ -112,16 +119,16 @@ Etape 3 : basculer vers la nouvelle version
     Recopiez la version précédente de param/param.inc.php
 
  cd ../..
- cp ancien_dossier/param/param.inc.php collec-2.2/param/
+ cp ancien_dossier/param/param.inc.php collec-2.2.1/param/
 
     Mettez à jour les droits :
 
-collec-2.2/install/apache2/upgrade_rights.sh collec-2.2
+collec-2.2.1/install/apache2/upgrade_rights.sh collec-2.2.1
 
     supprimez le lien symbolique (si c’est le mécanisme que vous avez utilisé), et recréez le :
 
  rm collec
- ln -s collec-2.2 collec
+ ln -s collec-2.2.1 collec
 
 Cas n° 4
 

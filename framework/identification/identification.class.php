@@ -28,6 +28,10 @@ class Identification
 
     var $CAS_uri;
 
+    var $CAS_debug = false;
+    
+    var $CAS_CApath ;
+
     var $LDAP_address;
 
     var $LDAP_port;
@@ -83,11 +87,13 @@ class Identification
      *            du CAS
      * @return null
      */
-    function init_CAS($cas_address, $CAS_port, $CAS_uri)
+    function init_CAS($cas_address, $CAS_port, $CAS_uri, $CAS_debug = false, $CAS_CApath="")
     {
         $this->CAS_address = $cas_address;
         $this->CAS_port = $CAS_port;
         $this->CAS_uri = $CAS_uri;
+        $this->CAS_debug = $CAS_debug;
+        $this->CAS_CApath = $CAS_CApath;
     }
 
     /**
@@ -117,9 +123,14 @@ class Identification
      */
     function getLoginCas()
     {
-        phpCAS::setDebug();
-        phpCAS::setVerbose($true);
+        phpCAS::setDebug($this->CAS_debug);
+        phpCAS::setVerbose($this->CAS_debug);
         phpCAS::client(CAS_VERSION_2_0, $this->CAS_address, $this->CAS_port, $this->CAS_uri);
+        if (strlen($this->CAS_CApath) > 0) {
+            phpCAS::setCasServerCACert($this->CAS_CApath);
+        } else {
+            phpCAS::setNoCasServerValidation();
+        }
         phpCAS::forceAuthentication();
         return phpCAS::getUser();
     }

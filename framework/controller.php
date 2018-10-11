@@ -232,11 +232,16 @@ while (isset($module)) {
             /*
              * Affichage de l'ecran de saisie du login si necessaire
              */
-            if (in_array($ident_type, array(
+            if (in_array(
+                $ident_type,
+                array(
                 "BDD",
                 "LDAP",
                 "LDAP-BDD",
-            )) && !isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0 && !isset($_COOKIE["tokenIdentity"])) {
+                )
+            ) && !isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0 
+                && !isset($_COOKIE["tokenIdentity"])
+            ) {
                 /*
                  * Gestion de la saisie du login
                  */
@@ -263,7 +268,7 @@ while (isset($module)) {
                      */
                     if (isset($_COOKIE["tokenIdentity"])) {
                         try {
-                            require_once 'framework/identification/token.class.php';
+                            include_once 'framework/identification/token.class.php';
                             $token = new Token($privateKey, $pubKey);
                             $login = $token->openToken($_COOKIE["tokenIdentity"]);
                         } catch (Exception $e) {
@@ -316,7 +321,7 @@ while (isset($module)) {
                         /*
                          * Calcul des droits
                          */
-                        require_once 'framework/droits/droits.class.php';
+                        include_once 'framework/droits/droits.class.php';
                         $acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
                         try {
                             $_SESSION["droits"] = $acllogin->getListDroits($_SESSION["login"], $GACL_aco, $LDAP);
@@ -336,7 +341,7 @@ while (isset($module)) {
                          * Gestion de l'identification par token
                          */
                         if ($_REQUEST["loginByTokenRequested"] == 1) {
-                            require_once 'framework/identification/token.class.php';
+                            include_once 'framework/identification/token.class.php';
                             $tokenClass = new Token($privateKey, $pubKey);
                             try {
                                 $token = $tokenClass->createToken($_SESSION["login"], $tokenIdentityValidity);

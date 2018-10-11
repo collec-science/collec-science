@@ -15,54 +15,54 @@ class IdentificationException extends Exception
  * Gestion de l'identification - recuperation du login en fonction du type d'acces
  *
  * @author Eric Quinton -quinton.eric@gmail.com
- *        
+ *
  */
 class Identification
 {
 
-    var $ident_type = NULL;
+    public $ident_type = null;
 
-    var $CAS_address;
+    public $CAS_address;
 
-    var $CAS_port;
+    public $CAS_port;
 
-    var $CAS_uri;
+    public $CAS_uri;
 
-    var $CAS_debug = false;
-    
-    var $CAS_CApath ;
+    public $CAS_debug = false;
 
-    var $LDAP_address;
+    public $CAS_CApath;
 
-    var $LDAP_port;
+    public $LDAP_address;
 
-    var $LDAP_rdn;
+    public $LDAP_port;
 
-    var $LDAP_basedn;
+    public $LDAP_rdn;
 
-    var $LDAP_user_attrib;
+    public $LDAP_basedn;
 
-    var $LDAP_v3;
+    public $LDAP_user_attrib;
 
-    var $LDAP_tls;
+    public $LDAP_v3;
 
-    var $LDAP_upn_suffix; // User Principal Name (UPN) Suffix pour Active Directory
+    public $LDAP_tls;
 
-    var $password;
+    public $LDAP_upn_suffix; // User Principal Name (UPN) Suffix pour Active Directory
 
-    var $login;
+    public $password;
 
-    var $gacl;
+    public $login;
 
-    var $aco;
+    public $gacl;
 
-    var $aro;
+    public $aco;
 
-    var $pagelogin;
+    public $aro;
+
+    public $pagelogin;
 
     public $identification_mode;
 
-    function setpageloginBDD($page)
+    public function setpageloginBDD($page)
     {
         $this->pagelogin = $page;
     }
@@ -71,23 +71,20 @@ class Identification
      *
      * @param $ident_type string
      */
-    function setidenttype($ident_type)
+    public function setidenttype($ident_type)
     {
         $this->ident_type = $ident_type;
     }
 
     /**
-     * initialisation si utilisation d'un CAS
+     * Initialisation si utilisation d'un CAS
      *
-     * @param String $cas_address
-     *            : adresse
-     *            du CAS
-     * @param int $CAS_port
-     *            : port
-     *            du CAS
+     * @param String $cas_address : adresse du CAS
+     * @param int    $CAS_port    : port du CAS
+     *
      * @return null
      */
-    function init_CAS($cas_address, $CAS_port, $CAS_uri, $CAS_debug = false, $CAS_CApath="")
+    public function init_CAS($cas_address, $CAS_port, $CAS_uri, $CAS_debug = false, $CAS_CApath = "")
     {
         $this->CAS_address = $cas_address;
         $this->CAS_port = $CAS_port;
@@ -107,7 +104,7 @@ class Identification
      * @param String $LDAP_tls
      * @param String $LDAP_upn_suffix
      */
-    function init_LDAP($LDAP_address, $LDAP_port, $LDAP_basedn, $LDAP_user_attrib, $LDAP_v3, $LDAP_tls, $LDAP_upn_suffix="" )
+    public function init_LDAP($LDAP_address, $LDAP_port, $LDAP_basedn, $LDAP_user_attrib, $LDAP_v3, $LDAP_tls, $LDAP_upn_suffix = "")
     {
         $this->LDAP_address = $LDAP_address;
         $this->LDAP_port = $LDAP_port;
@@ -121,10 +118,12 @@ class Identification
     /**
      * Gestion de la connexion en mode CAS
      */
-    function getLoginCas()
+    public function getLoginCas()
     {
-        phpCAS::setDebug($this->CAS_debug);
-        phpCAS::setVerbose($this->CAS_debug);
+        if ($this->CAS_debug) {
+            phpCAS::setDebug();
+            phpCAS::setVerbose(true);
+        }
         phpCAS::client(CAS_VERSION_2_0, $this->CAS_address, $this->CAS_port, $this->CAS_uri);
         if (strlen($this->CAS_CApath) > 0) {
             phpCAS::setCasServerCACert($this->CAS_CApath);
@@ -140,25 +139,28 @@ class Identification
      *
      * @param string $login
      * @param string $password
+     *
      * @return string $password |int -1
      */
-    function testLoginLdap($login, $password)
+    public function testLoginLdap($login, $password)
     {
         $loginOk = "";
         global $log, $LOG_duree, $message;
         if (strlen($login) > 0 && strlen($password) > 0) {
-            $login = str_replace(array(
-                '\\',
-                '*',
-                '(',
-                ')'
-            ), array(
-                '\5c',
-                '\2a',
-                '\28',
-                '\29'
-            ), $login);
-            for ($i = 0; $i < strlen($login); $i ++) {
+            $login = str_replace(
+                array(
+                    '\\',
+                    '*',
+                    '(',
+                    ')',
+                ), array(
+                    '\5c',
+                    '\2a',
+                    '\28',
+                    '\29',
+                ), $login
+            );
+            for ($i = 0; $i < strlen($login); $i++) {
                 $char = substr($login, $i, 1);
                 if (ord($char) < 32) {
                     $hex = dechex(ord($char));
@@ -169,7 +171,7 @@ class Identification
                 }
             }
             $ldap = @ldap_connect($this->LDAP_address, $this->LDAP_port);
-            if (! $ldap) {
+            if (!$ldap) {
                 throw new LdapException("Impossible de se connecter au serveur LDAP.");
             }
             if ($this->LDAP_v3) {
@@ -178,7 +180,7 @@ class Identification
             if ($this->LDAP_tls) {
                 ldap_start_tls($ldap);
             }
-            /* 
+            /*
              * Pour OpenLDAP et Active Directory, "bind rdn" de la forme : user_attrib=login,basedn
              *     avec généralement user_attrib=uid pour OpenLDAP,
              *                    et user_attrib=cn pour Active Directory
@@ -189,16 +191,16 @@ class Identification
             $user_attrib_part = !empty($this->LDAP_user_attrib) ? $this->LDAP_user_attrib . "=" : "";
             $upn_suffix_part = !empty($this->LDAP_upn_suffix) ? "@" . $this->LDAP_upn_suffix : "";
             $basedn_part = !empty($this->LDAP_basedn) ? "," . $this->LDAP_basedn : "";
-            //     (user_attrib=)login(@upn_suffix)(,basedn) 
+            //     (user_attrib=)login(@upn_suffix)(,basedn)
             $dn = $user_attrib_part . $login . $upn_suffix_part . $basedn_part;
             $rep = ldap_bind($ldap, $dn, $password);
             if ($rep == 1) {
                 $loginOk = $login;
                 $log->setLog($login, "connexion", "ldap-ok");
+            } else {
                 /*
                  * Purge des anciens enregistrements dans log
                  */
-            } else {
                 $log->setLog($login, "connexion", "ldap-ko");
             }
         }
@@ -210,14 +212,14 @@ class Identification
      *
      * @return 0:1
      */
-    function disconnect($adresse_retour)
+    public function disconnect($adresse_retour = "")
     {
-        if (! isset($this->ident_type)) {
+        if (!isset($this->ident_type)) {
             return 0;
         }
         // Détruit toutes les variables de session
         $_SESSION = array();
-        
+
         // Si vous voulez détruire complètement la session, effacez également
         // le cookie de session.
         // Note : cela détruira la session et pas seulement les données de session !
@@ -234,7 +236,13 @@ class Identification
         session_destroy();
         if ($this->ident_type == "CAS") {
             phpCAS::client(CAS_VERSION_2_0, $this->CAS_address, $this->CAS_port, $this->CAS_uri);
-            phpCAS::logout($adresse_retour);
+            if (strlen($this->CAS_CApath) > 0) {
+                phpCAS::setCasServerCACert($this->CAS_CApath);
+            } else {
+                phpCAS::setNoCasServerValidation();
+            }
+
+            phpCAS::logout();
         }
         if ($this->ident_type = "HEADER") {
             /*
@@ -263,7 +271,7 @@ class Identification
      *            : nom
      *            de la catégorie contenant les logins à tester
      */
-    function setgacl(&$gacl, $aco, $aro)
+    public function setgacl(&$gacl, $aco, $aro)
     {
         $this->gacl = $gacl;
         $this->aco = $aco;
@@ -277,11 +285,11 @@ class Identification
      *            : Categorie a tester
      * @return int : 0 | 1
      */
-    function getgacl($aco)
+    public function getgacl($aco)
     {
         $login = $this->getLogin();
-        if ($login == - 1) {
-            return - 1;
+        if ($login == -1) {
+            return -1;
         }
         return $this->gacl->acl_check($this->aco, $aco, $this->aro, $login);
     }
@@ -291,18 +299,18 @@ class Identification
      *
      * @return string
      */
-    function verifyLogin($loginEntered = "", $password = "", $modeAdmin = false)
+    public function verifyLogin($loginEntered = "", $password = "", $modeAdmin = false)
     {
         global $log, $CONNEXION_blocking_duration, $CONNEXION_max_attempts, $message;
         $login = "";
         $verify = false;
         $ident_type = $this->ident_type;
-        
+
         /*
          * Un cookie d'identification est-il fourni ?
          */
-        if (isset($_COOKIE["tokenIdentity"]) && ! $modeAdmin) {
-            require_once 'framework/identification/token.class.php';
+        if (isset($_COOKIE["tokenIdentity"]) && !$modeAdmin) {
+            include_once 'framework/identification/token.class.php';
             $tokenClass = new Token();
             try {
                 $login = $tokenClass->openTokenFromJson($_COOKIE["tokenIdentity"]);
@@ -310,7 +318,7 @@ class Identification
                     /*
                      * Verification si le nombre de tentatives de connexion n'a pas ete atteint
                      */
-                    if (! $log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
+                    if (!$log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
                         $verify = true;
                         $log->setLog($login, $module . "-connexion", "token-ok");
                     }
@@ -331,19 +339,22 @@ class Identification
                 /*
                  * Verification si le nombre de tentatives de connexion n'a pas ete atteint
                  */
-                if (! $log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
+                if (!$log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
                     $log->setLog($login, "connexion", "HEADER-ok");
                 }
             } else {
                 $log->setLog($login, "connexion", "HEADER-ko");
             }
         } elseif ($ident_type == "CAS") {
-            if (! $log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
-                
+            if (!$log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
+
                 /*
                  * Verification du login aupres du serveur CAS
                  */
                 $login = $this->getLoginCas();
+                if (strlen($login) > 0) {
+                    $verify = true;
+                }
             }
         } else {
             /*
@@ -353,13 +364,13 @@ class Identification
                 /*
                  * Verification si le nombre de tentatives de connexion n'est pas atteint
                  */
-                if (! $log->isAccountBlocked($loginEntered, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
+                if (!$log->isAccountBlocked($loginEntered, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
                     $verify = true;
                     /*
                      * Verification de l'identification aupres du serveur LDAP, ou LDAP puis BDD
                      */
                     if ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
-                        
+
                         try {
                             $login = $this->testLoginLdap($loginEntered, $password);
                             if (strlen($login) == 0 && $ident_type == "LDAP-BDD") {
@@ -371,21 +382,22 @@ class Identification
                         } catch (Exception $e) {
                             $message->setSyslog($e->getMessage());
                         }
-                        
+
+                    } elseif ($ident_type == "BDD") {
                         /*
                          * Verification de l'identification uniquement en base de donnees
                          */
-                    } elseif ($ident_type == "BDD") {
+
                         $login = $this->testBdd($loginEntered, $password);
                     }
                 }
             }
         }
-        
+
         /*
          * Si le nombre total d'essais a ete atteint, le login est refuse
          */
-        if (! $verify) {
+        if (!$verify) {
             $login = "";
         }
         return $login;
@@ -394,7 +406,7 @@ class Identification
     /**
      * Teste la connexion via la base de donnees
      */
-    function testBdd($loginEntered, $password)
+    public function testBdd($loginEntered, $password)
     {
         global $bdd_gacl, $message;
         $login = "";
@@ -417,47 +429,46 @@ class Identification
 class LoginGestion extends ObjetBDD
 {
 
-    //
-    function __construct($link, $param = array())
+    public function __construct($link, $param = array())
     {
         $this->table = "logingestion";
         $this->id_auto = 1;
         $this->colonnes = array(
             "id" => array(
                 "type" => 1,
-                "key" => 1
+                "key" => 1,
             ),
             "datemodif" => array(
                 "type" => 2,
-                "defaultValue" => "getDateJour"
+                "defaultValue" => "getDateJour",
             ),
             "mail" => array(
-                "pattern" => "#^.+@.+\.[a-zA-Z]{2,6}$#"
+                "pattern" => "#^.+@.+\.[a-zA-Z]{2,6}$#",
             ),
             "login" => array(
-                'requis' => 1
+                'requis' => 1,
             ),
             "nom" => array(
-                "type" => 0
+                "type" => 0,
             ),
             "prenom" => array(
-                "type" => 0
+                "type" => 0,
             ),
             "actif" => array(
                 'type' => 1,
-                'defaultValue' => 1
+                'defaultValue' => 1,
             ),
             "password" => array(
                 'type' => 0,
-                'longueur' => 256
+                'longueur' => 256,
             ),
             "is_clientws" => array(
                 "type" => 1,
-                "defaultValue" => '0'
+                "defaultValue" => '0',
             ),
             "tokenws" => array(
-                'type' => 0
-            )
+                'type' => 0,
+            ),
         );
         parent::__construct($link, $param);
     }
@@ -469,7 +480,7 @@ class LoginGestion extends ObjetBDD
      * @param string $password
      * @return boolean
      */
-    function controlLogin($login, $password)
+    public function controlLogin($login, $password)
     {
         global $log;
         $retour = false;
@@ -487,14 +498,14 @@ class LoginGestion extends ObjetBDD
         }
         return $retour;
     }
-    
+
     /**
      * Recupere le login a partir d'un jeton pour les services web
      *
      * @param String $token
      * @return array
      */
-    function getLoginFromTokenWS($login, $token)
+    public function getLoginFromTokenWS($login, $token)
     {
         if (strlen($token) > 0 && strlen($login) > 0) {
             $sql = "select login from logingestion where is_clientws = '1' and actif = '1'
@@ -502,17 +513,17 @@ class LoginGestion extends ObjetBDD
             and tokenws = :tokenws";
             return $this->lireParamAsPrepared($sql, array(
                 "login" => $login,
-                "tokenws" => $token
+                "tokenws" => $token,
             ));
         }
     }
-    
+
     /**
      * Retourne la liste des logins existants, triee par nom-prenom
      *
      * @return array
      */
-    function getListeTriee()
+    public function getListeTriee()
     {
         $sql = 'select id,login,nom,prenom,mail,actif from LoginGestion order by nom,prenom, login';
         return ObjetBDD::getListeParam($sql);
@@ -524,7 +535,7 @@ class LoginGestion extends ObjetBDD
      *
      * @see ObjetBDD::ecrire()
      */
-    function ecrire($data)
+    public function ecrire($data)
     {
         if (strlen($data["pass1"]) > 0 && strlen($data["pass2"]) > 0 && $data["pass1"] == $data["pass2"]) {
             if ($this->controleComplexite($data["pass1"]) > 2 && strlen($data["pass1"]) > 9) {
@@ -542,7 +553,7 @@ class LoginGestion extends ObjetBDD
         } else {
             $data["is_clientws"] = 0;
         }
-        $id  = parent::ecrire($data);
+        $id = parent::ecrire($data);
         if ($id > 0 && strlen($data["password"]) > 0) {
             $lgo = new LoginOldPassword($this->connection, $this->paramori);
             $lgo->setPassword($id, $data["password"]);
@@ -557,7 +568,7 @@ class LoginGestion extends ObjetBDD
      *
      * @see ObjetBDD::supprimer()
      */
-    function supprimer($id)
+    public function supprimer($id)
     {
         /*
          * Suppression le cas echeant des anciens logins enregistres
@@ -565,7 +576,7 @@ class LoginGestion extends ObjetBDD
         $loginOP = new LoginOldPassword($this->connection, $this->paramori);
         $loginOP->supprimerChamp($id, "id");
         $data = $this->lire($id);
-        if( parent::supprimer($id) > 0) {
+        if (parent::supprimer($id) > 0) {
             /*
              * Recherche si un enregistrement existe dans la gestion des droits
              */
@@ -577,11 +588,12 @@ class LoginGestion extends ObjetBDD
             }
         }
     }
-    
-    function getFromLogin($login) {
+
+    public function getFromLogin($login)
+    {
         if (strlen($login) > 0) {
-            $sql = "select * from ".$this->table." where login = :login";
-            return $this->lireParamAsPrepared($sql, array("login"=>$login));
+            $sql = "select * from " . $this->table . " where login = :login";
+            return $this->lireParamAsPrepared($sql, array("login" => $login));
         }
     }
 
@@ -593,9 +605,9 @@ class LoginGestion extends ObjetBDD
      * @param string $pass2
      * @return number
      */
-    function changePassword($oldpassword, $pass1, $pass2)
+    public function changePassword($oldpassword, $pass1, $pass2)
     {
-        global $log,$message;
+        global $log, $message;
         $retour = 0;
         if (isset($_SESSION["login"])) {
             $oldData = $this->lireByLogin($_SESSION["login"]);
@@ -617,19 +629,19 @@ class LoginGestion extends ObjetBDD
                 $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"));
             }
         }
-        
+
         return $retour;
     }
 
     /**
      * Calcule le hash d'un mot de passe
-     * 
+     *
      * @param string $login
      * @param string $password
      * @throws Exception
      * @return string
      */
-    function passwordHash($login, $password)
+    public function passwordHash($login, $password)
     {
         if (strlen($login) == 0 || strlen($password) == 0) {
             throw new IdentificationException("password hashing not possible");
@@ -646,7 +658,7 @@ class LoginGestion extends ObjetBDD
      * @param string $pass2
      * @return number
      */
-    function changePasswordAfterLost($login, $pass1, $pass2)
+    public function changePasswordAfterLost($login, $pass1, $pass2)
     {
         $retour = 0;
         if (strlen($login) > 0) {
@@ -681,7 +693,7 @@ class LoginGestion extends ObjetBDD
                  */
                 $loginOldPassword = new LoginOldPassword($this->connection, $this->paramori);
                 $loginOldPassword->setPassword($data["id"], $data["password"]);
-                
+
                 $message->set(_("Le mot de passe a été modifié"));
             } else {
                 $message->set(_("Echec de modification du mot de passe pour une raison inconnue. Si le problème persiste, contactez l'assistance"));
@@ -750,16 +762,16 @@ class LoginGestion extends ObjetBDD
      * @param string $password
      * @return number
      */
-    function controleComplexite($password)
+    public function controleComplexite($password)
     {
         $long = strlen($password);
         $type = array(
             "min" => 0,
             "maj" => 0,
             "chiffre" => 0,
-            "other" => 0
+            "other" => 0,
         );
-        for ($i = 0; $i < $long; $i ++) {
+        for ($i = 0; $i < $long; $i++) {
             $car = substr($password, $i, 1);
             if ($type["min"] == 0) {
                 $type["min"] = preg_match("/[a-z]/", $car);
@@ -783,7 +795,7 @@ class LoginGestion extends ObjetBDD
      * @param string $login
      * @return array
      */
-    function lireByLogin($login)
+    public function lireByLogin($login)
     {
         $login = $this->encodeData($login);
         $sql = "select * from " . $this->table . "
@@ -795,9 +807,10 @@ class LoginGestion extends ObjetBDD
      * Retourne un enregistrement a partir du mail
      *
      * @param string $mail
+     *
      * @return array
      */
-    function getFromMail($mail)
+    public function getFromMail($mail)
     {
         $mail = $this->encodeData($mail);
         if (strlen($mail) > 0) {
@@ -805,9 +818,11 @@ class LoginGestion extends ObjetBDD
             $sql .= " from " . $this->table;
             $sql .= " where lower(mail) = lower(:mail)";
             $sql .= " order by id desc limit 1";
-            return $this->lireParamAsPrepared($sql, array(
-                "mail" => $mail
-            ));
+            return $this->lireParamAsPrepared(
+                $sql, array(
+                    "mail" => $mail,
+                )
+            );
         }
     }
 }
@@ -816,7 +831,7 @@ class LoginGestion extends ObjetBDD
  * Classe permettant d'enregistrer toutes les operations effectuees dans la base
  *
  * @author quinton
- *        
+ *
  */
 class Log extends ObjetBDD
 {
@@ -824,10 +839,10 @@ class Log extends ObjetBDD
     /**
      * Constructeur
      *
-     * @param pdo $p_connection
+     * @param pdo   $p_connection
      * @param array $param
      */
-    function __construct($bdd, $param = NULL)
+    public function __construct($bdd, $param = null)
     {
         $this->table = "log";
         $this->colonnes = array(
@@ -835,25 +850,25 @@ class Log extends ObjetBDD
                 "type" => 1,
                 "key" => 1,
                 "requis" => 1,
-                "defaultValue" => 0
+                "defaultValue" => 0,
             ),
             "login" => array(
                 "type" => 0,
-                "requis" => 0
+                "requis" => 0,
             ),
             "nom_module" => array(
-                "type" => 0
+                "type" => 0,
             ),
             "log_date" => array(
                 "type" => 3,
-                "requis" => 1
+                "requis" => 1,
             ),
             "commentaire" => array(
-                "type" => 0
+                "type" => 0,
             ),
             "ipaddress" => array(
-                "type" => 0
-            )
+                "type" => 0,
+            ),
         );
         parent::__construct($bdd, $param);
     }
@@ -863,17 +878,18 @@ class Log extends ObjetBDD
      *
      * @param string $module
      * @param string $comment
+     *
      * @return integer
      */
-    function setLog($login, $module, $commentaire = NULL)
+    public function setLog($login, $module, $commentaire = null)
     {
         global $GACL_aco;
         $data = array(
             "log_id" => 0,
-            "commentaire" => $commentaire
+            "commentaire" => $commentaire,
         );
         if (is_null($login)) {
-            if (! is_null($_SESSION["login"])) {
+            if (!is_null($_SESSION["login"])) {
                 $login = $_SESSION["login"];
             } else {
                 $login = "unknown";
@@ -892,14 +908,14 @@ class Log extends ObjetBDD
     /**
      * Fonction de purge du fichier de traces
      *
-     * @param int $nbJours
-     *            : nombre de jours de conservation
+     * @param int $nbJours : nombre de jours de conservation
+     *
      * @return int
      */
-    function purge($nbJours)
+    public function purge($nbJours)
     {
         if ($nbJours > 0) {
-            $sql = "delete from " . $this->table . " 
+            $sql = "delete from " . $this->table . "
 					where log_date < current_date - interval '" . $nbJours . " day'";
             return $this->executeSQL($sql);
         }
@@ -907,21 +923,24 @@ class Log extends ObjetBDD
 
     /**
      * Recupere l'adresse IP de l'agent
+     *
+     * @return IPAddress
      */
-    function getIPClientAddress()
+    public function getIPClientAddress()
     {
         /*
          * Recherche si le serveur est accessible derriere un reverse-proxy
          */
         if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
             return $_SERVER["HTTP_X_FORWARDED_FOR"];
+
+        } else if (isset($_SERVER["REMOTE_ADDR"])) {
             /*
              * Cas classique
              */
-        } else if (isset($_SERVER["REMOTE_ADDR"])) {
             return $_SERVER["REMOTE_ADDR"];
         } else {
-            return - 1;
+            return -1;
         }
     }
 
@@ -930,14 +949,17 @@ class Log extends ObjetBDD
      *
      * @return array
      */
-    function getLastConnexion()
+    public function getLastConnexion()
     {
         if (isset($_SESSION["login"])) {
-            $sql = "select log_date, ipaddress from log where login = :login and nom_module like '%connexion' and commentaire like '%ok'
-order by log_id desc limit 2";
-            $data = $this->getListeParamAsPrepared($sql, array(
-                "login" => $_SESSION["login"]
-            ));
+            $sql = "select log_date, ipaddress from log where login = :login
+            and nom_module like '%connexion' and commentaire like '%ok'
+            order by log_id desc limit 2";
+            $data = $this->getListeParamAsPrepared(
+                $sql, array(
+                    "login" => $_SESSION["login"],
+                )
+            );
             return $data[1];
         }
     }
@@ -946,17 +968,20 @@ order by log_id desc limit 2";
      * Retourne le dernier type de connexion realisee pour un compte
      *
      * @param string $login
+     *
      * @return string
      */
-    function getLastConnexionType($login)
+    public function getLastConnexionType($login)
     {
         if (strlen($login) > 0) {
             $sql = "select commentaire from log";
             $sql .= " where login = :login and nom_module like '%connexion' and commentaire like '%ok'";
             $sql .= "order by log_id desc limit 1";
-            $data = $this->lireParamAsPrepared($sql, array(
-                "login" => $login
-            ));
+            $data = $this->lireParamAsPrepared(
+                $sql, array(
+                    "login" => $login,
+                )
+            );
             $commentaire = explode("-", $data["commentaire"]);
             return $commentaire[0];
         }
@@ -971,11 +996,12 @@ order by log_id desc limit 2";
      * @param string $login
      * @param number $maxtime
      * @param number $nbMax
+     *
      * @return boolean
      */
-    function isAccountBlocked($login, $maxtime = 600, $nbMax = 10)
+    public function isAccountBlocked($login, $maxtime = 600, $nbMax = 10)
     {
-        
+
         $is_blocked = true;
         /*
          * Verification si le compte est bloque, et depuis quand
@@ -984,33 +1010,37 @@ order by log_id desc limit 2";
         $date = new DateTime(now);
         $date->sub(new DateInterval("PT" . $maxtime . "S"));
         $sql = "select log_id from log where login = :login " . " and nom_module = 'connexionBlocking'" . " and log_date > :blockingdate " . " order by log_id desc limit 1";
-        $data = $this->lireParamAsPrepared($sql, array(
-            "login" => $login,
-            "blockingdate" => $date->format(DATELONGMASK)
-        ));
+        $data = $this->lireParamAsPrepared(
+            $sql, array(
+                "login" => $login,
+                "blockingdate" => $date->format(DATELONGMASK),
+            )
+        );
         if ($data["log_id"] > 0) {
             $accountBlocking = true;
         }
-        if (! $accountBlocking) {
-            $sql = "select log_date, commentaire from log where login = :login 
+        if (!$accountBlocking) {
+            $sql = "select log_date, commentaire from log where login = :login
                     and nom_module like '%connexion'
                     and log_date > :blockingdate
                 order by log_id desc limit :nbmax";
-            $data = $this->getListeParamAsPrepared($sql, array(
-                "login" => $login,
-                "nbmax" => $nbMax,
-                "blockingdate" => $date->format(DATELONGMASK)
-            ));
+            $data = $this->getListeParamAsPrepared(
+                $sql, array(
+                    "login" => $login,
+                    "nbmax" => $nbMax,
+                    "blockingdate" => $date->format(DATELONGMASK),
+                )
+            );
             $nb = 0;
             /*
              * Recherche si une connexion a reussi
              */
             foreach ($data as $value) {
-                if (substr($value["commentaire"], - 2) == "ok") {
+                if (substr($value["commentaire"], -2) == "ok") {
                     $is_blocked = false;
                     break;
                 }
-                $nb ++;
+                $nb++;
             }
             if ($nb >= $nbMax) {
                 /*
@@ -1031,20 +1061,20 @@ order by log_id desc limit 2";
      *
      * @param string $login
      */
-    function blockingAccount($login)
+    public function blockingAccount($login)
     {
         $this->setLog($login, "connexionBlocking");
         global $message, $MAIL_enabled, $APPLI_mail, $APPLI_address, $APPLI_mailToAdminPeriod;
         $date = date("Y-m-d H:i:s");
         $message->setSyslog("connexionBlocking for login $login");
         if ($MAIL_enabled == 1) {
-            require_once 'framework/identification/mail.class.php';
-            require_once 'framework/droits/droits.class.php';
+            include_once 'framework/identification/mail.class.php';
+            include_once 'framework/droits/droits.class.php';
             $MAIL_param = array(
                 "replyTo" => "$APPLI_mail",
-                "subject" => "SECURITY REPORTING - ".$_SESSION["APPLI_code"]." - account blocked",
+                "subject" => "SECURITY REPORTING - " . $_SESSION["APPLI_code"] . " - account blocked",
                 "from" => "$APPLI_mail",
-                "contents" => "<html><body>" . "The account <b>$login<b> was blocked at $date for too many connection attempts" . '<br>Software : <a href="' . $APPLI_address . '">' . $APPLI_address . "</a>" . '</body></html>'
+                "contents" => "<html><body>" . "The account <b>$login<b> was blocked at $date for too many connection attempts" . '<br>Software : <a href="' . $APPLI_address . '">' . $APPLI_address . "</a>" . '</body></html>',
             );
             /*
              * Recherche de la liste des administrateurs
@@ -1072,12 +1102,14 @@ order by log_id desc limit 2";
                      * Recherche si un mail a deja ete adresse a l'administrateur pour ce blocage
                      */
                     $sql = 'select log_id, log_date from log' . " where nom_module like '%sendMailAdminForBlocking'" . ' and login = :login' . ' and commentaire = :admin' . ' and log_date > :lastdate' . ' order by log_id desc limit 1';
-                    $logval = $this->lireParamAsPrepared($sql, array(
-                        "admin" => $admin,
-                        "login" => $login,
-                        "lastdate" => $lastDate->format("Y-m-d H:i:s")
-                    ));
-                    if (! $logval["log_id"] > 0) {
+                    $logval = $this->lireParamAsPrepared(
+                        $sql, array(
+                            "admin" => $admin,
+                            "login" => $login,
+                            "lastdate" => $lastDate->format("Y-m-d H:i:s"),
+                        )
+                    );
+                    if (!$logval["log_id"] > 0) {
                         if ($mail->sendMail($dataLogin["mail"], array())) {
                             $this->setLog($login, "sendMailAdminForBlocking", $value["login"]);
                         } else {
@@ -1095,7 +1127,7 @@ order by log_id desc limit 2";
  * Classe de gestion de l'enregistrement des anciens mots de passe
  *
  * @author quinton
- *        
+ *
  */
 class LoginOldPassword extends ObjetBDD
 {
@@ -1103,10 +1135,10 @@ class LoginOldPassword extends ObjetBDD
     /**
      * Constructeur
      *
-     * @param pdo $bdd
+     * @param pdo   $bdd
      * @param array $ObjetBDDParam
      */
-    function __construct($bdd, $param)
+    public function __construct($bdd, $param)
     {
         $this->table = "login_oldpassword";
         $this->colonnes = array(
@@ -1114,16 +1146,16 @@ class LoginOldPassword extends ObjetBDD
                 "type" => 1,
                 "key" => 1,
                 "requis" => 1,
-                "defaultValue" => 0
+                "defaultValue" => 0,
             ),
             "id" => array(
                 "type" => 1,
                 "requis" => 1,
-                "parentAttrib" => 1
+                "parentAttrib" => 1,
             ),
             "password" => array(
-                "type" => 0
-            )
+                "type" => 0,
+            ),
         );
         parent::__construct($bdd, $param);
     }
@@ -1133,13 +1165,14 @@ class LoginOldPassword extends ObjetBDD
      *
      * @param string $login
      * @param string $password_hash
+     * 
      * @return number
      */
-    function testPassword($login, $password_hash)
+    public function testPassword($login, $password_hash)
     {
         $login = $this->encodeData($login);
-        $sql = 'select count(o.login_oldpassword_id) as "nb" 
-				from ' . $this->table . " o 
+        $sql = 'select count(o.login_oldpassword_id) as "nb"
+				from ' . $this->table . " o
 				join logingestion on logingestion.id = o.id
 				where login = '" . $login . "'
 					and o.password = '" . $password_hash . "'";
@@ -1152,17 +1185,17 @@ class LoginOldPassword extends ObjetBDD
      *
      * @param int $id
      * @param string $password_hash
+     * 
      * @return int
      */
-    function setPassword($id, $password_hash)
+    public function setPassword($id, $password_hash)
     {
         if ($id > 0) {
             $data = array(
                 "id" => $id,
-                "password" => $password_hash
+                "password" => $password_hash,
             );
             return $this->ecrire($data);
         }
     }
 }
-?>

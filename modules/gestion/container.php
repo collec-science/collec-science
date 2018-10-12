@@ -111,6 +111,12 @@ switch ($t_module["param"]) {
         include_once 'modules/classes/referent.class.php';
         $referent = new Referent($bdd, $ObjetBDDParam);
         $vue->set($referent->getListe(2), "referents");
+        /**
+         * Recuperation des types d'evenements
+         */
+        include_once 'modules/classes/eventType.class.php';
+        $eventType = new EventType($bdd, $ObjetBDDParam);
+        $vue->set($eventType->getListe(1), "eventType");
         /*
          * Affichage
          */

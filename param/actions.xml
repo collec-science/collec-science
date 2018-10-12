@@ -163,6 +163,7 @@
 	<sampleImportStage3 action="modules/gestion/import.php" param="importExterneExec" droits="import,collection" type="smarty" retourok="sampleImportStage1" retourko="sampleImportStage1" modulebefore="sampleImportStage2"/>
 	<samplesDelete action="modules/gestion/sample.php" param="deleteMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" retourok="sampleList" retourko="sampleList" droits="collection"/>
 	<samplesAssignReferent action="modules/gestion/sample.php" param="referentAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
+	<samplesCreateEvent action="modules/gestion/sample.php" param="eventAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
 	
 	<movement droits="consult" type="smarty" />
 	<movementList droits="collection" type="smarty" action="modules/gestion/movement.php" param="list" retourlogin="1"/>

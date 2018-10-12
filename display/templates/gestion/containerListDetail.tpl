@@ -14,7 +14,7 @@ $(document).ready(function () {
 	$("#containerSpinner").hide();
 	$('#containercsvfile').on('keypress click',function() {
 		$(this.form).find("input[name='module']").val("containerExportCSV");
-		$(this.form).submit();
+		$(this.form).prop('target', '_self').submit();
 	});
 	$("#containerlabels").on('click keypress', function() {
 		$(this.form).find("input[name='module']").val("containerPrintLabel");
@@ -24,7 +24,7 @@ $(document).ready(function () {
 	$("#containerdirect").on('keypress click', function() {
 		$(this.form).find("input[name='module']").val("containerPrintDirect");
 		$("#containerSpinner").show();
-		$(this.form).submit();
+		$(this.form).prop('target', '_self').submit();
 	});
 
 });
@@ -33,6 +33,7 @@ $(document).ready(function () {
 {if $droits.gestion == 1}
 <form method="GET" id="formListPrint" action="index.php">
 <input type="hidden" id="module" name="module" value="containerPrintLabel">
+<input type="hidden" name="lastModule" value="{$lastModule}">
 <div class="row">
 <div class="center">
 <label id="lcheckContainer" for="check">{t}Tout décocher{/t}</label>
@@ -136,7 +137,7 @@ $(document).ready(function () {
 </td>
 {if $droits.gestion == 1}
 <td class="center">
-<input type="checkbox" class="checkContainer" name="uid[]" value="{$containers[lst].uid}" checked>
+<input type="checkbox" class="checkContainer" name="uids[]" value="{$containers[lst].uid}" checked>
 </td>
 {/if}
 </tr>

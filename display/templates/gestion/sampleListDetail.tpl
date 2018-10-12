@@ -23,7 +23,7 @@
 
 		$('#samplecsvfile').on('keypress click', function() {
 			$(this.form).find("input[name='module']").val("sampleExportCSV");
-			$(this.form).submit();
+			$(this.form).prop('target', '_self').submit();
 		});
 		$("#samplelabels").on ("keypress click",function() {
 			$(this.form).find("input[name='module']").val("samplePrintLabel");
@@ -33,11 +33,11 @@
 		$("#sampledirect").on ("keypress click", function() {
 			$(this.form).find("input[name='module']").val("samplePrintDirect");
 			$("#sampleSpinner").show();
-			$(this.form).submit();
+			$(this.form).prop('target', '_self').submit();
 		});
 		$("#sampleExport").on ("keypress click", function() { 
 			$(this.form).find("input[name='module']").val("sampleExport");
-			$(this.form).submit();
+			$(this.form).prop('target', '_self').submit();
 		});
 		/*
 		 * Gestion de l'affichage des colonnes en fonction de la taille de l'ecran
@@ -79,8 +79,9 @@
 			if (action.length > 0) {
 				var conf = confirm("{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
 				if ( conf  == true) {
+					console.log (action);
 					$(this.form).find("input[name='module']").val(action);
-					$(this.form).submit();
+					$(this.form).prop('target', '_self').submit();
 				} else {
 					event.preventDefault();
 				}
@@ -93,8 +94,13 @@
 			var action = $(this).val();
 			if (action == "samplesAssignReferent") {
 				$("#referentid").show();
+				$(".event").hide();
+			} else if (action == "samplesCreateEvent") {
+				$("#referentid").hide();
+				$(".event").show();
 			} else {
 				$("#referentid").hide();
+				$(".event").hide();
 			}
 		});
 		
@@ -216,7 +222,7 @@
 				<td>{$samples[lst].expiration_date}</td>
 				{if $droits.gestion == 1}
 				<td class="center"><input type="checkbox" class="checkSample"
-					name="uid[]" value="{$samples[lst].uid}" checked></td> {/if}
+					name="uids[]" value="{$samples[lst].uid}" checked></td> {/if}
 			</tr>
 			{/section}
 		</tbody>
@@ -229,6 +235,7 @@
 		<select id="checkedAction">
 		<option value="" selected>{t}Sélectionnez{/t}</option>
 		<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
+		<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
 		<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
 		</select>
 		<select id="referentid" name="referent_id" hidden>
@@ -239,6 +246,32 @@
 				</option>
 				{/foreach}
 		</select>
+
+<!-- Ajout d'un nouvel evenement-->
+<div class="form-group event" hidden>
+<label for="event_date" class="control-label col-md-4">{t}Date{/t}<span class="red">*</span> :</label>
+<div class="col-md-8">
+<input id="event_date" name="event_date" value="" class="form-control datepicker" >
+</div>
+</div>
+<div class="form-group event" hidden>
+<label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Type d'évenement :{/t}</label>
+<div class="col-md-8">
+<select id="event_type_id" name="event_type_id" class="form-control">
+{section name=lst loop=$eventType}
+<option value="{$eventType[lst].event_type_id}">
+{$eventType[lst].event_type_name}
+</option>
+{/section}
+</select>
+</div>
+</div>
+<div class="form-group event" hidden>
+<label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+<div class="col-md-8">
+<textarea id="event_comment" name="event_comment"  class="form-control" rows="3"></textarea>
+</div>
+</div>
 		<button id="checkedButton" class="btn btn-danger" >{t}Exécuter{/t}</button>
 	</div>
 </form>

@@ -239,9 +239,13 @@ ident\_type & Type d'identification supporté. L'application peut gérer \textbf
 \hline
 CAS\_plugin & Nom du plugin utilisé pour une connexion CAS \\
 \hline
-CAS\_address & Adresse du serveur CAS\\
+CAS\_address & Adresse du serveur CAS, sous la forme : \textit{nomserveur.societe.com/cas} (sans préfixer avec https://)\\
 \hline
-CAS\_port & Systématiquement 443 (connexion chiffrée)\\
+CAS\_port = 443 & port utilisé pour atteindre le serveur CAS (port https)\\
+\hline
+CAS\_debug = false & true ou false, pour activer ou non l'enregistrement des fonctions de débogage. À positionner systématiquement à \textit{false} en production \\
+\hline
+CAS\_CApath = "" & Chemin d'accès au certificat de l'autorité de certification qui correspond au certificat fourni par le serveur CAS (connexion https). Si la chaîne est vide, le certificat n'est pas vérifié. Le chemin doit être renseigné en production \\
 \hline
 LDAP & tableau contenant tous les paramètres nécessaires pour une identification LDAP \\
 \hline

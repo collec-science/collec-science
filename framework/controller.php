@@ -556,6 +556,10 @@ if ($isHtml) {
         $vue->set(1, "isConnected");
         $vue->set($_SESSION["login"], "login");
     }
+    /**
+     * Passage en parametre du nom du module courant
+     */
+    $vue->set($_SESSION["moduleBefore"], "lastModule");
     /*
      * Traitement des messages d'erreur - changement de classe d'affichage
      */

@@ -6,7 +6,7 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-include_once 'modules/classes/sample.class.php';
+require_once 'modules/classes/sample.class.php';
 require_once 'modules/classes/object.class.php';
 require_once 'modules/gestion/sample.functions.php';
 $dataClass = new Sample($bdd, $ObjetBDDParam);
@@ -67,25 +67,25 @@ switch ($t_module["param"]) {
         /*
          * Recuperation des identifiants associes
          */
-        require_once 'modules/classes/objectIdentifier.class.php';
+        include_once 'modules/classes/objectIdentifier.class.php';
         $oi = new ObjectIdentifier($bdd, $ObjetBDDParam);
         $vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
         /*
          * Recuperation des contenants parents
          */
-        require_once 'modules/classes/container.class.php';
+        include_once 'modules/classes/container.class.php';
         $container = new Container($bdd, $ObjetBDDParam);
         $vue->set($container->getAllParents($data["uid"]), "parents");
         /*
          * Recuperation des evenements
          */
-        require_once 'modules/classes/event.class.php';
+        include_once 'modules/classes/event.class.php';
         $event = new Event($bdd, $ObjetBDDParam);
         $vue->set($event->getListeFromUid($data["uid"]), "events");
         /*
          * Recuperation des mouvements
          */
-        require_once 'modules/classes/movement.class.php';
+        include_once 'modules/classes/movement.class.php';
         $movement = new Movement($bdd, $ObjetBDDParam);
         $vue->set($movement->getAllMovements($id), "movements");
         /*
@@ -95,14 +95,14 @@ switch ($t_module["param"]) {
         /*
          * Recuperation des reservations
          */
-        require_once 'modules/classes/booking.class.php';
+        include_once 'modules/classes/booking.class.php';
         $booking = new Booking($bdd, $ObjetBDDParam);
         $vue->set($booking->getListFromParent($data["uid"], 'date_from desc'), "bookings");
         /*
          * Recuperation des sous-echantillonnages
          */
         if ($data["multiple_type_id"] > 0) {
-            require_once 'modules/classes/subsample.class.php';
+            include_once 'modules/classes/subsample.class.php';
             $subSample = new Subsample($bdd, $ObjetBDDParam);
             $vue->set($subSample->getListFromParent($data["sample_id"], "subsampling_date desc"), "subsample");
         }
@@ -115,7 +115,7 @@ switch ($t_module["param"]) {
         /*
          * Recuperation des documents
          */
-        require_once 'modules/classes/document.class.php';
+        include_once 'modules/classes/document.class.php';
         $document = new Document($bdd, $ObjetBDDParam);
         $vue->set($document->getListFromParent($data["uid"]), "dataDoc");
         /*
@@ -190,7 +190,7 @@ switch ($t_module["param"]) {
             /*
              * Recuperation des referents
              */
-            require_once 'modules/classes/referent.class.php';
+            include_once 'modules/classes/referent.class.php';
             $referent = new Referent($bdd, $ObjetBDDParam);
             $vue->set($referent->getListe(2), "referents");
 
@@ -245,7 +245,7 @@ switch ($t_module["param"]) {
          * change all referents for records in uid array
          */
         if (count($_POST["uid"]) > 0) {
-            require_once 'modules/classes/object.class.php';
+            include_once 'modules/classes/object.class.php';
             $object = new ObjectClass($bdd, $ObjetBDDParam);
             $bdd->beginTransaction();
             try {
@@ -255,16 +255,22 @@ switch ($t_module["param"]) {
                 $bdd->commit();
                 $message->set(_("Affectation effectuée"));
                 $module_coderetour = 1;
+                /**
+                 * Forçage du retour
+                 */
+                $t_module["retourok"] = $_REQUEST["lastModule"];
             } catch (ObjectException $oe) {
                 $message->set(_("Erreur d'écriture dans la base de données"), true);
                 $bdd->rollback();
                 $module_coderetour = -1;
+                $t_module["retourko"] = $_REQUEST["lastModule"];
             } catch (Exception $e) {
                 $message->set(
                     _("L'affectation des référents aux échantillons a échoué"),
                     true
                 );
                 $message->set($e->getMessage());
+                $t_module["retourko"] = $_REQUEST["lastModule"];
                 $module_coderetour = -1;
                 $bdd->rollback();
             }
@@ -299,7 +305,7 @@ switch ($t_module["param"]) {
             $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
 
             if (copy($_FILES['upfile']['tmp_name'], $filename)) {
-                require_once 'modules/classes/import.class.php';
+                include_once 'modules/classes/import.class.php';
                 try {
                     $fields = array(
                         "dbuid_origin",

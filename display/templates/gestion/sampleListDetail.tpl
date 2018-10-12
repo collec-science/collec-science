@@ -224,6 +224,8 @@
 	{if $droits.collection == 1}
 	<div class="row">
 		{t}Pour les éléments cochés :{/t}
+		<input type="hidden" name="lastModule" value="{$lastModule}">
+		<input type="hidden" name="uid" value="{$data.uid}">
 		<select id="checkedAction">
 		<option value="" selected>{t}Sélectionnez{/t}</option>
 		<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>

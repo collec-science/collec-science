@@ -36,6 +36,7 @@
 <tr>
 <th>{t}Nom du modèle{/t}</th>
 {if $droits.collection == 1}
+<th>{t}Modifier{/t}</th>
 <th>{t}Dupliquer{/t}</th>
 {/if}
 <th>{t}Exporter{/t}</th>
@@ -45,15 +46,13 @@
 {section name=lst loop=$data}
 <tr>
 <td>
-{if $droits.collection == 1}
-<a href="index.php?module=metadataChange&metadata_id={$data[lst].metadata_id}">
 {$data[lst].metadata_name}
-</a>
-{else}
-{$data[lst].metadata_name}
-{/if}
 </td>
 {if $droits.collection == 1}
+<td class="center">
+<a href="index.php?module=metadataChange&metadata_id={$data[lst].metadata_id}" title="{t}Modifier le modèle de métadonnées{/t}">
+<img src="display/images/edit.gif" height="25">
+</a>
 <td class="center">
 <a href="index.php?module=metadataCopy&metadata_id={$data[lst].metadata_id}" title="{t}Dupliquer le modèle de métadonnées{/t}">
 <img src="display/images/copy.png" height="25">

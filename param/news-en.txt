@@ -1,5 +1,16 @@
 News
 ===========
+Version 2.2.2 of november 26, 2018
+----------------------------------
+bug fixes:
+- identification in CAS mode did not work, due to an evolution of the library used
+- the global assignment functions for a sample list did not work since the detail of a container
+
+Enhancements:
+- it is possible to create an event for a series of samples and no longer individually. This function that can be used to indicate an event that occurred for a container (eg fridge failure)
+- in the lists of containers or samples, the checkboxes, which allow to select or deselect objects, have been moved to the first column: they are thus more visible
+- adding a "modify" button in the list of metadata types or label templates, to avoid false manipulation (duplication instead of modification)
+
 Version 2.2.1 of october 5, 2018
 --------------------------------
 bugs fixes:

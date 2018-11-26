@@ -6,7 +6,7 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
-include_once 'modules/classes/sample.class.php';
+require_once 'modules/classes/sample.class.php';
 require_once 'modules/classes/object.class.php';
 require_once 'modules/gestion/sample.functions.php';
 $dataClass = new Sample($bdd, $ObjetBDDParam);
@@ -67,25 +67,25 @@ switch ($t_module["param"]) {
         /*
          * Recuperation des identifiants associes
          */
-        require_once 'modules/classes/objectIdentifier.class.php';
+        include_once 'modules/classes/objectIdentifier.class.php';
         $oi = new ObjectIdentifier($bdd, $ObjetBDDParam);
         $vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
         /*
          * Recuperation des contenants parents
          */
-        require_once 'modules/classes/container.class.php';
+        include_once 'modules/classes/container.class.php';
         $container = new Container($bdd, $ObjetBDDParam);
         $vue->set($container->getAllParents($data["uid"]), "parents");
         /*
          * Recuperation des evenements
          */
-        require_once 'modules/classes/event.class.php';
+        include_once 'modules/classes/event.class.php';
         $event = new Event($bdd, $ObjetBDDParam);
         $vue->set($event->getListeFromUid($data["uid"]), "events");
         /*
          * Recuperation des mouvements
          */
-        require_once 'modules/classes/movement.class.php';
+        include_once 'modules/classes/movement.class.php';
         $movement = new Movement($bdd, $ObjetBDDParam);
         $vue->set($movement->getAllMovements($id), "movements");
         /*
@@ -95,14 +95,14 @@ switch ($t_module["param"]) {
         /*
          * Recuperation des reservations
          */
-        require_once 'modules/classes/booking.class.php';
+        include_once 'modules/classes/booking.class.php';
         $booking = new Booking($bdd, $ObjetBDDParam);
         $vue->set($booking->getListFromParent($data["uid"], 'date_from desc'), "bookings");
         /*
          * Recuperation des sous-echantillonnages
          */
         if ($data["multiple_type_id"] > 0) {
-            require_once 'modules/classes/subsample.class.php';
+            include_once 'modules/classes/subsample.class.php';
             $subSample = new Subsample($bdd, $ObjetBDDParam);
             $vue->set($subSample->getListFromParent($data["sample_id"], "subsampling_date desc"), "subsample");
         }
@@ -115,7 +115,7 @@ switch ($t_module["param"]) {
         /*
          * Recuperation des documents
          */
-        require_once 'modules/classes/document.class.php';
+        include_once 'modules/classes/document.class.php';
         $document = new Document($bdd, $ObjetBDDParam);
         $vue->set($document->getListFromParent($data["uid"]), "dataDoc");
         /*
@@ -190,9 +190,16 @@ switch ($t_module["param"]) {
             /*
              * Recuperation des referents
              */
-            require_once 'modules/classes/referent.class.php';
+            include_once 'modules/classes/referent.class.php';
             $referent = new Referent($bdd, $ObjetBDDParam);
             $vue->set($referent->getListe(2), "referents");
+
+            /**
+             * Recuperation des types d'evenements
+             */
+            include_once 'modules/classes/eventType.class.php';
+            $eventType = new EventType($bdd, $ObjetBDDParam);
+            $vue->set($eventType->getListe(1), "eventType");
 
             sampleInitDatEntry();
 
@@ -225,10 +232,11 @@ switch ($t_module["param"]) {
         /*
          * Delete all records in uid array
          */
-        if (count($_POST["uid"]) > 0) {
+        if (count($_POST["uids"]) > 0) {
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $bdd->beginTransaction();
             try {
-                foreach ($_POST["uid"] as $uid) {
+                foreach ($uids as $uid) {
                     dataDelete($dataClass, $uid, true);
                 }
                 $bdd->commit();
@@ -244,30 +252,80 @@ switch ($t_module["param"]) {
         /*
          * change all referents for records in uid array
          */
-        if (count($_POST["uid"]) > 0) {
-            require_once 'modules/classes/object.class.php';
+        if (count($_POST["uids"]) > 0) {
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            include_once 'modules/classes/object.class.php';
             $object = new ObjectClass($bdd, $ObjetBDDParam);
             $bdd->beginTransaction();
             try {
-                foreach ($_POST["uid"] as $uid) {
+                foreach ($uids as $uid) {
                     $dataClass->setReferent($uid, $object, $_REQUEST["referent_id"]);
                 }
                 $bdd->commit();
                 $message->set(_("Affectation effectuée"));
                 $module_coderetour = 1;
+                /**
+                 * Forçage du retour
+                 */
+                $t_module["retourok"] = $_POST["lastModule"];
             } catch (ObjectException $oe) {
                 $message->set(_("Erreur d'écriture dans la base de données"), true);
                 $bdd->rollback();
                 $module_coderetour = -1;
+                $t_module["retourko"] = $_POST["lastModule"];
             } catch (Exception $e) {
                 $message->set(
                     _("L'affectation des référents aux échantillons a échoué"),
                     true
                 );
                 $message->set($e->getMessage());
+                $t_module["retourko"] = $_POST["lastModule"];
                 $module_coderetour = -1;
                 $bdd->rollback();
             }
+        }
+        break;
+    case "eventAssignMulti":
+        /**
+         * Create an event for all selected samples
+         */
+        if (count($_POST["uids"])>0) {
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            include_once 'modules/classes/event.class.php';
+            $event = new Event($bdd, $ObjetBDDParam);
+            $de = $event->getDefaultValue();
+            $de["event_date"] = $_POST["event_date"];
+            $de["event_type_id"] = $_POST["event_type_id"];
+            $de["event_comment"] = $_POST["event_comment"];
+            $bdd->beginTransaction();
+            try {
+                foreach ($uids as $uid) {
+                    $de["uid"] = $uid;
+                    $event->ecrire($de);
+                }
+                $bdd->commit();
+                $message->set(_("Création des événements effectuée"));
+                $module_coderetour = 1;
+                /**
+                 * Forçage du retour
+                 */
+                $t_module["retourok"] = $_POST["lastModule"];
+            } catch (ObjectException $oe) {
+                $message->set(_("Erreur d'écriture dans la base de données"), true);
+                $bdd->rollback();
+                $module_coderetour = -1;
+                $t_module["retourko"] = $_REQUEST["lastModule"];
+            } catch (Exception $e) {
+                $message->set(
+                    _("La création des événements a échoué"),
+                    true
+                );
+                $message->set($e->getMessage());
+                $t_module["retourko"] = $_REQUEST["lastModule"];
+                $module_coderetour = -1;
+                $bdd->rollback();
+            }
+           
         }
         break;
 
@@ -275,7 +333,7 @@ switch ($t_module["param"]) {
         try {
             $vue->set(
                 $dataClass->getForExport(
-                    $dataClass->generateArrayUidToString($_REQUEST["uid"])
+                    $dataClass->generateArrayUidToString($_REQUEST["uids"])
                 )
             );
             $vue->regenerateHeader();
@@ -299,7 +357,7 @@ switch ($t_module["param"]) {
             $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
 
             if (copy($_FILES['upfile']['tmp_name'], $filename)) {
-                require_once 'modules/classes/import.class.php';
+                include_once 'modules/classes/import.class.php';
                 try {
                     $fields = array(
                         "dbuid_origin",

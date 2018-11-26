@@ -10,6 +10,9 @@ include_once 'modules/classes/object.class.php';
 $dataClass = new ObjectClass($bdd, $ObjetBDDParam);
 $keyName = "uid";
 $id = $_REQUEST[$keyName];
+if (isset($_REQUEST["uids"])) {
+    is_array($_REQUEST["uids"]) ? $uids = $_REQUEST["uids"] : $uids = array($_REQUEST["uids"]);
+}
 
 switch ($t_module["param"]) {
     case "getDetailAjax":
@@ -26,7 +29,7 @@ switch ($t_module["param"]) {
     case "printLabelDirect":
         if ($_REQUEST["printer_id"]) {
             try {
-                $pdffile = $dataClass->generatePdf($id);
+                $pdffile = $dataClass->generatePdf($uids);
                 require_once 'modules/classes/printer.class.php';
                 $printer = new Printer($bdd, $ObjetBDDParam);
                 $dp = $printer->lire($_REQUEST["printer_id"]);
@@ -76,19 +79,23 @@ switch ($t_module["param"]) {
                     $message->set(_("Imprimante non connue"), true);
                     $module_coderetour = -1;
                 }
+                $t_module["retourko"] = $_REQUEST["lastModule"];
+                $t_module["retourok"] = $_REQUEST["lastModule"];
                 $module_coderetour = 1;
             } catch (Exception $e) {
                 $message->set($e->getMessage());
                 $module_coderetour = -1;
+                $t_module["retourko"] = $_REQUEST["lastModule"];
             }
         } else {
             $message->set(_("Imprimante non définie"), true);
             $module_coderetour = -1;
+            $t_module["retourko"] = $_REQUEST["lastModule"];
         }
         break;
     case "printLabel":
         try {
-            $vue->setFilename($dataClass->generatePdf($id));
+            $vue->setFilename($dataClass->generatePdf($uids));
             $vue->setDisposition("inline");
             $dataClass->eraseQrcode($APPLI_temp);
             $dataClass->eraseXslfile();
@@ -106,7 +113,7 @@ switch ($t_module["param"]) {
         }
         break;
     case "exportCSV":
-        $data = $dataClass->getForPrint($_REQUEST["uid"]);
+        $data = $dataClass->getForPrint($uids);
         if (count($data) > 0) {
             $vue->set($data);
             $vue->regenerateHeader();

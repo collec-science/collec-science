@@ -231,11 +231,10 @@ class ImportObject
 
     /**
      * Lance l'import des lignes
-     *
-     * @param Sample $sample
-     * @param Container $container
-     * @param Movement $movement
+     * 
      * @throws ImportObjectException
+     * 
+     * @return void
      */
     function importAll()
     {

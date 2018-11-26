@@ -187,3 +187,4 @@ sympy-plots-for-*.tex/
 /install/.Rhistory
 /.scannerwork/.sonar_lock
 /.scannerwork/report-task.txt
+/nbproject/private/

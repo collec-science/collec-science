@@ -2,6 +2,15 @@
 <!--  Liste des échantillons pour affichage-->
 <script>
 	$(document).ready(function() {
+		var gestion = {$droits.gestion};
+		var columnList = [3,5,6,7,10,11,12,13];
+		var dataOrder = [0, 'asc'];
+		if (gestion == 1) {
+			columnList = [4,6,7,8,11,12,13,14];
+			dataOrder = [1, 'asc'];
+		}
+		var table = $("#sampleList").DataTable();
+		table.order(dataOrder).draw();
 		var displayModeFull = Cookies.get("samplelistDisplayMode");
 		if (typeof (displayModeFull) == "undefined") {
 			$(window).width() < 1200 ? displayModeFull = false : displayModeFull = true;
@@ -10,7 +19,7 @@
 		}
 
 		
-		$("#checkSample").change(function() {
+		$(".checkSampleSelect").change(function() {
 			$('.checkSample').prop('checked', this.checked);
 			var libelle = "{t}Tout cocher{/t}";
 			if (this.checked) {
@@ -23,7 +32,7 @@
 
 		$('#samplecsvfile').on('keypress click', function() {
 			$(this.form).find("input[name='module']").val("sampleExportCSV");
-			$(this.form).submit();
+			$(this.form).prop('target', '_self').submit();
 		});
 		$("#samplelabels").on ("keypress click",function() {
 			$(this.form).find("input[name='module']").val("samplePrintLabel");
@@ -33,18 +42,18 @@
 		$("#sampledirect").on ("keypress click", function() {
 			$(this.form).find("input[name='module']").val("samplePrintDirect");
 			$("#sampleSpinner").show();
-			$(this.form).submit();
+			$(this.form).prop('target', '_self').submit();
 		});
 		$("#sampleExport").on ("keypress click", function() { 
 			$(this.form).find("input[name='module']").val("sampleExport");
-			$(this.form).submit();
+			$(this.form).prop('target', '_self').submit();
 		});
 		/*
 		 * Gestion de l'affichage des colonnes en fonction de la taille de l'ecran
 		 */
 		function displayMode(mode) {
 			displayModeFull = mode;
-			$("#sampleList").DataTable().columns([3,5,6,7,10,11,12,13]).visible(displayModeFull);
+			$("#sampleList").DataTable().columns(columnList).visible(displayModeFull);
 			if (displayModeFull) {
 				$("#displayModeButton").text("{t}Affichage réduit{/t}");
 			} else {
@@ -79,8 +88,9 @@
 			if (action.length > 0) {
 				var conf = confirm("{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
 				if ( conf  == true) {
+					console.log (action);
 					$(this.form).find("input[name='module']").val(action);
-					$(this.form).submit();
+					$(this.form).prop('target', '_self').submit();
 				} else {
 					event.preventDefault();
 				}
@@ -93,8 +103,13 @@
 			var action = $(this).val();
 			if (action == "samplesAssignReferent") {
 				$("#referentid").show();
+				$(".event").hide();
+			} else if (action == "samplesCreateEvent") {
+				$("#referentid").hide();
+				$(".event").show();
 			} else {
 				$("#referentid").hide();
+				$(".event").hide();
 			}
 		});
 		
@@ -106,8 +121,8 @@
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
 	<div class="row">
 		<div class="center">
-			<label id="lsamplecheck" for="checkSample">{t}Tout décocher{/t}</label> <input
-				type="checkbox" id="checkSample" checked>
+			<label id="lsamplecheck" for="checkSample">{t}Tout décocher{/t}</label> 
+			<input type="checkbox" id="checkSample1" class="checkSampleSelect checkSample" checked>
 			<select id="labels" name="label_id">
 			<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
 			{section name=lst loop=$labels}
@@ -140,7 +155,11 @@
 	<table id="sampleList"
 		class="table table-bordered table-hover datatable-export">
 		<thead>
-			<tr>
+			<tr>{if $droits.gestion == 1}
+				<th class="center">
+				<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample" checked>
+				</th> 
+				{/if}
 				<th>{t}UID{/t}</th>
 				<th>{t}Identifiant ou nom{/t}</th>
 				<th>{t}Autres identifiants{/t}</th>
@@ -155,20 +174,27 @@
 				<th>{t}Date d'échantillonnage{/t}</th>
 				<th>{t}Date de création dans la base{/t}</th>
 				<th>{t}Date d'expiration{/t}</th>
-				{if $droits.gestion == 1}
-				<th></th> {/if}
+				
 			</tr>
 		</thead>
 		<tbody>
 			{section name=lst loop=$samples}
 			<tr>
+			{if $droits.gestion == 1}
+				<td class="center">
+					<input type="checkbox" class="checkSample" name="uids[]" value="{$samples[lst].uid}" checked>
+				</td> 
+			{/if}
 				<td class="text-center"><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
 					title="{t}Consultez le détail{/t}"> {$samples[lst].uid} </a>
-					</td>
+				</td>
 				<td><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
-					title="{t}Consultez le détail{/t}"> {$samples[lst].identifier} </a></td>
+					title="{t}Consultez le détail{/t}"> 
+					{$samples[lst].identifier} 
+					</a>
+				</td>
 				<td>{$samples[lst].identifiers}
 				{if strlen($samples[lst].dbuid_origin) > 0}
 				{if strlen($samples[lst].identifiers) > 0}<br>{/if}
@@ -214,9 +240,7 @@
 				<td>{$samples[lst].sampling_date}</td>
 				<td>{$samples[lst].sample_creation_date}</td> 
 				<td>{$samples[lst].expiration_date}</td>
-				{if $droits.gestion == 1}
-				<td class="center"><input type="checkbox" class="checkSample"
-					name="uid[]" value="{$samples[lst].uid}" checked></td> {/if}
+				
 			</tr>
 			{/section}
 		</tbody>
@@ -224,9 +248,12 @@
 	{if $droits.collection == 1}
 	<div class="row">
 		{t}Pour les éléments cochés :{/t}
+		<input type="hidden" name="lastModule" value="{$lastModule}">
+		<input type="hidden" name="uid" value="{$data.uid}">
 		<select id="checkedAction">
 		<option value="" selected>{t}Sélectionnez{/t}</option>
 		<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
+		<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
 		<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
 		</select>
 		<select id="referentid" name="referent_id" hidden>
@@ -237,6 +264,32 @@
 				</option>
 				{/foreach}
 		</select>
+
+<!-- Ajout d'un nouvel evenement-->
+<div class="form-group event" hidden>
+<label for="event_date" class="control-label col-md-4">{t}Date{/t}<span class="red">*</span> :</label>
+<div class="col-md-8">
+<input id="event_date" name="event_date" value="" class="form-control datepicker" >
+</div>
+</div>
+<div class="form-group event" hidden>
+<label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Type d'évenement :{/t}</label>
+<div class="col-md-8">
+<select id="event_type_id" name="event_type_id" class="form-control">
+{section name=lst loop=$eventType}
+<option value="{$eventType[lst].event_type_id}">
+{$eventType[lst].event_type_name}
+</option>
+{/section}
+</select>
+</div>
+</div>
+<div class="form-group event" hidden>
+<label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+<div class="col-md-8">
+<textarea id="event_comment" name="event_comment"  class="form-control" rows="3"></textarea>
+</div>
+</div>
 		<button id="checkedButton" class="btn btn-danger" >{t}Exécuter{/t}</button>
 	</div>
 </form>

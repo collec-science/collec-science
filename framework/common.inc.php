@@ -138,7 +138,7 @@ $identification = new Identification();
 $identification->setidenttype($ident_type);
 if ($ident_type == "CAS") {
     include_once "vendor/jasig/phpcas/CAS.php";
-    $identification->init_CAS($CAS_address, $CAS_port, $APPLI_address);
+    $identification->init_CAS($CAS_address, $CAS_port, "", $CAS_debug, $CAS_CApath);
 } elseif ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
     $identification->init_LDAP(
         $LDAP["address"],

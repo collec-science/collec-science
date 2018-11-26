@@ -343,11 +343,11 @@ class ObjectClass extends ObjetBDD
     {
         if ($labelId > 0) {
             $uids = $this->generateArrayUidToString($list);
-            require_once 'plugins/phpqrcode/qrlib.php';
+            include_once 'plugins/phpqrcode/qrlib.php';
             global $APPLI_temp;
-            require_once 'modules/classes/objectIdentifier.class.php';
+            include_once 'modules/classes/objectIdentifier.class.php';
             $oi = new ObjectIdentifier($this->connection, $this->param);
-            require_once 'modules/classes/label.class.php';
+            include_once 'modules/classes/label.class.php';
             $label = new Label($this->connection, $this->param);
             /*
              * Recuperation des donnees de l'etiquette

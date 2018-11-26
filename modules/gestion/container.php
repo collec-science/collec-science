@@ -25,8 +25,10 @@ switch ($t_module["param"]) {
         /*
          * Display the list of all records of the table
          */
-        if (!isset($isDelete))
+        if (!isset($isDelete)) {
             $_SESSION["searchContainer"]->setParam($_REQUEST);
+        }
+
         $dataSearch = $_SESSION["searchContainer"]->getParam();
         if ($_SESSION["searchContainer"]->isSearch() == 1) {
             $data = $dataClass->containerSearch($dataSearch);
@@ -53,7 +55,7 @@ switch ($t_module["param"]) {
         /*
          * Recuperation des identifiants associes
          */
-        require_once 'modules/classes/objectIdentifier.class.php';
+        include_once 'modules/classes/objectIdentifier.class.php';
         $oi = new ObjectIdentifier($bdd, $ObjetBDDParam);
         $vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
         /*
@@ -77,25 +79,25 @@ switch ($t_module["param"]) {
         /*
          * Recuperation des evenements
          */
-        require_once 'modules/classes/event.class.php';
+        include_once 'modules/classes/event.class.php';
         $event = new Event($bdd, $ObjetBDDParam);
         $vue->set($event->getListeFromUid($data["uid"]), "events");
         /*
          * Recuperation des mouvements
          */
-        require_once 'modules/classes/movement.class.php';
+        include_once 'modules/classes/movement.class.php';
         $movement = new Movement($bdd, $ObjetBDDParam);
         $vue->set($movement->getAllMovements($id), "movements");
         /*
          * Recuperation des reservations
          */
-        require_once 'modules/classes/booking.class.php';
+        include_once 'modules/classes/booking.class.php';
         $booking = new Booking($bdd, $ObjetBDDParam);
         $vue->set($booking->getListFromParent($data["uid"], 'date_from desc'), "bookings");
         /*
          * Recuperation des documents
          */
-        require_once 'modules/classes/document.class.php';
+        include_once 'modules/classes/document.class.php';
         $document = new Document($bdd, $ObjetBDDParam);
         $vue->set($document->getListFromParent($data["uid"]), "dataDoc");
         $vue->set(1, "modifiable");
@@ -103,6 +105,18 @@ switch ($t_module["param"]) {
          * Ajout de la selection des modeles d'etiquettes
          */
         include 'modules/gestion/label.functions.php';
+        /*
+         * Ajout de la liste des referents, pour operations de masse sur les echantillons
+         */
+        include_once 'modules/classes/referent.class.php';
+        $referent = new Referent($bdd, $ObjetBDDParam);
+        $vue->set($referent->getListe(2), "referents");
+        /**
+         * Recuperation des types d'evenements
+         */
+        include_once 'modules/classes/eventType.class.php';
+        $eventType = new EventType($bdd, $ObjetBDDParam);
+        $vue->set($eventType->getListe(1), "eventType");
         /*
          * Affichage
          */
@@ -126,10 +140,10 @@ switch ($t_module["param"]) {
         include 'modules/gestion/container.functions.php';
         include 'modules/gestion/mapInit.php';
         $vue->set(1, "mapIsChange");
-        /* 
+        /*
          * Recuperation des referents
          */
-        require_once 'modules/classes/referent.class.php';
+        include_once 'modules/classes/referent.class.php';
         $referent = new Referent($bdd, $ObjetBDDParam);
         $vue->set($referent->getListe(2), "referents");
 
@@ -145,7 +159,7 @@ switch ($t_module["param"]) {
              * Recherche s'il s'agit d'un contenant a associer dans un autre contenant
              */
             if ($_REQUEST["container_parent_uid"] > 0 && is_numeric($_REQUEST["container_parent_uid"])) {
-                require_once 'modules/classes/movement.class.php';
+                include_once 'modules/classes/movement.class.php';
                 $movement = new Movement($bdd, $ObjetBDDParam);
                 $data = array(
                     "uid" => $id,
@@ -155,7 +169,7 @@ switch ($t_module["param"]) {
                     "container_id" => $dataClass->getIdFromUid($_REQUEST["container_parent_uid"]),
                     "movement_id" => 0,
                     "line_number" => 1,
-                    "column_number" => 1
+                    "column_number" => 1,
 
                 );
                 $movement->ecrire($data);
@@ -169,7 +183,7 @@ switch ($t_module["param"]) {
         /*
          * Recherche si le contenant est reference
          */
-        require_once 'modules/classes/movement.class.php';
+        include_once 'modules/classes/movement.class.php';
         $movement = new Movement($bdd, $ObjetBDDParam);
         try {
             $nb = $movement->getNbFromContainer($id);
@@ -179,8 +193,10 @@ switch ($t_module["param"]) {
         if ($nb > 0) {
             $message->set(_("Le contenant est référencé dans les mouvements et ne peut être supprimé"), true);
             $module_coderetour = -1;
-        } else
+        } else {
             dataDelete($dataClass, $id);
+        }
+
         $isDelete = true;
         break;
 
@@ -197,4 +213,3 @@ switch ($t_module["param"]) {
         $vue->set($dataClass->lire($_REQUEST["uid"]));
         break;
 }
-?>

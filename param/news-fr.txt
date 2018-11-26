@@ -1,5 +1,16 @@
 News
 ===========
+Version 2.2.2 du 26 novembre 2018
+---------------------------------
+Corrections de bugs :
+- l'identification en mode CAS ne fonctionnait pas, en raison d'une évolution de la bibliothèque utilisée
+- les fonctions d'assignation globale pour une liste d'échantillons ne fonctionnaient pas depuis le détail d'un contenant
+
+Évolutions :
+- il est possible de créer un événement pour une série d'échantillons et non plus individuellement. Fonction utilisable pour indiquer un événement qui s'est produit pour un contenant (panne de frigo, par exemple)
+- dans les listes de contenants ou d'échantillons, les cases à cocher, qui permettent de sélectionner ou déselectionner des objets, ont été déplacées en première colonne : elles sont ainsi plus visibles
+- ajout d'un bouton "modifier" dans les listes des types de métadonnées ou des modèles d'étiquettes, pour éviter de fausses manipulations (duplication à la place de la modification)
+
 Version 2.2.1 du 5 octobre 2018
 -------------------------------
 Correction de bugs :

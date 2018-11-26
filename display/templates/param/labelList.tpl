@@ -17,6 +17,7 @@
 <th>{t}Champs dans le QRCode{/t}</th>
 <th>{t}Nom du modèle de métadonnées rattaché{/t}</th>
 {if $droits.collection == 1}
+<th>{t}Modifier{/t}</th>
 <th>{t}Dupliquer{/t}</th>
 {/if}
 </tr>
@@ -40,6 +41,11 @@
 <td>{$data[lst].label_fields}</td>
 <td>{$data[lst].metadata_name}</td>
 {if $droits.collection == 1}
+<td class="center">
+<a href="index.php?module=labelChange&label_id={$data[lst].label_id}" title="{t}Modifier l'étiquette{/t}">
+<img src="display/images/edit.gif" height="25">
+</a>
+</td>
 <td class="center">
 <a href="index.php?module=labelCopy&label_id={$data[lst].label_id}" title="{t}Dupliquer l'étiquette{/t}">
 <img src="display/images/copy.png" height="25">

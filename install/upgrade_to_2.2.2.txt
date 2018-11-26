@@ -1,4 +1,4 @@
-Collec-Science - update procedure to version 2.2.1 from an earlier version
+Collec-Science - update procedure to version 2.2.2 from an earlier version
 
 Case 1
 
@@ -10,18 +10,25 @@ Case 1
 Log into your server, then:
 
  sudo -s
- wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.1-2.2.1.sh
- chmod +x upgrade-2.1-2.2.1.sh
- ./upgrade-2.1-2.2.1.sh
+ wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.1-2.2.2.sh
+ chmod +x upgrade-2.1-2.2.2.sh
+ ./upgrade-2.1-2.2.2.sh
 
 The program will download the release and perform the installation.
 
 Case 1 bis
     Same situation, but your version is 2.2:
     sudo -s
-    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2-2.2.1.sh
-    chmod +x upgrade-2.2-2.2.1.sh
-    ./upgrade-2.2-2.2.1.sh
+    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2-2.2.2.sh
+    chmod +x upgrade-2.2-2.2.2.sh
+    ./upgrade-2.2-2.2.2.sh
+
+Case 1 ter
+Same situation, but your version is 2.2.1:
+    sudo -s
+    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2.1-2.2.2.sh
+    chmod +x upgrade-2.2.1-2.2.2.sh
+    ./upgrade-2.2.1-2.2.2.sh
 
 Case 2
 
@@ -37,11 +44,11 @@ Step 1: download the release
  cd /var/www/html/collec-science
  wget https://github.com/Irstea/collec/archive/master.zip
  unzip master.zip
- mv collec-master/ collec-2.2.1
+ mv collec-master/ collec-2.2.2
  
 step 2 upgrade the database:
 
-cd collec-2.2.1/install
+cd collec-2.2.2/install
 
 If you are in version 1.2:
 
@@ -60,17 +67,17 @@ in all cases :
     Copy the previous version of parameters
 
  cd ../..
- cp old_folder/param/param.inc.php collec-2.2.1/param/
- cp old_folder/param/id_collec* collec-2.2.1/param/
+ cp old_folder/param/param.inc.php collec-2.2.2/param/
+ cp old_folder/param/id_collec* collec-2.2.2/param/
 
  Update rights:
 
- collec-2.2.1/install/apache2/upgrade_rights.sh collec-2.2.1
+ collec-2.2.2/install/apache2/upgrade_rights.sh collec-2.2.2
 
  Recreate the symlink:
 
  rm collec
- ln -s collec-2.2.1 collec
+ ln -s collec-2.2.2 collec
 
 Case 3
 
@@ -92,11 +99,11 @@ Get the code of the application:
 
  wget https://github.com/Irstea/collec/archive/master.zip
  unzip master.zip
- mv collec-master collec-2.2.1
+ mv collec-master collec-2.2.2
 
 Step 2: update the database
 
-cd collec-2.2.1/install
+cd collec-2.2.2/install
 
 Depending on the level of your current version, edit the files:
 
@@ -130,17 +137,17 @@ Step 3: Switch to the new version
     Copy the previous version of parameters
 
   cd ../..
- cp old_folder/param/param.inc.php collec-2.2.1/param/
- cp old_folder/param/id_collec* collec-2.2.1/param/
+ cp old_folder/param/param.inc.php collec-2.2.2/param/
+ cp old_folder/param/id_collec* collec-2.2.2/param/
 
     Update rights:
 
-collec-2.2.1/install/apache2/upgrade_rights.sh collec-2.2.1
+collec-2.2.2/install/apache2/upgrade_rights.sh collec-2.2.2
 
     delete the symlink (if that's the mechanism you used), and recreate it:
 
  rm collec
- ln -s collec-2.2.1 collec
+ ln -s collec-2.2.2 collec
 
 Case 4
 

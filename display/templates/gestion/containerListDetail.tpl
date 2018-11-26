@@ -2,7 +2,15 @@
 <!-- Liste des containers pour affichage -->
 <script>
 $(document).ready(function () {
-	$("#checkContainer").change( function() {
+	var gestion = {$droits.gestion};
+	var dataOrder = [0, 'asc'];
+	if (gestion == 1) {
+		dataOrder = [1, 'asc'];
+	}
+	var table = $("#containerList").DataTable();
+	table.order(dataOrder).draw();
+
+	$(".checkContainerSelect").change( function() {
 		$('.checkContainer').prop('checked', this.checked);
 		var libelle="{t}Tout cocher{/t}";
 		if (this.checked) {
@@ -37,7 +45,7 @@ $(document).ready(function () {
 <div class="row">
 <div class="center">
 <label id="lcheckContainer" for="check">{t}Tout décocher{/t}</label>
-<input type="checkbox" id="checkContainer" checked>
+<input type="checkbox" id="checkContainer1" class="checkContainerSelect checkContainer" checked>
 						<select id="labels" name="label_id">
 			<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
 			{section name=lst loop=$labels}
@@ -65,6 +73,11 @@ $(document).ready(function () {
 <table id="containerList" class="table table-bordered table-hover datatable-export " >
 <thead>
 <tr>
+{if $droits.gestion == 1}
+<th class="center">
+<input type="checkbox" id="checkContainer2" class="checkContainerSelect checkContainer" checked>
+</th>
+{/if}
 <th>{t}UID{/t}</th>
 <th>{t}Identifiant ou nom{/t}</th>
 <th>{t}Autres identifiants{/t}</th>
@@ -76,14 +89,16 @@ $(document).ready(function () {
 <th>{t}Produit de stockage{/t}</th>
 <th>{t}Code CLP{/t}</th>
 <th>{t}Photo{/t}</th>
-{if $droits.gestion == 1}
-<th></th>
-{/if}
 </tr>
 </thead>
 <tbody>
 {section name=lst loop=$containers}
 <tr>
+{if $droits.gestion == 1}
+<td class="center">
+<input type="checkbox" class="checkContainer" name="uids[]" value="{$containers[lst].uid}" checked>
+</td>
+{/if}
 <td class="text-center">
 <a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="{t}Consultez le détail{/t}">
 {$containers[lst].uid}
@@ -135,11 +150,6 @@ $(document).ready(function () {
 </a>
 {/if}
 </td>
-{if $droits.gestion == 1}
-<td class="center">
-<input type="checkbox" class="checkContainer" name="uids[]" value="{$containers[lst].uid}" checked>
-</td>
-{/if}
 </tr>
 {/section}
 </tbody>

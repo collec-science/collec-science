@@ -2,6 +2,15 @@
 <!--  Liste des échantillons pour affichage-->
 <script>
 	$(document).ready(function() {
+		var gestion = {$droits.gestion};
+		var columnList = [3,5,6,7,10,11,12,13];
+		var dataOrder = [0, 'asc'];
+		if (gestion == 1) {
+			columnList = [4,6,7,8,11,12,13,14];
+			dataOrder = [1, 'asc'];
+		}
+		var table = $("#sampleList").DataTable();
+		table.order(dataOrder).draw();
 		var displayModeFull = Cookies.get("samplelistDisplayMode");
 		if (typeof (displayModeFull) == "undefined") {
 			$(window).width() < 1200 ? displayModeFull = false : displayModeFull = true;
@@ -10,7 +19,7 @@
 		}
 
 		
-		$("#checkSample").change(function() {
+		$(".checkSampleSelect").change(function() {
 			$('.checkSample').prop('checked', this.checked);
 			var libelle = "{t}Tout cocher{/t}";
 			if (this.checked) {
@@ -44,7 +53,7 @@
 		 */
 		function displayMode(mode) {
 			displayModeFull = mode;
-			$("#sampleList").DataTable().columns([3,5,6,7,10,11,12,13]).visible(displayModeFull);
+			$("#sampleList").DataTable().columns(columnList).visible(displayModeFull);
 			if (displayModeFull) {
 				$("#displayModeButton").text("{t}Affichage réduit{/t}");
 			} else {
@@ -112,8 +121,8 @@
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
 	<div class="row">
 		<div class="center">
-			<label id="lsamplecheck" for="checkSample">{t}Tout décocher{/t}</label> <input
-				type="checkbox" id="checkSample" checked>
+			<label id="lsamplecheck" for="checkSample">{t}Tout décocher{/t}</label> 
+			<input type="checkbox" id="checkSample1" class="checkSampleSelect checkSample" checked>
 			<select id="labels" name="label_id">
 			<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
 			{section name=lst loop=$labels}
@@ -146,7 +155,11 @@
 	<table id="sampleList"
 		class="table table-bordered table-hover datatable-export">
 		<thead>
-			<tr>
+			<tr>{if $droits.gestion == 1}
+				<th class="center">
+				<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample" checked>
+				</th> 
+				{/if}
 				<th>{t}UID{/t}</th>
 				<th>{t}Identifiant ou nom{/t}</th>
 				<th>{t}Autres identifiants{/t}</th>
@@ -161,20 +174,27 @@
 				<th>{t}Date d'échantillonnage{/t}</th>
 				<th>{t}Date de création dans la base{/t}</th>
 				<th>{t}Date d'expiration{/t}</th>
-				{if $droits.gestion == 1}
-				<th></th> {/if}
+				
 			</tr>
 		</thead>
 		<tbody>
 			{section name=lst loop=$samples}
 			<tr>
+			{if $droits.gestion == 1}
+				<td class="center">
+					<input type="checkbox" class="checkSample" name="uids[]" value="{$samples[lst].uid}" checked>
+				</td> 
+			{/if}
 				<td class="text-center"><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
 					title="{t}Consultez le détail{/t}"> {$samples[lst].uid} </a>
-					</td>
+				</td>
 				<td><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
-					title="{t}Consultez le détail{/t}"> {$samples[lst].identifier} </a></td>
+					title="{t}Consultez le détail{/t}"> 
+					{$samples[lst].identifier} 
+					</a>
+				</td>
 				<td>{$samples[lst].identifiers}
 				{if strlen($samples[lst].dbuid_origin) > 0}
 				{if strlen($samples[lst].identifiers) > 0}<br>{/if}
@@ -220,9 +240,7 @@
 				<td>{$samples[lst].sampling_date}</td>
 				<td>{$samples[lst].sample_creation_date}</td> 
 				<td>{$samples[lst].expiration_date}</td>
-				{if $droits.gestion == 1}
-				<td class="center"><input type="checkbox" class="checkSample"
-					name="uids[]" value="{$samples[lst].uid}" checked></td> {/if}
+				
 			</tr>
 			{/section}
 		</tbody>

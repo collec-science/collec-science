@@ -118,7 +118,7 @@ class Identification
     /**
      * Gestion de la connexion en mode CAS
      */
-    public function getLoginCas()
+    public function getLoginCas($modeAdmin = false)
     {
         if ($this->CAS_debug) {
             phpCAS::setDebug();
@@ -130,7 +130,12 @@ class Identification
         } else {
             phpCAS::setNoCasServerValidation();
         }
-        phpCAS::forceAuthentication();
+        if ($modeAdmin) {
+            phpCAS::renewAuthentication();
+        } else {
+            phpCAS::forceAuthentication();
+        }
+        
         return phpCAS::getUser();
     }
 
@@ -241,8 +246,12 @@ class Identification
             } else {
                 phpCAS::setNoCasServerValidation();
             }
-
-            phpCAS::logout();
+            if (strlen($adresse_retour) > 0) {
+                phpCAS::logoutWithUrl($adresse_retour);
+            } else {
+                 phpCAS::logout();
+            }
+           
         }
         if ($this->ident_type = "HEADER") {
             /*
@@ -351,7 +360,7 @@ class Identification
                 /*
                  * Verification du login aupres du serveur CAS
                  */
-                $login = $this->getLoginCas();
+                $login = $this->getLoginCas($modeAdmin);
                 if (strlen($login) > 0) {
                     $verify = true;
                 }
@@ -1165,7 +1174,7 @@ class LoginOldPassword extends ObjetBDD
      *
      * @param string $login
      * @param string $password_hash
-     * 
+     *
      * @return number
      */
     public function testPassword($login, $password_hash)
@@ -1185,7 +1194,7 @@ class LoginOldPassword extends ObjetBDD
      *
      * @param int $id
      * @param string $password_hash
-     * 
+     *
      * @return int
      */
     public function setPassword($id, $password_hash)

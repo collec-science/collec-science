@@ -186,9 +186,9 @@ function testScan() {
             	} else {
             		error = true;
             	}
-            	var project_id = $("#sample_type_id").val();
-            	if (project_id) {
-            		if (project_id.length == 0 ) {
+            	var collection_id = $("#collection_id").val();
+            	if (collection_id) {
+            		if (collection_id.length == 0 ) {
             			error = true;
             		} 
             	} else {

@@ -188,3 +188,11 @@ sympy-plots-for-*.tex/
 /.scannerwork/.sonar_lock
 /.scannerwork/report-task.txt
 /nbproject/private/
+/.vscode/settings.json
+/database/test_import_metadata.csv
+/display/bower_components/vue/*
+/install/gacltest.sql
+/install/pgsql/collec-diff.sql
+/locales/C/LC_MESSAGES/_old.po
+/nbproject/*
+/test/*

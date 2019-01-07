@@ -347,6 +347,22 @@ class VueCsv extends Vue
 
     private $header = array();
 
+    /**
+     * Reecriture pour traiter le cas où l'info est mono-enregistrement
+     *
+     * @param array $value
+     * @param string $variable
+     * @return void
+     */
+    function set($value, $variable = "")
+    {
+        if (is_array($value[0])) {
+            $this->data = $value;
+        } else {
+            $this->data[] = $value;
+        }
+    }
+
     function send($filename = "", $delimiter = "")
     {
         if (count($this->data) > 0) {

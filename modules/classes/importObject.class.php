@@ -136,7 +136,7 @@ class ImportObject
              */
             $data = $this->readLine();
             $range = 0;
-            for ($range = 0; $range < count($data); $range ++) {
+            for ($range = 0; $range < count($data); $range++) {
                 $value = $data[$range];
                 /*
                  * identification of metadata columns
@@ -256,12 +256,12 @@ class ImportObject
              * Preparation du tableau
              */
             $values = $this->prepareLine($data);
-            $num ++;
+            $num++;
             /*
              * Controle de la ligne
              */
             $resControle = $this->controlLine($values);
-            if (! $resControle["code"]) {
+            if (!$resControle["code"]) {
                 throw new ImportObjectException("Line $num : " . $resControle["message"]);
             }
             /*
@@ -273,7 +273,7 @@ class ImportObject
                 "container_column",
                 "container_line"
             ) as $field) {
-                if (! strlen($values[$field]) > 0) {
+                if (!strlen($values[$field]) > 0) {
                     $values[$field] = 1;
                 }
             }
@@ -286,7 +286,7 @@ class ImportObject
                 $dataSample["sample_creation_date"] = $date;
                 $dataSample["identifier"] = $values["sample_identifier"];
                 $dataSample["object_status_id"] = $values["sample_status_id"];
-                if (! $dataSample["object_status_id"] > 0) {
+                if (!$dataSample["object_status_id"] > 0) {
                     $dataSample["object_status_id"] = 1;
                 }
                 $dataSample["multiple_value"] = $values["sample_multiple_value"];
@@ -312,7 +312,7 @@ class ImportObject
                 } else {
                     $md_array = array();
                 }
-               
+
                 foreach ($this->md_columns as $md_col) {
                     if (strlen($values[$md_col]) > 0) {
                         $colname = substr($md_col, 3);
@@ -363,7 +363,7 @@ class ImportObject
                 $dataContainer = $values;
                 $dataContainer["identifier"] = $values["container_identifier"];
                 $dataContainer["object_status_id"] = $values["container_status_id"];
-                if (! $dataContainer["object_status_id"] > 0) {
+                if (!$dataContainer["object_status_id"] > 0) {
                     $dataContainer["object_status_id"] = 1;
                 }
                 try {
@@ -414,7 +414,7 @@ class ImportObject
                     throw new ImportObjectException("Line $num : error when create input movement for sample (" . $e->getMessage() . ")");
                 }
             }
-            if ($values["container_parent_uid"] && $sample_uid > 0 && ! ($container_uid > 0)) {
+            if ($values["container_parent_uid"] && $sample_uid > 0 && !($container_uid > 0)) {
                 /*
                  * Creation du mouvement d'entree de l'echantillon dans le container
                  */
@@ -424,7 +424,7 @@ class ImportObject
                     throw new ImportObjectException("Line $num : error when create input movement for sample (" . $e->getMessage() . ")");
                 }
             }
-            $this->nbTreated ++;
+            $this->nbTreated++;
         }
         $this->minuid = $minuid;
         $this->maxuid = $maxuid;
@@ -444,10 +444,15 @@ class ImportObject
          */
         $result = date_parse_from_format($_SESSION["MASKDATE"], $date);
         if ($result["warning_count"] > 0) {
-            /*
-             * Test du format general
+            /**
+             * La date est attendue avec le format yyyy-mm-dd
              */
+            $date1 = explode(" ", $date);
+            $date2 = explode("-", $date1[0]);
             $result = date_parse($date);
+            if ($result["year"] != $date2[0] || str_pad($result["month"], 2, "0", STR_PAD_LEFT) != $date2[1] || str_pad($result["day"], 2, "0", STR_PAD_LEFT) != $date2[2]) {
+                $result["warning_count"] = 1;
+            }
         }
         if ($result["warning_count"] == 0) {
             $val = $result["year"] . "-" . str_pad($result["month"], 2, "0", STR_PAD_LEFT) . "-" . str_pad($result["day"], 2, "0", STR_PAD_LEFT);
@@ -472,7 +477,7 @@ class ImportObject
     {
         $nb = count($data);
         $values = array();
-        for ($i = 0; $i < $nb; $i ++) {
+        for ($i = 0; $i < $nb; $i++) {
             $values[$this->fileColumn[$i]] = $data[$i];
         }
         /*
@@ -514,9 +519,9 @@ class ImportObject
         $this->initIdentifiers();
         while (($data = $this->readLine()) !== false) {
             $values = $this->prepareLine($data);
-            $num ++;
+            $num++;
             $controle = $this->controlLine($values);
-            if (! $controle["code"]) {
+            if (!$controle["code"]) {
                 $retour[] = array(
                     "line" => $num,
                     "message" => $controle["message"]
@@ -554,7 +559,7 @@ class ImportObject
                     break;
                 }
             }
-            if (! $ok) {
+            if (!$ok) {
                 $retour["code"] = false;
                 $retour["message"] .= _("Le numéro de la collection indiqué n'est pas reconnu ou autorisé.");
             }
@@ -568,7 +573,7 @@ class ImportObject
                     break;
                 }
             }
-            if (! $ok) {
+            if (!$ok) {
                 $retour["code"] = false;
                 $retour["message"] .= _("Le type d'échantillon n'est pas connu.");
             }
@@ -584,7 +589,7 @@ class ImportObject
                         break;
                     }
                 }
-                if (! $ok) {
+                if (!$ok) {
                     $retour["code"] = false;
                     $retour["message"] .= _("Le statut de l'échantillon n'est pas connu.");
                 }
@@ -600,7 +605,7 @@ class ImportObject
                         break;
                     }
                 }
-                if (! $ok) {
+                if (!$ok) {
                     $retour["code"] = false;
                     $retour["message"] .= _("L'emplacement de collecte de l'échantillon n'est pas connu.");
                 }
@@ -637,7 +642,7 @@ class ImportObject
              */
             if (strlen($data["sample_metadata_json"]) > 0) {
                 $metadataSchema = json_decode($this->sampleType->getMetadataForm($data["sample_type_id"]), true);
-                
+
                 $metadataSchemaNames = array();
                 $valuesMetadataJson = json_decode($data["sample_metadata_json"], true);
                 /*
@@ -651,7 +656,7 @@ class ImportObject
                     $metadataSchemaNames[] = $field["name"];
                 }
                 foreach ($valuesMetadataJson as $key => $field) {
-                    if (! in_array($key, $metadataSchemaNames)) {
+                    if (!in_array($key, $metadataSchemaNames)) {
                         $retour["code"] = false;
                         $retour["message"] .= sprintf(_("Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "), $key);
                     }
@@ -661,7 +666,7 @@ class ImportObject
              * Verification de l'echantillon parent
              */
             if ($data["sample_parent_uid"] > 0) {
-                if (! $data["parent_sample_id"] > 0) {
+                if (!$data["parent_sample_id"] > 0) {
                     $retour["code"] = false;
                     $retour["message"] .= sprintf(_("L'échantillon parent défini n'existe pas (%s)"), $data["sample_parent_uid"]);
                 }
@@ -682,7 +687,7 @@ class ImportObject
                     break;
                 }
             }
-            if (! $ok) {
+            if (!$ok) {
                 $retour["code"] = false;
                 $retour["message"] .= _("Le type de contenant n'est pas connu.");
             }
@@ -697,7 +702,7 @@ class ImportObject
                         break;
                     }
                 }
-                if (! $ok) {
+                if (!$ok) {
                     $retour["code"] = false;
                     $retour["message"] .= _("Le statut du contenant n'est pas connu.");
                 }
@@ -708,7 +713,7 @@ class ImportObject
          */
         if (strlen($data["container_parent_uid"]) > 0) {
             $container_id = $this->container->getIdFromUid($data["container_parent_uid"]);
-            if (! $container_id > 0) {
+            if (!$container_id > 0) {
                 $retour["code"] = false;
                 $retour["message"] .= sprintf(_("L'UID du contenant parent (%s) n'existe pas. "), $data["container_parent_uid"]);
             }
@@ -719,7 +724,7 @@ class ImportObject
          */
         foreach ($this->colnum as $key) {
             if (strlen($data[$key]) > 0) {
-                if (! is_numeric($data[$key])) {
+                if (!is_numeric($data[$key])) {
                     $retour["code"] = false;
                     $retour["message"] .= sprintf(_("Le champ %s n'est pas numérique."), $key);
                 }
@@ -740,8 +745,8 @@ class ImportObject
      */
     function initIdentifiers()
     {
-        if (! $this->initIdentifiers) {
-            
+        if (!$this->initIdentifiers) {
+
             $dit = $this->identifierType->getListe();
             /*
              * Rajout des codes dans les colonnes autorisees
@@ -871,7 +876,7 @@ class ImportObject
                         $this->minuid = $uid;
                     }
                     $this->maxuid = $uid;
-                    $this->nbTreated ++;
+                    $this->nbTreated++;
                     /*
                      * Traitement des identifiants complementaires
                      */

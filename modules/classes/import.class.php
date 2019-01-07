@@ -70,11 +70,11 @@ class Import
                 if (in_array($data[$range], $fields) || substr($data[$range], 0, 3) == "md_") {
                     $this->header[$range] = $data[$range] ;
                 } else {
-                    throw new ImportException($data[$range]." is an unrecognized field to process the import");
+                    throw new ImportException(sprintf(_("L'entête de colonne %1\$s n'est pas reconnue (%2\$s)"),$range,$value));
                 }
             }
         } else {
-            throw new ImportException("$filename not found or not readable");
+            throw new ImportException(sprintf(_("%s non trouvé ou non lisible"),$filename));
         }
     }
 

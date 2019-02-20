@@ -209,12 +209,14 @@ class Acllogin extends ObjetBDD
              */
             $sql = "select * from " . $this->table . " where login = '" . $login . "'";
             $data = $this->lireParam($sql);
-            if (! $data["acllogin_id"] > 0) {
+            if (!$data["acllogin_id"] > 0) {
                 $data["acllogin_id"] = 0;
             }
             $data["login"] = $login;
             $data["logindetail"] = $name;
             return $this->ecrire($data);
+        } else {
+            throw new ObjetBDDException(_("L'ajout d'un login à la table des comptes (gestion des droits) n'est pas possible : le login ou le nom ne sont pas fournis"));
         }
     }
 
@@ -275,10 +277,11 @@ class Acllogin extends ObjetBDD
      * @param string $login
      * @return array
      */
-    function getFromLogin($login) {
+    function getFromLogin($login)
+    {
         if (strlen($login) > 0) {
-            $sql = "select * from ".$this->table." where login = :login";
-            return $this->lireParamAsPrepared($sql, array("login"=>$login));
+            $sql = "select * from " . $this->table . " where login = :login";
+            return $this->lireParamAsPrepared($sql, array("login" => $login));
         }
     }
 
@@ -287,7 +290,8 @@ class Acllogin extends ObjetBDD
      * {@inheritDoc}
      * @see ObjetBDD::supprimer()
      */
-    function supprimer($id) {
+    function supprimer($id)
+    {
         if ($id > 0) {
             /*
              * Lecture des donnees
@@ -297,7 +301,7 @@ class Acllogin extends ObjetBDD
              * Suppression du login dans les groupes
              */
             $sql = "delete from acllogingroup where acllogin_id = :id";
-            $this->executeAsPrepared($sql, array("id"=>$id));
+            $this->executeAsPrepared($sql, array("id" => $id));
             parent::supprimer($id);
             /*
              * Recherche s'il existe un login correspondant
@@ -370,7 +374,7 @@ class Aclgroup extends ObjetBDD
         $groupes = array();
         if (strlen($login) > 0) {
             $login = $this->encodeData($login);
-            
+
             $sql = "select g.aclgroup_id, groupe, aclgroup_id_parent
 					from " . $this->table . " g 
 					join acllogingroup lg on (g.aclgroup_id = lg.aclgroup_id)
@@ -444,7 +448,7 @@ class Aclgroup extends ObjetBDD
                 }
             }
         }
-        
+
         $_SESSION["groupes"] = $groupes;
         return $groupes;
     }
@@ -631,6 +635,7 @@ class Aclgroup extends ObjetBDD
                  * Suppression des logins rattachés
                  */
                 $this->ecrireTableNN("acllogingroup", "aclgroup_id", "acllogin_id", $id, array());
+                $this->ecrireTableNN("aclacl", "aclgroup_id", "aclaco_id", $id, array());
                 return parent::supprimer($id);
             }
         } else {

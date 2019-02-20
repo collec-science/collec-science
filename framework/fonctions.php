@@ -40,7 +40,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
                         $message->set($messageError, true);
                     }
                 } else {
-                    $message->set(_("Erreur de lecture des informations dans la base de données"));
+                    $message->set(_("Erreur de lecture des informations dans la base de données"), true);
                 }
                 $message->setSyslog($e->getMessage());
             }
@@ -54,7 +54,7 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
     } else {
         global $module;
         // traduction: conserver inchangée la chaîne %s
-        $message->set(sprintf(_('Erreur: type d\'affichage non défini pour le module demandé : %s'), $module));
+        $message->set(sprintf(_('Erreur: type d\'affichage non défini pour le module demandé : %s'), $module), true);
     }
 }
 
@@ -72,18 +72,24 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
     global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
     try {
         $id = $dataClass->ecrire($data);
+        if ($id > 0) {
         if (!$isPartOfTransaction) {
             $message->set(_("Enregistrement effectué"));
             $module_coderetour = 1;
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-write", $id);
         }
+    } else {
+        $message->set(_("Un problème est survenu lors de l'enregistrement. Si le problème persiste, contactez votre support"), true);
+        $message->setSyslog(_("La clé n'a pas été retournée lors de l'enregistrement dans ").get_class($dataClass));
+        $module_coderetour = -1;
+    }
     } catch (Exception $e) {
         if ($OBJETBDD_debugmode > 0) {
             foreach ($dataClass->getErrorData(1) as $messageError) {
                 $message->set($messageError, true);
             }
         } else {
-            $message->set(_("Problème lors de l'enregistrement..."));
+            $message->set(_("Problème lors de l'enregistrement..."), true);
         }
         $message->setSyslog($e->getMessage());
         $module_coderetour = -1;
@@ -125,18 +131,22 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
 
         } catch (Exception $e) {
-            if ($OBJETBDD_debugmode > 0) {
-                foreach ($dataClass->getErrorData(1) as $messageError) {
-                    $message->set($messageError, true);
-                }
+
+            foreach ($dataClass->getErrorData(1) as $messageError) {
+                $message->set($messageError, true);
             }
+            
             /*
              * recherche des erreurs liees a une violation de cle etrangere
              */
 
             if (strpos($e->getMessage(), "key violation")) {
                 $message->set(_("La suppression n'est pas possible : des informations sont référencées par cet enregistrement"), true);
-            } else {
+            } 
+            if ($OBJETBDD_debugmode > 0) {
+                $message->set($e->getMessage(), true);
+            }
+            if ($message->getMessageNumber() == 0) {
                 $message->set(_("Problème lors de la suppression"), true);
             }
 
@@ -144,6 +154,7 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
             $ret = -1;
         }
     } else {
+        $message->set(_("Suppression impossible : la clé n'est pas numérique ou n'a pas été fournie"));
         $ret = -1;
     }
     return ($ret);
@@ -419,19 +430,19 @@ function getHeaders()
      * Fonction equivalente pour NGINX
      */
     /*
- * function apache_request_headers() {
- * foreach($_SERVER as $key=>$value) {
- * if (substr($key,0,5)=="HTTP_") {
- * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
- * $out[$key]=$value;
- * }else{
- * $out[$key]=$value;
- * }
- * }
- * return $out;
- * }
- * }
- * printr($_SERVER);
- * return apache_request_headers();
- */
+     * function apache_request_headers() {
+     * foreach($_SERVER as $key=>$value) {
+     * if (substr($key,0,5)=="HTTP_") {
+     * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
+     * $out[$key]=$value;
+     * }else{
+     * $out[$key]=$value;
+     * }
+     * }
+     * return $out;
+     * }
+     * }
+     * printr($_SERVER);
+     * return apache_request_headers();
+     */
 }

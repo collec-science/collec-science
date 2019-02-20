@@ -13,7 +13,6 @@ $id = $_REQUEST[$keyName];
 if (isset($_REQUEST["uids"])) {
     is_array($_REQUEST["uids"]) ? $uids = $_REQUEST["uids"] : $uids = array($_REQUEST["uids"]);
 }
-
 switch ($t_module["param"]) {
     case "getDetailAjax":
         /**
@@ -83,7 +82,7 @@ switch ($t_module["param"]) {
                 $t_module["retourok"] = $_REQUEST["lastModule"];
                 $module_coderetour = 1;
             } catch (Exception $e) {
-                $message->set($e->getMessage());
+                $message->set($e->getMessage(), true);
                 $module_coderetour = -1;
                 $t_module["retourko"] = $_REQUEST["lastModule"];
             }
@@ -94,6 +93,8 @@ switch ($t_module["param"]) {
         }
         break;
     case "printLabel":
+    $t_module["retourko"] = $_REQUEST["lastModule"];
+                $t_module["retourok"] = $_REQUEST["lastModule"];
         try {
             $vue->setFilename($dataClass->generatePdf($uids));
             $vue->setDisposition("inline");

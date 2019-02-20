@@ -180,10 +180,10 @@
 	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax"  type="ajax" />
 	<containerPrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="containerList"/>
 	<containerExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="containerList"/>
-	<containerPrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect" type="" retourko="containerList" retourok="containerList"/>
+	<containerPrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect" type="smarty" retourko="containerList" retourok="containerList"/>
 	<samplePrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="sampleList"/>
 	<sampleExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="sampleList"/>
-	<samplePrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect" type="" retourok="sampleList" retourko="sampleList" />
+	<samplePrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect" type="smarty" retourok="sampleList" retourko="sampleList" />
 	
 	<importChange action="modules/gestion/import.php" param="change" droits="import,collection" retourlogin="1"  type="smarty" />
 	<importControl action="modules/gestion/import.php" param="control" droits="import,collection" modulebefore="importChange,importControl,importImport" retourok="importChange"  type="smarty" />

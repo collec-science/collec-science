@@ -7,22 +7,12 @@
 		$("#sampleSpinner2").hide();
 		var isReferentDisplayed = false;
 
-		$("#samplelabels2").keypress(function() {
+		$("#samplelabels2").on ("keypress click", function() {
 			$(this.form).find("input[name='module']").val("samplePrintLabel");
 			$("#sampleSpinner2").show();
 			$(this.form).submit();
 		});
-		$("#samplelabels2").click(function() {
-			$(this.form).find("input[name='module']").val("samplePrintLabel");
-			$("#sampleSpinner2").show();
-			$(this.form).submit();
-		});
-		$("#sampledirect2").keypress(function() {
-			$(this.form).find("input[name='module']").val("samplePrintDirect");
-			$("#sampleSpinner2").show();
-			$(this.form).submit();
-		});
-		$("#sampledirect2").click(function() {
+		$("#sampledirect2").on ("keypress click",function() {
 			$(this.form).find("input[name='module']").val("samplePrintDirect");
 			$("#sampleSpinner2").show();
 			$(this.form).submit();
@@ -103,8 +93,10 @@
 <legend>{t}Informations générales{/t}</legend>
 {if $droits.gestion == 1}
 <form method="GET" id="formListPrint" action="index.php">
-	<input type="hidden" id="modulePrint" name="module" value="samplePrintLabel">
-	<input type="hidden" id="uid2" name="uid[]" value="{$data.uid}">
+	<input type="hidden" id="modulePrint" name="module" value="sampleUniquePrintLabel">
+	<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
+	<input type="hidden" name="uid" value="{$data.uid}">
+	<input type="hidden" name="lastModule" value="sampleDisplay">
 	<div class="row">
 		<div class="center">
 			<select id="labels2" name="label_id">

@@ -190,7 +190,6 @@ class Sample extends ObjetBDD
     {
         $data = $this->lire($uid);
         if ($this->verifyCollection($data)) {
-
             /*
              * suppression de l'echantillon
              */

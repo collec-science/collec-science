@@ -122,16 +122,24 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
         }
     }
     if ($ok) {
+        if (!$isPartOfTransaction) {
+            $dataClass->connection->beginTransaction();
+        }
         try {
             $ret = $dataClass->supprimer($id);
             if (!$isPartOfTransaction) {
                 $message->set(_("Suppression effectuée"));
                 $module_coderetour = 1;
             }
+            if (!$isPartOfTransaction) {
+                $dataClass->connection->commit();
+            }
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
 
         } catch (Exception $e) {
-
+            if (!$isPartOfTransaction) {
+                $dataClass->connection->rollback();
+            }
             foreach ($dataClass->getErrorData(1) as $messageError) {
                 $message->set($messageError, true);
             }
@@ -142,12 +150,11 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
 
             if (strpos($e->getMessage(), "key violation")) {
                 $message->set(_("La suppression n'est pas possible : des informations sont référencées par cet enregistrement"), true);
-            } 
+            }  else {
+                $message->set(_("Problème lors de la suppression"), true);
+            }
             if ($OBJETBDD_debugmode > 0) {
                 $message->set($e->getMessage(), true);
-            }
-            if ($message->getMessageNumber() == 0) {
-                $message->set(_("Problème lors de la suppression"), true);
             }
 
             $message->setSyslog($e->getMessage());

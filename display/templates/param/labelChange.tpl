@@ -105,7 +105,8 @@ $(document).ready( function() {
 <li>{t 1='uid'}%1 (obligatoire) : identifiant unique{/t}</li>
 <li>{t 1='db'}%1 (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les échantillons entre plusieurs bases){/t}</li>
 <li>{t 1='id'}%1 : identifiant général{/t}</li>
-<li>{t 1='prj'}%1 : code de la collection{/t}</li>
+<li>{t 1='col'}%1 : code de la collection{/t}</li>
+<li>{t 1='pid'}%1 : identifiant de l'échantillon parent{/t}</li>
 <li>{t 1='clp'}%1 : code de risque{/t}</li>
 <li>{t 1='pn'}%1 : nom du protocole{/t}</li>
 <li>{t 1='x'}%1 : coordonnée wgs84_x de l'objet (lieu de prélèvement ou de stockage suivant le cas){/t}</li>

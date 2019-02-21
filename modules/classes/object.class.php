@@ -380,37 +380,41 @@ class ObjectClass extends ObjetBDD
              * Recuperation des informations generales
              */
             $sql = "select uid, identifier as id, clp_classification as clp, '' as pn,
-                                        '$APPLI_code' as db,
-                                        '' as prj, storage_product as prod,
-                                         wgs84_x as x, wgs84_y as y, movement_date as cd,
-                                        null as sd, null as ed,
-					                    null as metadata, null as loc, 
-                                        object_status_name as status, null as dbuid_origin
-                                        from object
-                                        join container using (uid)
-                                        join container_type using (container_type_id)
-					join object_status using (object_status_id)
-					left outer join last_movement using (uid)
-                                        where uid in ($uids)
+                            '$APPLI_code' as db,
+                            '' as col, '' as prj, storage_product as prod,
+                            wgs84_x as x, wgs84_y as y, movement_date as cd,
+                            null as sd, null as ed,
+					        null as metadata, null as loc, 
+                            object_status_name as status, null as dbuid_origin,
+                            null as pid
+                        from object
+                            join container using (uid)
+                            join container_type using (container_type_id)
+                            join object_status using (object_status_id)
+					        left outer join last_movement using (uid)
+                        where uid in ($uids)
                     UNION
-        select uid, identifier as id, clp_classification as clp, protocol_name as pn,
-                                        '$APPLI_code' as db,
-                                        collection_name as prj, storage_product as prod,
-                                         wgs84_x as x, wgs84_y as y, sample_creation_date as cd,
-                                        sampling_date as sd,
-                                        expiration_date as ed,
-					                    metadata::varchar, sampling_place_name as loc, 
-                                        object_status_name as status, dbuid_origin
-                                        from object
-                                        join sample using (uid)
-                                        join sample_type using (sample_type_id)
-                                        join collection using (collection_id)
-					join object_status using (object_status_id)
-					left outer join sampling_place using (sampling_place_id)
-                                        left outer join container_type using (container_type_id)
-                                        left outer join operation using (operation_id)
-                                        left outer join protocol using (protocol_id)
-                                        where uid in ($uids)
+                        select o.uid, o.identifier as id, clp_classification as clp, protocol_name as pn,
+                            '$APPLI_code' as db,
+                            collection_name as col, collection_name as prj, storage_product as prod,
+                            o.wgs84_x as x, o.wgs84_y as y, s.sample_creation_date as cd,
+                            s.sampling_date as sd,
+                            s.expiration_date as ed,
+					        s.metadata::varchar, sampling_place_name as loc, 
+                            os.object_status_name as status, s.dbuid_origin,
+                            pso.identifier as pid
+                        from object o
+                                join sample s on (o.uid = s.uid)
+                                join sample_type st on (s.sample_type_id = st.sample_type_id)
+                                join collection c on (s.collection_id = c.collection_id)
+					            join object_status os on (os.object_status_id = o.object_status_id)
+					            left outer join sampling_place sp on (s.sampling_place_id = sp.sampling_place_id)
+                                left outer join container_type using (container_type_id)
+                                left outer join operation using (operation_id)
+                                left outer join protocol using (protocol_id)
+                                left outer join sample ps on (s.parent_sample_id = ps.sample_id)
+                                left outer join object pso on (ps.uid = pso.uid)
+                        where o.uid in ($uids)
                         ";
 
             if (strlen($order) == 0) {

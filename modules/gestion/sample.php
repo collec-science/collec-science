@@ -164,6 +164,7 @@ switch ($t_module["param"]) {
                         $data["wgs84_y"] = $dataParent["wgs84_y"];
                         $data["metadata"] = $dataParent["metadata"];
                         $data["sampling_place_id"] = $dataParent["sampling_place_id"];
+                        $data["referent_id"] = $dataParent["referent_id"];
                     }
                     $vue->set($data, "data");
                 }

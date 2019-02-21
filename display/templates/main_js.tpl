@@ -90,11 +90,17 @@ var dataTableLanguage = {
     }
 };
 $(document).ready(function() {
+	var pageLength = Cookies.get("pageLength");
+	if (! pageLength) {
+		pageLength = 10;
+	}
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdatetime"]}' );
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdate"]}' );
 	$('.datatable').DataTable({
 		"language" : dataTableLanguage,
-		"searching": false
+		"searching": false,
+		"pageLength": pageLength,
+		"lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]]
 	});
 	$('.datatable-nopaging').DataTable({
 		"language" : dataTableLanguage,
@@ -129,7 +135,9 @@ $(document).ready(function() {
 		"language" : dataTableLanguage,
 		"paging" : true,
 		"searching": true,
-       buttons: [
+		"pageLength": pageLength,
+		"lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
+       	buttons: [
            'copyHtml5',
            'excelHtml5',
            'csvHtml5',
@@ -140,7 +148,9 @@ $(document).ready(function() {
            'print'
        ]
 	});
-
+	$(".datatable, .datatable-export-paging").on('length.dt', function ( e, settings, len ) { 
+		Cookies.set('pageLength', len, { expires: 180});
+	});
 	
 	$('.taux,nombre').attr('title', '{t}Valeur numérique...{/t}');
 	$('.taux').attr({

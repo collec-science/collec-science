@@ -557,7 +557,7 @@ class LoginGestion extends ObjetBDD
          * Traitement de la generation du token d'identification ws
          */
         if ($data["is_clientws"] == 1 && strlen($data["tokenws"]) == 0) {
-            $data["tokenws"] = bin2hex(openssl_random_pseudo_bytes(32));
+            $data["tokenws"] = generateToken();
         } else {
             $data["is_clientws"] = 0;
         }
@@ -567,6 +567,15 @@ class LoginGestion extends ObjetBDD
             $lgo->setPassword($id, $data["password"]);
         }
         return $id;
+    }
+
+    /**
+     * Generation of a token for webservice
+     *
+     * @return string
+     */
+    function generateToken() {
+        return bin2hex(openssl_random_pseudo_bytes(32));
     }
 
     /**

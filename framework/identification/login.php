@@ -48,7 +48,7 @@ switch ($t_module["param"]) {
                 $message->set(_("Problème rencontré lors de l'écriture du login pour la gestion des droits"), true);
                 $message->setSyslog($e->getMessage());
             }
-        } 
+        }
         break;
     case "delete":
 		/*
@@ -70,6 +70,9 @@ switch ($t_module["param"]) {
         foreach ($dataClass->getErrorData(1) as $messageError) {
             $message->set($messageError, true);
         }
+        break;
+    case 'getTokenWS':
+        $vue->set($dataClass->generateToken(), "token");
         break;
 }
 ?>

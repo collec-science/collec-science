@@ -14,6 +14,7 @@
 	<loginDelete action="framework/identification/login.php" param="delete" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange"/>
 	<loginChangePassword action="framework/identification/login.php" param="changePassword" loginrequis="1"  type="smarty" />
 	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" retourok="default" modulebefore="loginChangePassword" />
+	<loginGetToken action="framework/identification/login.php" param="getTokenWS" droits="admin" type="ajax"/>
 
 	<administration action="modules/administration/index.php" droits="admin"
 		retourko="" retourok="" retournull="" droitko="droitko" type="smarty" ></administration>

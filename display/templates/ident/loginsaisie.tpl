@@ -37,8 +37,20 @@ $(document).ready(function() {
 	/*
 	 * Ajouts pour gestion des services web
 	 */
+	function setToken() {
+$("#tokenws").val("");
+		$.ajax( { 
+    	    		url: "index.php",
+    	    		data: { "module": "loginGetToken" }
+    	    	})
+    	    	.done (function (value) {
+							var val = JSON.parse(value);
+							$("#tokenws").val(val.token);
+						});
+	}
+
 	$("#tokenws_reset").click(function() { 
-		$("#tokenws").val("");
+		setToken();
 	});
 	$("#tokenws_copy").click(function() { 
 		 var temp = $("<input>");
@@ -46,6 +58,9 @@ $(document).ready(function() {
 		temp.val($("#tokenws").val()).select();
 		document.execCommand("copy");
 		 temp.remove();
+	});
+	$("#is_clientws1").click(function () {
+		setToken();
 	});
 	$("#is_clientws2").click(function () {
 		$("#tokenws").val("");

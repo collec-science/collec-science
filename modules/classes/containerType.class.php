@@ -73,11 +73,11 @@ class ContainerType extends ObjetBDD
         parent::__construct($bdd, $param);
     }
 
-    function getListe($order = "")
+    function getListe($field = "")
     {
         $order = "";
-        if ($order != 0 && strlen($order) > 0) {
-            $order = " order by $order";
+        if (($field > 0 && is_numeric($field))|| strlen($field) > 0) {
+            $order = " order by $field";
         }
         return parent::getListeParam($this->sql . $order);
     }

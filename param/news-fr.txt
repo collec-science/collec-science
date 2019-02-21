@@ -1,5 +1,25 @@
 News
 ===========
+Version 2.2.3 du 22 février 2019
+---------------------------------
+Corrections de bugs :
+- la suppression d'un groupe d'utilisateurs n'était pas possible dans certaines conditions
+- il n'était pas possible d'imprimer une étiquette depuis le détail d'un échantillon
+- la cinématique de l'application n'était pas correcte en suppression d'un échantillon
+- la suppression d'un échantillon échouait si des identifiants secondaires, des réservations, ... existaient
+- dans la saisie des types d'échantillons, les types de contenants n'étaient pas triés
+- dans le tableau des logins stockés dans la base de données, l'information "compte utilisé pour un service web" n'était pas affichée
+- la transformation des coordonnées GPS sexagésimales en coordonnées décimales échouait si elles n'étaient pas saisies complètes. De plus, l'algorithme utilisé était erroné
+- lors de la création d'un échantillon dérivé, le référent n'était pas récupéré
+
+Évolutions :
+- lors de la saisie des coordonnées GPS d'un échantillon ou d'un contenant, le point est généré automatiquement sur la carte, et celle-ci est centrée sur le point
+- il est maintenant possible de rajouter le référent lors d'une importation de masse
+- dans les tableaux affichés par page, le nombre d'éléments affiché est maintenant stocké, et devient la valeur proposée par défaut pour les futurs affichages
+- le nom des scripts utilisés pour créer la base de données est maintenant générique, pour faciliter l'installation automatique (composants docker notamment)
+- dans les modèles d'étiquettes, il est maintenant possible de faire figurer l'identifiant de l'échantillon parent
+
+
 Version 2.2.2 du 26 novembre 2018
 ---------------------------------
 Corrections de bugs :

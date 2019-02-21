@@ -1,5 +1,25 @@
 News
 ===========
+Version 2.2.3 of february 22, 2019
+----------------------------------
+Bug fixes:
+- the deletion of a group of users was not possible under certain conditions
+- it was not possible to print a label since the detail of a sample
+- the kinematics of the application was not correct when deleting a sample
+- the deletion of a sample failed if secondary identifiers, reservations, ... existed
+- when entering sample types, container types were not sorted
+- in the table of logins stored in the database, the information "account used for a web service" was not displayed
+- the transformation of the sexagesimal GPS coordinates into decimal coordinates failed if they were not completed. Moreover, the algorithm used was wrong
+- when creating a derived sample, the referent was not retrieved
+
+Evolutions:
+- when entering the GPS coordinates of a sample or container, the point is automatically generated on the map, and the map is centered on the point
+- it is now possible to add the referent during a mass import
+- in tables displayed per page, the number of items displayed is now stored, and becomes the default value for future displays
+- the name of the scripts used to create the database is now generic, to facilitate the automatic installation (especially docker components)
+- in the label templates, it is now possible to include the identifier of the parent sample
+
+
 Version 2.2.2 of november 26, 2018
 ----------------------------------
 bug fixes:

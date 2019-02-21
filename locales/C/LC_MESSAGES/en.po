@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-21 17:07+0100\n"
+"POT-Creation-Date: 2019-02-21 17:55+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -821,8 +821,8 @@ msgid "Le champ %s est obligatoire, mais n'a pas été renseigné."
 msgstr "The field %s is required, but has not been filled out."
 
 #: ../../../param/param.default.inc.php:11
-msgid "26/11/2018"
-msgstr "2018-11-26"
+msgid "22/02/2019"
+msgstr "2019-02-22"
 
 #: ../../../modules/gestion/index.php:6
 msgid "Module gestion"

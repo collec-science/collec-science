@@ -2,7 +2,7 @@
 # install a new instance into a server
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
-VERSION=2.2.2
+VERSION=2.2.3
 echo "Installation of Collec-Science version " $VERSION
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [y/n]?" response

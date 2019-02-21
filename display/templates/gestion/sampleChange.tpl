@@ -17,8 +17,13 @@ function testScan() {
     	
     	function convertGPStoDD(valeur) {
     		var parts = valeur.trim().split(/[^\d]+/);
-    		var dd = parseFloat(parts[0])
-    				+ parseFloat((parts[1] + "." + parts[2]) / 60);
+			if (parts.length == 1) {
+				parts[1] = 0;
+				parts[2] = 0;
+			} else if (parts.length == 2) {
+				parts[2] = 0;
+			}
+			var dd = parseFloat(parts[0]) + ((parseFloat(parts[1]) + parseFloat(parts[2])/60) / 60);
     		var lastChar = valeur.substr(-1).toUpperCase();
     		dd = Math.round(dd * 1000000) / 1000000;
     		if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
@@ -31,12 +36,14 @@ function testScan() {
     		var value = $(this).val();
     		if (value.length > 0) {
     			$("#wgs84_y").val( convertGPStoDD(value));
+				setLocalisation();
     		}
     	});
     	$("#longitude").change( function () {
     		var value = $(this).val();
     		if (value.length > 0) {
     			$("#wgs84_x").val( convertGPStoDD(value));
+				setLocalisation();
     		}
     	});
 
@@ -285,6 +292,17 @@ function testScan() {
         	}
         	
         });
+		$(".position").change(function() { 
+			setLocalisation();
+		});
+
+		function setLocalisation() {
+			var x = $("#wgs84_x").val();
+			var y = $("#wgs84_y").val();
+			if (x.length > 0 && y.length > 0) {
+				setPoint(x, y);
+			}
+		}
     });
 </script>
 
@@ -449,16 +467,18 @@ title="{t}Générez l'identifiant à partir des informations saisies{/t}">{t}Gé
 <div class="form-group">
 <label for="wy" class="control-label col-md-4">{t}Latitude :{/t}</label>
 <div class="col-md-8" id="wy">
-<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
-<input id="wgs84_y" name="wgs84_y" placeholder="45.01300" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
+{t}Format sexagesimal (45°01,234N) :{/t}<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
+{t}Format décimal (45.081667) :{/t}<input id="wgs84_y" name="wgs84_y" placeholder="45.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
 </div>
 </div>
 
 <div class="form-group">
 <label for="wx" class="control-label col-md-4">{t}Longitude :{/t}</label>
 <div class="col-md-8" id="wx">
+{t}Format sexagesimal (0°01,234W) :{/t}
 <input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
-<input id="wgs84_x" name="wgs84_x" placeholder="-0.0156" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
+{t}Format décimal (-0.081667) :{/t}
+<input id="wgs84_x" name="wgs84_x"  placeholder="-0.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
 </div>
 </div>
 

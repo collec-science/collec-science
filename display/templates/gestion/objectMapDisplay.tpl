@@ -55,13 +55,14 @@ var mousePosition = new ol.control.MousePosition( {
     target: undefined,
     undefinedHTML: '&nbsp;'
 });
+var view = new ol.View({
+  	center: ol.proj.fromLonLat(mapCenter),
+    zoom: zoom
+  });
 var map = new ol.Map({
   controls: ol.control.defaults({ attribution: false }).extend([attribution]),
   target: 'map',
-  view: new ol.View({
-  	center: ol.proj.fromLonLat(mapCenter),
-    zoom: zoom
-  })
+  view: view
 });
 
 var layer = new ol.layer.Tile({
@@ -162,4 +163,9 @@ map.on('click', function(evt) {
 });
 }
 
+function setPoint(lon, lat) {
+	var lonlat3857 = ol.proj.transform([parseFloat(lon),parseFloat(lat)], 'EPSG:4326', 'EPSG:3857');
+	point.setCoordinates (lonlat3857);
+	view.setCenter(lonlat3857);
+}
 </script>

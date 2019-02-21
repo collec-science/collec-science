@@ -2,7 +2,8 @@
 # install a new instance into a server
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
-
+VERSION=2.2.2
+echo "Installation of Collec-Science version " $VERSION
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [y/n]?" response
 if [ "$response" = "y" ] 
@@ -26,8 +27,8 @@ cd collec-science
 echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip
 unzip collec-master.zip
-mv collec-master collec-2.0
-ln -s collec-2.0 collec
+mv collec-master collec-$VERSION
+ln -s collec-$VERSION collec
 
 # update rights on files
 chmod -R 755 .

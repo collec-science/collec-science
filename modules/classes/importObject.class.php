@@ -50,6 +50,7 @@ class ImportObject
         "sample_metadata_json",
         "sample_parent_uid",
         "sampling_place_id",
+        "referent_id",
         "container_identifier",
         "container_type_id",
         "container_status_id",
@@ -69,7 +70,8 @@ class ImportObject
         "container_column",
         "container_line",
         "container_parent_uid",
-        "sample_parent_uid"
+        "sample_parent_uid",
+        "referent_id"
     );
 
     private $handle;
@@ -87,6 +89,10 @@ class ImportObject
     private $object_status = array();
 
     private $sampling_place = array();
+
+    private $referent;
+
+    private $referents = array();
 
     private $sample;
 
@@ -173,7 +179,7 @@ class ImportObject
      * @param Container $container
      * @param Movement $movement
      */
-    function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType)
+    function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType, Referent $referent)
     {
         $this->sample = $sample;
         $this->container = $container;
@@ -181,6 +187,7 @@ class ImportObject
         $this->samplingPlace = $samplingPlace;
         $this->identifierType = $identifierType;
         $this->sampleType = $sampleType;
+        $this->referent = $referent;
     }
 
     /**
@@ -498,13 +505,14 @@ class ImportObject
      * @param array $container_type
      * @param array $container_status
      */
-    function initControl($collection, $sample_type, $container_type, $object_status, $sampling_place)
+    function initControl($collection, $sample_type, $container_type, $object_status, $sampling_place, $referent)
     {
         $this->collection = $collection;
         $this->sample_type = $sample_type;
         $this->container_type = $container_type;
         $this->object_status = $object_status;
         $this->sampling_place = $sampling_place;
+        $this->referents = $referent;
     }
 
     /**
@@ -608,6 +616,22 @@ class ImportObject
                 if (!$ok) {
                     $retour["code"] = false;
                     $retour["message"] .= _("L'emplacement de collecte de l'échantillon n'est pas connu.");
+                }
+            }
+            /**
+             * Verification du referent
+             */
+            $ok = false;
+            if ($data["referent_id"] > 0) {
+                foreach ($this->referents as $value) {
+                    if ($data["referent_id"] == $value["referent_id"]) {
+                        $ok = true;
+                        break;
+                    }
+                }
+                if (!$ok) {
+                    $retour["code"] = false;
+                    $retour["message"] .= _("Le référent de l'échantillon n'est pas connu.");
                 }
             }
             /*

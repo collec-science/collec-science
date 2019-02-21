@@ -82,6 +82,7 @@
 <li><b>sample_type_id</b> : {t}le numéro informatique du type d'échantillon (obligatoire){/t}</li>
 <li><b>sample_status_id</b> : {t}le numéro du statut de l'échantillon (obligatoire){/t}</li>
 <li><b>sampling_place_id</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé{/t}</li>
+<li><b>referent_id</b> : {t}le numéro informatique du référent{/t}</li>
 <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux){/t}</li>
 <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux){/t}</li>
 <li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy{/t}</li>

@@ -18,6 +18,7 @@ require_once 'modules/classes/objectStatus.class.php';
 require_once 'modules/classes/samplingPlace.class.php';
 require_once 'modules/classes/identifierType.class.php';
 require_once 'modules/classes/objectIdentifier.class.php';
+require_once 'modules/classes/referent.class.php';
 /*
  * Initialisations
  */
@@ -32,9 +33,10 @@ $objectStatus = new ObjectStatus($bdd, $ObjetBDDParam);
 $samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
 $identifierType = new IdentifierType($bdd, $ObjetBDDParam);
 $objectIdentifier = new ObjectIdentifier($bdd, $ObjetBDDParam);
-$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType);
+$referent = new Referent($bdd, $ObjetBDDParam);
+$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType,$referent);
 $import->initClass("objectIdentifier", $objectIdentifier);
-$import->initControl($_SESSION["collections"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList());
+$import->initControl($_SESSION["collections"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList(), $referent->getListe());
 /*
  * Traitement
  */

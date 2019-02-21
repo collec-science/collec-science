@@ -50,7 +50,7 @@
   			<fo:block>uid:<fo:inline font-weight="bold"><xsl:value-of select="uid"/></fo:inline></fo:block>
   			<fo:block>id:<fo:inline font-weight="bold"><xsl:value-of select="id"/></fo:inline></fo:block>
   			<fo:block>db:<fo:inline font-weight="bold"><xsl:value-of select="db"/></fo:inline></fo:block>
-  			<fo:block>prj:<fo:inline font-weight="bold"><xsl:value-of select="prj"/></fo:inline></fo:block>
+  			<fo:block>col:<fo:inline font-weight="bold"><xsl:value-of select="col"/></fo:inline></fo:block>
   			<fo:block>pn:<fo:inline font-weight="bold"><xsl:value-of select="pn"/></fo:inline></fo:block>
   			<fo:block>clp:<fo:inline font-weight="bold"><xsl:value-of select="clp"/></fo:inline></fo:block>
   		</fo:table-cell>

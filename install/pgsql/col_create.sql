@@ -978,7 +978,7 @@ VALUES
 <fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>
   			<fo:block>uid:<fo:inline font-weight="bold"><xsl:value-of select="db"/>:<xsl:value-of select="uid"/></fo:inline></fo:block>
   			<fo:block>id:<fo:inline font-weight="bold"><xsl:value-of select="id"/></fo:inline></fo:block>
-  			<fo:block>prj:<fo:inline font-weight="bold"><xsl:value-of select="prj"/></fo:inline></fo:block>
+  			<fo:block>col:<fo:inline font-weight="bold"><xsl:value-of select="col"/></fo:inline></fo:block>
   			<fo:block>clp:<fo:inline font-weight="bold"><xsl:value-of select="clp"/></fo:inline></fo:block>
   		</fo:table-cell>
   	  	</fo:table-row>
@@ -988,7 +988,7 @@ VALUES
 
   </xsl:template>
 </xsl:stylesheet>',
-  'uid,id,clp,db,prj'
+  'uid,id,clp,db,col'
 );
 select setval('label_label_id_seq',(select max(label_id) from label)); 
 

@@ -260,7 +260,7 @@ class ObjectClass extends ObjetBDD
 		label_id, 'container' as object_type,
 		movement_date, movement_type_name, movement_type_id,
 		o.wgs84_x as x, o.wgs84_y as y,
-		'' as prj, storage_product as prod, 
+		'' as prj, '' as col,storage_product as prod, 
         null as metadata,
         oc.identifier as container_identifier, container_uid, line_number, column_number
 		from object o
@@ -275,7 +275,7 @@ class ObjectClass extends ObjetBDD
 		label_id, 'sample' as object_type,
 		movement_date, movement_type_name, movement_type_id,
 		o.wgs84_x as x, o.wgs84_y as y,
-		collection_name as prj, storage_product as prod,
+		collection_name as prj, collection_name as col, storage_product as prod,
         metadata::varchar,
         oc.identifier as container_identifier, container_uid, line_number, column_number
 		from object o

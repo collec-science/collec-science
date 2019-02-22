@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-21 17:55+0100\n"
+"POT-Creation-Date: 2019-02-22 09:42+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -4213,10 +4213,10 @@ msgstr "Name of the access right"
 
 #: ../../../display/templates/enpied.tpl:3
 msgid ""
-"Copyright (c) 2016-2018 - Tous droits réservés. Auteur : Éric Quinton, pour "
+"Copyright (c) 2016-2019 - Tous droits réservés. Auteur : Éric Quinton, pour "
 "IRSTEA - Logiciel diffusé sous licence AGPL"
 msgstr ""
-"Copyright (c) 2016-2018 - All rights reserved. Author: Eric Quinton, for "
+"Copyright (c) 2016-2019 - All rights reserved. Author: Eric Quinton, for "
 "IRSTEA - Software released under AGPL license"
 
 #: ../../../display/templates/enpied.tpl:5

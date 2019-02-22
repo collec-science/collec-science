@@ -1,69 +1,95 @@
-Collec-Science - update procedure to version 2.0 from an earlier version
+Collec-Science - update procedure to version 2.2.2 from an earlier version
 
 Case 1
 
     Collec-Science is installed in a dedicated server, which includes both the application and the database
     the database connection account has not been changed from the default configuration
     the application is stored in the /var/www/html/collec-science/xxxx folder, the /var/www/html/collec-science/collec link points to xxxx, and the virtual site (in /etc/apache /sites-available) includes this line: DocumentRoot /var/www/html/collec-science/collec
-    the current version of Collec-Science is 2.0
+    the current version of Collec-Science is 2.1
 
 Log into your server, then:
 
  sudo -s
- wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.0-2.1.sh
- chmod + x upgrade-2.0-2.1.sh
- ./upgrade-2.0-2.1.sh
+ wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.1-2.2.3.sh
+ chmod +x upgrade-2.1-2.2.2.sh
+ ./upgrade-2.1-2.2.2.sh
 
-The program will download the new version and perform the installation.
+The program will download the release and perform the installation.
 
-Case 1bis
+Case 1 bis
+    Same situation, but your version is 2.2:
+    sudo -s
+    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2-2.2.3.sh
+    chmod +x upgrade-2.2-2.2.2.sh
+    ./upgrade-2.2-2.2.2.sh
 
-    Same prerequisites as for case 1, but your version is in 2.0.1:
+Case 1 ter
+Same situation, but your version is 2.2.1:
+    sudo -s
+    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2.1-2.2.3.sh
+    chmod +x upgrade-2.2.1-2.2.2.sh
+    ./upgrade-2.2.1-2.2.2.sh
 
-Log in to your server, then:
-
- sudo -s
- wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.0.1-2.1.sh
-chmod + x upgrade-2.0.1-2.1.sh
- ./upgrade-2.0.1-2.1.sh
+Case 1 quattro
+Same situation, but your version is 2.2.2:
+     sudo -s
+    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2.2-2.2.3.sh
+    chmod +x upgrade-2.2.2-2.2.3.sh
+    ./upgrade-2.2.2-2.2.3.sh
 
 Case 2
 
     Collec-Science is installed in a dedicated server, which includes both the application and the database
     the database connection account has not been changed from the default configuration
     the application is stored in the /var/www/html/collec-science/xxxx folder, the /var/www/html/collec-science/collec link points to xxxx, and the virtual site (in /etc/apache2/sites-available) includes this line: DocumentRoot /var/www/html/collec-science/collec
-    the current version of Collec-Science is 1.2 or 1.2.3
+    the current version of Collec-Science is 1.2, 1.2.3 or 2.0
 
 Log in to your server, then:
-Step 1 :
+Step 1: download the release
 
  sudo -s
  cd /var/www/html/collec-science
  wget https://github.com/Irstea/collec/archive/master.zip
- unzip collec-master.zip
- mv collec-master/ collec-2.1
- collec-2.1/install/apache2/upgrade_rights.sh collec-2.1
+ unzip master.zip
+ mv collec-master/ collec-2.2.2
+ 
+step 2 upgrade the database:
 
-2nd step :
-
-cd collec-2.1 / install
+cd collec-2.2.2/install
 
 If you are in version 1.2:
 
  ./upgradedb-1.2-1.2.3.sh
 
-in all cases :
+If you are in version 1.2.3:
+./upgradedb-1.2.3-2.0.sh
 
- ./upgradedb-1.2.3-2.0.sh
+in all cases :
  ./upgradedb-2.0-2.1.sh
- cd ../ ..
+ ./upgradedb-2.1-2.2.sh
+ cd ../..
+
+ Step 3: Switch to the new version
+
+    Copy the previous version of parameters
+
+ cd ../..
+ cp old_folder/param/param.inc.php collec-2.2.2/param/
+ cp old_folder/param/id_collec* collec-2.2.2/param/
+
+ Update rights:
+
+ collec-2.2.2/install/apache2/upgrade_rights.sh collec-2.2.2
+
+ Recreate the symlink:
+
  rm collec
- ln -s collec-2.1 collec
+ ln -s collec-2.2.2 collec
 
 Case 3
 
     your installation does not answer either case 1 or case 2
-    your instance is in version 1.2, 1.2.3, 2.0 or 2.0.1
+    your instance is in version 1.2, 1.2.3, 2.0, 2.0.1 or 2.1
 
 The operations to be performed are those of case 2, adapting them.
 
@@ -80,11 +106,11 @@ Get the code of the application:
 
  wget https://github.com/Irstea/collec/archive/master.zip
  unzip master.zip
- mv collec-master collec-2.1
+ mv collec-master collec-2.2.2
 
 Step 2: update the database
 
-cd collec-2.1 / install
+cd collec-2.2.2/install
 
 Depending on the level of your current version, edit the files:
 
@@ -93,14 +119,16 @@ Depending on the level of your current version, edit the files:
     upgradedb-1.2-1.2.3.sh
     upgradedb-1.2.3-2.0.sh
     upgradedb-2.0-2.1.sh
+    upgradedb-2.1-2.2.sh
 
-and check / adapt the connection parameters to the database.
+and check/adapt the connection parameters to the database.
 
 Also edit the files:
 
     pgsql/col_alter_1.2-1.2.3.sql
     pgsql/col_alter_1.2.3-2.0.sql
     pgsql/col_alter_2.0-2.1.sql
+    pgsql/col_alter_2.1-2.2.sql
 
 and check the names of the schemas.
 
@@ -109,22 +137,24 @@ Run the scripts (depending on your version):
  ./upgradedb-1.2-1.2.3.sh
  ./upgradedb-1.2.3-2.0.sh
  ./upgradedb-2.0-2.1.sh
+ ./upgradedb-2.1-2.2.sh
 
 Step 3: Switch to the new version
 
-    Copy the previous version of param/param.inc.php
+    Copy the previous version of parameters
 
   cd ../..
- cp old_folder/param/param.inc.php collec-2.1/param/
+ cp old_folder/param/param.inc.php collec-2.2.2/param/
+ cp old_folder/param/id_collec* collec-2.2.2/param/
 
     Update rights:
 
-collec-2.1/install/apache2/upgrade_rights.sh collec-2.1
+collec-2.2.2/install/apache2/upgrade_rights.sh collec-2.2.2
 
     delete the symlink (if that's the mechanism you used), and recreate it:
 
  rm collec
- ln -s collec-2.1 collec
+ ln -s collec-2.2.2 collec
 
 Case 4
 
@@ -145,14 +175,14 @@ Then perform steps 2 and 3 of case # 3.
 
 Case 5
 
-Your instance is already in version 2.0, but your server is not structured as indicated previously.
+Your instance is already in version 2.1, but your server is not structured as indicated previously.
 
 Perform Step 1 of Case # 2, adapting the script to your configuration.
 
-Update the database to version 2.1:
+Update the database to version 2.2:
 
-    check the script pgsql/col_alter_2.0-2.1.sql, and verify the name of the schema containing data
+    check the script pgsql/col_alter_2.1-2.2.sql, and verify the name of the schema containing data
     run the script with this command:  
   
-psql -h serveur -U username -W -d database < col_alter_2.0-2.1.sql
+psql -h serveur -U username -W -d database < col_alter_2.1-2.2.sql
 

@@ -727,7 +727,6 @@ class Sample extends ObjetBDD
         } else {
             throw new SampleException(_("Impossible d'écrire dans la table Object"));
         }
-        return -1;
     }
 
     /**

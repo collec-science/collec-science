@@ -70,7 +70,7 @@ class Import
                 if (in_array($data[$range], $fields) || substr($data[$range], 0, 3) == "md_") {
                     $this->header[$range] = $data[$range] ;
                 } else {
-                    throw new ImportException(sprintf(_("L'entête de colonne %1\$s n'est pas reconnue (%2\$s)"),$range,$value));
+                    throw new ImportException(sprintf(_("L'entête de colonne %1\$s n'est pas reconnue (%2\$s)"),$range,$data[$range]));
                 }
             }
         } else {

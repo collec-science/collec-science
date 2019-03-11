@@ -26,7 +26,7 @@ cd collec-science
 # download software
 echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip
-unzip collec-master.zip
+unzip master.zip
 mv collec-master collec-$VERSION
 ln -s collec-$VERSION collec
 

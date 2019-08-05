@@ -99,7 +99,8 @@ function renderForm(data){
                         "measureUnit" :{
                             "title": "{t}Unité de mesure (ou modalités) - N/A si non applicable{/t}",
                             "type" : "string",
-                            "required": true
+                            "required": true,
+                            "default":"N/A"
                         }
                     },
                     "dependencies": {
@@ -166,10 +167,12 @@ function renderForm(data){
                             }
                         },
                         "description" :{
-                            "type" : "textarea"
+                            "type" : "textarea",
+                            "rows":3
                         },
                         "measureUnit" :{
-                            "type" : "textarea"
+                            "type" : "textarea",
+                            "rows":3
                         }
                     }
                 }

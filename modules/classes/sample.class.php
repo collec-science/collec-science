@@ -342,7 +342,7 @@ class Sample extends ObjetBDD
                     $field = "expiration_date";
                     break;
             }
-            $where .= $and . "s.$field between :date_from and :date_to";
+            $where .= $and . "s.$field::date between :date_from and :date_to";
             $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
             $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
             $and = " and ";

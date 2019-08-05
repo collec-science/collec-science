@@ -89,17 +89,18 @@ $(document).ready(function() {
 <dt>{t}Type :{/t}</dt>
 <dd>{$data.container_family_name} - {$data.container_type_name}</dd>
 </dl>
+
 <dl class="dl-horizontal">
-<dt>{t}Produit utilisé :{/t}</dt>
-<dd>{$data.storage_condition_name} 
-{if strlen($data.storage_product) >0 && strlen($data.storage_condition_name) > 0}
-<br>
-{/if}
-{$data.storage_product} 
-{if (strlen($data.storage_product) >0 || strlen($data.storage_condition_name) > 0) && strlen($data.clp_classification) > 0 }
-<br>
-{/if}
-{$data.clp_classification}</dd>
+	<dt>{t}Produit utilisé :{/t}</dt>
+	<dd>{$data.storage_product}</dd>
+</dl>
+<dl class="dl-horizontal">
+	<dt>{t}Conditions de stockage :{/t}</dt>
+	<dd>{$data.storage_condition_name}</dd>
+</dl>
+<dl class="dl-horizontal">
+	<dt>{t}Classification CLP :{/t}</dt>
+	<dd>{$data.clp_classification}</dd>
 </dl>
 <dl class="dl-horizontal">
 <dt>{t}Statut :{/t}</dt>

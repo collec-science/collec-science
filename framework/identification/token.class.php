@@ -9,8 +9,7 @@
  *
  */
 class TokenException extends Exception
-{
-}
+{ }
 
 class Token
 {
@@ -45,8 +44,8 @@ class Token
         /*
          * Verification de l'existence des cles
          */
-        foreach(array($this->privateKey,$this->pubKey) as $filename) {
-            if (! file_exists($filename)) {
+        foreach (array($this->privateKey, $this->pubKey) as $filename) {
+            if (!file_exists($filename)) {
                 throw new TokenException("File $filename not readable");
             }
         }
@@ -69,7 +68,8 @@ class Token
                 $data = array(
                     "login" => $login,
                     "timestamp" => $timestamp,
-                    "expire" => $expire
+                    "expire" => $expire,
+                    "ip" => getIPClientAddress()
                 );
                 /*
                  * create json file
@@ -83,7 +83,8 @@ class Token
                     $dataToken = array(
                         "token" => base64_encode($crypted),
                         "expire" => $expire,
-                        "timestamp" => $data["timestamp"]
+                        "timestamp" => $data["timestamp"],
+                        "ip"=>$data["ip"]
                     );
                     $token = json_encode($dataToken);
                 } else {
@@ -105,7 +106,8 @@ class Token
      */
     function openToken($json)
     {
-       $token = json_decode($json, true);
+        $login = "";
+        $token = json_decode($json, true);
         /*
          * decrypt token
          */
@@ -113,18 +115,26 @@ class Token
             $key = $this->getKey("pub");
             if (openssl_public_decrypt(base64_decode($token["token"]), $decrypted, $key)) {
                 $data = json_decode($decrypted, true);
-                /*
+
+                /**
                  * Verification of token content
                  */
-                if (strlen($data["login"]) > 0 && strlen($data["expire"]) > 0) {
-                    $now = time();
-                    /*
-                     * test expire date
+                if (strlen($data["login"]) > 0 && strlen($data["expire"]) > 0 && strlen($data["ip"]) > 0) {
+                    /**
+                     * Test IP address
                      */
-                    if ($data["expire"] > $now) {
-                        $login = $data["login"];
+                    if ($data["ip"] == getIPClientAddress()) {
+                        $now = time();
+                        /**
+                         * test expire date
+                         */
+                        if ($data["expire"] > $now) {
+                            $login = $data["login"];
+                        } else {
+                            throw new TokenException('token_expired');
+                        }
                     } else {
-                        throw new TokenException('token_expired');
+                        throw new TokenException('IP_address_non_equivalent');
                     }
                 } else {
                     throw new TokenException("parameter_into_token_absent");
@@ -170,7 +180,7 @@ class Token
                 $handle = fopen($filename, "r");
                 if ($handle != false) {
                     $contents = fread($handle, filesize($filename));
-                    if (! $contents) {
+                    if (!$contents) {
                         throw new TokenException("key " . $filename . " is empty");
                     }
                     fclose($handle);

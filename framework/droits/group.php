@@ -17,14 +17,14 @@ switch ($t_module["param"]) {
 		 * Display the list of all records of the table
 		 */
 		$vue->set($dataClass->getGroups() , "data");
-		$vue->set("droits/groupList.tpl" , "corps");
+		$vue->set("framework/droits/groupList.tpl" , "corps");
 		break;
 	case "display":
 		/*
 		 * Display the detail of the record
 		 */
 		$vue->set( $dataClass->lire($id), "data");
-		$vue->set("droits/groupDisplay.tpl" , "corps");
+		$vue->set("framework/droits/groupDisplay.tpl" , "corps");
 		break;
 	case "change":
 		/*
@@ -32,7 +32,7 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		dataRead($dataClass, $id, "droits/groupChange.tpl", $_REQUEST["aclgroup_id_parent"]);
+		dataRead($dataClass, $id, "framework/droits/groupChange.tpl", $_REQUEST["aclgroup_id_parent"]);
 		/*
 		 * Recuperation des logins associes
 		 */

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Controleur de l'application (modele MVC)
  * Fichier modifie le 21 mars 2013 par Eric Quinton
@@ -131,12 +132,6 @@ if (!isset($_REQUEST["module"])) {
 if (strlen($_REQUEST["module"]) == 0) {
     $_REQUEST["module"] = "default";
 }
-/*
- * Stockage de l'UID appele, pour lien direct vers le detail d'un echantillon
- */
-if ($_REQUEST["uid"] > 0) {
-    $_SESSION["uid"] = $_REQUEST["uid"];
-}
 /**
  * Recuperation du module
  */
@@ -163,6 +158,23 @@ while (isset($module)) {
         // traduction: conserver inchangée la chaîne %s
         $message->set(sprintf(_('Le module demandé n\'existe pas (%s)'), $module), true);
         $t_module = $navigation->getModule("default");
+    }
+    /**
+     * Si la variable demandee n'existe pas, retour vers la page par defaut
+     */
+    if (isset($t_module["requiredVar"]) && !isset($_REQUEST[$t_module["requiredVar"]])) {
+        $t_module = $navigation->getModule("default");
+    }
+    /**
+     * Verification du delai entre deux appels, et mise en sommeil
+     */
+    if ($moduleRequested == $module && ! in_array($t_module["type"], array("ajax", "json", "ws")) && isset($_SESSION["login"])) { 
+        $delay = $log->getTimestampFromLastCall($_SESSION["login"]);
+        if ($delay < $APPLI_delay_between_call) {
+            $log->setLog($login,$module, "sleep because too fast");
+            $message->setSyslog("module ".$module.": sleep because too fast");
+            sleep($APPLI_sleep_duration);
+        }
     }
     /*
      * Extraction des droits necessaires
@@ -214,6 +226,7 @@ while (isset($module)) {
          */
         if ($t_module["type"] == "ws") {
             require_once "framework/identification/identification.class.php";
+            require_once "framework/identification/loginGestion.class.php";
             $lg = new LoginGestion($bdd_gacl, $ObjetBDDParam);
             $dataId = $lg->getLoginFromTokenWS($_REQUEST["login"], $_REQUEST["token"]);
             if (strlen($dataId["login"]) > 0) {
@@ -232,20 +245,21 @@ while (isset($module)) {
             /*
              * Affichage de l'ecran de saisie du login si necessaire
              */
-            if (in_array(
-                $ident_type,
-                array(
-                "BDD",
-                "LDAP",
-                "LDAP-BDD",
-                )
-            ) && !isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0 
+            if (
+                in_array(
+                    $ident_type,
+                    array(
+                        "BDD",
+                        "LDAP",
+                        "LDAP-BDD",
+                    )
+                ) && !isset($_REQUEST["login"]) && strlen($_SESSION["login"]) == 0
                 && !isset($_COOKIE["tokenIdentity"])
             ) {
                 /*
                  * Gestion de la saisie du login
                  */
-                $vue->set("ident/login.tpl", "corps");
+                $vue->set("framework/ident/login.tpl", "corps");
                 $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
                 $vue->set($APPLI_lostPassword, "lostPassword");
                 $loginForm = true;
@@ -300,14 +314,27 @@ while (isset($module)) {
                          * Regeneration de l'identifiant de session
                          */
                         session_regenerate_id();
-                        /*
+                        /**
+                         * Recuperation des connexions recentes
+                         */
+                        $connections = $log->getLastConnections($APPLI_absolute_session);
+                        $nbConnection = count($connections);
+                        if ($nbConnection > 1) {
+                            $message->set(_("Connexions précédentes récentes :"));
+                            for ($i = 1; $i < $nbConnection; $i++) {
+                                $connection = $connections[$i];
+                                $message->set($connection["log_date"] . " - IP: " . $connection["ipaddress"]);
+                            }
+                        } else {
+                            /*
                          * Recuperation de la derniere connexion et affichage a l'ecran
                          */
-                        $lastConnect = $log->getLastConnexion();
-                        if (isset($lastConnect["log_date"])) {
-                            // traduction: bien conserver inchangées les chaînes %1$s, %2$s...
-                            $texte = _('Dernière connexion le %1$s depuis l\'adresse IP %2$s. Si ce n\'était pas vous, modifiez votre mot de passe ou contactez l\'administrateur de l\'application.');
-                            $message->set(sprintf($texte, $lastConnect["log_date"], $lastConnect["ipaddress"]));
+                            $lastConnect = $log->getLastConnexion();
+                            if (isset($lastConnect["log_date"])) {
+                                // traduction: bien conserver inchangées les chaînes %1$s, %2$s...
+                                $texte = _('Dernière connexion le %1$s depuis l\'adresse IP %2$s. Si ce n\'était pas vous, modifiez votre mot de passe ou contactez l\'administrateur de l\'application.');
+                                $message->set(sprintf($texte, $lastConnect["log_date"], $lastConnect["ipaddress"]));
+                            }
                         }
                         $message->setSyslog("connexion ok for " . $_SESSION["login"] . " from " . getIPClientAddress());
                         /*
@@ -356,11 +383,11 @@ while (isset($module)) {
                                 $cookieParam["httponly"] = true;
                                 setcookie('tokenIdentity', $token, time() + $tokenIdentityValidity, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
                             } catch (Exception $e) {
-                                $message->set($e->getMessage());
+                                $message->set($e->getMessage(), true);
                             }
                         }
                     } else {
-                        $message->set(_("Identification refusée"));
+                        $message->set(_("Identification refusée"), true);
                         $message->setSyslog("connexion ko from " . getIPClientAddress());
                     }
                 }
@@ -417,6 +444,22 @@ while (isset($module)) {
         }
     }
 
+    /**
+     * Count all calls to the module
+     */
+    if ($t_module["maxCountByHour"] > 0) {
+        if ($log->getCallsToModule($module, $t_module["maxCountByHour"], $APPLI_hour_duration) == false) {
+            $resident = 0;
+            $motifErreur = "callsReached";
+        }
+    }
+    if ($t_module["maxCountByDay"] > 0) {
+        if ($log->getCallsToModule($module, $t_module["maxCountByDay"], $APPLI_day_duration) == false) {
+            $resident = 0;
+            $motifErreur = "callsReached";
+        }
+    }
+
     /*
      * Verification s'il s'agit d'un module d'administration
      */
@@ -440,7 +483,7 @@ while (isset($module)) {
                 /*
                  * saisie du login en mode admin
                  */
-                $vue->set("ident/loginAdmin.tpl", "corps");
+                $vue->set("framework/ident/loginAdmin.tpl", "corps");
                 $resident = 0;
                 if ($t_module["retourlogin"] == 1) {
                     $vue->set($_REQUEST["module"], "module");
@@ -470,7 +513,7 @@ while (isset($module)) {
         $log->setLog($_SESSION["login"], $module, $motifErreur);
     } catch (Exception $e) {
         if ($OBJETBDD_debugmode > 0) {
-            $message->set($log->getErrorData(1));
+            $message->set($log->getErrorData(1), true);
         } else {
             $message->set(_("Erreur d'écriture dans le fichier de traces"));
         }
@@ -522,6 +565,12 @@ while (isset($module)) {
                 } else {
                     $module = $APPLI_moduleDroitKO;
                 }
+                /**
+                 * Send mail to administrators
+                 */
+                $subject = "SECURITY REPORTING - " . $GACL_aco . " - The user ".$_SESSION["login"]."  has attempted to access an unauthorized module";
+                $contents = "<html><body>" . "The account <b>$login<b> has attempted at $date the user has tried to access at the module $module without having the necessary rights". '<br>Software : <a href="' . $APPLI_address . '">' . $APPLI_address . "</a>" . '</body></html>';
+                $log->sendMailToAdmin($subject, $contents, $module, $_SESSION["login"]);
                 break;
             case "nologin":
                 $module = $APPLI_moduleErrorLogin;
@@ -531,6 +580,9 @@ while (isset($module)) {
                 break;
             case "adminko":
                 $module = $APPLI_moduleAdminLogin;
+                break;
+            case "callsReached":
+                $module = "default";
                 break;
             default:
                 unset($module);

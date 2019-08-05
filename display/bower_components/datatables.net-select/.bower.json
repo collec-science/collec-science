@@ -1,0 +1,47 @@
+{
+  "name": "datatables.net-select",
+  "description": "Select for DataTables ",
+  "main": [
+    "js/dataTables.select.js"
+  ],
+  "keywords": [
+    "select",
+    "selection",
+    "DataTables",
+    "jQuery",
+    "table",
+    "DataTables"
+  ],
+  "dependencies": {
+    "jquery": ">=1.7",
+    "datatables.net": ">=1.10.9"
+  },
+  "moduleType": [
+    "globals",
+    "amd",
+    "node"
+  ],
+  "ignore": [
+    "composer.json",
+    "datatables.json",
+    "package.json"
+  ],
+  "authors": [
+    {
+      "name": "SpryMedia Ltd",
+      "homepage": "https://datatables.net"
+    }
+  ],
+  "homepage": "https://datatables.net",
+  "license": "MIT",
+  "version": "1.3.0",
+  "_release": "1.3.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.3.0",
+    "commit": "48584a492a7fb0aa77c054475089b9c397038e37"
+  },
+  "_source": "https://github.com/DataTables/Dist-DataTables-Select.git",
+  "_target": ">=1.0.1",
+  "_originalSource": "datatables.net-select"
+}

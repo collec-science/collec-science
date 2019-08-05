@@ -1,0 +1,52 @@
+How to upgrade to release 3.0.0
+===============================
+- replace the folder framework
+
+- In the database, execute the script framework/upgrade/upgrade_framework-2.1.0-3.0.0.sql
+
+- replace display/javascript/bootstrap-prototypephp.js
+
+- replace display/CSS/bootstrap-prototypephp.css
+
+- add or replace theses variables in param/param.default.inc.php:
++$APPLI_passwordMinLength = 12;
++$APPLI_lostPassword = 1; // Autorise la recuperation d'un nouveau mot de passe en cas de perte
++$APPLI_hour_duration = 3600; // Duration of an hour for count all calls to a module
++$APPLI_day_duration = 36000; //Duration of a day for count all calls to a module
++$MAIL_enabled = 1; // send mails
++$APPLI_delay_between_call = 1; //delay between call of modules others than ajax
++$APPLI_sleep_duration = 30; // duration of the temporary sleep
++$CAS_address = "localhost/CAS"; // Address of CAS server
++$CAS_port = 443; //port of CAS server
++$CAS_debug = false; // Activation of debug mode
++$CAS_CApath=""; // path to the certificate of the CAS
+
+- replace the folder display/templates/framework
+
+- delete the folders display/templates/droits, display/templates/dbparam and display/templates/ident
+
+- add this folder: display/images/framework
+
+- in param/menu.xml, add this entry:
+<item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1">
++		<item module="getLastConnections" label="Dernières connexions" tooltip="Liste des dernières connexions réalisées" loginrequis="1"/>
+ 		<item module="loginChangePassword" loginrequis="1" label="Modifier le mot de passe" tooltip="Modifiez votre mot de passe (identification locale uniquement)" />
+ 	</item>
+</item>
+
+
+- in param/action.xml, replace this entry:
+	<model action="index.php" param="list|display|change|write|delete|..." droits="gestion" retourko="model" retourlogin="1" retourok="model" loginrequis="1" type="html|smarty|ajax|pdf|csv|binaire" droitko="droitko" modulebefore="module1,module2" requiredVar="table_id" maxCountByHour="60" maxCountByDay="600"/>
+- add this entry:
+<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" retourok="default" modulebefore="loginChangePassword" />
++	<getLastConnections action="framework/log/log.php" param="getLastConnections" loginrequis="1" type="smarty"/>
+new attributes: maxCountByDay: number of calls allowed per day, maxCountByHour: number of calls allowed per hour. these attributes can be added in all modules, except when the type is ajax.
+
+- replace composer.json
+- run in a terminal: composer install, and composer update
+
+- replace the folder display/bower_components
+- in folder display/bower_components, run: bower update
+
+- search in the code of the software if the command require_once "vendor/autoload.php" is used: it's no longer necessary
+

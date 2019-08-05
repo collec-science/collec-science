@@ -217,7 +217,7 @@ class ObjetBDD
      *             passees par les instructions htmlspecialchars et htmlspecialchars_decode
      *             Par defaut, a true
      */
-    public $codageHtml = true;
+    public $codageHtml = false;
 
     /**
      *
@@ -1660,7 +1660,7 @@ class ObjetBDD
     }
 
     /**
-     * Fonction retournant la date du du jour au formatee ou non
+     * Fonction retournant la date du du jour  formatee 
      */
     function getDateJour()
     {
@@ -1668,7 +1668,7 @@ class ObjetBDD
     }
 
     /**
-     * Fonction retournant la date-heure courante, formatee ou non
+     * Fonction retournant la date-heure courante formatee 
      *
      * @return string
      */

@@ -5,16 +5,19 @@
  * Gestion de la saisie, de la modification d'un login
  * Gestion du changement du mot de passe (en mode BDD)
  */
+require_once 'framework/identification/loginGestion.class.php';
 $dataClass = new LoginGestion($bdd_gacl, $ObjetBDDParam);
 $id = $_REQUEST["id"];
-
+if (! $APPLI_passwordMinLength > 0) {
+    $APPLI_passwordMinLength = 12;
+}
 switch ($t_module["param"]) {
     case "list":
 		/*
          * Display the list of all records of the table
          */
         $vue->set($dataClass->getListeTriee(), "liste");
-        $vue->set("ident/loginliste.tpl", "corps");
+        $vue->set("framework/ident/loginliste.tpl", "corps");
         break;
     case "change":
 		/*
@@ -22,7 +25,8 @@ switch ($t_module["param"]) {
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
          */
-        $data = dataRead($dataClass, $id, "ident/loginsaisie.tpl", 0);
+        $data = dataRead($dataClass, $id, "framework/ident/loginsaisie.tpl", 0);
+        $vue->set($APPLI_passwordMinLength, "passwordMinLength");
         unset($data["password"]);
         $vue->set($data, "data");
         break;
@@ -48,7 +52,7 @@ switch ($t_module["param"]) {
                 $message->set(_("Problème rencontré lors de l'écriture du login pour la gestion des droits"), true);
                 $message->setSyslog($e->getMessage());
             }
-        }
+        } 
         break;
     case "delete":
 		/*
@@ -58,7 +62,8 @@ switch ($t_module["param"]) {
         break;
     case "changePassword":
         if ($log->getLastConnexionType($_SESSION["login"]) == "db") {
-            $vue->set("ident/loginChangePassword.tpl", "corps");
+            $vue->set("framework/ident/loginChangePassword.tpl", "corps");
+            $vue->set($APPLI_passwordMinLength,"passwordMinLength");
         } else {
             $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"), true);
             $vue->set("main.tpl");
@@ -71,8 +76,4 @@ switch ($t_module["param"]) {
             $message->set($messageError, true);
         }
         break;
-    case 'getTokenWS':
-        $vue->set($dataClass->generateToken(), "token");
-        break;
 }
-?>

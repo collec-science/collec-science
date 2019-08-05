@@ -306,7 +306,7 @@ class Acllogin extends ObjetBDD
             /*
              * Recherche s'il existe un login correspondant
              */
-            require_once 'framework/identification/identification.class.php';
+            require_once 'framework/identification/loginGestion.class.php';
             $loginGestion = new LoginGestion($this->connection, $this->paramori);
             $dlg = $loginGestion->getFromLogin($data["login"]);
             if ($dlg["id"] > 0) {
@@ -635,7 +635,6 @@ class Aclgroup extends ObjetBDD
                  * Suppression des logins rattachés
                  */
                 $this->ecrireTableNN("acllogingroup", "aclgroup_id", "acllogin_id", $id, array());
-                $this->ecrireTableNN("aclacl", "aclgroup_id", "aclaco_id", $id, array());
                 return parent::supprimer($id);
             }
         } else {

@@ -16,7 +16,7 @@ switch ($t_module["param"]) {
 		 * Display the list of all records of the table
 		 */
 		$vue->set($dataClass->getListe(3), "data");
-        $vue->set("droits/loginList.tpl", "corps");
+        $vue->set("framework/droits/loginList.tpl", "corps");
         break;
     case "change":
 		/*
@@ -24,7 +24,7 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		$data = dataRead($dataClass, $id, "droits/loginChange.tpl");
+		$data = dataRead($dataClass, $id, "framework/droits/loginChange.tpl");
         if (strlen($data["login"]) > 0) {
             $vue->set($dataClass->getListDroits($data["login"], $GACL_aco, $LDAP), "loginDroits");
         }

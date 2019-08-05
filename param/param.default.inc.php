@@ -191,4 +191,11 @@ $APPLI_admin_ttl = 600; // Duree maxi d'inactivite pour acceder a un module d'ad
 $APPLI_lostPassword = 0; // Autorise la recuperation d'un nouveau mot de passe en cas de perte
 $APPLI_virusScan = false;
 $APPLI_max_file_size = 10; // Size in Mb
+
+$APPLI_passwordMinLength = 12;
+$APPLI_hour_duration = 3600; // Duration of an hour for count all calls to a module
+$APPLI_day_duration = 36000; //Duration of a day for count all calls to a module
+$APPLI_delay_between_call = 1; //delay between call of modules others than ajax
+$APPLI_sleep_duration = 30; // duration of the temporary sleep
+
 ?>

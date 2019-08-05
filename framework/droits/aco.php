@@ -18,7 +18,7 @@ switch ($t_module["param"]) {
 		 */
 		$data = $dataClass->lire($id);
 		$vue->set($data , "data");
-		$vue->set("droits/appliDisplay.tpl" , "corps");
+		$vue->set("framework/droits/appliDisplay.tpl" , "corps");
 		break;
 	case "change":
 		/*
@@ -26,7 +26,7 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		$data = dataRead($dataClass, $id, "droits/acoChange.tpl", $_REQUEST["aclappli_id"]);
+		$data = dataRead($dataClass, $id, "framework/droits/acoChange.tpl", $_REQUEST["aclappli_id"]);
 		$aclAppli = new Aclappli($bdd_gacl, $ObjetBDDParam);
 		$vue->set($aclAppli->lire($data["aclappli_id"]) , "dataAppli");
 		$aclgroup = new Aclgroup($bdd_gacl, $ObjetBDDParam);

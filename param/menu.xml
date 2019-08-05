@@ -58,6 +58,7 @@
 
 <item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1"/>
 <item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1">
+	<item module="getLastConnections" label="Dernières connexions" tooltip="Liste des dernières connexions réalisées" loginrequis="1"/>
 	<item module="loginChangePassword" loginrequis="1" label="Modifier le mot de passe" tooltip="Modifiez votre mot de passe (identification locale uniquement)" />
 </item>
 <item module="aide" label="?" tooltip="Aide">

@@ -62,7 +62,7 @@ class Passwordlost extends ObjetBDD
             /*
              * Recherche de l'identifiant correspondant
              */
-            require_once 'framework/identification/identification.class.php';
+            require_once 'framework/identification/loginGestion.class.php';
             $lg = new LoginGestion($this->connection, $this->paramori);
             $dl = $lg->getFromMail($mail);
             if ($dl["id"] > 0) {

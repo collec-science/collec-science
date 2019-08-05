@@ -14,8 +14,7 @@
  *        
  */
 class VueException extends Exception
-{
-}
+{ }
 
 class Message
 {
@@ -64,6 +63,16 @@ class Message
     }
 
     /**
+     * Retourne le nombre de messages enregistres
+     *
+     * @return int
+     */
+    function getMessageNumber()
+    {
+        return (count($this->_message));
+    }
+
+    /**
      * Retourne le tableau formate avec saut de ligne entre
      * chaque message
      *
@@ -102,7 +111,6 @@ class Message
             $error = "err";
             $code_error = 4;
             $level = "warn";
-
         } else {
             $error = "info";
             $code_error = 6;
@@ -152,7 +160,21 @@ class Vue
      * @param string $param
      */
     function send($param = "")
+    { }
+
+    /**
+     * Return the content of a variable
+     *
+     * @param string $variable
+     * @return string|array
+     */
+    function get($variable = "")
     {
+        if (strlen($variable) > 0) {
+            return $this->data[$variable];
+        } else {
+            return $this->data;
+        }
     }
 
     /**
@@ -274,6 +296,17 @@ class VueSmarty extends Vue
          */
         $this->smarty->display($this->templateMain);
     }
+
+        /**
+     * Return the content of a variable
+     *
+     * @param string $variable
+     * @return string|array
+     */
+    function get($variable = "")
+    {
+        return $this->smarty->getTemplateVars($variable);
+    } 
 }
 
 /**
@@ -363,6 +396,13 @@ class VueCsv extends Vue
         }
     }
 
+    /**
+     * Declenche la creation du fichier csv
+     *
+     * @param string $filename
+     * @param string $delimiter
+     * @return void
+     */
     function send($filename = "", $delimiter = "")
     {
         if (count($this->data) > 0) {
@@ -451,6 +491,12 @@ class VueCsv extends Vue
     }
 }
 
+/**
+ * Envoi d'un fichier au format PDF vers le navigateur
+ * 
+ * Le fichier doit être fourni soit sous forme de référence 
+ * soit en indiquant son chemin dans l'arborescence du serveur.
+ */
 class VuePdf extends Vue
 {
 
@@ -491,12 +537,12 @@ class VuePdf extends Vue
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             header('Content-Type: ' . finfo_file($finfo, $this->filename));
             finfo_close($finfo);
-            
+
             /*
              * Mise a disposition
              */
             header('Content-Disposition: ' . $this->disposition . '; filename="' . basename($this->filename) . '"');
-            
+
             /*
              * Desactivation du cache
              */
@@ -569,6 +615,8 @@ class VueBinaire extends Vue
      */
     function send()
     {
+        printr($this->param);
+
         if (strlen($this->param["tmp_name"]) > 0) {
             /*
              * Recuperation du content-type s'il n'a pas ete fourni
@@ -580,7 +628,7 @@ class VueBinaire extends Vue
             }
             header('Content-Type: ' . $this->param["content_type"]);
             header('Content-Transfer-Encoding: binary');
-            if ($this->param["disposition"] == "attachment" && strlen($this->param["filename"] > 0)) {
+            if ($this->param["disposition"] == "attachment" && strlen($this->param["filename"]) > 0) {
                 header('Content-Disposition: attachment; filename="' . basename($this->param["filename"]) . '"');
             } else {
                 header('Content-Disposition: inline');
@@ -592,7 +640,6 @@ class VueBinaire extends Vue
             header('Expires: 0');
             header('Cache-Control: must-revalidate');
             header('Pragma: no-cache');
-            
             /*
              * Envoi au navigateur
              */
@@ -616,5 +663,3 @@ class VueBinaire extends Vue
         }
     }
 }
-
-?>

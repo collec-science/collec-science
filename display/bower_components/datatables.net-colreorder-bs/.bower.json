@@ -1,0 +1,48 @@
+{
+  "name": "datatables.net-colreorder-bs",
+  "description": "ColReorder for DataTables with styling for [Bootstrap 3](http://getbootstrap.com/)",
+  "main": [
+    "css/colReorder.bootstrap.css"
+  ],
+  "keywords": [
+    "reorder",
+    "DataTables",
+    "jQuery",
+    "table",
+    "Bootstrap"
+  ],
+  "dependencies": {
+    "jquery": ">=1.7",
+    "datatables.net-bs": ">=1.10.9",
+    "datatables.net-colreorder": ">=1.2.0"
+  },
+  "moduleType": [
+    "globals",
+    "amd",
+    "node"
+  ],
+  "ignore": [
+    "composer.json",
+    "datatables.json",
+    "package.json"
+  ],
+  "authors": [
+    {
+      "name": "SpryMedia Ltd",
+      "homepage": "https://datatables.net"
+    }
+  ],
+  "homepage": "https://datatables.net",
+  "license": "MIT",
+  "version": "1.5.1",
+  "_release": "1.5.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.5.1",
+    "commit": "cf6adf427ae58e533e91752d5bf30c4208745972"
+  },
+  "_source": "https://github.com/DataTables/Dist-DataTables-ColReorder-Bootstrap.git",
+  "_target": "^1.5.1",
+  "_originalSource": "datatables.net-colreorder-bs",
+  "_direct": true
+}

@@ -1,211 +1,97 @@
 <?php
 
 /**
- * Classe permettant de parametrer les imports
+ * Created : 5 sept. 2017
+ * Creator : quinton
+ * Encoding : UTF-8
+ * Copyright 2017 - All rights reserved
+ */
+class ImportException extends Exception
+{
+}
+
+/**
+ * Classe de gestion des imports csv
+ * 
  * @author quinton
- *
+ *        
  */
 class Import
 {
 
-    public $nomFichierDesc;
+    private $separator = ",";
 
-    public $contenuFichier;
+    private $utf8_encode = false;
 
-    public $descriptionImport;
+    private $handle;
 
-    public $handle;
+    private $header = array();
 
-    public $separateur;
-
-    public $ligneDebut;
-
-    public $typeFichier;
-
-    public $spreadsheet;
-
-    public $utf8encode;
-
-    /*
-     * Variables utilisees pour l'export CSV
-     */
-    public $fichierExport;
-
-    public $nomFichierExport;
-
-    public $separateurExport;
-
-    /*
-     * Variables utilisees pour le traitement d'un fichier XLS
-     */
-    public $nbRows;
-
-    public $nbCols;
-
-    public $currentRow;
+    public $minuid, $maxuid;
 
     /**
-     * Lecture des parametres d'import
-     *
-     * @param string $nomFichierDesc
+     * Constructeur
+     * 
+     * @param string  $filename
+     * @param string  $separator
+     * @param boolean $utf_encode
      */
-    function __construct($nomFichierDesc, $nomImport)
+    function __construct($filename, $separator = ",", $utf_encode = false, $fields = array())
     {
-        $this->nomFichierDesc = $nomFichierDesc;
-        $this->ligneDebut = 1;
-        $this->contenuFichier = parse_ini_file($this->nomFichierDesc, true);
-        $this->descriptionImport = $this->contenuFichier[$nomImport];
-        
-        if (isset($this->descriptionImport["ligneDebut"])) {
-            $this->ligneDebut = $this->descriptionImport["ligneDebut"];
-            unset($this->descriptionImport["ligneDebut"]);
+        $this->initFile($filename, $separator, $utf_encode, $fields);
+    }
+
+    /**
+     * Fonction d'initialisation du fichier
+     * recupere la premiere ligne pour lire l'entete
+     * 
+     * @param string  $filename
+     * @param string  $separator
+     * @param boolean $utf8_encode
+     * 
+     * @throws ImportException
+     */
+    function initFile($filename, $separator = ",", $utf8_encode = false, $fields = array())
+    {
+        if ($separator == "tab" || $separator == "t") {
+            $separator = "\t";
         }
-        if (isset($this->descriptionImport["separateur"])) {
-            $this->separateur = $this->descriptionImport["separateur"];
-            unset($this->descriptionImport["separateur"]);
-        }
-        if (isset($this->descriptionImport["typeFichier"])) {
-            $this->typeFichier = $this->descriptionImport["typeFichier"];
-            unset($this->descriptionImport["typeFichier"]);
-        }
-        if (isset($this->descriptionImport["utf8encode"])) {
-            $this->utf8encode = $this->descriptionImport["utf8encode"];
-            unset($this->descriptionImport["utf8encode"]);
-        }
-        
+        $this->separator = $separator;
         /*
-         * Gestion de la classe de manipulation XLS
+         * Ouverture du fichier
          */
-        if ($this->typeFichier == "xls") {
-            if (class_exists("Spreadsheet_Excel_Reader")) {
-                $this->spreadsheet = new Spreadsheet_Excel_Reader();
-            } else {
-                echo "La classe Spreadsheet_Excel_Reader n'est pas decrite - arret de l'application";
-                die();
-            }
-        }
-    }
-
-    /**
-     * Retourne le contenu des champs decrits dans le fichier
-     *
-     * @param string $nomImport
-     * @return array
-     */
-    function getListeColonne()
-    {
-        return $this->descriptionImport;
-    }
-
-    /**
-     * Ouvre le fichier specifie
-     *
-     * @param array $nomFichier
-     * @param string $separateur
-     */
-    function ouvrirFichier($nomFichier, $separateur = "")
-    {
-        if ($this->typeFichier == "csv") {
+        if ($this->handle = fopen($filename, 'r')) {
+            $data = $this->readLine();
+            $range = 0;
             /*
-             * Reformatage du separateur, le cas echeant
+             * Preparation des entetes
              */
-            if (strlen($separateur) == 0) {
-                /*
-                 * Recherche du separateur defini dans le fichier de parametres
-                 */
-                if (strlen($this->separateur) > 0) {
-                    $separateur = $this->separateur;
+            for ($range = 0; $range < count($data); $range ++) {
+                if (in_array($data[$range], $fields) ) {
+                    $this->header[$range] = $data[$range] ;
                 } else {
-                    $separateur = ",";
+                    throw new ImportException(sprintf(_("%s n'est pas un champ reconnu utilisable lors de l'importation"),$data[$range]));
                 }
             }
-            
-            if ($separateur == "tab") {
-                $separateur = "\t";
-            } elseif ($separateur == "virgule") {
-                $separateur = ",";
-            } elseif ($separateur == "point") {
-                $separateur = ".";
-            }
-            $this->separateur = $separateur;
-            $this->handle = fopen($nomFichier, 'r');
-            $this->currentRow = 1;
-            if ($this->handle) {
-                return true;
-            } else {
-                return false;
-            }
-        } elseif ($this->typeFichier == "xls") {
-            $this->spreadsheet->read($nomFichier, 'r');
-            $this->nbCols = $this->spreadsheet->sheets[0]['numCols'];
-            $this->nbRows = $this->spreadsheet->sheets[0]['numRows'];
-            $this->currentRow = $this->ligneDebut;
-            if ($this->nbRows > 0) {
-                return true;
-            } else {
-                return false;
-            }
+        } else {
+            throw new ImportException(sprintf(_("Fichier %s non trouvé ou non lisible"),$filename));
         }
     }
 
     /**
-     * Ferme le fichier
+     * Lit une ligne dans le fichier
+     *
+     * @return array|NULL
      */
-    function fermerFichier()
+    function readLine()
     {
         if ($this->handle) {
-            fclose($this->handle);
-        }
-    }
-
-    /**
-     * Retourne la premiere ligne a partir de laquelle le traitement doit etre realise
-     *
-     * @return int
-     */
-    function getLigneDebut()
-    {
-        return $this->ligneDebut;
-    }
-
-    /**
-     * Retourne le contenu de la ligne courante
-     *
-     * @return <array, boolean>
-     */
-    function getLigneCourante()
-    {
-        if ($this->typeFichier == "csv") {
-            $data = $this->getDataCsv();
-        } elseif ($this->typeFichier == "xls") {
-            $data = $this->getDataXls();
-        }
-        if ($this->utf8encode == 1) {
-            /*
-             * Encodage en utf8 des donnees textes
-             */
-            foreach ($data as $key => $value) {
-                if (is_string($value)) {
+            $data = fgetcsv($this->handle, 0, $this->separator);
+            if ($data !== false && $this->utf8_encode) {
+                foreach ($data as $key => $value) {
                     $data[$key] = utf8_encode($value);
                 }
             }
-        }
-        return $data;
-    }
-
-    /**
-     * Retourne le contenu de la ligne courante, dans le cas d'un fichier xls
-     *
-     * @return array, boolean
-     */
-    function getDataXls()
-    {
-        if ($this->currentRow < $this->nbRows) {
-            $data = array();
-            for ($i = 0; $i <= $this->nbCols; $i ++) {
-                $data[$i] = $this->spreadsheet->sheets[0]['cells'][$this->currentRow][$i + 1];
-            }
-            $this->currentRow ++;
             return $data;
         } else {
             return false;
@@ -213,78 +99,32 @@ class Import
     }
 
     /**
-     * Recupere les donnees au format CSV pour l'enregistrement courant
+     * lit le fichier csv, et le retourne sous forme de tableau associatif
+     * 
+     * @return mixed[][]
      */
-    function getDataCsv()
+    function getContentAsArray()
+    {
+        $data = array();
+        $nb = count($this->header);
+        while (($line = $this->readLine()) !== false) {
+            $dl = array();
+            for ($i = 0; $i < $nb; $i ++) {
+                $dl[$this->header[$i]] = $line[$i];
+            }
+            $data[] = $dl;
+        }
+        return $data;
+    }
+
+    /**
+     * Ferme le fichier
+     */
+    function fileClose()
     {
         if ($this->handle) {
-            /*
-             * Lecture "a vide" des premieres lignes du fichier
-             */
-            $j = $this->currentRow;
-            for ($i = $j; $i < $this->ligneDebut; $i ++) {
-                $data = fgetcsv($this->handle, 1000, $this->separateur);
-                $this->currentRow ++;
-            }
-            
-            /*
-             * Lecture de la ligne a importer
-             */
-            $data = fgetcsv($this->handle, 1000, $this->separateur);
-            $this->currentRow ++;
-            return $data;
+            fclose($this->handle);
         }
-    }
-
-    /**
-     * Initialise l'export CSV
-     *
-     * @param string $nomFichierExport
-     * @param string $separateur
-     */
-    function exportCSVinit($nomFichierExport, $separateur = ",")
-    {
-        $this->nomFichierExport = $nomFichierExport . "-" . date($_SESSION["MASKDATEEXPORT"]) . ".csv";
-        if ($separateur == "tab") {
-            $separateur = "\t";
-        }
-        $this->separateurExport = $separateur;
-    }
-
-    /**
-     * Ecrit une ligne dans le fichier CSV
-     *
-     * @param array $data
-     */
-    function setLigneCSV($tableau)
-    {
-        foreach ($tableau as $data) {
-            if (strlen($this->fichierExport) > 0) {
-                $this->fichierExport .= "\n";
-            }
-            $nbItem = count($data);
-            $compteur = 1;
-            foreach ($data as $value) {
-                $this->fichierExport .= $value;
-                if ($compteur < $nbItem) {
-                    $this->fichierExport .= $this->separateurExport;
-                }
-                $compteur ++;
-            }
-        }
-    }
-
-    /**
-     * Declenche l'envoi du fichier CSV au navigateur
-     */
-    function exportCSV()
-    {
-        header("content-type: text/csv");
-        header('Content-Disposition: attachment; filename="' . $this->nomFichierExport . '"');
-        header('Pragma: no-cache');
-        header('Cache-Control:must-revalidate, post-check=0, pre-check=0');
-        header('Expires: 0');
-        echo $this->fichierExport;
     }
 }
 ?>

@@ -26,11 +26,10 @@ header("X-Frame-Options: SAMEORIGIN");
 ini_set("session.use_strict_mode", true);
 ini_set('session.gc_probability', 1);
 ini_set('session.gc_maxlifetime', $APPLI_session_ttl);
-
 /**
- * Integration de SMARTY
+ * Integration of external libraries
  */
-require_once "vendor/smarty/smarty/libs/Smarty.class.php";
+require_once "vendor/autoload.php";
 /**
  * Integration de la classe ObjetBDD et des scripts associes
  */
@@ -40,6 +39,12 @@ if ($APPLI_utf8) {
     $ObjetBDDParam["UTF8"] = true;
 }
 $ObjetBDDParam["codageHtml"] = false;
+
+/**
+ * Recuperation de la classe de gestion des logs
+ */
+require_once 'framework/log/log.class.php';
+
 /**
  * Integration de la classe gerant la navigation dans les modules
  */
@@ -248,10 +253,10 @@ if (!isset($bdd)) {
                     break;
             }
         } else {
-            $message->set(_("Echec de connexion à la base de données de gestion des droits (GACL)"));
+            $message->set(_("Echec de connexion à la base de données de gestion des droits (GACL)"),true);
         }
     } else {
-        $message->set(_("Echec de connexion à la base de données principale"));
+        $message->set(_("Echec de connexion à la base de données principale"),true);
     }
 }
 /*
@@ -265,7 +270,7 @@ $log = new Log($bdd_gacl, $ObjetBDDParam);
 if (time() - $_SESSION['ABSOLUTE_START'] > $APPLI_absolute_session) {
     $log->setLog($_SESSION["login"], "disconnect-absolute-time");
     $identification->disconnect($APPLI_address);
-    $message->set(_("Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"));
+    $message->set(_("Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"),true);
     /*
      * Desactivation du cookie d'identification deja charge le cas echeant
      */

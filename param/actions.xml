@@ -1,8 +1,5 @@
 <navigation>
-	<model action="index.php" droits="gestion" retourko="model" retourlogin="1"
-		retourok="model" loginrequis="1" 
-		 param="param1" type="html|ajax|pdf|csv|ws" droitko="droitko" modulebefore="module1,module2">
-	</model>
+	<model action="index.php" param="list|display|change|write|delete|..." droits="gestion" retourko="model" retourlogin="1" retourok="model" loginrequis="1" type="html|smarty|ajax|pdf|csv|binaire" droitko="droitko" modulebefore="module1,module2" requiredVar="table_id" maxCountByHour="60" maxCountByDay="600"/>
 	<default action="framework/default.php" type="smarty" ></default>
 	<droitko action="framework/droitko.php" type="smarty" ></droitko>
 	<droits menudroits="admin" droits="admin" menulevel="0" menuorder="7" menuvalue="14" menutitle="15" />
@@ -14,6 +11,7 @@
 	<loginDelete action="framework/identification/login.php" param="delete" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange"/>
 	<loginChangePassword action="framework/identification/login.php" param="changePassword" loginrequis="1"  type="smarty" />
 	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" retourok="default" modulebefore="loginChangePassword" />
+	<getLastConnections action="framework/log/log.php" param="getLastConnections" loginrequis="1" type="smarty"/>
 	<loginGetToken action="framework/identification/login.php" param="getTokenWS" droits="admin" type="ajax"/>
 
 	<administration action="modules/administration/index.php" droits="admin"

@@ -9,10 +9,9 @@ $(document).ready(function() {
  * 
  * @returns {String}
  */
-function GeneratePassword() {
-
-	var length = 10;
+function GeneratePassword(length) {
 	var sPassword = "";
+	console.log(length);
 	// length =
 	// document.aForm.charLen.options[document.aForm.charLen.selectedIndex].value;
 
@@ -50,12 +49,12 @@ function getRandomNum() {
 }
 
 function checkPunc(num) {
-	if (((num >= 33) && (num <= 47)) || ((num >= 58) && (num <= 64))) {
+	if (num == 33 || ((num >= 35) && (num <= 47)) || ((num >= 58) && (num <= 64))) {
 		return true;
 	}
-	if (((num >= 91) && (num <= 96)) || ((num >= 123) && (num <= 126))) {
+	/*if (((num >= 91) && (num <= 96)) || ((num >= 123) && (num <= 126))) {
 		return true;
-	}
+	}*/
 	return false;
 }
 
@@ -118,8 +117,8 @@ function verifyLength(password) {
  * Fin de la fonction de generation aleatoire d'un mot de passe
  */
 
-function getPassword(password1, password2, display) {
-	sPassword = GeneratePassword();
+function getPassword(password1, password2, display, length) {
+	sPassword = GeneratePassword(length);
 	document.getElementById(password1).value = sPassword;
 	document.getElementById(password2).value = sPassword;
 	document.getElementById(display).value = sPassword;

@@ -4,7 +4,6 @@ Couleurs IRSTEA :
 marine : 	#003A80; rgb(0,58,128)
 ocean:		#009EE0; rgb(0,158,224)
 prairie :	#A4C400; rgb(164,196,0)
-brique :    #D1041D; rgb(209,4,29)
 */
 /* Wrapper for page content to push down footer */
 html,
@@ -13,7 +12,7 @@ body {
 }
 @media (max-width: 991px) {
     .form-control, .btn, li, ul, .dropdown-menu, .center-block, 
-    #message, label, div {font-size: 1.1em;},
+    #message, label, div {font-size: 1.1em;}
 	
 }
 @media (max-width: 991px) {
@@ -48,7 +47,7 @@ body {
 }
 
 .red {
-	color: #D1041D;
+	color: #78041D;
 }
 .blue {
 	color: #003A80;;
@@ -61,7 +60,7 @@ body {
 	color: #003A80;
 }
 .messageError {
-	color: #D1041D;
+	color: #78041D;
 }
 /* italique gris petit*/
 .messagebas {
@@ -89,6 +88,10 @@ legend {
 	background-color: rgba(0,158,224, 0.3);
 }
 
+
+.form-display dt {
+	white-space: pre-wrap;
+}
 .form-display dd {
 	word-wrap: break-word;
 	border-style: solid;
@@ -99,6 +102,7 @@ legend {
 }
 .form-display > row > label {
 	text-align: right;
+	word-wrap: break-word;
 }
 .display {
 	word-wrap: break-word;
@@ -151,7 +155,8 @@ legend {
 .map {
 	/*Affichage des cartes OSM*/
 	width: 100%;
-	height: 400px;
+	min-height: 400px;
+	height: 80%;
 }
 
 .scrolltotop {
@@ -168,6 +173,11 @@ legend {
   white-space: pre-wrap;
 }
 
+td a {
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
 /* Affichage de la structure de la base de donnees */
 .tablename {
 	background: #003A80;
@@ -177,3 +187,33 @@ legend {
 .tablecomment {
 	color:#009EE0;
 }
+
+meter {
+	/* Reset the default appearance */
+	-webkit-appearance: none;
+		 -moz-appearance: none;
+					appearance: none;
+					
+	margin: 0 auto 1em;
+	width: 100%;
+	height: .5em;
+	
+	/* Applicable only to Firefox */
+	background: none;
+	background-color: rgba(0,0,0,0.1);
+}
+
+meter::-webkit-meter-bar {
+	background: none;
+	background-color: rgba(0,0,0,0.1);
+}
+
+meter[value="1"]::-webkit-meter-optimum-value { background: red; }
+meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
+meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
+meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+
+meter[value="1"]::-moz-meter-bar { background: red; }
+meter[value="2"]::-moz-meter-bar { background: yellow; }
+meter[value="3"]::-moz-meter-bar { background: orange; }
+meter[value="4"]::-moz-meter-bar { background: green; }

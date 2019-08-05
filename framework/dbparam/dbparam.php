@@ -26,10 +26,10 @@ switch ($t_module["param"]) {
         } catch (Exception $e) {
             if ($OBJETBDD_debugmode > 0) {
                 foreach ($dataClass->getErrorData(1) as $messageError) {
-                    $message->set($messageError);
+                    $message->set($messageError,true);
                 }
             } else {
-                $message->set(_("Problème lors de la mise en fichier..."));
+                $message->set(_("Problème lors de la mise en fichier..."),true);
             }
             $message->setSyslog($e->getMessage());
             $module_coderetour = -1;

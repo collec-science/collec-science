@@ -45,6 +45,12 @@ switch ($t_module["param"]) {
         $vue->htmlVars[] = "data";
 
         break;
+    case "schema":
+        $vue->setParam(
+            array(
+                "tmp_name" => 'database/filo.png',
+                "filename" => "filo-science.png"
+            )
+        );
+        break;
 }
-
-?>

@@ -21,7 +21,7 @@
 
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{t}Enregistrer{/t}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
  </div>
 </form>
 	

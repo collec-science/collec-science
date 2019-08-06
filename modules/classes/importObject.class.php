@@ -13,16 +13,13 @@
  *        
  */
 class FichierException extends Exception
-{
-}
+{ }
 
 class HeaderException extends Exception
-{
-}
+{ }
 
 class ImportObjectException extends Exception
-{
-}
+{ }
 
 /**
  * Classe realisant l'import
@@ -334,7 +331,7 @@ class ImportObject
                  */
                 try {
                     $sample_uid = $this->sample->ecrire($dataSample);
-                    
+
                     /*
                      * Traitement des identifiants complementaires
                      */
@@ -585,7 +582,7 @@ class ImportObject
                 $retour["code"] = false;
                 $retour["message"] .= _("Le type d'échantillon n'est pas connu.");
             }
-            
+
             /*
              * Verification du statut
              */
@@ -647,19 +644,19 @@ class ImportObject
                      * Verification du format de date
                      */
                     $result = date_parse_from_format($_SESSION["MASKDATE"], $data[$fieldDate]);
-                    if ($result["warning_count"] > 0) {
+                    if ($result["warning_count"] > 0 || $result["error_count"] > 0) {
                         /*
                          * Test du format general
                          */
                         $result1 = date_parse($data[$fieldDate]);
-                        if ($result1["warning_count"] > 0) {
+                        if ($result1["warning_count"] > 0 || $result1["error_count"] > 0) {
                             $retour["code"] = false;
                             $retour["message"] .= sprintf(_("Le format de date de %s n'est pas reconnu."), $fieldDate);
                         }
                     }
                 }
             }
-            
+
             /*
              * Verification des metadonnees
              * Elles doivent correspondre a celles definies dans l'operation
@@ -742,7 +739,7 @@ class ImportObject
                 $retour["message"] .= sprintf(_("L'UID du contenant parent (%s) n'existe pas. "), $data["container_parent_uid"]);
             }
         }
-        
+
         /*
          * Verification des champs numeriques
          */
@@ -889,7 +886,7 @@ class ImportObject
             if (count($metadata) > 0) {
                 $dataSample["metadata"] = json_encode($metadata);
             }
-            
+
             /*
              * Declenchement de l'ecriture en base
              */
@@ -929,4 +926,3 @@ class ImportObject
         }
     }
 }
-?>

@@ -78,7 +78,7 @@ $(document).ready( function() {
 <label for="metadata_id"  class="control-label col-md-4">{t}Modèle de métadonnées rattaché à l'étiquette :{/t}</label>
 <div class="col-md-8">
 <select id="metadata_id" name="metadata_id" class="form-control" >
-<option value="" {if $data.metadata_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+<option value="" {if $data.metadata_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 {foreach $metadata as $value}
 <option value="{$value.metadata_id}" {if $value.metadata_id == $data.metadata_id}selected{/if}>
 {$value.metadata_name}

@@ -216,7 +216,7 @@ $(document).ready(function () {
 			<label for="sample_type_id" class="col-md-2 control-label">{t}Type :{/t}</label>
 			<div class="col-md-4">
 				<select id="sample_type_id" name="sample_type_id" class="form-control combobox">
-				<option value="" {if $sampleSearch.sample_type_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+				<option value="" {if $sampleSearch.sample_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 				{section name=lst loop=$sample_type}
 				<option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $sampleSearch.sample_type_id}selected{/if} title="{$sample_type[lst].sample_type_description}">
 				{$sample_type[lst].sample_type_name}
@@ -231,7 +231,7 @@ $(document).ready(function () {
 		<label for="sampling_place_id" class="col-md-2 control-label">{t}Lieu de prélèvement :{/t}</label>
 		<div class="col-md-2">
 			<select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
-			<option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+			<option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 			{section name=lst loop=$samplingPlace}
 			<option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $sampleSearch.sampling_place_id}selected{/if}>
 			{if strlen({$samplingPlace[lst].sampling_place_code}) > 0}
@@ -245,7 +245,7 @@ $(document).ready(function () {
 		<label for="movement_reason_id" class="col-md-2 control-label">{t}Motif de déstockage :{/t}</label>
 		<div class="col-md-2">
 			<select id="movement_reason_id" name="movement_reason_id" class="form-control">
-				<option value="" {if $sampleSearch.movement_reason_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+				<option value="" {if $sampleSearch.movement_reason_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 				{section name=lst loop=$movementReason}
 					<option value="{$movementReason[lst].movement_reason_id}" {if $movementReason[lst].movement_reason_id == $sampleSearch.movement_reason_id}selected{/if}>
 						{$movementReason[lst].movement_reason_name}
@@ -256,7 +256,7 @@ $(document).ready(function () {
 		<label for="object_status_id" class="col-md-2 control-label">{t}Statut :{/t}</label>
 		<div class="col-md-2">
 			<select id="object_status_id" name="object_status_id" class="form-control">
-			<option value="" {if $sampleSearch.object_status_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+			<option value="" {if $sampleSearch.object_status_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 			{section name=lst loop=$objectStatus}
 			<option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id == $sampleSearch.object_status_id}selected{/if}>
 			{$objectStatus[lst].object_status_name}
@@ -271,7 +271,7 @@ $(document).ready(function () {
 			<label for="select_date" class="col-md-2 control-label">{t}Recherche par date :{/t}</label>
 			<div class="col-md-2">
 				<select class="form-control" id="select_date" name="select_date">
-				<option value="" {if $sampleSearch.select_date == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+				<option value="" {if $sampleSearch.select_date == ""}selected{/if}>{t}Choisissez...{/t}</option>
 				<option value="cd" {if $sampleSearch.select_date == "cd"}selected{/if}>{t}Date de création dans la base{/t}</option>
 				<option value="sd" {if $sampleSearch.select_date == "sd"}selected{/if}>{t}Date d'échantillonnage{/t}</option>
 				<option value="ed" {if $sampleSearch.select_date == "ed"}selected{/if}>{t}Date d'expiration{/t}</option>

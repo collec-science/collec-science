@@ -97,7 +97,7 @@ function testScan() {
     		.done (function( d ) {
    				if (d ) {
     				d = JSON.parse(d);
-    				options = '<option value="">{t}Sélectionnez...{/t}</option>';			
+    				options = '<option value="">{t}Choisissez...{/t}</option>';			
     				 for (var i = 0; i < d.length; i++) {
     				        options += '<option value="'+d[i].sampling_place_id + '"';
     				        if (d[i].sampling_place_id == sampling_place_init ) {

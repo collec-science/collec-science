@@ -176,7 +176,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 <label for="container_family_id" class="control-label col-md-4"><span class="red">*</span> {t}Famille :{/t}</label>
 <div class="col-md-8">
 <select id="container_family_id" name="container_family_id" class="form-control">
-<option value="" {if $data.container_family_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+<option value="" {if $data.container_family_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 {section name=lst loop=$containerFamily}
 <option value="{$containerFamily[lst].container_family_id}" {if $data.container_family_id == $containerFamily[lst].container_family_id}selected{/if}>
 {$containerFamily[lst].container_family_name}

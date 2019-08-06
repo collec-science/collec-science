@@ -40,7 +40,7 @@
 				<label for="movement_reason_id" class="control-label col-sm-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-sm-8">
 					<select id="movement_reason_id" name="movement_reason_id">
-					<option value="" {if $data.movement_reason_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+					<option value="" {if $data.movement_reason_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 					{section name=lst loop=$movementReason}
 					<option value="{$movementReason[lst].movement_reason_id}" {if $data.movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
 					{$movementReason[lst].movement_reason_name}

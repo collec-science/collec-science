@@ -140,7 +140,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 <label for="container_family_id" class="control-label col-md-4">{t}ou recherchez :{/t}</label>
 <div class="col-md-8">
 <select id="container_family_id" name="container_family_id" class="form-control">
-<option value="" {if $data.container_family_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+<option value="" {if $data.container_family_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 {section name=lst loop=$containerFamily}
 <option value="{$containerFamily[lst].container_family_id}" {if $data.container_family_id == $containerFamily[lst].container_family_id}selected{/if}>
 {$containerFamily[lst].container_family_name}
@@ -195,7 +195,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 				<label for="movement_reason_id" class="control-label col-sm-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-sm-8">
 					<select id="movement_reason_id" name="movement_reason_id">
-					<option value="" {if $data.movement_reason_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+					<option value="" {if $data.movement_reason_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 					{section name=lst loop=$movementReason}
 					<option value="{$movementReason[lst].movement_reason_id}" {if $data.movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
 					{$movementReason[lst].movement_reason_name}

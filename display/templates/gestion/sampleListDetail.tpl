@@ -251,7 +251,7 @@
 		<input type="hidden" name="lastModule" value="{$lastModule}">
 		<input type="hidden" name="uid" value="{$data.uid}">
 		<select id="checkedAction">
-		<option value="" selected>{t}Sélectionnez{/t}</option>
+		<option value="" selected>{t}Choisissez{/t}</option>
 		<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
 		<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
 		<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>

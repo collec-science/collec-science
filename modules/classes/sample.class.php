@@ -162,7 +162,21 @@ class Sample extends ObjetBDD
             $uid = $object->ecrire($data);
             if ($uid > 0) {
                 $data["uid"] = $uid;
-                if (parent::ecrire($data) > 0) {
+                if (parent::ecrire($data) > 0 && strlen($data["metadata"])>0) {
+                    /**
+                     * Recherche des échantillons derives pour mise a jour 
+                     * des metadonnees
+                     */
+                    $childs = $this->getSampleassociated($uid);
+                    $md = json_decode($data["metadata"],true);
+                    foreach ($childs as $child) {
+                        $cmd = json_decode($child["metadata"], true);
+                        foreach ($md as $k=>$v) {
+                            $cmd[$k]= $v;
+                        }
+                        $child["metadata"] = json_encode($cmd);
+                        $this->ecrire($child);
+                    }
                     return $uid;
                 } else {
                     $error = true;

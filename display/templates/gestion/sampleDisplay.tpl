@@ -49,6 +49,11 @@
 <img src="{$display}/images/new.png" height="25">
 {t}Nouvel échantillon{/t}
 </a>
+&nbsp;
+<a href="index.php?module=sampleChange&uid=0&last_sample_id={$data.uid}&is_duplicate=1" title="{t}Nouvel échantillon avec duplication des informations, dont le parent{/t}">
+	<img src="{$display}/images/copy.png" height="25">
+	{t}Dupliquer{/t}
+	</a>
 {if $modifiable == 1}
 &nbsp;
 <a href="index.php?module=sampleChange&uid={$data.uid}">

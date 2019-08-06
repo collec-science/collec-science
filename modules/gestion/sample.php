@@ -170,11 +170,12 @@ switch ($t_module["param"]) {
                 }
             } else {
 
-                if ($data["sample_id"] == 0 && $_SESSION["last_sample_id"] > 0) {
+                if ($data["sample_id"] == 0 && ($_SESSION["last_sample_id"] > 0 || $_REQUEST["last_sample_id"] > 0)) {
+                    $_REQUEST["last_sample_id"] > 0 ? $lid = $_REQUEST["last_sample_id"] : $lid = $_SESSION["last_sample_id"];
                     /*
                      * Recuperation des dernieres donnees saisies
                      */
-                    $dl = $dataClass->lire($_SESSION["last_sample_id"]);
+                    $dl = $dataClass->lire($lid);
                     $data["wgs84_x"] = $dl["wgs84_x"];
                     $data["wgs84_y"] = $dl["wgs84_y"];
                     $data["collection_id"] = $dl["collection_id"];
@@ -183,7 +184,16 @@ switch ($t_module["param"]) {
                     $data["sampling_place_id"] = $dl["sampling_place_id"];
                     $data["metadata"] = $dl["metadata"];
                     $data["multiple_value"] = $dl["multiple_value"];
+                    $data["expiration_date"] = $dl["expiration_date"];
                     $data["referent_id"] = $dl["referent_id"];
+                    if ($_REQUEST["is_duplicate"] == 1) {
+                        $data["parent_sample_id"] = $dl["parent_sample_id"];
+                        $data["sample_type_id"] = $dl["sample_type_id"];
+                        if ($data["parent_sample_id"] > 0) {
+                            $dataParent = $dataClass->lireFromId($data["parent_sample_id"]);
+                            $vue->set($dataParent, "parent_sample");
+                        }
+                    }
                     $vue->set($data, "data");
                 }
             }

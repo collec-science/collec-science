@@ -1,6 +1,11 @@
 Framework prototypephp © Eric Quinton, 2006-2019
 News
 ============
+Release v3.0.1 - august 2019
+--------------------------
+Fixed bugs:
+- some modules can be called without any delay (example: displaying photos). Attribute noDelayBeforeCall must be added in actions.xml file for concerned modules (file changed: controller.php)
+
 Release v3.0.0 - july 2019
 --------------------------
 This release is compatible with ASVS v4: https://github.com/OWASP/ASVS/raw/master/4.0/OWASP%20Application%20Security%20Verification%20Standard%204.0-en.pdf for level 1 and partially for level 2.

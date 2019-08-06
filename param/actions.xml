@@ -1,5 +1,5 @@
 <navigation>
-	<model action="index.php" param="list|display|change|write|delete|..." droits="gestion" retourko="model" retourlogin="1" retourok="model" loginrequis="1" type="html|smarty|ajax|pdf|csv|binaire" droitko="droitko" modulebefore="module1,module2" requiredVar="table_id" maxCountByHour="60" maxCountByDay="600"/>
+	<model action="index.php" param="list|display|change|write|delete|..." droits="gestion" retourko="model" retourlogin="1" retourok="model" loginrequis="1" type="html|smarty|ajax|pdf|csv|binaire" droitko="droitko" modulebefore="module1,module2" requiredVar="table_id" maxCountByHour="60" maxCountByDay="600" noDelayBeforeCall="1"/>
 	<default action="framework/default.php" type="smarty" ></default>
 	<droitko action="framework/droitko.php" type="smarty" ></droitko>
 	<droits menudroits="admin" droits="admin" menulevel="0" menuorder="7" menuvalue="14" menutitle="15" />
@@ -229,7 +229,7 @@
 	<containerdocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="containerDisplay" />
 	<sampledocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
 	<sampledocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
-	<documentGet action="modules/gestion/document.php" param="get" type="binaire" droits="consult"/>	
+	<documentGet action="modules/gestion/document.php" param="get" type="binaire" droits="consult" noDelayBeforeCall="1"/>	
 
 	<identifierTypeList action="modules/param/identifierType.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
 	<identifierTypeChange action="modules/param/identifierType.php" param="change" droits="param"  retourlogin="1" type="smarty" />

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-beta" last-position="83,1159" last-zoom="1" max-obj-count="52"
+<dbmodel pgmodeler-ver="0.9.2-beta" last-position="0,987" last-zoom="1" max-obj-count="52"
 	 default-schema="public" default-owner="postgres">
 <role name="quinton"
       superuser="true"
@@ -444,7 +444,8 @@ B: bottom, premiere ligne en bas]]></comment>
     s.container_id,
     c.uid AS container_uid,
     s.line_number,
-    s.column_number
+    s.column_number,
+	s.movement_reason_id
    FROM (col.movement s
      LEFT JOIN col.container c USING (container_id))
   WHERE (s.movement_id = ( SELECT st.movement_id
@@ -474,6 +475,9 @@ B: bottom, premiere ligne en bas]]></comment>
 		<type name="integer" length="0"/>
 	</column>
 	<column name="column_number">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="movement_reason_id">
 		<type name="integer" length="0"/>
 	</column>
 	</reference>
@@ -1539,12 +1543,6 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<columns names="uid" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="referent_collection_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.referent" table="col.collection">
-	<columns names="referent_id" ref-type="src-columns"/>
-	<columns names="referent_id" ref-type="dst-columns"/>
-</constraint>
-
 <constraint name="group_projet_aclgroup_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclgroup" table="col.collection_group">
 	<columns names="aclgroup_id" ref-type="src-columns"/>
@@ -1617,28 +1615,16 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<columns names="metadata_id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="container_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.container" table="col.movement">
-	<columns names="container_id" ref-type="src-columns"/>
-	<columns names="container_id" ref-type="dst-columns"/>
+<constraint name="identifier_type_object_identifier_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.identifier_type" table="col.object_identifier">
+	<columns names="identifier_type_id" ref-type="src-columns"/>
+	<columns names="identifier_type_id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="movement_type_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement_type" table="col.movement">
-	<columns names="movement_type_id" ref-type="src-columns"/>
-	<columns names="movement_type_id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="object_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.movement">
+<constraint name="object_object_identifier_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.object_identifier">
 	<columns names="uid" ref-type="src-columns"/>
 	<columns names="uid" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="storage_reason_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement_reason" table="col.movement">
-	<columns names="movement_reason_id" ref-type="src-columns"/>
-	<columns names="movement_reason_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="object_status_object_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
@@ -1653,22 +1639,16 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<columns names="referent_id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="identifier_type_object_identifier_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.identifier_type" table="col.object_identifier">
-	<columns names="identifier_type_id" ref-type="src-columns"/>
-	<columns names="identifier_type_id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="object_object_identifier_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.object_identifier">
-	<columns names="uid" ref-type="src-columns"/>
-	<columns names="uid" ref-type="dst-columns"/>
-</constraint>
-
 <constraint name="protocol_operation_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.protocol" table="col.operation">
 	<columns names="protocol_id" ref-type="src-columns"/>
 	<columns names="protocol_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="referent_collection_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.referent" table="col.collection">
+	<columns names="referent_id" ref-type="src-columns"/>
+	<columns names="referent_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="project_protocol_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
@@ -1737,6 +1717,30 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<columns names="collection_id" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="container_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.container" table="col.movement">
+	<columns names="container_id" ref-type="src-columns"/>
+	<columns names="container_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movement_type_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement_type" table="col.movement">
+	<columns names="movement_type_id" ref-type="src-columns"/>
+	<columns names="movement_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="object_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.movement">
+	<columns names="uid" ref-type="src-columns"/>
+	<columns names="uid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="storage_reason_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement_reason" table="col.movement">
+	<columns names="movement_reason_id" ref-type="src-columns"/>
+	<columns names="movement_reason_id" ref-type="dst-columns"/>
+</constraint>
+
 <constraint name="movement_type_subsample_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement_type" table="col.subsample">
 	<columns names="movement_type_id" ref-type="src-columns"/>
@@ -1747,12 +1751,6 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.sample" table="col.subsample">
 	<columns names="sample_id" ref-type="src-columns"/>
 	<columns names="sample_id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="aclgroup_aclgroup_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclgroup" table="gacl.aclgroup">
-	<columns names="aclgroup_id_parent" ref-type="src-columns"/>
-	<columns names="aclgroup_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="aclaco_aclacl_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
@@ -1771,6 +1769,12 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclappli" table="gacl.aclaco">
 	<columns names="aclappli_id" ref-type="src-columns"/>
 	<columns names="aclappli_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="aclgroup_aclgroup_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclgroup" table="gacl.aclgroup">
+	<columns names="aclgroup_id_parent" ref-type="src-columns"/>
+	<columns names="aclgroup_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="aclgroup_acllogingroup_fk" type="fk-constr" comparison-type="MATCH SIMPLE"

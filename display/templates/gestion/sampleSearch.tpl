@@ -22,6 +22,7 @@ $(document).ready(function () {
 		 if ($("#object_status_id").val() > 1) ok = true;
 		 if ($("#select_date").val().length > 0) ok = true;
 		 if ($("#referent_id").val() > 0) ok = true;
+		 if ($("#movement_reason_id").val() > 0) ok = true;
 		 var mf = $("#metadata_field").val();
 		 if ( mf != null) {
 			 if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -228,7 +229,7 @@ $(document).ready(function () {
 
 	<div class="row">
 		<label for="sampling_place_id" class="col-md-2 control-label">{t}Lieu de prélèvement :{/t}</label>
-		<div class="col-md-4">
+		<div class="col-md-2">
 			<select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
 			<option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
 			{section name=lst loop=$samplingPlace}
@@ -241,8 +242,19 @@ $(document).ready(function () {
 			{/section}
 			</select>
 		</div>
+		<label for="movement_reason_id" class="col-md-2 control-label">{t}Motif de déstockage :{/t}</label>
+		<div class="col-md-2">
+			<select id="movement_reason_id" name="movement_reason_id" class="form-control">
+				<option value="" {if $sampleSearch.movement_reason_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
+				{section name=lst loop=$movementReason}
+					<option value="{$movementReason[lst].movement_reason_id}" {if $movementReason[lst].movement_reason_id == $sampleSearch.movement_reason_id}selected{/if}>
+						{$movementReason[lst].movement_reason_name}
+					</option>
+				{/section}
+			</select>
+		</div>
 		<label for="object_status_id" class="col-md-2 control-label">{t}Statut :{/t}</label>
-		<div class="col-md-4">
+		<div class="col-md-2">
 			<select id="object_status_id" name="object_status_id" class="form-control">
 			<option value="" {if $sampleSearch.object_status_id == ""}selected{/if}>{t}Sélectionnez...{/t}</option>
 			{section name=lst loop=$objectStatus}

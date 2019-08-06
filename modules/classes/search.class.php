@@ -216,7 +216,8 @@ class SearchSample extends SearchParam
             "metadata_field" => "",
             "metadata_value" => "",
             "select_date" => "",
-            "referent_id" => ""
+            "referent_id" => "",
+            "movement_reason_id" => ""
         );
         /*
          * Ajout des dates
@@ -230,7 +231,8 @@ class SearchSample extends SearchParam
             "uid_min",
             "uid_max",
             "sampling_place_id",
-            "referent_id"
+            "referent_id",
+            "movement_reason_id"
         );
         parent::__construct();
     }

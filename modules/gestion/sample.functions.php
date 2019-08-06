@@ -31,6 +31,9 @@ function sampleInitDatEntry()
     include_once 'modules/classes/referent.class.php';
     $referent = new Referent($bdd, $ObjetBDDParam);
     $vue->set($referent->getListe(2), "referents");
+    include_once 'modules/classes/movementReason.class.php';
+    $mv = new MovementReason($bdd, $ObjetBDDParam);
+    $vue->set($mv->getListe(2), "movementReason");
 }
 
 /**

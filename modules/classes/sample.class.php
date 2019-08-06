@@ -407,6 +407,14 @@ class Sample extends ObjetBDD
             $and = " and ";
         }
         /*
+         * Recherche sur le motif de destockage
+         */
+        if ($param["movement_reason_id"] > 0) {
+            $where .= $and. " movement_reason_id = :movement_reason_id";
+            $data["movement_reason_id"] = $param["movement_reason_id"];
+            $and = " and ";
+        }
+        /*
          * Fin de traitement des criteres de recherche
          */
         if ($where == "where") {

@@ -39,47 +39,60 @@
 	});
 </script>
 
-<h2>{t}Détail de l'échantillon{/t} {$data.uid} {$data.identifier}</h2>
+<h2>{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i></h2>
 <div class="row">
-<div class="col-md-12">
-<a href="index.php?module={$moduleListe}"><img src="display/images/list.png" height="25">{t}Retour à la liste{/t}</a>
-{if $droits.gestion == 1}
-&nbsp;
-<a href="index.php?module=sampleChange&uid=0">
-<img src="display/images/new.png" height="25">
-{t}Nouvel échantillon{/t}
-</a>
-&nbsp;
-<a href="index.php?module=sampleChange&uid=0&last_sample_id={$data.uid}&is_duplicate=1" title="{t}Nouvel échantillon avec duplication des informations, dont le parent{/t}">
-	<img src="display/images/copy.png" height="25">
-	{t}Dupliquer{/t}
-	</a>
-{if $modifiable == 1}
-&nbsp;
-<a href="index.php?module=sampleChange&uid={$data.uid}">
-<img src="display/images/edit.gif" height="25">{t}Modifier{/t}
-</a>
-{/if}
-<!-- Entrée ou sortie -->
-<span id="input">
-<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="{t}Entrer ou déplacer l'échantillon dans un contenant{/t}">
-<img src="display/images/input.png" height="25">{t}Entrer ou déplacer...{/t}
-</a>
-</span>
+	<div class="col-md-12">
+		<a href="index.php?module={$moduleListe}">
+			<img src="display/images/list.png" height="25">
+			{t}Retour à la liste{/t}
+		</a>
+		{if $droits.gestion == 1}
+			&nbsp;
+			<a href="index.php?module=sampleChange&uid=0">
+				<img src="display/images/new.png" height="25">
+				{t}Nouvel échantillon{/t}
+			</a>
+			&nbsp;
+			<a href="index.php?module=sampleChange&uid=0&last_sample_id={$data.uid}&is_duplicate=1" title="{t}Nouvel échantillon avec duplication des informations, dont le parent{/t}">
+				<img src="display/images/copy.png" height="25">
+				{t}Dupliquer{/t}
+				</a>
+			{if $modifiable == 1}
+				&nbsp;
+				<a href="index.php?module=sampleChange&uid={$data.uid}">
+					<img src="display/images/edit.gif" height="25">
+					{t}Modifier{/t}
+				</a>
+			{/if}
+			<!-- Entrée ou sortie -->
+			<span id="input">
+				<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="{t}Entrer ou déplacer l'échantillon dans un contenant{/t}">
+					<img src="display/images/input.png" height="25">
+					{t}Entrer ou déplacer...{/t}
+				</a>
+			</span>
 
-<span id="output">
-<a href="index.php?module=movementsampleOutput&movement_id=0&uid={$data.uid}" id="output" title="{t}Sortir l'échantillon du stock{/t}">
-<img src="display/images/output.png" height="25">{t}Sortir du stock...{/t}</a></span>
-{/if}
-&nbsp;
-<a href="index.php?module=sampleDisplay&uid={$data.uid}">
-	<img src="display/images/refresh.png" title="{t}Rafraîchir la page{/t}" height="15">
-</a>
+			<span id="output">
+				<a href="index.php?module=movementsampleOutput&movement_id=0&uid={$data.uid}" id="output" title="{t}Sortir l'échantillon du stock{/t}">
+					<img src="display/images/output.png" height="25">
+					{t}Sortir du stock...{/t}
+				</a>
+			</span>
+		{/if}
+		&nbsp;
+		<a href="index.php?module=sampleDisplay&uid={$data.uid}">
+			<img src="display/images/refresh.png" title="{t}Rafraîchir la page{/t}" height="15">
+		</a>
+	</div>
+</div>
 <!-- boite d'onglets -->
 <div class="row">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" >
         <li class="nav-item active">
-            <a class="nav-link" id="tab-detail" data-toggle="tab"  role="tab" aria-controls="nav-detail" aria-selected="true" href="#nav-detail">{t}Détails{/t}</a>
+            <a class="nav-link" id="tab-detail" data-toggle="tab"  role="tab" aria-controls="nav-detail" aria-selected="true" href="#nav-detail">
+				<img src="display/images/zoom.png" height="25">
+				{t}Détails{/t}
+			</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" id="tab-id" href="#nav-id"  data-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
@@ -128,8 +141,6 @@
 	</ul>
 	<div class="tab-content" id="nav-tabContent">
 		<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
-			
-			
 			<div class="form-display col-md-6">
 				{if $droits.gestion == 1}
 					<form method="GET" id="formListPrint" action="index.php">

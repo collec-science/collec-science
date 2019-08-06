@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-beta" last-position="0,987" last-zoom="1" max-obj-count="52"
+<dbmodel pgmodeler-ver="0.9.2-beta" last-position="0,563" last-zoom="1" max-obj-count="52"
 	 default-schema="public" default-owner="postgres">
 <role name="quinton"
       superuser="true"
@@ -793,7 +793,7 @@ Contient les identifiants génériques]]></comment>
 	<role name="postgres"/>
 </sequence>
 
-<table name="protocol" layer="0" collapse-mode="2" max-obj-count="7">
+<table name="protocol" layer="0" collapse-mode="2" max-obj-count="9">
 	<schema name="col"/>
 	<role name="postgres"/>
 	<position x="100" y="680"/>
@@ -817,6 +817,14 @@ Contient les identifiants génériques]]></comment>
 	</column>
 	<column name="collection_id">
 		<type name="integer" length="0"/>
+	</column>
+	<column name="authorization_number">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Number of the prelevement authorization]]></comment>
+	</column>
+	<column name="authorization_date">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Date of the prelevement authorization]]></comment>
 	</column>
 	<constraint name="protocol_pk" type="pk-constr" table="col.protocol">
 		<columns names="protocol_id" ref-type="src-columns"/>

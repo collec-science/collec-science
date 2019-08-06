@@ -1,3 +1,5 @@
+set search_path = col;
+
 DROP VIEW IF EXISTS col.last_movement CASCADE;
 CREATE VIEW col.last_movement
 AS 
@@ -18,3 +20,9 @@ SELECT s.uid,
           WHERE (s.uid = st.uid)
           ORDER BY st.movement_date DESC
          LIMIT 1));
+
+alter table protocol
+add column authorization_number varchar,
+add column authorization_date timestamp;
+comment on column protocol.authorization_number is 'Number of the prelevement authorization';
+comment on column protocol.authorization_date is 'Date of the prelevement authorization';

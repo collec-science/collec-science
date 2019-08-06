@@ -7,8 +7,7 @@
  * Copyright 2016 - All rights reserved
  */
 class ProtocolException extends Exception
-{
-}
+{ }
 
 class Protocol extends ObjetBDD
 {
@@ -42,6 +41,12 @@ class Protocol extends ObjetBDD
             ),
             "collection_id" => array(
                 "type" => 1
+            ),
+            "authorization_number" => array(
+                "type" => 0
+            ),
+            "authorization_date" => array(
+                "type" => 2
             )
         );
         parent::__construct($bdd, $param);
@@ -115,6 +120,7 @@ class Protocol extends ObjetBDD
     function getListe($order = "")
     {
         $sql = "select protocol_id, protocol_name, protocol_version, protocol_year,
+                authorization_number, authorization_date,
 				case when protocol_file is null then 0 else 1 end as has_file,
                 collection_name
 				from protocol
@@ -149,4 +155,3 @@ class Protocol extends ObjetBDD
         return $retour;
     }
 }
-?>

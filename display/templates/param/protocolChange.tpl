@@ -58,6 +58,18 @@ $(document).ready(function () {
 </select>
 </div>
 </div>
+<div class="form-group">
+      <label for="authorization_number"  class="control-label col-md-4">{t}N° de l'autorisation de prélèvement :{/t}</label>
+      <div class="col-md-8">
+            <input id="authorization_number" class="form-control" name="authorization_number" value="{$data.authorization_number}" >
+      </div>
+</div>
+<div class="form-group">
+      <label for="authorization_date"  class="control-label col-md-4">{t}Date de l'autorisation de prélèvement :{/t}</label>
+      <div class="col-md-8">
+            <input id="authorization_date" class="form-control datepicker" name="authorization_date" value="{$data.authorization_date}" >
+      </div>
+</div>
 
 <div class="form-group">
 <label for="protocolFile"  class="control-label col-md-4">{t}Fichier PDF de description :{/t}</label>

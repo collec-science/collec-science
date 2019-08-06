@@ -55,8 +55,8 @@ switch ($t_module["param"]) {
                 }
                 $_REQUEST[$keyName] = $id;
                 $module_coderetour = 1;
+                $bdd->commit();
                 $message->set(_("Enregistrement effectué"));
-                $bdd->commit;
             }
         } catch (Exception $e) {
             $bdd->rollback();

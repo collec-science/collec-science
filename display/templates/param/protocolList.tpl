@@ -15,6 +15,8 @@
 <th>{t}Année{/t}</th>
 <th>{t}Collection de
 rattachement{/t}</th>
+<th>{t}N° de l'autorisation de prélèvement{/t}</th>
+<th>{t}Date de l'autorisation de prélèvement{/t}</th>
 <th>{t}Fichier joint{/t}</th>
 </tr>
 </thead>
@@ -33,6 +35,8 @@ rattachement{/t}</th>
 <td class="center">{$data[lst].protocol_version}</td>
 <td class="center">{$data[lst].protocol_year}</td>
 <td class="center">{$data[lst].collection_name}</td>
+<td class="center">{$data[lst].authorization_number}</td>
+<td class="center">{$data[lst].authorization_date}</td>
 <td class="center">
 {if $data[lst].has_file == 1}
 <a href="index.php?module=protocolFile&protocol_id={$data[lst].protocol_id}">

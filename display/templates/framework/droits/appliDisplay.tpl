@@ -7,7 +7,7 @@
 </h2>
 <div class="col-md-6">
 <a href="index.php?module=appliChange&aclappli_id={$data.aclappli_id}">
-<img src="{$display}/images/edit.gif" height="25">
+<img src="display/images/edit.gif" height="25">
 {t}Modifier...{/t}
 </a>
 <table id="acoliste" class="table table-bordered table-hover datatable">

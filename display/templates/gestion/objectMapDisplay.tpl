@@ -1,12 +1,12 @@
 {* Objets > échantillons > Rechercher > UID d'un échantillon > Modifier > *}
-<script type="text/javascript" charset="utf-8" src="{$display}/javascript/ol-v4.2.0-dist/ol.js"></script>
-<link rel="stylesheet" type="text/css" href="{$display}/javascript/ol-v4.2.0-dist/ol.css">
+<script type="text/javascript" charset="utf-8" src="display/javascript/ol-v4.2.0-dist/ol.js"></script>
+<link rel="stylesheet" type="text/css" href="display/javascript/ol-v4.2.0-dist/ol.css">
 
 <div id="map" class="map"></div>
 {if $mapIsChange == 1}
 <div id="radar">
 <a href="#">
-<img src="{$display}/images/radar.png" height="30">{t}Repérez votre position !{/t}</a></div>
+<img src="display/images/radar.png" height="30">{t}Repérez votre position !{/t}</a></div>
 {/if}
 <script>
 var earth_radius = 6389125.541;

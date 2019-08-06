@@ -90,16 +90,16 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 <div class="row">
 <div class="col-md-6">
 <a href="index.php?module={$moduleListe}">
-<img src="{$display}/images/list.png" height="25">
+<img src="display/images/list.png" height="25">
 {t}Retour à la liste des contenants{/t}
 </a>
 {if $data.uid > 0}
 <a href="index.php?module=containerDisplay&uid={$data.uid}">
-<img src="{$display}/images/box.png" height="25">{t}Retour au détail{/t}
+<img src="display/images/box.png" height="25">{t}Retour au détail{/t}
 </a>
 {elseif $container_parent_uid > 0}
 <a href="index.php?module=containerDisplay&uid={$container_parent_uid}">
-<img src="{$display}/images/box.png" height="25">{t 1=$container_parent_uid 2=$container_parent_identifier }Retour au parent (%1 %2){/t}
+<img src="display/images/box.png" height="25">{t 1=$container_parent_uid 2=$container_parent_identifier }Retour au parent (%1 %2){/t}
 </a>
 {/if}
 

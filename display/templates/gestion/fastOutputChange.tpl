@@ -98,7 +98,7 @@
 			</div>
 		</div>
 		<div class="col-md-6 center">
-			<video id="reader" autoplay width="320" height="240" poster="{$display}/images/webcam.png"></video>
+			<video id="reader" autoplay width="320" height="240" poster="display/images/webcam.png"></video>
 		</div>
 		
 	</fieldset>

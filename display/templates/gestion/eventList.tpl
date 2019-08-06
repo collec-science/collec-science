@@ -2,7 +2,7 @@
 <!-- Liste des événements -->
 {if $droits.gestion == 1}
 <a href="index.php?module={$moduleParent}eventChange&event_id=0&uid={$data.uid}">
-<img src="{$display}/images/new.png" height="25">{t}Nouveau...{/t}
+<img src="display/images/new.png" height="25">{t}Nouveau...{/t}
 </a>
 {/if}
 <table id="eventList" class="table table-bordered table-hover datatable " >

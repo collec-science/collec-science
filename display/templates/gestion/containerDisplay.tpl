@@ -26,49 +26,49 @@ $(document).ready(function() {
 <h2>{t}Détail d'un contenant{/t}</h2>
 <div class="row">
 <div class="col-md-12">
-<a href="index.php?module={$moduleListe}"><img src="{$display}/images/list.png" height="25">{t}Retour à la liste{/t}</a>
+<a href="index.php?module={$moduleListe}"><img src="display/images/list.png" height="25">{t}Retour à la liste{/t}</a>
 {if $droits.gestion == 1}
 &nbsp;
 <a href="index.php?module=containerChange&uid=0">
-<img src="{$display}/images/new.png" height="25">
+<img src="display/images/new.png" height="25">
 {t}Nouveau contenant{/t}
 </a>
 &nbsp;
 <a href="index.php?module=containerChange&uid={$data.uid}">
-<img src="{$display}/images/edit.gif" height="25">{t}Modifier{/t}
+<img src="display/images/edit.gif" height="25">{t}Modifier{/t}
 </a>
 
 <!-- Entrée ou sortie -->
 <span id="input">
 <a href="index.php?module=movementcontainerInput&movement_id=0&uid={$data.uid}" id="input" title="Entrer ou déplacer le contenant dans un autre contenant">
-<img src="{$display}/images/input.png" height="25">{t}Entrer ou déplacer...{/t}
+<img src="display/images/input.png" height="25">{t}Entrer ou déplacer...{/t}
 </a>
 </span>
 
 <span id="output">
 <a href="index.php?module=movementcontainerOutput&movement_id=0&uid={$data.uid}" id="output" title="Sortir le contenant du stock">
-<img src="{$display}/images/output.png" height="25">{t}Sortir du stock...{/t}</a></span>
+<img src="display/images/output.png" height="25">{t}Sortir du stock...{/t}</a></span>
 
 {/if}
 &nbsp;
 <a href="#containers">
-<img src="{$display}/images/box.png" height="25">{t}Contenants présents{/t}
+<img src="display/images/box.png" height="25">{t}Contenants présents{/t}
 </a>
 &nbsp;
 <a href="#echantillons">
-<img src="{$display}/images/sample.png" height="25">{t}Échantillons présents{/t}
+<img src="display/images/sample.png" height="25">{t}Échantillons présents{/t}
 </a>
 &nbsp;
 <a href="#documents">
-<img src="{$display}/images/camera.png" height="25">{t}Documents associés{/t}
+<img src="display/images/camera.png" height="25">{t}Documents associés{/t}
 </a>
 &nbsp;
 <a href="#bookings">
-<img src="{$display}/images/crossed-calendar.png" height="25">{t}Réservations{/t}
+<img src="display/images/crossed-calendar.png" height="25">{t}Réservations{/t}
 </a>
 &nbsp;
 <a href="index.php?module=containerDisplay&uid={$data.uid}">
-<img src="{$display}/images/refresh.png" title="Rafraîchir la page" height="15">
+<img src="display/images/refresh.png" title="Rafraîchir la page" height="15">
 </a>
 </div>
 </div>
@@ -153,7 +153,7 @@ $(document).ready(function() {
 <fieldset class="col-md-8" id="containers">
 <legend>{t}Contenants présents{/t}</legend>
 <a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
-<img src="{$display}/images/new.png" height="25">
+<img src="display/images/new.png" height="25">
 {t}Nouveau contenant associé{/t}
 </a>
 {include file="gestion/containerListDetail.tpl"}

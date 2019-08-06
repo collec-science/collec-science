@@ -46,11 +46,11 @@ $(document).ready( function () {
 <div class="row">
 <div class="col-md-6">
 <a href="index.php?module={$moduleListe}">
-<img src="{$display}/images/list.png" height="25">
+<img src="display/images/list.png" height="25">
 {t}Retour à la liste{/t}
 </a>
 <a href="index.php?module={$moduleParent}Display&uid={$object.uid}">
-<img src="{$display}/images/edit.gif" height="25">
+<img src="display/images/edit.gif" height="25">
 {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
 </a>
 <div class="red" id="overlaps"></div>

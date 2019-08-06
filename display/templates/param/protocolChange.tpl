@@ -83,7 +83,7 @@ $(document).ready(function () {
       {if $data.protocol_id > 0 }
       <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
-      <img id="spinner" src="{$display}/images/spinner.gif" height="25" >
+      <img id="spinner" src="display/images/spinner.gif" height="25" >
  </div>
 </form>
 </div>

@@ -103,12 +103,12 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 <div class="row">
 <div class="col-md-6">
 <a href="index.php?module={$moduleListe}">
-<img src="{$display}/images/list.png" height="25">
+<img src="display/images/list.png" height="25">
 {if $moduleParent == "container"}{t}Retour à la liste des contenants{/t}{else}{t}Retour à la liste des échantillons{/t}{/if}
 </a>
 {if $data.uid > 0}
 <a href="index.php?module={$moduleParent}Display&uid={$data.uid}">
-<img src="{$display}/images/box.png" height="25">
+<img src="display/images/box.png" height="25">
 {t}Retour au détail{/t}
 </a>
 {/if}

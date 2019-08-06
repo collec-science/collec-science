@@ -1,6 +1,6 @@
 {* Paramètres > Lieux de prélèvement > Nouveau > *}
-<script type="text/javascript" charset="utf-8" src="{$display}/javascript/ol-v4.2.0-dist/ol.js"></script>
-<link rel="stylesheet" type="text/css" href="{$display}/javascript/ol-v4.2.0-dist/ol.css">
+<script type="text/javascript" charset="utf-8" src="display/javascript/ol-v4.2.0-dist/ol.js"></script>
+<link rel="stylesheet" type="text/css" href="display/javascript/ol-v4.2.0-dist/ol.css">
 
 <div id="map" class="map"></div>
 <script>

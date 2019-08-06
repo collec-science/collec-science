@@ -1,5 +1,5 @@
 {* Mouvements > Mouvements petit terminal > *}
-<script src="{$display}/bower_components/qcode-decoder/build/qcode-decoder.min.js"></script>
+<script src="display/bower_components/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
 var is_scan = false;
 function testScan() {
@@ -18,7 +18,7 @@ $(document).ready(function() {
 	var destination = "object";
 	var video = document.querySelector("#reader");
 	var is_read = false;
-	var snd = new Audio("{$display}/images/sound.ogg"); 
+	var snd = new Audio("display/images/sound.ogg"); 
     var qr = new QCodeDecoder();
     var timer;
     var timer_duration = 500;
@@ -379,7 +379,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="col-xs-12 col-md-6 center">
-			<video id="reader" autoplay width="320" height="240" poster="{$display}/images/webcam.png"></video>
+			<video id="reader" autoplay width="320" height="240" poster="display/images/webcam.png"></video>
 		</div>
 		
 	</fieldset>

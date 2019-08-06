@@ -16,7 +16,7 @@
 
 			<div class="form-group">
 				<label for="container_uid" class="control-label col-sm-4">
-				<img id="arrow-container" src="{$display}/images/right-arrow.png" height="25">
+				<img id="arrow-container" src="display/images/right-arrow.png" height="25">
 				<span class="red">*</span> {t}UID du contenant :{/t}
 				</label>
 				<div class="col-sm-8" id="container_groupe">
@@ -38,7 +38,7 @@
 
 			<div class="form-group">
 				<label for="object_uid" class="control-label col-sm-4">
-				<img id="arrow-object" src="{$display}/images/right-arrow.png" height="25">
+				<img id="arrow-object" src="display/images/right-arrow.png" height="25">
 				<span class="red">*</span>  {t}UID de l'objet :{/t}
 				</label>
 				<div class="col-sm-8" id="object_groupe">
@@ -142,7 +142,7 @@
 			</div>
 		</div>
 		<div class="col-md-6 center">
-			<video id="reader" autoplay width="320" height="240" poster="{$display}/images/webcam.png"></video>
+			<video id="reader" autoplay width="320" height="240" poster="display/images/webcam.png"></video>
 		</div>
 		
 	</fieldset>

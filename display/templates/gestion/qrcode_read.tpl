@@ -1,11 +1,11 @@
 {* Mouvements > Entrer un échantillon > *}
 <!-- 
-<script src="{$display}/javascript/adapter.js"></script>
+<script src="display/javascript/adapter.js"></script>
 <script
-	src="{$display}/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
-<script src="{$display}/javascript/html5-qrcode.eq.js"></script>
+	src="display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
+<script src="display/javascript/html5-qrcode.eq.js"></script>
  -->
- <script src="{$display}/bower_components/qcode-decoder/build/qcode-decoder.min.js"></script>
+ <script src="display/bower_components/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
 $(document).ready(function() { 
 	'use strict';

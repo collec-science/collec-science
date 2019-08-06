@@ -309,16 +309,16 @@ function testScan() {
 <h2>{t}Création - modification d'un échantillon{/t}</h2>
 <div class="row col-md-12">
 <a href="index.php?module={$moduleListe}">
-<img src="{$display}/images/list.png" height="25">
+<img src="display/images/list.png" height="25">
 {t}Retour à la liste des échantillons{/t}
 </a>
 {if $data.uid > 0}
 <a href="index.php?module=sampleDisplay&uid={$data.uid}">
-<img src="{$display}/images/box.png" height="25">{t}Retour au détail{/t}
+<img src="display/images/box.png" height="25">{t}Retour au détail{/t}
 </a>
 {elseif $sample_parent_uid > 0}
 <a href="index.php?module=sampleDisplay&uid={$sample_parent_uid}">
-<img src="{$display}/images/box.png" height="25">{t}Retour au détail{/t}
+<img src="display/images/box.png" height="25">{t}Retour au détail{/t}
 </a>
 {/if}
 </div>

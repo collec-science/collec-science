@@ -8,8 +8,7 @@
  */
 require_once 'modules/classes/object.class.php';
 class SampleException extends Exception
-{
-}
+{ }
 
 class Sample extends ObjetBDD
 {
@@ -162,32 +161,31 @@ class Sample extends ObjetBDD
             $uid = $object->ecrire($data);
             if ($uid > 0) {
                 $data["uid"] = $uid;
-                if (parent::ecrire($data) > 0 && strlen($data["metadata"])>0) {
-                    /**
-                     * Recherche des échantillons derives pour mise a jour 
-                     * des metadonnees
-                     */
-                    $childs = $this->getSampleassociated($uid);
-                    $md = json_decode($data["metadata"],true);
-                    foreach ($childs as $child) {
-                        $cmd = json_decode($child["metadata"], true);
-                        foreach ($md as $k=>$v) {
-                            $cmd[$k]= $v;
+                if (parent::ecrire($data) > 0) {
+                    if (strlen($data["metadata"]) > 0) {
+                        /*
+                         * Recherche des échantillons derives pour mise a jour 
+                         * des metadonnees
+                         */
+                        $childs = $this->getSampleassociated($uid);
+                        $md = json_decode($data["metadata"], true);
+                        foreach ($childs as $child) {
+                            $cmd = json_decode($child["metadata"], true);
+                            foreach ($md as $k => $v) {
+                                $cmd[$k] = $v;
+                            }
+                            $child["metadata"] = json_encode($cmd);
+                            $this->ecrire($child);
                         }
-                        $child["metadata"] = json_encode($cmd);
-                        $this->ecrire($child);
                     }
                     return $uid;
                 } else {
-                    $error = true;
+                    throw new SampleException(_("Un problème est survenu lors de l'écriture de l'échantillon"));
                 }
             } else {
-                $error = true;
+                throw new SampleException(_("Un problème est survenu lors de l'écriture de l'objet"));
             }
         } else {
-            $error = true;
-        }
-        if ($error) {
             throw new SampleException(_("Vous ne disposez pas des droits pour modifier cet échantillon"));
         }
         return -1;
@@ -424,7 +422,7 @@ class Sample extends ObjetBDD
          * Recherche sur le motif de destockage
          */
         if ($param["movement_reason_id"] > 0) {
-            $where .= $and. " movement_reason_id = :movement_reason_id";
+            $where .= $and . " movement_reason_id = :movement_reason_id";
             $data["movement_reason_id"] = $param["movement_reason_id"];
             $and = " and ";
         }
@@ -724,7 +722,7 @@ class Sample extends ObjetBDD
                 $dataParent = $this->lire($dbuidparent[1]);
             } else {
                 $dataParent = $this->lireParamAsPrepared(
-                    "select sample_id from sample where dbuid_origin = :dbuidorigin", 
+                    "select sample_id from sample where dbuid_origin = :dbuidorigin",
                     array(
                         "dbuidorigin" => $data["dbuid_parent"],
                     )

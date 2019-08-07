@@ -23,6 +23,12 @@ switch ($t_module["param"]) {
             $message->set($e->getMessage());
         }
         break;
+    case "display":
+        $vue->set($dataClass->lire($id), "data");
+        $vue->set(json_decode($data["metadata_schema"], true), "metadata");
+        $vue->set("param/metadataDisplay.tpl", "corps");
+        break;
+
     case "change":
         /*
          * open the form to modify the record
@@ -95,4 +101,3 @@ switch ($t_module["param"]) {
         }
         break;
 }
-?>

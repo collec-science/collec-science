@@ -1,7 +1,6 @@
-{* Objets > échantillons > *}
 <script>
 var sampling_place_init = "{$sampleSearch.sampling_place_id}";
-
+var appli_code ="{$APPLI_code}";
 $(document).ready(function () {
 	var metadataFieldInitial = [];
 	{foreach $sampleSearch.metadata_field as $val}
@@ -13,7 +12,19 @@ $(document).ready(function () {
 	 */
 	 $("#sample_search").submit (function ( event) { 
 		 var ok = false;
-		 if ($("#name").val().length > 0) ok = true;
+		 if ($("#name").val().length > 0) {
+			 ok = true;
+			 try {
+				obj = JSON.parse($("#name").val());
+				if (obj.db.length > 0) {
+					if (obj.db == appli_code) {
+						$("#name").val(obj.uid);
+					} else {
+						$("#name").val(obj.db + ":"+ obj.uid);
+					}
+				}
+			 } catch (error) {}
+		 } 
 		 if ($("#collection_id").val() > 0) ok = true;
 		 if ($("#uid_min").val() > 0) ok = true;
 		 if ($("#uid_max").val() > 0) ok = true;
@@ -164,6 +175,10 @@ $(document).ready(function () {
 			 $("#metadatarow2").show();
 		 }
  });
+ $("#razid").on ("click keyup", function () { 
+	 $("#name").val("");
+	 $("#name").focus();
+ });
 });
 </script>
 
@@ -175,8 +190,11 @@ $(document).ready(function () {
 	<div class="row">
 		<div class="form-group">
 			<label for="name" class="col-md-2 control-label">{t}UID ou identifiant :{/t}</label>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="{t}uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible){/t}">
+			</div>
+			<div class="col-md-1">
+				<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
 			</div>
 			<label for="collection_id" class="col-md-1 control-label">{t}Collection :{/t}</label>
 			<div class="col-md-2">

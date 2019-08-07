@@ -1,14 +1,22 @@
-{* Objets > Contenants > Rechercher > UID d'un contenant > *}
 <script>
-$(document).ready(function() {
+	var appli_code ="{$APPLI_code}";
+	$(document).ready(function() {
+		function sleep(milliseconds) {
+			var start = new Date().getTime();
+			for (var i = 0; i < 1e7; i++) {
+				if ((new Date().getTime() - start) > milliseconds){
+					break;
+				}
+			}
+		}
 		$("#referent_name").click(function() { 
 			var referentName = $(this).text();
 			if (referentName.length > 0) {
 			$.ajax( { 
-    	   		url: "index.php",
-    	    	data: { "module": "referentGetFromName", "referent_name": referentName }
-    	    })
-    	    .done (function (value) {
+				url: "index.php",
+				data: { "module": "referentGetFromName", "referent_name": referentName }
+			})
+			.done (function (value) {
 				value = JSON.parse(value);
 				var newval = value.referent_name + "<br>" + value.referent_email + "<br>" +
 						value.referent_phone + "<br>" + value.address_name + "<br>"
@@ -19,11 +27,84 @@ $(document).ready(function() {
 			});
 			}
 		});
-});
+		$("#open").submit (function ( event) { 
+			/**
+			* Recherche si un container existe
+			*/
+			var form = $(this);
+			var url = "index.php";
+			var uid = $("#search").val();
+			if ($("#search").val().length > 0) {
+			 try {
+				obj = JSON.parse($("#search").val());
+				if (obj.db.length > 0) {
+					if (obj.db == appli_code) {
+						uid = obj.uid;
+						$("#search").val(uid);
+					}
+				}
+			 } catch (error) {
+			 }		 	 
+			 // search for db:uid
+			 var tab = uid.toString().split(":");
+			if (tab.length == 2) {
+				if (tab[0] == appli_code) {
+					uid = tab[1];
+					$("#search").val(uid);
+				}
+			}
+			}
+			$("#spinner").show();
+			var is_container = 1;
+			event.preventDefault();
+			$.ajax ( { 
+				url:url, 
+			method:"GET",
+			//async: "false",
+			//cache: "false", 
+			data : { module:"objectGetDetail", uid:uid, is_container:is_container }, 
+			success : function ( djs ) {
+				try {
+					var data = JSON.parse(djs);
+					console.log(data);
+					if ( data.length > 0 ) {
+						sleep(1000);
+						form.get(0).submit();
+					} else {
+						$("#search").val("");
+						$("#spinner").hide();
+					}
+				} catch (error) {
+					$("#search").val("");
+					$("#spinner").hide();
+				}
+				}
+			} );
+		});
+	});
 </script>
 
+<div class="row">
+	<div class="col-md-8">
+		<h2>{t}Détail du contenant{/t} <i>{$data.uid} {$data.identifier}</i></h2>
+	</div>
+	<div class="col-md-4">
+		<form id="open" action="index.php" action="index.php" method="GET">
+			<input id="moduleBase" type="hidden" name="moduleBase" value="container">
+			<input id="action" type="hidden" name="action" value="Display">
+			<div class="form-group">
+				<div class="col-md-5">
+					<input id="search" class="form-control" placeholder="uid" name="uid" required autofocus>
+				</div>
+				<div class="col-md-1">
+					<img id="spinner" src="display/images/spinner.gif" style="display:none" height="25">
+				</div>
+				<input type="submit" id="searchExec" class="btn btn-warning col-md-6" value="{t}Ouvrir{/t}">
+			</div>
+		</form>
+	</div>
+</div>
 
-<h2>{t}Détail du contenant{/t} <i>{$data.uid} {$data.identifier}</i></h2>
 <div class="row">
 	<div class="col-md-12">
 		<a href="index.php?module={$moduleListe}">

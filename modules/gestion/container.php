@@ -120,6 +120,7 @@ switch ($t_module["param"]) {
         /*
          * Affichage
          */
+        $vue->set($_SESSION["APPLI_code"], "APPLI_code");
         $vue->set("container", "moduleParent");
         $vue->set("gestion/containerDisplay.tpl", "corps");
         include 'modules/gestion/mapInit.php';

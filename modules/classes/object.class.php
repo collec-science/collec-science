@@ -102,7 +102,7 @@ class ObjectClass extends ObjetBDD
      * object_idenfier selectionne pour etre utilise dans les recherches
      *
      * @param int|string $uid
-     * @param number $is_container
+     * @param number $is_container: 0: tout objet, 1: container, 2:sample
      * @param boolean $is_partial
      *            : lance la recherche sur le debut de la chaine
      * @return array
@@ -138,7 +138,7 @@ class ObjectClass extends ObjetBDD
                         or (upper(object_identifier_value) $operator upper (:identifier)
                         and used_for_search = 't')";
             }
-
+            if ($is_container < 2) {
             $sql = "select uid, identifier, wgs84_x, wgs84_y,
 					container_type_name as type_name, movement_type_id as last_movement_type
 					from object 
@@ -148,11 +148,16 @@ class ObjectClass extends ObjetBDD
                     left outer join identifier_type it using (identifier_type_id) 
                     left outer join last_movement using (uid)
                     " . $where;
+            } else {
+                $sql = "";
+            }
+            if ($is_container == 0) {
+                $sql .= " UNION ";
+            }
             if ($is_container != 1) {
                 $where .= " or upper(dbuid_origin) $operator upper(:dbuid_origin)";
                 $data["dbuid_origin"] = $uid;
-                $sql .= " UNION
-					select uid, identifier, wgs84_x, wgs84_y,
+                $sql .= "select uid, identifier, wgs84_x, wgs84_y,
 					sample_type_name as type_name, movement_type_id as last_movement_type
 					from object 
 					join sample using (uid)

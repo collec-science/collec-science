@@ -34,6 +34,7 @@ function sampleInitDatEntry()
     include_once 'modules/classes/movementReason.class.php';
     $mv = new MovementReason($bdd, $ObjetBDDParam);
     $vue->set($mv->getListe(2), "movementReason");
+    $vue->set($_SESSION["APPLI_code"], "APPLI_code");
 }
 
 /**

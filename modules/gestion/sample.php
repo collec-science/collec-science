@@ -112,6 +112,7 @@ switch ($t_module["param"]) {
         if ($is_modifiable) {
             $vue->set(1, "modifiable");
         }
+        $vue->set($_SESSION["APPLI_code"], "APPLI_code");
         /*
          * Recuperation des documents
          */

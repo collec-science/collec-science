@@ -124,6 +124,7 @@
 	<containerGetFromUid action="modules/gestion/container.php" param="getFromUid" droits="consult"  type="ajax" />
 	<containerImportPhase1 action="modules/gestion/container.php" param="importPhase1" droits="import,collection"  type="smarty" retourlogin="1"/>
 	<containerImportPhase2 action="modules/gestion/container.php" param="importPhase2" droits="import,collection"  type="smarty" modulebefore="importPhase1"/>
+	<containerImportStage3 action="modules/gestion/container.php" param="importPhase3" droits="import,collection" type="smarty" retourok="containerImportStage1" retourko="containerImportStage1" modulebefore="containerImportStage2"/>
 
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />

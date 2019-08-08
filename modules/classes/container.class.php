@@ -399,6 +399,10 @@ class Container extends ObjetBDD
     {
         global $APPLI_version;
         $data = array();
+        /** 
+         * Inhibit the date encoding
+         */
+        $this->auto_date = 0;
         /**
          * Add reference of the export
          */
@@ -503,5 +507,72 @@ class Container extends ObjetBDD
             }
         }
         return $names;
+    }
+
+    function importExternal($data, SampleInitClass $sic, $post) {
+
+
+        $refFields = array(
+            "sampling_place_name",
+            "collection_name",
+            "object_status_name",
+            "sample_type_name",
+            "referent_name",
+            "container_type_name"
+        );
+        $object = new ObjectClass($this->connection, $this->param);
+        $dclass = $sic->init(true);
+        foreach ($data as $key=>$row) {
+            if (!in_array($key, array("collec-science_version", "export_version"))) {
+                
+            }
+        }
+    }
+
+    function importContainer($data, $dclass, $sic, $post, $object, $uid_parent = 0) {
+        $staticFields = array("identifier", "wgs84_x", "wgs84_y", "identifiers");
+        $dynamicFields = array ("object_status_name", "referent_name", "container_type_name");
+        $dcontainer = array();
+        foreach ($staticFields as $field) {
+            $dcontainer[$field] = $data[$field];
+        }
+        foreach ($dynamicFields as $field) {
+            if (strlen($data[$field]) > 0) {
+                /*
+                 * Search the value from post data
+                 */
+                $value = $data[$field];
+                /*
+                 * Transformation of spaces in underscore,
+                 * to take into encoding realized by the browser 
+                 */
+                $fieldHtml = str_replace(" ", "_", $value);
+                $newval = $post[$field . "-" . $fieldHtml];
+                /*
+                 * Recherche de la cle correspondante
+                 */
+                $id = $dclass[$field][$newval];
+                if ($id > 0) {
+                    $key = $sic->classes[$field]["id"];
+                    $dcontainer[$key] = $id;
+                }
+            }
+        }
+        /**
+         * Writing the container
+         */
+        $uid = $object->ecrire($data);
+        if ($uid > 0) {
+            $dcontainer["uid"] = $uid;
+            parent::ecrire($dcontainer);
+        }
+        /**
+         * Generate the movement if necessary
+         */
+        if ($uid_parent > 0) {
+            
+        }
+
+
     }
 }

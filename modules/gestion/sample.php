@@ -50,6 +50,12 @@ switch ($t_module["param"]) {
          */
         include 'modules/gestion/label.functions.php';
         break;
+    case "searchAjax":
+        $vue->set($dataClass->sampleSearch($_REQUEST));
+        break;
+    case "getFromId":
+        $vue->set($dataClass->lireFromId($_REQUEST["sample_id"]));
+        break;
     case "display":
         /*
          * Display the detail of the record
@@ -301,7 +307,7 @@ switch ($t_module["param"]) {
         /**
          * Create an event for all selected samples
          */
-        if (count($_POST["uids"])>0) {
+        if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             include_once 'modules/classes/event.class.php';
             $event = new Event($bdd, $ObjetBDDParam);
@@ -337,7 +343,6 @@ switch ($t_module["param"]) {
                 $module_coderetour = -1;
                 $bdd->rollback();
             }
-           
         }
         break;
 

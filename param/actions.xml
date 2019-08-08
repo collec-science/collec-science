@@ -152,6 +152,8 @@
 	
 	<metadataFormGetDetail action="modules/param/sampleType.php" param="getDetailFormAjax"  droits="consult"  type="ajax" />
 	<sampleList action="modules/gestion/sample.php" param="list" droits="consult" retourlogin="1"  type="smarty"  />
+	<sampleSearchAjax action="modules/gestion/sample.php" param="searchAjax" type="ajax" droits="gestion"/>
+	<sampleGetFromIdAjax action="modules/gestion/sample.php" param="getFromId" type="ajax" droits="gestion"/>
 	<sampleDisplay action="modules/gestion/sample.php" param="display" droits="consult"  retourlogin="1" type="smarty" />
 	<sampleChange action="modules/gestion/sample.php" param="change" droits="gestion"  retourlogin="1" type="smarty" />
 	<sampleWrite action="modules/gestion/sample.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleChange" modulebefore="sampleChange" />

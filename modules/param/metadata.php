@@ -24,7 +24,8 @@ switch ($t_module["param"]) {
         }
         break;
     case "display":
-        $vue->set($dataClass->lire($id), "data");
+        $data = $dataClass->lire($id);
+        $vue->set($data, "data");
         $vue->set(json_decode($data["metadata_schema"], true), "metadata");
         $vue->set("param/metadataDisplay.tpl", "corps");
         break;

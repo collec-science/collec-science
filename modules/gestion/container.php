@@ -213,4 +213,14 @@ switch ($t_module["param"]) {
          */
         $vue->set($dataClass->lire($_REQUEST["uid"]));
         break;
+    case "exportGlobal":
+        $data = $dataClass->generateExportGlobal($_REQUEST["uids"]);
+        $vue->setParam(
+            array(
+                "content_type" => "application/json",
+                "filename" => "export-" . date('Y-m-d-His') . ".json"
+            )
+        );
+        $vue->set(json_encode($data));
+        break;
 }

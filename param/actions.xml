@@ -181,6 +181,7 @@
 	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax"  type="ajax" />
 	<containerPrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="containerList"/>
 	<containerExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="containerList"/>
+	<containerExportGlobal droits="gestion" action="modules/gestion/container.php" param="exportGlobal" type="file"/>
 	<containerPrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect" type="smarty" retourko="containerList" retourok="containerList"/>
 	<samplePrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="sampleList"/>
 	<sampleExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="sampleList"/>

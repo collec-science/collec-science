@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created : 2 juin 2016
  * Creator : quinton
@@ -117,7 +118,7 @@ class Container extends ObjetBDD
         /*
          * Suppression de l'objet
          */
-       $object = new ObjectClass($this->connection, $this->paramori);
+        $object = new ObjectClass($this->connection, $this->paramori);
         $object->supprimer($uid);
     }
 
@@ -263,7 +264,7 @@ class Container extends ObjetBDD
             $row = $this->lireParamAsPrepared($sql, $data);
             return $row["container_id"];
         } else {
-            return - 1;
+            return -1;
         }
     }
 
@@ -310,7 +311,7 @@ class Container extends ObjetBDD
             $and = " and ";
             $data["object_status_id"] = $param["object_status_id"];
         }
-        
+
         if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
             $where .= $and . " o.uid between :uid_min and :uid_max";
             $and = " and ";
@@ -320,7 +321,7 @@ class Container extends ObjetBDD
         if ($and == "") {
             $where = "";
         }
-        
+
         /*
          * Rajout de la date de dernier mouvement pour l'affichage
          */
@@ -345,7 +346,7 @@ class Container extends ObjetBDD
             return $this->getListeParamAsPrepared($this->sql . $where . $order, $data);
         }
     }
-    
+
     /**
      * Genere un tableau permettant d'afficher les objets contenus dans un container
      * a leur emplacement, dans le cas ou le nb de cellules est > 1
@@ -356,14 +357,15 @@ class Container extends ObjetBDD
      * @param string $first_line
      * @return array|string|string[]|array[]
      */
-    function generateOccupationArray($dcontainer, $dsample, $columns = 1, $lines = 1, $first_line = "T") {
+    function generateOccupationArray($dcontainer, $dsample, $columns = 1, $lines = 1, $first_line = "T")
+    {
         $data = array();
         /*
          * Generation d'un tableau vide
          */
-        for ($line = 0; $line < $lines; $line ++) {
-            for ($column = 0; $column < $columns; $column ++) {
-                $data [$line][$column] = "";
+        for ($line = 0; $line < $lines; $line++) {
+            for ($column = 0; $column < $columns; $column++) {
+                $data[$line][$column] = "";
             }
         }
         /*
@@ -371,12 +373,12 @@ class Container extends ObjetBDD
          */
         foreach ($dcontainer as $value) {
             if ($value["line_number"] > 0 && $value["column_number"] > 0) {
-                $data [$value["line_number"] - 1 ][$value["column_number"] -1] = array("type"=>"C", "uid"=>$value["uid"], "identifier"=>$value["identifier"]);
+                $data[$value["line_number"] - 1][$value["column_number"] - 1] = array("type" => "C", "uid" => $value["uid"], "identifier" => $value["identifier"]);
             }
         }
         foreach ($dsample as $value) {
             if ($value["line_number"] > 0 && $value["column_number"] > 0) {
-                $data [$value["line_number"] - 1 ][$value["column_number"] -1] = array("type"=>"S", "uid"=>$value["uid"], "identifier"=>$value["identifier"]);
+                $data[$value["line_number"] - 1][$value["column_number"] - 1] = array("type" => "S", "uid" => $value["uid"], "identifier" => $value["identifier"]);
             }
         }
         /*
@@ -385,8 +387,57 @@ class Container extends ObjetBDD
         if ($lines > 1 && $first_line == "B") {
             krsort($data);
         }
-        return $data;        
+        return $data;
+    }
+    /**
+     * Generate an array with all contents of all containers included
+     *
+     * @param array $uids
+     * @return array
+     */
+    function generateExportGlobal($uids)
+    {
+        $data = array();
+        if (!is_array($uids)) {
+            $uids = array($uids);
+        }
+        foreach ($uids as $uid) {
+            $data[] = $this->getContainerWithObjects($uid);
+        }
+        return $data;
+    }
+    /**
+     * Get a container with all objects included
+     *
+     * @param int $uid
+     * @return array
+     */
+    function getContainerWithObjects($uid)
+    {
+        $row = $this->lire($uid);
+        /**
+         * Get all samples in the container
+         */
+        $dataSamples = $this->getContentSample($uid);
+        if (count($dataSamples) > 0) {
+            $row["samples"] = array();
+            /**
+             * generate the dbuid_origin
+             */
+            foreach ($dataSamples as $dataSample) {
+                if (strlen($dataSample["dbuid_origin"]) == 0) {
+                    $dataSample["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $dataSample["uid"];
+                }
+                $row["samples"][] = $dataSample;
+            }
+        }
+        /**
+         * Get containers
+         */
+        $containers = $this->getContentContainer($uid);
+        foreach ($containers as $container) {
+            $row["containers"][] = $this->getContainerWithObjects($container["uid"]);
+        }
+        return $row;
     }
 }
-
-?>

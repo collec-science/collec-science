@@ -297,7 +297,7 @@ class VueSmarty extends Vue
         $this->smarty->display($this->templateMain);
     }
 
-        /**
+    /**
      * Return the content of a variable
      *
      * @param string $variable
@@ -306,7 +306,7 @@ class VueSmarty extends Vue
     function get($variable = "")
     {
         return $this->smarty->getTemplateVars($variable);
-    } 
+    }
 }
 
 /**
@@ -615,7 +615,7 @@ class VueBinaire extends Vue
      */
     function send()
     {
-        printr($this->param);
+        //printr($this->param);
 
         if (strlen($this->param["tmp_name"]) > 0) {
             /*
@@ -661,5 +661,68 @@ class VueBinaire extends Vue
                 $this->param[$key] = $value;
             }
         }
+    }
+}
+/**
+ * Generate a file with an undetermined contain
+ */
+class VueFile extends Vue
+{
+    private $param = array(
+        "filename" => "export.txt", /* nom du fichier tel qu'il apparaitra dans le navigateur */
+        "disposition" => "attachment", /* attachment : le fichier est telecharge, inline : le fichier est affiche */
+        "content_type" => "text/plain" /* type mime */
+    );
+
+    /**
+     * Met a jour les parametres necessaires pour l'export
+     *
+     * @param array $param
+     */
+    function setParam(array $param)
+    {
+        if (is_array($param)) {
+            foreach ($param as $key => $value) {
+                $this->param[$key] = $value;
+            }
+        }
+    }
+    /**
+     * rewrite send for generate the file
+     *
+     * @param array $param: list of parameters of file
+     * @return void
+     */
+    function send($param = array())
+    {
+        if (count($param) > 0) {
+            $this->setParam($param);
+        }
+        if (strlen($this->param["content_type"]) == 0) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $this->param["content_type"] = finfo_file($finfo, $this->param["tmp_name"]);
+            finfo_close($finfo);
+        }
+        ob_clean();
+        header('Content-Type: ' . $this->param["content_type"]);
+        header('Content-Transfer-Encoding: binary');
+        if ($this->param["disposition"] == "attachment" && strlen($this->param["filename"]) > 0) {
+            header('Content-Disposition: attachment; filename="' . basename($this->param["filename"]) . '"');
+        } else {
+            header('Content-Disposition: inline');
+        }
+        /*
+         * Ajout des entetes de cache
+         */
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: no-cache');
+        /*
+         * Envoi au navigateur
+         */
+        $fp = fopen('php://output', 'w');
+        fwrite($fp, $this->data);
+        fclose($fp);
+        ob_flush();
     }
 }

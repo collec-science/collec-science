@@ -5,6 +5,9 @@ Release v3.0.1 - august 2019
 --------------------------
 Fixed bugs:
 - some modules can be called without any delay (example: displaying photos). Attribute noDelayBeforeCall must be added in actions.xml file for concerned modules (file changed: controller.php)
+New features:
+- new class Vue: VueFile, to export any content
+- the addition of a new right can be disabled ($GACL_disable_new_right = 1)
 
 Release v3.0.0 - july 2019
 --------------------------

@@ -28,6 +28,7 @@ switch ($t_module["param"]) {
 		$vue->set("framework/droits/appliDisplay.tpl" , "corps");
 		$aclAco = new Aclaco($bdd_gacl, $ObjetBDDParam);
 		$vue->set( $aclAco->getListFromParent($id, 3), "dataAco");
+		$GACL_disable_new_right == 1 ? $vue->set(0, "newRightEnabled") : $vue->set(1, "newRightEnabled");
 		break;
 	case "change":
 		/*

@@ -136,6 +136,7 @@ $GACL_dbpasswd = "proto";
 $GACL_aco = "col";
 $GACL_dsn = "pgsql:host=localhost;dbname=proto";
 $GACL_schema = "gacl";
+$GACL_disable_new_right = 1;
 
 /*
  * Gestion des erreurs

@@ -209,6 +209,10 @@ while (isset($module)) {
                 $vue = new VueBinaire();
                 $isAjax = true;
                 break;
+            case "file":
+                $vue = new VueFile();
+                $isAjax = true;
+                break;
             case "smarty":
             case "html":
             default:

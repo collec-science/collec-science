@@ -223,4 +223,59 @@ switch ($t_module["param"]) {
         );
         $vue->set(json_encode($data));
         break;
+    case "importStage1":
+        $vue->set("gestion/containerImport.tpl", "corps");
+        $vue->set(0, "utf8_encode");
+        break;
+    case "importStage2":
+        unset($_SESSION["filename"]);
+        if (file_exists($_FILES['upfile']['tmp_name'])) {
+            /*
+         * Deplacement du fichier dans le dossier temporaire
+         */
+            $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
+
+            if (copy($_FILES['upfile']['tmp_name'], $filename)) {
+                try {
+                    /**
+                     * Get the content of the file
+                     */
+                    $handle = fopen($filename, "r");
+                    $jdata = fread($handle, filesize($filename));
+                    fclose($handle);
+
+                    $data = json_decode($jdata, true);
+                    if ($data["export_version"] != 1) {
+                        throw new ImportException(
+                            _("La version du fichier importé ne correspond pas à la version attendue")
+                        );
+                    }
+                } catch (Exception $e) {
+                    $module_coderetour = -1;
+                    $message->set($e->getMessage(), true);
+                }
+                if ($module_coderetour == -1) {
+                    /**
+                     * delete of temporary file
+                     */
+                    unset($filename);
+                } else {
+                    $vue->set($dataClass->getAllNamesFromReference($data), "names");
+                    require_once "modules/gestion/sample.functions.php";
+                    $sic = new SampleInitClass();
+                    $vue->set($sic->init(), "dataClass");
+                    $vue->set($filename, "realfilename");
+
+                    $vue->set($_REQUEST["utf8_encode"], "utf8_encode");
+                    $vue->set(2, "stage");
+                    $vue->set($_FILES['upfile']['name'], "filename");
+                    $vue->set("gestion/containerImport.tpl", "corps");
+                }
+            }
+        } else {
+            $message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"), true);
+            $module_coderetour = -1;
+        }
+
+        break;
 }

@@ -81,6 +81,12 @@ class SampleInitClass
             "classname"=>"Referent",
             "field"=>"referent_name",
             "id"=>"referent_id"
+        ),
+        "container_type_name" => array(
+            "filename"=> "container_type.class.php",
+            "classname"=>"ContainerType",
+            "field"=>"container_type_name",
+            "id"=>"container_type_id"
         )
     );
 

@@ -397,7 +397,13 @@ class Container extends ObjetBDD
      */
     function generateExportGlobal($uids)
     {
+        global $APPLI_version;
         $data = array();
+        /**
+         * Add reference of the export
+         */
+        $data["collec-science_version"] = $APPLI_version;
+        $data["export_version"] = 1.0;
         if (!is_array($uids)) {
             $uids = array($uids);
         }
@@ -439,5 +445,63 @@ class Container extends ObjetBDD
             $row["containers"][] = $this->getContainerWithObjects($container["uid"]);
         }
         return $row;
+    }
+
+    /**
+     * Recupere tous les libelles des tables de reference utilises dans le fichier a importer
+     * import de donnees externes
+     *
+     * @param array $data
+     * @return mixed[][]
+     */
+    public function getAllNamesFromReference($data)
+    {
+        $names = array();
+        $fields = array(
+            "sampling_place_name",
+            "object_status_name",
+            "collection_name",
+            "sample_type_name",
+            "referent_name",
+            "container_type_name"
+        );
+        return $this->extractUniqueReference($names, $fields, $data);
+    }
+    /**
+     * Recursive treatment of the data for extract unique references
+     *
+     * @param array $names
+     * @param array $fields
+     * @param array $data
+     * @return array
+     */
+    private function extractUniqueReference($names, $fields, $data)
+    {
+        foreach ($data as $df) {
+            if (is_array($df)) {
+                $names = $this->extractUniqueReference($names, $fields, $df);
+            } else {
+                foreach ($fields as $field) {
+                    if (strlen($df[$field]) > 0) {
+                        if (!in_array($df[$field], $names[$field])) {
+                            $names[$field][] = $df[$field];
+                        }
+                    }
+                }
+                /**
+                 * Traitement des identifiants secondaires
+                 */
+                if (strlen($df["identifiers"]) > 0) {
+                    $idents = explode(",", $df["identifiers"]);
+                    foreach ($idents as $ident) {
+                        $idvalue = explode(":", $ident);
+                        if (!in_array($idvalue[0], $names["identifier_type_code"])) {
+                            $names["identifier_type_code"][] = $idvalue[0];
+                        }
+                    }
+                }
+            }
+        }
+        return $names;
     }
 }

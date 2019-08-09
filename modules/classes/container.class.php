@@ -139,18 +139,19 @@ class Container extends ObjetBDD
 					sampling_place_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
                     column_number, line_number,
-                    document_id
+                    case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
 					from object o
 					join sample sa on (sa.uid = o.uid)
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
-					join collection using (collection_id)
+					join collection c using (collection_id)
 					join sample_type using (sample_type_id)
 					left outer join v_object_identifier voi on (o.uid = voi.uid) 
 					left outer join object_status using (object_status_id)
 					left outer join sampling_place using (sampling_place_id)
 					left outer join sample ps on (sa.parent_sample_id = ps.sample_id)
 					left outer join object pso on (ps.uid = pso.uid)
-                    left outer join last_photo on (o.uid = last_photo.uid)
+                    left outer join referent ro on (o.referent_id = ro.referent_id)
+                    left outer join referent cr on (c.referent_id = cr.referent_id)
 					where lm.movement_type_id = 1
 					order by o.identifier, o.uid
 					";
@@ -646,7 +647,10 @@ class Container extends ObjetBDD
             "multiple_value",
             "dbuid_origin",
             "metadata",
-            "dbuid_parent"
+            "dbuid_parent",
+            "sample_creation_date",
+            "sampling_date",
+            "expiration_date"
         );
         $dynamicFields = array(
             "sampling_place_name",
@@ -672,18 +676,18 @@ class Container extends ObjetBDD
         foreach ($dynamicFields as $field) {
             if (strlen($data[$field]) > 0) {
                 /*
-                 * Search the value from post data
-                 */
+             * Search the value from post data
+             */
                 $value = $data[$field];
                 /*
-                 * Transformation of spaces in underscore,
-                 * to take into encoding realized by the browser 
-                 */
+             * Transformation of spaces in underscore,
+             * to take into encoding realized by the browser 
+             */
                 $fieldHtml = str_replace(" ", "_", $value);
                 $newval = $post[$field . "-" . $fieldHtml];
                 /*
-                 * Recherche de la cle correspondante
-                 */
+             * Recherche de la cle correspondante
+             */
                 $id = $dclass[$field][$newval];
                 if ($id > 0) {
                     $key = $sic->classes[$field]["id"];
@@ -694,9 +698,7 @@ class Container extends ObjetBDD
         /**
          * Writing the sample
          */
-        $data["uid"] = 0;
-        $data["parent_sample_id"] = "";
-        $uid = $sampleClass->ecrire($data);
+        $uid = $sampleClass->ecrire($dsample);
         /**
          * Generate the movement
          */

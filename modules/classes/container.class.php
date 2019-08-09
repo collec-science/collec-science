@@ -536,9 +536,7 @@ class Container extends ObjetBDD
         $this->uidMax = 0;
         $this->numberUid = 0;
         foreach ($data as $key => $row) {
-            if (!in_array($key, array("collec-science_version", "export_version"))) {
-                $this->importContainer($row, $dclass, $sic, $post, $object, $movement, $sample, 0);
-            }
+            $this->importContainer($row, $dclass, $sic, $post, $object, $movement, $sample, 0);
         }
     }
 
@@ -557,70 +555,73 @@ class Container extends ObjetBDD
      */
     function importContainer($data, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid_parent = 0)
     {
-        $staticFields = array(
-            "identifier",
-            "wgs84_x",
-            "wgs84_y",
-            "identifiers"
-        );
-        $dynamicFields = array(
-            "object_status_name",
-            "referent_name",
-            "container_type_name"
-        );
-        $dcontainer = array();
-        foreach ($staticFields as $field) {
-            $dcontainer[$field] = $data[$field];
-        }
-        foreach ($dynamicFields as $field) {
-            if (strlen($data[$field]) > 0) {
-                /*
+        if (is_array($data)) {
+            $staticFields = array(
+                "identifier",
+                "wgs84_x",
+                "wgs84_y",
+                "identifiers"
+            );
+            $dynamicFields = array(
+                "object_status_name",
+                "referent_name",
+                "container_type_name"
+            );
+            $dcontainer = array();
+            foreach ($staticFields as $field) {
+                $dcontainer[$field] = $data[$field];
+            }
+            foreach ($dynamicFields as $field) {
+                if (strlen($data[$field]) > 0) {
+                    /*
                  * Search the value from post data
                  */
-                $value = $data[$field];
-                /*
+                    $value = $data[$field];
+                    /*
                  * Transformation of spaces in underscore,
                  * to take into encoding realized by the browser 
                  */
-                $fieldHtml = str_replace(" ", "_", $value);
-                $newval = $post[$field . "-" . $fieldHtml];
-                /*
+                    $fieldHtml = str_replace(" ", "_", $value);
+                    $newval = $post[$field . "-" . $fieldHtml];
+                    /*
                  * Recherche de la cle correspondante
                  */
-                $id = $dclass[$field][$newval];
-                if ($id > 0) {
-                    $key = $sic->classes[$field]["id"];
-                    $dcontainer[$key] = $id;
+                    $id = $dclass[$field][$newval];
+                    if ($id > 0) {
+                        $key = $sic->classes[$field]["id"];
+                        $dcontainer[$key] = $id;
+                    }
                 }
             }
+            /**
+             * Writing the container
+             */
+            $data["uid"] = 0;
+            $uid = $object->ecrire($data);
+            if ($uid > 0) {
+                $dcontainer["uid"] = $uid;
+                parent::ecrire($dcontainer);
+            }
+            /**
+             * Generate the movement if necessary
+             */
+            if ($uid_parent > 0) {
+                $movement->addMovement($uid, null, 1, $uid_parent, null, null, null, null, $data["column_number"], $data["line_number"]);
+            }
+            /**
+             * Create embedded samples
+             */
+            foreach ($data["samples"] as $sample) {
+                $this->importSample($sample, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid);
+            }
+            /**
+             * create embedded containers
+             */
+            foreach ($data["containers"] as $container) {
+                $this->importContainer($container, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid);
+            }
+            $this->calculateUidMinMax($uid);
         }
-        /**
-         * Writing the container
-         */
-        $uid = $object->ecrire($data);
-        if ($uid > 0) {
-            $dcontainer["uid"] = $uid;
-            parent::ecrire($dcontainer);
-        }
-        /**
-         * Generate the movement if necessary
-         */
-        if ($uid_parent > 0) {
-            $movement->addMovement($uid, null, 1, $uid_parent, null, null, null, null, $data["column_number"], $data["line_number"]);
-        }
-        /**
-         * Create embedded samples
-         */
-        foreach ($data["samples"] as $sample) {
-            $this->importSample($sample, $dclass, $post, $object, $movement, $sampleClass, $uid);
-        }
-        /**
-         * create embedded containers
-         */
-        foreach ($data["containers"] as $container) {
-            $this->importContainer($container, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid);
-        }
-        $this->calculateUidMinMax($uid);
     }
 
     /**
@@ -693,11 +694,9 @@ class Container extends ObjetBDD
         /**
          * Writing the sample
          */
-        $uid = $object->ecrire($data);
-        if ($uid > 0) {
-            $dsample["uid"] = $uid;
-            $sampleClass::ecrire($dsample);
-        }
+        $data["uid"] = 0;
+        $data["parent_sample_id"] = "";
+        $uid = $sampleClass->ecrire($data);
         /**
          * Generate the movement
          */

@@ -288,7 +288,7 @@ switch ($t_module["param"]) {
                      * Open the file
                      */
                     $handle = fopen($_REQUEST["realfilename"], "r");
-                    $jdata = fread($handle, filesize($filename));
+                    $jdata = fread($handle, filesize($_REQUEST["realfilename"]));
                     fclose($handle);
 
                     $data = json_decode($jdata, true);

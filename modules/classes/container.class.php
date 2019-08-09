@@ -32,7 +32,8 @@ class Container extends ObjetBDD
                     left outer join object oc on (container_uid = oc.uid)
                     left outer join movement_type using (movement_type_id)
                     left outer join referent r on (o.referent_id = r.referent_id)
-			";
+            ";
+    private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
 
     /**
      *
@@ -469,7 +470,10 @@ class Container extends ObjetBDD
             "referent_name",
             "container_type_name"
         );
-        return $this->extractUniqueReference($names, $fields, $data);
+        foreach ($data as $key => $df) {
+            $names = $this->extractUniqueReference($names, $fields, $df);
+        }
+        return $names;
     }
     /**
      * Recursive treatment of the data for extract unique references
@@ -481,22 +485,22 @@ class Container extends ObjetBDD
      */
     private function extractUniqueReference($names, $fields, $data)
     {
-        foreach ($data as $df) {
+        foreach ($data as $key => $df) {
             if (is_array($df)) {
-                $names = $this->extractUniqueReference($names, $fields, $df);
+                foreach ($df as $objet) {
+                    $names = $this->extractUniqueReference($names, $fields, $objet);
+                }
             } else {
-                foreach ($fields as $field) {
-                    if (strlen($df[$field]) > 0) {
-                        if (!in_array($df[$field], $names[$field])) {
-                            $names[$field][] = $df[$field];
-                        }
+                if (strlen($df) > 0 && in_array($key, $fields)) {
+                    if (!in_array($df, $names[$key])) {
+                        $names[$key][] = $df;
                     }
                 }
                 /**
                  * Traitement des identifiants secondaires
                  */
-                if (strlen($df["identifiers"]) > 0) {
-                    $idents = explode(",", $df["identifiers"]);
+                if ($key == "identifiers" && strlen($df) > 0) {
+                    $idents = explode(",", $df);
                     foreach ($idents as $ident) {
                         $idvalue = explode(":", $ident);
                         if (!in_array($idvalue[0], $names["identifier_type_code"])) {
@@ -509,29 +513,61 @@ class Container extends ObjetBDD
         return $names;
     }
 
-    function importExternal($data, SampleInitClass $sic, $post) {
-
-
-        $refFields = array(
-            "sampling_place_name",
-            "collection_name",
-            "object_status_name",
-            "sample_type_name",
-            "referent_name",
-            "container_type_name"
-        );
+    /**
+     * import containers and embedded objects from 
+     * a JSON file transformed in array
+     *
+     * @param array $data
+     * @param SampleInitClass $sic
+     * @param array $post
+     * @return void
+     */
+    function importExternal($data, SampleInitClass $sic, $post)
+    {
+        $this->auto_date = 0;
         $object = new ObjectClass($this->connection, $this->param);
+        require_once 'modules/classes/movement.class.php';
+        $movement = new Movement($this->connection, $this->paramori);
+        require_once 'modules/classes/sample.class.php';
+        $sample = new Sample($this->connection, $this->paramori);
+        $sample->auto_date = 0;
         $dclass = $sic->init(true);
-        foreach ($data as $key=>$row) {
+        $this->uidMin = 999999999;
+        $this->uidMax = 0;
+        $this->numberUid = 0;
+        foreach ($data as $key => $row) {
             if (!in_array($key, array("collec-science_version", "export_version"))) {
-                
+                $this->importContainer($row, $dclass, $sic, $post, $object, $movement, $sample, 0);
             }
         }
     }
 
-    function importContainer($data, $dclass, $sic, $post, $object, $uid_parent = 0) {
-        $staticFields = array("identifier", "wgs84_x", "wgs84_y", "identifiers");
-        $dynamicFields = array ("object_status_name", "referent_name", "container_type_name");
+    /**
+     * Import a container with embedded objects
+     *
+     * @param array $data
+     * @param array $dclass
+     * @param SampleInitClass $sic
+     * @param array $post
+     * @param ObjectClass $object
+     * @param Movement $movement
+     * @param Sample $sampleClass
+     * @param integer $uid_parent
+     * @return int
+     */
+    function importContainer($data, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid_parent = 0)
+    {
+        $staticFields = array(
+            "identifier",
+            "wgs84_x",
+            "wgs84_y",
+            "identifiers"
+        );
+        $dynamicFields = array(
+            "object_status_name",
+            "referent_name",
+            "container_type_name"
+        );
         $dcontainer = array();
         foreach ($staticFields as $field) {
             $dcontainer[$field] = $data[$field];
@@ -570,9 +606,135 @@ class Container extends ObjetBDD
          * Generate the movement if necessary
          */
         if ($uid_parent > 0) {
-            
+            $movement->addMovement($uid, null, 1, $uid_parent, null, null, null, null, $data["column_number"], $data["line_number"]);
         }
+        /**
+         * Create embedded samples
+         */
+        foreach ($data["samples"] as $sample) {
+            $this->importSample($sample, $dclass, $post, $object, $movement, $sampleClass, $uid);
+        }
+        /**
+         * create embedded containers
+         */
+        foreach ($data["containers"] as $container) {
+            $this->importContainer($container, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid);
+        }
+        $this->calculateUidMinMax($uid);
+    }
 
+    /**
+     * Import a sample and create the movement
+     *
+     * @param array $data
+     * @param array $dclass
+     * @param SampleInitClass $sic
+     * @param array $post
+     * @param ObjectClass $object
+     * @param Movement $movement
+     * @param Sample $sampleClass
+     * @param integer $uid_parent
+     * @return void
+     */
+    function importSample($data, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid_parent = 0)
+    {
+        $staticFields = array(
+            "identifier",
+            "wgs84_x",
+            "wgs84_y",
+            "multiple_value",
+            "dbuid_origin",
+            "metadata",
+            "dbuid_parent"
+        );
+        $dynamicFields = array(
+            "sampling_place_name",
+            "collection_name",
+            "object_status_name",
+            "sample_type_name",
+            "referent_name"
+        );
+        $dsample = array();
+        foreach ($staticFields as $field) {
+            if (strlen($data[$field]) > 0) {
+                if ($field == "metadata") {
+                    /*
+                     * Ajout d'un decodage/encodage pour les champs json, pour
+                     * eviter les problemes potentiels et verifier la structure
+                     */
+                    $dsample[$field] = json_encode(json_decode($data[$field]));
+                } else {
+                    $dsample[$field] = $data[$field];
+                }
+            }
+        }
+        foreach ($dynamicFields as $field) {
+            if (strlen($data[$field]) > 0) {
+                /*
+                 * Search the value from post data
+                 */
+                $value = $data[$field];
+                /*
+                 * Transformation of spaces in underscore,
+                 * to take into encoding realized by the browser 
+                 */
+                $fieldHtml = str_replace(" ", "_", $value);
+                $newval = $post[$field . "-" . $fieldHtml];
+                /*
+                 * Recherche de la cle correspondante
+                 */
+                $id = $dclass[$field][$newval];
+                if ($id > 0) {
+                    $key = $sic->classes[$field]["id"];
+                    $dsample[$key] = $id;
+                }
+            }
+        }
+        /**
+         * Writing the sample
+         */
+        $uid = $object->ecrire($data);
+        if ($uid > 0) {
+            $dsample["uid"] = $uid;
+            $sampleClass::ecrire($dsample);
+        }
+        /**
+         * Generate the movement
+         */
+        if ($uid_parent > 0) {
+            $movement->addMovement($uid, null, 1, $uid_parent, null, null, null, null, $data["column_number"], $data["line_number"]);
+        }
+        $this->calculateUidMinMax($uid);
+    }
 
+    /**
+     * Calculate the uid min and max generated, and the total number of uid generated
+     *
+     * @param int $uid
+     * @return void
+     */
+    function calculateUidMinMax($uid)
+    {
+        if ($uid > $this->uidMax) {
+            $this->uidMax = $uid;
+        }
+        if ($uid < $this->uidMin) {
+            $this->uidMin = $uid;
+        }
+        $this->numberUid++;
+    }
+
+    /**
+     * Get the limits of uid generated
+     *
+     * @return array
+     */
+    function getUidMinMax()
+    {
+        return (array(
+            "min" => $this->uidMin,
+            "max" => $this->uidMax,
+            "number" => $this->numberUid
+        ));
     }
 }

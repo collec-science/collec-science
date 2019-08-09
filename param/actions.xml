@@ -1,6 +1,6 @@
 <navigation>
 	<model action="index.php" param="list|display|change|write|delete|..." droits="gestion" retourko="model" retourlogin="1" retourok="model" loginrequis="1" type="html|smarty|ajax|pdf|csv|binaire" droitko="droitko" modulebefore="module1,module2" requiredVar="table_id" maxCountByHour="60" maxCountByDay="600" noDelayBeforeCall="1"/>
-	<default action="framework/default.php" type="smarty" ></default>
+	<default action="framework/default.php" type="smarty" noDelayBeforeCall="1"></default>
 	<droitko action="framework/droitko.php" type="smarty" ></droitko>
 	<droits menudroits="admin" droits="admin" menulevel="0" menuorder="7" menuvalue="14" menutitle="15" />
 	<gestiondroits action="framework/identification/gestiondroits.php" droits="admin" loginrequis="0" retourlogin="1" droitko="droitko"/>
@@ -122,9 +122,9 @@
 	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion" retourok="containerList" retourko="containerChange"  modulebefore="containerChange"/>
 	<containerGetFromType action="modules/gestion/container.php" param="getFromType" droits="consult"  type="ajax" />
 	<containerGetFromUid action="modules/gestion/container.php" param="getFromUid" droits="consult"  type="ajax" />
-	<containerImportPhase1 action="modules/gestion/container.php" param="importPhase1" droits="import,collection"  type="smarty" retourlogin="1"/>
-	<containerImportPhase2 action="modules/gestion/container.php" param="importPhase2" droits="import,collection"  type="smarty" modulebefore="importPhase1"/>
-	<containerImportStage3 action="modules/gestion/container.php" param="importPhase3" droits="import,collection" type="smarty" retourok="containerImportStage1" retourko="containerImportStage1" modulebefore="containerImportStage2"/>
+	<containerImportStage1 action="modules/gestion/container.php" param="importStage1" droits="import,collection"  type="smarty" retourlogin="1"/>
+	<containerImportStage2 action="modules/gestion/container.php" param="importStage2" droits="import,collection"  type="smarty" modulebefore="containerImportStage1,containerImportStage2"/>
+	<containerImportStage3 action="modules/gestion/container.php" param="importStage3" droits="import,collection" type="smarty" retourok="containerImportStage1" retourko="containerImportStage1" modulebefore="containerImportStage2"/>
 
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />

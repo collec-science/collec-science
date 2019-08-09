@@ -181,7 +181,7 @@ class Movement extends ObjetBDD
      *
      * @param int $uid
      * @param DateTime $date
-     * @param int $type
+     * @param int $type: 1:entry, 2:exit
      * @param number $container_uid
      * @param string $login
      * @param string $storage_location

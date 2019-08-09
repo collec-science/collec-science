@@ -1,30 +1,31 @@
 <h2>{t}Import de containers et d'échantillons inclus provenant d'une base externe à partir d'un fichier JSON{/t}</h2>
-
-<div class="row col-md-6">
-    <form class="form-horizontal protoform" id="containerStage1" method="post" action="index.php" enctype="multipart/form-data">
-        <input type="hidden" name="module" value="containerImportStage2">
-        <div class="form-group">
-            <label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
-            <div class="col-md-8">
-                <input type="file" name="upfile" required>
+<div class="row">
+    <div class="col-md-6">
+        <form class="form-horizontal protoform" id="containerStage1" method="post" action="index.php" enctype="multipart/form-data">
+            <input type="hidden" name="module" value="containerImportStage2">
+            <div class="form-group">
+                <label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
+                <div class="col-md-8">
+                    <input type="file" name="upfile" required>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="utf8_encode" class="control-label col-md-4">{t}Encodage du fichier :{/t}</label>
-            <div class="col-md-8">
-                <select id="utf8_encode" name="utf8_encode">
-                    <option value="0" {if $utf8_encode == 0}selected{/if}>UTF-8</option>
-                    <option value="1" {if $utf8_encode == 1}selected{/if}>ISO-8859-x</option>
-                </select>
+            <div class="form-group">
+                <label for="utf8_encode" class="control-label col-md-4">{t}Encodage du fichier :{/t}</label>
+                <div class="col-md-8">
+                    <select id="utf8_encode" name="utf8_encode">
+                        <option value="0" {if $utf8_encode == 0}selected{/if}>UTF-8</option>
+                        <option value="1" {if $utf8_encode == 1}selected{/if}>ISO-8859-x</option>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="form-group center">
-            <button type="submit" class="btn btn-primary">{t}Vérifier le fichier{/t}</button>
-        </div>
-    </form>
+            <div class="form-group center">
+                <button type="submit" class="btn btn-primary">{t}Vérifier le fichier{/t}</button>
+            </div>
+        </form>
 
 
-    <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+    </div>
 </div>
 
 {if $stage > 1}
@@ -66,7 +67,7 @@
 {/if}
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-lg-6 col-sm-12">
         <div class="bg-info">
         {t}Ce module permet d'importer des contenants ainsi que les contenants ou les échantillons qu'ils contiennent, et  qui proviennent d'une base externe.{/t}
         <br>

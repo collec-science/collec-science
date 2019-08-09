@@ -234,7 +234,6 @@ switch ($t_module["param"]) {
          * Deplacement du fichier dans le dossier temporaire
          */
             $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
-
             if (copy($_FILES['upfile']['tmp_name'], $filename)) {
                 try {
                     /**
@@ -249,6 +248,7 @@ switch ($t_module["param"]) {
                         throw new ImportException(
                             _("La version du fichier importé ne correspond pas à la version attendue")
                         );
+                        $module_coderetour = -1;
                     }
                 } catch (Exception $e) {
                     $module_coderetour = -1;
@@ -269,16 +269,54 @@ switch ($t_module["param"]) {
                     $vue->set($_REQUEST["utf8_encode"], "utf8_encode");
                     $vue->set(2, "stage");
                     $vue->set($_FILES['upfile']['name'], "filename");
-                    $vue->set("gestion/containerImport.tpl", "corps");
                 }
+            } else {
+                $message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"), true);
+                $module_coderetour = -1;
             }
         } else {
-            $message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"), true);
+            $message->set(_("Pas de fichier téléchargé"), true);
             $module_coderetour = -1;
         }
-
+        $vue->set("gestion/containerImport.tpl", "corps");
         break;
     case "importStage3":
+        if (isset($_REQUEST["realfilename"])) {
+            if (file_exists($_REQUEST["realfilename"])) {
+                try {
+                    /**
+                     * Open the file
+                     */
+                    $handle = fopen($_REQUEST["realfilename"], "r");
+                    $jdata = fread($handle, filesize($filename));
+                    fclose($handle);
 
+                    $data = json_decode($jdata, true);
+                    require_once 'modules/gestion/sample.functions.php';
+                    $sic = new SampleInitClass();
+                    try {
+                        $bdd->beginTransaction();
+                        $dataClass->importExternal($data, $sic, $_POST);
+                        $result = $dataClass->getUidMinMax();
+                        $message->set(sprintf(_("Import effectué. %s objets traités"), $result["number"]));
+                        $message->set(sprintf(_("Premier UID généré : %s"), $result["min"]));
+                        $message->set(sprintf(_("Dernier UID généré : %s"), $result["max"]));
+                        $module_coderetour = 1;
+                        $bdd->commit();
+                    } catch (ImportObjectException $ie) {
+                        $bdd->rollBack();
+                        $message->set($ie->getMessage(), true);
+                        $module_coderetour = -1;
+                    } catch (Exception $e) {
+                        $bdd->rollBack();
+                        $message->set($e->getMessage(), true);
+                        $module_coderetour = -1;
+                    }
+                } catch (Exception $e1) {
+                    $message->set($e1->getMessage(), true);
+                    $module_coderetour = -1;
+                }
+            }
+        }
         break;
 }

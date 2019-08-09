@@ -37,6 +37,9 @@ function sampleInitDatEntry()
     $vue->set($_SESSION["APPLI_code"], "APPLI_code");
 }
 
+class SampleInitClassException extends Exception
+{ };
+
 /**
  * Fonction d'initialisation globale des tables de reference
  * utilisee pour les imports externes
@@ -77,16 +80,16 @@ class SampleInitClass
             "id" => "identifier_type_id"
         ),
         "referent_name" => array(
-            "filename"=> "referent.class.php",
-            "classname"=>"Referent",
-            "field"=>"referent_name",
-            "id"=>"referent_id"
+            "filename" => "referent.class.php",
+            "classname" => "Referent",
+            "field" => "referent_name",
+            "id" => "referent_id"
         ),
         "container_type_name" => array(
-            "filename"=> "container_type.class.php",
-            "classname"=>"ContainerType",
-            "field"=>"container_type_name",
-            "id"=>"container_type_id"
+            "filename" => "containerType.class.php",
+            "classname" => "ContainerType",
+            "field" => "container_type_name",
+            "id" => "container_type_id"
         )
     );
 
@@ -103,34 +106,37 @@ class SampleInitClass
         /*
          * Recuperation de tous les libelles connus dans la base de donnees
          */
-        
-        $dclasse = array();
-        foreach ($this->classes as $classe) {
-            require_once 'modules/classes/' . $classe["filename"];
-            $instance = new $classe["classname"]($bdd, $ObjetBDDParam);
-            switch ($classe["field"]) {
-                case "identifier_type_code":
-                    $data = $instance->getListeWithCode();
-                    break;
-                case "collection_name":
-                    $data = $_SESSION["collections"];
-                    break;
-                default:
-                    $data = $instance->getListe(2);
-            }
 
-            if ($reverse) {
-                $donnees = array();
-                foreach ($data as $value) {
-                    $donnees[$value[$classe["field"]]] = $value[$classe["id"]];
+        $dclasse = array();
+        try {
+            foreach ($this->classes as $classe) {
+                include_once 'modules/classes/' . $classe["filename"];
+                $instance = new $classe["classname"]($bdd, $ObjetBDDParam);
+                switch ($classe["field"]) {
+                    case "identifier_type_code":
+                        $data = $instance->getListeWithCode();
+                        break;
+                    case "collection_name":
+                        $data = $_SESSION["collections"];
+                        break;
+                    default:
+                        $data = $instance->getListe(2);
                 }
-            } else {
-                $donnees = $data;
+
+                if ($reverse) {
+                    $donnees = array();
+                    foreach ($data as $value) {
+                        $donnees[$value[$classe["field"]]] = $value[$classe["id"]];
+                    }
+                } else {
+                    $donnees = $data;
+                }
+                $dclasse[$classe["field"]] = $donnees;
+                unset($instance);
             }
-            $dclasse[$classe["field"]] = $donnees;
-            unset($instance);
+        } catch (Exception $e) {
+            $throw(new SampleInitClassException($e->getMessage));
         }
         return $dclasse;
     }
 }
-?>

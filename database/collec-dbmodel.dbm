@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-beta" last-position="0,583" last-zoom="1" max-obj-count="51"
+<dbmodel pgmodeler-ver="0.9.2-beta" last-position="0,0" last-zoom="1" max-obj-count="51"
 	 default-schema="public" default-owner="postgres">
 <role name="quinton"
       superuser="true"
@@ -95,7 +95,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 	<comment><![CDATA[Table des réservations d'objets]]></comment>
 	<tag name="object"/>
-	<position x="1200" y="880"/>
+	<position x="960" y="700"/>
 	<column name="booking_id" not-null="true" sequence="col.booking_booking_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -137,7 +137,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 	<comment><![CDATA[Table des autorisations d'accès à un projet]]></comment>
 	<tag name="collection"/>
-	<position x="100" y="420"/>
+	<position x="100" y="440"/>
 	<column name="collection_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -159,7 +159,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 	<comment><![CDATA[Liste des conteneurs d'échantillon]]></comment>
 	<tag name="container"/>
-	<position x="960" y="1440"/>
+	<position x="960" y="1460"/>
 	<column name="container_id" not-null="true" sequence="col.container_container_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -184,7 +184,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 	<comment><![CDATA[Famille générique des conteneurs]]></comment>
 	<tag name="container"/>
-	<position x="1200" y="1860"/>
+	<position x="1200" y="1880"/>
 	<column name="container_family_id" not-null="true" sequence="col.container_family_container_family_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -206,7 +206,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 	<comment><![CDATA[Table des types de conteneurs]]></comment>
 	<tag name="container"/>
-	<position x="960" y="1660"/>
+	<position x="960" y="1680"/>
 	<column name="container_type_id" not-null="true" sequence="col.container_type_container_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -256,7 +256,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<schema name="col"/>
 	<role name="quinton"/>
 	<comment><![CDATA[Table des parametres associes de maniere intrinseque a l'instance]]></comment>
-	<position x="500" y="1860"/>
+	<position x="500" y="1880"/>
 	<column name="dbparam_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -282,7 +282,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<schema name="col"/>
 	<role name="quinton"/>
 	<comment><![CDATA[Table des versions de la base de donnees]]></comment>
-	<position x="720" y="1860"/>
+	<position x="720" y="1880"/>
 	<column name="dbversion_id" not-null="true" sequence="col.dbversion_dbversion_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -309,7 +309,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Documents numériques rattachés à un poisson ou à un événement]]></comment>
 	<tag name="object"/>
-	<position x="960" y="1140"/>
+	<position x="960" y="1160"/>
 	<column name="document_id" not-null="true" sequence="col.document_document_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -362,7 +362,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des événements]]></comment>
 	<tag name="object"/>
-	<position x="1200" y="680"/>
+	<position x="1200" y="700"/>
 	<column name="event_id" not-null="true" sequence="col.event_event_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -398,7 +398,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Types d'événement]]></comment>
 	<tag name="object"/>
-	<position x="1200" y="420"/>
+	<position x="1200" y="440"/>
 	<column name="event_type_id" not-null="true" sequence="col.event_type_event_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -428,7 +428,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des types d'identifiants]]></comment>
 	<tag name="object"/>
-	<position x="720" y="420"/>
+	<position x="720" y="440"/>
 	<column name="identifier_type_id" not-null="true" sequence="col.identifier_type_identifier_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -459,7 +459,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des modèles d'étiquettes]]></comment>
 	<tag name="container"/>
-	<position x="500" y="1660"/>
+	<position x="500" y="1680"/>
 	<column name="label_id" not-null="true" sequence="col.label_label_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -494,7 +494,7 @@ B: bottom, premiere ligne en bas]]></comment>
 <view name="last_movement" layer="0" collapse-mode="2" max-obj-count="1">
 	<schema name="col"/>
 	<role name="quinton"/>
-	<position x="100" y="1660"/>
+	<position x="100" y="1680"/>
 	<reference>
 		<expression><![CDATA[ SELECT s.uid,
     s.movement_id,
@@ -545,7 +545,7 @@ B: bottom, premiere ligne en bas]]></comment>
 <view name="last_photo" layer="0" collapse-mode="2" max-obj-count="1">
 	<schema name="col"/>
 	<role name="postgres"/>
-	<position x="100" y="1860"/>
+	<position x="100" y="1880"/>
 	<reference>
 		<expression><![CDATA[ SELECT d.document_id,
     d.uid
@@ -574,7 +574,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="quinton"/>
 	<comment><![CDATA[Table des metadata utilisables dans les types d'echantillons]]></comment>
 	<tag name="sample"/>
-	<position x="280" y="1660"/>
+	<position x="280" y="1680"/>
 	<column name="metadata_id" not-null="true" sequence="col.metadata_metadata_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -601,7 +601,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Types mime des fichiers importés]]></comment>
 	<tag name="object"/>
-	<position x="1200" y="1140"/>
+	<position x="1200" y="1160"/>
 	<column name="mime_type_id" not-null="true" sequence="col.mime_type_mime_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -633,7 +633,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Type de mouvement]]></comment>
 	<tag name="movement"/>
-	<position x="500" y="1440"/>
+	<position x="500" y="1460"/>
 	<column name="movement_type_id" not-null="true" sequence="col.movement_type_movement_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -655,7 +655,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des types de contenus multiples]]></comment>
 	<tag name="sample"/>
-	<position x="100" y="1440"/>
+	<position x="100" y="1460"/>
 	<column name="multiple_type_id" not-null="true" sequence="col.multiple_type_multiple_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -682,7 +682,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des identifiants complémentaires normalisés]]></comment>
 	<tag name="object"/>
-	<position x="720" y="680"/>
+	<position x="720" y="700"/>
 	<column name="object_identifier_id" not-null="true" sequence="col.object_identifier_object_identifier_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -711,7 +711,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des statuts possibles des objets]]></comment>
 	<tag name="object"/>
-	<position x="960" y="420"/>
+	<position x="960" y="440"/>
 	<column name="object_status_id" not-null="true" sequence="col.object_status_object_status_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -729,7 +729,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<comment><![CDATA[Table des objets
 Contient les identifiants génériques]]></comment>
 	<tag name="object"/>
-	<position x="720" y="880"/>
+	<position x="720" y="900"/>
 	<column name="uid" not-null="true" sequence="col.object_uid_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -765,7 +765,7 @@ Contient les identifiants génériques]]></comment>
 	<schema name="col"/>
 	<role name="postgres"/>
 	<tag name="collection"/>
-	<position x="100" y="880"/>
+	<position x="100" y="900"/>
 	<column name="operation_id" not-null="true" sequence="col.operation_operation_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -808,7 +808,7 @@ Contient les identifiants génériques]]></comment>
 	<role name="quinton"/>
 	<comment><![CDATA[Table des imprimantes gerees directement par le serveur]]></comment>
 	<tag name="container"/>
-	<position x="1200" y="1440"/>
+	<position x="1200" y="1460"/>
 	<column name="printer_id" not-null="true" sequence="col.printer_printer_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -842,7 +842,7 @@ Contient les identifiants génériques]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[List of all collections into the database]]></comment>
 	<tag name="collection"/>
-	<position x="300" y="420"/>
+	<position x="300" y="440"/>
 	<column name="collection_id" not-null="true" sequence="col.project_project_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -866,7 +866,7 @@ Contient les identifiants génériques]]></comment>
 	<schema name="col"/>
 	<role name="postgres"/>
 	<tag name="collection"/>
-	<position x="100" y="680"/>
+	<position x="100" y="700"/>
 	<column name="protocol_id" not-null="true" sequence="col.protocol_protocol_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -911,7 +911,7 @@ Contient les identifiants génériques]]></comment>
 	<role name="quinton"/>
 	<comment><![CDATA[Table of sample referents]]></comment>
 	<tag name="collection"/>
-	<position x="500" y="420"/>
+	<position x="500" y="440"/>
 	<column name="referent_id" not-null="true" sequence="col.referent_referent_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -962,7 +962,7 @@ Contient les identifiants génériques]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des échantillons]]></comment>
 	<tag name="sample"/>
-	<position x="280" y="880"/>
+	<position x="280" y="900"/>
 	<column name="sample_id" not-null="true" sequence="col.sample_sample_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1019,7 +1019,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Types d'échantillons]]></comment>
 	<tag name="sample"/>
-	<position x="280" y="1440"/>
+	<position x="280" y="1460"/>
 	<column name="sample_type_id" not-null="true" sequence="col.sample_type_sample_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1060,7 +1060,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="quinton"/>
 	<comment><![CDATA[Table des lieux génériques d'échantillonnage]]></comment>
 	<tag name="collection"/>
-	<position x="500" y="680"/>
+	<position x="500" y="700"/>
 	<column name="sampling_place_id" not-null="true" sequence="col.sampling_place_sampling_place_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1097,7 +1097,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Condition de stockage]]></comment>
 	<tag name="container"/>
-	<position x="1200" y="1660"/>
+	<position x="1200" y="1680"/>
 	<column name="storage_condition_id" not-null="true" sequence="col.storage_condition_storage_condition_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1114,7 +1114,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[List of the reasons of the movement]]></comment>
 	<tag name="movement"/>
-	<position x="720" y="1440"/>
+	<position x="720" y="1460"/>
 	<column name="movement_reason_id" not-null="true" sequence="col.storage_reason_storage_reason_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1131,7 +1131,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Records of objects movements]]></comment>
 	<tag name="movement"/>
-	<position x="720" y="1140"/>
+	<position x="720" y="1160"/>
 	<column name="movement_id" not-null="true" sequence="col.storage_storage_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1186,7 +1186,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 	<comment><![CDATA[Table des prélèvements et restitutions de sous-échantillons]]></comment>
 	<tag name="sample"/>
-	<position x="500" y="1140"/>
+	<position x="500" y="1160"/>
 	<column name="subsample_id" not-null="true" sequence="col.subsample_subsample_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1219,7 +1219,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <view name="v_object_identifier" layer="0" collapse-mode="2" max-obj-count="1">
 	<schema name="col"/>
 	<role name="postgres"/>
-	<position x="280" y="1860"/>
+	<position x="280" y="1880"/>
 	<reference>
 		<expression><![CDATA[ SELECT object_identifier.uid,
     array_to_string(array_agg((((identifier_type.identifier_type_code)::text || ':'::text) || (object_identifier.object_identifier_value)::text) ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
@@ -1414,12 +1414,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 </sequence>
 
-<sequence name="login_oldpassword_login_oldpassword_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
-	<schema name="gacl"/>
-	<role name="postgres"/>
-</sequence>
-
-<table name="logingestion" layer="0" collapse-mode="2" max-obj-count="12">
+<table name="logingestion" layer="0" collapse-mode="2" max-obj-count="13">
 	<schema name="gacl"/>
 	<role name="postgres"/>
 	<tag name="login"/>
@@ -1443,16 +1438,19 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 		<type name="character varying" length="255"/>
 	</column>
 	<column name="datemodif">
-		<type name="date" length="0"/>
+		<type name="timestamp" length="0"/>
 	</column>
 	<column name="actif" default-value="1">
 		<type name="smallint" length="0"/>
 	</column>
-	<column name="is_clientws" not-null="true" default-value="false">
+	<column name="is_clientws" default-value="false">
 		<type name="boolean" length="0"/>
 	</column>
 	<column name="tokenws">
 		<type name="character varying" length="0"/>
+	</column>
+	<column name="is_expired" default-value="false">
+		<type name="boolean" length="0"/>
 	</column>
 	<constraint name="pk_logingestion" type="pk-constr" table="gacl.logingestion">
 		<columns names="id" ref-type="src-columns"/>
@@ -1607,6 +1605,134 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <index name="log_login_idx" table="gacl.log"
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="btree" factor="90">
+		<idxelement use-sorting="false">
+			<column name="login"/>
+		</idxelement>
+</index>
+
+<table name="borrower" layer="0" collapse-mode="2" max-obj-count="4">
+	<schema name="col"/>
+	<role name="postgres"/>
+	<comment><![CDATA[List of borrowers]]></comment>
+	<tag name="object"/>
+	<position x="1200" y="900"/>
+	<column name="borrower_id" not-null="true" sequence="col.borrower_borrower_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="borrower_name" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="borrower_address">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Address of the borrower]]></comment>
+	</column>
+	<column name="borrower_phone">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Phone of the contact of the borrower]]></comment>
+	</column>
+	<constraint name="borrower_pk" type="pk-constr" table="col.borrower">
+		<columns names="borrower_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="borrower_borrower_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+	<schema name="col"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="borrowing" layer="0" collapse-mode="2" max-obj-count="7">
+	<schema name="col"/>
+	<role name="postgres"/>
+	<tag name="object"/>
+	<position x="960" y="900"/>
+	<column name="borrowing_id" not-null="true" sequence="col.borrowing_borrowing_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="borrowing_date" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Date of the borrowing]]></comment>
+	</column>
+	<column name="expected_return_date">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Expected return date of the object]]></comment>
+	</column>
+	<column name="return_date">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Date of return of the object]]></comment>
+	</column>
+	<constraint name="borrowing_pk" type="pk-constr" table="col.borrowing">
+		<columns names="borrowing_id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="borrower_id" index="4"/>
+		<object name="uid" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="borrower_fk" index="2"/>
+		<object name="object_fk" index="1"/>
+	</customidxs>
+</table>
+
+<sequence name="borrowing_borrowing_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+	<schema name="col"/>
+	<role name="postgres"/>
+</sequence>
+
+<relationship name="object_has_many_borrowing" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#e68392"
+	 src-table="col.object"
+	 dst-table="col.borrowing"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="borrower_has_many_borrowing" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#c5b48b"
+	 src-table="col.borrower"
+	 dst-table="col.borrowing"
+	 src-required="true" dst-required="false"/>
+
+<index name="borrowing_uid_idx" table="col.borrowing"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="uid"/>
+		</idxelement>
+</index>
+
+<index name="borrowing_borrower_id_idx" table="col.borrowing"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="borrower_id"/>
+		</idxelement>
+</index>
+
+<index name="log_ip_idx" table="gacl.log"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="ipaddress"/>
+		</idxelement>
+</index>
+
+<index name="log_commentaire_idx" table="gacl.log"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="commentaire"/>
+		</idxelement>
+</index>
+
+<index name="logingestion_login_idx" table="gacl.logingestion"
+	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="login"/>
 		</idxelement>
@@ -2032,9 +2158,9 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 dst-table="col.sample" reference-fk="sample_sample_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="463.64" y="960.533"/>
-	<position x="463.64" y="857"/>
-	<position x="387.093" y="857"/>
+		<position x="463.64" y="980.533"/>
+	<position x="463.64" y="877"/>
+	<position x="387.093" y="877"/>
 	</line>
 </relationship>
 

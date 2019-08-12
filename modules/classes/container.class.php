@@ -428,6 +428,12 @@ class Container extends ObjetBDD
     {
         $row = $this->lire($uid);
         /**
+         * Explode the list of secondary identifiers
+         */
+        if (strlen($row["identifiers"]) > 0) {
+            $row["identifiers"] = explode(",", $row["identifiers"]);
+        }
+        /**
          * Get all samples in the container
          */
         $dataSamples = $this->getContentSample($uid);
@@ -439,6 +445,12 @@ class Container extends ObjetBDD
             foreach ($dataSamples as $dataSample) {
                 if (strlen($dataSample["dbuid_origin"]) == 0) {
                     $dataSample["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $dataSample["uid"];
+                }
+                /**
+                 * Explode the list of secondary identifiers
+                 */
+                if (strlen($dataSample["identifiers"]) > 0) {
+                    $dataSample["identifiers"] = explode(",", $dataSample["identifiers"]);
                 }
                 $row["samples"][] = $dataSample;
             }
@@ -471,7 +483,7 @@ class Container extends ObjetBDD
             "referent_name",
             "container_type_name"
         );
-        foreach ($data as $key => $df) {
+        foreach ($data as  $df) {
             $names = $this->extractUniqueReference($names, $fields, $df);
         }
         return $names;
@@ -487,7 +499,7 @@ class Container extends ObjetBDD
     private function extractUniqueReference($names, $fields, $data)
     {
         foreach ($data as $key => $df) {
-            if (is_array($df)) {
+            if (is_array($df) && $key != "identifiers") {
                 foreach ($df as $objet) {
                     $names = $this->extractUniqueReference($names, $fields, $objet);
                 }
@@ -500,9 +512,8 @@ class Container extends ObjetBDD
                 /**
                  * Traitement des identifiants secondaires
                  */
-                if ($key == "identifiers" && strlen($df) > 0) {
-                    $idents = explode(",", $df);
-                    foreach ($idents as $ident) {
+                if ($key == "identifiers" ) {
+                    foreach ($df as $ident) {
                         $idvalue = explode(":", $ident);
                         if (!in_array($idvalue[0], $names["identifier_type_code"])) {
                             $names["identifier_type_code"][] = $idvalue[0];
@@ -527,17 +538,19 @@ class Container extends ObjetBDD
     {
         $this->auto_date = 0;
         $object = new ObjectClass($this->connection, $this->param);
-        require_once 'modules/classes/movement.class.php';
+        include_once 'modules/classes/movement.class.php';
         $movement = new Movement($this->connection, $this->paramori);
-        require_once 'modules/classes/sample.class.php';
+        include_once 'modules/classes/sample.class.php';
         $sample = new Sample($this->connection, $this->paramori);
         $sample->auto_date = 0;
+        include_once 'modules/classes/objectIdentifier.class.php';
+        $objectIdentifier = new ObjectIdentifier($this->connection, $this->paramori);
         $dclass = $sic->init(true);
         $this->uidMin = 999999999;
         $this->uidMax = 0;
         $this->numberUid = 0;
         foreach ($data as $key => $row) {
-            $this->importContainer($row, $dclass, $sic, $post, $object, $movement, $sample, 0);
+            $this->importContainer($row, $dclass, $sic, $post, $object, $movement, $objectIdentifier, $sample, 0);
         }
     }
 
@@ -554,7 +567,7 @@ class Container extends ObjetBDD
      * @param integer $uid_parent
      * @return int
      */
-    function importContainer($data, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid_parent = 0)
+    function importContainer($data, $dclass, $sic, $post, $object, $movement, $objectIdentifier, $sampleClass, $uid_parent = 0)
     {
         if (is_array($data)) {
             $staticFields = array(
@@ -602,6 +615,20 @@ class Container extends ObjetBDD
             if ($uid > 0) {
                 $dcontainer["uid"] = $uid;
                 parent::ecrire($dcontainer);
+                /**
+                 * Add secondary identifiers
+                 */
+                foreach ($data["identifiers"] as $ident) {
+                    $aident = explode(":", $ident);
+                    $newkey = $dclass["identifier_type_code"][$post["identifier_type_code-" . str_replace(" ", "_", $aident[0])]];
+                    $didentifiers = array(
+                        "object_identifier_id" => 0,
+                        "uid" => $uid,
+                        "identifier_type_id" => $newkey,
+                        "object_identifier_value" => $aident[1]
+                    );
+                    $objectIdentifier->ecrire($didentifiers);
+                }
             }
             /**
              * Generate the movement if necessary
@@ -613,13 +640,13 @@ class Container extends ObjetBDD
              * Create embedded samples
              */
             foreach ($data["samples"] as $sample) {
-                $this->importSample($sample, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid);
+                $this->importSample($sample, $dclass, $sic, $post, $movement, $objectIdentifier, $sampleClass, $uid);
             }
             /**
              * create embedded containers
              */
             foreach ($data["containers"] as $container) {
-                $this->importContainer($container, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid);
+                $this->importContainer($container, $dclass, $sic, $post, $object, $movement, $objectIdentifier, $sampleClass, $uid);
             }
             $this->calculateUidMinMax($uid);
         }
@@ -638,7 +665,7 @@ class Container extends ObjetBDD
      * @param integer $uid_parent
      * @return void
      */
-    function importSample($data, $dclass, $sic, $post, $object, $movement, $sampleClass, $uid_parent = 0)
+    function importSample($data, $dclass, $sic, $post, $movement, $objectIdentifier, $sampleClass, $uid_parent = 0)
     {
         $staticFields = array(
             "identifier",
@@ -699,6 +726,20 @@ class Container extends ObjetBDD
          * Writing the sample
          */
         $uid = $sampleClass->ecrire($dsample);
+        /**
+         * Add secondary identifiers
+         */
+        foreach ($data["identifiers"] as $ident) {
+            $aident = explode(":", $ident);
+            $newkey = $dclass["identifier_type_code"][$post["identifier_type_code-" . str_replace(" ", "_", $aident[0])]];
+            $didentifiers = array(
+                "object_identifier_id" => 0,
+                "uid" => $uid,
+                "identifier_type_id" => $newkey,
+                "object_identifier_value" => $aident[1]
+            );
+            $objectIdentifier->ecrire($didentifiers);
+        }
         /**
          * Generate the movement
          */

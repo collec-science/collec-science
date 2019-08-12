@@ -422,7 +422,7 @@
 					<div class="col-md-4">
 						<select id="parent_sample_id" name="parent_sample_id">
 							{if $data.parent_sample_id > 0}
-								<option value="$data.parent_sample_id">
+								<option value="{$data.parent_sample_id}">
 									{$parent_sample.uid} {$parent_sample.identifier}
 								</option>
 							{/if}

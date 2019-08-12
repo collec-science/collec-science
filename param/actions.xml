@@ -274,5 +274,10 @@
 	<borrowerChange action="modules/param/borrower.php" param="change" droits="param"  retourlogin="1" type="smarty" />
 	<borrowerWrite action="modules/param/borrower.php" param="write" droits="param" retourok="borrowerList" retourko="borrowerChange" modulebefore="borrowerChange" />
 	<borrowerDelete action="modules/param/borrower.php" param="delete" droits="param" retourok="borrowerList" retourko="borrowerChange"  modulebefore="borrowerChange"/>
+
+
+	<sampleborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion" type="smarty"  />
+	<sampleborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleborrowingChange" modulebefore="sampleborrowingChange" />
+	<sampleborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="sampleborrowingChange" modulebefore="sampleborrowingChange"/>
 </navigation>
 	

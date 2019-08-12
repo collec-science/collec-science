@@ -183,7 +183,7 @@
 		<li class="nav-item">
             <a class="nav-link" id="tab-event" href="#nav-event"  data-toggle="tab" role="tab" aria-controls="nav-event" aria-selected="false">
 				<img src="display/images/events.png" height="25">
-				{t}Événements{/t}
+				{t}Événements/prêts{/t}
 			</a>
 		</li>
 		<li class="nav-item">
@@ -402,7 +402,15 @@
 		</div>
 		<div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="tab-event">
 			<div class="col-md-12">
-				{include file="gestion/eventList.tpl"}
+				<fieldset>
+					<legend>{t}Événements{/t}</legend>
+					{include file="gestion/eventList.tpl"}
+				</fieldset>
+				<fieldset>
+					<legend>{t}Liste des prêts{/t}</legend>
+					{include file="gestion/borrowingList.tpl"}
+				</fieldset>
+				
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-id" role="tabpanel" aria-labelledby="tab-id">

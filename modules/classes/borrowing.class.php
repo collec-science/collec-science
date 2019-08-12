@@ -4,7 +4,7 @@ class Borrowing extends ObjetBDD
 
     private $sql = "select uid, identifier, object_status_id, object_status_name,
                 borrowing_id, borrowing_date, expected_return_date, return_date,
-                borrowing_name
+                borrower_id, borrower_name
                 from borrowing
                 join object using (uid)
                 join borrower using (borrower_id)
@@ -91,10 +91,10 @@ class Borrowing extends ObjetBDD
      */
     function getFromUid($uid, $is_active = false)
     {
-        $where = " where uid = :borrower_id";
+        $where = " where uid = :uid";
         if ($is_active) {
             $where .= " and return_date is null";
         }
-        return $this->getListeParamAsPrepared($this->sql . $where, array("ui" => $uid));
+        return $this->getListeParamAsPrepared($this->sql . $where, array("uid" => $uid));
     }
 }

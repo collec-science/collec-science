@@ -1,0 +1,32 @@
+<a href="index.php?module={$moduleParent}borrowingChange&uid={$data.uid}&borrowing_id=0">
+    <img src="display/images/new.png" height="25">
+    {t}Nouveau prêt{/t}
+</a>
+<table class="table datatable table-bordered table-hover" data-sort='[[0,"desc"]]'>
+        <thead>
+            <tr>
+                <th>{t}Date du prêt{/t}</th>
+                <th>{t}Emprunteur{/t}</th>
+                <th>{t}Date de retour prévue{/t}</th>
+                <th>{t}Date de retour{/t}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach $borrowings as $borrowing}
+                <tr>
+                    <td class="center">
+                        <a href="index.php?module={$moduleParent}borrowingChange&uid={$data.uid}&borrowing_id={$borrowing.borrowing_id}">
+                            {$borrowing.borrowing_date}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="index.php?module=borrowerDisplay&borrower_id={$borrowing.borrower_id}">
+                            {$borrowing.borrower_name}
+                        </a>
+                    </td>
+                    <td class="center">{$borrowing.expected_return_date}</td>
+                    <td class="center">{$borrowing.return_date}</td>
+                </tr>
+            {/foreach}
+        </tbody>
+    </table>

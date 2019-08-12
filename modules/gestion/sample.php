@@ -112,6 +112,12 @@ switch ($t_module["param"]) {
             $subSample = new Subsample($bdd, $ObjetBDDParam);
             $vue->set($subSample->getListFromParent($data["sample_id"], "subsampling_date desc"), "subsample");
         }
+        /**
+         * Get the list of borrowings
+         */
+        include_once "modules/classes/borrowing.class.php";
+        $borrowing = new Borrowing($bdd, $ObjetBDDParam);
+        $vue->set($borrowing->getFromUid($data["uid"]),"borrowings");
         /*
          * Verification que l'echantillon peut etre modifie
          */

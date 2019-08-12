@@ -168,6 +168,7 @@
 	<samplesDelete action="modules/gestion/sample.php" param="deleteMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" retourok="sampleList" retourko="sampleList" droits="collection"/>
 	<samplesAssignReferent action="modules/gestion/sample.php" param="referentAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
 	<samplesCreateEvent action="modules/gestion/sample.php" param="eventAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
+	<samplesLending action="modules/gestion/sample.php" param="lendingMulti" moduleBefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
 	
 	<movement droits="consult" type="smarty" />
 	<movementList droits="collection" type="smarty" action="modules/gestion/movement.php" param="list" retourlogin="1"/>
@@ -267,5 +268,11 @@
 	<metadataGetschema action="modules/param/metadata.php" param="getSchema" droits="collection" type="ajax" />
 	<metadataExport action="modules/param/metadata.php" param="export" droits="consult" type="csv" />
 	<metadataImport action="modules/param/metadata.php" param="import" droits="collection" retourok="metadataList" retourko="metadataList" />
+
+	<borrowerList action="modules/param/borrower.php" param="list" droits="consult"  retourlogin="1" type="smarty"/>
+	<borrowerDisplay action="modules/param/borrower.php" param="display" droits="consult" retourlogin="1" type="smarty"/>
+	<borrowerChange action="modules/param/borrower.php" param="change" droits="param"  retourlogin="1" type="smarty" />
+	<borrowerWrite action="modules/param/borrower.php" param="write" droits="param" retourok="borrowerList" retourko="borrowerChange" modulebefore="borrowerChange" />
+	<borrowerDelete action="modules/param/borrower.php" param="delete" droits="param" retourok="borrowerList" retourko="borrowerChange"  modulebefore="borrowerChange"/>
 </navigation>
 	

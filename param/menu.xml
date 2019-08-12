@@ -39,6 +39,7 @@
 	<item module="storageConditionList" droits="consult" label="Conditions de stockage" tooltip="Liste des conditions de stockage" />
 	<item module="movementReasonList" droits="consult" label="Motifs de déstockage" tooltip="Motifs de sortie du stock" />
 	<item module="objectStatusList" droits="consult" label="Statuts des objets" tooltip="Liste des statuts possibles pour les objets" />
+	<item module="borrowerList" droits="consult" label="Emprunteurs" tooltip="Liste des emprunteurs d'objets"/>
 	<item divider='1'/>	
 	<item module="labelList" droits="consult" label="Étiquettes" tooltip="Modèles d'étiquettes" />
 	<item module="printerList" droits="param" label="Imprimantes" tooltip="Liste des imprimantes" />		

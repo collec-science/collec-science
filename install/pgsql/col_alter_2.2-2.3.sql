@@ -131,3 +131,12 @@ insert into object_status (object_status_id, object_status_name)
 values
 (6, 'Objet prêté');
 select setval('object_status_object_status_id_seq', 6);
+
+create or replace view last_borrowing as (
+select borrowing_id, uid, borrowing_date, expected_return_date, borrower_id
+from borrowing b1
+ where borrowing_id = (
+ select borrowing_id from borrowing b2
+ where b1.uid = b2.uid 
+ and b2.return_date is null
+ order by borrowing_date desc limit 1));

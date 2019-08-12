@@ -41,16 +41,34 @@ class Borrower extends ObjetBDD {
     function getBorrowings($borrower_id, $is_active = false)
     {
         $sql = "select uid, identifier, object_status_id, object_status_name,
-                borrowing_id, borrowing_date, expected_return_date, return_date,
-                borrowing_name
-                from borrowing
-                join object using (uid)
-                join borrower using (borrower_id)
-                left outer join object_status using (object_status_id)";
+        borrowing_id, borrowing_date, expected_return_date, return_date,
+        borrower_name,
+        case when sample_type_id > 0 then 
+        'sample'
+        else 'container' end as object_type,
+         case when sample_type_id > 0 then
+        sample_type_name
+        else 
+        container_type_name 
+        end as name_type
+        from borrowing
+        join object using (uid)
+        join borrower using (borrower_id)
+        left outer join object_status using (object_status_id)
+        left outer join sample using (uid)
+        left outer join container using (uid)
+        left outer join sample_type using (sample_type_id)
+        left outer join container_type on (container.container_type_id = container_type.container_type_id)";
         $where = " where borrower_id = :borrower_id";
         if ($is_active) {
             $where .= " and return_date is null";
         }
-        return $this->getListeParamAsPrepared($this->sql . $where, array("borrower_id" => $borrower_id));
+        /**
+         * Add the dates of borrowings 
+         */
+        $this->colonnes["borrowing_date"] = array("type"=>2);
+        $this->colonnes["expected_return_date"] = array("type"=>2);
+        $this->colonnes["return_date"] = array("type"=>2);        
+        return $this->getListeParamAsPrepared($sql . $where, array("borrower_id" => $borrower_id));
     }
 }

@@ -345,7 +345,56 @@ switch ($t_module["param"]) {
             }
         }
         break;
+    case "lendingMulti":
+        /**
+         * Lend the samples to a borrower
+         */
+        if (count($_POST["uids"]) > 0 && $_POST["borrower_id"] > 0) {
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            include_once "modules/classes/borrowing.class.php";
+            $borrowing = new Borrowing($bdd, $ObjetBDDParam);
+            include_once "modules/classes/movement.class.php";
+            $movement = new Movement($bdd, $ObjetBDDParam);
+            $object = new ObjectClass($bdd, $ObjetBDDParam);
+            try {
+                $bdd->beginTransaction();
+                $datejour = date($_SESSION["MASKDATE"]);
+                foreach ($uids as $uid) {
+                    $db = array(
+                        "borrowing_id" => 0,
+                        "borrowing_date" => $_POST["borrowing_date"],
+                        "expected_return_date" => $_POST["expected_return_date"],
+                        "uid" => $uid,
+                        "borrower_id" => $_POST["borrower_id"]
+                    );
+                    $borrowing->ecrire($db);
+                    /**
+                     * Generate an exit movement
+                     */
+                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null, 2);
+                    /**
+                     * Change status of sample
+                     */
+                    $dobject = $object->lire($uid);
+                    $dobject["object_status_id"] = 6;
+                    $object->ecrire($dobject);
+                }
+                $module_coderetour = 1;
+                $message->set(_("Opération de prêt enregistrée"));
+                $bdd->commit();
+            }catch (MovementException $me) {
+                $message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
+                $message->set($me->getMessage());
+                $bdd->rollback();            
+            } catch (Exception $e) {
+                $message->set(_("Un problème est survenu lors de l'enregistrement du prêt"), true);
+                $message->set($e->getMessage());
+                $bdd->rollback();
+                $module_coderetour = -1;
+            }
+        }
 
+        break;
     case "export":
         try {
             $vue->set(

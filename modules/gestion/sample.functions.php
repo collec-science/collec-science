@@ -35,6 +35,11 @@ function sampleInitDatEntry()
     $mv = new MovementReason($bdd, $ObjetBDDParam);
     $vue->set($mv->getListe(2), "movementReason");
     $vue->set($_SESSION["APPLI_code"], "APPLI_code");
+    include_once 'modules/classes/borrower.class.php';
+    $borrower = new Borrower($bdd, $ObjetBDDParam);
+    $vue->set($borrower->getListe(2), "borrowers");
+    $vue->set(date($_SESSION["MASKDATE"]),"borrowing_date");
+    $vue->set(date($_SESSION["MASKDATE"]),"expected_return_date");
 }
 
 class SampleInitClassException extends Exception

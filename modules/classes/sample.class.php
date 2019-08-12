@@ -34,7 +34,8 @@ class Sample extends ObjetBDD
 					sp.sampling_place_id, sp.sampling_place_name,
                     lm.line_number, lm.column_number,
                     container_uid, oc.identifier as container_identifier,
-                    case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
+                    case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name,
+                    borrowing_date, expected_return_date, borrower_id, borrower_name
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join collection p on (p.collection_id = s.collection_id)
@@ -55,6 +56,8 @@ class Sample extends ObjetBDD
                     left outer join metadata using (metadata_id)
                     left outer join referent ro on (so.referent_id = ro.referent_id)
                     left outer join referent cr on (p.referent_id = cr.referent_id)
+                    left outer join last_borrowing lb on (so.uid = lb.uid)
+                    left outer join borrower using (borrower_id)
 					";
 
     public function __construct($bdd, $param = array())
@@ -125,6 +128,8 @@ class Sample extends ObjetBDD
         $sql = $this->sql . " where s.uid = :uid";
         $data["uid"] = $uid;
         if (is_numeric($uid) && $uid > 0) {
+            $this->colonnes["borrowing_date"] = array("type" => 2);
+            $this->colonnes["exepected_return_date"] = array("type" => 2);
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
             $retour = parent::getDefaultValue($parentValue);
@@ -136,6 +141,8 @@ class Sample extends ObjetBDD
     {
         $sql = $this->sql . " where s.sample_id = :sample_id";
         $data["sample_id"] = $sample_id;
+        $this->colonnes["borrowing_date"] = array("type" => 2);
+        $this->colonnes["exepected_return_date"] = array("type" => 2);
         return parent::lireParamAsPrepared($sql, $data);
     }
 
@@ -438,6 +445,8 @@ class Sample extends ObjetBDD
         $this->colonnes["movement_date"] = array(
             "type" => 3,
         );
+        $this->colonnes["borrowing_date"] = array("type" => 2);
+        $this->colonnes["exepected_return_date"] = array("type" => 2);
         return $this->getListeParamAsPrepared($this->sql . $where, $data);
     }
 

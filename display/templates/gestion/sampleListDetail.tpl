@@ -104,12 +104,19 @@
 			if (action == "samplesAssignReferent") {
 				$("#referentid").show();
 				$(".event").hide();
+				$(".borrowing").hide();
 			} else if (action == "samplesCreateEvent") {
 				$("#referentid").hide();
+				$(".borrowing").hide();
 				$(".event").show();
+			} else if (action == "samplesLending") {
+				$("#referentid").hide();
+				$(".event").hide();
+				$(".borrowing").show();
 			} else {
 				$("#referentid").hide();
 				$(".event").hide();
+				$(".borrowing").hide();
 			}
 		});
 		
@@ -255,6 +262,7 @@
 		<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
 		<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
 		<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
+		<option value="samplesLending">{t}Prêter les échantillons{/t}</option>
 		</select>
 		<select id="referentid" name="referent_id" hidden>
 				<option value="">{t}Choisissez...{/t}</option>
@@ -265,31 +273,58 @@
 				{/foreach}
 		</select>
 
-<!-- Ajout d'un nouvel evenement-->
-<div class="form-group event" hidden>
-<label for="event_date" class="control-label col-md-4">{t}Date{/t}<span class="red">*</span> :</label>
-<div class="col-md-8">
-<input id="event_date" name="event_date" value="" class="form-control datepicker" >
-</div>
-</div>
-<div class="form-group event" hidden>
-<label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Type d'évenement :{/t}</label>
-<div class="col-md-8">
-<select id="event_type_id" name="event_type_id" class="form-control">
-{section name=lst loop=$eventType}
-<option value="{$eventType[lst].event_type_id}">
-{$eventType[lst].event_type_name}
-</option>
-{/section}
-</select>
-</div>
-</div>
-<div class="form-group event" hidden>
-<label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
-<div class="col-md-8">
-<textarea id="event_comment" name="event_comment"  class="form-control" rows="3"></textarea>
-</div>
-</div>
+		<!-- Ajout d'un nouvel evenement-->
+		<div class="form-group event" hidden>
+			<label for="event_date" class="control-label col-md-4">{t}Date{/t}<span class="red">*</span> :</label>
+			<div class="col-md-8">
+				<input id="event_date" name="event_date" value="" class="form-control datepicker" >
+			</div>
+		</div>
+		<div class="form-group event" hidden>
+			<label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Type d'évenement :{/t}</label>
+			<div class="col-md-8">
+				<select id="event_type_id" name="event_type_id" class="form-control">
+					{section name=lst loop=$eventType}
+						<option value="{$eventType[lst].event_type_id}">
+							{$eventType[lst].event_type_name}
+						</option>
+					{/section}
+				</select>
+			</div>
+		</div>
+		<div class="form-group event" hidden>
+			<label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+			<div class="col-md-8">
+				<textarea id="event_comment" name="event_comment"  class="form-control" rows="3"></textarea>
+			</div>
+		</div>
+		<!-- add a borrowing -->
+		<div class="form-group borrowing" hidden>
+			<label for="borrower_id"class="control-label col-md-4">
+				<span class="red">*</span> {t}Emprunteur :{/t}
+			</label>
+			<div class="col-md-8">
+				<select id="borrower_id" name="borrower_id" class="form-control">
+					{foreach $borrowers as $borrower}
+						<option value="{$borrower.borrower_id}">
+							{$borrower.borrower_name}
+						</option>
+					{/foreach}
+				</select>
+			</div>
+		</div>
+		<div class="form-group borrowing" hidden>
+			<label for="borrowing_date" class="control-label col-md-4">{t}Date d'emprunt :{/t}<span class="red">*</span></label>
+			<div class="col-md-8">
+				<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}" class="form-control datepicker" >
+			</div>
+		</div>
+		<div class="form-group borrowing" hidden>
+			<label for="expected_return_date" class="control-label col-md-4">{t}Date de retour escomptée :{/t}</label>
+			<div class="col-md-8">
+				<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
+			</div>
+		</div>
 		<button id="checkedButton" class="btn btn-danger" >{t}Exécuter{/t}</button>
 	</div>
 </form>

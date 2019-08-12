@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-beta" last-position="0,0" last-zoom="1" max-obj-count="51"
+<dbmodel pgmodeler-ver="0.9.2-beta" last-position="0,1161" last-zoom="1" max-obj-count="51"
 	 default-schema="public" default-owner="postgres">
 <role name="quinton"
       superuser="true"
@@ -545,7 +545,7 @@ B: bottom, premiere ligne en bas]]></comment>
 <view name="last_photo" layer="0" collapse-mode="2" max-obj-count="1">
 	<schema name="col"/>
 	<role name="postgres"/>
-	<position x="100" y="1880"/>
+	<position x="280" y="1780"/>
 	<reference>
 		<expression><![CDATA[ SELECT d.document_id,
     d.uid
@@ -1737,6 +1737,38 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 			<column name="login"/>
 		</idxelement>
 </index>
+
+<view name="last_borrowing" layer="0" collapse-mode="2" max-obj-count="1">
+	<schema name="col"/>
+	<role name="postgres"/>
+	<comment><![CDATA[View to get the last borrowing for an object]]></comment>
+	<position x="100" y="1880"/>
+	<reference>
+		<expression><![CDATA[select borrowing_id, uid, borrowing_date, expected_return_date, borrower_id
+from borrowing b1
+ where borrowing_id = (
+ select borrowing_id from borrowing b2
+ where b1.uid = b2.uid 
+ and b2.return_date is null
+ order by borrowing_date desc limit 1)
+]]></expression>
+	<column name="borrowing_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="uid">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="borrowing_date">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="expected_return_date">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="borrower_id">
+		<type name="integer" length="0"/>
+	</column>
+	</reference>
+</view>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

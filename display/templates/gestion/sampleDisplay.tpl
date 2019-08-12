@@ -295,18 +295,26 @@
 				{/if}
 				<dl class="dl-horizontal">
 					<dt>{t}Statut :{/t}</dt>
-					<dd>{$data.object_status_name}</dd>
+					<dd>{$data.object_status_name}
+						{if $data.object_status_id == 6}
+						&nbsp;{t}le{/t}&nbsp;{$data.borrowing_date}
+							&nbsp;{t}à{/t}&nbsp;
+							<a href="index.php?module=borrowerDisplay&borrower_id={$data.borrower_id}">
+								{$data.borrower_name}
+							</a>
+							
+							<br>
+							{t}Retour prévu le{/t}&nbsp;{$data.expected_return_date}
+						{/if}
+					</dd>
 				</dl>
 
 				<dl class="dl-horizontal">
-					<dt title="{t}Date de création de l'échantillon{/t}">{t}Date de création
-					de l'échantillon
-					(d'échantillonnage) :{/t}</dt>
+					<dt>{t}Date de création	de l'échantillon (d'échantillonnage) :{/t}</dt>
 					<dd>{$data.sampling_date}</dd>
 				</dl>
-				<dl class="dl-horizontal">
-					<dt title="{t}Date d'import dans la base de données{/t}">{t}Date d'import dans
-					la base de données :{/t}</dt>
+				<dl class="dl-horizontal"><dt>{t}Date d'import dans la base de données :{/t}
+					</dt>
 					<dd>{$data.sample_creation_date}</dd>
 				</dl>
 				{if strlen($data.expiration_date) > 0}

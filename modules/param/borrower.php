@@ -1,7 +1,7 @@
 <?php
 require_once 'modules/classes/borrower.class.php';
 $dataClass = new borrower($bdd, $ObjetBDDParam);
-$keyName = "event_type_id";
+$keyName = "borrower_id";
 $id = $_REQUEST[$keyName];
 
 switch ($t_module["param"]) {
@@ -13,7 +13,8 @@ switch ($t_module["param"]) {
         $vue->set("param/borrowerList.tpl", "corps");
         break;
     case "display":
-        $vue->set($dataClass->getBorrowings($id));
+        $vue->set($dataClass->lire($id), "data");
+        $vue->set($dataClass->getBorrowings($id), "borrowings");
         $vue->set("param/borrowerDisplay.tpl", "corps");
         break;
     case "change":

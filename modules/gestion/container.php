@@ -41,6 +41,11 @@ switch ($t_module["param"]) {
         }
         $vue->set($dataSearch, "containerSearch");
         $vue->set("gestion/containerList.tpl", "corps");
+        include_once "modules/classes/borrower.class.php";
+        $borrower = new Borrower($bdd, $ObjetBDDParam);
+        $vue->set($borrower->getListe(2), "borrowers");
+        $vue->set(date($_SESSION["MASKDATE"]),"borrowing_date");
+        $vue->set(date($_SESSION["MASKDATE"]),"expected_return_date");
         /*
          * Ajout des listes deroulantes
          */
@@ -122,12 +127,12 @@ switch ($t_module["param"]) {
         include_once 'modules/classes/eventType.class.php';
         $eventType = new EventType($bdd, $ObjetBDDParam);
         $vue->set($eventType->getListe(1), "eventType");
-         /**
+        /**
          * Get the list of borrowings
          */
         include_once "modules/classes/borrowing.class.php";
         $borrowing = new Borrowing($bdd, $ObjetBDDParam);
-        $vue->set($borrowing->getFromUid($data["uid"]),"borrowings");
+        $vue->set($borrowing->getFromUid($data["uid"]), "borrowings");
         /*
          * Affichage
          */
@@ -329,5 +334,48 @@ switch ($t_module["param"]) {
                 }
             }
         }
+        break;
+    case "lendingMulti":
+        /**
+         * Lend the containers to a borrower
+         */
+        if (count($_POST["uids"]) > 0 && $_POST["borrower_id"] > 0) {
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            include_once "modules/classes/borrowing.class.php";
+            $borrowing = new Borrowing($bdd, $ObjetBDDParam);
+            include_once "modules/classes/movement.class.php";
+            $movement = new Movement($bdd, $ObjetBDDParam);
+            try {
+                $bdd->beginTransaction();
+                $datejour = date($_SESSION["MASKDATE"]);
+                foreach ($uids as $uid) {
+                    $borrowing->setBorrowing(
+                        $uid,
+                        $_POST["borrower_id"],
+                        $_POST["borrowing_date"],
+                        $_POST["expected_return_date"]
+                    );
+                    /**
+                     * Generate an exit movement
+                     */
+                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null, 2);
+                }
+                $module_coderetour = 1;
+                $message->set(_("Opération de prêt enregistrée"));
+                $bdd->commit();
+            } catch (MovementException $me) {
+                $message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
+                $message->set($me->getMessage());
+                $bdd->rollback();
+            } catch (Exception $e) {
+                $message->set(_("Un problème est survenu lors de l'enregistrement du prêt"), true);
+                $message->set($e->getMessage());
+                $bdd->rollback();
+                $module_coderetour = -1;
+            }
+        } else {
+            $module_coderetour = -1;
+        }
+        
         break;
 }

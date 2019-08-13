@@ -365,27 +365,20 @@ switch ($t_module["param"]) {
             $borrowing = new Borrowing($bdd, $ObjetBDDParam);
             include_once "modules/classes/movement.class.php";
             $movement = new Movement($bdd, $ObjetBDDParam);
-            $object = new ObjectClass($bdd, $ObjetBDDParam);
             try {
                 $bdd->beginTransaction();
                 $datejour = date($_SESSION["MASKDATE"]);
                 foreach ($uids as $uid) {
-                    $db = array(
-                        "borrowing_id" => 0,
-                        "borrowing_date" => $_POST["borrowing_date"],
-                        "expected_return_date" => $_POST["expected_return_date"],
-                        "uid" => $uid,
-                        "borrower_id" => $_POST["borrower_id"]
+                    $borrowing->setBorrowing(
+                        $uid,
+                        $_POST["borrower_id"],
+                        $_POST["borrowing_date"],
+                        $_POST["expected_return_date"]
                     );
-                    $borrowing->ecrire($db);
                     /**
                      * Generate an exit movement
                      */
                     $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null, 2);
-                    /**
-                     * Change status of sample
-                     */                  
-                    $object->setStatus($uid, 6);
                 }
                 $module_coderetour = 1;
                 $message->set(_("Opération de prêt enregistrée"));
@@ -400,6 +393,8 @@ switch ($t_module["param"]) {
                 $bdd->rollback();
                 $module_coderetour = -1;
             }
+        } else {
+            $module_coderetour = -1;
         }
 
         break;

@@ -48,13 +48,13 @@ switch ($t_module["param"]) {
 				$movement = new Movement($bdd, $ObjetBDDParam);
 				$movement->addMovement($_REQUEST["uid"], null, 2, 0, $_SESSION["login"], null, null, 2);
 			} else {
-				$id = dataWrite($dataClass, $_REQUEST, true);
 				/**
-				 * Treatment of the return
+				 * Treatment of the return for all included objects
 				 */
 				if (strlen($_REQUEST["return_date"]) > 0) {
 					$dataClass->setReturn($_REQUEST["uid"], $_REQUEST["return_date"]);
 				}
+				$id = dataWrite($dataClass, $_REQUEST, true);
 			}
 			if ($id > 0) {
 				$_REQUEST[$keyName] = $id;

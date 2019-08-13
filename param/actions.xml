@@ -125,6 +125,7 @@
 	<containerImportStage1 action="modules/gestion/container.php" param="importStage1" droits="import,collection"  type="smarty" retourlogin="1"/>
 	<containerImportStage2 action="modules/gestion/container.php" param="importStage2" droits="import,collection"  type="smarty" modulebefore="containerImportStage1,containerImportStage2"/>
 	<containerImportStage3 action="modules/gestion/container.php" param="importStage3" droits="import,collection" type="smarty" retourok="containerImportStage1" retourko="containerImportStage1" modulebefore="containerImportStage2"/>
+	<containersLending action="modules/gestion/container.php" param="lendingMulti" moduleBefore="containerList" droits="collection" retourok="containerList" retourko="containerList"/>
 
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />

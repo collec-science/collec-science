@@ -37,12 +37,36 @@ $(document).ready(function () {
 	$("#containerExport").on("keypress click", function () { 
 		$(this.form).find("input[name='module']").val("containerExportGlobal");
 	});
+	$("#checkedButton").on ("keypress click", function(event) {
+			
+		var action = $("#checkedAction").val();
+		if (action.length > 0) {
+			var conf = confirm("{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
+			if ( conf  == true) {
+				console.log (action);
+				$(this.form).find("input[name='module']").val(action);
+				$(this.form).prop('target', '_self').submit();
+			} else {
+				event.preventDefault();
+			}
+		} else {
+			event.preventDefault();
+		}
+	});
+	$("#checkedAction").change(function () { 
+		var action = $(this).val();
+		if (action == "containersLending") {
+			$(".borrowing").show();
+		} else {
+			$(".borrowing").hide();
+		}
+	});
 
 });
 </script>
 {include file="gestion/displayPhotoScript.tpl"}
 {if $droits.gestion == 1}
-	<form method="GET" id="formListPrint" action="index.php">
+	<form method="POST" id="formListPrint" action="index.php">
 		<input type="hidden" id="module" name="module" value="containerPrintLabel">
 		<input type="hidden" name="lastModule" value="{$lastModule}">
 		<div class="row">
@@ -152,6 +176,50 @@ $(document).ready(function () {
 				{/section}
 			</tbody>
 		</table>
+		{if $droits.collection == 1}
+			<div class="row">
+				<div class="col-md-6 protoform form-horizontal">
+					{t}Pour les éléments cochés :{/t}
+					<input type="hidden" name="lastModule" value="{$lastModule}">
+					<input type="hidden" name="uid" value="{$data.uid}">
+					<select id="checkedAction" class="form-control">
+						<option value="" selected>{t}Choisissez{/t}</option>
+						<option value="containersLending">{t}Prêter les contenants et leurs contenus{/t}</option>
+					</select>
+					<!-- add a borrowing -->
+					<div class="form-group borrowing" hidden>
+						<label for="borrower_id"class="control-label col-md-4">
+							<span class="red">*</span> {t}Emprunteur :{/t}
+						</label>
+						<div class="col-md-8">
+							<select id="borrower_id" name="borrower_id" class="form-control">
+								{foreach $borrowers as $borrower}
+									<option value="{$borrower.borrower_id}">
+										{$borrower.borrower_name}
+									</option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+					<div class="form-group borrowing" hidden>
+						<label for="borrowing_date" class="control-label col-md-4"><span class="red">*</span>{t}Date d'emprunt :{/t}</label>
+						<div class="col-md-8">
+							<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}" class="form-control datepicker" >
+						</div>
+					</div>
+					<div class="form-group borrowing" hidden>
+						<label for="expected_return_date" class="control-label col-md-4">{t}Date de retour escomptée :{/t}</label>
+						<div class="col-md-8">
+							<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
+						</div>
+					</div>
+					<div class="center">
+						<button id="checkedButton" class="btn btn-danger" >{t}Exécuter{/t}</button>
+					</div>
+				</div>
+				
+			</div>
+		{/if}
 {if $droits.gestion == 1}
 	</form>
 {/if}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created : 2 juin 2016
  * Creator : quinton
@@ -8,8 +9,7 @@
 require_once 'modules/classes/container.class.php';
 
 class MovementException extends Exception
-{
-}
+{ }
 
 class Movement extends ObjetBDD
 {
@@ -195,7 +195,7 @@ class Movement extends ObjetBDD
          */
         $controle = true;
         $message = _("Les contrôles de cohérence ne permettent pas d'enregister le mouvement demandé. ");
-        if (! ($uid > 0 && is_numeric($uid))) {
+        if (!($uid > 0 && is_numeric($uid))) {
             $controle = false;
         }
         if ($uid == $container_uid) {
@@ -210,7 +210,7 @@ class Movement extends ObjetBDD
             $controle = false;
         }
         $container_uid = $this->encodeData($container_uid);
-        if (! is_numeric($container_uid) && strlen($container_uid) > 0) {
+        if (!is_numeric($container_uid) && strlen($container_uid) > 0) {
             $controle = false;
         }
         if (strlen($login) == 0) {
@@ -238,7 +238,7 @@ class Movement extends ObjetBDD
             $data["movement_type_id"] = $type;
             $data["login"] = $login;
             $data["movement_reason_id"] = $movement_reason_id;
-            
+
             if (strlen($storage_location) > 0) {
                 $data["storage_location"] = $storage_location;
             }
@@ -250,24 +250,20 @@ class Movement extends ObjetBDD
             $movement_id = $this->ecrire($data);
             /**
              * Change the status if it's 6 (lended) and if the movement is an entry
+             * disable the borrowing
              */
             if ($data["movement_type_id"] == 1) {
                 include_once "modules/classes/object.class.php";
                 $object = new ObjectClass($this->connection, $this->paramori);
                 $dobject = $object->lire($uid);
                 if ($dobject["object_status_id"] == 6) {
-                    $object->setStatus($uid, 1);
                     /**
                      * Add the return date in borrowing
                      */
                     include_once "modules/classes/borrowing.class.php";
                     $borrowing = new Borrowing($this->connection, $this->paramori);
-                    $borrowing_id = $borrowing->getLastborrowing($uid);
-                    if ($borrowing_id > 0) {
-                        $db = $borrowing->lire($borrowing_id);
-                        $db["return_date"] = $data["movement_date"];
-                        $borrowing->ecrire($db);
-                    }
+                    $borrowing->setReturn($uid, $data["movement_date"], $object);
+                    $object->setStatus($uid, 1);
                 }
             }
             return $movement_id;
@@ -309,7 +305,7 @@ class Movement extends ObjetBDD
         } else {
             $searchByLogin = false;
         }
-        
+
         $dateStart = $this->encodeData($values["date_start"]);
         $dateEnd = $this->encodeData($values["date_end"]);
         $data = array();
@@ -333,5 +329,3 @@ class Movement extends ObjetBDD
         return $this->getListeParamAsPrepared($sql, $data);
     }
 }
-
-?>

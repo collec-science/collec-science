@@ -1,4 +1,4 @@
-Collec-Science - procédure de mise à jour vers la version 2.2.3 depuis une version antérieure
+Collec-Science - procédure de mise à jour vers la version 2.3 depuis une version antérieure
 Document encodé en UTF-8 : si vous avez des problèmes pour le consulter depuis un poste Windows, ouvrez-le avec Notepad++
 -------------------------------------------------------------------------------------------
 
@@ -13,32 +13,41 @@ Cas n°1
 Connectez-vous à votre serveur, puis :
 
  sudo -s
- wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.1-2.2.3.sh
-chmod +x upgrade-2.1-2.2.3.sh
- ./upgrade-2.1-2.2.3.sh
+ wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.1-2.3.sh
+chmod +x upgrade-2.1-2.3.sh
+ ./upgrade-2.1-2.3.sh
 
 Le programme va télécharger la nouvelle version et réaliser l’installation.
 
 Cas n°1 bis
 Même situation, mais vous avez déjà installé la version 2.2 :
      sudo -s
-    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2-2.2.3.sh
-    chmod +x upgrade-2.2-2.2.3.sh
-    ./upgrade-2.2-2.2.3.sh
+    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2-2.3.sh
+    chmod +x upgrade-2.2-2.3.sh
+    ./upgrade-2.2-2.3.sh
 
 Cas n° 1 ter
 Même situation, mais vous avez déjà installé la version 2.2.1 :
      sudo -s
-    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2.1-2.2.3.sh
-    chmod +x upgrade-2.2.1-2.2.3.sh
-    ./upgrade-2.2.1-2.2.3.sh
+    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2.1-2.3.sh
+    chmod +x upgrade-2.2.1-2.3.sh
+    ./upgrade-2.2.1-2.3.sh
 
 Cas n° 1 quattro
 Même situation, mais vous avez déjà installé la version 2.2.2 :
      sudo -s
-    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2.2-2.2.3.sh
-    chmod +x upgrade-2.2.2-2.2.3.sh
-    ./upgrade-2.2.2-2.2.3.sh
+    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2.2-2.3.sh
+    chmod +x upgrade-2.2.2-2.3.sh
+    ./upgrade-2.2.2-2.3.sh
+
+Cas n° 1 cinq
+Même situation, mais vous avez déjà installé la version 2.2.3 :
+     sudo -s
+    wget https://github.com/Irstea/collec/raw/master/install/upgrade-2.2.3-2.3.sh
+    chmod +x upgrade-2.2.3-2.3.sh
+    ./upgrade-2.2.3-2.3.sh
+
+    
 
 Cas n° 2
 
@@ -54,12 +63,12 @@ Etape 1 :
  cd /var/www/html/collec-science
  wget https://github.com/Irstea/collec/archive/master.zip
  unzip master.zip
- mv collec-master/ collec-2.2.3
- collec-2.2.3/install/apache2/upgrade_rights.sh collec-2.2.3
+ mv collec-master/ collec-2.3
+ collec-2.3/install/apache2/upgrade_rights.sh collec-2.3
 
 Etape 2 :
 
-cd collec-2.2.3/install
+cd collec-2.3/install
 
 Faites les montées de version de votre base de données en fonction de votre version actuelle
 
@@ -69,7 +78,7 @@ Faites les montées de version de votre base de données en fonction de votre ve
  ./upgradedb-2.1-2.2.sh
  cd ../..
  rm collec
- ln -s collec-2.2.3 collec
+ ln -s collec-2.3 collec
 
 Cas n° 3
 
@@ -91,7 +100,7 @@ Récupérez le code de l’application :
 
  wget https://github.com/Irstea/collec/archive/master.zip
  unzip master.zip
- mv collec-master collec-2.2.3
+ mv collec-master collec-2.3
 
 Etape 2 : mise à jour de la base de données
 
@@ -129,16 +138,16 @@ Etape 3 : basculer vers la nouvelle version
     Recopiez la version précédente de param/param.inc.php
 
  cd ../..
- cp ancien_dossier/param/param.inc.php collec-2.2.3/param/
+ cp ancien_dossier/param/param.inc.php collec-2.3/param/
 
     Mettez à jour les droits :
 
-collec-2.2.3/install/apache2/upgrade_rights.sh collec-2.2.3
+collec-2.3/install/apache2/upgrade_rights.sh collec-2.3
 
     supprimez le lien symbolique (si c’est le mécanisme que vous avez utilisé), et recréez le :
 
  rm collec
- ln -s collec-2.2.3 collec
+ ln -s collec-2.3 collec
 
 Cas n° 4
 

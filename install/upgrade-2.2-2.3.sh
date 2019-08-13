@@ -1,7 +1,7 @@
 #!/bin/bash
-# upgrade an instance 2.0 to 2.1
-OLDVERSION=collec-2.0
-VERSION=collec-2.1
+# upgrade an instance 2.1 to 2.2
+OLDVERSION=collec-2.2
+VERSION=collec-2.3
 echo "This script will install the release $VERSION"
 echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of Collec-Science is $OLDVERSION ?"
@@ -16,14 +16,11 @@ echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip
 read -p "Ok to install this release [Y/n]?" answer
 
-if [  $answer = "y" ] || [ $answer = "Y" ] || [  -z $answer ]
+if [[  $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then
 
 unzip master.zip
 mv collec-master/ $VERSION
-
-
-
 
 # copy of last param into the new code
 cp collec/param/param.inc.php $VERSION/param/
@@ -44,7 +41,7 @@ ln -s $VERSION collec
 echo "update database"
 chmod 755 /var/www/html/collec-science
 cd collec/install
-su postgres -c "psql -f upgrade-2.0-2.1.sql"
+su postgres -c "psql -f upgrade-2.2-2.3.sql"
 cd ../..
 chmod 750 /var/www/html/collec-science
 

@@ -13,6 +13,12 @@
 				}
 			}
 		}
+		/* select the current tab */
+		var activeTab = "{$activeTab}";
+    	if (activeTab.length > 0) {
+			//console.log(activeTab);
+			$("#"+activeTab).tab('show');
+    	}
 		$("#sampleSpinner2").hide();
 		var isReferentDisplayed = false;
 
@@ -101,25 +107,25 @@
 	});
 </script>
 <div class="row">
-		<div class="col-md-8">
-			<h2>{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i></h2>
-		</div>
-		<div class="col-md-4">
-			<form id="open" action="index.php" action="index.php" method="GET">
-				<input id="moduleBase" type="hidden" name="moduleBase" value="sample">
-				<input id="action" type="hidden" name="action" value="Display">
-				<div class="form-group">
-					<div class="col-md-5">
-						<input id="search" class="form-control" placeholder="uid" name="uid" required autofocus>
-					</div>
-					<div class="col-md-1">
-						<img id="spinner" src="display/images/spinner.gif" style="display:none" height="25">
-					</div>
-					<input type="submit" id="searchExec" class="btn btn-warning col-md-6" value="{t}Ouvrir{/t}">
-				</div>
-			</form>
-		</div>
+	<div class="col-md-8">
+		<h2>{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i></h2>
 	</div>
+	<div class="col-md-4">
+		<form id="open" action="index.php" action="index.php" method="GET">
+			<input id="moduleBase" type="hidden" name="moduleBase" value="sample">
+			<input id="action" type="hidden" name="action" value="Display">
+			<div class="form-group">
+				<div class="col-md-5">
+					<input id="search" class="form-control" placeholder="uid" name="uid" required autofocus>
+				</div>
+				<div class="col-md-1">
+					<img id="spinner" src="display/images/spinner.gif" style="display:none" height="25">
+				</div>
+				<input type="submit" id="searchExec" class="btn btn-warning col-md-6" value="{t}Ouvrir{/t}">
+			</div>
+		</form>
+	</div>
+</div>
 <div class="row">
 	<div class="col-md-12">
 		<a href="index.php?module={$moduleListe}">

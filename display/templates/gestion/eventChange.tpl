@@ -7,7 +7,7 @@
 <img src="display/images/list.png" height="25">
 {t}Retour à la liste{/t}
 </a>
-<a href="index.php?module={$moduleParent}Display&uid={$object.uid}">
+<a href="index.php?module={$moduleParent}Display&uid={$object.uid}&activeTab={$activeTab}">
 <img src="display/images/edit.gif" height="25">
 {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
 </a>
@@ -16,6 +16,7 @@
 <input type="hidden" name="moduleBase" value="{$moduleParent}event">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="uid" value="{$object.uid}">
+<input type="hidden" name="activeTab" value="{$activeTab}">
 
 <div class="form-group">
 <label for="event_date" class="control-label col-md-4">{t}Date :{/t}</label>

@@ -19,6 +19,7 @@ switch ($t_module["param"]) {
          */
         dataRead($dataClass, $id, "gestion/objectIdentifierChange.tpl", $_REQUEST["uid"]);
         $vue->set($_SESSION["moduleParent"], "moduleParent");
+        $vue->set("tab-id", "activeTab");
         /*
          * Recherche des types 
          */

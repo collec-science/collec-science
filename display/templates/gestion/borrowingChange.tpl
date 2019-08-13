@@ -6,7 +6,7 @@
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
             </a>
-            <a href="index.php?module={$moduleParent}Display&uid={$object.uid}">
+            <a href="index.php?module={$moduleParent}Display&uid={$object.uid}&activeTab={$activeTab}">
             <img src="display/images/edit.gif" height="25">
             {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
             </a>
@@ -16,6 +16,7 @@
             <input type="hidden" name="action" value="Write">
             <input type="hidden" name="borrowing_id" value="{$data.borrowing_id}">
             <input type="hidden" name="uid" value="{$data.uid}">
+            <input type="hidden" name="activeTab" value="{$activeTab}">
 
             <div class="form-group" >
                 <label for="borrower_id"class="control-label col-md-4">

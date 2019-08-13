@@ -18,6 +18,7 @@ switch ($t_module["param"]) {
 		require_once 'modules/classes/borrower.class.php';
 		$borrower = new Borrower($bdd, $ObjetBDDParam);
 		$vue->set($borrower->getListe(2), "borrowers");
+		$vue->set("tab-event", "activeTab");
 		/*
 		 * Lecture de l'object concerne
 		 */

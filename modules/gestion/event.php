@@ -18,6 +18,7 @@ switch ($t_module["param"]) {
 		 */
 		dataRead($dataClass, $id, "gestion/eventChange.tpl", $_REQUEST["uid"]);
 		$vue->set($_SESSION["moduleParent"],"moduleParent");
+		$vue->set("tab-event", "activeTab");
 		/*
 		 * Recherche des types d'evenement
 		 */

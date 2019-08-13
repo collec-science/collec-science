@@ -9,6 +9,12 @@
 				}
 			}
 		}
+		/* select the current tab */
+		var activeTab = "{$activeTab}";
+    	if (activeTab.length > 0) {
+			//console.log(activeTab);
+			$("#"+activeTab).tab('show');
+    	}
 		$("#referent_name").click(function() { 
 			var referentName = $(this).text();
 			if (referentName.length > 0) {
@@ -162,7 +168,7 @@
 		<li class="nav-item">
             <a class="nav-link" id="tab-event" href="#nav-event"  data-toggle="tab" role="tab" aria-controls="nav-event" aria-selected="false">
 				<img src="display/images/events.png" height="25">
-				{t}Événements{/t}
+				{t}Événements/prêts{/t}
 			</a>
 		</li>
 		<li class="nav-item">
@@ -269,7 +275,14 @@
 		</div>
 		<div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="tab-event">
 			<div class="col-md-12">
-				{include file="gestion/eventList.tpl"}
+				<fieldset>
+					<legend>{t}Événements{/t}</legend>
+					{include file="gestion/eventList.tpl"}
+				</fieldset>
+				<fieldset>
+					<legend>{t}Liste des prêts{/t}</legend>
+					{include file="gestion/borrowingList.tpl"}
+				</fieldset>
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-id" role="tabpanel" aria-labelledby="tab-id">
@@ -281,34 +294,34 @@
 			<div class="col-md-12">
 				{include file="gestion/objectMovementList.tpl"}
 			</div>
-		</div>
-		<div class="tab-pane fade" id="nav-container" role="tabpanel" aria-labelledby="tab-container">
-			{if $droits.gestion == 1 && $modifiable == 1}
-				<a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
-					<img src="display/images/new.png" height="25">
-					{t}Nouveau contenant associé{/t}
-				</a>
-			{/if}
-			{include file="gestion/containerListDetail.tpl"}
-		</div>
-		<div class="tab-pane fade" id="nav-sample" role="tabpanel" aria-labelledby="tab-sample">
-			<div class="col-md-12">
-				{include file="gestion/sampleListDetail.tpl"}
+			<div class="tab-pane fade" id="nav-container" role="tabpanel" aria-labelledby="tab-container">
+				{if $droits.gestion == 1 && $modifiable == 1}
+					<a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
+						<img src="display/images/new.png" height="25">
+						{t}Nouveau contenant associé{/t}
+					</a>
+				{/if}
+				{include file="gestion/containerListDetail.tpl"}
 			</div>
-		</div>
-		<div class="tab-pane fade" id="nav-grid" role="tabpanel" aria-labelledby="tab-grid">
-			<div class="col-md-12">
-				{include file="gestion/containerDisplayOccupation.tpl"}
+			<div class="tab-pane fade" id="nav-sample" role="tabpanel" aria-labelledby="tab-sample">
+				<div class="col-md-12">
+					{include file="gestion/sampleListDetail.tpl"}
+				</div>
 			</div>
-		</div>
-		<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
-			<div class="col-md-12">
-				{include file="gestion/documentList.tpl"}
+			<div class="tab-pane fade" id="nav-grid" role="tabpanel" aria-labelledby="tab-grid">
+				<div class="col-md-12">
+					{include file="gestion/containerDisplayOccupation.tpl"}
+				</div>
 			</div>
-		</div>
-		<div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="tab-booking">
-			<div class="col-md-12">
-				{include file="gestion/bookingList.tpl"}
+			<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
+				<div class="col-md-12">
+					{include file="gestion/documentList.tpl"}
+				</div>
+			</div>
+			<div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="tab-booking">
+				<div class="col-md-12">
+					{include file="gestion/bookingList.tpl"}
+				</div>
 			</div>
 		</div>
 	</div>

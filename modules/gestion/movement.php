@@ -19,6 +19,7 @@ switch ($t_module["param"]) {
         $vue->set($containerFamily->getListe(2), "containerFamily");
         $vue->set($data, "data");
         $vue->set($_SESSION["moduleParent"], "moduleParent");
+        $vue->set("tab-movement", "activeTab");
         
         /*
          * Recherche de l'objet
@@ -40,6 +41,7 @@ switch ($t_module["param"]) {
         $vue->set($object->lire($_REQUEST["uid"]), "object");
         $vue->set($data, "data");
         $vue->set($_SESSION["moduleParent"], "moduleParent");
+        $vue->set("tab-movement", "activeTab");
         /*
          * Recherche des motifs de sortie
          */

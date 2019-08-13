@@ -279,5 +279,8 @@
 	<sampleborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion" type="smarty"  />
 	<sampleborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleborrowingChange" modulebefore="sampleborrowingChange" />
 	<sampleborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="sampleborrowingChange" modulebefore="sampleborrowingChange"/>
+	<containerborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion" type="smarty"  />
+	<containerborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containerborrowingChange" modulebefore="containerborrowingChange" />
+	<containerborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion"  retourok="containerDisplay" retourko="containerborrowingChange" modulebefore="containerborrowingChange"/>
 </navigation>
 	

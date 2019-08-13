@@ -49,7 +49,7 @@ $(document).ready( function () {
 <img src="display/images/list.png" height="25">
 {t}Retour à la liste{/t}
 </a>
-<a href="index.php?module={$moduleParent}Display&uid={$object.uid}">
+<a href="index.php?module={$moduleParent}Display&uid={$object.uid}&activeTab={$activeTab}">
 <img src="display/images/edit.gif" height="25">
 {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
 </a>
@@ -59,7 +59,7 @@ $(document).ready( function () {
 <input type="hidden" name="moduleBase" value="{$moduleParent}booking">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" id="uid" name="uid" value="{$object.uid}">
-
+<input type="hidden" name="activeTab" value="{$activeTab}">
 
 <div class="form-group">
 <label for="date_from" class="control-label col-md-4"><span class="red">*</span> {t}Du :{/t}</label>

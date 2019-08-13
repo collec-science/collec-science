@@ -107,7 +107,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 {if $moduleParent == "container"}{t}Retour à la liste des contenants{/t}{else}{t}Retour à la liste des échantillons{/t}{/if}
 </a>
 {if $data.uid > 0}
-<a href="index.php?module={$moduleParent}Display&uid={$data.uid}">
+<a href="index.php?module={$moduleParent}Display&uid={$data.uid}&activeTab={$activeTab}">
 <img src="display/images/box.png" height="25">
 {t}Retour au détail{/t}
 </a>
@@ -118,7 +118,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="movement_type_id" id="movement_type_id" value="{$data.movement_type_id}">
 <input type="hidden" name="container_id" id="container_id" value="{$data.container_id}">
-
+<input type="hidden" name="activeTab" value="{$activeTab}">
 
 <div class="form-group">
 <label for="uid" class="control-label col-md-4">{t}Objet :{/t}</label>

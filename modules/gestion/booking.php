@@ -18,6 +18,7 @@ switch ($t_module["param"]) {
 		 */
 		dataRead($dataClass, $id, "gestion/bookingChange.tpl", $_REQUEST["uid"]);
 		$vue->set($_SESSION["moduleParent"], "moduleParent");
+		$vue->set("tab-booking", "activeTab");
 		/*
 		 * Lecture de l'object concerne
 		 */

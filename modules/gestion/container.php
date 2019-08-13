@@ -19,6 +19,10 @@ if (isset($_SESSION["uid"])) {
     $id = $_REQUEST[$keyName];
 }
 $_SESSION["moduleParent"] = "container";
+if (isset($_REQUEST["activeTab"])) {
+    $activeTab = $_REQUEST["activeTab"];
+}
+
 switch ($t_module["param"]) {
     case "list":
         $_SESSION["moduleListe"] = "containerList";
@@ -52,6 +56,7 @@ switch ($t_module["param"]) {
          */
         $data = $dataClass->lire($id);
         $vue->set($data, "data");
+        $vue->set($activeTab, "activeTab");
         /*
          * Recuperation des identifiants associes
          */

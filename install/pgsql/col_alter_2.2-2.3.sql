@@ -140,3 +140,7 @@ from borrowing b1
  where b1.uid = b2.uid 
  and b2.return_date is null
  order by borrowing_date desc limit 1));
+
+ insert into dbversion (dbversion_number, dbversion_date)
+ values
+ ('2.3', '2019-08-14');

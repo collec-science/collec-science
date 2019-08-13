@@ -2,14 +2,15 @@
 # install a new instance into a server
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
-VERSION=2.2.3
+VERSION=2.3
+PHPVER=php7.2
 echo "Installation of Collec-Science version " $VERSION
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [y/n]?" response
 if [ "$response" = "y" ] 
 then
 # installing packages
-apt-get install unzip apache2 libapache2-mod-php7.0 php7.0 php7.0-ldap php7.0-pgsql php7.0-mbstring php7.0-xml php7.0-zip php7.0-imagick php7.0-gd fop postgresql postgresql-client
+apt-get install unzip apache2 libapache2-mod-$PHPVER $PHPVER $PHPVER-ldap $PHPVER-pgsql $PHPVER-mbstring $PHPVER-xml $PHPVER-zip $PHPVER-imagick $PHPVER-gd fop postgresql postgresql-client
 a2enmod ssl
 a2enmod headers
 a2enmod rewrite

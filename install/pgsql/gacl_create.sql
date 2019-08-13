@@ -1,227 +1,316 @@
-/*
- * Collec-Science - 4 mai 2018
- * Script de creation des tables necessaires a la gestion des droits
- * deux schemas sont necessaires, l'un pour les donnees proprement dites, 
- * l'autre pour la gestion des droits (habilitations et des traces)
- * Ce script permet la creation du schema pour la gestion des droits
- * modifiez si necessaire le nom du schema :
- * - lignes 14 et 15
- */
-
-/*
- * Creation du schema de gestion des droits
- */
 create schema if not exists gacl;
 set search_path = gacl;
 
+-- object: aclgroup_aclgroup_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS aclgroup_aclgroup_id_seq CASCADE;
+CREATE SEQUENCE aclgroup_aclgroup_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE aclgroup_aclgroup_id_seq OWNER TO postgres;
+-- ddl-end --
+
+-- object: aclacl | type: TABLE --
+-- DROP TABLE IF EXISTS aclacl CASCADE;
 CREATE TABLE aclacl (
-                aclaco_id INTEGER NOT NULL,
-                aclgroup_id INTEGER NOT NULL,
-                CONSTRAINT aclacl_pk PRIMARY KEY (aclaco_id, aclgroup_id)
+	aclaco_id integer NOT NULL,
+	aclgroup_id integer NOT NULL,
+	CONSTRAINT aclacl_pk PRIMARY KEY (aclaco_id,aclgroup_id)
+
 );
-COMMENT ON TABLE aclacl IS 'Rights table';
+-- ddl-end --
+COMMENT ON TABLE aclacl IS 'Table des droits attribués';
+-- ddl-end --
+ALTER TABLE aclacl OWNER TO postgres;
+-- ddl-end --
 
+-- object: aclaco_aclaco_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS aclaco_aclaco_id_seq CASCADE;
+CREATE SEQUENCE aclaco_aclaco_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE aclaco_aclaco_id_seq OWNER TO postgres;
+-- ddl-end --
 
-CREATE SEQUENCE aclaco_aclaco_id_seq;
-
+-- object: aclaco | type: TABLE --
+-- DROP TABLE IF EXISTS aclaco CASCADE;
 CREATE TABLE aclaco (
-                aclaco_id INTEGER NOT NULL DEFAULT nextval('aclaco_aclaco_id_seq'),
-                aclappli_id INTEGER NOT NULL,
-                aco VARCHAR NOT NULL,
-                CONSTRAINT aclaco_pk PRIMARY KEY (aclaco_id)
+	aclaco_id integer NOT NULL DEFAULT nextval('aclaco_aclaco_id_seq'::regclass),
+	aclappli_id integer NOT NULL,
+	aco character varying NOT NULL,
+	CONSTRAINT aclaco_pk PRIMARY KEY (aclaco_id)
+
 );
-COMMENT ON TABLE aclaco IS 'List of managed rights';
+-- ddl-end --
+COMMENT ON TABLE aclaco IS 'Table des droits gérés';
+-- ddl-end --
+ALTER TABLE aclaco OWNER TO postgres;
+-- ddl-end --
 
+-- object: aclappli_aclappli_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS aclappli_aclappli_id_seq CASCADE;
+CREATE SEQUENCE aclappli_aclappli_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE aclappli_aclappli_id_seq OWNER TO postgres;
+-- ddl-end --
 
-ALTER SEQUENCE aclaco_aclaco_id_seq OWNED BY aclaco.aclaco_id;
-
-CREATE SEQUENCE aclappli_aclappli_id_seq;
-
+-- object: aclappli | type: TABLE --
+-- DROP TABLE IF EXISTS aclappli CASCADE;
 CREATE TABLE aclappli (
-                aclappli_id INTEGER NOT NULL DEFAULT nextval('aclappli_aclappli_id_seq'),
-                appli VARCHAR NOT NULL,
-                applidetail VARCHAR,
-                CONSTRAINT aclappli_pk PRIMARY KEY (aclappli_id)
+	aclappli_id integer NOT NULL DEFAULT nextval('aclappli_aclappli_id_seq'::regclass),
+	appli character varying NOT NULL,
+	applidetail character varying,
+	CONSTRAINT aclappli_pk PRIMARY KEY (aclappli_id)
+
 );
-COMMENT ON TABLE aclappli IS 'Managed software table';
-COMMENT ON COLUMN aclappli.appli IS 'Software name from rights management';
-COMMENT ON COLUMN aclappli.applidetail IS 'Software description';
+-- ddl-end --
+COMMENT ON TABLE aclappli IS 'Table des applications gérées';
+-- ddl-end --
+COMMENT ON COLUMN aclappli.appli IS 'Nom de l''application pour la gestion des droits';
+-- ddl-end --
+COMMENT ON COLUMN aclappli.applidetail IS 'Description de l''application';
+-- ddl-end --
+ALTER TABLE aclappli OWNER TO postgres;
+-- ddl-end --
 
-
-ALTER SEQUENCE aclappli_aclappli_id_seq OWNED BY aclappli.aclappli_id;
-
-CREATE SEQUENCE aclgroup_aclgroup_id_seq;
-
+-- object: aclgroup | type: TABLE --
+-- DROP TABLE IF EXISTS aclgroup CASCADE;
 CREATE TABLE aclgroup (
-                aclgroup_id INTEGER NOT NULL DEFAULT nextval('aclgroup_aclgroup_id_seq'),
-                groupe VARCHAR NOT NULL,
-                aclgroup_id_parent INTEGER,
-                CONSTRAINT aclgroup_pk PRIMARY KEY (aclgroup_id)
+	aclgroup_id integer NOT NULL DEFAULT nextval('aclgroup_aclgroup_id_seq'::regclass),
+	groupe character varying NOT NULL,
+	aclgroup_id_parent integer,
+	CONSTRAINT aclgroup_pk PRIMARY KEY (aclgroup_id)
+
 );
-COMMENT ON TABLE aclgroup IS 'Login groups';
+-- ddl-end --
+COMMENT ON TABLE aclgroup IS 'Groupes des logins';
+-- ddl-end --
+ALTER TABLE aclgroup OWNER TO postgres;
+-- ddl-end --
 
+-- object: acllogin_acllogin_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS acllogin_acllogin_id_seq CASCADE;
+CREATE SEQUENCE acllogin_acllogin_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE acllogin_acllogin_id_seq OWNER TO postgres;
+-- ddl-end --
 
-ALTER SEQUENCE aclgroup_aclgroup_id_seq OWNED BY aclgroup.aclgroup_id;
-
-CREATE SEQUENCE acllogin_acllogin_id_seq;
-
+-- object: acllogin | type: TABLE --
+-- DROP TABLE IF EXISTS acllogin CASCADE;
 CREATE TABLE acllogin (
-                acllogin_id INTEGER NOT NULL DEFAULT nextval('acllogin_acllogin_id_seq'),
-                login VARCHAR NOT NULL,
-                logindetail VARCHAR NOT NULL,
-                CONSTRAINT acllogin_pk PRIMARY KEY (acllogin_id)
+	acllogin_id integer NOT NULL DEFAULT nextval('acllogin_acllogin_id_seq'::regclass),
+	login character varying NOT NULL,
+	logindetail character varying NOT NULL,
+	CONSTRAINT acllogin_pk PRIMARY KEY (acllogin_id)
+
 );
-COMMENT ON TABLE acllogin IS 'Users login';
+-- ddl-end --
+COMMENT ON TABLE acllogin IS 'Table des logins des utilisateurs autorisés';
+-- ddl-end --
 COMMENT ON COLUMN acllogin.logindetail IS 'Nom affiché';
+-- ddl-end --
+ALTER TABLE acllogin OWNER TO postgres;
+-- ddl-end --
 
-
-ALTER SEQUENCE acllogin_acllogin_id_seq OWNED BY acllogin.acllogin_id;
-
+-- object: acllogingroup | type: TABLE --
+-- DROP TABLE IF EXISTS acllogingroup CASCADE;
 CREATE TABLE acllogingroup (
-                acllogin_id INTEGER NOT NULL,
-                aclgroup_id INTEGER NOT NULL,
-                CONSTRAINT acllogingroup_pk PRIMARY KEY (acllogin_id, aclgroup_id)
+	acllogin_id integer NOT NULL,
+	aclgroup_id integer NOT NULL,
+	CONSTRAINT acllogingroup_pk PRIMARY KEY (acllogin_id,aclgroup_id)
+
 );
-COMMENT ON TABLE acllogingroup IS 'Relationship between logins and groups';
+-- ddl-end --
+COMMENT ON TABLE acllogingroup IS 'Table des relations entre les logins et les groupes';
+-- ddl-end --
+ALTER TABLE acllogingroup OWNER TO postgres;
+-- ddl-end --
 
+-- object: log_log_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS log_log_id_seq CASCADE;
+CREATE SEQUENCE log_log_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE log_log_id_seq OWNER TO postgres;
+-- ddl-end --
 
-ALTER TABLE aclacl ADD CONSTRAINT aclaco_aclacl_fk
-FOREIGN KEY (aclaco_id)
-REFERENCES aclaco (aclaco_id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE aclaco ADD CONSTRAINT aclappli_aclaco_fk
-FOREIGN KEY (aclappli_id)
-REFERENCES aclappli (aclappli_id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE aclacl ADD CONSTRAINT aclgroup_aclacl_fk
-FOREIGN KEY (aclgroup_id)
-REFERENCES aclgroup (aclgroup_id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE aclgroup ADD CONSTRAINT aclgroup_aclgroup_fk
-FOREIGN KEY (aclgroup_id_parent)
-REFERENCES aclgroup (aclgroup_id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE acllogingroup ADD CONSTRAINT aclgroup_acllogingroup_fk
-FOREIGN KEY (aclgroup_id)
-REFERENCES aclgroup (aclgroup_id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-ALTER TABLE acllogingroup ADD CONSTRAINT acllogin_acllogingroup_fk
-FOREIGN KEY (acllogin_id)
-REFERENCES acllogin (acllogin_id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-CREATE TABLE logingestion (
-    id integer NOT NULL,
-    login character varying(32) NOT NULL,
-    password character varying(255),
-    nom character varying(32),
-    prenom character varying(32),
-    mail character varying(255),
-    datemodif date,
-    actif smallint default 1,
-    is_clientws BOOLEAN DEFAULT false NOT NULL,
-    tokenws VARCHAR
-);
-ALTER TABLE  logingestion
-    ADD CONSTRAINT pk_logingestion PRIMARY KEY (id);
-	
-CREATE SEQUENCE seq_logingestion_id
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    MAXVALUE 999999
-    CACHE 1;
-
-ALTER TABLE logingestion ALTER COLUMN id SET DEFAULT nextval('seq_logingestion_id'::regclass);
-
-
-CREATE SEQUENCE login_oldpassword_login_oldpassword_id_seq;
-
-CREATE TABLE login_oldpassword (
-                login_oldpassword_id INTEGER NOT NULL DEFAULT nextval('login_oldpassword_login_oldpassword_id_seq'),
-                id INTEGER DEFAULT nextval('seq_logingestion_id'::regclass) NOT NULL,
-                password VARCHAR(255),
-                CONSTRAINT login_oldpassword_pk PRIMARY KEY (login_oldpassword_id)
-);
-COMMENT ON TABLE login_oldpassword IS 'Table with old passwords';
-
-
-ALTER SEQUENCE login_oldpassword_login_oldpassword_id_seq OWNED BY login_oldpassword.login_oldpassword_id;
-
-ALTER TABLE login_oldpassword ADD CONSTRAINT logingestion_login_oldpassword_fk
-FOREIGN KEY (id)
-REFERENCES logingestion (id)
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
-
-CREATE SEQUENCE log_log_id_seq;
-
+-- object: log | type: TABLE --
+-- DROP TABLE IF EXISTS log CASCADE;
 CREATE TABLE log (
-                log_id INTEGER NOT NULL DEFAULT nextval('log_log_id_seq'),
-                login VARCHAR(32) NOT NULL,
-                nom_module VARCHAR,
-                log_date TIMESTAMP NOT NULL,
-                commentaire VARCHAR,
-                ipaddress varchar,
-                CONSTRAINT log_pk PRIMARY KEY (log_id)
+	log_id integer NOT NULL DEFAULT nextval('log_log_id_seq'::regclass),
+	login character varying(32) NOT NULL,
+	nom_module character varying,
+	log_date timestamp NOT NULL,
+	commentaire character varying,
+	ipaddress character varying,
+	CONSTRAINT log_pk PRIMARY KEY (log_id)
+
 );
-COMMENT ON TABLE log IS 'list of connexions and actions recorded';
-COMMENT ON COLUMN log.log_date IS 'Connexion time';
-COMMENT ON COLUMN log.commentaire IS 'others data';
-comment on column log.ipaddress is 'ip address of client';
+-- ddl-end --
+COMMENT ON TABLE log IS 'Liste des connexions ou des actions enregistrées';
+-- ddl-end --
+COMMENT ON COLUMN log.log_date IS 'Heure de connexion';
+-- ddl-end --
+COMMENT ON COLUMN log.commentaire IS 'Donnees complementaires enregistrees';
+-- ddl-end --
+COMMENT ON COLUMN log.ipaddress IS 'Adresse IP du client';
+-- ddl-end --
+ALTER TABLE log OWNER TO postgres;
+-- ddl-end --
 
-ALTER SEQUENCE log_log_id_seq OWNED BY log.log_id;
+-- object: seq_logingestion_id | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS seq_logingestion_id CASCADE;
+CREATE SEQUENCE seq_logingestion_id
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 999999
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE seq_logingestion_id OWNER TO postgres;
+-- ddl-end --
 
-CREATE INDEX log_date_idx
- ON log
- ( log_date );
+-- object: logingestion | type: TABLE --
+-- DROP TABLE IF EXISTS logingestion CASCADE;
+CREATE TABLE logingestion (
+	id integer NOT NULL DEFAULT nextval('seq_logingestion_id'::regclass),
+	login character varying(32) NOT NULL,
+	password character varying(255),
+	nom character varying(32),
+	prenom character varying(32),
+	mail character varying(255),
+	datemodif timestamp,
+	actif smallint DEFAULT 1,
+	is_clientws boolean DEFAULT false,
+	tokenws character varying,
+	is_expired boolean DEFAULT false,
+	CONSTRAINT pk_logingestion PRIMARY KEY (id)
 
-CREATE INDEX log_login_idx
- ON log
- ( login );
-
- CREATE SEQUENCE "passwordlost_passwordlost_id_seq";
-
-CREATE TABLE "passwordlost" (
-                "passwordlost_id" INTEGER NOT NULL DEFAULT nextval('"passwordlost_passwordlost_id_seq"'),
-                "id" INTEGER NOT NULL,
-                "token" VARCHAR NOT NULL,
-                "expiration" TIMESTAMP NOT NULL,
-                "usedate" TIMESTAMP,
-                CONSTRAINT "passwordlost_pk" PRIMARY KEY ("passwordlost_id")
 );
-COMMENT ON TABLE "passwordlost" IS 'password lost table';
-COMMENT ON COLUMN "passwordlost"."token" IS 'token used for renewal';
-COMMENT ON COLUMN "passwordlost"."expiration" IS 'Token expiration date';
+-- ddl-end --
+ALTER TABLE logingestion OWNER TO postgres;
+-- ddl-end --
+-- object: log_date_idx | type: INDEX --
+-- DROP INDEX IF EXISTS log_date_idx CASCADE;
+CREATE INDEX log_date_idx ON log
+	USING btree
+	(
+	  log_date
+	)
+	WITH (FILLFACTOR = 90);
+-- ddl-end --
 
+-- object: log_login_idx | type: INDEX --
+-- DROP INDEX IF EXISTS log_login_idx CASCADE;
+CREATE INDEX log_login_idx ON log
+	USING btree
+	(
+	  login
+	)
+	WITH (FILLFACTOR = 90);
+-- ddl-end --
+-- object: log_ip_idx | type: INDEX --
+-- DROP INDEX IF EXISTS log_ip_idx CASCADE;
+CREATE INDEX log_ip_idx ON log
+	USING btree
+	(
+	  ipaddress
+	);
+-- ddl-end --
 
-ALTER SEQUENCE "passwordlost_passwordlost_id_seq" OWNED BY "passwordlost"."passwordlost_id";
+-- object: log_commentaire_idx | type: INDEX --
+-- DROP INDEX IF EXISTS log_commentaire_idx CASCADE;
+CREATE INDEX log_commentaire_idx ON log
+	USING btree
+	(
+	  commentaire
+	);
+-- ddl-end --
 
-ALTER TABLE "passwordlost" ADD CONSTRAINT "logingestion_passwordlost_fk"
-FOREIGN KEY ("id")
-REFERENCES "logingestion" ("id")
-ON DELETE NO ACTION
-ON UPDATE NO ACTION
-NOT DEFERRABLE;
- 
+-- object: logingestion_login_idx | type: INDEX --
+-- DROP INDEX IF EXISTS logingestion_login_idx CASCADE;
+CREATE UNIQUE INDEX logingestion_login_idx ON logingestion
+	USING btree
+	(
+	  login
+	);
+-- ddl-end --
+
+-- object: aclaco_aclacl_fk | type: CONSTRAINT --
+-- ALTER TABLE aclacl DROP CONSTRAINT IF EXISTS aclaco_aclacl_fk CASCADE;
+ALTER TABLE aclacl ADD CONSTRAINT aclaco_aclacl_fk FOREIGN KEY (aclaco_id)
+REFERENCES aclaco (aclaco_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: aclgroup_aclacl_fk | type: CONSTRAINT --
+-- ALTER TABLE aclacl DROP CONSTRAINT IF EXISTS aclgroup_aclacl_fk CASCADE;
+ALTER TABLE aclacl ADD CONSTRAINT aclgroup_aclacl_fk FOREIGN KEY (aclgroup_id)
+REFERENCES aclgroup (aclgroup_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: aclappli_aclaco_fk | type: CONSTRAINT --
+-- ALTER TABLE aclaco DROP CONSTRAINT IF EXISTS aclappli_aclaco_fk CASCADE;
+ALTER TABLE aclaco ADD CONSTRAINT aclappli_aclaco_fk FOREIGN KEY (aclappli_id)
+REFERENCES aclappli (aclappli_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: aclgroup_aclgroup_fk | type: CONSTRAINT --
+-- ALTER TABLE aclgroup DROP CONSTRAINT IF EXISTS aclgroup_aclgroup_fk CASCADE;
+ALTER TABLE aclgroup ADD CONSTRAINT aclgroup_aclgroup_fk FOREIGN KEY (aclgroup_id_parent)
+REFERENCES aclgroup (aclgroup_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: aclgroup_acllogingroup_fk | type: CONSTRAINT --
+-- ALTER TABLE acllogingroup DROP CONSTRAINT IF EXISTS aclgroup_acllogingroup_fk CASCADE;
+ALTER TABLE acllogingroup ADD CONSTRAINT aclgroup_acllogingroup_fk FOREIGN KEY (aclgroup_id)
+REFERENCES aclgroup (aclgroup_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: acllogin_acllogingroup_fk | type: CONSTRAINT --
+-- ALTER TABLE acllogingroup DROP CONSTRAINT IF EXISTS acllogin_acllogingroup_fk CASCADE;
+ALTER TABLE acllogingroup ADD CONSTRAINT acllogin_acllogingroup_fk FOREIGN KEY (acllogin_id)
+REFERENCES acllogin (acllogin_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
 /*
  * pre-remplissage du schema
  */

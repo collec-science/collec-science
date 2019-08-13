@@ -129,7 +129,7 @@ class Sample extends ObjetBDD
         $data["uid"] = $uid;
         if (is_numeric($uid) && $uid > 0) {
             $this->colonnes["borrowing_date"] = array("type" => 2);
-            $this->colonnes["exepected_return_date"] = array("type" => 2);
+            $this->colonnes["expected_return_date"] = array("type" => 2);
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
             $retour = parent::getDefaultValue($parentValue);

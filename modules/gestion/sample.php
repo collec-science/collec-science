@@ -384,10 +384,8 @@ switch ($t_module["param"]) {
                     $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null, 2);
                     /**
                      * Change status of sample
-                     */
-                    $dobject = $object->lire($uid);
-                    $dobject["object_status_id"] = 6;
-                    $object->ecrire($dobject);
+                     */                  
+                    $object->setStatus($uid, 6);
                 }
                 $module_coderetour = 1;
                 $message->set(_("Opération de prêt enregistrée"));

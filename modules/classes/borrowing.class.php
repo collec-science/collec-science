@@ -97,4 +97,16 @@ class Borrowing extends ObjetBDD
         }
         return $this->getListeParamAsPrepared($this->sql . $where, array("uid" => $uid));
     }
+    /**
+     * Get the last active borrowing
+     *
+     * @param int $uid
+     * @return int
+     */
+    function getLastborrowing($uid)
+    {
+        $sql = "select borrowing_id from last_borrowing where uid = :uid";
+        $data = $this->lireParamAsPrepared($sql, array("uid" => $uid));
+        return ($data["borrowing_id"]);
+    }
 }

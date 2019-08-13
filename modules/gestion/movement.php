@@ -20,7 +20,7 @@ switch ($t_module["param"]) {
         $vue->set($data, "data");
         $vue->set($_SESSION["moduleParent"], "moduleParent");
         $vue->set("tab-movement", "activeTab");
-        
+
         /*
          * Recherche de l'objet
          */
@@ -50,48 +50,29 @@ switch ($t_module["param"]) {
         $vue->set($movementReason->getListe(2), "movementReason");
         break;
     case "write":
-		/*
+        /*
          * write record in database
          */
-		/*
-         * Recherche de movement_id si uid renseigne
-         */
-        if (strlen($_REQUEST["container_id"]) == 0 && strlen($_REQUEST["container_uid"]) > 0) {
-            require_once 'modules/classes/container.class.php';
-            $container = new Container($bdd, $ObjetBDDParam);
-            $_REQUEST["container_id"] = $container->getIdFromUid($_REQUEST["container_uid"]);
-        }
-        /*
-         * Verification de l'existence de container_id si entree
-         */
-        $error = false;
-        if ($_REQUEST["movement_type_id"] == 1) {
-            if ($_REQUEST["uid"] == $_REQUEST["container_uid"]) {
-                $error = true;
-            }
-            if (strlen($_REQUEST["container_id"]) == 0) {
-                $error = true;
-            }
-        }
-        if ($error) {
-            $message->set(_("Le contenant n'a pas été renseigné"), true);
+        try {
+            $bdd->beginTransaction();
+            $dataClass->addMovement($_REQUEST["uid"], $_REQUEST["movement_date"], $_REQUEST["movement_type_id"], $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"], $_REQUEST["column_number"], $_REQUEST["line_number"]);
+            $bdd->commit();
+            $module_coderetour = 1;
+            $message->set(_("Mouvement généré"));
+        } catch (MovementException $me) {
             $module_coderetour = -1;
-        } else {
-            $data = $_REQUEST;
-            if (!isset($data["line_number"])) {
-                $data["line_number"] = 1;
-            }
-            if (!isset($data["column_number"])) {
-                $data["column_number"] = 1;
-            }
-            $id = dataWrite($dataClass, $data);
-            if ($id > 0) {
-                $_REQUEST[$keyName] = $id;
-            }
+            $message->set(_("Erreur lors de la génération du mouvement"), true);
+            $message->set($me->getMessage());
+            $module_coderetour = -1;
+            $bdd->rollback();
+        } catch (Exception $e) {
+            $module_coderetour = -1;
+            $message->setSyslog($e->getMessage());
+            $bdd->rollback();
         }
         break;
     case "delete":
-		/*
+        /*
          * delete record
          */
         dataDelete($dataClass, $id);
@@ -166,7 +147,7 @@ switch ($t_module["param"]) {
         $vue->set($movementReason->getListe(2), "movementReason");
         break;
     case "batchWrite":
-		/*
+        /*
          * Preparation des donnees
          */
         $uid_container = 0;
@@ -242,4 +223,3 @@ switch ($t_module["param"]) {
         }
         break;
 }
-?>

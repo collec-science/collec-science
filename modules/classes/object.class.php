@@ -765,6 +765,23 @@ class ObjectClass extends ObjetBDD
             }
         }
     }
+    /**
+     * Set the status for an object
+     *
+     * @param integer $uid
+     * @param integer $status_id
+     * @return void
+     */
+    function setStatus($uid, $status_id) {
+        if ($uid > 0 && $status_id > 0) {
+            $data = array ("uid"=>$uid, "object_status_id"=>$status_id);
+            try {
+                $this->ecrire($data);
+            } catch (ObjetBDDException $oe) {
+                throw new ObjectException(( $oe->getMessage()));
+            }
+        }
+    }
 }
 
 ?>

@@ -247,7 +247,30 @@ class Movement extends ObjetBDD
             }
             $data["column_number"] = $column_number;
             $data["line_number"] = $line_number;
-            return $this->ecrire($data);
+            $movement_id = $this->ecrire($data);
+            /**
+             * Change the status if it's 6 (lended) and if the movement is an entry
+             */
+            if ($data["movement_type_id"] == 1) {
+                include_once "modules/classes/object.class.php";
+                $object = new ObjectClass($this->connection, $this->paramori);
+                $dobject = $object->lire($uid);
+                if ($dobject["object_status_id"] == 6) {
+                    $object->setStatus($uid, 1);
+                    /**
+                     * Add the return date in borrowing
+                     */
+                    include_once "modules/classes/borrowing.class.php";
+                    $borrowing = new Borrowing($this->connection, $this->paramori);
+                    $borrowing_id = $borrowing->getLastborrowing($uid);
+                    if ($borrowing_id > 0) {
+                        $db = $borrowing->lire($borrowing_id);
+                        $db["return_date"] = $data["movement_date"];
+                        $borrowing->ecrire($db);
+                    }
+                }
+            }
+            return $movement_id;
         } else {
             /*
              * Gestion des erreurs

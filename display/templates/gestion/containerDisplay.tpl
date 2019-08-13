@@ -241,7 +241,19 @@
 				</dl>
 				<dl class="dl-horizontal">
 					<dt>{t}Statut :{/t}</dt>
-					<dd>{$data.object_status_name}</dd>
+					<dd>
+						{$data.object_status_name}
+						{if $data.object_status_id == 6}
+						&nbsp;{t}le{/t}&nbsp;{$data.borrowing_date}
+							&nbsp;{t}à{/t}&nbsp;
+							<a href="index.php?module=borrowerDisplay&borrower_id={$data.borrower_id}">
+								{$data.borrower_name}
+							</a>
+							
+							<br>
+							{t}Retour prévu le{/t}&nbsp;{$data.expected_return_date}
+						{/if}
+					</dd>
 				</dl>
 				{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
 					<dl class="dl-horizontal">
@@ -294,34 +306,34 @@
 			<div class="col-md-12">
 				{include file="gestion/objectMovementList.tpl"}
 			</div>
-			<div class="tab-pane fade" id="nav-container" role="tabpanel" aria-labelledby="tab-container">
-				{if $droits.gestion == 1 && $modifiable == 1}
-					<a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
-						<img src="display/images/new.png" height="25">
-						{t}Nouveau contenant associé{/t}
-					</a>
-				{/if}
-				{include file="gestion/containerListDetail.tpl"}
+		</div>
+		<div class="tab-pane fade" id="nav-container" role="tabpanel" aria-labelledby="tab-container">
+			{if $droits.gestion == 1 && $modifiable == 1}
+				<a href="index.php?module=containerChange&uid=0&container_parent_uid={$data.uid}">
+					<img src="display/images/new.png" height="25">
+					{t}Nouveau contenant associé{/t}
+				</a>
+			{/if}
+			{include file="gestion/containerListDetail.tpl"}
+		</div>
+		<div class="tab-pane fade" id="nav-sample" role="tabpanel" aria-labelledby="tab-sample">
+			<div class="col-md-12">
+				{include file="gestion/sampleListDetail.tpl"}
 			</div>
-			<div class="tab-pane fade" id="nav-sample" role="tabpanel" aria-labelledby="tab-sample">
-				<div class="col-md-12">
-					{include file="gestion/sampleListDetail.tpl"}
-				</div>
+		</div>
+		<div class="tab-pane fade" id="nav-grid" role="tabpanel" aria-labelledby="tab-grid">
+			<div class="col-md-12">
+				{include file="gestion/containerDisplayOccupation.tpl"}
 			</div>
-			<div class="tab-pane fade" id="nav-grid" role="tabpanel" aria-labelledby="tab-grid">
-				<div class="col-md-12">
-					{include file="gestion/containerDisplayOccupation.tpl"}
-				</div>
+		</div>
+		<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
+			<div class="col-md-12">
+				{include file="gestion/documentList.tpl"}
 			</div>
-			<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
-				<div class="col-md-12">
-					{include file="gestion/documentList.tpl"}
-				</div>
-			</div>
-			<div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="tab-booking">
-				<div class="col-md-12">
-					{include file="gestion/bookingList.tpl"}
-				</div>
+		</div>
+		<div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="tab-booking">
+			<div class="col-md-12">
+				{include file="gestion/bookingList.tpl"}
 			</div>
 		</div>
 	</div>

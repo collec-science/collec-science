@@ -34,28 +34,30 @@ switch ($t_module["param"]) {
 		$id == 0 ? $isNew = true : $isNew = false;
 		try {
 			$bdd->beginTransaction();
-			$id = dataWrite($dataClass, $_REQUEST, true);
-			if ($id > 0) {
-				$_REQUEST[$keyName] = $id;
-			}
-			include_once 'modules/classes/object.class.php';
-			$object = new ObjectClass($bdd, $ObjetBDDParam);
 			if ($isNew) {
+				$id = $dataClass->setBorrowing(
+					$_REQUEST["uid"],
+					$_REQUEST["borrower_id"],
+					$_REQUEST["borrowing_date"],
+					$_REQUEST["expected_return_date"]
+				);
 				/**
-				 *  new lend: add movement and change status
+				 *  add movement 
 				 */
 				include_once 'modules/classes/movement.class.php';
 				$movement = new Movement($bdd, $ObjetBDDParam);
 				$movement->addMovement($_REQUEST["uid"], null, 2, 0, $_SESSION["login"], null, null, 2);
-				$object->setStatus($_REQUEST["uid"], 6);
-				
 			} else {
+				$id = dataWrite($dataClass, $_REQUEST, true);
+				/**
+				 * Treatment of the return
+				 */
 				if (strlen($_REQUEST["return_date"]) > 0) {
-					$dobject = $object->lire($_REQUEST["uid"]);
-					if ($dobject["object_status_id"] == 6) {
-						$object->setStatus($_REQUEST["uid"], 1);
-					}
+					$dataClass->setReturn($_REQUEST["uid"], $_REQUEST["return_date"]);
 				}
+			}
+			if ($id > 0) {
+				$_REQUEST[$keyName] = $id;
 			}
 			$module_coderetour = 1;
 			$bdd->commit();

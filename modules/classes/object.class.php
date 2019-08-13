@@ -7,8 +7,7 @@
  * Copyright 2016 - All rights reserved
  */
 class ObjectException extends Exception
-{
-}
+{ }
 
 
 class ObjectClass extends ObjetBDD
@@ -139,7 +138,7 @@ class ObjectClass extends ObjetBDD
                         and used_for_search = 't')";
             }
             if ($is_container < 2) {
-            $sql = "select uid, identifier, wgs84_x, wgs84_y,
+                $sql = "select uid, identifier, wgs84_x, wgs84_y,
 					container_type_name as type_name, movement_type_id as last_movement_type
 					from object 
 					join container using (uid)
@@ -195,7 +194,7 @@ class ObjectClass extends ObjetBDD
             $dit = $it->getListe("identifier_type_code");
             require_once 'modules/classes/objectIdentifier.class.php';
             $oi = new ObjectIdentifier($this->connection, $this->param);
-            
+
             /*
              * Traitement de la liste
              */
@@ -428,7 +427,7 @@ class ObjectClass extends ObjetBDD
             $sql = "select * from (" . $sql . ") as a";
             $order = " order by $order";
             $data = $this->getListeParam($sql . $order);
-            
+
             /*
              * Preparation du tableau de sortie
              * transcodage des noms de champ
@@ -525,7 +524,7 @@ class ObjectClass extends ObjetBDD
                     or (upper(object_identifier_value) = upper (:id1)
                          and used_for_search = 't') ";
             $whereExterne = " where upper(dbuid_origin) = upper(:id)";
-           // $order = "";
+            // $order = "";
             /*
              * Extraction des UID de chaque ligne scanee
              */
@@ -599,7 +598,7 @@ class ObjectClass extends ObjetBDD
                 }
                 if ($uid > 0) {
                     $uids[] = $uid;
-                   // $order .= " when " . $uid . " then $i";
+                    // $order .= " when " . $uid . " then $i";
                     $i++;
                 }
             }
@@ -755,13 +754,14 @@ class ObjectClass extends ObjetBDD
      * 
      * @return mixed 
      */
-    function setReferent($uid, $referent_id) {
+    function setReferent($uid, $referent_id)
+    {
         if ($uid > 0) {
-            $data = array ("uid"=>$uid, "referent_id"=>$referent_id);
+            $data = array("uid" => $uid, "referent_id" => $referent_id);
             try {
                 $this->ecrire($data);
             } catch (ObjetBDDException $oe) {
-                throw new ObjectException(( $oe->getMessage()));
+                throw new ObjectException(($oe->getMessage()));
             }
         }
     }
@@ -772,16 +772,32 @@ class ObjectClass extends ObjetBDD
      * @param integer $status_id
      * @return void
      */
-    function setStatus($uid, $status_id) {
+    function setStatus($uid, $status_id)
+    {
         if ($uid > 0 && $status_id > 0) {
-            $data = array ("uid"=>$uid, "object_status_id"=>$status_id);
+            $data = array("uid" => $uid, "object_status_id" => $status_id);
             try {
                 $this->ecrire($data);
             } catch (ObjetBDDException $oe) {
-                throw new ObjectException(( $oe->getMessage()));
+                throw new ObjectException(($oe->getMessage()));
             }
         }
     }
+    /**
+     * get the content of an object with his type (type_name)
+     *
+     * @param [type] $uid
+     * @return void
+     */
+    function readWithType($uid)
+    {
+        $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id,
+                case when sample_id > 0 then 'sample' else 'container' end as type_name,
+                sample_id, container_id
+                from object 
+                left outer join sample using (uid)
+                left outer join container using (uid)
+                where uid = :uid";
+        return $this->lireParamAsPrepared($sql, array("uid" => $uid));
+    }
 }
-
-?>

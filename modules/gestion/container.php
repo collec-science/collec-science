@@ -122,6 +122,12 @@ switch ($t_module["param"]) {
         include_once 'modules/classes/eventType.class.php';
         $eventType = new EventType($bdd, $ObjetBDDParam);
         $vue->set($eventType->getListe(1), "eventType");
+         /**
+         * Get the list of borrowings
+         */
+        include_once "modules/classes/borrowing.class.php";
+        $borrowing = new Borrowing($bdd, $ObjetBDDParam);
+        $vue->set($borrowing->getFromUid($data["uid"]),"borrowings");
         /*
          * Affichage
          */

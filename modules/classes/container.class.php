@@ -19,7 +19,8 @@ class Container extends ObjetBDD
 					movement_date, movement_type_name, movement_type_id,
                     lines, columns, first_line,
                     column_number, line_number, container_uid, oc.identifier as container_identifier,
-                    o.referent_id, referent_name
+                    o.referent_id, referent_name,
+                    borrowing_date, expected_return_date, borrower_id, borrower_name
 					from container c
 					join object o using (uid)
 					join container_type using (container_type_id)
@@ -32,6 +33,8 @@ class Container extends ObjetBDD
                     left outer join object oc on (container_uid = oc.uid)
                     left outer join movement_type using (movement_type_id)
                     left outer join referent r on (o.referent_id = r.referent_id)
+                    left outer join last_borrowing lb on (o.uid = lb.uid)
+                    left outer join borrower using (borrower_id)
             ";
     private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
 
@@ -75,6 +78,8 @@ class Container extends ObjetBDD
     {
         $sql = $this->sql . " where o.uid = :uid";
         $data["uid"] = $uid;
+        $this->colonnes["borrowing_date"] = array("type" => 2);
+        $this->colonnes["expected_return_date"] = array("type" => 2);
         if (is_numeric($uid) && $uid > 0) {
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {

@@ -109,4 +109,101 @@ class Borrowing extends ObjetBDD
         $data = $this->lireParamAsPrepared($sql, array("uid" => $uid));
         return ($data["borrowing_id"]);
     }
+
+    /**
+     * Set the borrowing for an object and all objects contained (containers)
+     *
+     * @param int $uid
+     * @param int $borrower_id
+     * @param string $borrowing_date
+     * @param string $expected_return_date
+     * @param ObjectClass $object
+     * @param Container $container
+     * @return int
+     */
+    function setBorrowing($uid, $borrower_id, $borrowing_date, $expected_return_date, ObjectClass $object = null, Container $container = null)
+    {
+        $data = array(
+            "uid" => $uid,
+            "borrower_id" => $borrower_id,
+            "borrowing_date" => $borrowing_date,
+            "expected_return_date" => $expected_return_date
+        );
+        $borrowing_id = $this->ecrire($data);
+        if ($borrowing_id > 0) {
+            if ($object == null) {
+                include_once 'modules/classes/object.class.php';
+                $object = new ObjectClass($this->connection, $this->paramori);
+            }
+            $object->setStatus($uid, 6);
+            /**
+             * Get all children
+             */
+            $do = $object->readWithType($uid);
+            if ($do["type_name"] == 'container') {
+                if ($container == null) {
+                    include_once "modules/classes/container.class.php";
+                    $container = new Container($this->connection, $this->paramori);
+                }
+                $children = $container->getContentSample($uid);
+                foreach ($children as $child) {
+                    $this->setBorrowing($child["uid"], $borrower_id, $borrowing_date, $expected_return_date, $object);
+                }
+                $children = $container->getContentContainer($uid);
+                foreach ($children as $child) {
+                    $this->setBorrowing($child["uid"], $borrower_id, $borrowing_date, $expected_return_date, $object, $container);
+                }
+            }
+        }
+        return $borrowing_id;
+    }
+
+    /**
+     * Set the return of an object
+     *
+     * @param int $uid
+     * @param varchar $return_date
+     * @param ObjectClass $object
+     * @param Container $container
+     * @return void
+     */
+    function setReturn($uid, $return_date, ObjectClass $object = null, Container $container = null)
+    {
+        if ($uid > 0 && strlen($return_date) > 0) {
+            $borrowing_id = $this->getLastborrowing($uid);
+            if ($borrowing_id > 0) {
+                $db = $this->lire($borrowing_id);
+                $db["return_date"] = $return_date;
+                $this->ecrire($db);
+                /**
+                 * Set the status of the object
+                 */
+                if ($object == null) {
+                    include_once 'modules/classes/object.class.php';
+                    $object = new ObjectClass($this->connection, $this->paramori);
+                }
+                $do = $object->readWithType($uid);
+                if ($do["object_status_id"] == 6) {
+                    $object->setStatus($uid, 1);
+                }
+                /**
+                 * If container, set return for all objects included
+                 */
+                if ($do["type_name"] == 'container') {
+                    if ($container == null) {
+                        include_once "modules/classes/container.class.php";
+                        $container = new Container($this->connection, $this->paramori);
+                    }
+                    $children = $container->getContentSample($uid);
+                    foreach ($children as $child) {
+                        $this->setReturn($child["uid"], $return_date, $object);
+                    }
+                    $children = $container->getContentContainer($uid);
+                    foreach ($children as $child) {
+                        $this->setReturn($child["uid"], $return_date, $object, $container);
+                    }
+                }
+            }
+        }
+    }
 }

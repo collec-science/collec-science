@@ -156,7 +156,6 @@ class Sample extends ObjetBDD
     public function ecrire($data)
     {
         $ok = $this->verifyCollection($data);
-        $error = false;
         /*
          * Verification complementaire par rapport aux donnees deja stockees
          */
@@ -195,7 +194,6 @@ class Sample extends ObjetBDD
         } else {
             throw new SampleException(_("Vous ne disposez pas des droits pour modifier cet échantillon"));
         }
-        return -1;
     }
 
     /**

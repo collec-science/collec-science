@@ -424,7 +424,7 @@ switch ($t_module["param"]) {
              * Deplacement du fichier dans le dossier temporaire
              */
             $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
-
+            $_SESSION["realfilename"] = $filename;
             if (copy($_FILES['upfile']['tmp_name'], $filename)) {
                 include_once 'modules/classes/import.class.php';
                 try {
@@ -471,6 +471,7 @@ switch ($t_module["param"]) {
                          * Suppression du fichier temporaire
                          */
                         unset($filename);
+                        unset ($_SESSION["realfilename"]);
                     } else {
 
                         /*

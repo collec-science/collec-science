@@ -261,10 +261,10 @@ switch ($t_module["param"]) {
 
                     $data = json_decode($jdata, true);
                     if ($data["export_version"] != 1) {
+                        $module_coderetour = -1;
                         throw new ImportException(
                             _("La version du fichier importé ne correspond pas à la version attendue")
                         );
-                        $module_coderetour = -1;
                     }
                 } catch (Exception $e) {
                     $module_coderetour = -1;
@@ -274,13 +274,14 @@ switch ($t_module["param"]) {
                     /**
                      * delete of temporary file
                      */
-                    unset($filename);
+                    unlink($filename);
+                    unset ($_SESSION["realfilename"]);
                 } else {
                     $vue->set($dataClass->getAllNamesFromReference($data), "names");
                     require_once "modules/gestion/sample.functions.php";
                     $sic = new SampleInitClass();
                     $vue->set($sic->init(), "dataClass");
-                    $vue->set($filename, "realfilename");
+                    $_SESSION["realfilename"] = $filename;
 
                     $vue->set($_REQUEST["utf8_encode"], "utf8_encode");
                     $vue->set(2, "stage");
@@ -297,15 +298,18 @@ switch ($t_module["param"]) {
         $vue->set("gestion/containerImport.tpl", "corps");
         break;
     case "importStage3":
-        if (isset($_REQUEST["realfilename"])) {
-            if (file_exists($_REQUEST["realfilename"])) {
+        $realfilename = $_SESSION["realfilename"];
+        
+            if (file_exists($realfilename)) {
                 try {
                     /**
                      * Open the file
                      */
-                    $handle = fopen($_REQUEST["realfilename"], "r");
-                    $jdata = fread($handle, filesize($_REQUEST["realfilename"]));
+                    $handle = fopen($realfilename, "r");
+                    $jdata = fread($handle, filesize($realfilename));
                     fclose($handle);
+                    unset($_SESSION["realfilename"]);
+                    unlink($realfilename);
 
                     $data = json_decode($jdata, true);
                     require_once 'modules/gestion/sample.functions.php';
@@ -323,6 +327,10 @@ switch ($t_module["param"]) {
                         $bdd->rollBack();
                         $message->set($ie->getMessage(), true);
                         $module_coderetour = -1;
+                    }catch (ContainerException $ce) {
+                        $bdd->rollBack();
+                        $message->set($ce->getMessage(), true);
+                        $module_coderetour = -1;
                     } catch (Exception $e) {
                         $bdd->rollBack();
                         $message->set($e->getMessage(), true);
@@ -333,7 +341,6 @@ switch ($t_module["param"]) {
                     $module_coderetour = -1;
                 }
             }
-        }
         break;
     case "lendingMulti":
         /**

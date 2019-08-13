@@ -34,7 +34,7 @@ $samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
 $identifierType = new IdentifierType($bdd, $ObjetBDDParam);
 $objectIdentifier = new ObjectIdentifier($bdd, $ObjetBDDParam);
 $referent = new Referent($bdd, $ObjetBDDParam);
-$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType,$referent);
+$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType, $referent);
 $import->initClass("objectIdentifier", $objectIdentifier);
 $import->initControl($_SESSION["collections"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList(), $referent->getListe());
 /*
@@ -43,13 +43,13 @@ $import->initControl($_SESSION["collections"], $sampleType->getList(), $containe
 $vue->set("gestion/import.tpl", "corps");
 switch ($t_module["param"]) {
     case "change":
-		/*
+        /*
          * Affichage du masque de selection du fichier a importer
          */
         break;
 
     case "control":
-		/*
+        /*
          * Lancement des controles
          */
         unset($_SESSION["filename"]);
@@ -120,8 +120,8 @@ switch ($t_module["param"]) {
         /*
          * Traitement de l'importation des echantillons provenant d'autres bases de donnees
          */
-        if (isset($_REQUEST["realfilename"])) {
-            if (file_exists($_REQUEST["realfilename"])) {
+        if (isset($_SESSION["realfilename"])) {
+            if (file_exists($_SESSION["realfilename"])) {
                 try {
                     require_once 'modules/classes/import.class.php';
                     $fields = array(
@@ -142,13 +142,13 @@ switch ($t_module["param"]) {
                         "dbuid_parent",
                         "referent_name"
                     );
-                    $importFile = new Import($_REQUEST["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
+                    $importFile = new Import($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $importFile->getContentAsArray();
                 } catch (ImportException $ie) {
                     $message->set($ie->getMessage(), true);
                     $module_coderetour = -1;
                 }
-                
+
                 /*
                  * Recuperation des classes secondaires necessaires pour les tables de references
                  */
@@ -176,10 +176,9 @@ switch ($t_module["param"]) {
                     $message->set($e->getMessage(), true);
                     $module_coderetour = -1;
                 }
+                unlink($_SESSION["realfilename"]);
+                unset($_SESSION["realfilename"]);
             }
         }
-
         break;
 }
-
-?>

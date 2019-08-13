@@ -194,8 +194,8 @@ class Movement extends ObjetBDD
          * Verifications
          */
         $controle = true;
-        $message = _("Les contrôles de cohérence ne permettent pas d'enregister le mouvement demandé. ");
         if (!($uid > 0 && is_numeric($uid))) {
+            $message = sprintf(_("L'UID n'est pas numérique (%s). "), $uid);
             $controle = false;
         }
         if ($uid == $container_uid) {
@@ -208,13 +208,20 @@ class Movement extends ObjetBDD
         }
         if ($type != 1 && $type != 2) {
             $controle = false;
+            $message .= _("Le type de mouvement n'est pas correct. ");
         }
         $container_uid = $this->encodeData($container_uid);
         if (!is_numeric($container_uid) && strlen($container_uid) > 0) {
+            $message .= _("L'UID du contenant n'est pas numérique. ");
             $controle = false;
         }
         if (strlen($login) == 0) {
-            strlen($_SESSION["login"]) > 0 ? $login = $_SESSION["login"] : $controle = false;
+            if (strlen($_SESSION["login"]) > 0) {
+                $login = $_SESSION["login"];
+            } else {
+                $controle = false;
+                $message .= _("Le login de l'utilisateur n'est pas connu.");
+            }
         }
         $storage_location = $this->encodeData($storage_location);
         $comment = $this->encodeData($comment);

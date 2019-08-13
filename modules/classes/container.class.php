@@ -7,6 +7,7 @@
  * Copyright 2016 - All rights reserved
  */
 //require_once 'modules/classes/object.class.php';
+class ContainerException extends Exception{};
 
 class Container extends ObjetBDD
 {
@@ -554,7 +555,7 @@ class Container extends ObjetBDD
         $this->uidMin = 999999999;
         $this->uidMax = 0;
         $this->numberUid = 0;
-        foreach ($data as $key => $row) {
+        foreach ($data as $row) {
             $this->importContainer($row, $dclass, $sic, $post, $object, $movement, $objectIdentifier, $sample, 0);
         }
     }
@@ -615,8 +616,8 @@ class Container extends ObjetBDD
             /**
              * Writing the container
              */
-            $data["uid"] = 0;
-            $uid = $object->ecrire($data);
+            $dcontainer["uid"] = 0;
+            $uid = $object->ecrire($dcontainer);
             if ($uid > 0) {
                 $dcontainer["uid"] = $uid;
                 parent::ecrire($dcontainer);
@@ -634,6 +635,8 @@ class Container extends ObjetBDD
                     );
                     $objectIdentifier->ecrire($didentifiers);
                 }
+            } else {
+                throw new ContainerException (sprintf(_("Échec d'écriture de l'objet dans Container.importData : l'UID n'a pas été généré (identifier : %s)"), $data["identifier"]));
             }
             /**
              * Generate the movement if necessary
@@ -730,6 +733,7 @@ class Container extends ObjetBDD
         /**
          * Writing the sample
          */
+        $dsample["uid"] = 0;
         $uid = $sampleClass->ecrire($dsample);
         /**
          * Add secondary identifiers

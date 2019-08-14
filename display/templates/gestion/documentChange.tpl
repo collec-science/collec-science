@@ -14,9 +14,10 @@
 <div class="row">
 	<form id="documentForm" class="form-horizontal protoform" method="post"
 		action="index.php" enctype="multipart/form-data">
-		<input type="hidden" name="document_id" value="0"> <input
-			type="hidden" name="uid" value="{$data.uid}"> <input
-			type="hidden" name="module" value="{$moduleParent}documentWrite">
+		<input type="hidden" name="document_id" value="0"> 
+		<input type="hidden" name="uid" value="{$data.uid}"> 
+		<input type="hidden" name="module" value="{$moduleParent}documentWrite">
+		<input type="hidden" name="activeTab" value="tab-document">
 		<div class="form-group">
 			<label for="documentName" class="control-label col-md-4">
 				{t}Fichier(s) à importer :{/t} <br>(doc, jpg, png, pdf, xls, xlsx,

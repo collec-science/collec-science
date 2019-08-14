@@ -76,7 +76,7 @@ de création{/t}</th>
 {if $droits["gestion"] == 1}
 <td>
 <div class="center">
-<a href="index.php?module={$moduleParent}documentDelete&document_id={$dataDoc[lst].document_id}&uid={$data.uid}" onclick="return confirm('{t}Confirmez-vous la suppression ?{/t}');">
+<a href="index.php?module={$moduleParent}documentDelete&document_id={$dataDoc[lst].document_id}&uid={$data.uid}&activeTab=tab-document" onclick="return confirm('{t}Confirmez-vous la suppression ?{/t}');">
 <img src="display/images/corbeille.png" height="20">
 </a>
 </div>

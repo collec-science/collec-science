@@ -24,8 +24,8 @@ SELECT s.uid,
 alter table protocol
 add column authorization_number varchar,
 add column authorization_date timestamp;
-comment on column authorization_number is 'Number of the prelevement authorization';
-comment on column authorization_date is 'Date of the prelevement authorization';
+comment on column protocol.authorization_number is 'Number of the prelevement authorization';
+comment on column protocol.authorization_date is 'Date of the prelevement authorization';
 
 
 -- object: borrower_borrower_id_seq | type: SEQUENCE --

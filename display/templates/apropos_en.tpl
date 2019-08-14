@@ -33,9 +33,11 @@ Visit the project site:<a href="https://www.collec-science.org" target="_blank">
 <li>Éric Quinton (IRSTEA)</li>
 </ul>
 
-    <h3>Copyright (C) 2016-2018 Eric Quinton for IRSTEA</h3>
+    <h3>Copyright © 2016-2019 Eric Quinton for IRSTEA</h3>
 <p>
 Version 1.0 of the software has been registered with the Agency for the Protection of Programs under number IDDN.FR.001.470013.000.S.C.2016.000.31500
+<br>
+Collec-Science can be cited in articles with the DOI <a href="https://doi.org/10.5281/zenodo.1745363">10.5281/zenodo.1745363</a>
 <br>
     This program is free software: you can redistribute it and/or modify<br>
     it under the terms of the GNU Affero General Public License as<br>

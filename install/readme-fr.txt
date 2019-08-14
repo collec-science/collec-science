@@ -7,8 +7,8 @@ wget https://github.com/Irstea/collec/raw/master/install/deploy_new_instance.sh
 sudo -s
 ./deploy_new_instance.sh
 
-Pour réaliser la mise à jour vers la version 2.2.1, consultez le fichier :
-https://github.com/Irstea/collec/raw/master/install/upgrade_to_2.2.1_fr.txt
+Pour réaliser la mise à jour vers la version 2.3, consultez le fichier :
+https://github.com/Irstea/collec/raw/master/install/upgrade_to_2.3_fr.txt
 
 DOCUMENTATION GENERALE D'INSTALLATION ET DE CONFIGURATION
 https://github.com/Irstea/collec/raw/master/database/documentation/collec_installation_configuration.pdf

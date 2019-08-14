@@ -171,7 +171,7 @@ class LoginGestion extends ObjetBDD
                 $data["password"] = $this->_encryptPassword($data["pass1"]);
                 $data["is_expired"] = 1;
             } else {
-                throw new IdentificationException(_("Password not enough complex or too small"));
+                throw new IdentificationException(_("Mot de passe insuffisamment complexe ou trop petit"));
             }
         }
         $data["datemodif"] = date($_SESSION["MASKDATELONG"]);

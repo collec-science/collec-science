@@ -1,5 +1,32 @@
 News
 ===========
+Version 2.3 du 14 août 2019
+---------------------------------
+Corrections de bugs :
+- harmonisation de certains libellés dans l'application (Enregistrer/valider ou Sélectionnez/Choisissez p. e.)
+- dans le détail d'un contenant, les contenus et produits utilisés étaient mal affichés
+- les tableaux fonctionnaient mal, notamment pour afficher les pages à partir des boutons de navigation
+- correction lors de la recherche par date : la date du jour n'était pas systématiquement prise en compte
+- lors des imports, certaines dates erronées passaient au travers des contrôles de cohérence
+- la recherche des contenants uniquement par statut (hors état normal) ne fonctionnait pas
+
+Évolutions des fonctionnalités existantes :
+- mise à niveau du framework pour ajouter des contrôles de sécurité. Le Framework répond maintenant aux exigences de l'ASVS v4 (niveau 1 total, niveau 2 partiel).
+- ergonomie : les écrans d'affichage des échantillons et des contenants ont été redessinés en partie : les données sont maintenant organisées par onglets. Il est également possible d'ouvrir un nouvel objet directement depuis la page de détail, sans revenir à la liste
+- il est maintenant possible de rattacher un échantillon à un parent a posteriori
+- une fonction de duplication d'un échantillon avec son parent est maintenant disponible
+- dans le module d'administration, il n'est plus possible de créer un nouveau droit (mais cela peut être réactivé avec une option dans le fichier param.inc.php)
+- lors de la saisie des modèles de métadonnées, le champ "Unité de mesure" est proposé par défaut avec la valeur N/A
+- les modèles de métadonnées peuvent maintenant être visualisés sans passer en mode modification
+- il est maintenant possible de rechercher un échantillon par motif de déstockage
+- dans la description d'un protocole, il est possible d'indiquer le numéro et la date de l'autorisation de prélèvement
+- recherche d'un échantillon : il est maintenant possible de scanner une étiquette
+
+Nouvelles fonctionnalités :
+- il est possible de générer un export d'un ou plusieurs contenants, qui comprennent à la fois les contenants et les échantillons inclus, pour les importer dans une autre base de données
+- gestion du prêt des échantillons : il est possible d'enregistrer le prêt de containers ou d'échantillons vers des emprunteurs
+
+
 Version 2.2.3 du 22 février 2019
 ---------------------------------
 Corrections de bugs :

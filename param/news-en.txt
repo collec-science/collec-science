@@ -1,5 +1,31 @@
 News
 ===========
+Version 2.3 of August 14, 2019
+---------------------------------
+Bug fixes:
+- harmonization of certain labels in the application (Save/validate or Select/Choose for example)
+- in the detail of a container, the contents and products used were poorly displayed
+- the tables were not working well, especially when displaying pages from the navigation buttons
+- correction when searching by date: the current date was not systematically taken into account
+- during imports, some incorrect dates passed through the consistency checks
+- the search for containers only by status (out of normal state) did not work
+
+Evolution of existing functionalities:
+- upgrading the framework to add security controls. The Framework now meets the requirements of ASVS v4 (total level 1, partial level 2).
+- ergonomics: the sample and container display screens have been partially redesigned: the data are now organized by tabs. It is also possible to open a new object directly from the detail page, without returning to the list
+- it is now possible to attach a sample to a parent 
+- a function to duplicate a sample with its parent is now available
+- in the administration module, it is no longer possible to create a new right (but this can be reactivated with an option in the param.inc.php file)
+- when entering metadata models, the "Unit of measurement" field is proposed by default with the value N/A
+- metadata models can now be viewed without switching to edit mode
+- it is now possible to search for a sample by destocking reason
+- in the description of a protocol, it is possible to indicate the number and date of the sampling authorisation
+- sample search: it is now possible to scan a label
+
+New features :
+- it is possible to generate an export of one or more containers, which include both the containers and the included samples, for import into another database
+- sample loan management: it is possible to register the loan of containers or samples to borrowers
+
 Version 2.2.3 of february 22, 2019
 ----------------------------------
 Bug fixes:

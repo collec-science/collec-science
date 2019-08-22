@@ -359,7 +359,7 @@ class Sample extends ObjetBDD
                     $field = "expiration_date";
                     break;
             }
-            $where .= $and . "s.$field::date between :date_from and :date_to";
+            $where .= $and . " s.$field::date between :date_from and :date_to";
             $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
             $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
             $and = " and ";
@@ -445,6 +445,7 @@ class Sample extends ObjetBDD
         );
         $this->colonnes["borrowing_date"] = array("type" => 2);
         $this->colonnes["exepected_return_date"] = array("type" => 2);
+        //printr($this->sql.$where);
         return $this->getListeParamAsPrepared($this->sql . $where, $data);
     }
 

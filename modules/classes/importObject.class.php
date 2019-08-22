@@ -446,7 +446,8 @@ class ImportObject
         /*
          * Verification du format de date
          */
-        $result = date_parse_from_format($_SESSION["MASKDATE"], $date);
+        strlen($date) > 10 ? $mask = $_SESSION["MASKDATELONG"] : $mask = $_SESSION["MASKDATE"];
+        $result = date_parse_from_format($mask, $date);
         if ($result["warning_count"] > 0) {
             /**
              * La date est attendue avec le format yyyy-mm-dd
@@ -643,7 +644,8 @@ class ImportObject
                     /*
                      * Verification du format de date
                      */
-                    $result = date_parse_from_format($_SESSION["MASKDATE"], $data[$fieldDate]);
+                    strlen($data[$fieldDate]) > 10 ? $mask = $_SESSION["MASKDATELONG"] : $mask = $_SESSION["MASKDATE"];
+                    $result = date_parse_from_format($mask, $data[$fieldDate]);
                     if ($result["warning_count"] > 0 || $result["error_count"] > 0) {
                         /*
                          * Test du format general

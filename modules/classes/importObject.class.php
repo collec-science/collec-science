@@ -446,13 +446,31 @@ class ImportObject
         /*
          * Verification du format de date
          */
-        strlen($date) > 10 ? $mask = $_SESSION["MASKDATELONG"] : $mask = $_SESSION["MASKDATE"];
+        $date1 = explode(" ", $date);
+        $timeLength = strlen($date1[1]);
+        if ($timeLength > 0) {
+            /**
+             * Reformate the time
+             */
+            if ($timeLength == 5) {
+                /**
+                 * Add seconds
+                 */
+                $date1[1] .= ":00";
+            }
+            /**
+             * Regenerate the date
+             */
+            $date = $date1[0] . " " . $date1[1];
+            $mask = $_SESSION["MASKDATELONG"];
+        } else {
+            $mask = $_SESSION["MASKDATE"];
+        }
         $result = date_parse_from_format($mask, $date);
         if ($result["warning_count"] > 0) {
             /**
              * La date est attendue avec le format yyyy-mm-dd
              */
-            $date1 = explode(" ", $date);
             $date2 = explode("-", $date1[0]);
             $result = date_parse($date);
             if ($result["year"] != $date2[0] || str_pad($result["month"], 2, "0", STR_PAD_LEFT) != $date2[1] || str_pad($result["day"], 2, "0", STR_PAD_LEFT) != $date2[2]) {
@@ -644,13 +662,34 @@ class ImportObject
                     /*
                      * Verification du format de date
                      */
+                    $date = $data[$fieldDate];
+                    $date1 = explode(" ", $date);
+                    $timeLength = strlen($date1[1]);
+                    if ($timeLength > 0) {
+                        /**
+                         * Reformate the time
+                         */
+                        if ($timeLength == 5) {
+                            /**
+                             * Add seconds
+                             */
+                            $date1[1] .= ":00";
+                        }
+                        /**
+                         * Regenerate the date
+                         */
+                        $date = $date1[0] . " " . $date1[1];
+                        $mask = $_SESSION["MASKDATELONG"];
+                    } else {
+                        $mask = $_SESSION["MASKDATE"];
+                    }
                     strlen($data[$fieldDate]) > 10 ? $mask = $_SESSION["MASKDATELONG"] : $mask = $_SESSION["MASKDATE"];
-                    $result = date_parse_from_format($mask, $data[$fieldDate]);
+                    $result = date_parse_from_format($mask, $date);
                     if ($result["warning_count"] > 0 || $result["error_count"] > 0) {
                         /*
                          * Test du format general
                          */
-                        $result1 = date_parse($data[$fieldDate]);
+                        $result1 = date_parse($date);
                         if ($result1["warning_count"] > 0 || $result1["error_count"] > 0) {
                             $retour["code"] = false;
                             $retour["message"] .= sprintf(_("Le format de date de %s n'est pas reconnu."), $fieldDate);

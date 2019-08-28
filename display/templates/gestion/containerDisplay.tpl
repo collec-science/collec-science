@@ -9,12 +9,33 @@
 				}
 			}
 		}
-		/* select the current tab */
+		/* Management of tabs */
 		var activeTab = "{$activeTab}";
-    	if (activeTab.length > 0) {
-			//console.log(activeTab);
-			$("#"+activeTab).tab('show');
-    	}
+		var survol = true;
+    	if (activeTab.length == 0) {
+			try {
+			activeTab = Cookies.get("containerDisplayTab");
+			} catch (Exception) {
+				activeTab = "";
+			}
+		}
+		try {
+			if (activeTab.length > 0) {
+				$("#"+activeTab).tab('show');
+			} 
+		} catch (Exception) { }
+		$('.nav-tabs > li > a').hover(function() {
+			if (survol) {
+   				$(this).tab('show');
+			}
+ 		});
+		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
+			Cookies.set("containerDisplayTab",$(this).attr("id"));
+		});
+		$('a[data-toggle="tab"]').on("click", function () {
+			survol = false ;
+		});
+
 		$("#referent_name").click(function() { 
 			var referentName = $(this).text();
 			if (referentName.length > 0) {

@@ -162,18 +162,31 @@ while (isset($module)) {
     /**
      * Si la variable demandee n'existe pas, retour vers la page par defaut
      */
-    if (isset($t_module["requiredVar"]) && !isset($_REQUEST[$t_module["requiredVar"]])) {
-        $t_module = $navigation->getModule("default");
+    if (isset($t_module["requiredVar"])) {
+        $rv = false;
+        $requiredVars = explode(",", $t_module["requiredVar"]);
+        foreach ($requiredVars as $requiredVar) {
+            if (isset($_REQUEST[$requiredVar]) || isset($_COOKIE[$requiredVar])) {
+                $rv = true;
+                break;
+            }
+        }
+        if (!$rv) {
+            $t_module = $navigation->getModule("default");
+        }
     }
+
     /**
      * Verification du delai entre deux appels, et mise en sommeil
      */
-    if ($moduleRequested == $module && (!in_array($t_module["type"], array("ajax", "json", "ws")) && isset($_SESSION["login"])) && !$t_module["noDelayBeforeCall"] == 1) {
-        $delay = $log->getTimestampFromLastCall($_SESSION["login"]);
-        if ($delay < $APPLI_delay_between_call) {
-            $log->setLog($login, $module, "sleep because too fast");
-            $message->setSyslog("module " . $module . ": sleep because too fast");
-            sleep($APPLI_sleep_duration);
+    if ($APPLI_delay_between_call > 0) {
+        if ($moduleRequested == $module && (!in_array($t_module["type"], array("ajax", "json", "ws")) && isset($_SESSION["login"])) && !$t_module["noDelayBeforeCall"] == 1) {
+            $delay = $log->getTimestampFromLastCall($_SESSION["login"]);
+            if ($delay < $APPLI_delay_between_call) {
+                $log->setLog($login, $module, "sleep because too fast");
+                $message->setSyslog("module " . $module . ": sleep because too fast");
+                sleep($APPLI_sleep_duration);
+            }
         }
     }
     /*

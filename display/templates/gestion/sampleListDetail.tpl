@@ -82,9 +82,9 @@
 		 */
 		displayMode(displayModeFull);
 
-		$("#checkedButton").on ("keypress click", function(event) {
+		$("#checkedButtonSample").on ("keypress click", function(event) {
 			
-			var action = $("#checkedAction").val();
+			var action = $("#checkedActionSample").val();
 			if (action.length > 0) {
 				var conf = confirm("{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
 				if ( conf  == true) {
@@ -99,7 +99,7 @@
 			}
 		});
 
-		$("#checkedAction").change(function () { 
+		$("#checkedActionSample").change(function () { 
 			var action = $(this).val();
 			if (action == "samplesAssignReferent") {
 				$(".referentid").show();
@@ -258,7 +258,7 @@
 			{t}Pour les éléments cochés :{/t}
 			<input type="hidden" name="lastModule" value="{$lastModule}">
 			<input type="hidden" name="uid" value="{$data.uid}">
-			<select id="checkedAction" class="form-control">
+			<select id="checkedActionSample" class="form-control">
 			<option value="" selected>{t}Choisissez{/t}</option>
 			<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
 			<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
@@ -328,7 +328,7 @@
 				</div>
 			</div>
 			<div class="center">
-				<button id="checkedButton" class="btn btn-danger" >{t}Exécuter{/t}</button>
+				<button id="checkedButtonSample" class="btn btn-danger" >{t}Exécuter{/t}</button>
 			</div>
 		</div>
 	</div>

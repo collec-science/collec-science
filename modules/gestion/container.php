@@ -133,6 +133,14 @@ switch ($t_module["param"]) {
         include_once "modules/classes/borrowing.class.php";
         $borrowing = new Borrowing($bdd, $ObjetBDDParam);
         $vue->set($borrowing->getFromUid($data["uid"]), "borrowings");
+        /**
+         * Get the list of borrowers
+         */
+        include_once 'modules/classes/borrower.class.php';
+        $borrower = new Borrower($bdd, $ObjetBDDParam);
+        $vue->set($borrower->getListe(2), "borrowers");
+        $vue->set(date($_SESSION["MASKDATE"]),"borrowing_date");
+        $vue->set(date($_SESSION["MASKDATE"]),"expected_return_date");
         /*
          * Affichage
          */

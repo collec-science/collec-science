@@ -37,9 +37,9 @@ $(document).ready(function () {
 	$("#containerExport").on("keypress click", function () { 
 		$(this.form).find("input[name='module']").val("containerExportGlobal");
 	});
-	$("#checkedButton").on ("keypress click", function(event) {
+	$("#checkedButtonContainer").on ("keypress click", function(event) {
 			
-		var action = $("#checkedAction").val();
+		var action = $("#checkedActionContainer").val();
 		if (action.length > 0) {
 			var conf = confirm("{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
 			if ( conf  == true) {
@@ -53,7 +53,7 @@ $(document).ready(function () {
 			event.preventDefault();
 		}
 	});
-	$("#checkedAction").change(function () { 
+	$("#checkedActionContainer").change(function () { 
 		var action = $(this).val();
 		if (action == "containersLending") {
 			$(".borrowing").show();
@@ -182,7 +182,7 @@ $(document).ready(function () {
 					{t}Pour les éléments cochés :{/t}
 					<input type="hidden" name="lastModule" value="{$lastModule}">
 					<input type="hidden" name="uid" value="{$data.uid}">
-					<select id="checkedAction" class="form-control">
+					<select id="checkedActionContainer" class="form-control">
 						<option value="" selected>{t}Choisissez{/t}</option>
 						<option value="containersLending">{t}Prêter les contenants et leurs contenus{/t}</option>
 					</select>
@@ -214,7 +214,7 @@ $(document).ready(function () {
 						</div>
 					</div>
 					<div class="center">
-						<button id="checkedButton" class="btn btn-danger" >{t}Exécuter{/t}</button>
+						<button id="checkedButtonContainer" class="btn btn-danger" >{t}Exécuter{/t}</button>
 					</div>
 				</div>
 				

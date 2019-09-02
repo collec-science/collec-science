@@ -144,8 +144,9 @@ class Container extends ObjetBDD
 					collection_name, sample_type_name, object_status_name,
 					sampling_place_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
-                    column_number, line_number,
+                    lm.column_number, lm.line_number,
                     case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
+                    ,lm.container_uid
 					from object o
 					join sample sa on (sa.uid = o.uid)
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
@@ -190,6 +191,7 @@ class Container extends ObjetBDD
 					object_status_name, clp_classification,
 					movement_date, movement_type_id, column_number, line_number,
                     document_id
+                    ,lm.container_uid
 					from object o
 					join container co on (co.uid = o.uid)
 					join container_type using (container_type_id)

@@ -134,6 +134,8 @@ class Sample extends ObjetBDD
         } else {
             $retour = parent::getDefaultValue($parentValue);
         }
+        unset($this->colonnes["borrowing_date"]);
+        unset($this->colonnes["expected_return_date"]);
         return $retour;
     }
 
@@ -143,7 +145,10 @@ class Sample extends ObjetBDD
         $data["sample_id"] = $sample_id;
         $this->colonnes["borrowing_date"] = array("type" => 2);
         $this->colonnes["exepected_return_date"] = array("type" => 2);
-        return parent::lireParamAsPrepared($sql, $data);
+        $list = parent::lireParamAsPrepared($sql, $data);
+        unset($this->colonnes["borrowing_date"]);
+        unset($this->colonnes["expected_return_date"]);
+        return $list;
     }
 
     /**
@@ -165,6 +170,7 @@ class Sample extends ObjetBDD
         if ($ok) {
             $object = new ObjectClass($this->connection, $this->param);
             $uid = $object->ecrire($data);
+
             if ($uid > 0) {
                 $data["uid"] = $uid;
                 if (parent::ecrire($data) > 0) {
@@ -336,9 +342,10 @@ class Sample extends ObjetBDD
             $data["sampling_place_id"] = $param["sampling_place_id"];
         }
         if ($param["referent_id"] > 0) {
-            $where .= $and . "ro.referent_id = :referent_id";
+            $where .= $and . "(ro.referent_id = :referent_id1 or cr.referent_id = :referent_id2)";
             $and = " and ";
-            $data["referent_id"] = $param["referent_id"];
+            $data["referent_id1"] = $param["referent_id"];
+            $data["referent_id2"] = $param["referent_id"];
         }
 
         if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
@@ -444,9 +451,17 @@ class Sample extends ObjetBDD
             "type" => 3,
         );
         $this->colonnes["borrowing_date"] = array("type" => 2);
-        $this->colonnes["exepected_return_date"] = array("type" => 2);
-        //printr($this->sql.$where);
-        return $this->getListeParamAsPrepared($this->sql . $where, $data);
+        $this->colonnes["expected_return_date"] = array("type" => 2);
+        /*printr($this->sql.$where);
+        printr($data);*/
+        $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
+        /**
+         * Destroy foreign fields used in the request
+         */
+        unset($this->colonnes["movement_date"]);
+        unset($this->colonnes["borrowing_date"]);
+        unset($this->colonnes["expected_return_date"]);
+        return $list;
     }
 
     /**

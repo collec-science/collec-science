@@ -13,9 +13,23 @@
 				}
 			}
 		}
+		var tabHover = 0;
+		try {
+			tabHover = Cookies.get("tabHover");
+		} catch (Exception) { }
+		if (tabHover == 1) {
+			$("#tabHoverSelect").prop("checked", true);
+		}
+		$("#tabHoverSelect").change(function() { 
+			if ($(this).is(":checked")) {
+				tabHover = 1;
+			} else {
+				tabHover = 0;
+			}
+			Cookies.set("tabHover", tabHover, { expires: 365 });
+		});
 		/* Management of tabs */
 		var activeTab = "{$activeTab}";
-		var survol = true;
     	if (activeTab.length == 0) {
 			try {
 			activeTab = Cookies.get("sampleDisplayTab");
@@ -29,7 +43,7 @@
 			} 
 		} catch (Exception) { }
 		$('.nav-tabs > li > a').hover(function() {
-			if (survol) {
+			if (tabHover == 1) {
    				$(this).tab('show');
 			}
  		});
@@ -37,7 +51,7 @@
 			Cookies.set("sampleDisplayTab",$(this).attr("id"));
 		});
 		$('a[data-toggle="tab"]').on("click", function () {
-			survol = false ;
+			tabHover = 0 ;
 		});
 		$("#sampleSpinner2").hide();
 		var isReferentDisplayed = false;
@@ -479,4 +493,9 @@
 		{/if}
 	</div>
 </div>
-
+<div class="row">
+	<div class="col-sm-12 messageBas">
+			{t}Activer le survol des onglets :{/t}
+		<input type="checkbox" id="tabHoverSelect">
+	</div>
+</div>

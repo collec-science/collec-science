@@ -95,29 +95,28 @@
 				}
 			}
 			}
-			$("#spinner").show();
 			var is_container = 1;
 			event.preventDefault();
 			$.ajax ( { 
 				url:url, 
 			method:"GET",
-			//async: "false",
-			//cache: "false", 
 			data : { module:"objectGetDetail", uid:uid, is_container:is_container }, 
 			success : function ( djs ) {
 				try {
 					var data = JSON.parse(djs);
-					console.log(data);
 					if ( data.length > 0 ) {
-						sleep(1000);
-						form.get(0).submit();
-					} else {
-						$("#search").val("");
-						$("#spinner").hide();
-					}
+						if (!isNaN(data[0]["uid"])) {
+							var uid = data[0]["uid"];
+							if (uid > 0) {
+								$("#search").val(data[0]["uid"]);
+								form.get(0).submit();
+							}
+						}
+					} 
+					$("#search").val("");
+					form.get(0).event.preventDefault();
 				} catch (error) {
 					$("#search").val("");
-					$("#spinner").hide();
 				}
 				}
 			} );
@@ -134,11 +133,8 @@
 			<input id="moduleBase" type="hidden" name="moduleBase" value="container">
 			<input id="action" type="hidden" name="action" value="Display">
 			<div class="form-group">
-				<div class="col-md-5">
-					<input id="search" class="form-control" placeholder="uid" name="uid" required autofocus>
-				</div>
-				<div class="col-md-1">
-					<img id="spinner" src="display/images/spinner.gif" style="display:none" height="25">
+				<div class="col-md-6">
+					<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required autofocus>
 				</div>
 				<input type="submit" id="searchExec" class="btn btn-warning col-md-6" value="{t}Ouvrir{/t}">
 			</div>

@@ -10,7 +10,7 @@ read -p "Do you want to continue [y/n]?" response
 if [ "$response" = "y" ] 
 then
 # installing packages
-apt-get install unzip apache2 libapache2-mod-$PHPVER $PHPVER $PHPVER-ldap $PHPVER-pgsql $PHPVER-mbstring $PHPVER-xml $PHPVER-zip $PHPVER-imagick $PHPVER-gd fop postgresql postgresql-client
+apt-get install unzip apache2 libapache2-mod-evasive libapache2-mod-$PHPVER $PHPVER $PHPVER-ldap $PHPVER-pgsql $PHPVER-mbstring $PHPVER-xml $PHPVER-zip $PHPVER-imagick $PHPVER-gd fop postgresql postgresql-client
 a2enmod ssl
 a2enmod headers
 a2enmod rewrite

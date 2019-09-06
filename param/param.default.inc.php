@@ -196,7 +196,5 @@ $APPLI_max_file_size = 10; // Size in Mb
 $APPLI_passwordMinLength = 12;
 $APPLI_hour_duration = 3600; // Duration of an hour for count all calls to a module
 $APPLI_day_duration = 36000; //Duration of a day for count all calls to a module
-$APPLI_delay_between_call = 0; //delay between call of modules others than ajax. 0 to inactive
-$APPLI_sleep_duration = 30; // duration of the temporary sleep
 
 ?>

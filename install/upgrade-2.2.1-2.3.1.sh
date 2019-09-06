@@ -54,6 +54,12 @@ chgrp -R www-data $VERSION
 chmod -R 770 $VERSION/display/templates_c
 chmod -R 770 $VERSION/temp
 
+# update php.ini file
+PHPVER=`php -v|head -n 1|cut -c 5-7`
+PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
+sed -i "s/; max_input_vars = .*/max_input_vars=$max_input_vars/" $PHPINIFILE
+systemctl restart apache2
+
 echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process" 
 fi
 fi

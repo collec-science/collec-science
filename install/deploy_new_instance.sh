@@ -2,7 +2,7 @@
 # install a new instance into a server
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
-VERSION=2.3
+VERSION=2.3.1
 PHPVER=7.2
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
 echo "Installation of Collec-Science version " $VERSION
@@ -81,11 +81,12 @@ post_max_size="=50M"
 max_execution_time="=120"
 max_input_time="=240"
 memory_limit="=1024M"
-max_imput_vars="10000"
-for key in upload_max_filesize post_max_size max_execution_time max_input_time memory_limit max_input_vars
+max_input_vars="10000"
+for key in upload_max_filesize post_max_size max_execution_time max_input_time memory_limit
 do
  sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $PHPINIFILE
 done
+sed -i "s/; max_input_vars = .*/max_input_vars=$max_input_vars/" $PHPINIFILE
 
 # creation of virtual host
 echo "creation of virtual site"

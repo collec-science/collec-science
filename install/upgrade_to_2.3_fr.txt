@@ -1,4 +1,4 @@
-Collec-Science - procédure de mise à jour vers la version 2.3 depuis une version antérieure
+Collec-Science - procédure de mise à jour vers la version 2.3.1 depuis une version antérieure
 Document encodé en UTF-8 : si vous avez des problèmes pour le consulter depuis un poste Windows, ouvrez-le avec Notepad++
 -------------------------------------------------------------------------------------------
 
@@ -9,14 +9,14 @@ Cas n°1
     le compte de connexion à la base de données n’a pas été modifié par rapport à la configuration par défaut
     l’application est stockée dans le dossier /var/www/html/collec-science/xxxx, le lien /var/www/html/collec-science/collec pointe vers xxxx, et le site virtuel (dans /etc/apache2/sites-available) comprend la ligne : DocumentRoot /var/www/html/collec-science/collec
     Selon votre version, identifiez le fichier qui correspond à la mise à jour à appliquer (la première série de chiffres correspond à votre version actuelle) :
-    - upgrade-1.2-2.3.sh
-    - upgrade-1.2.3-2.3.sh
-    - upgrade-2.0-2.3.sh
-    - upgrade-2.1-2.3.sh
-    - upgrade-2.2-2.3.sh
-    - upgrade-2.2.1-2.3.sh
-    - upgrade-2.2.2-2.3.sh
-    - upgrade-2.2.3-2.3.sh
+    - upgrade-1.2-2.3.1.sh
+    - upgrade-1.2.3-2.3.1.sh
+    - upgrade-2.0-2.3.1.sh
+    - upgrade-2.1-2.3.1.sh
+    - upgrade-2.2-2.3.1.sh
+    - upgrade-2.2.1-2.3.1.sh
+    - upgrade-2.2.2-2.3.1.sh
+    - upgrade-2.2.3-2.3.1.sh
    
 Connectez-vous à votre serveur, puis :
 
@@ -47,7 +47,7 @@ Récupérez le code de l’application :
 
  wget https://github.com/Irstea/collec/archive/master.zip
  unzip master.zip
- mv collec-master collec-2.3
+ mv collec-master collec-2.3.1
 
 Etape 2 : mise à jour de la base de données
 

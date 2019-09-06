@@ -1,5 +1,18 @@
 News
 ===========
+Version 2.3.1 of September 6, 2019
+---------------------------------
+Bug fixes:
+- in mass import, dates were refused if they were in the format hh:mm (no seconds)
+- the search for samples failed if the only search criterion was based on dates
+- the deletion of samples from the detail of a container did not work
+- after creating a movement, the software could be blocked for several seconds
+- the detail of the objects (containers or samples) has been improved: the last visited tab is now displayed by default, and it is possible to activate a function to view the content of the tabs when hovering with the mouse
+- in the list of contained objects, the row and column number was not displayed
+- the search by referent now takes into account the referent declared globally for the collection in question
+- from the detail of a container or sample, opening a new object did not work with the use of the business identifier
+- ergonomic corrections: deletion of three-point (ellipsis) in some labels in some Chrome browsers, correction of some others labels
+
 Version 2.3 of August 14, 2019
 ---------------------------------
 Bug fixes:

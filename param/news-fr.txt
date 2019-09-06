@@ -1,5 +1,22 @@
 News
 ===========
+Version 2.3.1 du 6 septembre 2019
+---------------------------------
+Corrections de bugs :
+- en importation de masse, les dates étaient refusées si elles étaient sous le format hh:mm (pas de secondes)
+- la recherche des échantillons échouait si le seul critère de recherche était basé sur les dates
+- la suppressions des échantillons, depuis le détail d'un conteneur, ne fonctionnait pas
+- après création d'un mouvement, le logiciel pouvait se bloquer pendant plusieurs secondes
+- le détail des objets (contenants ou échantillons) a été amélioré : le dernier onglet visité est maintenant affiché par défaut, et il est possible d'activer une fonction de visualisation du contenu des onglets lors du survol avec la souris
+- dans la liste des objets contenus, le numéro de ligne et de colonne n'était pas affiché
+- la recherche par référent tient maintenant compte du référent déclaré globalement pour la collection considérée
+- depuis le détail d'un contenant ou d'un échantillon, l'ouverture d'un nouvel objet ne fonctionnait pas avec l'utilisation de l'identifiant métier
+- corrections ergonomiques : suppression des trois-points dans certains libellés avec les navigateurs Chrome, correction de quelques autres libellés
+
+Nouveautés :
+- ajout de l'installation de mod_evasive dans Apache2 pour les nouveaux déploiements, pour limiter les attaques par force brute
+- ajout d'un pré-paramétrage de la configuration de PHP pour les nouveaux déploiements.
+
 Version 2.3 du 14 août 2019
 ---------------------------------
 Corrections de bugs :

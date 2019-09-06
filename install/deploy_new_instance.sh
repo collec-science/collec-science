@@ -3,14 +3,15 @@
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
 VERSION=2.3
-PHPVER=php7.2
+PHPVER=7.2
+PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
 echo "Installation of Collec-Science version " $VERSION
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [y/n]?" response
 if [ "$response" = "y" ] 
 then
 # installing packages
-apt-get install unzip apache2 libapache2-mod-evasive libapache2-mod-$PHPVER $PHPVER $PHPVER-ldap $PHPVER-pgsql $PHPVER-mbstring $PHPVER-xml $PHPVER-zip $PHPVER-imagick $PHPVER-gd fop postgresql postgresql-client
+apt-get install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd fop postgresql postgresql-client
 a2enmod ssl
 a2enmod headers
 a2enmod rewrite
@@ -73,6 +74,18 @@ echo "generate encryption keys for identification tokens"
 openssl genpkey -algorithm rsa -out collec/param/id_collec -pkeyopt rsa_keygen_bits:2048
 openssl rsa -in collec/param/id_collec -pubout -out collec/param/id_collec.pub
 chown www-data collec/param/id_collec
+
+# adjust php.ini values
+upload_max_filesize="=100M"
+post_max_size="=50M"
+max_execution_time="=120"
+max_input_time="=240"
+memory_limit="=1024M"
+max_imput_vars="10000"
+for key in upload_max_filesize post_max_size max_execution_time max_input_time memory_limit max_input_vars
+do
+ sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $PHPINIFILE
+done
 
 # creation of virtual host
 echo "creation of virtual site"

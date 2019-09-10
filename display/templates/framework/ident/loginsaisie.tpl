@@ -173,10 +173,10 @@ $(document).ready(function() {
 </div>
 <div class="col-md-12">
 <div class="bg-info">
-{t}Le mot de passe doit :{/t}
+{t}Caractéristiques du mot de passe :{/t}
 <ul>
-<li>{t}avoir une longueur minimale de 10 caractères{/t}</li>
-<li>{t}être composé d'au minimum 3 types de caractères différents parmi :{/t}
+<li>{t}Longueur minimale : {/t}{$passwordMinLength}&nbsp;{t}caractères{/t}</li>
+<li>{t}Au minimum 3 types de caractères différents parmi :{/t}
 <ul>
 <li>{t}des minuscules{/t}</li>
 <li>{t}des majuscules{/t}</li>

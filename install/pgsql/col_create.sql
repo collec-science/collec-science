@@ -17,8 +17,8 @@
 -- 	OWNER = postgres;
 -- -- ddl-end --
 -- 
- create extension if not exists btree_gin schema pg_catalog;
- create extension if not exists pg_trgm schema pg_catalog;
+-- create extension if not exists btree_gin schema pg_catalog;
+-- create extension if not exists pg_trgm schema pg_catalog;
 create schema if not exists col;
 
 SET search_path = col,gacl;
@@ -843,9 +843,9 @@ SELECT object_identifier.uid,
 CREATE INDEX object_identifier_idx ON object
 	USING gin
 	(
-	  identifier
+	  identifier gin_trgm_ops
 	)
-	WITH (FILLFACTOR = 90);
+	;
 -- ddl-end --
 
 -- object: object_identifier_value_idx | type: INDEX --
@@ -853,9 +853,9 @@ CREATE INDEX object_identifier_idx ON object
 CREATE INDEX object_identifier_value_idx ON object_identifier
 	USING gin
 	(
-	  object_identifier_value
+	  object_identifier_value gin_trgm_ops
 	)
-	WITH (FILLFACTOR = 90);
+;
 -- ddl-end --
 
 -- object: sample_dbuid_origin_idx | type: INDEX --
@@ -863,9 +863,8 @@ CREATE INDEX object_identifier_value_idx ON object_identifier
 CREATE INDEX sample_dbuid_origin_idx ON sample
 	USING gin
 	(
-	  dbuid_origin
-	)
-	WITH (FILLFACTOR = 90);
+	  dbuid_origin gin_trgm_ops
+	);
 -- ddl-end --
 
 -- object: sample_expiration_date_idx | type: INDEX --
@@ -925,22 +924,6 @@ CREATE SEQUENCE borrowing_borrowing_id_seq
 -- ddl-end --
 
 
-
--- object: last_borrowing | type: VIEW --
--- DROP VIEW IF EXISTS last_borrowing CASCADE;
-CREATE VIEW last_borrowing
-AS 
-
-select borrowing_id, uid, borrowing_date, expected_return_date, borrower_id
-from borrowing b1
- where borrowing_id = (
- select borrowing_id from borrowing b2
- where b1.uid = b2.uid 
- and b2.return_date is null
- order by borrowing_date desc limit 1);
--- ddl-end --
-COMMENT ON VIEW last_borrowing IS 'View to get the last borrowing for an object';
--- ddl-end --
 
 -- object: borrower | type: TABLE --
 -- DROP TABLE IF EXISTS borrower CASCADE;
@@ -1010,6 +993,22 @@ CREATE INDEX borrowing_borrower_id_idx ON borrowing
 	(
 	  borrower_id
 	);
+-- ddl-end --
+
+-- object: last_borrowing | type: VIEW --
+-- DROP VIEW IF EXISTS last_borrowing CASCADE;
+CREATE VIEW last_borrowing
+AS 
+
+select borrowing_id, uid, borrowing_date, expected_return_date, borrower_id
+from borrowing b1
+ where borrowing_id = (
+ select borrowing_id from borrowing b2
+ where b1.uid = b2.uid 
+ and b2.return_date is null
+ order by borrowing_date desc limit 1);
+-- ddl-end --
+COMMENT ON VIEW last_borrowing IS 'View to get the last borrowing for an object';
 -- ddl-end --
 
 -- object: last_movement | type: VIEW --

@@ -3,20 +3,19 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-beta1" last-position="0,288" last-zoom="0.65" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2-beta2" last-position="0,0" last-zoom="0.65" max-obj-count="61"
 	 default-schema="public" default-owner="postgres">
-<role name="quinton"
+<role name="collec"
       superuser="true"
       createdb="true"
       createrole="true"
       inherit="true"
       login="true"
-      encrypted="true"
-      password="********">
+      password="collecPassword">
 </role>
 
 <database name="collec" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true">
-	<role name="postgres"/>
+	<role name="collec"/>
 	<tablespace name="pg_default"/>
 </database>
 
@@ -27,12 +26,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#ffaa00,#ffaa00,#20486f"/>
 </tag>
-<tag name="object">
+<tag name="objects">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
 	<style id="table-ext-body" colors="#fcfcfc,#fcfcfc,#808080"/>
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
-	<style id="table-title" colors="#00aaff,#00aaff,#20486f"/>
+	<style id="table-title" colors="#00ff00,#00ff00,#20486f"/>
 </tag>
 <tag name="sample">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -46,7 +45,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-ext-body" colors="#fcfcfc,#fcfcfc,#808080"/>
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
-	<style id="table-title" colors="#aa0000,#aa0000,#20486f"/>
+	<style id="table-title" colors="#ff5500,#ff5500,#20486f"/>
 </tag>
 <tag name="acl">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -62,15 +61,22 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#aaaa00,#aaaa00,#20486f"/>
 </tag>
+<tag name="object">
+	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
+	<style id="table-ext-body" colors="#fcfcfc,#fcfcfc,#808080"/>
+	<style id="table-name" colors="#000000"/>
+	<style id="table-schema-name" colors="#000000"/>
+	<style id="table-title" colors="#55aa00,#ff5500,#20486f"/>
+</tag>
 <schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
 <schema name="col" layer="0" rect-visible="true" fill-color="#589eee">
-	<role name="postgres"/>
+	<role name="collec"/>
 </schema>
 
 <schema name="gacl" layer="0" rect-visible="true" fill-color="#7e32c6">
-	<role name="postgres"/>
+	<role name="collec"/>
 </schema>
 
 <extension name="pg_trgm" cur-version="1.4">
@@ -85,9 +91,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="booking" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des réservations d'objets]]></comment>
-	<tag name="object"/>
+	<tag name="objects"/>
 	<position x="760" y="440"/>
 	<column name="booking_id" not-null="true" sequence="col.booking_booking_id_seq">
 		<type name="integer" length="0"/>
@@ -127,7 +133,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="collection_group" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des autorisations d'accès à un projet]]></comment>
 	<tag name="collection"/>
 	<position x="40" y="440"/>
@@ -149,7 +155,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="container" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Liste des conteneurs d'échantillon]]></comment>
 	<tag name="container"/>
 	<position x="1000" y="1080"/>
@@ -174,7 +180,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="container_family" layer="0" collapse-mode="2" max-obj-count="2">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Famille générique des conteneurs]]></comment>
 	<tag name="container"/>
 	<position x="1380" y="1340"/>
@@ -196,7 +202,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="container_type" layer="0" collapse-mode="2" max-obj-count="13">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des types de conteneurs]]></comment>
 	<tag name="container"/>
 	<position x="1000" y="1340"/>
@@ -247,7 +253,7 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="dbparam" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des parametres associes de maniere intrinseque a l'instance]]></comment>
 	<position x="1620" y="1480"/>
 	<column name="dbparam_id" not-null="true">
@@ -268,12 +274,12 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <sequence name="dbversion_dbversion_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 </sequence>
 
 <table name="dbversion" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des versions de la base de donnees]]></comment>
 	<position x="1620" y="1580"/>
 	<column name="dbversion_id" not-null="true" sequence="col.dbversion_dbversion_id_seq">
@@ -299,9 +305,9 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="document" layer="0" collapse-mode="2" max-obj-count="12">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Documents numériques rattachés à un poisson ou à un événement]]></comment>
-	<tag name="object"/>
+	<tag name="objects"/>
 	<position x="1380" y="860"/>
 	<column name="document_id" not-null="true" sequence="col.document_document_id_seq">
 		<type name="integer" length="0"/>
@@ -352,9 +358,9 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="event" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des événements]]></comment>
-	<tag name="object"/>
+	<tag name="objects"/>
 	<position x="1380" y="440"/>
 	<column name="event_id" not-null="true" sequence="col.event_event_id_seq">
 		<type name="integer" length="0"/>
@@ -388,9 +394,9 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="event_type" layer="0" collapse-mode="2" max-obj-count="4">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Types d'événement]]></comment>
-	<tag name="object"/>
+	<tag name="objects"/>
 	<position x="1600" y="440"/>
 	<column name="event_type_id" not-null="true" sequence="col.event_type_event_type_id_seq">
 		<type name="integer" length="0"/>
@@ -418,9 +424,9 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="identifier_type" layer="0" collapse-mode="2" max-obj-count="4">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des types d'identifiants]]></comment>
-	<tag name="object"/>
+	<tag name="objects"/>
 	<position x="980" y="440"/>
 	<column name="identifier_type_id" not-null="true" sequence="col.identifier_type_identifier_type_id_seq">
 		<type name="integer" length="0"/>
@@ -449,7 +455,7 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="label" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des modèles d'étiquettes]]></comment>
 	<tag name="container"/>
 	<position x="520" y="1580"/>
@@ -486,7 +492,7 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <view name="last_photo" layer="0" collapse-mode="2" max-obj-count="1">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<position x="1600" y="660"/>
 	<reference>
 		<expression><![CDATA[ SELECT d.document_id,
@@ -515,12 +521,12 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <sequence name="metadata_metadata_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 </sequence>
 
 <table name="metadata" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des metadata utilisables dans les types d'echantillons]]></comment>
 	<tag name="sample"/>
 	<position x="240" y="1580"/>
@@ -547,9 +553,9 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="mime_type" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Types mime des fichiers importés]]></comment>
-	<tag name="object"/>
+	<tag name="objects"/>
 	<position x="1600" y="860"/>
 	<column name="mime_type_id" not-null="true" sequence="col.mime_type_mime_type_id_seq">
 		<type name="integer" length="0"/>
@@ -579,7 +585,7 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="movement_type" layer="0" collapse-mode="2" max-obj-count="2">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Type de mouvement]]></comment>
 	<tag name="movement"/>
 	<position x="520" y="1340"/>
@@ -601,7 +607,7 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="multiple_type" layer="0" collapse-mode="2" max-obj-count="2">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des types de contenus multiples]]></comment>
 	<tag name="sample"/>
 	<position x="40" y="1340"/>
@@ -628,9 +634,9 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="object_identifier" layer="0" collapse-mode="2" max-obj-count="4">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des identifiants complémentaires normalisés]]></comment>
-	<tag name="object"/>
+	<tag name="objects"/>
 	<position x="980" y="660"/>
 	<column name="object_identifier_id" not-null="true" sequence="col.object_identifier_object_identifier_id_seq">
 		<type name="integer" length="0"/>
@@ -657,9 +663,9 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="object_status" layer="0" collapse-mode="2" max-obj-count="2">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des statuts possibles des objets]]></comment>
-	<tag name="object"/>
+	<tag name="objects"/>
 	<position x="1380" y="660"/>
 	<column name="object_status_id" not-null="true" sequence="col.object_status_object_status_id_seq">
 		<type name="integer" length="0"/>
@@ -674,7 +680,7 @@ B: bottom, premiere ligne en bas]]></comment>
 
 <table name="object" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des objets
 Contient les identifiants génériques]]></comment>
 	<tag name="object"/>
@@ -712,7 +718,7 @@ Contient les identifiants génériques]]></comment>
 
 <table name="operation" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<tag name="collection"/>
 	<position x="40" y="860"/>
 	<column name="operation_id" not-null="true" sequence="col.operation_operation_id_seq">
@@ -749,12 +755,12 @@ Contient les identifiants génériques]]></comment>
 
 <sequence name="printer_printer_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 </sequence>
 
 <table name="printer" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des imprimantes gerees directement par le serveur]]></comment>
 	<tag name="container"/>
 	<position x="1000" y="1580"/>
@@ -788,7 +794,7 @@ Contient les identifiants génériques]]></comment>
 
 <table name="collection" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[List of all collections into the database]]></comment>
 	<tag name="collection"/>
 	<position x="240" y="440"/>
@@ -813,7 +819,7 @@ Contient les identifiants génériques]]></comment>
 
 <table name="protocol" layer="0" collapse-mode="2" max-obj-count="9">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<tag name="collection"/>
 	<position x="40" y="660"/>
 	<column name="protocol_id" not-null="true" sequence="col.protocol_protocol_id_seq">
@@ -852,12 +858,12 @@ Contient les identifiants génériques]]></comment>
 
 <sequence name="referent_referent_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 </sequence>
 
 <table name="referent" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table of sample referents]]></comment>
 	<tag name="collection"/>
 	<position x="520" y="440"/>
@@ -908,7 +914,7 @@ Contient les identifiants génériques]]></comment>
 
 <table name="sample" layer="0" collapse-mode="2" max-obj-count="14">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des échantillons]]></comment>
 	<tag name="sample"/>
 	<position x="240" y="860"/>
@@ -965,7 +971,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="sample_type" layer="0" collapse-mode="2" max-obj-count="9">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Types d'échantillons]]></comment>
 	<tag name="sample"/>
 	<position x="240" y="1340"/>
@@ -1001,12 +1007,12 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <sequence name="sampling_place_sampling_place_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 </sequence>
 
 <table name="sampling_place" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des lieux génériques d'échantillonnage]]></comment>
 	<tag name="collection"/>
 	<position x="520" y="660"/>
@@ -1043,7 +1049,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="storage_condition" layer="0" collapse-mode="2" max-obj-count="2">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Condition de stockage]]></comment>
 	<tag name="container"/>
 	<position x="1380" y="1460"/>
@@ -1060,7 +1066,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="movement_reason" layer="0" collapse-mode="2" max-obj-count="2">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[List of the reasons of the movement]]></comment>
 	<tag name="movement"/>
 	<position x="740" y="1340"/>
@@ -1077,7 +1083,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="movement" layer="0" collapse-mode="2" max-obj-count="13">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Records of objects movements]]></comment>
 	<tag name="movement"/>
 	<position x="760" y="1080"/>
@@ -1132,7 +1138,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="subsample" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des prélèvements et restitutions de sous-échantillons]]></comment>
 	<tag name="sample"/>
 	<position x="520" y="1080"/>
@@ -1167,7 +1173,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <view name="v_object_identifier" layer="0" collapse-mode="2" max-obj-count="1">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<position x="1180" y="440"/>
 	<reference>
 		<expression><![CDATA[ SELECT object_identifier.uid,
@@ -1206,7 +1212,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="aclacl" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="gacl"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des droits attribués]]></comment>
 	<tag name="acl"/>
 	<position x="20" y="20"/>
@@ -1228,7 +1234,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="aclaco" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="gacl"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des droits gérés]]></comment>
 	<tag name="acl"/>
 	<position x="200" y="20"/>
@@ -1253,7 +1259,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="aclappli" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="gacl"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des applications gérées]]></comment>
 	<tag name="acl"/>
 	<position x="360" y="20"/>
@@ -1275,7 +1281,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="aclgroup" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="gacl"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Groupes des logins]]></comment>
 	<tag name="acl"/>
 	<position x="20" y="160"/>
@@ -1300,7 +1306,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="acllogin" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="gacl"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des logins des utilisateurs autorisés]]></comment>
 	<tag name="acl"/>
 	<position x="360" y="160"/>
@@ -1321,7 +1327,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="acllogingroup" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="gacl"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table des relations entre les logins et les groupes]]></comment>
 	<tag name="acl"/>
 	<position x="200" y="160"/>
@@ -1343,7 +1349,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="log" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="gacl"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<comment><![CDATA[Liste des connexions ou des actions enregistrées]]></comment>
 	<tag name="acl"/>
 	<position x="760" y="20"/>
@@ -1380,7 +1386,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <table name="logingestion" layer="0" collapse-mode="2" max-obj-count="13">
 	<schema name="gacl"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<tag name="acl"/>
 	<position x="540" y="160"/>
 	<column name="id" not-null="true" sequence="gacl.seq_logingestion_id">
@@ -1423,12 +1429,12 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <sequence name="passwordlost_passwordlost_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 </sequence>
 
 <table name="passwordlost" layer="0" collapse-mode="2" max-obj-count="6">
 	<schema name="gacl"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 	<comment><![CDATA[Table de suivi des pertes de mots de passe]]></comment>
 	<tag name="acl"/>
 	<position x="540" y="20"/>
@@ -1458,7 +1464,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="gin" factor="0">
 		<idxelement use-sorting="false">
-			<column name="identifier"/>
+			<expression><![CDATA[identifier gin_trgm_ops]]></expression>
 		</idxelement>
 </index>
 
@@ -1466,7 +1472,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="gin" factor="0">
 		<idxelement use-sorting="false">
-			<column name="object_identifier_value"/>
+			<expression><![CDATA[object_identifier_value gin_trgm_ops]]></expression>
 		</idxelement>
 </index>
 
@@ -1482,7 +1488,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="gin" factor="0">
 		<idxelement use-sorting="false">
-			<column name="dbuid_origin"/>
+			<expression><![CDATA[dbuid_origin gin_trgm_ops]]></expression>
 		</idxelement>
 </index>
 
@@ -1600,7 +1606,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <view name="last_movement" layer="0" collapse-mode="2" max-obj-count="1">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 	<position x="1180" y="1080"/>
 	<reference>
 		<expression><![CDATA[ SELECT s.uid,
@@ -1665,14 +1671,14 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <sequence name="borrower_borrower_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 </sequence>
 
 <table name="borrower" layer="0" collapse-mode="2" max-obj-count="4">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 	<comment><![CDATA[List of borrowers]]></comment>
-	<tag name="object"/>
+	<tag name="objects"/>
 	<position x="1620" y="1340"/>
 	<column name="borrower_id" not-null="true" sequence="col.borrower_borrower_id_seq">
 		<type name="integer" length="0"/>
@@ -1695,13 +1701,13 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <sequence name="borrowing_borrowing_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 </sequence>
 
 <table name="borrowing" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="col"/>
-	<role name="quinton"/>
-	<tag name="object"/>
+	<role name="collec"/>
+	<tag name="objects"/>
 	<position x="1380" y="1080"/>
 	<column name="borrowing_id" not-null="true" sequence="col.borrowing_borrowing_id_seq">
 		<type name="integer" length="0"/>
@@ -1747,7 +1753,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <view name="last_borrowing" layer="0" collapse-mode="2" max-obj-count="1">
 	<schema name="col"/>
-	<role name="quinton"/>
+	<role name="collec"/>
 	<position x="1600" y="1080"/>
 	<reference>
 		<expression><![CDATA[ SELECT b1.borrowing_id,
@@ -1786,16 +1792,14 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 dst-table="col.borrowing"
 	 src-required="false" dst-required="false"/>
 
+<extension name="btree_gin">
+	<schema name="pg_catalog"/>
+</extension>
+
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
 	<columns names="uid" ref-type="src-columns"/>
 	<columns names="uid" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="referent_collection_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.referent" table="col.collection">
-	<columns names="referent_id" ref-type="src-columns"/>
-	<columns names="referent_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="group_projet_aclgroup_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
@@ -1870,28 +1874,16 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<columns names="metadata_id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="container_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.container" table="col.movement">
-	<columns names="container_id" ref-type="src-columns"/>
-	<columns names="container_id" ref-type="dst-columns"/>
+<constraint name="identifier_type_object_identifier_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.identifier_type" table="col.object_identifier">
+	<columns names="identifier_type_id" ref-type="src-columns"/>
+	<columns names="identifier_type_id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="movement_type_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement_type" table="col.movement">
-	<columns names="movement_type_id" ref-type="src-columns"/>
-	<columns names="movement_type_id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="object_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.movement">
+<constraint name="object_object_identifier_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.object_identifier">
 	<columns names="uid" ref-type="src-columns"/>
 	<columns names="uid" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="storage_reason_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement_reason" table="col.movement">
-	<columns names="movement_reason_id" ref-type="src-columns"/>
-	<columns names="movement_reason_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="object_status_object_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
@@ -1906,22 +1898,16 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<columns names="referent_id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="identifier_type_object_identifier_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.identifier_type" table="col.object_identifier">
-	<columns names="identifier_type_id" ref-type="src-columns"/>
-	<columns names="identifier_type_id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="object_object_identifier_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.object_identifier">
-	<columns names="uid" ref-type="src-columns"/>
-	<columns names="uid" ref-type="dst-columns"/>
-</constraint>
-
 <constraint name="protocol_operation_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.protocol" table="col.operation">
 	<columns names="protocol_id" ref-type="src-columns"/>
 	<columns names="protocol_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="referent_collection_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.referent" table="col.collection">
+	<columns names="referent_id" ref-type="src-columns"/>
+	<columns names="referent_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="project_protocol_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
@@ -1990,6 +1976,30 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<columns names="collection_id" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="container_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.container" table="col.movement">
+	<columns names="container_id" ref-type="src-columns"/>
+	<columns names="container_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movement_type_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement_type" table="col.movement">
+	<columns names="movement_type_id" ref-type="src-columns"/>
+	<columns names="movement_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="object_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.movement">
+	<columns names="uid" ref-type="src-columns"/>
+	<columns names="uid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="storage_reason_storage_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement_reason" table="col.movement">
+	<columns names="movement_reason_id" ref-type="src-columns"/>
+	<columns names="movement_reason_id" ref-type="dst-columns"/>
+</constraint>
+
 <constraint name="movement_type_subsample_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement_type" table="col.subsample">
 	<columns names="movement_type_id" ref-type="src-columns"/>
@@ -2000,12 +2010,6 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.sample" table="col.subsample">
 	<columns names="sample_id" ref-type="src-columns"/>
 	<columns names="sample_id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="aclgroup_aclgroup_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclgroup" table="gacl.aclgroup">
-	<columns names="aclgroup_id_parent" ref-type="src-columns"/>
-	<columns names="aclgroup_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="aclaco_aclacl_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
@@ -2024,6 +2028,12 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclappli" table="gacl.aclaco">
 	<columns names="aclappli_id" ref-type="src-columns"/>
 	<columns names="aclappli_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="aclgroup_aclgroup_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="gacl.aclgroup" table="gacl.aclgroup">
+	<columns names="aclgroup_id_parent" ref-type="src-columns"/>
+	<columns names="aclgroup_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="aclgroup_acllogingroup_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
@@ -2522,5 +2532,10 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<object name="gacl.logingestion" type="table"/>
 	<roles names="postgres"/>
 	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="collec" type="database"/>
+	<roles names="collec"/>
+	<privileges create="true" connect="true" temporary="true"/>
 </permission>
 </dbmodel>

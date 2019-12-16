@@ -3,7 +3,7 @@
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
 VERSION=2.3.1
-PHPVER=7.2
+PHPVER=7.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
 echo "Installation of Collec-Science version " $VERSION
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
@@ -87,6 +87,10 @@ do
  sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $PHPINIFILE
 done
 sed -i "s/; max_input_vars = .*/max_input_vars=$max_input_vars/" $PHPINIFILE
+
+# adjust imagick policy
+sed -e "s/  <policy domain=\"coder\" rights=\"none\" pattern=\"PDF\" \/>/  <policy domain=\"coder\" rights=\"read|write\" pattern=\"PDF\" \/>/" /etc/ImageMagick-6/policy.xml > /tmp/policy.xml
+cp /tmp/policy.xml /etc/ImageMagick-6/
 
 # creation of virtual host
 echo "creation of virtual site"

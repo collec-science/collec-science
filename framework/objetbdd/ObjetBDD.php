@@ -418,7 +418,7 @@ class ObjetBDD
      * @param String $sql
      * @return array
      */
-    function execute($sql)
+    function execute($sql) : array
     {
         $rs = array();
         
@@ -705,7 +705,7 @@ class ObjetBDD
      *
      * @param
      *            array with the name of the columns as identifiers of items
-     * @return Identifier of item, or error code
+     * @return int: key of item, or error code
      */
     function ecrire($dataBrute)
     {
@@ -755,7 +755,7 @@ class ObjetBDD
                     /*
                      * Verification que la cle soit numerique
                      */
-                    if (is_numeric($data[$value]) == false) {
+                    if (! is_numeric($data[$value]) ) {
                         $this->errorData[] = array(
                             "code" => 1,
                             "colonne" => $key,
@@ -984,9 +984,9 @@ class ObjetBDD
      *
      * @param
      *            string - code de la requete SQL
-     * @return tableau contenant la liste des lignes concernees (identique a getListe)
+     * @return array contenant la liste des lignes concernees (identique a getListe)
      */
-    function getListeParam($sql)
+    function getListeParam($sql) : array
     {
         $collection = $this->execute($sql);
         if ($this->auto_date == 1) {
@@ -1802,7 +1802,7 @@ class ObjetBDD
      * @param array $data
      *            : tableau des valeurs a inserer
      * @throws Exception
-     * @return s array : tableau des resultats
+     * @return array : tableau des resultats
      */
     function executeAsPrepared($sql, $data, $onlyExecute = false)
     {
@@ -1896,6 +1896,17 @@ class ObjetBDD
                 throw new ObjetBDDException($pe->getMessage());
             }
         }
+    }
+
+    /**
+     * Get an UUID generate by the database
+     *
+     * @return string
+     */
+    function getUUID() {
+        $sql = "select gen_random_uuid() as uuid";
+        $data = $this->lireParam($sql);
+        return $data["uuid"];
     }
 }
 ?>

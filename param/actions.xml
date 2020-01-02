@@ -59,9 +59,10 @@
 	<passwordlostReinitchange action="framework/identification/passwordLost.php" param="reinitChange" type="smarty" />
 	<passwordlostReinitwrite action="framework/identification/passwordLost.php" param="reinitWrite" modulebefore="passwordlostReinitchange" retourko="default" retourok="connexion"/>
 
-	<dbstructureHtml action="framework/utils/structure.php" param="html" retourlogin="1" type="smarty" droits="admin"/>
-	<dbstructureGacl action="framework/utils/structure.php" param="gacl" retourlogin="1" type="smarty" droits="admin"/>
-	<dbstructureLatex action="framework/utils/structure.php" param="latex" retourlogin="1" type="smarty" droits="admin"/>
+	<dbstructureHtml action="framework/utils/structure.php" param="html" retourlogin="1" type="smarty" schemas="col" droits="admin" maxCountByHour="60" maxCountByDay="600"/>
+	<dbstructureGacl action="framework/utils/structure.php" param="gacl" retourlogin="1" type="smarty" droits="admin" schemas="gacl"  maxCountByHour="60" maxCountByDay="600"/>
+	<dbstructureLatex action="framework/utils/structure.php" param="latex" retourlogin="1" type="smarty" droits="admin" schemas="col"  maxCountByHour="60" maxCountByDay="600"/>
+	<dbstructureSchema action="framework/utils/structure.php" param="schema" realfilename="database/collec-schema.png" generatedfilename="filo-science.png" retourlogin="1" type="binaire" droits="param" maxCountByHour="60" maxCountByDay="600"/>
 
 <!-- Modules specifiques de l'application -->
 	<lexique action="doc/lexique.php"  retourlogin="1"  type="smarty" />

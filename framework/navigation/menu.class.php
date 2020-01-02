@@ -48,7 +48,7 @@ class Menu
      * @param array $valeur
      * @return string
      */
-    function lireItem($valeur)
+    function lireItem($valeur, $level = 0)
     {
         $texte = "";
         $attributes = $valeur["@attributes"];
@@ -84,8 +84,11 @@ class Menu
                 /*
                  * Traitement de l'item
                  */
-                $texte = '<li><a href="index.php?module=' . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '">' .  gettext($attributes["label"]) . '</a>';
-                
+                $label = gettext($attributes["label"]);
+                if (isset($valeur["item"]) && $level > 0) {
+                    $label .= " >";
+                }
+                $texte = '<li><a href="index.php?module=' . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '">' .  $label . '</a>';
                 if (isset($valeur["item"])) {
                     /*
                      * Il s'agit d'un tableau imbrique
@@ -95,12 +98,12 @@ class Menu
                         $texte .= $this->lireItem($valeur["item"]);
                     } else {
                         foreach ($valeur["item"] as $value) {
-                            $texte .= $this->lireItem($value);
+                            $texte .= $this->lireItem($value, $level ++);
                         }
                     }
                     $texte .= "</ul>";
                 }
-                
+
                 $texte .= "</li>";
             }
         }

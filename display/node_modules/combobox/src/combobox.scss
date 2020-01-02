@@ -1,0 +1,68 @@
+$selected-background: #eee;
+$border-radius: 3px;
+
+.autocomplete__label {
+  font-size: 1.5rem;
+}
+
+.autocomplete__input {
+  flex: 1 1 auto;
+  border: solid 1px;
+  border-radius: $border-radius;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.autocomplete__select {
+  display: none;
+}
+
+.autocomplete__results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  max-height: 0;
+  overflow-y: auto;
+  transition: all 260ms ease-in-out;
+  opacity: 0;
+  border: 1px solid;
+  border-radius: $border-radius;
+}
+
+.autocomplete__results--is-visible {
+  max-height: 280px;
+  opacity: 1;
+}
+
+.autocomplete__result {
+  list-style: none;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  + .autocomplete__result {
+    border-top: 1px solid;
+  }
+
+  &:hover {
+    background: $selected-background;
+  }
+}
+
+.autocomplete__result--is-selected {
+  background: $selected-background;
+}
+
+.autocomplete__notice {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 0;
+  border: 0;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}

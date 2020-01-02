@@ -1,66 +1,60 @@
 <!-- Jquery -->
-<script src="display/javascript/jquery-3.3.1.min.js"></script>
-
+<script src="display/node_modules/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap -->
 <link rel="stylesheet"	href="display/javascript/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"	href="display/javascript/bootstrap/css/bootstrap-theme.min.css">
 <script	src="display/javascript/bootstrap/js/bootstrap.min.js"></script>
 
 <!--alpaca -->
-<script type="text/javascript" src="display/javascript/alpaca/js/handlebars.runtime-v4.0.10.js"></script>
-<script type="text/javascript" src="display/javascript/alpaca/js/alpaca-1.5.23.min.js"></script>
-<link type="text/css" href="display/javascript/alpaca/css/alpaca-1.5.23.min.css" rel="stylesheet">
+<script type="text/javascript" src="display/node_modules/handlebars/dist/handlebars.runtime.min.js"></script>
+<script type="text/javascript" src="display/node_modules/alpaca/dist/alpaca/bootstrap/alpaca.min.js"></script>
+<link rel="stylesheet" href="display/node_modules/alpaca/dist/alpaca/bootstrap/alpaca.min.css" >
 
-
+<!-- leaflet -->
+<link rel="stylesheet" href="display/node_modules/leaflet/dist/leaflet.css">
+<script src="display/node_modules/leaflet/dist/leaflet.js"></script>
+<script src="display/node_modules/pouchdb/dist/pouchdb.min.js"></script>
+<script src="display/node_modules/leaflet.tilelayer.pouchdbcached/L.TileLayer.PouchDBCached.js"></script>
+<script src="display/node_modules/leaflet.polyline.snakeanim/L.Polyline.SnakeAnim.js"></script>
+<script src="display/node_modules/leaflet-mouse-position/src/L.Control.MousePosition.js"></script>
 <!-- extension pour le menu -->
-<script src="display/javascript/smartmenus-1.1.0/jquery.smartmenus.min.js" type="text/javascript"></script>
-<link type="text/css" href="display/javascript/smartmenus-1.1.0/addons/bootstrap/jquery.smartmenus.bootstrap.css" rel="stylesheet">
-<script src="display/javascript/smartmenus-1.1.0/addons/bootstrap/jquery.smartmenus.bootstrap.min.js" type="text/javascript"></script>
+<script src="display/node_modules/smartmenus/dist/jquery.smartmenus.min.js" type="text/javascript"></script>
+<link type="text/css" href="display/node_modules/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.css" rel="stylesheet">
+<script src="display/node_modules/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.min.js" type="text/javascript"></script>
 
 <!-- Datatables -->
-<link rel="stylesheet" type="text/css" href="display/javascript/DataTables-1.10.15/media/css/jquery.dataTables.min.css" />
-<link rel="stylesheet" type="text/css" href="display/javascript/DataTables-1.10.15/media/css/dataTables.bootstrap.min.css" />
-<script type="text/javascript" src="display/javascript/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="display/javascript/DataTables-1.10.15/media/js/dataTables.bootstrap.min.js"></script>
+<script src="display/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="display/node_modules/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="display/node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css" />
+
 <!-- Boutons d'export associes aux datatables - classe datatable-export -->
-<script type="text/javascript" src="display/javascript/DataTables-1.10.15/extensions/Buttons/js/dataTables.buttons.min.js"></script>
-<script type="text/javascript" src="display/javascript/DataTables-1.10.15/extensions/Buttons/js/buttons.html5.min.js"></script>
-<script type="text/javascript" src="display/javascript/DataTables-1.10.15/extensions/Buttons/js/buttons.print.min.js"></script>
-<link rel="stylesheet" type="text/css" href="display/javascript/DataTables-1.10.15/extensions/Buttons/css/buttons.dataTables.min.css" />
-<!--  <script type="text/javascript" charset="utf-8" src="display/javascript/pdfmake.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="display/javascript/vfs_fonts.js"></script>
-<script type="text/javascript" charset="utf-8" src="display/javascript/jszip.min.js"></script>
- -->
+<script src="display/node_modules/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="display/node_modules/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="display/node_modules/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="display/node_modules/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="display/node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" />
+
 <!-- Rajout du tri sur la date/heure -->
-<script type="text/javascript" src="display/javascript/moment.min.js"></script>
-<script type="text/javascript" src="display/javascript/datetime-moment.js"></script>
-
-
-
-<!-- datetime
-<link rel="stylesheet" type="text/css" href="display/javascript/datetimepicker/jquery.datetimepicker.css" />
-<script type="text/javascript" src="display/javascript/datetimepicker/jquery.datetimepicker.full.min.js"></script>
- -->
+<script type="text/javascript" src="display/node_modules/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="display/node_modules/datetime-moment/datetime-moment.js"></script>
 
 <!-- composant date/heure -->
-<script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-1.12.1.custom/i18n/datepicker-en.js"></script>
-<script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-1.12.1.custom/i18n/datepicker-fr.js"></script>
+<script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui/ui/i18n/datepicker-en-GB.js"></script>
+<script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui/ui/i18n/datepicker-fr.js"></script>
 <script type="text/javascript" charset="utf-8" src="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="display/javascript/jquery-timepicker-addon/i18n/jquery-ui-timepicker-fr.js"></script>
-<link rel="stylesheet" type="text/css" href="display/javascript/jquery-ui-1.12.1.custom/jquery-ui.min.css"/>
-<link rel="stylesheet" type="text/css" href="display/javascript/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css"/>
+<link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css"/>
+<link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.theme.min.css"/>
 <link rel="stylesheet" type="text/css" href="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.css"/>
-<!-- combobox -->
-<script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-1.12.1.custom/combobox.js"></script>
-
+<script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-custom/combobox.js"></script>
 
 <!-- Affichage des photos -->
-<link rel="stylesheet" href="display/javascript/magnific-popup/magnific-popup.css">
-<script src="display/javascript/magnific-popup/jquery.magnific-popup.min.js"></script>
+<link rel="stylesheet" href="display/node_modules/magnific-popup/dist/magnific-popup.css">
+<script src="display/node_modules/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
 
 <!-- Cookies -->
-<script src="/display/javascript/js-cookie-master/src/js.cookie.js"></script>
+<script src="display/javascript/js-cookie-master/src/js.cookie.js"></script>
 
 <!-- Code specifique -->
 <link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css" >
@@ -92,7 +86,7 @@ var dataTableLanguage = {
     }
 };
 $(document).ready(function() {
-	var pageLength = Cookies.get("pageLength");
+		var pageLength = Cookies.get("pageLength");
 	if (! pageLength) {
 		pageLength = 10;
 	}
@@ -121,7 +115,11 @@ $(document).ready(function() {
 		"searching": false,
 		"ordering": false
 	});
-
+	$('.datatable-nosort').DataTable({
+		"language" : dataTableLanguage,
+		"searching": false,
+		"ordering": false
+	});
 	$('.datatable-export').DataTable({
 		 dom: 'Bfrtip',
 		"language" : dataTableLanguage,
@@ -145,7 +143,7 @@ $(document).ready(function() {
 		"searching": true,
 		"pageLength": pageLength,
 		"lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
-       	buttons: [
+       buttons: [
            'copyHtml5',
            'excelHtml5',
            'csvHtml5',
@@ -156,11 +154,12 @@ $(document).ready(function() {
            'print'
        ]
 	});
-	$(".datatable, .datatable-export-paging").on('length.dt', function ( e, settings, len ) {
-		Cookies.set('pageLength', len, { expires: 180});
+
+		$(".datatable, .datatable-export-paging, .datatable-searching, .datatable-nosort").on('length.dt', function ( e, settings, len ) {
+		Cookies.set('pageLength', len, { expires: 180, secure:true});
 	});
 	/* Initialisation for paging datatables */
-	$(".datatable, .datatable-export-paging, .datatable-searching").DataTable().page.len(pageLength);
+	$(".datatable, .datatable-export-paging, .datatable-searching, .datatable-nosort").DataTable().page.len(pageLength).draw();
 
 	$('.taux,nombre').attr('title', '{t}Valeur numérique...{/t}');
 	$('.taux').attr({
@@ -178,10 +177,12 @@ $(document).ready(function() {
 	$('.timepicker').attr('pattern', '[0-9][0-9]\:[0-9][0-9]\:[0-9][0-9]');
 	$.timepicker.setDefaults($.timepicker.regional['{$LANG["date"]["locale"]}']);
 	$('.datetimepicker').datetimepicker({
-		dateFormat: "{$LANG["date"]["formatdatecourt"]}",
+		dateFormat: '{$LANG["date"]["formatdatecourt"]}',
 		timeFormat: 'HH:mm:ss',
 		timeInput: true
 	});
+	$('.date, .datepicker, .timepicker, .datetimepicker').attr('autocomplete','off');
+
 	var lib = "{t}Confirmez-vous la suppression ?{/t}" ;
 	$('.button-delete').keypress(function() {
 		if (confirm(lib) == true) {

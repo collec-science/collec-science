@@ -10,15 +10,14 @@ html,
 body {
   height: 99%;
 }
-@media (max-width: 991px) {
+/*@media (max-width: 991px) {
     .form-control, .btn, li, ul, .dropdown-menu, .center-block, 
-    #message, label, div {font-size: 1.1em;}
-	
+    #message, label, div {font-size: 1.1em;}	
 }
 @media (max-width: 991px) {
 	select {min-height: 2em;}
 }
-
+*/
 
 #wrap {
   min-height: 100%;
@@ -50,7 +49,7 @@ body {
 	color: #78041D;
 }
 .blue {
-	color: #003A80;;
+	color: #003A80;
 }
 .green {
 	color: #A4C400;
@@ -70,6 +69,9 @@ body {
 }
 h2 {
 	font-size:large;
+}
+h3 {
+	font-size:medium;
 }
 legend {
 	font-size:large;
@@ -158,6 +160,7 @@ legend {
 	width: 100%;
 	min-height: 400px;
 	height: 80%;
+
 }
 
 .scrolltotop {
@@ -181,6 +184,7 @@ td a {
 }
 /* Affichage de la structure de la base de donnees */
 .tablename {
+	margin-top: 1em;
 	background: #003A80;
 	font-size: large;
 	color: white;
@@ -189,6 +193,9 @@ td a {
 	color:#009EE0;
 }
 
+.itemSelected {
+	background: #009EE0;
+}
 meter {
 	/* Reset the default appearance */
 	-webkit-appearance: none;

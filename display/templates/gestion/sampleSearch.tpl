@@ -4,13 +4,13 @@ var appli_code ="{$APPLI_code}";
 $(document).ready(function () {
 	var metadataFieldInitial = [];
 	{foreach $sampleSearch.metadata_field as $val}
-	metadataFieldInitial.push ( "{$val}" );
+		metadataFieldInitial.push ( "{$val}" );
 	{/foreach}
-	
+
 	/*
 	 * Verification que des criteres de selection soient saisis
 	 */
-	 $("#sample_search").submit (function ( event) { 
+	 $("#sample_search").submit (function ( event) {
 		 var ok = false;
 		 if ($("#name").val().length > 0) {
 			 ok = true;
@@ -24,7 +24,7 @@ $(document).ready(function () {
 					}
 				}
 			 } catch (error) {}
-		 } 
+		 }
 		 if ($("#collection_id").val() > 0) ok = true;
 		 if ($("#uid_min").val() > 0) ok = true;
 		 if ($("#uid_max").val() > 0) ok = true;
@@ -37,12 +37,12 @@ $(document).ready(function () {
 		 var mf = $("#metadata_field").val();
 		 if ( mf != null) {
 			 if (mf.length > 0 && $("#metadata_value").val().length > 0) {
-				 ok = true;			 
+				 ok = true;
 			 }
 		 }
 		 if (ok == false) event.preventDefault();
 	 });
-	
+
 	 function getMetadata() {
 		 var sampleTypeId = $("#sample_type_id").val();
 		 $("#metadata_field").empty();
@@ -53,9 +53,9 @@ $(document).ready(function () {
 		 //$("#metadata_value_2").val("");
 		 $("#metadatarow1").hide();
 		 $("#metadatarow2").hide();
-		 
+
 		 if (sampleTypeId.length > 0) {
-    	    $.ajax( { 
+    	    $.ajax( {
     	   		url: "index.php",
     	    	data: { "module": "sampleTypeMetadata", "sample_type_id": sampleTypeId }
     	    })
@@ -91,7 +91,7 @@ $(document).ready(function () {
     	    			option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
     	    			$("#metadata_field2").append(option);
     	    			selected = "";
-    	    			
+
     	   				}
     	    		})
     	    	}
@@ -99,7 +99,7 @@ $(document).ready(function () {
     	   	;
 	 	}
      }
-	 
+
  	function getSamplingPlace () {
 		var colid = $("#collection_id").val();
 		var url = "index.php";
@@ -108,12 +108,12 @@ $(document).ready(function () {
 		.done (function( d ) {
 				if (d ) {
 				d = JSON.parse(d);
-				options = '<option value=""></option>';			
+				options = '<option value=""></option>';
 				 for (var i = 0; i < d.length; i++) {
 					 var libelle = "";
 					 if (d[i].sampling_place_code) {
 				        	libelle = d[i].sampling_place_code + " - ";
-				        } 
+				        }
 				        libelle += d[i].sampling_place_name;
 				        options += '<option value="'+d[i].sampling_place_id + '"';
 				        if (d[i].sampling_place_id == sampling_place_init ) {
@@ -122,15 +122,15 @@ $(document).ready(function () {
 				        }
 				        options += '>';
 				        options += libelle;
-				        
+
 				        options += '</option>';
 				      };
 				$("#sampling_place_id").html(options);
 				}
 			});
 	}
- 	
- 	$("#collection_id").change ( function () { 
+
+ 	$("#collection_id").change ( function () {
  		getSamplingPlace();
  	});
  	/*
@@ -153,7 +153,7 @@ $(document).ready(function () {
     	 }
      });
 	 /*
-	  * Declenchement de la recherche des metadonnees 
+	  * Declenchement de la recherche des metadonnees
 	  * si sample_type_id est renseigne au demarrage de la page
 	  */
 	 if ($("#sample_type_id").val() > 0 ) {
@@ -165,19 +165,31 @@ $(document).ready(function () {
 	 if ($("#metadata_value_1").val().length == 0) {
      	$("#metadatarow2").hide();
 	 }
-     $("#metadata_value").change(function () { 
+     $("#metadata_value").change(function () {
     		 if ($(this).val().length > 0) {
     			 $("#metadatarow1").show();
     		 }
      });
-     $("#metadata_value_1").change(function () { 
+     $("#metadata_value_1").change(function () {
 		 if ($(this).val().length > 0) {
 			 $("#metadatarow2").show();
 		 }
  });
- $("#razid").on ("click keyup", function () { 
-	 $("#name").val("");
-	 $("#name").focus();
+ $("#razid").on ("click keyup", function () {
+	$("#object_status_id").prop("selectedIndex", 1).change();
+	$("#collection_id").prop("selectedIndex", 0).change();
+	$("#referent_id").prop("selectedIndex", 0).change();
+	$("#sample_type_id").prop("selectedIndex", 0).change();
+	$("#sampling_place_id").prop("selectedIndex", 0).change();
+	$("#movement_reason_id").prop("selectedIndex", 0).change();
+	$("#select_date").prop("selectedIndex", 0).change();
+	$("#uid_min").val("0");
+	$("#uid_max").val("0");
+	var now = new Date();
+	$("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
+	$("#date_to").datepicker("setDate", now );
+	$("#name").val("");
+	$("#name").focus();
  });
 });
 </script>
@@ -283,7 +295,7 @@ $(document).ready(function () {
 			</select>
 		</div>
 	</div>
-	
+
 	<div class="row">
 		<div class="form-group">
 			<label for="select_date" class="col-md-2 control-label">{t}Recherche par date :{/t}</label>
@@ -298,7 +310,7 @@ $(document).ready(function () {
 			<div class="col-md-1">{t}du :{/t}</div>
 			<div class="col-md-2">
 				<input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
-			</div> 
+			</div>
 			<div class="col-md-1">{t}au :{/t}</div>
 			<div class="col-md-2">
 				<input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
@@ -310,7 +322,7 @@ $(document).ready(function () {
 	</div>
 	<div class="row">
 		<div class="form-group">
-			<!-- 
+			<!--
 			<label for="metadata_field" class="col-md-2 control-label">Métadonnées :</label>
 			-->
 			<div class="col-md-2">

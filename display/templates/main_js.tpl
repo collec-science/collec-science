@@ -41,7 +41,7 @@
 <link rel="stylesheet" type="text/css" href="display/javascript/datetimepicker/jquery.datetimepicker.css" />
 <script type="text/javascript" src="display/javascript/datetimepicker/jquery.datetimepicker.full.min.js"></script>
  -->
- 
+
 <!-- composant date/heure -->
 <script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-1.12.1.custom/i18n/datepicker-en.js"></script>
@@ -54,11 +54,11 @@
 <script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-1.12.1.custom/combobox.js"></script>
 
 <!-- Affichage des photos -->
-<link rel="stylesheet" href="display/javascript/magnific-popup/magnific-popup.css"> 
-<script src="display/javascript/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<link rel="stylesheet" href="display/javascript/magnific-popup/magnific-popup.css">
+<script src="display/javascript/magnific-popup/jquery.magnific-popup.min.js"></script>
 
 <!-- Cookies -->
-<script src="/display/javascript/js-cookie-master/src/js.cookie.js"></script> 
+<script src="/display/javascript/js-cookie-master/src/js.cookie.js"></script>
 
 <!-- Code specifique -->
 <link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css" >
@@ -119,8 +119,8 @@ $(document).ready(function() {
 		"searching": false,
 		"ordering": false
 	});
-	
-	$('.datatable-export').DataTable({	
+
+	$('.datatable-export').DataTable({
 		 dom: 'Bfrtip',
 		"language" : dataTableLanguage,
 		"paging" : false,
@@ -136,7 +136,7 @@ $(document).ready(function() {
             'print'
         ]
 	});
-	$('.datatable-export-paging').DataTable({	
+	$('.datatable-export-paging').DataTable({
 		 dom: 'Bfrtip',
 		"language" : dataTableLanguage,
 		"paging" : true,
@@ -154,7 +154,7 @@ $(document).ready(function() {
            'print'
        ]
 	});
-	$(".datatable, .datatable-export-paging").on('length.dt', function ( e, settings, len ) { 
+	$(".datatable, .datatable-export-paging").on('length.dt', function ( e, settings, len ) {
 		Cookies.set('pageLength', len, { expires: 180});
 	});
 	/* Initialisation for paging datatables */
@@ -169,13 +169,13 @@ $(document).ready(function() {
 		'pattern' : '-?[0-9]+',
 		'maxlength' : "10"
 	});
-	
+
 	$(".date").datepicker( $.datepicker.regional['{$LANG["date"]["locale"]}'] );
 	$(".datepicker").datepicker( $.datepicker.regional['{$LANG["date"]["locale"]}'] );
 	$.datepicker.setDefaults($.datepicker.regional['{$LANG["date"]["locale"]}']);
 	$('.timepicker').attr('pattern', '[0-9][0-9]\:[0-9][0-9]\:[0-9][0-9]');
 	$.timepicker.setDefaults($.timepicker.regional['{$LANG["date"]["locale"]}']);
-	$('.datetimepicker').datetimepicker({ 
+	$('.datetimepicker').datetimepicker({
 		dateFormat: "{$LANG["date"]["formatdatecourt"]}",
 		timeFormat: 'HH:mm:ss',
 		timeInput: true

@@ -125,7 +125,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 
 
 <div class="form-group">
-<label for="referentId"  class="control-label col-md-4">{t}Référent de l'échantillon :{/t}</label>
+<label for="referentId"  class="control-label col-md-4">{t}Référent du contenant :{/t}</label>
 <div class="col-md-8">
 <select id="referentId" name="referent_id" class="form-control">
       <option value="" {if $data.referent_id == ""}selected{/if}>Choisissez...</option>

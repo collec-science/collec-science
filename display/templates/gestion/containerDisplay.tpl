@@ -16,7 +16,7 @@
 		if (tabHover == 1) {
 			$("#tabHoverSelect").prop("checked", true);
 		}
-		$("#tabHoverSelect").change(function() { 
+		$("#tabHoverSelect").change(function() {
 			if ($(this).is(":checked")) {
 				tabHover = 1;
 			} else {
@@ -36,7 +36,7 @@
 		try {
 			if (activeTab.length > 0) {
 				$("#"+activeTab).tab('show');
-			} 
+			}
 		} catch (Exception) { }
 		$('.nav-tabs > li > a').hover(function() {
 			if (tabHover == 1) {
@@ -50,10 +50,10 @@
 			tabHover = 0 ;
 		});
 
-		$("#referent_name").click(function() { 
+		$("#referent_name").click(function() {
 			var referentName = $(this).text();
 			if (referentName.length > 0) {
-			$.ajax( { 
+			$.ajax( {
 				url: "index.php",
 				data: { "module": "referentGetFromName", "referent_name": referentName }
 			})
@@ -68,7 +68,7 @@
 			});
 			}
 		});
-		$("#open").submit (function ( event) { 
+		$("#open").submit (function ( event) {
 			/**
 			* Recherche si un container existe
 			*/
@@ -85,7 +85,7 @@
 					}
 				}
 			 } catch (error) {
-			 }		 	 
+			 }
 			 // search for db:uid
 			 var tab = uid.toString().split(":");
 			if (tab.length == 2) {
@@ -97,10 +97,10 @@
 			}
 			var is_container = 1;
 			event.preventDefault();
-			$.ajax ( { 
-				url:url, 
+			$.ajax ( {
+				url:url,
 			method:"GET",
-			data : { module:"objectGetDetail", uid:uid, is_container:is_container }, 
+			data : { module:"objectGetDetail", uid:uid, is_container:is_container },
 			success : function ( djs ) {
 				try {
 					var data = JSON.parse(djs);
@@ -112,7 +112,7 @@
 								form.get(0).submit();
 							}
 						}
-					} 
+					}
 					$("#search").val("");
 					form.get(0).event.preventDefault();
 				} catch (error) {
@@ -280,7 +280,7 @@
 							<a href="index.php?module=borrowerDisplay&borrower_id={$data.borrower_id}">
 								{$data.borrower_name}
 							</a>
-							
+
 							<br>
 							{t}Retour prévu le{/t}&nbsp;{$data.expected_return_date}
 						{/if}
@@ -309,7 +309,7 @@
 					{/section}
 					</dd>
 				</dl>
-			</div>				
+			</div>
 			{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0}
 				<div class="col-md-6">
 					{include file="gestion/objectMapDisplay.tpl"}

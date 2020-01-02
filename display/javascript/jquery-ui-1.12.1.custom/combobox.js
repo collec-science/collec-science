@@ -122,7 +122,10 @@ $( function() {
         }, 2500 );
         this.input.autocomplete( "instance" ).term = "";
       },
- 
+      select: function(value) {
+        this.input.val(value).change();
+        this.element.val(value).change();
+      },
       _destroy: function() {
         this.wrapper.remove();
         this.element.show();

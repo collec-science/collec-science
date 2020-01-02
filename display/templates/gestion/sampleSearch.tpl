@@ -51,6 +51,7 @@ $(document).ready(function () {
 		 //$("#metadata_value_1").val("");
 		 $("#metadata_field2").empty();
 		 //$("#metadata_value_2").val("");
+		 $("#metadatarow").hide();
 		 $("#metadatarow1").hide();
 		 $("#metadatarow2").hide();
 
@@ -61,6 +62,7 @@ $(document).ready(function () {
     	    })
     	    .done (function (value) {
     	    	if (value.length > 0) {
+							$("#metadatarow").show();
     	    		var selected = "";
     	    		var option = '<option value="">{t}Métadonnée :{/t}</option>';
     	    		$("#metadata_field").append(option);
@@ -156,6 +158,7 @@ $(document).ready(function () {
 	  * Declenchement de la recherche des metadonnees
 	  * si sample_type_id est renseigne au demarrage de la page
 	  */
+	 $("#metadatarow").hide();
 	 if ($("#sample_type_id").val() > 0 ) {
 		 getMetadata();
 	 }
@@ -179,12 +182,16 @@ $(document).ready(function () {
 	$("#object_status_id").prop("selectedIndex", 1).change();
 	$("#collection_id").prop("selectedIndex", 0).change();
 	$("#referent_id").prop("selectedIndex", 0).change();
-	$("#sample_type_id").prop("selectedIndex", 0).change();
-	$("#sampling_place_id").prop("selectedIndex", 0).change();
+	$("#sample_type_id").combobox("select", "").change();
+	$("#sampling_place_id").combobox("select", "").change();
 	$("#movement_reason_id").prop("selectedIndex", 0).change();
 	$("#select_date").prop("selectedIndex", 0).change();
 	$("#uid_min").val("0");
 	$("#uid_max").val("0");
+	$("#metadatarow").hide();
+	$("#metadata_value").val("");
+	$("#metadata_value_1").val("");
+	$("#metadata_value_2").val("");
 	var now = new Date();
 	$("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
 	$("#date_to").datepicker("setDate", now );
@@ -204,9 +211,6 @@ $(document).ready(function () {
 			<label for="name" class="col-md-2 control-label">{t}UID ou identifiant :{/t}</label>
 			<div class="col-md-3">
 				<input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="{t}uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible){/t}">
-			</div>
-			<div class="col-md-1">
-				<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
 			</div>
 			<label for="collection_id" class="col-md-1 control-label">{t}Collection :{/t}</label>
 			<div class="col-md-2">
@@ -307,16 +311,21 @@ $(document).ready(function () {
 				<option value="ed" {if $sampleSearch.select_date == "ed"}selected{/if}>{t}Date d'expiration{/t}</option>
 				</select>
 			</div>
-			<div class="col-md-1">{t}du :{/t}</div>
-			<div class="col-md-2">
+			<div class="col-md-4">
+			<label for="date_from" class="col-md-2 control-label">{t}du :{/t}</label>
+			<div class="col-md-4">
 				<input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
 			</div>
-			<div class="col-md-1">{t}au :{/t}</div>
-			<div class="col-md-2">
+			<label for="date_to" class="col-md-2 control-label">{t}au :{/t}</label>
+			<div class="col-md-4">
 				<input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
+			</div>
 			</div>
 			<div class="col-md-2">
 				<input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
+			</div>
+			<div class="col-md-1">
+				<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
 			</div>
 		</div>
 	</div>
@@ -325,21 +334,23 @@ $(document).ready(function () {
 			<!--
 			<label for="metadata_field" class="col-md-2 control-label">Métadonnées :</label>
 			-->
-			<div class="col-md-2">
-				<select class="form-control" id="metadata_field" name="metadata_field[]">
-				<option value="" {if $sampleSearch.metadata_field.0 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
-				{foreach $metadatas as $value}
-				<option value="{$value.fieldname}" {if $sampleSearch.metadata_field.0 == $value.fieldname}selected{/if}>
-				{$value.fieldname}
-				</option>
-				{/foreach}
-				</select>
-			</div>
-			<div class="col-md-2">
-				<input class="col-md-2 form-control" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
+			<div id="metadatarow" hidden>
+				<div class="col-md-2">
+					<select class="form-control" id="metadata_field" name="metadata_field[]">
+					<option value="" {if $sampleSearch.metadata_field.0 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+					{foreach $metadatas as $value}
+					<option value="{$value.fieldname}" {if $sampleSearch.metadata_field.0 == $value.fieldname}selected{/if}>
+					{$value.fieldname}
+					</option>
+					{/foreach}
+					</select>
+				</div>
+				<div class="col-md-2">
+					<input class="col-md-2 form-control" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
+				</div>
 			</div>
 			<!--  metadonnees supplementaires -->
-			<div id="metadatarow1">
+			<div id="metadatarow1" hidden>
 				<div class="col-md-2">
 					<select class="form-control"  id="metadata_field1" name="metadata_field[]">
 					<option value="" {if $sampleSearch.metadata_field.1 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
@@ -354,7 +365,7 @@ $(document).ready(function () {
 					<input class="col-md-2 form-control" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
 				</div>
 			</div>
-			<div id="metadatarow2">
+			<div id="metadatarow2" hidden>
 				<div class="col-md-2">
 					<select class="form-control"  id="metadata_field2" name="metadata_field[]">
 					<option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>{t}Métadonnée :{/t}</option>

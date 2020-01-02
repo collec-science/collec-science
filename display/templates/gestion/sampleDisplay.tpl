@@ -20,13 +20,13 @@
 		if (tabHover == 1) {
 			$("#tabHoverSelect").prop("checked", true);
 		}
-		$("#tabHoverSelect").change(function() { 
+		$("#tabHoverSelect").change(function() {
 			if ($(this).is(":checked")) {
 				tabHover = 1;
 			} else {
 				tabHover = 0;
 			}
-			Cookies.set("tabHover", tabHover, { expires: 365 });
+			Cookies.set("tabHover", tabHover, { expires: 365, secure: true });
 		});
 		/* Management of tabs */
 		var activeTab = "{$activeTab}";
@@ -40,7 +40,7 @@
 		try {
 			if (activeTab.length > 0) {
 				$("#"+activeTab).tab('show');
-			} 
+			}
 		} catch (Exception) { }
 		$('.nav-tabs > li > a').hover(function() {
 			if (tabHover == 1) {
@@ -48,7 +48,7 @@
 			}
  		});
 		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
-			Cookies.set("sampleDisplayTab",$(this).attr("id"));
+			Cookies.set("sampleDisplayTab", $(this).attr("id"), { secure: true});
 		});
 		$('a[data-toggle="tab"]').on("click", function () {
 			tabHover = 0 ;
@@ -66,11 +66,11 @@
 			$("#sampleSpinner2").show();
 			$(this.form).submit();
 		});
-		$("#referent_name").click(function() { 
+		$("#referent_name").click(function() {
 			var referentName = $(this).text();
 			if (referentName.length > 0 && !isReferentDisplayed) {
 				isReferentDisplayed = true;
-			$.ajax( { 
+			$.ajax( {
     	   		url: "index.php",
     	    	data: { "module": "referentGetFromName", "referent_name": referentName }
     	    })
@@ -85,7 +85,7 @@
 			});
 			}
 		});
-		$("#open").submit (function ( event) { 
+		$("#open").submit (function ( event) {
 			/**
 			* Recherche si un sample existe
 			*/
@@ -110,15 +110,15 @@
 					$("#search").val(uid);
 				}
 			}
-		 	} 
+		 	}
 			var is_container = 2;
 			event.preventDefault();
-			$.ajax ( { 
-				url:url, 
+			$.ajax ( {
+				url:url,
 			method:"GET",
 			//async: "false",
-			//cache: "false", 
-			data : { module:"objectGetDetail", uid:uid, is_container:is_container }, 
+			//cache: "false",
+			data : { module:"objectGetDetail", uid:uid, is_container:is_container },
 			success : function ( djs ) {
 				try {
 					var data = JSON.parse(djs);
@@ -130,7 +130,7 @@
 								form.get(0).submit();
 							}
 						}
-					} 
+					}
 					$("#search").val("");
 					form.get(0).event.preventDefault();
 				} catch (error) {
@@ -252,7 +252,7 @@
 		<li class="nav-item">
             <a class="nav-link" id="tab-subsample" href="#nav-subsample"  data-toggle="tab" role="tab" aria-controls="nav-subsample" aria-selected="false">
 				<img src="display/images/subsample.png" height="25">
-				{t}Sous-échantillonnage{/t}		
+				{t}Sous-échantillonnage{/t}
 			</a>
 		</li>
 		{/if}
@@ -261,7 +261,7 @@
 		<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
 			<div class="form-display col-md-6">
 				{if $droits.gestion == 1}
-					<form method="GET" id="formListPrint" action="index.php">
+					<form method="GET" id="SampleDisplayFormListPrint" action="index.php">
 						<input type="hidden" id="modulePrint" name="module" value="sampleUniquePrintLabel">
 						<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
 						<input type="hidden" name="uid" value="{$data.uid}">
@@ -327,7 +327,7 @@
 					<dl class="dl-horizontal">
 						<dt>{t}Protocole et
 						opération :{/t}</dt>
-						<dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name} {$data.operation_version} 
+						<dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name} {$data.operation_version}
 						</dd>
 					</dl>
 				{/if}
@@ -340,7 +340,7 @@
 							<a href="index.php?module=borrowerDisplay&borrower_id={$data.borrower_id}">
 								{$data.borrower_name}
 							</a>
-							
+
 							<br>
 							{t}Retour prévu le{/t}&nbsp;{$data.expected_return_date}
 						{/if}
@@ -448,7 +448,7 @@
 					<legend>{t}Liste des prêts{/t}</legend>
 					{include file="gestion/borrowingList.tpl"}
 				</fieldset>
-				
+
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-id" role="tabpanel" aria-labelledby="tab-id">
@@ -471,7 +471,7 @@
 				{/if}
 				{include file="gestion/sampleListDetail.tpl"}
 			</div>
-		</div>	
+		</div>
 		<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
 			<div class="col-md-12">
 				{include file="gestion/documentList.tpl"}

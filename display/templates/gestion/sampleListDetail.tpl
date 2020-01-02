@@ -18,7 +18,7 @@
 			displayModeFull == "true" ? displayModeFull = true : displayModeFull = false;
 		}
 
-		
+
 		$(".checkSampleSelect").change(function() {
 			$('.checkSample').prop('checked', this.checked);
 			var libelle = "{t}Tout cocher{/t}";
@@ -27,7 +27,7 @@
 			}
 			$("#lsamplechek").text(libelle);
 		});
-		
+
 		$("#sampleSpinner").hide();
 
 		$('#samplecsvfile').on('keypress click', function() {
@@ -44,7 +44,7 @@
 			$("#sampleSpinner").show();
 			$(this.form).prop('target', '_self').submit();
 		});
-		$("#sampleExport").on ("keypress click", function() { 
+		$("#sampleExport").on ("keypress click", function() {
 			$(this.form).find("input[name='module']").val("sampleExport");
 			$(this.form).prop('target', '_self').submit();
 		});
@@ -59,16 +59,16 @@
 			} else {
 				$("#displayModeButton").text("{t}Affichage complet{/t}");
 			}
-			Cookies.set("samplelistDisplayMode",displayModeFull);
+			Cookies.set("samplelistDisplayMode",displayModeFull, { secure: true, SameSite: true});
 		}
-		
+
 		/*
 		 * Masquage des colonnes pour les petits ecrans
 		 */
 		$(window).resize(function() {
 			  if ($(this).width() < 1200) {
 				 displayMode(false);
-			    
+
 			  } else {
 				  displayMode(true);
 			  }
@@ -83,7 +83,7 @@
 		displayMode(displayModeFull);
 
 		$("#checkedButtonSample").on ("keypress click", function(event) {
-			
+
 			var action = $("#checkedActionSample").val();
 			if (action.length > 0) {
 				var conf = confirm("{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
@@ -99,7 +99,7 @@
 			}
 		});
 
-		$("#checkedActionSample").change(function () { 
+		$("#checkedActionSample").change(function () {
 			var action = $(this).val();
 			if (action == "samplesAssignReferent") {
 				$(".referentid").show();
@@ -119,16 +119,16 @@
 				$(".borrowing").hide();
 			}
 		});
-		
+
 	});
 </script>
 <button id="displayModeButton" class="btn btn-info pull-right">{t}Affichage réduit{/t}</button>
 {include file="gestion/displayPhotoScript.tpl"} {if $droits.gestion == 1}
-<form method="POST" id="formListPrint" action="index.php">
+<form method="POST" id="sampleFormListPrint" action="index.php">
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
 	<div class="row">
 		<div class="center">
-			<label id="lsamplecheck" for="checkSample">{t}Tout décocher{/t}</label> 
+			<label id="lsamplecheck" for="checkSample">{t}Tout décocher{/t}</label>
 			<input type="checkbox" id="checkSample1" class="checkSampleSelect checkSample" checked>
 			<select id="labels" name="label_id">
 			<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
@@ -165,7 +165,7 @@
 			<tr>{if $droits.gestion == 1}
 				<th class="center">
 				<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample" checked>
-				</th> 
+				</th>
 				{/if}
 				<th>{t}UID{/t}</th>
 				<th>{t}Identifiant ou nom{/t}</th>
@@ -181,7 +181,7 @@
 				<th>{t}Date d'échantillonnage{/t}</th>
 				<th>{t}Date de création dans la base{/t}</th>
 				<th>{t}Date d'expiration{/t}</th>
-				
+
 			</tr>
 		</thead>
 		<tbody>
@@ -190,7 +190,7 @@
 			{if $droits.gestion == 1}
 				<td class="center">
 					<input type="checkbox" class="checkSample" name="uids[]" value="{$samples[lst].uid}" checked>
-				</td> 
+				</td>
 			{/if}
 				<td class="text-center"><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
@@ -198,8 +198,8 @@
 				</td>
 				<td><a
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
-					title="{t}Consultez le détail{/t}"> 
-					{$samples[lst].identifier} 
+					title="{t}Consultez le détail{/t}">
+					{$samples[lst].identifier}
 					</a>
 				</td>
 				<td>{$samples[lst].identifiers}
@@ -234,7 +234,7 @@
 					{$samples[lst].movement_date}
 					</span>
 				{/if}
-				</td> 
+				</td>
 				<td>
 				{if $samples[lst].container_uid > 0}
 					<a href="index.php?module=containerDisplay&uid={$samples[lst].container_uid}">
@@ -245,9 +245,9 @@
 				</td>
 				<td>{$samples[lst].sampling_place_name}</td>
 				<td>{$samples[lst].sampling_date}</td>
-				<td>{$samples[lst].sample_creation_date}</td> 
+				<td>{$samples[lst].sample_creation_date}</td>
 				<td>{$samples[lst].expiration_date}</td>
-				
+
 			</tr>
 			{/section}
 		</tbody>

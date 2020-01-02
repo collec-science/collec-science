@@ -66,7 +66,7 @@ $(document).ready(function () {
 </script>
 {include file="gestion/displayPhotoScript.tpl"}
 {if $droits.gestion == 1}
-	<form method="POST" id="formListPrint" action="index.php">
+	<form method="POST" id="containerFormListPrint" action="index.php">
 		<input type="hidden" id="module" name="module" value="containerPrintLabel">
 		<input type="hidden" name="lastModule" value="{$lastModule}">
 		<div class="row">

@@ -24,7 +24,8 @@ class Sample extends ObjetBDD
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
 					so.identifier, so.wgs84_x, so.wgs84_y,
-					so.object_status_id, object_status_name,so.referent_id,
+                    so.object_status_id, object_status_name,so.referent_id,
+                    so.change_date, so.uuid,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
 					container_type_name, clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
@@ -131,12 +132,14 @@ class Sample extends ObjetBDD
         if (is_numeric($uid) && $uid > 0) {
             $this->colonnes["borrowing_date"] = array("type" => 2);
             $this->colonnes["expected_return_date"] = array("type" => 2);
+            $this->colonnes["change_date"] = array("type" => 3);
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
             $retour = parent::getDefaultValue($parentValue);
         }
         unset($this->colonnes["borrowing_date"]);
         unset($this->colonnes["expected_return_date"]);
+        unset($this->colonnes["change_date"]);
         return $retour;
     }
 
@@ -146,9 +149,11 @@ class Sample extends ObjetBDD
         $data["sample_id"] = $sample_id;
         $this->colonnes["borrowing_date"] = array("type" => 2);
         $this->colonnes["exepected_return_date"] = array("type" => 2);
+        $this->colonnes["change_date"] = array("type" => 3);
         $list = parent::lireParamAsPrepared($sql, $data);
         unset($this->colonnes["borrowing_date"]);
         unset($this->colonnes["expected_return_date"]);
+        unset($this->colonnes["change_date"]);
         return $list;
     }
 
@@ -177,7 +182,7 @@ class Sample extends ObjetBDD
                 if (parent::ecrire($data) > 0) {
                     if (strlen($data["metadata"]) > 0) {
                         /*
-                         * Recherche des échantillons derives pour mise a jour 
+                         * Recherche des échantillons derives pour mise a jour
                          * des metadonnees
                          */
                         $childs = $this->getSampleassociated($uid);
@@ -355,6 +360,7 @@ class Sample extends ObjetBDD
             $data["uid_max"] = $param["uid_max"];
         }
         if (strlen($param["select_date"]) > 0) {
+            $tablefield="s";
             switch ($param["select_date"]) {
                 case "cd":
                     $field = "sample_creation_date";
@@ -365,8 +371,12 @@ class Sample extends ObjetBDD
                 case "ed":
                     $field = "expiration_date";
                     break;
+                case "ch":
+                    $field = "change_date";
+                    $tablefield = "so";
+                    break;
             }
-            $where .= $and . " s.$field::date between :date_from and :date_to";
+            $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
             $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
             $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
             $and = " and ";
@@ -452,6 +462,7 @@ class Sample extends ObjetBDD
         );
         $this->colonnes["borrowing_date"] = array("type" => 2);
         $this->colonnes["expected_return_date"] = array("type" => 2);
+        $this->colonnes["change_date"] = array("type" => 3);
         /*printr($this->sql.$where);
         printr($data);*/
         $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
@@ -461,6 +472,7 @@ class Sample extends ObjetBDD
         unset($this->colonnes["movement_date"]);
         unset($this->colonnes["borrowing_date"]);
         unset($this->colonnes["expected_return_date"]);
+        unset($this->colonnes["change_date"]);
         return $list;
     }
 

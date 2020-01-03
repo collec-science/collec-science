@@ -361,6 +361,10 @@
 						<dd>{$data.expiration_date}</dd>
 					</dl>
 				{/if}
+				<dl class="dl-horizontal">
+					<dt title="{t}Date technique de dernière modification de l'échantillon{/t}">{t}Date de modification :{/t}</dt>
+					<dd>{$data.change_date}</dd>
+				</dl>
 				{if $data.multiple_type_id > 0}
 					<dl class="dl-horizontal">
 						<dt title="{t 1=$data.multiple_unit}Quantité de sous-échantillons (%1){/t}">{t 1=$data.multiple_unit}Qté de sous-échantillons (%1) :{/t}</dt>
@@ -405,6 +409,10 @@
 							{/if}
 						{/section}
 					</dd>
+				</dl>
+				<dl class="dl-horizontal">
+					<dt>{t}UUID :{/t}</dt>
+					<dd>{$data.uuid}</dd>
 				</dl>
 				{if count($metadata) >0}
 					<fieldset>

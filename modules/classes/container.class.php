@@ -12,7 +12,8 @@ class ContainerException extends Exception{};
 class Container extends ObjetBDD
 {
 
-    private $sql = "select c.container_id, o.uid, o.identifier, o.wgs84_x, o.wgs84_y, 
+    private $sql = "select c.container_id, o.uid, o.identifier, o.wgs84_x, o.wgs84_y,
+                    o.change_date, o.uuid,
 					container_type_id, container_type_name,
 					container_family_id, container_family_name, os.object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
@@ -81,6 +82,7 @@ class Container extends ObjetBDD
         $data["uid"] = $uid;
         $this->colonnes["borrowing_date"] = array("type" => 2);
         $this->colonnes["expected_return_date"] = array("type" => 2);
+        $this->colonnes["change_date"] = array("type" => 3);
         if (is_numeric($uid) && $uid > 0) {
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
@@ -152,7 +154,7 @@ class Container extends ObjetBDD
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
 					join collection c using (collection_id)
 					join sample_type using (sample_type_id)
-					left outer join v_object_identifier voi on (o.uid = voi.uid) 
+					left outer join v_object_identifier voi on (o.uid = voi.uid)
 					left outer join object_status using (object_status_id)
 					left outer join sampling_place using (sampling_place_id)
 					left outer join sample ps on (sa.parent_sample_id = ps.sample_id)
@@ -187,7 +189,7 @@ class Container extends ObjetBDD
         if ($uid > 0 && is_numeric($uid)) {
             $sql = "select o.uid, o.identifier, container_type_id, container_type_name,
 					container_family_id, container_family_name, o.object_status_id,
-					storage_product, storage_condition_name, 
+					storage_product, storage_condition_name,
 					object_status_name, clp_classification,
 					movement_date, movement_type_id, column_number, line_number,
                     document_id
@@ -227,7 +229,7 @@ class Container extends ObjetBDD
 					from object o
 					join container co on (co.uid = o.uid)
 					join container_type using (container_type_id)
-					join last_movement lm on (lm.uid = :uid and lm.container_uid = o.uid) 
+					join last_movement lm on (lm.uid = :uid and lm.container_uid = o.uid)
 					where lm.movement_type_id = 1
 					order by o.identifier, o.uid
 					";
@@ -328,6 +330,19 @@ class Container extends ObjetBDD
             $data["uid_min"] = $param["uid_min"];
             $data["uid_max"] = $param["uid_max"];
         }
+        if (strlen($param["select_date"]) > 0) {
+            $tablefield="c";
+            switch ($param["select_date"]) {
+                case "ch":
+                    $field = "change_date";
+                    $tablefield = "o";
+                    break;
+            }
+            $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
+            $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
+            $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
+            $and = " and ";
+        }
         if ($and == "") {
             $where = "";
         }
@@ -338,6 +353,7 @@ class Container extends ObjetBDD
         $this->colonnes["movement_date"] = array(
             "type" => 3
         );
+        $this->colonnes["change_date"] = array("type" => 3);
         return $this->getListeParamAsPrepared($this->sql . $where /*. $order*/, $data);
     }
 
@@ -353,6 +369,7 @@ class Container extends ObjetBDD
             $data["container_type_id"] = $container_type_id;
             $where = " where container_type_id = :container_type_id";
             $order = " order by uid desc";
+            $this->colonnes["change_date"] = array("type" => 3);
             return $this->getListeParamAsPrepared($this->sql . $where . $order, $data);
         }
     }
@@ -409,7 +426,7 @@ class Container extends ObjetBDD
     {
         global $APPLI_version;
         $data = array();
-        /** 
+        /**
          * Inhibit the date encoding
          */
         $this->auto_date = 0;
@@ -534,7 +551,7 @@ class Container extends ObjetBDD
     }
 
     /**
-     * import containers and embedded objects from 
+     * import containers and embedded objects from
      * a JSON file transformed in array
      *
      * @param array $data
@@ -601,7 +618,7 @@ class Container extends ObjetBDD
                     $value = $data[$field];
                     /*
                  * Transformation of spaces in underscore,
-                 * to take into encoding realized by the browser 
+                 * to take into encoding realized by the browser
                  */
                     $fieldHtml = str_replace(" ", "_", $value);
                     $newval = $post[$field . "-" . $fieldHtml];
@@ -718,7 +735,7 @@ class Container extends ObjetBDD
                 $value = $data[$field];
                 /*
              * Transformation of spaces in underscore,
-             * to take into encoding realized by the browser 
+             * to take into encoding realized by the browser
              */
                 $fieldHtml = str_replace(" ", "_", $value);
                 $newval = $post[$field . "-" . $fieldHtml];

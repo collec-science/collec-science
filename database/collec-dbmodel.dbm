@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-beta2" last-position="267,902" last-zoom="1" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2-beta2" last-position="214,334" last-zoom="1" max-obj-count="61"
 	 default-schema="public" default-owner="postgres">
 <role name="collec"
       superuser="true"
@@ -678,7 +678,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	</constraint>
 </table>
 
-<table name="object" layer="0" collapse-mode="2" max-obj-count="7">
+<table name="object" layer="0" collapse-mode="2" max-obj-count="9">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table des objets
@@ -705,6 +705,14 @@ Contient les identifiants génériques]]></comment>
 	</column>
 	<column name="referent_id">
 		<type name="integer" length="0"/>
+	</column>
+	<column name="change_date" not-null="true" default-value="'now'">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Technical date of changement of the object]]></comment>
+	</column>
+	<column name="uuid" not-null="true" default-value="gen_random_uuid()">
+		<type name="uuid" length="0"/>
+		<comment><![CDATA[UUID of the object]]></comment>
 	</column>
 	<constraint name="object_pk" type="pk-constr" table="col.object">
 		<columns names="uid" ref-type="src-columns"/>
@@ -1802,6 +1810,10 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 
 <extension name="btree_gin">
 	<schema name="pg_catalog"/>
+</extension>
+
+<extension name="pgcrypto">
+	<schema name="public"/>
 </extension>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"

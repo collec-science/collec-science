@@ -43,11 +43,24 @@ class ObjectClass extends ObjetBDD
                 "type" => 1,
                 "defaultValue" => 1
             ),
-            "referent_id" => array("type" => 1)
+            "referent_id" => array("type" => 1),
+            "change_date" => array("type" => 3),
+            "uuid" => array("type" => 0)
         );
         parent::__construct($bdd, $param);
     }
 
+    /**
+     * Overload of the function ecrire
+     * to update the date of change
+     *
+     * @param array $data
+     * @return int
+     */
+    function ecrire($data) {
+        $data["change_date"] = date($_SESSION["MASKDATELONG"]);
+        return parent::ecrire($data);
+    }
     /**
      * Surcharge de la fonction supprimer pour effacer les mouvements et les evenements
      *

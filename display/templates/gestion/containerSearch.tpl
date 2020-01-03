@@ -55,6 +55,10 @@
 			$("#uid_max").val("0");
 			$("#container_family_id").prop("selectedIndex", 0).change();
 			$("#container_type_id").prop("selectedIndex", 0).change();
+			$("#select_date").prop("selectedIndex", 0).change();
+			var now = new Date();
+			$("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
+			$("#date_to").datepicker("setDate", now );
 			$("#name").val("");
 			$("#name").focus();
 		});
@@ -82,6 +86,23 @@
 						</option>
 					{/section}
 				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="select_date" class="col-md-2 control-label">{t}Recherche par date :{/t}</label>
+			<div class="col-md-2">
+				<select class="form-control" id="select_date" name="select_date">
+				<option value="" {if $containerSearch.select_date == ""}selected{/if}>{t}Choisissez...{/t}</option>
+				<option value="ch" {if $containerSearch.select_date == "ch"}selected{/if}>{t}Date technique de dernier changement{/t}</option>
+				</select>
+			</div>
+			<label for="date_from" class="col-md-1 control-label">{t}du :{/t}</label>
+			<div class="col-md-3">
+				<input class="datepicker form-control" id="date_from" name="date_from" value="{$containerSearch.date_from}">
+			</div>
+			<label for="date_to" class="col-md-1 control-label">{t}au :{/t}</label>
+			<div class="col-md-3">
+				<input class="datepicker form-control" id="date_to" name="date_to" value="{$containerSearch.date_to}">
 			</div>
 		</div>
 		<div class="form-group">

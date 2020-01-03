@@ -185,8 +185,15 @@ class SearchContainer extends SearchParam
             "limit" => 100,
             "object_status_id" => 1,
             "uid_min" => 0,
-            "uid_max" => 0
+            "uid_max" => 0,
+            "select_date" => "",
+            "date_from" => date($_SESSION["MASKDATE"]),
+            "date_to" => date($_SESSION["MASKDATE"])
         );
+        /*
+         * Ajout des dates
+         */
+        $this->reinit();
         $this->paramNum = array(
             "container_family_id",
             "container_type_id",
@@ -196,6 +203,13 @@ class SearchContainer extends SearchParam
             "uid_max"
         );
         parent::__construct();
+    }
+    function reinit()
+    {
+        $ds = new DateTime();
+        $ds->modify("-1 year");
+        $this->param["date_from"] = $ds->format($_SESSION["MASKDATE"]);
+        $this->param["date_to"] = date($_SESSION["MASKDATE"]);
     }
 }
 

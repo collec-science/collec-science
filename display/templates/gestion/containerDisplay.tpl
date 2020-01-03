@@ -286,6 +286,10 @@
 						{/if}
 					</dd>
 				</dl>
+				<dl class="dl-horizontal">
+					<dt title="{t}Date technique de dernière modification du contenant{/t}">{t}Date de modification :{/t}</dt>
+					<dd>{$data.change_date}</dd>
+				</dl>
 				{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
 					<dl class="dl-horizontal">
 						<dt>{t}Latitude :{/t}</dt>
@@ -308,6 +312,10 @@
 						{/if}
 					{/section}
 					</dd>
+				</dl>
+				<dl class="dl-horizontal">
+					<dt>{t}UUID :{/t}</dt>
+					<dd>{$data.uuid}</dd>
 				</dl>
 			</div>
 			{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0}

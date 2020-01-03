@@ -416,7 +416,17 @@
 									<dd>
 									{if is_array($value) }
 										{foreach $value as $val}
-											{$val}<br>
+											{if is_array($val)}
+												{$last = ""}
+												{foreach $val as $val1}
+													{if $val1 != $last}
+														{$val1}<br>
+														{$last = $val1}
+													{/if}
+												{/foreach}
+											{else}
+												{$val}<br>
+											{/if}
 										{/foreach}
 									{else}
 										{if substr($value, 0, 5) == "http:" || substr($value, 0, 6) == "https:"}

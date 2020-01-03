@@ -264,7 +264,7 @@
 	<metadataList action="modules/param/metadata.php" param="list" droits="consult"  retourlogin="1" type="smarty" />
 	<metadataDisplay action="modules/param/metadata.php" param="display" droits="consult"  retourlogin="1" type="smarty" />
 	<metadataChange action="modules/param/metadata.php" param="change" droits="collection"  retourlogin="1" type="smarty" />
-	<metadataWrite action="modules/param/metadata.php" param="write" droits="collection" retourok="metadataList" retourko="metadataChange" modulebefore="metadataChange,metadataCopy" />
+	<metadataWrite action="modules/param/metadata.php" param="write" droits="collection" retourok="metadataDisplay" retourko="metadataChange" modulebefore="metadataChange,metadataCopy" />
 	<metadataDelete action="modules/param/metadata.php" param="delete" droits="collection" retourok="metadataList" retourko="metadataChange"  modulebefore="metadataChange"/>
 	<metadataCopy action="modules/param/metadata.php" param="copy" droits="collection" type="smarty" />
 	<metadataGetschema action="modules/param/metadata.php" param="getSchema" droits="collection" type="ajax" />

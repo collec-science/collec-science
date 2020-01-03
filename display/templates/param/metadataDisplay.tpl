@@ -13,13 +13,14 @@
     {/if}
 </div>
 <div class="row">
-    <table id="metadataList" class="table table-bordered table-hover datatable " >
+    <table id="metadataList" class="table table-bordered table-hover datatable-nosort " >
         <thead>
             <tr>
                 <th>{t}Nom du champ{/t}</th>
                 <th>{t}Type{/t}</th>
                 <th>{t}Description{/t}</th>
                 <th>{t}Obligatoire ?{/t}</th>
+                <th>{t}Sélection multiple possible ?{/t}</th>
                 <th>{t}Unité de mesure{/t}</th>
                 <th>{t}Utilisable pour les recherches ?{/t}</th>
             </tr>
@@ -31,6 +32,7 @@
                     <td>{$row.type}</td>
                     <td>{$row.description}</td>
                     <td class="center">{if $row.required == true}{t}oui{/t}{/if}</td>
+                    <td class="center">{if $row.multiple == "yes"}{t}oui{/t}{/if}</td>
                     <td>{$row.measureUnit}</td>
                     <td class="center">{if $row.isSearchable == "yes"}{t}oui{/t}{/if}</td>
                 </tr>

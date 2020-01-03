@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-beta2" last-position="0,0" last-zoom="0.65" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2-beta2" last-position="267,902" last-zoom="1" max-obj-count="61"
 	 default-schema="public" default-owner="postgres">
 <role name="collec"
       superuser="true"
@@ -255,7 +255,7 @@ B: bottom, premiere ligne en bas]]></comment>
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table des parametres associes de maniere intrinseque a l'instance]]></comment>
-	<position x="1620" y="1480"/>
+	<position x="1380" y="1580"/>
 	<column name="dbparam_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -1674,7 +1674,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="collec"/>
 </sequence>
 
-<table name="borrower" layer="0" collapse-mode="2" max-obj-count="4">
+<table name="borrower" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of borrowers]]></comment>
@@ -1693,6 +1693,14 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<column name="borrower_phone">
 		<type name="character varying" length="0"/>
 		<comment><![CDATA[Phone of the contact of the borrower]]></comment>
+	</column>
+	<column name="laboratory_code">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Laboratory code of the borrower]]></comment>
+	</column>
+	<column name="borrower_mail">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Mail of the borrower]]></comment>
 	</column>
 	<constraint name="borrower_pk" type="pk-constr" table="col.borrower">
 		<columns names="borrower_id" ref-type="src-columns"/>

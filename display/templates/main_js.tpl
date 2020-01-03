@@ -29,6 +29,7 @@
 <script src="display/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="display/node_modules/datatables.net-bs/js/dataTables.bootstrap.js"></script>
 <link rel="stylesheet" type="text/css" href="display/node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css" />
+<script src="display/javascript/intl.js"></script>
 
 <!-- Boutons d'export associes aux datatables - classe datatable-export -->
 <script src="display/node_modules/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
@@ -95,6 +96,7 @@ $(document).ready(function() {
 	}
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdatetime"]}' );
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdate"]}' );
+	$.fn.dataTable.ext.order.intl( '{$LANG["date"]["locale"]}', { sensitivity: 'base'} );
 	$('.datatable').DataTable({
 		"language" : dataTableLanguage,
 		"searching": false,

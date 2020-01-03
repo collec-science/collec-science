@@ -58,41 +58,45 @@ class ObjectClass extends ObjetBDD
     function supprimer($uid)
     {
         if ($uid > 0 && is_numeric($uid)) {
-            /*
+            try {
+                /*
              * Supprime les mouvements associes
              */
-            require_once 'modules/classes/movement.class.php';
-            $movement = new Movement($this->connection, $this->paramori);
-            $movement->supprimerChamp($uid, "uid");
-            /*
+                require_once 'modules/classes/movement.class.php';
+                $movement = new Movement($this->connection, $this->paramori);
+                $movement->supprimerChamp($uid, "uid");
+                /*
              * Supprime les evenements associes
              */
-            require_once 'modules/classes/event.class.php';
-            $event = new Event($this->connection, $this->paramori);
-            $event->supprimerChamp($uid, "uid");
-            /**
-             * Supprime les documents associés
-             */
-            require_once 'modules/classes/document.class.php';
-            $document = new Document($this->connection, $this->paramori);
-            $document->supprimerChamp($uid, "uid");
-            /**
-             * Supprime les réservations
-             */
-            require_once 'modules/classes/booking.class.php';
-            $booking = new Booking($this->connection, $this->paramori);
-            $booking->supprimerChamp($uid, "uid");
-            /**
-             * Supprime les identifiants secondaires
-             */
-            require_once 'modules/classes/objectIdentifier.class.php';
-            $oi = new ObjectIdentifier($this->connection, $this->paramori);
-            $oi->supprimerChamp($uid, "uid");
+                require_once 'modules/classes/event.class.php';
+                $event = new Event($this->connection, $this->paramori);
+                $event->supprimerChamp($uid, "uid");
+                /**
+                 * Supprime les documents associés
+                 */
+                require_once 'modules/classes/document.class.php';
+                $document = new Document($this->connection, $this->paramori);
+                $document->supprimerChamp($uid, "uid");
+                /**
+                 * Supprime les réservations
+                 */
+                require_once 'modules/classes/booking.class.php';
+                $booking = new Booking($this->connection, $this->paramori);
+                $booking->supprimerChamp($uid, "uid");
+                /**
+                 * Supprime les identifiants secondaires
+                 */
+                require_once 'modules/classes/objectIdentifier.class.php';
+                $oi = new ObjectIdentifier($this->connection, $this->paramori);
+                $oi->supprimerChamp($uid, "uid");
 
-            /*
+                /*
              * Supprime l'objet
              */
-            parent::supprimer($uid);
+                parent::supprimer($uid);
+            } catch (Exception $e) {
+                throw new ObjetBDDException($e->getMessage());
+            }
         }
     }
 

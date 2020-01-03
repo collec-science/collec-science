@@ -58,7 +58,8 @@ class Sample extends ObjetBDD
                     left outer join referent cr on (p.referent_id = cr.referent_id)
                     left outer join last_borrowing lb on (so.uid = lb.uid)
                     left outer join borrower using (borrower_id)
-					";
+                    ";
+    private $object;
 
     public function __construct($bdd, $param = array())
     {
@@ -220,9 +221,11 @@ class Sample extends ObjetBDD
             /*
              * Suppression de l'objet
              */
-            require_once 'modules/classes/object.class.php';
-            $object = new ObjectClass($this->connection, $this->paramori);
-            $object->supprimer($uid);
+            if (!isset($this->object)) {
+                require_once 'modules/classes/object.class.php';
+                $this->object = new ObjectClass($this->connection, $this->paramori);
+            }
+            $this->object->supprimer($uid);
         } else {
             throw new SampleException(sprintf(_("Vous ne disposez pas des droits nécessaires pour supprimer l'échantillon %1s"), $uid));
         }
@@ -233,9 +236,6 @@ class Sample extends ObjetBDD
      * par l'utilisateur
      *
      * @param array $data
-     *
-     * @throws Exception
-     *
      * @return boolean
      */
     public function verifyCollection($data)

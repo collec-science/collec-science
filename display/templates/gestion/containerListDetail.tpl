@@ -185,6 +185,7 @@ $(document).ready(function () {
 					<select id="checkedActionContainer" class="form-control">
 						<option value="" selected>{t}Choisissez{/t}</option>
 						<option value="containersLending">{t}Prêter les contenants et leurs contenus{/t}</option>
+						<option value="containersDelete">{t}Supprimer les contenants{/t}</option>
 					</select>
 					<!-- add a borrowing -->
 					<div class="form-group borrowing" hidden>

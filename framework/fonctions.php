@@ -130,28 +130,26 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
             }
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
 
-        } catch (Exception $e) {
+        } catch (PDOException | ObjetBDDException $e) {
 
             foreach ($dataClass->getErrorData(1) as $messageError) {
-                $message->set($messageError, true);
+                $message->setSyslog($messageError);
             }
-            
             /*
              * recherche des erreurs liees a une violation de cle etrangere
              */
-
             if (strpos($e->getMessage(), "key violation")) {
                 $message->set(_("La suppression n'est pas possible : des informations sont référencées par cet enregistrement"), true);
-            } 
+            }
             if ($OBJETBDD_debugmode > 0) {
                 $message->set($e->getMessage(), true);
             }
             if ($message->getMessageNumber() == 0) {
                 $message->set(_("Problème lors de la suppression"), true);
             }
-
             $message->setSyslog($e->getMessage());
             $ret = -1;
+            throw new Exception (_("La suppression a échoué"));
         }
     } else {
         $message->set(_("Suppression impossible : la clé n'est pas numérique ou n'a pas été fournie"));

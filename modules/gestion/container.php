@@ -201,7 +201,26 @@ switch ($t_module["param"]) {
             }
         }
         break;
-    case "delete":
+        case "deleteMulti":
+        /*
+         * Delete all records in uid array
+         */
+        if (count($_POST["uids"]) > 0) {
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            $bdd->beginTransaction();
+            try {
+                foreach ($uids as $uid) {
+                    dataDelete($dataClass, $uid, true);
+                }
+                $bdd->commit();
+                $message->set(_("Suppression effectuée"));
+            } catch (Exception $e) {
+                $message->set($e->getMessage() . " ($uid)");
+                $bdd->rollback();
+            }
+        }
+        break;
+        case "delete":
         /*
          * delete record
          */
@@ -225,7 +244,8 @@ switch ($t_module["param"]) {
         $isDelete = true;
         break;
 
-    case "getFromType":
+   
+        case "getFromType":
         /*
          * Recherche la liste a partir du type
          */

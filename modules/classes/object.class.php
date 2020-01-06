@@ -137,23 +137,33 @@ class ObjectClass extends ObjetBDD
                     $uid = $auid[1];
                 }
             }
+            $searchUUID = false;
             if (is_numeric($uid) && $uid > 0) {
 
                 $data["uid"] = $uid;
                 $where = " where uid = :uid";
             } else {
-                /*
-                 * Recherche par identifiant ou par uid parent
-                 */
-                if ($is_partial) {
-                    $uid .= '%';
-                    $operator = 'like';
-                }
-                $data["identifier"] = $uid;
+                if (strlen($uid) == 36) {
+                    /**
+                     * Search by UUID
+                     */
+                    $where = "where uuid = :uuid";
+                    $data["uuid"] = $uid;
+                    $searchUUID = true;
+                } else {
+                    /**
+                     * Search by identifier or parent uid
+                     */
+                    if ($is_partial) {
+                        $uid .= '%';
+                        $operator = 'like';
+                    }
+                    $data["identifier"] = $uid;
 
-                $where = " where upper(identifier) $operator upper(:identifier)
+                    $where = " where upper(identifier) $operator upper(:identifier)
                         or (upper(object_identifier_value) $operator upper (:identifier)
                         and used_for_search = 't')";
+                }
             }
             if ($is_container < 2) {
                 $sql = "select uid, identifier, wgs84_x, wgs84_y,
@@ -173,8 +183,10 @@ class ObjectClass extends ObjetBDD
                 $sql .= " UNION ";
             }
             if ($is_container != 1) {
-                $where .= " or upper(dbuid_origin) $operator upper(:dbuid_origin)";
-                $data["dbuid_origin"] = $uid;
+                if (!$searchUUID) {
+                    $where .= " or upper(dbuid_origin) $operator upper(:dbuid_origin)";
+                    $data["dbuid_origin"] = $uid;
+                }
                 $sql .= "select uid, identifier, wgs84_x, wgs84_y,
                     sample_type_name as type_name, movement_type_id as last_movement_type,
                     uuid

@@ -1,5 +1,5 @@
 {* Mouvements > Mouvements petit terminal > *}
-<script src="display/bower_components/qcode-decoder/build/qcode-decoder.min.js"></script>
+<script src="display/javascript/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
 var is_scan = false;
 function testScan() {

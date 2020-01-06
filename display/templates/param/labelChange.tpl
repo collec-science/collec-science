@@ -116,6 +116,7 @@ $(document).ready( function() {
 <li>{t 1='cd'}%1 : date de création de l'échantillon dans la base de données{/t}</li>
 <li>{t 1='sd'}%1 : date d'échantillonnage{/t}</li>
 <li>{t 1='ed'}%1 : date d'expiration de l'échantillon{/t}</li>
+<li>{t 1='uuid'}%1 : UID Universel (UUID){/t}</li>
 <li>{t}et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants{/t}</li>
 </ul>
 </li>

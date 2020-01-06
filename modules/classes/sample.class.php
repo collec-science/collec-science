@@ -318,6 +318,11 @@ class Sample extends ObjetBDD
                 $data["uid"] = $param["name"];
                 $or = " or ";
             }
+            if (strlen($param["name"]) == 36) {
+                $where .= "o.uuid = :uuid";
+                $data["uuid"] = $param["name"];
+                $or = " or ";
+            }
             $name = $this->encodeData($param["name"]);
             $identifier = "%" . strtoupper($name) . "%";
             $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
@@ -360,7 +365,7 @@ class Sample extends ObjetBDD
             $data["uid_max"] = $param["uid_max"];
         }
         if (strlen($param["select_date"]) > 0) {
-            $tablefield="s";
+            $tablefield = "s";
             switch ($param["select_date"]) {
                 case "cd":
                     $field = "sample_creation_date";
@@ -730,9 +735,20 @@ class Sample extends ObjetBDD
             $data["sample_creation_date"] = date(DATE_ATOM);
         }
         /*
+         * Search from uuid
+         */
+        $uuidFound = false;
+        if (strlen($data["uuid"]) == 36) {
+            $uid = $this->getUidFromUUID($data["uuid"]);
+            if ($uid > 0) {
+                $data["uid"] = $uid;
+                $uuidFound = true;
+            }
+        }
+        /*
          * Recherche de l'uid existant a partir de dbuid_origin
          */
-        if (strlen($data["dbuid_origin"]) > 0) {
+        if (strlen($data["dbuid_origin"]) > 0 && !$uuidFound) {
             /*
              * Recherche si c'est une reintegration dans la base d'origine
              */
@@ -837,5 +853,19 @@ class Sample extends ObjetBDD
                 );
             }
         }
+    }
+    /**
+     * Get the uuid of a sample from the uuid
+     *
+     * @param string $uuid
+     * @return void
+     */
+    public function getUidFromUUID($uuid)
+    {
+        $sql = "select uid from object
+                join sample using (uid)
+                where uuid = :uuid";
+        $data = $this->lireParamAsPrepared($sql, array("uuid" => $uuid));
+        return ($data["uid"]);
     }
 }

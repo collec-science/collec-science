@@ -187,7 +187,7 @@
             		}
             	} else {
             		error = true;
-            	}
+				}
             	var collection_id = $("#collection_id").val();
             	if (collection_id) {
             		if (collection_id.length == 0 ) {
@@ -590,6 +590,15 @@
 				<div class="form-group">
 					<div class="col-md-10 col-sm-offset-1">
 						<div id="metadata"></div>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>{t}Informations diverses{/t}</legend>
+				<div class="form-group">
+					<label for="uuid"  class="control-label col-md-4">{t}UID universel (UUID) :{/t}</label>
+					<div class="col-md-8">
+						<input id="expiration_date" class="form-control uuid" name="uuid"  value="{$data.uuid}">
 					</div>
 				</div>
 			</fieldset>

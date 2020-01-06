@@ -45,7 +45,7 @@ class ObjectClass extends ObjetBDD
             ),
             "referent_id" => array("type" => 1),
             "change_date" => array("type" => 3),
-            "uuid" => array("type" => 0)
+            "uuid" => array("type" => 0, "default" => "getUUID")
         );
         parent::__construct($bdd, $param);
     }
@@ -57,7 +57,8 @@ class ObjectClass extends ObjetBDD
      * @param array $data
      * @return int
      */
-    function ecrire($data) {
+    function ecrire($data)
+    {
         $data["change_date"] = date($_SESSION["MASKDATELONG"]);
         return parent::ecrire($data);
     }
@@ -150,18 +151,19 @@ class ObjectClass extends ObjetBDD
                 }
                 $data["identifier"] = $uid;
 
-                $where = " where upper(identifier) $operator upper(:identifier) 
+                $where = " where upper(identifier) $operator upper(:identifier)
                         or (upper(object_identifier_value) $operator upper (:identifier)
                         and used_for_search = 't')";
             }
             if ($is_container < 2) {
                 $sql = "select uid, identifier, wgs84_x, wgs84_y,
-					container_type_name as type_name, movement_type_id as last_movement_type
-					from object 
+                    container_type_name as type_name, movement_type_id as last_movement_type,
+                    uuid
+					from object
 					join container using (uid)
 					join container_type using (container_type_id)
                     left outer join object_identifier oi using (uid)
-                    left outer join identifier_type it using (identifier_type_id) 
+                    left outer join identifier_type it using (identifier_type_id)
                     left outer join last_movement using (uid)
                     " . $where;
             } else {
@@ -174,13 +176,14 @@ class ObjectClass extends ObjetBDD
                 $where .= " or upper(dbuid_origin) $operator upper(:dbuid_origin)";
                 $data["dbuid_origin"] = $uid;
                 $sql .= "select uid, identifier, wgs84_x, wgs84_y,
-					sample_type_name as type_name, movement_type_id as last_movement_type
-					from object 
+                    sample_type_name as type_name, movement_type_id as last_movement_type,
+                    uuid
+					from object
 					join sample using (uid)
 					join sample_type using (sample_type_id)
                     left outer join object_identifier oi using (uid)
-                    left outer join identifier_type it using (identifier_type_id) 
-                    left outer join last_movement using (uid) 
+                    left outer join identifier_type it using (identifier_type_id)
+                    left outer join last_movement using (uid)
                     " . $where;
             }
             return $this->getListeParamAsPrepared($sql, $data);
@@ -276,14 +279,15 @@ class ObjectClass extends ObjetBDD
                 $uids .= $value;
             }
         }
-        $sql = "select o.uid, o.identifier, container_type_name as type_name, 
+        $sql = "select o.uid, o.identifier, container_type_name as type_name,
 		clp_classification as clp,
 		label_id, 'container' as object_type,
 		movement_date, movement_type_name, movement_type_id,
 		o.wgs84_x as x, o.wgs84_y as y,
-		'' as prj, '' as col,storage_product as prod, 
+		'' as prj, '' as col,storage_product as prod,
         null as metadata,
-        oc.identifier as container_identifier, container_uid, line_number, column_number
+        oc.identifier as container_identifier, container_uid, line_number, column_number,
+        o.uuid
 		from object o
 		join container using (uid)
 		join container_type using (container_type_id)
@@ -298,7 +302,8 @@ class ObjectClass extends ObjetBDD
 		o.wgs84_x as x, o.wgs84_y as y,
 		collection_name as prj, collection_name as col, storage_product as prod,
         metadata::varchar,
-        oc.identifier as container_identifier, container_uid, line_number, column_number
+        oc.identifier as container_identifier, container_uid, line_number, column_number,
+        o.uuid
 		from object o
 		join sample using (uid)
 		join collection using (collection_id)
@@ -405,9 +410,10 @@ class ObjectClass extends ObjetBDD
                             '' as col, '' as prj, storage_product as prod,
                             wgs84_x as x, wgs84_y as y, movement_date as cd,
                             null as sd, null as ed,
-					        null as metadata, null as loc, 
+					        null as metadata, null as loc,
                             object_status_name as status, null as dbuid_origin,
-                            null as pid
+                            null as pid,
+                            uuid
                         from object
                             join container using (uid)
                             join container_type using (container_type_id)
@@ -421,9 +427,10 @@ class ObjectClass extends ObjetBDD
                             o.wgs84_x as x, o.wgs84_y as y, s.sample_creation_date as cd,
                             s.sampling_date as sd,
                             s.expiration_date as ed,
-					        s.metadata::varchar, sampling_place_name as loc, 
+					        s.metadata::varchar, sampling_place_name as loc,
                             os.object_status_name as status, s.dbuid_origin,
-                            pso.identifier as pid
+                            pso.identifier as pid,
+                            o.uuid
                         from object o
                                 join sample s on (o.uid = s.uid)
                                 join sample_type st on (s.sample_type_id = st.sample_type_id)
@@ -530,10 +537,10 @@ class ObjectClass extends ObjetBDD
             /*
              * Requete de recherche des uid a partir de l'identifiant metier
              */
-            $sql = "select uid 
-                    from object 
+            $sql = "select uid
+                    from object
                     left outer join object_identifier oi using (uid)
-                    left outer join identifier_type it using (identifier_type_id) 
+                    left outer join identifier_type it using (identifier_type_id)
                     left outer join sample using (uid)";
 
             $whereIdent = " where upper(identifier) =  upper(:id)
@@ -765,11 +772,11 @@ class ObjectClass extends ObjetBDD
 
     /**
      * Change the referent in an object
-     * 
-     * @param int $uid 
-     * @param int $referent_id 
-     * 
-     * @return mixed 
+     *
+     * @param int $uid
+     * @param int $referent_id
+     *
+     * @return mixed
      */
     function setReferent($uid, $referent_id)
     {
@@ -810,8 +817,8 @@ class ObjectClass extends ObjetBDD
     {
         $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id,
                 case when sample_id > 0 then 'sample' else 'container' end as type_name,
-                sample_id, container_id
-                from object 
+                sample_id, container_id, uuid
+                from object
                 left outer join sample using (uid)
                 left outer join container using (uid)
                 where uid = :uid";

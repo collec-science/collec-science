@@ -177,6 +177,12 @@ $(document).ready(function() {
 		'pattern' : '-?[0-9]+',
 		'maxlength' : "10"
 	});
+	{literal}
+	$('.uuid').attr({
+		'pattern': '^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$',
+		'maxlength' : "36"
+	});
+	{/literal}
 
 	$(".date").datepicker( $.datepicker.regional['{$LANG["date"]["locale"]}'] );
 	$(".datepicker").datepicker( $.datepicker.regional['{$LANG["date"]["locale"]}'] );

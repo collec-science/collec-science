@@ -140,7 +140,8 @@ switch ($t_module["param"]) {
                         "metadata",
                         "identifiers",
                         "dbuid_parent",
-                        "referent_name"
+                        "referent_name",
+                        "uuid"
                     );
                     $importFile = new Import($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $importFile->getContentAsArray();

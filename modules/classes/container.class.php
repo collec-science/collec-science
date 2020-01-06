@@ -307,6 +307,11 @@ class Container extends ObjetBDD
                 $data["uid"] = $param["name"];
                 $or = " or ";
             }
+            if (strlen($param["name"]) == 36) {
+                $where .= "o.uuid = :uuid";
+                $data["uuid"] = $param["name"];
+                $or = " or ";
+            }
             $identifier = "%" . strtoupper($this->encodeData($param["name"])) . "%";
             $where .= "$or upper(o.identifier) like :identifier ";
             $and = " and ";

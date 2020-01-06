@@ -93,6 +93,7 @@
 <li><b>sample_multiple_value</b> : {t}le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
 si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point){/t}</li>
 <li><b>sample_parent_uid</b> : {t}UID du parent (création d'échantillons rattachés){/t}</li>
+<li><b>sample_uuid</b> :  {t}UID Universel de l'échantillon (UUID){/t}</li>
 <li>
 <b>sample_metadata_json</b> : {t escape=no}les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"taxon":"Alosa alosa"&#125;){/t}
 <ul>
@@ -102,6 +103,7 @@ si le type d'échantillons utilisé le permet (valeur numérique, séparateur d�
 <li><b>container_identifier</b> : {t}l'identifiant du contenant (obligatoire){/t}</li>
 <li><b>container_type_id</b> : {t}le numéro informatique du type de contenant (obligatoire){/t}</li>
 <li><b>container_status_id</b> : {t}le numéro informatique du statut du contenant (obligatoire){/t}</li>
+<li><b>container_uuid</b> : {t}UID Universel du contenant (UUID){/t}</li>
 <li><b>container_location</b> : {t}l'emplacement de rangement du contenant dans son parent (texte libre){/t}</li>
 <li><b>container_column</b> : {t}n° de la colonne de stockage dans le contenant parent{/t}</li>
 <li><b>container_line</b> : {t}n° de la ligne de stockage dans le contenant parent{/t}</li>

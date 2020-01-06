@@ -10,7 +10,7 @@
  * Classes d'exception
  *
  * @author quinton
- *        
+ *
  */
 class FichierException extends Exception
 { }
@@ -25,7 +25,7 @@ class ImportObjectException extends Exception
  * Classe realisant l'import
  *
  * @author quinton
- *        
+ *
  */
 class ImportObject
 {
@@ -57,7 +57,8 @@ class ImportObject
         "container_parent_uid",
         "container_location",
         "container_column",
-        "container_line"
+        "container_line",
+        "uuid"
     );
 
     private $colnum = array(
@@ -235,9 +236,9 @@ class ImportObject
 
     /**
      * Lance l'import des lignes
-     * 
+     *
      * @throws ImportObjectException
-     * 
+     *
      * @return void
      */
     function importAll()
@@ -296,6 +297,7 @@ class ImportObject
                 $dataSample["multiple_value"] = $values["sample_multiple_value"];
                 $dataSample["sampling_place_id"] = $values["sampling_place_id"];
                 $dataSample["parent_sample_id"] = $values["parent_sample_id"];
+                $dataSample["uuid"] = $values["sample_uuid"];
                 /*
                  * Traitement des dates - mise au format de base de donnees avant importation
                  */
@@ -370,6 +372,7 @@ class ImportObject
                 if (!$dataContainer["object_status_id"] > 0) {
                     $dataContainer["object_status_id"] = 1;
                 }
+                $dataContainer["uuid"] = $values["container_uuid"];
                 try {
                     $container_uid = $this->container->ecrire($dataContainer);
                     /*
@@ -840,7 +843,8 @@ class ImportObject
             "multiple_value",
             "dbuid_origin",
             "metadata",
-            "dbuid_parent"
+            "dbuid_parent",
+            "uuid"
         );
         $refFields = array(
             "sampling_place_name",

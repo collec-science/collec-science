@@ -81,6 +81,22 @@ $.fn.dataTable.ext.order.intl = function ( locales, options ) {
 		};
 	}
 };
-
+$.fn.dataTable.ext.order.htmlIntl = function ( locales, options ) {
+    if ( window.Intl ) {
+        var collator = new Intl.Collator( locales, options );
+        var types = $.fn.dataTable.ext.type;
+        delete types.order['html-pre'];
+        types.order['html-asc'] = function ( a, b ) {
+            a = a.replace(/<.*?>/g, '');
+            b = b.replace(/<.*?>/g, '');
+            return collator.compare( a, b );
+        };
+        types.order['html-desc'] = function ( a, b ) {
+            a = a.replace(/<.*?>/g, '');
+            b = b.replace(/<.*?>/g, '');
+            return collator.compare( a, b ) * -1;
+        };
+    }
+};
 
 }));

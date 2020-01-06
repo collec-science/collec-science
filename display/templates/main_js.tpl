@@ -94,14 +94,16 @@ $(document).ready(function() {
 	if (! pageLength) {
 		pageLength = 10;
 	}
+	var locale = "{$LANG['date']['locale']}";
+	$.fn.dataTable.ext.order.intl( locale , { "sensitivity": "base"} );
+	$.fn.dataTable.ext.order.htmlIntl(locale, { "sensitivity": "base"});
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdatetime"]}' );
 	$.fn.dataTable.moment( '{$LANG["date"]["formatdate"]}' );
-	$.fn.dataTable.ext.order.intl( '{$LANG["date"]["locale"]}', { sensitivity: 'base'} );
 	$('.datatable').DataTable({
 		"language" : dataTableLanguage,
 		"searching": false,
 		"pageLength": pageLength,
-		"lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]]
+		"lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
 	});
 	$('.datatable-searching').DataTable({
 		"language" : dataTableLanguage,

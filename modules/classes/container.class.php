@@ -421,7 +421,7 @@ class Container extends ObjetBDD
          */
         for ($line = 0; $line < $lines; $line++) {
             for ($column = 0; $column < $columns; $column++) {
-                $data[$line][$column] = "";
+                $data[$line][$column] = array();
             }
         }
         /*
@@ -429,16 +429,16 @@ class Container extends ObjetBDD
          */
         foreach ($dcontainer as $value) {
             if ($value["line_number"] > 0 && $value["column_number"] > 0) {
-                $data[$value["line_number"] - 1][$value["column_number"] - 1] = array("type" => "C", "uid" => $value["uid"], "identifier" => $value["identifier"]);
+                $data[$value["line_number"] - 1][$value["column_number"] - 1][] = array("type" => "C", "uid" => $value["uid"], "identifier" => $value["identifier"]);
             }
         }
         foreach ($dsample as $value) {
             if ($value["line_number"] > 0 && $value["column_number"] > 0) {
-                $data[$value["line_number"] - 1][$value["column_number"] - 1] = array("type" => "S", "uid" => $value["uid"], "identifier" => $value["identifier"]);
+                $data[$value["line_number"] - 1][$value["column_number"] - 1][] = array("type" => "S", "uid" => $value["uid"], "identifier" => $value["identifier"]);
             }
         }
-        /*
-         * Tri du tableau
+        /**
+         * Table sort
          */
         if ($lines > 1 && $first_line == "B") {
             krsort($data);

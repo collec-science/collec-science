@@ -44,9 +44,9 @@
 	<item module="labelList" droits="consult" label="Étiquettes" tooltip="Modèles d'étiquettes" />
 	<item module="printerList" droits="param" label="Imprimantes" tooltip="Liste des imprimantes" />
 	<item divider='1'/>
-	<item module="dbstructureSchema" droits="param" label="Schéma de la base de données" tooltip="Schéma de la base de données"/>
-	<item module="dbstructureHtml" droits='param' label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes"/>
-	<item module="dbstructureLatex" droits='param' label="Structure de la base de données (Latex)" tooltip="Liste des tables et des colonnes sous forme de tableaux Latex"/>
+	<item module="dbstructureSchema" droits="collection" label="Schéma de la base de données" tooltip="Schéma de la base de données"/>
+	<item module="dbstructureHtml" droits='collection' label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes"/>
+	<item module="dbstructureLatex" droits='collection' label="Structure de la base de données (Latex)" tooltip="Liste des tables et des colonnes sous forme de tableaux Latex"/>
 </item>
 
 <item module="administration" label="Administration" tooltip="Administration de l'application" droits="admin">

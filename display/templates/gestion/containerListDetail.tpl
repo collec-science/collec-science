@@ -113,6 +113,7 @@ $(document).ready(function () {
 					<th>{t}Type{/t}</th>
 					<th>{t}Dernier mouvement{/t}</th>
 					<th>{t}Emplacement{/t}</th>
+					<th>{t}Nbre de slots utilisés/Nbre total{/t}</th>
 					<th>{t}Condition de stockage{/t}</th>
 					<th>{t}Produit utilisé{/t}</th>
 					<th>{t}Code CLP{/t}</th>
@@ -162,6 +163,7 @@ $(document).ready(function () {
 								<br>{t}col:{/t}{$containers[lst].column_number} {t}ligne:{/t}{$containers[lst].line_number}
 							{/if}
 						</td>
+						<td class="center">{$containers[lst].nb_slots_used}&nbsp;/&nbsp;{$containers[lst].nb_slots_max}</td>
 						<td>{$containers[lst].storage_condition_name}</td>
 						<td>{$containers[lst].storage_product}</td>
 						<td>{$containers[lst].clp_classification}</td>

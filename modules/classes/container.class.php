@@ -15,7 +15,7 @@ class Container extends ObjetBDD
 
     private $sql = "select c.container_id, o.uid, o.identifier, o.wgs84_x, o.wgs84_y,
                     o.change_date, o.uuid,
-					container_type_id, container_type_name,
+					container_type_id, container_type_name, nb_slots_max,
 					container_family_id, container_family_name, os.object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
 					document_id, identifiers,
@@ -23,7 +23,8 @@ class Container extends ObjetBDD
                     lines, columns, first_line,
                     column_number, line_number, container_uid, oc.identifier as container_identifier,
                     o.referent_id, referent_name,
-                    borrowing_date, expected_return_date, borrower_id, borrower_name
+                    borrowing_date, expected_return_date, borrower_id, borrower_name,
+                    nb_slots_used
 					from container c
 					join object o using (uid)
 					join container_type using (container_type_id)
@@ -38,6 +39,7 @@ class Container extends ObjetBDD
                     left outer join referent r on (o.referent_id = r.referent_id)
                     left outer join last_borrowing lb on (o.uid = lb.uid)
                     left outer join borrower using (borrower_id)
+                    left outer join slots_used su on (c.container_id = su.container_id)
             ";
     private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
 

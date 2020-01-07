@@ -68,6 +68,10 @@ class ContainerType extends ObjetBDD
                 "type" => 0,
                 "requis" => 1,
                 "defaultValue" => "T"
+            ),
+            "nb_slots_max" => array(
+                "type" => 1,
+                "defaultValue" => 0
             )
         );
         parent::__construct($bdd, $param);

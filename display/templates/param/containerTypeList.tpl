@@ -14,8 +14,8 @@
 <th>{t}Id{/t}</th>
 <th>{t}Famille{/t}</th>
 <th>{t}Description{/t}</th>
-<th>{t}Nombre
-d'emplacements{/t}</th>
+<th>{t}Nombre de lignes et de colonnes{/t}</th>
+<th>{t}Nombre maxi d'emplacements de stockage{/t}</th>
 <th>{t}Condition de stockage{/t}</th>
 <th>{t}Produit utilisé{/t}</th>
 <th>{t}Code CLP (risque){/t}</th>
@@ -49,7 +49,7 @@ d'emplacements{/t}</th>
 {/if}
 {/if}
 </td>
-
+<td class="center">{$data[lst].nb_slots_max}</td>
 <td>
 {$data[lst].storage_condition_name}
 </td>

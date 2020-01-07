@@ -314,6 +314,10 @@
 					</dd>
 				</dl>
 				<dl class="dl-horizontal">
+					<dt>{t}Nbre de slots utilisés / Nbre total :{/t}</dt>
+					<dd>{$data.nb_slots_used} / {$data.nb_slots_max}</dd>
+				</dl>
+				<dl class="dl-horizontal">
 					<dt>{t}UUID :{/t}</dt>
 					<dd>{$data.uuid}</dd>
 				</dl>

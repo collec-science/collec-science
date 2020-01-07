@@ -7,7 +7,8 @@
  * Copyright 2016 - All rights reserved
  */
 //require_once 'modules/classes/object.class.php';
-class ContainerException extends Exception{};
+class ContainerException extends Exception
+{ };
 
 class Container extends ObjetBDD
 {
@@ -39,6 +40,9 @@ class Container extends ObjetBDD
                     left outer join borrower using (borrower_id)
             ";
     private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
+
+    private $movement;
+
 
     /**
      *
@@ -120,15 +124,33 @@ class Container extends ObjetBDD
     function supprimer($uid)
     {
         $data = $this->lire($uid);
-        /*
-         * suppression de l'echantillon
+        /**
+         * Find out if objects are stored in the container
          */
-        parent::supprimer($data["container_id"]);
-        /*
-         * Suppression de l'objet
-         */
-        $object = new ObjectClass($this->connection, $this->paramori);
-        $object->supprimer($uid);
+        $sql = "select count(*) as nb from last_movement
+                where movement_type_id = 1 and container_id = :container_id";
+        $result = $this->lireParamAsPrepared($sql, array("container_id" => $data["container_id"]));
+        if ($result["nb"] > 0) {
+            throw new ObjetBDDException(_("Le contenant contient des objets, il ne peut être supprimé"));
+        } else {
+            /**
+             * Delete the movements attached to the container
+             */
+            if (!isset($this->movement)) {
+                require_once 'modules/classes/movement.class.php';
+                $this->movement = new Movement($this->connection, $this->paramori);
+            }
+            $this->movement->deleteFromContainer($data["container_id"]);
+            /**
+             * delete the container
+             */
+            parent::supprimer($data["container_id"]);
+            /** 
+             * Delete the object
+             */
+            $object = new ObjectClass($this->connection, $this->paramori);
+            $object->supprimer($uid);
+        }
     }
 
     /**
@@ -336,7 +358,7 @@ class Container extends ObjetBDD
             $data["uid_max"] = $param["uid_max"];
         }
         if (strlen($param["select_date"]) > 0) {
-            $tablefield="c";
+            $tablefield = "c";
             switch ($param["select_date"]) {
                 case "ch":
                     $field = "change_date";
@@ -542,7 +564,7 @@ class Container extends ObjetBDD
                 /**
                  * Traitement des identifiants secondaires
                  */
-                if ($key == "identifiers" ) {
+                if ($key == "identifiers") {
                     foreach ($df as $ident) {
                         $idvalue = explode(":", $ident);
                         if (!in_array($idvalue[0], $names["identifier_type_code"])) {
@@ -660,7 +682,7 @@ class Container extends ObjetBDD
                     $objectIdentifier->ecrire($didentifiers);
                 }
             } else {
-                throw new ContainerException (sprintf(_("Échec d'écriture de l'objet dans Container.importData : l'UID n'a pas été généré (identifier : %s)"), $data["identifier"]));
+                throw new ContainerException(sprintf(_("Échec d'écriture de l'objet dans Container.importData : l'UID n'a pas été généré (identifier : %s)"), $data["identifier"]));
             }
             /**
              * Generate the movement if necessary

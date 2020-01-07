@@ -335,4 +335,22 @@ class Movement extends ObjetBDD
         $data["date_end"] = $this->formatDateLocaleVersDB($dateEnd, 2);
         return $this->getListeParamAsPrepared($sql, $data);
     }
+
+    /**
+     * Delete all movements attached to a container
+     *
+     * @param int $container_id
+     * @return void
+     */
+    function deleteFromContainer($container_id)
+    {
+        $sql = "delete from movement where container_id = :container_id";
+        try {
+            $this->executeAsPrepared($sql, array("container_id" => $container_id));
+        } catch (Exception $e) {
+            global $message;
+            $message->setSyslog($e->getMessage());
+            throw new ObjetBDDException(sprintf(_("La suppression des mouvements associés au container %s a échoué"), $container_id));
+        }
+    }
 }

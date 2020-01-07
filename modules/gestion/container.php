@@ -224,23 +224,7 @@ switch ($t_module["param"]) {
         /*
          * delete record
          */
-        /*
-         * Recherche si le contenant est reference
-         */
-        include_once 'modules/classes/movement.class.php';
-        $movement = new Movement($bdd, $ObjetBDDParam);
-        try {
-            $nb = $movement->getNbFromContainer($id);
-        } catch (Exception $e) {
-            $nb = 0;
-        }
-        if ($nb > 0) {
-            $message->set(_("Le contenant est référencé dans les mouvements et ne peut être supprimé"), true);
-            $module_coderetour = -1;
-        } else {
             dataDelete($dataClass, $id);
-        }
-
         $isDelete = true;
         break;
 

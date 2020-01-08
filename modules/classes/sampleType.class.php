@@ -14,8 +14,8 @@ class SampleType extends ObjetBDD
      * @param PDO $bdd
      * @param array $param
      */
-    private $sql = "select sample_type_id, sample_type_name, 
-					container_type_name,
+    private $sql = "select sample_type_id, sample_type_name,
+					container_type_name, sample_type_description,
 					operation_id, operation_name ,operation_version, protocol_name, protocol_year, protocol_version,
 					multiple_type_id, multiple_unit, multiple_type_name,
                     metadata_id, metadata_name,
@@ -59,6 +59,9 @@ class SampleType extends ObjetBDD
             ),
             "identifier_generator_js" => array(
                 "type" => 0
+            ),
+            "sample_type_description" => array(
+                "type"=>0
             )
         );
         parent::__construct($bdd, $param);
@@ -104,7 +107,7 @@ class SampleType extends ObjetBDD
     function getMetadataForm($sample_type_id)
     {
         if ($sample_type_id > 0) {
-            $sql = "select metadata_schema 
+            $sql = "select metadata_schema
             from sample_type
 			join metadata using(metadata_id)
 			where sample_type_id = :sample_type_id";
@@ -114,7 +117,7 @@ class SampleType extends ObjetBDD
             return $data["metadata_schema"];
         }
     }
-    
+
     function getIdentifierJs($sample_type_id) {
         if ($sample_type_id > 0) {
             $sql = "select identifier_generator_js from sample_type
@@ -124,4 +127,3 @@ class SampleType extends ObjetBDD
         }
     }
 }
-?>

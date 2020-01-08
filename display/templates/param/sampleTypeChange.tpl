@@ -48,7 +48,12 @@ $(document).ready(function () {
 </select>
 </div>
 </div>
-
+<div class="form-group">
+      <label for="sampleTypeDescription"  class="control-label col-md-4">{t}Description :{/t}</label>
+      <div class="col-md-8">
+            <textarea class="form-control" rows="3" name="sample_type_description" id="sampleTypeDescription">{$data.sample_type_description}</textarea>
+      </div>
+</div>
 <div class="form-group">
 <label for="metadata_id" class="control-label col-md-4">{t}Modèle de métadonnées :{/t}</label>
 <div class="col-md-8">

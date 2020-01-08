@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2-beta2" last-position="10,1049" last-zoom="1" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2" last-position="8,906" last-zoom="1" max-obj-count="61"
 	 default-schema="public" default-owner="postgres">
 <role name="collec"
       superuser="true"
@@ -987,7 +987,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="postgres"/>
 </sequence>
 
-<table name="sample_type" layer="0" collapse-mode="2" max-obj-count="9">
+<table name="sample_type" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Types d'échantillons]]></comment>
@@ -1017,6 +1017,10 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<column name="identifier_generator_js">
 		<type name="character varying" length="0"/>
 		<comment><![CDATA[Champ comprenant le code de la fonction javascript permettant de générer automatiquement un identifiant à partir des informations saisies]]></comment>
+	</column>
+	<column name="sample_type_description">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Description of the type of sample]]></comment>
 	</column>
 	<constraint name="sample_type_pk" type="pk-constr" table="col.sample_type">
 		<columns names="sample_type_id" ref-type="src-columns"/>

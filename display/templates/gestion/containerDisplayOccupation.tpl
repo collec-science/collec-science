@@ -7,11 +7,19 @@
         {$ln = $nblignes}
         {$incr = -1}
     {/if}
+    {if $first_column == "L"}
+        {$cl = 1}
+        {$clIncr = 1}
+    {else}
+        {$cl = $nbcolonnes}
+        {$clIncr = -1}
+    {/if}
     <table class="table table-bordered">
         <tr>
             <th class="center">{t}Ligne/colonne{/t}</th>
             {for $col=1 to $nbcolonnes}
-                <th class="center">{$col}</th>
+                <th class="center">{$cl}</th>
+                {$cl = $cl + $clIncr}
             {/for}
         </tr>
         {foreach $containerOccupation as $line}

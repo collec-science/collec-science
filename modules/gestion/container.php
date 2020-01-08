@@ -82,7 +82,7 @@ switch ($t_module["param"]) {
         /*
          * Preparation du tableau d'occupation du container
          */
-        $vue->set($dataClass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"]), "containerOccupation");
+        $vue->set($dataClass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"], $data["first_column"]), "containerOccupation");
         $vue->set($data["lines"], "nblignes");
         $vue->set($data["columns"], "nbcolonnes");
         $vue->set($data["first_line"], "first_line");

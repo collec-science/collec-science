@@ -20,7 +20,7 @@ class Container extends ObjetBDD
 					storage_product, clp_classification, storage_condition_name,
 					document_id, identifiers,
 					movement_date, movement_type_name, movement_type_id,
-                    lines, columns, first_line,
+                    lines, columns, first_line, first_column,
                     column_number, line_number, container_uid, oc.identifier as container_identifier,
                     o.referent_id, referent_name,
                     borrowing_date, expected_return_date, borrower_id, borrower_name,
@@ -413,7 +413,7 @@ class Container extends ObjetBDD
      * @param string $first_line
      * @return array|string|string[]|array[]
      */
-    function generateOccupationArray($dcontainer, $dsample, $columns = 1, $lines = 1, $first_line = "T")
+    function generateOccupationArray($dcontainer, $dsample, $columns = 1, $lines = 1, $first_line = "T", $first_column = "L")
     {
         $data = array();
         /*
@@ -442,6 +442,14 @@ class Container extends ObjetBDD
          */
         if ($lines > 1 && $first_line == "B") {
             krsort($data);
+        }
+        if ($first_column == "R") {
+            $dataSorted = array();
+            foreach ($data as $key => $row) {
+                krsort($row);
+                $dataSorted[$key] = $row;
+            }
+            $data = $dataSorted;
         }
         return $data;
     }

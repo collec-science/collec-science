@@ -60,6 +60,21 @@
                         </div>
                   </div>
                   <div class="form-group">
+                        <label for="columns"  class="control-label col-md-4">{t}Position de la première colonne :{/t}</label>
+                        <div class="col-md-8">
+                              <div class="radio">
+                                    <label>
+                                          <input type="radio" name="first_column" id="first_column_l" value="L" {if $data.first_column == "L"}checked{/if}>
+                                          {t}À gauche{/t}
+                                    </label>
+                                    <label>
+                                          <input type="radio" name="first_column" id="first_column_r" value="R" {if $data.first_column == "R"}checked{/if}>
+                                          {t}À droite{/t}
+                                    </label>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="form-group">
                         <label for="lines"  class="control-label col-md-4">{t}Nombre d'emplacements maximum :{/t}</label>
                         <div class="col-md-8">
                               <input id="nb_slots_max" name="nb_slots_max" value="{$data.nb_slots_max}" class="nombre form-control">

@@ -9,7 +9,7 @@
 class ContainerType extends ObjetBDD
 {
 
-    private $sql = "select * 
+    private $sql = "select *
 			from container_type
 			join container_family using (container_family_id)
 			left outer join storage_condition using (storage_condition_id)
@@ -72,6 +72,10 @@ class ContainerType extends ObjetBDD
             "nb_slots_max" => array(
                 "type" => 1,
                 "defaultValue" => 0
+            ),
+            "first_column" => array(
+                "type" => 0,
+                "defaultValue" => "L"
             )
         );
         parent::__construct($bdd, $param);
@@ -80,11 +84,9 @@ class ContainerType extends ObjetBDD
     function getListe($field = "")
     {
         $order = "";
-        if (($field > 0 && is_numeric($field))|| strlen($field) > 0) {
+        if (($field > 0 && is_numeric($field)) || strlen($field) > 0) {
             $order = " order by $field";
         }
         return parent::getListeParam($this->sql . $order);
     }
 }
-
-?>

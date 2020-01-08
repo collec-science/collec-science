@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" last-position="7,0" last-zoom="1" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2" last-position="70,909" last-zoom="1" max-obj-count="61"
 	 default-schema="public" default-owner="postgres">
 <role name="collec"
       superuser="true"
@@ -12,6 +12,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
       inherit="true"
       login="true"
       password="collecPassword">
+</role>
+
+<role name="quinton"
+      superuser="true"
+      createdb="true"
+      createrole="true"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
 </role>
 
 <database name="collec" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true">
@@ -1858,6 +1868,48 @@ WHERE
 			<column name="nom_module"/>
 		</idxelement>
 </index>
+
+<sequence name="request_request_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
+	<schema name="col"/>
+	<role name="collec"/>
+</sequence>
+
+<table name="request" layer="0" collapse-mode="2" max-obj-count="8">
+	<schema name="col"/>
+	<role name="collec"/>
+	<comment><![CDATA[Request table in database]]></comment>
+	<position x="1200" y="1580"/>
+	<column name="request_id" not-null="true" sequence="col.request_request_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="create_date" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Date of create of the request]]></comment>
+	</column>
+	<column name="last_exec">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Date of the last execution]]></comment>
+	</column>
+	<column name="title" not-null="true">
+		<type name="character varying" length="0"/>
+		<comment><![CDATA[Title of the request]]></comment>
+	</column>
+	<column name="body" not-null="true">
+		<type name="character varying" length="0"/>
+		<comment><![CDATA[Body of the request. Don't begin it by SELECT, which will be added automatically]]></comment>
+	</column>
+	<column name="login" not-null="true">
+		<type name="character varying" length="0"/>
+		<comment><![CDATA[Login of the creator of the request]]></comment>
+	</column>
+	<column name="datefields">
+		<type name="character varying" length="0"/>
+		<comment><![CDATA[List of the date fields used in the request, separated by a comma, for format it]]></comment>
+	</column>
+	<constraint name="request_pk" type="pk-constr" table="col.request">
+		<columns names="request_id" ref-type="src-columns"/>
+	</constraint>
+</table>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

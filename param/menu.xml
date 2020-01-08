@@ -2,7 +2,7 @@
 <menu xmlns:its="http://www.w3.org/2005/11/its" its:version="2.0">
 <its:rules version="2.0">
 	<its:translateRule selector="//item/@label" translate="yes"/>
-	<its:translateRule selector="//item/@tooltip" translate="yes"/> 
+	<its:translateRule selector="//item/@tooltip" translate="yes"/>
 </its:rules>
 <item module="objets" label="Objets" tooltip="Opérations sur les échantillons ou les contenants">
 	<item module="containerList" label="Contenants" tooltip="Liste des contenants"/>
@@ -33,14 +33,14 @@
 	<item module="identifierTypeList" droits="consult" label="Types d'identifiants" tooltip="Liste des types d'identifiants rattachables à un objet" />
 	<item module="multipleTypeList" droits="consult" label="Types de sous-échantillonnage" tooltip="Types de sous-échantillonnage" />
 	<item module="metadataList" droits="consult" label="Métadonnées" tooltip="Modèles de métadonnées" />
-	<item module="samplingPlaceList" droits="consult" label="Lieux de prélèvement" tooltip="Liste des lieux de prélèvement des échantillons" />	
+	<item module="samplingPlaceList" droits="consult" label="Lieux de prélèvement" tooltip="Liste des lieux de prélèvement des échantillons" />
 	<item divider='1'/>
 	<item module="eventTypeList" droits="consult" label="Types d'événement" tooltip="Types d'événement" />
 	<item module="storageConditionList" droits="consult" label="Conditions de stockage" tooltip="Liste des conditions de stockage" />
 	<item module="movementReasonList" droits="consult" label="Motifs de déstockage" tooltip="Motifs de sortie du stock" />
 	<item module="objectStatusList" droits="consult" label="Statuts des objets" tooltip="Liste des statuts possibles pour les objets" />
 	<item module="borrowerList" droits="consult" label="Emprunteurs" tooltip="Liste des emprunteurs d'objets"/>
-	<item divider='1'/>	
+	<item divider='1'/>
 	<item module="labelList" droits="consult" label="Étiquettes" tooltip="Modèles d'étiquettes" />
 	<item module="printerList" droits="param" label="Imprimantes" tooltip="Liste des imprimantes" />
 	<item divider='1'/>
@@ -56,6 +56,7 @@
 	<item module="groupList" droits="admin" label="ACL - groupes de logins" tooltip="Groupes de logins et logins rattachés aux groupes"/>
 	<item module="dbparamList" droits="admin" label="Paramètres de l'application" tooltip="Liste des paramètres pérennes de l'application" />
 	<item divider='1'/>
+	<item module="logList" droits="admin" label="Logs" tooltip="Consultation des logs enregistrées"/>
 	<item module="dbstructureGacl" droits="admin" label="Structure de la base de données des droits (HTML)" tooltip="Liste des tables et des colonnes de la base de données de gestion des droits"/>
 	<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP"/>
 </item>
@@ -71,6 +72,6 @@
 	<item module="lexique" label="Lexique" tooltip="Lexique des termes utilisés dans le logiciel" />
 	<item module="setlanguagefr" label="Français" tooltip="Libellés en français"/>
 	<item module="setlanguageen" label="English" tooltip="Labels in English"/>
-		
+
 </item>
 </menu>

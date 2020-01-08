@@ -1,0 +1,22 @@
+How to upgrade from version 3.1.0 to version 3.2.0
+==================================================
+Log:
+- replace the folder log
+
+Display:
+- add the file display/templates/framework/logList.tpl
+- replace the file display/templates/main_js.tpl
+- add the file display/javascript/intl.js
+- add the file display/javascript/jquery-3.3.1.min.js (required to work with alpacaJS instead of the npm version)
+- replace or add the folder display/javascript/jquery-ui-1.12.1.custom, delete the folder display/javascript/jquery-ui-custom
+- add or replace the folder display/javascript/js-cookie-master
+
+Actions:
+Modify the file param/actions.xml, with:
+- add this entry:
+<logList action="framework/log/log.php" param="list" retourlogin="1" type="smarty" droits="admin"/>
+
+Menu:
+Modify the file param/menu.xml, with:
+- add this entry into the admin section:
+<item module="logList" droits="admin" label="Logs" tooltip="Consultation des logs enregistrées"/>

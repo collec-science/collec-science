@@ -103,6 +103,7 @@ switch ($t_module["param"]) {
                     $message->set(sprintf(_("Import effectué. %s lignes traitées"), $import->nbTreated));
                     $message->set(sprintf(_("Premier UID généré : %s"), $import->minuid));
                     $message->set(sprintf(_("Dernier UID généré : %s"), $import->maxuid));
+                    $log->setLog($_SESSION["login"], "massImportDone","first UID:".$import->minuid.",last UID:".$import->maxuid);
                     $module_coderetour = 1;
                     $bdd->commit();
                 } catch (ImportObjectException $ie) {
@@ -167,6 +168,7 @@ switch ($t_module["param"]) {
                     $message->set(sprintf(_("Premier UID généré : %s"), $import->minuid));
                     $message->set(sprintf(_("Dernier UID généré : %s"), $import->maxuid));
                     $module_coderetour = 1;
+                    $log->setLog($_SESSION["login"], "externalImportDone","first UID:".$import->minuid.",last UID:".$import->maxuid);
                     $bdd->commit();
                 } catch (ImportObjectException $ie) {
                     $bdd->rollBack();

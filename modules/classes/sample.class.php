@@ -60,7 +60,7 @@ class Sample extends ObjetBDD
                     left outer join last_borrowing lb on (so.uid = lb.uid)
                     left outer join borrower using (borrower_id)
                     ";
-    private $object;
+    private $object, $container;
 
     public function __construct($bdd, $param = array())
     {
@@ -867,5 +867,42 @@ class Sample extends ObjetBDD
                 where uuid = :uuid";
         $data = $this->lireParamAsPrepared($sql, array("uuid" => $uuid));
         return ($data["uid"]);
+    }
+
+    /**
+     * Get a sample with its containers
+     * in raw format
+     *
+     * @param int $uid
+     * @param boolean $withContainers
+     * @return array
+     */
+    function getRawDetail($uid, $withContainers = false) {
+        $this->auto_date = 0;
+        if (strlen($uid) == 36) {
+            /**
+             * Search by uuid
+             */
+            $where = " where so.uuid = :uid";
+        } else {
+        $where = " where s.uid = :uid";
+        }
+        $data = $this->lireParamAsPrepared($this->sql.$where, array("uid"=>$uid));
+        /**
+         * Disable the metadata_schema, irrelevant in this context
+         */
+        unset ($data["metadata_schema"]);
+        /**
+         * Get the hierarchy of containers
+         */
+        if ($withContainers) {
+            if (!isset($this->container)) {
+                require_once "modules/classes/container.class.php";
+                $this->container = new Container($this->connection, $this->paramori);
+            }
+            $data["container"] = $this->container->getAllParents($uid);
+        }
+        $this->auto_date = 1;
+        return $data;
     }
 }

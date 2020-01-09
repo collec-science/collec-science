@@ -183,6 +183,7 @@
 	<samplesAssignReferent action="modules/gestion/sample.php" param="referentAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
 	<samplesCreateEvent action="modules/gestion/sample.php" param="eventAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
 	<samplesLending action="modules/gestion/sample.php" param="lendingMulti" moduleBefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
+	<sampleDetail action="modules/gestion/sample.php" type="json" param="detail"/>
 
 	<movement droits="consult" type="smarty" />
 	<movementList droits="collection" type="smarty" action="modules/gestion/movement.php" param="list" retourlogin="1"/>

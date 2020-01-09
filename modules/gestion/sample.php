@@ -121,7 +121,7 @@ switch ($t_module["param"]) {
          */
         include_once "modules/classes/borrowing.class.php";
         $borrowing = new Borrowing($bdd, $ObjetBDDParam);
-        $vue->set($borrowing->getFromUid($data["uid"]),"borrowings");
+        $vue->set($borrowing->getFromUid($data["uid"]), "borrowings");
         /*
          * Verification que l'echantillon peut etre modifie
          */
@@ -383,10 +383,10 @@ switch ($t_module["param"]) {
                 $module_coderetour = 1;
                 $message->set(_("Opération de prêt enregistrée"));
                 $bdd->commit();
-            }catch (MovementException $me) {
+            } catch (MovementException $me) {
                 $message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
                 $message->set($me->getMessage());
-                $bdd->rollback();            
+                $bdd->rollback();
             } catch (Exception $e) {
                 $message->set(_("Un problème est survenu lors de l'enregistrement du prêt"), true);
                 $message->set($e->getMessage());
@@ -471,7 +471,7 @@ switch ($t_module["param"]) {
                          * Suppression du fichier temporaire
                          */
                         unset($filename);
-                        unset ($_SESSION["realfilename"]);
+                        unset($_SESSION["realfilename"]);
                     } else {
 
                         /*
@@ -499,5 +499,57 @@ switch ($t_module["param"]) {
                 $module_coderetour = -1;
             }
         }
+        break;
+    case "detail":
+        /**
+         * Get all data for a sample in raw format
+         */
+        $errors = array(
+            500 => "Internal Server Error",
+            401 => "Unauthorized",
+            520 => "Unknown error",
+            404 => "Not Found"
+        );
+        try {
+            if (strlen($id) == 0) {
+                throw new SampleException("uid $id not valid", 404);
+            }
+            $data = $dataClass->getRawDetail($id, true);
+            if (count($data) == 0) {
+                throw new SampleException("$id not found", 404);
+            }
+            /**
+             * Search for collection
+             */
+            if (isset($_SESSION["login"])) {
+                if (!$dataClass->verifyCollection($data)) {
+                    throw new SampleException("Not sufficient rights for $id", 401);
+                }
+            } else {
+                /**
+                 * Verify if the collection is public
+                 */
+                require_once "modules/classes/collection.class.php";
+                $collection = new Collection($bdd, $ObjetBDDParam);
+                $dcollection = $collection->lire($data["collection_id"]);
+                if (!$dcollection["public_collection"]) {
+                    throw new SampleException("Not a public collection for $id", 401);
+                }
+            }
+        } catch (Exception $e) {
+            $error_code = $e->getCode();
+            if ($error_code == 0) {
+                $error_code = 520;
+            }
+            $data = array(
+                "error_code" => $error_code,
+                "error_message" => $errors[$error_code]
+            );
+            $message->setSyslog($e->getMessage());
+        } finally {
+            $vue->set($data);
+        }
+        break;
+    default:
         break;
 }

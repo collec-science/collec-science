@@ -310,19 +310,27 @@ class ImportObject
                         $dataSample[$fieldDate] = $this->formatDate($values[$fieldDate]);
                     }
                 }
-                /*
-                 * Preparation des metadonnees
+                /**
+                 * Metadata preparation
                  */
                 if (strlen($values["sample_metadata_json"]) > 0) {
                     $md_array = json_decode($values["sample_metadata_json"], true);
                 } else {
                     $md_array = array();
                 }
-
                 foreach ($this->md_columns as $md_col) {
                     if (strlen($values[$md_col]) > 0) {
                         $colname = substr($md_col, 3);
-                        $md_array[$colname] = $values[$md_col];
+                        if (!array_key_exists($colname, $md_array)) {
+                            $md_col_array = explode(",", $values[$md_col]);
+                            if (count($md_col_array) > 1) {
+                                foreach($md_col_array as $val) {
+                                    $md_array[$colname][] = trim ($val);
+                                }
+                            } else {
+                                $md_array[$colname] = trim($values[$md_col]);
+                            }
+                        }
                     }
                 }
                 if (count($md_array) > 0) {
@@ -923,8 +931,16 @@ class ImportObject
             }
             foreach ($row as $fieldname => $fieldvalue) {
                 if (substr($fieldname, 0, 3) == "md_") {
-                    if (strlen($fieldvalue) > 0) {
-                        $metadata[substr($fieldname, 3)] = $fieldvalue;
+                    $colname = substr($fieldname, 3);
+                    if (!array_key_exists($colname, $metadata)) {
+                        $md_col_array = explode(",", $fieldvalue);
+                        if (count($md_col_array) > 1) {
+                            foreach($md_col_array as $val) {
+                                $metadata[$colname][] = trim ($val);
+                            }
+                        } else {
+                            $metadata[$colname] = trim($fieldvalue);
+                        }
                     }
                 }
             }

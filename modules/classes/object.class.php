@@ -14,6 +14,7 @@ class ObjectClass extends ObjetBDD
 {
 
     public $dataPrint, $xslFile;
+    private $movement;
 
     /**
      *
@@ -60,6 +61,29 @@ class ObjectClass extends ObjetBDD
     function ecrire($data)
     {
         $data["change_date"] = date($_SESSION["MASKDATELONG"]);
+        /**
+         * Operations on status change
+         */
+        if ($data["uid"] > 0) {
+            $oldData = $this->lire($data[uid]);
+            if ($oldData["object_status_id"] != 3 && $data["object_status_id"] == 3) {
+                /**
+                 * object destroy, search if it's in a container
+                 */
+                $sql = "select uid from last_movement where uid = :uid and movement_type_id = 1";
+                $lastMovement = $this->lireParamAsPrepared($sql, array("uid" => $data["uid"]));
+                if ($lastMovement["uid"] == $data["uid"]) {
+                    /**
+                     * Create an exit movement
+                     */
+                    if (!isset($this->movement)) {
+                        require_once "modules/classes/movement.class.php";
+                        $this->movement = new Movement($this->connection, $this->paramori);
+                    }
+                    $this->movement->addMovement($data["uid"], date($_SESSION["MASKDATELONG"]), 2);
+                }
+            }
+        }
         return parent::ecrire($data);
     }
     /**

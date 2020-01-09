@@ -21,10 +21,10 @@
                 <td>{$data[lst].request_id}</td>
                 <td>
                     <a href="index.php?module=requestChange&request_id={$data[lst].request_id}">
-                    {   $data[lst].title}
+                    {$data[lst].title}
                     </a>
                 </td>
-                <td class="center">{$data[lst].creation_date}</td>
+                <td class="center">{$data[lst].create_date}</td>
                 <td class="center">{$data[lst].last_exec}</td>
                 <td>{$data[lst].login}</td>
                 <td class="center">

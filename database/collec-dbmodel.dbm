@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" last-position="70,909" last-zoom="1" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2" last-position="13,1050" last-zoom="1" max-obj-count="61"
 	 default-schema="public" default-owner="postgres">
 <role name="collec"
       superuser="true"
@@ -1909,6 +1909,13 @@ WHERE
 	<constraint name="request_pk" type="pk-constr" table="col.request">
 		<columns names="request_id" ref-type="src-columns"/>
 	</constraint>
+	<initial-data>
+<![CDATA[create_date•last_exec•title•body•login•datefields⸣
+/now()/••Number of samples by collection•collection_name, count(*) as "number of samples"
+from sample
+join collection using (collection_id)
+group by collection_name•admin•]]>
+	</initial-data>
 </table>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"

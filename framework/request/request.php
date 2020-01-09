@@ -25,16 +25,14 @@ switch ($t_module["param"]) {
          */
         dataRead($dataClass, $id, "framework/request/requestChange.tpl");
         break;
-    case "execListe":
+    case "execList":
     case "exec":
-    $vue->set($dataClass->lire($id), "data");
+        $vue->set($dataClass->lire($id), "data");
         $vue->set("framework/request/requestChange.tpl" ,"corps");
         try{
         $vue->set($dataClass->exec($id), "result" );
-        $module_coderetour = 1;
         }catch (Exception $e){
             $message->set($e->getMessage());
-            $module_coderetour = -1;
         }
         break;
     case "write":
@@ -66,5 +64,3 @@ switch ($t_module["param"]) {
         break;
     default :
 }
-
-?>

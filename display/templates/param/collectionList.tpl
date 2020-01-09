@@ -10,10 +10,17 @@
 <table id="collectionList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-<th>{t}Nom de la collection{/t}</th>
-<th>{t}Id{/t}</th>
-<th>{t}Référent{/t}</th>
-<th>{t}Groupes de login autorisés{/t}</th>
+	<th colspan="4"></th>
+	<th colspan="3" class="center">{t}Flux externes autorisés{/t}</th>
+</tr>
+<tr>
+	<th>{t}Nom de la collection{/t}</th>
+	<th>{t}Id{/t}</th>
+	<th>{t}Référent{/t}</th>
+	<th>{t}Groupes de login autorisés{/t}</th>
+	<th>{t}Flux de mise à jour{/t}</th>
+	<th>{t}Flux de consultation{/t}</th>
+	<th>{t}Collection publique{/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -32,6 +39,21 @@
 <td>{$data[lst].referent_name}</td>
 <td>
 {$data[lst].groupe}
+</td>
+<td class="center">
+	{if $data[lst].allowed_import_flow == 1}
+		{t}oui{/t}
+	{/if}
+</td>
+<td class="center">
+	{if $data[lst].allowed_export_flow == 1}
+		{t}oui{/t}
+	{/if}
+</td>
+<td class="center">
+	{if $data[lst].public_collection == 1}
+		{t}oui{/t}
+	{/if}
 </td>
 </tr>
 {/section}

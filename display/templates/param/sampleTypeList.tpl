@@ -7,7 +7,7 @@
 {t}Nouveau...{/t}
 </a>
 {/if}
-<table id="sampleTypeList" class="table table-bordered table-hover datatable " >
+<table id="sampleTypeList" class="table table-bordered table-hover datatable-export-paging " >
 <thead>
 <tr>
 <th>{t}Nom{/t}</th>

@@ -10,7 +10,7 @@
 	<item module="importChange" label="Import de masse" tooltip="Import de plusieurs échantillons ou contenants" droits="import,collection"/>
 	<item module="sampleImportStage1" label="Import d'échantillons externes" tooltip="Import d'un lot d'échantillons provenant d'une base externe" droits="import,collection"/>
 	<item module="containerImportStage1" label="Import de contenants externes" tooltip="Import d'un lot de containers avec les objets associés provenant d'une base externe" droits="import,collection"/>
-	<item divider='1'/>
+	<item divider='1' droits="param"/>
 	<item module="requestList" label="Requêtes SQL" tooltip="Exécution de requêtes SQL dans la base de données" droits="param"/>
 </item>
 

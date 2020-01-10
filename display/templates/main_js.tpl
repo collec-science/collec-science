@@ -222,5 +222,12 @@ $(document).ready(function() {
 	$(".combobox").combobox();
 
 });
-
+	function encodeHtml(rawStr) {
+		if (rawStr) {
+			var encodedStr = rawStr.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+			return '&#'+i.charCodeAt(0)+';';
+			});
+			return encodedStr;
+		}
+	}
 </script>

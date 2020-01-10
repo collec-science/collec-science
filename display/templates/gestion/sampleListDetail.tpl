@@ -123,51 +123,88 @@
 		/**
 		 * Display the content of a sample
 		 */
-		var delay=1000, timer;
+		var delay=500, timer;
 		$(".sample").mouseenter( function () {
+			var objet = $(this);
 			timer = setTimeout(function () {
-				var uid = $(this).data("uid");
-				var objet = $(this);
+				var uid = objet.data("uid");
+				if (! objet.is(':ui-tooltip') ) {
 				if (uid > 0) {
 					var url = "index.php";
 					var data = { "module":"sampleDetail", "uid": uid };
 					$.ajax ( { url:url, data: data})
 					.done (function( d ) {
-						console.log(uid);
 						if (d ) {
 							d = JSON.parse(d);
 							if (!d.error_code) {
 								var content = "{t}UID et référence :{/t} "
-								+ d.uid + "&nbsp;" + d.identifier;
-								if (d.dbuid_origin.length > 0) {
-									content += "<br>{t}DB et UID d'origine :{/t} " + d.dbuid_origin;
+								+ encodeHtml(d.uid.toString()) + "&nbsp;" + encodeHtml(d.identifier);
+								if (d.dbuid_origin) {
+									content += "<br>{t}DB et UID d'origine :{/t} " + encodeHtml(d.dbuid_origin);
 								}
-								;
+								content += "<br>{t}Collection :{/t} "+ encodeHtml(d.collection_name);
+								content += "<br>{t}Référent :{/t} " + encodeHtml(d.referent_name) ;
+								content += "<br>{t}Type :{/t} " + encodeHtml(d.sample_type_name) ;
+								if (d.container_type_name) {
+									content += " / "+encodeHtml(d.container_type_name);
+								}
+								if (d.clp_classification) {
+									content += " / {t}clp :{/t} "+ encodeHtml(d.clp_classification);
+								}
+								if (d.operation_id > 0) {
+									content += "<br>{t}Protocole et opération :{/t} " + encodeHtml(d.protocol_year) + " "+encodeHtml(d.protocol_name) + " "+encodeHtml(d.operation_name)+" "+encodeHtml(d.operation_version) ;
+								}
+								content += "<br>{t}Statut :{/t} " + encodeHtml(d.object_status_name) ;
+								content += "<br>{t}Date de création	de l'échantillon (d'échantillonnage) :{/t} " + encodeHtml(d.sampling_date) ;
+								content += "<br>{t}Date d'import dans la base de données :{/t} " + encodeHtml(d.sample_creation_date) ;
+								if (d.expiration_date) {
+									content += "<br>{t}Date d'expiration de l'échantillon :{/t} " + encodeHtml(d.expiration_date) ;
+								}
+								if (d.parent_uid) {
+									content += "<br>{t}Échantillon parent :{/t} " + encodeHtml(d.parent_uid.toString()) + " "+encodeHtml(d.parent_identifier) ;
+								}
+								if (d.sampling_place_id) {
+									content += "<br>{t}Lieu de prélèvement :{/t} " + encodeHtml(d.sampling_place_name) ;
+								}
+								if (d.metadata) {
+									content +="<br><u>{t}Métadonnées :{/t}</u>";
+									dm = d.metadata;
+									for (key in dm) {
+										content += "<br>"+ key + ": ";
+										if (Array.isArray(dm[key])) {
+											$.each(dm[key], function(i, md) {
+												content += encodeHtml(md) +" ";
+											});
+										} else {
+											content += encodeHtml(dm[key].toString());
+										}
+									}
+								}
+								if (d.container.length > 0) {
+									content += "<br><u>{t}Contenants :{/t}</u> ";
+									d.container.forEach( function (dc) {
+										content += "<br>"+encodeHtml(dc.uid.toString())+ " " + encodeHtml(dc.identifier) + " <i>"+ encodeHtml(dc.container_type_name) + "</i>";
+									});
+								}
 								tooltipContent = content;
 								tooltipDisplay(objet);
 							}
 						}
 					});
 				}
+				}
 			}, delay);
 
 		}).mouseleave(function() {
 			clearTimeout (timer);
-			if ($(this).is(':ui-tooltip') ) {
-				$(this).tooltip("close");
-			}
 		});
 		function tooltipDisplay(object) {
 			object.tooltip ({
 				content: tooltipContent,
 			});
+			object.attr("title", tooltipContent);
 			 object.tooltip("open");
 		}
-		$(".sample").mouseout(function () {
-			if ($(this).is(':ui-tooltip') ) {
-				$(this).tooltip("close");
-			}
-		});
 	});
 </script>
 <button id="displayModeButton" class="btn btn-info pull-right">{t}Affichage réduit{/t}</button>
@@ -247,7 +284,7 @@
 				<td><a class="sample" data-uid="{$samples[lst].uid}"
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
 					title="">
-					{$samples[lst].identifier}
+					<span class="tooltiplink">{$samples[lst].identifier}</span>
 					</a>
 				</td>
 				<td>{$samples[lst].identifiers}
@@ -260,8 +297,8 @@
 				<td>{$samples[lst].sample_type_name}</td>
 				<td>{$samples[lst].object_status_name}</td>
 				<td>{if strlen($samples[lst].parent_uid) > 0}
-				<a href="index.php?module=sampleDisplay&uid={$samples[lst].parent_uid}">
-				{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}
+				<a class="sample" data-uid="{$samples[lst].parent_uid}" href="index.php?module=sampleDisplay&uid={$samples[lst].parent_uid}">
+					<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
 				</a>
 				{/if}
 				</td>

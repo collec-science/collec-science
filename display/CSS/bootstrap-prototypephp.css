@@ -196,16 +196,17 @@ td a {
 .itemSelected {
 	background: #009EE0;
 }
+.tooltiplink {
+	text-decoration: underline dotted;
+}
 meter {
 	/* Reset the default appearance */
 	-webkit-appearance: none;
 		 -moz-appearance: none;
 					appearance: none;
-					
 	margin: 0 auto 1em;
 	width: 100%;
 	height: .5em;
-	
 	/* Applicable only to Firefox */
 	background: none;
 	background-color: rgba(0,0,0,0.1);

@@ -893,6 +893,10 @@ class Sample extends ObjetBDD
          */
         unset ($data["metadata_schema"]);
         /**
+         * Encode in array the metadata content
+         */
+        $data["metadata"] = json_decode($data["metadata"]);
+        /**
          * Get the hierarchy of containers
          */
         if ($withContainers) {

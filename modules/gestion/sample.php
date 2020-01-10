@@ -547,7 +547,7 @@ switch ($t_module["param"]) {
             );
             $message->setSyslog($e->getMessage());
         } finally {
-            $vue->set($data);
+            $vue->setJson(json_encode($data));
         }
         break;
     default:

@@ -1,6 +1,10 @@
 <!-- Jquery -->
 <!--<script src="display/node_modules/jquery/dist/jquery.min.js"></script>-->
 <script src="display/javascript/jquery-3.3.1.min.js"></script>
+<script src="display/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+<script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>
+
+<link rel="stylesheet" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css">
 <!-- Bootstrap -->
 <link rel="stylesheet"	href="display/javascript/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"	href="display/javascript/bootstrap/css/bootstrap-theme.min.css">

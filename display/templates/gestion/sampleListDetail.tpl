@@ -119,7 +119,55 @@
 				$(".borrowing").hide();
 			}
 		});
+		var tooltipContent ;
+		/**
+		 * Display the content of a sample
+		 */
+		var delay=1000, timer;
+		$(".sample").mouseenter( function () {
+			timer = setTimeout(function () {
+				var uid = $(this).data("uid");
+				var objet = $(this);
+				if (uid > 0) {
+					var url = "index.php";
+					var data = { "module":"sampleDetail", "uid": uid };
+					$.ajax ( { url:url, data: data})
+					.done (function( d ) {
+						console.log(uid);
+						if (d ) {
+							d = JSON.parse(d);
+							if (!d.error_code) {
+								var content = "{t}UID et référence :{/t} "
+								+ d.uid + "&nbsp;" + d.identifier;
+								if (d.dbuid_origin.length > 0) {
+									content += "<br>{t}DB et UID d'origine :{/t} " + d.dbuid_origin;
+								}
+								;
+								tooltipContent = content;
+								tooltipDisplay(objet);
+							}
+						}
+					});
+				}
+			}, delay);
 
+		}).mouseleave(function() {
+			clearTimeout (timer);
+			if ($(this).is(':ui-tooltip') ) {
+				$(this).tooltip("close");
+			}
+		});
+		function tooltipDisplay(object) {
+			object.tooltip ({
+				content: tooltipContent,
+			});
+			 object.tooltip("open");
+		}
+		$(".sample").mouseout(function () {
+			if ($(this).is(':ui-tooltip') ) {
+				$(this).tooltip("close");
+			}
+		});
 	});
 </script>
 <button id="displayModeButton" class="btn btn-info pull-right">{t}Affichage réduit{/t}</button>
@@ -196,9 +244,9 @@
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
 					title="{t}Consultez le détail{/t}"> {$samples[lst].uid} </a>
 				</td>
-				<td><a
+				<td><a class="sample" data-uid="{$samples[lst].uid}"
 					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
-					title="{t}Consultez le détail{/t}">
+					title="">
 					{$samples[lst].identifier}
 					</a>
 				</td>

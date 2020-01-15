@@ -25,11 +25,9 @@
                     <tr>
                         <td>{$data[lst].borrower_name}</td>
                         <td>
-                            <span class="textareaDisplay">
-                                {$data[lst].borrower_address}
-                            </span>
+                            <span class="textareaDisplay">{$data[lst].borrower_address}</span>
                             {if strlen($data[lst].laboratory_code) > 0}
-                                {t}Code laboratoire : {/t}{$data[lst].laboratory_code}
+                                <br>{t}Code laboratoire : {/t}{$data[lst].laboratory_code}
                             {/if}
                         </td>
                         <td>{$data[lst].borrower_phone}</td>

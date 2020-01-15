@@ -289,12 +289,18 @@
 	<borrowerChange action="modules/param/borrower.php" param="change" droits="param"  retourlogin="1" type="smarty" />
 	<borrowerWrite action="modules/param/borrower.php" param="write" droits="param" retourok="borrowerList" retourko="borrowerChange" modulebefore="borrowerChange" />
 	<borrowerDelete action="modules/param/borrower.php" param="delete" droits="param" retourok="borrowerList" retourko="borrowerChange"  modulebefore="borrowerChange"/>
-
-
 	<sampleborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion" type="smarty"  />
 	<sampleborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion"  retourok="sampleDisplay" retourko="sampleborrowingChange" modulebefore="sampleborrowingChange" />
 	<sampleborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion"  retourok="sampleDisplay" retourko="sampleborrowingChange" modulebefore="sampleborrowingChange"/>
 	<containerborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion" type="smarty"  />
 	<containerborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containerborrowingChange" modulebefore="containerborrowingChange" />
 	<containerborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion"  retourok="containerDisplay" retourko="containerborrowingChange" modulebefore="containerborrowingChange"/>
+	<exportModelList action="modules/exportmodel/exportModel.php" param="list" droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty"/>
+	<exportModelDisplay action="modules/exportmodel/exportModel.php" param="display" droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty"/>
+	<exportModelChange action="modules/exportmodel/exportModel.php" param="change" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty"/>
+	<exportModelWrite action="modules/exportmodel/exportModel.php" param="write" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="exportModelChange,exportModelDuplicate" retourko="exportModelChange" retourok="exportModelDisplay"/>
+	<exportModelDelete action="modules/exportmodel/exportModel.php" param="delete" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="exportModelChange" retourko="exportModelChange" retourok="exportModelList"/>
+	<exportModelDuplicate action="modules/exportmodel/exportModel.php" param="duplicate" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty"/>
+	<exportModelExec action="modules/exportmodel/exportModelProcessing.php" param="exec" droits="gestion" maxCountByHour="60" maxCountByDay="600" type="file"/>
+	<exportModelImportExec action="modules/exportmodel/exportModelProcessing.php" param="importExec" droits="gestion" maxCountByHour="60" maxCountByDay="600" type="smarty" retourko="default" retourok="default"/>
 </navigation>

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" last-position="0,0" last-zoom="1" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,1050" last-zoom="1" max-obj-count="61"
 	 default-schema="public" default-owner="postgres"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -2086,7 +2086,7 @@ group by collection_name•admin•]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="export_model" layer="0" collapse-mode="2" max-obj-count="3">
+<table name="export_model" layer="0" collapse-mode="2" max-obj-count="4">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Structure of an export/import of table data]]></comment>
@@ -2103,6 +2103,10 @@ group by collection_name•admin•]]>
 		<comment><![CDATA[Pattern of the export/import.
 Structure:
 [{technicalKey:string,businessKey:string,tableName:string,tableAlias:string,children[table1,table2],parentKey:string,secondaryParentKey:string}]]]></comment>
+	</column>
+	<column name="target">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Main table targetted]]></comment>
 	</column>
 	<constraint name="export_model_pk" type="pk-constr" table="col.export_model">
 		<columns names="export_model_id" ref-type="src-columns"/>

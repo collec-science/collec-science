@@ -38,8 +38,11 @@ function sampleInitDatEntry()
     include_once 'modules/classes/borrower.class.php';
     $borrower = new Borrower($bdd, $ObjetBDDParam);
     $vue->set($borrower->getListe(2), "borrowers");
-    $vue->set(date($_SESSION["MASKDATE"]),"borrowing_date");
-    $vue->set(date($_SESSION["MASKDATE"]),"expected_return_date");
+    $vue->set(date($_SESSION["MASKDATE"]), "borrowing_date");
+    $vue->set(date($_SESSION["MASKDATE"]), "expected_return_date");
+    include_once 'modules/exportmodel/exportmodel.class.php';
+    $exportModel = new ExportModel($bdd, $ObjetBDDParam);
+    $vue->set($exportModel->getListFromTarget("sample"), "exportModels");
 }
 
 class SampleInitClassException extends Exception

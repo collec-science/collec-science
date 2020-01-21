@@ -15,7 +15,8 @@ class ExportModel extends ObjetBDD
         $this->colonnes = array(
             "export_model_id" => array("type" => 1, "key" => 1, "requis" => 1, "defaultValue" => 0),
             "export_model_name" => array("type" => 0, "requis" => 1),
-            "pattern" => array("type" => 0)
+            "pattern" => array("type" => 0),
+            "target" => array("type" => 0)
         );
 
         parent::__construct($bdd, $param);
@@ -26,10 +27,24 @@ class ExportModel extends ObjetBDD
      * @param string $name
      * @return array
      */
-    function getModelFromName(string $name): ?array {
-        $sql = "select export_model_id, export_model_name, pattern from export_model
+    function getModelFromName(string $name): ?array
+    {
+        $sql = "select export_model_id, export_model_name, pattern, target from export_model
                 where export_model_name = :name";
-        return $this->lireParamAsPrepared($sql, array("name"=>$name));
+        return $this->lireParamAsPrepared($sql, array("name" => $name));
+    }
+    /**
+     * Get the list of models of export associated to a target
+     *
+     * @param string $target
+     * @return array|null
+     */
+    function getListFromTarget(string $target): ?array
+    {
+        $sql = "select export_model_id, export_model_name, target
+                from export_model
+                where target = :target";
+        return $this->getListeParamAsPrepared($sql, array("target" => $target));
     }
 }
 class ExportModelProcessing
@@ -56,21 +71,21 @@ class ExportModelProcessing
      * @return void
      */
     private function printr($tableau, $mode_dump = 0, $force = false)
-{
-    global $APPLI_modeDeveloppement;
-    if ($APPLI_modeDeveloppement || $force) {
-        if ($mode_dump == 1) {
-            var_dump($tableau);
-        } else {
-            if (is_array($tableau)) {
-                print_r($tableau);
+    {
+        global $APPLI_modeDeveloppement;
+        if ($APPLI_modeDeveloppement || $force) {
+            if ($mode_dump == 1) {
+                var_dump($tableau);
             } else {
-                echo $tableau;
+                if (is_array($tableau)) {
+                    print_r($tableau);
+                } else {
+                    echo $tableau;
+                }
             }
+            echo "<br>";
         }
-        echo "<br>";
     }
-}
 
     /**
      * Set the used model
@@ -276,7 +291,7 @@ class ExportModelProcessing
             $this->execute($sqlDelete, array("parentKey" => $parentKey));
         }
         foreach ($data as $row) {
-            if (strlen($row[$tkeyName]) > 0 || ($model["istablenn"] == 1 && strlen($row[$pkeyName])> 0)) {
+            if (strlen($row[$tkeyName]) > 0 || ($model["istablenn"] == 1 && strlen($row[$pkeyName]) > 0)) {
                 /**
                  * search for preexisting record
                  */

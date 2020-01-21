@@ -22,6 +22,11 @@ switch ($t_module ["param"]) {
 		 * parent_id : cle de la table parente
 		 */
 		dataRead ( $dataClass, $id, "gestion/documentChange.tpl", $_REQUEST["uid"] );
+		/**
+		 * Get the list of authorized extensions
+		 */
+		$mimeType = new MimeType($bdd, $ObjetBDDParam);
+		$vue->set($data = $mimeType->getListExtensions(false), "extensions");
 		break;
 	case "write":
 		/*

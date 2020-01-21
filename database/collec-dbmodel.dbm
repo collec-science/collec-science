@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" last-position="0,836" last-zoom="1" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,1051" last-zoom="1" max-obj-count="61"
 	 default-schema="public" default-owner="postgres"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -288,22 +288,30 @@ R: Right]]></comment>
 <table name="dbparam" layer="0" collapse-mode="2" max-obj-count="3">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des parametres associes de maniere intrinseque a l'instance]]></comment>
+	<comment><![CDATA[Table of parameters intrinsically associated to the instance]]></comment>
 	<position x="1340" y="1560"/>
 	<column name="dbparam_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="dbparam_name" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Nom du parametre]]></comment>
+		<comment><![CDATA[Name of the parameter]]></comment>
 	</column>
 	<column name="dbparam_value">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Valeur du paramètre]]></comment>
+		<comment><![CDATA[Value of the parameter]]></comment>
 	</column>
 	<constraint name="dbparam_pk" type="pk-constr" table="col.dbparam">
 		<columns names="dbparam_id" ref-type="src-columns"/>
 	</constraint>
+	<initial-data>
+<![CDATA[dbparam_id•dbparam_name•dbparam_value⸣
+1•APPLI_code•cs_code⸣
+2•APPLI_title•Collec-Science - instance for ⸣
+3•mapDefaultX•-0.70⸣
+4•mapDefaultY•44.77⸣
+5•mapDefaultZoom•7]]>
+	</initial-data>
 </table>
 
 <sequence name="dbversion_dbversion_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
@@ -605,6 +613,27 @@ R: Right]]></comment>
 	<constraint name="mime_type_pk" type="pk-constr" table="col.mime_type">
 		<columns names="mime_type_id" ref-type="src-columns"/>
 	</constraint>
+	<initial-data>
+<![CDATA[extension•content_type⸣
+pdf•application/pdf⸣
+zip•application/zip⸣
+mp3•audio/mpeg⸣
+jpg•image/jpeg⸣
+jpeg•image/jpeg⸣
+png•image/png⸣
+tiff•image/tiff⸣
+csv•text/csv⸣
+odt•application/vnd.oasis.opendocument.text⸣
+ods•application/vnd.oasis.opendocument.spreadsheet⸣
+xls•application/vnd.ms-excel⸣
+xlsx•application/vnd.openxmlformats-officedocument.spreadsheetml.sheet⸣
+doc•application/msword⸣
+docx•application/vnd.openxmlformats-officedocument.wordprocessingml.document⸣
+ab1•application/octet-stream⸣
+seq•application/octet-stream⸣
+fa•application/octet-stream⸣
+fsa•application/octet-stream]]>
+	</initial-data>
 </table>
 
 <sequence name="storage_reason_storage_reason_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">

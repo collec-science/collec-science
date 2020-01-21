@@ -111,6 +111,11 @@ switch ($t_module["param"]) {
         $document = new Document($bdd, $ObjetBDDParam);
         $vue->set($document->getListFromParent($data["uid"]), "dataDoc");
         $vue->set(1, "modifiable");
+        /**
+		 * Get the list of authorized extensions
+		 */
+		$mimeType = new MimeType($bdd, $ObjetBDDParam);
+		$vue->set($mimeType->getListExtensions(false), "extensions");
         /*
          * Ajout de la selection des modeles d'etiquettes
          */

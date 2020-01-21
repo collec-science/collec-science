@@ -46,7 +46,8 @@
 	<item module="labelList" droits="consult" label="Étiquettes" tooltip="Modèles d'étiquettes" />
 	<item module="printerList" droits="param" label="Imprimantes" tooltip="Liste des imprimantes" />
 	<item divider='1'/>
-	<item module="exportModelList" label="Modèles d'export" tooltip="Liste des modèles d'exportation des données"/>
+	<item module="mimeTypeList" label="Types de fichiers" tooltip="Types de fichiers autorisés en téléchargement"/>
+	<item module="exportModelList" label="Modèles d'export (expérimental)" tooltip="Liste des modèles d'exportation des données"/>
 	<item divider='1'/>
 	<item module="dbstructureSchema" droits="collection" label="Schéma de la base de données" tooltip="Schéma de la base de données"/>
 	<item module="dbstructureHtml" droits='collection' label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes"/>

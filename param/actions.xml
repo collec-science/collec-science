@@ -303,4 +303,8 @@
 	<exportModelDuplicate action="modules/exportmodel/exportModel.php" param="duplicate" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty"/>
 	<exportModelExec action="modules/exportmodel/exportModelProcessing.php" param="exec" droits="gestion" maxCountByHour="60" maxCountByDay="600" type="file"/>
 	<exportModelImportExec action="modules/exportmodel/exportModelProcessing.php" param="importExec" droits="gestion" maxCountByHour="60" maxCountByDay="600" type="smarty" retourko="default" retourok="default"/>
+	<mimeTypeList action="modules/param/mimeType.php" param="list" droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty"/>
+	<mimeTypeChange action="modules/param/mimeType.php" param="change" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty"/>
+	<mimeTypeWrite action="modules/param/mimeType.php" param="write" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange" retourko="mimeTypeChange" retourok="mimeTypeList"/>
+	<mimeTypeDelete action="modules/param/mimeType.php" param="delete" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange" retourko="mimeTypeChange" retourok="mimeTypeList"/>
 </navigation>

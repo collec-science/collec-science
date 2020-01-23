@@ -519,7 +519,7 @@ switch ($t_module["param"]) {
             if (strlen($id) == 0) {
                 throw new SampleException("uid $id not valid", 404);
             }
-            $data = $dataClass->getRawDetail($id, true);
+            $data = $dataClass->getRawDetail($id, true, true, true);
             if (count($data) == 0) {
                 throw new SampleException("$id not found", 404);
             }

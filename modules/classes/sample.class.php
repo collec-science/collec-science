@@ -877,7 +877,7 @@ class Sample extends ObjetBDD
      * @param boolean $withContainers
      * @return array
      */
-    function getRawDetail($uid, $withContainers = false)
+    function getRawDetail($uid, $withContainers = false, $withIdentifiers = true, $withEvents = false)
     {
         $this->auto_date = 0;
         if (strlen($uid) == 36) {
@@ -900,21 +900,25 @@ class Sample extends ObjetBDD
         /**
          * Get the events
          */
-        if (!isset($this->event)) {
-            require_once 'modules/classes/event.class.php';
-            $this->event = new Event($this->connection, $this->paramori);
+        if ($withEvents) {
+            if (!isset($this->event)) {
+                require_once 'modules/classes/event.class.php';
+                $this->event = new Event($this->connection, $this->paramori);
+            }
+            $this->event->auto_date = 0;
+            $data["events"] = $this->event->getListeFromUid($uid);
+            $this->event->auto_date = 1;
         }
-        $this->event->auto_date = 0;
-        $data["events"] = $this->event->getListeFromUid($uid);
-        $this->event->auto_date = 1;
         /**
          * Get the secondary identifiers
          */
-        if (!isset($this->objectIdentifier)) {
-            require_once "modules/classes/objectIdentifier.class.php";
-            $this->objectIdentifier = new ObjectIdentifier($this->connection, $this->paramori);
+        if ($withIdentifiers) {
+            if (!isset($this->objectIdentifier)) {
+                require_once "modules/classes/objectIdentifier.class.php";
+                $this->objectIdentifier = new ObjectIdentifier($this->connection, $this->paramori);
+            }
+            $data["identifiers"] = $this->objectIdentifier->getListFromUid($uid);
         }
-        $data["identifiers"] = $this->objectIdentifier->getListFromUid($uid);
         /**
          * Get the hierarchy of containers
          */

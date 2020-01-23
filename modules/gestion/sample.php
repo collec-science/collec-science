@@ -139,7 +139,7 @@ switch ($t_module["param"]) {
 		 * Get the list of authorized extensions
 		 */
 		$mimeType = new MimeType($bdd, $ObjetBDDParam);
-		$vue->set($$mimeType->getListExtensions(false), "extensions");
+		$vue->set($mimeType->getListExtensions(false), "extensions");
         /*
          * Ajout de la selection des modeles d'etiquettes
          */

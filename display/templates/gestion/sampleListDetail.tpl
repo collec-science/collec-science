@@ -142,6 +142,11 @@
 								if (d.dbuid_origin) {
 									content += "<br>{t}DB et UID d'origine :{/t} " + encodeHtml(d.dbuid_origin);
 								}
+								if (d.identifiers.length > 0) {
+									d.identifiers.forEach( function (dc) {
+										content += "<br>" + encodeHtml(dc.identifier_type_code)+ ":" + encodeHtml(dc.object_identifier_value);
+									});
+								}
 								content += "<br>{t}Collection :{/t} "+ encodeHtml(d.collection_name);
 								content += "<br>{t}Référent :{/t} " + encodeHtml(d.referent_name) ;
 								content += "<br>{t}Type :{/t} " + encodeHtml(d.sample_type_name) ;
@@ -170,7 +175,7 @@
 									content +="<br><u>{t}Métadonnées :{/t}</u>";
 									dm = d.metadata;
 									for (key in dm) {
-										content += "<br>"+ key + ": ";
+										content += "<br>"+ key + "{t} : {/t}";
 										if (Array.isArray(dm[key])) {
 											$.each(dm[key], function(i, md) {
 												content += encodeHtml(md) +" ";
@@ -184,6 +189,12 @@
 									content += "<br><u>{t}Contenants :{/t}</u> ";
 									d.container.forEach( function (dc) {
 										content += "<br>"+encodeHtml(dc.uid.toString())+ " " + encodeHtml(dc.identifier) + " <i>"+ encodeHtml(dc.container_type_name) + "</i>";
+									});
+								}
+								if (d.events.length > 0) {
+									content += "<br><u>{t}Événements :{/t}</u> ";
+									d.events.forEach( function (dc) {
+										content += "<br>"+encodeHtml(dc.event_type_name)+ "{t} : {/t}" + encodeHtml(dc.event_date);
 									});
 								}
 								tooltipContent = content;

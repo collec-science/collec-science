@@ -60,7 +60,7 @@ class Sample extends ObjetBDD
                     left outer join last_borrowing lb on (so.uid = lb.uid)
                     left outer join borrower using (borrower_id)
                     ";
-    private $object, $container;
+    private $object, $container, $event, $objectIdentifier;
 
     public function __construct($bdd, $param = array())
     {
@@ -870,14 +870,15 @@ class Sample extends ObjetBDD
     }
 
     /**
-     * Get a sample with its containers
+     * Get a sample with its containers, identifiers and events
      * in raw format
      *
      * @param int $uid
      * @param boolean $withContainers
      * @return array
      */
-    function getRawDetail($uid, $withContainers = false) {
+    function getRawDetail($uid, $withContainers = false)
+    {
         $this->auto_date = 0;
         if (strlen($uid) == 36) {
             /**
@@ -885,17 +886,35 @@ class Sample extends ObjetBDD
              */
             $where = " where so.uuid = :uid";
         } else {
-        $where = " where s.uid = :uid";
+            $where = " where s.uid = :uid";
         }
-        $data = $this->lireParamAsPrepared($this->sql.$where, array("uid"=>$uid));
+        $data = $this->lireParamAsPrepared($this->sql . $where, array("uid" => $uid));
         /**
          * Disable the metadata_schema, irrelevant in this context
          */
-        unset ($data["metadata_schema"]);
+        unset($data["metadata_schema"]);
         /**
          * Encode in array the metadata content
          */
         $data["metadata"] = json_decode($data["metadata"]);
+        /**
+         * Get the events
+         */
+        if (!isset($this->event)) {
+            require_once 'modules/classes/event.class.php';
+            $this->event = new Event($this->connection, $this->paramori);
+        }
+        $this->event->auto_date = 0;
+        $data["events"] = $this->event->getListeFromUid($uid);
+        $this->event->auto_date = 1;
+        /**
+         * Get the secondary identifiers
+         */
+        if (!isset($this->objectIdentifier)) {
+            require_once "modules/classes/objectIdentifier.class.php";
+            $this->objectIdentifier = new ObjectIdentifier($this->connection, $this->paramori);
+        }
+        $data["identifiers"] = $this->objectIdentifier->getListFromUid($uid);
         /**
          * Get the hierarchy of containers
          */

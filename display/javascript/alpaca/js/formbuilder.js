@@ -147,7 +147,8 @@ function showForm(value, data = "") {
         "data": data,
         "schema": schema,
         "options": options,
-        "view": "bootstrap-edit-horizontal"
+        "view": "bootstrap-edit-horizontal",
+        "allowNull": true
     }
     var exists = $("#metadata").alpaca("exists");
     if (exists) {

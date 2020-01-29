@@ -123,25 +123,6 @@
 		});
 	});
 </script>
-
-<div class="row">
-	<div class="col-md-8">
-		<h2>{t}Détail du contenant{/t} <i>{$data.uid} {$data.identifier}</i></h2>
-	</div>
-	<div class="col-md-4">
-		<form id="open" action="index.php" action="index.php" method="GET">
-			<input id="moduleBase" type="hidden" name="moduleBase" value="container">
-			<input id="action" type="hidden" name="action" value="Display">
-			<div class="form-group">
-				<div class="col-md-6">
-					<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required autofocus>
-				</div>
-				<input type="submit" id="searchExec" class="btn btn-warning col-md-6" value="{t}Ouvrir{/t}">
-			</div>
-		</form>
-	</div>
-</div>
-
 <div class="row">
 	<div class="col-md-12">
 		<a href="index.php?module={$moduleListe}">
@@ -181,6 +162,25 @@
 		</a>
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-8">
+		<h2>{t}Détail du contenant{/t} <i>{$data.uid} {$data.identifier}</i></h2>
+	</div>
+	<div class="col-md-4">
+		<form id="open" action="index.php" action="index.php" method="GET">
+			<input id="moduleBase" type="hidden" name="moduleBase" value="container">
+			<input id="action" type="hidden" name="action" value="Display">
+			<div class="form-group">
+				<div class="col-md-6">
+					<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required autofocus>
+				</div>
+				<input type="submit" id="searchExec" class="btn btn-warning col-md-6" value="{t}Ouvrir{/t}">
+			</div>
+		</form>
+	</div>
+</div>
+
+
 	<!-- Boite d'onglets -->
 <div class="row">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" >

@@ -228,6 +228,20 @@ meter[value="3"]::-moz-meter-bar { background: orange; }
 meter[value="4"]::-moz-meter-bar { background: green; }
 
 /* Nav */
-.nav-tabs a{
-	background-color: rgb(0,158,224,0.2);
+
+.nav-tabs{
+	background-color:rgb(0,158,224,0.2);
+}
+.tab-content{
+    background-color: white;
+    padding:5px
+}
+.nav-tabs > li > a{
+  border: medium none;
+}
+.nav-tabs > li > a:hover{
+  background-color:  rgb(0,158,224) !important;
+    border: medium none;
+    border-radius: 0;
+    color:#fff;
 }

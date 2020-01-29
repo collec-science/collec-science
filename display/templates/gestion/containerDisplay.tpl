@@ -248,6 +248,19 @@
 					<dt>{t}UID et référence :{/t}</dt>
 					<dd>{$data.uid} {$data.identifier}</dd>
 				</dl>
+				{if count ($objectIdentifiers) > 0}
+					<dl class="dl-horizontal">
+						<dt>{t}Identifiants complémentaires :{/t}</dt>
+						<dd>
+							{$i = 0}
+							{foreach $objectIdentifiers as $oi}
+								{if $i > 0}<br>{/if}
+								{$oi.identifier_type_name} ({$oi.identifier_type_code}):&nbsp;{$oi.object_identifier_value}
+								{$i = $i + 1}
+							{/foreach}
+						</dd>
+					</dl>
+				{/if}
 				<dl class="dl-horizontal">
 					<dt>{t}Référent :{/t}</dt>
 					<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}">

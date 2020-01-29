@@ -297,6 +297,19 @@
 					<dt>{t}UID et référence :{/t}</dt>
 					<dd>{$data.uid} {$data.identifier}</dd>
 				</dl>
+				{if count ($objectIdentifiers) > 0}
+					<dl class="dl-horizontal">
+						<dt>{t}Identifiants complémentaires :{/t}</dt>
+						<dd>
+							{$i = 0}
+							{foreach $objectIdentifiers as $oi}
+								{if $i > 0}<br>{/if}
+								{$oi.identifier_type_name} ({$oi.identifier_type_code}):&nbsp;{$oi.object_identifier_value}
+								{$i = $i + 1}
+							{/foreach}
+						</dd>
+					</dl>
+				{/if}
 				{if strlen($data.dbuid_origin) > 0}
 				<dl class="dl-horizontal">
 					<dt>{t}DB et UID d'origine :{/t}</dt>

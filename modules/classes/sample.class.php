@@ -319,7 +319,7 @@ class Sample extends ObjetBDD
                 $or = " or ";
             }
             if (strlen($param["name"]) == 36) {
-                $where .= "o.uuid = :uuid";
+                $where .= "so.uuid = :uuid";
                 $data["uuid"] = $param["name"];
                 $or = " or ";
             }

@@ -39,6 +39,7 @@ switch ($t_module["param"]) {
                 $vue->set(1, "isSearch");
             } catch (Exception $e) {
                 $message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
+                $message->setSyslog($e->getMessage());
             }
         }
         $vue->set($dataSearch, "sampleSearch");
@@ -211,6 +212,7 @@ switch ($t_module["param"]) {
                     if ($_REQUEST["is_duplicate"] == 1) {
                         $data["parent_sample_id"] = $dl["parent_sample_id"];
                         $data["sample_type_id"] = $dl["sample_type_id"];
+                        $data["identifier"] = $dl["identifier"];
                         if ($data["parent_sample_id"] > 0) {
                             $dataParent = $dataClass->lireFromId($data["parent_sample_id"]);
                             $vue->set($dataParent, "parent_sample");

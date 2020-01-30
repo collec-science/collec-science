@@ -104,19 +104,28 @@
 			if (action == "samplesAssignReferent") {
 				$(".referentid").show();
 				$(".event").hide();
+				$(".trashed").hide();
 				$(".borrowing").hide();
 			} else if (action == "samplesCreateEvent") {
 				$(".referentid").hide();
 				$(".borrowing").hide();
+				$(".trashed").hide();
 				$(".event").show();
 			} else if (action == "samplesLending") {
 				$(".referentid").hide();
 				$(".event").hide();
+				$(".trashed").hide();
 				$(".borrowing").show();
+			} else if (action == "samplesSetTrashed") {
+				$(".referentid").hide();
+				$(".event").hide();
+				$(".borrowing").hide();
+				$(".trashed").show();
 			} else {
 				$(".referentid").hide();
 				$(".event").hide();
 				$(".borrowing").hide();
+				$(".trashed").hide();
 			}
 		});
 		var tooltipContent ;
@@ -358,6 +367,7 @@
 			<option value="" selected>{t}Choisissez{/t}</option>
 			<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
 			<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
+			<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 			<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
 			<option value="samplesLending">{t}Prêter les échantillons{/t}</option>
 			</select>
@@ -423,6 +433,16 @@
 					<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
 				</div>
 			</div>
+			<div class="form-group trashed" hidden>
+				<label for="trashed" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
+				<div class="col-md-8">
+					<select class="form-control" name="trashed" id="trashed">
+						<option value="1">{t}Mettre à la corbeille{/t}</option>
+						<option value="0">{t}Sortir de la corbeille{/t}</option>
+					</select>
+				</div>
+			</div>
+
 			<div class="center">
 				<button id="checkedButtonSample" class="btn btn-danger" >{t}Exécuter{/t}</button>
 			</div>

@@ -57,8 +57,13 @@ $(document).ready(function () {
 		var action = $(this).val();
 		if (action == "containersLending") {
 			$(".borrowing").show();
+			$(".trashed").hide();
+		} else if (action == "containersSetTrashed") {
+			$(".borrowing").hide();
+			$(".trashed").show();
 		} else {
 			$(".borrowing").hide();
+			$(".trashed").hide();
 		}
 	});
 
@@ -187,6 +192,7 @@ $(document).ready(function () {
 					<select id="checkedActionContainer" class="form-control">
 						<option value="" selected>{t}Choisissez{/t}</option>
 						<option value="containersLending">{t}Prêter les contenants et leurs contenus{/t}</option>
+						<option value="containersSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 						<option value="containersDelete">{t}Supprimer les contenants{/t}</option>
 					</select>
 					<!-- add a borrowing -->
@@ -214,6 +220,15 @@ $(document).ready(function () {
 						<label for="expected_return_date" class="control-label col-md-4">{t}Date de retour escomptée :{/t}</label>
 						<div class="col-md-8">
 							<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
+						</div>
+					</div>
+					<div class="form-group trashed" hidden>
+						<label for="trashed" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
+						<div class="col-md-8">
+							<select class="form-control" name="trashed" id="trashed">
+								<option value="1">{t}Mettre à la corbeille{/t}</option>
+								<option value="0">{t}Sortir de la corbeille{/t}</option>
+							</select>
 						</div>
 					</div>
 					<div class="center">

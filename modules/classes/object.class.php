@@ -47,7 +47,7 @@ class ObjectClass extends ObjetBDD
             "referent_id" => array("type" => 1),
             "change_date" => array("type" => 3),
             "uuid" => array("type" => 0, "default" => "getUUID"),
-            "trashed"=>array("type"=>1, "default" => 0)
+            "trashed" => array("type" => 1, "default" => 0)
         );
         parent::__construct($bdd, $param);
     }
@@ -860,5 +860,17 @@ class ObjectClass extends ObjetBDD
                 left outer join container using (uid)
                 where uid = :uid";
         return $this->lireParamAsPrepared($sql, array("uid" => $uid));
+    }
+    /**
+     * Set the trashed status for an object
+     *
+     * @param int $uid
+     * @param integer $trashed
+     * @return void
+     */
+    function setTrashed($uid, $trashed = 0)
+    {
+        $sql = "update object set trashed = :trashed where uid = :uid";
+        $this->executeAsPrepared($sql, array("uid" => $uid, "trashed" => $trashed));
     }
 }

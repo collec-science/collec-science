@@ -2,7 +2,7 @@
 <h2>{t}Rechercher des contenants{/t}</h2>
 
 <div class="row">
-	<div class="col-md-8 col-sm-12">
+	<div class="col-lg-10 col-md-10 col-sm-12">
 	{include file='gestion/containerSearch.tpl'}
 	</div>
 </div>

@@ -93,8 +93,8 @@ switch ($t_module["param"]) {
         }
         break;
     case "printLabel":
-    $t_module["retourko"] = $_REQUEST["lastModule"];
-                $t_module["retourok"] = $_REQUEST["lastModule"];
+        $t_module["retourko"] = $_REQUEST["lastModule"];
+        $t_module["retourok"] = $_REQUEST["lastModule"];
         try {
             $vue->setFilename($dataClass->generatePdf($uids));
             $vue->setDisposition("inline");
@@ -124,5 +124,30 @@ switch ($t_module["param"]) {
             $module_coderetour = -1;
         }
         break;
+    case "setTrashed":
+        $trashed = $_POST["trashed"];
+        if (count($_POST["uids"]) > 0 && ($trashed == 0 || $trashed == 1)) {
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            $bdd->beginTransaction();
+            try {
+                foreach ($uids as $uid) {
+                    $dataClass->setTrashed($uid, $_POST["trashed"]);
+                }
+                $bdd->commit();
+                $module_coderetour = 1;
+                if ($_POST["trashed"] == 1) {
+                    $message->set(_("Mise à la corbeille effectuée"));
+                } else {
+                    $message->set(_("Sortie de la corbeille effectuée"));
+                }
+            } catch (Exception $e) {
+                $message->set(_("L'opération sur la corbeille a échoué"), true);
+                $message->set($e->getMessage());
+                $bdd->rollback();
+                $module_coderetour = -1;
+            }
+        } else {
+            $message->set(_("Opération sur la corbeille impossible à exécuter"), true);
+        }
+        break;
 }
-?>

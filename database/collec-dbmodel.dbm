@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" last-position="0,1050" last-zoom="1" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,765" last-zoom="1" max-obj-count="61"
 	 default-schema="public" default-owner="postgres"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -849,7 +849,7 @@ Autre]]>
 	</initial-data>
 </table>
 
-<table name="object" layer="0" collapse-mode="2" max-obj-count="9">
+<table name="object" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table des objets
@@ -884,6 +884,10 @@ Contient les identifiants génériques]]></comment>
 	<column name="uuid" not-null="true" default-value="gen_random_uuid()">
 		<type name="uuid" length="0"/>
 		<comment><![CDATA[UUID of the object]]></comment>
+	</column>
+	<column name="trashed" default-value="false">
+		<type name="bool" length="0"/>
+		<comment><![CDATA[If the object is trashed before completly destroyed ?]]></comment>
 	</column>
 	<constraint name="object_pk" type="pk-constr" table="col.object">
 		<columns names="uid" ref-type="src-columns"/>
@@ -2171,6 +2175,16 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 		<idxelement use-sorting="false">
 			<column name="uid"/>
 		</idxelement>
+</index>
+
+<index name="object_trashed" table="col.object"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+	<comment><![CDATA[Index used when trashed is true]]></comment>
+		<idxelement use-sorting="false">
+			<column name="trashed"/>
+		</idxelement>
+	<predicate><![CDATA[trashed = true]]></predicate>
 </index>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"

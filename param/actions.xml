@@ -139,7 +139,7 @@
 	<containerImportStage2 action="modules/gestion/container.php" param="importStage2" droits="import,collection"  type="smarty" modulebefore="containerImportStage1,containerImportStage2"/>
 	<containerImportStage3 action="modules/gestion/container.php" param="importStage3" droits="import,collection" type="smarty" retourok="containerImportStage1" retourko="containerImportStage1" modulebefore="containerImportStage2"/>
 	<containersLending action="modules/gestion/container.php" param="lendingMulti" moduleBefore="containerList" droits="collection" retourok="containerList" retourko="containerList"/>
-
+    <containersSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection" retourok="containerList" retourko="containerList" moduleBefore="containerList,containersDelete,containersAssignReferent,containerDisplay"/>
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />
 	<containereventDelete action="modules/gestion/event.php" param="delete" droits="gestion"  retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange"/>
@@ -179,12 +179,12 @@
 	<sampleImportStage1 action="modules/gestion/sample.php" param="importStage1" droits="import,collection" retourlogin="1" type="smarty"/>
 	<sampleImportStage2 action="modules/gestion/sample.php" param="importStage2" droits="import,collection" type="smarty" retourko="sampleImportStage1" modulebefore="sampleImportStage1,sampleImportStage2"/>
 	<sampleImportStage3 action="modules/gestion/import.php" param="importExterneExec" droits="import,collection" type="smarty" retourok="sampleImportStage1" retourko="sampleImportStage1" modulebefore="sampleImportStage2"/>
-	<samplesDelete action="modules/gestion/sample.php" param="deleteMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" retourok="sampleList" retourko="sampleList" droits="collection"/>
-	<samplesAssignReferent action="modules/gestion/sample.php" param="referentAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
-	<samplesCreateEvent action="modules/gestion/sample.php" param="eventAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
-	<samplesLending action="modules/gestion/sample.php" param="lendingMulti" moduleBefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay" droits="collection" retourok="sampleList" retourko="sampleList"/>
+	<samplesDelete action="modules/gestion/sample.php" param="deleteMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed" retourok="sampleList" retourko="sampleList" droits="collection"/>
+	<samplesAssignReferent action="modules/gestion/sample.php" param="referentAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed" droits="collection" retourok="sampleList" retourko="sampleList"/>
+	<samplesCreateEvent action="modules/gestion/sample.php" param="eventAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed" droits="collection" retourok="sampleList" retourko="sampleList"/>
+	<samplesLending action="modules/gestion/sample.php" param="lendingMulti" moduleBefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed" droits="collection" retourok="sampleList" retourko="sampleList"/>
 	<sampleDetail action="modules/gestion/sample.php" type="json" param="detail"/>
-
+	<samplesSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection" retourok="sampleList" retourko="sampleList" moduleBefore="sampleList,samplesDelete,samplesAssignReferent,samplesCreateEvent,containerDisplay"/>
 	<movement droits="consult" type="smarty" />
 	<movementList droits="collection" type="smarty" action="modules/gestion/movement.php" param="list" retourlogin="1"/>
 	<objets retourlogin="1" type="smarty" />

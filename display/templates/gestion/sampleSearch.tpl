@@ -34,6 +34,7 @@ $(document).ready(function () {
 		 if ($("#select_date").val().length > 0) ok = true;
 		 if ($("#referent_id").val() > 0) ok = true;
 		 if ($("#movement_reason_id").val() > 0) ok = true;
+		 if ($("#trashed").val() == 1) ok = true;
 		 var mf = $("#metadata_field").val();
 		 if ( mf != null) {
 			 if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -192,6 +193,7 @@ $(document).ready(function () {
 	$("#metadata_value").val("");
 	$("#metadata_value_1").val("");
 	$("#metadata_value_2").val("");
+	$("#trashed").val("0");
 	var now = new Date();
 	$("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
 	$("#date_to").datepicker("setDate", now );
@@ -287,8 +289,8 @@ $(document).ready(function () {
 				{/section}
 			</select>
 		</div>
-		<label for="object_status_id" class="col-md-2 control-label">{t}Statut :{/t}</label>
-		<div class="col-md-2">
+		<label for="object_status_id" class="col-md-1 control-label">{t}Statut :{/t}</label>
+		<div class="col-md-1">
 			<select id="object_status_id" name="object_status_id" class="form-control">
 			<option value="" {if $sampleSearch.object_status_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 			{section name=lst loop=$objectStatus}
@@ -298,8 +300,15 @@ $(document).ready(function () {
 			{/section}
 			</select>
 		</div>
+		<label for="trashed" class="col-md-1 control-label" title="{t}Échantillons mis à la corbeille ?{/t}">{t}Corbeille ?{/t}</label>
+		<div class="col-md-1">
+			<select id="trashed" name="trashed" class="form-control">
+				<option value="" {if $sampleSearch.trashed == ""}selected{/if}>{t}Tous{/t}</option>
+				<option value="1" {if $sampleSearch.trashed == "1"}selected{/if}>{t}Oui{/t}</option>
+				<option value="0" {if $sampleSearch.trashed == "0"}selected{/if}>{t}Non{/t}</option>
+			</select>
+		</div>
 	</div>
-
 	<div class="row">
 		<div class="form-group">
 			<label for="select_date" class="col-md-2 control-label">{t}Recherche par date :{/t}</label>

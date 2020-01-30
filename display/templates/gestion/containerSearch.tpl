@@ -45,6 +45,7 @@
 			if ($("#uid_max").val() > 0) ok = true;
 			if ($("#container_type_id").val() > 0) ok = true;
 			if ($("#object_status_id").val() > 1) ok = true;
+			if ($("#trashed").val() == 1) ok = true;
 			if (ok == false) event.preventDefault();
 		});
 
@@ -60,6 +61,7 @@
 			$("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
 			$("#date_to").datepicker("setDate", now );
 			$("#name").val("");
+			$("#trashed").val("0");
 			$("#name").focus();
 		});
 	});
@@ -76,8 +78,8 @@
 			<div class="col-md-4">
 			<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="{t}uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible){/t}" >
 			</div>
-			<label for="object_status_id" class="col-md-2 control-label">{t}Statut :{/t}</label>
-			<div class="col-md-4">
+			<label for="object_status_id" class="col-md-1 control-label">{t}Statut :{/t}</label>
+			<div class="col-md-3">
 				<select id="object_status_id" name="object_status_id" class="form-control">
 					<option value="" {if $containerSearch.object_status_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 					{section name=lst loop=$objectStatus}
@@ -85,6 +87,14 @@
 							{$objectStatus[lst].object_status_name}
 						</option>
 					{/section}
+				</select>
+			</div>
+			<label for="trashed" class="col-md-1 control-label" title="{t}Contenants mis à la corbeille ?{/t}">{t}Corbeille ?{/t}</label>
+			<div class="col-md-1">
+				<select id="trashed" name="trashed" class="form-control">
+					<option value="" {if $containerSearch.trashed == ""}selected{/if}>{t}Tous{/t}</option>
+					<option value="1" {if $containerSearch.trashed == "1"}selected{/if}>{t}Oui{/t}</option>
+					<option value="0" {if $containerSearch.trashed == "0"}selected{/if}>{t}Non{/t}</option>
 				</select>
 			</div>
 		</div>

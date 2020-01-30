@@ -25,7 +25,7 @@ class Sample extends ObjetBDD
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
 					so.identifier, so.wgs84_x, so.wgs84_y,
                     so.object_status_id, object_status_name,so.referent_id,
-                    so.change_date, so.uuid,
+                    so.change_date, so.uuid, so.trashed,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
 					container_type_name, clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
@@ -345,6 +345,11 @@ class Sample extends ObjetBDD
             $where .= $and . " so.object_status_id = :object_status_id";
             $and = " and ";
             $data["object_status_id"] = $param["object_status_id"];
+        }
+        if (strlen($param["trashed"]) > 0) {
+            $where .= $and . "so.trashed = :trashed";
+            $and = " and ";
+            $data["trashed"] = $param["trashed"];
         }
         if ($param["sampling_place_id"] > 0) {
             $where .= $and . " s.sampling_place_id = :sampling_place_id";

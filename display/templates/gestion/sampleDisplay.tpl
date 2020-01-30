@@ -347,6 +347,9 @@
 				<dl class="dl-horizontal">
 					<dt>{t}Statut :{/t}</dt>
 					<dd>{$data.object_status_name}
+						{if $data.trashed == 1}
+							<span class="red">&nbsp;{t}Échantillon mis à la corbeille{/t}</span>
+						{/if}
 						{if $data.object_status_id == 6}
 						&nbsp;{t}le{/t}&nbsp;{$data.borrowing_date}
 							&nbsp;{t}à{/t}&nbsp;

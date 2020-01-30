@@ -14,7 +14,7 @@ class Container extends ObjetBDD
 {
 
     private $sql = "select c.container_id, o.uid, o.identifier, o.wgs84_x, o.wgs84_y,
-                    o.change_date, o.uuid,
+                    o.change_date, o.uuid, o.trashed,
 					container_type_id, container_type_name, nb_slots_max,
 					container_family_id, container_family_name, os.object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
@@ -352,7 +352,11 @@ class Container extends ObjetBDD
             $and = " and ";
             $data["object_status_id"] = $param["object_status_id"];
         }
-
+        if (strlen($param["trashed"]) > 0) {
+            $where .= $and . "o.trashed = :trashed";
+            $and = " and ";
+            $data["trashed"] = $param["trashed"];
+        }
         if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
             $where .= $and . " o.uid between :uid_min and :uid_max";
             $and = " and ";

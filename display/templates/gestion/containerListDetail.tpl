@@ -139,7 +139,7 @@ $(document).ready(function () {
 							</a>
 						</td>
 						<td>{$containers[lst].identifiers}</td>
-						<td>{$containers[lst].object_status_name}</td>
+						<td {if $containers[lst].trashed == 1}class="red" title="{t}Container mis à la corbeille{/t}"{/if}>{$containers[lst].object_status_name}</td>
 						<td>
 							{$containers[lst].container_family_name}/
 							{$containers[lst].container_type_name}

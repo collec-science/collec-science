@@ -46,7 +46,8 @@ class ObjectClass extends ObjetBDD
             ),
             "referent_id" => array("type" => 1),
             "change_date" => array("type" => 3),
-            "uuid" => array("type" => 0, "default" => "getUUID")
+            "uuid" => array("type" => 0, "default" => "getUUID"),
+            "trashed"=>array("type"=>1, "default" => 0)
         );
         parent::__construct($bdd, $param);
     }

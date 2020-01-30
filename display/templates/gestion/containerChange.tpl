@@ -193,6 +193,23 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 				<input id="expiration_date" class="form-control uuid" name="uuid"  value="{$data.uuid}">
 			</div>
 		</div>
+		<div class="form-group">
+			<label for="trashed" class="col-md-4 control-label">{t}Contenant mis à la corbeille ?{/t}</label>
+			<div class="col-md-8" id="trashed">
+				<div class="radio-inline">
+				<label>
+					<input type="radio" name="trashed" id="trashed1" value="1" {if $data.trashed == 1}checked{/if}>
+					{t}oui{/t}
+				</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="trashed" id="trashed0" value="0" {if $data.trashed == 0}checked{/if}>
+						{t}non{/t}
+					</label>
+				</div>
+			</div>
+		</div>
 		<div class="form-group center">
 			<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 			{if $data.container_id > 0 }

@@ -146,7 +146,7 @@ class SearchParam
  * Exemple d'instanciation
  *
  * @author Eric Quinton
- *        
+ *
  */
 class SearchExample extends SearchParam
 {
@@ -171,11 +171,10 @@ class SearchExample extends SearchParam
  * Classe de recherche des contenants
  *
  * @author quinton
- *        
+ *
  */
 class SearchContainer extends SearchParam
 {
-
     function __construct()
     {
         $this->param = array(
@@ -188,7 +187,8 @@ class SearchContainer extends SearchParam
             "uid_max" => 0,
             "select_date" => "",
             "date_from" => date($_SESSION["MASKDATE"]),
-            "date_to" => date($_SESSION["MASKDATE"])
+            "date_to" => date($_SESSION["MASKDATE"]),
+            "trashed" => 0
         );
         /*
          * Ajout des dates
@@ -200,7 +200,8 @@ class SearchContainer extends SearchParam
             "limit",
             "object_status_id",
             "uid_min",
-            "uid_max"
+            "uid_max",
+            "trashed"
         );
         parent::__construct();
     }
@@ -231,7 +232,8 @@ class SearchSample extends SearchParam
             "metadata_value" => "",
             "select_date" => "",
             "referent_id" => "",
-            "movement_reason_id" => ""
+            "movement_reason_id" => "",
+            "trashed" => 0
         );
         /*
          * Ajout des dates
@@ -246,7 +248,8 @@ class SearchSample extends SearchParam
             "uid_max",
             "sampling_place_id",
             "referent_id",
-            "movement_reason_id"
+            "movement_reason_id",
+            "trashed"
         );
         parent::__construct();
     }
@@ -280,5 +283,3 @@ class SearchMovement extends SearchParam
         $this->param["date_end"] = date($_SESSION["MASKDATE"]);
     }
 }
-
-?>

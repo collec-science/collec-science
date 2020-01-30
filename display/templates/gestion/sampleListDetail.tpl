@@ -306,7 +306,7 @@
 				</td>
 				<td>{$samples[lst].collection_name}</td>
 				<td>{$samples[lst].sample_type_name}</td>
-				<td>{$samples[lst].object_status_name}</td>
+				<td {if $samples[lst].trashed == 1}class="red" title="{t}Échantillon mis à la corbeille{/t}"{/if}>{$samples[lst].object_status_name}</td>
 				<td>{if strlen($samples[lst].parent_uid) > 0}
 				<a class="sample" data-uid="{$samples[lst].parent_uid}" href="index.php?module=sampleDisplay&uid={$samples[lst].parent_uid}">
 					<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>

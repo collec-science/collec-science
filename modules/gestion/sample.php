@@ -137,10 +137,10 @@ switch ($t_module["param"]) {
         $document = new Document($bdd, $ObjetBDDParam);
         $vue->set($document->getListFromParent($data["uid"]), "dataDoc");
         /**
-		 * Get the list of authorized extensions
-		 */
-		$mimeType = new MimeType($bdd, $ObjetBDDParam);
-		$vue->set($mimeType->getListExtensions(false), "extensions");
+         * Get the list of authorized extensions
+         */
+        $mimeType = new MimeType($bdd, $ObjetBDDParam);
+        $vue->set($mimeType->getListExtensions(false), "extensions");
         /*
          * Ajout de la selection des modeles d'etiquettes
          */
@@ -188,6 +188,8 @@ switch ($t_module["param"]) {
                         $data["metadata"] = $dataParent["metadata"];
                         $data["sampling_place_id"] = $dataParent["sampling_place_id"];
                         $data["referent_id"] = $dataParent["referent_id"];
+                        $data["identifier"] = $dataParent["identifier"];
+                        $data["uuid"] = $dataClass->getUUID();
                     }
                     $vue->set($data, "data");
                 }
@@ -213,6 +215,7 @@ switch ($t_module["param"]) {
                         $data["parent_sample_id"] = $dl["parent_sample_id"];
                         $data["sample_type_id"] = $dl["sample_type_id"];
                         $data["identifier"] = $dl["identifier"];
+                        $data["uuid"] = $dataClass->getUUID();
                         if ($data["parent_sample_id"] > 0) {
                             $dataParent = $dataClass->lireFromId($data["parent_sample_id"]);
                             $vue->set($dataParent, "parent_sample");

@@ -302,188 +302,205 @@ class Sample extends ObjetBDD
      */
     public function sampleSearch($param)
     {
-        $data = array();
-        $where = "where";
-        $and = "";
-        if ($param["sample_type_id"] > 0) {
-            $where .= " s.sample_type_id = :sample_type_id";
-            $data["sample_type_id"] = $param["sample_type_id"];
-            $and = " and ";
+        /**
+         * Verification de la presence des parametres
+         */
+        $searchOk = false;
+        $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date");
+        if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0) {
+            $searchOk = true;
+        } else {
+            foreach ($paramName as $name) {
+                if (strlen($param[$name]) > 0) {
+                    $searchOk = true;
+                    break;
+                }
+            }
         }
-        if (strlen($param["name"]) > 0) {
-            $where .= $and . "( ";
-            $or = "";
-            if (is_numeric($param["name"])) {
-                $where .= " s.uid = :uid";
-                $data["uid"] = $param["name"];
-                $or = " or ";
+        if ($searchOk) {
+            $data = array();
+            $where = "where";
+            $and = "";
+            if ($param["sample_type_id"] > 0) {
+                $where .= " s.sample_type_id = :sample_type_id";
+                $data["sample_type_id"] = $param["sample_type_id"];
+                $and = " and ";
             }
-            if (strlen($param["name"]) == 36) {
-                $where .= "so.uuid = :uuid";
-                $data["uuid"] = $param["name"];
-                $or = " or ";
-            }
-            $name = $this->encodeData($param["name"]);
-            $identifier = "%" . strtoupper($name) . "%";
-            $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
-            $and = " and ";
-            $data["identifier"] = $identifier;
-            $data["dbuid_origin"] = $name;
-            /*
+            if (strlen($param["name"]) > 0) {
+                $where .= $and . "( ";
+                $or = "";
+                if (is_numeric($param["name"])) {
+                    $where .= " s.uid = :uid";
+                    $data["uid"] = $param["name"];
+                    $or = " or ";
+                }
+                if (strlen($param["name"]) == 36) {
+                    $where .= "so.uuid = :uuid";
+                    $data["uuid"] = $param["name"];
+                    $or = " or ";
+                }
+                $name = $this->encodeData($param["name"]);
+                $identifier = "%" . strtoupper($name) . "%";
+                $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
+                $and = " and ";
+                $data["identifier"] = $identifier;
+                $data["dbuid_origin"] = $name;
+                /*
              * Recherche sur les identifiants externes
              * possibilite de recherche sur cab:valeur, p. e.
              */
-            $where .= " or upper(identifiers) like :identifier ";
-            $where .= ")";
-        }
-        if ($param["collection_id"] > 0) {
-            $where .= $and . " s.collection_id = :collection_id";
-            $and = " and ";
-            $data["collection_id"] = $param["collection_id"];
-        }
-        if ($param["object_status_id"] > 0) {
-            $where .= $and . " so.object_status_id = :object_status_id";
-            $and = " and ";
-            $data["object_status_id"] = $param["object_status_id"];
-        }
-        if (strlen($param["trashed"]) > 0) {
-            $where .= $and . "so.trashed = :trashed";
-            $and = " and ";
-            $data["trashed"] = $param["trashed"];
-        }
-        if ($param["sampling_place_id"] > 0) {
-            $where .= $and . " s.sampling_place_id = :sampling_place_id";
-            $and = " and ";
-            $data["sampling_place_id"] = $param["sampling_place_id"];
-        }
-        if ($param["referent_id"] > 0) {
-            $where .= $and . "(ro.referent_id = :referent_id1 or cr.referent_id = :referent_id2)";
-            $and = " and ";
-            $data["referent_id1"] = $param["referent_id"];
-            $data["referent_id2"] = $param["referent_id"];
-        }
-
-        if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
-            $where .= $and . " s.uid between :uid_min and :uid_max";
-            $and = " and ";
-            $data["uid_min"] = $param["uid_min"];
-            $data["uid_max"] = $param["uid_max"];
-        }
-        if (strlen($param["select_date"]) > 0) {
-            $tablefield = "s";
-            switch ($param["select_date"]) {
-                case "cd":
-                    $field = "sample_creation_date";
-                    break;
-                case "sd":
-                    $field = "sampling_date";
-                    break;
-                case "ed":
-                    $field = "expiration_date";
-                    break;
-                case "ch":
-                    $field = "change_date";
-                    $tablefield = "so";
-                    break;
+                $where .= " or upper(identifiers) like :identifier ";
+                $where .= ")";
             }
-            $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
-            $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
-            $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
-            $and = " and ";
-        }
-        /*
+            if ($param["collection_id"] > 0) {
+                $where .= $and . " s.collection_id = :collection_id";
+                $and = " and ";
+                $data["collection_id"] = $param["collection_id"];
+            }
+            if ($param["object_status_id"] > 0) {
+                $where .= $and . " so.object_status_id = :object_status_id";
+                $and = " and ";
+                $data["object_status_id"] = $param["object_status_id"];
+            }
+            if (strlen($param["trashed"]) > 0) {
+                $where .= $and . "so.trashed = :trashed";
+                $and = " and ";
+                $data["trashed"] = $param["trashed"];
+            }
+            if ($param["sampling_place_id"] > 0) {
+                $where .= $and . " s.sampling_place_id = :sampling_place_id";
+                $and = " and ";
+                $data["sampling_place_id"] = $param["sampling_place_id"];
+            }
+            if ($param["referent_id"] > 0) {
+                $where .= $and . "(ro.referent_id = :referent_id1 or cr.referent_id = :referent_id2)";
+                $and = " and ";
+                $data["referent_id1"] = $param["referent_id"];
+                $data["referent_id2"] = $param["referent_id"];
+            }
+
+            if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
+                $where .= $and . " s.uid between :uid_min and :uid_max";
+                $and = " and ";
+                $data["uid_min"] = $param["uid_min"];
+                $data["uid_max"] = $param["uid_max"];
+            }
+            if (strlen($param["select_date"]) > 0) {
+                $tablefield = "s";
+                switch ($param["select_date"]) {
+                    case "cd":
+                        $field = "sample_creation_date";
+                        break;
+                    case "sd":
+                        $field = "sampling_date";
+                        break;
+                    case "ed":
+                        $field = "expiration_date";
+                        break;
+                    case "ch":
+                        $field = "change_date";
+                        $tablefield = "so";
+                        break;
+                }
+                $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
+                $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
+                $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
+                $and = " and ";
+            }
+            /*
          * Recherche dans les metadonnees
          */
-        if (strlen($param["metadata_field"][0]) > 0 && strlen($param["metadata_value"][0]) > 0) {
-            $where .= $and . " ";
-            /*
+            if (strlen($param["metadata_field"][0]) > 0 && strlen($param["metadata_value"][0]) > 0) {
+                $where .= $and . " ";
+                /*
              * Traitement des divers champs de metadonnees (3 maxi)
              * ajout des parentheses si necessaire
              * si le meme field est utilise, operateur or, sinon operateur and
              */
-            if ($param["metadata_field"][0] == $param["metadata_field"][1]) {
-                $is_or = true;
-            } else {
-                $is_or = false;
-            }
-            if (strlen($param["metadata_field"][1]) > 0 && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
-                $is_or1 = true;
-            } else {
-                $is_or1 = false;
-            }
-            if ($is_or) {
-                $where .= "(";
-            }
-            $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0)";
-            $data["metadata_field0"] = $param["metadata_field"][0];
-            $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
-            if (strlen($param["metadata_field"][1]) > 0 && strlen($param["metadata_value"][1]) > 0) {
+                if ($param["metadata_field"][0] == $param["metadata_field"][1]) {
+                    $is_or = true;
+                } else {
+                    $is_or = false;
+                }
+                if (strlen($param["metadata_field"][1]) > 0 && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
+                    $is_or1 = true;
+                } else {
+                    $is_or1 = false;
+                }
                 if ($is_or) {
-                    $where .= " or ";
-                } else {
-                    $where .= " and ";
+                    $where .= "(";
                 }
-                $where .= " lower(s.metadata->>:metadata_field1) like lower (:metadata_value1)";
-                $data["metadata_field1"] = $param["metadata_field"][1];
-                $data["metadata_value1"] = "%" . $param["metadata_value"][1] . "%";
-            }
-            if ($is_or && !$is_or1) {
-                $where .= ")";
-                $is_or = false;
-            }
-            if (!$is_or && $is_or1) {
-                $where .= " (";
-            }
+                $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0)";
+                $data["metadata_field0"] = $param["metadata_field"][0];
+                $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
+                if (strlen($param["metadata_field"][1]) > 0 && strlen($param["metadata_value"][1]) > 0) {
+                    if ($is_or) {
+                        $where .= " or ";
+                    } else {
+                        $where .= " and ";
+                    }
+                    $where .= " lower(s.metadata->>:metadata_field1) like lower (:metadata_value1)";
+                    $data["metadata_field1"] = $param["metadata_field"][1];
+                    $data["metadata_value1"] = "%" . $param["metadata_value"][1] . "%";
+                }
+                if ($is_or && !$is_or1) {
+                    $where .= ")";
+                    $is_or = false;
+                }
+                if (!$is_or && $is_or1) {
+                    $where .= " (";
+                }
 
-            if (strlen($param["metadata_field"][2]) > 0 && strlen($param["metadata_value"][2]) > 0) {
-                if ($is_or1) {
-                    $where .= " or ";
-                } else {
-                    $where .= " and ";
+                if (strlen($param["metadata_field"][2]) > 0 && strlen($param["metadata_value"][2]) > 0) {
+                    if ($is_or1) {
+                        $where .= " or ";
+                    } else {
+                        $where .= " and ";
+                    }
+                    $where .= " lower(s.metadata->>:metadata_field2) like lower (:metadata_value2)";
+                    $data["metadata_field2"] = $param["metadata_field"][2];
+                    $data["metadata_value2"] = "%" . $param["metadata_value"][2] . "%";
                 }
-                $where .= " lower(s.metadata->>:metadata_field2) like lower (:metadata_value2)";
-                $data["metadata_field2"] = $param["metadata_field"][2];
-                $data["metadata_value2"] = "%" . $param["metadata_value"][2] . "%";
+                if ($is_or || $is_or1) {
+                    $where .= ")";
+                }
+                $and = " and ";
             }
-            if ($is_or || $is_or1) {
-                $where .= ")";
+            /**
+             * Recherche sur le motif de destockage
+             */
+            if ($param["movement_reason_id"] > 0) {
+                $where .= $and . " movement_reason_id = :movement_reason_id";
+                $data["movement_reason_id"] = $param["movement_reason_id"];
+                $and = " and ";
             }
-            $and = " and ";
+            /**
+             * Fin de traitement des criteres de recherche
+             */
+            if ($where == "where") {
+                $where = "";
+            }
+            /**
+             * Rajout de la date de dernier mouvement pour l'affichage
+             */
+            $this->colonnes["movement_date"] = array(
+                "type" => 3,
+            );
+            $this->colonnes["borrowing_date"] = array("type" => 2);
+            $this->colonnes["expected_return_date"] = array("type" => 2);
+            $this->colonnes["change_date"] = array("type" => 3);
+            $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
+            /**
+             * Destroy foreign fields used in the request
+             */
+            unset($this->colonnes["movement_date"]);
+            unset($this->colonnes["borrowing_date"]);
+            unset($this->colonnes["expected_return_date"]);
+            unset($this->colonnes["change_date"]);
+            return $list;
+        } else {
+            return array();
         }
-        /*
-         * Recherche sur le motif de destockage
-         */
-        if ($param["movement_reason_id"] > 0) {
-            $where .= $and . " movement_reason_id = :movement_reason_id";
-            $data["movement_reason_id"] = $param["movement_reason_id"];
-            $and = " and ";
-        }
-        /*
-         * Fin de traitement des criteres de recherche
-         */
-        if ($where == "where") {
-            $where = "";
-        }
-        /*
-         * Rajout de la date de dernier mouvement pour l'affichage
-         */
-        $this->colonnes["movement_date"] = array(
-            "type" => 3,
-        );
-        $this->colonnes["borrowing_date"] = array("type" => 2);
-        $this->colonnes["expected_return_date"] = array("type" => 2);
-        $this->colonnes["change_date"] = array("type" => 3);
-        /*printr($this->sql.$where);
-        printr($data);*/
-        $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
-        /**
-         * Destroy foreign fields used in the request
-         */
-        unset($this->colonnes["movement_date"]);
-        unset($this->colonnes["borrowing_date"]);
-        unset($this->colonnes["expected_return_date"]);
-        unset($this->colonnes["change_date"]);
-        return $list;
     }
 
     /**

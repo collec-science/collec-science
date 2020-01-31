@@ -167,7 +167,7 @@ class Container extends ObjetBDD
         if ($uid > 0 && is_numeric($uid)) {
             $sql = "select o.uid, o.identifier, sa.*,
 					movement_date, movement_type_id, identifiers,
-					collection_name, sample_type_name, object_status_name,
+					collection_name, sample_type_name, object_status_name, o.trashed,
 					sampling_place_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
                     lm.column_number, lm.line_number,
@@ -212,7 +212,7 @@ class Container extends ObjetBDD
     {
         if ($uid > 0 && is_numeric($uid)) {
             $sql = "select o.uid, o.identifier, container_type_id, container_type_name,
-					container_family_id, container_family_name, o.object_status_id,
+					container_family_id, container_family_name, o.object_status_id, o.trashed,
 					storage_product, storage_condition_name,
 					object_status_name, clp_classification,
 					movement_date, movement_type_id, column_number, line_number,
@@ -311,83 +311,104 @@ class Container extends ObjetBDD
      */
     function containerSearch($param)
     {
-        $data = array();
-        $where = "where";
-        $and = "";
-        if ($param["container_type_id"] > 0) {
-            $where .= " container_type_id = :container_type_id";
-            $data["container_type_id"] = $param["container_type_id"];
-            $and = " and ";
-        } elseif ($param["container_family_id"] > 0) {
-            $where .= " container_family_id = :container_family_id";
-            $data["container_family_id"] = $param["container_family_id"];
-            $and = " and ";
+        /**
+         * Verification de la presence des parametres
+         */
+        $searchOk = false;
+        $paramName = array(
+            "name", "container_family_id", "container_type_id",  "select_date"
+        );
+        if ($param["object_status_id"] > 1 || $param["trashed"] == 1|| $param["uid_min"] > 0 || $param["uid_max"] > 0) {
+            $searchOk = true;
+        } else {
+            foreach ($paramName as $name) {
+                if (strlen($param[$name]) > 0) {
+                    $searchOk = true;
+                    break;
+                }
+            }
         }
-        if (strlen($param["name"]) > 0) {
-            $where .= $and . "( ";
-            $or = "";
-            if (is_numeric($param["name"])) {
-                $where .= " o.uid = :uid";
-                $data["uid"] = $param["name"];
-                $or = " or ";
+        if ($searchOk) {
+            $data = array();
+            $where = "where";
+            $and = "";
+            if ($param["container_type_id"] > 0) {
+                $where .= " container_type_id = :container_type_id";
+                $data["container_type_id"] = $param["container_type_id"];
+                $and = " and ";
+            } elseif ($param["container_family_id"] > 0) {
+                $where .= " container_family_id = :container_family_id";
+                $data["container_family_id"] = $param["container_family_id"];
+                $and = " and ";
             }
-            if (strlen($param["name"]) == 36) {
-                $where .= "o.uuid = :uuid";
-                $data["uuid"] = $param["name"];
-                $or = " or ";
-            }
-            $identifier = "%" . strtoupper($this->encodeData($param["name"])) . "%";
-            $where .= "$or upper(o.identifier) like :identifier ";
-            $and = " and ";
-            $data["identifier"] = $identifier;
-            /*
+            if (strlen($param["name"]) > 0) {
+                $where .= $and . "( ";
+                $or = "";
+                if (is_numeric($param["name"])) {
+                    $where .= " o.uid = :uid";
+                    $data["uid"] = $param["name"];
+                    $or = " or ";
+                }
+                if (strlen($param["name"]) == 36) {
+                    $where .= "o.uuid = :uuid";
+                    $data["uuid"] = $param["name"];
+                    $or = " or ";
+                }
+                $identifier = "%" . strtoupper($this->encodeData($param["name"])) . "%";
+                $where .= "$or upper(o.identifier) like :identifier ";
+                $and = " and ";
+                $data["identifier"] = $identifier;
+                /*
              * Recherche sur les identifiants externes
              * possibilite de recherche sur cab:valeur, p. e.
              */
-            $where .= " or upper(identifiers) like :identifier ";
-            $where .= ")";
-        }
-        if ($param["object_status_id"] > 0) {
-            $where .= $and . " os.object_status_id = :object_status_id";
-            $and = " and ";
-            $data["object_status_id"] = $param["object_status_id"];
-        }
-        if (strlen($param["trashed"]) > 0) {
-            $where .= $and . "o.trashed = :trashed";
-            $and = " and ";
-            $data["trashed"] = $param["trashed"];
-        }
-        if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
-            $where .= $and . " o.uid between :uid_min and :uid_max";
-            $and = " and ";
-            $data["uid_min"] = $param["uid_min"];
-            $data["uid_max"] = $param["uid_max"];
-        }
-        if (strlen($param["select_date"]) > 0) {
-            $tablefield = "c";
-            switch ($param["select_date"]) {
-                case "ch":
-                    $field = "change_date";
-                    $tablefield = "o";
-                    break;
+                $where .= " or upper(identifiers) like :identifier ";
+                $where .= ")";
             }
-            $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
-            $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
-            $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
-            $and = " and ";
-        }
-        if ($and == "") {
-            $where = "";
-        }
+            if ($param["object_status_id"] > 0) {
+                $where .= $and . " os.object_status_id = :object_status_id";
+                $and = " and ";
+                $data["object_status_id"] = $param["object_status_id"];
+            }
+            if (strlen($param["trashed"]) > 0) {
+                $where .= $and . " o.trashed = :trashed";
+                $and = " and ";
+                $data["trashed"] = $param["trashed"];
+            }
+            if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
+                $where .= $and . " o.uid between :uid_min and :uid_max";
+                $and = " and ";
+                $data["uid_min"] = $param["uid_min"];
+                $data["uid_max"] = $param["uid_max"];
+            }
+            if (strlen($param["select_date"]) > 0) {
+                $tablefield = "c";
+                switch ($param["select_date"]) {
+                    case "ch":
+                        $field = "change_date";
+                        $tablefield = "o";
+                        break;
+                }
+                $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
+                $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
+                $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
+                $and = " and ";
+            }
+            if ($and == "") {
+                $where = "";
+            }
 
-        /*
-         * Rajout de la date de dernier mouvement pour l'affichage
-         */
-        $this->colonnes["movement_date"] = array(
-            "type" => 3
-        );
-        $this->colonnes["change_date"] = array("type" => 3);
-        return $this->getListeParamAsPrepared($this->sql . $where /*. $order*/, $data);
+            /**
+             * Rajout de la date de dernier mouvement pour l'affichage
+             */
+            $this->colonnes["movement_date"] = array(
+                "type" => 3
+            );
+            $this->colonnes["change_date"] = array("type" => 3);
+            return $this->getListeParamAsPrepared($this->sql . $where /*. $order*/, $data);
+        } else {
+            return array();
+        }
     }
 
     /**
@@ -402,7 +423,7 @@ class Container extends ObjetBDD
             $data["container_type_id"] = $container_type_id;
             $where = " where container_type_id = :container_type_id and trashed = :trashed";
             $order = " order by uid desc";
-            $this->colonnes["change_date"] = array("type" => 3, "trashed"=>$trashed);
+            $this->colonnes["change_date"] = array("type" => 3, "trashed" => $trashed);
             return $this->getListeParamAsPrepared($this->sql . $where . $order, $data);
         }
     }

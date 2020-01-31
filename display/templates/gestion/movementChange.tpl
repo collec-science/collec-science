@@ -1,4 +1,3 @@
-{* Objets > Contenants/Echantillons > Rechercher > UID d'un contenant > Entrer / Sortir > *}
 <script>
 $(document).ready(function() {
 var options;

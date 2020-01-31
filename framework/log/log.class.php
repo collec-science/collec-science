@@ -174,7 +174,7 @@ class Log extends ObjetBDD
     {
         if (strlen($login) > 0) {
             $sql = "select commentaire from log";
-            $sql .= " where login = :login and nom_module like '%connexion' and commentaire like '%ok'";
+            $sql .= " where login = :login and nom_module like '%connexion' and commentaire like '%ok' and commentaire <> 'token-ok'";
             $sql .= "order by log_id desc limit 1";
             $data = $this->lireParamAsPrepared(
                 $sql,

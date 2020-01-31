@@ -44,8 +44,8 @@ switch ($t_module["param"]) {
         include_once "modules/classes/borrower.class.php";
         $borrower = new Borrower($bdd, $ObjetBDDParam);
         $vue->set($borrower->getListe(2), "borrowers");
-        $vue->set(date($_SESSION["MASKDATE"]),"borrowing_date");
-        $vue->set(date($_SESSION["MASKDATE"]),"expected_return_date");
+        $vue->set(date($_SESSION["MASKDATE"]), "borrowing_date");
+        $vue->set(date($_SESSION["MASKDATE"]), "expected_return_date");
         /*
          * Ajout des listes deroulantes
          */
@@ -112,10 +112,10 @@ switch ($t_module["param"]) {
         $vue->set($document->getListFromParent($data["uid"]), "dataDoc");
         $vue->set(1, "modifiable");
         /**
-		 * Get the list of authorized extensions
-		 */
-		$mimeType = new MimeType($bdd, $ObjetBDDParam);
-		$vue->set($mimeType->getListExtensions(false), "extensions");
+         * Get the list of authorized extensions
+         */
+        $mimeType = new MimeType($bdd, $ObjetBDDParam);
+        $vue->set($mimeType->getListExtensions(false), "extensions");
         /*
          * Ajout de la selection des modeles d'etiquettes
          */
@@ -144,8 +144,8 @@ switch ($t_module["param"]) {
         include_once 'modules/classes/borrower.class.php';
         $borrower = new Borrower($bdd, $ObjetBDDParam);
         $vue->set($borrower->getListe(2), "borrowers");
-        $vue->set(date($_SESSION["MASKDATE"]),"borrowing_date");
-        $vue->set(date($_SESSION["MASKDATE"]),"expected_return_date");
+        $vue->set(date($_SESSION["MASKDATE"]), "borrowing_date");
+        $vue->set(date($_SESSION["MASKDATE"]), "expected_return_date");
         /*
          * Affichage
          */
@@ -206,7 +206,7 @@ switch ($t_module["param"]) {
             }
         }
         break;
-        case "deleteMulti":
+    case "deleteMulti":
         /*
          * Delete all records in uid array
          */
@@ -225,16 +225,16 @@ switch ($t_module["param"]) {
             }
         }
         break;
-        case "delete":
+    case "delete":
         /*
          * delete record
          */
-            dataDelete($dataClass, $id);
+        dataDelete($dataClass, $id);
         $isDelete = true;
         break;
 
-   
-        case "getFromType":
+
+    case "getFromType":
         /*
          * Recherche la liste a partir du type
          */
@@ -292,7 +292,7 @@ switch ($t_module["param"]) {
                      * delete of temporary file
                      */
                     unlink($filename);
-                    unset ($_SESSION["realfilename"]);
+                    unset($_SESSION["realfilename"]);
                 } else {
                     $vue->set($dataClass->getAllNamesFromReference($data), "names");
                     require_once "modules/gestion/sample.functions.php";
@@ -316,48 +316,48 @@ switch ($t_module["param"]) {
         break;
     case "importStage3":
         $realfilename = $_SESSION["realfilename"];
-        
-            if (file_exists($realfilename)) {
-                try {
-                    /**
-                     * Open the file
-                     */
-                    $handle = fopen($realfilename, "r");
-                    $jdata = fread($handle, filesize($realfilename));
-                    fclose($handle);
-                    unset($_SESSION["realfilename"]);
-                    unlink($realfilename);
 
-                    $data = json_decode($jdata, true);
-                    require_once 'modules/gestion/sample.functions.php';
-                    $sic = new SampleInitClass();
-                    try {
-                        $bdd->beginTransaction();
-                        $dataClass->importExternal($data, $sic, $_POST);
-                        $result = $dataClass->getUidMinMax();
-                        $message->set(sprintf(_("Import effectué. %s objets traités"), $result["number"]));
-                        $message->set(sprintf(_("Premier UID généré : %s"), $result["min"]));
-                        $message->set(sprintf(_("Dernier UID généré : %s"), $result["max"]));
-                        $module_coderetour = 1;
-                        $bdd->commit();
-                    } catch (ImportObjectException $ie) {
-                        $bdd->rollBack();
-                        $message->set($ie->getMessage(), true);
-                        $module_coderetour = -1;
-                    }catch (ContainerException $ce) {
-                        $bdd->rollBack();
-                        $message->set($ce->getMessage(), true);
-                        $module_coderetour = -1;
-                    } catch (Exception $e) {
-                        $bdd->rollBack();
-                        $message->set($e->getMessage(), true);
-                        $module_coderetour = -1;
-                    }
-                } catch (Exception $e1) {
-                    $message->set($e1->getMessage(), true);
+        if (file_exists($realfilename)) {
+            try {
+                /**
+                 * Open the file
+                 */
+                $handle = fopen($realfilename, "r");
+                $jdata = fread($handle, filesize($realfilename));
+                fclose($handle);
+                unset($_SESSION["realfilename"]);
+                unlink($realfilename);
+
+                $data = json_decode($jdata, true);
+                require_once 'modules/gestion/sample.functions.php';
+                $sic = new SampleInitClass();
+                try {
+                    $bdd->beginTransaction();
+                    $dataClass->importExternal($data, $sic, $_POST);
+                    $result = $dataClass->getUidMinMax();
+                    $message->set(sprintf(_("Import effectué. %s objets traités"), $result["number"]));
+                    $message->set(sprintf(_("Premier UID généré : %s"), $result["min"]));
+                    $message->set(sprintf(_("Dernier UID généré : %s"), $result["max"]));
+                    $module_coderetour = 1;
+                    $bdd->commit();
+                } catch (ImportObjectException $ie) {
+                    $bdd->rollBack();
+                    $message->set($ie->getMessage(), true);
+                    $module_coderetour = -1;
+                } catch (ContainerException $ce) {
+                    $bdd->rollBack();
+                    $message->set($ce->getMessage(), true);
+                    $module_coderetour = -1;
+                } catch (Exception $e) {
+                    $bdd->rollBack();
+                    $message->set($e->getMessage(), true);
                     $module_coderetour = -1;
                 }
+            } catch (Exception $e1) {
+                $message->set($e1->getMessage(), true);
+                $module_coderetour = -1;
             }
+        }
         break;
     case "lendingMulti":
         /**
@@ -400,6 +400,18 @@ switch ($t_module["param"]) {
         } else {
             $module_coderetour = -1;
         }
-        
+
+        break;
+
+
+    case "getOccupationAjax":
+        $data = $dataClass->lire($id);
+        $dcontainer = $dataClass->getContentContainer($id);
+        $dgrid = array("grid" => $dataClass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"], $data["first_column"]));
+        $dgrid["lines"] = $data["lines"];
+        $dgrid["columns"] = $data["columns"];
+        $dgrid["first_line"] = $data["first_line"];
+        $dgrid["first_column"] = $data["first_column"];
+        $vue->set($dgrid);
         break;
 }

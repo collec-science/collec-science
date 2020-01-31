@@ -66,6 +66,67 @@ $(document).ready(function () {
 			$(".trashedgroup").hide();
 		}
 	});
+	var tooltipContent ;
+	/**
+	 * Display the grid of a container
+	 */
+	var delay=500, timer;
+	$(".sample").mouseenter( function () {
+		var objet = $(this);
+		timer = setTimeout(function () {
+			var uid = objet.data("uid");
+			if (! objet.is(':ui-tooltip') ) {
+				if (uid > 0) {
+					var url = "index.php";
+					var data = { "module":"sampleDetail", "uid": uid };
+					$.ajax ( { url:url, data: data})
+					.done (function( d ) {
+						if (d ) {
+							d = JSON.parse(d);
+							if (!d.error_code) {
+								/* Create the grid */
+								var lines = d.lines;
+								var columns = d.columns;
+								var grid = d.grid;
+								var first_line = d.first_line;
+								var first_column = d.first_column;
+								var ln = 1;
+								var incr = 1;
+								var cl = 1;
+								var clIncr = 1;
+								if (fist_line != "T") {
+									ln = lines;
+									incr = -1;
+								}
+								if (first_column != "L") {
+									cl = columns;
+									clIncr = -1;
+								}
+								var content = '<table class="table table-bordered"><tr><th class="center">{t}Ligne/colonne{/t}</th>';
+									for (var col = 1 ; col <= columns; col ++) {
+										content += '<th class="center">'+ cl + '</th>';
+										cl = cl + clIncr;
+									}
+								/* Display */
+								tooltipContent = content;
+								tooltipDisplay(objet);
+							}
+						}
+					});
+				}
+			}
+		}, delay);
+
+	}).mouseleave(function() {
+		clearTimeout (timer);
+	});
+	function tooltipDisplay(object) {
+		object.tooltip ({
+			content: tooltipContent,
+		});
+		object.attr("title", tooltipContent);
+			object.tooltip("open");
+	}
 
 });
 </script>
@@ -139,8 +200,8 @@ $(document).ready(function () {
 							</a>
 						</td>
 						<td>
-							<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="{t}Consultez le détail{/t}">
-								{$containers[lst].identifier}
+							<a class="container" data-uid="{$containers[lst].uid}" href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="">
+								<span class="tooltiplink">{$containers[lst].identifier}</span>
 							</a>
 						</td>
 						<td>{$containers[lst].identifiers}</td>

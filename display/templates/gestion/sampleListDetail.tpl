@@ -104,28 +104,28 @@
 			if (action == "samplesAssignReferent") {
 				$(".referentid").show();
 				$(".event").hide();
-				$(".trashed").hide();
+				$(".trashedgroup").hide();
 				$(".borrowing").hide();
 			} else if (action == "samplesCreateEvent") {
 				$(".referentid").hide();
 				$(".borrowing").hide();
-				$(".trashed").hide();
+				$(".trashedgroup").hide();
 				$(".event").show();
 			} else if (action == "samplesLending") {
 				$(".referentid").hide();
 				$(".event").hide();
-				$(".trashed").hide();
+				$(".trashedgroup").hide();
 				$(".borrowing").show();
 			} else if (action == "samplesSetTrashed") {
 				$(".referentid").hide();
 				$(".event").hide();
 				$(".borrowing").hide();
-				$(".trashed").show();
+				$(".trashedgroup").show();
 			} else {
 				$(".referentid").hide();
 				$(".event").hide();
 				$(".borrowing").hide();
-				$(".trashed").hide();
+				$(".trashedgroup").hide();
 			}
 		});
 		var tooltipContent ;
@@ -315,7 +315,7 @@
 				</td>
 				<td>{$samples[lst].collection_name}</td>
 				<td>{$samples[lst].sample_type_name}</td>
-				<td {if $samples[lst].trashed == 1}class="red" title="{t}Échantillon mis à la corbeille{/t}"{/if}>{$samples[lst].object_status_name}</td>
+				<td {if $samples[lst].trashed == 1}class="trashed" title="{t}Échantillon mis à la corbeille{/t}"{/if}>{$samples[lst].object_status_name}</td>
 				<td>{if strlen($samples[lst].parent_uid) > 0}
 				<a class="sample" data-uid="{$samples[lst].parent_uid}" href="index.php?module=sampleDisplay&uid={$samples[lst].parent_uid}">
 					<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
@@ -433,7 +433,7 @@
 					<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
 				</div>
 			</div>
-			<div class="form-group trashed" hidden>
+			<div class="form-group trashedgroup" hidden>
 				<label for="trashed" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
 				<div class="col-md-8">
 					<select class="form-control" name="trashed" id="trashed">

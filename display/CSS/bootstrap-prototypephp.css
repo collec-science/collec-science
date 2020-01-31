@@ -4,6 +4,7 @@ Couleurs IRSTEA :
 marine : 	#003A80; rgb(0,58,128)
 ocean:		#009EE0; rgb(0,158,224)
 prairie :	#A4C400; rgb(164,196,0)
+red: #D1041D, rgb(213,19,23);
 */
 /* Wrapper for page content to push down footer */
 html,
@@ -46,7 +47,7 @@ body {
 }
 
 .red {
-	color: #78041D;
+	color: #D1041D;
 }
 .blue {
 	color: #003A80;
@@ -59,7 +60,7 @@ body {
 	color: #003A80;
 }
 .messageError {
-	color: #78041D;
+	color: #D1041D;
 }
 /* italique gris petit*/
 .messagebas {
@@ -230,7 +231,7 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 /* Nav */
 
 .nav-tabs{
-	background-color:rgb(0,158,224,0.2);
+	background-color:rgba(0,158,224,0.2);
 }
 .tab-content{
     background-color: white;
@@ -240,8 +241,12 @@ meter[value="4"]::-moz-meter-bar { background: green; }
   border: medium none;
 }
 .nav-tabs > li > a:hover{
-  background-color:  rgb(0,158,224) !important;
+  background-color:  rgba(0,158,224) !important;
     border: medium none;
     border-radius: 0;
     color:#fff;
+}
+
+.trashed {
+	background-color: rgba(213,19,23,0.5);
 }

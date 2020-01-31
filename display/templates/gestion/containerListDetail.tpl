@@ -57,13 +57,13 @@ $(document).ready(function () {
 		var action = $(this).val();
 		if (action == "containersLending") {
 			$(".borrowing").show();
-			$(".trashed").hide();
+			$(".trashedgroup").hide();
 		} else if (action == "containersSetTrashed") {
 			$(".borrowing").hide();
-			$(".trashed").show();
+			$(".trashedgroup").show();
 		} else {
 			$(".borrowing").hide();
-			$(".trashed").hide();
+			$(".trashedgroup").hide();
 		}
 	});
 
@@ -144,7 +144,7 @@ $(document).ready(function () {
 							</a>
 						</td>
 						<td>{$containers[lst].identifiers}</td>
-						<td {if $containers[lst].trashed == 1}class="red" title="{t}Container mis à la corbeille{/t}"{/if}>{$containers[lst].object_status_name}</td>
+						<td {if $containers[lst].trashed == 1}class="trashed" title="{t}Contenant mis à la corbeille{/t}"{/if}>{$containers[lst].object_status_name}</td>
 						<td>
 							{$containers[lst].container_family_name}/
 							{$containers[lst].container_type_name}
@@ -222,7 +222,7 @@ $(document).ready(function () {
 							<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
 						</div>
 					</div>
-					<div class="form-group trashed" hidden>
+					<div class="form-group trashedgroup" hidden>
 						<label for="trashed" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
 						<div class="col-md-8">
 							<select class="form-control" name="trashed" id="trashed">
@@ -235,7 +235,6 @@ $(document).ready(function () {
 						<button id="checkedButtonContainer" class="btn btn-danger" >{t}Exécuter{/t}</button>
 					</div>
 				</div>
-				
 			</div>
 		{/if}
 {if $droits.gestion == 1}

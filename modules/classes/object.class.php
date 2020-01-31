@@ -149,8 +149,9 @@ class ObjectClass extends ObjetBDD
      *            : lance la recherche sur le debut de la chaine
      * @return array
      */
-    function getDetail($uid, $is_container = 0, $is_partial = false)
+    function getDetail($uid, $is_container = 0, $is_partial = false, $trashed = 0)
     {
+        test();
         if (strlen($uid) > 0) {
             $operator = '=';
             /*
@@ -184,10 +185,10 @@ class ObjectClass extends ObjetBDD
                         $operator = 'like';
                     }
                     $data["identifier"] = $uid;
-
-                    $where = " where upper(identifier) $operator upper(:identifier)
+                    $data["trashed"] = $trashed;
+                    $where = " where (upper(identifier) $operator upper(:identifier)
                         or (upper(object_identifier_value) $operator upper (:identifier)
-                        and used_for_search = 't')";
+                        and used_for_search = 't')) and trashed = :trashed";
                 }
             }
             if ($is_container < 2) {
@@ -302,7 +303,7 @@ class ObjectClass extends ObjetBDD
      * @param array $list
      * @return array
      */
-    function getForList(array $list, $order = "")
+    function getForList(array $list, $order = "", $trashed=0)
     {
         /*
          * Verification que les uid sont numeriques
@@ -315,6 +316,9 @@ class ObjectClass extends ObjetBDD
                 $comma ? $uids .= "," : $comma = true;
                 $uids .= $value;
             }
+        }
+        if ($trashed != 0 && $trashed != 1) {
+            $trashed = 0;
         }
         $sql = "select o.uid, o.identifier, container_type_name as type_name,
 		clp_classification as clp,
@@ -331,7 +335,7 @@ class ObjectClass extends ObjetBDD
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
         left outer join object oc on (container_uid = oc.uid)
-		where o.uid in ($uids)
+		where o.uid in ($uids) and trashed = $trashed
 		UNION
 		select o.uid, o.identifier, sample_type_name as type_name, clp_classification as clp,
 		label_id, 'sample' as object_type,
@@ -350,7 +354,7 @@ class ObjectClass extends ObjetBDD
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
         left outer join object oc on (container_uid = oc.uid)
-		where o.uid in ($uids)
+		where o.uid in ($uids) and trashed = $trashed
 		";
         if (strlen($order) > 0) {
             $sql = "select * from (" . $sql . ") as a";

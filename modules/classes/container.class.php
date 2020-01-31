@@ -396,13 +396,13 @@ class Container extends ObjetBDD
      * @param int $container_type_id
      * @return array
      */
-    function getFromType($container_type_id)
+    function getFromType($container_type_id, $trashed = 0)
     {
         if (is_numeric($container_type_id) && $container_type_id > 0) {
             $data["container_type_id"] = $container_type_id;
-            $where = " where container_type_id = :container_type_id";
+            $where = " where container_type_id = :container_type_id and trashed = :trashed";
             $order = " order by uid desc";
-            $this->colonnes["change_date"] = array("type" => 3);
+            $this->colonnes["change_date"] = array("type" => 3, "trashed"=>$trashed);
             return $this->getListeParamAsPrepared($this->sql . $where . $order, $data);
         }
     }

@@ -5,7 +5,7 @@
 	src="display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
 <script src="display/javascript/html5-qrcode.eq.js"></script>
  -->
- <script src="displayjavascript/qcode-decoder.js"></script>
+ <script src="display/javascript/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
 $(document).ready(function() { 
 	'use strict';

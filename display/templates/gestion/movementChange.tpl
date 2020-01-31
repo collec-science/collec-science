@@ -88,7 +88,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 			console.log ("Recherche container - uid : "+uid);
 			$.getJSON ( url, { "module":"containerGetFromUid", "uid":uid } , function( data ) {
 				if (data != null) {
-				console.log ("data is not null");
+				console.log (data);
 				var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " ("+data.object_status_name + ")</option>";
 				$("#container_id").val(data.container_id);
 				$("#containers").html(options);

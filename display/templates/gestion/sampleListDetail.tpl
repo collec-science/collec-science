@@ -297,14 +297,14 @@
 					<input type="checkbox" class="checkSample" name="uids[]" value="{$samples[lst].uid}" checked>
 				</td>
 			{/if}
-				<td class="text-center"><a
-					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
-					title="{t}Consultez le détail{/t}"> {$samples[lst].uid} </a>
+				<td class="text-center">
+					<a href="index.php?module=sampleDisplay&uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
+						{$samples[lst].uid}
+				 	</a>
 				</td>
-				<td><a class="sample" data-uid="{$samples[lst].uid}"
-					href="index.php?module=sampleDisplay&uid={$samples[lst].uid}"
-					title="">
-					<span class="tooltiplink">{$samples[lst].identifier}</span>
+				<td>
+					<a class="sample" data-uid="{$samples[lst].uid}" href="index.php?module=sampleDisplay&uid={$samples[lst].uid}" title="">
+						<span class="tooltiplink">{$samples[lst].identifier}</span>
 					</a>
 				</td>
 				<td>{$samples[lst].identifiers}

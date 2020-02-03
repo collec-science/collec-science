@@ -82,57 +82,53 @@ $(document).ready(function () {
 					.done (function( d ) {
 						if (d ) {
 							d = JSON.parse(d);
-							console.log(d);
 							if (!d.error_code) {
 								/* Create the grid */
-								var lines = parseInt(d.lines);
-								var columns = parseInt(d.columns);
-								var grid = d.grid;
-								console.log(grid);
-								var first_line = parseInt(d.first_line);
-								var first_column = parseInt(d.first_column);
+								var lineNumber = parseInt(d.lineNumber);
+								var columnNumber = parseInt(d.columnNumber);
+								var lines = d.lines;
+								var firstLine = d.firstLine;
+								var firstColumn = d.firstColumn;
 								var ln = 1;
 								var incr = 1;
 								var cl = 1;
 								var clIncr = 1;
-								if (first_line != "T") {
-									ln = lines;
+								if (firstLine != "T") {
+									ln = lineNumber;
 									incr = -1;
 								}
-								if (first_column != "L") {
-									cl = columns;
+								if (firstColumn != "L") {
+									cl = columnNumber;
 									clIncr = -1;
 								}
 								var content = '<table class="table table-bordered"><tr><th class="center">{t}Ligne/colonne{/t}</th>';
-								for (var col = 1 ; col <= columns; col ++) {
+								for (var col = 1 ; col <= columnNumber; col ++) {
 									content += '<th class="center">'+ cl + '</th>';
 									cl = cl + clIncr;
 								}
+								content += '</tr>';
 								var nb = 0;
-								console.log( "nb lines:"+grid.length);
-								grid.forEach(function(line) {
-									console.log("line");
-									console.log(line);
+								lines.forEach(function(line) {
 									content += '<tr><td class="center"><b>'+ ln + '</b></td>';
                 					ln = ln + incr;
 									nb = 0;
 									line.forEach(function (cell) {
-										cell = cell[0];
-										console.log("cell");
-										console.log(cell);
 										content += '<td class="center">';
-										if (parseInt(cell.uid) > 0) {
+										cell.forEach(function (item) {
+											if (parseInt(item.uid) > 0) {
 											if (nb > 0) {
 												content += "<br>";
 											}
-											console.log(cell);
-											content += cell.uid + "&nbsp;" + cell.identifier;
+											content += item.uid + " " + item.identifier;
+											nb ++;
 										}
+										});
 										content += '</td>';
 									 });
 									 content += '</tr>';
 								});
 								content += '</table>';
+								//console.log(content);
 								/* Display */
 								tooltipContent = content;
 								tooltipDisplay(objet);
@@ -148,7 +144,7 @@ $(document).ready(function () {
 	});
 	function tooltipDisplay(object) {
 		object.tooltip ({
-			content: tooltipContent,
+			content: tooltipContent
 		});
 		object.attr("title", tooltipContent);
 			object.tooltip("open");
@@ -226,8 +222,8 @@ $(document).ready(function () {
 							</a>
 						</td>
 						<td>
-							<a class="container" data-uid="{$containers[lst].uid}" href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="">
-								<span class="tooltiplink">{$containers[lst].identifier}</span>
+							<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}">
+								<span class="tooltiplink container"  data-uid="{$containers[lst].uid}" title="">{$containers[lst].identifier}</span>
 							</a>
 						</td>
 						<td>{$containers[lst].identifiers}</td>

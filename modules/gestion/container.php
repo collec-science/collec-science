@@ -405,11 +405,24 @@ switch ($t_module["param"]) {
     case "getOccupationAjax":
         $data = $dataClass->lire($id);
         $dcontainer = $dataClass->getContentContainer($id);
-        $dgrid = array("grid" => $dataClass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"], $data["first_column"]));
-        $dgrid["lines"] = $data["lines"];
-        $dgrid["columns"] = $data["columns"];
-        $dgrid["first_line"] = $data["first_line"];
-        $dgrid["first_column"] = $data["first_column"];
+        $dsample = $dataClass->getContentSample($id);
+        $dgrid = array();
+        $grid = $dataClass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"], $data["first_column"]);
+        foreach ($grid as $line) {
+            $gl = array();
+            foreach ($line as $cell) {
+                $gc = array();
+                foreach ($cell as $item) {
+                    $gc[] = $item;
+                }
+                $gl[] = $gc;
+            }
+            $dgrid["lines"][] = $gl;
+        }
+        $dgrid["lineNumber"] = $data["lines"];
+        $dgrid["columnNumber"] = $data["columns"];
+        $dgrid["firstLine"] = $data["first_line"];
+        $dgrid["firstColumn"] = $data["first_column"];
         $vue->set($dgrid);
         break;
 }

@@ -197,9 +197,6 @@ td a {
 .itemSelected {
 	background: #009EE0;
 }
-.tooltiplink {
-	text-decoration: underline dotted;
-}
 meter {
 	/* Reset the default appearance */
 	-webkit-appearance: none;
@@ -249,4 +246,15 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 
 .trashed {
 	background-color: rgba(213,19,23,0.5);
+}
+.tooltiplink {
+	text-decoration: underline dotted;
+	vertical-align: top;
+}
+.ui-tooltip {
+	 max-width: 1200px ;
+}
+.ui-tooltip-content {
+	max-width: 1200px ;
+	
 }

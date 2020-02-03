@@ -135,6 +135,7 @@
 	<containersDelete action="modules/gestion/container.php" param="deleteMulti" droits="collection" retourok="containerList" retourko="containerList"  modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay"/>
 	<containerGetFromType action="modules/gestion/container.php" param="getFromType" droits="consult"  type="ajax" />
 	<containerGetFromUid action="modules/gestion/container.php" param="getFromUid" droits="consult"  type="ajax" />
+	<containerGetOccupation action="modules/gestion/container.php" param="getOccupationAjax" droits="consult" type="ajax"/>
 	<containerImportStage1 action="modules/gestion/container.php" param="importStage1" droits="import,collection"  type="smarty" retourlogin="1"/>
 	<containerImportStage2 action="modules/gestion/container.php" param="importStage2" droits="import,collection"  type="smarty" modulebefore="containerImportStage1,containerImportStage2"/>
 	<containerImportStage3 action="modules/gestion/container.php" param="importStage3" droits="import,collection" type="smarty" retourok="containerImportStage1" retourko="containerImportStage1" modulebefore="containerImportStage2"/>

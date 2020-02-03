@@ -400,9 +400,7 @@ switch ($t_module["param"]) {
         } else {
             $module_coderetour = -1;
         }
-
         break;
-
 
     case "getOccupationAjax":
         $data = $dataClass->lire($id);

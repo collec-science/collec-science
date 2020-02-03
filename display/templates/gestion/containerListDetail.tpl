@@ -15,10 +15,10 @@ $(document).ready(function () {
 		var libelle="{t}Tout cocher{/t}";
 		if (this.checked) {
 			libelle = "{t}Tout décocher{/t}";
-		} 
+		}
 		$("#lcheckContainer").text(libelle);
 	});
-	
+
 	$("#containerSpinner").hide();
 	$('#containercsvfile').on('keypress click',function() {
 		$(this.form).find("input[name='module']").val("containerExportCSV");
@@ -38,7 +38,6 @@ $(document).ready(function () {
 		$(this.form).find("input[name='module']").val("containerExportGlobal");
 	});
 	$("#checkedButtonContainer").on ("keypress click", function(event) {
-			
 		var action = $("#checkedActionContainer").val();
 		if (action.length > 0) {
 			var conf = confirm("{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
@@ -71,30 +70,32 @@ $(document).ready(function () {
 	 * Display the grid of a container
 	 */
 	var delay=500, timer;
-	$(".sample").mouseenter( function () {
+	$(".container").mouseenter( function () {
 		var objet = $(this);
 		timer = setTimeout(function () {
 			var uid = objet.data("uid");
 			if (! objet.is(':ui-tooltip') ) {
 				if (uid > 0) {
 					var url = "index.php";
-					var data = { "module":"sampleDetail", "uid": uid };
+					var data = { "module":"containerGetOccupation", "uid": uid };
 					$.ajax ( { url:url, data: data})
 					.done (function( d ) {
 						if (d ) {
 							d = JSON.parse(d);
+							console.log(d);
 							if (!d.error_code) {
 								/* Create the grid */
-								var lines = d.lines;
-								var columns = d.columns;
+								var lines = parseInt(d.lines);
+								var columns = parseInt(d.columns);
 								var grid = d.grid;
-								var first_line = d.first_line;
-								var first_column = d.first_column;
+								console.log(grid);
+								var first_line = parseInt(d.first_line);
+								var first_column = parseInt(d.first_column);
 								var ln = 1;
 								var incr = 1;
 								var cl = 1;
 								var clIncr = 1;
-								if (fist_line != "T") {
+								if (first_line != "T") {
 									ln = lines;
 									incr = -1;
 								}
@@ -103,10 +104,35 @@ $(document).ready(function () {
 									clIncr = -1;
 								}
 								var content = '<table class="table table-bordered"><tr><th class="center">{t}Ligne/colonne{/t}</th>';
-									for (var col = 1 ; col <= columns; col ++) {
-										content += '<th class="center">'+ cl + '</th>';
-										cl = cl + clIncr;
-									}
+								for (var col = 1 ; col <= columns; col ++) {
+									content += '<th class="center">'+ cl + '</th>';
+									cl = cl + clIncr;
+								}
+								var nb = 0;
+								console.log( "nb lines:"+grid.length);
+								grid.forEach(function(line) {
+									console.log("line");
+									console.log(line);
+									content += '<tr><td class="center"><b>'+ ln + '</b></td>';
+                					ln = ln + incr;
+									nb = 0;
+									line.forEach(function (cell) {
+										cell = cell[0];
+										console.log("cell");
+										console.log(cell);
+										content += '<td class="center">';
+										if (parseInt(cell.uid) > 0) {
+											if (nb > 0) {
+												content += "<br>";
+											}
+											console.log(cell);
+											content += cell.uid + "&nbsp;" + cell.identifier;
+										}
+										content += '</td>';
+									 });
+									 content += '</tr>';
+								});
+								content += '</table>';
 								/* Display */
 								tooltipContent = content;
 								tooltipDisplay(objet);
@@ -284,9 +310,9 @@ $(document).ready(function () {
 						</div>
 					</div>
 					<div class="form-group trashedgroup" hidden>
-						<label for="trashed" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
+						<label for="trashedbin" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
 						<div class="col-md-8">
-							<select class="form-control" name="trashed" id="trashed">
+							<select class="form-control" name="trashed" id="trashedbin">
 								<option value="1">{t}Mettre à la corbeille{/t}</option>
 								<option value="0">{t}Sortir de la corbeille{/t}</option>
 							</select>

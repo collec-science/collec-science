@@ -185,6 +185,7 @@ switch ($t_module["param"]) {
                         $data["collection_id"] = $dataParent["collection_id"];
                         $data["wgs84_x"] = $dataParent["wgs84_x"];
                         $data["wgs84_y"] = $dataParent["wgs84_y"];
+                        $data["location_accuracy"] = $dataParent["location_accuracy"];
                         $data["metadata"] = $dataParent["metadata"];
                         $data["sampling_place_id"] = $dataParent["sampling_place_id"];
                         $data["referent_id"] = $dataParent["referent_id"];
@@ -203,6 +204,7 @@ switch ($t_module["param"]) {
                     $dl = $dataClass->lire($lid);
                     $data["wgs84_x"] = $dl["wgs84_x"];
                     $data["wgs84_y"] = $dl["wgs84_y"];
+                    $data["location_accuracy"] = $dl["location_accuracy"];
                     $data["collection_id"] = $dl["collection_id"];
                     $data["sample_type_id"] = $dl["sample_type_id"];
                     $data["sampling_date"] = $dl["sampling_date"];

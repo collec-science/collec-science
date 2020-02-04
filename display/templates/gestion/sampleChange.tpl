@@ -557,6 +557,12 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<label for="location_accuracy"  class="control-label col-md-4">{t}Précision de la localisation (en mètres) :{/t}</label>
+					<div class="col-md-8">
+						<input id="sampling_date" class="form-control taux" name="location_accuracy" value="{$data.location_accuracy}">
+					</div>
+				</div>
+				<div class="form-group">
 					<label for="sampling_date"  class="control-label col-md-4">{t}Date de création/échantillonnage de l'échantillon :{/t}</label>
 					<div class="col-md-8">
 						<input id="sampling_date" class="form-control datetimepicker" name="sampling_date" value="{$data.sampling_date}">

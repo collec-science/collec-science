@@ -47,7 +47,8 @@ class ObjectClass extends ObjetBDD
             "referent_id" => array("type" => 1),
             "change_date" => array("type" => 3),
             "uuid" => array("type" => 0, "default" => "getUUID"),
-            "trashed" => array("type" => 1, "default" => 0)
+            "trashed" => array("type" => 1, "default" => 0),
+            "location_accuracy" => array("type" => 1)
         );
         parent::__construct($bdd, $param);
     }
@@ -194,7 +195,7 @@ class ObjectClass extends ObjetBDD
             if ($is_container < 2) {
                 $sql = "select uid, identifier, wgs84_x, wgs84_y,
                     container_type_name as type_name, movement_type_id as last_movement_type,
-                    uuid
+                    uuid, location_accuracy
 					from object
 					join container using (uid)
 					join container_type using (container_type_id)
@@ -215,7 +216,7 @@ class ObjectClass extends ObjetBDD
                 }
                 $sql .= "select uid, identifier, wgs84_x, wgs84_y,
                     sample_type_name as type_name, movement_type_id as last_movement_type,
-                    uuid
+                    uuid, location_accuracy
 					from object
 					join sample using (uid)
 					join sample_type using (sample_type_id)
@@ -303,7 +304,7 @@ class ObjectClass extends ObjetBDD
      * @param array $list
      * @return array
      */
-    function getForList(array $list, $order = "", $trashed=0)
+    function getForList(array $list, $order = "", $trashed = 0)
     {
         /*
          * Verification que les uid sont numeriques
@@ -328,7 +329,7 @@ class ObjectClass extends ObjetBDD
 		'' as prj, '' as col,storage_product as prod,
         null as metadata,
         oc.identifier as container_identifier, container_uid, line_number, column_number,
-        o.uuid
+        o.uuid, o.location_accuracy
 		from object o
 		join container using (uid)
 		join container_type using (container_type_id)
@@ -344,7 +345,7 @@ class ObjectClass extends ObjetBDD
 		collection_name as prj, collection_name as col, storage_product as prod,
         metadata::varchar,
         oc.identifier as container_identifier, container_uid, line_number, column_number,
-        o.uuid
+        o.uuid, o.location_accuracy
 		from object o
 		join sample using (uid)
 		join collection using (collection_id)
@@ -858,7 +859,7 @@ class ObjectClass extends ObjetBDD
     {
         $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id,
                 case when sample_id > 0 then 'sample' else 'container' end as type_name,
-                sample_id, container_id, uuid
+                sample_id, container_id, uuid, location_accuracy
                 from object
                 left outer join sample using (uid)
                 left outer join container using (uid)

@@ -412,6 +412,12 @@
 						<dt>{t}Longitude :{/t}</dt>
 						<dd>{$data.wgs84_x}</dd>
 					</dl>
+					{if $data.location_accuracy > 0}
+						<dl class="dl-horizontal">
+							<dt>{t}Précision de la localisation (en mètres) :{/t}</dt>
+							<dd>{$data.location_accuracy}</dd>
+						</dl>
+					{/if}
 				{/if}
 				<dl class="dl-horizontal">
 					<dt>{t}Emplacement :{/t}</dt>

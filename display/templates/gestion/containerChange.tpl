@@ -1,6 +1,6 @@
 {* Objets > Contenants > Rechercher > UID d'un contenant > Modifier > *}
 <script>
-$(document).ready(function() { 
+$(document).ready(function() {
 	function convertGPStoDD(valeur) {
 		var parts = valeur.trim().split(/[^\d]+/);
 		if (parts.length == 1) {
@@ -34,13 +34,17 @@ $(document).ready(function() {
 	});
 
 var options;
-var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0{/if};
-	function searchType() { 
+var container_type_id = "{$data.container_type_id}";
+var type_init = 0;
+if (container_type_id > 0) {
+	type_init = container_type_id;
+}
+	function searchType() {
 	var family = $("#container_family_id").val();
 	var url = "index.php";
 	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
 		if (data != null) {
-			options = '';			
+			options = '';
 			 for (var i = 0; i < data.length; i++) {
 			        options += '<option value="' + data[i].container_type_id + '"';
 			        if (data[i].container_type_id == type_init) {
@@ -56,13 +60,14 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 	searchType();
 	 });
 	searchType();
-	{if $data.container_type_id > 0}
-	var type_libelle = "{$data.container_type_name}";
-	//type_libelle = type_libelle.replace(/'/g, "\\'");
-	options = '<option value="' + {$data.container_type_id} + '" selected>'+ type_libelle + ' </option>';
-	$("#container_type_id").html(options);
-	{/if}
-	
+
+	if (container_type_id > 0) {
+		var type_libelle = "{$data.container_type_name}";
+		//type_libelle = type_libelle.replace(/'/g, "\\'");
+		options = '<option value="' + {$data.container_type_id} + '" selected>'+ type_libelle + ' </option>';
+		$("#container_type_id").html(options);
+	}
+
 	$("#containerForm").submit(function(event) {
 		/*
 	 	 * Blocage de l'envoi du formulaire
@@ -71,7 +76,7 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 		 if (!containerType)
 			event.preventDefault();
 	 });
-	 	$(".position").change(function() { 
+	 	$(".position").change(function() {
 			setLocalisation();
 		});
 
@@ -160,6 +165,12 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 				<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
 				{t}Format décimal (-0.081667) :{/t}
 				<input id="wgs84_x" name="wgs84_x" placeholder="-0.0156" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="location_accuracy"  class="control-label col-md-4">{t}Précision de la localisation (en mètres) :{/t}</label>
+			<div class="col-md-8">
+				<input id="sampling_date" class="form-control taux" name="location_accuracy" value="{$data.location_accuracy}">
 			</div>
 		</div>
 		<div class="form-group">

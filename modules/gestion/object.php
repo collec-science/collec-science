@@ -125,13 +125,13 @@ switch ($t_module["param"]) {
         }
         break;
     case "setTrashed":
-        $trashed = $_POST["trashed"];
+        $trashed = $_POST["settrashed"];
         if (count($_POST["uids"]) > 0 && ($trashed == 0 || $trashed == 1)) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $bdd->beginTransaction();
             try {
                 foreach ($uids as $uid) {
-                    $dataClass->setTrashed($uid, $_POST["trashed"]);
+                    $dataClass->setTrashed($uid, $trashed);
                 }
                 $bdd->commit();
                 $module_coderetour = 1;

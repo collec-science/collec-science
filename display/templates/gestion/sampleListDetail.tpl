@@ -104,28 +104,28 @@
 			if (action == "samplesAssignReferent") {
 				$(".referentid").show();
 				$(".event").hide();
-				$(".trashedgroup").hide();
+				$(".trashedgroupsample").hide();
 				$(".borrowing").hide();
 			} else if (action == "samplesCreateEvent") {
 				$(".referentid").hide();
 				$(".borrowing").hide();
-				$(".trashedgroup").hide();
+				$(".trashedgroupsample").hide();
 				$(".event").show();
 			} else if (action == "samplesLending") {
 				$(".referentid").hide();
 				$(".event").hide();
-				$(".trashedgroup").hide();
+				$(".trashedgroupsample").hide();
 				$(".borrowing").show();
 			} else if (action == "samplesSetTrashed") {
 				$(".referentid").hide();
 				$(".event").hide();
 				$(".borrowing").hide();
-				$(".trashedgroup").show();
+				$(".trashedgroupsample").show();
 			} else {
 				$(".referentid").hide();
 				$(".event").hide();
 				$(".borrowing").hide();
-				$(".trashedgroup").hide();
+				$(".trashedgroupsample").hide();
 			}
 		});
 		var tooltipContent ;
@@ -433,10 +433,10 @@
 					<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
 				</div>
 			</div>
-			<div class="form-group trashedgroup" hidden>
+			<div class="form-group trashedgroupsample" hidden>
 				<label for="trashed" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
 				<div class="col-md-8">
-					<select class="form-control" name="trashed" id="trashed">
+					<select class="form-control" name="settrashed" id="trashedbin">
 						<option value="1">{t}Mettre à la corbeille{/t}</option>
 						<option value="0">{t}Sortir de la corbeille{/t}</option>
 					</select>

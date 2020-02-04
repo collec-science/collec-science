@@ -43,6 +43,9 @@ function sampleInitDatEntry()
     include_once 'modules/exportmodel/exportmodel.class.php';
     $exportModel = new ExportModel($bdd, $ObjetBDDParam);
     $vue->set($exportModel->getListFromTarget("sample"), "exportModels");
+    include_once 'modules/classes/eventType.class.php';
+    $eventType = new EventType($bdd, $ObjetBDDParam);
+    $vue->set($eventType->getListeFromCategory("sample"),"eventType");
 }
 
 class SampleInitClassException extends Exception

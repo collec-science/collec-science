@@ -363,7 +363,7 @@ class Sample extends ObjetBDD
                 $data["object_status_id"] = $param["object_status_id"];
             }
             if (strlen($param["trashed"]) > 0) {
-                $where .= $and . "so.trashed = :trashed";
+                $where .= $and . " so.trashed = :trashed";
                 $and = " and ";
                 $data["trashed"] = $param["trashed"];
             }
@@ -489,6 +489,8 @@ class Sample extends ObjetBDD
             $this->colonnes["borrowing_date"] = array("type" => 2);
             $this->colonnes["expected_return_date"] = array("type" => 2);
             $this->colonnes["change_date"] = array("type" => 3);
+            printr ($where);
+            printr($data);
             $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
             /**
              * Destroy foreign fields used in the request

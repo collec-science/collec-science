@@ -308,7 +308,7 @@ $(document).ready(function () {
 					<div class="form-group trashedgroup" hidden>
 						<label for="trashedbin" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
 						<div class="col-md-8">
-							<select class="form-control" name="trashed" id="trashedbin">
+							<select class="form-control" name="settrashed" id="trashedbin">
 								<option value="1">{t}Mettre à la corbeille{/t}</option>
 								<option value="0">{t}Sortir de la corbeille{/t}</option>
 							</select>

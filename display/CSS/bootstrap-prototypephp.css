@@ -36,7 +36,7 @@ body {
 	border-style: solid;
 	border-width: 1px;
 	/*background:  #98c1e9;*/
-	background-color: rgba(0,158,224, 0.3);
+	background-color: rgba(0,158,224, 0.1);
 }
 .center {
 	text-align: center;
@@ -231,14 +231,14 @@ meter[value="4"]::-moz-meter-bar { background: green; }
 	background-color:rgba(0,158,224,0.2);
 }
 .tab-content{
-    background-color: white;
+    background-color: rgba(0, 158, 224, 0.2);
     padding:5px
 }
 .nav-tabs > li > a{
   border: medium none;
 }
 .nav-tabs > li > a:hover{
-  background-color:  rgba(0,158,224) !important;
+  background-color:  rgba(0,158,224,0.2) !important;
     border: medium none;
     border-radius: 0;
     color:#fff;

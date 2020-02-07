@@ -1,9 +1,9 @@
 {* Objets > échantillons > *}
-<h2>{t}Rechercher des échantillons{/t}</h2>
+<h3>{t}Échantillons{/t}</h3>
 
 	<div class="row">
 	<div class="col-lg-12">
-{include file='gestion/sampleSearch.tpl'}
+{include file='gestion/sampleSearchTab.tpl'}
 </div>
 </div>
 <div class="row">

@@ -489,8 +489,6 @@ class Sample extends ObjetBDD
             $this->colonnes["borrowing_date"] = array("type" => 2);
             $this->colonnes["expected_return_date"] = array("type" => 2);
             $this->colonnes["change_date"] = array("type" => 3);
-            printr ($where);
-            printr($data);
             $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
             /**
              * Destroy foreign fields used in the request

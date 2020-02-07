@@ -225,6 +225,22 @@
 			object.attr("title", tooltipContent);
 			 object.tooltip("open");
 		}
+		$('#sampleList thead th').each( function () {
+        var title = $(this).text();
+        $(this).html( '<input type="text" placeholder="'+title+'" class="searchInput">' );
+		});
+		var table = $("#sampleList").DataTable();
+			table.columns().every( function () {
+			var that = this;
+			$( 'input', this.header() ).on( 'keyup change clear', function () {
+				if ( that.search() !== this.value ) {
+					that.search( this.value ).draw();
+				}
+			});
+		});
+		$(".searchInput").hover(function() {
+			$(this).focus();
+		});
 	});
 </script>
 <button id="displayModeButton" class="btn btn-info pull-right">{t}Affichage réduit{/t}</button>

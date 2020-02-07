@@ -125,7 +125,7 @@
 		$( '.datatable-nopaging' ).DataTable( {
 			"language": dataTableLanguage,
 			"paging": false,
-			"searching": false
+			"searching": true
 		} );
 		$( '.datatable-nopaging-nosort' ).DataTable( {
 			"language": dataTableLanguage,
@@ -142,7 +142,7 @@
 			dom: 'Bfrtip',
 			"language": dataTableLanguage,
 			"paging": false,
-			"searching": false,
+			"searching": true,
 			buttons: [
 				'copyHtml5',
 				'excelHtml5',

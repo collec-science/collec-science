@@ -227,7 +227,10 @@
 		}
 		$('#sampleList thead th').each( function () {
         var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="'+title+'" class="searchInput">' );
+				var size = title.trim().length;
+				if ( size > 0) {
+        	$(this).html( '<input type="text" placeholder="'+title+'" size="'+size+'" class="searchInput">' );
+				}
 		});
 		var table = $("#sampleList").DataTable();
 			table.columns().every( function () {

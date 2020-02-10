@@ -219,7 +219,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="tabsearch-type" href="#navsearch-type"  data-toggle="tab" role="tab" aria-controls="navsearch-type" aria-selected="false">
-                    <img src="display/images/label.png" height="25">
                     {t}Type et métadonnées{/t}
                 </a>
             </li>
@@ -295,13 +294,161 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="navsearch-type" role="tabpanel" aria-labelledby="tabsearch-type">
-
+                <div class="row">
+                    <div class="form-group">
+                        <label for="sample_type_id" class="col-sm-3 control-label">{t}Type d'échantillon :{/t}</label>
+                        <div class="col-sm-6">
+                            <select id="sample_type_id" name="sample_type_id" class="form-control combobox">
+                            <option value="" {if $sampleSearch.sample_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                            {section name=lst loop=$sample_type}
+                            <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $sampleSearch.sample_type_id}selected{/if} title="{$sample_type[lst].sample_type_description}">
+                            {$sample_type[lst].sample_type_name}
+                            </option>
+                            {/section}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <!--
+                        <label for="metadata_field" class="col-md-2 control-label">Métadonnées :</label>
+                        -->
+                        <div id="metadatarow" hidden>
+                                <label for="metadata_field" class= "col-sm-3 control-label">{t}Rechercher dans les métadonnées :{/t}</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" id="metadata_field" name="metadata_field[]">
+                                <option value="" {if $sampleSearch.metadata_field.0 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+                                {foreach $metadatas as $value}
+                                <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.0 == $value.fieldname}selected{/if}>
+                                {$value.fieldname}
+                                </option>
+                                {/foreach}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="form-control" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <!--  metadonnees supplementaires -->
+                        <div id="metadatarow1" hidden>
+                            <div class="col-sm-3 col-sm-offset-3">
+                                <select class="form-control"  id="metadata_field1" name="metadata_field[]">
+                                <option value="" {if $sampleSearch.metadata_field.1 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+                                {foreach $metadatas as $value}
+                                <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.1 == $value.fieldname}selected{/if}>
+                                {$value.fieldname}
+                                </option>
+                                {/foreach}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="form-control" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div id="metadatarow2" hidden>
+                            <div class="col-sm-3 col-sm-offset-3">
+                                <select class="form-control"  id="metadata_field2" name="metadata_field[]">
+                                <option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+                                {foreach $metadatas as $value}
+                                <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.2 == $value.fieldname}selected{/if}>
+                                {$value.fieldname}
+                                </option>
+                                {/foreach}
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="form-control" id="metadata_value_2" name="metadata_value[]" value="{$sampleSearch.metadata_value.2}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par % (cela peut ralentir la requête){/t}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="navsearch-divers" role="tabpanel" aria-labelledby="tabsearch-divers">
-
+                <div class="row">
+                    <div class="form-group">
+                        <label for="referent_id" class="col-sm-3 control-label">{t}Référent :{/t}</label>
+                        <div class="col-sm-6">
+                            <select id="referent_id" name="referent_id" class="form-control">
+                            <option value="" {if $sampleSearch.referent_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                            {foreach $referents as $referent}
+                            <option value="{$referent.referent_id}" {if $sampleSearch.referent_id == $referent.referent_id}selected{/if}>
+                            {$referent.referent_name}
+                            </option>
+                            {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="movement_reason_id" class="col-sm-3 control-label">{t}Motif de déstockage :{/t}</label>
+                        <div class="col-sm-6">
+                            <select id="movement_reason_id" name="movement_reason_id" class="form-control">
+                                <option value="" {if $sampleSearch.movement_reason_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                                {section name=lst loop=$movementReason}
+                                    <option value="{$movementReason[lst].movement_reason_id}" {if $movementReason[lst].movement_reason_id == $sampleSearch.movement_reason_id}selected{/if}>
+                                        {$movementReason[lst].movement_reason_name}
+                                    </option>
+                                {/section}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="select_date" class="col-sm-3 control-label">{t}Recherche par date :{/t}</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" id="select_date" name="select_date">
+                            <option value="" {if $sampleSearch.select_date == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                            <option value="cd" {if $sampleSearch.select_date == "cd"}selected{/if}>{t}Date de création dans la base{/t}</option>
+                            <option value="sd" {if $sampleSearch.select_date == "sd"}selected{/if}>{t}Date d'échantillonnage{/t}</option>
+                            <option value="ed" {if $sampleSearch.select_date == "ed"}selected{/if}>{t}Date d'expiration{/t}</option>
+                            <option value="ch" {if $sampleSearch.select_date == "ch"}selected{/if}>{t}Date technique de dernier changement{/t}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="date_from" class="col-sm-1 col-sm-offset-3 control-label">{t}du :{/t}</label>
+                        <div class="col-sm-2">
+                            <input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
+                        </div>
+                        <label for="date_to" class="col-sm-1 control-label">{t}au :{/t}</label>
+                        <div class="col-sm-2">
+                            <input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane fade" id="navsearch-loc" role="tabpanel" aria-labelledby="tabsearch-loc">
-
+                <div class="row">
+                    <div class="form-group">
+                        <label for="sampling_place_id" class="col-sm-3 control-label">{t}Lieu de prélèvement :{/t}</label>
+                        <div class="col-sm-6">
+                            <select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
+                                <option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                                {section name=lst loop=$samplingPlace}
+                                    <option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $sampleSearch.sampling_place_id}selected{/if}>
+                                    {if strlen({$samplingPlace[lst].sampling_place_code}) > 0}
+                                    {$samplingPlace[lst].sampling_place_code} -&nbsp;
+                                    {/if}
+                                    {$samplingPlace[lst].sampling_place_name}
+                                    </option>
+                                {/section}
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
         <div class="row">
             <div class="col-sm-offset-3 col-sm-6 center">

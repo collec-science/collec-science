@@ -116,6 +116,11 @@
 			"pageLength": pageLength,
 			"lengthMenu": [ [ 10, 25, 50, 100, 500, -1 ], [ 10, 25, 50, 100, 500, "All" ] ],
 		} );
+		$( '.datatable-nopaging-nosearching' ).DataTable( {
+			"language": dataTableLanguage,
+			"searching": false,
+			"paging": false
+		});
 		$( '.datatable-searching' ).DataTable( {
 			"language": dataTableLanguage,
 			"searching": true,

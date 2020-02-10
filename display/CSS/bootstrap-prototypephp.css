@@ -278,5 +278,7 @@ meter[value="4"]::-moz-meter-bar { background: #A4C400; }
 }
 .ui-tooltip-content {
 	max-width: 1200px ;
-	
+}
+.nowrap {
+	white-space: nowrap;
 }

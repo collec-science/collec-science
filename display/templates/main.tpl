@@ -58,3 +58,27 @@
 </div>
 </div>
 {/if}
+{if count($collections) > 0}
+<div class="hidden-sm row">
+  <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+    <table class="table table-bordered table-hover datatable-nopaging-nosearching">
+    <thead>
+      <tr>
+      <th>{t}Collection{/t}</th>
+      <th>{t}Nombre d'échantillons{/t}</th>
+      <th>{t}Date de dernière modification d'un échantillon{/t}</th>
+    </tr>
+    </thead>
+    <tbody>
+      {foreach $collections as $col}
+        <tr>
+          <td class="nowrap">{$col.collection_name}</td>
+          <td class="center">{$col.samples_number}</td>
+          <td class="center">{$col.last_change}</td>
+        </tr>
+      {/foreach}
+    </tbody>
+  </table>
+  </div>
+</div>
+{/if}

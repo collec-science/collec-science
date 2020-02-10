@@ -200,9 +200,23 @@
         $("#name").val("");
         $("#name").focus();
      });
-     $('.nav-tabs > li > a').hover(function() {
-            $(this).tab('show');
+     /* Management of tabs */
+		var activeTab = "";
+        try {
+        activeTab = Cookies.get("sampleSearchTab");
+        } catch (Exception) {
+        }
+		try {
+			if (activeTab.length > 0) {
+				$("#"+activeTab).tab('show');
+			}
+		} catch (Exception) { }
+		$('.nav-tabs > li > a').hover(function() {
+			$(this).tab('show');
  		});
+		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
+			Cookies.set("sampleSearchTab", $(this).attr("id"), { secure: true});
+		});
     });
 </script>
 <div class="row col-lg-10 col-md-12">

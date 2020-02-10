@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="display/node_modules/leaflet-draw/dist/leaflet.draw.css">
+<script src="display/node_modules/leaflet-draw/dist/leaflet.draw.js"></script>
 <script>
     var sampling_place_init = "{$sampleSearch.sampling_place_id}";
     var appli_code ="{$APPLI_code}";
@@ -218,6 +220,83 @@
 		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
 			Cookies.set("sampleSearchTab", $(this).attr("id"), { secure: true});
 		});
+
+        /* MAP */
+        var map = new L.Map("map", {
+            drawControl: false
+        });
+        var variablesNames = ['mapDefaultLong', 'mapDefaultLat', 'mapDefaultZoom'];
+        var mapData = {};
+        mapData.mapDefaultLong = "{$mapDefaultX}";
+        mapData.mapDefaultLat = "{$mapDefaultY}";
+        mapData.mapDefaultZoom = "{$mapDefaultZoom}";
+        variablesNames.forEach(function (item, index, array) {
+            /**
+             * Surround the values with the cookie
+             */
+            try {
+                var value = Cookies.get(item);
+                if (value.length > 0) {
+                    mapData[item] = parsefloat(value);
+                }
+            } catch { }
+
+        });
+        var osmUrl = '{literal}https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png{/literal}';
+        var osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
+        var center = [mapData.mapDefaultLat, mapData.mapDefaultLong];
+        console.log (center);
+        var osm = new L.TileLayer(osmUrl, {
+            attribution: osmAttrib,
+            crossOrigin: true
+        });
+        var zoom = 5;
+        if (!isNaN(mapData.mapDefaultZoom)) {
+            zoom = mapData.mapDefaultZoom;
+        }
+        console.log(zoom);
+        map.setView(center, zoom);
+        osm.addTo(map);
+        //map.addLayer(osm);
+        var position;
+        var editableLayers = new L.FeatureGroup();
+        map.addLayer(editableLayers);
+        var options = {
+            draw: {
+                polyline: false,
+                polygon: false,
+                circle: false,
+                marker: false,
+                circlemarker: false
+            },
+            edit: {
+                featureGroup: editableLayers,
+                remove: false
+            }
+        };
+        var drawControl = new L.Control.Draw(options);
+        L.control.scale().addTo(map);
+        map.addControl(drawControl);
+        map.on(L.Draw.Event.CREATED, function (e) {
+            var type = e.layerType,
+                layer = e.layer;
+            editableLayers.addLayer(layer);
+            position = layer.getLatLngs();
+            center = layer.getCenter();
+            console.log("Event.CREATED");
+            console.log(position);
+            console.log(center);
+        });
+        map.on(L.Draw.Event.EDITED, function (e) {
+            var layers = e.layers;
+            layers.eachLayer(function (layer) {
+                position = layer.getLatLngs();
+                center = layer.getCenter();
+                console.log("event.EDITED");
+                console.log(position);
+                console.log(center);
+            });
+        });
     });
 </script>
 <div class="row col-lg-10 col-md-12">
@@ -447,23 +526,31 @@
             </div>
             <div class="tab-pane fade" id="navsearch-loc" role="tabpanel" aria-labelledby="tabsearch-loc">
                 <div class="row">
-                    <div class="form-group">
-                        <label for="sampling_place_id" class="col-sm-3 control-label">{t}Lieu de prélèvement :{/t}</label>
-                        <div class="col-sm-6">
-                            <select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
-                                <option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
-                                {section name=lst loop=$samplingPlace}
-                                    <option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $sampleSearch.sampling_place_id}selected{/if}>
-                                    {if strlen({$samplingPlace[lst].sampling_place_code}) > 0}
-                                    {$samplingPlace[lst].sampling_place_code} -&nbsp;
-                                    {/if}
-                                    {$samplingPlace[lst].sampling_place_name}
-                                    </option>
-                                {/section}
-                            </select>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="sampling_place_id" class="col-sm-3 control-label">{t}Lieu de prélèvement :{/t}</label>
+                                <div class="col-sm-6">
+                                    <select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
+                                        <option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                                        {section name=lst loop=$samplingPlace}
+                                            <option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $sampleSearch.sampling_place_id}selected{/if}>
+                                            {if strlen({$samplingPlace[lst].sampling_place_code}) > 0}
+                                            {$samplingPlace[lst].sampling_place_code} -&nbsp;
+                                            {/if}
+                                            {$samplingPlace[lst].sampling_place_name}
+                                            </option>
+                                        {/section}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="hidden-sm col-md-6">
+                        <div id="map" class="mapdisplay"></div>
+                    </div>
                 </div>
+                
             </div>
         <div class="row">
             <div class="col-sm-offset-3 col-sm-6 center">

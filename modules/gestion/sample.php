@@ -53,6 +53,10 @@ switch ($t_module["param"]) {
          * Ajout de la selection des modeles d'etiquettes
          */
         include 'modules/gestion/label.functions.php';
+        /**
+         * Map default data
+         */
+        include "modules/gestion/mapInit.php";
         break;
     case "searchAjax":
         $vue->set($dataClass->sampleSearch($_REQUEST));

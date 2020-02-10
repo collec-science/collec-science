@@ -163,6 +163,10 @@ legend {
 	height: 80%;
 
 }
+.mapsearch {
+	width: 200px;
+	height: 200px;
+}
 
 .scrolltotop {
 	position: fixed;

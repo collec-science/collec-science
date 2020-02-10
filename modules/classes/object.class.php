@@ -48,8 +48,10 @@ class ObjectClass extends ObjetBDD
             "change_date" => array("type" => 3),
             "uuid" => array("type" => 0, "default" => "getUUID"),
             "trashed" => array("type" => 1, "default" => 0),
-            "location_accuracy" => array("type" => 1)
+            "location_accuracy" => array("type" => 1),
+            "geom" => array("type"=>4)
         );
+        $this->srid = 4326;
         parent::__construct($bdd, $param);
     }
 
@@ -85,6 +87,14 @@ class ObjectClass extends ObjetBDD
                     $this->movement->addMovement($data["uid"], date($_SESSION["MASKDATELONG"]), 2);
                 }
             }
+        }
+        /**
+         * Generate the geom object
+         */
+        if (strlen($data["wgs84_x"])>0 && strlen($data["wgs84_y"])> 0) {
+            $data["geom"] = "POINT(" . $data["wgs84_x"] . " " . $data["wgs84_y"] . ")";
+        } else {
+            $data["geom"] = "";
         }
         return parent::ecrire($data);
     }

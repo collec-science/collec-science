@@ -2,7 +2,7 @@
 <!-- Liste des containers pour affichage -->
 <script>
 $(document).ready(function () {
-	var gestion = {$droits.gestion};
+	var gestion = "{$droits.gestion}";
 	var dataOrder = [0, 'asc'];
 	if (gestion == 1) {
 		dataOrder = [1, 'asc'];
@@ -232,7 +232,7 @@ $(document).ready(function () {
 							{$containers[lst].container_family_name}/
 							{$containers[lst].container_type_name}
 						</td>
-						<td>
+						<td class="nowrap">
 							{if strlen($containers[lst].movement_date) > 0 }
 								{if $containers[lst].movement_type_id == 1}
 									<span class="green">

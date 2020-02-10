@@ -111,7 +111,7 @@
             .done (function( d ) {
                     if (d ) {
                     d = JSON.parse(d);
-                    options = '<option value=""></option>';
+                    options = '<option value="">{t}Choisissez...{/t}</option>';
                      for (var i = 0; i < d.length; i++) {
                          var libelle = "";
                          if (d[i].sampling_place_code) {
@@ -184,6 +184,7 @@
         $("#collection_id").prop("selectedIndex", 0).change();
         $("#referent_id").prop("selectedIndex", 0).change();
         $("#sample_type_id").combobox("select", "").change();
+        sampling_place_init = "";
         $("#sampling_place_id").combobox("select", "").change();
         $("#movement_reason_id").prop("selectedIndex", 0).change();
         $("#select_date").prop("selectedIndex", 0).change();
@@ -312,7 +313,7 @@
                     <div class="form-group">
                         <label for="sample_type_id" class="col-sm-3 control-label">{t}Type d'échantillon :{/t}</label>
                         <div class="col-sm-6">
-                            <select id="sample_type_id" name="sample_type_id" class="form-control combobox">
+                            <select id="sample_type_id" name="sample_type_id" >
                             <option value="" {if $sampleSearch.sample_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
                             {section name=lst loop=$sample_type}
                             <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $sampleSearch.sample_type_id}selected{/if} title="{$sample_type[lst].sample_type_description}">

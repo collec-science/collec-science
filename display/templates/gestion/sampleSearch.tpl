@@ -1,3 +1,4 @@
+! Obsolete !
 <script>
 var sampling_place_init = "{$sampleSearch.sampling_place_id}";
 var appli_code ="{$APPLI_code}";

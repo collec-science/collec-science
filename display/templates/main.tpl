@@ -61,7 +61,7 @@
 {if count($collections) > 0}
 <div class="hidden-sm row">
   <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-    <table class="table table-bordered table-hover datatable-nopaging-nosearching">
+    <table class="table table-bordered table-hover datatable-nopaging-nosearching form-display">
     <thead>
       <tr>
       <th>{t}Collection{/t}</th>

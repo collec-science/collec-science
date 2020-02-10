@@ -2,7 +2,7 @@
 <!--  Liste des échantillons pour affichage-->
 <script>
 	$(document).ready(function() {
-		var gestion = {$droits.gestion};
+		var gestion = "{$droits.gestion}";
 		var columnList = [3,5,6,7,10,11,12,13];
 		var dataOrder = [0, 'asc'];
 		if (gestion == 1) {
@@ -349,7 +349,7 @@
 						height="30">
 				</a> {/if}
 				</td>
-				<td>
+				<td class="nowrap">
 				{if strlen($samples[lst].movement_date) > 0 }
 					{if $samples[lst].movement_type_id == 1}
 						<span class="green">{else}
@@ -368,9 +368,9 @@
 					{/if}
 				</td>
 				<td>{$samples[lst].sampling_place_name}</td>
-				<td>{$samples[lst].sampling_date}</td>
-				<td>{$samples[lst].sample_creation_date}</td>
-				<td>{$samples[lst].expiration_date}</td>
+				<td class="nowrap">{$samples[lst].sampling_date}</td>
+				<td class="nowrap">{$samples[lst].sample_creation_date}</td>
+				<td class="nowrap">{$samples[lst].expiration_date}</td>
 
 			</tr>
 			{/section}

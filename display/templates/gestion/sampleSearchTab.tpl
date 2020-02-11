@@ -518,10 +518,10 @@
   var long = "{$data.station_long}";
   var lat = "{$data.station_lat}";
   var point;
-  var SouthWestLat = "{$SouthWestLat}";
-  var SouthWestLon = "{$SouthWestLon}";
-  var NorthEastLat = "{$NorthEastLat}";
-  var NorthEastLon = "{$NorthEastLon}";
+  var SouthWestlat = "{$sampleSearch.SouthWestlat}";
+  var SouthWestlon = "{$sampleSearch.SouthWestlon}";
+  var NorthEastlat = "{$sampleSearch.NorthEastlat}";
+  var NorthEastlon = "{$sampleSearch.NorthEastlon}";
 
   function setPosition(lat, long) {
     map.setView([lat, long]);
@@ -544,13 +544,9 @@
         },
         edit: {
             featureGroup: editableLayers,
-            remove: false
+            remove: true
         }
     };
-    if (SouthWestLat.length > 0 && SouthWestLon.length > 0 && NorthEastLat.length > 0 && NorthEastLon.length > 0){
-      var layer1 = L.rectangle([[SouthWestLat, SouthWestLon],[NorthEastLat, NorthEastLon]]);
-      editableLayers.addLayer(layer1);
-    }
     var drawControl = new L.Control.Draw(options);
     L.control.scale().addTo(map);
     map.addControl(drawControl);
@@ -585,7 +581,11 @@
             }
         }
     }
-
+    if (SouthWestlat.length > 0 && SouthWestlon.length > 0 && NorthEastlat.length > 0 && NorthEastlon.length > 0){
+        var bounds = [[parseFloat(SouthWestlat), parseFloat(SouthWestlon)],[parseFloat(NorthEastlat), parseFloat(NorthEastlon)]];
+      var layer1 = new L.rectangle(bounds);
+      editableLayers.addLayer(layer1);
+    }
   mapDisplay(map);
 
 $("body").on("shown.bs.tab", "#tabsearch-loc", function() {

@@ -163,9 +163,10 @@ legend {
 	height: 80%;
 
 }
-.mapsearch {
-	width: 200px;
-	height: 200px;
+.mapSearch {
+  position: relative;
+    height: 250px;
+    width: 90%;
 }
 
 .scrolltotop {

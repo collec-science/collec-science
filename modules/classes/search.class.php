@@ -34,7 +34,7 @@ class SearchParam
      */
     function __construct()
     {
-        if (! is_array($this->param)) {
+        if (!is_array($this->param)) {
             $this->param = array();
         }
         $this->isSearch = 0;
@@ -67,7 +67,7 @@ class SearchParam
                      * Recherche si la valeur doit etre numerique
                      */
                     if (isset($this->paramNum[$key])) {
-                        if (! is_numeric($data[$key])) {
+                        if (!is_numeric($data[$key])) {
                             $data[$key] = "";
                         }
                     }
@@ -78,9 +78,9 @@ class SearchParam
             /*
              * Une donnee unique est fournie
              */
-            if (isset($this->param[$data]) && ! is_null($valeur)) {
+            if (isset($this->param[$data]) && !is_null($valeur)) {
                 if (isset($this->paramNum[$data])) {
-                    if (! is_numeric($valeur)) {
+                    if (!is_numeric($valeur)) {
                         $valeur = "";
                     }
                 }
@@ -139,7 +139,7 @@ class SearchParam
      * Function used to reinit some fields
      */
     function reinit()
-    {}
+    { }
 }
 
 /**
@@ -233,7 +233,11 @@ class SearchSample extends SearchParam
             "select_date" => "",
             "referent_id" => "",
             "movement_reason_id" => "",
-            "trashed" => 0
+            "trashed" => 0,
+            "SouthWestLon" => "",
+            "SouthWestLat" => "",
+            "NorthEastLon" => "",
+            "NorthEastLat" => ""
         );
         /*
          * Ajout des dates
@@ -249,7 +253,11 @@ class SearchSample extends SearchParam
             "sampling_place_id",
             "referent_id",
             "movement_reason_id",
-            "trashed"
+            "trashed",
+            "SouthWestLon",
+            "SouthWestLat",
+            "NorthEastLon",
+            "NorthEastLat"
         );
         parent::__construct();
     }

@@ -43,7 +43,40 @@
                      ok = true;
                  }
              }
-             if (ok == false) event.preventDefault();
+            var points = array ["SouthWest", "NorthEast"];
+            var coordNames = array ("lon", "lat") ;
+            var coordsOk = true;
+            points.foreach(function(point) {
+                coordNames.foreach(function(coordName){
+                    try {
+                        $("#"+point+coordName).val(getCoord(point,coordName));
+                    } catch (error) {
+                    $("#"+point+coordName).val("");
+                    coordsOk = false;
+                    }
+                    if ($("#"+point+coordName).val().length == 0) {
+                        coordsOk = false;
+                    }
+                });
+            });
+            if (coordsOk) ok = true;
+
+             if (ok == false) {
+                 event.preventDefault();
+             } else {
+                 /* set the geographic position */
+                 var points = array ["SouthWest", "NorthEast"];
+                 var coordNames = array ("lon", "lat") ;
+                 points.foreach(function(point) {
+                     coordNames.foreach(function(coordName){
+                         try {
+                             $("#"+point+coordName).val(getCoord(point,coordName));
+                         } catch (error) {
+                            $("#"+point+coordName).val("");
+                         }
+                     });
+                 });
+             }
          });
 
          function getMetadata() {
@@ -196,6 +229,10 @@
         $("#metadata_value").val("");
         $("#metadata_value_1").val("");
         $("#metadata_value_2").val("");
+        $("#NorthEastLat").val("");
+        $("#NorthEastLon").val("");
+        $("#SouthWestLat").val("");
+        $("#SouthWestLon").val("");
         $("#trashed").val("0");
         var now = new Date();
         $("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
@@ -220,83 +257,6 @@
 		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
 			Cookies.set("sampleSearchTab", $(this).attr("id"), { secure: true});
 		});
-
-        /* MAP */
-        var map = new L.Map("map", {
-            drawControl: false
-        });
-        var variablesNames = ['mapDefaultLong', 'mapDefaultLat', 'mapDefaultZoom'];
-        var mapData = {};
-        mapData.mapDefaultLong = "{$mapDefaultX}";
-        mapData.mapDefaultLat = "{$mapDefaultY}";
-        mapData.mapDefaultZoom = "{$mapDefaultZoom}";
-        variablesNames.forEach(function (item, index, array) {
-            /**
-             * Surround the values with the cookie
-             */
-            try {
-                var value = Cookies.get(item);
-                if (value.length > 0) {
-                    mapData[item] = parsefloat(value);
-                }
-            } catch { }
-
-        });
-        var osmUrl = '{literal}https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png{/literal}';
-        var osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
-        var center = [mapData.mapDefaultLat, mapData.mapDefaultLong];
-        console.log (center);
-        var osm = new L.TileLayer(osmUrl, {
-            attribution: osmAttrib,
-            crossOrigin: true
-        });
-        var zoom = 5;
-        if (!isNaN(mapData.mapDefaultZoom)) {
-            zoom = mapData.mapDefaultZoom;
-        }
-        console.log(zoom);
-        map.setView(center, zoom);
-        osm.addTo(map);
-        //map.addLayer(osm);
-        var position;
-        var editableLayers = new L.FeatureGroup();
-        map.addLayer(editableLayers);
-        var options = {
-            draw: {
-                polyline: false,
-                polygon: false,
-                circle: false,
-                marker: false,
-                circlemarker: false
-            },
-            edit: {
-                featureGroup: editableLayers,
-                remove: false
-            }
-        };
-        var drawControl = new L.Control.Draw(options);
-        L.control.scale().addTo(map);
-        map.addControl(drawControl);
-        map.on(L.Draw.Event.CREATED, function (e) {
-            var type = e.layerType,
-                layer = e.layer;
-            editableLayers.addLayer(layer);
-            position = layer.getLatLngs();
-            center = layer.getCenter();
-            console.log("Event.CREATED");
-            console.log(position);
-            console.log(center);
-        });
-        map.on(L.Draw.Event.EDITED, function (e) {
-            var layers = e.layers;
-            layers.eachLayer(function (layer) {
-                position = layer.getLatLngs();
-                center = layer.getCenter();
-                console.log("event.EDITED");
-                console.log(position);
-                console.log(center);
-            });
-        });
     });
 </script>
 <div class="row col-lg-10 col-md-12">
@@ -304,6 +264,10 @@
         <input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}">
         <input id="action" type="hidden" name="action" value="{if strlen($action)>0}{$action}{else}List{/if}">
         <input id="isSearch" type="hidden" name="isSearch" value="1">
+        <input type="hidden" id="SouthWestLon" name="SouthWestLon" value="{$sampleSearch.SouthWestLon}">
+        <input type="hidden" id="SouthWestLat" name="SouthWestLat" value="{$sampleSearch.SouthWestLat}">
+        <input type="hidden" id="NorthEastLon" name="NorthEastLon" value="{$sampleSearch.NorthEastLon}">
+        <input type="hidden" id="NorthEastLat" name="NorthEastLat" value="{$sampleSearch.NorthEastLat}">
         <!-- boite d'onglets -->
         <ul class="nav nav-tabs  " id="myTab" role="tablist" >
             <li class="nav-item active">
@@ -526,11 +490,11 @@
             </div>
             <div class="tab-pane fade" id="navsearch-loc" role="tabpanel" aria-labelledby="tabsearch-loc">
                 <div class="row">
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-5 col-sm-12">
                         <div class="row">
                             <div class="form-group">
-                                <label for="sampling_place_id" class="col-sm-3 control-label">{t}Lieu de prélèvement :{/t}</label>
-                                <div class="col-sm-6">
+                                <label for="sampling_place_id" class="col-sm-4 control-label">{t}Lieu de prélèvement :{/t}</label>
+                                <div class="col-sm-8">
                                     <select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
                                         <option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
                                         {section name=lst loop=$samplingPlace}
@@ -546,11 +510,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hidden-sm col-md-6">
-                        <div id="map" class="mapdisplay"></div>
+                    <div id="map" class="hidden-sm col-md-6">
+                        <div id="map" class="mapSearch"></div>
                     </div>
                 </div>
-                
             </div>
         <div class="row">
             <div class="col-sm-offset-3 col-sm-6 center">
@@ -561,3 +524,84 @@
     </div>
     </form>
 </div>
+{include file="mapDefault.tpl"}
+<script>
+  var map = setMap("map");
+
+  var long = "{$data.station_long}";
+  var lat = "{$data.station_lat}";
+  var point;
+  var SouthWestLat = "{$SouthWestLat}";
+  var SouthWestLon = "{$SouthWestLon}";
+  var NorthEastLat = "{$NorthEastLat}";
+  var NorthEastLon = "{$NorthEastLon}";
+
+  function setPosition(lat, long) {
+    map.setView([lat, long]);
+  }
+
+  if (long.length > 0 && lat.length > 0) {
+    mapData.mapDefaultLong = long;
+    mapData.mapDefaultLat = lat;
+  }
+  var position;
+    var editableLayers = new L.FeatureGroup();
+    map.addLayer(editableLayers);
+    var options = {
+        draw: {
+            polyline: false,
+            polygon: false,
+            circle: false,
+            marker: false,
+            circlemarker: false
+        },
+        edit: {
+            featureGroup: editableLayers,
+            remove: false
+        }
+    };
+    if (SouthWestLat.length > 0 && SouthWestLon.length > 0 && NorthEastLat.length > 0 && NorthEastLon.length > 0){
+      var layer1 = L.rectangle([[SouthWestLat, SouthWestLon],[NorthEastLat, NorthEastLon]]);
+      editableLayers.addLayer(layer1);
+    }
+    var drawControl = new L.Control.Draw(options);
+    L.control.scale().addTo(map);
+    map.addControl(drawControl);
+    map.on(L.Draw.Event.CREATED, function (e) {
+        var type = e.layerType,
+            layer = e.layer;
+        editableLayers.addLayer(layer);
+        position = layer.getLatLngs();
+        center = layer.getCenter();
+    });
+    map.on(L.Draw.Event.EDITED, function (e) {
+        var layers = e.layers;
+        layers.eachLayer(function (layer) {
+            position = layer.getLatLngs();
+            center = layer.getCenter();
+
+        });
+    });
+    function getCoord(pointName, coordName) {
+        var points = {
+            "SouthWest": 0,
+            "NorthWest": 1,
+            "NorthEast": 2,
+            "SouthEast": 3
+        };
+        point = points[pointName];
+        if ((point >= 0 && point <=4) && (coordName == 'lon' || coordName == 'lat')) {
+            if (coordName == 'lon') {
+                return (position[0][point].wrap().lon);
+            } else {
+                return (position[0][point].wrap().lat);
+            }
+        }
+    }
+
+  mapDisplay(map);
+
+$("body").on("shown.bs.tab", "#tabsearch-loc", function() {
+    map.invalidateSize(true);
+});
+</script>

@@ -234,10 +234,10 @@ class SearchSample extends SearchParam
             "referent_id" => "",
             "movement_reason_id" => "",
             "trashed" => 0,
-            "SouthWestLon" => "",
-            "SouthWestLat" => "",
-            "NorthEastLon" => "",
-            "NorthEastLat" => ""
+            "SouthWestlon" => "",
+            "SouthWestlat" => "",
+            "NorthEastlon" => "",
+            "NorthEastlat" => ""
         );
         /*
          * Ajout des dates
@@ -254,10 +254,10 @@ class SearchSample extends SearchParam
             "referent_id",
             "movement_reason_id",
             "trashed",
-            "SouthWestLon",
-            "SouthWestLat",
-            "NorthEastLon",
-            "NorthEastLat"
+            "SouthWestlon",
+            "SouthWestlat",
+            "NorthEastlon",
+            "NorthEastlat"
         );
         parent::__construct();
     }

@@ -43,39 +43,26 @@
                      ok = true;
                  }
              }
-            var points = array ["SouthWest", "NorthEast"];
-            var coordNames = array ("lon", "lat") ;
+            var points = ["SouthWest", "NorthEast"];
+            var coordNames = ["lon", "lat"] ;
             var coordsOk = true;
-            points.foreach(function(point) {
-                coordNames.foreach(function(coordName){
+            points.forEach(function(point) {
+                coordNames.forEach(function(coordName){
                     try {
                         $("#"+point+coordName).val(getCoord(point,coordName));
                     } catch (error) {
                     $("#"+point+coordName).val("");
                     coordsOk = false;
                     }
+                    //console.log(point+coordName+":"+$("#"+point+coordName).val());
                     if ($("#"+point+coordName).val().length == 0) {
                         coordsOk = false;
                     }
                 });
             });
             if (coordsOk) ok = true;
-
              if (ok == false) {
                  event.preventDefault();
-             } else {
-                 /* set the geographic position */
-                 var points = array ["SouthWest", "NorthEast"];
-                 var coordNames = array ("lon", "lat") ;
-                 points.foreach(function(point) {
-                     coordNames.foreach(function(coordName){
-                         try {
-                             $("#"+point+coordName).val(getCoord(point,coordName));
-                         } catch (error) {
-                            $("#"+point+coordName).val("");
-                         }
-                     });
-                 });
              }
          });
 
@@ -229,10 +216,10 @@
         $("#metadata_value").val("");
         $("#metadata_value_1").val("");
         $("#metadata_value_2").val("");
-        $("#NorthEastLat").val("");
-        $("#NorthEastLon").val("");
-        $("#SouthWestLat").val("");
-        $("#SouthWestLon").val("");
+        $("#NorthEastlat").val("");
+        $("#NorthEastlon").val("");
+        $("#SouthWestlat").val("");
+        $("#SouthWestlon").val("");
         $("#trashed").val("0");
         var now = new Date();
         $("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
@@ -264,10 +251,10 @@
         <input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}">
         <input id="action" type="hidden" name="action" value="{if strlen($action)>0}{$action}{else}List{/if}">
         <input id="isSearch" type="hidden" name="isSearch" value="1">
-        <input type="hidden" id="SouthWestLon" name="SouthWestLon" value="{$sampleSearch.SouthWestLon}">
-        <input type="hidden" id="SouthWestLat" name="SouthWestLat" value="{$sampleSearch.SouthWestLat}">
-        <input type="hidden" id="NorthEastLon" name="NorthEastLon" value="{$sampleSearch.NorthEastLon}">
-        <input type="hidden" id="NorthEastLat" name="NorthEastLat" value="{$sampleSearch.NorthEastLat}">
+        <input type="hidden" id="SouthWestlon" name="SouthWestlon" value="{$sampleSearch.SouthWestlon}">
+        <input type="hidden" id="SouthWestlat" name="SouthWestlat" value="{$sampleSearch.SouthWestlat}">
+        <input type="hidden" id="NorthEastlon" name="NorthEastlon" value="{$sampleSearch.NorthEastlon}">
+        <input type="hidden" id="NorthEastlat" name="NorthEastlat" value="{$sampleSearch.NorthEastlat}">
         <!-- boite d'onglets -->
         <ul class="nav nav-tabs  " id="myTab" role="tablist" >
             <li class="nav-item active">
@@ -592,7 +579,7 @@
         point = points[pointName];
         if ((point >= 0 && point <=4) && (coordName == 'lon' || coordName == 'lat')) {
             if (coordName == 'lon') {
-                return (position[0][point].wrap().lon);
+                return (position[0][point].wrap().lng);
             } else {
                 return (position[0][point].wrap().lat);
             }

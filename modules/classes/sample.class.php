@@ -317,6 +317,19 @@ class Sample extends ObjetBDD
                 }
             }
         }
+        /**
+         * Search for  geographic zone
+         */
+        $geoFields = array("SouthWestlon", "SouthWestlat", "NorthEastlon", "NorthEastlat");
+        $geoSearch = true;
+        foreach($geoFields as $field) {
+            if (strlen($param[$field]) == 0) {
+                $geoSearch = false;
+            }
+        }
+        if ($geoSearch) {
+            $searchOk = true;
+        }
         if ($searchOk) {
             $data = array();
             $where = "where";
@@ -407,12 +420,12 @@ class Sample extends ObjetBDD
                 $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
                 $and = " and ";
             }
-            /*
+            /**
          * Recherche dans les metadonnees
          */
             if (strlen($param["metadata_field"][0]) > 0 && strlen($param["metadata_value"][0]) > 0) {
                 $where .= $and . " ";
-                /*
+                /**
              * Traitement des divers champs de metadonnees (3 maxi)
              * ajout des parentheses si necessaire
              * si le meme field est utilise, operateur or, sinon operateur and
@@ -473,6 +486,20 @@ class Sample extends ObjetBDD
                 $where .= $and . " movement_reason_id = :movement_reason_id";
                 $data["movement_reason_id"] = $param["movement_reason_id"];
                 $and = " and ";
+            }
+            /**
+             * Search by geographic zone
+             */
+            if ($geoSearch) {
+                $where .= $and . " st_contains (st_setsrid (st_makebox2d(
+                    st_makepoint(:southwestlon, :southwestlat),
+                    st_makepoint(:northeastlon, :northeastlat))
+                    ,4326), so.geom::geometry) = true ";
+                    $data["southwestlon"] = $param["SouthWestlon"];
+                    $data["southwestlat"] = $param["SouthWestlat"];
+                    $data["northeastlon"] = $param["NorthEastlon"];
+                    $data["northeastlat"]= $param["NorthEastlat"];
+                    $and = " and ";
             }
             /**
              * Fin de traitement des criteres de recherche

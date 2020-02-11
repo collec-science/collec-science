@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" last-position="0,304" last-zoom="0.7" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,33" last-zoom="0.7" max-obj-count="61"
 	 default-schema="public" default-owner="postgres"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -118,7 +118,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 	<comment><![CDATA[Table des réservations d'objets]]></comment>
 	<tag name="objects"/>
-	<position x="720" y="420"/>
+	<position x="1580" y="580"/>
 	<column name="booking_id" not-null="true" sequence="col.booking_booking_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -182,7 +182,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 	<comment><![CDATA[Liste des conteneurs d'échantillon]]></comment>
 	<tag name="container"/>
-	<position x="960" y="1060"/>
+	<position x="940" y="1060"/>
 	<column name="container_id" not-null="true" sequence="col.container_container_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -234,7 +234,7 @@ Mobilier]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table des types de conteneurs]]></comment>
 	<tag name="container"/>
-	<position x="960" y="1320"/>
+	<position x="940" y="1320"/>
 	<column name="container_type_id" not-null="true" sequence="col.container_type_container_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -362,16 +362,16 @@ Congélateur•2]]>
 	<role name="postgres"/>
 </sequence>
 
-<table name="document" layer="0" collapse-mode="2" max-obj-count="12">
+<table name="document" layer="0" collapse-mode="2" max-obj-count="13">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Documents numériques rattachés à un poisson ou à un événement]]></comment>
 	<tag name="objects"/>
-	<position x="1340" y="800"/>
+	<position x="940" y="580"/>
 	<column name="document_id" not-null="true" sequence="col.document_document_id_seq">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="uid" not-null="true">
+	<column name="uid">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="mime_type_id" not-null="true">
@@ -420,7 +420,7 @@ Congélateur•2]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table des événements]]></comment>
 	<tag name="objects"/>
-	<position x="1340" y="420"/>
+	<position x="1160" y="580"/>
 	<column name="event_id" not-null="true" sequence="col.event_event_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -456,7 +456,7 @@ Congélateur•2]]>
 	<role name="collec"/>
 	<comment><![CDATA[Types d'événement]]></comment>
 	<tag name="objects"/>
-	<position x="1560" y="420"/>
+	<position x="1160" y="420"/>
 	<column name="event_type_id" not-null="true" sequence="col.event_type_event_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -494,7 +494,7 @@ Prélèvement pour analyse•true•false⸣
 	<role name="collec"/>
 	<comment><![CDATA[Table des types d'identifiants]]></comment>
 	<tag name="objects"/>
-	<position x="940" y="420"/>
+	<position x="1340" y="420"/>
 	<column name="identifier_type_id" not-null="true" sequence="col.identifier_type_identifier_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -622,7 +622,7 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 <view name="last_photo" layer="0" collapse-mode="2" max-obj-count="1">
 	<schema name="col"/>
 	<role name="collec"/>
-	<position x="1560" y="640"/>
+	<position x="720" y="420"/>
 	<reference>
 		<expression><![CDATA[ SELECT d.document_id,
     d.uid
@@ -685,7 +685,7 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 	<role name="collec"/>
 	<comment><![CDATA[Types mime des fichiers importés]]></comment>
 	<tag name="objects"/>
-	<position x="1560" y="800"/>
+	<position x="940" y="420"/>
 	<column name="mime_type_id" not-null="true" sequence="col.mime_type_mime_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -799,7 +799,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table des identifiants complémentaires normalisés]]></comment>
 	<tag name="objects"/>
-	<position x="940" y="640"/>
+	<position x="1340" y="580"/>
 	<column name="object_identifier_id" not-null="true" sequence="col.object_identifier_object_identifier_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -828,7 +828,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table des statuts possibles des objets]]></comment>
 	<tag name="objects"/>
-	<position x="1340" y="640"/>
+	<position x="1580" y="800"/>
 	<column name="object_status_id" not-null="true" sequence="col.object_status_object_status_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -975,7 +975,7 @@ Autre]]>
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="collection"/>
-	<position x="0" y="640"/>
+	<position x="0" y="800"/>
 	<column name="protocol_id" not-null="true" sequence="col.protocol_protocol_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1020,7 +1020,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table of sample referents]]></comment>
 	<tag name="collection"/>
-	<position x="480" y="420"/>
+	<position x="460" y="420"/>
 	<column name="referent_id" not-null="true" sequence="col.referent_referent_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1066,7 +1066,7 @@ Autre]]>
 	<role name="postgres"/>
 </sequence>
 
-<table name="sample" layer="0" collapse-mode="2" max-obj-count="14">
+<table name="sample" layer="0" collapse-mode="2" max-obj-count="15">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table des échantillons]]></comment>
@@ -1173,7 +1173,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	<role name="collec"/>
 	<comment><![CDATA[Table des lieux génériques d'échantillonnage]]></comment>
 	<tag name="collection"/>
-	<position x="480" y="640"/>
+	<position x="0" y="580"/>
 	<column name="sampling_place_id" not-null="true" sequence="col.sampling_place_sampling_place_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1332,7 +1332,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <view name="v_object_identifier" layer="0" collapse-mode="2" max-obj-count="1">
 	<schema name="col"/>
 	<role name="collec"/>
-	<position x="1160" y="420"/>
+	<position x="1580" y="420"/>
 	<reference>
 		<expression><![CDATA[ SELECT object_identifier.uid,
     array_to_string(array_agg((((identifier_type.identifier_type_code)::text || ':'::text) || (object_identifier.object_identifier_value)::text) ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
@@ -2045,7 +2045,7 @@ group by collection_name•admin•]]>
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Structure of an export/import of table data]]></comment>
-	<position x="960" y="1600"/>
+	<position x="940" y="1600"/>
 	<column name="export_model_id" not-null="true" sequence="col.export_model_export_model_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -2134,7 +2134,7 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 	<comment><![CDATA[Table des objets
 Contient les identifiants génériques]]></comment>
 	<tag name="object"/>
-	<position x="960" y="800"/>
+	<position x="1160" y="800"/>
 	<column name="uid" not-null="true" sequence="col.object_uid_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -2206,6 +2206,124 @@ Contient les identifiants génériques]]></comment>
 			<column name="geom"/>
 		</idxelement>
 </index>
+
+<sequence name="campaign_campaign_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+	<schema name="col"/>
+	<role name="collec"/>
+</sequence>
+
+<table name="campaign" layer="0" collapse-mode="2" max-obj-count="6">
+	<schema name="col"/>
+	<role name="collec"/>
+	<comment><![CDATA[List of sampling campaigns]]></comment>
+	<tag name="collection"/>
+	<position x="460" y="800"/>
+	<column name="campaign_id" not-null="true" sequence="col.campaign_campaign_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="campaign_name" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Name of the campaign]]></comment>
+	</column>
+	<column name="campaign_from">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Date of start of the campaign]]></comment>
+	</column>
+	<column name="campaign_to">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[date of end of the campaign]]></comment>
+	</column>
+	<constraint name="campaign_pk" type="pk-constr" table="col.campaign">
+		<columns names="campaign_id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="referent_id" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="referent_fk" index="1"/>
+	</customidxs>
+</table>
+
+<sequence name="regulation_regulation_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
+	<schema name="col"/>
+	<role name="collec"/>
+</sequence>
+
+<table name="regulation" layer="0" collapse-mode="2" max-obj-count="3">
+	<schema name="col"/>
+	<role name="collec"/>
+	<comment><![CDATA[Table of regulations]]></comment>
+	<tag name="collection"/>
+	<position x="720" y="580"/>
+	<column name="regulation_id" not-null="true" sequence="col.regulation_regulation_id_seq">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="regulation_name" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Name of the regulation]]></comment>
+	</column>
+	<column name="regulation_comment">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[regulatory clarity]]></comment>
+	</column>
+	<constraint name="regulation_pk" type="pk-constr" table="col.regulation">
+		<columns names="regulation_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="campaign_regulation" layer="0" collapse-mode="2" max-obj-count="2">
+	<schema name="col"/>
+	<role name="collec"/>
+	<tag name="collection"/>
+	<position x="720" y="800"/>
+</table>
+
+<relationship name="campaign_has_many_campaign_regulation" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#97f23e"
+	 src-table="col.campaign"
+	 dst-table="col.campaign_regulation"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="regulation_has_many_campaign_regulation" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#d0b24f"
+	 src-table="col.regulation"
+	 dst-table="col.campaign_regulation"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="campaign_has_many_sample" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#cbb2ff"
+	 src-table="col.campaign"
+	 dst-table="col.sample"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="referent_has_many_campaign" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#24b903"
+	 src-table="col.referent"
+	 dst-table="col.campaign"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="campaign_has_many_document" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#124159"
+	 src-table="col.campaign"
+	 dst-table="col.document"
+	 src-required="false" dst-required="false"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
@@ -2295,18 +2413,6 @@ Contient les identifiants génériques]]></comment>
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.object_identifier">
 	<columns names="uid" ref-type="src-columns"/>
 	<columns names="uid" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="object_status_object_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object_status" table="col.object">
-	<columns names="object_status_id" ref-type="src-columns"/>
-	<columns names="object_status_id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="referent_object_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.referent" table="col.object">
-	<columns names="referent_id" ref-type="src-columns"/>
-	<columns names="referent_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="protocol_operation_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
@@ -2477,6 +2583,18 @@ Contient les identifiants génériques]]></comment>
 	<columns names="borrower_id" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="object_status_object_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object_status" table="col.object">
+	<columns names="object_status_id" ref-type="src-columns"/>
+	<columns names="object_status_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="referent_object_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.referent" table="col.object">
+	<columns names="referent_id" ref-type="src-columns"/>
+	<columns names="referent_id" ref-type="dst-columns"/>
+</constraint>
+
 <relationship name="rel_booking_object" type="relfk" layer="0"
 	 custom-color="#5e065b"
 	 src-table="col.booking"
@@ -2639,7 +2757,7 @@ Contient les identifiants génériques]]></comment>
 	 dst-table="col.sample" reference-fk="sample_sample_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="383.64" y="880.533"/>
+		<position x="383.64" y="886.067"/>
 	<position x="383.64" y="777"/>
 	<position x="307.093" y="777"/>
 	</line>

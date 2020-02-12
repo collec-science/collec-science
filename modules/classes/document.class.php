@@ -117,8 +117,7 @@
  *
  */
 class DocumentException extends Exception
-{
-}
+{ }
 
 class MimeType extends ObjetBDD
 {
@@ -162,7 +161,7 @@ class MimeType extends ObjetBDD
         if (strlen($extension) > 0) {
             $extension = strtolower($this->encodeData($extension));
             $sql = "select mime_type_id from " . $this->table . " where extension = :extension";
-            $res = $this->lireParamAsPrepared($sql, array("extension"=>$extension));
+            $res = $this->lireParamAsPrepared($sql, array("extension" => $extension));
             return $res["mime_type_id"];
         }
     }
@@ -172,14 +171,15 @@ class MimeType extends ObjetBDD
      * @param boolean $isArray
      * @return void
      */
-    function getListExtensions($isArray = false) {
+    function getListExtensions($isArray = false)
+    {
         $sql = "select extension from mime_type order by extension";
         $data = $this->getListeParam($sql);
         if (!$isArray) {
             $result = "";
             $comma = "";
             foreach ($data as $value) {
-                $result .= $comma.$value["extension"];
+                $result .= $comma . $value["extension"];
                 $comma = _(", ");
             }
             return $result;
@@ -224,9 +224,9 @@ class Document extends ObjetBDD
             ),
             "uid" => array(
                 "type" => 1,
-                "requis" => 1,
                 "parentAttrib" => 1
             ),
+            "campaign_id" => array("type" => 1),
             "mime_type_id" => array(
                 "type" => 1,
                 "requis" => 1
@@ -260,6 +260,21 @@ class Document extends ObjetBDD
         );
         parent::__construct($bdd, $param);
     }
+    /**
+     * Get the list of documents associated with an other table
+     *
+     * @param string $fieldName: name of the parent field
+     * @param int $id: key of the parent
+     * @return array
+     */
+    function getListFromField($fieldName, $id)
+    {
+        $fields = array("uid" => "uid", "campaign_id" => "campaign_id");
+        $sql = "select document_id, uid, campaign_id, mime_type_id, document_import_date, document_name, document_description, size, document_creation_date
+                from document
+                where " . $fields[$fieldName] . " = :id";
+        return $this->getListeParamAsPrepared($sql, array( "id" => $id));
+    }
 
     /**
      * Ecriture d'un document
@@ -288,7 +303,7 @@ class Document extends ObjetBDD
                 $data["document_description"] = $description;
                 $data["document_import_date"] = date($_SESSION["MASKDATE"]);
                 $data["uid"] = $uid;
-                if (! is_null($document_creation_date)) {
+                if (!is_null($document_creation_date)) {
                     $data["document_creation_date"] = $document_creation_date;
                 }
                 $dataDoc = array();
@@ -312,7 +327,7 @@ class Document extends ObjetBDD
                 /*
                  * Ecriture du document
                  */
-                if (! $virus) {
+                if (!$virus) {
                     $dataBinaire = fread(fopen($file["tmp_name"], "r"), $file["size"]);
 
                     $dataDoc["data"] = pg_escape_bytea($dataBinaire);
@@ -379,7 +394,7 @@ class Document extends ObjetBDD
         $id = $this->encodeData($id);
         $filename = $this->generateFileName($id, $phototype, $resolution);
         if (strlen($filename) > 0 && is_numeric($id) && $id > 0) {
-            if (! file_exists($filename)) {
+            if (!file_exists($filename)) {
                 $this->writeFileImage($id, $phototype, $resolution);
             }
         }
@@ -472,7 +487,7 @@ class Document extends ObjetBDD
                  */
                 $phototype == 2 ? $colonne = "thumbnail" : $colonne = "data";
                 $filename = $this->generateFileName($id, $phototype, $resolution);
-                if (strlen($filename) > 0 && ! file_exists($filename)) {
+                if (strlen($filename) > 0 && !file_exists($filename)) {
                     /*
                      * Recuperation des donnees concernant la photo
                      */
@@ -523,7 +538,7 @@ class Document extends ObjetBDD
                         if (($data["mime_type_id"] == 1 && $phototype == 2) || $phototype == 0) {
                             $writeOk = true;
                             $document = stream_get_contents($docRef);
-                            if (! $document) {
+                            if (!$document) {
                                 throw new DocumentException("Erreur de lecture" . $docRef);
                             }
                         }
@@ -542,6 +557,3 @@ class Document extends ObjetBDD
         return $filename;
     }
 }
-
-?>
-

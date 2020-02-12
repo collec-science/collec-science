@@ -27,4 +27,21 @@ class Regulation extends ObjetBDD
         );
         parent::__construct($bdd, $param);
     }
-  }
+    /**
+     * Get the list of all regulations
+     * attached or not to a campaign
+     *
+     * @param int $campaign_id
+     * @return array
+     */
+    function getAllForCampaign($campaign_id)
+    {
+        $sql = "select r.regulation_id, regulation_name, campaign_id
+                from regulation r
+                left outer join campaign_regulation cr on (
+                    r.regulation_id = cr.regulation_id
+                    and cr.campaign_id = :campaign_id)
+                order by regulation_name";
+        return $this->getListeParamAsPrepared($sql, array("campaign_id" => $campaign_id));
+    }
+}

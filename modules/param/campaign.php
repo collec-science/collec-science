@@ -12,6 +12,9 @@ switch ($t_module["param"]) {
         $vue->set($dataClass->getListe(2), "data");
         $vue->set("param/campaignList.tpl", "corps");
         break;
+    case "display":
+
+        break;
     case "change":
         /*
          * open the form to modify the record
@@ -21,7 +24,10 @@ switch ($t_module["param"]) {
         dataRead($dataClass, $id, "param/campaignChange.tpl");
         require_once "modules/classes/regulation.class.php";
         $regulation = new Regulation($bdd, $ObjetBDDParam);
-        $vue->set($regulation->getListe(2), "regulations");
+        $vue->set($regulation->getAllForCampaign($id), "regulations");
+        require_once "modules/classes/referent.class.php";
+        $referent = new Referent($bdd, $ObjetBDDParam);
+        $vue->set($referent->getListe(2), "referents");
         break;
     case "write":
         /*

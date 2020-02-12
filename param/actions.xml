@@ -167,7 +167,8 @@
 
 	<campaignList action="modules/param/campaign.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 	<campaignChange action="modules/param/campaign.php" param="change" droits="param" retourlogin="1" type="smarty" />
-	<campaignWrite action="modules/param/campaign.php" param="write" droits="param" retourok="campaignList" retourko="campaignChange" modulebefore="campaignChange" />
+	<campaignDisplay action="modules/param/campaign.php" param="display" droits="consult" retourlogin="1" type="smarty"/>
+	<campaignWrite action="modules/param/campaign.php" param="write" droits="param" retourok="campaignDisplay" retourko="campaignChange" modulebefore="campaignChange" />
 	<campaignDelete action="modules/param/campaign.php" param="delete" droits="param" retourok="campaignList" retourko="campaignChange" modulebefore="campaignChange"/>
 
 

@@ -221,6 +221,7 @@
         $("#SouthWestlat").val("");
         $("#SouthWestlon").val("");
         $("#trashed").val("0");
+        removeLayer();
         var now = new Date();
         $("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
         $("#date_to").datepicker("setDate", now );
@@ -581,10 +582,18 @@
             }
         }
     }
+    var layerParam;
     if (SouthWestlat.length > 0 && SouthWestlon.length > 0 && NorthEastlat.length > 0 && NorthEastlon.length > 0){
         var bounds = [[parseFloat(SouthWestlat), parseFloat(SouthWestlon)],[parseFloat(NorthEastlat), parseFloat(NorthEastlon)]];
-      var layer1 = new L.rectangle(bounds);
-      editableLayers.addLayer(layer1);
+       layerParam = new L.rectangle(bounds);
+      editableLayers.addLayer(layerParam);
+    }
+
+    function removeLayer() {
+        position = null;
+        try {
+            editableLayers.removeLayer(layerParam);
+        } catch (Exception) { }
     }
   mapDisplay(map);
 

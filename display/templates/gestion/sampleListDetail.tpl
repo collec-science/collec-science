@@ -18,13 +18,12 @@
 			displayModeFull == "true" ? displayModeFull = true : displayModeFull = false;
 		}
 
-
 		$(".checkSampleSelect").change(function() {
-			$('.checkSample').prop('checked', this.checked);
 			var libelle = "{t}Tout cocher{/t}";
-			if (this.checked) {
-				libelle = "{t}Tout décocher{/t}";
+			if ( this.checked) {
+					libelle = "{t}Tout décocher{/t}";
 			}
+			$('.checkSample').prop('checked', this.checked);
 			$("#lsamplechek").text(libelle);
 		});
 
@@ -235,11 +234,13 @@
 		var table = $("#sampleList").DataTable();
 			table.columns().every( function () {
 			var that = this;
-			$( 'input', this.header() ).on( 'keyup change clear', function () {
-				if ( that.search() !== this.value ) {
-					that.search( this.value ).draw();
-				}
-			});
+			if (that.index() > 0) {
+				$( 'input', this.header() ).on( 'keyup change clear', function () {
+					if ( that.search() !== this.value ) {
+						that.search( this.value ).draw();
+					}
+				});
+			}
 		});
 		$(".searchInput").hover(function() {
 			$(this).focus();
@@ -252,8 +253,8 @@
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
 	<div class="row">
 		<div class="center">
-			<label id="lsamplecheck" for="checkSample">{t}Tout décocher{/t}</label>
-			<input type="checkbox" id="checkSample1" class="checkSampleSelect checkSample" checked>
+			<label id="lsamplecheck" for="checkSample">{t}Tout cocher{/t}</label>
+			<input type="checkbox" id="checkSample1" class="checkSampleSelect checkSample" >
 			<select id="labels" name="label_id">
 			<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
 			{section name=lst loop=$labels}
@@ -288,7 +289,7 @@
 		<thead>
 			<tr>{if $droits.gestion == 1}
 				<th class="center">
-				<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample" checked>
+				<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample" >
 				</th>
 				{/if}
 				<th>{t}UID{/t}</th>
@@ -313,7 +314,7 @@
 			<tr>
 			{if $droits.gestion == 1}
 				<td class="center">
-					<input type="checkbox" class="checkSample" name="uids[]" value="{$samples[lst].uid}" checked>
+					<input type="checkbox" class="checkSample" name="uids[]" value="{$samples[lst].uid}" >
 				</td>
 			{/if}
 				<td class="text-center">

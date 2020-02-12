@@ -240,7 +240,7 @@
 			}
 		} catch (Exception) { }
 		$('.nav-tabs > li > a').hover(function() {
-			$(this).tab('show');
+			//$(this).tab('show');
  		});
 		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
 			Cookies.set("sampleSearchTab", $(this).attr("id"), { secure: true});

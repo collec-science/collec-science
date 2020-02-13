@@ -3,10 +3,10 @@
 <script>
 	$(document).ready(function() {
 		var gestion = "{$droits.gestion}";
-		var columnList = [3,5,6,7,10,11,12,13];
+		var columnList = [3,5,6,7,11,12,13,14];
 		var dataOrder = [0, 'asc'];
 		if (gestion == 1) {
-			columnList = [4,6,7,8,11,12,13,14];
+			columnList = [4,6,7,8,11,12,13,14,15];
 			dataOrder = [1, 'asc'];
 		}
 		var table = $("#sampleList").DataTable();
@@ -302,6 +302,7 @@
 				<th>{t}Photo{/t}</th>
 				<th>{t}Dernier mouvement{/t}</th>
 				<th>{t}Emplacement{/t}</th>
+				<th>{t}Campagne{/t}</th>
 				<th>{t}Lieu de prélèvement{/t}</th>
 				<th>{t}Date d'échantillonnage{/t}</th>
 				<th>{t}Date de création dans la base{/t}</th>
@@ -368,6 +369,7 @@
 					<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
 					{/if}
 				</td>
+				<td>{$samples[lst].campaign_name}</td>
 				<td>{$samples[lst].sampling_place_name}</td>
 				<td class="nowrap">{$samples[lst].sampling_date}</td>
 				<td class="nowrap">{$samples[lst].sample_creation_date}</td>

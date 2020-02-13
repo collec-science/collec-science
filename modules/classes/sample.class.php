@@ -115,7 +115,7 @@ class Sample extends ObjetBDD
             "expiration_date" => array(
                 "type" => 2,
             ),
-            "campaign_id" => array( "type"=>1)
+            "campaign_id" => array("type" => 1)
         );
         parent::__construct($bdd, $param);
     }
@@ -309,7 +309,7 @@ class Sample extends ObjetBDD
          * Verification de la presence des parametres
          */
         $searchOk = false;
-        $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date");
+        $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id");
         if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0) {
             $searchOk = true;
         } else {
@@ -325,7 +325,7 @@ class Sample extends ObjetBDD
          */
         $geoFields = array("SouthWestlon", "SouthWestlat", "NorthEastlon", "NorthEastlat");
         $geoSearch = true;
-        foreach($geoFields as $field) {
+        foreach ($geoFields as $field) {
             if (strlen($param[$field]) == 0) {
                 $geoSearch = false;
             }
@@ -394,6 +394,11 @@ class Sample extends ObjetBDD
                 $data["referent_id1"] = $param["referent_id"];
                 $data["referent_id2"] = $param["referent_id"];
             }
+            if ($param["campaign_id"] > 0) {
+                $where .= $and . " s.campaign_id = :campaign_id";
+                $and = " and ";
+                $data["campaign_id"] = $param["campaign_id"];
+            }
 
             if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
                 $where .= $and . " s.uid between :uid_min and :uid_max";
@@ -424,15 +429,15 @@ class Sample extends ObjetBDD
                 $and = " and ";
             }
             /**
-         * Recherche dans les metadonnees
-         */
+             * Recherche dans les metadonnees
+             */
             if (strlen($param["metadata_field"][0]) > 0 && strlen($param["metadata_value"][0]) > 0) {
                 $where .= $and . " ";
                 /**
-             * Traitement des divers champs de metadonnees (3 maxi)
-             * ajout des parentheses si necessaire
-             * si le meme field est utilise, operateur or, sinon operateur and
-             */
+                 * Traitement des divers champs de metadonnees (3 maxi)
+                 * ajout des parentheses si necessaire
+                 * si le meme field est utilise, operateur or, sinon operateur and
+                 */
                 if ($param["metadata_field"][0] == $param["metadata_field"][1]) {
                     $is_or = true;
                 } else {
@@ -498,11 +503,11 @@ class Sample extends ObjetBDD
                     st_makepoint(:southwestlon, :southwestlat),
                     st_makepoint(:northeastlon, :northeastlat))
                     ,4326), so.geom::geometry) = true ";
-                    $data["southwestlon"] = $param["SouthWestlon"];
-                    $data["southwestlat"] = $param["SouthWestlat"];
-                    $data["northeastlon"] = $param["NorthEastlon"];
-                    $data["northeastlat"]= $param["NorthEastlat"];
-                    $and = " and ";
+                $data["southwestlon"] = $param["SouthWestlon"];
+                $data["southwestlat"] = $param["SouthWestlat"];
+                $data["northeastlon"] = $param["NorthEastlon"];
+                $data["northeastlat"] = $param["NorthEastlat"];
+                $and = " and ";
             }
             /**
              * Fin de traitement des criteres de recherche
@@ -568,6 +573,7 @@ class Sample extends ObjetBDD
             identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,
             campaign_name,
             case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
+            ,o.uuid
             from sample
             join object o using(uid)
             join collection c using (collection_id)
@@ -761,9 +767,9 @@ class Sample extends ObjetBDD
              * Control of the numeric values
              */
             $numFields = array("location_accuracy");
-            foreach($numFields as $numField) {
-                if (strlen($row[$numField]) > 0 && ! is_numeric($row[$numField])) {
-                    throw new SampleException (sprintf(_("Le champ %s n'est pas numérique"), $numField));
+            foreach ($numFields as $numField) {
+                if (strlen($row[$numField]) > 0 && !is_numeric($row[$numField])) {
+                    throw new SampleException(sprintf(_("Le champ %s n'est pas numérique"), $numField));
                 }
             }
             /*

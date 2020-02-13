@@ -46,6 +46,9 @@ function sampleInitDatEntry()
     include_once 'modules/classes/eventType.class.php';
     $eventType = new EventType($bdd, $ObjetBDDParam);
     $vue->set($eventType->getListeFromCategory("sample"),"eventType");
+    include_once 'modules/classes/campaign.class.php';
+    $campaign = new Campaign($bdd, $ObjetBDDParam);
+    $vue->set($campaign->getListe(2), "campaigns");
 }
 
 class SampleInitClassException extends Exception

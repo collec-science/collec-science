@@ -36,6 +36,7 @@
              if ($("#select_date").val().length > 0) ok = true;
              if ($("#referent_id").val() > 0) ok = true;
              if ($("#movement_reason_id").val() > 0) ok = true;
+             if ($("#campaign_id").val() > 0) ok = true;
              if ($("#trashed").val() == 1) ok = true;
              var mf = $("#metadata_field").val();
              if ( mf != null) {
@@ -210,6 +211,7 @@
         $("#sampling_place_id").combobox("select", "").change();
         $("#movement_reason_id").prop("selectedIndex", 0).change();
         $("#select_date").prop("selectedIndex", 0).change();
+        $("#campaign_id").prop("selectedIndex", 0).change();
         $("#uid_min").val("0");
         $("#uid_max").val("0");
         $("#metadatarow").hide();
@@ -430,6 +432,19 @@
                             {$referent.referent_name}
                             </option>
                             {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="campaign_id" class="col-sm-3 control-label">{t}Campagne de prélèvement :{/t}</label>
+                        <div class="col-sm-6">
+                            <select id="campaign_id" name="campaign_id" class="form-control">
+                                <option value="" {if $sampleSearch.campaign_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                                {foreach $campaigns as $campaign}
+                                    <option value="{$campaign.campaign_id}" {if $campaign.campaign_id == $sampleSearch.campaign_id}selected{/if}>{$campaign.campaign_name}</option>
+                                {/foreach}
                             </select>
                         </div>
                     </div>

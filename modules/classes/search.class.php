@@ -237,7 +237,8 @@ class SearchSample extends SearchParam
             "SouthWestlon" => "",
             "SouthWestlat" => "",
             "NorthEastlon" => "",
-            "NorthEastlat" => ""
+            "NorthEastlat" => "",
+            "campaign_id" => ""
         );
         /*
          * Ajout des dates
@@ -257,7 +258,8 @@ class SearchSample extends SearchParam
             "SouthWestlon",
             "SouthWestlat",
             "NorthEastlon",
-            "NorthEastlat"
+            "NorthEastlat",
+            "campaign_id"
         );
         parent::__construct();
     }

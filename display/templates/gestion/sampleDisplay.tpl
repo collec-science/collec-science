@@ -397,6 +397,12 @@
 						</dd>
 					</dl>
 				{/if}
+				{if $data.campaign_id > 0}
+					<dl class="dl-horizontal">
+						<dt>{t}Campagne de prélèvement :{/t}</dt>
+						<dd>{$data.campaign_name}</dd>
+					</dl>
+				{/if}
 				{if $data.sampling_place_id > 0}
 					<dl class="dl-horizontal">
 						<dt>{t}Lieu de prélèvement :{/t}</dt>

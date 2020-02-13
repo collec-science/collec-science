@@ -534,6 +534,19 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<label for="campaign_id" class="control-label col-md-4">{t}Campagne de prélèvement :{/t}</label>
+					<div class="col-md-8">
+						<select id="campaign_id" name="campaign_id" class="form-control">
+							<option value="" {if $data.campaign_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+							{foreach $campaigns as $campaign}
+								<option value="{$campaign.campaign_id}" {if $data.campaign_id == $campaign.campaign_id}selected{/if}>
+									{$campaign.campaign_name}
+								</option>
+							{/foreach}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
 					<label for="sampling_place_id" class="control-label col-md-4">{t}Lieu de prélèvement :{/t}</label>
 					<div class="col-md-8">
 						<select id="sampling_place_id" name="sampling_place_id" class="form-control ">

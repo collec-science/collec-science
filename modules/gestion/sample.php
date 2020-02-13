@@ -194,6 +194,7 @@ switch ($t_module["param"]) {
                         $data["sampling_place_id"] = $dataParent["sampling_place_id"];
                         $data["referent_id"] = $dataParent["referent_id"];
                         $data["identifier"] = $dataParent["identifier"];
+                        $data["campaign_id"] = $dataParent["campaign_id"];
                         $data["uuid"] = $dataClass->getUUID();
                     }
                     $vue->set($data, "data");
@@ -217,6 +218,7 @@ switch ($t_module["param"]) {
                     $data["multiple_value"] = $dl["multiple_value"];
                     $data["expiration_date"] = $dl["expiration_date"];
                     $data["referent_id"] = $dl["referent_id"];
+                    $data["campaign_id"] = $dl["campaign_id"];
                     if ($_REQUEST["is_duplicate"] == 1) {
                         $data["parent_sample_id"] = $dl["parent_sample_id"];
                         $data["sample_type_id"] = $dl["sample_type_id"];
@@ -237,6 +239,13 @@ switch ($t_module["param"]) {
             include_once 'modules/classes/referent.class.php';
             $referent = new Referent($bdd, $ObjetBDDParam);
             $vue->set($referent->getListe(2), "referents");
+
+            /**
+             * Get the list of campaigns
+             */
+            include_once "modules/classes/campaign.class.php";
+            $campaign = new Campaign($bdd, $ObjetBDDParam);
+            $vue->set($campaign->getListe(2), "campaigns");
 
             /**
              * Recuperation des types d'evenements
@@ -461,6 +470,7 @@ switch ($t_module["param"]) {
                         "identifiers",
                         "dbuid_parent",
                         "referent_name",
+                        "campaign_name"
                     );
                     $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $import->getContentAsArray();

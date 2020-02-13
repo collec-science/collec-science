@@ -101,6 +101,12 @@ class SampleInitClass
             "classname" => "ContainerType",
             "field" => "container_type_name",
             "id" => "container_type_id"
+        ),
+        "campaign_name" => array(
+            "filename" => "campaign.class.php",
+            "classname" => "Campaign",
+            "field" => "campaign_name",
+            "id" => "campaign_id"
         )
     );
 

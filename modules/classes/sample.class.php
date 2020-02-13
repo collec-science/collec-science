@@ -20,7 +20,8 @@ class Sample extends ObjetBDD
      */
     private $sql = "select s.sample_id, s.uid,
 					s.collection_id, collection_name, s.sample_type_id, s.dbuid_origin,
-					sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
+                    sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
+                    s.campaign_id, campaign_name,
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
 					so.identifier, so.wgs84_x, so.wgs84_y,
@@ -59,6 +60,7 @@ class Sample extends ObjetBDD
                     left outer join referent cr on (p.referent_id = cr.referent_id)
                     left outer join last_borrowing lb on (so.uid = lb.uid)
                     left outer join borrower using (borrower_id)
+                    left outer join campaign on (s.campaign_id = campaign.campaign_id)
                     ";
     private $object, $container, $event, $objectIdentifier;
 
@@ -113,6 +115,7 @@ class Sample extends ObjetBDD
             "expiration_date" => array(
                 "type" => 2,
             ),
+            "campaign_id" => array( "type"=>1)
         );
         parent::__construct($bdd, $param);
     }
@@ -563,6 +566,7 @@ class Sample extends ObjetBDD
              c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
              multiple_value, sampling_place_name, metadata::varchar,
             identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,
+            campaign_name,
             case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
             from sample
             join object o using(uid)
@@ -573,6 +577,7 @@ class Sample extends ObjetBDD
             left outer join object_status using (object_status_id)
             left outer join referent ro on (o.referent_id = ro.referent_id)
             left outer join referent cr on (c.referent_id = cr.referent_id)
+            left outer join campaign using (campaign_id)
              where o.uid in (" . $uids . ")";
             $d = $this->getListeParam($sql);
             $this->auto_date = 1;
@@ -668,6 +673,7 @@ class Sample extends ObjetBDD
             "collection_name",
             "sample_type_name",
             "referent_name",
+            "campaign_name"
         );
         foreach ($data as $line) {
             foreach ($fields as $field) {

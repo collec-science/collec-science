@@ -262,6 +262,8 @@
 	<containerdocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="containerDisplay" />
 	<sampledocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
 	<sampledocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
+		<campaigndocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="campaignDisplay" retourko="campaignDisplay" modulebefore="campaignDisplay" />
+	<campaigndocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="campaignDisplay" retourko="campaignDisplay" modulebefore="campaignDisplay" />
 	<documentGet action="modules/gestion/document.php" param="get" type="binaire" droits="consult" />
 
 	<identifierTypeList action="modules/param/identifierType.php" param="list" droits="consult" retourlogin="1" type="smarty" />

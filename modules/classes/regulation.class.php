@@ -44,4 +44,18 @@ class Regulation extends ObjetBDD
                 order by regulation_name";
         return $this->getListeParamAsPrepared($sql, array("campaign_id" => $campaign_id));
     }
+    /**
+     * Get the list of regulations attached to a campaign
+     *
+     * @param int $campaign_id
+     * @return array
+     */
+    function getListFromCampaign($campaign_id)
+    {
+        $sql = "select regulation_id, regulation_name from regulation
+                join campaign_regulation using (regulation_id)
+                where campaign_id = :campaign_id
+                order by regulation_name";
+        return $this->getListeParamAsPrepared($sql, array("campaign_id" => $campaign_id));
+    }
 }

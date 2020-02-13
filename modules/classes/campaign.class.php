@@ -36,6 +36,18 @@ class Campaign extends ObjetBDD
     }
 
     /**
+     * Get the detail of a campaign
+     *
+     * @param int $id
+     * @return array
+     */
+    function getDetail($id)
+    {
+        $where = " where campaign_id = :id";
+        return $this->lireParamAsPrepared($this->sql . $where, array("id" => $id));
+    }
+
+    /**
      * overload of getListe to add the referent
      *
      * @param string $order

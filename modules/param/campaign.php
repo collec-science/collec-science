@@ -13,7 +13,27 @@ switch ($t_module["param"]) {
         $vue->set("param/campaignList.tpl", "corps");
         break;
     case "display":
-
+        $vue->set($dataClass->getDetail($id), "data");
+        require_once "modules/classes/regulation.class.php";
+        $regulation = new Regulation($bdd, $ObjetBDDParam);
+        $vue->set($regulation->getListFromCampaign($id), "regulations");
+        $vue->set("param/campaignDisplay.tpl", "corps");
+        /** 
+         * Documents 
+         */
+        include_once 'modules/classes/document.class.php';
+        $document = new Document($bdd, $ObjetBDDParam);
+        $vue->set($document->getListFromField("campaign_id", $id), "dataDoc");
+        if ($_SESSION["droits"]["param"] == 1) {
+            $vue->set(1, "modifiable");
+        }
+        $vue->set("campaign","moduleParent");
+        $vue->set("campaign_id", "parentKeyName");
+        /**
+         * Get the list of authorized extensions
+         */
+        $mimeType = new MimeType($bdd, $ObjetBDDParam);
+        $vue->set($mimeType->getListExtensions(false), "extensions");
         break;
     case "change":
         /*

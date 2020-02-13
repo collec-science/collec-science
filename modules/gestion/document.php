@@ -49,8 +49,10 @@ switch ($t_module ["param"]) {
 			}
 		} else
 			$files [] = $fdata;
+			isset($_REQUEST["parentKeyName"]) ? $parentKeyName = $_REQUEST["parentKeyName"] : $parentKeyName = "uid";
+			$parentKeyValue = $_REQUEST[$parentKeyName];
 		foreach ( $files as $file ) {
-			$id = $dataClass->ecrire ( $file,$_REQUEST["uid"], $_REQUEST ["document_description"], $_REQUEST ["document_creation_date"] );
+			$id = $dataClass->ecrire ( $file, $parentKeyName, $parentKeyValue, $_REQUEST ["document_description"], $_REQUEST ["document_creation_date"] );
 			if ($id > 0) {
 				$_REQUEST [$keyName] = $id;
 				$module_coderetour = 1;
@@ -81,8 +83,9 @@ switch ($t_module ["param"]) {
 				$param["disposition"] = "attachment";
 				$fn = explode('/', $tmp_name);
 				$param["filename"] = $fn[count($fn) - 1];
-			} else 
+			} else {
 				$param["disposition"] = "inline";
+			}
 			$vue->setParam($param);
 		} else {
 			unset ( $vue );

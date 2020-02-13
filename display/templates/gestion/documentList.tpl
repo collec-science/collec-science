@@ -46,7 +46,7 @@ $(document).ready(function() {
 d'import{/t}</th>
 <th>{t}Date
 de création{/t}</th>
-{if $droits["gestion"] == 1}
+{if $droits["gestion"] == 1 && $modifiable == 1 }
 <th>{t}Supprimer{/t}</th>
 {/if}
 </tr>
@@ -73,10 +73,10 @@ de création{/t}</th>
 <td>{$dataDoc[lst].size}</td>
 <td>{$dataDoc[lst].document_import_date}</td>
 <td>{$dataDoc[lst].document_creation_date}</td>
-{if $droits["gestion"] == 1}
+{if $droits["gestion"] == 1 && $modifiable == 1}
 <td>
 <div class="center">
-<a href="index.php?module={$moduleParent}documentDelete&document_id={$dataDoc[lst].document_id}&uid={$data.uid}&activeTab=tab-document" onclick="return confirm('{t}Confirmez-vous la suppression ?{/t}');">
+<a href="index.php?module={$moduleParent}documentDelete&document_id={$dataDoc[lst].document_id}&uid={$data.uid}&campaign_id={$data.campaign_id}&activeTab=tab-document" onclick="return confirm('{t}Confirmez-vous la suppression ?{/t}');">
 <img src="display/images/corbeille.png" height="20">
 </a>
 </div>

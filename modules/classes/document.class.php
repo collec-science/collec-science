@@ -285,9 +285,9 @@ class Document extends ObjetBDD
      *            string description : description du contenu du document
      * @return int
      */
-    function ecrire($file, $uid, $description = NULL, $document_creation_date = NULL)
+    function ecrire($file, $parentKeyName, $parentKeyValue, $description = NULL, $document_creation_date = NULL)
     {
-        if ($file["error"] == 0 && $file["size"] > 0 && is_numeric($uid) && $uid > 0) {
+        if ($file["error"] == 0 && $file["size"] > 0 && is_numeric($parentKeyValue) && $parentKeyValue > 0) {
             global $log, $message;
             /*
              * Recuperation de l'extension
@@ -302,7 +302,7 @@ class Document extends ObjetBDD
                 $data["mime_type_id"] = $mime_type_id;
                 $data["document_description"] = $description;
                 $data["document_import_date"] = date($_SESSION["MASKDATE"]);
-                $data["uid"] = $uid;
+                $data[$parentKeyName] = $parentKeyValue;
                 if (!is_null($document_creation_date)) {
                     $data["document_creation_date"] = $document_creation_date;
                 }

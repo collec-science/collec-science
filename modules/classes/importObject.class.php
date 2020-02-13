@@ -58,7 +58,8 @@ class ImportObject
         "container_location",
         "container_column",
         "container_line",
-        "uuid"
+        "uuid",
+        "campaign_id"
     );
 
     private $colnum = array(
@@ -69,7 +70,8 @@ class ImportObject
         "container_line",
         "container_parent_uid",
         "sample_parent_uid",
-        "referent_id"
+        "referent_id",
+        "campaign_id"
     );
 
     private $handle;
@@ -87,6 +89,7 @@ class ImportObject
     private $object_status = array();
 
     private $sampling_place = array();
+    private $campaign;
 
     private $referent;
 
@@ -177,7 +180,7 @@ class ImportObject
      * @param Container $container
      * @param Movement $movement
      */
-    function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType, Referent $referent)
+    function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType, Referent $referent, Campaign $campaign)
     {
         $this->sample = $sample;
         $this->container = $container;
@@ -186,6 +189,7 @@ class ImportObject
         $this->identifierType = $identifierType;
         $this->sampleType = $sampleType;
         $this->referent = $referent;
+        $this->campaign = $campaign;
     }
 
     /**
@@ -324,8 +328,8 @@ class ImportObject
                         if (!array_key_exists($colname, $md_array)) {
                             $md_col_array = explode(",", $values[$md_col]);
                             if (count($md_col_array) > 1) {
-                                foreach($md_col_array as $val) {
-                                    $md_array[$colname][] = trim ($val);
+                                foreach ($md_col_array as $val) {
+                                    $md_array[$colname][] = trim($val);
                                 }
                             } else {
                                 $md_array[$colname] = trim($values[$md_col]);
@@ -532,7 +536,7 @@ class ImportObject
      * @param array $container_type
      * @param array $container_status
      */
-    function initControl($collection, $sample_type, $container_type, $object_status, $sampling_place, $referent)
+    function initControl($collection, $sample_type, $container_type, $object_status, $sampling_place, $referent, $campaign)
     {
         $this->collection = $collection;
         $this->sample_type = $sample_type;
@@ -540,6 +544,7 @@ class ImportObject
         $this->object_status = $object_status;
         $this->sampling_place = $sampling_place;
         $this->referents = $referent;
+        $this->campaign = $campaign;
     }
 
     /**
@@ -659,6 +664,21 @@ class ImportObject
                 if (!$ok) {
                     $retour["code"] = false;
                     $retour["message"] .= _("Le référent de l'échantillon n'est pas connu.");
+                }
+            }
+            /**
+             * Control of the campaign
+             */
+            if ($data["campaign_id"] > 0) {
+                foreach ($this->campaign as $value) {
+                    if ($data["campaign_id"] == $value["campaign_id"]) {
+                        $ok = true;
+                        break;
+                    }
+                }
+                if (!$ok) {
+                    $retour["code"] = false;
+                    $retour["message"] .= _("La campagne de prélèvement de l'échantillon n'est pas connue.");
                 }
             }
             /*
@@ -859,7 +879,8 @@ class ImportObject
             "collection_name",
             "object_status_name",
             "sample_type_name",
-            "referent_name"
+            "referent_name",
+            "campaign_name"
         );
         $this->sample->auto_date = 0;
         $dclass = $sic->init(true);
@@ -935,8 +956,8 @@ class ImportObject
                     if (!array_key_exists($colname, $metadata)) {
                         $md_col_array = explode(",", $fieldvalue);
                         if (count($md_col_array) > 1) {
-                            foreach($md_col_array as $val) {
-                                $metadata[$colname][] = trim ($val);
+                            foreach ($md_col_array as $val) {
+                                $metadata[$colname][] = trim($val);
                             }
                         } else {
                             $metadata[$colname] = trim($fieldvalue);

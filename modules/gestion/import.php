@@ -19,6 +19,7 @@ require_once 'modules/classes/samplingPlace.class.php';
 require_once 'modules/classes/identifierType.class.php';
 require_once 'modules/classes/objectIdentifier.class.php';
 require_once 'modules/classes/referent.class.php';
+require_once 'modules/classes/campaign.class.php';
 /*
  * Initialisations
  */
@@ -34,9 +35,10 @@ $samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
 $identifierType = new IdentifierType($bdd, $ObjetBDDParam);
 $objectIdentifier = new ObjectIdentifier($bdd, $ObjetBDDParam);
 $referent = new Referent($bdd, $ObjetBDDParam);
-$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType, $referent);
+$campaign = new Campaign($bdd, $ObjetBDDParam);
+$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType, $referent, $campaign);
 $import->initClass("objectIdentifier", $objectIdentifier);
-$import->initControl($_SESSION["collections"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList(), $referent->getListe());
+$import->initControl($_SESSION["collections"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList(), $referent->getListe(), $campaign->getListe());
 /*
  * Traitement
  */
@@ -142,7 +144,9 @@ switch ($t_module["param"]) {
                         "identifiers",
                         "dbuid_parent",
                         "referent_name",
-                        "uuid"
+                        "uuid",
+                        "location_accuracy",
+                        "campaign_name"
                     );
                     $importFile = new Import($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $importFile->getContentAsArray();

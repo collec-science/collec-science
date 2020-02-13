@@ -470,7 +470,9 @@ switch ($t_module["param"]) {
                         "identifiers",
                         "dbuid_parent",
                         "referent_name",
-                        "campaign_name"
+                        "location_accuracy",
+                        "campaign_name",
+                        "uuid"
                     );
                     $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $import->getContentAsArray();

@@ -757,6 +757,15 @@ class Sample extends ObjetBDD
                     }
                 }
             }
+            /**
+             * Control of the numeric values
+             */
+            $numFields = array("location_accuracy");
+            foreach($numFields as $numField) {
+                if (strlen($row[$numField]) > 0 && ! is_numeric($row[$numField])) {
+                    throw new SampleException (sprintf(_("Le champ %s n'est pas numérique"), $numField));
+                }
+            }
             /*
              * Verification de la colonne metadata
              */

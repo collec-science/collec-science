@@ -76,7 +76,7 @@ class Campaign extends ObjetBDD
             /**
              * Regulations
              */
-            $sql = "delete from campaign_regulation 
+            $sql = "delete from campaign_regulation
                     where campaign_id = :campaign_id";
             $this->executeAsPrepared($sql, array("campaign_id" => $id));
             /**

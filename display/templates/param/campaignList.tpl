@@ -14,7 +14,9 @@
           <th>{t}Responsable{/t}</th>
           <th>{t}du{/t}</th>
           <th>{t}au{/t}</th>
-          <th>{t}Modifier{/t}</th>
+          {if $droits.param == 1}
+            <th>{t}Modifier{/t}</th>
+          {/if}
         </tr>
       </thead>
       <tbody>
@@ -29,6 +31,13 @@
             <td class="textareaDisplay">{$row.referent_name}</td>
             <td class="center nowrap">{$row.campaign_from}</td>
             <td class="center nowrap">{$row.campaign_to}</td>
+            {if $droits.param == 1}
+              <td class="center">
+                <a href="index.php?module=campaignChange&campaign_id={$row.campaign_id}" title="{t}Modifier{/t}">
+                  <img src="display/images/edit.gif" height="25" alt="{t}Modifier{/t}">
+                </a>
+              </td>
+            {/if}
           </tr>
         {/foreach}
       </tbody>

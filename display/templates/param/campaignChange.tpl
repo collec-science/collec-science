@@ -5,7 +5,7 @@
     <form class="form-horizontal protoform" id="campaignChange" method="post" action="index.php">
       <input type="hidden" name="moduleBase" value="campaign">
       <input type="hidden" name="action" value="Write">
-      <input type="hidden" name="protocol_id" value="{$data.protocol_id}">
+      <input type="hidden" name="campaign_id" value="{$data.campaign_id}">
       <div class="row">
         <fieldset class="col-md-6">
           <legend>{t}Description de la campagne{/t}</legend>
@@ -28,6 +28,18 @@
               </select>
             </div>
           </div>
+          <div class="form-group">
+            <label for="campaign_from"  class="control-label col-md-4">{t}Date de début :{/t}</label>
+              <div class="col-md-8">
+                <input id="campaign_from" type="text" class="form-control datepicker" name="campaign_from" value="{$data.campaign_from}" >
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="campaign_to"  class="control-label col-md-4">{t}Date de fin :{/t}</label>
+              <div class="col-md-8">
+                <input id="campaign_to" type="text" class="form-control datepicker" name="campaign_to" value="{$data.campaign_to}" >
+              </div>
+          </div>
         </fieldset>
         <fieldset class="col-md-6">
           <legend>{t}Réglementations associées{/t}</legend>
@@ -46,7 +58,7 @@
         <div class="col-md-12">
           <div class="form-group center">
             <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
-            {if $data[campaign_id] > 0}
+            {if $data.campaign_id > 0}
               <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
             {/if}
           </div>

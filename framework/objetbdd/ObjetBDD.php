@@ -676,7 +676,7 @@ class ObjetBDD
         }
         if ($id > 0) {
             if (strlen(preg_replace("#[^A-Z]+#", "", $champ) > 0)) {
-                $cle = $this->quoteIdentifier . $key . $this->quoteIdentifier;
+                $cle = $this->quoteIdentifier . $champ . $this->quoteIdentifier;
             } else {
                 $cle = $champ;
             }

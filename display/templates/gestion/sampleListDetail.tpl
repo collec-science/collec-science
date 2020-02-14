@@ -192,7 +192,9 @@
 												content += encodeHtml(md) +" ";
 											});
 										} else {
+											try {
 											content += encodeHtml(dm[key].toString());
+											} catch (Exception) {}
 										}
 									}
 								}

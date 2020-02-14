@@ -57,6 +57,17 @@ switch ($t_module["param"]) {
          * Map default data
          */
         include "modules/gestion/mapInit.php";
+        /**
+         * Generate data for markers on the map
+         */
+        $dataMap["markers"] = array();
+        foreach($data as $row) {
+            if(strlen($row["wgs84_x"])>0 && strlen($row["wgs84_y"]) > 0) {
+                $dataMap["markers"][] = array("latlng"=>array($row["wgs84_y"],$row["wgs84_x"]),"uid"=>$row["uid"], "identifier"=>$row["identifier"]);
+            }
+        }
+        $vue->set(json_encode($dataMap), "markers");
+        $vue->htmlVars[] = "markers";
         break;
     case "searchAjax":
         $vue->set($dataClass->sampleSearch($_REQUEST));

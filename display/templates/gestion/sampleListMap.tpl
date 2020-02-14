@@ -8,23 +8,28 @@
 <div id="mapList" class="map"></div>
 
 <script>
-  var mapList = setMap("mapList");
-  L.control.scale().addTo(mapList);
-  mapList.setMaxZoom(25);
-  var markers = L.markerClusterGroup();
-  /** Create the markers */
-  {foreach $samples as $sample}
-    {if strlen($sample.wgs84_x)>0 && strlen($sample.wgs84_y) > 0}
-      markers.addLayer(L.marker([ {$sample.wgs84_y}, {$sample.wgs84_x}], {
-        "title": "{$sample.uid} {$sample.identifier}"
-      })
-      );
-    {/if}
-  {/foreach}
-  mapList.addLayer(markers);
-  mapDisplay(mapList);
+  var mapList = setMap( "mapList" );
+  L.control.scale().addTo( mapList );
+  mapList.setMaxZoom( 19 );
+  var markers = JSON.parse( '{$markers}' );
+  var markerGroup = L.markerClusterGroup();
+  var isMarkersGenerated = false;
+  mapList.addLayer( markerGroup );
 
-$("body").on("shown.bs.tab", "#tabmap", function() {
-    mapList.invalidateSize(true);
-});
+  $( "body" ).on( "shown.bs.tab", "#tabmap", function () {
+    if ( !isMarkersGenerated ) {
+      /** Create the markers */
+      markers.markers.forEach( function ( marker ) {
+        var markerContent = marker.uid + " " + encodeHtml(marker.identifier);
+        var mark = L.marker( marker.latlng, {
+          "title": markerContent
+        });
+        mark.bindPopup("<a href=index.php?module=sampleDisplay&uid=" + marker.uid +">"+ markerContent + "</a>").openPopup();
+        markerGroup.addLayer( mark );
+      } );
+      mapDisplay( mapList );
+      isMarkersGenerated = true;
+    }
+    mapList.invalidateSize( true );
+  } );
 </script>

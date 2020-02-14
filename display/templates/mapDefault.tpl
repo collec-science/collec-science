@@ -11,7 +11,7 @@
             mapDefaultLong: "{$mapDefaultX}",
             mapDefaultLat: "{$mapDefaultY}",
             mapMinZoom: "1",
-            mapMaxZoom: "25"
+            mapMaxZoom: "19"
         };
 
         mapFields = {
@@ -43,7 +43,7 @@
             maxZoom: mapData.mapMaxZoom,
             attribution: osmAttrib,
             useCache: true,
-            crossOrigin: true,
+            crossOrigin: "anonymous",
             cacheMaxAge: mapData["cacheMaxAge"]
         });
 

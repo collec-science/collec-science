@@ -164,6 +164,9 @@
 								if (d.clp_classification) {
 									content += " / {t}clp :{/t} "+ encodeHtml(d.clp_classification);
 								}
+								if (d.campaign_id > 0) {
+									content += "<br>{t}Campagne :{/t} "+encodeHtml(d.campaign_name);
+								}
 								if (d.operation_id > 0) {
 									content += "<br>{t}Protocole et opération :{/t} " + encodeHtml(d.protocol_year) + " "+encodeHtml(d.protocol_name) + " "+encodeHtml(d.operation_name)+" "+encodeHtml(d.operation_version) ;
 								}
@@ -232,7 +235,7 @@
 				}
 		});
 		var table = $("#sampleList").DataTable();
-			table.columns().every( function () {
+		table.columns().every( function () {
 			var that = this;
 			if (that.index() > 0) {
 				$( 'input', this.header() ).on( 'keyup change clear', function () {

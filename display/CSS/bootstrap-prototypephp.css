@@ -261,6 +261,10 @@ meter[value="4"]::-moz-meter-bar { background: #A4C400; }
     background-color: rgba(0, 158, 224, 0.2);
     padding:5px
 }
+.tab-content-white{
+	background-color: white;
+	padding:5px
+}
 .nav-tabs > li > a{
   border: medium none;
 }
@@ -270,6 +274,7 @@ meter[value="4"]::-moz-meter-bar { background: #A4C400; }
     border-radius: 0;
     color:#fff;
 }
+
 
 .trashed {
 	background-color: rgba(213,19,23,0.5);

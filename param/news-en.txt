@@ -13,7 +13,7 @@ Bug fixes :
 - the creation of events by batch of samples was not possible as the list of event types was not available
 - in the sample list, the "date-time" fields are now displayed on a single line, without carriage return.
 
-What's new :
+What's new
 
 Containers :
 - it is possible to define a maximum number of available slots. The list of containers allows you to view the number of available locations.
@@ -41,7 +41,8 @@ Objects:
 - an object can be trashed (functionality provided for automatic exchanges)
 - the precision of the location of an object can be defined from a table
 - objects are now equipped with a Postgis field, facilitating spatial search or visualization with third party tools such as QGIS
-- The date of the last change to an object is recorded.
+- The date of the last change to an object is recorded
+- addition of a field of type UUID, to facilitate exchanges
 
 Imports/Exports/Downloads :
 - the result of the imports (UIDs generated, number of rows processed) is now stored in the log table

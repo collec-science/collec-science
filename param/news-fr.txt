@@ -13,7 +13,7 @@ Corrections de bugs :
 - la création d'événements par lot d'échantillons n'était pas possible, la liste des types d'événements n'étant pas disponible
 - dans la liste des échantillons, les zones "date-heure" sont affichées maintenant sur une seule ligne, sans retour chariot
 
-Nouveautés :
+Nouveautés
 
 Contenants :
 - il est possible de définir un nombre maximum d'emplacements disponibles. La liste des contenants permet de visualiser le nombre d'emplacements disponibles
@@ -42,6 +42,7 @@ Objets :
 - la précision de la localisation d'un objet peut être définie à partir d'une table
 - les objets sont maintenant dotés d'un champ Postgis, facilitant la recherche spatiale ou à la visualisation avec des outils tiers comme QGIS
 - la date de la dernière modification d'un objet est enregistrée
+- ajout d'un champ de type UUID, pour faciliter les échanges
 
 Importations/exportations/téléchargements :
 - le résultat des importations (UID générés, nombre de lignes traitées) est maintenant enregistré dans la table des logs

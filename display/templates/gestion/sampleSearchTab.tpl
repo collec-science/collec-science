@@ -244,8 +244,8 @@
 		$('.nav-tabs > li > a').hover(function() {
 			//$(this).tab('show');
  		});
-		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
-			Cookies.set("sampleSearchTab", $(this).attr("id"), { secure: true});
+		 $('#searchTab a[data-toggle="tab"]').on('shown.bs.tab', function () {
+			Cookies.set("searchTab", $(this).attr("id"), { secure: true});
 		});
     });
 </script>
@@ -259,7 +259,7 @@
         <input type="hidden" id="NorthEastlon" name="NorthEastlon" value="{$sampleSearch.NorthEastlon}">
         <input type="hidden" id="NorthEastlat" name="NorthEastlat" value="{$sampleSearch.NorthEastlat}">
         <!-- boite d'onglets -->
-        <ul class="nav nav-tabs  " id="myTab" role="tablist" >
+        <ul class="nav nav-tabs  " id="searchTab" role="tablist" >
             <li class="nav-item active">
                 <a class="nav-link" id="tabsearch-uid" data-toggle="tab"  role="tab" aria-controls="navsearch-uid" aria-selected="true" href="#navsearch-uid">
                     {t}UID/identifiant{/t}

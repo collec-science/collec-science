@@ -1575,16 +1575,16 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 		<type name="integer" length="0"/>
 	</column>
 	<column name="login" not-null="true">
-		<type name="character varying" length="32"/>
+		<type name="varchar" length="0"/>
 	</column>
 	<column name="password">
-		<type name="character varying" length="255"/>
+		<type name="varchar" length="0"/>
 	</column>
 	<column name="nom">
-		<type name="character varying" length="32"/>
+		<type name="varchar" length="0"/>
 	</column>
 	<column name="prenom">
-		<type name="character varying" length="32"/>
+		<type name="varchar" length="0"/>
 	</column>
 	<column name="mail">
 		<type name="character varying" length="255"/>

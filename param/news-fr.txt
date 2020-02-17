@@ -1,5 +1,64 @@
 News
 ===========
+Version 2.4.0 du 17 février 2020
+--------------------------------
+Corrections de bugs :
+- en modification d'un mot de passe, le message d'information sur la longueur de celui-ci était erroné
+- le libellé concernant le référent d'un contenant était erroné
+- la création d'un mouvement de sortie depuis le détail d'un échantillon ne fonctionnait pas
+- la réinitialisation du formulaire de recherche des échantillons était incomplète
+- la saisie de métadonnées multi-valuées ne fonctionnait pas. Le mécanisme de gestion a été repris
+- la suppression des échantillons pouvait aboutir à des messages peu clairs ou ne reflétant pas les problèmes rencontrés
+- en recherche d'échantillons, dans certains cas de figure, la liste retournée pouvait être trop importante et saturer le navigateur
+- la création d'événements par lot d'échantillons n'était pas possible, la liste des types d'événements n'étant pas disponible
+- dans la liste des échantillons, les zones "date-heure" sont affichées maintenant sur une seule ligne, sans retour chariot
+
+Nouveautés :
+
+Contenants :
+- il est possible de définir un nombre maximum d'emplacements disponibles. La liste des contenants permet de visualiser le nombre d'emplacements disponibles
+- l'affichage de la grille d'objets contenus permet de visualiser tous les objets contenus, et pas seulement le dernier
+- le point de départ du nombre de lignes et de colonnes peut maintenant être positionné à droite (uniquement à gauche dans les versions précédentes)
+- dans la liste des contenants, le survol de l'identifiant avec la souris affiche la grille des objets contenus
+- il est maintenant possible de supprimer un lot de contenants
+
+Échantillons :
+- il est maintenant possible d'ajouter une description à un type d'échantillons
+- la liste des types d'échantillons peut être exportée en CSV
+- quand on positionne le statut "détruit" sur un objet, un mouvement de sortie est généré automatiquement
+- l'appel à la fonction https://collec.local/index.php?module=sampleDetail&uid=928 permet de récupérer le détail d'un échantillon au format JSON, sans identification préalable, si la collection a été définie comme publique (préfiguration des services web)
+- dans la liste des échantillons, le survol avec la souris de l'identifiant permet d'afficher un résumé de l'échantillon
+- dans le détail d'un échantillon, la liste des identifiants secondaires est affichée, sans avoir besoin de se positionner dans l'onglet ad-hoc pour les visualiser
+- lors de la création d'un échantillon dérivé, l'identifiant métier est dupliqué
+- dans la liste des échantillons, chaque colonne peut faire l'objet d'un filtre automatique dédié
+- les différentes possibilités de recherche d'un échantillon sont maintenant organisées en onglets thématiques
+- il est possible de réaliser une recherche spatiale des échantillons, en dessinant un rectangle sur une carte
+- sur la page d'accueil, le nombre d'échantillons par collection et la date de dernière modification est affichée. La liste est limitée aux collections pour lesquelles les utilisateurs disposent des droits de gestion
+- la liste des échantillons est complétée par une visualisation sur une carte de leur emplacement
+- il est possible de rattacher un échantillon à une campagne de prélèvement. Celle-ci peut être associée à une ou plusieurs réglementations, et il est possible d'y attacher des documents complémentaires
+
+Objets :
+- un objet peut être mis à la corbeille (fonctionnalité prévue dans le cadre des échanges automatiques)
+- la précision de la localisation d'un objet peut être définie à partir d'une table
+- les objets sont maintenant dotés d'un champ Postgis, facilitant la recherche spatiale ou à la visualisation avec des outils tiers comme QGIS
+- la date de la dernière modification d'un objet est enregistrée
+
+Importations/exportations/téléchargements :
+- le résultat des importations (UID générés, nombre de lignes traitées) est maintenant enregistré dans la table des logs
+- il est possible d'importer des données multi-valuées dans les champs de métadonnées individuels (md_)
+- à titre expérimental, ajout d'un module permettant d'exporter une partie de la base de données au format JSON. L'importation d'un tel fichier dans une autre instance permet de reconstruire les enregistrements concernés.
+- les types mime des fichiers téléchargeables sont maintenant modifiables ou extensibles
+
+Divers :
+- les administrateurs peuvent maintenant consulter directement la table des logs
+- un module permettant l'écriture et l'exécution de requêtes de sélection SQL est disponibles (droit nécessaire : param)
+- pour une collection, il est possible de définir si des flux entrants ou sortants sont autorisés. De même, une collection peut être définie comme publique : tous les échantillons pourraient être visualisés sans identification préalable. C'est une fonctionnalité préfigurant les services web
+- les fenêtres d'affichage des contenants et des échantillons ont été repris, pour en faciliter la compréhension
+- il est possible d'affecter un numéro de laboratoire à un emprunteur
+- le tri dans les tableaux est maintenant indépendant de la casse et des accents
+- la structure de la base de données peut être visualisée depuis l'interface
+
+
 Version 2.3.1 du 6 septembre 2019
 ---------------------------------
 Corrections de bugs :

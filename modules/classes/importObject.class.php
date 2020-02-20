@@ -951,7 +951,7 @@ class ImportObject
                 $metadata = array();
             }
             foreach ($row as $fieldname => $fieldvalue) {
-                if (substr($fieldname, 0, 3) == "md_") {
+                if (substr($fieldname, 0, 3) == "md_" && strlen($fieldvalue) > 0) {
                     $colname = substr($fieldname, 3);
                     if (!array_key_exists($colname, $metadata)) {
                         $md_col_array = explode(",", $fieldvalue);

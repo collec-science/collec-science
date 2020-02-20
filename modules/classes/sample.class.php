@@ -775,7 +775,7 @@ class Sample extends ObjetBDD
             /*
              * Verification de la colonne metadata
              */
-            if (strlen($row["metadata"]) > 0) {
+            if (strlen($row["metadata"]) > 2) {
                 $a_m = json_decode($row["metadata"], true);
                 if (count($a_m) == 0) {
                     throw new SampleException(_("Les métadonnées ne sont pas correctement formatées (champ metadata)"));

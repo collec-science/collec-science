@@ -180,7 +180,7 @@ if (container_type_id > 0) {
 					<option value="" {if $data.container_family_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 					{section name=lst loop=$containerFamily}
 						<option value="{$containerFamily[lst].container_family_id}" {if $data.container_family_id == $containerFamily[lst].container_family_id}selected{/if}>
-						{	$containerFamily[lst].container_family_name}
+						{$containerFamily[lst].container_family_name}
 						</option>
 					{/section}
 				</select>

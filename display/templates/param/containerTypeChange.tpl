@@ -89,7 +89,7 @@
                                     </option>
                                     {section name=lst loop=$storageCondition}
                                           <option value="{$storageCondition[lst].storage_condition_id}" {if $storageCondition[lst].storage_condition_id == $data.storage_condition_id}selected{/if}>
-                                          {     $storageCondition[lst].storage_condition_name}
+                                          {$storageCondition[lst].storage_condition_name}
                                           </option>
                                     {/section}
                               </select>

@@ -245,13 +245,13 @@ class SearchSample extends SearchParam
          */
         $this->reinit();
         $this->paramNum = array(
-            "sample_type_id",
+            "sample_type_id" => 0,
             "collection_id",
             "object_status_id" => 1,
             "limit",
             "uid_min",
             "uid_max",
-            "sampling_place_id",
+            "sampling_place_id" => 0,
             "referent_id",
             "movement_reason_id",
             "trashed",

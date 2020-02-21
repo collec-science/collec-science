@@ -346,8 +346,8 @@
                     <div class="form-group">
                         <label for="sample_type_id" class="col-sm-3 control-label">{t}Type d'échantillon :{/t}</label>
                         <div class="col-sm-6">
-                            <select id="sample_type_id" name="sample_type_id" >
-                            <option value="" {if $sampleSearch.sample_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                            <select id="sample_type_id" name="sample_type_id" class="form-control combobox">
+                            <option value="0" {if $sampleSearch.sample_type_id == "0"}selected{/if} >{t}Choisissez...{/t}</option>
                             {section name=lst loop=$sample_type}
                             <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $sampleSearch.sample_type_id}selected{/if} title="{$sample_type[lst].sample_type_description}">
                             {$sample_type[lst].sample_type_name}
@@ -499,7 +499,7 @@
                                 <label for="sampling_place_id" class="col-sm-4 control-label">{t}Lieu de prélèvement :{/t}</label>
                                 <div class="col-sm-8">
                                     <select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
-                                        <option value="" {if $sampleSearch.sampling_place_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                                        <option value="0" {if $sampleSearch.sampling_place_id == "0"}selected{/if}>{t}Choisissez...{/t}</option>
                                         {section name=lst loop=$samplingPlace}
                                             <option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $sampleSearch.sampling_place_id}selected{/if}>
                                             {if strlen({$samplingPlace[lst].sampling_place_code}) > 0}

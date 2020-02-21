@@ -1,4 +1,3 @@
-{* Objets > échantillons > Rechercher > *}
 <!--  Liste des échantillons pour affichage-->
 <script>
 	$(document).ready(function() {
@@ -17,7 +16,7 @@
 		} else {
 			displayModeFull == "true" ? displayModeFull = true : displayModeFull = false;
 		}
-
+		console.log(displayModeFull);
 		$(".checkSampleSelect").change(function() {
 			var libelle = "{t}Tout cocher{/t}";
 			if ( this.checked) {
@@ -50,15 +49,14 @@
 		/*
 		 * Gestion de l'affichage des colonnes en fonction de la taille de l'ecran
 		 */
-		function displayMode(mode) {
-			displayModeFull = mode;
+		function displayMode() {
 			$("#sampleList").DataTable().columns(columnList).visible(displayModeFull);
 			if (displayModeFull) {
 				$("#displayModeButton").text("{t}Affichage réduit{/t}");
 			} else {
 				$("#displayModeButton").text("{t}Affichage complet{/t}");
 			}
-			Cookies.set("samplelistDisplayMode",displayModeFull, { secure: true, SameSite: true});
+			Cookies.set("samplelistDisplayMode",displayModeFull, { secure: true, expires: 180});
 		}
 
 		/*
@@ -74,12 +72,12 @@
 			});
 		$("#displayModeButton").on ("keypress click", function() {
 			displayModeFull == true ? displayModeFull = false : displayModeFull = true;
-			displayMode(displayModeFull);
+			displayMode();
 		});
 		/*
 		 * initialisation a l'ouverture de la fenetre
 		 */
-		displayMode(displayModeFull);
+		displayMode();
 
 		$("#checkedButtonSample").on ("keypress click", function(event) {
 

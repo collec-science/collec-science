@@ -35,7 +35,7 @@ switch ($t_module["param"]) {
          */
         try {
             $bdd->beginTransaction();
-            $id = dataWrite($dataClass, $_REQUEST, true);
+            $id = dataWrite($dataClass, $_POST, true);
             if ($id > 0) {
                 if ($_FILES["protocol_file"]["error"] == 1) {
                     throw new FileException(_("Problème rencontré pendant le téléchargement du fichier joint"), true);
@@ -52,6 +52,9 @@ switch ($t_module["param"]) {
                         $message->setSyslog($e->getMessage());
                         throw new FileException(_("impossible d'enregistrer la pièce jointe"));
                     }
+                }
+                if ($_POST["documentDelete"] == 1) {
+                    $dataClass->documentDelete($id);
                 }
                 $_REQUEST[$keyName] = $id;
                 $module_coderetour = 1;

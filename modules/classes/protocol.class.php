@@ -110,6 +110,19 @@ class Protocol extends ObjetBDD
             }
         }
     }
+    /**
+     * Delete the document attached to a protocol
+     *
+     * @param int $id
+     * @return void
+     */
+    function documentDelete($id)
+    {
+        if ($this->verifyCollection($this->lire($id))) {
+            $sql = "update protocol set protocol_file = null where protocol_id = :id";
+            $this->executeAsPrepared($sql, array("id" => $id));
+        }
+    }
 
     /**
      * Surcharge de getliste pour recuperer la presence ou non d'un fichier de description

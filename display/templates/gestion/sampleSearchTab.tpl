@@ -4,11 +4,6 @@
     var sampling_place_init = "{$sampleSearch.sampling_place_id}";
     var appli_code ="{$APPLI_code}";
     $(document).ready(function () {
-        var metadataFieldInitial = [];
-        {foreach $sampleSearch.metadata_field as $val}
-            metadataFieldInitial.push ( "{$val}" );
-        {/foreach}
-
         /*
          * Verification que des criteres de selection soient saisis
          */
@@ -55,7 +50,6 @@
                     $("#"+point+coordName).val("");
                     coordsOk = false;
                     }
-                    //console.log(point+coordName+":"+$("#"+point+coordName).val());
                     if ($("#"+point+coordName).val().length == 0) {
                         coordsOk = false;
                     }
@@ -67,65 +61,20 @@
              }
          });
 
-         function getMetadata() {
-             var sampleTypeId = $("#sample_type_id").val();
-             $("#metadata_field").empty();
-             //$("#metadata_value").val("");
-             $("#metadata_field1").empty();
-             //$("#metadata_value_1").val("");
-             $("#metadata_field2").empty();
-             //$("#metadata_value_2").val("");
-             $("#metadatarow").hide();
-             $("#metadatarow1").hide();
-             $("#metadatarow2").hide();
-
-             if (sampleTypeId.length > 0) {
-                $.ajax( {
-                       url: "index.php",
-                    data: { "module": "sampleTypeMetadata", "sample_type_id": sampleTypeId }
-                })
-                .done (function (value) {
-                    if (value.length > 0) {
-                                $("#metadatarow").show();
-                        var selected = "";
-                        var option = '<option value="">{t}Métadonnée :{/t}</option>';
-                        $("#metadata_field").append(option);
-                        $("#metadata_field1").append(option);
-                        $("#metadata_field2").append(option);
-                           $.each(JSON.parse(value), function(i, obj) {
-                               if (obj.isSearchable == "yes") {
-                            var nom = obj.name.replace(/ /g,"_");
-                            if (nom == metadataFieldInitial[0]) {
-                                selected = "selected";
-                                $("#metadatarow1").show();
-                            }
-                            option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
-                            $("#metadata_field").append(option);
-                            /* second champ */
-                            selected = "";
-                            if (nom == metadataFieldInitial[1]) {
-                                selected = "selected";
-                                $("#metadatarow2").show();
-                            }
-                            option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
-                            $("#metadata_field1").append(option);
-                            /* 3eme champ */
-                            selected = "";
-                            if (nom == metadataFieldInitial[2]) {
-                                selected = "selected";
-                            }
-                            option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
-                            $("#metadata_field2").append(option);
-                            selected = "";
-
-                               }
-                        })
-                    }
-                   })
-                   ;
-             }
+         var datamd1 = "{$sampleSearch.metadata_value.1}";
+         var datamd2 = "{$sampleSearch.metadata_value.2}";
+         if (datamd1.length > 0) {
+            $("#metadatarow1").show();
          }
-
+         if (datamd2.length > 0) {
+            $("#metadatarow2").show();
+         }
+         $("#showmetadata1").click(function () {
+            $("#metadatarow1").show();
+         });
+         $("#showmetadata2").click(function () {
+            $("#metadatarow2").show();
+         });
          function getSamplingPlace () {
             var colid = $("#collection_id").val();
             var url = "index.php";
@@ -164,60 +113,28 @@
           */
           getSamplingPlace();
 
-         /*
-          * Gestion des metadonnees
-          */
-         $("#sample_type_id").change( function() {
-             getMetadata();
-         });
-         $("#sample_type_id").combobox({
-             select: function (event, ui) {
-                 $("#metadata_value").val("");
-                 $("#metadata_value_2").val("");
-                 $("#metadata_value_1").val("");
-                 getMetadata();
-             }
-         });
-         /*
-          * Declenchement de la recherche des metadonnees
-          * si sample_type_id est renseigne au demarrage de la page
-          */
-         $("#metadatarow").hide();
-         if ($("#sample_type_id").val() > 0 ) {
-             getMetadata();
-         }
-         if ($("#metadata_value").val().length == 0) {
-             $("#metadatarow1").hide();
-         }
-         if ($("#metadata_value_1").val().length == 0) {
-             $("#metadatarow2").hide();
-         }
-         $("#metadata_value").change(function () {
-                 if ($(this).val().length > 0) {
-                     $("#metadatarow1").show();
-                 }
-         });
-         $("#metadata_value_1").change(function () {
-             if ($(this).val().length > 0) {
-                 $("#metadatarow2").show();
-             }
-     });
      $("#razid").on ("click keyup", function () {
         $("#object_status_id").prop("selectedIndex", 1).change();
         $("#collection_id").prop("selectedIndex", 0).change();
         $("#referent_id").prop("selectedIndex", 0).change();
-        $("#sample_type_id").combobox("select", "").change();
+        $("#sample_type_id").combobox("select", "{t}Choisissez...{/t}").change();
+        $("#sample_type_id").prop("selectedIndex", 0).change();
         sampling_place_init = "";
-        $("#sampling_place_id").combobox("select", "").change();
+        $("#sampling_place_id").combobox("select", "{t}Choisissez...{/t}").change();
+        $("#sampling_place_id").prop("selectedIndex", 0).change();
         $("#movement_reason_id").prop("selectedIndex", 0).change();
         $("#select_date").prop("selectedIndex", 0).change();
         $("#campaign_id").prop("selectedIndex", 0).change();
         $("#uid_min").val("0");
         $("#uid_max").val("0");
-        $("#metadatarow").hide();
+        $("#metadata_field").prop("selectedIndex",0).change();
+        $("#metadata_field1").prop("selectedIndex",0).change();
+        $("#metadata_field2").prop("selectedIndex",0).change();
         $("#metadata_value").val("");
         $("#metadata_value_1").val("");
         $("#metadata_value_2").val("");
+        $("#metadatarow1").hide();
+        $("#metadatarow2").hide();
         $("#NorthEastlat").val("");
         $("#NorthEastlon").val("");
         $("#SouthWestlat").val("");
@@ -362,7 +279,7 @@
                         <!--
                         <label for="metadata_field" class="col-md-2 control-label">Métadonnées :</label>
                         -->
-                        <div id="metadatarow" hidden>
+                        <div id="metadatarow">
                                 <label for="metadata_field" class= "col-sm-3 control-label">{t}Rechercher dans les métadonnées :{/t}</label>
                             <div class="col-sm-3">
                                 <select class="form-control" id="metadata_field" name="metadata_field[]">
@@ -377,6 +294,9 @@
                             <div class="col-sm-3">
                                 <input class="form-control" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
                             </div>
+                            <div class="col-sm-1">
+                                <img src="display/images/plus.png" height="25" id="showmetadata1">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -384,7 +304,8 @@
                     <div class="form-group">
                         <!--  metadonnees supplementaires -->
                         <div id="metadatarow1" hidden>
-                            <div class="col-sm-3 col-sm-offset-3">
+                            <label for="metadata_field1" class="col-sm-3 control-label">{t}ou{/t}</label>
+                            <div class="col-sm-3">
                                 <select class="form-control"  id="metadata_field1" name="metadata_field[]">
                                 <option value="" {if $sampleSearch.metadata_field.1 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
                                 {foreach $metadatas as $value}
@@ -397,13 +318,17 @@
                             <div class="col-sm-3">
                                 <input class="form-control" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
                             </div>
+                            <div class="col-sm-1">
+                                <img src="display/images/plus.png" height="25" id="showmetadata2">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group">
                         <div id="metadatarow2" hidden>
-                            <div class="col-sm-3 col-sm-offset-3">
+                            <label for="metadata_field2" class="col-sm-3 control-label">{t}ou{/t}</label>
+                            <div class="col-sm-3">
                                 <select class="form-control"  id="metadata_field2" name="metadata_field[]">
                                 <option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
                                 {foreach $metadatas as $value}

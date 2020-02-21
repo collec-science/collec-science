@@ -244,8 +244,8 @@
 		$('.nav-tabs > li > a').hover(function() {
 			//$(this).tab('show');
  		});
-		 $('#searchTab a[data-toggle="tab"]').on('shown.bs.tab', function () {
-			Cookies.set("searchTab", $(this).attr("id"), { secure: true});
+		 $('.searchTab').on('shown.bs.tab', function () {
+			Cookies.set("sampleSearchTab", $(this).attr("id"), { secure: true});
 		});
     });
 </script>
@@ -259,24 +259,24 @@
         <input type="hidden" id="NorthEastlon" name="NorthEastlon" value="{$sampleSearch.NorthEastlon}">
         <input type="hidden" id="NorthEastlat" name="NorthEastlat" value="{$sampleSearch.NorthEastlat}">
         <!-- boite d'onglets -->
-        <ul class="nav nav-tabs  " id="searchTab" role="tablist" >
+        <ul class="nav nav-tabs" id="searchTab" role="tablist" >
             <li class="nav-item active">
-                <a class="nav-link" id="tabsearch-uid" data-toggle="tab"  role="tab" aria-controls="navsearch-uid" aria-selected="true" href="#navsearch-uid">
+                <a class="nav-link searchTab" id="tabsearch-uid" data-toggle="tab"  role="tab" aria-controls="navsearch-uid" aria-selected="true" href="#navsearch-uid">
                     {t}UID/identifiant{/t}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tabsearch-type" href="#navsearch-type"  data-toggle="tab" role="tab" aria-controls="navsearch-type" aria-selected="false">
+                <a class="nav-link searchTab" id="tabsearch-type" href="#navsearch-type"  data-toggle="tab" role="tab" aria-controls="navsearch-type" aria-selected="false">
                     {t}Type et métadonnées{/t}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tabsearch-divers" href="#navsearch-divers"  data-toggle="tab" role="tab" aria-controls="navsearch-divers" aria-selected="false">
+                <a class="nav-link searchTab" id="tabsearch-divers" href="#navsearch-divers"  data-toggle="tab" role="tab" aria-controls="navsearch-divers" aria-selected="false">
                     {t}Divers{/t}
                 </a>
             </li>
             <li class="nav-item">
-                    <a class="nav-link" id="tabsearch-loc" href="#navsearch-loc"  data-toggle="tab" role="tab" aria-controls="navsearch-loc" aria-selected="false">
+                    <a class="nav-link searchTab" id="tabsearch-loc" href="#navsearch-loc"  data-toggle="tab" role="tab" aria-controls="navsearch-loc" aria-selected="false">
                         {t}Localisation{/t}
                     </a>
                 </li>

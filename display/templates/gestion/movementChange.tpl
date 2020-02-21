@@ -1,7 +1,7 @@
 <script>
 $(document).ready(function() {
 var options;
-var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0{/if};
+var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}0{/if}";
 	/*
 	 * Recherche du type a partir de la famille
 	 */
@@ -10,7 +10,6 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 	console.log ("famille : "+family);
 	var url = "index.php";
 	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
-		console.log ("data.length : "+data.length);
 		if (data != null) {
 			options = '<option value="" selected>{t}Choisissez...{/t}</option>';
 			 for (var i = 0; i < data.length; i++) {
@@ -70,10 +69,9 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 	$("#movement{$moduleParent}Form").submit(function (event ) {
 		var uid = $("#uid").val();
 		var container_uid = $("#container_uid").val();
-		console.log("uid : "+uid);
-		console.log("container_uid : " + uid);
 		if (uid == container_uid) {
 			event.preventDefault();
+			alert("{t}L'UID de l'objet et du contenant sont identiques : vous ne pouvez pas déplacer un objet dans lui même{/t}");
 		}
 	});
 

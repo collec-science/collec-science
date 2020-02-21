@@ -33,7 +33,6 @@ var type_init = {if $data.container_type_id > 0}{$data.container_type_id}{else}0
 		var url = "index.php";
 		$.getJSON ( url, { "module":"containerGetFromType", "container_type_id":containerType } , function( data ) {
 			if (data != null) {
-			console.log ("data is not null");
 			options = '';
 			for (var i = 0; i < data.length; i++) {
 				options += '<option value="' + data[i].container_id + '"';

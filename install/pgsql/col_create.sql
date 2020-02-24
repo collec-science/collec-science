@@ -16,9 +16,7 @@
 -- 	TABLESPACE = pg_default
 -- 	OWNER = postgres;
 -- -- ddl-end --
--- 
- create extension if not exists btree_gin schema pg_catalog;
- create extension if not exists pg_trgm schema pg_catalog;
+--
 create schema if not exists col;
 
 SET search_path = col,gacl;
@@ -372,7 +370,7 @@ CREATE SEQUENCE storage_storage_id_seq
 -- object: last_photo | type: VIEW --
 -- DROP VIEW IF EXISTS last_photo CASCADE;
 CREATE VIEW last_photo
-AS 
+AS
 
 SELECT d.document_id,
     d.uid
@@ -688,6 +686,25 @@ Utilisé pour lire les étiquettes créées dans d''autres instances';
 COMMENT ON COLUMN sample.metadata IS 'Metadonnees associees de l''echantillon';
 -- ddl-end --
 
+CREATE SEQUENCE "sampling_place_sampling_place_id_seq";
+
+CREATE TABLE "sampling_place" (
+                "sampling_place_id" INTEGER NOT NULL DEFAULT nextval('"sampling_place_sampling_place_id_seq"'),
+                collection_id integer,
+                "sampling_place_name" VARCHAR NOT NULL,
+                sampling_place_code varchar,
+ 				sampling_place_x float8,
+ 				sampling_place_y float8,
+                CONSTRAINT "sampling_place_pk" PRIMARY KEY ("sampling_place_id")
+);
+COMMENT ON TABLE "sampling_place" IS 'Table des lieux génériques d''échantillonnage';
+comment on column sampling_place.sampling_place_code is 'Code métier de la station';
+ comment on column sampling_place.sampling_place_x is 'Longitude de la station, en WGS84';
+ comment on column sampling_place.sampling_place_y is 'Latitude de la station, en WGS84';
+
+
+ALTER SEQUENCE "sampling_place_sampling_place_id_seq" OWNED BY "sampling_place"."sampling_place_id";
+
 -- object: sample_type_sample_type_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS sample_type_sample_type_id_seq CASCADE;
 CREATE SEQUENCE sample_type_sample_type_id_seq
@@ -827,7 +844,7 @@ COMMENT ON COLUMN subsample.subsample_login IS 'Login de l''utilisateur ayant r�
 -- object: v_object_identifier | type: VIEW --
 -- DROP VIEW IF EXISTS v_object_identifier CASCADE;
 CREATE VIEW v_object_identifier
-AS 
+AS
 
 SELECT object_identifier.uid,
     array_to_string(array_agg((((identifier_type.identifier_type_code)::text || ':'::text) || (object_identifier.object_identifier_value)::text) ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
@@ -844,8 +861,7 @@ CREATE INDEX object_identifier_idx ON object
 	USING gin
 	(
 	  identifier
-	)
-	WITH (FILLFACTOR = 90);
+	);
 -- ddl-end --
 
 -- object: object_identifier_value_idx | type: INDEX --
@@ -854,8 +870,7 @@ CREATE INDEX object_identifier_value_idx ON object_identifier
 	USING gin
 	(
 	  object_identifier_value
-	)
-	WITH (FILLFACTOR = 90);
+	);
 -- ddl-end --
 
 -- object: sample_dbuid_origin_idx | type: INDEX --
@@ -864,8 +879,7 @@ CREATE INDEX sample_dbuid_origin_idx ON sample
 	USING gin
 	(
 	  dbuid_origin
-	)
-	WITH (FILLFACTOR = 90);
+	);
 -- ddl-end --
 
 -- object: sample_expiration_date_idx | type: INDEX --
@@ -874,8 +888,7 @@ CREATE INDEX sample_expiration_date_idx ON sample
 	USING btree
 	(
 	  expiration_date
-	)
-	WITH (FILLFACTOR = 90);
+	);
 -- ddl-end --
 
 -- object: sample_sample_creation_date_idx | type: INDEX --
@@ -884,8 +897,7 @@ CREATE INDEX sample_sample_creation_date_idx ON sample
 	USING btree
 	(
 	  sample_creation_date
-	)
-	WITH (FILLFACTOR = 90);
+	);
 -- ddl-end --
 
 -- object: sample_sample_date_idx | type: INDEX --
@@ -894,11 +906,8 @@ CREATE INDEX sample_sample_date_idx ON sample
 	USING btree
 	(
 	  sampling_date
-	)
-	WITH (FILLFACTOR = 90);
+	);
 -- ddl-end --
-
-
 
 -- object: borrower_borrower_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS borrower_borrower_id_seq CASCADE;
@@ -922,24 +931,6 @@ CREATE SEQUENCE borrowing_borrowing_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
--- ddl-end --
-
-
-
--- object: last_borrowing | type: VIEW --
--- DROP VIEW IF EXISTS last_borrowing CASCADE;
-CREATE VIEW last_borrowing
-AS 
-
-select borrowing_id, uid, borrowing_date, expected_return_date, borrower_id
-from borrowing b1
- where borrowing_id = (
- select borrowing_id from borrowing b2
- where b1.uid = b2.uid 
- and b2.return_date is null
- order by borrowing_date desc limit 1);
--- ddl-end --
-COMMENT ON VIEW last_borrowing IS 'View to get the last borrowing for an object';
 -- ddl-end --
 
 -- object: borrower | type: TABLE --
@@ -1012,10 +1003,146 @@ CREATE INDEX borrowing_borrower_id_idx ON borrowing
 	);
 -- ddl-end --
 
+-- object: last_borrowing | type: VIEW --
+-- DROP VIEW IF EXISTS last_borrowing CASCADE;
+CREATE VIEW last_borrowing
+AS
+
+select borrowing_id, uid, borrowing_date, expected_return_date, borrower_id
+from borrowing b1
+ where borrowing_id = (
+ select borrowing_id from borrowing b2
+ where b1.uid = b2.uid
+ and b2.return_date is null
+ order by borrowing_date desc limit 1);
+-- ddl-end --
+COMMENT ON VIEW last_borrowing IS 'View to get the last borrowing for an object';
+-- ddl-end --
+
+CREATE SEQUENCE metadata_metadata_id_seq
+    INCREMENT 1
+    START 18
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+CREATE TABLE metadata
+(
+    metadata_id integer NOT NULL DEFAULT nextval('metadata_metadata_id_seq'::regclass),
+    metadata_name character varying NOT NULL,
+    metadata_schema json,
+    CONSTRAINT metadata_pk PRIMARY KEY (metadata_id)
+);
+COMMENT ON TABLE metadata
+    IS 'Table des metadata utilisables dans les types d''echantillons';
+
+COMMENT ON COLUMN metadata.metadata_name
+    IS 'Nom du jeu de metadonnees';
+
+COMMENT ON COLUMN metadata.metadata_schema
+    IS 'Schéma en JSON du formulaire des métadonnées';
+
+CREATE SEQUENCE printer_printer_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 9223372036854775807
+    CACHE 1;
+CREATE TABLE printer
+(
+    printer_id integer NOT NULL DEFAULT nextval('printer_printer_id_seq'::regclass),
+    printer_name character varying  NOT NULL,
+    printer_queue character varying  NOT NULL,
+    printer_server character varying ,
+    printer_user character varying ,
+    printer_comment character varying ,
+    CONSTRAINT printer_pk PRIMARY KEY (printer_id)
+);
+COMMENT ON TABLE printer
+    IS 'Table des imprimantes gerees directement par le serveur';
+
+COMMENT ON COLUMN printer.printer_name
+    IS 'Nom general de l''imprimante, affiche dans les masques de saisie';
+
+COMMENT ON COLUMN printer.printer_queue
+    IS 'Nom de l''imprimante telle qu''elle est connue par le systeme';
+
+COMMENT ON COLUMN printer.printer_server
+    IS 'Adresse du serveur, si imprimante non locale';
+
+COMMENT ON COLUMN printer.printer_user
+    IS 'Utilisateur autorise a imprimer ';
+
+COMMENT ON COLUMN printer.printer_comment
+    IS 'Commentaire';
+
+
+CREATE SEQUENCE referent_referent_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+ALTER SEQUENCE referent_referent_id_seq OWNER TO collec;
+-- ddl-end --
+
+-- object: referent | type: TABLE --
+-- DROP TABLE IF EXISTS referent CASCADE;
+CREATE TABLE referent (
+	referent_id integer NOT NULL DEFAULT nextval('referent_referent_id_seq'::regclass),
+	referent_name character varying NOT NULL,
+	referent_email character varying,
+	address_name character varying,
+	address_line2 character varying,
+	address_line3 character varying,
+	address_city character varying,
+	address_country character varying,
+	referent_phone character varying,
+	CONSTRAINT referent_pk PRIMARY KEY (referent_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE referent IS E'Table of sample referents';
+-- ddl-end --
+COMMENT ON COLUMN referent.referent_name IS E'Name, firstname-lastname or department name';
+-- ddl-end --
+COMMENT ON COLUMN referent.referent_email IS E'Email for contact';
+-- ddl-end --
+COMMENT ON COLUMN referent.address_name IS E'Name for postal address';
+-- ddl-end --
+COMMENT ON COLUMN referent.address_line2 IS E'second line in postal address';
+-- ddl-end --
+COMMENT ON COLUMN referent.address_line3 IS E'third line in postal address';
+-- ddl-end --
+COMMENT ON COLUMN referent.address_city IS E'ZIPCode and City in postal address';
+-- ddl-end --
+COMMENT ON COLUMN referent.address_country IS E'Country in postal address';
+-- ddl-end --
+COMMENT ON COLUMN referent.referent_phone IS E'Contact phone';
+-- ddl-end --
+ALTER TABLE referent OWNER TO collec;
+-- ddl-end --
+
+-- object: referent_referent_name_idx | type: INDEX --
+-- DROP INDEX IF EXISTS referent_referent_name_idx CASCADE;
+CREATE UNIQUE INDEX referent_referent_name_idx ON referent
+	USING btree
+	(
+	  referent_name
+	);
+-- ddl-end --
+
+ALTER TABLE object ADD CONSTRAINT referent_object_fk FOREIGN KEY (referent_id)
+REFERENCES referent (referent_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
 -- object: last_movement | type: VIEW --
 -- DROP VIEW IF EXISTS last_movement CASCADE;
 CREATE VIEW last_movement
-AS 
+AS
 
 SELECT s.uid,
     s.movement_id,
@@ -1035,6 +1162,35 @@ SELECT s.uid,
          LIMIT 1));
 -- ddl-end --
 COMMENT ON VIEW last_movement IS 'Get the last movement for an object';
+-- ddl-end --
+
+-- object: dbversion_dbversion_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE IF EXISTS dbversion_dbversion_id_seq CASCADE;
+CREATE SEQUENCE dbversion_dbversion_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+-- ddl-end --
+
+-- object: dbversion | type: TABLE --
+-- DROP TABLE IF EXISTS dbversion CASCADE;
+CREATE TABLE dbversion (
+	dbversion_id integer NOT NULL DEFAULT nextval('dbversion_dbversion_id_seq'::regclass),
+	dbversion_number character varying NOT NULL,
+	dbversion_date timestamp NOT NULL,
+	CONSTRAINT dbversion_pk PRIMARY KEY (dbversion_id)
+
+);
+-- ddl-end --
+COMMENT ON TABLE dbversion IS E'Table des versions de la base de donnees';
+-- ddl-end --
+COMMENT ON COLUMN dbversion.dbversion_number IS E'Numero de la version';
+-- ddl-end --
+COMMENT ON COLUMN dbversion.dbversion_date IS E'Date de la version';
 -- ddl-end --
 
 -- object: object_booking_fk | type: CONSTRAINT --
@@ -1177,6 +1333,11 @@ REFERENCES sample (sample_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
+ALTER TABLE "sample" ADD CONSTRAINT "sampling_place_sample_fk"
+FOREIGN KEY ("sampling_place_id")
+REFERENCES "sampling_place" ("sampling_place_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
 -- object: sample_type_sample_fk | type: CONSTRAINT --
 -- ALTER TABLE sample DROP CONSTRAINT IF EXISTS sample_type_sample_fk CASCADE;
 ALTER TABLE sample ADD CONSTRAINT sample_type_sample_fk FOREIGN KEY (sample_type_id)
@@ -1197,6 +1358,13 @@ ALTER TABLE sample_type ADD CONSTRAINT multiple_type_sample_type_fk FOREIGN KEY 
 REFERENCES multiple_type (multiple_type_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
+ALTER TABLE "sample_type" ADD CONSTRAINT "metadata_sample_type_fk"
+FOREIGN KEY ("metadata_id")
+REFERENCES "metadata" ("metadata_id")
+ON DELETE NO ACTION
+ON UPDATE NO ACTION
+NOT DEFERRABLE;
+
 
 -- object: operation_sample_type_fk | type: CONSTRAINT --
 -- ALTER TABLE sample_type DROP CONSTRAINT IF EXISTS operation_sample_type_fk CASCADE;
@@ -1252,12 +1420,12 @@ ON DELETE NO ACTION ON UPDATE NO ACTION;
 /*
  * Initialisation par defaut des donnees
  */
- 
- insert into movement_type (movement_type_id, movement_type_name) 
-values 
+
+ insert into movement_type (movement_type_id, movement_type_name)
+values
 (1, 'Entrée/Entry'),
 (2, 'Sortie/Exit');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  1,  'application/pdf',  'pdf'),
@@ -1292,13 +1460,13 @@ VALUES
     <fo:root>
       <fo:layout-master-set>
         <fo:simple-page-master master-name="label"
-              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">  
+              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">
               <fo:region-body/>
         </fo:simple-page-master>
       </fo:layout-master-set>
-      
+
       <fo:page-sequence master-reference="label">
-         <fo:flow flow-name="xsl-region-body">        
+         <fo:flow flow-name="xsl-region-body">
           <fo:block>
           <xsl:apply-templates select="object" />
           </fo:block>
@@ -1314,7 +1482,7 @@ VALUES
   <fo:table-column column-width="4cm" />
  <fo:table-body  border-style="none" >
  	<fo:table-row>
-  		<fo:table-cell> 
+  		<fo:table-cell>
   		<fo:block>
   		<fo:external-graphic>
       <xsl:attribute name="src">
@@ -1324,7 +1492,7 @@ VALUES
        <xsl:attribute name="height">4cm</xsl:attribute>
         <xsl:attribute name="content-width">4cm</xsl:attribute>
         <xsl:attribute name="scaling">uniform</xsl:attribute>
-      
+
        </fo:external-graphic>
  		</fo:block>
    		</fo:table-cell>
@@ -1344,19 +1512,19 @@ VALUES
 </xsl:stylesheet>',
   'uid,id,clp,db,col'
 );
-select setval('label_label_id_seq',(select max(label_id) from label)); 
+select setval('label_label_id_seq',(select max(label_id) from label));
 
 /*
  * Tables de parametres generales
  */
  insert into container_family (container_family_id, container_family_name)
- values 
+ values
  (1, 'Immobilier'),
  (2, 'Mobilier');
- 
+
 select setval('container_family_container_family_id_seq', (select max(container_family_id) from container_family));
 insert into container_type (container_type_name, container_family_id)
-values 
+values
 ('Site', 1),
 ('Bâtiment', 1),
 ('Pièce', 1),
@@ -1390,153 +1558,33 @@ VALUES
 (  3, 'Objet détruit'),
 (  4, 'Echantillon vidé de tout contenu'),
 ( 5, 'Container plein'),
-(6, 'Objet prêté');
+( 6, 'Objet prêté');
 select setval('object_status_object_status_id_seq', 6);
-/*
- * Initialisation par defaut des donnees
- */
- 
- insert into movement_type (movement_type_id, movement_type_name) 
-values 
-(1, 'Entrée/Entry'),
-(2, 'Sortie/Exit');
- 
- INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
- VALUES
- (  1,  'application/pdf',  'pdf'),
- (  2,  'application/zip',  'zip'),
- (  3,  'audio/mpeg',  'mp3'),
- (  4,  'image/jpeg',  'jpg'),
- (  5,  'image/jpeg',  'jpeg'),
- (  6,  'image/png',  'png'),
- (  7,  'image/tiff',  'tiff'),
- (  9,  'application/vnd.oasis.opendocument.text',  'odt'),
- (  10,  'application/vnd.oasis.opendocument.spreadsheet',  'ods'),
- (  11,  'application/vnd.ms-excel',  'xls'),
- (  12,  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  'xlsx'),
- (  13,  'application/msword',  'doc'),
- (  14,  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  'docx'),
- (  8,  'text/csv',  'csv');
- INSERT INTO label
-(
-  label_name,
-  label_xsl,
-  label_fields
-)
-VALUES
-(
-  'Exemple - ne pas utiliser',
-  '<?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0"
-      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-      xmlns:fo="http://www.w3.org/1999/XSL/Format">
-  <xsl:output method="xml" indent="yes"/>
-  <xsl:template match="objects">
-    <fo:root>
-      <fo:layout-master-set>
-        <fo:simple-page-master master-name="label"
-              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">  
-              <fo:region-body/>
-        </fo:simple-page-master>
-      </fo:layout-master-set>
-      
-      <fo:page-sequence master-reference="label">
-         <fo:flow flow-name="xsl-region-body">        
-          <fo:block>
-          <xsl:apply-templates select="object" />
-          </fo:block>
 
-        </fo:flow>
-      </fo:page-sequence>
-    </fo:root>
-   </xsl:template>
-  <xsl:template match="object">
-
-  <fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="8cm" keep-together.within-page="always">
-  <fo:table-column column-width="4cm"/>
-  <fo:table-column column-width="4cm" />
- <fo:table-body  border-style="none" >
- 	<fo:table-row>
-  		<fo:table-cell> 
-  		<fo:block>
-  		<fo:external-graphic>
-      <xsl:attribute name="src">
-             <xsl:value-of select="concat(uid,''.png'')" />
-       </xsl:attribute>
-       <xsl:attribute name="content-height">scale-to-fit</xsl:attribute>
-       <xsl:attribute name="height">4cm</xsl:attribute>
-        <xsl:attribute name="content-width">4cm</xsl:attribute>
-        <xsl:attribute name="scaling">uniform</xsl:attribute>
-      
-       </fo:external-graphic>
- 		</fo:block>
-   		</fo:table-cell>
-  		<fo:table-cell>
-<fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>
-  			<fo:block>uid:<fo:inline font-weight="bold"><xsl:value-of select="db"/>:<xsl:value-of select="uid"/></fo:inline></fo:block>
-  			<fo:block>id:<fo:inline font-weight="bold"><xsl:value-of select="id"/></fo:inline></fo:block>
-  			<fo:block>col:<fo:inline font-weight="bold"><xsl:value-of select="col"/></fo:inline></fo:block>
-  			<fo:block>clp:<fo:inline font-weight="bold"><xsl:value-of select="clp"/></fo:inline></fo:block>
-  		</fo:table-cell>
-  	  	</fo:table-row>
-  </fo:table-body>
-  </fo:table>
-   <fo:block page-break-after="always"/>
-
-  </xsl:template>
-</xsl:stylesheet>',
-  'uid,id,clp,db,col'
+CREATE TABLE "dbparam" (
+                "dbparam_id" INTEGER NOT NULL,
+                "dbparam_name" VARCHAR NOT NULL,
+                "dbparam_value" VARCHAR,
+                CONSTRAINT "dbparam_pk" PRIMARY KEY ("dbparam_id")
 );
-select setval('label_label_id_seq',(select max(label_id) from label)); 
+COMMENT ON TABLE "dbparam" IS 'Table des parametres associes de maniere intrinseque a l''instance';
+COMMENT ON COLUMN "dbparam"."dbparam_name" IS 'Nom du parametre';
+COMMENT ON COLUMN "dbparam"."dbparam_value" IS 'Valeur du paramètre';
 
-/*
- * Tables de parametres generales
- */
- insert into container_family (container_family_id, container_family_name)
- values 
- (1, 'Immobilier'),
- (2, 'Mobilier');
- 
-select setval('container_family_container_family_id_seq', (select max(container_family_id) from container_family));
-insert into container_type (container_type_name, container_family_id)
-values 
-('Site', 1),
-('Bâtiment', 1),
-('Pièce', 1),
-('Armoire', 2),
-('Congélateur', 2);
+insert into dbparam(dbparam_id, dbparam_name, dbparam_value) values
+ (1, 'APPLI_code', 'cs_code'),
+ (2, 'APPLI_title', 'Collec-Science - instance for '),
+ (3, 'mapDefaultX', '-0.70'),
+ (4, 'mapDefaultY', '44.77'),
+ (5, 'mapDefaultZoom', '7')
 
-INSERT INTO event_type
-(
-  event_type_name,
-  is_sample,
-  is_container
-)
-VALUES
-(  'Autre',  TRUE,  TRUE),
-(  'Conteneur cassé',  FALSE,  TRUE),
-(  'Échantillon détruit',  TRUE,  FALSE),
-(  'Prélèvement pour analyse',  TRUE,  FALSE),
-(  'Échantillon totalement analysé, détruit', TRUE,  FALSE);
+ ;
 
-INSERT INTO multiple_type (  multiple_type_name)
-VALUES
-(  'Unité'),
-(  'Pourcentage'),
-(  'Quantité ou volume'),
-(  'Autre');
-
-INSERT INTO object_status(  object_status_name)
-VALUES
-(  'État normal'),
-(  'Objet pré-réservé pour usage ultérieur'),
-(  'Objet détruit'),
-(  'Echantillon vidé de tout contenu');
 
 /*
  * Fin d'execution du script
  * Mise a jour de dbversion
  */
 insert into dbversion ("dbversion_number", "dbversion_date")
-values 
+values
 ('2.3','2019-08-14');

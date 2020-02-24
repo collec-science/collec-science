@@ -3,13 +3,28 @@
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
 VERSION=2.3.1
-PHPVER=7.2
+PHPVER=7.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
+# DISTRIBNAME=`lsb_release -a 2>/dev/null|grep Codename|cut -d ":" -f 2|sed "s/[\t]*//"`
 echo "Installation of Collec-Science version " $VERSION
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [y/n]?" response
-if [ "$response" = "y" ] 
+if [ "$response" = "y" ]
 then
+# installing php repository
+apt -y install lsb-release apt-transport-https ca-certificates
+DISTRIBCODE=`lsb_release -sc`
+DISTRIBNAME=`lsb_release -si`
+if [ $DISTRIBNAME == 'Ubuntu' ]
+then
+apt-get install software-properties-common
+add-apt-repository -y ppa:ondrej/php
+add-apt-repository -y ppa:ondrej/apache2
+elif [ $DISTRIBNAME == 'Debian' ]
+wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
+echo "deb https://packages.sury.org/php/ $DISTRIBNAME main" | tee /etc/apt/sources.list.d/php.list
+fi
+apt-get update
 # installing packages
 apt-get install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd fop postgresql postgresql-client
 a2enmod ssl
@@ -87,6 +102,10 @@ do
  sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $PHPINIFILE
 done
 sed -i "s/; max_input_vars = .*/max_input_vars=$max_input_vars/" $PHPINIFILE
+
+# adjust imagick policy
+sed -e "s/  <policy domain=\"coder\" rights=\"none\" pattern=\"PDF\" \/>/  <policy domain=\"coder\" rights=\"read|write\" pattern=\"PDF\" \/>/" /etc/ImageMagick-6/policy.xml > /tmp/policy.xml
+cp /tmp/policy.xml /etc/ImageMagick-6/
 
 # creation of virtual host
 echo "creation of virtual site"

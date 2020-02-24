@@ -12,7 +12,6 @@ CREATE SEQUENCE aclgroup_aclgroup_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
-ALTER SEQUENCE aclgroup_aclgroup_id_seq OWNER TO postgres;
 -- ddl-end --
 
 -- object: aclacl | type: TABLE --
@@ -26,7 +25,6 @@ CREATE TABLE aclacl (
 -- ddl-end --
 COMMENT ON TABLE aclacl IS 'Table des droits attribués';
 -- ddl-end --
-ALTER TABLE aclacl OWNER TO postgres;
 -- ddl-end --
 
 -- object: aclaco_aclaco_id_seq | type: SEQUENCE --
@@ -39,8 +37,6 @@ CREATE SEQUENCE aclaco_aclaco_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
--- ddl-end --
-ALTER SEQUENCE aclaco_aclaco_id_seq OWNER TO postgres;
 -- ddl-end --
 
 -- object: aclaco | type: TABLE --
@@ -55,8 +51,6 @@ CREATE TABLE aclaco (
 -- ddl-end --
 COMMENT ON TABLE aclaco IS 'Table des droits gérés';
 -- ddl-end --
-ALTER TABLE aclaco OWNER TO postgres;
--- ddl-end --
 
 -- object: aclappli_aclappli_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS aclappli_aclappli_id_seq CASCADE;
@@ -68,8 +62,6 @@ CREATE SEQUENCE aclappli_aclappli_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
--- ddl-end --
-ALTER SEQUENCE aclappli_aclappli_id_seq OWNER TO postgres;
 -- ddl-end --
 
 -- object: aclappli | type: TABLE --
@@ -88,8 +80,6 @@ COMMENT ON COLUMN aclappli.appli IS 'Nom de l''application pour la gestion des d
 -- ddl-end --
 COMMENT ON COLUMN aclappli.applidetail IS 'Description de l''application';
 -- ddl-end --
-ALTER TABLE aclappli OWNER TO postgres;
--- ddl-end --
 
 -- object: aclgroup | type: TABLE --
 -- DROP TABLE IF EXISTS aclgroup CASCADE;
@@ -103,8 +93,6 @@ CREATE TABLE aclgroup (
 -- ddl-end --
 COMMENT ON TABLE aclgroup IS 'Groupes des logins';
 -- ddl-end --
-ALTER TABLE aclgroup OWNER TO postgres;
--- ddl-end --
 
 -- object: acllogin_acllogin_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS acllogin_acllogin_id_seq CASCADE;
@@ -116,8 +104,6 @@ CREATE SEQUENCE acllogin_acllogin_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
--- ddl-end --
-ALTER SEQUENCE acllogin_acllogin_id_seq OWNER TO postgres;
 -- ddl-end --
 
 -- object: acllogin | type: TABLE --
@@ -134,8 +120,6 @@ COMMENT ON TABLE acllogin IS 'Table des logins des utilisateurs autorisés';
 -- ddl-end --
 COMMENT ON COLUMN acllogin.logindetail IS 'Nom affiché';
 -- ddl-end --
-ALTER TABLE acllogin OWNER TO postgres;
--- ddl-end --
 
 -- object: acllogingroup | type: TABLE --
 -- DROP TABLE IF EXISTS acllogingroup CASCADE;
@@ -148,8 +132,6 @@ CREATE TABLE acllogingroup (
 -- ddl-end --
 COMMENT ON TABLE acllogingroup IS 'Table des relations entre les logins et les groupes';
 -- ddl-end --
-ALTER TABLE acllogingroup OWNER TO postgres;
--- ddl-end --
 
 -- object: log_log_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS log_log_id_seq CASCADE;
@@ -161,8 +143,6 @@ CREATE SEQUENCE log_log_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
--- ddl-end --
-ALTER SEQUENCE log_log_id_seq OWNER TO postgres;
 -- ddl-end --
 
 -- object: log | type: TABLE --
@@ -186,8 +166,6 @@ COMMENT ON COLUMN log.commentaire IS 'Donnees complementaires enregistrees';
 -- ddl-end --
 COMMENT ON COLUMN log.ipaddress IS 'Adresse IP du client';
 -- ddl-end --
-ALTER TABLE log OWNER TO postgres;
--- ddl-end --
 
 -- object: seq_logingestion_id | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS seq_logingestion_id CASCADE;
@@ -200,18 +178,16 @@ CREATE SEQUENCE seq_logingestion_id
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
-ALTER SEQUENCE seq_logingestion_id OWNER TO postgres;
--- ddl-end --
 
 -- object: logingestion | type: TABLE --
 -- DROP TABLE IF EXISTS logingestion CASCADE;
 CREATE TABLE logingestion (
 	id integer NOT NULL DEFAULT nextval('seq_logingestion_id'::regclass),
-	login character varying(32) NOT NULL,
-	password character varying(255),
-	nom character varying(32),
-	prenom character varying(32),
-	mail character varying(255),
+	login character varying NOT NULL,
+	password character varying,
+	nom character varying,
+	prenom character varying,
+	mail character varying,
 	datemodif timestamp,
 	actif smallint DEFAULT 1,
 	is_clientws boolean DEFAULT false,
@@ -220,8 +196,6 @@ CREATE TABLE logingestion (
 	CONSTRAINT pk_logingestion PRIMARY KEY (id)
 
 );
--- ddl-end --
-ALTER TABLE logingestion OWNER TO postgres;
 -- ddl-end --
 -- object: log_date_idx | type: INDEX --
 -- DROP INDEX IF EXISTS log_date_idx CASCADE;
@@ -323,16 +297,16 @@ insert into acllogin (acllogin_id, login, logindetail) values (1, 'admin', 'admi
  * Ajout des droits necessaires
  */
 insert into aclappli (aclappli_id, appli) values (1, 'col');
-insert into aclaco (aclaco_id, aclappli_id, aco) 
-values 
+insert into aclaco (aclaco_id, aclappli_id, aco)
+values
 (1, 1, 'admin'),
 (2, 1, 'param'),
 (3, 1, 'collection'),
 (4, 1, 'gestion'),
 (5, 1, 'consult'),
 (6, 1, 'import');
-insert into aclgroup (aclgroup_id, groupe, aclgroup_id_parent) 
-values 
+insert into aclgroup (aclgroup_id, groupe, aclgroup_id_parent)
+values
 (1, 'admin', null),
 (2, 'consult', null),
 (3, 'gestion', 2),

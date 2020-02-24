@@ -41,8 +41,8 @@ CREATE USER collec WITH
  */
 create database collec owner collec;
 \c "dbname=collec"
-create extension pg_trgm schema pg_catalog;
-create extension btree_gin schema pg_catalog;
+ create extension if not exists btree_gin schema pg_catalog;
+ create extension if not exists pg_trgm schema pg_catalog;
 
 /*
  * connexion a la base collec, avec l'utilisateur collec, en localhost,

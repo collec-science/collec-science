@@ -16,9 +16,7 @@
 -- 	TABLESPACE = pg_default
 -- 	OWNER = postgres;
 -- -- ddl-end --
--- 
--- create extension if not exists btree_gin schema pg_catalog;
--- create extension if not exists pg_trgm schema pg_catalog;
+--
 create schema if not exists col;
 
 SET search_path = col,gacl;
@@ -843,9 +841,9 @@ SELECT object_identifier.uid,
 CREATE INDEX object_identifier_idx ON object
 	USING gin
 	(
-	  identifier gin_trgm_ops
+	  identifier
 	)
-	;
+	WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: object_identifier_value_idx | type: INDEX --
@@ -853,9 +851,9 @@ CREATE INDEX object_identifier_idx ON object
 CREATE INDEX object_identifier_value_idx ON object_identifier
 	USING gin
 	(
-	  object_identifier_value gin_trgm_ops
+	  object_identifier_value
 	)
-;
+	WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: sample_dbuid_origin_idx | type: INDEX --
@@ -863,8 +861,9 @@ CREATE INDEX object_identifier_value_idx ON object_identifier
 CREATE INDEX sample_dbuid_origin_idx ON sample
 	USING gin
 	(
-	  dbuid_origin gin_trgm_ops
-	);
+	  dbuid_origin
+	)
+	WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: sample_expiration_date_idx | type: INDEX --
@@ -924,6 +923,22 @@ CREATE SEQUENCE borrowing_borrowing_id_seq
 -- ddl-end --
 
 
+
+-- object: last_borrowing | type: VIEW --
+-- DROP VIEW IF EXISTS last_borrowing CASCADE;
+CREATE VIEW last_borrowing
+AS 
+
+select borrowing_id, uid, borrowing_date, expected_return_date, borrower_id
+from borrowing b1
+ where borrowing_id = (
+ select borrowing_id from borrowing b2
+ where b1.uid = b2.uid 
+ and b2.return_date is null
+ order by borrowing_date desc limit 1);
+-- ddl-end --
+COMMENT ON VIEW last_borrowing IS 'View to get the last borrowing for an object';
+-- ddl-end --
 
 -- object: borrower | type: TABLE --
 -- DROP TABLE IF EXISTS borrower CASCADE;
@@ -993,22 +1008,6 @@ CREATE INDEX borrowing_borrower_id_idx ON borrowing
 	(
 	  borrower_id
 	);
--- ddl-end --
-
--- object: last_borrowing | type: VIEW --
--- DROP VIEW IF EXISTS last_borrowing CASCADE;
-CREATE VIEW last_borrowing
-AS 
-
-select borrowing_id, uid, borrowing_date, expected_return_date, borrower_id
-from borrowing b1
- where borrowing_id = (
- select borrowing_id from borrowing b2
- where b1.uid = b2.uid 
- and b2.return_date is null
- order by borrowing_date desc limit 1);
--- ddl-end --
-COMMENT ON VIEW last_borrowing IS 'View to get the last borrowing for an object';
 -- ddl-end --
 
 -- object: last_movement | type: VIEW --
@@ -1389,7 +1388,7 @@ VALUES
 (  3, 'Objet détruit'),
 (  4, 'Echantillon vidé de tout contenu'),
 ( 5, 'Container plein'),
-(6, 'Objet prêté');
+( 6, 'Objet prêté');
 select setval('object_status_object_status_id_seq', 6);
 /*
  * Initialisation par defaut des donnees
@@ -1445,65 +1444,22 @@ VALUES
           <xsl:apply-templates select="object" />
           </fo:block>
 
-        </fo:flow>
-      </fo:page-sequence>
-    </fo:root>
-   </xsl:template>
-  <xsl:template match="object">
-
-  <fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="8cm" keep-together.within-page="always">
-  <fo:table-column column-width="4cm"/>
-  <fo:table-column column-width="4cm" />
- <fo:table-body  border-style="none" >
- 	<fo:table-row>
-  		<fo:table-cell> 
-  		<fo:block>
-  		<fo:external-graphic>
-      <xsl:attribute name="src">
-             <xsl:value-of select="concat(uid,''.png'')" />
-       </xsl:attribute>
-       <xsl:attribute name="content-height">scale-to-fit</xsl:attribute>
-       <xsl:attribute name="height">4cm</xsl:attribute>
-        <xsl:attribute name="content-width">4cm</xsl:attribute>
-        <xsl:attribute name="scaling">uniform</xsl:attribute>
-      
-       </fo:external-graphic>
- 		</fo:block>
-   		</fo:table-cell>
-  		<fo:table-cell>
-<fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>
-  			<fo:block>uid:<fo:inline font-weight="bold"><xsl:value-of select="db"/>:<xsl:value-of select="uid"/></fo:inline></fo:block>
-  			<fo:block>id:<fo:inline font-weight="bold"><xsl:value-of select="id"/></fo:inline></fo:block>
-  			<fo:block>col:<fo:inline font-weight="bold"><xsl:value-of select="col"/></fo:inline></fo:block>
-  			<fo:block>clp:<fo:inline font-weight="bold"><xsl:value-of select="clp"/></fo:inline></fo:block>
-  		</fo:table-cell>
-  	  	</fo:table-row>
-  </fo:table-body>
-  </fo:table>
-   <fo:block page-break-after="always"/>
-
-  </xsl:template>
-</xsl:stylesheet>',
-  'uid,id,clp,db,col'
+CREATE TABLE "dbparam" (
+                "dbparam_id" INTEGER NOT NULL,
+                "dbparam_name" VARCHAR NOT NULL,
+                "dbparam_value" VARCHAR,
+                CONSTRAINT "dbparam_pk" PRIMARY KEY ("dbparam_id")
 );
-select setval('label_label_id_seq',(select max(label_id) from label)); 
+COMMENT ON TABLE "dbparam" IS 'Table des parametres associes de maniere intrinseque a l''instance';
+COMMENT ON COLUMN "dbparam"."dbparam_name" IS 'Nom du parametre';
+COMMENT ON COLUMN "dbparam"."dbparam_value" IS 'Valeur du paramètre';
 
-/*
- * Tables de parametres generales
- */
- insert into container_family (container_family_id, container_family_name)
- values 
- (1, 'Immobilier'),
- (2, 'Mobilier');
- 
-select setval('container_family_container_family_id_seq', (select max(container_family_id) from container_family));
-insert into container_type (container_type_name, container_family_id)
-values 
-('Site', 1),
-('Bâtiment', 1),
-('Pièce', 1),
-('Armoire', 2),
-('Congélateur', 2);
+insert into dbparam(dbparam_id, dbparam_name, dbparam_value) values
+ (1, 'APPLI_code', 'cs_code'),
+ (2, 'APPLI_title', 'Collec-Science - instance for '),
+ (3, 'mapDefaultX', '-0.70'),
+ (4, 'mapDefaultY', '44.77'),
+ (5, 'mapDefaultZoom', '7')
 
 INSERT INTO event_type
 (

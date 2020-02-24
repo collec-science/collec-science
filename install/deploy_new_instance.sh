@@ -5,13 +5,29 @@
 VERSION=2.3.1
 PHPVER=7.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
+# DISTRIBNAME=`lsb_release -a 2>/dev/null|grep Codename|cut -d ":" -f 2|sed "s/[\t]*//"`
 echo "Installation of Collec-Science version " $VERSION
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [y/n]?" response
-if [ "$response" = "y" ] 
+if [ "$response" = "y" ]
 then
+# installing php repository
+apt -y install lsb-release apt-transport-https ca-certificates
+DISTRIBCODE=`lsb_release -sc`
+DISTRIBNAME=`lsb_release -si`
+if [ $DISTRIBNAME == 'Ubuntu' ]
+then
+apt-get install software-properties-common
+add-apt-repository -y ppa:ondrej/php
+add-apt-repository -y ppa:ondrej/apache2
+elif [ $DISTRIBNAME == 'Debian' ]
+then
+wget -qO https://packages.sury.org/php/apt.gpg | apt-key add -
+echo "deb https://packages.sury.org/php/ $DISTRIBCODE main" | tee /etc/apt/sources.list.d/php.list
+fi
+apt-get update
 # installing packages
-apt-get install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd fop postgresql postgresql-client
+apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd fop postgresql postgresql-client
 a2enmod ssl
 a2enmod headers
 a2enmod rewrite

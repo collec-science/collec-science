@@ -341,10 +341,62 @@ class Identification
              * Identification via les headers fournis par le serveur web
              * dans le cas d'une identification derriere un proxy comme LemonLdap
              */
-            global $ident_header_login_var;
-            $headers = getHeaders();
-            $login = $headers[strtoupper($ident_header_login_var)];
+            global $ident_header_vars;
+            $headers = getHeaders($ident_header_vars["radical"]);
+            $login = $headers[$ident_header_vars["login"]];
             if (strlen($login) > 0) {
+                /**
+                 * Verify if the login exists
+                 */
+                include_once "framework/identification/loginGestion.class.php";
+                global $bdd_gacl;
+                $loginGestion = new LoginGestion($bdd_gacl);
+                $dlogin = $loginGestion->getFromLogin($login);
+                /**
+                 * Verify if the login is recorded
+                 */
+                if ($dlogin["id"] > 0) {
+                    if ($dlogin["actif"] == 1) {
+                        $verify = true;
+                    }
+                } else {
+                    /**
+                     * Create if authorized the login
+                     */
+                    if ($ident_header_vars["createUser"]) {
+                        /**
+                         * Verify if the structure is authorized
+                         */
+                        $createUser = true;
+                        if (count($ident_header_vars["organizationGranted"]) > 0 && !in_array($headers[$ident_header_vars["organization"]], $ident_header_vars["organizationGranted"])) {
+                            $createUser = false;
+                        }
+                        if ($createUser) {
+                            $dlogin = array (
+                            "login"=>$login,
+                            "nom"=>$headers[$ident_header_vars["cn"]],
+                            "mail"=>$headers[$ident_header_vars["mail"]],
+                            "actif"=>0
+                            );
+                            $login_id = $loginGestion->ecrire($dlogin);
+                            if ($login_id > 0) {
+                                /**
+                                 * Send mail to administrators
+                                 */
+                                global $APPLI_nom, $APPLI_mail;
+                                $subject = $APPLI_nom." "._("Nouvel utilisateur");
+                                $contents = "<html><body>".sprintf(_("%1$s a créé son compte avec le login %2$s dans l'application %3$s.
+                                <br>Il est rattaché à l'organisation %5$s.
+                                <br>Le compte est inactif jusqu'à ce que vous l'activiez.
+                                <br>Pour activer le compte, connectez-vous à l'application
+                                    <a href='%4$s'>%4$s</a>
+                                <br>Ne répondez pas à ce mail, qui est généré automatiquement")."</body></html>",$login,$headers[$ident_header_vars["cn"]],$APPLI_nom, $APPLI_mail, $headers[$ident_header_vars["organization"]]);
+
+                                $log->sendMailToAdmin($subject,$contents,"loginCreateByHeader",$login);
+                            }
+                        }
+                    }
+                }
                 /*
                  * Verification si le nombre de tentatives de connexion n'a pas ete atteint
                  */

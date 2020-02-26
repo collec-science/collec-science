@@ -414,12 +414,13 @@ function testScan($file)
  *
  * @return mixed
  */
-function getHeaders()
+function getHeaders($radical = "")
 {
     $header = array();
+    $radicalLength = strlen($radical);
     foreach ($_SERVER as $key => $value) {
-        if (substr($key, 0, 4) == "HTTP") {
-            $header[substr($key, 5)] = $value;
+        if (substr($key, 0, $radicalLength) == $radical) {
+            $header[$key] = $value;
         }
     }
     return $header;
@@ -428,7 +429,7 @@ function getHeaders()
      * Fonction equivalente pour NGINX
      */
     /*
-     * function apache_request_headers() {
+     * function apache_request_headers($radical = "") {
      * foreach($_SERVER as $key=>$value) {
      * if (substr($key,0,5)=="HTTP_") {
      * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));

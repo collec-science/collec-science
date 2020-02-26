@@ -373,7 +373,7 @@ try {
                              */
                             include "modules/postLogin.php";
                             /**
-                             * Gestion de l'identification par token
+                             * Preparation de l'identification par token
                              */
                             if ($_REQUEST["loginByTokenRequested"] == 1) {
                                 include_once 'framework/identification/token.class.php';

@@ -728,7 +728,11 @@ class Container extends ObjetBDD
              * Create embedded samples
              */
             foreach ($data["samples"] as $sample) {
-                $this->importSample($sample, $dclass, $sic, $post, $movement, $objectIdentifier, $sampleClass, $uid);
+                try {
+                    $this->importSample($sample, $dclass, $sic, $post, $movement, $objectIdentifier, $sampleClass, $uid);
+                } catch (Exception $e) {
+                    throw (new ContainerException(sprintf(_("Erreur d'importation de l'échantillon %s. "),$sample["uid"]). _("Message d'erreur : ").$e->getMessage() ));
+                }
             }
             /**
              * create embedded containers

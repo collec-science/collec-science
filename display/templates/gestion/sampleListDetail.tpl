@@ -129,17 +129,19 @@
 		/**
 		 * Display the content of a sample
 		 */
-		var delay=500, timer;
+		var delay=1000, timer, ajaxDone=true;
 		$(".sample").mouseenter( function () {
 			var objet = $(this);
 			timer = setTimeout(function () {
 				var uid = objet.data("uid");
 				if (! objet.is(':ui-tooltip') ) {
-				if (uid > 0) {
+				if (uid > 0 && ajaxDone) {
+					ajaxDone = false;
 					var url = "index.php";
 					var data = { "module":"sampleDetail", "uid": uid };
 					$.ajax ( { url:url, data: data})
 					.done (function( d ) {
+						ajaxDone = true;
 						if (d ) {
 							d = JSON.parse(d);
 							if (!d.error_code) {
@@ -225,7 +227,7 @@
 				content: tooltipContent,
 			});
 			object.attr("title", tooltipContent);
-			 object.tooltip("open");
+			object.tooltip ("open");
 		}
 		$('#sampleList thead th').each( function () {
         var title = $(this).text();

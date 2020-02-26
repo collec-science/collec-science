@@ -34,7 +34,7 @@ $(document).ready(function () {
 		$("#containerSpinner").show();
 		$(this.form).prop('target', '_self').submit();
 	});
-	$("#containerExport").on("keypress click", function () { 
+	$("#containerExport").on("keypress click", function () {
 		$(this.form).find("input[name='module']").val("containerExportGlobal");
 	});
 	$("#checkedButtonContainer").on ("keypress click", function(event) {
@@ -52,7 +52,7 @@ $(document).ready(function () {
 			event.preventDefault();
 		}
 	});
-	$("#checkedActionContainer").change(function () { 
+	$("#checkedActionContainer").change(function () {
 		var action = $(this).val();
 		if (action == "containersLending") {
 			$(".borrowing").show();
@@ -69,7 +69,7 @@ $(document).ready(function () {
 	/**
 	 * Display the grid of a container
 	 */
-	var delay=500, timer;
+	var delay=1000, timer;
 	$(".container").mouseenter( function () {
 		var objet = $(this);
 		timer = setTimeout(function () {
@@ -242,7 +242,7 @@ $(document).ready(function () {
 								{$containers[lst].movement_date}
 								</span>
 							{/if}
-						</td> 
+						</td>
 						<td>
 							{if $containers[lst].container_uid > 0}
 								<a href="index.php?module=containerDisplay&uid={$containers[lst].container_uid}">

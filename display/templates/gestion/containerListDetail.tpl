@@ -163,8 +163,8 @@ $(document).ready(function () {
 		<input type="hidden" name="lastModule" value="{$lastModule}">
 		<div class="row">
 			<div class="center">
-				<label id="lcheckContainer" for="check">{t}Tout décocher{/t}</label>
-				<input type="checkbox" id="checkContainer1" class="checkContainerSelect checkContainer" checked>
+				<label id="lcheckContainer" for="check">{t}Tout cocher{/t}</label>
+				<input type="checkbox" id="checkContainer1" class="checkContainerSelect checkContainer" >
 				<select id="labels" name="label_id">
 					<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
 					{section name=lst loop=$labels}
@@ -195,7 +195,7 @@ $(document).ready(function () {
 				<tr>
 					{if $droits.gestion == 1}
 						<th class="center">
-							<input type="checkbox" id="checkContainer2" class="checkContainerSelect checkContainer" checked>
+							<input type="checkbox" id="checkContainer2" class="checkContainerSelect checkContainer" >
 						</th>
 					{/if}
 					<th>{t}UID{/t}</th>
@@ -217,7 +217,7 @@ $(document).ready(function () {
 					<tr>
 						{if $droits.gestion == 1}
 							<td class="center">
-								<input type="checkbox" class="checkContainer" name="uids[]" value="{$containers[lst].uid}" checked>
+								<input type="checkbox" class="checkContainer" name="uids[]" value="{$containers[lst].uid}" >
 							</td>
 						{/if}
 						<td class="center">

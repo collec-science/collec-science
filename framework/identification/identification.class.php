@@ -393,6 +393,7 @@ class Identification
                                 <br>Ne répondez pas à ce mail, qui est généré automatiquement")."</body></html>",$login,$headers[$ident_header_vars["cn"]],$APPLI_nom, $APPLI_mail, $headers[$ident_header_vars["organization"]]);
 
                                 $log->sendMailToAdmin($subject,$contents,"loginCreateByHeader",$login);
+                                $message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation") );
                             }
                         }
                     }

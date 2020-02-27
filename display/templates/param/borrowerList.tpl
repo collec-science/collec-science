@@ -14,6 +14,7 @@
                     <th>{t}Adresse{/t}</th>
                     <th>{t}Téléphone{/t}</th>
                     <th>{t}Mail{/t}</th>
+                    <th>{t}Code du laboratoire{/t}</th>
                     <th>{t}Objets empruntés{/t}</th>
                     {if $droits.param == 1}
                         <th>{t}Modifier{/t}</th>
@@ -26,12 +27,10 @@
                         <td>{$data[lst].borrower_name}</td>
                         <td>
                             <span class="textareaDisplay">{$data[lst].borrower_address}</span>
-                            {if strlen($data[lst].laboratory_code) > 0}
-                                <br>{t}Code laboratoire : {/t}{$data[lst].laboratory_code}
-                            {/if}
                         </td>
                         <td>{$data[lst].borrower_phone}</td>
                         <td>{$data[lst].borrower_mail}</td>
+                        <td>{$data[lst].laboratory_code}</td>
                         <td class="center">
                             <a href="index.php?module=borrowerDisplay&borrower_id={$data[lst].borrower_id}">
                                 <img src="display/images/list.png" height="25">

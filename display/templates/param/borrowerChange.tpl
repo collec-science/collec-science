@@ -7,8 +7,10 @@
         </a>
         {if $data.borrower_id > 0}
             &nbsp;
-            <img src="display/images/display.png" height="25">
-            {t}Retour au détail{/t}
+            <a href="index.php?module=borrowerDisplay&borrower_id={$data.borrower_id}">
+                <img src="display/images/display.png" height="25">
+                {t}Retour au détail{/t}
+            </a>
         {/if}
 
         <form class="form-horizontal protoform" id="borrowerForm" method="post" action="index.php">

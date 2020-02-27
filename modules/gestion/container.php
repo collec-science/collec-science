@@ -382,7 +382,7 @@ switch ($t_module["param"]) {
                     /**
                      * Generate an exit movement
                      */
-                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null, 2);
+                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, _("Objet prêté"));
                 }
                 $module_coderetour = 1;
                 $message->set(_("Opération de prêt enregistrée"));

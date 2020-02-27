@@ -247,7 +247,7 @@
                             {/section}
                             </select>
                         </div>
-                        <label for="trashed" class="col-sm-2 control-label" title="{t}Échantillons mis à la corbeille ?{/t}">{t}Corbeille ?{/t}</label>
+                        <label for="trashed" class="col-sm-2 control-label" title="{t}Échantillons mis à la corbeille{/t}">{t}En attente de suppression :{/t}</label>
                         <div class="col-sm-2">
                             <select id="trashed" name="trashed" class="form-control">
                                 <option value="" {if $sampleSearch.trashed == ""}selected{/if}>{t}Tous{/t}</option>

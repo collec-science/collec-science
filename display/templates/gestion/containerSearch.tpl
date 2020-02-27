@@ -89,7 +89,7 @@
 					{/section}
 				</select>
 			</div>
-			<label for="trashed" class="col-md-1 control-label" title="{t}Contenants mis à la corbeille ?{/t}">{t}Corbeille ?{/t}</label>
+			<label for="trashed" class="col-md-1 control-label" title="{t}Contenants en attente de suppression (mis à la corbeille){/t}">{t}Corbeille :{/t}</label>
 			<div class="col-md-1">
 				<select id="trashed" name="trashed" class="form-control">
 					<option value="" {if $containerSearch.trashed == ""}selected{/if}>{t}Tous{/t}</option>

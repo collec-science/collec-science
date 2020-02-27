@@ -252,6 +252,7 @@ class ImportObject
         $maxuid = 0;
         $minuid = 99999999;
         $this->initIdentifiers();
+        $jsonFirstCharArray = array("[", "{");
         /*
          * Inhibition du traitement des dates par la classe
          */
@@ -326,13 +327,17 @@ class ImportObject
                     if (strlen($values[$md_col]) > 0) {
                         $colname = substr($md_col, 3);
                         if (!array_key_exists($colname, $md_array)) {
-                            $md_col_array = explode(",", $values[$md_col]);
+                            if (in_array(substr($values[$md_col], 0, 1), $jsonFirstCharArray)) {
+                                $md_col_array = json_decode($values[$md_col], true);
+                            } else {
+                                $md_col_array = explode(",", $values[$md_col]);
+                            }
                             if (count($md_col_array) > 1) {
                                 foreach ($md_col_array as $val) {
                                     $md_array[$colname][] = trim($val);
                                 }
                             } else {
-                                $md_array[$colname] = trim($values[$md_col]);
+                                $md_array[$colname] = trim($md_col_array[0]);
                             }
                         }
                     }

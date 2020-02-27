@@ -138,7 +138,7 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
             /*
              * recherche des erreurs liees a une violation de cle etrangere
              */
-            if (strpos($e->getMessage(), "key violation")) {
+            if (strpos($e->getMessage(), "key violation") !== false) {
                 $message->set(_("La suppression n'est pas possible : des informations sont référencées par cet enregistrement"), true);
             }
             if ($OBJETBDD_debugmode > 0) {
@@ -146,10 +146,14 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
             }
             if ($message->getMessageNumber() == 0) {
                 $message->set(_("Problème lors de la suppression"), true);
+            } else {
+                $message->set(_("Suppression non réalisée"));
             }
             $message->setSyslog($e->getMessage());
+            if ($isPartOfTransaction ) {
+                throw new Exception (sprintf("Suppression impossible de l'enregistrement %s"), $id);
+            }
             $ret = -1;
-            throw new Exception (_("La suppression a échoué"));
         }
     } else {
         $message->set(_("Suppression impossible : la clé n'est pas numérique ou n'a pas été fournie"));

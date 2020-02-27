@@ -292,3 +292,6 @@ meter[value="4"]::-moz-meter-bar { background: #A4C400; }
 .nowrap {
 	white-space: nowrap;
 }
+.top {
+	vertical-align: text-top ;
+}

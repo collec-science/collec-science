@@ -328,9 +328,9 @@
 						{$samples[lst].uid}
 				 	</a>
 				</td>
-				<td>
-					<a class="sample" data-uid="{$samples[lst].uid}" href="index.php?module=sampleDisplay&uid={$samples[lst].uid}" title="">
-						<span class="tooltiplink">{$samples[lst].identifier}</span>
+				<td class="sample" data-uid="{$samples[lst].uid}" title="">
+					<a class="tooltiplink"  href="index.php?module=sampleDisplay&uid={$samples[lst].uid}" title="">
+						{$samples[lst].identifier}
 					</a>
 				</td>
 				<td>{$samples[lst].identifiers}

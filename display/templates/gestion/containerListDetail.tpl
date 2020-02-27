@@ -114,15 +114,19 @@ $(document).ready(function () {
 									nb = 0;
 									line.forEach(function (cell) {
 										content += '<td class="center">';
-										cell.forEach(function (item) {
-											if (parseInt(item.uid) > 0) {
-											if (nb > 0) {
-												content += "<br>";
-											}
-											content += item.uid + " " + item.identifier;
-											nb ++;
+										if (cell.length > 10) {
+											content += cell.length + " {t}objets{/t}";
+										} else {
+											cell.forEach(function (item) {
+												if (parseInt(item.uid) > 0) {
+												if (nb > 0) {
+													content += "<br>";
+												}
+												content += item.uid + " " + item.identifier;
+												nb ++;
+												}
+											});
 										}
-										});
 										content += '</td>';
 									 });
 									 content += '</tr>';
@@ -216,14 +220,14 @@ $(document).ready(function () {
 								<input type="checkbox" class="checkContainer" name="uids[]" value="{$containers[lst].uid}" checked>
 							</td>
 						{/if}
-						<td class="text-center">
+						<td class="center">
 							<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="{t}Consultez le détail{/t}">
 								{$containers[lst].uid}
 							</a>
 						</td>
-						<td>
-							<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}">
-								<span class="tooltiplink container"  data-uid="{$containers[lst].uid}" title="">{$containers[lst].identifier}</span>
+						<td class="container" data-uid="{$containers[lst].uid}" title="">
+							<a class="tooltiplink  href="index.php?module=containerDisplay&uid={$containers[lst].uid}">
+								{$containers[lst].identifier}
 							</a>
 						</td>
 						<td>{$containers[lst].identifiers}</td>

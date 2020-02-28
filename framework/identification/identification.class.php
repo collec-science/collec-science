@@ -344,13 +344,13 @@ class Identification
             global $ident_header_vars;
             $headers = getHeaders($ident_header_vars["radical"]);
             $login = $headers[$ident_header_vars["login"]];
-            if (strlen($login) > 0) {
+            if (strlen($login) > 0 && count($headers) > 0) {
                 /**
                  * Verify if the login exists
                  */
                 include_once "framework/identification/loginGestion.class.php";
-                global $bdd_gacl;
-                $loginGestion = new LoginGestion($bdd_gacl);
+                global $bdd_gacl, $ObjetBDDParam;
+                $loginGestion = new LoginGestion($bdd_gacl, $ObjetBDDParam);
                 $dlogin = $loginGestion->getFromLogin($login);
                 /**
                  * Verify if the login is recorded
@@ -370,6 +370,7 @@ class Identification
                         $createUser = true;
                         if (count($ident_header_vars["organizationGranted"]) > 0 && !in_array($headers[$ident_header_vars["organization"]], $ident_header_vars["organizationGranted"])) {
                             $createUser = false;
+                            $log->setLog($login, "connexion", "HEADER-ko. The ".$headers[$ident_header_vars["organization"]]. " is not authorized to connect to this application");
                         }
                         if ($createUser) {
                             $dlogin = array (
@@ -380,6 +381,12 @@ class Identification
                             );
                             $login_id = $loginGestion->ecrire($dlogin);
                             if ($login_id > 0) {
+                                /**
+                                 * Create the record in gacllogin
+                                 */
+                                include_once "framework/droits/droits.class.php";
+                                $aclogin = new Acllogin($bdd_gacl);
+                                $aclogin->addLoginByLoginAndName($login, $headers[$ident_header_vars["cn"]]);
                                 /**
                                  * Send mail to administrators
                                  */
@@ -403,8 +410,11 @@ class Identification
                  */
                 if (!$log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
                     $log->setLog($login, "connexion", "HEADER-ok");
+                } else {
+                    $verify = false;
                 }
-            } else {
+            }
+            if (!$verify) {
                 $log->setLog($login, "connexion", "HEADER-ko");
             }
         } elseif ($ident_type == "CAS") {

@@ -46,11 +46,11 @@ $LOG_duree = 365;
  * LemonLdap, par exemple)
  */
 $ident_header_vars = array (
-	"radical" => "REDIRECT_MELLON",
-	"login" => "REDIRECT_MELLON_MAIL",
-	"mail" => "REDIRECT_MELLON_MAIL",
-	"cn" => "REDIRECT_MELLON_CN",
-	"organization" => "REDIRECT_MELLON_SHACHOMEORGANIZATION",
+	"radical" => "MELLON",
+	"login" => "MELLON_MAIL",
+	"mail" => "MELLON_MAIL",
+	"cn" => "MELLON_CN",
+	"organization" => "MELLON_SHACHOMEORGANIZATION",
 	"organizationGranted" => array(),
 	"createUser"=>true
 );

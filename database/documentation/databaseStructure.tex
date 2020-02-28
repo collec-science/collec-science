@@ -1,0 +1,537 @@
+\section{Description des tables}
+\subsection{booking}
+Table des réservations d'objets
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+booking\_id & integer & X & X & & \\
+\hline
+uid & integer & X & & X & \\
+\hline
+booking\_date & timestamp without time zone & X & & & Date de la réservation\\
+\hline
+date\_from & timestamp without time zone & X & & & Date-heure de début de la réservation\\
+\hline
+date\_to & timestamp without time zone & X & & & Date-heure de fin de la réservation\\
+\hline
+booking\_comment & character varying & & & & Commentaire\\
+\hline
+booking\_login & character varying & X & & & Compte ayant réalisé la réservation\\
+\hline
+\end{tabular}
+\subsection{container}
+Liste des conteneurs d'échantillon
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+container\_id & integer & X & X & & \\
+\hline
+uid & integer & X & & X & \\
+\hline
+container\_type\_id & integer & X & & X & \\
+\hline
+\end{tabular}
+\subsection{container\_family}
+Famille générique des conteneurs
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+container\_family\_id & integer & X & X & & \\
+\hline
+container\_family\_name & character varying & X & & & \\
+\hline
+is\_movable & boolean & X & & & Indique si la famille de conteneurs est déplçable facilement ou non (éprouvette : oui, armoire : non)\\
+\hline
+\end{tabular}
+\subsection{container\_type}
+Table des types de conteneurs
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+container\_type\_id & integer & X & X & & \\
+\hline
+container\_type\_name & character varying & X & & & \\
+\hline
+container\_family\_id & integer & X & & X & \\
+\hline
+clp\_classification & character varying & & & & Classification du risque conformément à la directive européenne CLP\\
+\hline
+label\_id & integer & & & X & \\
+\hline
+container\_type\_description & character varying & & & & Description longue\\
+\hline
+storage\_condition\_id & integer & & & X & \\
+\hline
+storage\_product & character varying & & & & Produit utilisé pour le stockage (formol, alcool...)\\
+\hline
+columns & integer & X & & & Nombre de colonnes de stockage dans le container\\
+\hline
+lines & integer & X & & & Nombre de lignes de stockage dans le container\\
+\hline
+first\_line & character varying & X & & & T : top, premiere ligne en haut B: bottom, premiere ligne en bas\\
+\hline
+\end{tabular}
+\subsection{document}
+Documents numériques rattachés à un poisson ou à un événement
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+document\_id & integer & X & X & & \\
+\hline
+uid & integer & X & & X & \\
+\hline
+mime\_type\_id & integer & X & & X & \\
+\hline
+document\_import\_date & timestamp without time zone & X & & & Date d'import dans la base de données\\
+\hline
+document\_name & character varying & X & & & Nom d'origine du document\\
+\hline
+document\_description & character varying & & & & Description libre du document\\
+\hline
+data & bytea & & & & Contenu du document\\
+\hline
+thumbnail & bytea & & & & Vignette au format PNG (documents pdf, jpg ou png)\\
+\hline
+size & integer & & & & Taille du fichier téléchargé\\
+\hline
+document\_creation\_date & timestamp without time zone & & & & Date de création du document (date de prise de vue de la photo)\\
+\hline
+\end{tabular}
+\subsection{event}
+Table des événements
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+event\_id & integer & X & X & & \\
+\hline
+uid & integer & X & & X & \\
+\hline
+event\_date & timestamp without time zone & X & & & Date / heure de l'événement\\
+\hline
+event\_type\_id & integer & X & & X & \\
+\hline
+still\_available & character varying & & & & définit ce qu'il reste de disponible dans l'objet\\
+\hline
+event\_comment & character varying & & & & \\
+\hline
+\end{tabular}
+\subsection{event\_type}
+Types d'événement
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+event\_type\_id & integer & X & X & & \\
+\hline
+event\_type\_name & character varying & X & & & \\
+\hline
+is\_sample & boolean & X & & & L'événement s'applique aux échantillons\\
+\hline
+is\_container & boolean & X & & & L'événement s'applique aux conteneurs\\
+\hline
+\end{tabular}
+\subsection{identifier\_type}
+Table des types d'identifiants
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+identifier\_type\_id & integer & X & X & & \\
+\hline
+identifier\_type\_name & character varying & X & & & Nom textuel de l'identifiant\\
+\hline
+identifier\_type\_code & character varying & X & & & Code utilisé pour la génération des étiquettes\\
+\hline
+used\_for\_search & boolean & X & & & Indique si l'identifiant doit être utilise pour les recherches a partir des codes-barres\\
+\hline
+\end{tabular}
+\subsection{label}
+Table des modèles d'étiquettes
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+label\_id & integer & X & X & & \\
+\hline
+label\_name & character varying & X & & & Nom du modèle\\
+\hline
+label\_xsl & character varying & X & & & Contenu du fichier XSL utilisé pour la transformation FOP (https://xmlgraphics.apache.org/fop/)\\
+\hline
+label\_fields & character varying & X & & & Liste des champs à intégrer dans le QRCODE, séparés par une virgule\\
+\hline
+metadata\_id & integer & & & X & \\
+\hline
+identifier\_only & boolean & X & & & true : le qrcode ne contient qu'un identifiant metier\\
+\hline
+\end{tabular}
+\subsection{mime\_type}
+Types mime des fichiers importés
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+mime\_type\_id & integer & X & X & & \\
+\hline
+extension & character varying & X & & & Extension du fichier correspondant\\
+\hline
+content\_type & character varying & X & & & type mime officiel\\
+\hline
+\end{tabular}
+\subsection{movement\_type}
+Type de mouvement
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+movement\_type\_id & integer & X & X & & \\
+\hline
+movement\_type\_name & character varying & X & & & \\
+\hline
+\end{tabular}
+\subsection{multiple\_type}
+Table des types de contenus multiples
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+multiple\_type\_id & integer & X & X & & \\
+\hline
+multiple\_type\_name & character varying & X & & & \\
+\hline
+\end{tabular}
+\subsection{object}
+Table des objets Contient les identifiants génériques
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+uid & integer & X & X & & \\
+\hline
+identifier & character varying & & & & Identifiant fourni le cas échéant par le projet\\
+\hline
+object\_status\_id & integer & & & X & \\
+\hline
+wgs84\_x & double precision & & & & Longitude GPS, en valeur décimale\\
+\hline
+wgs84\_y & double precision & & & & Latitude GPS, en valeur décimale\\
+\hline
+referent\_id & integer & & & X & \\
+\hline
+\end{tabular}
+\subsection{object\_identifier}
+Table des identifiants complémentaires normalisés
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+object\_identifier\_id & integer & X & X & & \\
+\hline
+uid & integer & X & & X & \\
+\hline
+identifier\_type\_id & integer & X & & X & \\
+\hline
+object\_identifier\_value & character varying & X & & & Valeur de l'identifiant\\
+\hline
+\end{tabular}
+\subsection{object\_status}
+Table des statuts possibles des objets
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+object\_status\_id & integer & X & X & & \\
+\hline
+object\_status\_name & character varying & X & & & \\
+\hline
+\end{tabular}
+\subsection{collection\_group}
+Table des autorisations d'accès à un projet
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+collection\_id & integer & X & X & X & \\
+\hline
+aclgroup\_id & integer & X & X & X & \\
+\hline
+\end{tabular}
+\subsection{sample}
+Table des échantillons
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+sample\_id & integer & X & X & & \\
+\hline
+uid & integer & X & & X & \\
+\hline
+project\_id & integer & X & & X & \\
+\hline
+collection\_id & integer & X & & X & \\
+\hline
+sample\_type\_id & integer & X & & X & \\
+\hline
+sample\_creation\_date & timestamp without time zone & X & & & Date de création de l'enregistrement dans la base de données\\
+\hline
+sample\_date & timestamp without time zone & & & & Date de création de l'échantillon physique\\
+\hline
+sampling\_date & timestamp without time zone & & & & Date de création de l'échantillon physique\\
+\hline
+parent\_sample\_id & integer & & & X & \\
+\hline
+multiple\_value & double precision & & & & Nombre initial de sous-échantillons\\
+\hline
+sampling\_place\_id & integer & & & X & \\
+\hline
+dbuid\_origin & character varying & & & & référence utilisée dans la base de données d'origine, sous la forme db:uid Utilisé pour lire les étiquettes créées dans d'autres instances\\
+\hline
+metadata & json & & & & Metadonnees associees de l'echantillon\\
+\hline
+expiration\_date & timestamp without time zone & & & & \\
+\hline
+\end{tabular}
+\subsection{sample\_type}
+Types d'échantillons
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+sample\_type\_id & integer & X & X & & \\
+\hline
+sample\_type\_name & character varying & X & & & \\
+\hline
+container\_type\_id & integer & & & X & \\
+\hline
+multiple\_type\_id & integer & & & X & \\
+\hline
+multiple\_unit & character varying & & & & Unité caractérisant le sous-échantillon\\
+\hline
+metadata\_id & integer & & & X & \\
+\hline
+operation\_id & integer & & & X & \\
+\hline
+identifier\_generator\_js & character varying & & & & Champ comprenant le code de la fonction javascript permettant de générer automatiquement un identifiant à partir des informations saisies\\
+\hline
+\end{tabular}
+\subsection{storage\_condition}
+Condition de stockage
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+storage\_condition\_id & integer & X & X & & \\
+\hline
+storage\_condition\_name & character varying & X & & & \\
+\hline
+\end{tabular}
+\subsection{subsample}
+Table des prélèvements et restitutions de sous-échantillons
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+subsample\_id & integer & X & X & & \\
+\hline
+sample\_id & integer & X & & X & \\
+\hline
+subsample\_date & timestamp without time zone & X & & & Date/heure de l'opération\\
+\hline
+movement\_type\_id & integer & X & & X & \\
+\hline
+subsample\_quantity & double precision & & & & Quantité prélevée ou restituée\\
+\hline
+subsample\_comment & character varying & & & & \\
+\hline
+subsample\_login & character varying & X & & & Login de l'utilisateur ayant réalisé l'opération\\
+\hline
+\end{tabular}
+\subsection{sampling\_place}
+Table des lieux génériques d'échantillonnage
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+sampling\_place\_id & integer & X & X & & \\
+\hline
+sampling\_place\_name & character varying & X & & & \\
+\hline
+collection\_id & integer & & & X & \\
+\hline
+sampling\_place\_code & character varying & & & & Code métier de la station\\
+\hline
+sampling\_place\_x & double precision & & & & Longitude de la station, en WGS84\\
+\hline
+sampling\_place\_y & double precision & & & & Latitude de la station, en WGS84\\
+\hline
+\end{tabular}
+\subsection{dbversion}
+Table des versions de la base de donnees
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+dbversion\_id & integer & X & X & & \\
+\hline
+dbversion\_number & character varying & X & & & Numero de la version\\
+\hline
+dbversion\_date & timestamp without time zone & X & & & Date de la version\\
+\hline
+\end{tabular}
+\subsection{movement\_reason}
+List of the reasons of the movement
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+movement\_reason\_id & integer & X & X & & \\
+\hline
+movement\_reason\_name & character varying & X & & & \\
+\hline
+\end{tabular}
+\subsection{printer}
+Table des imprimantes gerees directement par le serveur
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+printer\_id & integer & X & X & & \\
+\hline
+printer\_name & character varying & X & & & Nom general de l'imprimante, affiche dans les masques de saisie\\
+\hline
+printer\_queue & character varying & X & & & Nom de l'imprimante telle qu'elle est connue par le systeme\\
+\hline
+printer\_server & character varying & & & & Adresse du serveur, si imprimante non locale\\
+\hline
+printer\_user & character varying & & & & Utilisateur autorise a imprimer \\
+\hline
+printer\_comment & character varying & & & & Commentaire\\
+\hline
+\end{tabular}
+\subsection{movement}
+Records of objects movements
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+movement\_id & integer & X & X & & \\
+\hline
+uid & integer & X & & X & \\
+\hline
+container\_id & integer & & & X & \\
+\hline
+movement\_type\_id & integer & X & & X & \\
+\hline
+movement\_date & timestamp without time zone & X & & & Date/heure du mouvement\\
+\hline
+storage\_location & character varying & & & & Emplacement de l'échantillon dans le conteneur\\
+\hline
+login & character varying & X & & & Nom de l'utilisateur ayant réalisé l'opération\\
+\hline
+movement\_comment & character varying & & & & Commentaire\\
+\hline
+movement\_reason\_id & integer & & & X & \\
+\hline
+column\_number & integer & X & & & No de la colonne de stockage dans le container\\
+\hline
+line\_number & integer & X & & & No de la ligne de stockage dans le container\\
+\hline
+\end{tabular}
+\subsection{collection}
+List of all collections into the database
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+collection\_id & integer & X & X & & \\
+\hline
+collection\_name & character varying & X & & & \\
+\hline
+referent\_id & integer & & & X & \\
+\hline
+\end{tabular}
+\subsection{metadata}
+Table des metadata utilisables dans les types d'echantillons
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+metadata\_id & integer & X & X & & \\
+\hline
+metadata\_name & character varying & X & & & Nom du jeu de metadonnees\\
+\hline
+metadata\_schema & json & & & & Schéma en JSON du formulaire des métadonnées\\
+\hline
+\end{tabular}
+\subsection{dbparam}
+Table des parametres associes de maniere intrinseque a l'instance
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+dbparam\_id & integer & X & X & & \\
+\hline
+dbparam\_name & character varying & X & & & Nom du parametre\\
+\hline
+dbparam\_value & character varying & & & & Valeur du paramètre\\
+\hline
+\end{tabular}
+\subsection{referent}
+Table of sample referents
+
+\begin{tabular}{|l| p{2cm}|c|c|c| p{3cm}|}
+\hline
+Column name & Type & Not null & Key & Foreign key & Comment \\
+\hline
+referent\_id & integer & X & X & & \\
+\hline
+referent\_name & character varying & X & & & Name, firstname-lastname or department name\\
+\hline
+referent\_email & character varying & & & & Email for contact\\
+\hline
+address\_name & character varying & & & & Name for postal address\\
+\hline
+address\_line2 & character varying & & & & second line in postal address\\
+\hline
+address\_line3 & character varying & & & & third line in postal address\\
+\hline
+address\_city & character varying & & & & ZIPCode and City in postal address\\
+\hline
+address\_country & character varying & & & & Country in postal address\\
+\hline
+referent\_phone & character varying & & & & Contact phone\\
+\hline
+\end{tabular}

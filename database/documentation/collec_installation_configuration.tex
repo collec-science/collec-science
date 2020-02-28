@@ -1,15 +1,25 @@
 \documentclass[12pt
 ,a4paper
 ,titlepage
-%,twoside
-,openany % ouvre les sections indifféremment sur la page de gauche ou de droite
+,twoside
+%,openany % ouvre les sections indifféremment sur la page de gauche ou de droite
 ]{book}
 
+% Définition des marges de la page
+\usepackage[left=3cm,right=3cm,top=2cm,bottom=2cm]{geometry}
+
 % Paramétrages de la langue et de l'encodage
-\usepackage[utf8]{inputenc}
-\usepackage{textcomp}
+\usepackage[utf8x]{inputenc}
+\usepackage[square,sort,comma,numbers]{natbib}
 \usepackage[french]{babel}
 \usepackage[T1]{fontenc}
+
+%\usepackage{fontspec}
+%\setmainfont{Linotype-AvenirNextLTPro.ttf}[
+%BoldFont = Linotype-AvenirNextLTProBold.ttf,
+%ItalicFont = Linotype-AvenirNextLTProItalic.ttf,
+%BoldItalicFont = fLinotype-AvenirNextLTProBoldItalic.ttf
+%]
 
 % formules mathématiques
 \usepackage{amsmath}
@@ -18,31 +28,42 @@
 
 % gestion des graphiques
 \usepackage{graphicx}
-% positionnement flottant des graphiques
-\usepackage{float}
+\usepackage{transparent}
+
 % Gestion des couleurs
 \usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{inrae}{RGB}{0,163,166} % inrae
+\definecolor{inraeclair}{RGB}{102,193,191}   % inrae clair
+\definecolor{inraemedium}{RGB}{0,140,142}   % inrae medium
+\definecolor{inraefonce}{RGB}{39,86, 98} % inrae foncé
+\definecolor{vert}{RGB}{157,197,68} % vert
+\definecolor{bleuclair}{RGB}{158,214,227} % bleu clair
+\definecolor{bleufonce}{RGB}{66,48,137} % bleu foncé
+\definecolor{gris}{RGB}{121,120,112}   % gris
+\definecolor{argent}{RGB}{196,192,179} % argent
+\definecolor{rouge}{RGB}{142,2,0} % rouge
 
 % Redefinition des liens web
 \usepackage{url}
-\usepackage[colorlinks=false,urlbordercolor=white,linkbordercolor=white]{hyperref}
+\usepackage{hyperref}
+\hypersetup{
+urlcolor=inraefonce
+,linkcolor=.
+,colorlinks=true}
 
-\usepackage{longtable}
-\usepackage{array}
-
-% Définition des marges de la page
-\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 
 % Polices de caractères
-\usepackage{lmodern}
+\usepackage{times}
 \usepackage{mathptmx} % times, y compris dans les formules mathématiques
+\renewcommand{\familydefault}{\sfdefault}
 
 % Insertion de code source dans le texte, à utiliser avec \begin{lstlisting} et \lstset{java|html|php...}
 \usepackage{listings}
-\lstset{ %
-basicstyle=\small\ttfamily, %
-breaklines=true, %
-columns=spaceflexible, %
+\lstset{
+basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,
+  keepspaces=true,
 }
 
 % Définition des entêtes
@@ -76,43 +97,31 @@ hyphenation
 %\setcounter{secnumdepth}{4}
 
 % Génération du code Ipsum lorem
-%\usepackage{blindtext}
+\usepackage{blindtext}
 
-
-% Definition des couleurs IRSTEA
-\definecolor{titreColor}{RGB}{0,58,128}  % Marine
-\definecolor{stitreColor}{RGB}{0,158,224}  % Ocean
-\definecolor{auteurColor}{RGB}{0,58,128}     % Marine
-\definecolor{texteColor}{RGB}{164,196,0}     % Prairie
 
 % Definition des chapitres
+%\usepackage{sectsty}
 \titleformat{\chapter}[display]
-{\normalfont\Large\filcenter\sffamily}
-%{\titlerule[1pt]%
-% \vspace{1pt}%
-% \titlerule
-% \vspace{1pc}%
-{
- \Large\color{titreColor}{
- %\MakeUppercase{\chaptertitlename}
- \chaptertitlename~\thechapter}
- }
-{1pc}
+{\normalfont\Huge\filcenter\sffamily\color{inrae}}
+{\Large{\chaptertitlename~\thechapter}}
+ {1em}{}
+
 %{\titlerule
 %% \vspace{1pc}%
- \Huge
 
-\titleformat{\section}[block]
-{\color{titreColor}\normalfont\Large\bfseries\sffamily}
-{\color{titreColor}\thesection}{1em}{}
 
-\titleformat{\subsection}[block]
-{\color{stitreColor}\bfseries\sffamily}
-{\color{stitreColor}\thesubsection}{1em}{}
+\titleformat{\section}
+{\color{inrae}\normalfont\Large\bfseries\sffamily}
+{\color{inrae}\thesection}{1em}{}
 
-\titleformat{\subsubsection}[block]
-{\color{stitreColor}\sffamily\em}
-{\color{stitreColor}{\thesubsection}}{1em}{}
+\titleformat{\subsection}
+{\color{inraefonce}\bfseries\sffamily}
+{\color{inraefonce}\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+{\color{gris}\bfseries\sffamily}
+{\color{gris}\thesubsubsection}{1em}{}
 
 % Bibliographie
 % natbib est indispensable si la biblio contient des accents
@@ -133,22 +142,24 @@ hyphenation
 %    nonamebreak: garde tous les noms d'auteurs d'une citation sur une même ligne; celà cause des problèmes de débordement, mais permet de résoudre certains problèmes liés à hyperref.
 
 % En cas de souci, supprimez les fichiers .aux et .bbi après modification des paramètres
-\usepackage[square,sort,comma,numbers]{natbib}
 % styles natbib natifs : abbrvnat, plainnat, unsrtnat
-\bibliographystyle{plainnat}
+\bibliographystyle{unsrtnat}
 \usepackage{hypernat}
 % Ajout de la référence à la bibliographie dans la table des matières
 \usepackage[nottoc, notlof, notlot]{tocbibind}
 
 %Données de titre et d'auteur pour la page de garde
 \newcommand{\titre}{Logiciel Collec-Science}
-\newcommand{\sousTitre}{Installation et configuration}
+\newcommand{\sousTitre}{Installation, configuration et administration}
 \newcommand{\auteur}{Éric Quinton}
-\newcommand{\dateModif}{11/10/2018 - v2.2.2}
+\newcommand{\dateVersion}{1\ier{} mars 2020}
+\newcommand{\version}{Version 2.4.0}
 \usepackage[final]{pdfpages} 
 
 \usepackage{lscape}
-
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{array}
 \begin{document}
 %Supprime les veuves et orphelines
 \widowpenalty=10000
@@ -156,7 +167,7 @@ hyphenation
 \raggedbottom 
 
 % Integrer la page de garde
-\input{titre_irstea}
+\input{page_de_garde}
 % Définition des entêtes
 \fancyhead{}
 \fancyhead[CO]{\leftmark\sffamily}
@@ -226,5 +237,5 @@ width=\textwidth
 %\nocite{ref}
 \nocite{*}
 \bibliography{collec}
-
+\include{lastPage}
 \end{document}

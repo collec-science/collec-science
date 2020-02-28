@@ -6,13 +6,14 @@
 
 -- object: collec | type: ROLE --
 -- DROP ROLE IF EXISTS collec;
-CREATE ROLE collec WITH 
+/*CREATE ROLE collec WITH
 	SUPERUSER
 	CREATEDB
 	CREATEROLE
 	INHERIT
 	LOGIN
 	UNENCRYPTED PASSWORD 'collecPassword';
+*/
 -- ddl-end --
 
 
@@ -27,7 +28,7 @@ CREATE ROLE collec WITH
 -- 	TABLESPACE = pg_default
 -- 	OWNER = collec;
 -- -- ddl-end --
--- 
+--
 
 -- object: col | type: SCHEMA --
 -- DROP SCHEMA IF EXISTS col CASCADE;
@@ -48,13 +49,13 @@ SET search_path TO pg_catalog,public,col,gacl;
 
 -- object: pg_trgm | type: EXTENSION --
 -- DROP EXTENSION IF EXISTS pg_trgm CASCADE;
-CREATE EXTENSION pg_trgm
+/*CREATE EXTENSION pg_trgm
 WITH SCHEMA public
 VERSION '1.4';
 -- ddl-end --
 COMMENT ON EXTENSION pg_trgm IS E'text similarity measurement and index searching based on trigrams';
 -- ddl-end --
-
+*/
 -- object: col.booking_booking_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.booking_booking_id_seq CASCADE;
 CREATE SEQUENCE col.booking_booking_id_seq
@@ -546,7 +547,7 @@ CREATE SEQUENCE col.storage_storage_id_seq
 -- object: col.last_photo | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_photo CASCADE;
 CREATE VIEW col.last_photo
-AS 
+AS
 
 SELECT d.document_id,
     d.uid
@@ -836,10 +837,11 @@ INSERT INTO col.object_status (object_status_id, object_status_name) VALUES (E'6
 
 -- object: postgis | type: EXTENSION --
 -- DROP EXTENSION IF EXISTS postgis CASCADE;
+/*
 CREATE EXTENSION postgis
 WITH SCHEMA public;
 -- ddl-end --
-
+*/
 -- object: col.operation_operation_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.operation_operation_id_seq CASCADE;
 CREATE SEQUENCE col.operation_operation_id_seq
@@ -1280,7 +1282,7 @@ ALTER TABLE col.subsample OWNER TO collec;
 -- object: col.v_object_identifier | type: VIEW --
 -- DROP VIEW IF EXISTS col.v_object_identifier CASCADE;
 CREATE VIEW col.v_object_identifier
-AS 
+AS
 
 SELECT object_identifier.uid,
     array_to_string(array_agg((((identifier_type.identifier_type_code)::text || ':'::text) || (object_identifier.object_identifier_value)::text) ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
@@ -1714,7 +1716,7 @@ CREATE INDEX log_ip_idx ON gacl.log
 -- object: col.last_movement | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_movement CASCADE;
 CREATE VIEW col.last_movement
-AS 
+AS
 
 SELECT s.uid,
     s.movement_id,
@@ -1835,7 +1837,7 @@ CREATE INDEX borrowing_borrower_id_idx ON col.borrowing
 -- object: col.last_borrowing | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_borrowing CASCADE;
 CREATE VIEW col.last_borrowing
-AS 
+AS
 
 SELECT b1.borrowing_id,
     b1.uid,
@@ -1854,7 +1856,7 @@ ALTER VIEW col.last_borrowing OWNER TO collec;
 
 -- object: btree_gin | type: EXTENSION --
 -- DROP EXTENSION IF EXISTS btree_gin CASCADE;
-CREATE EXTENSION btree_gin
+/*CREATE EXTENSION btree_gin
 WITH SCHEMA pg_catalog;
 -- ddl-end --
 
@@ -1863,11 +1865,11 @@ WITH SCHEMA pg_catalog;
 CREATE EXTENSION pgcrypto
 WITH SCHEMA public;
 -- ddl-end --
-
+*/
 -- object: col.slots_used | type: VIEW --
 -- DROP VIEW IF EXISTS col.slots_used CASCADE;
 CREATE VIEW col.slots_used
-AS 
+AS
 
 SELECT
    container_id, count(*) as nb_slots_used

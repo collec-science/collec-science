@@ -43,6 +43,8 @@ create database collec owner collec;
 \c "dbname=collec"
  create extension if not exists btree_gin schema pg_catalog;
  create extension if not exists pg_trgm schema pg_catalog;
+ create extension if not exists postgis schema public;
+ create extension if not exists  pgcrypto schema public;
 
 /*
  * connexion a la base collec, avec l'utilisateur collec, en localhost,
@@ -51,14 +53,7 @@ create database collec owner collec;
  */
 \c "dbname=collec user=collec password=collecPassword host=localhost"
 
-/*
- * Creation des tables dans le schema gacl
- * Tables creation in schema gacl
+/**
+ * create structure
  */
-\ir pgsql/gacl_create.sql
-
-/*
- * Creation des tables dans le schema col
- * Tables creation in schema col
- */
-\ir pgsql/col_create.sql
+\ir pgsql/collec_create_all_schemas.sql

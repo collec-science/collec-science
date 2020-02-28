@@ -146,6 +146,7 @@ service apache2 restart
 \end{lstlisting}
 
 \subsection{Configurer Apache pour l'identification à partir d'une fédération}
+\label{mellon}
 À partir de la version 2.4.0, Collec-Science permet d'identifier les utilisateurs à partir d'une fédération d'identités, comme EDUGAIN (la fédération internationale des instituts universitaires et de recherche).
 
 Cette identification n'est possible que pour les applications accessibles depuis Internet, et s'appuie sur l'utilisation d'un module Apache dédié : \textit{Mellon}. Elle nécessite également de récupérer les informations techniques liées à la fédération, et d'enregistrer l'application chez le fournisseur de l'identification.
@@ -352,7 +353,15 @@ GACL\_aco & nom du code de l'application utilisé dans la gestion des droits\\
 \textbf{Variable} & \textbf{Signification} \\
 \hline
 \endhead
-ident\_type & Type d'identification supporté. L'application peut gérer \textbf{BDD} (uniquement en base de données),\textbf{LDAP} (uniquement à partir d'un annuaire LDAP) \textbf{LDAP-BDD} (d'abord identification en annuaire LDAP, puis en base de données), \textbf{CAS} (serveur d'identification \textit{Common Access Service}\footnote{serveur externe gérant l'identification des utilisateurs, et renvoyant à l'application le login utilisé}), et enfin \textbf{HEADER} (identification à utiliser pour se connecter \textit{via} une fédération d'identités, comme EDUGAIN)\\
+ident\_type & Type d'identification supporté :
+\begin{itemize}
+	\item BDD : uniquement en base de données
+	\item LDAP : uniquement à partir d'un annuaire LDAP
+	\item LDAP-BDD : test de connexion d'abord auprès de l'annuaire LDAP, puis en base de données en cas d'échec
+	\item CAS : identification auprès d'un serveur CAS (Common Access Service)
+	\item HEADER : identification auprès d'une fédération d'identités, comme EDUGAIN. Nécessite un paramétrage particulier du serveur Apache2 (\textit{cf.} \ref{mellon})
+\end{itemize}
+\\
 \hline
 CAS\_plugin & Nom du plugin utilisé pour une connexion CAS \\
 \hline
@@ -365,8 +374,6 @@ CAS\_debug = false & true ou false, pour activer ou non l'enregistrement des fon
 CAS\_CApath = "" & Chemin d'accès au certificat de l'autorité de certification qui correspond au certificat fourni par le serveur CAS (connexion https). Si la chaîne est vide, le certificat n'est pas vérifié. Le chemin doit être renseigné en production \\
 \hline
 LDAP & tableau contenant tous les paramètres nécessaires pour une identification LDAP \\
-\hline
-ident\_header\_login\_var & par défaut, AUTH\_USER. Nom de la variable qui contiendra le login dans le cas d'une identification en mode HEADER (le radical HTTP\_  ne doit pas être indiqué) \\
 \hline
 privateKey & clé privée utilisée pour générer les jetons d'identification (ré-identification automatique après une première connexion) \\
 \hline
@@ -385,6 +392,17 @@ APPLI\_mailToAdminPeriod & intervalle de temps entre l'envoi d'un mail de notifi
 APPLI\_admin\_ttl & durée de vie d'une session d'administration (temps maximum entre deux accès à une page d'administration avant réidentification) \\
 \hline
 APPLI\_lostPassword & Si à 1, autorise la récupération du mot de passe perdu, par envoi d'un mail avec un lien chiffré. Nécessite également que MAIL\_enabled soit positionné à 1 \\
+\hline
+indent\_header\_vars & tableau de configuration de l'identification en mode header
+\begin{itemize}
+	\item radical : racine des libellés des variables
+	\item login : champ renvoyé contenant le login (par défaut, le mail)
+	\item mail : champ contenant le mail
+	\item cn : common name : nom et prénom
+	\item organization : nom de l'organisation d'appartenance
+	\item organizationGranted : tableau contenant la liste des organisations autorisées
+\end{itemize}
+\\
 \hline
 
 \caption{Variables utilisées pour paramétrer l'identification}
@@ -409,20 +427,6 @@ Le jeton est chiffré avec la clé privée, ce qui lui permet d'être lu, le cas
 Si l'utilisateur déclenche une déconnexion, le jeton est supprimé.
 
 Pour plus d'informations, consultez comment fonctionne le mécanisme de ré-identification par jeton \cite{token}.
-
-\subsubsection{Identification par HEADER}
-
-Dans ce mode d'identification, le serveur web est placé derrière un serveur d'identification, appelé proxy d'identification. L'adresse de l'application pointe vers ce dernier. 
-
-Le proxy gère la connexion de l'utilisateur, et fournit à l'application le login dans une variable configurable. Cette variable est accessible dans le tableau \$\_SERVER, par exemple \$\_SERVER [ "HTTP\_AUTH\_USER" ].
-
-Pour activer ce mécanisme, il faut modifier les paramètres suivants dans le fichier \textit{param.ini.php} :
-\begin{lstlisting}
-$ident_type = "HEADER";
-$ident_header_login_var = "AUTH_USER";
-\end{lstlisting}
-
-la variable ne doit pas contenir la racine HTTP\_ (une fonction l'extrait automatiquement).
 
 \subsection{Configuration de l'accès à l'annuaire LDAP}
 
@@ -539,17 +543,40 @@ mapDefaultZoom & facteur de zoom par défaut lors de l'affichage d'une carte \\
 
 La base de données est composée de deux schémas : l'un pour stocker les informations d'identification, les droits d'accès et les traces, l'autre pour les données proprement dites.
 
-Le schéma \textit{public} ne devrait jamais être utilisé pour stocker l'information : réservez-le pour les composants communs, comme Postgis si c'est nécessaire.
+Le schéma \textit{public} ne devrait jamais être utilisé pour stocker l'information : réservez-le pour les composants communs, comme Postgis.
 
 Les tables de gestion des droits peuvent être communes à plusieurs jeux / applications différentes : la variable \textit{GACL\_aco} permet de séparer la gestion des droits pour chaque application, tout en travaillant à partir des mêmes utilisateurs (répartis le cas échéant dans des groupes différents selon le jeu de données considéré).
 
 Les scripts de création des schémas dans la base de données sont stockés dans le dossier \textit{install/pgsql}. 
 
+\subsection{Créer la base de données et ajouter les extensions}
+La base de données doit être créée avec le superutilisateur postgres. Le script \textit{install/init\_by\_psql.sql} permet de réaliser les opérations suivantes :
+\begin{itemize}
+	\item création du login postgresql \textit{collec}
+	\item création de la base de données collec
+	\item ajout des extensions nécessaires (deux concernent la création des index, une pour les données géographiques, et la dernière pour implémenter les fonctions cryptographiques)
+	\item connexion avec le login \textit{collec} à la base de données \textit{collec}
+	\item exécution du script de création des schémas et des tables
+\end{itemize}
 
+Ce script peut être exécuté ainsi :
+\begin{lstlisting}
+cd install
+su postgres -c "psql -f init_by_psql.sql"
+\end{lstlisting}
 
-\subsection{Créer les tables de gestion des droits}
-Script à utiliser : \textit{gacl\_create\_2.0.sql}. Les tables nécessaires vont être créées dans le schéma \textit{gacl} (ne modifiez pas le nom du schéma).
+Si la base de données est hébergée dans un serveur différent du serveur web, il faut paramétrer auparavant Postgresql pour autoriser la connexion avec le login \textit{collec} depuis le serveur web, en modifiant le fichier /etc/postgresql/11/main/pg\_hba.conf :
+\begin{lstlisting}
+host collec collec adresse_serveur/32 md5 
+\end{lstlisting}
+Le premier \textit{collec} correspond au nom de la base de données, le second au login autorisé depuis l'adresse indiquée.
 
+La configuration de Postgresql doit être rechargée :
+\begin{lstlisting}
+systemctl reload postgresql
+\end{lstlisting}
+
+\subsection{Compte par défaut}
 Le script crée un compte d'administration par défaut :
 \begin{itemize}
 \item login : \textbf{admin}
@@ -557,41 +584,6 @@ Le script crée un compte d'administration par défaut :
 \end{itemize}
 
 Il devra être supprimé quand un autre compte d'administration aura été créé.
-
-Les droits par défaut sont positionnés pour la collection \textit{appli} (variable \textit{\$GACL\_aco} dans les fichiers de paramètres de l'application).
-
-
-\subsection{Créer les tables applicatives}
-Script à utiliser : \textit{col\_create\_2.0.sql}.
-
-Par défaut, le script crée un schéma appelé \textit{col}. Il est possible de créer plusieurs schémas différents, si l'application supporte plusieurs jeux de données (\textit{cf.} \ref{dnsmultiple} \textit{\nameref{dnsmultiple}}, page \pageref{dnsmultiple}). Dans ce cas de figure, remplacez \textit{col} par le nom du schéma voulu dans les deux premières lignes du script.
-
-\subsection{Login de connexion}
-
-Il est fortement conseillé de créer deux logins de connexion, un pour le schéma des droits, l'autre pour les schémas applicatifs. Ces logins ne doivent pouvoir être utilisés que depuis le serveur web hébergeant l'application.
-
-Cette opération est possible en modifiant le fichier \textit{/etc/postgresql/9.5/main/pg\_hba.conf} selon ce principe :
-
-\begin{lstlisting}
-# Connexions pour les serveurs web 
-host nom_database userGacl adresse_serveur/32 md5 
-host nom_database userData adresse_serveur/32 md5
-\end{lstlisting}
-
-Le login utilisé dans \textit{userGacl} correspond à la variable \textit{\$GACL\_dblogin}, et \textit{userData} à \textit{\$BDD\_login}.
-
-et en rechargeant ensuite la configuration de Postgresql avec la commande :
-\begin{lstlisting}
-service postgresql reload
-\end{lstlisting}
-
-\subsection{Droits sur les tables}
-
-Le compte utilisé pour la connexion au schéma des droits doit pouvoir modifier les informations présentes dans l'ensemble des tables de \textit{gacl}. Il ne doit pas pouvoir accéder aux autres schémas (hormis \textit{public}).
-
-Le compte utilisé pour accéder aux schémas des données doit pouvoir modifier l'ensemble des informations dans les schémas de données, et lire la table \textit{gacl.aclgroup}.
-
-Le plus simple est d'utiliser le logiciel \textit{pgAdmin} \cite{pgadmin} pour attribuer les droits.
 
 \subsection{Scripts de modification}
 

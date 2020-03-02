@@ -156,6 +156,14 @@ Cette identification n'est possible que pour les applications accessibles depuis
 apt-get install libapache2-mod-auth-mellon
 \end{lstlisting}
 
+Si le paquet libapache2-mod-auth-mellon n'est pas disponible (cas rencontré avec une distribution Debian strech), vous devrez récupérer et installer les paquets suivants (dans l'ordre) :
+\begin{itemize}
+	\item libxmlsec1
+	\item libxmlsec1-openssl
+	\item liblasso3
+	\item libapache2-mod-auth-mellon
+\end{itemize}
+
 Vous devez également récupérer le fichier xml de votre \textit{provider}, ainsi que son certificat.
 
 \subsubsection{Génération des fichiers de configuration de l'application}

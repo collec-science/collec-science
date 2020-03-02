@@ -114,7 +114,7 @@ $(document).ready(function () {
 									nb = 0;
 									line.forEach(function (cell) {
 										content += '<td class="center">';
-										if (cell.length > 10) {
+										if (cell.length > 5) {
 											content += cell.length + " {t}objets{/t}";
 										} else {
 											cell.forEach(function (item) {

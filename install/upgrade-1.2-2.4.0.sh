@@ -1,7 +1,7 @@
 #!/bin/bash
 # upgrade an instance 2.1 to 2.2
-OLDVERSION=collec-2.2
-VERSION=collec-2.3.1
+OLDVERSION=collec-1.2.3
+VERSION=collec-2.4.0
 echo "This script will install the release $VERSION"
 echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of Collec-Science is $OLDVERSION ?"
@@ -9,6 +9,13 @@ echo "Is your actual version is in the folder /var/www/collec-science/$OLDVERSIO
 read -p "Do you want to continue [Y/n]?" answer
 if [[ $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then
+PHPOLDVERSION=`php -v|grep ^PHP|cut -d " " -f 2|cut -d "." -f 1-2`
+echo "Your php version is $PHPOLDVERSION"
+echo "Collec-Science must run with PHP 7.2 or above."
+echo "You can upgrade your PHP version with these commands:"
+echo "wget https://github.com/Irstea/collec/raw/master/install/php_upgrade.sh"
+echo "chmod +x php_upgrade.sh"
+echo "./php_upgrade.sh"
 cd /var/www/html/collec-science
 rm -f *zip
 # download last code
@@ -41,7 +48,12 @@ ln -s $VERSION collec
 echo "update database"
 chmod 755 /var/www/html/collec-science
 cd collec/install
+su postgres -c "psql -f upgrade-1.2-1.2.3.sql"
+su postgres -c "psql -f upgrade-1.2.3-2.0.sql"
+su postgres -c "psql -f upgrade-2.0-2.1.sql"
+su postgres -c "psql -f upgrade-2.1-2.2.sql"
 su postgres -c "psql -f upgrade-2.2-2.3.sql"
+su postgres -c "psql -f upgrade-2.3-2.4.sql"
 cd ../..
 chmod 750 /var/www/html/collec-science
 

@@ -88,7 +88,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </schema>
 
 <extension name="pg_trgm" cur-version="1.4">
-	<schema name="public"/>
+	<schema name="pg_catalog"/>
 	<comment><![CDATA[text similarity measurement and index searching based on trigrams]]></comment>
 </extension>
 

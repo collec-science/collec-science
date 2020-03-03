@@ -1,7 +1,7 @@
 #!/bin/bash
 # upgrade an instance 2.1 to 2.2
 OLDVERSION=collec-2.3
-VERSION=collec-2.3.1
+VERSION=collec-2.4.0
 echo "This script will install the release $VERSION"
 echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of Collec-Science is $OLDVERSION ?"
@@ -38,6 +38,13 @@ rm -f collec
 ln -s $VERSION collec
 chmod 750 /var/www/html/collec-science
 
+# upgrade database
+echo "update database"
+chmod 755 /var/www/html/collec-science
+cd collec/install
+su postgres -c "psql -f upgrade-2.3-2.4.sql"
+cd ../..
+
 # assign rights to new folder
 mkdir $VERSION/display/templates_c
 chmod -R 750 $VERSION
@@ -46,6 +53,8 @@ chgrp -R www-data $VERSION
 # update rights to specific software folders
 chmod -R 770 $VERSION/display/templates_c
 chmod -R 770 $VERSION/temp
+
+
 
 # update php.ini file
 PHPVER=`php -v|head -n 1|cut -c 5-7`

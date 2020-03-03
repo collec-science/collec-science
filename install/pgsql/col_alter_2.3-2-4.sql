@@ -29,25 +29,25 @@ ALTER SCHEMA col OWNER TO collec; (line 400 or arround)
 
 -- object: postgis | type: EXTENSION --
 -- DROP EXTENSION IF EXISTS postgis CASCADE;
-CREATE EXTENSION postgis
-WITH SCHEMA public;
+-- CREATE EXTENSION postgis
+-- WITH SCHEMA public;
 -- ddl-end --
 -- object: btree_gin | type: EXTENSION --
 -- DROP EXTENSION IF EXISTS btree_gin CASCADE;
-CREATE EXTENSION btree_gin
-WITH SCHEMA pg_catalog;
+-- CREATE EXTENSION btree_gin
+-- WITH SCHEMA pg_catalog;
 -- ddl-end --
 
 -- object: pgcrypto | type: EXTENSION --
 -- DROP EXTENSION IF EXISTS pgcrypto CASCADE;
-CREATE EXTENSION pgcrypto
-WITH SCHEMA public;
+-- CREATE EXTENSION pgcrypto
+-- WITH SCHEMA public;
 -- ddl-end --
 
 -- object: grant_95c2183ced | type: PERMISSION --
-GRANT CREATE,CONNECT,TEMPORARY
-   ON DATABASE collec
-   TO collec;
+-- GRANT CREATE,CONNECT,TEMPORARY
+--   ON DATABASE collec
+--   TO collec;
 -- ddl-end --
 
 SET search_path=public,pg_catalog,gacl,col;
@@ -409,8 +409,6 @@ ALTER TABLE col.document ADD COLUMN campaign_id integer;
 ALTER SCHEMA col OWNER TO collec;
 -- ddl-end --
 ALTER SCHEMA gacl OWNER TO collec;
--- ddl-end --
-ALTER EXTENSION pg_trgm SET SCHEMA public;
 -- ddl-end --
 ALTER SEQUENCE col.booking_booking_id_seq OWNER TO collec;
 -- ddl-end --

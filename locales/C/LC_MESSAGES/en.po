@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-02 17:30+0100\n"
+"POT-Creation-Date: 2020-03-03 10:09+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -86,9 +86,8 @@ msgstr "SQL requests"
 
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:14
-#, fuzzy
 msgid "Exécution de requêtes SQL dans la base de données"
-msgstr "Error writing to the database"
+msgstr "Run SQL requests on the database"
 
 #. (itstool) path: menu/item@label
 #: ../../../param/menu.xml:17
@@ -218,15 +217,13 @@ msgstr "Campaigns"
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:32
 #: ../../../display/templates/param/campaignList.tpl:1
-#, fuzzy
 msgid "Campagnes de prélèvement"
-msgstr "Sampling place"
+msgstr "Sampling campaigns"
 
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:33
-#, fuzzy
 msgid "Réglementations"
-msgstr "Bookings"
+msgstr "Regulations"
 
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:33
@@ -384,15 +381,13 @@ msgstr "List of printers"
 
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:54
-#, fuzzy
 msgid "Types de fichiers"
-msgstr "Send file"
+msgstr "File types"
 
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:54
-#, fuzzy
 msgid "Types de fichiers autorisés en téléchargement"
-msgstr "No downloaded file"
+msgstr "Allowed file types for downloading"
 
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:55
@@ -402,14 +397,12 @@ msgstr "Export models (experimental)"
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:55
 #: ../../../display/templates/exportmodel/exportModelList.tpl:18
-#, fuzzy
 msgid "Liste des modèles d'exportation des données"
-msgstr "List of tables and columns"
+msgstr "List of data exportation templates"
 
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:57
-#, fuzzy
 msgid "Schéma de la base de données"
 msgstr "Database structure"
 
@@ -500,9 +493,8 @@ msgstr "Logs"
 
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:70
-#, fuzzy
 msgid "Consultation des logs enregistrées"
-msgstr "Recorded loan transaction"
+msgstr "Consultation of recorded logs"
 
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:71
@@ -735,6 +727,8 @@ msgid ""
 "Une erreur indéterminée s'est produite pendant le traitement de la requête. "
 "Si le problème persiste, consultez l'administrateur de l'application"
 msgstr ""
+"An unidentified error occurred during the processing of the request. If the "
+"problem persists, please contact the application administrator"
 
 #: ../../../framework/droitko.php:2
 msgid ""
@@ -794,9 +788,8 @@ msgid "Problème lors de la suppression"
 msgstr "Problem when deleting"
 
 #: ../../../framework/fonctions.php:150
-#, fuzzy
 msgid "Suppression non réalisée"
-msgstr "Deletion done"
+msgstr "Unrealized deletion"
 
 #: ../../../framework/fonctions.php:159
 msgid ""
@@ -808,6 +801,8 @@ msgid ""
 "Une erreur a été détectée lors de la création de l'écran. Si le problème "
 "persiste, contactez l'administrateur de l'application."
 msgstr ""
+"An error was detected when creating the screen. If the problem persists, "
+"please contact the application administrator."
 
 #: ../../../framework/common.inc.php:256
 msgid "Echec de connexion à la base de données de gestion des droits (GACL)"
@@ -933,15 +928,16 @@ msgid "Le mot de passe n'est pas identique dans les deux zones"
 msgstr "Passwords don't match in both fields"
 
 #: ../../../framework/identification/identification.class.php:394
-#, fuzzy
 msgid "Nouvel utilisateur"
-msgstr "Username:"
+msgstr "New user:"
 
 #: ../../../framework/identification/identification.class.php:403
 msgid ""
 "Votre compte a été créé, mais est inactif. Un mail a été adressé aux "
 "administrateurs pour son activation"
 msgstr ""
+"Your account was create, but it's inactive. An email was send to the "
+"administrators for its activation"
 
 #. traduction: conserver inchangées les chaînes :keyword"
 #: ../../../framework/identification/passwordLost.php:32
@@ -1070,7 +1066,7 @@ msgstr ""
 #: ../../../modules/exportmodel/exportmodel.class.php:392
 #, php-format
 msgid "Une valeur vide a été trouvée pour l'attribut ajouté %s"
-msgstr ""
+msgstr "An empty value was found for the added attribute %s"
 
 #: ../../../modules/exportmodel/exportmodel.class.php:465
 #, php-format
@@ -1082,9 +1078,9 @@ msgid "Le modèle d'export n'est pas défini ou n'a pas été trouvé"
 msgstr "The export model is not defined or has not be found"
 
 #: ../../../modules/exportmodel/exportModelProcessing.php:97
-#, fuzzy, php-format
+#, php-format
 msgid "Importation effectuée, fichier %s traité."
-msgstr "Import done. %s processed line(s)"
+msgstr "Import done, file %s processed."
 
 #: ../../../modules/exportmodel/exportModelProcessing.php:107
 msgid "Paramètres d'importation manquants ou droits insuffisants"
@@ -1142,12 +1138,11 @@ msgstr "Trashing done"
 
 #: ../../../modules/gestion/object.php:141
 msgid "Sortie de la corbeille effectuée"
-msgstr ""
+msgstr "Out of the bin done"
 
 #: ../../../modules/gestion/object.php:144
-#, fuzzy
 msgid "L'opération sur la corbeille a échoué"
-msgstr "Event creation failed"
+msgstr "Operation on the bin failed"
 
 #: ../../../modules/gestion/object.php:150
 msgid "Opération sur la corbeille impossible à exécuter"
@@ -1220,9 +1215,8 @@ msgstr "Event creation failed"
 #: ../../../modules/gestion/sample.php:417
 #: ../../../modules/gestion/container.php:385
 #: ../../../modules/gestion/borrowing.php:49
-#, fuzzy
 msgid "Objet prêté"
-msgstr "Borrowed object"
+msgstr "Object loaned"
 
 #: ../../../modules/gestion/sample.php:420
 #: ../../../modules/gestion/container.php:388
@@ -1318,9 +1312,8 @@ msgid "Le référent de l'échantillon n'est pas connu."
 msgstr "The referent of sample is unknown."
 
 #: ../../../modules/classes/importObject.class.php:686
-#, fuzzy
 msgid "La campagne de prélèvement de l'échantillon n'est pas connue."
-msgstr "The referent of sample is unknown."
+msgstr "The sampling campaign is not known."
 
 #: ../../../modules/classes/importObject.class.php:731
 #, php-format
@@ -1384,9 +1377,8 @@ msgid "%s non trouvé ou non lisible"
 msgstr "%s not found or not readable"
 
 #: ../../../modules/classes/container.class.php:136
-#, fuzzy
 msgid "Le contenant contient des objets, il ne peut être supprimé"
-msgstr "The container is referenced in movements and can not be deleted"
+msgstr "The container contains objects and can not be deleted"
 
 #: ../../../modules/classes/container.class.php:719
 #, php-format
@@ -1398,14 +1390,13 @@ msgstr ""
 "(identifier: %s)"
 
 #: ../../../modules/classes/container.class.php:734
-#, fuzzy, php-format
+#, php-format
 msgid "Erreur d'importation de l'échantillon %s. "
-msgstr "Expiry date of the sample:"
+msgstr "Import error of sample %s."
 
 #: ../../../modules/classes/container.class.php:734
-#, fuzzy
 msgid "Message d'erreur : "
-msgstr "Help message"
+msgstr "Error message: "
 
 #: ../../../modules/classes/sample.class.php:204
 msgid "Un problème est survenu lors de l'écriture de l'échantillon"
@@ -1452,9 +1443,9 @@ msgid "La date de %s est incomplète ou incohérente. "
 msgstr "The date of %s is incomplete or inconsistent. "
 
 #: ../../../modules/classes/sample.class.php:772
-#, fuzzy, php-format
+#, php-format
 msgid "Le champ %s n'est pas numérique"
-msgstr "The field %s is not numeric."
+msgstr "The field %s is not numeric"
 
 #: ../../../modules/classes/sample.class.php:781
 msgid "Les métadonnées ne sont pas correctement formatées (champ metadata)"
@@ -1526,9 +1517,9 @@ msgid "Pas de contenant correspondant à l'UID %s. "
 msgstr "No container matching to UID %s. "
 
 #: ../../../modules/classes/movement.class.php:353
-#, fuzzy, php-format
+#, php-format
 msgid "La suppression des mouvements associés au container %s a échoué"
-msgstr "Deletion of samples failed"
+msgstr "The deletion of associated movements with the container %s failed"
 
 #: ../../../doc/quoideneuf.php:67
 msgid "Impossible de lire le fichier contenant les news"
@@ -1539,9 +1530,8 @@ msgid "Impossible de lire le fichier contenant le lexique"
 msgstr "Unable to read the file containing the glossary"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:1
-#, fuzzy
 msgid "Détail du modèle d'exportation"
-msgstr "Metadata template detail"
+msgstr "Detail of the export template"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:5
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:26
@@ -1596,7 +1586,7 @@ msgstr "Edit"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:20
 msgid "Table"
-msgstr ""
+msgstr "Table"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:21
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:42
@@ -1606,7 +1596,7 @@ msgstr "Alias"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:22
 msgid "Table fournie vide ?"
-msgstr ""
+msgstr "Table supplied empty?"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:23
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:22
@@ -1615,9 +1605,8 @@ msgstr "Primary key"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:24
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:31
-#, fuzzy
 msgid "Clé métier"
-msgstr "Business code"
+msgstr "Business key"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:25
 msgid "Clé étrangère"
@@ -1633,12 +1622,11 @@ msgstr "Relationship of type 1-1"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:28
 msgid "Tables liées"
-msgstr ""
+msgstr "Linked tables"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:29
-#, fuzzy
 msgid "Tables de paramètres"
-msgstr "Settings"
+msgstr "Parameter tables"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:30
 msgid "2nde clé étrangère (table n-n)"
@@ -1653,18 +1641,16 @@ msgid "Relation stricte ?"
 msgstr "Strict relation?"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:45
-#, fuzzy
 msgid "Colonne"
-msgstr "Column number"
+msgstr "Column"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:55
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:65
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:76
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:254
 #: ../../../display/templates/gestion/containerSearch.tpl:96
-#, fuzzy
 msgid "Oui"
-msgstr "yes"
+msgstr "Yes"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:102
 msgid "Exportation de l'ensemble des données concernées par le modèle"
@@ -1675,9 +1661,8 @@ msgid "Exporter toutes les données concernées par le modèle"
 msgstr "Export all data concerned by the model"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:118
-#, fuzzy
 msgid "Importation de données précédemment exportées"
-msgstr "Creating events performed"
+msgstr "Import previously exported data"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:129
 msgid ""
@@ -1685,14 +1670,12 @@ msgid ""
 msgstr "File to import (JSON format generated by the export operation above):"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:136
-#, fuzzy
 msgid "Importer les données"
-msgstr "Import metadata"
+msgstr "Import data"
 
 #: ../../../display/templates/exportmodel/exportModelList.tpl:8
-#, fuzzy
 msgid "Confirmez-vous l'importation ?"
-msgstr "Do you confirm the deletion?"
+msgstr "Do you confirm the import?"
 
 #: ../../../display/templates/exportmodel/exportModelList.tpl:26
 #: ../../../display/templates/gestion/eventList.tpl:5
@@ -1763,34 +1746,28 @@ msgid "Dupliquer"
 msgstr "Duplicate"
 
 #: ../../../display/templates/exportmodel/exportModelList.tpl:83
-#, fuzzy
 msgid "Exporter les modèles sélectionnés"
-msgstr "Export metadata:"
+msgstr "Export selected templates"
 
 #: ../../../display/templates/exportmodel/exportModelList.tpl:90
-#, fuzzy
 msgid "Importer des modèles depuis un fichier JSON"
-msgstr "Import locations from a CSV file"
+msgstr "Import templates from a JSON file"
 
 #: ../../../display/templates/exportmodel/exportModelList.tpl:96
-#, fuzzy
 msgid "Fichier JSON à importer :"
-msgstr "File(s) to import:"
+msgstr "JSON file to import:"
 
 #: ../../../display/templates/exportmodel/exportModelList.tpl:104
-#, fuzzy
 msgid "Importer le fichier"
-msgstr "Import a CSV file"
+msgstr "Import the file"
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:14
-#, fuzzy
 msgid "La définition du modèle n'est pas valide."
-msgstr "The metadata definition is not valid."
+msgstr "The template definition is not valid."
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:21
-#, fuzzy
 msgid "Création - Modification d'un modèle d'export de données"
-msgstr "Create / Edit a metadata template"
+msgstr "Create / Edit a data export template"
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:30
 #: ../../../display/templates/gestion/sampleChange.tpl:388
@@ -1899,23 +1876,22 @@ msgid "Supprimer"
 msgstr "Delete"
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:58
-#, fuzzy
 msgid "Description des champs à renseigner"
-msgstr "Description of the field"
+msgstr "Description of the field to fill"
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:60
-#, fuzzy
 msgid "Le nom de la table doit correspondre au nom dans la base de données"
-msgstr "%1: created date of the sample in the database"
+msgstr "The table name must match the name in the database"
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:61
 msgid ""
 "L'alias va être utilisé pour renommer la table dans le fichier d'export, si "
-"celle-ci peut être liée à deux autres tables. Exemple dans Filo-Science : la "
-"table ambience est référencée soit par operation, soit par sequence, et doit "
-"donc être dotée d'un alias. Les alias, s'ils ne sont par renseignés, seront "
-"déduits du nom de la table lors de l'importation."
+"celle-ci peut être liée à deux autres tables. Les alias, s'ils ne sont par "
+"renseignés, seront déduits du nom de la table lors de l'importation."
 msgstr ""
+"The alias will be used to rename the table in the export file, if It can be "
+"linked to the two others tables. The aliases, if not filled in, will be "
+"deducted from the table name during import."
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:62
 msgid ""
@@ -1960,6 +1936,8 @@ msgid ""
 "1-1, c'est à dire si la clé est partagée entre les deux tables, l'indicateur "
 "doit être activé"
 msgstr ""
+"If the child table is linked to the parent table by a 1-1 relationship, i. "
+"e. if the key is shared between the two tables, the indicator must be set to"
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:66
 msgid ""
@@ -1985,6 +1963,9 @@ msgid ""
 "d'autre part de la clé d'une table liée, des informations complémentaires "
 "sont à saisir :"
 msgstr ""
+"If the child table is a table with an n-n relationship, that is, whose key "
+"consists of the key of the parent table on the one hand and the key of a "
+"related table on the other hand , additional information must be entered:"
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:70
 msgid ""
@@ -2011,6 +1992,9 @@ msgid ""
 "indiquée. S'il existe, cet enregistrement sera mis à jour, sinon, un nouvel "
 "enregistrement sera créé"
 msgstr ""
+"If the business key is filled in, the program will search for a pre-existing "
+"record in the table that corresponds to the specified value. If it exists,"
+"this record will be updated, otherwise, a new record will be created."
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:79
 msgid ""
@@ -2033,10 +2017,12 @@ msgstr ""
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:81
 msgid ""
 "Dans le cas d'une relation de type 1-1, où une table fille partage la même "
-"clé que la table parente (cas des tables individual-individual_tracking dans "
-"Filo-Science), la clé primaire et la clé étrangère doivent être identiques "
-"dans le modèle"
+"clé que la table parente, la clé primaire et la clé étrangère doivent être "
+"identiques dans le modèle"
 msgstr ""
+"In the case of a relationship type 1-1, where the child table share the same "
+"key as the parent table, the primary key and the foreign key must be "
+"identical in the model"
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:87
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:215
@@ -2081,14 +2067,12 @@ msgid "Donnée obligatoire"
 msgstr "Mandatory data"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:7
-#, fuzzy
 msgid "Description du modèle"
-msgstr "Description of the field"
+msgstr "Description of the model"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:13
-#, fuzzy
 msgid "Nom de la table"
-msgstr "Name of the collection"
+msgstr "Name of the table"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:18
 msgid "Alias de la table (si elle dépend de plusieurs parents)"
@@ -2099,6 +2083,8 @@ msgid ""
 "Table fournie vide (table de paramètres renseignée par les valeurs  fournies "
 "dans les autres enregistrements) ?"
 msgstr ""
+"Table provided empty (parameter table filled with values provided in other "
+"records)?"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:35
 msgid "Nom de la clé étrangère (table parente)"
@@ -2109,14 +2095,12 @@ msgid "Relation de type 1-1 avec le parent (clé partagée)"
 msgstr "Relationship of type 1-1 with the parent (shared key)"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:44
-#, fuzzy
 msgid "Liste des champs de type booléen"
-msgstr "List of usable fields:"
+msgstr "List of boolean fields"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:51
-#, fuzzy
 msgid "Liste des alias des tables liées"
-msgstr "List of tables and columns"
+msgstr "List of aliases of linked tables"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:57
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:75
@@ -2131,18 +2115,16 @@ msgstr ""
 "Strict relation (the child records depends totally of the current record)?"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:69
-#, fuzzy
 msgid "Liste des tables de paramètres associées"
-msgstr "List of tables and columns"
+msgstr "List of linked parameter tables"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:79
-#, fuzzy
 msgid "Nom de la colonne dans la table courante"
-msgstr "# of the storage column in the container"
+msgstr "Name of the column in the current table"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:86
 msgid "Table de type n-n"
-msgstr ""
+msgstr "Table of type n-n"
 
 #: ../../../display/templates/exportmodel/modelPatternJS.tpl:94
 msgid "Nom de la seconde clé étrangère"
@@ -2158,14 +2140,12 @@ msgid "Structure de la base de données"
 msgstr "Database structure"
 
 #: ../../../display/templates/framework/logList.tpl:9
-#, fuzzy
 msgid "Nom du module :"
-msgstr "Model name:"
+msgstr "Module name:"
 
 #: ../../../display/templates/framework/logList.tpl:18
-#, fuzzy
 msgid "Login concerné :"
-msgstr "Login to search:"
+msgstr "Related login:"
 
 #: ../../../display/templates/framework/logList.tpl:29
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:408
@@ -2198,12 +2178,10 @@ msgid "Date"
 msgstr "Date"
 
 #: ../../../display/templates/framework/logList.tpl:49
-#, fuzzy
 msgid "Module"
-msgstr "Management module"
+msgstr "Module"
 
 #: ../../../display/templates/framework/logList.tpl:50
-#, fuzzy
 msgid "Commentaires"
 msgstr "Comment"
 
@@ -2438,17 +2416,14 @@ msgid "Mot de passe généré"
 msgstr "Password generated"
 
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:176
-#, fuzzy
 msgid "Caractéristiques du mot de passe :"
-msgstr "Strong of the password:"
+msgstr "Password characteristics:"
 
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:178
-#, fuzzy
 msgid "Longueur minimale : "
-msgstr "Minimum length of the password:"
+msgstr "Minimum length:"
 
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:179
-#, fuzzy
 msgid "Au minimum 3 types de caractères différents parmi :"
 msgstr "be composed of at least 3 different types of characters among:"
 
@@ -2680,35 +2655,26 @@ msgid "Dernières connexions enregistrées"
 msgstr "Last connections recorded"
 
 #: ../../../display/templates/framework/request/requestList.tpl:1
-#, fuzzy
 msgid "Liste des requêtes SQL"
-msgstr "List of loans"
+msgstr "List of SQL requests"
 
 #: ../../../display/templates/framework/request/requestList.tpl:4
-#, fuzzy
 msgid "Nouvelle requête..."
-msgstr "New right"
+msgstr "New request..."
 
 #: ../../../display/templates/framework/request/requestList.tpl:11
-#, fuzzy
 msgid "Date de création"
-msgstr ""
-"Date of\n"
-"creation"
+msgstr "Date of creation"
 
 #: ../../../display/templates/framework/request/requestList.tpl:12
-#, fuzzy
 msgid "Date de dernière exécution"
-msgstr ""
-"Date of\n"
-"creation"
+msgstr "Date of last execution"
 
 #: ../../../display/templates/framework/request/requestList.tpl:13
 msgid "Créateur (login)"
 msgstr "Creator (login)"
 
 #: ../../../display/templates/framework/request/requestList.tpl:31
-#, fuzzy
 msgid "Exécuter la requête"
 msgstr "Process"
 
@@ -2717,36 +2683,28 @@ msgid "Créer une nouvelle requête"
 msgstr "Create a new request"
 
 #: ../../../display/templates/framework/request/requestChange.tpl:4
-#, fuzzy
 msgid "Confirmez la suppression de la requête"
-msgstr "Do you confirm the deletion?"
+msgstr "Do you confirm the deletion of the request?"
 
 #: ../../../display/templates/framework/request/requestChange.tpl:48
-#, fuzzy
 msgid "Code SQL :"
-msgstr "CLP code"
+msgstr "SQL code:"
 
 #: ../../../display/templates/framework/request/requestChange.tpl:55
-#, fuzzy
 msgid "Champs dates de la requête (séparés par une virgule) :"
-msgstr ""
-"Fields to insert in the QR Code (separated by a comma, without spaces):"
+msgstr "date fields of the request (separated by a comma):"
 
 #: ../../../display/templates/framework/request/requestChange.tpl:61
-#, fuzzy
 msgid "date de création :"
-msgstr ""
-"Date of\n"
-"creation"
+msgstr "Date of creation:"
 
 #: ../../../display/templates/framework/request/requestChange.tpl:67
 msgid "par :"
 msgstr "by:"
 
 #: ../../../display/templates/framework/request/requestChange.tpl:73
-#, fuzzy
 msgid "Date de dernière exécution :"
-msgstr "Date of booking:"
+msgstr "Date of last execution:"
 
 #: ../../../display/templates/framework/request/requestChange.tpl:81
 #: ../../../display/templates/document/documentChange.tpl:25
@@ -2754,9 +2712,8 @@ msgid "Enregistrer"
 msgstr "Save"
 
 #: ../../../display/templates/framework/request/requestChange.tpl:83
-#, fuzzy
 msgid "Enregistrer et exécuter"
-msgstr "Saved"
+msgstr "Save and run"
 
 #: ../../../display/templates/framework/request/requestChange.tpl:84
 #: ../../../display/templates/gestion/sampleListDetail.tpl:474
@@ -2919,9 +2876,8 @@ msgstr "db:uid. Example: col:125"
 #: ../../../display/templates/gestion/sampleChange.tpl:537
 #: ../../../display/templates/gestion/sampleDisplay.tpl:402
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:366
-#, fuzzy
 msgid "Campagne de prélèvement :"
-msgstr "Sampling place:"
+msgstr "Sampling campaign:"
 
 #: ../../../display/templates/gestion/sampleChange.tpl:550
 #: ../../../display/templates/gestion/sampleDisplay.tpl:408
@@ -3008,7 +2964,7 @@ msgstr "Miscellaneous informations"
 #: ../../../display/templates/gestion/sampleChange.tpl:618
 #: ../../../display/templates/gestion/containerChange.tpl:202
 msgid "UID universel (UUID) :"
-msgstr ""
+msgstr "Universal UID (UUID):"
 
 #: ../../../display/templates/gestion/sampleChange.tpl:625
 msgid "Échantillon en attente de suppression (mis à la corbeille) :"
@@ -3115,9 +3071,8 @@ msgstr "UID and reference:"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:302
 #: ../../../display/templates/gestion/containerDisplay.tpl:253
-#, fuzzy
 msgid "Identifiants complémentaires :"
-msgstr "For additional identifiers:"
+msgstr "Additional identifiers:"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:315
 #: ../../../display/templates/gestion/sampleListDetail.tpl:151
@@ -3143,15 +3098,13 @@ msgstr "clp:"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:342
 #: ../../../display/templates/gestion/sampleListDetail.tpl:171
-#, fuzzy
 msgid "Protocole et opération :"
-msgstr "Protocol / operation:"
+msgstr "Protocol and operation:"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:351
 #: ../../../display/templates/gestion/sampleListDetail.tpl:344
-#, fuzzy
 msgid "Échantillon mis à la corbeille"
-msgstr "Parent sample"
+msgstr "Sample trashed"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:354
 #: ../../../display/templates/gestion/containerDisplay.tpl:294
@@ -3182,15 +3135,13 @@ msgid "Date d'expiration :"
 msgstr "Expiry date:"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:381
-#, fuzzy
 msgid "Date technique de dernière modification de l'échantillon"
-msgstr "Date of creation of the sample"
+msgstr "Technical date of last sample update"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:381
 #: ../../../display/templates/gestion/containerDisplay.tpl:306
-#, fuzzy
 msgid "Date de modification :"
-msgstr "Expiry date:"
+msgstr "Update date:"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:386
 msgid "Quantité de sous-échantillons (%1)"
@@ -3212,9 +3163,8 @@ msgstr "Location:"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:442
 #: ../../../display/templates/gestion/containerDisplay.tpl:343
-#, fuzzy
 msgid "UUID :"
-msgstr "UID:"
+msgstr "UUID:"
 
 #: ../../../display/templates/gestion/sampleDisplay.tpl:447
 msgid "Métadonnées associées"
@@ -3257,9 +3207,8 @@ msgid "Retour au parent (%1 %2)"
 msgstr "Back to parent (%1 %2)"
 
 #: ../../../display/templates/gestion/containerChange.tpl:128
-#, fuzzy
 msgid "Référent du contenant :"
-msgstr "Detail of a container"
+msgstr "Container referent:"
 
 #: ../../../display/templates/gestion/containerChange.tpl:177
 #: ../../../display/templates/gestion/containerSearch.tpl:126
@@ -3504,9 +3453,8 @@ msgid "Contenant mis à la corbeille"
 msgstr "Trashed container"
 
 #: ../../../display/templates/gestion/containerDisplay.tpl:306
-#, fuzzy
 msgid "Date technique de dernière modification du contenant"
-msgstr "Create / Edit a container"
+msgstr "Technical date of last container update"
 
 #: ../../../display/templates/gestion/containerDisplay.tpl:339
 msgid "Nbre de slots utilisés / Nbre total :"
@@ -3693,23 +3641,20 @@ msgid "Activer la lecture"
 msgstr "Enable scanning"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:182
-#, fuzzy
 msgid "UID/identifiant"
-msgstr "UID or identifier"
+msgstr "UID/identifier"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:187
-#, fuzzy
 msgid "Type et métadonnées"
-msgstr "Metadata set"
+msgstr "Type and metadata"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:192
 msgid "Divers"
 msgstr "Miscellaneous"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:197
-#, fuzzy
 msgid "Localisation"
-msgstr "Tabulation"
+msgstr "Localization"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:205
 #: ../../../display/templates/gestion/containerSearch.tpl:77
@@ -3729,9 +3674,8 @@ msgid "UID entre :"
 msgstr "UID between:"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:250
-#, fuzzy
 msgid "Échantillons mis à la corbeille"
-msgstr "Parent sample"
+msgstr "Samples trashed"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:250
 msgid "En attente de suppression :"
@@ -3740,23 +3684,20 @@ msgstr "Awaiting deletion:"
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:253
 #: ../../../display/templates/gestion/containerSearch.tpl:95
 msgid "Tous"
-msgstr ""
+msgstr "All"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:255
 #: ../../../display/templates/gestion/containerSearch.tpl:97
-#, fuzzy
 msgid "Non"
-msgstr "no"
+msgstr "No"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:264
-#, fuzzy
 msgid "Type d'échantillon :"
-msgstr "Sample types"
+msgstr "Sample type:"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:283
-#, fuzzy
 msgid "Rechercher dans les métadonnées :"
-msgstr "Export metadata:"
+msgstr "Search in metadata:"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:286
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:310
@@ -3775,9 +3716,8 @@ msgstr ""
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:307
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:330
-#, fuzzy
 msgid "ou"
-msgstr "yes"
+msgstr "or"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:342
 msgid ""
@@ -3862,25 +3802,21 @@ msgid "Campagne :"
 msgstr "Campaign:"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:186
-#, fuzzy
 msgid "Métadonnées :"
 msgstr "Metadata:"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:189
 #: ../../../display/templates/gestion/sampleListDetail.tpl:210
-#, fuzzy
 msgid " : "
-msgstr "L: %1"
+msgstr ": "
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:202
-#, fuzzy
 msgid "Contenants :"
-msgstr "Containers"
+msgstr "Containers:"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:208
-#, fuzzy
 msgid "Événements :"
-msgstr "Events"
+msgstr "Events:"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:284
 #: ../../../display/templates/gestion/containerListDetail.tpl:178
@@ -3991,9 +3927,8 @@ msgstr "Create an event"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:397
 #: ../../../display/templates/gestion/containerListDetail.tpl:282
-#, fuzzy
 msgid "Mettre ou sortir de la corbeille"
-msgstr "Enter or exit objects"
+msgstr "Putting or taking out of the trash"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:398
 msgid "Supprimer les échantillons"
@@ -4014,21 +3949,18 @@ msgstr "Event type:"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:464
 #: ../../../display/templates/gestion/containerListDetail.tpl:313
-#, fuzzy
 msgid "Traitement de la corbeille"
-msgstr "Processing..."
+msgstr "Bin treatment"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:467
 #: ../../../display/templates/gestion/containerListDetail.tpl:316
-#, fuzzy
 msgid "Mettre à la corbeille"
-msgstr "Back to the list"
+msgstr "Put in the trash"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:468
 #: ../../../display/templates/gestion/containerListDetail.tpl:317
-#, fuzzy
 msgid "Sortir de la corbeille"
-msgstr "Name of the collection"
+msgstr "Get out of the bin"
 
 #: ../../../display/templates/gestion/import.tpl:2
 msgid "Import d'échantillons ou de contenants à partir d'un fichier CSV"
@@ -4113,9 +4045,8 @@ msgid "le numéro du statut de l'échantillon (obligatoire)"
 msgstr "status number of the sample (required)"
 
 #: ../../../display/templates/gestion/import.tpl:84
-#, fuzzy
 msgid "le numéro informatique de la campagne de prélèvement"
-msgstr "computer number of the referent"
+msgstr "computer number of the sampling campaign"
 
 #: ../../../display/templates/gestion/import.tpl:85
 msgid "le numéro informatique de l'endroit où l'échantillon a été prélevé"
@@ -4171,9 +4102,8 @@ msgid "UID du parent (création d'échantillons rattachés)"
 msgstr "Parent UID (creates attached samples)"
 
 #: ../../../display/templates/gestion/import.tpl:97
-#, fuzzy
 msgid "UID Universel de l'échantillon (UUID)"
-msgstr "Detail of the sample"
+msgstr "Universal sample UID (UUID)"
 
 #: ../../../display/templates/gestion/import.tpl:99
 msgid ""
@@ -4208,9 +4138,8 @@ msgid "le numéro informatique du statut du contenant (obligatoire)"
 msgstr "the number of the container status given by the app (required)"
 
 #: ../../../display/templates/gestion/import.tpl:107
-#, fuzzy
 msgid "UID Universel du contenant (UUID)"
-msgstr "UID of the container:"
+msgstr "Universal container UID (UUID)"
 
 #: ../../../display/templates/gestion/import.tpl:108
 msgid "l'emplacement de rangement du contenant dans son parent (texte libre)"
@@ -4346,9 +4275,8 @@ msgid "Reste disponible :"
 msgstr "Remains available:"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:118
-#, fuzzy
 msgid "objets"
-msgstr "Objects"
+msgstr "objects"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:189
 msgid "Export avec objets inclus"
@@ -4377,9 +4305,8 @@ msgid "Prêter les contenants et leurs contenus"
 msgstr "Lend the containers and their contents"
 
 #: ../../../display/templates/gestion/containerListDetail.tpl:283
-#, fuzzy
 msgid "Supprimer les contenants"
-msgstr "Delete the samples"
+msgstr "Delete containers"
 
 #: ../../../display/templates/gestion/bookingList.tpl:11
 msgid "Du"
@@ -4466,9 +4393,8 @@ msgid "latitude GPS en WGS84 (degrés décimaux)"
 msgstr "GPS latitude in WGS84 (decimal degrees)"
 
 #: ../../../display/templates/gestion/sampleImport.tpl:93
-#, fuzzy
 msgid "Précision (en mètres) de la localisation de l'échantillon"
-msgstr "%1: created date of the sample"
+msgstr "Accuracy (in meters) of the sample localization"
 
 #: ../../../display/templates/gestion/sampleImport.tpl:94
 msgid ""
@@ -4492,9 +4418,8 @@ msgid "nombre ou quantité de sous-échantillons disponibles"
 msgstr "number or quantity of subsamples available"
 
 #: ../../../display/templates/gestion/sampleImport.tpl:98
-#, fuzzy
 msgid "nom de la campagne de prélèvement"
-msgstr "Sampling authorization number"
+msgstr "name of sampling campaign"
 
 #: ../../../display/templates/gestion/sampleImport.tpl:99
 msgid "lieu de prélèvement de l'échantillon"
@@ -4632,9 +4557,8 @@ msgid "Contenants en attente de suppression (mis à la corbeille)"
 msgstr "Containers awaiting deletion (trashed)"
 
 #: ../../../display/templates/gestion/containerSearch.tpl:92
-#, fuzzy
 msgid "Corbeille :"
-msgstr "Family:"
+msgstr "Bin:"
 
 #: ../../../display/templates/gestion/movementChange.tpl:74
 msgid ""
@@ -4661,13 +4585,10 @@ msgid "Détails :"
 msgstr "Details:"
 
 #: ../../../display/templates/gestion/movementChange.tpl:166
-#, fuzzy
 msgid ""
 "Emplacement dans le contenant\n"
 "\t\t\t\t\t(format libre) :"
-msgstr ""
-"Location in the container\n"
-"(free format):"
+msgstr "Location in the container"
 
 #: ../../../display/templates/gestion/movementChange.tpl:176
 msgid "N° de la ligne de rangement dans le contenant"
@@ -4735,14 +4656,12 @@ msgid "Repérez votre position !"
 msgstr "Locate your position!"
 
 #: ../../../display/templates/main.tpl:68
-#, fuzzy
 msgid "Nombre d'échantillons"
-msgstr "Sample types"
+msgstr "Sample number"
 
 #: ../../../display/templates/main.tpl:69
-#, fuzzy
 msgid "Date de dernière modification d'un échantillon"
-msgstr "Create / Edit a sample"
+msgstr "Date of last update of a sample"
 
 #: ../../../display/templates/documentation/quoideneuf.tpl:1
 msgid "Les nouveautés..."
@@ -4802,14 +4721,12 @@ msgid "y : latitude du point"
 msgstr "y: latitude of the point"
 
 #: ../../../display/templates/param/regulationChange.tpl:1
-#, fuzzy
-msgid "Création - Modification d'un regulatione"
-msgstr "Create / Edit an operation"
+msgid "Création - Modification d'une réglementation"
+msgstr "Create / Edit a regulation"
 
 #: ../../../display/templates/param/regulationChange.tpl:11
-#, fuzzy
 msgid "Nom de la réglementation :"
-msgstr "Operation name:"
+msgstr "Name of regulation:"
 
 #: ../../../display/templates/param/printerChange.tpl:2
 msgid "Création - Modification d'une imprimante"
@@ -4910,9 +4827,8 @@ msgid "En bas"
 msgstr "Down"
 
 #: ../../../display/templates/param/containerTypeChange.tpl:63
-#, fuzzy
 msgid "Position de la première colonne :"
-msgstr "Position of the first line:"
+msgstr "Position of the first column:"
 
 #: ../../../display/templates/param/containerTypeChange.tpl:68
 msgid "À gauche"
@@ -4923,11 +4839,8 @@ msgid "À droite"
 msgstr "At right"
 
 #: ../../../display/templates/param/containerTypeChange.tpl:78
-#, fuzzy
 msgid "Nombre d'emplacements maximum :"
-msgstr ""
-"Number\n"
-"of locations"
+msgstr "Maximum number of slots:"
 
 #: ../../../display/templates/param/containerTypeChange.tpl:84
 msgid "Condition de stockage :"
@@ -4966,19 +4879,16 @@ msgid "Valide pour les contenants ?"
 msgstr "Can be used for containers?"
 
 #: ../../../display/templates/param/campaignList.tpl:14
-#, fuzzy
 msgid "Responsable"
-msgstr "Remains available:"
+msgstr "Person in charge"
 
 #: ../../../display/templates/param/campaignList.tpl:15
-#, fuzzy
 msgid "du"
-msgstr "from :"
+msgstr "from"
 
 #: ../../../display/templates/param/campaignList.tpl:16
-#, fuzzy
 msgid "au"
-msgstr "to:"
+msgstr "to"
 
 #: ../../../display/templates/param/identifierTypeList.tpl:14
 msgid "Code"
@@ -4998,16 +4908,15 @@ msgstr "Create / Edit a metadata template"
 
 #: ../../../display/templates/param/mimeTypeList.tpl:1
 msgid "Types de fichiers importables"
-msgstr ""
+msgstr "Importable files types"
 
 #: ../../../display/templates/param/mimeTypeList.tpl:12
-#, fuzzy
 msgid "Extension"
-msgstr "Version"
+msgstr "Extension"
 
 #: ../../../display/templates/param/mimeTypeList.tpl:13
 msgid "Type mime associé"
-msgstr ""
+msgstr "Associated mime type"
 
 #: ../../../display/templates/param/collectionList.tpl:14
 msgid "Flux externes autorisés"
@@ -5034,9 +4943,8 @@ msgid "Flux de consultation"
 msgstr "Consult flow"
 
 #: ../../../display/templates/param/collectionList.tpl:23
-#, fuzzy
 msgid "Collection publique"
-msgstr "Collection:"
+msgstr "Public collection:"
 
 #: ../../../display/templates/param/sampleTypeChange.tpl:9
 msgid "Création - Modification d'un type d'échantillon"
@@ -5263,16 +5171,12 @@ msgid "Famille"
 msgstr "Family"
 
 #: ../../../display/templates/param/containerTypeList.tpl:19
-#, fuzzy
 msgid "Nombre de lignes et de colonnes"
-msgstr "List of tables and columns"
+msgstr "Number of lines an columns"
 
 #: ../../../display/templates/param/containerTypeList.tpl:20
-#, fuzzy
 msgid "Nombre maxi d'emplacements de stockage"
-msgstr ""
-"Number\n"
-"of locations"
+msgstr "Maximum number of storage slots"
 
 #: ../../../display/templates/param/containerTypeList.tpl:23
 msgid "Code CLP (risque)"
@@ -5295,19 +5199,16 @@ msgid "1ère ligne :"
 msgstr "1st line:"
 
 #: ../../../display/templates/param/containerTypeList.tpl:48
-#, fuzzy
 msgid "en haut"
-msgstr "Up"
+msgstr "up"
 
 #: ../../../display/templates/param/containerTypeList.tpl:50
-#, fuzzy
 msgid "en bas"
-msgstr "Down"
+msgstr "down"
 
 #: ../../../display/templates/param/containerTypeList.tpl:53
-#, fuzzy
 msgid "1ère colonne : "
-msgstr "1st line:"
+msgstr "1st column:"
 
 #: ../../../display/templates/param/containerTypeList.tpl:55
 msgid "à gauche"
@@ -5334,9 +5235,8 @@ msgid "Flux d'interrogation externes autorisés :"
 msgstr "Allowed dxternal query flows:"
 
 #: ../../../display/templates/param/collectionChange.tpl:61
-#, fuzzy
 msgid "Collection publique ?"
-msgstr "Collection:"
+msgstr "Public collection?"
 
 #: ../../../display/templates/param/collectionChange.tpl:76
 msgid "Groupes :"
@@ -5388,25 +5288,21 @@ msgid "Fichier PDF de description :"
 msgstr "Description PDF file:"
 
 #: ../../../display/templates/param/protocolChange.tpl:81
-#, fuzzy
 msgid "Supprimer le document joint :"
-msgstr "Delete the parent"
+msgstr "Delete the linked document:"
 
 #: ../../../display/templates/param/campaignChange.tpl:2
-#, fuzzy
 msgid "Création/modification d'une campagne"
-msgstr "Create / Edit a printer"
+msgstr "Create / Edit a campaign"
 
 #: ../../../display/templates/param/campaignChange.tpl:11
-#, fuzzy
 msgid "Description de la campagne"
-msgstr "Description of the field"
+msgstr "Description of the campaign"
 
 #: ../../../display/templates/param/campaignChange.tpl:13
 #: ../../../display/templates/param/campaignDisplay.tpl:14
-#, fuzzy
 msgid "Nom de la campagne :"
-msgstr "Number of lines:"
+msgstr "Name of the campaign:"
 
 #: ../../../display/templates/param/campaignChange.tpl:19
 msgid "Responsable ou référent de la campagne :"
@@ -5414,20 +5310,17 @@ msgstr "Responsible of referent of the campaign:"
 
 #: ../../../display/templates/param/campaignChange.tpl:32
 #: ../../../display/templates/param/campaignDisplay.tpl:22
-#, fuzzy
 msgid "Date de début :"
-msgstr "Borrowing date:"
+msgstr "Start date:"
 
 #: ../../../display/templates/param/campaignChange.tpl:38
 #: ../../../display/templates/param/campaignDisplay.tpl:26
-#, fuzzy
 msgid "Date de fin :"
-msgstr "Borrowing date:"
+msgstr "End date:"
 
 #: ../../../display/templates/param/campaignChange.tpl:45
-#, fuzzy
 msgid "Réglementations associées"
-msgstr "Associated metadata"
+msgstr "Associated regulations"
 
 #: ../../../display/templates/param/operationChange.tpl:2
 msgid "Création - Modification d'une operation"
@@ -5663,18 +5556,16 @@ msgid "Objets empruntés"
 msgstr "Borrowed objects"
 
 #: ../../../display/templates/param/mimeTypeChange.tpl:1
-#, fuzzy
 msgid "Création - Modification d'une extension de fichier téléchargeable"
-msgstr "Create / Edit a storage condition"
+msgstr "Create / Edit an extension of a downloaded file"
 
 #: ../../../display/templates/param/mimeTypeChange.tpl:11
-#, fuzzy
 msgid "Extension :"
-msgstr "Version:"
+msgstr "Extension:"
 
 #: ../../../display/templates/param/mimeTypeChange.tpl:16
 msgid "Type mime normalisé :"
-msgstr ""
+msgstr "Standardized mime type:"
 
 #: ../../../display/templates/param/protocolList.tpl:13
 msgid "Nom du protocole"
@@ -5709,9 +5600,8 @@ msgid "Liste des emprunts réalisés par "
 msgstr "List of loans made by "
 
 #: ../../../display/templates/param/borrowerDisplay.tpl:10
-#, fuzzy
 msgid "Modifier l'emprunteur"
-msgstr "Change the label"
+msgstr "Change the borrower"
 
 #: ../../../display/templates/param/borrowerDisplay.tpl:20
 #: ../../../display/templates/param/borrowerChange.tpl:27
@@ -5839,9 +5729,8 @@ msgid "Utilisable pour les contenants :"
 msgstr "Usable for containers:"
 
 #: ../../../display/templates/param/campaignDisplay.tpl:18
-#, fuzzy
 msgid "Référent ou responsable :"
-msgstr "Referent:"
+msgstr "Referent or person in charge:"
 
 #: ../../../display/templates/param/labelList.tpl:2
 msgid "Modèles d'étiquette"
@@ -5970,6 +5859,10 @@ msgstr ": activate to sort column descending"
 #: ../../../display/templates/main_js.tpl:187
 msgid "Valeur numérique..."
 msgstr "Numerical value..."
+
+#, fuzzy
+#~ msgid "Création - Modification d'un regulatione"
+#~ msgstr "Create / Edit an operation"
 
 #~ msgid "6/9/2019"
 #~ msgstr "2019-09-06"

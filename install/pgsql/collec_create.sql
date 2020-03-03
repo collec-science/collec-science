@@ -1,21 +1,11 @@
 -- Database generated with pgModeler (PostgreSQL Database Modeler).
 -- pgModeler  version: 0.9.2
--- PostgreSQL version: 9.6
+-- PostgreSQL version: 11.0
 -- Project Site: pgmodeler.io
 -- Model Author: ---
 
 -- object: collec | type: ROLE --
 -- DROP ROLE IF EXISTS collec;
-/*CREATE ROLE collec WITH
-	SUPERUSER
-	CREATEDB
-	CREATEROLE
-	INHERIT
-	LOGIN
-	UNENCRYPTED PASSWORD 'collecPassword';
-*/
--- ddl-end --
-
 
 -- Database creation must be done outside a multicommand file.
 -- These commands were put in this file only as a convenience.
@@ -28,7 +18,7 @@
 -- 	TABLESPACE = pg_default
 -- 	OWNER = collec;
 -- -- ddl-end --
---
+-- 
 
 -- object: col | type: SCHEMA --
 -- DROP SCHEMA IF EXISTS col CASCADE;
@@ -47,15 +37,7 @@ ALTER SCHEMA gacl OWNER TO collec;
 SET search_path TO pg_catalog,public,col,gacl;
 -- ddl-end --
 
--- object: pg_trgm | type: EXTENSION --
--- DROP EXTENSION IF EXISTS pg_trgm CASCADE;
-/*CREATE EXTENSION pg_trgm
-WITH SCHEMA public
-VERSION '1.4';
--- ddl-end --
-COMMENT ON EXTENSION pg_trgm IS E'text similarity measurement and index searching based on trigrams';
--- ddl-end --
-*/
+
 -- object: col.booking_booking_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.booking_booking_id_seq CASCADE;
 CREATE SEQUENCE col.booking_booking_id_seq
@@ -67,7 +49,7 @@ CREATE SEQUENCE col.booking_booking_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.booking_booking_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.booking_booking_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.booking | type: TABLE --
@@ -110,7 +92,7 @@ CREATE SEQUENCE col.project_project_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.project_project_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.project_project_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.collection_group | type: TABLE --
@@ -138,7 +120,7 @@ CREATE SEQUENCE col.container_container_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.container_container_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.container_container_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.container | type: TABLE --
@@ -167,7 +149,7 @@ CREATE SEQUENCE col.container_family_container_family_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.container_family_container_family_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.container_family_container_family_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.container_family | type: TABLE --
@@ -200,7 +182,7 @@ CREATE SEQUENCE col.container_type_container_type_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.container_type_container_type_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.container_type_container_type_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.container_type | type: TABLE --
@@ -332,7 +314,7 @@ CREATE SEQUENCE col.document_document_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.document_document_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.document_document_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.document | type: TABLE --
@@ -383,7 +365,7 @@ CREATE SEQUENCE col.event_event_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.event_event_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.event_event_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.event | type: TABLE --
@@ -419,7 +401,7 @@ CREATE SEQUENCE col.event_type_event_type_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.event_type_event_type_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.event_type_event_type_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.event_type | type: TABLE --
@@ -464,7 +446,7 @@ CREATE SEQUENCE col.identifier_type_identifier_type_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.identifier_type_identifier_type_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.identifier_type_identifier_type_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.identifier_type | type: TABLE --
@@ -500,7 +482,7 @@ CREATE SEQUENCE col.label_label_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.label_label_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.label_label_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.label | type: TABLE --
@@ -541,13 +523,13 @@ CREATE SEQUENCE col.storage_storage_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.storage_storage_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.storage_storage_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.last_photo | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_photo CASCADE;
 CREATE VIEW col.last_photo
-AS
+AS 
 
 SELECT d.document_id,
     d.uid
@@ -605,7 +587,7 @@ CREATE SEQUENCE col.mime_type_mime_type_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.mime_type_mime_type_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.mime_type_mime_type_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.mime_type | type: TABLE --
@@ -675,7 +657,7 @@ CREATE SEQUENCE col.storage_reason_storage_reason_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.storage_reason_storage_reason_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.storage_reason_storage_reason_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.movement_type_movement_type_id_seq | type: SEQUENCE --
@@ -689,7 +671,7 @@ CREATE SEQUENCE col.movement_type_movement_type_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.movement_type_movement_type_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.movement_type_movement_type_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.movement_type | type: TABLE --
@@ -722,7 +704,7 @@ CREATE SEQUENCE col.multiple_type_multiple_type_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.multiple_type_multiple_type_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.multiple_type_multiple_type_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.multiple_type | type: TABLE --
@@ -759,7 +741,7 @@ CREATE SEQUENCE col.object_uid_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.object_uid_seq OWNER TO postgres;
+ALTER SEQUENCE col.object_uid_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.object_identifier_object_identifier_id_seq | type: SEQUENCE --
@@ -773,7 +755,7 @@ CREATE SEQUENCE col.object_identifier_object_identifier_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.object_identifier_object_identifier_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.object_identifier_object_identifier_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.object_identifier | type: TABLE --
@@ -805,7 +787,7 @@ CREATE SEQUENCE col.object_status_object_status_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.object_status_object_status_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.object_status_object_status_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.object_status | type: TABLE --
@@ -835,13 +817,6 @@ INSERT INTO col.object_status (object_status_id, object_status_name) VALUES (E'3
 INSERT INTO col.object_status (object_status_id, object_status_name) VALUES (E'6', E'Objet prêté');
 -- ddl-end --
 
--- object: postgis | type: EXTENSION --
--- DROP EXTENSION IF EXISTS postgis CASCADE;
-/*
-CREATE EXTENSION postgis
-WITH SCHEMA public;
--- ddl-end --
-*/
 -- object: col.operation_operation_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.operation_operation_id_seq CASCADE;
 CREATE SEQUENCE col.operation_operation_id_seq
@@ -853,7 +828,7 @@ CREATE SEQUENCE col.operation_operation_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.operation_operation_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.operation_operation_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.operation | type: TABLE --
@@ -875,7 +850,7 @@ COMMENT ON COLUMN col.operation.operation_order IS E'Ordre de réalisation de l'
 -- ddl-end --
 COMMENT ON COLUMN col.operation.operation_version IS E'Version de l''opération';
 -- ddl-end --
-COMMENT ON COLUMN col.operation.last_edit_date IS E'Date de dernière éditione l''opératon';
+COMMENT ON COLUMN col.operation.last_edit_date IS E'Last edit date of the operation';
 -- ddl-end --
 ALTER TABLE col.operation OWNER TO collec;
 -- ddl-end --
@@ -957,7 +932,7 @@ CREATE SEQUENCE col.protocol_protocol_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.protocol_protocol_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.protocol_protocol_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.protocol | type: TABLE --
@@ -1050,7 +1025,7 @@ CREATE SEQUENCE col.sample_sample_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.sample_sample_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.sample_sample_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.sample | type: TABLE --
@@ -1097,7 +1072,7 @@ CREATE SEQUENCE col.sample_type_sample_type_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.sample_type_sample_type_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.sample_type_sample_type_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.sample_type | type: TABLE --
@@ -1174,7 +1149,7 @@ CREATE SEQUENCE col.storage_condition_storage_condition_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.storage_condition_storage_condition_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.storage_condition_storage_condition_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.storage_condition | type: TABLE --
@@ -1251,7 +1226,7 @@ CREATE SEQUENCE col.subsample_subsample_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE col.subsample_subsample_id_seq OWNER TO postgres;
+ALTER SEQUENCE col.subsample_subsample_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.subsample | type: TABLE --
@@ -1282,7 +1257,7 @@ ALTER TABLE col.subsample OWNER TO collec;
 -- object: col.v_object_identifier | type: VIEW --
 -- DROP VIEW IF EXISTS col.v_object_identifier CASCADE;
 CREATE VIEW col.v_object_identifier
-AS
+AS 
 
 SELECT object_identifier.uid,
     array_to_string(array_agg((((identifier_type.identifier_type_code)::text || ':'::text) || (object_identifier.object_identifier_value)::text) ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
@@ -1305,7 +1280,7 @@ CREATE SEQUENCE gacl.aclgroup_aclgroup_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE gacl.aclgroup_aclgroup_id_seq OWNER TO postgres;
+ALTER SEQUENCE gacl.aclgroup_aclgroup_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: gacl.aclacl | type: TABLE --
@@ -1346,7 +1321,7 @@ CREATE SEQUENCE gacl.aclaco_aclaco_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE gacl.aclaco_aclaco_id_seq OWNER TO postgres;
+ALTER SEQUENCE gacl.aclaco_aclaco_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: gacl.aclaco | type: TABLE --
@@ -1388,7 +1363,7 @@ CREATE SEQUENCE gacl.aclappli_aclappli_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE gacl.aclappli_aclappli_id_seq OWNER TO postgres;
+ALTER SEQUENCE gacl.aclappli_aclappli_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: gacl.aclappli | type: TABLE --
@@ -1452,7 +1427,7 @@ CREATE SEQUENCE gacl.acllogin_acllogin_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE gacl.acllogin_acllogin_id_seq OWNER TO postgres;
+ALTER SEQUENCE gacl.acllogin_acllogin_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: gacl.acllogin | type: TABLE --
@@ -1505,7 +1480,7 @@ CREATE SEQUENCE gacl.log_log_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 -- ddl-end --
--- ALTER SEQUENCE gacl.log_log_id_seq OWNER TO postgres;
+ALTER SEQUENCE gacl.log_log_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: gacl.log | type: TABLE --
@@ -1550,10 +1525,10 @@ CREATE SEQUENCE gacl.seq_logingestion_id
 -- DROP TABLE IF EXISTS gacl.logingestion CASCADE;
 CREATE TABLE gacl.logingestion (
 	id integer NOT NULL DEFAULT nextval('gacl.seq_logingestion_id'::regclass),
-	login character varying(32) NOT NULL,
-	password character varying(255),
-	nom character varying(32),
-	prenom character varying(32),
+	login varchar NOT NULL,
+	password varchar,
+	nom varchar,
+	prenom varchar,
 	mail character varying(255),
 	datemodif timestamp,
 	actif smallint DEFAULT 1,
@@ -1716,7 +1691,7 @@ CREATE INDEX log_ip_idx ON gacl.log
 -- object: col.last_movement | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_movement CASCADE;
 CREATE VIEW col.last_movement
-AS
+AS 
 
 SELECT s.uid,
     s.movement_id,
@@ -1837,7 +1812,7 @@ CREATE INDEX borrowing_borrower_id_idx ON col.borrowing
 -- object: col.last_borrowing | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_borrowing CASCADE;
 CREATE VIEW col.last_borrowing
-AS
+AS 
 
 SELECT b1.borrowing_id,
     b1.uid,
@@ -1854,22 +1829,10 @@ SELECT b1.borrowing_id,
 ALTER VIEW col.last_borrowing OWNER TO collec;
 -- ddl-end --
 
--- object: btree_gin | type: EXTENSION --
--- DROP EXTENSION IF EXISTS btree_gin CASCADE;
-/*CREATE EXTENSION btree_gin
-WITH SCHEMA pg_catalog;
--- ddl-end --
-
--- object: pgcrypto | type: EXTENSION --
--- DROP EXTENSION IF EXISTS pgcrypto CASCADE;
-CREATE EXTENSION pgcrypto
-WITH SCHEMA public;
--- ddl-end --
-*/
 -- object: col.slots_used | type: VIEW --
 -- DROP VIEW IF EXISTS col.slots_used CASCADE;
 CREATE VIEW col.slots_used
-AS
+AS 
 
 SELECT
    container_id, count(*) as nb_slots_used
@@ -2539,233 +2502,3 @@ ALTER TABLE col.object ADD CONSTRAINT referent_object_fk FOREIGN KEY (referent_i
 REFERENCES col.referent (referent_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
-
--- object: grant_261e5c7de5 | type: PERMISSION --
-GRANT CREATE,USAGE
-   ON SCHEMA col
-   TO postgres;
--- ddl-end --
-
--- object: grant_ac4de2ecc5 | type: PERMISSION --
-GRANT CREATE,USAGE
-   ON SCHEMA gacl
-   TO postgres;
--- ddl-end --
-
--- object: grant_5cec648d40 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.booking
-   TO postgres;
--- ddl-end --
-
--- object: grant_16896ccd2b | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.collection
-   TO postgres;
--- ddl-end --
-
--- object: grant_c3ccff3602 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.collection_group
-   TO postgres;
--- ddl-end --
-
--- object: grant_7fc86a631d | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.container
-   TO postgres;
--- ddl-end --
-
--- object: grant_d82bbb3a86 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.container_family
-   TO postgres;
--- ddl-end --
-
--- object: grant_014b43fa16 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.container_type
-   TO postgres;
--- ddl-end --
-
--- object: grant_b1afdf21b7 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.document
-   TO postgres;
--- ddl-end --
-
--- object: grant_9d5608a573 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.event
-   TO postgres;
--- ddl-end --
-
--- object: grant_e53751e76a | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.event_type
-   TO postgres;
--- ddl-end --
-
--- object: grant_b01c3aa3c8 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.identifier_type
-   TO postgres;
--- ddl-end --
-
--- object: grant_9be26b99c9 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.label
-   TO postgres;
--- ddl-end --
-
--- object: grant_117665da95 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.movement
-   TO postgres;
--- ddl-end --
-
--- object: grant_bda2d596a0 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.last_photo
-   TO postgres;
--- ddl-end --
-
--- object: grant_7a58e45384 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.mime_type
-   TO postgres;
--- ddl-end --
-
--- object: grant_1b5a2cd370 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.movement_reason
-   TO postgres;
--- ddl-end --
-
--- object: grant_78ae4cfdbd | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.movement_type
-   TO postgres;
--- ddl-end --
-
--- object: grant_b9df1f45f6 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.multiple_type
-   TO postgres;
--- ddl-end --
-
--- object: grant_ab514c3813 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.object
-   TO postgres;
--- ddl-end --
-
--- object: grant_7742f32267 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.object_identifier
-   TO postgres;
--- ddl-end --
-
--- object: grant_475f1ec4eb | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.object_status
-   TO postgres;
--- ddl-end --
-
--- object: grant_5357e969c8 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.operation
-   TO postgres;
--- ddl-end --
-
--- object: grant_70b17e7f41 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.protocol
-   TO postgres;
--- ddl-end --
-
--- object: grant_2ff4b2e5f7 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.sample
-   TO postgres;
--- ddl-end --
-
--- object: grant_ff77c238ee | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.sample_type
-   TO postgres;
--- ddl-end --
-
--- object: grant_901f8fbe00 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.storage_condition
-   TO postgres;
--- ddl-end --
-
--- object: grant_f2e020a342 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.subsample
-   TO postgres;
--- ddl-end --
-
--- object: grant_798bde4db4 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE col.v_object_identifier
-   TO postgres;
--- ddl-end --
-
--- object: grant_5c835a9ec3 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE gacl.aclgroup
-   TO postgres;
--- ddl-end --
-
--- object: grant_ec18c54185 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE gacl.aclacl
-   TO postgres;
--- ddl-end --
-
--- object: grant_aad8a26099 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE gacl.aclaco
-   TO postgres;
--- ddl-end --
-
--- object: grant_1d42ba5aa6 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE gacl.aclappli
-   TO postgres;
--- ddl-end --
-
--- object: grant_4a376b947c | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE gacl.acllogin
-   TO postgres;
--- ddl-end --
-
--- object: grant_a8143531b4 | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE gacl.acllogingroup
-   TO postgres;
--- ddl-end --
-
--- object: grant_17d23ef74a | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE gacl.log
-   TO postgres;
--- ddl-end --
-
--- object: grant_de4881c73e | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE gacl.logingestion
-   TO postgres;
--- ddl-end --
-
--- object: grant_2563607601 | type: PERMISSION --
-GRANT CREATE,CONNECT,TEMPORARY
-   ON DATABASE collec
-   TO collec;
--- ddl-end --
-
-

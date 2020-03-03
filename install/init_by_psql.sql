@@ -45,6 +45,11 @@ create database collec owner collec;
  create extension if not exists pg_trgm schema pg_catalog;
  create extension if not exists postgis schema public;
  create extension if not exists  pgcrypto schema public;
+ -- object: grant_95c2183ced | type: PERMISSION --
+GRANT CREATE,CONNECT,TEMPORARY
+   ON DATABASE collec
+   TO collec;
+-- ddl-end --
 
 /*
  * connexion a la base collec, avec l'utilisateur collec, en localhost,
@@ -56,4 +61,4 @@ create database collec owner collec;
 /**
  * create structure
  */
-\ir pgsql/collec_create_all_schemas.sql
+\ir pgsql/collec_create.sql

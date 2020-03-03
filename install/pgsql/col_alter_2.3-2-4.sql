@@ -687,5 +687,5 @@ REFERENCES col.campaign (campaign_id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
-
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'2.4', E'2020-03-01');
 

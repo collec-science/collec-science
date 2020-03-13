@@ -384,7 +384,8 @@ ALTER TABLE col.regulation OWNER TO collec;
 -- DROP TABLE IF EXISTS col.campaign_regulation CASCADE;
 CREATE TABLE col.campaign_regulation (
 	campaign_id integer NOT NULL,
-	regulation_id integer NOT NULL
+	regulation_id integer NOT NULL,
+	CONSTRAINT campaign_regulation_pk PRIMARY KEY (campaign_id,regulation_id)
 );
 -- ddl-end --
 ALTER TABLE col.campaign_regulation OWNER TO collec;

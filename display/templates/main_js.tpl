@@ -98,6 +98,12 @@
 		"oAria": {
 			"sSortAscending": "{t}: activer pour trier la colonne par ordre croissant{/t}",
 			"sSortDescending": "{t}: activer pour trier la colonne par ordre décroissant{/t}"
+		},
+		"buttons": {
+			"pageLength": {
+					_: "{t}Afficher %d éléments{/t}",
+					'-1': "{t}Tout afficher{/t}"
+			}
 		}
 	};
 	$( document ).ready( function () {
@@ -113,8 +119,12 @@
 		$( '.datatable' ).DataTable( {
 			"language": dataTableLanguage,
 			"searching": false,
+			dom: 'Bfrtip',
 			"pageLength": pageLength,
 			"lengthMenu": [ [ 10, 25, 50, 100, 500, -1 ], [ 10, 25, 50, 100, 500, "All" ] ],
+			buttons : [
+				"pageLength"
+			]
 		} );
 		$( '.datatable-nopaging-nosearching' ).DataTable( {
 			"language": dataTableLanguage,
@@ -124,8 +134,12 @@
 		$( '.datatable-searching' ).DataTable( {
 			"language": dataTableLanguage,
 			"searching": true,
+			dom: 'Bfrtip',
 			"pageLength": pageLength,
-			"lengthMenu": [ [ 10, 25, 50, 100, 500, -1 ], [ 10, 25, 50, 100, 500, "All" ] ]
+			"lengthMenu": [ [ 10, 25, 50, 100, 500, -1 ], [ 10, 25, 50, 100, 500, "All" ] ],
+			buttons: [
+				"pageLength"
+			]
 		} );
 		$( '.datatable-nopaging' ).DataTable( {
 			"language": dataTableLanguage,
@@ -141,7 +155,13 @@
 		$( '.datatable-nosort' ).DataTable( {
 			"language": dataTableLanguage,
 			"searching": false,
-			"ordering": false
+			"ordering": false,
+			dom: 'Bfrtip',
+			"pageLength": pageLength,
+			"lengthMenu": [ [ 10, 25, 50, 100, 500, -1 ], [ 10, 25, 50, 100, 500, "All" ] ],
+			buttons: [
+				"pageLength"
+			]
 		} );
 		$( '.datatable-export' ).DataTable( {
 			dom: 'Bfrtip',
@@ -167,6 +187,7 @@
 			"pageLength": pageLength,
 			"lengthMenu": [ [ 10, 25, 50, 100, 500, -1 ], [ 10, 25, 50, 100, 500, "All" ] ],
 			buttons: [
+				'pageLength',
 				'copyHtml5',
 				'excelHtml5',
 				'csvHtml5',

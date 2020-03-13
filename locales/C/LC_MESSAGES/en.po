@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-03 10:09+0100\n"
+"POT-Creation-Date: 2020-03-13 11:16+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1026,7 +1026,7 @@ msgstr "File %s not found or not readable"
 
 #: ../../../param/param.default.inc.php:11
 msgid "02/03/2020"
-msgstr ""
+msgstr "2020-03-02"
 
 #: ../../../modules/exportmodel/exportmodel.class.php:139
 #: ../../../modules/exportmodel/exportmodel.class.php:341
@@ -4647,7 +4647,7 @@ msgid "document original"
 msgstr "original document"
 
 #: ../../../display/templates/gestion/documentList.tpl:79
-#: ../../../display/templates/main_js.tpl:215
+#: ../../../display/templates/main_js.tpl:236
 msgid "Confirmez-vous la suppression ?"
 msgstr "Do you confirm the deletion?"
 
@@ -5856,7 +5856,15 @@ msgstr ": activate to sort column ascending"
 msgid ": activer pour trier la colonne par ordre décroissant"
 msgstr ": activate to sort column descending"
 
-#: ../../../display/templates/main_js.tpl:187
+#: ../../../display/templates/main_js.tpl:104
+msgid "Afficher %d éléments"
+msgstr "Show %d rows"
+
+#: ../../../display/templates/main_js.tpl:105
+msgid "Tout afficher"
+msgstr "Display All"
+
+#: ../../../display/templates/main_js.tpl:208
 msgid "Valeur numérique..."
 msgstr "Numerical value..."
 

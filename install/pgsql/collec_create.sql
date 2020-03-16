@@ -1,11 +1,8 @@
 -- Database generated with pgModeler (PostgreSQL Database Modeler).
 -- pgModeler  version: 0.9.2
--- PostgreSQL version: 11.0
+-- PostgreSQL version: 9.6
 -- Project Site: pgmodeler.io
 -- Model Author: ---
-
--- object: collec | type: ROLE --
--- DROP ROLE IF EXISTS collec;
 
 -- Database creation must be done outside a multicommand file.
 -- These commands were put in this file only as a convenience.
@@ -18,7 +15,7 @@
 -- 	TABLESPACE = pg_default
 -- 	OWNER = collec;
 -- -- ddl-end --
--- 
+--
 
 -- object: col | type: SCHEMA --
 -- DROP SCHEMA IF EXISTS col CASCADE;
@@ -36,7 +33,6 @@ ALTER SCHEMA gacl OWNER TO collec;
 
 SET search_path TO pg_catalog,public,col,gacl;
 -- ddl-end --
-
 
 -- object: col.booking_booking_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.booking_booking_id_seq CASCADE;
@@ -66,17 +62,17 @@ CREATE TABLE col.booking (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.booking IS E'Table des réservations d''objets';
+COMMENT ON TABLE col.booking IS E'Table of object''s bookings';
 -- ddl-end --
-COMMENT ON COLUMN col.booking.booking_date IS E'Date de la réservation';
+COMMENT ON COLUMN col.booking.booking_date IS E'Date of booking';
 -- ddl-end --
-COMMENT ON COLUMN col.booking.date_from IS E'Date-heure de début de la réservation';
+COMMENT ON COLUMN col.booking.date_from IS E'Date-time of booking start';
 -- ddl-end --
-COMMENT ON COLUMN col.booking.date_to IS E'Date-heure de fin de la réservation';
+COMMENT ON COLUMN col.booking.date_to IS E'Date-time of booking end';
 -- ddl-end --
-COMMENT ON COLUMN col.booking.booking_comment IS E'Commentaire';
+COMMENT ON COLUMN col.booking.booking_comment IS E'Comment';
 -- ddl-end --
-COMMENT ON COLUMN col.booking.booking_login IS E'Compte ayant réalisé la réservation';
+COMMENT ON COLUMN col.booking.booking_login IS E'Login used to perform the reservation';
 -- ddl-end --
 ALTER TABLE col.booking OWNER TO collec;
 -- ddl-end --
@@ -104,7 +100,7 @@ CREATE TABLE col.collection_group (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.collection_group IS E'Table des autorisations d''accès à un projet';
+COMMENT ON TABLE col.collection_group IS E'Table of project approvals';
 -- ddl-end --
 ALTER TABLE col.collection_group OWNER TO collec;
 -- ddl-end --
@@ -133,7 +129,7 @@ CREATE TABLE col.container (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.container IS E'Liste des conteneurs d''échantillon';
+COMMENT ON TABLE col.container IS E'Liste of containers';
 -- ddl-end --
 ALTER TABLE col.container OWNER TO collec;
 -- ddl-end --
@@ -161,7 +157,7 @@ CREATE TABLE col.container_family (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.container_family IS E'Famille générique des conteneurs';
+COMMENT ON TABLE col.container_family IS E'General family of containers';
 -- ddl-end --
 ALTER TABLE col.container_family OWNER TO collec;
 -- ddl-end --
@@ -205,19 +201,19 @@ CREATE TABLE col.container_type (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.container_type IS E'Table des types de conteneurs';
+COMMENT ON TABLE col.container_type IS E'Table of types of containers';
 -- ddl-end --
-COMMENT ON COLUMN col.container_type.clp_classification IS E'Classification du risque conformément à la directive européenne CLP';
+COMMENT ON COLUMN col.container_type.clp_classification IS E'Risk classification according to the European CLP directive';
 -- ddl-end --
-COMMENT ON COLUMN col.container_type.container_type_description IS E'Description longue';
+COMMENT ON COLUMN col.container_type.container_type_description IS E'Long description';
 -- ddl-end --
-COMMENT ON COLUMN col.container_type.storage_product IS E'Produit utilisé pour le stockage (formol, alcool...)';
+COMMENT ON COLUMN col.container_type.storage_product IS E'Product used for storage (formol, alcohol...)';
 -- ddl-end --
-COMMENT ON COLUMN col.container_type.columns IS E'Nombre de colonnes de stockage dans le container';
+COMMENT ON COLUMN col.container_type.columns IS E'Number of storage columns in the container';
 -- ddl-end --
-COMMENT ON COLUMN col.container_type.lines IS E'Nombre de lignes de stockage dans le container';
+COMMENT ON COLUMN col.container_type.lines IS E'Number of storage lines in the container';
 -- ddl-end --
-COMMENT ON COLUMN col.container_type.first_line IS E'T : top, premiere ligne en haut\nB: bottom, premiere ligne en bas';
+COMMENT ON COLUMN col.container_type.first_line IS E'Place of the first line:\nT: top\nB: bottom';
 -- ddl-end --
 COMMENT ON COLUMN col.container_type.nb_slots_max IS E'Number maximum of slots in the container';
 -- ddl-end --
@@ -291,11 +287,11 @@ CREATE TABLE col.dbversion (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.dbversion IS E'Table des versions de la base de donnees';
+COMMENT ON TABLE col.dbversion IS E'Table of the database versions';
 -- ddl-end --
-COMMENT ON COLUMN col.dbversion.dbversion_number IS E'Numero de la version';
+COMMENT ON COLUMN col.dbversion.dbversion_number IS E'Number of the version';
 -- ddl-end --
-COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date de la version';
+COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 -- ddl-end --
 ALTER TABLE col.dbversion OWNER TO collec;
 -- ddl-end --
@@ -335,21 +331,21 @@ CREATE TABLE col.document (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.document IS E'Documents numériques rattachés à un poisson ou à un événement';
+COMMENT ON TABLE col.document IS E'Numeric docs associated to an objet or a campaign';
 -- ddl-end --
-COMMENT ON COLUMN col.document.document_import_date IS E'Date d''import dans la base de données';
+COMMENT ON COLUMN col.document.document_import_date IS E'Import date into the database';
 -- ddl-end --
-COMMENT ON COLUMN col.document.document_name IS E'Nom d''origine du document';
+COMMENT ON COLUMN col.document.document_name IS E'Original name';
 -- ddl-end --
-COMMENT ON COLUMN col.document.document_description IS E'Description libre du document';
+COMMENT ON COLUMN col.document.document_description IS E'Description';
 -- ddl-end --
-COMMENT ON COLUMN col.document.data IS E'Contenu du document';
+COMMENT ON COLUMN col.document.data IS E'Binary content (object imported)';
 -- ddl-end --
-COMMENT ON COLUMN col.document.thumbnail IS E'Vignette au format PNG (documents pdf, jpg ou png)';
+COMMENT ON COLUMN col.document.thumbnail IS E'Thumbnail in PNG format ( only for pdf, jpg or png docs)';
 -- ddl-end --
-COMMENT ON COLUMN col.document.size IS E'Taille du fichier téléchargé';
+COMMENT ON COLUMN col.document.size IS E'Size of downloaded file';
 -- ddl-end --
-COMMENT ON COLUMN col.document.document_creation_date IS E'Date de création du document (date de prise de vue de la photo)';
+COMMENT ON COLUMN col.document.document_creation_date IS E'Create date of the document (date of photo shooting, for example)';
 -- ddl-end --
 ALTER TABLE col.document OWNER TO collec;
 -- ddl-end --
@@ -381,11 +377,13 @@ CREATE TABLE col.event (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.event IS E'Table des événements';
+COMMENT ON TABLE col.event IS E'Table of events';
 -- ddl-end --
-COMMENT ON COLUMN col.event.event_date IS E'Date / heure de l''événement';
+COMMENT ON COLUMN col.event.event_date IS E'Date-time of the event';
 -- ddl-end --
-COMMENT ON COLUMN col.event.still_available IS E'définit ce qu''il reste de disponible dans l''objet';
+COMMENT ON COLUMN col.event.still_available IS E'still available content in the object, after the event';
+-- ddl-end --
+COMMENT ON COLUMN col.event.event_comment IS E'Comment';
 -- ddl-end --
 ALTER TABLE col.event OWNER TO collec;
 -- ddl-end --
@@ -415,11 +413,13 @@ CREATE TABLE col.event_type (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.event_type IS E'Types d''événement';
+COMMENT ON TABLE col.event_type IS E'Event types table';
 -- ddl-end --
-COMMENT ON COLUMN col.event_type.is_sample IS E'L''événement s''applique aux échantillons';
+COMMENT ON COLUMN col.event_type.event_type_name IS E'Name of the type of event';
 -- ddl-end --
-COMMENT ON COLUMN col.event_type.is_container IS E'L''événement s''applique aux conteneurs';
+COMMENT ON COLUMN col.event_type.is_sample IS E'The event is applicable to the samples';
+-- ddl-end --
+COMMENT ON COLUMN col.event_type.is_container IS E'The event is applicable to the containers';
 -- ddl-end --
 ALTER TABLE col.event_type OWNER TO collec;
 -- ddl-end --
@@ -460,13 +460,13 @@ CREATE TABLE col.identifier_type (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.identifier_type IS E'Table des types d''identifiants';
+COMMENT ON TABLE col.identifier_type IS E'Table of identifier types';
 -- ddl-end --
-COMMENT ON COLUMN col.identifier_type.identifier_type_name IS E'Nom textuel de l''identifiant';
+COMMENT ON COLUMN col.identifier_type.identifier_type_name IS E'Textual name of the identifier';
 -- ddl-end --
-COMMENT ON COLUMN col.identifier_type.identifier_type_code IS E'Code utilisé pour la génération des étiquettes';
+COMMENT ON COLUMN col.identifier_type.identifier_type_code IS E'Identifier code, used in the labels';
 -- ddl-end --
-COMMENT ON COLUMN col.identifier_type.used_for_search IS E'Indique si l''identifiant doit être utilise pour les recherches a partir des codes-barres';
+COMMENT ON COLUMN col.identifier_type.used_for_search IS E'Is the identifier usable for barcode searches?';
 -- ddl-end --
 ALTER TABLE col.identifier_type OWNER TO collec;
 -- ddl-end --
@@ -498,13 +498,17 @@ CREATE TABLE col.label (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.label IS E'Table des modèles d''étiquettes';
+COMMENT ON TABLE col.label IS E'Table of label models';
 -- ddl-end --
-COMMENT ON COLUMN col.label.label_name IS E'Nom du modèle';
+COMMENT ON COLUMN col.label.label_name IS E'Name of the model';
 -- ddl-end --
-COMMENT ON COLUMN col.label.label_xsl IS E'Contenu du fichier XSL utilisé pour la transformation FOP (https://xmlgraphics.apache.org/fop/)';
+COMMENT ON COLUMN col.label.label_xsl IS E'XSL content used by FOP transformation (https://xmlgraphics.apache.org/fop/)';
 -- ddl-end --
-COMMENT ON COLUMN col.label.identifier_only IS E'true : le qrcode ne contient qu''un identifiant metier';
+COMMENT ON COLUMN col.label.label_fields IS E'List of fields incorporated in the QRCODE';
+-- ddl-end --
+COMMENT ON COLUMN col.label.metadata_id IS E'Model of the metadata template associated with this label';
+-- ddl-end --
+COMMENT ON COLUMN col.label.identifier_only IS E'true: the qrcode contains only a business identifier';
 -- ddl-end --
 ALTER TABLE col.label OWNER TO collec;
 -- ddl-end --
@@ -529,7 +533,7 @@ ALTER SEQUENCE col.storage_storage_id_seq OWNER TO collec;
 -- object: col.last_photo | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_photo CASCADE;
 CREATE VIEW col.last_photo
-AS 
+AS
 
 SELECT d.document_id,
     d.uid
@@ -567,11 +571,11 @@ CREATE TABLE col.metadata (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.metadata IS E'Table des metadata utilisables dans les types d''echantillons';
+COMMENT ON TABLE col.metadata IS E'Table of metadata usable with types of samples';
 -- ddl-end --
-COMMENT ON COLUMN col.metadata.metadata_name IS E'Nom du jeu de metadonnees';
+COMMENT ON COLUMN col.metadata.metadata_name IS E'Name of the metadata set';
 -- ddl-end --
-COMMENT ON COLUMN col.metadata.metadata_schema IS E'Schéma en JSON du formulaire des métadonnées';
+COMMENT ON COLUMN col.metadata.metadata_schema IS E'JSON schema of the metadata form';
 -- ddl-end --
 ALTER TABLE col.metadata OWNER TO collec;
 -- ddl-end --
@@ -600,11 +604,11 @@ CREATE TABLE col.mime_type (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.mime_type IS E'Types mime des fichiers importés';
+COMMENT ON TABLE col.mime_type IS E'Mime types of imported files';
 -- ddl-end --
-COMMENT ON COLUMN col.mime_type.extension IS E'Extension du fichier correspondant';
+COMMENT ON COLUMN col.mime_type.extension IS E'File extension';
 -- ddl-end --
-COMMENT ON COLUMN col.mime_type.content_type IS E'type mime officiel';
+COMMENT ON COLUMN col.mime_type.content_type IS E'Official mime type';
 -- ddl-end --
 ALTER TABLE col.mime_type OWNER TO collec;
 -- ddl-end --
@@ -716,7 +720,7 @@ CREATE TABLE col.multiple_type (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.multiple_type IS E'Table des types de contenus multiples';
+COMMENT ON TABLE col.multiple_type IS E'Table of categories of potential sub-sampling (unit, quantity, percentage, etc.)';
 -- ddl-end --
 ALTER TABLE col.multiple_type OWNER TO collec;
 -- ddl-end --
@@ -769,9 +773,9 @@ CREATE TABLE col.object_identifier (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.object_identifier IS E'Table des identifiants complémentaires normalisés';
+COMMENT ON TABLE col.object_identifier IS E'Table of complementary identifiers';
 -- ddl-end --
-COMMENT ON COLUMN col.object_identifier.object_identifier_value IS E'Valeur de l''identifiant';
+COMMENT ON COLUMN col.object_identifier.object_identifier_value IS E'Identifier value';
 -- ddl-end --
 ALTER TABLE col.object_identifier OWNER TO collec;
 -- ddl-end --
@@ -799,7 +803,7 @@ CREATE TABLE col.object_status (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.object_status IS E'Table des statuts possibles des objets';
+COMMENT ON TABLE col.object_status IS E'Table of types of status';
 -- ddl-end --
 ALTER TABLE col.object_status OWNER TO collec;
 -- ddl-end --
@@ -838,7 +842,6 @@ CREATE TABLE col.operation (
 	protocol_id integer NOT NULL,
 	operation_name character varying NOT NULL,
 	operation_order integer,
-	metadata_form_id integer,
 	operation_version character varying,
 	last_edit_date timestamp,
 	CONSTRAINT operation_name_version_unique UNIQUE (operation_name,operation_version),
@@ -846,9 +849,11 @@ CREATE TABLE col.operation (
 
 );
 -- ddl-end --
-COMMENT ON COLUMN col.operation.operation_order IS E'Ordre de réalisation de l''opération dans le protocole';
+COMMENT ON TABLE col.operation IS E'List of operations attached to a protocol';
 -- ddl-end --
-COMMENT ON COLUMN col.operation.operation_version IS E'Version de l''opération';
+COMMENT ON COLUMN col.operation.operation_order IS E'Order to perform the operation in the protocol';
+-- ddl-end --
+COMMENT ON COLUMN col.operation.operation_version IS E'Version of the operation';
 -- ddl-end --
 COMMENT ON COLUMN col.operation.last_edit_date IS E'Last edit date of the operation';
 -- ddl-end --
@@ -882,17 +887,17 @@ CREATE TABLE col.printer (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.printer IS E'Table des imprimantes gerees directement par le serveur';
+COMMENT ON TABLE col.printer IS E'Table of printers directly managed by the server';
 -- ddl-end --
-COMMENT ON COLUMN col.printer.printer_name IS E'Nom general de l''imprimante, affiche dans les masques de saisie';
+COMMENT ON COLUMN col.printer.printer_name IS E'Usual name of the printer, displayed in the forms';
 -- ddl-end --
-COMMENT ON COLUMN col.printer.printer_queue IS E'Nom de l''imprimante telle qu''elle est connue par le systeme';
+COMMENT ON COLUMN col.printer.printer_queue IS E'Name of the printer known by the operating system of the server';
 -- ddl-end --
-COMMENT ON COLUMN col.printer.printer_server IS E'Adresse du serveur, si imprimante non locale';
+COMMENT ON COLUMN col.printer.printer_server IS E'Server address, if the printer is not connected at the localhost';
 -- ddl-end --
-COMMENT ON COLUMN col.printer.printer_user IS E'Utilisateur autorise a imprimer';
+COMMENT ON COLUMN col.printer.printer_user IS E'User used to print, if necessary';
 -- ddl-end --
-COMMENT ON COLUMN col.printer.printer_comment IS E'Commentaire';
+COMMENT ON COLUMN col.printer.printer_comment IS E'Comment';
 -- ddl-end --
 ALTER TABLE col.printer OWNER TO collec;
 -- ddl-end --
@@ -950,11 +955,15 @@ CREATE TABLE col.protocol (
 
 );
 -- ddl-end --
-COMMENT ON COLUMN col.protocol.protocol_file IS E'Description PDF du protocole';
+COMMENT ON TABLE col.protocol IS E'List of protocols';
 -- ddl-end --
-COMMENT ON COLUMN col.protocol.protocol_year IS E'Année du protocole';
+COMMENT ON COLUMN col.protocol.protocol_name IS E'Name of the protocol';
 -- ddl-end --
-COMMENT ON COLUMN col.protocol.protocol_version IS E'Version du protocole';
+COMMENT ON COLUMN col.protocol.protocol_file IS E'PDF description of the protocol';
+-- ddl-end --
+COMMENT ON COLUMN col.protocol.protocol_year IS E'Year of the protocol';
+-- ddl-end --
+COMMENT ON COLUMN col.protocol.protocol_version IS E'Version of the protocol';
 -- ddl-end --
 COMMENT ON COLUMN col.protocol.authorization_number IS E'Number of the prelevement authorization';
 -- ddl-end --
@@ -1048,15 +1057,17 @@ CREATE TABLE col.sample (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.sample IS E'Table des échantillons';
+COMMENT ON TABLE col.sample IS E'Table of samples';
 -- ddl-end --
-COMMENT ON COLUMN col.sample.sample_creation_date IS E'Date de création de l''enregistrement dans la base de données';
+COMMENT ON COLUMN col.sample.sample_creation_date IS E'Creation date of the record in the database';
 -- ddl-end --
-COMMENT ON COLUMN col.sample.sampling_date IS E'Date de création de l''échantillon physique';
+COMMENT ON COLUMN col.sample.sampling_date IS E'Creation date of the physical sample or date of sampling';
 -- ddl-end --
-COMMENT ON COLUMN col.sample.dbuid_origin IS E'référence utilisée dans la base de données d''origine, sous la forme db:uid\nUtilisé pour lire les étiquettes créées dans d''autres instances';
+COMMENT ON COLUMN col.sample.dbuid_origin IS E'Reference used in the original database, under the form db:uid. Used for read the labels created in others instances';
 -- ddl-end --
-COMMENT ON COLUMN col.sample.metadata IS E'Metadonnees associees de l''echantillon';
+COMMENT ON COLUMN col.sample.metadata IS E'Metadata associated with the sample, in JSON format';
+-- ddl-end --
+COMMENT ON COLUMN col.sample.expiration_date IS E'Date of expiration of the sample. After this date, the sample is not usable';
 -- ddl-end --
 ALTER TABLE col.sample OWNER TO collec;
 -- ddl-end --
@@ -1091,9 +1102,13 @@ CREATE TABLE col.sample_type (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.sample_type IS E'Types d''échantillons';
+COMMENT ON TABLE col.sample_type IS E'Table of the types of samples';
 -- ddl-end --
-COMMENT ON COLUMN col.sample_type.identifier_generator_js IS E'Champ comprenant le code de la fonction javascript permettant de générer automatiquement un identifiant à partir des informations saisies';
+COMMENT ON COLUMN col.sample_type.sample_type_name IS E'Name of the type';
+-- ddl-end --
+COMMENT ON COLUMN col.sample_type.multiple_unit IS E'Name of the unit used  to qualify the number of sub-samples (ml, number, g, etc.)';
+-- ddl-end --
+COMMENT ON COLUMN col.sample_type.identifier_generator_js IS E'Javascript function code used to automaticaly generate a working identifier from the intered information';
 -- ddl-end --
 COMMENT ON COLUMN col.sample_type.sample_type_description IS E'Description of the type of sample';
 -- ddl-end --
@@ -1127,13 +1142,17 @@ CREATE TABLE col.sampling_place (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.sampling_place IS E'Table des lieux génériques d''échantillonnage';
+COMMENT ON TABLE col.sampling_place IS E'Table of sampling places';
 -- ddl-end --
-COMMENT ON COLUMN col.sampling_place.sampling_place_code IS E'Code métier de la station';
+COMMENT ON COLUMN col.sampling_place.sampling_place_name IS E'Name of the sampling place';
 -- ddl-end --
-COMMENT ON COLUMN col.sampling_place.sampling_place_x IS E'Longitude de la station, en WGS84';
+COMMENT ON COLUMN col.sampling_place.collection_id IS E'Collection of rattachment';
 -- ddl-end --
-COMMENT ON COLUMN col.sampling_place.sampling_place_y IS E'Latitude de la station, en WGS84';
+COMMENT ON COLUMN col.sampling_place.sampling_place_code IS E'Working code of the station';
+-- ddl-end --
+COMMENT ON COLUMN col.sampling_place.sampling_place_x IS E'Longitude of the station, in WGS84';
+-- ddl-end --
+COMMENT ON COLUMN col.sampling_place.sampling_place_y IS E'Latitude of the station, in WGS84';
 -- ddl-end --
 ALTER TABLE col.sampling_place OWNER TO collec;
 -- ddl-end --
@@ -1161,7 +1180,7 @@ CREATE TABLE col.storage_condition (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.storage_condition IS E'Condition de stockage';
+COMMENT ON TABLE col.storage_condition IS E'Table of the conditions of storage';
 -- ddl-end --
 ALTER TABLE col.storage_condition OWNER TO collec;
 -- ddl-end --
@@ -1200,17 +1219,17 @@ CREATE TABLE col.movement (
 -- ddl-end --
 COMMENT ON TABLE col.movement IS E'Records of objects movements';
 -- ddl-end --
-COMMENT ON COLUMN col.movement.movement_date IS E'Date/heure du mouvement';
+COMMENT ON COLUMN col.movement.movement_date IS E'Date-time of the movement';
 -- ddl-end --
-COMMENT ON COLUMN col.movement.storage_location IS E'Emplacement de l''échantillon dans le conteneur';
+COMMENT ON COLUMN col.movement.storage_location IS E'Place of the object in the container, in textual form';
 -- ddl-end --
-COMMENT ON COLUMN col.movement.login IS E'Nom de l''utilisateur ayant réalisé l''opération';
+COMMENT ON COLUMN col.movement.login IS E'Name of the operator who performed the operation';
 -- ddl-end --
-COMMENT ON COLUMN col.movement.movement_comment IS E'Commentaire';
+COMMENT ON COLUMN col.movement.movement_comment IS E'Comment';
 -- ddl-end --
-COMMENT ON COLUMN col.movement.column_number IS E'No de la colonne de stockage dans le container';
+COMMENT ON COLUMN col.movement.column_number IS E'Number of the storage column in the container';
 -- ddl-end --
-COMMENT ON COLUMN col.movement.line_number IS E'No de la ligne de stockage dans le container';
+COMMENT ON COLUMN col.movement.line_number IS E'Number of the storage line in the container';
 -- ddl-end --
 ALTER TABLE col.movement OWNER TO collec;
 -- ddl-end --
@@ -1243,13 +1262,15 @@ CREATE TABLE col.subsample (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.subsample IS E'Table des prélèvements et restitutions de sous-échantillons';
+COMMENT ON TABLE col.subsample IS E'Table of sub-sample takes and returns';
 -- ddl-end --
-COMMENT ON COLUMN col.subsample.subsample_date IS E'Date/heure de l''opération';
+COMMENT ON COLUMN col.subsample.subsample_date IS E'Date-time of the operation';
 -- ddl-end --
-COMMENT ON COLUMN col.subsample.subsample_quantity IS E'Quantité prélevée ou restituée';
+COMMENT ON COLUMN col.subsample.subsample_quantity IS E'Quantity taken or returned';
 -- ddl-end --
-COMMENT ON COLUMN col.subsample.subsample_login IS E'Login de l''utilisateur ayant réalisé l''opération';
+COMMENT ON COLUMN col.subsample.subsample_comment IS E'Comment on this operation';
+-- ddl-end --
+COMMENT ON COLUMN col.subsample.subsample_login IS E'Login of the user who perform this operation';
 -- ddl-end --
 ALTER TABLE col.subsample OWNER TO collec;
 -- ddl-end --
@@ -1257,7 +1278,7 @@ ALTER TABLE col.subsample OWNER TO collec;
 -- object: col.v_object_identifier | type: VIEW --
 -- DROP VIEW IF EXISTS col.v_object_identifier CASCADE;
 CREATE VIEW col.v_object_identifier
-AS 
+AS
 
 SELECT object_identifier.uid,
     array_to_string(array_agg((((identifier_type.identifier_type_code)::text || ':'::text) || (object_identifier.object_identifier_value)::text) ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
@@ -1292,7 +1313,7 @@ CREATE TABLE gacl.aclacl (
 
 );
 -- ddl-end --
-COMMENT ON TABLE gacl.aclacl IS E'Table des droits attribués';
+COMMENT ON TABLE gacl.aclacl IS E'Table of rights granted';
 -- ddl-end --
 ALTER TABLE gacl.aclacl OWNER TO collec;
 -- ddl-end --
@@ -1334,7 +1355,9 @@ CREATE TABLE gacl.aclaco (
 
 );
 -- ddl-end --
-COMMENT ON TABLE gacl.aclaco IS E'Table des droits gérés';
+COMMENT ON TABLE gacl.aclaco IS E'Table of managed rights';
+-- ddl-end --
+COMMENT ON COLUMN gacl.aclaco.aco IS E'Name of the right in the application';
 -- ddl-end --
 ALTER TABLE gacl.aclaco OWNER TO collec;
 -- ddl-end --
@@ -1376,11 +1399,11 @@ CREATE TABLE gacl.aclappli (
 
 );
 -- ddl-end --
-COMMENT ON TABLE gacl.aclappli IS E'Table des applications gérées';
+COMMENT ON TABLE gacl.aclappli IS E'Table of managed applications';
 -- ddl-end --
-COMMENT ON COLUMN gacl.aclappli.appli IS E'Nom de l''application pour la gestion des droits';
+COMMENT ON COLUMN gacl.aclappli.appli IS E'Code of the application used to manage the rights';
 -- ddl-end --
-COMMENT ON COLUMN gacl.aclappli.applidetail IS E'Description de l''application';
+COMMENT ON COLUMN gacl.aclappli.applidetail IS E'Description of the application';
 -- ddl-end --
 ALTER TABLE gacl.aclappli OWNER TO collec;
 -- ddl-end --
@@ -1398,7 +1421,11 @@ CREATE TABLE gacl.aclgroup (
 
 );
 -- ddl-end --
-COMMENT ON TABLE gacl.aclgroup IS E'Groupes des logins';
+COMMENT ON TABLE gacl.aclgroup IS E'Groups of logins';
+-- ddl-end --
+COMMENT ON COLUMN gacl.aclgroup.groupe IS E'Name of the group';
+-- ddl-end --
+COMMENT ON COLUMN gacl.aclgroup.aclgroup_id_parent IS E'Parent group who inherits of the rights attributed to this group';
 -- ddl-end --
 ALTER TABLE gacl.aclgroup OWNER TO collec;
 -- ddl-end --
@@ -1440,9 +1467,11 @@ CREATE TABLE gacl.acllogin (
 
 );
 -- ddl-end --
-COMMENT ON TABLE gacl.acllogin IS E'Table des logins des utilisateurs autorisés';
+COMMENT ON TABLE gacl.acllogin IS E'List of logins granted to access to the modules of the application';
 -- ddl-end --
-COMMENT ON COLUMN gacl.acllogin.logindetail IS E'Nom affiché';
+COMMENT ON COLUMN gacl.acllogin.login IS E'Login. It must be the same as the table logingestion';
+-- ddl-end --
+COMMENT ON COLUMN gacl.acllogin.logindetail IS E'Displayed name';
 -- ddl-end --
 ALTER TABLE gacl.acllogin OWNER TO collec;
 -- ddl-end --
@@ -1459,7 +1488,7 @@ CREATE TABLE gacl.acllogingroup (
 
 );
 -- ddl-end --
-COMMENT ON TABLE gacl.acllogingroup IS E'Table des relations entre les logins et les groupes';
+COMMENT ON TABLE gacl.acllogingroup IS E'List of logins in the groups';
 -- ddl-end --
 ALTER TABLE gacl.acllogingroup OWNER TO collec;
 -- ddl-end --
@@ -1496,13 +1525,17 @@ CREATE TABLE gacl.log (
 
 );
 -- ddl-end --
-COMMENT ON TABLE gacl.log IS E'Liste des connexions ou des actions enregistrées';
+COMMENT ON TABLE gacl.log IS E'List of all recorded operations (logins, calls of modules, etc.)';
 -- ddl-end --
-COMMENT ON COLUMN gacl.log.log_date IS E'Heure de connexion';
+COMMENT ON COLUMN gacl.log.login IS E'Code of the login who performs the operation';
 -- ddl-end --
-COMMENT ON COLUMN gacl.log.commentaire IS E'Donnees complementaires enregistrees';
+COMMENT ON COLUMN gacl.log.nom_module IS E'Name of the performed module';
 -- ddl-end --
-COMMENT ON COLUMN gacl.log.ipaddress IS E'Adresse IP du client';
+COMMENT ON COLUMN gacl.log.log_date IS E'Date-time of the operation';
+-- ddl-end --
+COMMENT ON COLUMN gacl.log.commentaire IS E'Complementary data recorded';
+-- ddl-end --
+COMMENT ON COLUMN gacl.log.ipaddress IS E'IP address of the client';
 -- ddl-end --
 ALTER TABLE gacl.log OWNER TO collec;
 -- ddl-end --
@@ -1539,6 +1572,26 @@ CREATE TABLE gacl.logingestion (
 
 );
 -- ddl-end --
+COMMENT ON TABLE gacl.logingestion IS E'List of logins used to connect to the application, when the account is managed by the application itself. This table also contains the accounts authorized to use the web services.';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.login IS E'Login used by the user';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.nom IS E'Name of the user';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.prenom IS E'Surname';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.mail IS E'email. Used to send password loss messages';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.datemodif IS E'Last date of change of the record';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.actif IS E'If 1, the account is active and can be logging to the application';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.is_clientws IS E'True if the login is used by a third-party application to call a web-service';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.tokenws IS E'Identification token used for the third-parties applications';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.is_expired IS E'If true, the account is expired (password older)';
+-- ddl-end --
 ALTER TABLE gacl.logingestion OWNER TO collec;
 -- ddl-end --
 
@@ -1571,11 +1624,15 @@ CREATE TABLE gacl.passwordlost (
 
 );
 -- ddl-end --
-COMMENT ON TABLE gacl.passwordlost IS E'Table de suivi des pertes de mots de passe';
+COMMENT ON TABLE gacl.passwordlost IS E'Password loss tracking table';
 -- ddl-end --
-COMMENT ON COLUMN gacl.passwordlost.token IS E'Jeton utilise pour le renouvellement';
+COMMENT ON COLUMN gacl.passwordlost.id IS E'Logingestion id key';
 -- ddl-end --
-COMMENT ON COLUMN gacl.passwordlost.expiration IS E'Date d''expiration du jeton';
+COMMENT ON COLUMN gacl.passwordlost.token IS E'Token used to renewal';
+-- ddl-end --
+COMMENT ON COLUMN gacl.passwordlost.expiration IS E'Expiration date-time of the token';
+-- ddl-end --
+COMMENT ON COLUMN gacl.passwordlost.usedate IS E'Used date-time of the token';
 -- ddl-end --
 ALTER TABLE gacl.passwordlost OWNER TO collec;
 -- ddl-end --
@@ -1691,7 +1748,7 @@ CREATE INDEX log_ip_idx ON gacl.log
 -- object: col.last_movement | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_movement CASCADE;
 CREATE VIEW col.last_movement
-AS 
+AS
 
 SELECT s.uid,
     s.movement_id,
@@ -1780,6 +1837,8 @@ CREATE TABLE col.borrowing (
 
 );
 -- ddl-end --
+COMMENT ON TABLE col.borrowing IS E'List of borrowings';
+-- ddl-end --
 COMMENT ON COLUMN col.borrowing.borrowing_date IS E'Date of the borrowing';
 -- ddl-end --
 COMMENT ON COLUMN col.borrowing.expected_return_date IS E'Expected return date of the object';
@@ -1812,7 +1871,7 @@ CREATE INDEX borrowing_borrower_id_idx ON col.borrowing
 -- object: col.last_borrowing | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_borrowing CASCADE;
 CREATE VIEW col.last_borrowing
-AS 
+AS
 
 SELECT b1.borrowing_id,
     b1.uid,
@@ -1832,7 +1891,7 @@ ALTER VIEW col.last_borrowing OWNER TO collec;
 -- object: col.slots_used | type: VIEW --
 -- DROP VIEW IF EXISTS col.slots_used CASCADE;
 CREATE VIEW col.slots_used
-AS 
+AS
 
 SELECT
    container_id, count(*) as nb_slots_used
@@ -2022,13 +2081,15 @@ CREATE TABLE col.object (
 
 );
 -- ddl-end --
-COMMENT ON TABLE col.object IS E'Table des objets\nContient les identifiants génériques';
+COMMENT ON TABLE col.object IS E'Table of objects';
 -- ddl-end --
-COMMENT ON COLUMN col.object.identifier IS E'Identifiant fourni le cas échéant par le projet';
+COMMENT ON COLUMN col.object.uid IS E'Unique identifier in the database of all objects';
 -- ddl-end --
-COMMENT ON COLUMN col.object.wgs84_x IS E'Longitude GPS, en valeur décimale';
+COMMENT ON COLUMN col.object.identifier IS E'Main working identifier';
 -- ddl-end --
-COMMENT ON COLUMN col.object.wgs84_y IS E'Latitude GPS, en valeur décimale';
+COMMENT ON COLUMN col.object.wgs84_x IS E'GPS longitude, in decimal form';
+-- ddl-end --
+COMMENT ON COLUMN col.object.wgs84_y IS E'GPS latitude, in decimal form';
 -- ddl-end --
 COMMENT ON COLUMN col.object.change_date IS E'Technical date of changement of the object';
 -- ddl-end --
@@ -2149,7 +2210,10 @@ CREATE TABLE col.campaign_regulation (
 	campaign_id integer NOT NULL,
 	regulation_id integer NOT NULL,
 	CONSTRAINT campaign_regulation_pk PRIMARY KEY (campaign_id,regulation_id)
+
 );
+-- ddl-end --
+COMMENT ON TABLE col.campaign_regulation IS E'List of regulations attached to a campaign';
 -- ddl-end --
 ALTER TABLE col.campaign_regulation OWNER TO collec;
 -- ddl-end --

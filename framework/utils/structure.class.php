@@ -161,14 +161,14 @@ class Structure extends ObjetBDD
                 . $table["description"] . '</div>.<br>';
             $val .= '<table class="' . $classTableColumns . '">';
             $val .= '<thead><tr><th>Column name</th>
-            <th>Type</th><th>Not null</th>
+            <th>Type</th><th class="center">Not null</th>
             <th>key</th><th>Foreign key</th><th>Comment</th></tr></thead>';
             $val .= '<tbody>';
             foreach ($table["columns"] as $column) {
                 $val .= '<tr>
                 <td>' . $column["field"] . '</td>
                 <td>' . $column["type"] . '</td>
-                <td>' . $column["notnull"] . '</td>
+                <td class="center">' . $column["notnull"] . '</td>
                 <td>' . $column["key"] . '</td>
                 <td>' . $column["ckey"] . '</td>
                 <td>' . $column["comment"] . '</td>

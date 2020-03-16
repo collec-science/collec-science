@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" last-position="0,0" last-zoom="0.45" max-obj-count="61"
+<dbmodel pgmodeler-ver="0.9.2" last-position="0,0" last-zoom="0.6" max-obj-count="61"
 	 default-schema="public" default-owner="postgres"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -456,6 +456,7 @@ Congélateur•2]]>
 	</column>
 	<column name="event_type_name" not-null="true">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Name of the type of event]]></comment>
 	</column>
 	<column name="is_sample" not-null="true" default-value="false">
 		<type name="boolean" length="0"/>
@@ -533,9 +534,11 @@ Prélèvement pour analyse•true•false⸣
 	</column>
 	<column name="label_fields" not-null="true" default-value="'uid,id,clp,db'">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[List of fields incorporated in the QRCODE]]></comment>
 	</column>
 	<column name="metadata_id">
 		<type name="integer" length="0"/>
+		<comment><![CDATA[Model of the metadata template associated with this label]]></comment>
 	</column>
 	<column name="identifier_only" not-null="true" default-value="false">
 		<type name="boolean" length="0"/>
@@ -650,7 +653,7 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 <table name="metadata" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des metadata utilisables dans les types d'echantillons]]></comment>
+	<comment><![CDATA[Table of metadata usable with types of samples]]></comment>
 	<tag name="sample"/>
 	<position x="200" y="1580"/>
 	<column name="metadata_id" not-null="true" sequence="col.metadata_metadata_id_seq">
@@ -658,11 +661,11 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 	</column>
 	<column name="metadata_name" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Nom du jeu de metadonnees]]></comment>
+		<comment><![CDATA[Name of the metadata set]]></comment>
 	</column>
 	<column name="metadata_schema">
 		<type name="json" length="0"/>
-		<comment><![CDATA[Schéma en JSON du formulaire des métadonnées]]></comment>
+		<comment><![CDATA[JSON schema of the metadata form]]></comment>
 	</column>
 	<constraint name="metadata_pk" type="pk-constr" table="col.metadata">
 		<columns names="metadata_id" ref-type="src-columns"/>
@@ -677,7 +680,7 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 <table name="mime_type" layer="0" collapse-mode="1" max-obj-count="3">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Types mime des fichiers importés]]></comment>
+	<comment><![CDATA[Mime types of imported files]]></comment>
 	<tag name="objects"/>
 	<position x="940" y="440"/>
 	<column name="mime_type_id" not-null="true" sequence="col.mime_type_mime_type_id_seq">
@@ -685,11 +688,11 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 	</column>
 	<column name="extension" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Extension du fichier correspondant]]></comment>
+		<comment><![CDATA[File extension]]></comment>
 	</column>
 	<column name="content_type" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[type mime officiel]]></comment>
+		<comment><![CDATA[Official mime type]]></comment>
 	</column>
 	<constraint name="mime_type_pk" type="pk-constr" table="col.mime_type">
 		<columns names="mime_type_id" ref-type="src-columns"/>
@@ -757,7 +760,7 @@ fsa•application/octet-stream]]>
 <table name="multiple_type" layer="0" collapse-mode="1" max-obj-count="2">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des types de contenus multiples]]></comment>
+	<comment><![CDATA[Table of categories of potential sub-sampling (unit, quantity, percentage, etc.)]]></comment>
 	<tag name="sample"/>
 	<position x="0" y="1340"/>
 	<column name="multiple_type_id" not-null="true" sequence="col.multiple_type_multiple_type_id_seq">
@@ -791,7 +794,7 @@ Autre]]>
 <table name="object_identifier" layer="0" collapse-mode="1" max-obj-count="4">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des identifiants complémentaires normalisés]]></comment>
+	<comment><![CDATA[Table of complementary identifiers]]></comment>
 	<tag name="objects"/>
 	<position x="1340" y="600"/>
 	<column name="object_identifier_id" not-null="true" sequence="col.object_identifier_object_identifier_id_seq">
@@ -805,7 +808,7 @@ Autre]]>
 	</column>
 	<column name="object_identifier_value" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Valeur de l'identifiant]]></comment>
+		<comment><![CDATA[Identifier value]]></comment>
 	</column>
 	<constraint name="object_identifier_pk" type="pk-constr" table="col.object_identifier">
 		<columns names="object_identifier_id" ref-type="src-columns"/>
@@ -820,7 +823,7 @@ Autre]]>
 <table name="object_status" layer="0" collapse-mode="1" max-obj-count="2">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des statuts possibles des objets]]></comment>
+	<comment><![CDATA[Table of types of status]]></comment>
 	<tag name="objects"/>
 	<position x="1580" y="820"/>
 	<column name="object_status_id" not-null="true" sequence="col.object_status_object_status_id_seq">
@@ -852,7 +855,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="operation" layer="0" collapse-mode="1" max-obj-count="8">
+<table name="operation" layer="0" collapse-mode="1" max-obj-count="7">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of operations attached to a protocol]]></comment>
@@ -869,14 +872,11 @@ Autre]]>
 	</column>
 	<column name="operation_order">
 		<type name="integer" length="0"/>
-		<comment><![CDATA[Ordre de réalisation de l'opération dans le protocole]]></comment>
-	</column>
-	<column name="metadata_form_id">
-		<type name="integer" length="0"/>
+		<comment><![CDATA[Order to perform the operation in the protocol]]></comment>
 	</column>
 	<column name="operation_version">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Version de l'opération]]></comment>
+		<comment><![CDATA[Version of the operation]]></comment>
 	</column>
 	<column name="last_edit_date">
 		<type name="timestamp" length="0"/>
@@ -898,7 +898,7 @@ Autre]]>
 <table name="printer" layer="0" collapse-mode="1" max-obj-count="7">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des imprimantes gerees directement par le serveur]]></comment>
+	<comment><![CDATA[Table of printers directly managed by the server]]></comment>
 	<tag name="container"/>
 	<position x="720" y="1580"/>
 	<column name="printer_id" not-null="true" sequence="col.printer_printer_id_seq">
@@ -906,23 +906,23 @@ Autre]]>
 	</column>
 	<column name="printer_name" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Nom general de l'imprimante, affiche dans les masques de saisie]]></comment>
+		<comment><![CDATA[Usual name of the printer, displayed in the forms]]></comment>
 	</column>
 	<column name="printer_queue" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Nom de l'imprimante telle qu'elle est connue par le systeme]]></comment>
+		<comment><![CDATA[Name of the printer known by the operating system of the server]]></comment>
 	</column>
 	<column name="printer_server">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Adresse du serveur, si imprimante non locale]]></comment>
+		<comment><![CDATA[Server address, if the printer is not connected at the localhost]]></comment>
 	</column>
 	<column name="printer_user">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Utilisateur autorise a imprimer ]]></comment>
+		<comment><![CDATA[User used to print, if necessary]]></comment>
 	</column>
 	<column name="printer_comment">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Commentaire]]></comment>
+		<comment><![CDATA[Comment]]></comment>
 	</column>
 	<constraint name="printer_pk" type="pk-constr" table="col.printer">
 		<columns names="printer_id" ref-type="src-columns"/>
@@ -977,18 +977,19 @@ Autre]]>
 	</column>
 	<column name="protocol_name" not-null="true">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Name of the protocol]]></comment>
 	</column>
 	<column name="protocol_file">
 		<type name="bytea" length="0"/>
-		<comment><![CDATA[Description PDF du protocole]]></comment>
+		<comment><![CDATA[PDF description of the protocol]]></comment>
 	</column>
 	<column name="protocol_year">
 		<type name="smallint" length="0"/>
-		<comment><![CDATA[Année du protocole]]></comment>
+		<comment><![CDATA[Year of the protocol]]></comment>
 	</column>
 	<column name="protocol_version" not-null="true" default-value="'v1.0'">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Version du protocole]]></comment>
+		<comment><![CDATA[Version of the protocol]]></comment>
 	</column>
 	<column name="collection_id">
 		<type name="integer" length="0"/>
@@ -1065,7 +1066,7 @@ Autre]]>
 <table name="sample" layer="0" collapse-mode="1" max-obj-count="15">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des échantillons]]></comment>
+	<comment><![CDATA[Table of samples]]></comment>
 	<tag name="sample"/>
 	<position x="200" y="820"/>
 	<column name="sample_id" not-null="true" sequence="col.sample_sample_id_seq">
@@ -1082,11 +1083,11 @@ Autre]]>
 	</column>
 	<column name="sample_creation_date" not-null="true">
 		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Date de création de l'enregistrement dans la base de données]]></comment>
+		<comment><![CDATA[Creation date of the record in the database]]></comment>
 	</column>
 	<column name="sampling_date">
 		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Date de création de l'échantillon physique]]></comment>
+		<comment><![CDATA[Creation date of the physical sample or date of sampling]]></comment>
 	</column>
 	<column name="parent_sample_id">
 		<type name="integer" length="0"/>
@@ -1099,19 +1100,27 @@ Autre]]>
 	</column>
 	<column name="dbuid_origin">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[référence utilisée dans la base de données d'origine, sous la forme db:uid
-Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
+		<comment><![CDATA[Reference used in the original database, under the form db:uid. Used for read the labels created in others instances]]></comment>
 	</column>
 	<column name="metadata">
 		<type name="json" length="0"/>
-		<comment><![CDATA[Metadonnees associees de l'echantillon]]></comment>
+		<comment><![CDATA[Metadata associated with the sample, in JSON format]]></comment>
 	</column>
 	<column name="expiration_date">
 		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Date of expiration of the sample. After this date, the sample is not usable]]></comment>
 	</column>
 	<constraint name="sample_pk" type="pk-constr" table="col.sample">
 		<columns names="sample_id" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="campaign_id" index="12"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="campaign_fk" index="6"/>
+	</customidxs>
 </table>
 
 <sequence name="sample_type_sample_type_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
@@ -1122,7 +1131,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="sample_type" layer="0" collapse-mode="1" max-obj-count="10">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Types d'échantillons]]></comment>
+	<comment><![CDATA[Table of the types of samples]]></comment>
 	<tag name="sample"/>
 	<position x="200" y="1340"/>
 	<column name="sample_type_id" not-null="true" sequence="col.sample_type_sample_type_id_seq">
@@ -1130,6 +1139,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="sample_type_name" not-null="true">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Name of the type]]></comment>
 	</column>
 	<column name="container_type_id">
 		<type name="integer" length="0"/>
@@ -1139,6 +1149,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="multiple_unit">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Name of the unit used  to qualify the number of sub-samples (ml, number, g, etc.)]]></comment>
 	</column>
 	<column name="metadata_id">
 		<type name="integer" length="0"/>
@@ -1148,7 +1159,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="identifier_generator_js">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Champ comprenant le code de la fonction javascript permettant de générer automatiquement un identifiant à partir des informations saisies]]></comment>
+		<comment><![CDATA[Javascript function code used to automaticaly generate a working identifier from the intered information]]></comment>
 	</column>
 	<column name="sample_type_description">
 		<type name="varchar" length="0"/>
@@ -1167,7 +1178,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="sampling_place" layer="0" collapse-mode="1" max-obj-count="7">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des lieux génériques d'échantillonnage]]></comment>
+	<comment><![CDATA[Table of sampling places]]></comment>
 	<tag name="collection"/>
 	<position x="0" y="600"/>
 	<column name="sampling_place_id" not-null="true" sequence="col.sampling_place_sampling_place_id_seq">
@@ -1175,21 +1186,23 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="sampling_place_name" not-null="true">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Name of the sampling place]]></comment>
 	</column>
 	<column name="collection_id">
 		<type name="integer" length="0"/>
+		<comment><![CDATA[Collection of rattachment]]></comment>
 	</column>
 	<column name="sampling_place_code">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Code métier de la station]]></comment>
+		<comment><![CDATA[Working code of the station]]></comment>
 	</column>
 	<column name="sampling_place_x">
 		<type name="double precision" length="0"/>
-		<comment><![CDATA[Longitude de la station, en WGS84]]></comment>
+		<comment><![CDATA[Longitude of the station, in WGS84]]></comment>
 	</column>
 	<column name="sampling_place_y">
 		<type name="double precision" length="0"/>
-		<comment><![CDATA[Latitude de la station, en WGS84]]></comment>
+		<comment><![CDATA[Latitude of the station, in WGS84]]></comment>
 	</column>
 	<constraint name="sampling_place_pk" type="pk-constr" table="col.sampling_place">
 		<columns names="sampling_place_id" ref-type="src-columns"/>
@@ -1204,7 +1217,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="storage_condition" layer="0" collapse-mode="1" max-obj-count="2">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Condition de stockage]]></comment>
+	<comment><![CDATA[Table of the conditions of storage]]></comment>
 	<tag name="container"/>
 	<position x="1340" y="1460"/>
 	<column name="storage_condition_id" not-null="true" sequence="col.storage_condition_storage_condition_id_seq">
@@ -1255,30 +1268,30 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="movement_date" not-null="true">
 		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Date/heure du mouvement]]></comment>
+		<comment><![CDATA[Date-time of the movement]]></comment>
 	</column>
 	<column name="storage_location">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Emplacement de l'échantillon dans le conteneur]]></comment>
+		<comment><![CDATA[Place of the object in the container, in textual form]]></comment>
 	</column>
 	<column name="login" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Nom de l'utilisateur ayant réalisé l'opération]]></comment>
+		<comment><![CDATA[Name of the operator who performed the operation]]></comment>
 	</column>
 	<column name="movement_comment">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Commentaire]]></comment>
+		<comment><![CDATA[Comment]]></comment>
 	</column>
 	<column name="movement_reason_id">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="column_number" not-null="true" default-value="1">
 		<type name="integer" length="0"/>
-		<comment><![CDATA[No de la colonne de stockage dans le container]]></comment>
+		<comment><![CDATA[Number of the storage column in the container]]></comment>
 	</column>
 	<column name="line_number" not-null="true" default-value="1">
 		<type name="integer" length="0"/>
-		<comment><![CDATA[No de la ligne de stockage dans le container]]></comment>
+		<comment><![CDATA[Number of the storage line in the container]]></comment>
 	</column>
 	<constraint name="storage_pk" type="pk-constr" table="col.movement">
 		<columns names="movement_id" ref-type="src-columns"/>
@@ -1293,7 +1306,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="subsample" layer="0" collapse-mode="1" max-obj-count="8">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des prélèvements et restitutions de sous-échantillons]]></comment>
+	<comment><![CDATA[Table of sub-sample takes and returns]]></comment>
 	<tag name="sample"/>
 	<position x="480" y="1080"/>
 	<column name="subsample_id" not-null="true" sequence="col.subsample_subsample_id_seq">
@@ -1304,21 +1317,22 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="subsample_date" not-null="true">
 		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Date/heure de l'opération]]></comment>
+		<comment><![CDATA[Date-time of the operation]]></comment>
 	</column>
 	<column name="movement_type_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="subsample_quantity">
 		<type name="double precision" length="0"/>
-		<comment><![CDATA[Quantité prélevée ou restituée]]></comment>
+		<comment><![CDATA[Quantity taken or returned]]></comment>
 	</column>
 	<column name="subsample_comment">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Comment on this operation]]></comment>
 	</column>
 	<column name="subsample_login" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Login de l'utilisateur ayant réalisé l'opération]]></comment>
+		<comment><![CDATA[Login of the user who perform this operation]]></comment>
 	</column>
 	<constraint name="subsample_pk" type="pk-constr" table="col.subsample">
 		<columns names="subsample_id" ref-type="src-columns"/>
@@ -1367,7 +1381,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="aclacl" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des droits attribués]]></comment>
+	<comment><![CDATA[Table of rights granted]]></comment>
 	<tag name="acl"/>
 	<position x="0" y="20"/>
 	<column name="aclaco_id" not-null="true">
@@ -1398,7 +1412,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="aclaco" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des droits gérés]]></comment>
+	<comment><![CDATA[Table of managed rights]]></comment>
 	<tag name="acl"/>
 	<position x="180" y="20"/>
 	<column name="aclaco_id" not-null="true" sequence="gacl.aclaco_aclaco_id_seq">
@@ -1409,6 +1423,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="aco" not-null="true">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Name of the right in the application]]></comment>
 	</column>
 	<constraint name="aclaco_pk" type="pk-constr" table="gacl.aclaco">
 		<columns names="aclaco_id" ref-type="src-columns"/>
@@ -1432,7 +1447,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="aclappli" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des applications gérées]]></comment>
+	<comment><![CDATA[Table of managed applications]]></comment>
 	<tag name="acl"/>
 	<position x="340" y="20"/>
 	<column name="aclappli_id" not-null="true" sequence="gacl.aclappli_aclappli_id_seq">
@@ -1440,11 +1455,11 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="appli" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Nom de l'application pour la gestion des droits]]></comment>
+		<comment><![CDATA[Code of the application used to manage the rights]]></comment>
 	</column>
 	<column name="applidetail">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Description de l'application]]></comment>
+		<comment><![CDATA[Description of the application]]></comment>
 	</column>
 	<constraint name="aclappli_pk" type="pk-constr" table="gacl.aclappli">
 		<columns names="aclappli_id" ref-type="src-columns"/>
@@ -1458,7 +1473,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="aclgroup" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="collec"/>
-	<comment><![CDATA[Groupes des logins]]></comment>
+	<comment><![CDATA[Groups of logins]]></comment>
 	<tag name="acl"/>
 	<position x="0" y="160"/>
 	<column name="aclgroup_id" not-null="true" sequence="gacl.aclgroup_aclgroup_id_seq">
@@ -1466,9 +1481,11 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="groupe" not-null="true">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Name of the group]]></comment>
 	</column>
 	<column name="aclgroup_id_parent">
 		<type name="integer" length="0"/>
+		<comment><![CDATA[Parent group who inherits of the rights attributed to this group]]></comment>
 	</column>
 	<constraint name="aclgroup_pk" type="pk-constr" table="gacl.aclgroup">
 		<columns names="aclgroup_id" ref-type="src-columns"/>
@@ -1492,7 +1509,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="acllogin" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des logins des utilisateurs autorisés]]></comment>
+	<comment><![CDATA[List of logins granted to access to the modules of the application]]></comment>
 	<tag name="acl"/>
 	<position x="340" y="160"/>
 	<column name="acllogin_id" not-null="true" sequence="gacl.acllogin_acllogin_id_seq">
@@ -1500,10 +1517,11 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="login" not-null="true">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Login. It must be the same as the table logingestion]]></comment>
 	</column>
 	<column name="logindetail" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Nom affiché]]></comment>
+		<comment><![CDATA[Displayed name]]></comment>
 	</column>
 	<constraint name="acllogin_pk" type="pk-constr" table="gacl.acllogin">
 		<columns names="acllogin_id" ref-type="src-columns"/>
@@ -1517,7 +1535,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="acllogingroup" layer="1" collapse-mode="1" max-obj-count="3">
 	<schema name="gacl"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des relations entre les logins et les groupes]]></comment>
+	<comment><![CDATA[List of logins in the groups]]></comment>
 	<tag name="acl"/>
 	<position x="180" y="160"/>
 	<column name="acllogin_id" not-null="true">
@@ -1544,7 +1562,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="log" layer="1" collapse-mode="1" max-obj-count="7">
 	<schema name="gacl"/>
 	<role name="collec"/>
-	<comment><![CDATA[Liste des connexions ou des actions enregistrées]]></comment>
+	<comment><![CDATA[List of all recorded operations (logins, calls of modules, etc.)]]></comment>
 	<tag name="acl"/>
 	<position x="740" y="20"/>
 	<column name="log_id" not-null="true" sequence="gacl.log_log_id_seq">
@@ -1552,21 +1570,23 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="login" not-null="true">
 		<type name="character varying" length="32"/>
+		<comment><![CDATA[Code of the login who performs the operation]]></comment>
 	</column>
 	<column name="nom_module">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Name of the performed module]]></comment>
 	</column>
 	<column name="log_date" not-null="true">
 		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Heure de connexion]]></comment>
+		<comment><![CDATA[Date-time of the operation]]></comment>
 	</column>
 	<column name="commentaire">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Donnees complementaires enregistrees]]></comment>
+		<comment><![CDATA[Complementary data recorded]]></comment>
 	</column>
 	<column name="ipaddress">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Adresse IP du client]]></comment>
+		<comment><![CDATA[IP address of the client]]></comment>
 	</column>
 	<constraint name="log_pk" type="pk-constr" table="gacl.log">
 		<columns names="log_id" ref-type="src-columns"/>
@@ -1589,33 +1609,42 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="login" not-null="true">
 		<type name="varchar" length="0"/>
+		<comment><![CDATA[Login used by the user]]></comment>
 	</column>
 	<column name="password">
 		<type name="varchar" length="0"/>
 	</column>
 	<column name="nom">
 		<type name="varchar" length="0"/>
+		<comment><![CDATA[Name of the user]]></comment>
 	</column>
 	<column name="prenom">
 		<type name="varchar" length="0"/>
+		<comment><![CDATA[Surname]]></comment>
 	</column>
 	<column name="mail">
 		<type name="character varying" length="255"/>
+		<comment><![CDATA[email. Used to send password loss messages]]></comment>
 	</column>
 	<column name="datemodif">
 		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Last date of change of the record]]></comment>
 	</column>
 	<column name="actif" default-value="1">
 		<type name="smallint" length="0"/>
+		<comment><![CDATA[If 1, the account is active and can be logging to the application]]></comment>
 	</column>
 	<column name="is_clientws" default-value="false">
 		<type name="boolean" length="0"/>
+		<comment><![CDATA[True if the login is used by a third-party application to call a web-service]]></comment>
 	</column>
 	<column name="tokenws">
 		<type name="character varying" length="0"/>
+		<comment><![CDATA[Identification token used for the third-parties applications]]></comment>
 	</column>
 	<column name="is_expired" default-value="false">
 		<type name="boolean" length="0"/>
+		<comment><![CDATA[If true, the account is expired (password older)]]></comment>
 	</column>
 	<constraint name="pk_logingestion" type="pk-constr" table="gacl.logingestion">
 		<columns names="id" ref-type="src-columns"/>
@@ -1634,7 +1663,7 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 <table name="passwordlost" layer="1" collapse-mode="1" max-obj-count="6">
 	<schema name="gacl"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table de suivi des pertes de mots de passe]]></comment>
+	<comment><![CDATA[Password loss tracking table]]></comment>
 	<tag name="acl"/>
 	<position x="520" y="20"/>
 	<column name="passwordlost_id" not-null="true" sequence="gacl.passwordlost_passwordlost_id_seq">
@@ -1642,17 +1671,19 @@ Utilisé pour lire les étiquettes créées dans d'autres instances]]></comment>
 	</column>
 	<column name="id" not-null="true">
 		<type name="integer" length="0"/>
+		<comment><![CDATA[Logingestion id key]]></comment>
 	</column>
 	<column name="token" not-null="true">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Jeton utilise pour le renouvellement]]></comment>
+		<comment><![CDATA[Token used to renewal]]></comment>
 	</column>
 	<column name="expiration" not-null="true">
 		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Date d'expiration du jeton]]></comment>
+		<comment><![CDATA[Expiration date-time of the token]]></comment>
 	</column>
 	<column name="usedate">
 		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Used date-time of the token]]></comment>
 	</column>
 	<constraint name="passwordlost_pk" type="pk-constr" table="gacl.passwordlost">
 		<columns names="passwordlost_id" ref-type="src-columns"/>
@@ -2125,24 +2156,24 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 <table name="object" layer="0" collapse-mode="1" max-obj-count="13">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment><![CDATA[Table des objets
-Contient les identifiants génériques]]></comment>
+	<comment><![CDATA[Table of objects]]></comment>
 	<tag name="object"/>
 	<position x="1160" y="820"/>
 	<column name="uid" not-null="true" sequence="col.object_uid_seq">
 		<type name="integer" length="0"/>
+		<comment><![CDATA[Unique identifier in the database of all objects]]></comment>
 	</column>
 	<column name="identifier">
 		<type name="character varying" length="0"/>
-		<comment><![CDATA[Identifiant fourni le cas échéant par le projet]]></comment>
+		<comment><![CDATA[Main working identifier]]></comment>
 	</column>
 	<column name="wgs84_x">
 		<type name="double precision" length="0"/>
-		<comment><![CDATA[Longitude GPS, en valeur décimale]]></comment>
+		<comment><![CDATA[GPS longitude, in decimal form]]></comment>
 	</column>
 	<column name="wgs84_y">
 		<type name="double precision" length="0"/>
-		<comment><![CDATA[Latitude GPS, en valeur décimale]]></comment>
+		<comment><![CDATA[GPS latitude, in decimal form]]></comment>
 	</column>
 	<column name="object_status_id">
 		<type name="integer" length="0"/>

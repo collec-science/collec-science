@@ -174,8 +174,9 @@
 
 	<labelList action="modules/param/label.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 	<labelChange action="modules/param/label.php" param="change" droits="collection" retourlogin="1" type="smarty" />
-	<labelWrite action="modules/param/label.php" param="write" droits="collection" retourok="labelList" retourko="labelChange" modulebefore="labelChange,labelCopy" />
-	<labelDelete action="modules/param/label.php" param="delete" droits="collection" retourok="labelList" retourko="labelChange" modulebefore="labelChange"/>
+	<labelWrite action="modules/param/label.php" param="write" droits="collection" retourok="labelList" retourko="labelChange" modulebefore="labelChange,labelCopy,labelWriteStay" />
+	<labelWriteStay action="modules/param/label.php" param="write" droits="collection" retourok="labelChange" retourko="labelChange" modulebefore="labelChange,labelCopy,labelWriteStay" />
+	<labelDelete action="modules/param/label.php" param="delete" droits="collection" retourok="labelList" retourko="labelChange" modulebefore="labelChange,labelWriteStay"/>
 	<labelCopy action="modules/param/label.php" param="copy" droits="collection" type="smarty" />
 
 	<metadataFormGetDetail action="modules/param/sampleType.php" param="getDetailFormAjax" droits="consult" type="ajax" />

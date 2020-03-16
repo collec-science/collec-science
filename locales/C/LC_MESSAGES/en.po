@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-16 09:14+0100\n"
+"POT-Creation-Date: 2020-03-16 10:18+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1559,7 +1559,7 @@ msgstr "Detail of the export template"
 #: ../../../display/templates/param/campaignChange.tpl:1
 #: ../../../display/templates/param/operationChange.tpl:5
 #: ../../../display/templates/param/movementReasonChange.tpl:5
-#: ../../../display/templates/param/labelChange.tpl:34
+#: ../../../display/templates/param/labelChange.tpl:38
 #: ../../../display/templates/param/mimeTypeChange.tpl:4
 #: ../../../display/templates/param/borrowerDisplay.tpl:5
 #: ../../../display/templates/param/containerFamilyChange.tpl:5
@@ -1822,7 +1822,7 @@ msgstr "Back to detail"
 #: ../../../display/templates/param/campaignChange.tpl:60
 #: ../../../display/templates/param/operationChange.tpl:47
 #: ../../../display/templates/param/movementReasonChange.tpl:19
-#: ../../../display/templates/param/labelChange.tpl:92
+#: ../../../display/templates/param/labelChange.tpl:96
 #: ../../../display/templates/param/mimeTypeChange.tpl:22
 #: ../../../display/templates/param/containerFamilyChange.tpl:18
 #: ../../../display/templates/param/borrowerChange.tpl:51
@@ -1867,7 +1867,7 @@ msgstr "Model name:"
 #: ../../../display/templates/param/campaignChange.tpl:62
 #: ../../../display/templates/param/operationChange.tpl:49
 #: ../../../display/templates/param/movementReasonChange.tpl:21
-#: ../../../display/templates/param/labelChange.tpl:94
+#: ../../../display/templates/param/labelChange.tpl:99
 #: ../../../display/templates/param/mimeTypeChange.tpl:24
 #: ../../../display/templates/param/containerFamilyChange.tpl:20
 #: ../../../display/templates/param/borrowerChange.tpl:53
@@ -2058,7 +2058,7 @@ msgstr ""
 #: ../../../display/templates/param/protocolChange.tpl:99
 #: ../../../display/templates/param/operationChange.tpl:56
 #: ../../../display/templates/param/movementReasonChange.tpl:27
-#: ../../../display/templates/param/labelChange.tpl:140
+#: ../../../display/templates/param/labelChange.tpl:145
 #: ../../../display/templates/param/mimeTypeChange.tpl:30
 #: ../../../display/templates/param/containerFamilyChange.tpl:26
 #: ../../../display/templates/param/borrowerChange.tpl:59
@@ -2286,7 +2286,7 @@ msgstr "Account used for web service"
 #: ../../../display/templates/param/collectionChange.tpl:40
 #: ../../../display/templates/param/collectionChange.tpl:55
 #: ../../../display/templates/param/collectionChange.tpl:70
-#: ../../../display/templates/param/labelChange.tpl:59
+#: ../../../display/templates/param/labelChange.tpl:63
 #: ../../../display/templates/param/metadataFormJS.tpl:125
 #: ../../../display/templates/param/metadataFormJS.tpl:157
 #: ../../../display/templates/param/eventTypeChange.tpl:20
@@ -2376,7 +2376,7 @@ msgstr "Account used for web service:"
 #: ../../../display/templates/param/collectionChange.tpl:36
 #: ../../../display/templates/param/collectionChange.tpl:51
 #: ../../../display/templates/param/collectionChange.tpl:66
-#: ../../../display/templates/param/labelChange.tpl:65
+#: ../../../display/templates/param/labelChange.tpl:69
 #: ../../../display/templates/param/metadataFormJS.tpl:126
 #: ../../../display/templates/param/metadataFormJS.tpl:157
 #: ../../../display/templates/param/eventTypeChange.tpl:23
@@ -2754,7 +2754,7 @@ msgstr "Process"
 #: ../../../display/templates/param/sampleTypeChange.tpl:61
 #: ../../../display/templates/param/sampleTypeChange.tpl:78
 #: ../../../display/templates/param/samplingPlaceChange.tpl:25
-#: ../../../display/templates/param/labelChange.tpl:81
+#: ../../../display/templates/param/labelChange.tpl:85
 msgid "Choisissez..."
 msgstr "Select ..."
 
@@ -5071,12 +5071,12 @@ msgid "%1 : date de création de l'échantillon"
 msgstr "%1: created date of the sample"
 
 #: ../../../display/templates/param/sampleTypeChange.tpl:141
-#: ../../../display/templates/param/labelChange.tpl:117
+#: ../../../display/templates/param/labelChange.tpl:122
 msgid "%1 : date d'échantillonnage"
 msgstr "%1: sampling date"
 
 #: ../../../display/templates/param/sampleTypeChange.tpl:142
-#: ../../../display/templates/param/labelChange.tpl:118
+#: ../../../display/templates/param/labelChange.tpl:123
 msgid "%1 : date d'expiration de l'échantillon"
 msgstr "%1: expiry date of the sample"
 
@@ -5367,47 +5367,51 @@ msgstr "Phone"
 msgid "Dupliquer le référent"
 msgstr "Duplicate the referent"
 
-#: ../../../display/templates/param/labelChange.tpl:31
+#: ../../../display/templates/param/labelChange.tpl:35
 msgid "Création - Modification d'une étiquette"
 msgstr "Create / Edit a label template"
 
-#: ../../../display/templates/param/labelChange.tpl:42
+#: ../../../display/templates/param/labelChange.tpl:46
 msgid "Nom de l'étiquette :"
 msgstr "Name of the label:"
 
-#: ../../../display/templates/param/labelChange.tpl:48
+#: ../../../display/templates/param/labelChange.tpl:52
 msgid "Transformation XSL :"
 msgstr "XSL Transformation:"
 
-#: ../../../display/templates/param/labelChange.tpl:54
+#: ../../../display/templates/param/labelChange.tpl:58
 msgid "Étiquette ne comprenant qu'un identifiant métier ?"
 msgstr "Does the label include only a business identifier?"
 
-#: ../../../display/templates/param/labelChange.tpl:72
+#: ../../../display/templates/param/labelChange.tpl:76
 msgid ""
 "Champs à insérer dans le QR Code (séparés par une virgule, sans espace) :"
 msgstr ""
 "Fields to insert in the QR Code (separated by a comma, without spaces):"
 
-#: ../../../display/templates/param/labelChange.tpl:78
+#: ../../../display/templates/param/labelChange.tpl:82
 msgid "Modèle de métadonnées rattaché à l'étiquette :"
 msgstr ""
 "Fields to insert in the QR Code (separated by a comma, without spaces):"
 
-#: ../../../display/templates/param/labelChange.tpl:101
+#: ../../../display/templates/param/labelChange.tpl:97
+msgid "Valider et retour"
+msgstr "Valid and return"
+
+#: ../../../display/templates/param/labelChange.tpl:106
 msgid "Champs utilisables dans le QR Code et dans le texte de l'étiquette :"
 msgstr "Fields that can be stored in the QR code and in the text of the label:"
 
-#: ../../../display/templates/param/labelChange.tpl:103
+#: ../../../display/templates/param/labelChange.tpl:108
 msgid ""
 "Cas général : QR Code au format JSON, avec plusieurs informations stockées"
 msgstr "General case: QR Code in JSON format, with several information stored"
 
-#: ../../../display/templates/param/labelChange.tpl:105
+#: ../../../display/templates/param/labelChange.tpl:110
 msgid "%1 (obligatoire) : identifiant unique"
 msgstr "%1 (required): unique identifier"
 
-#: ../../../display/templates/param/labelChange.tpl:106
+#: ../../../display/templates/param/labelChange.tpl:111
 msgid ""
 "%1 (obligatoire) : code de la base de données (utilisé pour éviter de "
 "mélanger les échantillons entre plusieurs bases)"
@@ -5415,27 +5419,27 @@ msgstr ""
 "%1 (required): database code (used to avoid mixing samples between multiple "
 "databases)"
 
-#: ../../../display/templates/param/labelChange.tpl:107
+#: ../../../display/templates/param/labelChange.tpl:112
 msgid "%1 : identifiant général"
 msgstr "%1: general identifier"
 
-#: ../../../display/templates/param/labelChange.tpl:108
+#: ../../../display/templates/param/labelChange.tpl:113
 msgid "%1 : code de la collection"
 msgstr "%1: collection code"
 
-#: ../../../display/templates/param/labelChange.tpl:109
+#: ../../../display/templates/param/labelChange.tpl:114
 msgid "%1 : identifiant de l'échantillon parent"
 msgstr "%1: identifier of the parent sample"
 
-#: ../../../display/templates/param/labelChange.tpl:110
+#: ../../../display/templates/param/labelChange.tpl:115
 msgid "%1 : code de risque"
 msgstr "%1: risk code"
 
-#: ../../../display/templates/param/labelChange.tpl:111
+#: ../../../display/templates/param/labelChange.tpl:116
 msgid "%1 : nom du protocole"
 msgstr "%1: name of the protocol"
 
-#: ../../../display/templates/param/labelChange.tpl:112
+#: ../../../display/templates/param/labelChange.tpl:117
 msgid ""
 "%1 : coordonnée wgs84_x de l'objet (lieu de prélèvement ou de stockage "
 "suivant le cas)"
@@ -5443,43 +5447,43 @@ msgstr ""
 "%1: wgs84_x coordinate of the object (place of picking or storage as "
 "appropriate)"
 
-#: ../../../display/templates/param/labelChange.tpl:113
+#: ../../../display/templates/param/labelChange.tpl:118
 msgid "%1 : coordonnée wgs84_y de l'objet"
 msgstr "%1: wgs84_y coordinate of the object"
 
-#: ../../../display/templates/param/labelChange.tpl:114
+#: ../../../display/templates/param/labelChange.tpl:119
 msgid "%1 : localisation du prélèvement (table des lieux de prélèvement)"
 msgstr "%1: location of the sample (collection site table)"
 
-#: ../../../display/templates/param/labelChange.tpl:115
+#: ../../../display/templates/param/labelChange.tpl:120
 msgid "%1 : produit utilisé pour la conservation"
 msgstr "%1: product used for conservation"
 
-#: ../../../display/templates/param/labelChange.tpl:116
+#: ../../../display/templates/param/labelChange.tpl:121
 msgid "%1 : date de création de l'échantillon dans la base de données"
 msgstr "%1: created date of the sample in the database"
 
-#: ../../../display/templates/param/labelChange.tpl:119
+#: ../../../display/templates/param/labelChange.tpl:124
 msgid "%1 : UID Universel (UUID)"
 msgstr "%1: Universal UID (UUID)"
 
-#: ../../../display/templates/param/labelChange.tpl:120
+#: ../../../display/templates/param/labelChange.tpl:125
 msgid ""
 "et tous les codes d'identifiants secondaires - cf. paramètres > Types "
 "d'identifiants"
 msgstr "and all secondary identifier codes - see settings> Identifier types"
 
-#: ../../../display/templates/param/labelChange.tpl:123
+#: ../../../display/templates/param/labelChange.tpl:128
 msgid "Cas particulier : QR Code avec un seul identifiant, au format texte :"
 msgstr "Special case: QR Code with a single identifier, in text format:"
 
-#: ../../../display/templates/param/labelChange.tpl:126
+#: ../../../display/templates/param/labelChange.tpl:131
 msgid ""
 "tout identifiant secondaire non numérique - cf. paramètres > Types "
 "d'identifiants"
 msgstr "any non-numeric secondary identifier - see Settings > Identifier types"
 
-#: ../../../display/templates/param/labelChange.tpl:127
+#: ../../../display/templates/param/labelChange.tpl:132
 msgid ""
 "%1 : identifiant de la base de données d'origine. Pour un échantillon créé "
 "dans la base courante, la valeur sera de type <i>db:uid</i>"
@@ -5487,7 +5491,7 @@ msgstr ""
 "%1: identifier of the original database. For a sample created in the current "
 "database, the value will be of type <i>db:uid</i>"
 
-#: ../../../display/templates/param/labelChange.tpl:134
+#: ../../../display/templates/param/labelChange.tpl:139
 msgid ""
 "Métadonnées utilisables dans le QR Code et dans le texte de l'étiquette :"
 msgstr ""

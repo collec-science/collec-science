@@ -1,29 +1,33 @@
 {* Paramètres > Étiquettes > Nouveau > *}
 <script>
-$(document).ready( function() {     
+$(document).ready( function() {
      function getMetadata() {
     	 $("#list_metadata").empty();
-    	    var schema;
-    	    var oi = $("#metadata_id").val();
-    	    if (oi.length > 0) {
-    	    	$.ajax( { 
-    	    		url: "index.php",
-    	    		data: { "module": "metadataGetschema", "metadata_id": oi }
-    	    	})
-    	    	.done (function (value) {
-    	    		//console.log( value );
-    	    		$.each(JSON.parse(value), function(i, obj) {
-    	    			var name = obj.name.replace(/ /g,"_");
-    	    			$("#list_metadata").append($("<li>").text(name));
-    	    		})
-    	    	})
-    	    	;
-    	    }
+				var schema;
+				var oi = $("#metadata_id").val();
+				if (oi.length > 0) {
+					$.ajax( {
+						url: "index.php",
+						data: { "module": "metadataGetschema", "metadata_id": oi }
+					})
+					.done (function (value) {
+						//console.log( value );
+						$.each(JSON.parse(value), function(i, obj) {
+							var name = obj.name.replace(/ /g,"_");
+							$("#list_metadata").append($("<li>").text(name));
+						})
+					})
+					;
+				}
      }
      $("#metadata_id").change( function() {
     	 getMetadata();
      });
      getMetadata();
+		 $("#stay").click(function () {
+			$( this.form ).find( "input[name='action']" ).val( "WriteStay" );
+			$(this.form).submit();
+		 });
 }) ;
 
 </script>
@@ -89,7 +93,8 @@ $(document).ready( function() {
 </div>
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+			<button id="stay"  class="btn btn-primary">{t}Valider{/t}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider et retour{/t}</button>
       {if $data.label_id > 0 }
       <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}

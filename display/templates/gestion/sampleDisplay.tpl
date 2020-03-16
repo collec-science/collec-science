@@ -294,7 +294,7 @@
 					</form>
 				{/if}
 				<dl class="dl-horizontal">
-					<dt>{t}UID et référence :{/t}</dt>
+					<dt>{t}UID et identifiant métier :{/t}</dt>
 					<dd>{$data.uid} {$data.identifier}</dd>
 				</dl>
 				{if count ($objectIdentifiers) > 0}

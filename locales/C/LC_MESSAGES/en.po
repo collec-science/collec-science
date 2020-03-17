@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-17 14:10+0100\n"
+"POT-Creation-Date: 2020-03-17 15:07+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -4103,12 +4103,12 @@ msgid "le numéro informatique du référent"
 msgstr "computer number of the referent"
 
 #: ../../../display/templates/gestion/import.tpl:101
-msgid "la longitude GPS en WGS84 (degrés décimaux)"
-msgstr "GPS longitude in WGS84 (decimal degrees)"
+msgid "la longitude GPS en WGS84 (degrés décimaux, séparateur décimal : point)"
+msgstr "GPS longitude in WGS84 (decimal degrees, decimal separator: point)"
 
 #: ../../../display/templates/gestion/import.tpl:102
-msgid "la latitude GPS en WGS84 (degrés décimaux)"
-msgstr "GPS latitude in WGS84 (decimal degrees)"
+msgid "la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point)"
+msgstr "GPS latitude in WGS84 (decimal degrees, decimal separator: point)"
 
 #: ../../../display/templates/gestion/import.tpl:103
 msgid ""
@@ -4170,11 +4170,14 @@ msgstr ""
 #: ../../../display/templates/gestion/import.tpl:117
 msgid ""
 "Dans le cas de multi-valeurs, celles-ci doivent être séparées par une "
-"virgule dans la colonne md_, et entourées de crochets dans la colonne "
-"sample_metadata_json"
+"virgule dans la colonne md_ (exemple : valeur1,valeur2), et entourées de "
+"crochets dans la colonne sample_metadata_json (exemple : &#123;\"valeurs\":"
+"&#91;valeur1,valeur2&#93;&#125;)"
 msgstr ""
 "In case of multi-values, these must be separated by a comma in the md_ "
-"column, and surrounded by square brackets in the sample_metadata_json column"
+"column (example: value1,value2), and surrounded by square brackets in the "
+"sample_metadata_json column (example: &#123;\"values\":&#91;value1,"
+"value2&#93;&#125;)"
 
 #: ../../../display/templates/gestion/import.tpl:127
 msgid ""

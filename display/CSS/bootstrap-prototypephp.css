@@ -180,7 +180,8 @@ legend {
 }
 
 .lexique dt {
-  white-space: pre-wrap;
+	white-space: pre-wrap;
+	text-overflow: clip;
 }
 
 td a {

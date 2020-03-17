@@ -98,8 +98,8 @@
                   <li><b>campaign_id</b> : {t}le numéro informatique de la campagne de prélèvement{/t}</li>
                   <li><b>sampling_place_id</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé{/t}</li>
                   <li><b>referent_id</b> : {t}le numéro informatique du référent{/t}</li>
-                  <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux){/t}</li>
-                  <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux){/t}</li>
+                  <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
+                  <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                   <li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy{/t}</li>
                   <li><b>expiration_date</b> : {t}la date d'expiration de l'échantillon, au format dd/mm/yyyy{/t}</li>
                   <li><b>sample_multiple_value</b> : {t}le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
@@ -114,7 +114,7 @@
                         <b>sample_metadata_json</b> : {t escape=no}les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"taxon":"Alosa alosa"&#125;){/t}
                         <ul>
                               <li>{t}il est également possible de définir les métadonnées avec un attribut par colonne. Dans ce cas, la colonne doit être nommée md_nomAttribut, par exemple : md_taxon. La valeur de la colonne md_xxx écrasera celle de l’attribut xxx présent dans la colonne sample_metadata_json{/t}
-                              <li>{t}Dans le cas de multi-valeurs, celles-ci doivent être séparées par une virgule dans la colonne md_, et entourées de crochets dans la colonne sample_metadata_json{/t}</li>
+                              <li>{t escape=no}Dans le cas de multi-valeurs, celles-ci doivent être séparées par une virgule dans la colonne md_ (exemple : valeur1,valeur2), et entourées de crochets dans la colonne sample_metadata_json (exemple : &#123;"valeurs":&#91;valeur1,valeur2&#93;&#125;){/t}</li>
                         </ul>
                   </li>
             </ul>

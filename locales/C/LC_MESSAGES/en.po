@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-16 10:18+0100\n"
+"POT-Creation-Date: 2020-03-17 14:10+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2037,7 +2037,7 @@ msgstr ""
 #: ../../../display/templates/gestion/containerImport.tpl:27
 #: ../../../display/templates/gestion/borrowingChange.tpl:62
 #: ../../../display/templates/gestion/movementBatchRead.tpl:47
-#: ../../../display/templates/gestion/import.tpl:135
+#: ../../../display/templates/gestion/import.tpl:149
 #: ../../../display/templates/gestion/bookingChange.tpl:110
 #: ../../../display/templates/gestion/eventChange.tpl:66
 #: ../../../display/templates/gestion/sampleImport.tpl:38
@@ -3852,7 +3852,7 @@ msgid "Autres identifiants"
 msgstr "Other identifiers"
 
 #: ../../../display/templates/gestion/sampleListDetail.tpl:303
-#: ../../../display/templates/main.tpl:67
+#: ../../../display/templates/main.tpl:68
 #: ../../../display/templates/param/samplingPlaceList.tpl:16
 msgid "Collection"
 msgstr "Collection"
@@ -4032,83 +4032,122 @@ msgstr ""
 "following columns:"
 
 #: ../../../display/templates/gestion/import.tpl:80
+msgid "Pour importer des contenants :"
+msgstr "For import containers:"
+
+#: ../../../display/templates/gestion/import.tpl:82
+msgid "l'identifiant du contenant (obligatoire)"
+msgstr "the container identifier (required)"
+
+#: ../../../display/templates/gestion/import.tpl:83
+msgid "le numéro informatique du type de contenant (obligatoire)"
+msgstr "the number of the container type given by the app (required)"
+
+#: ../../../display/templates/gestion/import.tpl:84
+msgid "le numéro informatique du statut du contenant (obligatoire)"
+msgstr "the number of the container status given by the app (required)"
+
+#: ../../../display/templates/gestion/import.tpl:85
+msgid "UID Universel du contenant (UUID)"
+msgstr "Universal container UID (UUID)"
+
+#: ../../../display/templates/gestion/import.tpl:86
+msgid ""
+"l'emplacement de rangement du contenant dans son contenant (texte libre)"
+msgstr "the storage location of the container in its container (free text)"
+
+#: ../../../display/templates/gestion/import.tpl:87
+#: ../../../display/templates/gestion/import.tpl:111
+msgid "n° de la colonne de stockage dans le contenant"
+msgstr "number of the storage column in the container"
+
+#: ../../../display/templates/gestion/import.tpl:88
+#: ../../../display/templates/gestion/import.tpl:112
+msgid "n° de la ligne de stockage dans le contenant"
+msgstr "number of the storage line in the container"
+
+#: ../../../display/templates/gestion/import.tpl:89
+msgid "l'UID du contenant où le contenant courant est rangé"
+msgstr "UID of the container where the current container is stocked"
+
+#: ../../../display/templates/gestion/import.tpl:92
+msgid "Pour importer des échantillons :"
+msgstr "For import samples:"
+
+#: ../../../display/templates/gestion/import.tpl:94
 msgid "l'identifiant de l'échantillon (obligatoire)"
 msgstr "sample identifier (required)"
 
-#: ../../../display/templates/gestion/import.tpl:81
+#: ../../../display/templates/gestion/import.tpl:95
 msgid "le numéro informatique de la collection (obligatoire)"
 msgstr "the number of the collection given by the app (required)"
 
-#: ../../../display/templates/gestion/import.tpl:82
+#: ../../../display/templates/gestion/import.tpl:96
 msgid "le numéro informatique du type d'échantillon (obligatoire)"
 msgstr "the number of the sample type given by the app (required)"
 
-#: ../../../display/templates/gestion/import.tpl:83
+#: ../../../display/templates/gestion/import.tpl:97
 msgid "le numéro du statut de l'échantillon (obligatoire)"
 msgstr "status number of the sample (required)"
 
-#: ../../../display/templates/gestion/import.tpl:84
+#: ../../../display/templates/gestion/import.tpl:98
 msgid "le numéro informatique de la campagne de prélèvement"
 msgstr "computer number of the sampling campaign"
 
-#: ../../../display/templates/gestion/import.tpl:85
+#: ../../../display/templates/gestion/import.tpl:99
 msgid "le numéro informatique de l'endroit où l'échantillon a été prélevé"
 msgstr "the number (given by the app) of the place where the sample was taken"
 
-#: ../../../display/templates/gestion/import.tpl:86
+#: ../../../display/templates/gestion/import.tpl:100
 msgid "le numéro informatique du référent"
 msgstr "computer number of the referent"
 
-#: ../../../display/templates/gestion/import.tpl:87
+#: ../../../display/templates/gestion/import.tpl:101
 msgid "la longitude GPS en WGS84 (degrés décimaux)"
 msgstr "GPS longitude in WGS84 (decimal degrees)"
 
-#: ../../../display/templates/gestion/import.tpl:88
+#: ../../../display/templates/gestion/import.tpl:102
 msgid "la latitude GPS en WGS84 (degrés décimaux)"
 msgstr "GPS latitude in WGS84 (decimal degrees)"
 
-#: ../../../display/templates/gestion/import.tpl:89
+#: ../../../display/templates/gestion/import.tpl:103
 msgid ""
 "la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy"
 msgstr "date of creation / sampling of the sample, in the format mm-dd-yyyy"
 
-#: ../../../display/templates/gestion/import.tpl:90
+#: ../../../display/templates/gestion/import.tpl:104
 msgid "la date d'expiration de l'échantillon, au format dd/mm/yyyy"
 msgstr "expiry date of the sample, in the format mm-dd-yyyy"
 
-#: ../../../display/templates/gestion/import.tpl:91
-msgid ""
-"l'emplacement de rangement de l'échantillon dans le contenant (texte libre)"
-msgstr "location of the sample in the container (free text)"
-
-#: ../../../display/templates/gestion/import.tpl:92
-msgid "n° de la colonne de stockage dans le contenant"
-msgstr "number of the storage column in the container"
-
-#: ../../../display/templates/gestion/import.tpl:93
-msgid "n° de la ligne de stockage dans le contenant"
-msgstr "number of the storage line in the container"
-
-#: ../../../display/templates/gestion/import.tpl:94
+#: ../../../display/templates/gestion/import.tpl:105
 msgid ""
 "le nombre total de sous-échantillons (ou le volume total, ou le "
 "pourcentage...) contenu dans l'échantillon\n"
-"si le type d'échantillons utilisé le permet (valeur numérique, séparateur "
-"décimal : point)"
+"                  si le type d'échantillons utilisé le permet (valeur "
+"numérique, séparateur décimal : point)"
 msgstr ""
 "the total number of subsamples (or the total volume, or the percentage ...) "
 "contained in the sample\n"
 "if the type of samples used allows it (numerical value, decimal point: point)"
 
-#: ../../../display/templates/gestion/import.tpl:96
+#: ../../../display/templates/gestion/import.tpl:107
 msgid "UID du parent (création d'échantillons rattachés)"
 msgstr "Parent UID (creates attached samples)"
 
-#: ../../../display/templates/gestion/import.tpl:97
+#: ../../../display/templates/gestion/import.tpl:108
 msgid "UID Universel de l'échantillon (UUID)"
 msgstr "Universal sample UID (UUID)"
 
-#: ../../../display/templates/gestion/import.tpl:99
+#: ../../../display/templates/gestion/import.tpl:109
+msgid "l'UID du contenant où l'échantillon est rangé"
+msgstr "UID of the container where the sample is stocked"
+
+#: ../../../display/templates/gestion/import.tpl:110
+msgid ""
+"l'emplacement de rangement de l'échantillon dans le contenant (texte libre)"
+msgstr "location of the sample in the container (free text)"
+
+#: ../../../display/templates/gestion/import.tpl:114
 msgid ""
 "les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"
 "\"taxon\":\"Alosa alosa\"&#125;)"
@@ -4116,7 +4155,7 @@ msgstr ""
 "metadata attached to the sample (in json format, eg: &#123;\"taxon\":\"Alosa "
 "alosa\"&#125;)"
 
-#: ../../../display/templates/gestion/import.tpl:101
+#: ../../../display/templates/gestion/import.tpl:116
 msgid ""
 "il est également possible de définir les métadonnées avec un attribut par "
 "colonne. Dans ce cas, la colonne doit être nommée md_nomAttribut, par "
@@ -4128,60 +4167,37 @@ msgstr ""
 "The value of the md_xxx column will override the value of the xxx attribute "
 "in the sample_metadata_json column"
 
-#: ../../../display/templates/gestion/import.tpl:104
-msgid "l'identifiant du contenant (obligatoire)"
-msgstr "the container identifier (required)"
+#: ../../../display/templates/gestion/import.tpl:117
+msgid ""
+"Dans le cas de multi-valeurs, celles-ci doivent être séparées par une "
+"virgule dans la colonne md_, et entourées de crochets dans la colonne "
+"sample_metadata_json"
+msgstr ""
+"In case of multi-values, these must be separated by a comma in the md_ "
+"column, and surrounded by square brackets in the sample_metadata_json column"
 
-#: ../../../display/templates/gestion/import.tpl:105
-msgid "le numéro informatique du type de contenant (obligatoire)"
-msgstr "the number of the container type given by the app (required)"
-
-#: ../../../display/templates/gestion/import.tpl:106
-msgid "le numéro informatique du statut du contenant (obligatoire)"
-msgstr "the number of the container status given by the app (required)"
-
-#: ../../../display/templates/gestion/import.tpl:107
-msgid "UID Universel du contenant (UUID)"
-msgstr "Universal container UID (UUID)"
-
-#: ../../../display/templates/gestion/import.tpl:108
-msgid "l'emplacement de rangement du contenant dans son parent (texte libre)"
-msgstr "the storage location of the container in its parent (free text)"
-
-#: ../../../display/templates/gestion/import.tpl:109
-msgid "n° de la colonne de stockage dans le contenant parent"
-msgstr "# of the storage column in the parent container"
-
-#: ../../../display/templates/gestion/import.tpl:110
-msgid "n° de la ligne de stockage dans le contenant parent"
-msgstr "# of the storage line in the parent container"
-
-#: ../../../display/templates/gestion/import.tpl:111
-msgid "l'UID du contenant parent"
-msgstr "the UID of the parent container"
-
-#: ../../../display/templates/gestion/import.tpl:113
+#: ../../../display/templates/gestion/import.tpl:127
 msgid ""
 "Les codes informatiques peuvent être consultés à partir du menu "
 "<i>Paramètres</i>."
 msgstr "Codes given by the app can be viewed from the <i>Settings</ i> menu."
 
-#: ../../../display/templates/gestion/import.tpl:117
+#: ../../../display/templates/gestion/import.tpl:131
 msgid "Pour les identifiants complémentaires :"
 msgstr "For additional identifiers:"
 
-#: ../../../display/templates/gestion/import.tpl:119
+#: ../../../display/templates/gestion/import.tpl:133
 msgid "repérez les codes dans le menu des paramètres > Types d'identifiants"
 msgstr "find the codes in the menu Settings > Identifier types"
 
-#: ../../../display/templates/gestion/import.tpl:120
+#: ../../../display/templates/gestion/import.tpl:134
 msgid ""
 "vous ne pouvez indiquer qu'un code par ligne (mais plusieurs types de codes "
 "possibles)"
 msgstr ""
 "you can only enter one code per line (but several types of possible codes)"
 
-#: ../../../display/templates/gestion/import.tpl:121
+#: ../../../display/templates/gestion/import.tpl:135
 msgid ""
 "ils seront associés à l'échantillon et au contenant, si les deux sont "
 "indiqués dans la même ligne"
@@ -4189,19 +4205,19 @@ msgstr ""
 "they will be associated with the sample and container, if both are shown in "
 "the same line"
 
-#: ../../../display/templates/gestion/import.tpl:124
+#: ../../../display/templates/gestion/import.tpl:138
 msgid "L'import sera réalisé ainsi :"
 msgstr "The import will be made as following:"
 
-#: ../../../display/templates/gestion/import.tpl:126
+#: ../../../display/templates/gestion/import.tpl:140
 msgid "si <i>sample_identifier</i> est renseigné : création de l'échantillon"
 msgstr "if <i>sample_identifier</i> is specified: creates the sample"
 
-#: ../../../display/templates/gestion/import.tpl:127
+#: ../../../display/templates/gestion/import.tpl:141
 msgid "si <i>container_identifier</i> est renseigné : création du contenant"
 msgstr "if <i>container_identifier</i> is filled: creates container"
 
-#: ../../../display/templates/gestion/import.tpl:128
+#: ../../../display/templates/gestion/import.tpl:142
 msgid ""
 "si <i>container_identifier</i> et <i>container_parent_uid</i> sont "
 "renseignés : création du mouvement d'entrée du contenant"
@@ -4209,7 +4225,7 @@ msgstr ""
 "if <i>container_identifier</i> and <i>container_parent_uid</i> are "
 "specified: creates the entry movement of the container"
 
-#: ../../../display/templates/gestion/import.tpl:129
+#: ../../../display/templates/gestion/import.tpl:143
 msgid ""
 "si l'échantillon et le contenant ont été créés, création du mouvement "
 "d'entrée de l'échantillon dans le contenant"
@@ -4217,7 +4233,7 @@ msgstr ""
 "if the sample and the container were created, create the entry movement of "
 "the sample in the container"
 
-#: ../../../display/templates/gestion/import.tpl:130
+#: ../../../display/templates/gestion/import.tpl:144
 msgid ""
 "si l'échantillon est créé, que <i>container_parent_uid</i> est renseigné, et "
 "que <i>container_identifier</i> n'est pas rempli, création du mouvement "
@@ -4658,11 +4674,11 @@ msgstr "Do you confirm the deletion?"
 msgid "Repérez votre position !"
 msgstr "Locate your position!"
 
-#: ../../../display/templates/main.tpl:68
+#: ../../../display/templates/main.tpl:69
 msgid "Nombre d'échantillons"
 msgstr "Sample number"
 
-#: ../../../display/templates/main.tpl:69
+#: ../../../display/templates/main.tpl:70
 msgid "Date de dernière modification d'un échantillon"
 msgstr "Date of last update of a sample"
 
@@ -5874,6 +5890,15 @@ msgstr "Display All"
 #: ../../../display/templates/main_js.tpl:208
 msgid "Valeur numérique..."
 msgstr "Numerical value..."
+
+#~ msgid "n° de la colonne de stockage dans le contenant parent"
+#~ msgstr "# of the storage column in the parent container"
+
+#~ msgid "n° de la ligne de stockage dans le contenant parent"
+#~ msgstr "# of the storage line in the parent container"
+
+#~ msgid "l'UID du contenant parent"
+#~ msgstr "the UID of the parent container"
 
 #, fuzzy
 #~ msgid "Création - Modification d'un regulatione"

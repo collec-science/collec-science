@@ -402,6 +402,31 @@ switch ($t_module["param"]) {
         }
         break;
 
+    case "exitMulti":
+        if (count($_POST["uids"]) > 0) {
+            include_once "modules/classes/movement.class.php";
+            $movement = new Movement($bdd, $ObjetBDDParam);
+            try {
+                $bdd->beginTransaction();
+                foreach ($_POST["uids"] as $uid) {
+                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null);
+                }
+                $module_coderetour = 1;
+                $bdd->commit();
+            } catch (MovementException $me) {
+                $message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
+                $message->set($me->getMessage());
+                $bdd->rollback();
+            } catch (Exception $e) {
+                $message->set(_("Un problème est survenu lors de la génération des mouvements"), true);
+                $message->set($e->getMessage());
+                $bdd->rollback();
+                $module_coderetour = -1;
+            }
+        } else {
+            $module_coderetour = -1;
+        }
+        break;
     case "getOccupationAjax":
         $data = $dataClass->lire($id);
         $dcontainer = $dataClass->getContentContainer($id);

@@ -226,7 +226,7 @@ $(document).ready(function () {
 							</a>
 						</td>
 						<td class="container" data-uid="{$containers[lst].uid}" title="">
-							<a class="tooltiplink  href="index.php?module=containerDisplay&uid={$containers[lst].uid}">
+							<a class="tooltiplink"  href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="">
 								{$containers[lst].identifier}
 							</a>
 						</td>
@@ -279,6 +279,7 @@ $(document).ready(function () {
 					<select id="checkedActionContainer" class="form-control">
 						<option value="" selected>{t}Choisissez{/t}</option>
 						<option value="containersLending">{t}Prêter les contenants et leurs contenus{/t}</option>
+						<option value="containersExit">{t}Sortir les contenants{/t}</option>
 						<option value="containersSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 						<option value="containersDelete">{t}Supprimer les contenants{/t}</option>
 					</select>

@@ -391,12 +391,13 @@
 			<input type="hidden" name="lastModule" value="{$lastModule}">
 			<input type="hidden" name="uid" value="{$data.uid}">
 			<select id="checkedActionSample" class="form-control">
-			<option value="" selected>{t}Choisissez{/t}</option>
-			<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
-			<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
-			<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
-			<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
-			<option value="samplesLending">{t}Prêter les échantillons{/t}</option>
+				<option value="" selected>{t}Choisissez{/t}</option>
+				<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
+				<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
+				<option value="samplesLending">{t}Prêter les échantillons{/t}</option>
+				<option value="samplesExit">{t}Sortir les échantillons{/t}</option>
+				<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
+				<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
 			</select>
 			<div class="referentid" hidden>
 			<select id="referentid" name="referent_id" class="form-control">

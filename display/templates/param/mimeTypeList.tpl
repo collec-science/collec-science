@@ -31,3 +31,8 @@
         </table>
     </div>
 </div>
+<div class="bg-info">
+    {t}La liste officielle des types de média utilisables peut être consultée ici : {/t}
+    <a href="https://www.iana.org/assignments/media-types/media-types.xhtml" target="_blank">https://www.iana.org/assignments/media-types/media-types.xhtml</a>
+
+</div>

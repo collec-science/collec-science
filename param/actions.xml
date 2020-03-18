@@ -130,15 +130,16 @@
 	<containerChange action="modules/gestion/container.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containerWrite action="modules/gestion/container.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
 	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion" retourok="containerList" retourko="containerChange" modulebefore="containerChange"/>
-	<containersDelete action="modules/gestion/container.php" param="deleteMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay"/>
 	<containerGetFromType action="modules/gestion/container.php" param="getFromType" droits="consult" type="ajax" />
 	<containerGetFromUid action="modules/gestion/container.php" param="getFromUid" droits="consult" type="ajax" />
 	<containerGetOccupation action="modules/gestion/container.php" param="getOccupationAjax" droits="consult" type="ajax"/>
 	<containerImportStage1 action="modules/gestion/container.php" param="importStage1" droits="import,collection" type="smarty" retourlogin="1"/>
 	<containerImportStage2 action="modules/gestion/container.php" param="importStage2" droits="import,collection" type="smarty" modulebefore="containerImportStage1,containerImportStage2"/>
 	<containerImportStage3 action="modules/gestion/container.php" param="importStage3" droits="import,collection" type="smarty" retourok="containerImportStage1" retourko="containerImportStage1" modulebefore="containerImportStage2"/>
-	<containersLending action="modules/gestion/container.php" param="lendingMulti" moduleBefore="containerList,containersExit" droits="collection" retourok="containerList" retourko="containerList"/>
-	<containersExit droits="collection" action="modules/gestion/container.php" param="exitMulti" moduleBefore="containerList,containersLending,containersExit" retourok="containerList" retourko="containerList"/>
+	<containersLending action="modules/gestion/container.php" param="lendingMulti" moduleBefore="containerList,containersExit,containersEntry" droits="collection" retourok="containerList" retourko="containerList"/>
+	<containersExit droits="collection" action="modules/gestion/container.php" param="exitMulti" moduleBefore="containerList,containersLending,containersExit,containersEntry,containersDelete" retourok="containerList" retourko="containerList"/>
+  <containersDelete action="modules/gestion/container.php" param="deleteMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending"/>
+	<containersEntry action="modules/gestion/container.php" param="entryMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending"/>
 	<containersSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection" retourok="containerList" retourko="containerList" moduleBefore="containerList,containersDelete,containersAssignReferent,containerDisplay"/>
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />

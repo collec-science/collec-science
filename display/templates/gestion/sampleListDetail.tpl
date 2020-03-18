@@ -282,7 +282,6 @@
 		}
 		function searchContainer () {
 			var containerType = $("#container_type_id").val();
-			console.log ("ContainerType : "+containerType);
 			var url = "index.php";
 			$.getJSON ( url, { "module":"containerGetFromType", "container_type_id":containerType } , function( data ) {
 				if (data != null) {

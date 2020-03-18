@@ -103,26 +103,37 @@
 				$(".event").hide();
 				$(".trashedgroupsample").hide();
 				$(".borrowing").hide();
+				$(".entry").hide();
 			} else if (action == "samplesCreateEvent") {
 				$(".referentid").hide();
 				$(".borrowing").hide();
 				$(".trashedgroupsample").hide();
 				$(".event").show();
+				$(".entry").hide();
 			} else if (action == "samplesLending") {
 				$(".referentid").hide();
 				$(".event").hide();
 				$(".trashedgroupsample").hide();
 				$(".borrowing").show();
+				$(".entry").hide();
 			} else if (action == "samplesSetTrashed") {
 				$(".referentid").hide();
 				$(".event").hide();
 				$(".borrowing").hide();
 				$(".trashedgroupsample").show();
+				$(".entry").hide();
+			} else if (action =="samplesEntry") {
+				$(".referentid").hide();
+				$(".event").hide();
+				$(".borrowing").hide();
+				$(".trashedgroupsample").hide();
+				$(".entry").show();
 			} else {
 				$(".referentid").hide();
 				$(".event").hide();
 				$(".borrowing").hide();
 				$(".trashedgroupsample").hide();
+				$(".entry").hide();
 			}
 		});
 		var tooltipContent ;
@@ -249,6 +260,69 @@
 		});
 		$(".searchInput").hover(function() {
 			$(this).focus();
+		});
+	/**
+	 * Search container for movement creation
+	 */
+	 function searchType() {
+		var family = $("#container_family_id").val();
+		var url = "index.php";
+		$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
+			if (data != null) {
+				options = '<option value="" selected>{t}Choisissez...{/t}</option>';
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].container_type_id ){
+						options += '<option value="' + data[i].container_type_id + '"';
+						options += '>' + data[i].container_type_name + '</option>';
+					};
+				}
+				$("#container_type_id").html(options);
+				}
+			} ) ;
+		}
+		function searchContainer () {
+			var containerType = $("#container_type_id").val();
+			console.log ("ContainerType : "+containerType);
+			var url = "index.php";
+			$.getJSON ( url, { "module":"containerGetFromType", "container_type_id":containerType } , function( data ) {
+				if (data != null) {
+				options = '';
+				for (var i = 0; i < data.length; i++) {
+					options += '<option value="' + data[i].container_id + '"';
+					if (i == 0) {
+						options += ' selected ';
+						$("#container_id").val(data[i].container_id);
+						$("#container_uid").val(data[i].uid);
+					}
+						options += '>' + data[i].uid + " " + data[i].identifier + " ("+data[i].object_status_name + ")</option>";
+				}
+				$("#containers").html(options);
+				}
+			});
+		}
+		$("#containers").change(function() {
+			var id = $("#containers").val();
+			$("#container_id").val(id);
+			var texte = $( "#containers option:selected" ).text();
+			var a_texte = texte.split(" ");
+			$("#container_uid").val(a_texte[0]);
+		});
+		$("#container_uid").change(function () {
+			var url = "index.php";
+			var uid = $(this).val();
+			$.getJSON ( url, { "module":"containerGetFromUid", "uid":uid } , function( data ) {
+				if (data.container_id ) {
+				var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " ("+data.object_status_name + ")</option>";
+				$("#container_id").val(data.container_id);
+				$("#containers").html(options);
+				}
+			});
+	 	});
+		$("#container_family_id").change(function () {
+			searchType();
+	 });
+		$("#container_type_id").change(function () {
+			searchContainer();
 		});
 	});
 </script>
@@ -396,6 +470,7 @@
 				<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
 				<option value="samplesLending">{t}Prêter les échantillons{/t}</option>
 				<option value="samplesExit">{t}Sortir les échantillons{/t}</option>
+				<option value="samplesEntry">{t}Entrer ou déplacer les échantillons au même emplacement{/t}</option>
 				<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 				<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
 			</select>
@@ -468,6 +543,52 @@
 						<option value="1">{t}Mettre à la corbeille{/t}</option>
 						<option value="0">{t}Sortir de la corbeille{/t}</option>
 					</select>
+				</div>
+			</div>
+			<div class="form-group entry" hidden>
+				<label for="container_uid" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
+				<div class="col-md-8">
+					<input id="container_uid" name="container_uid" value="" type="number" class="form-control">
+				</div>
+			</div>
+			<div class="form-group entry" hidden>
+				<label for="container_family_id" class="control-label col-md-4">{t}ou recherchez :{/t}</label>
+					<div class="col-md-8">
+						<select id="container_family_id" name="container_family_id" class="form-control">
+							<option value="" selected>{t}Sélectionnez la famille...{/t}</option>
+							{section name=lst loop=$containerFamily}
+								<option value="{$containerFamily[lst].container_family_id}">
+									{$containerFamily[lst].container_family_name}
+								</option>
+							{/section}
+						</select>
+						<select id="container_type_id" name="container_type_id" class="form-control">
+							<option value=""></option>
+						</select>
+						<select id="containers" name="containers">
+							<option value=""></option>
+						</select>
+					</div>
+			</div>
+			<div class="form-group entry" hidden>
+				<label for="storage_location" class="control-label col-md-4">{t}Emplacement dans le contenant
+				(format libre) :{/t}</label>
+				<div class="col-md-8">
+					<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
+				</div>
+			</div>
+			<div class="form-group entry" hidden>
+				<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
+				<div class="col-sm-8">
+					<input id="line_number" name="line_number"
+						value="" class="form-control nombre" title="{t}N° de la ligne de rangement dans le contenant{/t}">
+				</div>
+			</div>
+			<div class="form-group entry" hidden>
+				<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
+				<div class="col-sm-8">
+					<input id="column_number" name="column_number"
+						value="" class="form-control nombre" title="{t}N° de la colonne de rangement dans le contenant{/t}">
 				</div>
 			</div>
 

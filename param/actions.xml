@@ -199,6 +199,7 @@
 	<sampleDetail action="modules/gestion/sample.php" type="json" param="detail"/>
 	<samplesSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection" retourok="sampleList" retourko="sampleList" moduleBefore="sampleList,samplesDelete,samplesAssignReferent,samplesCreateEvent,containerDisplay,samplesExit"/>
 	<samplesExit action="modules/gestion/sample.php" param="exitMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit" droits="collection" retourok="sampleList" retourko="sampleList"/>
+	<samplesEntry action="modules/gestion/sample.php" param="entryMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry" droits="collection" retourok="sampleList" retourko="sampleList"/>
 	<movement droits="consult" type="smarty" />
 	<movementList droits="collection" type="smarty" action="modules/gestion/movement.php" param="list" retourlogin="1"/>
 	<objets retourlogin="1" type="smarty" />

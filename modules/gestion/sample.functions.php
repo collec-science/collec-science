@@ -49,6 +49,9 @@ function sampleInitDatEntry()
     include_once 'modules/classes/campaign.class.php';
     $campaign = new Campaign($bdd, $ObjetBDDParam);
     $vue->set($campaign->getListe(2), "campaigns");
+    include_once 'modules/classes/containerFamily.class.php';
+    $cf = new ContainerFamily($bdd, $ObjetBDDParam);
+    $vue->set($cf->getListe(2),"containerFamily");
 }
 
 class SampleInitClassException extends Exception

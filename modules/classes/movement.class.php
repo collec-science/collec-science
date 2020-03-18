@@ -252,6 +252,12 @@ class Movement extends ObjetBDD
             if (strlen($comment) > 0) {
                 $data["movement_comment"] = $comment;
             }
+            if (strlen($column_number) == 0) {
+                $column_number = 1;
+            }
+            if (strlen($line_number) == 0) {
+                $line_number = 1;
+            }
             $data["column_number"] = $column_number;
             $data["line_number"] = $line_number;
             $movement_id = $this->ecrire($data);

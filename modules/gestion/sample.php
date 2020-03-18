@@ -459,6 +459,34 @@ switch ($t_module["param"]) {
             $module_coderetour = -1;
         }
         break;
+        case "entryMulti":
+        if (count($_POST["uids"]) > 0 && $_POST["container_uid"] > 0) {
+            include_once "modules/classes/movement.class.php";
+            $movement = new Movement($bdd, $ObjetBDDParam);
+            try {
+                $bdd->beginTransaction();
+                foreach ($_POST["uids"] as $uid) {
+                    if ($_POST["container_uid"] == $uid) {
+                        throw new MovementException(sprintf(_("L'objet %s ne peut être stocké dans lui-même", $uid)));
+                    }
+                    $movement->addMovement($uid, null, 1, $_POST["container_uid"], $_SESSION["login"], $_POST["storage_location"], null,null,$_POST["column_number"], $_POST["line_number"]);
+                }
+                $module_coderetour = 1;
+                $bdd->commit();
+            } catch (MovementException $me) {
+                $message->set(_("Erreur lors de la génération du mouvement d'entrée"), true);
+                $message->set($me->getMessage());
+                $bdd->rollback();
+            } catch (Exception $e) {
+                $message->set(_("Un problème est survenu lors de la génération des mouvements"), true);
+                $message->set($e->getMessage());
+                $bdd->rollback();
+                $module_coderetour = -1;
+            }
+        } else {
+            $module_coderetour = -1;
+        }
+        break;
     case "export":
         try {
             $vue->set(

@@ -154,7 +154,11 @@ class LoginGestion extends ObjetBDD
      */
     public function getListeTriee()
     {
-        $sql = 'select id,login,nom,prenom,mail,actif from LoginGestion order by nom,prenom, login';
+        $sql = "select id,l.login,nom,prenom,mail,actif, is_clientws, count(*) as dbconnect_provisional_nb
+        from logingestion l
+        left outer join log on (l.login = log.login and log_date > datemodif
+                       and commentaire = 'db-ok-expired')
+        group by id, l.login, nom, prenom, mail, actif, is_clientws";
         return ObjetBDD::getListeParam($sql);
     }
 

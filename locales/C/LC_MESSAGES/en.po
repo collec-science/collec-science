@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-27 12:57+0100\n"
+"POT-Creation-Date: 2020-03-27 15:13+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1025,8 +1025,8 @@ msgid "Fichier %s non trouvé ou non lisible"
 msgstr "File %s not found or not readable"
 
 #: ../../../param/param.default.inc.php:11
-msgid "18/03/2020"
-msgstr "2020-03-18"
+msgid "01/04/2020"
+msgstr "2020-04-01"
 
 #: ../../../modules/exportmodel/exportmodel.class.php:139
 #: ../../../modules/exportmodel/exportmodel.class.php:341

@@ -1,6 +1,6 @@
 News
 ===========
-Version 2.4.0 du 17 février 2020
+Version 2.4.0 du 1er avril 2020
 --------------------------------
 Corrections de bugs :
 - en modification d'un mot de passe, le message d'information sur la longueur de celui-ci était erroné
@@ -12,6 +12,8 @@ Corrections de bugs :
 - en recherche d'échantillons, dans certains cas de figure, la liste retournée pouvait être trop importante et saturer le navigateur
 - la création d'événements par lot d'échantillons n'était pas possible, la liste des types d'événements n'étant pas disponible
 - dans la liste des échantillons, les zones "date-heure" sont affichées maintenant sur une seule ligne, sans retour chariot
+- dans les protocoles, il n'était pas possible de supprimer le document téléchargé
+- correction des scripts d'installation et de sauvegarde de la base de données
 
 Nouveautés
 
@@ -36,6 +38,7 @@ Contenants :
 - sur la page d'accueil, le nombre d'échantillons par collection et la date de dernière modification est affichée. La liste est limitée aux collections pour lesquelles les utilisateurs disposent des droits de gestion
 - la liste des échantillons est complétée par une visualisation sur une carte de leur emplacement
 - il est possible de rattacher un échantillon à une campagne de prélèvement. Celle-ci peut être associée à une ou plusieurs réglementations, et il est possible d'y attacher des documents complémentaires
+- il est maintenant possible de rechercher les échantillons par métadonnées sans sélectionner le type d'échantillons au préalable
 
 Objets :
 - un objet peut être mis à la corbeille (fonctionnalité prévue dans le cadre des échanges automatiques)
@@ -43,6 +46,7 @@ Objets :
 - les objets sont maintenant dotés d'un champ Postgis, facilitant la recherche spatiale ou à la visualisation avec des outils tiers comme QGIS
 - la date de la dernière modification d'un objet est enregistrée
 - ajout d'un champ de type UUID, pour faciliter les échanges
+- depuis les listes d'échantillons ou de contenants, il est maintenant possible de générer les mouvements d'entrée ou de sortie pour les objets sélectionnés
 
 Importations/exportations/téléchargements :
 - le résultat des importations (UID générés, nombre de lignes traitées) est maintenant enregistré dans la table des logs
@@ -58,7 +62,11 @@ Divers :
 - il est possible d'affecter un numéro de laboratoire à un emprunteur
 - le tri dans les tableaux est maintenant indépendant de la casse et des accents
 - la structure de la base de données peut être visualisée depuis l'interface
-
+- le logiciel supporte maintenant l'identification Shibboleth (mode HEADER)
+- en création des modèles d'étiquettes, il est maintenant possible d'enregistrer les modifications et de rester sur la page courante, pour faciliter la mise au point (affichage de l'étiquette dans un autre navigateur, par exemple)
+- le site web https://wwww.collec-science.org a été mis à jour
+- les commentaires dans la base de données ont été basculés en anglais
+- pour les utilisateurs identifiés depuis la base de données locale, leur compte est bloqué après trois connexions sans changement du mot de passe. L'état de leur compte est maintenant affiché.
 
 Version 2.3.1 du 6 septembre 2019
 ---------------------------------

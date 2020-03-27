@@ -12,6 +12,8 @@ Bug fixes :
 - when searching for samples, in some cases, the list returned could be too large and saturate the browser
 - the creation of events by batch of samples was not possible as the list of event types was not available
 - in the sample list, the "date-time" fields are now displayed on a single line, without carriage return.
+- in the protocols, it was not possible to delete the uploaded document
+- correction of installation and database backup scripts
 
 What's new
 
@@ -36,6 +38,7 @@ Samples:
 - on the home page, the number of samples per collection and the date of last modification is displayed. The list is limited to collections for which users have management rights.
 - the list of samples is supplemented by a map showing their location
 - it is possible to attach a sample to a sampling campaign. This can be associated with one or more regulations, and it is possible to attach additional documents to it
+- it is now possible to search for samples by metadata without first selecting the sample type
 
 Objects:
 - an object can be trashed (functionality provided for automatic exchanges)
@@ -43,6 +46,7 @@ Objects:
 - objects are now equipped with a Postgis field, facilitating spatial search or visualization with third party tools such as QGIS
 - The date of the last change to an object is recorded
 - addition of a field of type UUID, to facilitate exchanges
+- From the lists of samples or containers, it is now possible to generate the input or output movements for the selected objects
 
 Imports/Exports/Downloads :
 - the result of the imports (UIDs generated, number of rows processed) is now stored in the log table
@@ -58,6 +62,11 @@ Miscellaneous:
 - it is possible to assign a laboratory number to a borrower
 - sorting in tables is now case- and accent-independent
 - the database structure can be viewed from the interface
+- the software now supports Shibboleth identification (HEADER mode)
+- when creating label templates, it is now possible to save changes and stay on the current page, to facilitate fine-tuning (displaying the label in another browser, for example)
+- the website https://wwww.collec-science.org has been updated
+- the comments in the database have been switched to English
+- for users identified from the local database, their account is blocked after three logins without changing the password. The status of their account is now displayed.
 
 Translated with www.DeepL.com/Translator (free version)
 

@@ -142,6 +142,13 @@ $(document).ready(function() {
 
 </div>
 </div>
+{if $data.dbconnect_provisional_nb > 3}
+	<div class="form-group">
+		<div class="col-md-12 center red">
+			{t}Le compte est verrouillé, le mot de passe n'a pas été changé après 3 connexions{/t}
+		</div>
+	</div>
+{/if}
 <div class="form-group">
 <label for="pass1" class="col-md-4 control-label"><span class="red">*</span> {t}Mot de passe :{/t} </label>
 <div class="col-md-7">

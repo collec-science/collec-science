@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-18 15:42+0100\n"
+"POT-Creation-Date: 2020-03-27 12:57+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -846,14 +846,14 @@ msgstr ""
 "The access to the module does not respect the order of the sequences in the "
 "application. Maybe you tried to refresh the page?"
 
-#: ../../../framework/identification/login.php:52
+#: ../../../framework/identification/login.php:58
 msgid ""
 "Problème rencontré lors de l'écriture du login pour la gestion des droits"
 msgstr "Problem encountered while writing the login for the rights management"
 
-#: ../../../framework/identification/login.php:68
-#: ../../../framework/identification/loginGestion.class.php:248
-#: ../../../framework/identification/loginGestion.class.php:302
+#: ../../../framework/identification/login.php:74
+#: ../../../framework/identification/loginGestion.class.php:264
+#: ../../../framework/identification/loginGestion.class.php:318
 #: ../../../framework/identification/passwordLost.php:86
 #: ../../../framework/identification/passwordLost.php:113
 msgid ""
@@ -875,23 +875,23 @@ msgstr ""
 msgid "Votre mot de passe va expirer. Veuillez le changer immédiatement"
 msgstr "Your password is about to expire. Please, change it immediately"
 
-#: ../../../framework/identification/loginGestion.class.php:174
+#: ../../../framework/identification/loginGestion.class.php:178
 msgid "Mot de passe insuffisamment complexe ou trop petit"
 msgstr "Password not enough complex or too small"
 
-#: ../../../framework/identification/loginGestion.class.php:242
+#: ../../../framework/identification/loginGestion.class.php:258
 msgid "La modification du mot de passe a échoué"
 msgstr "Password change failed"
 
-#: ../../../framework/identification/loginGestion.class.php:245
+#: ../../../framework/identification/loginGestion.class.php:261
 msgid "L'ancien mot de passe est incorrect"
 msgstr "The old password is incorrect"
 
-#: ../../../framework/identification/loginGestion.class.php:294
+#: ../../../framework/identification/loginGestion.class.php:310
 msgid "Le mot de passe a été modifié"
 msgstr "The password has been changed"
 
-#: ../../../framework/identification/loginGestion.class.php:295
+#: ../../../framework/identification/loginGestion.class.php:311
 msgid ""
 "Votre mot de passe vient d'être modifié.<br>Si vous n'avez pas réalisé cette "
 "opération, veuillez contacter le responsable de l'application"
@@ -899,11 +899,11 @@ msgstr ""
 "Your password has just been changed.<br>If you did not perform this "
 "operation, please contact the application manager"
 
-#: ../../../framework/identification/loginGestion.class.php:296
+#: ../../../framework/identification/loginGestion.class.php:312
 msgid "Modification de votre mot de passe"
 msgstr "Change your password"
 
-#: ../../../framework/identification/loginGestion.class.php:299
+#: ../../../framework/identification/loginGestion.class.php:315
 msgid ""
 "Echec de modification du mot de passe pour une raison inconnue. Si le "
 "problème persiste, contactez l'assistance"
@@ -911,19 +911,19 @@ msgstr ""
 "Failed to change the password for an unknown reason. If the problem "
 "persists, contact support"
 
-#: ../../../framework/identification/loginGestion.class.php:351
+#: ../../../framework/identification/loginGestion.class.php:367
 msgid "Le mot de passe n'est pas assez fort"
 msgstr "Password not strong enough"
 
-#: ../../../framework/identification/loginGestion.class.php:354
+#: ../../../framework/identification/loginGestion.class.php:370
 msgid "Le mot de passe n'est pas assez complexe"
 msgstr "Password not complex enough"
 
-#: ../../../framework/identification/loginGestion.class.php:357
+#: ../../../framework/identification/loginGestion.class.php:373
 msgid "Le mot de passe est trop court"
 msgstr "Password too short"
 
-#: ../../../framework/identification/loginGestion.class.php:360
+#: ../../../framework/identification/loginGestion.class.php:376
 msgid "Le mot de passe n'est pas identique dans les deux zones"
 msgstr "Passwords don't match in both fields"
 
@@ -1807,7 +1807,7 @@ msgstr "Back to detail"
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:39
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:49
 #: ../../../display/templates/framework/dbparamListChange.tpl:24
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:202
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:209
 #: ../../../display/templates/framework/ident/loginChangePassword.tpl:135
 #: ../../../display/templates/framework/ident/loginAdmin.tpl:24
 #: ../../../display/templates/framework/droits/acoChange.tpl:16
@@ -1856,7 +1856,7 @@ msgid "Nom du modèle :"
 msgstr "Model name:"
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:51
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:204
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:211
 #: ../../../display/templates/framework/droits/acoChange.tpl:18
 #: ../../../display/templates/framework/droits/groupChange.tpl:15
 #: ../../../display/templates/framework/droits/appliChange.tpl:27
@@ -2045,7 +2045,7 @@ msgstr ""
 "identical in the model"
 
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:87
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:215
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:222
 #: ../../../display/templates/framework/droits/acoChange.tpl:47
 #: ../../../display/templates/framework/droits/groupChange.tpl:45
 #: ../../../display/templates/framework/droits/appliChange.tpl:35
@@ -2239,7 +2239,7 @@ msgid "Login :"
 msgstr "Login:"
 
 #: ../../../display/templates/framework/ident/login.tpl:33
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:146
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:153
 #: ../../../display/templates/framework/ident/loginAdmin.tpl:13
 msgid "Mot de passe :"
 msgstr "Password:"
@@ -2278,7 +2278,7 @@ msgid "Adresse e-mail"
 msgstr "Email address"
 
 #: ../../../display/templates/framework/ident/loginliste.tpl:11
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:191
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:198
 msgid "Actif"
 msgstr "Active"
 
@@ -2286,10 +2286,15 @@ msgstr "Active"
 msgid "Compte utilisé pour service web"
 msgstr "Account used for web service"
 
-#: ../../../display/templates/framework/ident/loginliste.tpl:21
+#: ../../../display/templates/framework/ident/loginliste.tpl:13
+msgid "Mot de passe en attente de changement"
+msgstr "Password waiting to be change"
+
 #: ../../../display/templates/framework/ident/loginliste.tpl:22
+#: ../../../display/templates/framework/ident/loginliste.tpl:23
+#: ../../../display/templates/framework/ident/loginliste.tpl:26
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:125
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:194
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:201
 #: ../../../display/templates/gestion/sampleChange.tpl:630
 #: ../../../display/templates/gestion/containerChange.tpl:214
 #: ../../../display/templates/param/metadataDisplay.tpl:34
@@ -2315,6 +2320,10 @@ msgstr "Account used for web service"
 msgid "oui"
 msgstr "yes"
 
+#: ../../../display/templates/framework/ident/loginliste.tpl:25
+msgid "Compte bloqué"
+msgstr "Account blocked"
+
 #: ../../../display/templates/framework/ident/identMailInput.tpl:2
 msgid "lancement de la procédure de récupération"
 msgstr "start the recovery procedure"
@@ -2338,7 +2347,7 @@ msgid "Le mot de passe est trop court. Minimum : "
 msgstr "The password is too short. Minimum: "
 
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:19
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:178
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:185
 #: ../../../display/templates/framework/ident/loginChangePassword.tpl:54
 #: ../../../display/templates/framework/ident/loginChangePassword.tpl:137
 msgid "caractères"
@@ -2386,7 +2395,7 @@ msgid "Compte utilisé pour service web :"
 msgstr "Account used for web service:"
 
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:129
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:197
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:204
 #: ../../../display/templates/gestion/sampleChange.tpl:636
 #: ../../../display/templates/gestion/containerChange.tpl:220
 #: ../../../display/templates/param/identifierTypeChange.tpl:33
@@ -2410,7 +2419,7 @@ msgid "Jeton d'identification du service web :"
 msgstr "Identification token of the web service:"
 
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:139
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:171
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:178
 msgid "Copier dans le presse-papier"
 msgstr "Copy to clipboard"
 
@@ -2418,48 +2427,55 @@ msgstr "Copy to clipboard"
 msgid "Réinitialiser..."
 msgstr "Reset ..."
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:155
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:148
+msgid ""
+"Le compte est verrouillé, le mot de passe n'a pas été changé après 3 "
+"connexions"
+msgstr ""
+"The account is blocked, the password was not changed after 3 connections"
+
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:162
 #: ../../../display/templates/framework/ident/loginChangePassword.tpl:125
 msgid "Répétez le mot de passe :"
 msgstr "Repeat password:"
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:164
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:171
 msgid "Générez un mot de passe aléatoire"
 msgstr "Generate a random password"
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:166
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:173
 msgid "Générez"
 msgstr "Generate"
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:169
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:176
 msgid "Mot de passe généré"
 msgstr "Password generated"
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:176
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:183
 msgid "Caractéristiques du mot de passe :"
 msgstr "Password characteristics:"
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:178
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:185
 msgid "Longueur minimale : "
 msgstr "Minimum length:"
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:179
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:186
 msgid "Au minimum 3 types de caractères différents parmi :"
 msgstr "be composed of at least 3 different types of characters among:"
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:181
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:188
 msgid "des minuscules"
 msgstr "lowercase characters"
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:182
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:189
 msgid "des majuscules"
 msgstr "uppercase characters"
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:183
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:190
 msgid "des chiffres"
 msgstr "numbers"
 
-#: ../../../display/templates/framework/ident/loginsaisie.tpl:184
+#: ../../../display/templates/framework/ident/loginsaisie.tpl:191
 msgid "des caractères de ponctuation ou spéciaux"
 msgstr "punctuation or special characters"
 

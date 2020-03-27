@@ -28,6 +28,12 @@ switch ($t_module["param"]) {
         $data = dataRead($dataClass, $id, "framework/ident/loginsaisie.tpl", 0);
         $vue->set($APPLI_passwordMinLength, "passwordMinLength");
         unset($data["password"]);
+        /**
+         * Add dbconnect_provisional_nb
+         */
+        if (strlen($data["login"])>0) {
+            $data["dbconnect_provisional_nb"] = $dataClass->getDbconnectProvisionalNb($data["login"]);
+        }
         $vue->set($data, "data");
         break;
     case "write":

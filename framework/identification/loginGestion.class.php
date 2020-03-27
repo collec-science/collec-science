@@ -190,6 +190,18 @@ class LoginGestion extends ObjetBDD
         return parent::ecrire($data);
     }
 
+    function getDbconnectProvisionalNb($login)
+    {
+        $sql = "select count(*) as dbconnect_provisional_nb
+        from logingestion l
+        join log on (l.login = log.login and log_date > datemodif
+                       and commentaire = 'db-ok-expired')
+        where l.login = :login";
+        $result = $this->lireParamAsPrepared($sql, array("login" => $login));
+        $result["dbconnect_provisional_db"] > 0 ? $val = $result["dbconnect_provisional_db"] : $val = 0;
+        return $val;
+    }
+
     /**
      * Surcharge de la fonction supprimer pour effacer les traces des anciens mots de passe
      *

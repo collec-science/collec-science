@@ -14,6 +14,8 @@ then
 cd /var/www/html/collec-science
 rm -f *zip
 # download last code
+echo "install postgis"
+apt-get -y install postgis
 echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip
 read -p "Ok to install this release [Y/n]?" answer

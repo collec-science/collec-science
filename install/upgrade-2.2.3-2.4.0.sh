@@ -13,6 +13,8 @@ if [[ $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then
 cd /var/www/html/collec-science
 rm -f *zip
+echo "install postgis"
+apt-get -y install postgis
 # download last code
 echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip

@@ -19,6 +19,8 @@ echo "wget https://github.com/Irstea/collec/raw/master/install/php_upgrade.sh"
 echo "chmod +x php_upgrade.sh"
 echo "./php_upgrade.sh"
 cd /var/www/html/collec-science
+echo "install postgis"
+apt-get -y install postgis
 rm -f *zip
 # download last code
 echo "download software"

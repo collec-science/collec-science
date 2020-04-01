@@ -20,6 +20,8 @@ echo "chmod +x php_upgrade.sh"
 echo "./php_upgrade.sh"
 cd /var/www/html/collec-science
 rm -f *zip
+echo "install postgis"
+apt-get -y install postgis
 # download last code
 echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip

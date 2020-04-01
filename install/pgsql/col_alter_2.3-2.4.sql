@@ -12,6 +12,7 @@ ALTER SCHEMA col OWNER TO collec; (line 400 or arround)
  by:
   yourschemaname. (space before)
  and change the line SET search_path=(...) (line 30 or arround)
+ and replace 'col. by 'yourschemaname.
  */
 
 -- Diff code generated with pgModeler (PostgreSQL Database Modeler)
@@ -885,7 +886,7 @@ COMMENT ON COLUMN col.object.wgs84_y IS E'GPS latitude, in decimal form';
 -- [ Created constraints ] --
 -- object: projet_group_pk | type: CONSTRAINT --
 -- ALTER TABLE col.collection_group DROP CONSTRAINT IF EXISTS projet_group_pk CASCADE;
-ALTER TABLE col.collection_group ADD CONSTRAINT projet_group_pk PRIMARY KEY (collection_id,aclgroup_id);
+--ALTER TABLE col.collection_group ADD CONSTRAINT projet_group_pk PRIMARY KEY (collection_id,aclgroup_id);
 -- ddl-end --
 
 

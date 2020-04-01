@@ -67,6 +67,10 @@ chmod -R 770 $VERSION/temp
 
 systemctl restart apache2
 
+PHPOLDVERSION=`php -v|grep ^PHP|cut -d " " -f 2|cut -d "." -f 1-2`
+echo "Your version of PHP is $PHPOLDVERSION. If it < 7.2, you must upgrade it with the script:"
+echo "./php_upgrade.sh"
+
 echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process"
 fi
 fi

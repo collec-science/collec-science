@@ -21,6 +21,7 @@ echo "./php_upgrade.sh"
 cd /var/www/html/collec-science
 rm -f *zip
 echo "install postgis"
+apt-get update
 apt-get -y install postgis
 # download last code
 echo "download software"
@@ -50,7 +51,7 @@ ln -s $VERSION collec
 
 # upgrade database
 echo "update database"
-chmod 755 /var/www/html/collec-science
+chmod -R 755 /var/www/html/collec-science
 cd collec/install
 su postgres -c "psql -f upgrade-1.2.3-2.0.sql"
 su postgres -c "psql -f upgrade-2.0-2.1.sql"
@@ -58,7 +59,7 @@ su postgres -c "psql -f upgrade-2.1-2.2.sql"
 su postgres -c "psql -f upgrade-2.2-2.3.sql"
 su postgres -c "psql -f upgrade-2.3-2.4.sql"
 cd ../..
-chmod 750 /var/www/html/collec-science
+chmod -R 750 /var/www/html/collec-science
 
 # assign rights to new folder
 mkdir $VERSION/display/templates_c

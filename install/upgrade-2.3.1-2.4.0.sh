@@ -50,11 +50,11 @@ ln -s $VERSION collec
 
 # upgrade database
 echo "update database"
-chmod 755 /var/www/html/collec-science
+chmod -R 755 /var/www/html/collec-science
 cd collec/install
 su postgres -c "psql -f upgrade-2.3-2.4.sql"
 cd ../..
-chmod 750 /var/www/html/collec-science
+chmod 750 -R /var/www/html/collec-science
 
 # assign rights to new folder
 mkdir $VERSION/display/templates_c

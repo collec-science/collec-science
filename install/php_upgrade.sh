@@ -18,7 +18,7 @@ then
   else
   # Debian
     wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
-    echo "deb https://packages.sury.org/php/ $DISTRIBNAME main" | tee /etc/apt/sources.list.d/php.list
+    echo "deb https://packages.sury.org/php/ $DISTRIBCODE main" | tee /etc/apt/sources.list.d/php.list
     apt-get update
   fi
   apt-get -y install libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd

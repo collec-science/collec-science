@@ -392,7 +392,7 @@ ALTER SCHEMA col OWNER TO collec;
 -- ddl-end --
 ALTER SCHEMA gacl OWNER TO collec;
 -- ddl-end --
-ALTER SEQUENCE col.booking_booking_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.booking_booking_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.booking OWNER TO collec;
 -- ddl-end --
@@ -408,25 +408,25 @@ COMMENT ON COLUMN col.booking.booking_comment IS E'Comment';
 -- ddl-end --
 COMMENT ON COLUMN col.booking.booking_login IS E'Login used to perform the reservation';
 -- ddl-end --
-ALTER SEQUENCE col.project_project_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.project_project_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.collection_group OWNER TO collec;
 -- ddl-end --
 COMMENT ON TABLE col.collection_group IS E'Table of project approvals';
 -- ddl-end --
-ALTER SEQUENCE col.container_container_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.container_container_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.container OWNER TO collec;
 -- ddl-end --
 COMMENT ON TABLE col.container IS E'Liste of containers';
 -- ddl-end --
-ALTER SEQUENCE col.container_family_container_family_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.container_family_container_family_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.container_family OWNER TO collec;
 -- ddl-end --
 COMMENT ON TABLE col.container_family IS E'General family of containers';
 -- ddl-end --
-ALTER SEQUENCE col.container_type_container_type_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.container_type_container_type_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.container_type OWNER TO collec;
 -- ddl-end --
@@ -452,7 +452,7 @@ COMMENT ON COLUMN col.dbparam.dbparam_name IS E'Name of the parameter';
 -- ddl-end --
 COMMENT ON COLUMN col.dbparam.dbparam_value IS E'Value of the parameter';
 -- ddl-end --
-ALTER SEQUENCE col.dbversion_dbversion_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.dbversion_dbversion_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.dbversion OWNER TO collec;
 -- ddl-end --
@@ -462,7 +462,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_number IS E'Number of the version';
 -- ddl-end --
 COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 -- ddl-end --
-ALTER SEQUENCE col.document_document_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.document_document_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.document OWNER TO collec;
 -- ddl-end --
@@ -484,7 +484,7 @@ COMMENT ON COLUMN col.document.size IS E'Size of downloaded file';
 -- ddl-end --
 COMMENT ON COLUMN col.document.document_creation_date IS E'Create date of the document (date of photo shooting, for example)';
 -- ddl-end --
-ALTER SEQUENCE col.event_event_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.event_event_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.event OWNER TO collec;
 -- ddl-end --
@@ -496,7 +496,7 @@ COMMENT ON COLUMN col.event.still_available IS E'still available content in the 
 -- ddl-end --
 COMMENT ON COLUMN col.event.event_comment IS E'Comment';
 -- ddl-end --
-ALTER SEQUENCE col.event_type_event_type_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.event_type_event_type_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.event_type OWNER TO collec;
 -- ddl-end --
@@ -508,7 +508,7 @@ COMMENT ON COLUMN col.event_type.is_sample IS E'The event is applicable to the s
 -- ddl-end --
 COMMENT ON COLUMN col.event_type.is_container IS E'The event is applicable to the containers';
 -- ddl-end --
-ALTER SEQUENCE col.identifier_type_identifier_type_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.identifier_type_identifier_type_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.identifier_type OWNER TO collec;
 -- ddl-end --
@@ -520,7 +520,7 @@ COMMENT ON COLUMN col.identifier_type.identifier_type_code IS E'Identifier code,
 -- ddl-end --
 COMMENT ON COLUMN col.identifier_type.used_for_search IS E'Is the identifier usable for barcode searches?';
 -- ddl-end --
-ALTER SEQUENCE col.label_label_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.label_label_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.label OWNER TO collec;
 -- ddl-end --
@@ -536,11 +536,11 @@ COMMENT ON COLUMN col.label.metadata_id IS E'Model of the metadata template asso
 -- ddl-end --
 COMMENT ON COLUMN col.label.identifier_only IS E'true: the qrcode contains only a business identifier';
 -- ddl-end --
-ALTER SEQUENCE col.storage_storage_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.storage_storage_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER VIEW col.last_photo OWNER TO collec;
 -- ddl-end --
-ALTER SEQUENCE col.metadata_metadata_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.metadata_metadata_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.metadata OWNER TO collec;
 -- ddl-end --
@@ -550,7 +550,7 @@ COMMENT ON COLUMN col.metadata.metadata_name IS E'Name of the metadata set';
 -- ddl-end --
 COMMENT ON COLUMN col.metadata.metadata_schema IS E'JSON schema of the metadata form';
 -- ddl-end --
-ALTER SEQUENCE col.mime_type_mime_type_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.mime_type_mime_type_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.mime_type OWNER TO collec;
 -- ddl-end --
@@ -560,21 +560,21 @@ COMMENT ON COLUMN col.mime_type.extension IS E'File extension';
 -- ddl-end --
 COMMENT ON COLUMN col.mime_type.content_type IS E'Official mime type';
 -- ddl-end --
-ALTER SEQUENCE col.storage_reason_storage_reason_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.storage_reason_storage_reason_id_seq OWNER TO collec;
 -- ddl-end --
-ALTER SEQUENCE col.movement_type_movement_type_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.movement_type_movement_type_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.movement_type OWNER TO collec;
 -- ddl-end --
-ALTER SEQUENCE col.multiple_type_multiple_type_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.multiple_type_multiple_type_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.multiple_type OWNER TO collec;
 -- ddl-end --
 COMMENT ON TABLE col.multiple_type IS E'Table of categories of potential sub-sampling (unit, quantity, percentage, etc.)';
 -- ddl-end --
-ALTER SEQUENCE col.object_uid_seq OWNER TO collec;
+--ALTER SEQUENCE col.object_uid_seq OWNER TO collec;
 -- ddl-end --
-ALTER SEQUENCE col.object_identifier_object_identifier_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.object_identifier_object_identifier_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.object_identifier OWNER TO collec;
 -- ddl-end --
@@ -582,7 +582,7 @@ COMMENT ON TABLE col.object_identifier IS E'Table of complementary identifiers';
 -- ddl-end --
 COMMENT ON COLUMN col.object_identifier.object_identifier_value IS E'Identifier value';
 -- ddl-end --
-ALTER SEQUENCE col.object_status_object_status_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.object_status_object_status_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER SEQUENCE col.object_status_object_status_id_seq
 	START WITH 7
@@ -592,7 +592,7 @@ ALTER TABLE col.object_status OWNER TO collec;
 -- ddl-end --
 COMMENT ON TABLE col.object_status IS E'Table of types of status';
 -- ddl-end --
-ALTER SEQUENCE col.operation_operation_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.operation_operation_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.operation OWNER TO collec;
 -- ddl-end --
@@ -604,7 +604,7 @@ COMMENT ON COLUMN col.operation.operation_version IS E'Version of the operation'
 -- ddl-end --
 COMMENT ON COLUMN col.operation.last_edit_date IS E'Last edit date of the operation';
 -- ddl-end --
-ALTER SEQUENCE col.printer_printer_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.printer_printer_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.printer OWNER TO collec;
 -- ddl-end --
@@ -622,7 +622,7 @@ COMMENT ON COLUMN col.printer.printer_comment IS E'Comment';
 -- ddl-end --
 ALTER TABLE col.collection OWNER TO collec;
 -- ddl-end --
-ALTER SEQUENCE col.protocol_protocol_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.protocol_protocol_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.protocol OWNER TO collec;
 -- ddl-end --
@@ -636,11 +636,11 @@ COMMENT ON COLUMN col.protocol.protocol_year IS E'Year of the protocol';
 -- ddl-end --
 COMMENT ON COLUMN col.protocol.protocol_version IS E'Version of the protocol';
 -- ddl-end --
-ALTER SEQUENCE col.referent_referent_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.referent_referent_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.referent OWNER TO collec;
 -- ddl-end --
-ALTER SEQUENCE col.sample_sample_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.sample_sample_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.sample OWNER TO collec;
 -- ddl-end --
@@ -658,7 +658,7 @@ COMMENT ON COLUMN col.sample.metadata IS E'Metadata associated with the sample, 
 -- ddl-end --
 COMMENT ON COLUMN col.sample.expiration_date IS E'Date of expiration of the sample. After this date, the sample is not usable';
 -- ddl-end --
-ALTER SEQUENCE col.sample_type_sample_type_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.sample_type_sample_type_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.sample_type OWNER TO collec;
 -- ddl-end --
@@ -670,7 +670,7 @@ COMMENT ON COLUMN col.sample_type.multiple_unit IS E'Name of the unit used  to q
 -- ddl-end --
 COMMENT ON COLUMN col.sample_type.identifier_generator_js IS E'Javascript function code used to automaticaly generate a working identifier from the intered information';
 -- ddl-end --
-ALTER SEQUENCE col.sampling_place_sampling_place_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.sampling_place_sampling_place_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.sampling_place OWNER TO collec;
 -- ddl-end --
@@ -686,7 +686,7 @@ COMMENT ON COLUMN col.sampling_place.sampling_place_x IS E'Longitude of the stat
 -- ddl-end --
 COMMENT ON COLUMN col.sampling_place.sampling_place_y IS E'Latitude of the station, in WGS84';
 -- ddl-end --
-ALTER SEQUENCE col.storage_condition_storage_condition_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.storage_condition_storage_condition_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.storage_condition OWNER TO collec;
 -- ddl-end --
@@ -708,7 +708,7 @@ COMMENT ON COLUMN col.movement.column_number IS E'Number of the storage column i
 -- ddl-end --
 COMMENT ON COLUMN col.movement.line_number IS E'Number of the storage line in the container';
 -- ddl-end --
-ALTER SEQUENCE col.subsample_subsample_id_seq OWNER TO collec;
+--ALTER SEQUENCE col.subsample_subsample_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE col.subsample OWNER TO collec;
 -- ddl-end --
@@ -724,7 +724,7 @@ COMMENT ON COLUMN col.subsample.subsample_login IS E'Login of the user who perfo
 -- ddl-end --
 ALTER VIEW col.v_object_identifier OWNER TO collec;
 -- ddl-end --
-ALTER SEQUENCE gacl.aclgroup_aclgroup_id_seq OWNER TO collec;
+--ALTER SEQUENCE gacl.aclgroup_aclgroup_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER SEQUENCE gacl.aclgroup_aclgroup_id_seq
 	START WITH 7
@@ -734,7 +734,7 @@ ALTER TABLE gacl.aclacl OWNER TO collec;
 -- ddl-end --
 COMMENT ON TABLE gacl.aclacl IS E'Table of rights granted';
 -- ddl-end --
-ALTER SEQUENCE gacl.aclaco_aclaco_id_seq OWNER TO collec;
+--ALTER SEQUENCE gacl.aclaco_aclaco_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER SEQUENCE gacl.aclaco_aclaco_id_seq
 	START WITH 7
@@ -746,7 +746,7 @@ COMMENT ON TABLE gacl.aclaco IS E'Table of managed rights';
 -- ddl-end --
 COMMENT ON COLUMN gacl.aclaco.aco IS E'Name of the right in the application';
 -- ddl-end --
-ALTER SEQUENCE gacl.aclappli_aclappli_id_seq OWNER TO collec;
+--ALTER SEQUENCE gacl.aclappli_aclappli_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER SEQUENCE gacl.aclappli_aclappli_id_seq
 	START WITH 2
@@ -768,7 +768,7 @@ COMMENT ON COLUMN gacl.aclgroup.groupe IS E'Name of the group';
 -- ddl-end --
 COMMENT ON COLUMN gacl.aclgroup.aclgroup_id_parent IS E'Parent group who inherits of the rights attributed to this group';
 -- ddl-end --
-ALTER SEQUENCE gacl.acllogin_acllogin_id_seq OWNER TO collec;
+--ALTER SEQUENCE gacl.acllogin_acllogin_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER SEQUENCE gacl.acllogin_acllogin_id_seq
 	START WITH 2
@@ -786,7 +786,7 @@ ALTER TABLE gacl.acllogingroup OWNER TO collec;
 -- ddl-end --
 COMMENT ON TABLE gacl.acllogingroup IS E'List of logins in the groups';
 -- ddl-end --
-ALTER SEQUENCE gacl.log_log_id_seq OWNER TO collec;
+--ALTER SEQUENCE gacl.log_log_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE gacl.log OWNER TO collec;
 -- ddl-end --
@@ -802,7 +802,7 @@ COMMENT ON COLUMN gacl.log.commentaire IS E'Complementary data recorded';
 -- ddl-end --
 COMMENT ON COLUMN gacl.log.ipaddress IS E'IP address of the client';
 -- ddl-end --
-ALTER SEQUENCE gacl.seq_logingestion_id OWNER TO postgres;
+--ALTER SEQUENCE gacl.seq_logingestion_id OWNER TO postgres;
 -- ddl-end --
 ALTER SEQUENCE gacl.seq_logingestion_id
 	START WITH 2
@@ -838,7 +838,7 @@ COMMENT ON COLUMN gacl.logingestion.tokenws IS E'Identification token used for t
 -- ddl-end --
 COMMENT ON COLUMN gacl.logingestion.is_expired IS E'If true, the account is expired (password older)';
 -- ddl-end --
-ALTER SEQUENCE gacl.passwordlost_passwordlost_id_seq OWNER TO collec;
+--ALTER SEQUENCE gacl.passwordlost_passwordlost_id_seq OWNER TO collec;
 -- ddl-end --
 ALTER TABLE gacl.passwordlost OWNER TO collec;
 -- ddl-end --

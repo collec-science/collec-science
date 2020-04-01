@@ -17,6 +17,8 @@ Cas n°1
     - upgrade-2.2.1-2.4.0.sh
     - upgrade-2.2.2-2.4.0.sh
     - upgrade-2.2.3-2.4.0.sh
+    - upgrade-2.3-2.4.0.sh
+    - upgrade-2.3.1-2.4.0.sh
 
 Connectez-vous à votre serveur, puis :
 

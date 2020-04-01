@@ -2,7 +2,7 @@
 # install a new instance into a server
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
-VERSION=2.3.1
+VERSION=2.4.0
 PHPVER=7.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
 echo "Installation of Collec-Science version " $VERSION
@@ -58,7 +58,7 @@ cd collec/install
 su postgres -c "psql -f init_by_psql.sql"
 cd ../..
 echo "you may verify the configuration of access to postgresql"
-echo "look at /etc/postgresql/9.6/main/pg_hba.conf (verify your version). Only theses lines must be activate:"
+echo "look at /etc/postgresql/11/main/pg_hba.conf (verify your version). Only theses lines must be activate:"
 echo '# "local" is for Unix domain socket connections only
 local   all             all                                     peer
 # IPv4 local connections:

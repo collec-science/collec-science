@@ -154,7 +154,11 @@ class LoginGestion extends ObjetBDD
      */
     public function getListeTriee()
     {
-        $sql = 'select id,login,nom,prenom,mail,actif from LoginGestion order by nom,prenom, login';
+        $sql = "select id,l.login,nom,prenom,mail,actif, is_clientws, count(*) as dbconnect_provisional_nb
+        from logingestion l
+        left outer join log on (l.login = log.login and log_date > datemodif
+                       and commentaire = 'db-ok-expired')
+        group by id, l.login, nom, prenom, mail, actif, is_clientws";
         return ObjetBDD::getListeParam($sql);
     }
 
@@ -184,6 +188,18 @@ class LoginGestion extends ObjetBDD
             $data["is_clientws"] = 0;
         }
         return parent::ecrire($data);
+    }
+
+    function getDbconnectProvisionalNb($login)
+    {
+        $sql = "select count(*) as dbconnect_provisional_nb
+        from logingestion l
+        join log on (l.login = log.login and log_date > datemodif
+                       and commentaire = 'db-ok-expired')
+        where l.login = :login";
+        $result = $this->lireParamAsPrepared($sql, array("login" => $login));
+        $result["dbconnect_provisional_db"] > 0 ? $val = $result["dbconnect_provisional_db"] : $val = 0;
+        return $val;
     }
 
     /**

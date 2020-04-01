@@ -142,6 +142,13 @@ $(document).ready(function() {
 
 </div>
 </div>
+{if $data.dbconnect_provisional_nb > 3}
+	<div class="form-group">
+		<div class="col-md-12 center red">
+			{t}Le compte est verrouillé, le mot de passe n'a pas été changé après 3 connexions{/t}
+		</div>
+	</div>
+{/if}
 <div class="form-group">
 <label for="pass1" class="col-md-4 control-label"><span class="red">*</span> {t}Mot de passe :{/t} </label>
 <div class="col-md-7">
@@ -173,10 +180,10 @@ $(document).ready(function() {
 </div>
 <div class="col-md-12">
 <div class="bg-info">
-{t}Le mot de passe doit :{/t}
+{t}Caractéristiques du mot de passe :{/t}
 <ul>
-<li>{t}avoir une longueur minimale de 10 caractères{/t}</li>
-<li>{t}être composé d'au minimum 3 types de caractères différents parmi :{/t}
+<li>{t}Longueur minimale : {/t}{$passwordMinLength}&nbsp;{t}caractères{/t}</li>
+<li>{t}Au minimum 3 types de caractères différents parmi :{/t}
 <ul>
 <li>{t}des minuscules{/t}</li>
 <li>{t}des majuscules{/t}</li>

@@ -341,17 +341,80 @@ class Identification
              * Identification via les headers fournis par le serveur web
              * dans le cas d'une identification derriere un proxy comme LemonLdap
              */
-            global $ident_header_login_var;
-            $headers = getHeaders();
-            $login = $headers[strtoupper($ident_header_login_var)];
-            if (strlen($login) > 0) {
+            global $ident_header_vars;
+            $headers = getHeaders($ident_header_vars["radical"]);
+            $login = $headers[$ident_header_vars["login"]];
+            if (strlen($login) > 0 && count($headers) > 0) {
+                /**
+                 * Verify if the login exists
+                 */
+                include_once "framework/identification/loginGestion.class.php";
+                global $bdd_gacl, $ObjetBDDParam;
+                $loginGestion = new LoginGestion($bdd_gacl, $ObjetBDDParam);
+                $dlogin = $loginGestion->getFromLogin($login);
+                /**
+                 * Verify if the login is recorded
+                 */
+                if ($dlogin["id"] > 0) {
+                    if ($dlogin["actif"] == 1) {
+                        $verify = true;
+                    }
+                } else {
+                    /**
+                     * Create if authorized the login
+                     */
+                    if ($ident_header_vars["createUser"]) {
+                        /**
+                         * Verify if the structure is authorized
+                         */
+                        $createUser = true;
+                        if (count($ident_header_vars["organizationGranted"]) > 0 && !in_array($headers[$ident_header_vars["organization"]], $ident_header_vars["organizationGranted"])) {
+                            $createUser = false;
+                            $log->setLog($login, "connexion", "HEADER-ko. The ".$headers[$ident_header_vars["organization"]]. " is not authorized to connect to this application");
+                        }
+                        if ($createUser) {
+                            $dlogin = array (
+                            "login"=>$login,
+                            "nom"=>$headers[$ident_header_vars["cn"]],
+                            "mail"=>$headers[$ident_header_vars["mail"]],
+                            "actif"=>0
+                            );
+                            $login_id = $loginGestion->ecrire($dlogin);
+                            if ($login_id > 0) {
+                                /**
+                                 * Create the record in gacllogin
+                                 */
+                                include_once "framework/droits/droits.class.php";
+                                $aclogin = new Acllogin($bdd_gacl);
+                                $aclogin->addLoginByLoginAndName($login, $headers[$ident_header_vars["cn"]]);
+                                /**
+                                 * Send mail to administrators
+                                 */
+                                global $APPLI_nom, $APPLI_mail;
+                                $subject = $APPLI_nom." "._("Nouvel utilisateur");
+                                $contents = "<html><body>".sprintf(_("%1$s a créé son compte avec le login %2$s dans l'application %3$s.
+                                <br>Il est rattaché à l'organisation %5$s.
+                                <br>Le compte est inactif jusqu'à ce que vous l'activiez.
+                                <br>Pour activer le compte, connectez-vous à l'application
+                                    <a href='%4$s'>%4$s</a>
+                                <br>Ne répondez pas à ce mail, qui est généré automatiquement")."</body></html>",$login,$headers[$ident_header_vars["cn"]],$APPLI_nom, $APPLI_mail, $headers[$ident_header_vars["organization"]]);
+
+                                $log->sendMailToAdmin($subject,$contents,"loginCreateByHeader",$login);
+                                $message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation") );
+                            }
+                        }
+                    }
+                }
                 /*
                  * Verification si le nombre de tentatives de connexion n'a pas ete atteint
                  */
                 if (!$log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
                     $log->setLog($login, "connexion", "HEADER-ok");
+                } else {
+                    $verify = false;
                 }
-            } else {
+            }
+            if (!$verify) {
                 $log->setLog($login, "connexion", "HEADER-ko");
             }
         } elseif ($ident_type == "CAS") {

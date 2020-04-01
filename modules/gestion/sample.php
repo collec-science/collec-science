@@ -39,6 +39,7 @@ switch ($t_module["param"]) {
                 $vue->set(1, "isSearch");
             } catch (Exception $e) {
                 $message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
+                $message->setSyslog($e->getMessage());
             }
         }
         $vue->set($dataSearch, "sampleSearch");
@@ -52,6 +53,21 @@ switch ($t_module["param"]) {
          * Ajout de la selection des modeles d'etiquettes
          */
         include 'modules/gestion/label.functions.php';
+        /**
+         * Map default data
+         */
+        include "modules/gestion/mapInit.php";
+        /**
+         * Generate data for markers on the map
+         */
+        $dataMap["markers"] = array();
+        foreach ($data as $row) {
+            if (strlen($row["wgs84_x"]) > 0 && strlen($row["wgs84_y"]) > 0) {
+                $dataMap["markers"][] = array("latlng" => array($row["wgs84_y"], $row["wgs84_x"]), "uid" => $row["uid"], "identifier" => $row["identifier"]);
+            }
+        }
+        $vue->set(json_encode($dataMap), "markers");
+        $vue->htmlVars[] = "markers";
         break;
     case "searchAjax":
         $vue->set($dataClass->sampleSearch($_REQUEST));
@@ -121,7 +137,7 @@ switch ($t_module["param"]) {
          */
         include_once "modules/classes/borrowing.class.php";
         $borrowing = new Borrowing($bdd, $ObjetBDDParam);
-        $vue->set($borrowing->getFromUid($data["uid"]),"borrowings");
+        $vue->set($borrowing->getFromUid($data["uid"]), "borrowings");
         /*
          * Verification que l'echantillon peut etre modifie
          */
@@ -134,7 +150,12 @@ switch ($t_module["param"]) {
          */
         include_once 'modules/classes/document.class.php';
         $document = new Document($bdd, $ObjetBDDParam);
-        $vue->set($document->getListFromParent($data["uid"]), "dataDoc");
+        $vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
+        /**
+         * Get the list of authorized extensions
+         */
+        $mimeType = new MimeType($bdd, $ObjetBDDParam);
+        $vue->set($mimeType->getListExtensions(false), "extensions");
         /*
          * Ajout de la selection des modeles d'etiquettes
          */
@@ -179,9 +200,13 @@ switch ($t_module["param"]) {
                         $data["collection_id"] = $dataParent["collection_id"];
                         $data["wgs84_x"] = $dataParent["wgs84_x"];
                         $data["wgs84_y"] = $dataParent["wgs84_y"];
+                        $data["location_accuracy"] = $dataParent["location_accuracy"];
                         $data["metadata"] = $dataParent["metadata"];
                         $data["sampling_place_id"] = $dataParent["sampling_place_id"];
                         $data["referent_id"] = $dataParent["referent_id"];
+                        $data["identifier"] = $dataParent["identifier"];
+                        $data["campaign_id"] = $dataParent["campaign_id"];
+                        $data["uuid"] = $dataClass->getUUID();
                     }
                     $vue->set($data, "data");
                 }
@@ -195,6 +220,7 @@ switch ($t_module["param"]) {
                     $dl = $dataClass->lire($lid);
                     $data["wgs84_x"] = $dl["wgs84_x"];
                     $data["wgs84_y"] = $dl["wgs84_y"];
+                    $data["location_accuracy"] = $dl["location_accuracy"];
                     $data["collection_id"] = $dl["collection_id"];
                     $data["sample_type_id"] = $dl["sample_type_id"];
                     $data["sampling_date"] = $dl["sampling_date"];
@@ -203,9 +229,12 @@ switch ($t_module["param"]) {
                     $data["multiple_value"] = $dl["multiple_value"];
                     $data["expiration_date"] = $dl["expiration_date"];
                     $data["referent_id"] = $dl["referent_id"];
+                    $data["campaign_id"] = $dl["campaign_id"];
                     if ($_REQUEST["is_duplicate"] == 1) {
                         $data["parent_sample_id"] = $dl["parent_sample_id"];
                         $data["sample_type_id"] = $dl["sample_type_id"];
+                        $data["identifier"] = $dl["identifier"];
+                        $data["uuid"] = $dataClass->getUUID();
                         if ($data["parent_sample_id"] > 0) {
                             $dataParent = $dataClass->lireFromId($data["parent_sample_id"]);
                             $vue->set($dataParent, "parent_sample");
@@ -221,6 +250,13 @@ switch ($t_module["param"]) {
             include_once 'modules/classes/referent.class.php';
             $referent = new Referent($bdd, $ObjetBDDParam);
             $vue->set($referent->getListe(2), "referents");
+
+            /**
+             * Get the list of campaigns
+             */
+            include_once "modules/classes/campaign.class.php";
+            $campaign = new Campaign($bdd, $ObjetBDDParam);
+            $vue->set($campaign->getListe(2), "campaigns");
 
             /**
              * Recuperation des types d'evenements
@@ -378,15 +414,15 @@ switch ($t_module["param"]) {
                     /**
                      * Generate an exit movement
                      */
-                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null, 2);
+                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, _("Objet prêté"));
                 }
                 $module_coderetour = 1;
                 $message->set(_("Opération de prêt enregistrée"));
                 $bdd->commit();
-            }catch (MovementException $me) {
+            } catch (MovementException $me) {
                 $message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
                 $message->set($me->getMessage());
-                $bdd->rollback();            
+                $bdd->rollback();
             } catch (Exception $e) {
                 $message->set(_("Un problème est survenu lors de l'enregistrement du prêt"), true);
                 $message->set($e->getMessage());
@@ -397,6 +433,59 @@ switch ($t_module["param"]) {
             $module_coderetour = -1;
         }
 
+        break;
+    case "exitMulti":
+        if (count($_POST["uids"]) > 0) {
+            include_once "modules/classes/movement.class.php";
+            $movement = new Movement($bdd, $ObjetBDDParam);
+            try {
+                $bdd->beginTransaction();
+                foreach ($_POST["uids"] as $uid) {
+                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null);
+                }
+                $module_coderetour = 1;
+                $bdd->commit();
+            } catch (MovementException $me) {
+                $message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
+                $message->set($me->getMessage());
+                $bdd->rollback();
+            } catch (Exception $e) {
+                $message->set(_("Un problème est survenu lors de la génération des mouvements"), true);
+                $message->set($e->getMessage());
+                $bdd->rollback();
+                $module_coderetour = -1;
+            }
+        } else {
+            $module_coderetour = -1;
+        }
+        break;
+        case "entryMulti":
+        if (count($_POST["uids"]) > 0 && $_POST["container_uid"] > 0) {
+            include_once "modules/classes/movement.class.php";
+            $movement = new Movement($bdd, $ObjetBDDParam);
+            try {
+                $bdd->beginTransaction();
+                foreach ($_POST["uids"] as $uid) {
+                    if ($_POST["container_uid"] == $uid) {
+                        throw new MovementException(sprintf(_("L'objet %s ne peut être stocké dans lui-même", $uid)));
+                    }
+                    $movement->addMovement($uid, null, 1, $_POST["container_uid"], $_SESSION["login"], $_POST["storage_location"], null,null,$_POST["column_number"], $_POST["line_number"]);
+                }
+                $module_coderetour = 1;
+                $bdd->commit();
+            } catch (MovementException $me) {
+                $message->set(_("Erreur lors de la génération du mouvement d'entrée"), true);
+                $message->set($me->getMessage());
+                $bdd->rollback();
+            } catch (Exception $e) {
+                $message->set(_("Un problème est survenu lors de la génération des mouvements"), true);
+                $message->set($e->getMessage());
+                $bdd->rollback();
+                $module_coderetour = -1;
+            }
+        } else {
+            $module_coderetour = -1;
+        }
         break;
     case "export":
         try {
@@ -445,6 +534,9 @@ switch ($t_module["param"]) {
                         "identifiers",
                         "dbuid_parent",
                         "referent_name",
+                        "location_accuracy",
+                        "campaign_name",
+                        "uuid"
                     );
                     $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $import->getContentAsArray();
@@ -471,7 +563,7 @@ switch ($t_module["param"]) {
                          * Suppression du fichier temporaire
                          */
                         unset($filename);
-                        unset ($_SESSION["realfilename"]);
+                        unset($_SESSION["realfilename"]);
                     } else {
 
                         /*
@@ -499,5 +591,57 @@ switch ($t_module["param"]) {
                 $module_coderetour = -1;
             }
         }
+        break;
+    case "detail":
+        /**
+         * Get all data for a sample in raw format
+         */
+        $errors = array(
+            500 => "Internal Server Error",
+            401 => "Unauthorized",
+            520 => "Unknown error",
+            404 => "Not Found"
+        );
+        try {
+            if (strlen($id) == 0) {
+                throw new SampleException("uid $id not valid", 404);
+            }
+            $data = $dataClass->getRawDetail($id, true, true, true);
+            if (count($data) == 0) {
+                throw new SampleException("$id not found", 404);
+            }
+            /**
+             * Search for collection
+             */
+            if (isset($_SESSION["login"])) {
+                if (!$dataClass->verifyCollection($data)) {
+                    throw new SampleException("Not sufficient rights for $id", 401);
+                }
+            } else {
+                /**
+                 * Verify if the collection is public
+                 */
+                require_once "modules/classes/collection.class.php";
+                $collection = new Collection($bdd, $ObjetBDDParam);
+                $dcollection = $collection->lire($data["collection_id"]);
+                if (!$dcollection["public_collection"]) {
+                    throw new SampleException("Not a public collection for $id", 401);
+                }
+            }
+        } catch (Exception $e) {
+            $error_code = $e->getCode();
+            if ($error_code == 0) {
+                $error_code = 520;
+            }
+            $data = array(
+                "error_code" => $error_code,
+                "error_message" => $errors[$error_code]
+            );
+            $message->setSyslog($e->getMessage());
+        } finally {
+            $vue->setJson(json_encode($data));
+        }
+        break;
+    default:
         break;
 }

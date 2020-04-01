@@ -14,7 +14,7 @@
 		}
 	}
 
-    $(document).ready(function() {   	
+    $(document).ready(function() {
     	function convertGPStoDD(valeur) {
     		var parts = valeur.trim().split(/[^\d]+/);
 			if (parts.length == 1) {
@@ -53,8 +53,7 @@
 		$("#scan_label").blur(function () {
         	is_scan = false;
         });
-			
-    	
+
     	function getMetadata() {
     		/*
     		 * Recuperation du modele de metadonnees rattache au type d'echantillon
@@ -68,7 +67,7 @@
        	    var schema;
        	    var sti = $("#sample_type_id").val();
        	    if (sti) {
-       	    	$.ajax( { 
+       	    	$.ajax( {
        	    		url: "index.php",
        	    		data: { "module": "sampleTypeMetadata", "sample_type_id": sti }
        	    	})
@@ -82,7 +81,7 @@
        	    	;
        	    }
         }
-    	
+
     	function getSamplingPlace () {
     		/*
     		 * Recuperation de la liste des lieux de prelevement rattaches a la collection
@@ -94,7 +93,7 @@
     		.done (function( d ) {
    				if (d ) {
     				d = JSON.parse(d);
-    				options = '<option value="">{t}Choisissez...{/t}</option>';			
+    				options = '<option value="">{t}Choisissez...{/t}</option>';
     				 for (var i = 0; i < d.length; i++) {
     				        options += '<option value="'+d[i].sampling_place_id + '"';
     				        if (d[i].sampling_place_id == sampling_place_init ) {
@@ -112,7 +111,7 @@
     				}
     			});
     	}
-    	
+
     	function getCoordinatesFromLocalisation() {
     		/*
     		 * Recuperation des coordonnees geographiques a partir du lieu de prelevement
@@ -136,14 +135,14 @@
     			}
     		}
     	}
-    	
+
     	function getGenerator() {
     		/*
     		 * Recuperation du script utilisable pour generer l'identifiant metier
     		 */
     		var sti = $("#sample_type_id").val();
        	    if (sti) {
-       	    	$.ajax( { 
+       	    	$.ajax( {
        	    		url: "index.php",
        	    		data: { "module": "sampleTypeGenerator", "sample_type_id": sti }
        	    	})
@@ -157,20 +156,20 @@
        	    	})
      		}
     	}
-    	
+
         $("#sample_type_id").change( function() {
        	 getMetadata();
        	 getGenerator();
         });
-        
+
         $("#collection_id").change(function() {
         	getSamplingPlace();
         });
-        
+
         $("#sampling_place_id").change (function() {
         	getCoordinatesFromLocalisation();
         });
-        
+
         /*
          * Lecture initiale
          */
@@ -185,19 +184,19 @@
             	if (sample_type_id) {
             		if (sample_type_id.length == 0 ) {
             			error = true;
-            		} 
+            		}
             	} else {
             		error = true;
-            	}
+				}
             	var collection_id = $("#collection_id").val();
             	if (collection_id) {
             		if (collection_id.length == 0 ) {
             			error = true;
-            		} 
+            		}
             	} else {
             		error = true;
             	}
-        
+
                 $('#metadata').alpaca().refreshValidationState(true);
                 if($('#metadata').alpaca().isValid(true)){
                 	var value = $('#metadata').alpaca().getValue();
@@ -209,7 +208,7 @@
                 if (error) {
                 	event.preventDefault();
                 }
-            	
+
             }
 
     	});
@@ -224,7 +223,7 @@
         	$("#metadataField").val("");
         	showForm([],"");
         	point.setCoordinates ([]);
-        	
+
         });
         $("#identifier_generate").click(function () {
         	if (identifier_fn.length > 0) {
@@ -232,7 +231,7 @@
         	}
         });
 
-        
+
         $("#scan_label_action").click(function() {
         	var contenu = $("#scan_label").val();
         	if (contenu.length > 0) {
@@ -269,25 +268,25 @@
         				 break;
         			 case "cd":
         				 $("#sample_creation_date").val(data["cd"]);
-        				 break; 
+        				 break;
         			 case "ed":
         				 $("#expiration_date").val(data["ed"]);
-        				 break; 	 
+        				 break;
         			default:
         				$('input[name='+key+']').val(data[key]);
-        					 
+
         				break;
-        				 
-        				
+
+
         			 }
         		 }
         	} catch (e) {
         		console.error ("Parsing Json error:", e);
         	}
         	}
-        	
+
         });
-		$(".position").change(function() { 
+		$(".position").change(function() {
 			setLocalisation();
 		});
 
@@ -303,7 +302,7 @@
 		/*
 		* call to parent
 		*/
-		$("#parent_display").on("click keyup", function (){ 
+		$("#parent_display").on("click keyup", function (){
 			if (parent_uid.length > 0) {
 				window.location.href = "index.php?module=sampleDisplay&uid="+parent_uid;
 			}
@@ -311,7 +310,7 @@
 		/*
 		* Search from parent
 		*/
-		$("#parent_search").on("keyup", function() { 
+		$("#parent_search").on("keyup", function() {
 			var chaine = $("#parent_search").val();
 			console.log(chaine);
 			if (chaine.length > 0) {
@@ -326,14 +325,14 @@
 						var data = JSON.parse(djs);
 						for (var i = 0; i < data.length; i++) {
 							if (sample_id != data[i].sample_id) {
-								options += '<option value="' + data[i].sample_id +'">' + data[i].uid + "-" + data[i].identifier+"</option>"; 
+								options += '<option value="' + data[i].sample_id +'">' + data[i].uid + "-" + data[i].identifier+"</option>";
 								if (i == 0) {
 									collection = data[0].collection_name;
 									type = data[0].sample_type_name;
 									parent_uid = data[0].uid;
 								}
 							}
-						}						
+						}
 					} catch (error) {}
 					$("#parent_sample_id").html(options);
 					$("#parent_collection").val(collection);
@@ -345,7 +344,7 @@
 		/*
 		* Delete parent
 		*/
-		$("#parent_erase").on("click keyup", function() { 
+		$("#parent_erase").on("click keyup", function() {
 			$("#parent_sample_id").html("");
 			$("#parent_collection").val("");
 			$("#parent_type").val("");
@@ -354,7 +353,7 @@
 		/*
 		 * update parent attributes
 		 */
-		$("#parent_sample_id").change(function() { 
+		$("#parent_sample_id").change(function() {
 			var id = $(this).val();
 			if (id.length > 0) {
 				$.ajax( { url:"index.php", method:"GET", data : { module: "sampleGetFromIdAjax", sample_id:id},
@@ -519,7 +518,7 @@
 							<option disabled selected value >{t}Choisissez...{/t}</option>
 							{section name=lst loop=$sample_type}
 								<option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $data.sample_type_id}selected{/if}>
-									{$sample_type[lst].sample_type_name} 
+									{$sample_type[lst].sample_type_name}
 									{if $sample_type[lst].multiple_type_id > 0}
 										/{$sample_type[lst].multiple_type_name} : {$sample_type[lst].multiple_unit}
 									{/if}
@@ -532,6 +531,19 @@
 					<label for="dbuid_origin" class="control-label col-md-4">{t}Base de données et UID d'origine :{/t}</label>
 					<div class="col-md-8">
 						<input id="dbuid_origin" class="form-control" name="dbuid_origin" value="{$data.dbuid_origin}" placeholder="{t}db:uid. Exemple: col:125{/t}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="campaign_id" class="control-label col-md-4">{t}Campagne de prélèvement :{/t}</label>
+					<div class="col-md-8">
+						<select id="campaign_id" name="campaign_id" class="form-control">
+							<option value="" {if $data.campaign_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+							{foreach $campaigns as $campaign}
+								<option value="{$campaign.campaign_id}" {if $data.campaign_id == $campaign.campaign_id}selected{/if}>
+									{$campaign.campaign_name}
+								</option>
+							{/foreach}
+						</select>
 					</div>
 				</div>
 				<div class="form-group">
@@ -555,6 +567,12 @@
 						<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
 						{t}Format décimal (-0.081667) :{/t}
 						<input id="wgs84_x" name="wgs84_x"  placeholder="-0.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="location_accuracy"  class="control-label col-md-4">{t}Précision de la localisation (en mètres) :{/t}</label>
+					<div class="col-md-8">
+						<input id="sampling_date" class="form-control taux" name="location_accuracy" value="{$data.location_accuracy}">
 					</div>
 				</div>
 				<div class="form-group">
@@ -593,6 +611,34 @@
 						<div id="metadata"></div>
 					</div>
 				</div>
+			</fieldset>
+			<fieldset>
+				<legend>{t}Informations diverses{/t}</legend>
+				<div class="form-group">
+					<label for="uuid"  class="control-label col-md-4">{t}UID universel (UUID) :{/t}</label>
+					<div class="col-md-8">
+						<input id="expiration_date" class="form-control uuid" name="uuid"  value="{$data.uuid}">
+					</div>
+				</div>
+				{if $data.sample_id > 0}
+					<div class="form-group">
+						<label for="trashed" class="col-md-4 control-label">{t}Échantillon en attente de suppression (mis à la corbeille) :{/t}</label>
+						<div class="col-md-8" id="trashed">
+							<div class="radio-inline">
+							<label>
+								<input type="radio" name="trashed" id="trashed1" value="1" {if $data.trashed == 1}checked{/if}>
+								{t}oui{/t}
+							</label>
+							</div>
+							<div class="radio-inline">
+								<label>
+									<input type="radio" name="trashed" id="trashed0" value="0" {if $data.trashed == 0}checked{/if}>
+									{t}non{/t}
+								</label>
+							</div>
+						</div>
+					</div>
+				{/if}
 			</fieldset>
 			<div class="form-group center">
 				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>

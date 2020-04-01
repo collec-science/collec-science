@@ -10,7 +10,7 @@
  * Classes d'exception
  *
  * @author quinton
- *        
+ *
  */
 class FichierException extends Exception
 { }
@@ -25,7 +25,7 @@ class ImportObjectException extends Exception
  * Classe realisant l'import
  *
  * @author quinton
- *        
+ *
  */
 class ImportObject
 {
@@ -57,7 +57,9 @@ class ImportObject
         "container_parent_uid",
         "container_location",
         "container_column",
-        "container_line"
+        "container_line",
+        "uuid",
+        "campaign_id"
     );
 
     private $colnum = array(
@@ -68,7 +70,8 @@ class ImportObject
         "container_line",
         "container_parent_uid",
         "sample_parent_uid",
-        "referent_id"
+        "referent_id",
+        "campaign_id"
     );
 
     private $handle;
@@ -86,6 +89,7 @@ class ImportObject
     private $object_status = array();
 
     private $sampling_place = array();
+    private $campaign;
 
     private $referent;
 
@@ -176,7 +180,7 @@ class ImportObject
      * @param Container $container
      * @param Movement $movement
      */
-    function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType, Referent $referent)
+    function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType, Referent $referent, Campaign $campaign)
     {
         $this->sample = $sample;
         $this->container = $container;
@@ -185,6 +189,7 @@ class ImportObject
         $this->identifierType = $identifierType;
         $this->sampleType = $sampleType;
         $this->referent = $referent;
+        $this->campaign = $campaign;
     }
 
     /**
@@ -235,9 +240,9 @@ class ImportObject
 
     /**
      * Lance l'import des lignes
-     * 
+     *
      * @throws ImportObjectException
-     * 
+     *
      * @return void
      */
     function importAll()
@@ -247,6 +252,7 @@ class ImportObject
         $maxuid = 0;
         $minuid = 99999999;
         $this->initIdentifiers();
+        $jsonFirstCharArray = array("[", "{");
         /*
          * Inhibition du traitement des dates par la classe
          */
@@ -296,6 +302,7 @@ class ImportObject
                 $dataSample["multiple_value"] = $values["sample_multiple_value"];
                 $dataSample["sampling_place_id"] = $values["sampling_place_id"];
                 $dataSample["parent_sample_id"] = $values["parent_sample_id"];
+                $dataSample["uuid"] = $values["sample_uuid"];
                 /*
                  * Traitement des dates - mise au format de base de donnees avant importation
                  */
@@ -308,19 +315,31 @@ class ImportObject
                         $dataSample[$fieldDate] = $this->formatDate($values[$fieldDate]);
                     }
                 }
-                /*
-                 * Preparation des metadonnees
+                /**
+                 * Metadata preparation
                  */
                 if (strlen($values["sample_metadata_json"]) > 0) {
                     $md_array = json_decode($values["sample_metadata_json"], true);
                 } else {
                     $md_array = array();
                 }
-
                 foreach ($this->md_columns as $md_col) {
                     if (strlen($values[$md_col]) > 0) {
                         $colname = substr($md_col, 3);
-                        $md_array[$colname] = $values[$md_col];
+                        if (!array_key_exists($colname, $md_array)) {
+                            if (in_array(substr($values[$md_col], 0, 1), $jsonFirstCharArray)) {
+                                $md_col_array = json_decode($values[$md_col], true);
+                            } else {
+                                $md_col_array = explode(",", $values[$md_col]);
+                            }
+                            if (count($md_col_array) > 1) {
+                                foreach ($md_col_array as $val) {
+                                    $md_array[$colname][] = trim($val);
+                                }
+                            } else {
+                                $md_array[$colname] = trim($md_col_array[0]);
+                            }
+                        }
                     }
                 }
                 if (count($md_array) > 0) {
@@ -370,6 +389,7 @@ class ImportObject
                 if (!$dataContainer["object_status_id"] > 0) {
                     $dataContainer["object_status_id"] = 1;
                 }
+                $dataContainer["uuid"] = $values["container_uuid"];
                 try {
                     $container_uid = $this->container->ecrire($dataContainer);
                     /*
@@ -521,7 +541,7 @@ class ImportObject
      * @param array $container_type
      * @param array $container_status
      */
-    function initControl($collection, $sample_type, $container_type, $object_status, $sampling_place, $referent)
+    function initControl($collection, $sample_type, $container_type, $object_status, $sampling_place, $referent, $campaign)
     {
         $this->collection = $collection;
         $this->sample_type = $sample_type;
@@ -529,6 +549,7 @@ class ImportObject
         $this->object_status = $object_status;
         $this->sampling_place = $sampling_place;
         $this->referents = $referent;
+        $this->campaign = $campaign;
     }
 
     /**
@@ -648,6 +669,21 @@ class ImportObject
                 if (!$ok) {
                     $retour["code"] = false;
                     $retour["message"] .= _("Le référent de l'échantillon n'est pas connu.");
+                }
+            }
+            /**
+             * Control of the campaign
+             */
+            if ($data["campaign_id"] > 0) {
+                foreach ($this->campaign as $value) {
+                    if ($data["campaign_id"] == $value["campaign_id"]) {
+                        $ok = true;
+                        break;
+                    }
+                }
+                if (!$ok) {
+                    $retour["code"] = false;
+                    $retour["message"] .= _("La campagne de prélèvement de l'échantillon n'est pas connue.");
                 }
             }
             /*
@@ -840,14 +876,16 @@ class ImportObject
             "multiple_value",
             "dbuid_origin",
             "metadata",
-            "dbuid_parent"
+            "dbuid_parent",
+            "uuid"
         );
         $refFields = array(
             "sampling_place_name",
             "collection_name",
             "object_status_name",
             "sample_type_name",
-            "referent_name"
+            "referent_name",
+            "campaign_name"
         );
         $this->sample->auto_date = 0;
         $dclass = $sic->init(true);
@@ -918,9 +956,17 @@ class ImportObject
                 $metadata = array();
             }
             foreach ($row as $fieldname => $fieldvalue) {
-                if (substr($fieldname, 0, 3) == "md_") {
-                    if (strlen($fieldvalue) > 0) {
-                        $metadata[substr($fieldname, 3)] = $fieldvalue;
+                if (substr($fieldname, 0, 3) == "md_" && strlen($fieldvalue) > 0) {
+                    $colname = substr($fieldname, 3);
+                    if (!array_key_exists($colname, $metadata)) {
+                        $md_col_array = explode(",", $fieldvalue);
+                        if (count($md_col_array) > 1) {
+                            foreach ($md_col_array as $val) {
+                                $metadata[$colname][] = trim($val);
+                            }
+                        } else {
+                            $metadata[$colname] = trim($fieldvalue);
+                        }
                     }
                 }
             }

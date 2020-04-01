@@ -20,11 +20,13 @@ class Sample extends ObjetBDD
      */
     private $sql = "select s.sample_id, s.uid,
 					s.collection_id, collection_name, s.sample_type_id, s.dbuid_origin,
-					sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
+                    sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
+                    s.campaign_id, campaign_name,
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
 					so.identifier, so.wgs84_x, so.wgs84_y,
-					so.object_status_id, object_status_name,so.referent_id,
+                    so.object_status_id, object_status_name,so.referent_id,
+                    so.change_date, so.uuid, so.trashed, so.location_accuracy,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
 					container_type_name, clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
@@ -58,7 +60,9 @@ class Sample extends ObjetBDD
                     left outer join referent cr on (p.referent_id = cr.referent_id)
                     left outer join last_borrowing lb on (so.uid = lb.uid)
                     left outer join borrower using (borrower_id)
-					";
+                    left outer join campaign on (s.campaign_id = campaign.campaign_id)
+                    ";
+    private $object, $container, $event, $objectIdentifier;
 
     public function __construct($bdd, $param = array())
     {
@@ -111,6 +115,7 @@ class Sample extends ObjetBDD
             "expiration_date" => array(
                 "type" => 2,
             ),
+            "campaign_id" => array("type" => 1)
         );
         parent::__construct($bdd, $param);
     }
@@ -130,12 +135,14 @@ class Sample extends ObjetBDD
         if (is_numeric($uid) && $uid > 0) {
             $this->colonnes["borrowing_date"] = array("type" => 2);
             $this->colonnes["expected_return_date"] = array("type" => 2);
+            $this->colonnes["change_date"] = array("type" => 3);
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
             $retour = parent::getDefaultValue($parentValue);
         }
         unset($this->colonnes["borrowing_date"]);
         unset($this->colonnes["expected_return_date"]);
+        unset($this->colonnes["change_date"]);
         return $retour;
     }
 
@@ -145,9 +152,11 @@ class Sample extends ObjetBDD
         $data["sample_id"] = $sample_id;
         $this->colonnes["borrowing_date"] = array("type" => 2);
         $this->colonnes["exepected_return_date"] = array("type" => 2);
+        $this->colonnes["change_date"] = array("type" => 3);
         $list = parent::lireParamAsPrepared($sql, $data);
         unset($this->colonnes["borrowing_date"]);
         unset($this->colonnes["expected_return_date"]);
+        unset($this->colonnes["change_date"]);
         return $list;
     }
 
@@ -176,7 +185,7 @@ class Sample extends ObjetBDD
                 if (parent::ecrire($data) > 0) {
                     if (strlen($data["metadata"]) > 0) {
                         /*
-                         * Recherche des échantillons derives pour mise a jour 
+                         * Recherche des échantillons derives pour mise a jour
                          * des metadonnees
                          */
                         $childs = $this->getSampleassociated($uid);
@@ -220,9 +229,11 @@ class Sample extends ObjetBDD
             /*
              * Suppression de l'objet
              */
-            require_once 'modules/classes/object.class.php';
-            $object = new ObjectClass($this->connection, $this->paramori);
-            $object->supprimer($uid);
+            if (!isset($this->object)) {
+                require_once 'modules/classes/object.class.php';
+                $this->object = new ObjectClass($this->connection, $this->paramori);
+            }
+            $this->object->supprimer($uid);
         } else {
             throw new SampleException(sprintf(_("Vous ne disposez pas des droits nécessaires pour supprimer l'échantillon %1s"), $uid));
         }
@@ -233,9 +244,6 @@ class Sample extends ObjetBDD
      * par l'utilisateur
      *
      * @param array $data
-     *
-     * @throws Exception
-     *
      * @return boolean
      */
     public function verifyCollection($data)
@@ -297,171 +305,237 @@ class Sample extends ObjetBDD
      */
     public function sampleSearch($param)
     {
-        $data = array();
-        $where = "where";
-        $and = "";
-        if ($param["sample_type_id"] > 0) {
-            $where .= " s.sample_type_id = :sample_type_id";
-            $data["sample_type_id"] = $param["sample_type_id"];
-            $and = " and ";
-        }
-        if (strlen($param["name"]) > 0) {
-            $where .= $and . "( ";
-            $or = "";
-            if (is_numeric($param["name"])) {
-                $where .= " s.uid = :uid";
-                $data["uid"] = $param["name"];
-                $or = " or ";
+        /**
+         * Verification de la presence des parametres
+         */
+        $searchOk = false;
+        $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id");
+        if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0) {
+            $searchOk = true;
+        } else {
+            foreach ($paramName as $name) {
+                if (strlen($param[$name]) > 0) {
+                    $searchOk = true;
+                    break;
+                }
             }
-            $name = $this->encodeData($param["name"]);
-            $identifier = "%" . strtoupper($name) . "%";
-            $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
-            $and = " and ";
-            $data["identifier"] = $identifier;
-            $data["dbuid_origin"] = $name;
-            /*
+        }
+        /**
+         * Search for  geographic zone
+         */
+        $geoFields = array("SouthWestlon", "SouthWestlat", "NorthEastlon", "NorthEastlat");
+        $geoSearch = true;
+        foreach ($geoFields as $field) {
+            if (strlen($param[$field]) == 0) {
+                $geoSearch = false;
+            }
+        }
+        if ($geoSearch) {
+            $searchOk = true;
+        }
+        if ($searchOk) {
+            $data = array();
+            $where = "where";
+            $and = "";
+            if ($param["sample_type_id"] > 0) {
+                $where .= " s.sample_type_id = :sample_type_id";
+                $data["sample_type_id"] = $param["sample_type_id"];
+                $and = " and ";
+            }
+            if (strlen($param["name"]) > 0) {
+                $where .= $and . "( ";
+                $or = "";
+                if (is_numeric($param["name"])) {
+                    $where .= " s.uid = :uid";
+                    $data["uid"] = $param["name"];
+                    $or = " or ";
+                }
+                if (strlen($param["name"]) == 36) {
+                    $where .= "so.uuid = :uuid";
+                    $data["uuid"] = $param["name"];
+                    $or = " or ";
+                }
+                $name = $this->encodeData($param["name"]);
+                $identifier = "%" . strtoupper($name) . "%";
+                $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
+                $and = " and ";
+                $data["identifier"] = $identifier;
+                $data["dbuid_origin"] = $name;
+                /*
              * Recherche sur les identifiants externes
              * possibilite de recherche sur cab:valeur, p. e.
              */
-            $where .= " or upper(identifiers) like :identifier ";
-            $where .= ")";
-        }
-        if ($param["collection_id"] > 0) {
-            $where .= $and . " s.collection_id = :collection_id";
-            $and = " and ";
-            $data["collection_id"] = $param["collection_id"];
-        }
-        if ($param["object_status_id"] > 0) {
-            $where .= $and . " so.object_status_id = :object_status_id";
-            $and = " and ";
-            $data["object_status_id"] = $param["object_status_id"];
-        }
-        if ($param["sampling_place_id"] > 0) {
-            $where .= $and . " s.sampling_place_id = :sampling_place_id";
-            $and = " and ";
-            $data["sampling_place_id"] = $param["sampling_place_id"];
-        }
-        if ($param["referent_id"] > 0) {
-            $where .= $and . "(ro.referent_id = :referent_id1 or cr.referent_id = :referent_id2)";
-            $and = " and ";
-            $data["referent_id1"] = $param["referent_id"];
-            $data["referent_id2"] = $param["referent_id"];
-        }
-
-        if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
-            $where .= $and . " s.uid between :uid_min and :uid_max";
-            $and = " and ";
-            $data["uid_min"] = $param["uid_min"];
-            $data["uid_max"] = $param["uid_max"];
-        }
-        if (strlen($param["select_date"]) > 0) {
-            switch ($param["select_date"]) {
-                case "cd":
-                    $field = "sample_creation_date";
-                    break;
-                case "sd":
-                    $field = "sampling_date";
-                    break;
-                case "ed":
-                    $field = "expiration_date";
-                    break;
+                $where .= " or upper(identifiers) like :identifier ";
+                $where .= ")";
             }
-            $where .= $and . " s.$field::date between :date_from and :date_to";
-            $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
-            $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
-            $and = " and ";
-        }
-        /*
-         * Recherche dans les metadonnees
-         */
-        if (strlen($param["metadata_field"][0]) > 0 && strlen($param["metadata_value"][0]) > 0) {
-            $where .= $and . " ";
-            /*
-             * Traitement des divers champs de metadonnees (3 maxi)
-             * ajout des parentheses si necessaire
-             * si le meme field est utilise, operateur or, sinon operateur and
+            if ($param["collection_id"] > 0) {
+                $where .= $and . " s.collection_id = :collection_id";
+                $and = " and ";
+                $data["collection_id"] = $param["collection_id"];
+            }
+            if ($param["object_status_id"] > 0) {
+                $where .= $and . " so.object_status_id = :object_status_id";
+                $and = " and ";
+                $data["object_status_id"] = $param["object_status_id"];
+            }
+            if (strlen($param["trashed"]) > 0) {
+                $where .= $and . " so.trashed = :trashed";
+                $and = " and ";
+                $data["trashed"] = $param["trashed"];
+            }
+            if ($param["sampling_place_id"] > 0) {
+                $where .= $and . " s.sampling_place_id = :sampling_place_id";
+                $and = " and ";
+                $data["sampling_place_id"] = $param["sampling_place_id"];
+            }
+            if ($param["referent_id"] > 0) {
+                $where .= $and . "(ro.referent_id = :referent_id1 or cr.referent_id = :referent_id2)";
+                $and = " and ";
+                $data["referent_id1"] = $param["referent_id"];
+                $data["referent_id2"] = $param["referent_id"];
+            }
+            if ($param["campaign_id"] > 0) {
+                $where .= $and . " s.campaign_id = :campaign_id";
+                $and = " and ";
+                $data["campaign_id"] = $param["campaign_id"];
+            }
+
+            if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
+                $where .= $and . " s.uid between :uid_min and :uid_max";
+                $and = " and ";
+                $data["uid_min"] = $param["uid_min"];
+                $data["uid_max"] = $param["uid_max"];
+            }
+            if (strlen($param["select_date"]) > 0) {
+                $tablefield = "s";
+                switch ($param["select_date"]) {
+                    case "cd":
+                        $field = "sample_creation_date";
+                        break;
+                    case "sd":
+                        $field = "sampling_date";
+                        break;
+                    case "ed":
+                        $field = "expiration_date";
+                        break;
+                    case "ch":
+                        $field = "change_date";
+                        $tablefield = "so";
+                        break;
+                }
+                $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
+                $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
+                $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
+                $and = " and ";
+            }
+            /**
+             * Recherche dans les metadonnees
              */
-            if ($param["metadata_field"][0] == $param["metadata_field"][1]) {
-                $is_or = true;
-            } else {
-                $is_or = false;
-            }
-            if (strlen($param["metadata_field"][1]) > 0 && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
-                $is_or1 = true;
-            } else {
-                $is_or1 = false;
-            }
-            if ($is_or) {
-                $where .= "(";
-            }
-            $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0)";
-            $data["metadata_field0"] = $param["metadata_field"][0];
-            $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
-            if (strlen($param["metadata_field"][1]) > 0 && strlen($param["metadata_value"][1]) > 0) {
+            if (strlen($param["metadata_field"][0]) > 0 && strlen($param["metadata_value"][0]) > 0) {
+                $where .= $and . " ";
+                /**
+                 * Traitement des divers champs de metadonnees (3 maxi)
+                 * ajout des parentheses si necessaire
+                 * si le meme field est utilise, operateur or, sinon operateur and
+                 */
+                if ($param["metadata_field"][0] == $param["metadata_field"][1]) {
+                    $is_or = true;
+                } else {
+                    $is_or = false;
+                }
+                if (strlen($param["metadata_field"][1]) > 0 && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
+                    $is_or1 = true;
+                } else {
+                    $is_or1 = false;
+                }
                 if ($is_or) {
-                    $where .= " or ";
-                } else {
-                    $where .= " and ";
+                    $where .= "(";
                 }
-                $where .= " lower(s.metadata->>:metadata_field1) like lower (:metadata_value1)";
-                $data["metadata_field1"] = $param["metadata_field"][1];
-                $data["metadata_value1"] = "%" . $param["metadata_value"][1] . "%";
-            }
-            if ($is_or && !$is_or1) {
-                $where .= ")";
-                $is_or = false;
-            }
-            if (!$is_or && $is_or1) {
-                $where .= " (";
-            }
+                $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0)";
+                $data["metadata_field0"] = $param["metadata_field"][0];
+                $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
+                if (strlen($param["metadata_field"][1]) > 0 && strlen($param["metadata_value"][1]) > 0) {
+                    if ($is_or) {
+                        $where .= " or ";
+                    } else {
+                        $where .= " and ";
+                    }
+                    $where .= " lower(s.metadata->>:metadata_field1) like lower (:metadata_value1)";
+                    $data["metadata_field1"] = $param["metadata_field"][1];
+                    $data["metadata_value1"] = "%" . $param["metadata_value"][1] . "%";
+                }
+                if ($is_or && !$is_or1) {
+                    $where .= ")";
+                    $is_or = false;
+                }
+                if (!$is_or && $is_or1) {
+                    $where .= " (";
+                }
 
-            if (strlen($param["metadata_field"][2]) > 0 && strlen($param["metadata_value"][2]) > 0) {
-                if ($is_or1) {
-                    $where .= " or ";
-                } else {
-                    $where .= " and ";
+                if (strlen($param["metadata_field"][2]) > 0 && strlen($param["metadata_value"][2]) > 0) {
+                    if ($is_or1) {
+                        $where .= " or ";
+                    } else {
+                        $where .= " and ";
+                    }
+                    $where .= " lower(s.metadata->>:metadata_field2) like lower (:metadata_value2)";
+                    $data["metadata_field2"] = $param["metadata_field"][2];
+                    $data["metadata_value2"] = "%" . $param["metadata_value"][2] . "%";
                 }
-                $where .= " lower(s.metadata->>:metadata_field2) like lower (:metadata_value2)";
-                $data["metadata_field2"] = $param["metadata_field"][2];
-                $data["metadata_value2"] = "%" . $param["metadata_value"][2] . "%";
+                if ($is_or || $is_or1) {
+                    $where .= ")";
+                }
+                $and = " and ";
             }
-            if ($is_or || $is_or1) {
-                $where .= ")";
+            /**
+             * Recherche sur le motif de destockage
+             */
+            if ($param["movement_reason_id"] > 0) {
+                $where .= $and . " movement_reason_id = :movement_reason_id";
+                $data["movement_reason_id"] = $param["movement_reason_id"];
+                $and = " and ";
             }
-            $and = " and ";
+            /**
+             * Search by geographic zone
+             */
+            if ($geoSearch) {
+                $where .= $and . " st_contains (st_setsrid (st_makebox2d(
+                    st_makepoint(:southwestlon, :southwestlat),
+                    st_makepoint(:northeastlon, :northeastlat))
+                    ,4326), so.geom::geometry) = true ";
+                $data["southwestlon"] = $param["SouthWestlon"];
+                $data["southwestlat"] = $param["SouthWestlat"];
+                $data["northeastlon"] = $param["NorthEastlon"];
+                $data["northeastlat"] = $param["NorthEastlat"];
+                $and = " and ";
+            }
+            /**
+             * Fin de traitement des criteres de recherche
+             */
+            if ($where == "where") {
+                $where = "";
+            }
+            /**
+             * Rajout de la date de dernier mouvement pour l'affichage
+             */
+            $this->colonnes["movement_date"] = array(
+                "type" => 3,
+            );
+            $this->colonnes["borrowing_date"] = array("type" => 2);
+            $this->colonnes["expected_return_date"] = array("type" => 2);
+            $this->colonnes["change_date"] = array("type" => 3);
+            $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
+            /**
+             * Destroy foreign fields used in the request
+             */
+            unset($this->colonnes["movement_date"]);
+            unset($this->colonnes["borrowing_date"]);
+            unset($this->colonnes["expected_return_date"]);
+            unset($this->colonnes["change_date"]);
+            return $list;
+        } else {
+            return array();
         }
-        /*
-         * Recherche sur le motif de destockage
-         */
-        if ($param["movement_reason_id"] > 0) {
-            $where .= $and . " movement_reason_id = :movement_reason_id";
-            $data["movement_reason_id"] = $param["movement_reason_id"];
-            $and = " and ";
-        }
-        /*
-         * Fin de traitement des criteres de recherche
-         */
-        if ($where == "where") {
-            $where = "";
-        }
-        /*
-         * Rajout de la date de dernier mouvement pour l'affichage
-         */
-        $this->colonnes["movement_date"] = array(
-            "type" => 3,
-        );
-        $this->colonnes["borrowing_date"] = array("type" => 2);
-        $this->colonnes["expected_return_date"] = array("type" => 2);
-        /*printr($this->sql.$where);
-        printr($data);*/
-        $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
-        /**
-         * Destroy foreign fields used in the request
-         */
-        unset($this->colonnes["movement_date"]);
-        unset($this->colonnes["borrowing_date"]);
-        unset($this->colonnes["expected_return_date"]);
-        return $list;
     }
 
     /**
@@ -493,11 +567,13 @@ class Sample extends ObjetBDD
             throw new SampleException("Pas d'échantillons sélectionnés");
         } else {
             $this->auto_date = 0;
-            $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y,
+            $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy,
              c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
              multiple_value, sampling_place_name, metadata::varchar,
             identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,
+            campaign_name,
             case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
+            ,o.uuid
             from sample
             join object o using(uid)
             join collection c using (collection_id)
@@ -507,6 +583,7 @@ class Sample extends ObjetBDD
             left outer join object_status using (object_status_id)
             left outer join referent ro on (o.referent_id = ro.referent_id)
             left outer join referent cr on (c.referent_id = cr.referent_id)
+            left outer join campaign using (campaign_id)
              where o.uid in (" . $uids . ")";
             $d = $this->getListeParam($sql);
             $this->auto_date = 1;
@@ -602,6 +679,7 @@ class Sample extends ObjetBDD
             "collection_name",
             "sample_type_name",
             "referent_name",
+            "campaign_name"
         );
         foreach ($data as $line) {
             foreach ($fields as $field) {
@@ -685,10 +763,19 @@ class Sample extends ObjetBDD
                     }
                 }
             }
+            /**
+             * Control of the numeric values
+             */
+            $numFields = array("location_accuracy");
+            foreach ($numFields as $numField) {
+                if (strlen($row[$numField]) > 0 && !is_numeric($row[$numField])) {
+                    throw new SampleException(sprintf(_("Le champ %s n'est pas numérique"), $numField));
+                }
+            }
             /*
              * Verification de la colonne metadata
              */
-            if (strlen($row["metadata"]) > 0) {
+            if (strlen($row["metadata"]) > 2) {
                 $a_m = json_decode($row["metadata"], true);
                 if (count($a_m) == 0) {
                     throw new SampleException(_("Les métadonnées ne sont pas correctement formatées (champ metadata)"));
@@ -718,9 +805,20 @@ class Sample extends ObjetBDD
             $data["sample_creation_date"] = date(DATE_ATOM);
         }
         /*
+         * Search from uuid
+         */
+        $uuidFound = false;
+        if (strlen($data["uuid"]) == 36) {
+            $uid = $this->getUidFromUUID($data["uuid"]);
+            if ($uid > 0) {
+                $data["uid"] = $uid;
+                $uuidFound = true;
+            }
+        }
+        /*
          * Recherche de l'uid existant a partir de dbuid_origin
          */
-        if (strlen($data["dbuid_origin"]) > 0) {
+        if (strlen($data["dbuid_origin"]) > 0 && !$uuidFound) {
             /*
              * Recherche si c'est une reintegration dans la base d'origine
              */
@@ -825,5 +923,83 @@ class Sample extends ObjetBDD
                 );
             }
         }
+    }
+    /**
+     * Get the uuid of a sample from the uuid
+     *
+     * @param string $uuid
+     * @return void
+     */
+    public function getUidFromUUID($uuid)
+    {
+        $sql = "select uid from object
+                join sample using (uid)
+                where uuid = :uuid";
+        $data = $this->lireParamAsPrepared($sql, array("uuid" => $uuid));
+        return ($data["uid"]);
+    }
+
+    /**
+     * Get a sample with its containers, identifiers and events
+     * in raw format
+     *
+     * @param int $uid
+     * @param boolean $withContainers
+     * @return array
+     */
+    function getRawDetail($uid, $withContainers = false, $withIdentifiers = true, $withEvents = false)
+    {
+        $this->auto_date = 0;
+        if (strlen($uid) == 36) {
+            /**
+             * Search by uuid
+             */
+            $where = " where so.uuid = :uid";
+        } else {
+            $where = " where s.uid = :uid";
+        }
+        $data = $this->lireParamAsPrepared($this->sql . $where, array("uid" => $uid));
+        /**
+         * Disable the metadata_schema, irrelevant in this context
+         */
+        unset($data["metadata_schema"]);
+        /**
+         * Encode in array the metadata content
+         */
+        $data["metadata"] = json_decode($data["metadata"]);
+        /**
+         * Get the events
+         */
+        if ($withEvents) {
+            if (!isset($this->event)) {
+                require_once 'modules/classes/event.class.php';
+                $this->event = new Event($this->connection, $this->paramori);
+            }
+            $this->event->auto_date = 0;
+            $data["events"] = $this->event->getListeFromUid($uid);
+            $this->event->auto_date = 1;
+        }
+        /**
+         * Get the secondary identifiers
+         */
+        if ($withIdentifiers) {
+            if (!isset($this->objectIdentifier)) {
+                require_once "modules/classes/objectIdentifier.class.php";
+                $this->objectIdentifier = new ObjectIdentifier($this->connection, $this->paramori);
+            }
+            $data["identifiers"] = $this->objectIdentifier->getListFromUid($uid);
+        }
+        /**
+         * Get the hierarchy of containers
+         */
+        if ($withContainers) {
+            if (!isset($this->container)) {
+                require_once "modules/classes/container.class.php";
+                $this->container = new Container($this->connection, $this->paramori);
+            }
+            $data["container"] = $this->container->getAllParents($uid);
+        }
+        $this->auto_date = 1;
+        return $data;
     }
 }

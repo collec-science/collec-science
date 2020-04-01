@@ -24,7 +24,7 @@ switch ($t_module["param"]) {
                 $data = $dataClass->createTokenFromMail($_REQUEST["mail"]);
                 if ($data["id"] > 0) {
                     require_once 'framework/identification/mail.class.php';
-                    
+
                     $param = array(
                         "replyTo" => $APPLI_mail,
                         "from" => $APPLI_mail,
@@ -39,7 +39,6 @@ switch ($t_module["param"]) {
                     $loginGestion = new LoginGestion($bdd_gacl, $ObjetBDDParam);
                     $dl = $loginGestion->lire($data["id"]);
                     if (strlen($dl["mail"]) > 0) {
-                        require_once 'framework/identification/mail.class.php';
 
                         $mail = new Mail($param);
                         if ($mail->sendMail($dl["mail"], array(
@@ -66,7 +65,7 @@ switch ($t_module["param"]) {
                 $message->setSyslog($e->getMessage());
             }
         }
-        
+
         break;
     case "reinitChange":
         if (isset($_REQUEST["token"]) && $APPLI_lostPassword == 1) {
@@ -120,7 +119,7 @@ switch ($t_module["param"]) {
         } else {
             $module_coderetour = 1;
         }
-        
+
         break;
 }
 ?>

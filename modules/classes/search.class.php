@@ -34,7 +34,7 @@ class SearchParam
      */
     function __construct()
     {
-        if (! is_array($this->param)) {
+        if (!is_array($this->param)) {
             $this->param = array();
         }
         $this->isSearch = 0;
@@ -67,7 +67,7 @@ class SearchParam
                      * Recherche si la valeur doit etre numerique
                      */
                     if (isset($this->paramNum[$key])) {
-                        if (! is_numeric($data[$key])) {
+                        if (!is_numeric($data[$key])) {
                             $data[$key] = "";
                         }
                     }
@@ -78,9 +78,9 @@ class SearchParam
             /*
              * Une donnee unique est fournie
              */
-            if (isset($this->param[$data]) && ! is_null($valeur)) {
+            if (isset($this->param[$data]) && !is_null($valeur)) {
                 if (isset($this->paramNum[$data])) {
-                    if (! is_numeric($valeur)) {
+                    if (!is_numeric($valeur)) {
                         $valeur = "";
                     }
                 }
@@ -139,14 +139,14 @@ class SearchParam
      * Function used to reinit some fields
      */
     function reinit()
-    {}
+    { }
 }
 
 /**
  * Exemple d'instanciation
  *
  * @author Eric Quinton
- *        
+ *
  */
 class SearchExample extends SearchParam
 {
@@ -171,11 +171,10 @@ class SearchExample extends SearchParam
  * Classe de recherche des contenants
  *
  * @author quinton
- *        
+ *
  */
 class SearchContainer extends SearchParam
 {
-
     function __construct()
     {
         $this->param = array(
@@ -185,17 +184,33 @@ class SearchContainer extends SearchParam
             "limit" => 100,
             "object_status_id" => 1,
             "uid_min" => 0,
-            "uid_max" => 0
+            "uid_max" => 0,
+            "select_date" => "",
+            "date_from" => date($_SESSION["MASKDATE"]),
+            "date_to" => date($_SESSION["MASKDATE"]),
+            "trashed" => 0
         );
+        /*
+         * Ajout des dates
+         */
+        $this->reinit();
         $this->paramNum = array(
             "container_family_id",
             "container_type_id",
             "limit",
             "object_status_id",
             "uid_min",
-            "uid_max"
+            "uid_max",
+            "trashed"
         );
         parent::__construct();
+    }
+    function reinit()
+    {
+        $ds = new DateTime();
+        $ds->modify("-1 year");
+        $this->param["date_from"] = $ds->format($_SESSION["MASKDATE"]);
+        $this->param["date_to"] = date($_SESSION["MASKDATE"]);
     }
 }
 
@@ -217,22 +232,34 @@ class SearchSample extends SearchParam
             "metadata_value" => "",
             "select_date" => "",
             "referent_id" => "",
-            "movement_reason_id" => ""
+            "movement_reason_id" => "",
+            "trashed" => 0,
+            "SouthWestlon" => "",
+            "SouthWestlat" => "",
+            "NorthEastlon" => "",
+            "NorthEastlat" => "",
+            "campaign_id" => ""
         );
         /*
          * Ajout des dates
          */
         $this->reinit();
         $this->paramNum = array(
-            "sample_type_id",
+            "sample_type_id" => 0,
             "collection_id",
             "object_status_id" => 1,
             "limit",
             "uid_min",
             "uid_max",
-            "sampling_place_id",
+            "sampling_place_id" => 0,
             "referent_id",
-            "movement_reason_id"
+            "movement_reason_id",
+            "trashed",
+            "SouthWestlon",
+            "SouthWestlat",
+            "NorthEastlon",
+            "NorthEastlat",
+            "campaign_id"
         );
         parent::__construct();
     }
@@ -266,5 +293,3 @@ class SearchMovement extends SearchParam
         $this->param["date_end"] = date($_SESSION["MASKDATE"]);
     }
 }
-
-?>

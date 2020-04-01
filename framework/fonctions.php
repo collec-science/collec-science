@@ -130,27 +130,29 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
             }
             $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
 
-        } catch (Exception $e) {
+        } catch (PDOException | ObjetBDDException $e) {
 
             foreach ($dataClass->getErrorData(1) as $messageError) {
-                $message->set($messageError, true);
+                $message->setSyslog($messageError);
             }
-            
             /*
              * recherche des erreurs liees a une violation de cle etrangere
              */
-
-            if (strpos($e->getMessage(), "key violation")) {
+            if (strpos($e->getMessage(), "key violation") !== false) {
                 $message->set(_("La suppression n'est pas possible : des informations sont référencées par cet enregistrement"), true);
-            } 
+            }
             if ($OBJETBDD_debugmode > 0) {
                 $message->set($e->getMessage(), true);
             }
             if ($message->getMessageNumber() == 0) {
                 $message->set(_("Problème lors de la suppression"), true);
+            } else {
+                $message->set(_("Suppression non réalisée"));
             }
-
             $message->setSyslog($e->getMessage());
+            if ($isPartOfTransaction ) {
+                throw new Exception (sprintf("Suppression impossible de l'enregistrement %s"), $id);
+            }
             $ret = -1;
         }
     } else {
@@ -416,12 +418,13 @@ function testScan($file)
  *
  * @return mixed
  */
-function getHeaders()
+function getHeaders($radical = "")
 {
     $header = array();
+    $radicalLength = strlen($radical);
     foreach ($_SERVER as $key => $value) {
-        if (substr($key, 0, 4) == "HTTP") {
-            $header[substr($key, 5)] = $value;
+        if (substr($key, 0, $radicalLength) == $radical) {
+            $header[$key] = $value;
         }
     }
     return $header;
@@ -430,7 +433,7 @@ function getHeaders()
      * Fonction equivalente pour NGINX
      */
     /*
-     * function apache_request_headers() {
+     * function apache_request_headers($radical = "") {
      * foreach($_SERVER as $key=>$value) {
      * if (substr($key,0,5)=="HTTP_") {
      * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));

@@ -2,13 +2,13 @@
 /** Fichier cree le 4 mai 07 par quinton
 *
 *UTF-8
-* 
+*
 * Parametres par defaut de l'application
 * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
 */
-$APPLI_version = "2.3.1";
-$APPLI_dbversion = "2.3";
-$APPLI_versiondate = _("6/9/2019");
+$APPLI_version = "2.4.0";
+$APPLI_dbversion = "2.4";
+$APPLI_versiondate = _("01/04/2020");
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -22,11 +22,11 @@ $navigationxml = "param/actions.xml";
 // 4 heures
 $APPLI_session_ttl = 14400;
 // 3 mois
-$APPLI_cookie_ttl = 7776000; 
+$APPLI_cookie_ttl = 7776000;
 // 10 heures
 $APPLI_absolute_session = 36000;
 /*
- * 
+ *
  * Nom du chemin de stockage des sessions
  * @var unknown_type
  */
@@ -37,7 +37,7 @@ $APPLI_path_stockage_session = "prototypephp";
 $LOG_duree = 365;
 /*
  * Type d'identification
- * 
+ *
  * BDD : mot de passe en base de donnees
  * CAS : utilisation d'un serveur CAS
  * LDAP : utilisation d'un serveur LDAP
@@ -45,7 +45,15 @@ $LOG_duree = 365;
  * HEADER : l'identification est fournie dans une variable HEADER (derriere un proxy comme
  * LemonLdap, par exemple)
  */
-$ident_header_login_var = "AUTH_USER";
+$ident_header_vars = array (
+	"radical" => "MELLON",
+	"login" => "MELLON_MAIL",
+	"mail" => "MELLON_MAIL",
+	"cn" => "MELLON_CN",
+	"organization" => "MELLON_SHACHOMEORGANIZATION",
+	"organizationGranted" => array(),
+	"createUser"=>true
+);
 $ident_header_logout_address = "";
 $ident_type = "BDD";
 $CAS_address = "localhost/CAS";
@@ -90,7 +98,7 @@ $SMARTY_param = array("templates"=> "$display/templates",
 
 /*
  * Variables de base de l'application
- */ 
+ */
 $APPLI_mail = "proto@proto.com";
 $APPLI_nom = "Prototype d'application";
 $APPLI_code = 'proto';
@@ -144,10 +152,10 @@ $GACL_disable_new_right = 1;
 $ERROR_level=E_ERROR;
 /*
  * Pour le developpement :
- * $ERROR_level = E_ALL & ~E_NOTICE & E_STRICT 
+ * $ERROR_level = E_ALL & ~E_NOTICE & E_STRICT
  * En production :
  * $ERROR_level = E_ERROR ;
- */ 
+ */
 $ERROR_display=0;
 $ADODB_debugmode = 0;
 $OBJETBDD_debugmode = 1;
@@ -159,7 +167,7 @@ $APPLI_moduleErrorBefore = "errorbefore";
 $APPLI_moduleNoLogin = "errorlogin";
 $APPLI_notSSL = false;
 /*
- * Cles privee et publique utilisees 
+ * Cles privee et publique utilisees
  * pour la generation des jetons
  */
 $privateKey = "/etc/ssl/private/ssl-cert-snakeoil.key";

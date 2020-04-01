@@ -77,35 +77,52 @@
 {t}Il n'accepte que des fichiers au format CSV. La ligne d'entête doit comprendre exclusivement les colonnes suivantes :{/t}
 <br>
 <ul>
-<li><b>sample_identifier</b> : {t}l'identifiant de l'échantillon (obligatoire){/t}</li>
-<li><b>collection_id</b> : {t}le numéro informatique de la collection (obligatoire){/t}</li>
-<li><b>sample_type_id</b> : {t}le numéro informatique du type d'échantillon (obligatoire){/t}</li>
-<li><b>sample_status_id</b> : {t}le numéro du statut de l'échantillon (obligatoire){/t}</li>
-<li><b>sampling_place_id</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé{/t}</li>
-<li><b>referent_id</b> : {t}le numéro informatique du référent{/t}</li>
-<li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux){/t}</li>
-<li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux){/t}</li>
-<li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy{/t}</li>
-<li><b>expiration_date</b> : {t}la date d'expiration de l'échantillon, au format dd/mm/yyyy{/t}</li>
-<li><b>sample_location</b> : {t}l'emplacement de rangement de l'échantillon dans le contenant (texte libre){/t}</li>
-<li><b>sample_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
-<li><b>sample_line</b> : {t}n° de la ligne de stockage dans le contenant{/t}</li>
-<li><b>sample_multiple_value</b> : {t}le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
-si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point){/t}</li>
-<li><b>sample_parent_uid</b> : {t}UID du parent (création d'échantillons rattachés){/t}</li>
-<li>
-<b>sample_metadata_json</b> : {t escape=no}les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"taxon":"Alosa alosa"&#125;){/t}
-<ul>
-<li>{t}il est également possible de définir les métadonnées avec un attribut par colonne. Dans ce cas, la colonne doit être nommée md_nomAttribut, par exemple : md_taxon. La valeur de la colonne md_xxx écrasera celle de l’attribut xxx présent dans la colonne sample_metadata_json{/t}
+      <li>{t}Pour importer des contenants :{/t}
+            <ul>
+                  <li><b>container_identifier</b> : {t}l'identifiant du contenant (obligatoire){/t}</li>
+                  <li><b>container_type_id</b> : {t}le numéro informatique du type de contenant (obligatoire){/t}</li>
+                  <li><b>container_status_id</b> : {t}le numéro informatique du statut du contenant (obligatoire){/t}</li>
+                  <li><b>container_uuid</b> : {t}UID Universel du contenant (UUID){/t}</li>
+                  <li><b>container_location</b> : {t}l'emplacement de rangement du contenant dans son contenant (texte libre){/t}</li>
+                  <li><b>container_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
+                  <li><b>container_line</b> : {t}n° de la ligne de stockage dans le contenant{/t}</li>
+                  <li><b>container_parent_uid</b> : {t}l'UID du contenant où le contenant courant est rangé{/t}</li>
+            </ul>
+      </li>
+      <li>{t}Pour importer des échantillons :{/t}
+            <ul>
+                  <li><b>sample_identifier</b> : {t}l'identifiant de l'échantillon (obligatoire){/t}</li>
+                  <li><b>collection_id</b> : {t}le numéro informatique de la collection (obligatoire){/t}</li>
+                  <li><b>sample_type_id</b> : {t}le numéro informatique du type d'échantillon (obligatoire){/t}</li>
+                  <li><b>sample_status_id</b> : {t}le numéro du statut de l'échantillon (obligatoire){/t}</li>
+                  <li><b>campaign_id</b> : {t}le numéro informatique de la campagne de prélèvement{/t}</li>
+                  <li><b>sampling_place_id</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé{/t}</li>
+                  <li><b>referent_id</b> : {t}le numéro informatique du référent{/t}</li>
+                  <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
+                  <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
+                  <li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy{/t}</li>
+                  <li><b>expiration_date</b> : {t}la date d'expiration de l'échantillon, au format dd/mm/yyyy{/t}</li>
+                  <li><b>sample_multiple_value</b> : {t}le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
+                  si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point){/t}</li>
+                  <li><b>sample_parent_uid</b> : {t}UID du parent (création d'échantillons rattachés){/t}</li>
+                  <li><b>sample_uuid</b> :  {t}UID Universel de l'échantillon (UUID){/t}</li>
+                  <li><b>container_parent_uid</b> : {t}l'UID du contenant où l'échantillon est rangé{/t}</li>
+                  <li><b>sample_location</b> : {t}l'emplacement de rangement de l'échantillon dans le contenant (texte libre){/t}</li>
+                  <li><b>sample_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
+                  <li><b>sample_line</b> : {t}n° de la ligne de stockage dans le contenant{/t}</li>
+                  <li>
+                        <b>sample_metadata_json</b> : {t escape=no}les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"taxon":"Alosa alosa"&#125;){/t}
+                        <ul>
+                              <li>{t}il est également possible de définir les métadonnées avec un attribut par colonne. Dans ce cas, la colonne doit être nommée md_nomAttribut, par exemple : md_taxon. La valeur de la colonne md_xxx écrasera celle de l’attribut xxx présent dans la colonne sample_metadata_json{/t}
+                              <li>{t escape=no}Dans le cas de multi-valeurs, celles-ci doivent être séparées par une virgule dans la colonne md_ (exemple : valeur1,valeur2), et entourées de crochets dans la colonne sample_metadata_json (exemple : &#123;"valeurs":&#91;valeur1,valeur2&#93;&#125;){/t}</li>
+                        </ul>
+                  </li>
+            </ul>
+      </li>
 </ul>
-</li>
-<li><b>container_identifier</b> : {t}l'identifiant du contenant (obligatoire){/t}</li>
-<li><b>container_type_id</b> : {t}le numéro informatique du type de contenant (obligatoire){/t}</li>
-<li><b>container_status_id</b> : {t}le numéro informatique du statut du contenant (obligatoire){/t}</li>
-<li><b>container_location</b> : {t}l'emplacement de rangement du contenant dans son parent (texte libre){/t}</li>
-<li><b>container_column</b> : {t}n° de la colonne de stockage dans le contenant parent{/t}</li>
-<li><b>container_line</b> : {t}n° de la ligne de stockage dans le contenant parent{/t}</li>
-<li><b>container_parent_uid</b> : {t}l'UID du contenant parent{/t}</li>
+<ul>
+
+
 </ul>
 {t escape=no}Les codes informatiques peuvent être consultés à partir du menu <i>Paramètres</i>.{/t}
 <br>

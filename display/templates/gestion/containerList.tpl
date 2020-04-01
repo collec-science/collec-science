@@ -1,10 +1,10 @@
 {* Objets > Contenants > *}
-<h2>{t}Rechercher des contenants{/t}</h2>
+<h3>{t}Contenants{/t}</h3>
 
-	<div class="row">
-	<div class="col-md-6">
-{include file='gestion/containerSearch.tpl'}
-</div>
+<div class="row">
+	<div class="col-lg-10 col-md-10 col-sm-12">
+	{include file='gestion/containerSearch.tpl'}
+	</div>
 </div>
 <div class="row">
 <div class="col-md-12">

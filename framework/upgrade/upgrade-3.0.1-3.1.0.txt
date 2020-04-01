@@ -1,0 +1,46 @@
+How to upgrade from version 3.0.1 to version 3.1.0
+==================================================
+You must upgrade to PHP version 7.2 or above. For upgrade, run the script framework/upgrade/upgrade-phpver.sh
+
+.htaccess:
+- replace the file .htaccess at the root of application
+
+Controller:
+- replace the file framework/controller.php
+
+Menu:
+- replace the folder framework/navigation
+- in param/actions.xml, replace these lines and adapt it:
+	<dbstructureHtml action="framework/utils/structure.php" param="html" schemas="filo,tracking,import" retourlogin="1" type="smarty" droits="param" maxCountByHour="60" maxCountByDay="600"/>
+	<dbstructureGacl action="framework/utils/structure.php" param="gacl" schemas="gacl" retourlogin="1" type="smarty" droits="admin" maxCountByHour="60" maxCountByDay="600"/>
+	<dbstructureLatex action="framework/utils/structure.php" param="latex" schemas="filo,tracking,import"  retourlogin="1" type="smarty" droits="param" maxCountByHour="60" maxCountByDay="600"/>
+	<dbstructureSchema action="framework/utils/structure.php" param="schema" realfilename="database/filo.png" generatedfilename="filo-science.png" retourlogin="1" type="binaire" droits="param" maxCountByHour="60" maxCountByDay="600"/>
+- in param/menu.xml, change the emplacement of these lines:
+    <item module="param" label="Paramètres" tooltip="Paramètres généraux et tables de référence">
++       <item divider='1'/>
++		<item module="dbstructureSchema" droits="param" label="Schéma de la base de données" tooltip="Schéma de la base de données"/>
++		<item module="dbstructureHtml" droits='param' label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes"/>
++		<item module="dbstructureLatex" droits='param' label="Structure de la base de données (Latex)" tooltip="Liste des tables et des colonnes sous forme de tableaux Latex"/>
+	</item>
+    <item module="administration" label="Administration" tooltip="Administration de l'application" droits="admin">
+-		<item module="dbstructureSchema" droits="param" label="Schéma de la base de données" tooltip="Schéma de la base de données"/>
+-		<item module="dbstructureHtml" droits='param' label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes"/>
+-		<item module="dbstructureLatex" droits='param' label="Structure de la base de données (Latex)" tooltip="Liste des tables et des colonnes sous forme de tableaux Latex"/>
+    </item>
+
+Vue:
+- replace the file framework/vue.class.php
+
+ObjetBDD:
+- replace the file framework/objebdd/ObjetBDD.php
+
+Version:
+- add or replace the file framework/version
+
+Display:
+- replace the file display/CSS/bootstrap-prototypephp.css
+- add the file display/javascript/jqueru-ui-custom/combobox.js
+- add the folder display/javascript/jquery-timepicker-addon
+- replace the file display/templates/main_js.tpl
+- add the folder display/node_modules and delete the folder display/bower
+- replace the folder display/javascript/js-cookie-master

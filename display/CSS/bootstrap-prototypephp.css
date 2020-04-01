@@ -4,21 +4,21 @@ Couleurs IRSTEA :
 marine : 	#003A80; rgb(0,58,128)
 ocean:		#009EE0; rgb(0,158,224)
 prairie :	#A4C400; rgb(164,196,0)
+red: #D1041D, rgb(213,19,23);
 */
 /* Wrapper for page content to push down footer */
 html,
 body {
   height: 99%;
 }
-@media (max-width: 991px) {
+/*@media (max-width: 991px) {
     .form-control, .btn, li, ul, .dropdown-menu, .center-block, 
-    #message, label, div {font-size: 1.1em;}
-	
+    #message, label, div {font-size: 1.1em;}	
 }
 @media (max-width: 991px) {
 	select {min-height: 2em;}
 }
-
+*/
 
 #wrap {
   min-height: 100%;
@@ -36,7 +36,7 @@ body {
 	border-style: solid;
 	border-width: 1px;
 	/*background:  #98c1e9;*/
-	background-color: rgba(0,158,224, 0.3);
+	background-color: rgba(0,158,224, 0.1);
 }
 .center {
 	text-align: center;
@@ -47,10 +47,10 @@ body {
 }
 
 .red {
-	color: #78041D;
+	color: #D1041D;
 }
 .blue {
-	color: #003A80;;
+	color: #003A80;
 }
 .green {
 	color: #A4C400;
@@ -60,7 +60,7 @@ body {
 	color: #003A80;
 }
 .messageError {
-	color: #78041D;
+	color: #D1041D;
 }
 /* italique gris petit*/
 .messagebas {
@@ -70,6 +70,9 @@ body {
 }
 h2 {
 	font-size:large;
+}
+h3 {
+	font-size:medium;
 }
 legend {
 	font-size:large;
@@ -158,6 +161,12 @@ legend {
 	width: 100%;
 	min-height: 400px;
 	height: 80%;
+
+}
+.mapSearch {
+  position: relative;
+    height: 250px;
+    width: 90%;
 }
 
 .scrolltotop {
@@ -171,7 +180,8 @@ legend {
 }
 
 .lexique dt {
-  white-space: pre-wrap;
+	white-space: pre-wrap;
+	text-overflow: clip;
 }
 
 td a {
@@ -181,6 +191,7 @@ td a {
 }
 /* Affichage de la structure de la base de donnees */
 .tablename {
+	margin-top: 1em;
 	background: #003A80;
 	font-size: large;
 	color: white;
@@ -189,32 +200,99 @@ td a {
 	color:#009EE0;
 }
 
+.itemSelected {
+	background: #009EE0;
+}
 meter {
 	/* Reset the default appearance */
-	-webkit-appearance: none;
+	/*-webkit-appearance: none;*/
 		 -moz-appearance: none;
 					appearance: none;
-					
 	margin: 0 auto 1em;
 	width: 100%;
 	height: .5em;
-	
 	/* Applicable only to Firefox */
 	background: none;
 	background-color: rgba(0,0,0,0.1);
 }
 
 meter::-webkit-meter-bar {
-	background: none;
-	background-color: rgba(0,0,0,0.1);
+	background: rgba(0,0,0,0.1);
+	box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+	border-radius: 3px;
 }
 
-meter[value="1"]::-webkit-meter-optimum-value { background: red; }
-meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
-meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-meter[value="4"]::-webkit-meter-optimum-value { background: green; }
+meter::-webkit-meter-optimum-value {
+	background: #009EE0;
+}
 
-meter[value="1"]::-moz-meter-bar { background: red; }
-meter[value="2"]::-moz-meter-bar { background: yellow; }
-meter[value="3"]::-moz-meter-bar { background: orange; }
-meter[value="4"]::-moz-meter-bar { background: green; }
+meter::-webkit-meter-suboptimum-value {
+	background: #009EE0; 
+}
+
+meter::-webkit-meter-even-less-good-value {
+	background: #009EE0; 
+}
+meter[value="1"]::-moz-meter-bar { background: #D1041D; }
+meter[value="2"]::-moz-meter-bar { background: #003A80; }
+meter[value="3"]::-moz-meter-bar { background: #009EE0; }
+meter[value="4"]::-moz-meter-bar { background: #A4C400; }
+
+.messageLevel1 {
+	color: #D1041D;
+}
+.messageLevel0 {
+	color: #D1041D;
+}
+.messageLevel2 {
+	color: #003A80;
+}
+.messageLevel3 {
+	color: #009EE0;
+}
+.messageLevel4 {
+	color: #A4C400;
+}
+/* Nav */
+
+.nav-tabs{
+	background-color:rgba(0,158,224,0.2);
+}
+.tab-content{
+    background-color: rgba(0, 158, 224, 0.2);
+    padding:5px
+}
+.tab-content-white{
+	background-color: white;
+	padding:5px
+}
+.nav-tabs > li > a{
+  border: medium none;
+}
+.nav-tabs > li > a:hover{
+  background-color:  rgba(0,158,224,0.2) !important;
+    border: medium none;
+    border-radius: 0;
+    color:#fff;
+}
+
+
+.trashed {
+	background-color: rgba(213,19,23,0.5);
+}
+.tooltiplink {
+	text-decoration: underline dotted;
+	vertical-align: top;
+}
+.ui-tooltip {
+	 max-width: 1200px ;
+}
+.ui-tooltip-content {
+	max-width: 1200px ;
+}
+.nowrap {
+	white-space: nowrap;
+}
+.top {
+	vertical-align: text-top ;
+}

@@ -72,10 +72,18 @@ $(document).ready(function () {
 </div>
 
 <div class="form-group">
-<label for="protocolFile"  class="control-label col-md-4">{t}Fichier PDF de description :{/t}</label>
-<div class="col-md-8">
-<input id="protocolFile" type="file" class="form-control" name="protocol_file">
+      <label for="protocolFile"  class="control-label col-md-4">{t}Fichier PDF de description :{/t}</label>
+      <div class="col-md-8">
+            <input id="protocolFile" type="file" class="form-control" name="protocol_file">
+      </div>
 </div>
+<div class="form-group">
+      <label for="documentDelete" class="control-label col-md-4">{t}Supprimer le document joint :{/t}</label>
+      <div class="checkbox col-md-8">
+            <label>
+                  <input type="checkbox" value="1" name="documentDelete">
+            </label>
+      </div>
 </div>
 
 <div class="form-group center">

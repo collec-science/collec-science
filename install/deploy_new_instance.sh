@@ -5,7 +5,6 @@
 VERSION=2.3.1
 PHPVER=7.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
-# DISTRIBNAME=`lsb_release -a 2>/dev/null|grep Codename|cut -d ":" -f 2|sed "s/[\t]*//"`
 echo "Installation of Collec-Science version " $VERSION
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [y/n]?" response

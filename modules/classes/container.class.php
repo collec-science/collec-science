@@ -7,21 +7,24 @@
  * Copyright 2016 - All rights reserved
  */
 //require_once 'modules/classes/object.class.php';
-class ContainerException extends Exception{};
+class ContainerException extends Exception
+{ };
 
 class Container extends ObjetBDD
 {
 
-    private $sql = "select c.container_id, o.uid, o.identifier, o.wgs84_x, o.wgs84_y, 
-					container_type_id, container_type_name,
+    private $sql = "select c.container_id, o.uid, o.identifier, o.wgs84_x, o.wgs84_y,
+                    o.change_date, o.uuid, o.trashed, o.location_accuracy,
+					container_type_id, container_type_name, nb_slots_max,
 					container_family_id, container_family_name, os.object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
 					document_id, identifiers,
 					movement_date, movement_type_name, movement_type_id,
-                    lines, columns, first_line,
+                    lines, columns, first_line, first_column,
                     column_number, line_number, container_uid, oc.identifier as container_identifier,
                     o.referent_id, referent_name,
-                    borrowing_date, expected_return_date, borrower_id, borrower_name
+                    borrowing_date, expected_return_date, borrower_id, borrower_name,
+                    nb_slots_used
 					from container c
 					join object o using (uid)
 					join container_type using (container_type_id)
@@ -36,8 +39,12 @@ class Container extends ObjetBDD
                     left outer join referent r on (o.referent_id = r.referent_id)
                     left outer join last_borrowing lb on (o.uid = lb.uid)
                     left outer join borrower using (borrower_id)
+                    left outer join slots_used su on (c.container_id = su.container_id)
             ";
     private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
+
+    private $movement;
+
 
     /**
      *
@@ -81,6 +88,7 @@ class Container extends ObjetBDD
         $data["uid"] = $uid;
         $this->colonnes["borrowing_date"] = array("type" => 2);
         $this->colonnes["expected_return_date"] = array("type" => 2);
+        $this->colonnes["change_date"] = array("type" => 3);
         if (is_numeric($uid) && $uid > 0) {
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
@@ -118,15 +126,33 @@ class Container extends ObjetBDD
     function supprimer($uid)
     {
         $data = $this->lire($uid);
-        /*
-         * suppression de l'echantillon
+        /**
+         * Find out if objects are stored in the container
          */
-        parent::supprimer($data["container_id"]);
-        /*
-         * Suppression de l'objet
-         */
-        $object = new ObjectClass($this->connection, $this->paramori);
-        $object->supprimer($uid);
+        $sql = "select count(*) as nb from last_movement
+                where movement_type_id = 1 and container_id = :container_id";
+        $result = $this->lireParamAsPrepared($sql, array("container_id" => $data["container_id"]));
+        if ($result["nb"] > 0) {
+            throw new ObjetBDDException(_("Le contenant contient des objets, il ne peut être supprimé"));
+        } else {
+            /**
+             * Delete the movements attached to the container
+             */
+            if (!isset($this->movement)) {
+                require_once 'modules/classes/movement.class.php';
+                $this->movement = new Movement($this->connection, $this->paramori);
+            }
+            $this->movement->deleteFromContainer($data["container_id"]);
+            /**
+             * delete the container
+             */
+            parent::supprimer($data["container_id"]);
+            /** 
+             * Delete the object
+             */
+            $object = new ObjectClass($this->connection, $this->paramori);
+            $object->supprimer($uid);
+        }
     }
 
     /**
@@ -141,7 +167,7 @@ class Container extends ObjetBDD
         if ($uid > 0 && is_numeric($uid)) {
             $sql = "select o.uid, o.identifier, sa.*,
 					movement_date, movement_type_id, identifiers,
-					collection_name, sample_type_name, object_status_name,
+					collection_name, sample_type_name, object_status_name, o.trashed, o.uuid, o.location_accuracy,
 					sampling_place_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
                     lm.column_number, lm.line_number,
@@ -152,7 +178,7 @@ class Container extends ObjetBDD
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
 					join collection c using (collection_id)
 					join sample_type using (sample_type_id)
-					left outer join v_object_identifier voi on (o.uid = voi.uid) 
+					left outer join v_object_identifier voi on (o.uid = voi.uid)
 					left outer join object_status using (object_status_id)
 					left outer join sampling_place using (sampling_place_id)
 					left outer join sample ps on (sa.parent_sample_id = ps.sample_id)
@@ -186,8 +212,9 @@ class Container extends ObjetBDD
     {
         if ($uid > 0 && is_numeric($uid)) {
             $sql = "select o.uid, o.identifier, container_type_id, container_type_name,
-					container_family_id, container_family_name, o.object_status_id,
-					storage_product, storage_condition_name, 
+                    container_family_id, container_family_name, o.object_status_id, o.trashed, 
+                    o.location_accuracy, o.uuid,
+					storage_product, storage_condition_name,
 					object_status_name, clp_classification,
 					movement_date, movement_type_id, column_number, line_number,
                     document_id
@@ -223,11 +250,11 @@ class Container extends ObjetBDD
     function getParent($uid)
     {
         if ($uid > 0 && is_numeric($uid)) {
-            $sql = "select co.container_id, o.uid, o.identifier, container_type_id, container_type_name
+            $sql = "select co.container_id, o.uid, o.identifier, container_type_id, container_type_name, o.uuid
 					from object o
 					join container co on (co.uid = o.uid)
 					join container_type using (container_type_id)
-					join last_movement lm on (lm.uid = :uid and lm.container_uid = o.uid) 
+					join last_movement lm on (lm.uid = :uid and lm.container_uid = o.uid)
 					where lm.movement_type_id = 1
 					order by o.identifier, o.uid
 					";
@@ -285,60 +312,104 @@ class Container extends ObjetBDD
      */
     function containerSearch($param)
     {
-        $data = array();
-        $where = "where";
-        $and = "";
-        if ($param["container_type_id"] > 0) {
-            $where .= " container_type_id = :container_type_id";
-            $data["container_type_id"] = $param["container_type_id"];
-            $and = " and ";
-        } elseif ($param["container_family_id"] > 0) {
-            $where .= " container_family_id = :container_family_id";
-            $data["container_family_id"] = $param["container_family_id"];
-            $and = " and ";
-        }
-        if (strlen($param["name"]) > 0) {
-            $where .= $and . "( ";
-            $or = "";
-            if (is_numeric($param["name"])) {
-                $where .= " o.uid = :uid";
-                $data["uid"] = $param["name"];
-                $or = " or ";
+        /**
+         * Verification de la presence des parametres
+         */
+        $searchOk = false;
+        $paramName = array(
+            "name", "container_family_id", "container_type_id",  "select_date"
+        );
+        if ($param["object_status_id"] > 1 || $param["trashed"] == 1|| $param["uid_min"] > 0 || $param["uid_max"] > 0) {
+            $searchOk = true;
+        } else {
+            foreach ($paramName as $name) {
+                if (strlen($param[$name]) > 0) {
+                    $searchOk = true;
+                    break;
+                }
             }
-            $identifier = "%" . strtoupper($this->encodeData($param["name"])) . "%";
-            $where .= "$or upper(o.identifier) like :identifier ";
-            $and = " and ";
-            $data["identifier"] = $identifier;
-            /*
+        }
+        if ($searchOk) {
+            $data = array();
+            $where = "where";
+            $and = "";
+            if ($param["container_type_id"] > 0) {
+                $where .= " container_type_id = :container_type_id";
+                $data["container_type_id"] = $param["container_type_id"];
+                $and = " and ";
+            } elseif ($param["container_family_id"] > 0) {
+                $where .= " container_family_id = :container_family_id";
+                $data["container_family_id"] = $param["container_family_id"];
+                $and = " and ";
+            }
+            if (strlen($param["name"]) > 0) {
+                $where .= $and . "( ";
+                $or = "";
+                if (is_numeric($param["name"])) {
+                    $where .= " o.uid = :uid";
+                    $data["uid"] = $param["name"];
+                    $or = " or ";
+                }
+                if (strlen($param["name"]) == 36) {
+                    $where .= "o.uuid = :uuid";
+                    $data["uuid"] = $param["name"];
+                    $or = " or ";
+                }
+                $identifier = "%" . strtoupper($this->encodeData($param["name"])) . "%";
+                $where .= "$or upper(o.identifier) like :identifier ";
+                $and = " and ";
+                $data["identifier"] = $identifier;
+                /*
              * Recherche sur les identifiants externes
              * possibilite de recherche sur cab:valeur, p. e.
              */
-            $where .= " or upper(identifiers) like :identifier ";
-            $where .= ")";
-        }
-        if ($param["object_status_id"] > 0) {
-            $where .= $and . " os.object_status_id = :object_status_id";
-            $and = " and ";
-            $data["object_status_id"] = $param["object_status_id"];
-        }
+                $where .= " or upper(identifiers) like :identifier ";
+                $where .= ")";
+            }
+            if ($param["object_status_id"] > 0) {
+                $where .= $and . " os.object_status_id = :object_status_id";
+                $and = " and ";
+                $data["object_status_id"] = $param["object_status_id"];
+            }
+            if (strlen($param["trashed"]) > 0) {
+                $where .= $and . " o.trashed = :trashed";
+                $and = " and ";
+                $data["trashed"] = $param["trashed"];
+            }
+            if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
+                $where .= $and . " o.uid between :uid_min and :uid_max";
+                $and = " and ";
+                $data["uid_min"] = $param["uid_min"];
+                $data["uid_max"] = $param["uid_max"];
+            }
+            if (strlen($param["select_date"]) > 0) {
+                $tablefield = "c";
+                switch ($param["select_date"]) {
+                    case "ch":
+                        $field = "change_date";
+                        $tablefield = "o";
+                        break;
+                }
+                $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
+                $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
+                $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
+                $and = " and ";
+            }
+            if ($and == "") {
+                $where = "";
+            }
 
-        if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
-            $where .= $and . " o.uid between :uid_min and :uid_max";
-            $and = " and ";
-            $data["uid_min"] = $param["uid_min"];
-            $data["uid_max"] = $param["uid_max"];
+            /**
+             * Rajout de la date de dernier mouvement pour l'affichage
+             */
+            $this->colonnes["movement_date"] = array(
+                "type" => 3
+            );
+            $this->colonnes["change_date"] = array("type" => 3);
+            return $this->getListeParamAsPrepared($this->sql . $where /*. $order*/, $data);
+        } else {
+            return array();
         }
-        if ($and == "") {
-            $where = "";
-        }
-
-        /*
-         * Rajout de la date de dernier mouvement pour l'affichage
-         */
-        $this->colonnes["movement_date"] = array(
-            "type" => 3
-        );
-        return $this->getListeParamAsPrepared($this->sql . $where /*. $order*/, $data);
     }
 
     /**
@@ -347,13 +418,12 @@ class Container extends ObjetBDD
      * @param int $container_type_id
      * @return array
      */
-    function getFromType($container_type_id)
+    function getFromType($container_type_id, $trashed = 0)
     {
         if (is_numeric($container_type_id) && $container_type_id > 0) {
-            $data["container_type_id"] = $container_type_id;
-            $where = " where container_type_id = :container_type_id";
-            $order = " order by uid desc";
-            return $this->getListeParamAsPrepared($this->sql . $where . $order, $data);
+            $where = " where container_type_id = :container_type_id and o.trashed = :trashed";
+            $order = " order by o.identifier,o.uid";
+            return $this->getListeParamAsPrepared($this->sql . $where . $order, array("container_type_id"=>$container_type_id, "trashed"=>$trashed));
         }
     }
 
@@ -367,7 +437,7 @@ class Container extends ObjetBDD
      * @param string $first_line
      * @return array|string|string[]|array[]
      */
-    function generateOccupationArray($dcontainer, $dsample, $columns = 1, $lines = 1, $first_line = "T")
+    function generateOccupationArray($dcontainer, $dsample, $columns = 1, $lines = 1, $first_line = "T", $first_column = "L")
     {
         $data = array();
         /*
@@ -375,7 +445,7 @@ class Container extends ObjetBDD
          */
         for ($line = 0; $line < $lines; $line++) {
             for ($column = 0; $column < $columns; $column++) {
-                $data[$line][$column] = "";
+                $data[$line][$column] = array();
             }
         }
         /*
@@ -383,19 +453,27 @@ class Container extends ObjetBDD
          */
         foreach ($dcontainer as $value) {
             if ($value["line_number"] > 0 && $value["column_number"] > 0) {
-                $data[$value["line_number"] - 1][$value["column_number"] - 1] = array("type" => "C", "uid" => $value["uid"], "identifier" => $value["identifier"]);
+                $data[$value["line_number"] - 1][$value["column_number"] - 1][] = array("type" => "C", "uid" => $value["uid"], "identifier" => $value["identifier"]);
             }
         }
         foreach ($dsample as $value) {
             if ($value["line_number"] > 0 && $value["column_number"] > 0) {
-                $data[$value["line_number"] - 1][$value["column_number"] - 1] = array("type" => "S", "uid" => $value["uid"], "identifier" => $value["identifier"]);
+                $data[$value["line_number"] - 1][$value["column_number"] - 1][] = array("type" => "S", "uid" => $value["uid"], "identifier" => $value["identifier"]);
             }
         }
-        /*
-         * Tri du tableau
+        /**
+         * Table sort
          */
         if ($lines > 1 && $first_line == "B") {
             krsort($data);
+        }
+        if ($first_column == "R") {
+            $dataSorted = array();
+            foreach ($data as $key => $row) {
+                krsort($row);
+                $dataSorted[$key] = $row;
+            }
+            $data = $dataSorted;
         }
         return $data;
     }
@@ -409,7 +487,7 @@ class Container extends ObjetBDD
     {
         global $APPLI_version;
         $data = array();
-        /** 
+        /**
          * Inhibit the date encoding
          */
         $this->auto_date = 0;
@@ -520,7 +598,7 @@ class Container extends ObjetBDD
                 /**
                  * Traitement des identifiants secondaires
                  */
-                if ($key == "identifiers" ) {
+                if ($key == "identifiers") {
                     foreach ($df as $ident) {
                         $idvalue = explode(":", $ident);
                         if (!in_array($idvalue[0], $names["identifier_type_code"])) {
@@ -534,7 +612,7 @@ class Container extends ObjetBDD
     }
 
     /**
-     * import containers and embedded objects from 
+     * import containers and embedded objects from
      * a JSON file transformed in array
      *
      * @param array $data
@@ -601,7 +679,7 @@ class Container extends ObjetBDD
                     $value = $data[$field];
                     /*
                  * Transformation of spaces in underscore,
-                 * to take into encoding realized by the browser 
+                 * to take into encoding realized by the browser
                  */
                     $fieldHtml = str_replace(" ", "_", $value);
                     $newval = $post[$field . "-" . $fieldHtml];
@@ -638,7 +716,7 @@ class Container extends ObjetBDD
                     $objectIdentifier->ecrire($didentifiers);
                 }
             } else {
-                throw new ContainerException (sprintf(_("Échec d'écriture de l'objet dans Container.importData : l'UID n'a pas été généré (identifier : %s)"), $data["identifier"]));
+                throw new ContainerException(sprintf(_("Échec d'écriture de l'objet dans Container.importData : l'UID n'a pas été généré (identifier : %s)"), $data["identifier"]));
             }
             /**
              * Generate the movement if necessary
@@ -650,7 +728,11 @@ class Container extends ObjetBDD
              * Create embedded samples
              */
             foreach ($data["samples"] as $sample) {
-                $this->importSample($sample, $dclass, $sic, $post, $movement, $objectIdentifier, $sampleClass, $uid);
+                try {
+                    $this->importSample($sample, $dclass, $sic, $post, $movement, $objectIdentifier, $sampleClass, $uid);
+                } catch (Exception $e) {
+                    throw (new ContainerException(sprintf(_("Erreur d'importation de l'échantillon %s. "),$sample["uid"]). _("Message d'erreur : ").$e->getMessage() ));
+                }
             }
             /**
              * create embedded containers
@@ -718,7 +800,7 @@ class Container extends ObjetBDD
                 $value = $data[$field];
                 /*
              * Transformation of spaces in underscore,
-             * to take into encoding realized by the browser 
+             * to take into encoding realized by the browser
              */
                 $fieldHtml = str_replace(" ", "_", $value);
                 $newval = $post[$field . "-" . $fieldHtml];

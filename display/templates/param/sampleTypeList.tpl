@@ -7,7 +7,7 @@
 {t}Nouveau...{/t}
 </a>
 {/if}
-<table id="sampleTypeList" class="table table-bordered table-hover datatable " >
+<table id="sampleTypeList" class="table table-bordered table-hover datatable-export-paging " >
 <thead>
 <tr>
 <th>{t}Nom{/t}</th>
@@ -16,6 +16,7 @@
 <th>{t}Protocole / operation{/t}</th>
 <th>{t}Sous-échantillonnage{/t}</th>
 <th>{t}Modèle de métadonnées{/t}</th>
+<th>{t}Description{/t}</th>
 <th>{t}Génération automatique de l'identifiant métier ?{/t}</th>
 </tr>
 </thead>
@@ -34,7 +35,7 @@
 <td class="center">{$data[lst].sample_type_id}</td>
 <td>{$data[lst].container_type_name}</td>
 <td>
-{$data[lst].protocol_year} {$data[lst].protocol_name} {$data[lst].protocol_version} {$data[lst].operation_name} {$data[lst].operation_version} 
+{$data[lst].protocol_year} {$data[lst].protocol_name} {$data[lst].protocol_version} {$data[lst].operation_name} {$data[lst].operation_version}
 </td>
 <td>
 {if $data[lst].multiple_type_id > 0}
@@ -42,6 +43,7 @@
 {/if}
 </td>
 <td>{$data[lst].metadata_name}</td>
+<td class="textareaDisplay">{$data[lst].sample_type_description}</td>
 <td class="center">
 {if strlen($data[lst].identifier_generator_js) > 0}
 {t}oui{/t}

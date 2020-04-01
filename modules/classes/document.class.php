@@ -5,82 +5,82 @@
  * @copyright Copyright (c) 2014, IRSTEA / Eric Quinton
  * @license http://www.cecill.info/licences/Licence_CeCILL-C_V1-fr.html LICENCE DE LOGICIEL LIBRE CeCILL-C
  *  Creation 7 avr. 2014
- *  
+ *
  *  Les classes fonctionnent avec les tables suivantes :
- *  
+ *
  CREATE TABLE mime_type
  (
  mime_type_id  serial     NOT NULL,
  content_type  varchar    NOT NULL,
  extension     varchar    NOT NULL
  );
- 
+
  -- Column mime_type_id is associated with sequence public.mime_type_mime_type_id_seq
- 
- 
+
+
  ALTER TABLE mime_type
  ADD CONSTRAINT mime_type_pk
  PRIMARY KEY (mime_type_id);
- 
+
  COMMENT ON TABLE mime_type IS 'Table des types mime, pour les documents associés';
  COMMENT ON COLUMN mime_type.content_type IS 'type mime officiel';
  COMMENT ON COLUMN mime_type.extension IS 'Extension du fichier correspondant';
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  1,  'application/pdf',  'pdf');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  2,  'application/zip',  'zip');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  3,  'audio/mpeg',  'mp3');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  4,  'image/jpeg',  'jpg');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES(  5,  'image/jpeg',  'jpeg');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  6,  'image/png',  'png');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  7,  'image/tiff',  'tiff');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  9,  'application/vnd.oasis.opendocument.text',  'odt');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  10,  'application/vnd.oasis.opendocument.spreadsheet',  'ods');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  11,  'application/vnd.ms-excel',  'xls');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  12,  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  'xlsx');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  13,  'application/msword',  'doc');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  14,  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  'docx');
- 
+
  INSERT INTO mime_type(  mime_type_id,  content_type,  extension)
  VALUES
  (  8,  'text/csv',  'csv');
- 
- 
+
+
  CREATE TABLE document
  (
  document_id           serial     NOT NULL,
@@ -92,20 +92,20 @@
  size                  integer,
  thumbnail             bytea
  );
- 
+
  -- Column document_id is associated with sequence public.document_document_id_seq
- 
- 
+
+
  ALTER TABLE document
  ADD CONSTRAINT document_pk
  PRIMARY KEY (document_id);
- 
+
  ALTER TABLE document
  ADD CONSTRAINT mime_type_document_fk FOREIGN KEY (mime_type_id)
  REFERENCES mime_type (mime_type_id)
  ON UPDATE NO ACTION
  ON DELETE NO ACTION;
- 
+
  COMMENT ON TABLE document IS 'Documents numériques rattachés à un poisson ou à un événement';
  COMMENT ON COLUMN document.document_nom IS 'Nom d''origine du document';
  COMMENT ON COLUMN document.document_description IS 'Description libre du document';
@@ -114,11 +114,10 @@
  * ORM de gestion de la table mime_type
  *
  * @author quinton
- *        
+ *
  */
 class DocumentException extends Exception
-{
-}
+{ }
 
 class MimeType extends ObjetBDD
 {
@@ -161,9 +160,31 @@ class MimeType extends ObjetBDD
     {
         if (strlen($extension) > 0) {
             $extension = strtolower($this->encodeData($extension));
-            $sql = "select mime_type_id from " . $this->table . " where extension = '" . $extension . "'";
-            $res = $this->lireParam($sql);
+            $sql = "select mime_type_id from " . $this->table . " where extension = :extension";
+            $res = $this->lireParamAsPrepared($sql, array("extension" => $extension));
             return $res["mime_type_id"];
+        }
+    }
+    /**
+     * Get the list of extensions, in array form or in string form with commas
+     *
+     * @param boolean $isArray
+     * @return void
+     */
+    function getListExtensions($isArray = false)
+    {
+        $sql = "select extension from mime_type order by extension";
+        $data = $this->getListeParam($sql);
+        if (!$isArray) {
+            $result = "";
+            $comma = "";
+            foreach ($data as $value) {
+                $result .= $comma . $value["extension"];
+                $comma = _(", ");
+            }
+            return $result;
+        } else {
+            return $data;
         }
     }
 }
@@ -173,7 +194,7 @@ class MimeType extends ObjetBDD
  * Stockage des pièces jointes
  *
  * @author quinton
- *        
+ *
  */
 class Document extends ObjetBDD
 {
@@ -203,9 +224,9 @@ class Document extends ObjetBDD
             ),
             "uid" => array(
                 "type" => 1,
-                "requis" => 1,
                 "parentAttrib" => 1
             ),
+            "campaign_id" => array("type" => 1),
             "mime_type_id" => array(
                 "type" => 1,
                 "requis" => 1
@@ -239,6 +260,21 @@ class Document extends ObjetBDD
         );
         parent::__construct($bdd, $param);
     }
+    /**
+     * Get the list of documents associated with an other table
+     *
+     * @param string $fieldName: name of the parent field
+     * @param int $id: key of the parent
+     * @return array
+     */
+    function getListFromField($fieldName, $id)
+    {
+        $fields = array("uid" => "uid", "campaign_id" => "campaign_id");
+        $sql = "select document_id, uid, campaign_id, mime_type_id, document_import_date, document_name, document_description, size, document_creation_date
+                from document
+                where " . $fields[$fieldName] . " = :id";
+        return $this->getListeParamAsPrepared($sql, array( "id" => $id));
+    }
 
     /**
      * Ecriture d'un document
@@ -249,9 +285,9 @@ class Document extends ObjetBDD
      *            string description : description du contenu du document
      * @return int
      */
-    function ecrire($file, $uid, $description = NULL, $document_creation_date = NULL)
+    function ecrire($file, $parentKeyName, $parentKeyValue, $description = NULL, $document_creation_date = NULL)
     {
-        if ($file["error"] == 0 && $file["size"] > 0 && is_numeric($uid) && $uid > 0) {
+        if ($file["error"] == 0 && $file["size"] > 0 && is_numeric($parentKeyValue) && $parentKeyValue > 0) {
             global $log, $message;
             /*
              * Recuperation de l'extension
@@ -266,8 +302,8 @@ class Document extends ObjetBDD
                 $data["mime_type_id"] = $mime_type_id;
                 $data["document_description"] = $description;
                 $data["document_import_date"] = date($_SESSION["MASKDATE"]);
-                $data["uid"] = $uid;
-                if (! is_null($document_creation_date)) {
+                $data[$parentKeyName] = $parentKeyValue;
+                if (!is_null($document_creation_date)) {
                     $data["document_creation_date"] = $document_creation_date;
                 }
                 $dataDoc = array();
@@ -283,7 +319,7 @@ class Document extends ObjetBDD
                 } catch (FileException $fe) {
                     $message->set($fe->getMessage());
                 }
-                
+
                 /*
                  * Recherche pour savoir s'il s'agit d'une image ou d'un pdf pour créer une vignette
                  */
@@ -291,9 +327,9 @@ class Document extends ObjetBDD
                 /*
                  * Ecriture du document
                  */
-                if (! $virus) {
+                if (!$virus) {
                     $dataBinaire = fread(fopen($file["tmp_name"], "r"), $file["size"]);
-                    
+
                     $dataDoc["data"] = pg_escape_bytea($dataBinaire);
                     if ($extension == "pdf" || $extension == "png" || $extension == "jpg") {
                         $image = new Imagick();
@@ -335,7 +371,7 @@ class Document extends ObjetBDD
 				from document
 				join mime_type using (mime_type_id)
 				where document_id = :document_id";
-            
+
             return $this->lireParamAsPrepared($sql, array(
                 "document_id" => $id
             ));
@@ -358,7 +394,7 @@ class Document extends ObjetBDD
         $id = $this->encodeData($id);
         $filename = $this->generateFileName($id, $phototype, $resolution);
         if (strlen($filename) > 0 && is_numeric($id) && $id > 0) {
-            if (! file_exists($filename)) {
+            if (!file_exists($filename)) {
                 $this->writeFileImage($id, $phototype, $resolution);
             }
         }
@@ -451,7 +487,7 @@ class Document extends ObjetBDD
                  */
                 $phototype == 2 ? $colonne = "thumbnail" : $colonne = "data";
                 $filename = $this->generateFileName($id, $phototype, $resolution);
-                if (strlen($filename) > 0 && ! file_exists($filename)) {
+                if (strlen($filename) > 0 && !file_exists($filename)) {
                     /*
                      * Recuperation des donnees concernant la photo
                      */
@@ -502,7 +538,7 @@ class Document extends ObjetBDD
                         if (($data["mime_type_id"] == 1 && $phototype == 2) || $phototype == 0) {
                             $writeOk = true;
                             $document = stream_get_contents($docRef);
-                            if (! $document) {
+                            if (!$document) {
                                 throw new DocumentException("Erreur de lecture" . $docRef);
                             }
                         }
@@ -521,6 +557,3 @@ class Document extends ObjetBDD
         return $filename;
     }
 }
-
-?>
-

@@ -5,8 +5,8 @@
 class Borrower extends ObjetBDD {
 	/**
 	 *
-	 * @param PDO $bdd        	
-	 * @param array $param        	
+	 * @param PDO $bdd
+	 * @param array $param
 	 */
 	function __construct($bdd, $param = array()) {
 		$this->table = "borrower";
@@ -15,18 +15,24 @@ class Borrower extends ObjetBDD {
 						"type" => 1,
 						"key" => 1,
 						"requis" => 1,
-						"defaultValue" => 0 
+						"defaultValue" => 0
 				),
 				"borrower_name" => array (
 						"type" => 0,
-						"requis" => 1 
+						"requis" => 1
 				),
 				"borrower_address" => array (
 						"type" => 0
 				),
 				"borrower_phone" => array (
 						"type" => 0,
-				) 
+                ),
+                "laboratory_code"=>array(
+                    "type"=>0
+                ),
+                "borrower_mail"=>array(
+                    "type"=>0
+                )
 		);
 		parent::__construct ( $bdd, $param );
     }
@@ -42,14 +48,14 @@ class Borrower extends ObjetBDD {
     {
         $sql = "select uid, identifier, object_status_id, object_status_name,
         borrowing_id, borrowing_date, expected_return_date, return_date,
-        borrower_name,
-        case when sample_type_id > 0 then 
+        borrower_name, laboratory_code, borrower_mail,
+        case when sample_type_id > 0 then
         'sample'
         else 'container' end as object_type,
          case when sample_type_id > 0 then
         sample_type_name
-        else 
-        container_type_name 
+        else
+        container_type_name
         end as name_type
         from borrowing
         join object using (uid)
@@ -64,11 +70,11 @@ class Borrower extends ObjetBDD {
             $where .= " and return_date is null";
         }
         /**
-         * Add the dates of borrowings 
+         * Add the dates of borrowings
          */
         $this->colonnes["borrowing_date"] = array("type"=>2);
         $this->colonnes["expected_return_date"] = array("type"=>2);
-        $this->colonnes["return_date"] = array("type"=>2);        
+        $this->colonnes["return_date"] = array("type"=>2);
         return $this->getListeParamAsPrepared($sql . $where, array("borrower_id" => $borrower_id));
     }
 }

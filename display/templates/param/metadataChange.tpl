@@ -3,9 +3,6 @@
 {include file="param/metadataFormJS.tpl"}
 
 <script type="text/javascript">
-function loadSchema(){
-
-}
 
 $(document).ready(function() {
 
@@ -15,26 +12,40 @@ $(document).ready(function() {
             metadataParse = JSON.parse(metadataParse);
         }
         renderForm(metadataParse);
-
         $('#metadataForm').submit(function(event) {
         	console.log("write");
         	if ($("#action").val() == "Write") {
-        		$('#metadata').alpaca().refreshValidationState(true);
+                $('#metadata').alpaca().refreshValidationState(true);
+                console.log($("#metadata").alpaca().getValue());
                 if(!$('#metadata').alpaca().isValid(true)){
                 	alert("{t}La définition des métadonnées n'est pas valide.{/t}");
                 	event.preventDefault();
                 }
-        	}
-        });        
+            }
+        });
     });
 </script>
 
 <h2>{t}Création - Modification d'un modèle de métadonnées{/t}</h2>
 <div class="row">
-<div class="col-md-6">
-<a href="index.php?module=metadataList">{t}Retour à la liste{/t}</a>
+<div class="col-lg-8 col-md-12">
+<a href="index.php?module=metadataList">
+    <img src="display/images/list.png" height="25">
+    {t}Retour à la liste{/t}
+</a>
+{if $data.metadata_id > 0}
+    &nbsp;<img src="display/images/display.png" height="25">
+    <a href="index.php?module=metadataDisplay&metadata_id={$data.metadata_id}">
+        {t}Retour au détail{/t}
+    </a>
+{/if}
 
 <form class="form-horizontal protoform" id="metadataForm" method="post" action="index.php" enctype="multipart/form-data">
+    {if $nbSample < 1}
+        <div class="form-group center">
+            <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+        </div>
+    {/if}
 {if $nbSample > 0}<fieldset disabled>{/if}
 <input type="hidden" name="moduleBase" value="metadata">
 <input type="hidden" id="action" name="action" value="Write">

@@ -20,13 +20,13 @@
 		if (tabHover == 1) {
 			$("#tabHoverSelect").prop("checked", true);
 		}
-		$("#tabHoverSelect").change(function() { 
+		$("#tabHoverSelect").change(function() {
 			if ($(this).is(":checked")) {
 				tabHover = 1;
 			} else {
 				tabHover = 0;
 			}
-			Cookies.set("tabHover", tabHover, { expires: 365 });
+			Cookies.set("tabHover", tabHover, { expires: 365, secure: true });
 		});
 		/* Management of tabs */
 		var activeTab = "{$activeTab}";
@@ -40,7 +40,7 @@
 		try {
 			if (activeTab.length > 0) {
 				$("#"+activeTab).tab('show');
-			} 
+			}
 		} catch (Exception) { }
 		$('.nav-tabs > li > a').hover(function() {
 			if (tabHover == 1) {
@@ -48,7 +48,7 @@
 			}
  		});
 		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
-			Cookies.set("sampleDisplayTab",$(this).attr("id"));
+			Cookies.set("sampleDisplayTab", $(this).attr("id"), { secure: true});
 		});
 		$('a[data-toggle="tab"]').on("click", function () {
 			tabHover = 0 ;
@@ -66,11 +66,11 @@
 			$("#sampleSpinner2").show();
 			$(this.form).submit();
 		});
-		$("#referent_name").click(function() { 
+		$("#referent_name").click(function() {
 			var referentName = $(this).text();
 			if (referentName.length > 0 && !isReferentDisplayed) {
 				isReferentDisplayed = true;
-			$.ajax( { 
+			$.ajax( {
     	   		url: "index.php",
     	    	data: { "module": "referentGetFromName", "referent_name": referentName }
     	    })
@@ -85,7 +85,7 @@
 			});
 			}
 		});
-		$("#open").submit (function ( event) { 
+		$("#open").submit (function ( event) {
 			/**
 			* Recherche si un sample existe
 			*/
@@ -110,15 +110,15 @@
 					$("#search").val(uid);
 				}
 			}
-		 	} 
+		 	}
 			var is_container = 2;
 			event.preventDefault();
-			$.ajax ( { 
-				url:url, 
+			$.ajax ( {
+				url:url,
 			method:"GET",
 			//async: "false",
-			//cache: "false", 
-			data : { module:"objectGetDetail", uid:uid, is_container:is_container }, 
+			//cache: "false",
+			data : { module:"objectGetDetail", uid:uid, is_container:is_container },
 			success : function ( djs ) {
 				try {
 					var data = JSON.parse(djs);
@@ -130,7 +130,7 @@
 								form.get(0).submit();
 							}
 						}
-					} 
+					}
 					$("#search").val("");
 					form.get(0).event.preventDefault();
 				} catch (error) {
@@ -141,6 +141,50 @@
 		});
 	});
 </script>
+<div class="row">
+		<div class="col-md-12">
+			<a href="index.php?module={$moduleListe}">
+				<img src="display/images/list.png" height="25">
+				{t}Retour à la liste{/t}
+			</a>
+			{if $droits.gestion == 1}
+				&nbsp;
+				<a href="index.php?module=sampleChange&uid=0">
+					<img src="display/images/new.png" height="25">
+					{t}Nouvel échantillon{/t}
+				</a>
+				&nbsp;
+				<a href="index.php?module=sampleChange&uid=0&last_sample_id={$data.uid}&is_duplicate=1" title="{t}Nouvel échantillon avec duplication des informations, dont le parent{/t}">
+					<img src="display/images/copy.png" height="25">
+					{t}Dupliquer{/t}
+					</a>
+				{if $modifiable == 1}
+					&nbsp;
+					<a href="index.php?module=sampleChange&uid={$data.uid}">
+						<img src="display/images/edit.gif" height="25">
+						{t}Modifier{/t}
+					</a>
+				{/if}
+				<!-- Entrée ou sortie -->
+				<span id="input">
+					<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="{t}Entrer ou déplacer l'échantillon dans un contenant{/t}">
+						<img src="display/images/input.png" height="25">
+						{t}Entrer ou déplacer...{/t}
+					</a>
+				</span>
+				<span id="output">
+					<a href="index.php?module=movementsampleOutput&movement_id=0&uid={$data.uid}" id="output" title="{t}Sortir l'échantillon du stock{/t}">
+						<img src="display/images/output.png" height="25">
+						{t}Sortir du stock...{/t}
+					</a>
+				</span>
+			{/if}
+			&nbsp;
+			<a href="index.php?module=sampleDisplay&uid={$data.uid}">
+				<img src="display/images/refresh.png" title="{t}Rafraîchir la page{/t}" height="15">
+			</a>
+		</div>
+	</div>
 <div class="row">
 	<div class="col-md-8">
 		<h2>{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i></h2>
@@ -158,51 +202,8 @@
 		</form>
 	</div>
 </div>
-<div class="row">
-	<div class="col-md-12">
-		<a href="index.php?module={$moduleListe}">
-			<img src="display/images/list.png" height="25">
-			{t}Retour à la liste{/t}
-		</a>
-		{if $droits.gestion == 1}
-			&nbsp;
-			<a href="index.php?module=sampleChange&uid=0">
-				<img src="display/images/new.png" height="25">
-				{t}Nouvel échantillon{/t}
-			</a>
-			&nbsp;
-			<a href="index.php?module=sampleChange&uid=0&last_sample_id={$data.uid}&is_duplicate=1" title="{t}Nouvel échantillon avec duplication des informations, dont le parent{/t}">
-				<img src="display/images/copy.png" height="25">
-				{t}Dupliquer{/t}
-				</a>
-			{if $modifiable == 1}
-				&nbsp;
-				<a href="index.php?module=sampleChange&uid={$data.uid}">
-					<img src="display/images/edit.gif" height="25">
-					{t}Modifier{/t}
-				</a>
-			{/if}
-			<!-- Entrée ou sortie -->
-			<span id="input">
-				<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input" title="{t}Entrer ou déplacer l'échantillon dans un contenant{/t}">
-					<img src="display/images/input.png" height="25">
-					{t}Entrer ou déplacer...{/t}
-				</a>
-			</span>
 
-			<span id="output">
-				<a href="index.php?module=movementsampleOutput&movement_id=0&uid={$data.uid}" id="output" title="{t}Sortir l'échantillon du stock{/t}">
-					<img src="display/images/output.png" height="25">
-					{t}Sortir du stock...{/t}
-				</a>
-			</span>
-		{/if}
-		&nbsp;
-		<a href="index.php?module=sampleDisplay&uid={$data.uid}">
-			<img src="display/images/refresh.png" title="{t}Rafraîchir la page{/t}" height="15">
-		</a>
-	</div>
-</div>
+
 <!-- boite d'onglets -->
 <div class="row">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" >
@@ -252,7 +253,7 @@
 		<li class="nav-item">
             <a class="nav-link" id="tab-subsample" href="#nav-subsample"  data-toggle="tab" role="tab" aria-controls="nav-subsample" aria-selected="false">
 				<img src="display/images/subsample.png" height="25">
-				{t}Sous-échantillonnage{/t}		
+				{t}Sous-échantillonnage{/t}
 			</a>
 		</li>
 		{/if}
@@ -261,7 +262,7 @@
 		<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
 			<div class="form-display col-md-6">
 				{if $droits.gestion == 1}
-					<form method="GET" id="formListPrint" action="index.php">
+					<form method="GET" id="SampleDisplayFormListPrint" action="index.php">
 						<input type="hidden" id="modulePrint" name="module" value="sampleUniquePrintLabel">
 						<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
 						<input type="hidden" name="uid" value="{$data.uid}">
@@ -293,9 +294,22 @@
 					</form>
 				{/if}
 				<dl class="dl-horizontal">
-					<dt>{t}UID et référence :{/t}</dt>
+					<dt>{t}UID et identifiant métier :{/t}</dt>
 					<dd>{$data.uid} {$data.identifier}</dd>
 				</dl>
+				{if count ($objectIdentifiers) > 0}
+					<dl class="dl-horizontal">
+						<dt>{t}Identifiants complémentaires :{/t}</dt>
+						<dd>
+							{$i = 0}
+							{foreach $objectIdentifiers as $oi}
+								{if $i > 0}<br>{/if}
+								{$oi.identifier_type_name} ({$oi.identifier_type_code}):&nbsp;{$oi.object_identifier_value}
+								{$i = $i + 1}
+							{/foreach}
+						</dd>
+					</dl>
+				{/if}
 				{if strlen($data.dbuid_origin) > 0}
 				<dl class="dl-horizontal">
 					<dt>{t}DB et UID d'origine :{/t}</dt>
@@ -319,28 +333,30 @@
 					{/if}
 						{if strlen($data.clp_classification) > 0}
 						<br>
-						clp : {$data.clp_classification}
+						{t}clp :{/t} {$data.clp_classification}
 					{/if}
 					</dd>
 				</dl>
 				{if $data.operation_id > 0}
 					<dl class="dl-horizontal">
-						<dt>{t}Protocole et
-						opération :{/t}</dt>
-						<dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name} {$data.operation_version} 
+						<dt>{t}Protocole et opération :{/t}</dt>
+						<dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name} {$data.operation_version}
 						</dd>
 					</dl>
 				{/if}
 				<dl class="dl-horizontal">
 					<dt>{t}Statut :{/t}</dt>
 					<dd>{$data.object_status_name}
+						{if $data.trashed == 1}
+							<span class="red">&nbsp;{t}Échantillon mis à la corbeille{/t}</span>
+						{/if}
 						{if $data.object_status_id == 6}
 						&nbsp;{t}le{/t}&nbsp;{$data.borrowing_date}
 							&nbsp;{t}à{/t}&nbsp;
 							<a href="index.php?module=borrowerDisplay&borrower_id={$data.borrower_id}">
 								{$data.borrower_name}
 							</a>
-							
+
 							<br>
 							{t}Retour prévu le{/t}&nbsp;{$data.expected_return_date}
 						{/if}
@@ -361,6 +377,10 @@
 						<dd>{$data.expiration_date}</dd>
 					</dl>
 				{/if}
+				<dl class="dl-horizontal">
+					<dt title="{t}Date technique de dernière modification de l'échantillon{/t}">{t}Date de modification :{/t}</dt>
+					<dd>{$data.change_date}</dd>
+				</dl>
 				{if $data.multiple_type_id > 0}
 					<dl class="dl-horizontal">
 						<dt title="{t 1=$data.multiple_unit}Quantité de sous-échantillons (%1){/t}">{t 1=$data.multiple_unit}Qté de sous-échantillons (%1) :{/t}</dt>
@@ -375,6 +395,12 @@
 								{$data.parent_uid} {$data.parent_identifier}
 							</a>
 						</dd>
+					</dl>
+				{/if}
+				{if $data.campaign_id > 0}
+					<dl class="dl-horizontal">
+						<dt>{t}Campagne de prélèvement :{/t}</dt>
+						<dd>{$data.campaign_name}</dd>
 					</dl>
 				{/if}
 				{if $data.sampling_place_id > 0}
@@ -392,6 +418,12 @@
 						<dt>{t}Longitude :{/t}</dt>
 						<dd>{$data.wgs84_x}</dd>
 					</dl>
+					{if $data.location_accuracy > 0}
+						<dl class="dl-horizontal">
+							<dt>{t}Précision de la localisation (en mètres) :{/t}</dt>
+							<dd>{$data.location_accuracy}</dd>
+						</dl>
+					{/if}
 				{/if}
 				<dl class="dl-horizontal">
 					<dt>{t}Emplacement :{/t}</dt>
@@ -406,28 +438,40 @@
 						{/section}
 					</dd>
 				</dl>
+				<dl class="dl-horizontal">
+					<dt>{t}UUID :{/t}</dt>
+					<dd>{$data.uuid}</dd>
+				</dl>
 				{if count($metadata) >0}
 					<fieldset>
 						<legend>{t}Métadonnées associées{/t}</legend>
 						{foreach $metadata as $key=>$value}
-							{if strlen($value) > 0 || count($value) > 0}
-								<dl class="dl-horizontal">
-									<dt>{t 1=$key}%1 :{/t}</dt>
-									<dd>
-									{if is_array($value) }
-										{foreach $value as $val}
-											{$val}<br>
-										{/foreach}
-									{else}
-										{if substr($value, 0, 5) == "http:" || substr($value, 0, 6) == "https:"}
-											<a href="{$value}" target="_blank">{$value}</a>
+							<dl class="dl-horizontal">
+								<dt>{t 1=$key}%1 :{/t}</dt>
+								<dd>
+								{if is_array($value) }
+									{foreach $value as $val}
+										{if is_array($val)}
+											{$last = ""}
+											{foreach $val as $val1}
+												{if $val1 != $last}
+													{$val1}<br>
+													{$last = $val1}
+												{/if}
+											{/foreach}
 										{else}
-											{$value}
+											{$val}<br>
 										{/if}
+									{/foreach}
+								{else}
+									{if substr($value, 0, 5) == "http:" || substr($value, 0, 6) == "https:"}
+										<a href="{$value}" target="_blank">{$value}</a>
+									{else}
+										{$value}
 									{/if}
-									</dd>
-								</dl>
-							{/if}
+								{/if}
+								</dd>
+							</dl>
 						{/foreach}
 					</fieldset>
 				{/if}
@@ -448,7 +492,7 @@
 					<legend>{t}Liste des prêts{/t}</legend>
 					{include file="gestion/borrowingList.tpl"}
 				</fieldset>
-				
+
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-id" role="tabpanel" aria-labelledby="tab-id">
@@ -471,7 +515,7 @@
 				{/if}
 				{include file="gestion/sampleListDetail.tpl"}
 			</div>
-		</div>	
+		</div>
 		<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
 			<div class="col-md-12">
 				{include file="gestion/documentList.tpl"}

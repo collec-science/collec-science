@@ -52,13 +52,12 @@
 
 				if (typeof attributes.expires === 'number') {
 					var expires = new Date();
-					expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
+					expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e5);
 					attributes.expires = expires;
 				}
 
 				// We're using "expires" because "max-age" is not supported by IE
 				attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
-
 				try {
 					result = JSON.stringify(value);
 					if (/^[\{\[]/.test(result)) {

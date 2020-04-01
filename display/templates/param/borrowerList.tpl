@@ -13,6 +13,8 @@
                     <th>{t}Nom{/t}</th>
                     <th>{t}Adresse{/t}</th>
                     <th>{t}Téléphone{/t}</th>
+                    <th>{t}Mail{/t}</th>
+                    <th>{t}Code du laboratoire{/t}</th>
                     <th>{t}Objets empruntés{/t}</th>
                     {if $droits.param == 1}
                         <th>{t}Modifier{/t}</th>
@@ -23,8 +25,12 @@
                 {section name=lst loop=$data}
                     <tr>
                         <td>{$data[lst].borrower_name}</td>
-                        <td class="textareaDisplay">{$data[lst].borrower_address}</td>
+                        <td>
+                            <span class="textareaDisplay">{$data[lst].borrower_address}</span>
+                        </td>
                         <td>{$data[lst].borrower_phone}</td>
+                        <td>{$data[lst].borrower_mail}</td>
+                        <td>{$data[lst].laboratory_code}</td>
                         <td class="center">
                             <a href="index.php?module=borrowerDisplay&borrower_id={$data[lst].borrower_id}">
                                 <img src="display/images/list.png" height="25">

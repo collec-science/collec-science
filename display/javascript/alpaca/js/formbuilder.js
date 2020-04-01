@@ -5,7 +5,7 @@
 
 /**
  * Cree le formulaire pour la saisie des informations
- * 
+ *
  * @param formdef
  * @returns
  */
@@ -33,6 +33,13 @@ function getSchema(formdef) {
             prop.type = "array";
             prop.items = {};
             prop.items.enum = value.choiceList;
+        }
+        if (value.type == "radio") {
+            prop.type = "string";
+        }
+
+        if (value.type == "select") {
+            prop.type = "string";
         }
 
         if (value.required) {
@@ -91,14 +98,13 @@ var baseFields = function (index, value) {
     if (value.type == "radio") {
         field.removeDefaultNone = true;
     }
-
-    /*if (value.type == "checkbox"||value.type == "radio"){
-        field.rightLabel = value.name;
-    }*/
     if (value.type == "checkbox") {
         field.type = "checkbox";
     }
-
+    if (value.type == "select" && value.multiple) {
+        field.multiple = true;
+        field.type = "select";
+    }
     if (value.helperChoice) {
         field.helper = value.helper;
     }
@@ -120,7 +126,6 @@ function getOptions(formdef) {
 function setDefault(value) {
     var d = [];
     $.each(value, function (index, val) {
-        
         if (val.defaultValue) {
             d[val.name] = val.defaultValue;
             console.log(d[val.name]);
@@ -142,7 +147,8 @@ function showForm(value, data = "") {
         "data": data,
         "schema": schema,
         "options": options,
-        "view": "bootstrap-edit-horizontal"
+        "view": "bootstrap-edit-horizontal",
+        "allowNull": true
     }
     var exists = $("#metadata").alpaca("exists");
     if (exists) {

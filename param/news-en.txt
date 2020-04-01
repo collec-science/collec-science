@@ -1,5 +1,75 @@
 News
 ===========
+Version 2.4.0 of February 17, 2020
+--------------------------------
+Bug fixes :
+- when modifying a password, the information message about the length of the password was wrong.
+- the wording regarding the referent of a container was incorrect
+- creating an output transaction from the detail of a sample did not work
+- Resetting the sample search form was incomplete.
+- multi-value metadata entry was not working. The management mechanism was taken over
+- deletion of samples could result in unclear messages or messages that do not reflect the problems encountered
+- when searching for samples, in some cases, the list returned could be too large and saturate the browser
+- the creation of events by batch of samples was not possible as the list of event types was not available
+- in the sample list, the "date-time" fields are now displayed on a single line, without carriage return.
+- in the protocols, it was not possible to delete the uploaded document
+- correction of installation and database backup scripts
+
+What's new
+
+Containers :
+- it is possible to define a maximum number of available slots. The list of containers allows you to view the number of available locations.
+- the display of the content object grid allows to view all content objects, not only the last one.
+- the starting point for the number of rows and columns can now be positioned to the right (only to the left in previous versions)
+- in the list of containers, hovering over the identifier with the mouse displays the grid of contained objects
+- it is now possible to delete a batch of containers
+
+Samples:
+- it is now possible to add a description to a sample type
+- The list of sample types can be exported in CSV.
+- when the status "destroyed" is set on an object, an exit movement is automatically generated
+- the call to the https://collec.local/index.php?module=sampleDetail&uid=928 function allows to retrieve the details of a sample in JSON format, without prior identification, if the collection has been defined as public (prefiguration of web services)
+- in the list of samples, hovering with the mouse over the identifier displays a summary of the sample
+- in the details of a sample, the list of secondary identifiers is displayed, without having to position oneself in the ad-hoc tab to view them
+- when creating a derived sample, the business identifier is duplicated
+- in the list of samples, each column can be subject to a dedicated automatic filter
+- the different possibilities of searching for a sample are now organized in thematic tabs
+- it is possible to carry out a spatial search of the samples, by drawing a rectangle on a map
+- on the home page, the number of samples per collection and the date of last modification is displayed. The list is limited to collections for which users have management rights.
+- the list of samples is supplemented by a map showing their location
+- it is possible to attach a sample to a sampling campaign. This can be associated with one or more regulations, and it is possible to attach additional documents to it
+- it is now possible to search for samples by metadata without first selecting the sample type
+
+Objects:
+- an object can be trashed (functionality provided for automatic exchanges)
+- the precision of the location of an object can be defined from a table
+- objects are now equipped with a Postgis field, facilitating spatial search or visualization with third party tools such as QGIS
+- The date of the last change to an object is recorded
+- addition of a field of type UUID, to facilitate exchanges
+- From the lists of samples or containers, it is now possible to generate the input or output movements for the selected objects
+
+Imports/Exports/Downloads :
+- the result of the imports (UIDs generated, number of rows processed) is now stored in the log table
+- it is possible to import multi-valued data into the individual metadata fields (md_)
+- on an experimental basis, addition of a module to export part of the database in JSON format. Importing such a file in another instance allows to reconstruct the records concerned.
+- the mime types of the downloadable files are now modifiable or extensible
+
+Miscellaneous:
+- administrators can now directly consult the log table
+- a module for writing and executing SQL selection queries is available (required right: param)
+- for a collection, it is possible to define whether incoming or outgoing flows are allowed. Similarly, a collection can be defined as public: all samples could be viewed without prior identification. This is a feature prefiguring web services.
+- the display windows for containers and samples have been redesigned to make them easier to understand
+- it is possible to assign a laboratory number to a borrower
+- sorting in tables is now case- and accent-independent
+- the database structure can be viewed from the interface
+- the software now supports Shibboleth identification (HEADER mode)
+- when creating label templates, it is now possible to save changes and stay on the current page, to facilitate fine-tuning (displaying the label in another browser, for example)
+- the website https://wwww.collec-science.org has been updated
+- the comments in the database have been switched to English
+- for users identified from the local database, their account is blocked after three logins without changing the password. The status of their account is now displayed.
+
+Translated with www.DeepL.com/Translator (free version)
+
 Version 2.3.1 of September 6, 2019
 ---------------------------------
 Bug fixes:

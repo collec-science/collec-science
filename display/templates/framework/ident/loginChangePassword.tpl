@@ -1,13 +1,13 @@
-<script src="display/bower_components/zxcvbn/dist/zxcvbn.js">
+<script src="display/node_modules/zxcvbn/dist/zxcvbn.js">
 </script>
 
 <script >
 $(document).ready(function() {
 	var strength = {
-        0: "{t}Le pire{/t} ☹",
-        1: "{t}Mauvais{/t} ☹",
-        2: "{t}Faible{/t} ☹",
-        3: "{t}Bon{/t} ☺",
+        0: "{t}Le pire{/t} ☹ {t}Ajoutez un mot ou deux. Les mots inconnus sont meilleurs.{/t}",
+        1: "{t}Mauvais{/t} ☹ {t}Ajoutez un mot ou deux. Les mots inconnus sont meilleurs.{/t}",
+        2: "{t}Faible{/t} ☹ {t}Ajoutez un mot ou deux. Les mots inconnus sont meilleurs.{/t}",
+        3: "{t}Bon{/t} ☺ {t}Ajoutez un ou deux autres mots. Les mots peu communs sont meilleurs, les mots inversés ne sont pas beaucoup plus difficiles à deviner.{/t}",
         4: "{t}Robuste{/t} ☻"
 	}
 
@@ -23,14 +23,17 @@ $("#pass1").on('input', function()
     
     // Update the password strength meter
     $('#password-strength-meter').val(result.score);
+		console.log($('#password-strength-meter').val());
    
     // Update the text indicator
     if(val !== "") {
-		message = "{t}Force du mot de passe :{/t} " + strength[result.score] +  result.feedback.warning + ". " + result.feedback.suggestions;
+		message = "{t}Force du mot de passe :{/t} " + strength[result.score] ;
     }
     else {
         message = "";
     }
+		$("#messageZxcvbn").val(result.score);
+		$("#messageZxcvbn").attr("class","messageLevel"+result.score);
 	$("#messageZxcvbn").text(message);
 });
 
@@ -53,6 +56,7 @@ $("#pass1").on('input', function()
 		 	error = true;
 		 	message = "{t}Le mot de passe n'est pas assez complexe (mixez 3 jeux de caractères parmi les minuscules, majuscules, chiffres et signes de ponctuation){/t}";
 		 }
+		 $("#messageZxcvbn").val(4);
 		 $("#messageZxcvbn").text(message);
 		/*
 	 	 * Blocage de l'envoi du formulaire
@@ -111,8 +115,8 @@ $("#pass1").on('input', function()
 	<img src="display/images/framework/visible-24.png" height="16" id="passVisible" class="passwordVisible" data-fieldnumber="0">
 </div>
 <div class="col-md-12 center">
-	<meter max="4" id="password-strength-meter"></meter>
-	<div id="messageZxcvbn" class="red"></div>
+	<meter min="0" low="1" optimum="2" high="3" max="4" id="password-strength-meter"></meter>
+	<div id="messageZxcvbn" class="messageLevel"></div>
 </div>
 
 </div>

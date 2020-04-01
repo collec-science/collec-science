@@ -1,6 +1,6 @@
   <div class="container">
     <p class="text-muted hidden-xs hidden-sm">
-    {t}Copyright (c) 2016-2019 - Tous droits réservés. Auteur : Éric Quinton, pour IRSTEA - Logiciel diffusé sous licence AGPL{/t}
+    {t}Copyright © 2016-2020 - Tous droits réservés. Auteur : Éric Quinton, pour INRAE - Logiciel diffusé sous licence AGPL{/t}
 <br>
 {t}Pour tout problème :{/t} <a href="{$appliAssist}">{$appliAssist}</a>
 </p>

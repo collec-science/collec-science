@@ -38,8 +38,20 @@ function sampleInitDatEntry()
     include_once 'modules/classes/borrower.class.php';
     $borrower = new Borrower($bdd, $ObjetBDDParam);
     $vue->set($borrower->getListe(2), "borrowers");
-    $vue->set(date($_SESSION["MASKDATE"]),"borrowing_date");
-    $vue->set(date($_SESSION["MASKDATE"]),"expected_return_date");
+    $vue->set(date($_SESSION["MASKDATE"]), "borrowing_date");
+    $vue->set(date($_SESSION["MASKDATE"]), "expected_return_date");
+    include_once 'modules/exportmodel/exportmodel.class.php';
+    $exportModel = new ExportModel($bdd, $ObjetBDDParam);
+    $vue->set($exportModel->getListFromTarget("sample"), "exportModels");
+    include_once 'modules/classes/eventType.class.php';
+    $eventType = new EventType($bdd, $ObjetBDDParam);
+    $vue->set($eventType->getListeFromCategory("sample"),"eventType");
+    include_once 'modules/classes/campaign.class.php';
+    $campaign = new Campaign($bdd, $ObjetBDDParam);
+    $vue->set($campaign->getListe(2), "campaigns");
+    include_once 'modules/classes/containerFamily.class.php';
+    $cf = new ContainerFamily($bdd, $ObjetBDDParam);
+    $vue->set($cf->getListe(2),"containerFamily");
 }
 
 class SampleInitClassException extends Exception
@@ -95,6 +107,12 @@ class SampleInitClass
             "classname" => "ContainerType",
             "field" => "container_type_name",
             "id" => "container_type_id"
+        ),
+        "campaign_name" => array(
+            "filename" => "campaign.class.php",
+            "classname" => "Campaign",
+            "field" => "campaign_name",
+            "id" => "campaign_id"
         )
     );
 

@@ -1,6 +1,35 @@
-Framework prototypephp © Eric Quinton, 2006-2019
+Framework prototypephp © Eric Quinton, 2006-2020
 News
 ============
+Release v3.2.0 - April 2020
+--------------------------
+Fixed bugs:
+- some requests in ObjetBDD were not correctly performed
+- update of the database backup script (change due to news versions of Postgresql)
+
+New features:
+- adding intl.js to sort tables (datatables) using the locale language rules
+- adding the support of Shibboleth identification
+- adding the module to generate any requests on the database
+- adding of log consultation by admin group
+- adding a script to upgrade the php version (php 7.2 minimum)
+- the account is blocked if the user connects to the application three times without change his password (database identification)
+
+Operations to upgrade:
+- replace /display/templates/framework folder
+- replace /display/templates/main_js.tpl (compare with your actual version before)
+- replace /dislay/CSS/bootstrap-prototypephp.css
+- add images from /display/images/
+- replace /install/pgsql/backup.sh
+- add or replace, in /install folder: init_by_psql.sh, php_upgrade.sh, deploy_new_instance.sh
+- add /install/apache2/mellon_create_metadata.sh
+- in /param/param.default.inc.php, add these entries:
+
+- in /param/actions.xml, add these entries:
+
+-in param/menu.xml, add these entries:
+
+
 Release v3.0.1 - august 2019
 --------------------------
 Fixed bugs:

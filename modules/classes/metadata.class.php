@@ -88,7 +88,8 @@ class Metadata extends ObjetBDD
                 (select json_array_elements(metadata_schema::json) elements from metadata)
                 select distinct elements->>'name' fieldname
                 from js
-                where elements->>'isSearchable' = 'yes'";
+                where elements->>'isSearchable' = 'yes'
+                order by fieldname";
         return $this->getListeParam($sql);
     }
 }

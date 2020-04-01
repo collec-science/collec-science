@@ -174,7 +174,7 @@ class Log extends ObjetBDD
     {
         if (strlen($login) > 0) {
             $sql = "select commentaire from log";
-            $sql .= " where login = :login and nom_module like '%connexion' and commentaire like '%ok'";
+            $sql .= " where login = :login and nom_module like '%connexion' and commentaire like '%ok%' and commentaire <> 'token-ok'";
             $sql .= "order by log_id desc limit 1";
             $data = $this->lireParamAsPrepared(
                 $sql,
@@ -274,7 +274,7 @@ class Log extends ObjetBDD
         $this->sendMailToAdmin($subject, $contents, "sendMailAdminForBlocking", $login);
     }
     /**
-     * Calculate the number of calls to a module 
+     * Calculate the number of calls to a module
      * return false if the number is greater than $maxNumber
      *
      * @param [varchar] $moduleName
@@ -285,8 +285,8 @@ class Log extends ObjetBDD
     public function getCallsToModule($moduleName, $maxNumber, $duration)
     {
         global $APPLI_address, $GACL_aco, $message;
-        $sql = "select count(*) as nombre from log 
-                where nom_module = :moduleName 
+        $sql = "select count(*) as nombre from log
+                where nom_module = :moduleName
                 and login = :login
                 and log_date > :dateref
                 ";
@@ -350,7 +350,7 @@ class Log extends ObjetBDD
                 $admin = $value["login"];
                 $dataLogin = $loginGestion->lireByLogin($admin);
                 if (strlen($dataLogin["mail"]) > 0) {
-                    /** 
+                    /**
                      * search if a mail has been send to this admin for the same event and the same user recently
                      */
                     $sql = 'select log_id, log_date from log' . " where nom_module = :moduleName" . ' and login = :login' . ' and commentaire = :admin' . ' and log_date > :lastdate' . ' order by log_id desc limit 1';
@@ -409,5 +409,41 @@ class Log extends ObjetBDD
             $data["ts"] = 10000;
         }
         return ($data["ts"]);
+    }
+    /**
+     * Get the differents values contents in the log table
+     *
+     * @param string $field
+     * @return array
+     */
+    function getDistinctValuesFromField($field)
+    {
+        if (array_key_exists($field, $this->colonnes)) {
+            $sql = "select distinct $field as val from log order by $field";
+            return $this->getListeParam($sql);
+        }
+    }
+    /**
+     * Search records in the log table
+     *
+     * @param array $param
+     * @return array
+     */
+    function search($param)
+    {
+        $sql = "select * from log where log_date::date between :date_from and :date_to";
+        $sqlParam = array(
+            "date_from" => $this->formatDateLocaleVersDB($param["date_from"]),
+            "date_to" => $this->formatDateLocaleVersDB($param["date_to"])
+        );
+        if (strlen($param["loglogin"]) > 0) {
+            $sql .= " and login = :login";
+            $sqlParam["login"] = $param["loglogin"];
+        }
+        if (strlen($param["logmodule"]) > 0) {
+            $sql .= " and nom_module = :module";
+            $sqlParam["module"] = $param["logmodule"];
+        }
+        return $this->getListeParamAsPrepared($sql, $sqlParam);
     }
 }

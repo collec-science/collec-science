@@ -4,6 +4,11 @@
             <img src="display/images/list.png" height="25">
         {t}Retour à la liste{/t}
     </a>
+    &nbsp;
+    <a href="index.php?module=borrowerChange&borrower_id={$data.borrower_id}">
+        <img src="display/images/edit.gif" height="25">
+        {t}Modifier l'emprunteur{/t}
+    </a>
 </div>
 <div class="row">
     <div class="form-display col-md-6">
@@ -20,6 +25,14 @@
         <dl class="dl-horizontal">
             <dt>{t}Téléphone :{/t}</dt>
             <dd>{$data.borrower_phone}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>{t}Mail :{/t}</dt>
+            <dd>{$data.borrower_mail}</dd>
+        </dl>
+        <dl class="dl-horizontal">
+            <dt>{t}Code du laboratoire :{/t}</dt>
+            <dd>{$data.laboratory_code}</dd>
         </dl>
     </div>
 </div>

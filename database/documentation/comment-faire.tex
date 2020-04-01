@@ -127,3 +127,44 @@ Sans tenir compte des erreurs, voici les opérations qui seraient exécutées :
 \item lignes 6 à 9 : création de containers ;
 \item ligne 10 : création d'un échantillon non rangé ;
 \end{itemize}
+
+\section{Export de données au format JSON}
+
+Il est possible d'exporter un lot de données, réparties sur plusieurs tables, pour les réimporter dans une autre base de données. Par défaut, l'export \og technique\fg{} des modèles d'exports est disponible.
+
+Les données sont exportées au format JSON.
+
+\subsection{Description des modèles d'export}
+
+Choisissez le menu \textit{Paramètres > Modèles d'export}. Hormis le nom du modèle, toutes les autres informations permettent de décrire les tables à exporter et les relations entre elles.
+
+La saisie d'une nouvelle table passe par l'ajout d'un nouvel item dans la partie \textit{Description du modèle}. Chaque item peut être déplacé après création, si nécessaire.
+
+Pour chaque table à exporter, voici les informations à renseigner :
+\begin{itemize}
+	\item nom de la table, telle qu'il figure dans la base de données
+	\item alias de la table : si une même table peut être reliée à des tables parentes différentes, cette colonne devra être renseignée avec un nom différent pour chaque instance. 
+	\item  clé primaire : indiquez la clé primaire utilisée dans la table. Elle ne doit pas être renseignée dans le cas d'une table porteuse d'une relation n-n, dont la clé est composée des clés des deux tables parentes.
+	\item clé métier : il s'agit de la colonne qui permet de retrouver de manière univoque un enregistrement dans la table. Selon les cas de figure, il peut s'agir :
+	\begin{itemize}
+		\item du libellé, pour une table de paramètres
+		\item de la clé primaire elle-même, pour certaines tables de paramètres dont la clé est significative. Cela permet de conserver la valeur de cette clé, même si le libellé change
+		\item du champ UUID, qui est un identifiant technique généré avec un algorithme garantissant qu'il est unique au niveau mondial. Cette valeur sera utilisée chaque fois qu'elle est disponible
+	\end{itemize}
+	\item clé étrangère : le nom du champ porteur de la relation avec le parent, qui contient donc la clé du parent
+	\item la liste des champs de type booléen, en raison d'une particularité lors des importations liée à ceux-ci
+	\item la liste des alias (ou du nom des tables) des tables filles
+	\item dans le cas d'une table porteuse d'une relation n-n, c'est à dire dont la clé est composée des clés des deux tables parentes, il faudra indiquer :
+	\begin{itemize}
+		\item le nom du champ comprenant la seconde clé étrangère
+		\item l'alias (ou le nom de la table) de la seconde table parente
+	\end{itemize}
+\end{itemize}
+
+La première table présente dans la liste doit être la table principale de l'export. Les tables filles doivent être créées après leurs tables parentes.
+
+Il est possible d'indiquer plusieurs tables principales (sans parents) dans le même modèle.
+
+\subsection{Importer un fichier JSON}
+
+Il est possible de réaliser une importation rapide depuis le menu de création des modèles d'exportation, depuis le détail d'un modèle. Cette fonction peut être pratique pour mettre à jour des tables de référence.

@@ -252,6 +252,12 @@ class Movement extends ObjetBDD
             if (strlen($comment) > 0) {
                 $data["movement_comment"] = $comment;
             }
+            if (strlen($column_number) == 0) {
+                $column_number = 1;
+            }
+            if (strlen($line_number) == 0) {
+                $line_number = 1;
+            }
             $data["column_number"] = $column_number;
             $data["line_number"] = $line_number;
             $movement_id = $this->ecrire($data);
@@ -334,5 +340,23 @@ class Movement extends ObjetBDD
         $data["date_start"] = $this->formatDateLocaleVersDB($dateStart, 2);
         $data["date_end"] = $this->formatDateLocaleVersDB($dateEnd, 2);
         return $this->getListeParamAsPrepared($sql, $data);
+    }
+
+    /**
+     * Delete all movements attached to a container
+     *
+     * @param int $container_id
+     * @return void
+     */
+    function deleteFromContainer($container_id)
+    {
+        $sql = "delete from movement where container_id = :container_id";
+        try {
+            $this->executeAsPrepared($sql, array("container_id" => $container_id));
+        } catch (Exception $e) {
+            global $message;
+            $message->setSyslog($e->getMessage());
+            throw new ObjetBDDException(sprintf(_("La suppression des mouvements associés au container %s a échoué"), $container_id));
+        }
     }
 }

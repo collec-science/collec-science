@@ -28,7 +28,21 @@ class Collection extends ObjetBDD
                 "type" => 0,
                 "requis" => 1
             ),
-            "referent_id" => array("type" => 1)
+            "referent_id" => array(
+                "type" => 1
+            ),
+            "allowed_import_flow" => array(
+                "type" => 1,
+                "defaultValue" => 0
+            ),
+            "allowed_export_flow" => array(
+                "type" => 1,
+                "defaultValue" => 0
+            ),
+            "public_collection" => array(
+                "type" => 1,
+                "defaultValue" => 0
+            )
         );
         parent::__construct($bdd, $param);
     }
@@ -42,9 +56,10 @@ class Collection extends ObjetBDD
      */
     function getListe($order = 0)
     {
-        $sql = "select collection_id, collection_name, 
+        $sql = "select collection_id, collection_name,
                 array_to_string(array_agg(groupe),', ') as groupe,
-                referent_name
+                referent_name,
+                allowed_import_flow, allowed_export_flow, public_collection
 				from collection
                 left outer join collection_group using (collection_id)
                 left outer join referent using (referent_id)
@@ -67,8 +82,8 @@ class Collection extends ObjetBDD
     /**
      * Retourne la liste des collections correspondants aux groupes indiques
      *
-     * @param array $groups 
-     * 
+     * @param array $groups
+     *
      * @return array
      */
     function getCollectionsFromGroups(array $groups)
@@ -198,6 +213,28 @@ class Collection extends ObjetBDD
             $_SESSION["droits"]["gestion"] = 1;
         }
     }
+    /**
+     * Return the list of samples by collection, with the date of last change
+     *
+     * @return void
+     */
+    function getNbsampleByCollection()
+    {
+        if (count($_SESSION["collections"]) > 0) {
+            $sql = "select collection_id, collection_name, count(*) as samples_number, max(change_date) as last_change
+        from sample
+        join collection using (collection_id)
+        join object using (uid)";
+            $groupby = "group by collection_id, collection_name";
+            $where = " where collection_id in (";
+            $comma = "";
+            foreach ($_SESSION["collections"] as $colid) {
+                $where .= $comma . $colid["collection_id"];
+                $comma = ",";
+            }
+            $where .= ")";
+            $this->colonnes["last_change"] = array("type" => 2);
+            return ($this->getListParam($sql . $where . $groupby));
+        }
+    }
 }
-
-?>

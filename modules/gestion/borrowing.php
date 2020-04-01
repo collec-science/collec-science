@@ -46,7 +46,7 @@ switch ($t_module["param"]) {
 				 */
 				include_once 'modules/classes/movement.class.php';
 				$movement = new Movement($bdd, $ObjetBDDParam);
-				$movement->addMovement($_REQUEST["uid"], null, 2, 0, $_SESSION["login"], null, null, 2);
+				$movement->addMovement($_REQUEST["uid"], null, 2, 0, $_SESSION["login"], null, _("Objet prêté"));
 			} else {
 				/**
 				 * Treatment of the return for all included objects

@@ -1,0 +1,17 @@
+How to upgrade from version 3.0.0 to version 3.0.1
+==================================================
+
+- replace the file .htaccess at the root of application
+
+- in framework folder, replace controller.php and vue.php
+
+- in framework/droits folder, replace appli.php
+
+- in display/templates/framework/droits folder, replace appliDisplay.tpl
+
+- add this entry in param/param.default.inc.php:
++ $GACL_disable_new_right = 0; // set 1 to disable the creation of a new right
+
+- in param/actions.xml, replace this entry:
+-	<model action="index.php" param="list|display|change|write|delete|..." droits="gestion" retourko="model" retourlogin="1" retourok="model" loginrequis="1" type="html|smarty|ajax|pdf|csv|binaire" droitko="droitko" modulebefore="module1,module2" requiredVar="table_id" maxCountByHour="60" maxCountByDay="600"/>
++ 	<model action="index.php" param="list|display|change|write|delete|..." droits="gestion" retourko="model" retourlogin="1" retourok="model" loginrequis="1" type="html|smarty|ajax|pdf|csv|binaire" droitko="droitko" modulebefore="module1,module2" requiredVar="table_id" maxCountByHour="60" maxCountByDay="600" noDelayBeforeCall="1"/>

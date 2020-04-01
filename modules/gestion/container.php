@@ -44,8 +44,8 @@ switch ($t_module["param"]) {
         include_once "modules/classes/borrower.class.php";
         $borrower = new Borrower($bdd, $ObjetBDDParam);
         $vue->set($borrower->getListe(2), "borrowers");
-        $vue->set(date($_SESSION["MASKDATE"]),"borrowing_date");
-        $vue->set(date($_SESSION["MASKDATE"]),"expected_return_date");
+        $vue->set(date($_SESSION["MASKDATE"]), "borrowing_date");
+        $vue->set(date($_SESSION["MASKDATE"]), "expected_return_date");
         /*
          * Ajout des listes deroulantes
          */
@@ -82,7 +82,7 @@ switch ($t_module["param"]) {
         /*
          * Preparation du tableau d'occupation du container
          */
-        $vue->set($dataClass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"]), "containerOccupation");
+        $vue->set($dataClass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"], $data["first_column"]), "containerOccupation");
         $vue->set($data["lines"], "nblignes");
         $vue->set($data["columns"], "nbcolonnes");
         $vue->set($data["first_line"], "first_line");
@@ -109,8 +109,13 @@ switch ($t_module["param"]) {
          */
         include_once 'modules/classes/document.class.php';
         $document = new Document($bdd, $ObjetBDDParam);
-        $vue->set($document->getListFromParent($data["uid"]), "dataDoc");
+        $vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
         $vue->set(1, "modifiable");
+        /**
+         * Get the list of authorized extensions
+         */
+        $mimeType = new MimeType($bdd, $ObjetBDDParam);
+        $vue->set($mimeType->getListExtensions(false), "extensions");
         /*
          * Ajout de la selection des modeles d'etiquettes
          */
@@ -139,8 +144,8 @@ switch ($t_module["param"]) {
         include_once 'modules/classes/borrower.class.php';
         $borrower = new Borrower($bdd, $ObjetBDDParam);
         $vue->set($borrower->getListe(2), "borrowers");
-        $vue->set(date($_SESSION["MASKDATE"]),"borrowing_date");
-        $vue->set(date($_SESSION["MASKDATE"]),"expected_return_date");
+        $vue->set(date($_SESSION["MASKDATE"]), "borrowing_date");
+        $vue->set(date($_SESSION["MASKDATE"]), "expected_return_date");
         /*
          * Affichage
          */
@@ -201,29 +206,33 @@ switch ($t_module["param"]) {
             }
         }
         break;
+    case "deleteMulti":
+        /*
+         * Delete all records in uid array
+         */
+        if (count($_POST["uids"]) > 0) {
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            $bdd->beginTransaction();
+            try {
+                foreach ($uids as $uid) {
+                    dataDelete($dataClass, $uid, true);
+                }
+                $bdd->commit();
+                $message->set(_("Suppression effectuée"));
+            } catch (Exception $e) {
+                $message->set($e->getMessage() . " ($uid)");
+                $bdd->rollback();
+            }
+        }
+        break;
     case "delete":
         /*
          * delete record
          */
-        /*
-         * Recherche si le contenant est reference
-         */
-        include_once 'modules/classes/movement.class.php';
-        $movement = new Movement($bdd, $ObjetBDDParam);
-        try {
-            $nb = $movement->getNbFromContainer($id);
-        } catch (Exception $e) {
-            $nb = 0;
-        }
-        if ($nb > 0) {
-            $message->set(_("Le contenant est référencé dans les mouvements et ne peut être supprimé"), true);
-            $module_coderetour = -1;
-        } else {
-            dataDelete($dataClass, $id);
-        }
-
+        dataDelete($dataClass, $id);
         $isDelete = true;
         break;
+
 
     case "getFromType":
         /*
@@ -283,7 +292,7 @@ switch ($t_module["param"]) {
                      * delete of temporary file
                      */
                     unlink($filename);
-                    unset ($_SESSION["realfilename"]);
+                    unset($_SESSION["realfilename"]);
                 } else {
                     $vue->set($dataClass->getAllNamesFromReference($data), "names");
                     require_once "modules/gestion/sample.functions.php";
@@ -307,48 +316,48 @@ switch ($t_module["param"]) {
         break;
     case "importStage3":
         $realfilename = $_SESSION["realfilename"];
-        
-            if (file_exists($realfilename)) {
-                try {
-                    /**
-                     * Open the file
-                     */
-                    $handle = fopen($realfilename, "r");
-                    $jdata = fread($handle, filesize($realfilename));
-                    fclose($handle);
-                    unset($_SESSION["realfilename"]);
-                    unlink($realfilename);
 
-                    $data = json_decode($jdata, true);
-                    require_once 'modules/gestion/sample.functions.php';
-                    $sic = new SampleInitClass();
-                    try {
-                        $bdd->beginTransaction();
-                        $dataClass->importExternal($data, $sic, $_POST);
-                        $result = $dataClass->getUidMinMax();
-                        $message->set(sprintf(_("Import effectué. %s objets traités"), $result["number"]));
-                        $message->set(sprintf(_("Premier UID généré : %s"), $result["min"]));
-                        $message->set(sprintf(_("Dernier UID généré : %s"), $result["max"]));
-                        $module_coderetour = 1;
-                        $bdd->commit();
-                    } catch (ImportObjectException $ie) {
-                        $bdd->rollBack();
-                        $message->set($ie->getMessage(), true);
-                        $module_coderetour = -1;
-                    }catch (ContainerException $ce) {
-                        $bdd->rollBack();
-                        $message->set($ce->getMessage(), true);
-                        $module_coderetour = -1;
-                    } catch (Exception $e) {
-                        $bdd->rollBack();
-                        $message->set($e->getMessage(), true);
-                        $module_coderetour = -1;
-                    }
-                } catch (Exception $e1) {
-                    $message->set($e1->getMessage(), true);
+        if (file_exists($realfilename)) {
+            try {
+                /**
+                 * Open the file
+                 */
+                $handle = fopen($realfilename, "r");
+                $jdata = fread($handle, filesize($realfilename));
+                fclose($handle);
+                unset($_SESSION["realfilename"]);
+                unlink($realfilename);
+
+                $data = json_decode($jdata, true);
+                require_once 'modules/gestion/sample.functions.php';
+                $sic = new SampleInitClass();
+                try {
+                    $bdd->beginTransaction();
+                    $dataClass->importExternal($data, $sic, $_POST);
+                    $result = $dataClass->getUidMinMax();
+                    $message->set(sprintf(_("Import effectué. %s objets traités"), $result["number"]));
+                    $message->set(sprintf(_("Premier UID généré : %s"), $result["min"]));
+                    $message->set(sprintf(_("Dernier UID généré : %s"), $result["max"]));
+                    $module_coderetour = 1;
+                    $bdd->commit();
+                } catch (ImportObjectException $ie) {
+                    $bdd->rollBack();
+                    $message->set($ie->getMessage(), true);
+                    $module_coderetour = -1;
+                } catch (ContainerException $ce) {
+                    $bdd->rollBack();
+                    $message->set($ce->getMessage(), true);
+                    $module_coderetour = -1;
+                } catch (Exception $e) {
+                    $bdd->rollBack();
+                    $message->set($e->getMessage(), true);
                     $module_coderetour = -1;
                 }
+            } catch (Exception $e1) {
+                $message->set($e1->getMessage(), true);
+                $module_coderetour = -1;
             }
+        }
         break;
     case "lendingMulti":
         /**
@@ -373,7 +382,7 @@ switch ($t_module["param"]) {
                     /**
                      * Generate an exit movement
                      */
-                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null, 2);
+                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, _("Objet prêté"));
                 }
                 $module_coderetour = 1;
                 $message->set(_("Opération de prêt enregistrée"));
@@ -391,6 +400,83 @@ switch ($t_module["param"]) {
         } else {
             $module_coderetour = -1;
         }
-        
+        break;
+
+    case "exitMulti":
+        if (count($_POST["uids"]) > 0) {
+            include_once "modules/classes/movement.class.php";
+            $movement = new Movement($bdd, $ObjetBDDParam);
+            try {
+                $bdd->beginTransaction();
+                foreach ($_POST["uids"] as $uid) {
+                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null);
+                }
+                $module_coderetour = 1;
+                $bdd->commit();
+            } catch (MovementException $me) {
+                $message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
+                $message->set($me->getMessage());
+                $bdd->rollback();
+            } catch (Exception $e) {
+                $message->set(_("Un problème est survenu lors de la génération des mouvements"), true);
+                $message->set($e->getMessage());
+                $bdd->rollback();
+                $module_coderetour = -1;
+            }
+        } else {
+            $module_coderetour = -1;
+        }
+        break;
+        case "entryMulti":
+        if (count($_POST["uids"]) > 0 && $_POST["container_uid"] > 0) {
+            include_once "modules/classes/movement.class.php";
+            $movement = new Movement($bdd, $ObjetBDDParam);
+            try {
+                $bdd->beginTransaction();
+                foreach ($_POST["uids"] as $uid) {
+                    if ($_POST["container_uid"] == $uid) {
+                        throw new MovementException(sprintf(_("L'objet %s ne peut être stocké dans lui-même", $uid)));
+                    }
+                    $movement->addMovement($uid, null, 1, $_POST["container_uid"], $_SESSION["login"], $_POST["storage_location"], null,null,$_POST["column_number"], $_POST["line_number"]);
+                }
+                $module_coderetour = 1;
+                $bdd->commit();
+            } catch (MovementException $me) {
+                $message->set(_("Erreur lors de la génération du mouvement d'entrée"), true);
+                $message->set($me->getMessage());
+                $bdd->rollback();
+            } catch (Exception $e) {
+                $message->set(_("Un problème est survenu lors de la génération des mouvements"), true);
+                $message->set($e->getMessage());
+                $bdd->rollback();
+                $module_coderetour = -1;
+            }
+        } else {
+            $module_coderetour = -1;
+        }
+        break;
+
+    case "getOccupationAjax":
+        $data = $dataClass->lire($id);
+        $dcontainer = $dataClass->getContentContainer($id);
+        $dsample = $dataClass->getContentSample($id);
+        $dgrid = array();
+        $grid = $dataClass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"], $data["first_column"]);
+        foreach ($grid as $line) {
+            $gl = array();
+            foreach ($line as $cell) {
+                $gc = array();
+                foreach ($cell as $item) {
+                    $gc[] = $item;
+                }
+                $gl[] = $gc;
+            }
+            $dgrid["lines"][] = $gl;
+        }
+        $dgrid["lineNumber"] = $data["lines"];
+        $dgrid["columnNumber"] = $data["columns"];
+        $dgrid["firstLine"] = $data["first_line"];
+        $dgrid["firstColumn"] = $data["first_column"];
+        $vue->set($dgrid);
         break;
 }

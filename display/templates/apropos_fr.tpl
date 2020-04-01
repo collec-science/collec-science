@@ -20,7 +20,7 @@ Consultez le site du projet : <a href="https://www.collec-science.org" target="_
 
 <h3>Liste (non exhaustive ?) des contributeurs au projet (ordre alphabétique)</h3>
 <ul>
-<li>Julien Ancelin (INRA)</li>
+<li>Julien Ancelin (INRAE)</li>
 <li>Isabelle Billy (Université Bordeaux 1)</li>
 <li>Arnaud Caillo (OASU - UMS 2567 POREA / EPOC)</li>
 <li>Oton Copi (Université de Grenoble-Alpes)</li>
@@ -30,10 +30,10 @@ Consultez le site du projet : <a href="https://www.collec-science.org" target="_
 <li>Cécile Pignol (Université Savoie Mont-Blanc)
 <li>Christine Plumejeaud (Université de La Rochelle)</li>
 <li>Marie-Claude Quidoz (CEFE - CNRS Montpellier)</li>
-<li>Éric Quinton (IRSTEA)</li>
+<li>Éric Quinton (INRAE)</li>
 </ul>
 
-    <h3>Copyright © 2016-2019  Eric Quinton pour IRSTEA</h3>
+    <h3>Copyright © 2016-2020  Eric Quinton pour INRAE</h3>
 <p>
 La version 1.0 du logiciel a été déposée auprès de l'Agence pour la Protection des Programmes sous le numéro IDDN.FR.001.470013.000.S.C.2016.000.31500
 <br>

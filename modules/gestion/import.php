@@ -19,6 +19,7 @@ require_once 'modules/classes/samplingPlace.class.php';
 require_once 'modules/classes/identifierType.class.php';
 require_once 'modules/classes/objectIdentifier.class.php';
 require_once 'modules/classes/referent.class.php';
+require_once 'modules/classes/campaign.class.php';
 /*
  * Initialisations
  */
@@ -34,9 +35,10 @@ $samplingPlace = new SamplingPlace($bdd, $ObjetBDDParam);
 $identifierType = new IdentifierType($bdd, $ObjetBDDParam);
 $objectIdentifier = new ObjectIdentifier($bdd, $ObjetBDDParam);
 $referent = new Referent($bdd, $ObjetBDDParam);
-$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType, $referent);
+$campaign = new Campaign($bdd, $ObjetBDDParam);
+$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType, $referent, $campaign);
 $import->initClass("objectIdentifier", $objectIdentifier);
-$import->initControl($_SESSION["collections"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList(), $referent->getListe());
+$import->initControl($_SESSION["collections"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList(), $referent->getListe(), $campaign->getListe());
 /*
  * Traitement
  */
@@ -103,6 +105,7 @@ switch ($t_module["param"]) {
                     $message->set(sprintf(_("Import effectué. %s lignes traitées"), $import->nbTreated));
                     $message->set(sprintf(_("Premier UID généré : %s"), $import->minuid));
                     $message->set(sprintf(_("Dernier UID généré : %s"), $import->maxuid));
+                    $log->setLog($_SESSION["login"], "massImportDone", "first UID:" . $import->minuid . ",last UID:" . $import->maxuid . ", Nb treated lines:" . $import->nbTreated);
                     $module_coderetour = 1;
                     $bdd->commit();
                 } catch (ImportObjectException $ie) {
@@ -140,7 +143,10 @@ switch ($t_module["param"]) {
                         "metadata",
                         "identifiers",
                         "dbuid_parent",
-                        "referent_name"
+                        "referent_name",
+                        "uuid",
+                        "location_accuracy",
+                        "campaign_name"
                     );
                     $importFile = new Import($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $importFile->getContentAsArray();
@@ -166,6 +172,7 @@ switch ($t_module["param"]) {
                     $message->set(sprintf(_("Premier UID généré : %s"), $import->minuid));
                     $message->set(sprintf(_("Dernier UID généré : %s"), $import->maxuid));
                     $module_coderetour = 1;
+                    $log->setLog($_SESSION["login"], "externalImportDone", "first UID:" . $import->minuid . ",last UID:" . $import->maxuid . ", Nb treated lines:" . $import->nbTreated);
                     $bdd->commit();
                 } catch (ImportObjectException $ie) {
                     $bdd->rollBack();

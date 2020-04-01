@@ -90,10 +90,12 @@
 <li><b>referent_name</b> : {t}nom du référent{/t}</li>
 <li><b>wgs84_x</b> : {t}longitude GPS en WGS84 (degrés décimaux){/t}</li>
 <li><b>wgs84_y</b> : {t}latitude GPS en WGS84 (degrés décimaux){/t}</li>
+<li><b>location_accuracy</b> : {t}Précision (en mètres) de la localisation de l'échantillon{/t}</li>
 <li><b>sample_creation_date</b> : {t 1="YYYY-MM-DD HH:MM:SS"}date de création de l'échantillon dans la base de données d'origine, sous la forme %1{/t}</li>
 <li><b>sampling_date</b> : {t 1="YYYY-MM-DD HH:MM:SS"}date de référence de l'échantillon dans la base de données d'origine, sous la forme %1{/t}</li>
 <li><b>expiration_date</b> : {t}date d'expiration ou de fin de validité de l'échantillon{/t}</li>
 <li><b>multiple_value</b> : {t}nombre ou quantité de sous-échantillons disponibles{/t}</li>
+<li><b>campaign_name</b> : {t}nom de la campagne de prélèvement{/t}</li>
 <li><b>sampling_place_name</b> : {t}lieu de prélèvement de l'échantillon{/t}</li>
 <li><b>metadata</b> : {t}liste des métadonnées associées, au format JSON. Il est également possible de définir des métadonnées au format texte, en respectant les règles suivantes :{/t}
 <ul>

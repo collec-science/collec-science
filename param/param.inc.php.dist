@@ -63,7 +63,7 @@ $GACL_dblogin = "collec";
 $GACL_dbpasswd = "collecPassword";
 $GACL_aco = "col";
 $GACL_dsn = "pgsql:host=localhost;dbname=collec";
-$GACL_schema = "gacl";
+$GACL_schema = "gacl,public";
 
 /*
  * Lien vers le site d'assistance

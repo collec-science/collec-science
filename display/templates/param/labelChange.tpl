@@ -1,29 +1,33 @@
 {* Paramètres > Étiquettes > Nouveau > *}
 <script>
-$(document).ready( function() {     
+$(document).ready( function() {
      function getMetadata() {
     	 $("#list_metadata").empty();
-    	    var schema;
-    	    var oi = $("#metadata_id").val();
-    	    if (oi.length > 0) {
-    	    	$.ajax( { 
-    	    		url: "index.php",
-    	    		data: { "module": "metadataGetschema", "metadata_id": oi }
-    	    	})
-    	    	.done (function (value) {
-    	    		//console.log( value );
-    	    		$.each(JSON.parse(value), function(i, obj) {
-    	    			var name = obj.name.replace(/ /g,"_");
-    	    			$("#list_metadata").append($("<li>").text(name));
-    	    		})
-    	    	})
-    	    	;
-    	    }
+				var schema;
+				var oi = $("#metadata_id").val();
+				if (oi.length > 0) {
+					$.ajax( {
+						url: "index.php",
+						data: { "module": "metadataGetschema", "metadata_id": oi }
+					})
+					.done (function (value) {
+						//console.log( value );
+						$.each(JSON.parse(value), function(i, obj) {
+							var name = obj.name.replace(/ /g,"_");
+							$("#list_metadata").append($("<li>").text(name));
+						})
+					})
+					;
+				}
      }
      $("#metadata_id").change( function() {
     	 getMetadata();
      });
      getMetadata();
+		 $("#stay").click(function () {
+			$( this.form ).find( "input[name='action']" ).val( "WriteStay" );
+			$(this.form).submit();
+		 });
 }) ;
 
 </script>
@@ -89,7 +93,8 @@ $(document).ready( function() {
 </div>
 
 <div class="form-group center">
-      <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+			<button id="stay"  class="btn btn-primary">{t}Valider{/t}</button>
+      <button type="submit" class="btn btn-primary button-valid">{t}Valider et retour{/t}</button>
       {if $data.label_id > 0 }
       <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
@@ -116,6 +121,7 @@ $(document).ready( function() {
 <li>{t 1='cd'}%1 : date de création de l'échantillon dans la base de données{/t}</li>
 <li>{t 1='sd'}%1 : date d'échantillonnage{/t}</li>
 <li>{t 1='ed'}%1 : date d'expiration de l'échantillon{/t}</li>
+<li>{t 1='uuid'}%1 : UID Universel (UUID){/t}</li>
 <li>{t}et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants{/t}</li>
 </ul>
 </li>

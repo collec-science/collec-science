@@ -1,11 +1,11 @@
-#!/bin/bash 
+#!/bin/bash
 #!This is local_pg_dumpall
 #Script de backup sequentiel avec support des gros blobs des bases postgres
 
-PSQL_VERSION=`psql --version | cut -f 3 -d ' ' | cut -d '.' -f 1,2`
+PSQL_VERSION=`psql --version | cut -f 3 -d ' ' | cut -d '.' -f 1`
 DUMPPATH=/var/lib/postgresql/backup
 #cree le repertoire de backup s'il n'existe pas
-if [ ! -d $DUMPPATH ] 
+if [ ! -d $DUMPPATH ]
 then
  mkdir -p $DUMPPATH
  chmod o-r,o-x,o-w $DUMPPATH
@@ -34,7 +34,7 @@ for DBNAME in $LIST
         echo "FAILED!" >>$LOG
     fi
     # ajout du vacuum - EQ le 31/8/17
-    vacuumdb -d "$DBNAME" --analyze 
+    vacuumdb -d "$DBNAME" --analyze
 done
 
 cp /etc/postgresql/${PSQL_VERSION}/main/pg_hba.conf ${DUMPPATH}

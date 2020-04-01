@@ -7,7 +7,7 @@ ls -l /var/www/html/collec-science
 echo "This script will install the release $VERSION"
 echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of Collec-Science is $OLDVERSION ?"
-echo "Is your actual version is in the folder /var/www/collec-science/$OLDVERSION, and the symbolic link collec point to $OLDVERSION?" 
+echo "Is your actual version is in the folder /var/www/collec-science/$OLDVERSION, and the symbolic link collec point to $OLDVERSION?"
 read -p "Do you want to continue [Y/n]?" answer
 if [[ $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then
@@ -21,6 +21,8 @@ echo "./php_upgrade.sh"
 cd /var/www/html/collec-science
 rm -f *zip
 # download last code
+echo "install postgis"
+apt-get -y install postgis
 echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip
 read -p "Ok to install this release [Y/n]?" answer

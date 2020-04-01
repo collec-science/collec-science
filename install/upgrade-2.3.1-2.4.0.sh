@@ -2,6 +2,8 @@
 # upgrade an instance 2.1 to 2.2
 OLDVERSION=collec-2.3.1
 VERSION=collec-2.4.0
+echo "Content of /var/www/html/collec-science"
+ls -l /var/www/html/collec-science
 echo "This script will install the release $VERSION"
 echo "have you a backup of your database and a copy of param/param.inc.php?"
 echo "Is your actual version of Collec-Science is $OLDVERSION ?"

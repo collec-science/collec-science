@@ -388,19 +388,9 @@ ALTER TABLE col.document ADD COLUMN campaign_id integer;
 
 
 -- [ Changed objects ] --
-COMMENT ON ROLE collec IS '';
--- ddl-end --
-ALTER ROLE collec
-	SUPERUSER
-	CREATEDB
-	CREATEROLE
-	UNENCRYPTED PASSWORD 'collecPassword';
--- ddl-end --
 ALTER SCHEMA col OWNER TO collec;
 -- ddl-end --
 ALTER SCHEMA gacl OWNER TO collec;
--- ddl-end --
-ALTER EXTENSION pg_trgm SET SCHEMA pg_catalog;
 -- ddl-end --
 ALTER SEQUENCE col.booking_booking_id_seq OWNER TO collec;
 -- ddl-end --

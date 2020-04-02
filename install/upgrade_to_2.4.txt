@@ -15,6 +15,20 @@ Case 1
     - upgrade-2.2.2-2.4.0.sh
     - upgrade-2.2.3-2.4.0.sh
 
+    Warning: because a bug occurred in 2.3.1 version, some tables can missing, and must be creat before upgrade:
+su - postgres
+psql collec
+select count(*) from gacl.passwordloss;
+select count(*) from col.sampling_place;
+
+If one of these tables loss:
+wget https://github.com/Irstea/collec/raw/master/install/pgsql/passwordloss_missing_v2.3.1.sql
+wget https://github.com/Irstea/collec/raw/master/install/pgsql/sampling_place_missing_v2.3.1.sql
+psql -U collec collec -h localhost -f passwordloss_missing_v2.3.1.sql
+psql -U collec collec -h localhost -f sampling_place_missing_v2.3.1.sql
+
+The default password is: collecPassword
+
     Connect to your server, then:
     sudo -s
  Download and run the update script you selected:

@@ -1642,7 +1642,7 @@ ALTER TABLE gacl.passwordlost OWNER TO collec;
 CREATE INDEX object_identifier_value_idx ON col.object_identifier
 	USING gin
 	(
-	  (object_identifier_value gin_trgm_ops)
+	  (object_identifier_value)
 	);
 -- ddl-end --
 
@@ -1661,7 +1661,7 @@ CREATE UNIQUE INDEX referent_referent_name_idx ON col.referent
 CREATE INDEX sample_dbuid_origin_idx ON col.sample
 	USING gin
 	(
-	  (dbuid_origin gin_trgm_ops)
+	  (dbuid_origin)
 	);
 -- ddl-end --
 
@@ -2109,7 +2109,7 @@ ALTER TABLE col.object OWNER TO collec;
 CREATE INDEX object_identifier_idx ON col.object
 	USING gin
 	(
-	  (identifier gin_trgm_ops)
+	  (identifier)
 	);
 -- ddl-end --
 

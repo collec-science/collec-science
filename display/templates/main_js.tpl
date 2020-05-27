@@ -267,4 +267,57 @@
 			return "";
 		}
 	}
+	/**
+	 * Generate a popup for lexical entries, when mouse is over a question icon
+	 * the field must have a class lexical and the attribute data-lexical with
+	 * the value to found
+	 */
+	$(document).ready( function() {
+		var lexicalDelay=1000, lexicalTimer, tooltipContent;
+	$(".lexical").mouseenter( function () {
+		console.log("ok");
+		var objet = $(this);
+		lexicalTimer = setTimeout (function () {
+			var entry = objet.data("lexical");
+			if (entry.length > 0) {
+				var url = "index.php";
+				var data = {
+					"module":"lexicalGet",
+					"lexical":entry
+				}
+				$.ajax( { url:url, data:data})
+				.done (function(d) {
+					if (d) {
+						console.log(d);
+						d = JSON.parse(d);
+						if (!d.error_code) {
+							var content = d.lexical.split(" ");
+							var length = 0;
+							tooltipContent = "";
+							content.forEach(function(word) {
+								if (length > 40) {
+									tooltipContent += "<br>";
+									length = 0;
+								}
+								tooltipContent += word + " ";
+								length += word.length + 1;
+							});
+							tooltipDisplay(objet);
+						}
+					}
+				});
+			}
+		}, lexicalDelay);
+	}).mouseleave(function() {
+		clearTimeout(lexicalTimer);
+	});
+	function tooltipDisplay(object) {
+		console.log(tooltipContent);
+		object.tooltip ({
+			content: tooltipContent
+		});
+		object.attr("title", tooltipContent);
+			object.tooltip("open");
+	}
+	});
 </script>

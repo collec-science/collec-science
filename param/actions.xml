@@ -72,6 +72,7 @@
 	<requestExecList action="framework/request/request.php" param="execList" droits="param" type="html"/>
 	<requestWriteExec action="framework/request/request.php" param="write" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestExec" retourko="requestChange"/>
 	<requestCopy action="framework/request/request.php" param="copy" droits="param" type="smarty"/>
+	<lexicalGet action="framework/utils/lexical.php" type="ajax"/>
 
 	<!-- Modules specifiques de l'application -->
 	<lexique action="doc/lexique.php" retourlogin="1" type="smarty" />

@@ -296,3 +296,10 @@ meter[value="4"]::-moz-meter-bar { background: #A4C400; }
 .top {
 	vertical-align: text-top ;
 }
+.lexical {
+	/* display a question image into the field */
+	background-image: url("images/question.png");
+	background-size: 4pt 7pt;
+	background-repeat: no-repeat;
+	background-position: 100% 50%;
+}

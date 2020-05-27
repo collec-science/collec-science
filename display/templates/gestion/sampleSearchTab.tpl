@@ -236,7 +236,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="object_status_id" class="col-sm-3 control-label">{t}Statut :{/t}</label>
+                        <label for="object_status_id" class="col-sm-3 control-label lexical" data-lexical="status">{t}Statut :{/t}</label>
                         <div class="col-sm-2">
                             <select id="object_status_id" name="object_status_id" class="form-control">
                             <option value="" {if $sampleSearch.object_status_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
@@ -247,7 +247,7 @@
                             {/section}
                             </select>
                         </div>
-                        <label for="trashed" class="col-sm-2 control-label" title="{t}Échantillons mis à la corbeille{/t}">{t}En attente de suppression :{/t}</label>
+                        <label for="trashed" class="col-sm-2 control-label lexical" data-lexical="trashed" title="{t}Échantillons mis à la corbeille{/t}">{t}En attente de suppression :{/t}</label>
                         <div class="col-sm-2">
                             <select id="trashed" name="trashed" class="form-control">
                                 <option value="" {if $sampleSearch.trashed == ""}selected{/if}>{t}Tous{/t}</option>
@@ -348,7 +348,7 @@
             <div class="tab-pane fade" id="navsearch-divers" role="tabpanel" aria-labelledby="tabsearch-divers">
                 <div class="row">
                     <div class="form-group">
-                        <label for="referent_id" class="col-sm-3 control-label">{t}Référent :{/t}</label>
+                        <label for="referent_id" class="col-sm-3 control-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
                         <div class="col-sm-6">
                             <select id="referent_id" name="referent_id" class="form-control">
                             <option value="" {if $sampleSearch.referent_id == ""}selected{/if}>{t}Choisissez...{/t}</option>

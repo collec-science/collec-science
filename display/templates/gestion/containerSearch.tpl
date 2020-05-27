@@ -78,7 +78,7 @@
 			<div class="col-md-4">
 			<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="{t}uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible){/t}" >
 			</div>
-			<label for="object_status_id" class="col-md-1 control-label">{t}Statut :{/t}</label>
+			<label for="object_status_id" class="col-md-1 control-label lexical" data-lexical="status">{t}Statut :{/t}</label>
 			<div class="col-md-3">
 				<select id="object_status_id" name="object_status_id" class="form-control">
 					<option value="" {if $containerSearch.object_status_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
@@ -123,7 +123,7 @@
 			<div class="col-md-2">
 				<input id="uid_max" name="uid_max" class="nombre form-control" value="{$containerSearch.uid_max}">
 			</div>
-			<label for="container_family_id" class="col-md-2 control-label">{t}Famille :{/t}</label>
+			<label for="container_family_id" class="col-md-2 control-label lexical" data-lexical="container_family">{t}Famille :{/t}</label>
 			<div class="col-md-4">
 				<select id="container_family_id" name="container_family_id" class="form-control">
 					<option value="" {if $containerSearch.container_family_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
@@ -148,7 +148,7 @@
 			<div class="col-md-1">
 				<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
 			</div>
-			<label for="container_type_id" class="col-md-2 control-label">{t}Type :{/t}</label>
+			<label for="container_type_id" class="col-md-2 control-label lexical" data-lexical="container_type">{t}Type :{/t}</label>
 			<div class="col-md-4">
 				<select id="container_type_id" name="container_type_id" class="form-control">
 					<option value="" {if $containerSearch.container_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>

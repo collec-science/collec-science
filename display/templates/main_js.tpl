@@ -313,7 +313,7 @@
 		object.tooltip ({
 			content: tooltipContent
 		});
-		//object.attr("title", tooltipContent);
+			object.attr("title", tooltipContent);
 			object.tooltip("open");
 	}
 	});

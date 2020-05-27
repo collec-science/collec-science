@@ -191,7 +191,7 @@
 			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="tab-id" href="#nav-id"  data-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
+			<a class="nav-link lexical" data-lexical="identifier_type" id="tab-id" href="#nav-id"  data-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
 				<img src="display/images/label.png" height="25">
 				{t}Identifiants{/t}
 			</a>
@@ -209,7 +209,7 @@
 			</a>
 		</li>
 		<li class="nav-item">
-            <a class="nav-link" id="tab-container" href="#nav-container"  data-toggle="tab" role="tab" aria-controls="nav-container" aria-selected="false">
+            <a class="nav-link lexical" data-lexical="container" id="tab-container" href="#nav-container"  data-toggle="tab" role="tab" aria-controls="nav-container" aria-selected="false">
 				<img src="display/images/box.png" height="25">
 				{t}Contenants présents{/t}
 			</a>
@@ -250,7 +250,7 @@
 				</dl>
 				{if count ($objectIdentifiers) > 0}
 					<dl class="dl-horizontal">
-						<dt>{t}Identifiants complémentaires :{/t}</dt>
+						<dt class="lexical" data-lexical="identifier_type">{t}Identifiants complémentaires :{/t}</dt>
 						<dd>
 							{$i = 0}
 							{foreach $objectIdentifiers as $oi}
@@ -262,29 +262,29 @@
 					</dl>
 				{/if}
 				<dl class="dl-horizontal">
-					<dt>{t}Référent :{/t}</dt>
+					<dt class="lexical" data-lexical="referent">{t}Référent :{/t}</dt>
 					<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}">
 						<a href="#">{$data.referent_name}</a>
 					</dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt>{t}Type :{/t}</dt>
+					<dt class="lexical" data-lexical="container_type">{t}Type :{/t}</dt>
 					<dd>{$data.container_family_name} - {$data.container_type_name}</dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt>{t}Produit utilisé :{/t}</dt>
+					<dt class="lexical" data-lexical="product">{t}Produit utilisé :{/t}</dt>
 					<dd>{$data.storage_product}</dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt>{t}Conditions de stockage :{/t}</dt>
+					<dt class="lexical" data-lexical="storage_condition">{t}Conditions de stockage :{/t}</dt>
 					<dd>{$data.storage_condition_name}</dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt>{t}Classification CLP :{/t}</dt>
+					<dt class="lexical" data-lexical="clp">{t}Classification CLP :{/t}</dt>
 					<dd>{$data.clp_classification}</dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt>{t}Statut :{/t}</dt>
+					<dt class="lexical" data-lexical="status">{t}Statut :{/t}</dt>
 					<dd>
 						{$data.object_status_name}
 						{if $data.trashed == 1}
@@ -308,7 +308,7 @@
 				</dl>
 				{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
 					<dl class="dl-horizontal">
-						<dt>{t}Latitude :{/t}</dt>
+						<dt class="lexical" data-lexical="container_latlong">{t}Latitude :{/t}</dt>
 						<dd>{$data.wgs84_y}</dd>
 					</dl>
 					<dl class="dl-horizontal">
@@ -340,7 +340,7 @@
 					<dd>{$data.nb_slots_used} / {$data.nb_slots_max}</dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt>{t}UUID :{/t}</dt>
+					<dt class="lexical" data-lexical="uuid">{t}UUID :{/t}</dt>
 					<dd>{$data.uuid}</dd>
 				</dl>
 			</div>

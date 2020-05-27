@@ -214,7 +214,7 @@
 			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="tab-id" href="#nav-id"  data-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
+			<a class="nav-link lexical" data-lexical="identifier_type" id="tab-id" href="#nav-id"  data-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
 				<img src="display/images/label.png" height="25">
 				{t}Identifiants{/t}
 			</a>
@@ -232,7 +232,7 @@
 			</a>
 		</li>
 		<li class="nav-item">
-            <a class="nav-link" id="tab-sample" href="#nav-sample"  data-toggle="tab" role="tab" aria-controls="nav-sample" aria-selected="false">
+            <a class="nav-link lexical" data-lexical="sample_derivated" id="tab-sample" href="#nav-sample"  data-toggle="tab" role="tab" aria-controls="nav-sample" aria-selected="false">
 				<img src="display/images/sample.png" height="25">
 				{t}Échantillons dérivés{/t}
 			</a>
@@ -299,7 +299,7 @@
 				</dl>
 				{if count ($objectIdentifiers) > 0}
 					<dl class="dl-horizontal">
-						<dt>{t}Identifiants complémentaires :{/t}</dt>
+						<dt class="lexical" data-lexical="identifier-type">{t}Identifiants complémentaires :{/t}</dt>
 						<dd>
 							{$i = 0}
 							{foreach $objectIdentifiers as $oi}
@@ -312,7 +312,7 @@
 				{/if}
 				{if strlen($data.dbuid_origin) > 0}
 				<dl class="dl-horizontal">
-					<dt>{t}DB et UID d'origine :{/t}</dt>
+					<dt class="lexical" data-lexical="dbuid">{t}DB et UID d'origine :{/t}</dt>
 					<dd>{$data.dbuid_origin}</dd>
 				</dl>
 				{/if}
@@ -321,11 +321,11 @@
 					<dd>{$data.collection_name}</dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt>{t}Référent :{/t}</dt>
+					<dt class="lexical" data-lexical="referent">{t}Référent :{/t}</dt>
 					<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}"><a href="#">{$data.referent_name}</a></dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt>{t}Type :{/t}</dt>
+					<dt class="lexical" data-lexical="sample_type">{t}Type :{/t}</dt>
 					<dd>{$data.sample_type_name}
 					{if strlen($data.container_type_name) > 0}
 						<br>
@@ -339,13 +339,13 @@
 				</dl>
 				{if $data.operation_id > 0}
 					<dl class="dl-horizontal">
-						<dt>{t}Protocole et opération :{/t}</dt>
+						<dt class="lexical" data-lexical="protocol">{t}Protocole et opération :{/t}</dt>
 						<dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name} {$data.operation_version}
 						</dd>
 					</dl>
 				{/if}
 				<dl class="dl-horizontal">
-					<dt>{t}Statut :{/t}</dt>
+					<dt class="lexical" data-lexical="status">{t}Statut :{/t}</dt>
 					<dd>{$data.object_status_name}
 						{if $data.trashed == 1}
 							<span class="red">&nbsp;{t}Échantillon mis à la corbeille{/t}</span>
@@ -383,7 +383,7 @@
 				</dl>
 				{if $data.multiple_type_id > 0}
 					<dl class="dl-horizontal">
-						<dt title="{t 1=$data.multiple_unit}Quantité de sous-échantillons (%1){/t}">{t 1=$data.multiple_unit}Qté de sous-échantillons (%1) :{/t}</dt>
+						<dt class="lexical" data-lexical="subsample" title="{t 1=$data.multiple_unit}Quantité de sous-échantillons (%1){/t}">{t 1=$data.multiple_unit}Qté de sous-échantillons (%1) :{/t}</dt>
 						<dd>{$data.multiple_value}</dd>
 					</dl>
 				{/if}
@@ -405,13 +405,13 @@
 				{/if}
 				{if $data.sampling_place_id > 0}
 					<dl class="dl-horizontal">
-						<dt>{t}Lieu de prélèvement :{/t}</dt>
+						<dt class="lexical" data-lexical="sampling_place">{t}Lieu de prélèvement :{/t}</dt>
 						<dd>{$data.sampling_place_name}</dd>
 					</dl>
 				{/if}
 				{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
 					<dl class="dl-horizontal">
-						<dt>{t}Latitude :{/t}</dt>
+						<dt class="lexical" data-lexical="sample_latlong">{t}Latitude :{/t}</dt>
 						<dd>{$data.wgs84_y}</dd>
 					</dl>
 					<dl class="dl-horizontal">
@@ -439,12 +439,12 @@
 					</dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt>{t}UUID :{/t}</dt>
+					<dt class="lexical" data-lexical="uuid">{t}UUID :{/t}</dt>
 					<dd>{$data.uuid}</dd>
 				</dl>
 				{if count($metadata) >0}
 					<fieldset>
-						<legend>{t}Métadonnées associées{/t}</legend>
+						<legend class="lexical" data-lexical="metadata">{t}Métadonnées associées{/t}</legend>
 						{foreach $metadata as $key=>$value}
 							<dl class="dl-horizontal">
 								<dt>{t 1=$key}%1 :{/t}</dt>
@@ -485,7 +485,7 @@
 		<div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="tab-event">
 			<div class="col-md-12">
 				<fieldset>
-					<legend>{t}Événements{/t}</legend>
+					<legend class="lexical" data-lexical="event_type">{t}Événements{/t}</legend>
 					{include file="gestion/eventList.tpl"}
 				</fieldset>
 				<fieldset>

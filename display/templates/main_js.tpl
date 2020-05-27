@@ -275,7 +275,6 @@
 	$(document).ready( function() {
 		var lexicalDelay=1000, lexicalTimer, tooltipContent;
 	$(".lexical").mouseenter( function () {
-		console.log("ok");
 		var objet = $(this);
 		lexicalTimer = setTimeout (function () {
 			var entry = objet.data("lexical");
@@ -288,9 +287,8 @@
 				$.ajax( { url:url, data:data})
 				.done (function(d) {
 					if (d) {
-						console.log(d);
 						d = JSON.parse(d);
-						if (!d.error_code) {
+						if (d.lexical) {
 							var content = d.lexical.split(" ");
 							var length = 0;
 							tooltipContent = "";
@@ -312,11 +310,10 @@
 		clearTimeout(lexicalTimer);
 	});
 	function tooltipDisplay(object) {
-		console.log(tooltipContent);
 		object.tooltip ({
 			content: tooltipContent
 		});
-		object.attr("title", tooltipContent);
+		//object.attr("title", tooltipContent);
 			object.tooltip("open");
 	}
 	});

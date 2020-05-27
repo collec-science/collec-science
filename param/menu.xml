@@ -26,15 +26,18 @@
 <item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
 	<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" />
 	<item module="protocolList" droits="consult" label="Protocoles" tooltip="Liste des protocoles" >
-	<item module="operationList" droits="consult" label="Opérations" tooltip="Liste des opérations rattachées à un protocole" />
+		<item module="protocolList" droits="consult" label="Protocoles" tooltip="Liste des protocoles" />
+		<item module="operationList" droits="consult" label="Opérations" tooltip="Liste des opérations rattachées à un protocole" />
 	</item>
 	<item module="referentList" droits="consult" label="Référents" tooltip="Liste des référents des objets ou des collections"/>
 	<item module="campaignList" droits="consult" label="Campagnes" tooltip="Campagnes de prélèvement">
-  <item module="regulationList" droits="consult" label="Réglementations" tooltip="Réglementations applicables"/>
+		<item module="campaignList" droits="consult" label="Campagnes" tooltip="Campagnes de prélèvement"/>
+		<item module="regulationList" droits="consult" label="Réglementations" tooltip="Réglementations applicables"/>
 	</item>
 	<item divider='1'/>
 	<item module="containerFamilyList" droits="consult" label="Familles de contenants" tooltip="Familles de contenants (armoires, éprouvettes...)" >
-	<item module="containerTypeList" droits="consult" label="Types de contenants" tooltip="Liste des types de contenants" />
+		<item module="containerFamilyList" droits="consult" label="Familles de contenants" tooltip="Familles de contenants (armoires, éprouvettes...)" />
+		<item module="containerTypeList" droits="consult" label="Types de contenants" tooltip="Liste des types de contenants" />
 	</item>
 	<item module="sampleTypeList" droits="consult" label="Types d'échantillons" tooltip="Liste des types d'échantillons gérés" />
 	<item module="identifierTypeList" droits="consult" label="Types d'identifiants" tooltip="Liste des types d'identifiants rattachables à un objet" />
@@ -55,8 +58,9 @@
 	<item module="exportModelList" label="Modèles d'export (expérimental)" tooltip="Liste des modèles d'exportation des données"/>
 	<item divider='1'/>
 	<item module="dbstructureSchema" droits="collection" label="Schéma de la base de données" tooltip="Schéma de la base de données">
-	<item module="dbstructureHtml" droits='collection' label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes"/>
-	<item module="dbstructureLatex" droits='collection' label="Structure de la base de données (Latex)" tooltip="Liste des tables et des colonnes sous forme de tableaux Latex"/>
+		<item module="dbstructureSchema" droits="collection" label="Schéma de la base de données" tooltip="Schéma de la base de données"/>
+		<item module="dbstructureHtml" droits='collection' label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes"/>
+		<item module="dbstructureLatex" droits='collection' label="Structure de la base de données (Latex)" tooltip="Liste des tables et des colonnes sous forme de tableaux Latex"/>
 	</item>
 </item>
 
@@ -74,6 +78,7 @@
 
 <item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1"/>
 <item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1">
+	<item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1"/>
 	<item module="getLastConnections" label="Dernières connexions" tooltip="Liste des dernières connexions réalisées" loginrequis="1"/>
 	<item module="loginChangePassword" loginrequis="1" label="Modifier le mot de passe" tooltip="Modifiez votre mot de passe (identification locale uniquement)" />
 </item>
@@ -83,6 +88,5 @@
 	<item module="lexique" label="Lexique" tooltip="Lexique des termes utilisés dans le logiciel" />
 	<item module="setlanguagefr" label="Français" tooltip="Libellés en français"/>
 	<item module="setlanguageen" label="English" tooltip="Labels in English"/>
-
 </item>
 </menu>

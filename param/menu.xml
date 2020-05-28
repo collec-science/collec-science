@@ -74,6 +74,7 @@
 	<item module="logList" droits="admin" label="Logs" tooltip="Consultation des logs enregistrées"/>
 	<item module="dbstructureGacl" droits="admin" label="Structure de la base de données des droits (HTML)" tooltip="Liste des tables et des colonnes de la base de données de gestion des droits"/>
 	<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP"/>
+	<item module="backupDisplay" droits="admin" label="Backup" tooltip="Sauvegarde de la base de données"/>
 </item>
 
 <item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1"/>

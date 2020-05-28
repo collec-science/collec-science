@@ -73,6 +73,10 @@
 	<requestWriteExec action="framework/request/request.php" param="write" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestExec" retourko="requestChange"/>
 	<requestCopy action="framework/request/request.php" param="copy" droits="param" type="smarty"/>
 	<lexicalGet action="framework/utils/lexical.php" type="ajax"/>
+	
+	<backupDisplay  action="framework/utils/backup.php" param="display" retourlogin="1" droits="admin" type="smarty"/>
+	<backupExec action="framework/utils/backup.php" param="exec" modulebefore="backupDisplay,backupExec" droits="admin" retourok="backupSend" retourko="backupDisplay"/>
+	<backupSend action="framework/utils/backup.php" param="send" modulebefore="backupExec" droits="admin" type="binaire" retourko="backupDisplay"/>
 
 	<!-- Modules specifiques de l'application -->
 	<lexique action="doc/lexique.php" retourlogin="1" type="smarty" />

@@ -1,14 +1,13 @@
 <!-- Jquery -->
 <!--<script src="display/node_modules/jquery/dist/jquery.min.js"></script>-->
-<script src="display/javascript/jquery-3.3.1.min.js"></script>
+<script src="display/javascript/jquery-3.5.1.min.js"></script>
 <script src="display/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
 <script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>
 
 <link rel="stylesheet" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css">
 <!-- Bootstrap -->
-<link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap-theme.min.css">
-<script src="display/javascript/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="display/javascript/bootstrap-4.5.0-dist/css/bootstrap.min.css">
+<script src="display/javascript/bootstrap-4.5.0-dist/js/bootstrap.bundle.min.js"></script>
 
 <!--alpaca -->
 <script type="text/javascript" src="display/node_modules/handlebars/dist/handlebars.runtime.min.js"></script>
@@ -26,9 +25,10 @@
 <script src="display/node_modules/leaflet-mouse-position/src/L.Control.MousePosition.js"></script>
 <!-- extension pour le menu -->
 <script src="display/node_modules/smartmenus/dist/jquery.smartmenus.min.js" type="text/javascript"></script>
-<link type="text/css" href="display/node_modules/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.css"
+<link type="text/css" href="display/node_modules/smartmenus/dist/css/sm-core-css.css" rel="stylesheet">
+<link type="text/css" href="display/node_modules/smartmenus/dist/addons/bootstrap-4/jquery.smartmenus.bootstrap-4.css"
 	rel="stylesheet">
-<script src="display/node_modules/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.min.js"
+<script src="display/node_modules/smartmenus/dist/addons/bootstrap-4/jquery.smartmenus.bootstrap-4.min.js"
 	type="text/javascript"></script>
 
 <!-- Datatables -->

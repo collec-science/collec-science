@@ -14,7 +14,7 @@ class Container extends ObjetBDD
 {
 
     private $sql = "select c.container_id, o.uid, o.identifier, o.wgs84_x, o.wgs84_y,
-                    o.change_date, o.uuid, o.trashed, o.location_accuracy,
+                    o.change_date, o.uuid, o.trashed, o.location_accuracy, o.object_comment,
 					container_type_id, container_type_name, nb_slots_max,
 					container_family_id, container_family_name, os.object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
@@ -167,7 +167,8 @@ class Container extends ObjetBDD
         if ($uid > 0 && is_numeric($uid)) {
             $sql = "select o.uid, o.identifier, sa.*,
 					movement_date, movement_type_id, identifiers,
-					collection_name, sample_type_name, object_status_name, o.trashed, o.uuid, o.location_accuracy,
+                    collection_name, sample_type_name, object_status_name, o.trashed, o.uuid, o.location_accuracy,
+                    o.object_comment,
 					sampling_place_name,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
                     lm.column_number, lm.line_number,
@@ -212,8 +213,8 @@ class Container extends ObjetBDD
     {
         if ($uid > 0 && is_numeric($uid)) {
             $sql = "select o.uid, o.identifier, container_type_id, container_type_name,
-                    container_family_id, container_family_name, o.object_status_id, o.trashed, 
-                    o.location_accuracy, o.uuid,
+                    container_family_id, container_family_name, o.object_status_id, o.trashed,
+                    o.location_accuracy, o.uuid, o.object_comment,
 					storage_product, storage_condition_name,
 					object_status_name, clp_classification,
 					movement_date, movement_type_id, column_number, line_number,

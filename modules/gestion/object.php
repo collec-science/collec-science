@@ -114,14 +114,21 @@ switch ($t_module["param"]) {
         }
         break;
     case "exportCSV":
-        $data = $dataClass->getForPrint($uids);
-        if (count($data) > 0) {
-            $vue->set($data);
-            $vue->regenerateHeader();
-            $vue->setFilename("printlabel.csv");
+        if ($uids) {
+            $data = $dataClass->getForPrint($uids);
+            if (count($data) > 0) {
+                $vue->set($data);
+                $vue->regenerateHeader();
+                $vue->setFilename("printlabel.csv");
+            } else {
+                $message->set(_("Pas d'objets à exporter"), true);
+                unset($vue);
+                $module_coderetour = -1;
+            }
         } else {
             unset($vue);
             $module_coderetour = -1;
+            $message->set(_("Pas d'objet sélectionné pour la génération du fichier"), true);
         }
         break;
     case "setTrashed":

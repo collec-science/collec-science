@@ -49,7 +49,8 @@ class ObjectClass extends ObjetBDD
             "uuid" => array("type" => 0, "default" => "getUUID"),
             "trashed" => array("type" => 1, "default" => 0),
             "location_accuracy" => array("type" => 1),
-            "geom" => array("type"=>4)
+            "geom" => array("type"=>4),
+            "object_comment"=>array("type"=>0)
         );
         $this->srid = 4326;
         parent::__construct($bdd, $param);
@@ -205,7 +206,7 @@ class ObjectClass extends ObjetBDD
             if ($is_container < 2) {
                 $sql = "select uid, identifier, wgs84_x, wgs84_y,
                     container_type_name as type_name, movement_type_id as last_movement_type,
-                    uuid, location_accuracy
+                    uuid, location_accuracy, object_comment
 					from object
 					join container using (uid)
 					join container_type using (container_type_id)
@@ -226,7 +227,7 @@ class ObjectClass extends ObjetBDD
                 }
                 $sql .= "select uid, identifier, wgs84_x, wgs84_y,
                     sample_type_name as type_name, movement_type_id as last_movement_type,
-                    uuid, location_accuracy
+                    uuid, location_accuracy, object_comment
 					from object
 					join sample using (uid)
 					join sample_type using (sample_type_id)
@@ -331,6 +332,7 @@ class ObjectClass extends ObjetBDD
         if ($trashed != 0 && $trashed != 1) {
             $trashed = 0;
         }
+        $trashed == 0 ? $trashed = "false" : $trashed = "true";
         $sql = "select o.uid, o.identifier, container_type_name as type_name,
 		clp_classification as clp,
 		label_id, 'container' as object_type,
@@ -339,14 +341,14 @@ class ObjectClass extends ObjetBDD
 		'' as prj, '' as col,storage_product as prod,
         null as metadata,
         oc.identifier as container_identifier, container_uid, line_number, column_number,
-        o.uuid, o.location_accuracy
+        o.uuid, o.location_accuracy, o.object_comment
 		from object o
 		join container using (uid)
 		join container_type using (container_type_id)
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
         left outer join object oc on (container_uid = oc.uid)
-		where o.uid in ($uids) and trashed = $trashed
+		where o.uid in ($uids) and o.trashed = $trashed
 		UNION
 		select o.uid, o.identifier, sample_type_name as type_name, clp_classification as clp,
 		label_id, 'sample' as object_type,
@@ -355,7 +357,7 @@ class ObjectClass extends ObjetBDD
 		collection_name as prj, collection_name as col, storage_product as prod,
         metadata::varchar,
         oc.identifier as container_identifier, container_uid, line_number, column_number,
-        o.uuid, o.location_accuracy
+        o.uuid, o.location_accuracy, o.object_comment
 		from object o
 		join sample using (uid)
 		join collection using (collection_id)
@@ -365,7 +367,7 @@ class ObjectClass extends ObjetBDD
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
         left outer join object oc on (container_uid = oc.uid)
-		where o.uid in ($uids) and trashed = $trashed
+		where o.uid in ($uids) and o.trashed = $trashed
 		";
         if (strlen($order) > 0) {
             $sql = "select * from (" . $sql . ") as a";
@@ -869,7 +871,7 @@ class ObjectClass extends ObjetBDD
     {
         $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id,
                 case when sample_id > 0 then 'sample' else 'container' end as type_name,
-                sample_id, container_id, uuid, location_accuracy
+                sample_id, container_id, uuid, location_accuracy, object_comment
                 from object
                 left outer join sample using (uid)
                 left outer join container using (uid)

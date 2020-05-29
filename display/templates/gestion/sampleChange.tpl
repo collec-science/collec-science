@@ -593,6 +593,12 @@
 						<input id="expiration_date" class="form-control datepicker" name="expiration_date"  value="{$data.expiration_date}">
 					</div>
 				</div>
+				<div class="form-group">
+					<label for="object_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+					<div class="col-md-8">
+						<textarea class="form-control" rows="3" id="object_comment" name="object_comment">{$data.object_comment}</textarea>
+					</div>
+				</div>
 			</fieldset>
 			<fieldset>
 				<legend>{t}Sous-échantillonnage (si le type le permet){/t}</legend>

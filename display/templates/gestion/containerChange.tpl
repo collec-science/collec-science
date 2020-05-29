@@ -199,6 +199,12 @@ if (container_type_id > 0) {
 			</div>
 		</div>
 		<div class="form-group">
+			<label for="object_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+			<div class="col-md-8">
+				<textarea class="form-control" rows="3" id="object_comment" name="object_comment">{$data.object_comment}</textarea>
+			</div>
+		</div>
+		<div class="form-group">
 			<label for="uuid"  class="control-label col-md-4">{t}UID universel (UUID) :{/t}</label>
 			<div class="col-md-8">
 				<input id="expiration_date" class="form-control uuid" name="uuid"  value="{$data.uuid}">

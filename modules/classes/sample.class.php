@@ -26,7 +26,7 @@ class Sample extends ObjetBDD
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
 					so.identifier, so.wgs84_x, so.wgs84_y,
                     so.object_status_id, object_status_name,so.referent_id,
-                    so.change_date, so.uuid, so.trashed, so.location_accuracy,
+                    so.change_date, so.uuid, so.trashed, so.location_accuracy, so.object_comment,
 					pso.uid as parent_uid, pso.identifier as parent_identifier,
 					container_type_name, clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
@@ -567,7 +567,7 @@ class Sample extends ObjetBDD
             throw new SampleException("Pas d'échantillons sélectionnés");
         } else {
             $this->auto_date = 0;
-            $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy,
+            $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy, object_comment,
              c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
              multiple_value, sampling_place_name, metadata::varchar,
             identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,

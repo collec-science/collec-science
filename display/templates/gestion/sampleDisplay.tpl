@@ -426,6 +426,10 @@
 					{/if}
 				{/if}
 				<dl class="dl-horizontal">
+					<dt>{t}Commentaire :{/t}</dt>
+					<dd class="textareaDisplay">{$data.object_comment}</dd>
+				</dl>
+				<dl class="dl-horizontal">
 					<dt>{t}Emplacement :{/t}</dt>
 					<dd>
 						{section name=lst loop=$parents}

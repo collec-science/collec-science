@@ -1,4 +1,31 @@
 <h2>{t}Création - Modification d'un prêt{/t}</h2>
+<script>
+    $(document).ready(function(){
+        $("#borrowingForm").submit(function(event) {
+		 var format = "{$formatdatetime}";
+            /*
+            * Control dates
+            */
+			var bd = moment($("#borrowing_date").val(), format);
+            var ser = $("#expected_return_date").val();
+            if (ser.length > 0) {
+                var er = moment(ser, format);
+                if (bd.isAfter(er)) {
+                    alert("{t}La date prévue de retour est antérieure à la date de prêt{/t}");
+                    event.preventDefault();
+                }
+            }
+            var srd = $("#return_date").val();
+            if (srd.length > 0) {
+                var rd = moment(srd, format);
+                if (bd.isAfter(rd)) {
+                    alert("{t}La date de retour est antérieure à la date de prêt{/t}");
+                    event.preventDefault();
+                }
+            }
+	    });
+     });
+</script>
 <div class="row">
 
     <div class="col-md-6">
@@ -20,7 +47,7 @@
 
             <div class="form-group" >
                 <label for="borrower_id"class="control-label col-md-4">
-                    <span class="red">*</span> {t}Emprunteur :{/t}
+                     {t}Emprunteur :{/t}<span class="red">*</span>
                 </label>
                 <div class="col-md-8">
                     <select id="borrower_id" name="borrower_id" class="form-control">

@@ -8,4 +8,5 @@
  *  SMARTY, par exemple
  */
 $vue->set($_SESSION["APPLI_title"] , "APPLI_title");
+$vue->set($LANG["date"]["formatdatetime"],"formatdatetime");
 ?>

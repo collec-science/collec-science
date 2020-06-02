@@ -255,27 +255,28 @@ meter[value="4"]::-moz-meter-bar { background: #A4C400; }
 }
 /* Nav */
 
-.nav-tabs{
-	background-color:rgba(0,158,224,0.2);
-}
 .tab-content{
-    background-color: rgba(0, 158, 224, 0.2);
-    padding:5px
+	/*background-color: rgba(0, 158, 224, 0.1);*/
+	border-top: 2px solid rgba(0,158,224);
+	padding:10px;
 }
 .tab-content-white{
-	background-color: white;
-	padding:5px
+background-color: white;
+padding:5px
 }
 .nav-tabs > li > a{
-  border: medium none;
+border: medium none;
+background-color:  rgba(0,158,224,0.2) !important;
 }
-.nav-tabs > li > a:hover{
-  background-color:  rgba(0,158,224,0.2) !important;
-    border: medium none;
-    border-radius: 0;
-    color:#fff;
+.nav-tabs > li.active a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus
+,.nav-tabs > li.active > a:visited{
+	background-color: rgba(0,158,224) !important;
+	color:#fff;
+	border: medium none;
+	border-radius: 0.5;
 }
-
 
 .trashed {
 	background-color: rgba(213,19,23,0.5);
@@ -295,4 +296,20 @@ meter[value="4"]::-moz-meter-bar { background: #A4C400; }
 }
 .top {
 	vertical-align: text-top ;
+}
+
+table a:hover {
+	text-decoration: underline;
+	color: #003A80;
+}
+table a:visited {
+	text-decoration: none;
+	color: #009EE0;
+}
+.lexical {
+	/* display a question image into the field */
+	background-image: url("images/question.png");
+	background-size: 4pt 7pt;
+	background-repeat: no-repeat;
+	background-position: 100% 50%;
 }

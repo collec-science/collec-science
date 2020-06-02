@@ -1,4 +1,26 @@
-{* Objets > échantillons > *}
+<script>
+$(document).ready(function() { 
+	/* Management of tabs */
+		var activeTabResult = "";
+        try {
+        activeTabResult = Cookies.get("sampleResultTab");
+        } catch (Exception) {
+        }
+		try {
+			if (activeTabResult.length > 0) {
+				$("#"+activeTabResult).tab('show');
+			}
+		} catch (Exception) { }
+		$('.nav-tabs > li > a').hover(function() {
+			//$(this).tab('show');
+ 		});
+		 $('.tabResult').on('shown.bs.tab', function () {
+			Cookies.set("sampleResultTab", $(this).attr("id"), { secure: true});
+		});
+});
+</script>>
+
+
 <h3>{t}Échantillons{/t}</h3>
 
 <div class="row">
@@ -14,12 +36,12 @@
 		{if $isSearch > 0}
 			<ul class="nav nav-tabs  " id="tabResult" role="tablist" >
 				<li class="nav-item active">
-						<a class="nav-link" id="tablist" data-toggle="tab"  role="tab" aria-controls="navlist" aria-selected="true" href="#navlist">
+						<a class="nav-link tabResult" id="tablist" data-toggle="tab"  role="tab" aria-controls="navlist" aria-selected="true" href="#navlist">
 								{t}Liste{/t}
 						</a>
 				</li>
 				<li class="nav-item">
-						<a class="nav-link" id="tabmap" href="#navmap"  data-toggle="tab" role="tab" aria-controls="navmap" aria-selected="false">
+						<a class="nav-link tabResult" id="tabmap" href="#navmap"  data-toggle="tab" role="tab" aria-controls="navmap" aria-selected="false">
 								{t}Carte{/t}
 						</a>
 				</li>

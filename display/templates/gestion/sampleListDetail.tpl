@@ -16,7 +16,6 @@
 		} else {
 			displayModeFull == "true" ? displayModeFull = true : displayModeFull = false;
 		}
-		console.log(displayModeFull);
 		$(".checkSampleSelect").change(function() {
 			var libelle = "{t}Tout cocher{/t}";
 			if ( this.checked) {

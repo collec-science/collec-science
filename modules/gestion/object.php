@@ -96,6 +96,9 @@ switch ($t_module["param"]) {
         $t_module["retourko"] = $_REQUEST["lastModule"];
         $t_module["retourok"] = $_REQUEST["lastModule"];
         try {
+            if (! $uids[0] > 0) {
+                throw new Exception (_("Aucune ligne n'a été sélectionnée, l'impression des étiquettes est impossible"), true);
+            }
             $vue->setFilename($dataClass->generatePdf($uids));
             $vue->setDisposition("inline");
             $dataClass->eraseQrcode($APPLI_temp);

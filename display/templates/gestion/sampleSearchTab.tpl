@@ -44,19 +44,23 @@
             var coordsOk = true;
             points.forEach(function(point) {
                 coordNames.forEach(function(coordName){
-                    try {
-                        $("#"+point+coordName).val(getCoord(point,coordName));
-                    } catch (error) {
-                    $("#"+point+coordName).val("");
-                    coordsOk = false;
+                    if (position) {
+                        try {
+                            $("#"+point+coordName).val(getCoord(point,coordName));
+                        } catch (error) {
+                        $("#"+point+coordName).val("");
+                        coordsOk = false;
+                        }
                     }
                     if ($("#"+point+coordName).val().length == 0) {
                         coordsOk = false;
                     }
                 });
             });
-            if (coordsOk) ok = true;
-             if (ok == false) {
+            if (coordsOk) {
+                ok = true;
+            }
+             if (! ok) {
                  event.preventDefault();
              }
          });

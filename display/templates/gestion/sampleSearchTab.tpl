@@ -57,7 +57,7 @@
                     }
                 });
             });
-            if (coordsOk) {
+            if (coordsOk)  {
                 ok = true;
             }
              if (! ok) {

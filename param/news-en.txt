@@ -1,8 +1,19 @@
 News
 ===========
+Version 2.4.1 of June 15, 2020
+------------------------------
+Bug fixes:
+- the generation of the samples file in CSV format didn't result anymore
+- from the sample table, starting the label printout generated an error if no sample was selected
+- when searching for samples from the map, the re-launch of the search lost the previous criteria
+- changing the password might not be in English
+- the message indicating that the password was about to expire was not reset correctly on the day it was changed
+- the tab for displaying the sample location map was not selected by default if it was the last tab selected
+- redesigning the display of tabs to make them more readable
+
 Version 2.4.0 of February 17, 2020
 --------------------------------
-Bug fixes :
+Bug fixes:
 - when modifying a password, the information message about the length of the password was wrong.
 - the wording regarding the referent of a container was incorrect
 - creating an output transaction from the detail of a sample did not work
@@ -15,7 +26,7 @@ Bug fixes :
 - in the protocols, it was not possible to delete the uploaded document
 - correction of installation and database backup scripts
 
-What's new
+What's new:
 
 Containers :
 - it is possible to define a maximum number of available slots. The list of containers allows you to view the number of available locations.

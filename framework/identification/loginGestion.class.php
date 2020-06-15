@@ -302,9 +302,11 @@ class LoginGestion extends ObjetBDD
         if ($log->getLastConnexionType($login) == "db") {
             $data = $oldData;
             $data["password"] = $this->_encryptPassword($pass);
-            $data["datemodif"] = date('d-m-y');
+            $this->auto_date = false;
+            $data["datemodif"] = date("Y-m-d");
             $data["is_expired"] = 0;
             if ($this->ecrire($data) > 0) {
+                $this->auto_date = true;
                 $retour = 1;
                 $log->setLog($login, "password_change", "ip:" . $_SESSION["remoteIP"]);
                 $message->set(_("Le mot de passe a été modifié"));
@@ -462,23 +464,28 @@ class LoginGestion extends ObjetBDD
         global $message, $MAIL_enabled, $APPLI_mail, $GACL_aco, $log;
         $moduleNameComplete = $GACL_aco . "-sendMailForPasswordChange";
         if ($MAIL_enabled == 1) {
-            $dataLogin = $this->getFromLogin($login);
-            $MAIL_param = array(
-                "replyTo" => "$APPLI_mail",
-                "subject" => $subject,
-                "from" => "$APPLI_mail",
-                "contents" => $contents,
-            );
-            if (strlen($dataLogin["mail"]) > 0) {
-                include_once 'framework/identification/mail.class.php';
-                $mail = new Mail($MAIL_param);
-                if ($mail->sendMail($dataLogin["mail"], array())) {
-                    $ok = "ok";
-                } else {
-                    $message->setSyslog("error_sendmail_for_password_change:" . $dataLogin["mail"]);
-                    $ok = "ko";
+            try {
+                $dataLogin = $this->getFromLogin($login);
+                $MAIL_param = array(
+                    "replyTo" => "$APPLI_mail",
+                    "subject" => $subject,
+                    "from" => "$APPLI_mail",
+                    "contents" => $contents,
+                );
+                if (strlen($dataLogin["mail"]) > 0) {
+                    include_once 'framework/identification/mail.class.php';
+                    $mail = new Mail($MAIL_param);
+                    if ($mail->sendMail($dataLogin["mail"], array())) {
+                        $ok = "ok";
+                    } else {
+                        $message->setSyslog("error_sendmail_for_password_change:" . $dataLogin["mail"]);
+                        $ok = "ko";
+                    }
+                    $log->setLog($login, $moduleNameComplete, $ok);
                 }
-                $log->setLog($login, $moduleNameComplete, $ok);
+            } catch (Exception $e) {
+                $message->set(_("Envoi du message de modification du mot de passe par mail en échec"), true);
+                $messsage->setSyslog($e->getMessage());
             }
         }
     }

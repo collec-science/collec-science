@@ -1,5 +1,16 @@
 News
 ===========
+Version 2.4.1 du 15 juin 2020
+-----------------------------
+Correction de bugs :
+- la génération du fichier des échantillons au format CSV n'aboutissait plus
+- depuis le tableau des échantillons, le lancement de l'impression des étiquettes générait une erreur si aucun échantillon n'était sélectionné
+- en recherche des échantillons à partir de la carte, la relance de la recherche perdait les critères précédents
+- le changement du mot de passe risquait de ne pas aboutir en anglais
+- le message indiquant que le mot de passe allait expirer n'était pas réinitialisé correctement le jour de son changement
+- l'onglet d'affichage de la carte de l'emplacement des échantillons n'était pas sélectionné par défaut si c'était le dernier onglet sélectionné
+- refonte de l'affichage des onglets pour qu'ils soient plus lisibles
+
 Version 2.4.0 du 1er avril 2020
 --------------------------------
 Corrections de bugs :

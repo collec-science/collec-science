@@ -1,7 +1,7 @@
 #!/bin/bash
 # upgrade an instance 2.1 to 2.2
 OLDVERSION=collec-2.2
-VERSION=collec-2.4.0
+VERSION=collec-2.4.1
 echo "Content of /var/www/html/collec-science"
 ls -l /var/www/html/collec-science
 echo "This script will install the release $VERSION"

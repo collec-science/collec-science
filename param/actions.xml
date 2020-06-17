@@ -330,4 +330,10 @@
 	<mimeTypeChange action="modules/param/mimeType.php" param="change" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty"/>
 	<mimeTypeWrite action="modules/param/mimeType.php" param="write" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange" retourko="mimeTypeChange" retourok="mimeTypeList"/>
 	<mimeTypeDelete action="modules/param/mimeType.php" param="delete" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange" retourko="mimeTypeChange" retourok="mimeTypeList"/>
+	
+	<!-- Exports to other referentials -->
+	<datasetTypeList action="modules/export/datasetType.php" param="list" droits="param" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTypeChange action="modules/export/datasetType.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTypeWrite action="modules/export/datasetType.php" param="write" droits="param" moduleBefore="datasetTypeChange" retourok="datasetTypeList" retourko="datasetTypeChange" />
+	<datasetTypeDelete action="modules/export/datasetType.php" param="delete" droits="param" moduleBefore="datasetTypeChange" retourok="datasetTypeList" retourko="datasetTypeChange" />
 </navigation>

@@ -23,6 +23,10 @@
 <item module="movementList" label="Liste des mouvements" tooltip="Recherche des mouvements sur une période donnée" droits="collection" />
 </item>
 
+<item module="default" label="Exports" tooltip="Gestion des exports vers des bases de données externes" droits="collection">
+	<item module="datasetTypeList" label="Types de dataset" tooltip="Liste des types de dataset" droits="param"/>
+</item>
+
 <item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
 	<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" />
 	<item module="protocolList" droits="consult" label="Protocoles" tooltip="Liste des protocoles" >

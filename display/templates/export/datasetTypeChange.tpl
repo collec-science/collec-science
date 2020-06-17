@@ -1,5 +1,5 @@
 <h2>{t}Modification d'un type de dataset{/t}</h2>
-<p class="legend">{t}La modification d'un type de dataset est déconseillé, en raison des impacts sur le fonctionnement du module d'exportation{/t}</p>
+<p class="text-warning">{t}La modification d'un type de dataset est déconseillé, en raison des impacts sur le fonctionnement du module d'exportation{/t}</p>
 <div class="row">
   <div class="col-md-12">
     <a href="index.php?module=datasetTypeList">

@@ -28,7 +28,7 @@
         </td>
         <td title="{t}Modifier...{/t}">
           <a href="index.php?module=datasetTemplateChange&dataset_type_id={$row.dataset_template_id}">
-          {$row.dataset_type_name}
+          {$row.dataset_template_name}
           </a>
         </td>
         <td>{$row.dataset_type_name}</td>

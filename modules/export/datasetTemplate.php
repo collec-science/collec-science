@@ -1,6 +1,6 @@
 <?php
-include_once 'modules/classes/export/datasetType.class.php';
-$dataClass = new DatasetType($bdd, $ObjetBDDParam);
+include_once 'modules/classes/export/datasetTemplate.class.php';
+$dataClass = new DatasetTemplate($bdd, $ObjetBDDParam);
 $keyName = "dataset_type_id";
 $id = $_REQUEST[$keyName];
 
@@ -10,7 +10,7 @@ switch ($t_module["param"]) {
 		 * Display the list of all records of the table
 		 */
     $vue->set($dataClass->getListe(2), "data");
-    $vue->set("export/datasetTypeList.tpl", "corps");
+    $vue->set("export/datasetTemplateList.tpl", "corps");
     break;
   case "display":
     /*
@@ -25,7 +25,13 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record 
 		 */
-    dataRead($dataClass, $id, "export/datasetTypeChange.tpl", $_REQUEST["idParent"]);
+    dataRead($dataClass, $id, "export/datasetTemplateChange.tpl", $_REQUEST["idParent"]);
+    require_once "modules/classes/export/datasetType.class.php";
+    require_once "modules/classes/export/exportFormat.class.php";
+    $dt = new DatasetType($bdd, $ObjetBDDParam);
+    $vue->set($dt->getListe(1), "datasetTypes");
+    $ef = new ExportFormat($bdd, $ObjetBDDParam);
+    $vue->set($ef->getListe(1), "exportFormats");
     break;
   case "write":
     /*

@@ -1,6 +1,12 @@
 <?php
 class DatasetTemplate extends ObjetBDD
 {
+  private $sql = "select dataset_template_id, dataset_template_name, export_format_id, dataset_type_id, 
+                  only_last_document, separator,
+                  dataset_type_name, export_format_name
+                  from dataset_template
+                  join dataset_type using (dataset_type_id)
+                  join export_format using (export_format_id)";
   /**
    * Constructor
    *
@@ -15,9 +21,22 @@ class DatasetTemplate extends ObjetBDD
       "dataset_template_name" => array("type" => 0, "requis" => 1),
       "export_format_id" => array("type" => 1, "requis" => 1),
       "dataset_type_id" => array("type" => 1, "requis" => 1),
-      "only_last_document" => array("type" => 0, "defaultValue" = "0"),
+      "only_last_document" => array("type" => 0, "defaultValue" => "0"),
       "separator" => array("type" => 0, "defaultValue" => ";")
     );
     parent::__construct($bdd, $param);
+  }
+/**
+ * overload of getListe
+ *
+ * @param string $order
+ * @return void
+ */
+  function getListe($order = "")
+  {
+    if (strlen($order) > 0) {
+      $order = " order by " . $order;
+    }
+    return $this->getListeParam($this->sql . $order);
   }
 }

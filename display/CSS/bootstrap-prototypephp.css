@@ -296,13 +296,16 @@ background-color:  rgba(0,158,224,0.2) !important;
 .top {
 	vertical-align: text-top ;
 }
+table a {
+	text-decoration: underline;
+}
 
 table a:hover {
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 	color: #003A80;
 }
 table a:visited {
-	text-decoration: none;
+	/*text-decoration: none;*/
 	color: #009EE0;
 }
 .lexical {

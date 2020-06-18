@@ -1,6 +1,6 @@
 <h2>{t}Modification d'un modèle de dataset{/t}</h2>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6">
     <a href="index.php?module=datasetTemplateList">
       <img src="display/images/list.png" height="25">
       {t}Retour à la liste{/t}
@@ -18,7 +18,7 @@
       <div class="form-group">
         <label for="dataset_type_id" class="control-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
         <div class="col-md-8">
-          <select id="dataset_type_id" class="form-control">
+          <select id="dataset_type_id" name="dataset_type_id" class="form-control">
             {foreach $datasetTypes as $dt}
               <option value="{$dt.dataset_type_id}" {if $dt.dataset_type_id == $data.dataset_type_id}selected{/if}>
                 {$dt.dataset_type_name}
@@ -28,9 +28,9 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="export_format_id" class="control-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
+        <label for="export_format_id" class="control-label col-md-4"><span class="red">*</span> {t}Format d'export :{/t}</label>
         <div class="col-md-8">
-          <select id="export_format_id" class="form-control">
+          <select id="export_format_id" name="export_format_id" class="form-control">
             {foreach $exportFormats as $ef}
               <option value="{$ef.export_format_id}" {if $ef.export_format_id == $data.export_format_id}selected{/if}>
                 {$ef.export_format_name}
@@ -44,13 +44,12 @@
         <div class="col-md-8" id="only_last_document">
           <div class="radio">
             <label>
-              <input type="radio" name="only_last_document" id="old1" value="0" {if $data.only_last_document != 1}checked{/if}>
-              non
+              <input type="radio" name="only_last_document" id="old1" value="0" {if $data.only_last_document != 1}checked{/if}>{t}non{/t}
             </label>
           </div>
           <div class="radio">
             <label>
-                <input type="radio" name="only_last_document" id="old2" value="1" {if $data.only_last_document != 1}checked{/if}>
+                <input type="radio" name="only_last_document" id="old2" value="1" {if $data.only_last_document == 1}checked{/if}>{t}oui{/t}
             </label>
           </div>
        </div>
@@ -58,7 +57,7 @@
       <div class="form-group">
         <label for="separator" class="control-label col-md-4">{t}Séparateur (fichiers CSV) :{/t}</label>
         <div class="col-md-8">
-          <select id="separator" class="form-control">
+          <select id="separator" name="separator" class="form-control">
               <option value="" {if $sep.separator == ''}selected{/if}>{t}Sélectionnez...{/t}</option>
               <option value="," {if $sep.separator == ','}selected{/if}>{t}virgule{/t}</option>
               <option value=";" {if $sep.separator == ';'}selected{/if}>{t}point-virgule{/t}</option>

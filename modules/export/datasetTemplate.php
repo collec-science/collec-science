@@ -17,7 +17,10 @@ switch ($t_module["param"]) {
 		 * Display the detail of the record
 		 */
     $vue->set($dataClass->lire($id), "data");
-    $vue->set("example/exampleDisplay.tpl", "corps");
+    $vue->set("export/datasetTemplateDisplay.tpl", "corps");
+    include_once "modules/classes/export/datasetColumn.class.php";
+    $dc = new DatasetColumn($bdd, $ObjetBDDParam);
+    $vue->set($dc->getListFromParent($id), "columns");
     break;
   case "change":
     /*

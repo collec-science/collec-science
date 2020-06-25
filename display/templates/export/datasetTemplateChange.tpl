@@ -58,10 +58,10 @@
         <label for="separator" class="control-label col-md-4">{t}Séparateur (fichiers CSV) :{/t}</label>
         <div class="col-md-8">
           <select id="separator" name="separator" class="form-control">
-              <option value="" {if $sep.separator == ''}selected{/if}>{t}Sélectionnez...{/t}</option>
-              <option value="," {if $sep.separator == ','}selected{/if}>{t}virgule{/t}</option>
-              <option value=";" {if $sep.separator == ';'}selected{/if}>{t}point-virgule{/t}</option>
-              <option value="tab" {if $sep.separator == 'tab'}selected{/if}>{t}tabulation{/t}</option>
+              <option value="" {if $data.separator == ''}selected{/if}>{t}Sélectionnez...{/t}</option>
+              <option value="," {if $data.separator == ','}selected{/if}>{t}virgule{/t}</option>
+              <option value=";" {if $data.separator == ';'}selected{/if}>{t}point-virgule{/t}</option>
+              <option value="tab" {if $data.separator == 'tab'}selected{/if}>{t}tabulation{/t}</option>
           </select>
         </div>
       </div>

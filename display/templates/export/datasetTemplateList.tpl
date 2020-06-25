@@ -1,7 +1,7 @@
 <h2>{t}Modèles de datasets{/t}</h2>
 <div class="row">
   <div class="col-md-6">
-  <a href="index.php?module=datasetTemplateChange&dataset_type_id=0">
+  <a href="index.php?module=datasetTemplateChange&dataset_template_id=0">
     <img src="display/images/new.png" height="25">
   {t}Nouveau...{/t}
   </a>
@@ -27,7 +27,7 @@
           </a>
         </td>
         <td title="{t}Modifier...{/t}">
-          <a href="index.php?module=datasetTemplateChange&dataset_type_id={$row.dataset_template_id}">
+          <a href="index.php?module=datasetTemplateChange&dataset_template_id={$row.dataset_template_id}">
           {$row.dataset_template_name}
           <img src="display/images/edit.gif" height="15">
           </a>

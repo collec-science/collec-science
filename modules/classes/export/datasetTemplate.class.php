@@ -26,17 +26,29 @@ class DatasetTemplate extends ObjetBDD
     );
     parent::__construct($bdd, $param);
   }
-/**
- * overload of getListe
- *
- * @param string $order
- * @return void
- */
+  /**
+   * overload of getListe
+   *
+   * @param string $order
+   * @return void
+   */
   function getListe($order = "")
   {
     if (strlen($order) > 0) {
       $order = " order by " . $order;
     }
     return $this->getListeParam($this->sql . $order);
+  }
+
+  /**
+   * Get the content of a datasetTemplate
+   *
+   * @param int $id
+   * @return array
+   */
+  function getDetail($id)
+  {
+    $where = " where dataset_template_id = :id";
+    return $this->lireParamAsPrepared($this->sql . $where, array("id" => $id));
   }
 }

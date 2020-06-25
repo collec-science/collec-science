@@ -1,7 +1,7 @@
 <?php
 include_once 'modules/classes/export/datasetTemplate.class.php';
 $dataClass = new DatasetTemplate($bdd, $ObjetBDDParam);
-$keyName = "dataset_type_id";
+$keyName = "dataset_template_id";
 $id = $_REQUEST[$keyName];
 
 switch ($t_module["param"]) {
@@ -16,7 +16,7 @@ switch ($t_module["param"]) {
     /*
 		 * Display the detail of the record
 		 */
-    $vue->set($dataClass->lire($id), "data");
+    $vue->set($dataClass->getDetail($id), "data");
     $vue->set("export/datasetTemplateDisplay.tpl", "corps");
     include_once "modules/classes/export/datasetColumn.class.php";
     $dc = new DatasetColumn($bdd, $ObjetBDDParam);

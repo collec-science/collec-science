@@ -59,7 +59,7 @@
               <td>{$c.metadata_name}</td>
               <td>{$c.export_name}</td>
               <td>{$c.translator_name}</td>
-              <td>{$c.order}</td>
+              <td>{$c.column_order}</td>
             </tr>
           {/foreach}
         </tbody>

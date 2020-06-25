@@ -1,6 +1,11 @@
 <?php
 class DatasetColumn extends ObjetBDD
 {
+  private $sql = "select dataset_column_id, dataset_template_id, translator_id,
+                  column_name, export_name, metadata_name, column_order,
+                  translator_name
+                  from dataset_column
+                  left outer join translator using (translator_id)";
   /**
    * Constructor
    *
@@ -17,7 +22,7 @@ class DatasetColumn extends ObjetBDD
       "column_name" => array("requis" => 1),
       "export_name" => array("requis" => 1),
       "metadata_name" => array("type" => 0),
-      "order" => array("type" => 1, "defaultValue" => 1)
+      "column_order" => array("type" => 1, "defaultValue" => 1)
     );
     parent::__construct($bdd, $param);
   }
@@ -31,7 +36,6 @@ class DatasetColumn extends ObjetBDD
    */
   function lire(int $id, $getDefault = true, int $parentValue = 0)
   {
-    test($id);
     if ($id == 0) {
       $data = $this->getDefaultValue($parentValue);
       /**
@@ -40,15 +44,27 @@ class DatasetColumn extends ObjetBDD
       $sql = "select count(*) as number from dataset_column where dataset_template_id = :parent";
       $res = $this->lireParamAsPrepared($sql, array("parent" => $parentValue));
       if (!$res["number"] > 0) {
-        $res["number"] = 1;
+        $res["number"] = 0;
       }
-      $data["order"] = $res["number"] * 10;
-      printr($data);
+      $data["column_order"] = ($res["number"] + 1) * 10;
       return ($data);
     } else {
-      return $this->lire($id);
+      return parent::lire($id);
     }
   }
+  /**
+   * Overload of getListFromParent to get the name of the translator
+   *
+   * @param int $parentId
+   * @param string $order
+   * @return array
+   */
   function getListFromParent($parentId, $order = "")
-  { }
+  {
+    $where = " where dataset_template_id = :parentId";
+    if (strlen($order) > 0) {
+      $order = " order by $order";
+    }
+    return $this->getListeParamAsPrepared($this->sql . $where . $order, array("parentId" => $parentId));
+  }
 }

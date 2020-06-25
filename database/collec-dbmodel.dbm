@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,344" last-zoom="0.75" max-obj-count="68"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,342" last-zoom="0.75" max-obj-count="68"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -2638,7 +2638,7 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[Name of the field if it into the metadata description of the sample]]></comment>
 	</column>
-	<column name="order" default-value="1">
+	<column name="column_order" default-value="1">
 		<type name="smallint" length="0"/>
 		<comment><![CDATA[order of displaying in the exported file]]></comment>
 	</column>

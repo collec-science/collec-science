@@ -13,7 +13,20 @@
     }
     $( "#column_name" ).change( function () {
       isMetadata();
+      /**
+       * set the value into export_name
+       */
+       var exportName = $("#export_name").val();
+       if (exportName.length == 0) {
+         $("#export_name").val($("#column_name").val());
+       }
     } );
+    $("#metadata_name").change(function() {
+      var exportName = $("#export_name").val();
+      if (exportName.length == 0 || exportName == "metadata") {
+        $("#export_name").val($("#metadata_name").val());
+      }
+    })
     /**
      * Activation at form load
      */
@@ -57,11 +70,11 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="exportName" class="control-label col-md-4"><span class="red">*</span>
+        <label for="export_name" class="control-label col-md-4"><span class="red">*</span>
           {t}Nom dans l'export :{/t}
         </label>
         <div class="col-md-8">
-          <input id="exportName" type="text" class="form-control" name="export_name" value="{$data.export_name}" required>
+          <input id="export_name" type="text" class="form-control" name="export_name" value="{$data.export_name}" required>
         </div>
       </div>
       <div class="form-group">
@@ -76,11 +89,11 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="order" class="control-label col-md-4"><span class="red">*</span>
+        <label for="column_order" class="control-label col-md-4"><span class="red">*</span>
           {t}Numéro d'ordre dans l'export :{/t}
         </label>
         <div class="col-md-8">
-          <input id="order" type="text" class="form-control number" name="order" value="{$data.order}" required>
+          <input id="column_order" type="number" class="form-control number" name="column_order" value="{$data.column_order}" required>
         </div>
       </div>
       <div class="form-group center">
@@ -92,32 +105,34 @@
     </form>
   </div>
 </div>
-<div class="col-lg-8 col-md-12">
-   <table id="datasetColumnList" class="table table-bordered table-hover datatable-nopaging " data-order='[[4,"asc"]]'>
-    <thead>
-      <tr>
-        <th>{t}Nom de la colonne{/t}</th>
-        <th class="lexical" data-lexical="metadata">{t}Nom de la variable si metadata{/t}</th>
-        <th>{t}Nom dans le fichier d'export{/t}</th>
-        <th class="lexical" data-lexical="translationTable">{t}Nom de la table de correspondance{/t}</th>
-        <th>{t}Ordre de tri dans le fichier d'export{/t}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {foreach $columns as $c}
-        <tr>
-          <td>
-            <a href="index.php?module=datasetColumnChange&dataset_column_id={$c.dataset_column_id}&dataset_template_id={$data.dataset_template_id}">
-              {$c.column_name}
-            </a>
-          </td>
-          <td>{$c.metadata_name}</td>
-          <td>{$c.export_name}</td>
-          <td>{$c.translator_name}</td>
-          <td>{$c.order}</td>
-        </tr>
-      {/foreach}
-    </tbody>
-  </table>
-</div>
 <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+<div class="row">
+  <div class="col-lg-8 col-md-12">
+    <table id="datasetColumnList" class="table table-bordered table-hover datatable-nopaging " data-order='[[4,"asc"]]'>
+      <thead>
+        <tr>
+          <th>{t}Nom de la colonne{/t}</th>
+          <th class="lexical" data-lexical="metadata">{t}Nom de la variable si metadata{/t}</th>
+          <th>{t}Nom dans le fichier d'export{/t}</th>
+          <th class="lexical" data-lexical="translationTable">{t}Nom de la table de correspondance{/t}</th>
+          <th>{t}Ordre de tri dans le fichier d'export{/t}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {foreach $columns as $c}
+          <tr>
+            <td>
+              <a href="index.php?module=datasetColumnChange&dataset_column_id={$c.dataset_column_id}&dataset_template_id={$data.dataset_template_id}">
+                {$c.column_name}
+              </a>
+            </td>
+            <td>{$c.metadata_name}</td>
+            <td>{$c.export_name}</td>
+            <td>{$c.translator_name}</td>
+            <td>{$c.column_order}</td>
+          </tr>
+        {/foreach}
+      </tbody>
+    </table>
+  </div>
+</div>

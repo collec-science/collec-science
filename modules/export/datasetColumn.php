@@ -4,7 +4,6 @@ $dataClass = new DatasetColumn($bdd, $ObjetBDDParam);
 $keyName = "dataset_column_id";
 $id = $_REQUEST[$keyName];
 $parentId = $_REQUEST["dataset_template_id"];
-
 switch ($t_module["param"]) {
   case "change":
     /*

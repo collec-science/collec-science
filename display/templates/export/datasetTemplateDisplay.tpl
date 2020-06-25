@@ -34,7 +34,7 @@
     </div>
     <fieldset>
       <legend>{t}Liste des informations exportées{/t}</legend>
-      <a href="index.php?module=datasetColumnChange&dataset_column_id={$c.dataset_column_id}&dataset_template_id={$data.dataset_template_id}">
+      <a href="index.php?module=datasetColumnChange&dataset_column_id=0&dataset_template_id={$data.dataset_template_id}">
         <img src="display/images/new.png" height="25">
         {t}Nouvelle colonne{/t}
       </a>

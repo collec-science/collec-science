@@ -17,7 +17,7 @@ class DatasetColumn extends ObjetBDD
       "column_name" => array("requis" => 1),
       "export_name" => array("requis" => 1),
       "metadata_name" => array("type" => 0),
-      "order"=>array("type"=>1, "defaultValue" => 1)
+      "order" => array("type" => 1, "defaultValue" => 1)
     );
     parent::__construct($bdd, $param);
   }
@@ -29,23 +29,26 @@ class DatasetColumn extends ObjetBDD
    * @param integer $parentValue
    * @return void
    */
-  function lire(int $id, $getDefault=true, int $parentValue = 0) {
+  function lire(int $id, $getDefault = true, int $parentValue = 0)
+  {
+    test($id);
     if ($id == 0) {
       $data = $this->getDefaultValue($parentValue);
       /**
        * Search for last order
        */
-      $sql = "select max(order) as order from dataset_column where dataset_template_id = :parent";
-      $max = $this->lireParamAsPrepared($sql, array ("parent"=>$parentValue));
-      if ($max["order"]> 1) {
-        $data["order"] = $max["order"] + 1;
+      $sql = "select count(*) as number from dataset_column where dataset_template_id = :parent";
+      $res = $this->lireParamAsPrepared($sql, array("parent" => $parentValue));
+      if (!$res["number"] > 0) {
+        $res["number"] = 1;
       }
+      $data["order"] = $res["number"] * 10;
+      printr($data);
+      return ($data);
     } else {
       return $this->lire($id);
     }
   }
   function getListFromParent($parentId, $order = "")
-  {
-    
-  }
+  { }
 }

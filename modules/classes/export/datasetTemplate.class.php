@@ -4,6 +4,7 @@ class DatasetTemplate extends ObjetBDD
   private $sql = "select dataset_template_id, dataset_template_name, export_format_id, dataset_type_id, 
                   only_last_document, separator,
                   dataset_type_name, export_format_name
+                  ,fields
                   from dataset_template
                   join dataset_type using (dataset_type_id)
                   join export_format using (export_format_id)";

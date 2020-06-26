@@ -25,13 +25,29 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record 
 		 */
-    dataRead($dataClass, $id, "export/translatorChange.tpl", $_REQUEST["idParent"]);
+    $data = dataRead($dataClass, $id, "export/translatorChange.tpl", $_REQUEST["idParent"]);
+    /**
+     * Generate an array from translator_data
+     */
+    $vue->set(json_decode($data["translator_data"], true), "items");
     break;
   case "write":
     /*
 		 * write record in database
 		 */
-    $id = dataWrite($dataClass, $_REQUEST);
+    /**
+     * Regenerate json data from items
+     */
+    $nb = count($_POST["name"]);
+    $items = array();
+    for ($i = 0; $i < $nb; $i++) {
+      if (strlen($_POST["name"][$i]) > 0) {
+        $items[][$_POST["name"][$i]] = htmlspecialchars_decode($_POST["value"][$i]);
+      }
+    }
+    $data = $_REQUEST;
+    $data["translator_data"] = json_encode($items);
+    $id = dataWrite($dataClass, $data);
     if ($id > 0) {
       $_REQUEST[$keyName] = $id;
     }

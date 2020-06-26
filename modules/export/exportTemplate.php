@@ -26,6 +26,9 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record 
 		 */
     dataRead($dataClass, $id, "export/exportTemplateChange.tpl", $_REQUEST["idParent"]);
+    include_once "modules/classes/export/datasetTemplate.class.php";
+    $dt = new DatasetTemplate($bdd, $ObjetBDDParam);
+    $vue->set($dt->getListe(2), "datasets");
     break;
   case "write":
     /*

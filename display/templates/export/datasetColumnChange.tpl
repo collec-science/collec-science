@@ -36,6 +36,10 @@
 <h2>{t}Modification des colonnes du modèle{/t} {$template.dataset_template_name}</h2>
 <div class="row">
   <div class="col-md-6">
+      <a href="index.php?module=datasetTemplateList">
+          <img src="display/images/list.png" height="25">
+          {t}Retour à la liste{/t}
+        </a>&nbsp;
     <a href="index.php?module=datasetTemplateDisplay&dataset_template_id={$data.dataset_template_id}">
       <img src="display/images/display.png" height="25">
       {t}Retour au modèle{/t}
@@ -83,7 +87,7 @@
           <select id="translator_id" name="translator_id" class="form-control">
             <option value="" {if $data.translator_id == ""} selected{/if}>{t}Choisissez...{/t}</option>
             {foreach $translators as $translator}
-              <option value="{$translator.translator_id}" {if $translator.translator_id==$data.translator_id} selected{/if}>{$tranlator.translator_name} </option>
+              <option value="{$translator.translator_id}" {if $translator.translator_id==$data.translator_id} selected{/if}>{$translator.translator_name} </option>
             {/foreach}
           </select>
         </div>

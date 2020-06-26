@@ -344,5 +344,9 @@
 	<datasetColumnChange action="modules/export/datasetColumn.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<datasetColumnWrite action="modules/export/datasetColumn.php" param="write" droits="param" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
 	<datasetColumnDelete action="modules/export/datasetColumn.php" param="delete" droits="param" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
+	<translatorList action="modules/export/translator.php" param="list" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<translatorChange action="modules/export/translator.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<translatorWrite action="modules/export/translator.php" param="write" droits="param" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
+	<translatorDelete action="modules/export/translator.php" param="delete" droits="param" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
 
 </navigation>

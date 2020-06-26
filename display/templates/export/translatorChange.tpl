@@ -45,15 +45,15 @@
         </thead>
         <tbody>
           {$nameid = 0}
-          {foreach $items as $name => $value}
+          {foreach $items as $item}
           <tr id="tr{$nameid}">
             <td>
-              <input class="name form-control" id="name{$nameid}" name="name[]" value="{$name}">
+              <input class="name form-control" id="name{$nameid}" name="name[]" value="{$item.name}">
             </td>
             <td>
-              <input class="value form-control" id="value{$nameId}" name="value[]" value="{$value}">
+              <input class="value form-control" id="value{$nameid}" name="value[]" value="{$item.value}">
             </td>
-            {$nameid ++}
+            {$nameid = $nameid + 1}
           </tr>
           {/foreach}
           <tr id="tr{$nameid}">

@@ -29,7 +29,14 @@ switch ($t_module["param"]) {
     /**
      * Generate an array from translator_data
      */
-    $vue->set(json_decode($data["translator_data"], true), "items");
+    $td = json_decode($data["translator_data"], true);
+    $items = array();
+    foreach ($td as $row) {
+      foreach ($row as $k => $v) {
+        $items[] = array("name" => $k, "value" => $v);
+      }
+    }
+    $vue->set($items, "items");
     break;
   case "write":
     /*

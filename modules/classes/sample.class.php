@@ -161,6 +161,41 @@ class Sample extends ObjetBDD
     }
 
     /**
+     * Transform the list of uids into a list of sample_id
+     *
+     * @param array $uids
+     * @param integer $collection_id
+     * @return array
+     */
+    public function getIdsFromUids($uids, int $collection_id = 0)
+    {
+        $sql = "select sample_id from sample where uid in (";
+        $ids = array();
+        $multiple = false;
+        $comma = "";
+        foreach ($uids as $uid) {
+            if (is_numeric($uid) && $uid > 0) {
+                $sql .= $comma . $uid;
+                if (!$multiple) {
+                    $comma = ",";
+                    $multiple = true;
+                }
+            }
+        }
+        if ($multiple) {
+            $sql .= ")";
+            if ($collection_id > 0 && is_numeric($collection_id)) {
+                $sql .= " and collection_id = $collection_id";
+            }
+            $data = $this->getListeParam($sql);
+            foreach ($data as $row) {
+                $ids[] = $row["sample_id"];
+            }
+        }
+        return $ids;
+    }
+
+    /**
      * Surcharge de la fonction ecrire pour verifier si l'echantillon est modifiable
      *
      * {@inheritdoc}

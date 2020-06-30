@@ -1,6 +1,7 @@
 <?php
 class Lot extends ObjetBDD
 {
+  public $sample;
   /**
    * Constructor
    *
@@ -16,5 +17,20 @@ class Lot extends ObjetBDD
       "lot_date" => array("type" => 3, "defaultValue" => "getDateHeure")
     );
     parent::__construct($bdd, $param);
+  }
+
+  function createLot($collection_id, $uids) {
+    if (count($uids) > 0) {
+      $id = $this->ecrire(array("collection_id"=>$collection_id));
+
+      if ($id > 0) {
+        if (! is_object($this->sample)) {
+          include_once "modules/classes/sample.class.php";
+          $this->sample = new Sample($this->connection, $this->paramori);
+        }
+        $samples = $this->sample->getIdsFromUids($uids, $collection_id);
+        $this->ecrireTableNN("lot_sample","lot_id", "sample_id", $id, $samples);
+      }
+    }
   }
 }

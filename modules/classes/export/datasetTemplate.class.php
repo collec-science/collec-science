@@ -59,7 +59,7 @@ class DatasetTemplate extends ObjetBDD
     }
     foreach ($data as $key => $row) {
       if (in_array($row["dataset_template_id"], $selected)) {
-        $data[$key]["dataset_template_id"] = $id;
+        $data[$key]["export_template_id"] = $id;
       }
     }
     return ($data);

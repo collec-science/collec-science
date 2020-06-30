@@ -1521,7 +1521,7 @@ class ObjetBDD
     function ecrireTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes)
     {
         if ($this->debug_mode == 2) {
-            echo "ecrireTableNN - table : $nomtable<br>";
+            echo "ecrireTableNN - table : $nomTable<br>";
             echo "cle1 : $nomCle1<br>";
             echo "cle2 : $nomCle2<br>";
             echo "id : $id<br>";

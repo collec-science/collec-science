@@ -9,10 +9,13 @@ class ExportTemplate extends ObjetBDD
    */
   function __construct(PDO $bdd, $param = array())
   {
-    $this->table = "";
+    $this->table = "export_template";
     $this->colonnes = array(
-      "" => array("type" => 1, "key" => 1, "requis" => 1, "defaultValue" => 0),
-      "" => array("type" => 0, "requis" => 1)
+      "export_template_id" => array("type" => 1, "key" => 1, "requis" => 1, "defaultValue" => 0),
+      "export_template_name" => array("type" => 0, "requis" => 1),
+      "export_template_description" => array("type" => 0),
+      "export_template_version" => array("type" => 0),
+      "is_zipped" => array("type"=>0)
     );
     parent::__construct($bdd, $param);
   }
@@ -30,10 +33,16 @@ class ExportTemplate extends ObjetBDD
      * Get the list of datasets
      */
     foreach ($data as $key => $row) {
-      $datasets = $this->getListDatasets($row["dataset_template_id"]);
+      $datasets = $this->getListDatasets($row["export_template_id"]);
       $ds = "";
+      $comma = "";
+      $is_comma = false;
       foreach ($datasets as $dataset) {
-        $ds .= $dataset["datset_template_name"] . " ";
+        $ds .= $comma. $dataset["dataset_template_name"] ;
+        if (!$is_comma) {
+          $comma = ", ";
+          $is_comma = true;
+        }
       }
       $data[$key]["datasets"] = $ds;
     }
@@ -53,5 +62,19 @@ class ExportTemplate extends ObjetBDD
             where export_template_id = :id
             order by dataset_template_name";
     return $this->getListeParamAsPrepared($sql, array("id" => $id));
+  }
+
+  /**
+   * Overload of ecrire to write the datasets attached to the template
+   *
+   * @param array $data
+   * @return int
+   */
+  function ecrire($data) {
+    $id = parent::ecrire($data);
+    if ($id > 0) {
+      $this->ecrireTableNN("export_dataset", "export_template_id", "dataset_template_id", $id, $data["dataset"]);
+    }
+    return $id;
   }
 }

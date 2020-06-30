@@ -28,19 +28,20 @@
       <div class="form-group">
         <label for="export_template_version"  class="control-label col-md-4">{t}Version :{/t}</label>
         <div class="col-md-8">
-          <input id="export_template_version" type="text" class="form-control" name="export_template_name" value="{$data.export_template_version}">
+          <input id="export_template_version" type="text" class="form-control" name="export_template_version" value="{$data.export_template_version}">
         </div>
       </div>
     </div>
-    <fieldset class="col-md-6">
+    <div class="col-md-6">
       <!-- list of datasets-->
       <legend>{t}Liste des datasets à générer{/t}</legend>
+      <div class="row  form-horizontal">
       {foreach $datasets as $dataset}
-        <div class="col-md-1">
-          <input class="form-control" type="checkbox" name="dataset[]" value="{$dataset.dataset_template_id}" {if $dataset.dataset_template_id > 0}selected{/if}>
-        </div>
-        <div class="col-md-6">{$dataset.dataset_template_name} ({$dataset.dataset_type_name})</div>
+        <div class="col-md-6">
+          <input class="  " type="checkbox" name="dataset[]" value="{$dataset.dataset_template_id}" {if $dataset.export_template_id > 0}checked{/if}>
+        {$dataset.dataset_template_name} ({$dataset.dataset_type_name})</div>
       {/foreach}
+      </div>
       </fieldset>
     </div>
     </div>

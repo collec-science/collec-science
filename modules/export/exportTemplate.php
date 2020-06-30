@@ -28,7 +28,7 @@ switch ($t_module["param"]) {
     dataRead($dataClass, $id, "export/exportTemplateChange.tpl", $_REQUEST["idParent"]);
     include_once "modules/classes/export/datasetTemplate.class.php";
     $dt = new DatasetTemplate($bdd, $ObjetBDDParam);
-    $vue->set($dt->getListe(2), "datasets");
+    $vue->set($dt->getListFromExportTemplate($id), "datasets");
     break;
   case "write":
     /*

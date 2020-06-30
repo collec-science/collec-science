@@ -339,7 +339,7 @@
 	<datasetTemplateList action="modules/export/datasetTemplate.php" param="list" droits="param" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<datasetTemplateDisplay action="modules/export/datasetTemplate.php" param="display" droits="param" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<datasetTemplateChange action="modules/export/datasetTemplate.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTemplateWrite action="modules/export/datasetTemplate.php" param="write" droits="param" moduleBefore="datasetTemplateChange" retourok="datasetTemplateList" retourko="datasetTemplateChange" />
+	<datasetTemplateWrite action="modules/export/datasetTemplate.php" param="write" droits="param" moduleBefore="datasetTemplateChange" retourok="datasetTemplateDisplay" retourko="datasetTemplateChange" />
 	<datasetTemplateDelete action="modules/export/datasetTemplate.php" param="delete" droits="param" moduleBefore="datasetTemplateChange" retourok="datasetTemplateList" retourko="datasetTemplateChange" />
 	<datasetColumnChange action="modules/export/datasetColumn.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<datasetColumnWrite action="modules/export/datasetColumn.php" param="write" droits="param" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
@@ -348,5 +348,8 @@
 	<translatorChange action="modules/export/translator.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<translatorWrite action="modules/export/translator.php" param="write" droits="param" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
 	<translatorDelete action="modules/export/translator.php" param="delete" droits="param" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
-
+	<exportTemplateList action="modules/export/exportTemplate.php" param="list" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<exportTemplateChange action="modules/export/exportTemplate.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<exportTemplateWrite action="modules/export/exportTemplate.php" param="write" droits="param" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
+	<exportTemplateDelete action="modules/export/exportTemplate.php" param="delete" droits="param" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
 </navigation>

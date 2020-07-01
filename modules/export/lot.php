@@ -12,8 +12,8 @@ switch ($t_module["param"]) {
     $collection_id = 0;
     if ($_GET["collection_id"] > 0) {
       $collection_id = $_GET["collection_id"];
-    } elseif ($_COOKIE["collectionid"] > 0) {
-      $collection_id = $_COOKIE["collectionid"];
+    } elseif ($_COOKIE["collectionId"] > 0) {
+      $collection_id = $_COOKIE["collectionId"];
     }
     if ($collection_id > 0) {
       $vue->set($dataClass->getLotsFromCollection($collection_id), "lots");
@@ -38,7 +38,7 @@ switch ($t_module["param"]) {
       if ($ok) {
         try {
           $bdd->beginTransaction();
-          $_POST["lot_id"]  = $dataClass->createLot($_POST["collection_id"], $_POST["uids"]);
+          $_REQUEST["lot_id"]  = $dataClass->createLot($_POST["collection_id"], $_POST["uids"]);
           $bdd->commit();
           $message->set(_("Lot créé"));
           $module_coderetour = 1;

@@ -10,14 +10,14 @@
     </dl>
     <dl class="dl-horizontal">
       <dt>{t}Date de création{/t}</dt>
-      <dd>{$data.lotdate}</dd>
+      <dd>{$data.lot_date}</dd>
     </dl>
     <dl class="dl-horizontal">
       <dt>{t}Nombre d'échantillons :{/t}</dt>
       <dd>{$data.sample_number}</dd>
     </dl>
     <div class="center">
-      <form id="lotForm" action="index.php" class="form-horizontal" method="POST">
+      <form id="lotForm" action="index.php"  method="POST">
         <input type="hidden" name="moduleBase" value="lot">
         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
         <input type="hidden" name="action" value="delete">
@@ -36,7 +36,7 @@
           <th class="center"><img src="display/images/edit.gif" height="25"></th>
           <th>{t}Date du dernier export{/t}</th>
           <th>{t}Type d'export{/t}</th>
-          <th class="center"><img src="display/images/exec.png" height="25"></th>
+          <th>{t}Générer l'export{/t}</th>
         </tr>
       </thead>
       <tbody>

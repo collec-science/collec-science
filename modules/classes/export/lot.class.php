@@ -28,6 +28,7 @@ class Lot extends ObjetBDD
 
   function createLot($collection_id, $uids)
   {
+    $id = 0;
     if (count($uids) > 0) {
       $id = $this->ecrire(array("collection_id" => $collection_id));
 
@@ -40,6 +41,7 @@ class Lot extends ObjetBDD
         $this->ecrireTableNN("lot_sample", "lot_id", "sample_id", $id, $samples);
       }
     }
+    return $id;
   }
 
   /**
@@ -85,7 +87,7 @@ class Lot extends ObjetBDD
    * @return array
    */
   function getLotsFromCollection ($collection_id) {
-    $where = " where lot_id = :id";
+    $where = " where collection_id = :id";
     return $this->getListeParamAsPrepared($this->sql . $where. $this->groupby, array("id" => $collection_id));
   }
 }

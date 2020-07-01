@@ -41,28 +41,29 @@ $(document).ready ( function() {
 </div>
 {if count($lots) > 0}
 <div class="row">
-<table class="table table-bordered table-hover datatable" data-order='[[1, "desc"]]'>
-  <thead>
-    <tr>
-      <th class="center"><img src="display/images/display.png" height="25"></th>
-      <th>{t}Date de création{/t}</th>
-      <th>{t}Nombre d'échantillons{/t}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {foreach $lots as $lot}
-    <tr>
-      <td class="center">
-        <a href="index.php?module=lotDisplay&lot_id={$lot.lot_id}">
-            <img src="display/images/display.png" height="25">
-        </a>
-      </td>
-      <td>{$lot.lot_date}</td>
-      <td>{$lot.sample_number}</td>
-    </tr>
-    {/foreach}
-  </tbody>
-
-</table>
+  <div class="col-md-6">
+    <table class="table table-bordered table-hover datatable" data-order='[[1, "desc"]]'>
+      <thead>
+        <tr>
+          <th class="center"><img src="display/images/display.png" height="25"></th>
+          <th>{t}Date de création{/t}</th>
+          <th>{t}Nombre d'échantillons{/t}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {foreach $lots as $lot}
+        <tr>
+          <td class="center">
+            <a href="index.php?module=lotDisplay&lot_id={$lot.lot_id}">
+                <img src="display/images/display.png" height="25">
+            </a>
+          </td>
+          <td>{$lot.lot_date}</td>
+          <td>{$lot.sample_number}</td>
+        </tr>
+        {/foreach}
+      </tbody>
+    </table>
+  </div>
 </div>
 {/if}

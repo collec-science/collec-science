@@ -24,6 +24,7 @@
 </item>
 
 <item module="default" label="Exports" tooltip="Gestion des exports vers des bases de données externes" droits="collection">
+	<item module="lotList" label="Lots d'export" tooltip="Liste des lots d'exportation des échantillons" droits="collection"/>
 	<item module="exportTemplateList" label="Modèles d'exports" tooltip="Liste des modèles d'exports" droits="param"/>
 	<item module="datasetTemplateList" label="Modèles de datasets" tooltip="Liste des modèles de datasets" droits="param"/>
 	<item module="translatorList" label="Traducteurs" tooltip="Liste des traducteurs de libellés" droits="param"/>

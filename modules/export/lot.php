@@ -29,8 +29,9 @@ switch ($t_module["param"]) {
       if ($ok) {
         try {
           $bdd->beginTransaction();
-          $lot_id = $dataClass->createLot($_POST["collection_id"], $_POST["uids"]);
+          $_POST["lot_id"]  = $dataClass->createLot($_POST["collection_id"], $_POST["uids"]);
           $bdd->commit();
+          $message->set(_("Lot créé"));
           $module_coderetour = 1;
         } catch (Exception $e) {
           $message->set(_("Une erreur est survenue pendant la création du lot"), true);
@@ -38,6 +39,9 @@ switch ($t_module["param"]) {
           $module_coderetour = -1;
           $bdd->rollback();
         }
+      } else {
+        $message->set(_("Vous ne disposez pas des droits suffisants pour créer le lot"), true);
+        $module_coderetour = -1;
       }
     } else {
       $message->set(_("Aucun échantillon n'a été sélectionné"), true);
@@ -50,7 +54,14 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-    dataRead($dataClass, $id, "export/lotChange.tpl", $_REQUEST["idParent"]);
+    $vue->set("export/lotDisplay.tpl", "corps");
+    $vue->set($dataClass->getDetail($id), "data");
+    /**
+     * Get the list of exports
+     */
+    require_once "modules/classes/export/export.class.php";
+    $export = new Export($bdd, $ObjetBDDParam);
+    $vue->set($export->getListFromLot($id), "exports");
     break;
   case "write":
     /*

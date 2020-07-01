@@ -1,6 +1,11 @@
 <?php
 class Export extends ObjetBDD
 {
+  private $sql = "select export_id, lot_id, export_date, export_template_id
+                  , export_template_name
+                  from export
+                  join lot using (lot_id)
+                  join export_template using (export_template_id)";
   /**
    * Constructor
    *
@@ -17,5 +22,15 @@ class Export extends ObjetBDD
       "export_template_id" => array("type" => 1, "requis" => 1)
     );
     parent::__construct($bdd, $param);
+  }
+/**
+ * Get the list of exports attached to a lot
+ *
+ * @param integer $lot_id
+ * @return array
+ */
+  function getListFromLot($lot_id) {
+    $where = " where lot_id = :id";
+    return $this->getListeParamAsPrepared($this->sql.$where, array("id"=>$lot_id));
   }
 }

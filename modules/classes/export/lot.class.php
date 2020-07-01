@@ -2,6 +2,13 @@
 class Lot extends ObjetBDD
 {
   public $sample, $export;
+
+  private $sql = "select lot_id, collection_id, lot_date, collection_name
+                  , count(*) as sample_number
+                  from lot
+                  join lot_sample using (lot_id)
+                  join collection using (collection_id)";
+  private $groupby = " group by lot_id, collection_id, lot_date, collection_name";
   /**
    * Constructor
    *
@@ -57,5 +64,28 @@ class Lot extends ObjetBDD
     $sql = "delete from lot_sample where lot_id = :lot_id";
     $this->executeAsPrepared($sql, array("lot_id" => $lot_id));
     return parent::supprimer($lot_id);
+  }
+
+  /**
+   * Get the detail of a lot
+   *
+   * @param integer $lot_id
+   * @return array
+   */
+  function getDetail($lot_id)
+  {
+    $where = " where lot_id = :id";
+    return $this->lireParamAsPrepared($this->sql . $where. $this->groupby, array("id" => $lot_id));
+  }
+
+  /**
+   * Get all lots from a collection
+   *
+   * @param integer $collection_id
+   * @return array
+   */
+  function getLotsFromCollection ($collection_id) {
+    $where = " where lot_id = :id";
+    return $this->getListeParamAsPrepared($this->sql . $where. $this->groupby, array("id" => $collection_id));
   }
 }

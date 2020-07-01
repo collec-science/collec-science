@@ -9,7 +9,16 @@ switch ($t_module["param"]) {
     /*
 		 * Display the list of all records of the table
 		 */
-    $vue->set($dataClass->getListe(2), "data");
+    $collection_id = 0;
+    if ($_GET["collection_id"] > 0) {
+      $collection_id = $_GET["collection_id"];
+    } elseif ($_COOKIE["collectionid"] > 0) {
+      $collection_id = $_COOKIE["collectionid"];
+    }
+    if ($collection_id > 0) {
+      $vue->set($dataClass->getLotsFromCollection($collection_id), "lots");
+    }
+    $vue->set($_SESSION["collections"], "collections");
     $vue->set("export/lotList.tpl", "corps");
     break;
   case "create":

@@ -3,7 +3,9 @@ $(document).ready ( function() {
   var collectionId = 0;
   try {
 			collectionId = Cookies.get("collectionId");
-      $("#collection_id").val(collectionId);
+      if (collectionId) {
+         $("#collection_id").val(collectionId);
+      }
 		} catch {
 		}
 
@@ -23,9 +25,10 @@ $(document).ready ( function() {
         <div class="form-group">
           <label for="collection_id" class= "col-sm-3 control-label">{t}Collection :{/t}</label>
           <div class="col-sm-3">
-            <select id="collection" class="form-control">
+            <select id="collection_id" class="form-control">
               {foreach $collections as $collection}
                 <option value="{$collection.collection_id}">{$collection.collection_name}</option>
+              {/foreach}
             </select>
           </div>
         </div>
@@ -57,6 +60,7 @@ $(document).ready ( function() {
       <td>{$lot.lot_date}</td>
       <td>{$lot.sample_number}</td>
     </tr>
+    {/foreach}
   </tbody>
 
 </table>

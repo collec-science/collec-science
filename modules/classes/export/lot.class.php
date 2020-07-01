@@ -1,7 +1,7 @@
 <?php
 class Lot extends ObjetBDD
 {
-  public $sample;
+  public $sample, $export;
   /**
    * Constructor
    *
@@ -19,18 +19,43 @@ class Lot extends ObjetBDD
     parent::__construct($bdd, $param);
   }
 
-  function createLot($collection_id, $uids) {
+  function createLot($collection_id, $uids)
+  {
     if (count($uids) > 0) {
-      $id = $this->ecrire(array("collection_id"=>$collection_id));
+      $id = $this->ecrire(array("collection_id" => $collection_id));
 
       if ($id > 0) {
-        if (! is_object($this->sample)) {
+        if (!is_object($this->sample)) {
           include_once "modules/classes/sample.class.php";
           $this->sample = new Sample($this->connection, $this->paramori);
         }
         $samples = $this->sample->getIdsFromUids($uids, $collection_id);
-        $this->ecrireTableNN("lot_sample","lot_id", "sample_id", $id, $samples);
+        $this->ecrireTableNN("lot_sample", "lot_id", "sample_id", $id, $samples);
       }
     }
+  }
+
+  /**
+   * Overload of supprimer to delete all informations attached
+   *
+   * @param int $lot_id
+   * @return void
+   */
+  function supprimer($lot_id)
+  {
+    if (!is_object($this->export)) {
+      include_once "modules/classes/export/export.class.php";
+      $this->export = new Export($this->connection, $this->paramori);
+    }
+    /**
+     * Delete attached exports
+     */
+    $this->export->supprimerChamp($lot_id, "lot_id");
+    /**
+     * Delete samples reference
+     */
+    $sql = "delete from lot_sample where lot_id = :lot_id";
+    $this->executeAsPrepared($sql, array("lot_id" => $lot_id));
+    return parent::supprimer($lot_id);
   }
 }

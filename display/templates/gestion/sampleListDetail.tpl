@@ -462,12 +462,16 @@
 			{t}Pour les éléments cochés :{/t}
 			<input type="hidden" name="lastModule" value="{$lastModule}">
 			<input type="hidden" name="uid" value="{$data.uid}">
+			<input type="hidden" name="collection_id" value="{$sampleSearch.collection_id}">
 			<select id="checkedActionSample" class="form-control">
 				<option value="" selected>{t}Choisissez{/t}</option>
 				<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
 				<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
 				<option value="samplesLending">{t}Prêter les échantillons{/t}</option>
 				<option value="samplesExit">{t}Sortir les échantillons{/t}</option>
+				{if $sampleSearch.collection_id > 0}
+				<option value="lotCreate">{t}Créer un lot d'export{/t}</option>
+				{/if}
 				<option value="samplesEntry">{t}Entrer ou déplacer les échantillons au même emplacement{/t}</option>
 				<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 				<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>

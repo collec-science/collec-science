@@ -352,4 +352,9 @@
 	<exportTemplateChange action="modules/export/exportTemplate.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<exportTemplateWrite action="modules/export/exportTemplate.php" param="write" droits="param" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
 	<exportTemplateDelete action="modules/export/exportTemplate.php" param="delete" droits="param" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
+	<lotList action="modules/export/lot.php" param="list" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<lotCreate action="modules/export/lot.php" param="create" droits="collection" maxCountByHour="60" maxCountByDay="600" retourok="lotDisplay" retourko="sampleList" modulebefore="sampleList"/>
+	<lotDisplay action="modules/export/lot.php" param="display" droits="collection" maxCountByHour="60" maxCountByDay="600" type="smarty"/>
+	<lotWrite action="modules/export/lot.php" param="write" droits="collection" moduleBefore="lotChange" retourok="lotList" retourko="lotChange" />
+	<lotDelete action="modules/export/lot.php" param="delete" droits="collection" moduleBefore="lotChange" retourok="lotList" retourko="lotDisplay" />
 </navigation>

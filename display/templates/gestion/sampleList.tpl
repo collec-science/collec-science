@@ -18,7 +18,7 @@ $(document).ready(function() {
 			Cookies.set("sampleResultTab", $(this).attr("id"), { secure: true});
 		});
 });
-</script>>
+</script>
 
 
 <h3>{t}Échantillons{/t}</h3>

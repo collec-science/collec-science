@@ -108,6 +108,14 @@
         </div>
       </div>
       <div class="form-group">
+          <label for="default_value" class="control-label col-md-4">
+            {t}Valeur par défaut, si aucune n'est renseignée :{/t}
+          </label>
+          <div class="col-md-8">
+            <input id="default_value" type="text" class="form-control" name="default_value" value="{$data.default_value}" >
+          </div>
+        </div>
+      <div class="form-group">
         <label for="column_order" class="control-label col-md-4"><span class="red">*</span>
           {t}Numéro d'ordre dans l'export :{/t}
         </label>

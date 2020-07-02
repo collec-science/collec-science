@@ -357,4 +357,7 @@
 	<lotDisplay action="modules/export/lot.php" param="display" droits="collection" maxCountByHour="60" maxCountByDay="600" type="smarty"/>
 	<lotWrite action="modules/export/lot.php" param="write" droits="collection" moduleBefore="lotChange" retourok="lotList" retourko="lotChange" />
 	<lotDelete action="modules/export/lot.php" param="delete" droits="collection" moduleBefore="lotChange" retourok="lotList" retourko="lotDisplay" />
+	<exportChange action="modules/export/export.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<exportWrite action="modules/export/export.php" param="write" droits="collection" moduleBefore="exportChange" retourok="lotDisplay" retourko="exportChange" />
+	<exportDelete action="modules/export/export.php" param="delete" droits="collection" moduleBefore="exportChange" retourok="lotDisplay" retourko="exportChange" />
 </navigation>

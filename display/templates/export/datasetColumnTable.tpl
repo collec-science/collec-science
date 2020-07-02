@@ -23,7 +23,7 @@
         <td>{$c.translator_name}</td>
         <td class="center">{if $c.mandatory == 1}{t}oui{/t}{/if}</td>
         <td>{$c.default_value}</td>
-        <td>{$c.column_order}</td>
+        <td class="center">{$c.column_order}</td>
       </tr>
     {/foreach}
   </tbody>

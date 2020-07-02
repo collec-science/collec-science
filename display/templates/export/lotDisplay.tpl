@@ -49,7 +49,7 @@
             </td>
             <td>{$export.export_date}</td>
             <td>{$export.export_template_name}</td>
-            <td>
+            <td class="center">
               <a href="index.php?module=exportExec&export_id={$export.export_id}&lot_id={$export.lot_id}">
                   <img src="display/images/exec.png" height="25">
               </a>

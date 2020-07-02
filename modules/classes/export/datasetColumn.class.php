@@ -2,7 +2,7 @@
 class DatasetColumn extends ObjetBDD
 {
   private $sql = "select dataset_column_id, dataset_template_id, translator_id,
-                  column_name, export_name, metadata_name, column_order,
+                  column_name, export_name, metadata_name, column_order, mandatory,
                   translator_name
                   from dataset_column
                   left outer join translator using (translator_id)";
@@ -22,7 +22,8 @@ class DatasetColumn extends ObjetBDD
       "column_name" => array("requis" => 1),
       "export_name" => array("requis" => 1),
       "metadata_name" => array("type" => 0),
-      "column_order" => array("type" => 1, "defaultValue" => 1)
+      "column_order" => array("type" => 1, "defaultValue" => 1),
+      "mandatory" => array("type"=>1, "defaultValue"=>0)
     );
     parent::__construct($bdd, $param);
   }

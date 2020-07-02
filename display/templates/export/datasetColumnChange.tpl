@@ -93,6 +93,21 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="mandatory"  class="control-label col-md-4">{t}Contenu obligatoire pour l'export ?{/t}</label>
+        <div class="col-md-8" id="mandatory">
+          <div class="radio">
+            <label>
+              <input type="radio" name="mandatory" id="mandatory0" value="0" {if $data.mandatory != 1}checked{/if}>{t}non{/t}
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+                <input type="radio" name="mandatory" id="mandatory1" value="1" {if $data.mandatory == 1}checked{/if}>{t}oui{/t}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
         <label for="column_order" class="control-label col-md-4"><span class="red">*</span>
           {t}Numéro d'ordre dans l'export :{/t}
         </label>
@@ -112,31 +127,6 @@
 <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
 <div class="row">
   <div class="col-lg-8 col-md-12">
-    <table id="datasetColumnList" class="table table-bordered table-hover datatable-nopaging " data-order='[[4,"asc"]]'>
-      <thead>
-        <tr>
-          <th>{t}Nom de la colonne{/t}</th>
-          <th class="lexical" data-lexical="metadata">{t}Nom de la variable si metadata{/t}</th>
-          <th>{t}Nom dans le fichier d'export{/t}</th>
-          <th class="lexical" data-lexical="translationTable">{t}Nom de la table de correspondance{/t}</th>
-          <th>{t}Ordre de tri dans le fichier d'export{/t}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {foreach $columns as $c}
-          <tr>
-            <td>
-              <a href="index.php?module=datasetColumnChange&dataset_column_id={$c.dataset_column_id}&dataset_template_id={$data.dataset_template_id}">
-                {$c.column_name}
-              </a>
-            </td>
-            <td>{$c.metadata_name}</td>
-            <td>{$c.export_name}</td>
-            <td>{$c.translator_name}</td>
-            <td>{$c.column_order}</td>
-          </tr>
-        {/foreach}
-      </tbody>
-    </table>
+    {include file="export/datasetColumnTable.tpl"}
   </div>
 </div>

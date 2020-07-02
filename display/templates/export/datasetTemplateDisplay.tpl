@@ -22,6 +22,10 @@
             <dd>{$data.dataset_type_name}</dd>
           </dl>
           <dl class="dl-horizontal">
+            <dt>{t}Nom du fichier généré :{/t}</dt>
+            <dd>{$data.filename}</dd>
+          </dl>
+          <dl class="dl-horizontal">
             <dt>{t}Séparateur (fichiers csv) :{/t}</dt>
             <dd>{$data.separator}</dd>
           </dl>

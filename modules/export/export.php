@@ -34,4 +34,7 @@ switch ($t_module["param"]) {
 		 */
     dataDelete($dataClass, $id);
     break;
+  case "exec":
+
+    break;
 }

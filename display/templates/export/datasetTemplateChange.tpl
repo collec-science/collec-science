@@ -40,6 +40,12 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="filename"  class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier généré :{/t}</label>
+        <div class="col-md-8">
+          <input id="filename" type="text" class="form-control" name="filename" value="{$data.filename}" required>
+        </div>
+      </div>
+      <div class="form-group">
         <label for="only_last_document"  class="control-label col-md-4">{t}Uniquement le document le plus récent (type document) :{/t}</label>
         <div class="col-md-8" id="only_last_document">
           <div class="radio">

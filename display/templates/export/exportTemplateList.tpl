@@ -12,6 +12,7 @@
         <th>{t}Description{/t}</th>
         <th>{t}Version du modèle{/t}</th>
         <th>{t}Fichier compressé ?{/t}</th>
+        <th>{t}Nom du fichier généré{/t}</th>
         <th>{t}Liste des datasets{/t}</th>
       </tr>
     </thead>
@@ -26,6 +27,7 @@
         <td class="textareaDisplay">{$row.export_template_description}</td>
         <td>{$row.export_template_version}</td>
         <td class="center">{if $row.is_zipped == 1}{t}oui{/t}{/if}</td>
+        <td>{$row.filename}</td>
         <td class="textareaDisplay">{$row.datasets}</td>
       </tr>
       {/foreach}

@@ -31,6 +31,12 @@
           <input id="export_template_version" type="text" class="form-control" name="export_template_version" value="{$data.export_template_version}">
         </div>
       </div>
+      <div class="form-group">
+          <label for="filename"  class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier généré :{/t}</label>
+          <div class="col-md-8">
+            <input id="filename" type="text" class="form-control" name="filename" value="{$data.filename}" required>
+          </div>
+        </div>
     </div>
     <div class="col-md-6">
       <!-- list of datasets-->

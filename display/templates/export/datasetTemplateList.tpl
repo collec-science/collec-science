@@ -14,6 +14,7 @@
         <th>{t}Nom{/t}</th>
         <th>{t}Type{/t}</th>
         <th>{t}Format d'export{/t}</th>
+        <th>{t}Nom du fichier généré{/t}</th>
         <th>{t}Uniquement le document le plus récent ?{/t}</th>
         <th>{t}Séparateur (fichiers CSV){/t}</th>
       </tr>
@@ -34,6 +35,7 @@
         </td>
         <td>{$row.dataset_type_name}</td>
         <td>{$row.export_format_name}</td>
+        <td>{$row.filename}</td>
         <td class="center">{if $row.only_last_document == 1}{t}oui{/t}{/if}</td>
         <td class="center">{$row.separator}</td>
       </tr>

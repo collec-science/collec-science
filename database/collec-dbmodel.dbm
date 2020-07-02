@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,339" last-zoom="0.75" max-obj-count="68"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,337" last-zoom="0.75" max-obj-count="68"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -2449,9 +2449,9 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 	<column name="export_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="export_date" not-null="true" default-value="current_timestamp">
+	<column name="export_date">
 		<type name="timestamp" length="0"/>
-		<comment><![CDATA[Date of creation of the export]]></comment>
+		<comment><![CDATA[Date of last execution of the export]]></comment>
 	</column>
 	<constraint name="export_pk" type="pk-constr" table="col.export">
 		<columns names="export_id" ref-type="src-columns"/>
@@ -2476,7 +2476,7 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="export_template" layer="0" collapse-mode="2" max-obj-count="6">
+<table name="export_template" layer="0" collapse-mode="2" max-obj-count="7">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of models of export]]></comment>
@@ -2501,6 +2501,10 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 		<type name="boolean" length="0"/>
 		<comment><![CDATA[Specify if the generated files must be zipped]]></comment>
 	</column>
+	<column name="filename" not-null="true" default-value="'cs-export.csv'">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Name of the file generated]]></comment>
+	</column>
 	<constraint name="export_model1_pk" type="pk-constr" table="col.export_template">
 		<columns names="export_template_id" ref-type="src-columns"/>
 	</constraint>
@@ -2516,7 +2520,7 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="dataset_template" layer="0" collapse-mode="2" max-obj-count="7">
+<table name="dataset_template" layer="0" collapse-mode="2" max-obj-count="8">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of templates of dataset]]></comment>
@@ -2536,6 +2540,10 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 	<column name="separator">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[Separator used in csv files (tab , ;)]]></comment>
+	</column>
+	<column name="filename" not-null="true" default-value="'cs-export.csv'">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[File name generated, with extension]]></comment>
 	</column>
 	<constraint name="dataset_template_pk" type="pk-constr" table="col.dataset_template">
 		<columns names="dataset_template_id" ref-type="src-columns"/>
@@ -2617,7 +2625,7 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="dataset_column" layer="0" collapse-mode="2" max-obj-count="9">
+<table name="dataset_column" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of columns included into the dataset]]></comment>
@@ -2645,6 +2653,10 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 	<column name="mandatory" default-value="'f'">
 		<type name="boolean" length="0"/>
 		<comment><![CDATA[Is the content of the column is mandatory to export data?]]></comment>
+	</column>
+	<column name="default_value">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Default value, if the value is not filled in]]></comment>
 	</column>
 	<constraint name="dataset_column_pk" type="pk-constr" table="col.dataset_column">
 		<columns names="dataset_column_id" ref-type="src-columns"/>

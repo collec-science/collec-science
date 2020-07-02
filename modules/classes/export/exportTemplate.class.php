@@ -15,7 +15,8 @@ class ExportTemplate extends ObjetBDD
       "export_template_name" => array("type" => 0, "requis" => 1),
       "export_template_description" => array("type" => 0),
       "export_template_version" => array("type" => 0),
-      "is_zipped" => array("type"=>0)
+      "is_zipped" => array("type"=>0),
+      "filename" => array("type"=>0, "requis"=>1, "defaultValue"=>"cs-export.csv")
     );
     parent::__construct($bdd, $param);
   }

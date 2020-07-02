@@ -96,9 +96,9 @@ if (!isset($_SESSION['CREATED'])) {
  */
 $cookieParam = session_get_cookie_params();
 $cookieParam["lifetime"] = $APPLI_session_ttl;
-if (!$APPLI_modeDeveloppement) {
+//if (!$APPLI_modeDeveloppement) {
     $cookieParam["secure"] = true;
-}
+//}
 $cookieParam["httponly"] = true;
 setcookie(
     session_name(),

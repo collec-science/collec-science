@@ -9,6 +9,8 @@ class Lot extends ObjetBDD
                   join lot_sample using (lot_id)
                   join collection using (collection_id)";
   private $groupby = " group by lot_id, collection_id, lot_date, collection_name";
+  public $st_uids;
+  private $current_lotid = 0;
   /**
    * Constructor
    *
@@ -77,7 +79,7 @@ class Lot extends ObjetBDD
   function getDetail($lot_id)
   {
     $where = " where lot_id = :id";
-    return $this->lireParamAsPrepared($this->sql . $where. $this->groupby, array("id" => $lot_id));
+    return $this->lireParamAsPrepared($this->sql . $where . $this->groupby, array("id" => $lot_id));
   }
 
   /**
@@ -86,8 +88,30 @@ class Lot extends ObjetBDD
    * @param integer $collection_id
    * @return array
    */
-  function getLotsFromCollection ($collection_id) {
+  function getLotsFromCollection($collection_id)
+  {
     $where = " where collection_id = :id";
-    return $this->getListeParamAsPrepared($this->sql . $where. $this->groupby, array("id" => $collection_id));
+    return $this->getListeParamAsPrepared($this->sql . $where . $this->groupby, array("id" => $collection_id));
+  }
+  /**
+   * Generate a list of uids separed by a comma
+   *
+   * @param integer $lot_id
+   * @return string
+   */
+  function getUidsAsString(int $lot_id): string
+  {
+    if ($lot_id != $this->current_lotid) {
+      $sql = "select uid from lot_sample join sample using (sample_id) where lot_id = :id";
+      $data = $this->getListeParamAsPrepared($sql, array("id" => $lot_id));
+      $comma = "";
+      $this->st_uids = "";
+      foreach ($data as $row) {
+        $this->st_uids .= $comma . $row["uid"];
+        $comma = ",";
+      }
+      $this->current_lotid = $lot_id;
+    }
+    return $this->st_uids;
   }
 }

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,337" last-zoom="0.75" max-obj-count="68"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,334" last-zoom="0.75" max-obj-count="68"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -2520,7 +2520,7 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="dataset_template" layer="0" collapse-mode="2" max-obj-count="8">
+<table name="dataset_template" layer="0" collapse-mode="2" max-obj-count="10">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of templates of dataset]]></comment>
@@ -2544,6 +2544,14 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 	<column name="filename" not-null="true" default-value="'cs-export.csv'">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[File name generated, with extension]]></comment>
+	</column>
+	<column name="xmlroot" default-value="'<?xml version="1.0"?><samples></samples>'">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[xml root to generate]]></comment>
+	</column>
+	<column name="xmlnodename" default-value="'sample'">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Name of a node in a xml file, for list of samples by example]]></comment>
 	</column>
 	<constraint name="dataset_template_pk" type="pk-constr" table="col.dataset_template">
 		<columns names="dataset_template_id" ref-type="src-columns"/>

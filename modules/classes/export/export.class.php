@@ -44,6 +44,7 @@ class Export extends ObjetBDD
 
   function generate($export_id)
   {
+    global $APPLI_temp;
     $dexport = $this->lire($export_id);
     /**
      * Get the list of dataset templates
@@ -73,6 +74,13 @@ class Export extends ObjetBDD
       include_once $this->classPathExport . "datasetColumn.class.php";
       $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
     }
+    /**
+     * $files: list of generated files. Array with these fields
+     * filetmp: name of temporary file in the system
+     * filename: name of the file to send
+     * filetype: type of the file (CSV, JSON, XML)
+     */
+    $files = array();
     foreach ($datasets as $dataset) {
       $ddataset = $this->datasetTemplate->getDetail($dataset["dataset_template_id"]);
       $data = array(); // Contains all data to export, with transformation
@@ -123,9 +131,63 @@ class Export extends ObjetBDD
       /**
        * Generate the file
        */
+      $filetmp = tempnam($APPLI_temp, $ddataset["export_format_name"]);
+      $handle = fopen($filetmp, 'w');
+      switch ($ddataset["export_format_name"]) {
+        case "CSV":
+          $delimiter = $ddataset["separator"];
+          if ($delimiter == "tab") {
+            $delimiter = "\t";
+          }
+          /** first line, header */
+          fputcsv($handle, array_keys($this->data[0]), $delimiter);
+          foreach ($this->data as $value) {
+            fputcsv($handle, $value, $delimiter);
+          }
+          break;
+        case "JSON":
+          fwrite($handle, json_encode($data));
+          break;
+        case "XML":
+          $xml = new SimpleXMLElement($ddataset["xmlroot"]);
+          to_xml($xml, $data, $ddataset["xmlnodename"]);
+          $xml::asXML($filetmp);
+          break;
+        default:
+          throw new ExportException(_("Impossible de générer le fichier, le type est inconnu ou non spécifié"));
+      }
+      fclose($handle);
+      $files[] = array("filetmp" => $filetmp, "filename" => $ddataset["filename"], "filetype" => $ddataset["export_format_name"]);
     }
     /**
      * If zipped, generate the zip file
      */
+  }
+
+  /**
+   * Generate a xml content
+   *
+   * @param SimpleXMLElement $object
+   * @param array $data
+   * @param string $nodename: name of the node for each row
+   * @return void
+   */
+  function to_xml(SimpleXMLElement $object, array $data, $nodename = "sample")
+  {
+    foreach ($data as $key => $value) {
+      if (is_array($value)) {
+        $new_object = $object->addChild($key);
+        to_xml($new_object, $value, $nodename);
+      } else {
+        /**
+         * Transform each row to a $nodename object
+         */
+        if ($key == (int) $key) {
+          $key = $nodename;
+        }
+
+        $object->addChild($key, $value);
+      }
+    }
   }
 }

@@ -33,6 +33,17 @@
             <dt>{t}Récupération du document le plus récent ?{/t}</dt>
             <dd>{if $data.only_last_document == 1}{t}oui{/t}{else}{t}non{/t}{/if}</dd>
           </dl>
+          <fieldset>
+            <legend>{t}Fichiers XML{/t}</legend>
+            <dl class="dl-horizontal">
+              <dt>{t}Entête du fichier{/t}</dt>
+              <dd>{$data.xmlroot}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+              <dt>{t}Nom des nœuds de chaque item{/t}</dt>
+              <dd>{$data.xmlnodename}</dd>
+            </dl>
+          </fieldset>
       </div>
       </fieldset>
     </div>

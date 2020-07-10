@@ -71,6 +71,18 @@
           </select>
         </div>
       </div>
+      <div class="form-group">
+        <label for="xmlroot"  class="control-label col-md-4"> {t}Entête du fichier XML :{/t}</label>
+        <div class="col-md-8">
+          <input id="xmlroot" type="text" class="form-control" name="xmlroot" value="{$data.xmlroot}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="xmlnodename"  class="control-label col-md-4"> {t}Nom du nœud XML pour les lignes traitées :{/t}</label>
+        <div class="col-md-8">
+          <input id="xmlnodename" type="text" class="form-control" name="xmlnodename" value="{$data.xmlnodename}">
+        </div>
+      </div>
       <div class="form-group center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.dataset_template_id > 0 }

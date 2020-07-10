@@ -2545,7 +2545,7 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[File name generated, with extension]]></comment>
 	</column>
-	<column name="xmlroot" default-value="'<?xml version="1.0"?><samples></samples>'">
+	<column name="xmlroot">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[xml root to generate]]></comment>
 	</column>
@@ -2633,7 +2633,7 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="dataset_column" layer="0" collapse-mode="2" max-obj-count="10">
+<table name="dataset_column" layer="0" collapse-mode="2" max-obj-count="12">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of columns included into the dataset]]></comment>
@@ -2665,6 +2665,10 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 	<column name="default_value">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[Default value, if the value is not filled in]]></comment>
+	</column>
+	<column name="date_format">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Export date format, in php notation. Example: d/m/Y H:i:s for 25/12/2020 17:15:00]]></comment>
 	</column>
 	<constraint name="dataset_column_pk" type="pk-constr" table="col.dataset_column">
 		<columns names="dataset_column_id" ref-type="src-columns"/>

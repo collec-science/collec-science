@@ -7,6 +7,7 @@
       <th class="lexical" data-lexical="translationTable">{t}Nom de la table de correspondance{/t}</th>
       <th>{t}Contenu obligatoire ?{/t}</th>
       <th>{t}Valeur par défaut{/t}</th>
+      <th>{t}Format de date{/t}</th>
       <th>{t}Ordre de tri dans le fichier d'export{/t}</th>
     </tr>
   </thead>
@@ -23,6 +24,7 @@
         <td>{$c.translator_name}</td>
         <td class="center">{if $c.mandatory == 1}{t}oui{/t}{/if}</td>
         <td>{$c.default_value}</td>
+        <td>{$c.date_format}</td>
         <td class="center">{$c.column_order}</td>
       </tr>
     {/foreach}

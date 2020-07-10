@@ -4,6 +4,7 @@ class DatasetTemplate extends ObjetBDD
   private $sql = "select dataset_template_id, dataset_template_name, export_format_id, dataset_type_id, 
                   only_last_document, separator,
                   dataset_type_name, export_format_name, filename
+                  ,xmlroot, xmlnodename
                   ,fields";
   private $from = " from dataset_template
                   join dataset_type using (dataset_type_id)
@@ -24,7 +25,9 @@ class DatasetTemplate extends ObjetBDD
       "dataset_type_id" => array("type" => 1, "requis" => 1),
       "only_last_document" => array("type" => 0, "defaultValue" => "0"),
       "separator" => array("type" => 0, "defaultValue" => ";"),
-      "filename"=>array("type"=>0, "requis"=>1, "defaultValue"=>"cs-export.csv")
+      "filename"=>array("type"=>0, "requis"=>1, "defaultValue"=>"cs-export.csv"),
+      "xmlroot"=>array("type"=>0, "defaultValue"=>'<?xml version="1.0"?><samples></samples>'),
+      "xmlnodename"=>array("type"=>0, "defaultValue"=>"sample")
     );
     parent::__construct($bdd, $param);
   }

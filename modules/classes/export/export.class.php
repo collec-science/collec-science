@@ -95,6 +95,7 @@ class Export extends ObjetBDD
             include_once $this->classPath . "sample.class.php";
             $this->sample = new Sample($this->connection, $this->paramori);
           }
+          $this->sample->auto_date = 0;
           $dbdata = $this->sample->getListFromUids($uids);
           break;
         case 2:
@@ -120,6 +121,9 @@ class Export extends ObjetBDD
           $value = $dbrow[$colname];
           if ($col["translator_id"] > 0) {
             $value = $col["translations"][$value];
+          }
+          if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {
+            $value = date_format(date_create($value), $col["date_format"]);
           }
           if ($col["mandatory"] == 1 && strlen($value) == 0) {
             throw new ExportException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $colname, $dbrow["uid"]));

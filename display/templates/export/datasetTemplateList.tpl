@@ -17,6 +17,8 @@
         <th>{t}Nom du fichier généré{/t}</th>
         <th>{t}Uniquement le document le plus récent ?{/t}</th>
         <th>{t}Séparateur (fichiers CSV){/t}</th>
+        <th>{t}Entête XML{/t}</th>
+        <th>{t}Nom des nœuds XML{/t}</th>
       </tr>
     </thead>
     <tbody>
@@ -38,6 +40,8 @@
         <td>{$row.filename}</td>
         <td class="center">{if $row.only_last_document == 1}{t}oui{/t}{/if}</td>
         <td class="center">{$row.separator}</td>
+        <td>{$row.xmlroot}</td>
+        <td>{$row.xmlnodename}</td>
       </tr>
       {/foreach}
     </tbody>

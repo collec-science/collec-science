@@ -108,13 +108,21 @@
         </div>
       </div>
       <div class="form-group">
-          <label for="default_value" class="control-label col-md-4">
-            {t}Valeur par défaut, si aucune n'est renseignée :{/t}
-          </label>
-          <div class="col-md-8">
-            <input id="default_value" type="text" class="form-control" name="default_value" value="{$data.default_value}" >
-          </div>
+        <label for="default_value" class="control-label col-md-4">
+          {t}Valeur par défaut, si aucune n'est renseignée :{/t}
+        </label>
+        <div class="col-md-8">
+          <input id="default_value" type="text" class="form-control" name="default_value" value="{$data.default_value}" >
         </div>
+      </div>
+      <div class="form-group">
+        <label for="date_format" class="control-label col-md-4">
+          {t}Formatage de la date (format PHP). Exemple : d/m/Y H:i:s{/t}
+        </label>
+        <div class="col-md-8">
+          <input id="date_format" type="text" class="form-control" name="date_format" value="{$data.date_format}" >
+        </div>
+      </div>
       <div class="form-group">
         <label for="column_order" class="control-label col-md-4"><span class="red">*</span>
           {t}Numéro d'ordre dans l'export :{/t}

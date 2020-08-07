@@ -44,30 +44,32 @@ switch ($t_module["param"]) {
     if ($dlot["collection_id"] > 0) {
       if (collectionVerify($dlot["collection_id"])) {
         try {
-        $files = $dataClass->generate($id);
-        /* Warning: only one file must be generated */
-        if (file_exists($files[0]["filetmp"])) {
-        /**
-         * Get the contentType
-         */
-        include_once "modules/classes/document.class.php";
-        $mimeType = new MimeType($bdd);
-        $dmime = $mimeType->getTypeMime($files[0]["filetype"]);
-        if ($dmime["mime_type_id"] > 0) {
-          $param = array(
-            "filename"=>$files[0]["filename"],
-            "tmp_name"=>$files[0]["filetmp"],
-            "content_type"=>$dmime["content_type"]
-          );
-          $vue->setParam($param);
-        } else {
-          throw new ExportException(sprintf(_("Le type mime pour l'extension %s n'a pas été décrit dans la base de données"), $files[0]["filetype"]));
-        }
-        } else {
-          $message->set(_("Une erreur indéterminée s'est produite lors de la génération du fichier"), true);
-          $module_coderetour = -1;
-        }
-
+          $files = $dataClass->generate($id);
+          /* Warning: only one file must be generated */
+          if (file_exists($files[0]["filetmp"])) {
+            /**
+             * Get the contentType
+             */
+            include_once "modules/classes/document.class.php";
+            $mimeType = new MimeType($bdd, $ObjetBDDParam);
+            $type_mime_id = $mimeType->getTypeMime($files[0]["filetype"]);
+            if ($type_mime_id > 0) {
+              $dmime = $mimeType->lire($type_mime_id);
+              $param = array(
+                "filename" => $files[0]["filename"],
+                "tmp_name" => $files[0]["filetmp"],
+                "content_type" => $dmime["content_type"]
+              );
+              $vue->setParam($param);
+              /* Debug */
+              //$module_coderetour = -1;
+            } else {
+              throw new ExportException(sprintf(_("Le type mime pour l'extension %s n'a pas été décrit dans la base de données"), $files[0]["filetype"]));
+            }
+          } else {
+            $message->set(_("Une erreur indéterminée s'est produite lors de la génération du fichier"), true);
+            $module_coderetour = -1;
+          }
         } catch (ExportException $e) {
           $message->set($e->getMessage, true);
           $module_coderetour = -1;
@@ -80,6 +82,6 @@ switch ($t_module["param"]) {
       $message->set(_("Le lot indiqué n'existe pas"), true);
       $module_coderetour = -1;
     }
-    
+
     break;
 }

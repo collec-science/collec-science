@@ -124,9 +124,19 @@ class Export extends ObjetBDD
          * Treatment of each column
          */
         foreach ($columns as $colname => $col) {
+          if (strlen($col["metadata_name"])>0) {
+            $md = json_decode($dbrow[$colname], true);
+            $value = $md[$col["metadata_name"]];
+          } else {
           $value = $dbrow[$colname];
+          }
           if ($col["translator_id"] > 0) {
-            $value = $col["translations"][$value];
+            if (strlen($col["translations"][$value])>0) {
+              $value = $col["translations"][$value];
+            }
+          }
+          if (strlen($col["default_value"]) > 0 && strlen($value) == 0) {
+            $value = $col["default_value"];
           }
           if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {
             $value = date_format(date_create($value), $col["date_format"]);
@@ -150,8 +160,8 @@ class Export extends ObjetBDD
             $delimiter = "\t";
           }
           /** first line, header */
-          fputcsv($handle, array_keys($this->data[0]), $delimiter);
-          foreach ($this->data as $value) {
+          fputcsv($handle, array_keys($data[0]), $delimiter);
+          foreach ($data as $value) {
             fputcsv($handle, $value, $delimiter);
           }
           break;
@@ -178,10 +188,15 @@ class Export extends ObjetBDD
       if( $zip->open($zipname, ZipArchive::CREATE) === true)
        {
         foreach ($files as $file) {
-          $zip->addFile($file["filetmp"], $dtemplate["filename"]);
-          unlink ($file["filetmp"]);
+          $zip->addFile($file["filetmp"], $file["filename"]);
         }
         $zip->close();
+        /**
+         * Destroy the temporary files
+         */
+        foreach ($files as $file) {
+          unlink ($file["filetmp"]);
+        }
         /**
          * reinit the array $files
          */

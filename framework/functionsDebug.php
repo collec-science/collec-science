@@ -35,24 +35,25 @@ function test($content = "")
  * @param integer $level
  * @return void
  */
-function printA($arr, $level = 0)
+function printA($arr, $level = 0, $exclude = array())
 {
   $childLevel = $level + 1;
   $nl = getLineFeed();
+
   if (is_array($arr)) {
     foreach ($arr as $key => $var) {
-      if (!in_array($key, array("g_module", "navigation"))) {
+      if (!in_array($key, $exclude)) {
         if (is_object($var)) {
           $var = (array) $var;
           $key .= " (object)";
         }
-        for ($i = 0; $i < $level * 3; $i++) {
-          echo " ";
+        for ($i = 0; $i < $level * 4; $i++) {
+          echo "&nbsp;";
         }
         echo $key . ": ";
         if (is_array($var)) {
           echo $nl;
-          printA($var, $childLevel);
+          printA($var, $childLevel, $exclude);
         } else {
           print_r($var);
           echo $nl;

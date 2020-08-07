@@ -39,6 +39,11 @@ $(document).ready ( function() {
     </form>
   </div>
 </div>
+<div class="row ">
+  <div class="col-md-6 bg-info">
+    {t}Les lots doivent être créés depuis le module de recherche des échantillons.{/t}
+  </div>
+</div>
 {if count($lots) > 0}
 <div class="row">
   <div class="col-md-6">

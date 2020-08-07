@@ -42,7 +42,13 @@ class Export extends ObjetBDD
     return $this->getListeParamAsPrepared($this->sql . $where, array("id" => $lot_id));
   }
 
-  function generate($export_id)
+  /**
+   * create an export
+   *
+   * @param integer $export_id
+   * @return array: list of generated files (only one row)
+   */
+  function generate(int $export_id) :array
   {
     global $APPLI_temp;
     $dexport = $this->lire($export_id);
@@ -166,6 +172,26 @@ class Export extends ObjetBDD
     /**
      * If zipped, generate the zip file
      */
+    if ($dtemplate["is_zipped"] == 1 || count($files)> 1) {
+      $zip = new ZipArchive;
+      $zipname = tempnam($APPLI_temp, $dtemplate["filename"]);
+      if( $zip->open($zipname, ZipArchive::CREATE) === true)
+       {
+        foreach ($files as $file) {
+          $zip->addFile($file["filetmp"], $dtemplate["filename"]);
+          unlink ($file["filetmp"]);
+        }
+        $zip->close();
+        /**
+         * reinit the array $files
+         */
+        $files = array();
+        $files[] = array("filetmp"=>$zipname, "filename"=>$dtemplate["filename"], "filetype"=>"zip");
+      } else {
+        throw new ExportException (_("Impossible de créer le fichier zip"));
+      }
+    }
+    return $files;
   }
 
   /**

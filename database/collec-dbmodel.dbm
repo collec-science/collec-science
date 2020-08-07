@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,334" last-zoom="0.75" max-obj-count="68"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,330" last-zoom="0.75" max-obj-count="68"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -716,7 +716,8 @@ docx•application/vnd.openxmlformats-officedocument.wordprocessingml.document�
 ab1•application/octet-stream⸣
 seq•application/octet-stream⸣
 fa•application/octet-stream⸣
-fsa•application/octet-stream]]>
+fsa•application/octet-stream⸣
+xml•application/xml]]>
 	</initial-data>
 </table>
 

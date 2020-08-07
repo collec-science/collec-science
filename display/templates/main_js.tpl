@@ -190,7 +190,9 @@
 				'pageLength',
 				'copyHtml5',
 				'excelHtml5',
-				'csvHtml5',
+				{ extend: 'csvHtml5',
+					filename: 'export_'+ new Date().toISOString()
+				},
 				/* {
 					 extend: 'pdfHtml5',
 					 orientation: 'landscape'
@@ -224,6 +226,9 @@
 			$( ".date" ).datepicker( $.datepicker.regional[ '{$LANG["date"]["locale"]}' ] );
 			$( ".datepicker" ).datepicker( $.datepicker.regional[ '{$LANG["date"]["locale"]}' ] );
 			$.datepicker.setDefaults( $.datepicker.regional[ '{$LANG["date"]["locale"]}' ] );
+			$(".timepicker").timepicker({
+				timeFormat: 'HH:mm:ss'
+			});
 			$( '.timepicker' ).attr( 'pattern', '[0-9][0-9]\:[0-9][0-9]\:[0-9][0-9]' );
 			$.timepicker.setDefaults( $.timepicker.regional[ '{$LANG["date"]["locale"]}' ] );
 			$( '.datetimepicker' ).datetimepicker( {

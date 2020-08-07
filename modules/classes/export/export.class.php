@@ -11,7 +11,7 @@ class Export extends ObjetBDD
                   join export_template using (export_template_id)";
   public $classPath = "modules/classes/";
   public $classPathExport = "modules/classes/export/";
-  public $sample, $lot, $exportTemplate, $datasetTemplate, $datasetColumn;
+  public $sample, $lot, $exportTemplate, $datasetTemplate, $datasetColumn, $collection;
 
   /**
    * Constructor
@@ -108,6 +108,12 @@ class Export extends ObjetBDD
           /**
            * Collection
            */
+          if (!is_object($this->collection)) {
+            include_once $this->classPath."collection.class.php";
+            $this->collection = new Collection($this->connection, $this->paramori);
+          }
+          $this->collection->auto_date = 0;
+          $dbdata = $this->collection->getCollectionFromUids($uids);
           break;
         case 3:
           /**

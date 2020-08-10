@@ -11,7 +11,7 @@ class DatasetTemplate extends ObjetBDD
                   join export_format using (export_format_id)";
   public $classPath = "modules/classes/";
   public $classPathExport = "modules/classes/export/";
-  public $datasetColumn, $sample, $collection;
+  public $datasetColumn, $sample, $collection, $document;
   private $content, $currentId;
   /**
    * Constructor
@@ -106,6 +106,7 @@ class DatasetTemplate extends ObjetBDD
       $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
     }
     $columns = $this->datasetColumn->getListColumns($ddataset["dataset_template_id"]);
+    $webmodule = "";
     switch ($ddataset["dataset_type_id"]) {
       case 1:
         /**
@@ -133,6 +134,12 @@ class DatasetTemplate extends ObjetBDD
         /**
          * Documents
          */
+        $webmodule = "documentGetSW";
+        if (!is_object($this->document)) {
+          include_once $this->classPath . "document.class.php";
+          $this->document = new Document($this->connection, $this->paramori);
+          $dbdata = $this->document->getDocumentsFromUid($uids, $ddataset["only_last_document"]);
+        }
         break;
     }
     /**
@@ -160,6 +167,12 @@ class DatasetTemplate extends ObjetBDD
         }
         if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {
           $value = date_format(date_create($value), $col["date_format"]);
+        }
+        if ($colname == "web_address") {
+          /**
+           * Create a link to download the content of the record
+           */
+          $value = "https://" . $_SERVER["HTTP_HOST"] . "/index.php?module=" . $webmodule . "&uuid=" . $dbrow["uuid"];
         }
         if ($col["mandatory"] == 1 && strlen($value) == 0) {
           throw new ExportException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $colname, $dbrow["uid"]));

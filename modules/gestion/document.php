@@ -94,4 +94,77 @@ switch ($t_module["param"]) {
 			$module_coderetour = -1;
 		}
 		break;
+	case "getSW":
+		/**
+		 * Get the document from a web service or direct request
+		 */
+		$errors = array(
+			500 => "Internal Server Error",
+			401 => "Unauthorized",
+			520 => "Unknown error",
+			404 => "Not Found"
+		);
+		try {
+			if (strlen($_REQUEST["uid"]) == 0 && strlen($_REQUEST["uuid"]) == 0) {
+				throw new DocumentException("Identifier not provided", 404);
+			}
+			strlen($_REQUEST["uid"] == 0)  ? $uuid = $_REQUEST["uuid"] : $uuid = $_REQUEST["uid"];
+			$data = $dataClass->getDetailFromUuid($uuid);
+			if (count($data) == 0) {
+				throw new SampleException("$uuid not found", 404);
+			}
+			/**
+			 * Search for collection
+			 */
+			if (isset($_SESSION["login"])) {
+				$collectionOk = false;
+				foreach ($_SESSION["collections"] as $value) {
+					if ($data["collection_id"] == $value["collection_id"]) {
+						$collectionOk = true;
+						break;
+					}
+				}
+				if (!$collectionOk) {
+					throw new DocumentException("Not sufficient rights for $uuid", 401);
+				}
+			} else {
+				/**
+				 * Verify if the collection is public
+				 */
+				require_once "modules/classes/collection.class.php";
+				$collection = new Collection($bdd, $ObjetBDDParam);
+				$dcollection = $collection->lire($data["collection_id"]);
+				if (!$dcollection["public_collection"]) {
+					throw new DocumentException("Not a public collection for $uuid", 401);
+				}
+			}
+			/**
+			 * Get the content of the document
+			 */
+			$handle = $dataClass->getDocument($data["document_id"]);
+			isset($_REQUEST["mode"]) ? $mode = $_REQUEST["mode"] : $mode = "inline";
+			$vue->setParam(
+				array(
+					"filename" => $data["document_name"],
+					"tmp_name" => $handle,
+					"content_type" => $data["content_type"],
+					"disposition" => $mode
+				)
+			);
+		} catch (Exception $e) {
+			$error_code = $e->getCode();
+			if ($error_code == 0) {
+				$error_code = 520;
+			}
+			$data = array(
+				"error_code" => $error_code,
+				"error_message" => $e->getMessage()
+			);
+			$module_coderetour = -1;
+			$message->setSyslog($e->getMessage());
+		}
+		break;
+		case "getSWerror":
+		$vue->set($data);
+		break;
 }

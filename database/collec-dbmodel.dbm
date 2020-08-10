@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,329" last-zoom="0.75" max-obj-count="68"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,326" last-zoom="0.75" max-obj-count="68"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -347,7 +347,7 @@ Congélateur•2]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="document" layer="0" collapse-mode="2" max-obj-count="13">
+<table name="document" layer="0" collapse-mode="2" max-obj-count="14">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Numeric docs associated to an objet or a campaign]]></comment>
@@ -389,6 +389,9 @@ Congélateur•2]]>
 	<column name="document_creation_date">
 		<type name="timestamp" length="0"/>
 		<comment><![CDATA[Create date of the document (date of photo shooting, for example)]]></comment>
+	</column>
+	<column name="uuid" not-null="true" default-value="gen_random_uuid()">
+		<type name="uuid" length="0"/>
 	</column>
 	<constraint name="document_pk" type="pk-constr" table="col.document">
 		<columns names="document_id" ref-type="src-columns"/>

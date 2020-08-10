@@ -11,7 +11,7 @@ class Export extends ObjetBDD
                   join export_template using (export_template_id)";
   public $classPath = "modules/classes/";
   public $classPathExport = "modules/classes/export/";
-  public $sample, $lot, $exportTemplate, $datasetTemplate, $datasetColumn, $collection;
+  public $lot, $exportTemplate, $datasetTemplate;
 
   /**
    * Constructor
@@ -76,10 +76,7 @@ class Export extends ObjetBDD
       include_once $this->classPathExport . "datasetTemplate.class.php";
       $this->datasetTemplate = new DatasetTemplate($this->connection, $this->paramori);
     }
-    if (!is_object($this->datasetColumn)) {
-      include_once $this->classPathExport . "datasetColumn.class.php";
-      $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
-    }
+
     /**
      * $files: list of generated files. Array with these fields
      * filetmp: name of temporary file in the system
@@ -88,72 +85,8 @@ class Export extends ObjetBDD
      */
     $files = array();
     foreach ($datasets as $dataset) {
+      $data = $this->datasetTemplate->generateData($dataset["dataset_template_id"], $uids);
       $ddataset = $this->datasetTemplate->getDetail($dataset["dataset_template_id"]);
-      $data = array(); // Contains all data to export, with transformation
-      $dbdata = array(); // Data extracted from database before transformation
-      $columns = $this->datasetColumn->getListColumns($ddataset["dataset_template_id"]);
-      switch ($ddataset["dataset_type_id"]) {
-        case 1:
-          /**
-           * Samples
-           */
-          if (!is_object($this->sample)) {
-            include_once $this->classPath . "sample.class.php";
-            $this->sample = new Sample($this->connection, $this->paramori);
-          }
-          $this->sample->auto_date = 0;
-          $dbdata = $this->sample->getListFromUids($uids);
-          break;
-        case 2:
-          /**
-           * Collection
-           */
-          if (!is_object($this->collection)) {
-            include_once $this->classPath . "collection.class.php";
-            $this->collection = new Collection($this->connection, $this->paramori);
-          }
-          $this->collection->auto_date = 0;
-          $dbdata = $this->collection->getCollectionFromUids($uids);
-          break;
-        case 3:
-          /**
-           * Documents
-           */
-          break;
-      }
-      /**
-       * Treatment of each row
-       */
-      foreach ($dbdata as $dbrow) {
-        $row = array();
-        /**
-         * Treatment of each column
-         */
-        foreach ($columns as $colname => $col) {
-          if (strlen($col["metadata_name"]) > 0) {
-            $md = json_decode($dbrow[$colname], true);
-            $value = $md[$col["metadata_name"]];
-          } else {
-            $value = $dbrow[$colname];
-          }
-          if ($col["translator_id"] > 0) {
-            if (strlen($col["translations"][$value]) > 0) {
-              $value = $col["translations"][$value];
-            }
-          }
-          if (strlen($col["default_value"]) > 0 && strlen($value) == 0) {
-            $value = $col["default_value"];
-          }
-          if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {
-            $value = date_format(date_create($value), $col["date_format"]);
-          }
-          if ($col["mandatory"] == 1 && strlen($value) == 0) {
-            throw new ExportException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $colname, $dbrow["uid"]));
-          }
-          $row[$col["export_name"]] = $value;
-        }
-        $data[] = $row;
-      }
       /**
        * Generate the file
        */
@@ -177,7 +110,6 @@ class Export extends ObjetBDD
         case "XML":
           $xml = new SimpleXMLElement($ddataset["xmlroot"]);
           if ($ddataset["dataset_type_id"] == 2) {
-            //$xmlcollection = $xml->addChild($ddataset["xmlnodename"]);
             foreach ($data[0] as $k => $v) {
               $xml->addChild($k, $v);
             }

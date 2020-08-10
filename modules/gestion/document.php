@@ -148,7 +148,9 @@ switch ($t_module["param"]) {
 					"filename" => $data["document_name"],
 					"tmp_name" => $handle,
 					"content_type" => $data["content_type"],
-					"disposition" => $mode
+					"disposition" => $mode,
+					"is_reference" => true,
+					"handle" => $handle
 				)
 			);
 		} catch (Exception $e) {
@@ -164,7 +166,7 @@ switch ($t_module["param"]) {
 			$message->setSyslog($e->getMessage());
 		}
 		break;
-		case "getSWerror":
+	case "getSWerror":
 		$vue->set($data);
 		break;
 }

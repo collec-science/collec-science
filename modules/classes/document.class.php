@@ -617,7 +617,7 @@ class Document extends ObjetBDD
  */
   function getDetailFromUuid(string $uuid): ?array
   {
-    $sql = "SELECT document_id, d.uuid, content_type, size, collection_id
+    $sql = "SELECT document_id, d.uuid, content_type, size, collection_id, document_name
             from document d
             join mime_type using (mime_type_id)
             left outer join sample using (uid)

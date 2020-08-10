@@ -114,4 +114,20 @@ class Lot extends ObjetBDD
     }
     return $this->st_uids;
   }
+/**
+ * Get the list of samples attached to a lot
+ *
+ * @param integer $lot_id
+ * @return array|null
+ */
+  function getSamples(int $lot_id): ?array
+  {
+    $sql = "SELECT uid, identifier, sample_type_name
+            FROM lot_sample
+            JOIN sample using (sample_id)
+            join object using (uid)
+            JOIN sample_type using (sample_type_id)
+            where lot_id = :lot_id";
+    return $this->getListeParamAsPrepared($sql, array("lot_id" => $lot_id));
+  }
 }

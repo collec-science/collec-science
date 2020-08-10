@@ -71,6 +71,10 @@ switch ($t_module["param"]) {
     require_once "modules/classes/export/export.class.php";
     $export = new Export($bdd, $ObjetBDDParam);
     $vue->set($export->getListFromLot($id), "exports");
+    /**
+     * Get the list of samples
+     */
+    $vue->set($dataClass->getSamples($id), "samples");
     break;
   case "write":
     /*

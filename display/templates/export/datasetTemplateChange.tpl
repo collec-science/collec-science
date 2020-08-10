@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="xmlnodename"  class="control-label col-md-4"> {t}Nom du nœud XML pour les lignes traitées :{/t}</label>
+        <label for="xmlnodename"  class="control-label col-md-4"> {t}Nom du nœud XML pour les lignes traitées (non utilisé pour la description de la collection) :{/t}</label>
         <div class="col-md-8">
           <input id="xmlnodename" type="text" class="form-control" name="xmlnodename" value="{$data.xmlnodename}">
         </div>

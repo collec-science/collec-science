@@ -529,7 +529,6 @@ class Document extends ObjetBDD
                             /*
                              * Desactivation de la gestion de l'exception
                              */
-                            //TODO : voir l'impact d'une gestion propre de l'exception
                         }
                     } else {
                         /*

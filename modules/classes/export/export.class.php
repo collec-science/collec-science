@@ -48,7 +48,7 @@ class Export extends ObjetBDD
    * @param integer $export_id
    * @return array: list of generated files (only one row)
    */
-  function generate(int $export_id) :array
+  function generate(int $export_id): array
   {
     global $APPLI_temp;
     $dexport = $this->lire($export_id);
@@ -109,7 +109,7 @@ class Export extends ObjetBDD
            * Collection
            */
           if (!is_object($this->collection)) {
-            include_once $this->classPath."collection.class.php";
+            include_once $this->classPath . "collection.class.php";
             $this->collection = new Collection($this->connection, $this->paramori);
           }
           $this->collection->auto_date = 0;
@@ -130,14 +130,14 @@ class Export extends ObjetBDD
          * Treatment of each column
          */
         foreach ($columns as $colname => $col) {
-          if (strlen($col["metadata_name"])>0) {
+          if (strlen($col["metadata_name"]) > 0) {
             $md = json_decode($dbrow[$colname], true);
             $value = $md[$col["metadata_name"]];
           } else {
-          $value = $dbrow[$colname];
+            $value = $dbrow[$colname];
           }
           if ($col["translator_id"] > 0) {
-            if (strlen($col["translations"][$value])>0) {
+            if (strlen($col["translations"][$value]) > 0) {
               $value = $col["translations"][$value];
             }
           }
@@ -176,8 +176,15 @@ class Export extends ObjetBDD
           break;
         case "XML":
           $xml = new SimpleXMLElement($ddataset["xmlroot"]);
-          to_xml($xml, $data, $ddataset["xmlnodename"]);
-          $xml::asXML($filetmp);
+          if ($ddataset["dataset_type_id"] == 2) {
+            //$xmlcollection = $xml->addChild($ddataset["xmlnodename"]);
+            foreach ($data[0] as $k => $v) {
+              $xml->addChild($k, $v);
+            }
+          } else {
+            $this->to_xml($xml, $data, $ddataset["xmlnodename"]);
+          }
+          $xml->asXML($filetmp);
           break;
         default:
           throw new ExportException(_("Impossible de générer le fichier, le type est inconnu ou non spécifié"));
@@ -188,11 +195,10 @@ class Export extends ObjetBDD
     /**
      * If zipped, generate the zip file
      */
-    if ($dtemplate["is_zipped"] == 1 || count($files)> 1) {
+    if ($dtemplate["is_zipped"] == 1 || count($files) > 1) {
       $zip = new ZipArchive;
       $zipname = tempnam($APPLI_temp, $dtemplate["filename"]);
-      if( $zip->open($zipname, ZipArchive::CREATE) === true)
-       {
+      if ($zip->open($zipname, ZipArchive::CREATE) === true) {
         foreach ($files as $file) {
           $zip->addFile($file["filetmp"], $file["filename"]);
         }
@@ -201,15 +207,15 @@ class Export extends ObjetBDD
          * Destroy the temporary files
          */
         foreach ($files as $file) {
-          unlink ($file["filetmp"]);
+          unlink($file["filetmp"]);
         }
         /**
          * reinit the array $files
          */
         $files = array();
-        $files[] = array("filetmp"=>$zipname, "filename"=>$dtemplate["filename"], "filetype"=>"zip");
+        $files[] = array("filetmp" => $zipname, "filename" => $dtemplate["filename"], "filetype" => "zip");
       } else {
-        throw new ExportException (_("Impossible de créer le fichier zip"));
+        throw new ExportException(_("Impossible de créer le fichier zip"));
       }
     }
     return $files;
@@ -223,21 +229,20 @@ class Export extends ObjetBDD
    * @param string $nodename: name of the node for each row
    * @return void
    */
-  function to_xml(SimpleXMLElement $object, array $data, $nodename = "sample")
+  function to_xml(SimpleXMLElement $xml, array $data, $nodename = "")
   {
     foreach ($data as $key => $value) {
+      /**
+       * Transform each row to a $nodename object
+       */
+      if (is_numeric($key)) {
+        $key = $nodename;
+      }
       if (is_array($value)) {
-        $new_object = $object->addChild($key);
-        to_xml($new_object, $value, $nodename);
+        $new = $xml->addchild($nodename);
+        $this->to_xml($new, $value, $nodename);
       } else {
-        /**
-         * Transform each row to a $nodename object
-         */
-        if ($key == (int) $key) {
-          $key = $nodename;
-        }
-
-        $object->addChild($key, $value);
+        $xml->addChild($key, $value);
       }
     }
   }

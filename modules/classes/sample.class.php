@@ -29,23 +29,23 @@ class Sample extends ObjetBDD
                     so.change_date, so.uuid, so.trashed, so.location_accuracy, so.object_comment,
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
           voip.identifiers as parent_identifiers,
-					container_type_name, clp_classification,
+					ct.container_type_name, ct.clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
 					metadata_schema,
 					document_id, voi.identifiers,
 					movement_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,
-                    lm.line_number, lm.column_number,
-                    container_uid, oc.identifier as container_identifier,
-                    case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name,
-                    case when ro.referent_name is not null then ro.referent_email else cr.referent_email end as referent_email,
-                    case when ro.referent_name is not null then ro.address_name else cr.address_name end as address_name,
-                    case when ro.referent_name is not null then ro.address_line2 else cr.address_line2 end as address_line2,
-                    case when ro.referent_name is not null then ro.address_line3 else cr.address_line3 end as address_line3,
-                    case when ro.referent_name is not null then ro.address_city else cr.address_city end as address_city,
-                    case when ro.referent_name is not null then ro.address_country else cr.address_country end as address_country,
-                    case when ro.referent_name is not null then ro.referent_phone else cr.referent_phone end as referent_phone,
-                    borrowing_date, expected_return_date, borrower_id, borrower_name
+          lm.line_number, lm.column_number,
+          container_uid, oc.identifier as container_identifier, oc.uuid as container_uuid, lmct.container_type_name as storage_type_name,
+          case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name,
+          case when ro.referent_name is not null then ro.referent_email else cr.referent_email end as referent_email,
+          case when ro.referent_name is not null then ro.address_name else cr.address_name end as address_name,
+          case when ro.referent_name is not null then ro.address_line2 else cr.address_line2 end as address_line2,
+          case when ro.referent_name is not null then ro.address_line3 else cr.address_line3 end as address_line3,
+          case when ro.referent_name is not null then ro.address_city else cr.address_city end as address_city,
+          case when ro.referent_name is not null then ro.address_country else cr.address_country end as address_country,
+          case when ro.referent_name is not null then ro.referent_phone else cr.referent_phone end as referent_phone,
+          borrowing_date, expected_return_date, borrower_id, borrower_name
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join collection p on (p.collection_id = s.collection_id)
@@ -62,15 +62,17 @@ class Sample extends ObjetBDD
           left outer join v_object_identifier voi on  (s.uid = voi.uid)
           left outer join v_object_identifier voip on (pso.uid = voip.uid)
 					left outer join last_movement lm on (s.uid = lm.uid)
-                    left outer join object oc on (container_uid = oc.uid)
+          left outer join object oc on (container_uid = oc.uid)
+          left outer join container lmc on (oc.uid = lmc.uid)
+          left outer join container_type lmct on (lmc.container_type_id = lmct.container_type_id)
 					left outer join movement_type using (movement_type_id)
-                    left outer join metadata using (metadata_id)
-                    left outer join referent ro on (so.referent_id = ro.referent_id)
-                    left outer join referent cr on (p.referent_id = cr.referent_id)
-                    left outer join last_borrowing lb on (so.uid = lb.uid)
-                    left outer join borrower using (borrower_id)
-                    left outer join campaign on (s.campaign_id = campaign.campaign_id)
-                    ";
+          left outer join metadata using (metadata_id)
+          left outer join referent ro on (so.referent_id = ro.referent_id)
+          left outer join referent cr on (p.referent_id = cr.referent_id)
+          left outer join last_borrowing lb on (so.uid = lb.uid)
+          left outer join borrower using (borrower_id)
+          left outer join campaign on (s.campaign_id = campaign.campaign_id)
+          ";
   private $object, $container, $event, $objectIdentifier;
 
   public function __construct($bdd, $param = array())

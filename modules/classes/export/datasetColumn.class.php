@@ -89,7 +89,7 @@ class DatasetColumn extends ObjetBDD
   function getListColumns($dataset_template_id)
   {
     $data = array();
-    $where = " where dataset_template_id = :id";
+    $where = " where dataset_template_id = :id order by column_order, column_name";
     $dbdata = $this->getListeParamAsPrepared($this->sqlTranslator . $where, array("id" => $dataset_template_id));
     foreach ($dbdata as $row) {
       /**

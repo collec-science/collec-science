@@ -160,9 +160,10 @@
 								if (d.dbuid_origin) {
 									content += "<br>{t}DB et UID d'origine :{/t} " + encodeHtml(d.dbuid_origin);
 								}
-								if (d.identifiers.length > 0) {
-									d.identifiers.forEach( function (dc) {
-										content += "<br>" + encodeHtml(dc.identifier_type_code)+ ":" + encodeHtml(dc.object_identifier_value);
+								if (d.identifiers) {
+									d.identifiers.split(",").forEach( function (dc) {
+										//content += "<br>" + encodeHtml(dc.identifier_type_code)+ ":" + encodeHtml(dc.object_identifier_value);
+										content += "<br>" + encodeHtml(dc);
 									});
 								}
 								content += "<br>{t}Collection :{/t} "+ encodeHtml(d.collection_name);

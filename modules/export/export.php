@@ -41,6 +41,7 @@ switch ($t_module["param"]) {
     /**
      * Get the record of the lot
      */
+    // todo: ajouter l'export des containers associés à un échantillon
     include_once "modules/classes/export/lot.class.php";
     $lot = new Lot($bdd, $ObjetBDDParam);
     $dlot = $lot->lire($_REQUEST["lot_id"]);

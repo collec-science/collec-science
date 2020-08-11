@@ -32,6 +32,21 @@
         </div>
       </div>
       <div class="form-group">
+          <label for="is_zipped"  class="control-label col-md-4">{t}Fichier compressé (si un seul fichier généré) ?{/t}</label>
+          <div class="col-md-8" id="is_zipped">
+            <div class="radio">
+              <label>
+                <input type="radio" name="is_zipped" id="is_zipped0" value="0" {if $data.is_zipped != 1}checked{/if}>{t}non{/t}
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                  <input type="radio" name="is_zipped" id="is_zipped1" value="1" {if $data.is_zipped == 1}checked{/if}>{t}oui{/t}
+              </label>
+            </div>
+          </div>
+        </div>
+      <div class="form-group">
           <label for="filename"  class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier généré :{/t}</label>
           <div class="col-md-8">
             <input id="filename" type="text" class="form-control" name="filename" value="{$data.filename}" required>

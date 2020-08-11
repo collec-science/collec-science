@@ -991,7 +991,7 @@ class Sample extends ObjetBDD
    * @param boolean $withContainers
    * @return array
    */
-  function getRawDetail($uid, $withContainers = false, $withIdentifiers = true, $withEvents = false)
+  function getRawDetail($uid, $withContainers = false, $withEvents = false)
   {
     $this->auto_date = 0;
     if (strlen($uid) == 36) {
@@ -1022,16 +1022,6 @@ class Sample extends ObjetBDD
       $this->event->auto_date = 0;
       $data["events"] = $this->event->getListeFromUid($uid);
       $this->event->auto_date = 1;
-    }
-    /**
-     * Get the secondary identifiers
-     */
-    if ($withIdentifiers) {
-      if (!isset($this->objectIdentifier)) {
-        require_once "modules/classes/objectIdentifier.class.php";
-        $this->objectIdentifier = new ObjectIdentifier($this->connection, $this->paramori);
-      }
-      $data["identifiers"] = $this->objectIdentifier->getListFromUid($uid);
     }
     /**
      * Get the hierarchy of containers

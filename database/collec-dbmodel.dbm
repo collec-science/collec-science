@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,321" last-zoom="0.75" max-obj-count="68"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,319" last-zoom="0.75" max-obj-count="68"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -2751,7 +2751,7 @@ export_model•[{"tableName":"export_model","businessKey":"export_model_name","i
 	</constraint>
 	<initial-data>
 <![CDATA[dataset_type_id•dataset_type_name•fields⸣
-1•sample•["uid","uuid","identifier","wgs84_x","wgs84_y","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","fixed_value","parent_uid","parent_uuid","parent_identifiers"]⸣
+1•sample•["uid","uuid","identifier","wgs84_x","wgs84_y","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","fixed_value","parent_uid","parent_uuid","parent_identifiers","web_address"]⸣
 2•collection•["collection_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]⸣
 3•document•["document_name","uid","uuid","identifier","content_type","extension","size","document_creation_date","fixed_value", "web_address"]]]>
 	</initial-data>

@@ -1,4 +1,6 @@
 <?php
+class DatasetTemplateException extends Exception
+{ }
 class DatasetTemplate extends ObjetBDD
 {
   private $sql = "select dataset_template_id, dataset_template_name, export_format_id, dataset_type_id, 
@@ -99,14 +101,8 @@ class DatasetTemplate extends ObjetBDD
   function generateData(int $id, string $uids): array
   {
     $ddataset = $this->getDetail($id);
-    $data = array(); // Contains all data to export, with transformation
     $dbdata = array(); // Data extracted from database before transformation
-    if (!is_object($this->datasetColumn)) {
-      include_once $this->classPathExport . "datasetColumn.class.php";
-      $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
-    }
-    $columns = $this->datasetColumn->getListColumns($ddataset["dataset_template_id"]);
-    $webmodule = "";
+
     switch ($ddataset["dataset_type_id"]) {
       case 1:
         /**
@@ -134,12 +130,37 @@ class DatasetTemplate extends ObjetBDD
         /**
          * Documents
          */
-        $webmodule = "documentGetSW";
         if (!is_object($this->document)) {
           include_once $this->classPath . "document.class.php";
           $this->document = new Document($this->connection, $this->paramori);
           $dbdata = $this->document->getDocumentsFromUid($uids, $ddataset["only_last_document"]);
         }
+        break;
+    }
+    return $this->formatData($dbdata);
+  }
+
+  function formatData(array $dbdata): array
+  {
+    $data = array();
+    $ddataset = $this->content;
+    if (count($ddataset) == 0) {
+      throw new DatasetTemplateException(_("Le modèle d'export n'a pas été correctement initialisé"));
+    }
+    if (!is_object($this->datasetColumn)) {
+      include_once $this->classPathExport . "datasetColumn.class.php";
+      $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
+    }
+    $columns = $this->datasetColumn->getListColumns($ddataset["dataset_template_id"]);
+    $webmodule = "";
+    $template_name = "";
+    switch ($ddataset["dataset_type_id"]) {
+      case 1:
+        $webmodule = "sampleDetail";
+        $template_name = $ddataset["dataset_template_name"];
+        break;
+      case 3:
+        $webmodule = "documentGetSW";
         break;
     }
     /**
@@ -184,19 +205,38 @@ class DatasetTemplate extends ObjetBDD
         if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {
           $value = date_format(date_create($value), $col["date_format"]);
         }
-        if ($colname == "web_address") {
+        if ($colname == "web_address" && strlen($webmodule) > 0) {
           /**
            * Create a link to download the content of the record
            */
           $value = "https://" . $_SERVER["HTTP_HOST"] . "/index.php?module=" . $webmodule . "&uuid=" . $dbrow["uuid"];
+          if (strlen($template_name) > 0) {
+            $value .= "&template_name=$template_name";
+          }
         }
         if ($col["mandatory"] == 1 && strlen($value) == 0) {
-          throw new ExportException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $colname, $dbrow["uid"]));
+          throw new DatasetTemplateException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $colname, $dbrow["uid"]));
         }
         $row[$col["export_name"]] = $value;
       }
       $data[] = $row;
     }
     return $data;
+  }
+  /**
+   * Get the datasetTemplate from its name
+   *
+   * @param string $name
+   * @return array
+   */
+  function getTemplateFromName(string $name): array
+  {
+    $sql = "select dataset_template_id from dataset_template where dataset_template_name = :name";
+    $res = $this->lireParamAsPrepared($sql, array("name" => $name));
+    if ($res["dataset_template_id"] > 0) {
+      return $this->getDetail($res["dataset_template_id"]);
+    } else {
+      throw new DatasetTemplateException(sprintf(_("Le modèle %s n'existe pas"), $name));
+    }
   }
 }

@@ -27,11 +27,12 @@ class Sample extends ObjetBDD
 					so.identifier, so.wgs84_x, so.wgs84_y, so.uuid,
                     so.object_status_id, object_status_name,so.referent_id,
                     so.change_date, so.uuid, so.trashed, so.location_accuracy, so.object_comment,
-					pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
+          pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
+          voip.identifiers as parent_identifiers,
 					container_type_name, clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
 					metadata_schema,
-					document_id, identifiers,
+					document_id, voi.identifiers,
 					movement_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,
                     lm.line_number, lm.column_number,
@@ -58,7 +59,8 @@ class Sample extends ObjetBDD
 					left outer join protocol using (protocol_id)
 					left outer join multiple_type mt on (st.multiple_type_id = mt.multiple_type_id)
 					left outer join last_photo on (so.uid = last_photo.uid)
-					left outer join v_object_identifier voi on  (s.uid = voi.uid)
+          left outer join v_object_identifier voi on  (s.uid = voi.uid)
+          left outer join v_object_identifier voip on (pso.uid = voip.uid)
 					left outer join last_movement lm on (s.uid = lm.uid)
                     left outer join object oc on (container_uid = oc.uid)
 					left outer join movement_type using (movement_type_id)
@@ -1046,7 +1048,7 @@ class Sample extends ObjetBDD
   }
   /**
    * Get all informations of  samples from a list of uid
-   * The list must be under the form: 1,4,25 and ready to use with "where in( )";
+   * The list must be under the form: 1,4,25 and ready to use with "where uid in( )";
    *
    * @param string $uids
    * @return array

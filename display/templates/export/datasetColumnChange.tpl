@@ -4,12 +4,12 @@
       var columnName = $( "#column_name" ).val();
       var disabled = true;
       var required = false;
-      if ( columnName == "metadata" ) {
+      if ( columnName == "metadata" || columnName == "identifiers" || columnName == "parent_identifiers" ) {
         disabled = false;
         required = true;
       }
-      $( "#metadata_name" ).prop( "disabled", disabled );
-      $("#metadata_name").prop("required", required);
+      $( "#subfield_name" ).prop( "disabled", disabled );
+      $("#subfield_name").prop("required", required);
     }
     $( "#column_name" ).change( function () {
       isMetadata();
@@ -21,10 +21,10 @@
          $("#export_name").val($("#column_name").val());
        }
     } );
-    $("#metadata_name").change(function() {
+    $("#subfield_name").change(function() {
       var exportName = $("#export_name").val();
-      if (exportName.length == 0 || exportName == "metadata") {
-        $("#export_name").val($("#metadata_name").val());
+      if (exportName.length == 0 || exportName == "metadata" || exportName == "identifiers" || exportName == "parent_identifiers") {
+        $("#export_name").val($("#subfield_name").val());
       }
     })
     /**
@@ -66,11 +66,11 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="metadata_name" class="control-label col-md-4"><span class="red">*</span>
-          {t}Nom du champ dans les métadonnées :{/t}
+        <label for="subfield_name" class="control-label col-md-4"><span class="red">*</span>
+          {t}Nom du champ dans les métadonnées ou nom de l'identifiant secondaire :{/t}
         </label>
         <div class="col-md-8">
-          <input id="metadata_name" type="text" class="form-control" name="metadata_name" value="{$data.metadata_name}" >
+          <input id="subfield_name" type="text" class="form-control" name="subfield_name" value="{$data.subfield_name}" >
         </div>
       </div>
       <div class="form-group">

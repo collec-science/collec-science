@@ -19,7 +19,7 @@
             {$c.column_name}
           </a>
         </td>
-        <td>{$c.metadata_name}</td>
+        <td>{$c.subfield_name}</td>
         <td>{$c.export_name}</td>
         <td>{$c.translator_name}</td>
         <td class="center">{if $c.mandatory == 1}{t}oui{/t}{/if}</td>

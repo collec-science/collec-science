@@ -151,9 +151,25 @@ class DatasetTemplate extends ObjetBDD
        * Treatment of each column
        */
       foreach ($columns as $colname => $col) {
-        if (strlen($col["metadata_name"]) > 0) {
-          $md = json_decode($dbrow[$colname], true);
-          $value = $md[$col["metadata_name"]];
+        $value = "";
+        if (strlen($col["subfield_name"]) > 0) {
+          if ($colname == "metadata") {
+            $md = json_decode($dbrow[$colname], true);
+            $value = $md[$col["subfield_name"]];
+          } elseif ($colname == "identifiers" || $colname == "parent_identifiers") {
+            /**
+             * The structure is under the form:
+             * igsn:123,other:456
+             * subfield_name contains igsn or other
+             */
+            $identArr = explode(",", $dbrow[$colname]);
+            foreach ($identArr as $identifier) {
+              $idArr = explode(":", $identifier);
+              if ($idArr[0] == $col["subfield_name"]) {
+                $value = $idArr[1];
+              }
+            }
+          }
         } else {
           $value = $dbrow[$colname];
         }

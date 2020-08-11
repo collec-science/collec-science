@@ -152,6 +152,7 @@ class DatasetTemplate extends ObjetBDD
       $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
     }
     $columns = $this->datasetColumn->getListColumns($ddataset["dataset_template_id"]);
+  
     $webmodule = "";
     $template_name = "";
     switch ($ddataset["dataset_type_id"]) {
@@ -163,63 +164,67 @@ class DatasetTemplate extends ObjetBDD
         $webmodule = "documentGetSW";
         break;
     }
-    /**
-     * Treatment of each row
-     */
-    foreach ($dbdata as $dbrow) {
-      $row = array();
+    if ($ddataset["dataset_type_id"] == 4) {
+      $data[] = $columns["content"]["default_value"];
+    } else {
       /**
-       * Treatment of each column
+       * Treatment of each row
        */
-      foreach ($columns as $colname => $col) {
-        $value = "";
-        if (strlen($col["subfield_name"]) > 0) {
-          if ($colname == "metadata") {
-            $md = json_decode($dbrow[$colname], true);
-            $value = $md[$col["subfield_name"]];
-          } elseif ($colname == "identifiers" || $colname == "parent_identifiers") {
-            /**
-             * The structure is under the form:
-             * igsn:123,other:456
-             * subfield_name contains igsn or other
-             */
-            $identArr = explode(",", $dbrow[$colname]);
-            foreach ($identArr as $identifier) {
-              $idArr = explode(":", $identifier);
-              if ($idArr[0] == $col["subfield_name"]) {
-                $value = $idArr[1];
+      foreach ($dbdata as $dbrow) {
+        $row = array();
+        /**
+         * Treatment of each column
+         */
+        foreach ($columns as $colname => $col) {
+          $value = "";
+          if (strlen($col["subfield_name"]) > 0) {
+            if ($colname == "metadata") {
+              $md = json_decode($dbrow[$colname], true);
+              $value = $md[$col["subfield_name"]];
+            } elseif ($colname == "identifiers" || $colname == "parent_identifiers") {
+              /**
+               * The structure is under the form:
+               * igsn:123,other:456
+               * subfield_name contains igsn or other
+               */
+              $identArr = explode(",", $dbrow[$colname]);
+              foreach ($identArr as $identifier) {
+                $idArr = explode(":", $identifier);
+                if ($idArr[0] == $col["subfield_name"]) {
+                  $value = $idArr[1];
+                }
               }
             }
+          } else {
+            $value = $dbrow[$colname];
           }
-        } else {
-          $value = $dbrow[$colname];
-        }
-        if ($col["translator_id"] > 0) {
-          if (strlen($col["translations"][$value]) > 0) {
-            $value = $col["translations"][$value];
+          if ($col["translator_id"] > 0) {
+            if (strlen($col["translations"][$value]) > 0) {
+              $value = $col["translations"][$value];
+            }
           }
-        }
-        if (strlen($col["default_value"]) > 0 && strlen($value) == 0) {
-          $value = $col["default_value"];
-        }
-        if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {
-          $value = date_format(date_create($value), $col["date_format"]);
-        }
-        if ($colname == "web_address" && strlen($webmodule) > 0) {
-          /**
-           * Create a link to download the content of the record
-           */
-          $value = "https://" . $_SERVER["HTTP_HOST"] . "/index.php?module=" . $webmodule . "&uuid=" . $dbrow["uuid"];
-          if (strlen($template_name) > 0) {
-            $value .= "&template_name=$template_name";
+          if (strlen($col["default_value"]) > 0 && strlen($value) == 0) {
+            $value = $col["default_value"];
           }
+          if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {
+            $value = date_format(date_create($value), $col["date_format"]);
+          }
+          if ($colname == "web_address" && strlen($webmodule) > 0) {
+            /**
+             * Create a link to download the content of the record
+             */
+            $value = "https://" . $_SERVER["HTTP_HOST"] . "/index.php?module=" . $webmodule . "&uuid=" . $dbrow["uuid"];
+            if (strlen($template_name) > 0) {
+              $value .= "&template_name=$template_name";
+            }
+          }
+          if ($col["mandatory"] == 1 && strlen($value) == 0) {
+            throw new DatasetTemplateException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $colname, $dbrow["uid"]));
+          }
+          $row[$col["export_name"]] = $value;
         }
-        if ($col["mandatory"] == 1 && strlen($value) == 0) {
-          throw new DatasetTemplateException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $colname, $dbrow["uid"]));
-        }
-        $row[$col["export_name"]] = $value;
+        $data[] = $row;
       }
-      $data[] = $row;
     }
     return $data;
   }

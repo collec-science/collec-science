@@ -23,7 +23,7 @@
         <td>{$c.export_name}</td>
         <td>{$c.translator_name}</td>
         <td class="center">{if $c.mandatory == 1}{t}oui{/t}{/if}</td>
-        <td>{$c.default_value}</td>
+        <td class="textareaDisplay">{$c.default_value}</td>
         <td>{$c.date_format}</td>
         <td class="center">{$c.column_order}</td>
       </tr>

@@ -92,34 +92,39 @@ class Export extends ObjetBDD
        */
       $filetmp = tempnam($APPLI_temp, $ddataset["export_format_name"]);
       $handle = fopen($filetmp, 'w');
-      switch ($ddataset["export_format_name"]) {
-        case "CSV":
-          $delimiter = $ddataset["separator"];
-          if ($delimiter == "tab") {
-            $delimiter = "\t";
-          }
-          /** first line, header */
-          fputcsv($handle, array_keys($data[0]), $delimiter);
-          foreach ($data as $value) {
-            fputcsv($handle, $value, $delimiter);
-          }
-          break;
-        case "JSON":
-          fwrite($handle, json_encode($data));
-          break;
-        case "XML":
-          $xml = new SimpleXMLElement($ddataset["xmlroot"]);
-          if ($ddataset["dataset_type_id"] == 2) {
-            foreach ($data[0] as $k => $v) {
-              $xml->addChild($k, $v);
+      if ($ddataset["dataset_type_id"] == 4) {
+        printA($data);
+        fwrite($handle, $data[0]);
+      } else {
+        switch ($ddataset["export_format_name"]) {
+          case "CSV":
+            $delimiter = $ddataset["separator"];
+            if ($delimiter == "tab") {
+              $delimiter = "\t";
             }
-          } else {
-            $this->to_xml($xml, $data, $ddataset["xmlnodename"]);
-          }
-          $xml->asXML($filetmp);
-          break;
-        default:
-          throw new ExportException(_("Impossible de générer le fichier, le type est inconnu ou non spécifié"));
+            /** first line, header */
+            fputcsv($handle, array_keys($data[0]), $delimiter);
+            foreach ($data as $value) {
+              fputcsv($handle, $value, $delimiter);
+            }
+            break;
+          case "JSON":
+            fwrite($handle, json_encode($data));
+            break;
+          case "XML":
+            $xml = new SimpleXMLElement($ddataset["xmlroot"]);
+            if ($ddataset["dataset_type_id"] == 2) {
+              foreach ($data[0] as $k => $v) {
+                $xml->addChild($k, $v);
+              }
+            } else {
+              $this->to_xml($xml, $data, $ddataset["xmlnodename"]);
+            }
+            $xml->asXML($filetmp);
+            break;
+          default:
+            throw new ExportException(_("Impossible de générer le fichier, le type est inconnu ou non spécifié"));
+        }
       }
       fclose($handle);
       $files[] = array("filetmp" => $filetmp, "filename" => $ddataset["filename"], "filetype" => $ddataset["export_format_name"]);

@@ -109,10 +109,10 @@
       </div>
       <div class="form-group">
         <label for="default_value" class="control-label col-md-4">
-          {t}Valeur par défaut, si aucune n'est renseignée :{/t}
+          {t}Valeur par défaut, si aucune n'est renseignée, ou contenu du fichier pour le type arbitrary_content :{/t}
         </label>
         <div class="col-md-8">
-          <input id="default_value" type="text" class="form-control" name="default_value" value="{$data.default_value}" >
+          <textarea id="default_value" type="text" class="form-control" name="default_value" rows="5">{$data.default_value}</textarea>
         </div>
       </div>
       <div class="form-group">

@@ -9,7 +9,7 @@
     <thead>
       <tr>
         <th class="center">
-          <img src="display/images/display.png" height="25" title="Afficher le détail...">
+          <img src="display/images/display.png" height="25" title="{t}Afficher le détail...{/t}">
         </th>
         <th>{t}Nom{/t}</th>
         <th>{t}Type{/t}</th>

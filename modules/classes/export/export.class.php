@@ -90,43 +90,45 @@ class Export extends ObjetBDD
       /**
        * Generate the file
        */
-      $filetmp = tempnam($APPLI_temp, $ddataset["export_format_name"]);
-      $handle = fopen($filetmp, 'w');
-      if ($ddataset["dataset_type_id"] == 4) {
-        fwrite($handle, $data[0]);
-      } else {
-        switch ($ddataset["export_format_name"]) {
-          case "CSV":
-            $delimiter = $ddataset["separator"];
-            if ($delimiter == "tab") {
-              $delimiter = "\t";
-            }
-            /** first line, header */
-            fputcsv($handle, array_keys($data[0]), $delimiter);
-            foreach ($data as $value) {
-              fputcsv($handle, $value, $delimiter);
-            }
-            break;
-          case "JSON":
-            fwrite($handle, json_encode($data));
-            break;
-          case "XML":
-            $xml = new SimpleXMLElement($ddataset["xmlroot"]);
-            if ($ddataset["dataset_type_id"] == 2) {
-              foreach ($data[0] as $k => $v) {
-                $xml->addChild($k, $v);
+      if (count($data) > 0) {
+        $filetmp = tempnam($APPLI_temp, $ddataset["export_format_name"]);
+        $handle = fopen($filetmp, 'w');
+        if ($ddataset["dataset_type_id"] == 4) {
+          fwrite($handle, $data[0]);
+        } else {
+          switch ($ddataset["export_format_name"]) {
+            case "CSV":
+              $delimiter = $ddataset["separator"];
+              if ($delimiter == "tab") {
+                $delimiter = "\t";
               }
-            } else {
-              $this->to_xml($xml, $data, $ddataset["xmlnodename"]);
-            }
-            $xml->asXML($filetmp);
-            break;
-          default:
-            throw new ExportException(_("Impossible de générer le fichier, le type est inconnu ou non spécifié"));
+              /** first line, header */
+              fputcsv($handle, array_keys($data[0]), $delimiter);
+              foreach ($data as $value) {
+                fputcsv($handle, $value, $delimiter);
+              }
+              break;
+            case "JSON":
+              fwrite($handle, json_encode($data));
+              break;
+            case "XML":
+              $xml = new SimpleXMLElement($ddataset["xmlroot"]);
+              if ($ddataset["dataset_type_id"] == 2) {
+                foreach ($data[0] as $k => $v) {
+                  $xml->addChild($k, $v);
+                }
+              } else {
+                $this->to_xml($xml, $data, $ddataset["xmlnodename"]);
+              }
+              $xml->asXML($filetmp);
+              break;
+            default:
+              throw new ExportException(_("Impossible de générer le fichier, le type est inconnu ou non spécifié"));
+          }
         }
+        fclose($handle);
+        $files[] = array("filetmp" => $filetmp, "filename" => $ddataset["filename"], "filetype" => $ddataset["export_format_name"]);
       }
-      fclose($handle);
-      $files[] = array("filetmp" => $filetmp, "filename" => $ddataset["filename"], "filetype" => $ddataset["export_format_name"]);
     }
     /**
      * If zipped, generate the zip file
@@ -183,10 +185,11 @@ class Export extends ObjetBDD
     }
   }
 
-  function updateExportDate($id) {
+  function updateExportDate($id)
+  {
     $data = $this->lire($id);
-    if (! $data["export_id"] > 0) {
-      throw new ExportException (sprintf(_("L'export %s n'existe pas"), $id));
+    if (!$data["export_id"] > 0) {
+      throw new ExportException(sprintf(_("L'export %s n'existe pas"), $id));
     }
     $this->auto_date = 0;
     $data["export_date"] = date("c");

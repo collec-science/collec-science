@@ -643,6 +643,9 @@ switch ($t_module["param"]) {
         if (!$dcollection["public_collection"]) {
           throw new SampleException("Not a public collection for $id", 401);
         }
+        if (!$withTemplate) {
+          throw new SampleException("The name of the template to be used is not specified in the request");
+        }
       }
       /**
        * Format the data, if required

@@ -5,6 +5,12 @@
       <img src="display/images/list.png" height="25">
       {t}Retour à la liste{/t}
     </a>
+    {if $data.dataset_template_id > 0}
+      &nbsp;
+      <a href="index.php?module=datasetTemplateDisplay&dataset_template_id={$data.dataset_template_id}">
+        <img src="display/images/display.png" height="25" title="{t}Afficher le détail...{/t}">{t}Détail du modèle{/t}
+      </a>
+    {/if}
     <form class="form-horizontal protoform" id="datasetTemplateForm" method="post" action="index.php">
       <input type="hidden" name="moduleBase" value="datasetTemplate">
       <input type="hidden" name="action" value="Write">

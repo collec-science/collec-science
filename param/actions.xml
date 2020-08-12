@@ -346,7 +346,7 @@
 	<datasetColumnChange action="modules/export/datasetColumn.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<datasetColumnWrite action="modules/export/datasetColumn.php" param="write" droits="param" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
 	<datasetColumnDelete action="modules/export/datasetColumn.php" param="delete" droits="param" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
-	<translatorList action="modules/export/translator.php" param="list" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<translatorList action="modules/export/translator.php" param="list" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" retourlogin="1"/>
 	<translatorChange action="modules/export/translator.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<translatorWrite action="modules/export/translator.php" param="write" droits="param" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
 	<translatorDelete action="modules/export/translator.php" param="delete" droits="param" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
@@ -354,7 +354,7 @@
 	<exportTemplateChange action="modules/export/exportTemplate.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<exportTemplateWrite action="modules/export/exportTemplate.php" param="write" droits="param" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
 	<exportTemplateDelete action="modules/export/exportTemplate.php" param="delete" droits="param" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
-	<lotList action="modules/export/lot.php" param="list" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<lotList action="modules/export/lot.php" param="list" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" retourlogin="1"/>
 	<lotCreate action="modules/export/lot.php" param="create" droits="collection" maxCountByHour="60" maxCountByDay="600" retourok="lotDisplay" retourko="sampleList" modulebefore="sampleList"/>
 	<lotDisplay action="modules/export/lot.php" param="display" droits="collection" maxCountByHour="60" maxCountByDay="600" type="smarty"/>
 	<lotWrite action="modules/export/lot.php" param="write" droits="collection" moduleBefore="lotChange" retourok="lotList" retourko="lotChange" />

@@ -159,7 +159,7 @@ class DatasetTemplate extends ObjetBDD
       $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
     }
     $columns = $this->datasetColumn->getListColumns($ddataset["dataset_template_id"]);
-  
+
     $webmodule = "";
     $template_name = "";
     switch ($ddataset["dataset_type_id"]) {
@@ -250,5 +250,20 @@ class DatasetTemplate extends ObjetBDD
     } else {
       throw new DatasetTemplateException(sprintf(_("Le modèle %s n'existe pas"), $name));
     }
+  }
+  /**
+   * Delete a record with its children
+   *
+   * @param int $id
+   * @return void
+   */
+  function supprimer(int $id)
+  {
+    if (!isset($this->datasetColumn)) {
+      include_once $this->classPathExport . "datasetColumn.class.php";
+      $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
+    }
+    $this->datasetColumn->supprimerChamp($id, "dataset_template_id");
+    parent::supprimer($id);
   }
 }

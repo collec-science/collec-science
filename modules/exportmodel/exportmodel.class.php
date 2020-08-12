@@ -132,7 +132,7 @@ class ExportModelProcessing
      * @param integer $parentKey: value of the technicalKey of the parent (foreign key)
      * @return array
      */
-    function getTableContent(string $tableAlias, array $keys = array(), int $parentKey = 0): array
+    function getTableContent(string $tableAlias, array $keys = array(), $parentKey = 0): array
     {
         $model = $this->model[$tableAlias];
         if (count($model) == 0) {

@@ -320,6 +320,7 @@
 	<containerborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion" type="smarty" />
 	<containerborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerborrowingChange" modulebefore="containerborrowingChange" />
 	<containerborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerborrowingChange" modulebefore="containerborrowingChange"/>
+	
 	<exportModelList action="modules/exportmodel/exportModel.php" param="list" droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty"/>
 	<exportModelDisplay action="modules/exportmodel/exportModel.php" param="display" droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty"/>
 	<exportModelChange action="modules/exportmodel/exportModel.php" param="change" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty"/>

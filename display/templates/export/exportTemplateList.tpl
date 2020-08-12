@@ -14,6 +14,7 @@
         <th>{t}Fichier compressé ?{/t}</th>
         <th>{t}Nom du fichier généré{/t}</th>
         <th>{t}Liste des datasets{/t}</th>
+        <th>{t}Exporter le modèle vers d'autres instances Collec-Science{/t}</th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +30,11 @@
         <td class="center">{if $row.is_zipped == 1}{t}oui{/t}{/if}</td>
         <td>{$row.filename}</td>
         <td class="textareaDisplay">{$row.datasets}</td>
+        <td class="center">
+          <a href="index.php?module=exportModelExec&export_model_name=gbif_export&keys[]={$row.export_template_id}">
+            <img src="display/images/output.png" height="25">
+          </a>
+        </td>
       </tr>
       {/foreach}
     </tbody>

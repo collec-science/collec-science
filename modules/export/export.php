@@ -65,6 +65,10 @@ switch ($t_module["param"]) {
                 "content_type" => $dmime["content_type"]
               );
               $vue->setParam($param);
+              /**
+               * Update the export date
+               */
+              $dataClass->updateExportDate($id);
             } else {
               throw new ExportException(sprintf(_("Le type mime pour l'extension %s n'a pas été décrit dans la base de données"), $files[0]["filetype"]));
             }

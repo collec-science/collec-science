@@ -93,7 +93,6 @@ class Export extends ObjetBDD
       $filetmp = tempnam($APPLI_temp, $ddataset["export_format_name"]);
       $handle = fopen($filetmp, 'w');
       if ($ddataset["dataset_type_id"] == 4) {
-        printA($data);
         fwrite($handle, $data[0]);
       } else {
         switch ($ddataset["export_format_name"]) {
@@ -182,5 +181,15 @@ class Export extends ObjetBDD
         $xml->addChild($key, $value);
       }
     }
+  }
+
+  function updateExportDate($id) {
+    $data = $this->lire($id);
+    if (! $data["export_id"] > 0) {
+      throw new ExportException (sprintf(_("L'export %s n'existe pas"), $id));
+    }
+    $this->auto_date = 0;
+    $data["export_date"] = date("c");
+    $this->ecrire($data);
   }
 }

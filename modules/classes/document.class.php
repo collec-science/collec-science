@@ -595,10 +595,11 @@ class Document extends ObjetBDD
    */
   function getDocumentsFromUid(string $uids, bool $onlyLast = false): ?array
   {
-    $sql = "SELECT d.document_id, d.uid, d.uuid,
+    $sql = "SELECT d.document_id, d.uid, d.uuid as document_uuid, d.uuid,
             document_name, identifier, content_type, extension, size, document_creation_date
+            ,o.uuid as sample_uuid
             FROM col.document d
-            join object using (uid)
+            join object o using (uid)
             join mime_type using (mime_type_id)
             WHERE d.uid in ($uids)";
     if ($onlyLast) {

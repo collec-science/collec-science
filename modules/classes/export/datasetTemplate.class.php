@@ -114,6 +114,13 @@ class DatasetTemplate extends ObjetBDD
         }
         $this->sample->auto_date = 0;
         $dbdata = $this->sample->getListFromUids($uids);
+        /**
+         * Add the content_type by default for the web service
+         */
+        foreach ($dbdata as $k => $v) {
+          $v["content_type"] = "application/json";
+          $dbdata[$k] = $v;
+        }
         break;
       case 2:
         /**

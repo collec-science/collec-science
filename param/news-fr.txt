@@ -1,5 +1,24 @@
 News
 ===========
+Version 2.5.0 du 14 août 2020
+-----------------------------
+Correction de bugs :
+- l'export de la structure de la base de données ne fonctionnait pas correctement
+
+Nouveautés :
+Ergonomie :
+- ajout de contrôles de cohérence sur les dates de prêt et de retour d'échantillons, ainsi que pour les réservations
+- dans le menu, quand il existe un sous-menu, l'entrée du menu est dupliquée dans le sous-menu
+- ajout d'un lexique au survol : dans les libellés, le survol d'une icone représentant un point d'interrogation (quand elle existe), affiche l'entrée du lexique correspondante
+
+Système :
+- les administrateurs peuvent maintenant déclencher une sauvegarde manuelle de la base de données, qui est téléchargée dans le navigateur (limitations possibles en fonction de la taille de la base de données)
+
+Échantillons :
+- il est maintenant possible de rajouter un commentaire à un objet
+- ajout d'une fonctionnalité d'exportation des échantillons d'une collection vers des systèmes d'information tiers (contenu et format paramétrables)
+
+
 Version 2.4.1 du 15 juin 2020
 -----------------------------
 Correction de bugs :

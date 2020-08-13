@@ -1,5 +1,23 @@
 News
 ===========
+Version 2.5.0 of August 14, 2020
+-----------------------------
+Bug fixes :
+- the export of the database structure was not working correctly.
+
+What's New :
+Ergonomics :
+- added consistency checks on sample loan and return dates, as well as for reservations
+- in the menu, when there is a submenu, the menu entry is duplicated in the submenu
+- added a lexicon to the hover : in the labels, the hover of an icon representing a question mark (when it exists), displays the entry of the corresponding lexicon
+
+System :
+- administrators can now trigger a manual backup of the database, which is downloaded to the browser (possible limitations depending on the size of the database)
+
+Samples:
+- it is now possible to add a comment to an object
+- added functionality to export samples from a collection to third party information systems (customizable content and format)
+
 Version 2.4.1 of June 15, 2020
 ------------------------------
 Bug fixes:

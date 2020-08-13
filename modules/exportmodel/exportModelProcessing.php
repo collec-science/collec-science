@@ -14,6 +14,7 @@ switch ($t_module["param"]) {
             }
             if ($model["export_model_id"] > 0) {
                 $export->initModel($model["pattern"]);
+                //$export->modeDebug = true;
                 $data = array();
                 foreach ($export->getListPrimaryTables() as $key => $table) {
                     if ($key == 0 && count($_REQUEST["keys"]) > 0) {

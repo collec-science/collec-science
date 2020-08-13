@@ -27,7 +27,7 @@
                 </a>
             {/if}
 
-            <input type="hidden" name="moduleBase" value="export">
+            <input type="hidden" name="moduleBase" value="exportModel">
             <input type="hidden" name="action" value="Exec">
             <input type="hidden" name="export_model_name" value="export_model">
             <input type="hidden" name="returnko" value="exportModelList">

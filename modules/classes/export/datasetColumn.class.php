@@ -95,7 +95,11 @@ class DatasetColumn extends ObjetBDD
       /**
        * Extract the values of translator
        */
-      $row["translations"] = json_decode($row["translator_data"], true);
+      $translations = json_decode($row["translator_data"], true);
+      foreach ($translations as $item) {
+        foreach($item as $k => $v)
+        $row["translations"][$k] = $v;
+      }
       $data[$row["column_name"]] = $row;
     }
     return $data;

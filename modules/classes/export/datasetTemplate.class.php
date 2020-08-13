@@ -159,7 +159,6 @@ class DatasetTemplate extends ObjetBDD
       $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
     }
     $columns = $this->datasetColumn->getListColumns($ddataset["dataset_template_id"]);
-
     $webmodule = "";
     $template_name = "";
     switch ($ddataset["dataset_type_id"]) {

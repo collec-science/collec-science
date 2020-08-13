@@ -31,7 +31,7 @@
         <td>{$row.filename}</td>
         <td class="textareaDisplay">{$row.datasets}</td>
         <td class="center">
-          <a href="index.php?module=exportModelExec&export_model_name=gbif_export&keys[]={$row.export_template_id}">
+          <a href="index.php?module=exportModelExec&export_model_name=export_template&keys[]={$row.export_template_id}">
             <img src="display/images/output.png" height="25">
           </a>
         </td>

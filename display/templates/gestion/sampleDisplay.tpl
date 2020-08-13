@@ -420,7 +420,7 @@
 					</dl>
 					{if $data.location_accuracy > 0}
 						<dl class="dl-horizontal">
-							<dt>{t}Précision de la localisation (en mètres) :{/t}</dt>
+							<dt class="lexical" data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</dt>
 							<dd>{$data.location_accuracy}</dd>
 						</dl>
 					{/if}

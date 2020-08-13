@@ -1,5 +1,7 @@
 base de données et UID d'origine : en saisie d'un échantillon, si celui-ci a été créé dans une autre base de données, il est possible d'indiquer le code de la base de données initiale suivi de l'identifiant attribué. Ce code sera alors utilisé lors des recherches, ce qui permet de conserver les étiquettes apposées initialement. test collection : une collection est un ensemble cohérent d'échantillons se rapportant à un sujet particulier. Les droits d'accès aux échantillons sont gérés par collection. Il est également possible de leur rattacher des lieux de prélèvement.
 
+collection : une collection est un ensemble cohérent d'échantillons se rapportant à un sujet particulier. Les droits d'accès aux échantillons sont gérés par collection. Il est également possible de leur rattacher des lieux de prélèvement.
+
 condition de stockage : caractéristiques principales du mode de conservation (froid, atmosphère contrôlée, lyophilisation, etc.). Peut également être utilisé pour décrire le traitement préalable de l'échantillon en vue de sa conservation.
 
 conteneur ou container : tout objet qui peut en contenir un autre. À ne pas confondre avec les échantillons dérivés ou les sous-échantillons.
@@ -7,6 +9,8 @@ conteneur ou container : tout objet qui peut en contenir un autre. À ne pas con
 échantillon dérivé : échantillon créé à partir d'un autre, de même type ou non, identifié de manière autonome. Autrement dit, échantillon fils d'un autre. Par exemple, une section de carotte est dérivée de la demi-carotte X, qui dérive elle-même de la carotte entière.
 
 échantillon vidé de tout contenu : statut d'un échantillon. Échantillon dont on a utilisé la totalité. Par exemple une carotte d'un mètre, 10 prélèvements de 10 cm, il ne reste plus rien de l'échantillon.
+
+étiquette : les étiquettes peuvent être associées à des containers ou à des échantillons. Elles contiennent deux parties : un QRcode contenant des valeurs susceptibles d'être lues automatiquement et un contenu libre. Le QRcode général contient au minimum le uid et le db. Le QRcode particulier contient uniquement un numéro. Pour activer le cas particulier, il faut cliquer sur "Etiquette ne comprenant qu'un identifiant métier"
 
 famille de containers : grande catégorie de containers, pour faciliter la recherche (salle, site, caisse, bidon...).
 
@@ -35,6 +39,8 @@ type de conteneur (container) : type détaillé du conteneur, précisant la capa
 type d'échantillon : permet de définir des types génériques - par type de conteneur (tube, sachet zip, ..) avec possibilité d'associer un modèle de métadonnées. [Faudrait parler des opérations dans cette définition]
 
 type d’événements : événement qui peut survenir sur un échantillon ou sur un conteneur. L'événement peut être extérieur (par exemple conteneur cassé), volontaire (par exemple analyse) ou involontaire (par exemple échantillon perdu).
+
+type de fichiers importables : définit les types de fichiers que l'on peut importer dans les différents menus du logiciel. Pour connaitre les types MIME importants dans le cadre du WEB, vous pouvez consulter https://developer.mozilla.org/fr/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
 
 type d'identifiant ou identifiant secondaire : il est possible de rattacher divers identifiants à un objet, par exemple des codes internationaux. Les types d'identifiant permettent de les décrire. S'ils ne sont pas numériques, ces identifiants peuvent en outre être utilisés dans les recherches ou lors des scans pour les entrées-sorties.
 

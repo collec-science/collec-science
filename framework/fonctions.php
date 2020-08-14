@@ -474,3 +474,19 @@ function getLineFeed()
     return "<br>";
   }
 }
+/**
+ * Generate a line return with <br> or PHP_EOL
+ *
+ * @return void
+ */
+function phpeol()
+{
+  return getLineFeed();
+  /*
+  if (PHP_SAPI == "cli") {
+    return PHP_EOL;
+  } else {
+    return "<br>";
+  }
+  */
+}

@@ -22,7 +22,7 @@ switch ($t_module["param"]) {
                 $data = array();
                 foreach ($export->getListPrimaryTables() as $key => $table) {
                     if ($key == 0 && count($_REQUEST["keys"]) > 0) {
-                            $keys = $_REQUEST["keys"];
+                        $keys = $_REQUEST["keys"];
                         /**
                          * set the list of records for the first item
                          */
@@ -74,7 +74,11 @@ switch ($t_module["param"]) {
             } else {
                 $model = $exportModel->getModelFromName($_REQUEST["export_model_name"]);
             }
-            $export->initModel($model["pattern"]);
+            $export->initModel(json_decode($model["pattern"], true));
+            /**
+             * Generate the structure of the database
+             */
+            $export->generateStructure();
             $filename = $_FILES["filename"]["tmp_name"];
             $realFilename = $_FILES["filename"]["name"];
             $filename = str_replace("../", "", $filename);

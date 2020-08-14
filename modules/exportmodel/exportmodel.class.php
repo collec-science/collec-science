@@ -50,7 +50,6 @@ class ExportModel extends ObjetBDD
 class ExportModelProcessing
 {
   private $model = array();
-  private $bdd;
   private $lastResultExec;
   public $modeDebug = false;
   private $lastSql = "";
@@ -152,12 +151,12 @@ class ExportModelProcessing
       /**
        * Add the parents (parents tables, table nn)
        */
-      foreach ($table["parents"] as $param) {
-        $alias = $param["aliasName"];
+      foreach ($table["parents"] as $parentA) {
+        $alias = $parentA["aliasName"];
         $a_alias = array(
           "tableName" => $model[$alias]["tableName"],
           "parentKey" => $model[$alias]["technicalKey"],
-          "fieldName" => $param["fieldName"]
+          "fieldName" => $parentA["fieldName"]
         );
         $this->structure[$table["tableName"]]["parents"][] = $a_alias;
       }
@@ -534,7 +533,7 @@ class ExportModelProcessing
       if (count($model["children"]) > 0) {
         foreach ($content as $k => $row) {
           foreach ($model["children"] as $child) {
-                        $content[$k]["children"][$child["aliasName"]] = $this->getTableContent(
+            $content[$k]["children"][$child["aliasName"]] = $this->getTableContent(
               $child["aliasName"],
               array(),
               $row[$model["technicalKey"]]
@@ -579,8 +578,8 @@ class ExportModelProcessing
   private function execute(string $sql, array $data = array()): ?array
   {
     if ($this->modeDebug) {
-      printr($sql);
-      printr($data);
+      printA($sql);
+      printA($data);
     }
     $result = null;
     try {
@@ -688,8 +687,9 @@ class ExportModelProcessing
     if (!isset($this->model[$tableAlias])) {
       throw new ExportException(sprintf(_("Aucune description trouvée pour l'alias de table %s dans le fichier de paramètres"), $tableAlias));
     }
+    $this->modeDebug = true;
     if ($this->modeDebug) {
-      printr("Import into $tableAlias");
+      printA("Import into $tableAlias");
     }
     /**
      * prepare sql request for searching key
@@ -712,14 +712,14 @@ class ExportModelProcessing
       $this->execute($sqlDeleteFromParent, array("parent" => $parentKey));
     }
     if ($this->modeDebug) {
-      printr("Treatment of " . $tableAlias . " tablename:" . $tableName . " businessKey:" . $bkeyName . " technicalKey:" . $tkeyName . " parentKey:" . $pkeyName);
+      printA("Treatment of " . $tableAlias . " tablename:" . $tableName . " businessKey:" . $bkeyName . " technicalKey:" . $tkeyName . " parentKey:" . $pkeyName);
     }
     if ($model["istablenn"] == 1) {
       $tableAlias2 = $model["tablenn"]["tableAlias"];
       $model2 = $this->model[$tableAlias2];
       if (count($model2) == 0) {
         throw new ExportException(
-          "The model don't contains the destcription of the table " . $model["tablenn"]["tableAlias"]
+          "The model don't contains the description of the table " . $model["tablenn"]["tableAlias"]
         );
       }
       $tableName2 = $model2["tableName"];
@@ -743,8 +743,8 @@ class ExportModelProcessing
           if ($previousData[0]["key"] > 0) {
             $row[$tkeyName] = $previousData[0]["key"];
           } else {
-            if ($tkeyName != $bkeyName) {
-              unset($row[$tkeyName]);
+            if (isset($row[$tkeyName]) && $tkeyName != $bkeyName) {
+              $row[$tkeyName] = null;
             }
           }
         } else {
@@ -756,30 +756,38 @@ class ExportModelProcessing
         if ($model["istable11"] == 1 && $parentKey > 0) {
           $row[$tkeyName] = $parentKey;
         }
-        if ($model["istablenn"] == 1) {
+        if ($model["istablenn"] == 1 /*&& !isset($model["parents"][0])*/) {
           /**
            * Search id of secondary table
            */
           $sqlSearchSecondary = "select $this->quote$tkeyName2$this->quote as key
                     from $this->quote$tableName2$this->quote
                     where $this->quote$bkey2$this->quote = :businessKey";
-          $sdata = $this->execute($sqlSearchSecondary, array("businessKey" => $row[$tableAlias2][$model2["businessKey"]]));
+          $sdata = $this->execute($sqlSearchSecondary, array("businessKey" => $row["parents"][$tableAlias2][$model2["businessKey"]]));
           $skey = $sdata[0]["key"];
           if (!$skey > 0) {
             /**
              * write the secondary parent
              */
-            $skey = $this->writeData($tableAlias2, $row[$tableAlias2]);
+            //$skey = $this->writeData($tableAlias2, $row[$tableAlias2]);
+            $dataSecondary = array();
+            $dataSecondary[] = $row["parents"][$tableAlias2];
+            $this->importDataTable($tableAlias2, $dataSecondary);
+            /**
+             * New request to get the secondary key, after creation
+             */
+            $sdata = $this->execute($sqlSearchSecondary, array("businessKey" => $row["parents"][$tableAlias2][$model2["businessKey"]]));
+          $skey = $sdata[0]["key"];
           }
           $row[$model["tablenn"]["secondaryParentKey"]] = $skey;
         }
         /**
          * Get the real values for parents
          */
-        if (is_array($row["parents"])) {
+        if (is_array($row["parents"]) && $model["istablenn"] != 1) {
           foreach ($row["parents"] as $parentName => $parent) {
-            $modelParam = $this->model[$parentName];
-            if (count($modelParam) == 0) {
+            $modelParent = $this->model[$parentName];
+            if (count($modelParent) == 0) {
               throw new ExportException("The alias $parentName was not described in the model");
             }
             /**
@@ -788,43 +796,43 @@ class ExportModelProcessing
             /**
              * Search the id from the parent
              */
-            $paramKey = $modelParam["technicalKey"];
-            $paramBusinessKey = $modelParam["businessKey"];
-            $paramTablename = $modelParam["tableName"];
-            $sqlSearchParam = "select $this->quote$paramKey$this->quote as key
-                    from $this->quote$paramTablename$this->quote
-                    where $this->quote$paramBusinessKey$this->quote = :businessKey";
-            $pdata = $this->execute($sqlSearchParam, array("businessKey" => $parent[$modelParam["businessKey"]]));
+            $parentKey = $modelParent["technicalKey"];
+            $parentBusinessKey = $modelParent["businessKey"];
+            $parentTablename = $modelParent["tableName"];
+            $sqlSearchParent = "select $this->quote$parentKey$this->quote as key
+                    from $this->quote$parentTablename$this->quote
+                    where $this->quote$parentBusinessKey$this->quote = :businessKey";
+            $pdata = $this->execute($sqlSearchParent, array("businessKey" => $parent[$modelParent["businessKey"]]));
             $ptkey = $pdata[0]["key"];
             if (!strlen($ptkey) > 0) {
               /**
                * write the parent
                */
               try {
-                $param = array();
-                $param[0] = $parent;
-                $this->importDataTable($paramTablename, $param);
+                $parentA = array();
+                $parentA[0] = $parent;
+                $this->importDataTable($parentTablename, $parentA);
                 /**
                  * Get the real value from the parent
                  */
                 $pdata = $this->execute(
-                  $sqlSearchParam,
-                  array("businessKey" => $parent[$modelParam["businessKey"]])
+                  $sqlSearchParent,
+                  array("businessKey" => $parent[$modelParent["businessKey"]])
                 );
                 $ptkey = $pdata[0]["key"];
                 if (!$ptkey) {
                   throw new ExportException(
-                    "parent table $parentName - value: " . $parent[$modelParam["businessKey"]] . " not found"
+                    "parent table $parentName - value: " . $parent[$modelParent["businessKey"]] . " not found"
                   );
                 }
               } catch (Exception $e) {
                 throw new ExportException(
-                  "Record error for the parent table $parentName for the value " . $parent[$modelParam["businessKey"]]
+                  "Record error for the parent table $parentName for the value " . $parent[$modelParent["businessKey"]]
                 );
               }
             }
             if ($this->modeDebug) {
-              printr("parent " . $parentName . ": key for " . $parent[$modelParam["businessKey"]] . " is " . $ptkey);
+              printA("parent " . $parentName . ": key for " . $parent[$modelParent["businessKey"]] . " is " . $ptkey);
             }
             if (!strlen($ptkey) > 0) {
               throw new ExportException(
@@ -861,23 +869,24 @@ class ExportModelProcessing
         /**
          * Write data
          */
-        $children = $row["children"];
-        unset($row["children"]);
-        unset($row["parents"]);
-        $id = $this->writeData($tableAlias, $row);
+        $dataRow = array();
+        $dataRow = array_merge($row, array());
+        unset($dataRow["children"]);
+        unset($dataRow["parents"]);
+        $id = $this->writeData($tableAlias, $dataRow);
         if ($this->modeDebug) {
-          printr("Recorded $tableAlias - id: $id");
+          printA("Recorded $tableAlias - id: $id");
         }
         /**
          * Record the children
          */
-        if ($id > 0 && is_array($children)) {
-          foreach ($children as $tableChield => $child) {
+        if ($id > 0 && is_array($row["children"])) {
+          foreach ($row["children"] as $tableChild => $child) {
             if (count($child) > 0) {
               if (!isset($child["isStrict"])) {
                 $child["isStrict"] = false;
               }
-              $this->importDataTable($tableChield, $child, $id, array(), $child["isStrict"]);
+              $this->importDataTable($tableChild, $child, $id, array(), $child["isStrict"]);
             }
           }
         }
@@ -892,8 +901,11 @@ class ExportModelProcessing
    * @param array $data: data of the record
    * @return int|null: technical key generated or updated
    */
-  function writeData(string $tableAlias, array $data): ?int
+  function writeData(string $tableAlias, $data): ?int
   {
+    if (!$data) {
+      throw new ExportException("data are empty for $tableAlias");
+    }
     $model = $this->model[$tableAlias];
     $tableName = $model["tableName"];
     $structure = $this->structure[$tableName];
@@ -960,17 +972,19 @@ class ExportModelProcessing
       $cols = "(";
       $values = "(";
       foreach ($data as $field => $value) {
-        if (
-          is_array($structure["booleanFields"])
-          && in_array($field, $structure["booleanFields"]) && !$value
-        ) {
-          $value = "false";
-        }
-        if (!($model["istablenn"] == 1 && $field == $model["tablenn"]["tableAlias"])) {
-          $cols .= $comma . $this->quote . $field . $this->quote;
-          $values .= $comma . ":$field";
-          $dataSql[$field] = $value;
-          $comma = ", ";
+        if (!($field == $tkeyName && $bkeyName != $tkeyName)) {
+          if (
+            is_array($structure["booleanFields"])
+            && in_array($field, $structure["booleanFields"]) && !$value
+          ) {
+            $value = "false";
+          }
+          if (!($model["istablenn"] == 1 && $field == $model["tablenn"]["tableAlias"])) {
+            $cols .= $comma . $this->quote . $field . $this->quote;
+            $values .= $comma . ":$field";
+            $dataSql[$field] = $value;
+            $comma = ", ";
+          }
         }
       }
       $cols .= ")";

@@ -15,10 +15,15 @@ SET search_path=public,pg_catalog,col,gacl;
 -- ddl-end --
 
 
-
-
-
 -- [ Created objects ] --
+-- object: object_comment | type: COLUMN --
+-- ALTER TABLE col.object DROP COLUMN IF EXISTS object_comment CASCADE;
+ALTER TABLE col.object ADD COLUMN object_comment varchar;
+-- ddl-end --
+
+COMMENT ON COLUMN col.object.object_comment IS E'Comment on the object (sample or container)';
+-- ddl-end --
+
 -- object: col.lot | type: TABLE --
 -- DROP TABLE IF EXISTS col.lot CASCADE;
 CREATE TABLE col.lot (
@@ -161,6 +166,10 @@ CREATE TABLE col.dataset_column (
 	export_name varchar NOT NULL,
 	subfield_name varchar,
 	translator_id integer,
+	column_order smallint DEFAULT 1,
+	mandatory boolean DEFAULT 'f',
+	default_value varchar,
+	date_format varchar,
 	CONSTRAINT dataset_column_pk PRIMARY KEY (dataset_column_id)
 
 );
@@ -171,8 +180,16 @@ COMMENT ON COLUMN col.dataset_column.column_name IS E'Name of the column into th
 -- ddl-end --
 COMMENT ON COLUMN col.dataset_column.export_name IS E'Name of the column into the export file';
 -- ddl-end --
-COMMENT ON COLUMN col.dataset_column.subfield_name IS E'Name of the field if it into the metadata description of the sample';
+COMMENT ON COLUMN col.dataset_column.subfield_name IS E'Name of the field if it into the metadata description of the sample or secondary identifier, etc.';
 -- ddl-end --
+COMMENT ON COLUMN col.dataset_column.column_order IS E'order of displaying in the exported file';
+-- ddl-end --
+COMMENT ON COLUMN col.dataset_column.mandatory IS E'Is the content of the column is mandatory to export data?';
+-- ddl-end --
+COMMENT ON COLUMN col.dataset_column.default_value IS E'Default value, if the value is not filled in';
+-- ddl-end --
+COMMENT ON COLUMN col.dataset_column.date_format IS E'Export date format, in php notation. Example: d/m/Y H:i:s for 25/12/2020 17:15:00';
+
 ALTER TABLE col.dataset_column OWNER TO collec;
 -- ddl-end --
 

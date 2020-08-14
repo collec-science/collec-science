@@ -23,15 +23,13 @@
                 <th>{t}Clé primaire{/t}</th>
                 <th>{t}Clé métier{/t}</th>
                 <th>{t}Clé étrangère{/t}</th>
-                <th>{t}Champs booléens{/t}</th>
                 <th>{t}Relation de type 1-1{/t}</th>
-                <th colspan="2">{t}Tables liées{/t}</th>
-                <th colspan="2">{t}Tables de paramètres{/t}</th>
+                <th colspan="2">{t}Tables filles{/t}</th>
+                <th colspan="2">{t}Tables parentes{/t}</th>
                 <th>{t}2nde clé étrangère (table n-n){/t}</th>
                 <th>{t}Alias de la 2nde table{/t}</th>
             </tr>
             <tr>
-                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -56,11 +54,6 @@
                     <td >{$row.technicalKey}</td>
                     <td >{$row.businessKey}</td>
                     <td >{$row.parentKey}</td>
-                    <td>
-                        {foreach $row.booleanFields as $field}
-                            {$field}
-                        {/foreach}
-                    </td>
                     <td class="center">
                         {if $row.istable11 == 1}{t}Oui{/t}{/if}
                     </td>
@@ -77,13 +70,13 @@
                         {/foreach}
                     </td>
                     <td>
-                        {foreach $row.parameters as $key=>$child}
+                        {foreach $row.parents as $key=>$child}
                         {if $key > 0}<br>{/if}
                         {$child.aliasName}
                     {/foreach}
                     </td>
                     <td>
-                        {foreach $row.parameters as $key=>$child}
+                        {foreach $row.parents as $key=>$child}
                             {if $key > 0}<br>{/if}
                             {$child.fieldName}
                         {/foreach}

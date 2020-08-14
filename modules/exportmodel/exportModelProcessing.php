@@ -13,8 +13,12 @@ switch ($t_module["param"]) {
                 $model = $exportModel->getModelFromName($_REQUEST["export_model_name"]);
             }
             if ($model["export_model_id"] > 0) {
-                $export->initModel($model["pattern"]);
+                $export->initModel(json_decode($model["pattern"], true));
                 //$export->modeDebug = true;
+                /**
+                 * Generate the structure of the database
+                 */
+                $export->generateStructure();
                 $data = array();
                 foreach ($export->getListPrimaryTables() as $key => $table) {
                     if ($key == 0 && count($_REQUEST["keys"]) > 0) {

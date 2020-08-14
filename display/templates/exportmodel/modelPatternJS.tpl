@@ -1,114 +1,108 @@
 <script>
-    function patternForm(data) {
-        $("#alpacaPattern").alpaca({
+    function patternForm( data ) {
+        $( "#alpacaPattern" ).alpaca( {
             "data": data,
             "view": "bootstrap-edit-horizontal",
             "schema": {
-                "title":"{t}Description du modèle{/t}",
+                "title": "Model description",
                 "type": "array",
                 "items": {
+                    "title": "Description of a table",
                     "type": "object",
                     "properties": {
                         "tableName": {
-                            "title": "{t}Nom de la table{/t}",
+                            "title": "Name of the table",
                             "type": "string",
                             "required": true
                         },
                         "tableAlias": {
-                            "title": "{t}Alias de la table (si elle dépend de plusieurs parents){/t}",
+                            "title": "Alias of the table (if depends of multiple parents)",
                             "type": "string"
                         },
                         "technicalKey": {
-                            "title": "{t}Clé primaire{/t}",
+                            "title": "Primary key",
                             "type": "string"
                         },
                         "isEmpty": {
-                            "title":"{t}Table fournie vide (table de paramètres renseignée par les valeurs  fournies dans les autres enregistrements) ?{/t}",
-                            "type": "boolean",
-                            "default" : false
-                        },
-                        "businessKey": {
-                            "title": "{t}Clé métier{/t}",
-                            "type": "string",
-                        },
-                        "parentKey": {
-                            "title": "{t}Nom de la clé étrangère (table parente){/t}",
-                            "type": "string"
-                        },
-                        "istable11": {
-                            "title": "{t}Relation de type 1-1 avec le parent (clé partagée){/t}",
+                            "title": "Table empty (Parameter table filled with other table records)?",
                             "type": "boolean",
                             "default": false
                         },
-                        "booleanFields": {
-                            "title": "{t}Liste des champs de type booléen{/t}",
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
+                        "businessKey": {
+                            "title": "Business key",
+                            "type": "string",
+                        },
+                        "parentKey": {
+                            "title": "Foreign key (to link to the parent table)",
+                            "type": "string"
+                        },
+                        "istable11": {
+                            "title": "Relation of type 1-1 with the parent (shared key)",
+                            "type": "boolean",
+                            "default": false
                         },
                         "children": {
-                            "title": "{t}Liste des alias des tables liées{/t}",
+                            "title": "Liste of alias of related tables",
                             "type": "array",
-                            "items" : {
+                            "items": {
                                 "type": "object",
                                 "properties": {
                                     "aliasName": {
-                                        "title":"{t}Alias de la table{/t}",
-                                        "type":"string"
-                                    },
-                                    "isStrict": {
-                                        "title":"{t}Relation stricte (les enregistrements enfants sont totalement dépendants de l'enregistrement courant) ?{/t}",
-                                        "type":"boolean",
-                                        "default":true
-                                    }
-                                }
-                            }
-                        },
-                        "parameters": {
-                            "title":"{t}Liste des tables de paramètres associées{/t}",
-                            "type":"array",
-                            "items": {
-                                "type":"object",
-                                "properties": {
-                                    "aliasName": {
-                                        "title": "{t}Alias de la table{/t}",
+                                        "title": "Alias of the table",
                                         "type": "string"
                                     },
-                                    "fieldName":{
-                                        "title":"{t}Nom de la colonne dans la table courante{/t}",
-                                        "type":"string"
+                                    "isStrict": {
+                                        "title": "Strict relation (the children records depends only of the current record) ?",
+                                        "type": "boolean",
+                                        "default": true
                                     }
                                 }
                             }
                         },
-                        "istablenn":{
-                            "title": "{t}Table de type n-n{/t}",
-                            "type":"boolean",
-                            "default":false
+                        "parents": {
+                            "title": "Liste of parents tables",
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "aliasName": {
+                                        "title": "Table alias",
+                                        "type": "string"
+                                    },
+                                    "fieldName": {
+                                        "title": "Column name in the current table",
+                                        "type": "string"
+                                    }
+                                }
+                            }
                         },
-                        "tablenn":{
-                            "type":"object",
+                        "istablenn": {
+                            "title": "Table of type n-n",
+                            "type": "boolean",
+                            "default": false
+                        },
+                        "tablenn": {
+                            "type": "object",
                             "properties": {
                                 "secondaryParentKey": {
-                                    "title": "{t}Nom de la seconde clé étrangère{/t}",
+                                    "title": "Name of the second foreign key",
                                     "type": "string"
                                 },
                                 "tableAlias": {
-                                    "title": "{t}Alias de la seconde table{/t}",
+                                    "title": "Alias of the second table",
                                     "type": "string"
                                 }
                             },
-                            "dependencies":"istablenn"
+                            "dependencies": "istablenn"
                         }
                     }
                 },
                 "dependencies": {
-                    "istablenn": ["tablenn"]
+                    "istablenn": [ "tablenn" ]
                 }
             },
             "options": {
-                "fields":{
+                "fields": {
                     "tablenn": {
                         "dependencies": {
                             "istablenn": true
@@ -116,18 +110,18 @@
                     }
                 }
             },
-            "postRender": function (control) {
+            "postRender": function ( control ) {
                 var value = control.getValue();
-                $("#pattern").val(JSON.stringify(value, null, null));
-                control.on("mouseout", function () {
+                $( "#pattern").val( JSON.stringify( value, null, null ) );
+                control.on( "mouseout", function () {
                     var value = control.getValue();
-                    $("#pattern").val(JSON.stringify(value, null, null));
-                });
-                control.on("change", function () {
+                    $( "#pattern" ).val( JSON.stringify( value, null, null ) );
+                } );
+                control.on( "change", function () {
                     var value = control.getValue();
-                    $("#pattern").val(JSON.stringify(value, null, null));
-                });
+                    $( "#pattern" ).val( JSON.stringify( value, null, null ) );
+                } );
             }
-        });
-    }
+        } )
+    };
 </script>

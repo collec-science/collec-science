@@ -17,7 +17,6 @@ class Menu
      * Charge la classe avec les informations fournies
      *
      * @param string $filename
-     * @param string $language
      */
     function __construct($filename)
     {

@@ -83,7 +83,7 @@ try {
                 $request_uri = substr($request_uri, 1);
             }
             $uri = explode("/", $request_uri);
-            if (count($uri) > 2 && $uri[1] != $display) {
+            if (count($uri) > 2 && $uri[1] != "display") {
                 /**
                  * Extraction le cas echeant des variables GET
                  */
@@ -155,7 +155,7 @@ try {
          * Recuperation du tableau contenant les attributs du module
          */
         $t_module = $navigation->getModule($module);
-        if (count($t_module) == 0) {
+        if (empty($t_module) ) {
             // traduction: conserver inchangée la chaîne %s
             $message->set(sprintf(_('Le module demandé n\'existe pas (%s)'), $module), true);
             $t_module = $navigation->getModule("default");

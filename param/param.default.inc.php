@@ -75,7 +75,8 @@ $LDAP = array(
 		"mailAttrib"=>"mail",
 		'attributgroupname' => "cn",
 		'attributloginname' => "memberuid",
-		'basedngroup' => 'ou=example,o=societe,c=fr'
+		'basedngroup' => 'ou=example,o=societe,c=fr',
+		"timeout"=>2
 );
 
 /*

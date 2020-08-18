@@ -31,22 +31,6 @@ class Identification
 
     public $CAS_CApath;
 
-    public $LDAP_address;
-
-    public $LDAP_port;
-
-    public $LDAP_rdn;
-
-    public $LDAP_basedn;
-
-    public $LDAP_user_attrib;
-
-    public $LDAP_v3;
-
-    public $LDAP_tls;
-
-    public $LDAP_upn_suffix; // User Principal Name (UPN) Suffix pour Active Directory
-
     public $password;
 
     public $login;
@@ -95,23 +79,11 @@ class Identification
     /**
      * Initialisation du test de connexion ldap
      *
-     * @param String $LDAP_address
-     * @param String $LDAP_port
-     * @param String $LDAP_basedn
-     * @param String $LDAP_user_attrib
-     * @param String $LDAP_v3
-     * @param String $LDAP_tls
-     * @param String $LDAP_upn_suffix
+     * @param array $LDAP: all parameters
      */
-    public function init_LDAP($LDAP_address, $LDAP_port, $LDAP_basedn, $LDAP_user_attrib, $LDAP_v3, $LDAP_tls, $LDAP_upn_suffix = "")
+    public function init_LDAP($LDAP)
     {
-        $this->LDAP_address = $LDAP_address;
-        $this->LDAP_port = $LDAP_port;
-        $this->LDAP_basedn = $LDAP_basedn;
-        $this->LDAP_user_attrib = $LDAP_user_attrib;
-        $this->LDAP_v3 = $LDAP_v3;
-        $this->LDAP_tls = $LDAP_tls;
-        $this->LDAP_upn_suffix = $LDAP_upn_suffix;
+        $this->LDAP = $LDAP;
     }
 
     /**
@@ -176,16 +148,23 @@ class Identification
                     $login = str_replace($char, '\\' . $hex, $login);
                 }
             }
-            $ldap = @ldap_connect($this->LDAP_address, $this->LDAP_port);
+            $ldap = @ldap_connect($this->LDAP["address"], $this->LDAP["port"]);
+            /**
+             * Set options
+             */
+            ldap_set_option($ldap, LDAP_OPT_NETWORK_TIMEOUT, $this->LDAP["timeout"]);
+            ldap_set_option($ldap, LDAP_OPT_TIMELIMIT, $this->LDAP["timeout"]);
+            ldap_set_option($ldap, LDAP_OPT_TIMEOUT, $this->LDAP["timeout"]);
             if (!$ldap) {
                 throw new LdapException("Impossible de se connecter au serveur LDAP.");
             }
-            if ($this->LDAP_v3) {
+            if ($this->LDAP["v3"]) {
                 ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
             }
-            if ($this->LDAP_tls) {
+            if ($this->LDAP["tls"]) {
                 ldap_start_tls($ldap);
             }
+            
             /*
              * Pour OpenLDAP et Active Directory, "bind rdn" de la forme : user_attrib=login,basedn
              *     avec généralement user_attrib=uid pour OpenLDAP,
@@ -194,9 +173,9 @@ class Identification
              * D'où un "bind rdn" de la forme générique suivante :
              *     (user_attrib=)login(@upn_suffix)(,basedn)
              */
-            $user_attrib_part = !empty($this->LDAP_user_attrib) ? $this->LDAP_user_attrib . "=" : "";
-            $upn_suffix_part = !empty($this->LDAP_upn_suffix) ? "@" . $this->LDAP_upn_suffix : "";
-            $basedn_part = !empty($this->LDAP_basedn) ? "," . $this->LDAP_basedn : "";
+            $user_attrib_part = !empty($this->LDAP["user_attrib"]) ? $this->LDAP["user_attrib"] . "=" : "";
+            $upn_suffix_part = !empty($this->LDAP["upn_suffix"]) ? "@" . $this->LDAP["upn_suffix"] : "";
+            $basedn_part = !empty($this->LDAP["basedn"]) ? "," . $this->LDAP["basedn"] : "";
             //     (user_attrib=)login(@upn_suffix)(,basedn)
             $dn = $user_attrib_part . $login . $upn_suffix_part . $basedn_part;
             $rep = ldap_bind($ldap, $dn, $password);

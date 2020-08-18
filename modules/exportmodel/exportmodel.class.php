@@ -50,6 +50,7 @@ class ExportModel extends ObjetBDD
 class ExportModelProcessing
 {
   private $model = array();
+  private $db;
   private $lastResultExec;
   public $modeDebug = false;
   private $lastSql = "";

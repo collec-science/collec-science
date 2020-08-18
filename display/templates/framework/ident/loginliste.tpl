@@ -3,7 +3,6 @@ $(document).ready(function() {
 	var mails ="";
 	$(".mail").each(function (i, elem){
 		var mail = $(elem).text();
-		console.log(mail);
 		if (mail.length > 0) {
 			if (mails.length > 0) {
 					mails += ";";
@@ -11,8 +10,14 @@ $(document).ready(function() {
 			mails += mail;
 		}
 	});
-	console.log(mails);
-	$("#mails").text(mails);
+	$("#mails").val(mails);
+	$("#copyMails").click(function() { 
+		var temp = $("<input>");
+		$("body").append(temp);
+		temp.val($("#mails").val()).select();
+		document.execCommand("copy");
+		temp.remove();
+	});
 });
 </script>
 <h2>{t}Liste des logins déclarés dans la base de données{/t}</h2>
@@ -50,4 +55,18 @@ $(document).ready(function() {
 </table>
 </div>
 </div>
-{t}Adresses mails :{/t} <div id="mails"></div>
+<div class="col-md-6">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="mails" class="control-label col-md-4">
+				{t}Adresses mails :{/t}
+			</label>
+		<div class="col-md-7">
+			<input class="form-control" id="mails" readonly>
+		</div>
+		<div class="col-md-1">
+			<img src="display/images/copy.png" height="24" id="copyMails">
+		</div>
+	</form>
+</div>
+

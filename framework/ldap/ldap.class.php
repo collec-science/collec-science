@@ -8,131 +8,70 @@
 /**
  *
  * @author eric.quinton
- *        
+ *
  */
 class Ldap
 {
 
     /**
      * Tableau des informations retournees
-     * 
+     *
      * @var array
      */
     var $listegroupe = array();
 
-    /**
-     * Adresse du serveur LDAP
-     * 
-     * @var string
-     */
-    var $LDAP_address;
-
-    /**
-     * Port de connexion (389|636 en general)
-     * 
-     * @var int
-     */
-    var $LDAP_port;
-
-    /**
-     * Chaine complete de connexion
-     * 
-     * @var string
-     */
-    var $LDAP_rdn;
-
-    /**
-     * Base de recherche
-     * 
-     * @var string
-     */
-    var $LDAP_basedn;
-
-    /**
-     * Attribut ldap contenant le login
-     * 
-     * @var string
-     */
-    var $LDAP_user_attrib;
-
-    /**
-     * Version de l'annuaire
-     * 
-     * @var boolean
-     */
-    var $LDAP_v3;
-
-    /**
-     * Connexion cryptee
-     * 
-     * @var boolean
-     */
-    var $LDAP_tls;
-
-    /**
-     * Attribut ldap contenant le suffixe de l'UPN (User Principal Name)
-     * de la forme <sAMAccountName>@<UPN Suffix> pour Active Directory
-     * 
-     * @var string
-     */
-    var $LDAP_upn_suffix;
+    var $LDAP;
 
     /**
      * Identifiant de connexion de l'annuaire ldap
-     * 
+     *
      * @var int
      */
     var $idldap;
 
     /**
      * Message retourne en cas d'anomalie
-     * 
+     *
      * @var string
      */
     var $message;
 
     /**
      * Constructeur de la classe
-     * 
-     * @param string $LDAP_address
-     * @param string $LDAP_basedn
-     * @param int $LDAP_port
-     * @param string $LDAP_user_attrib
-     * @param boolean $LDAP_v3
-     * @param boolean $LDAP_tls
-     * @param string $LDAP_upn_suffix
+     *
+     * @param array $LDAP
      * @return void;
      */
-    function __construct($LDAP_address, $LDAP_basedn, $LDAP_port = 389, $LDAP_user_attrib = "uid", $LDAP_v3 = 1, $LDAP_tls = 0, $LDAP_upn_suffix = "")
+    function __construct($LDAP)
     {
-        $this->LDAP_address = $LDAP_address;
-        $this->LDAP_port = $LDAP_port;
-        $this->LDAP_basedn = $LDAP_basedn;
-        $this->LDAP_user_attrib = $LDAP_user_attrib;
-        $this->LDAP_v3 = $LDAP_v3;
-        $this->LDAP_tls = $LDAP_tls;
-        $this->LDAP_upn_suffix = $LDAP_upn_suffix;
+        $this->LDAP = $LDAP;
     }
 
     /**
      * Fonction realisant la connexion a l'annuaire
      * Retourne -1 en cas d'echec
-     * 
+     *
      * @return int
      */
     function connect()
     {
-        $this->idldap = @ldap_connect($this->LDAP_address, $this->LDAP_port);
+        $this->idldap = @ldap_connect($this->LDAP["address"], $this->LDAP["port"]);
+        /**
+         * Set options
+         */
+        ldap_set_option($this->idldap, LDAP_OPT_NETWORK_TIMEOUT, $this->LDAP["timeout"]);
+        ldap_set_option($this->idldap, LDAP_OPT_TIMELIMIT, $this->LDAP["timeout"]);
+        ldap_set_option($this->idldap, LDAP_OPT_TIMEOUT, $this->LDAP["timeout"]);
         if ($this->idldap > 0) {
-            if ($this->LDAP_v3 == 1) {
+            if ($this->LDAP["v3"] == 1) {
                 ldap_set_option($this->idldap, LDAP_OPT_PROTOCOL_VERSION, 3);
             }
-            if ($this->LDAP_tls == 1) {
+            if ($this->LDAP["tls"] == 1) {
                 ldap_start_tls($this->idldap);
             }
         } else {
             $this->message = "Impossible de se connecter au serveur LDAP<br>";
-            $this->idldap = - 1;
+            $this->idldap = -1;
         }
         return $this->idldap;
     }
@@ -141,7 +80,7 @@ class Ldap
      * Fonction permettant de realiser le bind avec le login/passwd
      * Permet de verifier le couple login/passwd
      * Retourne 1 en cas de reussite
-     * 
+     *
      * @param string $login
      * @param string $password
      * @return int
@@ -159,7 +98,7 @@ class Ldap
             '\28',
             '\29'
         ), $login);
-        for ($i = 0; $i < strlen($login); $i ++) {
+        for ($i = 0; $i < strlen($login); $i++) {
             $char = substr($login, $i, 1);
             if (ord($char) < 32) {
                 $hex = dechex(ord($char));
@@ -169,7 +108,7 @@ class Ldap
                 $login = str_replace($char, '\\' . $hex, $login);
             }
         }
-        /* 
+        /*
          * Pour OpenLDAP et Active Directory, "bind rdn" de la forme : user_attrib=login,basedn
          *     avec généralement user_attrib=uid pour OpenLDAP,
          *                    et user_attrib=cn pour Active Directory
@@ -177,10 +116,10 @@ class Ldap
          * D'où un "bind rdn" de la forme générique suivante :
          *     (user_attrib=)login(@upn_suffix)(,basedn)
          */
-        $user_attrib_part = !empty($this->LDAP_user_attrib) ? $this->LDAP_user_attrib . "=" : "";
-        $upn_suffix_part = !empty($this->LDAP_upn_suffix) ? "@" . $this->LDAP_upn_suffix : "";
-        $basedn_part = !empty($this->LDAP_basedn) ? "," . $this->LDAP_basedn : "";
-        //          (user_attrib=)login(@upn_suffix)(,basedn) 
+        $user_attrib_part = !empty($this->LDAP["user_attrib"]) ? $this->LDAP["user_attrib"] . "=" : "";
+        $upn_suffix_part = !empty($this->LDAP["upn_suffix"]) ? "@" . $this->LDAP["upn_suffix"] : "";
+        $basedn_part = !empty($this->LDAP["basedn"]) ? "," . $this->LDAP["basedn"] : "";
+        //          (user_attrib=)login(@upn_suffix)(,basedn)
         $this->dn = $user_attrib_part . $login . $upn_suffix_part . $basedn_part;
         $rep = ldap_bind($this->idldap, $this->dn, $password);
         if ($rep != 1) {
@@ -192,7 +131,7 @@ class Ldap
 
     /**
      * Fonction retournant les messages d'erreur, si existants
-     * 
+     *
      * @return string
      */
     function getMessage()
@@ -216,7 +155,7 @@ class Ldap
     {
         // Test si $attribut est un tableau
         $a_attribut = array();
-        if (! is_array($attribut)) {
+        if (!is_array($attribut)) {
             $a_attribut = array(
                 $attribut
             );
@@ -238,4 +177,3 @@ class Ldap
         }
     }
 }
-?>

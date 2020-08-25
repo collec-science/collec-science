@@ -120,7 +120,18 @@ class Export extends ObjetBDD
               } else {
                 $this->to_xml($xml, $data, $ddataset["xmlnodename"]);
               }
-              $xml->asXML($filetmp);
+              /**
+               * Treatment of xsl transformation
+               */
+              if (!empty($ddataset["xslcontent"])) {
+                $xsl = new DOMDocument;
+                $xsl->loadXML($ddataset["xslcontent"]);
+                $proc = new XSLTProcessor;
+                $proc->importStyleSheet($xsl);
+                fwrite($handle, $proc->transformToXml($xml));
+              } else {
+                $xml->asXML($filetmp);
+              }
               break;
             default:
               throw new ExportException(_("Impossible de générer le fichier, le type est inconnu ou non spécifié"));

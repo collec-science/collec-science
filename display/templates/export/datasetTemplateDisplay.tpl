@@ -43,6 +43,12 @@
               <dt>{t}Nom des nœuds de chaque item :{/t}</dt>
               <dd>{$data.xmlnodename}</dd>
             </dl>
+            <dl class="dl-horizontal">
+              <dt>{t}Transformation XSL appliquée sur le fichier XML généré :{/t}</dt>
+              <dd>
+              <textarea class="texteareaDisplay col-md-12" rows="5" readonly>{$data.xslcontent}</textarea>
+              </dd>
+            </dl>
           </fieldset>
       </div>
       </fieldset>

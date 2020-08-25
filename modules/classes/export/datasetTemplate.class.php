@@ -3,10 +3,10 @@ class DatasetTemplateException extends Exception
 { }
 class DatasetTemplate extends ObjetBDD
 {
-  private $sql = "select dataset_template_id, dataset_template_name, export_format_id, dataset_type_id, 
+  private $sql = "select dataset_template_id, dataset_template_name, export_format_id, dataset_type_id,
                   only_last_document, separator,
                   dataset_type_name, export_format_name, filename
-                  ,xmlroot, xmlnodename
+                  ,xmlroot, xmlnodename, xslcontent
                   ,fields";
   private $from = " from dataset_template
                   join dataset_type using (dataset_type_id)
@@ -33,7 +33,8 @@ class DatasetTemplate extends ObjetBDD
       "separator" => array("type" => 0, "defaultValue" => ";"),
       "filename" => array("type" => 0, "requis" => 1, "defaultValue" => "cs-export.csv"),
       "xmlroot" => array("type" => 0, "defaultValue" => '<?xml version="1.0"?><samples></samples>'),
-      "xmlnodename" => array("type" => 0, "defaultValue" => "sample")
+      "xmlnodename" => array("type" => 0, "defaultValue" => "sample"),
+      "xslcontent" => array("type"=>0)
     );
     parent::__construct($bdd, $param);
   }

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,448" last-zoom="0.75" max-obj-count="68"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,312" last-zoom="0.75" max-obj-count="68"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -2526,7 +2526,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="dataset_template" layer="0" collapse-mode="2" max-obj-count="10">
+<table name="dataset_template" layer="0" collapse-mode="2" max-obj-count="12">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of templates of dataset]]></comment>
@@ -2558,6 +2558,10 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<column name="xmlnodename" default-value="'sample'">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[Name of a node in a xml file, for list of samples by example]]></comment>
+	</column>
+	<column name="xslcontent">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Transformation of the generated xml to create a specific xml file]]></comment>
 	</column>
 	<constraint name="dataset_template_pk" type="pk-constr" table="col.dataset_template">
 		<columns names="dataset_template_id" ref-type="src-columns"/>

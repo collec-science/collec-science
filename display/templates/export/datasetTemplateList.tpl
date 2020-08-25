@@ -19,6 +19,7 @@
         <th>{t}Séparateur (fichiers CSV){/t}</th>
         <th>{t}Entête XML{/t}</th>
         <th>{t}Nom des nœuds XML{/t}</th>
+        <th>{t}Transformation xsl ?{/t}</th>
       </tr>
     </thead>
     <tbody>
@@ -42,6 +43,7 @@
         <td class="center">{$row.separator}</td>
         <td>{$row.xmlroot}</td>
         <td>{$row.xmlnodename}</td>
+        <td class="center">{if strlen($row.xslcontent)>0}{t}oui{/t}{/if}</td>
       </tr>
       {/foreach}
     </tbody>

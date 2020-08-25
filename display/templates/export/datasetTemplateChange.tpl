@@ -89,6 +89,24 @@
           <input id="xmlnodename" type="text" class="form-control" name="xmlnodename" value="{$data.xmlnodename}">
         </div>
       </div>
+      <div class="form-group">
+        <label for="xslcontent" class="control-label col-md-4">{t}Transformation XSL appliquée sur le fichier XML généré :{/t}</label>
+        <div class="col-md-8">
+          <textarea class="form-control" id="xslcontent" name="xslcontent" rows="10" placeholder='<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+<xsl:template match="/">
+  <echantillons>
+    <xsl:for-each select="samples/sample">
+      <sample>
+      <type><xsl:value-of select="sample_type_name" /></type>
+    <identifiant><xsl:value-of select="uid" /></identifiant>
+      </sample>
+    </xsl:for-each>
+  </echantillons>
+</xsl:template>
+</xsl:stylesheet>'>{$data.xslcontent}</textarea>
+        </div>
+      </div>
       <div class="form-group center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.dataset_template_id > 0 }

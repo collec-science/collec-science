@@ -34,7 +34,7 @@ class DatasetTemplate extends ObjetBDD
       "filename" => array("type" => 0, "requis" => 1, "defaultValue" => "cs-export.csv"),
       "xmlroot" => array("type" => 0, "defaultValue" => '<?xml version="1.0"?><samples></samples>'),
       "xmlnodename" => array("type" => 0, "defaultValue" => "sample"),
-      "xslcontent" => array("type"=>0)
+      "xslcontent" => array("type" => 0)
     );
     parent::__construct($bdd, $param);
   }
@@ -212,6 +212,16 @@ class DatasetTemplate extends ObjetBDD
           }
           if (strlen($col["default_value"]) > 0 && strlen($value) == 0) {
             $value = $col["default_value"];
+          }
+          /**
+           * Treatment of keywords
+           */
+          if ($colname == "collection_keywords" && !empty($value)) {
+            $words = explode(",", $value);
+            $value = array();
+            foreach($words as $word) {
+              $value[] = array("keyword"=>$word);
+            }
           }
           if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {
             $value = date_format(date_create($value), $col["date_format"]);

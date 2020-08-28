@@ -45,6 +45,9 @@ class Sample extends ObjetBDD
           case when ro.referent_name is not null then ro.address_city else cr.address_city end as address_city,
           case when ro.referent_name is not null then ro.address_country else cr.address_country end as address_country,
           case when ro.referent_name is not null then ro.referent_phone else cr.referent_phone end as referent_phone,
+          case when ro.referent_name is not null then ro.referent_firstname else cr.referent_firstname end as referent_firstname,
+          case when ro.referent_name is not null then ro.academical_directory else cr.academical_directory end as academic_directory,
+          case when ro.referent_name is not null then ro.academical_link else cr.academical_link end as academical_link,
           borrowing_date, expected_return_date, borrower_id, borrower_name
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)

@@ -33,7 +33,7 @@ COMMENT ON COLUMN col.referent.referent_firstname IS E'Firstname of the referent
 ALTER TABLE col.referent ADD COLUMN academical_directory varchar;
 -- ddl-end --
 
-COMMENT ON COLUMN col.referent.academical_directory IS E'Academical directory used to identifier the referent, as https://orcid.com or https://www.researchgate.net';
+COMMENT ON COLUMN col.referent.academical_directory IS E'Academical directory used to identifier the referent, as https://orcid.org or https://www.researchgate.net';
 -- ddl-end --
 
 
@@ -45,3 +45,7 @@ ALTER TABLE col.referent ADD COLUMN academical_link varchar;
 COMMENT ON COLUMN col.referent.academical_link IS E'Link used to identify the referent, as https://orcid.org/0000-0003-4207-4107';
 -- ddl-end --
 
+update col.dataset_type set fields =  E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value"]'
+where dataset_type_id = 1;
+update col.dataset_type set fields = E'["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academic_directory","academic_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]'
+where dataset_type_id = 2;

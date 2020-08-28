@@ -115,7 +115,14 @@ class Export extends ObjetBDD
               $xml = new SimpleXMLElement($ddataset["xmlroot"]);
               if ($ddataset["dataset_type_id"] == 2) {
                 foreach ($data[0] as $k => $v) {
-                  $xml->addChild($k, $v);
+                  if ($k == "collection_keywords") {
+                    $keywords = $xml->addchild("collection_keywords");
+                    foreach ($v as $keyword) {
+                      $keywords->addChild("keyword",$keyword["keyword"]);
+                    }
+                   } else {
+                    $xml->addChild($k, $v);
+                  }
                 }
               } else {
                 $this->to_xml($xml, $data, $ddataset["xmlnodename"]);

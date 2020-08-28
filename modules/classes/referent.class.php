@@ -2,18 +2,18 @@
 
 /**
  * Classe de gestion de la table referent
- * 
+ *
  * @var mixed
  */
 class Referent extends ObjetBDD
 {
     /**
      * __construct
-     * 
-     * @param mixed $bdd 
-     * @param mixed $param 
-     * 
-     * @return mixed 
+     *
+     * @param mixed $bdd
+     * @param mixed $param
+     *
+     * @return mixed
      */
     function __construct($bdd, $param = array())
     {
@@ -35,25 +35,27 @@ class Referent extends ObjetBDD
             "address_line3" => array("type" => 0),
             "address_city" => array("type" => 0),
             "address_country" => array("type" => 0),
-            "referent_phone" => array("type" => 0)
+            "referent_phone" => array("type" => 0),
+            "referent_firstname" => array("type" => 0),
+            "academical_directory" => array("type" => 0),
+            "academical_link" => array("type" => 0)
         );
         parent::__construct($bdd, $param);
     }
 
     /**
      * Recupere l'enregistrement a partir du nom du referent
-     * 
-     * @param string $name 
-     * 
-     * @return array 
+     *
+     * @param string $name
+     *
+     * @return array
      */
     function getFromName($name)
     {
         if (strlen($name) > 0) {
-            $sql = "select * from referent 
+            $sql = "select * from referent
                     where referent_name = :name";
             return $this->lireParamAsPrepared($sql, array("name" => $name));
         }
     }
 }
-?>

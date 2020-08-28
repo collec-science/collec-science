@@ -60,7 +60,7 @@ class Collection extends ObjetBDD
    *
    * @see ObjetBDD::getListe()
    */
-  function getListe($order = 0)
+  function getListe($order = 1)
   {
     $sql = "select collection_id, collection_name,
                 array_to_string(array_agg(groupe),', ') as groupe,

@@ -11,10 +11,13 @@
 <thead>
 <tr>
 <th>{t}Nom du référent{/t}</th>
+<th>{t}Prénom{/t}</th>
 <th>{t}Id{/t}</th>
 <th>{t}Mail{/t}</th>
 <th>{t}Téléphone{/t}</th>
 <th>{t}Adresse postale{/t}</th>
+<th>{t}Annuaire académique{/t}</th>
+<th>{t}Lien académique{/t}</th>
 {if $droits.param == 1}
 <th>{t}Dupliquer{/t}</th>
 {/if}
@@ -32,6 +35,7 @@
 {$data[lst].referent_name}
 {/if}
 </td>
+<td>{$data[lst].referent_lastname}</td>
 <td>{$data[lst].referent_id}</td>
 <td>{$data[lst].referent_email}</td>
 <td>{$data[lst].referent_phone}</td>
@@ -49,6 +53,8 @@
 <br>{$data[lst].address_country}
 {/if}
 </td>
+<td>{$data[lst].academical_directory}</td>
+<td>{$data[lst].academical_link}</td>
 {if $droits.param == 1}
 <td class="center">
 <a href="index.php?module=referentCopy&referent_id={$data[lst].referent_id}" title="{t}Dupliquer le référent{/t}">

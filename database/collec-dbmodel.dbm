@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,312" last-zoom="0.75" max-obj-count="68"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,135" last-zoom="0.75" max-obj-count="68"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -933,7 +933,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<table name="collection" layer="0" collapse-mode="2" max-obj-count="7">
+<table name="collection" layer="0" collapse-mode="2" max-obj-count="9">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of all collections into the database]]></comment>
@@ -959,6 +959,14 @@ Autre]]>
 	<column name="public_collection" default-value="'f'">
 		<type name="boolean" length="0"/>
 		<comment><![CDATA[Set if a collection can be requested without authentication]]></comment>
+	</column>
+	<column name="collection_keywords">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[List of keywords, separed by a comma]]></comment>
+	</column>
+	<column name="collection_displayname">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Name used to communicate from the collection, in export module by example]]></comment>
 	</column>
 	<constraint name="project_pk" type="pk-constr" table="col.collection">
 		<columns names="collection_id" ref-type="src-columns"/>
@@ -1016,7 +1024,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="referent" layer="0" collapse-mode="2" max-obj-count="10">
+<table name="referent" layer="0" collapse-mode="2" max-obj-count="14">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of sample referents]]></comment>
@@ -1056,6 +1064,19 @@ Autre]]>
 	<column name="referent_phone">
 		<type name="character varying" length="0"/>
 		<comment><![CDATA[Contact phone]]></comment>
+	</column>
+	<column name="referent_firstname">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Firstname of the referent
+]]></comment>
+	</column>
+	<column name="academical_directory">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Academical directory used to identifier the referent, as https://orcid.com or https://www.researchgate.net]]></comment>
+	</column>
+	<column name="academical_link">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Link used to identify the referent, as https://orcid.org/0000-0003-4207-4107]]></comment>
 	</column>
 	<constraint name="referent_pk" type="pk-constr" table="col.referent">
 		<columns names="referent_id" ref-type="src-columns"/>

@@ -42,6 +42,12 @@ class Collection extends ObjetBDD
       "public_collection" => array(
         "type" => 1,
         "defaultValue" => 0
+      ),
+      "collection_keywords" => array(
+        "type" => 0
+      ),
+      "collection_displayname" => array(
+        "type" => 0
       )
     );
     parent::__construct($bdd, $param);
@@ -60,6 +66,7 @@ class Collection extends ObjetBDD
                 array_to_string(array_agg(groupe),', ') as groupe,
                 referent_name,
                 allowed_import_flow, allowed_export_flow, public_collection
+                ,collection_keywords,collection_displayname
 				from collection
                 left outer join collection_group using (collection_id)
                 left outer join referent using (referent_id)
@@ -237,18 +244,20 @@ class Collection extends ObjetBDD
       return ($this->getListParam($sql . $where . $groupby));
     }
   }
-/**
- * Return the common collection to a list of uid
- * Function used for the exports
- *
- * @param string $uids
- * @return array|null
- */
-  function getCollectionFromUids(string $uids):?array
+  /**
+   * Return the common collection to a list of uid
+   * Function used for the exports
+   *
+   * @param string $uids
+   * @return array|null
+   */
+  function getCollectionFromUids(string $uids): ?array
   {
     $sql = "select distinct collection_id, collection_name,
             referent_name,referent_email,
             address_name,address_line2,address_line3,address_city,address_country,referent_phone
+            ,referent_firstname,academical_directory,academical_link
+            ,collection_keywords,collection_displayname
             from collection
             left outer join referent using (referent_id)
             join sample using (collection_id)

@@ -15,6 +15,18 @@
                         </div>
                   </div>
                   <div class="form-group">
+                        <label for="collectionDisplayname"  class="control-label col-md-4"> {t}Nom public, communiqué à l'extérieur :{/t}</label>
+                        <div class="col-md-8">
+                              <input id="collectionDisplayname" type="text" class="form-control" name="collection_displayname" value="{$data.collection_displayname}" >
+                        </div>
+                  </div>
+                  <div class="form-group">
+                        <label for="collectionDisplayname"  class="control-label col-md-4"> {t}Mots clés, séparés par une virgule :{/t}</label>
+                        <div class="col-md-8">
+                              <input id="collectionKeywords" type="text" class="form-control" name="collection_keywords" value="{$data.collection_keywords}" >
+                        </div>
+                  </div>
+                  <div class="form-group">
                         <label for="referentId"  class="control-label col-md-4">{t}Référent de la collection :{/t}</label>
                         <div class="col-md-8">
                               <select id="referentId" name="referent_id" class="form-control">

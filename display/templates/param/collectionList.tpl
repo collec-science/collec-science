@@ -10,12 +10,14 @@
 <table id="collectionList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-	<th colspan="4"></th>
+	<th colspan="6"></th>
 	<th colspan="3" class="center">{t}Flux externes autorisés{/t}</th>
 </tr>
 <tr>
 	<th>{t}Nom de la collection{/t}</th>
 	<th>{t}Id{/t}</th>
+	<th>{t}Nom public{/t}</th>
+	<th>{t}Mots clés{/t}</th>
 	<th>{t}Référent{/t}</th>
 	<th>{t}Groupes de login autorisés{/t}</th>
 	<th>{t}Flux de mise à jour{/t}</th>
@@ -36,6 +38,8 @@
 {/if}
 </td>
 <td class="center">{$data[lst].collection_id}</td>
+<td>{$data[lst].collection_displayname}</td>
+<td>{$data[lst].collection_keywords}</td>
 <td>{$data[lst].referent_name}</td>
 <td>
 {$data[lst].groupe}
@@ -55,6 +59,7 @@
 		{t}oui{/t}
 	{/if}
 </td>
+
 </tr>
 {/section}
 </tbody>

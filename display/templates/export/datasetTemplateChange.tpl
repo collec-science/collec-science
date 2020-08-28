@@ -92,7 +92,7 @@
       <div class="form-group">
         <label for="xslcontent" class="control-label col-md-4">{t}Transformation XSL appliquée sur le fichier XML généré :{/t}</label>
         <div class="col-md-8">
-          <textarea class="form-control" id="xslcontent" name="xslcontent" rows="10" placeholder='<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+          <textarea class="form-control textarea-edit" id="xslcontent" name="xslcontent" rows="10" placeholder='<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 <xsl:template match="/">
   <echantillons>

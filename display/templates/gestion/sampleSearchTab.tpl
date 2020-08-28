@@ -197,10 +197,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                    <a class="nav-link searchTab" id="tabsearch-loc" href="#navsearch-loc"  data-toggle="tab" role="tab" aria-controls="navsearch-loc" aria-selected="false">
-                        {t}Localisation{/t}
-                    </a>
-                </li>
+                <a class="nav-link searchTab" id="tabsearch-loc" href="#navsearch-loc"  data-toggle="tab" role="tab" aria-controls="navsearch-loc" aria-selected="false">
+                    {t}Localisation{/t}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link searchTab" id="tabsearch-record" href="#navsearch-record" data-toggle="tab" role="tab" aria-controls="navsearch-record" aria-selected="false">
+                    {t}Recherches enregistrées{/t}
+                </a>
+            </li>
         </ul>
         <div class="tab-content col-lg-12 form-horizontal" id="search-tabContent">
             <div class="tab-pane active in" id="navsearch-uid" role="tabpanel" aria-labelledby="tabsearch-uid">
@@ -445,6 +450,51 @@
                     <div id="map" class="hidden-sm col-md-6">
                         <div id="map" class="mapSearch"></div>
                     </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="navsearch-record" role="tabpanel" aria-labelledby="tabsearch-record">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="samplesearch_id" class="col-sm-4 control-label">{t}Recherches enregistrées :{/t}</label>
+                        <div class="col-sm-6">
+                            <select id="samplesearch_id" class="form-control" name="samplesearch_id">
+                                <option value="" {if $samplesearch_id == 0}selected{/if}>{t}Sélectionnez une recherche enregistrée{/t}</option>
+                                {foreach $samplesearches as $samplesearch}
+                                    <option value="{$samplesearch.samplesearch_id}" {if $samplesearch_id == $samplesearch.samplesearch_id}selected{/if}>
+                                        {$samplesearch.samplesearch_name}
+                                        {if ! empty ($samplesearch.collection_name)}
+                                            ({$samplesearch.collection_name})
+                                        {/if}
+                                    </option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                             <button type="button" id="samplesearchDelete" class="btn btn-danger">{t}Supprimer{/t}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <fieldset class="col-sm-12">
+                        <legend>{t}Enregistrer la recherche courante{/t}</legend>
+                        <div class="form-group">
+                            <label for="samplesearch_name" class="col-sm-4 control-label"><span class="red">*</span>{t}Nom de la recherche :{/t}</label>
+                            <div class="col-sm-8">
+                                <input id="samplesearch_name" name="samplesearch_name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="samplesearch_collection" class="col-sm-4 control-label">{t}Enregistrer pour la collection sélectionnée (le cas échéant) ?{/t}</label>
+                            <div id="samplesearch_collection" class="col-sm-8">
+                                <label class="radio-inline">
+                                    <input type="radio" name="samplesearch_collection" value="0" checked>{t}non{/t}
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="samplesearch_collection" value="1">{t}oui{/t}
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
         <div class="row">

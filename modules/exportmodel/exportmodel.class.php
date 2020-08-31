@@ -688,7 +688,7 @@ class ExportModelProcessing
     if (!isset($this->model[$tableAlias])) {
       throw new ExportException(sprintf(_("Aucune description trouvée pour l'alias de table %s dans le fichier de paramètres"), $tableAlias));
     }
-    $this->modeDebug = true;
+    $this->modeDebug = false;
     if ($this->modeDebug) {
       printA("Import into $tableAlias");
     }

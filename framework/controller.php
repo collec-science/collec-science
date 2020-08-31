@@ -297,6 +297,16 @@ try {
                                 $message->set(_("L'identification par jeton n'a pas abouti"));
                                 $message->setSyslog($e->getMessage());
                                 $log->setLog("unknown", "connexion", "token-ko");
+                                /**
+                                 * Destroy the token
+                                 */
+                                $cookieParam = session_get_cookie_params();
+                                    $cookieParam["lifetime"] = time()-3600;
+                                    if (!$APPLI_modeDeveloppement) {
+                                        $cookieParam["secure"] = true;
+                                    }
+                                    $cookieParam["httponly"] = true;
+                                    setcookie('tokenIdentity', "", $cookieParam["lifetime"], $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
                             }
                             if (strlen($login) > 0) {
                                 $log->setLog($login, "connexion", "token-ok");

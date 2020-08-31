@@ -25,13 +25,50 @@ if (isset($_REQUEST["activeTab"])) {
 switch ($t_module["param"]) {
   case "list":
     $_SESSION["moduleListe"] = "sampleList";
-    /*
-         * Display the list of all records of the table
-         */
+    /**
+     * Display the list of all records of the table
+     */
     if (!isset($isDelete)) {
       $_SESSION["searchSample"]->setParam($_REQUEST);
     }
+    /**
+     * Get the content of a recorded request
+     */
+    require_once "modules/classes/utils/samplesearch.class.php";
+    $samplesearch = new Samplesearch($bdd, $ObjetBDDParam);
+    if ($_REQUEST["samplesearch_id"] > 0) {
+      $dsamplesearch = $samplesearch->lire($_REQUEST["samplesearch_id"]);
+      $_SESSION["searchSample"]->setParamFromJson($dsamplesearch["samplesearch_data"]);
+    }
     $dataSearch = $_SESSION["searchSample"]->getParam();
+    /**
+     * Storage of the request
+     */
+    if (!empty($_REQUEST["samplesearch_name"])) {
+      $dsamplesearch = array(
+        "samplesearch_id" => 0,
+        "samplesearch_name"=>$_REQUEST["samplesearch_name"],
+        "samplesearch_data" => json_encode($dataSearch),
+        "samplesearch_login" => $_SESSION["login"]
+      );
+      if ($_REQUEST["samplesearch_collection"] == 1 && $dataClass->verifyCollection($_REQUEST["collection_id"])) {
+        $dsamplesearch["collection_id"] = $_REQUEST["collection_id"];
+      }
+      $samplesearch->ecrire($dsamplesearch);
+    }
+    /**
+     * Delete a request
+     */
+    if ($_REQUEST["samplesearchDelete"] == 1 && $_REQUEST["samplesearch_id"] > 0) {
+      $samplesearch->delete($_REQUEST["samplesearch_id"]);
+    }
+    /**
+     * Get the list of recorded researches
+     */
+    $vue->set($samplesearch->getList($_SESSION["collections"]), "samplesearches");
+    /**
+     * Search samples
+     */
     if ($_SESSION["searchSample"]->isSearch() == 1) {
       try {
         $data = $dataClass->sampleSearch($dataSearch);
@@ -651,7 +688,7 @@ switch ($t_module["param"]) {
        * Format the data, if required
        */
       if ($withTemplate) {
-        $data = $datasetTemplate->formatData(array(0=>$data))[0];
+        $data = $datasetTemplate->formatData(array(0 => $data))[0];
       }
     } catch (Exception $e) {
       $error_code = $e->getCode();

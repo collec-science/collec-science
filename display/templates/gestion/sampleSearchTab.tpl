@@ -33,6 +33,7 @@
              if ($("#movement_reason_id").val() > 0) ok = true;
              if ($("#campaign_id").val() > 0) ok = true;
              if ($("#trashed").val() == 1) ok = true;
+             if ($("#samplesearch_id").val() > 0) ok = true;
              var mf = $("#metadata_field").val();
              if ( mf != null) {
                  if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -168,6 +169,15 @@
 		 $('.searchTab').on('shown.bs.tab', function () {
 			Cookies.set("sampleSearchTab", $(this).attr("id"), { secure: true});
 		});
+        /**
+         * Delete a recorded request
+         */
+         $("#samplesearchDeleteButton").click(function() {
+             if (confirm("{t}Confirmez-vous la suppression ?{/t}")==true) {
+                $("#samplesearchDelete").val(1);
+                $("#sample_search").submit();
+             }
+         });
     });
 </script>
 <div class="row col-lg-10 col-md-12">
@@ -179,6 +189,7 @@
         <input type="hidden" id="SouthWestlat" name="SouthWestlat" value="{$sampleSearch.SouthWestlat}">
         <input type="hidden" id="NorthEastlon" name="NorthEastlon" value="{$sampleSearch.NorthEastlon}">
         <input type="hidden" id="NorthEastlat" name="NorthEastlat" value="{$sampleSearch.NorthEastlat}">
+        <input type="hidden" id="samplesearchDelete" name="samplesearchDelete" value="0">
         <!-- boite d'onglets -->
         <ul class="nav nav-tabs" id="searchTab" role="tablist" >
             <li class="nav-item active">
@@ -470,7 +481,7 @@
                             </select>
                         </div>
                         <div class="col-sm-2">
-                             <button type="button" id="samplesearchDelete" class="btn btn-danger">{t}Supprimer{/t}</button>
+                             <button type="button" id="samplesearchDeleteButton" class="btn btn-danger">{t}Supprimer{/t}</button>
                         </div>
                     </div>
                 </div>
@@ -479,7 +490,7 @@
                         <legend>{t}Enregistrer la recherche courante{/t}</legend>
                         <div class="form-group">
                             <label for="samplesearch_name" class="col-sm-4 control-label"><span class="red">*</span>{t}Nom de la recherche :{/t}</label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-6">
                                 <input id="samplesearch_name" name="samplesearch_name" class="form-control">
                             </div>
                         </div>

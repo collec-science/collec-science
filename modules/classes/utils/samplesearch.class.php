@@ -29,15 +29,49 @@ class Samplesearch extends ObjetBDD
    * @param integer $collection_id
    * @return array|null
    */
-  function getList($collection_id = 0)
+  function getList(array $collections = array())
   {
     $where = " where samplesearch_login = :login";
     $param = array("login" => $this->getLogin());
-    if ($collection_id > 0) {
-      $where .= " or collection_id = :collection_id";
-      $param["collection_id"] = $collection_id;
+    $i = 1;
+    if (!empty($collections)) {
+      $where .= " or collection_id in (";
+      foreach ($collections as $collection) {
+        if ($i > 1) {
+          $where .= ",";
+        }
+        $where .= ":col$i";
+        $param["col$i"] = $collection["collection_id"];
+        $i++;
+      }
+      $where .= ")";
     }
     $order = " order by samplesearch_name";
     return $this->getListeParamAsPrepared($this->sql . $where . $order, $param);
+  }
+
+  /**
+   * Delete a record after verification
+   *
+   * @param int $id
+   * @return void
+   */
+  function delete($id)
+  {
+    $data = $this->lire($id);
+    /**
+     * Verify the login or the rights
+     */
+    $ok = false;
+    if ($data["samplesearch_login"] == $_SESSION["login"]) {
+      $ok = true;
+    } else if (!empty($data["collection_id"])) {
+      if ((collectionVerify($data["collection_id"]) && $_SESSION["droits"]["collection"] == 1) || $_SESSION["droits"]["param"] == 1) {
+        $ok = true;
+      }
+    }
+    if ($ok) {
+      parent::supprimer($id);
+    }
   }
 }

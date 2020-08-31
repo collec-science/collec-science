@@ -51,7 +51,7 @@ $(document).ready( function() {
 <div class="form-group">
 <label for="xsl"  class="control-label col-md-4"><span class="red">*</span> {t}Transformation XSL :{/t}</label>
 <div class="col-md-8">
-<textarea id="label_xsl" name="label_xsl" class="form-control" rows="20" required>{$data.label_xsl}</textarea>
+<textarea id="label_xsl" name="label_xsl" class="form-control textarea-edit" rows="20" required>{$data.label_xsl}</textarea>
 </div>
 </div>
 <div class="form-group">

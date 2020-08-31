@@ -187,7 +187,15 @@ class DatasetTemplate extends ObjetBDD
           if (strlen($col["subfield_name"]) > 0) {
             if ($colname == "metadata") {
               $md = json_decode($dbrow[$colname], true);
-              $value = $md[$col["subfield_name"]];
+              if (is_array($md[$col["subfield_name"]])) {
+                $isFirst = true;
+                foreach ($md[$col["subfield_name"]] as $mdval) {
+                  $isFirst ? $isFirst = false : $value .= ",";
+                  $value .= $mdval;
+                }
+              } else {
+                $value = $md[$col["subfield_name"]];
+              }
             } elseif ($colname == "identifiers" || $colname == "parent_identifiers") {
               /**
                * The structure is under the form:

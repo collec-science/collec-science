@@ -77,7 +77,7 @@ switch ($t_module["param"]) {
             $module_coderetour = -1;
           }
         } catch (ExportException $e) {
-          $message->set($e->getMessage, true);
+          $message->set($e->getMessage(), true);
           $module_coderetour = -1;
         }
       } else {

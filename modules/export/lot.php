@@ -6,9 +6,10 @@ $id = $_REQUEST[$keyName];
 
 switch ($t_module["param"]) {
   case "list":
-    /*
-		 * Display the list of all records of the table
-		 */
+    $_SESSION["moduleListe"] = "lotList";
+    /**
+     * Display the list of all records of the table
+     */
     $collection_id = 0;
     if ($_GET["collection_id"] > 0) {
       $collection_id = $_GET["collection_id"];

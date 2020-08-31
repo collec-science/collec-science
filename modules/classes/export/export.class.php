@@ -85,7 +85,11 @@ class Export extends ObjetBDD
      */
     $files = array();
     foreach ($datasets as $dataset) {
-      $data = $this->datasetTemplate->generateData($dataset["dataset_template_id"], $uids);
+      try {
+        $data = $this->datasetTemplate->generateData($dataset["dataset_template_id"], $uids);
+      } catch (DatasetTemplateException $dte) {
+        throw new ExportException($dte->getMessage());
+      }
       $ddataset = $this->datasetTemplate->getDetail($dataset["dataset_template_id"]);
       /**
        * Generate the file
@@ -118,9 +122,9 @@ class Export extends ObjetBDD
                   if ($k == "collection_keywords") {
                     $keywords = $xml->addchild("collection_keywords");
                     foreach ($v as $keyword) {
-                      $keywords->addChild("keyword",$keyword["keyword"]);
+                      $keywords->addChild("keyword", $keyword["keyword"]);
                     }
-                   } else {
+                  } else {
                     $xml->addChild($k, $v);
                   }
                 }

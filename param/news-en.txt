@@ -1,6 +1,21 @@
 News
 ===========
-Version 2.5.0 of August 14, 2020
+
+Version 2.5.0b of August 31, 2020
+------------------------------
+New features :
+Ergonomics :
+- added tabulation input in textareas (multiline input fields). Implemented in xsl transformations input (export datasets and label templates)
+
+Samples :
+- when exporting samples, added transformation of xml files generated from an xsl style defined in the model
+- it is now possible to save searches performed on samples, available either for the user or at the collection level
+
+Miscellaneous :
+- it is now possible to specify keywords or explicit wording for a collection (used for exports)
+- the first name of the referent is now possible, as well as the link to his academic file
+
+Version 2.5.0a of August 14, 2020
 -----------------------------
 Bug fixes :
 - the export of the database structure was not working correctly.

@@ -1,6 +1,20 @@
 News
 ===========
-Version 2.5.0 du 14 août 2020
+Version 2.5.0b du 31 août 2020
+------------------------------
+Nouveautés :
+Ergonomie :
+- ajout de la saisie de tabulations dans les textareas (zones multilignes de saisie). Implémenté en saisie des transformations xsl (datasets d'exportation et modèles d'étiquettes)
+
+Échantillons :
+- en exportation des échantillons, ajout de la transformation des fichiers xml générés à partir d'un style xsl défini dans le modèle
+- il est maintenant possible d'enregistrer les recherches effectuées sur les échantillons, disponibles soit pour l'utilisateur, soit au niveau des collections
+
+Divers :
+- il est maintenant possible de préciser des mots clés ou un libellé explicite pour une collection (utilisé pour les exportations)
+- la saisie du prénom du référent est maintenant possible, ainsi que le lien vers sa fiche académique
+
+Version 2.5.0a du 14 août 2020
 -----------------------------
 Correction de bugs :
 - l'export de la structure de la base de données ne fonctionnait pas correctement

@@ -33,7 +33,7 @@ class DatasetColumn extends ObjetBDD
       "column_order" => array("type" => 1, "defaultValue" => 1),
       "mandatory" => array("type" => 1, "defaultValue" => 0),
       "default_value" => array("type" => 0),
-      "date_format" => array("type"=>0)
+      "date_format" => array("type" => 0)
     );
     parent::__construct($bdd, $param);
   }
@@ -97,10 +97,10 @@ class DatasetColumn extends ObjetBDD
        */
       $translations = json_decode($row["translator_data"], true);
       foreach ($translations as $item) {
-        foreach($item as $k => $v)
-        $row["translations"][$k] = $v;
+        foreach ($item as $k => $v)
+          $row["translations"][$k] = $v;
       }
-      $data[$row["column_name"]] = $row;
+      $data[] = $row;
     }
     return $data;
   }

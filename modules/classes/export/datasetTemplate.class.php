@@ -172,7 +172,7 @@ class DatasetTemplate extends ObjetBDD
         break;
     }
     if ($ddataset["dataset_type_id"] == 4) {
-      $data[] = $columns["content"]["default_value"];
+      $data[] = $columns[0]["default_value"];
     } else {
       /**
        * Treatment of each row
@@ -182,11 +182,11 @@ class DatasetTemplate extends ObjetBDD
         /**
          * Treatment of each column
          */
-        foreach ($columns as $colname => $col) {
+        foreach ($columns as $col) {
           $value = "";
           if (strlen($col["subfield_name"]) > 0) {
-            if ($colname == "metadata") {
-              $md = json_decode($dbrow[$colname], true);
+            if ($col["column_name"] == "metadata") {
+              $md = json_decode($dbrow[$col["column_name"]], true);
               if (is_array($md[$col["subfield_name"]])) {
                 $isFirst = true;
                 foreach ($md[$col["subfield_name"]] as $mdval) {
@@ -196,13 +196,13 @@ class DatasetTemplate extends ObjetBDD
               } else {
                 $value = $md[$col["subfield_name"]];
               }
-            } elseif ($colname == "identifiers" || $colname == "parent_identifiers") {
+            } elseif ($col["column_name"] == "identifiers" || $col["column_name"] == "parent_identifiers") {
               /**
                * The structure is under the form:
                * igsn:123,other:456
                * subfield_name contains igsn or other
                */
-              $identArr = explode(",", $dbrow[$colname]);
+              $identArr = explode(",", $dbrow[$col["column_name"]]);
               foreach ($identArr as $identifier) {
                 $idArr = explode(":", $identifier);
                 if ($idArr[0] == $col["subfield_name"]) {
@@ -211,20 +211,20 @@ class DatasetTemplate extends ObjetBDD
               }
             }
           } else {
-            $value = $dbrow[$colname];
+            $value = $dbrow[$col["column_name"]];
           }
           if ($col["translator_id"] > 0) {
-            if (strlen($col["translations"][$value]) > 0) {
+            if (!empty($col["translations"][$value])) {
               $value = $col["translations"][$value];
             }
           }
-          if (strlen($col["default_value"]) > 0 && strlen($value) == 0) {
+          if (!empty($col["default_value"]) && empty($value) ) {
             $value = $col["default_value"];
           }
           /**
            * Treatment of keywords
            */
-          if ($colname == "collection_keywords" && !empty($value)) {
+          if ($col["column_name"] == "collection_keywords" && !empty($value)) {
             $words = explode(",", $value);
             $value = array();
             foreach($words as $word) {
@@ -234,7 +234,7 @@ class DatasetTemplate extends ObjetBDD
           if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {
             $value = date_format(date_create($value), $col["date_format"]);
           }
-          if ($colname == "web_address" && strlen($webmodule) > 0) {
+          if ($col["column_name"] == "web_address" && strlen($webmodule) > 0) {
             /**
              * Create a link to download the content of the record
              */
@@ -244,7 +244,7 @@ class DatasetTemplate extends ObjetBDD
             }
           }
           if ($col["mandatory"] == 1 && strlen($value) == 0) {
-            throw new DatasetTemplateException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $colname, $dbrow["uid"]));
+            throw new DatasetTemplateException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $col["column_name"], $dbrow["uid"]));
           }
           $row[$col["export_name"]] = $value;
         }

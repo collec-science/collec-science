@@ -50,6 +50,10 @@ where dataset_type_id = 1;
 update col.dataset_type set fields = E'["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academical_directory","academical_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]'
 where dataset_type_id = 2;
 
+update col.dataset_type set fields = E'["document_name","document_uuid","uid","sample_uuid","identifier","content_type","extension","size","document_creation_date","fixed_value", "web_address"]'
+where dataset_type_id = 3;
+
+
 CREATE TABLE col.samplesearch (
 	samplesearch_id serial NOT NULL,
 	samplesearch_name varchar NOT NULL,

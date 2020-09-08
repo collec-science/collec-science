@@ -32,7 +32,10 @@
 </item>
 
 <item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
-	<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" />
+	<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" >
+		<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" />
+		<item module="licenseList" droits="consult" label="Licences" tooltip="Liste des licences utilisables pour publier les collections" />
+	</item>
 	<item module="protocolList" droits="consult" label="Protocoles" tooltip="Liste des protocoles" >
 		<item module="protocolList" droits="consult" label="Protocoles" tooltip="Liste des protocoles" />
 		<item module="operationList" droits="consult" label="Opérations" tooltip="Liste des opérations rattachées à un protocole" />

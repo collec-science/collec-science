@@ -48,6 +48,9 @@ class Collection extends ObjetBDD
       ),
       "collection_displayname" => array(
         "type" => 0
+      ),
+      "license_id" => array(
+        "type" => 1
       )
     );
     parent::__construct($bdd, $param);
@@ -67,9 +70,11 @@ class Collection extends ObjetBDD
                 referent_name,
                 allowed_import_flow, allowed_export_flow, public_collection
                 ,collection_keywords,collection_displayname
+                ,license_id, license_name, license_url
 				from collection
                 left outer join collection_group using (collection_id)
                 left outer join referent using (referent_id)
+                left outer join license using (license_id)
 				left outer join aclgroup using (aclgroup_id)
 				group by collection_id, collection_name, referent_name
 				order by $order";
@@ -258,6 +263,7 @@ class Collection extends ObjetBDD
             address_name,address_line2,address_line3,address_city,address_country,referent_phone
             ,referent_firstname,academical_directory,academical_link
             ,collection_keywords,collection_displayname
+            ,license_name,license_url
             from collection
             left outer join referent using (referent_id)
             join sample using (collection_id)

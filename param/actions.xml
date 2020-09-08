@@ -334,6 +334,11 @@
 	<mimeTypeWrite action="modules/param/mimeType.php" param="write" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange" retourko="mimeTypeChange" retourok="mimeTypeList"/>
 	<mimeTypeDelete action="modules/param/mimeType.php" param="delete" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange" retourko="mimeTypeChange" retourok="mimeTypeList"/>
 	
+	<licenseList action="modules/param/license.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<licenseChange action="modules/param/license.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<licenseWrite action="modules/param/license.php" param="write" droits="param" retourok="licenseList" retourko="licenseChange" modulebefore="licenseChange" />
+	<licenseDelete action="modules/param/license.php" param="delete" droits="param" retourok="licenseList" retourko="licenseChange" modulebefore="licenseChange"/>
+	
 	<!-- Exports to other referentials -->
 	<datasetTypeList action="modules/export/datasetType.php" param="list" droits="param" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<datasetTypeChange action="modules/export/datasetType.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />

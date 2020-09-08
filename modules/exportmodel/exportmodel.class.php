@@ -735,7 +735,7 @@ class ExportModelProcessing
     }
     foreach ($data as $row) {
 
-      if (strlen($row[$tkeyName]) > 0 || ($model["istablenn"] == 1 && strlen($row[$pkeyName]) > 0)) {
+      if (!empty($row[$tkeyName]) || ($model["istablenn"] == 1 && !empty($row[$pkeyName]) )) {
         /**
          * search for preexisting record
          */
@@ -751,7 +751,7 @@ class ExportModelProcessing
         } else {
           unset($row[$tkeyName]);
         }
-        if ($parentKey > 0 && strlen($pkeyName) > 0) {
+        if ($parentKey > 0 && !empty($pkeyName)) {
           $row[$pkeyName] = $parentKey;
         }
         if ($model["istable11"] == 1 && $parentKey > 0) {

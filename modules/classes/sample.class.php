@@ -414,7 +414,7 @@ class Sample extends ObjetBDD
              * Recherche sur les identifiants externes
              * possibilite de recherche sur cab:valeur, p. e.
              */
-        $where .= " or upper(identifiers) like :identifier ";
+        $where .= " or upper(voi.identifiers) like :identifier ";
         $where .= ")";
       }
       if ($param["collection_id"] > 0) {
@@ -619,7 +619,7 @@ class Sample extends ObjetBDD
       $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy, object_comment,
              c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
              multiple_value, sampling_place_name, metadata::varchar,
-            identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,
+            voi.identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,
             campaign_name,
             case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
             ,o.uuid
@@ -1015,7 +1015,7 @@ class Sample extends ObjetBDD
     /**
      * Encode in array the metadata content
      */
-    $data["metadata"] = json_decode($data["metadata"]);
+    $data["metadata"] = json_decode($data["metadata"], true);
     /**
      * Get the events
      */
@@ -1025,7 +1025,7 @@ class Sample extends ObjetBDD
         $this->event = new Event($this->connection, $this->paramori);
       }
       $this->event->auto_date = 0;
-      $data["events"] = $this->event->getListeFromUid($uid);
+      $data["events"] = $this->event->getListeFromUid($data["uid"]);
       $this->event->auto_date = 1;
     }
     /**
@@ -1036,7 +1036,7 @@ class Sample extends ObjetBDD
         require_once "modules/classes/container.class.php";
         $this->container = new Container($this->connection, $this->paramori);
       }
-      $data["container"] = $this->container->getAllParents($uid);
+      $data["container"] = $this->container->getAllParents($data["uid"]);
     }
     $this->auto_date = 1;
     return $data;

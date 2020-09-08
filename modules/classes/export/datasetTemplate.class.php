@@ -189,7 +189,7 @@ class DatasetTemplate extends ObjetBDD
               if (!is_array($dbrow["metadata"])) {
                 $md = json_decode($dbrow["metadata"], true);
               } else {
-                $md = $dbrow[$col["metadata"]];
+                $md = $dbrow["metadata"];
               }
               if (is_array($md[$col["subfield_name"]])) {
                 $isFirst = true;
@@ -247,7 +247,7 @@ class DatasetTemplate extends ObjetBDD
               $value .= "&template_name=$template_name";
             }
           }
-          if ($col["mandatory"] == 1 && strlen($value) == 0) {
+          if ($col["mandatory"] == 1 && empty($value)) {
             throw new DatasetTemplateException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $col["column_name"], $dbrow["uid"]));
           }
           $row[$col["export_name"]] = $value;

@@ -36,7 +36,7 @@ class Menu
     {
         $this->menuList = "";
         foreach ($this->menuArray["item"] as $value) {
-            $this->menuList .= $this->lireItem($value);
+            $this->menuList .= $this->lireItem($value, 0);
         }
         return $this->menuList;
     }
@@ -87,6 +87,9 @@ class Menu
                 if (isset($valeur["item"]) && $level > 0) {
                     $label .= " >";
                 }
+                if ($level == 0) {
+                    $level = 1;
+                }
                 $texte = '<li><a href="index.php?module=' . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '">' .  $label . '</a>';
                 if (isset($valeur["item"])) {
                     /*
@@ -94,7 +97,7 @@ class Menu
                      */
                     $texte .= '<ul class="dropdown-menu">';
                     if (count($valeur["item"]) == 1) {
-                        $texte .= $this->lireItem($valeur["item"]);
+                        $texte .= $this->lireItem($valeur["item"], $level);
                     } else {
                         foreach ($valeur["item"] as $value) {
                             $texte .= $this->lireItem($value, $level ++);

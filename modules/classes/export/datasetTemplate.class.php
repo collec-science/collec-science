@@ -186,7 +186,11 @@ class DatasetTemplate extends ObjetBDD
           $value = "";
           if (strlen($col["subfield_name"]) > 0) {
             if ($col["column_name"] == "metadata") {
-              $md = json_decode($dbrow[$col["column_name"]], true);
+              if (!is_array($dbrow["metadata"])) {
+                $md = json_decode($dbrow["metadata"], true);
+              } else {
+                $md = $dbrow[$col["metadata"]];
+              }
               if (is_array($md[$col["subfield_name"]])) {
                 $isFirst = true;
                 foreach ($md[$col["subfield_name"]] as $mdval) {
@@ -218,7 +222,7 @@ class DatasetTemplate extends ObjetBDD
               $value = $col["translations"][$value];
             }
           }
-          if (!empty($col["default_value"]) && empty($value) ) {
+          if (!empty($col["default_value"]) && empty($value)) {
             $value = $col["default_value"];
           }
           /**
@@ -227,8 +231,8 @@ class DatasetTemplate extends ObjetBDD
           if ($col["column_name"] == "collection_keywords" && !empty($value)) {
             $words = explode(",", $value);
             $value = array();
-            foreach($words as $word) {
-              $value[] = array("keyword"=>$word);
+            foreach ($words as $word) {
+              $value[] = array("keyword" => $word);
             }
           }
           if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {

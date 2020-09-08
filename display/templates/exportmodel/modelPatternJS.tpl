@@ -4,55 +4,55 @@
             "data": data,
             "view": "bootstrap-edit-horizontal",
             "schema": {
-                "title": "Model description",
+                "title": "{t}Description du modèle{/t}",
                 "type": "array",
                 "items": {
-                    "title": "Description of a table",
+                    "title": "{t}Description de la table{/t}",
                     "type": "object",
                     "properties": {
                         "tableName": {
-                            "title": "Name of the table",
+                            "title": "{t}Nom de la table{/t}",
                             "type": "string",
                             "required": true
                         },
                         "tableAlias": {
-                            "title": "Alias of the table (if depends of multiple parents)",
+                            "title": "{t}Alias de la table (si elle dépend de multiples parents){/t}",
                             "type": "string"
                         },
                         "technicalKey": {
-                            "title": "Primary key",
+                            "title": "{t}Clé primaire ou technique{/t}",
                             "type": "string"
                         },
                         "isEmpty": {
-                            "title": "Table empty (Parameter table filled with other table records)?",
+                            "title": "{t}Table vide (le contenu est alimenté par les tables qui lui sont liées, table de paramètres) ?{/t}",
                             "type": "boolean",
                             "default": false
                         },
                         "businessKey": {
-                            "title": "Business key",
+                            "title": "{t}Clé métier{/t}",
                             "type": "string",
                         },
                         "parentKey": {
-                            "title": "Foreign key (to link to the parent table)",
+                            "title": "{t}Clé étrangère (pour être reliée à la table parente){/t}",
                             "type": "string"
                         },
                         "istable11": {
-                            "title": "Relation of type 1-1 with the parent (shared key)",
+                            "title": "{t}Relation de type 1-1 avec la table parente (clé partagée) ?{/t}",
                             "type": "boolean",
                             "default": false
                         },
                         "children": {
-                            "title": "Liste of alias of related tables",
+                            "title": "{t}Liste des alias des tables liées{/t}",
                             "type": "array",
                             "items": {
                                 "type": "object",
                                 "properties": {
                                     "aliasName": {
-                                        "title": "Alias of the table",
+                                        "title": "{t}Alias de la table{/t}",
                                         "type": "string"
                                     },
                                     "isStrict": {
-                                        "title": "Strict relation (the children records depends only of the current record) ?",
+                                        "title": "{t}Relation stricte (les enregistrements sont liés à ceux de la table parente) ?{/t}",
                                         "type": "boolean",
                                         "default": true
                                     }
@@ -60,24 +60,24 @@
                             }
                         },
                         "parents": {
-                            "title": "Liste of parents tables",
+                            "title": "{t}Liste des tables parentes{/t}",
                             "type": "array",
                             "items": {
                                 "type": "object",
                                 "properties": {
                                     "aliasName": {
-                                        "title": "Table alias",
+                                        "title": "{t}Alias de la table{/t}",
                                         "type": "string"
                                     },
                                     "fieldName": {
-                                        "title": "Column name in the current table",
+                                        "title": "{t}Nom de la colonne portant la relation dans la table courante{/t}",
                                         "type": "string"
                                     }
                                 }
                             }
                         },
                         "istablenn": {
-                            "title": "Table of type n-n",
+                            "title": "{t}Table de type n-n ?{/t}",
                             "type": "boolean",
                             "default": false
                         },
@@ -85,11 +85,11 @@
                             "type": "object",
                             "properties": {
                                 "secondaryParentKey": {
-                                    "title": "Name of the second foreign key",
+                                    "title": "{t}Nom de la seconde clé étrangère{/t}",
                                     "type": "string"
                                 },
                                 "tableAlias": {
-                                    "title": "Alias of the second table",
+                                    "title": "{t}Alias de la seconde table{/t}",
                                     "type": "string"
                                 }
                             },

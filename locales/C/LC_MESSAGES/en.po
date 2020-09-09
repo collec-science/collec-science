@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-31 11:12+0200\n"
+"POT-Creation-Date: 2020-09-09 12:24+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -231,196 +231,206 @@ msgid "Paramètres"
 msgstr "Settings"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:35
+#: ../../../param/menu.xml:35 ../../../param/menu.xml:36
 #: ../../../display/templates/param/collectionList.tpl:2
 msgid "Collections"
 msgstr "Collections"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:35
+#: ../../../param/menu.xml:35 ../../../param/menu.xml:36
 msgid "Liste des collections"
 msgstr "List of collections"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:36 ../../../param/menu.xml:37
+#: ../../../param/menu.xml:37
+msgid "Licences"
+msgstr "Licenses"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:37
+msgid "Liste des licences utilisables pour publier les collections"
+msgstr "List of usable licenses to publish collections"
+
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:39 ../../../param/menu.xml:40
 #: ../../../display/templates/param/protocolList.tpl:2
 msgid "Protocoles"
 msgstr "Protocols"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:36 ../../../param/menu.xml:37
+#: ../../../param/menu.xml:39 ../../../param/menu.xml:40
 msgid "Liste des protocoles"
 msgstr "List of protocols"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:38
+#: ../../../param/menu.xml:41
 msgid "Opérations"
 msgstr "Operations"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:38
+#: ../../../param/menu.xml:41
 msgid "Liste des opérations rattachées à un protocole"
 msgstr "List of operations attached to a protocol"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:40
+#: ../../../param/menu.xml:43
 #: ../../../display/templates/param/referentList.tpl:2
 msgid "Référents"
 msgstr "Referents"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:40
+#: ../../../param/menu.xml:43
 msgid "Liste des référents des objets ou des collections"
 msgstr "List of the referents of objects or collections"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:41 ../../../param/menu.xml:42
+#: ../../../param/menu.xml:44 ../../../param/menu.xml:45
 msgid "Campagnes"
 msgstr "Campaigns"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:41 ../../../param/menu.xml:42
+#: ../../../param/menu.xml:44 ../../../param/menu.xml:45
 #: ../../../display/templates/param/campaignList.tpl:1
 msgid "Campagnes de prélèvement"
 msgstr "Sampling campaigns"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:43
+#: ../../../param/menu.xml:46
 msgid "Réglementations"
 msgstr "Regulations"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:43
+#: ../../../param/menu.xml:46
 #: ../../../display/templates/param/regulationList.tpl:1
 #: ../../../display/templates/param/campaignDisplay.tpl:30
 msgid "Réglementations applicables"
 msgstr "Applicable regulations"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:46 ../../../param/menu.xml:47
+#: ../../../param/menu.xml:49 ../../../param/menu.xml:50
 #: ../../../display/templates/param/containerFamilyList.tpl:2
 msgid "Familles de contenants"
 msgstr "Families of containers"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:46 ../../../param/menu.xml:47
+#: ../../../param/menu.xml:49 ../../../param/menu.xml:50
 msgid "Familles de contenants (armoires, éprouvettes...)"
 msgstr "Families of containers (cabinets, test tubes ...)"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:48
+#: ../../../param/menu.xml:51
 #: ../../../display/templates/param/containerTypeList.tpl:2
 msgid "Types de contenants"
 msgstr "Container types"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:48
+#: ../../../param/menu.xml:51
 msgid "Liste des types de contenants"
 msgstr "List of container types"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:50
+#: ../../../param/menu.xml:53
 #: ../../../display/templates/param/sampleTypeList.tpl:2
 msgid "Types d'échantillons"
 msgstr "Sample types"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:50
+#: ../../../param/menu.xml:53
 msgid "Liste des types d'échantillons gérés"
 msgstr "List of managed sample types"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:51
+#: ../../../param/menu.xml:54
 #: ../../../display/templates/param/identifierTypeList.tpl:2
 msgid "Types d'identifiants"
 msgstr "Identifier types"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:51
+#: ../../../param/menu.xml:54
 msgid "Liste des types d'identifiants rattachables à un objet"
 msgstr "List of identifier types that can be attached to an object"
 
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:52
+#: ../../../param/menu.xml:55
 #: ../../../display/templates/param/multipleTypeList.tpl:2
 msgid "Types de sous-échantillonnage"
 msgstr "Subsampling types"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:53
+#: ../../../param/menu.xml:56
 msgid "Métadonnées"
 msgstr "Metadata"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:53
+#: ../../../param/menu.xml:56
 #: ../../../display/templates/param/metadataList.tpl:15
 msgid "Modèles de métadonnées"
 msgstr "Metadata templates"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:54
+#: ../../../param/menu.xml:57
 #: ../../../display/templates/param/samplingPlaceList.tpl:2
 msgid "Lieux de prélèvement"
 msgstr "Locations of sampling"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:54
+#: ../../../param/menu.xml:57
 msgid "Liste des lieux de prélèvement des échantillons"
 msgstr "List of sampling locations"
 
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:56
+#: ../../../param/menu.xml:59
 #: ../../../display/templates/param/eventTypeList.tpl:2
 msgid "Types d'événement"
 msgstr "Event types"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:57
+#: ../../../param/menu.xml:60
 #: ../../../display/templates/param/storageConditionList.tpl:2
 msgid "Conditions de stockage"
 msgstr "Storage conditions"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:57
+#: ../../../param/menu.xml:60
 msgid "Liste des conditions de stockage"
 msgstr "List of storage conditions"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:58
+#: ../../../param/menu.xml:61
 #: ../../../display/templates/param/movementReasonList.tpl:2
 msgid "Motifs de déstockage"
 msgstr "Reasons for destocking"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:58
+#: ../../../param/menu.xml:61
 msgid "Motifs de sortie du stock"
 msgstr "Reasons for stock exit"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:59
+#: ../../../param/menu.xml:62
 msgid "Statuts des objets"
 msgstr "Object statuses"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:59
+#: ../../../param/menu.xml:62
 msgid "Liste des statuts possibles pour les objets"
 msgstr "List of possible statuses for objects"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:60
+#: ../../../param/menu.xml:63
 #: ../../../display/templates/param/borrowerList.tpl:1
 msgid "Emprunteurs"
 msgstr "Borrowers"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:60
+#: ../../../param/menu.xml:63
 msgid "Liste des emprunteurs d'objets"
 msgstr "List of borrowers"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:62
+#: ../../../param/menu.xml:65
 #: ../../../display/templates/gestion/sampleDisplay.tpl:280
 #: ../../../display/templates/gestion/sampleListDetail.tpl:344
 #: ../../../display/templates/gestion/containerListDetail.tpl:244
@@ -428,171 +438,170 @@ msgid "Étiquettes"
 msgstr "Labels"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:62
+#: ../../../param/menu.xml:65
 msgid "Modèles d'étiquettes"
 msgstr "Label templates"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:63
+#: ../../../param/menu.xml:66
 #: ../../../display/templates/param/printerList.tpl:2
 msgid "Imprimantes"
 msgstr "Printers"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:63
+#: ../../../param/menu.xml:66
 msgid "Liste des imprimantes"
 msgstr "List of printers"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:65
+#: ../../../param/menu.xml:68
 msgid "Types de fichiers"
 msgstr "File types"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:65
+#: ../../../param/menu.xml:68
 msgid "Types de fichiers autorisés en téléchargement"
 msgstr "Allowed file types for downloading"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:66
-msgid "Modèles d'export (expérimental)"
-msgstr "Export models (experimental)"
+#: ../../../param/menu.xml:69
+msgid "Imports/exports techniques"
+msgstr "Technical imports/exports"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:66
-#: ../../../display/templates/exportmodel/exportModelList.tpl:18
-msgid "Liste des modèles d'exportation des données"
-msgstr "List of data exportation templates"
+#: ../../../param/menu.xml:69
+msgid "Exportations ou importations de données au format JSON"
+msgstr "Data exports or imports in JSON format"
 
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:68 ../../../param/menu.xml:69
+#: ../../../param/menu.xml:71 ../../../param/menu.xml:72
 msgid "Schéma de la base de données"
 msgstr "Database structure"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:70
+#: ../../../param/menu.xml:73
 msgid "Structure de la base de données (HTML)"
 msgstr "Database structure (HTML)"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:70
+#: ../../../param/menu.xml:73
 msgid "Liste des tables et des colonnes"
 msgstr "List of tables and columns"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:71
+#: ../../../param/menu.xml:74
 msgid "Structure de la base de données (Latex)"
 msgstr "Database structure (Latex)"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:71
+#: ../../../param/menu.xml:74
 msgid "Liste des tables et des colonnes sous forme de tableaux Latex"
 msgstr "List of the tables and the columns in Latex table format"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:75
+#: ../../../param/menu.xml:78
 msgid "Administration"
 msgstr "Administration"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:75
+#: ../../../param/menu.xml:78
 msgid "Administration de l'application"
 msgstr "Application Administration"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:76
+#: ../../../param/menu.xml:79
 msgid "Liste des comptes locaux"
 msgstr "List of local accounts"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:76
+#: ../../../param/menu.xml:79
 msgid "Liste des logins - identification via la base de données"
 msgstr "List of logins - identification via the database"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:77
+#: ../../../param/menu.xml:80
 msgid "ACL - droits"
 msgstr "ACL - rights"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:77
+#: ../../../param/menu.xml:80
 msgid "applications et droits gérés"
 msgstr "applications and rights managed"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:78
+#: ../../../param/menu.xml:81
 msgid "ACL - logins"
 msgstr "ACL - logins"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:78
+#: ../../../param/menu.xml:81
 msgid "Logins déclarés dans le module de gestion des droits"
 msgstr "Logins declared in the rights management module"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:79
+#: ../../../param/menu.xml:82
 msgid "ACL - groupes de logins"
 msgstr "ACL - login groups"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:79
+#: ../../../param/menu.xml:82
 msgid "Groupes de logins et logins rattachés aux groupes"
 msgstr "Groups of logins and logins attached to groups"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:80
+#: ../../../param/menu.xml:83
 msgid "Paramètres de l'application"
 msgstr "Application Settings"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:80
+#: ../../../param/menu.xml:83
 msgid "Liste des paramètres pérennes de l'application"
 msgstr "List of long-term parameters of the application"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:82
+#: ../../../param/menu.xml:85
 msgid "Logs"
 msgstr "Logs"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:82
+#: ../../../param/menu.xml:85
 msgid "Consultation des logs enregistrées"
 msgstr "Consultation of recorded logs"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:83
+#: ../../../param/menu.xml:86
 msgid "Structure de la base de données des droits (HTML)"
 msgstr "Rights management database structure (HTML)"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:83
+#: ../../../param/menu.xml:86
 msgid ""
 "Liste des tables et des colonnes de la base de données de gestion des droits"
 msgstr "List of the tables and the columns of the rights management database"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:84 ../../../display/templates/phpinfo.tpl:1
+#: ../../../param/menu.xml:87 ../../../display/templates/phpinfo.tpl:1
 msgid "PHP info"
 msgstr "PHP info"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:84
+#: ../../../param/menu.xml:87
 msgid "configuration générale du serveur PHP"
 msgstr "general configuration of the PHP server"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:85
+#: ../../../param/menu.xml:88
 msgid "Backup"
 msgstr "Backup"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:85 ../../../display/templates/framework/backup.tpl:1
+#: ../../../param/menu.xml:88 ../../../display/templates/framework/backup.tpl:1
 msgid "Sauvegarde de la base de données"
 msgstr "Backup of the database"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:88 ../../../framework/common.inc.php:283
+#: ../../../param/menu.xml:91 ../../../framework/common.inc.php:283
 #: ../../../framework/identification/disconnect.php:18
 #: ../../../display/templates/entete.tpl:21
 #: ../../../display/templates/entete.tpl:40
@@ -601,13 +610,13 @@ msgid "Connexion"
 msgstr "Sign in"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:88
+#: ../../../param/menu.xml:91
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
 #. (itstool) path: menu/item@label
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:89 ../../../param/menu.xml:90
+#: ../../../param/menu.xml:92 ../../../param/menu.xml:93
 #: ../../../display/templates/entete.tpl:36
 #: ../../../display/templates/entete.tpl:37
 msgid "Déconnexion"
@@ -615,22 +624,22 @@ msgstr "Sign out"
 
 #. (itstool) path: menu/item@tooltip
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:89 ../../../param/menu.xml:90
+#: ../../../param/menu.xml:92 ../../../param/menu.xml:93
 msgid "Déconnexion de l'application"
 msgstr "Sign out of the app"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:91
+#: ../../../param/menu.xml:94
 msgid "Dernières connexions"
 msgstr "Last connections"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:91
+#: ../../../param/menu.xml:94
 msgid "Liste des dernières connexions réalisées"
 msgstr "List of last connections"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:92
+#: ../../../param/menu.xml:95
 #: ../../../display/templates/framework/ident/loginChangePassword.tpl:86
 #: ../../../display/templates/entete.tpl:32
 #: ../../../display/templates/entete.tpl:33
@@ -638,68 +647,68 @@ msgid "Modifier le mot de passe"
 msgstr "Change your password"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:92
+#: ../../../param/menu.xml:95
 msgid "Modifiez votre mot de passe (identification locale uniquement)"
 msgstr "Change your password (local identification only)"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:94
+#: ../../../param/menu.xml:97
 msgid "?"
 msgstr "?"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:94
+#: ../../../param/menu.xml:97
 msgid "Aide"
 msgstr "Help"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:95
+#: ../../../param/menu.xml:98
 msgid "A propos"
 msgstr "About Collec-Science"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:95
+#: ../../../param/menu.xml:98
 msgid "A propos de Collec-Science"
 msgstr "About Collec-Science"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:96
+#: ../../../param/menu.xml:99
 msgid "Nouveautés"
 msgstr "What's new?"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:96
+#: ../../../param/menu.xml:99
 msgid "Quoi de neuf dans l'application ?"
 msgstr "What's new in the app?"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:97
+#: ../../../param/menu.xml:100
 #: ../../../display/templates/documentation/lexique.tpl:1
 msgid "Lexique"
 msgstr "Glossary"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:97
+#: ../../../param/menu.xml:100
 msgid "Lexique des termes utilisés dans le logiciel"
 msgstr "Glossary of terms used in the software"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:98
+#: ../../../param/menu.xml:101
 msgid "Français"
 msgstr "Français"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:98
+#: ../../../param/menu.xml:101
 msgid "Libellés en français"
 msgstr "Libellés en français"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:99
+#: ../../../param/menu.xml:102
 msgid "English"
 msgstr "English"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:99
+#: ../../../param/menu.xml:102
 msgid "Labels in English"
 msgstr "Labels in English"
 
@@ -753,16 +762,16 @@ msgstr "Please use your domain login to login"
 msgid "L'identification par jeton n'a pas abouti"
 msgstr "Token identification was unsuccessful"
 
-#: ../../../framework/controller.php:319
+#: ../../../framework/controller.php:329
 msgid "Identification réussie !"
 msgstr "Authentication successful!"
 
-#: ../../../framework/controller.php:331
+#: ../../../framework/controller.php:341
 msgid "Connexions précédentes récentes :"
 msgstr "Recent previous connections:"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s...
-#: ../../../framework/controller.php:343
+#: ../../../framework/controller.php:353
 #, php-format
 msgid ""
 "Dernière connexion le %1$s depuis l'adresse IP %2$s. Si ce n'était pas vous, "
@@ -771,17 +780,17 @@ msgstr ""
 "Last connection on %1$s from the IP address %2$s. If it was not you, change "
 "your password or contact the administrator of the application."
 
-#: ../../../framework/controller.php:398
+#: ../../../framework/controller.php:408
 msgid "Identification refusée"
 msgstr "Authentication failed"
 
 #. traduction: conserver inchangée la chaîne %s
-#: ../../../framework/controller.php:449
+#: ../../../framework/controller.php:459
 #, php-format
 msgid "Module précédent enregistré : %s"
 msgstr "Previous module: %s"
 
-#: ../../../framework/controller.php:499
+#: ../../../framework/controller.php:509
 msgid ""
 "L'accès au module demandé nécessite une ré-identification. Veuillez saisir "
 "votre login et votre mot de passe"
@@ -789,17 +798,17 @@ msgstr ""
 "Access to the requested module requires re-identification. Please enter your "
 "login and password"
 
-#: ../../../framework/controller.php:526
+#: ../../../framework/controller.php:536
 msgid "Erreur d'écriture dans le fichier de traces"
 msgstr "Error writing to the trace file"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s
-#: ../../../framework/controller.php:641
+#: ../../../framework/controller.php:651
 #, php-format
 msgid "Mode développement - base de données : %1$s - schema : %2$s"
 msgstr "Development mode - database: %1$s - schema: %2$s"
 
-#: ../../../framework/controller.php:673
+#: ../../../framework/controller.php:683
 msgid ""
 "Une erreur indéterminée s'est produite pendant le traitement de la requête. "
 "Si le problème persiste, consultez l'administrateur de l'application"
@@ -1112,48 +1121,25 @@ msgid "%s n'est pas un champ reconnu utilisable lors de l'importation"
 msgstr "%s is not a field recognized as usable at import"
 
 #: ../../../framework/import/import.class.php:77
-#: ../../../modules/exportmodel/exportModelProcessing.php:87
+#: ../../../modules/exportmodel/exportModelProcessing.php:88
 #, php-format
 msgid "Fichier %s non trouvé ou non lisible"
 msgstr "File %s not found or not readable"
 
 #: ../../../param/param.default.inc.php:11
-msgid "14/08/2020"
-msgstr "2020-08-14"
-
-#: ../../../modules/exportmodel/exportmodel.class.php:689
-#, php-format
-msgid ""
-"Aucune description trouvée pour l'alias de table %s dans le fichier de "
-"paramètres"
-msgstr ""
-"No description could be found for the alias of the table %s in the parameter "
-"file"
-
-#: ../../../modules/exportmodel/exportmodel.class.php:854
-#, php-format
-msgid ""
-"Erreur inattendue : impossible de trouver le nom du champ correspondant à la "
-"table de paramètres %s"
-msgstr ""
-"Unexpected error: the name of the field corresponding to the parameter %s "
-"could not be found"
-
-#: ../../../modules/exportmodel/exportmodel.class.php:865
-#, php-format
-msgid "Une valeur vide a été trouvée pour l'attribut ajouté %s"
-msgstr "An empty value was found for the added attribute %s"
+msgid "31/08/2020"
+msgstr "2020-08-31"
 
 #: ../../../modules/exportmodel/exportModelProcessing.php:40
 msgid "Le modèle d'export n'est pas défini ou n'a pas été trouvé"
 msgstr "The export model is not defined or has not be found"
 
-#: ../../../modules/exportmodel/exportModelProcessing.php:106
+#: ../../../modules/exportmodel/exportModelProcessing.php:107
 #, php-format
 msgid "Importation effectuée, fichier %s traité."
 msgstr "Import done, file %s processed."
 
-#: ../../../modules/exportmodel/exportModelProcessing.php:116
+#: ../../../modules/exportmodel/exportModelProcessing.php:117
 msgid "Paramètres d'importation manquants ou droits insuffisants"
 msgstr "Missing import parameters or insufficient rights"
 
@@ -1361,19 +1347,19 @@ msgstr "Import done. %s objects treated"
 msgid "Problème rencontré lors de l'enregistrement du prêt"
 msgstr "Problem occurred during the registration of the loan"
 
-#: ../../../modules/export/lot.php:43
+#: ../../../modules/export/lot.php:44
 msgid "Lot créé"
 msgstr "Creation of lot done"
 
-#: ../../../modules/export/lot.php:46
+#: ../../../modules/export/lot.php:47
 msgid "Une erreur est survenue pendant la création du lot"
 msgstr "Error while generating the lot"
 
-#: ../../../modules/export/lot.php:52
+#: ../../../modules/export/lot.php:53
 msgid "Vous ne disposez pas des droits suffisants pour créer le lot"
 msgstr "You do not have the necessary rights to create the lot"
 
-#: ../../../modules/export/lot.php:56
+#: ../../../modules/export/lot.php:57
 msgid "Aucun échantillon n'a été sélectionné"
 msgstr "No sample was selected"
 
@@ -1607,26 +1593,26 @@ msgstr "You do not have the necessary rights to modify the sample %1s"
 msgid "Le modèle d'export n'a pas été correctement initialisé"
 msgstr "The export model was not correctly initialized"
 
-#: ../../../modules/classes/export/datasetTemplate.class.php:239
+#: ../../../modules/classes/export/datasetTemplate.class.php:251
 #, php-format
 msgid "Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"
 msgstr ""
 "The field %1s is required, but has not been filled out for the sample %2s"
 
-#: ../../../modules/classes/export/datasetTemplate.class.php:261
+#: ../../../modules/classes/export/datasetTemplate.class.php:273
 #, php-format
 msgid "Le modèle %s n'existe pas"
 msgstr "The model %s don't exist"
 
-#: ../../../modules/classes/export/export.class.php:144
+#: ../../../modules/classes/export/export.class.php:148
 msgid "Impossible de générer le fichier, le type est inconnu ou non spécifié"
 msgstr "Unable to generate the file, type is unknown or unspecified"
 
-#: ../../../modules/classes/export/export.class.php:174
+#: ../../../modules/classes/export/export.class.php:178
 msgid "Impossible de créer le fichier zip"
 msgstr "Unable to create the zip file"
 
-#: ../../../modules/classes/export/export.class.php:210
+#: ../../../modules/classes/export/export.class.php:214
 #, php-format
 msgid "L'export %s n'existe pas"
 msgstr "Export %s don't exist"
@@ -1728,6 +1714,7 @@ msgstr "Detail of the export template"
 #: ../../../display/templates/param/storageConditionChange.tpl:5
 #: ../../../display/templates/param/objectStatusChange.tpl:5
 #: ../../../display/templates/param/multipleTypeChange.tpl:5
+#: ../../../display/templates/param/licenseChange.tpl:4
 #: ../../../display/templates/param/referentChange.tpl:4
 #: ../../../display/templates/param/collectionChange.tpl:5
 #: ../../../display/templates/param/samplingPlaceChange.tpl:5
@@ -1779,6 +1766,7 @@ msgid "Clé primaire"
 msgstr "Primary key"
 
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:24
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:32
 msgid "Clé métier"
 msgstr "Business key"
 
@@ -1847,6 +1835,10 @@ msgstr "Import data"
 msgid "Confirmez-vous l'importation ?"
 msgstr "Do you confirm the import?"
 
+#: ../../../display/templates/exportmodel/exportModelList.tpl:18
+msgid "Liste des modèles d'exportation des données"
+msgstr "List of data exportation templates"
+
 #: ../../../display/templates/exportmodel/exportModelList.tpl:26
 #: ../../../display/templates/gestion/eventList.tpl:5
 #: ../../../display/templates/gestion/subsampleList.tpl:5
@@ -1867,6 +1859,7 @@ msgstr "Do you confirm the import?"
 #: ../../../display/templates/param/operationList.tpl:7
 #: ../../../display/templates/param/containerTypeList.tpl:7
 #: ../../../display/templates/param/multipleTypeList.tpl:7
+#: ../../../display/templates/param/licenseList.tpl:6
 #: ../../../display/templates/param/referentList.tpl:7
 #: ../../../display/templates/param/storageConditionList.tpl:7
 #: ../../../display/templates/param/metadataList.tpl:20
@@ -2000,6 +1993,7 @@ msgstr "Back to detail"
 #: ../../../display/templates/param/storageConditionChange.tpl:18
 #: ../../../display/templates/param/objectStatusChange.tpl:17
 #: ../../../display/templates/param/multipleTypeChange.tpl:17
+#: ../../../display/templates/param/licenseChange.tpl:23
 #: ../../../display/templates/param/referentChange.tpl:71
 #: ../../../display/templates/param/collectionChange.tpl:104
 #: ../../../display/templates/param/samplingPlaceChange.tpl:47
@@ -2053,6 +2047,7 @@ msgstr "Model name:"
 #: ../../../display/templates/param/storageConditionChange.tpl:20
 #: ../../../display/templates/param/objectStatusChange.tpl:19
 #: ../../../display/templates/param/multipleTypeChange.tpl:19
+#: ../../../display/templates/param/licenseChange.tpl:25
 #: ../../../display/templates/param/referentChange.tpl:73
 #: ../../../display/templates/param/collectionChange.tpl:106
 #: ../../../display/templates/param/samplingPlaceChange.tpl:49
@@ -2249,6 +2244,7 @@ msgstr ""
 #: ../../../display/templates/param/storageConditionChange.tpl:26
 #: ../../../display/templates/param/objectStatusChange.tpl:25
 #: ../../../display/templates/param/multipleTypeChange.tpl:25
+#: ../../../display/templates/param/licenseChange.tpl:32
 #: ../../../display/templates/param/referentChange.tpl:79
 #: ../../../display/templates/param/collectionChange.tpl:112
 #: ../../../display/templates/param/samplingPlaceChange.tpl:58
@@ -2262,6 +2258,77 @@ msgstr ""
 #: ../../../display/templates/param/eventTypeChange.tpl:47
 msgid "Donnée obligatoire"
 msgstr "Mandatory data"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:7
+msgid "Description du modèle"
+msgstr "Description of the model"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:10
+msgid "Description de la table"
+msgstr "Description of the table"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:14
+msgid "Nom de la table"
+msgstr "Name of the table"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:19
+msgid "Alias de la table (si elle dépend de multiples parents)"
+msgstr "Alias of the table (if it depends of more than on parent)"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:23
+msgid "Clé primaire ou technique"
+msgstr "Primary key or technical key"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:27
+msgid ""
+"Table vide (le contenu est alimenté par les tables qui lui sont liées, table "
+"de paramètres) ?"
+msgstr ""
+"Table empty (the content is filled in by the related tables, as parameter "
+"tables) ?"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:36
+msgid "Clé étrangère (pour être reliée à la table parente)"
+msgstr "Name of the foreign key (parent table)"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:40
+msgid "Relation de type 1-1 avec la table parente (clé partagée) ?"
+msgstr "Relationship of type 1-1 with the parent (shared key)?"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:45
+msgid "Liste des alias des tables liées"
+msgstr "List of aliases of linked tables"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:51
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:69
+msgid "Alias de la table"
+msgstr "Alias of the table"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:55
+msgid ""
+"Relation stricte (les enregistrements sont liés à ceux de la table parente) ?"
+msgstr ""
+"Strict relation (the child records depends totally of the current record)?"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:63
+msgid "Liste des tables parentes"
+msgstr "List of parent tables"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:73
+msgid "Nom de la colonne portant la relation dans la table courante"
+msgstr "Name of the column bearing the relationship in the current table"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:80
+msgid "Table de type n-n ?"
+msgstr "Table of type n-n?"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:88
+msgid "Nom de la seconde clé étrangère"
+msgstr "Name of the second foreign key"
+
+#: ../../../display/templates/exportmodel/modelPatternJS.tpl:92
+msgid "Alias de la seconde table"
+msgstr "Alias of the second table"
 
 #: ../../../display/templates/framework/dbstructure.tpl:1
 #: ../../../display/templates/framework/request/requestChange.tpl:32
@@ -5558,6 +5625,7 @@ msgid "au"
 msgstr "to"
 
 #: ../../../display/templates/param/identifierTypeList.tpl:14
+#: ../../../display/templates/param/licenseList.tpl:12
 msgid "Code"
 msgstr "Code"
 
@@ -5807,6 +5875,18 @@ msgstr "Order number"
 msgid "Dupliquer l'opération"
 msgstr "Duplicate the operation"
 
+#: ../../../display/templates/param/licenseChange.tpl:1
+msgid "Création - Modification d'une licence de publication d'une collection"
+msgstr "Create / Edit a license of publication of a collection"
+
+#: ../../../display/templates/param/licenseChange.tpl:11
+msgid "Code de la licence :"
+msgstr "Code of the license:"
+
+#: ../../../display/templates/param/licenseChange.tpl:17
+msgid "URL :"
+msgstr "URL:"
+
 #: ../../../display/templates/param/referentChange.tpl:1
 msgid "Création - Modification d'un référent"
 msgstr "Create / Edit a referent"
@@ -6030,6 +6110,14 @@ msgstr "Version of the operation:"
 #: ../../../display/templates/param/operationChange.tpl:39
 msgid "N° d'ordre :"
 msgstr "Order number:"
+
+#: ../../../display/templates/param/licenseList.tpl:1
+msgid "Licences utilisables pour publier les collections"
+msgstr "Licenses usable to publish collections"
+
+#: ../../../display/templates/param/licenseList.tpl:13
+msgid "URL"
+msgstr "URL"
 
 #: ../../../display/templates/param/movementReasonChange.tpl:2
 msgid "Création - Modification des motifs de déstockage"
@@ -6569,6 +6657,26 @@ msgstr "Display All"
 msgid "Valeur numérique..."
 msgstr "Numerical value..."
 
+#~ msgid "Modèles d'export (expérimental)"
+#~ msgstr "Export models (experimental)"
+
+#~ msgid ""
+#~ "Aucune description trouvée pour l'alias de table %s dans le fichier de "
+#~ "paramètres"
+#~ msgstr ""
+#~ "No description could be found for the alias of the table %s in the "
+#~ "parameter file"
+
+#~ msgid ""
+#~ "Erreur inattendue : impossible de trouver le nom du champ correspondant à "
+#~ "la table de paramètres %s"
+#~ msgstr ""
+#~ "Unexpected error: the name of the field corresponding to the parameter %s "
+#~ "could not be found"
+
+#~ msgid "Une valeur vide a été trouvée pour l'attribut ajouté %s"
+#~ msgstr "An empty value was found for the added attribute %s"
+
 #~ msgid "L'alias %s n'a pas été décrit dans le modèle"
 #~ msgstr "The alias %s has not be described in the model"
 
@@ -6585,15 +6693,6 @@ msgstr "Numerical value..."
 #~ msgid "Champs booléens"
 #~ msgstr "Boolean fields"
 
-#~ msgid "Description du modèle"
-#~ msgstr "Description of the model"
-
-#~ msgid "Nom de la table"
-#~ msgstr "Name of the table"
-
-#~ msgid "Alias de la table (si elle dépend de plusieurs parents)"
-#~ msgstr "Alias of the table (if it depends of more than on parent)"
-
 #~ msgid ""
 #~ "Table fournie vide (table de paramètres renseignée par les valeurs  "
 #~ "fournies dans les autres enregistrements) ?"
@@ -6601,41 +6700,11 @@ msgstr "Numerical value..."
 #~ "Table provided empty (parameter table filled with values provided in "
 #~ "other records)?"
 
-#~ msgid "Nom de la clé étrangère (table parente)"
-#~ msgstr "Name of the foreign key (parent table)"
-
-#~ msgid "Relation de type 1-1 avec le parent (clé partagée)"
-#~ msgstr "Relationship of type 1-1 with the parent (shared key)"
-
 #~ msgid "Liste des champs de type booléen"
 #~ msgstr "List of boolean fields"
 
-#~ msgid "Liste des alias des tables liées"
-#~ msgstr "List of aliases of linked tables"
-
-#~ msgid "Alias de la table"
-#~ msgstr "Alias of the table"
-
-#~ msgid ""
-#~ "Relation stricte (les enregistrements enfants sont totalement dépendants "
-#~ "de l'enregistrement courant) ?"
-#~ msgstr ""
-#~ "Strict relation (the child records depends totally of the current record)?"
-
 #~ msgid "Liste des tables de paramètres associées"
 #~ msgstr "List of linked parameter tables"
-
-#~ msgid "Nom de la colonne dans la table courante"
-#~ msgstr "Name of the column in the current table"
-
-#~ msgid "Table de type n-n"
-#~ msgstr "Table of type n-n"
-
-#~ msgid "Nom de la seconde clé étrangère"
-#~ msgstr "Name of the second foreign key"
-
-#~ msgid "Alias de la seconde table"
-#~ msgstr "Alias of the second table"
 
 #~ msgid "Nom, prénom-nom ou nom de l'équipe :"
 #~ msgstr "Name, First name - last name or team name:"

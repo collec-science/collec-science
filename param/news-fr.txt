@@ -1,5 +1,17 @@
 News
 ===========
+Version 2.5.0c du 9 septembre 2020
+------------------------------
+Nouveautés :
+- ajout de la table license pour indiquer la licence de diffusion d'une collection
+
+Corrections de bugs:
+- multiples corrections dans le module d'exportation
+- si l'adresse internet du poste de travail changeait pendant la journée, il n'était plus possible de se réidentifier sans supprimer manuellement le cookie d'identification ou fermer le navigateur
+- corrections dans le module d'import/export technique : plusieurs anomalies détectées
+- les libellés, en modification des modèles dans le module d'import/export, étaient en anglais
+- correction du module de génération du menu : dans certains cas, le symbole >, qui permet de savoir qu'il y a des sous-menus, n'était pas affiché
+
 Version 2.5.0b du 31 août 2020
 ------------------------------
 Nouveautés :

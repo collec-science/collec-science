@@ -1,5 +1,16 @@
 News
 ===========
+Version 2.5.0c of September 9, 2020
+------------------------------
+New features :
+- added the license table to indicate the license to distribute a collection
+
+Bug fixes:
+- multiple corrections in the export module
+- if the Internet address of the workstation changed during the day, it was no longer possible to re-identify without manually deleting the identification cookie or closing the browser
+- corrections in the technical import/export module: several anomalies detected
+- the labels, in modification of the templates in the import/export module, were in English
+- bugfix of the menu generation module : in some cases, the symbol >, which allows to know that there are sub-menus, was not displayed
 
 Version 2.5.0b of August 31, 2020
 ------------------------------

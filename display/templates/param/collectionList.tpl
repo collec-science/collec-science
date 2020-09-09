@@ -23,6 +23,7 @@
 	<th>{t}Flux de mise à jour{/t}</th>
 	<th>{t}Flux de consultation{/t}</th>
 	<th>{t}Collection publique{/t}</th>
+	<th>{t}Licence de diffusion{/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -59,7 +60,7 @@
 		{t}oui{/t}
 	{/if}
 </td>
-
+<td>{$data[lst].license_name}</td>
 </tr>
 {/section}
 </tbody>

@@ -85,6 +85,17 @@
                         </div>
                   </div>
                   <div class="form-group">
+                        <label for="license_id" class="control-label col-md-4">{t}Licence de diffusion :{/t}</label>
+                        <div class="col-md-8">
+                              <select id="license_id" name="license_id" class="form-control">
+                                    <option value="" {if $data.license_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                                    {foreach $licenses as $license}
+                                    <option value="{$license.license_id}" {if $data.license_id == $license.license_id}selected{/if}>{$license.license_name} ({$license.license_url})</option>
+                                    {/foreach}
+                              </select>
+                        </div>
+                  </div>
+                  <div class="form-group">
                         <label for="groupes"  class="control-label col-md-4">{t}Groupes :{/t}</label>
                         <div class="col-md-7">
                               {section name=lst loop=$groupes}

@@ -76,7 +76,7 @@ class Collection extends ObjetBDD
                 left outer join referent using (referent_id)
                 left outer join license using (license_id)
 				left outer join aclgroup using (aclgroup_id)
-				group by collection_id, collection_name, referent_name
+				group by collection_id, collection_name, referent_name, license_name, license_url
 				order by $order";
     return $this->getListeParam($sql);
   }
@@ -266,6 +266,7 @@ class Collection extends ObjetBDD
             ,license_name,license_url
             from collection
             left outer join referent using (referent_id)
+            left outer join license using (license_id)
             join sample using (collection_id)
             where uid in ($uids)";
     return $this->getListeParam($sql);

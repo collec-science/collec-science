@@ -12,6 +12,7 @@
 <tr>
 	<th colspan="6"></th>
 	<th colspan="3" class="center">{t}Flux externes autorisés{/t}</th>
+	<th></th>
 </tr>
 <tr>
 	<th>{t}Nom de la collection{/t}</th>

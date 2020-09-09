@@ -79,6 +79,7 @@ switch ($t_module["param"]) {
              * Generate the structure of the database
              */
             $export->generateStructure();
+            //$export->modeDebug = true;
             $filename = $_FILES["filename"]["tmp_name"];
             $realFilename = $_FILES["filename"]["name"];
             $filename = str_replace("../", "", $filename);

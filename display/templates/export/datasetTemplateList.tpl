@@ -20,6 +20,7 @@
         <th>{t}Entête XML{/t}</th>
         <th>{t}Nom des nœuds XML{/t}</th>
         <th>{t}Transformation xsl ?{/t}</th>
+        <th class="center" title="{t}Dupliquer...{/t}"><img src="display/images/copy.png" height="25"></th>
       </tr>
     </thead>
     <tbody>
@@ -44,6 +45,11 @@
         <td>{$row.xmlroot}</td>
         <td>{$row.xmlnodename}</td>
         <td class="center">{if strlen($row.xslcontent)>0}{t}oui{/t}{/if}</td>
+        <td class="center" title="{t}Dupliquer...{/t}">
+          <a class="confirm" href="index.php?module=datasetTemplateDuplicate&dataset_template_id={$row.dataset_template_id}">
+            <img src="display/images/copy.png" height="25">
+          </a>
+        </td>
       </tr>
       {/foreach}
     </tbody>

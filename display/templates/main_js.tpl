@@ -259,7 +259,14 @@
 			 * Initialisation des combobox
 			 */
 			$( ".combobox" ).combobox();
-
+			/**
+			 * Get a confirmation
+			 */
+			 $(".confirm").on("click keydown", function(event) {
+				 if (confirm("{t}Confirmez-vous l'opération ?{/t}") == false) {
+					 event.preventDefault();
+				 }
+			 });
 			/**
 			 * Add support of tabulation in textarea
 			 */

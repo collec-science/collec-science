@@ -288,4 +288,31 @@ class DatasetTemplate extends ObjetBDD
     $this->datasetColumn->supprimerChamp($id, "dataset_template_id");
     parent::supprimer($id);
   }
+
+  function duplicate(int $id) {
+    $data = $this->lire($id);
+    if (empty($data["dataset_template_id"])) {
+      throw new DatasetTemplateException(_("Impossible de lire le modèle à dupliquer"));
+    }
+    /**
+     * prepare the new data
+     */
+    $data["dataset_template_id"] = 0;
+    $data["dataset_template_name"] = "copy of ".$data["dataset_template_name"];
+    $newid = $this->ecrire($data);
+    if (!is_object($this->datasetColumn)) {
+      include_once $this->classPathExport . "datasetColumn.class.php";
+      $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
+    }
+    /**
+     * Copy the columns
+     */
+    $columns = $this->datasetColumn->getListColumns($id);
+    foreach ($columns as $column) {
+      $column ["dataset_column_id"] = 0;
+      $column ["dataset_template_id"] = $newid;
+      $this->datasetColumn->ecrire($column);
+    }
+    return $newid;
+  }
 }

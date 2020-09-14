@@ -28,7 +28,6 @@
 	<item module="exportTemplateList" label="Modèles d'exports" tooltip="Liste des modèles d'exports" droits="param"/>
 	<item module="datasetTemplateList" label="Modèles de datasets" tooltip="Liste des modèles de datasets" droits="param"/>
 	<item module="translatorList" label="Traducteurs" tooltip="Liste des traducteurs de libellés" droits="param"/>
-	<item module="datasetTypeList" label="Types de datasets" tooltip="Liste des types de datasets" droits="param"/>
 </item>
 
 <item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
@@ -67,6 +66,7 @@
 	<item divider='1'/>
 	<item module="mimeTypeList" label="Types de fichiers" tooltip="Types de fichiers autorisés en téléchargement"/>
 	<item module="exportModelList" label="Imports/exports techniques" tooltip="Exportations ou importations de données au format JSON"/>
+	<item module="datasetTypeList" label="Types de datasets" tooltip="Liste des types de datasets utilisés pour exporter les échantillons par lots" droits="param"/>
 	<item divider='1'/>
 	<item module="dbstructureSchema" droits="collection" label="Schéma de la base de données" tooltip="Schéma de la base de données">
 		<item module="dbstructureSchema" droits="collection" label="Schéma de la base de données" tooltip="Schéma de la base de données"/>

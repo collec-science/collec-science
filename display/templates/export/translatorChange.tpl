@@ -12,7 +12,7 @@
     })
   });
 </script>
-<h2>{t}Modification d'un traducteur{/t}</h2>
+<h2>{t}Modification d'une table de correspondance{/t}</h2>
 <div class="row">
   <div class="col-md-12">
     <a href="index.php?module=translatorList">

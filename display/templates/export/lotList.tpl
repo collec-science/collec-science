@@ -15,7 +15,7 @@ $(document).ready ( function() {
   });
 });
 </script>
-<h2>Liste des lots</h2>
+<h2>Liste des lots d'export</h2>
 <div class="row">
   <div class="col-md-6 form-horizontal">
     <form id="lotSearch" action="index.php" method="GET">

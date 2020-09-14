@@ -1,7 +1,7 @@
-<h2>{t}Liste des traducteurs de libellés{/t}</h2>
+<h2>{t}Liste des tables de correspondance{/t}</h2>
 <div class="row">
   <div class="col-md-6 bg-info">
-    {t}Les traducteurs permettent de remplacer un libellé présent dans la base de données par un libellé attendu dans le système d'informations destinataire de l'export{/t}
+    {t}Les tables de correspondance permettent de remplacer un libellé présent dans la base de données par un libellé attendu dans le système d'informations destinataire de l'export{/t}
   </div>
 </div>
 <div class="row">

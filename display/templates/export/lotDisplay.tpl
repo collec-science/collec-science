@@ -1,6 +1,6 @@
-<h2>Affichage d'un lot</h2>
+<h2>Affichage d'un lot d'export</h2>
 <div class="row">
-  <a href="index.php?module=lotList"><img src="display/images/list.png" height="25">{t}Retour à la liste des lots{/t}</a>
+  <a href="index.php?module=lotList"><img src="display/images/list.png" height="25">{t}Retour à la liste des lots d'export{/t}</a>
 </div>
 <div class="row">
   <div class="col-md-6">
@@ -35,7 +35,7 @@
             <tr>
               <th class="center"><img src="display/images/edit.gif" height="25"></th>
               <th>{t}Date du dernier export{/t}</th>
-              <th>{t}Type d'export{/t}</th>
+              <th>{t}Modèle d'export{/t}</th>
               <th>{t}Générer l'export{/t}</th>
             </tr>
           </thead>

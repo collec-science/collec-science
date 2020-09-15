@@ -51,7 +51,15 @@ switch ($t_module["param"]) {
 		 */
     dataDelete($dataClass, $id);
     break;
-    case "duplicate":
-
-    $module_coderetour = 1;
+  case "duplicate":
+    try {
+      $bdd->beginTransaction();
+      $_REQUEST[$keyName] = $dataClass->duplicate($id);
+      $module_coderetour = 1;
+      $bdd->commit();
+    } catch (Exception $e) {
+      $module_coderetour = -1;
+      $message->set($e->getMessage(), true);
+      $bdd->rollback();
+    }
 }

@@ -349,7 +349,7 @@
 	<datasetTemplateChange action="modules/export/datasetTemplate.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<datasetTemplateWrite action="modules/export/datasetTemplate.php" param="write" droits="param" moduleBefore="datasetTemplateChange" retourok="datasetTemplateDisplay" retourko="datasetTemplateChange" />
 	<datasetTemplateDelete action="modules/export/datasetTemplate.php" param="delete" droits="param" moduleBefore="datasetTemplateChange" retourok="datasetTemplateList" retourko="datasetTemplateChange" />
-	<datasetTemplateDuplicate action="modules/export/datasetTemplate.php" param="duplicate" droits="param" moduleBefore="datasetTemplateList,datasetTemplateWrite,datasetTemplateDelete" retourok="datasetTemplateList" retourko="datsetTemplateList" />
+	<datasetTemplateDuplicate action="modules/export/datasetTemplate.php" param="duplicate" droits="param" moduleBefore="datasetTemplateList,datasetTemplateWrite,datasetTemplateDelete,datasetTemplateDuplicate" retourok="datasetTemplateChange" retourko="datasetTemplateList" />
 	<datasetColumnChange action="modules/export/datasetColumn.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<datasetColumnWrite action="modules/export/datasetColumn.php" param="write" droits="param" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
 	<datasetColumnDelete action="modules/export/datasetColumn.php" param="delete" droits="param" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />

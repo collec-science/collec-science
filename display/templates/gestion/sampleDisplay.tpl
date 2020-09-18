@@ -139,6 +139,10 @@
 				}
 			} );
 		});
+		$("#rapidAccess").on("click mouseover", function() {
+			$("#rapidAccessForm").show();
+			$("#search").focus();
+		});
 	});
 </script>
 <div class="row">
@@ -146,6 +150,11 @@
 			<a href="index.php?module={$moduleListe}">
 				<img src="display/images/list.png" height="25">
 				{t}Retour à la liste{/t}
+			</a>
+			&nbsp;
+			<a href="#" id="rapidAccess">
+			<img src="display/images/boxopen.png" height="25">
+			{t}Accès rapide{/t}
 			</a>
 			{if $droits.gestion == 1}
 				&nbsp;
@@ -189,13 +198,13 @@
 	<div class="col-sm-8 col-md-8">
 		<h2>{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i></h2>
 	</div>
-	<div class="col-sm-4 col-lg-offset-2 col-lg-2">
+	<div id="rapidAccessForm" hidden class="col-sm-4 col-lg-offset-2 col-lg-2">
 		<form id="open" action="index.php" action="index.php" method="GET">
 			<input id="moduleBase" type="hidden" name="moduleBase" value="sample">
 			<input id="action" type="hidden" name="action" value="Display">
 			<div class="form-group">
 				<div class="col-md-6 col-sm-offset-2 col-md-offset-0 col-sm-4">
-					<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required autofocus>
+					<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required >
 				</div>
 				<input type="submit" id="searchExec" class="btn btn-warning col-md-6 col-sm-4" value="{t}Ouvrir{/t}">
 			</div>

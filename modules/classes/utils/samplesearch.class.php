@@ -74,4 +74,33 @@ class Samplesearch extends ObjetBDD
       parent::supprimer($id);
     }
   }
+  /**
+   * override of ecrire to search existing research
+   *
+   * @param array $data
+   * @return int
+   */
+  function ecrire($data)
+  {
+    /**
+     * Search for existing researches
+     */
+    $newId = 0;
+    $sql = "select samplesearch_id from samplesearch";
+    $sqldata = array("name" => $data["samplesearch_name"]);
+    $where = " where samplesearch_name = :name";
+    if (!empty($data["collection_id"])) {
+      $where .= " and collection_id = :collection_id";
+      $sqldata["collection_id"] = $data["collection_id"];
+    } else {
+      $where .= " and samplesearch_login = :login";
+      $sqldata["login"] = $_SESSION["login"];
+    }
+    $exist = $this->lireParamAsPrepared($sql . $where, $sqldata);
+    if ($exist["samplesearch_id"] > 0) {
+      $newId = $exist["samplesearch_id"];
+    }
+    $data["samplesearch_id"] = $newId;
+    return $this->ecrire($data);
+  }
 }

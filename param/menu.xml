@@ -7,10 +7,7 @@
 <item module="objets" label="Objets" tooltip="Opérations sur les échantillons ou les contenants">
 	<item module="containerList" label="Contenants" tooltip="Liste des contenants"/>
 	<item module="sampleList" label="Échantillons" tooltip="Liste des échantillons"/>
-	<item module="importChange" label="Import de masse" tooltip="Import de plusieurs échantillons ou contenants" droits="import,collection"/>
-	<item module="sampleImportStage1" label="Import d'échantillons externes" tooltip="Import d'un lot d'échantillons provenant d'une base externe" droits="import,collection"/>
-	<item module="containerImportStage1" label="Import de contenants externes" tooltip="Import d'un lot de containers avec les objets associés provenant d'une base externe" droits="import,collection"/>
-	<item divider='1' droits="param"/>
+		<item divider='1' droits="param"/>
 	<item module="requestList" label="Requêtes SQL" tooltip="Exécution de requêtes SQL dans la base de données" droits="param"/>
 </item>
 
@@ -23,13 +20,17 @@
 <item module="movementList" label="Liste des mouvements" tooltip="Recherche des mouvements sur une période donnée" droits="collection" />
 </item>
 
-<item module="lotList" label="Exports des échantillons" tooltip="Gestion des exports des échantillons vers des bases de données externes" droits="collection">
-	<item module="lotList" label="Lots d'export" tooltip="Liste des lots d'exportation des échantillons" droits="collection"/>
-	<item module="exportTemplateList" label="Modèles d'exports" tooltip="Liste des modèles d'exports" droits="param"/>
-	<item module="datasetTemplateList" label="Modèles de datasets" tooltip="Liste des modèles de datasets" droits="param"/>
-	<item module="translatorList" label="Traducteurs" tooltip="Liste des traducteurs de libellés" droits="param"/>
+<item module="default" label="imports/exports" tooltip="Opérations d'importation ou d'exportation" droits="import,collection,param">
+	<item module="importChange" label="Import de masse" tooltip="Import de plusieurs échantillons ou contenants" droits="import,collection"/>
+	<item module="sampleImportStage1" label="Import d'échantillons externes" tooltip="Import d'un lot d'échantillons provenant d'une base externe" droits="import,collection"/>
+	<item module="containerImportStage1" label="Import de contenants externes" tooltip="Import d'un lot de containers avec les objets associés provenant d'une base externe" droits="import,collection"/>
+	<item module="lotList" label="Exports des lots d'échantillons" tooltip="Gestion des exports des lots d'échantillons vers des bases de données externes" droits="collection">
+		<item module="lotList" label="Lots d'export" tooltip="Liste des lots d'exportation des échantillons" droits="collection"/>
+		<item module="exportTemplateList" label="Modèles d'exports" tooltip="Liste des modèles d'exports" droits="param"/>
+		<item module="datasetTemplateList" label="Modèles de datasets" tooltip="Liste des modèles de datasets" droits="param"/>
+		<item module="translatorList" label="Traducteurs" tooltip="Liste des traducteurs de libellés" droits="param"/>
+	</item>
 </item>
-
 <item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
 	<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" >
 		<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" />

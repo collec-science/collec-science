@@ -47,14 +47,14 @@ switch ($t_module["param"]) {
     if (!empty($_REQUEST["samplesearch_name"])) {
       $dsamplesearch = array(
         "samplesearch_id" => 0,
-        "samplesearch_name"=>$_REQUEST["samplesearch_name"],
+        "samplesearch_name" => $_REQUEST["samplesearch_name"],
         "samplesearch_data" => json_encode($dataSearch),
         "samplesearch_login" => $_SESSION["login"]
       );
       if ($_REQUEST["samplesearch_collection"] == 1 && $dataClass->verifyCollection($_REQUEST["collection_id"])) {
         $dsamplesearch["collection_id"] = $_REQUEST["collection_id"];
       }
-      $samplesearch->ecrire($dsamplesearch);
+      $samplesearch->ecrire($dsamplesearch, $dsamplesearch["collection_id"]);
     }
     /**
      * Delete a request

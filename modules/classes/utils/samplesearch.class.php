@@ -78,10 +78,12 @@ class Samplesearch extends ObjetBDD
    * override of ecrire to search existing research
    *
    * @param array $data
+   * @param int $collection_id
    * @return int
    */
-  function ecrire($data)
+  function ecrire($data, $collection_id = 0)
   {
+
     /**
      * Search for existing researches
      */
@@ -89,11 +91,11 @@ class Samplesearch extends ObjetBDD
     $sql = "select samplesearch_id from samplesearch";
     $sqldata = array("name" => $data["samplesearch_name"]);
     $where = " where samplesearch_name = :name";
-    if (!empty($data["collection_id"])) {
+    if ($collection_id > 0 ) {
       $where .= " and collection_id = :collection_id";
-      $sqldata["collection_id"] = $data["collection_id"];
+      $sqldata["collection_id"] = $collection_id;
     } else {
-      $where .= " and samplesearch_login = :login";
+      $where .= " and samplesearch_login = :login and collection_id is null";
       $sqldata["login"] = $_SESSION["login"];
     }
     $exist = $this->lireParamAsPrepared($sql . $where, $sqldata);
@@ -101,6 +103,6 @@ class Samplesearch extends ObjetBDD
       $newId = $exist["samplesearch_id"];
     }
     $data["samplesearch_id"] = $newId;
-    return $this->ecrire($data);
+    return parent::ecrire($data);
   }
 }

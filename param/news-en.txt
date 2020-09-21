@@ -1,5 +1,13 @@
 News
 ===========
+Version 2.5.0d of September 21, 2020
+-----------------------------------
+Ergonomics :
+- modification of the menus, with creation of a main heading for imports/exports
+- it is now possible to overwrite a saved search, if using the same name
+- modification of the display of a sample: addition of a "quick access" link, which allows to display the search box from IUD or IDENTIFIER
+- corrections of some labels
+
 Version 2.5.0c of September 9, 2020
 ------------------------------
 New features :

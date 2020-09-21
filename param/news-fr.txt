@@ -1,5 +1,13 @@
 News
 ===========
+Version 2.5.0d du 21 septembre 2020
+-----------------------------------
+Ergonomie :
+- modification des menus, avec création d'une rubrique principale pour les imports/exports
+- il est maintenant possible d'écraser une recherche enregistrée, si on utilise le même nom
+- modification de l'affichage d'un échantillon : ajout d'un lien "accès rapide", qui permet d'afficher la boite de recherche à partir de IUD ou IDENTIFIER
+- corrections de quelques libellés
+
 Version 2.5.0c du 9 septembre 2020
 ------------------------------
 Nouveautés :

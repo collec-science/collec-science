@@ -8,7 +8,8 @@
  */
 require_once 'modules/classes/object.class.php';
 class SampleException extends Exception
-{ }
+{
+}
 
 class Sample extends ObjetBDD
 {
@@ -226,6 +227,7 @@ class Sample extends ObjetBDD
       $ok = $this->verifyCollection($this->lire($data["uid"]));
     }
     if ($ok) {
+      $firstUid = $data["uid"];
       $object = new ObjectClass($this->connection, $this->param);
       $uid = $object->ecrire($data);
 
@@ -246,6 +248,19 @@ class Sample extends ObjetBDD
               }
               $child["metadata"] = json_encode($cmd);
               $this->ecrire($child);
+            }
+          }
+          /**
+           * Add the creation of the subsample movement on new sample from parent sample
+           */
+          if ($firstUid == 0 && $data["parent_sample_uid"] > 0 && $data["multiple_value"] > 0) {
+            $parentData = $this->lire($data["parent_sample_uid"]);
+            if ($parentData["multiple_value"] > 0) {
+              $this->classInstanciate($this->subsample, "Subsample", "subsample.class.php");
+              $dataSubsample = $this->subsample->getDefaultValue();
+              $dataSubsample["movement_type_id"] = 2;
+              $dataSubsample["sample_id"] = $parentData["sample_id"];
+              $this->subsample->ecrire($dataSubsample);
             }
           }
           return $uid;

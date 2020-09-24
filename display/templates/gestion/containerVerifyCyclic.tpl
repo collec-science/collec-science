@@ -1,7 +1,7 @@
 <h2>{t}Vérification de l'emplacement des contenants pour repérer les situations incohérentes{/t}</h2>
 <div class="row">
   <div class="bg-info col-md-6">
-    {t}Si un contenant a été placé dans un contenant qu'il contient lui-même, au premier niveau ou dans la hiérarchie des contenants, certaines requêtes peuvent tourner indéfiniment. En cas de détection d'un problème de ce type, vous devrez créer un mouvement de sortie pour l'un des deux containers, sans jamais chercher à ouvrir son détail. Passez par le menu Mouvement>sortir du stock.{/t}
+    {t}Si un contenant a été placé dans un contenant qu'il contient lui-même, au premier niveau ou dans la hiérarchie des contenants, certaines requêtes peuvent tourner indéfiniment. En cas de détection d'un problème de ce type, vous devrez créer un mouvement de sortie pour l'un des deux contenants, sans jamais chercher à ouvrir son détail. Passez par le menu Mouvement>sortir du stock.{/t}
     <br>
     {t}Attention : la recherche peut être longue !{/t}
   </div>

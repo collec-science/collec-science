@@ -73,7 +73,7 @@
 	<requestWriteExec action="framework/request/request.php" param="write" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestExec" retourko="requestChange"/>
 	<requestCopy action="framework/request/request.php" param="copy" droits="param" type="smarty"/>
 	<lexicalGet action="framework/utils/lexical.php" type="ajax"/>
-	
+
 	<backupDisplay  action="framework/utils/backup.php" param="display" retourlogin="1" droits="admin" type="smarty"/>
 	<backupExec action="framework/utils/backup.php" param="exec" modulebefore="backupDisplay,backupExec" droits="admin" retourok="backupSend" retourko="backupDisplay"/>
 	<backupSend action="framework/utils/backup.php" param="send" modulebefore="backupExec" droits="admin" type="binaire" retourko="backupDisplay"/>
@@ -144,6 +144,8 @@
 	<containersLending action="modules/gestion/container.php" param="lendingMulti" moduleBefore="containerList,containersExit,containersEntry" droits="collection" retourok="containerList" retourko="containerList"/>
 	<containersExit droits="collection" action="modules/gestion/container.php" param="exitMulti" moduleBefore="containerList,containersLending,containersExit,containersEntry,containersDelete" retourok="containerList" retourko="containerList"/>
 	<containersDelete action="modules/gestion/container.php" param="deleteMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending"/>
+	<containerVerifyCyclic action="modules/gestion/container.php" param="verifyCyclic" droits="param" type="smarty"/>
+	<containerVerifyCyclicExec action="modules/gestion/container.php" param="verifyCyclicExec" droits="param" modulebefore="containerVerifyCyclic,containerVerifyCyclicExec" type="smarty"/>
 	<containersEntry action="modules/gestion/container.php" param="entryMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending"/>
 	<containersSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection" retourok="containerList" retourko="containerList" moduleBefore="containerList,containersDelete,containersAssignReferent,containerDisplay"/>
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
@@ -320,7 +322,7 @@
 	<containerborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion" type="smarty" />
 	<containerborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerborrowingChange" modulebefore="containerborrowingChange" />
 	<containerborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerborrowingChange" modulebefore="containerborrowingChange"/>
-	
+
 	<exportModelList action="modules/exportmodel/exportModel.php" param="list" droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty"/>
 	<exportModelDisplay action="modules/exportmodel/exportModel.php" param="display" droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty"/>
 	<exportModelChange action="modules/exportmodel/exportModel.php" param="change" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty"/>
@@ -333,12 +335,12 @@
 	<mimeTypeChange action="modules/param/mimeType.php" param="change" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty"/>
 	<mimeTypeWrite action="modules/param/mimeType.php" param="write" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange" retourko="mimeTypeChange" retourok="mimeTypeList"/>
 	<mimeTypeDelete action="modules/param/mimeType.php" param="delete" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange" retourko="mimeTypeChange" retourok="mimeTypeList"/>
-	
+
 	<licenseList action="modules/param/license.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 	<licenseChange action="modules/param/license.php" param="change" droits="param" retourlogin="1" type="smarty" />
 	<licenseWrite action="modules/param/license.php" param="write" droits="param" retourok="licenseList" retourko="licenseChange" modulebefore="licenseChange" />
 	<licenseDelete action="modules/param/license.php" param="delete" droits="param" retourok="licenseList" retourko="licenseChange" modulebefore="licenseChange"/>
-	
+
 	<!-- Exports to other referentials -->
 	<datasetTypeList action="modules/export/datasetType.php" param="list" droits="param" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<datasetTypeChange action="modules/export/datasetType.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />

@@ -9,6 +9,7 @@
 	<item module="sampleList" label="Échantillons" tooltip="Liste des échantillons"/>
 		<item divider='1' droits="param"/>
 	<item module="requestList" label="Requêtes SQL" tooltip="Exécution de requêtes SQL dans la base de données" droits="param"/>
+	<item module="containerVerifyCyclic" label="Recherche des mouvements cycliques" tooltip="Recherche des contenants contenus dans un contenant qu'ils contiennent"/>
 </item>
 
 <item module="movement" label="Mouvements" tooltip="Création de mouvements dans le stock" droits="gestion">

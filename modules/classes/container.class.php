@@ -8,7 +8,8 @@
  */
 //require_once 'modules/classes/object.class.php';
 class ContainerException extends Exception
-{ };
+{
+};
 
 class Container extends ObjetBDD
 {
@@ -147,7 +148,7 @@ class Container extends ObjetBDD
        * delete the container
        */
       parent::supprimer($data["container_id"]);
-      /** 
+      /**
        * Delete the object
        */
       $object = new ObjectClass($this->connection, $this->paramori);
@@ -891,5 +892,53 @@ class Container extends ObjetBDD
       "max" => $this->uidMax,
       "number" => $this->numberUid
     ));
+  }
+
+  /**
+   * Search for containers contained into a contained container
+   *
+   * @return array[]["first","second"]
+   */
+  function getCyclicMovements(): array
+  {
+    $found = array();
+    /**
+     * Prepare the list of all containers into a container
+     */
+    $sql = "select distinct uid, c.container_id
+            from container c
+            join last_movement using (uid)
+            where movement_type_id = 1";
+    $containers = $this->getListeParam($sql);
+    foreach($containers as $container) {
+      $cyclical = $this->verifyChild($container["uid"], $container);
+      if (!empty($cyclical)) {
+        $found [] = array("first" => $container["uid"], "second"=> $cyclical);
+      }
+    }
+    return ($found);
+  }
+/**
+ * Search if a contained container contains the uid
+ *
+ * @param integer $uid
+ * @param array $containerChild
+ * @return integer|null
+ */
+  function verifyChild(int $uid, array $containerChild) :?int {
+    $cyclical = null;
+    $containers = $this->getContentContainer($containerChild["uid"]);
+    foreach($containers as $container){
+      if ($container["uid"] == $uid) {
+        $cyclical = $container["container_uid"];
+        break;
+      } else {
+        $cyclical = $this->verifyChild($uid, $container);
+        if (!empty($cyclical)) {
+          break;
+        }
+      }
+    }
+    return $cyclical;
   }
 }

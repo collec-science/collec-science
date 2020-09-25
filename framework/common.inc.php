@@ -200,7 +200,7 @@ if (!isset($bdd)) {
             /*
              * Positionnement des messages dans la langue courante
              */
-            switch ($LANG["date"]["locale"]) {
+            /*switch ($LANG["date"]["locale"]) {
                 case "en":
                     $bdd->exec("set lc_messages to 'en_US.UTF-8'");
                     break;
@@ -209,6 +209,7 @@ if (!isset($bdd)) {
                     $bdd->exec("set lc_messages to 'fr_FR.UTF-8'");
                     break;
             }
+            */
         }
         /*
          * Connexion a la base de gestion des droits
@@ -233,6 +234,7 @@ if (!isset($bdd)) {
             /*
              * Positionnement des messages dans la langue courante
              */
+            /*
             switch ($LANG["date"]["locale"]) {
                 case "en":
                     $bdd_gacl->exec("set lc_messages to 'en_US.UTF-8'");
@@ -242,6 +244,7 @@ if (!isset($bdd)) {
                     $bdd_gacl->exec("set lc_messages to 'fr_FR.UTF-8'");
                     break;
             }
+            */
         } else {
             $message->set(_("Echec de connexion à la base de données de gestion des droits (GACL)"),true);
         }

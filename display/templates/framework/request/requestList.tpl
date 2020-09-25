@@ -33,7 +33,7 @@
                     </a>
                 </td>
                 <td class="center">
-                    <a href="index.php?module=requestCopy&request_id={$data[lst].request_id}" title="{t}Créer une nouvelle requête{/t}">
+                    <a href="index.php?module=requestCopy&request_id={$data[lst].request_id}" title="{t}Dupliquer la requête{/t}">
                         <img src="display/images/copy.png" height="25">
                     </a>
                 </td>

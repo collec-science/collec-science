@@ -118,8 +118,8 @@ $(document).ready(function () {
 								lines.forEach(function(line) {
 									content += '<tr><td class="center"><b>'+ ln + '</b></td>';
                 					ln = ln + incr;
-									nb = 0;
 									line.forEach(function (cell) {
+										nb = 0;
 										content += '<td class="center">';
 										if (cell.length > 5) {
 											content += cell.length + " {t}objets{/t}";

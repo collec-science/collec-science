@@ -1,3 +1,46 @@
+<script>
+  $(document).ready(function() {
+    function filenameCalculate() {
+      var filename = $("#filename").val();
+      var filearray = filename.split(".");
+      var nbpoint = filename.match(/\./g).length;
+      var radical = filearray[0];
+      if (nbpoint > 0) {
+        var extension = filearray[nbpoint + 1];
+      } else {
+        var extension = "csv";
+      }
+
+      /* Get if zipped is selected */
+      if ($("#is_zipped1").prop("checked") ) {
+        extension = "zip";
+      } else {
+        /* Count the number of datasets */
+        var nbdataset = 0;
+        $('.dataset').each(function(i, obj) {
+          if ($(obj).prop("checked")) {
+            nbdataset ++;
+          }
+        });
+        if (nbdataset > 1) {
+          extension = "zip";
+        }
+      }
+      if (extension == "zip") {
+        $("#filename").val(radical+"."+extension);
+      }
+    }
+    $(".zipped").change(function() {
+      filenameCalculate();
+    });
+    $(".dataset").change(function() {
+      filenameCalculate();
+    })
+    $("#exportTemplateForm").submit( function() {
+      filenameCalculate();
+    });
+  });
+</script>
 <h2>{t}Modification d'un modèle d'export{/t}</h2>
 <div class="row">
   <div class="col-md-12">
@@ -36,12 +79,12 @@
           <div class="col-md-8" id="is_zipped">
             <div class="radio">
               <label>
-                <input type="radio" name="is_zipped" id="is_zipped0" value="0" {if $data.is_zipped != 1}checked{/if}>{t}non{/t}
+                <input type="radio" class="zipped" name="is_zipped" id="is_zipped0" value="0" {if $data.is_zipped != 1}checked{/if}>{t}non{/t}
               </label>
             </div>
             <div class="radio">
               <label>
-                  <input type="radio" name="is_zipped" id="is_zipped1" value="1" {if $data.is_zipped == 1}checked{/if}>{t}oui{/t}
+                  <input type="radio" class="zipped" name="is_zipped" id="is_zipped1" value="1" {if $data.is_zipped == 1}checked{/if}>{t}oui{/t}
               </label>
             </div>
           </div>
@@ -59,7 +102,7 @@
       <div class="row  form-horizontal">
       {foreach $datasets as $dataset}
         <div class="col-md-6">
-          <input class="  " type="checkbox" name="dataset[]" value="{$dataset.dataset_template_id}" {if $dataset.export_template_id > 0}checked{/if}>
+          <input class="dataset" type="checkbox" name="dataset[]" value="{$dataset.dataset_template_id}" {if $dataset.export_template_id > 0}checked{/if}>
         {$dataset.dataset_template_name} ({$dataset.dataset_type_name})</div>
       {/foreach}
       </div>

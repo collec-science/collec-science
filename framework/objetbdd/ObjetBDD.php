@@ -1919,11 +1919,10 @@ class ObjetBDD
    * @param string $classFile
    * @return void
    */
-  function classInstanciate($varname, $className, $classFile)
+  function classInstanciate( $className, $classFile)
   {
-    if (!isset($varname)) {
       include_once $this->classpath . "/" . $classFile;
-      $varname = new $$className($this->connection, $this->paramori);
-    }
+      $instance = new $className($this->connection, $this->paramori);
+    return $instance;
   }
 }

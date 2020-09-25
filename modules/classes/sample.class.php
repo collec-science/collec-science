@@ -253,13 +253,17 @@ class Sample extends ObjetBDD
           /**
            * Add the creation of the subsample movement on new sample from parent sample
            */
-          if ($firstUid == 0 && $data["parent_sample_uid"] > 0 && $data["multiple_value"] > 0) {
-            $parentData = $this->lire($data["parent_sample_uid"]);
+          if ($firstUid == 0 && $data["parent_sample_id"] > 0 && $data["multiple_value"] > 0) {
+            $parentData = $this->lireFromId($data["parent_sample_id"]);
             if ($parentData["multiple_value"] > 0) {
-              $this->classInstanciate($this->subsample, "Subsample", "subsample.class.php");
+              if (!isset ($this->subsample)) {
+                $this->subsample = $this->classInstanciate("Subsample", "subsample.class.php");
+              }
               $dataSubsample = $this->subsample->getDefaultValue();
               $dataSubsample["movement_type_id"] = 2;
+              $dataSubsample["subsample_quantity"] = $data["multiple_value"];
               $dataSubsample["sample_id"] = $parentData["sample_id"];
+              $dataSubsample["subsample_comment"] = sprintf(_("Création de l'échantillon dérivé %s"), $uid);
               $this->subsample->ecrire($dataSubsample);
             }
           }

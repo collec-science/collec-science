@@ -1,5 +1,19 @@
 News
 ===========
+Version 2.5.0e du 28 septembre 2020
+-----------------------------------
+Nouveautés :
+- ajout d'une fonction permettant de rechercher les contenants contenus dans ceux qu'ils contiennent
+- lors de la création d'un échantillon dérivé contenant des sous-échantillons, création du sous-échantillonnage si l'échantillon dérivé contient lui-même des sous-échantillons
+- ajout de contraintes d'unicité sur les libellés d'un certain nombre de tables de paramètres
+
+Corrections de bugs :
+- en importation de masse, l'import des UUID ne fonctionnait pas
+- dans la liste des contenants, l'affichage de la grille des objets contenus était mal dessiné
+- suppression de la fonction lc_messages, qui aurait dû permettre de modifier le langage des messages d'erreur Postgresql : elle ne fonctionnait que si le compte collec était super-administrateur du serveur de bases de données
+- dans la fonction d'export par lots, dans la création du modèle d'export, l'extension zip est positionnée automatiquement en fonction du contexte
+- le lien d'accès rapide, disponible pour les échantillons, a été rajouté pour les containers
+
 Version 2.5.0d du 21 septembre 2020
 -----------------------------------
 Ergonomie :
@@ -274,7 +288,7 @@ Version 2.0 du 4 mai 2018
 - meilleure définition des dates associées aux échantillons : création dans la base de données, prélèvement, et ajout d'une date d'expiration
 - il est maintenant possible de rechercher un échantillon par date (de création, de prélèvement, d'expiration)
 - il est possible de générer automatiquement l'identifiant métier à partir des informations saisies (code à définir par type d'échantillon)
-- les informations liées aux lieux de prélèvement ont été complétées par des coordonnées GPS et un code. Les coordonnées sont reportées dans l'échantillon si celui-ci n'en dispose pas. 
+- les informations liées aux lieux de prélèvement ont été complétées par des coordonnées GPS et un code. Les coordonnées sont reportées dans l'échantillon si celui-ci n'en dispose pas.
 - il est possible de définir des lieux de prélèvement qui sont uniquement attachés à une collection
 - lors de l'importation externe, les champs de métadonnées peuvent être indiqués dans des colonnes séparées, préfixées par "md_"
 - l'importation externe fonctionne maintenant en mode "remplace ou crée", ce qui permet de mettre à jour des échantillons manipulés dans des bases externes
@@ -284,7 +298,7 @@ Version 2.0 du 4 mai 2018
 - de nouveaux scripts sont disponibles pour faciliter l'installation d'un nouveau serveur ou mettre à jour une base de données
 
 Corrections de bugs :
-- en recherche d'échantillons, correction de la recherche sur les métadonnées 
+- en recherche d'échantillons, correction de la recherche sur les métadonnées
 - en création des étiquettes, un bug empêchait l'affichage des champs de métadonnées
 - l'importation de métadonnées externes ne récupérait pas correctement le champ Json
 - correction du message de réinitialisation du mot de passe
@@ -329,7 +343,7 @@ Version 1.2.1 du 03/11/2017
 
 Version 1.2 du 20/10/2017
 ---------------------------
-Mise à jour du schéma de la base de données nécessaire (schéma COL, contenant les données, par défaut). Script à utiliser : 
+Mise à jour du schéma de la base de données nécessaire (schéma COL, contenant les données, par défaut). Script à utiliser :
 - col_alter_1.1-1.2.sql si vous êtes déjà en version 1.1 ou 1.1.0. Si ce n'est pas le cas, exécutez les scripts de montée de version successivement
 - gacl_create_1.1.sql et col_create_1.2.sql successivement pour créer un nouveau jeu de données, ou bien init_by_psql.sql en ligne de commande dans un serveur Linux, qui exécutera les deux scripts automatiquement
 
@@ -409,7 +423,7 @@ Correction de bugs :
 - en codage standard de la base de données (utf-8), dans les boites de recherche des échantillons ou des containers, si une liste déroulante était utilisée, le temps de recherche était très long. Le problème a été réglé en supprimant le nombre maxi d'objets affichés et en obligeant à indiquer au moins un critère de recherche
 
 Nouvelle fonctionnalité :
-- au lancement de l'application, la version de la base de données est maintenant vérifiée 
+- au lancement de l'application, la version de la base de données est maintenant vérifiée
 - un script de génération automatique de la base de données est maintenant disponible, pour les nouvelles installations
 
 Version 1.0.7a du 12/05/2017
@@ -504,8 +518,8 @@ Corrections :
 
 Version 1.0.2 du 02/12/2016
 ---------------------------
-Documentation : 
-- correction des paramètres à indiquer pour une bonne gestion du multi-bases (accès au fichier param.ini) 
+Documentation :
+- correction des paramètres à indiquer pour une bonne gestion du multi-bases (accès au fichier param.ini)
 - ajout de la configuration pour une identification en mode HEADER
 
 Améliorations :
@@ -541,6 +555,5 @@ Fonctionnalités intégrées :
 - gestion de sous-échantillons : entrée, sortie de sous-échantillons d'un échantillon
 - ajout de pièces jointes à un objet (photos p.e.), affichage de la photo la plus récente dans la liste des objets
 - import de masse
-- génération des étiquettes intégrant un QRCODE, scan à partir d'une douchette ou d'un terminal de type tablette ou smartphone et génération rapide d'un mouvement d'entrée ou de sortie 
+- génération des étiquettes intégrant un QRCODE, scan à partir d'une douchette ou d'un terminal de type tablette ou smartphone et génération rapide d'un mouvement d'entrée ou de sortie
 - génération en masse des mouvements d'entrée ou de sortie (scan par douchette en mode différé)
-

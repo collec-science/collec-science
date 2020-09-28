@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-21 12:02+0200\n"
+"POT-Creation-Date: 2020-09-28 15:32+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -56,31 +56,41 @@ msgstr "SQL requests"
 msgid "Exécution de requêtes SQL dans la base de données"
 msgstr "Run SQL requests on the database"
 
+#. (itstool) path: item/item@label
+#: ../../../param/menu.xml:12
+msgid "Recherche des mouvements cycliques"
+msgstr "Search for movements over a period of time"
+
+#. (itstool) path: item/item@tooltip
+#: ../../../param/menu.xml:12
+msgid "Recherche des contenants contenus dans un contenant qu'ils contiennent"
+msgstr "Search the containers contained into a container they contains"
+
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:14
-#: ../../../display/templates/gestion/containerDisplay.tpl:208
+#: ../../../param/menu.xml:15
+#: ../../../display/templates/gestion/containerDisplay.tpl:217
 #: ../../../display/templates/gestion/sampleDisplay.tpl:240
 msgid "Mouvements"
 msgstr "Movements"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:14
+#: ../../../param/menu.xml:15
 msgid "Création de mouvements dans le stock"
 msgstr "Creating movements in the stock"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:15 ../../../display/templates/main.tpl:42
+#: ../../../param/menu.xml:16 ../../../display/templates/main.tpl:42
 #: ../../../display/templates/gestion/fastInputChange.tpl:5
 msgid "Entrer ou déplacer dans un contenant"
 msgstr "Store or move into container"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:15
+#: ../../../param/menu.xml:16
 msgid "Déplacer un échantillon/contenant dans un contenant"
 msgstr "Move a sample / container into a container"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:16 ../../../display/templates/main.tpl:56
+#: ../../../param/menu.xml:17 ../../../display/templates/main.tpl:56
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:59
 #: ../../../display/templates/gestion/fastOutputChange.tpl:4
 #: ../../../display/templates/gestion/fastOutputChange.tpl:62
@@ -88,79 +98,79 @@ msgid "Sortir du stock"
 msgstr "Remove from stock"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:16
+#: ../../../param/menu.xml:17
 msgid "Sortir un échantillon/contenant du stock"
 msgstr "Remove a sample / container from the stock"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:17 ../../../display/templates/main.tpl:49
+#: ../../../param/menu.xml:18 ../../../display/templates/main.tpl:49
 #: ../../../display/templates/gestion/movementBatchRead.tpl:21
 msgid "Entrer ou déplacer / Sortir par lots"
 msgstr "Store or move / Remove in batches"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:17
+#: ../../../param/menu.xml:18
 msgid "Entrer ou déplacer / Sortir par scan multiple de QR Code"
 msgstr "Store or move / remove by multiple scan of QR Code"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:18 ../../../display/templates/main.tpl:20
+#: ../../../param/menu.xml:19 ../../../display/templates/main.tpl:20
 #: ../../../display/templates/main.tpl:30
 msgid "Mouvements petit terminal"
 msgstr "Small device movements"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:18
+#: ../../../param/menu.xml:19
 msgid "Lecture d'objets et génération de mouvements sur petits terminaux"
 msgstr "Object reading and movement generation on small terminals"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:20
+#: ../../../param/menu.xml:21
 msgid "Liste des mouvements"
 msgstr "List of movements"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:20
+#: ../../../param/menu.xml:21
 msgid "Recherche des mouvements sur une période donnée"
 msgstr "Search for movements over a period of time"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:23
-msgid "imports/exports"
-msgstr "imports/exports"
+#: ../../../param/menu.xml:24
+msgid "Imports/Exports"
+msgstr "Imports/Exports"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:23
+#: ../../../param/menu.xml:24
 msgid "Opérations d'importation ou d'exportation"
 msgstr "Import/export operations"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:24
+#: ../../../param/menu.xml:25
 msgid "Import de masse"
 msgstr "Bulk import"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:24
+#: ../../../param/menu.xml:25
 msgid "Import de plusieurs échantillons ou contenants"
 msgstr "Import of several samples or containers"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:25
+#: ../../../param/menu.xml:26
 msgid "Import d'échantillons externes"
 msgstr "Import of external samples"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:25
+#: ../../../param/menu.xml:26
 msgid "Import d'un lot d'échantillons provenant d'une base externe"
 msgstr "Import a batch of samples from an external base"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:26
+#: ../../../param/menu.xml:27
 msgid "Import de contenants externes"
 msgstr "Import of external containers"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:26
+#: ../../../param/menu.xml:27
 msgid ""
 "Import d'un lot de containers avec les objets associés provenant d'une base "
 "externe"
@@ -168,266 +178,266 @@ msgstr ""
 "Import a batch of containers with associated objects from an external base"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:27
+#: ../../../param/menu.xml:28
 msgid "Exports des lots d'échantillons"
 msgstr "Exports of lots of samples"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:27
+#: ../../../param/menu.xml:28
 msgid ""
 "Gestion des exports des lots d'échantillons vers des bases de données "
 "externes"
 msgstr "Management of exports of lots of sample to external databases"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:28
+#: ../../../param/menu.xml:29
 msgid "Lots d'export"
 msgstr "Lot of export"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:28
+#: ../../../param/menu.xml:29
 msgid "Liste des lots d'exportation des échantillons"
 msgstr "List of exportation lots of samples"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:29
+#: ../../../param/menu.xml:30
 #: ../../../display/templates/export/exportTemplateList.tpl:1
 msgid "Modèles d'exports"
 msgstr "Export models"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:29
+#: ../../../param/menu.xml:30
 msgid "Liste des modèles d'exports"
 msgstr "List of exportation models"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:30
+#: ../../../param/menu.xml:31
 #: ../../../display/templates/export/datasetTemplateList.tpl:1
 msgid "Modèles de datasets"
 msgstr "Dataset models"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:30
+#: ../../../param/menu.xml:31
 msgid "Liste des modèles de datasets"
 msgstr "List of datasets models"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:31
+#: ../../../param/menu.xml:32
 msgid "Traducteurs"
 msgstr "Translators"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:31
+#: ../../../param/menu.xml:32
 msgid "Liste des traducteurs de libellés"
 msgstr "List of translators of labels"
 
 #. (itstool) path: menu/item@label
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:34
+#: ../../../param/menu.xml:35
 msgid "Paramètres"
 msgstr "Settings"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:35 ../../../param/menu.xml:36
+#: ../../../param/menu.xml:36 ../../../param/menu.xml:37
 #: ../../../display/templates/param/collectionList.tpl:2
 msgid "Collections"
 msgstr "Collections"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:35 ../../../param/menu.xml:36
+#: ../../../param/menu.xml:36 ../../../param/menu.xml:37
 msgid "Liste des collections"
 msgstr "List of collections"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:37
+#: ../../../param/menu.xml:38
 msgid "Licences"
 msgstr "Licenses"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:37
+#: ../../../param/menu.xml:38
 msgid "Liste des licences utilisables pour publier les collections"
 msgstr "List of usable licenses to publish collections"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:39 ../../../param/menu.xml:40
+#: ../../../param/menu.xml:40 ../../../param/menu.xml:41
 #: ../../../display/templates/param/protocolList.tpl:2
 msgid "Protocoles"
 msgstr "Protocols"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:39 ../../../param/menu.xml:40
+#: ../../../param/menu.xml:40 ../../../param/menu.xml:41
 msgid "Liste des protocoles"
 msgstr "List of protocols"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:41
+#: ../../../param/menu.xml:42
 msgid "Opérations"
 msgstr "Operations"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:41
+#: ../../../param/menu.xml:42
 msgid "Liste des opérations rattachées à un protocole"
 msgstr "List of operations attached to a protocol"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:43
+#: ../../../param/menu.xml:44
 #: ../../../display/templates/param/referentList.tpl:2
 msgid "Référents"
 msgstr "Referents"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:43
+#: ../../../param/menu.xml:44
 msgid "Liste des référents des objets ou des collections"
 msgstr "List of the referents of objects or collections"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:44 ../../../param/menu.xml:45
+#: ../../../param/menu.xml:45 ../../../param/menu.xml:46
 msgid "Campagnes"
 msgstr "Campaigns"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:44 ../../../param/menu.xml:45
+#: ../../../param/menu.xml:45 ../../../param/menu.xml:46
 #: ../../../display/templates/param/campaignList.tpl:1
 msgid "Campagnes de prélèvement"
 msgstr "Sampling campaigns"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:46
+#: ../../../param/menu.xml:47
 msgid "Réglementations"
 msgstr "Regulations"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:46
+#: ../../../param/menu.xml:47
 #: ../../../display/templates/param/campaignDisplay.tpl:30
 #: ../../../display/templates/param/regulationList.tpl:1
 msgid "Réglementations applicables"
 msgstr "Applicable regulations"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:49 ../../../param/menu.xml:50
+#: ../../../param/menu.xml:50 ../../../param/menu.xml:51
 #: ../../../display/templates/param/containerFamilyList.tpl:2
 msgid "Familles de contenants"
 msgstr "Families of containers"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:49 ../../../param/menu.xml:50
+#: ../../../param/menu.xml:50 ../../../param/menu.xml:51
 msgid "Familles de contenants (armoires, éprouvettes...)"
 msgstr "Families of containers (cabinets, test tubes ...)"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:51
+#: ../../../param/menu.xml:52
 #: ../../../display/templates/param/containerTypeList.tpl:2
 msgid "Types de contenants"
 msgstr "Container types"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:51
+#: ../../../param/menu.xml:52
 msgid "Liste des types de contenants"
 msgstr "List of container types"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:53
+#: ../../../param/menu.xml:54
 #: ../../../display/templates/param/sampleTypeList.tpl:2
 msgid "Types d'échantillons"
 msgstr "Sample types"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:53
+#: ../../../param/menu.xml:54
 msgid "Liste des types d'échantillons gérés"
 msgstr "List of managed sample types"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:54
+#: ../../../param/menu.xml:55
 #: ../../../display/templates/param/identifierTypeList.tpl:2
 msgid "Types d'identifiants"
 msgstr "Identifier types"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:54
+#: ../../../param/menu.xml:55
 msgid "Liste des types d'identifiants rattachables à un objet"
 msgstr "List of identifier types that can be attached to an object"
 
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:55
+#: ../../../param/menu.xml:56
 #: ../../../display/templates/param/multipleTypeList.tpl:2
 msgid "Types de sous-échantillonnage"
 msgstr "Subsampling types"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:56
+#: ../../../param/menu.xml:57
 msgid "Métadonnées"
 msgstr "Metadata"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:56
+#: ../../../param/menu.xml:57
 #: ../../../display/templates/param/metadataList.tpl:15
 msgid "Modèles de métadonnées"
 msgstr "Metadata templates"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:57
+#: ../../../param/menu.xml:58
 #: ../../../display/templates/param/samplingPlaceList.tpl:2
 msgid "Lieux de prélèvement"
 msgstr "Locations of sampling"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:57
+#: ../../../param/menu.xml:58
 msgid "Liste des lieux de prélèvement des échantillons"
 msgstr "List of sampling locations"
 
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:59
+#: ../../../param/menu.xml:60
 #: ../../../display/templates/param/eventTypeList.tpl:2
 msgid "Types d'événement"
 msgstr "Event types"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:60
+#: ../../../param/menu.xml:61
 #: ../../../display/templates/param/storageConditionList.tpl:2
 msgid "Conditions de stockage"
 msgstr "Storage conditions"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:60
+#: ../../../param/menu.xml:61
 msgid "Liste des conditions de stockage"
 msgstr "List of storage conditions"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:61
+#: ../../../param/menu.xml:62
 #: ../../../display/templates/param/movementReasonList.tpl:2
 msgid "Motifs de déstockage"
 msgstr "Reasons for destocking"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:61
+#: ../../../param/menu.xml:62
 msgid "Motifs de sortie du stock"
 msgstr "Reasons for stock exit"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:62
+#: ../../../param/menu.xml:63
 msgid "Statuts des objets"
 msgstr "Object statuses"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:62
+#: ../../../param/menu.xml:63
 msgid "Liste des statuts possibles pour les objets"
 msgstr "List of possible statuses for objects"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:63
+#: ../../../param/menu.xml:64
 #: ../../../display/templates/param/borrowerList.tpl:1
 msgid "Emprunteurs"
 msgstr "Borrowers"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:63
+#: ../../../param/menu.xml:64
 msgid "Liste des emprunteurs d'objets"
 msgstr "List of borrowers"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:65
+#: ../../../param/menu.xml:66
 #: ../../../display/templates/gestion/sampleListDetail.tpl:344
 #: ../../../display/templates/gestion/containerListDetail.tpl:244
 #: ../../../display/templates/gestion/sampleDisplay.tpl:289
@@ -435,182 +445,182 @@ msgid "Étiquettes"
 msgstr "Labels"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:65
+#: ../../../param/menu.xml:66
 msgid "Modèles d'étiquettes"
 msgstr "Label templates"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:66
+#: ../../../param/menu.xml:67
 #: ../../../display/templates/param/printerList.tpl:2
 msgid "Imprimantes"
 msgstr "Printers"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:66
+#: ../../../param/menu.xml:67
 msgid "Liste des imprimantes"
 msgstr "List of printers"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:68
+#: ../../../param/menu.xml:69
 msgid "Types de fichiers"
 msgstr "File types"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:68
+#: ../../../param/menu.xml:69
 msgid "Types de fichiers autorisés en téléchargement"
 msgstr "Allowed file types for downloading"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:69
+#: ../../../param/menu.xml:70
 msgid "Imports/exports techniques"
 msgstr "Technical imports/exports"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:69
+#: ../../../param/menu.xml:70
 msgid "Exportations ou importations de données au format JSON"
 msgstr "Data exports or imports in JSON format"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:70
+#: ../../../param/menu.xml:71
 #: ../../../display/templates/export/datasetTypeList.tpl:1
 msgid "Types de datasets"
 msgstr "Dataset types"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:70
+#: ../../../param/menu.xml:71
 msgid ""
 "Liste des types de datasets utilisés pour exporter les échantillons par lots"
 msgstr "List of dataset types used to export the samples by lot"
 
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:72 ../../../param/menu.xml:73
+#: ../../../param/menu.xml:73 ../../../param/menu.xml:74
 msgid "Schéma de la base de données"
 msgstr "Database structure"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:74
+#: ../../../param/menu.xml:75
 msgid "Structure de la base de données (HTML)"
 msgstr "Database structure (HTML)"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:74
+#: ../../../param/menu.xml:75
 msgid "Liste des tables et des colonnes"
 msgstr "List of tables and columns"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:75
+#: ../../../param/menu.xml:76
 msgid "Structure de la base de données (Latex)"
 msgstr "Database structure (Latex)"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:75
+#: ../../../param/menu.xml:76
 msgid "Liste des tables et des colonnes sous forme de tableaux Latex"
 msgstr "List of the tables and the columns in Latex table format"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:79
+#: ../../../param/menu.xml:80
 msgid "Administration"
 msgstr "Administration"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:79
+#: ../../../param/menu.xml:80
 msgid "Administration de l'application"
 msgstr "Application Administration"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:80
+#: ../../../param/menu.xml:81
 msgid "Liste des comptes locaux"
 msgstr "List of local accounts"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:80
+#: ../../../param/menu.xml:81
 msgid "Liste des logins - identification via la base de données"
 msgstr "List of logins - identification via the database"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:81
+#: ../../../param/menu.xml:82
 msgid "ACL - droits"
 msgstr "ACL - rights"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:81
+#: ../../../param/menu.xml:82
 msgid "applications et droits gérés"
 msgstr "applications and rights managed"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:82
+#: ../../../param/menu.xml:83
 msgid "ACL - logins"
 msgstr "ACL - logins"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:82
+#: ../../../param/menu.xml:83
 msgid "Logins déclarés dans le module de gestion des droits"
 msgstr "Logins declared in the rights management module"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:83
+#: ../../../param/menu.xml:84
 msgid "ACL - groupes de logins"
 msgstr "ACL - login groups"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:83
+#: ../../../param/menu.xml:84
 msgid "Groupes de logins et logins rattachés aux groupes"
 msgstr "Groups of logins and logins attached to groups"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:84
+#: ../../../param/menu.xml:85
 msgid "Paramètres de l'application"
 msgstr "Application Settings"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:84
+#: ../../../param/menu.xml:85
 msgid "Liste des paramètres pérennes de l'application"
 msgstr "List of long-term parameters of the application"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:86
+#: ../../../param/menu.xml:87
 msgid "Logs"
 msgstr "Logs"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:86
+#: ../../../param/menu.xml:87
 msgid "Consultation des logs enregistrées"
 msgstr "Consultation of recorded logs"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:87
+#: ../../../param/menu.xml:88
 msgid "Structure de la base de données des droits (HTML)"
 msgstr "Rights management database structure (HTML)"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:87
+#: ../../../param/menu.xml:88
 msgid ""
 "Liste des tables et des colonnes de la base de données de gestion des droits"
 msgstr "List of the tables and the columns of the rights management database"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:88 ../../../display/templates/phpinfo.tpl:1
+#: ../../../param/menu.xml:89 ../../../display/templates/phpinfo.tpl:1
 msgid "PHP info"
 msgstr "PHP info"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:88
+#: ../../../param/menu.xml:89
 msgid "configuration générale du serveur PHP"
 msgstr "general configuration of the PHP server"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:89
+#: ../../../param/menu.xml:90
 msgid "Backup"
 msgstr "Backup"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:89 ../../../display/templates/framework/backup.tpl:1
+#: ../../../param/menu.xml:90 ../../../display/templates/framework/backup.tpl:1
 msgid "Sauvegarde de la base de données"
 msgstr "Backup of the database"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:92 ../../../framework/common.inc.php:283
+#: ../../../param/menu.xml:93 ../../../framework/common.inc.php:286
 #: ../../../framework/identification/disconnect.php:18
 #: ../../../display/templates/entete.tpl:21
 #: ../../../display/templates/entete.tpl:40
@@ -619,13 +629,13 @@ msgid "Connexion"
 msgstr "Sign in"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:92
+#: ../../../param/menu.xml:93
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
 #. (itstool) path: menu/item@label
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:93 ../../../param/menu.xml:94
+#: ../../../param/menu.xml:94 ../../../param/menu.xml:95
 #: ../../../display/templates/entete.tpl:36
 #: ../../../display/templates/entete.tpl:37
 msgid "Déconnexion"
@@ -633,96 +643,96 @@ msgstr "Sign out"
 
 #. (itstool) path: menu/item@tooltip
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:93 ../../../param/menu.xml:94
+#: ../../../param/menu.xml:94 ../../../param/menu.xml:95
 msgid "Déconnexion de l'application"
 msgstr "Sign out of the app"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:95
+#: ../../../param/menu.xml:96
 msgid "Dernières connexions"
 msgstr "Last connections"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:95
+#: ../../../param/menu.xml:96
 msgid "Liste des dernières connexions réalisées"
 msgstr "List of last connections"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:96 ../../../display/templates/entete.tpl:32
+#: ../../../param/menu.xml:97 ../../../display/templates/entete.tpl:32
 #: ../../../display/templates/entete.tpl:33
 #: ../../../display/templates/framework/ident/loginChangePassword.tpl:86
 msgid "Modifier le mot de passe"
 msgstr "Change your password"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:96
+#: ../../../param/menu.xml:97
 msgid "Modifiez votre mot de passe (identification locale uniquement)"
 msgstr "Change your password (local identification only)"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:98
+#: ../../../param/menu.xml:99
 msgid "?"
 msgstr "?"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:98
+#: ../../../param/menu.xml:99
 msgid "Aide"
 msgstr "Help"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:99
+#: ../../../param/menu.xml:100
 msgid "A propos"
 msgstr "About Collec-Science"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:99
+#: ../../../param/menu.xml:100
 msgid "A propos de Collec-Science"
 msgstr "About Collec-Science"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:100
+#: ../../../param/menu.xml:101
 msgid "Nouveautés"
 msgstr "What's new?"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:100
+#: ../../../param/menu.xml:101
 msgid "Quoi de neuf dans l'application ?"
 msgstr "What's new in the app?"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:101
+#: ../../../param/menu.xml:102
 #: ../../../display/templates/documentation/lexique.tpl:1
 msgid "Lexique"
 msgstr "Glossary"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:101
+#: ../../../param/menu.xml:102
 msgid "Lexique des termes utilisés dans le logiciel"
 msgstr "Glossary of terms used in the software"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:102
+#: ../../../param/menu.xml:103
 msgid "Français"
 msgstr "Français"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:102
+#: ../../../param/menu.xml:103
 msgid "Libellés en français"
 msgstr "Libellés en français"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:103
+#: ../../../param/menu.xml:104
 msgid "English"
 msgstr "English"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:103
+#: ../../../param/menu.xml:104
 msgid "Labels in English"
 msgstr "Labels in English"
 
 #: ../../../param/param.default.inc.php:11
-msgid "21/09/2020"
-msgstr "2020-09-21"
+msgid "28/09/2020"
+msgstr "2020-09-28"
 
 #: ../../../modules/param/metadata.php:92
 msgid "Métadonnée(s) importée(s)"
@@ -762,134 +772,149 @@ msgstr "unable to save attachment"
 msgid "Enregistrement effectué"
 msgstr "Saved"
 
-#: ../../../modules/classes/sample.class.php:253
+#: ../../../modules/classes/sample.class.php:266
+#, php-format
+msgid "Création de l'échantillon dérivé %s"
+msgstr "Create the derivative sample %s"
+
+#: ../../../modules/classes/sample.class.php:272
 msgid "Un problème est survenu lors de l'écriture de l'échantillon"
 msgstr "A problem is occurred when writing the sample"
 
-#: ../../../modules/classes/sample.class.php:256
+#: ../../../modules/classes/sample.class.php:275
 msgid "Un problème est survenu lors de l'écriture de l'objet"
 msgstr "A problem is occurred when writing the object"
 
-#: ../../../modules/classes/sample.class.php:259
+#: ../../../modules/classes/sample.class.php:278
 msgid "Vous ne disposez pas des droits pour modifier cet échantillon"
 msgstr "You do not have rights to edit this sample"
 
-#: ../../../modules/classes/sample.class.php:287
+#: ../../../modules/classes/sample.class.php:306
 #, php-format
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour supprimer l'échantillon %1s"
 msgstr "You do not have the necessary rights to delete the sample %1s"
 
-#: ../../../modules/classes/sample.class.php:684
+#: ../../../modules/classes/sample.class.php:703
 msgid "Droits insuffisants pour exporter les échantillons"
 msgstr "Insufficient rights to export samples"
 
-#: ../../../modules/classes/sample.class.php:768
+#: ../../../modules/classes/sample.class.php:787
 msgid "L'identifiant de la base de données d'origine n'a pas été fourni"
 msgstr "The identifier of the original database is missing"
 
-#: ../../../modules/classes/sample.class.php:774
+#: ../../../modules/classes/sample.class.php:793
 msgid "Le nom de la collection n'a pas été renseigné"
 msgstr "The name of the collection has not been filled out"
 
-#: ../../../modules/classes/sample.class.php:780
+#: ../../../modules/classes/sample.class.php:799
 msgid "Le type d'échantillon n'a pas été renseigné"
 msgstr "The sample type has not been filled out"
 
-#: ../../../modules/classes/sample.class.php:802
+#: ../../../modules/classes/sample.class.php:821
 #, php-format
 msgid "Le format de date de %s n'est pas reconnu. "
 msgstr "The date format of %s is not recognized. "
 
-#: ../../../modules/classes/sample.class.php:810
+#: ../../../modules/classes/sample.class.php:829
 #, php-format
 msgid "La date de %s est incomplète ou incohérente. "
 msgstr "The date of %s is incomplete or inconsistent. "
 
-#: ../../../modules/classes/sample.class.php:821
+#: ../../../modules/classes/sample.class.php:840
 #, php-format
 msgid "Le champ %s n'est pas numérique"
 msgstr "The field %s is not numeric"
 
-#: ../../../modules/classes/sample.class.php:830
+#: ../../../modules/classes/sample.class.php:849
 msgid "Les métadonnées ne sont pas correctement formatées (champ metadata)"
 msgstr "Metadata is not formatted correctly (metadata field)"
 
-#: ../../../modules/classes/sample.class.php:918
+#: ../../../modules/classes/sample.class.php:937
 msgid "Impossible d'écrire dans la table Object"
 msgstr "Can not write to the Object table"
 
-#: ../../../modules/classes/sample.class.php:969
+#: ../../../modules/classes/sample.class.php:988
 #, php-format
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour modifier l'échantillon %1s"
 msgstr "You do not have the necessary rights to modify the sample %1s"
 
-#: ../../../modules/classes/importObject.class.php:609
+#: ../../../modules/classes/importObject.class.php:172
+#, php-format
+msgid "La colonne %1$s n'est pas reconnue (%2$s)"
+msgstr "Column %1$s is not recognized (%2$s)"
+
+#: ../../../modules/classes/importObject.class.php:176
+#, php-format
+msgid "Le fichier %s n'a pas été trouvé ou n'est pas lisible"
+msgstr "File %s not found or not readable"
+
+#: ../../../modules/classes/importObject.class.php:613
 msgid "Le numéro de la collection indiqué n'est pas reconnu ou autorisé."
 msgstr "The number of the specified collection is not recognized or allowed."
 
-#: ../../../modules/classes/importObject.class.php:623
+#: ../../../modules/classes/importObject.class.php:627
 msgid "Le type d'échantillon n'est pas connu."
 msgstr "The type of sample is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:639
+#: ../../../modules/classes/importObject.class.php:643
 msgid "Le statut de l'échantillon n'est pas connu."
 msgstr "The status of the sample is is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:655
+#: ../../../modules/classes/importObject.class.php:659
 msgid "L'emplacement de collecte de l'échantillon n'est pas connu."
 msgstr "The sample collection location is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:671
+#: ../../../modules/classes/importObject.class.php:675
 msgid "Le référent de l'échantillon n'est pas connu."
 msgstr "The referent of sample is unknown."
 
-#: ../../../modules/classes/importObject.class.php:686
+#: ../../../modules/classes/importObject.class.php:690
 msgid "La campagne de prélèvement de l'échantillon n'est pas connue."
 msgstr "The sampling campaign is not known."
 
-#: ../../../modules/classes/importObject.class.php:731
+#: ../../../modules/classes/importObject.class.php:735
 #, php-format
 msgid "Le format de date de %s n'est pas reconnu."
 msgstr "The date format of %s is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:751
+#: ../../../modules/classes/importObject.class.php:755
 msgid ""
 "Les métadonnées ne sont pas correctement formatées (champ "
 "sample_metadata_json)"
 msgstr "Metadata is not formatted correctly (sample_metadata_json field)"
 
-#: ../../../modules/classes/importObject.class.php:759
+#: ../../../modules/classes/importObject.class.php:763
 #, php-format
 msgid ""
 "Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "
 msgstr "The metadata do not match the sample type (%s unknown). "
 
-#: ../../../modules/classes/importObject.class.php:769
+#: ../../../modules/classes/importObject.class.php:773
 #, php-format
 msgid "L'échantillon parent défini n'existe pas (%s)"
 msgstr "The defined parent sample does not exist (%s)"
 
-#: ../../../modules/classes/importObject.class.php:790
+#: ../../../modules/classes/importObject.class.php:794
 msgid "Le type de contenant n'est pas connu."
 msgstr "The container type is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:805
+#: ../../../modules/classes/importObject.class.php:809
 msgid "Le statut du contenant n'est pas connu."
 msgstr "The container's status is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:816
+#: ../../../modules/classes/importObject.class.php:820
 #, php-format
 msgid "L'UID du contenant parent (%s) n'existe pas. "
 msgstr "The UID of the parent container (%s) does not exist. "
 
-#: ../../../modules/classes/importObject.class.php:827
+#: ../../../modules/classes/importObject.class.php:831
 #, php-format
 msgid "Le champ %s n'est pas numérique."
 msgstr "The field %s is not numeric."
 
-#: ../../../modules/classes/importObject.class.php:836
+#: ../../../modules/classes/importObject.class.php:840
 msgid ""
 "Aucun échantillon ou contenant n'est décrit (pas d'identifiant pour l'un ou "
 "pour l'autre)."
@@ -958,11 +983,11 @@ msgstr "No container matching to UID %s. "
 msgid "La suppression des mouvements associés au container %s a échoué"
 msgstr "The deletion of associated movements with the container %s failed"
 
-#: ../../../modules/classes/container.class.php:136
+#: ../../../modules/classes/container.class.php:137
 msgid "Le contenant contient des objets, il ne peut être supprimé"
 msgstr "The container contains objects and can not be deleted"
 
-#: ../../../modules/classes/container.class.php:739
+#: ../../../modules/classes/container.class.php:740
 #, php-format
 msgid ""
 "Échec d'écriture de l'objet dans Container.importData : l'UID n'a pas été "
@@ -971,20 +996,20 @@ msgstr ""
 "Failed to write in Container.importData: UID has not been generated "
 "(identifier: %s)"
 
-#: ../../../modules/classes/container.class.php:754
+#: ../../../modules/classes/container.class.php:755
 #, php-format
 msgid "Erreur d'importation de l'échantillon %s. "
 msgstr "Import error of sample %s."
 
-#: ../../../modules/classes/container.class.php:754
+#: ../../../modules/classes/container.class.php:755
 msgid "Message d'erreur : "
 msgstr "Error message: "
 
-#: ../../../modules/classes/object.class.php:789
+#: ../../../modules/classes/object.class.php:790
 msgid "Pas de modèle d'étiquettes disponible"
 msgstr "No label template available"
 
-#: ../../../modules/classes/object.class.php:796
+#: ../../../modules/classes/object.class.php:797
 msgid "Pas d'étiquettes à imprimer"
 msgstr "No labels to print"
 
@@ -1110,7 +1135,7 @@ msgid "Problème rencontré lors de l'enregistrement du prêt"
 msgstr "Problem occurred during the registration of the loan"
 
 #: ../../../modules/gestion/container.php:221
-#: ../../../modules/gestion/sample.php:344 ../../../framework/fonctions.php:128
+#: ../../../modules/gestion/sample.php:344 ../../../framework/fonctions.php:131
 msgid "Suppression effectuée"
 msgstr "Deletion done"
 
@@ -1306,12 +1331,12 @@ msgstr "Unable to read the file containing the glossary"
 msgid "Problème lors de la mise en fichier..."
 msgstr "Writing problem..."
 
-#: ../../../framework/objetbdd/ObjetBDD.php:1436
+#: ../../../framework/objetbdd/ObjetBDD.php:1437
 #, php-format
 msgid "le champ %1$s  n'est pas numerique. Valeur saisie : %2$s"
 msgstr "the field %1$s is not numeric. Entered value: %2$s"
 
-#: ../../../framework/objetbdd/ObjetBDD.php:1440
+#: ../../../framework/objetbdd/ObjetBDD.php:1441
 #, php-format
 msgid ""
 "Le champ %1$s est trop grand. Longueur maximale autorisée : %2$s. Valeur "
@@ -1320,7 +1345,7 @@ msgstr ""
 "The %1$s field is too big. Maximum length allowed: %2$s. Entered value: %3$s "
 "(%4$s characters)"
 
-#: ../../../framework/objetbdd/ObjetBDD.php:1444
+#: ../../../framework/objetbdd/ObjetBDD.php:1445
 #, php-format
 msgid ""
 "Le contenu du champ %1$s ne correspond pas au format attendu. Masque "
@@ -1329,7 +1354,7 @@ msgstr ""
 "The content of the field %1$s does not match the expected format. Authorized "
 "mask: %2$s. Entered value: %3$s"
 
-#: ../../../framework/objetbdd/ObjetBDD.php:1448
+#: ../../../framework/objetbdd/ObjetBDD.php:1449
 #, php-format
 msgid "Le champ %s est obligatoire, mais n'a pas été renseigné."
 msgstr "The field %s is required, but has not been filled out."
@@ -1444,25 +1469,25 @@ msgstr ""
 msgid "Vous n'êtes pas identifié."
 msgstr "You are not signed in."
 
-#: ../../../framework/common.inc.php:246
+#: ../../../framework/common.inc.php:249
 msgid "Echec de connexion à la base de données de gestion des droits (GACL)"
 msgstr "Failed to connect to rights management database (GACL)"
 
-#: ../../../framework/common.inc.php:249
+#: ../../../framework/common.inc.php:252
 msgid "Echec de connexion à la base de données principale"
 msgstr "Failed to connect to the main database"
 
-#: ../../../framework/common.inc.php:263
+#: ../../../framework/common.inc.php:266
 msgid ""
 "Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"
 msgstr "You have been disconnected, your session has been open for too long"
 
-#: ../../../framework/common.inc.php:281
+#: ../../../framework/common.inc.php:284
 #: ../../../framework/identification/disconnect.php:10
 msgid "Vous êtes maintenant déconnecté"
 msgstr "You are now signed off"
 
-#: ../../../framework/common.inc.php:315
+#: ../../../framework/common.inc.php:318
 msgid "Problème rencontré lors de la lecture de la table des paramètres"
 msgstr "Problem encountered while reading the parameter table"
 
@@ -1653,25 +1678,30 @@ msgstr ""
 msgid "La clé n'a pas été retournée lors de l'enregistrement dans "
 msgstr "The key was not returned when you registered in "
 
-#: ../../../framework/fonctions.php:92
+#: ../../../framework/fonctions.php:88
+msgid ""
+"Un enregistrement portant déjà ce nom existe déjà dans la base de données."
+msgstr "A record with this name already exists into the database."
+
+#: ../../../framework/fonctions.php:95
 msgid "Problème lors de l'enregistrement..."
 msgstr "Problem when saving ..."
 
-#: ../../../framework/fonctions.php:141
+#: ../../../framework/fonctions.php:144
 msgid ""
 "La suppression n'est pas possible : des informations sont référencées par "
 "cet enregistrement"
 msgstr "Deletion is not available: information is referenced by this item"
 
-#: ../../../framework/fonctions.php:147
+#: ../../../framework/fonctions.php:150
 msgid "Problème lors de la suppression"
 msgstr "Problem when deleting"
 
-#: ../../../framework/fonctions.php:149
+#: ../../../framework/fonctions.php:152
 msgid "Suppression non réalisée"
 msgstr "Unrealized deletion"
 
-#: ../../../framework/fonctions.php:158
+#: ../../../framework/fonctions.php:161
 msgid ""
 "Suppression impossible : la clé n'est pas numérique ou n'a pas été fournie"
 msgstr "Can't to delete: the key is not numeric or was not provided"
@@ -1723,7 +1753,7 @@ msgstr "%s is not a field recognized as usable at import"
 #: ../../../display/templates/param/identifierTypeChange.tpl:5
 #: ../../../display/templates/param/eventTypeChange.tpl:5
 #: ../../../display/templates/gestion/borrowingChange.tpl:34
-#: ../../../display/templates/gestion/containerDisplay.tpl:130
+#: ../../../display/templates/gestion/containerDisplay.tpl:134
 #: ../../../display/templates/gestion/bookingChange.tpl:59
 #: ../../../display/templates/gestion/eventChange.tpl:8
 #: ../../../display/templates/gestion/subsampleChange.tpl:8
@@ -1734,7 +1764,7 @@ msgstr "%s is not a field recognized as usable at import"
 #: ../../../display/templates/export/translatorChange.tpl:20
 #: ../../../display/templates/export/datasetColumnChange.tpl:41
 #: ../../../display/templates/export/datasetTemplateDisplay.tpl:6
-#: ../../../display/templates/export/exportTemplateChange.tpl:6
+#: ../../../display/templates/export/exportTemplateChange.tpl:49
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:5
 #: ../../../display/templates/exportmodel/exportModelChange.tpl:26
 msgid "Retour à la liste"
@@ -1817,7 +1847,7 @@ msgstr "Associated regulations"
 #: ../../../display/templates/export/translatorChange.tpl:31
 #: ../../../display/templates/export/translatorChange.tpl:70
 #: ../../../display/templates/export/datasetColumnChange.tpl:135
-#: ../../../display/templates/export/exportTemplateChange.tpl:70
+#: ../../../display/templates/export/exportTemplateChange.tpl:113
 #: ../../../display/templates/framework/dbparamListChange.tpl:24
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:209
 #: ../../../display/templates/framework/ident/loginAdmin.tpl:24
@@ -1869,7 +1899,7 @@ msgstr "Save and return"
 #: ../../../display/templates/export/datasetTypeChange.tpl:28
 #: ../../../display/templates/export/translatorChange.tpl:72
 #: ../../../display/templates/export/datasetColumnChange.tpl:137
-#: ../../../display/templates/export/exportTemplateChange.tpl:72
+#: ../../../display/templates/export/exportTemplateChange.tpl:115
 #: ../../../display/templates/framework/request/requestChange.tpl:85
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:211
 #: ../../../display/templates/framework/droits/appliChange.tpl:27
@@ -1906,7 +1936,7 @@ msgstr "Change the borrower"
 #: ../../../display/templates/export/datasetTemplateChange.tpl:19
 #: ../../../display/templates/export/datasetTypeChange.tpl:14
 #: ../../../display/templates/export/translatorChange.tpl:34
-#: ../../../display/templates/export/exportTemplateChange.tpl:17
+#: ../../../display/templates/export/exportTemplateChange.tpl:60
 msgid "Nom :"
 msgstr "Name:"
 
@@ -2012,7 +2042,7 @@ msgstr "URL:"
 #: ../../../display/templates/export/datasetTemplateChange.tpl:119
 #: ../../../display/templates/export/datasetTypeChange.tpl:34
 #: ../../../display/templates/export/datasetColumnChange.tpl:143
-#: ../../../display/templates/export/exportTemplateChange.tpl:78
+#: ../../../display/templates/export/exportTemplateChange.tpl:121
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:222
 #: ../../../display/templates/framework/droits/appliChange.tpl:35
 #: ../../../display/templates/framework/droits/loginChange.tpl:31
@@ -2159,7 +2189,7 @@ msgstr "Does the label include only a business identifier?"
 #: ../../../display/templates/export/exportTemplateList.tpl:30
 #: ../../../display/templates/export/datasetColumnChange.tpl:105
 #: ../../../display/templates/export/datasetTemplateDisplay.tpl:34
-#: ../../../display/templates/export/exportTemplateChange.tpl:44
+#: ../../../display/templates/export/exportTemplateChange.tpl:87
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:125
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:201
 #: ../../../display/templates/framework/ident/loginliste.tpl:45
@@ -2187,7 +2217,7 @@ msgstr "yes"
 #: ../../../display/templates/export/datasetTemplateChange.tpl:59
 #: ../../../display/templates/export/datasetColumnChange.tpl:100
 #: ../../../display/templates/export/datasetTemplateDisplay.tpl:34
-#: ../../../display/templates/export/exportTemplateChange.tpl:39
+#: ../../../display/templates/export/exportTemplateChange.tpl:82
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:129
 #: ../../../display/templates/framework/ident/loginsaisie.tpl:204
 msgid "non"
@@ -2481,7 +2511,7 @@ msgid "Collection de rattachement :"
 msgstr "Linked collection:"
 
 #: ../../../display/templates/param/samplingPlaceChange.tpl:35
-#: ../../../display/templates/gestion/containerDisplay.tpl:315
+#: ../../../display/templates/gestion/containerDisplay.tpl:324
 #: ../../../display/templates/gestion/containerChange.tpl:162
 #: ../../../display/templates/gestion/sampleChange.tpl:564
 #: ../../../display/templates/gestion/sampleDisplay.tpl:427
@@ -2489,7 +2519,7 @@ msgid "Longitude :"
 msgstr "Longitude:"
 
 #: ../../../display/templates/param/samplingPlaceChange.tpl:40
-#: ../../../display/templates/gestion/containerDisplay.tpl:311
+#: ../../../display/templates/gestion/containerDisplay.tpl:320
 #: ../../../display/templates/gestion/containerChange.tpl:153
 #: ../../../display/templates/gestion/sampleChange.tpl:557
 #: ../../../display/templates/gestion/sampleDisplay.tpl:423
@@ -2592,7 +2622,7 @@ msgstr "Fields details"
 #: ../../../display/templates/param/campaignList.tpl:36
 #: ../../../display/templates/param/campaignList.tpl:37
 #: ../../../display/templates/param/labelList.tpl:20
-#: ../../../display/templates/gestion/containerDisplay.tpl:141
+#: ../../../display/templates/gestion/containerDisplay.tpl:150
 #: ../../../display/templates/gestion/sampleDisplay.tpl:174
 #: ../../../display/templates/framework/droits/appliList.tpl:11
 #: ../../../display/templates/exportmodel/exportModelDisplay.tpl:11
@@ -2718,7 +2748,7 @@ msgstr "Name of regulation:"
 #: ../../../display/templates/param/containerTypeChange.tpl:30
 #: ../../../display/templates/document/documentChange.tpl:19
 #: ../../../display/templates/gestion/documentChange.tpl:34
-#: ../../../display/templates/export/exportTemplateChange.tpl:23
+#: ../../../display/templates/export/exportTemplateChange.tpl:66
 #: ../../../display/templates/framework/droits/appliChange.tpl:19
 msgid "Description :"
 msgstr "Description:"
@@ -2802,7 +2832,7 @@ msgid "Nom du protocole :"
 msgstr "Protocol name:"
 
 #: ../../../display/templates/param/protocolChange.tpl:38
-#: ../../../display/templates/export/exportTemplateChange.tpl:29
+#: ../../../display/templates/export/exportTemplateChange.tpl:72
 msgid "Version :"
 msgstr "Version:"
 
@@ -3240,7 +3270,7 @@ msgid "Condition de stockage :"
 msgstr "Storage condition:"
 
 #: ../../../display/templates/param/containerTypeChange.tpl:99
-#: ../../../display/templates/gestion/containerDisplay.tpl:275
+#: ../../../display/templates/gestion/containerDisplay.tpl:284
 msgid "Produit utilisé :"
 msgstr "Product used:"
 
@@ -3421,7 +3451,7 @@ msgid "Nom de l'utilisateur pour l'identification (si requis) :"
 msgstr "User name for identification (if required):"
 
 #: ../../../display/templates/param/printerChange.tpl:36
-#: ../../../display/templates/gestion/containerDisplay.tpl:326
+#: ../../../display/templates/gestion/containerDisplay.tpl:335
 #: ../../../display/templates/gestion/fastInputChange.tpl:92
 #: ../../../display/templates/gestion/movementChange.tpl:205
 #: ../../../display/templates/gestion/sampleListDetail.tpl:510
@@ -3780,97 +3810,102 @@ msgstr "Move"
 msgid "Sortie du stock"
 msgstr "Stock removal"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:136
+#: ../../../display/templates/gestion/containerDisplay.tpl:139
+#: ../../../display/templates/gestion/sampleDisplay.tpl:157
+msgid "Accès rapide"
+msgstr "Quick access"
+
+#: ../../../display/templates/gestion/containerDisplay.tpl:145
 #: ../../../display/templates/gestion/containerList.tpl:12
 msgid "Nouveau contenant"
 msgstr "New container"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:148
+#: ../../../display/templates/gestion/containerDisplay.tpl:157
 #: ../../../display/templates/gestion/sampleDisplay.tpl:181
 msgid "Entrer ou déplacer..."
 msgstr "Store or move..."
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:155
+#: ../../../display/templates/gestion/containerDisplay.tpl:164
 #: ../../../display/templates/gestion/sampleDisplay.tpl:187
 msgid "Sortir du stock..."
 msgstr "Remove from stock..."
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:167
+#: ../../../display/templates/gestion/containerDisplay.tpl:176
 msgid "Détail du contenant"
 msgstr "Detail of a container"
 
 # ok
-#: ../../../display/templates/gestion/containerDisplay.tpl:175
+#: ../../../display/templates/gestion/containerDisplay.tpl:184
 #: ../../../display/templates/gestion/sampleDisplay.tpl:207
 msgid "uid ou identifiant"
 msgstr "UID or identifier"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:177
+#: ../../../display/templates/gestion/containerDisplay.tpl:186
 #: ../../../display/templates/gestion/sampleDisplay.tpl:209
 msgid "Ouvrir"
 msgstr "Open"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:190
+#: ../../../display/templates/gestion/containerDisplay.tpl:199
 #: ../../../display/templates/gestion/sampleDisplay.tpl:222
 #: ../../../display/templates/export/datasetTemplateDisplay.tpl:14
 msgid "Détails"
 msgstr "Details"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:196
+#: ../../../display/templates/gestion/containerDisplay.tpl:205
 #: ../../../display/templates/gestion/sampleDisplay.tpl:228
 msgid "Identifiants"
 msgstr "Identifiers"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:202
+#: ../../../display/templates/gestion/containerDisplay.tpl:211
 #: ../../../display/templates/gestion/sampleDisplay.tpl:234
 msgid "Événements/prêts"
 msgstr "Events/loans"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:214
+#: ../../../display/templates/gestion/containerDisplay.tpl:223
 msgid "Contenants présents"
 msgstr "Containers included"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:220
+#: ../../../display/templates/gestion/containerDisplay.tpl:229
 msgid "Échantillons présents"
 msgstr "Samples included"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:227
+#: ../../../display/templates/gestion/containerDisplay.tpl:236
 msgid "Grille d'objets"
 msgstr "Object grid"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:234
+#: ../../../display/templates/gestion/containerDisplay.tpl:243
 #: ../../../display/templates/gestion/sampleDisplay.tpl:252
 msgid "Documents associés"
 msgstr "Related documents"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:240
+#: ../../../display/templates/gestion/containerDisplay.tpl:249
 #: ../../../display/templates/gestion/sampleDisplay.tpl:258
 msgid "Réservations"
 msgstr "Bookings"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:248
+#: ../../../display/templates/gestion/containerDisplay.tpl:257
 #: ../../../display/templates/gestion/sampleListDetail.tpl:158
 msgid "UID et référence :"
 msgstr "UID and reference:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:253
+#: ../../../display/templates/gestion/containerDisplay.tpl:262
 #: ../../../display/templates/gestion/sampleDisplay.tpl:311
 msgid "Identifiants complémentaires :"
 msgstr "Additional identifiers:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:265
+#: ../../../display/templates/gestion/containerDisplay.tpl:274
 #: ../../../display/templates/gestion/sampleListDetail.tpl:170
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:371
 #: ../../../display/templates/gestion/sampleDisplay.tpl:333
 msgid "Référent :"
 msgstr "Referent:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:266
+#: ../../../display/templates/gestion/containerDisplay.tpl:275
 #: ../../../display/templates/gestion/sampleDisplay.tpl:334
 msgid "Cliquez pour la description complète"
 msgstr "Click for full description"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:271
+#: ../../../display/templates/gestion/containerDisplay.tpl:280
 #: ../../../display/templates/gestion/sampleListDetail.tpl:171
 #: ../../../display/templates/gestion/containerChange.tpl:190
 #: ../../../display/templates/gestion/containerSearch.tpl:151
@@ -3881,15 +3916,15 @@ msgstr "Click for full description"
 msgid "Type :"
 msgstr "Type:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:279
+#: ../../../display/templates/gestion/containerDisplay.tpl:288
 msgid "Conditions de stockage :"
 msgstr "Storage condition:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:283
+#: ../../../display/templates/gestion/containerDisplay.tpl:292
 msgid "Classification CLP :"
 msgstr "CLP classification:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:287
+#: ../../../display/templates/gestion/containerDisplay.tpl:296
 #: ../../../display/templates/gestion/sampleListDetail.tpl:184
 #: ../../../display/templates/gestion/containerChange.tpl:141
 #: ../../../display/templates/gestion/containerSearch.tpl:81
@@ -3899,71 +3934,71 @@ msgstr "CLP classification:"
 msgid "Statut :"
 msgstr "Status:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:291
+#: ../../../display/templates/gestion/containerDisplay.tpl:300
 #: ../../../display/templates/gestion/containerListDetail.tpl:302
 msgid "Contenant mis à la corbeille"
 msgstr "Trashed container"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:294
+#: ../../../display/templates/gestion/containerDisplay.tpl:303
 #: ../../../display/templates/gestion/sampleDisplay.tpl:363
 msgid "le"
 msgstr "the"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:295
+#: ../../../display/templates/gestion/containerDisplay.tpl:304
 #: ../../../display/templates/gestion/sampleDisplay.tpl:364
 msgid "à"
 msgstr "to"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:301
+#: ../../../display/templates/gestion/containerDisplay.tpl:310
 #: ../../../display/templates/gestion/sampleDisplay.tpl:370
 msgid "Retour prévu le"
 msgstr "Return expected on"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:306
+#: ../../../display/templates/gestion/containerDisplay.tpl:315
 msgid "Date technique de dernière modification du contenant"
 msgstr "Technical date of last container update"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:306
+#: ../../../display/templates/gestion/containerDisplay.tpl:315
 #: ../../../display/templates/gestion/sampleDisplay.tpl:390
 msgid "Date de modification :"
 msgstr "Update date:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:320
+#: ../../../display/templates/gestion/containerDisplay.tpl:329
 #: ../../../display/templates/gestion/containerChange.tpl:171
 #: ../../../display/templates/gestion/sampleChange.tpl:573
 #: ../../../display/templates/gestion/sampleDisplay.tpl:432
 msgid "Précision de la localisation (en mètres) :"
 msgstr "Localization accuracy (in meters):"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:330
+#: ../../../display/templates/gestion/containerDisplay.tpl:339
 #: ../../../display/templates/gestion/sampleDisplay.tpl:442
 msgid "Emplacement :"
 msgstr "Location:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:343
+#: ../../../display/templates/gestion/containerDisplay.tpl:352
 msgid "Nbre de slots utilisés / Nbre total :"
 msgstr "No. of slots used/Total no. of slots:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:347
+#: ../../../display/templates/gestion/containerDisplay.tpl:356
 #: ../../../display/templates/gestion/sampleDisplay.tpl:455
 msgid "UUID :"
 msgstr "UUID:"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:360
+#: ../../../display/templates/gestion/containerDisplay.tpl:369
 #: ../../../display/templates/gestion/sampleDisplay.tpl:501
 msgid "Événements"
 msgstr "Events"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:364
+#: ../../../display/templates/gestion/containerDisplay.tpl:373
 #: ../../../display/templates/gestion/sampleDisplay.tpl:505
 msgid "Liste des prêts"
 msgstr "List of loans"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:383
+#: ../../../display/templates/gestion/containerDisplay.tpl:392
 msgid "Nouveau contenant associé"
 msgstr "New container included"
 
-#: ../../../display/templates/gestion/containerDisplay.tpl:412
+#: ../../../display/templates/gestion/containerDisplay.tpl:421
 #: ../../../display/templates/gestion/sampleDisplay.tpl:553
 msgid "Activer le survol des onglets :"
 msgstr "Enable tab hovering:"
@@ -4074,6 +4109,45 @@ msgstr "Scan with the camera from computer or smartphone (use Firefox)"
 #: ../../../display/templates/gestion/fastOutputChange.tpl:96
 msgid "Arrêter la lecture"
 msgstr "Stop scanning"
+
+#: ../../../display/templates/gestion/containerVerifyCyclic.tpl:1
+msgid ""
+"Vérification de l'emplacement des contenants pour repérer les situations "
+"incohérentes"
+msgstr ""
+"Verification of the location of containers to identify inconsistent "
+"situations"
+
+#: ../../../display/templates/gestion/containerVerifyCyclic.tpl:4
+msgid ""
+"Si un contenant a été placé dans un contenant qu'il contient lui-même, au "
+"premier niveau ou dans la hiérarchie des contenants, certaines requêtes "
+"peuvent tourner indéfiniment. En cas de détection d'un problème de ce type, "
+"vous devrez créer un mouvement de sortie pour l'un des deux contenants, sans "
+"jamais chercher à ouvrir son détail. Passez par le menu Mouvement>sortir du "
+"stock."
+msgstr ""
+"If a container has been placed in a container that it contains itself, at "
+"the first level or in the container hierarchy, some queries can run "
+"indefinitely. If a problem of this type is detected, you will have to create "
+"an exit movement for one of the two containers, without ever trying to open "
+"its detail. Go to the menu Movements>Remove from stock."
+
+#: ../../../display/templates/gestion/containerVerifyCyclic.tpl:6
+msgid "Attention : la recherche peut être longue !"
+msgstr "Warning: the research may be long!"
+
+#: ../../../display/templates/gestion/containerVerifyCyclic.tpl:15
+msgid "Déclencher la recherche"
+msgstr "Process to the research"
+
+#: ../../../display/templates/gestion/containerVerifyCyclic.tpl:26
+msgid "Premier UID"
+msgstr "First UID"
+
+#: ../../../display/templates/gestion/containerVerifyCyclic.tpl:27
+msgid "Second UID"
+msgstr "Second UID"
 
 #: ../../../display/templates/gestion/subsampleList.tpl:14
 msgid "Mouvement"
@@ -5252,10 +5326,6 @@ msgstr "Delete containers"
 msgid "Activer la lecture"
 msgstr "Enable scanning"
 
-#: ../../../display/templates/gestion/sampleDisplay.tpl:157
-msgid "Accès rapide"
-msgstr "Quick access"
-
 #: ../../../display/templates/gestion/sampleDisplay.tpl:166
 msgid "Nouvel échantillon avec duplication des informations, dont le parent"
 msgstr "New sample with duplicate information, including parent"
@@ -5664,7 +5734,7 @@ msgstr "Export Format:"
 
 #: ../../../display/templates/export/datasetTemplateChange.tpl:49
 #: ../../../display/templates/export/datasetTemplateDisplay.tpl:25
-#: ../../../display/templates/export/exportTemplateChange.tpl:50
+#: ../../../display/templates/export/exportTemplateChange.tpl:93
 msgid "Nom du fichier généré :"
 msgstr "Name of the generated file:"
 
@@ -5857,15 +5927,15 @@ msgstr ""
 "The corresponding tables make it possible to replace a label present in the "
 "database by a label expected in the information system receiving the export"
 
-#: ../../../display/templates/export/exportTemplateChange.tpl:1
+#: ../../../display/templates/export/exportTemplateChange.tpl:44
 msgid "Modification d'un modèle d'export"
 msgstr "Create / Edit an export model"
 
-#: ../../../display/templates/export/exportTemplateChange.tpl:35
+#: ../../../display/templates/export/exportTemplateChange.tpl:78
 msgid "Fichier compressé (si un seul fichier généré) ?"
 msgstr "Zipped file (if only one file is generated)?"
 
-#: ../../../display/templates/export/exportTemplateChange.tpl:58
+#: ../../../display/templates/export/exportTemplateChange.tpl:101
 msgid "Liste des datasets à générer"
 msgstr "List of datasets to generate"
 
@@ -5923,8 +5993,8 @@ msgid "Exécuter la requête"
 msgstr "Process"
 
 #: ../../../display/templates/framework/request/requestList.tpl:36
-msgid "Créer une nouvelle requête"
-msgstr "Create a new request"
+msgid "Dupliquer la requête"
+msgstr "Duplicate the research"
 
 #: ../../../display/templates/framework/dbparamListChange.tpl:2
 msgid "Paramètres pérennes de l'application"
@@ -6697,6 +6767,9 @@ msgstr ""
 "In the case of a relationship type 1-1, where the child table share the same "
 "key as the parent table, the primary key and the foreign key must be "
 "identical in the model"
+
+#~ msgid "Créer une nouvelle requête"
+#~ msgstr "Create a new request"
 
 #~ msgid "Liste des types de datasets"
 #~ msgstr "List of dataset types"

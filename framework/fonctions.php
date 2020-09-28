@@ -83,7 +83,10 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
       $message->setSyslog(_("La clé n'a pas été retournée lors de l'enregistrement dans ") . get_class($dataClass));
       $module_coderetour = -1;
     }
-  } catch (Exception $e) {
+  } catch (PDOException |ObjetBDDException $e) {
+    if (strpos($e->getMessage(), "nique violation") !== false) {
+      $message->set(_("Un enregistrement portant déjà ce nom existe déjà dans la base de données."), true);
+    }
     if ($OBJETBDD_debugmode > 0) {
       foreach ($dataClass->getErrorData(1) as $messageError) {
         $message->set($messageError, true);

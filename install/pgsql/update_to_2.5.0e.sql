@@ -15,29 +15,7 @@ SET search_path=public,pg_catalog,col,gacl;
 -- ddl-end --
 
 
--- [ Dropped objects ] --
-DROP INDEX IF EXISTS col.translator_name_idx CASCADE;
--- ddl-end --
-DROP INDEX IF EXISTS col.sample_metadata_lower_fishcode_idx CASCADE;
--- ddl-end --
-DROP INDEX IF EXISTS col.sample_metadata_lower_test_idx CASCADE;
--- ddl-end --
-DROP INDEX IF EXISTS col.sample_metadata_lower_test1_idx CASCADE;
--- ddl-end --
-DROP INDEX IF EXISTS col.sample_sample_date_idx CASCADE;
--- ddl-end --
-DROP INDEX IF EXISTS col.sample_metadata_lower_test_select_idx CASCADE;
--- ddl-end --
-DROP INDEX IF EXISTS col.sample_metadata_lower_taxon_idx CASCADE;
--- ddl-end --
-DROP INDEX IF EXISTS col.sample_metadata_lower_recoltant_idx CASCADE;
--- ddl-end --
-DROP INDEX IF EXISTS col.sample_metadata_lower_preleveur_idx CASCADE;
--- ddl-end --
-DROP INDEX IF EXISTS col.sample_metadata_lower_idcampagnol_idx CASCADE;
--- ddl-end --
-DROP INDEX IF EXISTS col.sample_metadata_lower_commune_idx CASCADE;
--- ddl-end --
+
 
 
 -- [ Created objects ] --
@@ -178,12 +156,7 @@ CREATE UNIQUE INDEX storage_condition_name_idx ON col.storage_condition
 
 
 
--- [ Changed objects ] --
-ALTER ROLE collec
-	SUPERUSER
-	CREATEDB
-	CREATEROLE
-	UNENCRYPTED PASSWORD 'collecPassword';
+
 -- ddl-end --
 ALTER TABLE col.collection ALTER COLUMN allowed_import_flow SET DEFAULT 'f';
 -- ddl-end --

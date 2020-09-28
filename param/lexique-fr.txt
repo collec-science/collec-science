@@ -34,7 +34,7 @@ sous-échantillon : partie d'un échantillon non identifiable individuellement (
 
 statut des objets : permet d'indiquer si un objet (échantillon ou container) est toujours utilisable. Les statuts peuvent être variés et dépendre du mode opératoire local (container cassé, échantillon qui ne contient plus de matière exploitable, etc.).
 
-table de traduction : table permettant de remplacer un libellé présent dans la base de données par celui attendu par le destinataire d'un export.
+table de correspondance : table permettant de remplacer un libellé présent dans la base de données par celui attendu par le destinataire d'un export.
 
 type de conteneur (container) : type détaillé du conteneur, précisant la capacité, le produit de stockage ou les conditions de stockage le cas échéant, les risques associés en cas de manipulation, etc. Cela peut être un site, un bâtiment, une salle, une armoire, une étagère, une caisse, un bidon, un tube, etc. Lors de la création d'un type de container, il est possible d'indiquer le nombre d'emplacements disponibles (nombre de lignes ou de colonnes), qui contiendront un et un seul objet. C'est une notion qui prend tout son sens pour les boites contenant de multiples tubes, ou les armoires pour lesquelles on ne souhaite pas déclarer les étagères. Si rien n'est précisé, le nombre d'emplacements est au minimum de 1 (une ligne, une colonne, donnée obligatoire pour des raisons techniques). Les conteneurs sont définis indépendamment des collections.
 

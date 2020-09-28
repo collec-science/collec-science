@@ -1,12 +1,8 @@
-database and original UID: when entering a sample, if it has been created in another database, it is possible to indicate the code of the original database followed by the assigned identifier. This code will then be used during searches, which allows the original labels to be retained. test collection: a collection is a coherent set of samples relating to a particular subject. Access rights to samples are managed per collection. It is also possible to attach collection locations to them.
-
-storage condition: main characteristics of the method of storage (cold, controlled atmosphere, freeze-drying, etc.). Can also be used to describe the prior treatment of the sample for preservation.
-
 container or receptacle: any object that may contain another. Not to be confused with derived samples or sub-samples.
 
-Derived sample: A sample that is created from another sample, whether of the same type or not, that is identified independently. In other words, a sample that is the son of another. For example, a section of core is derived from half core X, which in turn is derived from the whole core.
+database and original UID: when entering a sample, if it has been created in another database, it is possible to indicate the code of the original database followed by the assigned identifier. This code will then be used during searches, which allows the original labels to be retained. test collection: a collection is a coherent set of samples relating to a particular subject. Access rights to samples are managed per collection. It is also possible to attach collection locations to them.
 
-sample emptied of all contents: status of a sample. A sample whose entire core has been used. For example, a 1-metre core, 10 10-cm samples, nothing remains of the sample.
+Derived sample: A sample that is created from another sample, whether of the same type or not, that is identified independently. In other words, a sample that is the son of another. For example, a section of core is derived from half core X, which in turn is derived from the whole core.
 
 family of containers: large category of containers, to facilitate the search (room, site, crate, canister...).
 
@@ -14,9 +10,9 @@ latitude and longitude of a container: for a room, a building, a site, etc., WGS
 
 latitude and longitude of a sample: place where the sample is taken. In fact, the geographical point associated with the sample. It can be edited by clicking in the map or on the link "Locate your position!". This action, if performed in the field, will trigger the recording of the sample creation/collection location.
 
-sampling location (or site): place or site where the sample was taken. The site is in fact generally a way of grouping the samples with respect to a spatial organisation of the collection. This does not necessarily require precise geo-referencing, but can be used to codify the name of the sample and can help the researcher to define how he or she searches/groups his or her samples. When selecting a collection location to update the longitude and latitude on the sample record, the longitude and latitude must be blank beforehand. Note that if you do not specify a collection, the sample location will be available for all collections.
-
 metadata: elements (such as the names of the collectors, taxa, ...) that one wishes to add to each sample of a collection.
+
+object status: indicates whether an object (sample or container) is still usable. The statuses can be varied and depend on the local operating mode (broken container, sample that no longer contains usable material, etc.).
 
 operation: An operation can be described as an action that changes the state of a sample. It results in the creation of a new sample derived from the previous one.
 
@@ -26,13 +22,19 @@ protocol: Protocol used to collect data. A protocol is a series of operations th
 
 referent: person in charge of a collection and/or the sample and/or the container. In general, the referent of a container is only informed about the parts used for storage (the person who tells where to store the samples) or technical equipment that may break down (for example the refrigerator).
 
-sub-sample: part of a sample that is not individually identifiable (taking x material, one of 10 identical scales). In chemistry, can be assimilated to the aliquot.
-
-object status: indicates whether an object (sample or container) is still usable. The statuses can be varied and depend on the local operating mode (broken container, sample that no longer contains usable material, etc.).
-
-type of container: detailed type of container, specifying the capacity, the storage product or storage conditions if applicable, the associated risks in the event of handling, etc. This may be a site, building, room, cupboard, shelf, crate, canister, tube, etc. When creating a type of container, it is possible to indicate the number of available spaces (number of rows or columns), which will contain one and only one object. This is a notion that takes on its full meaning for boxes containing multiple tubes, or cabinets for which one does not wish to declare the shelves. If nothing is specified, the number of places is at least 1 (one row, one column, data required for technical reasons). Containers are defined independently of collections.
+sample emptied of all contents: status of a sample. A sample whose entire core has been used. For example, a 1-metre core, 10 10-cm samples, nothing remains of the sample.
 
 sample type: allows to define generic types - by container type (tube, zip bag, ..) with the possibility to associate a metadata model. [We should talk about operations in this definition].
+
+sampling location (or site): place or site where the sample was taken. The site is in fact generally a way of grouping the samples with respect to a spatial organisation of the collection. This does not necessarily require precise geo-referencing, but can be used to codify the name of the sample and can help the researcher to define how he or she searches/groups his or her samples. When selecting a collection location to update the longitude and latitude on the sample record, the longitude and latitude must be blank beforehand. Note that if you do not specify a collection, the sample location will be available for all collections.
+
+storage condition: main characteristics of the method of storage (cold, controlled atmosphere, freeze-drying, etc.). Can also be used to describe the prior treatment of the sample for preservation.
+
+sub-sample: part of a sample that is not individually identifiable (taking x material, one of 10 identical scales). In chemistry, can be assimilated to the aliquot.
+
+translation table: table allowing to replace a label present in the database by the one expected by the recipient of an export.
+
+type of container: detailed type of container, specifying the capacity, the storage product or storage conditions if applicable, the associated risks in the event of handling, etc. This may be a site, building, room, cupboard, shelf, crate, canister, tube, etc. When creating a type of container, it is possible to indicate the number of available spaces (number of rows or columns), which will contain one and only one object. This is a notion that takes on its full meaning for boxes containing multiple tubes, or cabinets for which one does not wish to declare the shelves. If nothing is specified, the number of places is at least 1 (one row, one column, data required for technical reasons). Containers are defined independently of collections.
 
 type of events: event that may occur on a sample or container. The event may be external (e.g. broken container), voluntary (e.g. analysis) or unintentional (e.g. lost sample).
 

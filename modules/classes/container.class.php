@@ -216,11 +216,12 @@ class Container extends ObjetBDD
       $sql = "select o.uid, o.identifier, container_type_id, container_type_name,
                     container_family_id, container_family_name, o.object_status_id, o.trashed,
                     o.location_accuracy, o.uuid, o.object_comment,
-					storage_product, storage_condition_name,
-					object_status_name, clp_classification,
-					movement_date, movement_type_id, column_number, line_number,
-                    document_id
-                    ,lm.container_uid
+					  storage_product, storage_condition_name,
+					  object_status_name, clp_classification,
+					  movement_date, movement_type_id, column_number, line_number,
+            document_id
+            ,lm.container_uid
+            ,nb_slots_used, nb_slots_max
 					from object o
 					join container co on (co.uid = o.uid)
 					join container_type using (container_type_id)
@@ -228,7 +229,8 @@ class Container extends ObjetBDD
 					join last_movement lm on (lm.uid = o.uid and lm.container_uid = :uid)
 					left outer join object_status os on (o.object_status_id = os.object_status_id)
 					left outer join storage_condition using (storage_condition_id)
-                    left outer join  last_photo on (o.uid = last_photo.uid)
+          left outer join  last_photo on (o.uid = last_photo.uid)
+          left outer join slots_used su on (co.container_id = su.container_id)
 					where lm.movement_type_id = 1
 					order by o.identifier, o.uid
 					";

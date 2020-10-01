@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,132" last-zoom="0.75" max-obj-count="70"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,348" last-zoom="0.75" max-obj-count="70"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -1813,7 +1813,7 @@ Autre]]>
 <view name="last_movement" layer="0" collapse-mode="1" max-obj-count="1">
 	<schema name="col"/>
 	<role name="collec"/>
-	<position x="1760" y="1120"/>
+	<position x="1740" y="1120"/>
 	<reference>
 		<expression><![CDATA[ SELECT s.uid,
     s.movement_id,
@@ -2033,6 +2033,8 @@ WHERE
 	<column name="nb_slots_used">
 		<type name="integer" length="0"/>
 	</column>
+		<reftable name="col.movement"/>
+		<reftable name="col.container"/>
 	</reference>
 </view>
 
@@ -3000,6 +3002,16 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 			<column name="storage_condition_name"/>
 		</idxelement>
 </index>
+
+<relationship name="rel_slots_used_movement" type="reltv" layer="0"
+	 src-table="col.slots_used"
+	 dst-table="col.movement"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_slots_used_container" type="reltv" layer="0"
+	 src-table="col.slots_used"
+	 dst-table="col.container"
+	 src-required="false" dst-required="false"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

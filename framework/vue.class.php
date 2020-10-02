@@ -11,7 +11,7 @@
  * dans l'application
  *
  * @author quinton
- *        
+ *
  */
 class VueException extends Exception
 { }
@@ -99,8 +99,8 @@ class Message
 
   /**
    * Envoie une trace des messages a Syslog
-   * 
-   * @return mixed 
+   *
+   * @return mixed
    */
   function sendSyslog()
   {
@@ -127,7 +127,7 @@ class Message
  * Classe non instanciable de base pour l'ensemble des vues
  *
  * @author quinton
- *        
+ *
  */
 class Vue
 {
@@ -201,7 +201,7 @@ class Vue
  * Classe encapsulant l'appel a Smarty
  *
  * @author quinton
- *        
+ *
  */
 class VueSmarty extends Vue
 {
@@ -320,7 +320,7 @@ class VueSmarty extends Vue
  * en protocole Ajax
  *
  * @author quinton
- *        
+ *
  */
 class VueAjaxJson extends Vue
 {
@@ -375,7 +375,7 @@ class VueAjaxJson extends Vue
  * Export de donnees au format csv
  *
  * @author quinton
- *        
+ *
  */
 class VueCsv extends Vue
 {
@@ -499,8 +499,8 @@ class VueCsv extends Vue
 
 /**
  * Envoi d'un fichier au format PDF vers le navigateur
- * 
- * Le fichier doit être fourni soit sous forme de référence 
+ *
+ * Le fichier doit être fourni soit sous forme de référence
  * soit en indiquant son chemin dans l'arborescence du serveur.
  */
 class VuePdf extends Vue
@@ -599,7 +599,7 @@ class VuePdf extends Vue
  * Classe permettant d'envoyer un fichier au navigateur, quel que soit son type
  *
  * @author quinton
- *        
+ *
  */
 class VueBinaire extends Vue
 {
@@ -707,7 +707,7 @@ class VueFile extends Vue
    * @param array $param: list of parameters of file
    * @return void
    */
-  function send(?array $param = array())
+  function send( $param = array())
   {
     if (count($param) > 0) {
       $this->setParam($param);

@@ -59,7 +59,7 @@
 
 	<dbstructureHtml action="framework/utils/structure.php" param="html" retourlogin="1" type="smarty" schemas="col,gacl" droits="collection" maxCountByHour="60" maxCountByDay="600"/>
 	<dbstructureGacl action="framework/utils/structure.php" param="gacl" retourlogin="1" type="smarty" droits="admin" schemas="gacl" maxCountByHour="60" maxCountByDay="600"/>
-	<dbstructureLatex action="framework/utils/structure.php" param="latex" retourlogin="1" type="smarty" droits="collection" schemas="col,gacl" maxCountByHour="60" maxCountByDay="600"/>
+	<dbstructureLatex action="framework/utils/structure.php" param="latex" retourlogin="1" type="file" droits="collection" schemas="col,gacl" maxCountByHour="60" maxCountByDay="600"/>
 	<dbstructureSchema action="framework/utils/structure.php" param="schema" realfilename="database/collec-schema.png" generatedfilename="collec-science.png" retourlogin="1" type="binaire" droits="collection" maxCountByHour="60" maxCountByDay="600"/>
 
 	<logList action="framework/log/log.php" param="list" retourlogin="1" type="smarty" droits="admin"/>

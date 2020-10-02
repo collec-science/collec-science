@@ -170,7 +170,7 @@ class Structure extends ObjetBDD
     $classTableColumns = "datatable"
   ) {
     $val = "";
-    foreach ($this->schemas as $schemaname=>$schema) {
+    foreach ($this->schemas as $schemaname => $schema) {
       $val .= '<h2><div id="' . $schemaname . '">Schema ' . $schemaname . '</div></h2>';
       foreach ($schema["tables"] as $table) {
         $val .= '<div id="' . $table["schemaname"] . $table["tablename"] . '" class="' . $classTableName . '">' . $table["schemaname"] . "." . $table["tablename"] . " (<i>table</i>)</div>"
@@ -266,55 +266,88 @@ class Structure extends ObjetBDD
     $hline = false
   ) {
     $val = "";
-    $currentSchema = "";
-    foreach ($this->tables as $table) {
-      if ($table["schemaname"] != $currentSchema) {
-        $currentSchema = $table["schemaname"];
-        $val .= '\\' . $structureLevel . "{Schema " . $currentSchema . '}' . PHP_EOL;
-      }
-      $val .= "\\sub" . $structureLevel . "{"
-        . $this->el($table["tablename"]) . "}"
-        . PHP_EOL;
-      $val .= $this->el($table["description"]) . PHP_EOL . PHP_EOL;
-      $val .= $headerTable . PHP_EOL;
-      $val .= "\\hline" . PHP_EOL;
-      $val .= "Column name & Type & Not null & Key & Comment \\\\" . PHP_EOL
-        . "\\hline" . PHP_EOL;
-      foreach ($table["columns"] as $column) {
-        $val .= $this->el($column["field"]) . " & "
-          . $this->el($column["type"]) . " & ";
-        ($column["notnull"] == 1) ? $val .= "X & " : $val .= " & ";
-        strlen($column["key"]) > 0 ? $val .= "X & " : $val .= " & ";
-        $val .= $this->el($column["comment"])
-          . "\\\\" . PHP_EOL;
-        if ($hline) {
+    switch ($structureLevel) {
+      case "section":
+        $level = array("schema" => "section", "type" => "subsection", "object" => "subsubsection");
+        break;
+      case "subsection":
+        $level = array("schema" => "subsection", "type" => "subsubsection", "object" => "paragraph");
+        break;
+      default:
+        $level = array("schema" => "subsection", "type" => "subsubsection", "object" => "paragraph");
+    }
+    foreach ($this->schemas as $schemaname => $schema) {
+      $val .= "\\" . $level["schema"] . "{Schema " . $schemaname . '}' . PHP_EOL;
+      $val .= "\\" . $level["type"] . "{Tables}" . PHP_EOL;
+      foreach ($schema["tables"] as $table) {
+        $val .= "\\" . $level["object"] . "{"
+          . $this->el($table["tablename"]) . "}"
+          . PHP_EOL;
+        $val .= $this->el($table["description"]) . PHP_EOL . PHP_EOL;
+        $val .= $headerTable . PHP_EOL;
+        $val .= "\\hline" . PHP_EOL;
+        $val .= "Column name & Type & Not null & Key & Comment \\\\" . PHP_EOL
+          . "\\hline" . PHP_EOL;
+        foreach ($table["columns"] as $column) {
+          $val .= $this->el($column["field"]) . " & "
+            . $this->el($column["type"]) . " & ";
+          ($column["notnull"] == 1) ? $val .= "X & " : $val .= " & ";
+          strlen($column["key"]) > 0 ? $val .= "X & " : $val .= " & ";
+          $val .= $this->el($column["comment"])
+            . "\\\\" . PHP_EOL;
+          if ($hline) {
+            $val .= "\\hline" . PHP_EOL;
+          }
+        }
+        if (!$hline) {
           $val .= "\\hline" . PHP_EOL;
         }
-      }
-      if (!$hline) {
-        $val .= "\\hline" . PHP_EOL;
-      }
-      $val .= $closeTable . PHP_EOL;
+        $val .= $closeTable . PHP_EOL;
 
-      /**
-       * Add references
-       */
-      $refs = $this->getReferences($table["schemaname"], $table["tablename"]);
-      if (count($refs) > 0) {
-        $val .= "\\paragraph{References}" . PHP_EOL;
-        foreach ($refs as $ref) {
-          $val .= $this->el($ref["column_name"]) . ": " . $this->el($ref["foreign_schema_name"]) . "."
-            . $this->el($ref["foreign_table_name"])
-            . " (" . $this->el($ref["foreign_column_name"]) . ")" . PHP_EOL . PHP_EOL;
+        /**
+         * Add references
+         */
+        $refs = $this->getReferences($table["schemaname"], $table["tablename"]);
+        if (count($refs) > 0) {
+          $val .= "\\paragraph{References}" . PHP_EOL;
+          foreach ($refs as $ref) {
+            $val .= $this->el($ref["column_name"]) . ": " . $this->el($ref["foreign_schema_name"]) . "."
+              . $this->el($ref["foreign_table_name"])
+              . " (" . $this->el($ref["foreign_column_name"]) . ")" . PHP_EOL . PHP_EOL;
+          }
+        }
+        $refs = $this->getReferencedBy($table["schemaname"], $table["tablename"]);
+        if (count($refs) > 0) {
+          $val .= "\\paragraph{Referenced by}" . PHP_EOL;
+          foreach ($refs as $ref) {
+            $val .= $this->el($ref["foreign_column_name"]) . ": " . $this->el($ref["schema_name"]) . "."
+              . $this->el($ref["table_name"])
+              . " (" . $this->el($ref["column_name"]) . ")" . PHP_EOL . PHP_EOL;
+          }
         }
       }
-      $refs = $this->getReferencedBy($table["schemaname"], $table["tablename"]);
-      if (count($refs) > 0) {
-        $val .= "\\paragraph{Referenced by}" . PHP_EOL;
-        foreach ($refs as $ref) {
-          $val .= $this->el($ref["foreign_column_name"]) . ": " . $this->el($ref["schema_name"]) . "."
-            . $this->el($ref["table_name"])
-            . " (" . $this->el($ref["column_name"]) . ")" . PHP_EOL . PHP_EOL;
+      if (!empty($schema["views"])) {
+        $val .= "\\" . $level["type"] . "{Views}" . PHP_EOL;
+        foreach ($schema["views"] as $view) {
+          $val .= "\\" . $level["object"] . "{"
+            . $this->el($view["viewname"]) . "}"
+            . PHP_EOL;
+          $val .= $this->el($view["definition"]) . PHP_EOL . PHP_EOL;
+          $val .= $headerTable . PHP_EOL;
+          $val .= "\\hline" . PHP_EOL;
+          $val .= "Column name & Type \\\\" . PHP_EOL
+            . "\\hline" . PHP_EOL;
+          foreach ($view["columns"] as $column) {
+            $val .= $this->el($column["field"]) . " & "
+              . $this->el($column["type"]) . "\\\\" . PHP_EOL;
+            if ($hline) {
+              $val .= "\\hline" . PHP_EOL;
+            }
+          }
+          if (!$hline) {
+            $val .= "\\hline" . PHP_EOL;
+          }
+          $val .= $closeTable . PHP_EOL;
         }
       }
     }
@@ -436,7 +469,7 @@ class Structure extends ObjetBDD
       }
       $summary .= "</ul></li>";
       if (!empty($schema["views"])) {
-      $summary .= "<li>Views<ul>";
+        $summary .= "<li>Views<ul>";
         foreach ($schema["views"] as $view) {
           $summary .= '<li><a href="#'
             . $view["schemaname"] . $view["viewname"]
@@ -444,7 +477,7 @@ class Structure extends ObjetBDD
         }
         $summary .= "</ul></li></ul>";
       }
-      $summary .="</li>";
+      $summary .= "</li>";
     }
     $summary .= "</ul>";
     return ($summary);

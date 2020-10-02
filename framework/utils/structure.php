@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Recuperation de la structure de la base de donnees
  */
 require_once 'framework/utils/structure.class.php';
@@ -28,6 +28,7 @@ switch ($t_module["param"]) {
                 "\\end{tabular}"
             )
         );
+        $vue->setParam(array("filename"=>"collec-dbstructure.tex"));
         //$vue->htmlVars[] = "data";
         break;
     case "gacl":

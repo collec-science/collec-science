@@ -51,7 +51,7 @@
 		});
 
 		$("#referent_name").click(function() {
-			var referentName = $(this).text();
+			var referentName = "{$data.referent_name}";
 			if (referentName.length > 0) {
 			$.ajax( {
 				url: "index.php",
@@ -59,6 +59,7 @@
 			})
 			.done (function (value) {
 				value = JSON.parse(value);
+				console.log(value);
 				var newval = value.referent_name + "<br>" + value.referent_email + "<br>" +
 						value.referent_phone + "<br>" + value.address_name + "<br>"
 						+ value.address_line2 + "<br>" + value.address_line3 + "<br>"

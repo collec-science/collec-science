@@ -9,7 +9,6 @@
 	<item module="sampleList" label="Échantillons" tooltip="Liste des échantillons"/>
 		<item divider='1' droits="param"/>
 	<item module="requestList" label="Requêtes SQL" tooltip="Exécution de requêtes SQL dans la base de données" droits="param"/>
-	<item module="containerVerifyCyclic" label="Recherche des mouvements cycliques" tooltip="Recherche des contenants contenus dans un contenant qu'ils contiennent"/>
 </item>
 
 <item module="movement" label="Mouvements" tooltip="Création de mouvements dans le stock" droits="gestion">
@@ -25,12 +24,11 @@
 	<item module="importChange" label="Import de masse" tooltip="Import de plusieurs échantillons ou contenants" droits="import,collection"/>
 	<item module="sampleImportStage1" label="Import d'échantillons externes" tooltip="Import d'un lot d'échantillons provenant d'une base externe" droits="import,collection"/>
 	<item module="containerImportStage1" label="Import de contenants externes" tooltip="Import d'un lot de containers avec les objets associés provenant d'une base externe" droits="import,collection"/>
-	<item module="lotList" label="Exports des lots d'échantillons" tooltip="Gestion des exports des lots d'échantillons vers des bases de données externes" droits="collection">
-		<item module="lotList" label="Lots d'export" tooltip="Liste des lots d'exportation des échantillons" droits="collection"/>
-		<item module="exportTemplateList" label="Modèles d'exports" tooltip="Liste des modèles d'exports" droits="param"/>
-		<item module="datasetTemplateList" label="Modèles de datasets" tooltip="Liste des modèles de datasets" droits="param"/>
-		<item module="translatorList" label="Traducteurs" tooltip="Liste des traducteurs de libellés" droits="param"/>
-	</item>
+	<item divider="1"/>
+	<item module="lotList" label="Lots d'export" tooltip="Liste des lots d'exportation des échantillons" droits="collection"/>
+	<item module="exportTemplateList" label="Modèles d'exports" tooltip="Liste des modèles d'exports" droits="param"/>
+	<item module="datasetTemplateList" label="Modèles de datasets" tooltip="Liste des modèles de datasets" droits="param"/>
+	<item module="translatorList" label="Traducteurs" tooltip="Liste des traducteurs de libellés" droits="param"/>
 </item>
 <item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
 	<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" >
@@ -47,7 +45,7 @@
 		<item module="regulationList" droits="consult" label="Réglementations" tooltip="Réglementations applicables"/>
 	</item>
 	<item divider='1'/>
-	<item module="containerFamilyList" droits="consult" label="Familles de contenants" tooltip="Familles de contenants (armoires, éprouvettes...)" >
+	<item module="containerTypeList" droits="consult" label="Contenants" tooltip="Types de contenants" >
 		<item module="containerFamilyList" droits="consult" label="Familles de contenants" tooltip="Familles de contenants (armoires, éprouvettes...)" />
 		<item module="containerTypeList" droits="consult" label="Types de contenants" tooltip="Liste des types de contenants" />
 	</item>
@@ -82,7 +80,9 @@
 	<item module="appliList" droits="admin" label="ACL - droits" tooltip="applications et droits gérés"/>
 	<item module="aclloginList" droits="admin" label="ACL - logins" tooltip="Logins déclarés dans le module de gestion des droits"/>
 	<item module="groupList" droits="admin" label="ACL - groupes de logins" tooltip="Groupes de logins et logins rattachés aux groupes"/>
+	<item divider='1'/>
 	<item module="dbparamList" droits="admin" label="Paramètres de l'application" tooltip="Liste des paramètres pérennes de l'application" />
+	<item module="containerVerifyCyclic" label="Recherche des mouvements cycliques" tooltip="Recherche des contenants contenus dans un contenant qu'ils contiennent"/>
 	<item divider='1'/>
 	<item module="logList" droits="admin" label="Logs" tooltip="Consultation des logs enregistrées"/>
 	<item module="dbstructureGacl" droits="admin" label="Structure de la base de données des droits (HTML)" tooltip="Liste des tables et des colonnes de la base de données de gestion des droits"/>

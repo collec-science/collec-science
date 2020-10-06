@@ -117,7 +117,7 @@ $(document).ready( function() {
 <li>{t 1='x'}%1 : coordonnée wgs84_x de l'objet (lieu de prélèvement ou de stockage suivant le cas){/t}</li>
 <li>{t 1='y'}%1 : coordonnée wgs84_y de l'objet{/t}</li>
 <li>{t 1='loc'}%1 : localisation du prélèvement (table des lieux de prélèvement){/t}</li>
-<li>{t 1='ctry')%1 : code du pays de collecte{/t}</li>
+<li>{t 1='ctry'}%1 : code du pays de collecte{/t}</li>
 <li>{t 1='prod'}%1 : produit utilisé pour la conservation{/t}</li>
 <li>{t 1='cd'}%1 : date de création de l'échantillon dans la base de données{/t}</li>
 <li>{t 1='sd'}%1 : date d'échantillonnage{/t}</li>

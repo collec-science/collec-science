@@ -655,6 +655,7 @@ class Sample extends ObjetBDD
             campaign_name,
             case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
             ,o.uuid
+            ,ctry.country_code2 as country_code
             from sample
             join object o using(uid)
             join collection c using (collection_id)
@@ -665,6 +666,7 @@ class Sample extends ObjetBDD
             left outer join referent ro on (o.referent_id = ro.referent_id)
             left outer join referent cr on (c.referent_id = cr.referent_id)
             left outer join campaign using (campaign_id)
+            left outer join country ctry on (sample.country_id = ctry.country_id)
              where o.uid in (" . $uids . ")";
       $d = $this->getListeParam($sql);
       $this->auto_date = 1;

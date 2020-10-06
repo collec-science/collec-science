@@ -266,6 +266,8 @@
 	<samplingPlaceGetFromCollection action="modules/param/samplingPlace.php" param="getFromCollection" droits="gestion" type="ajax"/>
 	<samplingPlaceGetCoordinate action="modules/param/samplingPlace.php" param="getCoordinate" droits="gestion" type="ajax"/>
 
+	<countryList action="modules/param/country.php" param="list" droits="consult" retourlogin="1" type="smarty"/>
+
 	<subsampleChange action="modules/gestion/subsample.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<subsampleWrite action="modules/gestion/subsample.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange" />
 	<subsampleDelete action="modules/gestion/subsample.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange"/>

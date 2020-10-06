@@ -257,7 +257,8 @@ class SearchSample extends SearchParam
       "SouthWestlat" => "",
       "NorthEastlon" => "",
       "NorthEastlat" => "",
-      "campaign_id" => ""
+      "campaign_id" => "",
+      "country_id" => $_SESSION["countryDefaultId"]
     );
     /**
      * Ajout des dates
@@ -278,7 +279,8 @@ class SearchSample extends SearchParam
       "SouthWestlat",
       "NorthEastlon",
       "NorthEastlat",
-      "campaign_id"
+      "campaign_id",
+      "country_id"
     );
     parent::__construct();
   }

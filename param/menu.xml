@@ -54,6 +54,7 @@
 	<item module="multipleTypeList" droits="consult" label="Types de sous-échantillonnage" tooltip="Types de sous-échantillonnage" />
 	<item module="metadataList" droits="consult" label="Métadonnées" tooltip="Modèles de métadonnées" />
 	<item module="samplingPlaceList" droits="consult" label="Lieux de prélèvement" tooltip="Liste des lieux de prélèvement des échantillons" />
+	<item module="countryList" droits="consult" label="Liste des pays" tooltip="Liste officielle des pays" />
 	<item divider='1'/>
 	<item module="eventTypeList" droits="consult" label="Types d'événement" tooltip="Types d'événement" />
 	<item module="storageConditionList" droits="consult" label="Conditions de stockage" tooltip="Liste des conditions de stockage" />

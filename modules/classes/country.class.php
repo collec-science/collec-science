@@ -7,7 +7,7 @@ class Country extends ObjetBDD
 
   function __construct($bdd, $param = array())
   {
-    $this->table = "container_type";
+    $this->table = "country";
     $this->colonnes = array(
       "country_id" => array(
         "type" => 1,

@@ -52,6 +52,9 @@ function sampleInitDatEntry()
     include_once 'modules/classes/containerFamily.class.php';
     $cf = new ContainerFamily($bdd, $ObjetBDDParam);
     $vue->set($cf->getListe(2),"containerFamily");
+    include_once 'modules/classes/country.class.php';
+    $country = new Country($bdd, $ObjetBDDParam);
+    $vue->set($country->getListe(2), "countries");
 }
 
 class SampleInitClassException extends Exception
@@ -113,13 +116,19 @@ class SampleInitClass
             "classname" => "Campaign",
             "field" => "campaign_name",
             "id" => "campaign_id"
+        ),
+        "country_code" => array(
+            "filename" => "country.class.php",
+            "classname" => "Country",
+            "field" => "country_code2",
+            "id"=>"country_id"
         )
     );
 
     /**
      * Si $reverse vaut true, retourne, pour chaque classe, un tableau dont la cle
      * est le libelle et la valeur l'identifiant associe
-     * 
+     *
      * @param boolean $reverse
      * @return array[]
      */

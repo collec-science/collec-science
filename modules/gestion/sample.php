@@ -231,9 +231,9 @@ switch ($t_module["param"]) {
         if ($dataParent["sample_id"] > 0) {
           if ($data["sample_id"] == 0) {
             $data["parent_sample_id"] = $dataParent["sample_id"];
-            /*
-                         * Pre-positionnement des informations de base
-                         */
+            /**
+             * Pre-positionnement des informations de base
+             */
             $data["collection_id"] = $dataParent["collection_id"];
             $data["wgs84_x"] = $dataParent["wgs84_x"];
             $data["wgs84_y"] = $dataParent["wgs84_y"];
@@ -243,6 +243,7 @@ switch ($t_module["param"]) {
             $data["referent_id"] = $dataParent["referent_id"];
             $data["identifier"] = $dataParent["identifier"];
             $data["campaign_id"] = $dataParent["campaign_id"];
+            $data["country_id"] = $dataParent["country_id"];
             $data["uuid"] = $dataClass->getUUID();
           }
           $vue->set($data, "data");
@@ -251,9 +252,9 @@ switch ($t_module["param"]) {
 
         if ($data["sample_id"] == 0 && ($_SESSION["last_sample_id"] > 0 || $_REQUEST["last_sample_id"] > 0)) {
           $_REQUEST["last_sample_id"] > 0 ? $lid = $_REQUEST["last_sample_id"] : $lid = $_SESSION["last_sample_id"];
-          /*
-                     * Recuperation des dernieres donnees saisies
-                     */
+          /**
+           * Recuperation des dernieres donnees saisies
+           */
           $dl = $dataClass->lire($lid);
           $data["wgs84_x"] = $dl["wgs84_x"];
           $data["wgs84_y"] = $dl["wgs84_y"];
@@ -267,6 +268,10 @@ switch ($t_module["param"]) {
           $data["expiration_date"] = $dl["expiration_date"];
           $data["referent_id"] = $dl["referent_id"];
           $data["campaign_id"] = $dl["campaign_id"];
+          $data["country_id"] = $dl["country_id"];
+          if (empty($data["country_id"])) {
+            $data["country_id"] = $_SESSION["countryDefaultId"];
+          }
           if ($_REQUEST["is_duplicate"] == 1) {
             $data["parent_sample_id"] = $dl["parent_sample_id"];
             $data["sample_type_id"] = $dl["sample_type_id"];
@@ -280,27 +285,6 @@ switch ($t_module["param"]) {
           $vue->set($data, "data");
         }
       }
-
-      /*
-             * Recuperation des referents
-             */
-      include_once 'modules/classes/referent.class.php';
-      $referent = new Referent($bdd, $ObjetBDDParam);
-      $vue->set($referent->getListe(2), "referents");
-
-      /**
-       * Get the list of campaigns
-       */
-      include_once "modules/classes/campaign.class.php";
-      $campaign = new Campaign($bdd, $ObjetBDDParam);
-      $vue->set($campaign->getListe(2), "campaigns");
-
-      /**
-       * Recuperation des types d'evenements
-       */
-      include_once 'modules/classes/eventType.class.php';
-      $eventType = new EventType($bdd, $ObjetBDDParam);
-      $vue->set($eventType->getListe(1), "eventType");
 
       sampleInitDatEntry();
 

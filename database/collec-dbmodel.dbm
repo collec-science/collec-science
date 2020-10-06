@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,348" last-zoom="0.75" max-obj-count="70"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,612" last-zoom="0.75" max-obj-count="72"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -315,7 +315,8 @@ Congélateur•2]]>
 2•APPLI_title•Collec-Science - instance for ⸣
 3•mapDefaultX•-0.70⸣
 4•mapDefaultY•44.77⸣
-5•mapDefaultZoom•7]]>
+5•mapDefaultZoom•7⸣
+6•countryDefaultId•250]]>
 	</initial-data>
 </table>
 
@@ -773,7 +774,7 @@ xml•application/xml]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table of categories of potential sub-sampling (unit, quantity, percentage, etc.)]]></comment>
 	<tag name="sample"/>
-	<position x="600" y="1380"/>
+	<position x="620" y="1620"/>
 	<column name="multiple_type_id" not-null="true" sequence="col.multiple_type_multiple_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -871,7 +872,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[List of operations attached to a protocol]]></comment>
 	<tag name="collection"/>
-	<position x="600" y="1120"/>
+	<position x="600" y="1380"/>
 	<column name="operation_id" not-null="true" sequence="col.operation_operation_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -990,7 +991,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[List of protocols]]></comment>
 	<tag name="collection"/>
-	<position x="600" y="840"/>
+	<position x="600" y="1120"/>
 	<column name="protocol_id" not-null="true" sequence="col.protocol_protocol_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1095,7 +1096,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="sample" layer="0" collapse-mode="1" max-obj-count="15">
+<table name="sample" layer="0" collapse-mode="1" max-obj-count="16">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of samples]]></comment>
@@ -1207,7 +1208,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="sampling_place" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="sampling_place" layer="0" collapse-mode="1" max-obj-count="8">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of sampling places]]></comment>
@@ -2037,6 +2038,16 @@ WHERE
 		<reftable name="col.container"/>
 	</reference>
 </view>
+
+<relationship name="rel_slots_used_movement" type="reltv" layer="0"
+	 src-table="col.slots_used"
+	 dst-table="col.movement"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_slots_used_container" type="reltv" layer="0"
+	 src-table="col.slots_used"
+	 dst-table="col.container"
+	 src-required="false" dst-required="false"/>
 
 <index name="log_module_idx" table="gacl.log"
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
@@ -3003,15 +3014,310 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 		</idxelement>
 </index>
 
-<relationship name="rel_slots_used_movement" type="reltv" layer="0"
-	 src-table="col.slots_used"
-	 dst-table="col.movement"
-	 src-required="false" dst-required="false"/>
+<table name="country" layer="0" collapse-mode="2" max-obj-count="4">
+	<schema name="col"/>
+	<role name="collec"/>
+	<comment><![CDATA[List of the countries]]></comment>
+	<tag name="collection"/>
+	<position x="600" y="840"/>
+	<column name="country_id" not-null="true">
+		<type name="integer" length="0"/>
+		<comment><![CDATA[Numeric ISO code of the country]]></comment>
+	</column>
+	<column name="country_name" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Name of the country]]></comment>
+	</column>
+	<column name="country_code2" not-null="true">
+		<type name="varchar" length="2"/>
+		<comment><![CDATA[Code of the country, on 2 positions]]></comment>
+	</column>
+	<column name="country_code3">
+		<type name="varchar" length="3"/>
+		<comment><![CDATA[Code of the country, on 3 positions]]></comment>
+	</column>
+	<constraint name="country_pk" type="pk-constr" table="col.country">
+		<columns names="country_id" ref-type="src-columns"/>
+	</constraint>
+	<initial-data>
+<![CDATA[country_id•country_name•country_code2•country_code3⸣
+4•Afghanistan•AF•AFG⸣
+248•Îles Åland•AX•ALA⸣
+8•Albanie•AL•ALB⸣
+12•Algérie•DZ•DZA⸣
+16•Samoa américaines•AS•ASM⸣
+20•Andorre•AD•AND⸣
+24•Angola•AO•AGO⸣
+660•Anguilla•AI•AIA⸣
+10•Antarctique•AQ•ATA⸣
+28•Antigua-et-Barbuda•AG•ATG⸣
+32•Argentine•AR•ARG⸣
+51•Arménie•AM•ARM⸣
+533•Aruba•AW•ABW⸣
+36•Australie•AU•AUS⸣
+40•Autriche•AT•AUT⸣
+31•Azerbaïdjan•AZ•AZE⸣
+44•Bahamas•BS•BHS⸣
+48•Bahreïn•BH•BHR⸣
+50•Bangladesh•BD•BGD⸣
+52•Barbade•BB•BRB⸣
+112•Biélorussie•BY•BLR⸣
+56•Belgique•BE•BEL⸣
+84•Belize•BZ•BLZ⸣
+204•Bénin•BJ•BEN⸣
+60•Bermudes•BM•BMU⸣
+64•Bhoutan•BT•BTN⸣
+68•Bolivie•BO•BOL⸣
+70•Bosnie-Herzégovine•BA•BIH⸣
+72•Botswana•BW•BWA⸣
+74•Île Bouvet•BV•BVT⸣
+76•Brésil•BR•BRA⸣
+92•British Virgin Islands•VG•VGB⸣
+86•Territoire britannique de l’Océan Indien•IO•IOT⸣
+96•Brunei Darussalam•BN•BRN⸣
+100•Bulgarie•BG•BGR⸣
+854•Burkina Faso•BF•BFA⸣
+108•Burundi•BI•BDI⸣
+116•Cambodge•KH•KHM⸣
+120•Cameroun•CM•CMR⸣
+124•Canada•CA•CAN⸣
+132•Cap-Vert•CV•CPV⸣
+136•Iles Cayman•KY•CYM⸣
+140•République centrafricaine•CF•CAF⸣
+148•Tchad•TD•TCD⸣
+152•Chili•CL•CHL⸣
+156•Chine•CN•CHN⸣
+344•Hong Kong•HK•HKG⸣
+446•Macao•MO•MAC⸣
+162•Île Christmas•CX•CXR⸣
+166•Îles Cocos•CC•CCK⸣
+170•Colombie•CO•COL⸣
+174•Comores•KM•COM⸣
+178•République du Congo•CG•COG⸣
+180•République démocratique du Congo•CD•COD⸣
+184•Îles Cook•CK•COK⸣
+188•Costa Rica•CR•CRI⸣
+384•Côte d’Ivoire•CI•CIV⸣
+191•Croatie•HR•HRV⸣
+192•Cuba•CU•CUB⸣
+196•Chypre•CY•CYP⸣
+203•République tchèque•CZ•CZE⸣
+208•Danemark•DK•DNK⸣
+262•Djibouti•DJ•DJI⸣
+212•Dominique•DM•DMA⸣
+214•République dominicaine•DO•DOM⸣
+218•Équateur•EC•ECU⸣
+818•Égypte•EG•EGY⸣
+222•Salvador•SV•SLV⸣
+226•Guinée équatoriale•GQ•GNQ⸣
+232•Érythrée•ER•ERI⸣
+233•Estonie•EE•EST⸣
+231•Éthiopie•ET•ETH⸣
+238•Îles Falkland•FK•FLK⸣
+234•Îles Féroé•FO•FRO⸣
+242•Fidji•FJ•FJI⸣
+246•Finlande•FI•FIN⸣
+250•France•FR•FRA⸣
+254•Guyane française•GF•GUF⸣
+258•Polynésie française•PF•PYF⸣
+260•Terres australes et antarctiques françaises•TF•ATF⸣
+266•Gabon•GA•GAB⸣
+270•Gambie•GM•GMB⸣
+268•Géorgie•GE•GEO⸣
+276•Allemagne•DE•DEU⸣
+288•Ghana•GH•GHA⸣
+292•Gibraltar•GI•GIB⸣
+300•Grèce•GR•GRC⸣
+304•Groenland•GL•GRL⸣
+308•Grenade•GD•GRD⸣
+312•Guadeloupe•GP•GLP⸣
+316•Guam•GU•GUM⸣
+320•Guatemala•GT•GTM⸣
+831•Guernesey•GG•GGY⸣
+324•Guinée•GN•GIN⸣
+624•Guinée-Bissau•GW•GNB⸣
+328•Guyane•GY•GUY⸣
+332•Haïti•HT•HTI⸣
+334•Îles Heard-et-MacDonald•HM•HMD⸣
+336•Saint-Siège (Vatican)•VA•VAT⸣
+340•Honduras•HN•HND⸣
+348•Hongrie•HU•HUN⸣
+352•Islande•IS•ISL⸣
+356•Inde•IN•IND⸣
+360•Indonésie•ID•IDN⸣
+364•Iran•IR•IRN⸣
+368•Irak•IQ•IRQ⸣
+372•Irlande•IE•IRL⸣
+833•Ile de Man•IM•IMN⸣
+376•Israël•IL•ISR⸣
+380•Italie•IT•ITA⸣
+388•Jamaïque•JM•JAM⸣
+392•Japon•JP•JPN⸣
+832•Jersey•JE•JEY⸣
+400•Jordanie•JO•JOR⸣
+398•Kazakhstan•KZ•KAZ⸣
+404•Kenya•KE•KEN⸣
+296•Kiribati•KI•KIR⸣
+408•Corée du Nord•KP•PRK⸣
+410•Corée du Sud•KR•KOR⸣
+414•Koweït•KW•KWT⸣
+417•Kirghizistan•KG•KGZ⸣
+418•Laos•LA•LAO⸣
+428•Lettonie•LV•LVA⸣
+422•Liban•LB•LBN⸣
+426•Lesotho•LS•LSO⸣
+430•Libéria•LR•LBR⸣
+434•Libye•LY•LBY⸣
+438•Liechtenstein•LI•LIE⸣
+440•Lituanie•LT•LTU⸣
+442•Luxembourg•LU•LUX⸣
+807•Macédoine•MK•MKD⸣
+450•Madagascar•MG•MDG⸣
+454•Malawi•MW•MWI⸣
+458•Malaisie•MY•MYS⸣
+462•Maldives•MV•MDV⸣
+466•Mali•ML•MLI⸣
+470•Malte•MT•MLT⸣
+584•Îles Marshall•MH•MHL⸣
+474•Martinique•MQ•MTQ⸣
+478•Mauritanie•MR•MRT⸣
+480•Maurice•MU•MUS⸣
+175•Mayotte•YT•MYT⸣
+484•Mexique•MX•MEX⸣
+583•Micronésie•FM•FSM⸣
+498•Moldavie•MD•MDA⸣
+492•Monaco•MC•MCO⸣
+496•Mongolie•MN•MNG⸣
+499•Monténégro•ME•MNE⸣
+500•Montserrat•MS•MSR⸣
+504•Maroc•MA•MAR⸣
+508•Mozambique•MZ•MOZ⸣
+104•Myanmar•MM•MMR⸣
+516•Namibie•NA•NAM⸣
+520•Nauru•NR•NRU⸣
+524•Népal•NP•NPL⸣
+528•Pays-Bas•NL•NLD⸣
+540•Nouvelle-Calédonie•NC•NCL⸣
+554•Nouvelle-Zélande•NZ•NZL⸣
+558•Nicaragua•NI•NIC⸣
+562•Niger•NE•NER⸣
+566•Nigeria•NG•NGA⸣
+570•Niue•NU•NIU⸣
+574•Île Norfolk•NF•NFK⸣
+580•Îles Mariannes du Nord•MP•MNP⸣
+578•Norvège•NO•NOR⸣
+512•Oman•OM•OMN⸣
+586•Pakistan•PK•PAK⸣
+585•Palau•PW•PLW⸣
+275•Palestine•PS•PSE⸣
+591•Panama•PA•PAN⸣
+598•Papouasie-Nouvelle-Guinée•PG•PNG⸣
+600•Paraguay•PY•PRY⸣
+604•Pérou•PE•PER⸣
+608•Philippines•PH•PHL⸣
+612•Pitcairn•PN•PCN⸣
+616•Pologne•PL•POL⸣
+620•Portugal•PT•PRT⸣
+630•Puerto Rico•PR•PRI⸣
+634•Qatar•QA•QAT⸣
+638•Réunion•RE•REU⸣
+642•Roumanie•RO•ROU⸣
+643•Russie•RU•RUS⸣
+646•Rwanda•RW•RWA⸣
+652•Saint-Barthélemy•BL•BLM⸣
+654•Sainte-Hélène•SH•SHN⸣
+659•Saint-Kitts-et-Nevis•KN•KNA⸣
+662•Sainte-Lucie•LC•LCA⸣
+663•Saint-Martin (partie française)•MF•MAF⸣
+534•Saint-Martin (partie néerlandaise)•SX•SXM⸣
+666•Saint-Pierre-et-Miquelon•PM•SPM⸣
+670•Saint-Vincent-et-les Grenadines•VC•VCT⸣
+882•Samoa•WS•WSM⸣
+674•Saint-Marin•SM•SMR⸣
+678•Sao Tomé-et-Principe•ST•STP⸣
+682•Arabie Saoudite•SA•SAU⸣
+686•Sénégal•SN•SEN⸣
+688•Serbie•RS•SRB⸣
+690•Seychelles•SC•SYC⸣
+694•Sierra Leone•SL•SLE⸣
+702•Singapour•SG•SGP⸣
+703•Slovaquie•SK•SVK⸣
+705•Slovénie•SI•SVN⸣
+90•Îles Salomon•SB•SLB⸣
+706•Somalie•SO•SOM⸣
+710•Afrique du Sud•ZA•ZAF⸣
+239•Géorgie du Sud et les îles Sandwich du Sud•GS•SGS⸣
+728•Sud-Soudan•SS•SSD⸣
+724•Espagne•ES•ESP⸣
+144•Sri Lanka•LK•LKA⸣
+736•Soudan•SD•SDN⸣
+740•Suriname•SR•SUR⸣
+744•Svalbard et Jan Mayen•SJ•SJM⸣
+748•Eswatini•SZ•SWZ⸣
+752•Suède•SE•SWE⸣
+756•Suisse•CH•CHE⸣
+760•Syrie•SY•SYR⸣
+158•Taiwan•TW•TWN⸣
+762•Tadjikistan•TJ•TJK⸣
+834•Tanzanie•TZ•TZA⸣
+764•Thaïlande•TH•THA⸣
+626•Timor-Leste•TL•TLS⸣
+768•Togo•TG•TGO⸣
+772•Tokelau•TK•TKL⸣
+776•Tonga•TO•TON⸣
+780•Trinité-et-Tobago•TT•TTO⸣
+788•Tunisie•TN•TUN⸣
+792•Turquie•TR•TUR⸣
+795•Turkménistan•TM•TKM⸣
+796•Îles Turques-et-Caïques•TC•TCA⸣
+798•Tuvalu•TV•TUV⸣
+800•Ouganda•UG•UGA⸣
+804•Ukraine•UA•UKR⸣
+784•Émirats Arabes Unis•AE•ARE⸣
+826•Royaume-Uni•GB•GBR⸣
+840•États-Unis•US•USA⸣
+581•Îles mineures éloignées des États-Unis•UM•UMI⸣
+858•Uruguay•UY•URY⸣
+860•Ouzbékistan•UZ•UZB⸣
+548•Vanuatu•VU•VUT⸣
+862•Venezuela•VE•VEN⸣
+704•Viêt Nam•VN•VNM⸣
+850•Îles Vierges américaines•VI•VIR⸣
+876•Wallis-et-Futuna•WF•WLF⸣
+732•Sahara occidental•EH•ESH⸣
+887•Yémen•YE•YEM⸣
+894•Zambie•ZM•ZMB⸣
+716•Zimbabwe•ZW•ZWE]]>
+	</initial-data>
+</table>
 
-<relationship name="rel_slots_used_container" type="reltv" layer="0"
-	 src-table="col.slots_used"
-	 dst-table="col.container"
-	 src-required="false" dst-required="false"/>
+<index name="country_code2_idx" table="col.country"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="country_code2"/>
+		</idxelement>
+</index>
+
+<relationship name="country_has_many_sample" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#31e42e"
+	 src-table="col.country"
+	 dst-table="col.sample"
+	 src-required="false" dst-required="false"
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+
+<relationship name="country_has_many_sampling_place" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#a4ca3d"
+	 src-table="col.country"
+	 dst-table="col.sampling_place"
+	 src-required="false" dst-required="false"
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
@@ -3445,7 +3751,7 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 dst-table="col.sample" reference-fk="sample_sample_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="983.64" y="926.067"/>
+		<position x="983.64" y="931.6"/>
 	<position x="983.64" y="817"/>
 	<position x="907.093" y="817"/>
 	</line>

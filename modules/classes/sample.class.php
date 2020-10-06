@@ -28,6 +28,9 @@ class Sample extends ObjetBDD
           so.identifier,
           case when so.wgs84_x is not null then so.wgs84_x else sp.sampling_place_x end as wgs84_x,
           case when so.wgs84_y is not null then so.wgs84_y else sp.sampling_place_y end as wgs84_y,
+          case when s.country_id is not null then sc.country_id else csp.country_id end as country_id,
+          case when s.country_id is not null then sc.country_name else csp.country_name end as country_name,
+          case when s.country_id is not null then sc.country_code2 else csp.country_code2 end as country_code2,
           so.object_status_id, object_status_name,so.referent_id,
           so.change_date, so.uuid, so.trashed, so.location_accuracy, so.object_comment,
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
@@ -78,6 +81,8 @@ class Sample extends ObjetBDD
           left outer join last_borrowing lb on (so.uid = lb.uid)
           left outer join borrower using (borrower_id)
           left outer join campaign on (s.campaign_id = campaign.campaign_id)
+          left outer join country sc on (s.country_id = sc.country_id)
+          left outer join country csp on (sp.country_id = csp.country_id)
           ";
   private $object, $container, $event, $objectIdentifier;
 
@@ -132,7 +137,8 @@ class Sample extends ObjetBDD
       "expiration_date" => array(
         "type" => 2,
       ),
-      "campaign_id" => array("type" => 1)
+      "campaign_id" => array("type" => 1),
+      "country_id" => array("type"=>1)
     );
     parent::__construct($bdd, $param);
   }
@@ -379,7 +385,7 @@ class Sample extends ObjetBDD
      * Verification de la presence des parametres
      */
     $searchOk = false;
-    $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id");
+    $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id");
     if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0) {
       $searchOk = true;
     } else {
@@ -468,6 +474,11 @@ class Sample extends ObjetBDD
         $where .= $and . " s.campaign_id = :campaign_id";
         $and = " and ";
         $data["campaign_id"] = $param["campaign_id"];
+      }
+      if ($param["country_id"] > 0) {
+        $where .= $and. " (s.country_id = :country_id or sp.country_id = :country_id)";
+        $and = " and ";
+        $data["country_id"] = $param["country_id"];
       }
 
       if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {

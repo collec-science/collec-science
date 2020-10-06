@@ -97,6 +97,8 @@
 <li><b>multiple_value</b> : {t}nombre ou quantité de sous-échantillons disponibles{/t}</li>
 <li><b>campaign_name</b> : {t}nom de la campagne de prélèvement{/t}</li>
 <li><b>sampling_place_name</b> : {t}lieu de prélèvement de l'échantillon{/t}</li>
+<li><b>country_code</b> : {t}code du pays, sur deux caractères{/t}</li>
+<li><b>comment</b> : {t}Commentaire sur l'échantillon{/t}</li>
 <li><b>metadata</b> : {t}liste des métadonnées associées, au format JSON. Il est également possible de définir des métadonnées au format texte, en respectant les règles suivantes :{/t}
 <ul>
 <li>{t}un champ par métadonnée{/t}</li>
@@ -105,7 +107,7 @@
 </ul>
 </li>
 <li><b>identifiers</b> : {t}liste des identifiants secondaires, sous la forme :{/t} code1:val1,code2:val2</li>
-<li><b>dbuid_parent</b> : {t escape=no}dans le cas d'un échantillon dérivé, identifiant du parent sous la forme code_base:identifiant. Cette valeur correspond à la valeur <i>dbuid_origin</i> de l'échantillon parent.{/t} 
+<li><b>dbuid_parent</b> : {t escape=no}dans le cas d'un échantillon dérivé, identifiant du parent sous la forme code_base:identifiant. Cette valeur correspond à la valeur <i>dbuid_origin</i> de l'échantillon parent.{/t}
 {t}Ce dernier doit avoir été importé préalablement pour que la relation puisse être créee{/t}
 </li>
 </ul>

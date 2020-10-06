@@ -148,7 +148,9 @@ switch ($t_module["param"]) {
                         "referent_name",
                         "uuid",
                         "location_accuracy",
-                        "campaign_name"
+                        "campaign_name",
+                        "comment",
+                        "country_code"
                     );
                     $importFile = new Import($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $importFile->getContentAsArray();

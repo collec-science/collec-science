@@ -558,7 +558,8 @@ switch ($t_module["param"]) {
             "location_accuracy",
             "campaign_name",
             "uuid",
-            "country_code"
+            "country_code",
+            "comment"
           );
           $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
           $data = $import->getContentAsArray();

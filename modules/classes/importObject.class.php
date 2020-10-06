@@ -934,6 +934,15 @@ class ImportObject
           }
         }
       }
+      /**
+       * Comment
+       */
+      if (!empty($row["comment"])) {
+        $dataSample["object_comment"] = $row["comment"];
+      }
+      if (!empty($row["country_code"])) {
+        $dataSample["country_id"] = $this->country->getIdFromCode($row["country_code"]);
+      }
       $fieldDates = array(
         "sampling_date",
         "expiration_date",

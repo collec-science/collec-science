@@ -84,7 +84,7 @@ class Sample extends ObjetBDD
           left outer join country sc on (s.country_id = sc.country_id)
           left outer join country csp on (sp.country_id = csp.country_id)
           ";
-  private $object, $container, $event, $objectIdentifier;
+  private $object, $container, $event, $objectIdentifier, $country;
 
   public function __construct($bdd, $param = array())
   {
@@ -138,7 +138,7 @@ class Sample extends ObjetBDD
         "type" => 2,
       ),
       "campaign_id" => array("type" => 1),
-      "country_id" => array("type"=>1)
+      "country_id" => array("type" => 1)
     );
     parent::__construct($bdd, $param);
   }
@@ -264,7 +264,7 @@ class Sample extends ObjetBDD
           if ($firstUid == 0 && $data["parent_sample_id"] > 0 && $data["multiple_value"] > 0) {
             $parentData = $this->lireFromId($data["parent_sample_id"]);
             if ($parentData["multiple_value"] > 0) {
-              if (!isset ($this->subsample)) {
+              if (!isset($this->subsample)) {
                 $this->subsample = $this->classInstanciate("Subsample", "subsample.class.php");
               }
               $dataSubsample = $this->subsample->getDefaultValue();
@@ -476,7 +476,7 @@ class Sample extends ObjetBDD
         $data["campaign_id"] = $param["campaign_id"];
       }
       if ($param["country_id"] > 0) {
-        $where .= $and. " (s.country_id = :country_id or sp.country_id = :country_id)";
+        $where .= $and . " (s.country_id = :country_id or sp.country_id = :country_id)";
         $and = " and ";
         $data["country_id"] = $param["country_id"];
       }
@@ -648,7 +648,8 @@ class Sample extends ObjetBDD
       throw new SampleException("Pas d'échantillons sélectionnés");
     } else {
       $this->auto_date = 0;
-      $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy, object_comment,
+      $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy
+            , object_comment as comment,
              c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
              multiple_value, sampling_place_name, metadata::varchar,
             voi.identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,
@@ -855,13 +856,25 @@ class Sample extends ObjetBDD
           throw new SampleException(sprintf(_("Le champ %s n'est pas numérique"), $numField));
         }
       }
-      /*
-             * Verification de la colonne metadata
-             */
+      /**
+       * Verification de la colonne metadata
+       */
       if (strlen($row["metadata"]) > 2) {
         $a_m = json_decode($row["metadata"], true);
         if (count($a_m) == 0) {
           throw new SampleException(_("Les métadonnées ne sont pas correctement formatées (champ metadata)"));
+        }
+      }
+      /**
+       * Verification du pays
+       */
+      if (!empty($row["country_code"])) {
+        if (!isset($this->country)) {
+          $this->country = $this->classInstanciate("Country", "country.class.php");
+        }
+        $country_id = $this->country->getIdFromCode($row["country_code"]);
+        if (! $country_id > 0) {
+          throw new SampleException(sprintf(_("Le code de pays %s n'est pas connu"), $row["country_code"]));
         }
       }
     }
@@ -898,13 +911,13 @@ class Sample extends ObjetBDD
         $uuidFound = true;
       }
     }
-    /*
-         * Recherche de l'uid existant a partir de dbuid_origin
-         */
+    /**
+     * Recherche de l'uid existant a partir de dbuid_origin
+     */
     if (strlen($data["dbuid_origin"]) > 0 && !$uuidFound) {
-      /*
-             * Recherche si c'est une reintegration dans la base d'origine
-             */
+      /**
+       * Recherche si c'est une reintegration dans la base d'origine
+       */
       $field = explode(":", $data["dbuid_origin"]);
       if ($field[0] == $_SESSION["APPLI_code"]) {
         $uid = $field[1];
@@ -916,8 +929,20 @@ class Sample extends ObjetBDD
         $data["uid"] = $uid;
       }
     }
+    /**
+     * Reformatage des données diverses
+     */
+    if (!empty($data["comment"])) {
+      $data["object_comment"] = $data["comment"];
+    }
+    if (!empty($data["country_code"])) {
+      if (!isset($this->country)) {
+        $this->country = $this->classInstanciate("Country", "country.class.php");
+      }
+      $data["country_id"] = $this->country->getIdFromCode($data["country_code"]);
+    }
 
-    /*
+    /**
          * Recuperation de l'echantillon parent, si existant
          */
     if (strlen($data["dbuid_parent"]) > 0) {
@@ -939,9 +964,9 @@ class Sample extends ObjetBDD
     $uid = $object->ecrire($data);
     if ($uid > 0) {
       $data["uid"] = $uid;
-      /*
-             * Recherche de l'identifiant d'origine (sample_id)
-             */
+      /**
+       * Recherche de l'identifiant d'origine (sample_id)
+       */
       $dataOrigine = $this->lire($uid);
       if ($dataOrigine["sample_id"] > 0) {
         $data["sample_id"] = $dataOrigine["sample_id"];

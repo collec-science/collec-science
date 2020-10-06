@@ -1,4 +1,4 @@
-INSERT INTO col.dbparam (dbparam_id, dbparam_name, dbparam_value) VALUES (E'6', E'countryDefaultId', E'250');
+
 CREATE TABLE col.country (
 	country_id integer NOT NULL,
 	country_name varchar NOT NULL,

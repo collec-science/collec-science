@@ -16,6 +16,7 @@
 <th>{t}Collection{/t}</th>
 <th>{t}Longitude{/t}</th>
 <th>{t}Latitude{/t}</th>
+<th>{t}Pays{/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -35,6 +36,7 @@
 <td>{$data[lst].collection_name}</td>
 <td>{$data[lst].sampling_place_x}</td>
 <td>{$data[lst].sampling_place_y}</td>
+<td>{$data[lst].country_name}</td>
 </tr>
 {/section}
 </tbody>
@@ -89,6 +91,7 @@
 <li>{t}code : code métier du lieu de prélèvement{/t}</li>
 <li>{t}x : longitude du point en projection WGS84, sous forme numérique (séparateur : point){/t}</li>
 <li>{t}y : latitude du point{/t}</li>
+<li>{t}country_code : code du pays, sur 2 positions{/t} (<a href="index.php?module=countryList">{t}Consultez la liste des pays{/t}</a>)</li>
 </ul>
 </div>
 </form>

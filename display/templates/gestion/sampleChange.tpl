@@ -547,6 +547,19 @@
 					</div>
 				</div>
 				<div class="form-group">
+				<label for="country_id" class="control-label col-md-4">{t}Pays de collecte :{/t}</label>
+					<div class="col-md-8">
+						<select id="country_id" name="country_id" class="form-control">
+							<option value="" {if $data.country_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+							{foreach $countries as $country}
+								<option value="{$country.country_id}" {if $data.country_id == $country.country_id}selected{/if}>
+									{$country.country_name}
+								</option>
+							{/foreach}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
 					<label for="sampling_place_id" class="control-label col-md-4">{t}Lieu de prélèvement :{/t}</label>
 					<div class="col-md-8">
 						<select id="sampling_place_id" name="sampling_place_id" class="form-control ">

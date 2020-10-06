@@ -315,8 +315,7 @@ Congélateur•2]]>
 2•APPLI_title•Collec-Science - instance for ⸣
 3•mapDefaultX•-0.70⸣
 4•mapDefaultY•44.77⸣
-5•mapDefaultZoom•7⸣
-6•countryDefaultId•250]]>
+5•mapDefaultZoom•7]]>
 	</initial-data>
 </table>
 
@@ -3318,6 +3317,14 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 dst-table="col.sampling_place"
 	 src-required="false" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+
+<index name="country_id_idx" table="col.sample"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="country_id"/>
+		</idxelement>
+</index>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

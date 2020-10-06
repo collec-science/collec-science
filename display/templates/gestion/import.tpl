@@ -5,7 +5,7 @@
 <div class="row col-md-8">
 <form id="importForm" method="post" action="index.php">
 <input type="hidden" name="module" value="importImport">
-{t}Contrôles OK.{/t} {t 1=$filename}Vous pouvez réaliser l'import du fichier (%1) :{/t} 
+{t}Contrôles OK.{/t} {t 1=$filename}Vous pouvez réaliser l'import du fichier (%1) :{/t}
 <button type="submit" class="btn btn-danger">{t}Déclencher l'import{/t}</button>
 </form>
 </div>
@@ -97,6 +97,7 @@
                   <li><b>sample_status_id</b> : {t}le numéro du statut de l'échantillon (obligatoire){/t}</li>
                   <li><b>campaign_id</b> : {t}le numéro informatique de la campagne de prélèvement{/t}</li>
                   <li><b>sampling_place_id</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé{/t}</li>
+                  <li><b>country_code</b>: {t}le code du pays, sur deux positions{/t}</li>
                   <li><b>referent_id</b> : {t}le numéro informatique du référent{/t}</li>
                   <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                   <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
@@ -147,8 +148,3 @@
 </div>
 </div>
 <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
-
-
-
-
-

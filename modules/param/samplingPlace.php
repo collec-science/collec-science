@@ -29,6 +29,9 @@ switch ($t_module["param"]) {
         dataRead($dataClass, $id, "param/samplingPlaceChange.tpl");
         include 'modules/gestion/mapInit.php';
         $vue->set($_SESSION["collections"], "collections");
+        include "modules/classes/country.class.php";
+        $country = new Country($bdd, $ObjetBDDParam);
+        $vue->set($country->getListe(2), "countries");
         break;
     case "write":
         /*
@@ -54,9 +57,13 @@ switch ($t_module["param"]) {
                     "name",
                     "code",
                     "x",
-                    "y"
+                    "y",
+                    "country_code"
                 ));
                 $rows = $import->getContentAsArray();
+                include_once "modules/classes/country.class.php";
+                $country = new Country($bdd, $ObjetBDDParam);
+                $bdd->beginTransaction();
                 foreach ($rows as $row) {
                     if (strlen($row["name"]) > 0) {
                         /*
@@ -68,18 +75,21 @@ switch ($t_module["param"]) {
                             "sampling_place_code" => $row["code"],
                             "sampling_place_x" => $row["x"],
                             "sampling_place_y" => $row["y"],
-                            "sampling_place_id" => $dataClass->getIdFromName($row["name"])
+                            "sampling_place_id" => $dataClass->getIdFromName($row["name"]),
+                            "country_id" => $country->getIdFromCode($row["country_code"])
                         );
                         $dataClass->ecrire($data);
                         $i++;
                     }
                 }
+                $bdd->commit();
                 $message->set(sprintf(_("%d lieu(x) importé(s)"), $i));
                 $module_coderetour = 1;
             } catch (Exception $e) {
                 $message->set(_("Impossible d'importer les lieux de prélèvement"));
                 $message->set($e->getMessage());
                 $module_coderetour = -1;
+                $bdd->rollback();
             }
         } else {
             $message->set(_("Impossible de charger le fichier à importer"));

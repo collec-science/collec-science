@@ -343,6 +343,7 @@ class ObjectClass extends ObjetBDD
         null as metadata,
         oc.identifier as container_identifier, container_uid, line_number, column_number,
         o.uuid, o.location_accuracy, o.object_comment
+        ,null as country_code, null as country_name
 		from object o
 		join container using (uid)
 		join container_type using (container_type_id)
@@ -359,15 +360,17 @@ class ObjectClass extends ObjetBDD
         metadata::varchar,
         oc.identifier as container_identifier, container_uid, line_number, column_number,
         o.uuid, o.location_accuracy, o.object_comment
+        ,c.country_code2 as country_code, c.country_name
 		from object o
 		join sample using (uid)
 		join collection using (collection_id)
 		join sample_type using (sample_type_id)
-        left outer join sampling_place using (sampling_place_id)
+    left outer join sampling_place using (sampling_place_id)
 		left outer join container_type using (container_type_id)
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
-        left outer join object oc on (container_uid = oc.uid)
+    left outer join object oc on (container_uid = oc.uid)
+    left outer join country c on (sample.country_id = c.country_id)
 		where o.uid in ($uids) and o.trashed = $trashed
 		";
     if (strlen($order) > 0) {
@@ -468,7 +471,7 @@ class ObjectClass extends ObjetBDD
 					        null as metadata, null as loc,
                             object_status_name as status, null as dbuid_origin,
                             null as pid,
-                            uuid
+                            uuid, null as ctry
                         from object
                             join container using (uid)
                             join container_type using (container_type_id)
@@ -485,7 +488,7 @@ class ObjectClass extends ObjetBDD
 					        s.metadata::varchar, sampling_place_name as loc,
                             os.object_status_name as status, s.dbuid_origin,
                             pso.identifier as pid,
-                            o.uuid
+                            o.uuid, c.country_code2 as ctry
                         from object o
                                 join sample s on (o.uid = s.uid)
                                 join sample_type st on (s.sample_type_id = st.sample_type_id)
@@ -497,6 +500,7 @@ class ObjectClass extends ObjetBDD
                                 left outer join protocol using (protocol_id)
                                 left outer join sample ps on (s.parent_sample_id = ps.sample_id)
                                 left outer join object pso on (ps.uid = pso.uid)
+                                left outer join country c on (s.country_id = c.country_id)
                         where o.uid in ($uids)
                         ";
 

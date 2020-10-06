@@ -8,7 +8,12 @@
  */
 class SamplingPlace extends ObjetBDD
 {
-
+    private $sql = "select sampling_place_id, sampling_place_name, collection_id, collection_name
+                    , sampling_place_code, sampling_place_x, sampling_place_y
+                    ,country_id, country_name
+                    from sampling_place
+                    left outer join collection using (collection_id)
+                    left outer join country using (country_id)";
     /**
      *
      * @param PDO $bdd
@@ -39,7 +44,8 @@ class SamplingPlace extends ObjetBDD
             ),
             "sampling_place_y" => array(
                 "type" => 1
-            )
+            ),
+            "country_id"=>array("type"=>1)
         );
         parent::__construct($bdd, $param);
     }
@@ -69,7 +75,7 @@ class SamplingPlace extends ObjetBDD
 
     /**
      * Recherche l'identifiant a partir du nom de la station
-     * 
+     *
      * @param string $name
      * @return int
      */
@@ -99,7 +105,6 @@ class SamplingPlace extends ObjetBDD
      */
     function getListFromCollection($collection_id = 0, $with_noaffected = true)
     {
-        $sql = "select * from sampling_place left outer join collection using (collection_id) ";
         $where = "";
         $order = " order by sampling_place_code, sampling_place_name";
         if ( $with_noaffected ) {
@@ -113,14 +118,14 @@ class SamplingPlace extends ObjetBDD
                 $where = " where ";
             }
             $where .= " collection_id = :collection_id";
-            return $this->getListeParamAsPrepared($sql . $where . $order, array(
+            return $this->getListeParamAsPrepared($this->sql . $where . $order, array(
                 "collection_id" => $collection_id
             ));
         } else {
-            return $this->getListeParam($sql . $where . $order);
+            return $this->getListeParam($this->sql . $where . $order);
         }
     }
-    
+
     /**
      * Recupere les coordonnees geographiques du lieu de prelevement
      * @param int $sampling_place_id

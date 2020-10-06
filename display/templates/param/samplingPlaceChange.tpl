@@ -41,7 +41,19 @@
 <div class="col-md-8">
 <input id="sampling_place_y" type="text" class="form-control" name="sampling_place_y" value="{$data.sampling_place_y}"></div>
 </div>
-
+<div class="form-group">
+<label for="country_id"  class="control-label col-md-4">{t}Pays :{/t}</label>
+<div class="col-md-8">
+<select id="country_id" name="country_id" class="form-control">
+<option value="" {if $data["country_id"] == ""} selected{/if}>{t}Choisissez...{/t}</option>
+{foreach $countries as $country}
+<option value="{$country.country_id}" {if $country.country_id == $data.country_id} selected {/if}>
+{$country.country_name}
+</option>
+{/foreach}
+</select>
+</div>
+</div>
 
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>

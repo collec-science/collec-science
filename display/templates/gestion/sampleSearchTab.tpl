@@ -34,6 +34,7 @@
              if ($("#campaign_id").val() > 0) ok = true;
              if ($("#trashed").val() == 1) ok = true;
              if ($("#samplesearch_id").val() > 0) ok = true;
+             if ($("#country_id").val() > 0) ok = true;
              var mf = $("#metadata_field").val();
              if ( mf != null) {
                  if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -127,6 +128,7 @@
         sampling_place_init = "";
         $("#sampling_place_id").combobox("select", "{t}Choisissez...{/t}").change();
         $("#sampling_place_id").prop("selectedIndex", 0).change();
+        $("#country_id").prop("selectedIndex", 0).change();
         $("#movement_reason_id").prop("selectedIndex", 0).change();
         $("#select_date").prop("selectedIndex", 0).change();
         $("#campaign_id").prop("selectedIndex", 0).change();
@@ -451,6 +453,19 @@
                                             {$samplingPlace[lst].sampling_place_code} -&nbsp;
                                             {/if}
                                             {$samplingPlace[lst].sampling_place_name}
+                                            </option>
+                                        {/section}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="country_id" class="col-sm-4 control-label">{t}Pays de collecte :{/t}</label>
+                                <div class="col-sm-8">
+                                    <select id="country_id" name="country_id" class="form-control">
+                                        <option value="0" {if $country.country_id == "0"}selected{/if}>{t}Choisissez...{/t}</option>
+                                        {section name=lst loop=$countries}
+                                            <option value="{$countries[lst].country_id}" {if $countries[lst].country_id == $sampleSearch.country_id}selected{/if}>
+                                            {$countries[lst].country_name}
                                             </option>
                                         {/section}
                                     </select>

@@ -20,6 +20,7 @@ require_once 'modules/classes/identifierType.class.php';
 require_once 'modules/classes/objectIdentifier.class.php';
 require_once 'modules/classes/referent.class.php';
 require_once 'modules/classes/campaign.class.php';
+require_once 'modules/classes/country.class.php';
 /*
  * Initialisations
  */
@@ -36,7 +37,8 @@ $identifierType = new IdentifierType($bdd, $ObjetBDDParam);
 $objectIdentifier = new ObjectIdentifier($bdd, $ObjetBDDParam);
 $referent = new Referent($bdd, $ObjetBDDParam);
 $campaign = new Campaign($bdd, $ObjetBDDParam);
-$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType, $referent, $campaign);
+$country = new Country($bdd, $ObjetBDDParam);
+$import->initClasses($sample, $container, $movement, $samplingPlace, $identifierType, $sampleType, $referent, $campaign, $country);
 $import->initClass("objectIdentifier", $objectIdentifier);
 $import->initControl($_SESSION["collections"], $sampleType->getList(), $containerType->getList(), $objectStatus->getList(), $samplingPlace->getList(), $referent->getListe(), $campaign->getListe());
 /*

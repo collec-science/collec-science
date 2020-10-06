@@ -63,7 +63,8 @@ class ImportObject
     "container_line",
     "sample_uuid",
     "container_uuid",
-    "campaign_id"
+    "campaign_id",
+    "country_code"
   );
 
   private $colnum = array(
@@ -94,7 +95,7 @@ class ImportObject
 
   private $sampling_place = array();
   private $campaign;
-
+  private $country;
   private $referent;
 
   private $referents = array();
@@ -184,7 +185,7 @@ class ImportObject
    * @param Container $container
    * @param Movement $movement
    */
-  function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType, Referent $referent, Campaign $campaign)
+  function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType, Referent $referent, Campaign $campaign, Country $country)
   {
     $this->sample = $sample;
     $this->container = $container;
@@ -194,6 +195,7 @@ class ImportObject
     $this->sampleType = $sampleType;
     $this->referent = $referent;
     $this->campaign = $campaign;
+    $this->country = $country;
   }
 
   /**
@@ -307,6 +309,9 @@ class ImportObject
         $dataSample["sampling_place_id"] = $values["sampling_place_id"];
         $dataSample["parent_sample_id"] = $values["parent_sample_id"];
         $dataSample["uuid"] = $values["sample_uuid"];
+        if (!empty($values["country_code"])) {
+          $dataSample["country_id"] = $this->country->getIdFromCode($values["country_code"]);
+        }
         /**
          * Traitement des dates - mise au format de base de donnees avant importation
          */
@@ -534,6 +539,12 @@ class ImportObject
       $dp = $this->sample->lire($values["sample_parent_uid"]);
       $values["parent_sample_id"] = $dp["sample_id"];
     }
+    /**
+     * Search for the code of the country
+     */
+    if (!empty($values["country_code"])) {
+      $values["country_id"] = $this->country->getIdFromCode($values["country_code"]);
+    }
     return $values;
   }
 
@@ -643,7 +654,7 @@ class ImportObject
           $retour["message"] .= _("Le statut de l'échantillon n'est pas connu.");
         }
       }
-      /*
+      /**
              * Verification du lieu de collecte
              */
       $ok = false;
@@ -658,6 +669,13 @@ class ImportObject
           $retour["code"] = false;
           $retour["message"] .= _("L'emplacement de collecte de l'échantillon n'est pas connu.");
         }
+      }
+      /**
+       * Verification du pays
+       */
+      if (!empty($data["country_code"])&& empty ($data["country_id"])) {
+        $retour["code"] = false;
+        $retour["message"] .= _("Le code pays est inconnu.");
       }
       /**
        * Verification du referent

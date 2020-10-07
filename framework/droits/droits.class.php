@@ -266,7 +266,7 @@ class Acllogin extends ObjetBDD
                  */
                 $droits = array();
                 foreach ($data as $value) {
-                    $droits[$value[aco]] = 1;
+                    $droits[$value["aco"]] = 1;
                 }
             }
         }
@@ -613,6 +613,9 @@ class Aclgroup extends ObjetBDD
      */
     function ecrire($data)
     {
+        if ($data["aclgroup_id"] > 0 && $data["aclgroup_id"] == $data["aclgroup_id_parent"]) {
+            throw new DroitException(_("Un groupe ne peut être son propre parent"));
+        }
         $id = parent::ecrire($data);
         if ($id > 0) {
             $this->ecrireTableNN("acllogingroup", "aclgroup_id", "acllogin_id", $id, $data["logins"]);

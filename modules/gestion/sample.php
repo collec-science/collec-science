@@ -708,6 +708,45 @@ switch ($t_module["param"]) {
       } else {
         $message->set(_("Pas d'échantillons sélectionnés"), true);
       }
+      break;
+      case "setCollection":
+      if (count($_POST["uids"]) > 0) {
+        if(!empty($_POST["collection_id"])) {
+          is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+          try {
+            $dataClass->setCollection($_POST["uids"], $_POST["collection_id"]);
+            $module_coderetour = 1;
+          } catch (ObjetBDDException $oe) {
+            $message->setSyslog($oe->getMessage());
+            $message->set(_("Une erreur est survenue pendant la mise à jour de la collection"), true);
+            $module_coderetour = -1;
+          }
+        } else {
+          $message->set(_("Pas de collection sélectionnée"), true);
+        }
+      } else {
+        $message->set(_("Pas d'échantillons sélectionnés"), true);
+      }
+      break;
+      case "setCampaign":
+      if (count($_POST["uids"]) > 0) {
+        if(!empty($_POST["campaign_id"])) {
+          is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+          try {
+            $dataClass->setCampaign($_POST["uids"], $_POST["campaign_id"]);
+            $module_coderetour = 1;
+          } catch (ObjetBDDException $oe) {
+            $message->setSyslog($oe->getMessage());
+            $message->set(_("Une erreur est survenue pendant la mise à jour de la campagne"), true);
+            $module_coderetour = -1;
+          }
+        } else {
+          $message->set(_("Pas de campagne sélectionné"), true);
+        }
+      } else {
+        $message->set(_("Pas d'échantillons sélectionnés"), true);
+      }
+      break;
   default:
     break;
 }

@@ -873,7 +873,7 @@ class Sample extends ObjetBDD
           $this->country = $this->classInstanciate("Country", "country.class.php");
         }
         $country_id = $this->country->getIdFromCode($row["country_code"]);
-        if (! $country_id > 0) {
+        if (!$country_id > 0) {
           throw new SampleException(sprintf(_("Le code de pays %s n'est pas connu"), $row["country_code"]));
         }
       }
@@ -943,8 +943,8 @@ class Sample extends ObjetBDD
     }
 
     /**
-         * Recuperation de l'echantillon parent, si existant
-         */
+     * Recuperation de l'echantillon parent, si existant
+     */
     if (strlen($data["dbuid_parent"]) > 0) {
       $dbuidparent = explode(":", $data["dbuid_parent"]);
       if ($dbuidparent[0] == $_SESSION["APPLI_code"]) {
@@ -1119,9 +1119,42 @@ class Sample extends ObjetBDD
    * @param integer $country_id
    * @return void
    */
-  function setCountry(array $uids, int $country_id) {
+  function setCountry(array $uids, int $country_id)
+  {
     $sql = "update sample set country_id = :country_id where uid = :uid";
-    $data = array ("country_id" => $country_id);
+    $data = array("country_id" => $country_id);
+    foreach ($uids as $uid) {
+      $data["uid"] = $uid;
+      $this->executeAsPrepared($sql, $data);
+    }
+  }
+  /**
+   * Set the collection for an array of uids
+   *
+   * @param array $uids
+   * @param integer $collection_id
+   * @return void
+   */
+  function setCollection(array $uids, int $collection_id)
+  {
+    $sql = "update sample set collection_id = :collection_id where uid = :uid";
+    $data = array("collection_id" => $collection_id);
+    foreach ($uids as $uid) {
+      $data["uid"] = $uid;
+      $this->executeAsPrepared($sql, $data);
+    }
+  }
+  /**
+   * Set the campaign for an array of uids
+   *
+   * @param array $uids
+   * @param integer $campaign_id
+   * @return void
+   */
+  function setcampaign(array $uids, int $campaign_id)
+  {
+    $sql = "update sample set campaign_id = :campaign_id where uid = :uid";
+    $data = array("campaign_id" => $campaign_id);
     foreach ($uids as $uid) {
       $data["uid"] = $uid;
       $this->executeAsPrepared($sql, $data);

@@ -94,46 +94,32 @@
 				event.preventDefault();
 			}
 		});
-
+		var actions = {
+			"samplesAssignReferent":"referentid",
+			"samplesCreateEvent":"event",
+			"samplesLending":"borrowing",
+			"samplesSetTrashed":"trashedgroupsample",
+			"samplesEntry":"entry",
+			"samplesSetCountry":"country"
+			};
+			var actionsClass = [
+				"referentid",
+				"event",
+				"trashedgroupsample",
+				"borrowing",
+				"entry",
+				"country"
+				];
 		$("#checkedActionSample").change(function () {
 			var action = $(this).val();
-			if (action == "samplesAssignReferent") {
-				$(".referentid").show();
-				$(".event").hide();
-				$(".trashedgroupsample").hide();
-				$(".borrowing").hide();
-				$(".entry").hide();
-			} else if (action == "samplesCreateEvent") {
-				$(".referentid").hide();
-				$(".borrowing").hide();
-				$(".trashedgroupsample").hide();
-				$(".event").show();
-				$(".entry").hide();
-			} else if (action == "samplesLending") {
-				$(".referentid").hide();
-				$(".event").hide();
-				$(".trashedgroupsample").hide();
-				$(".borrowing").show();
-				$(".entry").hide();
-			} else if (action == "samplesSetTrashed") {
-				$(".referentid").hide();
-				$(".event").hide();
-				$(".borrowing").hide();
-				$(".trashedgroupsample").show();
-				$(".entry").hide();
-			} else if (action =="samplesEntry") {
-				$(".referentid").hide();
-				$(".event").hide();
-				$(".borrowing").hide();
-				$(".trashedgroupsample").hide();
-				$(".entry").show();
-			} else {
-				$(".referentid").hide();
-				$(".event").hide();
-				$(".borrowing").hide();
-				$(".trashedgroupsample").hide();
-				$(".entry").hide();
-			}
+			var actionClass = actions[action];
+			actionsClass.forEach(function (value) {
+				if (value == actionClass) {
+					$("."+value).show();
+				} else {
+					$("."+value).hide();
+				}
+			});
 		});
 		var tooltipContent ;
 		/**
@@ -476,6 +462,7 @@
 				{if $sampleSearch.collection_id > 0}
 				<option value="lotCreate">{t}Créer un lot d'export{/t}</option>
 				{/if}
+				<option value="samplesSetCountry">{t}Affecter un pays de collecte{/t}</option>
 				<option value="samplesEntry">{t}Entrer ou déplacer les échantillons au même emplacement{/t}</option>
 				<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 				<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
@@ -597,6 +584,20 @@
 					<input id="column_number" name="column_number"
 						value="" class="form-control nombre" title="{t}N° de la colonne de rangement dans le contenant{/t}">
 				</div>
+			</div>
+			<!-- set country -->
+			<div class="form-group country" hidden>
+				<label for="country_id" class="control-label col-sm-4">{t}Pays :{/t}</label>
+				<div class="col-sm-8">
+					<select id="country_id" name="country_id" class="form-control">
+							<option value="0" {if $country.country_id == "0"}selected{/if}>{t}Choisissez...{/t}</option>
+							{section name=lst loop=$countries}
+									<option value="{$countries[lst].country_id}" {if $countries[lst].country_id == ""}selected{/if}>
+									{$countries[lst].country_name}
+									</option>
+							{/section}
+					</select>
+			</div>
 			</div>
 
 			<div class="center">

@@ -690,6 +690,24 @@ switch ($t_module["param"]) {
       $vue->setJson(json_encode($data));
     }
     break;
+    case "setCountry":
+      if (count($_POST["uids"]) > 0) {
+        if(!empty($_POST["country_id"])) {
+          is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+          try {
+            $dataClass->setCountry($_POST["uids"], $_POST["country_id"]);
+            $module_coderetour = 1;
+          } catch (ObjetBDDException $oe) {
+            $message->setSyslog($oe->getMessage());
+            $message->set(_("Une erreur est survenue pendant la mise à jour du pays"), true);
+            $module_coderetour = -1;
+          }
+        } else {
+          $message->set(_("Pas de pays sélectionné"), true);
+        }
+      } else {
+        $message->set(_("Pas d'échantillons sélectionnés"), true);
+      }
   default:
     break;
 }

@@ -1112,4 +1112,19 @@ class Sample extends ObjetBDD
     $where = " where s.uid in ($uids)";
     return $this->getListeParam($this->sql . $where);
   }
+  /**
+   * Set the country for an array of uids
+   *
+   * @param array $uids
+   * @param integer $country_id
+   * @return void
+   */
+  function setCountry(array $uids, int $country_id) {
+    $sql = "update sample set country_id = :country_id where uid = :uid";
+    $data = array ("country_id" => $country_id);
+    foreach ($uids as $uid) {
+      $data["uid"] = $uid;
+      $this->executeAsPrepared($sql, $data);
+    }
+  }
 }

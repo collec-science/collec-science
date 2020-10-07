@@ -296,6 +296,7 @@ class ObjetBDD
 
   private $lastResultExec = false;
   public $classpath = "modules/classes";
+  private $lastPrepared, $statement;
 
   /**
    * ObjetBDD
@@ -1812,13 +1813,17 @@ class ObjetBDD
       printr($data);
     }
     try {
-      $stmt = $this->connection->prepare($sql);
+      if ($sql != $this->lastPrepared) {
+        $this->statement = $this->connection->prepare($sql);
+        $this->lastPrepared = $sql;
+      }
+
       /*
              * Execution de la requete
              */
-      $this->lastResultExec = $stmt->execute($data);
+      $this->lastResultExec = $this->statement->execute($data);
       if ($this->lastResultExec && !$onlyExecute) {
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->statement->fetchAll(PDO::FETCH_ASSOC);
       } else {
         return $this->lastResultExec;
       }

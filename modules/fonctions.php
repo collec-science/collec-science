@@ -18,5 +18,17 @@
    }
    return $ok;
  }
-
+/**
+ * Delete the group into all collections.
+ * Function called from class
+ *
+ * @param integer $group_id
+ * @return void
+ */
+ function deleteChildrenForGroup(int $group_id) {
+  require_once "modules/classes/collection.class.php";
+  global $bdd, $ObjetBDDParam;
+  $collection = new Collection($bdd, $ObjetBDDParam);
+  $collection->deleteGroup($group_id);
+ }
 ?>

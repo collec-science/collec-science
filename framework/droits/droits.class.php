@@ -112,7 +112,7 @@ class Aclaco extends ObjetBDD
 						from acllogin
 						natural join acllogingroup
 						natural join aclgroup
-						natural join aclacl 
+						natural join aclacl
 						natural join aclaco
 					)
 					union all (select login, aco.aco, g.aclgroup_id, g.aclgroup_id_parent
@@ -133,7 +133,7 @@ class Aclaco extends ObjetBDD
  * ORM de gestion de la table acllogin
  *
  * @author quinton
- *        
+ *
  */
 class Acllogin extends ObjetBDD
 {
@@ -253,12 +253,12 @@ class Acllogin extends ObjetBDD
                         $inclause .= $value["aclgroup_id"];
                     }
                 }
-                $sql = "select distinct aco 
-					from aclaco 
+                $sql = "select distinct aco
+					from aclaco
 					join aclacl on (aclaco.aclaco_id = aclacl.aclaco_id)
 					join aclappli on (aclappli.aclappli_id = aclaco.aclappli_id)
 					where aclgroup_id in (" . $inclause . ")
-					and appli = '" . $appli . "' 
+					and appli = '" . $appli . "'
 					order by aco";
                 $data = $this->getListeParam($sql);
                 /*
@@ -320,7 +320,7 @@ class Acllogin extends ObjetBDD
  * ORM de gestion de la table aclgroup
  *
  * @author quinton
- *        
+ *
  */
 class Aclgroup extends ObjetBDD
 {
@@ -376,7 +376,7 @@ class Aclgroup extends ObjetBDD
             $login = $this->encodeData($login);
 
             $sql = "select g.aclgroup_id, groupe, aclgroup_id_parent
-					from " . $this->table . " g 
+					from " . $this->table . " g
 					join acllogingroup lg on (g.aclgroup_id = lg.aclgroup_id)
 					join acllogin l on (lg.acllogin_id = l.acllogin_id)
 					where login = '" . $login . "'";
@@ -389,7 +389,7 @@ class Aclgroup extends ObjetBDD
         if ($ldapParam["groupSupport"]) {
             /*
              * Recuperation des attributs depuis l'annuaire LDAP
-             * Attention : interroge l'annuaire en mode anonyme 
+             * Attention : interroge l'annuaire en mode anonyme
              -             et donc echoue si l'annuaire requiere un login/mot de passe pour une recherche
              */
             include_once "framework/ldap/ldap.class.php";
@@ -408,7 +408,7 @@ class Aclgroup extends ObjetBDD
                     $ldapParam["groupAttrib"]
                 );
                 $filtre = "(" . $ldapParam["user_attrib"] . "=" . $_SESSION["login"] . ")"; // Attention...
-                /* 
+                /*
                  * Attention : ne gere pas le cas de user_attrib vide lors d'une connexion a un Active Directory
                  *             avec le userPrincipalName (et eventuellement l'UPN Suffix defini)
                  */
@@ -474,7 +474,7 @@ class Aclgroup extends ObjetBDD
 						natural join acllogingroup
 						natural join aclgroup
 					)
-					union all 
+					union all
 					(select login, g.groupe, g.aclgroup_id, g.aclgroup_id_parent
 						from first_level fl, aclgroup g
 						where g.aclgroup_id = fl.aclgroup_id_parent)
@@ -544,7 +544,7 @@ class Aclgroup extends ObjetBDD
          * Recuperation du nombre de logins associes par groupe
          */
         $sql = "select count(*) as nblogin, aclgroup_id
-				from acllogingroup 
+				from acllogingroup
 				group by aclgroup_id";
         $nb = $this->getListeParam($sql);
         /*
@@ -574,7 +574,7 @@ class Aclgroup extends ObjetBDD
     {
         if ($parent_id > 0) {
             $data = array();
-            $sql = "select aclgroup_id, groupe, aclgroup_id_parent from " . $this->table . " 
+            $sql = "select aclgroup_id, groupe, aclgroup_id_parent from " . $this->table . "
 					where aclgroup_id_parent = " . $parent_id . "
 				order by groupe ";
             $group = $this->getListeParam($sql);
@@ -637,11 +637,24 @@ class Aclgroup extends ObjetBDD
             if (count($dataFils) > 0) {
                 throw new DroitException(_("Suppression du groupe impossible : d'autres groupes lui sont rattachés"));
             } else {
-                /*
-                 * Suppression des logins rattachés
-                 */
-                $this->ecrireTableNN("acllogingroup", "aclgroup_id", "acllogin_id", $id, array());
-                return parent::supprimer($id);
+                try {
+                    /**
+                     * Suppression des logins rattachés
+                     */
+                    $this->ecrireTableNN("acllogingroup", "aclgroup_id", "acllogin_id", $id, array());
+                    /**
+                     * Delete others records attached to the group
+                     */
+                    if (function_exists("deleteChildrenForGroup")) {
+                        deleteChildrenForGroup($id);
+                    }
+                    return parent::supprimer($id);
+                } catch (Exception $e) {
+                    global $message;
+                    $message->set(_("La suppression du groupe a échoué. Consultez les logs pour en connaître la raison"), true);
+                    $message->setSyslog($e->getMessage());
+                    return false;
+                }
             }
         } else {
             return false;
@@ -681,5 +694,3 @@ class Aclgroup extends ObjetBDD
         return $data;
     }
 }
-
-?>

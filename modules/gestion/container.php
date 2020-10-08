@@ -86,6 +86,7 @@ switch ($t_module["param"]) {
     $vue->set($data["lines"], "nblignes");
     $vue->set($data["columns"], "nbcolonnes");
     $vue->set($data["first_line"], "first_line");
+    $vue->set($data["first_column"], "first_column");
     /*
          * Recuperation des evenements
          */

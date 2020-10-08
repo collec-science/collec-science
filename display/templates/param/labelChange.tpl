@@ -123,6 +123,7 @@ $(document).ready( function() {
 <li>{t 1='sd'}%1 : date d'échantillonnage{/t}</li>
 <li>{t 1='ed'}%1 : date d'expiration de l'échantillon{/t}</li>
 <li>{t 1='uuid'}%1 : UID Universel (UUID){/t}</li>
+<li>{t 1="ref"}%1 : référent de l'objet{/t}</li>
 <li>{t}et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants{/t}</li>
 </ul>
 </li>

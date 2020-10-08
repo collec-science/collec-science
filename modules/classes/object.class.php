@@ -471,12 +471,14 @@ class ObjectClass extends ObjetBDD
 					        null as metadata, null as loc,
                             object_status_name as status, null as dbuid_origin,
                             null as pid,
-                            uuid, null as ctry
+                            uuid, null as ctry,
+                            trim (referent_firstname || ' ' ||referent_name) as ref
                         from object
                             join container using (uid)
                             join container_type using (container_type_id)
                             join object_status using (object_status_id)
-					        left outer join last_movement using (uid)
+                            left outer join last_movement using (uid)
+                            left outer join referent using (referent_id)
                         where uid in ($uids)
                     UNION
                         select o.uid, o.identifier as id, clp_classification as clp, protocol_name as pn,
@@ -488,7 +490,12 @@ class ObjectClass extends ObjetBDD
 					        s.metadata::varchar, sampling_place_name as loc,
                             os.object_status_name as status, s.dbuid_origin,
                             pso.identifier as pid,
-                            o.uuid, ctry.country_code2 as ctry
+                            o.uuid, ctry.country_code2 as ctry,
+                            case when o.referent_id is not null then
+                            trim (sr.referent_firstname || ' ' ||sr.referent_name)
+                            else
+                            trim (cr.referent_firstname || ' ' ||cr.referent_name)
+                            end as ref
                         from object o
                                 join sample s on (o.uid = s.uid)
                                 join sample_type st on (s.sample_type_id = st.sample_type_id)
@@ -501,6 +508,8 @@ class ObjectClass extends ObjetBDD
                                 left outer join sample ps on (s.parent_sample_id = ps.sample_id)
                                 left outer join object pso on (ps.uid = pso.uid)
                                 left outer join country ctry on (s.country_id = ctry.country_id)
+                                left outer join referent sr on (o.referent_id = sr.referent_id)
+                                left outer join referent cr on (c.referent_id = cr.referent_id)
                         where o.uid in ($uids)
                         ";
 

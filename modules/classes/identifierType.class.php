@@ -23,8 +23,7 @@ class IdentifierType extends ObjetBDD
                 "requis" => 1
             ),
             "identifier_type_code" => array(
-                "type" => 0,
-                "requis" => 1
+                "type" => 0
             ),
             "used_for_search" => array(
                 "type" => 0,
@@ -36,13 +35,13 @@ class IdentifierType extends ObjetBDD
 
     /**
      * Retourne uniquement la cle et le code associe
-     * 
+     *
      * @param number $order
      * @return array
      */
     function getListeWithCode($order = 0)
     {
-        $sql = "select identifier_type_id, identifier_type_code 
+        $sql = "select identifier_type_id, identifier_type_code
             from identifier_type
             order by identifier_type_code";
         return $this->getListeParam($sql);

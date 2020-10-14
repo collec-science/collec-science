@@ -539,3 +539,5 @@ CREATE INDEX country_id_idx ON col.sample
 	(
 	  country_id
 	);
+
+alter table col.identifier_type alter column identifier_type_code drop not null;

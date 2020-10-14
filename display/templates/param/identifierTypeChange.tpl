@@ -1,4 +1,13 @@
-{* Paramètres > Types d'identifiants > Nouveau > *}
+<script>
+  $(document).ready(function() {
+    $("#identifierTypeForm").submit(function(e) {
+      if ($("#ufs1").prop("checked") && $("#identifierTypeCode").val().length == 0) {
+        alert("{t}Le code doit être renseigné si l'identifiant est utilisable pour les étiquettes{/t}");
+        e.preventDefault();
+      }
+    });
+  });
+</script>
 <h2>{t}Création - Modification d'un type d'identifiant{/t}</h2>
 <div class="row">
 <div class="col-md-6">
@@ -14,9 +23,9 @@
 <input id="identifierTypeName" type="text" class="form-control" name="identifier_type_name" value="{$data.identifier_type_name}" autofocus required></div>
 </div>
 <div class="form-group">
-<label for="identifierTypeCode"  class="control-label col-md-4"><span class="red">*</span> {t}Code utilisé dans les étiquettes :{/t}</label>
+<label for="identifierTypeCode"  class="control-label col-md-4">{t}Code utilisé dans les étiquettes :{/t}</label>
 <div class="col-md-8">
-<input id="identifierTypeCode" type="text" class="form-control" name="identifier_type_code" value="{$data.identifier_type_code}" required></div>
+<input id="identifierTypeCode" type="text" class="form-control" name="identifier_type_code" value="{$data.identifier_type_code}"></div>
 </div>
 <div class="form-group">
 <label for="search"  class="control-label col-md-4"><span class="red">*</span> {t}Identifiant utilisé dans les recherches ?{/t}</label>

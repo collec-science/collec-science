@@ -1,0 +1,15 @@
+<collection>
+	<collection_name>cefe</collection_name>
+	<collection_displayname>Collection de Marie-Claude</collection_displayname>
+	<collection_keywords>
+		<keyword>marie-claude</keyword>
+		<keyword>cefe</keyword>
+	</collection_keywords>
+	<referent_name>Quinton</referent_name>
+	<referent_firstname>Éric</referent_firstname>
+	<academical_directory>https://orcid.org</academical_directory>
+	<academical_link>https://orcid.org/0000-0003-4207-4107</academical_link>
+	<referent_email>eric.quinton@inrae.fr</referent_email>
+	<license_name>CC0</license_name>
+	<license_url>https://creativecommons.org/publicdomain/zero/1.0/</license_url>
+</collection>

@@ -147,7 +147,7 @@ service apache2 restart
 
 \subsection{Configurer Apache pour l'identification à partir d'une fédération}
 \label{mellon}
-À partir de la version 2.4.0, Collec-Science permet d'identifier les utilisateurs à partir d'une fédération d'identités, comme EDUGAIN (la fédération internationale des instituts universitaires et de recherche).
+À partir de la version 2.4.0, Collec-Science permet d'identifier les utilisateurs à partir d'une fédération d'identités, comme la fédération française RENATER ou EDUGAIN (la fédération internationale des instituts universitaires et de recherche).
 
 Cette identification n'est possible que pour les applications accessibles depuis Internet, et s'appuie sur l'utilisation d'un module Apache dédié : \textit{Mellon}. Elle nécessite également de récupérer les informations techniques liées à la fédération, et d'enregistrer l'application chez le fournisseur de l'identification.
 
@@ -164,77 +164,101 @@ Si le paquet libapache2-mod-auth-mellon n'est pas disponible (cas rencontré ave
 	\item libapache2-mod-auth-mellon
 \end{itemize}
 
-Vous devez également récupérer le fichier xml de votre \textit{provider}, ainsi que son certificat.
+Vous devrez également récupérer le fichier xml de votre \textit{provider}, ainsi que son certificat.
 
 \subsubsection{Génération des fichiers de configuration de l'application}
-Un certificat (et sa clé privée), un fichier xml doivent être générés pour l'application. Un script est disponible dans les distributions Debian. Il est également fourni dans l'application, dans le dossier install/apache2.
+Un certificat (et sa clé privée), un fichier xml doivent être générés pour l'application. Un script est disponible dans les distributions Debian. Il est également fourni dans l'application, dans le dossier install/apache2 (\textit{create\_metadata.sh}).
 
 Pour générer les fichiers (remplacez \textit{collec-science.com} par vos propres valeurs) : 
 \begin{lstlisting}
-./mellon_create_metadata.sh collec-science.com https://collec-science.com
+cd /etc/apache2
+mkdir mellon
+cd mellon
+/var/www/html/collec-science/collec/install/apache2/create_metadata.sh https://collec-science.com https://collec-science.com/mellon
 \end{lstlisting}
 
-Éditez ensuite le fichier xml généré, et modifiez la rubrique suivante :
-\begin{lstlisting}
-<SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://collec-science.com/index.php?module=disconnect"/>
-\end{lstlisting}
+Le certificat (fichier .cert) et le fichier xml doivent être transmis au \textit{provider}, pour qu'il les intègre dans sa plate-forme.
 
-Le certificat (fichier .cert) et le fichier xml doivent être transmis au provider, pour qu'il les intègre dans sa plate-forme.
+Vous devez également récupérer du \textit{provider} sa clé publique et son certificat d'autorité racine, à mettre dans le dossier \textit{mellon}. Il doit également vous fournir un fichier xml qui contient les adresses de toutes les entités participant à la fédération.
 
 \subsubsection{Configurer le site virtuel}
 
-Éditez le fichier /etc/apache2/sites-available/collec-science.conf, et rajoutez le paramétrage suivant, dans la section \textit{<VirtualHost *443>} :
+Recopiez le fichier install/apache2/collec-science-mellon.conf dans le dossier /etc/apache2/sites-available, à la place du fichier collec-science.conf
+Éditez le fichier, et remplacez toutes les chaînes \textit{collec.mysociety.com} par votre DNS. Vérifiez également les certificats utilisés.
+
+Par rapport au fichier classique, le fichier \textit{collec-science-mellon.conf} contient, dans la section \textit{<VirtualHost *443>}, les commandes suivantes :
 \begin{lstlisting}
-    <Location />
+    # Configuration Mellon for Renater
+    <location />
     AuthType Mellon
     MellonEnable "auth"
     MellonSecureCookie On
-    MellonUser eppn
+    MellonUser MAIL
     MellonMergeEnvVars On
     MellonSubjectConfirmationDataAddressCheck Off
-    MellonSPPrivateKeyFile /etc/apache2/mellon/collec-science.key
-    MellonSPCertFile /etc/apache2/mellon/collec-science.cert
-    MellonSPentityId "collec-science.com"
-        #
-        # If you choose to autogenerate metadata, these options
-        # can be used to fill the <Organization> element. They
-        # all follow the syntax "option [lang] value":
-        MellonOrganizationName "random-service"
-        MellonOrganizationDisplayName "en" "Random service"
-        MellonOrganizationDisplayName "fr" "Service quelconque"
-        MellonOrganizationURL "http://inrae.fr"
-
-   MellonIdPMetadataFile "/etc/apache2/mellon/idp-metadata-idp-test.xml"
-   MellonIdPPublicKeyFile "/etc/apache2/mellon/renater-metadata-signing-cert-2016.pem"
-   MellonIdPCAFile "/etc/apache2/mellon/renater-metadata-signing-cert-2016.pem"
-
+    MellonSPPrivateKeyFile /etc/apache2/mellon/https_collec.mysociety.com.key
+    MellonSPCertFile /etc/apache2/mellon/https_collec.mysociety.com.cert
+    MellonSPentityId "https://collec.mysociety.com"
+    MellonSPMetadataFile "/etc/apache2/mellon/https_collec.mysociety.com.xml"
+    MellonIdPMetadataFile "/etc/apache2/mellon/main-idps-renater-metadata.xml"
+    MellonIdPPublicKeyFile "/etc/apache2/mellon/renater-metadata-signing-cert-2016.pem"
+    MellonIdPCAFile "/etc/apache2/mellon/renater-metadata-signing-cert-2016.pem"
     MellonProbeDiscoveryTimeout 1
     MellonSetEnv "MAIL" "urn:oid:0.9.2342.19200300.100.1.3"
-    MellonSetEnv "UID" "urn:oid:0.9.2342.19200300.100.1.1"
-    MellonSetEnv "EPPN" "urn:oid:1.3.6.1.4.1.5923.1.1.1.6"
-    MellonSetEnv "SHACHOMEORGANIZATION" "urn:oid:1.3.6.1.4.1.25178.1.2.9"
-    MellonSetEnv "SHACHOMEORGANIZATIONTYPE" "urn:oid:1.3.6.1.4.1.25178.1.2.10"
-    MellonSetEnv "EDUCSCOPEAFFILIATION" "urn:oid:1.3.6.1.4.1.5923.1.1.1.9"
-    MellonSetEnv "TEL"    "urn:oid:2.5.4.20"
     MellonSetEnv "GIVENNAME" "urn:oid:2.5.4.42"
-    MellonSetEnv "SN" "urn:oid:2.5.4.4"
-    MellonSetEnv "DP" "urn:oid:2.16.840.1.113730.3.1.241"
-    MellonSetEnv "CN" "urn:oid:2.5.4.3"
-    MellonSetEnv "FLUX" "urn:oid:2.16.840.1.113730.3.1.113"
-            # The location all endpoints should be located under.
-            # It is the URL to this location that is used as the second parameter to the metadata generation script.
-            # This path is relative to the root of the web server.
     MellonEndpointPath /mellon
     MellonSetEnvNoPrefix REMOTE_USER NAME_ID
-    </Location>
+    MellonDiscoveryURL "https://discovery.renater.fr/renater/WAYF"
+    </location>
 \end{lstlisting}
 
-Les rubriques \textit{MellonSP*} doivent être adaptées au nom de vos fichiers, et \textit{MellonIdP} aux fichier fournis par votre provider.
+Les rubriques \textit{MellonIdP*} doivent être adaptées aux fichiers fournis par votre provider.
 
 Une fois la configuration effectuée, redémarrez le serveur Apache :
 \begin{lstlisting}
 systemctl restart apache2
 \end{lstlisting}
+
+\subsubsection{Configuration du logiciel}
+Modifiez le fichier \textit{param/param.inc.php}, avec les informations suivantes :
+
+\begin{lstlisting}
+$ident_type = "HEADER";
+$MAIL_enabled = 1;
+\end{lstlisting}
+
+\subsubsection{Enregistrer le site dans la fédération Renater}
+
+Pour les établissements français affiliés à la fédération Renater, vous pouvez enregistrer directement votre application dans celle-ci. Des validations seront réalisées par les contacts de la fédération dans votre établissement.
+
+Pour réaliser l'enregistrement :
+\begin{itemize}
+	\item Connectez-vous au site \href{https://federation.renater.fr/registry}{https://federation.renater.fr/registry}
+	\item cliquez sur \textit{Ajouter un fournisseur de services}
+	\item  dans l'onglet \textit{Description}, renseignez les champs demandés, avec notamment :
+	\begin{itemize}
+		\item URL du service : https://collec.mysociety.com (votre DNS)
+	\end{itemize}
+	\item  dans l'onglet \textit{Contacts}, ne vous déclarez pas conforme au cadre de sécurité SIRTFI, sauf si vous savez ce que c'est (il y a des contraintes organisationnelles fortes pour être conforme)
+	\item dans l'onglet \textit{Attributs demandés}, demandez les attributs :
+	\begin{itemize}
+		\item email : identification des utilisateurs (obligatoire)
+		\item commonName : affichage du nom des utilisateurs (obligatoire)
+	\end{itemize}
+	\item dans l'onglet \textit{Informations techniques}, indiquez l'adresse suivante pour récupérer les données de configuration :
+	\begin{itemize}
+		\item URL de vos métadonnées : https://collec.mysociety.com/mellon/metadata
+	\end{itemize}
+\end{itemize}
+
+Une fois le dossier validé, vous devrez attendre le retour de votre correspondant Renater dans votre établissement, qui doit valider votre demande.
+
+Une fois cette première demande réalisée, vous devrez vous reconnecter au site de la fédération (\href{https://federation.renater.fr/registry}{https://federation.renater.fr/registry}), et activer le rattachement à la fédération choisie (onglet \textit{Rattachement à une fédération}). Deux fichiers seront à récupérer (commande wget dans le dossier /etc/apache2/mellon) pour récupérer d'une part le certificat, et d'autre part le fichier XML contenant l'ensemble des fournisseurs attachés à la fédération.
+
+Ce rattachement doit également être validé par votre correspondant Renater.
+
+\underline{Attention :} une fois le rattachement validé, vous devrez attendre 24 heures pour que votre application soit disponible auprès de l'ensemble des membres de la fédération, et donc pouvoir vous connecter à l'application. Dans le cas contraire, vous obtiendrez des messages d'erreur.
+ 
 
 \subsection{Configurer le dossier d'installation}
 

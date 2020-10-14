@@ -90,3 +90,4 @@ EOF
 umask 0777
 chmod go+r "$OUTFILE.xml"
 chmod go+r "$OUTFILE.cert"
+

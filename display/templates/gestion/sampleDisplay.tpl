@@ -313,7 +313,7 @@
 							{$i = 0}
 							{foreach $objectIdentifiers as $oi}
 								{if $i > 0}<br>{/if}
-								{$oi.identifier_type_name} ({$oi.identifier_type_code}):&nbsp;{$oi.object_identifier_value}
+								{$oi.identifier_type_name} {if !empty($oi.identifier_type_code)}({$oi.identifier_type_code}){/if}:&nbsp;{$oi.object_identifier_value}
 								{$i = $i + 1}
 							{/foreach}
 						</dd>

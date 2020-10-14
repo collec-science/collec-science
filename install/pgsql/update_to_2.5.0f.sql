@@ -541,3 +541,19 @@ CREATE INDEX country_id_idx ON col.sample
 	);
 
 alter table col.identifier_type alter column identifier_type_code drop not null;
+
+CREATE OR REPLACE VIEW col.v_object_identifier
+(
+  uid,
+  identifiers
+)
+AS 
+ SELECT object_identifier.uid,
+    array_to_string(array_agg((
+    case when identifier_type_code is not null then identifier_type.identifier_type_code else identifier_type_name end ::text || ':'::text) || object_identifier.object_identifier_value::text 
+    ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
+   FROM col.object_identifier
+     JOIN col.identifier_type USING (identifier_type_id)
+  GROUP BY object_identifier.uid
+  ORDER BY object_identifier.uid;
+  

@@ -18,11 +18,15 @@
 <td>
 {if $droits.gestion == 1}
 <a href="index.php?module={$moduleParent}objectIdentifierChange&object_identifier_id={$objectIdentifiers[lst].object_identifier_id}&uid={$objectIdentifiers[lst].uid}">
-{$objectIdentifiers[lst].identifier_type_name} 
+{$objectIdentifiers[lst].identifier_type_name}
+{if !empty({$objectIdentifiers[lst].identifier_type_code})}
 ({$objectIdentifiers[lst].identifier_type_code})
+{/if}
 {else}
-{$objectIdentifiers[lst].identifier_type_name} 
+{$objectIdentifiers[lst].identifier_type_name}
+{if !empty({$objectIdentifiers[lst].identifier_type_code})}
 ({$objectIdentifiers[lst].identifier_type_code})
+{/if}
 {/if}
 </td>
 <td>

@@ -207,7 +207,8 @@ class SearchContainer extends SearchParam
       "select_date" => "",
       "date_from" => date($_SESSION["MASKDATE"]),
       "date_to" => date($_SESSION["MASKDATE"]),
-      "trashed" => 0
+      "trashed" => 0,
+      "referent_id"=>""
     );
     /**
      * Ajout des dates
@@ -220,7 +221,8 @@ class SearchContainer extends SearchParam
       "object_status_id",
       "uid_min",
       "uid_max",
-      "trashed"
+      "trashed",
+      "referent_id"
     );
     parent::__construct();
   }

@@ -16,3 +16,6 @@ $vue->set($_SESSION["APPLI_code"], "APPLI_code");
 include_once "modules/exportmodel/exportmodel.class.php";
 $exportModel = new ExportModel($bdd, $ObjetBDDParam);
 $vue->set($exportModel->getListFromTarget("container"), "exportModels");
+require_once "modules/classes/referent.class.php";
+$referent = new Referent($bdd, $ObjetBDDParam);
+$vue->set($referent->getListe("referent_name"), "referents");

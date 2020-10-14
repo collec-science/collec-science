@@ -46,6 +46,7 @@
 			if ($("#container_type_id").val() > 0) ok = true;
 			if ($("#object_status_id").val() > 1) ok = true;
 			if ($("#trashed").val() == 1) ok = true;
+			if ($("#referent_id").val() > 0) ok = true;
 			if (ok == false) event.preventDefault();
 		});
 
@@ -57,6 +58,7 @@
 			$("#container_family_id").prop("selectedIndex", 0).change();
 			$("#container_type_id").prop("selectedIndex", 0).change();
 			$("#select_date").prop("selectedIndex", 0).change();
+			$("#referent_id").prop("selectedIndex", 0).change();
 			var now = new Date();
 			$("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
 			$("#date_to").datepicker("setDate", now );
@@ -142,11 +144,20 @@
 		<input type="number" id="limit" name="limit" value="{$containerSearch.limit}" class="form-control">
 		</div>
 		-->
-			<div class="col-md-2 col-md-offset-3">
+			<div class="col-md-1">
 				<input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
 			</div>
 			<div class="col-md-1">
 				<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
+			</div>
+			<label for="referent_id" class="col-md-1 control-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
+			<div class="col-md-3">
+				<select id="referent_id" name="referent_id" class="form-control">
+					<option value="" {if $containerSearch.referent_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+					{foreach $referents as $referent}
+						<option value="{$referent.referent_id}" {if $referent.referent_id == $containerSearch.referent_id}selected{/if}>{$referent.referent_name}</option>
+					{/foreach}
+				</select>
 			</div>
 			<label for="container_type_id" class="col-md-2 control-label lexical" data-lexical="container_type">{t}Type :{/t}</label>
 			<div class="col-md-4">

@@ -340,7 +340,7 @@ class Container extends ObjetBDD
      */
     $searchOk = false;
     $paramName = array(
-      "name", "container_family_id", "container_type_id",  "select_date"
+      "name", "container_family_id", "container_type_id",  "select_date", "referent_id"
     );
     if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0) {
       $searchOk = true;
@@ -398,6 +398,11 @@ class Container extends ObjetBDD
         $where .= $and . " o.trashed = :trashed";
         $and = " and ";
         $data["trashed"] = $param["trashed"];
+      }
+      if ($param["referent_id"] > 0) {
+        $where .= $and . "o.referent_id = :referent_id";
+        $and = " and ";
+        $data["referent_id"] = $param["referent_id"];
       }
       if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
         $where .= $and . " o.uid between :uid_min and :uid_max";

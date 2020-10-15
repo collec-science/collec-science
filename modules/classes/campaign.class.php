@@ -60,21 +60,6 @@ class Campaign extends ObjetBDD
         }
         return $this->getListeParam($this->sql . $order);
     }
-    /**
-     * Overload ecrire function to save the associated regulations
-     *
-     * @param array $data
-     * @return int
-     */
-    function ecrire($data)
-    {
-        $id = parent::ecrire($data);
-        /**
-         * Associate the regulations
-         */
-        $this->ecrireTableNN("campaign_regulation", "campaign_id", "regulation_id", $id, $data["regulation_id"]);
-        return $id;
-    }
 
     /**
      * Overload supprimer function to delete all children of a campaign

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="0,612" last-zoom="0.75" max-obj-count="72"
+<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="467,391" last-zoom="1.15" max-obj-count="72"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -507,7 +507,7 @@ Prélèvement pour analyse•true•false⸣
 		<type name="character varying" length="0"/>
 		<comment><![CDATA[Textual name of the identifier]]></comment>
 	</column>
-	<column name="identifier_type_code" not-null="true">
+	<column name="identifier_type_code">
 		<type name="character varying" length="0"/>
 		<comment><![CDATA[Identifier code, used in the labels]]></comment>
 	</column>
@@ -1376,10 +1376,12 @@ Autre]]>
 	<role name="collec"/>
 	<position x="2180" y="480"/>
 	<reference>
-		<expression><![CDATA[ SELECT object_identifier.uid,
-    array_to_string(array_agg((((identifier_type.identifier_type_code)::text || ':'::text) || (object_identifier.object_identifier_value)::text) ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
-   FROM (col.object_identifier
-     JOIN col.identifier_type USING (identifier_type_id))
+		<expression><![CDATA[SELECT object_identifier.uid,
+    array_to_string(array_agg((
+    case when identifier_type_code is not null then identifier_type.identifier_type_code else identifier_type_name end ::text || ':'::text) || object_identifier.object_identifier_value::text 
+    ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
+   FROM col.object_identifier
+     JOIN col.identifier_type USING (identifier_type_id)
   GROUP BY object_identifier.uid
   ORDER BY object_identifier.uid;]]></expression>
 	<column name="uid">
@@ -2349,22 +2351,35 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	</constraint>
 </table>
 
-<table name="campaign_regulation" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="campaign_regulation" layer="0" collapse-mode="1" max-obj-count="6">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of regulations attached to a campaign]]></comment>
 	<tag name="collection"/>
 	<position x="1320" y="840"/>
+	<column name="campaign_regulation_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="authorization_number">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Number of the authorization]]></comment>
+	</column>
+	<column name="authorization_date">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Date of the authorization]]></comment>
+	</column>
+	<constraint name="campaign_regulation_pk" type="pk-constr" table="col.campaign_regulation">
+		<columns names="campaign_regulation_id" ref-type="src-columns"/>
+	</constraint>
 
 	<customidxs object-type="column">
-		<object name="campaign_id" index="0"/>
-		<object name="regulation_id" index="1"/>
+		<object name="campaign_id" index="1"/>
+		<object name="regulation_id" index="2"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
 		<object name="campaign_fk" index="0"/>
-		<object name="campaign_regulation_pk" index="1"/>
-		<object name="regulation_fk" index="2"/>
+		<object name="regulation_fk" index="1"/>
 	</customidxs>
 </table>
 
@@ -2375,9 +2390,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 custom-color="#97f23e"
 	 src-table="col.campaign"
 	 dst-table="col.campaign_regulation"
-	 src-required="true" dst-required="false">
-	<special-pk-cols indexes="0"/>
-</relationship>
+	 src-required="true" dst-required="false"/>
 
 <relationship name="regulation_has_many_campaign_regulation" type="rel1n" layer="0"
 	 src-col-pattern="{sc}"
@@ -2387,9 +2400,9 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 src-table="col.regulation"
 	 dst-table="col.campaign_regulation"
 	 src-required="true" dst-required="false">
-	<constraint name="campaign_regulation_pk" type="pk-constr" alias="campaign_regulation_pk" protected="true" table="col.campaign_regulation">
-		</constraint>
-	<special-pk-cols indexes="0"/>
+	<label ref-type="name-label">
+		<position x="0.664514" y="4.83934"/>
+	</label>
 </relationship>
 
 <relationship name="campaign_has_many_sample" type="rel1n" layer="0"
@@ -3013,7 +3026,7 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 		</idxelement>
 </index>
 
-<table name="country" layer="0" collapse-mode="2" max-obj-count="4">
+<table name="country" layer="0" collapse-mode="1" max-obj-count="4">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of the countries]]></comment>
@@ -3323,6 +3336,14 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="country_id"/>
+		</idxelement>
+</index>
+
+<index name="authorization_number_idx" table="col.campaign_regulation"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="gin" factor="0">
+		<idxelement use-sorting="false">
+			<column name="authorization_number"/>
 		</idxelement>
 </index>
 

@@ -175,11 +175,14 @@
 	<regulationDelete action="modules/param/regulation.php" param="delete" droits="param" retourok="regulationList" retourko="regulationChange" modulebefore="regulationChange"/>
 
 	<campaignList action="modules/param/campaign.php" param="list" droits="consult" retourlogin="1" type="smarty" />
-	<campaignChange action="modules/param/campaign.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<campaignChange action="modules/param/campaign.php" param="change" droits="collection" retourlogin="1" type="smarty" />
 	<campaignDisplay action="modules/param/campaign.php" param="display" droits="consult" retourlogin="1" type="smarty"/>
-	<campaignWrite action="modules/param/campaign.php" param="write" droits="param" retourok="campaignDisplay" retourko="campaignChange" modulebefore="campaignChange" />
-	<campaignDelete action="modules/param/campaign.php" param="delete" droits="param" retourok="campaignList" retourko="campaignChange" modulebefore="campaignChange"/>
+	<campaignWrite action="modules/param/campaign.php" param="write" droits="collection" retourok="campaignDisplay" retourko="campaignChange" modulebefore="campaignChange" />
+	<campaignDelete action="modules/param/campaign.php" param="delete" droits="collection" retourok="campaignList" retourko="campaignChange" modulebefore="campaignChange"/>
 
+	<campaignRegulationChange action="modules/param/campaignRegulation.php" param="change" droits="collection" retourlogin="1" type="smarty" />
+	<campaignRegulationWrite action="modules/param/campaignRegulation.php" param="write" droits="collection" modulebefore="campaignRegulationChange" retourok="campaignDisplay" retourko="campaignRegulationChange"/>
+	<campaignRegulationDelete action="modules/param/campaignRegulation.php" param="delete" droits="collection" retourok="campaignDisplay" retourko="campaignRegulationChange" modulebefore="campaignRegulationChange"/>
 
 	<labelList action="modules/param/label.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 	<labelChange action="modules/param/label.php" param="change" droits="collection" retourlogin="1" type="smarty" />

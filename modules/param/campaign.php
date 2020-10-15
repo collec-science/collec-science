@@ -14,12 +14,12 @@ switch ($t_module["param"]) {
         break;
     case "display":
         $vue->set($dataClass->getDetail($id), "data");
-        require_once "modules/classes/regulation.class.php";
-        $regulation = new Regulation($bdd, $ObjetBDDParam);
-        $vue->set($regulation->getListFromCampaign($id), "regulations");
+        require_once "modules/classes/campaign_regulation.class.php";
+        $campaignRegulation = new CampaignRegulation($bdd, $ObjetBDDParam);
+        $vue->set($campaignRegulation->getListFromCampaign($id), "regulations");
         $vue->set("param/campaignDisplay.tpl", "corps");
-        /** 
-         * Documents 
+        /**
+         * Documents
          */
         include_once 'modules/classes/document.class.php';
         $document = new Document($bdd, $ObjetBDDParam);
@@ -43,8 +43,6 @@ switch ($t_module["param"]) {
          */
         dataRead($dataClass, $id, "param/campaignChange.tpl");
         require_once "modules/classes/regulation.class.php";
-        $regulation = new Regulation($bdd, $ObjetBDDParam);
-        $vue->set($regulation->getAllForCampaign($id), "regulations");
         require_once "modules/classes/referent.class.php";
         $referent = new Referent($bdd, $ObjetBDDParam);
         $vue->set($referent->getListe(2), "referents");

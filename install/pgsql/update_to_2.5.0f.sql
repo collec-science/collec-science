@@ -557,3 +557,19 @@ AS
   GROUP BY object_identifier.uid
   ORDER BY object_identifier.uid;
   
+alter table col.campaign_regulation 
+drop constraint campaign_regulation_pk,
+add column campaign_regulation_id serial,
+add column authorization_number varchar,
+add column authorization_date timestamp,
+add constraint campaign_regulation_pk primary key (campaign_regulation_id)
+;
+COMMENT ON COLUMN col.campaign_regulation.authorization_number IS E'Number of the authorization';
+-- ddl-end --
+COMMENT ON COLUMN col.campaign_regulation.authorization_date IS E'Date of the authorization';
+CREATE INDEX authorization_number_idx ON col.campaign_regulation
+	USING gin
+	(
+	  authorization_number
+	);
+	

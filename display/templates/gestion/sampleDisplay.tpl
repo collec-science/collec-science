@@ -409,7 +409,7 @@
 				{if $data.campaign_id > 0}
 					<dl class="dl-horizontal">
 						<dt>{t}Campagne de prélèvement :{/t}</dt>
-						<dd>{$data.campaign_name}</dd>
+						<dd><a href="index.php?module=campaignDisplay&campaign_id={$data.campaign_id}">{$data.campaign_name}</a></dd>
 					</dl>
 				{/if}
 				{if $data.sampling_place_id > 0}

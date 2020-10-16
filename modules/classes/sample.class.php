@@ -19,7 +19,7 @@ class Sample extends ObjetBDD
    * @param PDO $bdd
    * @param array $param
    */
-  private $sql = "select s.sample_id, s.uid,
+  private $sql = "select distinct on (s.uid) s.sample_id, s.uid,
 					s.collection_id, collection_name, s.sample_type_id, s.dbuid_origin,
                     sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
                     s.campaign_id, campaign_name,
@@ -81,6 +81,7 @@ class Sample extends ObjetBDD
           left outer join last_borrowing lb on (so.uid = lb.uid)
           left outer join borrower using (borrower_id)
           left outer join campaign on (s.campaign_id = campaign.campaign_id)
+          left outer join campaign_regulation campreg on (campaign.campaign_id = campreg.campaign_id)
           left outer join country sc on (s.country_id = sc.country_id)
           left outer join country csp on (sp.country_id = csp.country_id)
           ";
@@ -475,6 +476,11 @@ class Sample extends ObjetBDD
         $and = " and ";
         $data["campaign_id"] = $param["campaign_id"];
       }
+      if (! empty($param["authorization_number"])) {
+        $where .= $and . "upper(campreg.authorization_number) like upper(:authorization_number)";
+        $and = " and ";
+        $data["authorization_number"] = "%".$param["authorization_number"]."%";
+      }
       if ($param["country_id"] > 0) {
         $where .= $and . " (s.country_id = :country_id or sp.country_id = :country_id)";
         $and = " and ";
@@ -605,6 +611,10 @@ class Sample extends ObjetBDD
       $this->colonnes["borrowing_date"] = array("type" => 2);
       $this->colonnes["expected_return_date"] = array("type" => 2);
       $this->colonnes["change_date"] = array("type" => 3);
+      /*printr($this->sql);
+      printr($where);
+      printA($data);
+      */
       $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
       /**
        * Destroy foreign fields used in the request

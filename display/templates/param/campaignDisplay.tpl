@@ -35,7 +35,7 @@
       <thead>
         <tr>
           <th>{t}Nom{/t}</th>
-          <th>{t}N° d'autorisation{/t}</th>
+          <th class="lexical" data-lexical="authorization">{t}N° d'autorisation{/t}</th>
           <th>{t}Date d'autorisation{/t}</th>
         </tr>
       </thead>

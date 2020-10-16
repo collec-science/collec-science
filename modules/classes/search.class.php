@@ -260,7 +260,8 @@ class SearchSample extends SearchParam
       "NorthEastlon" => "",
       "NorthEastlat" => "",
       "campaign_id" => "",
-      "country_id" => ""
+      "country_id" => "",
+      "authorization_number" => ""
     );
     /**
      * Ajout des dates

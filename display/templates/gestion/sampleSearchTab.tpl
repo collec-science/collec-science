@@ -35,6 +35,7 @@
              if ($("#trashed").val() == 1) ok = true;
              if ($("#samplesearch_id").val() > 0) ok = true;
              if ($("#country_id").val() > 0) ok = true;
+             if ($("#authorization_number").val().length > 0) ok = true;
              var mf = $("#metadata_field").val();
              if ( mf != null) {
                  if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -385,14 +386,18 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="campaign_id" class="col-sm-3 control-label">{t}Campagne de prélèvement :{/t}</label>
-                        <div class="col-sm-6">
+                        <label for="campaign_id" class="col-sm-3 control-label lexical" data-lexical="campaign">{t}Campagne de prélèvement :{/t}</label>
+                        <div class="col-sm-3">
                             <select id="campaign_id" name="campaign_id" class="form-control">
                                 <option value="" {if $sampleSearch.campaign_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
                                 {foreach $campaigns as $campaign}
                                     <option value="{$campaign.campaign_id}" {if $campaign.campaign_id == $sampleSearch.campaign_id}selected{/if}>{$campaign.campaign_name}</option>
                                 {/foreach}
                             </select>
+                        </div>
+                        <label for="authorization_number" class="col-sm-2 control-label lexical" data-lexical="authorization">{t}N° d'autorisation :{/t}</label>
+                        <div class="col-sm-3">
+                           <input id="authorization_number" name="authorization_number" class="form-control" value="{$sampleSearch.authorization_number}">
                         </div>
                     </div>
                 </div>

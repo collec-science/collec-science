@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="authorization_number"  class="control-label col-md-4"> {t}N° d'autorisation :{/t}</label>
+        <label for="authorization_number"  class="control-label col-md-4 lexical" data-lexical="authorization"> {t}N° d'autorisation :{/t}</label>
         <div class="col-md-8">
           <input id="authorization_number" type="text" class="form-control" name="authorization_number" value="{$data.authorization_number}">
         </div>

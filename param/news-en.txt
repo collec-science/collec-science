@@ -1,5 +1,23 @@
 News
 ===========
+Version 2.5.0f of October 27, 2020
+-----------------------------------
+New features :
+- the database structure now displays the views
+- reorganization of the menu, to have a main entry dedicated to imports/exports
+- it is now possible to indicate a collection country for a sample (full table provided). The country can be assigned for a set of samples
+- in the rights management module, it is now possible to move a group in the tree structure
+- in the labels, it is now possible to insert the referent
+- it is now possible to search for containers by referent
+- when displaying a sample, if the code of a secondary identifier is not filled in, the name of the secondary identifier is displayed. The code becomes non mandatory, if the identifier is not used in research
+- for collection campaigns, it is possible, for each regulation applied, to indicate the authorization number and the date. Samples can be searched by authorization number
+
+Bug fixes :
+- in the detail of a container, in the list of containers, the number of slots was not displayed
+- in the detail of a container, the referent was displayed incorrectly
+- in the rights management module, the deletion of a group was not successful if the group was assigned to a collection
+- the display of the sample grid, in detail, was wrong if the first column was on the left side of the grid
+
 Version 2.5.0e of September 28, 2020
 -----------------------------------
 New features :

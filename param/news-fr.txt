@@ -1,5 +1,23 @@
 News
 ===========
+Version 2.5.0f du 27 octobre 2020
+-----------------------------------
+Nouveautés :
+- la structure de la base de données affiche maintenant les vues
+- réorganisation du menu, pour avoir une entrée principale dédiée aux imports/exports
+- il est maintenant possible d'indiquer un pays de collecte pour un échantillon (table complète fournie). Le pays peut être affecté pour un ensemble d'échantillons
+- dans le module de gestion des droits, il est maintenant possible de déplacer un groupe dans l'arborescence
+- dans les étiquettes, il est maintenant possible d'insérer le référent
+- il est maintenant possible de rechercher les contenants par référent
+- en affichage d'un échantillon, si le code d'un identifiant secondaire n'est pas renseigné, c'est le nom de l'identifiant secondaire qui est affiché. Le code devient non obligatoire, si l'identifiant n'est pas utilisé en recherche
+- pour les campagnes de collecte, il est possible, pour chaque réglementation appliquée, d'indiquer le numéro d'autorisation et la date. Les échantillons peuvent être recherchés par numéro d'autorisation
+
+Corrections de bugs :
+- dans le détail d'un container, dans la liste des containers, le nombre de slots n'était pas affiché
+- dans le détail d'un contenant, le référent était mal affiché
+- dans le module de gestion des droits, la suppression d'un groupe n'aboutissait pas si le groupe était affecté à une collection
+- l'affichage de la grille des échantillons, dans le détail, était erroné si la première colonne était à gauche
+
 Version 2.5.0e du 28 septembre 2020
 -----------------------------------
 Nouveautés :

@@ -26,9 +26,9 @@
 	<item module="containerImportStage1" label="Import de contenants externes" tooltip="Import d'un lot de containers avec les objets associés provenant d'une base externe" droits="import,collection"/>
 	<item divider="1"/>
 	<item module="lotList" label="Lots d'export" tooltip="Liste des lots d'exportation des échantillons" droits="collection"/>
-	<item module="exportTemplateList" label="Modèles d'exports" tooltip="Liste des modèles d'exports" droits="param"/>
-	<item module="datasetTemplateList" label="Modèles de datasets" tooltip="Liste des modèles de datasets" droits="param"/>
-	<item module="translatorList" label="Traducteurs" tooltip="Liste des traducteurs de libellés" droits="param"/>
+	<item module="exportTemplateList" label="Modèles d'exports" tooltip="Liste des modèles d'exports" droits="collection"/>
+	<item module="datasetTemplateList" label="Modèles de datasets" tooltip="Liste des modèles de datasets" droits="collection"/>
+	<item module="translatorList" label="Traducteurs" tooltip="Liste des traducteurs de libellés" droits="collection"/>
 </item>
 <item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
 	<item module="collectionList" droits="consult" label="Collections" tooltip="Liste des collections" >

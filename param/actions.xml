@@ -351,27 +351,27 @@
 	<licenseDelete action="modules/param/license.php" param="delete" droits="param" retourok="licenseList" retourko="licenseChange" modulebefore="licenseChange"/>
 
 	<!-- Exports to other referentials -->
-	<datasetTypeList action="modules/export/datasetType.php" param="list" droits="param" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTypeChange action="modules/export/datasetType.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTypeWrite action="modules/export/datasetType.php" param="write" droits="param" moduleBefore="datasetTypeChange" retourok="datasetTypeList" retourko="datasetTypeChange" />
-	<datasetTypeDelete action="modules/export/datasetType.php" param="delete" droits="param" moduleBefore="datasetTypeChange" retourok="datasetTypeList" retourko="datasetTypeChange" />
-	<datasetTemplateList action="modules/export/datasetTemplate.php" param="list" droits="param" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTemplateDisplay action="modules/export/datasetTemplate.php" param="display" droits="param" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTemplateChange action="modules/export/datasetTemplate.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTemplateWrite action="modules/export/datasetTemplate.php" param="write" droits="param" moduleBefore="datasetTemplateChange" retourok="datasetTemplateDisplay" retourko="datasetTemplateChange" />
-	<datasetTemplateDelete action="modules/export/datasetTemplate.php" param="delete" droits="param" moduleBefore="datasetTemplateChange" retourok="datasetTemplateList" retourko="datasetTemplateChange" />
-	<datasetTemplateDuplicate action="modules/export/datasetTemplate.php" param="duplicate" droits="param" moduleBefore="datasetTemplateList,datasetTemplateWrite,datasetTemplateDelete,datasetTemplateDuplicate" retourok="datasetTemplateChange" retourko="datasetTemplateList" />
-	<datasetColumnChange action="modules/export/datasetColumn.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetColumnWrite action="modules/export/datasetColumn.php" param="write" droits="param" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
-	<datasetColumnDelete action="modules/export/datasetColumn.php" param="delete" droits="param" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
-	<translatorList action="modules/export/translator.php" param="list" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" retourlogin="1"/>
-	<translatorChange action="modules/export/translator.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<translatorWrite action="modules/export/translator.php" param="write" droits="param" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
-	<translatorDelete action="modules/export/translator.php" param="delete" droits="param" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
-	<exportTemplateList action="modules/export/exportTemplate.php" param="list" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<exportTemplateChange action="modules/export/exportTemplate.php" param="change" droits="param" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<exportTemplateWrite action="modules/export/exportTemplate.php" param="write" droits="param" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
-	<exportTemplateDelete action="modules/export/exportTemplate.php" param="delete" droits="param" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
+	<datasetTypeList action="modules/export/datasetType.php" param="list" droits="collection" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTypeChange action="modules/export/datasetType.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTypeWrite action="modules/export/datasetType.php" param="write" droits="collection" moduleBefore="datasetTypeChange" retourok="datasetTypeList" retourko="datasetTypeChange" />
+	<datasetTypeDelete action="modules/export/datasetType.php" param="delete" droits="collection" moduleBefore="datasetTypeChange" retourok="datasetTypeList" retourko="datasetTypeChange" />
+	<datasetTemplateList action="modules/export/datasetTemplate.php" param="list" droits="collection" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTemplateDisplay action="modules/export/datasetTemplate.php" param="display" droits="collection" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTemplateChange action="modules/export/datasetTemplate.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTemplateWrite action="modules/export/datasetTemplate.php" param="write" droits="collection" moduleBefore="datasetTemplateChange" retourok="datasetTemplateDisplay" retourko="datasetTemplateChange" />
+	<datasetTemplateDelete action="modules/export/datasetTemplate.php" param="delete" droits="collection" moduleBefore="datasetTemplateChange" retourok="datasetTemplateList" retourko="datasetTemplateChange" />
+	<datasetTemplateDuplicate action="modules/export/datasetTemplate.php" param="duplicate" droits="collection" moduleBefore="datasetTemplateList,datasetTemplateWrite,datasetTemplateDelete,datasetTemplateDuplicate" retourok="datasetTemplateChange" retourko="datasetTemplateList" />
+	<datasetColumnChange action="modules/export/datasetColumn.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetColumnWrite action="modules/export/datasetColumn.php" param="write" droits="collection" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
+	<datasetColumnDelete action="modules/export/datasetColumn.php" param="delete" droits="collection" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
+	<translatorList action="modules/export/translator.php" param="list" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" retourlogin="1"/>
+	<translatorChange action="modules/export/translator.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<translatorWrite action="modules/export/translator.php" param="write" droits="collection" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
+	<translatorDelete action="modules/export/translator.php" param="delete" droits="collection" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
+	<exportTemplateList action="modules/export/exportTemplate.php" param="list" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<exportTemplateChange action="modules/export/exportTemplate.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<exportTemplateWrite action="modules/export/exportTemplate.php" param="write" droits="collection" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
+	<exportTemplateDelete action="modules/export/exportTemplate.php" param="delete" droits="collection" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
 	<lotList action="modules/export/lot.php" param="list" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" retourlogin="1"/>
 	<lotCreate action="modules/export/lot.php" param="create" droits="collection" maxCountByHour="60" maxCountByDay="600" retourok="lotDisplay" retourko="sampleList" modulebefore="sampleList"/>
 	<lotDisplay action="modules/export/lot.php" param="display" droits="collection" maxCountByHour="60" maxCountByDay="600" type="smarty"/>

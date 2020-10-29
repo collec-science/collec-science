@@ -418,6 +418,12 @@
 						<dd>{$data.sampling_place_name}</dd>
 					</dl>
 				{/if}
+				{if $data.country_id > 0}
+					<dl class="dl-horizontal">
+						<dt>{t}Pays de prélèvement :{/t}</dt>
+						<dd>{$data.country_name}</dd>
+					</dl>
+				{/if}
 				{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
 					<dl class="dl-horizontal">
 						<dt class="lexical" data-lexical="sample_latlong">{t}Latitude :{/t}</dt>

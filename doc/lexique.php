@@ -17,7 +17,18 @@ while ($line = fgets($f)) {
     $line = trim($line);
     if (strlen($line) > 0) {
         $d = explode(":", $line);
-        $data [] = array("item"=>$d[0], "content"=>$d[1]);
+        $content = "";
+        foreach ($d as $id=>$value) {
+            if ($id == 0) {
+                $key = $d[0];
+            } else {
+                if ($id > 1) {
+                    $content .= ":";
+                }
+                $content .= $value;
+            }
+        }
+        $data [] = array("item"=> $key, "content"=>$content);
     }
 }
 $vue->set($data, "lexique");

@@ -42,4 +42,4 @@ type of identifier or secondary identifier: it is possible to attach various ide
 
 UUID or Universally Unique IDentifier: a 36-character identifier that is generated with cryptographic functions that make it unique, regardless of the system that produced it. Example: a95d8731-3501-4cc7-a71d-50ebd839b035. It is used to facilitate exchanges between databases, instead of the database code:UID pair.
 
-Translated with www.DeepL.com/Translator (free version)
+Translation: Translated with www.DeepL.com/Translator (free version)

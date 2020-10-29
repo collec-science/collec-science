@@ -34,7 +34,7 @@
              if ($("#campaign_id").val() > 0) ok = true;
              if ($("#trashed").val() == 1) ok = true;
              if ($("#samplesearch_id").val() > 0) ok = true;
-             if ($("#country_id").val() > 0) ok = true;
+             if ($("#country_id_search").val() > 0) ok = true;
              if ($("#authorization_number").val().length > 0) ok = true;
              var mf = $("#metadata_field").val();
              if ( mf != null) {

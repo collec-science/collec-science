@@ -144,14 +144,8 @@
 		<input type="number" id="limit" name="limit" value="{$containerSearch.limit}" class="form-control">
 		</div>
 		-->
-			<div class="col-md-1">
-				<input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
-			</div>
-			<div class="col-md-1">
-				<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
-			</div>
-			<label for="referent_id" class="col-md-1 control-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
-			<div class="col-md-3">
+			<label for="referent_id" class="col-md-2 control-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
+			<div class="col-md-2">
 				<select id="referent_id" name="referent_id" class="form-control">
 					<option value="" {if $containerSearch.referent_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 					{foreach $referents as $referent}
@@ -159,7 +153,12 @@
 					{/foreach}
 				</select>
 			</div>
-			<label for="container_type_id" class="col-md-2 control-label lexical" data-lexical="container_type">{t}Type :{/t}</label>
+			<div class="col-md-3 center">
+				<input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
+
+				<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
+			</div>
+			<label for="container_type_id" class="col-md-1 control-label lexical" data-lexical="container_type">{t}Type :{/t}</label>
 			<div class="col-md-4">
 				<select id="container_type_id" name="container_type_id" class="form-control">
 					<option value="" {if $containerSearch.container_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>

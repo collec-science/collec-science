@@ -56,7 +56,14 @@ switch ($t_module["param"]) {
         dataDelete($dataClass, $id);
         break;
     case "metadata":
-        $vue->setJson($dataClass->getMetadataForm($id));
+        if(!empty($id)) {
+            $vue->set($dataClass->getMetadataSearchable($id));
+        } else {
+            include_once "modules/classes/metadata.class.php";
+            $metadata = new Metadata($bdd, $ObjetBDDParam);
+            $vue->set($metadata->getListSearchable());
+        }
+
         break;
     case "generator":
         $vue->setJson($dataClass->getIdentifierJs($id));

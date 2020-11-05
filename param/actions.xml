@@ -112,6 +112,7 @@
 	<sampleTypeWrite action="modules/param/sampleType.php" param="write" droits="param,collection" retourok="sampleTypeList" retourko="sampleTypeChange" modulebefore="sampleTypeChange" />
 	<sampleTypeDelete action="modules/param/sampleType.php" param="delete" droits="param,collection" retourok="sampleTypeList" retourko="sampleTypeChange" modulebefore="sampleTypeChange"/>
 	<sampleTypeMetadata action="modules/param/sampleType.php" param="metadata" droits="consult" type="ajax"/>
+    <sampleTypeMetadataSearchable action="modules/param/sampleType.php" param="metadataSearchable" droits="consult" type="ajax"/>
 	<sampleTypeGenerator action="modules/param/sampleType.php" param="generator" droits="gestion" type="ajax"/>
 
 	<movementReasonList action="modules/param/movementReason.php" param="list" droits="consult" retourlogin="1" type="smarty" />

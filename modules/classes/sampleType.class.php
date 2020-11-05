@@ -118,7 +118,7 @@ class SampleType extends ObjetBDD
         }
     }
     function getMetadataSearchable($sample_type_id) {
-        $data = $this->getMetadataForm($sample_type_id);
+        $data = json_decode($this->getMetadataForm($sample_type_id),true);
         $val = array();
         foreach ($data as $value) {
             if ($value["isSearchable"] == "yes") {

@@ -98,7 +98,7 @@
             lastSampletypeId = sampleTypeId;
                 $.ajax( {
                        url: "index.php",
-                    data: { "module": "sampleTypeMetadata", "sample_type_id": sampleTypeId }
+                    data: { "module": "sampleTypeMetadataSearchable", "sample_type_id": sampleTypeId }
                 })
                 .done (function (value) {
                     if (value.length > 0) {
@@ -113,12 +113,11 @@
                         $("#metadata_field").append(option);
                         $("#metadata_field1").append(option);
                         $("#metadata_field2").append(option);
+                        console.log(value);
                            $.each(JSON.parse(value), function(i, obj) {
-                               if (obj.isSearchable == "yes") {
-                            var nom = obj.name.replace(/ /g,"_");
+                            var nom = obj.fieldname.replace(/ /g,"_");
                             if (nom == metadataFieldInitial[0]) {
                                 selected = "selected";
-                                $("#metadatarow1").show();
                             }
                             option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
                             $("#metadata_field").append(option);
@@ -126,7 +125,7 @@
                             selected = "";
                             if (nom == metadataFieldInitial[1]) {
                                 selected = "selected";
-                                $("#metadatarow2").show();
+                                $("#metadatarow1").show();
                             }
                             option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
                             $("#metadata_field1").append(option);
@@ -134,11 +133,11 @@
                             selected = "";
                             if (nom == metadataFieldInitial[2]) {
                                 selected = "selected";
+                                $("#metadatarow2").show();
                             }
                             option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
                             $("#metadata_field2").append(option);
                             selected = "";
-                               }
                         })
                     }
                 });
@@ -186,10 +185,10 @@
         $("#object_status_id").prop("selectedIndex", 1).change();
         $("#collection_id").prop("selectedIndex", 0).change();
         $("#referent_id").prop("selectedIndex", 0).change();
-        $("#sample_type_id").combobox("select", "{t}Choisissez...{/t}").change();
+        //$("#sample_type_id").combobox("select", "{t}Choisissez...{/t}").change();
         $("#sample_type_id").prop("selectedIndex", 0).change();
         sampling_place_init = "";
-        //$("#sampling_place_id").combobox("select", "{t}Choisissez...{/t}").change();
+        $("#sampling_place_id").combobox("select", "{t}Choisissez...{/t}").change();
         $("#sampling_place_id").prop("selectedIndex", 0).change();
         $("#country_id_search").prop("selectedIndex", 0).change();
         $("#movement_reason_id").prop("selectedIndex", 0).change();

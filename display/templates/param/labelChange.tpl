@@ -11,7 +11,6 @@ $(document).ready( function() {
 						data: { "module": "metadataGetschema", "metadata_id": oi }
 					})
 					.done (function (value) {
-						//console.log( value );
 						$.each(JSON.parse(value), function(i, obj) {
 							var name = obj.name.replace(/ /g,"_");
 							$("#list_metadata").append($("<li>").text(name));

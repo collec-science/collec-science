@@ -1,5 +1,5 @@
 {* Mouvements > Entrer un échantillon > *}
-<!-- 
+<!--
 <script src="display/javascript/adapter.js"></script>
 <script
 	src="display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
@@ -7,7 +7,7 @@
  -->
  <script src="display/javascript/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
-$(document).ready(function() { 
+$(document).ready(function() {
 	'use strict';
 	var destination = "object";
 	var video = document.querySelector("#reader");
@@ -15,11 +15,10 @@ $(document).ready(function() {
     if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
         //alert('Your browser doesn\'t match the required specs.');
         throw new Error('Canvas and getUserMedia are required');
-        console.log ('Canvas and getUserMedia are required');
         $("#optical").hide();
       }
-     
-	var db = "{$db}";	
+
+	var db = "{$db}";
 	function getDetail(uid, champ) {
 		/*
 		 * Retourne le detail d'un objet, par interrogation ajax
@@ -30,17 +29,11 @@ $(document).ready(function() {
 		if (champ == "container") {
 			is_container = 1;
 		}
-		console.log("fonction getDetail - paramètres : uid : "+uid +" is_container : "+ is_container);
-		console.log ("appel ajax");
 		//$.getJSON ( url, { "module":"objectGetDetail", "container_family_id":family } , function( data ) {
 
 		$.ajax ( { url:url, method:"GET", data : { module:"objectGetDetail", uid:uid, is_container:is_container }, success : function ( djs ) {
-			console.log("interrogation Ajax terminée");
-			console.log("data recuperee depuis le serveur : " + djs);
 			var data = JSON.parse(djs);
 			if (data.length > 0) {
-			console.log ("uid extrait de data : "+data[0].uid);
-				console.log("traitement de data");
 				if (!isNaN(data[0].uid)) {
 					var id = "", type="";
 					if (data[0].identifier) {
@@ -50,7 +43,6 @@ $(document).ready(function() {
 						type = " (" + data[0].type_name+")";
 					}
 					chaine = id + type ;
-					console.log("Détail associé à l'UID : " + chaine);
 					$("#"+champ+"_uid").val(data[0].uid);
 					$("#"+champ+"_detail").val(chaine);
 				} else {
@@ -69,9 +61,9 @@ $(document).ready(function() {
 			 */
 			 $("#valeur-scan").val("");
 		}
-		} ); 
+		} );
 	}
-	
+
 	$("#container_uid").focusout(function () {
 		getDetail($("#container_uid").val(), "container");
 	});
@@ -86,7 +78,6 @@ $(document).ready(function() {
 	});
 	$("#valeur-scan").change(function () {
 		var value = $(this).val()
-		console.log("#valeur-scan change. Value : " + value);
 		if (value.length > 0) {
 			readChange();
 		}
@@ -95,13 +86,11 @@ $(document).ready(function() {
 	 * Fonctions pour la lecture du QRCode
 	 */
 	var is_read = false;
-	var snd = new Audio("/display/images/sound.ogg"); 
+	var snd = new Audio("/display/images/sound.ogg");
 	function readChange() {
 		/*
 		 * Lit le contenu de la zone, et declenche la recherche
 		 */
-		//console.log("destination : "+destination);
-		//console.log("valeur : "+ $("#valeur-scan").val());
 		snd.play();
 		var valeur = $("#valeur-scan").val().trim();
 		if (valeur.substring(0,3) == "]C1") {
@@ -123,7 +112,7 @@ $(document).ready(function() {
 		}
 		getDetail(value, destination);
 	}
-	
+
 	function extractUidValFromJson(valeur) {
 		/*
 		 * Extrait le contenu de la chaine json
@@ -131,16 +120,13 @@ $(document).ready(function() {
 		 */
 		 /*valeur = valeur.replace("[", String.fromCharCode(123));
 		 valeur = valeur.replace ("]", String.fromCharCode(125));*/
-		 console.log("valeur après remplacement suite à lecture douchette :" + valeur);
 		var data = JSON.parse(valeur);
-		console.log("uid après extraction : "+data["uid"]);
-		console.log ("db après extraction : " + data ["db"]);
 		if (data["db"] == db) {
-			return data["uid"];	
+			return data["uid"];
 		} else {
 			return data["db"]+":"+data["uid"];
 		}
-		
+
 		/*
 		 * Recherche s'il s'agit d'une adresse web
 		 */
@@ -188,7 +174,7 @@ $(document).ready(function() {
 		$("#valeur-scan").val("");
 		$("#valeur-scan").focus();
 	} );
-	
+
 	$('#start').click(function() {
 		destination = "container";
 		showArrow("container");
@@ -224,13 +210,10 @@ $(document).ready(function() {
 showArrow("object");
 
 function resultHandler (err, result) {
-    if (err) {
-      return console.log(err.message);
-    }
     $("#valeur-scan").val(result);
     readChange();
   }
-  
+
 /*
  * Activation automatique de la lecture optique
  */

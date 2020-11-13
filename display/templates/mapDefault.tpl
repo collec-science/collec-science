@@ -28,7 +28,6 @@
                 }
             } catch { }
         }
-        //console.log(mapData);
         zoom = 5;
         try {
             if (mapData.mapDefaultZoom > 0) {
@@ -36,7 +35,6 @@
             }
         } catch { }
 
-        //console.log(mapData);
 
         osm = new L.TileLayer(osmUrl, {
             minZoom: mapData.mapMinZoom,
@@ -58,7 +56,6 @@
         return lmap;
     }
     function mapDisplay(lmap) {
-        //console.log(mapData);
         lmap.setView([mapData.mapDefaultLat, mapData.mapDefaultLong], zoom);
         lmap.addLayer(osm);
     }

@@ -7,7 +7,6 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 	 */
 	function searchType() {
 	var family = $("#container_family_id").val();
-	console.log ("famille : "+family);
 	var url = "index.php";
 	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
 		if (data != null) {
@@ -28,7 +27,6 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 	 */
 	function searchContainer () {
 		var containerType = $("#container_type_id").val();
-		console.log ("ContainerType : "+containerType);
 		var url = "index.php";
 		$.getJSON ( url, { "module":"containerGetFromType", "container_type_id":containerType } , function( data ) {
 			if (data != null) {
@@ -60,8 +58,6 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 		var a_texte = texte.split(" ");
 
 		$("#container_uid").val(a_texte[0]);
-		console.log("container_id : "+id);
-		console.log("container_uid : " + a_texte[0] );
 	});
 	if($("#movement_type_id").val() == 1 )
 		$("#container_uid").attr("required");
@@ -81,10 +77,8 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 	 $("#container_uid").change(function () {
 			var url = "index.php";
 			var uid = $(this).val();
-			console.log ("Recherche container - uid : "+uid);
 			$.getJSON ( url, { "module":"containerGetFromUid", "uid":uid } , function( data ) {
 				if (data != null) {
-				console.log (data);
 				var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " ("+data.object_status_name + ")</option>";
 				$("#container_id").val(data.container_id);
 				$("#containers").html(options);

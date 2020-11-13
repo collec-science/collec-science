@@ -11,21 +11,20 @@ function testScan() {
 }
 
 
-		
 
-$(document).ready(function() { 
+
+$(document).ready(function() {
 	'use strict';
 	var destination = "object";
 	var video = document.querySelector("#reader");
 	var is_read = false;
-	var snd = new Audio("display/images/sound.ogg"); 
+	var snd = new Audio("display/images/sound.ogg");
     var qr = new QCodeDecoder();
     var timer;
     var timer_duration = 500;
     if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
         //alert('Your browser doesn\'t match the required specs.');
         throw new Error('Canvas and getUserMedia are required');
-        console.log ('Canvas and getUserMedia are required');
         $("#optical").hide();
       }
     function resultHandler (err, result) {
@@ -45,30 +44,30 @@ $(document).ready(function() {
 	}
 	var mouvements = {};
 	var objets = {};
-	
+
 	var db = "{$db}";
 	/*
 	 * Traitement des recherches
 	 */
-	$("#object_search").on ('keyup change', function () { 
+	$("#object_search").on ('keyup change', function () {
 		clearTimeout(timer);
 		timer = setTimeout(object_search, timer_duration);
 	});
-	
+
 	function object_search() {
 		var val = getVal($("#object_search").val());
 		if (val) {
 			search("objectGetDetail", "object_uid", val , false );
 		}
 	}
-	
+
 	function container_search() {
 		var val = getVal($("#container_search").val());
 		if (val) {
 			search("objectGetDetail","container_uid", val, true );
 		}
 	}
-	$("#container_search").on('keyup change', function () { 
+	$("#container_search").on('keyup change', function () {
 		clearTimeout(timer);
 		timer = setTimeout(container_search, timer_duration);
 	});
@@ -78,7 +77,7 @@ $(document).ready(function() {
 	$("#object_search,#container_search").blur(function () {
     	is_scan = false;
     });
-	
+
 	$("#object_uid").on ("change", function () {
 		var uid = $("#object_uid").val();
 		var position = "";
@@ -89,10 +88,10 @@ $(document).ready(function() {
 			} else {
 				position = "{t}Hors du stock{/t}";
 			}
-		} 
+		}
 		$("#position_stock").val(position);
 		}
-		
+
 		search ("objectGetLastEntry", "container_uid", $("#object_uid").val(), false);
 	});
 	$('#start').click(function() {
@@ -118,13 +117,13 @@ $(document).ready(function() {
 	{if $read_optical == 1}
 	readEnable();
 	{/if}
-	
+
 	function getVal(val) {
 		/*
 		 * Extraction de la valeur - cas notamment de la lecture par douchette
 		 */
 		val = val.trim();
-		
+
 		var firstChar = val.substring(0,1);
 		var lastChar = val.substring (vallength - 1, vallength);
 		if ( firstChar == "[" || firstChar == String.fromCharCode(123)) {
@@ -144,7 +143,7 @@ $(document).ready(function() {
 		}
 		return val;
 	}
-	
+
 	function search (module, fieldid, value, is_container) {
 		/*
 		 * Declenchement de la recherche Ajax
@@ -167,7 +166,6 @@ $(document).ready(function() {
 		} else {
 			objets = {};
 		}
-		console.log(value);
 		$.ajax ( { url:url, method:"GET", data : { module:module, uid:value, is_container:is_container, is_partial:true }, success : function ( djs ) {
 			var data = JSON.parse(djs);
 			for (var i = 0; i < data.length; i++) {
@@ -179,7 +177,7 @@ $(document).ready(function() {
 					objets[uid] = {};
 					objets[uid]["position"] = data[i].last_movement_type;
 				}
-				options += '<option value="' + uid +'">' + uid + "-" + data[i].identifier; 
+				options += '<option value="' + uid +'">' + uid + "-" + data[i].identifier;
 				if (module == "objectGetLastEntry") {
 					options += " col:"+data[i].column_number+" line:"+data[i].line_number;
 					mouvements[uid] = {};
@@ -187,14 +185,14 @@ $(document).ready(function() {
 					mouvements[uid]["line"]=data[i].line_number;
 				}
 				options += "</option>";
-			} 
+			}
 			$("#"+fieldid).html(options);
 			$("#"+fieldid).change();
 		}
 		});
 	}
 	}
-	
+
 	function extractUidValFromJson(valeur) {
 		/*
 		 * Extrait le contenu de la chaine json
@@ -204,13 +202,13 @@ $(document).ready(function() {
 		 //valeur = valeur.replace ("]", String.fromCharCode(125));
 		var data = JSON.parse(valeur);
 		if (data["db"] == db) {
-			return data["uid"];	
+			return data["uid"];
 		} else {
 			return data["db"]+":"+data["uid"];
 		}
 	}
-	
-	$("#container_uid").change(function () { 
+
+	$("#container_uid").change(function () {
 		var val = $("#container_uid").val();
 		if (val > 0 && mouvements[val]) {
 			$("#col").val(mouvements[val]["col"]);
@@ -218,13 +216,13 @@ $(document).ready(function() {
 		} else {
 			$("#col").val(1);
 			$("#line").val(1);
-		}	
+		}
 	});
-	
+
 	/*
 	 * Declenchement des mouvements
 	 */
-	 $("#entry").click(function (event) { 
+	 $("#entry").click(function (event) {
 		 /*
 		  * Verification qu'un objet et un container soient selectionnes
 		  */
@@ -243,8 +241,8 @@ $(document).ready(function() {
 			 event.preventDefault();
 		 }
 	 });
-	
-	$("#exit").click(function (event) { 
+
+	$("#exit").click(function (event) {
 		/*
 		  * Verification qu'un objet soit selectionne
 		  */
@@ -265,12 +263,12 @@ $(document).ready(function() {
 	/*
 	 * Remise a zero des zones de recherche
 	 */
-	$("#clear_container_search").click(function(event) { 
+	$("#clear_container_search").click(function(event) {
 		$("#container_search").val("");
 		$("#container_uid").empty();
 		$("#container_search").focus();
 	});
-	$("#clear_object_search").click(function(event) { 
+	$("#clear_object_search").click(function(event) {
 		$("#object_search").val("");
 		$("#object_uid").empty();
 		$("#object_search").focus();
@@ -278,7 +276,7 @@ $(document).ready(function() {
 	/*
 	 * Inhibition de l'envoi du formulaire si vide
 	 */
-	 $("#smallMovement").submit(function (event) { 
+	 $("#smallMovement").submit(function (event) {
 		 var valobj = $("#object_uid").val();
 		 if (valobj) {
 		 	if (valobj.length == 0) {
@@ -286,19 +284,19 @@ $(document).ready(function() {
 			 }
 		 }
 	 });
-	
-	
+
+
 });
 </script>
 
 <div class="row">
 	<div class="col-xs-12 col-md-6">
 		<form class="form-horizontal protoform" id="smallMovement"	method="post" action="index.php" onsubmit="return(testScan());">
-			<input type="hidden" name="moduleBase" value="smallMovement"> 
-			<input type="hidden" name="action" value="Write"> 
-			<input type="hidden" name="movement_id" value="0"> 
+			<input type="hidden" name="moduleBase" value="smallMovement">
+			<input type="hidden" name="action" value="Write">
+			<input type="hidden" name="movement_id" value="0">
 			<input type="hidden" id="movement_type_id" name="movement_type_id" value="1">
-			
+
 			<div class="col-xs-12 col-md-6">
 				<div class="row">
 					<div class="col-xs-9 col-md-8">
@@ -321,14 +319,14 @@ $(document).ready(function() {
 							{section name=lst loop=$movementReason}
 							<option value="{$movementReason[lst].movement_reason_id}" {if $movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
 							{$movementReason[lst].movement_reason_name}
-							</option>	
-							{/section}		
+							</option>
+							{/section}
 						</select>
 					</div>
-					<div class="col-xs-3 col-md-4">	 
+					<div class="col-xs-3 col-md-4">
 					 	<button id="exit" class="btn btn-block btn-danger input-lg" type="button">{t}Sortir{/t}</button>
 					</div>
-					<div class="col-xs-12 col-md-0">	 
+					<div class="col-xs-12 col-md-0">
 					 	<br/>
 					</div>
 				</div>
@@ -364,7 +362,7 @@ $(document).ready(function() {
 			</div>
 		</form>
 	</div>
-</div>	
+</div>
 <!-- Rajout pour la lecture optique -->
 <div class="row" id="optical">
 	<fieldset>
@@ -381,6 +379,6 @@ $(document).ready(function() {
 		<div class="col-xs-12 col-md-6 center">
 			<video id="reader" autoplay width="320" height="240" poster="display/images/webcam.png"></video>
 		</div>
-		
+
 	</fieldset>
 </div>

@@ -42,7 +42,6 @@ $(document).ready(function () {
 		if (action.length > 0) {
 			var conf = confirm("{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
 			if ( conf  == true) {
-				console.log (action);
 				$(this.form).find("input[name='module']").val(action);
 				$(this.form).prop('target', '_self').submit();
 			} else {
@@ -139,7 +138,6 @@ $(document).ready(function () {
 									 content += '</tr>';
 								});
 								content += '</table>';
-								//console.log(content);
 								/* Display */
 								tooltipContent = content;
 								tooltipDisplay(objet);

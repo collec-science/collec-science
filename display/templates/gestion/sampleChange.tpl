@@ -312,7 +312,6 @@
 		*/
 		$("#parent_search").on("keyup", function() {
 			var chaine = $("#parent_search").val();
-			console.log(chaine);
 			if (chaine.length > 0) {
 				var url = "index.php";
 				var is_container = 2;

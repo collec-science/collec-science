@@ -113,7 +113,6 @@
                         $("#metadata_field").append(option);
                         $("#metadata_field1").append(option);
                         $("#metadata_field2").append(option);
-                        console.log(value);
                            $.each(JSON.parse(value), function(i, obj) {
                             var nom = obj.fieldname.replace(/ /g,"_");
                             if (nom == metadataFieldInitial[0]) {

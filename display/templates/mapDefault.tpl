@@ -61,6 +61,11 @@
         //console.log(mapData);
         lmap.setView([mapData.mapDefaultLat, mapData.mapDefaultLong], zoom);
         lmap.addLayer(osm);
+        L.easyPrint({
+            title: '{t}Imprimer la carte{/t}',
+            sizeModes: [ 'A4Landscape'],
+            exportOnly: true
+        }).addTo(lmap);
     }
 
 </script>

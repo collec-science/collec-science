@@ -1,88 +1,45 @@
 News
 ===========
-Version 2.5.0f of October 27, 2020
------------------------------------
-New features :
+Version 2.5.0 of November 13, 2020
+---------------------------------
+New features:
 - the database structure now displays the views
 - reorganization of the menu, to have a main entry dedicated to imports/exports
 - it is now possible to indicate a collection country for a sample (full table provided). The country can be assigned for a set of samples
 - in the rights management module, it is now possible to move a group in the tree structure
 - in the labels, it is now possible to insert the referent
 - it is now possible to search for containers by referent
-- when displaying a sample, if the code of a secondary identifier is not filled in, the name of the secondary identifier is displayed. The code becomes non mandatory, if the identifier is not used in research
-- for collection campaigns, it is possible, for each regulation applied, to indicate the authorization number and the date. Samples can be searched by authorization number
+- when displaying a sample, if the code of a secondary identifier is not filled in, the name of the secondary identifier is displayed. The code becomes non mandatory, if the identifier is not used in research.
+- for collection campaigns, it is possible, for each regulation applied, to indicate the authorization number and the date. Samples can be searched by authorization number.
+- added a function to search for the containers contained in them
+- when creating a derived sample containing sub-samples, creation of the sub-sampling if the derived sample contains sub-samples itself
+- added uniqueness constraints on the labels of a certain number of parameter tables
+- modification of the display of a sample: addition of a "quick access" link, which allows to display the search box from IUD or IDENTIFIER
+- corrections of some labels
+- added the license table to indicate the license to distribute a collection
+- added tabulation input in textareas (multi-line input fields). Implemented in xsl transformation input (export datasets and label templates)
+- it is now possible to save searches performed on samples, available either for the user or at the collection level
+- it is now possible to specify keywords or explicit wording for a collection (used for exports)
+- the first name of the referent is now possible, as well as the link to his academic file
+- Added consistency checks on sample loan and return dates, as well as for reservations
+- in the menu, when there is a submenu, the menu entry is duplicated in the submenu
+- added a lexicon to the hover : in the labels, hovering over a question mark icon (when it exists), displays the corresponding lexicon entry
+- Administrators can now trigger a manual backup of the database, which is downloaded to the browser (possible limitations depending on the size of the database).
+- it is now possible to add a comment to an object
+- added functionality to export samples from a collection to third party information systems (customizable content and format)
 
-Bug fixes :
+Bug corrections:
 - in the detail of a container, in the list of containers, the number of slots was not displayed
 - in the detail of a container, the referent was displayed incorrectly
 - in the rights management module, the deletion of a group was not successful if the group was assigned to a collection
 - the display of the sample grid, in detail, was wrong if the first column was on the left side of the grid
-
-Version 2.5.0e of September 28, 2020
------------------------------------
-New features :
-- added a function allowing to search for containers within those they contain
-- when creating a derived sample containing sub-samples, creation of the sub-sampling if the derived sample contains sub-samples itself
-- added uniqueness constraints on the labels of a certain number of parameter tables
-
-Bug fixes :
-- in mass import, the import of UUIDs was not working
+- in mass import, importing UUIDs did not work
 - in the list of containers, the display of the grid of contained objects was badly drawn
 - removed the lc_messages function, which should have allowed to change the language of Postgresql error messages: it only worked if the collec account was super-administrator of the database server
-- in the batch export function, in the creation of the export template, the zip extension is automatically positioned according to context
 - the quick access link, available for samples, has been added for containers
-
-Version 2.5.0d of September 21, 2020
------------------------------------
-Ergonomics :
-- modification of the menus, with creation of a main heading for imports/exports
-- it is now possible to overwrite a saved search, if using the same name
-- modification of the display of a sample: addition of a "quick access" link, which allows to display the search box from IUD or IDENTIFIER
-- corrections of some labels
-
-Version 2.5.0c of September 9, 2020
-------------------------------
-New features :
-- added the license table to indicate the license to distribute a collection
-
-Bug fixes:
-- multiple corrections in the export module
 - if the Internet address of the workstation changed during the day, it was no longer possible to re-identify without manually deleting the identification cookie or closing the browser
-- corrections in the technical import/export module: several anomalies detected
-- the labels, in modification of the templates in the import/export module, were in English
 - bugfix of the menu generation module : in some cases, the symbol >, which allows to know that there are sub-menus, was not displayed
-
-Version 2.5.0b of August 31, 2020
-------------------------------
-New features :
-Ergonomics :
-- added tabulation input in textareas (multiline input fields). Implemented in xsl transformations input (export datasets and label templates)
-
-Samples :
-- when exporting samples, added transformation of xml files generated from an xsl style defined in the model
-- it is now possible to save searches performed on samples, available either for the user or at the collection level
-
-Miscellaneous :
-- it is now possible to specify keywords or explicit wording for a collection (used for exports)
-- the first name of the referent is now possible, as well as the link to his academic file
-
-Version 2.5.0a of August 14, 2020
------------------------------
-Bug fixes :
-- the export of the database structure was not working correctly.
-
-What's New :
-Ergonomics :
-- added consistency checks on sample loan and return dates, as well as for reservations
-- in the menu, when there is a submenu, the menu entry is duplicated in the submenu
-- added a lexicon to the hover : in the labels, the hover of an icon representing a question mark (when it exists), displays the entry of the corresponding lexicon
-
-System :
-- administrators can now trigger a manual backup of the database, which is downloaded to the browser (possible limitations depending on the size of the database)
-
-Samples:
-- it is now possible to add a comment to an object
-- added functionality to export samples from a collection to third party information systems (customizable content and format)
+- the export of the database structure did not work properly
 
 Version 2.4.1 of June 15, 2020
 ------------------------------

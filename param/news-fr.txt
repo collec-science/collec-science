@@ -1,7 +1,7 @@
 News
 ===========
-Version 2.5.0f du 27 octobre 2020
------------------------------------
+Version 2.5.0 du 13 novembre 2020
+---------------------------------
 Nouveautés :
 - la structure de la base de données affiche maintenant les vues
 - réorganisation du menu, pour avoir une entrée principale dédiée aux imports/exports
@@ -11,78 +11,35 @@ Nouveautés :
 - il est maintenant possible de rechercher les contenants par référent
 - en affichage d'un échantillon, si le code d'un identifiant secondaire n'est pas renseigné, c'est le nom de l'identifiant secondaire qui est affiché. Le code devient non obligatoire, si l'identifiant n'est pas utilisé en recherche
 - pour les campagnes de collecte, il est possible, pour chaque réglementation appliquée, d'indiquer le numéro d'autorisation et la date. Les échantillons peuvent être recherchés par numéro d'autorisation
+- ajout d'une fonction permettant de rechercher les contenants contenus dans ceux qu'ils contiennent
+- lors de la création d'un échantillon dérivé contenant des sous-échantillons, création du sous-échantillonnage si l'échantillon dérivé contient lui-même des sous-échantillons
+- ajout de contraintes d'unicité sur les libellés d'un certain nombre de tables de paramètres
+- modification de l'affichage d'un échantillon : ajout d'un lien "accès rapide", qui permet d'afficher la boite de recherche à partir de IUD ou IDENTIFIER
+- corrections de quelques libellés
+- ajout de la table license pour indiquer la licence de diffusion d'une collection
+- ajout de la saisie de tabulations dans les textareas (zones multilignes de saisie). Implémenté en saisie des transformations xsl (datasets d'exportation et modèles d'étiquettes)
+- il est maintenant possible d'enregistrer les recherches effectuées sur les échantillons, disponibles soit pour l'utilisateur, soit au niveau des collections
+- il est maintenant possible de préciser des mots clés ou un libellé explicite pour une collection (utilisé pour les exportations)
+- la saisie du prénom du référent est maintenant possible, ainsi que le lien vers sa fiche académique
+- ajout de contrôles de cohérence sur les dates de prêt et de retour d'échantillons, ainsi que pour les réservations
+- dans le menu, quand il existe un sous-menu, l'entrée du menu est dupliquée dans le sous-menu
+- ajout d'un lexique au survol : dans les libellés, le survol d'une icone représentant un point d'interrogation (quand elle existe), affiche l'entrée du lexique correspondante
+- les administrateurs peuvent maintenant déclencher une sauvegarde manuelle de la base de données, qui est téléchargée dans le navigateur (limitations possibles en fonction de la taille de la base de données)
+- il est maintenant possible de rajouter un commentaire à un objet
+- ajout d'une fonctionnalité d'exportation des échantillons d'une collection vers des systèmes d'information tiers (contenu et format paramétrables)
 
 Corrections de bugs :
 - dans le détail d'un container, dans la liste des containers, le nombre de slots n'était pas affiché
 - dans le détail d'un contenant, le référent était mal affiché
 - dans le module de gestion des droits, la suppression d'un groupe n'aboutissait pas si le groupe était affecté à une collection
 - l'affichage de la grille des échantillons, dans le détail, était erroné si la première colonne était à gauche
-
-Version 2.5.0e du 28 septembre 2020
------------------------------------
-Nouveautés :
-- ajout d'une fonction permettant de rechercher les contenants contenus dans ceux qu'ils contiennent
-- lors de la création d'un échantillon dérivé contenant des sous-échantillons, création du sous-échantillonnage si l'échantillon dérivé contient lui-même des sous-échantillons
-- ajout de contraintes d'unicité sur les libellés d'un certain nombre de tables de paramètres
-
-Corrections de bugs :
 - en importation de masse, l'import des UUID ne fonctionnait pas
 - dans la liste des contenants, l'affichage de la grille des objets contenus était mal dessiné
 - suppression de la fonction lc_messages, qui aurait dû permettre de modifier le langage des messages d'erreur Postgresql : elle ne fonctionnait que si le compte collec était super-administrateur du serveur de bases de données
-- dans la fonction d'export par lots, dans la création du modèle d'export, l'extension zip est positionnée automatiquement en fonction du contexte
 - le lien d'accès rapide, disponible pour les échantillons, a été rajouté pour les containers
-
-Version 2.5.0d du 21 septembre 2020
------------------------------------
-Ergonomie :
-- modification des menus, avec création d'une rubrique principale pour les imports/exports
-- il est maintenant possible d'écraser une recherche enregistrée, si on utilise le même nom
-- modification de l'affichage d'un échantillon : ajout d'un lien "accès rapide", qui permet d'afficher la boite de recherche à partir de IUD ou IDENTIFIER
-- corrections de quelques libellés
-
-Version 2.5.0c du 9 septembre 2020
-------------------------------
-Nouveautés :
-- ajout de la table license pour indiquer la licence de diffusion d'une collection
-
-Corrections de bugs:
-- multiples corrections dans le module d'exportation
 - si l'adresse internet du poste de travail changeait pendant la journée, il n'était plus possible de se réidentifier sans supprimer manuellement le cookie d'identification ou fermer le navigateur
-- corrections dans le module d'import/export technique : plusieurs anomalies détectées
-- les libellés, en modification des modèles dans le module d'import/export, étaient en anglais
 - correction du module de génération du menu : dans certains cas, le symbole >, qui permet de savoir qu'il y a des sous-menus, n'était pas affiché
-
-Version 2.5.0b du 31 août 2020
-------------------------------
-Nouveautés :
-Ergonomie :
-- ajout de la saisie de tabulations dans les textareas (zones multilignes de saisie). Implémenté en saisie des transformations xsl (datasets d'exportation et modèles d'étiquettes)
-
-Échantillons :
-- en exportation des échantillons, ajout de la transformation des fichiers xml générés à partir d'un style xsl défini dans le modèle
-- il est maintenant possible d'enregistrer les recherches effectuées sur les échantillons, disponibles soit pour l'utilisateur, soit au niveau des collections
-
-Divers :
-- il est maintenant possible de préciser des mots clés ou un libellé explicite pour une collection (utilisé pour les exportations)
-- la saisie du prénom du référent est maintenant possible, ainsi que le lien vers sa fiche académique
-
-Version 2.5.0a du 14 août 2020
------------------------------
-Correction de bugs :
 - l'export de la structure de la base de données ne fonctionnait pas correctement
-
-Nouveautés :
-Ergonomie :
-- ajout de contrôles de cohérence sur les dates de prêt et de retour d'échantillons, ainsi que pour les réservations
-- dans le menu, quand il existe un sous-menu, l'entrée du menu est dupliquée dans le sous-menu
-- ajout d'un lexique au survol : dans les libellés, le survol d'une icone représentant un point d'interrogation (quand elle existe), affiche l'entrée du lexique correspondante
-
-Système :
-- les administrateurs peuvent maintenant déclencher une sauvegarde manuelle de la base de données, qui est téléchargée dans le navigateur (limitations possibles en fonction de la taille de la base de données)
-
-Échantillons :
-- il est maintenant possible de rajouter un commentaire à un objet
-- ajout d'une fonctionnalité d'exportation des échantillons d'une collection vers des systèmes d'information tiers (contenu et format paramétrables)
 
 
 Version 2.4.1 du 15 juin 2020

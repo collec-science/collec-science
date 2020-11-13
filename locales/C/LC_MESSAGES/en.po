@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-13 12:06+0100\n"
+"POT-Creation-Date: 2020-11-13 12:52+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -731,8 +731,8 @@ msgid "Labels in English"
 msgstr "Labels in English"
 
 #: ../../../param/param.default.inc.php:11
-msgid "27/10/2020"
-msgstr "2020-10-27"
+msgid "13/11/2020"
+msgstr "2020-11-13"
 
 #: ../../../modules/param/metadata.php:92
 msgid "Métadonnée(s) importée(s)"

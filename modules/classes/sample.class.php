@@ -85,7 +85,7 @@ class Sample extends ObjetBDD
           left outer join country sc on (s.country_id = sc.country_id)
           left outer join country csp on (sp.country_id = csp.country_id)
           ";
-  private $object, $container, $event, $objectIdentifier, $country;
+  private $object, $container, $event, $country;
 
   public function __construct($bdd, $param = array())
   {

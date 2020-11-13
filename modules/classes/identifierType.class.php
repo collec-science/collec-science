@@ -36,10 +36,9 @@ class IdentifierType extends ObjetBDD
     /**
      * Retourne uniquement la cle et le code associe
      *
-     * @param number $order
      * @return array
      */
-    function getListeWithCode($order = 0)
+    function getListeWithCode()
     {
         $sql = "select identifier_type_id, identifier_type_code
             from identifier_type

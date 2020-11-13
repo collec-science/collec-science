@@ -164,14 +164,14 @@ class ExportModelProcessing
       /**
        * Add the second n-n part
        */
-      if ($table["istablenn"]) {
+      /*if ($table["istablenn"]) {
         $alias = $table["tablenn"]["tableAlias"];
         $a_alias = array(
           "tableName" => $model[$alias]["tableName"],
           "parentKey" => $model[$alias]["technicalKey"],
           "fieldName" => $table["tablenn"]["secondaryParentKey"]
         );
-      }
+      }*/
     }
     return ($this->structure);
   }

@@ -1,6 +1,7 @@
 <?php
 class DatasetTemplateException extends Exception
-{ }
+{
+}
 class DatasetTemplate extends ObjetBDD
 {
   private $sql = "select dataset_template_id, dataset_template_name, export_format_id, dataset_type_id,
@@ -217,10 +218,8 @@ class DatasetTemplate extends ObjetBDD
           } else {
             $value = $dbrow[$col["column_name"]];
           }
-          if ($col["translator_id"] > 0) {
-            if (!empty($col["translations"][$value])) {
-              $value = $col["translations"][$value];
-            }
+          if ($col["translator_id"] > 0 && !empty($col["translations"][$value])) {
+            $value = $col["translations"][$value];
           }
           if (!empty($col["default_value"]) && empty($value)) {
             $value = $col["default_value"];
@@ -289,7 +288,8 @@ class DatasetTemplate extends ObjetBDD
     parent::supprimer($id);
   }
 
-  function duplicate(int $id) {
+  function duplicate(int $id)
+  {
     $data = $this->lire($id);
     if (empty($data["dataset_template_id"])) {
       throw new DatasetTemplateException(_("Impossible de lire le modèle à dupliquer"));
@@ -298,7 +298,7 @@ class DatasetTemplate extends ObjetBDD
      * prepare the new data
      */
     $data["dataset_template_id"] = 0;
-    $data["dataset_template_name"] = "copy of ".$data["dataset_template_name"];
+    $data["dataset_template_name"] = "copy of " . $data["dataset_template_name"];
     $newid = $this->ecrire($data);
     if (!is_object($this->datasetColumn)) {
       include_once $this->classPathExport . "datasetColumn.class.php";
@@ -310,7 +310,7 @@ class DatasetTemplate extends ObjetBDD
     $columns = $this->datasetColumn->getListColumns($id);
     foreach ($columns as $column) {
       $column ["dataset_column_id"] = 0;
-      $column ["dataset_template_id"] = $newid;
+      $column["dataset_template_id"] = $newid;
       $this->datasetColumn->ecrire($column);
     }
     return $newid;

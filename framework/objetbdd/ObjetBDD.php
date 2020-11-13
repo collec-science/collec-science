@@ -1646,11 +1646,11 @@ class ObjetBDD
    *            $id
    * @param
    *            $lignes
-   * @return unknown_type
+   * @return none
    */
   function writeTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes)
   {
-    return $this->ecrireTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes);
+    $this->ecrireTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes);
   }
 
   /**

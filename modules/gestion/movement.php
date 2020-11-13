@@ -12,7 +12,7 @@ $keyName = "movement_id";
 $id = $_REQUEST[$keyName];
 switch ($t_module["param"]) {
     case "input":
-        $data = dataRead($dataClass, $id, "gestion/movementChange.tpl", $_REQUEST["uid"], false);
+        $data = dataRead($dataClass, $id, "gestion/movementChange.tpl", $_REQUEST["uid"]);
         $data["movement_type_id"] = 1;
         require_once 'modules/classes/containerFamily.class.php';
         $containerFamily = new ContainerFamily($bdd, $ObjetBDDParam);
@@ -31,7 +31,7 @@ switch ($t_module["param"]) {
         break;
 
     case "output":
-        $data = dataRead($dataClass, $id, "gestion/movementChange.tpl", $_REQUEST["uid"], false);
+        $data = dataRead($dataClass, $id, "gestion/movementChange.tpl", $_REQUEST["uid"]);
         $data["movement_type_id"] = 2;
         /*
          * Recherche de l'objet

@@ -8,4 +8,6 @@ node_js:
 notifications:
   email: false
 
+before_script: git fetch --tags
+
 after_success: npm run coverage

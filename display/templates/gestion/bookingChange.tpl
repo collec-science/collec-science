@@ -18,7 +18,6 @@ $(document).ready( function () {
 				"date_to":to
 				} , function( data ) {
 				if (data != null) {
-					console.log("overlaps : "+data["overlaps"]);
 					if (data["overlaps"] == 1) {
 						$("#overlaps").text("{t}La période chevauche une réservation existante{/t}");
 					}

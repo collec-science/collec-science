@@ -67,7 +67,7 @@
                  event.preventDefault();
              }
          });
-
+        var lastSampletypeId = "{$sampleSearch.sample_type_id}";
          var datamd1 = "{$sampleSearch.metadata_value.1}";
          var datamd2 = "{$sampleSearch.metadata_value.2}";
          if (datamd1.length > 0) {
@@ -82,6 +82,66 @@
          $("#showmetadata2").click(function () {
             $("#metadatarow2").show();
          });
+         var metadataFieldInitial = [];
+        {foreach $sampleSearch.metadata_field as $val}
+            metadataFieldInitial.push ( "{$val}" );
+        {/foreach}
+         $("#sample_type_id").change(function () {
+             regenerateMetadata();
+         });
+         function regenerateMetadata() {
+            /* regenerate the list of metadata */
+            var sampleTypeId = $("#sample_type_id").val();
+            if (sampleTypeId != lastSampletypeId && sampleTypeId) {
+                $(".metadatavalue").val("");
+            }
+            lastSampletypeId = sampleTypeId;
+                $.ajax( {
+                       url: "index.php",
+                    data: { "module": "sampleTypeMetadataSearchable", "sample_type_id": sampleTypeId }
+                })
+                .done (function (value) {
+                    if (value.length > 0) {
+                        $("#metadata_field").empty();
+                        $("#metadata_field1").empty();
+                        $("#metadata_field2").empty();
+                        $("#metadatarow1").hide();
+                        $("#metadatarow2").hide();
+                        $("#metadatarow").show();
+                        var selected = "";
+                        var option = '<option value="">{t}Métadonnée :{/t}</option>';
+                        $("#metadata_field").append(option);
+                        $("#metadata_field1").append(option);
+                        $("#metadata_field2").append(option);
+                           $.each(JSON.parse(value), function(i, obj) {
+                            var nom = obj.fieldname.replace(/ /g,"_");
+                            if (nom == metadataFieldInitial[0]) {
+                                selected = "selected";
+                            }
+                            option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
+                            $("#metadata_field").append(option);
+                            /* second champ */
+                            selected = "";
+                            if (nom == metadataFieldInitial[1]) {
+                                selected = "selected";
+                                $("#metadatarow1").show();
+                            }
+                            option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
+                            $("#metadata_field1").append(option);
+                            /* 3eme champ */
+                            selected = "";
+                            if (nom == metadataFieldInitial[2]) {
+                                selected = "selected";
+                                $("#metadatarow2").show();
+                            }
+                            option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
+                            $("#metadata_field2").append(option);
+                            selected = "";
+                        })
+                    }
+                });
+
+        }
          function getSamplingPlace () {
             var colid = $("#collection_id").val();
             var url = "index.php";
@@ -124,7 +184,7 @@
         $("#object_status_id").prop("selectedIndex", 1).change();
         $("#collection_id").prop("selectedIndex", 0).change();
         $("#referent_id").prop("selectedIndex", 0).change();
-        $("#sample_type_id").combobox("select", "{t}Choisissez...{/t}").change();
+        //$("#sample_type_id").combobox("select", "{t}Choisissez...{/t}").change();
         $("#sample_type_id").prop("selectedIndex", 0).change();
         sampling_place_init = "";
         $("#sampling_place_id").combobox("select", "{t}Choisissez...{/t}").change();
@@ -181,6 +241,7 @@
                 $("#sample_search").submit();
              }
          });
+         regenerateMetadata();
     });
 </script>
 <div class="row col-lg-10 col-md-12">
@@ -286,7 +347,7 @@
                     <div class="form-group">
                         <label for="sample_type_id" class="col-sm-3 control-label">{t}Type d'échantillon :{/t}</label>
                         <div class="col-sm-6">
-                            <select id="sample_type_id" name="sample_type_id" class="form-control combobox">
+                            <select id="sample_type_id" name="sample_type_id" class="form-control ">
                             <option value="0" {if $sampleSearch.sample_type_id == "0"}selected{/if} >{t}Choisissez...{/t}</option>
                             {section name=lst loop=$sample_type}
                             <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $sampleSearch.sample_type_id}selected{/if} title="{$sample_type[lst].sample_type_description}">
@@ -315,7 +376,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-3">
-                                <input class="form-control" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
+                                <input class="form-control metadatavalue" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
                             </div>
                             <div class="col-sm-1">
                                 <img src="display/images/plus.png" height="25" id="showmetadata1">
@@ -339,7 +400,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-3">
-                                <input class="form-control" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
+                                <input class="form-control metadatavalue" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
                             </div>
                             <div class="col-sm-1">
                                 <img src="display/images/plus.png" height="25" id="showmetadata2">
@@ -362,7 +423,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-3">
-                                <input class="form-control" id="metadata_value_2" name="metadata_value[]" value="{$sampleSearch.metadata_value.2}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par % (cela peut ralentir la requête){/t}">
+                                <input class="form-control metadatavalue" id="metadata_value_2" name="metadata_value[]" value="{$sampleSearch.metadata_value.2}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par % (cela peut ralentir la requête){/t}">
                             </div>
                         </div>
                     </div>

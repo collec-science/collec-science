@@ -55,8 +55,6 @@ $(document).ready(function() {
 if ( $.fn.dataTable.isDataTable( '#movementList' ) ) {
 var movementList = $("#movementList").DataTable() ;
 	movementList.order([]).draw();
-	} else {
-	console.log ("movementList non trouvé comme datatable");
 	}
 });
 </script>

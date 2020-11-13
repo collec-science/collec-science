@@ -117,6 +117,16 @@ class SampleType extends ObjetBDD
             return $data["metadata_schema"];
         }
     }
+    function getMetadataSearchable($sample_type_id) {
+        $data = json_decode($this->getMetadataForm($sample_type_id),true);
+        $val = array();
+        foreach ($data as $value) {
+            if ($value["isSearchable"] == "yes") {
+                $val[]["fieldname"] = $value["name"];
+            }
+        }
+        return $val;
+    }
 
     function getIdentifierJs($sample_type_id) {
         if ($sample_type_id > 0) {

@@ -20,11 +20,10 @@ $("#pass1").on('input', function()
 {
     var val = $(this).val();
     var result = zxcvbn(val);
-    
+
     // Update the password strength meter
     $('#password-strength-meter').val(result.score);
-		console.log($('#password-strength-meter').val());
-   
+
     // Update the text indicator
     if(val !== "") {
 		message = "{t}Force du mot de passe :{/t} " + strength[result.score] ;

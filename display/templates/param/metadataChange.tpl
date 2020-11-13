@@ -13,10 +13,8 @@ $(document).ready(function() {
         }
         renderForm(metadataParse);
         $('#metadataForm').submit(function(event) {
-        	console.log("write");
         	if ($("#action").val() == "Write") {
                 $('#metadata').alpaca().refreshValidationState(true);
-                console.log($("#metadata").alpaca().getValue());
                 if(!$('#metadata').alpaca().isValid(true)){
                 	alert("{t}La définition des métadonnées n'est pas valide.{/t}");
                 	event.preventDefault();

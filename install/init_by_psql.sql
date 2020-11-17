@@ -1,19 +1,19 @@
 /*
- * COLLEC-SCIENCE - 2018-07-03
+ * COLLEC-SCIENCE - 2018-07-03 - Release of 2020-11-16
  * Script de creation des tables destinees a recevoir les donnees de l'application
  * database creation script
- * 
- * version minimale de Postgresql : 9.4. / Minimal release of postgresql: 9.4
- * 
- * Schemas par defaut : col pour les donnees, et gacl pour les droits. 
+ *
+ * version minimale de Postgresql : 9.6. / Minimal release of postgresql: 9.6
+ *
+ * Schemas par defaut : col pour les donnees, et gacl pour les droits.
  * Default schemas : col for data, gacl for right management
  * Si vous voulez utiliser d'autres schemas, modifiez les scripts :
  * If you want use others schemas, change these scripts:
- * gacl_create_2.1.sql et col_create_2.1.sql 
+ * gacl_create_2.1.sql et col_create_2.1.sql
  * Execution de ce script en ligne de commande, en etant connecte root :
  * at prompt, you cas execute this script as root:
  * su postgres -c "psql -f init_by_psql.sql"
- * 
+ *
  * dans la configuration de postgresql : / postgresql configuration:
  * /etc/postgresql/version/main/pg_hba.conf
  * inserez les lignes suivantes (connexion avec uniquement le compte collec en local) :
@@ -21,7 +21,7 @@
  * host    collec             collec             127.0.0.1/32            md5
  * host    all            collec                  0.0.0.0/0               reject
  */
- 
+
  /*
   * Creation du compte de connexion et de la base de donnees
   * creation of connection account

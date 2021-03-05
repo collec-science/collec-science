@@ -475,9 +475,9 @@ class Structure extends ObjetBDD
             . $view["schemaname"] . $view["viewname"]
             . '">' . $view["viewname"] . "</a></li>";
         }
-        $summary .= "</ul></li></ul>";
+        $summary .= "</ul></li>";
       }
-      $summary .= "</li>";
+      $summary .= "</ul></li>";
     }
     $summary .= "</ul>";
     return ($summary);

@@ -13,6 +13,7 @@
         "ramsey/uuid": "^3.6",
         "ext-gettext": "*",
         "bjeavons/zxcvbn-php": "^0.4.0",
-        "smarty-gettext/smarty-gettext": "~1.2.0"
+        "smarty-gettext/smarty-gettext": "~1.2.0",
+        "spomky-labs/otphp": "^10.0"
 		}
 }

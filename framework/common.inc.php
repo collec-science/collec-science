@@ -51,11 +51,6 @@ require_once 'framework/log/log.class.php';
 require_once "framework/navigation/navigation.class.php";
 
 /**
- * Preparation de l'identification
- */
-require_once "framework/identification/identification.class.php";
-
-/**
  * Initialisation des parametres generaux
  */
 ini_set("register_globals", false);
@@ -132,19 +127,7 @@ if (isset($_SESSION["ObjetBDDParam"])) {
 require_once 'framework/vue.class.php';
 $ERROR_display == 1 ? $displaySyslog = true : $displaySyslog = false;
 $message = new Message($displaySyslog);
-/*
- * Lancement de l'identification
- */
 
-$identification = new Identification();
-
-$identification->setidenttype($ident_type);
-if ($ident_type == "CAS") {
-    include_once "vendor/jasig/phpcas/CAS.php";
-    $identification->init_CAS($CAS_address, $CAS_port, "", $CAS_debug, $CAS_CApath);
-} elseif ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
-    $identification->init_LDAP($LDAP);
-}
 /*
  * Chargement des fonction generiques
  */
@@ -197,19 +180,6 @@ if (!isset($bdd)) {
          */
         if (strlen($BDD_schema) > 0) {
             $bdd->exec("set search_path = " . $BDD_schema);
-            /*
-             * Positionnement des messages dans la langue courante
-             */
-            /*switch ($LANG["date"]["locale"]) {
-                case "en":
-                    $bdd->exec("set lc_messages to 'en_US.UTF-8'");
-                    break;
-                case "fr":
-                default:
-                    $bdd->exec("set lc_messages to 'fr_FR.UTF-8'");
-                    break;
-            }
-            */
         }
         /*
          * Connexion a la base de gestion des droits
@@ -231,20 +201,6 @@ if (!isset($bdd)) {
             if (strlen($GACL_schema) > 0) {
                 $bdd_gacl->exec("set search_path = " . $GACL_schema);
             }
-            /*
-             * Positionnement des messages dans la langue courante
-             */
-            /*
-            switch ($LANG["date"]["locale"]) {
-                case "en":
-                    $bdd_gacl->exec("set lc_messages to 'en_US.UTF-8'");
-                    break;
-                case "fr":
-                default:
-                    $bdd_gacl->exec("set lc_messages to 'fr_FR.UTF-8'");
-                    break;
-            }
-            */
         } else {
             $message->set(_("Echec de connexion à la base de données de gestion des droits (GACL)"),true);
         }

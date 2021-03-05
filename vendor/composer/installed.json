@@ -1,401 +1,771 @@
-[
-    {
-        "name": "bjeavons/zxcvbn-php",
-        "version": "0.4.0",
-        "version_normalized": "0.4.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/bjeavons/zxcvbn-php.git",
-            "reference": "7a7e1130c74c715e84c60c27384f657e9574a933"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/bjeavons/zxcvbn-php/zipball/7a7e1130c74c715e84c60c27384f657e9574a933",
-            "reference": "7a7e1130c74c715e84c60c27384f657e9574a933",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^5.6 || ^7.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "*",
-            "satooshi/php-coveralls": "*"
-        },
-        "time": "2018-07-23T05:05:36+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "ZxcvbnPhp\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "See contributors",
-                "homepage": "https://github.com/bjeavons/zxcvbn-php"
-            }
-        ],
-        "description": "Realistic password strength estimation PHP library based on Zxcvbn JS",
-        "homepage": "https://github.com/bjeavons/zxcvbn-php",
-        "keywords": [
-            "password",
-            "zxcvbn"
-        ]
-    },
-    {
-        "name": "jasig/phpcas",
-        "version": "1.3.7",
-        "version_normalized": "1.3.7.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/apereo/phpCAS.git",
-            "reference": "b5b29102c3a42f570c4a3e852f3cf67cae6d6082"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/apereo/phpCAS/zipball/b5b29102c3a42f570c4a3e852f3cf67cae6d6082",
-            "reference": "b5b29102c3a42f570c4a3e852f3cf67cae6d6082",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "php": ">=5.4.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~3.7.10"
-        },
-        "time": "2019-04-22T19:48:16+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.3.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "classmap": [
-                "source/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache-2.0"
-        ],
-        "authors": [
-            {
-                "name": "Joachim Fritschi",
-                "homepage": "https://wiki.jasig.org/display/~fritschi"
+{
+    "packages": [
+        {
+            "name": "beberlei/assert",
+            "version": "v3.2.7",
+            "version_normalized": "3.2.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/assert.git",
+                "reference": "d63a6943fc4fd1a2aedb65994e3548715105abcf"
             },
-            {
-                "name": "Adam Franco",
-                "homepage": "https://wiki.jasig.org/display/~adamfranco"
-            }
-        ],
-        "description": "Provides a simple API for authenticating users against a CAS server",
-        "homepage": "https://wiki.jasig.org/display/CASC/phpCAS",
-        "keywords": [
-            "apereo",
-            "cas",
-            "jasig"
-        ]
-    },
-    {
-        "name": "paragonie/random_compat",
-        "version": "v9.99.99",
-        "version_normalized": "9.99.99.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/paragonie/random_compat.git",
-            "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/paragonie/random_compat/zipball/84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
-            "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^7"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "4.*|5.*",
-            "vimeo/psalm": "^1"
-        },
-        "suggest": {
-            "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
-        },
-        "time": "2018-07-02T15:55:56+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Paragon Initiative Enterprises",
-                "email": "security@paragonie.com",
-                "homepage": "https://paragonie.com"
-            }
-        ],
-        "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
-        "keywords": [
-            "csprng",
-            "polyfill",
-            "pseudorandom",
-            "random"
-        ]
-    },
-    {
-        "name": "ramsey/uuid",
-        "version": "3.8.0",
-        "version_normalized": "3.8.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/ramsey/uuid.git",
-            "reference": "d09ea80159c1929d75b3f9c60504d613aeb4a1e3"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/ramsey/uuid/zipball/d09ea80159c1929d75b3f9c60504d613aeb4a1e3",
-            "reference": "d09ea80159c1929d75b3f9c60504d613aeb4a1e3",
-            "shasum": ""
-        },
-        "require": {
-            "paragonie/random_compat": "^1.0|^2.0|9.99.99",
-            "php": "^5.4 || ^7.0",
-            "symfony/polyfill-ctype": "^1.8"
-        },
-        "replace": {
-            "rhumsaa/uuid": "self.version"
-        },
-        "require-dev": {
-            "codeception/aspect-mock": "^1.0 | ~2.0.0",
-            "doctrine/annotations": "~1.2.0",
-            "goaop/framework": "1.0.0-alpha.2 | ^1.0 | ~2.1.0",
-            "ircmaxell/random-lib": "^1.1",
-            "jakub-onderka/php-parallel-lint": "^0.9.0",
-            "mockery/mockery": "^0.9.9",
-            "moontoast/math": "^1.1",
-            "php-mock/php-mock-phpunit": "^0.3|^1.1",
-            "phpunit/phpunit": "^4.7|^5.0|^6.5",
-            "squizlabs/php_codesniffer": "^2.3"
-        },
-        "suggest": {
-            "ext-ctype": "Provides support for PHP Ctype functions",
-            "ext-libsodium": "Provides the PECL libsodium extension for use with the SodiumRandomGenerator",
-            "ext-uuid": "Provides the PECL UUID extension for use with the PeclUuidTimeGenerator and PeclUuidRandomGenerator",
-            "ircmaxell/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
-            "moontoast/math": "Provides support for converting UUID to 128-bit integer (in string form).",
-            "ramsey/uuid-console": "A console application for generating UUIDs with ramsey/uuid",
-            "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
-        },
-        "time": "2018-07-19T23:38:55+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Ramsey\\Uuid\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Marijn Huizendveld",
-                "email": "marijn.huizendveld@gmail.com"
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/d63a6943fc4fd1a2aedb65994e3548715105abcf",
+                "reference": "d63a6943fc4fd1a2aedb65994e3548715105abcf",
+                "shasum": ""
             },
-            {
-                "name": "Thibaud Fabre",
-                "email": "thibaud@aztech.io"
+            "require": {
+                "ext-ctype": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-simplexml": "*",
+                "php": "^7"
             },
-            {
-                "name": "Ben Ramsey",
-                "email": "ben@benramsey.com",
-                "homepage": "https://benramsey.com"
-            }
-        ],
-        "description": "Formerly rhumsaa/uuid. A PHP 5.4+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
-        "homepage": "https://github.com/ramsey/uuid",
-        "keywords": [
-            "guid",
-            "identifier",
-            "uuid"
-        ]
-    },
-    {
-        "name": "smarty-gettext/smarty-gettext",
-        "version": "1.2.0",
-        "version_normalized": "1.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/smarty-gettext/smarty-gettext.git",
-            "reference": "bc3978d07165c62cd9f6e1c41e9196e5b90166f2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/smarty-gettext/smarty-gettext/zipball/bc3978d07165c62cd9f6e1c41e9196e5b90166f2",
-            "reference": "bc3978d07165c62cd9f6e1c41e9196e5b90166f2",
-            "shasum": ""
-        },
-        "require": {
-            "ext-gettext": "*",
-            "ext-pcre": "*",
-            "php": ">=5.2.1"
-        },
-        "time": "2015-05-11T16:00:56+00:00",
-        "bin": [
-            "tsmarty2c.php"
-        ],
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "block.t.php",
-                "function.locale.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "LGPL-2.1+"
-        ],
-        "authors": [
-            {
-                "name": "Sagi Bashari",
-                "email": "sagi@boom.org.il"
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "*",
+                "phpstan/phpstan-shim": "*",
+                "phpunit/phpunit": ">=6.0.0 <8"
             },
-            {
-                "name": "Elan Ruusamäe",
-                "email": "glen@delfi.ee"
-            }
-        ],
-        "description": "Gettext plugin enabling internationalization in Smarty Package files",
-        "homepage": "https://github.com/smarty-gettext/smarty-gettext"
-    },
-    {
-        "name": "smarty/smarty",
-        "version": "v3.1.33",
-        "version_normalized": "3.1.33.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/smarty-php/smarty.git",
-            "reference": "dd55b23121e55a3b4f1af90a707a6c4e5969530f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/smarty-php/smarty/zipball/dd55b23121e55a3b4f1af90a707a6c4e5969530f",
-            "reference": "dd55b23121e55a3b4f1af90a707a6c4e5969530f",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.2"
-        },
-        "time": "2018-09-12T20:54:16+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "3.1.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "libs/bootstrap.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "LGPL-3.0"
-        ],
-        "authors": [
-            {
-                "name": "Monte Ohrt",
-                "email": "monte@ohrt.com"
+            "suggest": {
+                "ext-intl": "Needed to allow Assertion::count(), Assertion::isCountable(), Assertion::minCount(), and Assertion::maxCount() to operate on ResourceBundles"
             },
-            {
-                "name": "Uwe Tews",
-                "email": "uwe.tews@googlemail.com"
+            "time": "2019-12-19T17:51:41+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Assert\\": "lib/Assert"
+                },
+                "files": [
+                    "lib/Assert/functions.php"
+                ]
             },
-            {
-                "name": "Rodney Rehm",
-                "email": "rodney.rehm@medialize.de"
-            }
-        ],
-        "description": "Smarty - the compiling PHP template engine",
-        "homepage": "http://www.smarty.net",
-        "keywords": [
-            "templating"
-        ]
-    },
-    {
-        "name": "symfony/polyfill-ctype",
-        "version": "v1.11.0",
-        "version_normalized": "1.11.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-ctype.git",
-            "reference": "82ebae02209c21113908c229e9883c419720738a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/82ebae02209c21113908c229e9883c419720738a",
-            "reference": "82ebae02209c21113908c229e9883c419720738a",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "ext-ctype": "For best performance"
-        },
-        "time": "2019-02-06T07:57:58+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.11-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Ctype\\": ""
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Richard Quadling",
+                    "email": "rquadling@gmail.com",
+                    "role": "Collaborator"
+                }
+            ],
+            "description": "Thin assertion library for input validation in business models.",
+            "keywords": [
+                "assert",
+                "assertion",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/beberlei/assert/issues",
+                "source": "https://github.com/beberlei/assert/tree/v3"
             },
-            "files": [
-                "bootstrap.php"
-            ]
+            "install-path": "../beberlei/assert"
         },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
+        {
+            "name": "bjeavons/zxcvbn-php",
+            "version": "0.4.0",
+            "version_normalized": "0.4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bjeavons/zxcvbn-php.git",
+                "reference": "7a7e1130c74c715e84c60c27384f657e9574a933"
             },
-            {
-                "name": "Gert de Pagter",
-                "email": "BackEndTea@gmail.com"
-            }
-        ],
-        "description": "Symfony polyfill for ctype functions",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "ctype",
-            "polyfill",
-            "portable"
-        ]
-    }
-]
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bjeavons/zxcvbn-php/zipball/7a7e1130c74c715e84c60c27384f657e9574a933",
+                "reference": "7a7e1130c74c715e84c60c27384f657e9574a933",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "satooshi/php-coveralls": "*"
+            },
+            "time": "2018-07-23T05:05:36+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ZxcvbnPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "See contributors",
+                    "homepage": "https://github.com/bjeavons/zxcvbn-php"
+                }
+            ],
+            "description": "Realistic password strength estimation PHP library based on Zxcvbn JS",
+            "homepage": "https://github.com/bjeavons/zxcvbn-php",
+            "keywords": [
+                "password",
+                "zxcvbn"
+            ],
+            "install-path": "../bjeavons/zxcvbn-php"
+        },
+        {
+            "name": "jasig/phpcas",
+            "version": "1.3.7",
+            "version_normalized": "1.3.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/apereo/phpCAS.git",
+                "reference": "b5b29102c3a42f570c4a3e852f3cf67cae6d6082"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/apereo/phpCAS/zipball/b5b29102c3a42f570c4a3e852f3cf67cae6d6082",
+                "reference": "b5b29102c3a42f570c4a3e852f3cf67cae6d6082",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7.10"
+            },
+            "time": "2019-04-22T19:48:16+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "source/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Joachim Fritschi",
+                    "homepage": "https://wiki.jasig.org/display/~fritschi"
+                },
+                {
+                    "name": "Adam Franco",
+                    "homepage": "https://wiki.jasig.org/display/~adamfranco"
+                }
+            ],
+            "description": "Provides a simple API for authenticating users against a CAS server",
+            "homepage": "https://wiki.jasig.org/display/CASC/phpCAS",
+            "keywords": [
+                "apereo",
+                "cas",
+                "jasig"
+            ],
+            "install-path": "../jasig/phpcas"
+        },
+        {
+            "name": "paragonie/constant_time_encoding",
+            "version": "v2.4.0",
+            "version_normalized": "2.4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/constant_time_encoding.git",
+                "reference": "f34c2b11eb9d2c9318e13540a1dbc2a3afbd939c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/f34c2b11eb9d2c9318e13540a1dbc2a3afbd939c",
+                "reference": "f34c2b11eb9d2c9318e13540a1dbc2a3afbd939c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7|^8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6|^7|^8|^9",
+                "vimeo/psalm": "^1|^2|^3|^4"
+            },
+            "time": "2020-12-06T15:14:20+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "ParagonIE\\ConstantTime\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Steve 'Sc00bz' Thomas",
+                    "email": "steve@tobtu.com",
+                    "homepage": "https://www.tobtu.com",
+                    "role": "Original Developer"
+                }
+            ],
+            "description": "Constant-time Implementations of RFC 4648 Encoding (Base-64, Base-32, Base-16)",
+            "keywords": [
+                "base16",
+                "base32",
+                "base32_decode",
+                "base32_encode",
+                "base64",
+                "base64_decode",
+                "base64_encode",
+                "bin2hex",
+                "encoding",
+                "hex",
+                "hex2bin",
+                "rfc4648"
+            ],
+            "support": {
+                "email": "info@paragonie.com",
+                "issues": "https://github.com/paragonie/constant_time_encoding/issues",
+                "source": "https://github.com/paragonie/constant_time_encoding"
+            },
+            "install-path": "../paragonie/constant_time_encoding"
+        },
+        {
+            "name": "paragonie/random_compat",
+            "version": "v9.99.99",
+            "version_normalized": "9.99.99.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
+                "reference": "84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*",
+                "vimeo/psalm": "^1"
+            },
+            "suggest": {
+                "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
+            },
+            "time": "2018-07-02T15:55:56+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com",
+                    "homepage": "https://paragonie.com"
+                }
+            ],
+            "description": "PHP 5.x polyfill for random_bytes() and random_int() from PHP 7",
+            "keywords": [
+                "csprng",
+                "polyfill",
+                "pseudorandom",
+                "random"
+            ],
+            "install-path": "../paragonie/random_compat"
+        },
+        {
+            "name": "ramsey/uuid",
+            "version": "3.8.0",
+            "version_normalized": "3.8.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ramsey/uuid.git",
+                "reference": "d09ea80159c1929d75b3f9c60504d613aeb4a1e3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/d09ea80159c1929d75b3f9c60504d613aeb4a1e3",
+                "reference": "d09ea80159c1929d75b3f9c60504d613aeb4a1e3",
+                "shasum": ""
+            },
+            "require": {
+                "paragonie/random_compat": "^1.0|^2.0|9.99.99",
+                "php": "^5.4 || ^7.0",
+                "symfony/polyfill-ctype": "^1.8"
+            },
+            "replace": {
+                "rhumsaa/uuid": "self.version"
+            },
+            "require-dev": {
+                "codeception/aspect-mock": "^1.0 | ~2.0.0",
+                "doctrine/annotations": "~1.2.0",
+                "goaop/framework": "1.0.0-alpha.2 | ^1.0 | ~2.1.0",
+                "ircmaxell/random-lib": "^1.1",
+                "jakub-onderka/php-parallel-lint": "^0.9.0",
+                "mockery/mockery": "^0.9.9",
+                "moontoast/math": "^1.1",
+                "php-mock/php-mock-phpunit": "^0.3|^1.1",
+                "phpunit/phpunit": "^4.7|^5.0|^6.5",
+                "squizlabs/php_codesniffer": "^2.3"
+            },
+            "suggest": {
+                "ext-ctype": "Provides support for PHP Ctype functions",
+                "ext-libsodium": "Provides the PECL libsodium extension for use with the SodiumRandomGenerator",
+                "ext-uuid": "Provides the PECL UUID extension for use with the PeclUuidTimeGenerator and PeclUuidRandomGenerator",
+                "ircmaxell/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
+                "moontoast/math": "Provides support for converting UUID to 128-bit integer (in string form).",
+                "ramsey/uuid-console": "A console application for generating UUIDs with ramsey/uuid",
+                "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
+            },
+            "time": "2018-07-19T23:38:55+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Ramsey\\Uuid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marijn Huizendveld",
+                    "email": "marijn.huizendveld@gmail.com"
+                },
+                {
+                    "name": "Thibaud Fabre",
+                    "email": "thibaud@aztech.io"
+                },
+                {
+                    "name": "Ben Ramsey",
+                    "email": "ben@benramsey.com",
+                    "homepage": "https://benramsey.com"
+                }
+            ],
+            "description": "Formerly rhumsaa/uuid. A PHP 5.4+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
+            "homepage": "https://github.com/ramsey/uuid",
+            "keywords": [
+                "guid",
+                "identifier",
+                "uuid"
+            ],
+            "install-path": "../ramsey/uuid"
+        },
+        {
+            "name": "smarty-gettext/smarty-gettext",
+            "version": "1.2.0",
+            "version_normalized": "1.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smarty-gettext/smarty-gettext.git",
+                "reference": "bc3978d07165c62cd9f6e1c41e9196e5b90166f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smarty-gettext/smarty-gettext/zipball/bc3978d07165c62cd9f6e1c41e9196e5b90166f2",
+                "reference": "bc3978d07165c62cd9f6e1c41e9196e5b90166f2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gettext": "*",
+                "ext-pcre": "*",
+                "php": ">=5.2.1"
+            },
+            "time": "2015-05-11T16:00:56+00:00",
+            "bin": [
+                "tsmarty2c.php"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "block.t.php",
+                    "function.locale.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1+"
+            ],
+            "authors": [
+                {
+                    "name": "Sagi Bashari",
+                    "email": "sagi@boom.org.il"
+                },
+                {
+                    "name": "Elan Ruusamäe",
+                    "email": "glen@delfi.ee"
+                }
+            ],
+            "description": "Gettext plugin enabling internationalization in Smarty Package files",
+            "homepage": "https://github.com/smarty-gettext/smarty-gettext",
+            "install-path": "../smarty-gettext/smarty-gettext"
+        },
+        {
+            "name": "smarty/smarty",
+            "version": "v3.1.33",
+            "version_normalized": "3.1.33.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smarty-php/smarty.git",
+                "reference": "dd55b23121e55a3b4f1af90a707a6c4e5969530f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/dd55b23121e55a3b4f1af90a707a6c4e5969530f",
+                "reference": "dd55b23121e55a3b4f1af90a707a6c4e5969530f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "time": "2018-09-12T20:54:16+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "libs/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Monte Ohrt",
+                    "email": "monte@ohrt.com"
+                },
+                {
+                    "name": "Uwe Tews",
+                    "email": "uwe.tews@googlemail.com"
+                },
+                {
+                    "name": "Rodney Rehm",
+                    "email": "rodney.rehm@medialize.de"
+                }
+            ],
+            "description": "Smarty - the compiling PHP template engine",
+            "homepage": "http://www.smarty.net",
+            "keywords": [
+                "templating"
+            ],
+            "install-path": "../smarty/smarty"
+        },
+        {
+            "name": "spomky-labs/otphp",
+            "version": "v10.0.1",
+            "version_normalized": "10.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Spomky-Labs/otphp.git",
+                "reference": "f44cce5a9db4b8da410215d992110482c931232f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Spomky-Labs/otphp/zipball/f44cce5a9db4b8da410215d992110482c931232f",
+                "reference": "f44cce5a9db4b8da410215d992110482c931232f",
+                "shasum": ""
+            },
+            "require": {
+                "beberlei/assert": "^3.0",
+                "ext-mbstring": "*",
+                "paragonie/constant_time_encoding": "^2.0",
+                "php": "^7.2|^8.0",
+                "thecodingmachine/safe": "^0.1.14|^1.0"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.0",
+                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan-beberlei-assert": "^0.12",
+                "phpstan/phpstan-deprecation-rules": "^0.12",
+                "phpstan/phpstan-phpunit": "^0.12",
+                "phpstan/phpstan-strict-rules": "^0.12",
+                "phpunit/phpunit": "^8.0",
+                "thecodingmachine/phpstan-safe-rule": "^1.0"
+            },
+            "time": "2020-01-28T09:24:19+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "v10.0": "10.0.x-dev",
+                    "v9.0": "9.0.x-dev",
+                    "v8.3": "8.3.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "OTPHP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florent Morselli",
+                    "homepage": "https://github.com/Spomky"
+                },
+                {
+                    "name": "All contributors",
+                    "homepage": "https://github.com/Spomky-Labs/otphp/contributors"
+                }
+            ],
+            "description": "A PHP library for generating one time passwords according to RFC 4226 (HOTP Algorithm) and the RFC 6238 (TOTP Algorithm) and compatible with Google Authenticator",
+            "homepage": "https://github.com/Spomky-Labs/otphp",
+            "keywords": [
+                "FreeOTP",
+                "RFC 4226",
+                "RFC 6238",
+                "google authenticator",
+                "hotp",
+                "otp",
+                "totp"
+            ],
+            "support": {
+                "issues": "https://github.com/Spomky-Labs/otphp/issues",
+                "source": "https://github.com/Spomky-Labs/otphp/tree/v10.0.1"
+            },
+            "install-path": "../spomky-labs/otphp"
+        },
+        {
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.11.0",
+            "version_normalized": "1.11.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "82ebae02209c21113908c229e9883c419720738a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/82ebae02209c21113908c229e9883c419720738a",
+                "reference": "82ebae02209c21113908c229e9883c419720738a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-ctype": "For best performance"
+            },
+            "time": "2019-02-06T07:57:58+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.11-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "install-path": "../symfony/polyfill-ctype"
+        },
+        {
+            "name": "thecodingmachine/safe",
+            "version": "v1.3.3",
+            "version_normalized": "1.3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thecodingmachine/safe.git",
+                "reference": "a8ab0876305a4cdaef31b2350fcb9811b5608dbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thecodingmachine/safe/zipball/a8ab0876305a4cdaef31b2350fcb9811b5608dbc",
+                "reference": "a8ab0876305a4cdaef31b2350fcb9811b5608dbc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12",
+                "squizlabs/php_codesniffer": "^3.2",
+                "thecodingmachine/phpstan-strict-rules": "^0.12"
+            },
+            "time": "2020-10-28T17:51:34+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Safe\\": [
+                        "lib/",
+                        "deprecated/",
+                        "generated/"
+                    ]
+                },
+                "files": [
+                    "deprecated/apc.php",
+                    "deprecated/libevent.php",
+                    "deprecated/mssql.php",
+                    "deprecated/stats.php",
+                    "lib/special_cases.php",
+                    "generated/apache.php",
+                    "generated/apcu.php",
+                    "generated/array.php",
+                    "generated/bzip2.php",
+                    "generated/calendar.php",
+                    "generated/classobj.php",
+                    "generated/com.php",
+                    "generated/cubrid.php",
+                    "generated/curl.php",
+                    "generated/datetime.php",
+                    "generated/dir.php",
+                    "generated/eio.php",
+                    "generated/errorfunc.php",
+                    "generated/exec.php",
+                    "generated/fileinfo.php",
+                    "generated/filesystem.php",
+                    "generated/filter.php",
+                    "generated/fpm.php",
+                    "generated/ftp.php",
+                    "generated/funchand.php",
+                    "generated/gmp.php",
+                    "generated/gnupg.php",
+                    "generated/hash.php",
+                    "generated/ibase.php",
+                    "generated/ibmDb2.php",
+                    "generated/iconv.php",
+                    "generated/image.php",
+                    "generated/imap.php",
+                    "generated/info.php",
+                    "generated/ingres-ii.php",
+                    "generated/inotify.php",
+                    "generated/json.php",
+                    "generated/ldap.php",
+                    "generated/libxml.php",
+                    "generated/lzf.php",
+                    "generated/mailparse.php",
+                    "generated/mbstring.php",
+                    "generated/misc.php",
+                    "generated/msql.php",
+                    "generated/mysql.php",
+                    "generated/mysqli.php",
+                    "generated/mysqlndMs.php",
+                    "generated/mysqlndQc.php",
+                    "generated/network.php",
+                    "generated/oci8.php",
+                    "generated/opcache.php",
+                    "generated/openssl.php",
+                    "generated/outcontrol.php",
+                    "generated/password.php",
+                    "generated/pcntl.php",
+                    "generated/pcre.php",
+                    "generated/pdf.php",
+                    "generated/pgsql.php",
+                    "generated/posix.php",
+                    "generated/ps.php",
+                    "generated/pspell.php",
+                    "generated/readline.php",
+                    "generated/rpminfo.php",
+                    "generated/rrd.php",
+                    "generated/sem.php",
+                    "generated/session.php",
+                    "generated/shmop.php",
+                    "generated/simplexml.php",
+                    "generated/sockets.php",
+                    "generated/sodium.php",
+                    "generated/solr.php",
+                    "generated/spl.php",
+                    "generated/sqlsrv.php",
+                    "generated/ssdeep.php",
+                    "generated/ssh2.php",
+                    "generated/stream.php",
+                    "generated/strings.php",
+                    "generated/swoole.php",
+                    "generated/uodbc.php",
+                    "generated/uopz.php",
+                    "generated/url.php",
+                    "generated/var.php",
+                    "generated/xdiff.php",
+                    "generated/xml.php",
+                    "generated/xmlrpc.php",
+                    "generated/yaml.php",
+                    "generated/yaz.php",
+                    "generated/zip.php",
+                    "generated/zlib.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP core functions that throw exceptions instead of returning FALSE on error",
+            "support": {
+                "issues": "https://github.com/thecodingmachine/safe/issues",
+                "source": "https://github.com/thecodingmachine/safe/tree/v1.3.3"
+            },
+            "install-path": "../thecodingmachine/safe"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

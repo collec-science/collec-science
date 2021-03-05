@@ -29,6 +29,7 @@ switch ($t_module["param"]) {
 		$data = dataRead($dataClass, $id, "framework/droits/acoChange.tpl", $_REQUEST["aclappli_id"]);
 		$aclAppli = new Aclappli($bdd_gacl, $ObjetBDDParam);
 		$vue->set($aclAppli->lire($data["aclappli_id"]) , "dataAppli");
+		require_once "framework/droits/aclgroup.class.php";
 		$aclgroup = new Aclgroup($bdd_gacl, $ObjetBDDParam);
 		$vue->set($aclgroup->getGroupsFromAco($id) , "groupes");
 		break;
@@ -50,5 +51,3 @@ switch ($t_module["param"]) {
 	default:
 	    break;
 }
-
-?>

@@ -50,5 +50,6 @@ return array(
     'CAS_Request_MultiRequestInterface' => $vendorDir . '/jasig/phpcas/source/CAS/Request/MultiRequestInterface.php',
     'CAS_Request_RequestInterface' => $vendorDir . '/jasig/phpcas/source/CAS/Request/RequestInterface.php',
     'CAS_TypeMismatchException' => $vendorDir . '/jasig/phpcas/source/CAS/TypeMismatchException.php',
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'phpCAS' => $vendorDir . '/jasig/phpcas/source/CAS.php',
 );

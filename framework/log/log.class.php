@@ -49,6 +49,7 @@ class Log extends ObjetBDD
     /**
      * Fonction enregistrant un evenement dans la table
      *
+     * @param string $login
      * @param string $module
      * @param string $comment
      *
@@ -61,8 +62,8 @@ class Log extends ObjetBDD
             "log_id" => 0,
             "commentaire" => $commentaire,
         );
-        if (is_null($login)) {
-            if (!is_null($_SESSION["login"])) {
+        if (empty($login)) {
+            if (!empty($_SESSION["login"])) {
                 $login = $_SESSION["login"];
             } else {
                 $login = "unknown";
@@ -123,14 +124,17 @@ class Log extends ObjetBDD
      */
     public function getLastConnexion()
     {
+        global $GACL_aco;
         if (isset($_SESSION["login"])) {
+            $module = $GACL_aco."-connection%";
             $sql = "select log_date, ipaddress from log where login = :login
-            and nom_module like '%connexion' and commentaire like '%ok'
+            and nom_module like :module and commentaire like 'ok%'
             order by log_id desc limit 2";
             $data = $this->getListeParamAsPrepared(
                 $sql,
                 array(
                     "login" => $_SESSION["login"],
+                    "module"=>$module
                 )
             );
             return $data[1];
@@ -144,22 +148,25 @@ class Log extends ObjetBDD
      */
     public function getLastConnections($duration = 36000)
     {
+        global $GACL_aco;
         if (isset($_SESSION["login"])) {
-
+            $module = $GACL_aco."-connection%";
+            $token = $GACL_aco."-connection-token";
             $sql = "select log_date, ipaddress from log where login = :login
-            and nom_module like '%connexion' and commentaire like '%-ok' and commentaire <> 'token-ok'
+            and nom_module like :module and commentaire like 'ok%' and commentaire <> :token
             and log_date > :datefrom
             order by log_id desc";
-            $date = new DateTime(now);
+            $date = new DateTime("now");
             $date->sub(new DateInterval("PT" . $duration . "S"));
-            $data = $this->getListeParamAsPrepared(
+            return $this->getListeParamAsPrepared(
                 $sql,
                 array(
                     "login" => $_SESSION["login"],
                     "datefrom" => $date->format(DATELONGMASK),
+                    "module" => $module,
+                    "token" => $token
                 )
             );
-            return $data;
         }
     }
 
@@ -173,8 +180,8 @@ class Log extends ObjetBDD
     public function getLastConnexionType($login)
     {
         if (strlen($login) > 0) {
-            $sql = "select commentaire from log";
-            $sql .= " where login = :login and nom_module like '%connexion' and commentaire like '%ok%' and commentaire <> 'token-ok'";
+            $sql = "select nom_module from log";
+            $sql .= " where login = :login and nom_module like 'connection%' and commentaire = 'ok' and nom_module <> 'connection-token'";
             $sql .= "order by log_id desc limit 1";
             $data = $this->lireParamAsPrepared(
                 $sql,
@@ -182,8 +189,8 @@ class Log extends ObjetBDD
                     "login" => $login,
                 )
             );
-            $commentaire = explode("-", $data["commentaire"]);
-            return $commentaire[0];
+            $connectionType = explode("-", $data["nom_module"]);
+            return $connectionType[0];
         }
     }
 
@@ -201,15 +208,16 @@ class Log extends ObjetBDD
      */
     public function isAccountBlocked($login, $maxtime = 600, $nbMax = 10)
     {
-
+        global $GACL_aco;
         $is_blocked = true;
         /*
          * Verification si le compte est bloque, et depuis quand
          */
         $accountBlocking = false;
-        $date = new DateTime(now);
+        $date = new DateTime("now");
         $date->sub(new DateInterval("PT" . $maxtime . "S"));
-        $sql = "select log_id from log where login = :login " . " and nom_module = 'connexionBlocking'" . " and log_date > :blockingdate " . " order by log_id desc limit 1";
+        $nom_module = $GACL_aco."-connectionBlocking";
+        $sql = "select log_id from log where login = :login and nom_module = '$nom_module' and log_date > :blockingdate order by log_id desc limit 1";
         $data = $this->lireParamAsPrepared(
             $sql,
             array(
@@ -221,8 +229,9 @@ class Log extends ObjetBDD
             $accountBlocking = true;
         }
         if (!$accountBlocking) {
+            $nom_module = $GACL_aco."-connection%";
             $sql = "select log_date, commentaire from log where login = :login
-                    and nom_module like '%connexion'
+                    and nom_module like '$nom_module'
                     and log_date > :blockingdate
                 order by log_id desc limit :nbmax";
             $data = $this->getListeParamAsPrepared(
@@ -238,7 +247,7 @@ class Log extends ObjetBDD
              * Recherche si une connexion a reussi
              */
             foreach ($data as $value) {
-                if (substr($value["commentaire"], -2) == "ok") {
+                if ($value["commentaire"] == "ok") {
                     $is_blocked = false;
                     break;
                 }
@@ -266,8 +275,8 @@ class Log extends ObjetBDD
     public function blockingAccount($login)
     {
         global $message, $APPLI_address, $GACL_aco;
-        $this->setLog($login, "connexionBlocking");
-        $message->setSyslog("connexionBlocking for login $login");
+        $this->setLog($login, "connectionBlocking");
+        $message->setSyslog("connectionBlocking for login $login");
         $date = date("Y-m-d H:i:s");
         $subject = "SECURITY REPORTING - " . $GACL_aco . " - account blocked";
         $contents = "<html><body>" . "The account <b>$login<b> was blocked at $date for too many connection attempts" . '<br>Software : <a href="' . $APPLI_address . '">' . $APPLI_address . "</a>" . '</body></html>';

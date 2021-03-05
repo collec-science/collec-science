@@ -1,8 +1,8 @@
 var AbstractIterator = require('abstract-leveldown').AbstractIterator
 var inherits = require('inherits')
 
-function DeferredIterator (options) {
-  AbstractIterator.call(this, options)
+function DeferredIterator (db, options) {
+  AbstractIterator.call(this, db)
 
   this._options = options
   this._iterator = null

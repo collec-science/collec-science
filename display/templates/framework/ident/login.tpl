@@ -15,16 +15,17 @@
 			});
 		});
 	</script>
-	
+
 	<div class="col-sm-12 col-md-6">
-			<form id="theForm" method="POST" action="index.php">
-					<input type="hidden" name="module" value={$module}>
+			<form id="login" method="POST" action="index.php">
+			<input type="hidden" name="module" value="loginExec">
+					<input type="hidden" name="moduleCalled" value={$moduleCalled}>
 	<div class="form-horizontal protoform">
 	<div class="form-group">
 	<label for="login" class="control-label col-sm-4">
 	{t}Login :{/t}
 	</label>
-	<div class="col-sm-8"> 
+	<div class="col-sm-8">
 	<input class="form-control input-lg" name="login" id="login" maxlength="64" required autofocus>
 	</div>
 	</div>
@@ -46,7 +47,7 @@
   	<label>
   {$duration = $tokenIdentityValidity / 3600}
   <input type="checkbox" name="loginByTokenRequested" class="" value="1" checked>
-  {t}Conserver la connexion pendant{/t} {$duration} {t}heures{/t} 
+  {t}Conserver la connexion pendant{/t} {$duration} {t}heures{/t}
   </label>
   </div>
   {/if}
@@ -59,7 +60,6 @@
 	<button type="submit" class="btn btn-primary button-valid input-lg">{t}Se connecter{/t}</button>
 	</div>
 	</form>
-	
+
 	</div>
 </div>
-

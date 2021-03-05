@@ -72,10 +72,9 @@ class LoginGestion extends ObjetBDD
             $data = $this->lireParamAsPrepared($sql, array("login" => $login));
             if ($this->_testPassword($login, $password, $data["password"])) {
                 $data["is_expired"] == 1 ? $comment = "db-ok-expired" : $comment = "db-ok";
-                $log->setLog($login, "connexion", $comment);
                 $retour = true;
             } else {
-                $log->setLog($login, "connexion", "db-ko");
+                $log->setLog($login, "connection-db", "ko-account expired");
             }
         }
         return $retour;
@@ -216,7 +215,7 @@ class LoginGestion extends ObjetBDD
             /*
              * Recherche si un enregistrement existe dans la gestion des droits
              */
-            require_once 'framework/droits/droits.class.php';
+            include_once "framework/droits/acllogin.class.php";
             $acllogin = new Acllogin($this->connection, $this->paramori);
             $datalogin = $acllogin->getFromLogin($data["login"]);
             if ($datalogin["acllogin_id"] > 0) {

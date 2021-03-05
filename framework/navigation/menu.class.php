@@ -76,6 +76,12 @@ class Menu
         if ($attributes["onlynoconnect"] == 1 && isset($_SESSION["login"])) {
             $ok = false;
         }
+        /**
+         * Search for language
+         */
+        if(isset($attributes["language"])&& $attributes["language"] != $_SESSION["FORMATDATE"]) {
+            $ok = false;
+        }
         if ($ok) {
             if (isset($attributes["divider"])) {
                 $texte = '<li class="divider"></li>';

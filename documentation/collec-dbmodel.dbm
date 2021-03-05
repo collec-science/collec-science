@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.2" author="Eric Quinton" last-position="222,826" last-zoom="0.85" max-obj-count="72"
+<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="0,0" last-zoom="1.05" max-obj-count="72"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -27,6 +27,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#ffaa00,#ffaa00,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="objects">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -34,6 +36,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#00ff00,#00ff00,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="sample">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -41,6 +45,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#00aa00,#00aa00,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="container">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -48,6 +54,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#ff5500,#ff5500,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="acl">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -55,6 +63,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#ff0000,#ff0000,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="movement">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -62,6 +72,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#aaaa00,#aaaa00,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="object">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -69,6 +81,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#55aa00,#ff5500,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="export">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -76,6 +90,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#ffffff"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#550000,#550000,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <tag name="utils">
 	<style id="table-body" colors="#fcfcfc,#fcfcfc,#808080"/>
@@ -83,6 +99,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#55aaff,#55aaff,#20486f"/>
+	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
+	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
 </tag>
 <schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
@@ -105,7 +123,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 </sequence>
 
-<table name="booking" layer="0" collapse-mode="1" max-obj-count="8">
+<table name="booking" layer="0" collapse-mode="1" max-obj-count="8" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of object's bookings]]></comment>
@@ -147,7 +165,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 </sequence>
 
-<table name="collection_group" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="collection_group" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of project approvals]]></comment>
@@ -169,7 +187,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 </sequence>
 
-<table name="container" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="container" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Liste of containers]]></comment>
@@ -194,7 +212,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 </sequence>
 
-<table name="container_family" layer="0" collapse-mode="1" max-obj-count="2">
+<table name="container_family" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[General family of containers]]></comment>
@@ -221,7 +239,7 @@ Mobilier]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="container_type" layer="0" collapse-mode="1" max-obj-count="15">
+<table name="container_type" layer="0" collapse-mode="1" max-obj-count="15" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of types of containers]]></comment>
@@ -291,7 +309,7 @@ Congélateur•2]]>
 	</initial-data>
 </table>
 
-<table name="dbparam" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="dbparam" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of parameters intrinsically associated to the instance]]></comment>
@@ -325,7 +343,7 @@ Congélateur•2]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="dbversion" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="dbversion" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of the database versions]]></comment>
@@ -355,7 +373,7 @@ Congélateur•2]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="document" layer="0" collapse-mode="1" max-obj-count="14">
+<table name="document" layer="0" collapse-mode="1" max-obj-count="14" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Numeric docs associated to an objet or a campaign]]></comment>
@@ -419,7 +437,7 @@ Congélateur•2]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="event" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="event" layer="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of events]]></comment>
@@ -456,7 +474,7 @@ Congélateur•2]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="event_type" layer="0" collapse-mode="1" max-obj-count="4">
+<table name="event_type" layer="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Event types table]]></comment>
@@ -495,7 +513,7 @@ Prélèvement pour analyse•true•false⸣
 	<role name="collec"/>
 </sequence>
 
-<table name="identifier_type" layer="0" collapse-mode="1" max-obj-count="4">
+<table name="identifier_type" layer="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of identifier types]]></comment>
@@ -526,7 +544,7 @@ Prélèvement pour analyse•true•false⸣
 	<role name="collec"/>
 </sequence>
 
-<table name="label" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="label" layer="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of label models]]></comment>
@@ -627,7 +645,7 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 	<role name="collec"/>
 </sequence>
 
-<view name="last_photo" layer="0" collapse-mode="1" max-obj-count="1">
+<view name="last_photo" layer="0" collapse-mode="1" max-obj-count="1" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<position x="1320" y="480"/>
@@ -661,7 +679,7 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 	<role name="collec"/>
 </sequence>
 
-<table name="metadata" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="metadata" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of metadata usable with types of samples]]></comment>
@@ -688,7 +706,7 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 	<role name="collec"/>
 </sequence>
 
-<table name="mime_type" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="mime_type" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Mime types of imported files]]></comment>
@@ -742,7 +760,7 @@ xml•application/xml]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="movement_type" layer="0" collapse-mode="1" max-obj-count="2">
+<table name="movement_type" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Type de mouvement]]></comment>
@@ -769,7 +787,7 @@ xml•application/xml]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="multiple_type" layer="0" collapse-mode="1" max-obj-count="2">
+<table name="multiple_type" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of categories of potential sub-sampling (unit, quantity, percentage, etc.)]]></comment>
@@ -803,7 +821,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="object_identifier" layer="0" collapse-mode="1" max-obj-count="4">
+<table name="object_identifier" layer="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of complementary identifiers]]></comment>
@@ -832,7 +850,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="object_status" layer="0" collapse-mode="1" max-obj-count="2">
+<table name="object_status" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of types of status]]></comment>
@@ -867,7 +885,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="operation" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="operation" layer="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of operations attached to a protocol]]></comment>
@@ -907,7 +925,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="printer" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="printer" layer="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of printers directly managed by the server]]></comment>
@@ -941,7 +959,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<table name="collection" layer="0" collapse-mode="1" max-obj-count="10">
+<table name="collection" layer="0" collapse-mode="1" max-obj-count="10" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of all collections into the database]]></comment>
@@ -986,7 +1004,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="protocol" layer="0" collapse-mode="1" max-obj-count="9">
+<table name="protocol" layer="0" collapse-mode="1" max-obj-count="9" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of protocols]]></comment>
@@ -1032,7 +1050,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="referent" layer="0" collapse-mode="1" max-obj-count="14">
+<table name="referent" layer="0" collapse-mode="1" max-obj-count="14" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of sample referents]]></comment>
@@ -1096,7 +1114,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="sample" layer="0" collapse-mode="1" max-obj-count="16">
+<table name="sample" layer="0" collapse-mode="1" max-obj-count="16" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of samples]]></comment>
@@ -1163,7 +1181,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="sample_type" layer="0" collapse-mode="1" max-obj-count="10">
+<table name="sample_type" layer="0" collapse-mode="1" max-obj-count="10" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of the types of samples]]></comment>
@@ -1210,7 +1228,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="sampling_place" layer="0" collapse-mode="1" max-obj-count="8">
+<table name="sampling_place" layer="0" collapse-mode="1" max-obj-count="8" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of sampling places]]></comment>
@@ -1249,7 +1267,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="storage_condition" layer="0" collapse-mode="1" max-obj-count="2">
+<table name="storage_condition" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of the conditions of storage]]></comment>
@@ -1266,7 +1284,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<table name="movement_reason" layer="0" collapse-mode="1" max-obj-count="2">
+<table name="movement_reason" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of the reasons of the movement]]></comment>
@@ -1283,7 +1301,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<table name="movement" layer="0" collapse-mode="1" max-obj-count="13">
+<table name="movement" layer="0" collapse-mode="1" max-obj-count="13" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Records of objects movements]]></comment>
@@ -1338,7 +1356,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="subsample" layer="0" collapse-mode="1" max-obj-count="8">
+<table name="subsample" layer="0" collapse-mode="1" max-obj-count="8" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of sub-sample takes and returns]]></comment>
@@ -1374,7 +1392,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<view name="v_object_identifier" layer="0" collapse-mode="1" max-obj-count="1">
+<view name="v_object_identifier" layer="0" collapse-mode="1" max-obj-count="1" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<position x="2180" y="480"/>
@@ -1415,7 +1433,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="aclacl" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="aclacl" layer="1" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of rights granted]]></comment>
@@ -1446,7 +1464,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="aclaco" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="aclaco" layer="1" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of managed rights]]></comment>
@@ -1481,7 +1499,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="aclappli" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="aclappli" layer="1" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of managed applications]]></comment>
@@ -1507,7 +1525,7 @@ Autre]]>
 	</initial-data>
 </table>
 
-<table name="aclgroup" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="aclgroup" layer="1" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[Groups of logins]]></comment>
@@ -1543,7 +1561,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="acllogin" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="acllogin" layer="1" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of logins granted to access to the modules of the application]]></comment>
@@ -1569,7 +1587,7 @@ Autre]]>
 	</initial-data>
 </table>
 
-<table name="acllogingroup" layer="1" collapse-mode="1" max-obj-count="3">
+<table name="acllogingroup" layer="1" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of logins in the groups]]></comment>
@@ -1596,7 +1614,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="log" layer="1" collapse-mode="1" max-obj-count="7">
+<table name="log" layer="1" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of all recorded operations (logins, calls of modules, etc.)]]></comment>
@@ -1635,7 +1653,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="logingestion" layer="1" collapse-mode="1" max-obj-count="13">
+<table name="logingestion" layer="1" collapse-mode="1" max-obj-count="13" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of logins used to connect to the application, when the account is managed by the application itself. This table also contains the accounts authorized to use the web services.]]></comment>
@@ -1697,7 +1715,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="passwordlost" layer="1" collapse-mode="1" max-obj-count="6">
+<table name="passwordlost" layer="1" collapse-mode="1" max-obj-count="6" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[Password loss tracking table]]></comment>
@@ -1815,7 +1833,7 @@ Autre]]>
 		</idxelement>
 </index>
 
-<view name="last_movement" layer="0" collapse-mode="1" max-obj-count="1">
+<view name="last_movement" layer="0" collapse-mode="1" max-obj-count="1" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<position x="1740" y="1120"/>
@@ -1885,7 +1903,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="borrower" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="borrower" layer="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of borrowers]]></comment>
@@ -1923,7 +1941,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="borrowing" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="borrowing" layer="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of borrowings]]></comment>
@@ -1971,7 +1989,7 @@ Autre]]>
 		</idxelement>
 </index>
 
-<view name="last_borrowing" layer="0" collapse-mode="1" max-obj-count="1">
+<view name="last_borrowing" layer="0" collapse-mode="1" max-obj-count="1" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<position x="2160" y="1120"/>
@@ -2020,7 +2038,7 @@ Autre]]>
 	<schema name="public"/>
 </extension>
 
-<view name="slots_used" layer="0" collapse-mode="1" max-obj-count="1">
+<view name="slots_used" layer="0" collapse-mode="1" max-obj-count="1" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<position x="1760" y="1380"/>
@@ -2066,7 +2084,7 @@ WHERE
 	<role name="collec"/>
 </sequence>
 
-<table name="request" layer="0" collapse-mode="1" max-obj-count="8">
+<table name="request" layer="0" collapse-mode="1" max-obj-count="8" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Request table in database]]></comment>
@@ -2116,7 +2134,7 @@ group by collection_name•admin•]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="export_model" layer="0" collapse-mode="1" max-obj-count="4">
+<table name="export_model" layer="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Structure of an export/import of table data]]></comment>
@@ -2205,7 +2223,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 		</idxelement>
 </index>
 
-<table name="object" layer="0" collapse-mode="1" max-obj-count="14">
+<table name="object" layer="0" collapse-mode="1" max-obj-count="14" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of objects]]></comment>
@@ -2293,7 +2311,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 </sequence>
 
-<table name="campaign" layer="0" collapse-mode="1" max-obj-count="6">
+<table name="campaign" layer="0" collapse-mode="1" max-obj-count="6" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of sampling campaigns]]></comment>
@@ -2332,7 +2350,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 </sequence>
 
-<table name="regulation" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="regulation" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of regulations]]></comment>
@@ -2354,7 +2372,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	</constraint>
 </table>
 
-<table name="campaign_regulation" layer="0" collapse-mode="1" max-obj-count="6">
+<table name="campaign_regulation" layer="0" collapse-mode="1" max-obj-count="6" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of regulations attached to a campaign]]></comment>
@@ -2435,7 +2453,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 dst-table="col.document"
 	 src-required="false" dst-required="false"/>
 
-<table name="lot" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="lot" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of lots of export]]></comment>
@@ -2471,7 +2489,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 src-required="false" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="lot_sample" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="lot_sample" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of samples associated into a lot]]></comment>
@@ -2503,7 +2521,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="export" layer="0" collapse-mode="1" max-obj-count="4">
+<table name="export" layer="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of exports processed]]></comment>
@@ -2539,7 +2557,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="export_template" layer="0" collapse-mode="1" max-obj-count="7">
+<table name="export_template" layer="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of models of export]]></comment>
@@ -2583,7 +2601,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="dataset_template" layer="0" collapse-mode="1" max-obj-count="12">
+<table name="dataset_template" layer="0" collapse-mode="1" max-obj-count="12" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of templates of dataset]]></comment>
@@ -2635,7 +2653,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	</customidxs>
 </table>
 
-<table name="export_format" layer="0" collapse-mode="1" max-obj-count="2">
+<table name="export_format" layer="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of formats of export]]></comment>
@@ -2668,7 +2686,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="export_dataset" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="export_dataset" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of datasets embedded into the template of export]]></comment>
@@ -2700,7 +2718,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="dataset_column" layer="0" collapse-mode="1" max-obj-count="12">
+<table name="dataset_column" layer="0" collapse-mode="1" max-obj-count="12" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of columns included into the dataset]]></comment>
@@ -2762,7 +2780,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="translator" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="translator" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of translator of values]]></comment>
@@ -2793,7 +2811,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 src-required="false" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="dataset_type" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="dataset_type" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Origine of the dataset: sample, collection, document]]></comment>
@@ -2831,12 +2849,12 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="samplesearch" layer="0" collapse-mode="1" max-obj-count="6">
+<table name="samplesearch" layer="0" collapse-mode="1" max-obj-count="6" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of sample saved search]]></comment>
 	<tag name="utils"/>
-	<position x="440" y="480"/>
+	<position x="20" y="480"/>
 	<column name="samplesearch_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -2872,7 +2890,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	 src-required="false" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="license" layer="0" collapse-mode="1" max-obj-count="3">
+<table name="license" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of licenses usable to communicate informations on the collections]]></comment>
@@ -3029,7 +3047,7 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 		</idxelement>
 </index>
 
-<table name="country" layer="0" collapse-mode="1" max-obj-count="4">
+<table name="country" layer="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of the countries]]></comment>
@@ -3798,9 +3816,9 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 dst-table="col.sample" reference-fk="sample_sample_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="983.64" y="931.6"/>
-	<position x="983.64" y="817"/>
-	<position x="907.093" y="817"/>
+		<position x="980.44" y="931.317"/>
+	<position x="980.44" y="819.3"/>
+	<position x="906.493" y="819.3"/>
 	</line>
 </relationship>
 
@@ -3864,9 +3882,9 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_aclgroup_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="187.64" y="210.733"/>
-	<position x="187.64" y="157"/>
-	<position x="116.427" y="157"/>
+		<position x="184.44" y="210.45"/>
+	<position x="184.44" y="159.3"/>
+	<position x="115.827" y="159.3"/>
 	</line>
 </relationship>
 

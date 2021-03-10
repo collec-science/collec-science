@@ -864,9 +864,18 @@ class ObjectClass extends ObjetBDD
    * @param integer $status_id
    * @return void
    */
-  function setStatus($uid, $status_id)
+  function setStatus($uids, $status_id)
   {
-    if ($uid > 0 && $status_id > 0) {
+    if (!is_array($uids)) {
+      $uids = array($uids);
+    }
+    if (empty($status_id)) {
+      throw new ObjectException(_("Le statut n'a pas été fourni"));
+    }
+    foreach ($uids as $uid) {
+      if (empty($uid)) {
+        throw new ObjectException(_("L'identifiant de l'objet n'a pas été fourni"));
+      }
       $data = array("uid" => $uid, "object_status_id" => $status_id);
       try {
         $this->ecrire($data);

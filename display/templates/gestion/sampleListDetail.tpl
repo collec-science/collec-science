@@ -104,7 +104,8 @@
 			"samplesEntry":"entry",
 			"samplesSetCountry":"country",
 			"samplesSetCollection":"collection",
-			"samplesSetCampaign":"campaign"
+			"samplesSetCampaign":"campaign",
+			"samplesSetStatus":"status"
 			};
 		$("#checkedActionSample").change(function () {
 			var action = $(this).val();
@@ -453,6 +454,7 @@
 			<input type="hidden" name="lastModule" value="{$lastModule}">
 			<input type="hidden" name="uid" value="{$data.uid}">
 			<input type="hidden" name="collection_id" value="{$sampleSearch.collection_id}">
+			<input type="hidden" name="is_action" value="1">
 			<select id="checkedActionSample" class="form-control">
 				<option value="" selected>{t}Choisissez{/t}</option>
 				<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
@@ -464,6 +466,7 @@
 				{/if}
 				<option value="samplesSetCountry">{t}Affecter un pays de collecte{/t}</option>
 				<option value="samplesSetCampaign">{t}Attacher à une campagne de prélèvement{/t}</option>
+				<option value="samplesSetStatus">{t}Modifier le statut{/t}</option>
 				<option value="samplesEntry">{t}Entrer ou déplacer les échantillons au même emplacement{/t}</option>
 				<option value="samplesSetCollection">{t}Modifier la collection d'affectation{/t}</option>
 				<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
@@ -625,6 +628,18 @@
 									<option value="{$campaign.campaign_id}">{$campaign.campaign_name}</option>
 							{/foreach}
 					</select>
+				</div>
+			</div>
+			<!-- set status -->
+			<div class="form-group status" hidden>
+				<label for="object_status_id" class="col-sm-4 control-label">{t}Statut :{/t}</label>
+				<div class="col-sm-8">
+						<select id="object_status_id" name="object_status_id" class="form-control">
+							<option value="" selected>{t}Choisissez...{/t}</option>
+							{foreach $objectStatus as $status}
+								<option value="{$status.object_status_id}">{$status.object_status_name}</option>
+							{/foreach}
+						</select>
 				</div>
 			</div>
 			<div class="center">

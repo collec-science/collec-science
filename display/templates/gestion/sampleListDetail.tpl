@@ -483,163 +483,181 @@
 			</select>
 			</div>
 			<!-- Ajout d'un nouvel evenement-->
-			<div class="form-group event" hidden>
-				<label for="event_date" class="control-label col-md-4"><span class="red">*</span>{t}Date{/t} :</label>
-				<div class="col-md-8">
-					<input id="event_date" name="event_date" value="" class="form-control datepicker" >
-				</div>
-			</div>
-			<div class="form-group event" hidden>
-				<label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Type d'évenement :{/t}</label>
-				<div class="col-md-8">
-					<select id="event_type_id" name="event_type_id" class="form-control">
-						{section name=lst loop=$eventType}
-							<option value="{$eventType[lst].event_type_id}">
-								{$eventType[lst].event_type_name}
-							</option>
-						{/section}
-					</select>
-				</div>
-			</div>
-			<div class="form-group event" hidden>
-				<label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
-				<div class="col-md-8">
-					<textarea id="event_comment" name="event_comment"  class="form-control" rows="3"></textarea>
-				</div>
-			</div>
-			<!-- add a borrowing -->
-			<div class="form-group borrowing" hidden>
-				<label for="borrower_id"class="control-label col-md-4">
-					<span class="red">*</span>{t}Emprunteur :{/t}
-				</label>
-				<div class="col-md-8">
-					<select id="borrower_id" name="borrower_id" class="form-control">
-						{foreach $borrowers as $borrower}
-							<option value="{$borrower.borrower_id}">
-								{$borrower.borrower_name}
-							</option>
-						{/foreach}
-					</select>
-				</div>
-			</div>
-			<div class="form-group borrowing" hidden>
-				<label for="borrowing_date" class="control-label col-md-4"><span class="red">*</span>{t}Date d'emprunt :{/t}</label>
-				<div class="col-md-8">
-					<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}" class="form-control datepicker" >
-				</div>
-			</div>
-			<div class="form-group borrowing" hidden>
-				<label for="expected_return_date" class="control-label col-md-4">{t}Date de retour escomptée :{/t}</label>
-				<div class="col-md-8">
-					<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
-				</div>
-			</div>
-			<div class="form-group trashedgroupsample" hidden>
-				<label for="trashed" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
-				<div class="col-md-8">
-					<select class="form-control" name="settrashed" id="trashedbin">
-						<option value="1">{t}Mettre à la corbeille{/t}</option>
-						<option value="0">{t}Sortir de la corbeille{/t}</option>
-					</select>
-				</div>
-			</div>
-			<div class="form-group entry" hidden>
-				<label for="container_uid" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
-				<div class="col-md-8">
-					<input id="container_uid" name="container_uid" value="" type="number" class="form-control">
-				</div>
-			</div>
-			<div class="form-group entry" hidden>
-				<label for="container_family_id" class="control-label col-md-4">{t}ou recherchez :{/t}</label>
+			<div class="event" hidden>
+				<div class="form-group " >
+					<label for="event_date" class="control-label col-md-4"><span class="red">*</span>{t}Date{/t} :</label>
 					<div class="col-md-8">
-						<select id="container_family_id" name="container_family_id" class="form-control">
-							<option value="" selected>{t}Sélectionnez la famille...{/t}</option>
-							{section name=lst loop=$containerFamily}
-								<option value="{$containerFamily[lst].container_family_id}">
-									{$containerFamily[lst].container_family_name}
+						<input id="event_date" name="event_date" value="" class="form-control datepicker" >
+					</div>
+				</div>
+				<div class="form-group " >
+					<label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Type d'évenement :{/t}</label>
+					<div class="col-md-8">
+						<select id="event_type_id" name="event_type_id" class="form-control">
+							{section name=lst loop=$eventType}
+								<option value="{$eventType[lst].event_type_id}">
+									{$eventType[lst].event_type_name}
 								</option>
 							{/section}
 						</select>
-						<select id="container_type_id" name="container_type_id" class="form-control">
-							<option value=""></option>
-						</select>
-						<select id="containers" name="containers">
-							<option value=""></option>
+					</div>
+				</div>
+				<div class="form-group " >
+					<label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+					<div class="col-md-8">
+						<textarea id="event_comment" name="event_comment"  class="form-control" rows="3"></textarea>
+					</div>
+				</div>
+			</div>
+			<!-- add a borrowing -->
+			<div class="borrowing" hidden>
+				<div class="form-group " >
+					<label for="borrower_id"class="control-label col-md-4">
+						<span class="red">*</span>{t}Emprunteur :{/t}
+					</label>
+					<div class="col-md-8">
+						<select id="borrower_id" name="borrower_id" class="form-control">
+							{foreach $borrowers as $borrower}
+								<option value="{$borrower.borrower_id}">
+									{$borrower.borrower_name}
+								</option>
+							{/foreach}
 						</select>
 					</div>
-			</div>
-			<div class="form-group entry" hidden>
-				<label for="storage_location" class="control-label col-md-4">
-					{t}Emplacement dans le contenant (format libre) :{/t}
-				</label>
-				<div class="col-md-8">
-					<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
+				</div>
+				<div class="form-group " >
+					<label for="borrowing_date" class="control-label col-md-4"><span class="red">*</span>{t}Date d'emprunt :{/t}</label>
+					<div class="col-md-8">
+						<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}" class="form-control datepicker" >
+					</div>
+				</div>
+				<div class="form-group " >
+					<label for="expected_return_date" class="control-label col-md-4">{t}Date de retour escomptée :{/t}</label>
+					<div class="col-md-8">
+						<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
+					</div>
 				</div>
 			</div>
-			<div class="form-group entry" hidden>
-				<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
-				<div class="col-sm-8">
-					<input id="line_number" name="line_number"
-						value="" class="form-control nombre" title="{t}N° de la ligne de rangement dans le contenant{/t}">
+			<!-- set Trashed-->
+			<div class="trashedgroupsample" hidden>
+				<div class="form-group " >
+					<label for="trashed" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
+					<div class="col-md-8">
+						<select class="form-control" name="settrashed" id="trashedbin">
+							<option value="1">{t}Mettre à la corbeille{/t}</option>
+							<option value="0">{t}Sortir de la corbeille{/t}</option>
+						</select>
+					</div>
 				</div>
 			</div>
-			<div class="form-group entry" hidden>
-				<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
-				<div class="col-sm-8">
-					<input id="column_number" name="column_number"
-						value="" class="form-control nombre" title="{t}N° de la colonne de rangement dans le contenant{/t}">
+			<!-- create an entry movement -->
+			<div class="entry" hidden>
+				<div class="form-group " >
+					<label for="container_uid" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
+					<div class="col-md-8">
+						<input id="container_uid" name="container_uid" value="" type="number" class="form-control">
+					</div>
+				</div>
+				<div class="form-group " >
+					<label for="container_family_id" class="control-label col-md-4">{t}ou recherchez :{/t}</label>
+						<div class="col-md-8">
+							<select id="container_family_id" name="container_family_id" class="form-control">
+								<option value="" selected>{t}Sélectionnez la famille...{/t}</option>
+								{section name=lst loop=$containerFamily}
+									<option value="{$containerFamily[lst].container_family_id}">
+										{$containerFamily[lst].container_family_name}
+									</option>
+								{/section}
+							</select>
+							<select id="container_type_id" name="container_type_id" class="form-control">
+								<option value=""></option>
+							</select>
+							<select id="containers" name="containers">
+								<option value=""></option>
+							</select>
+						</div>
+				</div>
+				<div class="form-group " >
+					<label for="storage_location" class="control-label col-md-4">
+						{t}Emplacement dans le contenant (format libre) :{/t}
+					</label>
+					<div class="col-md-8">
+						<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
+					</div>
+				</div>
+				<div class="form-group " >
+					<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
+					<div class="col-sm-8">
+						<input id="line_number" name="line_number"
+							value="" class="form-control nombre" title="{t}N° de la ligne de rangement dans le contenant{/t}">
+					</div>
+				</div>
+				<div class="form-group " >
+					<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
+					<div class="col-sm-8">
+						<input id="column_number" name="column_number"
+							value="" class="form-control nombre" title="{t}N° de la colonne de rangement dans le contenant{/t}">
+					</div>
 				</div>
 			</div>
 			<!-- set country -->
-			<div class="form-group country" hidden>
-				<label for="country_id" class="control-label col-sm-4">{t}Pays :{/t}</label>
-				<div class="col-sm-8">
-					<select id="country_id" name="country_id" class="form-control">
-							<option value="0" {if $country.country_id == "0"}selected{/if}>{t}Choisissez...{/t}</option>
-							{section name=lst loop=$countries}
-									<option value="{$countries[lst].country_id}">
-									{$countries[lst].country_name}
-									</option>
-							{/section}
-					</select>
+			<div class="country" hidden>
+				<div class="form-group " >
+					<label for="country_id" class="control-label col-sm-4">{t}Pays :{/t}</label>
+					<div class="col-sm-8">
+						<select id="country_id" name="country_id" class="form-control">
+								<option value="0" {if $country.country_id == "0"}selected{/if}>{t}Choisissez...{/t}</option>
+								{section name=lst loop=$countries}
+										<option value="{$countries[lst].country_id}">
+										{$countries[lst].country_name}
+										</option>
+								{/section}
+						</select>
+					</div>
 				</div>
 			</div>
 			<!-- set collection-->
-			<div class="form-group collection" hidden>
-				<label for="collection_id_change" class="control-label col-sm-4">{t}Nouvelle collection :{/t}</label>
-				<div class="col-sm-8">
-					<select id="collection_id_change" name="collection_id" class="form-control">
-						<option value="" selected>{t}Choisissez...{/t}</option>
-						{section name=lst loop=$collections}
-							<option value="{$collections[lst].collection_id}" >
-								{$collections[lst].collection_name}
-							</option>
-						{/section}
-					</select>
+			<div class="collection" hidden>
+				<div class="form-group " >
+					<label for="collection_id_change" class="control-label col-sm-4">{t}Nouvelle collection :{/t}</label>
+					<div class="col-sm-8">
+						<select id="collection_id_change" name="collection_id" class="form-control">
+							<option value="" selected>{t}Choisissez...{/t}</option>
+							{section name=lst loop=$collections}
+								<option value="{$collections[lst].collection_id}" >
+									{$collections[lst].collection_name}
+								</option>
+							{/section}
+						</select>
+					</div>
 				</div>
 			</div>
 			<!-- set campaign -->
-			<div class="form-group campaign" hidden>
-				<label for="campaign_id_change" class="control-label col-sm-4">{t}Nouvelle campagne :{/t}</label>
-				<div class="col-sm-8">
-					<select id="campaign_id_change" name="campaign_id" class="form-control">
-							<option value="" selected>{t}Choisissez...{/t}</option>
-							{foreach $campaigns as $campaign}
-									<option value="{$campaign.campaign_id}">{$campaign.campaign_name}</option>
-							{/foreach}
-					</select>
+			<div class="campaign" hidden>
+				<div class="form-group " >
+					<label for="campaign_id_change" class="control-label col-sm-4">{t}Nouvelle campagne :{/t}</label>
+					<div class="col-sm-8">
+						<select id="campaign_id_change" name="campaign_id" class="form-control">
+								<option value="" selected>{t}Choisissez...{/t}</option>
+								{foreach $campaigns as $campaign}
+										<option value="{$campaign.campaign_id}">{$campaign.campaign_name}</option>
+								{/foreach}
+						</select>
+					</div>
 				</div>
 			</div>
 			<!-- set status -->
-			<div class="form-group status" hidden>
-				<label for="object_status_id" class="col-sm-4 control-label">{t}Statut :{/t}</label>
-				<div class="col-sm-8">
-						<select id="object_status_id" name="object_status_id" class="form-control">
-							<option value="" selected>{t}Choisissez...{/t}</option>
-							{foreach $objectStatus as $status}
-								<option value="{$status.object_status_id}">{$status.object_status_name}</option>
-							{/foreach}
-						</select>
+			<div class="status" hidden>
+				<div class="form-group " >
+					<label for="object_status_id" class="col-sm-4 control-label">{t}Statut :{/t}</label>
+					<div class="col-sm-8">
+							<select id="object_status_id" name="object_status_id" class="form-control">
+								<option value="" selected>{t}Choisissez...{/t}</option>
+								{foreach $objectStatus as $status}
+									<option value="{$status.object_status_id}">{$status.object_status_name}</option>
+								{/foreach}
+							</select>
+					</div>
 				</div>
 			</div>
 			<div class="center">

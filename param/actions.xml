@@ -68,13 +68,18 @@
 	<containerImportStage1 action="modules/gestion/container.php" param="importStage1" droits="import,collection" type="smarty" retourlogin="1"/>
 	<containerImportStage2 action="modules/gestion/container.php" param="importStage2" droits="import,collection" type="smarty" modulebefore="containerImportStage1,containerImportStage2"/>
 	<containerImportStage3 action="modules/gestion/container.php" param="importStage3" droits="import,collection" type="smarty" retourok="containerImportStage1" retourko="containerImportStage1" modulebefore="containerImportStage2"/>
-	<containersLending action="modules/gestion/container.php" param="lendingMulti" moduleBefore="containerList,containersExit,containersEntry" droits="collection" retourok="containerList" retourko="containerList"/>
-	<containersExit droits="collection" action="modules/gestion/container.php" param="exitMulti" moduleBefore="containerList,containersLending,containersExit,containersEntry,containersDelete" retourok="containerList" retourko="containerList"/>
-	<containersDelete action="modules/gestion/container.php" param="deleteMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending"/>
+
+    <!-- Actions on the list of containers -->
+	<containersLending action="modules/gestion/container.php" param="lendingMulti" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed" droits="collection" retourok="containerList" retourko="containerList"/>
+	<containersExit droits="collection" action="modules/gestion/container.php" param="exitMulti" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed" retourok="containerList" retourko="containerList"/>
+	<containersDelete action="modules/gestion/container.php" param="deleteMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed"/>
+    <containersSetStatus action="modules/gestion/container.php" param="setStatus" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed" />
+    <containersEntry action="modules/gestion/container.php" param="entryMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed"/>
+	<containersSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed"/>
+
 	<containerVerifyCyclic action="modules/gestion/container.php" param="verifyCyclic" droits="param" type="smarty"/>
 	<containerVerifyCyclicExec action="modules/gestion/container.php" param="verifyCyclicExec" droits="param" modulebefore="containerVerifyCyclic,containerVerifyCyclicExec" type="smarty"/>
-	<containersEntry action="modules/gestion/container.php" param="entryMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending"/>
-	<containersSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection" retourok="containerList" retourko="containerList" moduleBefore="containerList,containersDelete,containersAssignReferent,containerDisplay"/>
+
 	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />
 	<containereventDelete action="modules/gestion/event.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange"/>

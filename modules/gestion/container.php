@@ -29,7 +29,7 @@ switch ($t_module["param"]) {
     /*
          * Display the list of all records of the table
          */
-    if (!isset($isDelete)) {
+    if (!isset($isDelete) && !isset($_REQUEST["is_action"])) {
       $_SESSION["searchContainer"]->setParam($_REQUEST);
     }
 
@@ -488,5 +488,24 @@ switch ($t_module["param"]) {
     $vue->set("gestion/containerVerifyCyclic.tpl", "corps");
     $vue->set($dataClass->getCyclicMovements(), "data");
     $vue->set(1,"exec");
+    break;
+    case "setStatus":
+    try {
+      if (count($_POST["uids"]) == 0) {
+        throw new ObjectException(_("Pas de contenants sélectionnés"));
+      }
+      if (empty($_POST["object_status_id"])) {
+        throw new ObjectException(_("Pas de statut sélectionné"));
+      }
+      is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+      $object = new ObjectClass($bdd, $ObjetBDDParam);
+      $object->setStatus($_POST["uids"], $_POST["object_status_id"]);
+      $module_coderetour = 1;
+    } catch (ObjectException $oe) {
+      $message->setSyslog($oe->getMessage());
+      $message->set(_("Une erreur est survenue pendant la mise à jour du statut"), true);
+      $message->set($oe->getMessage());
+      $module_coderetour = -1;
+    }
     break;
 }

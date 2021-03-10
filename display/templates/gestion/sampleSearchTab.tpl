@@ -36,6 +36,7 @@
              if ($("#samplesearch_id").val() > 0) ok = true;
              if ($("#country_id_search").val() > 0) ok = true;
              if ($("#authorization_number").val().length > 0) ok = true;
+             if ($("#event_type_id").val() > 0) ok = true;
              var mf = $("#metadata_field").val();
              if ( mf != null) {
                  if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -193,6 +194,7 @@
         $("#movement_reason_id").prop("selectedIndex", 0).change();
         $("#select_date").prop("selectedIndex", 0).change();
         $("#campaign_id").prop("selectedIndex", 0).change();
+        $("#event_type_id").prop("selectedIndex", 0).change();
         $("#uid_min").val("0");
         $("#uid_max").val("0");
         $("#metadata_field").prop("selectedIndex",0).change();
@@ -459,6 +461,19 @@
                         <label for="authorization_number" class="col-sm-2 control-label lexical" data-lexical="authorization">{t}N° d'autorisation :{/t}</label>
                         <div class="col-sm-3">
                            <input id="authorization_number" name="authorization_number" class="form-control" value="{$sampleSearch.authorization_number}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="event_type_id" class="col-sm-3 control-label">{t}Type d'événement :{/t}</label>
+                        <div class="col-sm-6">
+                            <select id="event_type_id" class="form-control" name="event_type_id">
+                                <option value="" {if $sampleSearch.event_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                                {foreach $eventType as $et}
+                                    <option value="{$et.event_type_id}" {if $sampleSearch.event_type_id == $et.event_type_id}selected{/if}>{$et.event_type_name}</option>
+                                {/foreach}
+                            </select>
                         </div>
                     </div>
                 </div>

@@ -208,7 +208,8 @@ class SearchContainer extends SearchParam
       "date_from" => date($_SESSION["MASKDATE"]),
       "date_to" => date($_SESSION["MASKDATE"]),
       "trashed" => 0,
-      "referent_id"=>""
+      "referent_id"=>"",
+      "event_type_id"=>""
     );
     /**
      * Ajout des dates
@@ -222,7 +223,8 @@ class SearchContainer extends SearchParam
       "uid_min",
       "uid_max",
       "trashed",
-      "referent_id"
+      "referent_id",
+      "event_type_id"
     );
     parent::__construct();
   }
@@ -261,7 +263,8 @@ class SearchSample extends SearchParam
       "NorthEastlat" => "",
       "campaign_id" => "",
       "country_id" => "",
-      "authorization_number" => ""
+      "authorization_number" => "",
+      "event_type_id" => ""
     );
     /**
      * Ajout des dates
@@ -283,7 +286,8 @@ class SearchSample extends SearchParam
       "NorthEastlon",
       "NorthEastlat",
       "campaign_id",
-      "country_id" => 0
+      "country_id" => 0,
+      "event_type_id"
     );
     parent::__construct();
   }

@@ -597,6 +597,15 @@ class Sample extends ObjetBDD
         $and = " and ";
       }
       /**
+       * Search on an event_type
+       */
+      if ($param["event_type_id"] > 0) {
+        $this->sql .= " left outer join event oe on (so.uid = oe.uid) ";
+        $where .= $and . " event_type_id = :event_type_id";
+        $data["event_type_id"] = $param["event_type_id"];
+        $and = " and ";
+      }
+      /**
        * Fin de traitement des criteres de recherche
        */
       if ($where == "where") {

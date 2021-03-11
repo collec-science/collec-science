@@ -48,6 +48,7 @@
       if ($("#event_type_id").val() > 1) ok = true;
 			if ($("#trashed").val() == 1) ok = true;
 			if ($("#referent_id").val() > 0) ok = true;
+			if ($("#movement_reason_id").val() > 0) ok = true;
 			if (ok == false) event.preventDefault();
 		});
 
@@ -61,6 +62,7 @@
 			$("#select_date").prop("selectedIndex", 0).change();
 			$("#referent_id").prop("selectedIndex", 0).change();
       $("#event_type_id").prop("selectedIndex",0).change();
+			$("#movement_reason_id").prop("selectedIndex", 0).change();
 			var now = new Date();
 			$("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
 			$("#date_to").datepicker("setDate", now );

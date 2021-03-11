@@ -209,7 +209,8 @@ class SearchContainer extends SearchParam
       "date_to" => date($_SESSION["MASKDATE"]),
       "trashed" => 0,
       "referent_id"=>"",
-      "event_type_id"=>""
+      "event_type_id"=>"",
+      "movement_reason_id"=>""
     );
     /**
      * Ajout des dates
@@ -224,7 +225,8 @@ class SearchContainer extends SearchParam
       "uid_max",
       "trashed",
       "referent_id",
-      "event_type_id"
+      "event_type_id",
+      "movement_reason_id"
     );
     parent::__construct();
   }

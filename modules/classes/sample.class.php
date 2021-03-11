@@ -54,7 +54,8 @@ class Sample extends ObjetBDD
           case when ro.referent_name is not null then ro.referent_firstname else cr.referent_firstname end as referent_firstname,
           case when ro.referent_name is not null then ro.academical_directory else cr.academical_directory end as academic_directory,
           case when ro.referent_name is not null then ro.academical_link else cr.academical_link end as academical_link,
-          borrowing_date, expected_return_date, borrower_id, borrower_name
+          borrowing_date, expected_return_date, borrower_id, borrower_name,
+          vsq.multiple_value + vsq.subsample_more - vsq.subsample_less as subsample_quantity
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join collection p on (p.collection_id = s.collection_id)
@@ -84,6 +85,7 @@ class Sample extends ObjetBDD
           left outer join campaign_regulation campreg on (campaign.campaign_id = campreg.campaign_id)
           left outer join country sc on (s.country_id = sc.country_id)
           left outer join country csp on (sp.country_id = csp.country_id)
+          left outer join v_subsample_quantity vsq on (s.sample_id = vsq.sample_id)
           ";
   private $object, $container, $event, $country;
 
@@ -386,7 +388,7 @@ class Sample extends ObjetBDD
      * Verification de la presence des parametres
      */
     $searchOk = false;
-    $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id");
+    $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
     if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0) {
       $searchOk = true;
     } else {
@@ -603,6 +605,14 @@ class Sample extends ObjetBDD
         $this->sql .= " left outer join event oe on (so.uid = oe.uid) ";
         $where .= $and . " event_type_id = :event_type_id";
         $data["event_type_id"] = $param["event_type_id"];
+        $and = " and ";
+      }
+      /**
+       * Search on minimal subsample quantity
+       */
+      if ($param["subsample_quantity"] > 0) {
+        $where .= $and . "vsq.subsample_quantity >= :subsample_quantity";
+        $data["subsample_quantity"] = $param["subsample_quantity"];
         $and = " and ";
       }
       /**

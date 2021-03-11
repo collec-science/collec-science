@@ -266,7 +266,9 @@ class SearchSample extends SearchParam
       "campaign_id" => "",
       "country_id" => "",
       "authorization_number" => "",
-      "event_type_id" => ""
+      "event_type_id" => "",
+      "subsample_quantity_min" => "",
+      "subsample_quantity_max" => ""
     );
     /**
      * Ajout des dates
@@ -289,7 +291,9 @@ class SearchSample extends SearchParam
       "NorthEastlat",
       "campaign_id",
       "country_id" => 0,
-      "event_type_id"
+      "event_type_id",
+      "subsample_quantity_min",
+      "subsample_quantity_max"
     );
     parent::__construct();
   }

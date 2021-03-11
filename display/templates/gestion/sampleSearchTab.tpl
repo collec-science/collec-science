@@ -37,6 +37,8 @@
              if ($("#country_id_search").val() > 0) ok = true;
              if ($("#authorization_number").val().length > 0) ok = true;
              if ($("#event_type_id").val() > 0) ok = true;
+             if ($("#subsample_quantity_min").val() > 0) ok = true;
+             if ($("#subsample_quantity_max").val().length > 0) ok = true;
              var mf = $("#metadata_field").val();
              if ( mf != null) {
                  if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -210,6 +212,8 @@
         $("#SouthWestlat").val("");
         $("#SouthWestlon").val("");
         $("#trashed").val("0");
+        $("#subsample_quantity_min").val("");
+        $("#subsample_quantity_max").val("");
         removeLayer();
         var now = new Date();
         $("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
@@ -489,6 +493,18 @@
                                     </option>
                                 {/section}
                             </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="subsample_quantity_min" class="col-sm-3 control-label">{t}Quantité minimale disponible dans l'échantillon :{/t}</label>
+                        <div class="col-sm-3">
+                            <input class="form-control taux" id="subsample_quantity_min" name="subsample_quantity_min" value="{$sampleSearch.subsample_quantity_min}">
+                        </div>
+                        <label for="subsample_quantity_max" class="col-sm-2 control-label">{t}maximale :{/t}</label>
+                        <div class="col-sm-3">
+                            <input class="form-control taux" id="subsample_quantity_max" name="subsample_quantity_max" value="{$sampleSearch.subsample_quantity_max}">
                         </div>
                     </div>
                 </div>

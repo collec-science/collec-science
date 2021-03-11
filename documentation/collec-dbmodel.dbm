@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="0,0" last-zoom="1.05" max-obj-count="72"
+<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="0,191" last-zoom="0.55" max-obj-count="72"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -192,7 +192,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 	<comment><![CDATA[Liste of containers]]></comment>
 	<tag name="container"/>
-	<position x="1540" y="1120"/>
+	<position x="1540" y="1180"/>
 	<column name="container_id" not-null="true" sequence="col.container_container_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -217,7 +217,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 	<comment><![CDATA[General family of containers]]></comment>
 	<tag name="container"/>
-	<position x="1940" y="1380"/>
+	<position x="1940" y="1440"/>
 	<column name="container_family_id" not-null="true" sequence="col.container_family_container_family_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -244,7 +244,7 @@ Mobilier]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table of types of containers]]></comment>
 	<tag name="container"/>
-	<position x="1540" y="1380"/>
+	<position x="1540" y="1440"/>
 	<column name="container_type_id" not-null="true" sequence="col.container_type_container_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -313,7 +313,7 @@ Congélateur•2]]>
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of parameters intrinsically associated to the instance]]></comment>
-	<position x="1940" y="1620"/>
+	<position x="1940" y="1740"/>
 	<column name="dbparam_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -347,7 +347,7 @@ Congélateur•2]]>
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of the database versions]]></comment>
-	<position x="2180" y="1620"/>
+	<position x="2180" y="1740"/>
 	<column name="dbversion_id" not-null="true" sequence="col.dbversion_dbversion_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -549,7 +549,7 @@ Prélèvement pour analyse•true•false⸣
 	<role name="collec"/>
 	<comment><![CDATA[Table of label models]]></comment>
 	<tag name="container"/>
-	<position x="1080" y="1620"/>
+	<position x="1080" y="1740"/>
 	<column name="label_id" not-null="true" sequence="col.label_label_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -684,7 +684,7 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 	<role name="collec"/>
 	<comment><![CDATA[Table of metadata usable with types of samples]]></comment>
 	<tag name="sample"/>
-	<position x="800" y="1620"/>
+	<position x="800" y="1740"/>
 	<column name="metadata_id" not-null="true" sequence="col.metadata_metadata_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -765,7 +765,7 @@ xml•application/xml]]>
 	<role name="collec"/>
 	<comment><![CDATA[Type de mouvement]]></comment>
 	<tag name="movement"/>
-	<position x="1080" y="1380"/>
+	<position x="1080" y="1440"/>
 	<column name="movement_type_id" not-null="true" sequence="col.movement_type_movement_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -792,7 +792,7 @@ xml•application/xml]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table of categories of potential sub-sampling (unit, quantity, percentage, etc.)]]></comment>
 	<tag name="sample"/>
-	<position x="620" y="1620"/>
+	<position x="600" y="1740"/>
 	<column name="multiple_type_id" not-null="true" sequence="col.multiple_type_multiple_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -890,7 +890,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[List of operations attached to a protocol]]></comment>
 	<tag name="collection"/>
-	<position x="600" y="1380"/>
+	<position x="600" y="1440"/>
 	<column name="operation_id" not-null="true" sequence="col.operation_operation_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -930,7 +930,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table of printers directly managed by the server]]></comment>
 	<tag name="container"/>
-	<position x="1320" y="1620"/>
+	<position x="1320" y="1740"/>
 	<column name="printer_id" not-null="true" sequence="col.printer_printer_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1009,7 +1009,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[List of protocols]]></comment>
 	<tag name="collection"/>
-	<position x="600" y="1120"/>
+	<position x="600" y="1180"/>
 	<column name="protocol_id" not-null="true" sequence="col.protocol_protocol_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1186,7 +1186,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table of the types of samples]]></comment>
 	<tag name="sample"/>
-	<position x="800" y="1380"/>
+	<position x="800" y="1440"/>
 	<column name="sample_type_id" not-null="true" sequence="col.sample_type_sample_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1272,7 +1272,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table of the conditions of storage]]></comment>
 	<tag name="container"/>
-	<position x="1940" y="1500"/>
+	<position x="1940" y="1560"/>
 	<column name="storage_condition_id" not-null="true" sequence="col.storage_condition_storage_condition_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1289,7 +1289,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[List of the reasons of the movement]]></comment>
 	<tag name="movement"/>
-	<position x="1320" y="1380"/>
+	<position x="1320" y="1440"/>
 	<column name="movement_reason_id" not-null="true" sequence="col.storage_reason_storage_reason_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1306,7 +1306,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[Records of objects movements]]></comment>
 	<tag name="movement"/>
-	<position x="1320" y="1120"/>
+	<position x="1320" y="1180"/>
 	<column name="movement_id" not-null="true" sequence="col.storage_storage_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1361,7 +1361,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table of sub-sample takes and returns]]></comment>
 	<tag name="sample"/>
-	<position x="1080" y="1120"/>
+	<position x="1080" y="1180"/>
 	<column name="subsample_id" not-null="true" sequence="col.subsample_subsample_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1836,7 +1836,7 @@ Autre]]>
 <view name="last_movement" layer="0" collapse-mode="1" max-obj-count="1" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
-	<position x="1740" y="1120"/>
+	<position x="1740" y="1180"/>
 	<reference>
 		<expression><![CDATA[ SELECT s.uid,
     s.movement_id,
@@ -1908,7 +1908,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[List of borrowers]]></comment>
 	<tag name="objects"/>
-	<position x="2180" y="1380"/>
+	<position x="2180" y="1440"/>
 	<column name="borrower_id" not-null="true" sequence="col.borrower_borrower_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1946,7 +1946,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[List of borrowings]]></comment>
 	<tag name="objects"/>
-	<position x="1940" y="1120"/>
+	<position x="1940" y="1180"/>
 	<column name="borrowing_id" not-null="true" sequence="col.borrowing_borrowing_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1992,7 +1992,7 @@ Autre]]>
 <view name="last_borrowing" layer="0" collapse-mode="1" max-obj-count="1" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
-	<position x="2160" y="1120"/>
+	<position x="2160" y="1180"/>
 	<reference>
 		<expression><![CDATA[ SELECT b1.borrowing_id,
     b1.uid,
@@ -2041,7 +2041,7 @@ Autre]]>
 <view name="slots_used" layer="0" collapse-mode="1" max-obj-count="1" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
-	<position x="1760" y="1380"/>
+	<position x="1760" y="1440"/>
 	<reference>
 		<expression><![CDATA[SELECT
    container_id, count(*) as nb_slots_used
@@ -2089,7 +2089,7 @@ WHERE
 	<role name="collec"/>
 	<comment><![CDATA[Request table in database]]></comment>
 	<tag name="utils"/>
-	<position x="1760" y="1620"/>
+	<position x="1760" y="1740"/>
 	<column name="request_id" not-null="true" sequence="col.request_request_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -2139,7 +2139,7 @@ group by collection_name•admin•]]>
 	<role name="collec"/>
 	<comment><![CDATA[Structure of an export/import of table data]]></comment>
 	<tag name="utils"/>
-	<position x="1540" y="1680"/>
+	<position x="1540" y="1740"/>
 	<column name="export_model_id" not-null="true" sequence="col.export_model_export_model_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -2658,7 +2658,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 	<comment><![CDATA[List of formats of export]]></comment>
 	<tag name="export"/>
-	<position x="20" y="1120"/>
+	<position x="20" y="1180"/>
 	<column name="export_format_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -2723,7 +2723,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 	<comment><![CDATA[List of columns included into the dataset]]></comment>
 	<tag name="export"/>
-	<position x="440" y="1120"/>
+	<position x="440" y="1180"/>
 	<column name="dataset_column_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -2785,7 +2785,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 	<comment><![CDATA[Table of translator of values]]></comment>
 	<tag name="export"/>
-	<position x="440" y="1380"/>
+	<position x="440" y="1440"/>
 	<column name="translator_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -2816,7 +2816,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 	<comment><![CDATA[Origine of the dataset: sample, collection, document]]></comment>
 	<tag name="export"/>
-	<position x="240" y="1120"/>
+	<position x="240" y="1180"/>
 	<column name="dataset_type_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -3383,6 +3383,32 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 			<column name="campaign_id"/>
 		</idxelement>
 </index>
+
+<view name="v_subsample_quantity" layer="0" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<position x="800" y="1180"/>
+	<reference>
+		<expression><![CDATA[
+select sample_id, uid, multiple_value,  
+coalesce ((select sum(subsample_quantity) from col.subsample smore where smore.movement_type_id = 1 and smore.sample_id = s.sample_id),0) as subsample_more,
+coalesce ((select sum(subsample_quantity) from col.subsample sless where sless.movement_type_id  = 2 and sless.sample_id = s.sample_id),0) as subsample_less
+from col.sample s
+]]></expression>
+		<reftable name="col.sample"/>
+		<reftable name="col.subsample"/>
+	</reference>
+</view>
+
+<relationship name="rel_v_subsample_quantity_sample" type="reltv" layer="0"
+	 src-table="col.v_subsample_quantity"
+	 dst-table="col.sample"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_v_subsample_quantity_subsample" type="reltv" layer="0"
+	 src-table="col.v_subsample_quantity"
+	 dst-table="col.subsample"
+	 src-required="false" dst-required="false"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

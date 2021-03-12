@@ -23,7 +23,7 @@
 <input id="identifierTypeName" type="text" class="form-control" name="identifier_type_name" value="{$data.identifier_type_name}" autofocus required></div>
 </div>
 <div class="form-group">
-<label for="identifierTypeCode"  class="control-label col-md-4">{t}Code utilisé dans les étiquettes :{/t}</label>
+<label for="identifierTypeCode"  class="control-label col-md-4">{t}Code utilisé (étiquettes, recherche, import) :{/t}</label>
 <div class="col-md-8">
 <input id="identifierTypeCode" type="text" class="form-control" name="identifier_type_code" value="{$data.identifier_type_code}"></div>
 </div>

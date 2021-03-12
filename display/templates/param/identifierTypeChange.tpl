@@ -2,7 +2,7 @@
   $(document).ready(function() {
     $("#identifierTypeForm").submit(function(e) {
       if ($("#ufs1").prop("checked") && $("#identifierTypeCode").val().length == 0) {
-        alert("{t}Le code doit être renseigné si l'identifiant est utilisable pour les étiquettes{/t}");
+        alert("{t}Le code doit être renseigné si l'identifiant est utilisable pour les recherches{/t}");
         e.preventDefault();
       }
     });

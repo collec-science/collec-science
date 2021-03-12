@@ -325,12 +325,17 @@ switch ($t_module["param"]) {
           dataDelete($dataClass, $uid, true);
         }
         $bdd->commit();
+        $module_coderetour = 1;
         $message->set(_("Suppression effectuée"));
       } catch (Exception $e) {
         $message->set(_("La suppression des échantillons a échoué"), true);
         $message->set($e->getMessage());
         $bdd->rollback();
+        $module_coderetour =-1;
       }
+    } else {
+      $message->set(_("Pas d'échantillons sélectionnés"), true);
+      $module_coderetour = -1;
     }
     break;
   case "referentAssignMulti":

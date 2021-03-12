@@ -220,10 +220,15 @@ switch ($t_module["param"]) {
         }
         $bdd->commit();
         $message->set(_("Suppression effectuée"));
+        $module_coderetour = 1;
       } catch (Exception $e) {
         $message->set($e->getMessage() . " ($uid)");
         $bdd->rollback();
+        $module_coderetour = -1;
       }
+    } else {
+      $message->set(_("Pas de contenants sélectionnés"), true);
+      $module_coderetour = -1;
     }
     break;
   case "delete":

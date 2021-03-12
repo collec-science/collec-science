@@ -610,9 +610,17 @@ class Sample extends ObjetBDD
       /**
        * Search on minimal subsample quantity
        */
-      if ($param["subsample_quantity"] > 0) {
-        $where .= $and . "vsq.subsample_quantity >= :subsample_quantity";
-        $data["subsample_quantity"] = $param["subsample_quantity"];
+      if ($param["subsample_quantity_min"] > 0) {
+        $where .= $and . "(vsq.multiple_value + vsq.subsample_more - vsq.subsample_less) >= :subsample_quantity_min";
+        $data["subsample_quantity_min"] = $param["subsample_quantity_min"];
+        $and = " and ";
+      }
+      /**
+       * Search on minimal subsample quantity
+       */
+      if (!empty($param["subsample_quantity_max"] )) {
+        $where .= $and . "(vsq.multiple_value + vsq.subsample_more - vsq.subsample_less) <= :subsample_quantity_max";
+        $data["subsample_quantity_max"] = $param["subsample_quantity_max"];
         $and = " and ";
       }
       /**

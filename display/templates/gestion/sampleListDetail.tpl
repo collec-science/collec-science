@@ -375,6 +375,7 @@
 				<th>{t}Date d'échantillonnage{/t}</th>
 				<th>{t}Date de création dans la base{/t}</th>
 				<th>{t}Date d'expiration{/t}</th>
+				<th>{t}Quantité restante{/t}</th>
 
 			</tr>
 		</thead>
@@ -442,6 +443,7 @@
 				<td class="nowrap">{$samples[lst].sampling_date}</td>
 				<td class="nowrap">{$samples[lst].sample_creation_date}</td>
 				<td class="nowrap">{$samples[lst].expiration_date}</td>
+				<td>{$samples[lst].subsample_quantity}</td>
 
 			</tr>
 			{/section}

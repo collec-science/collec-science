@@ -83,7 +83,7 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
       $message->setSyslog(_("La clé n'a pas été retournée lors de l'enregistrement dans ") . get_class($dataClass));
       $module_coderetour = -1;
     }
-  } catch (PDOException |ObjetBDDException $e) {
+  } catch (PDOException | ObjetBDDException $e) {
     if (strpos($e->getMessage(), "nique violation") !== false) {
       $message->set(_("Un enregistrement portant déjà ce nom existe déjà dans la base de données."), true);
     }
@@ -137,19 +137,14 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
       foreach ($dataClass->getErrorData(1) as $messageError) {
         $message->setSyslog($messageError);
       }
-      /*
-             * recherche des erreurs liees a une violation de cle etrangere
-             */
-      if (strpos($e->getMessage(), "key violation") !== false) {
+      /**
+       * recherche des erreurs liees a une violation de cle etrangere
+       */
+      if (strpos($e->getMessage(), "[23503]") !== false) {
         $message->set(_("La suppression n'est pas possible : des informations sont référencées par cet enregistrement"), true);
-      }
-      if ($OBJETBDD_debugmode > 0) {
-        $message->set($e->getMessage(), true);
       }
       if ($message->getMessageNumber() == 0) {
         $message->set(_("Problème lors de la suppression"), true);
-      } else {
-        $message->set(_("Suppression non réalisée"));
       }
       $message->setSyslog($e->getMessage());
       if ($isPartOfTransaction) {
@@ -359,7 +354,8 @@ function htmlDecode($data)
  *         }
  */
 class VirusException extends Exception
-{ }
+{
+}
 
 /**
  * Gestion des exceptions pour les manipulations de fichiers
@@ -367,7 +363,8 @@ class VirusException extends Exception
  * @var mixed
  */
 class FileException extends Exception
-{ }
+{
+}
 
 /**
  * Test antiviral d'un fichier

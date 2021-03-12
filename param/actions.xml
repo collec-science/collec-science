@@ -54,6 +54,7 @@
 	<referentWrite action="modules/param/referent.php" param="write" droits="param,collection" retourok="referentList" retourko="referentChange" modulebefore="referentChange,referentCopy" />
 	<referentDelete action="modules/param/referent.php" param="delete" droits="param,collection" retourok="referentList" retourko="referentChange" modulebefore="referentChange"/>
 	<referentGetFromName action="modules/param/referent.php" param="getFromName" droits="consult" type="ajax"/>
+    <referentGetFromId action="modules/param/referent.php" param="getFromId" droits="consult" type="ajax"/>
 	<referentCopy action="modules/param/referent.php" param="copy" droits="collection,param" type="smarty"/>
 
 	<gestion droits="consult"/>

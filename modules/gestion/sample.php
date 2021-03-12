@@ -565,7 +565,7 @@ switch ($t_module["param"]) {
           $data = $import->getContentAsArray();
           $import->fileClose();
 
-          /*
+          /**
                      * Verification si l'import peut etre realise
                      */
           $line = 1;

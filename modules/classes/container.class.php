@@ -23,7 +23,7 @@ class Container extends ObjetBDD
 					movement_date, movement_type_name, movement_type_id,
                     lines, columns, first_line, first_column,
                     column_number, line_number, container_uid, oc.identifier as container_identifier,
-                    o.referent_id, referent_name,
+                    o.referent_id, referent_name, referent_firstname, referent_email, address_name, address_line2, address_line3, address_city, address_country, referent_phone, academical_directory, academical_link,
                     borrowing_date, expected_return_date, borrower_id, borrower_name,
                     nb_slots_used
 					from container c

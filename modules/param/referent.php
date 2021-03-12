@@ -38,19 +38,20 @@ switch ($t_module["param"]) {
         dataDelete($dataClass, $id);
         break;
     case "getFromName":
-        /* 
+        /*
          * Recherche un referent a partir de son nom,
          * et retourne le tableau sous forme Ajax
          */
         $vue->set($dataClass->getFromName($_REQUEST["referent_name"]));
         break;
-        case "copy":
+    case "getFromId":
+        $vue->set($dataClass->lire($_REQUEST["referent_id"]));
+        break;
+    case "copy":
         $data = $dataClass->lire($id);
         $data["referent_id"] = 0;
         $data["referent_name"] = "";
         $vue->set($data, "data");
         $vue->set("param/referentChange.tpl", "corps");
         break;
-
 }
-?>

@@ -444,7 +444,7 @@
                             <option value="" {if $sampleSearch.referent_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
                             {foreach $referents as $referent}
                             <option value="{$referent.referent_id}" {if $sampleSearch.referent_id == $referent.referent_id}selected{/if}>
-                            {$referent.referent_name}
+                            {$referent.referent_firstname} {$referent.referent_name}
                             </option>
                             {/foreach}
                             </select>

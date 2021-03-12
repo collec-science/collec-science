@@ -51,15 +51,15 @@
 		});
 
 		$("#referent_name").click(function() {
-			var referentName = "{$data.referent_name}";
-			if (referentName.length > 0) {
+			var referentId = "{$data.referent_id}";
+			if (referentId > 0) {
 			$.ajax( {
 				url: "index.php",
-				data: { "module": "referentGetFromName", "referent_name": referentName }
+				data: { "module": "referentGetFromId", "referent_id": referentId }
 			})
 			.done (function (value) {
 				value = JSON.parse(value);
-				var newval = value.referent_name + "<br>" + value.referent_email + "<br>" +
+				var newval = value.referent_firstname + " " + value.referent_name + "<br>" + value.referent_email + "<br>" +
 						value.referent_phone + "<br>" + value.address_name + "<br>"
 						+ value.address_line2 + "<br>" + value.address_line3 + "<br>"
 						+ value.address_city + "<br>" + value.address_country;
@@ -273,7 +273,7 @@
 				<dl class="dl-horizontal">
 					<dt class="lexical" data-lexical="referent">{t}Référent :{/t}</dt>
 					<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}">
-						<a href="#">{$data.referent_name}</a>
+						<a href="#">{$data.referent_firstname} {$data.referent_name}</a>
 					</dd>
 				</dl>
 				<dl class="dl-horizontal">

@@ -43,6 +43,7 @@ class Sample extends ObjetBDD
 					sp.sampling_place_id, sp.sampling_place_name,
           lm.line_number, lm.column_number,
           container_uid, oc.identifier as container_identifier, oc.uuid as container_uuid, lmct.container_type_name as storage_type_name,
+          case when ro.referent_name is not null then ro.referent_id else cr.referent_id end as real_referent_id,
           case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name,
           case when ro.referent_name is not null then ro.referent_email else cr.referent_email end as referent_email,
           case when ro.referent_name is not null then ro.address_name else cr.address_name end as address_name,
@@ -691,7 +692,7 @@ class Sample extends ObjetBDD
              multiple_value, sampling_place_name, metadata::varchar,
             voi.identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,
             campaign_name,
-            case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
+            case when ro.referent_name is not null then trim(ro.referent_name || ' ' || coalesce(ro.referent_firstname, '')) else trim(cr.referent_name || ' ' || coalesce(cr.referent_firstname, '')) end as referent_name
             ,o.uuid
             ,ctry.country_code2 as country_code
             from sample

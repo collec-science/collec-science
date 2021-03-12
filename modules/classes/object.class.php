@@ -472,7 +472,7 @@ class ObjectClass extends ObjetBDD
                             object_status_name as status, null as dbuid_origin,
                             null as pid,
                             uuid, null as ctry,
-                            trim (referent_firstname || ' ' ||referent_name) as ref
+                            trim (referent_name || ' ' || coalesce(referent_firstname, ' ')) as ref
                         from object
                             join container using (uid)
                             join container_type using (container_type_id)
@@ -492,9 +492,9 @@ class ObjectClass extends ObjetBDD
                             pso.identifier as pid,
                             o.uuid, ctry.country_code2 as ctry,
                             case when o.referent_id is not null then
-                            trim (sr.referent_firstname || ' ' ||sr.referent_name)
+                            trim (sr.referent_name || ' ' || coalesce(sr.referent_firstname, ' '))
                             else
-                            trim (cr.referent_firstname || ' ' ||cr.referent_name)
+                            trim (cr.referent_firstname || ' ' || coalesce(cr.referent_firstname, ' '))
                             end as ref
                         from object o
                                 join sample s on (o.uid = s.uid)

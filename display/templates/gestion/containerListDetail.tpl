@@ -7,7 +7,23 @@ $(document).ready(function () {
 	if (gestion == 1) {
 		dataOrder = [1, 'asc'];
 	}
-	var table = $("#containerList").DataTable();
+	var table = $("#containerList").DataTable( {
+			dom: 'Bfrtip',
+			"language": dataTableLanguage,
+			"paging": false,
+			"searching": true,
+			"stateSave": true,
+			"buttons": [
+				{
+					extend: 'colvis'
+				},
+				'copyHtml5',
+				'excelHtml5',
+				'csvHtml5',
+				'pdfHtml5',
+				'print'
+			]
+		} );
 	table.order(dataOrder).draw();
 
 	$(".checkContainerSelect").change( function() {
@@ -261,7 +277,7 @@ $(document).ready(function () {
 			</div>
 		</div>
 {/if}
-		<table id="containerList" class="table table-bordered table-hover datatable-export " >
+		<table id="containerList" class="table table-bordered table-hover " >
 			<thead>
 				<tr>
 					{if $droits.gestion == 1}
@@ -281,6 +297,7 @@ $(document).ready(function () {
 					<th>{t}Produit utilisé{/t}</th>
 					<th>{t}Code CLP{/t}</th>
 					<th>{t}Photo{/t}</th>
+					<th>{t}Référent{/t}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -337,6 +354,7 @@ $(document).ready(function () {
 								</a>
 							{/if}
 						</td>
+						<td>{$containers[lst].referent_name} {$containers[lst].referent_firstname}</td>
 					</tr>
 				{/section}
 			</tbody>

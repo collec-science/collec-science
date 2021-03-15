@@ -1,18 +1,21 @@
 <!--  Liste des échantillons pour affichage-->
-<script src="display/node_modules/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 <script>
 	$( document ).ready( function () {
-
 		var table = $( '#sampleList' ).DataTable( {
 			dom: 'Bfrtip',
 			"language": dataTableLanguage,
 			"paging": false,
 			"searching": true,
 			"stateSave": true,
+			"columnDefs" : [
+				{
+				"targets": [11,12,13,14,15,16,17],
+				"visible": false
+				}
+			],
 			"buttons": [
 				{
-					extend: 'colvis',
-					postfixButtons: [ 'colvisRestore' ]
+					extend: 'colvis'
 				},
 				'copyHtml5',
 				'excelHtml5',
@@ -21,7 +24,6 @@
 				'print'
 			]
 		} );
-
 		$( ".checkSampleSelect" ).change( function () {
 			var libelle = "{t}Tout cocher{/t}";
 			if ( this.checked ) {
@@ -347,6 +349,7 @@
 				<th>{t}Photo{/t}</th>
 				<th>{t}Dernier mouvement{/t}</th>
 				<th>{t}Emplacement{/t}</th>
+				<th>{t}Référent{/t}</th>
 				<th>{t}Campagne{/t}</th>
 				<th>{t}Lieu de prélèvement{/t}</th>
 				<th>{t}Date d'échantillonnage{/t}</th>
@@ -416,6 +419,7 @@
 					<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
 					{/if}
 				</td>
+				<td>{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
 				<td>{$samples[lst].campaign_name}</td>
 				<td>{$samples[lst].sampling_place_name}</td>
 				<td class="nowrap">{$samples[lst].sampling_date}</td>

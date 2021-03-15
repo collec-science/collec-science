@@ -44,6 +44,7 @@
 <script src="display/node_modules/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons/js/buttons.html5.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="display/node_modules/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="display/node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" />
 

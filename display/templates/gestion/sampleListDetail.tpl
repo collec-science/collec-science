@@ -148,6 +148,10 @@
 										if ( d.expiration_date ) {
 											content += "<br>{t}Date d'expiration de l'échantillon :{/t} " + encodeHtml( d.expiration_date );
 										}
+										if (d.multiple_value) {
+											content +="<br>{t}Quantité initiale :{/t} " + encodeHtml(d.multiple_value) +" " + d.multiple_unit;
+											content +="<br>{t}Reste disponible :{/t} "+ encodeHtml(d.subsample_quantity);
+										}
 										if ( d.parent_uid ) {
 											content += "<br>{t}Échantillon parent :{/t} " + encodeHtml( d.parent_uid.toString() ) + " " + encodeHtml( d.parent_identifier );
 										}

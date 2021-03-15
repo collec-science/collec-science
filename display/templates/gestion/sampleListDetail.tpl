@@ -128,7 +128,7 @@
 											} );
 										}
 										content += "<br>{t}Collection :{/t} " + encodeHtml( d.collection_name );
-										content += "<br>{t}Référent :{/t} " + encodeHtml( d.referent_name );
+										content += "<br>{t}Référent :{/t} " + encodeHtml( d.referent_name ) + " " + encodeHtml(d.referent_firstname);
 										content += "<br>{t}Type :{/t} " + encodeHtml( d.sample_type_name );
 										if ( d.container_type_name ) {
 											content += " / " + encodeHtml( d.container_type_name );

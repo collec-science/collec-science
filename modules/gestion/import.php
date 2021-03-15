@@ -112,10 +112,14 @@ switch ($t_module["param"]) {
                     $bdd->commit();
                 } catch (ImportObjectException $ie) {
                     $bdd->rollBack();
+                    $message->set(_("Une erreur s'est produite pendant l'importation."), true);
                     $message->set($ie->getMessage(), true);
+                    $module_coderetour = -1;
                 } catch (Exception $e) {
                     $bdd->rollBack();
+                    $message->set(_("Une erreur s'est produite pendant l'importation."), true);
                     $message->set($e->getMessage(), true);
+                    $module_coderetour = -1;
                 }
             }
         }

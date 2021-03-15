@@ -64,7 +64,15 @@ class ImportObject
     "sample_uuid",
     "container_uuid",
     "campaign_id",
-    "country_code"
+    "country_code",
+    "container_type_name",
+    "container_status_name",
+    "collection_name",
+    "sample_type_name",
+    "sample_status_name",
+    "campaign_name",
+    "referent_name",
+    "sampling_place_name"
   );
 
   private $colnum = array(
@@ -542,8 +550,74 @@ class ImportObject
     /**
      * Search for the code of the country
      */
-    if (!empty($values["country_code"])) {
+    if (!empty($data["country_code"])) {
       $values["country_id"] = $this->country->getIdFromCode($values["country_code"]);
+    }
+    /**
+     * Search the ids from the names
+     */
+    if (!empty($values["collection_name"])) {
+      $values["collection_id"] = -1;
+      foreach ($this->collection as $value) {
+        if ($values["collection_name"] == $value["collection_name"]) {
+          $values["collection_id"] = $value["collection_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["container_type_name"])) {
+      $values["container_type_id"] = -1;
+      foreach ($this->container_type as $value) {
+        if ($values["container_type_name"] == $value["container_type_name"]) {
+          $values["container_type_id"] = $value["container_type_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["sample_type_name"])) {
+      $values["sample_type_id"] = -1;
+      foreach ($this->sample_type as $value) {
+        if ($values["sample_type_name"] == $value["sample_type_name"]) {
+          $values["sample_type_id"] = $value["sample_type_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["campaign_name"])) {
+      $values["campaign_id"] = -1;
+      foreach ($this->campaign as $value) {
+        if ($values["campaign_name"] == $value["campaign_name"]) {
+          $values["campaign_id"] = $value["campaign_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["referent_name"])) {
+      foreach ($this->referents as $value) {
+        $values["referent_id"] = -1;
+        if (trim($values["referent_name"]) == trim($value["referent_name"] . " " . $value["referent_firstname"])) {
+          $values["referent_id"] = $value["referent_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["sample_status_name"])) {
+      $values["sample_status_id"] = -1;
+      foreach ($this->object_status as $value) {
+        if ($values["sample_status_name"] == $value["object_status_name"]) {
+          $values["sample_status_id"] = $value["object_status_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["container_status_name"])) {
+      $values["container_status_id"] = -1;
+      foreach ($this->object_status as $value) {
+        if ($values["container_status_name"] == $value["object_status_name"]) {
+          $values["container_status_id"] = $value["object_status_id"];
+          break;
+        }
+      }
     }
     return $values;
   }
@@ -642,7 +716,7 @@ class ImportObject
        * Verification du statut
        */
       $ok = false;
-      if ($data["sample_status_id"] > 0) {
+      if (!empty($data["sample_status_id"] )) {
         foreach ($this->object_status as $value) {
           if ($data["sample_status_id"] == $value["object_status_id"]) {
             $ok = true;
@@ -655,10 +729,10 @@ class ImportObject
         }
       }
       /**
-             * Verification du lieu de collecte
-             */
+       * Verification du lieu de collecte
+       */
       $ok = false;
-      if ($data["sampling_place_id"] > 0) {
+      if (!empty($data["sampling_place_id"] )) {
         foreach ($this->sampling_place as $value) {
           if ($data["sampling_place_id"] == $value["sampling_place_id"]) {
             $ok = true;
@@ -673,7 +747,7 @@ class ImportObject
       /**
        * Verification du pays
        */
-      if (!empty($data["country_code"])&& empty ($data["country_id"])) {
+      if (!empty($data["country_code"]) && empty($data["country_id"])) {
         $retour["code"] = false;
         $retour["message"] .= _("Le code pays est inconnu.");
       }
@@ -681,7 +755,7 @@ class ImportObject
        * Verification du referent
        */
       $ok = false;
-      if ($data["referent_id"] > 0) {
+      if (!empty($data["referent_id"])) {
         foreach ($this->referents as $value) {
           if ($data["referent_id"] == $value["referent_id"]) {
             $ok = true;
@@ -696,7 +770,7 @@ class ImportObject
       /**
        * Control of the campaign
        */
-      if ($data["campaign_id"] > 0) {
+      if (!empty($data["campaign_id"])) {
         foreach ($this->campaign as $value) {
           if ($data["campaign_id"] == $value["campaign_id"]) {
             $ok = true;

@@ -885,7 +885,7 @@ class ObjectClass extends ObjetBDD
     }
   }
   /**
-   * get the content of an object with his type (type_name)
+   * get the content of an object with its type (type_name)
    *
    * @param [type] $uid
    * @return void

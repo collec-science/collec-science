@@ -80,8 +80,8 @@
       <li>{t}Pour importer des contenants :{/t}
             <ul>
                   <li><b>container_identifier</b> : {t}l'identifiant du contenant (obligatoire){/t}</li>
-                  <li><b>container_type_id</b> : {t}le numéro informatique du type de contenant (obligatoire){/t}</li>
-                  <li><b>container_status_id</b> : {t}le numéro informatique du statut du contenant (obligatoire){/t}</li>
+                  <li><b>container_type_id / container_type_name</b> : {t}le numéro informatique du type de contenant ou son nom (obligatoire){/t}</li>
+                  <li><b>container_status_id / container_status_name</b> : {t}le numéro informatique du statut du contenant ou son nom (obligatoire){/t}</li>
                   <li><b>container_uuid</b> : {t}UID Universel du contenant (UUID){/t}</li>
                   <li><b>container_location</b> : {t}l'emplacement de rangement du contenant dans son contenant (texte libre){/t}</li>
                   <li><b>container_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
@@ -92,13 +92,13 @@
       <li>{t}Pour importer des échantillons :{/t}
             <ul>
                   <li><b>sample_identifier</b> : {t}l'identifiant de l'échantillon (obligatoire){/t}</li>
-                  <li><b>collection_id</b> : {t}le numéro informatique de la collection (obligatoire){/t}</li>
-                  <li><b>sample_type_id</b> : {t}le numéro informatique du type d'échantillon (obligatoire){/t}</li>
-                  <li><b>sample_status_id</b> : {t}le numéro du statut de l'échantillon (obligatoire){/t}</li>
-                  <li><b>campaign_id</b> : {t}le numéro informatique de la campagne de prélèvement{/t}</li>
-                  <li><b>sampling_place_id</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé{/t}</li>
+                  <li><b>collection_id / collection_name</b> : {t}le numéro informatique de la collection ou son nom (obligatoire){/t}</li>
+                  <li><b>sample_type_id / sample_type_name</b> : {t}le numéro informatique du type d'échantillon ou son nom (obligatoire){/t}</li>
+                  <li><b>sample_status_id / sample_status_name</b> : {t}le numéro du statut de l'échantillon ou son nom(obligatoire){/t}</li>
+                  <li><b>campaign_id / campaign_name</b> : {t}le numéro informatique de la campagne de prélèvement ou son nom{/t}</li>
+                  <li><b>sampling_place_id / sampling_place_name</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé ou son nom{/t}</li>
                   <li><b>country_code</b>: {t}le code du pays, sur deux positions{/t}</li>
-                  <li><b>referent_id</b> : {t}le numéro informatique du référent{/t}</li>
+                  <li><b>referent_id / referent_name</b> : {t}le numéro informatique du référent ou son nom, sous la forme "nom prénom"{/t}</li>
                   <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                   <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                   <li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy{/t}</li>

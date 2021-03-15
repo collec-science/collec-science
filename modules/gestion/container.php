@@ -492,9 +492,9 @@ switch ($t_module["param"]) {
   case "verifyCyclicExec":
     $vue->set("gestion/containerVerifyCyclic.tpl", "corps");
     $vue->set($dataClass->getCyclicMovements(), "data");
-    $vue->set(1,"exec");
+    $vue->set(1, "exec");
     break;
-    case "setStatus":
+  case "setStatus":
     try {
       if (count($_POST["uids"]) == 0) {
         throw new ObjectException(_("Pas de contenants sélectionnés"));
@@ -511,6 +511,31 @@ switch ($t_module["param"]) {
       $message->set(_("Une erreur est survenue pendant la mise à jour du statut"), true);
       $message->set($oe->getMessage());
       $module_coderetour = -1;
+    }
+    break;
+  case "referentMulti":
+    try {
+      if (count($_POST["uids"]) == 0) {
+        throw new ObjectException(_("Pas de contenants sélectionnés"));
+      }
+      if (empty($_POST["referent_id"])) {
+        throw new ObjectException(_("Pas de référent sélectionné"));
+      }
+      is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+      $object = new ObjectClass($bdd, $ObjetBDDParam);
+      $bdd->beginTransaction();
+      foreach ($uids as $uid) {
+        $object->setReferent($uid, $_POST["referent_id"]);
+      }
+      $module_coderetour = 1;
+      $bdd->commit();
+      $message->set(_("Opération effectuée"));
+    } catch (ObjectException $oe) {
+      $message->setSyslog($oe->getMessage());
+      $message->set(_("Une erreur est survenue pendant l'assignation du référent'"), true);
+      $message->set($oe->getMessage());
+      $module_coderetour = -1;
+      $bdd->rollback();
     }
     break;
 }

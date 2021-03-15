@@ -58,7 +58,8 @@ $(document).ready(function () {
 			"containersLending":"borrowing",
 			"containersSetTrashed":"trashedgroup",
 			"containersEntry":"entry",
-			"containersSetStatus":"status"
+			"containersSetStatus":"status",
+			"containersSetReferent":"referent"
 			};
 		$("#checkedActionContainer").change(function () {
 			var action = $(this).val();
@@ -350,6 +351,7 @@ $(document).ready(function () {
 					<select id="checkedActionContainer" class="form-control">
 						<option value="" selected>{t}Choisissez{/t}</option>
 						<option value="containersLending">{t}Prêter les contenants et leurs contenus{/t}</option>
+						<option value="containersSetReferent">{t}Assigner un référent aux contenants{/t}</option>
 						<option value="containersSetStatus">{t}Modifier le statut{/t}</option>
 						<option value="containersExit">{t}Sortir les contenants{/t}</option>
 						<option value="containersEntry">{t}Entrer ou déplacer les contenants au même emplacement{/t}</option>
@@ -384,6 +386,17 @@ $(document).ready(function () {
 								<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
 							</div>
 						</div>
+					</div>
+					<!-- add a referent to the list -->
+					<div class="referent" hidden>
+						<select id="referentid" name="referent_id" class="form-control">
+							<option value="">{t}Choisissez le référent...{/t}</option>
+							{foreach $referents as $referent}
+							<option value="{$referent.referent_id}">
+								{$referent.referent_name}
+							</option>
+							{/foreach}
+						</select>
 					</div>
 					<div class="trashedgroup" hidden>
 							<div class="form-group " >

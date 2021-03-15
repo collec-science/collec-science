@@ -71,9 +71,10 @@
 			$("#name").focus();
 		});
 		/* Management of tabs */
+		var myStorage = window.localStorage;
 		var activeTab = "";
         try {
-        activeTab = Cookies.get("containerSearchTab");
+        activeTab = myStorage.getItem("containerSearchTab");
         } catch (Exception) {
         }
 		try {
@@ -85,7 +86,7 @@
 			$(this).tab('show');
  		});*/
 		 $('.searchTab').on('shown.bs.tab', function () {
-			Cookies.set("containerSearchTab", $(this).attr("id"), { secure: true});
+			myStorage.setItem("containerSearchTab", $(this).attr("id"));
 		});
 	});
 

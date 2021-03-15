@@ -29,10 +29,11 @@
 			Cookies.set("tabHover", tabHover, { expires: 365, secure: true });
 		});
 		/* Management of tabs */
+		var myStorage = window.localStorage;
 		var activeTab = "{$activeTab}";
     	if (activeTab.length == 0) {
 			try {
-			activeTab = Cookies.get("sampleDisplayTab");
+			activeTab = myStorage.getItem("sampleDisplayTab");
 			} catch (Exception) {
 				activeTab = "";
 			}
@@ -48,7 +49,7 @@
 			}
  		});
 		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
-			Cookies.set("sampleDisplayTab", $(this).attr("id"), { secure: true});
+			myStorage.setItem("sampleDisplayTab", $(this).attr("id"));
 		});
 		$('a[data-toggle="tab"]').on("click", function () {
 			tabHover = 0 ;

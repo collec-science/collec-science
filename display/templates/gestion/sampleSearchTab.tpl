@@ -223,8 +223,9 @@
      });
      /* Management of tabs */
 		var activeTab = "";
+        var myStorage = window.localStorage;
         try {
-        activeTab = Cookies.get("sampleSearchTab");
+        activeTab = myStorage.getItem("sampleSearchTab");
         } catch (Exception) {
         }
 		try {
@@ -236,7 +237,7 @@
 			//$(this).tab('show');
  		});
 		 $('.searchTab').on('shown.bs.tab', function () {
-			Cookies.set("sampleSearchTab", $(this).attr("id"), { secure: true});
+			myStorage.setItem("sampleSearchTab", $(this).attr("id"));
 		});
         /**
          * Delete a recorded request

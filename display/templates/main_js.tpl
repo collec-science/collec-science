@@ -39,6 +39,7 @@
 <script src="display/javascript/intl.js"></script>
 
 <!-- Boutons d'export associes aux datatables - classe datatable-export -->
+<script src="display/node_modules/jszip/dist/jszip.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons/js/buttons.html5.min.js"></script>

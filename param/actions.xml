@@ -200,10 +200,10 @@
 	<multipleTypeDelete action="modules/param/multipleType.php" param="delete" droits="param" retourok="multipleTypeList" retourko="multipleTypeChange" modulebefore="multipleTypeChange"/>
 
 	<samplingPlaceList action="modules/param/samplingPlace.php" param="list" droits="consult" retourlogin="1" type="smarty" />
-	<samplingPlaceChange action="modules/param/samplingPlace.php" param="change" droits="param" retourlogin="1" type="smarty" />
-	<samplingPlaceWrite action="modules/param/samplingPlace.php" param="write" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceChange" modulebefore="samplingPlaceChange" />
-	<samplingPlaceDelete action="modules/param/samplingPlace.php" param="delete" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceChange" modulebefore="samplingPlaceChange"/>
-	<samplingPlaceImport action="modules/param/samplingPlace.php" param="import" droits="param" retourok="samplingPlaceList" retourko="samplingPlaceList" modulebefore="samplingPlaceList,samplingPlaceImport"/>
+	<samplingPlaceChange action="modules/param/samplingPlace.php" param="change" droits="collection" retourlogin="1" type="smarty" />
+	<samplingPlaceWrite action="modules/param/samplingPlace.php" param="write" droits="collection" retourok="samplingPlaceList" retourko="samplingPlaceChange" modulebefore="samplingPlaceChange" />
+	<samplingPlaceDelete action="modules/param/samplingPlace.php" param="delete" droits="collection" retourok="samplingPlaceList" retourko="samplingPlaceChange" modulebefore="samplingPlaceChange"/>
+	<samplingPlaceImport action="modules/param/samplingPlace.php" param="import" droits="collection" retourok="samplingPlaceList" retourko="samplingPlaceList" modulebefore="samplingPlaceList,samplingPlaceImport"/>
 	<samplingPlaceGetFromCollection action="modules/param/samplingPlace.php" param="getFromCollection" droits="gestion" type="ajax"/>
 	<samplingPlaceGetCoordinate action="modules/param/samplingPlace.php" param="getCoordinate" droits="gestion" type="ajax"/>
 

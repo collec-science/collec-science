@@ -320,4 +320,6 @@
     <!-- Documentation -->
     <metadatafield_fr action="framework/utils/markdown.php" param="documentation/metadata_field/metadatafield_fr.md" type="smarty" retourko="default"/>
     <metadatafield_en action="framework/utils/markdown.php" param="documentation/metadata_field/metadatafield_en.md" type="smarty" retourko="default"/>
+    <lendingsample_fr action="framework/utils/markdown.php" param="documentation/lending_sample/lendingsample_fr.md" type="smarty" retourko="default"/>
+    <lendingsample_en action="framework/utils/markdown.php" param="documentation/lending_sample/lendingsample_en.md" type="smarty" retourko="default"/>
 </navigation>

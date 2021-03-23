@@ -316,4 +316,8 @@
 	<exportWrite action="modules/export/export.php" param="write" droits="collection" moduleBefore="exportChange" retourok="lotDisplay" retourko="exportChange" />
 	<exportDelete action="modules/export/export.php" param="delete" droits="collection" moduleBefore="exportChange" retourok="lotDisplay" retourko="exportChange" />
 	<exportExec action="modules/export/export.php" param="exec" droits="collection" retourok="lotDisplay" retourko="lotDisplay" type="binaire"/>
+
+    <!-- Documentation -->
+    <metadatafield_fr action="framework/utils/markdown.php" param="documentation/metadata_field/metadatafield_fr.md" type="smarty" retourko="default"/>
+    <metadatafield_en action="framework/utils/markdown.php" param="documentation/metadata_field/metadatafield_en.md" type="smarty" retourko="default"/>
 </navigation>

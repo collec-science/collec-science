@@ -225,7 +225,8 @@ class VueSmarty extends Vue
     "message",
     "texteNews",
     "doc",
-    "phpinfo"
+    "phpinfo",
+    "markdownContent"
   );
 
   private $templateMain = "main.htm";

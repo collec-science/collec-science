@@ -92,9 +92,11 @@
 </item>
 <item module="documentation_fr" label="documentation" tooltip="Documentations en ligne en français" language="fr">
     <item module="doctotp_fr" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de double authentification" language="fr"/>
+    <item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr"/>
 </item>
 <item module="documentation_en" label="documentation" tooltip="Documentations en ligne en anglais" language="en">
     <item module="doctotp_en" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de double authentification" language="en"/>
+    <item module="metadatafield_en" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="en"/>
 </item>
 <item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1"/>
 <item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1">

@@ -44,8 +44,7 @@ class Container extends ObjetBDD
             ";
   private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
 
-  private $movement;
-
+  private $movement, $object;
 
   /**
    *
@@ -151,8 +150,11 @@ class Container extends ObjetBDD
       /**
        * Delete the object
        */
-      $object = new ObjectClass($this->connection, $this->paramori);
-      $object->supprimer($uid);
+      if (!isset($this->object)) {
+        require_once 'modules/classes/object.class.php';
+        $this->object = new ObjectClass($this->connection, $this->paramori);
+      }
+      $this->object->supprimer($uid);
     }
   }
 

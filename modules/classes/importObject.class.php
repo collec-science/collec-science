@@ -845,6 +845,10 @@ class ImportObject
 
         $metadataSchemaNames = array();
         $valuesMetadataJson = json_decode($data["sample_metadata_json"], true);
+        if (json_last_error() != JSON_ERROR_NONE) {
+          $retour["message"] .= _("Les métadonnées n'ont pas pu être décodées (champ sample_metadata_json)");
+          $retour["code"] = false;
+        }
         /**
          * Verification de la colonne metadata
          */

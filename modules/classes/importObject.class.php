@@ -337,6 +337,9 @@ class ImportObject
          */
         if (strlen($values["sample_metadata_json"]) > 0) {
           $md_array = json_decode($values["sample_metadata_json"], true);
+          if (json_last_error() != JSON_ERROR_NONE) {
+            throw new ImportObjectException(sprintf(_("Ligne %s : le décodage du champ JSON sample_metadata_json n'a pas abouti"), $num));
+          }
         } else {
           $md_array = array();
         }
@@ -346,6 +349,9 @@ class ImportObject
             if (!array_key_exists($colname, $md_array)) {
               if (in_array(substr($values[$md_col], 0, 1), $jsonFirstCharArray)) {
                 $md_col_array = json_decode($values[$md_col], true);
+                if (json_last_error() != JSON_ERROR_NONE) {
+                  throw new ImportObjectException(sprintf(_("Ligne %1s : le décodage du champ JSON %2s n'a pas abouti"), $num, $md_col));
+                }
               } else {
                 $md_col_array = explode(",", $values[$md_col]);
               }

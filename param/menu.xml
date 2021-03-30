@@ -42,7 +42,7 @@
 	<item module="referentList" droits="consult" label="Référents" tooltip="Liste des référents des objets ou des collections"/>
 	<item module="campaignList" droits="consult" label="Campagnes" tooltip="Campagnes de prélèvement">
 		<item module="campaignList" droits="consult" label="Campagnes" tooltip="Campagnes de prélèvement"/>
-		<item module="regulationList" droits="consult" label="Réglementations" tooltip="Réglementations applicables"/>
+		<item module="regulationList" droits="consult" label="Réglementations" tooltip="Types de réglementations"/>
 	</item>
 	<item divider='1'/>
 	<item module="containerTypeList" droits="consult" label="Contenants" tooltip="Types de contenants" >

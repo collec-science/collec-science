@@ -1,4 +1,4 @@
-<h2>{t}Réglementations applicables{/t}</h2>
+<h2>{t}Types de réglementations{/t}</h2>
 <div class="row">
 	<div class="col-md-6">
     {if $droits.param == 1}

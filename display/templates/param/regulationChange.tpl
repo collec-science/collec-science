@@ -1,4 +1,4 @@
-<h2>{t}Création - Modification d'une réglementation{/t}</h2>
+<h2>{t}Création - Modification d'un type de réglementation{/t}</h2>
 <div class="row">
   <div class="col-md-6">
     <a href="index.php?module=regulationList">{t}Retour à la liste{/t}</a>

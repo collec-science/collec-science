@@ -274,6 +274,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link searchTab" id="tabsearch-date" href="#navsearch-date"  data-toggle="tab" role="tab" aria-controls="navsearch-date" aria-selected="false">
+                    {t}Dates{/t}
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link searchTab" id="tabsearch-divers" href="#navsearch-divers"  data-toggle="tab" role="tab" aria-controls="navsearch-divers" aria-selected="false">
                     {t}Divers{/t}
                 </a>
@@ -436,6 +441,51 @@
                     </div>
                 </div>
             </div>
+            <div class="tab-pane fade" id="navsearch-date" role="tabpanel" aria-labelledby="tabsearch-date">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="select_date" class="col-sm-3 control-label">{t}Recherche par date :{/t}</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" id="select_date" name="select_date">
+                            <option value="" {if $sampleSearch.select_date == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                            <option value="cd" {if $sampleSearch.select_date == "cd"}selected{/if}>{t}Date de création dans la base{/t}</option>
+                            <option value="sd" {if $sampleSearch.select_date == "sd"}selected{/if}>{t}Date d'échantillonnage{/t}</option>
+                            <option value="ed" {if $sampleSearch.select_date == "ed"}selected{/if}>{t}Date d'expiration{/t}</option>
+                            <option value="ch" {if $sampleSearch.select_date == "ch"}selected{/if}>{t}Date technique de dernier changement{/t}</option>
+                            </select>
+                        </div>
+
+                        <label for="date_from" class="col-sm-1 control-label">{t}du :{/t}</label>
+                        <div class="col-sm-2">
+                            <input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
+                        </div>
+                        <label for="date_to" class="col-sm-1 control-label">{t}au :{/t}</label>
+                        <div class="col-sm-2">
+                            <input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="booking_type" class="col-sm-3 control-label">{t}Réservations :{/t}</label>
+                        <div class="col-sm-2">
+                            <select id="booking_type" name="booking_type" class="form-control">
+                                <option value="-1" {if $sampleSearch.booking_type == -1}selected{/if}>{t}Choisissez...{/t}</option>
+                                <option value="1" {if $sampleSearch.booking_type == 1}selected{/if}>{t}Réservé{/t}</option>
+                                <option value="0" {if $sampleSearch.booking_type == -1}selected{/if}>{t}Non réservé{/t}</option>
+                            </select>
+                        </div>
+                        <label for="booking_from" class="col-sm-1 control-label">{t}du :{/t}</label>
+                        <div class="col-sm-2">
+                            <input class="datepicker form-control" id="booking_from" name="booking_from" value="{$sampleSearch.booking_from}">
+                        </div>
+                        <label for="booking_to" class="col-sm-1 control-label">{t}au :{/t}</label>
+                        <div class="col-sm-2">
+                            <input class="datepicker form-control" id="booking_to" name="booking_to" value="{$sampleSearch.booking_to}">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="tab-pane fade" id="navsearch-divers" role="tabpanel" aria-labelledby="tabsearch-divers">
                 <div class="row">
                     <div class="form-group">
@@ -506,32 +556,6 @@
                         <label for="subsample_quantity_max" class="col-sm-2 control-label">{t}maximale :{/t}</label>
                         <div class="col-sm-3">
                             <input class="form-control taux" id="subsample_quantity_max" name="subsample_quantity_max" value="{$sampleSearch.subsample_quantity_max}">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="select_date" class="col-sm-3 control-label">{t}Recherche par date :{/t}</label>
-                        <div class="col-sm-6">
-                            <select class="form-control" id="select_date" name="select_date">
-                            <option value="" {if $sampleSearch.select_date == ""}selected{/if}>{t}Choisissez...{/t}</option>
-                            <option value="cd" {if $sampleSearch.select_date == "cd"}selected{/if}>{t}Date de création dans la base{/t}</option>
-                            <option value="sd" {if $sampleSearch.select_date == "sd"}selected{/if}>{t}Date d'échantillonnage{/t}</option>
-                            <option value="ed" {if $sampleSearch.select_date == "ed"}selected{/if}>{t}Date d'expiration{/t}</option>
-                            <option value="ch" {if $sampleSearch.select_date == "ch"}selected{/if}>{t}Date technique de dernier changement{/t}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="date_from" class="col-sm-1 col-sm-offset-3 control-label">{t}du :{/t}</label>
-                        <div class="col-sm-2">
-                            <input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
-                        </div>
-                        <label for="date_to" class="col-sm-1 control-label">{t}au :{/t}</label>
-                        <div class="col-sm-2">
-                            <input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
                         </div>
                     </div>
                 </div>

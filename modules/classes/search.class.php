@@ -268,7 +268,8 @@ class SearchSample extends SearchParam
       "authorization_number" => "",
       "event_type_id" => "",
       "subsample_quantity_min" => "",
-      "subsample_quantity_max" => ""
+      "subsample_quantity_max" => "",
+      "booking_type" => -1
     );
     /**
      * Ajout des dates
@@ -293,7 +294,8 @@ class SearchSample extends SearchParam
       "country_id" => 0,
       "event_type_id",
       "subsample_quantity_min",
-      "subsample_quantity_max"
+      "subsample_quantity_max",
+      "booking_type"=>-1
     );
     parent::__construct();
   }
@@ -304,6 +306,9 @@ class SearchSample extends SearchParam
     $ds->modify("-1 year");
     $this->param["date_from"] = $ds->format($_SESSION["MASKDATE"]);
     $this->param["date_to"] = date($_SESSION["MASKDATE"]);
+    $this->param["booking_from"] = date($_SESSION["MASKDATE"]);
+    $this->param["booking_to"] = date($_SESSION["MASKDATE"]);
+
   }
 }
 

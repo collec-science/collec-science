@@ -42,6 +42,7 @@ mouvement{/t}</th>
 métier{/t}</th>
 <th>{t}Type{/t}</th>
 <th>{t}Emplacement{/t}</th>
+<th>{t}Commentaire{/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -53,7 +54,15 @@ métier{/t}</th>
 <span class="green">{t}Déplacement{/t}</span>{else}
 <span class="red">{t}Sortie du stock{/t}</span>
 {/if}</td>
-<td>{$row.uid}</td>
+<td>
+{if $row.object_type_name == 'sample'}
+<a href="index.php?module=sampleDisplay&uid={$row.uid}">
+  {else}
+  <a href="index.php?module=containerDisplay&uid={$row.uid}">
+{/if}
+{$row.uid}
+</a>
+</td>
 <td>{$row.identifier}</td>
 <td>{$row.type_name}</td>
 <td>{if $row.movement_type_id == 1}
@@ -63,6 +72,7 @@ métier{/t}</th>
 C{$row.column_number}L{$row.line_number}
 {/if}
 </td>
+<td>{$row.movement_comment}</td>
 </tr>
 {/foreach}
 </tbody>

@@ -322,8 +322,9 @@ class Movement extends ObjetBDD
         $dateStart = $this->encodeData($values["date_start"]);
         $dateEnd = $this->encodeData($values["date_end"]);
         $data = array();
-        $sql = "select s.login, s.uid, identifier, movement_date, movement_type_id, movement_type_name, storage_location, line_number, column_number,
-        case when sample_type_name is not null then sample_type_name else container_type_name end as type_name
+        $sql = "select s.login, s.uid, identifier, movement_date, movement_type_id, movement_type_name, storage_location, line_number, column_number, movement_comment,
+        case when sample_type_name is not null then sample_type_name else container_type_name end as type_name,
+        case when sample_type_name is not null then 'sample' else 'container' end as object_type_name
         from movement s
         join object o on (o.uid = s.uid)
         join movement_type using (movement_type_id)

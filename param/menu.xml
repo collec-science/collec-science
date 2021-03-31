@@ -94,6 +94,10 @@
     <item module="doctotp_fr" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de la double authentification" language="fr"/>
     <item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr"/>
     <item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr"/>
+    <item module="default" label="Services web" tooltip="Description des services web" language="fr">
+        <item module="sampledisplay_fr" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="fr"/>
+        <item module="documentget_fr" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr"/>
+    </item>
 </item>
 <item module="documentation_en" label="documentation" tooltip="Documentations en ligne en anglais" language="en">
     <item module="doctotp_en" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de double authentification" language="en"/>

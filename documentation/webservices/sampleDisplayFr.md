@@ -91,3 +91,13 @@ Par défaut, c'est à dire si aucun *template_name* n'est défini, les informati
 #### Collection publique ou nom du template fourni
 
 Le contenu dépend exclusivement du paramétrage réalisé dans le template. 
+
+## Codes d'erreur
+
+| Code d'erreur | Signification |
+|--|--|
+| 500  | Internal Server Error |
+| 401 | Unauthorized |
+| 520 | Unknown error |
+| 404 | Not Found |
+

@@ -39,6 +39,7 @@
              if ($("#event_type_id").val() > 0) ok = true;
              if ($("#subsample_quantity_min").val() > 0) ok = true;
              if ($("#subsample_quantity_max").val().length > 0) ok = true;
+             if ($("#booking_type").val() != 0) ok = true;
              var mf = $("#metadata_field").val();
              if ( mf != null) {
                  if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -218,6 +219,9 @@
         var now = new Date();
         $("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
         $("#date_to").datepicker("setDate", now );
+        $("#booking_type").prop("selectedIndex",0).change();
+        $("#booking_from").datepicker("setDate", now);
+        $("#booking_to").datepicker("setDate", now);
         $("#name").val("");
         $("#name").focus();
      });
@@ -470,9 +474,9 @@
                         <label for="booking_type" class="col-sm-3 control-label">{t}Réservations :{/t}</label>
                         <div class="col-sm-2">
                             <select id="booking_type" name="booking_type" class="form-control">
-                                <option value="-1" {if $sampleSearch.booking_type == -1}selected{/if}>{t}Choisissez...{/t}</option>
+                                <option value="0" {if $sampleSearch.booking_type == -1}selected{/if}>{t}Choisissez...{/t}</option>
                                 <option value="1" {if $sampleSearch.booking_type == 1}selected{/if}>{t}Réservé{/t}</option>
-                                <option value="0" {if $sampleSearch.booking_type == -1}selected{/if}>{t}Non réservé{/t}</option>
+                                <option value="-1" {if $sampleSearch.booking_type == -1}selected{/if}>{t}Non réservé{/t}</option>
                             </select>
                         </div>
                         <label for="booking_from" class="col-sm-1 control-label">{t}du :{/t}</label>

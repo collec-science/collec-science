@@ -158,7 +158,8 @@ class SearchParam
    * Function used to reinit some fields
    */
   function reinit()
-  { }
+  {
+  }
 }
 
 /**
@@ -208,9 +209,9 @@ class SearchContainer extends SearchParam
       "date_from" => date($_SESSION["MASKDATE"]),
       "date_to" => date($_SESSION["MASKDATE"]),
       "trashed" => 0,
-      "referent_id"=>"",
-      "event_type_id"=>"",
-      "movement_reason_id"=>""
+      "referent_id" => "",
+      "event_type_id" => "",
+      "movement_reason_id" => ""
     );
     /**
      * Ajout des dates
@@ -269,7 +270,7 @@ class SearchSample extends SearchParam
       "event_type_id" => "",
       "subsample_quantity_min" => "",
       "subsample_quantity_max" => "",
-      "booking_type" => -1
+      "booking_type" => 0
     );
     /**
      * Ajout des dates
@@ -295,7 +296,7 @@ class SearchSample extends SearchParam
       "event_type_id",
       "subsample_quantity_min",
       "subsample_quantity_max",
-      "booking_type"=>-1
+      "booking_type" => 0
     );
     parent::__construct();
   }
@@ -308,7 +309,6 @@ class SearchSample extends SearchParam
     $this->param["date_to"] = date($_SESSION["MASKDATE"]);
     $this->param["booking_from"] = date($_SESSION["MASKDATE"]);
     $this->param["booking_to"] = date($_SESSION["MASKDATE"]);
-
   }
 }
 

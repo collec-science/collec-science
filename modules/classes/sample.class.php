@@ -390,7 +390,7 @@ class Sample extends ObjetBDD
      */
     $searchOk = false;
     $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
-    if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0) {
+    if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["booking_type"] != 0) {
       $searchOk = true;
     } else {
       foreach ($paramName as $name) {
@@ -479,10 +479,10 @@ class Sample extends ObjetBDD
         $and = " and ";
         $data["campaign_id"] = $param["campaign_id"];
       }
-      if (! empty($param["authorization_number"])) {
+      if (!empty($param["authorization_number"])) {
         $where .= $and . "upper(campreg.authorization_number) like upper(:authorization_number)";
         $and = " and ";
-        $data["authorization_number"] = "%".$param["authorization_number"]."%";
+        $data["authorization_number"] = "%" . $param["authorization_number"] . "%";
       }
       if ($param["country_id"] > 0) {
         $where .= $and . " (s.country_id = :country_id or sp.country_id = :country_id)";
@@ -619,9 +619,20 @@ class Sample extends ObjetBDD
       /**
        * Search on minimal subsample quantity
        */
-      if (!empty($param["subsample_quantity_max"] )) {
+      if (!empty($param["subsample_quantity_max"])) {
         $where .= $and . "(vsq.multiple_value + vsq.subsample_more - vsq.subsample_less) <= :subsample_quantity_max";
         $data["subsample_quantity_max"] = $param["subsample_quantity_max"];
+        $and = " and ";
+      }
+      /**
+       * Search on booking
+       */
+      if ($param["booking_type"] != 0) {
+        $data["booking_from"] = $this->formatDateLocaleVersDB($param["booking_from"], 2) ." 00:00:00";
+        $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"], 2) ." 23:59:59";
+        $where .= $and . " (select count(*) from col.booking b where ((:booking_from ::timestamp, :booking_to ::timestamp) overlaps (date_from::timestamp, date_to::timestamp)) = true
+        and b.uid = so.uid)  " ;
+        $param["booking_type"] == 1 ? $where .= " > 0 " : $where .= " = 0 ";
         $and = " and ";
       }
       /**

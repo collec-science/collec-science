@@ -655,6 +655,13 @@ switch ($t_module["param"]) {
         throw new SampleException("$id not found", 404);
       }
       /**
+       * purge the technical fields
+       */
+      $fields = array ("sample_id", "collection_id", "sample_type_id", "campaign_id", "parent_sample_id", "multiple_type_id", "multiple_type_name", "country_id", "object_status_id", "operation_id", "operation_order", "document_id", "movement_type_id", "sampling_place_id","real_referent_id","borrower_id");
+      foreach ($fields as $field) {
+        unset($data[$field]);
+      }
+      /**
        * Search for collection
        */
       if (isset($_SESSION["login"])) {

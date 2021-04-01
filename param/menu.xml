@@ -95,6 +95,7 @@
     <item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr"/>
     <item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr"/>
     <item module="default" label="Services web" tooltip="Description des services web" language="fr">
+        <item module="swidentification_fr" label="identification" tooltip="Gérer l'identification dans les services web" language="fr"/>
         <item module="sampledisplay_fr" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="fr"/>
         <item module="documentget_fr" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr"/>
     </item>

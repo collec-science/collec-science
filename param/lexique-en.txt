@@ -1,5 +1,9 @@
 container or receptacle: any object that may contain another. Not to be confused with derived samples or sub-samples.
 
+country of collection: country where the sample was collected
+
+country of origin: country that provided the sample (that collected it)
+
 database and original UID: when entering a sample, if it has been created in another database, it is possible to indicate the code of the original database followed by the assigned identifier. This code will then be used during searches, which allows the original labels to be retained. test collection: a collection is a coherent set of samples relating to a particular subject. Access rights to samples are managed per collection. It is also possible to attach collection locations to them.
 
 Derived sample: A sample that is created from another sample, whether of the same type or not, that is identified independently. In other words, a sample that is the son of another. For example, a section of core is derived from half core X, which in turn is derived from the whole core.

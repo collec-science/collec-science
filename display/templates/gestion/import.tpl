@@ -97,7 +97,8 @@
                   <li><b>sample_status_id / sample_status_name</b> : {t}le numéro du statut de l'échantillon ou son nom(obligatoire){/t}</li>
                   <li><b>campaign_id / campaign_name</b> : {t}le numéro informatique de la campagne de prélèvement ou son nom{/t}</li>
                   <li><b>sampling_place_id / sampling_place_name</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé ou son nom{/t}</li>
-                  <li><b>country_code</b>: {t}le code du pays, sur deux positions{/t}</li>
+                  <li><b>country_code</b>: {t}le code du pays de collecte, sur deux positions{/t}</li>
+                  <li><b>country_origin_code</b>: {t}le code du pays de provenance, sur deux positions{/t}</li>
                   <li><b>referent_id / referent_name</b> : {t}le numéro informatique du référent ou son nom, sous la forme "nom prénom"{/t}</li>
                   <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                   <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>

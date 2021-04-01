@@ -31,6 +31,7 @@ class Sample extends ObjetBDD
           case when s.country_id is not null then sc.country_id else csp.country_id end as country_id,
           case when s.country_id is not null then sc.country_name else csp.country_name end as country_name,
           case when s.country_id is not null then sc.country_code2 else csp.country_code2 end as country_code2,
+          s.country_origin_id, sco.country_name as country_origin_name, sco.country_code2 as country_origin_code2,
           so.object_status_id, object_status_name,so.referent_id,
           so.change_date, so.uuid, so.trashed, so.location_accuracy, so.object_comment,
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
@@ -86,6 +87,7 @@ class Sample extends ObjetBDD
           left outer join campaign_regulation campreg on (campaign.campaign_id = campreg.campaign_id)
           left outer join country sc on (s.country_id = sc.country_id)
           left outer join country csp on (sp.country_id = csp.country_id)
+          left outer join country sco on (s.country_origin_id = sco.country_id)
           left outer join v_subsample_quantity vsq on (s.sample_id = vsq.sample_id)
           ";
   private $object, $container, $event, $country;
@@ -142,7 +144,8 @@ class Sample extends ObjetBDD
         "type" => 2,
       ),
       "campaign_id" => array("type" => 1),
-      "country_id" => array("type" => 1)
+      "country_id" => array("type" => 1),
+      "country_origin_id" => array("type" => 1)
     );
     parent::__construct($bdd, $param);
   }
@@ -628,10 +631,10 @@ class Sample extends ObjetBDD
        * Search on booking
        */
       if ($param["booking_type"] != 0) {
-        $data["booking_from"] = $this->formatDateLocaleVersDB($param["booking_from"], 2) ." 00:00:00";
-        $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"], 2) ." 23:59:59";
+        $data["booking_from"] = $this->formatDateLocaleVersDB($param["booking_from"], 2) . " 00:00:00";
+        $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"], 2) . " 23:59:59";
         $where .= $and . " (select count(*) from col.booking b where ((:booking_from ::timestamp, :booking_to ::timestamp) overlaps (date_from::timestamp, date_to::timestamp)) = true
-        and b.uid = so.uid)  " ;
+        and b.uid = so.uid)  ";
         $param["booking_type"] == 1 ? $where .= " > 0 " : $where .= " = 0 ";
         $and = " and ";
       }
@@ -705,7 +708,7 @@ class Sample extends ObjetBDD
             campaign_name,
             case when ro.referent_name is not null then trim(ro.referent_name || ' ' || coalesce(ro.referent_firstname, '')) else trim(cr.referent_name || ' ' || coalesce(cr.referent_firstname, '')) end as referent_name
             ,o.uuid
-            ,ctry.country_code2 as country_code
+            ,ctry.country_code2 as country_code, ctryo.country_code2 as country_origin_code
             from sample
             join object o using(uid)
             join collection c using (collection_id)
@@ -717,6 +720,7 @@ class Sample extends ObjetBDD
             left outer join referent cr on (c.referent_id = cr.referent_id)
             left outer join campaign using (campaign_id)
             left outer join country ctry on (sample.country_id = ctry.country_id)
+            left outer join country ctryo on (country.country_origin_id = ctryo.country_id)
              where o.uid in (" . $uids . ")";
       $d = $this->getListeParam($sql);
       $this->auto_date = 1;
@@ -917,13 +921,15 @@ class Sample extends ObjetBDD
       /**
        * Verification du pays
        */
-      if (!empty($row["country_code"])) {
-        if (!isset($this->country)) {
-          $this->country = $this->classInstanciate("Country", "country.class.php");
-        }
-        $country_id = $this->country->getIdFromCode($row["country_code"]);
-        if (!$country_id > 0) {
-          throw new SampleException(sprintf(_("Le code de pays %s n'est pas connu"), $row["country_code"]));
+      foreach (array("country_code", "country_origin_code") as $field) {
+        if (!empty($row[$field])) {
+          if (!isset($this->country)) {
+            $this->country = $this->classInstanciate("Country", "country.class.php");
+          }
+          $country_id = $this->country->getIdFromCode($row[$field]);
+          if (!$country_id > 0) {
+            throw new SampleException(sprintf(_("Le code de pays %s n'est pas connu"), $row[$field]));
+          }
         }
       }
     }

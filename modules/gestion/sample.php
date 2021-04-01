@@ -244,6 +244,7 @@ switch ($t_module["param"]) {
             $data["identifier"] = $dataParent["identifier"];
             $data["campaign_id"] = $dataParent["campaign_id"];
             $data["country_id"] = $dataParent["country_id"];
+            $data["country_origin_id"] = $dataParent["country_origin_id"];
             $data["uuid"] = $dataClass->getUUID();
           }
           $vue->set($data, "data");
@@ -269,6 +270,7 @@ switch ($t_module["param"]) {
           $data["referent_id"] = $dl["referent_id"];
           $data["campaign_id"] = $dl["campaign_id"];
           $data["country_id"] = $dl["country_id"];
+          $data["country_id"] = $dl["country_origin_id"];
           if (empty($data["country_id"])) {
             $data["country_id"] = $_SESSION["countryDefaultId"];
           }
@@ -564,6 +566,7 @@ switch ($t_module["param"]) {
             "campaign_name",
             "uuid",
             "country_code",
+            "country_origin_code",
             "comment"
           );
           $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
@@ -657,7 +660,7 @@ switch ($t_module["param"]) {
       /**
        * purge the technical fields
        */
-      $fields = array ("sample_id", "collection_id", "sample_type_id", "campaign_id", "parent_sample_id", "multiple_type_id", "multiple_type_name", "country_id", "object_status_id", "operation_id", "operation_order", "document_id", "movement_type_id", "sampling_place_id","real_referent_id","borrower_id");
+      $fields = array ("sample_id", "sample_type_id", "campaign_id", "parent_sample_id", "multiple_type_id", "multiple_type_name", "country_id", "object_status_id", "operation_id", "operation_order", "document_id", "movement_type_id", "sampling_place_id","real_referent_id","borrower_id", "country_origin_id");
       foreach ($fields as $field) {
         unset($data[$field]);
       }

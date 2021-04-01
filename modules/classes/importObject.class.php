@@ -559,6 +559,9 @@ class ImportObject
     if (!empty($data["country_code"])) {
       $values["country_id"] = $this->country->getIdFromCode($values["country_code"]);
     }
+    if (!empty($data["country_origin_code"])) {
+      $values["country_origin_id"] = $this->country->getIdFromCode($values["country_origin_code"]);
+    }
     /**
      * Search the ids from the names
      */
@@ -754,6 +757,10 @@ class ImportObject
        * Verification du pays
        */
       if (!empty($data["country_code"]) && empty($data["country_id"])) {
+        $retour["code"] = false;
+        $retour["message"] .= _("Le code pays est inconnu.");
+      }
+      if (!empty($data["country_origin_code"]) && empty($data["country_origin_id"])) {
         $retour["code"] = false;
         $retour["message"] .= _("Le code pays est inconnu.");
       }
@@ -1024,8 +1031,14 @@ class ImportObject
       if (!empty($row["comment"])) {
         $dataSample["object_comment"] = $row["comment"];
       }
+      /**
+       * countries
+       */
       if (!empty($row["country_code"])) {
         $dataSample["country_id"] = $this->country->getIdFromCode($row["country_code"]);
+      }
+      if (!empty($row["country_origin_code"])) {
+        $dataSample["country_origin_id"] = $this->country->getIdFromCode($row["country_origin_code"]);
       }
       $fieldDates = array(
         "sampling_date",

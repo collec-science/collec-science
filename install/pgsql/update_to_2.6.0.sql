@@ -23,3 +23,10 @@ coalesce ((select sum(subsample_quantity) from col.subsample sless where sless.m
 from col.sample s
 )
 ;
+/**
+ * country origin
+ */
+alter table col.sample add column country_origin_id int;
+ALTER TABLE col.sample ADD CONSTRAINT country_fk1 FOREIGN KEY (country_origin_id)
+REFERENCES col.country (country_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;

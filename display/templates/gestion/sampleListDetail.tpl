@@ -160,8 +160,11 @@
 										if ( d.sampling_place_id ) {
 											content += "<br>{t}Lieu de prélèvement :{/t} " + encodeHtml( d.sampling_place_name );
 										}
-										if ( d.country_id ) {
+										if ( d.country_name ) {
 											content += "<br>{t}Pays de collecte :{/t} " + encodeHtml( d.country_name );
+										}
+										if ( d.country_origin_name ) {
+											content += "<br>{t}Pays de provenance :{/t} " + encodeHtml( d.country_origin_name );
 										}
 										if ( d.metadata ) {
 											content += "<br><u>{t}Métadonnées :{/t}</u>";

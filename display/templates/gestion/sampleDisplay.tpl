@@ -421,8 +421,14 @@
 				{/if}
 				{if $data.country_id > 0}
 					<dl class="dl-horizontal">
-						<dt>{t}Pays de prélèvement :{/t}</dt>
+						<dt class="lexical" data-lexical="country">{t}Pays de collecte :{/t}</dt>
 						<dd>{$data.country_name}</dd>
+					</dl>
+				{/if}
+				{if $data.country_origin_id > 0}
+					<dl class="dl-horizontal">
+						<dt class="lexical" data-lexical="country_origin">{t}Pays de provenance :{/t}</dt>
+						<dd>{$data.country_origin_name}</dd>
 					</dl>
 				{/if}
 				{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}

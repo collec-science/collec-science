@@ -36,6 +36,7 @@
 
     <documentation_fr action="default" type="smarty"/>
     <documentation_en action="default" type="smarty"/>
+    <documentationGetFile action="framework/utils/file.php" param="documentationGetFile" type="binaire" retourko="default"/>
 
 	<!-- gestion des droits nouvelle formule -->
 	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1" type="smarty" />

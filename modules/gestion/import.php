@@ -154,7 +154,8 @@ switch ($t_module["param"]) {
                         "location_accuracy",
                         "campaign_name",
                         "comment",
-                        "country_code"
+                        "country_code",
+                        "country_origin_code"
                     );
                     $importFile = new Import($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $importFile->getContentAsArray();

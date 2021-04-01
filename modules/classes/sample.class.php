@@ -720,7 +720,7 @@ class Sample extends ObjetBDD
             left outer join referent cr on (c.referent_id = cr.referent_id)
             left outer join campaign using (campaign_id)
             left outer join country ctry on (sample.country_id = ctry.country_id)
-            left outer join country ctryo on (country.country_origin_id = ctryo.country_id)
+            left outer join country ctryo on (sample.country_origin_id = ctryo.country_id)
              where o.uid in (" . $uids . ")";
       $d = $this->getListeParam($sql);
       $this->auto_date = 1;

@@ -65,6 +65,7 @@ class ImportObject
     "container_uuid",
     "campaign_id",
     "country_code",
+    "country_origin_code",
     "container_type_name",
     "container_status_name",
     "collection_name",

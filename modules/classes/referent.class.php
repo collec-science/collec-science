@@ -50,12 +50,17 @@ class Referent extends ObjetBDD
      *
      * @return array
      */
-    function getFromName($name)
+    function getFromName($name, $firstname = "")
     {
-        if (strlen($name) > 0) {
+        if (!empty($name)) {
             $sql = "select * from referent
                     where referent_name = :name";
-            return $this->lireParamAsPrepared($sql, array("name" => $name));
+            $data = array("name" => $name);
+            if (!empty($firstName)){
+                $sql .= " and referent_firstname = :firstname";
+                $data["firstname"] = $firstname;
+            }
+            return $this->lireParamAsPrepared($sql, $data);
         }
     }
     /**

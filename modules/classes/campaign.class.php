@@ -87,4 +87,19 @@ class Campaign extends ObjetBDD
             parent::supprimer($id);
         }
     }
+    /**
+     * Get the campaign_id from its name
+     *
+     * @param string $name
+     * @return integer|null
+     */
+    function getIdFromName(string $name):?int{
+        $sql = "select campaign_id from campaign where campaign_name = :name";
+        $data = $this->lireParamAsPrepared($sql, array("name"=>$name));
+        if (!empty($data)){
+            return $data["campaign_id"];
+        } else {
+            return NULL;
+        }
+    }
 }

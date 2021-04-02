@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="351,503" last-zoom="1" max-obj-count="72"
+<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="0,628" last-zoom="1" max-obj-count="72"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -2718,7 +2718,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<table name="dataset_column" layer="0" collapse-mode="1" max-obj-count="12" z-value="0">
+<table name="dataset_column" layer="0" collapse-mode="1" max-obj-count="13" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of columns included into the dataset]]></comment>
@@ -2754,6 +2754,10 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<column name="date_format">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[Export date format, in php notation. Example: d/m/Y H:i:s for 25/12/2020 17:15:00]]></comment>
+	</column>
+	<column name="search_order">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[To search a sample, order of the current field to trigger the search]]></comment>
 	</column>
 	<constraint name="dataset_column_pk" type="pk-constr" table="col.dataset_column">
 		<columns names="dataset_column_id" ref-type="src-columns"/>

@@ -14,17 +14,19 @@ $errors = array(
 
 switch ($t_module["param"]) {
   case "write":
-    $searchOrder = array("uid", "uuid", "identifier");
+  $searchOrder = "";
     try {
+      $dataSent = $_POST;
       if (!empty($_POST["template"])) {
         /**
          * Format the data with the dataset template
          */
         $dataset = $datasetTemplate->getTemplateFromName($_POST["template"]);
-        $dataSent = $_POST; #TODO
-        $searchOrder = $searchOrder; #TODO
-      } else {
-        $dataSent = $_POST;
+        $dataSent = $datasetTemplate->formatDataForImport($dataset["dataset_template_id"],$dataSent);
+        $searchOrder = $datasetTemplate->getSearchOrder($dataset["dataset_template_id"]);
+      }
+      if (empty ($searchOrder)) {
+        $searchOrder = array("uid", "uuid", "identifier");
       }
       $uid = $samplews->write($dataSent, $searchOrder);
       $retour = array(

@@ -30,3 +30,9 @@ alter table col.sample add column country_origin_id int;
 ALTER TABLE col.sample ADD CONSTRAINT country_fk1 FOREIGN KEY (country_origin_id)
 REFERENCES col.country (country_id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+
+/**
+ * dataset_template
+ */
+alter table col.dataset_column add column search_order smallint;
+COMMENT ON COLUMN col.dataset_column.search_order IS E'To search a sample, order of the current field to trigger the search';

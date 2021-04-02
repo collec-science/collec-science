@@ -2,7 +2,7 @@
 
 class Samplews
 {
-  private $sample, $identifiertype, $objectIdentifier, $samplingPlace, $country, $campaign, $referent;
+  private $sample, $identifierType, $objectIdentifier, $samplingPlace, $country, $campaign, $referent;
   public $classpath = "modules/classes";
   public $ObjetBDDParam;
   /**

@@ -42,6 +42,7 @@ class IdentifierType extends ObjetBDD
     {
         $sql = "select identifier_type_id, identifier_type_code
             from identifier_type
+            where identifier_type_code is not null
             order by identifier_type_code";
         return $this->getListeParam($sql);
     }

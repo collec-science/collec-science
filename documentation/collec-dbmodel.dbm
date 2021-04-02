@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="0,191" last-zoom="0.55" max-obj-count="72"
+<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="351,503" last-zoom="1" max-obj-count="72"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -1114,7 +1114,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="sample" layer="0" collapse-mode="1" max-obj-count="16" z-value="0">
+<table name="sample" layer="0" collapse-mode="1" max-obj-count="18" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of samples]]></comment>
@@ -3410,6 +3410,16 @@ from col.sample s
 	 dst-table="col.subsample"
 	 src-required="false" dst-required="false"/>
 
+<relationship name="country_origin_has_many_sample" type="rel1n" layer="0"
+	 src-col-pattern="country_origin_id"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#d0fa4d"
+	 src-table="col.country"
+	 dst-table="col.sample"
+	 src-required="false" dst-required="false"
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
 	<columns names="uid" ref-type="src-columns"/>
@@ -3842,7 +3852,7 @@ from col.sample s
 	 dst-table="col.sample" reference-fk="sample_sample_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="980.44" y="931.317"/>
+		<position x="980.44" y="936.85"/>
 	<position x="980.44" y="819.3"/>
 	<position x="906.493" y="819.3"/>
 	</line>

@@ -1215,4 +1215,35 @@ class Sample extends ObjetBDD
       $this->executeAsPrepared($sql, $data);
     }
   }
+  /**
+   * Get a sample from an identifier (uid, uuid, etc.)
+   *
+   * @param string $fieldname
+   * @param string $id
+   * @return array|null
+   */
+  function getFromField(string $fieldname, string $id): ?array
+  {
+    $sql = "select * from sample join object using (uid) ";
+    $param = array ("id"=>$id);
+    switch ($fieldname) {
+      case "uid":
+        $sql .= " where uid = :id";
+        break;
+      case "uuid":
+        $sql .= " where uuid = lower(:id)";
+        break;
+      case "identifier":
+        $sql .= " where identifier = :id";
+        break;
+      default:
+        $sql .= " join object_identifier using (uid)
+                join identifier_type using (identifier_type_id)
+                where identifier_type_code = :fieldname and object_identifier_value = :id
+        ";
+        $param["fieldname"] = $fieldname;
+        break;
+    }
+    return $this->lireParamAsPrepared($sql, $param);
+  }
 }

@@ -7,7 +7,9 @@ $datasetTemplate = new DatasetTemplate($bdd, $ObjetBDDParam);
 
 $errors = array(
   500 => "Internal Server Error",
+  400 => "Bad request",
   401 => "Unauthorized",
+  403 => "Forbidden",
   520 => "Unknown error",
   404 => "Not Found"
 );
@@ -30,16 +32,18 @@ switch ($t_module["param"]) {
       }
       $uid = $samplews->write($dataSent, $searchOrder);
       $retour = array(
-        "error_code" => 0,
+        "error_code" => 200,
         "uid" => $uid,
         "error_message" => "processed"
       );
+      http_response_code(200);
     } catch (Exception $e) {
       $retour = array(
         "error_code" => $error_code,
         "error_message" => $errors[$error_code],
         "error_detail" => $e->getMessage()
       );
+      http_response_code($error_code);
       $message->setSyslog($e->getMessage());
     } finally {
       $vue->setJson(json_encode($retour));

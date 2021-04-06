@@ -95,13 +95,13 @@ class Samplews
     if (!empty($dataSent["country_code"])) {
       $dataSent["country_id"] = $this->country->getIdFromCode($dataSent["country_code"]);
       if (empty($dataSent["country_id"])) {
-        throw new SampleException(sprintf(_("Le code pays %s est inconnu"), $dataSent["country_code"]), 404);
+        throw new SampleException(sprintf(_("Le code pays %s est inconnu"), $dataSent["country_code"]), 400);
       }
     }
     if (!empty($dataSent["country_origin_code"])) {
       $dataSent["country_origin_id"] = $this->country->getIdFromCode($dataSent["country_origin_code"]);
       if (empty($dataSent["country_origin_id"])) {
-        throw new SampleException(sprintf(_("Le code pays %s est inconnu"), $dataSent["country_origin_code"]), 404);
+        throw new SampleException(sprintf(_("Le code pays %s est inconnu"), $dataSent["country_origin_code"]), 400);
       }
     }
     /**
@@ -127,7 +127,7 @@ class Samplews
        * Update
        */
       if (!$this->sample->verifyCollection($data)) {
-        throw new SampleException(_("Droits insuffisants pour modifier l'échantillon"), 401);
+        throw new SampleException(_("Droits insuffisants pour modifier l'échantillon"), 403);
       }
       unset($dataSent["collection_id"]);
       foreach ($dataSent as $key => $content) {
@@ -174,7 +174,7 @@ class Samplews
         foreach ($_SESSION["collections"] as $collection) {
           if ($dataSent["collection_name"] == $collection["collection_name"]) {
             if (!$collection["allowed_import_flow"]) {
-              throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 401);
+              throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
             }
             $data["collection_id"] = $collection["collection_id"];
             break;
@@ -186,13 +186,13 @@ class Samplews
            * default collection
            */
           if (!$_SESSION["collections"][0]["allowed_import_flow"]) {
-            throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 401);
+            throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
           }
           $data["collection_id"] = $_SESSION["collections"][0]["collection_id"];
         }
       }
       if (empty($data["collection_id"])) {
-        throw new SampleException(_("La collection n'a pas été fournie ou n'est pas autorisée"), 401);
+        throw new SampleException(_("La collection n'a pas été fournie ou n'est pas autorisée"), 403);
       }
     }
     /**

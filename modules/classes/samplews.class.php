@@ -31,13 +31,13 @@ class Samplews
       $this->$$key = $this->classInstanciate($classe["name"], $classe["path"]);
     }
   }
-/**
- * insert or update a sample
- * Create campaign, referent or samplingPlace if necessary
- * @param array $dataSent: data to insert
- * @param array $searchOrder: order to search a sample
- * @return int: UID of the sample
- */
+  /**
+   * insert or update a sample
+   * Create campaign, referent or samplingPlace if necessary
+   * @param array $dataSent: data to insert
+   * @param array $searchOrder: order to search a sample
+   * @return int: UID of the sample
+   */
   function write(array $dataSent, array $searchOrder = array("uid", "uuid", "identifier")): int
   {
     $this->sample->auto_date = 0;
@@ -173,6 +173,9 @@ class Samplews
       if (!empty($dataSent["collection_name"])) {
         foreach ($_SESSION["collections"] as $collection) {
           if ($dataSent["collection_name"] == $collection["collection_name"]) {
+            if (!$collection["allowed_import_flow"]) {
+              throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 401);
+            }
             $data["collection_id"] = $collection["collection_id"];
             break;
           }
@@ -182,6 +185,9 @@ class Samplews
           /**
            * default collection
            */
+          if (!$_SESSION["collections"][0]["allowed_import_flow"]) {
+            throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 401);
+          }
           $data["collection_id"] = $_SESSION["collections"][0]["collection_id"];
         }
       }

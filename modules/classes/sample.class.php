@@ -1222,7 +1222,7 @@ class Sample extends ObjetBDD
    * @param string $id
    * @return array|null
    */
-  function getFromField(string $fieldname, string $id): ?array
+  function getFromField(string $fieldname, string $id, int $collection_id = 0): ?array
   {
     $sql = "select * from sample join object using (uid) ";
     $param = array ("id"=>$id);
@@ -1235,6 +1235,10 @@ class Sample extends ObjetBDD
         break;
       case "identifier":
         $sql .= " where identifier = :id";
+        if ($collection_id > 0) {
+          $sql.= " and collection_id = :collection_id";
+          $param ["collection_id"] = $collection_id;
+        }
         break;
       default:
         $sql .= " join object_identifier using (uid)
@@ -1242,6 +1246,10 @@ class Sample extends ObjetBDD
                 where identifier_type_code = :fieldname and object_identifier_value = :id
         ";
         $param["fieldname"] = $fieldname;
+        if ($collection_id > 0) {
+          $sql.= " and collection_id = :collection_id";
+          $param ["collection_id"] = $collection_id;
+        }
         break;
     }
     return $this->lireParamAsPrepared($sql, $param);

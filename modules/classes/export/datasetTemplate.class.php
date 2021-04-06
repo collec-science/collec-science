@@ -360,7 +360,12 @@ class DatasetTemplate extends ObjetBDD
         $searchOrder[$col["search_order"]] = $col["column_name"];
       }
     }
-    return $searchOrder;
+    ksort($searchOrder);
+    $so = array();
+    foreach ($searchOrder as $val) {
+      $so[] = $val;
+    }
+    return $so;
   }
 /**
  * Format data for import, with the dataset_template

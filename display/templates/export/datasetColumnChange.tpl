@@ -131,6 +131,14 @@
           <input id="column_order" type="number" class="form-control number" name="column_order" value="{$data.column_order}" required>
         </div>
       </div>
+      <div class="form-group">
+        <label for="sort_order" class="control-label col-md-4">
+          {t}Pour les importations, ordre de recherche parmi les différents identifiants possibles :{/t}
+        </label>
+        <div class="col-md-8">
+          <input id="search_order" type="number" class="form-control number" name="search_order" value="{$data.search_order}">
+        </div>
+      </div>
       <div class="form-group center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.dataset_column_id > 0 }

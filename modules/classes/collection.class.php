@@ -114,6 +114,7 @@ class Collection extends ObjetBDD
       }
       $in .= ")";
       $sql = "select distinct collection_id, collection_name
+          ,allowed_import_flow, allowed_export_flow, public_collection
 					from collection
 					join collection_group using (collection_id)
 					join aclgroup using (aclgroup_id)
@@ -184,7 +185,7 @@ class Collection extends ObjetBDD
         $dataGroup[$value["aclgroup_id"]] = 1;
       }
     }
-    require_once 'framework/droits/droits.class.php';
+    require_once 'framework/droits/aclgroup.class.php';
     $aclgroup = new Aclgroup($this->connection);
     $groupes = $aclgroup->getListe(2);
     foreach ($groupes as $key => $value) {

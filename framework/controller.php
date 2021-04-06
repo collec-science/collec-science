@@ -237,8 +237,9 @@ try {
        */
       if (
         in_array($ident_type, array("BDD", "LDAP", "LDAP-BDD",))
-        && !isset($_REQUEST["login"]) && empty($_SESSION["login"])
-        && !isset($_COOKIE["tokenIdentity"])
+        && empty($_REQUEST["login"])
+        && empty($_SESSION["login"])
+        && empty($_COOKIE["tokenIdentity"])
       ) {
         /**
          * Gestion de la saisie du login
@@ -258,6 +259,9 @@ try {
         if (empty($_SESSION["login"])) {
           require_once "framework/identification/login.class.php";
           $login = new Login($bdd_gacl, $ObjetBDDParam);
+          if (!empty($_REQUEST["token"]) && !empty($_REQUEST["login"])) {
+            $ident_type = "ws";
+          }
           $_SESSION["login"] = $login->getLogin($ident_type, false);
         }
         if (!empty($_SESSION["login"])) {
@@ -312,13 +316,17 @@ try {
             }
           }
         } else {
-          if (!isset($vue)) {
-            $isHtml = true;
-            $vue = new VueSmarty($SMARTY_param, $SMARTY_variables);
+          if ($ident_type == "ws") {
+            http_response_code(401);
+          } else {
+            if (!isset($vue)) {
+              $isHtml = true;
+              $vue = new VueSmarty($SMARTY_param, $SMARTY_variables);
+            }
+            $vue->set("framework/ident/login.tpl", "corps");
+            $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
+            $vue->set($APPLI_lostPassword, "lostPassword");
           }
-          $vue->set("framework/ident/login.tpl", "corps");
-          $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
-          $vue->set($APPLI_lostPassword, "lostPassword");
         }
       }
       if ($_SESSION["is_authenticated"]) {
@@ -523,7 +531,7 @@ try {
      * Enregistrement de l'acces au module
      */
     try {
-      isset( $_SESSION["login"]) ? $logLogin = $_SESSION["login"] : $logLogin = "";
+      isset($_SESSION["login"]) ? $logLogin = $_SESSION["login"] : $logLogin = "";
       $log->setLog($logLogin, $module, $motifErreur);
     } catch (Exception $e) {
       if ($OBJETBDD_debugmode > 0) {

@@ -25,7 +25,6 @@ class Login
      */
     if ($type_authentification == "ws") {
       $tauth = "swtoken";
-
       $dataId = $this->loginGestion->getLoginFromTokenWS($_REQUEST["login"], $_REQUEST["token"]);
       if (!empty($dataId["login"])) {
         $login = $dataId["login"];

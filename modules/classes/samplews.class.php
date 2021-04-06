@@ -116,7 +116,7 @@ class Samplews
     /**
      * Search for referent and create if if unknown
      */
-    if (empty($dataSent["referent_name"])) {
+    if (!empty($dataSent["referent_name"])) {
       $dataSent["referent_id"] = $this->referent->getFromName($dataSent["referent_name"], $dataSent["referent_firstname"])["referent_id"];
       if (empty($dataSent["referent_id"])) {
         $dataSent["referent_id"] = $this->referent->ecrire(array("referent_id" => 0, "referent_name" => $dataSent["referent_name"], "referent_firstname" => $dataSent["referent_firstname"]));

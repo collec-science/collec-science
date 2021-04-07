@@ -5,13 +5,17 @@
 	index.php?module=sampleDetail&uid=xxx&uuid=yyy&token=zzz&template_name=aaa
 
 Paramètres :
-
+{: .datatable}
 | Paramètre | Contenu |
 |--|--|
 | uid | UID de l'échantillon (obligatoire si UUID non renseigné) |
 | uuid | UUID de l'échantillon (obligatoire si UID non renseigné) |
 | token | jeton d'identification. Information obligatoire si la collection n'est pas publique |
+| login | login associé au jeton (token). Les deux informations doivent être fournies pour que l'identification soit réalisée |
 | template_name | Nom du *template* utilisé pour formater les informations. Cette information doit être fournie si le *token* n'est pas renseigné (collection publique) |
+
+
+{.table .table-bordered .table-hover}
 
 ## Données retournées
 
@@ -88,6 +92,9 @@ Par défaut, c'est à dire si aucun *template_name* n'est défini, les informati
 | events | liste des événements enregistrés pour l'échantillon |
 | container | liste de la hiérarchie des contenants |
 
+
+{.table .table-bordered .table-hover}
+
 #### Collection publique ou nom du template fourni
 
 Le contenu dépend exclusivement du paramétrage réalisé dans le template. 
@@ -101,3 +108,5 @@ Le contenu dépend exclusivement du paramétrage réalisé dans le template.
 | 520 | Unknown error |
 | 404 | Not Found |
 
+
+{.table .table-bordered .table-hover}

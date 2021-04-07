@@ -10,8 +10,11 @@ Paramètres :
 |--|--|
 | uuid | UUID du document concerné (obligatoire) |
 | token | jeton d'identification. Information obligatoire si la collection n'est pas publique |
+| login | login associé au jeton (token). Les deux informations doivent être fournies pour que l'identification soit réalisée |
 | mode | inline/attached : définit le mode d'envoi du document. Par défaut, *inline* |
 
+
+{.table .table-bordered .table-hover}
 
 ## Données retournées
 
@@ -26,3 +29,5 @@ Le document au format binaire, avec le type MIME correspondant.
 | 520 | Unknown error |
 | 404 | Not Found |
 
+
+{.table .table-bordered .table-hover}

@@ -4,7 +4,7 @@
 
 Sauf pour la consultation des collections publiques, les appels directs au logiciel sans passer par l'interface graphique nécessitent d'identifier l'utilisateur (ou l'application). Cette identification est basée sur l'utilisation d'un jeton cryptographique généré par l'application.
 
-Dans la pratique, un utilisateur dédié est créé dans la base de données. Cet utilisateur est doté d'un jeton (*token*) qui devra être fourni lors de chaque requête.
+Dans la pratique, un utilisateur dédié est créé dans la base de données. Cet utilisateur est doté d'un jeton (*token*) qui devra être fourni lors de chaque requête, en même temps que son login.
 
 L'utilisateur sera ensuite positionné dans un groupe, dans la gestion des droits, pour pouvoir récupérer les droits d'accès aux modules considérés.
 

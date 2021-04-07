@@ -24,6 +24,7 @@
     "leaflet.tilelayer.pouchdbcached": "^1.0.0",
     "magnific-popup": "^1.1.0",
     "markdown-it": "^12.0.4",
+    "markdown-it-attrs": "^4.0.0",
     "minimist": "^1.2.5",
     "moment": "^2.29.1",
     "neo-async": "^2.6.2",

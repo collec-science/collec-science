@@ -43,6 +43,14 @@ class Samplews
   {
     $this->sample->auto_date = 0;
     /**
+     * Replace null by empty
+     */
+    foreach ($dataSent as $k=>$v) {
+      if ($v == "null") {
+        $dataSent[$k] = "";
+      }
+    }
+    /**
      * metadata
      */
     empty($dataSent["metadata"]) ? $metadata = array() : $metadata = json_decode($dataSent["metadata"], true);

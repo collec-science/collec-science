@@ -236,7 +236,7 @@ try {
        * Affichage de l'ecran de saisie du login si necessaire
        */
       if (
-        in_array($ident_type, array("BDD", "LDAP", "LDAP-BDD",))
+        in_array($ident_type, array("BDD", "LDAP", "LDAP-BDD"))
         && empty($_REQUEST["login"])
         && empty($_SESSION["login"])
         && empty($_COOKIE["tokenIdentity"])
@@ -318,6 +318,7 @@ try {
         } else {
           if ($ident_type == "ws") {
             http_response_code(401);
+            $vue->set(array("error_code"=>401, "error_message"=>_("Identification refusée")));
           } else {
             if (!isset($vue)) {
               $isHtml = true;

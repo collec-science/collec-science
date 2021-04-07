@@ -1231,7 +1231,7 @@ class Sample extends ObjetBDD
         $sql .= " where uid = :id";
         break;
       case "uuid":
-        $sql .= " where uuid = lower(:id)";
+        $sql .= " where uuid::varchar = lower(:id)";
         break;
       case "identifier":
         $sql .= " where identifier = :id";

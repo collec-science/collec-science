@@ -2,7 +2,7 @@
 
 class Samplews
 {
-  private $sample, $identifierType, $objectIdentifier, $samplingPlace, $country, $campaign, $referent;
+  private $sample, $identifierType, $objectIdentifier, $samplingPlace, $country, $campaign, $referent, $sampleType;
   public $classpath = "modules/classes";
   public $ObjetBDDParam;
   /**
@@ -25,10 +25,11 @@ class Samplews
       "samplingPlace" => array("name" => "SamplingPlace", "path" => "samplingPlace.class.php"),
       "country" => array("name" => "Country", "path" => "country.class.php"),
       "campaign" => array("name" => "Campaign", "path" => "campaign.class.php"),
-      "referent" => array("name" => "Referent", "path" => "referent.class.php")
+      "referent" => array("name" => "Referent", "path" => "referent.class.php"),
+      "sampleType" => array("name"=>"SampleType", "path"=> "sampleType.class.php")
     );
     foreach ($classes as $key => $classe) {
-      $this->$$key = $this->classInstanciate($classe["name"], $classe["path"]);
+      $this->$key = $this->classInstanciate($classe["name"], $classe["path"]);
     }
   }
   /**
@@ -76,7 +77,7 @@ class Samplews
       }
     }
     if ($hasparent && empty($dataParent)) {
-      throw new SampleException(_("Le parent n'a pas été trouvé"), 404);
+      throw new SampleException(_("Le parent n'a pas été trouvé"), 400);
     }
     /**
      * Search for station and create it if unknown
@@ -89,9 +90,19 @@ class Samplews
       }
     }
     /**
+     * Search for sample_type
+     */
+    if (empty ($dataSent["sample_type_name"])){
+      throw new SampleException(_("Le type d'échantillon n'a pas été fourni"), 400);
+    }
+    $dataSent["sample_type_id"] = $this->sampleType->getIdFromName($dataSent["sample_type_name"]);
+    if (empty($dataSent["sample_type_id"])) {
+      throw new SampleException(_("Le type d'échantillon est inconnu ou n'a pas été fourni"), 400);
+    }
+
+    /**
      * Search for country
      */
-    $country_origin_id = "";
     if (!empty($dataSent["country_code"])) {
       $dataSent["country_id"] = $this->country->getIdFromCode($dataSent["country_code"]);
       if (empty($dataSent["country_id"])) {
@@ -204,7 +215,11 @@ class Samplews
     /**
      * write
      */
+    try {
     $uid = $this->sample->ecrire($data);
+    } catch (ObjetBDDException $oe) {
+      throw new SampleException($oe->getMessage(), 520);
+    }
     /**
      * Write the secondary identifiers
      */

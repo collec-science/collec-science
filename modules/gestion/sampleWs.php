@@ -19,6 +19,7 @@ switch ($t_module["param"]) {
   $searchOrder = "";
     try {
       $dataSent = $_POST;
+      //$dataSent = $_GET;
       if (!empty($_POST["template"])) {
         /**
          * Format the data with the dataset template
@@ -39,7 +40,7 @@ switch ($t_module["param"]) {
       http_response_code(200);
     } catch (Exception $e) {
       $retour = array(
-        "error_code" => $error_code,
+        "error_code" => $e->getCode(),
         "error_message" => $errors[$error_code],
         "error_detail" => $e->getMessage()
       );

@@ -61,7 +61,7 @@ class SampleType extends ObjetBDD
                 "type" => 0
             ),
             "sample_type_description" => array(
-                "type"=>0
+                "type" => 0
             )
         );
         parent::__construct($bdd, $param);
@@ -117,8 +117,9 @@ class SampleType extends ObjetBDD
             return $data["metadata_schema"];
         }
     }
-    function getMetadataSearchable($sample_type_id) {
-        $data = json_decode($this->getMetadataForm($sample_type_id),true);
+    function getMetadataSearchable($sample_type_id)
+    {
+        $data = json_decode($this->getMetadataForm($sample_type_id), true);
         $val = array();
         foreach ($data as $value) {
             if ($value["isSearchable"] == "yes") {
@@ -128,12 +129,31 @@ class SampleType extends ObjetBDD
         return $val;
     }
 
-    function getIdentifierJs($sample_type_id) {
+    function getIdentifierJs($sample_type_id)
+    {
         if ($sample_type_id > 0) {
             $sql = "select identifier_generator_js from sample_type
                     where sample_type_id = :sample_type_id";
-            $data = $this->lireParamAsPrepared($sql, array("sample_type_id"=>$sample_type_id));
+            $data = $this->lireParamAsPrepared($sql, array("sample_type_id" => $sample_type_id));
             return $data["identifier_generator_js"];
+        }
+    }
+    /**
+     * Get the id of sample_type from its name
+     *
+     * @param string $name
+     * @return integer|null
+     */
+    function getIdFromName(string $name): ?int
+    {
+        if (!empty($name)) {
+            $sql = "select sample_type_id from sample_type where sample_type_name = :name";
+            $data = $this->lireParamAsPrepared($sql, array("name" => $name));
+        }
+        if (!empty($data["sample_type_id"])) {
+            return ($data["sample_type_id"]);
+        } else {
+            return (null);
         }
     }
 }

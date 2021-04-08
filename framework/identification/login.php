@@ -7,6 +7,7 @@
  */
 require_once 'framework/identification/loginGestion.class.php';
 $dataClass = new LoginGestion($bdd_gacl, $ObjetBDDParam);
+$dataClass->setKeys($privateKey, $pubKey);
 $id = $_REQUEST["id"];
 if (!$APPLI_passwordMinLength > 0) {
   $APPLI_passwordMinLength = 12;
@@ -20,12 +21,9 @@ switch ($t_module["param"]) {
     $vue->set("framework/ident/loginliste.tpl", "corps");
     break;
   case "change":
-    /*
-         * open the form to modify the record
-         * If is a new record, generate a new record with default value :
-         * $_REQUEST["idParent"] contains the identifiant of the parent record
-         */
-    $data = dataRead($dataClass, $id, "framework/ident/loginsaisie.tpl", 0);
+  try {
+    $data = $dataClass->lire($id);
+    $vue->set("framework/ident/loginsaisie.tpl", "corps");
     $vue->set($APPLI_passwordMinLength, "passwordMinLength");
     unset($data["password"]);
     /**
@@ -35,6 +33,10 @@ switch ($t_module["param"]) {
       $data["dbconnect_provisional_nb"] = $dataClass->getDbconnectProvisionalNb($data["login"]);
     }
     $vue->set($data, "data");
+  } catch (FrameworkException|Exception $e) {
+    $message->set($e->getMessage(), true);
+    $module_coderetour = -1;
+  }
     break;
   case "write":
     /*

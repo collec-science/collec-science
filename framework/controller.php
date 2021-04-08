@@ -5,6 +5,7 @@
  * Fichier modifie le 21 mars 2013 par Eric Quinton
  *
  */
+class FrameworkException extends Exception {}
 try {
   /**
    * Lecture des parametres

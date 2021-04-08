@@ -6,7 +6,7 @@
 	<gestiondroits action="framework/identification/gestiondroits.php" droits="admin" loginrequis="0" retourlogin="1" droitko="droitko" />
 
 	<loginList action="framework/identification/login.php" param="list" droits="admin" retourlogin="1" type="smarty" />
-	<loginChange action="framework/identification/login.php" param="change" droits="admin" type="smarty" />
+	<loginChange action="framework/identification/login.php" param="change" droits="admin" type="smarty" retourko="loginList" />
 	<loginWrite action="framework/identification/login.php" param="write" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange" />
 	<loginDelete action="framework/identification/login.php" param="delete" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange" />
 	<loginChangePassword action="framework/identification/login.php" param="changePassword" loginrequis="1" type="smarty" />

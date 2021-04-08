@@ -8,7 +8,9 @@ class Login
   function __construct($bdd, $param = array())
   {
     include_once "framework/identification/loginGestion.class.php";
+    global $privateKey, $pubKey;
     $this->loginGestion = new LoginGestion($bdd, $param);
+    $this->loginGestion->setKeys($privateKey, $pubKey);
     include_once "framework/droits/acllogin.class.php";
     $this->aclogin = new Acllogin($bdd, $param);
     global $log, $message;
@@ -25,9 +27,8 @@ class Login
      */
     if ($type_authentification == "ws") {
       $tauth = "swtoken";
-      $dataId = $this->loginGestion->getLoginFromTokenWS($_REQUEST["login"], $_REQUEST["token"]);
-      if (!empty($dataId["login"])) {
-        $login = $dataId["login"];
+      if( $this->loginGestion->getLoginFromTokenWS($_REQUEST["login"], $_REQUEST["token"])) {
+        $login = $_REQUEST["login"];
       }
     } elseif (isset($_COOKIE["tokenIdentity"])) {
       $tauth = "token";

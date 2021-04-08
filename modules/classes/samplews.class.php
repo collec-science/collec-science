@@ -51,6 +51,16 @@ class Samplews
       }
     }
     /**
+     * Default values
+     */
+    if (empty($dataSent["trashed"])) {
+      $dataSent["trashed"] = 0;
+    }
+    if (empty($dataSent["object_status_id"])) {
+      $dataSent["object_status_id"] = 1;
+    }
+
+    /**
      * metadata
      */
     empty($dataSent["metadata"]) ? $metadata = array() : $metadata = json_decode($dataSent["metadata"], true);

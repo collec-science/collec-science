@@ -655,8 +655,8 @@ class Sample extends ObjetBDD
       $this->colonnes["change_date"] = array("type" => 3);
       /*printr($this->sql);
       printr($where);
-      printA($data);
-      */
+      printA($data);*/
+
       $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
       /**
        * Destroy foreign fields used in the request

@@ -18,14 +18,16 @@ Consultez ce document pour créer l'utilisateur de l'API, générer un token et 
 
 >URL : index.php?module=apiv1sampleWrite
 
+L'API doit être appelée en mode http **POST**.
+
 ### Variables à fournir
 
 | Nom de la variable | Description  | obligatoire |
 |--|--| :---: |
 | login | Login du compte utilisé pour appeler l'API | X |
 | token | Jeton d'identification associé au login | X |
-| template_name | Nom du modèle de dataset pour formater les données au préalable. Dans ce cas, les colonnes suivantes peuvent être différentes (elles seront traduites par l'application du modèle de dataset | |
-| uid | UID de l'échantillon (si connu |  |
+| template_name | Nom du modèle de dataset pour formater les données au préalable. Dans ce cas, les colonnes suivantes peuvent être différentes (elles seront traduites par l'application du modèle de dataset) | |
+| uid | UID de l'échantillon (si connu) |  |
 | identifier | identifiant métier de l'échantillon | X |
 | uuid | Universal Identifier : identifiant universel de l'échantillon | |
 | sampling_type_name | Nom du type d'échantillon. Il doit correspondre à un type d'échantillon déjà existant | X |
@@ -52,7 +54,7 @@ Consultez ce document pour créer l'utilisateur de l'API, générer un token et 
 | parent_code | code de l'identifiant secondaire du parent, si connu | |
 
 
-{.table .table-bordered .table-hover}
+{.table .table-bordered .table-hover .datatable-nopaging }
 
 ### Ordre de recherche des échantillons
 

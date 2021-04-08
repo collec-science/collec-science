@@ -44,7 +44,7 @@ L'identification est gérée par un login et un token, à fournir lors de l'appe
 	   */
 	  curl_setopt($curl, CURLOPT_URL, $url);
 	  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	  //curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+
 	  if (!empty($certificate_path)){
 	    curl_setopt($curl, CURLOPT_SSLCERT, $certificate_path);
 	  }
@@ -110,7 +110,8 @@ Cet exemple est utilisé dans l'application *metabo*, et permet de créer un éc
 	          $data["wgs84_y"] = $dataSample["wgs84_y"];
 	          $data["token"] = $_SESSION["collec_token"];
 	          $data["login"] = $_SESSION["collec_login"];
-	          $result_json = apiCall("POST", $_SESSION["collec_sample_address"], "", $data, $APPLI_modeDeveloppement);
+	          $debugMode = true;
+	          $result_json = apiCall("POST", $_SESSION["collec_sample_address"], "", $data, $debugMode);
 	          $result = json_decode($result_json, true);
 	          if ($result["error_code"] != 200) {
 	            throw new SampleException(sprintf(_("L'erreur %1\$s a été générée lors du traitement de l'échantillon %3\$s : %2\$s"), $result["error_code"], $result["error_message"] . " " . $result["error_detail"], $sample_id));

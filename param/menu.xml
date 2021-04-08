@@ -96,8 +96,10 @@
     <item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr"/>
     <item module="default" label="Services web" tooltip="Description des services web" language="fr">
         <item module="swidentification_fr" label="identification" tooltip="Gérer l'identification dans les services web" language="fr"/>
+        <item module="swapi_fr" label="API web" tooltip="Utilisation des API web" language="fr"/>
         <item module="sampledisplay_fr" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="fr"/>
         <item module="documentget_fr" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr"/>
+        <item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr"/>
     </item>
 </item>
 <item module="documentation_en" label="documentation" tooltip="Documentations en ligne en anglais" language="en">

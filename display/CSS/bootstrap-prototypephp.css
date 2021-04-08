@@ -67,11 +67,14 @@ body {
 	font-size: small;
 	font-style: italic;
 }
+h1{
+	font-size:x-large;
+}
 h2 {
-	font-size:large;
+	font-size:x-large;
 }
 h3 {
-	font-size:medium;
+	font-size:large;
 }
 legend {
 	font-size:large;

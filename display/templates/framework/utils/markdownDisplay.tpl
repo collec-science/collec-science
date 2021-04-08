@@ -7,6 +7,11 @@
     var content = md.render(`{$markdownContent}`);
     var contentId = document.getElementById("content");
     contentId.innerHTML = content;
+    $( '.datatable-nopaging' ).DataTable( {
+			"language": dataTableLanguage,
+			"paging": false,
+			"searching": true
+		} );
    });
 </script>
 <div class="col-md-8 col-lg-6">

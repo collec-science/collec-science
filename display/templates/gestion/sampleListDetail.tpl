@@ -170,7 +170,13 @@
 											content += "<br><u>{t}Métadonnées :{/t}</u>";
 											dm = d.metadata;
 											for ( key in dm ) {
-												content += "<br>" + key + "{t} : {/t}";
+												dmunitname = "md_" + key + "_unit";
+												if (d[dmunitname]) {
+													mdunit = " ("+ encodeHtml(d[dmunitname]) + ")";
+												} else {
+													mdunit = "";
+												}
+												content += "<br>" + key + mdunit + "{t} : {/t}";
 												if ( Array.isArray( dm[ key ] ) ) {
 													$.each( dm[ key ], function ( i, md ) {
 														content += encodeHtml( md ) + " ";

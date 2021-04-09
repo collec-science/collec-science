@@ -1123,13 +1123,25 @@ class Sample extends ObjetBDD
     }
     $data = $this->lireParamAsPrepared($this->sql . $where, array("uid" => $uid));
     /**
-     * Disable the metadata_schema, irrelevant in this context
+     * Purge the metadata_schema to keep the type and the unit
      */
+    $metadata_schema = json_decode($data["metadata_schema"], true);
+
     unset($data["metadata_schema"]);
     /**
      * Encode in array the metadata content
      */
     $data["metadata"] = json_decode($data["metadata"], true);
+    foreach ($data["metadata"] as $k => $v) {
+      foreach ($metadata_schema as $schema) {
+        if ($schema["name"] == $k ) {
+          if ($schema["type"] == "number") {
+            $data["md_".$schema["name"]."_unit"] = $schema["measureUnit"];
+          }
+          break;
+        }
+      }
+    }
     /**
      * Get the events
      */

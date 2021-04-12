@@ -4,7 +4,7 @@
       var columnName = $( "#column_name" ).val();
       var disabled = true;
       var required = false;
-      if ( columnName == "metadata" || columnName == "identifiers" || columnName == "parent_identifiers" ) {
+      if ( columnName == "metadata" || columnName == "identifiers" || columnName == "parent_identifiers" || columnName == "metadata_unit") {
         disabled = false;
         required = true;
       }
@@ -23,8 +23,12 @@
     } );
     $("#subfield_name").change(function() {
       var exportName = $("#export_name").val();
-      if (exportName.length == 0 || exportName == "metadata" || exportName == "identifiers" || exportName == "parent_identifiers") {
+      if (exportName == "metadata" || exportName == "identifiers" || exportName == "parent_identifiers") {
         $("#export_name").val($("#subfield_name").val());
+      } else {
+        if (exportName == "metadata_unit") {
+          $("#export_name").val($("#subfield_name").val() + "_unit");
+        }
       }
     })
     /**

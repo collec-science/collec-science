@@ -619,7 +619,7 @@
 				<div class="form-group ">
 					<label for="collection_id_change" class="control-label col-sm-4">{t}Nouvelle collection :{/t}</label>
 					<div class="col-sm-8">
-						<select id="collection_id_change" name="collection_id" class="form-control">
+						<select id="collection_id_change" name="collection_id_change" class="form-control">
 							<option value="" selected>{t}Choisissez...{/t}</option>
 							{section name=lst loop=$collections}
 							<option value="{$collections[lst].collection_id}">

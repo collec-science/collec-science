@@ -181,6 +181,7 @@ class DatasetTemplate extends ObjetBDD
        */
       foreach ($dbdata as $dbrow) {
         $row = array();
+        $metadata_schema = json_decode($dbrow["metadata_schema"], true);
         /**
          * Treatment of each column
          */
@@ -201,6 +202,13 @@ class DatasetTemplate extends ObjetBDD
                 }
               } else {
                 $value = $md[$col["subfield_name"]];
+              }
+            } elseif ($col["column_name"] == "metadata_unit") {
+              foreach ($metadata_schema as $ms) {
+                if ($ms["name"] == $col["subfield_name"]) {
+                  $value = $ms["measureUnit"];
+                  break;
+                }
               }
             } elseif ($col["column_name"] == "identifiers" || $col["column_name"] == "parent_identifiers") {
               /**
@@ -248,7 +256,12 @@ class DatasetTemplate extends ObjetBDD
             }
           }
           if ($col["mandatory"] == 1 && empty($value)) {
-            throw new DatasetTemplateException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $col["column_name"], $dbrow["uid"]));
+            if ($col["column_name"] == "metadata" || $col["column_name"] == "metadata_unit") {
+              $subfield = $col["subfield_name"];
+            } else {
+              $subfield = "";
+            }
+            throw new DatasetTemplateException(sprintf(_("Le champ %1\$s %3\$s est obligatoire, mais est vide pour l'échantillon %2\$s"), $col["column_name"], $dbrow["uid"], $subfield));
           }
           $row[$col["export_name"]] = $value;
         }
@@ -367,13 +380,13 @@ class DatasetTemplate extends ObjetBDD
     }
     return $so;
   }
-/**
- * Format data for import, with the dataset_template
- *
- * @param integer $dataset_template_id
- * @param [type] $dataset
- * @return array
- */
+  /**
+   * Format data for import, with the dataset_template
+   *
+   * @param integer $dataset_template_id
+   * @param [type] $dataset
+   * @return array
+   */
   function formatDataForImport(int $dataset_template_id, $dataset): array
   {
     $data = array();

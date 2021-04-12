@@ -728,11 +728,11 @@ switch ($t_module["param"]) {
       if (count($_POST["uids"]) == 0) {
         throw new ObjectException(_("Pas d'échantillons sélectionnés"));
       }
-      if (empty($_POST["collection_id"])) {
+      if (empty($_POST["collection_id_change"])) {
         throw new ObjectException(_("Pas de collection sélectionnée"));
       }
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-      $dataClass->setCollection($_POST["uids"], $_POST["collection_id"]);
+      $dataClass->setCollection($_POST["uids"], $_POST["collection_id_change"]);
       $module_coderetour = 1;
     } catch (ObjectException $oe) {
       $message->setSyslog($oe->getMessage());

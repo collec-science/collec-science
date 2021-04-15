@@ -1,20 +1,19 @@
 <?php
-
 /**
  * Created : 5 sept. 2017
  * Creator : quinton
  * Encoding : UTF-8
  * Copyright 2017 - All rights reserved
  */
-class ImportException extends Exception
+class ImportException extends \Exception
 {
 }
 
 /**
  * Classe de gestion des imports csv
- * 
+ *
  * @author quinton
- *        
+ *
  */
 class Import
 {
@@ -31,7 +30,7 @@ class Import
 
     /**
      * Constructeur
-     * 
+     *
      * @param string  $filename
      * @param string  $separator
      * @param boolean $utf_encode
@@ -44,11 +43,11 @@ class Import
     /**
      * Fonction d'initialisation du fichier
      * recupere la premiere ligne pour lire l'entete
-     * 
+     *
      * @param string  $filename
      * @param string  $separator
      * @param boolean $utf8_encode
-     * 
+     *
      * @throws ImportException
      */
     function initFile($filename, $separator = ",", $utf8_encode = false, $fields = array())
@@ -70,7 +69,7 @@ class Import
                 if (in_array($data[$range], $fields) || substr($data[$range], 0, 3) == "md_") {
                     $this->header[$range] = $data[$range] ;
                 } else {
-                    throw new ImportException(sprintf(_("L'entête de colonne %1\$s n'est pas reconnue (%2\$s)"),$range,$data[$range]));
+                    throw new ImportException(sprintf(_("L'entête de colonne %1\$s n'est pas reconnue (%2\$s)"),$range + 1,$data[$range]));
                 }
             }
         } else {
@@ -100,7 +99,7 @@ class Import
 
     /**
      * lit le fichier csv, et le retourne sous forme de tableau associatif
-     * 
+     *
      * @return mixed[][]
      */
     function getContentAsArray()
@@ -127,4 +126,3 @@ class Import
         }
     }
 }
-?>

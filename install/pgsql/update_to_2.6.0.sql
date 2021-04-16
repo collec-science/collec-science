@@ -40,3 +40,9 @@ COMMENT ON COLUMN col.dataset_column.search_order IS E'To search a sample, order
 update col.dataset_type 
 set fields = '["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed"]'
 where dataset_type_id = 1;
+
+
+/**
+ * end of script
+ */
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'2.6', E'2021-04-16');

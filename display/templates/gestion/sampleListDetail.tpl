@@ -484,8 +484,7 @@
 					</div>
 				</div>
 				<div class="form-group ">
-					<label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Type d'évenement
-						:{/t}</label>
+					<label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Type d'événement :{/t}</label>
 					<div class="col-md-8">
 						<select id="event_type_id" name="event_type_id" class="form-control">
 							{section name=lst loop=$eventType}
@@ -520,8 +519,7 @@
 					</div>
 				</div>
 				<div class="form-group ">
-					<label for="borrowing_date" class="control-label col-md-4"><span class="red">*</span>{t}Date d'emprunt
-						:{/t}</label>
+					<label for="borrowing_date" class="control-label col-md-4"><span class="red">*</span>{t}Date d'emprunt :{/t}</label>
 					<div class="col-md-8">
 						<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}" class="form-control datepicker">
 					</div>
@@ -549,8 +547,7 @@
 			<!-- create an entry movement -->
 			<div class="entry" hidden>
 				<div class="form-group ">
-					<label for="container_uid" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant
-						:{/t}</label>
+					<label for="container_uid" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
 					<div class="col-md-8">
 						<input id="container_uid" name="container_uid" value="" type="number" class="form-control">
 					</div>

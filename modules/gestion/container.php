@@ -532,7 +532,7 @@ switch ($t_module["param"]) {
       $message->set(_("Opération effectuée"));
     } catch (ObjectException $oe) {
       $message->setSyslog($oe->getMessage());
-      $message->set(_("Une erreur est survenue pendant l'assignation du référent'"), true);
+      $message->set(_("Une erreur est survenue pendant l'assignation du référent"), true);
       $message->set($oe->getMessage());
       $module_coderetour = -1;
       $bdd->rollback();

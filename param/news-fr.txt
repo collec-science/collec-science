@@ -1,5 +1,33 @@
 News
 ===========
+Version 2.6.0a du 16 avril 2021
+-------------------------------
+Nouveautés :
+- il est maintenant possible de rechercher les échantillons qui ont été réservés pendant une période
+- il est possible d'affecter un référent à une liste de contenants
+- en import de masse, il est possible d'utiliser le nom des paramètres à la place de leur valeur (p. e., sample_type_name à la place de sample_type_id)
+- dans la liste des échantillons, en survol d'un échantillon, le reste disponible est affiché. Il est possible de rechercher des échantillons en fonction de la quantité disponible (sous-échantillonnage)
+- dans la liste des échantillons, il est maintenant possible de choisir la liste des colonnes à afficher
+- il est possible de modifier en masse le statut des échantillons
+- les échantillons peuvent être recherchés par type d'événement rencontré
+- dans la liste des mouvements, le commentaire est maintenant affiché, ainsi que le lien vers l'échantillon concerné
+- de la documentation est maintenant disponible en ligne
+- il est maintenant possible d'indiquer le pays d'origine, en sus du pays de collecte (information utile dans le cadre de la réglementation APA)
+- lors de l'affichage des métadonnées, l'unité est maintenant affichée pour les types numériques
+- une API web de création/mise à jour est maintenant disponible (prototype)
+- l'identification des utilisateurs peut être complétée par une double identification (TOTP)
+
+Corrections de bugs :
+- modifications de messages d'erreur
+- la suppression d'une liste de contenants n'entraîne plus d'erreur si aucun contenant n'est sélectionné
+- restructuration de l'écran d'affichage des réglementations : certaines informations n'étaient pas visibles
+- correction des droits pour la modification des collections
+- le prénom du référent n'était pas affiché partout
+- ajout d'un message d'erreur en importation, si la lecture des métadonnées n'aboutit pas
+- ajout d'un message d'erreur si la suppression d'un statut n'aboutit pas
+- depuis le détail d'un échantillon, il n'était pas possible de supprimer un échantillon dérivé depuis la liste
+- lors de l'importation d'une liste de stations, en cas d'erreur sur un nom de colonne, une erreur indéterminée était affichée au lieu du nom de la colonne en erreur
+
 Version 2.5.0 du 13 novembre 2020
 ---------------------------------
 Nouveautés :

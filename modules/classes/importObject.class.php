@@ -321,6 +321,9 @@ class ImportObject
         if (!empty($values["country_code"])) {
           $dataSample["country_id"] = $this->country->getIdFromCode($values["country_code"]);
         }
+        if (!empty($values["country_origin_code"])) {
+          $dataSample["country_origin_id"] = $this->country->getIdFromCode($values["country_origin_code"]);
+        }
         /**
          * Traitement des dates - mise au format de base de donnees avant importation
          */
@@ -557,10 +560,10 @@ class ImportObject
     /**
      * Search for the code of the country
      */
-    if (!empty($data["country_code"])) {
+    if (!empty($values["country_code"])) {
       $values["country_id"] = $this->country->getIdFromCode($values["country_code"]);
     }
-    if (!empty($data["country_origin_code"])) {
+    if (!empty($values["country_origin_code"])) {
       $values["country_origin_id"] = $this->country->getIdFromCode($values["country_origin_code"]);
     }
     /**

@@ -17,11 +17,38 @@
 				{
 					extend: 'colvis'
 				},
-				'copyHtml5',
-				'excelHtml5',
-				'csvHtml5',
-				'pdfHtml5',
-				'print'
+				{
+					extend: 'csv',
+					text: 'csv',
+					filename: 'samples',
+					exportOptions: {
+						columns: [1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17]
+					},
+					customize: function (csv) {
+						var split_csv = csv.split("\n");
+						//set headers
+						split_csv[0] = '"uid","identifier","other_identifiers","collection","type","status","parent","last_movement","place","referent","campaign","sampling_place","sampling_date","creation_date","expiration_date","available_quantity"';
+						csv = split_csv.join("\n");
+            return csv;
+					}
+				},
+				{
+					extend: 'copy',
+					text: '{t}Copier{/t}',
+					exportOptions: {
+						columns: [1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17]
+					},
+					customize: function (csv) {
+						var split_csv = csv.split("\n");
+						//set headers
+						split_csv[3] = 'uid\tidentifier\tother_identifiers\tcollection\ttype\tstatus\tparent\tlast_movement\tplace\treferent\tcampaign\tsampling_place\tsampling_date\tcreation_date\texpiration_date\tavailable_quantity';
+						split_csv.shift();
+						split_csv.shift();
+						split_csv.shift();
+						csv = split_csv.join("\n");
+            return csv;
+					}
+				}
 			]
 		} );
 		$( ".checkSampleSelect" ).change( function () {
@@ -223,7 +250,7 @@
 			var title = $( this ).text();
 			var size = title.trim().length;
 			if ( size > 0 ) {
-				$( this ).html( '<input type="text" placeholder="' + title + '" size="' + size + '" class="searchInput">' );
+				$( this ).html( '<input type="text" placeholder="' + title + '" size="' + size + '" class="searchInput" title="'+title+'">' );
 			}
 		} );
 		table.columns().every( function () {
@@ -341,7 +368,7 @@
 		</div>
 	</div>
 	{/if}
-	<table id="sampleList" class="table table-bordered table-hover ">
+	<table id="sampleList" class="table table-bordered table-hover " title="{t}Liste des échantillons{/t}">
 		<thead>
 			<tr>{if $droits.gestion == 1}
 				<th class="center">
@@ -365,7 +392,6 @@
 				<th>{t}Date de création dans la base{/t}</th>
 				<th>{t}Date d'expiration{/t}</th>
 				<th>{t}Quantité restante{/t}</th>
-
 			</tr>
 		</thead>
 		<tbody>

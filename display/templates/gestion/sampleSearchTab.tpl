@@ -185,10 +185,10 @@
           getSamplingPlace();
 
      $("#razid").on ("click keyup", function () {
+         metadataFieldInitial = [];
         $("#object_status_id").prop("selectedIndex", 1).change();
         $("#collection_id").prop("selectedIndex", 0).change();
         $("#referent_id").prop("selectedIndex", 0).change();
-        //$("#sample_type_id").combobox("select", "{t}Choisissez...{/t}").change();
         $("#sample_type_id").prop("selectedIndex", 0).change();
         sampling_place_init = "";
         $("#sampling_place_id").combobox("select", "{t}Choisissez...{/t}").change();

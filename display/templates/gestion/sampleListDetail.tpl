@@ -15,7 +15,8 @@
 			],
 			"buttons": [
 				{
-					extend: 'colvis'
+					extend: 'colvis',
+					text: '{t}Colonnes affichées{/t}'
 				},
 				{
 					extend: 'csv',

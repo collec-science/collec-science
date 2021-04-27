@@ -3,7 +3,7 @@
 	<dbstructureGacl action="framework/utils/structure.php" param="gacl" retourlogin="1" type="smarty" droits="admin" schemas="gacl" maxCountByHour="60" maxCountByDay="600" />
 	<dbstructureLatex action="framework/utils/structure.php" param="latex" retourlogin="1" type="file" droits="collection" schemas="collec,gacl" maxCountByHour="60" maxCountByDay="600" />
 	<dbstructureSchema action="framework/utils/structure.php" param="schema" realfilename="documentation/collec_schema.png" generatedfilename="collec-science-database.png" retourlogin="1" type="binaire" droits="collection" maxCountByHour="60" maxCountByDay="600" />
-
+    <default action="modules/default.php" type="smarty"></default>
 	<!-- Modules specifiques de l'application -->
 	<lexique action="doc/lexique.php" retourlogin="1" type="smarty" />
 	<parametre droits="consult" type="smarty" />

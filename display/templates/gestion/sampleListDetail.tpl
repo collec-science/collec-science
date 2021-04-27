@@ -9,7 +9,7 @@
 			"stateSave": true,
 			"columnDefs" : [
 				{
-				"targets": [11,12,13,14,15,16,17],
+				"targets": [11,12,13,14,15,16,17,18],
 				"visible": false
 				}
 			],
@@ -393,6 +393,7 @@
 				<th>{t}Date de création dans la base{/t}</th>
 				<th>{t}Date d'expiration{/t}</th>
 				<th>{t}Quantité restante{/t}</th>
+				<th>{t}Métadonnées{/t}</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -462,7 +463,21 @@
 				<td class="nowrap">{$samples[lst].sample_creation_date}</td>
 				<td class="nowrap">{$samples[lst].expiration_date}</td>
 				<td>{$samples[lst].subsample_quantity}</td>
-
+				<td>
+					{$l = 0}
+					{foreach $samples[lst].metadata_array as $k => $v}
+						{if $l > 0}<br>{/if}
+						{$l = $l+1}
+						{$k}:
+						{if is_array($v)}
+							{foreach $v as $val}
+								{$val}&nbsp;
+							{/foreach}
+						{else}
+							{$v}
+						{/if}
+					{/foreach}
+				</td>
 			</tr>
 			{/section}
 		</tbody>

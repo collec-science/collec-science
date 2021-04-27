@@ -72,6 +72,14 @@ switch ($t_module["param"]) {
     if ($_SESSION["searchSample"]->isSearch() == 1) {
       try {
         $data = $dataClass->sampleSearch($dataSearch);
+        /**
+         * explode metadata
+         */
+        foreach ($data as $k => $v) {
+          if (!empty($v["metadata"]) && $dataClass->verifyCollection($v)) {
+            $data[$k]["metadata_array"] = json_decode($v["metadata"], true);
+          }
+        }
         $vue->set($data, "samples");
         $vue->set(1, "isSearch");
       } catch (Exception $e) {
@@ -333,7 +341,7 @@ switch ($t_module["param"]) {
         $message->set(_("La suppression des échantillons a échoué"), true);
         $message->set($e->getMessage());
         $bdd->rollback();
-        $module_coderetour =-1;
+        $module_coderetour = -1;
       }
     } else {
       $message->set(_("Pas d'échantillons sélectionnés"), true);
@@ -574,8 +582,8 @@ switch ($t_module["param"]) {
           $import->fileClose();
 
           /**
-                     * Verification si l'import peut etre realise
-                     */
+           * Verification si l'import peut etre realise
+           */
           $line = 1;
           foreach ($data as $row) {
             if (count($row) > 0) {
@@ -660,7 +668,7 @@ switch ($t_module["param"]) {
       /**
        * purge the technical fields
        */
-      $fields = array ("sample_id", "sample_type_id", "campaign_id", "parent_sample_id", "multiple_type_id", "multiple_type_name", "country_id", "object_status_id", "operation_id", "operation_order", "document_id", "movement_type_id", "sampling_place_id","real_referent_id","borrower_id", "country_origin_id");
+      $fields = array("sample_id", "sample_type_id", "campaign_id", "parent_sample_id", "multiple_type_id", "multiple_type_name", "country_id", "object_status_id", "operation_id", "operation_order", "document_id", "movement_type_id", "sampling_place_id", "real_referent_id", "borrower_id", "country_origin_id");
       foreach ($fields as $field) {
         unset($data[$field]);
       }

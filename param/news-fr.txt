@@ -1,5 +1,16 @@
 News
 ===========
+Version 2.6.0b du 29 avril 2021
+-------------------------------
+Nouveautés :
+- les métadonnées sont maintenant affichées dans la liste des échantillons
+
+Corrections de bugs :
+- le bouton RAZ, dans la fenêtre de recherche des échantillons, ne réinitialisait pas correctement les métadonnées
+- le bouton d'export en CSV des données, depuis le tableau, n'affichait pas correctement le nom des colonnes
+- le tableau récapitulant le nombre d'échantillons par collection n'était plus affiché
+- en import de masse, le code pays n'était pas pris en compte
+
 Version 2.6.0a du 16 avril 2021
 -------------------------------
 Nouveautés :

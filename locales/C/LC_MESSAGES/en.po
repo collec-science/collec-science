@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-16 16:10+0200\n"
+"POT-Creation-Date: 2021-04-29 12:04+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -43,6 +43,7 @@ msgstr "Samples"
 
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:9 ../../../display/templates/main.tpl:13
+#: ../../../display/templates/gestion/sampleListDetail.tpl:372
 msgid "Liste des échantillons"
 msgstr "List of samples"
 
@@ -344,6 +345,7 @@ msgstr "Subsampling types"
 
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:55
+#: ../../../display/templates/gestion/sampleListDetail.tpl:396
 msgid "Métadonnées"
 msgstr "Metadata"
 
@@ -427,7 +429,7 @@ msgstr "List of borrowers"
 
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:65
-#: ../../../display/templates/gestion/sampleListDetail.tpl:322
+#: ../../../display/templates/gestion/sampleListDetail.tpl:350
 #: ../../../display/templates/gestion/containerListDetail.tpl:263
 #: ../../../display/templates/gestion/sampleDisplay.tpl:290
 msgid "Étiquettes"
@@ -839,8 +841,8 @@ msgid "Labels in English"
 msgstr "Labels in English"
 
 #: ../../../param/param.default.inc.php:11
-msgid "16/04/2021"
-msgstr "2021-04-16"
+msgid "29/04/2021"
+msgstr "2021-04-29"
 
 #: ../../../modules/param/metadata.php:92
 msgid "Métadonnée(s) importée(s)"
@@ -963,7 +965,7 @@ msgstr "Column %1$s is not recognized (%2$s)"
 msgid "Le fichier %s n'a pas été trouvé ou n'est pas lisible"
 msgstr "File %s not found or not readable"
 
-#: ../../../modules/classes/importObject.class.php:342
+#: ../../../modules/classes/importObject.class.php:345
 #, php-format
 msgid ""
 "Ligne %s : le décodage du champ JSON sample_metadata_json n'a pas abouti"
@@ -971,85 +973,85 @@ msgstr ""
 "Line %s : the decoding of the JSON field sample_metadata_json was not "
 "successful"
 
-#: ../../../modules/classes/importObject.class.php:354
+#: ../../../modules/classes/importObject.class.php:357
 #, php-format
 msgid "Ligne %1s : le décodage du champ JSON %2s n'a pas abouti"
 msgstr "Line %1s: the decoding of the JSON field %2s was not successful"
 
-#: ../../../modules/classes/importObject.class.php:708
+#: ../../../modules/classes/importObject.class.php:711
 msgid "Le numéro de la collection indiqué n'est pas reconnu ou autorisé."
 msgstr "The number of the specified collection is not recognized or allowed."
 
-#: ../../../modules/classes/importObject.class.php:722
+#: ../../../modules/classes/importObject.class.php:725
 msgid "Le type d'échantillon n'est pas connu."
 msgstr "The type of sample is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:738
+#: ../../../modules/classes/importObject.class.php:741
 msgid "Le statut de l'échantillon n'est pas connu."
 msgstr "The status of the sample is is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:754
+#: ../../../modules/classes/importObject.class.php:757
 msgid "L'emplacement de collecte de l'échantillon n'est pas connu."
 msgstr "The sample collection location is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:762
-#: ../../../modules/classes/importObject.class.php:766
+#: ../../../modules/classes/importObject.class.php:765
+#: ../../../modules/classes/importObject.class.php:769
 msgid "Le code pays est inconnu."
 msgstr "The country code is unknown."
 
-#: ../../../modules/classes/importObject.class.php:781
+#: ../../../modules/classes/importObject.class.php:784
 msgid "Le référent de l'échantillon n'est pas connu."
 msgstr "The referent of sample is unknown."
 
-#: ../../../modules/classes/importObject.class.php:796
+#: ../../../modules/classes/importObject.class.php:799
 msgid "La campagne de prélèvement de l'échantillon n'est pas connue."
 msgstr "The sampling campaign is not known."
 
-#: ../../../modules/classes/importObject.class.php:841
+#: ../../../modules/classes/importObject.class.php:844
 #, php-format
 msgid "Le format de date de %s n'est pas reconnu."
 msgstr "The date format of %s is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:857
+#: ../../../modules/classes/importObject.class.php:860
 msgid "Les métadonnées n'ont pas pu être décodées (champ sample_metadata_json)"
 msgstr "Metadata can't be decoded (sample_metadata_json field)"
 
-#: ../../../modules/classes/importObject.class.php:865
+#: ../../../modules/classes/importObject.class.php:868
 msgid ""
 "Les métadonnées ne sont pas correctement formatées (champ "
 "sample_metadata_json)"
 msgstr "Metadata is not formatted correctly (sample_metadata_json field)"
 
-#: ../../../modules/classes/importObject.class.php:873
+#: ../../../modules/classes/importObject.class.php:876
 #, php-format
 msgid ""
 "Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "
 msgstr "The metadata do not match the sample type (%s unknown). "
 
-#: ../../../modules/classes/importObject.class.php:883
+#: ../../../modules/classes/importObject.class.php:886
 #, php-format
 msgid "L'échantillon parent défini n'existe pas (%s)"
 msgstr "The defined parent sample does not exist (%s)"
 
-#: ../../../modules/classes/importObject.class.php:904
+#: ../../../modules/classes/importObject.class.php:907
 msgid "Le type de contenant n'est pas connu."
 msgstr "The container type is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:919
+#: ../../../modules/classes/importObject.class.php:922
 msgid "Le statut du contenant n'est pas connu."
 msgstr "The container's status is not recognized."
 
-#: ../../../modules/classes/importObject.class.php:930
+#: ../../../modules/classes/importObject.class.php:933
 #, php-format
 msgid "L'UID du contenant parent (%s) n'existe pas. "
 msgstr "The UID of the parent container (%s) does not exist. "
 
-#: ../../../modules/classes/importObject.class.php:941
+#: ../../../modules/classes/importObject.class.php:944
 #, php-format
 msgid "Le champ %s n'est pas numérique."
 msgstr "The field %s is not numeric."
 
-#: ../../../modules/classes/importObject.class.php:950
+#: ../../../modules/classes/importObject.class.php:953
 msgid ""
 "Aucun échantillon ou contenant n'est décrit (pas d'identifiant pour l'un ou "
 "pour l'autre)."
@@ -1235,7 +1237,7 @@ msgstr "Unable to read the model to duplicate"
 
 #: ../../../modules/gestion/import.php:79
 #: ../../../modules/gestion/container.php:314
-#: ../../../modules/gestion/sample.php:621
+#: ../../../modules/gestion/sample.php:629
 msgid "Impossible de recopier le fichier importé dans le dossier temporaire"
 msgstr "Can not copy the imported file to the temporary folder"
 
@@ -1315,7 +1317,7 @@ msgstr "Operation on the recycle bin impossible to execute"
 
 #: ../../../modules/gestion/borrowing.php:49
 #: ../../../modules/gestion/container.php:391
-#: ../../../modules/gestion/sample.php:445
+#: ../../../modules/gestion/sample.php:453
 msgid "Objet prêté"
 msgstr "Object loaned"
 
@@ -1324,7 +1326,7 @@ msgid "Problème rencontré lors de l'enregistrement du prêt"
 msgstr "Problem occurred during the registration of the loan"
 
 #: ../../../modules/gestion/container.php:222
-#: ../../../modules/gestion/sample.php:331 ../../../framework/fonctions.php:131
+#: ../../../modules/gestion/sample.php:339 ../../../framework/fonctions.php:131
 msgid "Suppression effectuée"
 msgstr "Deletion done"
 
@@ -1349,47 +1351,47 @@ msgid "Import effectué. %s objets traités"
 msgstr "Import done. %s objects treated"
 
 #: ../../../modules/gestion/container.php:394
-#: ../../../modules/gestion/sample.php:448
+#: ../../../modules/gestion/sample.php:456
 msgid "Opération de prêt enregistrée"
 msgstr "Recorded loan transaction"
 
 #: ../../../modules/gestion/container.php:397
 #: ../../../modules/gestion/container.php:423
-#: ../../../modules/gestion/sample.php:451
-#: ../../../modules/gestion/sample.php:477
+#: ../../../modules/gestion/sample.php:459
+#: ../../../modules/gestion/sample.php:485
 msgid "Erreur lors de la génération du mouvement de sortie"
 msgstr "Error while generating the exit movement"
 
 #: ../../../modules/gestion/container.php:401
-#: ../../../modules/gestion/sample.php:455
+#: ../../../modules/gestion/sample.php:463
 msgid "Un problème est survenu lors de l'enregistrement du prêt"
 msgstr "A problem occurred during the registration of the loan"
 
 #: ../../../modules/gestion/container.php:427
 #: ../../../modules/gestion/container.php:455
-#: ../../../modules/gestion/sample.php:481
-#: ../../../modules/gestion/sample.php:509
+#: ../../../modules/gestion/sample.php:489
+#: ../../../modules/gestion/sample.php:517
 msgid "Un problème est survenu lors de la génération des mouvements"
 msgstr "Error while generating movements"
 
 #: ../../../modules/gestion/container.php:444
-#: ../../../modules/gestion/sample.php:498
+#: ../../../modules/gestion/sample.php:506
 #, php-format
 msgid "L'objet %s ne peut être stocké dans lui-même"
 msgstr "The object %s can't be stored in itself"
 
 #: ../../../modules/gestion/container.php:451
-#: ../../../modules/gestion/sample.php:505
+#: ../../../modules/gestion/sample.php:513
 msgid "Erreur lors de la génération du mouvement d'entrée"
 msgstr "Error while generating the entry movement"
 
 #: ../../../modules/gestion/container.php:503
-#: ../../../modules/gestion/sample.php:769
+#: ../../../modules/gestion/sample.php:777
 msgid "Pas de statut sélectionné"
 msgstr "No selected status"
 
 #: ../../../modules/gestion/container.php:511
-#: ../../../modules/gestion/sample.php:777
+#: ../../../modules/gestion/sample.php:785
 msgid "Une erreur est survenue pendant la mise à jour du statut"
 msgstr "An error occurred while status updated"
 
@@ -1405,7 +1407,7 @@ msgstr "Done"
 msgid "Une erreur est survenue pendant l'assignation du référent"
 msgstr "An error occurred during the referent assignation"
 
-#: ../../../modules/gestion/sample.php:78
+#: ../../../modules/gestion/sample.php:86
 msgid ""
 "Un problème est survenu lors de l'exécution de la requête. Contactez votre "
 "administrateur pour obtenir un diagnostic"
@@ -1413,71 +1415,71 @@ msgstr ""
 "There was a problem running the query. Contact your administrator for a "
 "diagnosis"
 
-#: ../../../modules/gestion/sample.php:215
+#: ../../../modules/gestion/sample.php:223
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"
 msgstr "You do not have the necessary rights to modify this sample"
 
-#: ../../../modules/gestion/sample.php:333
+#: ../../../modules/gestion/sample.php:341
 msgid "La suppression des échantillons a échoué"
 msgstr "Deletion of samples failed"
 
-#: ../../../modules/gestion/sample.php:339
-#: ../../../modules/gestion/sample.php:711
-#: ../../../modules/gestion/sample.php:729
-#: ../../../modules/gestion/sample.php:747
-#: ../../../modules/gestion/sample.php:766
+#: ../../../modules/gestion/sample.php:347
+#: ../../../modules/gestion/sample.php:719
+#: ../../../modules/gestion/sample.php:737
+#: ../../../modules/gestion/sample.php:755
+#: ../../../modules/gestion/sample.php:774
 msgid "Pas d'échantillons sélectionnés"
 msgstr "No selected samples"
 
-#: ../../../modules/gestion/sample.php:357
+#: ../../../modules/gestion/sample.php:365
 msgid "Affectation effectuée"
 msgstr "Assignment performed"
 
-#: ../../../modules/gestion/sample.php:364
-#: ../../../modules/gestion/sample.php:406
+#: ../../../modules/gestion/sample.php:372
+#: ../../../modules/gestion/sample.php:414
 msgid "Erreur d'écriture dans la base de données"
 msgstr "Error writing to the database"
 
-#: ../../../modules/gestion/sample.php:370
+#: ../../../modules/gestion/sample.php:378
 msgid "L'affectation des référents aux échantillons a échoué"
 msgstr "Assigning referents to samples failed"
 
-#: ../../../modules/gestion/sample.php:399
+#: ../../../modules/gestion/sample.php:407
 msgid "Création des événements effectuée"
 msgstr "Creating events performed"
 
-#: ../../../modules/gestion/sample.php:412
+#: ../../../modules/gestion/sample.php:420
 msgid "La création des événements a échoué"
 msgstr "Event creation failed"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s
-#: ../../../modules/gestion/sample.php:586
+#: ../../../modules/gestion/sample.php:594
 #, php-format
 msgid "Ligne %1$s : %2$s"
 msgstr "Row %1$s: %2$s"
 
-#: ../../../modules/gestion/sample.php:714
+#: ../../../modules/gestion/sample.php:722
 msgid "Pas de pays sélectionné"
 msgstr "No selected country"
 
-#: ../../../modules/gestion/sample.php:721
+#: ../../../modules/gestion/sample.php:729
 msgid "Une erreur est survenue pendant la mise à jour du pays"
 msgstr "Error while updating the country"
 
-#: ../../../modules/gestion/sample.php:732
+#: ../../../modules/gestion/sample.php:740
 msgid "Pas de collection sélectionnée"
 msgstr "No selected collection"
 
-#: ../../../modules/gestion/sample.php:739
+#: ../../../modules/gestion/sample.php:747
 msgid "Une erreur est survenue pendant la mise à jour de la collection"
 msgstr "Error while updating the collection"
 
-#: ../../../modules/gestion/sample.php:750
+#: ../../../modules/gestion/sample.php:758
 msgid "Pas de campagne sélectionnée"
 msgstr "No selected campaign"
 
-#: ../../../modules/gestion/sample.php:758
+#: ../../../modules/gestion/sample.php:766
 msgid "Une erreur est survenue pendant la mise à jour de la campagne"
 msgstr "Error while updating the campaign"
 
@@ -2173,7 +2175,7 @@ msgid "Responsable ou référent de la campagne :"
 msgstr "Responsible of referent of the campaign:"
 
 #: ../../../display/templates/param/campaignChange.tpl:22
-#: ../../../display/templates/gestion/sampleListDetail.tpl:452
+#: ../../../display/templates/gestion/sampleListDetail.tpl:494
 #: ../../../display/templates/gestion/containerListDetail.tpl:370
 msgid "Choisissez"
 msgstr "Select"
@@ -2357,7 +2359,7 @@ msgstr "Borrowed object"
 #: ../../../display/templates/param/borrowerDisplay.tpl:45
 #: ../../../display/templates/param/metadataDisplay.tpl:21
 #: ../../../display/templates/gestion/objectIdentifierList.tpl:11
-#: ../../../display/templates/gestion/sampleListDetail.tpl:355
+#: ../../../display/templates/gestion/sampleListDetail.tpl:383
 #: ../../../display/templates/gestion/objectMovementList.tpl:7
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:52
 #: ../../../display/templates/gestion/containerListDetail.tpl:292
@@ -2657,11 +2659,11 @@ msgstr ""
 #: ../../../display/templates/gestion/movementChange.tpl:13
 #: ../../../display/templates/gestion/movementChange.tpl:133
 #: ../../../display/templates/gestion/movementChange.tpl:188
-#: ../../../display/templates/gestion/sampleListDetail.tpl:250
-#: ../../../display/templates/gestion/sampleListDetail.tpl:604
-#: ../../../display/templates/gestion/sampleListDetail.tpl:620
-#: ../../../display/templates/gestion/sampleListDetail.tpl:636
-#: ../../../display/templates/gestion/sampleListDetail.tpl:650
+#: ../../../display/templates/gestion/sampleListDetail.tpl:278
+#: ../../../display/templates/gestion/sampleListDetail.tpl:646
+#: ../../../display/templates/gestion/sampleListDetail.tpl:662
+#: ../../../display/templates/gestion/sampleListDetail.tpl:678
+#: ../../../display/templates/gestion/sampleListDetail.tpl:692
 #: ../../../display/templates/gestion/containerChange.tpl:180
 #: ../../../display/templates/gestion/containerSearch.tpl:10
 #: ../../../display/templates/gestion/containerSearch.tpl:86
@@ -2676,7 +2678,6 @@ msgstr ""
 #: ../../../display/templates/gestion/sampleChange.tpl:552
 #: ../../../display/templates/gestion/sampleChange.tpl:565
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:157
-#: ../../../display/templates/gestion/sampleSearchTab.tpl:191
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:194
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:327
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:342
@@ -2818,7 +2819,7 @@ msgstr ""
 "Metadata that can be stored in the QR Code and in the text of the label:"
 
 #: ../../../display/templates/param/campaignDisplay.tpl:24
-#: ../../../display/templates/gestion/sampleListDetail.tpl:362
+#: ../../../display/templates/gestion/sampleListDetail.tpl:390
 msgid "Campagne"
 msgstr "Campaign"
 
@@ -3017,7 +3018,7 @@ msgstr "Latitude:"
 
 #: ../../../display/templates/param/samplingPlaceChange.tpl:45
 #: ../../../display/templates/param/referentChange.tpl:63
-#: ../../../display/templates/gestion/sampleListDetail.tpl:601
+#: ../../../display/templates/gestion/sampleListDetail.tpl:643
 msgid "Pays :"
 msgstr "Country:"
 
@@ -3048,8 +3049,8 @@ msgid "Création - Modification d'un statut d'objets"
 msgstr "Create / Edit an object status"
 
 #: ../../../display/templates/param/metadataList.tpl:6
-#: ../../../display/templates/gestion/sampleListDetail.tpl:28
-#: ../../../display/templates/gestion/sampleListDetail.tpl:312
+#: ../../../display/templates/gestion/sampleListDetail.tpl:56
+#: ../../../display/templates/gestion/sampleListDetail.tpl:340
 #: ../../../display/templates/gestion/containerListDetail.tpl:31
 #: ../../../display/templates/gestion/containerListDetail.tpl:253
 msgid "Tout cocher"
@@ -3057,7 +3058,7 @@ msgstr "Check all"
 
 #: ../../../display/templates/param/metadataList.tpl:8
 #: ../../../display/templates/param/metadataList.tpl:28
-#: ../../../display/templates/gestion/sampleListDetail.tpl:30
+#: ../../../display/templates/gestion/sampleListDetail.tpl:58
 #: ../../../display/templates/gestion/containerListDetail.tpl:33
 msgid "Tout décocher"
 msgstr "Uncheck all"
@@ -3799,7 +3800,7 @@ msgstr "Business code"
 
 #: ../../../display/templates/param/samplingPlaceList.tpl:16
 #: ../../../display/templates/main.tpl:68
-#: ../../../display/templates/gestion/sampleListDetail.tpl:354
+#: ../../../display/templates/gestion/sampleListDetail.tpl:382
 msgid "Collection"
 msgstr "Collection"
 
@@ -3938,7 +3939,7 @@ msgstr "User name for identification (if required):"
 #: ../../../display/templates/gestion/containerDisplay.tpl:335
 #: ../../../display/templates/gestion/fastInputChange.tpl:92
 #: ../../../display/templates/gestion/movementChange.tpl:199
-#: ../../../display/templates/gestion/sampleListDetail.tpl:499
+#: ../../../display/templates/gestion/sampleListDetail.tpl:541
 #: ../../../display/templates/gestion/bookingChange.tpl:102
 #: ../../../display/templates/gestion/eventChange.tpl:50
 #: ../../../display/templates/gestion/containerChange.tpl:202
@@ -3996,7 +3997,7 @@ msgid "Mots clés"
 msgstr "Keywords"
 
 #: ../../../display/templates/param/collectionList.tpl:22
-#: ../../../display/templates/gestion/sampleListDetail.tpl:361
+#: ../../../display/templates/gestion/sampleListDetail.tpl:389
 #: ../../../display/templates/gestion/containerListDetail.tpl:300
 msgid "Référent"
 msgstr "Referent"
@@ -4069,19 +4070,19 @@ msgid "La date de retour est antérieure à la date de prêt"
 msgstr "The date of return is earlier than the date of loan"
 
 #: ../../../display/templates/gestion/borrowingChange.tpl:50
-#: ../../../display/templates/gestion/sampleListDetail.tpl:509
+#: ../../../display/templates/gestion/sampleListDetail.tpl:551
 #: ../../../display/templates/gestion/containerListDetail.tpl:383
 msgid "Emprunteur :"
 msgstr "Borrower:"
 
 #: ../../../display/templates/gestion/borrowingChange.tpl:63
-#: ../../../display/templates/gestion/sampleListDetail.tpl:522
+#: ../../../display/templates/gestion/sampleListDetail.tpl:564
 #: ../../../display/templates/gestion/containerListDetail.tpl:396
 msgid "Date d'emprunt :"
 msgstr "Borrowing date:"
 
 #: ../../../display/templates/gestion/borrowingChange.tpl:69
-#: ../../../display/templates/gestion/sampleListDetail.tpl:528
+#: ../../../display/templates/gestion/sampleListDetail.tpl:570
 #: ../../../display/templates/gestion/containerListDetail.tpl:402
 msgid "Date de retour escomptée :"
 msgstr "Expected return date:"
@@ -4277,7 +4278,7 @@ msgstr "Borrower"
 
 #: ../../../display/templates/gestion/storageList.tpl:8
 #: ../../../display/templates/gestion/subsampleList.tpl:13
-#: ../../../display/templates/gestion/sampleListDetail.tpl:481
+#: ../../../display/templates/gestion/sampleListDetail.tpl:523
 #: ../../../display/templates/gestion/objectMovementList.tpl:6
 #: ../../../display/templates/gestion/movementList.tpl:37
 #: ../../../display/templates/gestion/eventList.tpl:11
@@ -4296,7 +4297,7 @@ msgid "Contenant"
 msgstr "Container"
 
 #: ../../../display/templates/gestion/storageList.tpl:11
-#: ../../../display/templates/gestion/sampleListDetail.tpl:360
+#: ../../../display/templates/gestion/sampleListDetail.tpl:388
 #: ../../../display/templates/gestion/objectMovementList.tpl:9
 #: ../../../display/templates/gestion/containerListDetail.tpl:294
 #: ../../../display/templates/gestion/movementList.tpl:44
@@ -4387,7 +4388,7 @@ msgid "Réservations"
 msgstr "Bookings"
 
 #: ../../../display/templates/gestion/containerDisplay.tpl:257
-#: ../../../display/templates/gestion/sampleListDetail.tpl:121
+#: ../../../display/templates/gestion/sampleListDetail.tpl:149
 msgid "UID et référence :"
 msgstr "UID and reference:"
 
@@ -4398,7 +4399,7 @@ msgstr "Additional identifiers:"
 
 #: ../../../display/templates/gestion/containerDisplay.tpl:274
 #: ../../../display/templates/gestion/containerSearchTab.tpl:186
-#: ../../../display/templates/gestion/sampleListDetail.tpl:133
+#: ../../../display/templates/gestion/sampleListDetail.tpl:161
 #: ../../../display/templates/gestion/containerSearch.tpl:147
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:496
 #: ../../../display/templates/gestion/sampleDisplay.tpl:334
@@ -4412,7 +4413,7 @@ msgstr "Click for full description"
 
 #: ../../../display/templates/gestion/containerDisplay.tpl:280
 #: ../../../display/templates/gestion/containerSearchTab.tpl:146
-#: ../../../display/templates/gestion/sampleListDetail.tpl:134
+#: ../../../display/templates/gestion/sampleListDetail.tpl:162
 #: ../../../display/templates/gestion/containerChange.tpl:190
 #: ../../../display/templates/gestion/containerSearch.tpl:161
 #: ../../../display/templates/gestion/sampleChange.tpl:443
@@ -4432,8 +4433,8 @@ msgstr "CLP classification:"
 
 #: ../../../display/templates/gestion/containerDisplay.tpl:296
 #: ../../../display/templates/gestion/containerSearchTab.tpl:161
-#: ../../../display/templates/gestion/sampleListDetail.tpl:147
-#: ../../../display/templates/gestion/sampleListDetail.tpl:647
+#: ../../../display/templates/gestion/sampleListDetail.tpl:175
+#: ../../../display/templates/gestion/sampleListDetail.tpl:689
 #: ../../../display/templates/gestion/containerChange.tpl:141
 #: ../../../display/templates/gestion/containerSearch.tpl:83
 #: ../../../display/templates/gestion/sampleChange.tpl:477
@@ -4580,7 +4581,7 @@ msgid "Non"
 msgstr "No"
 
 #: ../../../display/templates/gestion/containerSearchTab.tpl:201
-#: ../../../display/templates/gestion/sampleListDetail.tpl:487
+#: ../../../display/templates/gestion/sampleListDetail.tpl:529
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:528
 msgid "Type d'événement :"
 msgstr "Event type:"
@@ -4635,7 +4636,7 @@ msgstr "RAZ"
 
 #: ../../../display/templates/gestion/fastInputChange.tpl:20
 #: ../../../display/templates/gestion/movementChange.tpl:124
-#: ../../../display/templates/gestion/sampleListDetail.tpl:550
+#: ../../../display/templates/gestion/sampleListDetail.tpl:592
 #: ../../../display/templates/gestion/containerListDetail.tpl:432
 msgid "UID du contenant :"
 msgstr "UID of the container:"
@@ -4661,7 +4662,7 @@ msgstr ""
 
 #: ../../../display/templates/gestion/fastInputChange.tpl:67
 #: ../../../display/templates/gestion/movementChange.tpl:167
-#: ../../../display/templates/gestion/sampleListDetail.tpl:584
+#: ../../../display/templates/gestion/sampleListDetail.tpl:626
 #: ../../../display/templates/gestion/containerListDetail.tpl:465
 msgid "N° de ligne :"
 msgstr "Line number:"
@@ -4672,7 +4673,7 @@ msgstr "# of the storage line in the container"
 
 #: ../../../display/templates/gestion/fastInputChange.tpl:74
 #: ../../../display/templates/gestion/movementChange.tpl:174
-#: ../../../display/templates/gestion/sampleListDetail.tpl:591
+#: ../../../display/templates/gestion/sampleListDetail.tpl:633
 #: ../../../display/templates/gestion/containerListDetail.tpl:472
 msgid "N° de colonne :"
 msgstr "Column number:"
@@ -4843,7 +4844,7 @@ msgid "Entrer ou déplacer dans :"
 msgstr "Store or move into:"
 
 #: ../../../display/templates/gestion/movementChange.tpl:130
-#: ../../../display/templates/gestion/sampleListDetail.tpl:556
+#: ../../../display/templates/gestion/sampleListDetail.tpl:598
 #: ../../../display/templates/gestion/containerListDetail.tpl:438
 msgid "ou recherchez :"
 msgstr "or search:"
@@ -4866,13 +4867,13 @@ msgid ""
 msgstr "Location in the container"
 
 #: ../../../display/templates/gestion/movementChange.tpl:170
-#: ../../../display/templates/gestion/sampleListDetail.tpl:587
+#: ../../../display/templates/gestion/sampleListDetail.tpl:629
 #: ../../../display/templates/gestion/containerListDetail.tpl:468
 msgid "N° de la ligne de rangement dans le contenant"
 msgstr "# of the storage line in the container"
 
 #: ../../../display/templates/gestion/movementChange.tpl:177
-#: ../../../display/templates/gestion/sampleListDetail.tpl:594
+#: ../../../display/templates/gestion/sampleListDetail.tpl:636
 #: ../../../display/templates/gestion/containerListDetail.tpl:475
 msgid "N° de la colonne de rangement dans le contenant"
 msgstr "# of the storage column in the container"
@@ -4887,19 +4888,27 @@ msgstr "Reason for removing:"
 msgid "Utilisateur :"
 msgstr "User:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:61
+#: ../../../display/templates/gestion/sampleListDetail.tpl:19
+msgid "Colonnes affichées"
+msgstr "Displayed columns"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:38
+msgid "Copier"
+msgstr "Copy"
+
+#: ../../../display/templates/gestion/sampleListDetail.tpl:89
 #: ../../../display/templates/gestion/containerListDetail.tpl:59
 msgid ""
 "Attention : l'opération est définitive. Est-ce bien ce que vous voulez "
 "faire ?"
 msgstr "Attention: this operation is final. Is that what you want to do ?"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:124
+#: ../../../display/templates/gestion/sampleListDetail.tpl:152
 #: ../../../display/templates/gestion/sampleDisplay.tpl:325
 msgid "DB et UID d'origine :"
 msgstr "DB and UID of origin:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:132
+#: ../../../display/templates/gestion/sampleListDetail.tpl:160
 #: ../../../display/templates/gestion/sampleChange.tpl:437
 #: ../../../display/templates/gestion/sampleChange.tpl:489
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:324
@@ -4910,293 +4919,293 @@ msgstr "DB and UID of origin:"
 msgid "Collection :"
 msgstr "Collection:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:139
+#: ../../../display/templates/gestion/sampleListDetail.tpl:167
 #: ../../../display/templates/gestion/sampleDisplay.tpl:346
 msgid "clp :"
 msgstr "clp:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:142
+#: ../../../display/templates/gestion/sampleListDetail.tpl:170
 msgid "Campagne :"
 msgstr "Campaign:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:145
+#: ../../../display/templates/gestion/sampleListDetail.tpl:173
 #: ../../../display/templates/gestion/sampleDisplay.tpl:352
 msgid "Protocole et opération :"
 msgstr "Protocol and operation:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:148
+#: ../../../display/templates/gestion/sampleListDetail.tpl:176
 #: ../../../display/templates/gestion/sampleDisplay.tpl:377
 msgid "Date de création\tde l'échantillon (d'échantillonnage) :"
 msgstr "Date of creation\tof sample (sampling):"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:149
+#: ../../../display/templates/gestion/sampleListDetail.tpl:177
 #: ../../../display/templates/gestion/sampleChange.tpl:610
 #: ../../../display/templates/gestion/sampleDisplay.tpl:380
 msgid "Date d'import dans la base de données :"
 msgstr "Date of import into the database:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:151
+#: ../../../display/templates/gestion/sampleListDetail.tpl:179
 #: ../../../display/templates/gestion/sampleChange.tpl:616
 msgid "Date d'expiration de l'échantillon :"
 msgstr "Expiry date of the sample:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:154
+#: ../../../display/templates/gestion/sampleListDetail.tpl:182
 msgid "Quantité initiale :"
 msgstr "Minimum quantity:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:155
+#: ../../../display/templates/gestion/sampleListDetail.tpl:183
 #: ../../../display/templates/gestion/eventChange.tpl:43
 msgid "Reste disponible :"
 msgstr "Remains available:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:158
+#: ../../../display/templates/gestion/sampleListDetail.tpl:186
 #: ../../../display/templates/gestion/sampleDisplay.tpl:402
 msgid "Échantillon parent :"
 msgstr "Parent sample:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:161
+#: ../../../display/templates/gestion/sampleListDetail.tpl:189
 #: ../../../display/templates/gestion/sampleChange.tpl:575
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:572
 #: ../../../display/templates/gestion/sampleDisplay.tpl:418
 msgid "Lieu de prélèvement :"
 msgstr "Sampling place:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:164
+#: ../../../display/templates/gestion/sampleListDetail.tpl:192
 #: ../../../display/templates/gestion/sampleChange.tpl:549
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:588
 #: ../../../display/templates/gestion/sampleDisplay.tpl:424
 msgid "Pays de collecte :"
 msgstr "Sampling country:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:167
+#: ../../../display/templates/gestion/sampleListDetail.tpl:195
 #: ../../../display/templates/gestion/sampleChange.tpl:562
 #: ../../../display/templates/gestion/sampleDisplay.tpl:430
 msgid "Pays de provenance :"
 msgstr "Country of origin:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:170
+#: ../../../display/templates/gestion/sampleListDetail.tpl:198
 msgid "Métadonnées :"
 msgstr "Metadata:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:179
-#: ../../../display/templates/gestion/sampleListDetail.tpl:200
+#: ../../../display/templates/gestion/sampleListDetail.tpl:207
+#: ../../../display/templates/gestion/sampleListDetail.tpl:228
 msgid " : "
 msgstr ": "
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:192
+#: ../../../display/templates/gestion/sampleListDetail.tpl:220
 msgid "Contenants :"
 msgstr "Containers:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:198
+#: ../../../display/templates/gestion/sampleListDetail.tpl:226
 msgid "Événements :"
 msgstr "Events:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:315
+#: ../../../display/templates/gestion/sampleListDetail.tpl:343
 #: ../../../display/templates/gestion/containerListDetail.tpl:256
 #: ../../../display/templates/gestion/sampleDisplay.tpl:283
 msgid "Étiquette par défaut"
 msgstr "Default label"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:333
+#: ../../../display/templates/gestion/sampleListDetail.tpl:361
 #: ../../../display/templates/gestion/containerListDetail.tpl:274
 #: ../../../display/templates/gestion/sampleDisplay.tpl:300
 msgid "Impression directe"
 msgstr "Direct printing"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:335
+#: ../../../display/templates/gestion/sampleListDetail.tpl:363
 msgid "Fichier CSV pour impression externe"
 msgstr "CSV file for external print"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:338
+#: ../../../display/templates/gestion/sampleListDetail.tpl:366
 msgid "Export pour import dans une autre base Collec-Science"
 msgstr "Export to import into another Collec-Science database"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:339
+#: ../../../display/templates/gestion/sampleListDetail.tpl:367
 msgid "Export vers autre base"
 msgstr "Export to other database"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:351
+#: ../../../display/templates/gestion/sampleListDetail.tpl:379
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:50
 #: ../../../display/templates/gestion/containerListDetail.tpl:288
 #: ../../../display/templates/gestion/movementList.tpl:40
 msgid "UID"
 msgstr "UID"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:352
+#: ../../../display/templates/gestion/sampleListDetail.tpl:380
 #: ../../../display/templates/gestion/containerListDetail.tpl:289
 msgid "Identifiant ou nom"
 msgstr "Identifier or name"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:353
+#: ../../../display/templates/gestion/sampleListDetail.tpl:381
 #: ../../../display/templates/gestion/containerListDetail.tpl:290
 msgid "Autres identifiants"
 msgstr "Other identifiers"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:356
+#: ../../../display/templates/gestion/sampleListDetail.tpl:384
 #: ../../../display/templates/gestion/containerListDetail.tpl:291
 msgid "Statut"
 msgstr "Status"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:357
+#: ../../../display/templates/gestion/sampleListDetail.tpl:385
 msgid "Parent"
 msgstr "Parent"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:358
+#: ../../../display/templates/gestion/sampleListDetail.tpl:386
 #: ../../../display/templates/gestion/containerListDetail.tpl:299
 msgid "Photo"
 msgstr "Photo"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:359
+#: ../../../display/templates/gestion/sampleListDetail.tpl:387
 #: ../../../display/templates/gestion/containerListDetail.tpl:293
 msgid "Dernier mouvement"
 msgstr "Last movement"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:363
+#: ../../../display/templates/gestion/sampleListDetail.tpl:391
 msgid "Lieu de prélèvement"
 msgstr "Sampling place"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:364
+#: ../../../display/templates/gestion/sampleListDetail.tpl:392
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:456
 msgid "Date d'échantillonnage"
 msgstr "Sampling date"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:365
+#: ../../../display/templates/gestion/sampleListDetail.tpl:393
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:455
 msgid "Date de création dans la base"
 msgstr "Created date in the database"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:366
+#: ../../../display/templates/gestion/sampleListDetail.tpl:394
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:457
 msgid "Date d'expiration"
 msgstr "Expiration date"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:367
+#: ../../../display/templates/gestion/sampleListDetail.tpl:395
 msgid "Quantité restante"
 msgstr "Remaining quantity"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:380
+#: ../../../display/templates/gestion/sampleListDetail.tpl:408
 #: ../../../display/templates/gestion/containerListDetail.tpl:312
 msgid "Consultez le détail"
 msgstr "Consult the detail"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:392
+#: ../../../display/templates/gestion/sampleListDetail.tpl:420
 msgid "UID de la base de données d'origine"
 msgstr "UID from the original database"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:397
+#: ../../../display/templates/gestion/sampleListDetail.tpl:425
 #: ../../../display/templates/gestion/sampleDisplay.tpl:361
 msgid "Échantillon mis à la corbeille"
 msgstr "Sample trashed"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:408
+#: ../../../display/templates/gestion/sampleListDetail.tpl:436
 #: ../../../display/templates/gestion/containerListDetail.tpl:352
 msgid "aperçu de la photo"
 msgstr "preview of the photo"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:428
+#: ../../../display/templates/gestion/sampleListDetail.tpl:456
 #: ../../../display/templates/gestion/containerListDetail.tpl:343
 msgid "col:"
 msgstr "col:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:428
+#: ../../../display/templates/gestion/sampleListDetail.tpl:456
 #: ../../../display/templates/gestion/containerListDetail.tpl:343
 msgid "ligne:"
 msgstr "row:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:446
+#: ../../../display/templates/gestion/sampleListDetail.tpl:488
 #: ../../../display/templates/gestion/containerListDetail.tpl:365
 msgid "Pour les éléments cochés :"
 msgstr "For checked items:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:453
+#: ../../../display/templates/gestion/sampleListDetail.tpl:495
 msgid "Assigner un référent aux échantillons"
 msgstr "Assign a referent to the samples"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:454
+#: ../../../display/templates/gestion/sampleListDetail.tpl:496
 msgid "Créer un événement"
 msgstr "Create an event"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:455
+#: ../../../display/templates/gestion/sampleListDetail.tpl:497
 msgid "Prêter les échantillons"
 msgstr "Lend the samples"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:456
+#: ../../../display/templates/gestion/sampleListDetail.tpl:498
 msgid "Sortir les échantillons"
 msgstr "Get out the samples"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:458
+#: ../../../display/templates/gestion/sampleListDetail.tpl:500
 msgid "Créer un lot d'export"
 msgstr "Create an export lot"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:460
+#: ../../../display/templates/gestion/sampleListDetail.tpl:502
 msgid "Affecter un pays de collecte"
 msgstr "Assign a sampling country"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:461
+#: ../../../display/templates/gestion/sampleListDetail.tpl:503
 msgid "Attacher à une campagne de prélèvement"
 msgstr "Attach to a sampling campaign"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:462
+#: ../../../display/templates/gestion/sampleListDetail.tpl:504
 #: ../../../display/templates/gestion/containerListDetail.tpl:373
 msgid "Modifier le statut"
 msgstr "Status change"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:463
+#: ../../../display/templates/gestion/sampleListDetail.tpl:505
 msgid "Entrer ou déplacer les échantillons au même emplacement"
 msgstr "Store or move the samples into the same container"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:464
+#: ../../../display/templates/gestion/sampleListDetail.tpl:506
 msgid "Modifier la collection d'affectation"
 msgstr "Modify the assignment collection"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:465
+#: ../../../display/templates/gestion/sampleListDetail.tpl:507
 #: ../../../display/templates/gestion/containerListDetail.tpl:376
 msgid "Mettre ou sortir de la corbeille"
 msgstr "Putting or taking out of the trash"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:466
+#: ../../../display/templates/gestion/sampleListDetail.tpl:508
 msgid "Supprimer les échantillons"
 msgstr "Delete the samples"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:470
+#: ../../../display/templates/gestion/sampleListDetail.tpl:512
 #: ../../../display/templates/gestion/containerListDetail.tpl:411
 msgid "Choisissez le référent..."
 msgstr "Select the referent ..."
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:538
+#: ../../../display/templates/gestion/sampleListDetail.tpl:580
 #: ../../../display/templates/gestion/containerListDetail.tpl:421
 msgid "Traitement de la corbeille"
 msgstr "Bin treatment"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:541
+#: ../../../display/templates/gestion/sampleListDetail.tpl:583
 #: ../../../display/templates/gestion/containerListDetail.tpl:424
 msgid "Mettre à la corbeille"
 msgstr "Put in the trash"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:542
+#: ../../../display/templates/gestion/sampleListDetail.tpl:584
 #: ../../../display/templates/gestion/containerListDetail.tpl:425
 msgid "Sortir de la corbeille"
 msgstr "Get out of the bin"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:559
+#: ../../../display/templates/gestion/sampleListDetail.tpl:601
 #: ../../../display/templates/gestion/containerListDetail.tpl:441
 msgid "Sélectionnez la famille..."
 msgstr "Select family..."
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:576
+#: ../../../display/templates/gestion/sampleListDetail.tpl:618
 #: ../../../display/templates/gestion/containerListDetail.tpl:458
 msgid "Emplacement dans le contenant (format libre) :"
 msgstr "Location in the container (free format):"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:617
+#: ../../../display/templates/gestion/sampleListDetail.tpl:659
 msgid "Nouvelle collection :"
 msgstr "New collection:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:633
+#: ../../../display/templates/gestion/sampleListDetail.tpl:675
 msgid "Nouvelle campagne :"
 msgstr "New campaign:"
 
-#: ../../../display/templates/gestion/sampleListDetail.tpl:659
+#: ../../../display/templates/gestion/sampleListDetail.tpl:701
 #: ../../../display/templates/gestion/containerListDetail.tpl:492
 #: ../../../display/templates/framework/request/requestChange.tpl:84
 msgid "Exécuter"

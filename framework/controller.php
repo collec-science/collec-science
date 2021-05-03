@@ -390,7 +390,7 @@ try {
         /**
          * Preparation de l'identification par token
          */
-        if ($_POST["loginByTokenRequested"] == 1) {
+        if ($_POST["loginByTokenRequested"] == 1 || $ident_type == "HEADER") {
           include_once 'framework/identification/token.class.php';
           $tokenClass = new Token($privateKey, $pubKey);
           try {

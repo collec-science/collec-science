@@ -2,7 +2,7 @@
 <script>
 	$( document ).ready( function () {
 		var table = $( '#sampleList' ).DataTable( {
-			dom: 'Bfrtip',
+			dom: 'Birtp',
 			"language": dataTableLanguage,
 			"paging": false,
 			"searching": true,

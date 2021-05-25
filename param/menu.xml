@@ -90,7 +90,7 @@
 	<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP"/>
 	<item module="backupDisplay" droits="admin" label="Backup" tooltip="Sauvegarde de la base de données"/>
 </item>
-<item module="documentation_fr" label="documentation" tooltip="Documentations en ligne en français" language="fr">
+<item module="documentation_fr" label="Documentation" tooltip="Documentations en ligne en français" language="fr">
     <item module="doctotp_fr" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de la double authentification" language="fr"/>
     <item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr"/>
     <item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr"/>
@@ -102,7 +102,7 @@
         <item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr"/>
     </item>
 </item>
-<item module="documentation_en" label="documentation" tooltip="Documentations en ligne en anglais" language="en">
+<item module="documentation_en" label="Documentation" tooltip="Documentations en ligne en anglais" language="en">
     <item module="doctotp_en" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de double authentification" language="en"/>
     <item module="metadatafield_en" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="en"/>
     <item module="lendingsample_en" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="en"/>

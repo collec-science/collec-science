@@ -492,6 +492,11 @@ class Sample extends ObjetBDD
         $and = " and ";
         $data["country_id"] = $param["country_id"];
       }
+      if ($param["country_origin_id"] > 0) {
+        $where .= $and . " (s.country_origin_id = :country_origin_id)";
+        $and = " and ";
+        $data["country_origin_id"] = $param["country_origin_id"];
+      }
 
       if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
         $where .= $and . " s.uid between :uid_min and :uid_max";

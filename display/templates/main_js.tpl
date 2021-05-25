@@ -3,12 +3,12 @@
 <script src="display/javascript/jquery-3.3.1.min.js"></script>
 <script src="display/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
 <script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>
-
 <link rel="stylesheet" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css">
 <!-- Bootstrap -->
 <link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap-theme.min.css">
 <script src="display/javascript/bootstrap/js/bootstrap.min.js"></script>
+
 
 <!--alpaca -->
 <script type="text/javascript" src="display/node_modules/handlebars/dist/handlebars.runtime.min.js"></script>
@@ -65,6 +65,7 @@
 <link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.theme.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.css" />
+	<link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css">
 <script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-custom/combobox.js"></script>
 
 <!-- Affichage des photos -->
@@ -75,7 +76,6 @@
 <script src="display/javascript/js-cookie-master/src/js.cookie.js"></script>
 
 <!-- Code specifique -->
-<link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css">
 <script type="text/javascript" src="display/javascript/bootstrap-prototypephp.js"></script>
 
 

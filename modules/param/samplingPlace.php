@@ -75,9 +75,11 @@ switch ($t_module["param"]) {
                             "sampling_place_code" => $row["code"],
                             "sampling_place_x" => $row["x"],
                             "sampling_place_y" => $row["y"],
-                            "sampling_place_id" => $dataClass->getIdFromName($row["name"]),
-                            "country_id" => $country->getIdFromCode($row["country_code"])
+                            "sampling_place_id" => $dataClass->getIdFromName($row["name"])
                         );
+                        if (!empty($row["country_code"])) {
+                            $data["country_id"] = $country->getIdFromCode($row["country_code"]);
+                        }
                         $dataClass->ecrire($data);
                         $i++;
                     }

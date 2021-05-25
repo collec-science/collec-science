@@ -112,4 +112,6 @@ $(document).ready(function() {
 			</table>
 		</div>
 	</div>
+	{else}
+	{t}Aucun résultat n'a été retourné par la requête{/t}
 {/if}

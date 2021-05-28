@@ -1,5 +1,16 @@
 News
 ===========
+Version 2.6.0c du 28 mai 2021
+-----------------------------
+Nouveautés :
+- dans l'écran d'affichage de la liste des échantillons, le nombre total d'enregistrements est maintenant affiché en début de liste, et non en bas de la liste
+- dans le module de recherche des échantillons, le pays peut être recherché en tapant son nom. Il est également possible de rechercher un échantillon par pays de provenance, en plus du pays de collecte
+
+Corrections de bugs :
+- l'importation des lieux de prélèvement était en erreur si le code pays n'était pas renseigné
+- lors de la création d'une nouvelle instance, les index de type GIN n'étaient pas créés (syntaxe erronée)
+- dans le module de requêtes SQL, si la requête ne retournait aucun enregistrement, le logiciel ne le signalait pas et l'utilisateur pouvait avoir un doute quant à son fonctionnement
+
 Version 2.6.0b du 29 avril 2021
 -------------------------------
 Nouveautés :

@@ -92,8 +92,8 @@ class Acllogin extends ObjetBDD
       /**
        * Recherche d'un login correspondant
        */
-      $sql = "select acllogin_id, login, logindetail from acllogin where login = :login";
-      $data = $this->lireParamAsPrepared($sql, array("login" => $login));
+      $sql = "select acllogin_id, login, logindetail from acllogin where lower(login) = :login";
+      $data = $this->lireParamAsPrepared($sql, array("login" => strtolower($login)));
       if (!$data["acllogin_id"] > 0) {
         $data["acllogin_id"] = 0;
         $data["logindetail"] = $name;
@@ -102,7 +102,7 @@ class Acllogin extends ObjetBDD
           $data["logindetail"] = $name;
         }
       }
-      $data["login"] = $login;
+      $data["login"] = strtolower($login);
       return $this->ecrire($data);
     } else {
       throw new ObjetBDDException(_("L'ajout d'un login à la table des comptes (gestion des droits) n'est pas possible : le login n'est pas fourni"));
@@ -132,7 +132,7 @@ class Acllogin extends ObjetBDD
   {
     $droits = array();
     if (strlen($login) > 0 && strlen($appli) > 0) {
-      $login = $this->encodeData($login);
+      $login = strtolower($this->encodeData($login));
       $appli = $this->encodeData($appli);
       /**
        * Recherche des groupes associes au login
@@ -183,8 +183,8 @@ class Acllogin extends ObjetBDD
   function getFromLogin($login)
   {
     if (strlen($login) > 0) {
-      $sql = "select acllogin_id, login, logindetail from acllogin where login = :login";
-      return $this->lireParamAsPrepared($sql, array("login" => $login));
+      $sql = "select acllogin_id, login, logindetail from acllogin where lower(login) = :login";
+      return $this->lireParamAsPrepared($sql, array("login" => strtolower($login)));
     }
   }
 
@@ -240,7 +240,7 @@ class Acllogin extends ObjetBDD
    */
   function getTotpKey(): ?string
   {
-    $sql = "select totp_key from acllogin where login = :login";
+    $sql = "select totp_key from acllogin where lower(login) = :login";
     $data = $this->lireParamAsPrepared($sql, array("login" => $_SESSION["login"]));
     return ($data["totp_key"]);
   }

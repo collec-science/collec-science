@@ -217,7 +217,7 @@ class Log extends ObjetBDD
         $date = new DateTime("now");
         $date->sub(new DateInterval("PT" . $maxtime . "S"));
         $nom_module = $GACL_aco."-connectionBlocking";
-        $sql = "select log_id from log where login = :login and nom_module = '$nom_module' and log_date > :blockingdate order by log_id desc limit 1";
+        $sql = "select log_id from log where lower(login) = lower(:login) and nom_module = '$nom_module' and log_date > :blockingdate order by log_id desc limit 1";
         $data = $this->lireParamAsPrepared(
             $sql,
             array(
@@ -230,7 +230,7 @@ class Log extends ObjetBDD
         }
         if (!$accountBlocking) {
             $nom_module = $GACL_aco."-connection%";
-            $sql = "select log_date, commentaire from log where login = :login
+            $sql = "select log_date, commentaire from log where lower(login) = lower(:login)
                     and nom_module like '$nom_module'
                     and log_date > :blockingdate
                 order by log_id desc limit :nbmax";
@@ -275,6 +275,7 @@ class Log extends ObjetBDD
     public function blockingAccount($login)
     {
         global $message, $APPLI_address, $GACL_aco;
+        $login = strtolower($login);
         $this->setLog($login, "connectionBlocking");
         $message->setSyslog("connectionBlocking for login $login");
         $date = date("Y-m-d H:i:s");
@@ -296,7 +297,7 @@ class Log extends ObjetBDD
         global $APPLI_address, $GACL_aco, $message;
         $sql = "select count(*) as nombre from log
                 where nom_module = :moduleName
-                and login = :login
+                and lower(login) = lower(:login)
                 and log_date > :dateref
                 ";
         $dateRef = date('Y-m-d H:i:s', time() - $duration);
@@ -394,6 +395,7 @@ class Log extends ObjetBDD
      */
     function countNbExpiredConnectionsFromDate($login, $date)
     {
+        $login = strtolower($login);
         $sql = "select count(*) as nombre from log
                 where login = :login
                 and log_date::date > :date
@@ -409,6 +411,7 @@ class Log extends ObjetBDD
      */
     function getTimestampFromLastCall($login)
     {
+        $login = strtolower($login);
         $ip = getIPClientAddress();
         $sql = "select extract (epoch from now() - log_date) as ts from log
                 where login = :login and ipaddress = :ip
@@ -446,7 +449,7 @@ class Log extends ObjetBDD
             "date_to" => $this->formatDateLocaleVersDB($param["date_to"])
         );
         if (strlen($param["loglogin"]) > 0) {
-            $sql .= " and login = :login";
+            $sql .= " and lower(login) = lower(:login)";
             $sqlParam["login"] = $param["loglogin"];
         }
         if (strlen($param["logmodule"]) > 0) {

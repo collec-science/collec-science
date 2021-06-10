@@ -73,11 +73,11 @@ class LoginGestion extends ObjetBDD
     {
         global $log;
         $retour = false;
+        $login = strtolower($login);
         if (strlen($login) > 0 && strlen($password) > 0) {
             $sql = "select login, password, is_expired from LoginGestion where login = :login and actif = 1";
             $data = $this->lireParamAsPrepared($sql, array("login" => $login));
             if ($this->_testPassword($login, $password, $data["password"])) {
-                $data["is_expired"] == 1 ? $comment = "db-ok-expired" : $comment = "db-ok";
                 $retour = true;
             } else {
                 $log->setLog($login, "connection-db", "ko-account expired");
@@ -95,6 +95,7 @@ class LoginGestion extends ObjetBDD
      */
     private function _testPassword($login, $password, $hash)
     {
+        $login = strtolower($login);
         $ok = false;
         /**
          * Test the type of hash
@@ -192,6 +193,7 @@ class LoginGestion extends ObjetBDD
             }
         }
         $data["datemodif"] = date($_SESSION["MASKDATELONG"]);
+        $data["login"] = strtolower($data["login"]);
         /*
          * Traitement de la generation du token d'identification ws
          */
@@ -258,6 +260,7 @@ class LoginGestion extends ObjetBDD
 
     function getDbconnectProvisionalNb($login)
     {
+        $login = strtolower($login);
         $sql = "select count(*) as dbconnect_provisional_nb
         from logingestion l
         join log on (l.login = log.login and log_date > datemodif
@@ -293,6 +296,7 @@ class LoginGestion extends ObjetBDD
 
     public function getFromLogin($login)
     {
+        $login = strtolower($login);
         if (strlen($login) > 0) {
             $sql = "select * from " . $this->table . " where login = :login";
             return $this->lireParamAsPrepared($sql, array("login" => $login));
@@ -363,6 +367,7 @@ class LoginGestion extends ObjetBDD
     private function writeNewPassword($login, $pass)
     {
         global $log, $message, $APPLI_address, $APPLI_title;
+        $login = strtolower($login);
         $retour = 0;
         $oldData = $this->lireByLogin($login);
         if ($log->getLastConnexionType($login) == "db") {
@@ -488,6 +493,7 @@ class LoginGestion extends ObjetBDD
      */
     public function lireByLogin($login)
     {
+        $login = strtolower($login);
         $login = $this->encodeData($login);
         $sql = "select * from " . $this->table . "
 				where login = '" . $login . "'";
@@ -529,6 +535,7 @@ class LoginGestion extends ObjetBDD
     {
         global $message, $MAIL_enabled, $APPLI_mail, $GACL_aco, $log;
         $moduleNameComplete = $GACL_aco . "-sendMailForPasswordChange";
+        $login = strtolower($login);
         if ($MAIL_enabled == 1) {
             try {
                 $dataLogin = $this->getFromLogin($login);

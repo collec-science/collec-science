@@ -252,7 +252,7 @@ class Login
   function getLoginBDD($login, $password)
   {
     if ($this->loginGestion->controlLogin($login, $password)) {
-      return $login;
+      return strtolower($login);
     }
   }
 

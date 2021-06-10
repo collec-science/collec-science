@@ -263,7 +263,7 @@ try {
           if (!empty($_REQUEST["token"]) && !empty($_REQUEST["login"])) {
             $ident_type = "ws";
           }
-          $_SESSION["login"] = $login->getLogin($ident_type, false);
+          $_SESSION["login"] = strtolower($login->getLogin($ident_type, false));
         }
         if (!empty($_SESSION["login"])) {
           /**

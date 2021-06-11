@@ -1,5 +1,14 @@
 News
 ===========
+Version 2.6.0d du 11 juin 2021
+------------------------------
+Nouveautés :
+- en importation de masse, il est maintenant possible de créer les parents et les enfants en une seule importation, en utilisant la colonne sample_parent_identifier (l'échantillon parent doit exister au préalable ou être présent plus haut dans le fichier). Idem pour créer le mouvement d'entrée, avec le champ container_parent_identifier
+
+Corrections de bugs :
+- Les logins sont maintenant traités systématiquement en minuscules, pour limiter les problèmes liés à des serveurs CAS qui fonctionnent différemment pour les mêmes utilisateurs (cas rencontré avec la fédération Renater)
+- lors de la modification d'un échantillon parent contenant des métadonnées, les échantillons enfants disparaissaient de la liste : l'attribut "trashed" n'était plus positionné correctement
+
 Version 2.6.0c du 28 mai 2021
 -----------------------------
 Nouveautés :

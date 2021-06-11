@@ -64,9 +64,15 @@ CREATE INDEX if not exists authorization_number_idx ON col.campaign_regulation
 	(
 	  authorization_number gin_trgm_ops
 	);
-
+/*
+ * Fix the login in lowercase
+ */
 update gacl.logingestion set login = lower(login);
 update gacl.acllogin set login = lower(login);
+/*
+ * Fix the trashed attribute if empty
+ */
+update col.object set trashed = false where trashed is null;
 /**
  * end of script
  */

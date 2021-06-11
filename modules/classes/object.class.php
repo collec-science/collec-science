@@ -98,6 +98,12 @@ class ObjectClass extends ObjetBDD
     } else {
       $data["geom"] = "";
     }
+    /**
+     * rewrite trashed
+     */
+    if (empty($data["trashed"])) {
+      $data["trashed"] = 0;
+    }
     return parent::ecrire($data);
   }
   /**

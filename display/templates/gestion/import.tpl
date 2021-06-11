@@ -87,6 +87,7 @@
                   <li><b>container_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
                   <li><b>container_line</b> : {t}n° de la ligne de stockage dans le contenant{/t}</li>
                   <li><b>container_parent_uid</b> : {t}l'UID du contenant où le contenant courant est rangé{/t}</li>
+                  <li><b>container_parent_identifier</b> : {t}identifiant métier du contenant où le contenant courant est rangé (doit être créé préalablement, ou figurer plus haut dans le fichier - l'identifiant doit être unique){/t}</li>
             </ul>
       </li>
       <li>{t}Pour importer des échantillons :{/t}
@@ -107,8 +108,10 @@
                   <li><b>sample_multiple_value</b> : {t}le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
                   si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point){/t}</li>
                   <li><b>sample_parent_uid</b> : {t}UID du parent (création d'échantillons rattachés){/t}</li>
+                  <li><b>sample_parent_identifier</b> : {t}identifiant métier du parent (doit être créé avant l'échantillon courant ou figurer plus haut dans le fichier, et l'identifiant doit être unique){/t}</li>
                   <li><b>sample_uuid</b> :  {t}UID Universel de l'échantillon (UUID){/t}</li>
-                  <li><b>container_parent_uid</b> : {t}l'UID du contenant où l'échantillon est rangé{/t}</li>
+                  <li><b>container_parent_uid</b> : {t}l'UID du contenant où l'échantillon ou le contenant est rangé{/t}</li>
+                  <li><b>container_parent_identifier</b> : {t}identifiant métier du contenant où l'échantillon est rangé (doit être créé préalablement, ou figurer plus haut dans le fichier - l'identifiant doit être unique){/t}</li>
                   <li><b>sample_location</b> : {t}l'emplacement de rangement de l'échantillon dans le contenant (texte libre){/t}</li>
                   <li><b>sample_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
                   <li><b>sample_line</b> : {t}n° de la ligne de stockage dans le contenant{/t}</li>

@@ -296,20 +296,6 @@ class Container extends ObjetBDD
               from containers
               where uid <> :uid";
     return $this->getListeParamAsPrepared($sql, array("uid" => $uid));
-    /*$data = array();
-        if ($uid > 0 && is_numeric($uid)) {
-            $continue = true;
-            while ($continue) {
-                $parent = $this->getParent($uid);
-                if ($parent["uid"] > 0) {
-                    $data[] = $parent;
-                    $uid = $parent["uid"];
-                } else {
-                    $continue = false;
-                }
-            }
-        }
-        return $data;*/
   }
 
   /**
@@ -328,6 +314,20 @@ class Container extends ObjetBDD
     } else {
       return -1;
     }
+  }
+  /**
+   * Get the container_id from the identifier
+   *
+   * @param string $identifier
+   * @return int
+   */
+  function getUidFromIdentifier($identifier)
+  {
+    $sql = "select uid from container
+            join object using (uid)
+            where lower(identifier) = lower(:identifier)";
+    $data = $this->lireParamAsPrepared($sql, array("identifier" => $identifier));
+    return $data["uid"];
   }
 
   /**
@@ -936,25 +936,26 @@ class Container extends ObjetBDD
             join last_movement using (uid)
             where movement_type_id = 1";
     $containers = $this->getListeParam($sql);
-    foreach($containers as $container) {
+    foreach ($containers as $container) {
       $cyclical = $this->verifyChild($container["uid"], $container);
       if (!empty($cyclical)) {
-        $found [] = array("first" => $container["uid"], "second"=> $cyclical);
+        $found[] = array("first" => $container["uid"], "second" => $cyclical);
       }
     }
     return ($found);
   }
-/**
- * Search if a contained container contains the uid
- *
- * @param integer $uid
- * @param array $containerChild
- * @return integer|null
- */
-  function verifyChild(int $uid, array $containerChild) :?int {
+  /**
+   * Search if a contained container contains the uid
+   *
+   * @param integer $uid
+   * @param array $containerChild
+   * @return integer|null
+   */
+  function verifyChild(int $uid, array $containerChild): ?int
+  {
     $cyclical = null;
     $containers = $this->getContentContainer($containerChild["uid"]);
-    foreach($containers as $container){
+    foreach ($containers as $container) {
       if ($container["uid"] == $uid) {
         $cyclical = $container["container_uid"];
         break;

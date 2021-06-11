@@ -73,7 +73,9 @@ class ImportObject
     "sample_status_name",
     "campaign_name",
     "referent_name",
-    "sampling_place_name"
+    "sampling_place_name",
+    "sample_parent_identifier",
+    "container_parent_identifier"
   );
 
   private $colnum = array(
@@ -406,6 +408,12 @@ class ImportObject
         }
       }
       /**
+       * Extract the uid of the parent container from the identifier
+       */
+      if (empty($values["container_parent_uid"]) && !empty($values["container_parent_identifier"])) {
+        $values["container_parent_uid"] = $this->container->getUidFromIdentifier($values["container_parent_identifier"]);
+      }
+      /**
        * Traitement du contenant
        */
       $container_uid = 0;
@@ -556,6 +564,10 @@ class ImportObject
     if ($values["sample_parent_uid"] > 0) {
       $dp = $this->sample->lire($values["sample_parent_uid"]);
       $values["parent_sample_id"] = $dp["sample_id"];
+    } else {
+      if (!empty($values["sample_parent_identifier"])) {
+        $values["parent_sample_id"] = $this->sample->getIdFromIdentifier($values["sample_parent_identifier"]);
+      }
     }
     /**
      * Search for the code of the country
@@ -729,7 +741,7 @@ class ImportObject
        * Verification du statut
        */
       $ok = false;
-      if (!empty($data["sample_status_id"] )) {
+      if (!empty($data["sample_status_id"])) {
         foreach ($this->object_status as $value) {
           if ($data["sample_status_id"] == $value["object_status_id"]) {
             $ok = true;
@@ -745,7 +757,7 @@ class ImportObject
        * Verification du lieu de collecte
        */
       $ok = false;
-      if (!empty($data["sampling_place_id"] )) {
+      if (!empty($data["sampling_place_id"])) {
         foreach ($this->sampling_place as $value) {
           if ($data["sampling_place_id"] == $value["sampling_place_id"]) {
             $ok = true;

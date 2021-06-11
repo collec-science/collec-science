@@ -191,6 +191,21 @@ class Sample extends ObjetBDD
   }
 
   /**
+   * Get the id of the sample from the identifier
+   *
+   * @param [type] $identifier
+   * @return void
+   */
+  public function getIdFromIdentifier($identifier)
+  {
+    $sql = "select sample_id from sample
+    join object using (uid)
+    where lower(identifier) = lower(:identifier)";
+    $data = $this->lireParamAsPrepared($sql, array("identifier" => $identifier));
+    return $data["sample_id"];
+  }
+
+  /**
    * Transform the list of uids into a list of sample_id
    *
    * @param array $uids
@@ -1139,9 +1154,9 @@ class Sample extends ObjetBDD
     $data["metadata"] = json_decode($data["metadata"], true);
     foreach ($data["metadata"] as $k => $v) {
       foreach ($metadata_schema as $schema) {
-        if ($schema["name"] == $k ) {
+        if ($schema["name"] == $k) {
           if ($schema["type"] == "number") {
-            $data["md_".$schema["name"]."_unit"] = $schema["measureUnit"];
+            $data["md_" . $schema["name"] . "_unit"] = $schema["measureUnit"];
           }
           break;
         }
@@ -1242,7 +1257,7 @@ class Sample extends ObjetBDD
   function getFromField(string $fieldname, string $id, int $collection_id = 0): ?array
   {
     $sql = "select * from sample join object using (uid) ";
-    $param = array ("id"=>$id);
+    $param = array("id" => $id);
     switch ($fieldname) {
       case "uid":
         $sql .= " where uid = :id";
@@ -1253,8 +1268,8 @@ class Sample extends ObjetBDD
       case "identifier":
         $sql .= " where identifier = :id";
         if ($collection_id > 0) {
-          $sql.= " and collection_id = :collection_id";
-          $param ["collection_id"] = $collection_id;
+          $sql .= " and collection_id = :collection_id";
+          $param["collection_id"] = $collection_id;
         }
         break;
       default:
@@ -1264,8 +1279,8 @@ class Sample extends ObjetBDD
         ";
         $param["fieldname"] = $fieldname;
         if ($collection_id > 0) {
-          $sql.= " and collection_id = :collection_id";
-          $param ["collection_id"] = $collection_id;
+          $sql .= " and collection_id = :collection_id";
+          $param["collection_id"] = $collection_id;
         }
         break;
     }

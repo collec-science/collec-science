@@ -73,6 +73,10 @@ update gacl.acllogin set login = lower(login);
  * Fix the trashed attribute if empty
  */
 update col.object set trashed = false where trashed is null;
+/*
+ * Revoke all totp records due to the encryption of these
+ */
+update gacl.acllogin set totp_key = null where totp_key is not null;
 /**
  * end of script
  */

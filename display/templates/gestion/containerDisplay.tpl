@@ -166,6 +166,11 @@
 			</span>
 		{/if}
 		&nbsp;
+		<a href="index.php?module=containerDisplay&uid={$data.uid}&allSamples=1" title="Afficher tous les échantillons, y compris ceux stockés dans les contenants inclus">
+			<img src="display/images/sample.png" height="25">
+			{t}Afficher tous les échantillons{/t}
+		</a>
+		&nbsp;
 		<a href="index.php?module=containerDisplay&uid={$data.uid}">
 			<img src="display/images/refresh.png" title="Rafraîchir la page" height="15">
 		</a>

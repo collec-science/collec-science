@@ -76,7 +76,14 @@ switch ($t_module["param"]) {
          * Recuperation des contenants et des échantillons contenus
          */
     $dcontainer = $dataClass->getContentContainer($data["uid"]);
+    if ($_REQUEST["allSamples"] == 1) {
+      require_once "modules/classes/sample.class.php";
+      $sample = new Sample($bdd, $ObjetBDDParam);
+      $dsample = $sample->getAllSamplesFromContainer($data["uid"]);
+      $message->set(_("Affichage avec la liste de tous les échantillons présents dans le contenant, y compris dans les contenants inclus"));
+    } else {
     $dsample = $dataClass->getContentSample($data["uid"]);
+    }
     $vue->set($dcontainer, "containers");
     $vue->set($dsample, "samples");
     /*

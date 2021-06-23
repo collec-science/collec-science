@@ -75,7 +75,8 @@ class ImportObject
     "referent_name",
     "sampling_place_name",
     "sample_parent_identifier",
-    "container_parent_identifier"
+    "container_parent_identifier",
+    "dbuid_origin"
   );
 
   private $colnum = array(
@@ -320,6 +321,7 @@ class ImportObject
         $dataSample["sampling_place_id"] = $values["sampling_place_id"];
         $dataSample["parent_sample_id"] = $values["parent_sample_id"];
         $dataSample["uuid"] = $values["sample_uuid"];
+        $dataSample["dbuid_origin"] = $values["dbuid_origin"];
         if (!empty($values["country_code"])) {
           $dataSample["country_id"] = $this->country->getIdFromCode($values["country_code"]);
         }

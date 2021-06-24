@@ -7,13 +7,13 @@ Version {$version} du {$versiondate}.
 L'application permet de garder la trace des échantillons stockés dans des contenants. <br>
 Chaque échantillon ou contenant est identifié par un numéro unique, l'UID. <br>
 D'un point de vue technique, les échantillons et les contenants sont, informatiquement parlant, hérités d'une classe appelée Objet.<br>
-Les objets sont porteurs de plusieurs informations : 
+Les objets sont porteurs de plusieurs informations :
 <ul>
 <li>les mouvements d'entrée ou de sortie (ils ne peuvent pas être effacés)</li>
 <li>les événements.
 </ul>
 
-D'autres informations sont spécifiques soit des échantillons, soit des contenants. 
+D'autres informations sont spécifiques soit des échantillons, soit des contenants.
 Pour ces derniers, les conditions de stockage (produit utilisé, risque associé normalisé) peuvent être décrits.
 <br>
 Consultez le site du projet : <a href="https://www.collec-science.org" target="_blank">https://www.collec-science.org</a>
@@ -33,7 +33,7 @@ Consultez le site du projet : <a href="https://www.collec-science.org" target="_
 <li>Éric Quinton (INRAE)</li>
 </ul>
 
-    <h3>Copyright © 2016-2020  Eric Quinton pour INRAE</h3>
+    <h3>Copyright © 2016-2021  Eric Quinton pour INRAE</h3>
 <p>
 La version 1.0 du logiciel a été déposée auprès de l'Agence pour la Protection des Programmes sous le numéro IDDN.FR.001.470013.000.S.C.2016.000.31500
 <br>
@@ -51,10 +51,3 @@ Collec-Science peut être cité dans les articles avec le DOI <a href="https://d
 <br>
     You should have received a copy of the GNU Affero General Public License<br>
     along with this program.  If not, see <a href=http://www.gnu.org/licenses>http://www.gnu.org/licenses</a>
-
-{* https://www.gnu.org/licenses/gpl-howto.fr.html#TransNote1
-    Traduction française non officielle :
-    Ce programme est un logiciel libre ; vous pouvez le redistribuer ou le modifier suivant les termes de la GNU General Public License telle que publiée par la Free Software Foundation ; soit la version 3 de la licence, soit (à votre gré) toute version ultérieure.
-    Ce programme est distribué dans l'espoir qu'il sera utile, mais SANS AUCUNE GARANTIE ; sans même la garantie tacite de QUALITÉ MARCHANDE ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la GNU General Public License pour plus de détails.
-    Vous devez avoir reçu une copie de la GNU General Public License en même temps que ce programme ; si ce n'est pas le cas, consultez <http://www.gnu.org/licenses>.
-*}

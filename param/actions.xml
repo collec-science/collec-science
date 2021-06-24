@@ -1,8 +1,8 @@
 <navigation>
-	<dbstructureHtml action="framework/utils/structure.php" param="html" retourlogin="1" type="smarty" schemas="collec,gacl" droits="project" maxCountByHour="60" maxCountByDay="600" />
+	<dbstructureHtml action="framework/utils/structure.php" param="html" retourlogin="1" type="smarty" schemas="col,gacl" droits="collection" maxCountByHour="60" maxCountByDay="600" />
 	<dbstructureGacl action="framework/utils/structure.php" param="gacl" retourlogin="1" type="smarty" droits="admin" schemas="gacl" maxCountByHour="60" maxCountByDay="600" />
-	<dbstructureLatex action="framework/utils/structure.php" param="latex" retourlogin="1" type="file" droits="collection" schemas="collec,gacl" maxCountByHour="60" maxCountByDay="600" />
-	<dbstructureSchema action="framework/utils/structure.php" param="schema" realfilename="documentation/collec_schema.png" generatedfilename="collec-science-database.png" retourlogin="1" type="binaire" droits="collection" maxCountByHour="60" maxCountByDay="600" />
+	<dbstructureLatex action="framework/utils/structure.php" param="latex" retourlogin="1" type="file" droits="collection" schemas="col,gacl" maxCountByHour="60" maxCountByDay="600" />
+	<dbstructureSchema action="framework/utils/structure.php" param="schema" realfilename="documentation/collec-schema.png" generatedfilename="collec-science-database.png" retourlogin="1" type="binaire" droits="collection" maxCountByHour="60" maxCountByDay="600" />
     <default action="modules/default.php" type="smarty"></default>
 	<!-- Modules specifiques de l'application -->
 	<lexique action="doc/lexique.php" retourlogin="1" type="smarty" />
@@ -326,6 +326,7 @@
     <lendingsample_fr action="framework/utils/markdown.php" param="documentation/lending_sample/lendingsample_fr.md" type="smarty" retourko="default"/>
     <lendingsample_en action="framework/utils/markdown.php" param="documentation/lending_sample/lendingsample_en.md" type="smarty" retourko="default"/>
     <sampledisplay_fr action="framework/utils/markdown.php" param="documentation/webservices/sampleDisplayFr.md" type="smarty" retourko="default"/>
+		<sampledisplay_en action="framework/utils/markdown.php" param="documentation/webservices/sampleDisplayEn.md" type="smarty" retourko="default"/>
     <documentget_fr action="framework/utils/markdown.php" param="documentation/webservices/documentGetFr.md" type="smarty" retourko="default"/>
     <swidentification_fr action="framework/utils/markdown.php" param="documentation/webservices/identificationFr.md" type="smarty" retourko="default"/>
     <swapi_fr action="framework/utils/markdown.php" param="documentation/webservices/apiCallFr.md" type="smarty" retourko="default"/>

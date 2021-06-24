@@ -56,7 +56,7 @@ class Referent extends ObjetBDD
             $sql = "select * from referent
                     where referent_name = :name";
             $data = array("name" => $name);
-            if (!empty($firstName)){
+            if (!empty($firstname)){
                 $sql .= " and referent_firstname = :firstname";
                 $data["firstname"] = $firstname;
             }

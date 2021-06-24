@@ -78,7 +78,7 @@ class Gacltotp
    */
   function encodeTotpKey(string $key): string
   {
-    if (openssl_public_encrypt($key, $crypted, $this->getKey("pub"))) {
+    if (openssl_public_encrypt($key, $crypted, $this->getKey("pub"), OPENSSL_PKCS1_OAEP_PADDING)) {
       $encodedKey = base64_encode($crypted);
     } else {
       throw new TOTPException(_("Une erreur est survenue pendant le chiffrement de la clé secrète"));
@@ -93,7 +93,7 @@ class Gacltotp
    */
   function decodeTotpKey(string $key): string
   {
-    if (openssl_private_decrypt(base64_decode($key), $decrypted, $this->getKey("priv"))) {
+    if (openssl_private_decrypt(base64_decode($key), $decrypted, $this->getKey("priv"), OPENSSL_PKCS1_OAEP_PADDING)) {
       return $decrypted;
     } else {
       throw new TOTPException(_("Une erreur est survenue pendant le déchiffrement de la clé secrète"));

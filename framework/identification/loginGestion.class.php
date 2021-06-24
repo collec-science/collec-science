@@ -57,7 +57,8 @@ class LoginGestion extends ObjetBDD
         parent::__construct($link, $param);
     }
 
-    function setKeys(string $privateKey, string $publicKey) : void {
+    function setKeys(string $privateKey, string $publicKey): void
+    {
         $this->privateKey = $privateKey;
         $this->publicKey = $publicKey;
     }
@@ -152,7 +153,7 @@ class LoginGestion extends ObjetBDD
             /**
              * decode the token
              */
-            if (openssl_private_decrypt(base64_decode($data["tokenws"]), $decrypted, $this->getKey("priv"))) {
+            if (openssl_private_decrypt(base64_decode($data["tokenws"]), $decrypted, $this->getKey("priv"), OPENSSL_PKCS1_OAEP_PADDING)) {
                 if ($decrypted == $token) {
                     $retour = true;
                 }
@@ -199,11 +200,11 @@ class LoginGestion extends ObjetBDD
          */
         if ($data["is_clientws"] == 1 && strlen($data["tokenws"]) == 0) {
             $token = bin2hex(openssl_random_pseudo_bytes(32));
-            if (openssl_public_encrypt($token, $crypted, $this->getKey("pub"))) {
+            if (openssl_public_encrypt($token, $crypted, $this->getKey("pub"), OPENSSL_PKCS1_OAEP_PADDING)) {
                 $data["tokenws"] = base64_encode($crypted);
-              } else {
+            } else {
                 throw new FrameworkException(_("Une erreur est survenue pendant le chiffrement du jeton d'identification"));
-              }
+            }
         } else {
             $data["is_clientws"] = 0;
         }
@@ -213,20 +214,20 @@ class LoginGestion extends ObjetBDD
     function lire($id, $getDefault = true, $parentValue = 0)
     {
         $data = parent::lire($id, $getDefault, $parentValue);
-        if (!empty ($data["tokenws"])) {
+        if (!empty($data["tokenws"])) {
             /**
              * decode the token
              */
-            if (openssl_private_decrypt(base64_decode($data["tokenws"]), $decrypted, $this->getKey("priv"))) {
+            if (openssl_private_decrypt(base64_decode($data["tokenws"]), $decrypted, $this->getKey("priv"), OPENSSL_PKCS1_OAEP_PADDING)) {
                 $data["tokenws"] = $decrypted;
-              } else {
+            } else {
                 throw new FrameworkException(_("Une erreur est survenue pendant le déchiffrement du jeton d'identification"));
-              }
+            }
         }
         return $data;
     }
 
-     /**
+    /**
      * return the content of the specified key
      *
      * @param string $type

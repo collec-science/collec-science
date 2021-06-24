@@ -278,7 +278,7 @@ switch ($t_module["param"]) {
           $data["referent_id"] = $dl["referent_id"];
           $data["campaign_id"] = $dl["campaign_id"];
           $data["country_id"] = $dl["country_id"];
-          $data["country_id"] = $dl["country_origin_id"];
+          $data["country_origin_id"] = $dl["country_origin_id"];
           if (empty($data["country_id"])) {
             $data["country_id"] = $_SESSION["countryDefaultId"];
           }

@@ -1,22 +1,11 @@
 -- Database generated with pgModeler (PostgreSQL Database Modeler).
--- pgModeler  version: 0.9.2
+-- pgModeler  version: 0.9.3
 -- PostgreSQL version: 9.6
 -- Project Site: pgmodeler.io
 -- Model Author: Eric Quinton
 
-
--- Database creation must be done outside a multicommand file.
--- These commands were put in this file only as a convenience.
--- -- object: collec | type: DATABASE --
--- -- DROP DATABASE IF EXISTS collec;
--- CREATE DATABASE collec
--- 	ENCODING = 'UTF8'
--- 	LC_COLLATE = 'fr_FR.UTF-8'
--- 	LC_CTYPE = 'fr_FR.UTF-8'
--- 	TABLESPACE = pg_default
--- 	OWNER = collec;
--- -- ddl-end --
---
+SET check_function_bodies = false;
+-- ddl-end --
 
 -- object: col | type: SCHEMA --
 -- DROP SCHEMA IF EXISTS col CASCADE;
@@ -35,6 +24,7 @@ ALTER SCHEMA gacl OWNER TO collec;
 SET search_path TO pg_catalog,public,col,gacl;
 -- ddl-end --
 
+
 -- object: col.booking_booking_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.booking_booking_id_seq CASCADE;
 CREATE SEQUENCE col.booking_booking_id_seq
@@ -45,6 +35,7 @@ CREATE SEQUENCE col.booking_booking_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.booking_booking_id_seq OWNER TO collec;
 -- ddl-end --
@@ -88,6 +79,7 @@ CREATE SEQUENCE col.project_project_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.project_project_id_seq OWNER TO collec;
 -- ddl-end --
@@ -116,6 +108,7 @@ CREATE SEQUENCE col.container_container_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.container_container_id_seq OWNER TO collec;
 -- ddl-end --
@@ -145,6 +138,7 @@ CREATE SEQUENCE col.container_family_container_family_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.container_family_container_family_id_seq OWNER TO collec;
 -- ddl-end --
@@ -178,6 +172,7 @@ CREATE SEQUENCE col.container_type_container_type_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.container_type_container_type_id_seq OWNER TO collec;
 -- ddl-end --
@@ -237,7 +232,7 @@ INSERT INTO col.container_type (container_type_name, container_family_id) VALUES
 -- object: col.dbparam | type: TABLE --
 -- DROP TABLE IF EXISTS col.dbparam CASCADE;
 CREATE TABLE col.dbparam (
-	dbparam_id integer NOT NULL,
+	dbparam_id serial NOT NULL,
 	dbparam_name character varying NOT NULL,
 	dbparam_value character varying,
 	CONSTRAINT dbparam_pk PRIMARY KEY (dbparam_id)
@@ -253,15 +248,17 @@ COMMENT ON COLUMN col.dbparam.dbparam_value IS E'Value of the parameter';
 ALTER TABLE col.dbparam OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dbparam (dbparam_id, dbparam_name, dbparam_value) VALUES (E'1', E'APPLI_code', E'cs_code');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'APPLI_code', E'cs_code');
 -- ddl-end --
-INSERT INTO col.dbparam (dbparam_id, dbparam_name, dbparam_value) VALUES (E'2', E'APPLI_title', E'Collec-Science - instance for ');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'APPLI_title', E'Collec-Science - instance for ');
 -- ddl-end --
-INSERT INTO col.dbparam (dbparam_id, dbparam_name, dbparam_value) VALUES (E'3', E'mapDefaultX', E'-0.70');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'mapDefaultX', E'-0.70');
 -- ddl-end --
-INSERT INTO col.dbparam (dbparam_id, dbparam_name, dbparam_value) VALUES (E'4', E'mapDefaultY', E'44.77');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'mapDefaultY', E'44.77');
 -- ddl-end --
-INSERT INTO col.dbparam (dbparam_id, dbparam_name, dbparam_value) VALUES (E'5', E'mapDefaultZoom', E'7');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'mapDefaultZoom', E'7');
+-- ddl-end --
+INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'otp_issuer', E'collec-science');
 -- ddl-end --
 
 -- object: col.dbversion_dbversion_id_seq | type: SEQUENCE --
@@ -274,6 +271,7 @@ CREATE SEQUENCE col.dbversion_dbversion_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.dbversion_dbversion_id_seq OWNER TO collec;
 -- ddl-end --
@@ -297,7 +295,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 ALTER TABLE col.dbversion OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'2.5', E'2020-11-16');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'2.6', E'2021-04-16');
 -- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --
@@ -310,6 +308,7 @@ CREATE SEQUENCE col.document_document_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.document_document_id_seq OWNER TO collec;
 -- ddl-end --
@@ -362,6 +361,7 @@ CREATE SEQUENCE col.event_event_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.event_event_id_seq OWNER TO collec;
 -- ddl-end --
@@ -400,6 +400,7 @@ CREATE SEQUENCE col.event_type_event_type_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.event_type_event_type_id_seq OWNER TO collec;
 -- ddl-end --
@@ -447,6 +448,7 @@ CREATE SEQUENCE col.identifier_type_identifier_type_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.identifier_type_identifier_type_id_seq OWNER TO collec;
 -- ddl-end --
@@ -483,6 +485,7 @@ CREATE SEQUENCE col.label_label_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.label_label_id_seq OWNER TO collec;
 -- ddl-end --
@@ -528,6 +531,7 @@ CREATE SEQUENCE col.storage_storage_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.storage_storage_id_seq OWNER TO collec;
 -- ddl-end --
@@ -559,6 +563,7 @@ CREATE SEQUENCE col.metadata_metadata_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.metadata_metadata_id_seq OWNER TO collec;
 -- ddl-end --
@@ -592,6 +597,7 @@ CREATE SEQUENCE col.mime_type_mime_type_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.mime_type_mime_type_id_seq OWNER TO collec;
 -- ddl-end --
@@ -664,6 +670,7 @@ CREATE SEQUENCE col.storage_reason_storage_reason_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.storage_reason_storage_reason_id_seq OWNER TO collec;
 -- ddl-end --
@@ -678,6 +685,7 @@ CREATE SEQUENCE col.movement_type_movement_type_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.movement_type_movement_type_id_seq OWNER TO collec;
 -- ddl-end --
@@ -711,6 +719,7 @@ CREATE SEQUENCE col.multiple_type_multiple_type_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.multiple_type_multiple_type_id_seq OWNER TO collec;
 -- ddl-end --
@@ -748,6 +757,7 @@ CREATE SEQUENCE col.object_uid_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.object_uid_seq OWNER TO collec;
 -- ddl-end --
@@ -762,6 +772,7 @@ CREATE SEQUENCE col.object_identifier_object_identifier_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.object_identifier_object_identifier_id_seq OWNER TO collec;
 -- ddl-end --
@@ -794,6 +805,7 @@ CREATE SEQUENCE col.object_status_object_status_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.object_status_object_status_id_seq OWNER TO collec;
 -- ddl-end --
@@ -835,6 +847,7 @@ CREATE SEQUENCE col.operation_operation_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.operation_operation_id_seq OWNER TO collec;
 -- ddl-end --
@@ -874,6 +887,7 @@ CREATE SEQUENCE col.printer_printer_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.printer_printer_id_seq OWNER TO collec;
 -- ddl-end --
@@ -947,6 +961,7 @@ CREATE SEQUENCE col.protocol_protocol_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.protocol_protocol_id_seq OWNER TO collec;
 -- ddl-end --
@@ -993,6 +1008,7 @@ CREATE SEQUENCE col.referent_referent_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.referent_referent_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1053,6 +1069,7 @@ CREATE SEQUENCE col.sample_sample_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.sample_sample_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1074,6 +1091,7 @@ CREATE TABLE col.sample (
 	expiration_date timestamp,
 	campaign_id integer,
 	country_id integer,
+	country_origin_id integer,
 	CONSTRAINT sample_pk PRIMARY KEY (sample_id)
 
 );
@@ -1103,6 +1121,7 @@ CREATE SEQUENCE col.sample_type_sample_type_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.sample_type_sample_type_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1146,6 +1165,7 @@ CREATE SEQUENCE col.sampling_place_sampling_place_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.sampling_place_sampling_place_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1189,6 +1209,7 @@ CREATE SEQUENCE col.storage_condition_storage_condition_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.storage_condition_storage_condition_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1266,6 +1287,7 @@ CREATE SEQUENCE col.subsample_subsample_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.subsample_subsample_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1324,6 +1346,7 @@ CREATE SEQUENCE gacl.aclgroup_aclgroup_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE gacl.aclgroup_aclgroup_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1365,6 +1388,7 @@ CREATE SEQUENCE gacl.aclaco_aclaco_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE gacl.aclaco_aclaco_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1409,6 +1433,7 @@ CREATE SEQUENCE gacl.aclappli_aclappli_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE gacl.aclappli_aclappli_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1477,6 +1502,7 @@ CREATE SEQUENCE gacl.acllogin_acllogin_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE gacl.acllogin_acllogin_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1487,6 +1513,7 @@ CREATE TABLE gacl.acllogin (
 	acllogin_id integer NOT NULL DEFAULT nextval('gacl.acllogin_acllogin_id_seq'::regclass),
 	login character varying NOT NULL,
 	logindetail character varying NOT NULL,
+	totp_key varchar,
 	CONSTRAINT acllogin_pk PRIMARY KEY (acllogin_id)
 
 );
@@ -1496,6 +1523,8 @@ COMMENT ON TABLE gacl.acllogin IS E'List of logins granted to access to the modu
 COMMENT ON COLUMN gacl.acllogin.login IS E'Login. It must be the same as the table logingestion';
 -- ddl-end --
 COMMENT ON COLUMN gacl.acllogin.logindetail IS E'Displayed name';
+-- ddl-end --
+COMMENT ON COLUMN gacl.acllogin.totp_key IS E'TOTP secret key for the user';
 -- ddl-end --
 ALTER TABLE gacl.acllogin OWNER TO collec;
 -- ddl-end --
@@ -1532,6 +1561,7 @@ CREATE SEQUENCE gacl.log_log_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE gacl.log_log_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1574,6 +1604,7 @@ CREATE SEQUENCE gacl.seq_logingestion_id
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE gacl.seq_logingestion_id OWNER TO collec;
 -- ddl-end --
@@ -1632,6 +1663,7 @@ CREATE SEQUENCE gacl.passwordlost_passwordlost_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE gacl.passwordlost_passwordlost_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1661,15 +1693,6 @@ COMMENT ON COLUMN gacl.passwordlost.usedate IS E'Used date-time of the token';
 ALTER TABLE gacl.passwordlost OWNER TO collec;
 -- ddl-end --
 
--- object: object_identifier_value_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.object_identifier_value_idx CASCADE;
-CREATE INDEX object_identifier_value_idx ON col.object_identifier
-	USING gin
-	(
-	  object_identifier_value
-	);
--- ddl-end --
-
 -- object: referent_referent_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.referent_referent_name_idx CASCADE;
 CREATE UNIQUE INDEX referent_referent_name_idx ON col.referent
@@ -1678,15 +1701,6 @@ CREATE UNIQUE INDEX referent_referent_name_idx ON col.referent
 	  referent_name
 	)
 	WITH (FILLFACTOR = 90);
--- ddl-end --
-
--- object: sample_dbuid_origin_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.sample_dbuid_origin_idx CASCADE;
-CREATE INDEX sample_dbuid_origin_idx ON col.sample
-	USING gin
-	(
-	  dbuid_origin
-	);
 -- ddl-end --
 
 -- object: sample_expiration_date_idx | type: INDEX --
@@ -1804,6 +1818,7 @@ CREATE SEQUENCE col.borrower_borrower_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.borrower_borrower_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1844,6 +1859,7 @@ CREATE SEQUENCE col.borrowing_borrowing_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.borrowing_borrowing_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1947,6 +1963,7 @@ CREATE SEQUENCE col.request_request_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.request_request_id_seq OWNER TO collec;
 -- ddl-end --
@@ -1995,6 +2012,7 @@ CREATE SEQUENCE col.export_model_export_model_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.export_model_export_model_id_seq OWNER TO collec;
 -- ddl-end --
@@ -2133,15 +2151,6 @@ COMMENT ON COLUMN col.object.object_comment IS E'Comment on the object (sample o
 ALTER TABLE col.object OWNER TO collec;
 -- ddl-end --
 
--- object: object_identifier_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.object_identifier_idx CASCADE;
-CREATE INDEX object_identifier_idx ON col.object
-	USING gin
-	(
-	  identifier
-	);
--- ddl-end --
-
 -- object: object_trashed | type: INDEX --
 -- DROP INDEX IF EXISTS col.object_trashed CASCADE;
 CREATE INDEX object_trashed ON col.object
@@ -2173,6 +2182,7 @@ CREATE SEQUENCE col.campaign_campaign_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.campaign_campaign_id_seq OWNER TO collec;
 -- ddl-end --
@@ -2210,6 +2220,7 @@ CREATE SEQUENCE col.regulation_regulation_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
+
 -- ddl-end --
 ALTER SEQUENCE col.regulation_regulation_id_seq OWNER TO collec;
 -- ddl-end --
@@ -2506,6 +2517,7 @@ CREATE TABLE col.dataset_column (
 	mandatory boolean DEFAULT 'f',
 	default_value varchar,
 	date_format varchar,
+	search_order smallint,
 	CONSTRAINT dataset_column_pk PRIMARY KEY (dataset_column_id)
 
 );
@@ -2525,6 +2537,8 @@ COMMENT ON COLUMN col.dataset_column.mandatory IS E'Is the content of the column
 COMMENT ON COLUMN col.dataset_column.default_value IS E'Default value, if the value is not filled in';
 -- ddl-end --
 COMMENT ON COLUMN col.dataset_column.date_format IS E'Export date format, in php notation. Example: d/m/Y H:i:s for 25/12/2020 17:15:00';
+-- ddl-end --
+COMMENT ON COLUMN col.dataset_column.search_order IS E'To search a sample, order of the current field to trigger the search';
 -- ddl-end --
 ALTER TABLE col.dataset_column OWNER TO collec;
 -- ddl-end --
@@ -2577,7 +2591,7 @@ COMMENT ON COLUMN col.dataset_type.fields IS E'List of allowed fields of the dat
 ALTER TABLE col.dataset_type OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value"]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed"]');
 -- ddl-end --
 INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'2', E'collection', E'["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academical_directory","academical_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]');
 -- ddl-end --
@@ -3338,15 +3352,6 @@ CREATE INDEX country_id_idx ON col.sample
 	);
 -- ddl-end --
 
--- object: authorization_number_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.authorization_number_idx CASCADE;
-CREATE INDEX authorization_number_idx ON col.campaign_regulation
-	USING gin
-	(
-	  authorization_number
-	);
--- ddl-end --
-
 -- object: campaign_id_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.campaign_id_idx CASCADE;
 CREATE INDEX campaign_id_idx ON col.campaign_regulation
@@ -3362,6 +3367,96 @@ CREATE INDEX sample_campaign_id_idx ON col.sample
 	USING btree
 	(
 	  campaign_id
+	);
+-- ddl-end --
+
+-- object: col.v_subsample_quantity | type: VIEW --
+-- DROP VIEW IF EXISTS col.v_subsample_quantity CASCADE;
+CREATE VIEW col.v_subsample_quantity
+AS
+
+select sample_id, uid, multiple_value,
+coalesce ((select sum(subsample_quantity) from col.subsample smore where smore.movement_type_id = 1 and smore.sample_id = s.sample_id),0) as subsample_more,
+coalesce ((select sum(subsample_quantity) from col.subsample sless where sless.movement_type_id  = 2 and sless.sample_id = s.sample_id),0) as subsample_less
+from col.sample s;
+-- ddl-end --
+ALTER VIEW col.v_subsample_quantity OWNER TO collec;
+-- ddl-end --
+
+-- object: country_fk1 | type: CONSTRAINT --
+-- ALTER TABLE col.sample DROP CONSTRAINT IF EXISTS country_fk1 CASCADE;
+ALTER TABLE col.sample ADD CONSTRAINT country_fk1 FOREIGN KEY (country_origin_id)
+REFERENCES col.country (country_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: pg_catalog.gin_trgm_ops | type: FUNCTION --
+-- DROP FUNCTION IF EXISTS pg_catalog.gin_trgm_ops() CASCADE;
+CREATE FUNCTION pg_catalog.gin_trgm_ops ()
+	RETURNS smallint
+	LANGUAGE sql
+	VOLATILE
+	CALLED ON NULL INPUT
+	SECURITY INVOKER
+	COST 1
+	AS $$
+#
+$$;
+-- ddl-end --
+ALTER FUNCTION pg_catalog.gin_trgm_ops() OWNER TO collec;
+-- ddl-end --
+
+-- object: pg_catalog.gin_trgm_ops | type: OPERATOR CLASS --
+-- DROP OPERATOR CLASS IF EXISTS pg_catalog.gin_trgm_ops USING gin CASCADE;
+CREATE OPERATOR CLASS pg_catalog.gin_trgm_ops FOR TYPE smallint
+ USING gin AS
+	FUNCTION	1	pg_catalog.gin_trgm_ops();
+-- ddl-end --
+ALTER OPERATOR CLASS pg_catalog.gin_trgm_ops USING gin OWNER TO collec;
+-- ddl-end --
+
+-- object: object_identifier_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.object_identifier_idx CASCADE;
+CREATE INDEX object_identifier_idx ON col.object
+	USING gin
+	(
+	  identifier pg_catalog.gin_trgm_ops
+	);
+-- ddl-end --
+
+-- object: sample_dbuid_origin_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.sample_dbuid_origin_idx CASCADE;
+CREATE INDEX sample_dbuid_origin_idx ON col.sample
+	USING gin
+	(
+	  dbuid_origin pg_catalog.gin_trgm_ops
+	);
+-- ddl-end --
+
+-- object: object_identifier_value_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.object_identifier_value_idx CASCADE;
+CREATE INDEX object_identifier_value_idx ON col.object_identifier
+	USING gin
+	(
+	  object_identifier_value pg_catalog.gin_trgm_ops
+	);
+-- ddl-end --
+
+-- object: authorization_number_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.authorization_number_idx CASCADE;
+CREATE INDEX authorization_number_idx ON col.campaign_regulation
+	USING gin
+	(
+	  authorization_number pg_catalog.gin_trgm_ops
+	);
+-- ddl-end --
+
+-- object: acllogin_login_idx | type: INDEX --
+-- DROP INDEX IF EXISTS gacl.acllogin_login_idx CASCADE;
+CREATE UNIQUE INDEX acllogin_login_idx ON gacl.acllogin
+	USING btree
+	(
+	  login
 	);
 -- ddl-end --
 
@@ -3678,4 +3773,10 @@ ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE col.object ADD CONSTRAINT referent_object_fk FOREIGN KEY (referent_id)
 REFERENCES col.referent (referent_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: "grant_CcT_1a8deeacb2" | type: PERMISSION --
+GRANT CREATE,CONNECT,TEMPORARY
+   ON DATABASE collec
+   TO collec;
 -- ddl-end --

@@ -1,6 +1,6 @@
 #!/bin/bash
 PHPOLDVERSION=`php -v|grep ^PHP|cut -d " " -f 2|cut -d "." -f 1-2`
-PHPVER=7.3
+PHPVER=7.4
 echo "Warning: you must have a backup of your server before run this upgrade."
 read -p "Your actual version of PHP is $PHPOLDVERSION. Do you want to upgrade to $PHPVER [y/n]?" response
 if [ "$response" = "y" ]

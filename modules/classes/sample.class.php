@@ -265,10 +265,10 @@ class Sample extends ObjetBDD
         $data["uid"] = $uid;
         if (parent::ecrire($data) > 0) {
           if (strlen($data["metadata"]) > 0) {
-            /*
-                         * Recherche des échantillons derives pour mise a jour
-                         * des metadonnees
-                         */
+            /**
+             * Recherche des échantillons derives pour mise a jour
+             * des metadonnees
+             */
             $childs = $this->getSampleassociated($uid);
             $md = json_decode($data["metadata"], true);
             foreach ($childs as $child) {
@@ -320,13 +320,13 @@ class Sample extends ObjetBDD
   {
     $data = $this->lire($uid);
     if ($this->verifyCollection($data)) {
-      /*
-             * suppression de l'echantillon
-             */
+      /**
+       * suppression de l'echantillon
+       */
       parent::supprimer($data["sample_id"]);
-      /*
-             * Suppression de l'objet
-             */
+      /**
+       * Suppression de l'objet
+       */
       if (!isset($this->object)) {
         require_once 'modules/classes/object.class.php';
         $this->object = new ObjectClass($this->connection, $this->paramori);

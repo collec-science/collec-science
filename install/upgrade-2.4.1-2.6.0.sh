@@ -1,7 +1,6 @@
 #!/bin/bash
-# upgrade an instance 2.1 to 2.2
-OLDVERSION=collec-2.3.1
-VERSION=collec-2.5.0
+OLDVERSION=collec-2.4.1
+VERSION=collec-2.6.0
 echo "Content of /var/www/html/collec-science"
 ls -l /var/www/html/collec-science
 echo "This script will install the release $VERSION"
@@ -13,7 +12,7 @@ if [[ $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then
 PHPOLDVERSION=`php -v|grep ^PHP|cut -d " " -f 2|cut -d "." -f 1-2`
 echo "Your php version is $PHPOLDVERSION"
-echo "Collec-Science must run with PHP 7.2 or above."
+echo "Collec-Science must run with PHP 7.3 or above."
 echo "You can upgrade your PHP version with these commands:"
 echo "wget https://github.com/Irstea/collec/raw/master/install/php_upgrade.sh"
 echo "chmod +x php_upgrade.sh"
@@ -21,8 +20,6 @@ echo "./php_upgrade.sh"
 cd /var/www/html/collec-science
 rm -f *zip
 # download last code
-echo "install postgis"
-apt-get -y install postgis
 echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip
 read -p "Ok to install this release [Y/n]?" answer
@@ -52,8 +49,8 @@ ln -s $VERSION collec
 echo "update database"
 chmod -R 755 /var/www/html/collec-science
 cd collec/install
-su postgres -c "psql -f upgrade-2.3-2.4.sql"
 su postgres -c "psql -f upgrade-2.4-2.5.sql"
+su postgres -c "psql -f upgrade-2.5-2.6.sql"
 cd ../..
 chmod 750 -R /var/www/html/collec-science
 
@@ -67,10 +64,6 @@ chmod -R 770 $VERSION/display/templates_c
 chmod -R 770 $VERSION/temp
 
 systemctl restart apache2
-
-PHPOLDVERSION=`php -v|grep ^PHP|cut -d " " -f 2|cut -d "." -f 1-2`
-echo "Your version of PHP is $PHPOLDVERSION. If it < 7.2, you must upgrade it with the script:"
-echo "./php_upgrade.sh"
 
 echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process"
 fi

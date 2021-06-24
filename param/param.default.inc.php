@@ -1,20 +1,21 @@
 <?php
+
 /** Fichier cree le 4 mai 07 par quinton
-*
-*UTF-8
-*
-* Parametres par defaut de l'application
-* Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
-*/
-$APPLI_version = "2.6.0d";
+ *
+ *UTF-8
+ *
+ * Parametres par defaut de l'application
+ * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
+ */
+$APPLI_version = "2.6.0";
 $APPLI_dbversion = "2.6";
-$APPLI_versiondate = _("11/06/2021");
+$APPLI_versiondate = _("24/06/2021");
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
  * Navigation a partir du fichier xml
  */
-$navigationxml = array("framework/actions.xml","param/actions.xml");
+$navigationxml = array("framework/actions.xml", "param/actions.xml");
 /*
  * Duree de la session par defaut
  * @var unknown_type
@@ -45,38 +46,38 @@ $LOG_duree = 365;
  * HEADER : l'identification est fournie dans une variable HEADER (derriere un proxy comme
  * LemonLdap, par exemple)
  */
-$ident_header_vars = array (
+$ident_header_vars = array(
 	"radical" => "MELLON",
 	"login" => "MELLON_MAIL",
 	"mail" => "MELLON_MAIL",
 	"cn" => "MELLON_CN",
 	"organization" => "MELLON_SHACHOMEORGANIZATION",
 	"organizationGranted" => array(),
-	"createUser"=>true
+	"createUser" => true
 );
 $ident_header_logout_address = "";
 $ident_type = "BDD";
 $CAS_address = "localhost/CAS";
 $CAS_port = 443;
 $CAS_debug = false;
-$CAS_CApath="";
+$CAS_CApath = "";
 $LDAP = array(
-		"address"=>"localhost",
-		"port" => 389,
-		"rdn" => "cn=manager,dc=example,dc=com",
-		"basedn" => "ou=people,ou=example,o=societe,c=fr",
-		"user_attrib" => "uid",
-		"v3" => true,
-		"tls" => false,
-		"upn_suffix" => "", //pour Active Directory
-		"groupSupport"=>false,
-		"groupAttrib"=>"supannentiteaffectation",
-		"commonNameAttrib"=>"displayname",
-		"mailAttrib"=>"mail",
-		'attributgroupname' => "cn",
-		'attributloginname' => "memberuid",
-		'basedngroup' => 'ou=example,o=societe,c=fr',
-		"timeout"=>2
+	"address" => "localhost",
+	"port" => 389,
+	"rdn" => "cn=manager,dc=example,dc=com",
+	"basedn" => "ou=people,ou=example,o=societe,c=fr",
+	"user_attrib" => "uid",
+	"v3" => true,
+	"tls" => false,
+	"upn_suffix" => "", //pour Active Directory
+	"groupSupport" => false,
+	"groupAttrib" => "supannentiteaffectation",
+	"commonNameAttrib" => "displayname",
+	"mailAttrib" => "mail",
+	'attributgroupname' => "cn",
+	'attributloginname' => "memberuid",
+	'basedngroup' => 'ou=example,o=societe,c=fr',
+	"timeout" => 2
 );
 
 /*
@@ -89,11 +90,12 @@ $BDD_schema = "public";
 /*
  * Parametres concernant SMARTY
  */
-$SMARTY_param = array("templates"=> "display/templates",
-		"templates_c"=>"display/templates_c",
-		"cache"=>false,
-		"cache_dir"=>"display/smarty_cache",
-		"template_main"=>"main.htm"
+$SMARTY_param = array(
+	"templates" => "display/templates",
+	"templates_c" => "display/templates_c",
+	"cache" => false,
+	"cache_dir" => "display/smarty_cache",
+	"template_main" => "main.htm"
 );
 
 /*
@@ -127,14 +129,14 @@ $APPLI_fop = "/usr/bin/fop";
  * Variables systematiques pour SMARTY
  */
 $SMARTY_variables = array(
-		"entete"=>"entete.tpl",
-		"enpied"=>"enpied.tpl",
-		"corps"=>"main.tpl",
-		"melappli"=>$APPLI_mail,
-		"ident_type"=>$ident_type,
-        "appliAssist"=>$APPLI_assist_address,
-        "display"=>"/display",
-        "favicon"=>"/favicon.png"
+	"entete" => "entete.tpl",
+	"enpied" => "enpied.tpl",
+	"corps" => "main.tpl",
+	"melappli" => $APPLI_mail,
+	"ident_type" => $ident_type,
+	"appliAssist" => $APPLI_assist_address,
+	"display" => "/display",
+	"favicon" => "/favicon.png"
 );
 /*
  * Variables liees a GACL et l'identification via base de donnees
@@ -149,14 +151,14 @@ $GACL_disable_new_right = 1;
 /*
  * Gestion des erreurs
  */
-$ERROR_level=E_ERROR;
+$ERROR_level = E_ERROR;
 /*
  * Pour le developpement :
  * $ERROR_level = E_ALL & ~E_NOTICE & E_STRICT
  * En production :
  * $ERROR_level = E_ERROR ;
  */
-$ERROR_display=0;
+$ERROR_display = 0;
 $ADODB_debugmode = 0;
 $OBJETBDD_debugmode = 1;
 /*
@@ -204,5 +206,3 @@ $APPLI_max_file_size = 10; // Size in Mb
 $APPLI_passwordMinLength = 12;
 $APPLI_hour_duration = 3600; // Duration of an hour for count all calls to a module
 $APPLI_day_duration = 36000; //Duration of a day for count all calls to a module
-
-?>

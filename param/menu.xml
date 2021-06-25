@@ -107,7 +107,11 @@
     <item module="metadatafield_en" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="en"/>
     <item module="lendingsample_en" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="en"/>
 		<item module="default" label="Services web" tooltip="Description des services web" language="en">
+			<item module="swidentification_en" label="identification" tooltip="Gérer l'identification dans les services web" language="en"/>
+			<item module="swapi_en" label="API web" tooltip="Utilisation des API web" language="en"/>
 			<item module="sampledisplay_en" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="en"/>
+			<item module="documentget_en" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="en"/>
+			<item module="sampleWrite_en" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="en"/>
 		</item>
 </item>
 <item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1"/>

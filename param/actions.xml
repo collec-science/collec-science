@@ -328,7 +328,11 @@
     <sampledisplay_fr action="framework/utils/markdown.php" param="documentation/webservices/sampleDisplayFr.md" type="smarty" retourko="default"/>
 		<sampledisplay_en action="framework/utils/markdown.php" param="documentation/webservices/sampleDisplayEn.md" type="smarty" retourko="default"/>
     <documentget_fr action="framework/utils/markdown.php" param="documentation/webservices/documentGetFr.md" type="smarty" retourko="default"/>
+		<documentget_en action="framework/utils/markdown.php" param="documentation/webservices/documentGetEn.md" type="smarty" retourko="default"/>
     <swidentification_fr action="framework/utils/markdown.php" param="documentation/webservices/identificationFr.md" type="smarty" retourko="default"/>
+		<swidentification_en action="framework/utils/markdown.php" param="documentation/webservices/identificationEn.md" type="smarty" retourko="default"/>
     <swapi_fr action="framework/utils/markdown.php" param="documentation/webservices/apiCallFr.md" type="smarty" retourko="default"/>
+		<swapi_en action="framework/utils/markdown.php" param="documentation/webservices/apiCallEn.md" type="smarty" retourko="default"/>
     <sampleWrite_fr action="framework/utils/markdown.php" param="documentation/webservices/sampleWriteFr.md" type="smarty" retourko="default"/>
+		<sampleWrite_en action="framework/utils/markdown.php" param="documentation/webservices/sampleWriteEn.md" type="smarty" retourko="default"/>
 </navigation>

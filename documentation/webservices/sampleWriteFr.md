@@ -12,7 +12,7 @@ L'API crée également les référents, les stations ou les campagnes s'ils n'ex
 
 ## Identification
 
-Consultez ce document pour créer l'utilisateur de l'API, générer un token et lui donner les droits adéquats : [Identification pour les services web](index.php?module=swidentification_fr) 
+Consultez ce document pour créer l'utilisateur de l'API, générer un token et lui donner les droits adéquats : [Identification pour les services web](index.php?module=swidentification_fr)
 
 ## Appel par défaut
 
@@ -47,14 +47,14 @@ L'API doit être appelée en mode http **POST**.
 | referent_firstname | Prénom du référent | |
 | location_accuracy | Précision de la localisation du lieu de collecte de l'échantillon | |
 | object_comment | Commentaire libre | |
-| code d'identifiant secondaire | Si des identifiants secondaires sont utilisables, indiquez le code de ceux-ci et la valeur associée (par exemple : IGSN) | |
+| code d'identifiant secondaire | Si des identifiants secondaires sont utilisables, indiquez le code de ceux-ci et la valeur associée (par exemple : IGSN:125) | |
 | parent_uid | uid de l'échantillon parent, si connu | |
 | parent_uuid | uuid de l'échantillon parent, si connu | |
 | parent_identifier | identifiant métier de l'échantillon parent, si connu | |
 | parent_code | code de l'identifiant secondaire du parent, si connu | |
 
 
-{.table .table-bordered .table-hover .datatable-nopaging }
+{.table .table-bordered .table-hover .datatable-nopaging-nosort }
 
 ### Ordre de recherche des échantillons
 

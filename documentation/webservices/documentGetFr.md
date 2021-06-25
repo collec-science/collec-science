@@ -2,9 +2,11 @@
 
 ## Méthode d'appel
 
+~~~
 	index.php?module=documentGetSW&uuid=xxx&token=yyyy&mode=inline
-	
-Paramètres : 
+~~~
+
+Paramètres :
 
 | Paramètre | Contenu |
 |--|--|

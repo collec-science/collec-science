@@ -26,6 +26,7 @@ header("X-Frame-Options: SAMEORIGIN");
 ini_set("session.use_strict_mode", true);
 ini_set('session.gc_probability', 1);
 ini_set('session.gc_maxlifetime', $APPLI_session_ttl);
+//ini_set("session.cookie_samesite", "strict");
 /**
  * Integration of external libraries
  */

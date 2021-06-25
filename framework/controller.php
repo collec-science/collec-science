@@ -245,6 +245,9 @@ try {
         /**
          * Gestion de la saisie du login
          */
+        if (!$vue){
+          throw new Exception(_("Message technique : la vue n'a pas été initialisée lors de la création de la page de login"));
+        }
         $vue->set("framework/ident/login.tpl", "corps");
         $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
         $vue->set($APPLI_lostPassword, "lostPassword");

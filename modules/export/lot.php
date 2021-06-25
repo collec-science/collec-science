@@ -28,7 +28,6 @@ switch ($t_module["param"]) {
      */
     include_once "modules/classes/sample.class.php";
     $ok = false;
-    printA($_POST);
     $sample = new Sample($bdd, $ObjetBDDParam);
     if (count($_POST["uids"]) > 0) {
       foreach ($_SESSION["collections"] as $value) {

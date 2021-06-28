@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.3.0] - 2019-10-04
+
+### Added
+
+- Add manifest ([Level/community#83](https://github.com/Level/community/issues/83)) ([#79](https://github.com/Level/deferred-leveldown/issues/79)) ([**@vweevers**](https://github.com/vweevers))
+- Include abstract test suite ([#77](https://github.com/Level/deferred-leveldown/issues/77)) ([**@vweevers**](https://github.com/vweevers))
+
+### Fixed
+
+- Pass db to `AbstractIterator` ([#77](https://github.com/Level/deferred-leveldown/issues/77)) ([**@vweevers**](https://github.com/vweevers))
+
 ## [5.2.1] - 2019-09-17
 
 ### Fixed
@@ -264,6 +275,8 @@ No changes.
 ## 0.0.0 - 2013-09-17
 
 :seedling: First release. ([**@rvagg**](https://github.com/rvagg))
+
+[5.3.0]: https://github.com/Level/deferred-leveldown/compare/v5.2.1...v5.3.0
 
 [5.2.1]: https://github.com/Level/deferred-leveldown/compare/v5.2.0...v5.2.1
 

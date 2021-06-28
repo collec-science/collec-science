@@ -7,9 +7,9 @@
 
 /**
  * @class Navigation
- * 
+ *
  * @author Eric Quinton - eric.quinton@free.fr
- *        
+ *
  */
 class Navigation
 {
@@ -28,14 +28,17 @@ class Navigation
      * Fonction de creation de la classe
      * lecture du fichier xml contenant la navigation de l'application
      *
-     * @param string $nomfichier
+     * @param array $nomfichier
      * @return Navigation
      */
-    function __construct($nomfichier)
+    function __construct(array $files)
     {
         $this->dom = new DOMDocument();
-        $this->dom->load($nomfichier);
-        $this->g_module = $this->lireGlobal();
+        foreach($files as $file) {
+            $this->dom->load($file);
+            $data = $this->lireGlobal();
+            $this->g_module = array_merge($this->g_module, $data);
+        }
     }
 
     /**
@@ -77,7 +80,7 @@ class Navigation
         $g_module = array();
         foreach ($noeuds as $noeud) {
             // Exclusion du modele
-            
+
             if ($noeud->hasAttributes() && $noeud->tagName != "model") {
                 foreach ($noeud->attributes as $attname => $noeud_attribute) {
                     $g_module[$noeud->tagName][$attname] = $noeud->getAttribute($attname);

@@ -707,7 +707,7 @@ class ObjetBDD
    *
    * @param
    *            array with the name of the columns as identifiers of items
-   * @return int: key of item, or error code
+   * @return int key of item, or error code
    */
   function ecrire($dataBrute)
   {
@@ -1646,7 +1646,7 @@ class ObjetBDD
    *            $id
    * @param
    *            $lignes
-   * @return none
+   * @return void
    */
   function writeTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes)
   {
@@ -1861,7 +1861,7 @@ class ObjetBDD
    *
    * @param string $sql
    * @param array $data
-   * @return array
+   * @return array|null
    */
   function getListeParamAsPrepared($sql, $data)
   {
@@ -1872,7 +1872,11 @@ class ObjetBDD
     if ($this->toUTF8) {
       $collection = $this->utf8Encode($collection);
     }
-    return $collection;
+    if (is_array($collection)) {
+      return $collection;
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -1922,11 +1926,16 @@ class ObjetBDD
    * @param string $varname
    * @param string $className
    * @param string $classFile
+   * @param bool $pathAbsolute: if false, the path of the class is $this->classpath/$classFile (default: false)
    * @return void
    */
-  function classInstanciate( $className, $classFile)
+  function classInstanciate( $className, $classFile, bool $pathAbsolute = false)
   {
-      include_once $this->classpath . "/" . $classFile;
+    $pathAbsolute ? $path = $classFile : $path = $this->classpath."/".$classFile;
+      include_once $path;
+      if (!isset ($this->connection)) {
+        throw new ObjetBDDException(sprintf(_("La connexion à la base de données n'est pas disponible pour instancier la classe %s"), $className));
+      }
       $instance = new $className($this->connection, $this->paramori);
     return $instance;
   }

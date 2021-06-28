@@ -1,0 +1,97 @@
+<navigation>
+  <model action="index.php" param="list|display|change|write|delete|..." droits="gestion" retourko="model" retourlogin="1" retourok="model" loginrequis="1" type="html|smarty|ajax|pdf|csv|binaire" droitko="droitko" modulebefore="module1,module2" requiredVar="table_id" maxCountByHour="60" maxCountByDay="600" noDelayBeforeCall="1" />
+	<default action="framework/default.php" type="smarty"></default>
+	<droitko action="framework/droitko.php" type="smarty"></droitko>
+	<droits menudroits="admin" droits="admin" menulevel="0" menuorder="7" menuvalue="14" menutitle="15" />
+	<gestiondroits action="framework/identification/gestiondroits.php" droits="admin" loginrequis="0" retourlogin="1" droitko="droitko" />
+
+	<loginList action="framework/identification/login.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<loginChange action="framework/identification/login.php" param="change" droits="admin" type="smarty" retourko="loginList" />
+	<loginWrite action="framework/identification/login.php" param="write" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange" />
+	<loginDelete action="framework/identification/login.php" param="delete" droits="admin" retourko="loginChange" retourok="loginList" modulebefore="loginChange" />
+	<loginChangePassword action="framework/identification/login.php" param="changePassword" loginrequis="1" type="smarty" />
+	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" retourok="default" modulebefore="loginChangePassword" />
+
+	<administration action="modules/administration/index.php" droits="admin" retourko="" retourok="" droitko="droitko" type="smarty"></administration>
+	<gestion action="modules/gestion/index.php" droits="gestion" retourko="" retourok="" droitko="droitko" type="smarty"></gestion>
+	<errorbefore action="framework/errorbefore.php" retourlogin="1" type="smarty"></errorbefore>
+	<errorlogin action="framework/errorlogin.php" retourlogin="1" type="smarty"></errorlogin>
+	<test action="test/test.php" retourko="" type="smarty"></test>
+	<connexion loginrequis="1" type="smarty" />
+	<disconnect action="framework/identification/disconnect.php" type="smarty" retourok="default" retourko="default" />
+	<apropos action="framework/apropos.php" type="smarty" />
+	<phpinfo action="framework/phpinfo.php" droits="admin" retourlogin="1" type="smarty" />
+	<quoideneuf action="doc/quoideneuf.php" retourlogin="1" type="smarty" />
+	<getLastConnections action="framework/log/log.php" param="getLastConnections" loginrequis="1" type="smarty" />
+	<setlanguage action='framework/setlanguage.php' param="" retourlogin="1" type="smarty" retourok="default" />
+	<setlanguagefr action='framework/setlanguage.php' param="fr" retourlogin="1" type="smarty" retourok="default" />
+	<setlanguageen action='framework/setlanguage.php' param="en" retourlogin="1" type="smarty" retourok="default" />
+
+
+	<exampleList action="modules/example/example.php" param="list" droits="consult" type="smarty" />
+	<exampleDisplay action="modules/example/example.php" param="display" droits="consult" type="smarty" />
+	<exampleChange action="modules/example/example.php" param="change" droits="gestion" type="smarty" />
+	<exampleWrite action="modules/example/example.php" param="write" droits="gestion" retourok="exampleList" retourko="exampleChange" modulebefore="exampleChange" />
+	<exampleDelete action="modules/example/example.php" param="delete" droits="admin" retourok="exampleList" retourko="exampleChange" />
+
+    <documentation_fr action="default" type="smarty"/>
+    <documentation_en action="default" type="smarty"/>
+    <documentationGetFile action="framework/utils/file.php" param="documentationGetFile" type="binaire" retourko="default"/>
+
+	<!-- gestion des droits nouvelle formule -->
+	<appliList action="framework/droits/appli.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<appliDisplay action="framework/droits/appli.php" param="display" droits="admin" type="smarty" />
+	<appliChange action="framework/droits/appli.php" param="change" droits="admin" type="smarty" />
+	<appliWrite action="framework/droits/appli.php" param="write" droits="admin" retourok="appliDisplay" retourko="appliChange" modulebefore="appliChange" />
+	<appliDelete action="framework/droits/appli.php" param="delete" droits="admin" retourok="appliList" retourko="appliChange" modulebefore="appliChange" />
+
+	<aclloginList action="framework/droits/login.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<aclloginChange action="framework/droits/login.php" param="change" droits="admin" type="smarty" />
+	<aclloginWrite action="framework/droits/login.php" param="write" droits="admin" retourok="aclloginList" retourko="aclloginChange" modulebefore="aclloginChange" />
+	<aclloginDelete action="framework/droits/login.php" param="delete" droits="admin" retourok="aclloginList" retourko="aclloginChange" modulebefore="aclloginChange" />
+
+	<groupList action="framework/droits/group.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<groupChange action="framework/droits/group.php" param="change" droits="admin" type="smarty" />
+	<groupWrite action="framework/droits/group.php" param="write" droits="admin" retourok="groupList" retourko="groupChange" modulebefore="groupChange" />
+	<groupDelete action="framework/droits/group.php" param="delete" droits="admin" retourok="groupList" retourko="groupChange" modulebefore="groupChange" />
+
+	<acoDisplay action="framework/droits/aco.php" param="display" droits="admin" type="smarty" />
+	<acoChange action="framework/droits/aco.php" param="change" droits="admin" type="smarty" />
+	<acoWrite action="framework/droits/aco.php" param="write" droits="admin" retourok="appliDisplay" retourko="acoChange" modulebefore="acoChange" />
+	<acoDelete action="framework/droits/aco.php" param="delete" droits="admin" retourok="appliDisplay" retourko="acoChange" modulebefore="acoChange" />
+
+	<passwordlostIslost action="framework/identification/passwordLost.php" param="isLost" type="smarty" />
+	<passwordlostSendmail action="framework/identification/passwordLost.php" param="sendMail" retourok="default" />
+	<passwordlostReinitchange action="framework/identification/passwordLost.php" param="reinitChange" type="smarty" />
+	<passwordlostReinitwrite action="framework/identification/passwordLost.php" param="reinitWrite" modulebefore="passwordlostReinitchange" retourko="default" retourok="connexion" />
+
+	<dbparamList action="framework/dbparam/dbparam.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<dbparamWriteGlobal action="framework/dbparam/dbparam.php" param="writeGlobal" droits="admin" retourok="dbparamList" retourko="dbparamList" />
+
+	<logList action="framework/log/log.php" param="list" retourlogin="1" type="smarty" droits="admin" />
+
+	<requestList action="framework/request/request.php" param="list" retourlogin="1" droits="param" type="smarty" />
+	<requestChange action="framework/request/request.php" param="change" droits="param" type="smarty" />
+	<requestWrite action="framework/request/request.php" param="write" droits="param" modulebefore="requestChange,requestCopy,requestExec,requestWriteExec" retourok="requestChange" retourko="requestChange" />
+	<requestDelete action="framework/request/request.php" param="delete" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestList" retourko="requestChange" />
+	<requestExec action="framework/request/request.php" param="exec" droits="param" type="html" />
+	<requestExecList action="framework/request/request.php" param="execList" droits="param" type="html" />
+	<requestWriteExec action="framework/request/request.php" param="write" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestExec" retourko="requestChange" />
+	<requestCopy action="framework/request/request.php" param="copy" droits="param" type="smarty" />
+	<lexicalGet action="framework/utils/lexical.php" type="ajax" />
+
+	<backupDisplay action="framework/utils/backup.php" param="display" retourlogin="1" droits="admin" type="smarty" />
+	<backupExec action="framework/utils/backup.php" param="exec" modulebefore="backupDisplay,backupExec" droits="admin" retourok="backupSend" retourko="backupDisplay" />
+	<backupSend action="framework/utils/backup.php" param="send" modulebefore="backupExec" droits="admin" type="binaire" retourko="backupDisplay" />
+
+    <loginExec loginrequis="1" />
+
+    <!-- TOTP -->
+    <totpCreate action="framework/identification/totp.php" param="create" retourlogin="1" type="smarty" loginrequis="1" retourko="default"/>
+    <totpCreateVerify action="framework/identification/totp.php" param="createVerify" modulebefore="totpCreate,totpCreateVerify" loginrequis="1" retourok="default" retourko="totpCreate"/>
+    <totpGetQrcode action="framework/identification/totp.php" param="getQrcode" type="binaire"/>
+    <totpVerifyExec action="framework/identification/totp.php" loginrequis="1"/>
+    <doctotp_fr action="framework/utils/markdown.php" param="framework/documentation/totp_fr.md" type="smarty" retourko="default"/>
+    <doctotp_en action="framework/utils/markdown.php" param="framework/documentation/totp_en.md" type="smarty" retourko="default"/>
+
+</navigation>

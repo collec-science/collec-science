@@ -98,6 +98,12 @@ class ObjectClass extends ObjetBDD
     } else {
       $data["geom"] = "";
     }
+    /**
+     * rewrite trashed
+     */
+    if (empty($data["trashed"])) {
+      $data["trashed"] = 0;
+    }
     return parent::ecrire($data);
   }
   /**
@@ -472,7 +478,7 @@ class ObjectClass extends ObjetBDD
                             object_status_name as status, null as dbuid_origin,
                             null as pid,
                             uuid, null as ctry,
-                            trim (referent_firstname || ' ' ||referent_name) as ref
+                            trim (referent_name || ' ' || coalesce(referent_firstname, ' ')) as ref
                         from object
                             join container using (uid)
                             join container_type using (container_type_id)
@@ -492,9 +498,9 @@ class ObjectClass extends ObjetBDD
                             pso.identifier as pid,
                             o.uuid, ctry.country_code2 as ctry,
                             case when o.referent_id is not null then
-                            trim (sr.referent_firstname || ' ' ||sr.referent_name)
+                            trim (sr.referent_name || ' ' || coalesce(sr.referent_firstname, ' '))
                             else
-                            trim (cr.referent_firstname || ' ' ||cr.referent_name)
+                            trim (cr.referent_firstname || ' ' || coalesce(cr.referent_firstname, ' '))
                             end as ref
                         from object o
                                 join sample s on (o.uid = s.uid)
@@ -864,9 +870,18 @@ class ObjectClass extends ObjetBDD
    * @param integer $status_id
    * @return void
    */
-  function setStatus($uid, $status_id)
+  function setStatus($uids, $status_id)
   {
-    if ($uid > 0 && $status_id > 0) {
+    if (!is_array($uids)) {
+      $uids = array($uids);
+    }
+    if (empty($status_id)) {
+      throw new ObjectException(_("Le statut n'a pas été fourni"));
+    }
+    foreach ($uids as $uid) {
+      if (empty($uid)) {
+        throw new ObjectException(_("L'identifiant de l'objet n'a pas été fourni"));
+      }
       $data = array("uid" => $uid, "object_status_id" => $status_id);
       try {
         $this->ecrire($data);
@@ -876,7 +891,7 @@ class ObjectClass extends ObjetBDD
     }
   }
   /**
-   * get the content of an object with his type (type_name)
+   * get the content of an object with its type (type_name)
    *
    * @param [type] $uid
    * @return void

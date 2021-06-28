@@ -112,10 +112,14 @@ switch ($t_module["param"]) {
                     $bdd->commit();
                 } catch (ImportObjectException $ie) {
                     $bdd->rollBack();
+                    $message->set(_("Une erreur s'est produite pendant l'importation."), true);
                     $message->set($ie->getMessage(), true);
+                    $module_coderetour = -1;
                 } catch (Exception $e) {
                     $bdd->rollBack();
+                    $message->set(_("Une erreur s'est produite pendant l'importation."), true);
                     $message->set($e->getMessage(), true);
+                    $module_coderetour = -1;
                 }
             }
         }
@@ -150,7 +154,8 @@ switch ($t_module["param"]) {
                         "location_accuracy",
                         "campaign_name",
                         "comment",
-                        "country_code"
+                        "country_code",
+                        "country_origin_code"
                     );
                     $importFile = new Import($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                     $data = $importFile->getContentAsArray();

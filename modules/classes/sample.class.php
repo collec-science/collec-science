@@ -31,6 +31,7 @@ class Sample extends ObjetBDD
           case when s.country_id is not null then sc.country_id else csp.country_id end as country_id,
           case when s.country_id is not null then sc.country_name else csp.country_name end as country_name,
           case when s.country_id is not null then sc.country_code2 else csp.country_code2 end as country_code2,
+          s.country_origin_id, sco.country_name as country_origin_name, sco.country_code2 as country_origin_code2,
           so.object_status_id, object_status_name,so.referent_id,
           so.change_date, so.uuid, so.trashed, so.location_accuracy, so.object_comment,
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
@@ -43,6 +44,7 @@ class Sample extends ObjetBDD
 					sp.sampling_place_id, sp.sampling_place_name,
           lm.line_number, lm.column_number,
           container_uid, oc.identifier as container_identifier, oc.uuid as container_uuid, lmct.container_type_name as storage_type_name,
+          case when ro.referent_name is not null then ro.referent_id else cr.referent_id end as real_referent_id,
           case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name,
           case when ro.referent_name is not null then ro.referent_email else cr.referent_email end as referent_email,
           case when ro.referent_name is not null then ro.address_name else cr.address_name end as address_name,
@@ -54,7 +56,8 @@ class Sample extends ObjetBDD
           case when ro.referent_name is not null then ro.referent_firstname else cr.referent_firstname end as referent_firstname,
           case when ro.referent_name is not null then ro.academical_directory else cr.academical_directory end as academic_directory,
           case when ro.referent_name is not null then ro.academical_link else cr.academical_link end as academical_link,
-          borrowing_date, expected_return_date, borrower_id, borrower_name
+          borrowing_date, expected_return_date, borrower_id, borrower_name,
+          vsq.multiple_value + vsq.subsample_more - vsq.subsample_less as subsample_quantity
 					from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join collection p on (p.collection_id = s.collection_id)
@@ -84,6 +87,8 @@ class Sample extends ObjetBDD
           left outer join campaign_regulation campreg on (campaign.campaign_id = campreg.campaign_id)
           left outer join country sc on (s.country_id = sc.country_id)
           left outer join country csp on (sp.country_id = csp.country_id)
+          left outer join country sco on (s.country_origin_id = sco.country_id)
+          left outer join v_subsample_quantity vsq on (s.sample_id = vsq.sample_id)
           ";
   private $object, $container, $event, $country;
 
@@ -139,7 +144,8 @@ class Sample extends ObjetBDD
         "type" => 2,
       ),
       "campaign_id" => array("type" => 1),
-      "country_id" => array("type" => 1)
+      "country_id" => array("type" => 1),
+      "country_origin_id" => array("type" => 1)
     );
     parent::__construct($bdd, $param);
   }
@@ -182,6 +188,21 @@ class Sample extends ObjetBDD
     unset($this->colonnes["expected_return_date"]);
     unset($this->colonnes["change_date"]);
     return $list;
+  }
+
+  /**
+   * Get the id of the sample from the identifier
+   *
+   * @param [type] $identifier
+   * @return void
+   */
+  public function getIdFromIdentifier($identifier)
+  {
+    $sql = "select sample_id from sample
+    join object using (uid)
+    where lower(identifier) = lower(:identifier)";
+    $data = $this->lireParamAsPrepared($sql, array("identifier" => $identifier));
+    return $data["sample_id"];
   }
 
   /**
@@ -244,10 +265,10 @@ class Sample extends ObjetBDD
         $data["uid"] = $uid;
         if (parent::ecrire($data) > 0) {
           if (strlen($data["metadata"]) > 0) {
-            /*
-                         * Recherche des échantillons derives pour mise a jour
-                         * des metadonnees
-                         */
+            /**
+             * Recherche des échantillons derives pour mise a jour
+             * des metadonnees
+             */
             $childs = $this->getSampleassociated($uid);
             $md = json_decode($data["metadata"], true);
             foreach ($childs as $child) {
@@ -299,13 +320,13 @@ class Sample extends ObjetBDD
   {
     $data = $this->lire($uid);
     if ($this->verifyCollection($data)) {
-      /*
-             * suppression de l'echantillon
-             */
+      /**
+       * suppression de l'echantillon
+       */
       parent::supprimer($data["sample_id"]);
-      /*
-             * Suppression de l'objet
-             */
+      /**
+       * Suppression de l'objet
+       */
       if (!isset($this->object)) {
         require_once 'modules/classes/object.class.php';
         $this->object = new ObjectClass($this->connection, $this->paramori);
@@ -386,8 +407,8 @@ class Sample extends ObjetBDD
      * Verification de la presence des parametres
      */
     $searchOk = false;
-    $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id");
-    if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0) {
+    $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
+    if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["booking_type"] != 0) {
       $searchOk = true;
     } else {
       foreach ($paramName as $name) {
@@ -476,15 +497,20 @@ class Sample extends ObjetBDD
         $and = " and ";
         $data["campaign_id"] = $param["campaign_id"];
       }
-      if (! empty($param["authorization_number"])) {
+      if (!empty($param["authorization_number"])) {
         $where .= $and . "upper(campreg.authorization_number) like upper(:authorization_number)";
         $and = " and ";
-        $data["authorization_number"] = "%".$param["authorization_number"]."%";
+        $data["authorization_number"] = "%" . $param["authorization_number"] . "%";
       }
       if ($param["country_id"] > 0) {
         $where .= $and . " (s.country_id = :country_id or sp.country_id = :country_id)";
         $and = " and ";
         $data["country_id"] = $param["country_id"];
+      }
+      if ($param["country_origin_id"] > 0) {
+        $where .= $and . " (s.country_origin_id = :country_origin_id)";
+        $and = " and ";
+        $data["country_origin_id"] = $param["country_origin_id"];
       }
 
       if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
@@ -597,6 +623,42 @@ class Sample extends ObjetBDD
         $and = " and ";
       }
       /**
+       * Search on an event_type
+       */
+      if ($param["event_type_id"] > 0) {
+        $this->sql .= " left outer join event oe on (so.uid = oe.uid) ";
+        $where .= $and . " event_type_id = :event_type_id";
+        $data["event_type_id"] = $param["event_type_id"];
+        $and = " and ";
+      }
+      /**
+       * Search on minimal subsample quantity
+       */
+      if ($param["subsample_quantity_min"] > 0) {
+        $where .= $and . "(vsq.multiple_value + vsq.subsample_more - vsq.subsample_less) >= :subsample_quantity_min";
+        $data["subsample_quantity_min"] = $param["subsample_quantity_min"];
+        $and = " and ";
+      }
+      /**
+       * Search on minimal subsample quantity
+       */
+      if (!empty($param["subsample_quantity_max"])) {
+        $where .= $and . "(vsq.multiple_value + vsq.subsample_more - vsq.subsample_less) <= :subsample_quantity_max";
+        $data["subsample_quantity_max"] = $param["subsample_quantity_max"];
+        $and = " and ";
+      }
+      /**
+       * Search on booking
+       */
+      if ($param["booking_type"] != 0) {
+        $data["booking_from"] = $this->formatDateLocaleVersDB($param["booking_from"], 2) . " 00:00:00";
+        $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"], 2) . " 23:59:59";
+        $where .= $and . " (select count(*) from col.booking b where ((:booking_from ::timestamp, :booking_to ::timestamp) overlaps (date_from::timestamp, date_to::timestamp)) = true
+        and b.uid = so.uid)  ";
+        $param["booking_type"] == 1 ? $where .= " > 0 " : $where .= " = 0 ";
+        $and = " and ";
+      }
+      /**
        * Fin de traitement des criteres de recherche
        */
       if ($where == "where") {
@@ -613,8 +675,8 @@ class Sample extends ObjetBDD
       $this->colonnes["change_date"] = array("type" => 3);
       /*printr($this->sql);
       printr($where);
-      printA($data);
-      */
+      printA($data);*/
+
       $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
       /**
        * Destroy foreign fields used in the request
@@ -664,9 +726,9 @@ class Sample extends ObjetBDD
              multiple_value, sampling_place_name, metadata::varchar,
             voi.identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,
             campaign_name,
-            case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name
+            case when ro.referent_name is not null then trim(ro.referent_name || ' ' || coalesce(ro.referent_firstname, '')) else trim(cr.referent_name || ' ' || coalesce(cr.referent_firstname, '')) end as referent_name
             ,o.uuid
-            ,ctry.country_code2 as country_code
+            ,ctry.country_code2 as country_code, ctryo.country_code2 as country_origin_code
             from sample
             join object o using(uid)
             join collection c using (collection_id)
@@ -678,6 +740,7 @@ class Sample extends ObjetBDD
             left outer join referent cr on (c.referent_id = cr.referent_id)
             left outer join campaign using (campaign_id)
             left outer join country ctry on (sample.country_id = ctry.country_id)
+            left outer join country ctryo on (sample.country_origin_id = ctryo.country_id)
              where o.uid in (" . $uids . ")";
       $d = $this->getListeParam($sql);
       $this->auto_date = 1;
@@ -878,13 +941,15 @@ class Sample extends ObjetBDD
       /**
        * Verification du pays
        */
-      if (!empty($row["country_code"])) {
-        if (!isset($this->country)) {
-          $this->country = $this->classInstanciate("Country", "country.class.php");
-        }
-        $country_id = $this->country->getIdFromCode($row["country_code"]);
-        if (!$country_id > 0) {
-          throw new SampleException(sprintf(_("Le code de pays %s n'est pas connu"), $row["country_code"]));
+      foreach (array("country_code", "country_origin_code") as $field) {
+        if (!empty($row[$field])) {
+          if (!isset($this->country)) {
+            $this->country = $this->classInstanciate("Country", "country.class.php");
+          }
+          $country_id = $this->country->getIdFromCode($row[$field]);
+          if (!$country_id > 0) {
+            throw new SampleException(sprintf(_("Le code de pays %s n'est pas connu"), $row[$field]));
+          }
         }
       }
     }
@@ -1078,13 +1143,25 @@ class Sample extends ObjetBDD
     }
     $data = $this->lireParamAsPrepared($this->sql . $where, array("uid" => $uid));
     /**
-     * Disable the metadata_schema, irrelevant in this context
+     * Purge the metadata_schema to keep the type and the unit
      */
+    $metadata_schema = json_decode($data["metadata_schema"], true);
+
     unset($data["metadata_schema"]);
     /**
      * Encode in array the metadata content
      */
     $data["metadata"] = json_decode($data["metadata"], true);
+    foreach ($data["metadata"] as $k => $v) {
+      foreach ($metadata_schema as $schema) {
+        if ($schema["name"] == $k) {
+          if ($schema["type"] == "number") {
+            $data["md_" . $schema["name"] . "_unit"] = $schema["measureUnit"];
+          }
+          break;
+        }
+      }
+    }
     /**
      * Get the events
      */
@@ -1168,6 +1245,90 @@ class Sample extends ObjetBDD
     foreach ($uids as $uid) {
       $data["uid"] = $uid;
       $this->executeAsPrepared($sql, $data);
+    }
+  }
+  /**
+   * Get a sample from an identifier (uid, uuid, etc.)
+   *
+   * @param string $fieldname
+   * @param string $id
+   * @return array|null
+   */
+  function getFromField(string $fieldname, string $id, int $collection_id = 0): ?array
+  {
+    $sql = "select * from sample join object using (uid) ";
+    $param = array("id" => $id);
+    switch ($fieldname) {
+      case "uid":
+        $sql .= " where uid = :id";
+        break;
+      case "uuid":
+        $sql .= " where uuid::varchar = lower(:id)";
+        break;
+      case "identifier":
+        $sql .= " where identifier = :id";
+        if ($collection_id > 0) {
+          $sql .= " and collection_id = :collection_id";
+          $param["collection_id"] = $collection_id;
+        }
+        break;
+      default:
+        $sql .= " join object_identifier using (uid)
+                join identifier_type using (identifier_type_id)
+                where identifier_type_code = :fieldname and object_identifier_value = :id
+        ";
+        $param["fieldname"] = $fieldname;
+        if ($collection_id > 0) {
+          $sql .= " and collection_id = :collection_id";
+          $param["collection_id"] = $collection_id;
+        }
+        break;
+    }
+    return $this->lireParamAsPrepared($sql, $param);
+  }
+  /**
+   * Get the list of samples contained into a container and its children
+   *
+   * @param integer $uid
+   * @return array
+   */
+  function getAllSamplesFromContainer(int $uid): array
+  {
+    /**
+     * Get the list of samples
+     */
+    $sql = "with recursive containers as (
+      select c.container_id
+      from col.last_movement
+      join col.object using (uid)
+      left outer join col.container c using (uid)
+      left outer join col.container_type using (container_type_id)
+      where uid = :uid and movement_type_id = 1
+      union all
+      select cl.container_id
+      from col.object o
+      join col.container cl using (uid)
+      join col.container_type ct using (container_type_id)
+      left outer join col.last_movement lm on (lm.uid = o.uid and lm.movement_type_id =1)
+       join containers on (containers.container_id = lm.container_id)
+       )
+       select s.uid
+       from col.sample s
+       join col.object so using (uid)
+       join col.sample_type using (sample_type_id)
+       join col.last_movement lm on (lm.uid = so.uid and lm.movement_type_id = 1)
+       where lm.container_id in (select container_id from containers)";
+    $listUids = $this->getListeParamAsPrepared($sql, array("uid" => $uid));
+    if (count($listUids) > 0) {
+      $uids = "";
+      $comma = "";
+      foreach ($listUids as $item) {
+        $uids .= $comma . $item["uid"];
+        $comma = ",";
+      }
+      return $this->getListFromUids($uids);
+    } else {
+      return array();
     }
   }
 }

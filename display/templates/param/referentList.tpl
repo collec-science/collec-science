@@ -35,7 +35,7 @@
 {$data[lst].referent_name}
 {/if}
 </td>
-<td>{$data[lst].referent_lastname}</td>
+<td>{$data[lst].referent_firstname}</td>
 <td>{$data[lst].referent_id}</td>
 <td>{$data[lst].referent_email}</td>
 <td>{$data[lst].referent_phone}</td>

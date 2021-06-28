@@ -35,7 +35,12 @@
              if ($("#trashed").val() == 1) ok = true;
              if ($("#samplesearch_id").val() > 0) ok = true;
              if ($("#country_id_search").val() > 0) ok = true;
+             if ($("#country_origin_id_search").val() > 0) ok = true;
              if ($("#authorization_number").val().length > 0) ok = true;
+             if ($("#event_type_id").val() > 0) ok = true;
+             if ($("#subsample_quantity_min").val() > 0) ok = true;
+             if ($("#subsample_quantity_max").val().length > 0) ok = true;
+             if ($("#booking_type").val() != 0) ok = true;
              var mf = $("#metadata_field").val();
              if ( mf != null) {
                  if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -181,18 +186,22 @@
           getSamplingPlace();
 
      $("#razid").on ("click keyup", function () {
+         metadataFieldInitial = [];
         $("#object_status_id").prop("selectedIndex", 1).change();
         $("#collection_id").prop("selectedIndex", 0).change();
         $("#referent_id").prop("selectedIndex", 0).change();
-        //$("#sample_type_id").combobox("select", "{t}Choisissez...{/t}").change();
         $("#sample_type_id").prop("selectedIndex", 0).change();
         sampling_place_init = "";
-        $("#sampling_place_id").combobox("select", "{t}Choisissez...{/t}").change();
+        $("#sampling_place_id").combobox("select", "").change();
         $("#sampling_place_id").prop("selectedIndex", 0).change();
+        $("#country_id_search").combobox("select", "").change();
         $("#country_id_search").prop("selectedIndex", 0).change();
+        $("#country_origin_id_search").combobox("select", "").change();
+        $("#country_origin_id_search").prop("selectedIndex", 0).change();
         $("#movement_reason_id").prop("selectedIndex", 0).change();
         $("#select_date").prop("selectedIndex", 0).change();
         $("#campaign_id").prop("selectedIndex", 0).change();
+        $("#event_type_id").prop("selectedIndex", 0).change();
         $("#uid_min").val("0");
         $("#uid_max").val("0");
         $("#metadata_field").prop("selectedIndex",0).change();
@@ -208,17 +217,23 @@
         $("#SouthWestlat").val("");
         $("#SouthWestlon").val("");
         $("#trashed").val("0");
+        $("#subsample_quantity_min").val("");
+        $("#subsample_quantity_max").val("");
         removeLayer();
         var now = new Date();
         $("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
         $("#date_to").datepicker("setDate", now );
+        $("#booking_type").prop("selectedIndex",0).change();
+        $("#booking_from").datepicker("setDate", now);
+        $("#booking_to").datepicker("setDate", now);
         $("#name").val("");
         $("#name").focus();
      });
      /* Management of tabs */
 		var activeTab = "";
+        var myStorage = window.localStorage;
         try {
-        activeTab = Cookies.get("sampleSearchTab");
+        activeTab = myStorage.getItem("sampleSearchTab");
         } catch (Exception) {
         }
 		try {
@@ -230,7 +245,7 @@
 			//$(this).tab('show');
  		});
 		 $('.searchTab').on('shown.bs.tab', function () {
-			Cookies.set("sampleSearchTab", $(this).attr("id"), { secure: true});
+			myStorage.setItem("sampleSearchTab", $(this).attr("id"));
 		});
         /**
          * Delete a recorded request
@@ -264,6 +279,11 @@
             <li class="nav-item">
                 <a class="nav-link searchTab" id="tabsearch-type" href="#navsearch-type"  data-toggle="tab" role="tab" aria-controls="navsearch-type" aria-selected="false">
                     {t}Type et métadonnées{/t}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link searchTab" id="tabsearch-date" href="#navsearch-date"  data-toggle="tab" role="tab" aria-controls="navsearch-date" aria-selected="false">
+                    {t}Dates{/t}
                 </a>
             </li>
             <li class="nav-item">
@@ -429,6 +449,51 @@
                     </div>
                 </div>
             </div>
+            <div class="tab-pane fade" id="navsearch-date" role="tabpanel" aria-labelledby="tabsearch-date">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="select_date" class="col-sm-3 control-label">{t}Recherche par date :{/t}</label>
+                        <div class="col-sm-2">
+                            <select class="form-control" id="select_date" name="select_date">
+                            <option value="" {if $sampleSearch.select_date == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                            <option value="cd" {if $sampleSearch.select_date == "cd"}selected{/if}>{t}Date de création dans la base{/t}</option>
+                            <option value="sd" {if $sampleSearch.select_date == "sd"}selected{/if}>{t}Date d'échantillonnage{/t}</option>
+                            <option value="ed" {if $sampleSearch.select_date == "ed"}selected{/if}>{t}Date d'expiration{/t}</option>
+                            <option value="ch" {if $sampleSearch.select_date == "ch"}selected{/if}>{t}Date technique de dernier changement{/t}</option>
+                            </select>
+                        </div>
+
+                        <label for="date_from" class="col-sm-1 control-label">{t}du :{/t}</label>
+                        <div class="col-sm-2">
+                            <input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
+                        </div>
+                        <label for="date_to" class="col-sm-1 control-label">{t}au :{/t}</label>
+                        <div class="col-sm-2">
+                            <input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="booking_type" class="col-sm-3 control-label">{t}Réservations :{/t}</label>
+                        <div class="col-sm-2">
+                            <select id="booking_type" name="booking_type" class="form-control">
+                                <option value="0" {if $sampleSearch.booking_type == -1}selected{/if}>{t}Choisissez...{/t}</option>
+                                <option value="1" {if $sampleSearch.booking_type == 1}selected{/if}>{t}Réservé{/t}</option>
+                                <option value="-1" {if $sampleSearch.booking_type == -1}selected{/if}>{t}Non réservé{/t}</option>
+                            </select>
+                        </div>
+                        <label for="booking_from" class="col-sm-1 control-label">{t}du :{/t}</label>
+                        <div class="col-sm-2">
+                            <input class="datepicker form-control" id="booking_from" name="booking_from" value="{$sampleSearch.booking_from}">
+                        </div>
+                        <label for="booking_to" class="col-sm-1 control-label">{t}au :{/t}</label>
+                        <div class="col-sm-2">
+                            <input class="datepicker form-control" id="booking_to" name="booking_to" value="{$sampleSearch.booking_to}">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="tab-pane fade" id="navsearch-divers" role="tabpanel" aria-labelledby="tabsearch-divers">
                 <div class="row">
                     <div class="form-group">
@@ -438,7 +503,7 @@
                             <option value="" {if $sampleSearch.referent_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
                             {foreach $referents as $referent}
                             <option value="{$referent.referent_id}" {if $sampleSearch.referent_id == $referent.referent_id}selected{/if}>
-                            {$referent.referent_name}
+                            {$referent.referent_firstname} {$referent.referent_name}
                             </option>
                             {/foreach}
                             </select>
@@ -464,6 +529,19 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
+                        <label for="event_type_id" class="col-sm-3 control-label">{t}Type d'événement :{/t}</label>
+                        <div class="col-sm-6">
+                            <select id="event_type_id" class="form-control" name="event_type_id">
+                                <option value="" {if $sampleSearch.event_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+                                {foreach $eventType as $et}
+                                    <option value="{$et.event_type_id}" {if $sampleSearch.event_type_id == $et.event_type_id}selected{/if}>{$et.event_type_name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
                         <label for="movement_reason_id" class="col-sm-3 control-label">{t}Motif de déstockage :{/t}</label>
                         <div class="col-sm-6">
                             <select id="movement_reason_id" name="movement_reason_id" class="form-control">
@@ -479,27 +557,13 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label for="select_date" class="col-sm-3 control-label">{t}Recherche par date :{/t}</label>
-                        <div class="col-sm-6">
-                            <select class="form-control" id="select_date" name="select_date">
-                            <option value="" {if $sampleSearch.select_date == ""}selected{/if}>{t}Choisissez...{/t}</option>
-                            <option value="cd" {if $sampleSearch.select_date == "cd"}selected{/if}>{t}Date de création dans la base{/t}</option>
-                            <option value="sd" {if $sampleSearch.select_date == "sd"}selected{/if}>{t}Date d'échantillonnage{/t}</option>
-                            <option value="ed" {if $sampleSearch.select_date == "ed"}selected{/if}>{t}Date d'expiration{/t}</option>
-                            <option value="ch" {if $sampleSearch.select_date == "ch"}selected{/if}>{t}Date technique de dernier changement{/t}</option>
-                            </select>
+                        <label for="subsample_quantity_min" class="col-sm-3 control-label">{t}Quantité minimale disponible dans l'échantillon :{/t}</label>
+                        <div class="col-sm-3">
+                            <input class="form-control taux" id="subsample_quantity_min" name="subsample_quantity_min" value="{$sampleSearch.subsample_quantity_min}">
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="date_from" class="col-sm-1 col-sm-offset-3 control-label">{t}du :{/t}</label>
-                        <div class="col-sm-2">
-                            <input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
-                        </div>
-                        <label for="date_to" class="col-sm-1 control-label">{t}au :{/t}</label>
-                        <div class="col-sm-2">
-                            <input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
+                        <label for="subsample_quantity_max" class="col-sm-2 control-label">{t}maximale :{/t}</label>
+                        <div class="col-sm-3">
+                            <input class="form-control taux" id="subsample_quantity_max" name="subsample_quantity_max" value="{$sampleSearch.subsample_quantity_max}">
                         </div>
                     </div>
                 </div>
@@ -512,7 +576,7 @@
                                 <label for="sampling_place_id" class="col-sm-4 control-label">{t}Lieu de prélèvement :{/t}</label>
                                 <div class="col-sm-8">
                                     <select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
-                                        <option value="0" {if $sampleSearch.sampling_place_id == "0"}selected{/if}>{t}Choisissez...{/t}</option>
+                                        <option value="0" {if $sampleSearch.sampling_place_id == "0"}selected{/if}></option>
                                         {section name=lst loop=$samplingPlace}
                                             <option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $sampleSearch.sampling_place_id}selected{/if}>
                                             {if strlen({$samplingPlace[lst].sampling_place_code}) > 0}
@@ -527,10 +591,23 @@
                             <div class="form-group">
                                 <label for="country_id_search" class="col-sm-4 control-label">{t}Pays de collecte :{/t}</label>
                                 <div class="col-sm-8">
-                                    <select id="country_id_search" name="country_id" class="form-control">
-                                        <option value="0" {if $country.country_id == "0"}selected{/if}>{t}Choisissez...{/t}</option>
+                                    <select id="country_id_search" name="country_id" class="form-control combobox">
+                                        <option value="0" {if $country.country_id == "0"}selected{/if}></option>
                                         {section name=lst loop=$countries}
                                             <option value="{$countries[lst].country_id}" {if $countries[lst].country_id == $sampleSearch.country_id}selected{/if}>
+                                            {$countries[lst].country_name}
+                                            </option>
+                                        {/section}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="country_origin_id_search" class="col-sm-4 control-label">{t}Pays de provenance :{/t}</label>
+                                <div class="col-sm-8">
+                                    <select id="country_origin_id_search" name="country_origin_id" class="form-control combobox">
+                                        <option value="0" {if $country.country_id == "0"}selected{/if}></option>
+                                        {section name=lst loop=$countries}
+                                            <option value="{$countries[lst].country_id}" {if $countries[lst].country_id == $sampleSearch.country_origin_id}selected{/if}>
                                             {$countries[lst].country_name}
                                             </option>
                                         {/section}

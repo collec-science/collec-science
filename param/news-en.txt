@@ -1,5 +1,49 @@
 News
 ===========
+Version 2.6.0 of June 24, 2021
+-----------------------------
+What's new :
+Samples:
+- it is now possible to indicate the country of origin, in addition to the country of collection (useful information in the context of APA regulations)
+- it is now possible to search for samples that have been reserved during a period or by type of event encountered, or by country of origin
+- in the sample search module, the country can be searched by typing its name
+- In the list of samples, when hovering over a sample, the remaining available samples are displayed. It is possible to search for samples according to the quantity available (sub-sampling)
+- in the list of samples, it is now possible to choose the list of columns to display
+- the metadata are now displayed in the list of samples
+- in the sample list display screen, the total number of records is now displayed at the beginning of the list, not at the bottom
+- it is possible to change the status of samples in bulk
+- when displaying metadata, the unit is now displayed for numeric types
+
+Mass import:
+- it is possible to use the name of parameters instead of their value (e.g., sample_type_name instead of sample_type_id)
+- it is now possible to create parents and children in a single import, using the sample_parent_identifier column (the parent sample must exist beforehand or be present higher in the file). Same for creating the input movement, with the container_parent_identifier field
+
+Miscellaneous:
+- a web API for creation/update is now available (experimental)
+- user identification can be completed by a double identification (TOTP)
+- it is possible to assign a referent to a list of containers
+- in the movement list, the comment is now displayed, as well as the link to the concerned sample
+- documentation is now available online
+
+Bug fixes :
+- changes in error messages
+- deleting a list of containers no longer causes an error if no container is selected
+- restructuring of the regulations display screen: some information was not visible
+- correction of the rights for the modification of collections
+- the first name of the referent was not displayed everywhere
+- added an error message when importing, if the reading of the metadata is not successful
+- added an error message if the deletion of a status is not successful
+- from the detail of a sample, it was not possible to delete a derived sample from the list
+- when importing a list of stations, in case of an error on a column name, an unspecified error was displayed instead of the name of the column in error
+- the reset button in the sample search window did not reset the metadata correctly
+- the CSV export button, from the table, did not display correctly the name of the columns
+- in mass import, the country code was not taken into account
+- the import of the sampling locations was in error if the country code was not filled in
+- when creating a new instance, the GIN indexes were not created (wrong syntax)
+- in the SQL query module, if the query did not return any record, the software did not report it and the user could have doubts about its operation
+- Logins are now systematically processed in lower case, to limit problems related to CAS servers that work differently for the same users (case encountered with the Renater federation)
+- when modifying a parent sample containing metadata, the child samples disappeared from the list: the "trashed" attribute was no longer correctly positioned
+
 Version 2.5.0 of November 13, 2020
 ---------------------------------
 New features:

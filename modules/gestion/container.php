@@ -29,7 +29,7 @@ switch ($t_module["param"]) {
     /*
          * Display the list of all records of the table
          */
-    if (!isset($isDelete)) {
+    if (!isset($isDelete) && !isset($_REQUEST["is_action"])) {
       $_SESSION["searchContainer"]->setParam($_REQUEST);
     }
 
@@ -76,7 +76,14 @@ switch ($t_module["param"]) {
          * Recuperation des contenants et des échantillons contenus
          */
     $dcontainer = $dataClass->getContentContainer($data["uid"]);
+    if ($_REQUEST["allSamples"] == 1) {
+      require_once "modules/classes/sample.class.php";
+      $sample = new Sample($bdd, $ObjetBDDParam);
+      $dsample = $sample->getAllSamplesFromContainer($data["uid"]);
+      $message->set(_("Affichage avec la liste de tous les échantillons présents dans le contenant, y compris dans les contenants inclus"));
+    } else {
     $dsample = $dataClass->getContentSample($data["uid"]);
+    }
     $vue->set($dcontainer, "containers");
     $vue->set($dsample, "samples");
     /*
@@ -220,10 +227,15 @@ switch ($t_module["param"]) {
         }
         $bdd->commit();
         $message->set(_("Suppression effectuée"));
+        $module_coderetour = 1;
       } catch (Exception $e) {
         $message->set($e->getMessage() . " ($uid)");
         $bdd->rollback();
+        $module_coderetour = -1;
       }
+    } else {
+      $message->set(_("Pas de contenants sélectionnés"), true);
+      $module_coderetour = -1;
     }
     break;
   case "delete":
@@ -487,6 +499,50 @@ switch ($t_module["param"]) {
   case "verifyCyclicExec":
     $vue->set("gestion/containerVerifyCyclic.tpl", "corps");
     $vue->set($dataClass->getCyclicMovements(), "data");
-    $vue->set(1,"exec");
+    $vue->set(1, "exec");
+    break;
+  case "setStatus":
+    try {
+      if (count($_POST["uids"]) == 0) {
+        throw new ObjectException(_("Pas de contenants sélectionnés"));
+      }
+      if (empty($_POST["object_status_id"])) {
+        throw new ObjectException(_("Pas de statut sélectionné"));
+      }
+      is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+      $object = new ObjectClass($bdd, $ObjetBDDParam);
+      $object->setStatus($_POST["uids"], $_POST["object_status_id"]);
+      $module_coderetour = 1;
+    } catch (ObjectException $oe) {
+      $message->setSyslog($oe->getMessage());
+      $message->set(_("Une erreur est survenue pendant la mise à jour du statut"), true);
+      $message->set($oe->getMessage());
+      $module_coderetour = -1;
+    }
+    break;
+  case "referentMulti":
+    try {
+      if (count($_POST["uids"]) == 0) {
+        throw new ObjectException(_("Pas de contenants sélectionnés"));
+      }
+      if (empty($_POST["referent_id"])) {
+        throw new ObjectException(_("Pas de référent sélectionné"));
+      }
+      is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+      $object = new ObjectClass($bdd, $ObjetBDDParam);
+      $bdd->beginTransaction();
+      foreach ($uids as $uid) {
+        $object->setReferent($uid, $_POST["referent_id"]);
+      }
+      $module_coderetour = 1;
+      $bdd->commit();
+      $message->set(_("Opération effectuée"));
+    } catch (ObjectException $oe) {
+      $message->setSyslog($oe->getMessage());
+      $message->set(_("Une erreur est survenue pendant l'assignation du référent"), true);
+      $message->set($oe->getMessage());
+      $module_coderetour = -1;
+      $bdd->rollback();
+    }
     break;
 }

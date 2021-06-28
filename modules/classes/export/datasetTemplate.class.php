@@ -16,6 +16,7 @@ class DatasetTemplate extends ObjetBDD
   public $classPathExport = "modules/classes/export/";
   public $datasetColumn, $sample, $collection, $document;
   private $content, $currentId;
+  private $columns = array(), $columnsByExportName = array();
   /**
    * Constructor
    *
@@ -180,6 +181,7 @@ class DatasetTemplate extends ObjetBDD
        */
       foreach ($dbdata as $dbrow) {
         $row = array();
+        $metadata_schema = json_decode($dbrow["metadata_schema"], true);
         /**
          * Treatment of each column
          */
@@ -200,6 +202,13 @@ class DatasetTemplate extends ObjetBDD
                 }
               } else {
                 $value = $md[$col["subfield_name"]];
+              }
+            } elseif ($col["column_name"] == "metadata_unit") {
+              foreach ($metadata_schema as $ms) {
+                if ($ms["name"] == $col["subfield_name"]) {
+                  $value = $ms["measureUnit"];
+                  break;
+                }
               }
             } elseif ($col["column_name"] == "identifiers" || $col["column_name"] == "parent_identifiers") {
               /**
@@ -247,7 +256,12 @@ class DatasetTemplate extends ObjetBDD
             }
           }
           if ($col["mandatory"] == 1 && empty($value)) {
-            throw new DatasetTemplateException(sprintf(_("Le champ %1s est obligatoire, mais est vide pour l'échantillon %2s"), $col["column_name"], $dbrow["uid"]));
+            if ($col["column_name"] == "metadata" || $col["column_name"] == "metadata_unit") {
+              $subfield = $col["subfield_name"];
+            } else {
+              $subfield = "";
+            }
+            throw new DatasetTemplateException(sprintf(_("Le champ %1\$s %3\$s est obligatoire, mais est vide pour l'échantillon %2\$s"), $col["column_name"], $dbrow["uid"], $subfield));
           }
           $row[$col["export_name"]] = $value;
         }
@@ -278,7 +292,7 @@ class DatasetTemplate extends ObjetBDD
    * @param int $id
    * @return void
    */
-  function supprimer(int $id)
+  function supprimer($id)
   {
     if (!isset($this->datasetColumn)) {
       include_once $this->classPathExport . "datasetColumn.class.php";
@@ -314,5 +328,96 @@ class DatasetTemplate extends ObjetBDD
       $this->datasetColumn->ecrire($column);
     }
     return $newid;
+  }
+  /**
+   * initialize the columns of the dataset template, for import
+   *
+   * @param [type] $dataset_template_id
+   * @return void
+   */
+  private function getColumns($dataset_template_id)
+  {
+    if ($dataset_template_id != $this->currentId) {
+      $this->columns = array();
+      $this->columnsByExportName = array();
+      if (!is_object($this->datasetColumn)) {
+        include_once $this->classPathExport . "datasetColumn.class.php";
+        $this->datasetColumn = new DatasetColumn($this->connection, $this->paramori);
+      }
+      $columns = $this->datasetColumn->getListColumns($dataset_template_id);
+      foreach ($columns as $column) {
+        /**
+         * reverse the translator
+         */
+        foreach ($column["translations"] as $k => $v) {
+          $column["translations_reverse"][$v] = $k;
+        }
+        $this->columnsByExportName[$column["export_name"]] = $column;
+        $this->columns[$column["column_name"]] = $column;
+      }
+    }
+  }
+  /**
+   * Get the order of fields to search sample
+   *
+   * @param int $dataset_template_id
+   * @return array
+   */
+  function getSearchOrder(int $dataset_template_id): array
+  {
+    $this->getColumns($dataset_template_id);
+    $this->currentId = $dataset_template_id;
+    $searchOrder = array();
+    foreach ($this->columns as $col) {
+      if (!empty($col["search_order"])) {
+        $searchOrder[$col["search_order"]] = $col["column_name"];
+      }
+    }
+    ksort($searchOrder);
+    $so = array();
+    foreach ($searchOrder as $val) {
+      $so[] = $val;
+    }
+    return $so;
+  }
+  /**
+   * Format data for import, with the dataset_template
+   *
+   * @param integer $dataset_template_id
+   * @param [type] $dataset
+   * @return array
+   */
+  function formatDataForImport(int $dataset_template_id, $dataset): array
+  {
+    $data = array();
+    $this->getColumns($dataset_template_id);
+    foreach ($dataset as $key => $value) {
+      if (!empty($this->columnsByExportName[$key])) {
+        $cbe = $this->columnsByExportName[$key];
+        if (!empty($cbe["translations_reverse"][$value])) {
+          $value = $cbe["translations_reverse"][$value];
+        }
+        if (empty($cbe["subfield_name"])) {
+          $data[$cbe["column_name"]] = $value;
+        } else {
+          /**
+           * metadata
+           */
+          if ($cbe["column_name"] == "metadata") {
+            $data["md_" . $cbe["subfield_name"]] = $value;
+          } else {
+            /**
+             * Secondary identifier
+             */
+            if ($cbe["column_name"] == "parent_identifiers") {
+              $data["parent_" . $cbe["subfield_name"]] = $value;
+            } else {
+              $data[$cbe["subfield_name"]] = $value;
+            }
+          }
+        }
+      }
+    }
+    return $data;
   }
 }

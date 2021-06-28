@@ -1,6 +1,85 @@
-Framework prototypephp © Eric Quinton, 2006-2020
+Framework prototypephp © Eric Quinton, 2006-2021
 News
 ============
+Release v3.3.0 - February 2021
+------------------------------
+New features:
+- In ObjetBDD, adding a function (classInstanciate) to instanciate dynamically a class. This function run only with version 7.3 or later of PHP
+- rewriting the authentification module
+- adding double authentification from TOTP
+- separate actions.xml in two files: one into framework/ for all actions specifics to the framework, and other into param/
+- adding a function to display markdown files
+- adding a function to backup the database from the explorer
+- adding a function to display a popup for lexical entries
+- it's now possible to move a group in the module of groups management
+- in the module of generation of the database structure, vues are now displayed
+- in development, adding the function printA to display the content of arrays or objects
+
+Operations to upgrade:
+- replace framework folder
+- replace /display/templates/framework folder
+- replace display/templates/entete.tpl
+- replace /display/templates/main_js.tpl (compare with your actual version before)
+- replace /dislay/CSS/bootstrap-prototypephp.css
+- add images from /display/images/
+- in param/actions.xml, delete all entries before <!-- Modules of the software -->
+- in param/menu.xml, add these entries:
+<item module="requestList" label="Requêtes SQL" tooltip="Exécution de requêtes SQL dans la base de données" droits="param"/>
+<item module="backupDisplay" droits="admin" label="Backup" tooltip="Sauvegarde de la base de données"/>
+    <item module="documentation_fr" label="documentation" tooltip="Documentations en ligne en français" language="fr">
+        <item module="doctotp_fr" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de double authentification" language="fr"/>
+    </item>
+    <item module="documentation_en" label="documentation" tooltip="Documentations en ligne en anglais" language="en">
+        <item module="doctotp_en" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de double authentification" language="en"/>
+    </item>
+- run these scripts into the database:
+install/pgsql/gacl_totp.sql
+install/pgsql/request.sql
+- upgrade php version to 7.3 or later
+- copy plugins/phpqrcode
+- add or replace the content of display/javascript
+- add or modify these lines in param/param.default.inc.php:
+$navigationxml = array("framework/actions.xml","param/actions.xml");
+$LDAP = array (...,
+"timeout"=>2
+)
+delete the variable $display
+- in a terminal, in display folder, run: npm list and verify the content of the list:
+├── alpaca@1.5.27
+├── combobox@1.0.1
+├── commander@2.20.0 extraneous
+├── datatables.net-bs@1.10.22
+├── datatables.net-buttons-bs@1.6.5
+├── datatables.net@1.10.22
+├── datetime-moment@1.0.0
+├── handlebars@4.2.0 extraneous
+├── jquery-ui-dist@1.12.1
+├── jquery-ui@1.12.1
+├── js.cookie@0.0.4
+├── leaflet-draw@1.0.4
+├── leaflet.tilelayer.pouchdbcached@1.0.0
+├── leaflet@1.7.1
+├── magnific-popup@1.1.0
+├── markdown-it@12.0.2
+├── minimist@0.0.10 extraneous
+├── moment@2.29.1
+├── neo-async@2.6.1 extraneous
+├── optimist@0.6.1 extraneous
+├── pouchdb@7.1.1 extraneous
+├── smartmenus@1.1.1
+├── source-map@0.6.1 extraneous
+├── uglify-js@3.6.0 extraneous
+├── uuid@3.2.1 extraneous
+├── wordwrap@0.0.3 extraneous
+└── zxcvbn@4.4.2
+
+- at root of the application, "composer show" must contains:
+bjeavons/zxcvbn-php
+jasig/phpcas
+smarty-gettext/smarty-gettext
+smarty/smarty
+spomky-labs/otphp
+
 Release v3.2.0 - April 2020
 --------------------------
 Fixed bugs:

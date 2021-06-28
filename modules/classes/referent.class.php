@@ -50,12 +50,30 @@ class Referent extends ObjetBDD
      *
      * @return array
      */
-    function getFromName($name)
+    function getFromName($name, $firstname = "")
     {
-        if (strlen($name) > 0) {
+        if (!empty($name)) {
             $sql = "select * from referent
                     where referent_name = :name";
-            return $this->lireParamAsPrepared($sql, array("name" => $name));
+            $data = array("name" => $name);
+            if (!empty($firstname)){
+                $sql .= " and referent_firstname = :firstname";
+                $data["firstname"] = $firstname;
+            }
+            return $this->lireParamAsPrepared($sql, $data);
         }
+    }
+    /**
+     * Get the list of referents with only name and firstname in the same column
+     *
+     * @return array
+     */
+    function getListName()
+    {
+        $sql = "select referent_id,
+        trim(referent_name || ' ' || coalesce(referent_firstname, ' ')) as referent_name
+        from referent
+        order by referent_name, referent_firstname";
+        return $this->getListeParam($sql);
     }
 }

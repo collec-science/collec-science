@@ -181,6 +181,7 @@ switch ($t_module["param"]) {
         }
         break;
     case "list":
+    $_SESSION["moduleListe"] = "movementList";
         $_SESSION["searchMovement"]->setParam($_REQUEST);
         $dataSearch = $_SESSION["searchMovement"]->getParam();
         if ($_SESSION["searchMovement"]->isSearch() == 1) {

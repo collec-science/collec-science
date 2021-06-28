@@ -1,6 +1,6 @@
 	<div class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
-	
+
 		<div class="navbar-header navbar">{* la classe css navbar est là pour conserver une grande taille comme avant. TODO trouver autre solution (css) *}
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
 				data-target=".navbar-collapse">
@@ -8,7 +8,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<div class="navbar-brand"><a href='/'><img src="{$favicon}" height="25"></a></div>
+			<div class="navbar-brand"><a href='/'><img src="{$favicon}" height="20"></a></div>
 			<a href='/'><span class="navbar-text hidden-xs hidden-sm"><b>{$APPLI_title}</b></span></a>
 		</div>
 		<!-- Affichage du menu -->
@@ -21,14 +21,15 @@
 			<li><a href="{if $isConnected}#{else}index.php?module=connexion{/if}">{if $isConnected }{$login}{else}{t}Connexion{/t}{/if} <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 				    <li><a href='index.php?module=setlanguage&langue=fr'> <img
-								src='display/images/drapeau_francais.png#180313' width='16'  border='0'> 
+								src='display/images/drapeau_francais.png#180313' width='16'  border='0'>
 								Français
 							</a></li>
 				    <li><a href='index.php?module=setlanguage&langue=en'> <img
-								src='display/images/drapeau_anglais.png#refresh180313' width='16'  border='0'> 
+								src='display/images/drapeau_anglais.png#refresh180313' width='16'  border='0'>
 								English
 							</a> </li>
 {if $isConnected}
+						<li><a href="index.php?module=totpCreate" title="{t}Activer la double authentification pour votre compte{/t}">{t}Activer la double authentification{/t}</a></li>
 				    <li><a href='index.php?module=loginChangePassword' title="{t}Modifier le mot de passe{/t}"> <img
 								src='display/images/key.png' width='16' border='0' title="{t}Modifier le mot de passe{/t}">
 							{t}Mot de passe{/t}</a></li>

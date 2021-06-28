@@ -64,7 +64,19 @@ class ImportObject
     "sample_uuid",
     "container_uuid",
     "campaign_id",
-    "country_code"
+    "country_code",
+    "country_origin_code",
+    "container_type_name",
+    "container_status_name",
+    "collection_name",
+    "sample_type_name",
+    "sample_status_name",
+    "campaign_name",
+    "referent_name",
+    "sampling_place_name",
+    "sample_parent_identifier",
+    "container_parent_identifier",
+    "dbuid_origin"
   );
 
   private $colnum = array(
@@ -309,8 +321,12 @@ class ImportObject
         $dataSample["sampling_place_id"] = $values["sampling_place_id"];
         $dataSample["parent_sample_id"] = $values["parent_sample_id"];
         $dataSample["uuid"] = $values["sample_uuid"];
+        $dataSample["dbuid_origin"] = $values["dbuid_origin"];
         if (!empty($values["country_code"])) {
           $dataSample["country_id"] = $this->country->getIdFromCode($values["country_code"]);
+        }
+        if (!empty($values["country_origin_code"])) {
+          $dataSample["country_origin_id"] = $this->country->getIdFromCode($values["country_origin_code"]);
         }
         /**
          * Traitement des dates - mise au format de base de donnees avant importation
@@ -329,6 +345,9 @@ class ImportObject
          */
         if (strlen($values["sample_metadata_json"]) > 0) {
           $md_array = json_decode($values["sample_metadata_json"], true);
+          if (json_last_error() != JSON_ERROR_NONE) {
+            throw new ImportObjectException(sprintf(_("Ligne %s : le décodage du champ JSON sample_metadata_json n'a pas abouti"), $num));
+          }
         } else {
           $md_array = array();
         }
@@ -338,6 +357,9 @@ class ImportObject
             if (!array_key_exists($colname, $md_array)) {
               if (in_array(substr($values[$md_col], 0, 1), $jsonFirstCharArray)) {
                 $md_col_array = json_decode($values[$md_col], true);
+                if (json_last_error() != JSON_ERROR_NONE) {
+                  throw new ImportObjectException(sprintf(_("Ligne %1s : le décodage du champ JSON %2s n'a pas abouti"), $num, $md_col));
+                }
               } else {
                 $md_col_array = explode(",", $values[$md_col]);
               }
@@ -386,6 +408,12 @@ class ImportObject
         } catch (Exception $pe) {
           throw new ImportObjectException("Line $num : error when import sample - " . $pe->getMessage());
         }
+      }
+      /**
+       * Extract the uid of the parent container from the identifier
+       */
+      if (empty($values["container_parent_uid"]) && !empty($values["container_parent_identifier"])) {
+        $values["container_parent_uid"] = $this->container->getUidFromIdentifier($values["container_parent_identifier"]);
       }
       /**
        * Traitement du contenant
@@ -538,12 +566,85 @@ class ImportObject
     if ($values["sample_parent_uid"] > 0) {
       $dp = $this->sample->lire($values["sample_parent_uid"]);
       $values["parent_sample_id"] = $dp["sample_id"];
+    } else {
+      if (!empty($values["sample_parent_identifier"])) {
+        $values["parent_sample_id"] = $this->sample->getIdFromIdentifier($values["sample_parent_identifier"]);
+      }
     }
     /**
      * Search for the code of the country
      */
     if (!empty($values["country_code"])) {
       $values["country_id"] = $this->country->getIdFromCode($values["country_code"]);
+    }
+    if (!empty($values["country_origin_code"])) {
+      $values["country_origin_id"] = $this->country->getIdFromCode($values["country_origin_code"]);
+    }
+    /**
+     * Search the ids from the names
+     */
+    if (!empty($values["collection_name"])) {
+      $values["collection_id"] = -1;
+      foreach ($this->collection as $value) {
+        if ($values["collection_name"] == $value["collection_name"]) {
+          $values["collection_id"] = $value["collection_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["container_type_name"])) {
+      $values["container_type_id"] = -1;
+      foreach ($this->container_type as $value) {
+        if ($values["container_type_name"] == $value["container_type_name"]) {
+          $values["container_type_id"] = $value["container_type_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["sample_type_name"])) {
+      $values["sample_type_id"] = -1;
+      foreach ($this->sample_type as $value) {
+        if ($values["sample_type_name"] == $value["sample_type_name"]) {
+          $values["sample_type_id"] = $value["sample_type_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["campaign_name"])) {
+      $values["campaign_id"] = -1;
+      foreach ($this->campaign as $value) {
+        if ($values["campaign_name"] == $value["campaign_name"]) {
+          $values["campaign_id"] = $value["campaign_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["referent_name"])) {
+      foreach ($this->referents as $value) {
+        $values["referent_id"] = -1;
+        if (trim($values["referent_name"]) == trim($value["referent_name"] . " " . $value["referent_firstname"])) {
+          $values["referent_id"] = $value["referent_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["sample_status_name"])) {
+      $values["sample_status_id"] = -1;
+      foreach ($this->object_status as $value) {
+        if ($values["sample_status_name"] == $value["object_status_name"]) {
+          $values["sample_status_id"] = $value["object_status_id"];
+          break;
+        }
+      }
+    }
+    if (!empty($values["container_status_name"])) {
+      $values["container_status_id"] = -1;
+      foreach ($this->object_status as $value) {
+        if ($values["container_status_name"] == $value["object_status_name"]) {
+          $values["container_status_id"] = $value["object_status_id"];
+          break;
+        }
+      }
     }
     return $values;
   }
@@ -642,7 +743,7 @@ class ImportObject
        * Verification du statut
        */
       $ok = false;
-      if ($data["sample_status_id"] > 0) {
+      if (!empty($data["sample_status_id"])) {
         foreach ($this->object_status as $value) {
           if ($data["sample_status_id"] == $value["object_status_id"]) {
             $ok = true;
@@ -655,10 +756,10 @@ class ImportObject
         }
       }
       /**
-             * Verification du lieu de collecte
-             */
+       * Verification du lieu de collecte
+       */
       $ok = false;
-      if ($data["sampling_place_id"] > 0) {
+      if (!empty($data["sampling_place_id"])) {
         foreach ($this->sampling_place as $value) {
           if ($data["sampling_place_id"] == $value["sampling_place_id"]) {
             $ok = true;
@@ -673,7 +774,11 @@ class ImportObject
       /**
        * Verification du pays
        */
-      if (!empty($data["country_code"])&& empty ($data["country_id"])) {
+      if (!empty($data["country_code"]) && empty($data["country_id"])) {
+        $retour["code"] = false;
+        $retour["message"] .= _("Le code pays est inconnu.");
+      }
+      if (!empty($data["country_origin_code"]) && empty($data["country_origin_id"])) {
         $retour["code"] = false;
         $retour["message"] .= _("Le code pays est inconnu.");
       }
@@ -681,7 +786,7 @@ class ImportObject
        * Verification du referent
        */
       $ok = false;
-      if ($data["referent_id"] > 0) {
+      if (!empty($data["referent_id"])) {
         foreach ($this->referents as $value) {
           if ($data["referent_id"] == $value["referent_id"]) {
             $ok = true;
@@ -696,7 +801,7 @@ class ImportObject
       /**
        * Control of the campaign
        */
-      if ($data["campaign_id"] > 0) {
+      if (!empty($data["campaign_id"])) {
         foreach ($this->campaign as $value) {
           if ($data["campaign_id"] == $value["campaign_id"]) {
             $ok = true;
@@ -765,6 +870,10 @@ class ImportObject
 
         $metadataSchemaNames = array();
         $valuesMetadataJson = json_decode($data["sample_metadata_json"], true);
+        if (json_last_error() != JSON_ERROR_NONE) {
+          $retour["message"] .= _("Les métadonnées n'ont pas pu être décodées (champ sample_metadata_json)");
+          $retour["code"] = false;
+        }
         /**
          * Verification de la colonne metadata
          */
@@ -940,8 +1049,14 @@ class ImportObject
       if (!empty($row["comment"])) {
         $dataSample["object_comment"] = $row["comment"];
       }
+      /**
+       * countries
+       */
       if (!empty($row["country_code"])) {
         $dataSample["country_id"] = $this->country->getIdFromCode($row["country_code"]);
+      }
+      if (!empty($row["country_origin_code"])) {
+        $dataSample["country_origin_id"] = $this->country->getIdFromCode($row["country_origin_code"]);
       }
       $fieldDates = array(
         "sampling_date",

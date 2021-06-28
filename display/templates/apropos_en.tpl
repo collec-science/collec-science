@@ -33,7 +33,7 @@ Visit the project site:<a href="https://www.collec-science.org" target="_blank">
 <li>Éric Quinton (INRAE)</li>
 </ul>
 
-    <h3>Copyright © 2016-2020 Eric Quinton for INRAE</h3>
+    <h3>Copyright © 2016-2021 Eric Quinton for INRAE</h3>
 <p>
 Version 1.0 of the software has been registered with the Agency for the Protection of Programs under number IDDN.FR.001.470013.000.S.C.2016.000.31500
 <br>

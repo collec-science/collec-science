@@ -29,10 +29,11 @@
 			Cookies.set("tabHover", tabHover, { expires: 365, secure: true });
 		});
 		/* Management of tabs */
+		var myStorage = window.localStorage;
 		var activeTab = "{$activeTab}";
     	if (activeTab.length == 0) {
 			try {
-			activeTab = Cookies.get("sampleDisplayTab");
+			activeTab = myStorage.getItem("sampleDisplayTab");
 			} catch (Exception) {
 				activeTab = "";
 			}
@@ -48,7 +49,7 @@
 			}
  		});
 		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
-			Cookies.set("sampleDisplayTab", $(this).attr("id"), { secure: true});
+			myStorage.setItem("sampleDisplayTab", $(this).attr("id"));
 		});
 		$('a[data-toggle="tab"]').on("click", function () {
 			tabHover = 0 ;
@@ -67,16 +68,16 @@
 			$(this.form).submit();
 		});
 		$("#referent_name").click(function() {
-			var referentName = $(this).text();
-			if (referentName.length > 0 && !isReferentDisplayed) {
+			var referentId = "{$data.real_referent_id}";
+			if (referentId > 0 && !isReferentDisplayed) {
 				isReferentDisplayed = true;
 			$.ajax( {
     	   		url: "index.php",
-    	    	data: { "module": "referentGetFromName", "referent_name": referentName }
+    	    	data: { "module": "referentGetFromId", "referent_id": referentId }
     	    })
     	    .done (function (value) {
 				value = JSON.parse(value);
-				var newval = value.referent_name + "<br>" + value.referent_email + "<br>" +
+				var newval = value.referent_firstname + " " + value.referent_name + "<br>" + value.referent_email + "<br>" +
 						value.referent_phone + "<br>" + value.address_name + "<br>"
 						+ value.address_line2 + "<br>" + value.address_line3 + "<br>"
 						+ value.address_city + "<br>" + value.address_country;
@@ -331,7 +332,7 @@
 				</dl>
 				<dl class="dl-horizontal">
 					<dt class="lexical" data-lexical="referent">{t}Référent :{/t}</dt>
-					<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}"><a href="#">{$data.referent_name}</a></dd>
+					<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}"><a href="#">{$data.referent_firstname} {$data.referent_name}</a></dd>
 				</dl>
 				<dl class="dl-horizontal">
 					<dt class="lexical" data-lexical="sample_type">{t}Type :{/t}</dt>
@@ -420,8 +421,14 @@
 				{/if}
 				{if $data.country_id > 0}
 					<dl class="dl-horizontal">
-						<dt>{t}Pays de prélèvement :{/t}</dt>
+						<dt class="lexical" data-lexical="country">{t}Pays de collecte :{/t}</dt>
 						<dd>{$data.country_name}</dd>
+					</dl>
+				{/if}
+				{if $data.country_origin_id > 0}
+					<dl class="dl-horizontal">
+						<dt class="lexical" data-lexical="country_origin">{t}Pays de provenance :{/t}</dt>
+						<dd>{$data.country_origin_name}</dd>
 					</dl>
 				{/if}
 				{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}

@@ -13,9 +13,10 @@
     {/if}
 </div>
 <div class="row">
-    <table id="metadataList" class="table table-bordered table-hover datatable-nosort " >
+    <table id="metadataList" class="table table-bordered table-hover datatable" >
         <thead>
             <tr>
+                <th>{t}N° d'ordre{/t}</th>
                 <th>{t}Nom du champ{/t}</th>
                 <th>{t}Type{/t}</th>
                 <th>{t}Description{/t}</th>
@@ -28,6 +29,7 @@
         <tbody>
             {foreach $metadata as $row}
                 <tr>
+                    <td class="center">{$row@iteration}</td>
                     <td>{$row.name}</td>
                     <td>{$row.type}</td>
                     <td>{$row.description}</td>
@@ -40,4 +42,3 @@
         </tbody>
     </table>
 </div>
-

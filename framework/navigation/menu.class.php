@@ -67,13 +67,19 @@ class Menu
         /*
          * Recherche si le login est requis
          */
-        if ($attributes["loginrequis"] == 1 && ! isset($_SESSION["login"])) {
+        if ($attributes["loginrequis"] == 1 && !$_SESSION["is_authenticated"]) {
             $ok = false;
         }
         /*
          * Recherche si l'utilisateur n'est pas connecte
          */
-        if ($attributes["onlynoconnect"] == 1 && isset($_SESSION["login"])) {
+        if ($attributes["onlynoconnect"] == 1 && $_SESSION["is_authenticated"]) {
+            $ok = false;
+        }
+        /**
+         * Search for language
+         */
+        if(isset($attributes["language"])&& $attributes["language"] != $_SESSION["FORMATDATE"]) {
             $ok = false;
         }
         if ($ok) {

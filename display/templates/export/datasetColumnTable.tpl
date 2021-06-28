@@ -9,6 +9,7 @@
       <th>{t}Valeur par défaut{/t}</th>
       <th>{t}Format de date{/t}</th>
       <th>{t}Ordre de tri dans le fichier d'export{/t}</th>
+      <th title="{t}Détermine l'ordre de recherche des échantillons à partir des différents identifiants possibles{/t}">{t}Ordre de recherche pour les importations{/t}</th>
     </tr>
   </thead>
   <tbody>
@@ -26,6 +27,7 @@
         <td class="textareaDisplay">{$c.default_value}</td>
         <td>{$c.date_format}</td>
         <td class="center">{$c.column_order}</td>
+        <td class="center">{$c.search_order}</td>
       </tr>
     {/foreach}
   </tbody>

@@ -23,7 +23,7 @@ class Container extends ObjetBDD
 					movement_date, movement_type_name, movement_type_id,
                     lines, columns, first_line, first_column,
                     column_number, line_number, container_uid, oc.identifier as container_identifier,
-                    o.referent_id, referent_name,
+                    o.referent_id, referent_name, referent_firstname, referent_email, address_name, address_line2, address_line3, address_city, address_country, referent_phone, academical_directory, academical_link,
                     borrowing_date, expected_return_date, borrower_id, borrower_name,
                     nb_slots_used
 					from container c
@@ -35,17 +35,16 @@ class Container extends ObjetBDD
 					left outer join last_photo using (uid)
 					left outer join v_object_identifier using (uid)
 					left outer join last_movement using (uid)
-                    left outer join object oc on (container_uid = oc.uid)
-                    left outer join movement_type using (movement_type_id)
-                    left outer join referent r on (o.referent_id = r.referent_id)
-                    left outer join last_borrowing lb on (o.uid = lb.uid)
-                    left outer join borrower using (borrower_id)
-                    left outer join slots_used su on (c.container_id = su.container_id)
+          left outer join object oc on (container_uid = oc.uid)
+          left outer join movement_type using (movement_type_id)
+          left outer join referent r on (o.referent_id = r.referent_id)
+          left outer join last_borrowing lb on (o.uid = lb.uid)
+          left outer join borrower using (borrower_id)
+          left outer join slots_used su on (c.container_id = su.container_id)
             ";
   private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
 
-  private $movement;
-
+  private $movement, $object;
 
   /**
    *
@@ -151,8 +150,11 @@ class Container extends ObjetBDD
       /**
        * Delete the object
        */
-      $object = new ObjectClass($this->connection, $this->paramori);
-      $object->supprimer($uid);
+      if (!isset($this->object)) {
+        require_once 'modules/classes/object.class.php';
+        $this->object = new ObjectClass($this->connection, $this->paramori);
+      }
+      $this->object->supprimer($uid);
     }
   }
 
@@ -294,20 +296,6 @@ class Container extends ObjetBDD
               from containers
               where uid <> :uid";
     return $this->getListeParamAsPrepared($sql, array("uid" => $uid));
-    /*$data = array();
-        if ($uid > 0 && is_numeric($uid)) {
-            $continue = true;
-            while ($continue) {
-                $parent = $this->getParent($uid);
-                if ($parent["uid"] > 0) {
-                    $data[] = $parent;
-                    $uid = $parent["uid"];
-                } else {
-                    $continue = false;
-                }
-            }
-        }
-        return $data;*/
   }
 
   /**
@@ -327,6 +315,20 @@ class Container extends ObjetBDD
       return -1;
     }
   }
+  /**
+   * Get the container_id from the identifier
+   *
+   * @param string $identifier
+   * @return int
+   */
+  function getUidFromIdentifier($identifier)
+  {
+    $sql = "select uid from container
+            join object using (uid)
+            where lower(identifier) = lower(:identifier)";
+    $data = $this->lireParamAsPrepared($sql, array("identifier" => $identifier));
+    return $data["uid"];
+  }
 
   /**
    * Recherche les contenants a partir du tableau de parametres fourni
@@ -342,7 +344,7 @@ class Container extends ObjetBDD
     $paramName = array(
       "name", "container_family_id", "container_type_id",  "select_date", "referent_id"
     );
-    if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0) {
+    if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["event_type_id"] > 0 || $param["movement_reason_id"] > 0) {
       $searchOk = true;
     } else {
       foreach ($paramName as $name) {
@@ -421,6 +423,23 @@ class Container extends ObjetBDD
         $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
         $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
         $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
+        $and = " and ";
+      }
+      /**
+       * Recherche sur le motif de destockage
+       */
+      if ($param["movement_reason_id"] > 0) {
+        $where .= $and . " movement_reason_id = :movement_reason_id";
+        $data["movement_reason_id"] = $param["movement_reason_id"];
+        $and = " and ";
+      }
+      /**
+       * Search on event type
+       */
+      if ($param["event_type_id"] > 0) {
+        $this->sql .= " left outer join event oe on (o.uid = oe.uid) ";
+        $where .= $and . " event_type_id = :event_type_id";
+        $data["event_type_id"] = $param["event_type_id"];
         $and = " and ";
       }
       if ($and == "") {
@@ -917,25 +936,26 @@ class Container extends ObjetBDD
             join last_movement using (uid)
             where movement_type_id = 1";
     $containers = $this->getListeParam($sql);
-    foreach($containers as $container) {
+    foreach ($containers as $container) {
       $cyclical = $this->verifyChild($container["uid"], $container);
       if (!empty($cyclical)) {
-        $found [] = array("first" => $container["uid"], "second"=> $cyclical);
+        $found[] = array("first" => $container["uid"], "second" => $cyclical);
       }
     }
     return ($found);
   }
-/**
- * Search if a contained container contains the uid
- *
- * @param integer $uid
- * @param array $containerChild
- * @return integer|null
- */
-  function verifyChild(int $uid, array $containerChild) :?int {
+  /**
+   * Search if a contained container contains the uid
+   *
+   * @param integer $uid
+   * @param array $containerChild
+   * @return integer|null
+   */
+  function verifyChild(int $uid, array $containerChild): ?int
+  {
     $cyclical = null;
     $containers = $this->getContentContainer($containerChild["uid"]);
-    foreach($containers as $container){
+    foreach ($containers as $container) {
       if ($container["uid"] == $uid) {
         $cyclical = $container["container_uid"];
         break;

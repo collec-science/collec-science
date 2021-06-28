@@ -24,6 +24,10 @@ méta-données : des éléments (comme le nom des récolteurs, taxons, ...) que 
 
 opération : Une opération peut être décrite comme une action modifiant l'état d'un échantillon. Elle aboutit à la création d'un nouvel échantillon dérivé du précédent.
 
+pays de collecte : pays où a été récolté l'échantillon
+
+pays d'origine : pays qui a fourni l'échantillon (qui l'a récolté)
+
 produit utilisé : produit utilisé pour conserver l'échantillon (par exemple éthanol). Appelé parfois "produit de stockage" dans la documentation.
 
 protocole : protocole utilisé pour collecter les données. Un protocole est une suite d'opérations qui concourent à produire (voire à conserver) des échantillons utilisables pour la recherche. Il s'agit en principe d'un document qui décrit les différentes étapes que suit un prélèvement.

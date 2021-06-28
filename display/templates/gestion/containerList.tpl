@@ -3,7 +3,7 @@
 
 <div class="row">
 	<div class="col-lg-10 col-md-10 col-sm-12">
-	{include file='gestion/containerSearch.tpl'}
+	{include file='gestion/containerSearchTab.tpl'}
 	</div>
 </div>
 <div class="row">

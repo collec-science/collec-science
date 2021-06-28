@@ -1,9 +1,10 @@
 <script>
-$(document).ready(function() { 
+$(document).ready(function() {
 	/* Management of tabs */
 		var activeTabResult = "";
+		var myStorage = window.localStorage;
         try {
-        activeTabResult = Cookies.get("sampleResultTab");
+        activeTabResult = myStorage.getItem("sampleResultTab");
         } catch (Exception) {
         }
 		try {
@@ -15,7 +16,7 @@ $(document).ready(function() {
 			//$(this).tab('show');
  		});
 		 $('.tabResult').on('shown.bs.tab', function () {
-			Cookies.set("sampleResultTab", $(this).attr("id"), { secure: true});
+			myStorage.setItem("sampleResultTab", $(this).attr("id"));
 		});
 });
 </script>

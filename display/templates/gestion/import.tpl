@@ -80,25 +80,27 @@
       <li>{t}Pour importer des contenants :{/t}
             <ul>
                   <li><b>container_identifier</b> : {t}l'identifiant du contenant (obligatoire){/t}</li>
-                  <li><b>container_type_id</b> : {t}le numéro informatique du type de contenant (obligatoire){/t}</li>
-                  <li><b>container_status_id</b> : {t}le numéro informatique du statut du contenant (obligatoire){/t}</li>
+                  <li><b>container_type_id / container_type_name</b> : {t}le numéro informatique du type de contenant ou son nom (obligatoire){/t}</li>
+                  <li><b>container_status_id / container_status_name</b> : {t}le numéro informatique du statut du contenant ou son nom (obligatoire){/t}</li>
                   <li><b>container_uuid</b> : {t}UID Universel du contenant (UUID){/t}</li>
                   <li><b>container_location</b> : {t}l'emplacement de rangement du contenant dans son contenant (texte libre){/t}</li>
                   <li><b>container_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
                   <li><b>container_line</b> : {t}n° de la ligne de stockage dans le contenant{/t}</li>
                   <li><b>container_parent_uid</b> : {t}l'UID du contenant où le contenant courant est rangé{/t}</li>
+                  <li><b>container_parent_identifier</b> : {t}identifiant métier du contenant où le contenant courant est rangé (doit être créé préalablement, ou figurer plus haut dans le fichier - l'identifiant doit être unique){/t}</li>
             </ul>
       </li>
       <li>{t}Pour importer des échantillons :{/t}
             <ul>
                   <li><b>sample_identifier</b> : {t}l'identifiant de l'échantillon (obligatoire){/t}</li>
-                  <li><b>collection_id</b> : {t}le numéro informatique de la collection (obligatoire){/t}</li>
-                  <li><b>sample_type_id</b> : {t}le numéro informatique du type d'échantillon (obligatoire){/t}</li>
-                  <li><b>sample_status_id</b> : {t}le numéro du statut de l'échantillon (obligatoire){/t}</li>
-                  <li><b>campaign_id</b> : {t}le numéro informatique de la campagne de prélèvement{/t}</li>
-                  <li><b>sampling_place_id</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé{/t}</li>
-                  <li><b>country_code</b>: {t}le code du pays, sur deux positions{/t}</li>
-                  <li><b>referent_id</b> : {t}le numéro informatique du référent{/t}</li>
+                  <li><b>collection_id / collection_name</b> : {t}le numéro informatique de la collection ou son nom (obligatoire){/t}</li>
+                  <li><b>sample_type_id / sample_type_name</b> : {t}le numéro informatique du type d'échantillon ou son nom (obligatoire){/t}</li>
+                  <li><b>sample_status_id / sample_status_name</b> : {t}le numéro du statut de l'échantillon ou son nom(obligatoire){/t}</li>
+                  <li><b>campaign_id / campaign_name</b> : {t}le numéro informatique de la campagne de prélèvement ou son nom{/t}</li>
+                  <li><b>sampling_place_id / sampling_place_name</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé ou son nom{/t}</li>
+                  <li><b>country_code</b>: {t}le code du pays de collecte, sur deux positions{/t}</li>
+                  <li><b>country_origin_code</b>: {t}le code du pays de provenance, sur deux positions{/t}</li>
+                  <li><b>referent_id / referent_name</b> : {t}le numéro informatique du référent ou son nom, sous la forme "nom prénom"{/t}</li>
                   <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                   <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                   <li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy{/t}</li>
@@ -106,8 +108,11 @@
                   <li><b>sample_multiple_value</b> : {t}le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
                   si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point){/t}</li>
                   <li><b>sample_parent_uid</b> : {t}UID du parent (création d'échantillons rattachés){/t}</li>
+                  <li><b>sample_parent_identifier</b> : {t}identifiant métier du parent (doit être créé avant l'échantillon courant ou figurer plus haut dans le fichier, et l'identifiant doit être unique){/t}</li>
+                  <li><b>dbuid_origin</b> : {t}Identifiant technique dans la base de données d'origine (de préférence sous la forme : nom_base:id){/t}</li>
                   <li><b>sample_uuid</b> :  {t}UID Universel de l'échantillon (UUID){/t}</li>
-                  <li><b>container_parent_uid</b> : {t}l'UID du contenant où l'échantillon est rangé{/t}</li>
+                  <li><b>container_parent_uid</b> : {t}l'UID du contenant où l'échantillon ou le contenant est rangé{/t}</li>
+                  <li><b>container_parent_identifier</b> : {t}identifiant métier du contenant où l'échantillon est rangé (doit être créé préalablement, ou figurer plus haut dans le fichier - l'identifiant doit être unique){/t}</li>
                   <li><b>sample_location</b> : {t}l'emplacement de rangement de l'échantillon dans le contenant (texte libre){/t}</li>
                   <li><b>sample_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
                   <li><b>sample_line</b> : {t}n° de la ligne de stockage dans le contenant{/t}</li>

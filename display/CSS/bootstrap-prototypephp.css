@@ -11,8 +11,8 @@ body {
   height: 99%;
 }
 /*@media (max-width: 991px) {
-    .form-control, .btn, li, ul, .dropdown-menu, .center-block, 
-    #message, label, div {font-size: 1.1em;}	
+    .form-control, .btn, li, ul, .dropdown-menu, .center-block,
+    #message, label, div {font-size: 1.1em;}
 }
 @media (max-width: 991px) {
 	select {min-height: 2em;}
@@ -67,11 +67,14 @@ body {
 	font-size: small;
 	font-style: italic;
 }
+h1{
+	font-size:x-large;
+}
 h2 {
-	font-size:large;
+	font-size:x-large;
 }
 h3 {
-	font-size:medium;
+	font-size:large;
 }
 legend {
 	font-size:large;
@@ -79,7 +82,13 @@ legend {
 }
 .textareaDisplay {
 	white-space:pre-wrap;
+	display: flex;
 }
+
+.tableTextarea {
+	white-space:pre-wrap;
+}
+
 /*
  * Affichage des informations dans un masque
  */
@@ -226,11 +235,11 @@ meter::-webkit-meter-optimum-value {
 }
 
 meter::-webkit-meter-suboptimum-value {
-	background: #009EE0; 
+	background: #009EE0;
 }
 
 meter::-webkit-meter-even-less-good-value {
-	background: #009EE0; 
+	background: #009EE0;
 }
 meter[value="1"]::-moz-meter-bar { background: #D1041D; }
 meter[value="2"]::-moz-meter-bar { background: #003A80; }
@@ -307,6 +316,10 @@ table a:hover {
 table a:visited {
 	/*text-decoration: none;*/
 	color: #009EE0;
+}
+
+.tableinput {
+	width: 100%;
 }
 .lexical {
 	/* display a question image into the field */

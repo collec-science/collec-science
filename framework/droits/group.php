@@ -7,6 +7,7 @@
  */
 
 include_once 'framework/droits/droits.class.php';
+require_once "framework/droits/aclgroup.class.php";
 $dataClass = new Aclgroup($bdd_gacl,$ObjetBDDParam);
 $keyName = "aclgroup_id";
 $id = $_REQUEST[$keyName];
@@ -36,6 +37,7 @@ switch ($t_module["param"]) {
 		/*
 		 * Recuperation des logins associes
 		 */
+		include_once "framework/droits/acllogin.class.php";
 		$acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
 		$vue->set($acllogin->getAllFromGroup($id) , "logins");
 		/**

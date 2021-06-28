@@ -19,6 +19,12 @@
 <input id="login" type="text" class="form-control" name="login" value="{$data.login}" required>
 </div>
 </div>
+<div class="form-group">
+<label for="totp_reset"  class="control-label col-md-4">{t}Désactiver l'identification à double facteur :{/t} </label>
+<div class="col-md-8">
+<input id="totp_reset" type="checkbox" class="form-control" name="totp_reset" value="1">
+</div>
+</div>
 <div class="form-group center">
       <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.acllogin_id > 0 }

@@ -158,7 +158,8 @@ class SearchParam
    * Function used to reinit some fields
    */
   function reinit()
-  { }
+  {
+  }
 }
 
 /**
@@ -208,7 +209,9 @@ class SearchContainer extends SearchParam
       "date_from" => date($_SESSION["MASKDATE"]),
       "date_to" => date($_SESSION["MASKDATE"]),
       "trashed" => 0,
-      "referent_id"=>""
+      "referent_id" => "",
+      "event_type_id" => "",
+      "movement_reason_id" => ""
     );
     /**
      * Ajout des dates
@@ -222,7 +225,9 @@ class SearchContainer extends SearchParam
       "uid_min",
       "uid_max",
       "trashed",
-      "referent_id"
+      "referent_id",
+      "event_type_id",
+      "movement_reason_id"
     );
     parent::__construct();
   }
@@ -261,7 +266,12 @@ class SearchSample extends SearchParam
       "NorthEastlat" => "",
       "campaign_id" => "",
       "country_id" => "",
-      "authorization_number" => ""
+      "country_origin_id"=>"",
+      "authorization_number" => "",
+      "event_type_id" => "",
+      "subsample_quantity_min" => "",
+      "subsample_quantity_max" => "",
+      "booking_type" => 0
     );
     /**
      * Ajout des dates
@@ -283,7 +293,12 @@ class SearchSample extends SearchParam
       "NorthEastlon",
       "NorthEastlat",
       "campaign_id",
-      "country_id" => 0
+      "country_id" => 0,
+      "country_origin_id"=>0,
+      "event_type_id",
+      "subsample_quantity_min",
+      "subsample_quantity_max",
+      "booking_type" => 0
     );
     parent::__construct();
   }
@@ -294,6 +309,8 @@ class SearchSample extends SearchParam
     $ds->modify("-1 year");
     $this->param["date_from"] = $ds->format($_SESSION["MASKDATE"]);
     $this->param["date_to"] = date($_SESSION["MASKDATE"]);
+    $this->param["booking_from"] = date($_SESSION["MASKDATE"]);
+    $this->param["booking_to"] = date($_SESSION["MASKDATE"]);
   }
 }
 

@@ -4,7 +4,7 @@
       var columnName = $( "#column_name" ).val();
       var disabled = true;
       var required = false;
-      if ( columnName == "metadata" || columnName == "identifiers" || columnName == "parent_identifiers" ) {
+      if ( columnName == "metadata" || columnName == "identifiers" || columnName == "parent_identifiers" || columnName == "metadata_unit") {
         disabled = false;
         required = true;
       }
@@ -23,8 +23,12 @@
     } );
     $("#subfield_name").change(function() {
       var exportName = $("#export_name").val();
-      if (exportName.length == 0 || exportName == "metadata" || exportName == "identifiers" || exportName == "parent_identifiers") {
+      if (exportName == "metadata" || exportName == "identifiers" || exportName == "parent_identifiers") {
         $("#export_name").val($("#subfield_name").val());
+      } else {
+        if (exportName == "metadata_unit") {
+          $("#export_name").val($("#subfield_name").val() + "_unit");
+        }
       }
     })
     /**
@@ -129,6 +133,14 @@
         </label>
         <div class="col-md-8">
           <input id="column_order" type="number" class="form-control number" name="column_order" value="{$data.column_order}" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sort_order" class="control-label col-md-4">
+          {t}Pour les importations, ordre de recherche parmi les différents identifiants possibles :{/t}
+        </label>
+        <div class="col-md-8">
+          <input id="search_order" type="number" class="form-control number" name="search_order" value="{$data.search_order}">
         </div>
       </div>
       <div class="form-group center">

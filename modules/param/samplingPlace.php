@@ -53,6 +53,7 @@ switch ($t_module["param"]) {
             require_once 'modules/classes/import.class.php';
             $i = 0;
             try {
+                $bdd->beginTransaction();
                 $import = new Import($_FILES['upfile']['tmp_name'], $_POST["separator"], false, array(
                     "name",
                     "code",
@@ -63,7 +64,6 @@ switch ($t_module["param"]) {
                 $rows = $import->getContentAsArray();
                 include_once "modules/classes/country.class.php";
                 $country = new Country($bdd, $ObjetBDDParam);
-                $bdd->beginTransaction();
                 foreach ($rows as $row) {
                     if (strlen($row["name"]) > 0) {
                         /*
@@ -75,9 +75,11 @@ switch ($t_module["param"]) {
                             "sampling_place_code" => $row["code"],
                             "sampling_place_x" => $row["x"],
                             "sampling_place_y" => $row["y"],
-                            "sampling_place_id" => $dataClass->getIdFromName($row["name"]),
-                            "country_id" => $country->getIdFromCode($row["country_code"])
+                            "sampling_place_id" => $dataClass->getIdFromName($row["name"])
                         );
+                        if (!empty($row["country_code"])) {
+                            $data["country_id"] = $country->getIdFromCode($row["country_code"]);
+                        }
                         $dataClass->ecrire($data);
                         $i++;
                     }
@@ -85,7 +87,7 @@ switch ($t_module["param"]) {
                 $bdd->commit();
                 $message->set(sprintf(_("%d lieu(x) importé(s)"), $i));
                 $module_coderetour = 1;
-            } catch (Exception $e) {
+            } catch (ImportException|Exception $e) {
                 $message->set(_("Impossible d'importer les lieux de prélèvement"));
                 $message->set($e->getMessage());
                 $module_coderetour = -1;

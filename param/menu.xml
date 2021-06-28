@@ -42,7 +42,7 @@
 	<item module="referentList" droits="consult" label="Référents" tooltip="Liste des référents des objets ou des collections"/>
 	<item module="campaignList" droits="consult" label="Campagnes" tooltip="Campagnes de prélèvement">
 		<item module="campaignList" droits="consult" label="Campagnes" tooltip="Campagnes de prélèvement"/>
-		<item module="regulationList" droits="consult" label="Réglementations" tooltip="Réglementations applicables"/>
+		<item module="regulationList" droits="consult" label="Réglementations" tooltip="Types de réglementations"/>
 	</item>
 	<item divider='1'/>
 	<item module="containerTypeList" droits="consult" label="Contenants" tooltip="Types de contenants" >
@@ -90,7 +90,30 @@
 	<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP"/>
 	<item module="backupDisplay" droits="admin" label="Backup" tooltip="Sauvegarde de la base de données"/>
 </item>
-
+<item module="documentation_fr" label="Documentation" tooltip="Documentations en ligne en français" language="fr">
+    <item module="doctotp_fr" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de la double authentification" language="fr"/>
+    <item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr"/>
+    <item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr"/>
+    <item module="default" label="Services web" tooltip="Description des services web" language="fr">
+        <item module="swidentification_fr" label="identification" tooltip="Gérer l'identification dans les services web" language="fr"/>
+        <item module="swapi_fr" label="API web" tooltip="Utilisation des API web" language="fr"/>
+        <item module="sampledisplay_fr" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="fr"/>
+        <item module="documentget_fr" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr"/>
+        <item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr"/>
+    </item>
+</item>
+<item module="documentation_en" label="Documentation" tooltip="Documentations en ligne en anglais" language="en">
+    <item module="doctotp_en" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de double authentification" language="en"/>
+    <item module="metadatafield_en" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="en"/>
+    <item module="lendingsample_en" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="en"/>
+		<item module="default" label="Services web" tooltip="Description des services web" language="en">
+			<item module="swidentification_en" label="identification" tooltip="Gérer l'identification dans les services web" language="en"/>
+			<item module="swapi_en" label="API web" tooltip="Utilisation des API web" language="en"/>
+			<item module="sampledisplay_en" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="en"/>
+			<item module="documentget_en" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="en"/>
+			<item module="sampleWrite_en" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="en"/>
+		</item>
+</item>
 <item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1"/>
 <item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1">
 	<item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1"/>

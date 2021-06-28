@@ -7,7 +7,8 @@
  * Classe maîtrisant les aspects identification.
  */
 class IdentificationException extends Exception
-{ }
+{
+}
 
 /**
  * @class Identification
@@ -121,7 +122,7 @@ class Identification
     public function testLoginLdap($login, $password)
     {
         $loginOk = "";
-        global $log, $LOG_duree, $message;
+        global $log;
         if (strlen($login) > 0 && strlen($password) > 0) {
             $login = str_replace(
                 array(
@@ -164,7 +165,7 @@ class Identification
             if ($this->LDAP["tls"]) {
                 ldap_start_tls($ldap);
             }
-            
+
             /*
              * Pour OpenLDAP et Active Directory, "bind rdn" de la forme : user_attrib=login,basedn
              *     avec généralement user_attrib=uid pour OpenLDAP,
@@ -226,11 +227,7 @@ class Identification
             } else {
                 phpCAS::setNoCasServerValidation();
             }
-            if (strlen($adresse_retour) > 0) {
-                phpCAS::logoutWithUrl($adresse_retour);
-            } else {
-                phpCAS::logout();
-            }
+            phpCAS::logout();
         }
         if ($this->ident_type == "HEADER") {
             /*
@@ -246,41 +243,6 @@ class Identification
         return 1;
     }
 
-    /**
-     * Initialisation de la classe gacl
-     *
-     * @param $gacl :
-     *            instance
-     *            gacl
-     * @param string $aco
-     *            : nom
-     *            de la catégorie de base contenant les objets à tester
-     * @param string $aro
-     *            : nom
-     *            de la catégorie contenant les logins à tester
-     */
-    public function setgacl(&$gacl, $aco, $aro)
-    {
-        $this->gacl = $gacl;
-        $this->aco = $aco;
-        $this->aro = $aro;
-    }
-
-    /**
-     * Teste les droits
-     *
-     * @param string $aco
-     *            : Categorie a tester
-     * @return int : 0 | 1
-     */
-    public function getgacl($aco)
-    {
-        $login = $this->getLogin();
-        if ($login == -1) {
-            return -1;
-        }
-        return $this->gacl->acl_check($this->aco, $aco, $this->aro, $login);
-    }
 
     /**
      * Verifie l'identification
@@ -322,7 +284,7 @@ class Identification
              */
             global $ident_header_vars;
             $headers = getHeaders($ident_header_vars["radical"]);
-            $login = $headers[$ident_header_vars["login"]];
+            $login = strtolower($headers[$ident_header_vars["login"]]);
             if (strlen($login) > 0 && count($headers) > 0) {
                 /**
                  * Verify if the login exists
@@ -349,14 +311,14 @@ class Identification
                         $createUser = true;
                         if (count($ident_header_vars["organizationGranted"]) > 0 && !in_array($headers[$ident_header_vars["organization"]], $ident_header_vars["organizationGranted"])) {
                             $createUser = false;
-                            $log->setLog($login, "connexion", "HEADER-ko. The ".$headers[$ident_header_vars["organization"]]. " is not authorized to connect to this application");
+                            $log->setLog($login, "connexion", "HEADER-ko. The " . $headers[$ident_header_vars["organization"]] . " is not authorized to connect to this application");
                         }
                         if ($createUser) {
-                            $dlogin = array (
-                            "login"=>$login,
-                            "nom"=>$headers[$ident_header_vars["cn"]],
-                            "mail"=>$headers[$ident_header_vars["mail"]],
-                            "actif"=>0
+                            $dlogin = array(
+                                "login" => $login,
+                                "nom" => $headers[$ident_header_vars["cn"]],
+                                "mail" => $headers[$ident_header_vars["mail"]],
+                                "actif" => 0
                             );
                             $login_id = $loginGestion->ecrire($dlogin);
                             if ($login_id > 0) {
@@ -370,16 +332,16 @@ class Identification
                                  * Send mail to administrators
                                  */
                                 global $APPLI_nom, $APPLI_mail;
-                                $subject = $APPLI_nom." "._("Nouvel utilisateur");
-                                $contents = "<html><body>".sprintf(_("%1$s a créé son compte avec le login %2$s dans l'application %3$s.
+                                $subject = $APPLI_nom . " " . _("Nouvel utilisateur");
+                                $contents = "<html><body>" . sprintf(_("%1$s a créé son compte avec le login %2$s dans l'application %3$s.
                                 <br>Il est rattaché à l'organisation %5$s.
                                 <br>Le compte est inactif jusqu'à ce que vous l'activiez.
                                 <br>Pour activer le compte, connectez-vous à l'application
                                     <a href='%4$s'>%4$s</a>
-                                <br>Ne répondez pas à ce mail, qui est généré automatiquement")."</body></html>",$login,$headers[$ident_header_vars["cn"]],$APPLI_nom, $APPLI_mail, $headers[$ident_header_vars["organization"]]);
+                                <br>Ne répondez pas à ce mail, qui est généré automatiquement") . "</body></html>", $login, $headers[$ident_header_vars["cn"]], $APPLI_nom, $APPLI_mail, $headers[$ident_header_vars["organization"]]);
 
-                                $log->sendMailToAdmin($subject,$contents,"loginCreateByHeader",$login);
-                                $message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation") );
+                                $log->sendMailToAdmin($subject, $contents, "loginCreateByHeader", $login);
+                                $message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"));
                             }
                         }
                     }
@@ -450,7 +412,7 @@ class Identification
         if (!$verify) {
             $login = "";
         }
-        return $login;
+        return strtolower($login);
     }
 
     /**
@@ -473,7 +435,3 @@ class Identification
         return $login;
     }
 }
-
-
-
-

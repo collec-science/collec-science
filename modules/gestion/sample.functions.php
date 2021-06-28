@@ -45,20 +45,21 @@ function sampleInitDatEntry()
     $vue->set($exportModel->getListFromTarget("sample"), "exportModels");
     include_once 'modules/classes/eventType.class.php';
     $eventType = new EventType($bdd, $ObjetBDDParam);
-    $vue->set($eventType->getListeFromCategory("sample"),"eventType");
+    $vue->set($eventType->getListeFromCategory("sample"), "eventType");
     include_once 'modules/classes/campaign.class.php';
     $campaign = new Campaign($bdd, $ObjetBDDParam);
     $vue->set($campaign->getListe(2), "campaigns");
     include_once 'modules/classes/containerFamily.class.php';
     $cf = new ContainerFamily($bdd, $ObjetBDDParam);
-    $vue->set($cf->getListe(2),"containerFamily");
+    $vue->set($cf->getListe(2), "containerFamily");
     include_once 'modules/classes/country.class.php';
     $country = new Country($bdd, $ObjetBDDParam);
     $vue->set($country->getListe(2), "countries");
 }
 
 class SampleInitClassException extends Exception
-{ };
+{
+};
 
 /**
  * Fonction d'initialisation globale des tables de reference
@@ -121,7 +122,7 @@ class SampleInitClass
             "filename" => "country.class.php",
             "classname" => "Country",
             "field" => "country_code2",
-            "id"=>"country_id"
+            "id" => "country_id"
         )
     );
 
@@ -150,6 +151,9 @@ class SampleInitClass
                         break;
                     case "collection_name":
                         $data = $_SESSION["collections"];
+                        break;
+                    case "referent_name":
+                        $data = $instance->getListName();
                         break;
                     default:
                         $data = $instance->getListe(2);

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="571,1126" last-zoom="1" max-obj-count="72"
+<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="574,1125" last-zoom="1" max-obj-count="72"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -3398,68 +3398,6 @@ from col.sample s
 	 dst-table="col.sample"
 	 src-required="false" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
-
-<function name="gin_trgm_ops"
-		window-func="false"
-		returns-setof="false"
-		behavior-type="CALLED ON NULL INPUT"
-		function-type="VOLATILE"
-		security-type="SECURITY INVOKER"
-		execution-cost="1"
-		row-amount="0">
-	<schema name="pg_catalog"/>
-	<role name="collec"/>
-	<language name="sql"/>
-	<return-type>
-	<type name="smallint" length="0"/>
-	</return-type>
-	<definition><![CDATA[#]]></definition>
-</function>
-
-<opclass  name="gin_trgm_ops" index-type="gin" default="false">
-	<schema name="pg_catalog"/>
-	<role name="collec"/>
-	<type name="smallint" length="0"/>
-	<element type="function" stg-number="1">
-		<function signature="pg_catalog.gin_trgm_ops()"/>
-	</element>
-</opclass>
-
-<index name="object_identifier_idx" table="col.object"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
-	 index-type="gin" factor="0">
-		<idxelement use-sorting="false">
-			<column name="identifier"/>
-			<opclass  signature="pg_catalog.gin_trgm_ops USING gin"/>
-		</idxelement>
-</index>
-
-<index name="sample_dbuid_origin_idx" table="col.sample"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
-	 index-type="gin" factor="0">
-		<idxelement use-sorting="false">
-			<column name="dbuid_origin"/>
-			<opclass  signature="pg_catalog.gin_trgm_ops USING gin"/>
-		</idxelement>
-</index>
-
-<index name="object_identifier_value_idx" table="col.object_identifier"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
-	 index-type="gin" factor="0">
-		<idxelement use-sorting="false">
-			<column name="object_identifier_value"/>
-			<opclass  signature="pg_catalog.gin_trgm_ops USING gin"/>
-		</idxelement>
-</index>
-
-<index name="authorization_number_idx" table="col.campaign_regulation"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
-	 index-type="gin" factor="0">
-		<idxelement use-sorting="false">
-			<column name="authorization_number"/>
-			<opclass  signature="pg_catalog.gin_trgm_ops USING gin"/>
-		</idxelement>
-</index>
 
 <index name="acllogin_login_idx" table="gacl.acllogin"
 	 concurrent="false" unique="true" fast-update="false" buffering="false"

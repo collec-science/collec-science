@@ -3390,31 +3390,6 @@ REFERENCES col.country (country_id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 -- ddl-end --
 
--- object: pg_catalog.gin_trgm_ops | type: FUNCTION --
--- DROP FUNCTION IF EXISTS pg_catalog.gin_trgm_ops() CASCADE;
-CREATE FUNCTION pg_catalog.gin_trgm_ops ()
-	RETURNS smallint
-	LANGUAGE sql
-	VOLATILE
-	CALLED ON NULL INPUT
-	SECURITY INVOKER
-	COST 1
-	AS $$
-#
-$$;
--- ddl-end --
-ALTER FUNCTION pg_catalog.gin_trgm_ops() OWNER TO collec;
--- ddl-end --
-
--- object: pg_catalog.gin_trgm_ops | type: OPERATOR CLASS --
--- DROP OPERATOR CLASS IF EXISTS pg_catalog.gin_trgm_ops USING gin CASCADE;
-CREATE OPERATOR CLASS pg_catalog.gin_trgm_ops FOR TYPE smallint
- USING gin AS
-	FUNCTION	1	pg_catalog.gin_trgm_ops();
--- ddl-end --
-ALTER OPERATOR CLASS pg_catalog.gin_trgm_ops USING gin OWNER TO collec;
--- ddl-end --
-
 -- object: object_identifier_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.object_identifier_idx CASCADE;
 CREATE INDEX object_identifier_idx ON col.object

@@ -3,7 +3,7 @@
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
 VERSION=2.6.0
-PHPVER=7.3
+PHPVER=7.4
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
 echo "Installation of Collec-Science version " $VERSION
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
@@ -14,6 +14,7 @@ then
 apt -y install lsb-release apt-transport-https ca-certificates
 DISTRIBCODE=`lsb_release -sc`
 DISTRIBNAME=`lsb_release -si`
+wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 if [ $DISTRIBNAME == 'Ubuntu' ]
 then
 apt-get install software-properties-common
@@ -27,13 +28,13 @@ fi
 apt-get update
 # installing packages
 apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd fop postgresql postgresql-client postgis
-a2enmod ssl
-a2enmod headers
-a2enmod rewrite
+/usr/sbin/a2enmod ssl
+/usr/sbin/a2enmod headers
+/usr/sbin/a2enmod rewrite
 # chmod -R g+r /etc/ssl/private
 # usermod www-data -a -G ssl-cert
-a2ensite default-ssl
-a2ensite 000-default
+/usr/sbin/a2ensite default-ssl
+/usr/sbin/a2ensite 000-default
 
 # creation of directory
 cd /var/www/html
@@ -110,11 +111,11 @@ cp /tmp/policy.xml /etc/ImageMagick-6/
 # creation of virtual host
 echo "creation of virtual site"
 cp collec/install/apache2/collec-science.conf /etc/apache2/sites-available/
-a2ensite collec-science
+/usr/sbin/a2ensite collec-science
 echo "you must modify the file /etc/apache2/sites-available/collec-science.conf"
 echo "address of your instance, ssl parameters),"
 echo "then run this command:"
-echo "service apache2 reload"
+echo "systemctl reload apache2"
 read -p "Enter to terminate" answer
 
 fi

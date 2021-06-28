@@ -14,7 +14,7 @@ if [[ $answer = "y"  ||  $answer = "Y"  ||   -z $answer ]];
 then
 PHPOLDVERSION=`php -v|grep ^PHP|cut -d " " -f 2|cut -d "." -f 1-2`
 echo "Your php version is $PHPOLDVERSION"
-echo "Collec-Science must run with PHP 7.3 or above."
+echo "Collec-Science must run with PHP 7.4 or above."
 echo "You can upgrade your PHP version with these commands:"
 echo "wget https://github.com/Irstea/collec/raw/master/install/php_upgrade.sh"
 echo "chmod +x php_upgrade.sh"

@@ -9,6 +9,7 @@ then
   apt -y install lsb-release apt-transport-https ca-certificates
   DISTRIBCODE=`lsb_release -sc`
   DISTRIBNAME=`lsb_release -si`
+  wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
   if [ $DISTRIBNAME == 'Ubuntu' ]
   then
     # Ubuntu
@@ -22,8 +23,8 @@ then
     apt-get update
   fi
   apt-get -y install libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd
-  a2dismod php$PHPOLDVERSION
-  a2enmod php$PHPVER
+  /usr/sbin/a2dismod php$PHPOLDVERSION
+  /usr/sbin/a2enmod php$PHPVER
   # update php.ini
   PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
   upload_max_filesize="=100M"

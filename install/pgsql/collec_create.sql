@@ -518,7 +518,65 @@ COMMENT ON COLUMN col.label.identifier_only IS E'true: the qrcode contains only 
 ALTER TABLE col.label OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.label (label_name, label_xsl, label_fields) VALUES (E'Example - Don''t use', E'<?xml version="1.0" encoding="utf-8"?>\n<xsl:stylesheet version="1.0"\n      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"\n      xmlns:fo="http://www.w3.org/1999/XSL/Format">\n  <xsl:output method="xml" indent="yes"/>\n  <xsl:template match="objects">\n    <fo:root>\n      <fo:layout-master-set>\n        <fo:simple-page-master master-name="label"\n              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">  \n              <fo:region-body/>\n        </fo:simple-page-master>\n      </fo:layout-master-set>\n      \n      <fo:page-sequence master-reference="label">\n         <fo:flow flow-name="xsl-region-body">        \n          <fo:block>\n          <xsl:apply-templates select="object" />\n          </fo:block>\n\n        </fo:flow>\n      </fo:page-sequence>\n    </fo:root>\n   </xsl:template>\n  <xsl:template match="object">\n\n  <fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="8cm&quot; keep-together.within-page=&quot;always">\n  <fo:table-column column-width="4cm"/>\n  <fo:table-column column-width="4cm" />\n <fo:table-body  border-style="none" >\n 	<fo:table-row>\n  		<fo:table-cell> \n  		<fo:block>\n  		<fo:external-graphic>\n      <xsl:attribute name="src">\n             <xsl:value-of select="concat(uid,''.png'')" />\n       </xsl:attribute>\n       <xsl:attribute name="content-height">scale-to-fit</xsl:attribute>\n       <xsl:attribute name="height">4cm</xsl:attribute>\n        <xsl:attribute name="content-width">4cm</xsl:attribute>\n        <xsl:attribute name="scaling">uniform</xsl:attribute>\n      \n       </fo:external-graphic>\n 		</fo:block>\n   		</fo:table-cell>\n  		<fo:table-cell>\n<fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>\n  			<fo:block>uid:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;db&quot;/&gt;:&lt;xsl:value-of select=&quot;uid"/></fo:inline></fo:block>\n  			<fo:block>id:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;id"/></fo:inline></fo:block>\n  			<fo:block>prj:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;prj"/></fo:inline></fo:block>\n  			<fo:block>clp:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;clp"/></fo:inline></fo:block>\n  		</fo:table-cell>\n  	  	</fo:table-row>\n  </fo:table-body>\n  </fo:table>\n   <fo:block page-break-after="always"/>\n\n  </xsl:template>\n</xsl:stylesheet>', E'uid,id,clp,db,col');
+INSERT INTO col.label (label_name, label_xsl, label_fields) VALUES (E'Example - Don''t use', E'<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.0"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+      xmlns:fo="http://www.w3.org/1999/XSL/Format">
+  <xsl:output method="xml" indent="yes"/>
+  <xsl:template match="objects">
+    <fo:root>
+      <fo:layout-master-set>
+        <fo:simple-page-master master-name="label"
+              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">
+              <fo:region-body/>
+        </fo:simple-page-master>
+      </fo:layout-master-set>
+
+      <fo:page-sequence master-reference="label">
+         <fo:flow flow-name="xsl-region-body">
+          <fo:block>
+          <xsl:apply-templates select="object" />
+          </fo:block>
+
+        </fo:flow>
+      </fo:page-sequence>
+    </fo:root>
+   </xsl:template>
+  <xsl:template match="object">
+
+  <fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="8cm" keep-together.within-page="always">
+  <fo:table-column column-width="4cm"/>
+  <fo:table-column column-width="4cm" />
+ <fo:table-body  border-style="none" >
+ 	<fo:table-row>
+  		<fo:table-cell>
+  		<fo:block>
+  		<fo:external-graphic>
+      <xsl:attribute name="src">
+             <xsl:value-of select="concat(uid,''.png'')" />
+       </xsl:attribute>
+       <xsl:attribute name="content-height">scale-to-fit</xsl:attribute>
+       <xsl:attribute name="height">4cm</xsl:attribute>
+        <xsl:attribute name="content-width">4cm</xsl:attribute>
+        <xsl:attribute name="scaling">uniform</xsl:attribute>
+
+       </fo:external-graphic>
+ 		</fo:block>
+   		</fo:table-cell>
+  		<fo:table-cell>
+<fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>
+  			<fo:block>uid:<fo:inline font-weight="bold"><xsl:value-of select="db"/>:<xsl:value-of select="uid"/></fo:inline></fo:block>
+  			<fo:block>id:<fo:inline font-weight="bold"><xsl:value-of select="id"/></fo:inline></fo:block>
+  			<fo:block>prj:<fo:inline font-weight="bold"><xsl:value-of select="prj"/></fo:inline></fo:block>
+  			<fo:block>clp:<fo:inline font-weight="bold"><xsl:value-of select="clp"/></fo:inline></fo:block>
+  		</fo:table-cell>
+  	  	</fo:table-row>
+  </fo:table-body>
+  </fo:table>
+   <fo:block page-break-after="always"/>
+
+  </xsl:template>
+</xsl:stylesheet>', E'uid,id,clp,db,col');
 -- ddl-end --
 
 -- object: col.storage_storage_id_seq | type: SEQUENCE --

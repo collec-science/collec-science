@@ -653,7 +653,7 @@ class Sample extends ObjetBDD
       if ($param["booking_type"] != 0) {
         $data["booking_from"] = $this->formatDateLocaleVersDB($param["booking_from"], 2) . " 00:00:00";
         $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"], 2) . " 23:59:59";
-        $where .= $and . " (select count(*) from col.booking b where ((:booking_from ::timestamp, :booking_to ::timestamp) overlaps (date_from::timestamp, date_to::timestamp)) = true
+        $where .= $and . " (select count(*) from booking b where ((:booking_from ::timestamp, :booking_to ::timestamp) overlaps (date_from::timestamp, date_to::timestamp)) = true
         and b.uid = so.uid)  ";
         $param["booking_type"] == 1 ? $where .= " > 0 " : $where .= " = 0 ";
         $and = " and ";
@@ -1299,24 +1299,24 @@ class Sample extends ObjetBDD
      */
     $sql = "with recursive containers as (
       select c.container_id
-      from col.last_movement
-      join col.object using (uid)
-      left outer join col.container c using (uid)
-      left outer join col.container_type using (container_type_id)
+      from last_movement
+      join object using (uid)
+      left outer join container c using (uid)
+      left outer join container_type using (container_type_id)
       where uid = :uid and movement_type_id = 1
       union all
       select cl.container_id
-      from col.object o
-      join col.container cl using (uid)
-      join col.container_type ct using (container_type_id)
-      left outer join col.last_movement lm on (lm.uid = o.uid and lm.movement_type_id =1)
+      from object o
+      join container cl using (uid)
+      join container_type ct using (container_type_id)
+      left outer join last_movement lm on (lm.uid = o.uid and lm.movement_type_id =1)
        join containers on (containers.container_id = lm.container_id)
        )
        select s.uid
-       from col.sample s
-       join col.object so using (uid)
-       join col.sample_type using (sample_type_id)
-       join col.last_movement lm on (lm.uid = so.uid and lm.movement_type_id = 1)
+       from sample s
+       join object so using (uid)
+       join sample_type using (sample_type_id)
+       join last_movement lm on (lm.uid = so.uid and lm.movement_type_id = 1)
        where lm.container_id in (select container_id from containers)";
     $listUids = $this->getListeParamAsPrepared($sql, array("uid" => $uid));
     if (count($listUids) > 0) {

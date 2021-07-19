@@ -2,11 +2,13 @@
 Deny from all
 </LimitExcept>
 Options -Indexes
-php_flag session.cookie_httponly on
-php_flag session.cookie_secure on
-php_flag register_globals off
-php_flag magic_quotes_gpc true
-php_flag display_errors Off
+<IfModule mod_php7.c>
+    php_flag session.cookie_httponly on
+    php_flag session.cookie_secure on
+    php_flag register_globals off
+    php_flag magic_quotes_gpc true
+    php_flag display_errors Off
+</IfModule>
 Header unset X-WebKit-CSP
 Header add X-WebKit-CSP "default-src 'self'"
 Header unset ETag

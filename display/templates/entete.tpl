@@ -20,11 +20,11 @@
 		<ul class="nav navbar-nav md navbar-right hidden-xs hidden-sm">
 			<li><a href="{if $isConnected}#{else}index.php?module=connexion{/if}">{if $isConnected }{$login}{else}{t}Connexion{/t}{/if} <span class="caret"></span></a>
 				<ul class="dropdown-menu">
-				    <li><a href='index.php?module=setlanguage&langue=fr'> <img
+				    <li><a href='index.php?module=setlanguagefr'> <img
 								src='display/images/drapeau_francais.png#180313' width='16'  border='0'>
 								Français
 							</a></li>
-				    <li><a href='index.php?module=setlanguage&langue=en'> <img
+				    <li><a href='index.php?module=setlanguageen'> <img
 								src='display/images/drapeau_anglais.png#refresh180313' width='16'  border='0'>
 								English
 							</a> </li>

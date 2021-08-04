@@ -166,7 +166,7 @@ implements CAS_Request_RequestInterface
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $this->postBody);
         }
-
+        curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'DEFAULT@SECLEVEL=1');
         return $ch;
     }
 
@@ -179,7 +179,7 @@ implements CAS_Request_RequestInterface
      *
      * @return void
      */
-    private function _storeResponseBody ($body)
+    public function _storeResponseBody ($body)
     {
         $this->storeResponseBody($body);
     }
@@ -192,7 +192,7 @@ implements CAS_Request_RequestInterface
      *
      * @return int
      */
-    private function _curlReadHeaders ($ch, $header)
+    public function _curlReadHeaders ($ch, $header)
     {
         $this->storeResponseHeader($header);
         return strlen($header);

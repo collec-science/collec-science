@@ -162,12 +162,12 @@ class Login
   public function getLoginCas($modeAdmin = false)
   {
   include_once "vendor/jasig/phpcas/CAS.php";
-    global $CAS_address, $CAS_port, $CAS_address, $CAS_CApath, $CAS_debug;
+    global $CAS_address, $CAS_port, $CAS_address, $CAS_CApath, $CAS_debug, $CAS_uri;
     if ($CAS_debug) {
-      phpCAS::setDebug();
+      phpCAS::setDebug("temp/cas.log");
       phpCAS::setVerbose(true);
     }
-    phpCAS::client(CAS_VERSION_2_0, $CAS_address, $CAS_port, "");
+    phpCAS::client(CAS_VERSION_2_0, $CAS_address, $CAS_port, $CAS_uri, false);
     if (!empty($CAS_CApath)) {
       phpCAS::setCasServerCACert($CAS_CApath);
     } else {

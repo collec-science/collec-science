@@ -57,7 +57,8 @@ $ident_header_vars = array(
 );
 $ident_header_logout_address = "";
 $ident_type = "BDD";
-$CAS_address = "localhost/CAS";
+$CAS_address = "localhost";
+$CAS_uri = "/cas";
 $CAS_port = 443;
 $CAS_debug = false;
 $CAS_CApath = "";

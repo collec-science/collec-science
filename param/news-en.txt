@@ -1,5 +1,10 @@
 News
 ===========
+Version 2.6.0a of August 4, 2021
+--------------------------------
+Bugs fixes:
+- Identification with a CAS server didn't work correctly (file to change: framework/identification/login.class.php)
+
 Version 2.6.0 of June 24, 2021
 -----------------------------
 What's new :

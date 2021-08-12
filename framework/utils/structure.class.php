@@ -426,10 +426,8 @@ class Structure extends ObjetBDD
   {
     if ($referencedBy) {
       $type = 'y';
-      $schemaType = 'x';
     } else {
       $type = 'x';
-      $schemaType = 'y';
     }
     $sql = "
         select distinct c.constraint_name

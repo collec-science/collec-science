@@ -89,9 +89,9 @@ class LoginGestion extends ObjetBDD
     /**
      * verify the password
      *
-     * @param [string] $login
-     * @param [string] $password
-     * @param [string] $hash
+     * @param string $login
+     * @param string $password
+     * @param string $hash
      * @return boolean
      */
     private function _testPassword($login, $password, $hash)
@@ -153,10 +153,15 @@ class LoginGestion extends ObjetBDD
             /**
              * decode the token
              */
-            if (openssl_private_decrypt(base64_decode($data["tokenws"]), $decrypted, $this->getKey("priv"), OPENSSL_PKCS1_OAEP_PADDING)) {
-                if ($decrypted == $token) {
-                    $retour = true;
-                }
+            if (
+                openssl_private_decrypt(
+                    base64_decode($data["tokenws"]),
+                    $decrypted,
+                    $this->getKey("priv"),
+                    OPENSSL_PKCS1_OAEP_PADDING
+                ) && $decrypted == $token
+            ) {
+                $retour = true;
             }
         }
         return $retour;
@@ -241,7 +246,7 @@ class LoginGestion extends ObjetBDD
             $type == "priv" ? $filename = $this->privateKey : $filename = $this->publicKey;
             if (file_exists($filename)) {
                 $handle = fopen($filename, "r");
-                if ($handle != false) {
+                if ($handle) {
                     $contents = fread($handle, filesize($filename));
                     if (!$contents) {
                         throw new FrameworkException("key " . $filename . " is empty");
@@ -319,7 +324,7 @@ class LoginGestion extends ObjetBDD
         if (isset($_SESSION["login"])) {
             $oldData = $this->lireByLogin($_SESSION["login"]);
             if ($log->getLastConnexionType($_SESSION["login"]) == "db") {
-                if ($this->_testPassword($_SESSION["login"], $oldpassword, $oldData["password"]) == true) {
+                if ($this->_testPassword($_SESSION["login"], $oldpassword, $oldData["password"])) {
                     /*
                      * Verifications de validite du mot de passe
                      */
@@ -350,10 +355,8 @@ class LoginGestion extends ObjetBDD
     public function changePasswordAfterLost($login, $pass1, $pass2)
     {
         $retour = 0;
-        if (strlen($login) > 0) {
-            if ($this->_passwordVerify($pass1, $pass2)) {
-                $retour = $this->writeNewPassword($login, $pass1);
-            }
+        if (!empty($login) > 0 && $this->_passwordVerify($pass1, $pass2)) {
+            $retour = $this->writeNewPassword($login, $pass1);
         }
         return $retour;
     }

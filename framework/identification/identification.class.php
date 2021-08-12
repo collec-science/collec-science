@@ -227,7 +227,11 @@ class Identification
             } else {
                 phpCAS::setNoCasServerValidation();
             }
-            phpCAS::logout();
+            if (!empty($adresse_retour)) {
+                phpCAS::logout(array("url" => $adresse_retour));
+            } else {
+                phpCAS::logout();
+            }
         }
         if ($this->ident_type == "HEADER") {
             /*
@@ -264,16 +268,11 @@ class Identification
             $tokenClass = new Token();
             try {
                 $login = $tokenClass->openTokenFromJson($_COOKIE["tokenIdentity"]);
-                if (strlen($login) > 0) {
-                    /*
-                     * Verification si le nombre de tentatives de connexion n'a pas ete atteint
-                     */
-                    if (!$log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
-                        $verify = true;
-                        $log->setLog($login, $module . "-connexion", "token-ok");
-                    }
+                if (!empty($login)  && !$log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
+                    $verify = true;
+                    $log->setLog($login, $module . "-connexion", "token-ok");
                 }
-            } catch (Exception $e) {
+            } catch (FrameworkException $e) {
                 $log->setLog($login, $module . "-connexion", "token-ko");
                 $message->set($e->getMessage(), true);
             }
@@ -285,7 +284,7 @@ class Identification
             global $ident_header_vars;
             $headers = getHeaders($ident_header_vars["radical"]);
             $login = strtolower($headers[$ident_header_vars["login"]]);
-            if (strlen($login) > 0 && count($headers) > 0) {
+            if (strlen($login) > 0 && !empty($headers)) {
                 /**
                  * Verify if the login exists
                  */
@@ -373,35 +372,30 @@ class Identification
             /*
              * On verifie si on est en retour de validation du login
              */
-            if (strlen($loginEntered) > 0) {
+            if (strlen($loginEntered) > 0 && !$log->isAccountBlocked($loginEntered, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
+                $verify = true;
                 /*
-                 * Verification si le nombre de tentatives de connexion n'est pas atteint
-                 */
-                if (!$log->isAccountBlocked($loginEntered, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
-                    $verify = true;
-                    /*
                      * Verification de l'identification aupres du serveur LDAP, ou LDAP puis BDD
                      */
-                    if ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
+                if ($ident_type == "LDAP" || $ident_type == "LDAP-BDD") {
 
-                        try {
-                            $login = $this->testLoginLdap($loginEntered, $password);
-                            if (strlen($login) == 0 && $ident_type == "LDAP-BDD") {
-                                /*
+                    try {
+                        $login = $this->testLoginLdap($loginEntered, $password);
+                        if (strlen($login) == 0 && $ident_type == "LDAP-BDD") {
+                            /*
                                  * L'identification en annuaire LDAP a echoue : verification en base de donnees
                                  */
-                                $login = $this->testBdd($loginEntered, $password);
-                            }
-                        } catch (Exception $e) {
-                            $message->setSyslog($e->getMessage());
+                            $login = $this->testBdd($loginEntered, $password);
                         }
-                    } elseif ($ident_type == "BDD") {
-                        /*
+                    } catch (Exception $e) {
+                        $message->setSyslog($e->getMessage());
+                    }
+                } elseif ($ident_type == "BDD") {
+                    /*
                          * Verification de l'identification uniquement en base de donnees
                          */
 
-                        $login = $this->testBdd($loginEntered, $password);
-                    }
+                    $login = $this->testBdd($loginEntered, $password);
                 }
             }
         }

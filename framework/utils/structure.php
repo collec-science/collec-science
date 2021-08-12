@@ -29,7 +29,6 @@ switch ($t_module["param"]) {
             )
         );
         $vue->setParam(array("filename"=>"collec-dbstructure.tex"));
-        //$vue->htmlVars[] = "data";
         break;
     case "gacl":
         $dataclass = new Structure($bdd_gacl, array(), $t_module["schemas"]);

@@ -2,8 +2,8 @@
 
 /**
  * Classe permettant de gerer les remplacements d'identifiants par des cles locales
- * 
- * Instanciation : 
+ *
+ * Instanciation :
  * if (!isset($_SESSION["ti_table"])
  * 		$_SESSION["ti_table"] = new TranslateId("cle_name");
  * @author Eric Quinton
@@ -24,28 +24,28 @@ class TranslateId
 
     /**
      * Tableau inverse
-     * 
+     *
      * @var array[$dbkey] = [$this->cle];
      */
     private $corresp_reverse;
 
     /**
      * Nom de la colonne utilisee pour le codage (cle de la table)
-     * 
+     *
      * @var string
      */
     private $fieldname;
 
     /**
      * Compteur utilise pour la renumerotation
-     * 
+     *
      * @var int
      */
     private $cle = 1;
 
     /**
      * Initialisation du champ contenant le nom de la colonne
-     * 
+     *
      * @param string $fieldname
      */
     function __construct($fieldname)
@@ -57,7 +57,7 @@ class TranslateId
 
     /**
      * Transforme toutes les valeurs du tableau
-     * 
+     *
      * @param array $data
      * @param string $fieldname
      *            : nom de la colonne (si non precisee a l'instanciation)
@@ -97,7 +97,7 @@ class TranslateId
 
     /**
      * Ajoute une valeur dans le tableau si elle n'existe pas
-     * 
+     *
      * @param int $dbId
      * @return int : valeur traduite
      */
@@ -118,7 +118,7 @@ class TranslateId
 
     /**
      * Retourne la cle correspondant a la valeur fournie
-     * 
+     *
      * @param int $id
      * @return multitype:$this->cle |NULL
      */
@@ -146,7 +146,7 @@ class TranslateId
 
     /**
      * Retourne la valeur calculee correspondant a une cle de la table
-     * 
+     *
      * @param array $row
      * @return array
      */
@@ -167,7 +167,7 @@ class TranslateId
     /**
      * Retourne la liste des valeurs de la base de donnees
      * pour l'ensemble du tableau fourni
-     * 
+     *
      * @param array $data
      * @return array
      */
@@ -184,6 +184,22 @@ class TranslateId
         }
         return $data;
     }
-}
+    /**
+	 * Fonction retournant la totalite des valeurs traduites
+	 * Utilise pour les selections multiples provenant depuis la page html,
+	 * sous forme de tableau : [campagne_id] => Array ( [0] => 1 [1] => 3 )
+	 *
+	 * @param array|int $data
+	 */
+	function getFromListForAllValue($data) {
+		foreach ( $data as $key => $value ) {
+			if (is_array ( $value )) {
+				$data [$key] = $this->getFromListForAllValue ( $value );
+			} else {
+				$data [$key] = $this->corresp [$value];
+			}
+		}
+		return $data;
+	}
 
-?>
+}

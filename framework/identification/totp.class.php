@@ -113,7 +113,7 @@ class Gacltotp
             $type == "priv" ? $filename = $this->privateKey : $filename = $this->pubKey;
             if (file_exists($filename)) {
                 $handle = fopen($filename, "r");
-                if ($handle != false) {
+                if ($handle ) {
                     $contents = fread($handle, filesize($filename));
                     if (!$contents) {
                         throw new TOTPException("key " . $filename . " is empty");

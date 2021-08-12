@@ -8,11 +8,13 @@
 class FrameworkException extends Exception
 {
 }
+
 try {
   /**
    * Lecture des parametres
    */
   require_once "framework/common.inc.php";
+
   /**
    * Verification des donnees entrantes.
    * Codage UTF-8
@@ -50,6 +52,7 @@ try {
       $message->setSyslog($e->getMessage());
     }
   }
+
   /**
    * purge des logs
    */
@@ -248,7 +251,7 @@ try {
          * Gestion de la saisie du login
          */
         if (!$vue) {
-          throw new Exception(_("Message technique : la vue n'a pas été initialisée lors de la création de la page de login"));
+          throw new FrameworkException(_("Message technique : la vue n'a pas été initialisée lors de la création de la page de login"));
         }
         $vue->set("framework/ident/login.tpl", "corps");
         $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
@@ -466,11 +469,17 @@ try {
     /**
      * Count all calls to the module
      */
-    if ($t_module["maxCountByHour"] > 0 && !$log->getCallsToModule($module, $t_module["maxCountByHour"], $APPLI_hour_duration)) {
+    if (
+      $t_module["maxCountByHour"] > 0
+      && !$log->getCallsToModule($module, $t_module["maxCountByHour"], $APPLI_hour_duration)
+    ) {
       $resident = 0;
       $motifErreur = "callsReached";
     }
-    if ($t_module["maxCountByDay"] > 0 && !$log->getCallsToModule($module, $t_module["maxCountByDay"], $APPLI_day_duration)) {
+    if (
+      $t_module["maxCountByDay"] > 0
+      && !$log->getCallsToModule($module, $t_module["maxCountByDay"], $APPLI_day_duration)
+    ) {
       $resident = 0;
       $motifErreur = "callsReached";
     }
@@ -688,11 +697,12 @@ try {
    * Generation des messages d'erreur pour Syslog
    */
   $message->sendSyslog();
+
 } catch (Exception $e) {
   /**
    * General exception
    */
-  echo _("Une erreur indéterminée s'est produite pendant le traitement de la requête. Si le problème persiste, consultez l'administrateur de l'application");
+ echo _("Une erreur indéterminée s'est produite pendant le traitement de la requête. Si le problème persiste, consultez l'administrateur de l'application");
   $message->setSyslog($e->getMessage());
   if ($APPLI_modeDeveloppement) {
     echo "<br>" . $e->getMessage();

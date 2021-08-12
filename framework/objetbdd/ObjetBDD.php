@@ -819,7 +819,7 @@ class ObjetBDD
          */
     if ($this->transformComma) {
       foreach ($data as $key => $value) {
-        if (@$this->types[$key] == 1) {
+        if (@$this->colonnes[$key]["type"] == 1) {
           $data[$key] = str_replace(",", ".", $value);
         }
       }

@@ -98,9 +98,9 @@ class ComposerStaticInitfc06e24141f3a87f90d0d3c71e70b08b
         '4af1dca6db8c527c6eed27bff85ff0e5' => __DIR__ . '/..' . '/thecodingmachine/safe/generated/yaz.php',
         'fe43ca06499ac37bc2dedd823af71eb5' => __DIR__ . '/..' . '/thecodingmachine/safe/generated/zip.php',
         '356736db98a6834f0a886b8d509b0ecd' => __DIR__ . '/..' . '/thecodingmachine/safe/generated/zlib.php',
-        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         'b2b3f01361f3aaeab67fde08ae76446f' => __DIR__ . '/..' . '/smarty-gettext/smarty-gettext/block.t.php',
         'd3114450b53a83020e2822546c24e1ad' => __DIR__ . '/..' . '/smarty-gettext/smarty-gettext/function.locale.php',
+        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (

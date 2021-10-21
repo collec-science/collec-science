@@ -102,6 +102,14 @@ class Aclgroup extends ObjetBDD
                      * Nettoyage des groupes (structure mixte)
                      */
                     $groups = $dataLdap[0][$ldapParam["groupAttrib"]];
+                    if (count($groups) == 1) {
+                        $search = $this->getGroupFromName($groups);
+                        foreach ($search as $value) {
+                            if ($value["aclgroup_id"] > 0) {
+                                $groupesLdap[] = $value;
+                            }
+                        }
+                    } else {
                     foreach ($groups as $key => $value) {
                         if (is_numeric($key)) {
                             /*
@@ -116,6 +124,7 @@ class Aclgroup extends ObjetBDD
                             }
                         }
                     }
+                }
                 }
             } else {
                 throw new LdapException(_("Connexion à l'annuaire LDAP impossible"));

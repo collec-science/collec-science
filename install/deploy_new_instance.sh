@@ -22,7 +22,7 @@ add-apt-repository -y ppa:ondrej/php
 add-apt-repository -y ppa:ondrej/apache2
 elif [ $DISTRIBNAME == 'Debian' ]
 then
-wget -qO https://packages.sury.org/php/apt.gpg | apt-key add -
+wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
 echo "deb https://packages.sury.org/php/ $DISTRIBCODE main" | tee /etc/apt/sources.list.d/php.list
 fi
 apt-get update

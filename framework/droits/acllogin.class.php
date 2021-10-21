@@ -125,7 +125,7 @@ class Acllogin extends ObjetBDD
   /**
    * Retourne la liste des droits attribues a un login
    *
-   * @param unknown $login
+   * @param string $login
    * @return array
    */
   function getListDroits($login, $appli, $ldapParam = array())

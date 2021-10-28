@@ -5,12 +5,16 @@
  * Fichier modifie le 21 mars 2013 par Eric Quinton
  *
  */
-class FrameworkException extends Exception {}
+class FrameworkException extends Exception
+{
+}
+
 try {
   /**
    * Lecture des parametres
    */
   require_once "framework/common.inc.php";
+
   /**
    * Verification des donnees entrantes.
    * Codage UTF-8
@@ -48,6 +52,7 @@ try {
       $message->setSyslog($e->getMessage());
     }
   }
+
   /**
    * purge des logs
    */
@@ -245,8 +250,8 @@ try {
         /**
          * Gestion de la saisie du login
          */
-        if (!$vue){
-          throw new Exception(_("Message technique : la vue n'a pas été initialisée lors de la création de la page de login"));
+        if (!$vue) {
+          throw new FrameworkException(_("Message technique : la vue n'a pas été initialisée lors de la création de la page de login"));
         }
         $vue->set("framework/ident/login.tpl", "corps");
         $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
@@ -278,8 +283,6 @@ try {
             if (isset($_POST["otpcode"])) {
               include_once "framework/identification/totp.class.php";
               $totp = new Gacltotp($privateKey, $pubKey);
-              include_once "framework/droits/acllogin.class.php";
-              $acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
               try {
                 if ($totp->verifyOtp($totp->decodeTotpKey($acllogin->getTotpKey($_SESSION["login"])), $_POST["otpcode"])) {
                   $_SESSION["is_authenticated"] = true;
@@ -322,7 +325,7 @@ try {
         } else {
           if ($ident_type == "ws") {
             http_response_code(401);
-            $vue->set(array("error_code"=>401, "error_message"=>_("Identification refusée")));
+            $vue->set(array("error_code" => 401, "error_message" => _("Identification refusée")));
           } else {
             if (!isset($vue)) {
               $isHtml = true;
@@ -339,10 +342,8 @@ try {
          * Treatment of all operations after authentication
          */
         $_SESSION["last_activity_admin"] = time();
-        if ($t_module["type"] == "ws") {
-          if (file_exists("modules/postLoginWS.php")) {
-            include 'modules/postLoginWS.php';
-          }
+        if ($t_module["type"] == "ws" && file_exists("modules/postLoginWS.php")) {
+          include 'modules/postLoginWS.php';
         }
         unset($_SESSION["menu"]);
         $message->set(_("Identification réussie !"));
@@ -468,17 +469,19 @@ try {
     /**
      * Count all calls to the module
      */
-    if ($t_module["maxCountByHour"] > 0) {
-      if (!$log->getCallsToModule($module, $t_module["maxCountByHour"], $APPLI_hour_duration)) {
-        $resident = 0;
-        $motifErreur = "callsReached";
-      }
+    if (
+      $t_module["maxCountByHour"] > 0
+      && !$log->getCallsToModule($module, $t_module["maxCountByHour"], $APPLI_hour_duration)
+    ) {
+      $resident = 0;
+      $motifErreur = "callsReached";
     }
-    if ($t_module["maxCountByDay"] > 0) {
-      if (!$log->getCallsToModule($module, $t_module["maxCountByDay"], $APPLI_day_duration)) {
-        $resident = 0;
-        $motifErreur = "callsReached";
-      }
+    if (
+      $t_module["maxCountByDay"] > 0
+      && !$log->getCallsToModule($module, $t_module["maxCountByDay"], $APPLI_day_duration)
+    ) {
+      $resident = 0;
+      $motifErreur = "callsReached";
     }
 
     /**
@@ -694,11 +697,12 @@ try {
    * Generation des messages d'erreur pour Syslog
    */
   $message->sendSyslog();
+
 } catch (Exception $e) {
   /**
    * General exception
    */
-  echo _("Une erreur indéterminée s'est produite pendant le traitement de la requête. Si le problème persiste, consultez l'administrateur de l'application");
+ echo _("Une erreur indéterminée s'est produite pendant le traitement de la requête. Si le problème persiste, consultez l'administrateur de l'application");
   $message->setSyslog($e->getMessage());
   if ($APPLI_modeDeveloppement) {
     echo "<br>" . $e->getMessage();

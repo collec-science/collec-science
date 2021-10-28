@@ -21,22 +21,22 @@ switch ($t_module["param"]) {
     $vue->set("framework/ident/loginliste.tpl", "corps");
     break;
   case "change":
-  try {
-    $data = $dataClass->lire($id);
-    $vue->set("framework/ident/loginsaisie.tpl", "corps");
-    $vue->set($APPLI_passwordMinLength, "passwordMinLength");
-    unset($data["password"]);
-    /**
-     * Add dbconnect_provisional_nb
-     */
-    if (strlen($data["login"]) > 0) {
-      $data["dbconnect_provisional_nb"] = $dataClass->getDbconnectProvisionalNb($data["login"]);
+    try {
+      $data = $dataClass->lire($id);
+      $vue->set("framework/ident/loginsaisie.tpl", "corps");
+      $vue->set($APPLI_passwordMinLength, "passwordMinLength");
+      unset($data["password"]);
+      /**
+       * Add dbconnect_provisional_nb
+       */
+      if (strlen($data["login"]) > 0) {
+        $data["dbconnect_provisional_nb"] = $dataClass->getDbconnectProvisionalNb($data["login"]);
+      }
+      $vue->set($data, "data");
+    } catch (FrameworkException | ObjetBDDException | PDOException $e) {
+      $message->set($e->getMessage(), true);
+      $module_coderetour = -1;
     }
-    $vue->set($data, "data");
-  } catch (FrameworkException|Exception $e) {
-    $message->set($e->getMessage(), true);
-    $module_coderetour = -1;
-  }
     break;
   case "write":
     /*
@@ -56,7 +56,7 @@ switch ($t_module["param"]) {
           $nom = $_REQUEST["login"];
         }
         $acllogin->addLoginByLoginAndName($_REQUEST["login"], $nom);
-      } catch (Exception $e) {
+      } catch (FrameworkException | ObjetBDDException | PDOException $e) {
         $message->set(_("Problème rencontré lors de l'écriture du login pour la gestion des droits"), true);
         $message->setSyslog($e->getMessage());
       }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * ORM de gestion de la table aclgroup
  *
@@ -62,7 +63,7 @@ class Aclgroup extends ObjetBDD
 					join acllogingroup lg on (g.aclgroup_id = lg.aclgroup_id)
 					join acllogin l on (lg.acllogin_id = l.acllogin_id)
 					where login = :login";
-            $groupes = $this->getListeParamAsPrepared($sql, array("login"=>$login));
+            $groupes = $this->getListeParamAsPrepared($sql, array("login" => $login));
         }
         /*
          * Recherche des groupes LDAP
@@ -89,7 +90,7 @@ class Aclgroup extends ObjetBDD
                     $ldapParam["mailAttrib"],
                     $ldapParam["groupAttrib"]
                 );
-                $filtre = "(" . $ldapParam["user_attrib"] . "=" . $_SESSION["login"] . ")"; // Attention...
+                $filtre =  "(" . $ldapParam["user_attrib"] . "=" . $_SESSION["login"] . ")";
                 /*
                  * Attention : ne gere pas le cas de user_attrib vide lors d'une connexion a un Active Directory
                  *             avec le userPrincipalName (et eventuellement l'UPN Suffix defini)
@@ -101,7 +102,7 @@ class Aclgroup extends ObjetBDD
                     /*
                      * Nettoyage des groupes (structure mixte)
                      */
-                    $groups = $dataLdap[0][$ldapParam["groupAttrib"]];
+                    $groups = $dataLdap[0][strtolower($ldapParam["groupAttrib"])];
                     foreach ($groups as $key => $value) {
                         if (is_numeric($key)) {
                             /*
@@ -148,7 +149,7 @@ class Aclgroup extends ObjetBDD
      */
     function getLogins($groupe)
     {
-        if (!empty($groupe) ) {
+        if (!empty($groupe)) {
             $sql = "with recursive first_level (login, groupe, aclgroup_id) as (
 					(select login, 	groupe, aclgroup_id, aclgroup_id_parent
 						from acllogin
@@ -163,7 +164,7 @@ class Aclgroup extends ObjetBDD
 					select login from first_level
 					where groupe = :groupe
 					order by login";
-            return $this->getListeParamAsPrepared($sql, array("groupe"=>$groupe));
+            return $this->getListeParamAsPrepared($sql, array("groupe" => $groupe));
         }
     }
 
@@ -258,7 +259,7 @@ class Aclgroup extends ObjetBDD
             $sql = "select aclgroup_id, groupe, aclgroup_id_parent from aclgroup
 					where aclgroup_id_parent = :parent_id
 				order by groupe ";
-            $group = $this->getListeParamAsPrepared($sql, array("parent_id"=>$parent_id));
+            $group = $this->getListeParamAsPrepared($sql, array("parent_id" => $parent_id));
             foreach ($group as $value) {
                 $data[] = array(
                     "aclgroup_id" => $value["aclgroup_id"],
@@ -283,7 +284,7 @@ class Aclgroup extends ObjetBDD
     function getGroupFromName($groupName)
     {
         $sql = "select * from aclgroup where groupe = :groupName";
-        return $this->getListeParamAsPrepared($sql, array("groupName"=>$groupName));
+        return $this->getListeParamAsPrepared($sql, array("groupName" => $groupName));
     }
 
     /**
@@ -360,7 +361,7 @@ class Aclgroup extends ObjetBDD
              * Recuperation des logins associes
              */
             $sql = "select aclgroup_id from aclacl where aclaco_id = :aclaco_id";
-            $groupes = $this->getListeParamAsPrepared($sql, array("aclaco_id"=>$aclaco_id));
+            $groupes = $this->getListeParamAsPrepared($sql, array("aclaco_id" => $aclaco_id));
             $dataGroup = array();
             /*
              * Preparation de la liste pour etre exploitable

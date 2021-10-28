@@ -10,7 +10,7 @@ if (!file_exists($filename)) {
 $doc = "";
 $file = file($filename);
 foreach ($file as $value) {
-    if (substr($value, 1, 1) == "*" or substr($value, 0, 1) == "*") {
+    if (substr($value, 1, 1) == "*" || substr($value, 0, 1) == "*") {
         $doc .= "&nbsp;&nbsp;&nbsp;";
     }
     utf8_encode($value);

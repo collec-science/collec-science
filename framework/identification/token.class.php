@@ -183,7 +183,7 @@ class Token
             $type == "priv" ? $filename = $this->privateKey : $filename = $this->pubKey;
             if (file_exists($filename)) {
                 $handle = fopen($filename, "r");
-                if ($handle != false) {
+                if ($handle ) {
                     $contents = fread($handle, filesize($filename));
                     if (!$contents) {
                         throw new TokenException("key " . $filename . " is empty");

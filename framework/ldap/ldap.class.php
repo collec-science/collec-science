@@ -156,9 +156,7 @@ class Ldap
         // Test si $attribut est un tableau
         $a_attribut = array();
         if (!is_array($attribut)) {
-            $a_attribut = array(
-                $attribut
-            );
+            $a_attribut = array($attribut);
         } else {
             $a_attribut = $attribut;
         }
@@ -166,8 +164,13 @@ class Ldap
             $basedn = $this->LDAP_basedn;
         }
         $sr = ldap_search($this->idldap, $basedn, $filtre, $a_attribut);
-        $this->listegroupe = ldap_get_entries($this->idldap, $sr);
-        return $this->listegroupe;
+        if ($sr) {
+        return ldap_get_entries($this->idldap, $sr);
+        } else {
+            global $message;
+            $message->setSyslog(ldap_error($this->idldap));
+            return array();
+        }
     }
 
     function __destruct()

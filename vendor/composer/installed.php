@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
+    'pretty_version' => 'dev-develop',
+    'version' => 'dev-develop',
     'aliases' => 
     array (
     ),
-    'reference' => 'b0b70f49bb8039951ef6e8985d11c94ee273a33a',
+    'reference' => '593b50f4eb142a9dbe8a127647321e489c0dba66',
     'name' => 'irstea/collec',
   ),
   'versions' => 
@@ -31,12 +31,12 @@
     ),
     'irstea/collec' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'dev-develop',
+      'version' => 'dev-develop',
       'aliases' => 
       array (
       ),
-      'reference' => 'b0b70f49bb8039951ef6e8985d11c94ee273a33a',
+      'reference' => '593b50f4eb142a9dbe8a127647321e489c0dba66',
     ),
     'jasig/phpcas' => 
     array (

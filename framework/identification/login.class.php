@@ -27,7 +27,7 @@ class Login
      */
     if ($type_authentification == "ws") {
       $tauth = "swtoken";
-      if( $this->loginGestion->getLoginFromTokenWS($_REQUEST["login"], $_REQUEST["token"])) {
+      if ($this->loginGestion->getLoginFromTokenWS($_REQUEST["login"], $_REQUEST["token"])) {
         $login = $_REQUEST["login"];
       }
     } elseif (isset($_COOKIE["tokenIdentity"])) {
@@ -72,14 +72,14 @@ class Login
     }
     if (!empty($login)) {
       if (!$this->log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
-        $this->log->setlog($login, "connection-". $tauth , "ok");
+        $this->log->setlog($login, "connection-" . $tauth, "ok");
       } else {
         $this->log->setLog($login, "connectionBlocking", "account blocked");
         $login = null;
       }
     } else {
       isset($_POST["login"]) ? $loginRequired = $_POST["login"] : $loginRequired = "unknown";
-      $this->log->setlog($loginRequired, "connection-". $tauth, "ko");
+      $this->log->setlog($loginRequired, "connection-" . $tauth, "ko");
       $this->message->set(_("L'identification n'a pas abouti. Vérifiez votre login et votre mot de passe"), true);
     }
     return $login;
@@ -161,7 +161,7 @@ class Login
    */
   public function getLoginCas($modeAdmin = false)
   {
-  include_once "vendor/jasig/phpcas/CAS.php";
+    include_once "vendor/jasig/phpcas/CAS.php";
     global $CAS_address, $CAS_port, $CAS_address, $CAS_CApath, $CAS_debug, $CAS_uri;
     if ($CAS_debug) {
       phpCAS::setDebug("temp/cas.log");
@@ -188,20 +188,20 @@ class Login
     $loginOk = "";
     if (strlen($login) > 0 && strlen($password) > 0) {
       $login = str_replace(
-        array('\\','*','(',')',),
-        array('\5c','\2a','\28','\29',),
+        array('\\', '*', '(', ')',),
+        array('\5c', '\2a', '\28', '\29',),
         $login
-    );
-    for ($i = 0; $i < strlen($login); $i++) {
+      );
+      for ($i = 0; $i < strlen($login); $i++) {
         $char = substr($login, $i, 1);
         if (ord($char) < 32) {
-            $hex = dechex(ord($char));
-            if (strlen($hex) == 1) {
-                $hex = '0' . $hex;
-            }
-            $login = str_replace($char, '\\' . $hex, $login);
+          $hex = dechex(ord($char));
+          if (strlen($hex) == 1) {
+            $hex = '0' . $hex;
+          }
+          $login = str_replace($char, '\\' . $hex, $login);
         }
-    }
+      }
       $ldap = @ldap_connect($LDAP["address"], $LDAP["port"]);
       /**
        * Set options

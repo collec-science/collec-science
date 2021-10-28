@@ -28,7 +28,7 @@ function objetBDDparamInit()
     } else {
         $ObjetBDDParam["formatDate"] = $DEFAULT_formatdate;
     }
-    
+
     $ObjetBDDParam["debug_mode"] = $OBJETBDD_debugmode;
     $_SESSION["ObjetBDDParam"] = $ObjetBDDParam;
 }
@@ -37,7 +37,7 @@ function objetBDDparamInit()
  * function _new
  * initialisation d'une classe basee sur ObjetBDD,
  * avec passage des parametres adequats
- * 
+ *
  * @param
  *            $classe
  * @return instance
@@ -53,7 +53,7 @@ function _new($classe)
  * declaree precedemment avec la fonction _new.
  * Affiche les messages d'erreur le cas echeant
  * Retourne le resultat de la fonction d'ecriture.
- * 
+ *
  * @param
  *            $instance
  * @param
@@ -62,9 +62,7 @@ function _new($classe)
  */
 function _ecrire($instance, $data)
 {
-    $rep = $instance->ecrire($data);
-    //$instance->getErrorData(1);
-    return $rep;
+    return $instance->ecrire($data);
 }
 
 ?>

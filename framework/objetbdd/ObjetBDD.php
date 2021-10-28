@@ -452,10 +452,8 @@ class ObjetBDD
     // Integration cles multiples
     if ($this->cleMultiple == 1) {
       // Verification de la structure de la cle
-      if ($this->verifData == 1) {
-        if (!$this->verifDonnees($id)) {
-          return false;
-        }
+      if ($this->verifData == 1 && !$this->verifDonnees($id)) {
+        return false;
       }
       $where = "";
       foreach ($id as $key => $value) {
@@ -474,10 +472,8 @@ class ObjetBDD
       /*
              * Verification de la cle unique
              */
-      if ($this->verifData == 1) {
-        if (!is_numeric($id)) {
-          return false;
-        }
+      if ($this->verifData == 1 && !is_numeric($id)) {
+        return false;
       }
       if (strlen(preg_replace("#[^A-Z]+#", "", $this->cle)) > 0) {
         $cle = $this->quoteIdentifier . $this->cle . $this->quoteIdentifier;
@@ -521,7 +517,7 @@ class ObjetBDD
       $sql = "select * from " . $this->table . " where " . $where;
     }
     $collection = $this->executeAsPrepared($sql, $data);
-    if (count($collection) == 0) {
+    if (empty($collection)) {
       if ($getDefault) {
         $collection = $this->getDefaultValue($parentValue);
       } else {
@@ -610,10 +606,8 @@ class ObjetBDD
     // Integration cles multiples
     if ($this->cleMultiple == 1) {
       // Verification de la structure de la cle
-      if ($this->verifData == 1) {
-        if (!$this->verifDonnees($id)) {
-          return false;
-        }
+      if ($this->verifData == 1 && !$this->verifDonnees($id)) {
+        return false;
       }
       $where = "";
       foreach ($id as $key => $value) {
@@ -632,10 +626,8 @@ class ObjetBDD
       /*
              * Verification de la cle unique
              */
-      if ($this->verifData == 1) {
-        if (!is_numeric($id)) {
-          return false;
-        }
+      if ($this->verifData == 1 && !is_numeric($id)) {
+        return false;
       }
       if (strlen(preg_replace("#[^A-Z]+#", "", $this->cle) > 0)) {
         $cle = $this->quoteIdentifier . $this->cle . $this->quoteIdentifier;
@@ -801,7 +793,7 @@ class ObjetBDD
       }
       $sql = "select " . $cle . " from " . $this->table . " where " . $where;
       $rs = $this->executeAsPrepared($sql, $ds);
-      if (count($rs) == 0) {
+      if (empty($rs)) {
         /**
          * nouveau avec id passe
          */
@@ -819,7 +811,7 @@ class ObjetBDD
          */
     if ($this->transformComma) {
       foreach ($data as $key => $value) {
-        if (@$this->types[$key] == 1) {
+        if (@$this->colonnes[$key]["type"] == 1) {
           $data[$key] = str_replace(",", ".", $value);
         }
       }
@@ -948,7 +940,7 @@ class ObjetBDD
     }
     $rs = $this->executeAsPrepared($sql, $ds);
     if ($mode == "ajout" && $this->id_auto == 1) {
-      if ($this->typeDatabase == 'pgsql' && count($rs) > 0) {
+      if ($this->typeDatabase == 'pgsql' && !empty($rs)) {
         $ret = $rs[0][$this->cle];
       } else {
         $last_id = $this->execute('SELECT LAST_INSERT_ID() as last_id');
@@ -1340,33 +1332,29 @@ class ObjetBDD
       /*
              * Verification des longueurs des champs textes
              */
-      if ($this->colonnes[$key]["longueur"] > 0) {
-        if (strlen($value) > $this->colonnes[$key]["longueur"]) {
-          $testok = false;
-          $this->errorData[] = array(
-            "code" => 2,
-            "colonne" => $key,
-            "valeur" => $value,
-            "demande" => $this->colonnes[$key]["longueur"]
-          );
-          throw new ObjetBDDException("string length too height (" . $this->colonnes[$key]["longueur"] . ") - " . $key . ":" . $value);
-        }
+      if ($this->colonnes[$key]["longueur"] > 0 && strlen($value) > $this->colonnes[$key]["longueur"]) {
+        $testok = false;
+        $this->errorData[] = array(
+          "code" => 2,
+          "colonne" => $key,
+          "valeur" => $value,
+          "demande" => $this->colonnes[$key]["longueur"]
+        );
+        throw new ObjetBDDException("string length too height (" . $this->colonnes[$key]["longueur"] . ") - " . $key . ":" . $value);
       }
 
       /*
              * Verification des masques (patterns)
              */
-      if (strlen($this->colonnes[$key]["pattern"]) > 0) {
-        if (strlen($value) > 0 && preg_match($this->colonnes[$key]["pattern"], $value) == 0) {
-          $testok = false;
-          $this->errorData[] = array(
-            "code" => 3,
-            "colonne" => $key,
-            "valeur" => $value,
-            "demande" => $this->colonnes[$key]["pattern"]
-          );
-          throw new ObjetBDDException("pattern not compliant (" . $this->colonnes[$key]["pattern"] . ") - " . $key . ":" . $value);
-        }
+      if (strlen($this->colonnes[$key]["pattern"]) > 0 && strlen($value) > 0 && preg_match($this->colonnes[$key]["pattern"], $value) == 0) {
+        $testok = false;
+        $this->errorData[] = array(
+          "code" => 3,
+          "colonne" => $key,
+          "valeur" => $value,
+          "demande" => $this->colonnes[$key]["pattern"]
+        );
+        throw new ObjetBDDException("pattern not compliant (" . $this->colonnes[$key]["pattern"] . ") - " . $key . ":" . $value);
       }
 
       /*
@@ -1751,10 +1739,8 @@ class ObjetBDD
              * Traitement des chaines individuelles
              */
       if ($this->typeDatabase == 'pgsql') {
-        if ($this->UTF8) {
-          if (mb_detect_encoding($data) != "UTF-8") {
-            $data = mb_convert_encoding($data, 'UTF-8');
-          }
+        if ($this->UTF8 && mb_detect_encoding($data) != "UTF-8") {
+          $data = mb_convert_encoding($data, 'UTF-8');
         }
         $data = pg_escape_string($data);
       } else {
@@ -1929,14 +1915,13 @@ class ObjetBDD
    * @param bool $pathAbsolute: if false, the path of the class is $this->classpath/$classFile (default: false)
    * @return void
    */
-  function classInstanciate( $className, $classFile, bool $pathAbsolute = false)
+  function classInstanciate($className, $classFile, bool $pathAbsolute = false)
   {
-    $pathAbsolute ? $path = $classFile : $path = $this->classpath."/".$classFile;
-      include_once $path;
-      if (!isset ($this->connection)) {
-        throw new ObjetBDDException(sprintf(_("La connexion à la base de données n'est pas disponible pour instancier la classe %s"), $className));
-      }
-      $instance = new $className($this->connection, $this->paramori);
-    return $instance;
+    $pathAbsolute ? $path = $classFile : $path = $this->classpath . "/" . $classFile;
+    include_once $path;
+    if (!isset($this->connection)) {
+      throw new ObjetBDDException(sprintf(_("La connexion à la base de données n'est pas disponible pour instancier la classe %s"), $className));
+    }
+    return new $className($this->connection, $this->paramori);
   }
 }

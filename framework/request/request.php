@@ -9,6 +9,7 @@ require_once 'framework/request/request.class.php';
 $dataClass = new request($bdd,$ObjetBDDParam);
 $keyName = "request_id";
 $id = $_REQUEST[$keyName];
+$requestForm = "framework/request/requestChange.tpl";
 switch ($t_module["param"]) {
     case "list":
         /*
@@ -23,12 +24,12 @@ switch ($t_module["param"]) {
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
          */
-        dataRead($dataClass, $id, "framework/request/requestChange.tpl");
+        dataRead($dataClass, $id,$requestForm);
         break;
     case "execList":
     case "exec":
         $vue->set($dataClass->lire($id), "data");
-        $vue->set("framework/request/requestChange.tpl" ,"corps");
+        $vue->set($requestForm ,"corps");
         try{
         $vue->set($dataClass->exec($id), "result" );
         }catch (Exception $e){
@@ -52,7 +53,7 @@ switch ($t_module["param"]) {
         dataDelete($dataClass, $id);
         break;
     case "copy":
-        $data = dataRead($dataClass, 0, "framework/request/requestChange.tpl");
+        $data = dataRead($dataClass, 0, $requestForm);
         if ($id > 0) {
             $dinit = $dataClass->lire($id);
             if ($dinit["request_id"] > 0){

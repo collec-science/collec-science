@@ -144,7 +144,7 @@ class Log extends ObjetBDD
      * Get the list of all connexions during max duration of session
      *
      * @param integer $duration
-     * @return void
+     * @return array
      */
     public function getLastConnections($duration = 36000)
     {

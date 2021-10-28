@@ -45,11 +45,24 @@ class DbParam extends ObjetBDD
         }
     }
 
+      /**
+   * Update a parameter
+   *
+   * @param string $name
+   * @param string $value
+   * @return void
+   */
+  function setParameter(string $name, string $value)
+  {
+    $sql = "update dbparam set dbparam_value = :value where dbparam_name = :name";
+    $this->executeAsPrepared($sql, array("name" => $name, "value" => $value), true);
+  }
+
     function ecrireGlobal($data)
     {
         $this->colonnes["dbparam_name"]["requis"] = 0;
         foreach ($data as $key => $value) {
-            if (substr($key, 0, 2) == "id") {
+            if (substr($key, 0, 5) == "keyid") {
                 $aval = explode(":", $key);
                 if (is_numeric($aval[1])) {
                     $d = array("dbparam_id" => $aval[1], "dbparam_value" => $value);

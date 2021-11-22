@@ -301,7 +301,7 @@ class ImportObject
         "container_column",
         "container_line"
       ) as $field) {
-        if (!strlen($values[$field]) > 0) {
+        if (empty($values[$field])) {
           $values[$field] = 1;
         }
       }
@@ -309,7 +309,7 @@ class ImportObject
        * Traitement de l'echantillon
        */
       $sample_uid = 0;
-      if (strlen($values["sample_identifier"]) > 0) {
+      if (!empty($values["sample_identifier"])) {
         $dataSample = $values;
         $dataSample["sample_creation_date"] = $date;
         $dataSample["identifier"] = $values["sample_identifier"];
@@ -336,14 +336,14 @@ class ImportObject
           "expiration_date"
         );
         foreach ($fieldDates as $fieldDate) {
-          if (strlen($values[$fieldDate]) > 0) {
+          if (!empty($values[$fieldDate])) {
             $dataSample[$fieldDate] = $this->formatDate($values[$fieldDate]);
           }
         }
         /**
          * Metadata preparation
          */
-        if (strlen($values["sample_metadata_json"]) > 0) {
+        if (!empty($values["sample_metadata_json"])) {
           $md_array = json_decode($values["sample_metadata_json"], true);
           if (json_last_error() != JSON_ERROR_NONE) {
             throw new ImportObjectException(sprintf(_("Ligne %s : le décodage du champ JSON sample_metadata_json n'a pas abouti"), $num));
@@ -352,7 +352,7 @@ class ImportObject
           $md_array = array();
         }
         foreach ($this->md_columns as $md_col) {
-          if (strlen($values[$md_col]) > 0) {
+          if (!empty($values[$md_col])) {
             $colname = substr($md_col, 3);
             if (!array_key_exists($colname, $md_array)) {
               if (in_array(substr($values[$md_col], 0, 1), $jsonFirstCharArray)) {
@@ -414,12 +414,15 @@ class ImportObject
        */
       if (empty($values["container_parent_uid"]) && !empty($values["container_parent_identifier"])) {
         $values["container_parent_uid"] = $this->container->getUidFromIdentifier($values["container_parent_identifier"]);
+        if (empty($values["container_parent_uid"])) {
+          throw new ImportObjectException( "Line $num : the container ". $values["container_parent_identifier"]." don't exists into the database");
+        }
       }
       /**
        * Traitement du contenant
        */
       $container_uid = 0;
-      if (strlen($values["container_identifier"]) > 0) {
+      if (!empty($values["container_identifier"])) {
         $dataContainer = $values;
         $dataContainer["identifier"] = $values["container_identifier"];
         $dataContainer["object_status_id"] = $values["container_status_id"];
@@ -457,7 +460,7 @@ class ImportObject
         /**
          * Traitement du rattachement du container
          */
-        if (strlen($values["container_parent_uid"]) > 0) {
+        if (!empty($values["container_parent_uid"])) {
           try {
             $this->movement->addMovement($container_uid, $date, 1, $values["container_parent_uid"], $_SESSION["login"], $values["container_location"], null, null, $values["container_column"], $values["container_line"]);
           } catch (Exception $e) {

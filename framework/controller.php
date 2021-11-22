@@ -234,10 +234,11 @@ try {
           $vue = new VueSmarty($SMARTY_param, $SMARTY_variables);
       }
     }
+
     /**
      * Verification si le login est requis
      */
-    if ((!empty($t_module["droits"]) || $t_module["loginrequis"] == 1) && !$_SESSION["is_authenticated"]) {
+    if ((!empty($_POST["login"]) || !empty($t_module["droits"]) || $t_module["loginrequis"] == 1) && !$_SESSION["is_authenticated"]) {
       /**
        * Affichage de l'ecran de saisie du login si necessaire
        */

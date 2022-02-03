@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '593b50f4eb142a9dbe8a127647321e489c0dba66',
+    'reference' => 'e84094821d6041a948efdc8ac367a369542c20a1',
     'name' => 'irstea/collec',
   ),
   'versions' => 
@@ -36,7 +36,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '593b50f4eb142a9dbe8a127647321e489c0dba66',
+      'reference' => 'e84094821d6041a948efdc8ac367a369542c20a1',
     ),
     'jasig/phpcas' => 
     array (
@@ -64,6 +64,15 @@
       array (
       ),
       'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
+    ),
+    'picqer/php-barcode-generator' => 
+    array (
+      'pretty_version' => 'v2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '7df93b40099e5fefad055543320a36b80dccda05',
     ),
     'psr/log' => 
     array (

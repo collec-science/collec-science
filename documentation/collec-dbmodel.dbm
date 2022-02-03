@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="574,1125" last-zoom="1" max-obj-count="72"
+<dbmodel pgmodeler-ver="0.9.3" use-changelog="false" author="Eric Quinton" last-position="574,1125" last-zoom="1" max-obj-count="73"
 	 default-schema="col" default-owner="collec"
 	 layers="gacl" active-layers="0;1">
 <role name="collec"
@@ -545,7 +545,7 @@ Prélèvement pour analyse•true•false⸣
 	<role name="collec"/>
 </sequence>
 
-<table name="label" layer="0" collapse-mode="1" max-obj-count="7" z-value="0">
+<table name="label" layer="0" collapse-mode="1" max-obj-count="8" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of label models]]></comment>
@@ -2819,7 +2819,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	</constraint>
 	<initial-data>
 <![CDATA[dataset_type_id•dataset_type_name•fields⸣
-1•sample•["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed"]⸣
+1•sample•["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed","campaign_id","campaign_name"]⸣
 2•collection•["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academical_directory","academical_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]⸣
 3•document•["document_name","document_uuid","uid","sample_uuid","identifier","content_type","extension","size","document_creation_date","fixed_value", "web_address"]⸣
 4•arbitrary content•["content"]]]>
@@ -3363,7 +3363,7 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 		</idxelement>
 </index>
 
-<view name="v_subsample_quantity" layer="0" collapse-mode="2" max-obj-count="1" z-value="0">
+<view name="v_subsample_quantity" layer="0" collapse-mode="1" max-obj-count="1" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<position x="800" y="1180"/>
@@ -3406,6 +3406,43 @@ from col.sample s
 			<column name="login"/>
 		</idxelement>
 </index>
+
+<table name="barcode_type" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<comment><![CDATA[Models of barcodes usable]]></comment>
+	<tag name="container"/>
+	<position x="1080" y="1580"/>
+	<column name="barcode_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="barcode_name" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Name of the model]]></comment>
+	</column>
+	<column name="barcode_code" not-null="true" default-value="'QR'">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Value of the barcode used by the generating application, if occures. Default value: QR for QRcode]]></comment>
+	</column>
+	<constraint name="barcode_type_pk" type="pk-constr" table="col.barcode_type">
+		<columns names="barcode_id" ref-type="src-columns"/>
+	</constraint>
+	<initial-data>
+<![CDATA[barcode_name•barcode_code⸣
+QRCode•QR⸣
+EAN 128•C128]]>
+	</initial-data>
+</table>
+
+<relationship name="barcode_type_has_many_label" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#04750b"
+	 src-table="col.barcode_type"
+	 dst-table="col.label"
+	 src-required="true" dst-required="false"
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

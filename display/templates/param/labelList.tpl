@@ -12,9 +12,10 @@
 <tr>
 <th>{t}Nom de l'étiquette{/t}</th>
 <th>{t}Id{/t}</th>
-<th>{t}QR Code simple
+<th>{t}Type de code-barre{/t}</th>
+<th>{t}Code simple
 (un seul identifiant métier){/t}</th>
-<th>{t}Champs dans le QRCode{/t}</th>
+<th>{t}Champs dans le code-barre{/t}</th>
 <th>{t}Nom du modèle de métadonnées rattaché{/t}</th>
 {if $droits.collection == 1}
 <th>{t}Modifier{/t}</th>
@@ -35,6 +36,7 @@
 {/if}
 </td>
 <td class="center">{$data[lst].label_id}</td>
+<td class="center">{$data[lst].barcode_name}</td>
 <td class="center">
 {if $data[lst].identifier_only == 1}{t}oui{/t}{else}{t}non{/t}{/if}
 </td>

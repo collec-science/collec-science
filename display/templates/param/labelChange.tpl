@@ -54,6 +54,18 @@ $(document).ready( function() {
 </div>
 </div>
 <div class="form-group">
+	<label for="barcode_id" class="control-label col-md-4">{t}Type de code-barre :{/t}</label>
+	<div class="col-md-8">
+		<select id="barcode_id" name="barcode_id" class="form-control">
+			{foreach $barcodes as $barcode}
+				<option value="{$barcode.barcode_id}" {if $barcode.barcode_id == $data.barcode_id}selected{/if}>
+					{$barcode.barcode_name}
+				</option>
+			{/foreach}
+		</select>
+	</div>
+</div>
+<div class="form-group">
 <label for ="identifiers_only" class="control-label col-md-4">{t}Étiquette ne comprenant qu'un identifiant métier ?{/t}</label>
 <div class="col-md-8" id="identifiers_only">
 <div class="radio-inline">
@@ -126,9 +138,10 @@ $(document).ready( function() {
 <li>{t}et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants{/t}</li>
 </ul>
 </li>
-<li>{t}Cas particulier : QR Code avec un seul identifiant, au format texte :{/t}
+<li>{t}Cas particulier : code-barre avec un seul identifiant, au format texte :{/t}
 <ul>
-<li>id </li>
+<li>id</li>
+<li>uid</li>
 <li>{t}tout identifiant secondaire non numérique - cf. paramètres > Types d'identifiants{/t}</li>
 <li>{t 1='dbuid_origin' escape=no}%1 : identifiant de la base de données d'origine. Pour un échantillon créé dans la base courante, la valeur sera de type <i>db:uid</i>{/t}</li>
 </ul>

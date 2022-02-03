@@ -11,7 +11,9 @@ class Label extends ObjetBDD
 
     private $sql = "select label_id, label_name, label_xsl, label_fields, identifier_only,
 			metadata_id, metadata_schema, metadata_name
+            ,barcode_id, barcode_name, barcode_code
 			from label
+            join barcode using (barcode_id)
 			left outer join metadata using(metadata_id)
 		";
 
@@ -43,6 +45,11 @@ class Label extends ObjetBDD
             "identifier_only" => array(
                 "type" => 1,
                 "requis" => 1
+            ),
+            "barcode_id" => array(
+                "type" => 1,
+                "requis" => 1,
+                "defaultValue" => 1
             )
         );
         parent::__construct($bdd, $param);
@@ -74,4 +81,3 @@ class Label extends ObjetBDD
         }
     }
 }
-?>

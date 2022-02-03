@@ -3407,7 +3407,7 @@ from col.sample s
 		</idxelement>
 </index>
 
-<table name="barcode_type" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+<table name="barcode" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Models of barcodes usable]]></comment>
@@ -3424,7 +3424,7 @@ from col.sample s
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[Value of the barcode used by the generating application, if occures. Default value: QR for QRcode]]></comment>
 	</column>
-	<constraint name="barcode_type_pk" type="pk-constr" table="col.barcode_type">
+	<constraint name="barcode_type_pk" type="pk-constr" table="col.barcode">
 		<columns names="barcode_id" ref-type="src-columns"/>
 	</constraint>
 	<initial-data>
@@ -3439,7 +3439,7 @@ EAN 128•C128]]>
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#04750b"
-	 src-table="col.barcode_type"
+	 src-table="col.barcode"
 	 dst-table="col.label"
 	 src-required="true" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>

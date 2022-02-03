@@ -16,6 +16,7 @@ class ObjectClass extends ObjetBDD
 
   public $dataPrint, $xslFile, $subsample;
   private $movement;
+  private $barcode;
 
   /**
    *
@@ -458,17 +459,28 @@ class ObjectClass extends ObjetBDD
       $oi = new ObjectIdentifier($this->connection, $this->param);
       include_once 'modules/classes/label.class.php';
       $label = new Label($this->connection, $this->param);
-      /*
-             * Recuperation des donnees de l'etiquette
-             */
+      /**
+       * Recuperation des donnees de l'etiquette
+       */
       $fields = array();
 
       $dlabel = $label->lire($labelId);
+      /**
+       * Select the type of barcode
+       */
+      if ($dlabel["barcode_id"] == 1) {
+        /**
+         * QRcode
+         */
+        include_once 'plugins/phpqrcode/qrlib.php';
+      } else {
+        $this->barcode = new Picqer\Barcode\BarcodeGeneratorPNG();
+      }
       $fields = explode(",", $dlabel["label_fields"]);
       $APPLI_code = $_SESSION["APPLI_code"];
-      /*
-             * Recuperation des informations generales
-             */
+      /**
+       * Recuperation des informations generales
+       */
       $sql = "select uid, identifier as id, clp_classification as clp, '' as pn,
                             '$APPLI_code' as db,
                             '' as col, '' as prj, storage_product as prod,
@@ -526,13 +538,13 @@ class ObjectClass extends ObjetBDD
       $order = " order by $order";
       $data = $this->getListeParam($sql . $order);
 
-      /*
-             * Preparation du tableau de sortie
-             * transcodage des noms de champ
-             */
-      /*
-             * Recuperation de la liste des champs a inserer dans l'etiquette
-             */
+      /**
+       * Preparation du tableau de sortie
+       * transcodage des noms de champ
+       */
+      /**
+       * Recuperation de la liste des champs a inserer dans l'etiquette
+       */
       $dataConvert = array();
 
       /**
@@ -541,15 +553,15 @@ class ObjectClass extends ObjetBDD
        */
 
       foreach ($data as $row) {
-        /*
-                 * Generation du dbuid_origin si non existant
-                 */
+        /**
+         * Generation du dbuid_origin si non existant
+         */
         if (strlen($row["dbuid_origin"]) == 0) {
           $row["dbuid_origin"] = $APPLI_code . ":" . $row["uid"];
         }
-        /*
-                 * Recuperation des identifiants complementaires
-                 */
+        /**
+         * Recuperation des identifiants complementaires
+         */
         $doi = $oi->getListFromUid($row["uid"]);
         $rowq = array();
         foreach ($row as $key => $value) {
@@ -564,9 +576,9 @@ class ObjectClass extends ObjetBDD
             $rowq[$value["identifier_type_code"]] = $value["object_identifier_value"];
           }
         }
-        /*
-                 * Recuperation des metadonnees associees
-                 */
+        /**
+         * Recuperation des metadonnees associees
+         */
         $metadata = json_decode($row["metadata"], true);
         foreach ($metadata as $key => $value) {
           // on remplace les espaces qui ne sont pas gérés par le xml
@@ -576,18 +588,29 @@ class ObjectClass extends ObjetBDD
             $rowq[$newKey] = $value;
           }
         }
-        /*
-                 * Generation du qrcode
-                 */
+        /**
+         * Generation du qrcode
+         */
         $filename = $APPLI_temp . '/' . $row["uid"] . ".png";
-        if ($dlabel["identifier_only"]) {
-          QRcode::png($rowq[$dlabel["label_fields"]], $filename);
+        if ($dlabel["barcode_id"] == 1) {
+          if ($dlabel["identifier_only"]) {
+            QRcode::png($rowq[$dlabel["label_fields"]], $filename);
+          } else {
+            QRcode::png(json_encode($rowq), $filename);
+          }
         } else {
-          QRcode::png(json_encode($rowq), $filename);
+          try {
+          file_put_contents(
+            $filename,
+            $this->barcode->getBarcode($rowq[$dlabel["label_fields"]], $dlabel["barcode_code"])
+          );
+        } catch (BarcodeException $e) {
+          throw new ObjectException ($e->getMessage());
         }
-        /*
-                 * Stockage des donnees pour la suite du traitement
-                 */
+        }
+        /**
+         * Stockage des donnees pour la suite du traitement
+         */
         $dataConvert[] = $row;
       }
       return $dataConvert;

@@ -32,6 +32,9 @@ switch ($t_module["param"]) {
         $data = dataRead($dataClass, $id, "param/labelChange.tpl");
         require_once 'modules/classes/metadata.class.php';
         $metadata = new metadata($bdd, $ObjetBDDParam);
+        require_once "modules/classes/barcode.class.php";
+        $barcode = new Barcode($bdd, $ObjetBDDParam);
+        $vue->set ($barcode->getListe(1),"barcodes");
         $vue->set($metadata->getListe(), "metadata");
         break;
     case "write":

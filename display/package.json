@@ -29,7 +29,6 @@
     "moment": "^2.29.1",
     "neo-async": "^2.6.2",
     "optimist": "^0.6.1",
-    "phonegap-plugin-barcodescanner": "^8.1.0",
     "pouchdb": "^7.2.2",
     "smartmenus": "^1.1.1",
     "source-map": "^0.6.1",

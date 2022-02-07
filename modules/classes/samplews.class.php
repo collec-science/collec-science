@@ -136,12 +136,18 @@ class Samplews
     /**
      * Search for campaign and create id if unknown
      */
-    if (!empty($dataSent["campaign_name"])) {
+    if (!empty($dataSent["campaign_uuid"])) {
+      $dataSent["campaign_id"] = $this->campaign->getIdFromUuid($dataSent["campaign_uuid"]);
+      if (empty($dataSent["campaign_id"])) {
+        throw new SampleException(sprintf(_("Aucune campagne ne correspond à l'UUID %s"), $dataSent["campaign_uuid"]));
+      }
+    } else if (!empty($dataSent["campaign_name"])) {
       $dataSent["campaign_id"] = $this->campaign->getIdFromName($dataSent["campaign_name"]);
       if (empty($dataSent["campaign_id"])) {
         $dataSent["campaign_id"] = $this->campaign->ecrire(array("campaign_id" => 0, "campaign_name" => $dataSent["campaign_name"]));
       }
     }
+
     /**
      * Search for referent and create if if unknown
      */

@@ -72,6 +72,7 @@ class ImportObject
     "sample_type_name",
     "sample_status_name",
     "campaign_name",
+    "campaign_uuid",
     "referent_name",
     "sampling_place_name",
     "sample_parent_identifier",
@@ -616,7 +617,7 @@ class ImportObject
     if (!empty($values["campaign_name"])) {
       $values["campaign_id"] = -1;
       foreach ($this->campaign as $value) {
-        if ($values["campaign_name"] == $value["campaign_name"]) {
+        if ($values["campaign_name"] == $value["campaign_name"] || $values["campaign_uuid"] == $value["uuid"]) {
           $values["campaign_id"] = $value["campaign_id"];
           break;
         }

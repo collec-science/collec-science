@@ -96,7 +96,7 @@
                   <li><b>collection_id / collection_name</b> : {t}le numéro informatique de la collection ou son nom (obligatoire){/t}</li>
                   <li><b>sample_type_id / sample_type_name</b> : {t}le numéro informatique du type d'échantillon ou son nom (obligatoire){/t}</li>
                   <li><b>sample_status_id / sample_status_name</b> : {t}le numéro du statut de l'échantillon ou son nom(obligatoire){/t}</li>
-                  <li><b>campaign_id / campaign_name</b> : {t}le numéro informatique de la campagne de prélèvement ou son nom{/t}</li>
+                  <li><b>campaign_id / campaign_name / campaign_uuid</b> : {t}le numéro informatique de la campagne de prélèvement, son nom ou son UUID{/t}</li>
                   <li><b>sampling_place_id / sampling_place_name</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé ou son nom{/t}</li>
                   <li><b>country_code</b>: {t}le code du pays de collecte, sur deux positions{/t}</li>
                   <li><b>country_origin_code</b>: {t}le code du pays de provenance, sur deux positions{/t}</li>

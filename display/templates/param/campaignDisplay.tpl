@@ -72,6 +72,10 @@
             <dt>{t}Date de fin :{/t}</dt>
             <dd>{$data.campaign_to}</dd>
           </dl>
+          <dl class="dl-horizontal">
+            <dt class="lexical" data-lexical="uuid">{t}UUID :{/t}</dt>
+            <dd>{$data.uuid}</dd>
+          </dl>
         </div>
       </div>
     </div>

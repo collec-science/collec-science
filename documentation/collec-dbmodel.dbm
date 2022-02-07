@@ -2294,7 +2294,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 </sequence>
 
-<table name="campaign" layer="0" collapse-mode="1" max-obj-count="6" z-value="0">
+<table name="campaign" layer="0" collapse-mode="1" max-obj-count="7" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of sampling campaigns]]></comment>
@@ -2314,6 +2314,10 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<column name="campaign_to">
 		<type name="timestamp" length="0"/>
 		<comment><![CDATA[date of end of the campaign]]></comment>
+	</column>
+	<column name="uuid" not-null="true" default-value="gen_random_uuid()">
+		<type name="uuid" length="0"/>
+		<comment><![CDATA[UUID of the campaign]]></comment>
 	</column>
 	<constraint name="campaign_pk" type="pk-constr" table="col.campaign">
 		<columns names="campaign_id" ref-type="src-columns"/>
@@ -2819,7 +2823,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	</constraint>
 	<initial-data>
 <![CDATA[dataset_type_id•dataset_type_name•fields⸣
-1•sample•["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed","campaign_id","campaign_name"]⸣
+1•sample•["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed","campaign_id","campaign_name","campaign_uuid"]⸣
 2•collection•["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academical_directory","academical_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]⸣
 3•document•["document_name","document_uuid","uid","sample_uuid","identifier","content_type","extension","size","document_creation_date","fixed_value", "web_address"]⸣
 4•arbitrary content•["content"]]]>

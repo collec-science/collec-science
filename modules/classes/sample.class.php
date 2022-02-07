@@ -22,7 +22,7 @@ class Sample extends ObjetBDD
   private $sql = "select distinct on (s.uid) s.sample_id, s.uid,
 					s.collection_id, collection_name, s.sample_type_id, s.dbuid_origin,
                     sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
-                    s.campaign_id, campaign_name,
+                    s.campaign_id, campaign_name,camp.uuid as campaign_uuid,
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
           so.identifier,
@@ -83,8 +83,8 @@ class Sample extends ObjetBDD
           left outer join referent cr on (p.referent_id = cr.referent_id)
           left outer join last_borrowing lb on (so.uid = lb.uid)
           left outer join borrower using (borrower_id)
-          left outer join campaign on (s.campaign_id = campaign.campaign_id)
-          left outer join campaign_regulation campreg on (campaign.campaign_id = campreg.campaign_id)
+          left outer join campaign camp on (s.campaign_id = camp.campaign_id)
+          left outer join campaign_regulation campreg on (camp.campaign_id = campreg.campaign_id)
           left outer join country sc on (s.country_id = sc.country_id)
           left outer join country csp on (sp.country_id = csp.country_id)
           left outer join country sco on (s.country_origin_id = sco.country_id)

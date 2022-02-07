@@ -14,6 +14,7 @@
           <th>{t}Responsable{/t}</th>
           <th>{t}du{/t}</th>
           <th>{t}au{/t}</th>
+          <th class="lexical" data-lexical="uuid">{t}UUID{/t}</th>
           {if $droits.param == 1}
             <th>{t}Modifier{/t}</th>
           {/if}
@@ -31,6 +32,7 @@
             <td class="textareaDisplay">{$row.referent_name}</td>
             <td class="center nowrap">{$row.campaign_from}</td>
             <td class="center nowrap">{$row.campaign_to}</td>
+            <td class="nowrap">{$row.uuid}</td>
             {if $droits.param == 1}
               <td class="center">
                 <a href="index.php?module=campaignChange&campaign_id={$row.campaign_id}" title="{t}Modifier{/t}">

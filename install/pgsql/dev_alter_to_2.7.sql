@@ -33,3 +33,8 @@ ALTER TABLE col.label ADD CONSTRAINT barcode_fk FOREIGN KEY (barcode_id)
 REFERENCES col.barcode (barcode_id) MATCH FULL
 ON DELETE NO ACTION ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
+/**
+ * 7/2/22
+ */
+alter table col.campaign add column uuid uuid NOT NULL DEFAULT gen_random_uuid();
+COMMENT ON COLUMN col.campaign.uuid IS E'UUID of the campaign';

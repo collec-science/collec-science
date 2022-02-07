@@ -219,7 +219,7 @@ $log = new Log($bdd_gacl, $ObjetBDDParam);
  */
 if (time() - $_SESSION['ABSOLUTE_START'] > $APPLI_absolute_session) {
     $log->setLog($_SESSION["login"], "disconnect-absolute-time");
-    $identification->disconnect($APPLI_address);
+    include "framework/identification/disconnect.php";
     $message->set(_("Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"),true);
     /*
      * Desactivation du cookie d'identification deja charge le cas echeant
@@ -237,11 +237,7 @@ if (isset($_SESSION["remoteIP"])) {
             $_SESSION["login"], "disconnect-ipaddress-changed",
             "old:" . $_SESSION["remoteIP"] . "-new:" . $ipaddress
         );
-        if ($identification->disconnect($APPLI_address) == 1) {
-            $message->set(_("Vous êtes maintenant déconnecté"));
-        } else {
-            $message->set(_("Connexion"));
-        }
+        include "framework/identification/disconnect.php";
     }
 } else {
     $_SESSION["remoteIP"] = $ipaddress;

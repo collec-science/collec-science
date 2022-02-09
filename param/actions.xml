@@ -102,6 +102,7 @@
 	<collectionChange action="modules/param/collection.php" param="change" droits="param" retourlogin="1" type="smarty" />
 	<collectionWrite action="modules/param/collection.php" param="write" droits="param" retourok="collectionList" retourko="collectionChange" modulebefore="collectionChange" />
 	<collectionDelete action="modules/param/collection.php" param="delete" droits="param" retourok="collectionList" retourko="collectionChange" modulebefore="collectionChange"/>
+	<collectionGet action="modules/param/collection.php" param="getAjax" droits="consult" type="ajax"/>
 
 	<regulationList action="modules/param/regulation.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 	<regulationChange action="modules/param/regulation.php" param="change" droits="param" retourlogin="1" type="smarty" />

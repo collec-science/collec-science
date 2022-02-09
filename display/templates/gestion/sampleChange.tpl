@@ -157,6 +157,23 @@
      		}
     	}
 
+			function setGeographicVisibility() {
+				var collection_id = $("#collection_id").val();
+				$.ajax( {
+					url: "index.php",
+					data: { "module": "collectionGet", "collection_id": collection_id}
+				})
+				.done (function (value) {
+					value = JSON.parse(value);
+					if (value.no_localization == 1) {
+						$(".geographic").hide();
+					} else {
+						$(".geographic").show();
+					}
+				})
+				;
+			}
+
         $("#sample_type_id").change( function() {
        	 getMetadata();
        	 getGenerator();
@@ -164,6 +181,7 @@
 
         $("#collection_id").change(function() {
         	getSamplingPlace();
+					setGeographicVisibility();
         });
 
         $("#sampling_place_id").change (function() {
@@ -176,6 +194,7 @@
         getMetadata();
         getGenerator();
         getSamplingPlace();
+				setGeographicVisibility();
 
         $('#sampleForm').submit(function(event) {
             if($("#action").val()=="Write"){
@@ -532,7 +551,7 @@
 						<input id="dbuid_origin" class="form-control" name="dbuid_origin" value="{$data.dbuid_origin}" placeholder="{t}db:uid. Exemple: col:125{/t}">
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group geographic">
 					<label for="campaign_id" class="control-label col-md-4">{t}Campagne de prélèvement :{/t}</label>
 					<div class="col-md-8">
 						<select id="campaign_id" name="campaign_id" class="form-control">
@@ -545,7 +564,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group geographic">
 				<label for="country_id" class="control-label col-md-4 lexical" data-lexical="country">{t}Pays de collecte :{/t}</label>
 					<div class="col-md-8">
 						<select id="country_id" name="country_id" class="form-control">
@@ -558,7 +577,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group geographic">
 				<label for="country_origin_id" class="control-label col-md-4 lexical" data-lexical="country_origin">{t}Pays de provenance :{/t}</label>
 					<div class="col-md-8">
 						<select id="country_origin_id" name="country_origin_id" class="form-control">
@@ -571,21 +590,21 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group geographic">
 					<label for="sampling_place_id" class="control-label col-md-4">{t}Lieu de prélèvement :{/t}</label>
 					<div class="col-md-8">
 						<select id="sampling_place_id" name="sampling_place_id" class="form-control ">
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group geographic">
 					<label for="wy" class="control-label col-md-4">{t}Latitude :{/t}</label>
 					<div class="col-md-8" id="wy">
 						{t}Format sexagesimal (45°01,234N) :{/t}<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
 						{t}Format décimal (45.081667) :{/t}<input id="wgs84_y" name="wgs84_y" placeholder="45.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group geographic">
 					<label for="wx" class="control-label col-md-4">{t}Longitude :{/t}</label>
 					<div class="col-md-8" id="wx">
 						{t}Format sexagesimal (0°01,234W) :{/t}
@@ -594,7 +613,7 @@
 						<input id="wgs84_x" name="wgs84_x"  placeholder="-0.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="form-group geographic">
 					<label for="location_accuracy"  class="control-label col-md-4 lexical" data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</label>
 					<div class="col-md-8">
 						<input id="sampling_date" class="form-control taux" name="location_accuracy" value="{$data.location_accuracy}">
@@ -679,7 +698,7 @@
 			</div>
 		</form>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-6 geographic">
 		{include file="gestion/objectMapDisplay.tpl"}
 	</div>
 </div>

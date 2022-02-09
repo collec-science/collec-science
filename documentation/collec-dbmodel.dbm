@@ -3419,7 +3419,7 @@ from col.sample s
 		</idxelement>
 </index>
 
-<table name="barcode" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+<table name="barcode" layer="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Models of barcodes usable]]></comment>

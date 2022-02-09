@@ -53,5 +53,13 @@ add column column_in_char boolean NOT NULL DEFAULT false;
 COMMENT ON COLUMN col.container_type.line_in_char IS E'Is the number of the line is displayed in character?';
 COMMENT ON COLUMN col.container_type.column_in_char IS E'Is the number of the column is displayed in character?';
 
+/**
+ * Ticket #558
+ */
+alter table col.collection 
+add column no_localization boolean NOT NULL DEFAULT false;
+COMMENT ON COLUMN col.collection.no_localization IS E'True if the localization of samples is not used';
+
+
 
 

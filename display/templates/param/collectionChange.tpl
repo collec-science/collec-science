@@ -96,6 +96,21 @@
                         </div>
                   </div>
                   <div class="form-group">
+                        <label for="no_localization"  class="control-label col-md-4">{t}Collection sans gestion de la localisation des échantillons ?{/t}</label>
+                        <div class="col-md-8">
+                              <div class="radio">
+                                    <label>
+                                          <input type="radio" name="no_localization" id="no_localization1" value="1" {if $data.no_localization == "1"}checked{/if}>
+                                          {t}oui{/t}
+                                    </label>
+                                    <label>
+                                          <input type="radio" name="no_localization" id="no_localization0" value="0" {if $data.no_localization == 0}checked{/if}>
+                                          {t}non{/t}
+                                    </label>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="form-group">
                         <label for="groupes"  class="control-label col-md-4">{t}Groupes :{/t}</label>
                         <div class="col-md-7">
                               {section name=lst loop=$groupes}

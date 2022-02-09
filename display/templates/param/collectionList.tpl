@@ -12,7 +12,7 @@
 <tr>
 	<th colspan="6"></th>
 	<th colspan="3" class="center">{t}Flux externes autorisés{/t}</th>
-	<th></th>
+	<th colspan="2"></th>
 </tr>
 <tr>
 	<th>{t}Nom de la collection{/t}</th>
@@ -25,6 +25,7 @@
 	<th>{t}Flux de consultation{/t}</th>
 	<th>{t}Collection publique{/t}</th>
 	<th>{t}Licence de diffusion{/t}</th>
+	<th>{t}Collection sans gestion de la localisation des échantillons{/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -62,6 +63,7 @@
 	{/if}
 </td>
 <td>{$data[lst].license_name}</td>
+<td class="center">{if $data[lst].no_localization == 1}{t}oui{/t}{/if}</td>
 </tr>
 {/section}
 </tbody>

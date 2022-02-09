@@ -51,7 +51,8 @@ class Collection extends ObjetBDD
       ),
       "license_id" => array(
         "type" => 1
-      )
+      ),
+      "no_localization" => array("type"=>1)
     );
     parent::__construct($bdd, $param);
   }
@@ -70,7 +71,7 @@ class Collection extends ObjetBDD
                 referent_name,
                 allowed_import_flow, allowed_export_flow, public_collection
                 ,collection_keywords,collection_displayname
-                ,license_id, license_name, license_url
+                ,license_id, license_name, license_url, no_localization
 				from collection
                 left outer join collection_group using (collection_id)
                 left outer join referent using (referent_id)

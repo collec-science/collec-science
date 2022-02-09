@@ -20,7 +20,7 @@ class Sample extends ObjetBDD
    * @param array $param
    */
   private $sql = "select distinct on (s.uid) s.sample_id, s.uid,
-					s.collection_id, collection_name, s.sample_type_id, s.dbuid_origin,
+					s.collection_id, collection_name, no_localization, s.sample_type_id, s.dbuid_origin,
                     sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
                     s.campaign_id, campaign_name,camp.uuid as campaign_uuid,
                     s.parent_sample_id,

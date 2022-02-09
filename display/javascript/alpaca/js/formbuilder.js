@@ -45,7 +45,7 @@ function getSchema(formdef) {
         if (value.required) {
             prop.required = value.required;
         }
-        console.log(prop);
+        //console.log(prop);
         return prop;
     };
 
@@ -108,7 +108,7 @@ var baseFields = function (index, value) {
     if (value.helperChoice) {
         field.helper = value.helper;
     }
-    console.log(field);
+    //console.log(field);
     return field;
 };
 

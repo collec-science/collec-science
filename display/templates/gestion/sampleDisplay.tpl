@@ -407,44 +407,46 @@
 						</dd>
 					</dl>
 				{/if}
-				{if $data.campaign_id > 0}
-					<dl class="dl-horizontal">
-						<dt>{t}Campagne de prélèvement :{/t}</dt>
-						<dd><a href="index.php?module=campaignDisplay&campaign_id={$data.campaign_id}">{$data.campaign_name}</a></dd>
-					</dl>
-				{/if}
-				{if $data.sampling_place_id > 0}
-					<dl class="dl-horizontal">
-						<dt class="lexical" data-lexical="sampling_place">{t}Lieu de prélèvement :{/t}</dt>
-						<dd>{$data.sampling_place_name}</dd>
-					</dl>
-				{/if}
-				{if $data.country_id > 0}
-					<dl class="dl-horizontal">
-						<dt class="lexical" data-lexical="country">{t}Pays de collecte :{/t}</dt>
-						<dd>{$data.country_name}</dd>
-					</dl>
-				{/if}
-				{if $data.country_origin_id > 0}
-					<dl class="dl-horizontal">
-						<dt class="lexical" data-lexical="country_origin">{t}Pays de provenance :{/t}</dt>
-						<dd>{$data.country_origin_name}</dd>
-					</dl>
-				{/if}
-				{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
-					<dl class="dl-horizontal">
-						<dt class="lexical" data-lexical="sample_latlong">{t}Latitude :{/t}</dt>
-						<dd>{$data.wgs84_y}</dd>
-					</dl>
-					<dl class="dl-horizontal">
-						<dt>{t}Longitude :{/t}</dt>
-						<dd>{$data.wgs84_x}</dd>
-					</dl>
-					{if $data.location_accuracy > 0}
+				{if $data.no_localization == 0}
+					{if $data.campaign_id > 0}
 						<dl class="dl-horizontal">
-							<dt class="lexical" data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</dt>
-							<dd>{$data.location_accuracy}</dd>
+							<dt>{t}Campagne de prélèvement :{/t}</dt>
+							<dd><a href="index.php?module=campaignDisplay&campaign_id={$data.campaign_id}">{$data.campaign_name}</a></dd>
 						</dl>
+					{/if}
+					{if $data.sampling_place_id > 0}
+						<dl class="dl-horizontal">
+							<dt class="lexical" data-lexical="sampling_place">{t}Lieu de prélèvement :{/t}</dt>
+							<dd>{$data.sampling_place_name}</dd>
+						</dl>
+					{/if}
+					{if $data.country_id > 0}
+						<dl class="dl-horizontal">
+							<dt class="lexical" data-lexical="country">{t}Pays de collecte :{/t}</dt>
+							<dd>{$data.country_name}</dd>
+						</dl>
+					{/if}
+					{if $data.country_origin_id > 0}
+						<dl class="dl-horizontal">
+							<dt class="lexical" data-lexical="country_origin">{t}Pays de provenance :{/t}</dt>
+							<dd>{$data.country_origin_name}</dd>
+						</dl>
+					{/if}
+					{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
+						<dl class="dl-horizontal">
+							<dt class="lexical" data-lexical="sample_latlong">{t}Latitude :{/t}</dt>
+							<dd>{$data.wgs84_y}</dd>
+						</dl>
+						<dl class="dl-horizontal">
+							<dt>{t}Longitude :{/t}</dt>
+							<dd>{$data.wgs84_x}</dd>
+						</dl>
+						{if $data.location_accuracy > 0}
+							<dl class="dl-horizontal">
+								<dt class="lexical" data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</dt>
+								<dd>{$data.location_accuracy}</dd>
+							</dl>
+						{/if}
 					{/if}
 				{/if}
 				<dl class="dl-horizontal">
@@ -502,7 +504,7 @@
 					</fieldset>
 				{/if}
 			</div>
-			{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0}
+			{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}
 				<div class="col-md-6">
 					{include file="gestion/objectMapDisplay.tpl"}
 				</div>

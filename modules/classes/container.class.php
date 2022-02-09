@@ -21,11 +21,11 @@ class Container extends ObjetBDD
 					storage_product, clp_classification, storage_condition_name,
 					document_id, identifiers,
 					movement_date, movement_type_name, movement_type_id,
-                    lines, columns, first_line, first_column,
-                    column_number, line_number, container_uid, oc.identifier as container_identifier,
-                    o.referent_id, referent_name, referent_firstname, referent_email, address_name, address_line2, address_line3, address_city, address_country, referent_phone, academical_directory, academical_link,
-                    borrowing_date, expected_return_date, borrower_id, borrower_name,
-                    nb_slots_used
+          lines, columns, first_line, first_column, line_in_char, column_in_char,
+          column_number, line_number, container_uid, oc.identifier as container_identifier,
+          o.referent_id, referent_name, referent_firstname, referent_email, address_name, address_line2, address_line3, address_city, address_country, referent_phone, academical_directory, academical_link,
+          borrowing_date, expected_return_date, borrower_id, borrower_name,
+          nb_slots_used
 					from container c
 					join object o using (uid)
 					join container_type using (container_type_id)

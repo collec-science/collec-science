@@ -116,6 +116,8 @@ $(document).ready(function () {
 								var lines = d.lines;
 								var firstLine = d.firstLine;
 								var firstColumn = d.firstColumn;
+								var line_in_char = d.line_in_char;
+								var column_in_char = d.column_in_char;
 								var ln = 1;
 								var incr = 1;
 								var cl = 1;
@@ -130,14 +132,26 @@ $(document).ready(function () {
 								}
 								var content = '<table class="table table-bordered"><tr><th class="center">{t}Ligne/colonne{/t}</th>';
 								for (var col = 1 ; col <= columnNumber; col ++) {
-									content += '<th class="center">'+ cl + '</th>';
+									content += '<th class="center">';
+									if (column_in_char == 1) {
+										content += String.fromCharCode (cl + 64);
+									} else {
+										content += cl;
+									}
+									content += '</th>';
 									cl = cl + clIncr;
 								}
 								content += '</tr>';
 								var nb = 0;
 								lines.forEach(function(line) {
-									content += '<tr><td class="center"><b>'+ ln + '</b></td>';
-                					ln = ln + incr;
+									content += '<tr><td class="center"><b>';
+									if (line_in_char == 1) {
+										content += String.fromCharCode (ln + 64);
+									} else {
+										content += ln;
+									}
+									content += '</b></td>';
+                	ln = ln + incr;
 									line.forEach(function (cell) {
 										nb = 0;
 										content += '<td class="center">';

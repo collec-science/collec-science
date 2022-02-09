@@ -75,6 +75,36 @@
                         </div>
                   </div>
                   <div class="form-group">
+                        <label for="line_in_char"  class="control-label col-md-4">{t}Lignes identifiées par une lettre ?{/t}</label>
+                        <div class="col-md-8">
+                              <div class="radio">
+                                    <label>
+                                          <input type="radio" name="line_in_char" id="line_in_char1" value="1" {if $data.line_in_char == "1"}checked{/if}>
+                                          {t}oui{/t}
+                                    </label>
+                                    <label>
+                                          <input type="radio" name="line_in_char" id="line_in_char0" value="0" {if $data.line_in_char == 0}checked{/if}>
+                                          {t}non{/t}
+                                    </label>
+                              </div>
+                        </div>
+                  </div>
+                   <div class="form-group">
+                        <label for="line_in_char"  class="control-label col-md-4">{t}Colonnes identifiées par une lettre ?{/t}</label>
+                        <div class="col-md-8">
+                              <div class="radio">
+                                    <label>
+                                          <input type="radio" name="column_in_char" id="column_in_char1" value="1" {if $data.column_in_char == "1"}checked{/if}>
+                                          {t}oui{/t}
+                                    </label>
+                                    <label>
+                                          <input type="radio" name="column_in_char" id="column_in_char0" value="0" {if $data.column_in_char == 0}checked{/if}>
+                                          {t}non{/t}
+                                    </label>
+                              </div>
+                        </div>
+                  </div>
+                  <div class="form-group">
                         <label for="lines"  class="control-label col-md-4">{t}Nombre d'emplacements maximum :{/t}</label>
                         <div class="col-md-8">
                               <input id="nb_slots_max" name="nb_slots_max" value="{$data.nb_slots_max}" class="nombre form-control">

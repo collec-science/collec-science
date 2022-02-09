@@ -94,6 +94,8 @@ switch ($t_module["param"]) {
     $vue->set($data["columns"], "nbcolonnes");
     $vue->set($data["first_line"], "first_line");
     $vue->set($data["first_column"], "first_column");
+    $vue->set($data["line_in_char"], "line_in_char");
+    $vue->set($data["column_in_char"], "column_in_char");
     /*
          * Recuperation des evenements
          */
@@ -490,6 +492,8 @@ switch ($t_module["param"]) {
     $dgrid["columnNumber"] = $data["columns"];
     $dgrid["firstLine"] = $data["first_line"];
     $dgrid["firstColumn"] = $data["first_column"];
+    $dgrid["column_in_char"] = $data["column_in_char"];
+    $dgrid["line_in_char"] = $data["line_in_char"];
     $vue->set($dgrid);
     break;
 

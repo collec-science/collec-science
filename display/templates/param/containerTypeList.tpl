@@ -49,12 +49,18 @@
 								{else}
 									{t}en bas{/t}
 								{/if}
+								{if $data[lst].line_in_char == 1}
+									- {t} numérotation alphabétique{/t}
+								{/if}
 								<br>
 								{t}1ère colonne : {/t}
 								{if $data[lst].first_column == "L"}
 									{t}à gauche{/t}
 								{else}
 									{t}à droite{/t}
+								{/if}
+								{if $data[lst].column_in_char == 1}
+								- {t}numérotation alphabétique{/t}
 								{/if}
 							{/if}
 						</td>

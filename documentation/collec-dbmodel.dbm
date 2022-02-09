@@ -239,7 +239,7 @@ Mobilier]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="container_type" layer="0" collapse-mode="1" max-obj-count="15" z-value="0">
+<table name="container_type" layer="0" collapse-mode="1" max-obj-count="18" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of types of containers]]></comment>
@@ -295,6 +295,14 @@ B: bottom]]></comment>
 		<comment><![CDATA[Place of the first column: 
 L: left
 R: Right]]></comment>
+	</column>
+	<column name="line_in_char" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Is the number of the line is displayed in character?]]></comment>
+	</column>
+	<column name="column_in_char" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Is the number of the column is displayed in character?]]></comment>
 	</column>
 	<constraint name="container_type_pk" type="pk-constr" table="col.container_type">
 		<columns names="container_type_id" ref-type="src-columns"/>

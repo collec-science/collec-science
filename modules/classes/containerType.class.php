@@ -76,7 +76,9 @@ class ContainerType extends ObjetBDD
             "first_column" => array(
                 "type" => 0,
                 "defaultValue" => "L"
-            )
+            ),
+            "line_in_char" => array("type" => 1, "defaultValue" => 0),
+            "column_in_char" => array("type" => 1, "defaultValue" => 0)
         );
         parent::__construct($bdd, $param);
     }

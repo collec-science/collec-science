@@ -18,13 +18,27 @@
         <tr>
             <th class="center">{t}Ligne/colonne{/t}</th>
             {for $col=1 to $nbcolonnes}
-                <th class="center">{$cl}</th>
+                <th class="center">
+                    {if $column_in_char == 1}
+                        {chr(64 + $col)}
+                    {else}
+                        {$cl}
+                    {/if}
+                </th>
                 {$cl = $cl + $clIncr}
             {/for}
         </tr>
         {foreach $containerOccupation as $line}
             <tr>
-                <td class="center"><b>{$ln}</b></td>
+                <td class="center">
+                    <b>
+                        {if $line_in_char == 1}
+                            {chr(64 + $ln)}
+                        {else}
+                            {$ln}
+                        {/if}
+                    </b>
+                </td>
                 {$ln = $ln + $incr}
                 {foreach $line as $cell}
                     {$nb = 0}

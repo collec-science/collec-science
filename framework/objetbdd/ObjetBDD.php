@@ -922,10 +922,14 @@ class ObjetBDD
           $ds[$key] = $value;
 
           if ($this->colonnes[$key]["type"] == 4) {
-            /*
-                         * Traitement de l'import d'un champ geographique
-                         */
-            $sql .= $cle . " = ST_GeomFromText( :" . $key . " ," . $this->srid . ")";
+            /**
+             * Traitement de l'import d'un champ geographique
+             */
+            if (!empty($value)) {
+              $sql .= $cle . " = ST_GeomFromText( :" . $key . " ," . $this->srid . ")";
+            } else {
+              $sql .= $cle . " = :" . $key;
+            }
           } else {
             $sql .= $cle . " = :" . $key;
           }

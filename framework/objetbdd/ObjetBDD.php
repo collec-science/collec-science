@@ -112,7 +112,7 @@ class ObjetBDD
 
   /**
    *
-   * @var $parentAttrib : nom de l'attribut referencant l'enregistrement pere
+   * @var string $parentAttrib : nom de l'attribut referencant l'enregistrement pere
    */
   public $parentAttrib;
 
@@ -1050,12 +1050,12 @@ class ObjetBDD
    * a partir de la cle du parent
    *
    * @param int $parentId
-   * @param number $order
-   * @return tableau|NULL
+   * @param string $order
+   * @return array|null
    */
   function getListFromParent($parentId, $order = "")
   {
-    if ($parentId > 0 && strlen($this->parentAttrib) > 0) {
+    if ($parentId > 0 && $this->parentAttrib > 0) {
       $sql = "select * from " . $this->table;
       /*
              * Preparation du where

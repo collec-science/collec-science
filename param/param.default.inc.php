@@ -7,9 +7,9 @@
  * Parametres par defaut de l'application
  * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
  */
-$APPLI_version = "2.6.0";
+$APPLI_version = "2.6.1";
 $APPLI_dbversion = "2.6";
-$APPLI_versiondate = _("24/06/2021");
+$APPLI_versiondate = _("11/02/2022");
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -57,7 +57,8 @@ $ident_header_vars = array(
 );
 $ident_header_logout_address = "";
 $ident_type = "BDD";
-$CAS_address = "localhost/CAS";
+$CAS_address = "localhost";
+$CAS_uri = "/cas";
 $CAS_port = 443;
 $CAS_debug = false;
 $CAS_CApath = "";

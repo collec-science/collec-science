@@ -91,7 +91,7 @@ class Login
     $headers = getHeaders($ident_header_vars["radical"]);
     $login = $headers[$ident_header_vars["login"]];
     $verify = false;
-    if (!empty($login) && !empty($headers)) {
+    if (!empty($login) && count($headers) > 0) {
       /**
        * Verify if the login exists
        */

@@ -1,6 +1,6 @@
 #!/bin/bash
 OLDVERSION=collec-2.4.0
-VERSION=collec-2.6.0
+VERSION=collec-2.6.1
 echo "Content of /var/www/html/collec-science"
 ls -l /var/www/html/collec-science
 echo "This script will install the release $VERSION"

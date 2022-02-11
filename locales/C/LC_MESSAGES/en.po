@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-24 12:39+0200\n"
+"POT-Creation-Date: 2021-08-04 15:44+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -661,62 +661,62 @@ msgid "Prêter un ou plusieurs échantillons ou contenants"
 msgstr "Lend one or several samples or containers"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:97
+#: ../../../param/menu.xml:97 ../../../param/menu.xml:109
 msgid "Services web"
 msgstr "Web API"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:97
+#: ../../../param/menu.xml:97 ../../../param/menu.xml:109
 msgid "Description des services web"
 msgstr "Description of the web API"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:98
+#: ../../../param/menu.xml:98 ../../../param/menu.xml:110
 msgid "identification"
 msgstr "Identification"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:98
+#: ../../../param/menu.xml:98 ../../../param/menu.xml:110
 msgid "Gérer l'identification dans les services web"
 msgstr "Manage identification with web API"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:99
+#: ../../../param/menu.xml:99 ../../../param/menu.xml:111
 msgid "API web"
 msgstr "Web API"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:99
+#: ../../../param/menu.xml:99 ../../../param/menu.xml:111
 msgid "Utilisation des API web"
 msgstr "Use web API"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:100
+#: ../../../param/menu.xml:100 ../../../param/menu.xml:112
 msgid "Détail d'un échantillon"
 msgstr "Detail of a sample"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:100
+#: ../../../param/menu.xml:100 ../../../param/menu.xml:112
 msgid "Service web d'affichage du détail d'un échantillon"
 msgstr "Web API to display the detail of a sample"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:101
+#: ../../../param/menu.xml:101 ../../../param/menu.xml:113
 msgid "Afficher un document"
 msgstr "Display a document"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:101
+#: ../../../param/menu.xml:101 ../../../param/menu.xml:113
 msgid "Service web de téléchargement d'un document"
 msgstr "Web API to download a document"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:102
+#: ../../../param/menu.xml:102 ../../../param/menu.xml:114
 msgid "Mise à jour d'un échantillon"
 msgstr "Update a sample"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:102
+#: ../../../param/menu.xml:102 ../../../param/menu.xml:114
 msgid "Ajouter ou mettre à jour un échantillon"
 msgstr "Add or update a sample"
 
@@ -731,7 +731,7 @@ msgid "Comprendre le mécanisme de double authentification"
 msgstr "Understand the mechanism of dual authentication"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:110 ../../../framework/common.inc.php:242
+#: ../../../param/menu.xml:117 ../../../framework/common.inc.php:243
 #: ../../../display/templates/entete.tpl:21
 #: ../../../display/templates/entete.tpl:41
 #: ../../../display/templates/entete.tpl:42
@@ -739,13 +739,13 @@ msgid "Connexion"
 msgstr "Sign in"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:110
+#: ../../../param/menu.xml:117
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
 #. (itstool) path: menu/item@label
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:111 ../../../param/menu.xml:112
+#: ../../../param/menu.xml:118 ../../../param/menu.xml:119
 #: ../../../display/templates/entete.tpl:37
 #: ../../../display/templates/entete.tpl:38
 msgid "Déconnexion"
@@ -753,96 +753,96 @@ msgstr "Sign out"
 
 #. (itstool) path: menu/item@tooltip
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:111 ../../../param/menu.xml:112
+#: ../../../param/menu.xml:118 ../../../param/menu.xml:119
 msgid "Déconnexion de l'application"
 msgstr "Sign out of the app"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:113
+#: ../../../param/menu.xml:120
 msgid "Dernières connexions"
 msgstr "Last connections"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:113
+#: ../../../param/menu.xml:120
 msgid "Liste des dernières connexions réalisées"
 msgstr "List of last connections"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:114 ../../../display/templates/entete.tpl:33
+#: ../../../param/menu.xml:121 ../../../display/templates/entete.tpl:33
 #: ../../../display/templates/entete.tpl:34
 #: ../../../display/templates/framework/ident/loginChangePassword.tpl:86
 msgid "Modifier le mot de passe"
 msgstr "Change your password"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:114
+#: ../../../param/menu.xml:121
 msgid "Modifiez votre mot de passe (identification locale uniquement)"
 msgstr "Change your password (local identification only)"
 
 #. (itstool) path: menu/item@label
-#: ../../../param/menu.xml:116
+#: ../../../param/menu.xml:123
 msgid "?"
 msgstr "?"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../../param/menu.xml:116
+#: ../../../param/menu.xml:123
 msgid "Aide"
 msgstr "Help"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:117
+#: ../../../param/menu.xml:124
 msgid "A propos"
 msgstr "About Collec-Science"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:117
+#: ../../../param/menu.xml:124
 msgid "A propos de Collec-Science"
 msgstr "About Collec-Science"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:118
+#: ../../../param/menu.xml:125
 msgid "Nouveautés"
 msgstr "What's new?"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:118
+#: ../../../param/menu.xml:125
 msgid "Quoi de neuf dans l'application ?"
 msgstr "What's new in the app?"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:119
+#: ../../../param/menu.xml:126
 #: ../../../display/templates/documentation/lexique.tpl:1
 msgid "Lexique"
 msgstr "Glossary"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:119
+#: ../../../param/menu.xml:126
 msgid "Lexique des termes utilisés dans le logiciel"
 msgstr "Glossary of terms used in the software"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:120
+#: ../../../param/menu.xml:127
 msgid "Français"
 msgstr "Français"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:120
+#: ../../../param/menu.xml:127
 msgid "Libellés en français"
 msgstr "Libellés en français"
 
 #. (itstool) path: item/item@label
-#: ../../../param/menu.xml:121
+#: ../../../param/menu.xml:128
 msgid "English"
 msgstr "English"
 
 #. (itstool) path: item/item@tooltip
-#: ../../../param/menu.xml:121
+#: ../../../param/menu.xml:128
 msgid "Labels in English"
 msgstr "Labels in English"
 
 #: ../../../param/param.default.inc.php:12
-msgid "24/06/2021"
-msgstr "2021-06-24"
+msgid "04/08/2021"
+msgstr "2021-08-24"
 
 #: ../../../modules/param/metadata.php:92
 msgid "Métadonnée(s) importée(s)"
@@ -1521,19 +1521,19 @@ msgstr "Movement saved"
 msgid "Module administration"
 msgstr "Administration module"
 
-#: ../../../modules/export/lot.php:45
+#: ../../../modules/export/lot.php:44
 msgid "Lot créé"
 msgstr "Creation of lot done"
 
-#: ../../../modules/export/lot.php:48
+#: ../../../modules/export/lot.php:47
 msgid "Une erreur est survenue pendant la création du lot"
 msgstr "Error while generating the lot"
 
-#: ../../../modules/export/lot.php:54
+#: ../../../modules/export/lot.php:53
 msgid "Vous ne disposez pas des droits suffisants pour créer le lot"
 msgstr "You do not have the necessary rights to create the lot"
 
-#: ../../../modules/export/lot.php:58
+#: ../../../modules/export/lot.php:57
 msgid "Aucun échantillon n'a été sélectionné"
 msgstr "No sample was selected"
 
@@ -1668,25 +1668,33 @@ msgstr "Problem encountered while checking the version of the database"
 msgid "Le module demandé n'existe pas (%s)"
 msgstr "The requested module does not exist (%s)"
 
-#: ../../../framework/controller.php:255
+#: ../../../framework/controller.php:249
+msgid ""
+"Message technique : la vue n'a pas été initialisée lors de la création de la "
+"page de login"
+msgstr ""
+"Technical message: the view was not initialized for the creation of the "
+"login page"
+
+#: ../../../framework/controller.php:258
 msgid "Veuillez utiliser le login qui vous a été fourni pour vous identifier"
 msgstr ""
 "Please use the login that has been provided to you to identify yourself"
 
-#: ../../../framework/controller.php:322
+#: ../../../framework/controller.php:325
 msgid "Identification refusée"
 msgstr "Authentication failed"
 
-#: ../../../framework/controller.php:345
+#: ../../../framework/controller.php:348
 msgid "Identification réussie !"
 msgstr "Authentication successful!"
 
-#: ../../../framework/controller.php:356
+#: ../../../framework/controller.php:359
 msgid "Connexions précédentes récentes :"
 msgstr "Recent previous connections:"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s...
-#: ../../../framework/controller.php:368
+#: ../../../framework/controller.php:371
 #, php-format
 msgid ""
 "Dernière connexion le %1$s depuis l'adresse IP %2$s. Si ce n'était pas vous, "
@@ -1696,12 +1704,12 @@ msgstr ""
 "your password or contact the administrator of the application."
 
 #. traduction: conserver inchangée la chaîne %s
-#: ../../../framework/controller.php:459
+#: ../../../framework/controller.php:462
 #, php-format
 msgid "Module précédent enregistré : %s"
 msgstr "Previous module: %s"
 
-#: ../../../framework/controller.php:524
+#: ../../../framework/controller.php:527
 msgid ""
 "L'accès au module demandé nécessite une ré-identification. Veuillez saisir "
 "votre login et votre mot de passe"
@@ -1709,17 +1717,17 @@ msgstr ""
 "Access to the requested module requires re-identification. Please enter your "
 "login and password"
 
-#: ../../../framework/controller.php:542
+#: ../../../framework/controller.php:545
 msgid "Erreur d'écriture dans le fichier de traces"
 msgstr "Error writing to the trace file"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s
-#: ../../../framework/controller.php:666
+#: ../../../framework/controller.php:669
 #, php-format
 msgid "Mode développement - base de données : %1$s - schema : %2$s"
 msgstr "Development mode - database: %1$s - schema: %2$s"
 
-#: ../../../framework/controller.php:698
+#: ../../../framework/controller.php:701
 msgid ""
 "Une erreur indéterminée s'est produite pendant le traitement de la requête. "
 "Si le problème persiste, consultez l'administrateur de l'application"
@@ -1739,25 +1747,25 @@ msgstr ""
 msgid "Vous n'êtes pas identifié."
 msgstr "You are not signed in."
 
-#: ../../../framework/common.inc.php:205
+#: ../../../framework/common.inc.php:206
 msgid "Echec de connexion à la base de données de gestion des droits (GACL)"
 msgstr "Failed to connect to rights management database (GACL)"
 
-#: ../../../framework/common.inc.php:208
+#: ../../../framework/common.inc.php:209
 msgid "Echec de connexion à la base de données principale"
 msgstr "Failed to connect to the main database"
 
-#: ../../../framework/common.inc.php:222
+#: ../../../framework/common.inc.php:223
 msgid ""
 "Vous avez été déconnecté, votre session était ouverte depuis trop longtemps"
 msgstr "You have been disconnected, your session has been open for too long"
 
-#: ../../../framework/common.inc.php:240
+#: ../../../framework/common.inc.php:241
 #: ../../../framework/identification/disconnect.php:8
 msgid "Vous êtes maintenant déconnecté"
 msgstr "You are now signed off"
 
-#: ../../../framework/common.inc.php:274
+#: ../../../framework/common.inc.php:275
 msgid "Problème rencontré lors de la lecture de la table des paramètres"
 msgstr "Problem encountered while reading the parameter table"
 
@@ -1844,8 +1852,8 @@ msgstr "Could not send email"
 #: ../../../framework/identification/passwordLost.php:86
 #: ../../../framework/identification/passwordLost.php:113
 #: ../../../framework/identification/login.php:76
-#: ../../../framework/identification/loginGestion.class.php:334
-#: ../../../framework/identification/loginGestion.class.php:391
+#: ../../../framework/identification/loginGestion.class.php:335
+#: ../../../framework/identification/loginGestion.class.php:392
 msgid ""
 "Le mode d'identification utilisé pour votre compte n'autorise pas la "
 "modification du mot de passe depuis cette application"
@@ -1880,7 +1888,7 @@ msgstr ""
 msgid "Ne répondez pas à ce message, il ne sera pas relevé"
 msgstr "Do not reply to this message, il will not readed"
 
-#: ../../../framework/identification/loginGestion.class.php:127
+#: ../../../framework/identification/loginGestion.class.php:128
 msgid ""
 "Votre mot de passe a expiré. Veuillez contacter l'administrateur de "
 "l'application pour le renouveler"
@@ -1888,37 +1896,37 @@ msgstr ""
 "Your password has expired. Please contact the application administrator to "
 "renew it"
 
-#: ../../../framework/identification/loginGestion.class.php:130
+#: ../../../framework/identification/loginGestion.class.php:131
 msgid "Votre mot de passe va expirer. Veuillez le changer immédiatement"
 msgstr "Your password is about to expire. Please, change it immediately"
 
-#: ../../../framework/identification/loginGestion.class.php:192
+#: ../../../framework/identification/loginGestion.class.php:193
 msgid "Mot de passe insuffisamment complexe ou trop petit"
 msgstr "Password not enough complex or too small"
 
-#: ../../../framework/identification/loginGestion.class.php:205
+#: ../../../framework/identification/loginGestion.class.php:206
 msgid ""
 "Une erreur est survenue pendant le chiffrement du jeton d'identification"
 msgstr "An error occurred during the encryption of the token"
 
-#: ../../../framework/identification/loginGestion.class.php:223
+#: ../../../framework/identification/loginGestion.class.php:224
 msgid ""
 "Une erreur est survenue pendant le déchiffrement du jeton d'identification"
 msgstr "An error occurred during the decryption of the token"
 
-#: ../../../framework/identification/loginGestion.class.php:328
+#: ../../../framework/identification/loginGestion.class.php:329
 msgid "La modification du mot de passe a échoué"
 msgstr "Password change failed"
 
-#: ../../../framework/identification/loginGestion.class.php:331
+#: ../../../framework/identification/loginGestion.class.php:332
 msgid "L'ancien mot de passe est incorrect"
 msgstr "The old password is incorrect"
 
-#: ../../../framework/identification/loginGestion.class.php:383
+#: ../../../framework/identification/loginGestion.class.php:384
 msgid "Le mot de passe a été modifié"
 msgstr "The password has been changed"
 
-#: ../../../framework/identification/loginGestion.class.php:384
+#: ../../../framework/identification/loginGestion.class.php:385
 msgid ""
 "Votre mot de passe vient d'être modifié.<br>Si vous n'avez pas réalisé cette "
 "opération, veuillez contacter le responsable de l'application"
@@ -1926,11 +1934,11 @@ msgstr ""
 "Your password has just been changed.<br>If you did not perform this "
 "operation, please contact the application manager"
 
-#: ../../../framework/identification/loginGestion.class.php:385
+#: ../../../framework/identification/loginGestion.class.php:386
 msgid "Modification de votre mot de passe"
 msgstr "Change your password"
 
-#: ../../../framework/identification/loginGestion.class.php:388
+#: ../../../framework/identification/loginGestion.class.php:389
 msgid ""
 "Echec de modification du mot de passe pour une raison inconnue. Si le "
 "problème persiste, contactez l'assistance"
@@ -1938,23 +1946,23 @@ msgstr ""
 "Failed to change the password for an unknown reason. If the problem "
 "persists, contact support"
 
-#: ../../../framework/identification/loginGestion.class.php:440
+#: ../../../framework/identification/loginGestion.class.php:441
 msgid "Le mot de passe n'est pas assez fort"
 msgstr "Password not strong enough"
 
-#: ../../../framework/identification/loginGestion.class.php:443
+#: ../../../framework/identification/loginGestion.class.php:444
 msgid "Le mot de passe n'est pas assez complexe"
 msgstr "Password not complex enough"
 
-#: ../../../framework/identification/loginGestion.class.php:446
+#: ../../../framework/identification/loginGestion.class.php:447
 msgid "Le mot de passe est trop court"
 msgstr "Password too short"
 
-#: ../../../framework/identification/loginGestion.class.php:449
+#: ../../../framework/identification/loginGestion.class.php:450
 msgid "Le mot de passe n'est pas identique dans les deux zones"
 msgstr "Passwords don't match in both fields"
 
-#: ../../../framework/identification/loginGestion.class.php:560
+#: ../../../framework/identification/loginGestion.class.php:561
 msgid "Envoi du message de modification du mot de passe par mail en échec"
 msgstr "Sending the password change message by email in failure"
 
@@ -2466,7 +2474,6 @@ msgstr "Code (3 positions)"
 #: ../../../display/templates/param/mimeTypeList.tpl:6
 #: ../../../display/templates/param/regulationList.tpl:6
 #: ../../../display/templates/param/metadataList.tpl:20
-#: ../../../display/templates/param/objectStatusList.tpl:7
 #: ../../../display/templates/param/containerTypeList.tpl:7
 #: ../../../display/templates/param/licenseList.tpl:6
 #: ../../../display/templates/param/multipleTypeList.tpl:7
@@ -2505,7 +2512,7 @@ msgstr "First name"
 
 #: ../../../display/templates/param/referentList.tpl:15
 #: ../../../display/templates/param/regulationList.tpl:13
-#: ../../../display/templates/param/objectStatusList.tpl:14
+#: ../../../display/templates/param/objectStatusList.tpl:8
 #: ../../../display/templates/param/containerTypeList.tpl:16
 #: ../../../display/templates/param/sampleTypeList.tpl:14
 #: ../../../display/templates/param/campaignList.tpl:13
@@ -2867,7 +2874,7 @@ msgstr "New regulation"
 
 #: ../../../display/templates/param/campaignDisplay.tpl:89
 #: ../../../display/templates/param/regulationList.tpl:12
-#: ../../../display/templates/param/objectStatusList.tpl:13
+#: ../../../display/templates/param/objectStatusList.tpl:9
 #: ../../../display/templates/param/containerTypeList.tpl:15
 #: ../../../display/templates/param/multipleTypeList.tpl:13
 #: ../../../display/templates/param/storageConditionList.tpl:13
@@ -6187,10 +6194,10 @@ msgstr "What's new?"
 
 #: ../../../display/templates/enpied.tpl:3
 msgid ""
-"Copyright © 2016-2020 - Tous droits réservés. Auteur : Éric Quinton, pour "
+"Copyright © 2016-2021 - Tous droits réservés. Auteur : Éric Quinton, pour "
 "INRAE - Logiciel diffusé sous licence AGPL"
 msgstr ""
-"Copyright © 2016-2020- All rights reserved. Author: Eric Quinton, for INRAE "
+"Copyright © 2016-2021- All rights reserved. Author: Eric Quinton, for INRAE "
 "- Software released under AGPL license"
 
 #: ../../../display/templates/enpied.tpl:5

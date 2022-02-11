@@ -1,8 +1,7 @@
 #!/bin/bash
-# upgrade an instance
-OLDVERSION=collec-2.2.1
-VERSION=collec-2.6
-.0
+# upgrade an instance 2.1 to 2.2
+OLDVERSION=collec-2.2.3
+VERSION=collec-2.6.1
 echo "Content of /var/www/html/collec-science"
 ls -l /var/www/html/collec-science
 echo "This script will install the release $VERSION"
@@ -22,7 +21,6 @@ echo "./php_upgrade.sh"
 cd /var/www/html/collec-science
 rm -f *zip
 echo "install postgis"
-apt-get update
 apt-get -y install postgis
 # download last code
 echo "download software"
@@ -52,14 +50,14 @@ ln -s $VERSION collec
 
 # upgrade database
 echo "update database"
-chmod -R 755 /var/www/html/collec-science
+chmod 755 /var/www/html/collec-science
 cd collec/install
 su postgres -c "psql -f upgrade-2.2-2.3.sql"
 su postgres -c "psql -f upgrade-2.3-2.4.sql"
 su postgres -c "psql -f upgrade-2.4-2.5.sql"
 su postgres -c "psql -f upgrade-2.5-2.6.sql"
 cd ../..
-chmod -R 750 /var/www/html/collec-science
+chmod 750 /var/www/html/collec-science
 
 # assign rights to new folder
 mkdir $VERSION/display/templates_c

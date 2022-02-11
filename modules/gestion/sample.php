@@ -637,6 +637,7 @@ switch ($t_module["param"]) {
      */
     $errors = array(
       500 => "Internal Server Error",
+      400 => "Bad request",
       401 => "Unauthorized",
       520 => "Unknown error",
       404 => "Not Found"
@@ -690,7 +691,7 @@ switch ($t_module["param"]) {
           throw new SampleException("Not a public collection for $id", 401);
         }
         if (!$withTemplate) {
-          throw new SampleException("The name of the template to be used is not specified in the request");
+          throw new SampleException("The name of the template is not specified in the request", 400);
         }
       }
       /**
@@ -708,6 +709,9 @@ switch ($t_module["param"]) {
         "error_code" => $error_code,
         "error_message" => $errors[$error_code]
       );
+      if ($APPLI_modeDeveloppement) {
+        $data["error_content"] = $e->getMessage();
+      }
       $message->setSyslog($e->getMessage());
     } finally {
       $vue->setJson(json_encode($data));

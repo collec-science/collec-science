@@ -968,7 +968,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<table name="collection" layer="0" collapse-mode="1" max-obj-count="10" z-value="0">
+<table name="collection" layer="0" collapse-mode="1" max-obj-count="12" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of all collections into the database]]></comment>
@@ -1002,6 +1002,10 @@ Autre]]>
 	<column name="collection_displayname">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[Name used to communicate from the collection, in export module by example]]></comment>
+	</column>
+	<column name="no_localization" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[True if the localization of samples is not used]]></comment>
 	</column>
 	<constraint name="project_pk" type="pk-constr" table="col.collection">
 		<columns names="collection_id" ref-type="src-columns"/>

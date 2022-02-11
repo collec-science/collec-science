@@ -1,7 +1,6 @@
 #!/bin/bash
-# upgrade an instance
-OLDVERSION=collec-2.2.2
-VERSION=collec-2.6.0
+OLDVERSION=collec-2.6.0
+VERSION=collec-2.6.1
 echo "Content of /var/www/html/collec-science"
 ls -l /var/www/html/collec-science
 echo "This script will install the release $VERSION"
@@ -20,9 +19,6 @@ echo "chmod +x php_upgrade.sh"
 echo "./php_upgrade.sh"
 cd /var/www/html/collec-science
 rm -f *zip
-echo "install postgis"
-apt-get update
-apt-get -y install postgis
 # download last code
 echo "download software"
 wget https://github.com/Irstea/collec/archive/master.zip
@@ -50,15 +46,7 @@ rm -f collec
 ln -s $VERSION collec
 
 # upgrade database
-echo "update database"
-chmod -R 755 /var/www/html/collec-science
-cd collec/install
-su postgres -c "psql -f upgrade-2.2-2.3.sql"
-su postgres -c "psql -f upgrade-2.3-2.4.sql"
-su postgres -c "psql -f upgrade-2.4-2.5.sql"
-su postgres -c "psql -f upgrade-2.5-2.6.sql"
-cd ../..
-chmod -R 750 /var/www/html/collec-science
+chmod 750 -R /var/www/html/collec-science
 
 # assign rights to new folder
 mkdir $VERSION/display/templates_c
@@ -69,11 +57,8 @@ chgrp -R www-data $VERSION
 chmod -R 770 $VERSION/display/templates_c
 chmod -R 770 $VERSION/temp
 
-# update php.ini file
-PHPVER=`php -v|head -n 1|cut -c 5-7`
-PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
-sed -i "s/; max_input_vars = .*/max_input_vars=$max_input_vars/" $PHPINIFILE
 systemctl restart apache2
+
 echo "Upgrade completed. Check, in the messages, if unexpected behavior occurred during the process"
 fi
 fi

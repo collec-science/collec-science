@@ -1,5 +1,12 @@
 News
 ===========
+Version 2.6.1 du 11/2/2022
+--------------------------
+Correction de bugs :
+- la saisie des comptes utilisés pour les services web ne pouvaient pas être réenregistrés sans générer une erreur
+- l'interrogation des échantillons par le service web ne fonctionnait plus correctement
+- l'ajout d'un échantillon par le service web ne fonctionnait plus, en raison d'une erreur sur le point géographique
+
 Version 2.6.0a du 4/8/2021
 --------------------------
 Correction de bugs :

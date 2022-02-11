@@ -1,7 +1,7 @@
 #!/bin/bash
 # upgrade an instance 2.1 to 2.2
-OLDVERSION=collec-2.1
-VERSION=collec-2.6.0
+OLDVERSION=collec-1.2.3
+VERSION=collec-2.6.1
 echo "Content of /var/www/html/collec-science"
 ls -l /var/www/html/collec-science
 echo "This script will install the release $VERSION"
@@ -53,6 +53,7 @@ ln -s $VERSION collec
 echo "update database"
 chmod -R 755 /var/www/html/collec-science
 cd collec/install
+su postgres -c "psql -f upgrade-1.2.3-2.0.sql"
 su postgres -c "psql -f upgrade-2.0-2.1.sql"
 su postgres -c "psql -f upgrade-2.1-2.2.sql"
 su postgres -c "psql -f upgrade-2.2-2.3.sql"

@@ -1,5 +1,12 @@
 News
 ===========
+Version 2.6.1 of February 11, 2022
+--------------------------
+Bug fixes:
+- entering accounts used for web services could not be re-entered without generating an error
+- querying the samples by the web service did not work correctly anymore
+- adding a sample with the web service did not work anymore, due to an error on the geographical point
+
 Version 2.6.0a of August 4, 2021
 --------------------------------
 Bugs fixes:

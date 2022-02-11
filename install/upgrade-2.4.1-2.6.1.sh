@@ -1,6 +1,6 @@
 #!/bin/bash
-OLDVERSION=collec-2.5.0
-VERSION=collec-2.6.0
+OLDVERSION=collec-2.4.1
+VERSION=collec-2.6.1
 echo "Content of /var/www/html/collec-science"
 ls -l /var/www/html/collec-science
 echo "This script will install the release $VERSION"
@@ -49,6 +49,7 @@ ln -s $VERSION collec
 echo "update database"
 chmod -R 755 /var/www/html/collec-science
 cd collec/install
+su postgres -c "psql -f upgrade-2.4-2.5.sql"
 su postgres -c "psql -f upgrade-2.5-2.6.sql"
 cd ../..
 chmod 750 -R /var/www/html/collec-science

@@ -203,16 +203,20 @@ class LoginGestion extends ObjetBDD
         /*
          * Traitement de la generation du token d'identification ws
          */
-        if ($data["is_clientws"] == 1 && strlen($data["tokenws"]) == 0) {
-            $token = bin2hex(openssl_random_pseudo_bytes(32));
-            if (openssl_public_encrypt($token, $crypted, $this->getKey("pub"), OPENSSL_PKCS1_OAEP_PADDING)) {
-                $data["tokenws"] = base64_encode($crypted);
+        if ($data["is_clientws"] == 1)
+            if (strlen($data["tokenws"]) == 0) {
+                $token = bin2hex(openssl_random_pseudo_bytes(32));
+                if (openssl_public_encrypt($token, $crypted, $this->getKey("pub"), OPENSSL_PKCS1_OAEP_PADDING)) {
+                    $data["tokenws"] = base64_encode($crypted);
+                } else {
+                    throw new FrameworkException(_("Une erreur est survenue pendant le chiffrement du jeton d'identification"));
+                }
             } else {
-                throw new FrameworkException(_("Une erreur est survenue pendant le chiffrement du jeton d'identification"));
+                /**
+                 * unset the token, to avoid the storage
+                 */
+                unset($data["tokenws"]);
             }
-        } else {
-            $data["is_clientws"] = 0;
-        }
         return parent::ecrire($data);
     }
 

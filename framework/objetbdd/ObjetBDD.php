@@ -1055,7 +1055,7 @@ class ObjetBDD
    */
   function getListFromParent($parentId, $order = "")
   {
-    if ($parentId > 0 && $this->parentAttrib > 0) {
+    if ($parentId > 0 && !empty($this->parentAttrib) ) {
       $sql = "select * from " . $this->table;
       /*
              * Preparation du where

@@ -132,8 +132,11 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
         $module_coderetour = 1;
       }
       $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
-    } catch (PDOException | ObjetBDDException $e) {
-
+    }
+    catch (ObjetBDDException $eo) {
+      $message->set($eo->getMessage(), true);
+    }
+    catch (PDOException $e) {
       foreach ($dataClass->getErrorData(1) as $messageError) {
         $message->setSyslog($messageError);
       }

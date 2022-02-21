@@ -3,71 +3,83 @@
 <!-- Lancement de l'import -->
 {if $controleOk == 1}
 <div class="row col-md-8">
-<form id="importForm" method="post" action="index.php">
-<input type="hidden" name="module" value="importImport">
-{t}Contrôles OK.{/t} {t 1=$filename}Vous pouvez réaliser l'import du fichier (%1) :{/t}
-<button type="submit" class="btn btn-danger">{t}Déclencher l'import{/t}</button>
-</form>
+      <form id="importForm" method="post" action="index.php">
+            <input type="hidden" name="module" value="importImport">
+            <input type="hidden" name="onlyCollectionSearch" value="{$onlyCollectionSearch}">
+            {t}Contrôles OK.{/t} {t 1=$filename}Vous pouvez réaliser l'import du fichier (%1) :{/t}
+            <button type="submit" class="btn btn-danger">{t}Déclencher l'import{/t}</button>
+      </form>
 </div>
 {/if}
 
 <!-- Affichage des erreurs decouvertes -->
 {if $erreur == 1}
 <div class="row col-md-12">
-<table id="containerList" class="table table-bordered table-hover datatable " >
-<thead>
-<tr>
-<th>{t}N° de ligne{/t}</th>
-<th>{t}Anomalie(s) détectée(s){/t}</th>
-</tr>
-</thead>
-<tbody>
-{section name=lst loop=$erreurs}
-<tr>
-<td class="center">{$erreurs[lst].line}</td>
-<td>{$erreurs[lst].message}</td>
-</tr>
-{/section}
-</tbody>
-</table>
+      <table id="containerList" class="table table-bordered table-hover datatable ">
+            <thead>
+                  <tr>
+                        <th>{t}N° de ligne{/t}</th>
+                        <th>{t}Anomalie(s) détectée(s){/t}</th>
+                  </tr>
+            </thead>
+            <tbody>
+                  {section name=lst loop=$erreurs}
+                  <tr>
+                        <td class="center">{$erreurs[lst].line}</td>
+                        <td>{$erreurs[lst].message}</td>
+                  </tr>
+                  {/section}
+            </tbody>
+      </table>
 </div>
 {/if}
 
 <!-- Selection du fichier a importer -->
 <div class="row">
-<div class="col-md-6">
-<form class="form-horizontal protoform" id="controlForm" method="post" action="index.php" enctype="multipart/form-data">
-<input type="hidden" name="module" value="importControl">
-<div class="form-group">
-<label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (CSV) :{/t}</label>
-<div class="col-md-8">
-<input type="file" name="upfile" required>
-</div>
-</div>
-<div class="form-group">
-<label for="separator" class="control-label col-md-4">{t}Séparateur utilisé :{/t}</label>
-<div class="col-md-8">
-<select id="separator" name="separator">
-<option value="," {if $separator == ","}selected{/if}>{t}Virgule{/t}</option>
-<option value=";" {if $separator == ";"}selected{/if}>{t}Point-virgule{/t}</option>
-<option value="tab" {if $separator == "tab"}selected{/if}>{t}Tabulation{/t}</option>
-</select>
-</div>
-</div>
-<div class="form-group">
-<label for="utf8_encode" class="control-label col-md-4">{t}Encodage du fichier :{/t}</label>
-<div class="col-md-8">
-<select id="utf8_encode" name="utf8_encode">
-<option value="0" {if $utf8_encode == 0}selected{/if}>UTF-8</option>
-<option value="1" {if $utf8_encode == 1}selected{/if}>ISO-8859-x</option>
-</select>
-</div>
-</div>
-<div class="form-group center">
-      <button type="submit" class="btn btn-primary">{t}Vérifier le fichier{/t}</button>
-</div>
-</form>
-</div>
+      <div class="col-md-6">
+            <form class="form-horizontal protoform" id="controlForm" method="post" action="index.php"
+                  enctype="multipart/form-data">
+                  <input type="hidden" name="module" value="importControl">
+                  <div class="form-group">
+                        <label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier
+                              à importer (CSV) :{/t}</label>
+                        <div class="col-md-8">
+                              <input type="file" name="upfile" required>
+                        </div>
+                  </div>
+                  <div class="form-group">
+                        <label for="separator" class="control-label col-md-4">{t}Séparateur utilisé :{/t}</label>
+                        <div class="col-md-8">
+                              <select id="separator" name="separator">
+                                    <option value="," {if $separator=="," }selected{/if}>{t}Virgule{/t}</option>
+                                    <option value=";" {if $separator==";" }selected{/if}>{t}Point-virgule{/t}</option>
+                                    <option value="tab" {if $separator=="tab" }selected{/if}>{t}Tabulation{/t}</option>
+                              </select>
+                        </div>
+                  </div>
+                  <div class="form-group">
+                        <label for="utf8_encode" class="control-label col-md-4">{t}Encodage du fichier :{/t}</label>
+                        <div class="col-md-8">
+                              <select id="utf8_encode" name="utf8_encode">
+                                    <option value="0" {if $utf8_encode==0}selected{/if}>UTF-8</option>
+                                    <option value="1" {if $utf8_encode==1}selected{/if}>ISO-8859-x</option>
+                              </select>
+                        </div>
+                  </div>
+                  <div class="form-group">
+                        <label for="onlyCollectionSearch" class="control-label col-md-4">{t}Rechercher les échantillons parents uniquement dans la collection des enfants :{/t}</label>
+                        <div class="col-md-8">
+                              <select id="onlyCollectionSearch" name="onlyCollectionSearch">
+                                    <option value="0" {if $onlyCollectionSearch==0}selected{/if}>{t}non{/t}</option>
+                                    <option value="1" {if $onlyCollectionSearch==1}selected{/if}>{t}oui{/t}</option>
+                              </select>
+                        </div>
+                  </div>
+                  <div class="form-group center">
+                        <button type="submit" class="btn btn-primary">{t}Vérifier le fichier{/t}</button>
+                  </div>
+            </form>
+      </div>
 </div>
 <div class="row">
 <div class="col-md-6">
@@ -138,18 +150,19 @@
 <br>
 {t}Pour les identifiants complémentaires :{/t}
 <ul>
-<li>{t}repérez les codes dans le menu des paramètres > Types d'identifiants{/t}</li>
-<li>{t}vous ne pouvez indiquer qu'un code par ligne (mais plusieurs types de codes possibles){/t}</li>
-<li>{t}ils seront associés à l'échantillon et au contenant, si les deux sont indiqués dans la même ligne{/t}</li>
+      <li>{t}repérez les codes dans le menu des paramètres > Types d'identifiants{/t}</li>
+      <li>{t}vous ne pouvez indiquer qu'un code par ligne (mais plusieurs types de codes possibles){/t}</li>
+      <li>{t}ils seront associés à l'échantillon et au contenant, si les deux sont indiqués dans la même ligne{/t}</li>
 </ul>
 <br>
 {t}L'import sera réalisé ainsi :{/t}
 <ol>
-<li>{t escape=no}si <i>sample_identifier</i> est renseigné : création de l'échantillon{/t}</li>
-<li>{t escape=no}si <i>container_identifier</i> est renseigné : création du contenant{/t}</li>
-<li>{t escape=no}si <i>container_identifier</i> et <i>container_parent_uid</i> sont renseignés : création du mouvement d'entrée du contenant{/t}</li>
-<li>{t}si l'échantillon et le contenant ont été créés, création du mouvement d'entrée de l'échantillon dans le contenant{/t}</li>
-<li>{t escape=no}si l'échantillon est créé, que <i>container_parent_uid</i> est renseigné, et que <i>container_identifier</i> n'est pas rempli, création du mouvement d'entrée de l'échantillon dans le contenant indiqué{/t}</li>
+      <li>{t escape=no}si <i>sample_identifier</i> est renseigné : création de l'échantillon{/t}</li>
+      <li>{t escape=no}si <i>container_identifier</i> est renseigné : création du contenant{/t}</li>
+      <li>{t escape=no}si <i>container_identifier</i> et <i>container_parent_uid</i> sont renseignés : création du mouvement d'entrée du contenant{/t}</li>
+      <li>{t}si l'échantillon et le contenant ont été créés, création du mouvement d'entrée de l'échantillon dans le
+            contenant{/t}</li>
+      <li>{t escape=no}si l'échantillon est créé, que <i>container_parent_uid</i> est renseigné, et que <i>container_identifier</i> n'est pas rempli, création du mouvement d'entrée de l'échantillon dans le contenant indiqué{/t}</li>
 </ol>
 </div>
 </div>

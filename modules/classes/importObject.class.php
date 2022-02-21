@@ -136,6 +136,7 @@ class ImportObject
   private $md_columns = array();
 
   public $minuid, $maxuid;
+  public $onlyCollectionSearch = 1;
 
   /**
    * Initialise la lecture du fichier, et lit la ligne d'entete
@@ -572,17 +573,7 @@ class ImportObject
     for ($i = 0; $i < $nb; $i++) {
       $values[$this->fileColumn[$i]] = $data[$i];
     }
-    /**
-     * Recherche de la valeur de l'id du sample_parent
-     */
-    if ($values["sample_parent_uid"] > 0) {
-      $dp = $this->sample->lire($values["sample_parent_uid"]);
-      $values["parent_sample_id"] = $dp["sample_id"];
-    } else {
-      if (!empty($values["sample_parent_identifier"])) {
-        $values["parent_sample_id"] = $this->sample->getIdFromIdentifier($values["sample_parent_identifier"]);
-      }
-    }
+
     /**
      * Search for the code of the country
      */
@@ -601,6 +592,21 @@ class ImportObject
         if ($values["collection_name"] == $value["collection_name"]) {
           $values["collection_id"] = $value["collection_id"];
           break;
+        }
+      }
+    }
+    /**
+     * Recherche de la valeur de l'id du sample_parent
+     */
+    if ($values["sample_parent_uid"] > 0) {
+      $dp = $this->sample->lire($values["sample_parent_uid"]);
+      $values["parent_sample_id"] = $dp["sample_id"];
+    } else {
+      if (!empty($values["sample_parent_identifier"])) {
+        if ($this->onlyCollectionSearch == 1) {
+          $values["parent_sample_id"] = $this->sample->getIdFromIdentifier($values["sample_parent_identifier"], $values["collection_id"]);
+        } else {
+        $values["parent_sample_id"] = $this->sample->getIdFromIdentifier($values["sample_parent_identifier"]);
         }
       }
     }

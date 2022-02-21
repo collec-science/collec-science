@@ -45,11 +45,13 @@ $import->initControl($_SESSION["collections"], $sampleType->getList(), $containe
  * Traitement
  */
 $vue->set("gestion/import.tpl", "corps");
+
 switch ($t_module["param"]) {
     case "change":
         /*
          * Affichage du masque de selection du fichier a importer
          */
+        $vue->set(1,"onlyCollectionSearch");
         break;
 
     case "control":
@@ -93,10 +95,14 @@ switch ($t_module["param"]) {
         $module_coderetour = 1;
         $vue->set($_REQUEST["separator"], "separator");
         $vue->set($_REQUEST["utf8_encode"], "utf8_encode");
+        $vue->set($_REQUEST["onlyCollectionSearch"], "onlyCollectionSearch");
         break;
     case "import":
         if (isset($_SESSION["filename"])) {
             if (file_exists($_SESSION["filename"])) {
+                if (is_numeric($_REQUEST["onlyCollectionSearch"])) {
+                    $import->onlyCollectionSearch = $_REQUEST["onlyCollectionSearch"];
+                }
                 try {
                     /*
                      * Demarrage d'une transaction

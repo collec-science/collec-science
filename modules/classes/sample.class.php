@@ -196,12 +196,17 @@ class Sample extends ObjetBDD
    * @param [type] $identifier
    * @return void
    */
-  public function getIdFromIdentifier($identifier)
+  public function getIdFromIdentifier(string $identifier, int $collection_id = 0)
   {
     $sql = "select sample_id from sample
     join object using (uid)
     where lower(identifier) = lower(:identifier)";
-    $data = $this->lireParamAsPrepared($sql, array("identifier" => $identifier));
+    $data =  array("identifier" => $identifier);
+    if ($collection_id > 0) {
+      $sql .= " and collection_id = :collection_id";
+      $data["collection_id"] = $collection_id;
+    }
+    $data = $this->lireParamAsPrepared($sql, $data);
     return $data["sample_id"];
   }
 

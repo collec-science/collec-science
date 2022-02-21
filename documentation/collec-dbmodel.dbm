@@ -2082,12 +2082,12 @@ WHERE
 	<role name="collec"/>
 </sequence>
 
-<table name="request" layer="0" collapse-mode="2" max-obj-count="8" z-value="0">
+<table name="request" layer="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Request table in database]]></comment>
 	<tag name="utils"/>
-	<position x="360" y="1560"/>
+	<position x="700" y="640"/>
 	<column name="request_id" not-null="true" sequence="col.request_request_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -3432,6 +3432,16 @@ from col.sample s
 	 custom-color="#00aa00"
 	 src-table="col.borrower"
 	 dst-table="col.subsample"
+	 src-required="false" dst-required="false"
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+
+<relationship name="collection_has_many_request" type="rel1n" layer="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ffaa00"
+	 src-table="col.collection"
+	 dst-table="col.request"
 	 src-required="false" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 

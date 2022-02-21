@@ -70,5 +70,13 @@ ADD CONSTRAINT borrower_fk FOREIGN KEY (borrower_id)
 REFERENCES col.borrower (borrower_id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
+/**
+ * Ticket 540
+ */
+ALTER TABLE col.request add column collection_id int,
+ADD CONSTRAINT collection_fk FOREIGN KEY (collection_id)
+REFERENCES col.collection (collection_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+
 
 

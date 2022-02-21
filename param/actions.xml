@@ -318,6 +318,16 @@
 	<exportDelete action="modules/export/export.php" param="delete" droits="collection" moduleBefore="exportChange" retourok="lotDisplay" retourko="exportChange" />
 	<exportExec action="modules/export/export.php" param="exec" droits="collection" retourok="lotDisplay" retourko="lotDisplay" type="binaire"/>
 
+	<!-- change request functions - add collections limits -->
+	<requestList action="request/request.php" param="list" retourlogin="1" droits="param" type="smarty" />
+	<requestChange action="request/request.php" param="change" droits="param" type="smarty" />
+	<requestWrite action="request/request.php" param="write" droits="param" modulebefore="requestChange,requestCopy,requestExec,requestWriteExec" retourok="requestChange" retourko="requestChange" />
+	<requestDelete action="request/request.php" param="delete" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestList" retourko="requestChange" />
+	<requestExec action="request/request.php" param="exec" droits="param" type="html" />
+	<requestExecList action="request/request.php" param="execList" droits="param" type="html" />
+	<requestWriteExec action="request/request.php" param="write" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestExec" retourko="requestChange" />
+	<requestCopy action="request/request.php" param="copy" droits="param" type="smarty" />
+
     <!-- API -->
     <apiv1sampleWrite action="modules/gestion/sampleWs.php" param="write" droits="gestion" type="json"/>
 

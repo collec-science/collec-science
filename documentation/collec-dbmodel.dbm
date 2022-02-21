@@ -550,7 +550,7 @@ Prélèvement pour analyse•true•false⸣
 	<role name="collec"/>
 	<comment><![CDATA[Table of label models]]></comment>
 	<tag name="container"/>
-	<position x="1460" y="1840"/>
+	<position x="1460" y="2000"/>
 	<column name="label_id" not-null="true" sequence="col.label_label_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -686,7 +686,7 @@ Example - Don't use•<?xml version="1.0" encoding="utf-8"?>
 	<role name="collec"/>
 	<comment><![CDATA[Table of metadata usable with types of samples]]></comment>
 	<tag name="sample"/>
-	<position x="1080" y="1840"/>
+	<position x="1460" y="1840"/>
 	<column name="metadata_id" not-null="true" sequence="col.metadata_metadata_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -794,7 +794,7 @@ xml•application/xml]]>
 	<role name="collec"/>
 	<comment><![CDATA[Table of categories of potential sub-sampling (unit, quantity, percentage, etc.)]]></comment>
 	<tag name="sample"/>
-	<position x="1060" y="2000"/>
+	<position x="1080" y="1840"/>
 	<column name="multiple_type_id" not-null="true" sequence="col.multiple_type_multiple_type_id_seq">
 		<type name="integer" length="0"/>
 	</column>

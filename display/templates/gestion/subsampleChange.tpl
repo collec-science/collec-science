@@ -45,6 +45,19 @@
 </div>
 </div>
 
+<div class="form-group">
+  <label for="borrower_id" class="control-label col-md-4">{t}Emprunteur :{/t}</label>
+  <div class="col-md-8">
+    <select id="borrower_id" name="borrower_id" class="form-control">
+      <option value="" {if $data.borrower_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+      {foreach $borrowers as $borrower}
+        <option value="{$borrower.borrower_id}" {if $borrower.borrower_id == $data.borrower_id}selected{/if}>
+          {$borrower.borrower_name}
+        </option>
+      {/foreach}
+    </select>
+  </div>
+</div>
 
 <div class="form-group">
 <label for="subsample_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>

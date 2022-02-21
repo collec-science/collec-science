@@ -61,5 +61,14 @@ add column no_localization boolean NOT NULL DEFAULT false;
 COMMENT ON COLUMN col.collection.no_localization IS E'True if the localization of samples is not used';
 
 
+/**
+ * Ticket 546
+ */
+
+ALTER TABLE col.subsample add column borrower_id int,
+ADD CONSTRAINT borrower_fk FOREIGN KEY (borrower_id)
+REFERENCES col.borrower (borrower_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+
 
 

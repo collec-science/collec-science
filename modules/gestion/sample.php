@@ -175,7 +175,7 @@ switch ($t_module["param"]) {
     if ($data["multiple_type_id"] > 0) {
       include_once 'modules/classes/subsample.class.php';
       $subSample = new Subsample($bdd, $ObjetBDDParam);
-      $vue->set($subSample->getListFromParent($data["sample_id"], "subsampling_date desc"), "subsample");
+      $vue->set($subSample->getListFromSample($data["sample_id"]), "subsample");
     }
     /**
      * Get the list of borrowings

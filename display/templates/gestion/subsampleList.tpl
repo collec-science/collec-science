@@ -13,6 +13,7 @@
 <th>{t}Date{/t}</th>
 <th>{t}Mouvement{/t}</th>
 <th>{t}Quantité{/t}</th>
+<th>{t}Emprunteur{/t}</th>
 <th>{t}Commentaire{/t}</th>
 <th>{t}Réalisé par{/t}</th>
 </tr>
@@ -39,6 +40,11 @@
 {$subsample[lst].subsample_quantity}
 </td>
 <td>
+	<a href="index.php?module=borrowerDisplay&borrower_id={$subsample[lst].borrower_id}">
+	{$subsample[lst].borrower_name}
+	</a>
+</td>
+<td>
 <span class="textareaDisplay">{$subsample[lst].subsample_comment}</span>
 </td>
 <td>{$subsample[lst].subsample_login}</td>
@@ -46,7 +52,7 @@
 {/section}
 </tbody>
 <tfoot>
-<tr><td colspan="5">{t 1=$total}Quantité restante : %1{/t}</td></tr>
+<tr><td colspan="6">{t 1=$total}Quantité restante : %1{/t}</td></tr>
 </table>
 <script>
 $(document).ready(function() {

@@ -16,6 +16,12 @@ switch ($t_module["param"]) {
         $vue->set($dataClass->lire($id), "data");
         $vue->set($dataClass->getBorrowings($id), "borrowings");
         $vue->set("param/borrowerDisplay.tpl", "corps");
+        /**
+         * Get the list of borrows of subsamples
+         */
+        include_once "modules/classes/subsample.class.php";
+        $subsample = new Subsample($bdd, $ObjetBDDParam);
+        $vue->set ($subsample->getListFromBorrower($id), "subsamples");
         break;
     case "change":
         /*

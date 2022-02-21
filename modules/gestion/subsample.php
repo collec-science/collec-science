@@ -24,6 +24,12 @@ switch ($t_module["param"]) {
         require_once 'modules/classes/object.class.php';
         $object = new ObjectClass($bdd, $ObjetBDDParam);
         $vue->set($object->lire($_REQUEST["uid"]) , "object");
+        /**
+         * Get the list of borrowers
+         */
+        require_once "modules/classes/borrower.class.php";
+        $borrower = new Borrower($bdd, $ObjetBDDParam);
+        $vue->set($borrower->getListe(), "borrowers");
         break;
     case "write":
         /*
@@ -42,4 +48,3 @@ switch ($t_module["param"]) {
         dataDelete($dataClass, $id);
         break;
 }
-?>

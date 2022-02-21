@@ -36,7 +36,8 @@
         </dl>
     </div>
 </div>
-<div class="row col-md-8">
+<fieldset class="row col-lg-6">
+    <legend>{t}Emprunts d'échantillons{/t}</legend>
     <table class="table datatable table-bordered table-hover" data-sort='[[0,"desc"]]'>
         <thead>
             <tr>
@@ -63,4 +64,45 @@
             {/foreach}
         </tbody>
     </table>
-</div>
+</fieldset>
+<fieldset class="row col-lg-6">
+    <legend>{t}Emprunts de sous-échantillons{/t}</legend>
+    <table id="subsampleList" class="table table-bordered table-hover datatable " data-order='[[0,"asc"]]' >
+        <thead>
+            <tr>
+                <th>{t}Date{/t}</th>
+                <th>{t}Échantillon concerné{/t}</th>
+                <th>{t}Mouvement{/t}</th>
+                <th>{t}Quantité{/t}</th>
+                <th>{t}Commentaire{/t}</th>
+                <th>{t}Réalisé par{/t}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach $subsamples as $subsample}
+                <tr>
+                    <td>{$subsample.subsample_date}</td>
+                    <td>
+                        <a href="index.php?module=sampleDisplay&uid={$subsample.uid}">
+                            {$subsample.uid} - {$subsample.identifier}
+                        </a>
+                    </td>
+                    <td>
+                        {if $subsample.movement_type_id == 1}
+                            <span class="green">{t}Déplacement{/t}</span>
+                        {else}
+                            <span class="red">{t}Sortie du stock{/t}</span>
+                        {/if}
+                    </td>
+                    <td >
+                        {$subsample.subsample_quantity}
+                    </td>
+                    <td>
+                        <span class="textareaDisplay">{$subsample.subsample_comment}</span>
+                    </td>
+                    <td>{$subsample.subsample_login}</td>
+                </tr>
+            {/foreach}
+        </tbody>
+    </table>
+</fieldset>

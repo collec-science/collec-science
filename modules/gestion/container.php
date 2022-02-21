@@ -230,7 +230,7 @@ switch ($t_module["param"]) {
         $bdd->commit();
         $message->set(_("Suppression effectuée"));
         $module_coderetour = 1;
-      } catch (Exception $e) {
+      } catch (Exception|ObjetBDDException $e) {
         $message->set($e->getMessage() . " ($uid)");
         $bdd->rollback();
         $module_coderetour = -1;

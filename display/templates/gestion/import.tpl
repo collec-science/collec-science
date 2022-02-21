@@ -83,6 +83,7 @@
                   <li><b>container_type_id / container_type_name</b> : {t}le numéro informatique du type de contenant ou son nom (obligatoire){/t}</li>
                   <li><b>container_status_id / container_status_name</b> : {t}le numéro informatique du statut du contenant ou son nom (obligatoire){/t}</li>
                   <li><b>container_uuid</b> : {t}UID Universel du contenant (UUID){/t}</li>
+                  <li><b>container_comment</b> : {t}Commentaire libre sur le contenant{/t}</li>
                   <li><b>container_location</b> : {t}l'emplacement de rangement du contenant dans son contenant (texte libre){/t}</li>
                   <li><b>container_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
                   <li><b>container_line</b> : {t}n° de la ligne de stockage dans le contenant{/t}</li>
@@ -107,6 +108,7 @@
                   <li><b>expiration_date</b> : {t}la date d'expiration de l'échantillon, au format dd/mm/yyyy{/t}</li>
                   <li><b>sample_multiple_value</b> : {t}le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
                   si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point){/t}</li>
+                  <li><b>sample_comment</b> : {t}Commentaire libre sur l'échantillon{/t}</li>
                   <li><b>sample_parent_uid</b> : {t}UID du parent (création d'échantillons rattachés){/t}</li>
                   <li><b>sample_parent_identifier</b> : {t}identifiant métier du parent (doit être créé avant l'échantillon courant ou figurer plus haut dans le fichier, et l'identifiant doit être unique){/t}</li>
                   <li><b>dbuid_origin</b> : {t}Identifiant technique dans la base de données d'origine (de préférence sous la forme : nom_base:id){/t}</li>

@@ -54,9 +54,11 @@ class ImportObject
     "container_identifier",
     "container_type_id",
     "container_status_id",
+    "container_comment",
     "sample_location",
     "sample_column",
     "sample_line",
+    "sample_comment",
     "container_parent_uid",
     "container_location",
     "container_column",
@@ -329,6 +331,9 @@ class ImportObject
         if (!empty($values["country_origin_code"])) {
           $dataSample["country_origin_id"] = $this->country->getIdFromCode($values["country_origin_code"]);
         }
+        if (!empty($values["sample_comment"])) {
+          $dataSample["object_comment"] = $values["sample_comment"];
+        }
         /**
          * Traitement des dates - mise au format de base de donnees avant importation
          */
@@ -416,7 +421,7 @@ class ImportObject
       if (empty($values["container_parent_uid"]) && !empty($values["container_parent_identifier"])) {
         $values["container_parent_uid"] = $this->container->getUidFromIdentifier($values["container_parent_identifier"]);
         if (empty($values["container_parent_uid"])) {
-          throw new ImportObjectException( "Line $num : the container ". $values["container_parent_identifier"]." don't exists into the database");
+          throw new ImportObjectException("Line $num : the container " . $values["container_parent_identifier"] . " don't exists into the database");
         }
       }
       /**
@@ -429,6 +434,9 @@ class ImportObject
         $dataContainer["object_status_id"] = $values["container_status_id"];
         if (!$dataContainer["object_status_id"] > 0) {
           $dataContainer["object_status_id"] = 1;
+        }
+        if (!empty($values["container_comment"])) {
+          $dataContainer["object_comment"] = $values["container_comment"];
         }
         $dataContainer["uuid"] = $values["container_uuid"];
         try {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created : 11 déc. 2017
  * Creator : quinton
@@ -6,7 +7,7 @@
  * Copyright 2017 - All rights reserved
  */
 require_once 'modules/request/request.class.php';
-$dataClass = new request($bdd,$ObjetBDDParam);
+$dataClass = new request($bdd, $ObjetBDDParam);
 $keyName = "request_id";
 $id = $_REQUEST[$keyName];
 $requestForm = "request/requestChange.tpl";
@@ -15,8 +16,13 @@ switch ($t_module["param"]) {
         /*
          * Display the list of all records of the table
          */
-        $vue->set($dataClass->getListe(2), "data");
-        $vue->set("request/requestList.tpl" ,"corps");
+        if ($_SESSION["droits"]["param"] == 1) {
+            $vue->set($dataClass->getListe(2), "data");
+        } else if ($_SESSION["droits"]["gestion"] == 1) {
+            $vue->set($dataClass->getListFromCollections($_SESSION["collections"]));
+        }
+
+        $vue->set("request/requestList.tpl", "corps");
         break;
     case "change":
         /*
@@ -24,16 +30,31 @@ switch ($t_module["param"]) {
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
          */
-        dataRead($dataClass, $id,$requestForm);
+        dataRead($dataClass, $id, $requestForm);
+        $vue->set($_SESSION["collections"], "collections");
         break;
     case "execList":
     case "exec":
-        $vue->set($dataClass->lire($id), "data");
-        $vue->set($requestForm ,"corps");
-        try{
-        $vue->set($dataClass->exec($id), "result" );
-        }catch (Exception $e){
-            $message->set($e->getMessage());
+        $requestItem = $dataClass->lire($id);
+        $vue->set($requestForm, "corps");
+        $execOk = true;
+        if ($_SESSION["droits"]["param"] != 1) {
+            /**
+             * Verify the rights of execution
+             */
+            if (empty($requestItem["collection_id"]) || !collectionVerify($requestItem["collection_id"])) {
+                $vue->set("request/requestList.tpl", "corps");
+                $message->set(_("Vous ne disposez pas des droits requis pour exécuter la requête"), true);
+                $execOk = false;
+            }
+        }
+        if ($execOk) {
+            $vue->set($requestItem, "data");
+            try {
+                $vue->set($dataClass->exec($id), "result");
+            } catch (Exception $e) {
+                $message->set($e->getMessage());
+            }
         }
         break;
     case "write":
@@ -56,12 +77,12 @@ switch ($t_module["param"]) {
         $data = dataRead($dataClass, 0, $requestForm);
         if ($id > 0) {
             $dinit = $dataClass->lire($id);
-            if ($dinit["request_id"] > 0){
-                $data ["body"] = $dinit["body"];
+            if ($dinit["request_id"] > 0) {
+                $data["body"] = $dinit["body"];
                 $data["datefields"] = $dinit["datefields"];
                 $vue->set($data, "data");
             }
         }
         break;
-    default :
+    default:
 }

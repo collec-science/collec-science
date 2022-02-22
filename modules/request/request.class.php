@@ -64,6 +64,28 @@ class Request extends ObjetBDD
     }
 
     /**
+     * Get the list of requests attached to the list of authorized collections
+     *
+     * @param array $collections
+     * @return array|null
+     */
+    function getListFromCollections (array $collections) : ?array {
+        $data = array();
+        $comma = "";
+        if (count($collections) > 0) {
+            $where = " where collection_id in (";
+            foreach ($collections as $collection) {
+                $where .= $comma.$collection["collection_id"];
+                $comma = ",";
+            }
+            $where .= ")";
+            $sql = "select request_id, create_date, last_exec, title, body, login, collection_id from request";
+            $data = $this->getListeParam($sql.$where);
+        }
+        return $data;
+    }
+
+    /**
      * Execute a request
      *
      * @param int $request_id

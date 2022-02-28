@@ -19,7 +19,7 @@ switch ($t_module["param"]) {
         if ($_SESSION["droits"]["param"] == 1) {
             $vue->set($dataClass->getListe(2), "data");
         } else if ($_SESSION["droits"]["gestion"] == 1) {
-            $vue->set($dataClass->getListFromCollections($_SESSION["collections"]));
+            $vue->set($dataClass->getListFromCollections($_SESSION["collections"]), "data");
         }
 
         $vue->set("request/requestList.tpl", "corps");

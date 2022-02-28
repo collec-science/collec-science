@@ -319,14 +319,14 @@
 	<exportExec action="modules/export/export.php" param="exec" droits="collection" retourok="lotDisplay" retourko="lotDisplay" type="binaire"/>
 
 	<!-- change request functions - add collections limits -->
-	<requestList action="request/request.php" param="list" retourlogin="1" droits="gestion" type="smarty" />
-	<requestChange action="request/request.php" param="change" droits="param" type="smarty" />
-	<requestWrite action="request/request.php" param="write" droits="param" modulebefore="requestChange,requestCopy,requestExec,requestWriteExec" retourok="requestChange" retourko="requestChange" />
-	<requestDelete action="request/request.php" param="delete" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestList" retourko="requestChange" />
-	<requestExec action="request/request.php" param="exec" droits="gestion" type="html" />
-	<requestExecList action="request/request.php" param="execList" droits="gestion" type="html" />
-	<requestWriteExec action="request/request.php" param="write" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestExec" retourko="requestChange" />
-	<requestCopy action="request/request.php" param="copy" droits="param" type="smarty" />
+	<requestList action="modules/request/request.php" param="list" retourlogin="1" droits="gestion" type="smarty" />
+	<requestChange action="modules/request/request.php" param="change" droits="gestion" type="smarty" />
+	<requestWrite action="modules/request/request.php" param="write" droits="param" modulebefore="requestChange,requestCopy,requestExec,requestWriteExec" retourok="requestChange" retourko="requestChange" />
+	<requestDelete action="modules/request/request.php" param="delete" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestList" retourko="requestChange" />
+	<requestExec action="modules/request/request.php" param="exec" droits="gestion" type="html" />
+	<requestExecList action="modules/request/request.php" param="execList" droits="gestion" type="html" />
+	<requestWriteExec action="modules/request/request.php" param="write" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestExec" retourko="requestChange" />
+	<requestCopy action="modules/request/request.php" param="copy" droits="param" type="smarty" />
 
     <!-- API -->
     <apiv1sampleWrite action="modules/gestion/sampleWs.php" param="write" droits="gestion" type="json"/>

@@ -7,8 +7,8 @@
 <item module="objets" label="Objets" tooltip="Opérations sur les échantillons ou les contenants">
 	<item module="containerList" label="Contenants" tooltip="Liste des contenants"/>
 	<item module="sampleList" label="Échantillons" tooltip="Liste des échantillons"/>
-		<item divider='1' droits="param"/>
-	<item module="requestList" label="Requêtes SQL" tooltip="Exécution de requêtes SQL dans la base de données" droits="param"/>
+		<item divider='1' droits="gestion"/>
+	<item module="requestList" label="Requêtes SQL" tooltip="Exécution de requêtes SQL dans la base de données" droits="gestion"/>
 </item>
 
 <item module="movement" label="Mouvements" tooltip="Création de mouvements dans le stock" droits="gestion">

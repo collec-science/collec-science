@@ -13,6 +13,10 @@
  */
 class Request extends ObjetBDD
 {
+    private $sql = "select request_id, create_date, last_exec, title, body, login, datefields,
+            collection_id, collection_name
+            from request
+            left outer join collection using (collection_id)";
     function __construct($bdd, $param = null)
     {
         $this->table = "request";
@@ -52,6 +56,39 @@ class Request extends ObjetBDD
         parent::__construct($bdd, $param);
     }
 
+    /**
+     * Get the content of a request, with the collection, if occured
+     *
+     * @param [type] $id
+     * @param boolean $getDefault
+     * @param integer $parent_id
+     * @return array
+     */
+    function lire($id, $getDefault = true, $parent_id = 0) {
+        if ($id > 0) {
+            $where = " where request_id = :request_id";
+            $data = $this->lireParamAsPrepared($this->sql.$where, array("request_id" => $id));
+        } else {
+            if ($getDefault) {
+                $data = $this->getDefaultValue();
+            } else {
+                $data = array();
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Add the collections to the generic function getliste
+     *
+     * @param string $order
+     * @return array
+     */
+    function getListe($order = "") {
+        !empty($order) ? $orderby = " order by ".$order : $orderby = "";
+        return $this->getListeParam($this->sql.$orderby);
+    }
+
     function ecrire($data)
     {
         /*
@@ -79,8 +116,7 @@ class Request extends ObjetBDD
                 $comma = ",";
             }
             $where .= ")";
-            $sql = "select request_id, create_date, last_exec, title, body, login, collection_id from request";
-            $data = $this->getListeParam($sql.$where);
+            $data = $this->getListeParam($this->sql.$where);
         }
         return $data;
     }

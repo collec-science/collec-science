@@ -56,6 +56,7 @@ class Import
             $separator = "\t";
         }
         $this->separator = $separator;
+        $this->utf8_encode = $utf8_encode;
         /*
          * Ouverture du fichier
          */

@@ -89,7 +89,11 @@ class Collection extends ObjetBDD
    */
   function getCollectionsFromLogin()
   {
+    if (is_array($_SESSION["groupes"])) {
     return $this->getCollectionsFromGroups($_SESSION["groupes"]);
+    } else {
+      return array();
+    }
   }
 
   /**

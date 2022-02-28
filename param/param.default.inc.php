@@ -78,7 +78,10 @@ $LDAP = array(
 	'attributgroupname' => "cn",
 	'attributloginname' => "memberuid",
 	'basedngroup' => 'ou=example,o=societe,c=fr',
-	"timeout" => 2
+	"timeout" => 2,
+	"ldapnoanonymous" => false,
+	"ldaplogin" => "",
+	"ldappassword" => ""
 );
 
 /*

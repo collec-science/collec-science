@@ -31,6 +31,7 @@ switch ($t_module["param"]) {
     if (!isset($isDelete) && !isset($_REQUEST["is_action"])) {
       $_SESSION["searchSample"]->setParam($_REQUEST);
     }
+    $vue->set("sampleList", "moduleFrom");
     /**
      * Get the content of a recorded request
      */

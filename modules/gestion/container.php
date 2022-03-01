@@ -62,6 +62,8 @@ switch ($t_module["param"]) {
     $data = $dataClass->lire($id);
     $vue->set($data, "data");
     $vue->set($activeTab, "activeTab");
+    $vue->set("containerDisplay", "moduleFrom");
+    $vue->set($id, "containerUid");
     /*
          * Recuperation des identifiants associes
          */
@@ -82,7 +84,7 @@ switch ($t_module["param"]) {
       $dsample = $sample->getAllSamplesFromContainer($data["uid"]);
       $message->set(_("Affichage avec la liste de tous les échantillons présents dans le contenant, y compris dans les contenants inclus"));
     } else {
-    $dsample = $dataClass->getContentSample($data["uid"]);
+      $dsample = $dataClass->getContentSample($data["uid"]);
     }
     $vue->set($dcontainer, "containers");
     $vue->set($dsample, "samples");
@@ -156,9 +158,26 @@ switch ($t_module["param"]) {
     $vue->set($borrower->getListe(2), "borrowers");
     $vue->set(date($_SESSION["MASKDATE"]), "borrowing_date");
     $vue->set(date($_SESSION["MASKDATE"]), "expected_return_date");
-    /*
-         * Affichage
-         */
+
+    /**
+     * Lists for actions on samples
+     */
+    $vue->set($_SESSION["collections"], "collections");
+    include_once 'modules/classes/campaign.class.php';
+    $campaign = new Campaign($bdd, $ObjetBDDParam);
+    $vue->set($campaign->getListe(2), "campaigns");
+    include_once 'modules/classes/containerFamily.class.php';
+    $cf = new ContainerFamily($bdd, $ObjetBDDParam);
+    $vue->set($cf->getListe(2), "containerFamily");
+    include_once 'modules/classes/country.class.php';
+    $country = new Country($bdd, $ObjetBDDParam);
+    $vue->set($country->getListe(2), "countries");
+    include_once 'modules/classes/objectStatus.class.php';
+    $objectStatus = new ObjectStatus($bdd, $ObjetBDDParam);
+    $vue->set($objectStatus->getListe(1), "objectStatus");
+    /**
+     * Affichage
+     */
     $vue->set($_SESSION["APPLI_code"], "APPLI_code");
     $vue->set("container", "moduleParent");
     $vue->set("gestion/containerDisplay.tpl", "corps");
@@ -230,7 +249,7 @@ switch ($t_module["param"]) {
         $bdd->commit();
         $message->set(_("Suppression effectuée"));
         $module_coderetour = 1;
-      } catch (Exception|ObjetBDDException $e) {
+      } catch (Exception | ObjetBDDException $e) {
         $message->set($e->getMessage() . " ($uid)");
         $bdd->rollback();
         $module_coderetour = -1;

@@ -335,6 +335,8 @@
 {if $droits.gestion == 1}
 <form method="POST" id="sampleFormListPrint" action="index.php">
 	<input type="hidden" id="module" name="module" value="samplePrintLabel">
+	<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
+	<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
 	<div class="row">
 		<div class="center">
 			<label id="lsamplecheck" for="checkSample">{t}Tout cocher{/t}</label>

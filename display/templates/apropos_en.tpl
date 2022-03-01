@@ -25,6 +25,7 @@ Visit the project site:<a href="https://www.collec-science.org" target="_blank">
 <li>Arnaud Caillo (OASU - UMS 2567 POREA / EPOC)</li>
 <li>Oton Copi (University of Grenoble-Alpes)</li>
 <li>Sylvie Damy (University of Franche-Comté)</li>
+<li>Mathieu Gauthier-Lafaye (EPOC - University of Bordeaux)</li>
 <li>Hector Linyer (University of La Rochelle)</li>
 <li>Alexandre Maindron (University of Franche-Comté)</li>
 <li>Cécile Pignol (University of Savoie Mont-Blanc)
@@ -33,7 +34,7 @@ Visit the project site:<a href="https://www.collec-science.org" target="_blank">
 <li>Éric Quinton (INRAE)</li>
 </ul>
 
-    <h3>Copyright © 2016-2021 Eric Quinton for INRAE</h3>
+    <h3>Copyright © 2016-2022 Eric Quinton for INRAE</h3>
 <p>
 Version 1.0 of the software has been registered with the Agency for the Protection of Programs under number IDDN.FR.001.470013.000.S.C.2016.000.31500
 <br>

@@ -297,29 +297,29 @@
 						if ( i == 0 ) {
 							options += ' selected ';
 							$( "#container_id" ).val( data[ i ].container_id );
-							$( "#container_uid" ).val( data[ i ].uid );
+							$( "#container_uidChange" ).val( data[ i ].uid );
 						}
 						options += '>' + data[ i ].uid + " " + data[ i ].identifier + " (" + data[ i ].object_status_name + ")</option>";
 					}
-					$( "#containers" ).html( options );
+					$( "#containersSample" ).html( options );
 				}
 			} );
 		}
-		$( "#containers" ).change( function () {
-			var id = $( "#containers" ).val();
+		$( "#containersSample" ).change( function () {
+			var id = $( "#containersSample" ).val();
 			$( "#container_id" ).val( id );
-			var texte = $( "#containers option:selected" ).text();
+			var texte = $( "#containersSample option:selected" ).text();
 			var a_texte = texte.split( " " );
-			$( "#container_uid" ).val( a_texte[ 0 ] );
+			$( "#container_uidChange" ).val( a_texte[ 0 ] );
 		} );
-		$( "#container_uid" ).change( function () {
+		$( "#container_uidChange" ).change( function () {
 			var url = "index.php";
 			var uid = $( this ).val();
 			$.getJSON( url, { "module": "containerGetFromUid", "uid": uid }, function ( data ) {
 				if ( data.container_id ) {
 					var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " (" + data.object_status_name + ")</option>";
 					$( "#container_id" ).val( data.container_id );
-					$( "#containers" ).html( options );
+					$( "#containersSample" ).html( options );
 				}
 			} );
 		} );
@@ -589,9 +589,9 @@
 			<!-- create an entry movement -->
 			<div class="entry" hidden>
 				<div class="form-group ">
-					<label for="container_uid" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
+					<label for="container_uidChange" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
 					<div class="col-md-8">
-						<input id="container_uid" name="container_uid" value="" type="number" class="form-control">
+						<input id="container_uidChange" name="container_uid" value="" type="number" class="form-control">
 					</div>
 				</div>
 				<div class="form-group ">
@@ -608,7 +608,7 @@
 						<select id="container_type_id" name="container_type_id" class="form-control">
 							<option value=""></option>
 						</select>
-						<select id="containers" name="containers">
+						<select id="containersSample" name="containers" class="form-control">
 							<option value=""></option>
 						</select>
 					</div>

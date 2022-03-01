@@ -78,5 +78,15 @@ ADD CONSTRAINT collection_fk FOREIGN KEY (collection_id)
 REFERENCES col.collection (collection_id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 
+/**
+ * Ticket 562
+ */
+INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'external_storage_path', E'/home/collec-science');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'external_storage_enabled', E'1');
 
+alter table col.document 
+add column external_storage_type boolean NOT NULL DEFAULT false,
+add column external_storage_path varchar;
+COMMENT ON COLUMN col.document.external_storage_type IS E'Is the document stored in the external storage?';
+COMMENT ON COLUMN col.document.external_storage_path IS E'Path to the file, relative to the root of the external storage';
 

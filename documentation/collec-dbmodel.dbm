@@ -335,7 +335,9 @@ APPLI_title•Collec-Science - instance for ⸣
 mapDefaultX•-0.70⸣
 mapDefaultY•44.77⸣
 mapDefaultZoom•7⸣
-otp_issuer•collec-science]]>
+otp_issuer•collec-science⸣
+external_storage_path•\/home\/collec-science⸣
+external_storage_enabled•0]]>
 	</initial-data>
 </table>
 
@@ -374,7 +376,7 @@ otp_issuer•collec-science]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="document" layer="0" collapse-mode="2" max-obj-count="14" z-value="0">
+<table name="document" layer="0" collapse-mode="2" max-obj-count="16" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Numeric docs associated to an objet or a campaign]]></comment>
@@ -419,6 +421,14 @@ otp_issuer•collec-science]]>
 	</column>
 	<column name="uuid" not-null="true" default-value="gen_random_uuid()">
 		<type name="uuid" length="0"/>
+	</column>
+	<column name="external_storage_type" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Is the document stored in the external storage?]]></comment>
+	</column>
+	<column name="external_storage_path">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Path to the file, relative to the root of the external storage]]></comment>
 	</column>
 	<constraint name="document_pk" type="pk-constr" table="col.document">
 		<columns names="document_id" ref-type="src-columns"/>

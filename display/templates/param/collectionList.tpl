@@ -12,7 +12,7 @@
 <tr>
 	<th colspan="6"></th>
 	<th colspan="3" class="center">{t}Flux externes autorisés{/t}</th>
-	<th colspan="2"></th>
+	<th colspan="4"></th>
 </tr>
 <tr>
 	<th>{t}Nom de la collection{/t}</th>
@@ -26,6 +26,8 @@
 	<th>{t}Collection publique{/t}</th>
 	<th>{t}Licence de diffusion{/t}</th>
 	<th>{t}Collection sans gestion de la localisation des échantillons{/t}</th>
+	<th>{t}Stockage des documents hors base de données ?{/t}</th>
+	<th>{t}Chemin d'accès{/t}</th>
 </tr>
 </thead>
 <tbody>
@@ -64,6 +66,8 @@
 </td>
 <td>{$data[lst].license_name}</td>
 <td class="center">{if $data[lst].no_localization == 1}{t}oui{/t}{/if}</td>
+<td class="center">{if $data[lst].external_storage_enabled == 1}{t}oui{/t}{/if}</td>
+<td>{$data[lst].external_storage_root}</td>
 </tr>
 {/section}
 </tbody>

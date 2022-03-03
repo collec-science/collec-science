@@ -335,9 +335,7 @@ APPLI_title•Collec-Science - instance for ⸣
 mapDefaultX•-0.70⸣
 mapDefaultY•44.77⸣
 mapDefaultZoom•7⸣
-otp_issuer•collec-science⸣
-external_storage_path•\/home\/collec-science⸣
-external_storage_enabled•0]]>
+otp_issuer•collec-science]]>
 	</initial-data>
 </table>
 
@@ -422,7 +420,7 @@ external_storage_enabled•0]]>
 	<column name="uuid" not-null="true" default-value="gen_random_uuid()">
 		<type name="uuid" length="0"/>
 	</column>
-	<column name="external_storage_type" not-null="true" default-value="false">
+	<column name="external_storage" not-null="true" default-value="false">
 		<type name="boolean" length="0"/>
 		<comment><![CDATA[Is the document stored in the external storage?]]></comment>
 	</column>
@@ -971,7 +969,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<table name="collection" layer="0" collapse-mode="2" max-obj-count="10" z-value="0">
+<table name="collection" layer="0" collapse-mode="2" max-obj-count="13" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of all collections into the database]]></comment>
@@ -1005,6 +1003,14 @@ Autre]]>
 	<column name="collection_displayname">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[Name used to communicate from the collection, in export module by example]]></comment>
+	</column>
+	<column name="external_storage_enabled" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment><![CDATA[Enable the storage of sample's documents out of the database]]></comment>
+	</column>
+	<column name="external_storage_root">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Root path of the documents stored out of the database]]></comment>
 	</column>
 	<constraint name="project_pk" type="pk-constr" table="col.collection">
 		<columns names="collection_id" ref-type="src-columns"/>

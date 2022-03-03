@@ -117,7 +117,8 @@
  *
  */
 class DocumentException extends Exception
-{ }
+{
+}
 
 class MimeType extends ObjetBDD
 {
@@ -257,7 +258,9 @@ class Document extends ObjetBDD
         "type" => 2,
         "defaultValue" => "getDateJour"
       ),
-      "uuid" => array("type" => 0, "default" => "getUUID")
+      "uuid" => array("type" => 0, "default" => "getUUID"),
+      "external_storage" => array("type" => 1),
+      "external_storage_path" => array("type" => 0)
     );
     parent::__construct($bdd, $param);
   }
@@ -268,14 +271,17 @@ class Document extends ObjetBDD
    * @param int $id: key of the parent
    * @return array
    */
-  function getListFromField($fieldName, $id)
+  function getListFromField($fieldName, $id, $isExternal = false)
   {
     $fields = array("uid", "campaign_id", "uuid");
     if (in_array($fieldName, $fields)) {
+      $isExternal ? $external = "true" : $external = "false";
       $sql = "select document_id, uid, campaign_id, mime_type_id,
           document_import_date, document_name, document_description, size, document_creation_date, uuid
+          ,external_storage, external_storage_path
           from document
-          where $fieldName = :id";
+          where $fieldName = :id
+          and external_storage = $external";
       return $this->getListeParamAsPrepared($sql, array("id" => $id));
     }
   }
@@ -293,9 +299,9 @@ class Document extends ObjetBDD
   {
     if ($file["error"] == 0 && $file["size"] > 0 && is_numeric($parentKeyValue) && $parentKeyValue > 0) {
       global $log, $message;
-      /*
-             * Recuperation de l'extension
-             */
+      /**
+       * Recuperation de l'extension
+       */
       $extension = $this->encodeData(substr($file["name"], strrpos($file["name"], ".") + 1));
       $mimeType = new MimeType($this->connection, $this->paramori);
       $mime_type_id = $mimeType->getTypeMime($extension);
@@ -311,9 +317,9 @@ class Document extends ObjetBDD
           $data["document_creation_date"] = $document_creation_date;
         }
         $dataDoc = array();
-        /*
-                 * Recherche antivirale
-                 */
+        /**
+         * Recherche antivirale
+         */
         $virus = false;
         try {
           testScan($file["tmp_name"]);
@@ -367,11 +373,12 @@ class Document extends ObjetBDD
    * @param int $id
    * @return array
    */
-  function getData($id)
+  function getData(int $id)
   {
-    if ($id > 0 && is_numeric($id)) {
+    if ($id > 0) {
       $sql = "select document_id, document_name, content_type, mime_type_id, extension,
 					document_import_date, document_creation_date, uuid
+          ,external_storage, external_storage_path
 				from document
 				join mime_type using (mime_type_id)
 				where document_id = :document_id";
@@ -505,7 +512,7 @@ class Document extends ObjetBDD
               $image = new Imagick();
               $image->readImageFile($docRef);
               if ($redim) {
-                /** 
+                /**
                  *  Redimensionnement de l'image
                  */
                 $resize = 0;
@@ -613,12 +620,12 @@ class Document extends ObjetBDD
     $sql .= " ORDER BY d.uid";
     return $this->getListeParam($sql);
   }
-/**
- * Get some informations from a document
- *
- * @param string $uuid
- * @return array|null
- */
+  /**
+   * Get some informations from a document
+   *
+   * @param string $uuid
+   * @return array|null
+   */
   function getDetailFromUuid(string $uuid): ?array
   {
     $sql = "SELECT document_id, d.uuid, content_type, size, collection_id, document_name
@@ -628,4 +635,11 @@ class Document extends ObjetBDD
             where d.uuid = :uuid";
     return $this->lireParamAsPrepared($sql, array("uuid" => $uuid));
   }
+
+  function writeExternal(array $data) {
+// TODO write external
+  }
+ function deleteExternal(int $id) {
+   // TODO deleteExternal
+ }
 }

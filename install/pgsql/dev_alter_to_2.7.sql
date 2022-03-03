@@ -81,12 +81,17 @@ ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 /**
  * Ticket 562
  */
-INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'external_storage_path', E'/home/collec-science');
-INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'external_storage_enabled', E'1');
 
 alter table col.document 
-add column external_storage_type boolean NOT NULL DEFAULT false,
+add column external_storage boolean NOT NULL DEFAULT false,
 add column external_storage_path varchar;
-COMMENT ON COLUMN col.document.external_storage_type IS E'Is the document stored in the external storage?';
+COMMENT ON COLUMN col.document.external_storage IS E'Is the document stored in the external storage?';
 COMMENT ON COLUMN col.document.external_storage_path IS E'Path to the file, relative to the root of the external storage';
+alter table col.document rename column external_storage_type to external_storage;
+
+alter table col.collection 
+add column external_storage_enabled boolean NOT NULL DEFAULT false,
+add column	external_storage_root varchar;
+COMMENT ON COLUMN col.collection.external_storage_root IS E'Root path of the documents stored out of the database';
+COMMENT ON COLUMN col.collection.external_storage_enabled IS E'Enable the storage of sample''s documents out of the database';
 

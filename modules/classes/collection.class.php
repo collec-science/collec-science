@@ -52,7 +52,9 @@ class Collection extends ObjetBDD
       "license_id" => array(
         "type" => 1
       ),
-      "no_localization" => array("type"=>1)
+      "no_localization" => array("type" => 1),
+      "external_storage_enabled" => array("type" => 1),
+      "external_storage_root" => array("type" => 0)
     );
     parent::__construct($bdd, $param);
   }
@@ -72,6 +74,7 @@ class Collection extends ObjetBDD
                 allowed_import_flow, allowed_export_flow, public_collection
                 ,collection_keywords,collection_displayname
                 ,license_id, license_name, license_url, no_localization
+                ,external_storage_enabled, external_storage_root
 				from collection
                 left outer join collection_group using (collection_id)
                 left outer join referent using (referent_id)
@@ -90,7 +93,7 @@ class Collection extends ObjetBDD
   function getCollectionsFromLogin()
   {
     if (is_array($_SESSION["groupes"])) {
-    return $this->getCollectionsFromGroups($_SESSION["groupes"]);
+      return $this->getCollectionsFromGroups($_SESSION["groupes"]);
     } else {
       return array();
     }

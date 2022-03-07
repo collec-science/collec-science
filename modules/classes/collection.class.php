@@ -124,6 +124,7 @@ class Collection extends ObjetBDD
       $in .= ")";
       $sql = "select distinct collection_id, collection_name
           ,allowed_import_flow, allowed_export_flow, public_collection
+          ,external_storage_enabled, external_storage_root
 					from collection
 					join collection_group using (collection_id)
 					join aclgroup using (aclgroup_id)

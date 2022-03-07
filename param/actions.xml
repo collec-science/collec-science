@@ -226,6 +226,7 @@
 	<documentGet action="modules/gestion/document.php" param="get" type="binaire" droits="consult" />
 	<documentGetSW action="modules/gestion/document.php" param="getSW" type="binaire" retourko="documentGetSWerror"/>
 	<documentGetSWerror action="modules/gestion/document.php" param="getSWerror" type="json" />
+	<documentExternalGetList action="modules/gestion/document.php" param="externalGetList" droits="gestion" type="json"/>
 
 	<identifierTypeList action="modules/param/identifierType.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 	<identifierTypeChange action="modules/param/identifierType.php" param="change" droits="param" retourlogin="1" type="smarty" />

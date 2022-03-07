@@ -54,7 +54,7 @@ switch ($t_module["param"]) {
 		strlen($_REQUEST["parentKeyName"]) > 0 ? $parentKeyName = $_REQUEST["parentKeyName"] : $parentKeyName = "uid";
 		$parentKeyValue = $_REQUEST[$parentKeyName];
 		foreach ($files as $file) {
-			$id = $dataClass->ecrire($file, $parentKeyName, $parentKeyValue, $_REQUEST["document_description"], $_REQUEST["document_creation_date"]);
+			$id = $dataClass->documentWrite($file, $parentKeyName, $parentKeyValue, $_REQUEST["document_description"], $_REQUEST["document_creation_date"]);
 			if ($id > 0) {
 				$_REQUEST[$keyName] = $id;
 				$module_coderetour = 1;
@@ -169,4 +169,45 @@ switch ($t_module["param"]) {
 	case "getSWerror":
 		$vue->set($data);
 		break;
+		case "externalGetList":
+
+		if ($_REQUEST["uid"] > 0) {
+			/**
+			 * Get the collection of the sample
+			 */
+			include_once "modules/classes/sample.class.php";
+			$sample = new Sample($bdd, $ObjetBDDParam);
+			$dsample = $sample->lire($_REQUEST["uid"]);
+			if (! $sample->verifyCollection($dsample)) {
+				break;
+			}
+    $listFiles = array();
+		$dir = $_SESSION["collections"][$dsample["collection_id"]]["external_storage_root"];
+    if (!empty($_REQUEST["path"]) && $_REQUEST["path"] != "#") {
+			$path = str_replace(array(".."), array(""), $_REQUEST["path"]);
+      $dir .= "/". $path;
+		}
+      if (is_dir($dir)) {
+        if ($dh = opendir($dir)) {
+          while (($file = readdir($dh)) !== false) {
+            if ($file != ".." && $file != ".") {
+              $f = array("text" => $file, "id"=>$path."/".$file, "children"=>false);
+              /*if (filetype($dir . "/" . $file) == "dir") {
+                $f["isFolder"] = true;
+                $f["hasSubfolder"] = true;
+              } else {
+                $f["ext"] =  pathinfo($dir . "/" . $file, PATHINFO_EXTENSION);
+                $f["subitems"][] = date($_SESSION["MASKDATE"], filemtime($dir . "/" . $file));
+                $f["subitems"][] = number_format((filesize($dir . "/" . $file) / (1024 * 1024)), 3) . " Mb";
+              }*/
+              $listFiles[] = $f;
+            }
+          }
+        }
+      }
+    }
+		$listFiles = array ("id"=>"1", "text"=>"toto");
+    $vue->set($listFiles);
+    break;
+
 }

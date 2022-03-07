@@ -126,7 +126,7 @@ class MimeType extends ObjetBDD
   /**
    * Constructeur de la classe
    *
-   * @param Adodb_instance $bdd
+   * @param PDO $bdd
    * @param array $param
    */
   function __construct($bdd, $param = null)
@@ -201,12 +201,13 @@ class Document extends ObjetBDD
 {
 
   public $temp = "temp";
+  public Mimetype $mimeType;
 
   // Chemin de stockage des images générées à la volée
   /**
    * Constructeur de la classe
    *
-   * @param Adodb_instance $bdd
+   * @param PDO $bdd
    * @param array $param
    */
   function __construct($bdd, $param = null)
@@ -295,7 +296,7 @@ class Document extends ObjetBDD
    *            string description : description du contenu du document
    * @return int
    */
-  function ecrire($file, $parentKeyName, $parentKeyValue, $description = NULL, $document_creation_date = NULL)
+  function documentWrite($file, $parentKeyName, $parentKeyValue, $description = NULL, $document_creation_date = NULL)
   {
     if ($file["error"] == 0 && $file["size"] > 0 && is_numeric($parentKeyValue) && $parentKeyValue > 0) {
       global $log, $message;
@@ -349,13 +350,13 @@ class Document extends ObjetBDD
             $image->setformat("png");
             $dataDoc["thumbnail"] = pg_escape_bytea($image->getimageblob());
           }
-          /*
-                     * suppression du stockage temporaire
-                     */
+          /**
+           *  suppression du stockage temporaire
+           */
           unset($file["tmp_name"]);
-          /*
-                     * Ecriture dans la base de données
-                     */
+          /**
+           * Ecriture dans la base de données
+           */
           $id = parent::ecrire($data);
           if ($id > 0) {
             $sql = "update " . $this->table . " set data = '" . $dataDoc["data"] . "', thumbnail = '" . $dataDoc["thumbnail"] . "' where document_id = " . $id;
@@ -636,10 +637,55 @@ class Document extends ObjetBDD
     return $this->lireParamAsPrepared($sql, array("uuid" => $uuid));
   }
 
-  function writeExternal(array $data) {
-// TODO write external
+  /**
+   * Write the record for a file stored out of the database
+   *
+   * @param integer $collection_id
+   * @param array $data
+   * @return integer|null
+   */
+  function writeExternal(int $collection_id, array $data) :?int
+  {
+    /**
+     * Verify the collection
+     */
+    $collection = $_SESSION["collections"][$collection_id];
+    if ($collection["external_storage_enabled"]) {
+      /**
+       * Search for the file to associate
+       */
+      if (file_exists($collection["external_storage_root"] . "/" . $data["external_storage_path"])) {
+        if (!$data["size"] = filesize($collection["external_storage_root"] . "/" . $data["external_storage_path"])) {
+          throw new DocumentException(_("Le fichier ne peut pas être lu"));
+        }
+      }
+      if (empty($data["document_import_date"])) {
+        $data["document_import_date"] = date($_SESSION["MASKDATELONG"]);
+      }
+      /**
+       * get the mimetype
+       */
+      if ($this->mimeType) {
+        $this->mimeType = new MimeType($this->connection);
+      }
+      $pathinfo = pathinfo($collection["external_storage_root"] . "/" . $data["external_storage_path"]);
+      $data["mime_type_id"] = $this->mimeType->getTypeMime($pathinfo["extension"]);
+      if (empty($data["document_name"])) {
+        $data["document_name"] = $pathinfo["filename"];
+      }
+      $data["external_storage"] = 1;
+      return parent::ecrire($data);
+    } else {
+      throw new DocumentException(_("La collection n'est pas paramétrée pour accepter des fichiers externes"));
+    }
   }
- function deleteExternal(int $id) {
-   // TODO deleteExternal
- }
+  function deleteExternal(int $id)
+  {
+    // TODO deleteExternal
+    try {
+      parent::supprimer($id);
+    } catch (Exception $e) {
+      new DocumentException(_("La suppression a échoué"));
+    }
+  }
 }

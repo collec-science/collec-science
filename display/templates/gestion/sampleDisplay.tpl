@@ -547,6 +547,7 @@
 		<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
 			<div class="col-md-12">
 				{include file="gestion/documentList.tpl"}
+				{include file="gestion/documentExternalAdd.tpl"}
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="tab-booking">

@@ -660,11 +660,11 @@
 					<div class="col-sm-8">
 						<select id="collection_id_change" name="collection_id_change" class="form-control">
 							<option value="" selected>{t}Choisissez...{/t}</option>
-							{section name=lst loop=$collections}
-							<option value="{$collections[lst].collection_id}">
-								{$collections[lst].collection_name}
+							{foreach $collections as $collection}
+							<option value="{$collection.collection_id}">
+								{$collection.collection_name}
 							</option>
-							{/section}
+							{/foreach}
 						</select>
 					</div>
 				</div>

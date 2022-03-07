@@ -106,12 +106,13 @@ class Collection extends ObjetBDD
    *
    * @return array
    */
-  function getCollectionsFromGroups(array $groups)
+  function getCollectionsFromGroups(array $groups): array
   {
+    $data = array();
     if (count($groups) > 0) {
-      /*
-             * Preparation de la clause in
-             */
+      /**
+       * Preparation de la clause in
+       */
       $comma = false;
       $in = "(";
       foreach ($groups as $value) {
@@ -128,10 +129,12 @@ class Collection extends ObjetBDD
 					join aclgroup using (aclgroup_id)
 					where groupe in $in";
       $order = " order by collection_name";
-      return $this->getListeParam($sql . $order);
-    } else {
-      return array();
+      $dataSql = $this->getListeParam($sql . $order);
+      foreach ($dataSql as $row) {
+        $data[$row["collection_id"]] = $row;
+      }
     }
+    return $data;
   }
 
   /**

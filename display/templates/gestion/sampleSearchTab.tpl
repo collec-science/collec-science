@@ -329,11 +329,11 @@
                         <div class="col-sm-6">
                             <select id="collection_id" name="collection_id" class="form-control">
                             <option value="" {if $sampleSearch.collection_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
-                            {section name=lst loop=$collections}
-                            <option value="{$collections[lst].collection_id}" {if $collections[lst].collection_id == $sampleSearch.collection_id}selected{/if}>
-                            {$collections[lst].collection_name}
+                            {foreach $collections as $collection}
+                            <option value="{$collection.collection_id}" {if $collection.collection_id == $sampleSearch.collection_id}selected{/if}>
+                            {$collection.collection_name}
                             </option>
-                            {/section}
+                            {/foreach}
                             </select>
                         </div>
                     </div>

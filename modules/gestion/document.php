@@ -191,7 +191,10 @@ switch ($t_module["param"]) {
         if ($dh = opendir($dir)) {
           while (($file = readdir($dh)) !== false) {
             if ($file != ".." && $file != ".") {
-              $f = array("text" => $file, "id"=>$path."/".$file, "children"=>false);
+              $f = array("name" => $file, "id"=>$path."-".$file, "value"=>$path.'/'.$file, "folder"=>false);
+							if (filetype($dir . "/" . $file) == "dir") {
+								$f["folder"] = true;
+							}
               /*if (filetype($dir . "/" . $file) == "dir") {
                 $f["isFolder"] = true;
                 $f["hasSubfolder"] = true;
@@ -206,7 +209,6 @@ switch ($t_module["param"]) {
         }
       }
     }
-		$listFiles = array ("id"=>"1", "text"=>"toto");
     $vue->set($listFiles);
     break;
 

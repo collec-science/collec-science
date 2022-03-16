@@ -944,8 +944,10 @@ class ObjetBDD
     }
     $rs = $this->executeAsPrepared($sql, $ds);
     if ($mode == "ajout" && $this->id_auto == 1) {
-      if ($this->typeDatabase == 'pgsql' && !empty($rs)) {
-        $ret = $rs[0][$this->cle];
+      if ($this->typeDatabase == 'pgsql') {
+        if (count($rs) > 0) {
+          $ret = $rs[0][$this->cle];
+        }
       } else {
         $last_id = $this->execute('SELECT LAST_INSERT_ID() as last_id');
         $ret = $last_id[0]['last_id'];

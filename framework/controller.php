@@ -234,6 +234,7 @@ try {
           $vue = new VueSmarty($SMARTY_param, $SMARTY_variables);
       }
     }
+
     /**
      * Verification si le login est requis
      */

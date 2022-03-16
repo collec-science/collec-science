@@ -321,6 +321,11 @@ class Sample extends ObjetBDD
     $data = $this->lire($uid);
     if ($this->verifyCollection($data)) {
       /**
+       * delete from subsample
+       */
+      $sql = "delete from subsample where sample_id = :sample_id";
+      $this->executeAsPrepared($sql, array("sample_id"=>$data["sample_id"]), true);
+      /**
        * suppression de l'echantillon
        */
       parent::supprimer($data["sample_id"]);

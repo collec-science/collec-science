@@ -64,10 +64,11 @@ class Request extends ObjetBDD
      * @param integer $parent_id
      * @return array
      */
-    function lire($id, $getDefault = true, $parent_id = 0) {
+    function lire($id, $getDefault = true, $parent_id = 0)
+    {
         if ($id > 0) {
             $where = " where request_id = :request_id";
-            $data = $this->lireParamAsPrepared($this->sql.$where, array("request_id" => $id));
+            $data = $this->lireParamAsPrepared($this->sql . $where, array("request_id" => $id));
         } else {
             if ($getDefault) {
                 $data = $this->getDefaultValue();
@@ -84,13 +85,20 @@ class Request extends ObjetBDD
      * @param string $order
      * @return array
      */
-    function getListe($order = "") {
-        !empty($order) ? $orderby = " order by ".$order : $orderby = "";
-        return $this->getListeParam($this->sql.$orderby);
+    function getListe($order = "")
+    {
+        !empty($order) ? $orderby = " order by " . $order : $orderby = "";
+        return $this->getListeParam($this->sql . $orderby);
     }
 
     function ecrire($data)
     {
+        /**
+         * Search the terms forbiden into the request
+         */
+        if (preg_match("/(insert)|(update)|(delete)|(grant)|(revoke)|(create)|(drop)|(alter)/i", $data["body"]) == 1) {
+            throw new ObjetBDDException(_("La requête ne peut pas contenir d'ordres de modification de la base de données"));
+        }
         /*
          * Suppression des contenus dangereux dans la commande SQL
          */
@@ -106,17 +114,18 @@ class Request extends ObjetBDD
      * @param array $collections
      * @return array|null
      */
-    function getListFromCollections (array $collections) : ?array {
+    function getListFromCollections(array $collections): ?array
+    {
         $data = array();
         $comma = "";
         if (count($collections) > 0) {
             $where = " where collection_id in (";
             foreach ($collections as $collection) {
-                $where .= $comma.$collection["collection_id"];
+                $where .= $comma . $collection["collection_id"];
                 $comma = ",";
             }
             $where .= ")";
-            $data = $this->getListeParam($this->sql.$where);
+            $data = $this->getListeParam($this->sql . $where);
         }
         return $data;
     }
@@ -132,7 +141,6 @@ class Request extends ObjetBDD
         if ($request_id > 0 && is_numeric($request_id)) {
             $req = $this->lire($request_id);
             if (strlen($req["body"]) > 0) {
-                $sql = "SELECT " . $req["body"];
                 /*
                  * Preparation des dates pour encodage
                  */
@@ -145,7 +153,7 @@ class Request extends ObjetBDD
                  */
                 $req["last_exec"] = $this->getDateHeure();
                 $this->ecrire($req);
-                return $this->getListeParam($sql);
+                return $this->getListeParam($req["body"]);
             }
         }
     }

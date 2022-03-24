@@ -53,6 +53,12 @@ class Request extends ObjetBDD
 
     function ecrire($data)
     {
+        /**
+         * Search the terms forbiden into the request
+         */
+        if (preg_match("/(insert)|(update)|(delete)|(grant)|(revoke)|(create)|(drop)|(alter)/i", $data["body"]) == 1) {
+            throw new ObjetBDDException(_("La requête ne peut pas contenir d'ordres de modification de la base de données"));
+        }
         /*
          * Suppression des contenus dangereux dans la commande SQL
          */
@@ -64,7 +70,7 @@ class Request extends ObjetBDD
 
     /**
      * Execute a request
-     * 
+     *
      * @param int $request_id
      * @return array
      */
@@ -73,7 +79,6 @@ class Request extends ObjetBDD
         if ($request_id > 0 && is_numeric($request_id)) {
             $req = $this->lire($request_id);
             if (strlen($req["body"]) > 0) {
-                $sql = "SELECT " . $req["body"];
                 /*
                  * Preparation des dates pour encodage
                  */
@@ -86,9 +91,8 @@ class Request extends ObjetBDD
                  */
                 $req["last_exec"] = $this->getDateHeure();
                 $this->ecrire($req);
-                return $this->getListeParam($sql);
+                return $this->getListeParam($req["body"]);
             }
         }
     }
 }
-?>

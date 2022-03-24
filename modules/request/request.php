@@ -61,10 +61,15 @@ switch ($t_module["param"]) {
         /*
          * write record in database
          */
-        $id = dataWrite($dataClass, $_REQUEST);
-        if ($id > 0) {
-            $_REQUEST[$keyName] = $id;
-            $module_coderetour = 1;
+        try {
+            $id = $dataClass->ecrire( $_REQUEST);
+            if ($id > 0) {
+                $_REQUEST[$keyName] = $id;
+                $module_coderetour = 1;
+            }
+        } catch (ObjetBDDException $oe) {
+            $message->set($oe->getMessage(), true);
+            $module_coderetour = -1;
         }
         break;
     case "delete":

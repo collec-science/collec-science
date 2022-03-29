@@ -210,3 +210,4 @@ $APPLI_max_file_size = 10; // Size in Mb
 $APPLI_passwordMinLength = 12;
 $APPLI_hour_duration = 3600; // Duration of an hour for count all calls to a module
 $APPLI_day_duration = 36000; //Duration of a day for count all calls to a module
+$APPLI_external_document_path = "/dev/null";

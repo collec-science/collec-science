@@ -88,10 +88,23 @@ add column external_storage_path varchar;
 COMMENT ON COLUMN col.document.external_storage IS E'Is the document stored in the external storage?';
 COMMENT ON COLUMN col.document.external_storage_path IS E'Path to the file, relative to the root of the external storage';
 alter table col.document rename column external_storage_type to external_storage;
+-- object: external_storage_path_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.external_storage_path_idx CASCADE;
+CREATE INDEX external_storage_path_idx ON col.document
+USING btree
+(
+	external_storage_path
+);
 
 alter table col.collection 
 add column external_storage_enabled boolean NOT NULL DEFAULT false,
 add column	external_storage_root varchar;
 COMMENT ON COLUMN col.collection.external_storage_root IS E'Root path of the documents stored out of the database';
 COMMENT ON COLUMN col.collection.external_storage_enabled IS E'Enable the storage of sample''s documents out of the database';
+
+/**
+ * Ticket 567
+ */
+
+UPDATE col.request set body = 'SELECT ' || body;
 

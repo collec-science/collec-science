@@ -443,6 +443,14 @@ otp_issuer•collec-science]]>
 	<constraint name="document_pk" type="pk-constr" table="col.document">
 		<columns names="document_id" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="campaign_id" index="13"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="campaign_fk" index="3"/>
+	</customidxs>
 </table>
 
 <sequence name="event_event_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
@@ -3482,6 +3490,22 @@ EAN 128•C128]]>
 	 dst-table="col.request"
 	 src-required="false" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+
+<index name="external_storage_path_idx" table="col.document"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="external_storage_path"/>
+		</idxelement>
+</index>
+
+<index name="uid_idx" table="col.document"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="uid"/>
+		</idxelement>
+</index>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

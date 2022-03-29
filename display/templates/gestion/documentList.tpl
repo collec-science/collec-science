@@ -1,6 +1,6 @@
 {* Objets > échantillons > Rechercher > UID d'un échantillon > section Documents associés *}
 <script>
-$(document).ready(function() { 
+$(document).ready(function() {
 	$('.image-popup-no-margins').magnificPopup( {
 		type: 'image',
 		closeOnContentClick: true,
@@ -29,7 +29,7 @@ $(document).ready(function() {
 	});
 } ) ;
 </script>
-{if $droits["gestion"] == 1 && $modifiable == 1 } 
+{if $droits["gestion"] == 1 && $modifiable == 1 }
 <a href="#" id="documentChangeActivate">{t}Saisir un nouveau document...{/t}</a>
 <div id="documentChange" hidden="true">
 {include file="gestion/documentChange.tpl"}
@@ -55,18 +55,26 @@ de création{/t}</th>
 {section name=lst loop=$dataDoc}
 <tr>
 <td class="center">
-{if in_array($dataDoc[lst].mime_type_id, array(4, 5, 6)) }
+{if in_array($dataDoc[lst].mime_type_id, array(4, 5, 6)) && $dataDoc[lst].external_storage == 0}
 <a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].photo_preview}&attached=0&phototype=1" title="{t}aperçu de la photo :{/t} {substr($dataDoc[lst].photo_name, strrpos($dataDoc[lst].photo_name, '/') + 1)}">
 <img src="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" height="30">
 </a>
-{elseif  $dataDoc[lst].mime_type_id == 1}
+{elseif  $dataDoc[lst].mime_type_id == 1 && $dataDoc[lst].external_storage == 0}
 <a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" title="{t}aperçu du document :{/t} {substr($dataDoc[lst].thumbnail_name, strrpos($dataDoc[lst].thumbnail_name, '/') + 1)}">
 <img src="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" height="30">
 </a>
 {/if}
 <td>
+{if $dataDoc[lst].external_storage == 0}
 <a href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&attached=1&phototype=0" title="{t}document original{/t}">
+{else}
+<a href="index.php?module=documentGetExternal&document_id={$dataDoc[lst].document_id}" title="{t}Téléchargez le fichier{/t}">
+{/if}
+{if $dataDoc[lst].external_storage == 1}
+{$dataDoc[lst].external_storage_path}
+{else}
 {$dataDoc[lst].document_name}
+{/if}
 </a>
 </td>
 <td>{$dataDoc[lst].document_description}</td>

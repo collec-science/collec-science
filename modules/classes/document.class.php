@@ -129,7 +129,7 @@ class MimeType extends ObjetBDD
    * @param PDO $bdd
    * @param array $param
    */
-  function __construct($bdd, $param = null)
+  function __construct($bdd, $param = array())
   {
     $this->table = "mime_type";
     $this->colonnes = array(
@@ -272,17 +272,17 @@ class Document extends ObjetBDD
    * @param int $id: key of the parent
    * @return array
    */
-  function getListFromField($fieldName, $id, $isExternal = false)
+  function getListFromField($fieldName, $id/*, $isExternal = false*/)
   {
     $fields = array("uid", "campaign_id", "uuid");
     if (in_array($fieldName, $fields)) {
-      $isExternal ? $external = "true" : $external = "false";
+      //$isExternal ? $external = "true" : $external = "false";
       $sql = "select document_id, uid, campaign_id, mime_type_id,
           document_import_date, document_name, document_description, size, document_creation_date, uuid
           ,external_storage, external_storage_path
           from document
-          where $fieldName = :id
-          and external_storage = $external";
+          where $fieldName = :id";
+      //and external_storage = $external";
       return $this->getListeParamAsPrepared($sql, array("id" => $id));
     }
   }
@@ -606,6 +606,7 @@ class Document extends ObjetBDD
     $sql = "SELECT d.document_id, d.uid, d.uuid as document_uuid, d.uuid,
             document_name, identifier, content_type, extension, size, document_creation_date
             ,o.uuid as sample_uuid
+            ,external_storage_path, external_storage
             FROM col.document d
             join object o using (uid)
             join mime_type using (mime_type_id)
@@ -624,18 +625,24 @@ class Document extends ObjetBDD
   /**
    * Get some informations from a document
    *
-   * @param string $uuid
+   * @param string $key
    * @return array|null
    */
-  function getDetailFromUuid(string $uuid): ?array
+  function getDetail(string $key, $field = "document_id"): ?array
   {
-    $sql = "SELECT document_id, d.uuid, content_type, size, collection_id, document_name
+    if (in_array($field, array("uuid", "uid", "campaign_id", "document_id"))) {
+      $sql = "SELECT document_id, d.uuid, content_type, size, collection_id, document_name
+            ,external_storage, external_storage_path
             from document d
-            join mime_type using (mime_type_id)
+            left outer join mime_type using (mime_type_id)
             left outer join sample using (uid)
-            where d.uuid = :uuid";
-    return $this->lireParamAsPrepared($sql, array("uuid" => $uuid));
+            where d.$field = :key";
+      return $this->lireParamAsPrepared($sql, array("key" => $key));
+    } else {
+      return array();
+    }
   }
+
 
   /**
    * Write the record for a file stored out of the database
@@ -644,18 +651,21 @@ class Document extends ObjetBDD
    * @param array $data
    * @return integer|null
    */
-  function writeExternal(int $collection_id, array $data) :?int
+  function writeExternal(int $collection_id, array $data): ?int
   {
     /**
      * Verify the collection
      */
+    $retour = null;
     $collection = $_SESSION["collections"][$collection_id];
     if ($collection["external_storage_enabled"]) {
+      global $APPLI_external_document_path;
+      $path = $APPLI_external_document_path . "/" . $collection["external_storage_root"] . "/" . $data["external_storage_path"];
       /**
        * Search for the file to associate
        */
-      if (file_exists($collection["external_storage_root"] . "/" . $data["external_storage_path"])) {
-        if (!$data["size"] = filesize($collection["external_storage_root"] . "/" . $data["external_storage_path"])) {
+      if (file_exists($path)) {
+        if (!$data["size"] = filesize($path)) {
           throw new DocumentException(_("Le fichier ne peut pas être lu"));
         }
       }
@@ -665,27 +675,27 @@ class Document extends ObjetBDD
       /**
        * get the mimetype
        */
-      if ($this->mimeType) {
+      if (!isset($this->mimeType)) {
         $this->mimeType = new MimeType($this->connection);
       }
-      $pathinfo = pathinfo($collection["external_storage_root"] . "/" . $data["external_storage_path"]);
+      $pathinfo = pathinfo($path);
       $data["mime_type_id"] = $this->mimeType->getTypeMime($pathinfo["extension"]);
       if (empty($data["document_name"])) {
         $data["document_name"] = $pathinfo["filename"];
       }
       $data["external_storage"] = 1;
-      return parent::ecrire($data);
+      /**
+       * Verify if the file is not recorded
+       */
+      $sql = "select document_id from document where uid = :uid and external_storage_path = :esp";
+      $verif = $this->lireParamAsPrepared($sql, array("uid" => $data["uid"], "esp" => $data["external_storage_path"]));
+      if ($verif["document_id"] > 0) {
+        $data["document_id"] = $verif["document_id"];
+      }
+      $retour = parent::ecrire($data);
     } else {
       throw new DocumentException(_("La collection n'est pas paramétrée pour accepter des fichiers externes"));
     }
-  }
-  function deleteExternal(int $id)
-  {
-    // TODO deleteExternal
-    try {
-      parent::supprimer($id);
-    } catch (Exception $e) {
-      new DocumentException(_("La suppression a échoué"));
-    }
+    return $retour;
   }
 }

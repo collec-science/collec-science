@@ -147,6 +147,12 @@ class Collection extends ObjetBDD
    */
   function ecrire($data)
   {
+    /**
+     * Verify the external document path
+     */
+    if (strpos($data["external_storage_root"], "..")) {
+      throw new ObjetBDDException(_("La racine des documents externes ne peut pas contenir .."));
+    }
     $id = parent::ecrire($data);
     if ($id > 0) {
       /*

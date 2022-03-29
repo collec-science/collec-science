@@ -95,6 +95,11 @@ USING btree
 (
 	external_storage_path
 );
+CREATE INDEX uid_idx ON col.document
+USING btree
+(
+	uid
+);
 
 alter table col.collection 
 add column external_storage_enabled boolean NOT NULL DEFAULT false,

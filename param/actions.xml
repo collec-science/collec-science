@@ -353,4 +353,6 @@
 		<sampleWrite_en action="framework/utils/markdown.php" param="documentation/webservices/sampleWriteEn.md" type="smarty" retourko="default"/>
 		<exportbatch_fr action="framework/utils/markdown.php" param="documentation/import_export/batch_export_fr.md" type="smarty" retourko="default"/>
 		<exportbatch_en action="framework/utils/markdown.php" param="documentation/import_export/batch_export_en.md" type="smarty" retourko="default"/>
+		<document_external_fr action="framework/utils/markdown.php" param="documentation/document_external/document_external_fr.md" type="smarty" retourko="default"/>
+		<document_external_en action="framework/utils/markdown.php" param="documentation/document_external/document_external_fr.md" type="smarty" retourko="default"/>
 </navigation>

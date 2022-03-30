@@ -90,13 +90,19 @@
 		<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP" />
 		<item module="backupDisplay" droits="admin" label="Backup" tooltip="Sauvegarde de la base de données" />
 	</item>
+
 	<item module="documentation_fr" label="Documentation" tooltip="Documentations en ligne en français" language="fr">
-		<item module="doctotp_fr" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de la double authentification" language="fr" />
-		<item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr" />
-		<item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr" />
+
+		<item module="default" label="Échantillons" tooltip="Gestion des échantillons">
+			<item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr" />
+			<item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr" />
+			<item module="document_external_fr" label="Documents externes" tooltip="Associer des docuements externes à un échantillon"/>
+		</item>
+
 		<item module="default" label="Fonctions d'import/export" tooltip="Fonctions d'importation et d'exportations de données" language="fr">
 			<item module="exportbatch_fr" label="Exporter par lot" tooltip="Exporter des échantillons par lots" language="fr" />
 		</item>
+		<item module="doctotp_fr" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de la double authentification" language="fr" />
 		<item module="default" label="Services web" tooltip="Description des services web" language="fr">
 			<item module="swidentification_fr" label="identification" tooltip="Gérer l'identification dans les services web" language="fr" />
 			<item module="swapi_fr" label="API web" tooltip="Utilisation des API web" language="fr" />
@@ -105,13 +111,17 @@
 			<item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
 		</item>
 	</item>
+
 	<item module="documentation_en" label="Documentation" tooltip="Documentations en ligne en anglais" language="en">
-		<item module="doctotp_en" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de double authentification" language="en" />
-		<item module="metadatafield_en" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="en" />
-		<item module="lendingsample_en" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="en" />
+		<item module="default" label="Échantillons" tooltip="Gestion des échantillons">
+			<item module="metadatafield_en" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="en" />
+			<item module="lendingsample_en" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="en" />
+			<item module="document_external_en" label="Documents externes" tooltip="Associer des docuements externes à un échantillon" language="en"/>
+		</item>
 		<item module="default" label="Fonctions d'import/export" tooltip="Fonctions d'importation et d'exportations de données" language="en">
 			<item module="exportbatch_en" label="Exporter par lot" tooltip="Exporter des échantillons par lots" language="en" />
 		</item>
+		<item module="doctotp_en" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de double authentification" language="en" />
 		<item module="default" label="Services web" tooltip="Description des services web" language="en">
 			<item module="swidentification_en" label="identification" tooltip="Gérer l'identification dans les services web" language="en" />
 			<item module="swapi_en" label="API web" tooltip="Utilisation des API web" language="en" />

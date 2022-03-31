@@ -10,7 +10,7 @@
 <input type="hidden" name="moduleParent" value="{$moduleParent}">
 <input type="hidden" name="parentType" value="{$parentType}">
 <dl>
-<dt>{t}Fichier(s) à importer :{/t}
+<dt>{t 1=$maxUploadSize}Fichier(s) à importer (taille maxi : %1 Mb):{/t}
 <br>(doc, jpg, png, pdf, xls, xlsx, docx, odt, ods, csv)
 </dt>
 <dt><input type="file" name="documentName[]" size="40" multiple></dt>

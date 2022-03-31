@@ -22,7 +22,7 @@
 		<input type="hidden" name="activeTab" value="tab-document">
 		<div class="form-group">
 			<label for="documentName" class="control-label col-md-4">
-				{t}Fichier(s) à importer :{/t} <br>({$extensions})
+				{t 1=$maxUploadSize}Fichier(s) à importer (taille maxi : %1 Mb):{/t} <br>({$extensions})
 			</label>
 			<div class="col-md-8">
 				<input id="documentName" type="file" class="form-control"

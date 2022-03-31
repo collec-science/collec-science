@@ -24,6 +24,7 @@ switch ($t_module["param"]) {
         include_once 'modules/classes/document.class.php';
         $document = new Document($bdd, $ObjetBDDParam);
         $vue->set($document->getListFromField("campaign_id", $id), "dataDoc");
+        $vue->set($document->getMaxUploadSize(), "maxUploadSize");
         if ($_SESSION["droits"]["param"] == 1) {
             $vue->set(1, "modifiable");
         }

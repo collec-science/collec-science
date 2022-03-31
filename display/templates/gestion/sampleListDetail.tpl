@@ -23,12 +23,12 @@
 					text: 'csv',
 					filename: 'samples',
 					exportOptions: {
-						columns: [1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17]
+						columns: [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17]
 					},
 					customize: function (csv) {
 						var split_csv = csv.split("\n");
 						//set headers
-						split_csv[0] = '"uid","identifier","other_identifiers","collection","type","status","parent","last_movement","place","referent","campaign","sampling_place","sampling_date","creation_date","expiration_date","available_quantity"';
+						split_csv[0] = '"uid","identifier","other_identifiers","collection","type","status","sample_parent","last_movement","place","referent","campaign","sampling_place","sampling_date","creation_date","expiration_date","available_quantity"';
 						csv = split_csv.join("\n");
             return csv;
 					}
@@ -37,12 +37,12 @@
 					extend: 'copy',
 					text: '{t}Copier{/t}',
 					exportOptions: {
-						columns: [1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17]
+						columns: [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17]
 					},
 					customize: function (csv) {
 						var split_csv = csv.split("\n");
 						//set headers
-						split_csv[3] = 'uid\tidentifier\tother_identifiers\tcollection\ttype\tstatus\tparent\tlast_movement\tplace\treferent\tcampaign\tsampling_place\tsampling_date\tcreation_date\texpiration_date\tavailable_quantity';
+						split_csv[3] = 'uid\tidentifier\tother_identifiers\tcollection\ttype\tstatus\tsample_parent\tlast_movement\tplace\treferent\tcampaign\tsampling_place\tsampling_date\tcreation_date\texpiration_date\tavailable_quantity';
 						split_csv.shift();
 						split_csv.shift();
 						split_csv.shift();

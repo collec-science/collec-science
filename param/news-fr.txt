@@ -1,5 +1,30 @@
 News
 ===========
+Version 2.7.0a du 31/03/2022
+----------------------------
+Correction de bugs :
+- dans le menu, le module ? n'aboutissait à rien
+- dans le module de gestion des droits, la suppression d'un groupe ne fonctionnait pas
+- correction d'un lien cassé dans le fichier readme.md
+- module de gestion des droits : la liste des droits attribués à une application ne s'affichait plus
+- les fonctions de groupes sur les échantillons, depuis le détail des containers, ne fonctionnaient pas
+- la suppression d'un échantillon échouait si du sous-échantillonnage avait été réalisé
+- depuis la liste des échantillons, le bouton "export CSV" ne remplissait pas la colonne correspondant aux parents
+
+Nouveautés :
+- ajout du numéro UUID de la campagne dans les exports par lot
+- les requêtes SQL manuelles peuvent être exécutées par les utilisateurs (droits attribués par collection), mais ils ne peuvent pas les modifier pour des raisons de sécurité
+- il est maintenant possible d'exécuter des requêtes manuelles complexes, le "SELECT" d'origine ayant été supprimé. Seules les requêtes d'interrogation restent toutefois accessibles
+- lors d'un sous-échantillonnage, il est possible d'indiquer quel laboratoire reçoit l'extrait
+- dans le module d'import de masse, il est maintenant possible d'importer un commentaire
+- certaines options réalisables sur la liste des échantillons étaient masquées, comme l'export par lot si la collection n'est pas renseignée. Ces options sont maintenant visibles mais non sélectionnables
+- il est maintenant possible de générer des étiquettes avec des codes-barres 1D (EAN 128)
+- ajout de la documentation sur l'export par lot
+- en importation de masse, les parents ne sont recherchés maintenant par défaut que dans la collection de l'enfant
+- il est maintenant possible d'associer à un échantillon des fichiers stockés dans une arborescence accessible au serveur (consultez la doc)
+- dans le détail d'un échantillon le lien "nouvel échantillon" a été dupliqué à droite, pour qu'il soit plus visible et plus accessible
+- dans le formulaire d'ajout des documents, la taille maxi des fichiers, déterminée par le paramétrage du serveur, est maintenant affichée
+
 Version 2.6.1 du 11/2/2022
 --------------------------
 Correction de bugs :

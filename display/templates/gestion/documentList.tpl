@@ -21,7 +21,7 @@ $(document).ready(function() {
 		if (documentChangeShow == 0) {
 			$('#documentChange').show("");
 			documentChangeShow = 1 ;
-			 $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+			 //$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 		} else {
 			$('#documentChange').hide("");
 			documentChangeShow = 0 ;

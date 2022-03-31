@@ -147,7 +147,7 @@
 	});
 </script>
 <div class="row">
-		<div class="col-md-12">
+		<div class="col-md-8">
 			<a href="index.php?module={$moduleListe}">
 				<img src="display/images/list.png" height="25">
 				{t}Retour à la liste{/t}
@@ -158,8 +158,7 @@
 			{t}Accès rapide{/t}
 			</a>
 			{if $droits.gestion == 1}
-				&nbsp;
-				<a href="index.php?module=sampleChange&uid=0">
+			<a href="index.php?module=sampleChange&uid=0">
 					<img src="display/images/new.png" height="25">
 					{t}Nouvel échantillon{/t}
 				</a>
@@ -193,6 +192,16 @@
 			<a href="index.php?module=sampleDisplay&uid={$data.uid}">
 				<img src="display/images/refresh.png" title="{t}Rafraîchir la page{/t}" height="15">
 			</a>
+		</div>
+		<div class="col-md-4">
+			<div class="pull-right bg-info">
+				{if $droits.gestion == 1}
+					<a href="index.php?module=sampleChange&uid=0">
+							<img src="display/images/new.png" height="25">
+							{t}Nouvel échantillon{/t}
+						</a>
+				{/if}
+			</div>
 		</div>
 	</div>
 <div class="row">

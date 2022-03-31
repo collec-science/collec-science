@@ -197,6 +197,7 @@ switch ($t_module["param"]) {
     include_once 'modules/classes/document.class.php';
     $document = new Document($bdd, $ObjetBDDParam);
     $vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
+    $vue->set($document->getMaxUploadSize(), "maxUploadSize");
     /**
      * Get the list of authorized extensions
      */

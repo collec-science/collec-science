@@ -113,3 +113,9 @@ COMMENT ON COLUMN col.collection.external_storage_enabled IS E'Enable the storag
 
 UPDATE col.request set body = 'SELECT ' || body;
 
+/**
+ * Version 2.7.0a
+ */
+insert into col.dbversion (dbversion_number, dbversion_date)
+values ('2.7', '2022-03-31');
+

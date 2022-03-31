@@ -112,10 +112,10 @@ legend {
 	border-radius: 0.4em;
 	background-color: white;
 }
-.form-display > row > label {
+/*.form-display > row > label {
 	text-align: right;
 	word-wrap: break-word;
-}
+}*/
 .display {
 	word-wrap: break-word;
 	border-style: solid;

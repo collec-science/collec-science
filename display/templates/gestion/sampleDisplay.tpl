@@ -556,7 +556,9 @@
 		<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
 			<div class="col-md-12">
 				{include file="gestion/documentList.tpl"}
+				{if $externalStorageEnabled == 1}
 				{include file="gestion/documentExternalAdd.tpl"}
+				{/if}
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="tab-booking">

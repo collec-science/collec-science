@@ -198,6 +198,7 @@ switch ($t_module["param"]) {
     $document = new Document($bdd, $ObjetBDDParam);
     $vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
     $vue->set($document->getMaxUploadSize(), "maxUploadSize");
+    $vue->set($_SESSION["collections"][$data["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
     /**
      * Get the list of authorized extensions
      */

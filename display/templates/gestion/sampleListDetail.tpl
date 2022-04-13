@@ -7,6 +7,7 @@
 			"paging": false,
 			"searching": true,
 			"stateSave": true,
+			"stateDuration": 60 * 60 * 24 * 30,
 			"columnDefs" : [
 				{
 				"targets": [11,12,13,14,15,16,17,18],
@@ -52,6 +53,9 @@
 				}
 			]
 		} );
+		/**
+		 * select or unselect samples
+		 */
 		$( ".checkSampleSelect" ).change( function () {
 			var libelle = "{t}Tout cocher{/t}";
 			if ( this.checked ) {
@@ -62,7 +66,9 @@
 		} );
 
 		$( "#sampleSpinner" ).hide();
-
+		/**
+		 * Actions on the list, for export and print
+		 */
 		$( '#samplecsvfile' ).on( 'keypress click', function () {
 			$( this.form ).find( "input[name='module']" ).val( "sampleExportCSV" );
 			$( this.form ).prop( 'target', '_self' ).submit();
@@ -83,7 +89,6 @@
 		} );
 
 		$( "#checkedButtonSample" ).on( "keypress click", function ( event ) {
-
 			var action = $( "#checkedActionSample" ).val();
 			if ( action.length > 0 ) {
 				var conf = confirm( "{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
@@ -98,7 +103,7 @@
 			}
 		} );
 		/**
-		 * Actions for the list of samples
+		 * Actions for the list of samples - bottom of the list
 		 */
 		var actions = {
 			"samplesAssignReferent": "referentid",
@@ -247,6 +252,9 @@
 			object.attr( "title", tooltipContent );
 			object.tooltip( "open" );
 		}
+		/**
+		 * Add the search on columns headers
+		 */
 		$( '#sampleList thead th' ).each( function () {
 			var title = $( this ).text();
 			var size = title.trim().length;

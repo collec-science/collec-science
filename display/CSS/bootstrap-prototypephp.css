@@ -266,6 +266,7 @@ meter[value="4"]::-moz-meter-bar { background: #A4C400; }
 .tab-content{
 	/*background-color: rgba(0, 158, 224, 0.1);*/
 	border-top: 2px solid rgba(0,158,224);
+	border-right: 0px;
 	padding:10px;
 }
 .tab-content-white{

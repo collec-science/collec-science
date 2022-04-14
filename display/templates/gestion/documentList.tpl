@@ -76,6 +76,9 @@ de création{/t}</th>
 {$dataDoc[lst].document_name}
 {/if}
 </a>
+{if $dataDoc[lst].external_storage == 1}
+	&nbsp;{t}(stockage externe){/t}
+{/if}
 </td>
 <td>{$dataDoc[lst].document_description}</td>
 <td>{$dataDoc[lst].size}</td>

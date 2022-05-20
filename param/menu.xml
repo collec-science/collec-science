@@ -110,6 +110,9 @@
 			<item module="documentget_fr" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr" />
 			<item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
 		</item>
+		<item module="default" label="Administration" tooltip="Administrer le logiciel">
+			<item module="rights_general_fr" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel"/>
+		</item>
 	</item>
 
 	<item module="documentation_en" label="Documentation" tooltip="Documentations en ligne en anglais" language="en">
@@ -128,6 +131,9 @@
 			<item module="sampledisplay_en" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="en" />
 			<item module="documentget_en" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="en" />
 			<item module="sampleWrite_en" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="en" />
+		</item>
+		<item module="default" label="Administration" tooltip="Administrer le logiciel">
+			<item module="rights_general_en" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" language="en"/>
 		</item>
 	</item>
 	<item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1" />

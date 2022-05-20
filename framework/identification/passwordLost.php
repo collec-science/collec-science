@@ -53,7 +53,7 @@ switch ($t_module["param"]) {
                         } else {
                             $log->setLog("unknown", "passwordlostSendmail-ko", $dl["mail"]);
                             $message->set(_("Impossible d'envoyer le mail"), true);
-                            $message->setSyslog('passwordlost : send mail aborted to' . $dl["mail"]);
+                            $message->setSyslog('passwordlost : send mail aborted to ' . $dl["mail"]);
                         }
                     } else {
                         $log->setLog("unknown", "passwordlostSendmail-ko", "recipient empty");

@@ -6,6 +6,7 @@
  * Encoding : UTF-8
  * Copyright 2016 - All rights reserved
  */
+
 class Collection extends ObjetBDD
 {
 
@@ -300,5 +301,31 @@ class Collection extends ObjetBDD
   {
     $sql = "delete from collection_group where aclgroup_id = :group_id";
     $this->executeAsPrepared($sql, array("group_id" => $group_id));
+  }
+/**
+ * Get all collections, the attributed first
+ *
+ * @return array|null
+ */
+  function getAllCollections() :?array {
+    $collections = $_SESSION["collections"];
+    /**
+     * Get the others collections
+     */
+    $in = " where collection_id not in (";
+    $comma = false;
+    foreach ($collections as $collection) {
+      $comma ? $in .= "," : $comma = true;
+      $in .= $collection["collection_id"];
+    }
+    $in .= ")";
+    $sql = "select collection_id, collection_name from collection";
+    if ($comma) {
+      $sql .= $in;
+    }
+    $sql .= " order by collection_name";
+    $newCollections = $this->getListeParam($sql);
+    return array_merge($collections, $newCollections);
+
   }
 }

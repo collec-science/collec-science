@@ -13,6 +13,9 @@ function sampleInitDatEntry()
      * Recherche des collections
      */
     $vue->set($_SESSION["collections"], "collections");
+    include_once "modules/classes/collection.class.php";
+    $collection = new Collection($bdd, $ObjetBDDParam);
+    $vue->set($collection->getAllCollections(), "collectionsSearch");
     /*
      * Recherche des types d'échantillons
      */

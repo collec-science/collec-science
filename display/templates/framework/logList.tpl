@@ -7,36 +7,39 @@
                 <input id="isSearch" type="hidden" name="isSearch" value="1">
                 <div class="form-group">
                     <label for="logmodule" class="col-md-2 control-label">{t}Nom du module :{/t}</label>
-                    <div class="col-md-4">
-                        <select id="logmodule" name="logmodule">
+                    <div class="col-md-10">
+                        <select id="logmodule" name="logmodule" class="form-control">
                             <option value="" {if $logmodule ==""}selected{/if}></option>
                             {foreach $modules as $module}
                             <option value="{$module.val}" {if $module.val == $logmodule}selected{/if}>{$module.val}</option>
                             {/foreach}
                         </select>
                     </div>
+                </div>
+                <div class="form-group">
                     <label for="loglogin" class="col-md-2 control-label">{t}Login concerné :{/t}</label>
-                    <div class="col-md-4">
-                        <select id="loglogin" name="loglogin">
+                    <div class="col-md-6">
+                        <select id="loglogin" name="loglogin" class="form-control">
                             <option value="" {if $loglogin ==""}selected{/if}></option>
                             {foreach $logins as $login}
                                 <option value="{$login.val}" {if $login.val == $loglogin}selected{/if}>{$login.val}</option>
                             {/foreach}
                         </select>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="date_from" class="col-md-1 control-label">{t}du :{/t}</label>
-                    <div class="col-md-3">
-                        <input class="datepicker form-control" id="date_from" name="date_from" value="{$date_from}">
-                    </div>
-                    <label for="date_to" class="col-md-1 control-label">{t}au :{/t}</label>
-                    <div class="col-md-3">
-                        <input class="datepicker form-control" id="date_to" name="date_to" value="{$date_to}">
-                    </div>
                     <div class="col-md-2 col-md-offset-1">
                         <input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="date_from" class="col-md-2 control-label">{t}du :{/t}</label>
+                    <div class="col-md-2">
+                        <input class="datepicker form-control" id="date_from" name="date_from" value="{$date_from}">
+                    </div>
+                    <label for="date_to" class="col-md-1 control-label">{t}au :{/t}</label>
+                    <div class="col-md-2">
+                        <input class="datepicker form-control" id="date_to" name="date_to" value="{$date_to}">
+                    </div>
+
                 </div>
             </form>
         </div>

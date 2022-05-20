@@ -56,6 +56,7 @@ class Sample extends ObjetBDD
           case when ro.referent_name is not null then ro.referent_firstname else cr.referent_firstname end as referent_firstname,
           case when ro.referent_name is not null then ro.academical_directory else cr.academical_directory end as academic_directory,
           case when ro.referent_name is not null then ro.academical_link else cr.academical_link end as academical_link,
+          case when ro.referent_name is not null then ro.referent_organization else cr.referent_organization end as referent_organization,
           borrowing_date, expected_return_date, borrower_id, borrower_name,
           vsq.multiple_value + vsq.subsample_more - vsq.subsample_less as subsample_quantity
 					from sample s

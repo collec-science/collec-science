@@ -113,8 +113,16 @@ COMMENT ON COLUMN col.collection.external_storage_enabled IS E'Enable the storag
 UPDATE col.request set body = 'SELECT ' || body;
 
 /**
+ * Ticket 583
+ */
+alter table col.referent add column referent_organization varchar;
+comment on column col.referent.referent_organization is 'Referent''s organization';
+
+/**
  * Version 2.7.0a
  */
 insert into col.dbversion (dbversion_number, dbversion_date)
 values ('2.7', '2022-03-31');
+
+
 

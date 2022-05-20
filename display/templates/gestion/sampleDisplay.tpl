@@ -77,7 +77,9 @@
     	    })
     	    .done (function (value) {
 				value = JSON.parse(value);
-				var newval = value.referent_firstname + " " + value.referent_name + "<br>" + value.referent_email + "<br>" +
+				var newval = value.referent_firstname + " " + value.referent_name + "<br>" +
+						value.referent_organization + "<br>" +
+						value.referent_email + "<br>" +
 						value.referent_phone + "<br>" + value.address_name + "<br>"
 						+ value.address_line2 + "<br>" + value.address_line3 + "<br>"
 						+ value.address_city + "<br>" + value.address_country;

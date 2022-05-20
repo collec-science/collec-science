@@ -18,6 +18,11 @@
 <input id="firstname" class="form-control" name="referent_firstname" value="{$data.referent_firstname}"></div>
 </div>
 <div class="form-group">
+<label for="referent_organization"  class="control-label col-md-4"> {t}Organisme :{/t}</label>
+<div class="col-md-8">
+<input id="referent_organization" class="form-control" name="referent_organization" value="{$data.referent_organization}"></div>
+</div>
+<div class="form-group">
 <label for="referentEmail"  class="control-label col-md-4"> {t}Mail :{/t}</label>
 <div class="col-md-8">
 <input id="referentEmail" type="email" class="form-control" name="referent_email" value="{$data.referent_email}"></div>

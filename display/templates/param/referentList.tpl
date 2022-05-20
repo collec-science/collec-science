@@ -12,6 +12,7 @@
 <tr>
 <th>{t}Nom du référent{/t}</th>
 <th>{t}Prénom{/t}</th>
+<th>{t}Organisme{/t}</th>
 <th>{t}Id{/t}</th>
 <th>{t}Mail{/t}</th>
 <th>{t}Téléphone{/t}</th>
@@ -36,6 +37,7 @@
 {/if}
 </td>
 <td>{$data[lst].referent_firstname}</td>
+<td>{$data[lst].referent_organization}</td>
 <td>{$data[lst].referent_id}</td>
 <td>{$data[lst].referent_email}</td>
 <td>{$data[lst].referent_phone}</td>

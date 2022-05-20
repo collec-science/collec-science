@@ -63,6 +63,7 @@ switch ($t_module["param"]) {
             } catch (Exception $e) {
                 $log->setLog("unknown", "passwordlostSendmail-ko", "$mail");
                 $message->setSyslog($e->getMessage());
+                $message->set(_("La réinitialisation du mot de passe n'est pas possible, contactez le cas échéant l'administrateur de l'application"), true);
             }
         }
 

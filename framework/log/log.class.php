@@ -180,8 +180,10 @@ class Log extends ObjetBDD
     public function getLastConnexionType($login)
     {
         if (strlen($login) > 0) {
+            global $GACL_aco;
+            $like = " like '".$GACL_aco."-connection%'";
             $sql = "select nom_module from log";
-            $sql .= " where login = :login and nom_module like 'connection%' and commentaire = 'ok' and nom_module <> 'connection-token'";
+            $sql .= " where login = :login and nom_module $like and commentaire = 'ok' and nom_module <> 'connection-token'";
             $sql .= "order by log_id desc limit 1";
             $data = $this->lireParamAsPrepared(
                 $sql,
@@ -190,7 +192,7 @@ class Log extends ObjetBDD
                 )
             );
             $connectionType = explode("-", $data["nom_module"]);
-            return $connectionType[0];
+            return $connectionType[2];
         }
     }
 

@@ -1083,7 +1083,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="referent" layers="0" collapse-mode="1" max-obj-count="14" z-value="0">
+<table name="referent" layers="0" collapse-mode="1" max-obj-count="15" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of sample referents]]></comment>
@@ -1136,6 +1136,10 @@ Autre]]>
 	<column name="academical_link">
 		<type name="varchar" length="0"/>
 		<comment><![CDATA[Link used to identify the referent, as https://orcid.org/0000-0003-4207-4107]]></comment>
+	</column>
+	<column name="referent_organization">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Referent's organization]]></comment>
 	</column>
 	<constraint name="referent_pk" type="pk-constr" table="col.referent">
 		<columns names="referent_id" ref-type="src-columns"/>

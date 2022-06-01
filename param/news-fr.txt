@@ -1,5 +1,17 @@
 News
 ===========
+Version 2.7.0b et 2.7.0c du 1/6/2022
+------------------------------------
+Correction de bugs :
+- la réinitialisation des mots de passe ne fonctionnait plus
+- liste des échantillons : la barre verticale, à gauche de la liste, a été supprimée, pour éviter qu'elle ne se retrouve au milieu d'une colonne quand on rajoutait des colonnes dans l'affichage. La liste des colonnes sélectionnée est maintenant correctement enregistrée dans le navigateur
+- affichage des logs : la liste des comptes a été déplacée vers une nouvelle ligne, pour éviter qu'elle ne soit masquée par un libellé trop long dans la liste déroulante précédente
+
+Nouveautés :
+- l'organisme du référent a été rajouté dans la table referent
+- il est maintenant possible de réaliser une recherche des échantillons par collection, même si l'utilisateur dispose uniquement du droit de consultation ou s'il ne fait pas partie d'une collection
+- une fiche expliquant les droits utilisables dans le logiciel a été rajoutée dans le menu documentation > administration
+
 Version 2.7.0a du 31/03/2022
 ----------------------------
 Correction de bugs :

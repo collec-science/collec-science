@@ -1,5 +1,17 @@
 News
 ===========
+Version 2.7.0b and 2.7.0c of June 1st, 2022
+------------------------------------
+Bug fixes:
+- the password reset was not working anymore
+- sample list: the vertical bar on the left side of the list has been removed, to avoid it to be in the middle of a column when adding columns in the display. The list of selected columns is now correctly saved in the browser
+- logs display: the list of accounts has been moved to a new line, to avoid it being hidden by a too long label in the previous dropdown list
+
+New features:
+- the referrer's organization has been added to the referent table
+- it is now possible to search for samples by collection, even if the user only has the right to consult or if he is not part of a collection
+- a document explaining the rights that can be used in the software has been added in the menu documentation > administration
+
 Version 2.7.0a of March 31, 2022
 ----------------------------
 Bug fixes:

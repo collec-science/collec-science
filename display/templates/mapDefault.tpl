@@ -46,12 +46,12 @@
         });
 
         lmap.on("zoomend", function () {
-            Cookies.set("mapDefaultZoom", lmap.getZoom(), { expires: 180 });
+            Cookies.set("mapDefaultZoom", lmap.getZoom(), { expires: 180, secure: true });
         });
         lmap.on("moveend", function () {
             var center = lmap.getCenter();
-            Cookies.set("mapDefaultLat", center.lat, { expires: 180 });
-            Cookies.set("mapDefaultLong", center.lng, { expires: 180 });
+            Cookies.set("mapDefaultLat", center.lat, { expires: 180, secure: true });
+            Cookies.set("mapDefaultLong", center.lng, { expires: 180, secure: true });
         });
         return lmap;
     }

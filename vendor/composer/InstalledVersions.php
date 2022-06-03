@@ -30,19 +30,19 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'e84094821d6041a948efdc8ac367a369542c20a1',
+    'reference' => '75499f778dab71bfda26dd21682853c2f48937d5',
     'name' => 'irstea/collec',
   ),
   'versions' => 
   array (
     'beberlei/assert' => 
     array (
-      'pretty_version' => 'v3.3.1',
-      'version' => '3.3.1.0',
+      'pretty_version' => 'v3.3.2',
+      'version' => '3.3.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5e721d7e937ca3ba2cdec1e1adf195f9e5188372',
+      'reference' => 'cb70015c04be1baee6f5f5c953703347c0ac1655',
     ),
     'bjeavons/zxcvbn-php' => 
     array (
@@ -60,25 +60,25 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'e84094821d6041a948efdc8ac367a369542c20a1',
+      'reference' => '75499f778dab71bfda26dd21682853c2f48937d5',
     ),
     'jasig/phpcas' => 
     array (
-      'pretty_version' => '1.4.0',
-      'version' => '1.4.0.0',
+      'pretty_version' => '1.5.0',
+      'version' => '1.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ea27d122c4c7114006b33d15668c90f1904d53df',
+      'reference' => 'd6f5797fb568726f34c8e48741776d81e4a2646b',
     ),
     'paragonie/constant_time_encoding' => 
     array (
-      'pretty_version' => 'v2.4.0',
-      'version' => '2.4.0.0',
+      'pretty_version' => 'v2.5.0',
+      'version' => '2.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f34c2b11eb9d2c9318e13540a1dbc2a3afbd939c',
+      'reference' => '9229e15f2e6ba772f0c55dd6986c563b937170a8',
     ),
     'paragonie/random_compat' => 
     array (
@@ -91,12 +91,12 @@ private static $installed = array (
     ),
     'picqer/php-barcode-generator' => 
     array (
-      'pretty_version' => 'v2.2.0',
-      'version' => '2.2.0.0',
+      'pretty_version' => 'v2.2.2',
+      'version' => '2.2.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7df93b40099e5fefad055543320a36b80dccda05',
+      'reference' => '877fcb0e9279ac40646361a7d7a7c6d0e1639836',
     ),
     'psr/log' => 
     array (
@@ -109,18 +109,18 @@ private static $installed = array (
     ),
     'ramsey/uuid' => 
     array (
-      'pretty_version' => '3.9.4',
-      'version' => '3.9.4.0',
+      'pretty_version' => '3.9.6',
+      'version' => '3.9.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'be2451bef8147b7352a28fb4cddb08adc497ada3',
+      'reference' => 'ffa80ab953edd85d5b6c004f96181a538aad35a3',
     ),
     'rhumsaa/uuid' => 
     array (
       'replaced' => 
       array (
-        0 => '3.9.4',
+        0 => '3.9.6',
       ),
     ),
     'smarty-gettext/smarty-gettext' => 
@@ -134,30 +134,30 @@ private static $installed = array (
     ),
     'smarty/smarty' => 
     array (
-      'pretty_version' => 'v3.1.39',
-      'version' => '3.1.39.0',
+      'pretty_version' => 'v3.1.45',
+      'version' => '3.1.45.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e27da524f7bcd7361e3ea5cdfa99c4378a7b5419',
+      'reference' => 'a2713ab89e6d773bc4819f11857af7f6b2e353a9',
     ),
     'spomky-labs/otphp' => 
     array (
-      'pretty_version' => 'v10.0.1',
-      'version' => '10.0.1.0',
+      'pretty_version' => 'v10.0.3',
+      'version' => '10.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f44cce5a9db4b8da410215d992110482c931232f',
+      'reference' => '9784d9f7c790eed26e102d6c78f12c754036c366',
     ),
     'symfony/polyfill-ctype' => 
     array (
-      'pretty_version' => 'v1.23.0',
-      'version' => '1.23.0.0',
+      'pretty_version' => 'v1.26.0',
+      'version' => '1.26.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '46cd95797e9df938fdd2b03693b5fca5e64b01ce',
+      'reference' => '6fd1b9a79f6e3cf65f9e679b23af304cd9e010d4',
     ),
     'thecodingmachine/safe' => 
     array (

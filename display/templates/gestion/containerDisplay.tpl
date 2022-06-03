@@ -22,7 +22,7 @@
 			} else {
 				tabHover = 0;
 			}
-			Cookies.set("tabHover", tabHover, { expires: 365 });
+			Cookies.set("tabHover", tabHover, { expires: 365, secure: true });
 		});
 		/* Management of tabs */
 		var activeTab = "{$activeTab}";
@@ -44,7 +44,7 @@
 			}
  		});
 		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
-			Cookies.set("containerDisplayTab",$(this).attr("id"));
+			Cookies.set("containerDisplayTab",$(this).attr("id"), { secure: true");
 		});
 		$('a[data-toggle="tab"]').on("click", function () {
 			tabHover = 0 ;

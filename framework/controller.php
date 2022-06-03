@@ -405,9 +405,7 @@ try {
              */
             $cookieParam = session_get_cookie_params();
             $cookieParam["lifetime"] = $tokenIdentityValidity;
-            if (!$APPLI_modeDeveloppement) {
-              $cookieParam["secure"] = true;
-            }
+            $cookieParam["secure"] = true;
             $cookieParam["httponly"] = true;
             setcookie('tokenIdentity', $token, time() + $tokenIdentityValidity, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
           } catch (Exception $e) {

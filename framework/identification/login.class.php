@@ -47,9 +47,7 @@ class Login
          */
         $cookieParam = session_get_cookie_params();
         $cookieParam["lifetime"] = time() - 3600;
-        if (!$APPLI_modeDeveloppement) {
-          $cookieParam["secure"] = true;
-        }
+        $cookieParam["secure"] = true;
         $cookieParam["httponly"] = true;
         setcookie('tokenIdentity', "", $cookieParam["lifetime"], $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
       }

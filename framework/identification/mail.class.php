@@ -57,7 +57,7 @@ class Mail
         if (strlen($dest) > 0) {
         $message = str_replace(array_keys($data), array_values($data), $this->param["contents"]);
         $subject = str_replace(array_keys($data), array_values($data), $this->param["subject"]);
-        
+
         $message = wordwrap($message, 70, PHP_EOL);
         return mail($dest, $subject, $message, $this->getHeaders());
         } else {
@@ -75,7 +75,7 @@ class Mail
         /*
          * Preparation de l'entete
          */
-        return 'Content-type: text/html; charset=UTF-8' . PHP_EOL . 'From: ' . $this->param["from"] . PHP_EOL . 'Reply-To: ' . $this->param["replyTo"];
+        return 'Content-type: text/html; charset=UTF-8' . PHP_EOL . 'From: ' . $this->param["from"] ;
     }
 }
 ?>

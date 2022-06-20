@@ -1,11 +1,8 @@
 -- Database generated with pgModeler (PostgreSQL Database Modeler).
--- pgModeler  version: 0.9.3
+-- pgModeler version: 0.9.4
 -- PostgreSQL version: 9.6
 -- Project Site: pgmodeler.io
--- Model Author: Eric Quinton
-
-SET check_function_bodies = false;
--- ddl-end --
+-- Model Author: ---
 
 -- object: col | type: SCHEMA --
 -- DROP SCHEMA IF EXISTS col CASCADE;
@@ -23,7 +20,6 @@ ALTER SCHEMA gacl OWNER TO collec;
 
 SET search_path TO pg_catalog,public,col,gacl;
 -- ddl-end --
-
 
 -- object: col.booking_booking_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.booking_booking_id_seq CASCADE;
@@ -51,7 +47,6 @@ CREATE TABLE col.booking (
 	booking_comment character varying,
 	booking_login character varying NOT NULL,
 	CONSTRAINT booking_pk PRIMARY KEY (booking_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.booking IS E'Table of object''s bookings';
@@ -90,7 +85,6 @@ CREATE TABLE col.collection_group (
 	collection_id integer NOT NULL,
 	aclgroup_id integer NOT NULL,
 	CONSTRAINT projet_group_pk PRIMARY KEY (collection_id,aclgroup_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.collection_group IS E'Table of project approvals';
@@ -120,7 +114,6 @@ CREATE TABLE col.container (
 	uid integer NOT NULL,
 	container_type_id integer NOT NULL,
 	CONSTRAINT container_pk PRIMARY KEY (container_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.container IS E'Liste of containers';
@@ -149,7 +142,6 @@ CREATE TABLE col.container_family (
 	container_family_id integer NOT NULL DEFAULT nextval('col.container_family_container_family_id_seq'::regclass),
 	container_family_name character varying NOT NULL,
 	CONSTRAINT container_family_pk PRIMARY KEY (container_family_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.container_family IS E'General family of containers';
@@ -193,8 +185,9 @@ CREATE TABLE col.container_type (
 	first_line character varying NOT NULL DEFAULT 'T',
 	nb_slots_max integer DEFAULT 0,
 	first_column varchar DEFAULT 'L',
+	line_in_char boolean NOT NULL DEFAULT false,
+	column_in_char boolean NOT NULL DEFAULT false,
 	CONSTRAINT container_type_pk PRIMARY KEY (container_type_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.container_type IS E'Table of types of containers';
@@ -214,6 +207,10 @@ COMMENT ON COLUMN col.container_type.first_line IS E'Place of the first line:\nT
 COMMENT ON COLUMN col.container_type.nb_slots_max IS E'Number maximum of slots in the container';
 -- ddl-end --
 COMMENT ON COLUMN col.container_type.first_column IS E'Place of the first column: \nL: left\nR: Right';
+-- ddl-end --
+COMMENT ON COLUMN col.container_type.line_in_char IS E'Is the number of the line is displayed in character?';
+-- ddl-end --
+COMMENT ON COLUMN col.container_type.column_in_char IS E'Is the number of the column is displayed in character?';
 -- ddl-end --
 ALTER TABLE col.container_type OWNER TO collec;
 -- ddl-end --
@@ -236,7 +233,6 @@ CREATE TABLE col.dbparam (
 	dbparam_name character varying NOT NULL,
 	dbparam_value character varying,
 	CONSTRAINT dbparam_pk PRIMARY KEY (dbparam_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.dbparam IS E'Table of parameters intrinsically associated to the instance';
@@ -283,7 +279,6 @@ CREATE TABLE col.dbversion (
 	dbversion_number character varying NOT NULL,
 	dbversion_date timestamp NOT NULL,
 	CONSTRAINT dbversion_pk PRIMARY KEY (dbversion_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.dbversion IS E'Table of the database versions';
@@ -326,10 +321,11 @@ CREATE TABLE col.document (
 	thumbnail bytea,
 	size integer,
 	document_creation_date timestamp,
-	campaign_id integer,
 	uuid uuid NOT NULL DEFAULT gen_random_uuid(),
+	external_storage boolean NOT NULL DEFAULT false,
+	external_storage_path varchar,
+	campaign_id integer,
 	CONSTRAINT document_pk PRIMARY KEY (document_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.document IS E'Numeric docs associated to an objet or a campaign';
@@ -347,6 +343,10 @@ COMMENT ON COLUMN col.document.thumbnail IS E'Thumbnail in PNG format ( only for
 COMMENT ON COLUMN col.document.size IS E'Size of downloaded file';
 -- ddl-end --
 COMMENT ON COLUMN col.document.document_creation_date IS E'Create date of the document (date of photo shooting, for example)';
+-- ddl-end --
+COMMENT ON COLUMN col.document.external_storage IS E'Is the document stored in the external storage?';
+-- ddl-end --
+COMMENT ON COLUMN col.document.external_storage_path IS E'Path to the file, relative to the root of the external storage';
 -- ddl-end --
 ALTER TABLE col.document OWNER TO collec;
 -- ddl-end --
@@ -376,7 +376,6 @@ CREATE TABLE col.event (
 	still_available character varying,
 	event_comment character varying,
 	CONSTRAINT event_pk PRIMARY KEY (event_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.event IS E'Table of events';
@@ -413,7 +412,6 @@ CREATE TABLE col.event_type (
 	is_sample boolean NOT NULL DEFAULT false,
 	is_container boolean NOT NULL DEFAULT false,
 	CONSTRAINT event_type_pk PRIMARY KEY (event_type_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.event_type IS E'Event types table';
@@ -461,7 +459,6 @@ CREATE TABLE col.identifier_type (
 	identifier_type_code character varying,
 	used_for_search boolean NOT NULL DEFAULT false,
 	CONSTRAINT identifier_type_pk PRIMARY KEY (identifier_type_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.identifier_type IS E'Table of identifier types';
@@ -499,8 +496,8 @@ CREATE TABLE col.label (
 	label_fields character varying NOT NULL DEFAULT 'uid,id,clp,db',
 	metadata_id integer,
 	identifier_only boolean NOT NULL DEFAULT false,
+	barcode_id integer NOT NULL,
 	CONSTRAINT label_pk PRIMARY KEY (label_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.label IS E'Table of label models';
@@ -518,65 +515,7 @@ COMMENT ON COLUMN col.label.identifier_only IS E'true: the qrcode contains only 
 ALTER TABLE col.label OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.label (label_name, label_xsl, label_fields) VALUES (E'Example - Don''t use', E'<?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet version="1.0"
-      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-      xmlns:fo="http://www.w3.org/1999/XSL/Format">
-  <xsl:output method="xml" indent="yes"/>
-  <xsl:template match="objects">
-    <fo:root>
-      <fo:layout-master-set>
-        <fo:simple-page-master master-name="label"
-              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">
-              <fo:region-body/>
-        </fo:simple-page-master>
-      </fo:layout-master-set>
-
-      <fo:page-sequence master-reference="label">
-         <fo:flow flow-name="xsl-region-body">
-          <fo:block>
-          <xsl:apply-templates select="object" />
-          </fo:block>
-
-        </fo:flow>
-      </fo:page-sequence>
-    </fo:root>
-   </xsl:template>
-  <xsl:template match="object">
-
-  <fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="8cm" keep-together.within-page="always">
-  <fo:table-column column-width="4cm"/>
-  <fo:table-column column-width="4cm" />
- <fo:table-body  border-style="none" >
- 	<fo:table-row>
-  		<fo:table-cell>
-  		<fo:block>
-  		<fo:external-graphic>
-      <xsl:attribute name="src">
-             <xsl:value-of select="concat(uid,''.png'')" />
-       </xsl:attribute>
-       <xsl:attribute name="content-height">scale-to-fit</xsl:attribute>
-       <xsl:attribute name="height">4cm</xsl:attribute>
-        <xsl:attribute name="content-width">4cm</xsl:attribute>
-        <xsl:attribute name="scaling">uniform</xsl:attribute>
-
-       </fo:external-graphic>
- 		</fo:block>
-   		</fo:table-cell>
-  		<fo:table-cell>
-<fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>
-  			<fo:block>uid:<fo:inline font-weight="bold"><xsl:value-of select="db"/>:<xsl:value-of select="uid"/></fo:inline></fo:block>
-  			<fo:block>id:<fo:inline font-weight="bold"><xsl:value-of select="id"/></fo:inline></fo:block>
-  			<fo:block>prj:<fo:inline font-weight="bold"><xsl:value-of select="prj"/></fo:inline></fo:block>
-  			<fo:block>clp:<fo:inline font-weight="bold"><xsl:value-of select="clp"/></fo:inline></fo:block>
-  		</fo:table-cell>
-  	  	</fo:table-row>
-  </fo:table-body>
-  </fo:table>
-   <fo:block page-break-after="always"/>
-
-  </xsl:template>
-</xsl:stylesheet>', E'uid,id,clp,db,col');
+INSERT INTO col.label (label_name, barcode_id, label_xsl, label_fields) VALUES (E'Example - Don''t use', E'1', E'<xsl:stylesheet version="1.0"\n      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"\n      xmlns:fo="http://www.w3.org/1999/XSL/Format">\n  <xsl:output method="xml" indent="yes"/>\n  <xsl:template match="objects">\n    <fo:root>\n      <fo:layout-master-set>\n        <fo:simple-page-master master-name="label"\n              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">  \n              <fo:region-body/>\n        </fo:simple-page-master>\n      </fo:layout-master-set>\n      \n      <fo:page-sequence master-reference="label">\n         <fo:flow flow-name="xsl-region-body">        \n          <fo:block>\n          <xsl:apply-templates select="object" />\n          </fo:block>\n\n        </fo:flow>\n      </fo:page-sequence>\n    </fo:root>\n   </xsl:template>\n  <xsl:template match="object">\n\n  <fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="8cm&quot; keep-together.within-page=&quot;always">\n  <fo:table-column column-width="4cm"/>\n  <fo:table-column column-width="4cm" />\n <fo:table-body  border-style="none" >\n 	<fo:table-row>\n  		<fo:table-cell> \n  		<fo:block>\n  		<fo:external-graphic>\n      <xsl:attribute name="src">\n             <xsl:value-of select="concat(uid,''.png'')" />\n       </xsl:attribute>\n       <xsl:attribute name="content-height">scale-to-fit</xsl:attribute>\n       <xsl:attribute name="height">4cm</xsl:attribute>\n        <xsl:attribute name="content-width">4cm</xsl:attribute>\n        <xsl:attribute name="scaling">uniform</xsl:attribute>\n      \n       </fo:external-graphic>\n 		</fo:block>\n   		</fo:table-cell>\n  		<fo:table-cell>\n<fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>\n  			<fo:block>uid:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;db&quot;/&gt;:&lt;xsl:value-of select=&quot;uid"/></fo:inline></fo:block>\n  			<fo:block>id:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;id"/></fo:inline></fo:block>\n  			<fo:block>prj:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;prj"/></fo:inline></fo:block>\n  			<fo:block>clp:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;clp"/></fo:inline></fo:block>\n  		</fo:table-cell>\n  	  	</fo:table-row>\n  </fo:table-body>\n  </fo:table>\n   <fo:block page-break-after="always"/>\n\n  </xsl:template>\n</xsl:stylesheet>', E'uid,id,clp,db,col');
 -- ddl-end --
 
 -- object: col.storage_storage_id_seq | type: SEQUENCE --
@@ -633,7 +572,6 @@ CREATE TABLE col.metadata (
 	metadata_name character varying NOT NULL,
 	metadata_schema json,
 	CONSTRAINT metadata_pk PRIMARY KEY (metadata_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.metadata IS E'Table of metadata usable with types of samples';
@@ -667,7 +605,6 @@ CREATE TABLE col.mime_type (
 	extension character varying NOT NULL,
 	content_type character varying NOT NULL,
 	CONSTRAINT mime_type_pk PRIMARY KEY (mime_type_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.mime_type IS E'Mime types of imported files';
@@ -754,7 +691,6 @@ CREATE TABLE col.movement_type (
 	movement_type_id integer NOT NULL DEFAULT nextval('col.movement_type_movement_type_id_seq'::regclass),
 	movement_type_name character varying NOT NULL,
 	CONSTRAINT movement_type_pk PRIMARY KEY (movement_type_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.movement_type IS E'Type de mouvement';
@@ -788,7 +724,6 @@ CREATE TABLE col.multiple_type (
 	multiple_type_id integer NOT NULL DEFAULT nextval('col.multiple_type_multiple_type_id_seq'::regclass),
 	multiple_type_name character varying NOT NULL,
 	CONSTRAINT multiple_type_pk PRIMARY KEY (multiple_type_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.multiple_type IS E'Table of categories of potential sub-sampling (unit, quantity, percentage, etc.)';
@@ -843,7 +778,6 @@ CREATE TABLE col.object_identifier (
 	identifier_type_id integer NOT NULL,
 	object_identifier_value character varying NOT NULL,
 	CONSTRAINT object_identifier_pk PRIMARY KEY (object_identifier_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.object_identifier IS E'Table of complementary identifiers';
@@ -874,7 +808,6 @@ CREATE TABLE col.object_status (
 	object_status_id integer NOT NULL DEFAULT nextval('col.object_status_object_status_id_seq'::regclass),
 	object_status_name character varying NOT NULL,
 	CONSTRAINT object_status_pk PRIMARY KEY (object_status_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.object_status IS E'Table of types of status';
@@ -921,7 +854,6 @@ CREATE TABLE col.operation (
 	last_edit_date timestamp,
 	CONSTRAINT operation_name_version_unique UNIQUE (operation_name,operation_version),
 	CONSTRAINT operation_pk PRIMARY KEY (operation_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.operation IS E'List of operations attached to a protocol';
@@ -960,7 +892,6 @@ CREATE TABLE col.printer (
 	printer_user character varying,
 	printer_comment character varying,
 	CONSTRAINT printer_pk PRIMARY KEY (printer_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.printer IS E'Table of printers directly managed by the server';
@@ -989,9 +920,11 @@ CREATE TABLE col.collection (
 	public_collection boolean DEFAULT 'f',
 	collection_keywords varchar,
 	collection_displayname varchar,
+	no_localization boolean NOT NULL DEFAULT false,
+	external_storage_enabled boolean NOT NULL DEFAULT false,
+	external_storage_root varchar,
 	license_id integer,
 	CONSTRAINT project_pk PRIMARY KEY (collection_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.collection IS E'List of all collections into the database';
@@ -1005,6 +938,12 @@ COMMENT ON COLUMN col.collection.public_collection IS E'Set if a collection can 
 COMMENT ON COLUMN col.collection.collection_keywords IS E'List of keywords, separed by a comma';
 -- ddl-end --
 COMMENT ON COLUMN col.collection.collection_displayname IS E'Name used to communicate from the collection, in export module by example';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.no_localization IS E'True if the localization of samples is not used';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.external_storage_enabled IS E'Enable the storage of sample''s documents out of the database';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.external_storage_root IS E'Root path of the documents stored out of the database';
 -- ddl-end --
 ALTER TABLE col.collection OWNER TO collec;
 -- ddl-end --
@@ -1036,7 +975,6 @@ CREATE TABLE col.protocol (
 	authorization_number character varying,
 	authorization_date timestamp,
 	CONSTRAINT protocol_pk PRIMARY KEY (protocol_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.protocol IS E'List of protocols';
@@ -1086,8 +1024,8 @@ CREATE TABLE col.referent (
 	referent_firstname varchar,
 	academical_directory varchar,
 	academical_link varchar,
+	referent_organization varchar,
 	CONSTRAINT referent_pk PRIMARY KEY (referent_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.referent IS E'Table of sample referents';
@@ -1113,6 +1051,8 @@ COMMENT ON COLUMN col.referent.referent_firstname IS E'Firstname of the referent
 COMMENT ON COLUMN col.referent.academical_directory IS E'Academical directory used to identifier the referent, as https://orcid.org or https://www.researchgate.net';
 -- ddl-end --
 COMMENT ON COLUMN col.referent.academical_link IS E'Link used to identify the referent, as https://orcid.org/0000-0003-4207-4107';
+-- ddl-end --
+COMMENT ON COLUMN col.referent.referent_organization IS E'Referent''s organization';
 -- ddl-end --
 ALTER TABLE col.referent OWNER TO collec;
 -- ddl-end --
@@ -1151,7 +1091,6 @@ CREATE TABLE col.sample (
 	country_id integer,
 	country_origin_id integer,
 	CONSTRAINT sample_pk PRIMARY KEY (sample_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.sample IS E'Table of samples';
@@ -1197,7 +1136,6 @@ CREATE TABLE col.sample_type (
 	identifier_generator_js character varying,
 	sample_type_description varchar,
 	CONSTRAINT sample_type_pk PRIMARY KEY (sample_type_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.sample_type IS E'Table of the types of samples';
@@ -1239,7 +1177,6 @@ CREATE TABLE col.sampling_place (
 	sampling_place_y double precision,
 	country_id integer,
 	CONSTRAINT sampling_place_pk PRIMARY KEY (sampling_place_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.sampling_place IS E'Table of sampling places';
@@ -1278,7 +1215,6 @@ CREATE TABLE col.storage_condition (
 	storage_condition_id integer NOT NULL DEFAULT nextval('col.storage_condition_storage_condition_id_seq'::regclass),
 	storage_condition_name character varying NOT NULL,
 	CONSTRAINT storage_condition_pk PRIMARY KEY (storage_condition_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.storage_condition IS E'Table of the conditions of storage';
@@ -1292,7 +1228,6 @@ CREATE TABLE col.movement_reason (
 	movement_reason_id integer NOT NULL DEFAULT nextval('col.storage_reason_storage_reason_id_seq'::regclass),
 	movement_reason_name character varying NOT NULL,
 	CONSTRAINT storage_reason_pk PRIMARY KEY (movement_reason_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.movement_reason IS E'List of the reasons of the movement';
@@ -1315,7 +1250,6 @@ CREATE TABLE col.movement (
 	column_number integer NOT NULL DEFAULT 1,
 	line_number integer NOT NULL DEFAULT 1,
 	CONSTRAINT storage_pk PRIMARY KEY (movement_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.movement IS E'Records of objects movements';
@@ -1360,8 +1294,8 @@ CREATE TABLE col.subsample (
 	subsample_quantity double precision,
 	subsample_comment character varying,
 	subsample_login character varying NOT NULL,
+	borrower_id integer,
 	CONSTRAINT subsample_pk PRIMARY KEY (subsample_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.subsample IS E'Table of sub-sample takes and returns';
@@ -1415,7 +1349,6 @@ CREATE TABLE gacl.aclacl (
 	aclaco_id integer NOT NULL,
 	aclgroup_id integer NOT NULL,
 	CONSTRAINT aclacl_pk PRIMARY KEY (aclaco_id,aclgroup_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.aclacl IS E'Table of rights granted';
@@ -1458,7 +1391,6 @@ CREATE TABLE gacl.aclaco (
 	aclappli_id integer NOT NULL,
 	aco character varying NOT NULL,
 	CONSTRAINT aclaco_pk PRIMARY KEY (aclaco_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.aclaco IS E'Table of managed rights';
@@ -1503,7 +1435,6 @@ CREATE TABLE gacl.aclappli (
 	appli character varying NOT NULL,
 	applidetail character varying,
 	CONSTRAINT aclappli_pk PRIMARY KEY (aclappli_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.aclappli IS E'Table of managed applications';
@@ -1525,7 +1456,6 @@ CREATE TABLE gacl.aclgroup (
 	groupe character varying NOT NULL,
 	aclgroup_id_parent integer,
 	CONSTRAINT aclgroup_pk PRIMARY KEY (aclgroup_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.aclgroup IS E'Groups of logins';
@@ -1573,7 +1503,6 @@ CREATE TABLE gacl.acllogin (
 	logindetail character varying NOT NULL,
 	totp_key varchar,
 	CONSTRAINT acllogin_pk PRIMARY KEY (acllogin_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.acllogin IS E'List of logins granted to access to the modules of the application';
@@ -1596,7 +1525,6 @@ CREATE TABLE gacl.acllogingroup (
 	acllogin_id integer NOT NULL,
 	aclgroup_id integer NOT NULL,
 	CONSTRAINT acllogingroup_pk PRIMARY KEY (acllogin_id,aclgroup_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.acllogingroup IS E'List of logins in the groups';
@@ -1634,7 +1562,6 @@ CREATE TABLE gacl.log (
 	commentaire character varying,
 	ipaddress character varying,
 	CONSTRAINT log_pk PRIMARY KEY (log_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.log IS E'List of all recorded operations (logins, calls of modules, etc.)';
@@ -1682,7 +1609,6 @@ CREATE TABLE gacl.logingestion (
 	tokenws character varying,
 	is_expired boolean DEFAULT false,
 	CONSTRAINT pk_logingestion PRIMARY KEY (id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.logingestion IS E'List of logins used to connect to the application, when the account is managed by the application itself. This table also contains the accounts authorized to use the web services.';
@@ -1735,7 +1661,6 @@ CREATE TABLE gacl.passwordlost (
 	expiration timestamp NOT NULL,
 	usedate timestamp,
 	CONSTRAINT passwordlost_pk PRIMARY KEY (passwordlost_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.passwordlost IS E'Password loss tracking table';
@@ -1754,91 +1679,91 @@ ALTER TABLE gacl.passwordlost OWNER TO collec;
 -- object: referent_referent_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.referent_referent_name_idx CASCADE;
 CREATE UNIQUE INDEX referent_referent_name_idx ON col.referent
-	USING btree
-	(
-	  referent_name
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	referent_name
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: sample_expiration_date_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.sample_expiration_date_idx CASCADE;
 CREATE INDEX sample_expiration_date_idx ON col.sample
-	USING btree
-	(
-	  expiration_date
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	expiration_date
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: sample_sample_creation_date_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.sample_sample_creation_date_idx CASCADE;
 CREATE INDEX sample_sample_creation_date_idx ON col.sample
-	USING btree
-	(
-	  sample_creation_date
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	sample_creation_date
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: sample_sampling_date_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.sample_sampling_date_idx CASCADE;
 CREATE INDEX sample_sampling_date_idx ON col.sample
-	USING btree
-	(
-	  sampling_date
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	sampling_date
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: log_date_idx | type: INDEX --
 -- DROP INDEX IF EXISTS gacl.log_date_idx CASCADE;
 CREATE INDEX log_date_idx ON gacl.log
-	USING btree
-	(
-	  log_date
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	log_date
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: log_login_idx | type: INDEX --
 -- DROP INDEX IF EXISTS gacl.log_login_idx CASCADE;
 CREATE INDEX log_login_idx ON gacl.log
-	USING btree
-	(
-	  login
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	login
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: log_commentaire_idx | type: INDEX --
 -- DROP INDEX IF EXISTS gacl.log_commentaire_idx CASCADE;
 CREATE INDEX log_commentaire_idx ON gacl.log
-	USING btree
-	(
-	  commentaire
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	commentaire
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: logingestion_login_idx | type: INDEX --
 -- DROP INDEX IF EXISTS gacl.logingestion_login_idx CASCADE;
 CREATE UNIQUE INDEX logingestion_login_idx ON gacl.logingestion
-	USING btree
-	(
-	  login
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	login
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: log_ip_idx | type: INDEX --
 -- DROP INDEX IF EXISTS gacl.log_ip_idx CASCADE;
 CREATE INDEX log_ip_idx ON gacl.log
-	USING btree
-	(
-	  ipaddress
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	ipaddress
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: col.last_movement | type: VIEW --
@@ -1891,7 +1816,6 @@ CREATE TABLE col.borrower (
 	laboratory_code varchar,
 	borrower_mail varchar,
 	CONSTRAINT borrower_pk PRIMARY KEY (borrower_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.borrower IS E'List of borrowers';
@@ -1932,7 +1856,6 @@ CREATE TABLE col.borrowing (
 	borrower_id integer NOT NULL,
 	return_date timestamp,
 	CONSTRAINT borrowing_pk PRIMARY KEY (borrowing_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.borrowing IS E'List of borrowings';
@@ -1949,21 +1872,21 @@ ALTER TABLE col.borrowing OWNER TO collec;
 -- object: borrowing_uid_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.borrowing_uid_idx CASCADE;
 CREATE INDEX borrowing_uid_idx ON col.borrowing
-	USING btree
-	(
-	  uid
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	uid
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: borrowing_borrower_id_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.borrowing_borrower_id_idx CASCADE;
 CREATE INDEX borrowing_borrower_id_idx ON col.borrowing
-	USING btree
-	(
-	  borrower_id
-	)
-	WITH (FILLFACTOR = 90);
+USING btree
+(
+	borrower_id
+)
+WITH (FILLFACTOR = 90);
 -- ddl-end --
 
 -- object: col.last_borrowing | type: VIEW --
@@ -2005,10 +1928,10 @@ ALTER VIEW col.slots_used OWNER TO collec;
 -- object: log_module_idx | type: INDEX --
 -- DROP INDEX IF EXISTS gacl.log_module_idx CASCADE;
 CREATE INDEX log_module_idx ON gacl.log
-	USING btree
-	(
-	  nom_module
-	);
+USING btree
+(
+	nom_module
+);
 -- ddl-end --
 
 -- object: col.request_request_id_seq | type: SEQUENCE --
@@ -2036,8 +1959,8 @@ CREATE TABLE col.request (
 	body character varying NOT NULL,
 	login character varying NOT NULL,
 	datefields character varying,
+	collection_id integer,
 	CONSTRAINT request_pk PRIMARY KEY (request_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.request IS E'Request table in database';
@@ -2083,7 +2006,6 @@ CREATE TABLE col.export_model (
 	pattern json,
 	target varchar,
 	CONSTRAINT export_model_pk PRIMARY KEY (export_model_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.export_model IS E'Structure of an export/import of table data';
@@ -2105,64 +2027,64 @@ INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_templ
 -- object: movement_uid_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.movement_uid_idx CASCADE;
 CREATE INDEX movement_uid_idx ON col.movement
-	USING btree
-	(
-	  uid
-	);
+USING btree
+(
+	uid
+);
 -- ddl-end --
 
 -- object: movement_container_id_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.movement_container_id_idx CASCADE;
 CREATE INDEX movement_container_id_idx ON col.movement
-	USING btree
-	(
-	  container_id
-	);
+USING btree
+(
+	container_id
+);
 -- ddl-end --
 
 -- object: movement_movement_date_desc_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.movement_movement_date_desc_idx CASCADE;
 CREATE INDEX movement_movement_date_desc_idx ON col.movement
-	USING btree
-	(
-	  movement_date DESC NULLS LAST
-	);
+USING btree
+(
+	movement_date DESC NULLS LAST
+);
 -- ddl-end --
 
 -- object: movement_login_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.movement_login_idx CASCADE;
 CREATE INDEX movement_login_idx ON col.movement
-	USING btree
-	(
-	  login
-	);
+USING btree
+(
+	login
+);
 -- ddl-end --
 
 -- object: container_uid_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.container_uid_idx CASCADE;
 CREATE INDEX container_uid_idx ON col.container
-	USING btree
-	(
-	  uid
-	);
+USING btree
+(
+	uid
+);
 -- ddl-end --
 
 -- object: object_identifier_uid_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.object_identifier_uid_idx CASCADE;
 CREATE INDEX object_identifier_uid_idx ON col.object_identifier
-	USING btree
-	(
-	  uid
-	);
+USING btree
+(
+	uid
+);
 -- ddl-end --
 
 -- object: sample_uid_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.sample_uid_idx CASCADE;
 CREATE INDEX sample_uid_idx ON col.sample
-	USING btree
-	(
-	  uid
-	);
+USING btree
+(
+	uid
+);
 -- ddl-end --
 
 -- object: col.object | type: TABLE --
@@ -2181,7 +2103,6 @@ CREATE TABLE col.object (
 	geom geography(POINT, 4326),
 	object_comment varchar,
 	CONSTRAINT object_pk PRIMARY KEY (uid)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.object IS E'Table of objects';
@@ -2212,11 +2133,11 @@ ALTER TABLE col.object OWNER TO collec;
 -- object: object_trashed | type: INDEX --
 -- DROP INDEX IF EXISTS col.object_trashed CASCADE;
 CREATE INDEX object_trashed ON col.object
-	USING btree
-	(
-	  trashed
-	)
-	WHERE (trashed = true);
+USING btree
+(
+	trashed
+)
+WHERE (trashed = true);
 -- ddl-end --
 COMMENT ON INDEX col.object_trashed IS E'Index used when trashed is true';
 -- ddl-end --
@@ -2224,10 +2145,10 @@ COMMENT ON INDEX col.object_trashed IS E'Index used when trashed is true';
 -- object: col_object_geom_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.col_object_geom_idx CASCADE;
 CREATE INDEX col_object_geom_idx ON col.object
-	USING gist
-	(
-	  geom
-	);
+USING gist
+(
+	geom
+);
 -- ddl-end --
 
 -- object: col.campaign_campaign_id_seq | type: SEQUENCE --
@@ -2249,12 +2170,12 @@ ALTER SEQUENCE col.campaign_campaign_id_seq OWNER TO collec;
 -- DROP TABLE IF EXISTS col.campaign CASCADE;
 CREATE TABLE col.campaign (
 	campaign_id integer NOT NULL DEFAULT nextval('col.campaign_campaign_id_seq'::regclass),
-	referent_id integer,
 	campaign_name varchar NOT NULL,
 	campaign_from timestamp,
 	campaign_to timestamp,
+	uuid uuid NOT NULL DEFAULT gen_random_uuid(),
+	referent_id integer,
 	CONSTRAINT campaign_pk PRIMARY KEY (campaign_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.campaign IS E'List of sampling campaigns';
@@ -2264,6 +2185,8 @@ COMMENT ON COLUMN col.campaign.campaign_name IS E'Name of the campaign';
 COMMENT ON COLUMN col.campaign.campaign_from IS E'Date of start of the campaign';
 -- ddl-end --
 COMMENT ON COLUMN col.campaign.campaign_to IS E'date of end of the campaign';
+-- ddl-end --
+COMMENT ON COLUMN col.campaign.uuid IS E'UUID of the campaign';
 -- ddl-end --
 ALTER TABLE col.campaign OWNER TO collec;
 -- ddl-end --
@@ -2290,7 +2213,6 @@ CREATE TABLE col.regulation (
 	regulation_name varchar NOT NULL,
 	regulation_comment varchar,
 	CONSTRAINT regulation_pk PRIMARY KEY (regulation_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.regulation IS E'Table of regulations';
@@ -2307,11 +2229,10 @@ ALTER TABLE col.regulation OWNER TO collec;
 CREATE TABLE col.campaign_regulation (
 	campaign_regulation_id serial NOT NULL,
 	campaign_id integer NOT NULL,
-	regulation_id integer NOT NULL,
 	authorization_number varchar,
 	authorization_date timestamp,
+	regulation_id integer NOT NULL,
 	CONSTRAINT campaign_regulation_pk PRIMARY KEY (campaign_regulation_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.campaign_regulation IS E'List of regulations attached to a campaign';
@@ -2365,7 +2286,6 @@ CREATE TABLE col.lot (
 	collection_id integer,
 	lot_date timestamp NOT NULL DEFAULT current_timestamp,
 	CONSTRAINT lot_pk PRIMARY KEY (lot_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.lot IS E'List of lots of export';
@@ -2388,7 +2308,6 @@ CREATE TABLE col.lot_sample (
 	lot_id integer NOT NULL,
 	sample_id integer NOT NULL,
 	CONSTRAINT lot_sample_pk PRIMARY KEY (lot_id,sample_id) DEFERRABLE INITIALLY IMMEDIATE
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.lot_sample IS E'List of samples associated into a lot';
@@ -2418,7 +2337,6 @@ CREATE TABLE col.export (
 	export_date timestamp,
 	export_template_id integer NOT NULL,
 	CONSTRAINT export_pk PRIMARY KEY (export_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.export IS E'List of exports processed';
@@ -2445,7 +2363,6 @@ CREATE TABLE col.export_template (
 	is_zipped boolean DEFAULT false,
 	filename varchar NOT NULL DEFAULT 'cs-export.csv',
 	CONSTRAINT export_model1_pk PRIMARY KEY (export_template_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.export_template IS E'List of models of export';
@@ -2476,15 +2393,14 @@ CREATE TABLE col.dataset_template (
 	dataset_template_id serial NOT NULL,
 	dataset_template_name varchar NOT NULL,
 	export_format_id integer NOT NULL,
-	dataset_type_id integer NOT NULL,
 	only_last_document boolean DEFAULT false,
 	separator varchar,
 	filename varchar NOT NULL DEFAULT 'cs-export.csv',
 	xmlroot varchar,
 	xmlnodename varchar DEFAULT 'sample',
 	xslcontent varchar,
+	dataset_type_id integer NOT NULL,
 	CONSTRAINT dataset_template_pk PRIMARY KEY (dataset_template_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.dataset_template IS E'List of templates of dataset';
@@ -2512,7 +2428,6 @@ CREATE TABLE col.export_format (
 	export_format_id serial NOT NULL,
 	export_format_name varchar NOT NULL,
 	CONSTRAINT export_format_pk PRIMARY KEY (export_format_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.export_format IS E'List of formats of export';
@@ -2540,7 +2455,6 @@ CREATE TABLE col.export_dataset (
 	export_template_id integer NOT NULL,
 	dataset_template_id integer NOT NULL,
 	CONSTRAINT export_dataset_pk PRIMARY KEY (export_template_id,dataset_template_id) DEFERRABLE INITIALLY IMMEDIATE
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.export_dataset IS E'List of datasets embedded into the template of export';
@@ -2570,14 +2484,13 @@ CREATE TABLE col.dataset_column (
 	column_name varchar NOT NULL,
 	export_name varchar NOT NULL,
 	subfield_name varchar,
-	translator_id integer,
 	column_order smallint DEFAULT 1,
 	mandatory boolean DEFAULT 'f',
 	default_value varchar,
 	date_format varchar,
 	search_order smallint,
+	translator_id integer,
 	CONSTRAINT dataset_column_pk PRIMARY KEY (dataset_column_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.dataset_column IS E'List of columns included into the dataset';
@@ -2615,7 +2528,6 @@ CREATE TABLE col.translator (
 	translator_name varchar NOT NULL,
 	translator_data json,
 	CONSTRAINT translator_pk PRIMARY KEY (translator_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.translator IS E'Table of translator of values';
@@ -2639,7 +2551,6 @@ CREATE TABLE col.dataset_type (
 	dataset_type_name varchar NOT NULL,
 	fields json,
 	CONSTRAINT dataset_type_pk PRIMARY KEY (dataset_type_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.dataset_type IS E'Origine of the dataset: sample, collection, document';
@@ -2649,7 +2560,7 @@ COMMENT ON COLUMN col.dataset_type.fields IS E'List of allowed fields of the dat
 ALTER TABLE col.dataset_type OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed"]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed","campaign_id","campaign_name","campaign_uuid"]');
 -- ddl-end --
 INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'2', E'collection', E'["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academical_directory","academical_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]');
 -- ddl-end --
@@ -2673,6 +2584,7 @@ CREATE TABLE col.samplesearch (
 	samplesearch_data json,
 	samplesearch_login varchar,
 	collection_id integer
+
 );
 -- ddl-end --
 COMMENT ON TABLE col.samplesearch IS E'List of sample saved search';
@@ -2700,7 +2612,6 @@ CREATE TABLE col.license (
 	license_name varchar NOT NULL,
 	license_url varchar,
 	CONSTRAINT license_pk PRIMARY KEY (license_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.license IS E'List of licenses usable to communicate informations on the collections';
@@ -2727,136 +2638,136 @@ ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 -- object: export_template_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.export_template_name_idx CASCADE;
 CREATE UNIQUE INDEX export_template_name_idx ON col.export_template
-	USING btree
-	(
-	  export_template_name
-	);
+USING btree
+(
+	export_template_name
+);
 -- ddl-end --
 
 -- object: dataset_template_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.dataset_template_name_idx CASCADE;
 CREATE UNIQUE INDEX dataset_template_name_idx ON col.dataset_template
-	USING btree
-	(
-	  dataset_template_name
-	);
+USING btree
+(
+	dataset_template_name
+);
 -- ddl-end --
 
 -- object: collection_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.collection_name_idx CASCADE;
 CREATE UNIQUE INDEX collection_name_idx ON col.collection
-	USING btree
-	(
-	  collection_name
-	);
+USING btree
+(
+	collection_name
+);
 -- ddl-end --
 
 -- object: license_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.license_name_idx CASCADE;
 CREATE UNIQUE INDEX license_name_idx ON col.license
-	USING btree
-	(
-	  license_name
-	);
+USING btree
+(
+	license_name
+);
 -- ddl-end --
 
 -- object: sample_type_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.sample_type_name_idx CASCADE;
 CREATE UNIQUE INDEX sample_type_name_idx ON col.sample_type
-	USING btree
-	(
-	  sample_type_name
-	);
+USING btree
+(
+	sample_type_name
+);
 -- ddl-end --
 
 -- object: multiple_type_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.multiple_type_name_idx CASCADE;
 CREATE UNIQUE INDEX multiple_type_name_idx ON col.multiple_type
-	USING btree
-	(
-	  multiple_type_name
-	);
+USING btree
+(
+	multiple_type_name
+);
 -- ddl-end --
 
 -- object: campaign_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.campaign_name_idx CASCADE;
 CREATE UNIQUE INDEX campaign_name_idx ON col.campaign
-	USING btree
-	(
-	  campaign_name
-	);
+USING btree
+(
+	campaign_name
+);
 -- ddl-end --
 
 -- object: regulation_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.regulation_name_idx CASCADE;
 CREATE UNIQUE INDEX regulation_name_idx ON col.regulation
-	USING btree
-	(
-	  regulation_name
-	);
+USING btree
+(
+	regulation_name
+);
 -- ddl-end --
 
 -- object: mime_type_extension_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.mime_type_extension_idx CASCADE;
 CREATE UNIQUE INDEX mime_type_extension_idx ON col.mime_type
-	USING btree
-	(
-	  extension
-	);
+USING btree
+(
+	extension
+);
 -- ddl-end --
 
 -- object: event_type_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.event_type_name_idx CASCADE;
 CREATE UNIQUE INDEX event_type_name_idx ON col.event_type
-	USING btree
-	(
-	  event_type_name
-	);
+USING btree
+(
+	event_type_name
+);
 -- ddl-end --
 
 -- object: identifier_type_code_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.identifier_type_code_idx CASCADE;
 CREATE UNIQUE INDEX identifier_type_code_idx ON col.identifier_type
-	USING btree
-	(
-	  identifier_type_code
-	);
+USING btree
+(
+	identifier_type_code
+);
 -- ddl-end --
 
 -- object: object_status_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.object_status_name_idx CASCADE;
 CREATE UNIQUE INDEX object_status_name_idx ON col.object_status
-	USING btree
-	(
-	  object_status_name
-	);
+USING btree
+(
+	object_status_name
+);
 -- ddl-end --
 
 -- object: borrower_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.borrower_name_idx CASCADE;
 CREATE UNIQUE INDEX borrower_name_idx ON col.borrower
-	USING btree
-	(
-	  borrower_name
-	);
+USING btree
+(
+	borrower_name
+);
 -- ddl-end --
 
 -- object: container_family_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.container_family_name_idx CASCADE;
 CREATE UNIQUE INDEX container_family_name_idx ON col.container_family
-	USING btree
-	(
-	  container_family_name
-	);
+USING btree
+(
+	container_family_name
+);
 -- ddl-end --
 
 -- object: storage_condition_name_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.storage_condition_name_idx CASCADE;
 CREATE UNIQUE INDEX storage_condition_name_idx ON col.storage_condition
-	USING btree
-	(
-	  storage_condition_name
-	);
+USING btree
+(
+	storage_condition_name
+);
 -- ddl-end --
 
 -- object: col.country | type: TABLE --
@@ -2867,7 +2778,6 @@ CREATE TABLE col.country (
 	country_code2 varchar(2) NOT NULL,
 	country_code3 varchar(3),
 	CONSTRAINT country_pk PRIMARY KEY (country_id)
-
 );
 -- ddl-end --
 COMMENT ON TABLE col.country IS E'List of the countries';
@@ -3381,10 +3291,10 @@ INSERT INTO col.country (country_id, country_name, country_code2, country_code3)
 -- object: country_code2_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.country_code2_idx CASCADE;
 CREATE INDEX country_code2_idx ON col.country
-	USING btree
-	(
-	  country_code2
-	);
+USING btree
+(
+	country_code2
+);
 -- ddl-end --
 
 -- object: country_fk | type: CONSTRAINT --
@@ -3404,28 +3314,28 @@ ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 -- object: country_id_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.country_id_idx CASCADE;
 CREATE INDEX country_id_idx ON col.sample
-	USING btree
-	(
-	  country_id
-	);
+USING btree
+(
+	country_id
+);
 -- ddl-end --
 
 -- object: campaign_id_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.campaign_id_idx CASCADE;
 CREATE INDEX campaign_id_idx ON col.campaign_regulation
-	USING btree
-	(
-	  campaign_id
-	);
+USING btree
+(
+	campaign_id
+);
 -- ddl-end --
 
 -- object: sample_campaign_id_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.sample_campaign_id_idx CASCADE;
 CREATE INDEX sample_campaign_id_idx ON col.sample
-	USING btree
-	(
-	  campaign_id
-	);
+USING btree
+(
+	campaign_id
+);
 -- ddl-end --
 
 -- object: col.v_subsample_quantity | type: VIEW --
@@ -3448,49 +3358,75 @@ REFERENCES col.country (country_id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 -- ddl-end --
 
--- object: object_identifier_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.object_identifier_idx CASCADE;
-CREATE INDEX object_identifier_idx ON col.object
-	USING gin
-	(
-	  identifier pg_catalog.gin_trgm_ops
-	);
--- ddl-end --
-
--- object: sample_dbuid_origin_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.sample_dbuid_origin_idx CASCADE;
-CREATE INDEX sample_dbuid_origin_idx ON col.sample
-	USING gin
-	(
-	  dbuid_origin pg_catalog.gin_trgm_ops
-	);
--- ddl-end --
-
--- object: object_identifier_value_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.object_identifier_value_idx CASCADE;
-CREATE INDEX object_identifier_value_idx ON col.object_identifier
-	USING gin
-	(
-	  object_identifier_value pg_catalog.gin_trgm_ops
-	);
--- ddl-end --
-
--- object: authorization_number_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.authorization_number_idx CASCADE;
-CREATE INDEX authorization_number_idx ON col.campaign_regulation
-	USING gin
-	(
-	  authorization_number pg_catalog.gin_trgm_ops
-	);
--- ddl-end --
-
 -- object: acllogin_login_idx | type: INDEX --
 -- DROP INDEX IF EXISTS gacl.acllogin_login_idx CASCADE;
 CREATE UNIQUE INDEX acllogin_login_idx ON gacl.acllogin
-	USING btree
-	(
-	  login
-	);
+USING btree
+(
+	login
+);
+-- ddl-end --
+
+-- object: col.barcode | type: TABLE --
+-- DROP TABLE IF EXISTS col.barcode CASCADE;
+CREATE TABLE col.barcode (
+	barcode_id serial NOT NULL,
+	barcode_name varchar NOT NULL,
+	barcode_code varchar NOT NULL DEFAULT 'QR',
+	CONSTRAINT barcode_type_pk PRIMARY KEY (barcode_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.barcode IS E'Models of barcodes usable';
+-- ddl-end --
+COMMENT ON COLUMN col.barcode.barcode_name IS E'Name of the model';
+-- ddl-end --
+COMMENT ON COLUMN col.barcode.barcode_code IS E'Value of the barcode used by the generating application, if occures. Default value: QR for QRcode';
+-- ddl-end --
+ALTER TABLE col.barcode OWNER TO collec;
+-- ddl-end --
+
+INSERT INTO col.barcode (barcode_name, barcode_code) VALUES (E'QRCode', E'QR');
+-- ddl-end --
+INSERT INTO col.barcode (barcode_name, barcode_code) VALUES (E'EAN 128', E'C128');
+-- ddl-end --
+
+-- object: barcode_fk | type: CONSTRAINT --
+-- ALTER TABLE col.label DROP CONSTRAINT IF EXISTS barcode_fk CASCADE;
+ALTER TABLE col.label ADD CONSTRAINT barcode_fk FOREIGN KEY (barcode_id)
+REFERENCES col.barcode (barcode_id) MATCH FULL
+ON DELETE NO ACTION ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: borrower | type: CONSTRAINT --
+-- ALTER TABLE col.subsample DROP CONSTRAINT IF EXISTS borrower CASCADE;
+ALTER TABLE col.subsample ADD CONSTRAINT borrower FOREIGN KEY (borrower_id)
+REFERENCES col.borrower (borrower_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: collection | type: CONSTRAINT --
+-- ALTER TABLE col.request DROP CONSTRAINT IF EXISTS collection CASCADE;
+ALTER TABLE col.request ADD CONSTRAINT collection FOREIGN KEY (collection_id)
+REFERENCES col.collection (collection_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: external_storage_path_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.external_storage_path_idx CASCADE;
+CREATE INDEX external_storage_path_idx ON col.document
+USING btree
+(
+	external_storage_path
+);
+-- ddl-end --
+
+-- object: uid_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.uid_idx CASCADE;
+CREATE INDEX uid_idx ON col.document
+USING btree
+(
+	uid
+);
 -- ddl-end --
 
 -- object: object_booking_fk | type: CONSTRAINT --

@@ -597,8 +597,16 @@ Prélèvement pour analyse•true•false⸣
 	<constraint name="label_pk" type="pk-constr" table="col.label">
 		<columns names="label_id" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="barcode_id" index="6"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="barcode_fk" index="2"/>
+	</customidxs>
 	<initial-data>
-<![CDATA[label_name•label_xsl•label_fields⸣
+<![CDATA[label_name•label_xsl•label_fields•barcode_id⸣
 Example - Don't use•<xsl:stylesheet version="1.0"
       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
       xmlns:fo="http://www.w3.org/1999/XSL/Format">
@@ -656,7 +664,7 @@ Example - Don't use•<xsl:stylesheet version="1.0"
    <fo:block page-break-after="always"/>
 
   </xsl:template>
-</xsl:stylesheet>•uid,id,clp,db,col]]>
+</xsl:stylesheet>•uid,id,clp,db,col•1]]>
 	</initial-data>
 </table>
 

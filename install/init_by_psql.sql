@@ -46,9 +46,7 @@ create database collec owner collec;
  create extension if not exists postgis schema public;
  create extension if not exists  pgcrypto schema public;
  -- object: grant_95c2183ced | type: PERMISSION --
-GRANT CREATE,CONNECT,TEMPORARY
-   ON DATABASE collec
-   TO collec;
+GRANT CREATE,CONNECT,TEMPORARY ON DATABASE collec TO collec;
 -- ddl-end --
 
 /*

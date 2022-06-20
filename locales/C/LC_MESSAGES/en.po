@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-01 14:22+0200\n"
+"POT-Creation-Date: 2022-06-20 12:45+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -889,8 +889,8 @@ msgid "Labels in English"
 msgstr "Labels in English"
 
 #: ../../../param/param.default.inc.php:12
-msgid "01/06/2022"
-msgstr "2022-06-01"
+msgid "20/06/2022"
+msgstr "2022-06-22"
 
 #: ../../../modules/param/metadata.php:92
 msgid "Métadonnée(s) importée(s)"
@@ -1789,12 +1789,12 @@ msgstr ""
 "your password or contact the administrator of the application."
 
 #. traduction: conserver inchangée la chaîne %s
-#: ../../../framework/controller.php:464
+#: ../../../framework/controller.php:462
 #, php-format
 msgid "Module précédent enregistré : %s"
 msgstr "Previous module: %s"
 
-#: ../../../framework/controller.php:531
+#: ../../../framework/controller.php:529
 msgid ""
 "L'accès au module demandé nécessite une ré-identification. Veuillez saisir "
 "votre login et votre mot de passe"
@@ -1802,17 +1802,17 @@ msgstr ""
 "Access to the requested module requires re-identification. Please enter your "
 "login and password"
 
-#: ../../../framework/controller.php:549
+#: ../../../framework/controller.php:547
 msgid "Erreur d'écriture dans le fichier de traces"
 msgstr "Error writing to the trace file"
 
 #. traduction: bien conserver inchangées les chaînes %1$s, %2$s
-#: ../../../framework/controller.php:673
+#: ../../../framework/controller.php:671
 #, php-format
 msgid "Mode développement - base de données : %1$s - schema : %2$s"
 msgstr "Development mode - database: %1$s - schema: %2$s"
 
-#: ../../../framework/controller.php:706
+#: ../../../framework/controller.php:704
 msgid ""
 "Une erreur indéterminée s'est produite pendant le traitement de la requête. "
 "Si le problème persiste, consultez l'administrateur de l'application"
@@ -2062,17 +2062,17 @@ msgstr "Sending the password change message by email in failure"
 msgid "L'identification par jeton n'a pas abouti"
 msgstr "Token identification was unsuccessful"
 
-#: ../../../framework/identification/login.class.php:83
+#: ../../../framework/identification/login.class.php:81
 msgid ""
 "L'identification n'a pas abouti. Vérifiez votre login et votre mot de passe"
 msgstr "The identification was not successful. Check your login and password"
 
-#: ../../../framework/identification/login.class.php:136
+#: ../../../framework/identification/login.class.php:134
 #: ../../../framework/identification/identification.class.php:334
 msgid "Nouvel utilisateur"
 msgstr "New user:"
 
-#: ../../../framework/identification/login.class.php:137
+#: ../../../framework/identification/login.class.php:135
 #, php-format
 msgid ""
 "%1$s a créé son compte avec le login %2$s dans l'application %3$s.\n"
@@ -2095,7 +2095,7 @@ msgstr ""
 "                          <br>Don't answer this mail, which is generated "
 "automatically."
 
-#: ../../../framework/identification/login.class.php:145
+#: ../../../framework/identification/login.class.php:143
 #: ../../../framework/identification/identification.class.php:343
 msgid ""
 "Votre compte a été créé, mais est inactif. Un mail a été adressé aux "

@@ -2,7 +2,7 @@
 /** Fichier cree le 4 mai 07 par quinton
  * Renommez le fichier en param.inc.php
  * ajustez les parametres a votre implementation
- * conservez une sauvegarde de ces parametres pour ne pas les perdre 
+ * conservez une sauvegarde de ces parametres pour ne pas les perdre
  * lors de la mise en place d'une nouvelle version
  * tous les parametres presents dans param.default.inc.php peuvent etre utilises
  * rename this file to param.inc.php
@@ -124,7 +124,7 @@ $LDAP [ "tls"] = true;
  */
 $LDAP [ "basedn"] = "ou=people,ou=example,o=societe,c=fr";
 $LDAP [ "user_attrib" ] = "uid";
-/* 
+/*
  * Pour une authentification LDAP à un Active Directory
  * avec le User Principal Name (UPN) de la forme sAMAccountName@UPN_Suffix
  * pour ne demander que le sAMAccountName à l'utilisateur
@@ -132,13 +132,13 @@ $LDAP [ "user_attrib" ] = "uid";
  * pour demander l'UPN entier à l'utilisateur
  * alors définir le upn_suffix à une chaîne vide : $LDAP [ "upn_suffix"] = "";
  *
- * For LDAP authentification with Active directory, with User Principal Name (UPN) 
- * as sAMAccountName@UPN_Suffix, 
+ * For LDAP authentification with Active directory, with User Principal Name (UPN)
+ * as sAMAccountName@UPN_Suffix,
  * uncomment theses lines.
- * to request the entire UPN from the user, 
+ * to request the entire UPN from the user,
  * define upn_suffix as: $LDAP [ "upn_suffix"] = "";
  */
-//$LDAP [ "basedn"] = ""; 
+//$LDAP [ "basedn"] = "";
 //$LDAP [ "user_attrib" ] = "";
 //$LDAP [ "upn_suffix"] = "mydomain.lan";
 
@@ -164,7 +164,7 @@ $LDAP [ 'basedngroup' ] = 'ou=group,ou=example,o=societe,c=fr';
  */
 $paramIniFile = "./param.ini";
 /*
- * Traitement de param.ini dans un contexte multi-bases (cf. documentation)
+ * Treatment of param.ini in a multi-databases context (cf. documentation)
  */
 //$chemin = substr($_SERVER["DOCUMENT_ROOT"],0, strpos($_SERVER["DOCUMENT_ROOT"],"/bin"));
 //$paramIniFile = "$chemin/param.ini";
@@ -173,7 +173,7 @@ $paramIniFile = "./param.ini";
  * Parametres SMARTY complementaires, charges systematiquement
  * Ne pas modifier !
  * SMARTY params
- * don't change theses lines! 
+ * don't change theses lines!
  */
 $SMARTY_variables["melappli"] = $APPLI_mail;
 $SMARTY_variables["ident_type"] = $ident_type;

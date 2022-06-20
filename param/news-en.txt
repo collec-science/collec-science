@@ -1,41 +1,36 @@
 News
 ===========
-Version 2.7.0b and 2.7.0c of June 1st, 2022
-------------------------------------
+Version 2.7.0 of June 20th, 2022
+---------------------------
 Bug fixes:
 - the password reset was not working anymore
-- sample list: the vertical bar on the left side of the list has been removed, to avoid it to be in the middle of a column when adding columns in the display. The list of selected columns is now correctly saved in the browser
-- logs display: the list of accounts has been moved to a new line, to avoid it being hidden by a too long label in the previous dropdown list
-
-New features:
-- the referrer's organization has been added to the referent table
-- it is now possible to search for samples by collection, even if the user only has the right to consult or if he is not part of a collection
-- a document explaining the rights that can be used in the software has been added in the menu documentation > administration
-
-Version 2.7.0a of March 31, 2022
-----------------------------
-Bug fixes:
-- in the menu, the module ? did not lead to anything
-- in the rights management module, deleting a group was not working
+- sample list: the vertical bar on the left of the list has been removed, to avoid it ending up in the middle of a column when adding columns to the display. The list of selected columns is now correctly saved in the browser
+- log display: the list of accounts has been moved to a new line, to avoid it being hidden by a too long label in the previous dropdown list
+- in the menu, the ? module did not lead to anything
+- in the rights management module, the deletion of a group was not working
 - fixed a broken link in the readme.md file
 - rights management module: the list of rights assigned to an application was no longer displayed
 - the group functions on samples, from the container details, were not working
-- the deletion of a sample failed if sub-sampling had been performed
+- deleting a sample failed if sub-sampling had been performed
 - from the list of samples, the "CSV export" button did not fill the column corresponding to the parents
 
 New features:
-- addition of the campaign UUID number in batch exports
+- the referent's organization has been added in the referent table
+- it is now possible to search for samples by collection, even if the user only has the right to consult or if he is not part of a collection
+- a sheet explaining the rights that can be used in the software has been added in the documentation > administration menu
+- addition of the UUID number of the campaign in the batch exports
 - manual SQL queries can be executed by users (rights assigned by collection), but they cannot modify them for security reasons
-- it is now possible to execute complex manual queries, as the original "SELECT" has been removed. However, only query queries remain accessible
+- it is now possible to execute complex manual queries, as the original "SELECT" has been removed. However, only SELECT queries remain accessible
 - when subsampling, it is possible to indicate which laboratory receives the extract
 - in the mass import module, it is now possible to import a comment
 - some options available on the list of samples were hidden, such as batch export if the collection is not filled in. These options are now visible but not selectable
 - it is now possible to generate labels with 1D barcodes (EAN 128)
 - added documentation on batch export
 - in mass import, parents are now searched by default only in the child's collection
-- it is now possible to associate files stored in a tree structure accessible to the server with a sample (see doc)
+- it is now possible to associate files stored in a folder tree structure accessible to the server with a sample (see doc)
 - in the details of a sample the link "new sample" has been duplicated on the right, so that it is more visible and accessible
 - in the form for adding documents, the maximum file size, determined by the server settings, is now displayed
+
 
 Version 2.6.1 of February 11, 2022
 --------------------------

@@ -1,17 +1,18 @@
 COLLEC-SCIENCE
-© IRSTEA, 2016-2019 - All rights reserved
+© INRAE, 2016-2022 - All rights reserved
 Published under AGPL license
 
-For install a new instance in a dedicated server:
-wget https://github.com/Irstea/collec/raw/master/install/deploy_new_instance.sh
+**WARNING**: Collec-Science is now hosted here: [https://github.com/collec-science/collec-science](https://github.com/collec-science/collec-science)
+
+For install a new instance in Ubuntu or Debian server:
+~~~
+wget https://github.com/collec-science/collec-science/raw/master/install/deploy_new_instance.sh
 sudo -s
 ./deploy_new_instance.sh
-
-For upgrade to release 2.2.3, see the file:
-https://github.com/Irstea/collec/raw/master/install/upgrade_to_2.2.3.txt
+~~~
 
 GENERAL INSTALLATION AND CONFIGURATION DOCUMENTATION (in french):
-https://github.com/Irstea/collec/raw/master/documentation/technical/installation_fr/collec_installation_configuration.pdf
+[https://github.com/collec-science/collec-science/raw/master/documentation/technical/installation_fr/collec_installation_configuration.pdf](https://github.com/collec-science/collec-science/raw/master/documentation/technical/installation_fr/collec_installation_configuration.pdf)
 
 
 
@@ -75,17 +76,3 @@ Software diffused under AGPL License
 Copyright
 ---------
 La version 1.0 a été déposée auprès de l'Agence de Protection des Programmes sous le numéro IDDN.FR.001.470013.000.S.C.2016.000.31500
-
-Installation
-============
-
-To install a new instance in a dedicated server:
-wget https://github.com/Irstea/collec/raw/master/install/deploy_new_instance.sh
-sudo -s
-./deploy_new_instance.sh
-
-To upgrade to release 2.2.3, see the file:
-https://github.com/Irstea/collec/raw/master/install/upgrade_to_2.2.3.txt
-
-GENERAL INSTALLATION AND CONFIGURATION DOCUMENTATION (in french):
-https://github.com/Irstea/collec/raw/master/database/documentation/collec_installation_configuration.pdf

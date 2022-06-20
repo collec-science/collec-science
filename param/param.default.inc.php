@@ -116,7 +116,7 @@ $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
 $APPLI_temp = "temp";
 $APPLI_titre = "Collec-Science";
-$APPLI_assist_address = "https://github.com/Irstea/collec/issues/new";
+$APPLI_assist_address = "https://github.com/collec-science/collec-science/issues/new";
 $APPLI_isFullDns = false;
 /*
  * Impression directe vers une imprimante a etiquettes

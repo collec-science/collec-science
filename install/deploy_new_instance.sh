@@ -2,7 +2,8 @@
 # install a new instance into a server
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
-VERSION=2.6.0
+VERSION=2.7.0
+REPO=https://github.com/collec-science/collec-science
 PHPVER=7.4
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
 echo "Installation of Collec-Science version " $VERSION
@@ -43,9 +44,9 @@ cd collec-science
 
 # download software
 echo "download software"
-wget https://github.com/Irstea/collec/archive/master.zip
+wget $REPO/archive/refs/heads/master.zip
 unzip master.zip
-mv collec-master collec-$VERSION
+mv collec-science-master collec-$VERSION
 ln -s collec-$VERSION collec
 
 # update rights on files

@@ -290,7 +290,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 ALTER TABLE col.dbversion OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'2.6', E'2021-04-16');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'2.7', E'2022-06-20');
 -- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --

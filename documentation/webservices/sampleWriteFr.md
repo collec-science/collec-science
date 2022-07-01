@@ -16,7 +16,7 @@ Consultez ce document pour créer l'utilisateur de l'API, générer un token et 
 
 ## Appel par défaut
 
->URL : index.php?module=apiv1sampleWrite
+> URL : index.php?module=apiv1sampleWrite
 
 L'API doit être appelée en mode http **POST**.
 
@@ -30,7 +30,7 @@ L'API doit être appelée en mode http **POST**.
 | uid | UID de l'échantillon (si connu) |  |
 | identifier | identifiant métier de l'échantillon | X |
 | uuid | Universal Identifier : identifiant universel de l'échantillon | |
-| sampling_type_name | Nom du type d'échantillon. Il doit correspondre à un type d'échantillon déjà existant | X |
+| sample_type_name | Nom du type d'échantillon. Il doit correspondre à un type d'échantillon déjà existant | X |
 | collection_name | Nom de la collection | Obligatoire si le login est associé à plus d'une collection |
 | sampling_date | Date d'échantillonnage, au format Y-m-d H:i:s | |
 | sampling_place_name | Station d'échantillonnage. Si elle n'existe pas, elle sera créée automatiquement | |
@@ -52,7 +52,6 @@ L'API doit être appelée en mode http **POST**.
 | parent_uuid | uuid de l'échantillon parent, si connu | |
 | parent_identifier | identifiant métier de l'échantillon parent, si connu | |
 | parent_code | code de l'identifiant secondaire du parent, si connu | |
-
 
 {.table .table-bordered .table-hover .datatable-nopaging-nosort }
 

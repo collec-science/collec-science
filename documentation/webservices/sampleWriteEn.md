@@ -30,7 +30,7 @@ The API must be called in http **POST** mode.
 | uid | UID of the sample (if known) | |
 | identifier | business identifier of the sample | X |
 | uuid | Universal Identifier : universal identifier of the sample | |
-| sampling_type_name | Name of the sample type. It must correspond to an existing sample type. | |
+| sample_type_name | Name of the sample type. It must correspond to an existing sample type. | |
 | collection_name | Name of the collection | Mandatory if the login is associated with more than one collection |
 | sampling_date | Sampling date, in Y-m-d H:i:s format | |
 | sampling_place_name | Sampling station. If it does not exist, it will be created automatically. | |

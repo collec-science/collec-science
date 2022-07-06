@@ -349,8 +349,9 @@ class SearchEvent extends SearchParam
   {
     $ds = new DateTime();
     $ds->modify("1 month");
+    $this->param["date_to"] = $ds->format($_SESSION["MASKDATE"]);
+    $ds->modify("-2 month");
     $this->param["date_from"] = $ds->format($_SESSION["MASKDATE"]);
-    $this->param["date_to"] = date($_SESSION["MASKDATE"]);
     $this->param["search_type"] = "due_date";
   }
 }

@@ -7,6 +7,7 @@
 	<item module="objets" label="Objets" tooltip="Opérations sur les échantillons ou les contenants">
 		<item module="containerList" label="Contenants" tooltip="Liste des contenants" />
 		<item module="sampleList" label="Échantillons" tooltip="Liste des échantillons" />
+		<item module="eventSearch" label="Événements" tooltip="Recherche des événements"/>
 		<item divider='1' droits="gestion" />
 		<item module="requestList" label="Requêtes SQL" tooltip="Exécution de requêtes SQL dans la base de données" droits="gestion" />
 	</item>

@@ -89,6 +89,7 @@
 	<sampleeventWrite action="modules/gestion/event.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange" />
 	<sampleeventDelete action="modules/gestion/event.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange"/>
 
+	<eventSearch action="modules/gestion/event.php" param="search" droits="gestion" type="smarty"/>
 	<movementcontainerInput action="modules/gestion/movement.php" param="input" droits="gestion" retourlogin="1" type="smarty" />
 	<movementcontainerOutput action="modules/gestion/movement.php" param="output" droits="gestion" retourlogin="1" type="smarty" />
 	<movementcontainerWrite action="modules/gestion/movement.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="movementcontainerInput,movementcontainerOutput" />

@@ -1,30 +1,39 @@
 
-<div class="row">
+<div class="row col-md-12">
 	<form class="form-horizontal protoform" id="eventSearch" action="index.php" method="GET">
   <input type="hidden" name="module" value="eventSearch">
+  <input type="hidden" name="isSearch" value="1">
   <div class="row">
   <label for="search_type" class="col-sm-2 control-label">{t}Recherche par :{/t}</label>
-  <div class="col-sm-3">
+  <div class="col-sm-2">
     <select class='form-control' name="search_type" id="search_type">
-      <option value="due_date" {if $eventSearch["search_type"] == "due_date"}selected{/>if}>
+      <option value="due_date" {if $eventSearch["search_type"] == "due_date"}selected{/if}>
       {t}Date d'échéance{/t}
       </option>
-      <option value="event_date" {if $eventSearch["search_type"] == "event_date"}selected{/>if}>
+      <option value="event_date" {if $eventSearch["search_type"] == "event_date"}selected{/if}>
       {t}Date de l'événement{/t}
       </option>
     </select>
   </div>
+  <label for="is_done" class="col-sm-2 control-label">{t}État de l'événement :{/t}</label>
+  <div class="col-sm-2">
+    <select id="is_done" name="is_done" class="form-control">
+      <option value="-1" {if $eventSearch["is_done"] == -1}selected{/if}>{t}non réalisé{/t}</option>
+      <option value="0" {if $eventSearch["is_done"] == 0}selected{/if}>{t}indifférent{/t}</option>
+      <option value="1" {if $eventSearch["is_done"] == 1}selected{/if}>{t}réalisé{/t}</option>
+    </select>
+  </div>
   </div>
   <div class="row">
-<label for="date_from" class="col-sm-1 control-label">{t}Date d'échéance : du :{/t}</label>
+<label for="date_from" class="col-sm-2 control-label">{t}Du :{/t}</label>
   <div class="col-sm-2">
-      <input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
+      <input class="datepicker form-control" id="date_from" name="date_from" value="{$eventSearch.date_from}">
   </div>
-  <label for="date_to" class="col-sm-1 control-label">{t}au :{/t}</label>
+  <label for="date_to" class="col-sm-2 control-label">{t}au :{/t}</label>
   <div class="col-sm-2">
-      <input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
+      <input class="datepicker form-control" id="date_to" name="date_to" value="{$eventSearch.date_to}">
   </div>
-<input type="submit" class="col-sm-1 btn btn-success" value="{t}Rechercher{/t}">
+<input type="submit" class="col-sm-2 col-sm-offset-1 btn btn-success" value="{t}Rechercher{/t}">
 </div>
 </form>
 </div>

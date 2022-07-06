@@ -72,7 +72,7 @@ class Event extends ObjetBDD
          */
         function searchDueEvent($searchType, $dateFrom, $dateTo, $isDone = 0): ?array
         {
-                $searchType = "due_date" ? $search = "due_date" : $search = "event_date";
+                $searchType == "due_date" ? $search = "due_date" : $search = "event_date";
                 $sql = "select uid, identifier, event_date, due_date
                         ,event_type_id, event_type_name, event_comment
                         ,still_available

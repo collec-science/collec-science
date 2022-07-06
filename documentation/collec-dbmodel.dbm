@@ -458,7 +458,7 @@ otp_issuer•collec-science]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="event" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
+<table name="event" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment><![CDATA[Table of events]]></comment>
@@ -484,6 +484,10 @@ otp_issuer•collec-science]]>
 	<column name="event_comment">
 		<type name="character varying" length="0"/>
 		<comment><![CDATA[Comment]]></comment>
+	</column>
+	<column name="due_date">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[Due date of the event]]></comment>
 	</column>
 	<constraint name="event_pk" type="pk-constr" table="col.event">
 		<columns names="event_id" ref-type="src-columns"/>
@@ -3516,6 +3520,22 @@ EAN 128•C128]]>
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="uid"/>
+		</idxelement>
+</index>
+
+<index name="event_date_idx" table="col.event"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="event_date"/>
+		</idxelement>
+</index>
+
+<index name="due_date_idx" table="col.event"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="due_date"/>
 		</idxelement>
 </index>
 

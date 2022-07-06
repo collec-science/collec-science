@@ -21,7 +21,7 @@
 <div class="form-group">
 <label for="event_date" class="control-label col-md-4">{t}Date :{/t}</label>
 <div class="col-md-8">
-<input id="event_date" name="event_date" required value="{$data.event_date}" class="form-control datepicker" >
+<input id="event_date" name="event_date" value="{$data.event_date}" class="form-control datepicker" >
 </div>
 </div>
 
@@ -46,6 +46,14 @@
 </div>
 </div>
 {/if}
+
+<div class="form-group">
+<label for="event_date" class="control-label col-md-4">{t}Date d'échéance :{/t}</label>
+<div class="col-md-8">
+<input id="event_date" name="event_date" value="{$data.due_date}" class="form-control datepicker" >
+</div>
+</div>
+
 <div class="form-group">
 <label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
 <div class="col-md-8">

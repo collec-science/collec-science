@@ -266,7 +266,7 @@ class SearchSample extends SearchParam
       "NorthEastlat" => "",
       "campaign_id" => "",
       "country_id" => "",
-      "country_origin_id"=>"",
+      "country_origin_id" => "",
       "authorization_number" => "",
       "event_type_id" => "",
       "subsample_quantity_min" => "",
@@ -294,7 +294,7 @@ class SearchSample extends SearchParam
       "NorthEastlat",
       "campaign_id",
       "country_id" => 0,
-      "country_origin_id"=>0,
+      "country_origin_id" => 0,
       "event_type_id",
       "subsample_quantity_min",
       "subsample_quantity_max",
@@ -332,5 +332,25 @@ class SearchMovement extends SearchParam
     $ds->modify("-1 month");
     $this->param["date_start"] = $ds->format($_SESSION["MASKDATE"]);
     $this->param["date_end"] = date($_SESSION["MASKDATE"]);
+  }
+}
+
+class SearchEvent extends SearchParam
+{
+
+  function __construct()
+  {
+    $this->param = array("is_done" => "0", "search_type" => "due_date");
+    $this->reinit();
+    parent::__construct();
+  }
+
+  function reinit()
+  {
+    $ds = new DateTime();
+    $ds->modify("1 month");
+    $this->param["date_from"] = $ds->format($_SESSION["MASKDATE"]);
+    $this->param["date_to"] = date($_SESSION["MASKDATE"]);
+    $this->param["search_type"] = "due_date";
   }
 }

@@ -2,7 +2,7 @@
 
 /**
  * Code execute systematiquement a chaque appel, apres demarrage de la session
- * Utilise notamment pour recuperer les instances de classes stockees en 
+ * Utilise notamment pour recuperer les instances de classes stockees en
  * variables de session
  */
 if (!isset($_SESSION["searchContainer"])) {
@@ -14,5 +14,6 @@ if (!isset($_SESSION["searchSample"])) {
 if (!isset($_SESSION["searchMovement"])) {
     $_SESSION["searchMovement"] = new SearchMovement();
 }
-
-?>
+if (!isset($_SESSION["searchEvent"])) {
+    $_SESSION["searchEvent"] = new SearchEvent();
+}

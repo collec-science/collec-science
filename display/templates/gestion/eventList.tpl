@@ -10,6 +10,7 @@
 <tr>
 <th>{t}Date{/t}</th>
 <th>{t}Type{/t}</th>
+<th>{t}Date prévue{/t}</th>
 <th>{t}Reste disponible (échantillons){/t}</th>
 <th>{t}Commentaire{/t}</th>
 </tr>
@@ -23,6 +24,9 @@
 </td>
 <td>
 {$events[lst].event_type_name}
+</td>
+<td>
+{$events[lst].due_date}
 </td>
 <td >
 {$events[lst].still_available}

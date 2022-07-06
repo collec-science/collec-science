@@ -32,7 +32,6 @@ class Event extends ObjetBDD
                         ),
                         "event_date" => array(
                                 "type" => 2,
-                                "requis" => 1,
                                 "defaultValue" => "getDateJour"
                         ),
                         "event_type_id" => array(

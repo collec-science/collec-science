@@ -1,4 +1,14 @@
-{* Objets > échantillons > Rechercher > UID d'un échantillon > section Evénements > Nouveau... > *}
+<script>
+      $(document).ready(function() {
+            var current_due_date = $("#due_date").val();
+            $("#due_date").change(function() {
+                  if (current_due_date.length == 0) {
+                        $("#event_date").val("");
+                  }
+                  current_due_val = $(this).val();
+            });
+      });
+</script>
 <h2>{t}Création - modification d'un événement{/t}</h2>
 
 <div class="row">
@@ -48,9 +58,9 @@
 {/if}
 
 <div class="form-group">
-<label for="event_date" class="control-label col-md-4">{t}Date d'échéance :{/t}</label>
+<label for="due_date" class="control-label col-md-4">{t}Date d'échéance :{/t}</label>
 <div class="col-md-8">
-<input id="event_date" name="event_date" value="{$data.due_date}" class="form-control datepicker" >
+<input id="due_date" name="due_date" value="{$data.due_date}" class="form-control datepicker" >
 </div>
 </div>
 

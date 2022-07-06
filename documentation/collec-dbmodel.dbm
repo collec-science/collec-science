@@ -470,7 +470,7 @@ otp_issuer•collec-science]]>
 	<column name="uid" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="event_date" not-null="true">
+	<column name="event_date">
 		<type name="timestamp" length="0"/>
 		<comment><![CDATA[Date-time of the event]]></comment>
 	</column>

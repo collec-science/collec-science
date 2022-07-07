@@ -35,6 +35,26 @@
   </div>
 <input type="submit" class="col-sm-2 col-sm-offset-1 btn btn-success" value="{t}Rechercher{/t}">
 </div>
+<div class="row">
+  <label for="event_type_id" class="col-sm-2 control-label">{t}Type d'événement{/t}</label>
+  <div class="col-sm-2">
+    <select class="form-control" id="event_type_id" name="event_type_id">
+      <option value="0" {if $eventSearch.event_type_id == 0}selected{/if}>{t}indifférent{/t}</option>
+      {foreach $eventTypes as $eventType}
+        <option value="{$eventType.event_type_id}" {if $eventType.event_type_id == $eventSearch.event_type_id}selected{/if}>{$eventType.event_type_name}</option>
+      {/foreach}
+    </select>
+  </div>
+  <label for="collection_id" class="col-sm-2 control-label">{t}Collection{/t}</label>
+  <div class="col-sm-2">
+    <select class="form-control" id="collection_id" name="collection_id">
+      <option value="0" {if $eventSearch.collection_id == 0}selected{/if}>{t}indifférent{/t}</option>
+      {foreach $collections as $collection}
+        <option value="{$collection.collection_id}" {if $collection.collection_id == $eventSearch.collection_id}selected{/if}>{$collection.collection_name}</option>
+      {/foreach}
+    </select>
+  </div>
+</div>
 </form>
 </div>
 

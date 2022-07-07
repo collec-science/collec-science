@@ -67,9 +67,11 @@ class Event extends ObjetBDD
          * @param string $dateFrom
          * @param string $dateTo
          * @param integer $isDone -1: not realized, 0:indifferent, 1, realized
+         * @param integer $collection_id
+         * @param integer $event_type_id
          * @return array|null
          */
-        function searchDueEvent($searchType, $dateFrom, $dateTo, $isDone = 0): ?array
+        function searchDueEvent(string $searchType, string $dateFrom, string $dateTo, int $isDone = 0, int $collection_id = 0, int $event_type_id = 0): ?array
         {
                 $searchType == "due_date" ? $search = "due_date" : $search = "event_date";
                 $sql = "select uid, identifier, event_date, due_date
@@ -86,12 +88,18 @@ class Event extends ObjetBDD
                 } elseif ($isDone == 1) {
                         $sql .= " and event_date is not null";
                 }
-                return $this->getListeParamAsPrepared(
-                        $sql,
-                        array(
-                                "datefrom" => $this->formatDateLocaleVersDB($dateFrom),
-                                "dateto" => $this->formatDateLocaleVersDB($dateTo)
-                        )
+                $data =  array(
+                        "datefrom" => $this->formatDateLocaleVersDB($dateFrom),
+                        "dateto" => $this->formatDateLocaleVersDB($dateTo)
                 );
+                if ($collection_id > 0) {
+                        $sql .= " and collection_id = :collection_id";
+                        $data["collection_id"] = $collection_id;
+                }
+                if ($event_type_id > 0) {
+                        $sql .= " and event_type_id = :event_type_id";
+                        $data["event_type_id"] = $event_type_id;
+                }
+                return $this->getListeParamAsPrepared($sql, $data);
         }
 }

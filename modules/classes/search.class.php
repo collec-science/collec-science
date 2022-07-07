@@ -340,7 +340,12 @@ class SearchEvent extends SearchParam
 
   function __construct()
   {
-    $this->param = array("is_done" => "0", "search_type" => "due_date");
+    $this->param = array(
+      "is_done" => "0",
+      "search_type" => "due_date",
+      "collection_id" => 0,
+      "event_type_id" => 0
+    );
     $this->reinit();
     parent::__construct();
   }

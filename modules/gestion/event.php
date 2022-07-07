@@ -60,12 +60,20 @@ switch ($t_module["param"]) {
 					$dataSearch["search_type"],
 					$dataSearch["date_from"],
 					$dataSearch["date_to"],
-					$dataSearch["is_done"]
+					$dataSearch["is_done"],
+					$dataSearch["collection_id"],
+					$dataSearch["event_type_id"]
 				),
 				"events"
 			);
 			$vue->set(1, "isSearch");
 		}
+		include_once "modules/classes/collection.class.php";
+    $collection = new Collection($bdd, $ObjetBDDParam);
+    $vue->set($collection->getAllCollections(), "collections");
+		include_once "modules/classes/eventType.class.php";
+		$eventType = new EventType($bdd, $ObjetBDDParam);
+		$vue->set ($eventType->getListe("event_type_name"), "eventTypes");
 		$vue->set($dataSearch, "eventSearch");
 		$vue->set("gestion/eventSearchList.tpl", "corps");
 }

@@ -62,7 +62,7 @@ class DbParam extends ObjetBDD
     {
         $this->colonnes["dbparam_name"]["requis"] = 0;
         foreach ($data as $key => $value) {
-            if (substr($key, 0, 5) == "keyid") {
+            if (substr($key, 0, 2) == "id") {
                 $aval = explode(":", $key);
                 if (is_numeric($aval[1])) {
                     $d = array("dbparam_id" => $aval[1], "dbparam_value" => $value);

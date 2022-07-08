@@ -35,6 +35,10 @@ switch ($t_module["param"]) {
          */
         $vue->set($dataClass->getAllGroupsFromCollection($id), "groupes");
         /**
+         * Get the list of all samples types
+         */
+        $vue->set($dataClass->getAllsampletypesFromCollection($id), "sampletypes");
+        /**
          * Recuperation des referents
          */
         require_once 'modules/classes/referent.class.php';

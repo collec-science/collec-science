@@ -147,6 +147,21 @@
                               {/section}
                         </div>
                   </div>
+                  <div class="form-group">
+                        <label for="sampletypes"  class="control-label col-md-4">{t}Types d'échantillons spécifiques de la collection :{/t}</label>
+                        <div class="col-md-7">
+                              {section name=lst loop=$sampletypes}
+                                    <div class="col-md-6 ">
+                                          <div class="checkbox">
+                                                <label>
+                                                      <input type="checkbox" name="sampletypes[]" value="{$sampletypes[lst].sample_type_id}" {if $sampletypes[lst].checked == 1}checked{/if}>
+                                                {$sampletypes[lst].sample_type_name}
+                                                </label>
+                                          </div>
+                                    </div>
+                              {/section}
+                        </div>
+                  </div>
 
                   <div class="form-group center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>

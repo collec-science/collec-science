@@ -70,19 +70,17 @@ class Collection extends ObjetBDD
   function getListe($order = 1)
   {
     $sql = "select collection_id, collection_name,
-                array_to_string(array_agg(groupe),', ') as groupe,
+                getgroupsfromcollection(collection_id) as groupe,
+                getsampletypesfromcollection(collection_id) as sampletypes,
                 referent_name,
                 allowed_import_flow, allowed_export_flow, public_collection
                 ,collection_keywords,collection_displayname
                 ,license_id, license_name, license_url, no_localization
                 ,external_storage_enabled, external_storage_root
-				from collection
-                left outer join collection_group using (collection_id)
+				    from collection
                 left outer join referent using (referent_id)
                 left outer join license using (license_id)
-				left outer join aclgroup using (aclgroup_id)
-				group by collection_id, collection_name, referent_name, license_name, license_url
-				order by $order";
+				    order by $order";
     return $this->getListeParam($sql);
   }
 
@@ -160,6 +158,7 @@ class Collection extends ObjetBDD
              * Ecriture des groupes
              */
       $this->ecrireTableNN("collection_group", "collection_id", "aclgroup_id", $id, $data["groupes"]);
+      $this->ecrireTableNN("collection_sampletype", "collection_id", "sample_type_id", $id, $data["sampletypes"]);
     }
     return $id;
   }
@@ -211,6 +210,49 @@ class Collection extends ObjetBDD
       $groupes[$key]["checked"] = $dataGroup[$value["aclgroup_id"]];
     }
     return $groupes;
+  }
+
+  /**
+   * Get all sample types, attached or not to a collection
+   *
+   * @param integer $collection_id
+   * @return array
+   */
+  function getAllSampletypesFromCollection(int $collection_id) {
+    if ($collection_id > 0 ) {
+      $data = $this->getSampletypesFromCollection($collection_id);
+      $dataGroup = array();
+      foreach ($data as $value) {
+        $dataGroup[$value["sample_type_id"]] = 1;
+      }
+    }
+    require_once 'modules/classes/sampleType.class.php';
+    $sampleType = new SampleType($this->connection);
+    $sampletypes = $sampleType->getListe(2);
+    foreach ($sampletypes as $key => $value) {
+      $sampletypes[$key]["checked"] = $dataGroup[$value["sample_type_id"]];
+    }
+    return $sampletypes;
+  }
+
+  /**
+   * Get the list of sample types attached to a collection
+   *
+   * @param integer $collection_id
+   * @return array
+   */
+  function getSampletypesFromCollection(int $collection_id)
+  {
+    $data = array();
+    if ($collection_id > 0 ) {
+      $sql = "select sample_type_id, sample_type_name
+          from collection_sampletype
+					join sample_type using (sample_type_id)
+					where collection_id = :collection_id";
+      $var["collection_id"] = $collection_id;
+      $data = $this->getListeParamAsPrepared($sql, $var);
+    }
+    return $data;
   }
 
   /**

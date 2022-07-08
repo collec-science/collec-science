@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="73"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="74"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -174,7 +174,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 	<comment><![CDATA[Table of project approvals]]></comment>
 	<tag name="collection"/>
-	<position x="400" y="440"/>
+	<position x="380" y="440"/>
 	<column name="collection_id" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
@@ -997,7 +997,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[List of all collections into the database]]></comment>
 	<tag name="collection"/>
-	<position x="400" y="640"/>
+	<position x="380" y="640"/>
 	<column name="collection_id" not-null="true" sequence="col.project_project_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -2345,7 +2345,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 	<comment><![CDATA[List of sampling campaigns]]></comment>
 	<tag name="collection"/>
-	<position x="400" y="1420"/>
+	<position x="380" y="1420"/>
 	<column name="campaign_id" not-null="true" sequence="col.campaign_campaign_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -2380,7 +2380,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 	<comment><![CDATA[Table of regulations]]></comment>
 	<tag name="collection"/>
-	<position x="20" y="1560"/>
+	<position x="20" y="1580"/>
 	<column name="regulation_id" not-null="true" sequence="col.regulation_regulation_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -2922,7 +2922,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 	<comment><![CDATA[List of licenses usable to communicate informations on the collections]]></comment>
 	<tag name="collection"/>
-	<position x="400" y="900"/>
+	<position x="380" y="900"/>
 	<column name="license_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -3079,7 +3079,7 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	<role name="collec"/>
 	<comment><![CDATA[List of the countries]]></comment>
 	<tag name="collection"/>
-	<position x="400" y="1100"/>
+	<position x="380" y="1100"/>
 	<column name="country_id" not-null="true">
 		<type name="integer" length="0"/>
 		<comment><![CDATA[Numeric ISO code of the country]]></comment>
@@ -3538,6 +3538,48 @@ EAN 128•C128]]>
 			<column name="due_date"/>
 		</idxelement>
 </index>
+
+<table name="collection_sampletype" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<tag name="sample"/>
+	<position x="380" y="1580"/>
+
+	<customidxs object-type="column">
+		<object name="collection_id" index="0"/>
+		<object name="sample_type_id" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="collection" index="1"/>
+		<object name="collection_sampletype_1" index="0"/>
+		<object name="sample_type" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="collection_has_many_collection_sampletype" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}"
+	 custom-color="#3465a4"
+	 src-table="col.collection"
+	 dst-table="col.collection_sampletype"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+
+<relationship name="sample_type_has_many_collection_sampletype" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}"
+	 custom-color="#3465a4"
+	 src-table="col.sample_type"
+	 dst-table="col.collection_sampletype"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

@@ -61,7 +61,6 @@ class DbParam extends ObjetBDD
     function ecrireGlobal($data)
     {
         $this->colonnes["dbparam_name"]["requis"] = 0;
-        printA($data);
         foreach ($data as $key => $value) {
             if (substr($key, 0, 2) == "id") {
                 $aval = explode(":", $key);

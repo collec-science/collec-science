@@ -1,6 +1,4 @@
 <?php
-
-
 $message->setSyslog("Deconnexion from " . $_SESSION["login"] . " - address " . getIPClientAddress());
 if ($ident_type != "HEADER") {
   require_once "framework/identification/login.class.php";

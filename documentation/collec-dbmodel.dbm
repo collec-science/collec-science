@@ -3581,6 +3581,54 @@ EAN 128•C128]]>
 
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
+<function name="getsampletypesfromcollection"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<language name="sql"/>
+	<return-type>
+	<type name="varchar" length="0"/>
+	</return-type>
+	<parameter name="collection_id" in="true">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[select array_to_string(array_agg(sample_type_name), ', ') as sampletypes
+from col.collection_sampletype
+join col.sample_type using (sample_type_id)
+where collection_id = $1]]></definition>
+</function>
+
+<function name="getgroupsfromcollection"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="col"/>
+	<role name="postgres"/>
+	<language name="sql"/>
+	<return-type>
+	<type name="varchar" length="0"/>
+	</return-type>
+	<parameter name="collection_id">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[select array_to_string(array_agg(groupe),', ') as groupes
+from col.collection_group
+join gacl.aclgroup using (aclgroup_id)
+where collection_id = $1]]></definition>
+</function>
+
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
 	<columns names="uid" ref-type="src-columns"/>

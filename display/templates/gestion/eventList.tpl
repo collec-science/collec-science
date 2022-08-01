@@ -5,9 +5,14 @@
 <img src="display/images/new.png" height="25">{t}Nouveau...{/t}
 </a>
 {/if}
-<table id="eventList" class="table table-bordered table-hover datatable " >
+<table id="eventList" class="table table-bordered table-hover datatable " data-order='[[1,"desc"],[3,"desc"]]'>
 <thead>
 <tr>
+{if $droits.gestion == 1}
+  <th class="center">
+    {t}Modifier...{/t}
+  </th>
+{/if}
 <th>{t}Date{/t}</th>
 <th>{t}Type{/t}</th>
 <th>{t}Date prévue{/t}</th>
@@ -18,8 +23,14 @@
 <tbody>
 {section name=lst loop=$events}
 <tr>
+  {if $droits.gestion == 1}
+    <td class="center" title="{t}Modifier...{/t}">
+      <a href="index.php?module={$moduleParent}eventChange&event_id={$events[lst].event_id}&uid={$events[lst].uid}">
+      <img src="display/images/edit.gif" height="25">
+      </a>
+    </td>
+  {/if}
 <td>
-<a href="index.php?module={$moduleParent}eventChange&event_id={$events[lst].event_id}&uid={$events[lst].uid}">
 {$events[lst].event_date}
 </td>
 <td>

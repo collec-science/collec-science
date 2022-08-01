@@ -21,17 +21,19 @@ switch ($t_module["param"]) {
 		$vue->set($_SESSION["moduleParent"], "moduleParent");
 		$vue->set("tab-event", "activeTab");
 		/*
-		 * Recherche des types d'evenement
-		 */
-		require_once 'modules/classes/eventType.class.php';
-		$eventType = new EventType($bdd, $ObjetBDDParam);
-		$vue->set($eventType->getListeFromCategory($_SESSION["moduleParent"]), "eventType");
-		/*
 		 * Lecture de l'object concerne
 		 */
 		require_once 'modules/classes/object.class.php';
 		$object = new ObjectClass($bdd, $ObjetBDDParam);
-		$vue->set($object->lire($_REQUEST["uid"]), "object");
+		$vue->set($data = $object->lire($_REQUEST["uid"]), "object");
+
+		/*
+		 * Recherche des types d'evenement
+		 */
+		require_once 'modules/classes/eventType.class.php';
+		$eventType = new EventType($bdd, $ObjetBDDParam);
+		$vue->set($eventType->getListeFromCategory($_SESSION["moduleParent"], $data["collection_id"]), "eventType");
+
 		break;
 	case "write":
 		/*

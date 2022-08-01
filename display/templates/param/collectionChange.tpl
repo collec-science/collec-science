@@ -162,7 +162,21 @@
                               {/section}
                         </div>
                   </div>
-
+                  <div class="form-group">
+                        <label for="eventtypes"  class="control-label col-md-4">{t}Types d'événements spécifiques de la collection :{/t}</label>
+                        <div class="col-md-7">
+                              {section name=lst loop=$eventtypes}
+                                    <div class="col-md-6 ">
+                                          <div class="checkbox">
+                                                <label>
+                                                      <input type="checkbox" name="eventtypes[]" value="{$eventtypes[lst].event_type_id}" {if $eventtypes[lst].checked == 1}checked{/if}>
+                                                {$eventtypes[lst].event_type_name}
+                                                </label>
+                                          </div>
+                                    </div>
+                              {/section}
+                        </div>
+                  </div>
                   <div class="form-group center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.collection_id > 0 }

@@ -38,6 +38,7 @@ switch ($t_module["param"]) {
          * Get the list of all samples types
          */
         $vue->set($dataClass->getAllsampletypesFromCollection($id), "sampletypes");
+        $vue->set($dataClass->getAlleventtypesFromCollection($id), "eventtypes");
         /**
          * Recuperation des referents
          */

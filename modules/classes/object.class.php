@@ -18,6 +18,14 @@ class ObjectClass extends ObjetBDD
   private $movement;
   private $barcode;
 
+  private $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id, change_date, uuid, trashed,
+                  location_accuracy, geom, object_comment,
+                  collection_id, sample_type_id,
+                  container_type_id
+                  from object
+                  left outer join sample using (uid)
+                  left outer join container using (uid)";
+
   /**
    *
    * @param PDO $bdd
@@ -56,6 +64,24 @@ class ObjectClass extends ObjetBDD
     );
     $this->srid = 4326;
     parent::__construct($bdd, $param);
+  }
+
+  /**
+   * Surround of lire function to add some attributes
+   *
+   * @param int $id
+   * @param boolean $getDefault
+   * @param integer $parentValue
+   * @return array
+   */
+  function lire($id, $getDefault = true, $parentValue = 0)
+  {
+    if ($id == 0 && $getDefault) {
+      $data = $this->getDefaultValue($parentValue);
+    } else {
+      $data = $this->lireParamAsPrepared($this->sql." where uid =:uid", array("uid"=>$id));
+    }
+    return $data;
   }
 
   /**

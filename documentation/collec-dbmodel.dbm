@@ -3661,6 +3661,30 @@ where collection_id = $1]]></definition>
 
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
+<function name="geteventtypesfromcollection"
+		window-func="false"
+		returns-setof="false"
+		behavior-type="CALLED ON NULL INPUT"
+		function-type="VOLATILE"
+		security-type="SECURITY INVOKER"
+		parallel-type="PARALLEL UNSAFE"
+		execution-cost="1"
+		row-amount="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<language name="sql"/>
+	<return-type>
+	<type name="varchar" length="0"/>
+	</return-type>
+	<parameter name="collection_id" in="true">
+		<type name="integer" length="0"/>
+	</parameter>
+	<definition><![CDATA[select array_to_string(array_agg(event_type_name), ', ') as eventtypes
+from col.collection_eventtype
+join col.event_type using (event_type_id)
+where collection_id = $1]]></definition>
+</function>
+
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
 	<columns names="uid" ref-type="src-columns"/>

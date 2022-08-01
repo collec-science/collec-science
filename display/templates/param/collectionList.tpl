@@ -10,7 +10,7 @@
 <table id="collectionList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>
-	<th colspan="7"></th>
+	<th colspan="8"></th>
 	<th colspan="3" class="center">{t}Flux externes autorisés{/t}</th>
 	<th colspan="4"></th>
 </tr>
@@ -22,6 +22,7 @@
 	<th>{t}Référent{/t}</th>
 	<th>{t}Groupes de login autorisés{/t}</th>
 	<th>{t}types d'échantillons rattachés{/t}</th>
+	<th>{t}Types d'événements rattachés{/t}</th>
 	<th>{t}Flux de mise à jour{/t}</th>
 	<th>{t}Flux de consultation{/t}</th>
 	<th>{t}Collection publique{/t}</th>
@@ -49,6 +50,7 @@
 <td>{$data[lst].referent_name}</td>
 <td>{$data[lst].groupe}</td>
 <td>{$data[lst].sampletypes}</td>
+<td>{$data[lst].eventtypes}</td>
 <td class="center">
 	{if $data[lst].allowed_import_flow == 1}
 		{t}oui{/t}

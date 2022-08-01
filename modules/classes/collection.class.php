@@ -72,6 +72,7 @@ class Collection extends ObjetBDD
     $sql = "select collection_id, collection_name,
                 getgroupsfromcollection(collection_id) as groupe,
                 getsampletypesfromcollection(collection_id) as sampletypes,
+                geteventtypesfromcollection(collection_id) as eventtypes,
                 referent_name,
                 allowed_import_flow, allowed_export_flow, public_collection
                 ,collection_keywords,collection_displayname
@@ -154,11 +155,12 @@ class Collection extends ObjetBDD
     }
     $id = parent::ecrire($data);
     if ($id > 0) {
-      /*
-             * Ecriture des groupes
-             */
+      /**
+       * Ecriture des groupes
+       */
       $this->ecrireTableNN("collection_group", "collection_id", "aclgroup_id", $id, $data["groupes"]);
       $this->ecrireTableNN("collection_sampletype", "collection_id", "sample_type_id", $id, $data["sampletypes"]);
+      $this->ecrireTableNN("collection_eventtype", "collection_id", "event_type_id", $id, $data["eventtypes"]);
     }
     return $id;
   }
@@ -218,8 +220,9 @@ class Collection extends ObjetBDD
    * @param integer $collection_id
    * @return array
    */
-  function getAllSampletypesFromCollection(int $collection_id) {
-    if ($collection_id > 0 ) {
+  function getAllSampletypesFromCollection(int $collection_id)
+  {
+    if ($collection_id > 0) {
       $data = $this->getSampletypesFromCollection($collection_id);
       $dataGroup = array();
       foreach ($data as $value) {
@@ -244,7 +247,7 @@ class Collection extends ObjetBDD
   function getSampletypesFromCollection(int $collection_id)
   {
     $data = array();
-    if ($collection_id > 0 ) {
+    if ($collection_id > 0) {
       $sql = "select sample_type_id, sample_type_name
           from collection_sampletype
 					join sample_type using (sample_type_id)
@@ -272,6 +275,49 @@ class Collection extends ObjetBDD
       $data = $this->getListeParamAsPrepared($sql, $var);
     }
     return $data;
+  }
+
+  /**
+   * Get the list of event types attached to a collection
+   *
+   * @param integer $collection_id
+   * @return array
+   */
+  function getEventtypesFromCollection(int $collection_id)
+  {
+    $data = array();
+    if ($collection_id > 0) {
+      $sql = "select event_type_id, event_type_name
+          from collection_eventtype
+					join event_type using (event_type_id)
+					where collection_id = :collection_id";
+      $var["collection_id"] = $collection_id;
+      $data = $this->getListeParamAsPrepared($sql, $var);
+    }
+    return $data;
+  }
+  /**
+   * Get all event types, attached or not to a collection
+   *
+   * @param integer $collection_id
+   * @return array
+   */
+  function getAllEventtypesFromCollection(int $collection_id)
+  {
+    if ($collection_id > 0) {
+      $data = $this->getEventtypesFromCollection($collection_id);
+      $dataGroup = array();
+      foreach ($data as $value) {
+        $dataGroup[$value["event_type_id"]] = 1;
+      }
+    }
+    require_once 'modules/classes/eventType.class.php';
+    $eventType = new EventType($this->connection);
+    $eventtypes = $eventType->getListForSamples();
+    foreach ($eventtypes as $key => $value) {
+      $eventtypes[$key]["checked"] = $dataGroup[$value["event_type_id"]];
+    }
+    return $eventtypes;
   }
 
   /**
@@ -344,12 +390,13 @@ class Collection extends ObjetBDD
     $sql = "delete from collection_group where aclgroup_id = :group_id";
     $this->executeAsPrepared($sql, array("group_id" => $group_id));
   }
-/**
- * Get all collections, the attributed first
- *
- * @return array|null
- */
-  function getAllCollections() :?array {
+  /**
+   * Get all collections, the attributed first
+   *
+   * @return array|null
+   */
+  function getAllCollections(): ?array
+  {
     $collections = $_SESSION["collections"];
     /**
      * Get the others collections
@@ -368,6 +415,5 @@ class Collection extends ObjetBDD
     $sql .= " order by collection_name";
     $newCollections = $this->getListeParam($sql);
     return array_merge($collections, $newCollections);
-
   }
 }

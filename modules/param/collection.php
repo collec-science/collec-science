@@ -29,7 +29,7 @@ switch ($t_module["param"]) {
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
          */
-        dataRead($dataClass, $id, "param/collectionChange.tpl");
+        dataRead($dataClass, $id, "param/collectionChangeTab.tpl");
         /**
          * Recuperation des groupes
          */

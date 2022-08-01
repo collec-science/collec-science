@@ -10,7 +10,6 @@ require_once 'modules/classes/sampleType.class.php';
 $dataClass = new SampleType($bdd, $ObjetBDDParam);
 $keyName = "sample_type_id";
 $id = $_REQUEST[$keyName];
-
 switch ($t_module["param"]) {
     case "list":
         /*
@@ -56,10 +55,10 @@ switch ($t_module["param"]) {
         dataDelete($dataClass, $id);
         break;
     case "metadata":
-            $vue->setJson($dataClass->getMetadataForm($id));
+        $vue->setJson($dataClass->getMetadataForm($id));
         break;
-        case "metadataSearchable":
-        if(!empty($id)) {
+    case "metadataSearchable":
+        if (!empty($id)) {
             $vue->set($dataClass->getMetadataSearchable($id));
         } else {
             include_once "modules/classes/metadata.class.php";
@@ -70,5 +69,7 @@ switch ($t_module["param"]) {
     case "generator":
         $vue->setJson($dataClass->getIdentifierJs($id));
         break;
+    case "getListAjax":
+        $vue->set($dataClass->getListFromCollection($_REQUEST["collection_id"]));
+        break;
 }
-?>

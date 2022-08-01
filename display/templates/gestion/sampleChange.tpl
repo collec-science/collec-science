@@ -5,6 +5,7 @@
 	var identifier_fn = "";
 	var is_scan = false;
 	var sampling_place_init = "{$data.sampling_place_id}";
+	var sample_type_init = "{$data.sample_type_id}";
 	var parent_uid = "{$parent_sample.uid}";
 	function testScan() {
 		if (is_scan) {
@@ -174,6 +175,30 @@
 				;
 			}
 
+			function getSampletype() {
+				var collection_id = $("#collection_id").val();
+				$.ajax( {
+					url: "index.php",
+					data: { "module": "sampleTypeGetListAjax", "collection_id": collection_id}
+				})
+				.done (function (value) {
+					d = JSON.parse(value);
+					var options = '';
+					for (var i = 0; i < d.length; i++) {
+						options += '<option value="'+d[i].sample_type_id + '"';
+						if (d[i].sample_type_id == sample_type_init ) {
+							options += ' selected ';
+						}
+						options += '>' + d[i].sample_type_name ;
+						if (d[i].multiple_type_id > 0 ) {
+										options += ' / ' + d[i].multiple_type_name + ' : ' + d[i].multiple_unit;
+						}
+						options += '</option>';
+					};
+					$("#sample_type_id").html(options);
+				});
+			}
+
         $("#sample_type_id").change( function() {
        	 getMetadata();
        	 getGenerator();
@@ -182,6 +207,7 @@
         $("#collection_id").change(function() {
         	getSamplingPlace();
 					setGeographicVisibility();
+					getSampletype();
         });
 
         $("#sampling_place_id").change (function() {
@@ -195,6 +221,7 @@
         getGenerator();
         getSamplingPlace();
 				setGeographicVisibility();
+				getSampletype();
 
         $('#sampleForm').submit(function(event) {
             if($("#action").val()=="Write"){
@@ -508,11 +535,11 @@
 					<label for="collection_id" class="control-label col-md-4"><span class="red">*</span> {t}Collection :{/t}</label>
 					<div class="col-md-8">
 						<select id="collection_id" name="collection_id" class="form-control" autofocus>
-							{section name=lst loop=$collections}
-								<option value="{$collections[lst].collection_id}" {if $data.collection_id == $collections[lst].collection_id}selected{/if}>
-									{$collections[lst].collection_name}
+							{foreach $collections as $collection}
+								<option value="{$collection.collection_id}" {if $data.collection_id == $collection.collection_id}selected{/if}>
+									{$collection.collection_name}
 								</option>
-							{/section}
+							{/foreach}
 						</select>
 					</div>
 				</div>
@@ -533,7 +560,7 @@
 					<label for="sample_type_id" class="control-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
 					<div class="col-md-8">
 						<select id="sample_type_id" name="sample_type_id" class="form-control">
-							<option disabled selected value >{t}Choisissez...{/t}</option>
+						<!--
 							{section name=lst loop=$sample_type}
 								<option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $data.sample_type_id}selected{/if}>
 									{$sample_type[lst].sample_type_name}
@@ -542,6 +569,7 @@
 									{/if}
 								</option>
 							{/section}
+							-->
 						</select>
 					</div>
 				</div>

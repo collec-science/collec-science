@@ -40,6 +40,7 @@
 	<sampleTypeMetadata action="modules/param/sampleType.php" param="metadata" droits="consult" type="ajax"/>
     <sampleTypeMetadataSearchable action="modules/param/sampleType.php" param="metadataSearchable" droits="consult" type="ajax"/>
 	<sampleTypeGenerator action="modules/param/sampleType.php" param="generator" droits="gestion" type="ajax"/>
+	<sampleTypeGetListAjax action="modules/param/sampleType.php" param="getListAjax" droits="consult" type="ajax"/>
 
 	<movementReasonList action="modules/param/movementReason.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 	<movementReasonChange action="modules/param/movementReason.php" param="change" droits="param,collection" retourlogin="1" type="smarty" />

@@ -80,6 +80,26 @@ class SampleType extends ObjetBDD
             $tri = " order by $order";
         return $this->getListeParam($this->sql . $tri);
     }
+/**
+ * Get the list of sample_types, associated with a collection or orphaned
+ *
+ * @param integer $collection_id
+ * @return array
+ */
+    function getListFromCollection(int $collection_id = 0) :array
+    {
+        $sql = "select distinct sample_type_id, sample_type_name, multiple_type_id, multiple_type_name, multiple_unit
+                from sample_type
+                left outer join multiple_type using (multiple_type_id)";
+        $order = " order by sample_type_name";
+        $sql1 = $sql . " left outer join collection_sampletype using (sample_type_id)
+                         where collection_id = :collection_id" . $order;
+        $sql2 = $sql . " where sample_type_id not in (select distinct sample_type_id from collection_sampletype)" . $order;
+        return array_merge(
+            $this->getListeParamAsPrepared($sql1, array("collection_id" => $collection_id)),
+            $this->getListeParam($sql2)
+        );
+    }
 
     /**
      * Retourne le nombre d'échantillons attachés a un echantillon

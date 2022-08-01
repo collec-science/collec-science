@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="74"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -681,7 +681,7 @@ Example - Don't use•<xsl:stylesheet version="1.0"
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="objects"/>
-	<position x="1220" y="440"/>
+	<position x="1220" y="900"/>
 	<reference>
 		<expression><![CDATA[ SELECT d.document_id,
     d.uid
@@ -3561,7 +3561,7 @@ EAN 128•C128]]>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}"
-	 custom-color="#3465a4"
+	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.collection_sampletype"
 	 src-required="true" dst-required="false"
@@ -3628,6 +3628,38 @@ from col.collection_group
 join gacl.aclgroup using (aclgroup_id)
 where collection_id = $1]]></definition>
 </function>
+
+<table name="collection_eventtype" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<comment><![CDATA[List of event types attached to a collection]]></comment>
+	<tag name="objects"/>
+	<position x="1220" y="440"/>
+</table>
+
+<relationship name="collection_has_many_collection_eventtype" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}"
+	 custom-color="#f57900"
+	 src-table="col.collection"
+	 dst-table="col.collection_eventtype"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+
+<relationship name="event_type_has_many_collection_eventtype" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}"
+	 custom-color="#73d216"
+	 src-table="col.event_type"
+	 dst-table="col.collection_eventtype"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
@@ -3960,6 +3992,7 @@ where collection_id = $1]]></definition>
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_event_event_type" type="relfk" layers="0"
+	 custom-color="#73d216"
 	 src-table="col.event"
 	 dst-table="col.event_type" reference-fk="event_type_event_fk"
 	 src-required="false" dst-required="true"/>

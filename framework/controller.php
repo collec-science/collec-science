@@ -238,15 +238,20 @@ try {
     /**
      * Verification si le login est requis
      */
+    if ($_SESSION["cas_required"] == 1) {
+      $t_module["loginrequis"] = 1;
+      $_REQUEST["cas_required"] = 1;
+    }
     if ((!empty($_REQUEST["login"]) || !empty($t_module["droits"]) || $t_module["loginrequis"] == 1) && !$_SESSION["is_authenticated"]) {
       /**
        * Affichage de l'ecran de saisie du login si necessaire
        */
       if (
-        in_array($ident_type, array("BDD", "LDAP", "LDAP-BDD"))
+        in_array($ident_type, array("BDD", "LDAP", "LDAP-BDD", "CAS-BDD"))
         && empty($_REQUEST["login"])
         && empty($_SESSION["login"])
         && empty($_COOKIE["tokenIdentity"])
+        && empty ($_REQUEST["cas_required"])
       ) {
         /**
          * Gestion de la saisie du login
@@ -257,6 +262,9 @@ try {
         $vue->set("framework/ident/login.tpl", "corps");
         $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
         $vue->set($APPLI_lostPassword, "lostPassword");
+        if ($ident_type == "CAS-BDD") {
+          $vue->set (1, "CAS_enabled");
+        }
         $loginForm = true;
         if ($t_module["retourlogin"] == 1) {
           $vue->set($_REQUEST["module"], "moduleCalled");
@@ -272,9 +280,17 @@ try {
           if (!empty($_REQUEST["token"]) && !empty($_REQUEST["login"])) {
             $ident_type = "ws";
           }
+          /**
+           * For CAS-BDD
+           */
+          if ($_REQUEST["cas_required"] == 1 || !empty($_REQUEST["ticket"])) {
+            $ident_type = "CAS";
+            $_SESSION["cas_required"] = 1;
+          }
           $_SESSION["login"] = strtolower($login->getLogin($ident_type, false));
         }
         if (!empty($_SESSION["login"])) {
+          unset($_SESSION["cas_required"]);
           /**
            * Verify if the double authentication is mandatory
            */
@@ -335,6 +351,9 @@ try {
             $vue->set("framework/ident/login.tpl", "corps");
             $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
             $vue->set($APPLI_lostPassword, "lostPassword");
+            if ($ident_type == "CAS-BDD") {
+              $vue->set (1, "CAS_enabled");
+            }
           }
         }
       }

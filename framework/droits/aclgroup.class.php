@@ -131,6 +131,22 @@ class Aclgroup extends ObjetBDD
          * Fusion des groupes
          */
         $groupes = array_merge($groupes, $groupesLdap);
+        /**
+         * Récupération des groupes du serveur CAS
+         */
+        global $CAS_group_attribute, $CAS_get_groups;
+        if (isset($_SESSION["CAS_attributes"][$CAS_group_attribute]) && $CAS_get_groups == 1) {
+            $groupesCas = array();
+            foreach ($_SESSION["CAS_attributes"][$CAS_group_attribute] as $value) {
+                $search = $this->getGroupFromName($value);
+                foreach ($search as $value) {
+                    if ($value["aclgroup_id"] > 0) {
+                        $groupesCas[] = $value;
+                    }
+                }
+            }
+            $groupes = array_merge($groupes, $groupesCas);
+        }
         /*
          * Recuperation des groupes parents
          */

@@ -64,7 +64,7 @@ class Login
         $tauth = "db";
         $login = $this->getLoginBDD($_POST["login"], $_POST["password"]);
       }
-    } elseif ($type_authentification == "BDD") {
+    } elseif ($type_authentification == "BDD" || $type_authentification == "CAS-BDD") {
       $tauth = "db";
       $login = $this->getLoginBDD($_POST["login"], $_POST["password"]);
     }
@@ -177,7 +177,11 @@ class Login
       phpCAS::forceAuthentication();
     }
 
-    return phpCAS::getUser();
+    $user = phpCAS::getUser();
+    if (!empty($user)) {
+      $_SESSION["CAS_attributes"] = phpCAS::getAttributes();
+    }
+    return $user;
   }
 
   public function getLoginLdap($login, $password)

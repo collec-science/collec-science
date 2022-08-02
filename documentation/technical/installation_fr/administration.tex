@@ -38,7 +38,7 @@ Le module d'administration permet de saisir toutes ces informations. Il faut que
 
 \subsection{Créer un nouvel utilisateur}
 
-Les utilisateurs peuvent être issus soit de l'annuaire LDAP, soit de la base interne. 
+Les utilisateurs peuvent être issus soit de l'annuaire LDAP, soit d'un serveur CAS, soit d'un serveur de fédération, soit de la base interne. 
 Pour créer un nouvel utilisateur dans la base locale :
 \begin{itemize}
 \item \textit{Administration $\rightarrow$ Liste des comptes }
@@ -62,8 +62,6 @@ Les mots de passe doivent respecter les règles suivantes :
 \end{itemize}
 
 Les mots de passe sont stockés sous forme d'empreinte, calculée en rajoutant un sel\footnote{chaîne de caractère rajoutée au mot de passe -- en général le login ou un identifiant -- qui permet d'éviter que deux mots de passe identiques, associés à deux logins différents, aient la même empreinte} et encodés en SHA256 : ils ne peuvent pas être retrouvés en cas de perte.
-
-L'application n'intègre pas de module permettant de régénérer automatiquement un mot de passe en cas de perte : c'est au responsable applicatif d'en fournir un nouveau.
 
 La création d'un compte entraîne la création d'une entrée identique dans la table des \textit{acllogin}, utilisée pour attribuer les droits.
 
@@ -144,21 +142,22 @@ Le nom du droit doit être celui défini dans le corps de l'application (les dro
 
 Indiquez les groupes d'utilisateurs qui seront associés au droit courant.
 
-\subsection{Cas particulier des groupes et des logins issus d'un annuaire LDAP}
+\subsection{Cas particulier des groupes et des logins issus d'un annuaire LDAP ou d'un serveur CAS}
 
-Si vous avez paramétré l'application pour qu'elle s'appuie sur un annuaire LDAP pour gérer l'affectation des utilisateurs dans les groupes, vous n'êtes pas obligés de les déclarer explicitement dans le module de gestion des droits.
+Si vous avez paramétré l'application pour qu'elle s'appuie sur un annuaire LDAP pour gérer l'affectation des utilisateurs dans les groupes, ou si vous utilisez un serveur CAS qui fournit également la liste des groupes de l'utilisateur,
+vous n'êtes pas obligés de les déclarer explicitement dans le module de gestion des droits.
 
-\subsubsection{Droits attribués à un groupe LDAP}
+\subsubsection{Droits attribués à un groupe LDAP ou un groupe CAS}
 
 Tous les utilisateurs d'un groupe héritent d'un droit dans l'application.
 
 \begin{itemize}
 \item définissez le nom du groupe (en respectant la casse) dans le tableau des groupes d'utilisateurs (par exemple, EABX) ;
 \item sélectionnez le nom de ce groupe dans les droits utilisables ;
-\item tous les utilisateurs de l'annuaire LDAP récupéreront automatiquement les droits attribués à ce groupe.
+\item tous les utilisateurs de l'annuaire LDAP ou du serveur CAS récupéreront automatiquement les droits attribués à ce groupe.
 \end{itemize}
 
-\subsubsection{Droits attribués à un utilisateur particulier de l'annuaire LDAP}
+\subsubsection{Droits attribués à un utilisateur particulier de l'annuaire LDAP ou du serveur CAS}
 
 Un utilisateur s'identifie auprès de l'annuaire LDAP, mais dispose de droits particuliers.
 
@@ -168,7 +167,7 @@ Un utilisateur s'identifie auprès de l'annuaire LDAP, mais dispose de droits pa
 \end{itemize}
 
 
-\section{Droits spécifiques de l'application COLLEC}
+\section{Droits spécifiques de l'application COLLEC-SCIENCE}
 
 \subsection{Droits à positionner}
 Voici les droits nécessaires pour faire fonctionner correctement l'application :

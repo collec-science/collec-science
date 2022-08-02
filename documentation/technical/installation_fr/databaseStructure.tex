@@ -2,6 +2,21 @@
 
 \subsection{Schema col}
 \subsubsection{Tables}
+\paragraph{barcode}
+Models of barcodes usable
+
+\begin{tabular}{|l| p{2cm}|c|c| p{5cm}|}
+\hline
+Column name & Type & Not null & Key & Comment \\
+\hline
+barcode\_id & integer & X & X & \\
+barcode\_name & character varying & X &  & Name of the model\\
+barcode\_code & character varying & X &  & Value of the barcode used by the generating application, if occures. Default value: QR for QRcode\\
+\hline
+\end{tabular}
+\paragraph{Referenced by}
+barcode\_id: col.label (barcode\_id)
+
 \paragraph{booking}
 Table of object's bookings
 
@@ -90,8 +105,11 @@ List of regulations attached to a campaign
 \hline
 Column name & Type & Not null & Key & Comment \\
 \hline
-campaign\_id & integer & X & X & \\
-regulation\_id & integer & X & X & \\
+campaign\_regulation\_id & integer & X & X & \\
+campaign\_id & integer & X &  & \\
+regulation\_id & integer & X &  & \\
+authorization\_number & character varying &  &  & Number of the authorization\\
+authorization\_date & timestamp without time zone &  &  & Date of the authorization\\
 \hline
 \end{tabular}
 \paragraph{References}
@@ -241,6 +259,8 @@ country\_id: col.sample (country\_id)
 
 country\_id: col.sampling\_place (country\_id)
 
+country\_id: col.sample (country\_origin\_id)
+
 \paragraph{dataset\_column}
 List of columns included into the dataset
 
@@ -258,6 +278,7 @@ column\_order & smallint &  &  & order of displaying in the exported file\\
 mandatory & boolean &  &  & Is the content of the column is mandatory to export data?\\
 default\_value & character varying &  &  & Default value, if the value is not filled in\\
 date\_format & character varying &  &  & Export date format, in php notation. Example: d/m/Y H:i:s for 25/12/2020 17:15:00\\
+search\_order & smallint &  &  & To search a sample, order of the current field to trigger the search\\
 \hline
 \end{tabular}
 \paragraph{References}
@@ -489,7 +510,7 @@ Column name & Type & Not null & Key & Comment \\
 \hline
 identifier\_type\_id & integer & X & X & \\
 identifier\_type\_name & character varying & X &  & Textual name of the identifier\\
-identifier\_type\_code & character varying & X &  & Identifier code, used in the labels\\
+identifier\_type\_code & character varying &  &  & Identifier code, used in the labels\\
 used\_for\_search & boolean & X &  & Is the identifier usable for barcode searches?\\
 \hline
 \end{tabular}
@@ -509,9 +530,12 @@ label\_xsl & character varying & X &  & XSL content used by FOP transformation (
 label\_fields & character varying & X &  & List of fields incorporated in the QRCODE\\
 metadata\_id & integer &  &  & Model of the metadata template associated with this label\\
 identifier\_only & boolean & X &  & true: the qrcode contains only a business identifier\\
+barcode\_id & integer & X &  & \\
 \hline
 \end{tabular}
 \paragraph{References}
+barcode\_id: col.barcode (barcode\_id)
+
 metadata\_id: col.metadata (metadata\_id)
 
 \paragraph{Referenced by}
@@ -887,6 +911,7 @@ metadata & json &  &  & Metadata associated with the sample, in JSON format\\
 expiration\_date & timestamp without time zone &  &  & Date of expiration of the sample. After this date, the sample is not usable\\
 campaign\_id & integer &  &  & \\
 country\_id & integer &  &  & \\
+country\_origin\_id & integer &  &  & \\
 \hline
 \end{tabular}
 \paragraph{References}
@@ -895,6 +920,8 @@ campaign\_id: col.campaign (campaign\_id)
 collection\_id: col.collection (collection\_id)
 
 country\_id: col.country (country\_id)
+
+country\_origin\_id: col.country (country\_id)
 
 uid: col.object (uid)
 
@@ -1034,7 +1061,6 @@ translator\_id: col.dataset\_column (translator\_id)
 
 \subsubsection{Views}
 \paragraph{last\_borrowing}
-
  SELECT b1.borrowing\_id,
     b1.uid,
     b1.borrowing\_date,
@@ -1126,7 +1152,11 @@ nb\_slots\_used & bigint\\
 \end{tabular}
 \paragraph{v\_object\_identifier}
  SELECT object\_identifier.uid,
-    array\_to\_string(array\_agg((((identifier\_type.identifier\_type\_code)::text || ':'::text) || (object\_identifier.object\_identifier\_value)::text) ORDER BY identifier\_type.identifier\_type\_code, object\_identifier.object\_identifier\_value), ','::text) AS identifiers
+    array\_to\_string(array\_agg((((
+        CASE
+            WHEN (identifier\_type.identifier\_type\_code IS NOT NULL) THEN identifier\_type.identifier\_type\_code
+            ELSE identifier\_type.identifier\_type\_name
+        END)::text || ':'::text) || (object\_identifier.object\_identifier\_value)::text) ORDER BY identifier\_type.identifier\_type\_code, object\_identifier.object\_identifier\_value), ','::text) AS identifiers
    FROM (col.object\_identifier
      JOIN col.identifier\_type USING (identifier\_type\_id))
   GROUP BY object\_identifier.uid
@@ -1138,6 +1168,29 @@ Column name & Type \\
 \hline
 uid & integer\\
 identifiers & text\\
+\hline
+\end{tabular}
+\paragraph{v\_subsample\_quantity}
+ SELECT s.sample\_id,
+    s.uid,
+    s.multiple\_value,
+    COALESCE(( SELECT sum(smore.subsample\_quantity) AS sum
+           FROM col.subsample smore
+          WHERE ((smore.movement\_type\_id = 1) AND (smore.sample\_id = s.sample\_id))), (0)::double precision) AS subsample\_more,
+    COALESCE(( SELECT sum(sless.subsample\_quantity) AS sum
+           FROM col.subsample sless
+          WHERE ((sless.movement\_type\_id = 2) AND (sless.sample\_id = s.sample\_id))), (0)::double precision) AS subsample\_less
+   FROM col.sample s;
+
+\begin{tabular}{|l| p{2cm}|c|c| p{5cm}|}
+\hline
+Column name & Type \\
+\hline
+sample\_id & integer\\
+uid & integer\\
+multiple\_value & double precision\\
+subsample\_more & double precision\\
+subsample\_less & double precision\\
 \hline
 \end{tabular}
 \subsection{Schema gacl}
@@ -1225,6 +1278,7 @@ Column name & Type & Not null & Key & Comment \\
 acllogin\_id & integer & X & X & \\
 login & character varying & X &  & Login. It must be the same as the table logingestion\\
 logindetail & character varying & X &  & Displayed name\\
+totp\_key & character varying &  &  & TOTP secret key for the user\\
 \hline
 \end{tabular}
 \paragraph{Referenced by}
@@ -1300,4 +1354,5 @@ usedate & timestamp without time zone &  &  & Used date-time of the token\\
 \end{tabular}
 \paragraph{References}
 id: gacl.logingestion (id)
+
 

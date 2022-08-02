@@ -44,31 +44,31 @@ a2enmod rewrite
 \end{lstlisting}
 
 \subsection{Modules PHP nécessaires}
-PHP doit être en version 7.2 au minimum. Il est préférable d'installer PHP depuis le site de PHP plutôt que d'utiliser les paquets fournis par la distribution.
+PHP doit être en version 7.4 au minimum. Il est préférable d'installer PHP depuis le site de PHP plutôt que d'utiliser les paquets fournis par la distribution.
 
-Modules complémentaires nécessaires :
+Modules complémentaires nécessaires (les versions sont en général à indiquer après \textit{php}) :
 \begin{itemize}
+\item \textit{php-ldap}
 \item \textit{php-mbstring}
 \item \textit{php-pgsql}
-\item \textit{php7.x-xml} 
+\item \textit{php-xml} 
 \item \textit{php-xdebug} pour les phases de mise au point
-\item \textit{php-curl} pour l'identification via un serveur CAS.
+\item \textit{php-curl} pour l'identification via un serveur CAS
+\item \textit{php-zip}
+\item \textit{php-imagick}
+\item \textit{php-gd}
+
 \end{itemize}
 La génération des étiquettes nécessite les paquetages suivants :
 \begin{itemize}
-\item \textit{php-gd} 
 \item \textit{fop} (qui inclut des bibliothèques java)
 \end{itemize}
 
-Le stockage et l'affichage des photos nécessite :
-\begin{itemize}
-\item \textit{php-imagick}
-\end{itemize}
 
 \subsection{Installer et configurer php}
 Voici un extrait du script d'installation automatique qui permet d'installer PHP :
 \begin{lstlisting}
-PHPVER=7.3
+PHPVER=7.4
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
 apt -y install lsb-release apt-transport-https ca-certificates
 DISTRIBCODE=`lsb_release -sc`
@@ -110,12 +110,6 @@ sed -e "s/  <policy domain=\"coder\" rights=\"none\" pattern=\"PDF\" \/>/  <poli
 cp /tmp/policy.xml /etc/ImageMagick-6/
 \end{lstlisting}
 
-\subsection{Configurer l'antivirus}
-Les pièces téléchargées peuvent être analysées avec l'antivirus CLAMAV \cite{clamav}. Dans un premier temps, Clamav doit être installé. Le plus simple est d'utiliser les paquetages de la distribution.
-
-Suivez les instructions du document \cite{clamavarchlinux} pour l'installation et la vérification du bon fonctionnement.
-
-Par défaut, le script d'installation automatique n'installe pas l'antivirus. Si vous souhaitez activer cette fonctionnalité, vous devrez la configurer vous-même.
 
 \subsection{Configurer l'hôte virtuel et SSL}
 L'application ne fonctionne qu'en mode SSL, les cookies de session n'étant pas transmis sur des liens non chiffrés. Voici un exemple de configuration à insérer dans le fichier \textit{/etc/apache2/sites-available/default-ssl}
@@ -156,7 +150,7 @@ Cette identification n'est possible que pour les applications accessibles depuis
 apt-get install libapache2-mod-auth-mellon
 \end{lstlisting}
 
-Si le paquet libapache2-mod-auth-mellon n'est pas disponible (cas rencontré avec une distribution Debian strech), vous devrez récupérer et installer les paquets suivants (dans l'ordre) :
+Si le paquet libapache2-mod-auth-mellon n'est pas disponible (cas rencontré avec une distribution Debian \textit{strech}), vous devrez récupérer et installer les paquets suivants (dans l'ordre) :
 \begin{itemize}
 	\item libxmlsec1
 	\item libxmlsec1-openssl
@@ -233,7 +227,7 @@ Pour les établissements français affiliés à la fédération Renater, vous po
 
 Pour réaliser l'enregistrement :
 \begin{itemize}
-	\item Connectez-vous au site \href{https://federation.renater.fr/registry}{https://federation.renater.fr/registry}
+	\item Connectez-vous au site \href{https://registry.federation.renater.fr}{https://registry.federation.renater.fr}
 	\item cliquez sur \textit{Ajouter un fournisseur de services}
 	\item  dans l'onglet \textit{Description}, renseignez les champs demandés, avec notamment :
 	\begin{itemize}
@@ -253,7 +247,7 @@ Pour réaliser l'enregistrement :
 
 Une fois le dossier validé, vous devrez attendre le retour de votre correspondant Renater dans votre établissement, qui doit valider votre demande.
 
-Une fois cette première demande réalisée, vous devrez vous reconnecter au site de la fédération (\href{https://federation.renater.fr/registry}{https://federation.renater.fr/registry}), et activer le rattachement à la fédération choisie (onglet \textit{Rattachement à une fédération}). Deux fichiers seront à récupérer (commande wget dans le dossier /etc/apache2/mellon) pour récupérer d'une part le certificat, et d'autre part le fichier XML contenant l'ensemble des fournisseurs attachés à la fédération.
+Une fois cette première demande réalisée, vous devrez vous reconnecter au site de la fédération (\href{https://registry.federation.renater.fr}{https://registry.federation.renater.fr}), et activer le rattachement à la fédération choisie (onglet \textit{Rattachement à une fédération}). Deux fichiers seront à récupérer (commande wget dans le dossier /etc/apache2/mellon) pour récupérer d'une part le certificat, et d'autre part le fichier XML contenant l'ensemble des fournisseurs attachés à la fédération.
 
 Ce rattachement doit également être validé par votre correspondant Renater.
 
@@ -391,6 +385,7 @@ ident\_type & Type d'identification supporté :
 	\item LDAP : uniquement à partir d'un annuaire LDAP
 	\item LDAP-BDD : test de connexion d'abord auprès de l'annuaire LDAP, puis en base de données en cas d'échec
 	\item CAS : identification auprès d'un serveur CAS (Common Access Service)
+	\item CAS-BDD : identification soit interne (par base de données), soit appel par un bouton vers le serveur CAS
 	\item HEADER : identification auprès d'une fédération d'identités, comme EDUGAIN. Nécessite un paramétrage particulier du serveur Apache2 (\textit{cf.} \ref{mellon})
 \end{itemize}
 \\
@@ -404,6 +399,10 @@ CAS\_port = 443 & port utilisé pour atteindre le serveur CAS (port https)\\
 CAS\_debug = false & true ou false, pour activer ou non l'enregistrement des fonctions de débogage. À positionner systématiquement à \textit{false} en production \\
 \hline
 CAS\_CApath = "" & Chemin d'accès au certificat de l'autorité de certification qui correspond au certificat fourni par le serveur CAS (connexion https). Si la chaîne est vide, le certificat n'est pas vérifié. Le chemin doit être renseigné en production \\
+\hline
+CAS\_get\_groups = 1 & Récupère les groupes fournis par le serveur CAS \\
+\hline
+CAS\_group\_attribute = "supannEntiteAffectation" & Attribut multivalué contenant la liste des groupes de l'utilisateur, fourni par le serveur CAS \\
 \hline
 LDAP & tableau contenant tous les paramètres nécessaires pour une identification LDAP \\
 \hline
@@ -425,7 +424,7 @@ APPLI\_admin\_ttl & durée de vie d'une session d'administration (temps maximum 
 \hline
 APPLI\_lostPassword & Si à 1, autorise la récupération du mot de passe perdu, par envoi d'un mail avec un lien chiffré. Nécessite également que MAIL\_enabled soit positionné à 1 \\
 \hline
-indent\_header\_vars & tableau de configuration de l'identification en mode header
+ident\_header\_vars & tableau de configuration de l'identification en mode header
 \begin{itemize}
 	\item radical : racine des libellés des variables
 	\item login : champ renvoyé contenant le login (par défaut, le mail)

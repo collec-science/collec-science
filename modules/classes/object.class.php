@@ -968,4 +968,34 @@ class ObjectClass extends ObjetBDD
     $sql = "update object set trashed = :trashed where uid = :uid";
     $this->executeAsPrepared($sql, array("uid" => $uid, "trashed" => $trashed));
   }
+
+  /**
+   * Search an object from uid, identifier or uuid
+   *
+   * @param [type] $uid
+   * @param [type] $identifier
+   * @param [type] $uuid
+   * @return array
+   */
+  function search($uid = null, $identifier = null, $uuid = null) : array {
+    if (!$uid > 0 && strlen($identifier) == 0 && strlen($uuid) == 0) {
+      throw new ObjectException(_("Aucun identifiant n'a été fourni pour rechercher l'objet"),400);
+    }
+    $sql = "select uid, identifier, uuid, container_id, sample_id
+            from object
+            left outer join container using (uid)
+            left outer join sample using (uid)
+            where ";
+    if ($uid > 0) {
+      $sql.=" uid = :uid";
+      $param["uid"] = $uid;
+    } else if (strlen($identifier) > 0) {
+      $sql.=" identifier = :identifier";
+      $param["identifier"] = $identifier;
+    } else {
+      $sql.=" uuid = :uuid";
+      $param["uuid"] = $uuid;
+    }
+    return $this->lireParamAsPrepared($sql, $param);
+  }
 }

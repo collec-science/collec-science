@@ -39,11 +39,15 @@ switch ($t_module["param"]) {
       );
       http_response_code(200);
     } catch (Exception $e) {
-      $retour = array(
-        "error_code" => $e->getCode(),
-        "error_message" => $errors[$error_code],
-        "error_detail" => $e->getMessage()
-      );
+      $error_code = $e->getCode();
+    if (!isset($errors[$error_code])) {
+      $error_code = 520;
+    }
+    $retour = array(
+      "error_code" => $error_code,
+      "error_message" => $errors[$error_code],
+      "error_detail" => $e->getMessage()
+    );
       http_response_code($error_code);
       $message->setSyslog($e->getMessage());
     } finally {

@@ -2,7 +2,7 @@
 
 ## Principe
 
-L'API permet de générer des mouvements d'entrée ou de sortie, à partir soit de l'UID, soit de l'UUID, soit de l'identifiant métier (qui doit alors être unique dans la base de données);
+L'API permet de générer des mouvements d'entrée ou de sortie, à partir soit de l'UID, soit de l'UUID, soit de l'identifiant métier (qui doit alors être unique dans la base de données).
 
 ## Identification
 

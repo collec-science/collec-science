@@ -354,6 +354,8 @@
 		<swapi_en action="framework/utils/markdown.php" param="documentation/webservices/apiCallEn.md" type="smarty" retourko="default"/>
     <sampleWrite_fr action="framework/utils/markdown.php" param="documentation/webservices/sampleWriteFr.md" type="smarty" retourko="default"/>
 		<sampleWrite_en action="framework/utils/markdown.php" param="documentation/webservices/sampleWriteEn.md" type="smarty" retourko="default"/>
+		<swmovementWrite_fr action="framework/utils/markdown.php" param="documentation/webservices/movementAddFr.md" type="smarty" retourko="default"/>
+		<swmovementWrite_en action="framework/utils/markdown.php" param="documentation/webservices/movementAddEn.md" type="smarty" retourko="default"/>
 		<exportbatch_fr action="framework/utils/markdown.php" param="documentation/import_export/batch_export_fr.md" type="smarty" retourko="default"/>
 		<exportbatch_en action="framework/utils/markdown.php" param="documentation/import_export/batch_export_en.md" type="smarty" retourko="default"/>
 		<document_external_fr action="framework/utils/markdown.php" param="documentation/document_external/document_external_fr.md" type="smarty" retourko="default"/>

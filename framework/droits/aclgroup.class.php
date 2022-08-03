@@ -137,6 +137,9 @@ class Aclgroup extends ObjetBDD
         global $CAS_group_attribute, $CAS_get_groups;
         if (isset($_SESSION["CAS_attributes"][$CAS_group_attribute]) && $CAS_get_groups == 1) {
             $groupesCas = array();
+            if (!is_array($_SESSION["CAS_attributes"][$CAS_group_attribute]) && !empty ($_SESSION["CAS_attributes"][$CAS_group_attribute])) {
+                $_SESSION["CAS_attributes"][$CAS_group_attribute] = array($_SESSION["CAS_attributes"][$CAS_group_attribute]);
+            }
             foreach ($_SESSION["CAS_attributes"][$CAS_group_attribute] as $value) {
                 $search = $this->getGroupFromName($value);
                 foreach ($search as $value) {

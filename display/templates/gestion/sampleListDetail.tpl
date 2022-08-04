@@ -74,17 +74,17 @@
 			$( this.form ).prop( 'target', '_self' ).submit();
 		} );
 		$( "#samplelabels" ).on( "keypress click", function () {
-			$( this.form ).find( "input[name='module']" ).val( "samplePrintLabel" );
+			$( "#samplemodule" ).val( "samplePrintLabel" );
 			/*$("#sampleSpinner").show();*/
 			$( this.form ).prop( 'target', '_blank' ).submit();
 		} );
 		$( "#sampledirect" ).on( "keypress click", function () {
-			$( this.form ).find( "input[name='module']" ).val( "samplePrintDirect" );
+			$( "#samplemodule" ).val( "samplePrintDirect" );
 			$( "#sampleSpinner" ).show();
 			$( this.form ).prop( 'target', '_self' ).submit();
 		} );
 		$( "#sampleExport" ).on( "keypress click", function () {
-			$( this.form ).find( "input[name='module']" ).val( "sampleExport" );
+			$( "#samplemodule" ).val( "sampleExport" );
 			$( this.form ).prop( 'target', '_self' ).submit();
 		} );
 
@@ -342,7 +342,7 @@
 {include file="gestion/displayPhotoScript.tpl"}
 {if $droits.gestion == 1}
 <form method="POST" id="sampleFormListPrint" action="index.php">
-	<input type="hidden" id="module" name="module" value="samplePrintLabel">
+	<input type="hidden" id="samplemodule" name="module" value="samplePrintLabel">
 	<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
 	<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
 	<div class="row">
@@ -710,5 +710,5 @@
 			</div>
 		</div>
 	</div>
+	{/if}
 </form>
-{/if}

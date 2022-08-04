@@ -24,28 +24,24 @@
 			}
 			Cookies.set("tabHover", tabHover, { expires: 365, secure: true });
 		});
-		/* Management of tabs */
-		var activeTab = "{$activeTab}";
-    	if (activeTab.length == 0) {
-			try {
-			activeTab = Cookies.get("containerDisplayTab");
-			} catch (Exception) {
-				activeTab = "";
-			}
-		}
-		try {
-			if (activeTab.length > 0) {
-				$("#"+activeTab).tab('show');
-			}
-		} catch (Exception) { }
-		$('.nav-tabs > li > a').hover(function() {
-			if (tabHover == 1) {
-   				$(this).tab('show');
-			}
- 		});
-		 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
-			Cookies.set("containerDisplayTab",$(this).attr("id"), { secure: true");
-		});
+/* Management of tabs */
+      var activeTab = "";
+      var myStorage = window.localStorage;
+          try {
+          activeTab = myStorage.getItem("containerDisplayTab");
+          } catch (Exception) {
+          }
+      try {
+        if (activeTab.length > 0) {
+          $("#"+activeTab).tab('show');
+        }
+      } catch (Exception) { }
+      $('.nav-tabs > li > a').hover(function() {
+        //$(this).tab('show');
+       });
+       $('.nav-link').on('shown.bs.tab', function () {
+        myStorage.setItem("containerDisplayTab", $(this).attr("id"));
+      });
 		$('a[data-toggle="tab"]').on("click", function () {
 			tabHover = 0 ;
 		});
@@ -205,7 +201,7 @@
 			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link lexical" data-lexical="identifier_type" id="tab-id" href="#nav-id"  data-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
+			<a class="nav-link lexical" data-lexical="identifier_type" id="tab-identifier" href="#nav-identifier"  data-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
 				<img src="display/images/label.png" height="25">
 				{t}Identifiants{/t}
 			</a>
@@ -380,7 +376,7 @@
 				</fieldset>
 			</div>
 		</div>
-		<div class="tab-pane fade" id="nav-id" role="tabpanel" aria-labelledby="tab-id">
+		<div class="tab-pane fade" id="nav-identifier" role="tabpanel" aria-labelledby="tab-identifier">
 			<div class="col-md-12">
 				{include file="gestion/objectIdentifierList.tpl"}
 			</div>

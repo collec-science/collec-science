@@ -1,5 +1,19 @@
 News
 ===========
+Version 2.8.0a of August 4th, 2022
+----------------------------
+Bug fixes :
+- from the details of a container, the printing of the labels for the samples present did not work if the user did not have the "collection" rights
+- the modification of the general parameters (table dbparam) did not work anymore (corrected in 2.7.1)
+- an error occurred at the disconnection in some cases (corrected in 2.7.1)
+
+New features:
+- it is now possible to indicate a "date" field in the metadata, with a calendar displayed
+- an API to create movements is now available
+- a new identification mechanism is now possible: CAS-BDD. From the connection screen, if this mode is activated, a button allows to call the CAS server
+- it is possible to define, for a collection, particular types of samples. From then on, these sample types will no longer be proposed for the collections to which they do not belong. The same mechanism has been implemented for event types
+- it is now possible to define a due date for an event, and a new interface allows to search for upcoming events, realized or not, etc.
+
 Version 2.7.0 of June 20th, 2022
 ---------------------------
 Bug fixes:

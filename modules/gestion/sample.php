@@ -52,7 +52,7 @@ switch ($t_module["param"]) {
         "samplesearch_data" => json_encode($dataSearch),
         "samplesearch_login" => $_SESSION["login"]
       );
-      if ($_REQUEST["samplesearch_collection"] == 1 && $dataClass->verifyCollection($_REQUEST["collection_id"])) {
+      if ($_REQUEST["samplesearch_collection"] == 1 /*&& $dataClass->verifyCollection($_REQUEST["collection_id"])*/) {
         $dsamplesearch["collection_id"] = $_REQUEST["collection_id"];
       }
       $samplesearch->ecrire($dsamplesearch, $dsamplesearch["collection_id"]);

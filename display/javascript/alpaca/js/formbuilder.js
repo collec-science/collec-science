@@ -42,6 +42,11 @@ function getSchema(formdef) {
             prop.type = "string";
         }
 
+        if (value.type == "date") {
+            prop.type = "string";
+            prop.format = "date";
+        }
+
         if (value.required) {
             prop.required = value.required;
         }

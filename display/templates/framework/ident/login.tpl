@@ -46,17 +46,7 @@
 		<img src="display/images/framework/visible-24.png" height="16" id="passVisible" class="passwordVisible" >
 	</div>
 	</div>
-	{if $CAS_enabled == 1}
-	<input id="cas_required" name="cas_required" value="0" type="hidden">
-	<div class="form-group">
-		<label for="cas" class="control-label col-sm-4">{t}ou :{/t}</label>
-		<div class="col-sm-8">
-			<button id="cas" class="btn btn-info">{t}Se connecter avec l'identification centralisée{/t}</button>
-		</div>
-	</div>
-	{/if}
-
-  {if $tokenIdentityValidity > 0}
+	  {if $tokenIdentityValidity > 0}
   	<div class="form-group center checkbox col-sm-12 input-lg">
   	<label>
   {$duration = $tokenIdentityValidity / 3600}
@@ -73,9 +63,15 @@
   <div class="form-group center">
 	<button type="submit" class="btn btn-primary button-valid input-lg">{t}Se connecter{/t}</button>
 	</div>
+	{if $CAS_enabled == 1}
+	<input id="cas_required" name="cas_required" value="0" type="hidden">
+	<div class="form-group">
+		<label for="cas" class="control-label col-sm-4">{t}ou :{/t}</label>
+		<div class="col-sm-8">
+			<button id="cas" class="btn btn-info">{t}Se connecter avec l'identification centralisée{/t}</button>
+		</div>
+	</div>
+	{/if}
 	</form>
-
-
-
 	</div>
 </div>

@@ -28,8 +28,6 @@ CREATE TABLE col.collection_eventtype (
 -- ddl-end --
 COMMENT ON TABLE col.collection_eventtype IS E'List of event types attached to a collection';
 -- ddl-end --
-ALTER TABLE col.collection_eventtype OWNER TO collec;
--- ddl-end --
 
 
 -- object: collection | type: CONSTRAINT --
@@ -62,16 +60,12 @@ join col.event_type using (event_type_id)
 where collection_id = $1
 $$;
 -- ddl-end --
-ALTER FUNCTION col.geteventtypesfromcollection(integer) OWNER TO collec;
--- ddl-end --
 
 CREATE TABLE col.collection_sampletype (
 	collection_id integer NOT NULL,
 	sample_type_id integer NOT NULL,
 	CONSTRAINT collection_sampletype_1 PRIMARY KEY (collection_id,sample_type_id) DEFERRABLE INITIALLY IMMEDIATE
 );
--- ddl-end --
-ALTER TABLE col.collection_sampletype OWNER TO collec;
 -- ddl-end --
 
 -- object: collection | type: CONSTRAINT --
@@ -120,8 +114,6 @@ from col.collection_group
 join gacl.aclgroup using (aclgroup_id)
 where collection_id = $1
 $$;
--- ddl-end --
-ALTER FUNCTION col.getgroupsfromcollection(integer) OWNER TO postgres;
 -- ddl-end --
 
 insert into col.dbversion (dbversion_number, dbversion_date) values ('2.8', '2022-08-04');

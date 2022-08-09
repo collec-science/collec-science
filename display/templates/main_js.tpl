@@ -1,6 +1,6 @@
 <!-- Jquery -->
-<!--<script src="display/node_modules/jquery/dist/jquery.min.js"></script>-->
-<script src="display/javascript/jquery-3.6.0.min.js"></script>
+<script src="display/node_modules/jquery/dist/jquery.min.js"></script>
+<!--script src="display/javascript/jquery-3.6.0.min.js"></script-->
 <script src="display/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
 <script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>
 <link rel="stylesheet" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css">
@@ -53,7 +53,7 @@
 <script type="text/javascript" src="display/node_modules/datetime-moment/datetime-moment.js"></script>
 
 <!-- composant date/heure -->
-<script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+
 <script type="text/javascript" charset="utf-8"
 	src="display/node_modules/jquery-ui/ui/i18n/datepicker-en-GB.js"></script>
 <script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui/ui/i18n/datepicker-fr.js"></script>
@@ -197,10 +197,6 @@
 					extend: 'csvHtml5',
 					filename: 'export_' + new Date().toISOString()
 				},
-				/* {
-					 extend: 'pdfHtml5',
-					 orientation: 'landscape'
-				 },*/
 				'print'
 			]
 		} );

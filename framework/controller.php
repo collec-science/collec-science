@@ -14,7 +14,6 @@ try {
    * Lecture des parametres
    */
   require_once "framework/common.inc.php";
-
   /**
    * Verification des donnees entrantes.
    * Codage UTF-8
@@ -251,7 +250,7 @@ try {
         && empty($_REQUEST["login"])
         && empty($_SESSION["login"])
         && empty($_COOKIE["tokenIdentity"])
-        && empty ($_REQUEST["cas_required"])
+        && empty($_REQUEST["cas_required"])
       ) {
         /**
          * Gestion de la saisie du login
@@ -263,7 +262,7 @@ try {
         $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
         $vue->set($APPLI_lostPassword, "lostPassword");
         if ($ident_type == "CAS-BDD") {
-          $vue->set (1, "CAS_enabled");
+          $vue->set(1, "CAS_enabled");
         }
         $loginForm = true;
         if ($t_module["retourlogin"] == 1) {
@@ -352,7 +351,7 @@ try {
             $vue->set($tokenIdentityValidity, "tokenIdentityValidity");
             $vue->set($APPLI_lostPassword, "lostPassword");
             if ($ident_type == "CAS-BDD") {
-              $vue->set (1, "CAS_enabled");
+              $vue->set(1, "CAS_enabled");
             }
           }
         }
@@ -370,7 +369,7 @@ try {
         /**
          * Regeneration de l'identifiant de session
          */
-        session_regenerate_id();
+        //session_regenerate_id(true);
         /**
          * Recuperation des connexions recentes
          */
@@ -552,7 +551,6 @@ try {
     /**
      * fin d'analyse du module
      */
-
     /**
      * Enregistrement de l'acces au module
      */
@@ -579,7 +577,9 @@ try {
       if (!$isAjax && $module != "default") {
         $_SESSION["moduleBefore"] = $module;
       }
-      include $t_module["action"];
+      if (!empty($t_module["action"])) {
+        include $t_module["action"];
+      }
 
       if ($module == "loginExec" || $module == "totpVerifyExec") {
         if ($_SESSION["is_authenticated"]) {
@@ -706,21 +706,24 @@ try {
    */
   if (isset($vue)) {
     try {
+      if (!isset ($paramSend)) {
+        $paramSend = array();
+      }
       $vue->send($paramSend);
     } catch (Exception $e) {
       $message->setSyslog($e->getMessage());
     }
   }
+
   /**
    * Generation des messages d'erreur pour Syslog
    */
   $message->sendSyslog();
-
 } catch (Exception $e) {
   /**
    * General exception
    */
- echo _("Une erreur indéterminée s'est produite pendant le traitement de la requête. Si le problème persiste, consultez l'administrateur de l'application");
+  echo _("Une erreur indéterminée s'est produite pendant le traitement de la requête. Si le problème persiste, consultez l'administrateur de l'application");
   $message->setSyslog($e->getMessage());
   if ($APPLI_modeDeveloppement) {
     echo "<br>" . $e->getMessage();

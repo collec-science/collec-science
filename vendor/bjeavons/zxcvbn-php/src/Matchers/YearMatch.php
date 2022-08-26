@@ -1,53 +1,52 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ZxcvbnPhp\Matchers;
 
-class YearMatch extends Match
+use JetBrains\PhpStorm\ArrayShape;
+use ZxcvbnPhp\Matcher;
+
+class YearMatch extends BaseMatch
 {
-    const NUM_YEARS = 119;
+    public const NUM_YEARS = 119;
+
+    public $pattern = 'regex';
+    public $regexName = 'recent_year';
 
     /**
-     * @param $password
-     * @param $begin
-     * @param $end
-     * @param $token
-     */
-    public function __construct($password, $begin, $end, $token)
-    {
-        parent::__construct($password, $begin, $end, $token);
-        $this->pattern = 'year';
-    }
-
-    /**
-     * Match occurences of years in a password.
+     * Match occurrences of years in a password
      *
-     * @copydoc Match::match()
-     *
-     * @param       $password
+     * @param string $password
      * @param array $userInputs
-     *
-     * @return array
+     * @return YearMatch[]
      */
-    public static function match($password, array $userInputs = [])
+    public static function match(string $password, array $userInputs = []): array
     {
         $matches = [];
-        $groups = static::findAll($password, '/(19\\d\\d|200\\d|201\\d)/');
+        $groups = static::findAll($password, "/(19\d\d|200\d|201\d)/u");
         foreach ($groups as $captures) {
             $matches[] = new static($password, $captures[1]['begin'], $captures[1]['end'], $captures[1]['token']);
         }
-
+        Matcher::usortStable($matches, [Matcher::class, 'compareMatches']);
         return $matches;
     }
 
-    /**
-     * @return float
-     */
-    public function getEntropy()
+    #[ArrayShape(['warning' => 'string', 'suggestions' => 'string[]'])]
+    public function getFeedback(bool $isSoleMatch): array
     {
-        if (null === $this->entropy) {
-            $this->entropy = $this->log(self::NUM_YEARS);
-        }
+        return [
+            'warning' => "Recent years are easy to guess",
+            'suggestions' => [
+                'Avoid recent years',
+                'Avoid years that are associated with you',
+            ]
+        ];
+    }
 
-        return $this->entropy;
+    protected function getRawGuesses(): float
+    {
+        $yearSpace = abs($this->token - DateMatch::getReferenceYear());
+        return max($yearSpace, DateMatch::MIN_YEAR_SPACE);
     }
 }

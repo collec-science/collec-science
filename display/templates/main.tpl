@@ -32,7 +32,7 @@
 </div>
 </div>
 
-{if $droits.gestion == 1}
+{if !empty ($droits) && $droits.gestion == 1}
 <div class="row top10">&nbsp;</div>
 <div class="hidden-xs hidden-sm center-block">
 <div class="col-md-offset-1 col-md-2 center">
@@ -58,7 +58,7 @@
 </div>
 </div>
 {/if}
-{if count($collections) > 0}
+{if !empty($collections) && count($collections) > 0}
 <div class="hidden-sm row top10">&nbsp;</div>
 <div class="hidden-sm row">
   <div class="col-md-6 col-md-offset-1 col-lg-6 col-lg-offset-1">

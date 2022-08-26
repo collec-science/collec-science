@@ -39,6 +39,7 @@ class Navigation
             $data = $this->lireGlobal();
             $this->g_module = array_merge($this->g_module, $data);
         }
+        unset ($this->dom);
     }
 
     /**
@@ -90,5 +91,3 @@ class Navigation
         return $g_module;
     }
 }
-
-?>

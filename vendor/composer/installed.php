@@ -1,148 +1,155 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'dev-develop',
-    'version' => 'dev-develop',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => 'cc5b6eb26979e27c3f9f0172102b72054eb355bf',
+        'name' => 'irstea/collec',
+        'dev' => true,
     ),
-    'reference' => '75499f778dab71bfda26dd21682853c2f48937d5',
-    'name' => 'irstea/collec',
-  ),
-  'versions' => 
-  array (
-    'beberlei/assert' => 
-    array (
-      'pretty_version' => 'v3.3.2',
-      'version' => '3.3.2.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'cb70015c04be1baee6f5f5c953703347c0ac1655',
+    'versions' => array(
+        'beberlei/assert' => array(
+            'pretty_version' => 'v3.3.2',
+            'version' => '3.3.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../beberlei/assert',
+            'aliases' => array(),
+            'reference' => 'cb70015c04be1baee6f5f5c953703347c0ac1655',
+            'dev_requirement' => false,
+        ),
+        'bjeavons/zxcvbn-php' => array(
+            'pretty_version' => '1.3.1',
+            'version' => '1.3.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../bjeavons/zxcvbn-php',
+            'aliases' => array(),
+            'reference' => '994928ae5b17ecff8baa2406832d37bdf01116c0',
+            'dev_requirement' => false,
+        ),
+        'irstea/collec' => array(
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => 'cc5b6eb26979e27c3f9f0172102b72054eb355bf',
+            'dev_requirement' => false,
+        ),
+        'jasig/phpcas' => array(
+            'pretty_version' => '1.5.0',
+            'version' => '1.5.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jasig/phpcas',
+            'aliases' => array(),
+            'reference' => 'd6f5797fb568726f34c8e48741776d81e4a2646b',
+            'dev_requirement' => false,
+        ),
+        'paragonie/constant_time_encoding' => array(
+            'pretty_version' => 'v2.6.3',
+            'version' => '2.6.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../paragonie/constant_time_encoding',
+            'aliases' => array(),
+            'reference' => '58c3f47f650c94ec05a151692652a868995d2938',
+            'dev_requirement' => false,
+        ),
+        'paragonie/random_compat' => array(
+            'pretty_version' => 'v9.99.100',
+            'version' => '9.99.100.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../paragonie/random_compat',
+            'aliases' => array(),
+            'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
+            'dev_requirement' => false,
+        ),
+        'picqer/php-barcode-generator' => array(
+            'pretty_version' => 'v2.2.4',
+            'version' => '2.2.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../picqer/php-barcode-generator',
+            'aliases' => array(),
+            'reference' => 'b98f110cc5a79f723688fb17fd90b9325300d844',
+            'dev_requirement' => false,
+        ),
+        'psr/log' => array(
+            'pretty_version' => '3.0.0',
+            'version' => '3.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/log',
+            'aliases' => array(),
+            'reference' => 'fe5ea303b0887d5caefd3d431c3e61ad47037001',
+            'dev_requirement' => false,
+        ),
+        'ramsey/uuid' => array(
+            'pretty_version' => '3.9.6',
+            'version' => '3.9.6.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ramsey/uuid',
+            'aliases' => array(),
+            'reference' => 'ffa80ab953edd85d5b6c004f96181a538aad35a3',
+            'dev_requirement' => false,
+        ),
+        'rhumsaa/uuid' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '3.9.6',
+            ),
+        ),
+        'smarty-gettext/smarty-gettext' => array(
+            'pretty_version' => '1.6.2',
+            'version' => '1.6.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../smarty-gettext/smarty-gettext',
+            'aliases' => array(),
+            'reference' => '22e5b91b642cd643f9acdd8d04ab0e05647b98a7',
+            'dev_requirement' => false,
+        ),
+        'smarty/smarty' => array(
+            'pretty_version' => 'v4.2.0',
+            'version' => '4.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../smarty/smarty',
+            'aliases' => array(),
+            'reference' => '97aeb14c6fc2fb733938809926e2f9d6c581a70d',
+            'dev_requirement' => false,
+        ),
+        'spomky-labs/otphp' => array(
+            'pretty_version' => 'v10.0.3',
+            'version' => '10.0.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spomky-labs/otphp',
+            'aliases' => array(),
+            'reference' => '9784d9f7c790eed26e102d6c78f12c754036c366',
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-ctype' => array(
+            'pretty_version' => 'v1.26.0',
+            'version' => '1.26.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
+            'aliases' => array(),
+            'reference' => '6fd1b9a79f6e3cf65f9e679b23af304cd9e010d4',
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-mbstring' => array(
+            'pretty_version' => 'v1.26.0',
+            'version' => '1.26.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-mbstring',
+            'aliases' => array(),
+            'reference' => '9344f9cb97f3b19424af1a21a3b0e75b0a7d8d7e',
+            'dev_requirement' => false,
+        ),
+        'thecodingmachine/safe' => array(
+            'pretty_version' => 'v2.2.3',
+            'version' => '2.2.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../thecodingmachine/safe',
+            'aliases' => array(),
+            'reference' => 'e454a3142d2197694d1fda291a4462ccd3f66e12',
+            'dev_requirement' => false,
+        ),
     ),
-    'bjeavons/zxcvbn-php' => 
-    array (
-      'pretty_version' => '0.4.0',
-      'version' => '0.4.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '7a7e1130c74c715e84c60c27384f657e9574a933',
-    ),
-    'irstea/collec' => 
-    array (
-      'pretty_version' => 'dev-develop',
-      'version' => 'dev-develop',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '75499f778dab71bfda26dd21682853c2f48937d5',
-    ),
-    'jasig/phpcas' => 
-    array (
-      'pretty_version' => '1.5.0',
-      'version' => '1.5.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd6f5797fb568726f34c8e48741776d81e4a2646b',
-    ),
-    'paragonie/constant_time_encoding' => 
-    array (
-      'pretty_version' => 'v2.5.0',
-      'version' => '2.5.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '9229e15f2e6ba772f0c55dd6986c563b937170a8',
-    ),
-    'paragonie/random_compat' => 
-    array (
-      'pretty_version' => 'v9.99.100',
-      'version' => '9.99.100.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
-    ),
-    'picqer/php-barcode-generator' => 
-    array (
-      'pretty_version' => 'v2.2.2',
-      'version' => '2.2.2.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '877fcb0e9279ac40646361a7d7a7c6d0e1639836',
-    ),
-    'psr/log' => 
-    array (
-      'pretty_version' => '1.1.4',
-      'version' => '1.1.4.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
-    ),
-    'ramsey/uuid' => 
-    array (
-      'pretty_version' => '3.9.6',
-      'version' => '3.9.6.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'ffa80ab953edd85d5b6c004f96181a538aad35a3',
-    ),
-    'rhumsaa/uuid' => 
-    array (
-      'replaced' => 
-      array (
-        0 => '3.9.6',
-      ),
-    ),
-    'smarty-gettext/smarty-gettext' => 
-    array (
-      'pretty_version' => '1.2.0',
-      'version' => '1.2.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'bc3978d07165c62cd9f6e1c41e9196e5b90166f2',
-    ),
-    'smarty/smarty' => 
-    array (
-      'pretty_version' => 'v3.1.45',
-      'version' => '3.1.45.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'a2713ab89e6d773bc4819f11857af7f6b2e353a9',
-    ),
-    'spomky-labs/otphp' => 
-    array (
-      'pretty_version' => 'v10.0.3',
-      'version' => '10.0.3.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '9784d9f7c790eed26e102d6c78f12c754036c366',
-    ),
-    'symfony/polyfill-ctype' => 
-    array (
-      'pretty_version' => 'v1.26.0',
-      'version' => '1.26.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '6fd1b9a79f6e3cf65f9e679b23af304cd9e010d4',
-    ),
-    'thecodingmachine/safe' => 
-    array (
-      'pretty_version' => 'v1.3.3',
-      'version' => '1.3.3.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'a8ab0876305a4cdaef31b2350fcb9811b5608dbc',
-    ),
-  ),
 );

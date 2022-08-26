@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ZxcvbnPhp\Matchers;
 
 interface MatchInterface
@@ -12,15 +14,11 @@ interface MatchInterface
      * @code array('Alice Smith')
      * @endcode
      *
-     * @return array Array of Match objects
+     * @return array|BaseMatch[] Array of Match objects
      */
-    public static function match($password, array $userInputs = []);
+    public static function match(string $password, array $userInputs = []): array;
 
-    /**
-     * Get entropy for this match's token.
-     *
-     * @return float
-     *               Entropy of the matched token in the password
-     */
-    public function getEntropy();
+    public function getGuesses(): float;
+
+    public function getGuessesLog10(): float;
 }

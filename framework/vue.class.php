@@ -277,7 +277,7 @@ class VueSmarty extends Vue
    *
    * @see Vue::send()
    */
-  function send()
+  function send($param = "")
   {
     global $message;
     /*
@@ -520,7 +520,7 @@ class VuePdf extends Vue
    *
    * @see Vue::send()
    */
-  function send()
+  function send($param="")
   {
     if (!is_null($this->reference)) {
       header("Content-Type: application/pdf");
@@ -623,7 +623,7 @@ class VueBinaire extends Vue
    *
    * @see Vue::send()
    */
-  function send()
+  function send($param = "")
   {
     //printr($this->param);
 

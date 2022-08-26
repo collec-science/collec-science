@@ -14,7 +14,8 @@
  *
  */
 class VueException extends Exception
-{ }
+{
+}
 
 class Message
 {
@@ -137,7 +138,7 @@ class Vue
    *
    * @var array
    */
-  protected $data = array();
+  protected $data ;
 
   /**
    * Assigne une valeur
@@ -160,7 +161,8 @@ class Vue
    * @param string $param
    */
   function send($param = "")
-  { }
+  {
+  }
 
   /**
    * Return the content of a variable
@@ -520,7 +522,7 @@ class VuePdf extends Vue
    *
    * @see Vue::send()
    */
-  function send($param="")
+  function send($param = "")
   {
     if (!is_null($this->reference)) {
       header("Content-Type: application/pdf");
@@ -632,9 +634,11 @@ class VueBinaire extends Vue
              * Recuperation du content-type s'il n'a pas ete fourni
              */
     if (strlen($this->param["content_type"]) == 0) {
-      $finfo = finfo_open(FILEINFO_MIME_TYPE);
-      $this->param["content_type"] = finfo_file($finfo, $this->param["tmp_name"]);
-      finfo_close($finfo);
+      $finfo = new finfo(FILEINFO_MIME_TYPE);
+      if (!$finfo) {
+        throw new FrameworkException(_("Problème rencontré lors de l'ouverture de finfo"));
+      }
+      $this->param["content_type"] = $finfo->file($this->param["tmp_name"]);
     }
     header('Content-Type: ' . $this->param["content_type"]);
     header('Content-Transfer-Encoding: binary');
@@ -646,9 +650,9 @@ class VueBinaire extends Vue
     if (!$isReference) {
       header('Content-Length: ' . filesize($this->param["tmp_name"]));
     }
-    /*
-             * Ajout des entetes de cache
-             */
+    /**
+     * Ajout des entetes de cache
+     */
     header('Expires: 0');
     header('Cache-Control: must-revalidate');
     header('Pragma: no-cache');
@@ -708,7 +712,7 @@ class VueFile extends Vue
    * @param array $param: list of parameters of file
    * @return void
    */
-  function send( $param = array())
+  function send($param = array())
   {
     if (count($param) > 0) {
       $this->setParam($param);

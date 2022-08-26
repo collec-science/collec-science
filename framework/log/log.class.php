@@ -8,7 +8,7 @@
  */
 class Log extends ObjetBDD
 {
-
+    var $currentDate;
     /**
      * Constructeur
      *
@@ -43,6 +43,7 @@ class Log extends ObjetBDD
                 "type" => 0,
             ),
         );
+        $this->currentDate = date($_SESSION["MASKDATELONG"]);
         parent::__construct($bdd, $param);
     }
 
@@ -74,7 +75,7 @@ class Log extends ObjetBDD
             $module = "unknown";
         }
         $data["nom_module"] = $GACL_aco . "-" . $module;
-        $data["log_date"] = date($_SESSION["MASKDATELONG"]);
+        $data["log_date"] = $this->currentDate;
         $data["ipaddress"] = $this->getIPClientAddress();
         return $this->ecrire($data);
     }

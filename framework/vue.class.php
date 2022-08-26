@@ -88,12 +88,22 @@ class Message
     } else {
       $tableau = $this->_message;
     }
+    return $this->gethtmlentities($tableau);
+  }
+
+  function gethtmlentities($tableau, $empty = true)
+  {
+    $data = "";
     foreach ($tableau as $value) {
-      if ($i > 0) {
-        $data .= "<br>";
+      if (is_array($value)) {
+        $data .= $this->gethtmlentities($value, $empty);
+      } else {
+        if (!$empty) {
+          $data .= "<br>";
+        }
+        $empty = false;
+        $data .= htmlentities($value);
       }
-      $data .= htmlentities($value);
-      $i++;
     }
     return $data;
   }
@@ -138,7 +148,7 @@ class Vue
    *
    * @var array
    */
-  protected $data ;
+  protected $data;
 
   /**
    * Assigne une valeur

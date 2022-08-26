@@ -55,20 +55,21 @@ de création{/t}</th>
 {section name=lst loop=$dataDoc}
 <tr>
 <td class="center">
-{if in_array($dataDoc[lst].mime_type_id, array(4, 5, 6)) && $dataDoc[lst].external_storage == 0}
+{if in_array($dataDoc[lst].mime_type_id, array(4, 5, 6)) && $dataDoc[lst].external_storage != 1}
 <a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].photo_preview}&attached=0&phototype=1" title="{t}aperçu de la photo :{/t} {substr($dataDoc[lst].photo_name, strrpos($dataDoc[lst].photo_name, '/') + 1)}">
 <img src="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" height="30">
 </a>
-{elseif  $dataDoc[lst].mime_type_id == 1 && $dataDoc[lst].external_storage == 0}
+{elseif  $dataDoc[lst].mime_type_id == 1 && $dataDoc[lst].external_storage != 1}
 <a class="image-popup-no-margins" href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" title="{t}aperçu du document :{/t} {substr($dataDoc[lst].thumbnail_name, strrpos($dataDoc[lst].thumbnail_name, '/') + 1)}">
 <img src="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" height="30">
 </a>
 {/if}
 <td>
-{if $dataDoc[lst].external_storage == 0}
-<a href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&attached=1&phototype=0" title="{t}document original{/t}">
-{else}
+{if $dataDoc[lst].external_storage == 1}
 <a href="index.php?module=documentGetExternal&document_id={$dataDoc[lst].document_id}" title="{t}Téléchargez le fichier{/t}">
+
+{else}
+	<a href="index.php?module=documentGet&document_id={$dataDoc[lst].document_id}&attached=1&phototype=0" title="{t}document original{/t}">
 {/if}
 {if $dataDoc[lst].external_storage == 1}
 {$dataDoc[lst].external_storage_path}

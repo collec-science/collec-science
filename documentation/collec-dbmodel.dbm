@@ -1663,7 +1663,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[List of all recorded operations (logins, calls of modules, etc.)]]></comment>
 	<tag name="acl"/>
-	<position x="1620" y="40"/>
+	<position x="1620" y="180"/>
 	<column name="log_id" not-null="true" sequence="gacl.log_log_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1697,12 +1697,12 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="logingestion" layers="1" collapse-mode="1" max-obj-count="13" z-value="0">
+<table name="logingestion" layers="1" collapse-mode="1" max-obj-count="15" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of logins used to connect to the application, when the account is managed by the application itself. This table also contains the accounts authorized to use the web services.]]></comment>
 	<tag name="acl"/>
-	<position x="1220" y="180"/>
+	<position x="1220" y="40"/>
 	<column name="id" not-null="true" sequence="gacl.seq_logingestion_id">
 		<type name="integer" length="0"/>
 	</column>
@@ -1745,6 +1745,14 @@ Autre]]>
 		<type name="boolean" length="0"/>
 		<comment><![CDATA[If true, the account is expired (password older)]]></comment>
 	</column>
+	<column name="nbattempts" default-value="0">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[Number of connection attempts]]></comment>
+	</column>
+	<column name="lastattempt">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[last attempt of connection]]></comment>
+	</column>
 	<constraint name="pk_logingestion" type="pk-constr" table="gacl.logingestion">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
@@ -1764,7 +1772,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment><![CDATA[Password loss tracking table]]></comment>
 	<tag name="acl"/>
-	<position x="1220" y="40"/>
+	<position x="1620" y="40"/>
 	<column name="passwordlost_id" not-null="true" sequence="gacl.passwordlost_passwordlost_id_seq">
 		<type name="integer" length="0"/>
 	</column>

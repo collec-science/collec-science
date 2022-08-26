@@ -85,10 +85,13 @@ class LoginGestion extends ObjetBDD
             $sql = "select id, login, password, nbattempts, lastattempt, is_expired from LoginGestion where login = :login and actif = 1";
             $this->auto_date = 0;
             $data = $this->lireParamAsPrepared($sql, array("login" => $login));
+            if (!$data["id"]>0) {
+                $tests = false;
+            }
             /**
              * Verify if the number of attempts is reached
              */
-            if ($data["nbattempts"] >= $this->nbattempts && !empty($data["lastattempt"])) {
+            if ($tests && $data["nbattempts"] >= $this->nbattempts && !empty($data["lastattempt"])) {
                 $lastdate = strtotime( $data["lastattempt"]) + $this->attemptdelay;
                 if ($lastdate > time()) {
                     $this->addAttempt($data["id"]);

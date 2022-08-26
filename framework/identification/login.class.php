@@ -69,12 +69,7 @@ class Login
       $login = $this->getLoginBDD($_POST["login"], $_POST["password"]);
     }
     if (!empty($login)) {
-      if (!$this->log->isAccountBlocked($login, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
-        $this->log->setlog($login, "connection-" . $tauth, "ok");
-      } else {
-        $this->log->setLog($login, "connectionBlocking", "account blocked");
-        $login = null;
-      }
+       $this->log->setlog($login, "connection-" . $tauth, "ok");
     } else {
       isset($_POST["login"]) ? $loginRequired = $_POST["login"] : $loginRequired = "unknown";
       $this->log->setlog($loginRequired, "connection-" . $tauth, "ko");

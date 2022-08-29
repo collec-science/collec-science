@@ -85,14 +85,14 @@ class LoginGestion extends ObjetBDD
             $sql = "select id, login, password, nbattempts, lastattempt, is_expired from LoginGestion where login = :login and actif = 1";
             $this->auto_date = 0;
             $data = $this->lireParamAsPrepared($sql, array("login" => $login));
-            if (!$data["id"]>0) {
+            if (!$data["id"] > 0) {
                 $tests = false;
             }
             /**
              * Verify if the number of attempts is reached
              */
             if ($tests && $data["nbattempts"] >= $this->nbattempts && !empty($data["lastattempt"])) {
-                $lastdate = strtotime( $data["lastattempt"]) + $this->attemptdelay;
+                $lastdate = strtotime($data["lastattempt"]) + $this->attemptdelay;
                 if ($lastdate > time()) {
                     $this->addAttempt($data["id"]);
                     $tests = false;
@@ -122,7 +122,8 @@ class LoginGestion extends ObjetBDD
                 where id = :id";
         $this->executeAsPrepared($sql, array("id" => $id), true);
     }
-    function resetAttempt($id) {
+    function resetAttempt($id)
+    {
         $sql = "update logingestion set nbattempts = 0, lastattempt = null
         where id = :id";
         $this->executeAsPrepared($sql, array("id" => $id), true);
@@ -216,11 +217,9 @@ class LoginGestion extends ObjetBDD
      */
     public function getListeTriee()
     {
-        $sql = "select id,l.login,nom,prenom,mail,actif, is_clientws, count(*) as dbconnect_provisional_nb
-        from logingestion l
-        left outer join log on (l.login = log.login and log_date > datemodif
-                       and commentaire = 'db-ok-expired')
-        group by id, l.login, nom, prenom, mail, actif, is_clientws";
+        $sql = "select id,l.login,nom,prenom,mail,actif, is_clientws,
+                nbattempts, lastattempt
+                from logingestion l";
         return ObjetBDD::getListeParam($sql);
     }
 
@@ -245,7 +244,7 @@ class LoginGestion extends ObjetBDD
         /*
          * Traitement de la generation du token d'identification ws
          */
-        if ($data["is_clientws"] == 1)
+        if ($data["is_clientws"] == 1) {
             if (strlen($data["tokenws"]) == 0) {
                 $token = bin2hex(openssl_random_pseudo_bytes(32));
                 if (openssl_public_encrypt($token, $crypted, $this->getKey("pub"), OPENSSL_PKCS1_OAEP_PADDING)) {
@@ -259,6 +258,11 @@ class LoginGestion extends ObjetBDD
                  */
                 unset($data["tokenws"]);
             }
+        }
+        if ($data["resetattempts"] == 1) {
+            $data["nbattempts"] = 0;
+            $data["lastattempt"] = "";
+        }
         return parent::ecrire($data);
     }
 

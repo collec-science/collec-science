@@ -22,6 +22,8 @@ class Login
   {
     global $APPLI_modeDeveloppement, $privateKey, $pubKey, $CONNEXION_blocking_duration, $CONNEXION_max_attempts;
     $tauth = "";
+    $this->loginGestion->attemptdelay = $CONNEXION_blocking_duration;
+    $this->loginGestion->nbattempts = $CONNEXION_max_attempts;
     /**
      * web service
      */

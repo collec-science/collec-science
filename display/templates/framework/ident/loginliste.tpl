@@ -34,6 +34,8 @@ $(document).ready(function() {
 					<th>{t}Actif{/t}</th>
 					<th>{t}Compte utilisé pour service web{/t}</th>
 					<th>{t}Mot de passe en attente de changement{/t}</th>
+					<th>{t}Nombre d'essais de connexion infructueux{/t}</th>
+					<th>{t}Heure du dernier essai infructueux{/t}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -49,6 +51,8 @@ $(document).ready(function() {
 						{else if $liste[lst].dbconnect_provisional_nb > 3 }{t}oui{/t}
 						{/if}
 					</td>
+					<td class="center">{if $liste[lst].nbattempts > 0}{$liste[lst].nbattempts}{/if}</td>
+					<td>{$liste[lst].lastattempt}</td>
 				</tr>
 				{/section}
 			</tbody>

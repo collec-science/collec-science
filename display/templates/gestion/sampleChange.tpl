@@ -382,6 +382,7 @@
 					$("#parent_sample_id").html(options);
 					$("#parent_collection").val(collection);
 					$("#parent_type").val(type);
+					$("#parent_sample_id").change();
 					}
 				});
 			}
@@ -415,6 +416,22 @@
 					$("#parent_collection").val(collection);
 					$("#parent_type").val(type);
 					parent_uid = uid;
+					/*
+					 * set values of parent to the child
+					 */
+					$("#collection_id").val(data["collection_id"]);
+					$("#wgs84_x").val(data["wgs84_x"]);
+					$("#wgs84_y").val(data["wgs84_y"]);
+					$("#location_accuracy").val(data["location_accuracy"]);
+					$("#sampling_place_id").val(data["sampling_place_id"]);
+					$("#referent_id").val(data["referentId"]);
+					$("#identifier").val(data["identifier"]);
+					$("#campaign_id").val(data["campaign_id"]);
+					$("#country_id").val(data["country_id"]);
+					$("#country_origin_id").val(data["country_origin_id"]);
+					$("#metadataField").val(data["metadata"]);
+					getMetadata();
+					setLocalisation();
 				}
 				});
 			}

@@ -90,7 +90,8 @@ coordinates = [{$data.wgs84_x}, {$data.wgs84_y}];
 	geometry: point
 });
 //point_feature.setStyle(getStyle({$localisation[lst].localisation_id}));
-point_feature.setStyle(getStyle({$data.uid}));
+var displayname = "{$data.uid} {$data.identifier}" ;
+point_feature.setStyle(getStyle(displayname ));
 features.push ( point_feature) ;
 
 /*

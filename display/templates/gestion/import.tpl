@@ -92,8 +92,8 @@
       <li>{t}Pour importer des contenants :{/t}
             <ul>
                   <li><b>container_identifier</b> : {t}l'identifiant du contenant (obligatoire){/t}</li>
-                  <li><b>container_type_id / container_type_name</b> : {t}le numéro informatique du type de contenant ou son nom (obligatoire){/t}</li>
-                  <li><b>container_status_id / container_status_name</b> : {t}le numéro informatique du statut du contenant ou son nom (obligatoire){/t}</li>
+                  <li><b>container_type_id / container_type_name</b> : {t}le numéro informatique du type de contenant ou son nom (obligatoire){/t} <a href="index.php?module=containerTypeList">{t}Types de conteneurs{/t}</a></li>
+                  <li><b>container_status_id / container_status_name</b> : {t}le numéro informatique du statut du contenant ou son nom (obligatoire){/t} <a href="index.php?module=objectStatusList">{t}Liste des statuts{/t}</a></li>
                   <li><b>container_uuid</b> : {t}UID Universel du contenant (UUID){/t}</li>
                   <li><b>container_comment</b> : {t}Commentaire libre sur le contenant{/t}</li>
                   <li><b>container_location</b> : {t}l'emplacement de rangement du contenant dans son contenant (texte libre){/t}</li>
@@ -106,13 +106,15 @@
       <li>{t}Pour importer des échantillons :{/t}
             <ul>
                   <li><b>sample_identifier</b> : {t}l'identifiant de l'échantillon (obligatoire){/t}</li>
-                  <li><b>collection_id / collection_name</b> : {t}le numéro informatique de la collection ou son nom (obligatoire){/t}</li>
-                  <li><b>sample_type_id / sample_type_name</b> : {t}le numéro informatique du type d'échantillon ou son nom (obligatoire){/t}</li>
-                  <li><b>sample_status_id / sample_status_name</b> : {t}le numéro du statut de l'échantillon ou son nom(obligatoire){/t}</li>
-                  <li><b>campaign_id / campaign_name / campaign_uuid</b> : {t}le numéro informatique de la campagne de prélèvement, son nom ou son UUID{/t}</li>
-                  <li><b>sampling_place_id / sampling_place_name</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé ou son nom{/t}</li>
-                  <li><b>country_code</b>: {t}le code du pays de collecte, sur deux positions{/t}</li>
-                  <li><b>country_origin_code</b>: {t}le code du pays de provenance, sur deux positions{/t}</li>
+                  <li><b>collection_id / collection_name</b> : {t}le numéro informatique de la collection ou son nom (obligatoire){/t} <a href="index.php?module=collectionList">{t}Liste des collections{/t}</a></li>
+                  <li><b>sample_type_id / sample_type_name</b> : {t}le numéro informatique du type d'échantillon ou son nom (obligatoire){/t} <a href="index.php?module=sampleTypeList">{t}Types d'échantillons{/t}</a></li>
+                  <li><b>sample_status_id / sample_status_name</b> : {t}le numéro du statut de l'échantillon ou son nom(obligatoire){/t} <a href="index.php?module=objectStatusList">{t}Liste des statuts{/t}</a></li>
+                  <li><b>campaign_id / campaign_name / campaign_uuid</b> : {t}le numéro informatique de la campagne de prélèvement, son nom ou son UUID{/t} <a href="index.php?module=campaignList">{t}Liste des campagnes{/t}</a></li>
+                  <li><b>sampling_place_id / sampling_place_name</b> : {t}le numéro informatique de l'endroit où l'échantillon a été prélevé ou son nom{/t} <a href="index.php?module=samplingPlaceList">{t}Liste des lieux de prélèvement{/t}</a></li>
+                  <li><b>country_code</b>: {t}le code du pays de collecte, sur deux positions{/t} <a href="index.php?module=countryList">{t}Liste des pays{/t}</a></li>
+                  <li><b>country_name</b>: {t}le nom du pays de collecte, qui doit être strictement identique au libellé affiché dans la table {/t} <a href="index.php?module=countryList">{t}des pays{/t}</a></li>
+                  <li><b>country_origin_code</b>: {t}le code du pays de provenance, sur deux positions{/t} <a href="index.php?module=countryList">{t}Liste des pays{/t}</a></li>
+                  <li><b>country_origin_name</b>: {t}le nom du pays de provenance, qui doit être strictement identique au libellé affiché dans la table {/t} <a href="index.php?module=countryList">{t}des pays{/t}</a></li>
                   <li><b>referent_id / referent_name</b> : {t}le numéro informatique du référent ou son nom, sous la forme "nom prénom"{/t}</li>
                   <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                   <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
@@ -131,7 +133,7 @@
                   <li><b>sample_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>
                   <li><b>sample_line</b> : {t}n° de la ligne de stockage dans le contenant{/t}</li>
                   <li>
-                        <b>sample_metadata_json</b> : {t escape=no}les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"taxon":"Alosa alosa"&#125;){/t}
+                        <b>sample_metadata_json</b> : {t escape=no}les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"taxon":"Alosa alosa"&#125;) <a href="index.php?module=metadataList">{t}Liste des modèles de métadonnées{/t}</a>{/t}
                         <ul>
                               <li>{t}il est également possible de définir les métadonnées avec un attribut par colonne. Dans ce cas, la colonne doit être nommée md_nomAttribut, par exemple : md_taxon. La valeur de la colonne md_xxx écrasera celle de l’attribut xxx présent dans la colonne sample_metadata_json{/t}
                               <li>{t escape=no}Dans le cas de multi-valeurs, celles-ci doivent être séparées par une virgule dans la colonne md_ (exemple : valeur1,valeur2), et entourées de crochets dans la colonne sample_metadata_json (exemple : &#123;"valeurs":&#91;valeur1,valeur2&#93;&#125;){/t}</li>

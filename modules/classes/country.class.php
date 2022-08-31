@@ -40,4 +40,19 @@ class Country extends ObjetBDD
       return null;
     }
   }
+  /**
+   * Get the id of the country from its name
+   *
+   * @param string $name
+   * @return integer|null
+   */
+  function getIdFromName(string $name) :?int {
+    $sql = "select country_id from country where lower(country_name) = lower (:name)";
+    $data = $this->lireParamAsPrepared($sql, array("name"=>$name));
+    if ($data["country_id"] > 0) {
+      return $data["country_id"];
+    } else {
+      return null;
+    }
+  }
 }

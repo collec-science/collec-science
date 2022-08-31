@@ -68,6 +68,8 @@ class ImportObject
     "campaign_id",
     "country_code",
     "country_origin_code",
+    "country_name",
+    "country_origin_name",
     "container_type_name",
     "container_status_name",
     "collection_name",
@@ -575,13 +577,19 @@ class ImportObject
     }
 
     /**
-     * Search for the code of the country
+     * Search for the code or the name of the country
      */
     if (!empty($values["country_code"])) {
       $values["country_id"] = $this->country->getIdFromCode($values["country_code"]);
     }
     if (!empty($values["country_origin_code"])) {
       $values["country_origin_id"] = $this->country->getIdFromCode($values["country_origin_code"]);
+    }
+    if (!empty($values["country_name"])) {
+      $values["country_id"] = $this->country->getIdFromName($values["country_name"]);
+    }
+    if (!empty($values["country_origin_name"])) {
+      $values["country_origin_id"] = $this->country->getIdFromName($values["country_origin_name"]);
     }
     /**
      * Search the ids from the names
@@ -798,7 +806,15 @@ class ImportObject
       }
       if (!empty($data["country_origin_code"]) && empty($data["country_origin_id"])) {
         $retour["code"] = false;
-        $retour["message"] .= _("Le code pays est inconnu.");
+        $retour["message"] .= _("Le code du pays d'origine est inconnu.");
+      }
+      if (!empty($data["country_name"]) && empty($data["country_id"])) {
+        $retour["code"] = false;
+        $retour["message"] .= _("Le nom du pays est inconnu.");
+      }
+      if (!empty($data["country_name_code"]) && empty($data["country_origin_id"])) {
+        $retour["code"] = false;
+        $retour["message"] .= _("Le nom du pays d'origine est inconnu.");
       }
       /**
        * Verification du referent

@@ -1,14 +1,16 @@
 <!-- Jquery -->
 <script src="display/node_modules/jquery/dist/jquery.min.js"></script>
 <!--script src="display/javascript/jquery-3.6.0.min.js"></script-->
-<script src="display/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
-<script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>
-<link rel="stylesheet" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css">
+
 <!-- Bootstrap -->
 <link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap-theme.min.css">
 <script src="display/javascript/bootstrap/js/bootstrap.min.js"></script>
 
+<!--JqueryUI-->
+<script src="display/node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
+<script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>
+<link rel="stylesheet" href="display/node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css">
 
 <!--alpaca -->
 <script type="text/javascript" src="display/node_modules/handlebars/dist/handlebars.runtime.min.js"></script>
@@ -331,13 +333,17 @@
 			}, lexicalDelay );
 		} ).mouseleave( function () {
 			clearTimeout( lexicalTimer );
+			if($(this).is(':ui-tooltip')) {
+				$(this).tooltip("close");
+			}
 		} );
 		function tooltipDisplay( object ) {
-			object.tooltip( {
+			$(object).tooltip( {
 				content: tooltipContent
 			} );
-			object.attr( "title", tooltipContent );
-			object.tooltip( "open" );
+			//object.tooltip("option", "content", tooltipContent);
+			$(object).attr( "title", tooltipContent );
+			$(object).tooltip( "open" );
 		}
 	} );
 </script>

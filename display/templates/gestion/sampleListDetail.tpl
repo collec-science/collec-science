@@ -244,6 +244,9 @@
 
 		} ).mouseleave( function () {
 			clearTimeout( timer );
+			if($(this).is(':ui-tooltip')) {
+				$(this).tooltip("close");
+			}
 		} );
 		function tooltipDisplay( object ) {
 			object.tooltip( {

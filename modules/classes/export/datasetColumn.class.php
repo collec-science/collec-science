@@ -46,7 +46,7 @@ class DatasetColumn extends ObjetBDD
    * @param integer $parentValue
    * @return void
    */
-  function lire(int $id, $getDefault = true, int $parentValue = 0)
+  function lire( $id, $getDefault = true, $parentValue = 0)
   {
     if ($id == 0) {
       $data = $this->getDefaultValue($parentValue);

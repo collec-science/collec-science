@@ -308,7 +308,7 @@ class Identification
                          * Verify if the structure is authorized
                          */
                         $createUser = true;
-                        if (count($ident_header_vars["organizationGranted"]) > 0 && !in_array($headers[$ident_header_vars["organization"]], $ident_header_vars["organizationGranted"])) {
+                        if (!empty($ident_header_vars["organizationGranted"]) && !in_array($headers[$ident_header_vars["organization"]], $ident_header_vars["organizationGranted"])) {
                             $createUser = false;
                             $log->setLog($login, "connexion", "HEADER-ko. The " . $headers[$ident_header_vars["organization"]] . " is not authorized to connect to this application");
                         }

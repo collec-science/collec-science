@@ -12,10 +12,10 @@ switch ($t_module["param"]) {
     /*
 		 * open the form to modify the record
 		 * If is a new record, generate a new record with default value :
-		 * $_REQUEST["idParent"] contains the identifiant of the parent record 
+		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
     dataRead($dataClass, $id, "export/exportChange.tpl", $_REQUEST["lot_id"]);
-    require_once "modules/classes/export/lot.class.php";
+     require_once "modules/classes/export/lot.class.php";
     $lot = new Lot($bdd, $ObjetBDDParam);
     $vue->set($lot->getDetail($_REQUEST["lot_id"]), "lot");
     require_once "modules/classes/export/exportTemplate.class.php";

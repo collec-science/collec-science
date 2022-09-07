@@ -610,7 +610,7 @@ class ObjectClass extends ObjetBDD
           // on remplace les espaces qui ne sont pas gérés par le xml
           $newKey = str_replace(" ", "_", $key);
           $row[$newKey] = $value;
-          if (strlen($value) > 0 && in_array($newKey, $fields)) {
+          if (!empty($value) && in_array($newKey, $fields)) {
             $rowq[$newKey] = $value;
           }
         }
@@ -800,7 +800,7 @@ class ObjectClass extends ObjetBDD
           foreach ($data as $object) {
             $item = $doc->createElement("object");
             foreach ($object as $key => $value) {
-              if (strlen($key) > 0 && (strlen($value) > 0 || ($value === false))) {
+              if (strlen($key) > 0 && (!empty($value)  || ($value === false))) {
                 // cas des booléens
                 if ($value === true) {
                   $elem = $doc->createElement($key, "true");

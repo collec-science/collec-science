@@ -75,7 +75,7 @@ class Mail
         /*
          * Preparation de l'entete
          */
-        return 'Content-type: text/html; charset=UTF-8' . PHP_EOL . 'From: ' . $this->param["from"] ;
+        return 'Content-type: text/html; charset=UTF-8;From: ' . $this->param["from"] ;
     }
 }
 ?>

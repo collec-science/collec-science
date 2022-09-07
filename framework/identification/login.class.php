@@ -86,7 +86,7 @@ class Login
     $headers = getHeaders($ident_header_vars["radical"]);
     $login = $headers[$ident_header_vars["login"]];
     $verify = false;
-    if (!empty($login) && count($headers) > 0) {
+    if (!empty($login) && !empty($headers) ) {
       /**
        * Verify if the login exists
        */
@@ -107,7 +107,7 @@ class Login
            * Verify if the structure is authorized
            */
           $createUser = true;
-          if (count($ident_header_vars["organizationGranted"]) > 0 && !in_array($headers[$ident_header_vars["organization"]], $ident_header_vars["organizationGranted"])) {
+          if (!empty($ident_header_vars["organizationGranted"]) && !in_array($headers[$ident_header_vars["organization"]], $ident_header_vars["organizationGranted"])) {
             $createUser = false;
             $this->log->setLog($login, "connection-header", "ko. The " . $headers[$ident_header_vars["organization"]] . " is not authorized to connect to this application");
           }

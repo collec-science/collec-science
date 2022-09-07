@@ -4,7 +4,7 @@ PHPVER=8.1
 if [ $PHPOLDVERSION = $PHPVER ]
 then
 	echo "Your web server works with the version $PHPOLDVERSION of PHP."
-	echo " It's ok, you don't have anything to do"
+	echo "It's ok, you don't have anything to do"
 else
 	echo "Warning: you must have a backup of your server before run this upgrade."
 	read -p "Your web server works with the version $PHPOLDVERSION of PHP. Do you want to upgrade to $PHPVER [y/n]?" response

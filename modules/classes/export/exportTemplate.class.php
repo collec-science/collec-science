@@ -27,7 +27,7 @@ class ExportTemplate extends ObjetBDD
    * @param any $order
    * @return array
    */
-  function getListe($order)
+  function getListe($order="")
   {
     $data = parent::getListe($order);
     /**
@@ -53,7 +53,7 @@ class ExportTemplate extends ObjetBDD
    * Get the list of datasets attached to a template export
    *
    * @param [type] $id
-   * @return void
+   * @return array
    */
   function getListDatasets($id)
   {

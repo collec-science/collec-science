@@ -105,7 +105,6 @@ class DatasetTemplate extends ObjetBDD
   {
     $ddataset = $this->getDetail($id);
     $dbdata = array(); // Data extracted from database before transformation
-
     switch ($ddataset["dataset_type_id"]) {
       case 1:
         /**
@@ -154,7 +153,7 @@ class DatasetTemplate extends ObjetBDD
   {
     $data = array();
     $ddataset = $this->content;
-    if (count($ddataset) == 0) {
+    if (empty($ddataset)) {
       throw new DatasetTemplateException(_("Le modèle d'export n'a pas été correctement initialisé"));
     }
     if (!is_object($this->datasetColumn)) {
@@ -187,7 +186,7 @@ class DatasetTemplate extends ObjetBDD
          */
         foreach ($columns as $col) {
           $value = "";
-          if (strlen($col["subfield_name"]) > 0) {
+          if (!empty($col["subfield_name"])) {
             if ($col["column_name"] == "metadata") {
               if (!is_array($dbrow["metadata"])) {
                 $md = json_decode($dbrow["metadata"], true);

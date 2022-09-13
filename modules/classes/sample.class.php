@@ -419,7 +419,7 @@ class Sample extends ObjetBDD
      */
     $searchOk = false;
     $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
-    if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["booking_type"] != 0) {
+    if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["booking_type"] != 0 || $param["without_container"] == 1) {
       $searchOk = true;
     } else {
       foreach ($paramName as $name) {
@@ -667,6 +667,13 @@ class Sample extends ObjetBDD
         $where .= $and . " (select count(*) from booking b where ((:booking_from ::timestamp, :booking_to ::timestamp) overlaps (date_from::timestamp, date_to::timestamp)) = true
         and b.uid = so.uid)  ";
         $param["booking_type"] == 1 ? $where .= " > 0 " : $where .= " = 0 ";
+        $and = " and ";
+      }
+      /**
+       * Search the samples without containers
+       */
+      if ($param["without_container"] == 1) {
+        $where .= $and . "(lm.movement_type_id = 2 or lm.movement_type_id is null )";
         $and = " and ";
       }
       /**

@@ -20,6 +20,8 @@ class SearchParam
 
   public $paramNum;
 
+  public $paramCheckbox;
+
   /**
    * Indique si la lecture des parametres a ete realisee au moins une fois
    * Permet ainsi de declencher ou non la recherche
@@ -74,6 +76,14 @@ class SearchParam
           $this->param[$key] = $data[$key];
         }
       }
+      /**
+       * Reinit checkbox
+       */
+      foreach ($this->paramCheckbox as $k=>$v) {
+        if (!isset($data[$k])) {
+          $this->param[$k] = $v;
+        }
+      }
     } else {
       /**
        * Une donnee unique est fournie
@@ -120,7 +130,7 @@ class SearchParam
   /**
    * Encode les donnees avant de les envoyer au navigateur
    *
-   * @param unknown $data
+   * @param string|array $data
    * @return string|array
    */
   function encodeData($data)
@@ -271,7 +281,8 @@ class SearchSample extends SearchParam
       "event_type_id" => "",
       "subsample_quantity_min" => "",
       "subsample_quantity_max" => "",
-      "booking_type" => 0
+      "booking_type" => 0,
+      "without_container"=>0
     );
     /**
      * Ajout des dates
@@ -298,7 +309,11 @@ class SearchSample extends SearchParam
       "event_type_id",
       "subsample_quantity_min",
       "subsample_quantity_max",
-      "booking_type" => 0
+      "booking_type" => 0,
+      "without_container"=>0
+    );
+    $this->paramCheckbox = array (
+      "without_container"=>0
     );
     parent::__construct();
   }

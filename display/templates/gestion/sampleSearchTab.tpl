@@ -41,6 +41,7 @@
              if ($("#subsample_quantity_min").val() > 0) ok = true;
              if ($("#subsample_quantity_max").val().length > 0) ok = true;
              if ($("#booking_type").val() != 0) ok = true;
+             if ($("#without_container").val() == 1) ok = true;
              var mf = $("#metadata_field").val();
              if ( mf != null) {
                  if (mf.length > 0 && $("#metadata_value").val().length > 0) {
@@ -219,6 +220,7 @@
         $("#trashed").val("0");
         $("#subsample_quantity_min").val("");
         $("#subsample_quantity_max").val("");
+        $("#without_container").prop("checked", false);
         removeLayer();
         var now = new Date();
         $("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
@@ -498,7 +500,7 @@
                 <div class="row">
                     <div class="form-group">
                         <label for="referent_id" class="col-sm-3 control-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
                             <select id="referent_id" name="referent_id" class="form-control">
                             <option value="" {if $sampleSearch.referent_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
                             {foreach $referents as $referent}
@@ -507,6 +509,10 @@
                             </option>
                             {/foreach}
                             </select>
+                        </div>
+                        <label for="without_container" class="col-sm-2 control-label">{t}Échantillons sans contenants :{/t}</label>
+                        <div class="col-sm-1">
+                            <input type="checkbox" id="without_container" name="without_container" class="form-control" value="1" {if $sampleSearch.without_container==1}checked{/if}>
                         </div>
                     </div>
                 </div>

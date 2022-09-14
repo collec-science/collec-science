@@ -116,4 +116,11 @@ where collection_id = $1
 $$;
 -- ddl-end --
 
-insert into col.dbversion (dbversion_number, dbversion_date) values ('2.8', '2022-08-04');
+alter table gacl.logingestion add column nbattempts smallint DEFAULT 0,
+	add column lastattempt timestamp;
+COMMENT ON COLUMN gacl.logingestion.nbattempts IS E'Number of connection attemps';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.lastattempt IS E'last attemp of connection';
+-- ddl-end --
+
+insert into col.dbversion (dbversion_number, dbversion_date) values ('2.8', '2022-09-14');

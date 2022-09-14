@@ -7,7 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInitfc06e24141f3a87f90d0d3c71e70b08b
 {
     public static $files = array (
-        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         'a4ecaeafb8cfb009ad0e052c90355e98' => __DIR__ . '/..' . '/beberlei/assert/lib/Assert/functions.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '51fcf4e06c07cc00c920b44bcd900e7a' => __DIR__ . '/..' . '/thecodingmachine/safe/deprecated/apc.php',
@@ -99,7 +98,6 @@ class ComposerStaticInitfc06e24141f3a87f90d0d3c71e70b08b
         '356736db98a6834f0a886b8d509b0ecd' => __DIR__ . '/..' . '/thecodingmachine/safe/generated/zlib.php',
         'b2b3f01361f3aaeab67fde08ae76446f' => __DIR__ . '/..' . '/smarty-gettext/smarty-gettext/block.t.php',
         'd3114450b53a83020e2822546c24e1ad' => __DIR__ . '/..' . '/smarty-gettext/smarty-gettext/function.locale.php',
-        'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -109,13 +107,7 @@ class ComposerStaticInitfc06e24141f3a87f90d0d3c71e70b08b
         ),
         'S' => 
         array (
-            'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
-        ),
-        'R' => 
-        array (
-            'Ramsey\\Uuid\\' => 12,
-            'Ramsey\\Collection\\' => 18,
         ),
         'P' => 
         array (
@@ -126,10 +118,6 @@ class ComposerStaticInitfc06e24141f3a87f90d0d3c71e70b08b
         'O' => 
         array (
             'OTPHP\\' => 6,
-        ),
-        'B' => 
-        array (
-            'Brick\\Math\\' => 11,
         ),
         'A' => 
         array (
@@ -142,25 +130,13 @@ class ComposerStaticInitfc06e24141f3a87f90d0d3c71e70b08b
         array (
             0 => __DIR__ . '/..' . '/bjeavons/zxcvbn-php/src',
         ),
-        'Symfony\\Polyfill\\Php81\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php81',
-        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Ramsey\\Uuid\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/ramsey/uuid/src',
-        ),
-        'Ramsey\\Collection\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/ramsey/collection/src',
-        ),
         'Psr\\Log\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/log/src',
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
         'Picqer\\Barcode\\' => 
         array (
@@ -173,10 +149,6 @@ class ComposerStaticInitfc06e24141f3a87f90d0d3c71e70b08b
         'OTPHP\\' => 
         array (
             0 => __DIR__ . '/..' . '/spomky-labs/otphp/src',
-        ),
-        'Brick\\Math\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/brick/math/src',
         ),
         'Assert\\' => 
         array (
@@ -233,7 +205,6 @@ class ComposerStaticInitfc06e24141f3a87f90d0d3c71e70b08b
         'CAS_Session_PhpSession' => __DIR__ . '/..' . '/jasig/phpcas/source/CAS/Session/PhpSession.php',
         'CAS_TypeMismatchException' => __DIR__ . '/..' . '/jasig/phpcas/source/CAS/TypeMismatchException.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'Safe\\DateTime' => __DIR__ . '/..' . '/thecodingmachine/safe/lib/DateTime.php',
         'Safe\\DateTimeImmutable' => __DIR__ . '/..' . '/thecodingmachine/safe/lib/DateTimeImmutable.php',
         'Safe\\Exceptions\\ApacheException' => __DIR__ . '/..' . '/thecodingmachine/safe/generated/Exceptions/ApacheException.php',

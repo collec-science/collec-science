@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    '23c18046f52bef3eea034657bafda50f' => $vendorDir . '/symfony/polyfill-php81/bootstrap.php',
     'a4ecaeafb8cfb009ad0e052c90355e98' => $vendorDir . '/beberlei/assert/lib/Assert/functions.php',
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
     '51fcf4e06c07cc00c920b44bcd900e7a' => $vendorDir . '/thecodingmachine/safe/deprecated/apc.php',
@@ -98,5 +97,4 @@ return array(
     '356736db98a6834f0a886b8d509b0ecd' => $vendorDir . '/thecodingmachine/safe/generated/zlib.php',
     'b2b3f01361f3aaeab67fde08ae76446f' => $vendorDir . '/smarty-gettext/smarty-gettext/block.t.php',
     'd3114450b53a83020e2822546c24e1ad' => $vendorDir . '/smarty-gettext/smarty-gettext/function.locale.php',
-    'e39a8b23c42d4e1452234d762b03835a' => $vendorDir . '/ramsey/uuid/src/functions.php',
 );

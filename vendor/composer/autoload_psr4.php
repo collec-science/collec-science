@@ -7,14 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'ZxcvbnPhp\\' => array($vendorDir . '/bjeavons/zxcvbn-php/src'),
-    'Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
-    'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),
-    'Ramsey\\Collection\\' => array($vendorDir . '/ramsey/collection/src'),
-    'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Picqer\\Barcode\\' => array($vendorDir . '/picqer/php-barcode-generator/src'),
     'ParagonIE\\ConstantTime\\' => array($vendorDir . '/paragonie/constant_time_encoding/src'),
     'OTPHP\\' => array($vendorDir . '/spomky-labs/otphp/src'),
-    'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
     'Assert\\' => array($vendorDir . '/beberlei/assert/lib/Assert'),
 );

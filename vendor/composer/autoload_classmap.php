@@ -54,7 +54,6 @@ return array(
     'CAS_Session_PhpSession' => $vendorDir . '/jasig/phpcas/source/CAS/Session/PhpSession.php',
     'CAS_TypeMismatchException' => $vendorDir . '/jasig/phpcas/source/CAS/TypeMismatchException.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'ReturnTypeWillChange' => $vendorDir . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
     'Safe\\DateTime' => $vendorDir . '/thecodingmachine/safe/lib/DateTime.php',
     'Safe\\DateTimeImmutable' => $vendorDir . '/thecodingmachine/safe/lib/DateTimeImmutable.php',
     'Safe\\Exceptions\\ApacheException' => $vendorDir . '/thecodingmachine/safe/generated/Exceptions/ApacheException.php',

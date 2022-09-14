@@ -2,25 +2,43 @@
 
 declare(strict_types=1);
 
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2019 Spomky-Labs
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ */
+
 namespace OTPHP;
 
-use function array_key_exists;
 use Assert\Assertion;
 use InvalidArgumentException;
 use ParagonIE\ConstantTime\Base32;
+use function Safe\sprintf;
 
 trait ParameterTrait
 {
     /**
      * @var array<string, mixed>
      */
-    private array $parameters = [];
+    private $parameters = [];
 
-    private null|string $issuer = null;
+    /**
+     * @var string|null
+     */
+    private $issuer;
 
-    private null|string $label = null;
+    /**
+     * @var string|null
+     */
+    private $label;
 
-    private bool $issuer_included_as_parameter = true;
+    /**
+     * @var bool
+     */
+    private $issuer_included_as_parameter = true;
 
     /**
      * @return array<string, mixed>
@@ -29,7 +47,7 @@ trait ParameterTrait
     {
         $parameters = $this->parameters;
 
-        if ($this->getIssuer() !== null && $this->isIssuerIncludedAsParameter() === true) {
+        if (null !== $this->getIssuer() && true === $this->isIssuerIncludedAsParameter()) {
             $parameters['issuer'] = $this->getIssuer();
         }
 
@@ -38,13 +56,15 @@ trait ParameterTrait
 
     public function getSecret(): string
     {
-        $value = $this->getParameter('secret');
-        Assertion::string($value, 'Invalid "secret" parameter.');
-
-        return $value;
+        return $this->getParameter('secret');
     }
 
-    public function getLabel(): null|string
+    public function setSecret(?string $secret): void
+    {
+        $this->setParameter('secret', $secret);
+    }
+
+    public function getLabel(): ?string
     {
         return $this->label;
     }
@@ -54,7 +74,7 @@ trait ParameterTrait
         $this->setParameter('label', $label);
     }
 
-    public function getIssuer(): null|string
+    public function getIssuer(): ?string
     {
         return $this->issuer;
     }
@@ -76,26 +96,30 @@ trait ParameterTrait
 
     public function getDigits(): int
     {
-        $value = $this->getParameter('digits');
-        Assertion::integer($value, 'Invalid "digits" parameter.');
+        return $this->getParameter('digits');
+    }
 
-        return $value;
+    private function setDigits(int $digits): void
+    {
+        $this->setParameter('digits', $digits);
     }
 
     public function getDigest(): string
     {
-        $value = $this->getParameter('algorithm');
-        Assertion::string($value, 'Invalid "algorithm" parameter.');
+        return $this->getParameter('algorithm');
+    }
 
-        return $value;
+    private function setDigest(string $digest): void
+    {
+        $this->setParameter('algorithm', $digest);
     }
 
     public function hasParameter(string $parameter): bool
     {
-        return array_key_exists($parameter, $this->parameters);
+        return \array_key_exists($parameter, $this->parameters);
     }
 
-    public function getParameter(string $parameter): mixed
+    public function getParameter(string $parameter)
     {
         if ($this->hasParameter($parameter)) {
             return $this->getParameters()[$parameter];
@@ -104,24 +128,24 @@ trait ParameterTrait
         throw new InvalidArgumentException(sprintf('Parameter "%s" does not exist', $parameter));
     }
 
-    public function setParameter(string $parameter, mixed $value): void
+    public function setParameter(string $parameter, $value): void
     {
         $map = $this->getParameterMap();
 
-        if (array_key_exists($parameter, $map) === true) {
+        if (true === \array_key_exists($parameter, $map)) {
             $callback = $map[$parameter];
             $value = $callback($value);
         }
 
         if (property_exists($this, $parameter)) {
-            $this->{$parameter} = $value;
+            $this->$parameter = $value;
         } else {
             $this->parameters[$parameter] = $value;
         }
     }
 
     /**
-     * @return array<string, callable>
+     * @return array<string, mixed>
      */
     protected function getParameterMap(): array
     {
@@ -131,20 +155,21 @@ trait ParameterTrait
 
                 return $value;
             },
-            'secret' => static function ($value): string {
-                if ($value === null) {
+            'secret' => function ($value): string {
+                if (null === $value) {
                     $value = Base32::encodeUpper(random_bytes(64));
                 }
+                $value = trim(mb_strtoupper($value), '=');
 
-                return mb_strtoupper(trim($value, '='));
+                return $value;
             },
-            'algorithm' => static function ($value): string {
+            'algorithm' => function ($value): string {
                 $value = mb_strtolower($value);
                 Assertion::inArray($value, hash_algos(), sprintf('The "%s" digest is not supported.', $value));
 
                 return $value;
             },
-            'digits' => static function ($value): int {
+            'digits' => function ($value): int {
                 Assertion::greaterThan($value, 0, 'Digits must be at least 1.');
 
                 return (int) $value;
@@ -157,26 +182,11 @@ trait ParameterTrait
         ];
     }
 
-    private function setSecret(null|string $secret): void
-    {
-        $this->setParameter('secret', $secret);
-    }
-
-    private function setDigits(int $digits): void
-    {
-        $this->setParameter('digits', $digits);
-    }
-
-    private function setDigest(string $digest): void
-    {
-        $this->setParameter('algorithm', $digest);
-    }
-
     private function hasColon(string $value): bool
     {
         $colons = [':', '%3A', '%3a'];
         foreach ($colons as $colon) {
-            if (str_contains($value, $colon)) {
+            if (false !== mb_strpos($value, $colon)) {
                 return true;
             }
         }

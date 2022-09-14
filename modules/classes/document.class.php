@@ -159,7 +159,7 @@ class MimeType extends ObjetBDD
    */
   function getTypeMime($extension)
   {
-    if (!empty($extension) ) {
+    if (!empty($extension)) {
       $extension = strtolower($this->encodeData($extension));
       $sql = "select mime_type_id from " . $this->table . " where extension = :extension";
       $res = $this->lireParamAsPrepared($sql, array("extension" => $extension));
@@ -330,18 +330,7 @@ class Document extends ObjetBDD
           $data["document_creation_date"] = $document_creation_date;
         }
         $dataDoc = array();
-        /**
-         * Recherche antivirale
-         */
-        $virus = false;
-        try {
-          testScan($file["tmp_name"]);
-        } catch (VirusException $ve) {
-          $message->set($ve->getMessage());
-          $virus = true;
-        } catch (FileException $fe) {
-          $message->set($fe->getMessage());
-        }
+
 
         /**
          * Recherche pour savoir s'il s'agit d'une image ou d'un pdf pour créer une vignette
@@ -350,32 +339,31 @@ class Document extends ObjetBDD
         /**
          * Ecriture du document
          */
-        if (!$virus) {
-          $dataBinaire = fread(fopen($file["tmp_name"], "r"), $file["size"]);
 
-          $dataDoc["data"] = pg_escape_bytea($dataBinaire);
-          if ($extension == "pdf" || $extension == "png" || $extension == "jpg") {
-            $image = new Imagick();
-            $image->readImageBlob($dataBinaire);
-            $image->setiteratorindex(0);
-            $image->resizeimage(200, 200, imagick::FILTER_LANCZOS, 1, true);
-            $image->setformat("png");
-            $dataDoc["thumbnail"] = pg_escape_bytea($image->getimageblob());
-          }
-          /**
-           *  suppression du stockage temporaire
-           */
-          unset($file["tmp_name"]);
-          /**
-           * Ecriture dans la base de données
-           */
-          $id = parent::ecrire($data);
-          if ($id > 0) {
-            $sql = "update " . $this->table . " set data = '" . $dataDoc["data"] . "', thumbnail = '" . $dataDoc["thumbnail"] . "' where document_id = " . $id;
-            $this->executeSQL($sql);
-          }
-          return $id;
+        $dataBinaire = fread(fopen($file["tmp_name"], "r"), $file["size"]);
+
+        $dataDoc["data"] = pg_escape_bytea($dataBinaire);
+        if ($extension == "pdf" || $extension == "png" || $extension == "jpg") {
+          $image = new Imagick();
+          $image->readImageBlob($dataBinaire);
+          $image->setiteratorindex(0);
+          $image->resizeimage(200, 200, imagick::FILTER_LANCZOS, 1, true);
+          $image->setformat("png");
+          $dataDoc["thumbnail"] = pg_escape_bytea($image->getimageblob());
         }
+        /**
+         *  suppression du stockage temporaire
+         */
+        unset($file["tmp_name"]);
+        /**
+         * Ecriture dans la base de données
+         */
+        $id = parent::ecrire($data);
+        if ($id > 0) {
+          $sql = "update " . $this->table . " set data = '" . $dataDoc["data"] . "', thumbnail = '" . $dataDoc["thumbnail"] . "' where document_id = " . $id;
+          $this->executeSQL($sql);
+        }
+        return $id;
       }
     }
   }

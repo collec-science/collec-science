@@ -424,14 +424,14 @@ class VueCsv extends Vue
    */
   function send($filename = "", $delimiter = "")
   {
-    if (count($this->data) > 0) {
+    if (!empty($this->data)) {
       if (empty($filename)) {
         $filename = $this->filename;
       }
       if (empty($filename)) {
         $filename = "export-" . date('Y-m-d-His') . ".csv";
       }
-      if (empty($delimiter) == 0) {
+      if (empty($delimiter)) {
         $delimiter = $this->delimiter;
       }
       /*
@@ -445,9 +445,9 @@ class VueCsv extends Vue
              * Traitement de l'entete
              */
       fputcsv($fp, array_keys($this->data[0]), $delimiter);
-      /*
-             * Traitement des lignes
-             */
+      /**
+       * Traitement des lignes
+       */
       foreach ($this->data as $value) {
         fputcsv($fp, $value, $delimiter);
       }
@@ -572,7 +572,7 @@ class VuePdf extends Vue
 
       ob_clean();
       flush();
-      if (!empty($this->filename) ) {
+      if (!empty($this->filename)) {
         readfile($this->filename);
       } else {
         throw new VueException("File can't be sent");

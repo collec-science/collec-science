@@ -136,7 +136,7 @@ switch ($t_module["param"]) {
          */
     $metadata = json_decode($data["metadata"], true);
     $is_modifiable = $dataClass->verifyCollection($data);
-    if ($is_modifiable && count($metadata) > 0) {
+    if ($is_modifiable && !empty($metadata)) {
       $vue->set($metadata, "metadata");
     }
     /**

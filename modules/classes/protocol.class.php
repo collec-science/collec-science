@@ -65,10 +65,6 @@ class Protocol extends ObjetBDD
                     throw new FileException(_("Erreur technique : le fichier n'a pas été téléchargé correctement dans le serveur"));
                 }
                 /*
-                 * Verification antivirale
-                 */
-                testScan($file["tmp_name"]);
-                /*
                  * Ecriture du fichier
                  */
                 $fp = fopen($file['tmp_name'], 'rb');

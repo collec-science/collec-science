@@ -1,5 +1,6 @@
 <?php
 
+class FileException extends Exception {}
 /**
  * Ensemble de fonctions utilisees pour la gestion des fiches
  */
@@ -334,82 +335,6 @@ function htmlDecode($data)
     $data = htmlspecialchars_decode($data, ENT_QUOTES);
   }
   return $data;
-}
-
-/**
- * Fonction d'analyse des virus avec clamav
- *
- * @author quinton
- *
- *         Exemple d'usage :
- *
- *         $nomfiletest = "/tmp/eicar.com.txt";
- *         try {
- *         echo "analyse antivirale de $nomfiletest";
- *         testScan ( $nomfiletest );
- *         echo "Fichier sans virus reconnu par Clamav<br>";
- *         } catch ( FileException $f ) {
- *         echo $f->getMessage () . "<br>";
- *         } catch ( VirusException $v ) {
- *         echo $v->getMessage () . "<br>";
- *         } finally {
- *         echo "Fin du test";
- *         }
- */
-class VirusException extends Exception
-{
-}
-
-/**
- * Gestion des exceptions pour les manipulations de fichiers
- *
- * @var mixed
- */
-class FileException extends Exception
-{
-}
-
-/**
- * Test antiviral d'un fichier
- *
- * @param mixed $file
- *
- * @return mixed
- */
-function testScan($file)
-{
-  global $APPLI_virusScan;
-  if ($APPLI_virusScan) {
-    if (file_exists($file)) {
-      if (extension_loaded('clamav')) {
-        $retcode = cl_scanfile($file["tmp_name"], $virusname);
-        if ($retcode == CL_VIRUS) {
-          $message = $file["name"] . " : " . cl_pretcode($retcode) . ". Virus found name : " . $virusname;
-          throw new VirusException($message);
-        }
-      } else {
-        /*
-                 * Test avec clamscan
-                 */
-        $clamscan = "/usr/bin/clamscan";
-        $clamscan_options = "-i --no-summary";
-        if (file_exists($clamscan)) {
-          exec("$clamscan $clamscan_options $file", $output);
-          if (count($output) > 0) {
-            $message = $file["name"] . " : ";
-            foreach ($output as $value) {
-              $message .= $value . " ";
-            }
-            throw new VirusException($message);
-          }
-        } else {
-          throw new FileException("clamscan not found");
-        }
-      }
-    } else {
-      throw new FileException("$file not found");
-    }
-  }
 }
 
 /**

@@ -1,11 +1,13 @@
 News
 ===========
-Version 2.8.0a du 04/08/2022
+Version 2.8.0b du 14/09/2022
 ----------------------------
 Corrections de bugs :
 - depuis le détail d'un contenant, l'impression des étiquettes pour les échantillons présents ne fonctionnait pas si l'utilisateur ne disposait pas des droits "collection"
 - la modification des paramètres généraux (table dbparam) ne fonctionnait plus (corrigé en 2.7.1)
 - une erreur survenait à la déconnexion dans certains cas de figure (corrigé en 2.7.1)
+- le mécanisme de blocage des comptes a été modifié, le mécanisme précédemment utilisé n'était pas satisfaisant
+- lors de la création des échantillons dérivés, toutes les informations n'étaient pas forcément répliquées dans l'échantillon enfant à partir du parent
 
 Nouveautés :
 - il est maintenant possible d'indiquer un champ de type "date" dans les métadonnées, avec affichage d'un calendrier
@@ -13,6 +15,9 @@ Nouveautés :
 - un nouveau mécanisme d'identification est maintenant possible : CAS-BDD. Depuis l'écran de connexion, si ce mode est activé, un bouton permet d'appeler le serveur CAS
 - il est possible de définir, pour une collection, des types d'échantillons particuliers. Dès lors, ces types d'échantillons ne seront plus proposés pour les collections auxquelles ils n'appartiennent pas. Le même mécanisme a été implémenté pour les types d'événements
 - il est maintenant possible de définir une date d'échéance pour un événement, et une nouvelle interface permet de rechercher les événements à venir, réalisés ou non, etc.
+- dans l'import de masse, il est maintenant possible d'indiquer le nom complet du pays plutôt que son code
+- dans la carte de recherche des échantillons, l'identifiant métier est maintenant affiché en sus de l'UID
+- il est maintenant possible de rechercher les échantillons qui ne sont pas placés dans un contenant
 
 Version 2.7.0 du 20/06/2022
 ---------------------------

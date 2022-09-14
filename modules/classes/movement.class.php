@@ -203,7 +203,7 @@ class Movement extends ObjetBDD
             $message .= _("Création du mouvement impossible : le numéro de l'objet est égal au numéro du contenant. ");
         }
         $date = $this->encodeData($date);
-        if (strlen($date) == 0) {
+        if (empty($date)) {
             $date = date($_SESSION["MASKDATELONG"]);
         }
         if ($type != 1 && $type != 2) {
@@ -215,8 +215,8 @@ class Movement extends ObjetBDD
             $message .= _("L'UID du contenant n'est pas numérique. ");
             $controle = false;
         }
-        if (strlen($login) == 0) {
-            if (strlen($_SESSION["login"]) > 0) {
+        if (empty($login) == 0) {
+            if (!empty($_SESSION["login"]) ) {
                 $login = $_SESSION["login"];
             } else {
                 $controle = false;
@@ -246,10 +246,10 @@ class Movement extends ObjetBDD
             $data["login"] = $login;
             $data["movement_reason_id"] = $movement_reason_id;
 
-            if (strlen($storage_location) > 0) {
+            if (!empty($storage_location)) {
                 $data["storage_location"] = $storage_location;
             }
-            if (strlen($comment) > 0) {
+            if (!empty($comment)) {
                 $data["movement_comment"] = $comment;
             }
             if (strlen($column_number) == 0) {
@@ -312,7 +312,7 @@ class Movement extends ObjetBDD
      */
     function search($values)
     {
-        if (strlen($values["login"]) > 0) {
+        if (!empty($values["login"])) {
             $login = "%" . strtolower($this->encodeData($values["login"])) . "%";
             $searchByLogin = true;
         } else {

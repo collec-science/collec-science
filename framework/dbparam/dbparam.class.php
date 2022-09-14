@@ -38,7 +38,7 @@ class DbParam extends ObjetBDD
 
     function getParam($name)
     {
-        if (strlen($name) > 0) {
+        if (!empty($name)) {
             $sql = "select dbparam_value from dbparam where dbparam_name = :name";
             $data = $this->lireParamAsPrepared($sql, array("name" => $name));
             return $data["dbparam_value"];
@@ -79,7 +79,7 @@ class DbParam extends ObjetBDD
     {
         $listParam = $this->getListe();
         foreach ($listParam as $param) {
-            if (strlen($param["dbparam_value"]) > 0) {
+            if (!empty($param["dbparam_value"])) {
                 $_SESSION[$param["dbparam_name"]] = $param["dbparam_value"];
             } else {
                 /*

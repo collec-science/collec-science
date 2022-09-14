@@ -89,7 +89,7 @@ class ExportModelProcessing
       /**
        * Set the tableAlias if not defined
        */
-      if (strlen($m["tableAlias"]) == 0) {
+      if (empty($m["tableAlias"])) {
         $m["tableAlias"] = $m["tableName"];
       }
       $this->model[$m["tableAlias"]] = $m;
@@ -185,7 +185,7 @@ class ExportModelProcessing
    */
   function getDescriptionFromTable(string $tablename, string $schemaname = ""): string
   {
-    strlen($schemaname) > 0 ? $hasSchema = true : $hasSchema = false;
+    !!empty($schemaname) ? $hasSchema = true : $hasSchema = false;
     $data["tablename"] = $tablename;
     $sql = "select  description
         from pg_catalog.pg_statio_all_tables st
@@ -211,7 +211,7 @@ class ExportModelProcessing
    */
   function getFieldsFromTable(string $tablename, string $schemaname = ""): ?array
   {
-    strlen($schemaname) > 0 ? $hasSchema = true : $hasSchema = false;
+    !empty($schemaname) ? $hasSchema = true : $hasSchema = false;
     $data = array("tablename" => $tablename);
     $select = "SELECT attnum,  pg_attribute.attname AS field,
                 pg_catalog.format_type(pg_attribute.atttypid,pg_attribute.atttypmod) AS type,
@@ -319,7 +319,7 @@ class ExportModelProcessing
   function generateSqlRelation(string $parentTable, string $parentKey, string $childTable, string $childForeignKey): string
   {
     $sql = "";
-    if (strlen($parentTable) == 0 || strlen($parentKey) == 0 || strlen($childTable) == 0 || strlen($childForeignKey) == 0) {
+    if (empty($parentTable) == 0 || empty($parentKey)  || empty($childTable) || empty($childForeignKey) ) {
       throw new ExportException("An error occurred during the creation of relation between $parentTable and $childTable");
     }
     $sql = "ALTER TABLE " . $this->quote . $childTable . $this->quote;
@@ -343,7 +343,7 @@ class ExportModelProcessing
     /**
      * Add the comment of the table
      */
-    if (strlen($table["description"]) > 0) {
+    if (!empty($table["description"])) {
       $comment = "comment on table " . $this->quote . $tableName . $this->quote . " is " . $this->db->quote($table["description"]) . ";" . PHP_EOL;
     }
     $script = "create table " . $this->quote . $tableName . $this->quote . " (" . PHP_EOL;
@@ -358,8 +358,8 @@ class ExportModelProcessing
       if ($attr["notnull"] == 1) {
         $script .= " not null";
       }
-      if (strlen($attr["key"]) > 0) {
-        if (strlen($pkey) > 0) {
+      if (!empty($attr["key"]) ) {
+        if (!empty($pkey) > 0) {
           $pkey .= ",";
         }
         $pkey .= $this->quote . $attr["field"] . $this->quote;
@@ -367,7 +367,7 @@ class ExportModelProcessing
       /**
        * Add the comment on the column
        */
-      if (strlen($attr["comment"]) > 0) {
+      if (!empty($attr["comment"]) ) {
         $comment .= "comment on column " . $this->quote . $tableName . $this->quote . "." . $this->quote . $attr["field"] . $this->quote . " is " . $this->db->quote($attr["comment"]) . ";" . PHP_EOL;
       }
       $script .= PHP_EOL;
@@ -375,7 +375,7 @@ class ExportModelProcessing
     /**
      * Add the primary key
      */
-    if (strlen($pkey) > 0) {
+    if (!empty($pkey) ) {
       $script .= ",primary key (" . $pkey . ")" . PHP_EOL;
     }
     $script .= ");" . PHP_EOL;
@@ -392,7 +392,7 @@ class ExportModelProcessing
   {
     $list = array();
     foreach ($this->model as $table) {
-      if (strlen($table["parentKey"]) == 0 && !$table["isEmpty"]) {
+      if (empty($table["parentKey"]) && !$table["isEmpty"]) {
         $list[] = $table["tableAlias"];
       }
     }
@@ -464,7 +464,7 @@ class ExportModelProcessing
           }
         }
         $where .= ")";
-      } else if (strlen($model["parentKey"]) > 0 && $parentKey > 0) {
+      } else if (!empty($model["parentKey"]) && $parentKey > 0) {
         /**
          * Search by parent
          */
@@ -473,7 +473,7 @@ class ExportModelProcessing
       } else {
         $where = "";
       }
-      if (strlen($model["technicalKey"]) > 0) {
+      if (!empty($model["technicalKey"])) {
         $order = " order by " . $this->quote . $model["technicalKey"] . $this->quote;
       } else {
         $order = " order by 1";
@@ -488,7 +488,7 @@ class ExportModelProcessing
         /**
          * Verifiy if a business key is defined
          */
-        if (strlen($model["businessKey"]) == 0) {
+        if (empty($model["businessKey"]) == 0) {
           throw new ExportException(
             "The businessKey is not defined for table $tableName, it's necessary to export the binary fields"
           );
@@ -503,7 +503,7 @@ class ExportModelProcessing
         }
         foreach ($binaryFields as $fieldName) {
           foreach ($content as $row) {
-            if (strlen($row[$model["technicalKey"]]) > 0) {
+            if (!empty($row[$model["technicalKey"]])) {
               $ref = $this->getBlobReference($tableName, $model["technicalKey"], $row[$model["technicalKey"]], $fieldName);
               if ($ref) {
                 $filename = $model["tableName"] . "-" . $fieldName . "-" . $row[$model["businessKey"]] . ".bin";
@@ -852,7 +852,7 @@ class ExportModelProcessing
               break;
             }
           }
-          if (strlen($fieldName) == 0) {
+          if (empty($fieldName) ) {
             throw new ExportException(sprintf("Unexpected error: impossible to find the name of the field corresponding to the parent table %s", $parentName));
           }
           $row[$fieldName] = $ptkey;
@@ -1011,7 +1011,7 @@ class ExportModelProcessing
      * Get the binary data
      */
     if (
-      strlen($newKey) > 0
+      !empty($newKey)
       && is_array($structure["binaryFields"])
       && count($structure["binaryFields"]) > 0
     ) {

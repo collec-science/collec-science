@@ -42,7 +42,7 @@ switch ($t_module["param"]) {
 					$_REQUEST["expected_return_date"]
 				);
 				/**
-				 *  add movement 
+				 *  add movement
 				 */
 				include_once 'modules/classes/movement.class.php';
 				$movement = new Movement($bdd, $ObjetBDDParam);
@@ -51,7 +51,7 @@ switch ($t_module["param"]) {
 				/**
 				 * Treatment of the return for all included objects
 				 */
-				if (strlen($_REQUEST["return_date"]) > 0) {
+				if (!empty($_REQUEST["return_date"])) {
 					$dataClass->setReturn($_REQUEST["uid"], $_REQUEST["return_date"]);
 				}
 				$id = dataWrite($dataClass, $_REQUEST, true);

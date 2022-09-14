@@ -270,7 +270,7 @@ class Sample extends ObjetBDD
       if ($uid > 0) {
         $data["uid"] = $uid;
         if (parent::ecrire($data) > 0) {
-          if (strlen($data["metadata"]) > 0) {
+          if (!empty($data["metadata"]) ) {
             /**
              * Recherche des échantillons derives pour mise a jour
              * des metadonnees
@@ -423,7 +423,7 @@ class Sample extends ObjetBDD
       $searchOk = true;
     } else {
       foreach ($paramName as $name) {
-        if (strlen($param[$name]) > 0) {
+        if (!empty($param[$name])) {
           $searchOk = true;
           break;
         }
@@ -435,7 +435,7 @@ class Sample extends ObjetBDD
     $geoFields = array("SouthWestlon", "SouthWestlat", "NorthEastlon", "NorthEastlat");
     $geoSearch = true;
     foreach ($geoFields as $field) {
-      if (strlen($param[$field]) == 0) {
+      if (empty($param[$field])) {
         $geoSearch = false;
       }
     }
@@ -451,7 +451,7 @@ class Sample extends ObjetBDD
         $data["sample_type_id"] = $param["sample_type_id"];
         $and = " and ";
       }
-      if (strlen($param["name"]) > 0) {
+      if (!empty($param["name"])) {
         $where .= $and . "( ";
         $or = "";
         if (is_numeric($param["name"])) {
@@ -487,7 +487,7 @@ class Sample extends ObjetBDD
         $and = " and ";
         $data["object_status_id"] = $param["object_status_id"];
       }
-      if (strlen($param["trashed"]) > 0) {
+      if (!empty($param["trashed"])) {
         $where .= $and . " so.trashed = :trashed";
         $and = " and ";
         $data["trashed"] = $param["trashed"];
@@ -530,7 +530,7 @@ class Sample extends ObjetBDD
         $data["uid_min"] = $param["uid_min"];
         $data["uid_max"] = $param["uid_max"];
       }
-      if (strlen($param["select_date"]) > 0) {
+      if (!empty($param["select_date"])) {
         $tablefield = "s";
         switch ($param["select_date"]) {
           case "cd":
@@ -555,7 +555,7 @@ class Sample extends ObjetBDD
       /**
        * Recherche dans les metadonnees
        */
-      if (strlen($param["metadata_field"][0]) > 0 && strlen($param["metadata_value"][0]) > 0) {
+      if (!empty($param["metadata_field"][0])  && strlen($param["metadata_value"][0]) > 0) {
         $where .= $and . " ";
         /**
          * Traitement des divers champs de metadonnees (3 maxi)
@@ -567,7 +567,7 @@ class Sample extends ObjetBDD
         } else {
           $is_or = false;
         }
-        if (strlen($param["metadata_field"][1]) > 0 && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
+        if (!empty($param["metadata_field"][1])  && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
           $is_or1 = true;
         } else {
           $is_or1 = false;
@@ -578,7 +578,7 @@ class Sample extends ObjetBDD
         $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0)";
         $data["metadata_field0"] = $param["metadata_field"][0];
         $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
-        if (strlen($param["metadata_field"][1]) > 0 && strlen($param["metadata_value"][1]) > 0) {
+        if (!empty($param["metadata_field"][1]) && strlen($param["metadata_value"][1]) > 0) {
           if ($is_or) {
             $where .= " or ";
           } else {
@@ -596,7 +596,7 @@ class Sample extends ObjetBDD
           $where .= " (";
         }
 
-        if (strlen($param["metadata_field"][2]) > 0 && strlen($param["metadata_value"][2]) > 0) {
+        if (!empty($param["metadata_field"][2]) && strlen($param["metadata_value"][2]) > 0) {
           if ($is_or1) {
             $where .= " or ";
           } else {
@@ -734,7 +734,7 @@ class Sample extends ObjetBDD
    */
   public function getForExport($uids)
   {
-    if (strlen($uids) == 0) {
+    if (empty($uids) ) {
       throw new SampleException("Pas d'échantillons sélectionnés");
     } else {
       $this->auto_date = 0;
@@ -768,7 +768,7 @@ class Sample extends ObjetBDD
       $data = array();
       foreach ($d as $value) {
         if ($this->verifyCollection($value)) {
-          if (strlen($value["dbuid_origin"]) == 0) {
+          if (empty($value["dbuid_origin"]) ) {
             $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
           }
           /*
@@ -867,7 +867,7 @@ class Sample extends ObjetBDD
       /*
              * Traitement des identifiants secondaires
              */
-      if (strlen($line["identifiers"]) > 0) {
+      if (!empty($line["identifiers"])) {
         $idents = explode(",", $line["identifiers"]);
         foreach ($idents as $ident) {
           $idvalue = explode(":", $ident);
@@ -890,19 +890,19 @@ class Sample extends ObjetBDD
   public function verifyBeforeImport($row)
   {
     if (count($row) > 0) {
-      if (strlen($row["dbuid_origin"]) == 0) {
+      if (empty($row["dbuid_origin"]) ) {
         throw new SampleException(_("L'identifiant de la base de données d'origine n'a pas été fourni"));
       }
       /*
              * Verification de l'existence de la collection
              */
-      if (strlen($row["collection_name"]) == 0) {
+      if (empty($row["collection_name"])) {
         throw new SampleException(_("Le nom de la collection n'a pas été renseigné"));
       }
       /*
              * Verification de l'existence d'un type d'echantillon
              */
-      if (strlen($row["sample_type_name"]) == 0) {
+      if (empty($row["sample_type_name"])) {
         throw new SampleException(_("Le type d'échantillon n'a pas été renseigné"));
       }
       /*
@@ -914,7 +914,7 @@ class Sample extends ObjetBDD
         "sample_creation_date",
       );
       foreach ($fieldDates as $fieldDate) {
-        if (strlen($row[$fieldDate]) > 0) {
+        if (!empty($row[$fieldDate])) {
           /*
                      * Verification du format de date
                      */
@@ -990,7 +990,7 @@ class Sample extends ObjetBDD
     if (strlen($data["object_status_id"]) == 0) {
       $data["object_status_id"] = 1;
     }
-    if (strlen($data["sample_creation_date"]) == 0) {
+    if (empty($data["sample_creation_date"])) {
       $data["sample_creation_date"] = date(DATE_ATOM);
     }
     /*
@@ -1007,7 +1007,7 @@ class Sample extends ObjetBDD
     /**
      * Recherche de l'uid existant a partir de dbuid_origin
      */
-    if (strlen($data["dbuid_origin"]) > 0 && !$uuidFound) {
+    if (!empty($data["dbuid_origin"]) && !$uuidFound) {
       /**
        * Recherche si c'est une reintegration dans la base d'origine
        */
@@ -1038,7 +1038,7 @@ class Sample extends ObjetBDD
     /**
      * Recuperation de l'echantillon parent, si existant
      */
-    if (strlen($data["dbuid_parent"]) > 0) {
+    if (!empty($data["dbuid_parent"])) {
       $dbuidparent = explode(":", $data["dbuid_parent"]);
       if ($dbuidparent[0] == $_SESSION["APPLI_code"]) {
         $dataParent = $this->lire($dbuidparent[1]);
@@ -1080,7 +1080,7 @@ class Sample extends ObjetBDD
   public function getUidFromDbuidOrigin($dbuidorigin)
   {
     $uid = 0;
-    if (strlen($dbuidorigin) > 0) {
+    if (!empty($dbuidorigin)) {
       /*
              * Recherche si l'echantillon provient de la base de donnees courante
              * cas de la reintegration d'un echantillon modifie a l'exterieur

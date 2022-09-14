@@ -37,8 +37,9 @@ switch ($t_module["param"]) {
      */
     require_once "modules/classes/utils/samplesearch.class.php";
     $samplesearch = new Samplesearch($bdd, $ObjetBDDParam);
-    if ($_REQUEST["samplesearch_id"] > 0) {
-      $dsamplesearch = $samplesearch->lire($_REQUEST["samplesearch_id"]);
+    $samplesearch_id = $_REQUEST["samplesearch_id"];
+    if ($samplesearch_id > 0) {
+      $dsamplesearch = $samplesearch->lire($samplesearch_id);
       $_SESSION["searchSample"]->setParamFromJson($dsamplesearch["samplesearch_data"]);
     }
     $dataSearch = $_SESSION["searchSample"]->getParam();
@@ -55,14 +56,16 @@ switch ($t_module["param"]) {
       if ($_REQUEST["samplesearch_collection"] == 1 /*&& $dataClass->verifyCollection($_REQUEST["collection_id"])*/) {
         $dsamplesearch["collection_id"] = $_REQUEST["collection_id"];
       }
-      $samplesearch->ecrire($dsamplesearch, $dsamplesearch["collection_id"]);
+      $samplesearch_id = $samplesearch->ecrire($dsamplesearch, $dsamplesearch["collection_id"]);
     }
     /**
      * Delete a request
      */
-    if ($_REQUEST["samplesearchDelete"] == 1 && $_REQUEST["samplesearch_id"] > 0) {
+    if ($_REQUEST["samplesearchDelete"] == 1 && $samplesearch_id > 0) {
       $samplesearch->delete($_REQUEST["samplesearch_id"]);
+      $samplesearch_id = 0;
     }
+    $vue->set($samplesearch_id, "samplesearch_id");
     /**
      * Get the list of recorded researches
      */
@@ -108,7 +111,7 @@ switch ($t_module["param"]) {
      */
     $dataMap["markers"] = array();
     foreach ($data as $row) {
-      if (strlen($row["wgs84_x"]) > 0 && strlen($row["wgs84_y"]) > 0) {
+      if (!empty($row["wgs84_x"]) && !empty($row["wgs84_y"])) {
         $dataMap["markers"][] = array("latlng" => array($row["wgs84_y"], $row["wgs84_x"]), "uid" => $row["uid"], "identifier" => $row["identifier"]);
       }
     }
@@ -122,9 +125,9 @@ switch ($t_module["param"]) {
     $vue->set($dataClass->lireFromId($_REQUEST["sample_id"]));
     break;
   case "display":
-    /*
-         * Display the detail of the record
-         */
+    /**
+     * Display the detail of the record
+     */
     $data = $dataClass->lire($id);
     $vue->set($data, "data");
     $vue->set($activeTab, "activeTab");
@@ -136,43 +139,43 @@ switch ($t_module["param"]) {
     if ($is_modifiable && count($metadata) > 0) {
       $vue->set($metadata, "metadata");
     }
-    /*
-         * Recuperation des identifiants associes
-         */
+    /**
+     * Recuperation des identifiants associes
+     */
     include_once 'modules/classes/objectIdentifier.class.php';
     $oi = new ObjectIdentifier($bdd, $ObjetBDDParam);
     $vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
-    /*
-         * Recuperation des contenants parents
-         */
+    /**
+     * Recuperation des contenants parents
+     */
     include_once 'modules/classes/container.class.php';
     $container = new Container($bdd, $ObjetBDDParam);
     $vue->set($container->getAllParents($data["uid"]), "parents");
-    /*
-         * Recuperation des evenements
-         */
+    /**
+     * Recuperation des evenements
+     */
     include_once 'modules/classes/event.class.php';
     $event = new Event($bdd, $ObjetBDDParam);
     $vue->set($event->getListeFromUid($data["uid"]), "events");
-    /*
-         * Recuperation des mouvements
-         */
+    /**
+     * Recuperation des mouvements
+     */
     include_once 'modules/classes/movement.class.php';
     $movement = new Movement($bdd, $ObjetBDDParam);
     $vue->set($movement->getAllMovements($id), "movements");
-    /*
-         * Recuperation des echantillons associes
-         */
+    /**
+     * Recuperation des echantillons associes
+     */
     $vue->set($dataClass->getSampleassociated($data["uid"]), "samples");
-    /*
-         * Recuperation des reservations
-         */
+    /**
+     * Recuperation des reservations
+     */
     include_once 'modules/classes/booking.class.php';
     $booking = new Booking($bdd, $ObjetBDDParam);
     $vue->set($booking->getListFromParent($data["uid"], 'date_from desc'), "bookings");
-    /*
-         * Recuperation des sous-echantillonnages
-         */
+    /**
+     * Recuperation des sous-echantillonnages
+     */
     if ($data["multiple_type_id"] > 0) {
       include_once 'modules/classes/subsample.class.php';
       $subSample = new Subsample($bdd, $ObjetBDDParam);
@@ -184,16 +187,17 @@ switch ($t_module["param"]) {
     include_once "modules/classes/borrowing.class.php";
     $borrowing = new Borrowing($bdd, $ObjetBDDParam);
     $vue->set($borrowing->getFromUid($data["uid"]), "borrowings");
-    /*
-         * Verification que l'echantillon peut etre modifie
-         */
+    /**
+     * Verification que l'echantillon peut etre modifie
+     */
     if ($is_modifiable) {
       $vue->set(1, "modifiable");
     }
     $vue->set($_SESSION["APPLI_code"], "APPLI_code");
-    /*
-         * Recuperation des documents
-         */
+    /**
+     *
+     * Recuperation des documents
+     */
     include_once 'modules/classes/document.class.php';
     $document = new Document($bdd, $ObjetBDDParam);
     $vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
@@ -204,31 +208,31 @@ switch ($t_module["param"]) {
      */
     $mimeType = new MimeType($bdd, $ObjetBDDParam);
     $vue->set($mimeType->getListExtensions(false), "extensions");
-    /*
-         * Ajout de la selection des modeles d'etiquettes
-         */
+    /**
+     * Ajout de la selection des modeles d'etiquettes
+     */
     include 'modules/gestion/label.functions.php';
-    /*
-         * Affichage
-         */
+    /**
+     * Affichage
+     */
     include 'modules/gestion/mapInit.php';
     $vue->set("sample", "moduleParent");
     $vue->set("gestion/sampleDisplay.tpl", "corps");
     break;
   case "change":
-    /*
-         * open the form to modify the record
-         * If is a new record, generate a new record with default value :
-         * $_REQUEST["idParent"] contains the identifiant of the parent record
-         */
+    /**
+     * open the form to modify the record
+     * If is a new record, generate a new record with default value :
+     * $_REQUEST["idParent"] contains the identifiant of the parent record
+     */
     $data = dataRead($dataClass, $id, "gestion/sampleChange.tpl");
     if ($data["sample_id"] > 0 && !$dataClass->verifyCollection($data)) {
       $message->set(_("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"), true);
       $module_coderetour = -1;
     } else {
-      /*
-             * Recuperation des informations concernant l'echantillon parent
-             */
+      /**
+       * Recuperation des informations concernant l'echantillon parent
+       */
       if ($data["parent_sample_id"] > 0) {
         $dataParent = $dataClass->lireFromId($data["parent_sample_id"]);
       } else {
@@ -306,30 +310,30 @@ switch ($t_module["param"]) {
     }
     break;
   case "write":
-    /*
-         * write record in database
-         */
+    /**
+     * write record in database
+     */
     $id = dataWrite($dataClass, $_REQUEST);
     if ($id > 0) {
       $_REQUEST[$keyName] = $id;
-      /*
-             * Stockage en session du dernier echantillon modifie,
-             * pour recuperation des informations rattachees pour duplication ou autre
-             */
+      /**
+       * Stockage en session du dernier echantillon modifie,
+       * pour recuperation des informations rattachees pour duplication ou autre
+       */
       $_SESSION["last_sample_id"] = $id;
     }
     break;
   case "delete":
-    /*
-         * delete record
-         */
+    /**
+     * delete record
+     */
     dataDelete($dataClass, $_REQUEST["uid"]);
     $isDelete = true;
     break;
   case "deleteMulti":
-    /*
-         * Delete all records in uid array
-         */
+    /**
+     * Delete all records in uid array
+     */
     if (count($_POST["uids"]) > 0) {
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
       $bdd->beginTransaction();
@@ -352,9 +356,9 @@ switch ($t_module["param"]) {
     }
     break;
   case "referentAssignMulti":
-    /*
-         * change all referents for records in uid array
-         */
+    /**
+     * change all referents for records in uid array
+     */
     if (count($_POST["uids"]) > 0) {
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
       include_once 'modules/classes/object.class.php';
@@ -649,7 +653,7 @@ switch ($t_module["param"]) {
       if (strlen($_REQUEST["uuid"]) == 36) {
         $id = $_REQUEST["uuid"];
       }
-      if (strlen($id) == 0) {
+      if (empty($id)) {
         throw new SampleException("uid $id not valid", 404);
       }
       $withContainer = true;

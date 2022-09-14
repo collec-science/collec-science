@@ -116,7 +116,7 @@ class Collection extends ObjetBDD
       $comma = false;
       $in = "(";
       foreach ($groups as $value) {
-        if (strlen($value["groupe"]) > 0) {
+        if (!empty($value["groupe"])) {
           $comma == true ? $in .= ", " : $comma = true;
           $in .= "'" . $value["groupe"] . "'";
         }

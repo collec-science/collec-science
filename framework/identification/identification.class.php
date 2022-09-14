@@ -97,7 +97,7 @@ class Identification
             phpCAS::setVerbose(true);
         }
         phpCAS::client(CAS_VERSION_2_0, $this->CAS_address, $this->CAS_port, $this->CAS_uri);
-        if (strlen($this->CAS_CApath) > 0) {
+        if (!empty($this->CAS_CApath)) {
             phpCAS::setCasServerCACert($this->CAS_CApath);
         } else {
             phpCAS::setNoCasServerValidation();
@@ -123,7 +123,7 @@ class Identification
     {
         $loginOk = "";
         global $log;
-        if (strlen($login) > 0 && strlen($password) > 0) {
+        if (!empty($login)  && !empty($password) ) {
             $login = str_replace(
                 array(
                     '\\',
@@ -222,7 +222,7 @@ class Identification
         session_destroy();
         if ($this->ident_type == "CAS") {
             phpCAS::client(CAS_VERSION_2_0, $this->CAS_address, $this->CAS_port, $this->CAS_uri);
-            if (strlen($this->CAS_CApath) > 0) {
+            if (!empty($this->CAS_CApath) ) {
                 phpCAS::setCasServerCACert($this->CAS_CApath);
             } else {
                 phpCAS::setNoCasServerValidation();
@@ -239,7 +239,7 @@ class Identification
              * En principe, l'url de deconnexion du CAS
              */
             global $ident_header_logout_address;
-            if (strlen($ident_header_logout_address) > 0) {
+            if (!empty($ident_header_logout_address) ) {
                 header('Location: ' . $ident_header_logout_address);
                 flush();
             }
@@ -284,7 +284,7 @@ class Identification
             global $ident_header_vars;
             $headers = getHeaders($ident_header_vars["radical"]);
             $login = strtolower($headers[$ident_header_vars["login"]]);
-            if (strlen($login) > 0 && !empty($headers)) {
+            if (!empty($login) && !empty($headers)) {
                 /**
                  * Verify if the login exists
                  */
@@ -364,7 +364,7 @@ class Identification
                  * Verification du login aupres du serveur CAS
                  */
                 $login = $this->getLoginCas($modeAdmin);
-                if (strlen($login) > 0) {
+                if (!empty($login) ) {
                     $verify = true;
                 }
             }
@@ -372,7 +372,7 @@ class Identification
             /*
              * On verifie si on est en retour de validation du login
              */
-            if (strlen($loginEntered) > 0 && !$log->isAccountBlocked($loginEntered, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
+            if (!empty($loginEntered)  && !$log->isAccountBlocked($loginEntered, $CONNEXION_blocking_duration, $CONNEXION_max_attempts)) {
                 $verify = true;
                 /*
                      * Verification de l'identification aupres du serveur LDAP, ou LDAP puis BDD
@@ -381,7 +381,7 @@ class Identification
 
                     try {
                         $login = $this->testLoginLdap($loginEntered, $password);
-                        if (strlen($login) == 0 && $ident_type == "LDAP-BDD") {
+                        if (empty($login) && $ident_type == "LDAP-BDD") {
                             /*
                                  * L'identification en annuaire LDAP a echoue : verification en base de donnees
                                  */

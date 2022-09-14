@@ -57,7 +57,7 @@ class Label extends ObjetBDD
 
     function getListe($order = "")
     {
-        if (strlen($order) > 0) {
+        if (!empty($order)) {
             $order = " order by " . $this->encodeData($order);
         } else {
             $order = " order by 1";

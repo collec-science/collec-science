@@ -159,7 +159,7 @@ class MimeType extends ObjetBDD
    */
   function getTypeMime($extension)
   {
-    if (strlen($extension) > 0) {
+    if (!empty($extension) ) {
       $extension = strtolower($this->encodeData($extension));
       $sql = "select mime_type_id from " . $this->table . " where extension = :extension";
       $res = $this->lireParamAsPrepared($sql, array("extension" => $extension));
@@ -213,7 +213,7 @@ class Document extends ObjetBDD
   function __construct($bdd, $param = null)
   {
     global $APPLI_temp;
-    if (strlen($APPLI_temp) > 0) {
+    if (!empty($APPLI_temp)) {
       $this->temp = $APPLI_temp;
     }
     $this->table = "document";
@@ -417,7 +417,7 @@ class Document extends ObjetBDD
   {
     $id = $this->encodeData($id);
     $filename = $this->generateFileName($id, $phototype, $resolution);
-    if (strlen($filename) > 0 && is_numeric($id) && $id > 0) {
+    if (!empty($filename) && is_numeric($id) && $id > 0) {
       if (!file_exists($filename)) {
         $this->writeFileImage($id, $phototype, $resolution);
       }
@@ -511,7 +511,7 @@ class Document extends ObjetBDD
          */
         $phototype == 2 ? $colonne = "thumbnail" : $colonne = "data";
         $filename = $this->generateFileName($id, $phototype, $resolution);
-        if (strlen($filename) > 0 && !file_exists($filename)) {
+        if (!empty($filename) && !file_exists($filename)) {
           /*
                      * Recuperation des donnees concernant la photo
                      */

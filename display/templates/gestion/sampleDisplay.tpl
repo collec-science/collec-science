@@ -481,7 +481,7 @@
 					<dt class="lexical" data-lexical="uuid">{t}UUID :{/t}</dt>
 					<dd>{$data.uuid}</dd>
 				</dl>
-				{if count($metadata) >0}
+				{if !empty($metadata)}
 					<fieldset>
 						<legend class="lexical" data-lexical="metadata">{t}Métadonnées associées{/t}</legend>
 						{foreach $metadata as $key=>$value}

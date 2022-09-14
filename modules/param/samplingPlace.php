@@ -65,7 +65,7 @@ switch ($t_module["param"]) {
                 include_once "modules/classes/country.class.php";
                 $country = new Country($bdd, $ObjetBDDParam);
                 foreach ($rows as $row) {
-                    if (strlen($row["name"]) > 0) {
+                    if (!empty($row["name"])) {
                         /*
                          * Ecriture en base, en mode ajout ou modification
                          */

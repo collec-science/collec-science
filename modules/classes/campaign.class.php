@@ -56,7 +56,7 @@ class Campaign extends ObjetBDD
      */
     function getListe($order = "")
     {
-        if (strlen($order) > 0) {
+        if (!empty($order)) {
             $order = " order by " . $order;
         }
         return $this->getListeParam($this->sql . $order);

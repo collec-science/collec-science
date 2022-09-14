@@ -69,7 +69,7 @@ class Subsample extends ObjetBDD
      *
      * @see ObjetBDD::lire()
      */
-    public function lire($subsample_id, $getDefault, $parentValue)
+    public function lire($subsample_id, $getDefault = true, $parentValue = 0)
     {
         $sql = $this->sql . " where subsample_id = :subsample_id";
         $data["subsample_id"] = $subsample_id;

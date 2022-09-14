@@ -13,34 +13,34 @@ class Booking extends ObjetBDD {
 						"type" => 1,
 						"key" => 1,
 						"requis" => 1,
-						"defaultValue" => 0 
+						"defaultValue" => 0
 				),
 				"uid" => array (
 						"type" => 1,
 						"requis" => 1,
-						"parentAttrib" => 1 
+						"parentAttrib" => 1
 				),
 				"booking_date" => array (
 						"type" => 3,
-						"defaultValue" => "getDateHeure" 
+						"defaultValue" => "getDateHeure"
 				),
 				"booking_login" => array (
 						"requis" => 1,
-						"defaultValue" => "getLogin" 
+						"defaultValue" => "getLogin"
 				),
 				"date_from" => array (
 						"type" => 3,
 						"defaultValue" => "getDateHeure",
-						"requis" => 1 
+						"requis" => 1
 				),
 				"date_to" => array (
 						"type" => 3,
 						"defaultValue" => "getDateHeure",
-						"requis" => 1 
+						"requis" => 1
 				),
 				"booking_comment" => array (
-						"type" => 0 
-				) 
+						"type" => 0
+				)
 		);
 		parent::__construct ( $bdd, $param );
 	}
@@ -54,18 +54,18 @@ class Booking extends ObjetBDD {
 	 * @return boolean
 	 */
 	function verifyInterval($uid, $booking_id, $date_from, $date_to) {
-		if ($uid > 0 && is_numeric ( $uid ) && is_numeric ( $booking_id ) && strlen ( $date_from ) > 0 && strlen ( $date_to ) > 0) {
+		if ($uid > 0 && is_numeric ( $uid ) && is_numeric ( $booking_id ) && !empty ( $date_from )  && !empty ( $date_to )) {
 			$date_from = $this->formatDateLocaleVersDB($date_from, 3);
 			$date_to = $this->formatDateLocaleVersDB($date_to, 3);
 			$sql = "select count(*) as overlaps
-					from $this->table 
-					where 
+					from $this->table
+					where
 					((:date_from::timestamp, :date_to::timestamp) overlaps (date_from, date_to)) = true
 					and uid = :uid
 					and booking_id <> :booking_id";
 			$data = array ("uid"=>$uid, "date_from"=>$date_from, "date_to"=>$date_to, "booking_id"=>$booking_id);
 			$result = $this->lireParamAsPrepared($sql, $data);
-			$result["overlaps"] == 0 ? $retour = true : $retour = false; 
+			$result["overlaps"] == 0 ? $retour = true : $retour = false;
 			return $retour;
 		}
 	}

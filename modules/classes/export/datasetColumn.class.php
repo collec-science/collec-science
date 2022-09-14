@@ -74,7 +74,7 @@ class DatasetColumn extends ObjetBDD
   function getListFromParent($parentId, $order = "")
   {
     $where = " where dataset_template_id = :parentId";
-    if (strlen($order) > 0) {
+    if (!empty($order) ) {
       $order = " order by $order";
     }
     return $this->getListeParamAsPrepared($this->sql . $where . $order, array("parentId" => $parentId));

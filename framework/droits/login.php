@@ -26,7 +26,7 @@ switch ($t_module["param"]) {
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
 		$data = dataRead($dataClass, $id, "framework/droits/loginChange.tpl");
-		if (strlen($data["login"]) > 0) {
+		if (!empty($data["login"]) ) {
 			$vue->set($dataClass->getListDroits($data["login"], $GACL_aco, $LDAP), "loginDroits");
 		}
 		break;

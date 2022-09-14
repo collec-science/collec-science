@@ -36,10 +36,10 @@ class Token
      */
     function __construct($privateKey = "", $pubKey = "")
     {
-        if (strlen($privateKey) > 0) {
+        if (!empty($privateKey)) {
             $this->privateKey = $privateKey;
         }
-        if (strlen($pubKey) > 0) {
+        if (!empty($pubKey) ) {
             $this->pubKey = $pubKey;
         }
         /*
@@ -62,7 +62,7 @@ class Token
      */
     function createToken($login, $validityDuration = 0)
     {
-        if (strlen($login) > 0) {
+        if (!empty($login)) {
             if (is_numeric($validityDuration)) {
                 $timestamp = time();
                 $validityDuration > 0 ? $expire = $timestamp + $validityDuration : $expire = $timestamp + $this->validityDuration;
@@ -112,7 +112,7 @@ class Token
         /*
          * decrypt token
          */
-        if (strlen($token["token"]) > 0) {
+        if (!empty($token["token"])) {
             $key = $this->getKey("pub");
             try {
                 if (openssl_public_decrypt(base64_decode($token["token"]), $decrypted, $key)) {
@@ -121,7 +121,7 @@ class Token
                     /**
                      * Verification of token content
                      */
-                    if (strlen($data["login"]) > 0 && strlen($data["expire"]) > 0 && strlen($data["ip"]) > 0) {
+                    if (!empty($data["login"]) > 0 && !empty($data["expire"]) && !empty($data["ip"])) {
                         /**
                          * Test IP address
                          */
@@ -162,7 +162,7 @@ class Token
      */
     function openTokenFromJson($jsonData)
     {
-        if (strlen($jsonData) > 0) {
+        if (!empty($jsonData)) {
             $token = json_decode($jsonData, true);
             return $this->openToken($token);
         }

@@ -9,7 +9,7 @@ switch ($t_module["param"]) {
             $model = array();
             if ($_REQUEST["export_model_id"] > 0) {
                 $model = $exportModel->lire($_REQUEST["export_model_id"]);
-            } else if (strlen($_REQUEST["export_model_name"]) > 0) {
+            } else if (!empty($_REQUEST["export_model_name"])) {
                 $model = $exportModel->getModelFromName($_REQUEST["export_model_name"]);
             }
             if ($model["export_model_id"] > 0) {
@@ -68,7 +68,7 @@ switch ($t_module["param"]) {
                 $testProject = false;
             }
         }
-        if (($_REQUEST["export_model_id"] > 0 || strlen($_REQUEST["export_model_name"]) > 0) && $_FILES["filename"]["size"] > 0 && $testProject) {
+        if (($_REQUEST["export_model_id"] > 0 || !empty($_REQUEST["export_model_name"])) && $_FILES["filename"]["size"] > 0 && $testProject) {
             if ($_REQUEST["export_model_id"]) {
                 $model = $exportModel->lire($_REQUEST["export_model_id"]);
             } else {
@@ -95,7 +95,7 @@ switch ($t_module["param"]) {
                     $bdd->beginTransaction();
                     $firstTable = true;
                     foreach ($data as $tableName => $values) {
-                        if ($firstTable && strlen($_REQUEST["parentKeyName"]) > 0) {
+                        if ($firstTable && !empty($_REQUEST["parentKeyName"])) {
                             $key = $_REQUEST["parentKey"];
                             $export->importDataTable($tableName, $values, 0, array($_REQUEST["parentKeyName"] => $key));
                             $firstTable = false;

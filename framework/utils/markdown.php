@@ -11,7 +11,7 @@ if (!file_exists($t_module["param"])) {
 }
 $handle = fopen($t_module["param"], "r");
 $content = fread($handle, filesize($t_module["param"]));
-if (strlen($content) == 0) {
+if (empty($content)) {
   $message->set(sprintf(_("Le fichier %s est vide ou ne peut être lu"), $t_module["param"], true));
 }
 $vue->set($content, "markdownContent");

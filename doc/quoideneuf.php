@@ -31,7 +31,7 @@ if ($f) {
             if ($count > 0 ) {
                 $data[$count-1]["type"]='version';
             }
-        } 
+        }
         /* quand la ligne est de la forme :
          * Améliorations :
          */
@@ -46,9 +46,9 @@ if ($f) {
             $data[] = array("type"=>'subitem', "content"=>substr($line, 2));
         }
         /* quand la ligne est de la forme : vide :
-         * 
+         *
          */
-        elseif (strlen($line) == 0) {
+        elseif (empty($line) ) {
             // ajoute un élément vide qui pourrait servir si on veut distinguer Heading 2 de Horizontal Rule ---
             $data[] = array("type"=>'empty', "content"=>'');
         }

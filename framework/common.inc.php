@@ -192,7 +192,7 @@ if (!isset($bdd)) {
         /*
          * Mise en place du schema par defaut
          */
-        if (strlen($BDD_schema) > 0) {
+        if (!empty($BDD_schema) ) {
             $bdd->exec("set search_path = " . $BDD_schema);
         }
         /*
@@ -212,7 +212,7 @@ if (!isset($bdd)) {
             /*
              * Mise en place du schema par defaut
              */
-            if (strlen($GACL_schema) > 0) {
+            if (!empty($GACL_schema)) {
                 $bdd_gacl->exec("set search_path = " . $GACL_schema);
             }
         } else {

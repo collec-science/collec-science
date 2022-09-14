@@ -120,7 +120,7 @@ class ObjectClass extends ObjetBDD
     /**
      * Generate the geom object
      */
-    if (strlen($data["wgs84_x"]) > 0 && strlen($data["wgs84_y"]) > 0) {
+    if (!empty($data["wgs84_x"]) && !empty($data["wgs84_y"])) {
       $data["geom"] = "POINT(" . $data["wgs84_x"] . " " . $data["wgs84_y"] . ")";
     } else {
       $data["geom"] = "";
@@ -197,8 +197,7 @@ class ObjectClass extends ObjetBDD
    */
   function getDetail($uid, $is_container = 0, $is_partial = false, $trashed = 0)
   {
-    test();
-    if (strlen($uid) > 0) {
+    if (!empty($uid)) {
       $operator = '=';
       /*
              * Generation de la chaine pour dbuid_origin
@@ -406,7 +405,7 @@ class ObjectClass extends ObjetBDD
     left outer join country c on (sample.country_id = c.country_id)
 		where o.uid in ($uids) and o.trashed = $trashed
 		";
-    if (strlen($order) > 0) {
+    if (!empty($order)) {
       $sql = "select * from (" . $sql . ") as a";
       $order = " order by $order";
     }
@@ -557,7 +556,7 @@ class ObjectClass extends ObjetBDD
                         where o.uid in ($uids)
                         ";
 
-      if (strlen($order) == 0) {
+      if (empty($order)) {
         $order = "uid";
       }
       $sql = "select * from (" . $sql . ") as a";
@@ -582,7 +581,7 @@ class ObjectClass extends ObjetBDD
         /**
          * Generation du dbuid_origin si non existant
          */
-        if (strlen($row["dbuid_origin"]) == 0) {
+        if (empty($row["dbuid_origin"])) {
           $row["dbuid_origin"] = $APPLI_code . ":" . $row["uid"];
         }
         /**
@@ -592,7 +591,7 @@ class ObjectClass extends ObjetBDD
         $rowq = array();
         foreach ($row as $key => $value) {
 
-          if (strlen($value) > 0 && in_array($key, $fields)) {
+          if (!empty($value) && in_array($key, $fields)) {
             $rowq[$key] = $value;
           }
         }
@@ -651,7 +650,7 @@ class ObjectClass extends ObjetBDD
    */
   function batchRead($batchdata)
   {
-    if (strlen($batchdata) > 0) {
+    if (!empty($batchdata)) {
       $batchdata = $this->encodeData($batchdata);
       /*
              * Preparation du tableau de travail
@@ -687,7 +686,7 @@ class ObjectClass extends ObjetBDD
         if (is_array($datajson)) {
           if ($datajson["uid"] > 0 && $datajson["db"] == $_SESSION["APPLI_code"]) {
             $uid = $datajson["uid"];
-          } else if ($datajson["uid"] > 0 && strlen($datajson["db"]) > 0) {
+          } else if ($datajson["uid"] > 0 && !empty($datajson["db"])) {
             $valobject = $this->lireParamAsPrepared($sql . $whereExterne, array(
               "id" => $datajson["db"] . ":" . $datajson["uid"]
             ));
@@ -701,7 +700,7 @@ class ObjectClass extends ObjetBDD
                      * (resultat d'un scan base sur l'identifiant metier)
                      */
           $val = "";
-          if (strlen($value) > 0) {
+          if (!empty($value)) {
             /*
                          * Recherche si la chaine commence par http
                          */
@@ -731,7 +730,7 @@ class ObjectClass extends ObjetBDD
               }
             }
             $val = trim($val);
-            if (strlen($val) > 0 && $uid == 0) {
+            if (!empty($val) && $uid == 0) {
               $valobject = $this->lireParamAsPrepared($sql . $whereIdent, array(
                 "id" => $val,
                 "id1" => $val,
@@ -800,7 +799,7 @@ class ObjectClass extends ObjetBDD
           foreach ($data as $object) {
             $item = $doc->createElement("object");
             foreach ($object as $key => $value) {
-              if (strlen($key) > 0 && (!empty($value)  || ($value === false))) {
+              if (!empty($key) && (!empty($value)  || ($value === false))) {
                 // cas des booléens
                 if ($value === true) {
                   $elem = $doc->createElement($key, "true");
@@ -864,7 +863,7 @@ class ObjectClass extends ObjetBDD
       } else {
         $message->set(_("Pas d'étiquettes à imprimer"));
       }
-      if (strlen($pdffile) == 0) {
+      if (empty($pdffile)) {
         throw new ObjectException("Fichier PDF non généré");
       }
       return $pdffile;
@@ -978,7 +977,7 @@ class ObjectClass extends ObjetBDD
    * @return array
    */
   function search($uid = null, $identifier = null, $uuid = null) : array {
-    if (!$uid > 0 && strlen($identifier) == 0 && strlen($uuid) == 0) {
+    if (!$uid > 0 && empty($identifier)  && empty($uuid) ) {
       throw new ObjectException(_("Aucun identifiant n'a été fourni pour rechercher l'objet"),400);
     }
     $sql = "select uid, identifier, uuid, container_id, sample_id
@@ -989,7 +988,7 @@ class ObjectClass extends ObjetBDD
     if ($uid > 0) {
       $sql.=" uid = :uid";
       $param["uid"] = $uid;
-    } else if (strlen($identifier) > 0) {
+    } else if (!empty($identifier)) {
       $sql.=" identifier = :identifier";
       $param["identifier"] = $identifier;
     } else {

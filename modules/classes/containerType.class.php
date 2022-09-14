@@ -86,7 +86,7 @@ class ContainerType extends ObjetBDD
     function getListe($field = "")
     {
         $order = "";
-        if (($field > 0 && is_numeric($field)) || strlen($field) > 0) {
+        if (($field > 0 && is_numeric($field)) || !empty($field)) {
             $order = " order by $field";
         }
         return parent::getListeParam($this->sql . $order);

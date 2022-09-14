@@ -138,7 +138,7 @@ class Protocol extends ObjetBDD
                 collection_name
 				from protocol
                 left outer join collection using (collection_id)";
-        if (strlen($order) > 0) {
+        if (!empty($order)) {
             $sql .= " order by " . $this->encodeData($order);
         }
         return $this->getListeParam($sql);

@@ -29,7 +29,7 @@ switch ($t_module["param"]) {
       /**
        * Add dbconnect_provisional_nb
        */
-      if (strlen($data["login"]) > 0) {
+      if (!empty($data["login"])) {
         $data["dbconnect_provisional_nb"] = $dataClass->getDbconnectProvisionalNb($data["login"]);
       }
       $vue->set($data, "data");

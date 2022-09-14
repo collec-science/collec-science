@@ -32,7 +32,7 @@ switch ($t_module["param"]) {
                 require_once 'modules/classes/printer.class.php';
                 $printer = new Printer($bdd, $ObjetBDDParam);
                 $dp = $printer->lire($_REQUEST["printer_id"]);
-                if (strlen($dp["printer_queue"]) > 0) {
+                if (!empty($dp["printer_queue"]) ) {
                     $options = " -o fit-to-page";
                     define("SPACE", " ");
                     $commande = $APPLI_print_direct_command;
@@ -54,12 +54,12 @@ switch ($t_module["param"]) {
                      */
                     $destination = $cmdopt["destination"] . $dp["printer_queue"];
                     $server = "";
-                    if (strlen($dp["printer_server"]) > 0) {
+                    if (!empty($dp["printer_server"])) {
                         $server = $cmdopt["server"] . $dp["printer_server"];
                     } else {
                         $server = "";
                     }
-                    if (strlen($dp["printer_user"]) > 0) {
+                    if (!empty($dp["printer_user"]) ) {
                         $user = $cmdopt["user"] . $dp["printer_user"];
                     } else {
                         $user = "";

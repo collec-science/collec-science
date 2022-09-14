@@ -78,7 +78,7 @@ class Request extends ObjetBDD
     {
         if ($request_id > 0 && is_numeric($request_id)) {
             $req = $this->lire($request_id);
-            if (strlen($req["body"]) > 0) {
+            if (!empty($req["body"])) {
                 /*
                  * Preparation des dates pour encodage
                  */

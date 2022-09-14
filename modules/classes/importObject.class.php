@@ -395,7 +395,7 @@ class ImportObject
            * Traitement des identifiants complementaires
            */
           foreach ($this->identifiers as $idcode => $typeid) {
-            if (strlen($values[$idcode]) > 0) {
+            if (!empty($values[$idcode])) {
               $dataCode = array(
                 "object_identifier_id" => 0,
                 "uid" => $sample_uid,
@@ -448,7 +448,7 @@ class ImportObject
            * Traitement des identifiants complementaires
            */
           foreach ($this->identifiers as $idcode => $typeid) {
-            if (strlen($values[$idcode]) > 0) {
+            if (!empty($values[$idcode])) {
               $dataCode = array(
                 "object_identifier_id" => 0,
                 "uid" => $sample_uid,
@@ -734,7 +734,7 @@ class ImportObject
     /**
      * Traitement de l'echantillon
      */
-    if (strlen($data["sample_identifier"]) > 0) {
+    if (!empty($data["sample_identifier"])) {
       $emptyLine = false;
       /**
        * Verification de la collection
@@ -855,7 +855,7 @@ class ImportObject
         "expiration_date"
       );
       foreach ($fieldDates as $fieldDate) {
-        if (strlen($data[$fieldDate]) > 0) {
+        if (!empty($data[$fieldDate])) {
           /**
            * Verification du format de date
            */
@@ -899,7 +899,7 @@ class ImportObject
        * Verification des metadonnees
        * Elles doivent correspondre a celles definies dans l'operation
        */
-      if (strlen($data["sample_metadata_json"]) > 0) {
+      if (!empty($data["sample_metadata_json"])) {
         $metadataSchema = json_decode($this->sampleType->getMetadataForm($data["sample_type_id"]), true);
 
         $metadataSchemaNames = array();
@@ -938,7 +938,7 @@ class ImportObject
     /**
      * Traitement du container
      */
-    if (strlen($data["container_identifier"]) > 0) {
+    if (!empty($data["container_identifier"])) {
       $emptyLine = false;
       /**
        * Verification du type de container
@@ -957,7 +957,7 @@ class ImportObject
       /**
        * Verification du statut du container
        */
-      if (strlen($data["container_status_id"]) > 0) {
+      if (!empty($data["container_status_id"])) {
         $ok = false;
         foreach ($this->object_status as $value) {
           if ($data["container_status_id"] == $value["object_status_id"]) {
@@ -974,7 +974,7 @@ class ImportObject
     /**
      * Verification de l'uid du container parent
      */
-    if (strlen($data["container_parent_uid"]) > 0) {
+    if (!empty($data["container_parent_uid"])) {
       $container_id = $this->container->getIdFromUid($data["container_parent_uid"]);
       if (!$container_id > 0) {
         $retour["code"] = false;
@@ -1065,7 +1065,7 @@ class ImportObject
        * Champs simples, sans transcodage
        */
       foreach ($simpleFields as $field) {
-        if (strlen($row[$field]) > 0) {
+        if (!empty($row[$field])) {
           if ($field == "metadata") {
             /**
              * Ajout d'un decodage/encodage pour les champs json, pour
@@ -1098,7 +1098,7 @@ class ImportObject
         "sample_creation_date"
       );
       foreach ($fieldDates as $fieldDate) {
-        if (strlen($row[$fieldDate]) > 0) {
+        if (!empty($row[$fieldDate])) {
           $dataSample[$fieldDate] = $this->formatDate($row[$fieldDate]);
         }
       }
@@ -1106,7 +1106,7 @@ class ImportObject
        * Champs transcodes
        */
       foreach ($refFields as $field) {
-        if (strlen($row[$field]) > 0) {
+        if (!empty($row[$field])) {
           /**
            * Recheche de la valeur a appliquer dans les donnees post
            */
@@ -1130,7 +1130,7 @@ class ImportObject
       /**
        * Recherche des metadonnees
        */
-      if (strlen($row["metadata"]) > 0) {
+      if (!empty($row["metadata"])) {
         $metadata = json_decode($row["metadata"], true);
       } else {
         $metadata = array();
@@ -1168,7 +1168,7 @@ class ImportObject
           /**
            * Traitement des identifiants complementaires
            */
-          if (strlen($row["identifiers"]) > 0) {
+          if (!empty($row["identifiers"])) {
             $idents = explode(",", $row["identifiers"]);
             foreach ($idents as $ident) {
               $idvalue = explode(":", $ident);

@@ -146,7 +146,7 @@ class Vue
   /**
    * Donnees a envoyer (cas hors html)
    *
-   * @var array
+   * @var string|array
    */
   protected $data;
 
@@ -158,7 +158,7 @@ class Vue
    */
   function set($value, $variable = "")
   {
-    if (strlen($variable) > 0) {
+    if (!empty($variable)) {
       $this->data[$variable] = $value;
     } else {
       $this->data = $value;
@@ -182,7 +182,7 @@ class Vue
    */
   function get($variable = "")
   {
-    if (strlen($variable) > 0) {
+    if (!empty($variable)) {
       return $this->data[$variable];
     } else {
       return $this->data;
@@ -425,13 +425,13 @@ class VueCsv extends Vue
   function send($filename = "", $delimiter = "")
   {
     if (count($this->data) > 0) {
-      if (strlen($filename) == 0) {
+      if (empty($filename)) {
         $filename = $this->filename;
       }
-      if (strlen($filename) == 0) {
+      if (empty($filename)) {
         $filename = "export-" . date('Y-m-d-His') . ".csv";
       }
-      if (strlen($delimiter) == 0) {
+      if (empty($delimiter) == 0) {
         $delimiter = $this->delimiter;
       }
       /*
@@ -536,7 +536,7 @@ class VuePdf extends Vue
   {
     if (!is_null($this->reference)) {
       header("Content-Type: application/pdf");
-      if (strlen($this->filename) > 0) {
+      if (!empty($this->filename)) {
         $filename = $this->filename;
       } else {
         $filename = $_SESSION["APPLI_code"] . '-' . date('y-m-d') . ".pdf";
@@ -572,7 +572,7 @@ class VuePdf extends Vue
 
       ob_clean();
       flush();
-      if (strlen($this->filename) > 0) {
+      if (!empty($this->filename) ) {
         readfile($this->filename);
       } else {
         throw new VueException("File can't be sent");
@@ -639,11 +639,11 @@ class VueBinaire extends Vue
   {
     //printr($this->param);
 
-    strlen($this->param["tmp_name"]) > 0 ? $isReference = false : $isReference = true;
+    !empty($this->param["tmp_name"]) ? $isReference = false : $isReference = true;
     /*
              * Recuperation du content-type s'il n'a pas ete fourni
              */
-    if (strlen($this->param["content_type"]) == 0) {
+    if (empty($this->param["content_type"])) {
       $finfo = new finfo(FILEINFO_MIME_TYPE);
       if (!$finfo) {
         throw new FrameworkException(_("Problème rencontré lors de l'ouverture de finfo"));
@@ -652,7 +652,7 @@ class VueBinaire extends Vue
     }
     header('Content-Type: ' . $this->param["content_type"]);
     header('Content-Transfer-Encoding: binary');
-    if ($this->param["disposition"] == "attachment" && strlen($this->param["filename"]) > 0) {
+    if ($this->param["disposition"] == "attachment" && !empty($this->param["filename"])) {
       header('Content-Disposition: attachment; filename="' . basename($this->param["filename"]) . '"');
     } else {
       header('Content-Disposition: inline');
@@ -727,7 +727,7 @@ class VueFile extends Vue
     if (count($param) > 0) {
       $this->setParam($param);
     }
-    if (strlen($this->param["content_type"]) == 0) {
+    if (empty($this->param["content_type"])) {
       $finfo = finfo_open(FILEINFO_MIME_TYPE);
       $this->param["content_type"] = finfo_file($finfo, $this->param["tmp_name"]);
       finfo_close($finfo);
@@ -735,7 +735,7 @@ class VueFile extends Vue
     ob_clean();
     header('Content-Type: ' . $this->param["content_type"]);
     header('Content-Transfer-Encoding: binary');
-    if ($this->param["disposition"] == "attachment" && strlen($this->param["filename"]) > 0) {
+    if ($this->param["disposition"] == "attachment" && !empty($this->param["filename"])) {
       header('Content-Disposition: attachment; filename="' . basename($this->param["filename"]) . '"');
     } else {
       header('Content-Disposition: inline');

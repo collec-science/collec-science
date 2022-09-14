@@ -50,7 +50,7 @@ switch ($t_module["param"]) {
 		} else {
 			$files[] = $fdata;
 		}
-		strlen($_REQUEST["parentKeyName"]) > 0 ? $parentKeyName = $_REQUEST["parentKeyName"] : $parentKeyName = "uid";
+		!empty($_REQUEST["parentKeyName"]) ? $parentKeyName = $_REQUEST["parentKeyName"] : $parentKeyName = "uid";
 		$parentKeyValue = $_REQUEST[$parentKeyName];
 		foreach ($files as $file) {
 			$id = $dataClass->documentWrite($file, $parentKeyName, $parentKeyValue, $_REQUEST["document_description"], $_REQUEST["document_creation_date"]);
@@ -74,7 +74,7 @@ switch ($t_module["param"]) {
 		 * Generation du nom du document
 		 */
 		$tmp_name = $dataClass->prepareDocument($id, $_REQUEST["phototype"]);
-		if (strlen($tmp_name) > 0 && is_file($tmp_name)) {
+		if (!empty($tmp_name) && is_file($tmp_name)) {
 			/*
 			 * Recuperation du type mime
 			 */
@@ -104,10 +104,10 @@ switch ($t_module["param"]) {
 			404 => "Not Found"
 		);
 		try {
-			if (strlen($_REQUEST["uid"]) == 0 && strlen($_REQUEST["uuid"]) == 0) {
+			if (empty($_REQUEST["uid"])  && empty($_REQUEST["uuid"])) {
 				throw new DocumentException("Identifier not provided", 404);
 			}
-			strlen($_REQUEST["uid"] == 0)  ? $uuid = $_REQUEST["uuid"] : $uuid = $_REQUEST["uid"];
+			empty($_REQUEST["uid"] )  ? $uuid = $_REQUEST["uuid"] : $uuid = $_REQUEST["uid"];
 			$data = $dataClass->getDetail($uuid, "uuid");
 			if (count($data) == 0) {
 				throw new SampleException("$uuid not found", 404);

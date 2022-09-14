@@ -107,7 +107,7 @@ try {
         /**
          * On recherche si le quatrieme element existe
          */
-        if (strlen($uri[4]) == 0) {
+        if (empty($uri[4])) {
           $_REQUEST["module"] .= "List";
         } else {
           $uri4 = explode("?", $uri[4]);
@@ -142,7 +142,7 @@ try {
   /**
    * page par defaut
    */
-  if (strlen($_REQUEST["module"]) == 0) {
+  if (empty($_REQUEST["module"]) ) {
     $_REQUEST["module"] = "default";
   }
   /**
@@ -444,7 +444,7 @@ try {
     /**
      * Verification des droits
      */
-    if (strlen($t_module["droits"]) > 1) {
+    if (!empty($t_module["droits"]) ) {
       if (!isset($_SESSION["login"])) {
         $resident = 0;
         $motifErreur = "nologin";
@@ -617,7 +617,7 @@ try {
        */
       switch ($motifErreur) {
         case "droitko":
-          if (strlen($t_module["droitko"]) > 1) {
+          if (!empty($t_module["droitko"])) {
             $module = $t_module["droitko"];
           } else {
             $module = $APPLI_moduleDroitKO;

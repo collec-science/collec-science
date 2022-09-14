@@ -106,7 +106,7 @@ class Aclaco extends ObjetBDD
      */
     function getLogins($aco)
     {
-        if (strlen($this->encodeData($aco)) > 0) {
+        if (!empty($this->encodeData($aco))) {
             $sql = "with recursive first_level (login, aco, aclgroup_id, aclgroup_id_parent) as (
 					(select login, 	aco, aclgroup_id, aclgroup_id_parent
 						from acllogin

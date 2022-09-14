@@ -185,7 +185,7 @@ class Login
   {
     global $LDAP;
     $loginOk = "";
-    if (strlen($login) > 0 && strlen($password) > 0) {
+    if (!empty($login) && !empty($password) ) {
       $login = str_replace(
         array('\\', '*', '(', ')',),
         array('\5c', '\2a', '\28', '\29',),

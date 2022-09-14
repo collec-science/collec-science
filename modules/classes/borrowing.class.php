@@ -11,8 +11,8 @@ class Borrowing extends ObjetBDD
                 left outer join object_status using (object_status_id)";
     /**
      *
-     * @param PDO $bdd        	
-     * @param array $param        	
+     * @param PDO $bdd
+     * @param array $param
      */
     function __construct($bdd, $param = array())
     {
@@ -162,14 +162,14 @@ class Borrowing extends ObjetBDD
      * Set the return of an object
      *
      * @param int $uid
-     * @param varchar $return_date
+     * @param string $return_date
      * @param ObjectClass $object
      * @param Container $container
      * @return void
      */
     function setReturn($uid, $return_date, ObjectClass $object = null, Container $container = null)
     {
-        if ($uid > 0 && strlen($return_date) > 0) {
+        if ($uid > 0 && !empty($return_date)) {
             $borrowing_id = $this->getLastborrowing($uid);
             if ($borrowing_id > 0) {
                 $db = $this->lire($borrowing_id);

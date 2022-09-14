@@ -54,7 +54,7 @@ class Mail
      */
     function sendMail($dest, array $data)
     {
-        if (strlen($dest) > 0) {
+        if (!empty($dest)) {
         $message = str_replace(array_keys($data), array_values($data), $this->param["contents"]);
         $subject = str_replace(array_keys($data), array_values($data), $this->param["subject"]);
 

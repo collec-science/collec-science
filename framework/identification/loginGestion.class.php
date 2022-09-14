@@ -81,7 +81,7 @@ class LoginGestion extends ObjetBDD
         $passwordok = false;
         $tests = true;
         $login = strtolower($login);
-        if (strlen($login) > 0 && strlen($password) > 0) {
+        if (!empty($login)  && !empty($password)) {
             $sql = "select id, login, password, nbattempts, lastattempt, is_expired from LoginGestion where login = :login and actif = 1";
             $this->auto_date = 0;
             $data = $this->lireParamAsPrepared($sql, array("login" => $login));
@@ -187,7 +187,7 @@ class LoginGestion extends ObjetBDD
     public function getLoginFromTokenWS($login, $token)
     {
         $retour = false;
-        if (strlen($token) > 0 && strlen($login) > 0) {
+        if (!empty($token)  && !empty($login) ) {
             $sql = "select tokenws from logingestion where is_clientws = '1' and actif = '1'
             and login = :login";
             $data = $this->lireParamAsPrepared($sql, array(
@@ -231,7 +231,7 @@ class LoginGestion extends ObjetBDD
      */
     public function ecrire($data)
     {
-        if (strlen($data["pass1"]) > 0 && strlen($data["pass2"]) > 0 && $data["pass1"] == $data["pass2"]) {
+        if (!empty($data["pass1"])  && !empty($data["pass2"])  && $data["pass1"] == $data["pass2"]) {
             if ($this->controleComplexite($data["pass1"]) > 2 && strlen($data["pass1"]) > 9) {
                 $data["password"] = $this->_encryptPassword($data["pass1"]);
                 $data["is_expired"] = 1;
@@ -245,7 +245,7 @@ class LoginGestion extends ObjetBDD
          * Traitement de la generation du token d'identification ws
          */
         if ($data["is_clientws"] == 1) {
-            if (strlen($data["tokenws"]) == 0) {
+            if (empty($data["tokenws"]) ) {
                 $token = bin2hex(openssl_random_pseudo_bytes(32));
                 if (openssl_public_encrypt($token, $crypted, $this->getKey("pub"), OPENSSL_PKCS1_OAEP_PADDING)) {
                     $data["tokenws"] = base64_encode($crypted);
@@ -353,7 +353,7 @@ class LoginGestion extends ObjetBDD
     public function getFromLogin($login)
     {
         $login = strtolower($login);
-        if (strlen($login) > 0) {
+        if (!empty($login)) {
             $sql = "select * from " . $this->table . " where login = :login";
             return $this->lireParamAsPrepared($sql, array("login" => $login));
         }
@@ -564,7 +564,7 @@ class LoginGestion extends ObjetBDD
     public function getFromMail($mail)
     {
         $mail = $this->encodeData($mail);
-        if (strlen($mail) > 0) {
+        if (!empty($mail)) {
             $sql = "select id, nom, prenom, login, mail, actif ";
             $sql .= " from " . $this->table;
             $sql .= " where lower(mail) = lower(:mail)";

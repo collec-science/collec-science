@@ -288,7 +288,7 @@ function check_encoding($data)
       }
     }
   } else {
-    if (strlen($data) > 0 && !mb_check_encoding($data, "UTF-8")) {
+    if (!empty($data) && !mb_check_encoding($data, "UTF-8")) {
       $result = false;
     }
   }

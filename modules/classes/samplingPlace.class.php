@@ -60,7 +60,7 @@ class SamplingPlace extends ObjetBDD
     {
         $id = 0;
         $name = $this->encodeData($name);
-        if (strlen($name) > 0) {
+        if (!empty($name)) {
             $sql = "select sampling_place_id from sampling_place where sampling_place_name = :name";
             $id = $this->lireParamAsPrepared($sql, array(
                 "name" => $name
@@ -82,7 +82,7 @@ class SamplingPlace extends ObjetBDD
     function getIdFromName($name)
     {
         $id = 0;
-        if (strlen($name) > 0) {
+        if (!empty($name) ) {
             $sql = "select sampling_place_id from sampling_place where sampling_place_name = :name";
             $data = $this->lireParamAsPrepared($sql, array(
                 "name" => $name

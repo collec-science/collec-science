@@ -15,7 +15,7 @@ if ($f) {
 $data = array();
 while ($line = fgets($f)) {
     $line = trim($line);
-    if (strlen($line) > 0) {
+    if (!empty($line)) {
         $d = explode(":", $line);
         $content = "";
         foreach ($d as $id=>$value) {

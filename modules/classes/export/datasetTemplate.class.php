@@ -48,7 +48,7 @@ class DatasetTemplate extends ObjetBDD
    */
   function getListe($order = "")
   {
-    if (strlen($order) > 0) {
+    if (!empty($order) ) {
       $order = " order by " . $order;
     }
     return $this->getListeParam($this->sql . $this->from . $order);
@@ -242,15 +242,15 @@ class DatasetTemplate extends ObjetBDD
               $value[] = array("keyword" => $word);
             }
           }
-          if (strlen($col["date_format"]) > 0 && strlen($value) > 0) {
+          if (!empty($col["date_format"]) && !empty($value) ) {
             $value = date_format(date_create($value), $col["date_format"]);
           }
-          if ($col["column_name"] == "web_address" && strlen($webmodule) > 0) {
+          if ($col["column_name"] == "web_address" && !empty($webmodule) ) {
             /**
              * Create a link to download the content of the record
              */
             $value = "https://" . $_SERVER["HTTP_HOST"] . "/index.php?module=" . $webmodule . "&uuid=" . $dbrow["uuid"];
-            if (strlen($template_name) > 0) {
+            if (!empty($template_name) ) {
               $value .= "&template_name=$template_name";
             }
           }

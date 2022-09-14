@@ -58,7 +58,7 @@ class Passwordlost extends ObjetBDD
     function createTokenFromMail($mail, $duree_token = 7200)
     {
         $data = array();
-        if (strlen($mail) > 0) {
+        if (!empty($mail) ) {
             /*
              * Recherche de l'identifiant correspondant
              */
@@ -99,7 +99,7 @@ class Passwordlost extends ObjetBDD
      */
     function verifyToken($token)
     {
-        if (strlen($token) > 0) {
+        if (!empty($token)) {
             $sql = "select passwordlost.*, login, actif ";
             $sql .= " from passwordlost ";
             $sql .= " join logingestion using (id)";

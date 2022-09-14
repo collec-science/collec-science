@@ -38,7 +38,7 @@ switch ($t_module["param"]) {
                     );
                     $loginGestion = new LoginGestion($bdd_gacl, $ObjetBDDParam);
                     $dl = $loginGestion->lire($data["id"]);
-                    if (strlen($dl["mail"]) > 0) {
+                    if (!empty($dl["mail"])) {
 
                         $mail = new Mail($param);
                         if ($mail->sendMail($dl["mail"], array(

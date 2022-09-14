@@ -348,7 +348,7 @@ class Container extends ObjetBDD
       $searchOk = true;
     } else {
       foreach ($paramName as $name) {
-        if (strlen($param[$name]) > 0) {
+        if (!empty($param[$name])) {
           $searchOk = true;
           break;
         }
@@ -367,7 +367,7 @@ class Container extends ObjetBDD
         $data["container_family_id"] = $param["container_family_id"];
         $and = " and ";
       }
-      if (strlen($param["name"]) > 0) {
+      if (!empty($param["name"])) {
         $where .= $and . "( ";
         $or = "";
         if (is_numeric($param["name"])) {
@@ -396,7 +396,7 @@ class Container extends ObjetBDD
         $and = " and ";
         $data["object_status_id"] = $param["object_status_id"];
       }
-      if (strlen($param["trashed"]) > 0) {
+      if (!empty($param["trashed"])) {
         $where .= $and . " o.trashed = :trashed";
         $and = " and ";
         $data["trashed"] = $param["trashed"];
@@ -412,7 +412,7 @@ class Container extends ObjetBDD
         $data["uid_min"] = $param["uid_min"];
         $data["uid_max"] = $param["uid_max"];
       }
-      if (strlen($param["select_date"]) > 0) {
+      if (!empty($param["select_date"])) {
         $tablefield = "c";
         switch ($param["select_date"]) {
           case "ch":
@@ -563,7 +563,7 @@ class Container extends ObjetBDD
     /**
      * Explode the list of secondary identifiers
      */
-    if (strlen($row["identifiers"]) > 0) {
+    if (!empty($row["identifiers"])) {
       $row["identifiers"] = explode(",", $row["identifiers"]);
     }
     /**
@@ -576,13 +576,13 @@ class Container extends ObjetBDD
        * generate the dbuid_origin
        */
       foreach ($dataSamples as $dataSample) {
-        if (strlen($dataSample["dbuid_origin"]) == 0) {
+        if (empty($dataSample["dbuid_origin"])) {
           $dataSample["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $dataSample["uid"];
         }
         /**
          * Explode the list of secondary identifiers
          */
-        if (strlen($dataSample["identifiers"]) > 0) {
+        if (!empty($dataSample["identifiers"]) ) {
           $dataSample["identifiers"] = explode(",", $dataSample["identifiers"]);
         }
         $row["samples"][] = $dataSample;
@@ -637,7 +637,7 @@ class Container extends ObjetBDD
           $names = $this->extractUniqueReference($names, $fields, $objet);
         }
       } else {
-        if (strlen($df) > 0 && in_array($key, $fields)) {
+        if (!empty($df) && in_array($key, $fields)) {
           if (!in_array($df, $names[$key])) {
             $names[$key][] = $df;
           }
@@ -719,7 +719,7 @@ class Container extends ObjetBDD
         $dcontainer[$field] = $data[$field];
       }
       foreach ($dynamicFields as $field) {
-        if (strlen($data[$field]) > 0) {
+        if (!empty($data[$field]) ) {
           /*
                  * Search the value from post data
                  */
@@ -827,7 +827,7 @@ class Container extends ObjetBDD
     );
     $dsample = array();
     foreach ($staticFields as $field) {
-      if (strlen($data[$field]) > 0) {
+      if (!empty($data[$field])) {
         if ($field == "metadata") {
           /*
                      * Ajout d'un decodage/encodage pour les champs json, pour
@@ -840,7 +840,7 @@ class Container extends ObjetBDD
       }
     }
     foreach ($dynamicFields as $field) {
-      if (strlen($data[$field]) > 0) {
+      if (!empty($data[$field])) {
         /*
              * Search the value from post data
              */

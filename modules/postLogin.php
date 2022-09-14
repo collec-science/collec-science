@@ -10,7 +10,7 @@
 /*
  * Suppression des documents de plus de 24 heures dans le dossier temporaire
  */
-if (strlen($APPLI_temp) > 0) {
+if (!empty($APPLI_temp)) {
     $dureeVie = 3600 * 24; // Suppression de tous les fichiers de plus de 24 heures
                            // $dureeVie = 30;
     /*

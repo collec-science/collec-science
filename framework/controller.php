@@ -413,7 +413,7 @@ try {
         /**
          * Preparation de l'identification par token
          */
-        if ($_POST["loginByTokenRequested"] == 1 || $ident_type == "HEADER") {
+        if ($_POST["loginByTokenRequested"] == 1 ) {
           include_once 'framework/identification/token.class.php';
           $tokenClass = new Token($privateKey, $pubKey);
           try {
@@ -617,17 +617,17 @@ try {
        */
       switch ($motifErreur) {
         case "droitko":
-          if (!empty($t_module["droitko"])) {
-            $module = $t_module["droitko"];
-          } else {
-            $module = $APPLI_moduleDroitKO;
-          }
           /**
            * Send mail to administrators
            */
           $subject = "SECURITY REPORTING - " . $GACL_aco . " - The user " . $_SESSION["login"] . "  has attempted to access an unauthorized module";
           $contents = "<html><body>" . "The account <b>" . $_SESSION["login"] . "<b> has attempted at $date the user has tried to access at the module $module without having the necessary rights" . '<br>Software : <a href="' . $APPLI_address . '">' . $APPLI_address . "</a>" . '</body></html>';
           $log->sendMailToAdmin($subject, $contents, $module, $_SESSION["login"]);
+          if (!empty($t_module["droitko"])) {
+            $module = $t_module["droitko"];
+          } else {
+            $module = $APPLI_moduleDroitKO;
+          }
           break;
         case "nologin":
           $module = $APPLI_moduleErrorLogin;

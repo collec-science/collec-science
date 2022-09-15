@@ -259,6 +259,13 @@
              }
          });
          regenerateMetadata();
+         $("#samplesearch_name").keyup( function () {
+            if ($(this).val().length > 0 ) {
+                $("#samplesearch_button").val("{t}Enregistrer et rechercher{/t}");
+            } else {
+                $("#samplesearch_button").val("{t}Rechercher{/t}");
+            }
+         });
     });
 </script>
 <div class="row col-lg-10 col-md-12">
@@ -674,7 +681,7 @@
             </div>
         <div class="row">
             <div class="col-sm-offset-3 col-sm-6 center">
-                <input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
+                <input type="submit" id="samplesearch_button" class="btn btn-success" value="{t}Rechercher{/t}">
                 <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
             </div>
         </div>

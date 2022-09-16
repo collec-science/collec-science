@@ -17,7 +17,7 @@ L'installateur est conçu pour fonctionner avec une distribution Debian ou Ubunt
 	\item connectez-vous en mode \textit{root} ;
 	\item téléchargez le script d'installation : \href{https://github.com/Irstea/collec/raw/master/install/deploy_new_instance.sh}{deploy\_new\_instance.sh} avec la commande :
 	\begin{lstlisting}
-	wget https://github.com/Irstea/collec/raw/master/install/deploy_new_instance.sh
+	wget https://github.com/collec-science/collec-science/raw/master/install/deploy_new_instance.sh
 	chmod +x deploy_new_instance.sh
 	\end{lstlisting}
 	\item exécutez le script, qui va réaliser l'ensemble des opérations automatisables ;
@@ -46,6 +46,8 @@ a2enmod rewrite
 \subsection{Modules PHP nécessaires}
 PHP doit être en version 7.4 au minimum. Il est préférable d'installer PHP depuis le site de PHP plutôt que d'utiliser les paquets fournis par la distribution.
 
+Depuis la version 2.8.0, l'application fonctionne également avec php 8.1.
+
 Modules complémentaires nécessaires (les versions sont en général à indiquer après \textit{php}) :
 \begin{itemize}
 \item \textit{php-ldap}
@@ -66,29 +68,46 @@ La génération des étiquettes nécessite les paquetages suivants :
 
 
 \subsection{Installer et configurer php}
-Voici un extrait du script d'installation automatique qui permet d'installer PHP :
+Voici le script d'installation automatique qui permet d'installer PHP :
+
 \begin{lstlisting}
-PHPVER=7.4
-PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
+#!/bin/bash
+PHPVER=8.1
+
+# installing php repository
 apt -y install lsb-release apt-transport-https ca-certificates
 DISTRIBCODE=`lsb_release -sc`
 DISTRIBNAME=`lsb_release -si`
+wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
 if [ $DISTRIBNAME == 'Ubuntu' ]
 then
-apt-get install software-properties-common
-add-apt-repository -y ppa:ondrej/php
-add-apt-repository -y ppa:ondrej/apache2
-elif [ $DISTRIBNAME == 'Debian' ]
-then
-wget -qO https://packages.sury.org/php/apt.gpg | apt-key add -
-echo "deb https://packages.sury.org/php/ $DISTRIBCODE main" | tee /etc/apt/sources.list.d/php.list
+ # Ubuntu
+ apt-get -y install software-properties-common
+ add-apt-repository -y ppa:ondrej/php
+ add-apt-repository -y ppa:ondrej/apache2
+else
+# Debian
+ wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
+ echo "deb https://packages.sury.org/php/ $DISTRIBCODE main" | tee /etc/apt/sources.list.d/php.list
+ apt-get update
 fi
-apt-get update
-apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd
-\end{lstlisting}
+apt-get -y install libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd php$PHPVER-curl
+/usr/sbin/a2dismod php$PHPOLDVERSION
+/usr/sbin/a2enmod php$PHPVER
+# update php.ini
+PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
+upload_max_filesize="=100M"
+post_max_size="=50M"
+max_execution_time="=120"
+max_input_time="=240"
+memory_limit="=1024M"
+max_input_vars="10000"
+for key in upload_max_filesize post_max_size max_execution_time max_input_time memory_limit
+do
+ sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $PHPINIFILE
+done
+sed -i "s/; max_input_vars = .*/max_input_vars=$max_input_vars/" $PHPINIFILE
 
-De plus, après installation, la configuration du fichier php.ini doit être modifiée pour garantir un fonctionnement optimal du logiciel :
-\begin{lstlisting}
 # adjust php.ini values
 upload_max_filesize="=100M"
 post_max_size="=50M"
@@ -101,11 +120,9 @@ do
  sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $PHPINIFILE
 done
 sed -i "s/; max_input_vars = .*/max_input_vars=$max_input_vars/" $PHPINIFILE
-\end{lstlisting}
+systemctl restart apache2
 
-Enfin, l'outil de gestion des images a besoin d'être reconfiguré, pour autoriser la manipulation des images :
-\begin{lstlisting}
-# adjust imagick policy
+ adjust imagick policy
 sed -e "s/  <policy domain=\"coder\" rights=\"none\" pattern=\"PDF\" \/>/  <policy domain=\"coder\" rights=\"read|write\" pattern=\"PDF\" \/>/" /etc/ImageMagick-6/policy.xml > /tmp/policy.xml
 cp /tmp/policy.xml /etc/ImageMagick-6/
 \end{lstlisting}
@@ -213,7 +230,7 @@ Une fois la configuration effectuée, redémarrez le serveur Apache :
 systemctl restart apache2
 \end{lstlisting}
 
-\subsubsection{Configuration du logiciel}
+\subsubsection{Configurer le logiciel}
 Modifiez le fichier \textit{param/param.inc.php}, avec les informations suivantes :
 
 \begin{lstlisting}
@@ -241,7 +258,7 @@ Pour réaliser l'enregistrement :
 	\end{itemize}
 	\item dans l'onglet \textit{Informations techniques}, indiquez l'adresse suivante pour récupérer les données de configuration :
 	\begin{itemize}
-		\item URL de vos métadonnées : https://collec.mysociety.com/mellon/metadata
+		\item URL de vos métadonnées : \\https://collec.mysociety.com/mellon/metadata
 	\end{itemize}
 \end{itemize}
 
@@ -253,6 +270,41 @@ Ce rattachement doit également être validé par votre correspondant Renater.
 
 \underline{Attention :} une fois le rattachement validé, vous devrez attendre 24 heures pour que votre application soit disponible auprès de l'ensemble des membres de la fédération, et donc pouvoir vous connecter à l'application. Dans le cas contraire, vous obtiendrez des messages d'erreur.
  
+\subsection{Comprendre la double identification}
+
+\paragraph{Principe :}
+
+Un secret va être partagé entre l'application et le smartphone de l'utilisateur. Ce secret est une clé cryptographique, qu'il est impossible de découvrir si on ne la connaît pas. Cette clé est stockée de manière chiffrée dans la base de données (table gacl.acllogin) avec la clé publique présente dans le dossier \textit{/param}. Sans connaître la clé privée, le secret ne peut être récupéré, même si la base de données est accessible.
+
+Un algorithme, basé sur l'heure courante, permet de générer un code de 6 chiffres à partir de cette clé secrète. Les smartphones et les serveurs partagent la même heure : ils se synchronisent plusieurs fois par jour avec des horloges de référence. Comme l'algorithme utilisé, la clé secrète, et l'heure sont identiques entre le smartphone et le serveur, le code généré est forcément identique. 
+
+Ainsi, l'application peut facilement vérifier que le code généré par le smartphone est identique à celui qu'elle peut calculer, et s'assurer que vous êtes bien le possesseur du compte utilisé.
+
+Dans la pratique, le code a une durée de validité de 30 secondes : au bout de ce laps de temps, il est caduc, et un nouveau code va être généré.
+
+\paragraph{Mécanisme d'échange de la clé secrète :}
+
+Au moment de l'activation de la double authentification, le serveur va générer la clé secrète et l'encapsuler dans un QRCode, qui va être affiché à l'écran. Il suffit alors de le lire avec une application dédiée pour qu'il soit enregistré dans le smartphone.
+
+Une fois la clé secrète copiée dans le smartphone, celle-ci n'est plus jamais échangée, et mis à part si le smartphone est perdu, elle a peu de chances d'être découverte.
+
+\paragraph{Quand faut-il activer la double authentification ?}
+
+Il est préférable d'activer la double authentification quand l'utilisateur dispose de fonctions d'administration étendues dans l'application (profil d'administration des comptes ou profil d'administration de l'application). 
+
+Si l'application gère des données sensibles, il est également souhaitable d'activer ce mécanisme.
+
+\paragraph{Quels logiciels peut-on utiliser dans le smartphone ?}
+
+Il faut utiliser un logiciel supportant la norme TOTP. Parmi les plus connus, on peut citer *Google Authenticator*, disponible uniquement avec Android, ou *FreeOTP*, disponible sur IOS ou Android.
+
+\paragraph{En cas de perte de la clé secrète ou du smartphone :}
+
+Un administrateur peut supprimer la clé secrète depuis l'application (\textit{Administration > ACL logins}). Il est également possible d'effacer la clé secrète dans la base de données avec la commande suivante :
+
+\begin{lstlisting}
+update gacl.acllogin set totp_key = null where login = 'jean.bon';
+\end{lstlisting}
 
 \subsection{Configurer le dossier d'installation}
 
@@ -392,7 +444,9 @@ ident\_type & Type d'identification supporté :
 \hline
 CAS\_plugin & Nom du plugin utilisé pour une connexion CAS \\
 \hline
-CAS\_address & Adresse du serveur CAS, sous la forme : \textit{nomserveur.societe.com/cas} (sans préfixer avec https://)\\
+CAS\_address & Adresse du serveur CAS, sous la forme : \textit{serveurcas.societe.com} (sans préfixer avec https://)\\
+\hline
+CAS\_uri="/cas" & chemin interne au serveur CAS pour accéder à l'identification \\
 \hline
 CAS\_port = 443 & port utilisé pour atteindre le serveur CAS (port https)\\
 \hline
@@ -459,7 +513,7 @@ Si l'utilisateur déclenche une déconnexion, le jeton est supprimé.
 
 Pour plus d'informations, consultez comment fonctionne le mécanisme de ré-identification par jeton \cite{token}.
 
-\subsection{Configuration de l'accès à l'annuaire LDAP}
+\subsection{Configurer l'accès à l'annuaire LDAP}
 
 Les paramètres LDAP sont stockés dans un tableau :
 \begin{lstlisting}
@@ -535,8 +589,6 @@ APPLI\_code & obsolète. Voir la section \ref{paramdb} \\
 \hline
 APPLI\_print\_direct \_command & Commande utilisée pour l'impression directe (depuis le serveur des étiquettes). Par défaut, \textit{lpr}, mais \textit{lp} peut être utilisé pour les Raspberry. \\
 \hline
-APPLI\_virusScan = false & Variable qui permet d'activer le contrôle antivirus des pièces téléchargées, si Clamav est installé dans le serveur \\
-\hline
 APPLI\_max\_file\_size = 10 & Taille maxi en MB des fichiers téléchargés \\
 \hline
 
@@ -565,6 +617,8 @@ mapDefaultX & Longitude de positionnement du centre de la carte par défaut \\
 mapDefaultY & Latitude de positionnement du centre de la carte par défaut \\
 \hline
 mapDefaultZoom & facteur de zoom par défaut lors de l'affichage d'une carte \\
+\hline
+otp\_issuer & Nom de l'application qui est utilisé dans le mécanisme de double-identification (TOTP) \\
 \hline
 \caption{Paramètres stockés dans la base de données}
 \end{longtable}

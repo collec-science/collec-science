@@ -115,11 +115,9 @@ class Collection extends ObjetBDD
        */
       $comma = false;
       $in = "(";
-      foreach ($groups as $value) {
-        if (!empty($value["groupe"])) {
+      foreach ($groups as $group) {
           $comma == true ? $in .= ", " : $comma = true;
-          $in .= "'" . $value["groupe"] . "'";
-        }
+          $in .= $group["aclgroup_id"] ;
       }
       $in .= ")";
       $sql = "select distinct collection_id, collection_name
@@ -128,7 +126,7 @@ class Collection extends ObjetBDD
 					from collection
 					join collection_group using (collection_id)
 					join aclgroup using (aclgroup_id)
-					where groupe in $in";
+					where aclgroup_id in $in";
       $order = " order by collection_name";
       $dataSql = $this->getListeParam($sql . $order);
       foreach ($dataSql as $row) {

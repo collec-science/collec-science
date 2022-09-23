@@ -153,17 +153,29 @@ class Aclgroup extends ObjetBDD
         /*
          * Recuperation des groupes parents
          */
-        foreach ($groupes as $key => $value) {
-            if ($value["aclgroup_id_parent"] > 0) {
-                $dataParent = $this->getParentGroups($value["aclgroup_id_parent"]);
-                if (count($dataParent) > 0) {
-                    $groupes = array_merge($groupes, $dataParent);
-                }
-            }
+        $in = "";
+        $comma = "";
+        foreach ($groupes as $groupe) {
+            $in .= $comma.$groupe["aclgroup_id"];
+            $comma = ",";
         }
-
-        $_SESSION["groupes"] = $groupes;
-        return $groupes;
+        if (!empty($in)) {
+            $sql = "with recursive groupsearch as
+            (
+            select aclgroup_id, groupe, aclgroup_id_parent
+            from gacl.aclgroup
+            where aclgroup_id in ($in)
+            union all
+            select a.aclgroup_id, a.groupe, a.aclgroup_id_parent
+            from gacl.aclgroup a
+            join groupsearch gs on (a.aclgroup_id = gs.aclgroup_id_parent)
+            )
+            select distinct * from groupsearch order by groupe";
+            $_SESSION["groupes"] = $this->getListeParam($sql);
+        } else {
+            $_SESSION["groupes"] = array();
+        }
+        return $_SESSION["groupes"];
     }
 
     /**

@@ -25,7 +25,7 @@ class Ldap
     /**
      * Identifiant de connexion de l'annuaire ldap
      *
-     * @var int
+     * @var LDAP\Connection
      */
     var $idldap;
 
@@ -51,7 +51,7 @@ class Ldap
      * Fonction realisant la connexion a l'annuaire
      * Retourne -1 en cas d'echec
      *
-     * @return int
+     * @return LDAP\Connection
      */
     function connect()
     {
@@ -71,7 +71,7 @@ class Ldap
             }
         } else {
             $this->message = "Impossible de se connecter au serveur LDAP<br>";
-            $this->idldap = -1;
+            $this->idldap = false;
         }
         return $this->idldap;
     }

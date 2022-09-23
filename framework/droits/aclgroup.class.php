@@ -205,31 +205,6 @@ class Aclgroup extends ObjetBDD
     }
 
     /**
-     * Retourne les groupes parents du groupe considere
-     *
-     * @param int $id
-     * @return array
-     */
-    function getParentGroups($id)
-    {
-        $data = array();
-        if ($id > 0) {
-            $sql = "select aclgroup_id, aclgroup_id_parent, groupe from aclgroup
-					where aclgroup_id = " . $id;
-            $data = $this->getListeParam($sql);
-            foreach ($data as $value) {
-                if ($value["aclgroup_id_parent"] > 0) {
-                    $dataParent = $this->getParentGroups($value["aclgroup_id_parent"]);
-                    if (count($dataParent) > 0) {
-                        $data = array_merge($data, $dataParent);
-                    }
-                }
-            }
-        }
-        return $data;
-    }
-
-    /**
      * Recupere la liste des groupes, classes par arborescence
      *
      * @return array

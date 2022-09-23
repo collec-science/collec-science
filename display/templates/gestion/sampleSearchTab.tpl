@@ -23,6 +23,7 @@
                  } catch (error) {}
              }
              if ($("#collection_id").val() > 0) ok = true;
+             if ($("#uidsearch").val() > 0) ok = true;
              if ($("#uid_min").val() > 0) ok = true;
              if ($("#uid_max").val() > 0) ok = true;
              if ($("#sample_type_id").val() > 0) ok = true;
@@ -203,6 +204,7 @@
         $("#select_date").prop("selectedIndex", 0).change();
         $("#campaign_id").prop("selectedIndex", 0).change();
         $("#event_type_id").prop("selectedIndex", 0).change();
+        $("#uidsearch").val("");
         $("#uid_min").val("0");
         $("#uid_max").val("0");
         $("#metadata_field").prop("selectedIndex",0).change();
@@ -229,7 +231,7 @@
         $("#booking_from").datepicker("setDate", now);
         $("#booking_to").datepicker("setDate", now);
         $("#name").val("");
-        $("#name").focus();
+        $("#uidsearch").focus();
      });
      /* Management of tabs */
 		var activeTab = "";
@@ -315,9 +317,13 @@
             <div class="tab-pane active in" id="navsearch-uid" role="tabpanel" aria-labelledby="tabsearch-uid">
                 <div class="row">
                     <div class="form-group">
-                        <label for="name" class= "col-sm-3 control-label">{t}UID ou identifiant :{/t}</label>
-                        <div class="col-sm-6">
-                            <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="{t}uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible){/t}">
+                        <label for="uidsearch" class= "col-sm-3 control-label">{t}UID :{/t}</label>
+                        <div class="col-sm-1">
+                            <input id="uidsearch" name="uidsearch" class="form-control nombre" value="{$sampleSearch.uidsearch}">
+                        </div>
+                        <label for="name" class= "col-sm-2 control-label">{t}identifiant ou UUID :{/t}</label>
+                        <div class="col-sm-3">
+                            <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
                         </div>
                     </div>
                 </div>

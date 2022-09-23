@@ -342,7 +342,7 @@ class Container extends ObjetBDD
      */
     $searchOk = false;
     $paramName = array(
-      "name", "container_family_id", "container_type_id",  "select_date", "referent_id"
+      "uidsearch", "name", "container_family_id", "container_type_id",  "select_date", "referent_id"
     );
     if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["event_type_id"] > 0 || $param["movement_reason_id"] > 0) {
       $searchOk = true;
@@ -367,14 +367,14 @@ class Container extends ObjetBDD
         $data["container_family_id"] = $param["container_family_id"];
         $and = " and ";
       }
+      if ($param["uidsearch"] > 0) {
+        $where .= $and . " o.uid = :uid";
+        $data["uid"] = $param["uidsearch"];
+        $and = " and ";
+      }
       if (!empty($param["name"])) {
         $where .= $and . "( ";
         $or = "";
-        if (is_numeric($param["name"])) {
-          $where .= " o.uid = :uid";
-          $data["uid"] = $param["name"];
-          $or = " or ";
-        }
         if (strlen($param["name"]) == 36) {
           $where .= "o.uuid = :uuid";
           $data["uuid"] = $param["name"];

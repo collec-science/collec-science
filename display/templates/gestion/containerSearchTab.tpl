@@ -41,6 +41,7 @@
 			 } catch (error) {}
 		 	}
 			if ($("#container_family_id").val() > 0) ok = true;
+			if ($("#uidsearch").val() > 0) ok = true;
 			if ($("#uid_min").val() > 0) ok = true;
 			if ($("#uid_max").val() > 0) ok = true;
 			if ($("#container_type_id").val() > 0) ok = true;
@@ -55,6 +56,7 @@
 		searchType();
 		$("#razid").on ("click keyup", function () {
 			$("#object_status_id").prop("selectedIndex", 1).change();
+			$("#uidsearch").val("");
 			$("#uid_min").val("0");
 			$("#uid_max").val("0");
 			$("#container_family_id").prop("selectedIndex", 0).change();
@@ -68,7 +70,7 @@
 			$("#date_to").datepicker("setDate", now );
 			$("#name").val("");
 			$("#trashed").val("0");
-			$("#name").focus();
+			$("#uidsearch").focus();
 		});
 		/* Management of tabs */
 		var myStorage = window.localStorage;
@@ -113,11 +115,16 @@
       <div class="tab-pane active in" id="navsearch-uid" role="tabpanel" aria-labelledby="tabsearch-uid">
 				<div class="row">
 						<div class="form-group">
-								<label for="name" class= "col-sm-2 control-label">{t}UID ou identifiant :{/t}</label>
-								<div class="col-sm-6">
-										<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="{t}uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible){/t}">
-								</div>
-						</div>
+							<label for="uidsearch" class= "col-sm-2 control-label">{t}UID :{/t}</label>
+							<div class="col-sm-1">
+								<input id="uidsearch" name="uidsearch" class="form-control nombre" value="{$containerSearch.uidsearch}">
+							</div>
+
+							<label for="name" class= "col-sm-2 control-label">{t}Identifiant ou UUID :{/t}</label>
+							<div class="col-sm-3">
+									<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
+							</div>
+					</div>
 				</div>
 				<div class="row">
 						<div class="form-group">

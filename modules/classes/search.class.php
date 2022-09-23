@@ -79,7 +79,7 @@ class SearchParam
       /**
        * Reinit checkbox
        */
-      foreach ($this->paramCheckbox as $k=>$v) {
+      foreach ($this->paramCheckbox as $k => $v) {
         if (!isset($data[$k])) {
           $this->param[$k] = $v;
         }
@@ -209,6 +209,7 @@ class SearchContainer extends SearchParam
   {
     $this->param = array(
       "name" => "",
+      "uidsearch" => "",
       "container_family_id" => "",
       "container_type_id" => "",
       "limit" => 100,
@@ -232,6 +233,7 @@ class SearchContainer extends SearchParam
       "container_type_id",
       "limit",
       "object_status_id",
+      "uidsearch",
       "uid_min",
       "uid_max",
       "trashed",
@@ -261,6 +263,7 @@ class SearchSample extends SearchParam
       "collection_id" => "",
       "limit" => 100,
       "object_status_id" => 1,
+      "uidsearch" => "",
       "uid_min" => 0,
       "uid_max" => 0,
       "sampling_place_id" => "",
@@ -282,7 +285,7 @@ class SearchSample extends SearchParam
       "subsample_quantity_min" => "",
       "subsample_quantity_max" => "",
       "booking_type" => 0,
-      "without_container"=>0
+      "without_container" => 0
     );
     /**
      * Ajout des dates
@@ -293,6 +296,7 @@ class SearchSample extends SearchParam
       "collection_id",
       "object_status_id" => 1,
       "limit",
+      "uidsearch",
       "uid_min",
       "uid_max",
       "sampling_place_id" => 0,
@@ -310,10 +314,10 @@ class SearchSample extends SearchParam
       "subsample_quantity_min",
       "subsample_quantity_max",
       "booking_type" => 0,
-      "without_container"=>0
+      "without_container" => 0
     );
-    $this->paramCheckbox = array (
-      "without_container"=>0
+    $this->paramCheckbox = array(
+      "without_container" => 0
     );
     parent::__construct();
   }

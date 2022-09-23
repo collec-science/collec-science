@@ -418,7 +418,7 @@ class Sample extends ObjetBDD
      * Verification de la presence des parametres
      */
     $searchOk = false;
-    $paramName = array("name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
+    $paramName = array("uidsearch", "name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
     if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["booking_type"] != 0 || $param["without_container"] == 1) {
       $searchOk = true;
     } else {
@@ -451,20 +451,20 @@ class Sample extends ObjetBDD
         $data["sample_type_id"] = $param["sample_type_id"];
         $and = " and ";
       }
+      if ($param["uidsearch"] > 0) {
+        $where .= $and . " s.uid = :uid";
+        $data["uid"] = $param["uidsearch"];
+        $and = " and ";
+      }
       if (!empty($param["name"])) {
+        $name = $this->encodeData($param["name"]);
         $where .= $and . "( ";
         $or = "";
-        if (is_numeric($param["name"])) {
-          $where .= " s.uid = :uid";
-          $data["uid"] = $param["name"];
-          $or = " or ";
-        }
         if (strlen($param["name"]) == 36) {
           $where .= "so.uuid = :uuid";
           $data["uuid"] = $param["name"];
           $or = " or ";
         }
-        $name = $this->encodeData($param["name"]);
         $identifier = "%" . strtoupper($name) . "%";
         $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
         $and = " and ";

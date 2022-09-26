@@ -1,6 +1,6 @@
 News
 ===========
-Version 2.8.0b du 14/09/2022
+Version 2.8.0 du 26/09/2022
 ----------------------------
 Corrections de bugs :
 - depuis le détail d'un contenant, l'impression des étiquettes pour les échantillons présents ne fonctionnait pas si l'utilisateur ne disposait pas des droits "collection"
@@ -8,6 +8,8 @@ Corrections de bugs :
 - une erreur survenait à la déconnexion dans certains cas de figure (corrigé en 2.7.1)
 - le mécanisme de blocage des comptes a été modifié, le mécanisme précédemment utilisé n'était pas satisfaisant
 - lors de la création des échantillons dérivés, toutes les informations n'étaient pas forcément répliquées dans l'échantillon enfant à partir du parent
+- lorsque l'identification est en mode HEADER, la création des jetons d'identification restait activée et engendrait alors un plantage de l'application
+- dans certains cas, la liste des collections accessible à un utilisateur, lors des opérations de modification ou de création, était incomplète (corrigé, mais non testé en cas réel)
 
 Nouveautés :
 - il est maintenant possible d'indiquer un champ de type "date" dans les métadonnées, avec affichage d'un calendrier
@@ -18,6 +20,7 @@ Nouveautés :
 - dans l'import de masse, il est maintenant possible d'indiquer le nom complet du pays plutôt que son code
 - dans la carte de recherche des échantillons, l'identifiant métier est maintenant affiché en sus de l'UID
 - il est maintenant possible de rechercher les échantillons qui ne sont pas placés dans un contenant
+- dans l'interface de recherche des échantillons ou des contenants, la zone UID a été séparée de la zone IDENTIFIANT, pour éviter de ramener des objets non pertinents
 
 Version 2.7.0 du 20/06/2022
 ---------------------------

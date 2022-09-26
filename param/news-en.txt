@@ -1,23 +1,26 @@
 News
 ===========
-Version 2.8.0b of September 14th, 2022
+Version 2.8.0 of September 26th, 2022
 ----------------------------
 Bug fixes :
-- from the details of a container, the printing of the labels for the samples present did not work if the user did not have the "collection" rights
-- the modification of the general parameters (table dbparam) did not work anymore (corrected in 2.7.1)
+- from the details of a container, the printing of labels for the samples present did not work if the user did not have the "collection" rights
+- the modification of the general parameters (table dbparam) did not work anymore (fixed in 2.7.1)
 - an error occurred at logout in some cases (fixed in 2.7.1)
 - the mechanism for blocking accounts has been changed, the previous mechanism was not satisfactory
-- when creating derived samples, not all information was necessarily replicated in the child sample from the parent
+- when creating derived samples, all the information was not necessarily replicated in the child sample from the parent
+- when the identification is in HEADER mode, the creation of identification tokens remained activated and caused a crash of the application
+- in some cases, the list of collections accessible to a user, during modification or creation operations, was incomplete (corrected, but not tested in real case)
 
 New features:
-- it is now possible to indicate a "date" field in the metadata, with a calendar displayed
-- an API to create movements is now available
+- it is now possible to indicate a "date" field in the metadata, with a calendar display
+- an API allowing to create movements is now available
 - a new identification mechanism is now possible: CAS-BDD. From the connection screen, if this mode is activated, a button allows to call the CAS server
 - it is possible to define, for a collection, particular types of samples. From then on, these sample types will no longer be proposed for the collections to which they do not belong. The same mechanism has been implemented for event types
 - it is now possible to define a due date for an event, and a new interface allows to search for upcoming events, completed or not, etc.
 - in the mass import, it is now possible to indicate the full name of the country instead of its code
 - in the sample search map, the business identifier is now displayed in addition to the UID
 - it is now possible to search for samples that are not placed in a container
+- in the sample or container search interface, the UID field has been separated from the IDENTIFIER field, to avoid returning irrelevant objects
 
 Version 2.7.0 of June 20th, 2022
 ---------------------------

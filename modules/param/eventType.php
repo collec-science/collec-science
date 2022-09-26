@@ -42,5 +42,8 @@ switch ($t_module["param"]) {
          */
         dataDelete($dataClass, $id);
         break;
+    case "getAjax":
+        $_REQUEST["object_type"] == 2 ? $category = "container" : $category = "sample";
+        $vue->set($dataClass->getListeFromCategory($category, $_REQUEST["collection_id"]));
+        break;
 }
-?>

@@ -71,7 +71,7 @@ class Event extends ObjetBDD
          * @param integer $event_type_id
          * @return array|null
          */
-        function searchDueEvent(string $searchType, string $dateFrom, string $dateTo, int $isDone = 0, int $collection_id = 0, int $event_type_id = 0): ?array
+        function searchDueEvent(string $searchType, string $dateFrom, string $dateTo, int $isDone = 0, int $collection_id = 0, int $event_type_id = 0, int $sample_type_id): ?array
         {
                 $searchType == "due_date" ? $search = "due_date" : $search = "event_date";
                 $sql = "select uid, identifier, event_date, due_date
@@ -82,6 +82,7 @@ class Event extends ObjetBDD
                         join object using (uid)
                         join event_type using (event_type_id)
                         left outer join sample using (uid)
+                        left outer join sample_type using (sample_type_id)
                         where $search between :datefrom and :dateto";
                 if ($isDone == -1) {
                         $sql .= " and event_date is null";
@@ -99,6 +100,10 @@ class Event extends ObjetBDD
                 if ($event_type_id > 0) {
                         $sql .= " and event_type_id = :event_type_id";
                         $data["event_type_id"] = $event_type_id;
+                }
+                if ($sample_type_id > 0) {
+                        $sql .= " and sample_type_id = :sample_type_id";
+                        $data["sample_type_id"] = $sample_type_id;
                 }
                 return $this->getListeParamAsPrepared($sql, $data);
         }

@@ -11,6 +11,7 @@
 	<eventTypeChange action="modules/param/eventType.php" param="change" droits="param" retourlogin="1" type="smarty" />
 	<eventTypeWrite action="modules/param/eventType.php" param="write" droits="param" retourok="eventTypeList" retourko="eventTypeChange" modulebefore="eventTypeChange" />
 	<eventTypeDelete action="modules/param/eventType.php" param="delete" droits="param" retourok="eventTypeList" retourko="eventTypeChange" modulebefore="eventTypeChange"/>
+	<eventTypeGetAjax action="modules/param/eventType.php" param="getAjax" droits="consult" type="ajax"/>
 
 	<containerFamilyList action="modules/param/containerFamily.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 	<containerFamilyChange action="modules/param/containerFamily.php" param="change" droits="param,collection" retourlogin="1" type="smarty" />

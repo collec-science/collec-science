@@ -64,7 +64,8 @@ switch ($t_module["param"]) {
 					$dataSearch["date_to"],
 					$dataSearch["is_done"],
 					$dataSearch["collection_id"],
-					$dataSearch["event_type_id"]
+					$dataSearch["event_type_id"],
+					$dataSearch["sample_type_id"]
 				),
 				"events"
 			);
@@ -75,7 +76,12 @@ switch ($t_module["param"]) {
     $vue->set($collection->getAllCollections(), "collections");
 		include_once "modules/classes/eventType.class.php";
 		$eventType = new EventType($bdd, $ObjetBDDParam);
-		$vue->set ($eventType->getListe("event_type_name"), "eventTypes");
+		$dataSearch["object_type"] == 2 ? $category = "container" : $category = "sample";
+		$vue->set ($eventType->getListeFromCategory($category, $dataSearch["collection_id"]), "eventTypes");
+		include_once  "modules/classes/sampleType.class.php";
+		$sampleType = new SampleType($bdd, $ObjetBDDParam);
+		$vue->set($sampleType->getListFromCollection($dataSearch["collection_id"]),"sampleTypes");
 		$vue->set($dataSearch, "eventSearch");
 		$vue->set("gestion/eventSearchList.tpl", "corps");
+		break;
 }

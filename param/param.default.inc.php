@@ -7,9 +7,9 @@
  * Parametres par defaut de l'application
  * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
  */
-$APPLI_version = "2.8.0b";
+$APPLI_version = "2.8.0";
 $APPLI_dbversion = "2.8";
-$APPLI_versiondate = _("14/09/2022");
+$APPLI_versiondate = _("26/09/2022");
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -26,12 +26,7 @@ $APPLI_session_ttl = 14400;
 $APPLI_cookie_ttl = 7776000;
 // 10 heures
 $APPLI_absolute_session = 36000;
-/*
- *
- * Nom du chemin de stockage des sessions
- * @var unknown_type
- */
-$APPLI_path_stockage_session = "prototypephp";
+
 /*
  * Duree de conservation des traces (en jours) dans la table log
  */

@@ -185,7 +185,7 @@ class ExportModelProcessing
    */
   function getDescriptionFromTable(string $tablename, string $schemaname = ""): string
   {
-    !!empty($schemaname) ? $hasSchema = true : $hasSchema = false;
+    !empty($schemaname) ? $hasSchema = true : $hasSchema = false;
     $data["tablename"] = $tablename;
     $sql = "select  description
         from pg_catalog.pg_statio_all_tables st

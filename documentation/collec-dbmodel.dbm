@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="75"
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" author="Éric Quinton" last-position="0,0" last-zoom="1" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -377,7 +377,7 @@ otp_issuer•collec-science]]>
 	</constraint>
 	<initial-data>
 <![CDATA[dbversion_number•dbversion_date⸣
-2.7•2022-06-20]]>
+2.8•2022-09-26]]>
 	</initial-data>
 </table>
 

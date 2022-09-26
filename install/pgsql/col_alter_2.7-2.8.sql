@@ -123,4 +123,4 @@ COMMENT ON COLUMN gacl.logingestion.nbattempts IS E'Number of connection attemps
 COMMENT ON COLUMN gacl.logingestion.lastattempt IS E'last attemp of connection';
 -- ddl-end --
 
-insert into col.dbversion (dbversion_number, dbversion_date) values ('2.8', '2022-09-14');
+insert into col.dbversion (dbversion_number, dbversion_date) values ('2.8', '2022-09-26');

@@ -1,6 +1,6 @@
 -- Database generated with pgModeler (PostgreSQL Database Modeler).
 -- pgModeler version: 0.9.4
--- PostgreSQL version: 9.6
+-- PostgreSQL version: 11.0
 -- Project Site: pgmodeler.io
 -- Model Author: ---
 
@@ -290,7 +290,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 ALTER TABLE col.dbversion OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'2.7', E'2022-06-20');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'2.8', E'2022-09-26');
 -- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --
@@ -371,10 +371,11 @@ ALTER SEQUENCE col.event_event_id_seq OWNER TO collec;
 CREATE TABLE col.event (
 	event_id integer NOT NULL DEFAULT nextval('col.event_event_id_seq'::regclass),
 	uid integer NOT NULL,
-	event_date timestamp NOT NULL,
+	event_date timestamp,
 	event_type_id integer NOT NULL,
 	still_available character varying,
 	event_comment character varying,
+	due_date timestamp,
 	CONSTRAINT event_pk PRIMARY KEY (event_id)
 );
 -- ddl-end --
@@ -385,6 +386,8 @@ COMMENT ON COLUMN col.event.event_date IS E'Date-time of the event';
 COMMENT ON COLUMN col.event.still_available IS E'still available content in the object, after the event';
 -- ddl-end --
 COMMENT ON COLUMN col.event.event_comment IS E'Comment';
+-- ddl-end --
+COMMENT ON COLUMN col.event.due_date IS E'Due date of the event';
 -- ddl-end --
 ALTER TABLE col.event OWNER TO collec;
 -- ddl-end --
@@ -515,7 +518,7 @@ COMMENT ON COLUMN col.label.identifier_only IS E'true: the qrcode contains only 
 ALTER TABLE col.label OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.label (label_name, barcode_id, label_xsl, label_fields) VALUES (E'Example - Don''t use', E'1', E'<xsl:stylesheet version="1.0"\n      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"\n      xmlns:fo="http://www.w3.org/1999/XSL/Format">\n  <xsl:output method="xml" indent="yes"/>\n  <xsl:template match="objects">\n    <fo:root>\n      <fo:layout-master-set>\n        <fo:simple-page-master master-name="label"\n              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">  \n              <fo:region-body/>\n        </fo:simple-page-master>\n      </fo:layout-master-set>\n      \n      <fo:page-sequence master-reference="label">\n         <fo:flow flow-name="xsl-region-body">        \n          <fo:block>\n          <xsl:apply-templates select="object" />\n          </fo:block>\n\n        </fo:flow>\n      </fo:page-sequence>\n    </fo:root>\n   </xsl:template>\n  <xsl:template match="object">\n\n  <fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="8cm&quot; keep-together.within-page=&quot;always">\n  <fo:table-column column-width="4cm"/>\n  <fo:table-column column-width="4cm" />\n <fo:table-body  border-style="none" >\n 	<fo:table-row>\n  		<fo:table-cell> \n  		<fo:block>\n  		<fo:external-graphic>\n      <xsl:attribute name="src">\n             <xsl:value-of select="concat(uid,''.png'')" />\n       </xsl:attribute>\n       <xsl:attribute name="content-height">scale-to-fit</xsl:attribute>\n       <xsl:attribute name="height">4cm</xsl:attribute>\n        <xsl:attribute name="content-width">4cm</xsl:attribute>\n        <xsl:attribute name="scaling">uniform</xsl:attribute>\n      \n       </fo:external-graphic>\n 		</fo:block>\n   		</fo:table-cell>\n  		<fo:table-cell>\n<fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>\n  			<fo:block>uid:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;db&quot;/&gt;:&lt;xsl:value-of select=&quot;uid"/></fo:inline></fo:block>\n  			<fo:block>id:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;id"/></fo:inline></fo:block>\n  			<fo:block>prj:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;prj"/></fo:inline></fo:block>\n  			<fo:block>clp:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;clp"/></fo:inline></fo:block>\n  		</fo:table-cell>\n  	  	</fo:table-row>\n  </fo:table-body>\n  </fo:table>\n   <fo:block page-break-after="always"/>\n\n  </xsl:template>\n</xsl:stylesheet>', E'uid,id,clp,db,col');
+INSERT INTO col.label (label_name, label_xsl, label_fields, barcode_id) VALUES (E'Example - Don''t use', E'<xsl:stylesheet version="1.0"\n      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"\n      xmlns:fo="http://www.w3.org/1999/XSL/Format">\n  <xsl:output method="xml" indent="yes"/>\n  <xsl:template match="objects">\n    <fo:root>\n      <fo:layout-master-set>\n        <fo:simple-page-master master-name="label"\n              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">  \n              <fo:region-body/>\n        </fo:simple-page-master>\n      </fo:layout-master-set>\n      \n      <fo:page-sequence master-reference="label">\n         <fo:flow flow-name="xsl-region-body">        \n          <fo:block>\n          <xsl:apply-templates select="object" />\n          </fo:block>\n\n        </fo:flow>\n      </fo:page-sequence>\n    </fo:root>\n   </xsl:template>\n  <xsl:template match="object">\n\n  <fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="8cm&quot; keep-together.within-page=&quot;always">\n  <fo:table-column column-width="4cm"/>\n  <fo:table-column column-width="4cm" />\n <fo:table-body  border-style="none" >\n 	<fo:table-row>\n  		<fo:table-cell> \n  		<fo:block>\n  		<fo:external-graphic>\n      <xsl:attribute name="src">\n             <xsl:value-of select="concat(uid,''.png'')" />\n       </xsl:attribute>\n       <xsl:attribute name="content-height">scale-to-fit</xsl:attribute>\n       <xsl:attribute name="height">4cm</xsl:attribute>\n        <xsl:attribute name="content-width">4cm</xsl:attribute>\n        <xsl:attribute name="scaling">uniform</xsl:attribute>\n      \n       </fo:external-graphic>\n 		</fo:block>\n   		</fo:table-cell>\n  		<fo:table-cell>\n<fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>\n  			<fo:block>uid:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;db&quot;/&gt;:&lt;xsl:value-of select=&quot;uid"/></fo:inline></fo:block>\n  			<fo:block>id:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;id"/></fo:inline></fo:block>\n  			<fo:block>prj:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;prj"/></fo:inline></fo:block>\n  			<fo:block>clp:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;clp"/></fo:inline></fo:block>\n  		</fo:table-cell>\n  	  	</fo:table-row>\n  </fo:table-body>\n  </fo:table>\n   <fo:block page-break-after="always"/>\n\n  </xsl:template>\n</xsl:stylesheet>', E'uid,id,clp,db,col', E'1');
 -- ddl-end --
 
 -- object: col.storage_storage_id_seq | type: SEQUENCE --
@@ -827,6 +830,7 @@ INSERT INTO col.object_status (object_status_id, object_status_name) VALUES (E'3
 -- ddl-end --
 INSERT INTO col.object_status (object_status_id, object_status_name) VALUES (E'6', E'Objet prêté');
 -- ddl-end --
+
 
 -- object: col.operation_operation_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.operation_operation_id_seq CASCADE;
@@ -1608,6 +1612,8 @@ CREATE TABLE gacl.logingestion (
 	is_clientws boolean DEFAULT false,
 	tokenws character varying,
 	is_expired boolean DEFAULT false,
+	nbattempts smallint DEFAULT 0,
+	lastattempt timestamp,
 	CONSTRAINT pk_logingestion PRIMARY KEY (id)
 );
 -- ddl-end --
@@ -1630,6 +1636,10 @@ COMMENT ON COLUMN gacl.logingestion.is_clientws IS E'True if the login is used b
 COMMENT ON COLUMN gacl.logingestion.tokenws IS E'Identification token used for the third-parties applications';
 -- ddl-end --
 COMMENT ON COLUMN gacl.logingestion.is_expired IS E'If true, the account is expired (password older)';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.nbattempts IS E'Number of connection attempts';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.lastattempt IS E'last attempt of connection';
 -- ddl-end --
 ALTER TABLE gacl.logingestion OWNER TO collec;
 -- ddl-end --
@@ -3429,6 +3439,136 @@ USING btree
 );
 -- ddl-end --
 
+-- object: event_date_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.event_date_idx CASCADE;
+CREATE INDEX event_date_idx ON col.event
+USING btree
+(
+	event_date
+);
+-- ddl-end --
+
+-- object: due_date_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.due_date_idx CASCADE;
+CREATE INDEX due_date_idx ON col.event
+USING btree
+(
+	due_date
+);
+-- ddl-end --
+
+-- object: col.collection_sampletype | type: TABLE --
+-- DROP TABLE IF EXISTS col.collection_sampletype CASCADE;
+CREATE TABLE col.collection_sampletype (
+	collection_id integer NOT NULL,
+	sample_type_id integer NOT NULL,
+	CONSTRAINT collection_sampletype_1 PRIMARY KEY (collection_id,sample_type_id) DEFERRABLE INITIALLY IMMEDIATE
+);
+-- ddl-end --
+ALTER TABLE col.collection_sampletype OWNER TO collec;
+-- ddl-end --
+
+-- object: collection | type: CONSTRAINT --
+-- ALTER TABLE col.collection_sampletype DROP CONSTRAINT IF EXISTS collection CASCADE;
+ALTER TABLE col.collection_sampletype ADD CONSTRAINT collection FOREIGN KEY (collection_id)
+REFERENCES col.collection (collection_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: sample_type | type: CONSTRAINT --
+-- ALTER TABLE col.collection_sampletype DROP CONSTRAINT IF EXISTS sample_type CASCADE;
+ALTER TABLE col.collection_sampletype ADD CONSTRAINT sample_type FOREIGN KEY (sample_type_id)
+REFERENCES col.sample_type (sample_type_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: col.getsampletypesfromcollection | type: FUNCTION --
+-- DROP FUNCTION IF EXISTS col.getsampletypesfromcollection(integer) CASCADE;
+CREATE FUNCTION col.getsampletypesfromcollection (IN collection_id integer)
+	RETURNS varchar
+	LANGUAGE sql
+	VOLATILE
+	CALLED ON NULL INPUT
+	SECURITY INVOKER
+	PARALLEL UNSAFE
+	COST 1
+	AS $$
+select array_to_string(array_agg(sample_type_name), ', ') as sampletypes
+from col.collection_sampletype
+join col.sample_type using (sample_type_id)
+where collection_id = $1
+$$;
+-- ddl-end --
+ALTER FUNCTION col.getsampletypesfromcollection(integer) OWNER TO collec;
+-- ddl-end --
+
+-- object: col.getgroupsfromcollection | type: FUNCTION --
+-- DROP FUNCTION IF EXISTS col.getgroupsfromcollection(integer) CASCADE;
+CREATE FUNCTION col.getgroupsfromcollection (collection_id integer)
+	RETURNS varchar
+	LANGUAGE sql
+	VOLATILE
+	CALLED ON NULL INPUT
+	SECURITY INVOKER
+	PARALLEL UNSAFE
+	COST 1
+	AS $$
+select array_to_string(array_agg(groupe),', ') as groupes
+from col.collection_group
+join gacl.aclgroup using (aclgroup_id)
+where collection_id = $1
+$$;
+-- ddl-end --
+ALTER FUNCTION col.getgroupsfromcollection(integer) OWNER TO postgres;
+-- ddl-end --
+
+-- object: col.collection_eventtype | type: TABLE --
+-- DROP TABLE IF EXISTS col.collection_eventtype CASCADE;
+CREATE TABLE col.collection_eventtype (
+	collection_id integer NOT NULL,
+	event_type_id integer NOT NULL,
+	CONSTRAINT collection_eventtype_1 PRIMARY KEY (collection_id,event_type_id) DEFERRABLE INITIALLY IMMEDIATE
+);
+-- ddl-end --
+COMMENT ON TABLE col.collection_eventtype IS E'List of event types attached to a collection';
+-- ddl-end --
+ALTER TABLE col.collection_eventtype OWNER TO collec;
+-- ddl-end --
+
+-- object: collection | type: CONSTRAINT --
+-- ALTER TABLE col.collection_eventtype DROP CONSTRAINT IF EXISTS collection CASCADE;
+ALTER TABLE col.collection_eventtype ADD CONSTRAINT collection FOREIGN KEY (collection_id)
+REFERENCES col.collection (collection_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: event_type | type: CONSTRAINT --
+-- ALTER TABLE col.collection_eventtype DROP CONSTRAINT IF EXISTS event_type CASCADE;
+ALTER TABLE col.collection_eventtype ADD CONSTRAINT event_type FOREIGN KEY (event_type_id)
+REFERENCES col.event_type (event_type_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
+-- ddl-end --
+
+-- object: col.geteventtypesfromcollection | type: FUNCTION --
+-- DROP FUNCTION IF EXISTS col.geteventtypesfromcollection(integer) CASCADE;
+CREATE FUNCTION col.geteventtypesfromcollection (IN collection_id integer)
+	RETURNS varchar
+	LANGUAGE sql
+	VOLATILE
+	CALLED ON NULL INPUT
+	SECURITY INVOKER
+	PARALLEL UNSAFE
+	COST 1
+	AS $$
+select array_to_string(array_agg(event_type_name), ', ') as eventtypes
+from col.collection_eventtype
+join col.event_type using (event_type_id)
+where collection_id = $1
+$$;
+-- ddl-end --
+ALTER FUNCTION col.geteventtypesfromcollection(integer) OWNER TO collec;
+-- ddl-end --
+
 -- object: object_booking_fk | type: CONSTRAINT --
 -- ALTER TABLE col.booking DROP CONSTRAINT IF EXISTS object_booking_fk CASCADE;
 ALTER TABLE col.booking ADD CONSTRAINT object_booking_fk FOREIGN KEY (uid)
@@ -3742,10 +3882,4 @@ ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE col.object ADD CONSTRAINT referent_object_fk FOREIGN KEY (referent_id)
 REFERENCES col.referent (referent_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ddl-end --
-
--- object: "grant_CcT_1a8deeacb2" | type: PERMISSION --
-GRANT CREATE,CONNECT,TEMPORARY
-   ON DATABASE collec
-   TO collec;
 -- ddl-end --

@@ -1,6 +1,6 @@
 #!/bin/bash
 OLDVERSION=collec-2.4.1
-VERSION=collec-2.7.0
+VERSION=collec-2.8.0
 REPO=https://github.com/collec-science/collec-science
 echo "Content of /var/www/html/collec-science"
 ls -l /var/www/html/collec-science
@@ -53,6 +53,7 @@ cd collec/install
 su postgres -c "psql -f upgrade-2.4-2.5.sql"
 su postgres -c "psql -f upgrade-2.5-2.6.sql"
 su postgres -c "psql -f upgrade-2.6-2.7.sql"
+su postgres -c "psql -f upgrade-2.7-2.8.sql"
 cd ../..
 chmod 750 -R /var/www/html/collec-science
 

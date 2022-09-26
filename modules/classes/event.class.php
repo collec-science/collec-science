@@ -71,19 +71,29 @@ class Event extends ObjetBDD
          * @param integer $event_type_id
          * @return array|null
          */
-        function searchDueEvent(string $searchType, string $dateFrom, string $dateTo, int $isDone = 0, int $collection_id = 0, int $event_type_id = 0, int $sample_type_id): ?array
+        function searchDueEvent(string $searchType, string $dateFrom, string $dateTo, int $isDone = 0, int $collection_id = 0, int $event_type_id = 0, int $object_type_id = 0, int $object_type = 1): ?array
         {
                 $searchType == "due_date" ? $search = "due_date" : $search = "event_date";
+                if ($object_type == 1) {
+                        $colonnes = ",sample_type_name";
+                        $jointure = "join sample using (uid)
+                                join sample_type using (sample_type_id)";
+                        $fieldName = "sample_type_id";
+                } else {
+                        $colonnes = ",container_type_name";
+                        $jointure = "join container using (uid)
+                                join container_type using (container_type_id)";
+                        $fieldName = "container_type_id";
+                }
                 $sql = "select uid, identifier, event_date, due_date
                         ,event_type_id, event_type_name, event_comment
                         ,still_available
-                        , case when sample_id is not null then 1 else 0 end as is_sample
+                        $colonnes
                         from event
                         join object using (uid)
                         join event_type using (event_type_id)
-                        left outer join sample using (uid)
-                        left outer join sample_type using (sample_type_id)
-                        where $search between :datefrom and :dateto";
+                        $jointure";
+                $sql .= " where $search between :datefrom and :dateto";
                 if ($isDone == -1) {
                         $sql .= " and event_date is null";
                 } elseif ($isDone == 1) {
@@ -101,9 +111,9 @@ class Event extends ObjetBDD
                         $sql .= " and event_type_id = :event_type_id";
                         $data["event_type_id"] = $event_type_id;
                 }
-                if ($sample_type_id > 0) {
-                        $sql .= " and sample_type_id = :sample_type_id";
-                        $data["sample_type_id"] = $sample_type_id;
+                if ($object_type_id > 0) {
+                        $sql .= " and $fieldName = :object_type_id";
+                        $data["object_type_id"] = $object_type_id;
                 }
                 return $this->getListeParamAsPrepared($sql, $data);
         }

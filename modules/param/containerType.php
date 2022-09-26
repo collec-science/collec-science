@@ -60,5 +60,8 @@ switch ($t_module["param"]) {
          * Recherche la liste a partir de la famille
          */
         $vue->set($dataClass->getListFromParent($_REQUEST["container_family_id"], 2));
+        break;
+    case "listAjax":
+        $vue->set($dataClass->getListe("container_type_name"));
+        break;
 }
-?>

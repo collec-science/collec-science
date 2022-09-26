@@ -364,7 +364,7 @@ class SearchEvent extends SearchParam
       "search_type" => "due_date",
       "collection_id" => 0,
       "event_type_id" => 0,
-      "sample_type_id" => 0,
+      "object_type_id" => 0,
       "object_type" => 1
     );
     $this->reinit();

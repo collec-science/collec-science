@@ -33,6 +33,7 @@
 	<containerTypeWrite action="modules/param/containerType.php" param="write" droits="param,collection" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange" />
 	<containerTypeDelete action="modules/param/containerType.php" param="delete" droits="param,collection" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange"/>
 	<containerTypeGetFromFamily action="modules/param/containerType.php" param="getFromFamily" droits="consult" type="ajax" />
+	<containerTypeGetListAjax action="modules/param/containerType.php" param="listAjax" droits="consult" type="ajax"/>
 
 	<sampleTypeList action="modules/param/sampleType.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 	<sampleTypeChange action="modules/param/sampleType.php" param="change" droits="param,collection" retourlogin="1" type="smarty" />

@@ -22,6 +22,9 @@ Nouveautés :
 - il est maintenant possible de rechercher les échantillons qui ne sont pas placés dans un contenant
 - dans l'interface de recherche des échantillons ou des contenants, la zone UID a été séparée de la zone IDENTIFIANT, pour éviter de ramener des objets non pertinents
 
+Technique :
+- l'application fonctionne maintenant avec PHP 8.1, mais reste compatible avec la version 7.4
+
 Version 2.7.0 du 20/06/2022
 ---------------------------
 Correction de bugs :

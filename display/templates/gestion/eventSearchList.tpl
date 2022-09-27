@@ -165,7 +165,7 @@
         <td>{$events[lst].event_type_name}</td>
         <td>{$events[lst].due_date}</td>
         <td>
-          {if $events[lst].is_sample == 1}
+          {if $eventSearch.object_type == 1}
             <a href="index.php?module=sampleDisplay&uid={$events[lst].uid}">
           {else}
             <a href="index.php?module=containerDisplay&uid={$events[lst].uid}">

@@ -1797,11 +1797,14 @@ Autre]]>
 	</constraint>
 </table>
 
-<index name="referent_referent_name_idx" table="col.referent"
+<index name="referent_referent_name_firstname_idx" table="col.referent"
 	 concurrent="false" unique="true" fast-update="false" buffering="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="referent_name"/>
+		</idxelement>
+		<idxelement use-sorting="false">
+			<column name="referent_firstname"/>
 		</idxelement>
 </index>
 

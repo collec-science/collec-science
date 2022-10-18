@@ -48,7 +48,9 @@ $ident_header_vars = array(
 	"cn" => "MELLON_CN",
 	"organization" => "MELLON_SHACHOMEORGANIZATION",
 	"organizationGranted" => array(),
-	"createUser" => true
+	"createUser" => true,
+	"groupAttribute" => "MELLON_SUPANNENTITEAFFECTATIONPRINCIPALE",
+	"groupsGranted" => array()
 );
 $ident_header_logout_address = "";
 $ident_type = "BDD";

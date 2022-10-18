@@ -4,6 +4,7 @@ class Login
   public LoginGestion $loginGestion;
   public Log $log;
   public Acllogin $acllogin;
+  public Aclgroup $aclgroup;
   public Message $message;
   function __construct($bdd, $param = array())
   {
@@ -13,6 +14,8 @@ class Login
     $this->loginGestion->setKeys($privateKey, $pubKey);
     include_once "framework/droits/acllogin.class.php";
     $this->aclogin = new Acllogin($bdd, $param);
+    include_once "framework/droits/aclgroup.class.php";
+    $this->aclgroup = new Aclgroup($bdd, $param);
     global $log, $message;
     $this->log = $log;
     $this->message = $message;
@@ -20,7 +23,7 @@ class Login
 
   function getLogin(string $type_authentification, $modeAdmin = false): ?string
   {
-    global $APPLI_modeDeveloppement, $privateKey, $pubKey, $CONNEXION_blocking_duration, $CONNEXION_max_attempts;
+    global  $privateKey, $pubKey, $CONNEXION_blocking_duration, $CONNEXION_max_attempts;
     $tauth = "";
     $this->loginGestion->attemptdelay = $CONNEXION_blocking_duration;
     $this->loginGestion->nbattempts = $CONNEXION_max_attempts;
@@ -71,7 +74,7 @@ class Login
       $login = $this->getLoginBDD($_POST["login"], $_POST["password"]);
     }
     if (!empty($login)) {
-       $this->log->setlog($login, "connection-" . $tauth, "ok");
+      $this->log->setlog($login, "connection-" . $tauth, "ok");
     } else {
       isset($_POST["login"]) ? $loginRequired = $_POST["login"] : $loginRequired = "unknown";
       $this->log->setlog($loginRequired, "connection-" . $tauth, "ko");
@@ -86,7 +89,7 @@ class Login
     $headers = getHeaders($ident_header_vars["radical"]);
     $login = $headers[$ident_header_vars["login"]];
     $verify = false;
-    if (!empty($login) && !empty($headers) ) {
+    if (!empty($login) && !empty($headers)) {
       /**
        * Verify if the login exists
        */
@@ -118,12 +121,24 @@ class Login
               "mail" => $headers[$ident_header_vars["mail"]],
               "actif" => 0
             );
+            if (!empty($ident_header_vars["groupAttribute"]) && in_array($ident_header_vars["groupAttribute"], $ident_header_vars["groupsGranted"])) {
+              $dlogin["actif"] = 1;
+            }
             $login_id = $this->loginGestion->ecrire($dlogin);
             if ($login_id > 0) {
               /**
                * Create the record in gacllogin
                */
               $this->aclogin->addLoginByLoginAndName($login, $headers[$ident_header_vars["cn"]]);
+              /**
+               * Add to the groupAttribute, if exists
+               */
+              if ($dlogin["actif"] == 1) {
+                $dgroup = $this->aclgroup->getGroupFromName($ident_header_vars["groupAttribute"]);
+                if ($dgroup["aclgroup_id"] > 0) {
+                  $this->aclgroup->addLoginToGroup($login_id, $dgroup["aclgroup_id"]);
+                }
+              }
               /**
                * Send mail to administrators
                */
@@ -185,7 +200,7 @@ class Login
   {
     global $LDAP;
     $loginOk = "";
-    if (!empty($login) && !empty($password) ) {
+    if (!empty($login) && !empty($password)) {
       $login = str_replace(
         array('\\', '*', '(', ')',),
         array('\5c', '\2a', '\28', '\29',),

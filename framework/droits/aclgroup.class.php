@@ -317,6 +317,20 @@ class Aclgroup extends ObjetBDD
     }
 
     /**
+     * Add a login to a group
+     *
+     * @param integer $group_id
+     * @param integer $login_id
+     * @return void
+     */
+    function addLoginToGroup(int $group_id, int $login_id) {
+        if ($group_id > 0 && $login_id > 0) {
+            $sql = "insert into acllogingroup (acllogin_id, aclgroup_id) values (:login_id, :group_id)";
+            $this->executeAsPrepared($sql, array("login_id"=> $login_id, "group_id"=>$group_id), true);
+        }
+    }
+
+    /**
      * Surcharge de la fonction supprimer pour tester la presence de fils et supprimer
      * les logins rattaches
      * (non-PHPdoc)

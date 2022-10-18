@@ -3607,7 +3607,7 @@ EAN 128•C128]]>
 	<parameter name="collection_id" in="true">
 		<type name="integer" length="0"/>
 	</parameter>
-	<definition><![CDATA[select array_to_string(array_agg(sample_type_name), ', ') as sampletypes
+	<definition><![CDATA[select array_to_string(array_agg(sample_type_name order by sample_type_name), ', ') as sampletypes
 from col.collection_sampletype
 join col.sample_type using (sample_type_id)
 where collection_id = $1]]></definition>
@@ -3687,7 +3687,7 @@ where collection_id = $1]]></definition>
 	<parameter name="collection_id" in="true">
 		<type name="integer" length="0"/>
 	</parameter>
-	<definition><![CDATA[select array_to_string(array_agg(event_type_name), ', ') as eventtypes
+	<definition><![CDATA[select array_to_string(array_agg(event_type_name order by event_type_name), ', ') as eventtypes
 from col.collection_eventtype
 join col.event_type using (event_type_id)
 where collection_id = $1]]></definition>

@@ -23,7 +23,7 @@ switch ($t_module["param"]) {
             try {
                 $data = $dataClass->createTokenFromMail($_REQUEST["mail"]);
                 if ($data["id"] > 0) {
-                    require_once 'framework/identification/mail.class.php';
+                    require_once 'framework/utils/mail.class.php';
 
                     $param = array(
                         "replyTo" => $APPLI_mail,

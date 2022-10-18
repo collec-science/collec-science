@@ -600,7 +600,7 @@ class LoginGestion extends ObjetBDD
                     "contents" => $contents,
                 );
                 if (strlen($dataLogin["mail"]) > 0) {
-                    include_once 'framework/identification/mail.class.php';
+                    include_once 'framework/utils/mail.class.php';
                     $mail = new Mail($MAIL_param);
                     if ($mail->sendMail($dataLogin["mail"], array())) {
                         $ok = "ok";

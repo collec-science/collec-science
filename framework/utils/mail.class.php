@@ -14,8 +14,11 @@ class Mail
         "replyTo" => "",
         "subject" => "sujet",
         "from" => "from@adresse.com",
-        "contents" => "texte message"
+        "contents" => "texte message",
+        "mailTemplate" => "framework/mail/mail.tpl"
     );
+
+    private Smarty $smarty;
 
     /**
      * Constructeur de la classe, avec passage des parametres
@@ -66,6 +69,31 @@ class Mail
     }
 
     /**
+     * Send mail with smarty template
+     *
+     * @param array $smartyParam
+     * @param string $dest
+     * @param string $subject
+     * @param string $template_name
+     * @param array $data
+     * @return void
+     */
+    function SendMailSmarty(array $smartyParam, string $dest, string $subject, string $template_name, array $data) {
+        if (!isset($this->smarty)) {
+        $this->smarty = new Smarty();
+        $this->smarty->template_dir = $smartyParam["templates"];
+        $this->smarty->compile_dir = $smartyParam["templates_c"];
+        $this->smarty->cache_dir = $smartyParam["cache_dir"];
+        $this->smarty->caching = $smartyParam["cache"];
+        }
+        foreach ($data as $variable=>$value) {
+        $this->smarty->assign($variable, htmlentities($value));
+        }
+        $this->smarty->assign("mailContent", $template_name);
+        mail($dest, $subject, $this->smarty->fetch($this->param["mailTemplate"]));
+    }
+
+    /**
      * Retourne les entetes du message
      *
      * @return string
@@ -78,4 +106,3 @@ class Mail
         return 'Content-type: text/html; charset=UTF-8;From: ' . $this->param["from"] ;
     }
 }
-?>

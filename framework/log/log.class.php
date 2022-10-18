@@ -334,7 +334,7 @@ class Log extends ObjetBDD
         $moduleNameComplete = $GACL_aco . "-" . $moduleName;
 
         if ($MAIL_enabled == 1) {
-            include_once 'framework/identification/mail.class.php';
+            include_once 'framework/utils/mail.class.php';
             include_once 'framework/droits/droits.class.php';
             include_once 'framework/identification/loginGestion.class.php';
             $MAIL_param = array(

@@ -76,7 +76,7 @@ class Mail
      * @param string $subject
      * @param string $template_name
      * @param array $data
-     * @return void
+     * @return boolean
      */
     function SendMailSmarty(array $smartyParam, string $dest, string $subject, string $template_name, array $data) {
         if (!isset($this->smarty)) {
@@ -90,7 +90,7 @@ class Mail
         $this->smarty->assign($variable, htmlentities($value));
         }
         $this->smarty->assign("mailContent", $template_name);
-        mail($dest, $subject, $this->smarty->fetch($this->param["mailTemplate"]));
+        return mail($dest, $subject, $this->smarty->fetch($this->param["mailTemplate"]));
     }
 
     /**

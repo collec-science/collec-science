@@ -185,7 +185,7 @@ class Log extends ObjetBDD
             $like = " like '".$GACL_aco."-connection%'";
             $sql = "select nom_module from log";
             $sql .= " where login = :login and nom_module $like and commentaire = 'ok' and nom_module <> 'connection-token'";
-            $sql .= "order by log_id desc limit 1";
+            $sql .= " order by log_id desc limit 1";
             $data = $this->lireParamAsPrepared(
                 $sql,
                 array(

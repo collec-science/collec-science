@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created : 7 août 2017
  * Creator : quinton
@@ -26,28 +27,25 @@ switch ($t_module["param"]) {
                     require_once 'framework/utils/mail.class.php';
 
                     $param = array(
-                        "replyTo" => $APPLI_mail,
-                        "from" => $APPLI_mail,
-                        // traduction: conserver inchangées les chaînes :keyword"
-                        "subject" => _(":appli - réinitialisation du mot de passe"),
-                        // traduction: conserver inchangés les chaînes :keyword et les balises <tag>"
-                        "contents" => "<html><body>"._(":prenom :nom,<br>
-                            <br>Vous avez demandé à réinitialiser votre mot de passe pour l'application :appli. Si ce n'était pas le cas, contactez l'administrateur de l'application.
-                            <br>Pour réinitaliser votre mot de passe, recopiez le lien suivant dans votre navigateur :<br><a href=':adresse'>Réinitialisez votre mot de passe</a>
-                            <br>Ne répondez pas à ce mail, qui est généré automatiquement")."</body></html>"
+                        "from" => $APPLI_mail
                     );
                     $loginGestion = new LoginGestion($bdd_gacl, $ObjetBDDParam);
                     $dl = $loginGestion->lire($data["id"]);
                     if (!empty($dl["mail"])) {
 
                         $mail = new Mail($param);
-                        if ($mail->sendMail($dl["mail"], array(
-                            ":nom" => $dl["nom"],
-                            ":prenom" => $dl["prenom"],
-                            ":expiration" => $data["expiration"],
-                            ":appli" => $_SESSION["APPLI_title"],
-                            ":adresse" => $APPLI_address . "/index.php?module=passwordlostReinitchange&token=" . $data["token"]
-                        ))) {
+                        if ($mail->SendMailSmarty(
+                            $SMARTY_param,
+                            $dl["mail"],
+                            $_SESSION["APPLI_title"] . " - " . _("Réinitialisation du mot de passe"),
+                            "framework/mail/passwordLost.tpl",
+                            array(
+                                "nom" => $dl["nom"],
+                                "prenom" => $dl["prenom"],
+                                "expiration" => $data["expiration"],
+                                ":adresse" => $APPLI_address . "/index.php?module=passwordlostReinitchange&token=" . $data["token"]
+                            )
+                        )) {
                             $log->setLog("unknown", "passwordlostSendmail", "email send to " . $dl["mail"]);
                             $message->set(_("Un mail vient de vous être envoyé. Veuillez copier le lien transmis dans votre navigateur pour pouvoir créer un nouveau mot de passe"), true);
                         } else {
@@ -61,7 +59,7 @@ switch ($t_module["param"]) {
                     }
                 }
             } catch (Exception $e) {
-                $log->setLog("unknown", "passwordlostSendmail-ko", "$mail");
+                $log->setLog("unknown", "passwordlostSendmail-ko", $dl["mail"]);
                 $message->setSyslog($e->getMessage());
                 $message->set(_("La réinitialisation du mot de passe n'est pas possible, contactez le cas échéant l'administrateur de l'application"), true);
             }
@@ -97,7 +95,7 @@ switch ($t_module["param"]) {
         /*
          * Verification de la validite du token
          */
-        $module_coderetour = - 1;
+        $module_coderetour = -1;
         if ($APPLI_lostPassword == 1) {
             try {
                 $data = $dataClass->verifyToken($_REQUEST["token"]);
@@ -123,4 +121,3 @@ switch ($t_module["param"]) {
 
         break;
 }
-?>

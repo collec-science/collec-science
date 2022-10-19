@@ -4,4 +4,6 @@
 <br>
 {t}Pour réinitaliser votre mot de passe, recopiez le lien suivant dans votre navigateur :{/t}
 <br>
-<a  href='{$link}'>{$link}</a>
+<a href='{$link}'>{$link}</a>
+<br>
+{t expiration=$expiration}Le lien restera valable jusqu'au %expiration%.{/t}

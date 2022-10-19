@@ -43,7 +43,7 @@
                 </div>
             </form>
         </div>
-        {if count($logs) > 0}
+        {if !empty($logs)}
             <div class="row">
                 <table class="table table-bordered table-hover datatable" data-order='[[0,"desc"]]'>
                     <thead>

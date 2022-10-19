@@ -142,16 +142,17 @@ class Login
               /**
                * Send mail to administrators
                */
-              global $APPLI_nom, $APPLI_mail;
-              $subject = $APPLI_nom . " " . _("Nouvel utilisateur");
-              $contents = "<html><body>" . sprintf(_('%1$s a créé son compte avec le login %2$s dans l\'application %3$s.
-                          <br>Il est rattaché à l\'organisation %5$s.
-                          <br>Le compte est inactif jusqu\'à ce que vous l\'activiez.
-                          <br>Pour activer le compte, connectez-vous à l\'application
-                              <a href="%4$s">%4$s</a>
-                          <br>Ne répondez pas à ce mail, qui est généré automatiquement') . "</body></html>", $login, $headers[$ident_header_vars["cn"]], $APPLI_nom, $APPLI_mail, $headers[$ident_header_vars["organization"]]);
-
-              $this->log->sendMailToAdmin($subject, $contents, "loginCreateByHeader", $login);
+              global $APPLI_nom, $APPLI_mail, $APPLI_address;
+              $subject = $APPLI_nom . " - " . _("Nouvel utilisateur");
+              $template = "framework/mail/newUser.tpl";
+              $data = array (
+                "login"=>$login,
+                "name"=>$headers[$ident_header_vars["cn"]],
+                "appName"=>$APPLI_nom,
+                "organization"=>$headers[$ident_header_vars["organization"]],
+                "link"=>$APPLI_address
+              );
+              $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
               $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"));
             }
           }

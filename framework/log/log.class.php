@@ -328,7 +328,7 @@ class Log extends ObjetBDD
      * @param [type] $login: login of the user concerned by this message
      * @return void
      */
-    public function sendMailToAdmin($subject, $contents, $moduleName, $login)
+    public function sendMailToAdmin($subject, $templateName, $data, $moduleName, $login)
     {
         global $message, $MAIL_enabled, $APPLI_mail, $APPLI_mailToAdminPeriod, $GACL_aco;
         $moduleNameComplete = $GACL_aco . "-" . $moduleName;
@@ -338,10 +338,7 @@ class Log extends ObjetBDD
             include_once 'framework/droits/droits.class.php';
             include_once 'framework/identification/loginGestion.class.php';
             $MAIL_param = array(
-                "replyTo" => "$APPLI_mail",
-                "subject" => $subject,
-                "from" => "$APPLI_mail",
-                "contents" => $contents,
+                "from" => "$APPLI_mail"
             );
             /*
              * Recherche de la liste des administrateurs
@@ -378,7 +375,8 @@ class Log extends ObjetBDD
                         $dataSql
                     );
                     if (!$logval["log_id"] > 0) {
-                        if ($mail->sendMail($dataLogin["mail"], array())) {
+                        global $SMARTY_param;
+                        if ($mail->SendMailSmarty($SMARTY_param, $dataLogin["mail"], $subject, $templateName, $data)) {
                             $this->setLog($login, $moduleName, $value["login"]);
                         } else {
                             global $message;

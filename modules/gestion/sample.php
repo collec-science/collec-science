@@ -75,7 +75,9 @@ switch ($t_module["param"]) {
      */
     if ($_SESSION["searchSample"]->isSearch() == 1) {
       try {
+        $dataClass->resetParam();
         $data = $dataClass->sampleSearch($dataSearch);
+        $vue->set( $dataClass->getNbSamples($dataSearch),"totalNumber");
         /**
          * explode metadata
          */

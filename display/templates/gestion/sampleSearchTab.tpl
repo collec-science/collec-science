@@ -686,9 +686,15 @@
                 </div>
             </div>
         <div class="row">
-            <div class="col-sm-offset-3 col-sm-6 center">
-                <input type="submit" id="samplesearch_button" class="btn btn-success" value="{t}Rechercher{/t}">
-                <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
+            <div class="form-group">
+                <label for="limit"class="col-sm-3 control-label">{t}Nombre maxi à lire depuis la base de données :{/t}</label>
+                <div class="col-sm-1">
+                    <input id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control nombre">
+                </div>
+                <div class="col-sm-6 center">
+                    <input type="submit" id="samplesearch_button" class="btn btn-success" value="{t}Rechercher{/t}">
+                    <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
+                </div>
             </div>
         </div>
     </div>

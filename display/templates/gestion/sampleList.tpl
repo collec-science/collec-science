@@ -35,6 +35,9 @@ $(document).ready(function() {
 			<a href="index.php?module=sampleChange&uid=0"><img src="display/images/new.png" height="25">{t}Nouvel échantillon{/t}</a>
 		{/if}
 		{if $isSearch > 0}
+			{if $totalNumber > $sampleSearch["limit"] && $sampleSearch["limit"] > 0}
+			<span class="red">{t 1=$totalNumber}Attention : le nombre d'échantillons affichés est inférieur au nombre total d'échantillons trouvés dans la base de données (%1){/t}</span>
+			{/if}
 			<ul class="nav nav-tabs  " id="tabResult" role="tablist" >
 				<li class="nav-item active">
 						<a class="nav-link tabResult" id="tablist" data-toggle="tab"  role="tab" aria-controls="navlist" aria-selected="true" href="#navlist">

@@ -12,9 +12,8 @@ class Mail
 
     private $param = array(
         "replyTo" => "",
-        "subject" => "sujet",
-        "from" => "from@adresse.com",
-        "contents" => "texte message",
+        "subject" => "subjet",
+        "contents" => "text message",
         "mailTemplate" => "framework/mail/mail.tpl"
     );
 
@@ -24,12 +23,14 @@ class Mail
      * Constructeur de la classe, avec passage des parametres
      *
      * @param array $param
-     * @param array $variables
-     *            : variables utilisees dans le message
      */
     function __construct(array $param = array())
     {
         $this->setParam($param);
+        if (!isset($this->param["from"])){
+            global $APPLI_mail;
+            $this->param["from"] = $APPLI_mail;
+        }
     }
 
     /**
@@ -76,9 +77,9 @@ class Mail
      * @param string $subject
      * @param string $template_name
      * @param array $data
-     * @return boolean
+     * @return bool
      */
-    function SendMailSmarty(array $smartyParam, string $dest, string $subject, string $template_name, array $data) {
+    function SendMailSmarty(array $smartyParam, string $dest, string $subject, string $template_name, array $data, bool $debug = false) {
         if (!isset($this->smarty)) {
         $this->smarty = new Smarty();
         $this->smarty->template_dir = $smartyParam["templates"];
@@ -86,11 +87,18 @@ class Mail
         $this->smarty->cache_dir = $smartyParam["cache_dir"];
         $this->smarty->caching = $smartyParam["cache"];
         }
+
         foreach ($data as $variable=>$value) {
         $this->smarty->assign($variable, htmlentities($value));
         }
         $this->smarty->assign("mailContent", $template_name);
+        if (!$debug) {
         return mail($dest, $subject, $this->smarty->fetch($this->param["mailTemplate"]));
+        } else {
+            printA($this->param);
+            printA($data);
+            $this->smarty->display($this->param["mailTemplate"]);
+        }
     }
 
     /**

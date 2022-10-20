@@ -36,10 +36,11 @@
   </head>
 
   <body>
+  {locale path="../../locales/C/LC_MESSAGES" domain="en"}
     {include file=$mailContent}
     <br>
     <img src="favicon.png" height="25">
-    <div class messagebas>
+    <div class="messagebas">
       {t}Ne répondez pas à ce mail, qui est généré automatiquement{/t}
     </div>
   </body>

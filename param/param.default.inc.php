@@ -188,6 +188,10 @@ $mapDefaultX = -0.70;
 $mapDefaultY = 44.77;
 $mapDefaultZoom = 7;
 $MAIL_enabled = 0;
+$MAIL_param = array(
+	"mailTemplate" => "framework/mail/mail.tpl",
+	"from" => "account@society.com"
+);
 /*
  * Nombre maximum d'essais de connexion
  */

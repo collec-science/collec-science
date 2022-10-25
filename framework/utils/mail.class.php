@@ -89,11 +89,11 @@ class Mail
         }
 
         foreach ($data as $variable=>$value) {
-        $this->smarty->assign($variable, htmlentities($value));
+        $this->smarty->assign($variable, $value);
         }
         $this->smarty->assign("mailContent", $template_name);
         if (!$debug) {
-        return mail($dest, $subject, $this->smarty->fetch($this->param["mailTemplate"]));
+        return mail($dest, $subject, $this->smarty->fetch($this->param["mailTemplate"]),$this->getHeaders());
         } else {
             printA($this->param);
             printA($data);
@@ -111,6 +111,6 @@ class Mail
         /*
          * Preparation de l'entete
          */
-        return 'Content-type: text/html; charset=UTF-8;From: ' . $this->param["from"] ;
+        return 'Content-type: text/html; charset=UTF-8;' ;
     }
 }

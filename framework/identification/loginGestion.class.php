@@ -12,6 +12,7 @@ class LoginGestion extends ObjetBDD
     public $nbattempts = 2;
     public $attemptdelay = 6;
     public Mail $mail;
+    public $mailClassPath = "framework/utils/mail.class.php";
 
     public function __construct($link, $param = array())
     {
@@ -225,13 +226,16 @@ class LoginGestion extends ObjetBDD
     }
 
     /**
-     * Preparation de la mise en table, avec verification du motde passe
+     * Preparation de la mise en table, avec verification du mot de passe
      * (non-PHPdoc)
      *
      * @see ObjetBDD::ecrire()
      */
     public function ecrire($data)
     {
+        if ($data["id"] > 0) {
+            $dataBefore = $this->lire($data["id"]);
+        }
         if (!empty($data["pass1"])  && !empty($data["pass2"])  && $data["pass1"] == $data["pass2"]) {
             if ($this->controleComplexite($data["pass1"]) > 2 && strlen($data["pass1"]) > 9) {
                 $data["password"] = $this->_encryptPassword($data["pass1"]);
@@ -264,7 +268,40 @@ class LoginGestion extends ObjetBDD
             $data["nbattempts"] = 0;
             $data["lastattempt"] = "";
         }
-        return parent::ecrire($data);
+        $id = parent::ecrire($data);
+        if ($data["id"] > 0 && $dataBefore ["actif"] == 0 && $data["actif"] == 1 && !empty($data["mail"])) {
+            /**
+             * Send mail to prevent of the activation of the account
+             */
+            global $MAIL_enabled;
+            if ($MAIL_enabled == 1) {
+                /**
+                 * Send a mail
+                 */
+                if (!isset($this->mail)) {
+                    include_once $this->mailClassPath;
+                    global $MAIL_param;
+                    $this->mail = new Mail($MAIL_param);
+                }
+                global $SMARTY_param,  $APPLI_address;
+                $subject = $_SESSION["APPLI_title"] . " - " . _("Activation de votre compte");
+                $this->mail->SendMailSmarty(
+                    $SMARTY_param,
+                    $data["mail"],
+                    $subject,
+                    "framework/mail/accountActivate.tpl",
+                    array(
+                        "prenom" => $data["prenom"],
+                        "nom" => $data["nom"],
+                        "applicationName" => $_SESSION["APPLI_title"],
+                        "APPLI_address" => $APPLI_address
+                    )
+                );
+                global $message;
+                $message->set(_("Un message vient d'être envoyé à l'utilisateur pour l'informer de l'activation de son compte"));
+            }
+        }
+        return $id;
     }
 
     function lire($id, $getDefault = true, $parentValue = 0)
@@ -421,7 +458,7 @@ class LoginGestion extends ObjetBDD
      */
     private function writeNewPassword($login, $pass)
     {
-        global $log, $message, $APPLI_address, $APPLI_title, $MAIL_enabled;
+        global $log, $message, $APPLI_address, $MAIL_enabled;
         $login = strtolower($login);
         $retour = false;
         $oldData = $this->lireByLogin($login);
@@ -441,12 +478,12 @@ class LoginGestion extends ObjetBDD
                      * Send a mail
                      */
                     if (!isset($this->mail)) {
-                        include_once "framework/utils/mail.class.php";
+                        include_once $this->mailClassPath;
                         global $MAIL_param;
                         $this->mail = new Mail($MAIL_param);
                     }
                     global $SMARTY_param;
-                    $subject = $APPLI_title . " - " . _("Modification de votre mot de passe");
+                    $subject = $_SESSION["APPLI_title"] . " - " . _("Modification de votre mot de passe");
                     $this->mail->SendMailSmarty(
                         $SMARTY_param,
                         $data["mail"],
@@ -455,7 +492,7 @@ class LoginGestion extends ObjetBDD
                         array(
                             "prenom" => $data["prenom"],
                             "nom" => $data["nom"],
-                            "applicationName" => $APPLI_title,
+                            "applicationName" => $_SESSION["APPLI_title"],
                             "APPLI_address" => $APPLI_address
                         )
                     );

@@ -312,6 +312,7 @@ $(document).ready(function () {
 					<th>{t}Code CLP{/t}</th>
 					<th>{t}Photo{/t}</th>
 					<th>{t}Référent{/t}</th>
+					<th>{t}Commentaires{/t}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -369,6 +370,7 @@ $(document).ready(function () {
 							{/if}
 						</td>
 						<td>{$containers[lst].referent_name} {$containers[lst].referent_firstname}</td>
+						<td class="textareaDisplay">{$containers[lst].object_comment}</td>
 					</tr>
 				{/section}
 			</tbody>

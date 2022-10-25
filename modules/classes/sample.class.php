@@ -712,7 +712,11 @@ class Sample extends ObjetBDD
       $this->colonnes["borrowing_date"] = array("type" => 2);
       $this->colonnes["expected_return_date"] = array("type" => 2);
       $this->colonnes["change_date"] = array("type" => 3);
-      $param["limit"] > 0 ? $limit = " limit " . $param["limit"] : $limit = "";
+      if ( $param["limit"] > 0) {
+         $limit = " order by s.uid desc limit " . $param["limit"]  ;
+      }else {
+        $limit = "";
+      }
       $list = $this->getListeParamAsPrepared($this->sql . $this->from . $this->where . $limit, $this->data);
       /**
        * Destroy foreign fields used in the request

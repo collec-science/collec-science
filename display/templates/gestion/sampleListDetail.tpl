@@ -2,6 +2,7 @@
 <script>
 	$( document ).ready( function () {
 		var table = $( '#sampleList' ).DataTable( {
+			"order": [[1, "asc"]],
 			dom: 'Birtp',
 			"language": dataTableLanguage,
 			"paging": false,
@@ -382,7 +383,7 @@
 		</div>
 	</div>
 	{/if}
-	<table id="sampleList" class="table table-bordered table-hover " title="{t}Liste des échantillons{/t}">
+	<table id="sampleList" class="table table-bordered table-hover" title="{t}Liste des échantillons{/t}">
 		<thead>
 			<tr>{if $droits.gestion == 1}
 				<th class="center">

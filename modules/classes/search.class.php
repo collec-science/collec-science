@@ -286,7 +286,7 @@ class SearchSample extends SearchParam
       "subsample_quantity_max" => "",
       "booking_type" => 0,
       "without_container" => 0,
-      "limit" => 1000
+      "limit" => 100
     );
     /**
      * Ajout des dates
@@ -316,7 +316,7 @@ class SearchSample extends SearchParam
       "subsample_quantity_max",
       "booking_type" => 0,
       "without_container" => 0,
-      "limit" => 1000
+      "limit" => 100
     );
     $this->paramCheckbox = array(
       "without_container" => 0

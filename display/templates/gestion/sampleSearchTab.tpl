@@ -7,11 +7,11 @@
         /*
          * Verification que des criteres de selection soient saisis
          */
-         $("#sample_search").submit (function ( event) {
-             var ok = false;
-             if ($("#name").val().length > 0) {
-                 ok = true;
-                 try {
+        $("#sample_search").submit (function ( event) {
+            var ok = false;
+            if ($("#name").val().length > 0) {
+                ok = true;
+                try {
                     obj = JSON.parse($("#name").val());
                     if (obj.db.length > 0) {
                         if (obj.db == appli_code) {
@@ -20,35 +20,35 @@
                             $("#name").val(obj.db + ":"+ obj.uid);
                         }
                     }
-                 } catch (error) {}
-             }
-             if ($("#collection_id").val() > 0) ok = true;
-             if ($("#uidsearch").val() > 0) ok = true;
-             if ($("#uid_min").val() > 0) ok = true;
-             if ($("#uid_max").val() > 0) ok = true;
-             if ($("#sample_type_id").val() > 0) ok = true;
-             if ($("#sampling_place_id").val() > 0 ) ok = true ;
-             if ($("#object_status_id").val() > 1) ok = true;
-             if ($("#select_date").val().length > 0) ok = true;
-             if ($("#referent_id").val() > 0) ok = true;
-             if ($("#movement_reason_id").val() > 0) ok = true;
-             if ($("#campaign_id").val() > 0) ok = true;
-             if ($("#trashed").val() == 1) ok = true;
-             if ($("#samplesearch_id").val() > 0) ok = true;
-             if ($("#country_id_search").val() > 0) ok = true;
-             if ($("#country_origin_id_search").val() > 0) ok = true;
-             if ($("#authorization_number").val().length > 0) ok = true;
-             if ($("#event_type_id").val() > 0) ok = true;
-             if ($("#subsample_quantity_min").val() > 0) ok = true;
-             if ($("#subsample_quantity_max").val().length > 0) ok = true;
-             if ($("#booking_type").val() != 0) ok = true;
-             if ($("#without_container").val() == 1) ok = true;
-             var mf = $("#metadata_field").val();
-             if ( mf != null) {
-                 if (mf.length > 0 && $("#metadata_value").val().length > 0) {
-                     ok = true;
-                 }
-             }
+                } catch (error) {}
+            }
+            if ($("#collection_id").val() > 0) ok = true;
+            if ($("#uidsearch").val() > 0) ok = true;
+            if ($("#uid_min").val() > 0) ok = true;
+            if ($("#uid_max").val() > 0) ok = true;
+            if ($("#sample_type_id").val() > 0) ok = true;
+            if ($("#sampling_place_id").val() > 0 ) ok = true ;
+            if ($("#object_status_id").val() > 1) ok = true;
+            if ($("#select_date").val().length > 0) ok = true;
+            if ($("#referent_id").val() > 0) ok = true;
+            if ($("#movement_reason_id").val() > 0) ok = true;
+            if ($("#campaign_id").val() > 0) ok = true;
+            if ($("#trashed").val() == 1) ok = true;
+            if ($("#samplesearch_id").val() > 0) ok = true;
+            if ($("#country_id_search").val() > 0) ok = true;
+            if ($("#country_origin_id_search").val() > 0) ok = true;
+            if ($("#authorization_number").val().length > 0) ok = true;
+            if ($("#event_type_id").val() > 0) ok = true;
+            if ($("#subsample_quantity_min").val() > 0) ok = true;
+            if ($("#subsample_quantity_max").val().length > 0) ok = true;
+            if ($("#booking_type").val() != 0) ok = true;
+            if ($("#without_container").val() == 1) ok = true;
+            var mf = $("#metadata_field").val();
+            if ( mf != null) {
+                if (mf.length > 0 && $("#metadata_value").val().length > 0) {
+                    ok = true;
+                }
+            }
             var points = ["SouthWest", "NorthEast"];
             var coordNames = ["lon", "lat"] ;
             var coordsOk = true;
@@ -70,33 +70,33 @@
             if (coordsOk)  {
                 ok = true;
             }
-             if (! ok) {
-                 event.preventDefault();
-             }
-         });
+            if (! ok) {
+                event.preventDefault();
+            }
+        });
         var lastSampletypeId = "{$sampleSearch.sample_type_id}";
-         var datamd1 = "{$sampleSearch.metadata_value.1}";
-         var datamd2 = "{$sampleSearch.metadata_value.2}";
-         if (datamd1.length > 0) {
+        var datamd1 = "{$sampleSearch.metadata_value.1}";
+        var datamd2 = "{$sampleSearch.metadata_value.2}";
+        if (datamd1.length > 0) {
             $("#metadatarow1").show();
-         }
-         if (datamd2.length > 0) {
-            $("#metadatarow2").show();
-         }
-         $("#showmetadata1").click(function () {
-            $("#metadatarow1").show();
-         });
-         $("#showmetadata2").click(function () {
-            $("#metadatarow2").show();
-         });
-         var metadataFieldInitial = [];
+        }
+        if (datamd2.length > 0) {
+        $("#metadatarow2").show();
+        }
+        $("#showmetadata1").click(function () {
+        $("#metadatarow1").show();
+        });
+        $("#showmetadata2").click(function () {
+        $("#metadatarow2").show();
+        });
+        var metadataFieldInitial = [];
         {foreach $sampleSearch.metadata_field as $val}
             metadataFieldInitial.push ( "{$val}" );
         {/foreach}
-         $("#sample_type_id").change(function () {
-             regenerateMetadata();
-         });
-         function regenerateMetadata() {
+        $("#sample_type_id").change(function () {
+            regenerateMetadata();
+        });
+        function regenerateMetadata() {
             /* regenerate the list of metadata */
             var sampleTypeId = $("#sample_type_id").val();
             if (sampleTypeId != lastSampletypeId && sampleTypeId) {
@@ -104,7 +104,7 @@
             }
             lastSampletypeId = sampleTypeId;
                 $.ajax( {
-                       url: "index.php",
+                    url: "index.php",
                     data: { "module": "sampleTypeMetadataSearchable", "sample_type_id": sampleTypeId }
                 })
                 .done (function (value) {
@@ -120,7 +120,7 @@
                         $("#metadata_field").append(option);
                         $("#metadata_field1").append(option);
                         $("#metadata_field2").append(option);
-                           $.each(JSON.parse(value), function(i, obj) {
+                        $.each(JSON.parse(value), function(i, obj) {
                             var nom = obj.fieldname.replace(/ /g,"_");
                             if (nom == metadataFieldInitial[0]) {
                                 selected = "selected";
@@ -149,7 +149,7 @@
                 });
 
         }
-         function getSamplingPlace () {
+        function getSamplingPlace () {
             var colid = $("#collection_id").val();
             var url = "index.php";
             var data = { "module":"samplingPlaceGetFromCollection", "collection_id": colid };
@@ -158,9 +158,9 @@
                     if (d ) {
                     d = JSON.parse(d);
                     options = '<option value="">{t}Choisissez...{/t}</option>';
-                     for (var i = 0; i < d.length; i++) {
-                         var libelle = "";
-                         if (d[i].sampling_place_code) {
+                    for (var i = 0; i < d.length; i++) {
+                        var libelle = "";
+                        if (d[i].sampling_place_code) {
                                 libelle = d[i].sampling_place_code + " - ";
                             }
                             libelle += d[i].sampling_place_name;
@@ -173,22 +173,22 @@
                             options += libelle;
 
                             options += '</option>';
-                          };
+                        };
                     $("#sampling_place_id").html(options);
                     }
                 });
         }
 
-         $("#collection_id").change ( function () {
-             getSamplingPlace();
-         });
-         /*
+        $("#collection_id").change ( function () {
+            getSamplingPlace();
+        });
+        /*
           * Initialisation a l'ouverture de la page
           */
-          getSamplingPlace();
+        getSamplingPlace();
 
-     $("#razid").on ("click keyup", function () {
-         metadataFieldInitial = [];
+    $("#razid").on ("click keyup", function () {
+        metadataFieldInitial = [];
         $("#object_status_id").prop("selectedIndex", 1).change();
         $("#collection_id").prop("selectedIndex", 0).change();
         $("#referent_id").prop("selectedIndex", 0).change();
@@ -232,7 +232,7 @@
         $("#booking_to").datepicker("setDate", now);
         $("#name").val("");
         $("#uidsearch").focus();
-     });
+    });
      /* Management of tabs */
 		var activeTab = "";
         var myStorage = window.localStorage;
@@ -245,29 +245,45 @@
 				$("#"+activeTab).tab('show');
 			}
 		} catch (Exception) { }
+        /**
+         * Get the limit from the storage
+         */
+        var limit = "{$sampleSearch.limit}";
+        $("#limit").change(function () {
+            var limit = $("#limit").val();
+            if (limit > 0) {
+                myStorage.setItem("sampleSearchLimit", limit);
+            }
+        });
+        try {
+            var localLimit = myStorage.getItem("sampleSearchLimit");
+            if (localLimit > 0 ) {
+                $("#limit").val(localLimit);
+            }
+        } catch (Exception) { }
 		$('.nav-tabs > li > a').hover(function() {
 			//$(this).tab('show');
- 		});
-		 $('.searchTab').on('shown.bs.tab', function () {
+        });
+        $('.searchTab').on('shown.bs.tab', function () {
 			myStorage.setItem("sampleSearchTab", $(this).attr("id"));
 		});
         /**
          * Delete a recorded request
          */
-         $("#samplesearchDeleteButton").click(function() {
-             if (confirm("{t}Confirmez-vous la suppression ?{/t}")==true) {
-                $("#samplesearchDelete").val(1);
-                $("#sample_search").submit();
-             }
-         });
-         regenerateMetadata();
-         $("#samplesearch_name").keyup( function () {
+        $("#samplesearchDeleteButton").click(function() {
+            if (confirm("{t}Confirmez-vous la suppression ?{/t}")==true) {
+            $("#samplesearchDelete").val(1);
+            $("#sample_search").submit();
+            }
+        });
+        regenerateMetadata();
+        $("#samplesearch_name").keyup( function () {
             if ($(this).val().length > 0 ) {
                 $("#samplesearch_button").val("{t}Enregistrer et rechercher{/t}");
             } else {
                 $("#samplesearch_button").val("{t}Rechercher{/t}");
             }
-         });
+        });
     });
 </script>
 <div class="row col-lg-10 col-md-12">
@@ -542,7 +558,7 @@
                         </div>
                         <label for="authorization_number" class="col-sm-2 control-label lexical" data-lexical="authorization">{t}N° d'autorisation :{/t}</label>
                         <div class="col-sm-3">
-                           <input id="authorization_number" name="authorization_number" class="form-control" value="{$sampleSearch.authorization_number}">
+                            <input id="authorization_number" name="authorization_number" class="form-control" value="{$sampleSearch.authorization_number}">
                         </div>
                     </div>
                 </div>
@@ -658,7 +674,7 @@
                             </select>
                         </div>
                         <div class="col-sm-2">
-                             <button type="button" id="samplesearchDeleteButton" class="btn btn-danger">{t}Supprimer{/t}</button>
+                            <button type="button" id="samplesearchDeleteButton" class="btn btn-danger">{t}Supprimer{/t}</button>
                         </div>
                     </div>
                 </div>
@@ -687,7 +703,7 @@
             </div>
         <div class="row">
             <div class="form-group">
-                <label for="limit"class="col-sm-3 control-label">{t}Nombre maxi à lire depuis la base de données :{/t}</label>
+                <label for="limit"class="col-sm-3 control-label">{t}Nombre maxi à lire depuis la base de données (0 pour tous) :{/t}</label>
                 <div class="col-sm-1">
                     <input id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control nombre">
                 </div>

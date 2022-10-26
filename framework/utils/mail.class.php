@@ -92,6 +92,10 @@ class Mail
         $this->smarty->assign($variable, $value);
         }
         $this->smarty->assign("mailContent", $template_name);
+        /**
+         * Add the logo to the template
+         */
+        $this->smarty->assign("logo", "data:image/png;base64,".chunk_split(base64_encode (file_get_contents("favicon.png"))));
         if (!$debug) {
         return mail($dest, $subject, $this->smarty->fetch($this->param["mailTemplate"]),$this->getHeaders());
         } else {

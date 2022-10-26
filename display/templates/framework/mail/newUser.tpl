@@ -9,6 +9,7 @@
 <br>
 <a href={$link}>{$link}</a>
 <br>
+<p></p>
 <div class="messagebas">
 {t}Vous recevez ce message parce que vous êtes administrateur de l'application.{/t}
 </div>

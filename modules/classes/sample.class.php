@@ -703,6 +703,7 @@ class Sample extends ObjetBDD
   {
     $this->_generateSearch($param);
     if (!empty($this->where)) {
+      printA($this->where);
       /**
        * Rajout de la date de dernier mouvement pour l'affichage
        */

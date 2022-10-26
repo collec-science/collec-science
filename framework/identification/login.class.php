@@ -142,18 +142,18 @@ class Login
               /**
                * Send mail to administrators
                */
-              global $APPLI_nom, $APPLI_mail, $APPLI_address;
-              $subject = $APPLI_nom . " - " . _("Nouvel utilisateur");
+              global  $APPLI_address;
+              $subject = $_SESSION["APPLI_title"] . " - " . _("Nouvel utilisateur");
               $template = "framework/mail/newUser.tpl";
               $data = array (
                 "login"=>$login,
                 "name"=>$headers[$ident_header_vars["cn"]],
-                "appName"=>$APPLI_nom,
+                "appName"=>$_SESSION["APPLI_title"],
                 "organization"=>$headers[$ident_header_vars["organization"]],
                 "link"=>$APPLI_address
               );
               $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
-              $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"));
+              $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"), true);
             }
           }
         }

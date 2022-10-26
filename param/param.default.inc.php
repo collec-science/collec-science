@@ -105,15 +105,12 @@ $SMARTY_param = array(
  * Variables de base de l'application
  */
 $APPLI_mail = "proto@proto.com";
-$APPLI_nom = "Prototype d'application";
-$APPLI_code = 'proto';
 $APPLI_fds = "display/CSS/blue.css";
 $APPLI_address = "http://localhost/proto";
 $APPLI_modeDeveloppement = false;
 $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
 $APPLI_temp = "temp";
-$APPLI_titre = "Collec-Science";
 $APPLI_assist_address = "https://github.com/collec-science/collec-science/issues/new";
 $APPLI_isFullDns = false;
 /*

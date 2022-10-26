@@ -1697,7 +1697,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="logingestion" layers="1" collapse-mode="1" max-obj-count="15" z-value="0">
+<table name="logingestion" layers="1" collapse-mode="1" max-obj-count="16" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment><![CDATA[List of logins used to connect to the application, when the account is managed by the application itself. This table also contains the accounts authorized to use the web services.]]></comment>
@@ -1752,6 +1752,10 @@ Autre]]>
 	<column name="lastattempt">
 		<type name="timestamp" length="0"/>
 		<comment><![CDATA[last attempt of connection]]></comment>
+	</column>
+	<column name="locale">
+		<type name="varchar" length="0"/>
+		<comment><![CDATA[Preferred locale for the user]]></comment>
 	</column>
 	<constraint name="pk_logingestion" type="pk-constr" table="gacl.logingestion">
 		<columns names="id" ref-type="src-columns"/>

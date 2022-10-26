@@ -36,7 +36,6 @@
   </head>
 
   <body>
-  {locale path="../../locales/C/LC_MESSAGES" domain="en"}
     {include file=$mailContent}
     <br>
 

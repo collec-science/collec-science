@@ -365,5 +365,5 @@
 		<rights_general_fr action="framework/utils/markdown.php" param="documentation/rights/rights_general_fr.md" type="smarty" retourko="default"/>
 		<rights_general_en action="framework/utils/markdown.php" param="documentation/rights/rights_general_en.md" type="smarty" retourko="default"/>
 
-		<!--mailSmarty action="test/mailSmarty.php"/-->
+		<mailSmarty action="test/mailSmarty.php"/>
 </navigation>

@@ -703,7 +703,6 @@ class Sample extends ObjetBDD
   {
     $this->_generateSearch($param);
     if (!empty($this->where)) {
-      printA($this->where);
       /**
        * Rajout de la date de dernier mouvement pour l'affichage
        */
@@ -713,9 +712,9 @@ class Sample extends ObjetBDD
       $this->colonnes["borrowing_date"] = array("type" => 2);
       $this->colonnes["expected_return_date"] = array("type" => 2);
       $this->colonnes["change_date"] = array("type" => 3);
-      if ( $param["limit"] > 0) {
-         $limit = " order by s.uid desc limit " . $param["limit"]  ;
-      }else {
+      if ($param["limit"] > 0) {
+        $limit = " order by s.uid desc limit " . $param["limit"];
+      } else {
         $limit = "";
       }
       $list = $this->getListeParamAsPrepared($this->sql . $this->from . $this->where . $limit, $this->data);
@@ -742,9 +741,13 @@ class Sample extends ObjetBDD
   function getNbSamples(array $param): int
   {
     $this->_generateSearch($param);
-    $sql = "select count(s.sample_id) as samplenumber";
-    $data = $this->lireParamAsPrepared($sql . $this->from . $this->where, $this->data);
-    return $data["samplenumber"];
+    $number = 0;
+    if (!empty($this->where)) {
+      $sql = "select count(s.sample_id) as samplenumber";
+      $data = $this->lireParamAsPrepared($sql . $this->from . $this->where, $this->data);
+      $number = $data["samplenumber"];
+    }
+    return $number;
   }
 
   /**

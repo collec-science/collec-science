@@ -17,7 +17,7 @@
 		}
 		var table = $( '#sampleList' ).DataTable( {
 			"order": [[1, "asc"]],
-			dom: 'Birtp',
+			dom: 'Bfirtp',
 			"language": dataTableLanguage,
 			"paging": false,
 			"searching": true,

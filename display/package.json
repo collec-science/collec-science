@@ -4,7 +4,6 @@
     "combobox": "^1.0.1",
     "commander": "^7.1.0",
     "datatables": "^1.10.18",
-    "datatables.net": "^1.10.23",
     "datatables.net-bs": "^1.10.23",
     "datatables.net-buttons": "^1.6.5",
     "datatables.net-buttons-bs": "^1.6.5",

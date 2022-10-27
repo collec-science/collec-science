@@ -52,6 +52,12 @@ $ident_header_vars = array(
 	"groupAttribute" => "MELLON_SUPANNENTITEAFFECTATIONPRINCIPALE",
 	"groupsGranted" => array()
 );
+$user_attributes = array (
+	"mail" => "mail",
+	"firstname"=>"givenname",
+	"lastname"=>"sn",
+	"name"=>"cn"
+);
 $ident_header_logout_address = "";
 $ident_type = "BDD";
 $CAS_address = "localhost";

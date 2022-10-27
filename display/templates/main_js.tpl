@@ -49,6 +49,7 @@
 <script src="display/node_modules/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="display/node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" />
+<script src="display/node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
 
 <!-- Rajout du tri sur la date/heure -->
 <script type="text/javascript" src="display/node_modules/moment/min/moment.min.js"></script>
@@ -111,6 +112,7 @@
 			}
 		}
 	};
+		var scroll = "50vh";
 	$( document ).ready( function () {
 		var pageLength = Cookies.get( "pageLength" );
 		if ( !pageLength ) {
@@ -134,7 +136,13 @@
 		$( '.datatable-nopaging-nosearching' ).DataTable( {
 			"language": dataTableLanguage,
 			"searching": false,
-			"paging": false
+			"paging": false,
+			"scrollY":scroll,
+			"scrollX":true,
+			fixedHeader: {
+            header: true,
+            footer: true
+        }
 		} );
 		$( '.datatable-searching' ).DataTable( {
 			"language": dataTableLanguage,
@@ -149,13 +157,24 @@
 		$( '.datatable-nopaging' ).DataTable( {
 			"language": dataTableLanguage,
 			"paging": false,
-			"searching": true
+			"searching": true,
+			"scrollY":scroll,
+			"scrollX":true,
+			fixedHeader: {
+            header: true,
+            footer: true
+        }
 		} );
 		$( '.datatable-nopaging-nosort' ).DataTable( {
 			"language": dataTableLanguage,
 			"paging": false,
 			"searching": false,
-			"ordering": false
+			"ordering": false,
+			"scrollY":scroll,
+			fixedHeader: {
+            header: true,
+            footer: true
+        }
 		} );
 		$( '.datatable-nosort' ).DataTable( {
 			"language": dataTableLanguage,
@@ -172,6 +191,12 @@
 			dom: 'Bfrtip',
 			"language": dataTableLanguage,
 			"paging": false,
+			"scrollY":scroll,
+			"scrollX":true,
+			fixedHeader: {
+            header: true,
+            footer: true
+        },
 			"searching": true,
 			buttons: [
 				'copyHtml5',

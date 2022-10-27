@@ -13,6 +13,12 @@ $(document).ready(function () {
 			"paging": false,
 			"searching": true,
 			"stateSave": true,
+			"scrollY":"50vh",
+			"scrollX":true,
+			fixedHeader: {
+            header: true,
+            footer: true
+        },
 			"buttons": [
 				{
 					extend: 'colvis'

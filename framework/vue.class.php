@@ -197,14 +197,18 @@ class Vue
    * @return string
    */
   function encodehtml($data)
-  {
+  {if (!is_object($data)) {
     if (is_array($data)) {
       foreach ($data as $key => $value) {
+
         $data[$key] = $this->encodehtml($value);
       }
     } else {
       $data = htmlspecialchars($data, ENT_QUOTES);
     }
+  } else {
+    $data = null;
+  }
     return $data;
   }
 }
@@ -300,6 +304,7 @@ class VueSmarty extends Vue
         $this->smarty->assign($key, $this->encodehtml($value));
       }
     }
+
     /*
          * Rrecuperation des messages
          */
@@ -315,6 +320,7 @@ class VueSmarty extends Vue
       $message->setSyslog($e->getMessage());
     }
   }
+
 
   /**
    * Return the content of a variable

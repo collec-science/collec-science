@@ -94,4 +94,8 @@
     <doctotp_fr action="framework/utils/markdown.php" param="framework/documentation/totp_fr.md" type="smarty" retourko="default"/>
     <doctotp_en action="framework/utils/markdown.php" param="framework/documentation/totp_en.md" type="smarty" retourko="default"/>
 
+		<!-- System -->
+		<systemShowServer action="framework/utils/system.php" param="SERVER" droits="admin" type="smarty" retourko="default"/>
+		<systemShowSession action="framework/utils/system.php" param="SESSION" droits="admin" type="smarty" retourko="default"/>
+
 </navigation>

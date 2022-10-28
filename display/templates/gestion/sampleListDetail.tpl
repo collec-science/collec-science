@@ -10,10 +10,10 @@
 		try {
 			var hb = JSON.parse(localStorage.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
-				hb = [11,12,13,14,15,16,17,18];
+				hb = [11,12,13,14,15,16,17,18,19];
 			}
 		} catch {
-			var hb = [11,12,13,14,15,16,17,18];
+			var hb = [11,12,13,14,15,16,17,18,19];
 		}
 		var table = $( '#sampleList' ).DataTable( {
 			"order": [[1, "asc"]],
@@ -228,6 +228,9 @@
 										if ( d.country_origin_name ) {
 											content += "<br>{t}Pays de provenance :{/t} " + encodeHtml( d.country_origin_name );
 										}
+										if (d.object_comment) {
+											content += "<br>{t}Commentaires :{/t} " + encodeHtml (d.object_comment);
+										}
 										if ( d.metadata ) {
 											content += "<br><u>{t}Métadonnées :{/t}</u>";
 											dm = d.metadata;
@@ -437,6 +440,7 @@
 					<th>{t}Date d'expiration{/t}</th>
 					<th>{t}Quantité restante{/t}</th>
 					<th>{t}Métadonnées{/t}</th>
+					<th>{t}Commentaires{/t}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -521,6 +525,7 @@
 							{/if}
 						{/foreach}
 					</td>
+					<td class="textareaDisplay">{$samples[lst].object_comment}</td>
 				</tr>
 				{/section}
 			</tbody>

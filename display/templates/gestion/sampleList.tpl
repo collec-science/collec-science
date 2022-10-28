@@ -21,9 +21,6 @@ $(document).ready(function() {
 });
 </script>
 
-
-<h3>{t}Échantillons{/t}</h3>
-
 <div class="row">
 	<div class="col-lg-12">
 	{include file='gestion/sampleSearchTab.tpl'}

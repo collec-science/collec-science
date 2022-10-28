@@ -121,9 +121,15 @@ print_r($cookieParam);*/
  * Recuperation des parametres de l'application definis dans un fichier ini
  */
 if (is_file($paramIniFile)) {
-    $paramAppli = parse_ini_file($paramIniFile);
+    $paramAppli = parse_ini_file($paramIniFile, true);
     foreach ($paramAppli as $key => $value) {
+        if (is_array($value)) {
+            foreach ($value as $k => $v) {
+                $$key[$k]=$v;
+            }
+        } else {
         $$key = $value;
+        }
     }
 }
 /*

@@ -6,6 +6,8 @@ class Login
   public Acllogin $acllogin;
   public Aclgroup $aclgroup;
   public Message $message;
+  private array $dacllogin;
+
   function __construct($bdd, $param = array())
   {
     include_once "framework/identification/loginGestion.class.php";
@@ -13,7 +15,7 @@ class Login
     $this->loginGestion = new LoginGestion($bdd, $param);
     $this->loginGestion->setKeys($privateKey, $pubKey);
     include_once "framework/droits/acllogin.class.php";
-    $this->aclogin = new Acllogin($bdd, $param);
+    $this->acllogin = new Acllogin($bdd, $param);
     include_once "framework/droits/aclgroup.class.php";
     $this->aclgroup = new Aclgroup($bdd, $param);
     global $log, $message;
@@ -86,10 +88,10 @@ class Login
   function getLoginFromHeader()
   {
     global $ident_header_vars;
-    $headers = getHeaders($ident_header_vars["radical"]);
-    $login = $headers[$ident_header_vars["login"]];
+    $userparams = $this->getUserParams($_SERVER);
+    $login = $userparams[$ident_header_vars["login"]];
     $verify = false;
-    if (!empty($login) && !empty($headers)) {
+    if (!empty($login) && !empty($userparams)) {
       /**
        * Verify if the login exists
        */
@@ -110,15 +112,28 @@ class Login
            * Verify if the structure is authorized
            */
           $createUser = true;
-          if (!empty($ident_header_vars["organizationGranted"]) && !in_array($headers[$ident_header_vars["organization"]], $ident_header_vars["organizationGranted"])) {
+          if (!empty($ident_header_vars["organizationGranted"])) {
             $createUser = false;
-            $this->log->setLog($login, "connection-header", "ko. The " . $headers[$ident_header_vars["organization"]] . " is not authorized to connect to this application");
+            if (is_array($userparams[$ident_header_vars["organization"]])) {
+              foreach ($userparams[$ident_header_vars["organization"]] as $org) {
+                if (in_array($org, $ident_header_vars["organizationGranted"])) {
+                  $createUser = true;
+                  break;
+                }
+              }
+            } else {
+              if (in_array($userparams[$ident_header_vars["organization"]], $ident_header_vars["organizationGranted"])) {
+                $createUser = true;
+              }
+            }
+            if (!$createUser) {
+              $this->log->setLog($login, "connection-header", "ko. The " . $userparams[$ident_header_vars["organization"]] . " is not authorized to connect to this application or is not furnished");
+            }
           }
+
           if ($createUser) {
             $dlogin = array(
               "login" => $login,
-              "nom" => $headers[$ident_header_vars["cn"]],
-              "mail" => $headers[$ident_header_vars["mail"]],
               "actif" => 0
             );
             if (!empty($ident_header_vars["groupAttribute"]) && in_array($ident_header_vars["groupAttribute"], $ident_header_vars["groupsGranted"])) {
@@ -126,31 +141,20 @@ class Login
             }
             $login_id = $this->loginGestion->ecrire($dlogin);
             if ($login_id > 0) {
-              /**
-               * Create the record in gacllogin
-               */
-              $this->aclogin->addLoginByLoginAndName($login, $headers[$ident_header_vars["cn"]]);
-              /**
-               * Add to the groupAttribute, if exists
-               */
-              if ($dlogin["actif"] == 1) {
-                $dgroup = $this->aclgroup->getGroupFromName($ident_header_vars["groupAttribute"]);
-                if ($dgroup["aclgroup_id"] > 0) {
-                  $this->aclgroup->addLoginToGroup($login_id, $dgroup["aclgroup_id"]);
-                }
-              }
+              $this->updateLoginFromIdentification($login, $userparams);
               /**
                * Send mail to administrators
                */
+
               global  $APPLI_address;
               $subject = $_SESSION["APPLI_title"] . " - " . _("Nouvel utilisateur");
               $template = "framework/mail/newUser.tpl";
-              $data = array (
-                "login"=>$login,
-                "name"=>$headers[$ident_header_vars["cn"]],
-                "appName"=>$_SESSION["APPLI_title"],
-                "organization"=>$headers[$ident_header_vars["organization"]],
-                "link"=>$APPLI_address
+              $data = array(
+                "login" => $login,
+                "name" => $this->dacllogin["logindetail"],
+                "appName" => $_SESSION["APPLI_title"],
+                "organization" => $userparams[$ident_header_vars["organization"]],
+                "link" => $APPLI_address
               );
               $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
               $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"), true);
@@ -161,6 +165,79 @@ class Login
     }
     if ($verify) {
       return $login;
+    }
+  }
+
+  function getUserParams(array $provider = array()): array
+  {
+    global $user_attributes;
+    $params = array();
+    foreach ($user_attributes as $k => $v) {
+      if (isset($provider[$v]) && !empty($provider[$v])) {
+        $params[$k] = $provider[$v];
+      }
+    }
+    return $params;
+  }
+  /**
+   * Update records of identification with data provided by the authentificator
+   *
+   * @param string $login
+   * @param array $params
+   * @return void
+   */
+  function updateLoginFromIdentification(string $login, array $params)
+  {
+    /**
+     * Update logingestion
+     */
+    $dlogin = $this->loginGestion->getFromLogin($login);
+    if ($dlogin["id"] > 0) {
+      if (!empty($params["lastname"])) {
+        $dlogin["nom"] = ucwords(strtolower($params["lastname"]));
+        $dlogin["prenom"] = ucwords(strtolower($params["firstname"]));
+      } else if (!empty($params["name"])) {
+        $dlogin["nom"] = ucwords(strtolower($params["name"]));
+      }
+      if (!empty($params["mail"])) {
+        $dlogin["mail"] = strtolower($params["mail"]);
+      }
+      $this->loginGestion->ecrire($dlogin);
+    }
+    /**
+     * Update or create acllogin
+     */
+    $dacllogin = $this->acllogin->getFromLogin($login);
+    if (empty($dacllogin["acllogin_id"])) {
+      $dacllogin["acllogin_id"] = 0;
+      $dacllogin["login"] = $login;
+      $id = 0;
+    } else {
+      $id = $dacllogin["acllogin_id"];
+    }
+    if (!empty($params["lastname"]) && !empty($params["firstname"])) {
+      $dacllogin["logindetail"] = ucwords(strtolower($params["lastname"] . " " . $params["firstname"]));
+    } else if (!empty($params["name"])) {
+      $dacllogin["logindetail"] = ucwords(strtolower($params["name"]));
+    }
+    if (!empty($params["mail"])) {
+      //$dacllogin["mail"] = strtolower($params["mail"]);
+    }
+    $id = $this->acllogin->ecrire($dacllogin);
+    $this->dacllogin = $dacllogin;
+    /**
+     * Add acllogin to the main group, if exists
+     */
+    if (!empty($params["groups"])) {
+      if (!is_array($params["groups"])) {
+        $params["groups"] = array($params["groups"]);
+      }
+      foreach ($params["groups"] as $group) {
+        $dgroups = $this->aclgroup->getGroupFromName($group);
+        foreach ($dgroups as $dgroup) {
+          $this->aclgroup->addLoginToGroup($dgroup["aclgroup_id"], $id);
+        }
+      }
     }
   }
 
@@ -193,6 +270,8 @@ class Login
     $user = phpCAS::getUser();
     if (!empty($user)) {
       $_SESSION["CAS_attributes"] = phpCAS::getAttributes();
+      $params = $this->getUserParams($_SESSION["CAS_attributes"]);
+      $this->updateLoginFromIdentification($user, $params);
     }
     return $user;
   }

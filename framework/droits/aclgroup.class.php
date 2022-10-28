@@ -91,7 +91,7 @@ class Aclgroup extends ObjetBDD
                     $ldapParam["groupAttrib"]
                 );
                 if ($ldapParam["ldapnoanonymous"]) {
-                    if (! $ldap->login($ldapParam["ldaplogin"], $ldapParam["ldappassword"])) {
+                    if (!$ldap->login($ldapParam["ldaplogin"], $ldapParam["ldappassword"])) {
                         throw new LdapException(_("L'identification dans l'annuaire LDAP a échoué pour la récupération des groupes de l'utilisateur"));
                     }
                 }
@@ -137,7 +137,7 @@ class Aclgroup extends ObjetBDD
         global $CAS_group_attribute, $CAS_get_groups;
         if (isset($_SESSION["CAS_attributes"][$CAS_group_attribute]) && $CAS_get_groups == 1) {
             $groupesCas = array();
-            if (!is_array($_SESSION["CAS_attributes"][$CAS_group_attribute]) && !empty ($_SESSION["CAS_attributes"][$CAS_group_attribute])) {
+            if (!is_array($_SESSION["CAS_attributes"][$CAS_group_attribute]) && !empty($_SESSION["CAS_attributes"][$CAS_group_attribute])) {
                 $_SESSION["CAS_attributes"][$CAS_group_attribute] = array($_SESSION["CAS_attributes"][$CAS_group_attribute]);
             }
             foreach ($_SESSION["CAS_attributes"][$CAS_group_attribute] as $value) {
@@ -156,7 +156,7 @@ class Aclgroup extends ObjetBDD
         $in = "";
         $comma = "";
         foreach ($groupes as $groupe) {
-            $in .= $comma.$groupe["aclgroup_id"];
+            $in .= $comma . $groupe["aclgroup_id"];
             $comma = ",";
         }
         if (!empty($in)) {
@@ -323,10 +323,16 @@ class Aclgroup extends ObjetBDD
      * @param integer $login_id
      * @return void
      */
-    function addLoginToGroup(int $group_id, int $login_id) {
+    function addLoginToGroup(int $group_id, int $login_id)
+    {
         if ($group_id > 0 && $login_id > 0) {
-            $sql = "insert into acllogingroup (acllogin_id, aclgroup_id) values (:login_id, :group_id)";
-            $this->executeAsPrepared($sql, array("login_id"=> $login_id, "group_id"=>$group_id), true);
+            $sql = "select count(*) as nb from acllogingroup where acllogin_id =:login_id and aclgroup_id =:group_id";
+            $param = array("login_id" => $login_id, "group_id" => $group_id);
+            $result = $this->lireParamAsPrepared($sql, $param);
+            if ($result["nb"] != 1) {
+                $sql = "insert into acllogingroup (acllogin_id, aclgroup_id) values (:login_id, :group_id)";
+                $this->executeAsPrepared($sql, $param, true);
+            }
         }
     }
 

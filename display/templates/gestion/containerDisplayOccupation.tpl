@@ -20,7 +20,7 @@
             {for $col=1 to $nbcolonnes}
                 <th class="center">
                     {if $column_in_char == 1}
-                        {chr(64 + $col)}
+                        {chr(64 + $cl)}
                     {else}
                         {$cl}
                     {/if}

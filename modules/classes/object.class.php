@@ -190,7 +190,7 @@ class ObjectClass extends ObjetBDD
    * object_idenfier selectionne pour etre utilise dans les recherches
    *
    * @param int|string $uid
-   * @param number $is_container: 0: tout objet, 1: container, 2:sample
+   * @param int $is_container: 0: tout objet, 1: container, 2:sample
    * @param boolean $is_partial
    *            : lance la recherche sur le debut de la chaine
    * @return array

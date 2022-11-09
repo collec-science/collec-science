@@ -629,7 +629,7 @@ class ObjectClass extends ObjetBDD
             $filename,
             $this->barcode->getBarcode($rowq[$dlabel["label_fields"]], $dlabel["barcode_code"])
           );
-        } catch (BarcodeException $e) {
+        } catch (Picqer\Barcode\Exceptions\BarcodeException $e) {
           throw new ObjectException ($e->getMessage());
         }
         }

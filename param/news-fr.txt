@@ -1,5 +1,25 @@
 News
 ===========
+Version 2.8.1 du 14/11/2022
+----------------------------
+Corrections de bugs :
+- la création d'un mouvement par l'interface "petit terminal" ne fonctionnait plus
+- liste des échantillons : la liste des colonnes affichée n'était pas correctement sauvegardée
+- quand la double identification était activée, un mail d'alerte était envoyé systématiquement lors de l'accès aux fonctions d'administration
+- les mails concernant les anomalies d'accès à des modules ne contenaient pas des informations cohérentes
+- dans la liste des contenants, le commentaire n'était pas affiché
+- dans les API, l'initialisation de la langue ne fonctionnait pas correctement et pouvait bloquer leur fonctionnement
+- dans la liste des collections, la liste des types d'échantillons disponibles n'était pas triée. C'était également le cas pour les types d'événements associés
+- il était possible de requêter des tables contenant des informations confidentielles
+- dans certains cas (boites d'onglets), les listes étaient mal formatées, avec un décalage entre l'entête et la liste des informations
+
+Nouveautés :
+- il est possible de limiter le nombre d'échantillons ramenés lors d'une sélection. Un message d'information est alors affiché, précisant le nombre total d'échantillons concernés par la requête
+- l'envoi des mails a été revu. Ils sont maintenant formatés en HTML et intègrent le logo de l'application
+- lors du déblocage d'un compte verrouillé, un mail est maintenant envoyé automatiquement vers son possesseur
+- l'affichage de la liste des échantillons et des contenants a été revu : l'entête est fixe, et la liste peut être scrollée indépendamment de la fenêtre (expérimental)
+- diverses améliorations ont été apportées à l'identification en mode HEADER (fédération d'identités - SAML)
+
 Version 2.8.0 du 26/09/2022
 ----------------------------
 Corrections de bugs :

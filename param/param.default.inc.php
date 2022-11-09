@@ -9,7 +9,7 @@
  */
 $APPLI_version = "2.8.1b";
 $APPLI_dbversion = "2.8";
-$APPLI_versiondate = _("28/10/2022");
+$APPLI_versiondate = _("14/11/2022");
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -44,10 +44,13 @@ $LOG_duree = 365;
 $ident_header_vars = array(
 	"login" => "MELLON_mail",
 	"mail" => "MELLON_mail",
-	"cn" => "MELLON_cn",
-	"organization" => "MELLON_supannetablissement",
+	"name" => "MELLON_cn",
+	"firstname"=>"MELLON_givenname",
+	"lastname" => "MELLON_sn",
+	"organization" => "MELLON_supannentiteaffectationprincipale",
 	"organizationGranted" => array(),
 	"createUser" => true,
+	"groupAttribute" => "MELLON_supannentiteaffectation",
 	"groupsGranted" => array()
 );
 $user_attributes = array (
@@ -55,7 +58,7 @@ $user_attributes = array (
 	"firstname"=>"givenName",
 	"lastname"=>"sn",
 	"name"=>"cn",
-	"groups"=>"supannEntiteAffectationPrincipale"
+	"groups"=>"supannentiteaffectation"
 );
 $ident_header_logout_address = "";
 $ident_type = "BDD";

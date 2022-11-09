@@ -88,10 +88,10 @@ class Login
   function getLoginFromHeader()
   {
     global $ident_header_vars;
-    $userparams = $this->getUserParams($_SERVER);
-    $login = $userparams[$ident_header_vars["login"]];
+    $userparams = $this->getUserParams($ident_header_vars, $_SERVER);
+    $login = $userparams["login"];
     $verify = false;
-    if (!empty($login) && !empty($userparams)) {
+    if (!empty($login)) {
       /**
        * Verify if the login exists
        */
@@ -126,42 +126,52 @@ class Login
                 $createUser = true;
               }
             }
-            if (!$createUser) {
-              $this->log->setLog($login, "connection-header", "ko. The " . $userparams[$ident_header_vars["organization"]] . " is not authorized to connect to this application or is not furnished");
-            }
-
-
-            if ($createUser) {
-              $dlogin = array(
-                "login" => $login,
-                "actif" => 0
-              );
-              if (!empty($ident_header_vars["groupAttribute"]) && in_array($ident_header_vars["groupAttribute"], $ident_header_vars["groupsGranted"])) {
-                $dlogin["actif"] = 1;
-                $verify = true;
-              }
-              $login_id = $this->loginGestion->ecrire($dlogin);
-              if ($login_id > 0) {
-                $this->updateLoginFromIdentification($login, $userparams);
-                /**
-                 * Send mail to administrators
-                 */
-
-                global  $APPLI_address;
-                $subject = $_SESSION["APPLI_title"] . " - " . _("Nouvel utilisateur");
-                $template = "framework/mail/newUser.tpl";
-                $data = array(
-                  "login" => $login,
-                  "name" => $this->dacllogin["logindetail"],
-                  "appName" => $_SESSION["APPLI_title"],
-                  "organization" => $userparams[$ident_header_vars["organization"]],
-                  "link" => $APPLI_address
-                );
-                $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
-                $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"), true);
+          }
+          if (!$createUser) {
+            $this->log->setLog($login, "connection-header", "ko. The " . $userparams[$ident_header_vars["organization"]] . " is not authorized to connect to this application or the code of organization is not furnished");
+          }
+          if ($createUser) {
+            $dlogin = array(
+              "login" => $login,
+              "actif" => 0
+            );
+            if (!empty($userparams[$ident_header_vars["groupAttribute"]]) && !empty($ident_header_vars["groupsGranted"])) {
+              if (is_array($userparams[$ident_header_vars["groupAttribute"]])) {
+                foreach ($userparams[$ident_header_vars["groupAttribute"]] as $group) {
+                  if (in_array($group, $ident_header_vars["groupsGranted"])) {
+                    $dlogin["actif"] = 1;
+                    $verify = true;
+                    break;
+                  }
+                }
               } else {
-                $verify = false;
+                if (in_array($userparams[$ident_header_vars["groupAttribute"]], $ident_header_vars["groupsGranted"])) {
+                  $dlogin["actif"] = 1;
+                  $verify = true;
+                }
               }
+            }
+            $login_id = $this->loginGestion->ecrire($dlogin);
+            if ($login_id > 0) {
+              $this->updateLoginFromIdentification($login, $userparams);
+              /**
+               * Send mail to administrators
+               */
+
+              global  $APPLI_address;
+              $subject = $_SESSION["APPLI_title"] . " - " . _("Nouvel utilisateur");
+              $template = "framework/mail/newUser.tpl";
+              $data = array(
+                "login" => $login,
+                "name" => $this->dacllogin["logindetail"],
+                "appName" => $_SESSION["APPLI_title"],
+                "organization" => $userparams[$ident_header_vars["organization"]],
+                "link" => $APPLI_address
+              );
+              $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
+              $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"), true);
+            } else {
+              $verify = false;
             }
           }
         }
@@ -172,11 +182,10 @@ class Login
     }
   }
 
-  function getUserParams(array $provider = array()): array
+  function getUserParams(array $attributes, array $provider = array()): array
   {
-    global $user_attributes;
     $params = array();
-    foreach ($user_attributes as $k => $v) {
+    foreach ($attributes as $k => $v) {
       if (isset($provider[$v]) && !empty($provider[$v])) {
         $params[$k] = $provider[$v];
       }
@@ -254,7 +263,7 @@ class Login
   public function getLoginCas($modeAdmin = false)
   {
     include_once "vendor/jasig/phpcas/CAS.php";
-    global $CAS_address, $CAS_port, $CAS_address, $CAS_CApath, $CAS_debug, $CAS_uri;
+    global $CAS_address, $CAS_port, $CAS_address, $CAS_CApath, $CAS_debug, $CAS_uri, $user_attributes;
     if ($CAS_debug) {
       phpCAS::setDebug("temp/cas.log");
       phpCAS::setVerbose(true);
@@ -274,7 +283,7 @@ class Login
     $user = phpCAS::getUser();
     if (!empty($user)) {
       $_SESSION["CAS_attributes"] = phpCAS::getAttributes();
-      $params = $this->getUserParams($_SESSION["CAS_attributes"]);
+      $params = $this->getUserParams($user_attributes, $_SESSION["CAS_attributes"]);
       $this->updateLoginFromIdentification($user, $params);
     }
     return $user;

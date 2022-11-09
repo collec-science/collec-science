@@ -42,10 +42,10 @@ $LOG_duree = 365;
  * LemonLdap, par exemple)
  */
 $ident_header_vars = array(
-	"login" => "MELLON_MAIL",
-	"mail" => "MELLON_MAIL",
-	"cn" => "MELLON_CN",
-	"organization" => "supannetablissement",
+	"login" => "MELLON_mail",
+	"mail" => "MELLON_mail",
+	"cn" => "MELLON_cn",
+	"organization" => "MELLON_supannetablissement",
 	"organizationGranted" => array(),
 	"createUser" => true,
 	"groupsGranted" => array()
@@ -65,7 +65,6 @@ $CAS_port = 443;
 $CAS_debug = false;
 $CAS_CApath = "";
 $CAS_get_groups = 1;
-$CAS_group_attribute = "supannEntiteAffectationPrincipale";
 $LDAP = array(
 	"address" => "localhost",
 	"port" => 389,

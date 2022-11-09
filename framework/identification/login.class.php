@@ -129,35 +129,39 @@ class Login
             if (!$createUser) {
               $this->log->setLog($login, "connection-header", "ko. The " . $userparams[$ident_header_vars["organization"]] . " is not authorized to connect to this application or is not furnished");
             }
-          }
 
-          if ($createUser) {
-            $dlogin = array(
-              "login" => $login,
-              "actif" => 0
-            );
-            if (!empty($ident_header_vars["groupAttribute"]) && in_array($ident_header_vars["groupAttribute"], $ident_header_vars["groupsGranted"])) {
-              $dlogin["actif"] = 1;
-            }
-            $login_id = $this->loginGestion->ecrire($dlogin);
-            if ($login_id > 0) {
-              $this->updateLoginFromIdentification($login, $userparams);
-              /**
-               * Send mail to administrators
-               */
 
-              global  $APPLI_address;
-              $subject = $_SESSION["APPLI_title"] . " - " . _("Nouvel utilisateur");
-              $template = "framework/mail/newUser.tpl";
-              $data = array(
+            if ($createUser) {
+              $dlogin = array(
                 "login" => $login,
-                "name" => $this->dacllogin["logindetail"],
-                "appName" => $_SESSION["APPLI_title"],
-                "organization" => $userparams[$ident_header_vars["organization"]],
-                "link" => $APPLI_address
+                "actif" => 0
               );
-              $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
-              $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"), true);
+              if (!empty($ident_header_vars["groupAttribute"]) && in_array($ident_header_vars["groupAttribute"], $ident_header_vars["groupsGranted"])) {
+                $dlogin["actif"] = 1;
+                $verify = true;
+              }
+              $login_id = $this->loginGestion->ecrire($dlogin);
+              if ($login_id > 0) {
+                $this->updateLoginFromIdentification($login, $userparams);
+                /**
+                 * Send mail to administrators
+                 */
+
+                global  $APPLI_address;
+                $subject = $_SESSION["APPLI_title"] . " - " . _("Nouvel utilisateur");
+                $template = "framework/mail/newUser.tpl";
+                $data = array(
+                  "login" => $login,
+                  "name" => $this->dacllogin["logindetail"],
+                  "appName" => $_SESSION["APPLI_title"],
+                  "organization" => $userparams[$ident_header_vars["organization"]],
+                  "link" => $APPLI_address
+                );
+                $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
+                $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"), true);
+              } else {
+                $verify = false;
+              }
             }
           }
         }

@@ -132,12 +132,13 @@ class Login
           }
           if ($createUser) {
             $dlogin = array(
+              "id" => 0,
               "login" => $login,
               "actif" => 0
             );
-            if (!empty($userparams[$ident_header_vars["groupAttribute"]]) && !empty($ident_header_vars["groupsGranted"])) {
-              if (is_array($userparams[$ident_header_vars["groupAttribute"]])) {
-                foreach ($userparams[$ident_header_vars["groupAttribute"]] as $group) {
+            if (!empty($userparams["groupAttribute"]) && !empty($ident_header_vars["groupsGranted"])) {
+              if (is_array($userparams["groupAttribute"])) {
+                foreach ($userparams["groupAttribute"] as $group) {
                   if (in_array($group, $ident_header_vars["groupsGranted"])) {
                     $dlogin["actif"] = 1;
                     $verify = true;
@@ -145,7 +146,7 @@ class Login
                   }
                 }
               } else {
-                if (in_array($userparams[$ident_header_vars["groupAttribute"]], $ident_header_vars["groupsGranted"])) {
+                if (in_array($userparams["groupAttribute"], $ident_header_vars["groupsGranted"])) {
                   $dlogin["actif"] = 1;
                   $verify = true;
                 }
@@ -232,20 +233,19 @@ class Login
       $dacllogin["logindetail"] = ucwords(strtolower($params["lastname"] . " " . $params["firstname"]));
     } else if (!empty($params["name"])) {
       $dacllogin["logindetail"] = ucwords(strtolower($params["name"]));
-    }
-    if (!empty($params["mail"])) {
-      //$dacllogin["mail"] = strtolower($params["mail"]);
+    } else if (empty($dacllogin["logindetail"])) {
+      $dacllogin["logindetail"] = $login;
     }
     $id = $this->acllogin->ecrire($dacllogin);
     $this->dacllogin = $dacllogin;
     /**
      * Add acllogin to the main group, if exists
      */
-    if (!empty($params["groups"])) {
-      if (!is_array($params["groups"])) {
-        $params["groups"] = array($params["groups"]);
+    if (!empty($params["groupeAttribute"])) {
+      if (!is_array($params["groupeAttribute"])) {
+        $params["groupeAttribute"] = array($params["groupeAttribute"]);
       }
-      foreach ($params["groups"] as $group) {
+      foreach ($params["groupeAttribute"] as $group) {
         $dgroups = $this->aclgroup->getGroupFromName($group);
         foreach ($dgroups as $dgroup) {
           $this->aclgroup->addLoginToGroup($dgroup["aclgroup_id"], $id);

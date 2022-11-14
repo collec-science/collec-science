@@ -188,7 +188,7 @@ if (!isset($bdd)) {
         $bdd = new PDO($BDD_dsn, $BDD_login, $BDD_passwd);
     } catch (PDOException $e) {
         if ($APPLI_modeDeveloppement) {
-            $message->set($e->getMessage());
+            $message->set($e->getMessage(), true);
         } else {
             $message->setSyslog($e->getMessage());
         }
@@ -208,7 +208,7 @@ if (!isset($bdd)) {
             $bdd_gacl = new PDO($GACL_dsn, $GACL_dblogin, $GACL_dbpasswd);
         } catch (PDOException $e) {
             if ($APPLI_modeDeveloppement) {
-                $message->set($e->getMessage());
+                $message->set($e->getMessage(), true);
             } else {
                 $message->setSyslog($e->getMessage());
             }
@@ -231,7 +231,9 @@ if (!isset($bdd)) {
 /*
  * Activation de la classe d'enregistrement des traces
  */
+if ($etaconn) {
 $log = new Log($bdd_gacl, $ObjetBDDParam);
+}
 
 /*
  * Verification de la duree maxi de la session
@@ -280,7 +282,7 @@ if (isset($_SESSION["navigation"]) && !$APPLI_modeDeveloppement) {
 /*
  * Traitement des parametres stockes dans la base de donnees
  */
-if (!$_SESSION["dbparamok"]) {
+if (!$_SESSION["dbparamok"] && $etaconn) {
     include_once 'framework/dbparam/dbparam.class.php';
     try {
         $dbparam = new DbParam($bdd, $ObjetBDDParam);
@@ -303,4 +305,6 @@ require_once 'framework/functionsDebug.php';
 /*
  * Chargement des traitements communs specifiques a l'application
  */
+if ($etaconn) {
 require "modules/common.inc.php";
+}

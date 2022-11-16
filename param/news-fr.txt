@@ -19,6 +19,7 @@ Nouveautés :
 - lors du déblocage d'un compte verrouillé, un mail est maintenant envoyé automatiquement vers son possesseur
 - l'affichage de la liste des échantillons et des contenants a été revu : l'entête est fixe, et la liste peut être scrollée indépendamment de la fenêtre (expérimental)
 - diverses améliorations ont été apportées à l'identification en mode HEADER (fédération d'identités - SAML)
+- dans l'identification en mode HEADER, il est possible de définir un groupe qui permettra, si l'utilisateur appartient à celui-ci, de l'affecter directement et de lui permettre de se connecter sans avoir besoin d'une activation par un administrateur
 
 Version 2.8.0 du 26/09/2022
 ----------------------------

@@ -19,6 +19,7 @@ New features:
 - when unlocking a locked account, an email is now automatically sent to its owner
 - the display of the list of samples and containers has been revised: the header is fixed, and the list can be scrolled independently of the window (experimental)
 - various improvements have been made to the identification in HEADER mode (identity federation - SAML)
+- in the identification in HEADER mode, it is possible to define a group which will allow, if the user belongs to it, to assign him directly and to allow him to connect without needing an activation by an administrator
 
 Version 2.8.0 of September 26th, 2022
 ----------------------------

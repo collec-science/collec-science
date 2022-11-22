@@ -158,46 +158,47 @@
      		}
     	}
 
-			function setGeographicVisibility() {
-				var collection_id = $("#collection_id").val();
-				$.ajax( {
-					url: "index.php",
-					data: { "module": "collectionGet", "collection_id": collection_id}
-				})
-				.done (function (value) {
-					value = JSON.parse(value);
-					if (value.no_localization == 1) {
-						$(".geographic").hide();
-					} else {
-						$(".geographic").show();
-					}
-				})
-				;
-			}
+		function setGeographicVisibility() {
+			var collection_id = $("#collection_id").val();
+			$.ajax( {
+				url: "index.php",
+				data: { "module": "collectionGet", "collection_id": collection_id}
+			})
+			.done (function (value) {
+				value = JSON.parse(value);
+				if (value.no_localization == 1) {
+					$(".geographic").hide();
+				} else {
+					$(".geographic").show();
+				}
+			})
+			;
+		}
 
-			function getSampletype() {
-				var collection_id = $("#collection_id").val();
-				$.ajax( {
-					url: "index.php",
-					data: { "module": "sampleTypeGetListAjax", "collection_id": collection_id}
-				})
-				.done (function (value) {
-					d = JSON.parse(value);
-					var options = '';
-					for (var i = 0; i < d.length; i++) {
-						options += '<option value="'+d[i].sample_type_id + '"';
-						if (d[i].sample_type_id == sample_type_init ) {
-							options += ' selected ';
-						}
-						options += '>' + d[i].sample_type_name ;
-						if (d[i].multiple_type_id > 0 ) {
-										options += ' / ' + d[i].multiple_type_name + ' : ' + d[i].multiple_unit;
-						}
-						options += '</option>';
-					};
-					$("#sample_type_id").html(options);
-				});
-			}
+		function getSampletype() {
+			var collection_id = $("#collection_id").val();
+			$.ajax( {
+				url: "index.php",
+				data: { "module": "sampleTypeGetListAjax", "collection_id": collection_id}
+			})
+			.done (function (value) {
+				d = JSON.parse(value);
+				var options = '';
+				for (var i = 0; i < d.length; i++) {
+					options += '<option value="'+d[i].sample_type_id + '"';
+					if (d[i].sample_type_id == sample_type_init ) {
+						options += ' selected ';
+					}
+					options += '>' + d[i].sample_type_name ;
+					if (d[i].multiple_type_id > 0 ) {
+									options += ' / ' + d[i].multiple_type_name + ' : ' + d[i].multiple_unit;
+					}
+					options += '</option>';
+				};
+				$("#sample_type_id").html(options);
+				getMetadata();
+			});
+		}
 
         $("#sample_type_id").change( function() {
        	 getMetadata();
@@ -213,15 +214,6 @@
         $("#sampling_place_id").change (function() {
         	getCoordinatesFromLocalisation();
         });
-
-        /*
-         * Lecture initiale
-         */
-        getMetadata();
-        getGenerator();
-        getSamplingPlace();
-				setGeographicVisibility();
-				getSampletype();
 
         $('#sampleForm').submit(function(event) {
             if($("#action").val()=="Write"){
@@ -436,6 +428,13 @@
 				});
 			}
 		});
+		/*
+         * Lecture initiale
+         */
+		getGenerator();
+        getSamplingPlace();
+		setGeographicVisibility();
+		getSampletype();
 	});
 </script>
 

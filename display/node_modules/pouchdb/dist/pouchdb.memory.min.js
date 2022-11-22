@@ -1,4 +1,4 @@
-// PouchDB in-memory plugin 7.3.0
+// PouchDB in-memory plugin 7.3.1
 // Based on MemDOWN: https://github.com/rvagg/memdown
 // 
 // (c) 2012-2022 Dale Harvey and the PouchDB team

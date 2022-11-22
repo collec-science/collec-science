@@ -159,6 +159,12 @@
 					}
 				}
 			};
+			/**
+			 * set the event_type from collection_id
+			 */
+			if (actionClass == "event") {
+				getTypeEvents();
+			}
 		} );
 		var tooltipContent;
 		/**
@@ -348,6 +354,24 @@
 				}
 			} );
 		}
+		function getTypeEvents() {
+			var col_id = $("#collection_id").val();
+			if (col_id) {
+				var url="index.php";
+				$.getJSON( url, { "module": "eventTypeGetAjax", "object_type": "1", "collection_id" : col_id }, function ( data ) {
+				if ( data != null ) {
+					options = '';
+					for ( var i = 0; i < data.length; i++ ) {
+						if ( data[ i ].event_type_id ) {
+							options += '<option value="' + data[ i ].event_type_id + '"';
+							options += '>' + data[ i ].event_type_name + '</option>';
+						};
+					}
+					$( "#eventsType" ).html( options );
+				}
+			} );
+			}
+		}
 		$( "#containersSample" ).change( function () {
 			var id = $( "#containersSample" ).val();
 			$( "#container_id" ).val( id );
@@ -372,6 +396,9 @@
 		$( "#container_type_id" ).change( function () {
 			searchContainer();
 		} );
+		/*$("#collection_id").change ( function () {
+            getTypeEvents();
+        });*/
 	} );
 </script>
 <div class="col-lg-12">
@@ -565,16 +592,22 @@
 				</div>
 				<!-- Ajout d'un nouvel evenement-->
 				<div class="event" hidden>
+					<div class="form-group">
+						<label for="due_date" class="control-label col-md-4">{t}Date d'échéance :{/t}</label>
+						<div class="col-md-8">
+						<input id="due_date" name="due_date" value="" class="form-control datepicker" >
+						</div>
+						</div>
 					<div class="form-group ">
-						<label for="event_date" class="control-label col-md-4"><span class="red">*</span>{t}Date{/t} :</label>
+						<label for="event_date" class="control-label col-md-4">{t}Date{/t} :</label>
 						<div class="col-md-8">
 							<input id="event_date" name="event_date" value="" class="form-control datepicker">
 						</div>
 					</div>
 					<div class="form-group ">
-						<label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Type d'événement :{/t}</label>
+						<label for="eventsType" class="control-label col-md-4"><span class="red">*</span> {t}Type d'événement :{/t}</label>
 						<div class="col-md-8">
-							<select id="event_type_id" name="event_type_id" class="form-control">
+							<select id="eventsType" name="event_type_id" class="form-control">
 								{section name=lst loop=$eventType}
 								<option value="{$eventType[lst].event_type_id}">
 									{$eventType[lst].event_type_name}

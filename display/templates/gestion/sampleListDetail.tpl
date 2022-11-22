@@ -104,8 +104,8 @@
 		} );
 		$( "#samplelabels" ).on( "keypress click", function () {
 			$( "#samplemodule" ).val( "samplePrintLabel" );
-			/*$("#sampleSpinner").show();*/
-			$( this.form ).prop( 'target', '_blank' ).submit();
+			$("#sampleSpinner").show();
+			$( this.form ).prop( 'target', '_self' ).submit();
 		} );
 		$( "#sampledirect" ).on( "keypress click", function () {
 			$( "#samplemodule" ).val( "samplePrintDirect" );

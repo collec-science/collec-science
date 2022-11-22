@@ -48,8 +48,8 @@ $(document).ready(function () {
 	});
 	$("#containerlabels").on('click keypress', function() {
 		$(this.form).find("input[name='module']").val("containerPrintLabel");
-		/*$("#containerSpinner").show();*/
-		$(this.form).prop('target', '_blank').submit();
+		$("#containerSpinner").show();
+		$(this.form).prop('target', '_self').submit();
 	});
 	$("#containerdirect").on('keypress click', function() {
 		$(this.form).find("input[name='module']").val("containerPrintDirect");

@@ -286,6 +286,12 @@
 					<dt class="lexical" data-lexical="product">{t}Produit utilisé :{/t}</dt>
 					<dd>{$data.storage_product}</dd>
 				</dl>
+				{if $data.collection_id > 0}
+					<dl class="dl-horizontal">
+						<dt class="lexical" data-lexical="collection">{t}Collection de rattachement :{/t}</dt>
+						<dd>{$data.collection_name}</dd>
+					</dl>
+				{/if}
 				<dl class="dl-horizontal">
 					<dt class="lexical" data-lexical="storage_condition">{t}Conditions de stockage :{/t}</dt>
 					<dd>{$data.storage_condition_name}</dd>

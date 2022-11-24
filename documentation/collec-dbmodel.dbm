@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.0-beta" use-changelog="false" last-position="169,1677" last-zoom="1" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.0-beta" use-changelog="false" last-position="117,644" last-zoom="1" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -190,7 +190,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 </sequence>
 
-<table name="container" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+<table name="container" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Liste of containers]]> </comment>
@@ -3674,6 +3674,15 @@ from col.collection_eventtype
 join col.event_type using (event_type_id)
 where collection_id = $1]]> </definition>
 </function>
+
+<relationship name="collection_has_many_container" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f57900"
+	 src-table="col.collection"
+	 dst-table="col.container"
+	 src-required="false" dst-required="false"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

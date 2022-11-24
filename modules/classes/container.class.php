@@ -25,7 +25,8 @@ class Container extends ObjetBDD
           column_number, line_number, container_uid, oc.identifier as container_identifier,
           o.referent_id, referent_name, referent_firstname, referent_email, address_name, address_line2, address_line3, address_city, address_country, referent_phone, academical_directory, academical_link,
           borrowing_date, expected_return_date, borrower_id, borrower_name,
-          nb_slots_used
+          nb_slots_used,
+          collection_id, collection_name
 					from container c
 					join object o using (uid)
 					join container_type using (container_type_id)
@@ -41,6 +42,7 @@ class Container extends ObjetBDD
           left outer join last_borrowing lb on (o.uid = lb.uid)
           left outer join borrower using (borrower_id)
           left outer join slots_used su on (c.container_id = su.container_id)
+          left outer join collection using (collection_id)
             ";
   private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
 
@@ -69,6 +71,9 @@ class Container extends ObjetBDD
       "container_type_id" => array(
         "type" => 1,
         "requis" => 1
+      ),
+      "collection_id" => array(
+        "type" => 1
       )
     );
     parent::__construct($bdd, $param);
@@ -107,12 +112,48 @@ class Container extends ObjetBDD
    */
   function ecrire($data)
   {
+    if (!$this->verifyCollection($data)) {
+      throw new ContainerException(_("Vous ne disposez pas des droits nécessaires pour rattacher la collection sélectionnée au contenant"));
+    }
     $object = new ObjectClass($this->connection, $this->param);
     $uid = $object->ecrire($data);
     if ($uid > 0) {
       $data["uid"] = $uid;
       parent::ecrire($data);
       return $uid;
+    }
+  }
+
+  public function verifyCollection($data)
+  {
+    $retour = false;
+    if (empty($data["collection_id"])) {
+      $retour = true;
+    } else {
+      foreach ($_SESSION["collections"] as $value) {
+        if ($data["collection_id"] == $value["collection_id"]) {
+          $retour = true;
+          break;
+        }
+      }
+    }
+    return $retour;
+  }
+
+  /**
+   * Set the collection for an array of uids
+   *
+   * @param array $uids
+   * @param integer $collection_id
+   * @return void
+   */
+  function setCollection(array $uids, int $collection_id)
+  {
+    $sql = "update container set collection_id = :collection_id where uid = :uid";
+    $data = array("collection_id" => $collection_id);
+    foreach ($uids as $uid) {
+      $data["uid"] = $uid;
+      $this->executeAsPrepared($sql, $data);
     }
   }
 
@@ -224,6 +265,7 @@ class Container extends ObjetBDD
             document_id
             ,lm.container_uid
             ,nb_slots_used, nb_slots_max
+            ,collection_id, collection_name
 					from object o
 					join container co on (co.uid = o.uid)
 					join container_type using (container_type_id)
@@ -233,6 +275,7 @@ class Container extends ObjetBDD
 					left outer join storage_condition using (storage_condition_id)
           left outer join  last_photo on (o.uid = last_photo.uid)
           left outer join slots_used su on (co.container_id = su.container_id)
+          left outer join collection using (collection_id)
 					where lm.movement_type_id = 1
 					order by o.identifier, o.uid
 					";
@@ -442,6 +485,14 @@ class Container extends ObjetBDD
         $data["event_type_id"] = $param["event_type_id"];
         $and = " and ";
       }
+      /**
+       * Search on collection
+       */
+      if ($param["collection_id"] > 0) {
+        $where .= $and . "collection_id = :collection_id";
+        $data["collection_id"] = $param["collection_id"];
+        $and = " and ";
+      }
       if ($and == "") {
         $where = "";
       }
@@ -582,7 +633,7 @@ class Container extends ObjetBDD
         /**
          * Explode the list of secondary identifiers
          */
-        if (!empty($dataSample["identifiers"]) ) {
+        if (!empty($dataSample["identifiers"])) {
           $dataSample["identifiers"] = explode(",", $dataSample["identifiers"]);
         }
         $row["samples"][] = $dataSample;
@@ -614,7 +665,8 @@ class Container extends ObjetBDD
       "collection_name",
       "sample_type_name",
       "referent_name",
-      "container_type_name"
+      "container_type_name",
+      "collection_name"
     );
     foreach ($data as  $df) {
       $names = $this->extractUniqueReference($names, $fields, $df);
@@ -712,14 +764,15 @@ class Container extends ObjetBDD
       $dynamicFields = array(
         "object_status_name",
         "referent_name",
-        "container_type_name"
+        "container_type_name",
+        "collection_name"
       );
       $dcontainer = array();
       foreach ($staticFields as $field) {
         $dcontainer[$field] = $data[$field];
       }
       foreach ($dynamicFields as $field) {
-        if (!empty($data[$field]) ) {
+        if (!empty($data[$field])) {
           /*
                  * Search the value from post data
                  */

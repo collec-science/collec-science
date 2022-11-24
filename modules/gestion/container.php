@@ -209,15 +209,15 @@ switch ($t_module["param"]) {
 
     break;
   case "write":
-    /*
-         * write record in database
-         */
+    /**
+     * write record in database
+     */
     $id = dataWrite($dataClass, $_REQUEST);
     if ($id > 0) {
       $_REQUEST[$keyName] = $id;
-      /*
-             * Recherche s'il s'agit d'un contenant a associer dans un autre contenant
-             */
+      /** 
+       * Recherche s'il s'agit d'un contenant a associer dans un autre contenant
+       */
       if ($_REQUEST["container_parent_uid"] > 0 && is_numeric($_REQUEST["container_parent_uid"])) {
         include_once 'modules/classes/movement.class.php';
         $movement = new Movement($bdd, $ObjetBDDParam);
@@ -569,4 +569,22 @@ switch ($t_module["param"]) {
       $bdd->rollback();
     }
     break;
+    case "setCollection":
+      try {
+        if (count($_POST["uids"]) == 0) {
+          throw new ObjectException(_("Pas de contenants sélectionnés"));
+        }
+        if (empty($_POST["collection_id_change"])) {
+          throw new ObjectException(_("Pas de collection sélectionnée"));
+        }
+        is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+        $dataClass->setCollection($_POST["uids"], $_POST["collection_id_change"]);
+        $module_coderetour = 1;
+      } catch (ObjectException $oe) {
+        $message->setSyslog($oe->getMessage());
+        $message->set(_("Une erreur est survenue pendant la mise à jour de la collection"), true);
+        $message->set($oe->getMessage());
+        $module_coderetour = -1;
+      }
+      break;
 }

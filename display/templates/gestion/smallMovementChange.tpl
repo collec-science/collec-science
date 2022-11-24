@@ -57,14 +57,14 @@ $(document).ready(function() {
 	function object_search() {
 		var val = getVal($("#object_search").val());
 		if (val) {
-			search("objectGetDetail", "object_uid", val , false );
+			search("objectGetDetail", "object_uid", val , 0 );
 		}
 	}
 
 	function container_search() {
 		var val = getVal($("#container_search").val());
 		if (val) {
-			search("objectGetDetail","container_uid", val, true );
+			search("objectGetDetail","container_uid", val, 1 );
 		}
 	}
 	$("#container_search").on('keyup change', function () {

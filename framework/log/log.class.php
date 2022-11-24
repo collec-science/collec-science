@@ -185,7 +185,7 @@ class Log extends ObjetBDD
             $like = " like '".$GACL_aco."-connection%'";
             $sql = "select nom_module from log";
             $sql .= " where login = :login and nom_module $like and commentaire = 'ok' and nom_module <> 'connection-token'";
-            $sql .= "order by log_id desc limit 1";
+            $sql .= " order by log_id desc limit 1";
             $data = $this->lireParamAsPrepared(
                 $sql,
                 array(
@@ -328,20 +328,17 @@ class Log extends ObjetBDD
      * @param [type] $login: login of the user concerned by this message
      * @return void
      */
-    public function sendMailToAdmin($subject, $contents, $moduleName, $login)
+    public function sendMailToAdmin($subject, $templateName, $data, $moduleName, $login)
     {
         global $message, $MAIL_enabled, $APPLI_mail, $APPLI_mailToAdminPeriod, $GACL_aco;
         $moduleNameComplete = $GACL_aco . "-" . $moduleName;
 
         if ($MAIL_enabled == 1) {
-            include_once 'framework/identification/mail.class.php';
+            include_once 'framework/utils/mail.class.php';
             include_once 'framework/droits/droits.class.php';
             include_once 'framework/identification/loginGestion.class.php';
             $MAIL_param = array(
-                "replyTo" => "$APPLI_mail",
-                "subject" => $subject,
-                "from" => "$APPLI_mail",
-                "contents" => $contents,
+                "from" => "$APPLI_mail"
             );
             /*
              * Recherche de la liste des administrateurs
@@ -378,7 +375,8 @@ class Log extends ObjetBDD
                         $dataSql
                     );
                     if (!$logval["log_id"] > 0) {
-                        if ($mail->sendMail($dataLogin["mail"], array())) {
+                        global $SMARTY_param;
+                        if ($mail->SendMailSmarty($SMARTY_param, $dataLogin["mail"], $subject, $templateName, $data)) {
                             $this->setLog($login, $moduleName, $value["login"]);
                         } else {
                             global $message;

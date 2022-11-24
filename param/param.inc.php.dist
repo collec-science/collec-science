@@ -80,6 +80,9 @@ $APPLI_address = "https://collec.adressecomplete.com";
  * mail sender
  */
 $APPLI_mail = "nepasrepondre@collec.adressecomplete.com";
+$MAIL_param = array(
+	"from" => "account@collec.society.com"
+);
 /*
  * Activer l'envoi de mails
  */

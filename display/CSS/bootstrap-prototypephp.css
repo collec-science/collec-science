@@ -306,6 +306,9 @@ background-color:  rgba(0,158,224,0.2) !important;
 .top {
 	vertical-align: text-top ;
 }
+table {
+	width: 100%;
+}
 table a {
 	text-decoration: underline;
 }
@@ -329,3 +332,22 @@ table a:visited {
 	background-repeat: no-repeat;
 	background-position: 100% 50%;
 }
+thead {
+	/*background-color: #fff;*/
+	color: rgb(0,58,128);
+}
+th {
+	font-weight: normal;
+	text-align: center;
+}
+tr {
+	width: 70%;
+}
+/* bootstrap hack: fix content width inside hidden tabs */
+.tab-content > .tab-pane:not(.active),
+.pill-content > .pill-pane:not(.active) {
+    display: block;
+    height: 0;
+    overflow-y: hidden;
+}
+/* bootstrap hack end */

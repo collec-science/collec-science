@@ -13,6 +13,12 @@ $(document).ready(function () {
 			"paging": false,
 			"searching": true,
 			"stateSave": true,
+			"scrollY":"50vh",
+			"scrollX":true,
+			fixedHeader: {
+            header: true,
+            footer: true
+        },
 			"buttons": [
 				{
 					extend: 'colvis'
@@ -42,8 +48,8 @@ $(document).ready(function () {
 	});
 	$("#containerlabels").on('click keypress', function() {
 		$(this.form).find("input[name='module']").val("containerPrintLabel");
-		/*$("#containerSpinner").show();*/
-		$(this.form).prop('target', '_blank').submit();
+		$("#containerSpinner").show();
+		$(this.form).prop('target', '_self').submit();
 	});
 	$("#containerdirect").on('keypress click', function() {
 		$(this.form).find("input[name='module']").val("containerPrintDirect");
@@ -312,6 +318,7 @@ $(document).ready(function () {
 					<th>{t}Code CLP{/t}</th>
 					<th>{t}Photo{/t}</th>
 					<th>{t}Référent{/t}</th>
+					<th>{t}Commentaires{/t}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -369,6 +376,7 @@ $(document).ready(function () {
 							{/if}
 						</td>
 						<td>{$containers[lst].referent_name} {$containers[lst].referent_firstname}</td>
+						<td class="textareaDisplay">{$containers[lst].object_comment}</td>
 					</tr>
 				{/section}
 			</tbody>

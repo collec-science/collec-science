@@ -7,9 +7,9 @@
  * Parametres par defaut de l'application
  * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
  */
-$APPLI_version = "2.8.0";
+$APPLI_version = "2.8.1d";
 $APPLI_dbversion = "2.8";
-$APPLI_versiondate = _("26/09/2022");
+$APPLI_versiondate = _("14/11/2022");
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -42,13 +42,23 @@ $LOG_duree = 365;
  * LemonLdap, par exemple)
  */
 $ident_header_vars = array(
-	"radical" => "MELLON",
 	"login" => "MELLON_MAIL",
 	"mail" => "MELLON_MAIL",
-	"cn" => "MELLON_CN",
-	"organization" => "MELLON_SHACHOMEORGANIZATION",
+	"name" => "MELLON_cn",
+	"firstname"=>"MELLON_givenname",
+	"lastname" => "MELLON_sn",
+	"organization" => "MELLON_supannentiteaffectationprincipale",
 	"organizationGranted" => array(),
-	"createUser" => true
+	"createUser" => true,
+	"groupAttribute" => "MELLON_supannentiteaffectation",
+	"groupsGranted" => array()
+);
+$user_attributes = array (
+	"mail" => "mail",
+	"firstname"=>"givenName",
+	"lastname"=>"sn",
+	"name"=>"cn",
+	"groups"=>"supannentiteaffectation"
 );
 $ident_header_logout_address = "";
 $ident_type = "BDD";
@@ -58,7 +68,6 @@ $CAS_port = 443;
 $CAS_debug = false;
 $CAS_CApath = "";
 $CAS_get_groups = 1;
-$CAS_group_attribute = "supannEntiteAffectation";
 $LDAP = array(
 	"address" => "localhost",
 	"port" => 389,
@@ -103,16 +112,12 @@ $SMARTY_param = array(
  * Variables de base de l'application
  */
 $APPLI_mail = "proto@proto.com";
-$APPLI_nom = "Prototype d'application";
-$APPLI_code = 'proto';
 $APPLI_fds = "display/CSS/blue.css";
 $APPLI_address = "http://localhost/proto";
 $APPLI_modeDeveloppement = false;
-$APPLI_modeDeveloppementDroit = false;
 $APPLI_utf8 = true;
 $APPLI_menufile = "param/menu.xml";
 $APPLI_temp = "temp";
-$APPLI_titre = "Collec-Science";
 $APPLI_assist_address = "https://github.com/collec-science/collec-science/issues/new";
 $APPLI_isFullDns = false;
 /*
@@ -187,6 +192,10 @@ $mapDefaultX = -0.70;
 $mapDefaultY = 44.77;
 $mapDefaultZoom = 7;
 $MAIL_enabled = 0;
+$MAIL_param = array(
+	"mailTemplate" => "framework/mail/mail.tpl",
+	"from" => "account@society.com"
+);
 /*
  * Nombre maximum d'essais de connexion
  */

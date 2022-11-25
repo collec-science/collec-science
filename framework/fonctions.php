@@ -213,6 +213,7 @@ function setlanguage($langue)
   include_once 'framework/navigation/menu.class.php';
   $menu = new Menu($APPLI_menufile);
   $_SESSION["menu"] = $menu->generateMenu();
+  $_SESSION["locale"] = $langue;
   /*
      * Appel des fonctions specifiques de l'application
      */

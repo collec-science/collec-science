@@ -69,6 +69,8 @@
 		<item module="mimeTypeList" label="Types de fichiers" tooltip="Types de fichiers autorisés en téléchargement" />
 		<item module="exportModelList" label="Imports/exports techniques" tooltip="Exportations ou importations de données au format JSON" />
 		<item module="datasetTypeList" label="Types de datasets" tooltip="Liste des types de datasets utilisés pour exporter les échantillons par lots" droits="param" />
+		<item divider='1' droits="collection"/>
+		<item module="translationChange" label="Traductions" tooltip="Traductions des tables de référence" droits="collection"/>
 		<item divider='1' />
 		<item module="dbstructureSchema" droits="collection" label="Schéma de la base de données" tooltip="Schéma de la base de données">
 			<item module="dbstructureSchema" droits="collection" label="Schéma de la base de données" tooltip="Schéma de la base de données" />

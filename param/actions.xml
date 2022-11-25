@@ -338,6 +338,9 @@
 	<requestWriteExec action="modules/request/request.php" param="write" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestExec" retourko="requestChange" />
 	<requestCopy action="modules/request/request.php" param="copy" droits="param" type="smarty" />
 
+	<!-- Translations -->
+	<translationChange action="modules/utils/translation.php" param="change" retourlogin="1" droits="collection" type="smarty"/>
+	<translationWrite action="modules/utils/translation.php" param="write" droits="param" retourok="translationChange" retourko="translationChange" modulebefore="translationChange,translationWrite"/>
     <!-- API -->
     <apiv1sampleWrite action="modules/gestion/sampleWs.php" param="write" droits="gestion" type="json"/>
 		<apiv1movementWrite action="modules/gestion/movementWs.php" param="write" droits="gestion" type="json" />

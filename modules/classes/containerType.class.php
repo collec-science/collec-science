@@ -9,12 +9,6 @@
 class ContainerType extends ObjetBDD
 {
 
-    private $sql = "select *
-			from container_type
-			join container_family using (container_family_id)
-			left outer join storage_condition using (storage_condition_id)
-			left outer join label using (label_id)";
-
     /**
      *
      * @param PDO $bdd
@@ -33,11 +27,6 @@ class ContainerType extends ObjetBDD
             "container_type_name" => array(
                 "type" => 0,
                 "requis" => 1
-            ),
-            "container_family_id" => array(
-                "type" => 1,
-                "requis" => 1,
-                "parentAttrib" => 1
             ),
             "container_type_description" => array(
                 "type" => 0
@@ -82,13 +71,18 @@ class ContainerType extends ObjetBDD
         );
         parent::__construct($bdd, $param);
     }
-
-    function getListe($field = "")
+    function getListe($order = "")
     {
-        $order = "";
-        if (($field > 0 && is_numeric($field)) || !empty($field)) {
-            $order = " order by $field";
+        $sql = "select container_type_id, translate(container_type_name, '" . $_SESSION["locale"] . "') as container_type_name
+                ,container_type_description
+                ,storage_condition_id,storage_product
+                ,translate(clp_classification, '" . $_SESSION["locale"] . "') as clp_classification
+                ,label_id
+                ,columns, lines, first_line, nb_slots_max, first_column, line_in_char, column_in_char
+                from container_type";
+        if (strlen($order) > 0) {
+            $sql .= " order by " . $order;
         }
-        return parent::getListeParam($this->sql . $order);
+        return parent::getListeParam($sql);
     }
 }

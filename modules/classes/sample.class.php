@@ -16,7 +16,7 @@ class Sample extends ObjetBDD
 
   private $sql = "select distinct on (s.uid) s.sample_id, s.uid,
 					s.collection_id, collection_name, no_localization, s.sample_type_id, s.dbuid_origin,
-                    sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
+                    translate(sample_type_name,:LOCALE) as sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
                     s.campaign_id, campaign_name,camp.uuid as campaign_uuid,
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
@@ -27,18 +27,18 @@ class Sample extends ObjetBDD
           case when s.country_id is not null then sc.country_name else csp.country_name end as country_name,
           case when s.country_id is not null then sc.country_code2 else csp.country_code2 end as country_code2,
           s.country_origin_id, sco.country_name as country_origin_name, sco.country_code2 as country_origin_code2,
-          so.object_status_id, object_status_name,so.referent_id,
+          so.object_status_id, translate(object_status_name,:LOCALE) as object_status_name,so.referent_id,
           so.change_date, so.uuid, so.trashed, so.location_accuracy, so.object_comment,
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
           voip.identifiers as parent_identifiers,
-					ct.container_type_name, ct.clp_classification,
+					translate(ct.container_type_name,:LOCALE) as container_type_name, translate(ct.clp_classification, :LOCALE) as clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
 					metadata_schema,
 					document_id, voi.identifiers,
-					movement_date, movement_type_name, movement_type_id,
+					movement_date, translate(movement_type_name, :LOCALE) as movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,
           lm.line_number, lm.column_number,
-          container_uid, oc.identifier as container_identifier, oc.uuid as container_uuid, lmct.container_type_name as storage_type_name,
+          container_uid, oc.identifier as container_identifier, oc.uuid as container_uuid, translate(lmct.container_type_name, :LOCALE) as storage_type_name,
           case when ro.referent_name is not null then ro.referent_id else cr.referent_id end as real_referent_id,
           case when ro.referent_name is not null then ro.referent_name else cr.referent_name end as referent_name,
           case when ro.referent_name is not null then ro.referent_email else cr.referent_email end as referent_email,
@@ -146,6 +146,10 @@ class Sample extends ObjetBDD
       "country_id" => array("type" => 1),
       "country_origin_id" => array("type" => 1)
     );
+    /**
+     * Set the locale for the function translate
+     */
+    $this->sql = str_replace (":LOCALE", "'".$_SESSION["locale"]."'", $this->sql);
     parent::__construct($bdd, $param);
   }
 
@@ -776,7 +780,7 @@ class Sample extends ObjetBDD
   public function getForExport($uids)
   {
     if (empty($uids)) {
-      throw new SampleException("Pas d'échantillons sélectionnés");
+      throw new SampleException(_("Pas d'échantillons sélectionnés"));
     } else {
       $this->auto_date = 0;
       $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy

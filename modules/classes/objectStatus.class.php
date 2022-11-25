@@ -27,5 +27,14 @@ class ObjectStatus extends ObjetBDD {
 		);
 		parent::__construct ( $bdd, $param );
 	}
+	function getListe($order = "")
+	{
+		$sql = "select object_status_id, translate(object_status_name, '" . $_SESSION["locale"] . "') as object_status_name
+			from object_status";
+		if (strlen($order) > 0) {
+			$sql .= " order by " . $order;
+		}
+		return $this->getListeParam($sql);
+	}
 }
 ?>

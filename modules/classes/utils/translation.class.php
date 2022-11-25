@@ -33,7 +33,7 @@ class Translation extends ObjetBDD
                 "requis" => 1,
                 "defaultValue" => 0
             ),
-            "country_code" => array(
+            "translation_country" => array(
                 "type" => 0,
                 "requis" => 1
             ),
@@ -68,11 +68,15 @@ class Translation extends ObjetBDD
             $sql .= "SELECT '" . $this->tableList[$i] . "' as tablename, " . $this->tableList[$i] . "_name as initial_label 
             FROM " . $this->tableList[$i];
         }
+        /**
+         * Add the particulary columns
+         */
+        $sql .= " UNION SELECT 'container_type_clp' as tablename, clp_classification as initial_label from container_type where clp_classification is not null";
         $sql .= ")";
         $sql .= " SELECT tablename, req.initial_label, coalesce(translation_id, 0) as translation_id, country_label
                 FROM req
-                LEFT OUTER JOIN translation t on (req.initial_label = t.initial_label and country_code = :country_code)";
-        return $this->getListeParamAsPrepared($sql, array("country_code" => $country));
+                LEFT OUTER JOIN translation t on (req.initial_label = t.initial_label and translation_country = :translation_country)";
+        return $this->getListeParamAsPrepared($sql, array("translation_country" => $country));
     }
 /**
  * Write all translations for a country code
@@ -90,7 +94,7 @@ class Translation extends ObjetBDD
             if (substr($k,0,2) == "id") {
                 $ka = explode("-",$k);
                 $row = array(
-                    "country_code"=>$country_code,
+                    "translation_country"=>$country_code,
                     "translation_id"=>$v,
                     "initial_label"=>$source["row-".$ka[1]."-initial_label"],
                     "country_label"=>$source["row-".$ka[1]."-country_label"]

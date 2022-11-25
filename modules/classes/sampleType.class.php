@@ -14,8 +14,8 @@ class SampleType extends ObjetBDD
      * @param PDO $bdd
      * @param array $param
      */
-    private $sql = "select sample_type_id, sample_type_name,
-					container_type_name, sample_type_description,
+    private $sql = "select sample_type_id, translate(sample_type_name, :LOCALE) as sample_type_name,
+					translate(container_type_name, :LOCALE) as container_type_name, sample_type_description,
 					operation_id, operation_name ,operation_version, protocol_name, protocol_year, protocol_version,
 					multiple_type_id, multiple_unit, multiple_type_name,
                     metadata_id, metadata_name,
@@ -64,6 +64,10 @@ class SampleType extends ObjetBDD
                 "type" => 0
             )
         );
+        /**
+         * Set the locale for the function translate
+         */
+        $this->sql = str_replace(":LOCALE", "'" . $_SESSION["locale"] . "'", $this->sql);
         parent::__construct($bdd, $param);
     }
 
@@ -80,15 +84,16 @@ class SampleType extends ObjetBDD
             $tri = " order by $order";
         return $this->getListeParam($this->sql . $tri);
     }
-/**
- * Get the list of sample_types, associated with a collection or orphaned
- *
- * @param integer $collection_id
- * @return array
- */
-    function getListFromCollection(int $collection_id = 0) :array
+    /**
+     * Get the list of sample_types, associated with a collection or orphaned
+     *
+     * @param integer $collection_id
+     * @return array
+     */
+    function getListFromCollection(int $collection_id = 0): array
     {
-        $sql = "select distinct sample_type_id, sample_type_name, multiple_type_id, multiple_type_name, multiple_unit
+        $sql = "select distinct sample_type_id, translate(sample_type_name, '".$_SESSION["locale"]."') as sample_type_name, multiple_type_id, 
+                translate(multiple_type_name'".$_SESSION["locale"]."') as multiple_type_name, multiple_unit
                 from sample_type
                 left outer join multiple_type using (multiple_type_id)";
         $order = " order by sample_type_name";
@@ -167,7 +172,7 @@ class SampleType extends ObjetBDD
     function getIdFromName(string $name): ?int
     {
         if (!empty($name)) {
-            $sql = "select sample_type_id from sample_type where sample_type_name = :name";
+            $sql = "select sample_type_id from sample_type where translate(sample_type_name,'".$_SESSION["locale"]."') = :name";
             $data = $this->lireParamAsPrepared($sql, array("name" => $name));
         }
         if (!empty($data["sample_type_id"])) {

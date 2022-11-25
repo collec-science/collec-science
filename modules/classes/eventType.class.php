@@ -49,7 +49,7 @@ class EventType extends ObjetBDD
 	function getListeFromCategory($category, $collection_id = 0)
 	{
 		$data = array();
-		$sql = "select distinct event_type_id, event_type_name
+		$sql = "select distinct event_type_id, translate(event_type_name,'".$_SESSION["locale"]."') as event_type_name
 				from event_type";
 		$order = " order by event_type_name";
 		if ($category == "container") {
@@ -68,10 +68,21 @@ class EventType extends ObjetBDD
 
 	function getListForSamples()
 	{
-		$sql = "select event_type_id, event_type_name, is_sample, is_container
+		$sql = "select event_type_id, translate(event_type_name,'".$_SESSION["locale"]."') as event_type_name, is_sample, is_container
 						from event_type
 						where is_sample = true
 						order by event_type_name";
+		return $this->getListeParam($sql);
+	}
+
+	function getListe($order = "")
+	{
+		$sql = "select event_type_id, translate(event_type_name, '" . $_SESSION["locale"] . "') as event_type_name
+			,is_sample, is_container
+			from event_type";
+		if (strlen($order) > 0) {
+			$sql .= " order by " . $order;
+		}
 		return $this->getListeParam($sql);
 	}
 }

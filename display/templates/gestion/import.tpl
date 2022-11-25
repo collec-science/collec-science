@@ -95,6 +95,7 @@
                   <li><b>container_type_id / container_type_name</b> : {t}le numéro informatique du type de contenant ou son nom (obligatoire){/t} <a href="index.php?module=containerTypeList">{t}Types de conteneurs{/t}</a></li>
                   <li><b>container_status_id / container_status_name</b> : {t}le numéro informatique du statut du contenant ou son nom (obligatoire){/t} <a href="index.php?module=objectStatusList">{t}Liste des statuts{/t}</a></li>
                   <li><b>container_uuid</b> : {t}UID Universel du contenant (UUID){/t}</li>
+                  <li><b>container_collection_id / container_collection_name</b> : {t}le numéro informatique de la collection ou son nom{/t} <a href="index.php?module=collectionList">{t}Liste des collections{/t}</a></li>
                   <li><b>container_comment</b> : {t}Commentaire libre sur le contenant{/t}</li>
                   <li><b>container_location</b> : {t}l'emplacement de rangement du contenant dans son contenant (texte libre){/t}</li>
                   <li><b>container_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>

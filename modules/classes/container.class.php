@@ -385,7 +385,7 @@ class Container extends ObjetBDD
      */
     $searchOk = false;
     $paramName = array(
-      "uidsearch", "name", "container_family_id", "container_type_id",  "select_date", "referent_id"
+      "uidsearch", "name", "container_family_id", "container_type_id",  "select_date", "referent_id", "collection_id"
     );
     if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["event_type_id"] > 0 || $param["movement_reason_id"] > 0) {
       $searchOk = true;

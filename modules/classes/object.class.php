@@ -20,11 +20,12 @@ class ObjectClass extends ObjetBDD
 
   private $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id, change_date, uuid, trashed,
                   location_accuracy, geom, object_comment,
-                  collection_id, sample_type_id,
+                  case when s.collection_id is null then c.collection_id else s.collection_id end as collection_id,
+                  sample_type_id,
                   container_type_id
                   from object
-                  left outer join sample using (uid)
-                  left outer join container using (uid)";
+                  left outer join sample s using (uid)
+                  left outer join container c using (uid)";
 
   /**
    *

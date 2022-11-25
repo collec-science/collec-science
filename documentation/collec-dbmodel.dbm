@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.0-beta" use-changelog="false" last-position="117,644" last-zoom="1" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.0-beta" use-changelog="false" last-position="789,1030" last-zoom="1" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -3683,6 +3683,14 @@ where collection_id = $1]]> </definition>
 	 src-table="col.collection"
 	 dst-table="col.container"
 	 src-required="false" dst-required="false"/>
+
+<index name="container_collection_id_idx" table="col.container"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="collection_id"/>
+		</idxelement>
+</index>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

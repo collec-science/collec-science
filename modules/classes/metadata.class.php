@@ -56,7 +56,7 @@ class Metadata extends ObjetBDD
                      */
                     $sql = "
                     CREATE INDEX if not exists sample_metadata_lower_".$item["name"]."_idx
-                    ON sample using gin(lower((metadata->>'".$item["name"]."')) gin_trgm_ops)";
+                    ON sample using gist(lower((metadata->>'".$item["name"]."')) gist_trgm_ops)";
                     $this->executeSQL($sql);
                 }
             }

@@ -9,7 +9,7 @@ USING btree(collection_id);
 
 CREATE TABLE col.translation (
 	translation_id serial NOT NULL,
-	country_code varchar NOT NULL,
+	translation_country varchar NOT NULL,
 	initial_label varchar NOT NULL,
 	country_label varchar,
 	CONSTRAINT translation_pk PRIMARY KEY (translation_id)
@@ -17,7 +17,7 @@ CREATE TABLE col.translation (
 -- ddl-end --
 COMMENT ON TABLE col.translation IS E'Table of translations from English to other languages';
 -- ddl-end --
-COMMENT ON COLUMN col.translation.country_code IS E'Country code on 2 positions (fr, en, sp, pt), in lowercase';
+COMMENT ON COLUMN col.translation.translation_country IS E'Country code on 2 positions (fr, en), in lowercase';
 -- ddl-end --
 COMMENT ON COLUMN col.translation.initial_label IS E'Initial label to translate';
 -- ddl-end --
@@ -31,7 +31,7 @@ ALTER TABLE col.translation OWNER TO collec;
 CREATE UNIQUE INDEX initial_label_code_idx ON col.translation
 USING btree
 (
-	country_code,
+	translation_country,
 	initial_label
 );
 

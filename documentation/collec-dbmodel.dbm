@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.0-beta" use-changelog="false" last-position="812,772" last-zoom="0.65" max-obj-count="76"
+<dbmodel pgmodeler-ver="1.0.0-beta" use-changelog="false" last-position="552,768" last-zoom="0.65" max-obj-count="76"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -3700,7 +3700,7 @@ where collection_id = $1]]> </definition>
 	<column name="translation_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="country_code" not-null="true">
+	<column name="translation_country" not-null="true">
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[Country code on 2 positions (fr, en, sp, pt), in lowercase]]> </comment>
 	</column>
@@ -3732,7 +3732,7 @@ en•Objet détruit•Object destroyed]]>
 	 concurrent="false" unique="true" fast-update="false" buffering="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
-			<column name="country_code"/>
+			<column name="translation_country"/>
 		</idxelement>
 		<idxelement use-sorting="false">
 			<column name="initial_label"/>
@@ -3755,18 +3755,18 @@ en•Objet détruit•Object destroyed]]>
 	<return-type>
 	<type name="varchar" length="0"/>
 	</return-type>
-	<parameter name="initial_label" in="true">
+	<parameter name="initial" in="true">
 		<type name="varchar" length="0"/>
 	</parameter>
-	<parameter name="country_code" in="true">
+	<parameter name="country" in="true">
 		<type name="varchar" length="0"/>
 	</parameter>
 	<definition> <![CDATA[declare translated text := '';
 begin
-	select country_label into translated from translation 
-	where country_code = $2
+select country_label into translated from translation 
+	where translation_country = $2
 	and initial_label = $1;
-	return coalesce (translated, initial_label);
+	return coalesce (translated, initial);
 end]]> </definition>
 </function>
 

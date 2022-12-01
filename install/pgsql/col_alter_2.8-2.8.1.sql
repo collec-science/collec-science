@@ -70,5 +70,5 @@ language 'plpgsql';
 
 select col.regenerate_metadata_indexes();
 
-insert into col.dbversion (dbversion_number, dbversion_date) values ('2.8.1', '2022-11-01');
+insert into col.dbversion (dbversion_number, dbversion_date) values ('2.8.1', '2022-12-01');
 

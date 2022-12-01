@@ -2160,6 +2160,13 @@ USING gist
 	geom
 );
 -- ddl-end --
+create index object_identifier_idx on col.object using gist (lower(identifier) gist_trgm_ops);
+
+CREATE INDEX object_uuid_idx ON col.object
+USING btree
+(
+	uuid
+);
 
 -- object: col.campaign_campaign_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.campaign_campaign_id_seq CASCADE;
@@ -3493,7 +3500,7 @@ CREATE FUNCTION col.getsampletypesfromcollection (IN collection_id integer)
 	PARALLEL UNSAFE
 	COST 1
 	AS $$
-select array_to_string(array_agg(sample_type_name), ', ') as sampletypes
+select array_to_string(array_agg(sample_type_name order by sample_type_name), ', ') as sampletypes
 from col.collection_sampletype
 join col.sample_type using (sample_type_id)
 where collection_id = $1
@@ -3560,7 +3567,7 @@ CREATE FUNCTION col.geteventtypesfromcollection (IN collection_id integer)
 	PARALLEL UNSAFE
 	COST 1
 	AS $$
-select array_to_string(array_agg(event_type_name), ', ') as eventtypes
+select array_to_string(array_agg(event_type_name order by event_type_name), ', ') as eventtypes
 from col.collection_eventtype
 join col.event_type using (event_type_id)
 where collection_id = $1
@@ -3883,3 +3890,4 @@ ALTER TABLE col.object ADD CONSTRAINT referent_object_fk FOREIGN KEY (referent_i
 REFERENCES col.referent (referent_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
+insert into col.dbversion (dbversion_number, dbversion_date) values ('2.8.1', '2022-12-01');

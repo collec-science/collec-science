@@ -12,6 +12,12 @@ Corrections de bugs :
 - dans la liste des collections, la liste des types d'échantillons disponibles n'était pas triée. C'était également le cas pour les types d'événements associés
 - il était possible de requêter des tables contenant des informations confidentielles
 - dans certains cas (boites d'onglets), les listes étaient mal formatées, avec un décalage entre l'entête et la liste des informations
+- en modification des échantillons, les métadonnées n'étaient pas affichées
+- l'impression des étiquettes ne fonctionnait plus avec un navigateur Chrome. Pour corriger ce problème, les étiquettes sont maintenant affichées dans la fenêtre courante du navigateur
+- dans la liste des échantillons, le formulaire permettant la création d'un événement de masse ne contenait pas la date d'échéance
+- dans certains cas, l'appel à un module admin ne demandait pas la réidentification de l'utilisateur
+- avec les versions récentes de postgresql (à partir de la version 13), les sauvegardes en mode SQL peuvent ne plus fonctionner, en raison d'index qui utilisaient un type ancien.
+- l'import d'échantillons provenant d'une autre instance (import externe) ne fonctionnait plus avec la version 8.1 de PHP
 
 Nouveautés :
 - il est possible de limiter le nombre d'échantillons ramenés lors d'une sélection. Un message d'information est alors affiché, précisant le nombre total d'échantillons concernés par la requête

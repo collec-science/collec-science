@@ -275,7 +275,7 @@ class Login
       phpCAS::setDebug("temp/cas.log");
       phpCAS::setVerbose(true);
     }
-    phpCAS::client(CAS_VERSION_2_0, $CAS_address, $CAS_port, $CAS_uri, false);
+    phpCAS::client(CAS_VERSION_2_0, $CAS_address, $CAS_port, $CAS_uri, "https://".$_SERVER["HTTP_HOST"], false);
     if (!empty($CAS_CApath)) {
       phpCAS::setCasServerCACert($CAS_CApath);
     } else {

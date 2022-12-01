@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.0-beta" use-changelog="false" last-position="169,1677" last-zoom="1" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.0-beta1" use-changelog="false" last-position="876,439" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -2075,10 +2075,6 @@ Autre]]>
 	</label>
 </relationship>
 
-<extension name="btree_gin">
-	<schema name="pg_catalog"/>
-</extension>
-
 <extension name="pgcrypto">
 	<schema name="public"/>
 </extension>
@@ -2276,6 +2272,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 	<comment> <![CDATA[Table of objects]]> </comment>
 	<tag name="objects"/>
+	<appended-sql> <![CDATA[create index object_identifier_idx on col.object using gist (lower(identifier) gist_trgm_ops);]]> </appended-sql>
 	<position x="1280" y="1320"/>
 	<column name="uid" not-null="true" sequence="col.object_uid_seq">
 		<type name="integer" length="0"/>
@@ -2434,14 +2431,15 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="campaign_fk" index="0"/>
+		<object name="campaign_fk" index="1"/>
+		<object name="regulation_fk" index="2"/>
 	</customidxs>
 </table>
 
 <relationship name="campaign_has_many_campaign_regulation" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.campaign"
 	 dst-table="col.campaign_regulation"
@@ -2450,7 +2448,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="regulation_has_many_campaign_regulation" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#ffaa00"
 	 src-table="col.regulation"
 	 dst-table="col.campaign_regulation"
@@ -2463,7 +2461,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="campaign_has_many_sample" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.campaign"
 	 dst-table="col.sample"
@@ -2472,7 +2470,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="referent_has_many_campaign" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.referent"
 	 dst-table="col.campaign"
@@ -2481,7 +2479,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="campaign_has_many_document" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.campaign"
 	 dst-table="col.document"
@@ -2516,7 +2514,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="collection_has_many_lot" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.lot"
@@ -2534,7 +2532,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="lot_has_many_lot_sample" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#550000"
 	 src-table="col.lot"
 	 dst-table="col.lot_sample"
@@ -2546,7 +2544,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="sample_has_many_lot_sample" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#204a87"
 	 src-table="col.sample"
 	 dst-table="col.lot_sample"
@@ -2577,6 +2575,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	</customidxs>
 
 	<customidxs object-type="constraint">
+		<object name="export_template_fk" index="2"/>
 		<object name="lot_fk" index="1"/>
 	</customidxs>
 </table>
@@ -2584,7 +2583,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="lot_has_many_export" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#550000"
 	 src-table="col.lot"
 	 dst-table="col.export"
@@ -2628,7 +2627,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="export_template_has_many_export" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#550000"
 	 src-table="col.export_template"
 	 dst-table="col.export"
@@ -2681,6 +2680,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	</customidxs>
 
 	<customidxs object-type="constraint">
+		<object name="dataset_type_fk" index="2"/>
 		<object name="export_format_fk" index="1"/>
 	</customidxs>
 </table>
@@ -2711,7 +2711,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="export_format_has_many_dataset_template" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#550000"
 	 src-table="col.export_format"
 	 dst-table="col.dataset_template"
@@ -2729,7 +2729,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="export_template_has_many_export_dataset" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#550000"
 	 src-table="col.export_template"
 	 dst-table="col.export_dataset"
@@ -2741,7 +2741,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="dataset_template_has_many_export_dataset" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#550000"
 	 src-table="col.dataset_template"
 	 dst-table="col.export_dataset"
@@ -2801,13 +2801,14 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 
 	<customidxs object-type="constraint">
 		<object name="dataset_template_fk" index="1"/>
+		<object name="translator_fk" index="2"/>
 	</customidxs>
 </table>
 
 <relationship name="dataset_template_has_many_dataset_column" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#550000"
 	 src-table="col.dataset_template"
 	 dst-table="col.dataset_column"
@@ -2838,7 +2839,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="translator_has_many_dataset_column" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#550000"
 	 src-table="col.translator"
 	 dst-table="col.dataset_column"
@@ -2876,7 +2877,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="dataset_type_has_many_dataset_template" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#550000"
 	 src-table="col.dataset_type"
 	 dst-table="col.dataset_template"
@@ -2921,7 +2922,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 <relationship name="collection_has_many_samplesearch" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.samplesearch"
@@ -2958,7 +2959,7 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 <relationship name="license_has_many_collection" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.license"
 	 dst-table="col.collection"
@@ -3373,7 +3374,7 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 <relationship name="country_has_many_sample" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.country"
 	 dst-table="col.sample"
@@ -3383,7 +3384,7 @@ CCBY•https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 <relationship name="country_has_many_sampling_place" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.country"
 	 dst-table="col.sampling_place"
@@ -3422,7 +3423,7 @@ from col.sample s
 <relationship name="country_origin_has_many_sample" type="rel1n" layers="0"
 	 src-col-pattern="country_origin_id"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.country"
 	 dst-table="col.sample"
@@ -3467,7 +3468,7 @@ EAN 128•C128]]>
 <relationship name="barcode_type_has_many_label" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 custom-color="#c17d11"
 	 src-table="col.barcode"
 	 dst-table="col.label"
@@ -3477,7 +3478,7 @@ EAN 128•C128]]>
 <relationship name="borrower_has_many_subsample" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}"
+	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
 	 custom-color="#8ae234"
 	 src-table="col.borrower"
 	 dst-table="col.subsample"
@@ -3487,7 +3488,7 @@ EAN 128•C128]]>
 <relationship name="collection_has_many_request" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}"
+	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.request"
@@ -3547,7 +3548,7 @@ EAN 128•C128]]>
 <relationship name="collection_has_many_collection_sampletype" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}"
+	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.collection_sampletype"
@@ -3559,7 +3560,7 @@ EAN 128•C128]]>
 <relationship name="sample_type_has_many_collection_sampletype" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}"
+	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
 	 custom-color="#3465a4"
 	 src-table="col.sample_type"
 	 dst-table="col.collection_sampletype"
@@ -3627,7 +3628,7 @@ where collection_id = $1]]> </definition>
 <relationship name="collection_has_many_collection_eventtype" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}"
+	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
 	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.collection_eventtype"
@@ -3639,7 +3640,7 @@ where collection_id = $1]]> </definition>
 <relationship name="event_type_has_many_collection_eventtype" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}"
+	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
 	 custom-color="#73d216"
 	 src-table="col.event_type"
 	 dst-table="col.collection_eventtype"
@@ -3671,6 +3672,22 @@ from col.collection_eventtype
 join col.event_type using (event_type_id)
 where collection_id = $1]]> </definition>
 </function>
+
+<index name="object_uuid_idx" table="col.object"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="uuid"/>
+		</idxelement>
+</index>
+
+<index name="object_change_date_idx" table="col.object"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="change_date"/>
+		</idxelement>
+</index>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

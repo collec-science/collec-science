@@ -862,7 +862,7 @@ class Sample extends ObjetBDD
    */
   public function generateArrayUidToString($uids)
   {
-    if (count($uids) > 0) {
+    if (!empty($uids) ) {
       /*
              * Verification que les uid sont numeriques
              * preparation de la clause where
@@ -899,8 +899,8 @@ class Sample extends ObjetBDD
     );
     foreach ($data as $line) {
       foreach ($fields as $field) {
-        if (strlen($line[$field]) > 0) {
-          if (!in_array($line[$field], $names[$field])) {
+        if (strlen($line[$field]) > 0 ) {
+          if (empty($names[$field]) || !in_array($line[$field], $names[$field])) {
             $names[$field][] = $line[$field];
           }
         }
@@ -912,7 +912,7 @@ class Sample extends ObjetBDD
         $idents = explode(",", $line["identifiers"]);
         foreach ($idents as $ident) {
           $idvalue = explode(":", $ident);
-          if (!in_array($idvalue[0], $names["identifier_type_code"])) {
+          if (!empty($idvalue) && (empty($names["identifier_type_code"]) || !in_array($idvalue[0], $names["identifier_type_code"]))) {
             $names["identifier_type_code"][] = $idvalue[0];
           }
         }

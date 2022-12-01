@@ -617,6 +617,10 @@ try {
        */
       switch ($motifErreur) {
         case "droitko":
+          if (!isset($acllogin)) {
+            include_once "framework/droits/acllogin.class.php";
+            $acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
+          }
           if (!$acllogin->isTotp() || !$moduleAdmin) {
             /**
              * Send mail to administrators

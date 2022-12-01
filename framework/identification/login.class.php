@@ -36,6 +36,7 @@ class Login
       $tauth = "swtoken";
       if ($this->loginGestion->getLoginFromTokenWS($_REQUEST["login"], $_REQUEST["token"])) {
         $login = $_REQUEST["login"];
+        $_SESSION["realIdentificationMode"] = "ws";
       }
     } elseif (isset($_COOKIE["tokenIdentity"])) {
       $tauth = "token";
@@ -61,19 +62,24 @@ class Login
     } elseif ($type_authentification == "HEADER") {
       $tauth = "header";
       $login = $this->getLoginFromHeader();
+      $_SESSION["realIdentificationMode"] = "HEADER";
     } elseif ($type_authentification == "CAS") {
       $tauth = "cas";
       $login = $this->getLoginCas($modeAdmin);
+      $_SESSION["realIdentificationMode"] = "CAS";
     } elseif ($type_authentification == "LDAP" || $type_authentification == "LDAP-BDD") {
       $tauth = "ldap";
       $login = $this->getLoginLdap($_POST["login"], $_POST["password"]);
+      $_SESSION["realIdentificationMode"] = "LDAP";
       if (empty($login) && $type_authentification == "LDAP-BDD") {
         $tauth = "db";
         $login = $this->getLoginBDD($_POST["login"], $_POST["password"]);
+        $_SESSION["realIdentificationMode"] = "BDD";
       }
     } elseif ($type_authentification == "BDD" || $type_authentification == "CAS-BDD") {
       $tauth = "db";
       $login = $this->getLoginBDD($_POST["login"], $_POST["password"]);
+      $_SESSION["realIdentificationMode"] = "BDD";
     }
     if (!empty($login)) {
       $this->log->setlog($login, "connection-" . $tauth, "ok");

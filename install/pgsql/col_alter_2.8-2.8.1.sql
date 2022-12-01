@@ -40,7 +40,7 @@ ALTER FUNCTION col.getsampletypesfromcollection(integer) OWNER TO collec;
 drop index if exists col.object_identifier_idx;
 create index object_identifier_idx on col.object using gist (lower(identifier) gist_trgm_ops);
 
-CREATE INDEX object_uuid_idx if not exists ON col.object
+CREATE INDEX if not exists object_uuid_idx ON col.object
 USING btree
 (
 	uuid

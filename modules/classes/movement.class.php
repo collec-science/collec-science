@@ -215,7 +215,7 @@ class Movement extends ObjetBDD
             $message .= _("L'UID du contenant n'est pas numérique. ");
             $controle = false;
         }
-        if (empty($login) == 0) {
+        if (empty($login) ) {
             if (!empty($_SESSION["login"]) ) {
                 $login = $_SESSION["login"];
             } else {

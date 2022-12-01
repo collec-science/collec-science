@@ -127,7 +127,7 @@ class Log extends ObjetBDD
     {
         global $GACL_aco;
         if (isset($_SESSION["login"])) {
-            $module = $GACL_aco."-connection%";
+            $module = $GACL_aco . "-connection%";
             $sql = "select log_date, ipaddress from log where login = :login
             and nom_module like :module and commentaire like 'ok%'
             order by log_id desc limit 2";
@@ -135,7 +135,7 @@ class Log extends ObjetBDD
                 $sql,
                 array(
                     "login" => $_SESSION["login"],
-                    "module"=>$module
+                    "module" => $module
                 )
             );
             return $data[1];
@@ -151,8 +151,8 @@ class Log extends ObjetBDD
     {
         global $GACL_aco;
         if (isset($_SESSION["login"])) {
-            $module = $GACL_aco."-connection%";
-            $token = $GACL_aco."-connection-token";
+            $module = $GACL_aco . "-connection%";
+            $token = $GACL_aco . "-connection-token";
             $sql = "select log_date, ipaddress from log where login = :login
             and nom_module like :module and commentaire like 'ok%' and commentaire <> :token
             and log_date > :datefrom
@@ -182,10 +182,10 @@ class Log extends ObjetBDD
     {
         if (!empty($login)) {
             global $GACL_aco;
-            $like = " like '".$GACL_aco."-connection%'";
+            $like = " like '" . $GACL_aco . "-connection%'";
             $sql = "select nom_module from log";
             $sql .= " where login = :login and nom_module $like and commentaire = 'ok' and nom_module <> 'connection-token'";
-            $sql .= "order by log_id desc limit 1";
+            $sql .= " order by log_id desc limit 1";
             $data = $this->lireParamAsPrepared(
                 $sql,
                 array(
@@ -219,7 +219,7 @@ class Log extends ObjetBDD
         $accountBlocking = false;
         $date = new DateTime("now");
         $date->sub(new DateInterval("PT" . $maxtime . "S"));
-        $nom_module = $GACL_aco."-connectionBlocking";
+        $nom_module = $GACL_aco . "-connectionBlocking";
         $sql = "select log_id from log where lower(login) = lower(:login) and nom_module = '$nom_module' and log_date > :blockingdate order by log_id desc limit 1";
         $data = $this->lireParamAsPrepared(
             $sql,
@@ -232,7 +232,7 @@ class Log extends ObjetBDD
             $accountBlocking = true;
         }
         if (!$accountBlocking) {
-            $nom_module = $GACL_aco."-connection%";
+            $nom_module = $GACL_aco . "-connection%";
             $sql = "select log_date, commentaire from log where lower(login) = lower(:login)
                     and nom_module like '$nom_module'
                     and log_date > :blockingdate
@@ -277,14 +277,17 @@ class Log extends ObjetBDD
      */
     public function blockingAccount($login)
     {
-        global $message, $APPLI_address, $GACL_aco;
+        global $message;
         $login = strtolower($login);
         $this->setLog($login, "connectionBlocking");
         $message->setSyslog("connectionBlocking for login $login");
-        $date = date("Y-m-d H:i:s");
-        $subject = "SECURITY REPORTING - " . $GACL_aco . " - account blocked";
-        $contents = "<html><body>" . "The account <b>$login<b> was blocked at $date for too many connection attempts" . '<br>Software : <a href="' . $APPLI_address . '">' . $APPLI_address . "</a>" . '</body></html>';
-        $this->sendMailToAdmin($subject, $contents, "sendMailAdminForBlocking", $login);
+        $this->sendMailToAdmin(
+            sprintf(_("Collec-Science - %s - Compte bloqué"), $_SESSION["APPLI_title"]),
+            "framework/mail/accountBlocked.tpl",
+            array("login" => $login, "date" => date($_SESSION["MASKDATELONG"])),
+            "",
+            $login
+        );
     }
     /**
      * Calculate the number of calls to a module
@@ -311,9 +314,13 @@ class Log extends ObjetBDD
             $this->setLog($_SESSION["login"], "nbMaxCallReached", $messageLog);
             $message->setSyslog($GACL_aco . "-" . $APPLI_address . ":nbMaxCallReached-" . $messageLog);
             $message->set(_("Le nombre d'accès autorisés pour le module demandé a été atteint. Si vous considérez que la valeur est trop faible, veuillez contacter l'administrateur de l'application"), true);
-            $subject = "SECURITY REPORTING - " . $GACL_aco . " - Maximum number of calls to a module reached";
-            $contents = "<html><body>" . "The account <b>" . $_SESSION["login"] . "<b> as reached the maximum number of authorized calls for the module $moduleName" . "<br>" . $data["nombre"] . " calls made in $duration seconds." . '<br>Software : <a href="' . $APPLI_address . '">' . $APPLI_address . "</a>" . '</body></html>';
-            $this->sendMailToAdmin($subject, $contents, "sendMailAdminForMaxCalls", $_SESSION["login"]);
+            $this->sendMailToAdmin(
+                sprintf(_("Collec-Science - %s - Trop d'accès à un module"),$_SESSION["APPLI_title"]), 
+                "framework/mail/maxAccessToModule.tpl", 
+                array("login" => $_SESSION["login"], "module" => $moduleName, "date" => date($_SESSION["MASKDATELONG"])),
+                $moduleName, 
+                $_SESSION["login"])
+                ;
             return false;
         } else {
             return true;
@@ -322,26 +329,23 @@ class Log extends ObjetBDD
     /**
      * Send mails to administrors
      *
-     * @param [string] $subject: subject of mail
-     * @param [string] $contents: content of mail, in html format
-     * @param [string] $moduleName: name of the module recorded in log table for this send
-     * @param [type] $login: login of the user concerned by this message
+     * @param string $subject: subject of mail
+     * @param string $contents: content of mail, in html format
+     * @param string $moduleName: name of the module recorded in log table for this send
+     * @param string $login: login of the user concerned by this message
      * @return void
      */
-    public function sendMailToAdmin($subject, $contents, $moduleName, $login)
+    public function sendMailToAdmin($subject, $templateName, $data, $moduleName, $login)
     {
         global $message, $MAIL_enabled, $APPLI_mail, $APPLI_mailToAdminPeriod, $GACL_aco;
         $moduleNameComplete = $GACL_aco . "-" . $moduleName;
 
         if ($MAIL_enabled == 1) {
-            include_once 'framework/identification/mail.class.php';
+            include_once 'framework/utils/mail.class.php';
             include_once 'framework/droits/droits.class.php';
             include_once 'framework/identification/loginGestion.class.php';
             $MAIL_param = array(
-                "replyTo" => "$APPLI_mail",
-                "subject" => $subject,
-                "from" => "$APPLI_mail",
-                "contents" => $contents,
+                "from" => "$APPLI_mail"
             );
             /*
              * Recherche de la liste des administrateurs
@@ -378,7 +382,8 @@ class Log extends ObjetBDD
                         $dataSql
                     );
                     if (!$logval["log_id"] > 0) {
-                        if ($mail->sendMail($dataLogin["mail"], array())) {
+                        global $SMARTY_param;
+                        if ($mail->SendMailSmarty($SMARTY_param, $dataLogin["mail"], $subject, $templateName, $data)) {
                             $this->setLog($login, $moduleName, $value["login"]);
                         } else {
                             global $message;

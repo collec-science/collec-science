@@ -121,9 +121,15 @@ print_r($cookieParam);*/
  * Recuperation des parametres de l'application definis dans un fichier ini
  */
 if (is_file($paramIniFile)) {
-    $paramAppli = parse_ini_file($paramIniFile);
+    $paramAppli = parse_ini_file($paramIniFile, true);
     foreach ($paramAppli as $key => $value) {
+        if (is_array($value)) {
+            foreach ($value as $k => $v) {
+                $$key[$k]=$v;
+            }
+        } else {
         $$key = $value;
+        }
     }
 }
 /*
@@ -182,11 +188,15 @@ if (!isset($bdd)) {
         $bdd = new PDO($BDD_dsn, $BDD_login, $BDD_passwd);
     } catch (PDOException $e) {
         if ($APPLI_modeDeveloppement) {
-            $message->set($e->getMessage());
+            $message->set($e->getMessage(), true);
         } else {
             $message->setSyslog($e->getMessage());
         }
         $etaconn = false;
+    }
+    if (!isset($bdd)) {
+        throw new FrameworkException(_("La connexion à la base de données a échoué"));
+        $message->setSyslog($e->getMessage());
     }
     if ($etaconn) {
         /*
@@ -202,11 +212,15 @@ if (!isset($bdd)) {
             $bdd_gacl = new PDO($GACL_dsn, $GACL_dblogin, $GACL_dbpasswd);
         } catch (PDOException $e) {
             if ($APPLI_modeDeveloppement) {
-                $message->set($e->getMessage());
+                $message->set($e->getMessage(), true);
             } else {
                 $message->setSyslog($e->getMessage());
             }
             $etaconn = false;
+        }
+        if (!isset($bdd_gacl)) {
+            throw new FrameworkException(_("La connexion à la base de données des droits a échoué"));
+            $message->setSyslog($e->getMessage());
         }
         if ($etaconn) {
             /*
@@ -225,7 +239,9 @@ if (!isset($bdd)) {
 /*
  * Activation de la classe d'enregistrement des traces
  */
+if ($etaconn) {
 $log = new Log($bdd_gacl, $ObjetBDDParam);
+}
 
 /*
  * Verification de la duree maxi de la session
@@ -274,7 +290,7 @@ if (isset($_SESSION["navigation"]) && !$APPLI_modeDeveloppement) {
 /*
  * Traitement des parametres stockes dans la base de donnees
  */
-if (!$_SESSION["dbparamok"]) {
+if (!$_SESSION["dbparamok"] && $etaconn) {
     include_once 'framework/dbparam/dbparam.class.php';
     try {
         $dbparam = new DbParam($bdd, $ObjetBDDParam);
@@ -297,4 +313,6 @@ require_once 'framework/functionsDebug.php';
 /*
  * Chargement des traitements communs specifiques a l'application
  */
+if ($etaconn) {
 require "modules/common.inc.php";
+}

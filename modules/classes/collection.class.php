@@ -249,7 +249,8 @@ class Collection extends ObjetBDD
       $sql = "select sample_type_id, sample_type_name
           from collection_sampletype
 					join sample_type using (sample_type_id)
-					where collection_id = :collection_id";
+					where collection_id = :collection_id
+          order by sample_type_name";
       $var["collection_id"] = $collection_id;
       $data = $this->getListeParamAsPrepared($sql, $var);
     }
@@ -288,7 +289,8 @@ class Collection extends ObjetBDD
       $sql = "select event_type_id, event_type_name
           from collection_eventtype
 					join event_type using (event_type_id)
-					where collection_id = :collection_id";
+					where collection_id = :collection_id
+          order by event_type_name";
       $var["collection_id"] = $collection_id;
       $data = $this->getListeParamAsPrepared($sql, $var);
     }

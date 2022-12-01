@@ -5,6 +5,7 @@ import {Point, toPoint} from '../geometry/Point';
 import {Map} from '../map/Map';
 import {Layer} from './Layer';
 import {Path} from './vector/Path';
+import {FeatureGroup} from './FeatureGroup';
 
 /*
  * @class Popup
@@ -22,12 +23,18 @@ import {Path} from './vector/Path';
  * marker.bindPopup(popupContent).openPopup();
  * ```
  * Path overlays like polylines also have a `bindPopup` method.
- * Here's a more complicated way to open a popup on a map:
+ *
+ * A popup can be also standalone:
  *
  * ```js
  * var popup = L.popup()
  * 	.setLatLng(latlng)
  * 	.setContent('<p>Hello world!<br />This is a nice popup.</p>')
+ * 	.openOn(map);
+ * ```
+ * or
+ * ```js
+ * var popup = L.popup(latlng, {content: '<p>Hello world!<br />This is a nice popup.</p>')
  * 	.openOn(map);
  * ```
  */
@@ -58,6 +65,8 @@ export var Popup = DivOverlay.extend({
 		// @option maxHeight: Number = null
 		// If set, creates a scrollable container of the given height
 		// inside a popup if its content exceeds it.
+		// The scrollable container can be styled using the
+		// `leaflet-popup-scrolled` CSS class selector.
 		maxHeight: null,
 
 		// @option autoPan: Boolean = true
@@ -203,7 +212,10 @@ export var Popup = DivOverlay.extend({
 			closeButton.href = '#close';
 			closeButton.innerHTML = '<span aria-hidden="true">&#215;</span>';
 
-			DomEvent.on(closeButton, 'click', this.close, this);
+			DomEvent.on(closeButton, 'click', function (ev) {
+				DomEvent.preventDefault(ev);
+				this.close();
+			}, this);
 		}
 	},
 
@@ -243,9 +255,16 @@ export var Popup = DivOverlay.extend({
 		DomUtil.setPosition(this._container, pos.add(anchor));
 	},
 
-	_adjustPan: function (e) {
+	_adjustPan: function () {
 		if (!this.options.autoPan) { return; }
 		if (this._map._panAnim) { this._map._panAnim.stop(); }
+
+		// We can endlessly recurse if keepInView is set and the view resets.
+		// Let's guard against that by exiting early if we're responding to our own autopan.
+		if (this._autopanning) {
+			this._autopanning = false;
+			return;
+		}
 
 		var map = this._map,
 		    marginBottom = parseInt(DomUtil.getStyle(this._container, 'marginBottom'), 10) || 0,
@@ -281,9 +300,14 @@ export var Popup = DivOverlay.extend({
 		// @event autopanstart: Event
 		// Fired when the map starts autopanning when opening a popup.
 		if (dx || dy) {
+			// Track that we're autopanning, as this function will be re-ran on moveend
+			if (this.options.keepInView) {
+				this._autopanning = true;
+			}
+
 			map
 			    .fire('autopanstart')
-			    .panBy([dx, dy], {animate: e && e.type === 'moveend'});
+			    .panBy([dx, dy]);
 		}
 	},
 
@@ -297,6 +321,9 @@ export var Popup = DivOverlay.extend({
 // @namespace Popup
 // @factory L.popup(options?: Popup options, source?: Layer)
 // Instantiates a `Popup` object given an optional `options` object that describes its appearance and location and an optional `source` object that is used to tag the popup with a reference to the Layer to which it refers.
+// @alternative
+// @factory L.popup(latlng: LatLng, options?: Popup options)
+// Instantiates a `Popup` object given `latlng` where the popup will open and an optional `options` object that describes its appearance and location.
 export var popup = function (options, source) {
 	return new Popup(options, source);
 };
@@ -394,9 +421,14 @@ Layer.include({
 	// @method openPopup(latlng?: LatLng): this
 	// Opens the bound popup at the specified `latlng` or at the default popup anchor if no `latlng` is passed.
 	openPopup: function (latlng) {
-		if (this._popup && this._popup._prepareOpen(latlng)) {
-			// open the popup on the map
-			this._popup.openOn(this._map);
+		if (this._popup) {
+			if (!(this instanceof FeatureGroup)) {
+				this._popup._source = this;
+			}
+			if (this._popup._prepareOpen(latlng || this._latlng)) {
+				// open the popup on the map
+				this._popup.openOn(this._map);
+			}
 		}
 		return this;
 	},

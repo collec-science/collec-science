@@ -1,5 +1,6 @@
 <script>
 	var appli_code ="{$APPLI_code}";
+	var myStorage = window.localStorage;
 	$(document).ready(function() {
 		function sleep(milliseconds) {
 			var start = new Date().getTime();
@@ -11,7 +12,7 @@
 		}
 		var tabHover = 0;
 		try {
-			tabHover = Cookies.get("tabHover");
+			tabHover = myStorage.getItem("tabHover");
 		} catch (Exception) { }
 		if (tabHover == 1) {
 			$("#tabHoverSelect").prop("checked", true);
@@ -22,26 +23,26 @@
 			} else {
 				tabHover = 0;
 			}
-			Cookies.set("tabHover", tabHover, { expires: 365, secure: true });
+			myStorage.setItem("tabHover", tabHover);
 		});
-/* Management of tabs */
-      var activeTab = "";
-      var myStorage = window.localStorage;
-          try {
-          activeTab = myStorage.getItem("containerDisplayTab");
-          } catch (Exception) {
-          }
-      try {
-        if (activeTab.length > 0) {
-          $("#"+activeTab).tab('show');
-        }
-      } catch (Exception) { }
-      $('.nav-tabs > li > a').hover(function() {
-        //$(this).tab('show');
-       });
-       $('.nav-link').on('shown.bs.tab', function () {
-        myStorage.setItem("containerDisplayTab", $(this).attr("id"));
-      });
+		/* Management of tabs */
+		var activeTab = "";
+		try {
+			activeTab = myStorage.getItem("containerDisplayTab");
+		} catch (Exception) { }
+		try {
+			if (activeTab.length > 0) {
+				$("#"+activeTab).tab('show');
+			}
+		} catch (Exception) { }
+		$('.nav-tabs > li > a').hover(function() {
+			if (tabHover == 1) {
+   				$(this).tab('show');
+			}
+ 		});
+			$('.nav-link').on('shown.bs.tab', function () {
+			myStorage.setItem("containerDisplayTab", $(this).attr("id"));
+		});
 		$('a[data-toggle="tab"]').on("click", function () {
 			tabHover = 0 ;
 		});

@@ -1,5 +1,32 @@
 News
 ===========
+Version 2.8.1 of December 1st, 2022
+----------------------------
+Bug fixes :
+- the creation of a movement by the "small terminal" interface did not work anymore
+- list of samples : the list of columns displayed was not correctly saved
+- when the double identification was activated, an alert email was systematically sent when accessing the administration functions
+- the emails concerning the anomalies of access to modules did not contain coherent information
+- in the list of containers, the comment was not displayed
+- in the APIs, the initialization of the language did not work correctly and could block their operation
+- in the list of collections, the list of available sample types was not sorted. This was also the case for the associated event types
+- it was possible to query tables containing confidential information
+- in some cases (tab boxes), the lists were badly formatted, with a gap between the header and the list of information
+- when editing samples, metadata were not displayed
+- printing labels was not working with a Chrome browser. To correct this problem, the labels are now displayed in the current browser window
+- in the list of samples, the form for creating a mass event did not contain the due date
+- in some cases, the call to an admin module did not ask for the user's re-identification
+- with recent versions of postgresql (from version 13), SQL mode backups may not work anymore, due to indexes that used an old type
+- importing samples from another instance (external import) did not work with PHP version 8.1
+
+New features:
+- it is possible to limit the number of samples brought back during a selection. An information message is then displayed, specifying the total number of samples concerned by the request
+- the sending of emails has been revised. They are now formatted in HTML and include the application's logo
+- when unlocking a locked account, an email is now automatically sent to its owner
+- the display of the list of samples and containers has been revised: the header is fixed, and the list can be scrolled independently of the window (experimental)
+- various improvements have been made to the identification in HEADER mode (identity federation - SAML)
+- in the identification in HEADER mode, it is possible to define a group which will allow, if the user belongs to it, to assign him directly and to allow him to connect without needing an activation by an administrator
+
 Version 2.8.0 of September 26th, 2022
 ----------------------------
 Bug fixes :

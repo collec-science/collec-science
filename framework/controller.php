@@ -142,7 +142,7 @@ try {
   /**
    * page par defaut
    */
-  if (empty($_REQUEST["module"]) ) {
+  if (empty($_REQUEST["module"])) {
     $_REQUEST["module"] = "default";
   }
   /**
@@ -413,7 +413,7 @@ try {
         /**
          * Preparation de l'identification par token
          */
-        if ($_POST["loginByTokenRequested"] == 1 ) {
+        if ($_POST["loginByTokenRequested"] == 1) {
           include_once 'framework/identification/token.class.php';
           $tokenClass = new Token($privateKey, $pubKey);
           try {
@@ -444,7 +444,7 @@ try {
     /**
      * Verification des droits
      */
-    if (!empty($t_module["droits"]) ) {
+    if (!empty($t_module["droits"])) {
       if (!isset($_SESSION["login"])) {
         $resident = 0;
         $motifErreur = "nologin";
@@ -535,7 +535,7 @@ try {
         }
         if ($acllogin->isTotp() && !empty($_SESSION["login"])) {
           $vue->set("framework/ident/totp.tpl", "corps");
-        } else if (in_array($ident_type, array("BDD", "LDAP", "LDAP-BDD"))) {
+        } else if (in_array($_SESSION["realIdentificationMode"] , array("BDD", "LDAP"))) {
           /**
            * saisie du login en mode admin
            */
@@ -617,12 +617,28 @@ try {
        */
       switch ($motifErreur) {
         case "droitko":
-          /**
-           * Send mail to administrators
-           */
-          $subject = "SECURITY REPORTING - " . $GACL_aco . " - The user " . $_SESSION["login"] . "  has attempted to access an unauthorized module";
-          $contents = "<html><body>" . "The account <b>" . $_SESSION["login"] . "<b> has attempted at $date the user has tried to access at the module $module without having the necessary rights" . '<br>Software : <a href="' . $APPLI_address . '">' . $APPLI_address . "</a>" . '</body></html>';
-          $log->sendMailToAdmin($subject, $contents, $module, $_SESSION["login"]);
+          if (!isset($acllogin)) {
+            include_once "framework/droits/acllogin.class.php";
+            $acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
+          }
+          if (!$acllogin->isTotp() || !$moduleAdmin) {
+            /**
+             * Send mail to administrators
+             */
+            $subject = "SECURITY REPORTING - " . $_SESSION["APPLI_title"] . " - The user " . $_SESSION["login"] . "  has attempted to access an unauthorized module";
+            $log->sendMailToAdmin(
+              $subject,
+              "framework/mail/noRights.tpl",
+              array(
+                "login" => $_SESSION["login"],
+                "module" => $module,
+                "date" => $date,
+                "APPLI_address" => $APPLI_address
+              ),
+              $module,
+              $login
+            );
+          }
           if (!empty($t_module["droitko"])) {
             $module = $t_module["droitko"];
           } else {
@@ -706,7 +722,7 @@ try {
    */
   if (isset($vue)) {
     try {
-      if (!isset ($paramSend)) {
+      if (!isset($paramSend)) {
         $paramSend = array();
       }
       $vue->send($paramSend);

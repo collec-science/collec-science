@@ -1,4 +1,5 @@
 <script>
+  scroll="60vh";
   $(document).ready(function() {
     $(".typeEventSearch").change(function() {
       var collection_id = $("#collection_id").val();
@@ -143,7 +144,7 @@
 </div>
 
 {if $isSearch == 1}
-  <table id="eventList" class="table table-bordered table-hover datatable " >
+  <table id="eventList" class="table table-bordered table-hover datatable-nopaging " >
     <thead>
       <tr>
         <th>{t}Date{/t}</th>

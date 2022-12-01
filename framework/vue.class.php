@@ -197,14 +197,18 @@ class Vue
    * @return string
    */
   function encodehtml($data)
-  {
+  {if (!is_object($data)) {
     if (is_array($data)) {
       foreach ($data as $key => $value) {
+
         $data[$key] = $this->encodehtml($value);
       }
     } else {
       $data = htmlspecialchars($data, ENT_QUOTES);
     }
+  } else {
+    $data = null;
+  }
     return $data;
   }
 }
@@ -300,6 +304,7 @@ class VueSmarty extends Vue
         $this->smarty->assign($key, $this->encodehtml($value));
       }
     }
+
     /*
          * Rrecuperation des messages
          */
@@ -315,6 +320,7 @@ class VueSmarty extends Vue
       $message->setSyslog($e->getMessage());
     }
   }
+
 
   /**
    * Return the content of a variable
@@ -700,7 +706,8 @@ class VueFile extends Vue
   private $param = array(
     "filename" => "export.txt", /* nom du fichier tel qu'il apparaitra dans le navigateur */
     "disposition" => "attachment", /* attachment : le fichier est telecharge, inline : le fichier est affiche */
-    "content_type" => "text/plain" /* type mime */
+    "content_type" => "",/* type mime */
+    "tmp_name" => "", /* Name of the file to send */
   );
 
   /**
@@ -728,9 +735,11 @@ class VueFile extends Vue
       $this->setParam($param);
     }
     if (empty($this->param["content_type"])) {
-      $finfo = finfo_open(FILEINFO_MIME_TYPE);
-      $this->param["content_type"] = finfo_file($finfo, $this->param["tmp_name"]);
-      finfo_close($finfo);
+      $finfo = new finfo(FILEINFO_MIME_TYPE);
+      $this->param["content_type"] = $finfo->file($this->param["tmp_name"]);
+    }
+    if (empty($this->data)) {
+      $this->data = file_get_contents($this->param["tmp_name"]);
     }
     ob_clean();
     header('Content-Type: ' . $this->param["content_type"]);

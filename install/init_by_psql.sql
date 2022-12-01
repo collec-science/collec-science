@@ -41,7 +41,6 @@ CREATE USER collec WITH
  */
 create database collec owner collec;
 \c "dbname=collec"
- create extension if not exists btree_gin schema pg_catalog;
  create extension if not exists pg_trgm schema pg_catalog;
  create extension if not exists postgis schema public;
  create extension if not exists  pgcrypto schema public;

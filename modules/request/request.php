@@ -30,6 +30,9 @@ switch ($t_module["param"]) {
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
          */
+        if (empty($id)) {
+            $id = 0;
+        }
         dataRead($dataClass, $id, $requestForm);
         $vue->set($_SESSION["collections"], "collections");
         break;

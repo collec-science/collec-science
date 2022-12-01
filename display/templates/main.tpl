@@ -61,11 +61,11 @@
 {if !empty($collections) && count($collections) > 0}
 <div class="hidden-sm row top10">&nbsp;</div>
 <div class="hidden-sm row">
-  <div class="col-md-6 col-md-offset-1 col-lg-6 col-lg-offset-1">
+  <div class="col-md-6 col-md-offset-1 col-lg-6 col-lg-offset-2">
     <table class="table table-bordered table-hover datatable-nopaging-nosearching form-display">
     <thead>
       <tr>
-      <th>{t}Collection{/t}</th>
+      <th class="center">{t}Collection{/t}</th>
       <th>{t}Nombre d'échantillons{/t}</th>
       <th>{t}Date de dernière modification d'un échantillon{/t}</th>
     </tr>

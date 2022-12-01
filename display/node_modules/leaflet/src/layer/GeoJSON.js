@@ -206,14 +206,24 @@ export function geometryToLayer(geojson, options) {
 
 	case 'GeometryCollection':
 		for (i = 0, len = geometry.geometries.length; i < len; i++) {
-			var layer = geometryToLayer({
+			var geoLayer = geometryToLayer({
 				geometry: geometry.geometries[i],
 				type: 'Feature',
 				properties: geojson.properties
 			}, options);
 
-			if (layer) {
-				layers.push(layer);
+			if (geoLayer) {
+				layers.push(geoLayer);
+			}
+		}
+		return new FeatureGroup(layers);
+
+	case 'FeatureCollection':
+		for (i = 0, len = geometry.features.length; i < len; i++) {
+			var featureLayer = geometryToLayer(geometry.features[i], options);
+
+			if (featureLayer) {
+				layers.push(featureLayer);
 			}
 		}
 		return new FeatureGroup(layers);
@@ -272,13 +282,14 @@ export function latLngsToCoords(latlngs, levelsDeep, closed, precision) {
 	var coords = [];
 
 	for (var i = 0, len = latlngs.length; i < len; i++) {
+		// Check for flat arrays required to ensure unbalanced arrays are correctly converted in recursion
 		coords.push(levelsDeep ?
-			latLngsToCoords(latlngs[i], levelsDeep - 1, closed, precision) :
+			latLngsToCoords(latlngs[i], LineUtil.isFlat(latlngs[i]) ? 0 : levelsDeep - 1, closed, precision) :
 			latLngToCoords(latlngs[i], precision));
 	}
 
 	if (!levelsDeep && closed) {
-		coords.push(coords[0]);
+		coords.push(coords[0].slice());
 	}
 
 	return coords;

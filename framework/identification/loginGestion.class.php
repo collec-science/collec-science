@@ -11,6 +11,8 @@ class LoginGestion extends ObjetBDD
     private $publicKey = "/etc/ssl/certs/ssl-cert-snakeoil.pem";
     public $nbattempts = 2;
     public $attemptdelay = 6;
+    public Mail $mail;
+    public $mailClassPath = "framework/utils/mail.class.php";
 
     public function __construct($link, $param = array())
     {
@@ -187,7 +189,7 @@ class LoginGestion extends ObjetBDD
     public function getLoginFromTokenWS($login, $token)
     {
         $retour = false;
-        if (!empty($token)  && !empty($login) ) {
+        if (!empty($token)  && !empty($login)) {
             $sql = "select tokenws from logingestion where is_clientws = '1' and actif = '1'
             and login = :login";
             $data = $this->lireParamAsPrepared($sql, array(
@@ -224,13 +226,16 @@ class LoginGestion extends ObjetBDD
     }
 
     /**
-     * Preparation de la mise en table, avec verification du motde passe
+     * Preparation de la mise en table, avec verification du mot de passe
      * (non-PHPdoc)
      *
      * @see ObjetBDD::ecrire()
      */
     public function ecrire($data)
     {
+        if ($data["id"] > 0) {
+            $dataBefore = $this->lire($data["id"]);
+        }
         if (!empty($data["pass1"])  && !empty($data["pass2"])  && $data["pass1"] == $data["pass2"]) {
             if ($this->controleComplexite($data["pass1"]) > 2 && strlen($data["pass1"]) > 9) {
                 $data["password"] = $this->_encryptPassword($data["pass1"]);
@@ -245,7 +250,7 @@ class LoginGestion extends ObjetBDD
          * Traitement de la generation du token d'identification ws
          */
         if ($data["is_clientws"] == 1) {
-            if (empty($data["tokenws"]) ) {
+            if (empty($data["tokenws"])) {
                 $token = bin2hex(openssl_random_pseudo_bytes(32));
                 if (openssl_public_encrypt($token, $crypted, $this->getKey("pub"), OPENSSL_PKCS1_OAEP_PADDING)) {
                     $data["tokenws"] = base64_encode($crypted);
@@ -263,7 +268,40 @@ class LoginGestion extends ObjetBDD
             $data["nbattempts"] = 0;
             $data["lastattempt"] = "";
         }
-        return parent::ecrire($data);
+        $id = parent::ecrire($data);
+        if ($data["id"] > 0 && $dataBefore ["actif"] == 0 && $data["actif"] == 1 && !empty($data["mail"])) {
+            /**
+             * Send mail to prevent of the activation of the account
+             */
+            global $MAIL_enabled;
+            if ($MAIL_enabled == 1) {
+                /**
+                 * Send a mail
+                 */
+                if (!isset($this->mail)) {
+                    include_once $this->mailClassPath;
+                    global $MAIL_param;
+                    $this->mail = new Mail($MAIL_param);
+                }
+                global $SMARTY_param,  $APPLI_address;
+                $subject = $_SESSION["APPLI_title"] . " - " . _("Activation de votre compte");
+                $this->mail->SendMailSmarty(
+                    $SMARTY_param,
+                    $data["mail"],
+                    $subject,
+                    "framework/mail/accountActivate.tpl",
+                    array(
+                        "prenom" => $data["prenom"],
+                        "nom" => $data["nom"],
+                        "applicationName" => $_SESSION["APPLI_title"],
+                        "APPLI_address" => $APPLI_address
+                    )
+                );
+                global $message;
+                $message->set(_("Un message vient d'être envoyé à l'utilisateur pour l'informer de l'activation de son compte"));
+            }
+        }
+        return $id;
     }
 
     function lire($id, $getDefault = true, $parentValue = 0)
@@ -365,12 +403,12 @@ class LoginGestion extends ObjetBDD
      * @param string $oldpassword
      * @param string $pass1
      * @param string $pass2
-     * @return number
+     * @return boolean
      */
     public function changePassword($oldpassword, $pass1, $pass2)
     {
         global $log, $message;
-        $retour = 0;
+        $retour = false;
         if (isset($_SESSION["login"])) {
             $oldData = $this->lireByLogin($_SESSION["login"]);
             if ($log->getLastConnexionType($_SESSION["login"]) == "db") {
@@ -400,12 +438,12 @@ class LoginGestion extends ObjetBDD
      * @param string $login
      * @param string $pass1
      * @param string $pass2
-     * @return number
+     * @return boolean
      */
     public function changePasswordAfterLost($login, $pass1, $pass2)
     {
-        $retour = 0;
-        if (!empty($login) > 0 && $this->_passwordVerify($pass1, $pass2)) {
+        $retour = false;
+        if (!empty($login) && $this->_passwordVerify($pass1, $pass2)) {
             $retour = $this->writeNewPassword($login, $pass1);
         }
         return $retour;
@@ -416,13 +454,13 @@ class LoginGestion extends ObjetBDD
      *
      * @param string $login
      * @param string $pass
-     * @return number
+     * @return boolean
      */
     private function writeNewPassword($login, $pass)
     {
-        global $log, $message, $APPLI_address, $APPLI_title;
+        global $log, $message, $APPLI_address, $MAIL_enabled;
         $login = strtolower($login);
-        $retour = 0;
+        $retour = false;
         $oldData = $this->lireByLogin($login);
         if ($log->getLastConnexionType($login) == "db") {
             $data = $oldData;
@@ -432,14 +470,35 @@ class LoginGestion extends ObjetBDD
             $data["is_expired"] = 0;
             if ($this->ecrire($data) > 0) {
                 $this->auto_date = true;
-                $retour = 1;
+                $retour = true;
                 $log->setLog($login, "password_change", "ip:" . $_SESSION["remoteIP"]);
                 $message->set(_("Le mot de passe a été modifié"));
-                $contents = "<html><body>" . _("Votre mot de passe vient d'être modifié.<br>Si vous n'avez pas réalisé cette opération, veuillez contacter le responsable de l'application") . '<br><a href="' . $APPLI_address . '">' . $APPLI_address . "</a>" . '</body></html>';
-                $subject = $APPLI_title . " - " . _("Modification de votre mot de passe");
-                $this->_sendMail($login, $subject, $contents);
+                if ($MAIL_enabled == 1 && !empty($data["mail"])) {
+                    /**
+                     * Send a mail
+                     */
+                    if (!isset($this->mail)) {
+                        include_once $this->mailClassPath;
+                        global $MAIL_param;
+                        $this->mail = new Mail($MAIL_param);
+                    }
+                    global $SMARTY_param;
+                    $subject = $_SESSION["APPLI_title"] . " - " . _("Modification de votre mot de passe");
+                    $this->mail->SendMailSmarty(
+                        $SMARTY_param,
+                        $data["mail"],
+                        $subject,
+                        "framework/mail/passwordChanged.tpl",
+                        array(
+                            "prenom" => $data["prenom"],
+                            "nom" => $data["nom"],
+                            "applicationName" => $_SESSION["APPLI_title"],
+                            "APPLI_address" => $APPLI_address
+                        )
+                    );
+                }
             } else {
-                $message->set(_("Echec de modification du mot de passe pour une raison inconnue. Si le problème persiste, contactez l'assistance"), true);
+                $message->set(_("Echec de la modification du mot de passe pour une raison inconnue. Si le problème persiste, contactez l'assistance"), true);
             }
         } else {
             $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"), true);
@@ -575,45 +634,6 @@ class LoginGestion extends ObjetBDD
                     "mail" => $mail,
                 )
             );
-        }
-    }
-    /**
-     * Send mail to login
-     *
-     * @param [string] $login
-     * @param [string] $subject
-     * @param [tstringype] $contents
-     * @return void
-     */
-    private function _sendMail($login, $subject, $contents)
-    {
-        global $message, $MAIL_enabled, $APPLI_mail, $GACL_aco, $log;
-        $moduleNameComplete = $GACL_aco . "-sendMailForPasswordChange";
-        $login = strtolower($login);
-        if ($MAIL_enabled == 1) {
-            try {
-                $dataLogin = $this->getFromLogin($login);
-                $MAIL_param = array(
-                    "replyTo" => "$APPLI_mail",
-                    "subject" => $subject,
-                    "from" => "$APPLI_mail",
-                    "contents" => $contents,
-                );
-                if (strlen($dataLogin["mail"]) > 0) {
-                    include_once 'framework/identification/mail.class.php';
-                    $mail = new Mail($MAIL_param);
-                    if ($mail->sendMail($dataLogin["mail"], array())) {
-                        $ok = "ok";
-                    } else {
-                        $message->setSyslog("error_sendmail_for_password_change:" . $dataLogin["mail"]);
-                        $ok = "ko";
-                    }
-                    $log->setLog($login, $moduleNameComplete, $ok);
-                }
-            } catch (Exception $e) {
-                $message->set(_("Envoi du message de modification du mot de passe par mail en échec"), true);
-                $messsage->setSyslog($e->getMessage());
-            }
         }
     }
 }

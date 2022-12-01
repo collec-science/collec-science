@@ -5,7 +5,9 @@
 <img src="display/images/new.png" height="25">{t}Nouvel identifiant...{/t}
 </a>
 {/if}
-<table id="objectIdentifierList" class="table table-bordered table-hover datatable-nopaging " data-order='[[ 0, "asc" ],[1,"asc"]]' >
+<br>
+<div class="col-md-6">
+<table id="objectIdentifierList" class="table table-bordered table-hover datatable " data-order='[[ 0, "asc" ],[1,"asc"]]' >
 <thead>
 <tr>
 <th>{t}Type{/t}</th>
@@ -36,3 +38,4 @@
 {/section}
 </tbody>
 </table>
+</div>

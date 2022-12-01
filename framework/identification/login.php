@@ -78,7 +78,7 @@ switch ($t_module["param"]) {
     }
     break;
   case 'changePasswordExec':
-    if ($dataClass->changePassword($_REQUEST["oldPassword"], $_REQUEST["pass1"], $_REQUEST["pass2"]) < 1) {
+    if (!$dataClass->changePassword($_REQUEST["oldPassword"], $_REQUEST["pass1"], $_REQUEST["pass2"])) {
       $module_coderetour = -1;
       foreach ($dataClass->getErrorData(1) as $messageError) {
         $message->set($messageError, true);
@@ -90,7 +90,7 @@ switch ($t_module["param"]) {
        */
       $data = $dataClass->lireByLogin($_SESSION["login"]);
       if (!empty($data["mail"]) && $MAIL_enabled == 1) {
-        include_once 'framework/identification/mail.class.php';
+        include_once 'framework/utils/mail.class.php';
         $subject = $_SESSION["APPLI_title"] . " - " . _("Modification du mot de passe");
         $contents = "<html><body>" .
           _("Vous venez de modifier votre mot de passe. Si vous n'êtes pas à l'origine de cette opération, contactez l'administrateur de l'application, et activez également la double authentification pour mieux protéger votre compte.") . "<br>" .

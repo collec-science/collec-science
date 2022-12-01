@@ -1,6 +1,7 @@
 {* Objets > échantillons > Rechercher > UID d'un échantillon *}
 <script>
 	var appli_code ="{$APPLI_code}";
+	var myStorage = window.localStorage;
 	/*
 	 * Impression de l'etiquette correspondant a l'echantillon courant
 	 */
@@ -15,8 +16,10 @@
 		}
 		var tabHover = 0;
 		try {
-			tabHover = Cookies.get("tabHover");
-		} catch (Exception) { }
+			tabHover = myStorage.getItem("tabHover");
+		} catch (Exception) {
+			console.log (Exception);
+		 }
 		if (tabHover == 1) {
 			$("#tabHoverSelect").prop("checked", true);
 		}
@@ -26,14 +29,13 @@
 			} else {
 				tabHover = 0;
 			}
-			Cookies.set("tabHover", tabHover, { expires: 365, secure: true });
+			myStorage.setItem("tabHover", tabHover);
 		});
 		/* Management of tabs */
-		var myStorage = window.localStorage;
 		var activeTab = "{$activeTab}";
-    	if (activeTab.length == 0) {
+    if (activeTab.length == 0) {
 			try {
-			activeTab = myStorage.getItem("sampleDisplayTab");
+				activeTab = myStorage.getItem("sampleDisplayTab");
 			} catch (Exception) {
 				activeTab = "";
 			}
@@ -71,21 +73,21 @@
 			var referentId = "{$data.real_referent_id}";
 			if (referentId > 0 && !isReferentDisplayed) {
 				isReferentDisplayed = true;
-			$.ajax( {
-    	   		url: "index.php",
-    	    	data: { "module": "referentGetFromId", "referent_id": referentId }
-    	    })
-    	    .done (function (value) {
-				value = JSON.parse(value);
-				var newval = value.referent_firstname + " " + value.referent_name + "<br>" +
-						value.referent_organization + "<br>" +
-						value.referent_email + "<br>" +
-						value.referent_phone + "<br>" + value.address_name + "<br>"
-						+ value.address_line2 + "<br>" + value.address_line3 + "<br>"
-						+ value.address_city + "<br>" + value.address_country;
-						$("#referent_name").html (newval);
-					;
-			});
+				$.ajax( {
+					url: "index.php",
+					data: { "module": "referentGetFromId", "referent_id": referentId }
+				})
+				.done (function (value) {
+					value = JSON.parse(value);
+					var newval = value.referent_firstname + " " + value.referent_name + "<br>" +
+							value.referent_organization + "<br>" +
+							value.referent_email + "<br>" +
+							value.referent_phone + "<br>" + value.address_name + "<br>"
+							+ value.address_line2 + "<br>" + value.address_line3 + "<br>"
+							+ value.address_city + "<br>" + value.address_country;
+							$("#referent_name").html (newval);
+						;
+				});
 			}
 		});
 		$("#open").submit (function ( event) {

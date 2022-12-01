@@ -5,7 +5,7 @@
 		<a href="index.php?module=aclloginChange&acllogin_id=0">
 			{t}Nouveau login...{/t}
 		</a>
-		<table id="loginListe" class="table table-bordered table-hover datatable" id="table_id" data-order='[[ 1, "asc" ]]'
+		<table id="loginListe" class="table table-bordered table-hover datatable" id="table_id" data-order='[[ 0, "asc" ]]'
 			data-page-length='25'>
 			<thead>
 				<tr>

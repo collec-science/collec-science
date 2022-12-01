@@ -267,6 +267,9 @@ function initGettext($langue)
   // $path = realpath("./locales") . "/C/LC_MESSAGES/$langue.mo";
   // var_dump( $path, file_exists( $path ) );
   putenv("LANG=C.UTF-8"); // putenv pour windows // non testé
+  if (empty($langue)) {
+    $langue = "en";
+  }
   bindtextdomain($langue, realpath("./locales"));
   bind_textdomain_codeset($langue, "UTF-8");
   textdomain($langue);

@@ -14,11 +14,6 @@ class SampleException extends Exception
 class Sample extends ObjetBDD
 {
 
-  /**
-   *
-   * @param PDO $bdd
-   * @param array $param
-   */
   private $sql = "select distinct on (s.uid) s.sample_id, s.uid,
 					s.collection_id, collection_name, no_localization, s.sample_type_id, s.dbuid_origin,
                     sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
@@ -58,8 +53,8 @@ class Sample extends ObjetBDD
           case when ro.referent_name is not null then ro.academical_link else cr.academical_link end as academical_link,
           case when ro.referent_name is not null then ro.referent_organization else cr.referent_organization end as referent_organization,
           borrowing_date, expected_return_date, borrower_id, borrower_name,
-          vsq.multiple_value + vsq.subsample_more - vsq.subsample_less as subsample_quantity
-					from sample s
+          vsq.multiple_value + vsq.subsample_more - vsq.subsample_less as subsample_quantity";
+  private $from = " from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join collection p on (p.collection_id = s.collection_id)
 					join object so on (s.uid = so.uid)
@@ -91,6 +86,9 @@ class Sample extends ObjetBDD
           left outer join country sco on (s.country_origin_id = sco.country_id)
           left outer join v_subsample_quantity vsq on (s.sample_id = vsq.sample_id)
           ";
+  private $where = "";
+  private $paramSearch = array();
+  private $data = array();
   private $object, $container, $event, $country;
 
   public function __construct($bdd, $param = array())
@@ -161,7 +159,7 @@ class Sample extends ObjetBDD
    */
   public function lire($uid, $getDefault = true, $parentValue = null)
   {
-    $sql = $this->sql . " where s.uid = :uid";
+    $sql = $this->sql . $this->from . " where s.uid = :uid";
     $data["uid"] = $uid;
     if (is_numeric($uid) && $uid > 0) {
       $this->colonnes["borrowing_date"] = array("type" => 2);
@@ -179,7 +177,7 @@ class Sample extends ObjetBDD
 
   public function lireFromId($sample_id)
   {
-    $sql = $this->sql . " where s.sample_id = :sample_id";
+    $sql = $this->sql . $this->from . " where s.sample_id = :sample_id";
     $data["sample_id"] = $sample_id;
     $this->colonnes["borrowing_date"] = array("type" => 2);
     $this->colonnes["exepected_return_date"] = array("type" => 2);
@@ -270,7 +268,7 @@ class Sample extends ObjetBDD
       if ($uid > 0) {
         $data["uid"] = $uid;
         if (parent::ecrire($data) > 0) {
-          if (!empty($data["metadata"]) ) {
+          if (!empty($data["metadata"])) {
             /**
              * Recherche des échantillons derives pour mise a jour
              * des metadonnees
@@ -330,7 +328,7 @@ class Sample extends ObjetBDD
        * delete from subsample
        */
       $sql = "delete from subsample where sample_id = :sample_id";
-      $this->executeAsPrepared($sql, array("sample_id"=>$data["sample_id"]), true);
+      $this->executeAsPrepared($sql, array("sample_id" => $data["sample_id"]), true);
       /**
        * suppression de l'echantillon
        */
@@ -405,283 +403,306 @@ class Sample extends ObjetBDD
     }
   }
 
-  /**
-   * Fonction de recherche des échantillons
-   *
-   * @param array $param
-   *
-   * @return array
-   */
-  public function sampleSearch($param)
+  private function _generateSearch(array $param)
   {
-    /**
-     * Verification de la presence des parametres
-     */
-    $searchOk = false;
-    $paramName = array("uidsearch", "name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
-    if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["booking_type"] != 0 || $param["without_container"] == 1) {
-      $searchOk = true;
-    } else {
-      foreach ($paramName as $name) {
-        if (!empty($param[$name])) {
-          $searchOk = true;
-          break;
+    if (empty($this->where) || ($param != $this->paramSearch)) {
+      /**
+       * Verification de la presence des parametres
+       */
+      $searchOk = false;
+      $paramName = array("uidsearch", "name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
+      if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["booking_type"] != 0 || $param["without_container"] == 1) {
+        $searchOk = true;
+      } else {
+        foreach ($paramName as $name) {
+          if (!empty($param[$name])) {
+            $searchOk = true;
+            break;
+          }
         }
       }
-    }
-    /**
-     * Search for  geographic zone
-     */
-    $geoFields = array("SouthWestlon", "SouthWestlat", "NorthEastlon", "NorthEastlat");
-    $geoSearch = true;
-    foreach ($geoFields as $field) {
-      if (empty($param[$field])) {
-        $geoSearch = false;
-      }
-    }
-    if ($geoSearch) {
-      $searchOk = true;
-    }
-    if ($searchOk) {
-      $data = array();
-      $where = "where";
-      $and = "";
-      if ($param["sample_type_id"] > 0) {
-        $where .= " s.sample_type_id = :sample_type_id";
-        $data["sample_type_id"] = $param["sample_type_id"];
-        $and = " and ";
-      }
-      if ($param["uidsearch"] > 0) {
-        $where .= $and . " s.uid = :uid";
-        $data["uid"] = $param["uidsearch"];
-        $and = " and ";
-      }
-      if (!empty($param["name"])) {
-        $name = $this->encodeData($param["name"]);
-        $where .= $and . "( ";
-        $or = "";
-        if (strlen($param["name"]) == 36) {
-          $where .= "so.uuid = :uuid";
-          $data["uuid"] = $param["name"];
-          $or = " or ";
+      /**
+       * Search for  geographic zone
+       */
+      $geoFields = array("SouthWestlon", "SouthWestlat", "NorthEastlon", "NorthEastlat");
+      $geoSearch = true;
+      foreach ($geoFields as $field) {
+        if (empty($param[$field])) {
+          $geoSearch = false;
         }
-        $identifier = "%" . strtoupper($name) . "%";
-        $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
-        $and = " and ";
-        $data["identifier"] = $identifier;
-        $data["dbuid_origin"] = $name;
-        /*
+      }
+      if ($geoSearch) {
+        $searchOk = true;
+      }
+      if ($searchOk) {
+        $data = array();
+        $where = "where";
+        $and = "";
+        if ($param["sample_type_id"] > 0) {
+          $where .= " s.sample_type_id = :sample_type_id";
+          $data["sample_type_id"] = $param["sample_type_id"];
+          $and = " and ";
+        }
+        if ($param["uidsearch"] > 0) {
+          $where .= $and . " s.uid = :uid";
+          $data["uid"] = $param["uidsearch"];
+          $and = " and ";
+        }
+        if (!empty($param["name"])) {
+          $name = $this->encodeData($param["name"]);
+          $where .= $and . "( ";
+          $or = "";
+          if (strlen($param["name"]) == 36) {
+            $where .= "so.uuid = :uuid";
+            $data["uuid"] = $param["name"];
+            $or = " or ";
+          }
+          $identifier = "%" . strtoupper($name) . "%";
+          $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
+          $and = " and ";
+          $data["identifier"] = $identifier;
+          $data["dbuid_origin"] = $name;
+          /*
              * Recherche sur les identifiants externes
              * possibilite de recherche sur cab:valeur, p. e.
              */
-        $where .= " or upper(voi.identifiers) like :identifier ";
-        $where .= ")";
-      }
-      if ($param["collection_id"] > 0) {
-        $where .= $and . " s.collection_id = :collection_id";
-        $and = " and ";
-        $data["collection_id"] = $param["collection_id"];
-      }
-      if ($param["object_status_id"] > 0) {
-        $where .= $and . " so.object_status_id = :object_status_id";
-        $and = " and ";
-        $data["object_status_id"] = $param["object_status_id"];
-      }
-      if (!empty($param["trashed"])) {
-        $where .= $and . " so.trashed = :trashed";
-        $and = " and ";
-        $data["trashed"] = $param["trashed"];
-      }
-      if ($param["sampling_place_id"] > 0) {
-        $where .= $and . " s.sampling_place_id = :sampling_place_id";
-        $and = " and ";
-        $data["sampling_place_id"] = $param["sampling_place_id"];
-      }
-      if ($param["referent_id"] > 0) {
-        $where .= $and . "(ro.referent_id = :referent_id1 or cr.referent_id = :referent_id2)";
-        $and = " and ";
-        $data["referent_id1"] = $param["referent_id"];
-        $data["referent_id2"] = $param["referent_id"];
-      }
-      if ($param["campaign_id"] > 0) {
-        $where .= $and . " s.campaign_id = :campaign_id";
-        $and = " and ";
-        $data["campaign_id"] = $param["campaign_id"];
-      }
-      if (!empty($param["authorization_number"])) {
-        $where .= $and . "upper(campreg.authorization_number) like upper(:authorization_number)";
-        $and = " and ";
-        $data["authorization_number"] = "%" . $param["authorization_number"] . "%";
-      }
-      if ($param["country_id"] > 0) {
-        $where .= $and . " (s.country_id = :country_id or sp.country_id = :country_id)";
-        $and = " and ";
-        $data["country_id"] = $param["country_id"];
-      }
-      if ($param["country_origin_id"] > 0) {
-        $where .= $and . " (s.country_origin_id = :country_origin_id)";
-        $and = " and ";
-        $data["country_origin_id"] = $param["country_origin_id"];
-      }
-
-      if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
-        $where .= $and . " s.uid between :uid_min and :uid_max";
-        $and = " and ";
-        $data["uid_min"] = $param["uid_min"];
-        $data["uid_max"] = $param["uid_max"];
-      }
-      if (!empty($param["select_date"])) {
-        $tablefield = "s";
-        switch ($param["select_date"]) {
-          case "cd":
-            $field = "sample_creation_date";
-            break;
-          case "sd":
-            $field = "sampling_date";
-            break;
-          case "ed":
-            $field = "expiration_date";
-            break;
-          case "ch":
-            $field = "change_date";
-            $tablefield = "so";
-            break;
+          $where .= " or upper(voi.identifiers) like :identifier ";
+          $where .= ")";
         }
-        $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
-        $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
-        $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
-        $and = " and ";
-      }
-      /**
-       * Recherche dans les metadonnees
-       */
-      if (!empty($param["metadata_field"][0])  && strlen($param["metadata_value"][0]) > 0) {
-        $where .= $and . " ";
+        if ($param["collection_id"] > 0) {
+          $where .= $and . " s.collection_id = :collection_id";
+          $and = " and ";
+          $data["collection_id"] = $param["collection_id"];
+        }
+        if ($param["object_status_id"] > 0) {
+          $where .= $and . " so.object_status_id = :object_status_id";
+          $and = " and ";
+          $data["object_status_id"] = $param["object_status_id"];
+        }
+        if (!empty($param["trashed"])) {
+          $where .= $and . " so.trashed = :trashed";
+          $and = " and ";
+          $data["trashed"] = $param["trashed"];
+        }
+        if ($param["sampling_place_id"] > 0) {
+          $where .= $and . " s.sampling_place_id = :sampling_place_id";
+          $and = " and ";
+          $data["sampling_place_id"] = $param["sampling_place_id"];
+        }
+        if ($param["referent_id"] > 0) {
+          $where .= $and . "(ro.referent_id = :referent_id1 or cr.referent_id = :referent_id2)";
+          $and = " and ";
+          $data["referent_id1"] = $param["referent_id"];
+          $data["referent_id2"] = $param["referent_id"];
+        }
+        if ($param["campaign_id"] > 0) {
+          $where .= $and . " s.campaign_id = :campaign_id";
+          $and = " and ";
+          $data["campaign_id"] = $param["campaign_id"];
+        }
+        if (!empty($param["authorization_number"])) {
+          $where .= $and . "upper(campreg.authorization_number) like upper(:authorization_number)";
+          $and = " and ";
+          $data["authorization_number"] = "%" . $param["authorization_number"] . "%";
+        }
+        if ($param["country_id"] > 0) {
+          $where .= $and . " (s.country_id = :country_id or sp.country_id = :country_id)";
+          $and = " and ";
+          $data["country_id"] = $param["country_id"];
+        }
+        if ($param["country_origin_id"] > 0) {
+          $where .= $and . " (s.country_origin_id = :country_origin_id)";
+          $and = " and ";
+          $data["country_origin_id"] = $param["country_origin_id"];
+        }
+
+        if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
+          $where .= $and . " s.uid between :uid_min and :uid_max";
+          $and = " and ";
+          $data["uid_min"] = $param["uid_min"];
+          $data["uid_max"] = $param["uid_max"];
+        }
+        if (!empty($param["select_date"])) {
+          $tablefield = "s";
+          switch ($param["select_date"]) {
+            case "cd":
+              $field = "sample_creation_date";
+              break;
+            case "sd":
+              $field = "sampling_date";
+              break;
+            case "ed":
+              $field = "expiration_date";
+              break;
+            case "ch":
+              $field = "change_date";
+              $tablefield = "so";
+              break;
+          }
+          $where .= $and . " $tablefield.$field::date between :date_from and :date_to";
+          $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
+          $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
+          $and = " and ";
+        }
         /**
-         * Traitement des divers champs de metadonnees (3 maxi)
-         * ajout des parentheses si necessaire
-         * si le meme field est utilise, operateur or, sinon operateur and
+         * Recherche dans les metadonnees
          */
-        if ($param["metadata_field"][0] == $param["metadata_field"][1]) {
-          $is_or = true;
-        } else {
-          $is_or = false;
-        }
-        if (!empty($param["metadata_field"][1])  && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
-          $is_or1 = true;
-        } else {
-          $is_or1 = false;
-        }
-        if ($is_or) {
-          $where .= "(";
-        }
-        $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0)";
-        $data["metadata_field0"] = $param["metadata_field"][0];
-        $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
-        if (!empty($param["metadata_field"][1]) && strlen($param["metadata_value"][1]) > 0) {
+        if (!empty($param["metadata_field"][0])  && strlen($param["metadata_value"][0]) > 0) {
+          $where .= $and . " ";
+          /**
+           * Traitement des divers champs de metadonnees (3 maxi)
+           * ajout des parentheses si necessaire
+           * si le meme field est utilise, operateur or, sinon operateur and
+           */
+          if ($param["metadata_field"][0] == $param["metadata_field"][1]) {
+            $is_or = true;
+          } else {
+            $is_or = false;
+          }
+          if (!empty($param["metadata_field"][1])  && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
+            $is_or1 = true;
+          } else {
+            $is_or1 = false;
+          }
           if ($is_or) {
-            $where .= " or ";
-          } else {
-            $where .= " and ";
+            $where .= "(";
           }
-          $where .= " lower(s.metadata->>:metadata_field1) like lower (:metadata_value1)";
-          $data["metadata_field1"] = $param["metadata_field"][1];
-          $data["metadata_value1"] = "%" . $param["metadata_value"][1] . "%";
-        }
-        if ($is_or && !$is_or1) {
-          $where .= ")";
-          $is_or = false;
-        }
-        if (!$is_or && $is_or1) {
-          $where .= " (";
-        }
+          $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0)";
+          $data["metadata_field0"] = $param["metadata_field"][0];
+          $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
+          if (!empty($param["metadata_field"][1]) && strlen($param["metadata_value"][1]) > 0) {
+            if ($is_or) {
+              $where .= " or ";
+            } else {
+              $where .= " and ";
+            }
+            $where .= " lower(s.metadata->>:metadata_field1) like lower (:metadata_value1)";
+            $data["metadata_field1"] = $param["metadata_field"][1];
+            $data["metadata_value1"] = "%" . $param["metadata_value"][1] . "%";
+          }
+          if ($is_or && !$is_or1) {
+            $where .= ")";
+            $is_or = false;
+          }
+          if (!$is_or && $is_or1) {
+            $where .= " (";
+          }
 
-        if (!empty($param["metadata_field"][2]) && strlen($param["metadata_value"][2]) > 0) {
-          if ($is_or1) {
-            $where .= " or ";
-          } else {
-            $where .= " and ";
+          if (!empty($param["metadata_field"][2]) && strlen($param["metadata_value"][2]) > 0) {
+            if ($is_or1) {
+              $where .= " or ";
+            } else {
+              $where .= " and ";
+            }
+            $where .= " lower(s.metadata->>:metadata_field2) like lower (:metadata_value2)";
+            $data["metadata_field2"] = $param["metadata_field"][2];
+            $data["metadata_value2"] = "%" . $param["metadata_value"][2] . "%";
           }
-          $where .= " lower(s.metadata->>:metadata_field2) like lower (:metadata_value2)";
-          $data["metadata_field2"] = $param["metadata_field"][2];
-          $data["metadata_value2"] = "%" . $param["metadata_value"][2] . "%";
+          if ($is_or || $is_or1) {
+            $where .= ")";
+          }
+          $and = " and ";
         }
-        if ($is_or || $is_or1) {
-          $where .= ")";
+        /**
+         * Recherche sur le motif de destockage
+         */
+        if ($param["movement_reason_id"] > 0) {
+          $where .= $and . " movement_reason_id = :movement_reason_id";
+          $data["movement_reason_id"] = $param["movement_reason_id"];
+          $and = " and ";
         }
-        $and = " and ";
-      }
-      /**
-       * Recherche sur le motif de destockage
-       */
-      if ($param["movement_reason_id"] > 0) {
-        $where .= $and . " movement_reason_id = :movement_reason_id";
-        $data["movement_reason_id"] = $param["movement_reason_id"];
-        $and = " and ";
-      }
-      /**
-       * Search by geographic zone
-       */
-      if ($geoSearch) {
-        $where .= $and . " st_contains (st_setsrid (st_makebox2d(
+        /**
+         * Search by geographic zone
+         */
+        if ($geoSearch) {
+          $where .= $and . " st_contains (st_setsrid (st_makebox2d(
                     st_makepoint(:southwestlon, :southwestlat),
                     st_makepoint(:northeastlon, :northeastlat))
                     ,4326), so.geom::geometry) = true ";
-        $data["southwestlon"] = $param["SouthWestlon"];
-        $data["southwestlat"] = $param["SouthWestlat"];
-        $data["northeastlon"] = $param["NorthEastlon"];
-        $data["northeastlat"] = $param["NorthEastlat"];
-        $and = " and ";
-      }
-      /**
-       * Search on an event_type
-       */
-      if ($param["event_type_id"] > 0) {
-        $this->sql .= " left outer join event oe on (so.uid = oe.uid) ";
-        $where .= $and . " event_type_id = :event_type_id";
-        $data["event_type_id"] = $param["event_type_id"];
-        $and = " and ";
-      }
-      /**
-       * Search on minimal subsample quantity
-       */
-      if ($param["subsample_quantity_min"] > 0) {
-        $where .= $and . "(vsq.multiple_value + vsq.subsample_more - vsq.subsample_less) >= :subsample_quantity_min";
-        $data["subsample_quantity_min"] = $param["subsample_quantity_min"];
-        $and = " and ";
-      }
-      /**
-       * Search on minimal subsample quantity
-       */
-      if (!empty($param["subsample_quantity_max"])) {
-        $where .= $and . "(vsq.multiple_value + vsq.subsample_more - vsq.subsample_less) <= :subsample_quantity_max";
-        $data["subsample_quantity_max"] = $param["subsample_quantity_max"];
-        $and = " and ";
-      }
-      /**
-       * Search on booking
-       */
-      if ($param["booking_type"] != 0) {
-        $data["booking_from"] = $this->formatDateLocaleVersDB($param["booking_from"], 2) . " 00:00:00";
-        $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"], 2) . " 23:59:59";
-        $where .= $and . " (select count(*) from booking b where ((:booking_from ::timestamp, :booking_to ::timestamp) overlaps (date_from::timestamp, date_to::timestamp)) = true
+          $data["southwestlon"] = $param["SouthWestlon"];
+          $data["southwestlat"] = $param["SouthWestlat"];
+          $data["northeastlon"] = $param["NorthEastlon"];
+          $data["northeastlat"] = $param["NorthEastlat"];
+          $and = " and ";
+        }
+        /**
+         * Search on an event_type
+         */
+        if ($param["event_type_id"] > 0) {
+          $this->from .= " left outer join event oe on (so.uid = oe.uid) ";
+          $where .= $and . " event_type_id = :event_type_id";
+          $data["event_type_id"] = $param["event_type_id"];
+          $and = " and ";
+        }
+        /**
+         * Search on minimal subsample quantity
+         */
+        if ($param["subsample_quantity_min"] > 0) {
+          $where .= $and . "(vsq.multiple_value + vsq.subsample_more - vsq.subsample_less) >= :subsample_quantity_min";
+          $data["subsample_quantity_min"] = $param["subsample_quantity_min"];
+          $and = " and ";
+        }
+        /**
+         * Search on minimal subsample quantity
+         */
+        if (!empty($param["subsample_quantity_max"])) {
+          $where .= $and . "(vsq.multiple_value + vsq.subsample_more - vsq.subsample_less) <= :subsample_quantity_max";
+          $data["subsample_quantity_max"] = $param["subsample_quantity_max"];
+          $and = " and ";
+        }
+        /**
+         * Search on booking
+         */
+        if ($param["booking_type"] != 0) {
+          $data["booking_from"] = $this->formatDateLocaleVersDB($param["booking_from"], 2) . " 00:00:00";
+          $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"], 2) . " 23:59:59";
+          $where .= $and . " (select count(*) from booking b where ((:booking_from ::timestamp, :booking_to ::timestamp) overlaps (date_from::timestamp, date_to::timestamp)) = true
         and b.uid = so.uid)  ";
-        $param["booking_type"] == 1 ? $where .= " > 0 " : $where .= " = 0 ";
-        $and = " and ";
+          $param["booking_type"] == 1 ? $where .= " > 0 " : $where .= " = 0 ";
+          $and = " and ";
+        }
+        /**
+         * Search the samples without containers
+         */
+        if ($param["without_container"] == 1) {
+          $where .= $and . "(lm.movement_type_id = 2 or lm.movement_type_id is null )";
+          $and = " and ";
+        }
+        /**
+         * Fin de traitement des criteres de recherche
+         */
+        if ($where == "where") {
+          $where = "";
+        }
+        $this->where = $where;
+        $this->param = $param;
+        $this->data = $data;
       }
-      /**
-       * Search the samples without containers
-       */
-      if ($param["without_container"] == 1) {
-        $where .= $and . "(lm.movement_type_id = 2 or lm.movement_type_id is null )";
-        $and = " and ";
-      }
-      /**
-       * Fin de traitement des criteres de recherche
-       */
-      if ($where == "where") {
-        $where = "";
-      }
+    }
+  }
+
+  /**
+   * Reset the cache of variables used for the research
+   *
+   * @return void
+   */
+  function resetParam()
+  {
+    $this->where = "";
+    $this->paramSearch = array();
+    $this->data = array();
+  }
+
+  /**
+   * Search for samples
+   *
+   * @param array $param
+   * @return array
+   */
+  function sampleSearch(array $param): array
+  {
+    $this->_generateSearch($param);
+    if (!empty($this->where)) {
       /**
        * Rajout de la date de dernier mouvement pour l'affichage
        */
@@ -691,11 +712,12 @@ class Sample extends ObjetBDD
       $this->colonnes["borrowing_date"] = array("type" => 2);
       $this->colonnes["expected_return_date"] = array("type" => 2);
       $this->colonnes["change_date"] = array("type" => 3);
-      /*printr($this->sql);
-      printr($where);
-      printA($data);*/
-
-      $list = $this->getListeParamAsPrepared($this->sql . $where, $data);
+      if ($param["limit"] > 0) {
+        $limit = " order by s.uid desc limit " . $param["limit"];
+      } else {
+        $limit = "";
+      }
+      $list = $this->getListeParamAsPrepared($this->sql . $this->from . $this->where . $limit, $this->data);
       /**
        * Destroy foreign fields used in the request
        */
@@ -707,6 +729,25 @@ class Sample extends ObjetBDD
     } else {
       return array();
     }
+  }
+
+
+  /**
+   * Get the number of records from the parameters selection
+   *
+   * @param array $param
+   * @return integer
+   */
+  function getNbSamples(array $param): int
+  {
+    $this->_generateSearch($param);
+    $number = 0;
+    if (!empty($this->where)) {
+      $sql = "select count(s.sample_id) as samplenumber";
+      $data = $this->lireParamAsPrepared($sql . $this->from . $this->where, $this->data);
+      $number = $data["samplenumber"];
+    }
+    return $number;
   }
 
   /**
@@ -721,7 +762,7 @@ class Sample extends ObjetBDD
       $data["uid"] = $uid;
       $where = " where pso.uid = :uid";
       $order = " order by s.uid";
-      return $this->getListeParamAsPrepared($this->sql . $where . $order, $data);
+      return $this->getListeParamAsPrepared($this->sql . $this->from . $where . $order, $data);
     }
   }
 
@@ -734,14 +775,14 @@ class Sample extends ObjetBDD
    */
   public function getForExport($uids)
   {
-    if (empty($uids) ) {
+    if (empty($uids)) {
       throw new SampleException("Pas d'échantillons sélectionnés");
     } else {
       $this->auto_date = 0;
       $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy
             , object_comment as comment,
-             c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
-             multiple_value, sampling_place_name, metadata::varchar,
+            c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
+            multiple_value, sampling_place_name, metadata::varchar,
             voi.identifiers, dbuid_origin, parent_sample_id, '' as dbuid_parent,
             campaign_name,
             case when ro.referent_name is not null then trim(ro.referent_name || ' ' || coalesce(ro.referent_firstname, '')) else trim(cr.referent_name || ' ' || coalesce(cr.referent_firstname, '')) end as referent_name
@@ -759,7 +800,7 @@ class Sample extends ObjetBDD
             left outer join campaign using (campaign_id)
             left outer join country ctry on (sample.country_id = ctry.country_id)
             left outer join country ctryo on (sample.country_origin_id = ctryo.country_id)
-             where o.uid in (" . $uids . ")";
+            where o.uid in (" . $uids . ")";
       $d = $this->getListeParam($sql);
       $this->auto_date = 1;
       /*
@@ -768,7 +809,7 @@ class Sample extends ObjetBDD
       $data = array();
       foreach ($d as $value) {
         if ($this->verifyCollection($value)) {
-          if (empty($value["dbuid_origin"]) ) {
+          if (empty($value["dbuid_origin"])) {
             $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
           }
           /*
@@ -821,7 +862,7 @@ class Sample extends ObjetBDD
    */
   public function generateArrayUidToString($uids)
   {
-    if (count($uids) > 0) {
+    if (!empty($uids) ) {
       /*
              * Verification que les uid sont numeriques
              * preparation de la clause where
@@ -858,8 +899,8 @@ class Sample extends ObjetBDD
     );
     foreach ($data as $line) {
       foreach ($fields as $field) {
-        if (strlen($line[$field]) > 0) {
-          if (!in_array($line[$field], $names[$field])) {
+        if (strlen($line[$field]) > 0 ) {
+          if (empty($names[$field]) || !in_array($line[$field], $names[$field])) {
             $names[$field][] = $line[$field];
           }
         }
@@ -871,7 +912,7 @@ class Sample extends ObjetBDD
         $idents = explode(",", $line["identifiers"]);
         foreach ($idents as $ident) {
           $idvalue = explode(":", $ident);
-          if (!in_array($idvalue[0], $names["identifier_type_code"])) {
+          if (!empty($idvalue) && (empty($names["identifier_type_code"]) || !in_array($idvalue[0], $names["identifier_type_code"]))) {
             $names["identifier_type_code"][] = $idvalue[0];
           }
         }
@@ -890,7 +931,7 @@ class Sample extends ObjetBDD
   public function verifyBeforeImport($row)
   {
     if (count($row) > 0) {
-      if (empty($row["dbuid_origin"]) ) {
+      if (empty($row["dbuid_origin"])) {
         throw new SampleException(_("L'identifiant de la base de données d'origine n'a pas été fourni"));
       }
       /*
@@ -1159,7 +1200,7 @@ class Sample extends ObjetBDD
     } else {
       $where = " where s.uid = :uid";
     }
-    $data = $this->lireParamAsPrepared($this->sql . $where, array("uid" => $uid));
+    $data = $this->lireParamAsPrepared($this->sql . $this->from . $where, array("uid" => $uid));
     /**
      * Purge the metadata_schema to keep the type and the unit
      */
@@ -1215,7 +1256,7 @@ class Sample extends ObjetBDD
   function getListFromUids($uids)
   {
     $where = " where s.uid in ($uids)";
-    return $this->getListeParam($this->sql . $where);
+    return $this->getListeParam($this->sql . $this->from . $where);
   }
   /**
    * Set the country for an array of uids
@@ -1328,14 +1369,14 @@ class Sample extends ObjetBDD
       join container cl using (uid)
       join container_type ct using (container_type_id)
       left outer join last_movement lm on (lm.uid = o.uid and lm.movement_type_id =1)
-       join containers on (containers.container_id = lm.container_id)
-       )
-       select s.uid
-       from sample s
-       join object so using (uid)
-       join sample_type using (sample_type_id)
-       join last_movement lm on (lm.uid = so.uid and lm.movement_type_id = 1)
-       where lm.container_id in (select container_id from containers)";
+      join containers on (containers.container_id = lm.container_id)
+      )
+      select s.uid
+      from sample s
+      join object so using (uid)
+      join sample_type using (sample_type_id)
+      join last_movement lm on (lm.uid = so.uid and lm.movement_type_id = 1)
+      where lm.container_id in (select container_id from containers)";
     $listUids = $this->getListeParamAsPrepared($sql, array("uid" => $uid));
     if (count($listUids) > 0) {
       $uids = "";

@@ -290,8 +290,13 @@ class Login
     $user = phpCAS::getUser();
     if (!empty($user)) {
       $_SESSION["CAS_attributes"] = phpCAS::getAttributes();
+      if (!is_array($_SESSION["CAS_attributes"])) {
+        $_SESSION["CAS_attributes"] = array ($_SESSION["CAS_attributes"]);
+      }
+      if (!empty($_SESSION["CAS_attributes"])) {
       $params = $this->getUserParams($user_attributes, $_SESSION["CAS_attributes"]);
       $this->updateLoginFromIdentification($user, $params);
+      }
     }
     return $user;
   }

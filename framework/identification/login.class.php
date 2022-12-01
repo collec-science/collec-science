@@ -36,6 +36,7 @@ class Login
       $tauth = "swtoken";
       if ($this->loginGestion->getLoginFromTokenWS($_REQUEST["login"], $_REQUEST["token"])) {
         $login = $_REQUEST["login"];
+        $_SESSION["realIdentificationMode"] = "ws";
       }
     } elseif (isset($_COOKIE["tokenIdentity"])) {
       $tauth = "token";
@@ -61,19 +62,24 @@ class Login
     } elseif ($type_authentification == "HEADER") {
       $tauth = "header";
       $login = $this->getLoginFromHeader();
+      $_SESSION["realIdentificationMode"] = "HEADER";
     } elseif ($type_authentification == "CAS") {
       $tauth = "cas";
       $login = $this->getLoginCas($modeAdmin);
+      $_SESSION["realIdentificationMode"] = "CAS";
     } elseif ($type_authentification == "LDAP" || $type_authentification == "LDAP-BDD") {
       $tauth = "ldap";
       $login = $this->getLoginLdap($_POST["login"], $_POST["password"]);
+      $_SESSION["realIdentificationMode"] = "LDAP";
       if (empty($login) && $type_authentification == "LDAP-BDD") {
         $tauth = "db";
         $login = $this->getLoginBDD($_POST["login"], $_POST["password"]);
+        $_SESSION["realIdentificationMode"] = "BDD";
       }
     } elseif ($type_authentification == "BDD" || $type_authentification == "CAS-BDD") {
       $tauth = "db";
       $login = $this->getLoginBDD($_POST["login"], $_POST["password"]);
+      $_SESSION["realIdentificationMode"] = "BDD";
     }
     if (!empty($login)) {
       $this->log->setlog($login, "connection-" . $tauth, "ok");
@@ -269,7 +275,7 @@ class Login
       phpCAS::setDebug("temp/cas.log");
       phpCAS::setVerbose(true);
     }
-    phpCAS::client(CAS_VERSION_2_0, $CAS_address, $CAS_port, $CAS_uri, false);
+    phpCAS::client(CAS_VERSION_2_0, $CAS_address, $CAS_port, $CAS_uri, "https://".$_SERVER["HTTP_HOST"], false);
     if (!empty($CAS_CApath)) {
       phpCAS::setCasServerCACert($CAS_CApath);
     } else {
@@ -284,8 +290,13 @@ class Login
     $user = phpCAS::getUser();
     if (!empty($user)) {
       $_SESSION["CAS_attributes"] = phpCAS::getAttributes();
+      if (!is_array($_SESSION["CAS_attributes"])) {
+        $_SESSION["CAS_attributes"] = array ($_SESSION["CAS_attributes"]);
+      }
+      if (!empty($_SESSION["CAS_attributes"])) {
       $params = $this->getUserParams($user_attributes, $_SESSION["CAS_attributes"]);
       $this->updateLoginFromIdentification($user, $params);
+      }
     }
     return $user;
   }

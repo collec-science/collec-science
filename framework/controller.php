@@ -535,7 +535,7 @@ try {
         }
         if ($acllogin->isTotp() && !empty($_SESSION["login"])) {
           $vue->set("framework/ident/totp.tpl", "corps");
-        } else if (in_array($ident_type, array("BDD", "LDAP", "LDAP-BDD"))) {
+        } else if (in_array($_SESSION["realIdentificationMode"] , array("BDD", "LDAP"))) {
           /**
            * saisie du login en mode admin
            */
@@ -617,11 +617,15 @@ try {
        */
       switch ($motifErreur) {
         case "droitko":
+          if (!isset($acllogin)) {
+            include_once "framework/droits/acllogin.class.php";
+            $acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
+          }
           if (!$acllogin->isTotp() || !$moduleAdmin) {
             /**
              * Send mail to administrators
              */
-            $subject = "SECURITY REPORTING - " . $GACL_aco . " - The user " . $_SESSION["login"] . "  has attempted to access an unauthorized module";
+            $subject = "SECURITY REPORTING - " . $_SESSION["APPLI_title"] . " - The user " . $_SESSION["login"] . "  has attempted to access an unauthorized module";
             $log->sendMailToAdmin(
               $subject,
               "framework/mail/noRights.tpl",

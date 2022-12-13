@@ -3,7 +3,7 @@
 	$( document ).ready( function () {
 		var totalNumber = "{$totalNumber}";
 		var limit = "{$sampleSearch['limit']}";
-		var scrolly = "50vh";
+		var scrolly = "75vh";
 		if (limit < 5 && limit > 0 || totalNumber < 5) {
 			scrolly = "20vh";
 		}
@@ -15,18 +15,18 @@
 		} catch {
 			var hb = [11,12,13,14,15,16,17,18,19];
 		}
-		var table = $( '#sampleList' ).DataTable( {
+		var tableList = $( '#sampleList' ).DataTable( {
 			"order": [[1, "asc"]],
 			dom: 'Bfirtp',
 			"language": dataTableLanguage,
 			"paging": false,
 			"searching": true,
-			"scrollY":scrolly,
-			"scrollX":true,
-			fixedHeader: {
+			scrollY:scrolly,
+			scrollX:true,
+			/*fixedHeader: {
             header: false,
             footer: true
-        },
+        },*/
 			"stateDuration": 60 * 60 * 24 * 30,
 			"columnDefs" : [
 				{
@@ -73,9 +73,9 @@
 				}
 			]
 		} );
-		table.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
+		tableList.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
 			var hb = [];
-			table.columns().every(function () {
+			tableList.columns().every(function () {
 				if (!this.visible()) {
 					hb.push(this.index());
 				}
@@ -303,7 +303,7 @@
 				$( this ).html( '<input type="text" placeholder="' + title + '" size="' + size + '" class="searchInput" title="'+title+'">' );
 			}
 		} );
-		table.columns().every( function () {
+		tableList.columns().every( function () {
 			var that = this;
 			if ( that.index() > 0 ) {
 				$( 'input', this.header() ).on( 'keyup change clear', function () {
@@ -399,15 +399,17 @@
 		/*$("#collection_id").change ( function () {
             getTypeEvents();
         });*/
+	
 	} );
+	
 </script>
 <div class="col-lg-12">
 {include file="gestion/displayPhotoScript.tpl"}
-{if $droits.gestion == 1}
 	<form method="POST" id="sampleFormListPrint" action="index.php">
 		<input type="hidden" id="samplemodule" name="module" value="samplePrintLabel">
 		<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
 		<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
+		{if $droits.gestion == 1}
 		<div class="row">
 			<div class="center">
 				<label id="lsamplecheck" for="checkSample">{t}Tout cocher{/t}</label>
@@ -443,7 +445,7 @@
 		</div>
 		{/if}
 		<table id="sampleList" class="table table-bordered table-hover" title="{t}Liste des échantillons{/t}">
-			<thead>
+			<thead class="nowrap">
 				<tr>{if $droits.gestion == 1}
 					<th class="center">
 						<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample">
@@ -483,22 +485,22 @@
 							{$samples[lst].uid}
 						</a>
 					</td>
-					<td class="sample" data-uid="{$samples[lst].uid}" title="">
+					<td class="sample nowrap" data-uid="{$samples[lst].uid}" title="">
 						<a class="tooltiplink" href="index.php?module=sampleDisplay&uid={$samples[lst].uid}" title="">
 							{$samples[lst].identifier}
 						</a>
 					</td>
-					<td>{$samples[lst].identifiers}
+					<td class="nowrap">{$samples[lst].identifiers}
 						{if strlen($samples[lst].dbuid_origin) > 0}
 						{if strlen($samples[lst].identifiers) > 0}<br>{/if}
 						<span title="{t}UID de la base de données d'origine{/t}">{$samples[lst].dbuid_origin}</span>
 						{/if}
 					</td>
-					<td>{$samples[lst].collection_name}</td>
-					<td>{$samples[lst].sample_type_name}</td>
+					<td class="nowrap">{$samples[lst].collection_name}</td>
+					<td class="nowrap">{$samples[lst].sample_type_name}</td>
 					<td {if $samples[lst].trashed==1}class="trashed" title="{t}Échantillon mis à la corbeille{/t}" {/if}>
 						{$samples[lst].object_status_name}</td>
-					<td>{if strlen($samples[lst].parent_uid) > 0}
+					<td class="nowrap">{if strlen($samples[lst].parent_uid) > 0}
 						<a class="sample" data-uid="{$samples[lst].parent_uid}"
 							href="index.php?module=sampleDisplay&uid={$samples[lst].parent_uid}">
 							<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
@@ -522,7 +524,7 @@
 							</span>
 							{/if}
 					</td>
-					<td>
+					<td class="nowrap">
 						{if $samples[lst].container_uid > 0}
 						<a href="index.php?module=containerDisplay&uid={$samples[lst].container_uid}">
 							{$samples[lst].container_identifier}
@@ -530,9 +532,9 @@
 						<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
 						{/if}
 					</td>
-					<td>{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
-					<td>{$samples[lst].campaign_name}</td>
-					<td>{$samples[lst].sampling_place_name}</td>
+					<td class="nowrap">{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
+					<td class="nowrap">{$samples[lst].campaign_name}</td>
+					<td class="nowrap">{$samples[lst].sampling_place_name}</td>
 					<td class="nowrap">{$samples[lst].sampling_date}</td>
 					<td class="nowrap">{$samples[lst].sample_creation_date}</td>
 					<td class="nowrap">{$samples[lst].expiration_date}</td>

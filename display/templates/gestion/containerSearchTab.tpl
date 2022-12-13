@@ -32,12 +32,13 @@
 			 try {
 				obj = JSON.parse($("#name").val());
 				if (obj.db.length > 0) {
-					if (obj.db == appli_code) {
-						$("#name").val(obj.uid);
-					} else {
-						$("#name").val(obj.db + ":"+ obj.uid);
-					}
-				}
+                        if (obj.db == appli_code) {
+                            $("#uidsearch").val(obj.uid);
+                            $("#name").val("");
+                        } else {
+                            $("#name").val(obj.db + ":"+ obj.uid);
+                        }
+                    }
 			 } catch (error) {}
 		 	}
 			if ($("#container_family_id").val() > 0) ok = true;
@@ -122,7 +123,10 @@
 								<input id="uidsearch" name="uidsearch" class="form-control nombre" value="{$containerSearch.uidsearch}">
 							</div>
 
-							<label for="name" class= "col-sm-2 control-label">{t}Identifiant ou UUID :{/t}</label>
+							<label for="name" class= "col-sm-2 control-label">
+								{t}Identifiant ou UUID :{/t}
+								<img src="display/images/qrcode.png" height="25">
+							</label>
 							<div class="col-sm-3">
 									<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
 							</div>

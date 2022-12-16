@@ -3,10 +3,10 @@
 	$( document ).ready( function () {
 		var totalNumber = "{$totalNumber}";
 		var limit = "{$sampleSearch['limit']}";
-		var scrolly = "75vh";
-		if (limit < 5 && limit > 0 || totalNumber < 5) {
+		var scrolly = "50vh";
+		/*if (limit < 5 && limit > 0 || totalNumber < 5) {
 			scrolly = "20vh";
-		}
+		}*/
 		try {
 			var hb = JSON.parse(localStorage.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {

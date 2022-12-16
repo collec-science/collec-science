@@ -298,7 +298,7 @@ $(document).ready(function () {
 		</div>
 {/if}
 		<table id="containerList" class="table table-bordered table-hover " >
-			<thead>
+			<thead class="nowrap">
 				<tr>
 					{if $droits.gestion == 1}
 						<th class="center">
@@ -321,7 +321,7 @@ $(document).ready(function () {
 					<th>{t}Commentaires{/t}</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="nowrap">
 				{section name=lst loop=$containers}
 					<tr>
 						{if $droits.gestion == 1}

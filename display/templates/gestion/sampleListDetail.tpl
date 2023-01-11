@@ -4,16 +4,25 @@
 		var totalNumber = "{$totalNumber}";
 		var limit = "{$sampleSearch['limit']}";
 		var scrolly = "75vh";
-		if (limit < 5 && limit > 0 || totalNumber < 5) {
+		var isGestion = "{$droits['gestion']}";
+		if (limit < 5 && limit > 0 || totalNumber < 5 && totalNumber > 0) {
 			scrolly = "20vh";
 		}
 		try {
 			var hb = JSON.parse(localStorage.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
-				hb = [11,12,13,14,15,16,17,18,19];
+				if (isGestion == 1) {
+					hb = [11,12,13,14,15,16,17,18,19];
+				} else {
+					hb = [10,11,12,13,14,15,16,17,18];
+				}
 			}
 		} catch {
-			var hb = [11,12,13,14,15,16,17,18,19];
+			if (isGestion == 1) {
+					var hb = [11,12,13,14,15,16,17,18,19];
+				} else {
+					var hb = [10,11,12,13,14,15,16,17,18];
+				}
 		}
 		var tableList = $( '#sampleList' ).DataTable( {
 			"order": [[1, "asc"]],

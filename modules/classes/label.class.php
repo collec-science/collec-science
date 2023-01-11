@@ -78,6 +78,20 @@ class Label extends ObjetBDD
         $data["label_id"] = $label_id;
         if (is_numeric($label_id) && $label_id > 0) {
             return parent::lireParamAsPrepared($sql, $data);
+        } else {
+            return $this->getDefaultValue();
         }
+    }
+    /**
+     * Get the list of types of containers referenced by the label
+     * @param int $label_id
+     * @return array
+     */
+    function getReferencedContainers(int $label_id) : array {
+        $sql = "select container_type_id, container_type_name
+                from container_type
+                where label_id = :label_id
+                order by container_type_name";
+        return $this->executeAsPrepared($sql, array("label_id" => $label_id));
     }
 }

@@ -547,7 +547,7 @@ class Sample extends ObjetBDD
         /**
          * Recherche dans les metadonnees
          */
-        if (!empty($param["metadata_field"][0])  && strlen($param["metadata_value"][0]) > 0) {
+        if ($_SESSION["droits"]["gestion"] == 1 && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
           $where .= $and . " ";
           /**
            * Traitement des divers champs de metadonnees (3 maxi)
@@ -862,7 +862,7 @@ class Sample extends ObjetBDD
    */
   public function generateArrayUidToString($uids)
   {
-    if (!empty($uids) ) {
+    if (!empty($uids)) {
       /*
              * Verification que les uid sont numeriques
              * preparation de la clause where
@@ -899,7 +899,7 @@ class Sample extends ObjetBDD
     );
     foreach ($data as $line) {
       foreach ($fields as $field) {
-        if (strlen($line[$field]) > 0 ) {
+        if (strlen($line[$field]) > 0) {
           if (empty($names[$field]) || !in_array($line[$field], $names[$field])) {
             $names[$field][] = $line[$field];
           }

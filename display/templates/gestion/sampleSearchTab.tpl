@@ -4,6 +4,7 @@
     var sampling_place_init = "{$sampleSearch.sampling_place_id}";
     var appli_code ="{$APPLI_code}";
     $(document).ready(function () {
+        var isGestion = "{$droits['gestion']}";
         /*
          * Verification que des criteres de selection soient saisis
          */
@@ -93,20 +94,23 @@
         $("#showmetadata2").click(function () {
         $("#metadatarow2").show();
         });
+        if (isGestion == 1) {
         var metadataFieldInitial = [];
-        {foreach $sampleSearch.metadata_field as $val}
-            metadataFieldInitial.push ( "{$val}" );
-        {/foreach}
+            {foreach $sampleSearch.metadata_field as $val}
+                metadataFieldInitial.push ( "{$val}" );
+            {/foreach}
+        }
         $("#sample_type_id").change(function () {
             regenerateMetadata();
         });
         function regenerateMetadata() {
-            /* regenerate the list of metadata */
-            var sampleTypeId = $("#sample_type_id").val();
-            if (sampleTypeId != lastSampletypeId && sampleTypeId) {
-                $(".metadatavalue").val("");
-            }
-            lastSampletypeId = sampleTypeId;
+            if (isGestion == 1) {
+                /* regenerate the list of metadata */
+                var sampleTypeId = $("#sample_type_id").val();
+                if (sampleTypeId != lastSampletypeId && sampleTypeId) {
+                    $(".metadatavalue").val("");
+                }
+                lastSampletypeId = sampleTypeId;
                 $.ajax( {
                     url: "index.php",
                     data: { "module": "sampleTypeMetadataSearchable", "sample_type_id": sampleTypeId }
@@ -151,6 +155,7 @@
                         })
                     }
                 });
+            }
 
         }
         function getSamplingPlace () {
@@ -292,7 +297,10 @@
         /**
          * Initialize
          */
-        regenerateMetadata();
+        if (isGestion == 1) {
+            regenerateMetadata();
+        }
+        
     });
 </script>
 <div class="col-lg-10 col-md-12">
@@ -432,11 +440,13 @@
                                 <div class="col-sm-3">
                                     <select class="form-control" id="metadata_field" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.0 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+                                    {if $droits.gestion == 1}
                                     {foreach $metadatas as $value}
                                     <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.0 == $value.fieldname}selected{/if}>
                                     {$value.fieldname}
                                     </option>
                                     {/foreach}
+                                    {/if}
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
@@ -456,11 +466,13 @@
                                 <div class="col-sm-3">
                                     <select class="form-control"  id="metadata_field1" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.1 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+                                    {if $droits.gestion == 1}
                                     {foreach $metadatas as $value}
                                     <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.1 == $value.fieldname}selected{/if}>
                                     {$value.fieldname}
                                     </option>
                                     {/foreach}
+                                    {/if}
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
@@ -479,11 +491,13 @@
                                 <div class="col-sm-3">
                                     <select class="form-control"  id="metadata_field2" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+                                    {if $droits.gestion == 1}
                                     {foreach $metadatas as $value}
                                     <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.2 == $value.fieldname}selected{/if}>
                                     {$value.fieldname}
                                     </option>
                                     {/foreach}
+                                    {/if}
                                     </select>
                                 </div>
                                 <div class="col-sm-3">

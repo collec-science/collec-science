@@ -393,7 +393,8 @@
 		 */
 		$("#parent_sample_id").change(function() {
 			var id = $(this).val();
-			if ( id != null ) {
+			var sample_id = $("#sample_id").val();
+			if ( id != null && sample_id == 0) {
 				$.ajax( { url:"index.php", method:"GET", data : { module: "sampleGetFromIdAjax", sample_id:id},
 				success : function (djs) {
 					var collection = "";

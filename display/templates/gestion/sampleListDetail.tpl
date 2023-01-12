@@ -152,7 +152,8 @@
 			"samplesSetCountry": "country",
 			"samplesSetCollection": "collection",
 			"samplesSetCampaign": "campaign",
-			"samplesSetStatus": "status"
+			"samplesSetStatus": "status",
+			"samplesSetParent": "parentid"
 		};
 		$( "#checkedActionSample" ).change( function () {
 			var action = $( this ).val();
@@ -408,6 +409,37 @@
 		/*$("#collection_id").change ( function () {
             getTypeEvents();
         });*/
+		/*
+		* Search from parent
+		*/
+		$("#parent_search").on("focusout", function() {
+			var chaine = $("#parent_search").val();
+			if (chaine.length > 0) {
+				var url = "index.php";
+				var is_container = 2;
+				var sample_id = $("#sample_id").val();
+				var collection = "";
+				var type = "";
+				$.ajax ( { url:url, method:"GET", data : { module:"sampleSearchAjax", name:chaine, uidsearch:chaine }, success : function ( djs ) {
+					var options = "";
+					try {
+						var data = JSON.parse(djs);
+						for (var i = 0; i < data.length; i++) {
+							if (sample_id != data[i].sample_id) {
+								options += '<option value="' + data[i].sample_id +'">' + data[i].uid + "-" + data[i].identifier+"</option>";
+								if (i == 0) {
+									collection = data[0].collection_name;
+									type = data[0].sample_type_name;
+									parent_uid = data[0].uid;
+								}
+							}
+						}
+					} catch (error) {}
+					$("#parent_sample_id").html(options);
+					}
+				});
+			}
+		});
 	
 	} );
 	
@@ -588,6 +620,7 @@
 					<option value="samplesSetStatus">{t}Modifier le statut{/t}</option>
 					<option value="samplesEntry">{t}Entrer ou déplacer les échantillons au même emplacement{/t}</option>
 					<option value="samplesSetCollection">{t}Modifier la collection d'affectation{/t}</option>
+					<option value="samplesSetParent">{t}Assigner un parent aux échantillons{/t}</option>
 					<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 					<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
 				</select>
@@ -783,6 +816,25 @@
 								{foreach $objectStatus as $status}
 								<option value="{$status.object_status_id}">{$status.object_status_name}</option>
 								{/foreach}
+							</select>
+						</div>
+					</div>
+				</div>
+				<!-- set parent -->
+				<div class="parentid" hidden>
+					<div class="form-group">
+						<label for="parent_search" class="control-label col-sm-4"> {t}Recherchez le parent :{/t}</label>
+						<div class="col-sm-6">
+							<input id="parent_search" class="form-control" placeholder="{t}UID ou identifiant{/t}">
+						</div>
+						<div class="col-sm-2">
+							<img src="display/images/zoom.png" height="25" title="{t}Chercher{/t}">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="parent_sample_id" class="control-label col-sm-4"> {t}Parent à affecter :{/t}</label>
+						<div class="col-sm-8">
+							<select id="parent_sample_id" name="parent_sample_id" class="form-control">
 							</select>
 						</div>
 					</div>

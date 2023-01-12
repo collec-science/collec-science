@@ -60,7 +60,7 @@ class Operation extends ObjetBDD
      * {@inheritdoc}
      * @see ObjetBDD::getListe()
      */
-    function getListe()
+    function getListe($order = "")
     {
         return $this->getListeParam($this->sql . $this->order);
     }

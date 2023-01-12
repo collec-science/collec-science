@@ -438,19 +438,20 @@ class Sample extends ObjetBDD
         $data = array();
         $where = "where";
         $and = "";
-        if ($param["sample_type_id"] > 0) {
-          $where .= " s.sample_type_id = :sample_type_id";
-          $data["sample_type_id"] = $param["sample_type_id"];
-          $and = " and ";
-        }
+        $uidSearch = false;
+        
         if ($param["uidsearch"] > 0) {
-          $where .= $and . " s.uid = :uid";
+          $where .= "( s.uid = :uid";
           $data["uid"] = $param["uidsearch"];
+          $uidSearch = true;
           $and = " and ";
         }
         if (!empty($param["name"])) {
           $name = $this->encodeData($param["name"]);
-          $where .= $and . "( ";
+          if ($uidSearch) {
+            $where .= " or ";
+          }
+          $where .= "( ";
           $or = "";
           if (strlen($param["name"]) == 36) {
             $where .= "so.uuid = :uuid";
@@ -468,6 +469,14 @@ class Sample extends ObjetBDD
              */
           $where .= " or upper(voi.identifiers) like :identifier ";
           $where .= ")";
+        }
+        if ($uidSearch) {
+          $where .= ")";
+        }
+        if ($param["sample_type_id"] > 0) {
+          $where .= " s.sample_type_id = :sample_type_id";
+          $data["sample_type_id"] = $param["sample_type_id"];
+          $and = " and ";
         }
         if ($param["collection_id"] > 0) {
           $where .= $and . " s.collection_id = :collection_id";

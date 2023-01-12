@@ -5,9 +5,9 @@
 		var limit = "{$sampleSearch['limit']}";
 		var scrolly = "75vh";
 		var isGestion = "{$droits['gestion']}";
-		if (limit < 5 && limit > 0 || totalNumber < 5 && totalNumber > 0) {
+		/*if (limit < 5 && limit > 0 || totalNumber < 5 && totalNumber > 0) {
 			scrolly = "20vh";
-		}
+		}*/
 		try {
 			var hb = JSON.parse(localStorage.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {

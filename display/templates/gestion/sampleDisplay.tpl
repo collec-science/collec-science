@@ -260,12 +260,14 @@
 				{t}Échantillons dérivés{/t}
 			</a>
 		</li>
+		{if $modifiable == 1 || $consult_sees_all == 1}
 		<li class="nav-item">
             <a class="nav-link" id="tab-document" href="#nav-document"  data-toggle="tab" role="tab" aria-controls="nav-document" aria-selected="false">
 				<img src="display/images/camera.png" height="25">
 				{t}Documents associés{/t}
 			</a>
 		</li>
+		{/if}
 		<li class="nav-item">
             <a class="nav-link" id="tab-booking" href="#nav-booking"  data-toggle="tab" role="tab" aria-controls="nav-booking" aria-selected="false">
 				<img src="display/images/crossed-calendar.png" height="25">
@@ -557,14 +559,16 @@
 				{include file="gestion/sampleListDetail.tpl"}
 			</div>
 		</div>
-		<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
-			<div class="col-md-12">
-				{include file="gestion/documentList.tpl"}
-				{if $externalStorageEnabled == 1}
-				{include file="gestion/documentExternalAdd.tpl"}
-				{/if}
+		{if $modifiable == 1 || $consult_sees_all == 1 }
+			<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
+				<div class="col-md-12">
+					{include file="gestion/documentList.tpl"}
+					{if $externalStorageEnabled == 1}
+					{include file="gestion/documentExternalAdd.tpl"}
+					{/if}
+				</div>
 			</div>
-		</div>
+		{/if}
 		<div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="tab-booking">
 			<div class="col-md-12">
 				{include file="gestion/bookingList.tpl"}

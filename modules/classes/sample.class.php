@@ -439,7 +439,7 @@ class Sample extends ObjetBDD
         $where = "where";
         $and = "";
         $uidSearch = false;
-        
+
         if ($param["uidsearch"] > 0) {
           $where .= "( s.uid = :uid";
           $data["uid"] = $param["uidsearch"];
@@ -1315,6 +1315,25 @@ class Sample extends ObjetBDD
       $this->executeAsPrepared($sql, $data);
     }
   }
+  /**
+   * Change parent for all furnished uid
+   * @param array $uids
+   * @param int $parent_id
+   * @throws SampleException
+   * @return void
+   */
+  function setParent(array $uids, int $parent_id)
+  {
+    $parent = $this->lire($parent_id);
+    if (empty($parent["sample_id"])) {
+      throw new SampleException(_("Le parent n'existe pas"));
+    }
+    $sql = "update sample set parent_sample_id = :parent_id where uid = :uid";
+    foreach ($uids as $uid) {
+      $this->executeAsPrepared($sql, array("parent_id" => $parent_id, "uid" => $uid), true);
+    }
+  }
+
   /**
    * Get a sample from an identifier (uid, uuid, etc.)
    *

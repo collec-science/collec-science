@@ -736,6 +736,7 @@ switch ($t_module["param"]) {
       }
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
       $dataClass->setCountry($_POST["uids"], $_POST["country_id"]);
+      $message->set(_("Opération effectuée"));
       $module_coderetour = 1;
     } catch (ObjectException $oe) {
       $message->setSyslog($oe->getMessage());
@@ -754,6 +755,7 @@ switch ($t_module["param"]) {
       }
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
       $dataClass->setCollection($_POST["uids"], $_POST["collection_id_change"]);
+      $message->set(_("Opération effectuée"));
       $module_coderetour = 1;
     } catch (ObjectException $oe) {
       $message->setSyslog($oe->getMessage());
@@ -773,6 +775,7 @@ switch ($t_module["param"]) {
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
 
       $dataClass->setCampaign($_POST["uids"], $_POST["campaign_id"]);
+      $message->set(_("Opération effectuée"));
       $module_coderetour = 1;
     } catch (ObjectException $oe) {
       $message->setSyslog($oe->getMessage());
@@ -790,8 +793,8 @@ switch ($t_module["param"]) {
         throw new ObjectException(_("Pas de statut sélectionné"));
       }
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-      $object = new ObjectClass($bdd, $ObjetBDDParam);
-      $object->setStatus($_POST["uids"], $_POST["object_status_id"]);
+      $dataClass->setParent($uids, $parent_sample_id);
+      $message->set(_("Opération effectuée"));
       $module_coderetour = 1;
     } catch (ObjectException $oe) {
       $message->setSyslog($oe->getMessage());
@@ -800,6 +803,24 @@ switch ($t_module["param"]) {
       $module_coderetour = -1;
     }
     break;
+    case "setParent":
+      try {
+        if (count($_POST["uids"]) == 0) {
+          throw new ObjectException(_("Pas d'échantillons sélectionnés"));
+        }
+        if (empty($_POST["parent_sample_id"])) {
+          throw new ObjectException(_("Pas de parent sélectionné"));
+        }
+        is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+        $dataClass->setParent($uids, $_POST["parent_sample_id"]);
+        $message->set(_("Opération effectuée"));
+        $module_coderetour = 1;
+      } catch (ObjectException $oe) {
+        $message->setSyslog($oe->getMessage());
+        $message->set(_("Une erreur est survenue pendant la mise à jour du parent"), true);
+        $message->set($oe->getMessage());
+        $module_coderetour = -1;
+      }
   default:
     break;
 }

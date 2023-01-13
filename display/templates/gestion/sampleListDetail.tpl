@@ -3,7 +3,14 @@
 	$( document ).ready( function () {
 		var totalNumber = "{$totalNumber}";
 		var limit = "{$sampleSearch['limit']}";
-		var scrolly = "75vh";
+		//var scrolly = "75vh";
+		var sliderValue = 2000;
+		var myStorage = window.localStorage;
+        try {
+        sliderValue = myStorage.getItem("sampleSliderValue");
+        } catch (Exception) {
+        }
+		var scrolly = "2000pt";
 		var isGestion = "{$droits['gestion']}";
 		/*if (limit < 5 && limit > 0 || totalNumber < 5 && totalNumber > 0) {
 			scrolly = "20vh";
@@ -90,7 +97,19 @@
 				}
 				localStorage.setItem("sampleSearchColumns", JSON.stringify(hb));
 			});
-} );
+		} );
+		$( "#slider-vertical" ).slider({
+		orientation: "vertical",
+		range: "max",
+		min: 100,
+		max: 2000,
+		value: 2000,
+		slide: function( event, ui ) {
+			$(".dataTables_scrollBody").height(ui.value + "pt");
+
+		}
+		});
+    $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
 		/**
 		 * select or unselect samples
 		 */
@@ -485,6 +504,8 @@
 			</div>
 		</div>
 		{/if}
+		<div class="row">
+			<div class="col-md-11">
 		<table id="sampleList" class="table table-bordered table-hover" title="{t}Liste des échantillons{/t}">
 			<thead class="nowrap">
 				<tr>{if $droits.gestion == 1}
@@ -600,6 +621,13 @@
 				{/section}
 			</tbody>
 		</table>
+		</div>
+		<div class="col-md-1">
+			<div style="margin-top: 100px;">
+			<div id="slider-vertical" style="height:200px;"></div>
+			</div>
+		</div>
+		</div>
 		{if $droits.collection == 1}
 		<div class="row">
 			<div class="col-md-6 protoform form-horizontal">

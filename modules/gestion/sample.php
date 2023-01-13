@@ -95,14 +95,14 @@ switch ($t_module["param"]) {
     }
     $vue->set($dataSearch, "sampleSearch");
     $vue->set("gestion/sampleList.tpl", "corps");
-
-    /*
-         * Ajout des listes deroulantes
-         */
+    $vue->set($_SESSION["consult_sees_all"], "consult_sees_all");
+    /**
+     * Ajout des listes deroulantes
+     */
     sampleInitDatEntry();
-    /*
-         * Ajout de la selection des modeles d'etiquettes
-         */
+    /**
+     * Ajout de la selection des modeles d'etiquettes
+     */
     include 'modules/gestion/label.functions.php';
     /**
      * Map default data

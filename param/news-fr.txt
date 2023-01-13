@@ -1,5 +1,19 @@
 News
 ===========
+Version 2.8.2 du 13/01/2022
+---------------------------
+Correction de bugs :
+- dans certains cas, la suppression d'une étiquette ne fonctionnait pas, sans que l'utilisateur sache pourquoi. Un message d'erreur explicatif est maintenant affiché
+- avec le droit de consultation, un message d'erreur était généré quand on affichait la liste échantillons
+- avec le droit de consultation, il était possible de rechercher les échantillons à partir des métadonnées, alors que celles-ci n'étaient pas visibles
+- si les métadonnées ont été créées avec un champ de type date, elles ne sont plus modifiables (plantage du composant). Il faut remplacer le type "date" par le type "texte" dans la description des métadonnées. Le type "date" a été momentanément désactivé
+- en modification d'un échantillon, le rattachement à un parent ne fonctionnait plus. Les métadonnées étaient, de plus, écrasées
+
+Nouveautés :
+- il est maintenant possible d'affecter un parent à tout un lot d'échantillons (fonction rajoutée depuis la liste des échantillons)
+- il est possible de paramétrer le logiciel pour donner à tout utilisateur disposant du droit "consult" la possibilité de consulter les métadonnées ou de réaliser des recherches à partir de celles-ci (consultez la documentation directement dans le logiciel)
+- l'affichage de la liste des échantillons a été revu : elle a été agrandie, et un curseur permet de réduire sa taille rapidement
+
 Version 2.8.1 du 14/11/2022
 ----------------------------
 Corrections de bugs :

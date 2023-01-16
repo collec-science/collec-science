@@ -98,15 +98,22 @@
 				localStorage.setItem("sampleSearchColumns", JSON.stringify(hb));
 			});
 		} );
+		var sliderValue = 2000;
+		var myStorage = window.localStorage;
+        try {
+        sliderValue = myStorage.getItem("sampleSliderValue");
+		$(".dataTables_scrollBody").height(sliderValue + "pt");
+        } catch (Exception) {
+        }
 		$( "#slider-vertical" ).slider({
 		orientation: "vertical",
 		range: "max",
 		min: 100,
 		max: 2000,
-		value: 2000,
+		value: sliderValue,
 		slide: function( event, ui ) {
 			$(".dataTables_scrollBody").height(ui.value + "pt");
-
+			myStorage.setItem("sampleSliderValue", ui.value);
 		}
 		});
     $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );

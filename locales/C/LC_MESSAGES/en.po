@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-16 09:48+0100\n"
+"POT-Creation-Date: 2023-01-23 14:14+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -959,8 +959,8 @@ msgid "Impossible de lire le fichier contenant les news"
 msgstr "Unable to read the file containing the news"
 
 #: ../../../param/param.default.inc.php:12
-msgid "16/01/2023"
-msgstr "2023-01-16"
+msgid "23/01/2023"
+msgstr "2023-01-23"
 
 #: ../../../framework/identification/login.class.php:51
 msgid "L'identification par jeton n'a pas abouti"
@@ -1715,80 +1715,80 @@ msgstr "Unable to create the zip file"
 msgid "L'export %s n'existe pas"
 msgstr "Export %s don't exist"
 
-#: ../../../modules/classes/sample.class.php:300
+#: ../../../modules/classes/sample.class.php:301
 #, php-format
 msgid "Création de l'échantillon dérivé %s"
 msgstr "Create the derivative sample %s"
 
-#: ../../../modules/classes/sample.class.php:306
+#: ../../../modules/classes/sample.class.php:307
 msgid "Un problème est survenu lors de l'écriture de l'échantillon"
 msgstr "A problem is occurred when writing the sample"
 
-#: ../../../modules/classes/sample.class.php:309
+#: ../../../modules/classes/sample.class.php:310
 msgid "Un problème est survenu lors de l'écriture de l'objet"
 msgstr "A problem is occurred when writing the object"
 
-#: ../../../modules/classes/sample.class.php:312
+#: ../../../modules/classes/sample.class.php:313
 msgid "Vous ne disposez pas des droits pour modifier cet échantillon"
 msgstr "You do not have rights to edit this sample"
 
-#: ../../../modules/classes/sample.class.php:345
+#: ../../../modules/classes/sample.class.php:346
 #, php-format
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour supprimer l'échantillon %1s"
 msgstr "You do not have the necessary rights to delete the sample %1s"
 
-#: ../../../modules/classes/sample.class.php:860
+#: ../../../modules/classes/sample.class.php:876
 msgid "Droits insuffisants pour exporter les échantillons"
 msgstr "Insufficient rights to export samples"
 
-#: ../../../modules/classes/sample.class.php:944
+#: ../../../modules/classes/sample.class.php:960
 msgid "L'identifiant de la base de données d'origine n'a pas été fourni"
 msgstr "The identifier of the original database is missing"
 
-#: ../../../modules/classes/sample.class.php:950
+#: ../../../modules/classes/sample.class.php:966
 msgid "Le nom de la collection n'a pas été renseigné"
 msgstr "The name of the collection has not been filled out"
 
-#: ../../../modules/classes/sample.class.php:956
+#: ../../../modules/classes/sample.class.php:972
 msgid "Le type d'échantillon n'a pas été renseigné"
 msgstr "The sample type has not been filled out"
 
-#: ../../../modules/classes/sample.class.php:978
+#: ../../../modules/classes/sample.class.php:994
 #, php-format
 msgid "Le format de date de %s n'est pas reconnu. "
 msgstr "The date format of %s is not recognized. "
 
-#: ../../../modules/classes/sample.class.php:986
+#: ../../../modules/classes/sample.class.php:1002
 #, php-format
 msgid "La date de %s est incomplète ou incohérente. "
 msgstr "The date of %s is incomplete or inconsistent. "
 
-#: ../../../modules/classes/sample.class.php:997
+#: ../../../modules/classes/sample.class.php:1013
 #, php-format
 msgid "Le champ %s n'est pas numérique"
 msgstr "The field %s is not numeric"
 
-#: ../../../modules/classes/sample.class.php:1006
+#: ../../../modules/classes/sample.class.php:1022
 msgid "Les métadonnées ne sont pas correctement formatées (champ metadata)"
 msgstr "Metadata is not formatted correctly (metadata field)"
 
-#: ../../../modules/classes/sample.class.php:1019
+#: ../../../modules/classes/sample.class.php:1035
 #, php-format
 msgid "Le code de pays %s n'est pas connu"
 msgstr "The country code %s is unknown"
 
-#: ../../../modules/classes/sample.class.php:1120
+#: ../../../modules/classes/sample.class.php:1136
 msgid "Impossible d'écrire dans la table Object"
 msgstr "Can not write to the Object table"
 
-#: ../../../modules/classes/sample.class.php:1171
+#: ../../../modules/classes/sample.class.php:1187
 #, php-format
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour modifier l'échantillon %1s"
 msgstr "You do not have the necessary rights to modify the sample %1s"
 
-#: ../../../modules/classes/sample.class.php:1329
+#: ../../../modules/classes/sample.class.php:1345
 msgid "Le parent n'existe pas"
 msgstr "The parent don't exists"
 
@@ -8067,17 +8067,18 @@ msgid "Recherches enregistrées"
 msgstr "Recorded researches"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:360
-msgid "identifiant ou UUID :"
-msgstr "identifier or UUID:"
+msgid "identifiant(s) ou UUID :"
+msgstr "identifier(s) or UUID:"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:364
-#: ../../../display/templates/gestion/containerSearchTab.tpl:125
 msgid ""
 "identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. "
-"e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b)"
+"e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b), ou liste d'identifiants "
+"principaux séparés par une virgule (p. e. : af74,af76)"
 msgstr ""
 "principal identifier, secondary identifiers (eg: cab:15), UUID (eg: e1b1bdd8-"
-"d1e7-4f07-8e96-0d71e7aada2b)"
+"d1e7-4f07-8e96-0d71e7aada2b), or list of main identifiers separated by a "
+"comma (eg: af74,af76)"
 
 #: ../../../display/templates/gestion/sampleSearchTab.tpl:407
 #: ../../../display/templates/gestion/containerSearchTab.tpl:179
@@ -8229,6 +8230,14 @@ msgstr "Other information"
 #: ../../../display/templates/gestion/containerSearchTab.tpl:123
 msgid "Identifiant ou UUID :"
 msgstr "Identifier or UUID:"
+
+#: ../../../display/templates/gestion/containerSearchTab.tpl:125
+msgid ""
+"identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. "
+"e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b)"
+msgstr ""
+"principal identifier, secondary identifiers (eg: cab:15), UUID (eg: e1b1bdd8-"
+"d1e7-4f07-8e96-0d71e7aada2b)"
 
 #: ../../../display/templates/gestion/sampleChange.tpl:442
 msgid "Création - modification d'un échantillon"

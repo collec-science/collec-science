@@ -1,6 +1,6 @@
 News
 ===========
-Version 2.8.2 du 13/01/2022
+Version 2.8.2 du 23/01/2022
 ---------------------------
 Correction de bugs :
 - dans certains cas, la suppression d'une étiquette ne fonctionnait pas, sans que l'utilisateur sache pourquoi. Un message d'erreur explicatif est maintenant affiché
@@ -13,6 +13,7 @@ Nouveautés :
 - il est maintenant possible d'affecter un parent à tout un lot d'échantillons (fonction rajoutée depuis la liste des échantillons)
 - il est possible de paramétrer le logiciel pour donner à tout utilisateur disposant du droit "consult" la possibilité de consulter les métadonnées ou de réaliser des recherches à partir de celles-ci (consultez la documentation directement dans le logiciel)
 - l'affichage de la liste des échantillons a été revu : elle a été agrandie, et un curseur permet de réduire sa taille rapidement
+- il est possible de rechercher plusieurs échantillons à partir de leur identifiant métier principal, en séparant la liste des identifiants par une virgule
 
 Version 2.8.1 du 14/11/2022
 ----------------------------

@@ -357,11 +357,11 @@
                                 <input id="uidsearch" name="uidsearch" class="form-control nombre" value="{$sampleSearch.uidsearch}">
                             </div>
                             <label for="name" class= "col-sm-2 control-label">
-                                {t}identifiant ou UUID :{/t}
+                                {t}identifiant(s) ou UUID :{/t}
                                 <img src="display/images/qrcode.png" height="25">
                             </label>
                             <div class="col-sm-3">
-                                <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
+                                <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b), ou liste d'identifiants principaux séparés par une virgule (p. e. : af74,af76){/t}">
                             </div>
                         </div>
                     </div>

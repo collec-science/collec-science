@@ -90,6 +90,7 @@ class Sample extends ObjetBDD
   private $paramSearch = array();
   private $data = array();
   private $object, $container, $event, $country;
+  public Subsample $subsample;
 
   public function __construct($bdd, $param = array())
   {
@@ -447,28 +448,43 @@ class Sample extends ObjetBDD
           $and = " and ";
         }
         if (!empty($param["name"])) {
-          $name = $this->encodeData($param["name"]);
           if ($uidSearch) {
             $where .= " or ";
           }
-          $where .= "( ";
-          $or = "";
-          if (strlen($param["name"]) == 36) {
-            $where .= "so.uuid = :uuid";
-            $data["uuid"] = $param["name"];
-            $or = " or ";
-          }
-          $identifier = "%" . strtoupper($name) . "%";
-          $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
-          $and = " and ";
-          $data["identifier"] = $identifier;
-          $data["dbuid_origin"] = $name;
-          /*
+          $aname = explode(",", $param["name"]);
+          if (count($aname) > 1) {
+            $where .= " so.identifier in (";
+            $i = 1;
+            foreach ($aname as $v) {
+              if ($i > 1) {
+                $where .= ",";
+              }
+              $where .= ":id".$i;
+              $data["id$i"] = strtoupper(trim($v));
+              $i++;
+            }
+            $where .= ")";
+            $and = " and ";
+          } else {
+            $where .= "( ";
+            $or = "";
+            if (strlen($param["name"]) == 36) {
+              $where .= "so.uuid = :uuid";
+              $data["uuid"] = $param["name"];
+              $or = " or ";
+            }
+            $identifier = "%" . strtoupper($name) . "%";
+            $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
+            $and = " and ";
+            $data["identifier"] = $identifier;
+            $data["dbuid_origin"] = $name;
+            /*
              * Recherche sur les identifiants externes
              * possibilite de recherche sur cab:valeur, p. e.
              */
-          $where .= " or upper(voi.identifiers) like :identifier ";
-          $where .= ")";
+            $where .= " or upper(voi.identifiers) like :identifier ";
+            $where .= ")";
+          }
         }
         if ($uidSearch) {
           $where .= ")";

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.0-beta1" use-changelog="false" last-position="876,439" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.0-beta1" use-changelog="false" last-position="867,849" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -340,13 +340,14 @@ Congélateur•2]]>
 		<columns names="dbparam_id" ref-type="src-columns"/>
 	</constraint>
 	<initial-data>
-<![CDATA[dbparam_name•dbparam_value⸣
-APPLI_code•cs_code⸣
-APPLI_title•Collec-Science - instance for ⸣
-mapDefaultX•-0.70⸣
-mapDefaultY•44.77⸣
-mapDefaultZoom•7⸣
-otp_issuer•collec-science]]>
+<![CDATA["dbparam_name";"dbparam_value"
+"APPLI_code";"cs_code"
+"APPLI_title";"Collec-Science - instance for "
+"mapDefaultX";"-0.70"
+"mapDefaultY";"44.77"
+"mapDefaultZoom";"7"
+"otp_issuer";"collec-science"
+"consult_sees_all";"0"]]>
 	</initial-data>
 </table>
 

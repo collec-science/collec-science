@@ -1,5 +1,20 @@
 News
 ===========
+Version 2.8.2 of January 23th, 2023
+----------------------------
+Bug fixes:
+- In some cases, deleting a label did not work, without the user knowing why. An explanatory error message is now displayed
+- with the consultation right, an error message was generated when displaying the sample list
+- with the consultation right, it was possible to search for samples from the metadata, even though the metadata was not visible
+- if the metadata were created with a date type field, they can no longer be modified (component crash). The "date" type must be replaced by the "text" type in the metadata description. The "date" type has been temporarily disabled
+- when modifying a sample, the attachment to a parent did not work anymore. The metadata were, moreover, overwritten
+
+New features:
+- it is now possible to assign a parent to a whole batch of samples (function added from the list of samples)
+- it is possible to set up the software to give to any user having the "consult" right the possibility to consult the metadata or to carry out research from them (consult the documentation directly in the software)
+- the display of the list of samples has been revised: it has been enlarged, and a slider allows to reduce its size quickly
+- it is possible to search for several samples from their main business identifier, separating the list of identifiers by a comma
+
 Version 2.8.1 of December 1st, 2022
 ----------------------------
 Bug fixes :

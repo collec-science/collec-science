@@ -348,7 +348,7 @@
 		/*
 		* Search from parent
 		*/
-		$("#parent_search").on("keyup", function() {
+		$("#parent_search").on("focusout", function() {
 			var chaine = $("#parent_search").val();
 			if (chaine.length > 0) {
 				var url = "index.php";
@@ -356,7 +356,7 @@
 				var sample_id = $("#sample_id").val();
 				var collection = "";
 				var type = "";
-				$.ajax ( { url:url, method:"GET", data : { module:"sampleSearchAjax", name:chaine }, success : function ( djs ) {
+				$.ajax ( { url:url, method:"GET", data : { module:"sampleSearchAjax", name:chaine, uidsearch:chaine }, success : function ( djs ) {
 					var options = "";
 					try {
 						var data = JSON.parse(djs);
@@ -393,7 +393,8 @@
 		 */
 		$("#parent_sample_id").change(function() {
 			var id = $(this).val();
-			if (id.length > 0) {
+			var sample_id = $("#sample_id").val();
+			if ( id != null && sample_id == 0) {
 				$.ajax( { url:"index.php", method:"GET", data : { module: "sampleGetFromIdAjax", sample_id:id},
 				success : function (djs) {
 					var collection = "";

@@ -42,11 +42,6 @@ function getSchema(formdef) {
             prop.type = "string";
         }
 
-        if (value.type == "date") {
-            prop.type = "string";
-            prop.format = "date";
-        }
-
         if (value.required) {
             prop.required = value.required;
         }
@@ -56,7 +51,6 @@ function getSchema(formdef) {
 
     $.each(formdef, function (index, value) {
         var prop = baseProps(index, value);
-
         schema.properties[value.name] = prop;
         if (value.default) {
             schema.default = value.default;
@@ -89,7 +83,6 @@ var baseFields = function (index, value) {
         field.default = value.defaultValue;
     }
 
-
     if (value.choiceList) {
         field.optionLabels = $.map(value.choiceList, function (v, i) {
             return v.text;
@@ -113,7 +106,7 @@ var baseFields = function (index, value) {
     if (value.helperChoice) {
         field.helper = value.helper;
     }
-    //console.log(field);
+
     return field;
 };
 
@@ -133,7 +126,6 @@ function setDefault(value) {
     $.each(value, function (index, val) {
         if (val.defaultValue) {
             d[val.name] = val.defaultValue;
-            console.log(d[val.name]);
         }
     });
       return d;

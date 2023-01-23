@@ -77,12 +77,12 @@ switch ($t_module["param"]) {
       try {
         $dataClass->resetParam();
         $data = $dataClass->sampleSearch($dataSearch);
-        $vue->set( $dataClass->getNbSamples($dataSearch),"totalNumber");
+        $vue->set($dataClass->getNbSamples($dataSearch), "totalNumber");
         /**
          * explode metadata
          */
         foreach ($data as $k => $v) {
-          if (!empty($v["metadata"]) && $dataClass->verifyCollection($v)) {
+          if (!empty($v["metadata"]) && ($dataClass->verifyCollection($v) || $_SESSION["consult_sees_all"] == 1)) {
             $data[$k]["metadata_array"] = json_decode($v["metadata"], true);
           }
         }
@@ -95,14 +95,14 @@ switch ($t_module["param"]) {
     }
     $vue->set($dataSearch, "sampleSearch");
     $vue->set("gestion/sampleList.tpl", "corps");
-
-    /*
-         * Ajout des listes deroulantes
-         */
+    $vue->set($_SESSION["consult_sees_all"], "consult_sees_all");
+    /**
+     * Ajout des listes deroulantes
+     */
     sampleInitDatEntry();
-    /*
-         * Ajout de la selection des modeles d'etiquettes
-         */
+    /**
+     * Ajout de la selection des modeles d'etiquettes
+     */
     include 'modules/gestion/label.functions.php';
     /**
      * Map default data
@@ -138,7 +138,7 @@ switch ($t_module["param"]) {
          */
     $metadata = json_decode($data["metadata"], true);
     $is_modifiable = $dataClass->verifyCollection($data);
-    if ($is_modifiable && !empty($metadata)) {
+    if (!empty($metadata) && ($is_modifiable || $_SESSION["consult_sees_all"] == 1)) {
       $vue->set($metadata, "metadata");
     }
     /**
@@ -200,16 +200,19 @@ switch ($t_module["param"]) {
      *
      * Recuperation des documents
      */
-    include_once 'modules/classes/document.class.php';
-    $document = new Document($bdd, $ObjetBDDParam);
-    $vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
-    $vue->set($document->getMaxUploadSize(), "maxUploadSize");
-    $vue->set($_SESSION["collections"][$data["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
-    /**
-     * Get the list of authorized extensions
-     */
-    $mimeType = new MimeType($bdd, $ObjetBDDParam);
-    $vue->set($mimeType->getListExtensions(false), "extensions");
+    if ($is_modifiable || $_SESSION["consult_sees_all"] == 1) {
+      include_once 'modules/classes/document.class.php';
+      $document = new Document($bdd, $ObjetBDDParam);
+      $vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
+      $vue->set($document->getMaxUploadSize(), "maxUploadSize");
+      $vue->set($_SESSION["collections"][$data["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
+      /**
+       * Get the list of authorized extensions
+       */
+      $mimeType = new MimeType($bdd, $ObjetBDDParam);
+      $vue->set($mimeType->getListExtensions(false), "extensions");
+    }
+
     /**
      * Ajout de la selection des modeles d'etiquettes
      */
@@ -217,6 +220,7 @@ switch ($t_module["param"]) {
     /**
      * Affichage
      */
+    $vue->set($_SESSION["consult_sees_all"], "consult_sees_all");
     include 'modules/gestion/mapInit.php';
     $vue->set("sample", "moduleParent");
     $vue->set("gestion/sampleDisplay.tpl", "corps");
@@ -736,6 +740,7 @@ switch ($t_module["param"]) {
       }
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
       $dataClass->setCountry($_POST["uids"], $_POST["country_id"]);
+      $message->set(_("Opération effectuée"));
       $module_coderetour = 1;
     } catch (ObjectException $oe) {
       $message->setSyslog($oe->getMessage());
@@ -754,6 +759,7 @@ switch ($t_module["param"]) {
       }
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
       $dataClass->setCollection($_POST["uids"], $_POST["collection_id_change"]);
+      $message->set(_("Opération effectuée"));
       $module_coderetour = 1;
     } catch (ObjectException $oe) {
       $message->setSyslog($oe->getMessage());
@@ -773,6 +779,7 @@ switch ($t_module["param"]) {
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
 
       $dataClass->setCampaign($_POST["uids"], $_POST["campaign_id"]);
+      $message->set(_("Opération effectuée"));
       $module_coderetour = 1;
     } catch (ObjectException $oe) {
       $message->setSyslog($oe->getMessage());
@@ -790,8 +797,8 @@ switch ($t_module["param"]) {
         throw new ObjectException(_("Pas de statut sélectionné"));
       }
       is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-      $object = new ObjectClass($bdd, $ObjetBDDParam);
-      $object->setStatus($_POST["uids"], $_POST["object_status_id"]);
+      $dataClass->setParent($uids, $parent_sample_id);
+      $message->set(_("Opération effectuée"));
       $module_coderetour = 1;
     } catch (ObjectException $oe) {
       $message->setSyslog($oe->getMessage());
@@ -800,6 +807,24 @@ switch ($t_module["param"]) {
       $module_coderetour = -1;
     }
     break;
+  case "setParent":
+    try {
+      if (count($_POST["uids"]) == 0) {
+        throw new ObjectException(_("Pas d'échantillons sélectionnés"));
+      }
+      if (empty($_POST["parent_sample_id"])) {
+        throw new ObjectException(_("Pas de parent sélectionné"));
+      }
+      is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+      $dataClass->setParent($uids, $_POST["parent_sample_id"]);
+      $message->set(_("Opération effectuée"));
+      $module_coderetour = 1;
+    } catch (ObjectException $oe) {
+      $message->setSyslog($oe->getMessage());
+      $message->set(_("Une erreur est survenue pendant la mise à jour du parent"), true);
+      $message->set($oe->getMessage());
+      $module_coderetour = -1;
+    }
   default:
     break;
 }

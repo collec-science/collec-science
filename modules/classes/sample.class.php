@@ -90,6 +90,7 @@ class Sample extends ObjetBDD
   private $paramSearch = array();
   private $data = array();
   private $object, $container, $event, $country;
+  public Subsample $subsample;
 
   public function __construct($bdd, $param = array())
   {
@@ -438,36 +439,60 @@ class Sample extends ObjetBDD
         $data = array();
         $where = "where";
         $and = "";
+        $uidSearch = false;
+
+        if ($param["uidsearch"] > 0) {
+          $where .= "( s.uid = :uid";
+          $data["uid"] = $param["uidsearch"];
+          $uidSearch = true;
+          $and = " and ";
+        }
+        if (!empty($param["name"])) {
+          if ($uidSearch) {
+            $where .= " or ";
+          }
+          $aname = explode(",", $param["name"]);
+          if (count($aname) > 1) {
+            $where .= " so.identifier in (";
+            $i = 1;
+            foreach ($aname as $v) {
+              if ($i > 1) {
+                $where .= ",";
+              }
+              $where .= ":id".$i;
+              $data["id$i"] = strtoupper(trim($v));
+              $i++;
+            }
+            $where .= ")";
+            $and = " and ";
+          } else {
+            $where .= "( ";
+            $or = "";
+            if (strlen($param["name"]) == 36) {
+              $where .= "so.uuid = :uuid";
+              $data["uuid"] = $param["name"];
+              $or = " or ";
+            }
+            $identifier = "%" . strtoupper($name) . "%";
+            $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
+            $and = " and ";
+            $data["identifier"] = $identifier;
+            $data["dbuid_origin"] = $name;
+            /*
+             * Recherche sur les identifiants externes
+             * possibilite de recherche sur cab:valeur, p. e.
+             */
+            $where .= " or upper(voi.identifiers) like :identifier ";
+            $where .= ")";
+          }
+        }
+        if ($uidSearch) {
+          $where .= ")";
+        }
         if ($param["sample_type_id"] > 0) {
           $where .= " s.sample_type_id = :sample_type_id";
           $data["sample_type_id"] = $param["sample_type_id"];
           $and = " and ";
-        }
-        if ($param["uidsearch"] > 0) {
-          $where .= $and . " s.uid = :uid";
-          $data["uid"] = $param["uidsearch"];
-          $and = " and ";
-        }
-        if (!empty($param["name"])) {
-          $name = $this->encodeData($param["name"]);
-          $where .= $and . "( ";
-          $or = "";
-          if (strlen($param["name"]) == 36) {
-            $where .= "so.uuid = :uuid";
-            $data["uuid"] = $param["name"];
-            $or = " or ";
-          }
-          $identifier = "%" . strtoupper($name) . "%";
-          $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
-          $and = " and ";
-          $data["identifier"] = $identifier;
-          $data["dbuid_origin"] = $name;
-          /*
-             * Recherche sur les identifiants externes
-             * possibilite de recherche sur cab:valeur, p. e.
-             */
-          $where .= " or upper(voi.identifiers) like :identifier ";
-          $where .= ")";
         }
         if ($param["collection_id"] > 0) {
           $where .= $and . " s.collection_id = :collection_id";
@@ -547,7 +572,7 @@ class Sample extends ObjetBDD
         /**
          * Recherche dans les metadonnees
          */
-        if (!empty($param["metadata_field"][0])  && strlen($param["metadata_value"][0]) > 0) {
+        if ($_SESSION["droits"]["gestion"] == 1 && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
           $where .= $and . " ";
           /**
            * Traitement des divers champs de metadonnees (3 maxi)
@@ -862,7 +887,7 @@ class Sample extends ObjetBDD
    */
   public function generateArrayUidToString($uids)
   {
-    if (!empty($uids) ) {
+    if (!empty($uids)) {
       /*
              * Verification que les uid sont numeriques
              * preparation de la clause where
@@ -899,7 +924,7 @@ class Sample extends ObjetBDD
     );
     foreach ($data as $line) {
       foreach ($fields as $field) {
-        if (strlen($line[$field]) > 0 ) {
+        if (strlen($line[$field]) > 0) {
           if (empty($names[$field]) || !in_array($line[$field], $names[$field])) {
             $names[$field][] = $line[$field];
           }
@@ -1306,6 +1331,25 @@ class Sample extends ObjetBDD
       $this->executeAsPrepared($sql, $data);
     }
   }
+  /**
+   * Change parent for all furnished uid
+   * @param array $uids
+   * @param int $parent_id
+   * @throws SampleException
+   * @return void
+   */
+  function setParent(array $uids, int $parent_id)
+  {
+    $parent = $this->lire($parent_id);
+    if (empty($parent["sample_id"])) {
+      throw new SampleException(_("Le parent n'existe pas"));
+    }
+    $sql = "update sample set parent_sample_id = :parent_id where uid = :uid";
+    foreach ($uids as $uid) {
+      $this->executeAsPrepared($sql, array("parent_id" => $parent_id, "uid" => $uid), true);
+    }
+  }
+
   /**
    * Get a sample from an identifier (uid, uuid, etc.)
    *

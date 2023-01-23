@@ -12,6 +12,21 @@
 <script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>
 <link rel="stylesheet" href="display/node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css">
 
+<!-- composant date/heure -->
+<script type="text/javascript" charset="utf-8"
+	src="display/node_modules/jquery-ui/ui/i18n/datepicker-en-GB.js"></script>
+<script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui/ui/i18n/datepicker-fr.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="display/javascript/jquery-timepicker-addon/i18n/jquery-ui-timepicker-fr.js"></script>
+<link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.theme.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.css" />
+
+	<link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css">
+<script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-custom/combobox.js"></script>
 <!--alpaca -->
 <script type="text/javascript" src="display/node_modules/handlebars/dist/handlebars.runtime.min.js"></script>
 <script type="text/javascript" src="display/node_modules/alpaca/dist/alpaca/bootstrap/alpaca.min.js"></script>
@@ -54,22 +69,9 @@
 <!-- Rajout du tri sur la date/heure -->
 <script type="text/javascript" src="display/node_modules/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="display/node_modules/datetime-moment/datetime-moment.js"></script>
+<!--script type="text/javascript" src="display/javascript/bootstrap/js/bootstrap-datetimepicker.js"></script-->
+<link rel="stylesheet" type="text/css" href="display/javascript/bootstrap/css/bootstrap-datetimepicker.css">
 
-<!-- composant date/heure -->
-
-<script type="text/javascript" charset="utf-8"
-	src="display/node_modules/jquery-ui/ui/i18n/datepicker-en-GB.js"></script>
-<script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui/ui/i18n/datepicker-fr.js"></script>
-<script type="text/javascript" charset="utf-8"
-	src="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.js"></script>
-<script type="text/javascript" charset="utf-8"
-	src="display/javascript/jquery-timepicker-addon/i18n/jquery-ui-timepicker-fr.js"></script>
-<link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.theme.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.css" />
-	<link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css">
-<script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-custom/combobox.js"></script>
 
 <!-- Affichage des photos -->
 <link rel="stylesheet" href="display/node_modules/magnific-popup/dist/magnific-popup.css">

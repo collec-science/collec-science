@@ -50,7 +50,22 @@ switch ($t_module["param"]) {
         /*
          * delete record
          */
-        dataDelete($dataClass, $id);
+        /**
+         * Search if the label is referenced into a model of container
+         */
+        $containers = $dataClass->getReferencedContainers($id);
+        if (!empty($containers)) {
+            foreach ($containers as $row) {
+                $message->set(
+                    sprintf(
+                        _("La suppression du modèle d'étiquette n'est pas possible, il est référencé par le type de contenant %s"), 
+                        $row["container_type_name"]), 
+                    true);
+            }
+            $module_coderetour = -1;
+        } else {
+            dataDelete($dataClass, $id);
+        }
         break;
     case "copy":
         /*

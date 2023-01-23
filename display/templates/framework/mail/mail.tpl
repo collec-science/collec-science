@@ -40,7 +40,7 @@
     <br>
     <p></p>
     <div class="messagebas">
-    <img src="{$logo}" alt="logo" height="25">
+    <img src="{$logo}" alt="logo" height="25px">
       {t}Ne répondez pas à ce mail, qui est généré automatiquement{/t}
     </div>
   </body>

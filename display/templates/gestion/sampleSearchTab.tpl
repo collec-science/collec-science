@@ -4,6 +4,8 @@
     var sampling_place_init = "{$sampleSearch.sampling_place_id}";
     var appli_code ="{$APPLI_code}";
     $(document).ready(function () {
+        var isGestion = "{$droits['gestion']}";
+        var consult_sees_all = "{$consult_sees_all}";
         /*
          * Verification que des criteres de selection soient saisis
          */
@@ -93,20 +95,23 @@
         $("#showmetadata2").click(function () {
         $("#metadatarow2").show();
         });
+        if (isGestion == 1 || consult_sees_all == 1) {
         var metadataFieldInitial = [];
-        {foreach $sampleSearch.metadata_field as $val}
-            metadataFieldInitial.push ( "{$val}" );
-        {/foreach}
+            {foreach $sampleSearch.metadata_field as $val}
+                metadataFieldInitial.push ( "{$val}" );
+            {/foreach}
+        }
         $("#sample_type_id").change(function () {
             regenerateMetadata();
         });
         function regenerateMetadata() {
-            /* regenerate the list of metadata */
-            var sampleTypeId = $("#sample_type_id").val();
-            if (sampleTypeId != lastSampletypeId && sampleTypeId) {
-                $(".metadatavalue").val("");
-            }
-            lastSampletypeId = sampleTypeId;
+            if (isGestion == 1 || consult_sees_all == 1) {
+                /* regenerate the list of metadata */
+                var sampleTypeId = $("#sample_type_id").val();
+                if (sampleTypeId != lastSampletypeId && sampleTypeId) {
+                    $(".metadatavalue").val("");
+                }
+                lastSampletypeId = sampleTypeId;
                 $.ajax( {
                     url: "index.php",
                     data: { "module": "sampleTypeMetadataSearchable", "sample_type_id": sampleTypeId }
@@ -151,6 +156,7 @@
                         })
                     }
                 });
+            }
 
         }
         function getSamplingPlace () {
@@ -292,7 +298,10 @@
         /**
          * Initialize
          */
-        regenerateMetadata();
+        if (isGestion == 1 || consult_sees_all == 1) {
+            regenerateMetadata();
+        }
+        
     });
 </script>
 <div class="col-lg-10 col-md-12">
@@ -348,11 +357,11 @@
                                 <input id="uidsearch" name="uidsearch" class="form-control nombre" value="{$sampleSearch.uidsearch}">
                             </div>
                             <label for="name" class= "col-sm-2 control-label">
-                                {t}identifiant ou UUID :{/t}
+                                {t}identifiant(s) ou UUID :{/t}
                                 <img src="display/images/qrcode.png" height="25">
                             </label>
                             <div class="col-sm-3">
-                                <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
+                                <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b), ou liste d'identifiants principaux séparés par une virgule (p. e. : af74,af76){/t}">
                             </div>
                         </div>
                     </div>
@@ -432,11 +441,13 @@
                                 <div class="col-sm-3">
                                     <select class="form-control" id="metadata_field" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.0 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+                                    {if $droits.gestion == 1}
                                     {foreach $metadatas as $value}
                                     <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.0 == $value.fieldname}selected{/if}>
                                     {$value.fieldname}
                                     </option>
                                     {/foreach}
+                                    {/if}
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
@@ -456,11 +467,13 @@
                                 <div class="col-sm-3">
                                     <select class="form-control"  id="metadata_field1" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.1 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+                                    {if $droits.gestion == 1}
                                     {foreach $metadatas as $value}
                                     <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.1 == $value.fieldname}selected{/if}>
                                     {$value.fieldname}
                                     </option>
                                     {/foreach}
+                                    {/if}
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
@@ -479,11 +492,13 @@
                                 <div class="col-sm-3">
                                     <select class="form-control"  id="metadata_field2" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+                                    {if $droits.gestion == 1}
                                     {foreach $metadatas as $value}
                                     <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.2 == $value.fieldname}selected{/if}>
                                     {$value.fieldname}
                                     </option>
                                     {/foreach}
+                                    {/if}
                                     </select>
                                 </div>
                                 <div class="col-sm-3">

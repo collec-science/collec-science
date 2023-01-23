@@ -101,7 +101,8 @@
 		<item module="default" label="Échantillons" tooltip="Gestion des échantillons">
 			<item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr" />
 			<item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr" />
-			<item module="document_external_fr" label="Documents externes" tooltip="Associer des documents externes à un échantillon"/>
+			<item module="document_external_fr" label="Documents externes" tooltip="Associer des documents externes à un échantillon" language="fr"/>
+			<item module="consult_sees_all_fr" label="Permettre au droit consult de visualiser les métadonnées" tooltip="Paramétrer l'application pour permettre à tous les utilisateurs de consulter les métadonnées" language="fr"/>
 		</item>
 
 		<item module="default" label="Fonctions d'import/export" tooltip="Fonctions d'importation et d'exportations de données" language="fr">
@@ -126,6 +127,7 @@
 			<item module="metadatafield_en" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="en" />
 			<item module="lendingsample_en" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="en" />
 			<item module="document_external_en" label="Documents externes" tooltip="Associer des documents externes à un échantillon" language="en"/>
+			<item module="consult_sees_all_en" label="Permettre au droit consult de visualiser les métadonnées" tooltip="Paramétrer l'application pour permettre à tous les utilisateurs de consulter les métadonnées" language="en"/>
 		</item>
 		<item module="default" label="Fonctions d'import/export" tooltip="Fonctions d'importation et d'exportations de données" language="en">
 			<item module="exportbatch_en" label="Exporter par lot" tooltip="Exporter des échantillons par lots" language="en" />

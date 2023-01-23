@@ -1,6 +1,6 @@
 #!/bin/bash
-OLDVERSION=collec-2.6.0
-VERSION=collec-2.8.1
+OLDVERSION=collec-2.6.1
+VERSION=collec-2.8.2
 REPO=https://github.com/collec-science/collec-science
 echo "Content of /var/www/html/collec-science"
 ls -l /var/www/html/collec-science
@@ -30,7 +30,6 @@ then
 
 unzip master.zip
 mv collec-science-master/ $VERSION
-
 
 # copy of last param into the new code
 cp collec/param/param.inc.php $VERSION/param/

@@ -35,6 +35,7 @@ class Ldap
      * @var string
      */
     var $message;
+    var $dn, $LDAP_basedn;
 
     /**
      * Constructeur de la classe

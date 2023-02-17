@@ -35,6 +35,7 @@ class Ldap
      * @var string
      */
     var $message;
+    var $dn, $LDAP_basedn;
 
     /**
      * Constructeur de la classe
@@ -59,10 +60,10 @@ class Ldap
         /**
          * Set options
          */
-        ldap_set_option($this->idldap, LDAP_OPT_NETWORK_TIMEOUT, $this->LDAP["timeout"]);
-        ldap_set_option($this->idldap, LDAP_OPT_TIMELIMIT, $this->LDAP["timeout"]);
-        ldap_set_option($this->idldap, LDAP_OPT_TIMEOUT, $this->LDAP["timeout"]);
-        if ($this->idldap > 0) {
+        if ($this->idldap) {
+            ldap_set_option($this->idldap, LDAP_OPT_NETWORK_TIMEOUT, $this->LDAP["timeout"]);
+            ldap_set_option($this->idldap, LDAP_OPT_TIMELIMIT, $this->LDAP["timeout"]);
+            ldap_set_option($this->idldap, LDAP_OPT_TIMEOUT, $this->LDAP["timeout"]);
             if ($this->LDAP["v3"] == 1) {
                 ldap_set_option($this->idldap, LDAP_OPT_PROTOCOL_VERSION, 3);
             }
@@ -70,7 +71,7 @@ class Ldap
                 ldap_start_tls($this->idldap);
             }
         } else {
-            $this->message = "Impossible de se connecter au serveur LDAP<br>";
+            $this->message = _("Impossible de se connecter au serveur LDAP");
             $this->idldap = false;
         }
         return $this->idldap;
@@ -165,7 +166,7 @@ class Ldap
         }
         $sr = ldap_search($this->idldap, $basedn, $filtre, $a_attribut);
         if ($sr) {
-        return ldap_get_entries($this->idldap, $sr);
+            return ldap_get_entries($this->idldap, $sr);
         } else {
             global $message;
             $message->setSyslog(ldap_error($this->idldap));

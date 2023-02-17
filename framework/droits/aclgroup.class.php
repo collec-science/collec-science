@@ -59,7 +59,7 @@ class Aclgroup extends ObjetBDD
         if (!empty($login)) {
 
             $sql = "select g.aclgroup_id, groupe, aclgroup_id_parent
-					from " . $this->table . " g
+					from aclgroup g
 					join acllogingroup lg on (g.aclgroup_id = lg.aclgroup_id)
 					join acllogin l on (lg.acllogin_id = l.acllogin_id)
 					where login = :login";
@@ -68,11 +68,11 @@ class Aclgroup extends ObjetBDD
         /*
          * Recherche des groupes LDAP
          */
-        $groupesLdap = array();
         if ($ldapParam["groupSupport"]) {
             /*
              * Recuperation des attributs depuis l'annuaire LDAP
              */
+            $groupesLdap = array();
             include_once "framework/ldap/ldap.class.php";
             $ldap = new Ldap($ldapParam);
             $conn = $ldap->connect();
@@ -80,11 +80,11 @@ class Aclgroup extends ObjetBDD
             /**
              * Set the parameters
              */
+            if ($conn) {
             ldap_set_option($conn, LDAP_OPT_NETWORK_TIMEOUT, $ldapParam["timeout"]);
             ldap_set_option($conn, LDAP_OPT_TIMELIMIT, $ldapParam["timeout"]);
             ldap_set_option($conn, LDAP_OPT_TIMEOUT, $ldapParam["timeout"]);
 
-            if ($conn > 0) {
                 $attribut = array(
                     $ldapParam['commonNameAttrib'],
                     $ldapParam["mailAttrib"],
@@ -123,14 +123,14 @@ class Aclgroup extends ObjetBDD
                         }
                     }
                 }
+                /**
+                 * Fusion des groupes
+                 */
+                $groupes = array_merge($groupes, $groupesLdap);
             } else {
                 throw new LdapException(_("Connexion à l'annuaire LDAP impossible"));
             }
         }
-        /*
-         * Fusion des groupes
-         */
-        $groupes = array_merge($groupes, $groupesLdap);
         /**
          * Récupération des groupes du serveur CAS
          */
@@ -163,11 +163,11 @@ class Aclgroup extends ObjetBDD
             $sql = "with recursive groupsearch as
             (
             select aclgroup_id, groupe, aclgroup_id_parent
-            from gacl.aclgroup
+            from aclgroup
             where aclgroup_id in ($in)
             union all
             select a.aclgroup_id, a.groupe, a.aclgroup_id_parent
-            from gacl.aclgroup a
+            from aclgroup a
             join groupsearch gs on (a.aclgroup_id = gs.aclgroup_id_parent)
             )
             select distinct * from groupsearch order by groupe";
@@ -181,7 +181,7 @@ class Aclgroup extends ObjetBDD
     /**
      * Fonction retournant tous les logins appartenant a un groupe
      *
-     * @param unknown $groupe
+     * @param string $groupe
      */
     function getLogins($groupe)
     {

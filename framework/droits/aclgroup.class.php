@@ -80,7 +80,7 @@ class Aclgroup extends ObjetBDD
             /**
              * Set the parameters
              */
-            if ($conn > 0) {
+            if ($conn) {
             ldap_set_option($conn, LDAP_OPT_NETWORK_TIMEOUT, $ldapParam["timeout"]);
             ldap_set_option($conn, LDAP_OPT_TIMELIMIT, $ldapParam["timeout"]);
             ldap_set_option($conn, LDAP_OPT_TIMEOUT, $ldapParam["timeout"]);

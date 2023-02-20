@@ -7,6 +7,7 @@ class Login
   public Aclgroup $aclgroup;
   public Message $message;
   private array $dacllogin;
+  public string $ident_type;
 
   function __construct($bdd, $param = array())
   {
@@ -194,7 +195,7 @@ class Login
   {
     $params = array();
     foreach ($attributes as $k => $v) {
-      if (isset($provider[$v]) && !empty($provider[$v])) {
+      if (!empty($v) && isset($provider[$v])) {
         $params[$k] = $provider[$v];
       }
     }
@@ -402,7 +403,7 @@ class Login
     session_destroy();
     if ($this->ident_type == "CAS") {
       global $CAS_address, $CAS_port, $CAS_uri, $CAS_CApath;
-      phpCAS::client(CAS_VERSION_2_0, $CAS_address, $CAS_port, $CAS_uri);
+      phpCAS::client(CAS_VERSION_2_0, $CAS_address, $CAS_port, $CAS_uri, "https://".$_SERVER["HTTP_HOST"]);
       if (!empty($CAS_CApath)) {
         phpCAS::setCasServerCACert($CAS_CApath);
       } else {

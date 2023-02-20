@@ -473,7 +473,7 @@ class Sample extends ObjetBDD
               $data["uuid"] = $param["name"];
               $or = " or ";
             }
-            $identifier = "%" . strtoupper($name) . "%";
+            $identifier = "%" . strtoupper($param["name"]) . "%";
             $where .= "$or upper(so.identifier) like :identifier or upper(s.dbuid_origin) = upper(:dbuid_origin)";
             $and = " and ";
             $data["identifier"] = $identifier;

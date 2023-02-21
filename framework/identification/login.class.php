@@ -12,7 +12,7 @@ class Login
   function __construct($bdd, $param = array())
   {
     include_once "framework/identification/loginGestion.class.php";
-    global $privateKey, $pubKey;
+    global $privateKey, $pubKey, $ident_type;
     $this->loginGestion = new LoginGestion($bdd, $param);
     $this->loginGestion->setKeys($privateKey, $pubKey);
     include_once "framework/droits/acllogin.class.php";
@@ -22,6 +22,7 @@ class Login
     global $log, $message;
     $this->log = $log;
     $this->message = $message;
+    $this->ident_type = $ident_type;
   }
 
   function getLogin(string $type_authentification, $modeAdmin = false): ?string

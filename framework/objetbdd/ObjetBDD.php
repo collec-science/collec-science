@@ -25,10 +25,13 @@
  *
  * @author Eric Quinton, Franck Huby
  * @copyright (C) Eric Quinton 2006-2018
- * @version 3.6 2018-06-22
+ * @version 4.0 2023-02-01
  * @package ObjetBDD
  *
  * News :
+ * 02/01/2023
+ * Corrections diverses, mise à niveau des types des données des fonctions
+ * 
  * 22/06/2018
  * support du multilangue
  *
@@ -208,7 +211,7 @@ class ObjetBDD
    * $errorData[]["colonne"] : champ concerne
    * $errorData[]["valeur"] : valeur initiale
    */
-  public $errorData;
+  public array $errorData;
 
   /**
    * @public $codageHtml
@@ -262,15 +265,7 @@ class ObjetBDD
    *
    * @var boolean
    */
-  public $UTF8 = false;
-
-  /**
-   * Indique s'il faut ou non transformer les valeurs en UTF8
-   * (application codée en UTF8, base de données en autre codage)
-   *
-   * @var boolean
-   */
-  public $toUTF8 = false;
+  public $UTF8 = true;
 
   /**
    * Valeur du SRID pour les imports de donnees geographiques postgis
@@ -417,16 +412,19 @@ class ObjetBDD
   /**
    * Fonction executant les requetes SQL
    *
-   * @param String $sql
-   * @return array
+   * @param string $sql
+   * @return array|bool
    */
-  function execute($sql): array
+  function execute($sql)
   {
     $rs = array();
 
     try {
-      foreach ($this->connection->query($sql) as $row) {
-        $rs[] = $row;
+      $res = $this->connection->query($sql);
+      if ($res) {
+        foreach ($res as $row) {
+          $rs[] = $row;
+        }
       }
       return $rs;
     } catch (PDOException $e) {
@@ -444,16 +442,16 @@ class ObjetBDD
    * @param int|array $id
    * @param boolean $getDefault
    * @param int $parentValue
-   * @return boolean Ambigous $data, string>
+   * @return array
    */
-  function lire($id, $getDefault = true, $parentValue = 0)
+  function lire($id, bool $getDefault = true, int $parentValue = 0)
   {
     $data = array();
     // Integration cles multiples
     if ($this->cleMultiple == 1) {
       // Verification de la structure de la cle
       if ($this->verifData == 1 && !$this->verifDonnees($id)) {
-        return false;
+        throw new ObjetBDDException(_("La structure de la clé est incorrecte"));
       }
       $where = "";
       foreach ($id as $key => $value) {
@@ -473,7 +471,7 @@ class ObjetBDD
              * Verification de la cle unique
              */
       if ($this->verifData == 1 && !is_numeric($id)) {
-        return false;
+        throw new ObjetBDDException(_("La clé n'est pas numérique"));
       }
       if (strlen(preg_replace("#[^A-Z]+#", "", $this->cle)) > 0) {
         $cle = $this->quoteIdentifier . $this->cle . $this->quoteIdentifier;
@@ -521,7 +519,7 @@ class ObjetBDD
       if ($getDefault) {
         $collection = $this->getDefaultValue($parentValue);
       } else {
-        $collection = false;
+        $collection = array();
       }
     } else {
       /*
@@ -533,9 +531,6 @@ class ObjetBDD
       }
       if ($this->codageHtml) {
         $collection = $this->htmlEncode($collection);
-      }
-      if ($this->toUTF8) {
-        $collection = $this->utf8Encode($collection);
       }
     }
     return $collection;
@@ -549,7 +544,7 @@ class ObjetBDD
    *            $id
    * @param boolean $getDefault
    * @param int $parentValue
-   * @return unknown_type
+   * @return array
    */
   function read($id, $getDefault = false, $parentValue = 0)
   {
@@ -574,9 +569,6 @@ class ObjetBDD
     if ($this->codageHtml) {
       $collection = $this->htmlEncode($collection);
     }
-    if ($this->toUTF8) {
-      $collection = $this->utf8Encode($collection);
-    }
     return $collection;
   }
 
@@ -585,7 +577,7 @@ class ObjetBDD
    *
    * @param
    *            $sql
-   * @return unknown_type
+   * @return array
    */
   function readSQL($sql)
   {
@@ -596,9 +588,8 @@ class ObjetBDD
    * function supprimer
    * supprime un enregistrement
    *
-   * @param
-   *            :integer - cle de l'enregistrement a supprimer
-   * @return :int retourne la valeur adodb de l'execute
+   * @param $id :integer - cle de l'enregistrement a supprimer
+   * @return bool
    */
   function supprimer($id)
   {
@@ -644,9 +635,8 @@ class ObjetBDD
   /**
    * Synonyme de supprimer()
    *
-   * @param
-   *            $id
-   * @return unknown_type
+   * @param $id
+   * @return array|bool
    */
   function delete($id)
   {
@@ -663,21 +653,16 @@ class ObjetBDD
    *            string - nom du champ sur lequel porte la requete
    *
    */
-  function supprimerChamp($id, $champ/*:int*/)/* :int */
+  function supprimerChamp(int $id, $champ): bool
   {
-    if (!is_numeric($id)) {
-      return -1;
+    if (strlen(preg_replace("#[^A-Z]+#", "", $champ) > 0)) {
+      $cle = $this->quoteIdentifier . $champ . $this->quoteIdentifier;
+    } else {
+      $cle = $champ;
     }
-    if ($id > 0) {
-      if (strlen(preg_replace("#[^A-Z]+#", "", $champ) > 0)) {
-        $cle = $this->quoteIdentifier . $champ . $this->quoteIdentifier;
-      } else {
-        $cle = $champ;
-      }
-      $sql = "delete from " . $this->table . " where " . $cle . "= :id";
-      $data["id"] = $id;
-      return $this->executeAsPrepared($sql, $data, true);
-    }
+    $sql = "delete from " . $this->table . " where " . $cle . "= :id";
+    $data["id"] = $id;
+    return $this->executeAsPrepared($sql, $data, true);
   }
 
   /**
@@ -687,9 +672,9 @@ class ObjetBDD
    *            $id
    * @param
    *            $champ
-   * @return unknown_type
+   * @return bool
    */
-  function deleteFromField($id, $champ)
+  function deleteFromField($id, $champ): bool
   {
     return $this->supprimerChamp($id, $champ);
   }
@@ -945,7 +930,7 @@ class ObjetBDD
     $rs = $this->executeAsPrepared($sql, $ds);
     if ($mode == "ajout" && $this->id_auto == 1) {
       if ($this->typeDatabase == 'pgsql') {
-        if (count($rs) > 0) {
+        if (is_array($rs)) {
           $ret = $rs[0][$this->cle];
         }
       } else {
@@ -972,7 +957,7 @@ class ObjetBDD
    *
    * @param
    *            $data
-   * @return unknown_type
+   * @return array|bool
    */
   function write($data)
   {
@@ -984,9 +969,9 @@ class ObjetBDD
    *
    * @param
    *            string - code de la requete SQL
-   * @return array contenant la liste des lignes concernees (identique a getListe)
+   * @return array|bool contenant la liste des lignes concernees (identique a getListe)
    */
-  function getListeParam($sql): array
+  function getListeParam($sql)
   {
     $collection = $this->execute($sql);
     if ($this->auto_date == 1) {
@@ -994,9 +979,6 @@ class ObjetBDD
     }
     if ($this->codageHtml) {
       $collection = $this->htmlEncode($collection);
-    }
-    if ($this->toUTF8) {
-      $collection = $this->utf8Encode($collection);
     }
     return $collection;
   }
@@ -1006,7 +988,7 @@ class ObjetBDD
    *
    * @param
    *            $sql
-   * @return unknown_type
+   * @return array|bool
    */
   function getListParam($sql)
   {
@@ -1016,7 +998,7 @@ class ObjetBDD
   /**
    * function getliste
    *
-   * @return le contenu de la table
+   * @return array|bool
    */
   function getListe($order = "")
   {
@@ -1031,20 +1013,17 @@ class ObjetBDD
     if ($this->codageHtml) {
       $collection = $this->htmlEncode($collection);
     }
-    if ($this->toUTF8) {
-      $collection = $this->utf8Encode($collection);
-    }
     return $collection;
   }
 
   /**
    * synonyme de getListe()
    *
-   * @return unknown_type
+   * @return array|bool
    */
-  function getList()
+  function getList($order = "")
   {
-    return $this->getListe();
+    return $this->getListe($order);
   }
 
   /**
@@ -1057,7 +1036,7 @@ class ObjetBDD
    */
   function getListFromParent($parentId, $order = "")
   {
-    if ($parentId > 0 && !empty($this->parentAttrib) ) {
+    if ($parentId > 0 && !empty($this->parentAttrib)) {
       $sql = "select * from " . $this->table;
       /*
              * Preparation du where
@@ -1270,13 +1249,10 @@ class ObjetBDD
   /**
    * function executeSQL
    *
-   * @param
-   *            string
-   * @return code de retour de ADODB
-   *         Utilitaire :
-   *         Utilise les fonctions de connexion a la base de donnees pour executer un code SQL quelconque
+   * @param string
+   * @return array|bool
    */
-  function executeSQL($ls_sql)
+  function executeSQL(string $ls_sql)
   {
     return $this->execute($ls_sql);
   }
@@ -1284,28 +1260,26 @@ class ObjetBDD
   /**
    * Vidage brutal de la table
    *
-   * @return int
+   * @return bool|int
    */
-  function vidageTable()
+  function vidageTable(): bool|int
   {
     try {
-      $res = $this->connection->exec('delete from ' . $this->table);
+      return $this->connection->exec('delete from ' . $this->table);
     } catch (PDOException $e) {
-      $res = -1;
       if ($this->debug_mode > 0) {
         $this->addMessage($e->getMessage());
       }
       throw new ObjetBDDException($e->getMessage());
     }
-    return $res;
   }
 
   /**
    * Synonyme de vidageTable()
    *
-   * @return unknown_type
+   * @return bool|int
    */
-  function clearTable()
+  function clearTable(): bool|int
   {
     return $this->vidageTable();
   }
@@ -1315,9 +1289,9 @@ class ObjetBDD
    *
    * @param $data :
    *            collection
-   * @return boolean Fonction permettant de verifier les donnees avant ecriture en base de donnees.
+   * @return bool Fonction permettant de verifier les donnees avant ecriture en base de donnees.
    */
-  private function verifDonnees($data, $mode = "")
+  private function verifDonnees($data, $mode = ""): bool
   {
     $testok = true;
     foreach ($data as $key => $value) {
@@ -1335,9 +1309,9 @@ class ObjetBDD
           throw new ObjetBDDException("not numeric value - " . $key . ":" . $value);
         }
       }
-      /*
-             * Verification des longueurs des champs textes
-             */
+      /**
+       * Verification des longueurs des champs textes
+       */
       if ($this->colonnes[$key]["longueur"] > 0 && strlen($value) > $this->colonnes[$key]["longueur"]) {
         $testok = false;
         $this->errorData[] = array(
@@ -1348,10 +1322,9 @@ class ObjetBDD
         );
         throw new ObjetBDDException("string length too height (" . $this->colonnes[$key]["longueur"] . ") - " . $key . ":" . $value);
       }
-
-      /*
-             * Verification des masques (patterns)
-             */
+      /**
+       * Verification des masques (patterns)
+       */
       if (strlen($this->colonnes[$key]["pattern"]) > 0 && strlen($value) > 0 && preg_match($this->colonnes[$key]["pattern"], $value) == 0) {
         $testok = false;
         $this->errorData[] = array(
@@ -1362,15 +1335,14 @@ class ObjetBDD
         );
         throw new ObjetBDDException("pattern not compliant (" . $this->colonnes[$key]["pattern"] . ") - " . $key . ":" . $value);
       }
-
-      /*
-             * Verification des champs obligatoires
-             */
+      /**
+       * Verification des champs obligatoires
+       */
       if ($this->colonnes[$key]["requis"] == 1 && strlen($value) == 0) {
         if ($key == $this->cle && $mode == "ajout") {
-          /*
-                     * Inhibition du controle pour la cle en mode ajout
-                     */
+          /**
+           * Inhibition du controle pour la cle en mode ajout
+           */
         } else {
           $this->errorData[] = array(
             "code" => 4,
@@ -1381,10 +1353,9 @@ class ObjetBDD
         }
       }
     }
-
-    /*
-         * Verification que tous les champs obligatoires soient renseignes, en mode ajout
-         */
+    /**
+     * Verification que tous les champs obligatoires soient renseignes, en mode ajout
+     */
     if ($mode == "ajout") {
       foreach ($this->colonnes as $key => $colonne) {
         if ($colonne["requis"] == 1 && strlen($data[$key]) == 0) {
@@ -1397,7 +1368,6 @@ class ObjetBDD
         }
       }
     }
-
     return $testok;
   }
 
@@ -1406,7 +1376,7 @@ class ObjetBDD
    *
    * @param string $texte
    */
-  function addMessage($texte)
+  function addMessage($texte): void
   {
     $this->errorData[]["message"] = $texte;
   }
@@ -1417,9 +1387,9 @@ class ObjetBDD
    * @param $format :
    *            si vaut 1, le resultat est retourne sous forme de texte, avec saut de ligne
    *            entre chaque erreur. Sinon, le tableau est retourne "brut"
-   * @return unknown_type
+   * @return array
    */
-  function getErrorData($format = 0)
+  function getErrorData($format = 0): array
   {
     if ($format == 1) {
       // Formatage du tableau
@@ -1451,20 +1421,18 @@ class ObjetBDD
       }
     } else {
       $res = $this->errorData;
-      /*
-             * Reinitialisation des erreurs
-             */
     }
+    /**
+     * Reinitialisation des erreurs
+     */
     $this->resetErrorData();
     return $res;
   }
 
   /**
-   * private function htmlEncode
-   *
-   * @param
-   *            $data
-   * @return $data Encode les donnees devant etre affichees en utilisant la fonction htmlspecialchars
+   * Encode les donnees devant etre affichees en utilisant la fonction htmlspecialchars
+   * @param $data
+   * @return string|array 
    */
   private function htmlEncode($data)
   {
@@ -1479,27 +1447,9 @@ class ObjetBDD
   }
 
   /**
-   * Encode en utf8 si demande
-   *
-   * @param unknown $data
-   */
-  private function utf8Encode($data)
-  {
-    return $data;
-    /*
-         * if (is_array ( $data )) {
-         * foreach ( $data as $key => $value ) {
-         * $data [$key] = $this->utf8Encode ( $value );
-         * }
-         * } else {
-         * $data = utf8_encode ( $data );
-         * }
-         * return $data;
-         */
-  }
-
-  /**
-   * function ecrireTableNN
+   * Fonction permettant d'ecrire dans une table de relation N-N.
+   *         Gere la suppression et l'ajout des lignes
+   *         Ne fonctionne que si la table ne possede que deux champs numeriques
    *
    * @param
    *            $nomTable
@@ -1510,11 +1460,9 @@ class ObjetBDD
    * @param
    *            $id
    * @param array $lignes
-   * @return unknown_type Fonction permettant d'ecrire dans une table de relation N-N.
-   *         Gere la suppression et l'ajout des lignes
-   *         Ne fonctionne que si la table ne possede que deux champs numeriques
+   * @return void 
    */
-  function ecrireTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes)
+  function ecrireTableNN(string $nomTable, string $nomCle1, string $nomCle2, int $id, array $lignes = array()): void
   {
     if ($this->debug_mode == 2) {
       echo "ecrireTableNN - table : $nomTable<br>";
@@ -1527,19 +1475,7 @@ class ObjetBDD
     if (strlen($id) == 0) {
       throw new ObjetBDDException("key is empty");
     }
-    if (!is_numeric($id)) {
-      throw new ObjetBDDException("key is not numeric (" . $id);
-    }
-    /*
-         * Verification du tableau de valeurs
-         */
-    if (!is_array($lignes) && strlen($lignes) > 0) {
-      throw new ObjetBDDException("data is not an array");
-    }
 
-    if (!is_array($lignes)) {
-      $lignes = array();
-    }
     foreach ($lignes as $key => $value) {
       if (!is_numeric($value)) {
         throw new ObjetBDDException($key . "(" . $value . ") is not numeric");
@@ -1601,9 +1537,9 @@ class ObjetBDD
         throw new ObjetBDDException($e->getMessage());
       }
     }
-    /*
-         * Traitement du tableau de creation
-         */
+    /**
+     * Traitement du tableau de creation
+     */
     if (count($creation) > 0) {
       $sql = "insert into " . $nomTable . "(" . $cle1 . "," . $cle2 . ") values (:id,:key2)";
       try {
@@ -1642,7 +1578,7 @@ class ObjetBDD
    *            $lignes
    * @return void
    */
-  function writeTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes)
+  function writeTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes = array()): void
   {
     $this->ecrireTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes);
   }
@@ -1656,9 +1592,9 @@ class ObjetBDD
   }
 
   /**
-   * Fonction retournant la date du du jour  formatee
+   * Fonction retournant la date du du jour formatee
    */
-  function getDateJour()
+  function getDateJour(): string
   {
     return $this->formatDateDBversLocal(date('Y-m-d'));
   }
@@ -1678,11 +1614,9 @@ class ObjetBDD
    *
    * @return string
    */
-  function getLogin()
+  function getLogin(): string
   {
-    if (isset($_SESSION["login"])) {
-      return $_SESSION["login"];
-    }
+    return $_SESSION["login"];
   }
 
   /**
@@ -1691,32 +1625,32 @@ class ObjetBDD
    * @param int $parentValue
    * @return array
    */
-  function getDefaultValue($parentValue = 0)
+  function getDefaultValue($parentValue = 0): array
   {
     $data = array();
-    /*
-         * Assignation des valeurs par defaut
-         */
+    /**
+     * Assignation des valeurs par defaut
+     */
     foreach ($this->colonnes as $key => $colonne) {
       if (strlen($colonne["defaultValue"]) > 0) {
         if (is_callable(array(
           $this,
           $colonne["defaultValue"]
         ))) {
-          /*
-                     * Appel de la fonction
-                     */
+          /**
+           * Appel de la fonction
+           */
           $data[$key] = $this->{$colonne["defaultValue"]}();
         } else {
-          /*
-                     * Attribution de la valeur par defaut
-                     */
+          /**
+           * Attribution de la valeur par defaut
+           */
           $data[$key] = $colonne["defaultValue"];
         }
       }
-      /*
-             * Gestion de l'attribut "pere"
-             */
+      /**
+       * Gestion de l'attribut "pere"
+       */
       if ($parentValue > 0 && strlen($colonne["parentAttrib"]) > 0) {
         $data[$key] = $parentValue;
       }
@@ -1741,19 +1675,16 @@ class ObjetBDD
         $data[$key] = $this->encodeData($value);
       }
     } else {
-      /*
-             * Traitement des chaines individuelles
-             */
+      /**
+       * Traitement des chaines individuelles
+       */
       if ($this->typeDatabase == 'pgsql') {
         if ($this->UTF8 && mb_detect_encoding($data) != "UTF-8") {
           $data = mb_convert_encoding($data, 'UTF-8');
         }
-        $data = pg_escape_string($data);
-      } else {
-        $data = addslashes($data);
       }
     }
-    return $data;
+    return addslashes($data);
   }
 
   /**
@@ -1768,7 +1699,7 @@ class ObjetBDD
    * @param int $id
    * @param string $fieldName
    *            : nom du champ contenant la donnee binaire
-   * @return reference|NULL
+   * @return mixed
    */
   function getBlobReference($id, $fieldName)
   {
@@ -1776,16 +1707,13 @@ class ObjetBDD
       $sql = "select " . $fieldName . " from " . $this->table . "
 			where " . $this->cle . " = ?";
       $query = $this->connection->prepare($sql);
-      $query->execute(array(
-        $id
-      ));
+      $query->execute(array($id));
       if ($query->rowCount() == 1) {
         $query->bindColumn(1, $BlobRef, PDO::PARAM_LOB);
         $query->fetch(PDO::FETCH_BOUND);
         return $BlobRef;
       }
     }
-    return null;
   }
 
   /**
@@ -1796,9 +1724,9 @@ class ObjetBDD
    * @param array $data
    *            : tableau des valeurs a inserer
    * @throws Exception
-   * @return array : tableau des resultats
+   * @return array|bool : tableau des resultats
    */
-  function executeAsPrepared($sql, $data, $onlyExecute = false)
+  function executeAsPrepared(string $sql, array $data, bool $onlyExecute = false)
   {
     if ($this->debug_mode == 2) {
       echo "executeAsPrepared - $sql<br>";
@@ -1810,9 +1738,9 @@ class ObjetBDD
         $this->lastPrepared = $sql;
       }
 
-      /*
-             * Execution de la requete
-             */
+      /**
+       * Execution de la requete
+       */
       $this->lastResultExec = $this->statement->execute($data);
       if ($this->lastResultExec && !$onlyExecute) {
         return $this->statement->fetchAll(PDO::FETCH_ASSOC);
@@ -1835,17 +1763,19 @@ class ObjetBDD
    * @param array $data
    * @return array
    */
-  function lireParamAsPrepared($sql, $data)
+  function lireParamAsPrepared($sql, $data): array
   {
     $collection = $this->executeAsPrepared($sql, $data);
-    $collection = $collection[0];
-    if ($this->auto_date == 1) {
-      $collection = $this->utilDatesDBVersLocale($collection);
+
+    if (is_array($collection)) {
+      $collection = $collection[0];
+      if ($this->auto_date == 1) {
+        $collection = $this->utilDatesDBVersLocale($collection);
+      }
+      return $collection;
+    } else {
+      return array();
     }
-    if ($this->toUTF8) {
-      $collection = $this->utf8Encode($collection);
-    }
-    return $collection;
   }
 
   /**
@@ -1853,22 +1783,20 @@ class ObjetBDD
    *
    * @param string $sql
    * @param array $data
-   * @return array|null
+   * @return array
    */
-  function getListeParamAsPrepared($sql, $data)
+  function getListeParamAsPrepared($sql, $data): array
   {
     $collection = $this->executeAsPrepared($sql, $data);
-    if ($this->auto_date == 1) {
-      $collection = $this->utilDatesDBVersLocale($collection);
-    }
-    if ($this->toUTF8) {
-      $collection = $this->utf8Encode($collection);
-    }
     if (is_array($collection)) {
-      return $collection;
-    } else {
-      return null;
+      if ($this->auto_date == 1) {
+        $collection = $this->utilDatesDBVersLocale($collection);
+      }
+      if (is_array($collection)) {
+        return $collection;
+      }
     }
+    return array();
   }
 
   /**
@@ -1878,7 +1806,7 @@ class ObjetBDD
    *            : cle de l'enregistrement
    * @param string $field
    *            : nom de la colonne a mettre a jour
-   * @param reference $ref
+   * @param mixed $ref
    *            : reference du fichier ouvert
    * @throws Exception
    */
@@ -1905,7 +1833,7 @@ class ObjetBDD
    *
    * @return string
    */
-  function getUUID()
+  function getUUID(): string
   {
     $sql = "select gen_random_uuid() as uuid";
     $data = $this->lireParam($sql);
@@ -1919,7 +1847,7 @@ class ObjetBDD
    * @param string $className
    * @param string $classFile
    * @param bool $pathAbsolute: if false, the path of the class is $this->classpath/$classFile (default: false)
-   * @return void
+   * @return object
    */
   function classInstanciate($className, $classFile, bool $pathAbsolute = false)
   {

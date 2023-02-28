@@ -340,7 +340,7 @@ class Collection extends ObjetBDD
    */
   function getNbsampleByCollection()
   {
-    if (count($_SESSION["collections"]) > 0) {
+    if (!empty($_SESSION["collections"])) {
       $sql = "select collection_id, collection_name, count(*) as samples_number, max(change_date) as last_change
         from sample
         join collection using (collection_id)

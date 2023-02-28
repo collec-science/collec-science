@@ -763,7 +763,7 @@ class Sample extends ObjetBDD
    * @param array $param
    * @return integer
    */
-  function getNbSamples(array $param): int
+  function getNbSamples(array $param): ?int
   {
     $this->_generateSearch($param);
     $number = 0;

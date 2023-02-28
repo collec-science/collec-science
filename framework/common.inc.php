@@ -193,10 +193,7 @@ if (!isset($bdd)) {
             $message->setSyslog($e->getMessage());
         }
         $etaconn = false;
-    }
-    if (!isset($bdd)) {
         throw new FrameworkException(_("La connexion à la base de données a échoué"));
-        $message->setSyslog($e->getMessage());
     }
     if ($etaconn) {
         /*
@@ -217,11 +214,9 @@ if (!isset($bdd)) {
                 $message->setSyslog($e->getMessage());
             }
             $etaconn = false;
+             throw new FrameworkException(_("La connexion à la base de données des droits a échoué"));
         }
-        if (!isset($bdd_gacl)) {
-            throw new FrameworkException(_("La connexion à la base de données des droits a échoué"));
-            $message->setSyslog($e->getMessage());
-        }
+
         if ($etaconn) {
             /*
              * Mise en place du schema par defaut

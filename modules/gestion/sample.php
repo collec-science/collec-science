@@ -69,7 +69,7 @@ switch ($t_module["param"]) {
     /**
      * Get the list of recorded researches
      */
-    $vue->set($samplesearch->getList($_SESSION["collections"]), "samplesearches");
+    $vue->set($samplesearch->getListFromCollections($_SESSION["collections"]), "samplesearches");
     /**
      * Search samples
      */

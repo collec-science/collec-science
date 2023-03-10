@@ -29,7 +29,7 @@ class Samplesearch extends ObjetBDD
    * @param integer $collection_id
    * @return array|null
    */
-  function getList(array $collections = array())
+  function getListFromCollections(array $collections = array())
   {
     $where = " where samplesearch_login = :login";
     $param = array("login" => $this->getLogin());

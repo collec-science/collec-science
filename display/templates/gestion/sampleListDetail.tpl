@@ -3,11 +3,15 @@
 	$( document ).ready( function () {
 		var totalNumber = "{$totalNumber}";
 		var limit = "{$sampleSearch['limit']}";
-		//var scrolly = "75vh";
 		var sliderValue = 2000;
-		var myStorage = window.localStorage;
+		var searchByColumn = 0;
+		var myStorageSample = window.localStorage;
         try {
-        sliderValue = myStorage.getItem("sampleSliderValue");
+        sliderValue = myStorageSample.getItem("sampleSliderValue");
+		searchByColumn = myStorageSample.getItem("searchByColumn");
+		if (!searchByColumn) {
+			searchByColumn = 0;
+		}
         } catch (Exception) {
         }
 		var scrolly = "2000pt";
@@ -16,7 +20,7 @@
 			scrolly = "20vh";
 		}*/
 		try {
-			var hb = JSON.parse(localStorage.getItem("sampleSearchColumns"));
+			var hb = JSON.parse(myStorageSample.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
 				if (isGestion == 1) {
 					hb = [11,12,13,14,15,16,17,18,19];
@@ -31,26 +35,7 @@
 					var hb = [10,11,12,13,14,15,16,17,18];
 				}
 		}
-		var tableList = $( '#sampleList' ).DataTable( {
-			"order": [[1, "asc"]],
-			dom: 'Bfirtp',
-			"language": dataTableLanguage,
-			"paging": false,
-			"searching": true,
-			scrollY:scrolly,
-			scrollX:true,
-			/*fixedHeader: {
-            header: false,
-            footer: true
-        },*/
-			"stateDuration": 60 * 60 * 24 * 30,
-			"columnDefs" : [
-				{
-				"targets": hb,
-				"visible": false
-				}
-			],
-			"buttons": [
+		var buttons = [
 				{
 					extend: 'colvis',
 					text: '{t}Colonnes affichées{/t}'
@@ -87,36 +72,74 @@
             return csv;
 					}
 				}
-			]
-		} );
+			];
+			if (searchByColumn == 1) { 
+				var tableList = $( '#sampleList' ).DataTable( {
+					dom: 'Birtp',
+					"language": dataTableLanguage,
+					"paging": false,
+					"searching": true,
+					"stateSave": false,
+					"stateDuration": 60 * 60 * 24 * 30,
+					"columnDefs" : [
+						{
+						"targets": hb,
+						"visible": false
+						}
+					],
+					"buttons":buttons
+				});
+			} else {
+				var tableList = $( '#sampleList' ).DataTable( {
+					"order": [[1, "asc"]],
+					dom: 'Bfirtp',
+					"language": dataTableLanguage,
+					"paging": false,
+					"searching": true,
+					scrollY:scrolly,
+					scrollX:true,
+					/*fixedHeader: {
+					header: false,
+					footer: true
+				},*/
+					"stateDuration": 60 * 60 * 24 * 30,
+					"columnDefs" : [
+						{
+						"targets": hb,
+						"visible": false
+						}
+					],
+					"buttons": buttons
+				} );
+			}
 		tableList.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
 			var hb = [];
 			tableList.columns().every(function () {
 				if (!this.visible()) {
 					hb.push(this.index());
 				}
-				localStorage.setItem("sampleSearchColumns", JSON.stringify(hb));
+				myStorageSample.setItem("sampleSearchColumns", JSON.stringify(hb));
 			});
 		} );
-		var sliderValue = 2000;
-		var myStorage = window.localStorage;
-        try {
-        sliderValue = myStorage.getItem("sampleSliderValue");
-		$(".dataTables_scrollBody").height(sliderValue + "pt");
-        } catch (Exception) {
-        }
-		$( "#slider-vertical" ).slider({
-		orientation: "vertical",
-		range: "max",
-		min: 100,
-		max: 2000,
-		value: sliderValue,
-		slide: function( event, ui ) {
-			$(".dataTables_scrollBody").height(ui.value + "pt");
-			myStorage.setItem("sampleSliderValue", ui.value);
+
+		if (searchByColumn == 0) {
+			try {
+			$(".dataTables_scrollBody").height(sliderValue + "pt");
+			} catch (Exception) {
+			}
+			$( "#slider-vertical" ).slider({
+			orientation: "vertical",
+			range: "max",
+			min: 100,
+			max: 2000,
+			value: sliderValue,
+			slide: function( event, ui ) {
+				$(".dataTables_scrollBody").height(ui.value + "pt");
+				myStorageSample.setItem("sampleSliderValue", ui.value);
+			}
+			});
+			$( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
 		}
-		});
-    $( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
 		/**
 		 * select or unselect samples
 		 */
@@ -332,26 +355,28 @@
 		/**
 		 * Add the search on columns headers
 		 */
-		/*$( '#sampleList thead th' ).each( function () {
-			var title = $( this ).text();
-			var size = title.trim().length;
-			if ( size > 0 ) {
-				$( this ).html( '<input type="text" placeholder="' + title + '" size="' + size + '" class="searchInput" title="'+title+'">' );
-			}
-		} );
-		tableList.columns().every( function () {
-			var that = this;
-			if ( that.index() > 0 ) {
-				$( 'input', this.header() ).on( 'keyup change clear', function () {
-					if ( that.search() !== this.value ) {
-						that.search( this.value ).draw();
-					}
-				} );
-			}
-		} );
-		$( ".searchInput" ).hover( function () {
-			$( this ).focus();
-		} );*/
+		if (searchByColumn == 1) {
+			$( '#sampleList thead th' ).each( function () {
+				var title = $( this ).text();
+				var size = title.trim().length;
+				if ( size > 0 ) {
+					$( this ).html( '<input type="text" placeholder="' + title + '" size="' + size + '" class="searchInput" title="'+title+'">' );
+				}
+			} );
+			tableList.columns().every( function () {
+				var that = this;
+				if ( that.index() > 0 ) {
+					$( 'input', this.header() ).on( 'keyup change clear', function () {
+						if ( that.search() !== this.value ) {
+							that.search( this.value ).draw();
+						}
+					} );
+				}
+			} );
+			$( ".searchInput" ).hover( function () {
+				$( this ).focus();
+			} );
+		}
 		/**
 		 * Search container for movement creation
 		 */

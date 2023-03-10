@@ -197,64 +197,64 @@
           */
         getSamplingPlace();
 
-    $("#razid").on ("click keyup", function () {
-        metadataFieldInitial = [];
-        $("#object_status_id").prop("selectedIndex", 1).change();
-        $("#collection_id").prop("selectedIndex", 0).change();
-        $("#referent_id").prop("selectedIndex", 0).change();
-        $("#sample_type_id").prop("selectedIndex", 0).change();
-        sampling_place_init = "";
-        $("#sampling_place_id").combobox("select", "").change();
-        $("#sampling_place_id").prop("selectedIndex", 0).change();
-        $("#country_id_search").combobox("select", "").change();
-        $("#country_id_search").prop("selectedIndex", 0).change();
-        $("#country_origin_id_search").combobox("select", "").change();
-        $("#country_origin_id_search").prop("selectedIndex", 0).change();
-        $("#movement_reason_id").prop("selectedIndex", 0).change();
-        $("#select_date").prop("selectedIndex", 0).change();
-        $("#campaign_id").prop("selectedIndex", 0).change();
-        $("#event_type_id").prop("selectedIndex", 0).change();
-        $("#uidsearch").val("");
-        $("#uid_min").val("0");
-        $("#uid_max").val("0");
-        $("#metadata_field").prop("selectedIndex",0).change();
-        $("#metadata_field1").prop("selectedIndex",0).change();
-        $("#metadata_field2").prop("selectedIndex",0).change();
-        $("#metadata_value").val("");
-        $("#metadata_value_1").val("");
-        $("#metadata_value_2").val("");
-        $("#metadatarow1").hide();
-        $("#metadatarow2").hide();
-        $("#NorthEastlat").val("");
-        $("#NorthEastlon").val("");
-        $("#SouthWestlat").val("");
-        $("#SouthWestlon").val("");
-        $("#trashed").val("0");
-        $("#subsample_quantity_min").val("");
-        $("#subsample_quantity_max").val("");
-        $("#without_container").prop("checked", false);
-        removeLayer();
-        var now = new Date();
-        $("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
-        $("#date_to").datepicker("setDate", now );
-        $("#booking_type").prop("selectedIndex",0).change();
-        $("#booking_from").datepicker("setDate", now);
-        $("#booking_to").datepicker("setDate", now);
-        $("#name").val("");
-        $("#uidsearch").focus();
-    });
-     /* Management of tabs */
-		var activeTab = "";
+        $("#razid").on ("click keyup", function () {
+            metadataFieldInitial = [];
+            $("#object_status_id").prop("selectedIndex", 1).change();
+            $("#collection_id").prop("selectedIndex", 0).change();
+            $("#referent_id").prop("selectedIndex", 0).change();
+            $("#sample_type_id").prop("selectedIndex", 0).change();
+            sampling_place_init = "";
+            $("#sampling_place_id").combobox("select", "").change();
+            $("#sampling_place_id").prop("selectedIndex", 0).change();
+            $("#country_id_search").combobox("select", "").change();
+            $("#country_id_search").prop("selectedIndex", 0).change();
+            $("#country_origin_id_search").combobox("select", "").change();
+            $("#country_origin_id_search").prop("selectedIndex", 0).change();
+            $("#movement_reason_id").prop("selectedIndex", 0).change();
+            $("#select_date").prop("selectedIndex", 0).change();
+            $("#campaign_id").prop("selectedIndex", 0).change();
+            $("#event_type_id").prop("selectedIndex", 0).change();
+            $("#uidsearch").val("");
+            $("#uid_min").val("0");
+            $("#uid_max").val("0");
+            $("#metadata_field").prop("selectedIndex",0).change();
+            $("#metadata_field1").prop("selectedIndex",0).change();
+            $("#metadata_field2").prop("selectedIndex",0).change();
+            $("#metadata_value").val("");
+            $("#metadata_value_1").val("");
+            $("#metadata_value_2").val("");
+            $("#metadatarow1").hide();
+            $("#metadatarow2").hide();
+            $("#NorthEastlat").val("");
+            $("#NorthEastlon").val("");
+            $("#SouthWestlat").val("");
+            $("#SouthWestlon").val("");
+            $("#trashed").val("0");
+            $("#subsample_quantity_min").val("");
+            $("#subsample_quantity_max").val("");
+            $("#without_container").prop("checked", false);
+            removeLayer();
+            var now = new Date();
+            $("#date_from").datepicker("setDate", new Date(now.getFullYear() -1, now.getMonth(), now.getDay()));
+            $("#date_to").datepicker("setDate", now );
+            $("#booking_type").prop("selectedIndex",0).change();
+            $("#booking_from").datepicker("setDate", now);
+            $("#booking_to").datepicker("setDate", now);
+            $("#name").val("");
+            $("#uidsearch").focus();
+        });
+        /* Management of tabs */
+        var activeTab = "";
         var myStorage = window.localStorage;
         try {
-        activeTab = myStorage.getItem("sampleSearchTab");
+            activeTab = myStorage.getItem("sampleSearchTab");
         } catch (Exception) {
         }
-		try {
-			if (activeTab.length > 0) {
-				$("#"+activeTab).tab('show');
-			}
-		} catch (Exception) { }
+        try {
+            if (activeTab.length > 0) {
+                $("#"+activeTab).tab('show');
+            }
+        } catch (Exception) { }
         /**
          * Get the limit from the storage
          */
@@ -267,15 +267,15 @@
             $("#limit").val(localLimit);
         } catch (Exception) { }
 
-		/*$('.nav-tabs > li > a').hover(function() {
-			//$(this).tab('show');
+        /*$('.nav-tabs > li > a').hover(function() {
+            //$(this).tab('show');
         });*/
         /**
          * storage of the searchTab
          */
         $('.searchTab').on('shown.bs.tab', function () {
-			myStorage.setItem("sampleSearchTab", $(this).attr("id"));
-		});
+            myStorage.setItem("sampleSearchTab", $(this).attr("id"));
+        });
         /**
          * Delete a recorded request
          */
@@ -301,10 +301,23 @@
         if (isGestion == 1 || consult_sees_all == 1) {
             regenerateMetadata();
         }
+        try{
+         var asbc = myStorage.getItem("searchByColumn");
+         if (asbc == 1) {
+            $("#activateSearchByColumn").prop("checked", 1);
+         }  
+        }catch (Exception) {}
         
+        $("#activateSearchByColumn").change(function() {
+            var asbc = 0;
+            if (this.checked) { 
+                asbc = 1;
+            }
+            myStorage.setItem("searchByColumn", asbc);
+        });
     });
 </script>
-<div class="col-lg-10 col-md-12">
+<div class="col-md-12">
     <div class="row">
         <form class="" id="sample_search" action="index.php" method="GET">
             <input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}">
@@ -736,9 +749,14 @@
                         <div class="col-sm-1">
                             <input id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control nombre">
                         </div>
-                        <div class="col-sm-6 center">
+                        <div class="col-sm-4 center">
                             <input type="submit" id="samplesearch_button" class="btn btn-success" value="{t}Rechercher{/t}">
                             <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
+                        </div>
+                            <label for="activateSearchByColumn" class="control-label col-sm-3">{t}Activer la recherche par colonne :{/t}</label>
+                            <div class="col-sm-1">
+                                <input type="checkbox" id="activateSearchByColumn" class="form-control" >
+                            </div>
                         </div>
                     </div>
                 </div>

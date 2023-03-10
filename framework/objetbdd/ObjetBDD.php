@@ -1767,7 +1767,7 @@ class ObjetBDD
   {
     $collection = $this->executeAsPrepared($sql, $data);
 
-    if (is_array($collection)) {
+    if (is_array($collection) && !empty($collection)) {
       $collection = $collection[0];
       if ($this->auto_date == 1) {
         $collection = $this->utilDatesDBVersLocale($collection);
@@ -1788,15 +1788,14 @@ class ObjetBDD
   function getListeParamAsPrepared($sql, $data): array
   {
     $collection = $this->executeAsPrepared($sql, $data);
-    if (is_array($collection)) {
+    if (is_array($collection) && !empty($collection)) {
       if ($this->auto_date == 1) {
         $collection = $this->utilDatesDBVersLocale($collection);
       }
-      if (is_array($collection)) {
-        return $collection;
-      }
+      return $collection;
+    } else {
+      return array();
     }
-    return array();
   }
 
   /**

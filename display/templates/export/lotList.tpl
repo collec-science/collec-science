@@ -44,7 +44,7 @@ $(document).ready ( function() {
     {t}Les lots doivent être créés depuis le module de recherche des échantillons.{/t}
   </div>
 </div>
-{if count($lots) > 0}
+{if !empty($lots) }
 <div class="row">
   <div class="col-md-6">
     <table class="table table-bordered table-hover datatable" data-order='[[1, "desc"]]'>

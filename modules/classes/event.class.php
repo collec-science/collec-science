@@ -75,17 +75,17 @@ class Event extends ObjetBDD
         {
                 $searchType == "due_date" ? $search = "due_date" : $search = "event_date";
                 if ($object_type == 1) {
-                        $colonnes = ",sample_type_name";
+                        $colonnes = ",sample_type_name, 'sample' as object_type";
                         $jointure = "join sample using (uid)
                                 join sample_type using (sample_type_id)";
                         $fieldName = "sample_type_id";
                 } else {
-                        $colonnes = ",container_type_name";
+                        $colonnes = ",container_type_name, 'container' as object_type";
                         $jointure = "join container using (uid)
                                 join container_type using (container_type_id)";
                         $fieldName = "container_type_id";
                 }
-                $sql = "select uid, identifier, event_date, due_date
+                $sql = "select uid, identifier, event_date, due_date, event_id
                         ,event_type_id, event_type_name, event_comment
                         ,still_available
                         $colonnes

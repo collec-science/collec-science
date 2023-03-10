@@ -160,7 +160,7 @@
     {section name=lst loop=$events}
       <tr>
         <td>
-          <a href="index.php?module={$moduleParent}eventChange&event_id={$events[lst].event_id}&uid={$events[lst].uid}">
+          <a href="index.php?module={$events[lst].object_type}eventChange&event_id={$events[lst].event_id}&uid={$events[lst].uid}">
           {$events[lst].event_date}
         </td>
         <td>{$events[lst].event_type_name}</td>

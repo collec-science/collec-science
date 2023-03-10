@@ -27,7 +27,7 @@ class FileException extends Exception {}
  *
  * @return mixed
  */
-function dataRead($dataClass, $id, $smartyPage, $idParent = null)
+function dataRead($dataClass, $id, $smartyPage, $idParent = 0)
 {
   global $vue, $OBJETBDD_debugmode, $message;
   if (isset($vue)) {
@@ -46,9 +46,12 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = null)
         $message->setSyslog($e->getMessage());
       }
     }
-    /*
+    /**
          * Affectation des donnees a smarty
          */
+    if (!is_array($data)) {
+      $data = array();
+    }    
     $vue->set($data, "data");
     $vue->set($smartyPage, "corps");
     return $data;
@@ -430,9 +433,9 @@ class ApiCurlException extends Exception
  * @param string $method
  * @param string $url
  * @param array $data
- * @return void
+ * @return bool|string
  */
-function apiCall($method, $url, $certificate_path = "", $data = array(), $modeDebug = false)
+function apiCall($method, $url, $certificate_path = "", $data = array(), $modeDebug = false) 
 {
   $curl = curl_init();
   if (!$curl) {

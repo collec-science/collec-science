@@ -930,7 +930,7 @@ class ObjetBDD
     $rs = $this->executeAsPrepared($sql, $ds);
     if ($mode == "ajout" && $this->id_auto == 1) {
       if ($this->typeDatabase == 'pgsql') {
-        if (is_array($rs)) {
+        if (!empty($rs)) {
           $ret = $rs[0][$this->cle];
         }
       } else {
@@ -1262,7 +1262,7 @@ class ObjetBDD
    *
    * @return bool|int
    */
-  function vidageTable(): bool|int
+  function vidageTable()
   {
     try {
       return $this->connection->exec('delete from ' . $this->table);
@@ -1279,7 +1279,7 @@ class ObjetBDD
    *
    * @return bool|int
    */
-  function clearTable(): bool|int
+  function clearTable()
   {
     return $this->vidageTable();
   }
@@ -1767,7 +1767,7 @@ class ObjetBDD
   {
     $collection = $this->executeAsPrepared($sql, $data);
 
-    if (is_array($collection) && !empty($collection)) {
+    if (!empty($collection) && is_array($collection)) {
       $collection = $collection[0];
       if ($this->auto_date == 1) {
         $collection = $this->utilDatesDBVersLocale($collection);
@@ -1788,7 +1788,7 @@ class ObjetBDD
   function getListeParamAsPrepared($sql, $data): array
   {
     $collection = $this->executeAsPrepared($sql, $data);
-    if (is_array($collection) && !empty($collection)) {
+    if (!empty($collection) && is_array($collection)) {
       if ($this->auto_date == 1) {
         $collection = $this->utilDatesDBVersLocale($collection);
       }

@@ -1,6 +1,16 @@
 News
 ===========
-Version 2.8.2 du 23/01/2022
+Version 2.8.3 du 13/03/2023
+---------------------------
+Corrections de bugs:
+- la recherche à partir d'un type d'événement n'aboutissait plus
+- la recherche par uid ne fonctionnait plus
+- augmentation de la largeur de la zone de recherche des échantillons pour afficher correctement l'UID saisi
+- réactivation de la recherche des échantillons par colonne (case à cocher pour choisir le mode souhaité)
+- diverses corrections liées au support de la version 8.1 de PHP
+
+
+Version 2.8.2 du 23/01/2023
 ---------------------------
 Correction de bugs :
 - dans certains cas, la suppression d'une étiquette ne fonctionnait pas, sans que l'utilisateur sache pourquoi. Un message d'erreur explicatif est maintenant affiché

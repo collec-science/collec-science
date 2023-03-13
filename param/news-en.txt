@@ -1,5 +1,14 @@
 News
 ===========
+Version 2.8.3 of march 13th, 2023
+---------------------------
+Fixed bugs:
+- the search from an event type was no longer successful
+- the search by uid was not working anymore
+- increased the width of the sample search area to display correctly the entered UID
+- reactivation of the search for samples by column (check box to choose the desired mode)
+- various corrections related to the support of PHP version 8.1
+
 Version 2.8.2 of January 23th, 2023
 ----------------------------
 Bug fixes:

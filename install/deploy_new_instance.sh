@@ -2,7 +2,7 @@
 # install a new instance into a server
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
-VERSION=2.8.0
+VERSION=2.8.3
 REPO=https://github.com/collec-science/collec-science
 PHPVER=8.1
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"

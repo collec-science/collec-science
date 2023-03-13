@@ -1,6 +1,6 @@
 #!/bin/bash
 OLDVERSION=collec-2.5.0
-VERSION=collec-2.8.2
+VERSION=collec-2.8.3
 REPO=https://github.com/collec-science/collec-science
 echo "Content of /var/www/html/collec-science"
 ls -l /var/www/html/collec-science

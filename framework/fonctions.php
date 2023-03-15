@@ -34,6 +34,9 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = 0)
     if (is_numeric($id)) {
 
       try {
+        if (!is_numeric($idParent)) {
+          $idParent = 0;
+        }
         $data = $dataClass->lire($id, true, $idParent);
       } catch (FrameworkException | ObjetBDDException | PDOException $e) {
         if ($OBJETBDD_debugmode > 0) {

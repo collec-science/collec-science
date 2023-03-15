@@ -33,7 +33,8 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		dataRead($dataClass, $id, "framework/droits/groupChange.tpl", $_REQUEST["aclgroup_id_parent"]);
+		is_integer($_REQUEST["aclgroup_id_parent"])?$parent_id = $_REQUEST["aclgroup_id_parent"] : $parent_id = 0;
+		dataRead($dataClass, $id, "framework/droits/groupChange.tpl", $parent_id);
 		/*
 		 * Recuperation des logins associes
 		 */
@@ -61,4 +62,3 @@ switch ($t_module["param"]) {
 		dataDelete($dataClass, $id);
 		break;
 }
-?>

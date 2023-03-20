@@ -651,7 +651,7 @@ class ObjectClass extends ObjetBDD
   function batchRead($batchdata)
   {
     if (!empty($batchdata)) {
-      $batchdata = $this->encodeData($batchdata);
+      //$batchdata = $this->encodeData($batchdata);
       /*
              * Preparation du tableau de travail
              */

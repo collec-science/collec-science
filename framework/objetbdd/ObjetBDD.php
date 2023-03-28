@@ -1683,8 +1683,9 @@ class ObjetBDD
           $data = mb_convert_encoding($data, 'UTF-8');
         }
       }
+      $data = addslashes($data);
     }
-    return addslashes($data);
+    return $data;
   }
 
   /**

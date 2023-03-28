@@ -175,7 +175,7 @@ class Login
                   "name" => $this->dacllogin["logindetail"],
                   "appName" => $_SESSION["APPLI_title"],
                   "organization" => $userparams[$ident_header_vars["organization"]],
-                  "link" => $APPLI_address
+                  "link" => "https://".$_SERVER["HTTP_HOST"]
                 );
                 $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
                 $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"), true);

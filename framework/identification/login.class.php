@@ -121,6 +121,9 @@ class Login
            */
           $createUser = true;
           if (!empty($ident_header_vars["organizationGranted"])) {
+            if (!is_array($ident_header_vars["organizationGranted"])) {
+              $ident_header_vars["organizationGranted"] = explode(',', $ident_header_vars["organizationGranted"]);
+            }
             $createUser = false;
             if (is_array($userparams[$ident_header_vars["organization"]])) {
               foreach ($userparams[$ident_header_vars["organization"]] as $org) {

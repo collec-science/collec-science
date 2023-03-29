@@ -199,7 +199,7 @@ class Login
   {
     $params = array();
     foreach ($attributes as $k => $v) {
-      if (!empty($v) && isset($provider[$v])) {
+      if (!empty($v) && array_key_exists($v, $provider)) {
         $params[$k] = $provider[$v];
       }
     }

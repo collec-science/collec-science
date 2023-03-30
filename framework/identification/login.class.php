@@ -147,7 +147,10 @@ class Login
               "login" => $login,
               "actif" => 0
             );
-            if (!empty($userparams["groupAttribute"]) && !empty($ident_header_vars["groupsGranted"])) {
+            if (!is_array($ident_header_vars["groupsGranted"])) {
+              $ident_header_vars["groupsGranted"] = explode(',', $ident_header_vars["groupsGranted"]);
+            }
+            if (!empty($userparams["groupAttribute"]) && array_key_exists("groupsGranted", $ident_header_vars["groupsGranted"])) {
               if (is_array($userparams["groupAttribute"])) {
                 foreach ($userparams["groupAttribute"] as $group) {
                   if (in_array($group, $ident_header_vars["groupsGranted"])) {
@@ -170,7 +173,6 @@ class Login
                 /**
                  * Send mail to administrators
                  */
-                global  $APPLI_address;
                 $subject = $_SESSION["APPLI_title"] . " - " . _("Nouvel utilisateur");
                 $template = "framework/mail/newUser.tpl";
                 $data = array(
@@ -253,11 +255,11 @@ class Login
     /**
      * Add acllogin to the main group, if exists
      */
-    if (!empty($params["groupeAttribute"])) {
-      if (!is_array($params["groupeAttribute"])) {
-        $params["groupeAttribute"] = array($params["groupeAttribute"]);
+    if (!empty($params["groupAttribute"])) {
+      if (!is_array($params["groupAttribute"])) {
+        $params["groupAttribute"] = array($params["groupAttribute"]);
       }
-      foreach ($params["groupeAttribute"] as $group) {
+      foreach ($params["groupAttribute"] as $group) {
         $dgroups = $this->aclgroup->getGroupFromName($group);
         foreach ($dgroups as $dgroup) {
           $this->aclgroup->addLoginToGroup($dgroup["aclgroup_id"], $id);

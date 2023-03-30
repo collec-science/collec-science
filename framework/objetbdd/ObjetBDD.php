@@ -1462,8 +1462,11 @@ class ObjetBDD
    * @param array $lignes
    * @return void 
    */
-  function ecrireTableNN(string $nomTable, string $nomCle1, string $nomCle2, int $id, array $lignes = array()): void
+  function ecrireTableNN(string $nomTable, string $nomCle1, string $nomCle2, int $id, ?array $lignes = array()): void
   {
+    if (is_null($lignes)) {
+      $lignes = array();
+    }
     if ($this->debug_mode == 2) {
       echo "ecrireTableNN - table : $nomTable<br>";
       echo "cle1 : $nomCle1<br>";
@@ -1578,7 +1581,7 @@ class ObjetBDD
    *            $lignes
    * @return void
    */
-  function writeTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes = array()): void
+  function writeTableNN($nomTable, $nomCle1, $nomCle2, $id, ? array $lignes = array()): void
   {
     $this->ecrireTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes);
   }

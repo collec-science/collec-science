@@ -85,21 +85,20 @@ class Log extends ObjetBDD
      *
      * @param int $nbJours : nombre de jours de conservation
      *
-     * @return int
      */
     public function purge($nbJours)
     {
         if ($nbJours > 0) {
             $sql = "delete from " . $this->table . "
 					where log_date < current_date - interval '" . $nbJours . " day'";
-            return $this->executeSQL($sql);
+            $this->executeSQL($sql);
         }
     }
 
     /**
      * Recupere l'adresse IP de l'agent
      *
-     * @return IPAddress
+     * @return string
      */
     public function getIPClientAddress()
     {
@@ -139,6 +138,8 @@ class Log extends ObjetBDD
                 )
             );
             return $data[1];
+        } else {
+            return array();
         }
     }
     /**
@@ -168,6 +169,8 @@ class Log extends ObjetBDD
                     "token" => $token
                 )
             );
+        } else {
+            return array();
         }
     }
 
@@ -194,6 +197,8 @@ class Log extends ObjetBDD
             );
             $connectionType = explode("-", $data["nom_module"]);
             return $connectionType[2];
+        } else {
+            return "";
         }
     }
 
@@ -441,6 +446,8 @@ class Log extends ObjetBDD
         if (array_key_exists($field, $this->colonnes)) {
             $sql = "select distinct $field as val from log order by $field";
             return $this->getListeParam($sql);
+        } else {
+            return array();
         }
     }
     /**

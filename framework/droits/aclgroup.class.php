@@ -261,7 +261,7 @@ class Aclgroup extends ObjetBDD
      *
      * @param int $parent_id
      * @param number $level
-     * @return array:|NULL
+     * @return array|null
      */
     private function getChildGroups($parent_id, $level = 1)
     {
@@ -382,7 +382,7 @@ class Aclgroup extends ObjetBDD
      * le groupe dispose de l'acl fourni en paramètre
      *
      * @param int $aclaco_id
-     * @return number|NULL
+     * @return array|null
      */
     function getGroupsFromAco($aclaco_id)
     {

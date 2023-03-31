@@ -636,7 +636,7 @@ try {
                 "APPLI_address" => $APPLI_address
               ),
               $module,
-              $login
+              $_SESSION["login"]
             );
           }
           if (!empty($t_module["droitko"])) {

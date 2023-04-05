@@ -637,6 +637,7 @@ try {
               ),
               $module,
               $_SESSION["login"]
+              
             );
           }
           if (!empty($t_module["droitko"])) {

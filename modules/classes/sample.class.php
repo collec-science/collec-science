@@ -453,7 +453,7 @@ class Sample extends ObjetBDD
           }
           $aname = explode(",", $param["name"]);
           if (count($aname) > 1) {
-            $where .= " so.identifier in (";
+            $where .= " upper(so.identifier) in (";
             $i = 1;
             foreach ($aname as $v) {
               if ($i > 1) {

@@ -88,7 +88,7 @@ class Samplews
     foreach ($searchOrder as $field) {
       if (!empty($dataSent["parent_" . $field])) {
         $hasparent = true;
-        $dataParent = $this->sample->getFromField($field, $dataSent[$field]);
+        $dataParent = $this->sample->getFromField($field, $dataSent["parent_" .$field]);
         if (!empty($dataParent)) {
           break;
         }

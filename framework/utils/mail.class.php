@@ -12,7 +12,7 @@ class Mail
 
     private $param = array(
         "replyTo" => "",
-        "subject" => "subjet",
+        "subject" => "subject",
         "contents" => "text message",
         "mailTemplate" => "framework/mail/mail.tpl" /* name of the main Smarty template used to send mails */
     );

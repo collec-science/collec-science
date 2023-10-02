@@ -314,37 +314,37 @@ class ObjetBDD
       $this->param = $param;
     }
     /*
-         * configuration de la connexion
-         */
+     * configuration de la connexion
+     */
     $this->typeDatabase = $this->connection->getAttribute($p_connection::ATTR_DRIVER_NAME);
 
     $this->connection->setAttribute($p_connection::ATTR_DEFAULT_FETCH_MODE, $p_connection::FETCH_ASSOC);
     /*
-         * Preparation des tableaux intermediaires a partir du tableau $colonnes
-         */
+     * Preparation des tableaux intermediaires a partir du tableau $colonnes
+     */
     if (is_array($this->colonnes)) {
       $this->keys = array();
       $nbcle = 0;
       foreach ($this->colonnes as $key => $value) {
         /*
-                 * Preparation du tableau des cles
-                 */
+         * Preparation du tableau des cles
+         */
         if ($value["key"] == 1 || $value["cle"] == 1) {
           $this->keys[] = $key;
           $nbcle++;
           $this->cle = $key;
         }
         /*
-                 * Affectation de l'attribut parent
-                 */
+         * Affectation de l'attribut parent
+         */
         if (strlen($value["parentAttrib"]) > 0) {
           $this->parentAttrib = $key;
         }
       }
 
       /*
-             * Analyse de la cle
-             */
+       * Analyse de la cle
+       */
       if ($nbcle < 2) {
         $this->cleMultiple = 0;
       } else {
@@ -353,12 +353,12 @@ class ObjetBDD
       }
     }
     /*
-         * Integration des parametres utilisateur
-         */
+     * Integration des parametres utilisateur
+     */
     $this->setParam($param);
     /*
-         * Integration du codage UTF8
-         */
+     * Integration du codage UTF8
+     */
 
     if ($this->UTF8) {
       if ($this->typeDatabase == "mysql") {
@@ -368,16 +368,16 @@ class ObjetBDD
       }
     }
     /*
-         * Definition du mode de gestion des erreurs
-         */
+     * Definition du mode de gestion des erreurs
+     */
     if ($this->debug_mode > 0) {
       $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } else {
       $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
     }
     /*
-         * Ajout du identifier quote character
-         */
+     * Ajout du identifier quote character
+     */
     if ($this->typeDatabase == 'pgsql') {
       $this->quoteIdentifier = '"';
     } elseif ($this->typeDatabase == 'mysql') {
@@ -398,14 +398,16 @@ class ObjetBDD
       }
     }
     /*
-         * Forcage des parametres de date
-         */
+     * Forcage des parametres de date
+     */
     if ($this->formatDate == "fr") {
       $this->formatDate = 1;
-    }
-    if ($this->formatDate == "en") {
+    } else if ($this->formatDate == "en") {
+      $this->formatDate = 1;
+      $this->separateurLocal = "/";
+    } else if ($this->formatDate == "us") {
       $this->formatDate = 2;
-      $this->separateurLocal = "-";
+      $this->separateurLocal = "/";
     }
   }
 
@@ -468,8 +470,8 @@ class ObjetBDD
       }
     } else {
       /*
-             * Verification de la cle unique
-             */
+       * Verification de la cle unique
+       */
       if ($this->verifData == 1 && !is_numeric($id)) {
         throw new ObjetBDDException(_("La clé n'est pas numérique"));
       }
@@ -482,15 +484,15 @@ class ObjetBDD
       $data["id"] = $id;
     }
     /*
-         * Generation de la liste des colonnes, et integration du type POSTGIS Ne fonctionne que si la description est complete
-         */
+     * Generation de la liste des colonnes, et integration du type POSTGIS Ne fonctionne que si la description est complete
+     */
     if ($this->fullDescription == 1) {
       $select = "";
       $i = 0;
       foreach ($this->colonnes as $key => $value) {
         /*
-                 * Rajout des doubles quotes sur le nom des colonnes en cas de présence de majuscules
-                 */
+         * Rajout des doubles quotes sur le nom des colonnes en cas de présence de majuscules
+         */
         if (strlen(preg_replace("#[^A-Z]+#", "", $key)) > 0) {
           $cle = $this->quoteIdentifier . $key . $this->quoteIdentifier;
         } else {
@@ -503,8 +505,8 @@ class ObjetBDD
         }
         if ($value["type"] == 4) {
           /*
-                     * Traitement des champs geographiques
-                     */
+           * Traitement des champs geographiques
+           */
           $select .= "ST_AsText(" . $cle . ")";
         } else {
           $select .= $cle;
@@ -523,8 +525,8 @@ class ObjetBDD
       }
     } else {
       /*
-             * on ne conserve que la premiere ligne
-             */
+       * on ne conserve que la premiere ligne
+       */
       $collection = $collection[0];
       if ($this->auto_date == 1) {
         $collection = $this->utilDatesDBVersLocale($collection);
@@ -615,8 +617,8 @@ class ObjetBDD
       }
     } else {
       /*
-             * Verification de la cle unique
-             */
+       * Verification de la cle unique
+       */
       if ($this->verifData == 1 && !is_numeric($id)) {
         return false;
       }
@@ -689,8 +691,8 @@ class ObjetBDD
   function ecrire($dataBrute)
   {
     /*
-         * Mise en forme des donnees selon le mode de fonctionnement
-         */
+     * Mise en forme des donnees selon le mode de fonctionnement
+     */
     if ($this->fullDescription == 1) {
       $data = array();
       foreach ($this->colonnes as $key => $value) {
@@ -702,24 +704,24 @@ class ObjetBDD
       $data = $dataBrute;
     }
     /*
-         * Verification des donnees entrees
-         */
+     * Verification des donnees entrees
+     */
     /*
-         * Forcage a zero de la cle si cle simple et cle automatique
-         */
+     * Forcage a zero de la cle si cle simple et cle automatique
+     */
     if ($this->cleMultiple == 0 && $data[$this->cle] == "" && $this->id_auto > 0) {
       $data[$this->cle] = 0;
     }
     /*
-         * Traitement des dates
-         */
+     * Traitement des dates
+     */
     if ($this->auto_date == 1) {
       $data = $this->utilDatesLocaleVersDB($data);
     }
 
     /*
-         * Traitement pour determiner le type de traitement (insert, update)
-         */
+     * Traitement pour determiner le type de traitement (insert, update)
+     */
     $mode = "";
     if ($this->cleMultiple == 0 && $data[$this->cle] < 1) {
       $mode = "ajout";
@@ -732,8 +734,8 @@ class ObjetBDD
       if ($this->cleMultiple == 1) {
         foreach ($this->keys as $key => $value) {
           /*
-                     * Verification que la cle soit numerique
-                     */
+           * Verification que la cle soit numerique
+           */
           if (!is_numeric($data[$value])) {
             $this->errorData[] = array(
               "code" => 1,
@@ -756,8 +758,8 @@ class ObjetBDD
         }
       } else {
         /*
-                 * cle unique Verification que la cle soit numerique
-                 */
+         * cle unique Verification que la cle soit numerique
+         */
         if (!is_numeric($data[$this->cle])) {
           $this->errorData[] = array(
             "code" => 1,
@@ -792,8 +794,8 @@ class ObjetBDD
     }
 
     /*
-         * Transformation des virgules en points, si demande
-         */
+     * Transformation des virgules en points, si demande
+     */
     if ($this->transformComma) {
       foreach ($data as $key => $value) {
         if (@$this->colonnes[$key]["type"] == 1) {
@@ -808,8 +810,8 @@ class ObjetBDD
       }
     }
     /*
-         * Traitement de la mise en fichier
-         */
+     * Traitement de la mise en fichier
+     */
 
     $ds = array();
     if ($mode == "ajout") {
@@ -874,8 +876,8 @@ class ObjetBDD
       $sql .= $valeur . ")";
 
       /*
-             * On rajoute la recuperation de la cle avec postgresql
-             */
+       * On rajoute la recuperation de la cle avec postgresql
+       */
       if ($this->typeDatabase == 'pgsql' && $this->id_auto == 1) {
         $sql .= ' RETURNING ' . $this->cle;
       }
@@ -1039,8 +1041,8 @@ class ObjetBDD
     if ($parentId > 0 && !empty($this->parentAttrib)) {
       $sql = "select * from " . $this->table;
       /*
-             * Preparation du where
-             */
+       * Preparation du where
+       */
       if (strlen(preg_replace("#[^A-Z]+#", "", $this->parentAttrib)) > 0) {
         $cle = $this->quoteIdentifier . $this->parentAttrib . $this->quoteIdentifier;
       } else {
@@ -1071,14 +1073,14 @@ class ObjetBDD
     foreach ($data as $key => $value) {
       if (is_array($value)) {
         /*
-                 * Traitement recursif
-                 */
+         * Traitement recursif
+         */
         $data[$key] = $this->utilDatesDBVersLocale($value);
       } else {
         if (($this->colonnes[$key]["type"] == 2 || $this->colonnes[$key]["type"] == 3) && strlen($value) > 0) {
           /*
-                     * Formatage de la date
-                     */
+           * Formatage de la date
+           */
           $data[$key] = $this->formatDateDBversLocal($value, $this->colonnes[$key]["type"]);
         }
       }
@@ -1100,14 +1102,14 @@ class ObjetBDD
     foreach ($data as $key => $value) {
       if (is_array($value)) {
         /*
-                 * Traitement recursif
-                 */
+         * Traitement recursif
+         */
         $data[$key] = $this->utilDatesDBVersLocale($value);
       } else {
         if (($this->colonnes[$key]["type"] == 2 || $this->colonnes[$key]["type"] == 3) && strlen($value) > 0) {
           /*
-                     * Formatage de la date
-                     */
+           * Formatage de la date
+           */
           $data[$key] = $this->formatDateLocaleVersDB($value, $this->colonnes[$key]["type"]);
         }
       }
@@ -1131,8 +1133,8 @@ class ObjetBDD
     $date = ltrim($date);
     $date = rtrim($date);
     /*
-         * Separation de la date et de l'heure
-         */
+     * Separation de la date et de l'heure
+     */
     $temp = @explode(" ", $date);
     $date = $temp[0];
     $heure = $temp[1];
@@ -1146,8 +1148,8 @@ class ObjetBDD
     $separateurLocal = $this->sepValide[$j];
     $temp = @explode($separateurLocal, $date);
     /*
-         * Assignation des champs
-         */
+     * Assignation des champs
+     */
     switch ($this->formatDate) {
       case 0:
         $annee = $temp[0];
@@ -1166,8 +1168,8 @@ class ObjetBDD
         break;
     }
     /*
-         * Prise en compte de l'annee par defaut
-         */
+     * Prise en compte de l'annee par defaut
+     */
     if ($annee == "") {
       $annee = date("Y");
     }
@@ -1182,8 +1184,8 @@ class ObjetBDD
 
     $date = $annee . $this->separateurDB . $mois . $this->separateurDB . $jour;
     /*
-         * Reintegration de l'heure le cas echeant
-         */
+     * Reintegration de l'heure le cas echeant
+     */
     if ($type == 3) {
       $date .= " " . $heure;
     }
@@ -1200,8 +1202,8 @@ class ObjetBDD
   function formatDateDBversLocal($date, $type = 2)
   {
     /*
-         * Suppression des espaces, tabulations et autres caracteres indesirables presents en debut et fin de chaine
-         */
+     * Suppression des espaces, tabulations et autres caracteres indesirables presents en debut et fin de chaine
+     */
     $date = ltrim($date);
     $date = rtrim($date);
     $temp = @explode(" ", $date);
@@ -1209,8 +1211,8 @@ class ObjetBDD
     $heure = $temp[1];
     $temp = @explode($this->separateurDB, $date);
     /*
-         * Reformatage de la date
-         */
+     * Reformatage de la date
+     */
 
     switch ($this->formatDate) {
       case 0:
@@ -1226,8 +1228,8 @@ class ObjetBDD
 
     if ($type == 3) {
       /*
-             * Reincorporation de l'heure
-             */
+       * Reincorporation de l'heure
+       */
       $date .= " " . $heure;
     }
     return ($date);
@@ -1296,8 +1298,8 @@ class ObjetBDD
     $testok = true;
     foreach ($data as $key => $value) {
       /*
-             * Verification des champs numeriques
-             */
+       * Verification des champs numeriques
+       */
       if ($this->colonnes[$key]["type"] == 1) {
         if (strlen($value) > 0 && !is_numeric($value)) {
           $testok = false;
@@ -1462,7 +1464,7 @@ class ObjetBDD
    * @param array $lignes
    * @return void 
    */
-  function ecrireTableNN(string $nomTable, string $nomCle1, string $nomCle2, int $id, ?array $lignes = array()): void
+  function ecrireTableNN(string $nomTable, string $nomCle1, string $nomCle2, int $id, $lignes = array()): void
   {
     if (is_null($lignes)) {
       $lignes = array();
@@ -1525,8 +1527,8 @@ class ObjetBDD
       try {
         $stmt = $this->connection->prepare($sql);
         /*
-                 * Execution de la requete
-                 */
+         * Execution de la requete
+         */
         foreach ($suppr as $key => $value) {
           $ds = array(
             "key2" => $value
@@ -1548,8 +1550,8 @@ class ObjetBDD
       try {
         $stmt = $this->connection->prepare($sql);
         /*
-                 * Execution de la requete
-                 */
+         * Execution de la requete
+         */
         foreach ($creation as $key => $value) {
           $ds = array(
             "id" => $id,
@@ -1581,7 +1583,7 @@ class ObjetBDD
    *            $lignes
    * @return void
    */
-  function writeTableNN($nomTable, $nomCle1, $nomCle2, $id, ? array $lignes = array()): void
+  function writeTableNN($nomTable, $nomCle1, $nomCle2, $id, ?array $lignes = array()): void
   {
     $this->ecrireTableNN($nomTable, $nomCle1, $nomCle2, $id, $lignes);
   }
@@ -1636,10 +1638,14 @@ class ObjetBDD
      */
     foreach ($this->colonnes as $key => $colonne) {
       if (strlen($colonne["defaultValue"]) > 0) {
-        if (is_callable(array(
-          $this,
-          $colonne["defaultValue"]
-        ))) {
+        if (
+          is_callable(
+            array(
+              $this,
+              $colonne["defaultValue"]
+            )
+          )
+        ) {
           /**
            * Appel de la fonction
            */
@@ -1667,13 +1673,14 @@ class ObjetBDD
    *
    * @param array|string $data
    * @return array|string
+   * @deprecated 
    */
   function encodeData($data)
   {
     if (is_array($data)) {
       /*
-             * Traitement des tableaux
-             */
+       * Traitement des tableaux
+       */
       foreach ($data as $key => $value) {
         $data[$key] = $this->encodeData($value);
       }

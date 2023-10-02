@@ -36,4 +36,3 @@ switch ($t_module["param"]) {
         }
         break;
 }
-?>

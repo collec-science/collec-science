@@ -91,4 +91,3 @@ class DbParam extends ObjetBDD
         $_SESSION["dbparamok"] = true;
     }
 }
-?>

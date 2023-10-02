@@ -121,9 +121,6 @@ class Login
            */
           $createUser = true;
           if (!empty($ident_header_vars["organizationGranted"])) {
-            if (!is_array($ident_header_vars["organizationGranted"])) {
-              $ident_header_vars["organizationGranted"] = explode(',', $ident_header_vars["organizationGranted"]);
-            }
             $createUser = false;
             if (is_array($userparams[$ident_header_vars["organization"]])) {
               foreach ($userparams[$ident_header_vars["organization"]] as $org) {
@@ -147,10 +144,7 @@ class Login
               "login" => $login,
               "actif" => 0
             );
-            if (!is_array($ident_header_vars["groupsGranted"])) {
-              $ident_header_vars["groupsGranted"] = explode(',', $ident_header_vars["groupsGranted"]);
-            }
-            if (!empty($userparams["groupAttribute"]) && array_key_exists("groupsGranted", $ident_header_vars["groupsGranted"])) {
+            if (!empty($userparams["groupAttribute"]) && !empty($ident_header_vars["groupsGranted"])) {
               if (is_array($userparams["groupAttribute"])) {
                 foreach ($userparams["groupAttribute"] as $group) {
                   if (in_array($group, $ident_header_vars["groupsGranted"])) {
@@ -173,6 +167,7 @@ class Login
                 /**
                  * Send mail to administrators
                  */
+                global  $APPLI_address;
                 $subject = $_SESSION["APPLI_title"] . " - " . _("Nouvel utilisateur");
                 $template = "framework/mail/newUser.tpl";
                 $data = array(
@@ -180,7 +175,7 @@ class Login
                   "name" => $this->dacllogin["logindetail"],
                   "appName" => $_SESSION["APPLI_title"],
                   "organization" => $userparams[$ident_header_vars["organization"]],
-                  "link" => "https://".$_SERVER["HTTP_HOST"]
+                  "link" => $APPLI_address
                 );
                 $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
                 $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"), true);
@@ -201,7 +196,7 @@ class Login
   {
     $params = array();
     foreach ($attributes as $k => $v) {
-      if (!empty($v) && array_key_exists($v, $provider)) {
+      if (!empty($v) && isset($provider[$v])) {
         $params[$k] = $provider[$v];
       }
     }
@@ -255,11 +250,11 @@ class Login
     /**
      * Add acllogin to the main group, if exists
      */
-    if (!empty($params["groupAttribute"])) {
-      if (!is_array($params["groupAttribute"])) {
-        $params["groupAttribute"] = array($params["groupAttribute"]);
+    if (!empty($params["groupeAttribute"])) {
+      if (!is_array($params["groupeAttribute"])) {
+        $params["groupeAttribute"] = array($params["groupeAttribute"]);
       }
-      foreach ($params["groupAttribute"] as $group) {
+      foreach ($params["groupeAttribute"] as $group) {
         $dgroups = $this->aclgroup->getGroupFromName($group);
         foreach ($dgroups as $dgroup) {
           $this->aclgroup->addLoginToGroup($dgroup["aclgroup_id"], $id);

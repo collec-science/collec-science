@@ -6,7 +6,7 @@
  *  Creation 3 juin 2015
  */
 include_once 'framework/droits/droits.class.php';
-$dataClass = new Aclaco($bdd_gacl,$ObjetBDDParam);
+$dataClass = new Aclaco($bdd_gacl, $ObjetBDDParam);
 $keyName = "aclaco_id";
 $id = $_REQUEST[$keyName];
 
@@ -17,8 +17,8 @@ switch ($t_module["param"]) {
 		 * Display the detail of the record
 		 */
 		$data = $dataClass->lire($id);
-		$vue->set($data , "data");
-		$vue->set("framework/droits/appliDisplay.tpl" , "corps");
+		$vue->set($data, "data");
+		$vue->set("framework/droits/appliDisplay.tpl", "corps");
 		break;
 	case "change":
 		/*
@@ -28,10 +28,10 @@ switch ($t_module["param"]) {
 		 */
 		$data = dataRead($dataClass, $id, "framework/droits/acoChange.tpl", $_REQUEST["aclappli_id"]);
 		$aclAppli = new Aclappli($bdd_gacl, $ObjetBDDParam);
-		$vue->set($aclAppli->lire($data["aclappli_id"]) , "dataAppli");
+		$vue->set($aclAppli->lire($data["aclappli_id"]), "dataAppli");
 		require_once "framework/droits/aclgroup.class.php";
 		$aclgroup = new Aclgroup($bdd_gacl, $ObjetBDDParam);
-		$vue->set($aclgroup->getGroupsFromAco($id) , "groupes");
+		$vue->set($aclgroup->getGroupsFromAco($id), "groupes");
 		break;
 	case "write":
 		/*
@@ -49,5 +49,5 @@ switch ($t_module["param"]) {
 		dataDelete($dataClass, $id);
 		break;
 	default:
-	    break;
+		break;
 }

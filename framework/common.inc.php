@@ -89,7 +89,7 @@ $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 if (!isset($_SESSION['CREATED'])) {
     $_SESSION['CREATED'] = time();
     $_SESSION['ABSOLUTE_START'] = time();
-} else if (time() - $_SESSION['CREATED'] > $APPLI_session_ttl) {
+} elseif (time() - $_SESSION['CREATED'] > $APPLI_session_ttl) {
     /*
      * La session a demarre depuis plus du temps de la session : cookie regenere
      */

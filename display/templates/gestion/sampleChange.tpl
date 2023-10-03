@@ -342,15 +342,12 @@
         	}
 
         });
-		$(".position").change(function() {
-			setLocalisation();
-		});
 
 		function setLocalisation() {
-			var x = $("#wgs84_x").val();
-			var y = $("#wgs84_y").val();
-			if (x.length > 0 && y.length > 0) {
-				setPoint(x, y);
+			var lon = $("#wgs84_x").val();
+			var lat = $("#wgs84_y").val();
+			if (lon.length > 0 && lat.length > 0) {
+				setPosition(lat,lon);
 			}
 		}
 

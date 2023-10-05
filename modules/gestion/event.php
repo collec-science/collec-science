@@ -58,20 +58,24 @@ switch ($t_module["param"]) {
 		$_SESSION["searchEvent"]->setParam($_REQUEST);
 		$dataSearch = $_SESSION["searchEvent"]->getParam();
 		if ($_SESSION["searchEvent"]->isSearch() == 1) {
-			$vue->set(
-				$dataClass->searchDueEvent(
-					$dataSearch["search_type"],
-					$dataSearch["date_from"],
-					$dataSearch["date_to"],
-					$dataSearch["is_done"],
-					$dataSearch["collection_id"],
-					$dataSearch["event_type_id"],
-					$dataSearch["object_type_id"],
-					$dataSearch["object_type"]
-				),
-				"events"
-			);
-			$vue->set(1, "isSearch");
+			try {
+				$vue->set(
+					$dataClass->searchDueEvent(
+						$dataSearch["search_type"],
+						$dataSearch["date_from"],
+						$dataSearch["date_to"],
+						$dataSearch["is_done"],
+						$dataSearch["collection_id"],
+						$dataSearch["event_type_id"],
+						$dataSearch["object_type_id"],
+						$dataSearch["object_type"]
+					),
+					"events"
+				);
+				$vue->set(1, "isSearch");
+			} catch (Exception $e) {
+				$message->set($e->getMessage(), true);
+			}
 		}
 		include_once "modules/classes/collection.class.php";
 		$collection = new Collection($bdd, $ObjetBDDParam);

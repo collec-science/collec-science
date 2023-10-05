@@ -164,6 +164,9 @@
                     <option value="event_date" {if $eventSearch["search_type"]=="event_date" }selected{/if}>
                         {t}Date de l'événement{/t}
                     </option>
+                    <option value="no_date" {if $eventSearch["search_type"]=="no_date"}selected{/if}>
+                    {t}Pas de recherche par date{/t}
+                    </option>
                 </select>
             </div>
             <label for="is_done" class="col-sm-2 control-label">{t}État de l'événement :{/t}</label>

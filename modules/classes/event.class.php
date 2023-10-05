@@ -92,30 +92,45 @@ class Event extends ObjetBDD
                         from event
                         join object using (uid)
                         join event_type using (event_type_id)
-                        $jointure";
-        $sql .= " where $search between :datefrom and :dateto";
-        if ($isDone == -1) {
-            $sql .= " and event_date is null";
-        } elseif ($isDone == 1) {
-            $sql .= " and event_date is not null";
+                        $jointure
+                         ";
+        $where = " where ";
+        $and = "";
+        $data = array();
+        if ($searchType != "no_date") {
+            $where .= "$search between :datefrom and :dateto";
+            $and = "and";
+            $data["datefrom"] = $this->formatDateLocaleVersDB($dateFrom);
+            $data["dateto"] = $this->formatDateLocaleVersDB($dateTo);
         }
-        $data = array(
-            "datefrom" => $this->formatDateLocaleVersDB($dateFrom),
-            "dateto" => $this->formatDateLocaleVersDB($dateTo)
-        );
+
+        if ($isDone == -1) {
+            $where .= " $and event_date is null";
+            $and = "and";
+        } elseif ($isDone == 1) {
+            $where .= " $and event_date is not null";
+            $and = "and";
+        }
+
         if ($collection_id > 0) {
-            $sql .= " and collection_id = :collection_id";
+            $where .= " $and collection_id = :collection_id";
             $data["collection_id"] = $collection_id;
+            $and = "and";
         }
         if ($event_type_id > 0) {
-            $sql .= " and event_type_id = :event_type_id";
+            $where .= " $and event_type_id = :event_type_id";
             $data["event_type_id"] = $event_type_id;
+            $and = "and";
         }
         if ($object_type_id > 0) {
-            $sql .= " and $fieldName = :object_type_id";
+            $where .= " $and $fieldName = :object_type_id";
             $data["object_type_id"] = $object_type_id;
+            $and = "and";
         }
-        return $this->getListeParamAsPrepared($sql, $data);
+        if (strlen($where) < 10) {
+            throw new ObjetBDDException(_("Au moins un critère doit être sélectionné pour exécuter la requête"));
+        }
+        return $this->getListeParamAsPrepared($sql . $where, $data);
     }
     function ecrire($data)
     {

@@ -73,14 +73,14 @@ switch ($t_module["param"]) {
 			$vue->set(1, "isSearch");
 		}
 		include_once "modules/classes/collection.class.php";
-    $collection = new Collection($bdd, $ObjetBDDParam);
-    $vue->set($collection->getAllCollections(), "collections");
+		$collection = new Collection($bdd, $ObjetBDDParam);
+		$vue->set($collection->getAllCollections(), "collections");
 		include_once "modules/classes/eventType.class.php";
-		if ($dataSearch["object_type"]== 1 ) {
+		if ($dataSearch["object_type"] == 1) {
 			$category = "sample";
-		include_once  "modules/classes/sampleType.class.php";
-		$sampleType = new SampleType($bdd, $ObjetBDDParam);
-		$vue->set($sampleType->getListFromCollection($dataSearch["collection_id"]),"objectTypes");
+			include_once "modules/classes/sampleType.class.php";
+			$sampleType = new SampleType($bdd, $ObjetBDDParam);
+			$vue->set($sampleType->getListFromCollection($dataSearch["collection_id"]), "objectTypes");
 		} else {
 			$category = "container";
 			include_once "modules/classes/containerType.class.php";
@@ -88,8 +88,65 @@ switch ($t_module["param"]) {
 			$vue->set($ct->getListe("container_type_name"), "objectTypes");
 		}
 		$eventType = new EventType($bdd, $ObjetBDDParam);
-		$vue->set ($eventType->getListeFromCategory($category, $dataSearch["collection_id"]), "eventTypes");
+		$vue->set($eventType->getListeFromCategory($category, $dataSearch["collection_id"]), "eventTypes");
 		$vue->set($dataSearch, "eventSearch");
 		$vue->set("gestion/eventSearchList.tpl", "corps");
+		break;
+	case "deleteList":
+		if (!empty($_POST["events"])) {
+			$bdd->beginTransaction();
+			try {
+				foreach ($_POST["events"] as $event_id) {
+					$dataClass->supprimer($event_id);
+				}
+				$bdd->commit();
+				$message->set(_("Événements supprimés"));
+				$module_coderetour = 1;
+			} catch (Exception $e) {
+				$message->set(_("Un problème est survenu pendant la suppression d'un événement"), true);
+				$message->setSyslog($e->getMessage());
+				$bdd->rollBack();
+				$module_coderetour = -1;
+			}
+		} else {
+			$message->set(_("Aucun événement n'a été sélectionné"), true);
+			$module_coderetour = -1;
+		}
+		break;
+	case "changeList":
+		if (!empty($_POST["events"])) {
+			$fields = array("event_date", "event_type_id", "due_date", "event_comment", "still_available");
+			$data = array();
+			foreach ($fields as $field) {
+				if (!empty($_POST[$field])) {
+					$data[$field] = $_POST[$field];
+				}
+			}
+			if (!empty($data)) {
+				$dataClass->colonnes["uid"]["requis"] = 0;
+				$dataClass->colonnes["event_type_id"]["requis"] = 0;
+				$bdd->beginTransaction();
+				try {
+					foreach ($_POST["events"] as $event_id) {
+						$data["event_id"] = $event_id;
+						$dataClass->ecrire($data);
+					}
+					$bdd->commit();
+					$message->set(_("Événements modifiés"));
+					$module_coderetour = 1;
+				} catch (Exception $e) {
+					$message->set(_("Un problème est survenu pendant la modification d'un événement"), true);
+					$message->setSyslog($e->getMessage());
+					$bdd->rollBack();
+					$module_coderetour = -1;
+				}
+			} else {
+				$message->set(_("Aucune modification n'est à apporter aux événements"), true);
+				$module_coderetour = -1;
+			}
+		} else {
+			$message->set(_("Aucun événement n'a été sélectionné"), true);
+			$module_coderetour = -1;
+		}
 		break;
 }

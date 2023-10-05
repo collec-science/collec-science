@@ -7,8 +7,8 @@
                 text: 'csv',
                 filename: 'events',
                 exportOptions: {
-						columns: [1,2,3,4,5,6,7,8,9]
-					},
+                    columns: [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+                },
                 customize: function ( csv ) {
                     var split_csv = csv.split( "\n" );
                     //set headers
@@ -40,25 +40,25 @@
             "buttons": buttons
         } );
         $( '#eventList thead th' ).each( function () {
-				var title = $( this ).text();
-				var size = title.trim().length;
-				if ( size > 0 ) {
-					$( this ).html( '<input type="text" placeholder="' + title + '" size="' + size + '" class="searchInput" title="'+title+'">' );
-				}
-			} );
-			tableList.columns().every( function () {
-				var that = this;
-				if ( that.index() > 0 ) {
-					$( 'input', this.header() ).on( 'keyup change clear', function () {
-						if ( that.search() !== this.value ) {
-							that.search( this.value ).draw();
-						}
-					} );
-				}
-			} );
-			$( ".searchInput" ).hover( function () {
-				$( this ).focus();
-			} );
+            var title = $( this ).text();
+            var size = title.trim().length;
+            if ( size > 0 ) {
+                $( this ).html( '<input type="text" placeholder="' + title + '" size="' + size + '" class="searchInput" title="' + title + '">' );
+            }
+        } );
+        tableList.columns().every( function () {
+            var that = this;
+            if ( that.index() > 0 ) {
+                $( 'input', this.header() ).on( 'keyup change clear', function () {
+                    if ( that.search() !== this.value ) {
+                        that.search( this.value ).draw();
+                    }
+                } );
+            }
+        } );
+        $( ".searchInput" ).hover( function () {
+            $( this ).focus();
+        } );
         $( ".typeEventSearch" ).change( function () {
             var collection_id = $( "#collection_id" ).val();
             var object_type = $( "#object_type" ).val();
@@ -111,6 +111,41 @@
                     } );
                 $( "#collection_id" ).prop( "disabled", true );
                 $( "#object_type_id_label" ).html( "{t}Type de contenant :{/t}" );
+            }
+        } );
+        $( "#events" ).change( function () {
+            $( ".events" ).prop( "checked", $( "#events" ).prop( "checked" ) );
+        } );
+        var actions = {
+            "eventsChange": "eventsChange"
+        };
+        $( "#checkedActionEvent" ).change( function () {
+            var action = $( this ).val();
+            var actionClass = actions[ action ];
+            var value;
+            for ( const key in actions ) {
+                if ( actions.hasOwnProperty( key ) ) {
+                    value = actions[ key ];
+                    if ( value == actionClass ) {
+                        $( "." + value ).show();
+                    } else {
+                        $( "." + value ).hide();
+                    }
+                }
+            };
+        } );
+        $( "#checkedButtonEvent" ).on( "keypress click", function ( event ) {
+            var action = $( "#checkedActionEvent" ).val();
+            if ( action.length > 0 ) {
+                var conf = confirm( "{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
+                if ( conf == true ) {
+                    $( this.form ).find( "input[name='module']" ).val( action );
+                    $( this.form ).prop( 'target', '_self' ).submit();
+                } else {
+                    event.preventDefault();
+                }
+            } else {
+                event.preventDefault();
             }
         } );
     } );
@@ -210,56 +245,134 @@
 </div>
 
 {if $isSearch == 1}
-<table id="eventList" class="table table-bordered table-hover ">
-    <thead>
-        <tr>
-            <th class="center">
-                <input id="events" type="checkbox" value="{$events[ls].event_id}">
-            </th>
-            <th>Id</th>
-            <th>{t}Date{/t}</th>
-            <th>{t}Type{/t}</th>
-            <th>{t}Date prévue{/t}</th>
-            <th>{t}UID de l'objet concerné{/t}</th>
-            <th>{t}Identifiant métier{/t}</th>
-            <th id="object_type_label_in_array">{if $eventSearch.object_type == 1}{t}Type d'échantillon{/t}{else}{t}Type
-                de contenant{/t}{/if}</th>
-            <th>{t}Reste disponible (échantillons){/t}</th>
-            <th>{t}Commentaire{/t}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {section name=lst loop=$events}
-        <tr>
-            <td class="center">
-                <input type="checkbox" class="events" name="events[]" value="{$events[ls].event_id}">
-            </td>
-            <td>
-                <a
-                    href="index.php?module={$events[lst].object_type}eventChange&event_id={$events[lst].event_id}&uid={$events[lst].uid}">
-                {$events[lst].event_id}
-                </a>
-            </td>
-            <td>{$events[lst].event_date}</td>
-            <td>{$events[lst].event_type_name}</td>
-            <td>{$events[lst].due_date}</td>
-            <td>
-                {if $eventSearch.object_type == 1}
-                <a href="index.php?module=sampleDisplay&uid={$events[lst].uid}">
-                    {else}
-                    <a href="index.php?module=containerDisplay&uid={$events[lst].uid}">
-                        {/if}
-                        {$events[lst].uid}
+<form action="index.php" method="post">
+    <input type="hidden" id="module" name="module" value="">
+    <table id="eventList" class="table table-bordered table-hover " data-order='[[1,"asc"]]'>
+        <thead>
+            <tr>
+                <th class="center">
+                    <input id="events" type="checkbox" value="{$events[ls].event_id}">
+                </th>
+                <th>Id</th>
+                <th>{t}Date{/t}</th>
+                <th>{t}Type{/t}</th>
+                <th>{t}Date prévue{/t}</th>
+                <th>{t}UID de l'objet concerné{/t}</th>
+                <th>{t}Identifiant métier{/t}</th>
+                <th id="object_type_label_in_array">{if $eventSearch.object_type == 1}{t}Type
+                    d'échantillon{/t}{else}{t}Type
+                    de contenant{/t}{/if}</th>
+                <th>{t}Reste disponible (échantillons){/t}</th>
+                <th>{t}Commentaire{/t}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {section name=lst loop=$events}
+            <tr>
+                <td class="center">
+                    <input type="checkbox" class="events" name="events[]" value="{$events[lst].event_id}">
+                </td>
+                <td>
+                    <a
+                        href="index.php?module={$events[lst].object_type}eventChange&event_id={$events[lst].event_id}&uid={$events[lst].uid}">
+                        {$events[lst].event_id}
                     </a>
-            </td>
-            <td>{$events[lst].identifier}</td>
-            <td>{$events[lst].sample_type_name}{$events[lst].container_type_name}</td>
-            <td>{$events[lst].still_available}</td>
-            <td>
-                <span class="textareaDisplay">{$events[lst].event_comment}</span>
-            </td>
-        </tr>
-        {/section}
-    </tbody>
-</table>
+                </td>
+                <td>{$events[lst].event_date}</td>
+                <td>{$events[lst].event_type_name}</td>
+                <td>{$events[lst].due_date}</td>
+                <td>
+                    {if $eventSearch.object_type == 1}
+                    <a href="index.php?module=sampleDisplay&uid={$events[lst].uid}">
+                        {else}
+                        <a href="index.php?module=containerDisplay&uid={$events[lst].uid}">
+                            {/if}
+                            {$events[lst].uid}
+                        </a>
+                </td>
+                <td>{$events[lst].identifier}</td>
+                <td>{$events[lst].sample_type_name}{$events[lst].container_type_name}</td>
+                <td>{$events[lst].still_available}</td>
+                <td>
+                    <span class="textareaDisplay">{$events[lst].event_comment}</span>
+                </td>
+            </tr>
+            {/section}
+        </tbody>
+    </table>
+    {if $droits.import == 1}
+    <div class="row">
+        <div class="col-md-6 protoform form-horizontal">
+            {t}Pour les éléments cochés :{/t}
+            <input type="hidden" name="is_action" value="1">
+            <select id="checkedActionEvent" class="form-control">
+                <option value="" selected>{t}Choisissez{/t}</option>
+                <option value="eventsChange">{t}Modifier les événements{/t}</option>
+                <option value="eventsDelete">{t}Supprimer les événements{/t}</option>
+            </select>
+
+            <div class="eventsChange" hidden>
+                <div class="form-group">
+                    <label for="event_date" class="control-label col-md-4">{t}Date :{/t}</label>
+                    <div class="col-md-8">
+                        <input id="event_date" name="event_date" value="{$data.event_date}"
+                            class="form-control datepicker">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="container_status_id" class="control-label col-md-4">
+                        {t}Type d'évenement :{/t}</label>
+                    <div class="col-md-8">
+                        <select class="form-control" id="event_type_id" name="event_type_id">
+                            <option value="0" {if $eventSearch.event_type_id==0}selected{/if}>
+                                {t}Choisissez{/t}
+                                </option>
+                            {foreach $eventTypes as $eventType}
+                            <option value="{$eventType.event_type_id}" {if
+                                $eventType.event_type_id==$eventSearch.event_type_id}selected{/if}>
+                                {$eventType.event_type_name}
+                            </option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                {if $eventSearch.object_type == 1}
+                <div class="form-group">
+                    <label for="still_available" class="control-label col-md-4">
+                        {t}Reste disponible :{/t}
+                    </label>
+                    <div class="col-md-8">
+                        <input id="still_available" type="text" name="still_available" value="" class="form-control">
+                    </div>
+                </div>
+                {/if}
+
+                <div class="form-group">
+                    <label for="due_date" class="control-label col-md-4">
+                        {t}Date d'échéance :{/t}
+                    </label>
+                    <div class="col-md-8">
+                        <input id="due_date" name="due_date" value="" class="form-control datepicker">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+                    <div class="col-md-8">
+                        <textarea id="event_comment" name="event_comment" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="bg-info">
+                    {t}Seules les données non vides seront mises à jour dans les événements !{/t}
+                </div>
+            </div>
+
+            <div class="center">
+                <button id="checkedButtonEvent" class="btn btn-danger">{t}Exécuter{/t}</button>
+            </div>
+        </div>
+    </div>
+</form>
+{/if}
 {/if}

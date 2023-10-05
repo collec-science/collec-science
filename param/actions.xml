@@ -96,11 +96,14 @@
 	<eventsDelete action="modules/gestion/event.php" param="deleteList" droits="import" moduleBefore="eventSearch,eventsDelete,eventsChange" retourok="eventSearch" retourko="eventSearch"/>
 	<eventsChange action="modules/gestion/event.php" param="changeList" droits="import" moduleBefore="eventSearch,eventsChange,eventsDelete" retourok="eventSearch" retourko="eventSearch"/>
 
+	<eventSearcheventWrite action="modules/gestion/event.php" param="write" droits="gestion" retourok="eventSearch" retourko="eventSearcheventChange" modulebefore="eventSearcheventChange,sampleeventChange,containereventChange" />
+	<eventSearcheventDelete action="modules/gestion/event.php" param="delete" droits="gestion" retourok="eventSearch" retourko="eventSearcheventChange" modulebefore="eventSearcheventChange,sampleeventChange,containereventChange"/>
+
 	<movementcontainerInput action="modules/gestion/movement.php" param="input" droits="gestion" retourlogin="1" type="smarty" />
 	<movementcontainerOutput action="modules/gestion/movement.php" param="output" droits="gestion" retourlogin="1" type="smarty" />
 	<movementcontainerWrite action="modules/gestion/movement.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="movementcontainerInput,movementcontainerOutput" />
 	<movementcontainerDelete action="modules/gestion/movement.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="movementcontainerInput,movementcontainerOutput"/>
-	<movementsampleInput action="modules/gestion/movement.php" param="input" droits="gestion" retourlogin="1" type="smarty" />
+	<movementInput action="modules/gestion/movement.php" param="input" droits="gestion" retourlogin="1" type="smarty" />
 	<movementsampleOutput action="modules/gestion/movement.php" param="output" droits="gestion" retourlogin="1" type="smarty" />
 	<movementsampleWrite action="modules/gestion/movement.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="movementsampleInput,movementsampleOutput" />
 	<movementsampleDelete action="modules/gestion/movement.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="movementsampleInput,movementsampleOutput"/>

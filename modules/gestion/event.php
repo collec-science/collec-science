@@ -53,7 +53,8 @@ switch ($t_module["param"]) {
 		break;
 
 	case "search":
-		$_SESSION["moduleListe"] = "eventSearch";
+		$_SESSION["moduleParent"] = "eventSearch";
+		$vue->set("eventSearch", "moduleParent");
 		$_SESSION["searchEvent"]->setParam($_REQUEST);
 		$dataSearch = $_SESSION["searchEvent"]->getParam();
 		if ($_SESSION["searchEvent"]->isSearch() == 1) {

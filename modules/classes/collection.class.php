@@ -55,7 +55,8 @@ class Collection extends ObjetBDD
       ),
       "no_localization" => array("type" => 1),
       "external_storage_enabled" => array("type" => 1),
-      "external_storage_root" => array("type" => 0)
+      "external_storage_root" => array("type" => 0),
+      "sample_name_unique"=>array("type"=>1)
     );
     parent::__construct($bdd, $param);
   }

@@ -3,12 +3,12 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.0-beta1" use-changelog="false" last-position="867,849" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.5" use-changelog="false" last-position="922,859" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
-	 layer-name-colors="#000000"
-	 layer-rect-colors="#b4b4b4"
+	 layer-name-colors="#000000,#000000"
+	 layer-rect-colors="#47f652,#ea25e1"
 	 show-layer-names="false" show-layer-rects="false">
 <role name="collec"
  superuser="true"
@@ -992,7 +992,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<table name="collection" layers="0" collapse-mode="1" max-obj-count="14" z-value="0">
+<table name="collection" layers="0" collapse-mode="1" max-obj-count="15" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[List of all collections into the database]]> </comment>
@@ -1038,6 +1038,10 @@ Autre]]>
 	<column name="external_storage_root">
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[Root path of the documents stored out of the database]]> </comment>
+	</column>
+	<column name="sample_name_unique" not-null="true" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment> <![CDATA[True if the sample identifier must be unique in the collection]]> </comment>
 	</column>
 	<constraint name="project_pk" type="pk-constr" table="col.collection">
 		<columns names="collection_id" ref-type="src-columns"/>
@@ -4083,9 +4087,9 @@ where collection_id = $1]]> </definition>
 	 dst-table="col.sample" reference-fk="sample_sample_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="1207.76" y="1455.31"/>
-	<position x="1207.76" y="1287"/>
-	<position x="1069.84" y="1287"/>
+		<position x="1212.49" y="1449.97"/>
+	<position x="1212.49" y="1287"/>
+	<position x="1072.99" y="1287"/>
 	</line>
 </relationship>
 
@@ -4190,9 +4194,9 @@ where collection_id = $1]]> </definition>
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_aclgroup_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="392.091" y="280.908"/>
-	<position x="392.091" y="207"/>
-	<position x="246.06" y="207"/>
+		<position x="392.747" y="279.575"/>
+	<position x="392.747" y="207"/>
+	<position x="246.498" y="207"/>
 	</line>
 </relationship>
 

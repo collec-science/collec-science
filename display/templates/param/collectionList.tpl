@@ -23,6 +23,7 @@
 	<th>{t}Groupes de login autorisés{/t}</th>
 	<th>{t}types d'échantillons rattachés{/t}</th>
 	<th>{t}Types d'événements rattachés{/t}</th>
+	<th>{t}Identifiants des échantillons uniques{/t}</th>
 	<th>{t}Flux de mise à jour{/t}</th>
 	<th>{t}Flux de consultation{/t}</th>
 	<th>{t}Collection publique{/t}</th>
@@ -51,6 +52,11 @@
 <td>{$data[lst].groupe}</td>
 <td>{$data[lst].sampletypes}</td>
 <td>{$data[lst].eventtypes}</td>
+<td class="center">
+	{if $data[lst].sample_name_unique == 1}
+		{t}oui{/t}
+	{/if}
+</td>
 <td class="center">
 	{if $data[lst].allowed_import_flow == 1}
 		{t}oui{/t}

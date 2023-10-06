@@ -89,7 +89,7 @@ class Sample extends ObjetBDD
   private $where = "";
   private $paramSearch = array();
   private $data = array();
-  private $object, $container, $event, $country;
+  public $object, $container, $event, $country, $collection;
   public Subsample $subsample;
 
   public function __construct($bdd, $param = array())
@@ -201,7 +201,7 @@ class Sample extends ObjetBDD
     $sql = "select sample_id from sample
     join object using (uid)
     where lower(identifier) = lower(:identifier)";
-    $data =  array("identifier" => $identifier);
+    $data = array("identifier" => $identifier);
     if ($collection_id > 0) {
       $sql .= " and collection_id = :collection_id";
       $data["collection_id"] = $collection_id;
@@ -256,10 +256,13 @@ class Sample extends ObjetBDD
   {
     $ok = $this->verifyCollection($data);
     /*
-         * Verification complementaire par rapport aux donnees deja stockees
-         */
+     * Verification complementaire par rapport aux donnees deja stockees
+     */
     if ($ok && $data["uid"] > 0) {
       $ok = $this->verifyCollection($this->lire($data["uid"]));
+    }
+    if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
+      throw new SampleException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));
     }
     if ($ok) {
       $firstUid = $data["uid"];
@@ -411,7 +414,7 @@ class Sample extends ObjetBDD
        * Verification de la presence des parametres
        */
       $searchOk = false;
-      $paramName = array("uidsearch", "name",  "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
+      $paramName = array("uidsearch", "name", "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
       if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["booking_type"] != 0 || $param["without_container"] == 1) {
         $searchOk = true;
       } else {
@@ -459,7 +462,7 @@ class Sample extends ObjetBDD
               if ($i > 1) {
                 $where .= ",";
               }
-              $where .= ":id".$i;
+              $where .= ":id" . $i;
               $data["id$i"] = strtoupper(trim($v));
               $i++;
             }
@@ -584,7 +587,7 @@ class Sample extends ObjetBDD
           } else {
             $is_or = false;
           }
-          if (!empty($param["metadata_field"][1])  && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
+          if (!empty($param["metadata_field"][1]) && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
             $is_or1 = true;
           } else {
             $is_or1 = false;
@@ -829,8 +832,8 @@ class Sample extends ObjetBDD
       $d = $this->getListeParam($sql);
       $this->auto_date = 1;
       /*
-             * genere le dbuid pour import dans base externe
-             */
+       * genere le dbuid pour import dans base externe
+       */
       $data = array();
       foreach ($d as $value) {
         if ($this->verifyCollection($value)) {
@@ -838,8 +841,8 @@ class Sample extends ObjetBDD
             $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
           }
           /*
-                     * Generation du dbuid du parent dans le cas d'un echantillon derive
-                     */
+           * Generation du dbuid du parent dans le cas d'un echantillon derive
+           */
           if ($value["parent_sample_id"] > 0) {
             $dparent = $this->lireFromId($value["parent_sample_id"]);
             $value["dbuid_parent"] = $_SESSION["APPLI_code"] . ":" . $dparent["uid"];
@@ -848,8 +851,8 @@ class Sample extends ObjetBDD
           unset($value["collection_id"]);
           unset($value["uid"]);
           /*
-                     * Traitement des metadonnees - ajout de colonnes prefixees avec md_
-                     */
+           * Traitement des metadonnees - ajout de colonnes prefixees avec md_
+           */
           $metadata = json_decode($value["metadata"], true);
           foreach ($metadata as $kmd => $md) {
             if (is_array($md)) {
@@ -865,8 +868,8 @@ class Sample extends ObjetBDD
             $value["md_" . $kmd] = $val;
           }
           /*
-                     * Fin de traitement - rajout de la ligne reformatee
-                     */
+           * Fin de traitement - rajout de la ligne reformatee
+           */
           $data[] = $value;
         }
       }
@@ -889,9 +892,9 @@ class Sample extends ObjetBDD
   {
     if (!empty($uids)) {
       /*
-             * Verification que les uid sont numeriques
-             * preparation de la clause where
-             */
+       * Verification que les uid sont numeriques
+       * preparation de la clause where
+       */
       $comma = false;
       $val = "";
       foreach ($uids as $value) {
@@ -931,8 +934,8 @@ class Sample extends ObjetBDD
         }
       }
       /*
-             * Traitement des identifiants secondaires
-             */
+       * Traitement des identifiants secondaires
+       */
       if (!empty($line["identifiers"])) {
         $idents = explode(",", $line["identifiers"]);
         foreach ($idents as $ident) {
@@ -960,20 +963,20 @@ class Sample extends ObjetBDD
         throw new SampleException(_("L'identifiant de la base de données d'origine n'a pas été fourni"));
       }
       /*
-             * Verification de l'existence de la collection
-             */
+       * Verification de l'existence de la collection
+       */
       if (empty($row["collection_name"])) {
         throw new SampleException(_("Le nom de la collection n'a pas été renseigné"));
       }
       /*
-             * Verification de l'existence d'un type d'echantillon
-             */
+       * Verification de l'existence d'un type d'echantillon
+       */
       if (empty($row["sample_type_name"])) {
         throw new SampleException(_("Le type d'échantillon n'a pas été renseigné"));
       }
       /*
-             * Verification de la coherence des dates
-             */
+       * Verification de la coherence des dates
+       */
       $fieldDates = array(
         "sampling_date",
         "expiration_date",
@@ -982,13 +985,13 @@ class Sample extends ObjetBDD
       foreach ($fieldDates as $fieldDate) {
         if (!empty($row[$fieldDate])) {
           /*
-                     * Verification du format de date
-                     */
+           * Verification du format de date
+           */
           $result = date_parse_from_format($_SESSION["MASKDATE"], $row[$fieldDate]);
           if ($result["warning_count"] > 0) {
             /*
-                         * Test du format general
-                         */
+             * Test du format general
+             */
             $result = date_parse($row[$fieldDate]);
             if ($result["warning_count"] > 0) {
               throw new SampleException(sprintf(_("Le format de date de %s n'est pas reconnu. "), $fieldDate));
@@ -996,8 +999,8 @@ class Sample extends ObjetBDD
           }
           if ($result["warning_count"] == 0) {
             /*
-                         * Verification que la date contienne bien une annee, mois, jour
-                         */
+             * Verification que la date contienne bien une annee, mois, jour
+             */
             if (strlen($result["year"]) == 0 || strlen($result["month"]) == 0 || strlen($result["day"]) == 0) {
               throw new SampleException(sprintf(_("La date de %s est incomplète ou incohérente. "), $fieldDate));
             }
@@ -1051,8 +1054,8 @@ class Sample extends ObjetBDD
   {
     $object = new ObjectClass($this->connection, $this->param);
     /*
-         * Ajout des informations manquantes
-         */
+     * Ajout des informations manquantes
+     */
     if (strlen($data["object_status_id"]) == 0) {
       $data["object_status_id"] = 1;
     }
@@ -1060,8 +1063,8 @@ class Sample extends ObjetBDD
       $data["sample_creation_date"] = date(DATE_ATOM);
     }
     /*
-         * Search from uuid
-         */
+     * Search from uuid
+     */
     $uuidFound = false;
     if (strlen($data["uuid"]) == 36) {
       $uid = $this->getUidFromUUID($data["uuid"]);
@@ -1087,6 +1090,9 @@ class Sample extends ObjetBDD
       if ($uid > 0) {
         $data["uid"] = $uid;
       }
+    }
+    if (!$this->is_unique($data["uid"],$data["identifier"],$data["collection_id"])) {
+      throw new SampleException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));
     }
     /**
      * Reformatage des données diverses
@@ -1148,9 +1154,9 @@ class Sample extends ObjetBDD
     $uid = 0;
     if (!empty($dbuidorigin)) {
       /*
-             * Recherche si l'echantillon provient de la base de donnees courante
-             * cas de la reintegration d'un echantillon modifie a l'exterieur
-             */
+       * Recherche si l'echantillon provient de la base de donnees courante
+       * cas de la reintegration d'un echantillon modifie a l'exterieur
+       */
 
       $sql = "select uid from sample where dbuid_origin = :dbuid_origin";
       $data = $this->lireParamAsPrepared(
@@ -1432,6 +1438,44 @@ class Sample extends ObjetBDD
       return $this->getListFromUids($uids);
     } else {
       return array();
+    }
+  }
+
+  /**
+   * Search if an identifier is unique in a collection
+   *
+   * @param integer $uid
+   * @param string $identifier
+   * @param integer $collection_id
+   * @return boolean
+   */
+  function is_unique(int $uid, string $identifier, int $collection_id): bool
+  {
+    $result = true;
+
+    $sql = "select count(*) as nb
+          from sample
+          join object using (uid)
+          join collection using (collection_id)
+          where identifier = :identifier
+          and collection_id = :collection_id
+          and identifier = :identifier
+          and sample_name_unique = true
+          and uid <> :uid
+          ";
+
+    $request = $this->lireParamAsPrepared(
+      $sql,
+      array(
+        "identifier" => $identifier,
+        "collection_id" => $collection_id,
+        "uid" => $uid
+      )
+    );
+    if ($request["nb"] >= 1) {
+      return false;
+    } else {
+      return true;
     }
   }
 }

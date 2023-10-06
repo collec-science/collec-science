@@ -84,6 +84,23 @@
             </div>
           </div>
           <div class="form-group">
+            <label for="sau0" class="control-label col-md-4">{t}Les identifiants des échantillons doivent être uniques :{/t}</label>
+            <div class="col-md-8">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="sample_name_unique" id="sau0" value="0" {if
+                    $data.sample_name_unique==0}checked{/if}>
+                  {t}non{/t}
+                </label>
+                <label>
+                  <input type="radio" name="sample_name_unique" id="sau1" value="1" {if
+                    $data.sample_name_unique==1}checked{/if}>
+                  {t}oui{/t}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
             <label for="columns" class="control-label col-md-4">{t}Flux de modification entrants autorisés :{/t}</label>
             <div class="col-md-8">
               <div class="radio">

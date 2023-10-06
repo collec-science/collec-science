@@ -9,7 +9,8 @@
 //require_once 'modules/classes/object.class.php';
 class ContainerException extends Exception
 {
-};
+}
+;
 
 class Container extends ObjetBDD
 {
@@ -107,6 +108,9 @@ class Container extends ObjetBDD
    */
   function ecrire($data)
   {
+    if (!$this->is_unique($data["uid"], $data["identifier"])) {
+      throw new ObjectException(sprintf(_("L'identifiant du contenant %s existe déjà dans la base de données"), $data["identifier"]));
+    }
     $object = new ObjectClass($this->connection, $this->param);
     $uid = $object->ecrire($data);
     if ($uid > 0) {
@@ -238,8 +242,8 @@ class Container extends ObjetBDD
 					";
       $data["uid"] = $uid;
       /*
-             * Rajout de la date de dernier mouvement pour l'affichage
-             */
+       * Rajout de la date de dernier mouvement pour l'affichage
+       */
       $this->colonnes["movement_date"] = array(
         "type" => 3
       );
@@ -342,7 +346,12 @@ class Container extends ObjetBDD
      */
     $searchOk = false;
     $paramName = array(
-      "uidsearch", "name", "container_family_id", "container_type_id",  "select_date", "referent_id"
+      "uidsearch",
+      "name",
+      "container_family_id",
+      "container_type_id",
+      "select_date",
+      "referent_id"
     );
     if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["event_type_id"] > 0 || $param["movement_reason_id"] > 0) {
       $searchOk = true;
@@ -385,9 +394,9 @@ class Container extends ObjetBDD
         $and = " and ";
         $data["identifier"] = $identifier;
         /*
-             * Recherche sur les identifiants externes
-             * possibilite de recherche sur cab:valeur, p. e.
-             */
+         * Recherche sur les identifiants externes
+         * possibilite de recherche sur cab:valeur, p. e.
+         */
         $where .= " or upper(identifiers) like :identifier ";
         $where .= ")";
       }
@@ -488,16 +497,16 @@ class Container extends ObjetBDD
   {
     $data = array();
     /*
-         * Generation d'un tableau vide
-         */
+     * Generation d'un tableau vide
+     */
     for ($line = 0; $line < $lines; $line++) {
       for ($column = 0; $column < $columns; $column++) {
         $data[$line][$column] = array();
       }
     }
     /*
-         * Traitement de chaque tableau pour integrer les informations
-         */
+     * Traitement de chaque tableau pour integrer les informations
+     */
     foreach ($dcontainer as $value) {
       if ($value["line_number"] > 0 && $value["column_number"] > 0) {
         $data[$value["line_number"] - 1][$value["column_number"] - 1][] = array("type" => "C", "uid" => $value["uid"], "identifier" => $value["identifier"]);
@@ -582,7 +591,7 @@ class Container extends ObjetBDD
         /**
          * Explode the list of secondary identifiers
          */
-        if (!empty($dataSample["identifiers"]) ) {
+        if (!empty($dataSample["identifiers"])) {
           $dataSample["identifiers"] = explode(",", $dataSample["identifiers"]);
         }
         $row["samples"][] = $dataSample;
@@ -616,7 +625,7 @@ class Container extends ObjetBDD
       "referent_name",
       "container_type_name"
     );
-    foreach ($data as  $df) {
+    foreach ($data as $df) {
       $names = $this->extractUniqueReference($names, $fields, $df);
     }
     return $names;
@@ -719,20 +728,20 @@ class Container extends ObjetBDD
         $dcontainer[$field] = $data[$field];
       }
       foreach ($dynamicFields as $field) {
-        if (!empty($data[$field]) ) {
+        if (!empty($data[$field])) {
           /*
-                 * Search the value from post data
-                 */
+           * Search the value from post data
+           */
           $value = $data[$field];
           /*
-                 * Transformation of spaces in underscore,
-                 * to take into encoding realized by the browser
-                 */
+           * Transformation of spaces in underscore,
+           * to take into encoding realized by the browser
+           */
           $fieldHtml = str_replace(" ", "_", $value);
           $newval = $post[$field . "-" . $fieldHtml];
           /*
-                 * Recherche de la cle correspondante
-                 */
+           * Recherche de la cle correspondante
+           */
           $id = $dclass[$field][$newval];
           if ($id > 0) {
             $key = $sic->classes[$field]["id"];
@@ -830,9 +839,9 @@ class Container extends ObjetBDD
       if (!empty($data[$field])) {
         if ($field == "metadata") {
           /*
-                     * Ajout d'un decodage/encodage pour les champs json, pour
-                     * eviter les problemes potentiels et verifier la structure
-                     */
+           * Ajout d'un decodage/encodage pour les champs json, pour
+           * eviter les problemes potentiels et verifier la structure
+           */
           $dsample[$field] = json_encode(json_decode($data[$field]));
         } else {
           $dsample[$field] = $data[$field];
@@ -842,18 +851,18 @@ class Container extends ObjetBDD
     foreach ($dynamicFields as $field) {
       if (!empty($data[$field])) {
         /*
-             * Search the value from post data
-             */
+         * Search the value from post data
+         */
         $value = $data[$field];
         /*
-             * Transformation of spaces in underscore,
-             * to take into encoding realized by the browser
-             */
+         * Transformation of spaces in underscore,
+         * to take into encoding realized by the browser
+         */
         $fieldHtml = str_replace(" ", "_", $value);
         $newval = $post[$field . "-" . $fieldHtml];
         /*
-             * Recherche de la cle correspondante
-             */
+         * Recherche de la cle correspondante
+         */
         $id = $dclass[$field][$newval];
         if ($id > 0) {
           $key = $sic->classes[$field]["id"];
@@ -913,11 +922,13 @@ class Container extends ObjetBDD
    */
   function getUidMinMax()
   {
-    return (array(
-      "min" => $this->uidMin,
-      "max" => $this->uidMax,
-      "number" => $this->numberUid
-    ));
+    return (
+      array(
+        "min" => $this->uidMin,
+        "max" => $this->uidMax,
+        "number" => $this->numberUid
+      )
+    );
   }
 
   /**
@@ -967,5 +978,29 @@ class Container extends ObjetBDD
       }
     }
     return $cyclical;
+  }
+  function is_unique(int $uid, string $identifier): bool
+  {
+    if ($_SESSION["container_name_unique"] == 1) {
+      $sql = "select count(*) as nb 
+    from object
+    join container using (uid)
+    where identifier = :identifier
+    and uid <> :uid";
+      $res = $this->lireParamAsPrepared(
+        $sql,
+        array(
+          "uid" => $uid,
+          "identifier" => $identifier
+        )
+      );
+      if ($res["nb"] >= 1) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
   }
 }

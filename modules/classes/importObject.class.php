@@ -33,6 +33,8 @@ class ImportObjectException extends Exception
 class ImportObject
 {
 
+  public $classpath = "modules/classes";
+  public PDO $connection;
   private $separator = ",";
 
   private $utf8_encode = false;
@@ -216,6 +218,28 @@ class ImportObject
     $this->country = $country;
   }
 
+  function initAllClasses (PDO $connection) {
+    if (!isset ($this->connection)) {
+      $this->connection = $connection;
+    }
+    $classes = array("sample","container","movement","samplingPlace", "identifierType", "sampleType", "referent", "campaign", "country", "objectIdentifier");
+    foreach ($classes as $classe) {
+      if (!isset ($this->$classe)) {
+        $this->$classe = $this->classInstanciate(ucfirst($classe), "$classe.class.php");
+      }
+    }
+  }
+
+  function classInstanciate($className, $classFile, bool $pathAbsolute = false)
+  {
+      $pathAbsolute ? $path = $classFile : $path = $this->classpath . "/" . $classFile;
+      include_once $path;
+      if (!isset($this->connection)) {
+          throw new ObjetBDDException(sprintf(_("La connexion à la base de données n'est pas disponible pour instancier la classe %s"), $className));
+      }
+      return new $className($this->connection, array());
+  }
+
   /**
    * Fonction d'initialisation d'une instance de classe
    * pour utilisation dans les scripts
@@ -389,6 +413,9 @@ class ImportObject
          * Debut d'ecriture en table
          */
         try {
+          if (empty($dataSample["uid"])) {
+            $dataSample["uid"] = 0;
+          }
           $sample_uid = $this->sample->ecrire($dataSample);
 
           /**
@@ -438,6 +465,7 @@ class ImportObject
         if (!$dataContainer["object_status_id"] > 0) {
           $dataContainer["object_status_id"] = 1;
         }
+        $dataContainer["uid"] = 0;
         if (!empty($values["container_comment"])) {
           $dataContainer["object_comment"] = $values["container_comment"];
         }
@@ -746,6 +774,13 @@ class ImportObject
           break;
         }
       }
+      /**
+       * Verify if the identifier is unique from the collection
+       */
+      if (!$this->sample->is_unique(0, $data["sample_identifier"],$data["collection_id"])) {
+        $retour["code"] = false;
+        $retour["message"] .= _("L'identifiant de l'échantillon existe déjà dans la collection.");
+      }
       if (!$ok) {
         $retour["code"] = false;
         $retour["message"] .= _("Le numéro de la collection indiqué n'est pas reconnu ou autorisé.");
@@ -953,6 +988,10 @@ class ImportObject
       if (!$ok) {
         $retour["code"] = false;
         $retour["message"] .= _("Le type de contenant n'est pas connu.");
+      }
+      if (!$this->container->is_unique(0, $data["container_identifier"])) {
+        $retour["code"] = false;
+        $retour["message"] .= _("L'identifiant du contenant existe déjà");
       }
       /**
        * Verification du statut du container

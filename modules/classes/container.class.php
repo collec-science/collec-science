@@ -981,7 +981,7 @@ class Container extends ObjetBDD
   }
   function is_unique(int $uid, string $identifier): bool
   {
-    if ($_SESSION["container_name_unique"] == 1) {
+    if ($_SESSION["containerNameUnique"] == 1) {
       $sql = "select count(*) as nb 
     from object
     join container using (uid)

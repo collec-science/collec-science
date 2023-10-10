@@ -19,9 +19,9 @@
 	<containerFamilyDelete action="modules/param/containerFamily.php" param="delete" droits="param,collection" retourok="containerFamilyList" retourko="containerFamilyChange" modulebefore="containerFamilyChange"/>
 
 	<objectStatusList action="modules/param/objectStatus.php" param="list" droits="consult" retourlogin="1" type="smarty" />
-	<objectStatusChange action="modules/param/objectStatus.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<objectStatusChange action="modules/param/objectStatus.php" param="change" droits="param" retourlogin="1" type="smarty" retourko="objectStatusList" />
 	<objectStatusWrite action="modules/param/objectStatus.php" param="write" droits="param" retourok="objectStatusList" retourko="objectStatusChange" modulebefore="objectStatusChange" />
-	<objectStatusDelete action="modules/param/objectStatus.php" param="delete" droits="param" retourok="objectStatusList" retourko="objectStatusChange" modulebefore="objectStatusChange"/>
+	<!--objectStatusDelete action="modules/param/objectStatus.php" param="delete" droits="param" retourok="objectStatusList" retourko="objectStatusChange" modulebefore="objectStatusChange"/-->
 
 	<storageConditionList action="modules/param/storageCondition.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 	<storageConditionChange action="modules/param/storageCondition.php" param="change" droits="param,collection" retourlogin="1" type="smarty" />

@@ -25,7 +25,13 @@ switch ($t_module["param"]) {
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
          */
-        dataRead($dataClass, $id, "param/objectStatusChange.tpl");
+        if ($id > 0) {
+            dataRead($dataClass, $id, "param/objectStatusChange.tpl");
+        } else {
+            $module_coderetour = -1;
+            $message->set(_("La création d'un nouveau statut est interdite"), true);
+        }
+
         break;
     case "write":
         /*

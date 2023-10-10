@@ -166,7 +166,10 @@
                         },
                         "helperChoice": {
                             "type": "checkbox",
-                            "rightLabel": "{t}Message d'aide{/t}"
+                            "rightLabel": "{t}Message d'aide{/t}",
+                            "default":true,
+                            "enum": [true, false],
+                            "sort": false
                         },
                         "helper": {
                             "helper": "{t}Vous pouvez copier ici la description et l'unité de mesure{/t}",

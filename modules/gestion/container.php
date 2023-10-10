@@ -282,6 +282,7 @@ switch ($t_module["param"]) {
     $vue->set($dataClass->lire($_REQUEST["uid"]));
     break;
   case "exportGlobal":
+    if (!empty ($_REQUEST["uids"])) {
     $data = $dataClass->generateExportGlobal($_REQUEST["uids"]);
     $vue->setParam(
       array(
@@ -290,6 +291,10 @@ switch ($t_module["param"]) {
       )
     );
     $vue->set(json_encode($data));
+  } else {
+    $module_coderetour = -1;
+    $message->set(_("Aucun contenant n'a été sélectionné, l'exportation n'est pas possible"), true);
+  }
     break;
   case "importStage1":
     $vue->set("gestion/containerImport.tpl", "corps");

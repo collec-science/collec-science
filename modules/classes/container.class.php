@@ -543,20 +543,22 @@ class Container extends ObjetBDD
   {
     global $APPLI_version;
     $data = array();
-    /**
-     * Inhibit the date encoding
-     */
-    $this->auto_date = 0;
-    /**
-     * Add reference of the export
-     */
-    $data["collec-science_version"] = $APPLI_version;
-    $data["export_version"] = 1.0;
-    if (!is_array($uids)) {
-      $uids = array($uids);
-    }
-    foreach ($uids as $uid) {
-      $data[] = $this->getContainerWithObjects($uid);
+    if (!empty($uids)) {
+      /**
+       * Inhibit the date encoding
+       */
+      $this->auto_date = 0;
+      /**
+       * Add reference of the export
+       */
+      $data["collec-science_version"] = $APPLI_version;
+      $data["export_version"] = 1.0;
+      if (!is_array($uids)) {
+        $uids = array($uids);
+      }
+      foreach ($uids as $uid) {
+        $data[] = $this->getContainerWithObjects($uid);
+      }
     }
     return $data;
   }
@@ -579,7 +581,7 @@ class Container extends ObjetBDD
      * Get all samples in the container
      */
     $dataSamples = $this->getContentSample($uid);
-    if (count($dataSamples) > 0) {
+    if (!empty($dataSamples)) {
       $row["samples"] = array();
       /**
        * generate the dbuid_origin

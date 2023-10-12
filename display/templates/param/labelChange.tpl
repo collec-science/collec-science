@@ -138,6 +138,13 @@ $(document).ready( function() {
 <li>{t}et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants{/t}</li>
 </ul>
 </li>
+<li>{t}Si l'objet est toujours stocké au même endroit, pour pouvoir le replacer à son emplacement initial :{/t}
+	<ul>
+		<li>{t 1='stor'}%1 : nom du contenant{/t}</li>
+		<li>{t 1='cnum'}%1 : numéro de la colonne{/t}</li>
+		<li>{t 1='lnum'}%1 : numéro de la ligne{/t}</li>
+	</ul>
+</li>
 <li>{t}Cas particulier : code-barre avec un seul identifiant, au format texte :{/t}
 <ul>
 <li>id</li>

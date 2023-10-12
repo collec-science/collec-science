@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.5" use-changelog="false" last-position="922,859" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.5" use-changelog="false" last-position="915,858" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -1889,11 +1889,13 @@ Autre]]>
     s.movement_type_id,
     s.container_id,
     c.uid AS container_uid,
+	o.identifier as container_identifier,
     s.line_number,
     s.column_number,
     s.movement_reason_id
    FROM (col.movement s
-     LEFT JOIN col.container c USING (container_id))
+     LEFT JOIN col.container c USING (container_id)
+	LEFT JOIN col.object o on (o.uid = c.uid)
   WHERE (s.movement_id = ( SELECT st.movement_id
            FROM col.movement st
           WHERE (s.uid = st.uid)
@@ -1916,6 +1918,9 @@ Autre]]>
 	</column>
 	<column name="container_uid">
 		<type name="integer" length="0"/>
+	</column>
+	<column name="container_identifier">
+		<type name="varchar" length="0"/>
 	</column>
 	<column name="line_number">
 		<type name="integer" length="0"/>

@@ -27,6 +27,23 @@ $(document).ready( function() {
 			$( this.form ).find( "input[name='action']" ).val( "WriteStay" );
 			$(this.form).submit();
 		 });
+	function setTypeLabel(barcodeId) {
+
+		if (barcodeId > 1) {
+			$("#identifier_only1").prop("checked", true);
+			$("#identifier_only0").prop("disabled", true);
+			$(".multipleFields").hide();
+			$(".monoField").show();
+		} else {
+			$("#identifier_only0").prop("disabled", false);
+			$(".multipleFields").show();
+			$(".monoField").hide();
+		}
+	}
+	$("#barcode_id").change(function () { 
+		setTypeLabel($(this).val());
+	});
+	setTypeLabel($("#barcode_id").val());
 }) ;
 
 </script>
@@ -36,7 +53,7 @@ $(document).ready( function() {
 <div class="col-md-12">
 <a href="index.php?module=labelList">{t}Retour à la liste{/t}</a>
 
-<form class="form-horizontal protoform" id="labelForm" method="post" action="index.php">
+<form class="form-horizontal" id="labelForm" method="post" action="index.php">
 <input type="hidden" name="moduleBase" value="label">
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="label_id" value="{$data.label_id}">
@@ -84,12 +101,17 @@ $(document).ready( function() {
 </div>
 
 <div class="form-group">
-<label for="label_fields"  class="control-label col-md-4"><span class="red">*</span> {t}Champs à insérer dans le QR Code (séparés par une virgule, sans espace) :{/t}</label>
+<label for="label_fields"  class="control-label col-md-4"><span class="red">*</span> 
+	<span class="multipleFields">{t}Champs à insérer dans le QR Code (séparés par une virgule, sans espace) :{/t}
+	</span>
+	<span class="monoField" hidden>{t}Champ à insérer dans le code-barre :{/t}
+	</span>
+	</label>
 <div class="col-md-8">
 <input id="label_fields" type="text" class="form-control" name="label_fields" value="{$data.label_fields}" required>
 </div>
 </div>
-<div class="form-group">
+<div class="form-group multipleFields" id="metadataDisplay">
 <label for="metadata_id"  class="control-label col-md-4">{t}Modèle de métadonnées rattaché à l'étiquette :{/t}</label>
 <div class="col-md-8">
 <select id="metadata_id" name="metadata_id" class="form-control" >

@@ -2,6 +2,7 @@
 <script src="display/node_modules/leaflet-draw/dist/leaflet.draw.js"></script>
 <script>
     var sampling_place_init = "{$sampleSearch.sampling_place_id}";
+    var eventTypeInit = "{$sampleSearch.event_type_id}";
     var appli_code ="{$APPLI_code}";
     $(document).ready(function () {
         var isGestion = "{$droits['gestion']}";
@@ -188,14 +189,43 @@
                     }
                 });
         }
+        function getEventTypes() {
+            var colid = $("#collection_id").val();
+            var url = "index.php";
+            var data = { 
+                "module":"eventTypeGetAjax", 
+                "collection_id": colid,
+                "object_type" : 1
+            };
+            $.ajax ( { url:url, data: data})
+            .done (function( d ) {
+                    if (d ) {
+                    d = JSON.parse(d);
+                    options = '<option value="">{t}Choisissez...{/t}</option>';
+                    for (var i = 0; i < d.length; i++) {
+                        var libelle = "";
+                        options += '<option value="'+d[i].event_type_id + '"';
+                        if (d[i].event_type_id = eventTypeInit) {
+                            options += 'selected';
+                        }
+                        options += '>'+ d[i].event_type_name+'</option>';
+                    }
+                    $("#event_type_id").html(options);
+                }
+            });
+        }
 
         $("#collection_id").change ( function () {
             getSamplingPlace();
+            getEventTypes();
+
         });
         /*
           * Initialisation a l'ouverture de la page
           */
         getSamplingPlace();
+        getEventTypes();
+
 
         $("#razid").on ("click keyup", function () {
             metadataFieldInitial = [];

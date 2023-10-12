@@ -177,13 +177,23 @@
 
 		$( "#checkedButtonSample" ).on( "keypress click", function ( event ) {
 			var action = $( "#checkedActionSample" ).val();
+			var ok = true;
 			if ( action.length > 0 ) {
-				var conf = confirm( "{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
-				if ( conf == true ) {
-					$( this.form ).find( "input[name='module']" ).val( action );
-					$( this.form ).prop( 'target', '_self' ).submit();
-				} else {
-					event.preventDefault();
+				if (action == "samplesCreateEvent") {
+					if (!$("#due_date").val()  && !$("#event_date").val()) {
+						alert(("{t}La date de réalisation ou la date prévue doit être indiquée{/t}"));
+						event.preventDefault();
+						ok = false;
+					}
+				} 
+				if (ok) {
+					var conf = confirm( "{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
+					if ( conf == true ) {
+						$( this.form ).find( "input[name='module']" ).val( action );
+						$( this.form ).prop( 'target', '_self' ).submit();
+					} else {
+						event.preventDefault();
+					}
 				}
 			} else {
 				event.preventDefault();
@@ -491,7 +501,6 @@
 				});
 			}
 		});
-	
 	} );
 	
 </script>
@@ -662,7 +671,7 @@
 		</div>
 		{if $droits.collection == 1}
 		<div class="row">
-			<div class="col-md-6 protoform form-horizontal">
+			<div class="col-md-6 form-horizontal">
 				{t}Pour les éléments cochés :{/t}
 				<input type="hidden" name="lastModule" value="{$lastModule}">
 				<input type="hidden" name="uid" value="{$data.uid}">

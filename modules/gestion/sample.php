@@ -159,6 +159,9 @@ switch ($t_module["param"]) {
     include_once 'modules/classes/event.class.php';
     $event = new Event($bdd, $ObjetBDDParam);
     $vue->set($event->getListeFromUid($data["uid"]), "events");
+    include_once 'modules/classes/eventType.class.php';
+    $eventType = new EventType($bdd, $ObjetBDDParam);
+    $vue->set($eventType->getListeFromCategory("sample", $data["collection_id"]), "eventType");
     /**
      * Recuperation des mouvements
      */

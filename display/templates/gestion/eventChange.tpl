@@ -7,10 +7,11 @@
             }
             current_due_val = $( this ).val();
         } );
-        $("{$moduleParent}Form").submit(function (e) {
-            if ($("#due_date").val().length == 0 && $("#event_date").val().length == 0) {
+        $("#{$moduleParent}Form").submit(function (e) {
+            console.log("test");
+            if (!$("#due_date").val() && !$("#event_date").val()) {
                 alert(
-                    "{t}La date prévisionnelle de l'événement ou la date de réalisation doivent être renseignées{/t}"
+                    "{t}La date prévisionnelle ou la date de réalisation doit être renseignée{/t}"
                     );
                 e.preventDefault();
             }
@@ -29,7 +30,7 @@
             <img src="display/images/edit.gif" height="25">
             {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
         </a>
-        <form class="form-horizontal protoform" id="{$moduleParent}Form" method="post" action="index.php">
+        <form class="form-horizontal" id="{$moduleParent}Form" method="post" action="index.php">
             <input type="hidden" name="event_id" value="{$data.event_id}">
             <input type="hidden" name="moduleBase" value="{$moduleParent}event">
             <input type="hidden" name="action" value="Write">

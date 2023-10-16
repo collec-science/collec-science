@@ -55,7 +55,7 @@ switch ($t_module["param"]) {
         /*
          * Affichage du masque de selection du fichier a importer
          */
-        $vue->set(1,"onlyCollectionSearch");
+        $vue->set(1, "onlyCollectionSearch");
         break;
 
     case "control":
@@ -64,10 +64,18 @@ switch ($t_module["param"]) {
          */
         unset($_SESSION["filename"]);
         if (file_exists($_FILES['upfile']['tmp_name'])) {
-            /*
-             * Lancement du controle
-             */
             try {
+                /**
+                 * Verify the encoding
+                 */
+                $encodings = array ("UTF-8", "iso-8859-1", "iso-8859-15");
+                $currentEncoding = mb_detect_encoding(file_get_contents($_FILES['upfile']['tmp_name']), $encodings, true);
+                if ($currentEncoding != "UTF-8" && $_REQUEST["utf8_encode"] == 0 || $currentEncoding == "UTF-8" && $_REQUEST["utf8_encode"] == 1) {
+                    throw new ImportObjectException(_("L'encodage du fichier ne correspond pas à celui que vous avez indiqué"));
+                }
+                /*
+                 * Lancement du controle
+                 */
                 $import->initFile($_FILES['upfile']['tmp_name'], $_REQUEST["separator"], $_REQUEST["utf8_encode"]);
                 $resultat = $import->controlAll();
                 if (count($resultat) > 0) {
@@ -92,7 +100,7 @@ switch ($t_module["param"]) {
                     }
                 }
             } catch (Exception $e) {
-                $message->set($e->getMessage());
+                $message->set($e->getMessage(), true);
             }
         }
         $import->fileClose();

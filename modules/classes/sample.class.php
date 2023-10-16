@@ -859,7 +859,12 @@ class Sample extends ObjetBDD
                             $val = "";
                             $comma = "";
                             foreach ($md as $v) {
-                                $val .= $comma . $v;
+                                if (is_array($v)) {
+                                    // it's a checkbox
+                                    $val .= $comma . $v["value"];
+                                } else {
+                                    $val .= $comma . $v;
+                                }
                                 $comma = ", ";
                             }
                         } else {
@@ -989,7 +994,7 @@ class Sample extends ObjetBDD
                 }
             }
             if (!empty($row["uid"])) {
-                if (!$this->is_uniqueByCollectionName($row["uid"],$row["identifier"], $row["collection_name"])) {
+                if (!$this->is_uniqueByCollectionName($row["uid"], $row["identifier"], $row["collection_name"])) {
                     throw new SampleException(_("L'identifiant de l'échantillon existe déjà dans la collection"));
                 }
             }

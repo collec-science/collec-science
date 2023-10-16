@@ -309,6 +309,7 @@
 										if ( d.metadata ) {
 											content += "<br><u>{t}Métadonnées :{/t}</u>";
 											dm = d.metadata;
+											var comma = "";
 											for ( key in dm ) {
 												dmunitname = "md_" + key + "_unit";
 												if (d[dmunitname]) {
@@ -319,7 +320,13 @@
 												content += "<br>" + key + mdunit + "{t} : {/t}";
 												if ( Array.isArray( dm[ key ] ) ) {
 													$.each( dm[ key ], function ( i, md ) {
-														content += encodeHtml( md ) + " ";
+														content += comma;
+														if (!md.value) {
+														content += encodeHtml( md );
+														} else {
+															content += encodeHtml (md.value);
+														}
+														comma = ", ";
 													} );
 												} else {
 													try {

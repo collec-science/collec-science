@@ -124,6 +124,7 @@
 	<campaignDisplay action="modules/param/campaign.php" param="display" droits="consult" retourlogin="1" type="smarty"/>
 	<campaignWrite action="modules/param/campaign.php" param="write" droits="collection" retourok="campaignDisplay" retourko="campaignChange" modulebefore="campaignChange" />
 	<campaignDelete action="modules/param/campaign.php" param="delete" droits="collection" retourok="campaignList" retourko="campaignChange" modulebefore="campaignChange"/>
+	<campaignImport action="modules/param/campaign.php" param="import" droits="collection" retourok="campaignList" retourko="campaignList" modulebefore="campaignList,campaignImport"/>
 
 	<campaignRegulationChange action="modules/param/campaignRegulation.php" param="change" droits="collection" retourlogin="1" type="smarty" />
 	<campaignRegulationWrite action="modules/param/campaignRegulation.php" param="write" droits="collection" modulebefore="campaignRegulationChange" retourok="campaignDisplay" retourko="campaignRegulationChange"/>

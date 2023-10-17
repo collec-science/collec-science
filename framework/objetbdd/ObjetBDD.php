@@ -1276,7 +1276,7 @@ class ObjetBDD
              * Verification des champs numeriques
              */
             if ($this->colonnes[$key]["type"] == 1) {
-                if (strlen($value) > 0 && !is_numeric($value)) {
+                if (!empty($value) && !is_numeric($value)) {
                     $testok = false;
                     $this->errorData[] = array(
                         "code" => 1,

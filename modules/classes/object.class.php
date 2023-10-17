@@ -623,7 +623,7 @@ class ObjectClass extends ObjetBDD
                     if ($dlabel["identifier_only"]) {
                         QRcode::png($rowq[$dlabel["label_fields"]], $filename);
                     } else {
-                        QRcode::png(json_encode($rowq), $filename);
+                       QRcode::png(json_encode($rowq), $filename);
                     }
                 } else {
                     try {
@@ -811,8 +811,11 @@ class ObjectClass extends ObjetBDD
                                     $elem = $doc->createElement($key, "true");
                                 } elseif ($value === false) {
                                     $elem = $doc->createElement($key, "false");
-                                } else {
+                                } elseif (!is_array($value)) {
                                     $elem = $doc->createElement($key, $value);
+                                } else {
+                                    // Array : checkbox in metadata
+                                    $elem = $doc->createElement($key, $value["value"]);
                                 }
 
                                 $item->appendChild($elem);

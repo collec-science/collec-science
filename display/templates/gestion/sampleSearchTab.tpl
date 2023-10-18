@@ -6,7 +6,7 @@
     var appli_code ="{$APPLI_code}";
     $(document).ready(function () {
         var isGestion = "{$droits['gestion']}";
-        var consult_sees_all = "{$consult_sees_all}";
+        var consultSeesAll = "{$consultSeesAll}";
         /*
          * Verification que des criteres de selection soient saisis
          */
@@ -96,7 +96,7 @@
         $("#showmetadata2").click(function () {
         $("#metadatarow2").show();
         });
-        if (isGestion == 1 || consult_sees_all == 1) {
+        if (isGestion == 1 || consultSeesAll == 1) {
         var metadataFieldInitial = [];
             {foreach $sampleSearch.metadata_field as $val}
                 metadataFieldInitial.push ( "{$val}" );
@@ -106,7 +106,7 @@
             regenerateMetadata();
         });
         function regenerateMetadata() {
-            if (isGestion == 1 || consult_sees_all == 1) {
+            if (isGestion == 1 || consultSeesAll == 1) {
                 /* regenerate the list of metadata */
                 var sampleTypeId = $("#sample_type_id").val();
                 if (sampleTypeId != lastSampletypeId && sampleTypeId) {
@@ -328,7 +328,7 @@
         /**
          * Initialize
          */
-        if (isGestion == 1 || consult_sees_all == 1) {
+        if (isGestion == 1 || consultSeesAll == 1) {
             regenerateMetadata();
         }
         try{

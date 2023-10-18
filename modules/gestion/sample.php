@@ -82,7 +82,7 @@ switch ($t_module["param"]) {
                  * explode metadata
                  */
                 foreach ($data as $k => $v) {
-                    if (!empty($v["metadata"]) && ($dataClass->verifyCollection($v) || $_SESSION["consult_sees_all"] == 1)) {
+                    if (!empty($v["metadata"]) && ($dataClass->verifyCollection($v) || $_SESSION["consultSeesAll"] == 1)) {
                         $data[$k]["metadata_array"] = json_decode($v["metadata"], true);
                     }
                 }
@@ -95,7 +95,7 @@ switch ($t_module["param"]) {
         }
         $vue->set($dataSearch, "sampleSearch");
         $vue->set("gestion/sampleList.tpl", "corps");
-        $vue->set($_SESSION["consult_sees_all"], "consult_sees_all");
+        $vue->set($_SESSION["consultSeesAll"], "consultSeesAll");
         /**
          * Ajout des listes deroulantes
          */
@@ -138,7 +138,7 @@ switch ($t_module["param"]) {
          */
         $metadata = json_decode($data["metadata"], true);
         $is_modifiable = $dataClass->verifyCollection($data);
-        if (!empty($metadata) && ($is_modifiable || $_SESSION["consult_sees_all"] == 1)) {
+        if (!empty($metadata) && ($is_modifiable || $_SESSION["consultSeesAll"] == 1)) {
             $vue->set($metadata, "metadata");
         }
         /**
@@ -203,7 +203,7 @@ switch ($t_module["param"]) {
          *
          * Recuperation des documents
          */
-        if ($is_modifiable || $_SESSION["consult_sees_all"] == 1) {
+        if ($is_modifiable || $_SESSION["consultSeesAll"] == 1) {
             include_once 'modules/classes/document.class.php';
             $document = new Document($bdd, $ObjetBDDParam);
             $vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
@@ -223,7 +223,7 @@ switch ($t_module["param"]) {
         /**
          * Affichage
          */
-        $vue->set($_SESSION["consult_sees_all"], "consult_sees_all");
+        $vue->set($_SESSION["consultSeesAll"], "consultSeesAll");
         include 'modules/gestion/mapInit.php';
         $vue->set("sample", "moduleParent");
         $vue->set("gestion/sampleDisplay.tpl", "corps");

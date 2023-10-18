@@ -10,12 +10,12 @@ Manually insert the following record in the dbparam table:
 
 ~~~
 insert into col.dbparam (dbparam_name, dbparam_value)
-values ('consult_sees_all', 1);
+values ('consult_sees_all', '1');
 ~~~
 
 ## As of version 2.9
 
-Edit the application settings (administration menu), and change the value *consult_sees_all* to 1.
+Edit the application settings (administration menu), and change the value *consultSeesAll* to 1.
 
 
 *Translated with www.DeepL.com/Translator (free version)*

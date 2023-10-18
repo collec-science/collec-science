@@ -30,6 +30,12 @@ class DbParam extends ObjetBDD
             "dbparam_value" => array(
                 "type" => 0,
                 "requis" => 0
+            ),
+            "dbparam_description" => array(
+                "type"=>0
+            ),
+            "dbparam_description_en" => array(
+                "type"=>0
             )
         );
         $this->id_auto = 0;

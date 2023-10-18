@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.5" use-changelog="false" last-position="915,858" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.5" use-changelog="false" last-position="914,857" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -320,7 +320,7 @@ Congélateur•2]]>
 	</initial-data>
 </table>
 
-<table name="dbparam" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+<table name="dbparam" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of parameters intrinsically associated to the instance]]> </comment>
@@ -336,18 +336,28 @@ Congélateur•2]]>
 		<type name="character varying" length="0"/>
 		<comment> <![CDATA[Value of the parameter]]> </comment>
 	</column>
+	<column name="dbparam_description">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Description of the parameter]]> </comment>
+	</column>
+	<column name="dbparam_description_en">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Description of the parameter, in English]]> </comment>
+	</column>
 	<constraint name="dbparam_pk" type="pk-constr" table="col.dbparam">
 		<columns names="dbparam_id" ref-type="src-columns"/>
 	</constraint>
 	<initial-data>
-<![CDATA["dbparam_name";"dbparam_value"
-"APPLI_code";"cs_code"
-"APPLI_title";"Collec-Science - instance for "
-"mapDefaultX";"-0.70"
-"mapDefaultY";"44.77"
-"mapDefaultZoom";"7"
-"otp_issuer";"collec-science"
-"consult_sees_all";"0"]]>
+<![CDATA["dbparam_name";"dbparam_value";"dbparam_description";"dbparam_description_en"
+"APPLI_code";"cs_code";"Code de l'instance. Ce code figurera dans les QRcodes";"Instance code. This code will appear in the Qrcodes"
+"APPLI_title";"Collec-Science - instance for ";"Nom de l'instance, affiché dans l'interface";"Instance name, displayed in the interface"
+"mapDefaultX";"-0.7";"Longitude de positionnement par défaut des cartes";"Default positioning longitude for maps"
+"mapDefaultY";"44.77";"Latitude de positionnement par défaut des cartes";"Default positioning latitude for maps"
+"mapDefaultZoom";"7";"Niveau de zoom par défaut dans les cartes";"Default zoom level in maps"
+"otp_issuer";"collec-science";"Nom affiché dans les applications de génération de codes uniques pour l'identification à double facteur";"Name displayed in applications generating unique codes for two-factor identification"
+"consultSeesAll";"0";"Si positionné à 1, les utilisateurs avec le droit de consultation peuvent visualiser toutes les métadonnées de tous les échantillons";"If set to 1, users with consultation rights can view all the metadata for all the samples"
+"containerNameUnique";"0";"Si positionné à 1, le logiciel interdira la création de deux contenants avec le même nom";"If set to 1, the software will prohibit the creation of two containers with the same name"
+]]>
 	</initial-data>
 </table>
 

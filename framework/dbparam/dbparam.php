@@ -12,6 +12,7 @@ switch ($t_module["param"]) {
     case "list":
         $vue->set($dataClass->getListe(2), "data");
         $vue->set("framework/dbparamListChange.tpl", "corps");
+        $vue->set($_SESSION["FORMATDATE"], "locale");
         break;
     case "writeGlobal":
         try {

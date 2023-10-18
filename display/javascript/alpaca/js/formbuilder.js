@@ -22,7 +22,7 @@ function getSchema( formdef ) {
             "type": value.type
         };
 
-        if ( value.type == "select" || value.type == "radio" ) {
+        if ( value.type == "select" || value.type == "radio") {
             prop.enum = value.choiceList;
             if ( value.required && prop.enum && prop.enum.length > 0 ) {
                 prop.default = prop.enum[ 0 ];
@@ -30,9 +30,8 @@ function getSchema( formdef ) {
             }
         }
         if ( value.type == "checkbox" ) {
-            prop.type = "array";
-            prop.items = {};
-            prop.items.enum = value.choiceList;
+            prop.type = "string";
+            prop.enum = value.choiceList;
         }
         if ( value.type == "radio" ) {
             prop.type = "string";
@@ -91,7 +90,6 @@ var baseFields = function ( index, value ) {
             return 0;
         }
         field.removeDefaultNone = false;
-
     }
     if ( value.type == "radio" ) {
         field.removeDefaultNone = true;
@@ -137,6 +135,7 @@ function showForm( value, data = "" ) {
 
     var schema = getSchema( value );
     var options = getOptions( value );
+    //console.log(options);
     if ( !data ) {
         data = setDefault( value );
     }

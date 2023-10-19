@@ -1537,4 +1537,30 @@ class Sample extends ObjetBDD
             return true;
         }
     }
+    /**
+     * Get the list of samples will expire between two dates
+     *
+     * @param integer $collection_id
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @return array
+     */
+    function getExpirationSamples(int $collection_id, string $dateFrom, string $dateTo): array
+    {
+        $sql = "select uid, identifier, sample_type_name, sampling_date, expiration_date
+                from sample
+                join object using (uid)
+                join sample_type using (sample_type_id)
+                where collection_id = :collection_id
+                and expiration_date between :date_from and :date_to
+                order by expiration_date, identifier";
+        return $this->getListeParamAsPrepared(
+            $sql,
+            array(
+                "collection_id" => $collection_id,
+                "date_from" => $dateFrom,
+                "date_to" => $dateTo
+            )
+        );
+    }
 }

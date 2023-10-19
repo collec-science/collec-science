@@ -181,5 +181,34 @@ class Event extends ObjetBDD
         }
         return $ret;
     }
+    /**
+     * Get the list of events of a collection of samples which must be treated between 2 dates
+     *
+     * @param integer $collection_id
+     * @param string $dateFrom
+     * @param string $dateTo
+     * @return array
+     */
+    function getEventsDueDate(int $collection_id, string $dateFrom, string $dateTo): array
+    {
+        $sql = "select event_id, uid, identifier, event_type_name, due_date, sample_type_name
+                from event
+                join object using (uid)
+                join sample using (uid)
+                join sample_type using (sample_type_id)
+                join event_type using (event_type_id)
+                where event_date is null
+                and collection_id = :collectionId
+                and due_date between :dateFrom and :dateTo
+                order by due_date, identifier";
+        return $this->getListeParamAsPrepared(
+            $sql,
+            array(
+                "collectionId" => $collection_id,
+                "dateFrom" => $dateFrom,
+                "dateTo" => $dateTo
+            )
+        );
+    }
 
 }

@@ -429,7 +429,7 @@ class Collection extends ObjetBDD
      */
     function getNotificationDetails(): array
     {
-        $sql = "select collection_id, notification_mails, expiration_delay, event_due_delay
+        $sql = "select collection_id, collection_name, notification_mails, expiration_delay, event_due_delay
                 from collection
                 where notification_enabled = true";
         return $this->getListeParam($sql);

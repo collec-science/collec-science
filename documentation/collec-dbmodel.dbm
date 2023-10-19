@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.5" use-changelog="false" last-position="914,857" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.5" use-changelog="false" last-position="113,485" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -357,6 +357,7 @@ Congélateur•2]]>
 "otp_issuer";"collec-science";"Nom affiché dans les applications de génération de codes uniques pour l'identification à double facteur";"Name displayed in applications generating unique codes for two-factor identification"
 "consultSeesAll";"0";"Si positionné à 1, les utilisateurs avec le droit de consultation peuvent visualiser toutes les métadonnées de tous les échantillons";"If set to 1, users with consultation rights can view all the metadata for all the samples"
 "containerNameUnique";"0";"Si positionné à 1, le logiciel interdira la création de deux contenants avec le même nom";"If set to 1, the software will prohibit the creation of two containers with the same name"
+"notificationDelay";"7";"Nombre de jours entre deux envois de notifications. 0 : pas de notifications";"Number of days between two notifications. 0: no notification"
 ]]>
 	</initial-data>
 </table>
@@ -1002,7 +1003,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<table name="collection" layers="0" collapse-mode="1" max-obj-count="15" z-value="0">
+<table name="collection" layers="0" collapse-mode="1" max-obj-count="20" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[List of all collections into the database]]> </comment>
@@ -1053,9 +1054,33 @@ Autre]]>
 		<type name="boolean" length="0"/>
 		<comment> <![CDATA[True if the sample identifier must be unique in the collection]]> </comment>
 	</column>
+	<column name="notification_enabled" default-value="false">
+		<type name="boolean" length="0"/>
+		<comment> <![CDATA[True if notifications are sent for samples of the collection]]> </comment>
+	</column>
+	<column name="notification_mails">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[List of mails used to notify events on the collection (separator: semicolon)]]> </comment>
+	</column>
+	<column name="expiration_delay" default-value="0">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[Number of days before expiration of samples to notify this expiration. 0: no notification]]> </comment>
+	</column>
+	<column name="event_due_delay" default-value="0">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[Number of days before the due date of an event to notify this due date. 0: no notification]]> </comment>
+	</column>
 	<constraint name="project_pk" type="pk-constr" table="col.collection">
 		<columns names="collection_id" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="license_id" index="12"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="license_fk" index="2"/>
+	</customidxs>
 </table>
 
 <sequence name="protocol_protocol_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
@@ -2954,7 +2979,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<role name="collec"/>
 	<comment> <![CDATA[List of licenses usable to communicate informations on the collections]]> </comment>
 	<tag name="collection"/>
-	<position x="440" y="1060"/>
+	<position x="20" y="920"/>
 	<column name="license_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>

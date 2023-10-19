@@ -58,3 +58,20 @@ WHERE
 -- ddl-end --
 ALTER VIEW col.slots_used OWNER TO collec;
 -- ddl-end --
+
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'notificationDelay', E'7', E'Nombre de jours entre deux envois de notifications. 0 : pas de notifications', E'Number of days between two notifications. 0: no notification');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'notificationLastDate', DEFAULT, E'Date de l''envoi des dernières notifications', E'Date of last notifications sent');
+
+alter table col.collection 
+add column notification_enabled boolean DEFAULT false,
+add column	notification_mails varchar,
+add column	expiration_delay smallint DEFAULT 0,
+add column	event_due_delay smallint DEFAULT 0;
+COMMENT ON COLUMN col.collection.notification_enabled IS E'True if notifications are sent for samples of the collection';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.notification_mails IS E'List of mails used to notify events on the collection (separator: semicolon)';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.expiration_delay IS E'Number of days before expiration of samples to notify this expiration. 0: no notification';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.event_due_delay IS E'Number of days before the due date of an event to notify this due date. 0: no notification';
+-- ddl-end --

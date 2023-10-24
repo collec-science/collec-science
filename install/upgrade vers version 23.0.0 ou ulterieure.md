@@ -1,11 +1,10 @@
 ---
 title: Mettre à jour Collec-Science à partir de la version 23.0.0
-date: 24 octobre 2023
+date: 24/10/2023
+lang: fr
 authors:
     - Éric Quinton
 ---
-
-# 
 
 # Mettre à jour Collec-Science à partir de la version 23.0.0
 

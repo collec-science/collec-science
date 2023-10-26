@@ -194,7 +194,8 @@ $mapDefaultZoom = 7;
 $MAIL_enabled = 0;
 $MAIL_param = array(
 	"mailTemplate" => "framework/mail/mail.tpl",
-	"from" => "account@society.com"
+	"from" => "account@society.com",
+	"defaultLocale" => "fr"
 );
 /*
  * Nombre maximum d'essais de connexion

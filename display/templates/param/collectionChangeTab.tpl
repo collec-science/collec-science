@@ -348,7 +348,7 @@
                     <div class="form-group">
                         <label for="notification_mails" class="col-md-4 control-label">
                             <span class="red">*</span>
-                            {t}Mails des destinataires des notifications, séparés par un point-virgule :{/t}
+                            {t}Mails des destinataires des notifications, séparés par une virgule :{/t}
                         </label>
                         <div class="col-md-8">
                             <input type="text" class="form-control notificationField" id="notification_mails"

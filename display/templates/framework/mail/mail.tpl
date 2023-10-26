@@ -31,7 +31,10 @@
         font-size: small;
         font-style: italic;
       }
-
+      table, th, td {
+        border: 1px solid #003A80;
+        border-collapse: collapse;
+      }
     </style>
   </head>
 

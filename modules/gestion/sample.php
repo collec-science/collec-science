@@ -411,6 +411,7 @@ switch ($t_module["param"]) {
             $event = new Event($bdd, $ObjetBDDParam);
             $de = $event->getDefaultValue();
             $de["event_date"] = $_POST["event_date"];
+            $de["due_date"] = $_POST["due_date"];
             $de["event_type_id"] = $_POST["event_type_id"];
             $de["event_comment"] = $_POST["event_comment"];
             $bdd->beginTransaction();

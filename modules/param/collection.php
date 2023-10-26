@@ -132,7 +132,7 @@ switch ($t_module["param"]) {
                             "param/collectionMail.tpl",
                             $data,
                            $locale,
-                            true
+                            false
                         );
 
                     }

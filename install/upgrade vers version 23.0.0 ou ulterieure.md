@@ -35,11 +35,11 @@ cd collec-science
 cp ../collec/param/param.inc.php param/
 cp ../collec/param/id_collec* param/
 mkdir display/templates_c
-mkdir tmp
+mkdir temp
 find . -type d -exec chmod 750 {} \;
 find . -type f -exec chmod 640 {} \;
 chmod -R g+w display/templates_c
-chmod -R g+w tmp
+chmod -R g+w temp
 chgrp -R www-data .
 rm -Rf test
 cd ..

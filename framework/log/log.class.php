@@ -284,9 +284,11 @@ class Log extends ObjetBDD
         $this->sendMailToAdmin(
             sprintf(_("%s - Compte bloqué"), $_SESSION["APPLI_title"]),
             "framework/mail/accountBlocked.tpl",
-            array("login" => $login,
-             "date" => date($_SESSION["MASKDATELONG"]),
-            "ipaddress"=>getIPClientAddress()),
+            array(
+                "login" => $login,
+                "date" => date($_SESSION["MASKDATELONG"]),
+                "ipaddress" => getIPClientAddress()
+            ),
             "",
             $login
         );
@@ -317,12 +319,13 @@ class Log extends ObjetBDD
             $message->setSyslog($GACL_aco . "-" . $APPLI_address . ":nbMaxCallReached-" . $messageLog);
             $message->set(_("Le nombre d'accès autorisés pour le module demandé a été atteint. Si vous considérez que la valeur est trop faible, veuillez contacter l'administrateur de l'application"), true);
             $this->sendMailToAdmin(
-                sprintf(_("%s - Trop d'accès à un module"),$_SESSION["APPLI_title"]), 
-                "framework/mail/maxAccessToModule.tpl", 
+                sprintf(_("%s - Trop d'accès à un module"), $_SESSION["APPLI_title"]),
+                "framework/mail/maxAccessToModule.tpl",
                 array("login" => $_SESSION["login"], "module" => $moduleName, "date" => date($_SESSION["MASKDATELONG"])),
-                $moduleName, 
-                $_SESSION["login"])
-                ;
+                $moduleName,
+                $_SESSION["login"]
+            )
+            ;
             return false;
         } else {
             return true;
@@ -368,12 +371,12 @@ class Log extends ObjetBDD
             foreach ($logins as $value) {
                 $admin = $value["login"];
                 $dataLogin = $loginGestion->lireByLogin($admin);
-                if (!empty($dataLogin["mail"])) {
+                if (!empty($dataLogin["mail"]) && $dataLogin["actif"] == 1) {
                     /**
                      * search if a mail has been send to this admin for the same event and the same user recently
                      */
                     $sql = 'select log_id, log_date from log' . " where nom_module = :moduleName" . ' and login = :login' . ' and commentaire = :admin' . ' and log_date > :lastdate' . ' order by log_id desc limit 1';
-                    $dataSql =  array(
+                    $dataSql = array(
                         "admin" => $admin,
                         "login" => $login,
                         "lastdate" => $lastDate,

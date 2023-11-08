@@ -575,7 +575,7 @@ class Sample extends ObjetBDD
                 /**
                  * Recherche dans les metadonnees
                  */
-                if ($_SESSION["droits"]["gestion"] == 1 && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
+                if (($_SESSION["consultSeesAll"] == 1 || $_SESSION["droits"]["gestion"] == 1) && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
                     $where .= $and . " ";
                     /**
                      * Traitement des divers champs de metadonnees (3 maxi)

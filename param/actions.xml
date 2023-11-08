@@ -376,6 +376,7 @@
 		<rights_general_en action="framework/utils/markdown.php" param="documentation/rights/rights_general_en.md" type="smarty" retourko="default"/>
 	<consult_sees_all_fr action="framework/utils/markdown.php" param="documentation/consult_sees_all/consult_sees_all_fr.md" type="smarty" retourko="default"/>
 		<consult_sees_all_en action="framework/utils/markdown.php" param="documentation/consult_sees_all/consult_sees_all_en.md" type="smarty" retourko="default"/>
-	
+		<automaticsendmail_fr action="framework/utils/markdown.php" param="documentation/collection/automaticsendmail_fr.md" type="smarty" retourko="default"/>
+		<automaticsendmail_en action="framework/utils/markdown.php" param="documentation/collection/automaticsendmail_en.md" type="smarty" retourko="default"/>	
 		<mailSmarty action="test/mailSmarty.php"/>
 </navigation>

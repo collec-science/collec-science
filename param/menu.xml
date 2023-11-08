@@ -119,6 +119,7 @@
 		</item>
 		<item module="default" label="Administration" tooltip="Administrer le logiciel">
 			<item module="rights_general_fr" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel"/>
+			<item module="automaticsendmail_fr" label="Activer l'envoi automatique de mails" tooltip="Informer les gestionnaires des événements à échéance ou des échantillons qui vont expirer" language="fr"/>
 		</item>
 	</item>
 
@@ -143,6 +144,7 @@
 		</item>
 		<item module="default" label="Administration" tooltip="Administrer le logiciel">
 			<item module="rights_general_en" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" language="en"/>
+			<item module="automaticsendmail_en" label="Activer l'envoi automatique de mails" tooltip="Informer les gestionnaires des événements à échéance ou des échantillons qui vont expirer" language="en"/>
 		</item>
 	</item>
 	<item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1" />

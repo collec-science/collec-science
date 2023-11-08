@@ -814,7 +814,9 @@ switch ($t_module["param"]) {
                 throw new ObjectException(_("Pas de statut sélectionné"));
             }
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            $dataClass->setParent($uids, $parent_sample_id);
+            require_once "modules/classes/object.class.php";
+            $object = new ObjectClass($bdd, $ObjetBDDParam);
+            $object->setStatus($uids,$_POST["object_status_id"]);
             $message->set(_("Opération effectuée"));
             $module_coderetour = 1;
         } catch (ObjectException $oe) {

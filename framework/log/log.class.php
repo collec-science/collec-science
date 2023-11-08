@@ -284,7 +284,9 @@ class Log extends ObjetBDD
         $this->sendMailToAdmin(
             sprintf(_("%s - Compte bloqué"), $_SESSION["APPLI_title"]),
             "framework/mail/accountBlocked.tpl",
-            array("login" => $login, "date" => date($_SESSION["MASKDATELONG"])),
+            array("login" => $login,
+             "date" => date($_SESSION["MASKDATELONG"]),
+            "ipaddress"=>getIPClientAddress()),
             "",
             $login
         );

@@ -321,7 +321,8 @@ try {
               try {
                 if (
                   $totp->verifyOtp(
-                    $totp->decodeTotpKey($acllogin->getTotpKey($_SESSION["login"])), $_POST["otpcode"]
+                    $totp->decodeTotpKey($acllogin->getTotpKey($_SESSION["login"])),
+                    $_POST["otpcode"]
                   )
                 ) {
                   $_SESSION["is_authenticated"] = true;
@@ -456,7 +457,8 @@ try {
             $cookieParam["httponly"] = true;
             setcookie(
               'tokenIdentity',
-              $token, time() + $tokenIdentityValidity,
+              $token,
+              time() + $tokenIdentityValidity,
               $cookieParam["path"],
               $cookieParam["domain"],
               $cookieParam["secure"],
@@ -659,7 +661,7 @@ try {
             include_once "framework/droits/acllogin.class.php";
             $acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
           }
-          if (!$acllogin->isTotp() || !$moduleAdmin) {
+          if ((!$acllogin->isTotp() || !$moduleAdmin) && !empty($_SESSION["login"])) {
             /**
              * Send mail to administrators
              */
@@ -673,7 +675,8 @@ try {
                 "login" => $_SESSION["login"],
                 "module" => $module,
                 "date" => $date,
-                "APPLI_address" => $APPLI_address
+                "APPLI_address" => $APPLI_address,
+                "ipaddress" => getIPClientAddress()
               ),
               $module,
               $login

@@ -291,7 +291,7 @@
 			 * Get a confirmation
 			 */
 			 $(".confirm").on("click keydown", function(event) {
-				 if (confirm("{t}Confirmez-vous l'opération ?{/t}") == false) {
+				 if (confirm("{t}Confirmez-vous cette opération ?{/t}") == false) {
 					 event.preventDefault();
 				 }
 			 });

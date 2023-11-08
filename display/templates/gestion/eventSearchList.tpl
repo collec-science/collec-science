@@ -137,7 +137,7 @@
         $( "#checkedButtonEvent" ).on( "keypress click", function ( event ) {
             var action = $( "#checkedActionEvent" ).val();
             if ( action.length > 0 ) {
-                var conf = confirm( "{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
+                var conf = confirm( "{t}Attention : cette opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
                 if ( conf == true ) {
                     $( this.form ).find( "input[name='module']" ).val( action );
                     $( this.form ).prop( 'target', '_self' ).submit();

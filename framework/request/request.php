@@ -42,6 +42,7 @@ switch ($t_module["param"]) {
          * write record in database
          */
         try {
+            $_REQUEST["body"] = base64_decode($_REQUEST["body"]);
             $id = $dataClass->ecrire($_REQUEST);
             if ($id > 0) {
                 $_REQUEST[$keyName] = $id;

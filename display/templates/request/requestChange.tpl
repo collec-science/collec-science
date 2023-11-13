@@ -83,7 +83,7 @@ $(document).ready(function() {
 				<div class="col-md-12 center">
 					<button type="submit" class="btn btn-primary button-valid" id="save">{t}Enregistrer{/t}</button>
 					{if $data.request_id > 0}
-						<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>
+						<!--<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>-->
 						<button type="submit" class="btn btn-primary button-valid" id="exec">{t}Exécuter{/t}</button>
 						<button type="submit" class="btn btn-danger" id="suppr">{t}Supprimer{/t}</button>
 					{/if}

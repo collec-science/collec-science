@@ -78,6 +78,10 @@ var baseFields = function ( index, value ) {
         field.placeholder = value.measureUnit;
     }
 
+    if (value.type == "date") {
+        field.locale = "{$LANG['date']['locale']}";
+        field.dateFormat = '{$LANG["date"]["formatdate"]}';
+    }
     if ( value.defaultValue ) {
         field.default = value.defaultValue;
     }

@@ -1,5 +1,12 @@
 <script>
 $(document).ready(function() {
+	function toHex(txt){
+		const encoder = new TextEncoder();
+		return Array
+			.from(encoder.encode(txt))
+			.map(b => b.toString(16).padStart(2, '0'))
+			.join('')
+	}
 	$("#suppr").bind("click keyup", function (event) {
 		if (confirm("{t}Confirmez la suppression de la requête{/t}")) {
 			$("#action").val("Delete");
@@ -12,12 +19,12 @@ $(document).ready(function() {
 	});
 	$("#saveExec").bind("click keyup", function (event) {
 		$("#action").val("WriteExec");
-		$("#bodySent").val( btoa ($("#body").val() ) );
+		$("#bodySent").val(toHex ($("#body").val() ) );
 		$("#requestForm").submit();
 	});
 	$("#save").bind("click keyup", function (event) {
 		$("#action").val("Write");
-		$("#bodySent").val( btoa ($("#body").val() ) );
+		$("#bodySent").val(toHex ($("#body").val() ) );
 		$("#requestForm").submit();
 	});
 	$(".modif").change(function() {
@@ -41,7 +48,7 @@ $(document).ready(function() {
 			<input type="hidden" id="moduleBase" name="moduleBase" value="request">
 			<input type="hidden" id="action" name="action" value="">
 			<input type="hidden" name="request_id" value="{$data.request_id}">
-			<input type="hidden" name="body" id="bodySent" >
+			<input type="hidden" name="body" id="bodySent">
 			<div class="form-group">
 				<label for="title" class="control-label col-md-4">
 					{t}Description de la requête :{/t} <span class="red">*</span>

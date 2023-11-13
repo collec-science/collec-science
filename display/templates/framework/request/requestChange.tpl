@@ -12,19 +12,17 @@ $(document).ready(function() {
 	});
 	$("#saveExec").bind("click keyup", function (event) {
 		$("#action").val("WriteExec");
+		$("#bodySent").val( btoa ($("#body").val() ) );
+		$("#requestForm").submit();
+	});
+	$("#save").bind("click keyup", function (event) {
+		$("#action").val("Write");
+		$("#bodySent").val( btoa ($("#body").val() ) );
 		$("#requestForm").submit();
 	});
 	$(".modif").change(function() {
 		$("#exec").prop("disabled", true);
 	});
-	$("#requestForm").submit(function() { 
-		$("#body").val( btoa ($("#body").val() ) );
-	});
-
-	$("#requestForm").submit(function() { 
-		$("#body").val( btoa ($("#body").val() ) );
-	});
-
 });
 </script>
 <div class="row">

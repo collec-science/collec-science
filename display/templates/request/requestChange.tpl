@@ -12,16 +12,17 @@ $(document).ready(function() {
 	});
 	$("#saveExec").bind("click keyup", function (event) {
 		$("#action").val("WriteExec");
+		$("#bodySent").val( btoa ($("#body").val() ) );
+		$("#requestForm").submit();
+	});
+	$("#save").bind("click keyup", function (event) {
+		$("#action").val("Write");
+		$("#bodySent").val( btoa ($("#body").val() ) );
 		$("#requestForm").submit();
 	});
 	$(".modif").change(function() {
 		$("#exec").prop("disabled", true);
 	});
-
-	$("#requestForm").submit(function() { 
-		$("#body").val( btoa ($("#body").val() ) );
-	});
-
 });
 </script>
 <div class="row">
@@ -38,8 +39,9 @@ $(document).ready(function() {
 
 		<form class="form-horizontal protoform" id="requestForm" method="post" action="index.php">
 			<input type="hidden" id="moduleBase" name="moduleBase" value="request">
-			<input type="hidden" id="action" name="action" value="Write">
+			<input type="hidden" id="action" name="action" value="">
 			<input type="hidden" name="request_id" value="{$data.request_id}">
+			<input type="hidden" name="body" id="bodySent" >
 			<div class="form-group">
 				<label for="title" class="control-label col-md-4">
 					{t}Description de la requête :{/t} <span class="red">*</span>
@@ -51,7 +53,7 @@ $(document).ready(function() {
 			<div class="form-group">
 				<label for="body" class="control-label col-md-4"><span class="red">*</span> {t}Code SQL :{/t}</label>
 				<div class="col-md-8">
-					<textarea id="body" class="form-control modif" name="body" cols="70" rows="10" wrap="soft" required>{$data.body}</textarea>
+					<textarea id="body" class="form-control modif" cols="70" rows="10" wrap="soft" required>{$data.body}</textarea>
 				</div>
 			</div>
 			<div class="form-group">
@@ -83,7 +85,7 @@ $(document).ready(function() {
 				<div class="col-md-12 center">
 					<button type="submit" class="btn btn-primary button-valid" id="save">{t}Enregistrer{/t}</button>
 					{if $data.request_id > 0}
-						<!--<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>-->
+						<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>
 						<button type="submit" class="btn btn-primary button-valid" id="exec">{t}Exécuter{/t}</button>
 						<button type="submit" class="btn btn-danger" id="suppr">{t}Supprimer{/t}</button>
 					{/if}

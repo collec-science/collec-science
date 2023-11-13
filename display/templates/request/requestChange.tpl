@@ -1,5 +1,12 @@
 <script>
 $(document).ready(function() {
+	function toHex(txt){
+		const encoder = new TextEncoder();
+		return Array
+			.from(encoder.encode(txt))
+			.map(b => b.toString(16).padStart(2, '0'))
+			.join('')
+	}
 	$("#suppr").bind("click keyup", function (event) {
 		if (confirm("{t}Confirmez la suppression de la requête{/t}")) {
 			$("#action").val("Delete");
@@ -12,12 +19,12 @@ $(document).ready(function() {
 	});
 	$("#saveExec").bind("click keyup", function (event) {
 		$("#action").val("WriteExec");
-		$("#bodySent").val( btoa ($("#body").val() ) );
+		$("#bodySent").val(toHex ($("#body").val() ) );
 		$("#requestForm").submit();
 	});
 	$("#save").bind("click keyup", function (event) {
 		$("#action").val("Write");
-		$("#bodySent").val( btoa ($("#body").val() ) );
+		$("#bodySent").val(toHex ($("#body").val() ) );
 		$("#requestForm").submit();
 	});
 	$(".modif").change(function() {
@@ -85,7 +92,7 @@ $(document).ready(function() {
 				<div class="col-md-12 center">
 					<button type="submit" class="btn btn-primary button-valid" id="save">{t}Enregistrer{/t}</button>
 					{if $data.request_id > 0}
-						<!--<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>-->
+						<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>
 						<button type="submit" class="btn btn-primary button-valid" id="exec">{t}Exécuter{/t}</button>
 						<button type="submit" class="btn btn-danger" id="suppr">{t}Supprimer{/t}</button>
 					{/if}

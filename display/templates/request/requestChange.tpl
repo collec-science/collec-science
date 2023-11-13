@@ -1,17 +1,12 @@
 <script>
 $(document).ready(function() {
-
-function bytesToBase64(bytes) {
-  const binString = String.fromCodePoint(...bytes);
-  return btoa(binString);
-}
-function toHex(txt){
-    const encoder = new TextEncoder();
-    return Array
-        .from(encoder.encode(txt))
-        .map(b => b.toString(16).padStart(2, '0'))
-        .join('')
-}
+	function toHex(txt){
+		const encoder = new TextEncoder();
+		return Array
+			.from(encoder.encode(txt))
+			.map(b => b.toString(16).padStart(2, '0'))
+			.join('')
+	}
 	$("#suppr").bind("click keyup", function (event) {
 		if (confirm("{t}Confirmez la suppression de la requête{/t}")) {
 			$("#action").val("Delete");

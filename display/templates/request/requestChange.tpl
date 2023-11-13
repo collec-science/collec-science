@@ -1,5 +1,17 @@
 <script>
 $(document).ready(function() {
+
+function bytesToBase64(bytes) {
+  const binString = String.fromCodePoint(...bytes);
+  return btoa(binString);
+}
+function toHex(txt){
+    const encoder = new TextEncoder();
+    return Array
+        .from(encoder.encode(txt))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('')
+}
 	$("#suppr").bind("click keyup", function (event) {
 		if (confirm("{t}Confirmez la suppression de la requête{/t}")) {
 			$("#action").val("Delete");
@@ -12,12 +24,12 @@ $(document).ready(function() {
 	});
 	$("#saveExec").bind("click keyup", function (event) {
 		$("#action").val("WriteExec");
-		$("#bodySent").val( btoa ($("#body").val() ) );
+		$("#bodySent").val(toHex ($("#body").val() ) );
 		$("#requestForm").submit();
 	});
 	$("#save").bind("click keyup", function (event) {
 		$("#action").val("Write");
-		$("#bodySent").val( btoa ($("#body").val() ) );
+		$("#bodySent").val(toHex ($("#body").val() ) );
 		$("#requestForm").submit();
 	});
 	$(".modif").change(function() {

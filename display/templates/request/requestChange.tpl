@@ -1,10 +1,5 @@
 <script>
 $(document).ready(function() {
-	var droitsModif = "{$droits.param}";
-	if (droitsModif != 1) {
-		$(".modif").attr("readonly", true);
-	}
-
 	$("#suppr").bind("click keyup", function (event) {
 		if (confirm("{t}Confirmez la suppression de la requête{/t}")) {
 			$("#action").val("Delete");
@@ -23,13 +18,17 @@ $(document).ready(function() {
 		$("#exec").prop("disabled", true);
 	});
 
+	$("#requestForm").submit(function() { 
+		$("#body").val( btoa ($("#body").val() ) );
+	});
+
 });
 </script>
 <div class="row">
 	<div class="col-lg-8 col-md-12">
 		<a href="index.php?module=requestList">
 			<img src="display/images/list.png" height="25">
-			Retour à la liste
+			{t}Retour à la liste{/t}
 		</a>
 		&nbsp;
 		<a href="index.php?module=dbstructureSchema" target="_blank">
@@ -43,21 +42,10 @@ $(document).ready(function() {
 			<input type="hidden" name="request_id" value="{$data.request_id}">
 			<div class="form-group">
 				<label for="title" class="control-label col-md-4">
-					Description de la requête <span class="red">*</span> :
+					{t}Description de la requête :{/t} <span class="red">*</span>
 				</label>
 				<div class="col-md-8">
 					<input class="form-control modif" id="title" name="title" type="text" value="{$data.title}" required autofocus/>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="collection_id" class="control-label col-md-4">{t}Collection autorisée :{/t}</label>
-				<div class="col-md-8">
-					<select class="form-control modif" id="collection_id" name="collection_id">
-						<option value="" {if $data.collection_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
-						{foreach $collections as $collection}
-							<option value="{$collection.collection_id}" {if $data.collection_id == $collection.collection_id}selected{/if}>{$collection.collection_name}</option>
-						{/foreach}
-					</select>
 				</div>
 			</div>
 			<div class="form-group">
@@ -93,17 +81,11 @@ $(document).ready(function() {
 
 			<div class="form-group">
 				<div class="col-md-12 center">
-					{if $droits.param == 1}
-						<button type="submit" class="btn btn-primary button-valid" id="save">{t}Enregistrer{/t}</button>
-					{/if}
+					<button type="submit" class="btn btn-primary button-valid" id="save">{t}Enregistrer{/t}</button>
 					{if $data.request_id > 0}
-						{if $droits.param == 1}
-							<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>
-						{/if}
+						<!--<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>-->
 						<button type="submit" class="btn btn-primary button-valid" id="exec">{t}Exécuter{/t}</button>
-						{if $droits.param == 1}
-							<button type="submit" class="btn btn-danger" id="suppr">{t}Supprimer{/t}</button>
-						{/if}
+						<button type="submit" class="btn btn-danger" id="suppr">{t}Supprimer{/t}</button>
 					{/if}
 				</div>
 			</div>
@@ -113,7 +95,7 @@ $(document).ready(function() {
 {if !empty($result)}
 	<div class="row">
 		<div class="col-lg-12">
-			<table id="crequestList" class="table table-bordered table-hover datatable-export ">
+			<table id="crequestList" class="table table-bordered table-hover datatable-export">
 				<thead>
 					<tr>
 					{foreach $result[0] as $key=>$value}

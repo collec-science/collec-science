@@ -17,6 +17,9 @@ $(document).ready(function() {
 	$(".modif").change(function() {
 		$("#exec").prop("disabled", true);
 	});
+	$("#requestForm").submit(function() { 
+		$("#body").val( btoa ($("#body").val() ) );
+	});
 
 	$("#requestForm").submit(function() { 
 		$("#body").val( btoa ($("#body").val() ) );

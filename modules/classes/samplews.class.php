@@ -2,7 +2,14 @@
 
 class Samplews
 {
-  private $sample, $identifierType, $objectIdentifier, $samplingPlace, $country, $campaign, $referent, $sampleType;
+  private Sample $sample;
+  private IdentifierType $identifierType;
+  private ObjectIdentifier $objectIdentifier;
+  private SamplingPlace $samplingPlace;
+  private Country $country;
+  private Campaign $campaign;
+  private Referent $referent;
+  private SampleType $sampleType;
   public $classpath = "modules/classes";
   public $ObjetBDDParam;
   /**
@@ -86,9 +93,9 @@ class Samplews
     $dataParent = array();
     $hasparent = false;
     foreach ($searchOrder as $field) {
-      if (!empty($dataSent["parent_" . $field])) {
+      if (strlen($dataSent["parent_" . $field]) > 0) {
         $hasparent = true;
-        $dataParent = $this->sample->getFromField($field, $dataSent["parent_" .$field]);
+        $dataParent = $this->sample->getFromField($field, $dataSent["parent_" . $field]);
         if (!empty($dataParent)) {
           break;
         }

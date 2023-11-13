@@ -1,3 +1,7 @@
+<script type="text/javascript">
+	var locale = '{$LANG["date"]["locale"]}';
+	var formatDate = '{$LANG["date"]["formatdate"]}';
+</script>
 <script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
 
 <script type="text/javascript">

@@ -60,11 +60,9 @@ function getSchema( formdef ) {
 // ===========================================================//
 // récupération des options du form
 var baseFields = function ( index, value ) {
-    //console.log( value );
     var field = {
         "type": value.type
     };
-
     /*if(value.type != "checkbox" && value.type != "radio"){
         field.label = value.name;
     }*/
@@ -77,11 +75,14 @@ var baseFields = function ( index, value ) {
     if ( value.type == "string" || value.type == "number" || value.type == "textarea" ) {
         field.placeholder = value.measureUnit;
     }
-
-    if (value.type == "date") {
-        field.locale = "{$LANG['date']['locale']}";
-        field.dateFormat = '{$LANG["date"]["formatdate"]}';
+    if (value.type == "date" ) {
+        field.picker = {
+            format: formatDate,
+            locale : locale
+         }
+        field.manualEntry = true;
     }
+
     if ( value.defaultValue ) {
         field.default = value.defaultValue;
     }
@@ -108,7 +109,7 @@ var baseFields = function ( index, value ) {
     if ( value.helperChoice ) {
         field.helper = value.helper;
     }
-
+    console.log (field);
     return field;
 };
 

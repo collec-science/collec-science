@@ -165,6 +165,7 @@
 	<samplesSetCampaign action="modules/gestion/sample.php" param="setCampaign" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
     <samplesSetStatus action="modules/gestion/sample.php" param="setStatus" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
 	<samplesSetParent action="modules/gestion/sample.php" param="setParent" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
+	<sampleGetChildren action="modules/gestion/sample.php" param="getChildren" droits="consult" type="json"/>
 
 
 	<movement droits="consult" type="smarty" />

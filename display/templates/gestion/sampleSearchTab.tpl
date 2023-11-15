@@ -191,6 +191,9 @@
         }
         function getEventTypes() {
             var colid = $("#collection_id").val();
+            if (!colid > 0) {
+                colid = 0;
+            }
             var url = "index.php";
             var data = { 
                 "module":"eventTypeGetAjax", 

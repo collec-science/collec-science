@@ -78,14 +78,6 @@ switch ($t_module["param"]) {
                 $dataClass->resetParam();
                 $data = $dataClass->sampleSearch($dataSearch);
                 $vue->set($dataClass->getNbSamples($dataSearch), "totalNumber");
-                /**
-                 * explode metadata
-                 */
-                foreach ($data as $k => $v) {
-                    if (!empty($v["metadata"]) && ($dataClass->verifyCollection($v) || $_SESSION["consultSeesAll"] == 1)) {
-                        $data[$k]["metadata_array"] = json_decode($v["metadata"], true);
-                    }
-                }
                 $vue->set($data, "samples");
                 $vue->set(1, "isSearch");
             } catch (Exception $e) {
@@ -816,7 +808,7 @@ switch ($t_module["param"]) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             require_once "modules/classes/object.class.php";
             $object = new ObjectClass($bdd, $ObjetBDDParam);
-            $object->setStatus($uids,$_POST["object_status_id"]);
+            $object->setStatus($uids, $_POST["object_status_id"]);
             $message->set(_("Opération effectuée"));
             $module_coderetour = 1;
         } catch (ObjectException $oe) {
@@ -844,6 +836,9 @@ switch ($t_module["param"]) {
             $message->set($oe->getMessage());
             $module_coderetour = -1;
         }
+    case "getChildren":
+        $vue->set($dataClass->getChildren($_REQUEST["uid"]));
+        break;
     default:
         break;
 }

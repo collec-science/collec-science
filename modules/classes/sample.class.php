@@ -53,7 +53,8 @@ class Sample extends ObjetBDD
           case when ro.referent_name is not null then ro.academical_link else cr.academical_link end as academical_link,
           case when ro.referent_name is not null then ro.referent_organization else cr.referent_organization end as referent_organization,
           borrowing_date, expected_return_date, borrower_id, borrower_name,
-          vsq.multiple_value + vsq.subsample_more - vsq.subsample_less as subsample_quantity";
+          vsq.multiple_value + vsq.subsample_more - vsq.subsample_less as subsample_quantity,
+          vdn.nb_derivated_sample";
     private $from = " from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join collection p on (p.collection_id = s.collection_id)
@@ -85,6 +86,7 @@ class Sample extends ObjetBDD
           left outer join country csp on (sp.country_id = csp.country_id)
           left outer join country sco on (s.country_origin_id = sco.country_id)
           left outer join v_subsample_quantity vsq on (s.sample_id = vsq.sample_id)
+          left outer join v_derivated_number vdn on (vdn.uid = s.uid)
           ";
     private $where = "";
     private $paramSearch = array();
@@ -394,17 +396,16 @@ class Sample extends ObjetBDD
      */
     public function getNbFromCollection($collection_id)
     {
+        $res = 0;
         if ($collection_id > 0) {
-            $sql = "select count(*)as nb from sample
+            $sql = "select count(*) as nb from sample
             where collection_id = :collection_id";
-            $var["collection_id"] = $collection_id;
-            $data = $this->lireParamAsPrepared($sql, $var);
+            $data = $this->lireParamAsPrepared($sql, array("collection_id" => $collection_id));
             if (count($data) > 0) {
-                return $data["nb"];
-            } else {
-                return 0;
+                $res = $data["nb"];
             }
         }
+        return $res;
     }
 
     private function _generateSearch(array $param)
@@ -731,32 +732,57 @@ class Sample extends ObjetBDD
     {
         $this->_generateSearch($param);
         if (!empty($this->where)) {
-            /**
-             * Rajout de la date de dernier mouvement pour l'affichage
-             */
-            $this->colonnes["movement_date"] = array(
-                "type" => 3,
-            );
-            $this->colonnes["borrowing_date"] = array("type" => 2);
-            $this->colonnes["expected_return_date"] = array("type" => 2);
-            $this->colonnes["change_date"] = array("type" => 3);
+
             if ($param["limit"] > 0) {
                 $limit = " order by s.uid desc limit " . $param["limit"];
             } else {
                 $limit = "";
             }
-            $list = $this->getListeParamAsPrepared($this->sql . $this->from . $this->where . $limit, $this->data);
+            return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data);
             /**
              * Destroy foreign fields used in the request
              */
-            unset($this->colonnes["movement_date"]);
-            unset($this->colonnes["borrowing_date"]);
-            unset($this->colonnes["expected_return_date"]);
-            unset($this->colonnes["change_date"]);
-            return $list;
         } else {
             return array();
         }
+    }
+
+    private function _executeSearch(string $sql, array $data): array
+    {
+        /**
+         * Rajout de la date de dernier mouvement pour l'affichage
+         */
+        $this->colonnes["movement_date"] = array(
+            "type" => 3,
+        );
+        $this->colonnes["borrowing_date"] = array("type" => 2);
+        $this->colonnes["expected_return_date"] = array("type" => 2);
+        $this->colonnes["change_date"] = array("type" => 3);
+        /**
+         * Execute the request
+         */
+        $list = $this->getListeParamAsPrepared($sql, $data);
+        /**
+         * Purge metadata if necessary
+         */
+        /**
+         * explode metadata
+         */
+        foreach ($list as $k => $v) {
+            if (!empty($v["metadata"]) && ($this->verifyCollection($v) || $_SESSION["consultSeesAll"] == 1)) {
+                $list[$k]["metadata_array"] = json_decode($v["metadata"], true);
+            } else {
+                $list[$k]["metadata"] = "";
+            }
+        }
+        /**
+         * Destroy foreign fields used in the request
+         */
+        unset($this->colonnes["movement_date"]);
+        unset($this->colonnes["borrowing_date"]);
+        unset($this->colonnes["expected_return_date"]);
+        unset($this->colonnes["change_date"]);
+        return $list;
     }
 
 
@@ -1562,5 +1588,17 @@ class Sample extends ObjetBDD
                 "date_to" => $dateTo
             )
         );
+    }
+    /**
+     * Get the list of derivated samples from an uid
+     *
+     * @param integer $uid
+     * @return array
+     */
+    function getChildren(int $uid): array
+    {
+        $where = " where ps.uid = :uid";
+        $data = $this->_executeSearch($this->sql . $this->from . $where, array("uid" => $uid));
+        return $data;
     }
 }

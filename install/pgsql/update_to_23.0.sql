@@ -75,3 +75,14 @@ COMMENT ON COLUMN col.collection.expiration_delay IS E'Number of days before exp
 -- ddl-end --
 COMMENT ON COLUMN col.collection.event_due_delay IS E'Number of days before the due date of an event to notify this due date. 0: no notification';
 -- ddl-end --
+CREATE VIEW col.v_derivated_number
+AS 
+select s.uid, count(*) -1 as nb_derivated_sample
+from col.sample s
+join col.sample d on (d.parent_sample_id = s.sample_id)
+group by s.uid;
+-- ddl-end --
+COMMENT ON VIEW col.v_derivated_number IS E'Get the number of derivated samples from an uid';
+-- ddl-end --
+ALTER VIEW col.v_derivated_number OWNER TO collec;
+-- ddl-end --

@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.5" use-changelog="false" last-position="113,485" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="108,1067" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -3733,6 +3733,32 @@ where collection_id = $1]]> </definition>
 			<column name="change_date"/>
 		</idxelement>
 </index>
+
+<view name="v_derivated_number" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<comment> <![CDATA[Get the number of derivated samples from an uid]]> </comment>
+	<tag name="sample"/>
+	<position x="860" y="2280"/>
+	<reference>
+		<expression> <![CDATA[select s.uid, count(*) -1 as nb_derivated_sample
+from col.sample s
+join col.sample d on (d.parent_sample_id = s.sample_id)
+group by s.uid]]> </expression>
+	<column name="uid">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="nb_derivated_sample">
+		<type name="integer" length="0"/>
+	</column>
+		<reftable name="col.sample"/>
+	</reference>
+</view>
+
+<relationship name="rel_v_derivated_number_sample" type="reltv" layers="0"
+	 src-table="col.v_derivated_number"
+	 dst-table="col.sample"
+	 src-required="false" dst-required="false"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

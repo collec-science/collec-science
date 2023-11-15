@@ -1,4 +1,3 @@
-{* Objets > Contenants > Rechercher > *}
 <!-- Liste des containers pour affichage -->
 <script>
 $(document).ready(function () {
@@ -7,6 +6,26 @@ $(document).ready(function () {
 	if (gestion == 1) {
 		dataOrder = [1, 'asc'];
 	}
+	var myStorageContainer = window.localStorage;
+	var maxcol = 15;
+	try {
+			var hb = JSON.parse(myStorageContainer.getItem("sampleSearchColumns"));
+			if (hb.length == 0) {
+				if (isGestion == 1) {
+					hb = [15];
+				} else {
+					hb = [14];
+					maxcol = 14;
+				}
+			}
+		} catch {
+			if (isGestion == 1) {
+					var hb = [15];
+				} else {
+					var hb = [14];
+					maxcol = 14;
+				}
+		}
 	var table = $("#containerList").DataTable( {
 			dom: 'Bfrtip',
 			"language": dataTableLanguage,
@@ -19,9 +38,16 @@ $(document).ready(function () {
             header: true,
             footer: true
         },
+			/*"columnDefs" : [
+				{
+				"targets": hb,
+				"visible": false
+				}
+			],*/
 			"buttons": [
 				{
-					extend: 'colvis'
+					extend: 'colvis',
+					text: '{t}Colonnes affichées{/t}'
 				},
 				'copyHtml5',
 				'excelHtml5',
@@ -31,6 +57,15 @@ $(document).ready(function () {
 			]
 		} );
 	table.order(dataOrder).draw();
+	table.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
+			var hb = [];
+			tableList.columns().every(function () {
+				if (!this.visible()) {
+					hb.push(this.index());
+				}
+				myStorageContainer.setItem("containerSearchColumns", JSON.stringify(hb));
+			});
+		} );
 
 	$(".checkContainerSelect").change( function() {
 		$('.checkContainer').prop('checked', this.checked);
@@ -261,6 +296,85 @@ $(document).ready(function () {
 		$("#containers_type_id").change(function () {
 			searchContainer();
 		});
+		/**
+		 * Add children
+		 */
+		 $(".plus").click(function() { 
+			var objet = $(this);
+			var uid = objet.data( "uid" );
+			var url = "index.php";
+			var data = { "module": "containerGetChildren", "uid": uid };
+			objet.hide();
+			var id = objet.attr('id');
+			$.ajax( { url: url, data: data } )
+				.done( function ( d ) {
+					if ( d ) {
+						console.log (d);
+						containers = JSON.parse( d );
+						for (var lst = 0; lst < containers.length; lst++) {
+							var row = "";
+							if (gestion == 1) {
+								row += '<td class="center"><input type="checkbox" class="checkContainer" name="uids[]" value="'+containers[lst].uid+'" ></td>';
+							}
+							row += '<td class="center">';
+							row += '<a href="index.php?module=containerDisplay&uid='+containers[lst].uid+'" title="{t}Consultez le détail{/t}">'+ containers[lst].uid + '</a>';
+							row += '<img class="plus" id="'+(containers[lst].uid + 9000000)+'" data-uid="'+containers[lst].uid+'" src="display/images/plus.png" height="15">';
+							row += '</td>';
+							row += '<td class="container" data-uid="'+containers[lst].uid+'" title="">';
+							row += '<a class="tooltiplink"  href="index.php?module=containerDisplay&uid='+containers[lst].uid+'" title="">';
+							row += containers[lst].identifier;
+							row += '</a></td>';
+							row += '<td>'+containers[lst].identifiers+'</td>';	
+							row += '<td';
+							if (containers[lst].trashed == 1) {
+								row += 'class="trashed" title="{t}Contenant mis à la corbeille{/t}';
+							}
+							row += '>'+containers[lst].object_status_name+'</td>';
+							row += '<td>' +containers[lst].container_family_name + '/'+ containers[lst].container_type_name +'</td>';
+							row += '<td class="nowrap">';
+							if (containers[lst].movement_date) {
+								if (containers[lst].movement_type_id == 1) {
+									row += '<span class="green">';
+								} else {
+									row += '<span class="red">';
+								}
+								row += containers[lst].movement_date;
+								row += '</span>';
+							}
+							row += '</td>';
+							row += '<td>';
+							if (containers[lst].container_uid > 0) {
+								row += '<a href="index.php?module=containerDisplay&uid='+containers[lst].container_uid+'">'+containers[lst].container_identifier+'</a>';
+								row += '<br>{t}col:{/t}'+containers[lst].column_number+' {t}ligne:{/t}'+containers[lst].line_number;
+							}
+							row += '</td>';
+							row += '<td class="center ';
+							if (containers[lst].nb_slots_used < containers[lst].nb_slots_max || containers[lst].nb_slots_max == 0) {
+								row += 'green';
+							} else {
+								row += 'red';
+							}
+							row += '">'+containers[lst].nb_slots_used + '&nbsp;/&nbsp;'+containers[lst].nb_slots_max + '</td>';
+							row += '<td>'>+containers[lst].storage_condition_name+'</td>';
+							row += '<td>'+containers[lst].storage_product+'</td>';
+							row += '<td>'+containers[lst].clp_classification+'</td>';
+							row += '<td class="center">';
+							if (containers[lst].document_id > 0) {
+								row += '<a class="image-popup-no-margins" href="index.php?module=documentGet&document_id='+containers[lst].document_id+'&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">';
+								row += '<img src="index.php?module=documentGet&document_id='+containers[lst].document_id+'&attached=0&phototype=2" height="30"></a>';
+							}
+							row += '</td>';
+							row +='<td>'+containers[lst].referent_name+' ' +containers[lst].referent_firstname + '</td>' ;
+							row += '<td class="textareaDisplay">'+containers[lst].object_comment+'</td>';
+							row += '<td>'+containers[lst].uid + 9000000+'</td>';
+							var jRow = $('<tr>').append(row);
+								console.log (jRow);
+							table.row.add(jRow);
+						}
+						table.order([[maxcol, 'asc']]).draw();
+					}
+				});
+		});
 });
 </script>
 {include file="gestion/displayPhotoScript.tpl"}
@@ -319,6 +433,7 @@ $(document).ready(function () {
 					<th>{t}Photo{/t}</th>
 					<th>{t}Référent{/t}</th>
 					<th>{t}Commentaires{/t}</th>
+					<th>{t}Tri technique{/t}</th>
 				</tr>
 			</thead>
 			<tbody class="nowrap">
@@ -333,6 +448,7 @@ $(document).ready(function () {
 							<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="{t}Consultez le détail{/t}">
 								{$containers[lst].uid}
 							</a>
+						<img class="plus" id="{$containers[lst].uid + 9000000}" data-uid="{$containers[lst].uid}" src="display/images/plus.png" height="15">
 						</td>
 						<td class="container" data-uid="{$containers[lst].uid}" title="">
 							<a class="tooltiplink"  href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="">
@@ -377,6 +493,7 @@ $(document).ready(function () {
 						</td>
 						<td>{$containers[lst].referent_name} {$containers[lst].referent_firstname}</td>
 						<td class="textareaDisplay">{$containers[lst].object_comment}</td>
+						<td>{$containers[lst].uid + 9000000}</td>
 					</tr>
 				{/section}
 			</tbody>

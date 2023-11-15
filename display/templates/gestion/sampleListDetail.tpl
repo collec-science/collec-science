@@ -6,7 +6,6 @@
 		var sliderValue = 2000;
 		var searchByColumn = 0;
 		var myStorageSample = window.localStorage;
-		var droitsGestion = "{$droits.gestion}";
         try {
         sliderValue = myStorageSample.getItem("sampleSliderValue");
 		searchByColumn = myStorageSample.getItem("searchByColumn");
@@ -22,7 +21,7 @@
 			scrolly = "20vh";
 		}*/
 		try {
-			var hb = JSON.parse(myStorageSample.getItem("sampleSearchColumns"));
+			var hb = JSON.parse(myStorageSample.getItem("containerSearchColumns"));
 			if (hb.length == 0) {
 				if (isGestion == 1) {
 					hb = [11,12,13,14,15,16,17,18,19,20];
@@ -529,7 +528,7 @@
 						var table = $("#sampleList").DataTable();
 						for (var lst = 0; lst < samples.length; lst++) {
 							var row = "";
-							if (droitsGestion == 1) {
+							if (isGestion == 1) {
 								row += '<td class="center"> <input type="checkbox" class="checkSample" name="uids[]" value="' + samples[lst].uid +'"></td>';
 							}
 							row += '<td class="text-center">';

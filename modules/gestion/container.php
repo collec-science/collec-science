@@ -582,4 +582,7 @@ switch ($t_module["param"]) {
             $bdd->rollback();
         }
         break;
+    case "getChildren":
+        $vue->set($dataClass->getContentContainer($_REQUEST["uid"]));
+        break;
 }

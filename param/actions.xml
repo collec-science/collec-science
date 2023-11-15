@@ -66,6 +66,7 @@
 	<containerChange action="modules/gestion/container.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
 	<containerWrite action="modules/gestion/container.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
 	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion" retourok="containerList" retourko="containerChange" modulebefore="containerChange"/>
+	<containerGetChildren action="modules/gestion/container.php" param="getChildren" droits="consult" type="json"/>
 	<containerGetFromType action="modules/gestion/container.php" param="getFromType" droits="consult" type="ajax" />
 	<containerGetFromUid action="modules/gestion/container.php" param="getFromUid" droits="consult" type="ajax" />
 	<containerGetOccupation action="modules/gestion/container.php" param="getOccupationAjax" droits="consult" type="ajax"/>

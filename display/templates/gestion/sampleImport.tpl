@@ -60,8 +60,7 @@
 {if $stage > 1}
 <fieldset class="row col-md-12">
 <legend>{t}Tableau de correspondance entre les libellés fournis et ceux de la base de données locale{/t}</legend>
-<form class="form-horizontal protoform" id="sampleStage2" method="post" action="index.php" enctype="multipart/form-data">
-<input type="hidden" name="module" value="sampleImportStage3">
+<form class="form-horizontal protoform" id="sampleStage2" method="post" action="index.php?module=sampleImportStage3" enctype="multipart/form-data">
 <input type="hidden" name="realfilename" value="{$realfilename}">
 <input type="hidden" name="separator" value="{$separator}">
 <input type="hidden" name="utf8_encode" value="{$utf8_encode}">

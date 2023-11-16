@@ -327,7 +327,7 @@ $(document).ready(function () {
 							row += '<td>'+containers[lst].identifiers+'</td>';	
 							row += '<td';
 							if (containers[lst].trashed == 1) {
-								row += 'class="trashed" title="{t}Contenant mis à la corbeille{/t}';
+								row += ' class="trashed" title="{t}Contenant mis à la corbeille{/t}"';
 							}
 							row += '>'+containers[lst].object_status_name+'</td>';
 							row += '<td>' +containers[lst].container_family_name + '/'+ containers[lst].container_type_name +'</td>';
@@ -355,7 +355,7 @@ $(document).ready(function () {
 								row += 'red';
 							}
 							row += '">'+containers[lst].nb_slots_used + '&nbsp;/&nbsp;'+containers[lst].nb_slots_max + '</td>';
-							row += '<td>'>+containers[lst].storage_condition_name+'</td>';
+							row += '<td>'+containers[lst].storage_condition_name+'</td>';
 							row += '<td>'+containers[lst].storage_product+'</td>';
 							row += '<td>'+containers[lst].clp_classification+'</td>';
 							row += '<td class="center">';
@@ -366,9 +366,8 @@ $(document).ready(function () {
 							row += '</td>';
 							row +='<td>'+containers[lst].referent_name+' ' +containers[lst].referent_firstname + '</td>' ;
 							row += '<td class="textareaDisplay">'+containers[lst].object_comment+'</td>';
-							row += '<td>'+containers[lst].uid + 9000000+'</td>';
+							row += '<td>'+ id + '-' + (9000000 + parseFloat(containers[lst].uid))+'</td>';
 							var jRow = $('<tr>').append(row);
-								console.log (jRow);
 							table.row.add(jRow);
 						}
 						table.order([[maxcol, 'asc']]).draw();

@@ -583,6 +583,6 @@ switch ($t_module["param"]) {
         }
         break;
     case "getChildren":
-        $vue->set($dataClass->getContentContainer($_REQUEST["uid"]));
+        $vue->set($dataClass->getChildrenContainer($_REQUEST["uid"]));
         break;
 }

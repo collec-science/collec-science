@@ -516,6 +516,9 @@
 		 */
 		 $(".plus").click(function() { 
 			var objet = $(this);
+			addChildren(objet);
+		 });
+		function addChildren(objet) {
 			var uid = objet.data( "uid" );
 			var url = "index.php";
 			var data = { "module": "sampleGetChildren", "uid": uid };
@@ -535,9 +538,9 @@
 							row += '<a href="index.php?module=sampleDisplay&uid='+samples[lst].uid+'" title="{t}Consultez le détail{/t}">';
 							row += samples[lst].uid;
 							row += '</a>';
+							var localId = parseFloat(9000000) + parseFloat( samples[lst].uid);
 							if (samples[lst].nb_derivated_sample > 0) {
-								var localId = parseFloat(9000000) + parseFloat( samples[lst].uid);
-								row += '<img class="plus" id="' + id + '-' + localId.toString() +'"';
+								row += '<img class="plus hover" id="' + id + '-' + localId.toString() +'"';
 								row += 'data-uid="'+ samples[lst].uid + '" src="display/images/plus.png" height="10">';
 							}
 							row += '</td>';
@@ -627,12 +630,15 @@
 							row += '<td>'+ id + '-' + (9000000 + parseFloat(samples[lst].uid))+'</td>';
 							var jRow = $('<tr>').append(row);
 							table.row.add(jRow);
+							$(document).on ("click", "#"+ id + '-' + localId.toString(),function() {
+								addChildren($(this));
+							})
 						}
 						table.order([[maxcol, 'asc']]).draw();
 					}
 				});
-		});
-	} );
+		};
+	});
 	
 </script>
 <div class="col-lg-12">
@@ -720,7 +726,7 @@
 							{$samples[lst].uid}
 						</a>
 						{if $samples[lst].nb_derivated_sample > 0}
-						<img class="plus" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
+						<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
 						{/if}
 					</td>
 					<td class="sample nowrap" data-uid="{$samples[lst].uid}" title="">

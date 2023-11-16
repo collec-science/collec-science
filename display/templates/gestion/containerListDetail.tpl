@@ -301,6 +301,9 @@ $(document).ready(function () {
 		 */
 		 $(".plus").click(function() { 
 			var objet = $(this);
+			addChildren(objet);
+		 });
+		function addChildren(objet) {	
 			var uid = objet.data( "uid" );
 			var url = "index.php";
 			var data = { "module": "containerGetChildren", "uid": uid };
@@ -309,7 +312,6 @@ $(document).ready(function () {
 			$.ajax( { url: url, data: data } )
 				.done( function ( d ) {
 					if ( d ) {
-						console.log (d);
 						containers = JSON.parse( d );
 						for (var lst = 0; lst < containers.length; lst++) {
 							var row = "";
@@ -318,7 +320,8 @@ $(document).ready(function () {
 							}
 							row += '<td class="center">';
 							row += '<a href="index.php?module=containerDisplay&uid='+containers[lst].uid+'" title="{t}Consultez le détail{/t}">'+ containers[lst].uid + '</a>';
-							row += '<img class="plus" id="'+(containers[lst].uid + 9000000)+'" data-uid="'+containers[lst].uid+'" src="display/images/plus.png" height="15">';
+							var localId = parseFloat(9000000) + parseFloat( containers[lst].uid);
+								row += '<img class="plus hover" id="' + id + '-' + localId.toString() +'" data-uid="'+containers[lst].uid+'" src="display/images/plus.png" height="15">';
 							row += '</td>';
 							row += '<td class="container" data-uid="'+containers[lst].uid+'" title="">';
 							row += '<a class="tooltiplink"  href="index.php?module=containerDisplay&uid='+containers[lst].uid+'" title="">';
@@ -369,11 +372,14 @@ $(document).ready(function () {
 							row += '<td>'+ id + '-' + (9000000 + parseFloat(containers[lst].uid))+'</td>';
 							var jRow = $('<tr>').append(row);
 							table.row.add(jRow);
+							$(document).on ("click", "#"+ id + '-' + localId.toString(),function() {
+								addChildren($(this));
+							})
 						}
 						table.order([[maxcol, 'asc']]).draw();
 					}
 				});
-		});
+		}
 });
 </script>
 {include file="gestion/displayPhotoScript.tpl"}
@@ -447,7 +453,7 @@ $(document).ready(function () {
 							<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="{t}Consultez le détail{/t}">
 								{$containers[lst].uid}
 							</a>
-						<img class="plus" id="{$containers[lst].uid + 9000000}" data-uid="{$containers[lst].uid}" src="display/images/plus.png" height="15">
+						<img class="plus hover" id="{$containers[lst].uid + 9000000}" data-uid="{$containers[lst].uid}" src="display/images/plus.png" height="15">
 						</td>
 						<td class="container" data-uid="{$containers[lst].uid}" title="">
 							<a class="tooltiplink"  href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="">

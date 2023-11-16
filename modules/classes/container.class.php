@@ -35,7 +35,7 @@ class Container extends ObjetBDD
 					left outer join storage_condition using (storage_condition_id)
 					left outer join last_photo using (uid)
 					left outer join v_object_identifier using (uid)
-					left outer join last_movement using (uid)
+					left outer join last_movement lm using (uid)
           left outer join object oc on (container_uid = oc.uid)
           left outer join movement_type using (movement_type_id)
           left outer join referent r on (o.referent_id = r.referent_id)
@@ -1004,5 +1004,10 @@ class Container extends ObjetBDD
     } else {
       return true;
     }
+  }
+  function getChildrenContainer(int $uid): array
+  {
+    $where = " where lm.movement_type_id = 1 and lm.container_uid = :uid";
+    return $this->getListeParamAsPrepared($this->sql . $where, array("uid" => $uid));
   }
 }

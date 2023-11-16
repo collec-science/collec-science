@@ -49,6 +49,7 @@ class Samplews
   function write(array $dataSent, array $searchOrder = array("uid", "uuid", "identifier")): int
   {
     $this->sample->auto_date = 0;
+    $collection_id = 0;
     /**
      * Replace null by empty
      */
@@ -87,6 +88,33 @@ class Samplews
         }
       }
     }
+    /**
+       * Collection
+       */
+      if (!empty($dataSent["collection_name"])) {
+        foreach ($_SESSION["collections"] as $collection) {
+          if ($dataSent["collection_name"] == $collection["collection_name"]) {
+            if (!$collection["allowed_import_flow"]) {
+              throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
+            }
+            $collection_id = $collection["collection_id"];
+            break;
+          }
+        }
+      } else {
+        if (count($_SESSION["collections"]) == 1) {
+          /**
+           * default collection
+           */
+          if (!$_SESSION["collections"][0]["allowed_import_flow"]) {
+            throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
+          }
+          $collection_id = $_SESSION["collections"][0]["collection_id"];
+        }
+      }
+      if (empty($collection_id)) {
+        throw new SampleException(_("La collection n'a pas été fournie ou n'est pas autorisée"), 403);
+      }
     /**
      * Search for the parent
      */
@@ -207,32 +235,9 @@ class Samplews
         "uuid" => $dataSent["uuid"],
         "trashed" => 0,
         "location_accuracy" => $dataSent["location_accuracy"],
-        "object_comment" => $dataSent["object_comment"]
+        "object_comment" => $dataSent["object_comment"],
+        "collection_id" => $collection_id
       );
-      /**
-       * Collection
-       */
-      if (!empty($dataSent["collection_name"])) {
-        foreach ($_SESSION["collections"] as $collection) {
-          if ($dataSent["collection_name"] == $collection["collection_name"]) {
-            if (!$collection["allowed_import_flow"]) {
-              throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
-            }
-            $data["collection_id"] = $collection["collection_id"];
-            break;
-          }
-        }
-      } else {
-        if (count($_SESSION["collections"]) == 1) {
-          /**
-           * default collection
-           */
-          if (!$_SESSION["collections"][0]["allowed_import_flow"]) {
-            throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
-          }
-          $data["collection_id"] = $_SESSION["collections"][0]["collection_id"];
-        }
-      }
       if (empty($data["collection_id"])) {
         throw new SampleException(_("La collection n'a pas été fournie ou n'est pas autorisée"), 403);
       }

@@ -352,6 +352,7 @@
     <!-- API -->
     <apiv1sampleWrite action="modules/gestion/sampleWs.php" param="write" droits="gestion" type="json"/>
 	<apiv1movementWrite action="modules/gestion/movementWs.php" param="write" droits="gestion" type="json" />
+	<apiv1sampleDisplay action="modules/gestion/sampleWs.php" type="json" param="detail"/>
 
     <!-- Documentation -->
     <metadatafield_fr action="framework/utils/markdown.php" param="documentation/metadata_field/metadatafield_fr.md" type="smarty" retourko="default"/>

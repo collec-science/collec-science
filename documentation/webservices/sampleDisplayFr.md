@@ -2,8 +2,13 @@
 
 ## Méthode d'appel
 
+~~~
+index.php?module=apiv1sampleDisplay&uid=xxx&uuid=yyy&token=zzz&template_name=aaa
 index.php?module=sampleDetail&uid=xxx&uuid=yyy&token=zzz&template_name=aaa
-Paramètres :
+~~~
+
+## Paramètres
+
 {: .datatable}
 
 

@@ -2,8 +2,12 @@
 
 ## Call method
 
+~~~
+index.php?module=apiv1sampleDisplay&uid=xxx&uuid=yyy&token=zzz&template_name=aaa
 index.php?module=sampleDetail&uid=xxx&uuid=yyy&token=zzz&template_name=aaa
-Parameters :
+~~~
+
+## Parameters
 {: .datatable}
 
 

@@ -33,7 +33,7 @@ class Sample extends ObjetBDD
           voip.identifiers as parent_identifiers,
 					ct.container_type_name, ct.clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
-					metadata_schema,
+					/*metadata_schema,*/
 					document_id, voi.identifiers,
 					movement_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,
@@ -739,9 +739,6 @@ class Sample extends ObjetBDD
                 $limit = "";
             }
             return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data);
-            /**
-             * Destroy foreign fields used in the request
-             */
         } else {
             return array();
         }
@@ -1622,6 +1619,13 @@ class Sample extends ObjetBDD
             $uids[] = $row["uid"];
         }
         return $uids;
-
+    }
+    function getListFromParam (array $param):array {
+        if (empty($param["object_status_id"])) {
+            $param["object_status_id"] = 1;
+        }
+        $this->_generateSearch($param);
+        $order = " order by s.uid";
+        return $this->_executeSearch($this->sql.$this->from.$this->where.$order, $this->data);
     }
 }

@@ -354,7 +354,7 @@
 	<apiv1movementWrite action="modules/gestion/movementWs.php" param="write" droits="gestion" type="json" />
 	<apiv1sampleDisplay action="modules/gestion/sampleWs.php" type="json" param="detail" droits="gestion"/>
 	<apiv1sampleUids action="modules/gestion/sampleWs.php" param="getListUIDS" droits="consult" type="json" />
-
+	<apiv1sampleList action="modules/gestion/sampleWs.php" param="getList" droits="consult" type="json" />
     <!-- Documentation -->
     <metadatafield_fr action="framework/utils/markdown.php" param="documentation/metadata_field/metadatafield_fr.md" type="smarty" retourko="default"/>
     <metadatafield_en action="framework/utils/markdown.php" param="documentation/metadata_field/metadatafield_en.md" type="smarty" retourko="default"/>

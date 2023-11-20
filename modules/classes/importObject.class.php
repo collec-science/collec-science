@@ -1138,22 +1138,22 @@ class ImportObject
       foreach ($row as $fieldname => $fieldvalue) {
         if (substr($fieldname, 0, 3) == "md_" && strlen($fieldvalue) > 0) {
           $colname = substr($fieldname, 3);
-          if (!array_key_exists($colname, $metadata)) {
+          /*if (!array_key_exists($colname, $metadata)) {
             $md_col_array = explode(",", $fieldvalue);
             if (count($md_col_array) > 1) {
+              $metadata[$colname] = array();
               foreach ($md_col_array as $val) {
                 $metadata[$colname][] = trim($val);
               }
-            } else {
+            } else {*/
               $metadata[$colname] = trim($fieldvalue);
-            }
-          }
+            /*}
+          }*/
         }
       }
       if (count($metadata) > 0) {
         $dataSample["metadata"] = json_encode($metadata);
       }
-
       /**
        * Declenchement de l'ecriture en base
        */

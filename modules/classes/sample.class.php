@@ -1234,7 +1234,7 @@ class Sample extends ObjetBDD
      *
      * @param int         $uid
      * @param ObjectClass $objectClass
-     * @param id          $referent_id
+     * @param int          $referent_id
      *
      * @return void
      */
@@ -1600,5 +1600,28 @@ class Sample extends ObjetBDD
         $where = " where ps.uid = :uid";
         $data = $this->_executeSearch($this->sql . $this->from . $where, array("uid" => $uid));
         return $data;
+    }
+    /**
+     * Get list of uids from search request
+     *
+     * @param array $param
+     * @return array
+     */
+    function getListUIDS(array $param):array {
+        if (empty($param["object_status_id"])) {
+            $param["object_status_id"] = 1;
+        }
+        $sql = "select distinct s.uid";
+        $this->_generateSearch($param);
+        $order = " order by s.uid";
+        /*printA($sql.$this->from.$this->where.$order);
+        die;*/
+        $data = $this->_executeSearch($sql.$this->from.$this->where.$order, $this->data);
+        $uids = array();
+        foreach ($data as $row) {
+            $uids[] = $row["uid"];
+        }
+        return $uids;
+
     }
 }

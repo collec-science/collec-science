@@ -2,14 +2,14 @@
 
 class Samplews
 {
-  private Sample $sample;
-  private IdentifierType $identifierType;
-  private ObjectIdentifier $objectIdentifier;
-  private SamplingPlace $samplingPlace;
-  private Country $country;
-  private Campaign $campaign;
-  private Referent $referent;
-  private SampleType $sampleType;
+  public Sample $sample;
+  public IdentifierType $identifierType;
+  public ObjectIdentifier $objectIdentifier;
+  public SamplingPlace $samplingPlace;
+  public Country $country;
+  public Campaign $campaign;
+  public Referent $referent;
+  public SampleType $sampleType;
   public $classpath = "modules/classes";
   public $ObjetBDDParam;
   /**

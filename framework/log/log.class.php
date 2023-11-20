@@ -34,7 +34,7 @@ class Log extends ObjetBDD
             ),
             "log_date" => array(
                 "type" => 3,
-                "requis" => 1,
+                /*"requis" => 1,*/
             ),
             "commentaire" => array(
                 "type" => 0,
@@ -79,6 +79,12 @@ class Log extends ObjetBDD
         $data["ipaddress"] = $this->getIPClientAddress();
         return $this->ecrire($data);
     }
+    function ecrire($data) {
+        if (is_null($data["log_date"])) {
+            $data["log_date"] = $this->currentDate;
+            return parent::ecrire($data);
+        }
+    }
 
     /**
      * Fonction de purge du fichier de traces
@@ -99,7 +105,7 @@ class Log extends ObjetBDD
     /**
      * Recupere l'adresse IP de l'agent
      *
-     * @return IPAddress
+     * @return string
      */
     public function getIPClientAddress()
     {
@@ -150,6 +156,7 @@ class Log extends ObjetBDD
     public function getLastConnections($duration = 36000)
     {
         global $GACL_aco;
+        $connections = array();
         if (isset($_SESSION["login"])) {
             $module = $GACL_aco . "-connection%";
             $token = $GACL_aco . "-connection-token";
@@ -159,7 +166,7 @@ class Log extends ObjetBDD
             order by log_id desc";
             $date = new DateTime("now");
             $date->sub(new DateInterval("PT" . $duration . "S"));
-            return $this->getListeParamAsPrepared(
+            $connections = $this->getListeParamAsPrepared(
                 $sql,
                 array(
                     "login" => $_SESSION["login"],
@@ -169,6 +176,7 @@ class Log extends ObjetBDD
                 )
             );
         }
+        return $connections;
     }
 
     /**
@@ -180,6 +188,7 @@ class Log extends ObjetBDD
      */
     public function getLastConnexionType($login)
     {
+
         if (!empty($login)) {
             global $GACL_aco;
             $like = " like '" . $GACL_aco . "-connection%'";
@@ -194,6 +203,8 @@ class Log extends ObjetBDD
             );
             $connectionType = explode("-", $data["nom_module"]);
             return $connectionType[2];
+        } else {
+            return null;
         }
     }
 
@@ -446,6 +457,8 @@ class Log extends ObjetBDD
         if (array_key_exists($field, $this->colonnes)) {
             $sql = "select distinct $field as val from log order by $field";
             return $this->getListeParam($sql);
+        } else {
+            return array();
         }
     }
     /**

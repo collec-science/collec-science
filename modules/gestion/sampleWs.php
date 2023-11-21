@@ -21,6 +21,7 @@ switch ($t_module["param"]) {
     case "write":
         $searchOrder = "";
         try {
+            $bdd->beginTransaction();
             $dataSent = $_POST;
             //$dataSent = $_GET;
             if (!empty($_POST["template"])) {
@@ -35,6 +36,40 @@ switch ($t_module["param"]) {
                 $searchOrder = array("uid", "uuid", "identifier");
             }
             $uid = $samplews->write($dataSent, $searchOrder);
+            /* check for the creation of a movement */
+           $cuid = 0;
+            if (!empty($_POST["container_name"])) {
+                require_once "modules/classes/container.class.php";
+                $container = new Container($bdd, $ObjetBDDParam);
+                $cuid = $container->getUidFromIdentifier($_POST["container_name"]);
+            }
+            if ($cuid ==  0 && !empty($_POST["container_uid"])) {
+                $cuid = $_POST["container_uid"];
+            }
+            if ($cuid > 0) {
+                require_once "modules/classes/movement.class.php";
+                $cn = 1;
+                $ln = 1;
+                if (!empty ($_POST["column_number"])){
+                    $cn = $_POST["column_number"];
+                }
+                if (!empty($_POST["line_number"])) {
+                    $ln = $_POST["line_number"];
+                }
+                $movement = new Movement($bdd, $ObjetBDDParam);
+                $movement->addMovement(
+                    $uid,
+                    null,
+                    1,
+                    $cuid,
+                    null,
+                    null,
+                    null,
+                    $cn,
+                    $ln
+                );
+            }
+            $bdd->commit();
             $retour = array(
                 "error_code" => 200,
                 "uid" => $uid,
@@ -42,6 +77,7 @@ switch ($t_module["param"]) {
             );
             http_response_code(200);
         } catch (Exception $e) {
+            $bdd->rollBack();
             $error_code = $e->getCode();
             if (!isset($errors[$error_code])) {
                 $error_code = 520;

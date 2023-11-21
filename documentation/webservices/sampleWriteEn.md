@@ -10,6 +10,8 @@ Before any creation, the samples are searched according to several possible crit
 
 The API also creates referents, stations or campaigns if they do not exist beforehand.
 
+If the UID or main identifier of the container is specified, the entry transaction will also be created.
+
 ## Identification
 
 Consult this document to create the API user, generate a token and give him the appropriate rights: [Identification for web services](index.php?module=swidentification_en)
@@ -53,7 +55,9 @@ The API must be called in http **POST** mode.
 | parent_uid                | uid of parent sample, if known                                                                                                                                                 |                                                                   |
 | parent_uuid               | uuid of parent sample, if known                                                                                                                                                |                                                                   |
 | parent_identifier         | business identifier of parent sample, if known                                                                                                                                 |                                                                   |
-| parent_code               | secondary identifier code of parent, if known                                                                                                                                  |                                                                   |
+| parent_code               | secondary identifier code of parent, if known                                                                                                                                  |       
+| container_uid | UID of the container into which the sample is to be inserted |
+| column_number, line_number | number of the column and line into which the sample is inserted |                                                            |
 
 { .table .table-bordered .table-hover .datatable-nopaging-nosort }
 

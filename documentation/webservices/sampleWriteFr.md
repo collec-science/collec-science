@@ -10,6 +10,8 @@ Avant toute création, les échantillons sont recherchés selon plusieurs critè
 
 L'API crée également les référents, les stations ou les campagnes s'ils n'existent pas préalablement.
 
+Si l'UID ou l'identifiant principal du contenant est indiqué, le mouvement d'entrée sera également créé.
+
 ## Identification
 
 Consultez ce document pour créer l'utilisateur de l'API, générer un token et lui donner les droits adéquats : [Identification pour les services web](index.php?module=swidentification_fr)
@@ -54,6 +56,9 @@ L'API doit être appelée en mode http **POST**.
 | parent_uuid                   | uuid de l'échantillon parent, si connu                                                                                                                                                             |                                                               |
 | parent_identifier             | identifiant métier de l'échantillon parent, si connu                                                                                                                                              |                                                               |
 | parent_code                   | code de l'identifiant secondaire du parent, si connu                                                                                                                                                |                                                               |
+| container_uid                 | UID du contenant dans lequel l'échantillon doit être inséré                                                                                                                                     |                                                               |
+| container_name                | à défaut, nom du contenant                                                                                                                                                                        |                                                               |
+| column_number, line_number    | numéro de colonne et de ligne où  lequel l'échantillon est inséré                                                                                                                              |                                                               |
 
 {.table .table-bordered .table-hover .datatable-nopaging-nosort }
 

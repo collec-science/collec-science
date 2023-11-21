@@ -197,6 +197,12 @@
 			<item module="swsampleList_fr" label="Liste des échantillons"
 				tooltip="Service web permettant de rechercher une liste d'échantillons"
 				language="fr" />
+				<item module="documentget_fr" label="Afficher un document"
+				tooltip="Service web de téléchargement d'un document" language="fr" />
+			<item module="sampleWrite_fr" label="Mise à jour d'un échantillon"
+				tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
+			<item module="swmovementWrite_fr" label="Création d'un mouvement"
+				tooltip="Créer un mouvement d'entrée ou de sortie" language="fr" />
 		</item>
 		<item module="default" label="Administration" tooltip="Administrer le logiciel">
 			<item module="rights_general_fr" label="Généralités sur les droits"

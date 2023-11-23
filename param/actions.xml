@@ -755,6 +755,10 @@
 		type="smarty" retourko="default" />
 	<sampleWrite_fr action="framework/utils/markdown.php"
 		param="documentation/webservices/sampleWriteFr.md" type="smarty" retourko="default" />
+	<sampleDelete_fr action="framework/utils/markdown.php"
+		param="documentation/webservices/sampleDeleteFr.md" type="smarty" retourko="default" />
+	<sampleDelete_en action="framework/utils/markdown.php"
+		param="documentation/webservices/sampleDeleteEn.md" type="smarty" retourko="default" />
 	<sampleWrite_en action="framework/utils/markdown.php"
 		param="documentation/webservices/sampleWriteEn.md" type="smarty" retourko="default" />
 	<swmovementWrite_fr action="framework/utils/markdown.php"

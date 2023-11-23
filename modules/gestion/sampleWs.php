@@ -104,7 +104,7 @@ switch ($t_module["param"]) {
                 $id = $_REQUEST["uid"];
             }
             if (empty($id)) {
-                throw new SampleException(sprintf(_("uid %s not valid"), $id), 404);
+                throw new SampleException(_("L'UID n'est pas fournie ou n'a pas été retrouvée à partir de l'UUID"), 404);
             }
             $withContainer = true;
             $withEvent = true;
@@ -119,9 +119,7 @@ switch ($t_module["param"]) {
                     throw new SampleException($dte->getMessage());
                 }
             }
-            require_once "modules/classes/sample.class.php";
-            $sample = new Sample($bdd, $ObjetBDDParam);
-            $data = $sample->getRawDetail($id, $withContainer, $withEvent);
+            $data = $samplews->sample->getRawDetail($id, $withContainer, $withEvent);
             if (count($data) == 0) {
                 throw new SampleException(sprintf(_("Échantillon %s not trouvé"), $id), 404);
             }
@@ -248,5 +246,53 @@ switch ($t_module["param"]) {
             $vue->setJson(json_encode($data));
         }
         break;
+        case "sampleDelete":
+            $retour = array();
+            try {
+                $uid = $_REQUEST["uid"];
+                $bdd->beginTransaction();
+            if (!empty($uid)) {
+                $data = $samplews->sample->lire($uid);
+                if (empty($data["sample_id"])) {
+                    throw new SampleException(sprintf(_("L'UID %s ne correspond pas à un échantillon"), $uid));
+                }
+            } else {
+                throw new SampleException(sprintf(_("L'UID %s n'a pas été trouvé"), $uid),400);
+            }
+            /* check the collection */
+            require_once "modules/classes/collection.class.php";
+            $collection = new Collection($bdd, $ObjetBDDParam);
+            $dcollection = $collection->lire($data["collection_id"]);
+            if (!collectionVerify($dcollection["collection_id"])) {
+                throw new SampleException(sprintf(_("Droits insuffisants pour la collection %s"), $dcollection["collection_name"]), 401);
+            }
+            if (!$dcollection["allowed_import_flow"]) {
+                throw new SampleException(sprintf(_("Les flux de mise à jour ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
+            }
+            $dataClass->sample->supprimer($uid);
+            $bdd->commit();
+            $retour = array(
+                "error_code" => 200,
+                "error_message" => "processed"
+            );
+            http_response_code(200);
+        } catch (Exception $e) {
+            $bdd->rollBack();
+            $error_code = $e->getCode();
+            if ($error_code == 0) {
+                $error_code = 520;
+            }
+            $message->setSyslog($e->getMessage());
+            $retour = array(
+                "error_code" => $error_code,
+                "error_message" => $errors[$error_code],
+                "error_detail" => $e->getMessage()
+            );
+            http_response_code($error_code);
+            $message->setSyslog($e->getMessage());
+        } finally {
+            $vue->setJson(json_encode($retour));
+        }
+            break;
 
 }

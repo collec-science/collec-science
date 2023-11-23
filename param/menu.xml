@@ -197,10 +197,12 @@
 			<item module="swsampleList_fr" label="Liste des échantillons"
 				tooltip="Service web permettant de rechercher une liste d'échantillons"
 				language="fr" />
-				<item module="documentget_fr" label="Afficher un document"
+			<item module="documentget_fr" label="Afficher un document"
 				tooltip="Service web de téléchargement d'un document" language="fr" />
 			<item module="sampleWrite_fr" label="Mise à jour d'un échantillon"
 				tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
+			<item module="sampleDelete_fr" label="Supprimer un échantillon"
+				tooltip="Supprimer un échantillon" language="fr" />
 			<item module="swmovementWrite_fr" label="Création d'un mouvement"
 				tooltip="Créer un mouvement d'entrée ou de sortie" language="fr" />
 		</item>
@@ -247,6 +249,8 @@
 				tooltip="Service web de téléchargement d'un document" language="en" />
 			<item module="sampleWrite_en" label="Mise à jour d'un échantillon"
 				tooltip="Ajouter ou mettre à jour un échantillon" language="en" />
+			<item module="sampleDelete_en" label="Supprimer un échantillon"
+				tooltip="Supprimer un échantillon" language="en" />
 			<item module="swmovementWrite_en" label="Création d'un mouvement"
 				tooltip="Créer un mouvement d'entrée ou de sortie" language="en" />
 		</item>

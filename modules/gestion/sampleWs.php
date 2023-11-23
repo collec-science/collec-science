@@ -246,10 +246,10 @@ switch ($t_module["param"]) {
             $vue->setJson(json_encode($data));
         }
         break;
-        case "sampleDelete":
+        case "delete":
             $retour = array();
             try {
-                $uid = $_REQUEST["uid"];
+                $uid = $_POST["uid"];
                 $bdd->beginTransaction();
             if (!empty($uid)) {
                 $data = $samplews->sample->lire($uid);
@@ -269,7 +269,7 @@ switch ($t_module["param"]) {
             if (!$dcollection["allowed_import_flow"]) {
                 throw new SampleException(sprintf(_("Les flux de mise à jour ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
             }
-            $dataClass->sample->supprimer($uid);
+            $samplews->sample->supprimer($uid);
             $bdd->commit();
             $retour = array(
                 "error_code" => 200,

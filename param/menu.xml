@@ -247,7 +247,7 @@
 				language="en" />
 			<item module="documentget_en" label="Afficher un document"
 				tooltip="Service web de téléchargement d'un document" language="en" />
-			<item module="sampleWrite_en" label="Mise à jour d'un échantillon"
+			<item module="sampleWrite_en" label="Créer un échantillon"
 				tooltip="Ajouter ou mettre à jour un échantillon" language="en" />
 			<item module="sampleDelete_en" label="Supprimer un échantillon"
 				tooltip="Supprimer un échantillon" language="en" />

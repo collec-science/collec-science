@@ -97,11 +97,32 @@
 <div class="row">
 <div class="col-sm-12">
 <div class="bg-info">
-{t}Ce module permet d'importer des échantillons provenant d'une base externe, à partir d'un fichier CSV. Liste des colonnes possibles :{/t}
+{t}Ce module permet, à partir d'un fichier CSV :{/t}
+<br>
+<ul>
+      <li>{t}d'importer des échantillons provenant d'une base externe{/t}</li>
+      <li>{t}de mettre à jour des échantillons qui ont été modifiés avec une application tierce (LibreOffice, par exemple). Voici les opérations à réaliser pour cette opération :{/t}
+            <ul>
+                  <li>{t}depuis le module de recherche des échantillons, sélectionnez ceux à modifier{/t}</li>
+                  <li>{t}générez le fichier CSV à partir du bouton [Export vers une autre base]{/t}</li>
+                  <li>{t}modifiez les informations à partir d'un tableur (privilégiez LibreOffice plutôt que Excel){/t}</li>
+                  <li>{t}réimportez le fichier modifié à partir de ce module{/t}</li>
+            </ul>
+      </li>
+</ul>
+<br>
+{t}Si l'échantillon existe, il est mis à jour, sinon il est créé. La recherche des échantillons s'effectue selon l'ordre suivant :{/t}
+<br>
+<ul>
+      <li>UUID: {t}identifiant normalisé unique au niveau mondial{/t}</li>
+      <li>dbuid_origin: {t}identifiant d'origine de l'échantillon (il est généré automatiquement pendant l'opération d'exportation){/t}</li>
+</ul>
+{t}Liste des colonnes possibles :{/t}
 <br>
 <ul>
 <li><b>dbuid_origin*</b> : {t escape=no}identifiant <b>unique</b> dans la base de données d'origine, sous la forme : code_base:id{/t}</li>
 <li><b>identifier</b> : {t}identifiant métier{/t}</li>
+<li><b>uuid</b> : {t}UUID, code normalisé et unique au niveau mondial (généré avec des processus cryptographiques){/t}</li>
 <li><b>sample_type_name*</b> : {t}type d'échantillon{/t}</li>
 <li><b>collection_name*</b> : {t}nom de la collection de rattachement{/t}</li>
 <li><b>object_status_name</b> : {t}statut courant{/t}</li>

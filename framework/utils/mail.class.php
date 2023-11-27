@@ -50,28 +50,6 @@ class Mail
     }
 
     /**
-     * Fonction d'envoi des mails
-     *
-     * @param string $dest
-     *            : adresse de destination
-     * @param array $data
-     *            : parametres d'envoi du message
-     * @return boolean
-     */
-    function sendMail($dest, array $data)
-    {
-        if (!empty($dest)) {
-            $message = str_replace(array_keys($data), array_values($data), $this->param["contents"]);
-            $subject = str_replace(array_keys($data), array_values($data), $this->param["subject"]);
-
-            $message = wordwrap($message, 70, PHP_EOL);
-            return mail($dest, $subject, $message, $this->getHeaders());
-        } else {
-            throw new MailException("Mail->sendMail : no recipient address");
-        }
-    }
-
-    /**
      * Send mail with smarty template
      *
      * @param array $smartyParam Parameters to initialize Smarty

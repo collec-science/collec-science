@@ -81,8 +81,8 @@ legend {
 	color:#003A80;
 }
 .textareaDisplay {
-	white-space:pre-wrap;
-	display: flex;
+	white-space: break-spaces;
+	display: normal;
 }
 
 .tableTextarea {

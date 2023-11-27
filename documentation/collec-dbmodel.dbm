@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="108,1067" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="107,697" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -2312,7 +2312,7 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 		</idxelement>
 </index>
 
-<table name="object" layers="0" collapse-mode="1" max-obj-count="14" z-value="0">
+<table name="object" layers="0" collapse-mode="1" max-obj-count="15" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of objects]]> </comment>
@@ -2364,6 +2364,10 @@ export_template•[{"tableName":"export_template","technicalKey":"export_templat
 	<column name="object_comment">
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[Comment on the object (sample or container)]]> </comment>
+	</column>
+	<column name="last_movement_id">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Last movement recorded to the object]]> </comment>
 	</column>
 	<constraint name="object_pk" type="pk-constr" table="col.object">
 		<columns names="uid" ref-type="src-columns"/>
@@ -4030,6 +4034,12 @@ group by s.uid]]> </expression>
 	<columns names="referent_id" ref-type="dst-columns"/>
 </constraint>
 
+<constraint name="object_last_movement_id_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement" table="col.object">
+	<columns names="last_movement_id" ref-type="src-columns"/>
+	<columns names="movement_id" ref-type="dst-columns"/>
+</constraint>
+
 <relationship name="rel_booking_object" type="relfk" layers="0"
 	 custom-color="#8ae234"
 	 src-table="col.booking"
@@ -4305,6 +4315,11 @@ group by s.uid]]> </expression>
 	 custom-color="#8ae234"
 	 src-table="col.object"
 	 dst-table="col.referent" reference-fk="referent_object_fk"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_object_movement" type="relfk" layers="0"
+	 src-table="col.object"
+	 dst-table="col.movement" reference-fk="object_last_movement_id_fk"
 	 src-required="false" dst-required="false"/>
 
 <permission>

@@ -86,3 +86,32 @@ COMMENT ON VIEW col.v_derivated_number IS E'Get the number of derivated samples 
 -- ddl-end --
 ALTER VIEW col.v_derivated_number OWNER TO collec;
 -- ddl-end --
+
+/**
+ * add the column last_movement_id in object
+ */
+
+alter table col.object add column last_movement_id integer;
+comment on column col.object.last_movement_id is 'Last movement recorded to the object';
+ALTER TABLE col.object ADD CONSTRAINT object_last_movement_id_fk FOREIGN KEY (last_movement_id)
+REFERENCES col.movement (movement_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+update col.object o SET last_movement_id = lm.movement_id 
+from col.last_movement lm 
+WHERE o.uid = lm.uid;
+
+create or replace view col.last_movement as 
+SELECT m.uid,
+    m.movement_id,
+    m.movement_date,
+    m.movement_type_id,
+    m.container_id,
+    c.uid AS container_uid,
+	o.identifier as container_identifier,
+    m.line_number,
+    m.column_number,
+    m.movement_reason_id
+   FROM col.movement m
+   JOIN col.object o on (m.movement_id = o.last_movement_id)
+   LEFT JOIN col.container c USING (container_id);

@@ -259,7 +259,7 @@
 					<dt>{t}UID et référence :{/t}</dt>
 					<dd>{$data.uid} {$data.identifier}</dd>
 				</dl>
-				{if count ($objectIdentifiers) > 0}
+				{if !empty ($objectIdentifiers)}
 					<dl class="dl-horizontal">
 						<dt class="lexical" data-lexical="identifier_type">{t}Identifiants complémentaires :{/t}</dt>
 						<dd>

@@ -36,6 +36,8 @@ class Movement extends ObjetBDD
     private $order = " order by movement_date desc";
 
     private $where = " where s.uid = :uid";
+    public Object $object;
+    public Borrowing $borrowing;
 
     function __construct($bdd, $param = array())
     {
@@ -262,21 +264,27 @@ class Movement extends ObjetBDD
             $data["line_number"] = $line_number;
             $movement_id = $this->ecrire($data);
             /**
+             * Set the last movement in object table
+             */
+            if (!isset($this->object)) {
+                $this->object = $this->classInstanciate("ObjectClass", "object.class.php");
+            }
+            $this->object->setLastMovement($uid, $movement_id);
+            /**
              * Change the status if it's 6 (lended) and if the movement is an entry
              * disable the borrowing
              */
             if ($data["movement_type_id"] == 1) {
-                include_once "modules/classes/object.class.php";
-                $object = new ObjectClass($this->connection, $this->paramori);
-                $dobject = $object->lire($uid);
+                $dobject = $this->object->lire($uid);
                 if ($dobject["object_status_id"] == 6) {
                     /**
                      * Add the return date in borrowing
                      */
-                    include_once "modules/classes/borrowing.class.php";
-                    $borrowing = new Borrowing($this->connection, $this->paramori);
-                    $borrowing->setReturn($uid, $data["movement_date"], $object);
-                    $object->setStatus($uid, 1);
+                    if (!isset($this->borrowing)) {
+                        $this->borrowing = $this->classInstanciate("Borrowing", "borrowing.class.php");
+                    }
+                    $this->borrowing->setReturn($uid, $data["movement_date"], $this->object);
+                    $this->object->setStatus($uid, 1);
                 }
             }
             return $movement_id;

@@ -217,6 +217,8 @@
 		modulebefore="movementcontainerInput,movementcontainerOutput" />
 	<movementInput action="modules/gestion/movement.php" param="input" droits="gestion"
 		retourlogin="1" type="smarty" />
+	<movementsampleInput action="modules/gestion/movement.php" param="input" droits="gestion"
+		retourlogin="1" type="smarty" />
 	<movementsampleOutput action="modules/gestion/movement.php" param="output" droits="gestion"
 		retourlogin="1" type="smarty" />
 	<movementsampleWrite action="modules/gestion/movement.php" param="write" droits="gestion"

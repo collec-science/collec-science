@@ -60,7 +60,8 @@ class ObjectClass extends ObjetBDD
             "trashed" => array("type" => 1, "default" => 0),
             "location_accuracy" => array("type" => 1),
             "geom" => array("type" => 4),
-            "object_comment" => array("type" => 0)
+            "object_comment" => array("type" => 0),
+            "last_movement_id" => array("type" => 1)
         );
         $this->srid = 4326;
         parent::__construct($bdd, $param);
@@ -623,7 +624,7 @@ class ObjectClass extends ObjetBDD
                     if ($dlabel["identifier_only"]) {
                         QRcode::png($rowq[$dlabel["label_fields"]], $filename);
                     } else {
-                       QRcode::png(json_encode($rowq), $filename);
+                        QRcode::png(json_encode($rowq), $filename);
                     }
                 } else {
                     try {
@@ -689,9 +690,11 @@ class ObjectClass extends ObjetBDD
                     if ($datajson["uid"] > 0 && $datajson["db"] == $_SESSION["APPLI_code"]) {
                         $uid = $datajson["uid"];
                     } else if ($datajson["uid"] > 0 && !empty($datajson["db"])) {
-                        $valobject = $this->lireParamAsPrepared($sql . $whereExterne, array(
-                            "id" => $datajson["db"] . ":" . $datajson["uid"]
-                        )
+                        $valobject = $this->lireParamAsPrepared(
+                            $sql . $whereExterne,
+                            array(
+                                "id" => $datajson["db"] . ":" . $datajson["uid"]
+                            )
                         );
                         if ($valobject["uid"] > 0) {
                             $uid = $valobject["uid"];
@@ -734,11 +737,13 @@ class ObjectClass extends ObjetBDD
                         }
                         $val = trim($val);
                         if (!empty($val) && $uid == 0) {
-                            $valobject = $this->lireParamAsPrepared($sql . $whereIdent, array(
-                                "id" => $val,
-                                "id1" => $val,
-                                "id2" => $val
-                            )
+                            $valobject = $this->lireParamAsPrepared(
+                                $sql . $whereIdent,
+                                array(
+                                    "id" => $val,
+                                    "id1" => $val,
+                                    "id2" => $val
+                                )
                             );
                             if ($valobject["uid"] > 0) {
                                 $uid = $valobject["uid"];
@@ -1006,5 +1011,14 @@ class ObjectClass extends ObjetBDD
             $param["uuid"] = $uuid;
         }
         return $this->lireParamAsPrepared($sql, $param);
+    }
+
+    function setLastMovement(int $uid, int $movement_id)
+    {
+        $data = array(
+            "uid" => $uid,
+            "last_movement_id" => $movement_id
+        );
+        $this->ecrire($data);
     }
 }

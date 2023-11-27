@@ -115,6 +115,12 @@ class Mail
         if ($locale != $currentLocale) {
             initGettext($currentLocale);
         }
+        /**
+         * Generate logs
+         */
+        global $log;
+        empty($_SESSION["login"]) ? $login = "system" : $login = $_SESSION["login"];
+        $log->setLog($login, "sendMail", "$dest / $subject");
         return $status;
     }
 

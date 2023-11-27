@@ -9,7 +9,8 @@
 require_once 'modules/classes/container.class.php';
 
 class MovementException extends Exception
-{ }
+{
+}
 
 class Movement extends ObjetBDD
 {
@@ -36,8 +37,9 @@ class Movement extends ObjetBDD
     private $order = " order by movement_date desc";
 
     private $where = " where s.uid = :uid";
-    public Object $object;
+    public object $object;
     public Borrowing $borrowing;
+    public Container $container;
 
     function __construct($bdd, $param = array())
     {
@@ -103,7 +105,8 @@ class Movement extends ObjetBDD
         if (is_numeric($uid) && $uid > 0) {
             return $this->getListeParamAsPrepared($this->sql . $this->where . $this->order . " limit 1", array(
                 "uid" => $uid
-            ));
+            )
+            );
         }
     }
 
@@ -195,14 +198,12 @@ class Movement extends ObjetBDD
         /*
          * Verifications
          */
-        $controle = true;
         if (!($uid > 0 && is_numeric($uid))) {
-            $message = sprintf(_("L'UID n'est pas numérique (%s). "), $uid);
-            $controle = false;
+            throw new MovementException(sprintf(_("L'UID n'est pas numérique (%s). "), $uid));
         }
         if ($uid == $container_uid) {
             $controle = false;
-            $message .= _("Création du mouvement impossible : le numéro de l'objet est égal au numéro du contenant. ");
+            throw new MovementException(_("Création du mouvement impossible : le numéro de l'objet est égal au numéro du contenant. "));
         }
         $date = $this->encodeData($date);
         if (empty($date)) {
@@ -210,19 +211,17 @@ class Movement extends ObjetBDD
         }
         if ($type != 1 && $type != 2) {
             $controle = false;
-            $message .= _("Le type de mouvement n'est pas correct. ");
+            throw new MovementException(_("Le type de mouvement n'est pas correct. "));
         }
         $container_uid = $this->encodeData($container_uid);
         if (!is_numeric($container_uid) && strlen($container_uid) > 0) {
-            $message .= _("L'UID du contenant n'est pas numérique. ");
-            $controle = false;
+            throw new MovementException(_("L'UID du contenant n'est pas numérique. "));
         }
-        if (empty($login) ) {
-            if (!empty($_SESSION["login"]) ) {
+        if (empty($login)) {
+            if (!empty($_SESSION["login"])) {
                 $login = $_SESSION["login"];
             } else {
-                $controle = false;
-                $message .= _("Le login de l'utilisateur n'est pas connu.");
+                throw new MovementException(_("Le login de l'utilisateur n'est pas connu."));
             }
         }
         $storage_location = $this->encodeData($storage_location);
@@ -232,68 +231,67 @@ class Movement extends ObjetBDD
             /*
              * Recherche de container_id a partir de uid
              */
-            $container = new Container($this->connection, $this->param);
-            $container_id = $container->getIdFromUid($container_uid);
+            if (!isset($this->container)) {
+                $this->container = $this->classInstanciate("Container", "container.class.php");
+            }
+            $container_id = $this->container->getIdFromUid($container_uid);
             if ($container_id > 0) {
                 $data["container_id"] = $container_id;
             } else {
-                $message .= sprintf(_("Pas de contenant correspondant à l'UID %s. "), $container_uid);
-                $controle = false;
+                throw new MovementException(sprintf(_("Pas de contenant correspondant à l'UID %s. "), $container_uid));
             }
         }
-        if ($controle) {
-            $data["uid"] = $uid;
-            $data["movement_date"] = $date;
-            $data["movement_type_id"] = $type;
-            $data["login"] = $login;
-            $data["movement_reason_id"] = $movement_reason_id;
+        $data["uid"] = $uid;
+        $data["movement_date"] = $date;
+        $data["movement_type_id"] = $type;
+        $data["login"] = $login;
+        $data["movement_reason_id"] = $movement_reason_id;
 
-            if (!empty($storage_location)) {
-                $data["storage_location"] = $storage_location;
-            }
-            if (!empty($comment)) {
-                $data["movement_comment"] = $comment;
-            }
-            if (strlen($column_number) == 0) {
-                $column_number = 1;
-            }
-            if (strlen($line_number) == 0) {
-                $line_number = 1;
-            }
-            $data["column_number"] = $column_number;
-            $data["line_number"] = $line_number;
-            $movement_id = $this->ecrire($data);
-            /**
-             * Set the last movement in object table
-             */
-            if (!isset($this->object)) {
-                $this->object = $this->classInstanciate("ObjectClass", "object.class.php");
-            }
-            $this->object->setLastMovement($uid, $movement_id);
-            /**
-             * Change the status if it's 6 (lended) and if the movement is an entry
-             * disable the borrowing
-             */
-            if ($data["movement_type_id"] == 1) {
-                $dobject = $this->object->lire($uid);
-                if ($dobject["object_status_id"] == 6) {
-                    /**
-                     * Add the return date in borrowing
-                     */
-                    if (!isset($this->borrowing)) {
-                        $this->borrowing = $this->classInstanciate("Borrowing", "borrowing.class.php");
-                    }
-                    $this->borrowing->setReturn($uid, $data["movement_date"], $this->object);
-                    $this->object->setStatus($uid, 1);
-                }
-            }
-            return $movement_id;
-        } else {
-            /*
-             * Gestion des erreurs
-             */
-            throw new MovementException($message);
+        if (!empty($storage_location)) {
+            $data["storage_location"] = $storage_location;
         }
+        if (!empty($comment)) {
+            $data["movement_comment"] = $comment;
+        }
+        if (strlen($column_number) == 0) {
+            $column_number = 1;
+        }
+        if (strlen($line_number) == 0) {
+            $line_number = 1;
+        }
+        $data["column_number"] = $column_number;
+        $data["line_number"] = $line_number;
+        $movement_id = $this->ecrire($data);
+        /**
+         * Set the last movement in object table
+         */
+        if (!isset($this->object)) {
+            $this->object = $this->classInstanciate("ObjectClass", "object.class.php");
+        }
+        $this->object->setLastMovement($uid, $movement_id);
+        /**
+         * Change the status if it's 6 (lended) and if the movement is an entry
+         * disable the borrowing
+         */
+        if ($data["movement_type_id"] == 1) {
+            $dobject = $this->object->lire($uid);
+            if ($dobject["object_status_id"] == 6) {
+                /**
+                 * Add the return date in borrowing
+                 */
+                if (!isset($this->borrowing)) {
+                    $this->borrowing = $this->classInstanciate("Borrowing", "borrowing.class.php");
+                }
+                $this->borrowing->setReturn($uid, $data["movement_date"], $this->object);
+                $this->object->setStatus($uid, 1);
+            }
+        }
+        /**
+         * generate log event
+         */
+        global $log;
+        $log->setLog($_SESSION["login"], "movement-write", $movement_id);
+        return $movement_id;
     }
 
     /**

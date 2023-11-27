@@ -79,12 +79,7 @@ class Log extends ObjetBDD
         $data["ipaddress"] = $this->getIPClientAddress();
         return $this->ecrire($data);
     }
-    function ecrire($data) {
-        if (is_null($data["log_date"])) {
-            $data["log_date"] = $this->currentDate;
-            return parent::ecrire($data);
-        }
-    }
+
 
     /**
      * Fonction de purge du fichier de traces

@@ -8,8 +8,9 @@
             <input type="hidden" name="action" value="Write">
             <input type="hidden" name="object_status_id" value="{$data.object_status_id}">
             <div class="form-group">
-                <label for="objectStatusName" class="control-label col-md-4"><span class="red">*</span> {t}Nom
-                    :{/t}</label>
+                <label for="objectStatusName" class="control-label col-md-4"><span class="red">*</span>
+                    {t}Nom:{/t}
+                </label>
                 <div class="col-md-8">
                     <input id="objectStatusName" type="text" class="form-control" name="object_status_name"
                         value="{$data.object_status_name}" autofocus required>

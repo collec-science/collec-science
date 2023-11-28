@@ -46,8 +46,9 @@
 
 
             <div class="form-group">
-                <label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> {t}Type
-                    d'évenement :{/t}</label>
+                <label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> 
+                    {t}Type d'évenement :{/t}
+                </label>
                 <div class="col-md-8">
                     <select id="event_type_id" name="event_type_id" class="form-control">
                         {section name=lst loop=$eventType}

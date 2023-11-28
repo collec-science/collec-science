@@ -991,7 +991,7 @@ msgstr "Unable to read the file containing the news"
 
 #: ../../../param/param.default.inc.php:12
 msgid "13/11/2023"
-msgstr "13/11/2023"
+msgstr "2023-11-13"
 
 #: ../../../test/testapi.php:26 ../../../framework/fonctions.php:462
 msgid "Impossible d'initialiser le composant curl"

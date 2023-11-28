@@ -357,8 +357,7 @@
                     </div>
                     <div class="form-group">
                         <label for="expiration_delay" class="col-md-4 control-label">
-                            {t}Délai avant l'expiration des échantillons, en jours (0 : pas de notification)
-                            :{/t}
+                            {t}Délai avant l'expiration des échantillons, en jours (0 : pas de notification) :{/t}
                         </label>
                         <div class="col-md-8">
                             <input type="text" class="form-control notificationField" id="expiration_delay"
@@ -367,8 +366,7 @@
                     </div>
                     <div class="form-group">
                         <label for="event_due_delay" class="col-md-4 control-label">
-                            {t}Délai avant la date d'échéance d'un événement, en jours (0 : pas de notification)
-                            :{/t}
+                            {t}Délai avant la date d'échéance d'un événement, en jours (0 : pas de notification) :{/t}
                         </label>
                         <div class="col-md-8">
                             <input type="text" class="form-control notificationField" id="event_due_delay"

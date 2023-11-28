@@ -33,9 +33,12 @@
 								English US
 							</a> </li>
 						{if $isConnected}
-						<li><a href="index.php?module=totpCreate"
-								title="{t}Activer la double authentification pour votre compte{/t}">{t}Activer la double
-								authentification{/t}</a></li>
+						<li>
+							<a href="index.php?module=totpCreate"
+								title="{t}Activer la double authentification pour votre compte{/t}">
+								{t}Activer la double authentification{/t}
+							</a>
+						</li>
 						<li><a href='index.php?module=loginChangePassword' title="{t}Modifier le mot de passe{/t}"> <img
 									src='display/images/key.png' width='16' border='0'
 									title="{t}Modifier le mot de passe{/t}">

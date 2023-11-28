@@ -104,7 +104,7 @@ switch ($t_module["param"]) {
                 $id = $_REQUEST["uid"];
             }
             if (empty($id)) {
-                throw new SampleException(_("L'UID n'est pas fournie ou n'a pas été retrouvée à partir de l'UUID"), 404);
+                throw new SampleException(_("L'UID n'est pas fourni ou n'a pas été retrouvé à partir de l'UUID"), 404);
             }
             $withContainer = true;
             $withEvent = true;

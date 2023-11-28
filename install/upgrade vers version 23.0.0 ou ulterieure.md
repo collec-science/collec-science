@@ -51,7 +51,7 @@ ln -s collec-science collec
 
 ```bash
 cd /var/www/html/collec-science/collec-science
-git pull
+git pull origin master
 ```
 
 ## Pour mettre à jour la base de données

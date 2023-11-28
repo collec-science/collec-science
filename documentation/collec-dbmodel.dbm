@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="107,697" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="105,450" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -190,7 +190,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="collec"/>
 </sequence>
 
-<table name="container" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
+<table name="container" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Liste of containers]]> </comment>
@@ -3762,6 +3762,15 @@ group by s.uid]]> </expression>
 <relationship name="rel_v_derivated_number_sample" type="reltv" layers="0"
 	 src-table="col.v_derivated_number"
 	 dst-table="col.sample"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="collection_has_many_container" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#865e3c"
+	 src-table="col.collection"
+	 dst-table="col.container"
 	 src-required="false" dst-required="false"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"

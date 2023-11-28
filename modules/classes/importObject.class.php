@@ -83,7 +83,9 @@ class ImportObject
         "sampling_place_name",
         "sample_parent_identifier",
         "container_parent_identifier",
-        "dbuid_origin"
+        "dbuid_origin",
+        "container_collection_id",
+        "container_collection_name"
     );
 
     private $colnum = array(
@@ -95,7 +97,8 @@ class ImportObject
         "container_parent_uid",
         "sample_parent_uid",
         "referent_id",
-        "campaign_id"
+        "campaign_id",
+        "container_collection_id"
     );
 
     private $handle;
@@ -465,6 +468,9 @@ class ImportObject
                 if (!empty($values["container_comment"])) {
                     $dataContainer["object_comment"] = $values["container_comment"];
                 }
+                if (!empty($values["container_collection_id"])) {
+                    $dataContainer["collection_id"] = $values["container_collection_id"];
+                }
                 $dataContainer["uuid"] = $values["container_uuid"];
                 try {
                     $container_uid = $this->container->ecrire($dataContainer);
@@ -623,6 +629,15 @@ class ImportObject
             foreach ($this->collection as $value) {
                 if ($values["collection_name"] == $value["collection_name"]) {
                     $values["collection_id"] = $value["collection_id"];
+                    break;
+                }
+            }
+        }
+        if (!empty($values["container_collection_name"])) {
+            $values["container_collection_id"] = -1;
+            foreach ($this->collection as $value) {
+                if ($values["container_collection_name"] == $value["collection_name"]) {
+                    $values["container_collection_id"] = $value["collection_id"];
                     break;
                 }
             }
@@ -988,6 +1003,19 @@ class ImportObject
             if (!$this->container->is_unique(0, $data["container_identifier"])) {
                 $retour["code"] = false;
                 $retour["message"] .= _("L'identifiant du contenant existe déjà");
+            }
+            if (!empty($data["container_collection_id"])) {
+                $ok = false;
+                foreach ($this->collection as $value) {
+                    if ($data["container_collection_id"] == $value["collection_id"]) {
+                        $ok = true;
+                        break;
+                    }
+                }
+                if (!$ok) {
+                    $retour["code"] = false;
+                    $retour["message"] .= _("Le numéro de la collection indiqué pour le contenant n'est pas reconnu ou autorisé.");
+                }
             }
             /**
              * Verification du statut du container

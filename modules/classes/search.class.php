@@ -222,7 +222,8 @@ class SearchContainer extends SearchParam
       "trashed" => 0,
       "referent_id" => "",
       "event_type_id" => "",
-      "movement_reason_id" => ""
+      "movement_reason_id" => "",
+      "collection_id" => ""
     );
     /**
      * Ajout des dates
@@ -239,7 +240,8 @@ class SearchContainer extends SearchParam
       "trashed",
       "referent_id",
       "event_type_id",
-      "movement_reason_id"
+      "movement_reason_id",
+      "collection_id"
     );
     parent::__construct();
   }

@@ -7,23 +7,23 @@ $(document).ready(function () {
 		dataOrder = [1, 'asc'];
 	}
 	var myStorageContainer = window.localStorage;
-	var maxcol = 15;
+	var maxcol = 16;
 	try {
 			var hb = JSON.parse(myStorageContainer.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
 				if (isGestion == 1) {
-					hb = [15];
+					hb = [16];
 				} else {
-					hb = [14];
-					maxcol = 14;
+					hb = [15];
+					maxcol = 15;
 				}
 			}
 		} catch {
 			if (isGestion == 1) {
-					var hb = [15];
+					var hb = [16];
 				} else {
-					var hb = [14];
-					maxcol = 14;
+					var hb = [15];
+					maxcol = 15;
 				}
 		}
 	var table = $("#containerList").DataTable( {
@@ -59,7 +59,7 @@ $(document).ready(function () {
 	table.order(dataOrder).draw();
 	table.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
 			var hb = [];
-			tableList.columns().every(function () {
+			containerList.columns().every(function () {
 				if (!this.visible()) {
 					hb.push(this.index());
 				}
@@ -116,7 +116,8 @@ $(document).ready(function () {
 			"containersSetTrashed":"trashedgroup",
 			"containersEntry":"entry",
 			"containersSetStatus":"status",
-			"containersSetReferent":"referent"
+			"containersSetReferent":"referent",
+			"containersSetCollection":"collection"
 			};
 		$("#checkedActionContainer").change(function () {
 			var action = $(this).val();
@@ -367,6 +368,7 @@ $(document).ready(function () {
 								row += '<img src="index.php?module=documentGet&document_id='+containers[lst].document_id+'&attached=0&phototype=2" height="30"></a>';
 							}
 							row += '</td>';
+							row += '<td>'+containers[lst].collection_name + '</td>';
 							row +='<td>'+containers[lst].referent_name+' ' +containers[lst].referent_firstname + '</td>' ;
 							row += '<td class="textareaDisplay">'+containers[lst].object_comment+'</td>';
 							row += '<td>'+ id + '-' + (9000000 + parseFloat(containers[lst].uid))+'</td>';
@@ -436,6 +438,7 @@ $(document).ready(function () {
 					<th>{t}Produit utilisé{/t}</th>
 					<th>{t}Code CLP{/t}</th>
 					<th>{t}Photo{/t}</th>
+					<th>{t}Collection{/t}</th>
 					<th>{t}Référent{/t}</th>
 					<th>{t}Commentaires{/t}</th>
 					<th>{t}Tri technique{/t}</th>
@@ -496,6 +499,7 @@ $(document).ready(function () {
 								</a>
 							{/if}
 						</td>
+						<td>{$containers[lst].collection_name}</td>
 						<td>{$containers[lst].referent_name} {$containers[lst].referent_firstname}</td>
 						<td class="textareaDisplay">{$containers[lst].object_comment}</td>
 						<td>{$containers[lst].uid + 9000000}</td>
@@ -515,6 +519,7 @@ $(document).ready(function () {
 						<option value="containersLending">{t}Prêter les contenants et leurs contenus{/t}</option>
 						<option value="containersSetReferent">{t}Assigner un référent aux contenants{/t}</option>
 						<option value="containersSetStatus">{t}Modifier le statut{/t}</option>
+						<option value="containersSetCollection">{t}Assigner une collection aux contenants{/t}</option>
 						<option value="containersExit">{t}Sortir les contenants{/t}</option>
 						<option value="containersEntry">{t}Entrer ou déplacer les contenants au même emplacement{/t}</option>
 						<option value="containersSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
@@ -630,6 +635,22 @@ $(document).ready(function () {
 								<option value="{$status.object_status_id}">{$status.object_status_name}</option>
 							{/foreach}
 						</select>
+				</div>
+			</div>
+			<!-- set collection-->
+			<div class="collection" hidden>
+				<div class="form-group ">
+					<label for="collection_id_change" class="control-label col-sm-4">{t}Nouvelle collection :{/t}</label>
+					<div class="col-sm-8">
+						<select id="collection_id_change" name="collection_id_change" class="form-control">
+							<option value="" selected>{t}Choisissez...{/t}</option>
+							{foreach $collections as $collection}
+							<option value="{$collection.collection_id}">
+								{$collection.collection_name}
+							</option>
+							{/foreach}
+						</select>
+					</div>
 				</div>
 			</div>
 					<div class="center">

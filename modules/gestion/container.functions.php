@@ -25,3 +25,7 @@ $vue->set($eventType->getListeFromCategory("container"), "eventType");
 include_once 'modules/classes/movementReason.class.php';
 $mv = new MovementReason($bdd, $ObjetBDDParam);
 $vue->set($mv->getListe(2), "movementReason");
+$vue->set($_SESSION["collections"], "collections");
+include_once "modules/classes/collection.class.php";
+$collection = new Collection($bdd, $ObjetBDDParam);
+$vue->set($collection->getAllCollections(), "collectionsSearch");

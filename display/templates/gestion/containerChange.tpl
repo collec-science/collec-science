@@ -151,6 +151,21 @@ if (container_type_id > 0) {
 			</div>
 		</div>
 		<div class="form-group">
+			<label for="collection_id" class="control-label col-md-4">{t}Collection :{/t}</label>
+			<div class="col-md-8">
+				<select id="collection_id" name="collection_id" class="form-control">
+					<option value=""  {if $data.collection_id == ""}selected{/if}>
+						{t}Choisissez...{/t}
+					</option>
+					{foreach $collections as $collection}
+						<option value="{$collection.collection_id}" {if $data.collection_id == $collection.collection_id}selected{/if}>
+							{$collection.collection_name}
+						</option>
+					{/foreach}
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
 			<label for="object_status_id" class="control-label col-md-4"><span class="red">*</span>  {t}Statut :{/t}</label>
 			<div class="col-md-8">
 				<select id="object_status_id" name="object_status_id" class="form-control">

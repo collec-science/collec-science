@@ -115,3 +115,15 @@ SELECT m.uid,
    FROM col.movement m
    JOIN col.object o on (m.movement_id = o.last_movement_id)
    LEFT JOIN col.container c USING (container_id);
+
+CREATE UNIQUE INDEX referent_referent_name_firstname_idx ON col.referent USING btree (referent_name,referent_firstname);
+drop index col.referent_referent_name_idx;
+alter table col.container add column collection_id int;
+ALTER TABLE col.container ADD CONSTRAINT collection_fk FOREIGN KEY (collection_id)
+REFERENCES col.collection (collection_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+CREATE INDEX container_collection_id_idx ON col.container
+USING btree(collection_id);
+
+
+insert into col.dbversion (dbversion_number, dbversion_date) values ('23.0','2023-11-28');

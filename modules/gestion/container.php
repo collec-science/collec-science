@@ -585,4 +585,22 @@ switch ($t_module["param"]) {
     case "getChildren":
         $vue->set($dataClass->getChildrenContainer($_REQUEST["uid"]));
         break;
+    case "setCollection":
+        try {
+            if (count($_POST["uids"]) == 0) {
+                throw new ObjectException(_("Pas de contenants sélectionnés"));
+            }
+            if (empty($_POST["collection_id_change"])) {
+                throw new ObjectException(_("Pas de collection sélectionnée"));
+            }
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            $dataClass->setCollection($_POST["uids"], $_POST["collection_id_change"]);
+            $module_coderetour = 1;
+        } catch (ObjectException $oe) {
+            $message->setSyslog($oe->getMessage());
+            $message->set(_("Une erreur est survenue pendant la mise à jour de la collection"), true);
+            $message->set($oe->getMessage());
+            $module_coderetour = -1;
+        }
+        break;
 }

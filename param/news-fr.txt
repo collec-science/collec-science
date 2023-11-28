@@ -1,5 +1,14 @@
 News
 ===========
+Version 23.0.0a du 28/11/2023
+-----------------------------
+Corrections de bugs:
+- API de modification : il était possible de créer des stations, des campagnes ou des référents même sans posséder les droits adéquats sur la collection concernée
+
+
+Nouveautés:
+
+
 Version 2.8.3 du 13/03/2023
 ---------------------------
 Corrections de bugs:

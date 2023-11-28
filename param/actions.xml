@@ -149,26 +149,29 @@
 
 	<!-- Actions on the list of containers -->
 	<containersLending action="modules/gestion/container.php" param="lendingMulti"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent"
+		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection"
 		droits="collection" retourok="containerList" retourko="containerList" />
 	<containersExit droits="collection" action="modules/gestion/container.php" param="exitMulti"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent"
+		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection"
 		retourok="containerList" retourko="containerList" />
 	<containersDelete action="modules/gestion/container.php" param="deleteMulti" droits="collection"
 		retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent" />
+		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
 	<containersSetStatus action="modules/gestion/container.php" param="setStatus"
 		retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent" />
+		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
 	<containersEntry action="modules/gestion/container.php" param="entryMulti" droits="collection"
 		retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent" />
+		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
 	<containersSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection"
 		retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent" />
+		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
 	<containersSetReferent action="modules/gestion/container.php" param="referentMulti"
 		droits="collection" retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent" />
+		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
+	<containersSetCollection action="modules/gestion/container.php" param="setCollection"
+		droits="collection" retourok="containerList" retourko="containerList"
+		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
 
 	<containerVerifyCyclic action="modules/gestion/container.php" param="verifyCyclic"
 		droits="param" type="smarty" />
@@ -722,7 +725,7 @@
 	<!-- API -->
 	<apiv1sampleWrite action="modules/gestion/sampleWs.php" param="write" droits="gestion"
 		type="json" />
-		<apiv1sampleDelete action="modules/gestion/sampleWs.php" param="delete" droits="gestion"
+	<apiv1sampleDelete action="modules/gestion/sampleWs.php" param="delete" droits="gestion"
 		type="json" />
 	<apiv1movementWrite action="modules/gestion/movementWs.php" param="write" droits="gestion"
 		type="json" />

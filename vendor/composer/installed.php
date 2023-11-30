@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'collec-science/collec-science',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '57e6e83cdeb19f26b090a8c90362a487fb282f7d',
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'reference' => 'fed17a70d6aa040cecda6d36ca3fb44b85981246',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'collec-science/collec-science' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '57e6e83cdeb19f26b090a8c90362a487fb282f7d',
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'reference' => 'fed17a70d6aa040cecda6d36ca3fb44b85981246',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -11,7 +11,7 @@ $(document).ready(function () {
 	try {
 			var hb = JSON.parse(myStorageContainer.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
-				if (isGestion == 1) {
+				if (gestion == 1) {
 					hb = [16];
 				} else {
 					hb = [15];
@@ -19,7 +19,7 @@ $(document).ready(function () {
 				}
 			}
 		} catch {
-			if (isGestion == 1) {
+			if (gestion == 1) {
 					var hb = [16];
 				} else {
 					var hb = [15];

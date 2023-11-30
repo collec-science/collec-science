@@ -1,12 +1,47 @@
-News
-===========
 Version 23.0.0a du 28/11/2023
 -----------------------------
 Corrections de bugs:
 - API de modification : il était possible de créer des stations, des campagnes ou des référents même sans posséder les droits adéquats sur la collection concernée
+- la taille de l'icone, dans les mails, a été réduite
+- en recherche des échantillons : la sélection d'une collection ne mettait pas à jour la liste des types d'événements possibles
+- les comptes d'administration recevaient les mails, même s'ils étaient désactivés
+- après modification d'un modèle de métadonnées, une page blanche était affichée
+- en duplication d'un modèle d'étiquettes, le type de code-barre était vide
+- lors de l'importation de données, si l'encodage du fichier ne semble pas correspondre à celui qui est sélectionné, un message d'alerte est affiché
+- depuis le détail d'un échantillon, la création d'événements pour les échantillons dérivés ne fonctionnait pas
+- en création d'un échantillon, si le formulaire de saisie des métadonnées était affiché, il ne disparaissait pas si on sélectionnait un autre type d'échantillons sans métadonnées associées
+- il n'est plus possible de créer un événement sans date de réalisation ou date d'échéance
+- l'export des contenants avec objets inclus ne fonctionnait pas si rien n'était sélectionné
+- dans certains cas, certaines métadonnées étaient positionnées comme obligatoire, mais il était possible d'enregistrer sans qu'elles soient renseignées
+- dans l'API de création, il était possible de créer des stations, des campagnes ou des référents même si la création de l'échantillon n'était pas possible (droits insuffisants du compte utilisé)
+- le calcul des coordonnées gps (transformation depuis les degrés/minutes) n'était pas correct dans certains cas de figure
+- la gestion des métadonnées a été corrigée pour mieux prendre en compte les checkbox et les boutons-radios
+- la modification du statut des échantillons à partir de la liste ne fonctionnait plus
+- la recherche par métadonnées ne fonctionnait pas dans certains cas
+- en importation externe, les métadonnées n'étaient pas mises à jour
 
+Nouveautés :
 
-Nouveautés:
+fonctionnelles :
+- il est maintenant possible d'indiquer une collection pour un contenant, et de rechercher les contenants appartenant à une collection
+- des mails de rappel peuvent être envoyés automatiquement pour informer de l'expiration d'échantillons ou de la date d'échéance d'événements (consultez la doc)
+- les libellés des statuts peuvent être modifiés (attention à ne pas en changer le sens)
+- liste des événements : le tableau d'affichage a été amélioré pour faciliter les filtres, et il est maintenant possible de modifier ou supprimer des événements en masse
+- il est maintenant possible d'importer une liste de campagnes à partir d'un fichier CSV
+- il est maintenant possible de forcer l'identifiant métier principal à être unique par collection (paramétrage dans la collection)
+- un mécanisme permettant de s'assurer que l'identifiant métier principal des contenants est bien unique a été introduit (paramétrage général)
+
+API :
+- dans les API, il est maintenant possible d'indiquer une variable "locale" pour indiquer dans quelle langue les messages sont renvoyés
+- une API de suppression des échantillons est maintenant disponible
+- l'API de création d'un échantillon permet maintenant de générer automatiquement le mouvement d'entrée
+- il est possible de récupérer une liste d'échantillons (UID seulement, ou liste complète) à partir des critères de recherche utilisés dans le module de recherche des échantillons
+
+Système :
+- diverses améliorations et corrections du framework
+- le composant de gestion des dates a été remplacé par celui de bootstrap
+- les messages d'alerte vers les administrateurs intègrent maintenant l'adresse IP du poste concerné
+- le champ "last_movement_id" a été rajouté dans la table object, pour accélerer les requêtes
 
 
 Version 2.8.3 du 13/03/2023

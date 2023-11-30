@@ -1,5 +1,48 @@
-News
-===========
+Version 23.0.0a of 28/11/2023
+-----------------------------
+Bug fixes:
+- modification API: it was possible to create stations, campaigns or referents even without having the appropriate rights to the collection concerned
+- the size of the icon in emails has been reduced
+- in sample searches: selecting a collection did not update the list of possible event types
+- administration accounts received emails, even if they were deactivated
+- after modifying a metadata template, a blank page was displayed
+- when duplicating a label template, the barcode type was empty
+- when importing data, if the encoding of the file does not seem to correspond to the one selected, an alert message is displayed
+- from the details of a sample, the creation of events for derived samples did not work
+- when creating a sample, if the metadata entry form was displayed, it did not disappear if another type of sample without associated metadata was selected
+- it is no longer possible to create an event without a completion date or due date
+- exporting containers with included objects did not work if nothing was selected
+- in some cases, certain metadata were set as mandatory, but it was possible to save without filling them in
+- in the creation API, it was possible to create stations, campaigns or referents even if it was not possible to create the sample (insufficient rights for the account used)
+- the calculation of GPS coordinates (transformation from degrees/minutes) was not correct in some cases
+- metadata management has been corrected to take better account of checkboxes and radio buttons
+- changing the status of samples from the list no longer worked
+- searching by metadata did not work in some cases
+- metadata was not updated when imported externally
+
+New features :
+
+new functionalities :
+- it is now possible to specify a collection for a container, and to search for containers belonging to a collection
+- reminder emails can now be sent automatically to inform you when samples have expired or when events are due (see doc)
+- status labels can be modified (take care not to change the meaning)
+- event list: the display table has been improved to make filtering easier, and it is now possible to modify or delete events en masse
+- it is now possible to import a list of campaigns from a CSV file
+- it is now possible to force the main business identifier to be unique for each collection (set in the collection)
+- a mechanism to ensure that the main business identifier of containers is unique has been introduced (general settings)
+
+API :
+- in APIs, it is now possible to specify a 'local' variable to indicate the language in which messages are returned
+- an API for deleting samples is now available
+- the API for creating a sample can now automatically generate the input movement
+- it is now possible to retrieve a list of samples (UID only, or complete list) from the search criteria used in the sample search module
+
+System :
+- various improvements and corrections to the framework
+- the date management component has been replaced by the bootstrap component
+- alert messages to administrators now include the IP address of the workstation concerned
+- the "last_movement_id" field has been added to the object table, to speed up queries
+
 Version 2.8.3 of march 13th, 2023
 ---------------------------
 Fixed bugs:

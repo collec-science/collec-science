@@ -80,7 +80,7 @@ if (container_type_id > 0) {
 	if (container_type_id > 0) {
 		var type_libelle = "{$data.container_type_name}";
 		//type_libelle = type_libelle.replace(/'/g, "\\'");
-		options = '<option value="' + {$data.container_type_id} + '" selected>'+ type_libelle + ' </option>';
+		options = '<option value="' + "{$data.container_type_id}" + '" selected>'+ type_libelle + ' </option>';
 		$("#container_type_id").html(options);
 	}
 

@@ -81,8 +81,8 @@ legend {
 	color:#003A80;
 }
 .textareaDisplay {
-	white-space:pre-wrap;
-	display: flex;
+	white-space: break-spaces;
+	display: normal;
 }
 
 .tableTextarea {
@@ -342,6 +342,10 @@ th {
 }
 tr {
 	width: 70%;
+}
+
+.hover {
+	cursor: pointer;
 }
 /* bootstrap hack: fix content width inside hidden tabs */
 .tab-content > .tab-pane:not(.active),

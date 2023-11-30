@@ -28,7 +28,7 @@ switch ($t_module["param"]) {
         if ($_SESSION["droits"]["param"] == 1) {
             $vue->set(1, "modifiable");
         }
-        $vue->set("campaign","moduleParent");
+        $vue->set("campaign", "moduleParent");
         $vue->set("campaign_id", "parentKeyName");
         /**
          * Get the list of authorized extensions
@@ -62,5 +62,59 @@ switch ($t_module["param"]) {
          * delete record
          */
         dataDelete($dataClass, $id);
+        break;
+
+    case "import":
+        if (file_exists($_FILES['upfile']['tmp_name'])) {
+            require_once 'modules/classes/import.class.php';
+            try {
+                /**
+                 * Verify the encoding
+                 */
+                $encodings = array("UTF-8", "iso-8859-1", "iso-8859-15");
+                $currentEncoding = mb_detect_encoding(file_get_contents($_FILES['upfile']['tmp_name']), $encodings, true);
+                if ($currentEncoding != "UTF-8" && $_REQUEST["utf8_encode"] == 0 || $currentEncoding == "UTF-8" && $_REQUEST["utf8_encode"] == 1) {
+                    throw new CampaignException(_("L'encodage du fichier ne correspond pas à celui que vous avez indiqué"));
+                }
+                $import = new Import(
+                    $_FILES['upfile']['tmp_name'],
+                    ";",
+                    false,
+                    array(
+                        "campaign_name",
+                        "campaign_from",
+                        "campaign_to",
+                        "referent_name",
+                        "referent_firstname",
+                        "uuid"
+                    )
+                );
+                $rows = $import->getContentAsArray();
+                $nb = 0;
+                $dataClass->formatDate = 0;
+                $bdd->beginTransaction();
+                foreach ($rows as $row) {
+                    if (!empty($row)) {
+                        $dataClass->import($row);
+                        $nb++;
+                    }
+                }
+                $message->set(sprintf(_("%s campagnes importées"), $nb));
+                $module_coderetour = 1;
+                $bdd->commit();
+            } catch (Exception $e) {
+                $message->set(_("Impossible d'importer les campagnes"), true);
+                $message->set($e->getMessage());
+                $module_coderetour = -1;
+                if ($bdd->inTransaction()){
+                     $bdd->rollBack();
+                }
+            } finally {
+                $dataClass->formatDate = 1;
+            }
+        } else {
+            $message->set(_("Impossible de charger le fichier à importer"));
+            $module_coderetour = -1;
+        }
         break;
 }

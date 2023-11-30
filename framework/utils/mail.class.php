@@ -6,13 +6,15 @@
  * @license http://www.cecill.info/licences/Licence_CeCILL-C_V1-fr.html LICENCE DE LOGICIEL LIBRE CeCILL-C
  *  Creation 30 sept. 2015
  */
-class MailException extends Exception{}
+class MailException extends Exception
+{
+}
 class Mail
 {
 
     private $param = array(
         "replyTo" => "",
-        "subject" => "subjet",
+        "subject" => "subject",
         "contents" => "text message",
         "mailTemplate" => "framework/mail/mail.tpl" /* name of the main Smarty template used to send mails */
     );
@@ -27,7 +29,7 @@ class Mail
     function __construct(array $param = array())
     {
         $this->setParam($param);
-        if (!isset($this->param["from"])){
+        if (!isset($this->param["from"])) {
             global $APPLI_mail;
             $this->param["from"] = $APPLI_mail;
         }
@@ -48,28 +50,6 @@ class Mail
     }
 
     /**
-     * Fonction d'envoi des mails
-     *
-     * @param string $dest
-     *            : adresse de destination
-     * @param array $data
-     *            : parametres d'envoi du message
-     * @return boolean
-     */
-    function sendMail($dest, array $data)
-    {
-        if (!empty($dest)) {
-        $message = str_replace(array_keys($data), array_values($data), $this->param["contents"]);
-        $subject = str_replace(array_keys($data), array_values($data), $this->param["subject"]);
-
-        $message = wordwrap($message, 70, PHP_EOL);
-        return mail($dest, $subject, $message, $this->getHeaders());
-        } else {
-            throw  new MailException("Mail->sendMail : no recipient address");
-        }
-    }
-
-    /**
      * Send mail with smarty template
      *
      * @param array $smartyParam Parameters to initialize Smarty
@@ -81,33 +61,44 @@ class Mail
      * @param boolean $debug if true, display the content of the mail and the variables nor send message
      * @return bool
      */
-    function SendMailSmarty(array $smartyParam, string $dest, string $subject, string $template_name, array $data, string $locale="fr", bool $debug = false) {
+    function SendMailSmarty(array $smartyParam, string $dest, string $subject, string $template_name, array $data, string $locale = "fr", bool $debug = false)
+    {
         if (!isset($this->smarty)) {
-        $this->smarty = new Smarty();
-        $this->smarty->template_dir = $smartyParam["templates"];
-        $this->smarty->compile_dir = $smartyParam["templates_c"];
-        $this->smarty->cache_dir = $smartyParam["cache_dir"];
-        $this->smarty->caching = $smartyParam["cache"];
+            $this->smarty = new Smarty();
+            $this->smarty->template_dir = $smartyParam["templates"];
+            $this->smarty->compile_dir = $smartyParam["templates_c"];
+            $this->smarty->cache_dir = $smartyParam["cache_dir"];
+            $this->smarty->caching = $smartyParam["cache"];
         }
-        $currentLocale =  $_SESSION['LANG']["locale"];
-        initGettext($locale);
-        foreach ($data as $variable=>$value) {
-        $this->smarty->assign($variable, $value);
+        $currentLocale = $_SESSION['LANG']["locale"];
+        if ($locale != $currentLocale) {
+            initGettext($locale);
+        }
+        foreach ($data as $variable => $value) {
+            $this->smarty->assign($variable, $value);
         }
         $this->smarty->assign("mailContent", $template_name);
         /**
          * Add the logo to the main template
          */
-        $this->smarty->assign("logo", "data:image/png;base64,".chunk_split(base64_encode (file_get_contents("favicon.png"))));
+        $this->smarty->assign("logo", "data:image/png;base64," . chunk_split(base64_encode(file_get_contents("favicon.png"))));
         if (!$debug) {
-        $status = mail($dest, $subject, $this->smarty->fetch($this->param["mailTemplate"]),$this->getHeaders());
+            $status = mail($dest, $subject, $this->smarty->fetch($this->param["mailTemplate"]), $this->getHeaders());
         } else {
             printA($this->param);
             printA($data);
             $this->smarty->display($this->param["mailTemplate"]);
             $status = true;
         }
-        initGettext($currentLocale);
+        if ($locale != $currentLocale) {
+            initGettext($currentLocale);
+        }
+        /**
+         * Generate logs
+         */
+        global $log;
+        empty($_SESSION["login"]) ? $login = "system" : $login = $_SESSION["login"];
+        $log->setLog($login, "sendMail", "$dest / $subject");
         return $status;
     }
 
@@ -121,6 +112,6 @@ class Mail
         /*
          * Preparation de l'entete
          */
-        return 'Content-type: text/html; charset=UTF-8;' ;
+        return 'Content-type: text/html; charset=UTF-8;';
     }
 }

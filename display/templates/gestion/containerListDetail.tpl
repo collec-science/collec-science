@@ -1,4 +1,3 @@
-{* Objets > Contenants > Rechercher > *}
 <!-- Liste des containers pour affichage -->
 <script>
 $(document).ready(function () {
@@ -7,6 +6,26 @@ $(document).ready(function () {
 	if (gestion == 1) {
 		dataOrder = [1, 'asc'];
 	}
+	var myStorageContainer = window.localStorage;
+	var maxcol = 16;
+	try {
+			var hb = JSON.parse(myStorageContainer.getItem("sampleSearchColumns"));
+			if (hb.length == 0) {
+				if (isGestion == 1) {
+					hb = [16];
+				} else {
+					hb = [15];
+					maxcol = 15;
+				}
+			}
+		} catch {
+			if (isGestion == 1) {
+					var hb = [16];
+				} else {
+					var hb = [15];
+					maxcol = 15;
+				}
+		}
 	var table = $("#containerList").DataTable( {
 			dom: 'Bfrtip',
 			"language": dataTableLanguage,
@@ -19,9 +38,16 @@ $(document).ready(function () {
             header: true,
             footer: true
         },
+			/*"columnDefs" : [
+				{
+				"targets": hb,
+				"visible": false
+				}
+			],*/
 			"buttons": [
 				{
-					extend: 'colvis'
+					extend: 'colvis',
+					text: '{t}Colonnes affichées{/t}'
 				},
 				'copyHtml5',
 				'excelHtml5',
@@ -31,6 +57,15 @@ $(document).ready(function () {
 			]
 		} );
 	table.order(dataOrder).draw();
+	table.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
+			var hb = [];
+			containerList.columns().every(function () {
+				if (!this.visible()) {
+					hb.push(this.index());
+				}
+				myStorageContainer.setItem("containerSearchColumns", JSON.stringify(hb));
+			});
+		} );
 
 	$(".checkContainerSelect").change( function() {
 		$('.checkContainer').prop('checked', this.checked);
@@ -62,7 +97,7 @@ $(document).ready(function () {
 	$("#checkedButtonContainer").on ("keypress click", function(event) {
 		var action = $("#checkedActionContainer").val();
 		if (action.length > 0) {
-			var conf = confirm("{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
+			var conf = confirm("{t}Attention : cette opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
 			if ( conf  == true) {
 				$(this.form).find("input[name='module']").val(action);
 				$(this.form).prop('target', '_self').submit();
@@ -81,7 +116,8 @@ $(document).ready(function () {
 			"containersSetTrashed":"trashedgroup",
 			"containersEntry":"entry",
 			"containersSetStatus":"status",
-			"containersSetReferent":"referent"
+			"containersSetReferent":"referent",
+			"containersSetCollection":"collection"
 			};
 		$("#checkedActionContainer").change(function () {
 			var action = $(this).val();
@@ -261,6 +297,91 @@ $(document).ready(function () {
 		$("#containers_type_id").change(function () {
 			searchContainer();
 		});
+		/**
+		 * Add children
+		 */
+		 $(".plus").click(function() { 
+			var objet = $(this);
+			addChildren(objet);
+		 });
+		function addChildren(objet) {	
+			var uid = objet.data( "uid" );
+			var url = "index.php";
+			var data = { "module": "containerGetChildren", "uid": uid };
+			objet.hide();
+			var id = objet.attr('id');
+			$.ajax( { url: url, data: data } )
+				.done( function ( d ) {
+					if ( d ) {
+						containers = JSON.parse( d );
+						for (var lst = 0; lst < containers.length; lst++) {
+							var row = "";
+							if (gestion == 1) {
+								row += '<td class="center"><input type="checkbox" class="checkContainer" name="uids[]" value="'+containers[lst].uid+'" ></td>';
+							}
+							row += '<td class="center">';
+							row += '<a href="index.php?module=containerDisplay&uid='+containers[lst].uid+'" title="{t}Consultez le détail{/t}">'+ containers[lst].uid + '</a>';
+							var localId = parseFloat(9000000) + parseFloat( containers[lst].uid);
+								row += '<img class="plus hover" id="' + id + '-' + localId.toString() +'" data-uid="'+containers[lst].uid+'" src="display/images/plus.png" height="15">';
+							row += '</td>';
+							row += '<td class="container" data-uid="'+containers[lst].uid+'" title="">';
+							row += '<a class="tooltiplink"  href="index.php?module=containerDisplay&uid='+containers[lst].uid+'" title="">';
+							row += containers[lst].identifier;
+							row += '</a></td>';
+							row += '<td>'+containers[lst].identifiers+'</td>';	
+							row += '<td';
+							if (containers[lst].trashed == 1) {
+								row += ' class="trashed" title="{t}Contenant mis à la corbeille{/t}"';
+							}
+							row += '>'+containers[lst].object_status_name+'</td>';
+							row += '<td>' +containers[lst].container_family_name + '/'+ containers[lst].container_type_name +'</td>';
+							row += '<td class="nowrap">';
+							if (containers[lst].movement_date) {
+								if (containers[lst].movement_type_id == 1) {
+									row += '<span class="green">';
+								} else {
+									row += '<span class="red">';
+								}
+								row += containers[lst].movement_date;
+								row += '</span>';
+							}
+							row += '</td>';
+							row += '<td>';
+							if (containers[lst].container_uid > 0) {
+								row += '<a href="index.php?module=containerDisplay&uid='+containers[lst].container_uid+'">'+containers[lst].container_identifier+'</a>';
+								row += '<br>{t}col:{/t}'+containers[lst].column_number+' {t}ligne:{/t}'+containers[lst].line_number;
+							}
+							row += '</td>';
+							row += '<td class="center ';
+							if (containers[lst].nb_slots_used < containers[lst].nb_slots_max || containers[lst].nb_slots_max == 0) {
+								row += 'green';
+							} else {
+								row += 'red';
+							}
+							row += '">'+containers[lst].nb_slots_used + '&nbsp;/&nbsp;'+containers[lst].nb_slots_max + '</td>';
+							row += '<td>'+containers[lst].storage_condition_name+'</td>';
+							row += '<td>'+containers[lst].storage_product+'</td>';
+							row += '<td>'+containers[lst].clp_classification+'</td>';
+							row += '<td class="center">';
+							if (containers[lst].document_id > 0) {
+								row += '<a class="image-popup-no-margins" href="index.php?module=documentGet&document_id='+containers[lst].document_id+'&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">';
+								row += '<img src="index.php?module=documentGet&document_id='+containers[lst].document_id+'&attached=0&phototype=2" height="30"></a>';
+							}
+							row += '</td>';
+							row += '<td>'+containers[lst].collection_name + '</td>';
+							row +='<td>'+containers[lst].referent_name+' ' +containers[lst].referent_firstname + '</td>' ;
+							row += '<td class="textareaDisplay">'+containers[lst].object_comment+'</td>';
+							row += '<td>'+ id + '-' + (9000000 + parseFloat(containers[lst].uid))+'</td>';
+							var jRow = $('<tr>').append(row);
+							table.row.add(jRow);
+							$(document).on ("click", "#"+ id + '-' + localId.toString(),function() {
+								addChildren($(this));
+							})
+						}
+						table.order([[maxcol, 'asc']]).draw();
+					}
+				});
+		}
 });
 </script>
 {include file="gestion/displayPhotoScript.tpl"}
@@ -317,8 +438,10 @@ $(document).ready(function () {
 					<th>{t}Produit utilisé{/t}</th>
 					<th>{t}Code CLP{/t}</th>
 					<th>{t}Photo{/t}</th>
+					<th>{t}Collection{/t}</th>
 					<th>{t}Référent{/t}</th>
 					<th>{t}Commentaires{/t}</th>
+					<th>{t}Tri technique{/t}</th>
 				</tr>
 			</thead>
 			<tbody class="nowrap">
@@ -333,6 +456,7 @@ $(document).ready(function () {
 							<a href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="{t}Consultez le détail{/t}">
 								{$containers[lst].uid}
 							</a>
+						<img class="plus hover" id="{$containers[lst].uid + 9000000}" data-uid="{$containers[lst].uid}" src="display/images/plus.png" height="15">
 						</td>
 						<td class="container" data-uid="{$containers[lst].uid}" title="">
 							<a class="tooltiplink"  href="index.php?module=containerDisplay&uid={$containers[lst].uid}" title="">
@@ -375,8 +499,10 @@ $(document).ready(function () {
 								</a>
 							{/if}
 						</td>
+						<td>{$containers[lst].collection_name}</td>
 						<td>{$containers[lst].referent_name} {$containers[lst].referent_firstname}</td>
 						<td class="textareaDisplay">{$containers[lst].object_comment}</td>
+						<td>{$containers[lst].uid + 9000000}</td>
 					</tr>
 				{/section}
 			</tbody>
@@ -393,6 +519,7 @@ $(document).ready(function () {
 						<option value="containersLending">{t}Prêter les contenants et leurs contenus{/t}</option>
 						<option value="containersSetReferent">{t}Assigner un référent aux contenants{/t}</option>
 						<option value="containersSetStatus">{t}Modifier le statut{/t}</option>
+						<option value="containersSetCollection">{t}Assigner une collection aux contenants{/t}</option>
 						<option value="containersExit">{t}Sortir les contenants{/t}</option>
 						<option value="containersEntry">{t}Entrer ou déplacer les contenants au même emplacement{/t}</option>
 						<option value="containersSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
@@ -508,6 +635,22 @@ $(document).ready(function () {
 								<option value="{$status.object_status_id}">{$status.object_status_name}</option>
 							{/foreach}
 						</select>
+				</div>
+			</div>
+			<!-- set collection-->
+			<div class="collection" hidden>
+				<div class="form-group ">
+					<label for="collection_id_change" class="control-label col-sm-4">{t}Nouvelle collection :{/t}</label>
+					<div class="col-sm-8">
+						<select id="collection_id_change" name="collection_id_change" class="form-control">
+							<option value="" selected>{t}Choisissez...{/t}</option>
+							{foreach $collections as $collection}
+							<option value="{$collection.collection_id}">
+								{$collection.collection_name}
+							</option>
+							{/foreach}
+						</select>
+					</div>
 				</div>
 			</div>
 					<div class="center">

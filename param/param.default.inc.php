@@ -7,9 +7,9 @@
  * Parametres par defaut de l'application
  * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
  */
-$APPLI_version = "2.8.4";
-$APPLI_dbversion = "2.8";
-$APPLI_versiondate = _("13/11/2023");
+$APPLI_version = "23.0.0a";
+$APPLI_dbversion = "23.0";
+$APPLI_versiondate = _("28/11/2023");
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -194,7 +194,8 @@ $mapDefaultZoom = 7;
 $MAIL_enabled = 0;
 $MAIL_param = array(
 	"mailTemplate" => "framework/mail/mail.tpl",
-	"from" => "account@society.com"
+	"from" => "account@society.com",
+	"defaultLocale" => "fr"
 );
 /*
  * Nombre maximum d'essais de connexion

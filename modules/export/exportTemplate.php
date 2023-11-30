@@ -25,7 +25,7 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record 
 		 */
-    dataRead($dataClass, $id, "export/exportTemplateChange.tpl", $_REQUEST["idParent"]);
+    dataRead($dataClass, $id, "export/exportTemplateChange.tpl");
     include_once "modules/classes/export/datasetTemplate.class.php";
     $dt = new DatasetTemplate($bdd, $ObjetBDDParam);
     $vue->set($dt->getListFromExportTemplate($id), "datasets");

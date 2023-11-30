@@ -9,7 +9,9 @@ $errors = array(
   520 => "Unknown error",
   404 => "Not Found"
 );
-
+if (isset($_REQUEST["locale"])) {
+  setlanguage($_REQUEST["locale"]);
+}
 switch ($t_module["param"]) {
   case "write":
     include_once "modules/classes/object.class.php";

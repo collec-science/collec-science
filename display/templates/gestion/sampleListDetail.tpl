@@ -16,23 +16,26 @@
         }
 		var scrolly = "2000pt";
 		var isGestion = "{$droits['gestion']}";
+		var maxcol = 20;
 		/*if (limit < 5 && limit > 0 || totalNumber < 5 && totalNumber > 0) {
 			scrolly = "20vh";
 		}*/
 		try {
-			var hb = JSON.parse(myStorageSample.getItem("sampleSearchColumns"));
+			var hb = JSON.parse(myStorageSample.getItem("containerSearchColumns"));
 			if (hb.length == 0) {
 				if (isGestion == 1) {
-					hb = [11,12,13,14,15,16,17,18,19];
+					hb = [11,12,13,14,15,16,17,18,19,20];
 				} else {
-					hb = [10,11,12,13,14,15,16,17,18];
+					hb = [10,11,12,13,14,15,16,17,18,19];
+					maxcol = 19;
 				}
 			}
 		} catch {
 			if (isGestion == 1) {
-					var hb = [11,12,13,14,15,16,17,18,19];
+					var hb = [11,12,13,14,15,16,17,18,19,20];
 				} else {
-					var hb = [10,11,12,13,14,15,16,17,18];
+					var hb = [10,11,12,13,14,15,16,17,18,19];
+					maxcol = 19;
 				}
 		}
 		var buttons = [
@@ -177,13 +180,23 @@
 
 		$( "#checkedButtonSample" ).on( "keypress click", function ( event ) {
 			var action = $( "#checkedActionSample" ).val();
+			var ok = true;
 			if ( action.length > 0 ) {
-				var conf = confirm( "{t}Attention : l'opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
-				if ( conf == true ) {
-					$( this.form ).find( "input[name='module']" ).val( action );
-					$( this.form ).prop( 'target', '_self' ).submit();
-				} else {
-					event.preventDefault();
+				if (action == "samplesCreateEvent") {
+					if (!$("#due_date").val()  && !$("#event_date").val()) {
+						alert(("{t}La date de réalisation ou la date prévue doit être indiquée{/t}"));
+						event.preventDefault();
+						ok = false;
+					}
+				} 
+				if (ok) {
+					var conf = confirm( "{t}Attention : cette opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
+					if ( conf == true ) {
+						$( this.form ).find( "input[name='module']" ).val( action );
+						$( this.form ).prop( 'target', '_self' ).submit();
+					} else {
+						event.preventDefault();
+					}
 				}
 			} else {
 				event.preventDefault();
@@ -299,6 +312,7 @@
 										if ( d.metadata ) {
 											content += "<br><u>{t}Métadonnées :{/t}</u>";
 											dm = d.metadata;
+											var comma = "";
 											for ( key in dm ) {
 												dmunitname = "md_" + key + "_unit";
 												if (d[dmunitname]) {
@@ -309,7 +323,13 @@
 												content += "<br>" + key + mdunit + "{t} : {/t}";
 												if ( Array.isArray( dm[ key ] ) ) {
 													$.each( dm[ key ], function ( i, md ) {
-														content += encodeHtml( md ) + " ";
+														content += comma;
+														if (!md.value) {
+														content += encodeHtml( md );
+														} else {
+															content += encodeHtml (md.value);
+														}
+														comma = ", ";
 													} );
 												} else {
 													try {
@@ -417,7 +437,7 @@
 		}
 		function getTypeEvents() {
 			var col_id = $("#collection_id").val();
-			if (col_id) {
+			if (col_id > 0) {
 				var url="index.php";
 				$.getJSON( url, { "module": "eventTypeGetAjax", "object_type": "1", "collection_id" : col_id }, function ( data ) {
 				if ( data != null ) {
@@ -491,8 +511,134 @@
 				});
 			}
 		});
-	
-	} );
+		/**
+		 * Add children
+		 */
+		 $(".plus").click(function() { 
+			var objet = $(this);
+			addChildren(objet);
+		 });
+		function addChildren(objet) {
+			var uid = objet.data( "uid" );
+			var url = "index.php";
+			var data = { "module": "sampleGetChildren", "uid": uid };
+			objet.hide();
+			var id = objet.attr('id');
+			$.ajax( { url: url, data: data } )
+				.done( function ( d ) {
+					if ( d ) {
+						samples = JSON.parse( d );
+						var table = $("#sampleList").DataTable();
+						for (var lst = 0; lst < samples.length; lst++) {
+							var row = "";
+							if (isGestion == 1) {
+								row += '<td class="center"> <input type="checkbox" class="checkSample" name="uids[]" value="' + samples[lst].uid +'"></td>';
+							}
+							row += '<td class="text-center">';
+							row += '<a href="index.php?module=sampleDisplay&uid='+samples[lst].uid+'" title="{t}Consultez le détail{/t}">';
+							row += samples[lst].uid;
+							row += '</a>';
+							var localId = parseFloat(9000000) + parseFloat( samples[lst].uid);
+							if (samples[lst].nb_derivated_sample > 0) {
+								row += '<img class="plus hover" id="' + id + '-' + localId.toString() +'"';
+								row += 'data-uid="'+ samples[lst].uid + '" src="display/images/plus.png" height="10">';
+							}
+							row += '</td>';
+							row += '<td class="sample nowrap" data-uid="'+samples[lst].uid+'" title="">';
+							row += '<a class="tooltiplink" href="index.php?module=sampleDisplay&uid='+samples[lst].uid+'" title="">';
+							row += samples[lst].identifier;
+							row += '</a>';
+							row += '</td>';
+							row += '<td class="nowrap"> '+ samples[lst].identifiers;
+							if (samples[lst].dbuid_origin.length > 0) {
+								if (samples[lst].identifiers.length > 0) {
+									row += '<br>';
+								}
+								row += "<span title='{t}UID de la base de données d'origine{/t}''>" + samples[lst].dbuid_origin + '</span>';
+							}
+							row += '</td>';
+							row += '<td class="nowrap">'+samples[lst].collection_name+'</td>';
+							row += '<td class="nowrap">'+samples[lst].sample_type_name+'</td>';
+							row += '<td';
+							if (samples[lst].trashed==1) {
+								row += 'class="trashed" title="{t}Échantillon mis à la corbeille{/t}"';
+							}
+							row += '>';
+							row += samples[lst].object_status_name+'</td>';
+							row += '<td class="nowrap">';
+							if (samples[lst].parent_uid.length > 0) {
+								row += '<a class="sample" data-uid="'+samples[lst].parent_uid+'"';
+								row += 'href="index.php?module=sampleDisplay&uid='+samples[lst].parent_uid+'">';
+								row += '<span class="tooltiplink">'+samples[lst].parent_uid+'&nbsp;'+samples[lst].parent_identifier+'</span>';
+								row += '</a>';
+							}
+							row += '</td>';
+							row += '<td class="center">';
+							if (samples[lst].document_id > 0){
+								row += '<a class="image-popup-no-margins"';
+								row += 'href="index.php?module=documentGet&document_id='+samples[lst].document_id+'&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">';
+								row += ' <img src="index.php?module=documentGet&document_id='+samples[lst].document_id+'&attached=0&phototype=2" height="30">';
+								row += '</a>';
+							}
+							row += '</td>';
+							row += '<td class="nowrap">';
+							if (samples[lst].movement_date.length > 0 ) {
+								if (samples[lst].movement_type_id == 1) {
+									row += '<span class="green">';
+								} else {
+									row += '<span class="red">';
+								}
+								row += samples[lst].movement_date;
+								row += '</span>';
+							}
+							row += '</td>';
+							row += '<td class="nowrap">';
+							if (samples[lst].container_uid > 0) {
+								row += '<a href="index.php?module=containerDisplay&uid='+samples[lst].container_uid+'">';
+								row += samples[lst].container_identifier;
+								row += '</a>';
+								row += '<br>{t}col:{/t}'+samples[lst].column_number+' {t}ligne:{/t}'+samples[lst].line_number;
+							}
+							row += '</td>';
+							row += '<td class="nowrap">'+samples[lst].referent_name + ' ' + samples[lst].referent_firstname + '</td>';
+							row += '<td class="nowrap">'+samples[lst].campaign_name + '</td>';
+							row += '<td class="nowrap">'+samples[lst].sampling_place_name+'</td>';
+							row += '<td class="nowrap">'+samples[lst].sampling_date+'</td>';
+							row += '<td class="nowrap">'+samples[lst].sample_creation_date+'</td>';
+							row += '<td class="nowrap">'+samples[lst].expiration_date+'</td>';
+							row += '<td>'+samples[lst].subsample_quantity+'</td>';
+							row += '<td>';
+						
+							var l = 0;
+							var metadata =  samples[lst].metadata_array;
+							for (const meta in metadata) {
+								if (l > 0) {
+									row += '<br>';
+								}
+								l ++;
+								row += meta+':';
+								if (Array.isArray(metadata[meta])) {
+									for (const item in metadata[meta]){
+										row += metatdata[meta].item + '&nbsp;';
+									}
+								} else {
+									row += metadata[meta];
+								}
+							}
+							row += '</td>';
+							row += '<td class="textareaDisplay">'+samples[lst].object_comment+'</td>'; 
+							row += '<td>'+ id + '-' + (9000000 + parseFloat(samples[lst].uid))+'</td>';
+							var jRow = $('<tr>').append(row);
+							table.row.add(jRow);
+							$(document).on ("click", "#"+ id + '-' + localId.toString(),function() {
+								addChildren($(this));
+							})
+						}
+						table.order([[maxcol, 'asc']]).draw();
+					}
+				});
+		};
+	});
 	
 </script>
 <div class="col-lg-12">
@@ -564,6 +710,7 @@
 					<th>{t}Quantité restante{/t}</th>
 					<th>{t}Métadonnées{/t}</th>
 					<th>{t}Commentaires{/t}</th>
+					<th>{t}Tri technique{/t}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -578,6 +725,9 @@
 						<a href="index.php?module=sampleDisplay&uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
 							{$samples[lst].uid}
 						</a>
+						{if $samples[lst].nb_derivated_sample > 0}
+						<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
+						{/if}
 					</td>
 					<td class="sample nowrap" data-uid="{$samples[lst].uid}" title="">
 						<a class="tooltiplink" href="index.php?module=sampleDisplay&uid={$samples[lst].uid}" title="">
@@ -649,6 +799,7 @@
 						{/foreach}
 					</td>
 					<td class="textareaDisplay">{$samples[lst].object_comment}</td>
+					<td>{$samples[lst].uid + 9000000}</td>
 				</tr>
 				{/section}
 			</tbody>
@@ -660,9 +811,12 @@
 			</div>
 		</div>
 		</div>
+
+
+		<!-- form at the bottom of the list-->
 		{if $droits.collection == 1}
 		<div class="row">
-			<div class="col-md-6 protoform form-horizontal">
+			<div class="col-md-6 form-horizontal">
 				{t}Pour les éléments cochés :{/t}
 				<input type="hidden" name="lastModule" value="{$lastModule}">
 				<input type="hidden" name="uid" value="{$data.uid}">

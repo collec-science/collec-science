@@ -15,6 +15,13 @@ $(document).ready(function() {
         $('#metadataForm').submit(function(event) {
         	if ($("#action").val() == "Write") {
                 $('#metadata').alpaca().refreshValidationState(true);
+                var reserved = ["sampling_date", "expiration_date", "sample_creation_date", "change_date"];
+                $(".alpaca-control").each(function (i, e) {
+                    if (reserved.includes($(e).val())) {
+                       alert("{t}Le nom suivant ne peut pas être utilisé (mot réservé dans la base de données) :{/t}" + $(e).val());
+                        event.preventDefault();
+                    }
+                });
                 if(!$('#metadata').alpaca().isValid(true)){
                 	alert("{t}La définition des métadonnées n'est pas valide.{/t}");
                 	event.preventDefault();

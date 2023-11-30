@@ -1,4 +1,7 @@
-{* Objets > échantillons > Rechercher > UID d'un échantillon > Modifier > *}
+<script type="text/javascript">
+	var locale = '{$LANG["date"]["locale"]}';
+	var formatDate = '{$LANG["date"]["formatdate"]}';
+</script>
 <script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
 
 <script type="text/javascript">
@@ -16,34 +19,53 @@
 	}
 
     $(document).ready(function() {
-    	function convertGPStoDD(valeur) {
-    		var parts = valeur.trim().split(/[^\d]+/);
-			if (parts.length == 1) {
-				parts[1] = 0;
-				parts[2] = 0;
-			} else if (parts.length == 2) {
-				parts[2] = 0;
-			}
-			var dd = parseFloat(parts[0]) + ((parseFloat(parts[1]) + parseFloat(parts[2])/60) / 60);
-    		var lastChar = valeur.substr(-1).toUpperCase();
-    		dd = Math.round(dd * 1000000) / 1000000;
-    		if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
-    			dd *= -1;
-    		}
-    		;
-    		return dd;
-    	}
+
+		function convertGPSSecondeToDD(valeur) {
+		var parts = valeur.split(/[^\d]+/);
+		var dd = parseFloat(parts[0]) + parseFloat(parseFloat(parts[1]) / 60) + parseFloat(parseFloat(parts[2]) / 3600);
+		//dd = parseFloat(dd);
+		var lastChar = valeur.substr(-1).toUpperCase();
+		dd = Math.round(dd * 1000000) / 1000000;
+		if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
+			dd *= -1;
+		};
+		return dd;
+	}
+
+	function convertGPSDecimalToDD(valeur) {
+		var parts = valeur.split(/[^\d]+/);
+		var dd = parseFloat(parts[0])
+			+ parseFloat((parts[1] + "." + parts[2]) / 60);
+		var lastChar = valeur.substr(-1).toUpperCase();
+		dd = Math.round(dd * 1000000) / 1000000;
+		if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
+			dd *= -1;
+		}
+		;
+		return dd;
+	}
+
     	$("#latitude").change( function () {
     		var value = $(this).val();
     		if (value.length > 0) {
-    			$("#wgs84_y").val( convertGPStoDD(value));
+				if ($("input[name='degreType']:checked").val() == 1) {
+					value = convertGPSDecimalToDD(value);
+				} else {
+					value = convertGPSSecondeToDD(value);
+				}
+    			$("#wgs84_y").val(value);
 				setLocalisation();
     		}
     	});
-    	$("#longitude").change( function () {
+		$("#longitude").change( function () {
     		var value = $(this).val();
     		if (value.length > 0) {
-    			$("#wgs84_x").val( convertGPStoDD(value));
+				if ($("input[name='degreType']:checked").val() == 1) {
+					value = convertGPSDecimalToDD(value);
+				} else {
+					value = convertGPSSecondeToDD(value);
+				}
+    			$("#wgs84_x").val(value);
 				setLocalisation();
     		}
     	});
@@ -77,7 +99,9 @@
        	    		var schema = value.replace(/&quot;/g,'"');
        	    		showForm(JSON.parse(schema),dataParse);
        	    		$(".alpaca-field-select").combobox();
-       	    		}
+       	    		} else {
+						$("#metadata").alpaca("destroy");
+					}
        	    	})
        	    	;
        	    }
@@ -324,15 +348,12 @@
         	}
 
         });
-		$(".position").change(function() {
-			setLocalisation();
-		});
 
 		function setLocalisation() {
-			var x = $("#wgs84_x").val();
-			var y = $("#wgs84_y").val();
-			if (x.length > 0 && y.length > 0) {
-				setPoint(x, y);
+			var lon = $("#wgs84_x").val();
+			var lat = $("#wgs84_y").val();
+			if (lon.length > 0 && lat.length > 0) {
+				setPosition(lat,lon);
 			}
 		}
 
@@ -642,11 +663,38 @@
 						</select>
 					</div>
 				</div>
+				<div class="form-group">
+					<label for="" class="control-label col-sm-4">
+						{t}Mode de calcul des coordonnées GPS :{/t}
+					</label>
+					<div class="col-sm-8">
+						<table>
+							<tr>
+								<td>
+									{t}Données initiales en degrés/minutes décimales{/t}
+								</td>
+								<td>
+									<input name="degreType" type="radio" checked value="1">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									{t}Données initiales en degrés/minutes/secondes{/t}
+								</td>
+								<td>
+									<input name="degreType" type="radio" value="0">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
 				<div class="form-group geographic">
 					<label for="wy" class="control-label col-md-4">{t}Latitude :{/t}</label>
 					<div class="col-md-8" id="wy">
-						{t}Format sexagesimal (45°01,234N) :{/t}<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
-						{t}Format décimal (45.081667) :{/t}<input id="wgs84_y" name="wgs84_y" placeholder="45.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
+						{t}Format sexagesimal (45°01,234N) :{/t}
+						<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
+						{t}Format décimal (45.081667) :{/t}
+						<input id="wgs84_y" name="wgs84_y" placeholder="45.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
 					</div>
 				</div>
 				<div class="form-group geographic">

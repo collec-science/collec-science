@@ -34,7 +34,7 @@ class Log extends ObjetBDD
             ),
             "log_date" => array(
                 "type" => 3,
-                "requis" => 1,
+                /*"requis" => 1,*/
             ),
             "commentaire" => array(
                 "type" => 0,
@@ -80,18 +80,20 @@ class Log extends ObjetBDD
         return $this->ecrire($data);
     }
 
+
     /**
      * Fonction de purge du fichier de traces
      *
      * @param int $nbJours : nombre de jours de conservation
      *
+     * @return int
      */
     public function purge($nbJours)
     {
         if ($nbJours > 0) {
             $sql = "delete from " . $this->table . "
 					where log_date < current_date - interval '" . $nbJours . " day'";
-            $this->executeSQL($sql);
+            return $this->executeSQL($sql);
         }
     }
 
@@ -138,8 +140,6 @@ class Log extends ObjetBDD
                 )
             );
             return $data[1];
-        } else {
-            return array();
         }
     }
     /**
@@ -151,6 +151,7 @@ class Log extends ObjetBDD
     public function getLastConnections($duration = 36000)
     {
         global $GACL_aco;
+        $connections = array();
         if (isset($_SESSION["login"])) {
             $module = $GACL_aco . "-connection%";
             $token = $GACL_aco . "-connection-token";
@@ -160,7 +161,7 @@ class Log extends ObjetBDD
             order by log_id desc";
             $date = new DateTime("now");
             $date->sub(new DateInterval("PT" . $duration . "S"));
-            return $this->getListeParamAsPrepared(
+            $connections = $this->getListeParamAsPrepared(
                 $sql,
                 array(
                     "login" => $_SESSION["login"],
@@ -169,9 +170,8 @@ class Log extends ObjetBDD
                     "token" => $token
                 )
             );
-        } else {
-            return array();
         }
+        return $connections;
     }
 
     /**
@@ -183,6 +183,7 @@ class Log extends ObjetBDD
      */
     public function getLastConnexionType($login)
     {
+
         if (!empty($login)) {
             global $GACL_aco;
             $like = " like '" . $GACL_aco . "-connection%'";
@@ -198,7 +199,7 @@ class Log extends ObjetBDD
             $connectionType = explode("-", $data["nom_module"]);
             return $connectionType[2];
         } else {
-            return "";
+            return null;
         }
     }
 
@@ -289,7 +290,11 @@ class Log extends ObjetBDD
         $this->sendMailToAdmin(
             sprintf(_("%s - Compte bloqué"), $_SESSION["APPLI_title"]),
             "framework/mail/accountBlocked.tpl",
-            array("login" => $login, "date" => date($_SESSION["MASKDATELONG"])),
+            array(
+                "login" => $login,
+                "date" => date($_SESSION["MASKDATELONG"]),
+                "ipaddress" => getIPClientAddress()
+            ),
             "",
             $login
         );
@@ -320,12 +325,13 @@ class Log extends ObjetBDD
             $message->setSyslog($GACL_aco . "-" . $APPLI_address . ":nbMaxCallReached-" . $messageLog);
             $message->set(_("Le nombre d'accès autorisés pour le module demandé a été atteint. Si vous considérez que la valeur est trop faible, veuillez contacter l'administrateur de l'application"), true);
             $this->sendMailToAdmin(
-                sprintf(_("%s - Trop d'accès à un module"),$_SESSION["APPLI_title"]), 
-                "framework/mail/maxAccessToModule.tpl", 
+                sprintf(_("%s - Trop d'accès à un module"), $_SESSION["APPLI_title"]),
+                "framework/mail/maxAccessToModule.tpl",
                 array("login" => $_SESSION["login"], "module" => $moduleName, "date" => date($_SESSION["MASKDATELONG"])),
-                $moduleName, 
-                $_SESSION["login"])
-                ;
+                $moduleName,
+                $_SESSION["login"]
+            )
+            ;
             return false;
         } else {
             return true;
@@ -371,12 +377,12 @@ class Log extends ObjetBDD
             foreach ($logins as $value) {
                 $admin = $value["login"];
                 $dataLogin = $loginGestion->lireByLogin($admin);
-                if (!empty($dataLogin["mail"])) {
+                if (!empty($dataLogin["mail"]) && $dataLogin["actif"] == 1) {
                     /**
                      * search if a mail has been send to this admin for the same event and the same user recently
                      */
                     $sql = 'select log_id, log_date from log' . " where nom_module = :moduleName" . ' and login = :login' . ' and commentaire = :admin' . ' and log_date > :lastdate' . ' order by log_id desc limit 1';
-                    $dataSql =  array(
+                    $dataSql = array(
                         "admin" => $admin,
                         "login" => $login,
                         "lastdate" => $lastDate,

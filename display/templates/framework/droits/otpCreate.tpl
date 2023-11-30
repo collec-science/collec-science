@@ -4,12 +4,9 @@
     <div class="bg-info ">
       {t}La double identification limite les risques d'usurpation de votre compte.{/t}
       <br>
-      {t}Pour l'activer, vous devrez installer dans votre smartphone une application compatible avec l'identification
-      TOTP, par exemple FreeOTP, Google Authenticator, etc.{/t}
+      {t}Pour l'activer, vous devrez installer dans votre smartphone une application compatible avec l'identificationTOTP, par exemple FreeOTP, Google Authenticator, etc.{/t}
       <br>
-      Une fois l'application installée, scannez le QRCODE, puis tapez le code généré par l'application pour valider
-      votre
-      double identification.
+      {t}Une fois l'application installée, scannez le QRCODE, puis tapez le code généré par l'application pour valider votre double identification.{/t}
     </div>
   </div>
 </div>

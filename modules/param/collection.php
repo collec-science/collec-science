@@ -77,4 +77,75 @@ switch ($t_module["param"]) {
     case "getAjax":
         $vue->set($dataClass->lire($_REQUEST["collection_id"]));
         break;
+    case "generateMails":
+        /**
+         * Search if it's necessary to generate notifications
+         */
+        if ($MAIL_enabled == 1) {
+            $notification = false;
+            $currentDate = date_create();
+            if ($_SESSION["notificationDelay"] > 0) {
+                if (empty($_SESSION["notificationLastDate"])) {
+                    $notification = true;
+                } else {
+                    $lastDate = date_create($_SESSION["notificationDate"]);
+                    $interval = date_diff($lastDate, $currentDate)->format("%a");
+                    if ($interval >= $_SESSION["notificationDelay"]) {
+                        $notification = true;
+                    }
+                }
+            }
+            if ($notification) {
+                require_once "modules/classes/sample.class.php";
+                $sample = new Sample($bdd, $ObjetBDDParam);
+                require_once "modules/classes/event.class.php";
+                $event = new Event($bdd, $ObjetBDDParam);
+                require_once "framework/utils/mail.class.php";
+                $mail = new Mail();
+                $collections = $dataClass->getNotificationDetails();
+                foreach ($collections as $col) {
+                    $data = array();
+                    /**
+                     * Search expired_samples
+                     */
+                    if ($col["expiration_delay"] > 0) {
+                        $dateTo = new $currentDate;
+                        $dateTo->add(new DateInterval("P" . $col["expiration_delay"] . "D"));
+                        $data["samples"] = $sample->getExpirationSamples($col["collection_id"], $currentDate->format("Y-m-d"), $dateTo->format("Y-m-d"));
+                    }
+                    /**
+                     * Search for due events
+                     */
+                    if ($col["event_due_delay"] > 0) {
+                        $dateTo = new $currentDate;
+                        $dateTo->add(new DateInterval("P" . $col["event_due_delay"] . "D"));
+                        $data["events"] = $event->getEventsDueDate($col["collection_id"], $currentDate->format("Y-m-d"), $dateTo->format("Y-m-d"));
+                    }
+
+                    if (!empty($data["samples"]) || !empty($data["events"])) {
+                        $data["collection_name"] = $col["collection_name"];
+                        isset($_SESSION["FORMATDATE"])? $locale =  $_SESSION["FORMATDATE"] : $locale = $MAIL_param["defaultLocale"];
+                        $mail->SendMailSmarty(
+                            $SMARTY_param,
+                            $col["notification_mails"],
+                            $_SESSION["APPLI_title"] . " - " . _(sprintf("Notifications concernant la collection %s", $col["collection_name"])),
+                            "param/collectionMail.tpl",
+                            $data,
+                           $locale,
+                            false
+                        );
+
+                    }
+                }
+                /**
+                 * Update the date of the last mail send
+                 */
+                if (!isset($dbparam)) {
+                    include_once 'framework/dbparam/dbparam.class.php';
+                    $dbparam = new DbParam($bdd, $ObjetBDDParam);
+                }
+                $dbparam->setParameter("notificationLastDate", date('Y-m-d'));
+            }
+        }
+        break;
 }

@@ -260,7 +260,7 @@
 				{t}Échantillons dérivés{/t}
 			</a>
 		</li>
-		{if $modifiable == 1 || $consult_sees_all == 1}
+		{if $modifiable == 1 || $consultSeesAll == 1}
 		<li class="nav-item">
             <a class="nav-link" id="tab-document" href="#nav-document"  data-toggle="tab" role="tab" aria-controls="nav-document" aria-selected="false">
 				<img src="display/images/camera.png" height="25">
@@ -559,7 +559,7 @@
 				{include file="gestion/sampleListDetail.tpl"}
 			</div>
 		</div>
-		{if $modifiable == 1 || $consult_sees_all == 1 }
+		{if $modifiable == 1 || $consultSeesAll == 1 }
 			<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
 				<div class="col-md-12">
 					{include file="gestion/documentList.tpl"}

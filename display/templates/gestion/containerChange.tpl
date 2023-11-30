@@ -1,15 +1,21 @@
-{* Objets > Contenants > Rechercher > UID d'un contenant > Modifier > *}
 <script>
 $(document).ready(function() {
-	function convertGPStoDD(valeur) {
-		var parts = valeur.trim().split(/[^\d]+/);
-		if (parts.length == 1) {
-				parts[1] = 0;
-				parts[2] = 0;
-			} else if (parts.length == 2) {
-				parts[2] = 0;
-			}
-		var dd = parseFloat(parts[0]) + ((parseFloat(parts[1]) + parseFloat(parts[2])/60) / 60);
+	function convertGPSSecondeToDD(valeur) {
+		var parts = valeur.split(/[^\d]+/);
+		var dd = parseFloat(parts[0]) + parseFloat(parseFloat(parts[1]) / 60) + parseFloat(parseFloat(parts[2]) / 3600);
+		//dd = parseFloat(dd);
+		var lastChar = valeur.substr(-1).toUpperCase();
+		dd = Math.round(dd * 1000000) / 1000000;
+		if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
+			dd *= -1;
+		};
+		return dd;
+	}
+
+	function convertGPSDecimalToDD(valeur) {
+		var parts = valeur.split(/[^\d]+/);
+		var dd = parseFloat(parts[0])
+			+ parseFloat((parts[1] + "." + parts[2]) / 60);
 		var lastChar = valeur.substr(-1).toUpperCase();
 		dd = Math.round(dd * 1000000) / 1000000;
 		if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
@@ -19,19 +25,29 @@ $(document).ready(function() {
 		return dd;
 	}
 	$("#latitude").change( function () {
-		var value = $(this).val();
-		if (value.length > 0) {
-			$("#wgs84_y").val( convertGPStoDD(value));
-			setLocalisation();
-		}
-	});
-	$("#longitude").change( function () {
-		var value = $(this).val();
-		if (value.length > 0) {
-			$("#wgs84_x").val( convertGPStoDD(value));
-			setLocalisation();
-		}
-	});
+    		var value = $(this).val();
+    		if (value.length > 0) {
+				if ($("input[name='degreType']:checked").val() == 1) {
+					value = convertGPSDecimalToDD(value);
+				} else {
+					value = convertGPSSecondeToDD(value);
+				}
+    			$("#wgs84_y").val(value);
+				setLocalisation();
+    		}
+    	});
+		$("#longitude").change( function () {
+    		var value = $(this).val();
+    		if (value.length > 0) {
+				if ($("input[name='degreType']:checked").val() == 1) {
+					value = convertGPSDecimalToDD(value);
+				} else {
+					value = convertGPSSecondeToDD(value);
+				}
+    			$("#wgs84_x").val(value);
+				setLocalisation();
+    		}
+    	});
 
 var options;
 var container_type_id = "{$data.container_type_id}";
@@ -64,7 +80,7 @@ if (container_type_id > 0) {
 	if (container_type_id > 0) {
 		var type_libelle = "{$data.container_type_name}";
 		//type_libelle = type_libelle.replace(/'/g, "\\'");
-		options = '<option value="' + {$data.container_type_id} + '" selected>'+ type_libelle + ' </option>';
+		options = '<option value="' + "{$data.container_type_id}" + '" selected>'+ type_libelle + ' </option>';
 		$("#container_type_id").html(options);
 	}
 
@@ -76,17 +92,14 @@ if (container_type_id > 0) {
 		 if (!containerType)
 			event.preventDefault();
 	 });
-	 	$(".position").change(function() {
-			setLocalisation();
-		});
 
-		function setLocalisation() {
-			var x = $("#wgs84_x").val();
-			var y = $("#wgs84_y").val();
-			if (x.length > 0 && y.length > 0) {
-				setPoint(x, y);
-			}
+	function setLocalisation() {
+		var lon = $("#wgs84_x").val();
+		var lat = $("#wgs84_y").val();
+		if (lon.length > 0 && lat.length > 0) {
+			setPosition(lat,lon);
 		}
+	}
 });
 
 </script>
@@ -138,6 +151,21 @@ if (container_type_id > 0) {
 			</div>
 		</div>
 		<div class="form-group">
+			<label for="collection_id" class="control-label col-md-4">{t}Collection :{/t}</label>
+			<div class="col-md-8">
+				<select id="collection_id" name="collection_id" class="form-control">
+					<option value=""  {if $data.collection_id == ""}selected{/if}>
+						{t}Choisissez...{/t}
+					</option>
+					{foreach $collections as $collection}
+						<option value="{$collection.collection_id}" {if $data.collection_id == $collection.collection_id}selected{/if}>
+							{$collection.collection_name}
+						</option>
+					{/foreach}
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
 			<label for="object_status_id" class="control-label col-md-4"><span class="red">*</span>  {t}Statut :{/t}</label>
 			<div class="col-md-8">
 				<select id="object_status_id" name="object_status_id" class="form-control">
@@ -147,6 +175,31 @@ if (container_type_id > 0) {
 					</option>
 				{/section}
 				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="" class="control-label col-sm-4">
+				{t}Mode de calcul des coordonnées GPS :{/t}
+			</label>
+			<div class="col-sm-8">
+				<table>
+					<tr>
+						<td>
+							{t}Données initiales en degrés/minutes décimales{/t}
+						</td>
+						<td>
+							<input name="degreType" type="radio" checked value="1">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							{t}Données initiales en degrés/minutes/secondes{/t}
+						</td>
+						<td>
+							<input name="degreType" type="radio" value="0">
+						</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		<div class="form-group">

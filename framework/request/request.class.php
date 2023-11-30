@@ -45,7 +45,7 @@ class Request extends ObjetBDD
                 "type" => 0
             )
         );
-        if (! is_array($param)) {
+        if (!is_array($param)) {
             $param = array();
         }
         parent::__construct($bdd, $param);
@@ -74,9 +74,10 @@ class Request extends ObjetBDD
      * @param int $request_id
      * @return array
      */
-    function exec($request_id)
+    function exec(int $request_id)
     {
-        if ($request_id > 0 && is_numeric($request_id)) {
+        $result = array();
+        if ($request_id > 0) {
             $req = $this->lire($request_id);
             if (!empty($req["body"])) {
                 /*
@@ -91,8 +92,9 @@ class Request extends ObjetBDD
                  */
                 $req["last_exec"] = $this->getDateHeure();
                 $this->ecrire($req);
-                return $this->getListeParam($req["body"]);
+                $result = $this->getListeParam($req["body"]);
             }
         }
+        return $result;
     }
 }

@@ -51,6 +51,7 @@
 			if ($("#trashed").val() == 1) ok = true;
 			if ($("#referent_id").val() > 0) ok = true;
 			if ($("#movement_reason_id").val() > 0) ok = true;
+			if ($("#collection_id").val() > 0) ok = true;
 			if (ok == false) event.preventDefault();
 		});
 
@@ -71,6 +72,7 @@
 			$("#date_to").datepicker("setDate", now );
 			$("#name").val("");
 			$("#trashed").val("0");
+			$("#collection_id").prop("selectedIndex", 0).change();
 			$("#uidsearch").focus();
 		});
 		/* Management of tabs */
@@ -192,6 +194,21 @@
 			</div>
       </div>
 			<div class="tab-pane fade" id="navsearch-others" role="tabpanel" aria-labelledby="tabsearch-others">
+				<div class="row">
+					<div class="form-group">
+						<label for="collection_id" class="col-sm-3 control-label">{t}Collection :{/t}</label>
+						<div class="col-sm-6">
+							<select id="collection_id" name="collection_id" class="form-control">
+							<option value="" {if $containerSearch.collection_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+							{foreach $collectionsSearch as $collection}
+							<option value="{$collection.collection_id}" {if $collection.collection_id == $containerSearch.collection_id}selected{/if}>
+							{$collection.collection_name}
+							</option>
+							{/foreach}
+							</select>
+						</div>
+					</div>
+				</div>
 				<div class="row">
 					<div class="form-group">
 						<label for="referent_id" class="col-sm-3 control-label lexical" data-lexical="referent">{t}Référent :{/t}</label>

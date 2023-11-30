@@ -1,6 +1,8 @@
 <?php
 
-class FileException extends Exception {}
+class FileException extends Exception
+{
+}
 /**
  * Ensemble de fonctions utilisees pour la gestion des fiches
  */
@@ -34,9 +36,6 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = 0)
     if (is_numeric($id)) {
 
       try {
-        if (!is_numeric($idParent)) {
-          $idParent = 0;
-        }
         $data = $dataClass->lire($id, true, $idParent);
       } catch (FrameworkException | ObjetBDDException | PDOException $e) {
         if ($OBJETBDD_debugmode > 0) {
@@ -49,12 +48,9 @@ function dataRead($dataClass, $id, $smartyPage, $idParent = 0)
         $message->setSyslog($e->getMessage());
       }
     }
-    /**
-         * Affectation des donnees a smarty
-         */
-    if (!is_array($data)) {
-      $data = array();
-    }    
+    /*
+     * Affectation des donnees a smarty
+     */
     $vue->set($data, "data");
     $vue->set($smartyPage, "corps");
     return $data;
@@ -86,13 +82,23 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
         $log->setLog($_SESSION["login"], get_class($dataClass) . "-write", $id);
       }
     } else {
-      $message->set(_("Un problème est survenu lors de l'enregistrement. Si le problème persiste, contactez votre support"), true);
-      $message->setSyslog(_("La clé n'a pas été retournée lors de l'enregistrement dans ") . get_class($dataClass));
+      $message->set(
+        _(
+          "Un problème est survenu lors de l'enregistrement. Si le problème persiste, contactez votre support"
+        ),
+        true
+      );
+      $message->setSyslog(
+        _("La clé n'a pas été retournée lors de l'enregistrement dans ") . get_class($dataClass)
+      );
       $module_coderetour = -1;
     }
   } catch (PDOException | ObjetBDDException $e) {
     if (strpos($e->getMessage(), "nique violation") !== false) {
-      $message->set(_("Un enregistrement portant déjà ce nom existe déjà dans la base de données."), true);
+      $message->set(
+        _("Un enregistrement portant déjà ce nom existe déjà dans la base de données."),
+        true
+      );
     } else {
       $message->set($e->getMessage(), true);
     }
@@ -106,7 +112,7 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
     $message->setSyslog($e->getMessage());
     $module_coderetour = -1;
   }
-  return ($id);
+  return $id;
 }
 
 /**
@@ -119,7 +125,7 @@ function dataWrite($dataClass, $data, $isPartOfTransaction = false)
  */
 function dataDelete($dataClass, $id, $isPartOfTransaction = false)
 {
-  global $message, $module_coderetour, $log, $OBJETBDD_debugmode;
+  global $message, $module_coderetour, $log;
   $module_coderetour = -1;
   $ok = true;
   if (is_array($id)) {
@@ -141,11 +147,9 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
         $module_coderetour = 1;
       }
       $log->setLog($_SESSION["login"], get_class($dataClass) . "-delete", $id);
-    }
-    catch (ObjetBDDException $eo) {
+    } catch (ObjetBDDException $eo) {
       $message->set($eo->getMessage(), true);
-    }
-    catch (PDOException $e) {
+    } catch (PDOException $e) {
       foreach ($dataClass->getErrorData(1) as $messageError) {
         $message->setSyslog($messageError);
       }
@@ -153,7 +157,10 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
        * recherche des erreurs liees a une violation de cle etrangere
        */
       if (strpos($e->getMessage(), "[23503]") !== false) {
-        $message->set(_("La suppression n'est pas possible : des informations sont référencées par cet enregistrement"), true);
+        $message->set(
+          _("La suppression n'est pas possible : des informations sont référencées par cet enregistrement"),
+          true
+        );
       }
       if ($message->getMessageNumber() == 0) {
         $message->set(_("Problème lors de la suppression"), true);
@@ -168,7 +175,7 @@ function dataDelete($dataClass, $id, $isPartOfTransaction = false)
     $message->set(_("Suppression impossible : la clé n'est pas numérique ou n'a pas été fournie"));
     $ret = -1;
   }
-  return ($ret);
+  return $ret;
 }
 
 /**
@@ -181,28 +188,29 @@ function setlanguage($langue)
   global $language, $LANG, $APPLI_cookie_ttl, $APPLI_menufile, $menu, $ObjetBDDParam;
 
   /*
-     * Initialisation des parametres pour gettext
-     */
+   * Initialisation des parametres pour gettext
+   */
+
   initGettext($langue);
 
   /*
-     * Chargement de la langue par defaut
-     */
-  include 'locales/' . $language . ".php";
+   * Chargement de la langue par defaut
+   */
+  include 'locales/' . $langue . ".php";
   /*
-     * On gere le cas ou la langue selectionnee n'est pas la langue par defaut
-     */
+   * On gere le cas ou la langue selectionnee n'est pas la langue par defaut
+   */
   if ($language != $langue) {
     $LANGORI = $LANG;
     /*
-         * Test de l'existence du fichier locales selectionne
-         */
+     * Test de l'existence du fichier locales selectionne
+     */
     if (file_exists('locales/' . $langue . '.php')) {
       include 'locales/' . $langue . '.php';
       $LANGDIFF = $LANG;
       /*
-             * Fusion des deux tableaux
-             */
+       * Fusion des deux tableaux
+       */
       $LANG = array();
       $LANG = array_replace_recursive($LANGORI, $LANGDIFF);
     }
@@ -210,22 +218,22 @@ function setlanguage($langue)
   $ObjetBDDParam["formatDate"] = $_SESSION["FORMATDATE"];
   $_SESSION["ObjetBDDParam"] = $ObjetBDDParam;
   /*
-     * Mise en session de la langue
-     */
+   * Mise en session de la langue
+   */
   $_SESSION['LANG'] = $LANG;
   /*
-     * Regeneration du menu
-     */
+   * Regeneration du menu
+   */
   include_once 'framework/navigation/menu.class.php';
   $menu = new Menu($APPLI_menufile);
   $_SESSION["menu"] = $menu->generateMenu();
   /*
-     * Appel des fonctions specifiques de l'application
-     */
+   * Appel des fonctions specifiques de l'application
+   */
   include "modules/afterChangeLanguage.php";
   /*
-     * Ecriture du cookie
-     */
+   * Ecriture du cookie
+   */
   $cookieParam = session_get_cookie_params();
   $cookieParam["lifetime"] = $APPLI_cookie_ttl;
   if (!$APPLI_modeDeveloppement) {
@@ -233,7 +241,15 @@ function setlanguage($langue)
   }
   $cookieParam["httponly"] = true;
 
-  setcookie('langue', $langue, time() + $APPLI_cookie_ttl, $cookieParam["path"], $cookieParam["domain"], $cookieParam["secure"], $cookieParam["httponly"]);
+  setcookie(
+    'langue',
+    $langue,
+    time() + $APPLI_cookie_ttl,
+    $cookieParam["path"],
+    $cookieParam["domain"],
+    $cookieParam["secure"],
+    $cookieParam["httponly"]
+  );
 }
 
 /**
@@ -246,27 +262,27 @@ function setlanguage($langue)
 function initGettext($langue)
 {
   /*
-     * Pour smarty-gettext (gettext)
-     */
+   * Pour smarty-gettext (gettext)
+   */
 
   /*
-     * Attention :
-     * gettext fonctionne avec setlocale. Le problème est que setlocale dépend des locales installées sur le serveur.
-     * Par exemple, si en_GB n'est pas installé alors setlocale(LC_ALL, "en_GB") ne va rien faire.
-     * L'astuce utilisée ici est de ne pas compter sur setlocale (forcé à C, la localisation portable par défaut)
-     * mais de détourner l'usage du domaine pour préciser la langue !
-     * Va donc chercher par exemple dans locales/C/LC_MESSAGES/en.mo et non locales/en/LC_MESSAGES/mydomain.mo
-     * Permet non seulement d'éviter des problèmes liés à l'environnement
-     * mais en plus rend l'arborescence plus simple en mettant toutes les langues dans le même répertoire
-     * sans avoir à gérer le domaine, souvent superflu et source possible d'erreur.
-     * (il sera toujours possible de rétablir le domaine si besoin, avec un domaine de la forme $domaine_$langue
-     */
+   * Attention :
+   * gettext fonctionne avec setlocale. Le problème est que setlocale dépend des locales installées sur le serveur.
+   * Par exemple, si en_GB n'est pas installé alors setlocale(LC_ALL, "en_GB") ne va rien faire.
+   * L'astuce utilisée ici est de ne pas compter sur setlocale (forcé à C, la localisation portable par défaut)
+   * mais de détourner l'usage du domaine pour préciser la langue !
+   * Va donc chercher par exemple dans locales/C/LC_MESSAGES/en.mo et non locales/en/LC_MESSAGES/mydomain.mo
+   * Permet non seulement d'éviter des problèmes liés à l'environnement
+   * mais en plus rend l'arborescence plus simple en mettant toutes les langues dans le même répertoire
+   * sans avoir à gérer le domaine, souvent superflu et source possible d'erreur.
+   * (il sera toujours possible de rétablir le domaine si besoin, avec un domaine de la forme $domaine_$langue
+   */
   /*
-     * Attention au cache :
-     * le cache de gettext est coriace et peut amener à l'apparition d'ancienne traduction
-     * lors d'une modification d'un fichier de traduction .mo il est recommander de relancer le serveur :
-     * sudo service apache2 reload
-     */
+   * Attention au cache :
+   * le cache de gettext est coriace et peut amener à l'apparition d'ancienne traduction
+   * lors d'une modification d'un fichier de traduction .mo il est recommander de relancer le serveur :
+   * sudo service apache2 reload
+   */
   // var_dump($langue); // aide à la traduction lors du développement
   setlocale(LC_ALL, "C.UTF-8", "C"); // setlocale pour linux // C = localisation portable par défaut
   // Attention : La valeur retournée par setlocale() dépend du système sur lequel PHP est installé. setlocale() retourne exactement ce que la fonction système setlocale retourne.
@@ -313,14 +329,14 @@ function check_encoding($data)
 function getIPClientAddress()
 {
   /*
-     * Recherche si le serveur est accessible derriere un reverse-proxy
-     */
+   * Recherche si le serveur est accessible derriere un reverse-proxy
+   */
   if (isset($_SERVER["HTTP_X_FORWARDED_FOR"])) {
     return $_SERVER["HTTP_X_FORWARDED_FOR"];
   } else if (isset($_SERVER["REMOTE_ADDR"])) {
     /*
-         * Cas classique
-         */
+     * Cas classique
+     */
     return $_SERVER["REMOTE_ADDR"];
   } else {
     return -1;
@@ -363,24 +379,24 @@ function getHeaders($radical = "")
   return $header;
 
   /*
-     * Fonction equivalente pour NGINX
-     */
+   * Fonction equivalente pour NGINX
+   */
   /*
-     * function apache_request_headers($radical = "") {
-     * foreach($_SERVER as $key=>$value) {
-     * if (substr($key,0,5)=="HTTP_") {
-     * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
-     * $out[$key]=$value;
-     * }else{
-     * $out[$key]=$value;
-     * }
-     * }
-     * return $out;
-     * }
-     * }
-     * printr($_SERVER);
-     * return apache_request_headers();
-     */
+   * function apache_request_headers($radical = "") {
+   * foreach($_SERVER as $key=>$value) {
+   * if (substr($key,0,5)=="HTTP_") {
+   * $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
+   * $out[$key]=$value;
+   * }else{
+   * $out[$key]=$value;
+   * }
+   * }
+   * return $out;
+   * }
+   * }
+   * printr($_SERVER);
+   * return apache_request_headers();
+   */
 }
 
 /**
@@ -429,16 +445,17 @@ function phpeol()
 }
 class ApiCurlException extends Exception
 {
-};
+}
+;
 /**
  * call a api with curl
  * code from
  * @param string $method
  * @param string $url
  * @param array $data
- * @return bool|string
+ * @return void
  */
-function apiCall($method, $url, $certificate_path = "", $data = array(), $modeDebug = false) 
+function apiCall($method, $url, $certificate_path = "", $data = array(), $modeDebug = false)
 {
   $curl = curl_init();
   if (!$curl) {
@@ -482,7 +499,12 @@ function apiCall($method, $url, $certificate_path = "", $data = array(), $modeDe
    */
   $res = curl_exec($curl);
   if (!$res) {
-    throw new ApiCurlException(sprintf(_("Une erreur est survenue lors de l'exécution de la requête vers le serveur distant. Code d'erreur CURL : %s"), curl_error($curl)));
+    throw new ApiCurlException(
+      sprintf(
+        _("Une erreur est survenue lors de l'exécution de la requête vers le serveur distant. Code d'erreur CURL : %s"),
+        curl_error($curl)
+      )
+    );
   }
   curl_close($curl);
   return $res;
@@ -491,23 +513,24 @@ function apiCall($method, $url, $certificate_path = "", $data = array(), $modeDe
 /**
  * Fonction permettant de reorganiser les donnees des fichiers telecharges,
  * pour une utilisation directe en tableau
- * @return multitype:multitype:NULL  unknown
+ * @return array
  */
 function formatFiles($attributName = "documentName")
 {
-    global $_FILES;
-    $files = array();
-    $fdata = $_FILES[$attributName];
-    if (is_array($fdata['name'])) {
-        for ($i = 0; $i < count($fdata['name']); ++$i) {
-            $files[] = array(
-                'name'    => $fdata['name'][$i],
-                'type'  => $fdata['type'][$i],
-                'tmp_name' => $fdata['tmp_name'][$i],
-                'error' => $fdata['error'][$i],
-                'size'  => $fdata['size'][$i]
-            );
-        }
-    } else $files[] = $fdata;
-    return $files;
+  global $_FILES;
+  $files = array();
+  $fdata = $_FILES[$attributName];
+  if (is_array($fdata['name'])) {
+    for ($i = 0; $i < count($fdata['name']); ++$i) {
+      $files[] = array(
+        'name' => $fdata['name'][$i],
+        'type' => $fdata['type'][$i],
+        'tmp_name' => $fdata['tmp_name'][$i],
+        'error' => $fdata['error'][$i],
+        'size' => $fdata['size'][$i]
+      );
+    }
+  } else
+    $files[] = $fdata;
+  return $files;
 }

@@ -2,10 +2,11 @@
 <script src="display/node_modules/leaflet-draw/dist/leaflet.draw.js"></script>
 <script>
     var sampling_place_init = "{$sampleSearch.sampling_place_id}";
+    var eventTypeInit = "{$sampleSearch.event_type_id}";
     var appli_code ="{$APPLI_code}";
     $(document).ready(function () {
         var isGestion = "{$droits['gestion']}";
-        var consult_sees_all = "{$consult_sees_all}";
+        var consultSeesAll = "{$consultSeesAll}";
         /*
          * Verification que des criteres de selection soient saisis
          */
@@ -95,7 +96,7 @@
         $("#showmetadata2").click(function () {
         $("#metadatarow2").show();
         });
-        if (isGestion == 1 || consult_sees_all == 1) {
+        if (isGestion == 1 || consultSeesAll == 1) {
         var metadataFieldInitial = [];
             {foreach $sampleSearch.metadata_field as $val}
                 metadataFieldInitial.push ( "{$val}" );
@@ -105,7 +106,7 @@
             regenerateMetadata();
         });
         function regenerateMetadata() {
-            if (isGestion == 1 || consult_sees_all == 1) {
+            if (isGestion == 1 || consultSeesAll == 1) {
                 /* regenerate the list of metadata */
                 var sampleTypeId = $("#sample_type_id").val();
                 if (sampleTypeId != lastSampletypeId && sampleTypeId) {
@@ -188,14 +189,46 @@
                     }
                 });
         }
+        function getEventTypes() {
+            var colid = $("#collection_id").val();
+            if (!colid > 0) {
+                colid = 0;
+            }
+            var url = "index.php";
+            var data = { 
+                "module":"eventTypeGetAjax", 
+                "collection_id": colid,
+                "object_type" : 1
+            };
+            $.ajax ( { url:url, data: data})
+            .done (function( d ) {
+                    if (d ) {
+                    d = JSON.parse(d);
+                    options = '<option value="">{t}Choisissez...{/t}</option>';
+                    for (var i = 0; i < d.length; i++) {
+                        var libelle = "";
+                        options += '<option value="'+d[i].event_type_id + '"';
+                        if (d[i].event_type_id = eventTypeInit) {
+                            options += 'selected';
+                        }
+                        options += '>'+ d[i].event_type_name+'</option>';
+                    }
+                    $("#event_type_id").html(options);
+                }
+            });
+        }
 
         $("#collection_id").change ( function () {
             getSamplingPlace();
+            getEventTypes();
+
         });
         /*
           * Initialisation a l'ouverture de la page
           */
         getSamplingPlace();
+        getEventTypes();
+
 
         $("#razid").on ("click keyup", function () {
             metadataFieldInitial = [];
@@ -298,7 +331,7 @@
         /**
          * Initialize
          */
-        if (isGestion == 1 || consult_sees_all == 1) {
+        if (isGestion == 1 || consultSeesAll == 1) {
             regenerateMetadata();
         }
         try{

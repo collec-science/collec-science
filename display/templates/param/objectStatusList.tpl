@@ -1,4 +1,3 @@
-{* Paramètres > Statuts des objets > *}
 <h2>{t}Liste des statuts utilisables pour les objets{/t}</h2>
 <div class="row">
 	<div class="col-md-6">
@@ -14,7 +13,9 @@
 				<tr>
 					<td class="center">{$data[lst].object_status_id}</td>
 					<td>
-						{$data[lst].object_status_name}
+						<a href="index.php?module=objectStatusChange&object_status_id={$data[lst].object_status_id}">
+							{$data[lst].object_status_name}
+						</a>
 					</td>
 				</tr>
 				{/section}

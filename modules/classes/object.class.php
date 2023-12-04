@@ -15,14 +15,22 @@ class ObjectClass extends ObjetBDD
 {
 
     public $dataPrint, $xslFile, $subsample;
-    private $movement;
+    public Movement $movement;
+    public Event $event;
+    public Document $document;
+    public Booking $booking;
+    public ObjectIdentifier $oi;
+
+
     private $barcode;
+
 
     private $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id, change_date, uuid, trashed,
                   location_accuracy, geom, object_comment,
                   sample_type_id,
                   case when s.collection_id is null then c.collection_id else s.collection_id end as collection_id,
-                  container_type_id
+                  container_type_id,
+                  last_movement_id
                   from object
                   left outer join sample s using (uid)
                   left outer join container c using (uid)";
@@ -146,36 +154,48 @@ class ObjectClass extends ObjetBDD
     {
         if ($uid > 0 && is_numeric($uid)) {
             try {
+                if (!isset($this->movement)) {
+                    $this->movement = $this->classInstanciate("Movement", "movement.class.php");
+                }
+                if (!isset($this->event)) {
+                    $this->event = $this->classInstanciate("Event", "event.class.php");
+                }
+                if (!isset($this->document)) {
+                    $this->document = $this->classInstanciate("Document", "document.class.php");
+                }
+                if (!isset($this->booking)) {
+                    $this->booking = $this->classInstanciate("Booking", "booking.class.php");
+                }
+                if (!isset($this->oi)) {
+                    $this->oi = $this->classInstanciate("ObjectIdentifier", "objectIdentifier.class.php");
+                }
                 /*
                  * Supprime les mouvements associes
                  */
-                require_once 'modules/classes/movement.class.php';
-                $movement = new Movement($this->connection, $this->paramori);
-                $movement->supprimerChamp($uid, "uid");
+                $data = $this->lire($uid);
+                if (!empty($data["last_movement_id"])) {
+                    $movement_id = $data["last_movement_id"];
+                    $data["last_movement_id"] = "";
+                    parent::ecrire ($data);
+                    $this->movement->supprimer($movement_id);
+                }
+                $this->movement->supprimerChamp($uid, "uid");
                 /*
                  * Supprime les evenements associes
                  */
-                require_once 'modules/classes/event.class.php';
-                $event = new Event($this->connection, $this->paramori);
-                $event->supprimerChamp($uid, "uid");
+                $this->event->supprimerChamp($uid, "uid");
                 /**
                  * Supprime les documents associés
                  */
-                require_once 'modules/classes/document.class.php';
-                $document = new Document($this->connection, $this->paramori);
-                $document->supprimerChamp($uid, "uid");
+                $this->document->supprimerChamp($uid, "uid");
                 /**
                  * Supprime les réservations
                  */
-                require_once 'modules/classes/booking.class.php';
-                $booking = new Booking($this->connection, $this->paramori);
-                $booking->supprimerChamp($uid, "uid");
+                $this->booking->supprimerChamp($uid, "uid");
                 /**
                  * Supprime les identifiants secondaires
                  */
-                require_once 'modules/classes/objectIdentifier.class.php';
-                $oi = new ObjectIdentifier($this->connection, $this->paramori);
-                $oi->supprimerChamp($uid, "uid");
+                $this->oi->supprimerChamp($uid, "uid");
 
                 /*
                  * Supprime l'objet

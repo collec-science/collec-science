@@ -21,7 +21,7 @@
 			scrolly = "20vh";
 		}*/
 		try {
-			var hb = JSON.parse(myStorageSample.getItem("containerSearchColumns"));
+			var hb = JSON.parse(myStorageSample.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
 				if (isGestion == 1) {
 					hb = [11,12,13,14,15,16,17,18,19,20];

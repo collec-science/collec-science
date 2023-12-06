@@ -84,7 +84,7 @@
 				<div class="form-group">
 					<label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (CSV) :{/t}</label>
 					<div class="col-md-8">
-						<input type="file" name="upfile" required>
+						<input class="form-control" type="file" name="upfile" required>
 					</div>
 				</div>
 				<div class="form-group center">

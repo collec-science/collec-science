@@ -41,3 +41,35 @@
   </table>
   </div>
 </div>
+
+{if $droits["param"] == 1}
+	<div class="row col-md-6">
+		<fieldset>
+			<legend>{t}Importer d'un modèle d'export provenant d'une autre base de données Collec-Science{/t}</legend>
+			<form class="form-horizontal" id="exportTemplateImport" method="post" action="index.php" enctype="multipart/form-data">
+				<input type="hidden" name="module" value="exportTemplateImport">
+				<div class="form-group">
+					<label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
+					<div class="col-md-8">
+						<input class="form-control" type="file" name="upfile" required>
+					</div>
+				</div>
+				<div class="form-group center">
+					<button type="submit" class="btn btn-primary">{t}Importer le modèle{/t}</button>
+				</div>
+				<div class="bg-info">
+					{t}L'importation est basée sur un fichier exporté depuis une autre instance de Collec-Science.{/t}
+					<br>
+          {t}Les données sont fournies au format JSON, et permettent d'alimenter les tables :{/t}
+          <ul>
+            <li>export_template</li>
+            <li>export_dataset</li>
+            <li>dataset_template</li>
+            <li>dataset_column</li>
+            <li>translator</li>
+          </ul>
+				</div>
+			</form>
+		</fieldset>
+	</div>
+{/if}

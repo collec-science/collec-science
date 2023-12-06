@@ -56,7 +56,7 @@ class Message
    */
   function get()
   {
-    if ($this->displaySyslog) {
+    if ($this->_displaySyslog) {
       return array_merge($this->_message, $this->_syslog);
     } else {
       return $this->_message;
@@ -81,9 +81,7 @@ class Message
    */
   function getAsHtml()
   {
-    $data = "";
-    $i = 0;
-    if ($this->displaySyslog) {
+    if ($this->_displaySyslog) {
       $tableau = array_merge($this->_message, $this->_syslog);
     } else {
       $tableau = $this->_message;
@@ -306,7 +304,7 @@ class VueSmarty extends Vue
     }
 
     /*
-         * Rrecuperation des messages
+         * Recuperation des messages
          */
     $this->smarty->assign("message", $message->getAsHtml());
     /*

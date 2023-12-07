@@ -22,7 +22,9 @@ switch ($t_module["param"]) {
     include_once "modules/classes/export/datasetTemplate.class.php";
     $datasetTemplate = new DatasetTemplate($bdd, $ObjetBDDParam);
     $vue->set($dt = $datasetTemplate->getDetail($parentId), "template");
-    $vue->set(json_decode($dt["fields"],true),"fields");
+    $fields = json_decode($dt["fields"],true);
+    asort($fields);
+    $vue->set($fields,"fields");
     /**
      * Get the translators
      */

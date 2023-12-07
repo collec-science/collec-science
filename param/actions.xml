@@ -356,11 +356,8 @@
 	<sampleGetChildren action="modules/gestion/sample.php" param="getChildren" droits="consult"
 		type="json" />
 
-
-	<movement droits="consult" type="smarty" />
 	<movementList droits="collection" type="smarty" action="modules/gestion/movement.php"
 		param="list" retourlogin="1" />
-	<objets retourlogin="1" type="smarty" />
 	<fastInputChange action="modules/gestion/movement.php" param="fastInputChange" droits="gestion"
 		retourlogin="1" type="smarty" />
 	<fastInputWrite action="modules/gestion/movement.php" param="fastInputWrite" droits="gestion"
@@ -804,4 +801,28 @@
 	<automaticsendmail_en action="framework/utils/markdown.php"
 		param="documentation/collection/automaticsendmail_en.md" type="smarty" retourko="default" />
 	<mailSmarty action="test/mailSmarty.php" />
+
+	<!-- Submenus -->
+	<objets action="framework/utils/submenu.php" type="smarty" retourlogin="1"/>
+	<movement action="framework/utils/submenu.php" type="smarty" droits="gestion" retourlogin="1"/>
+	<importExport action="framework/utils/submenu.php" type="smarty" droits="import,collection,param" retourlogin="1"/>
+	<parametre action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<collections action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<protocoles action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<campaigns action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<containerType action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<dbstructure action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<administration action="framework/utils/submenu.php" type="smarty" droits="admin"  retourlogin="1"/>
+
+	<documentation_fr retourlogin="1"  type="smarty" action="framework/utils/submenu.php" />
+	<echantillon_fr action="framework/utils/submenu.php" type="smarty" />
+	<importExport_fr action="framework/utils/submenu.php" type="smarty" />
+	<api_fr action="framework/utils/submenu.php" type="smarty" />
+	<administration_fr action="framework/utils/submenu.php" type="smarty" />
+
+	<documentation_en retourlogin="1"  type="smarty" action="framework/utils/submenu.php" />
+	<echantillon_en action="framework/utils/submenu.php" type="smarty" />
+	<importExport_en action="framework/utils/submenu.php" type="smarty" />
+	<api_en action="framework/utils/submenu.php" type="smarty" />
+	<administration_en action="framework/utils/submenu.php" type="smarty" />
 </navigation>

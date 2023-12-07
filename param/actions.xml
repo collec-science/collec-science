@@ -356,11 +356,8 @@
 	<sampleGetChildren action="modules/gestion/sample.php" param="getChildren" droits="consult"
 		type="json" />
 
-
-	<movement droits="consult" type="smarty" />
 	<movementList droits="collection" type="smarty" action="modules/gestion/movement.php"
 		param="list" retourlogin="1" />
-	<objets retourlogin="1" type="smarty" />
 	<fastInputChange action="modules/gestion/movement.php" param="fastInputChange" droits="gestion"
 		retourlogin="1" type="smarty" />
 	<fastInputWrite action="modules/gestion/movement.php" param="fastInputWrite" droits="gestion"
@@ -683,6 +680,7 @@
 	<exportTemplateDelete action="modules/export/exportTemplate.php" param="delete"
 		droits="collection" moduleBefore="exportTemplateChange" retourok="exportTemplateList"
 		retourko="exportTemplateChange" />
+	<exportTemplateImport action="modules/export/exportTemplate.php" param="import" droits="collection" moduleBefore="exportTemplateList,exportTemplateWrite,exportTemplateDelete,exportTemplateImport" retourok="exportTemplateList" retourko="exportTemplateList"/>
 	<lotList action="modules/export/lot.php" param="list" droits="collection" type="smarty"
 		maxCountByHour="60" maxCountByDay="600" retourlogin="1" />
 	<lotCreate action="modules/export/lot.php" param="create" droits="collection"
@@ -694,6 +692,8 @@
 		moduleBefore="lotChange" retourok="lotList" retourko="lotChange" />
 	<lotDelete action="modules/export/lot.php" param="delete" droits="collection"
 		moduleBefore="lotChange" retourok="lotList" retourko="lotDisplay" />
+	<lotDeleteSamples action="modules/export/lot.php" param="deleteSamples" droits="collection"
+		moduleBefore="lotDisplay,lotDeleteSamples" retourok="lotDisplay" retourko="lotDisplay" />
 	<exportChange action="modules/export/export.php" param="change" droits="collection"
 		type="smarty" maxCountByHour="60" maxCountByDay="600" />
 	<exportWrite action="modules/export/export.php" param="write" droits="collection"
@@ -801,4 +801,28 @@
 	<automaticsendmail_en action="framework/utils/markdown.php"
 		param="documentation/collection/automaticsendmail_en.md" type="smarty" retourko="default" />
 	<mailSmarty action="test/mailSmarty.php" />
+
+	<!-- Submenus -->
+	<objets action="framework/utils/submenu.php" type="smarty" retourlogin="1"/>
+	<movement action="framework/utils/submenu.php" type="smarty" droits="gestion" retourlogin="1"/>
+	<importExport action="framework/utils/submenu.php" type="smarty" droits="import,collection,param" retourlogin="1"/>
+	<parametre action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<collections action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<protocoles action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<campaigns action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<containerType action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<dbstructure action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
+	<administration action="framework/utils/submenu.php" type="smarty" droits="admin"  retourlogin="1"/>
+
+	<documentation_fr retourlogin="1"  type="smarty" action="framework/utils/submenu.php" />
+	<echantillon_fr action="framework/utils/submenu.php" type="smarty" />
+	<importExport_fr action="framework/utils/submenu.php" type="smarty" />
+	<api_fr action="framework/utils/submenu.php" type="smarty" />
+	<administration_fr action="framework/utils/submenu.php" type="smarty" />
+
+	<documentation_en retourlogin="1"  type="smarty" action="framework/utils/submenu.php" />
+	<echantillon_en action="framework/utils/submenu.php" type="smarty" />
+	<importExport_en action="framework/utils/submenu.php" type="smarty" />
+	<api_en action="framework/utils/submenu.php" type="smarty" />
+	<administration_en action="framework/utils/submenu.php" type="smarty" />
 </navigation>

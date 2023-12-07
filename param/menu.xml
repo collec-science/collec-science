@@ -29,7 +29,7 @@
 			tooltip="Recherche des mouvements sur une période donnée" droits="collection" />
 	</item>
 
-	<item module="default" label="Imports/Exports"
+	<item module="importExport" label="Imports/Exports"
 		tooltip="Opérations d'importation ou d'exportation" droits="import,collection,param">
 		<item module="importChange" label="Import de masse"
 			tooltip="Import de plusieurs échantillons ou contenants" droits="import,collection" />
@@ -50,15 +50,15 @@
 			tooltip="Liste des traducteurs de libellés" droits="collection" />
 	</item>
 	<item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
-		<item module="collectionList" droits="consult" label="Collections"
+		<item module="collections" droits="consult" label="Collections"
 			tooltip="Liste des collections">
 			<item module="collectionList" droits="consult" label="Collections"
-				tooltip="Liste des collections" />
+				tooltip="Paramètres pour les collections" />
 			<item module="licenseList" droits="consult" label="Licences"
 				tooltip="Liste des licences utilisables pour publier les collections" />
 		</item>
-		<item module="protocolList" droits="consult" label="Protocoles"
-			tooltip="Liste des protocoles">
+		<item module="protocoles" droits="consult" label="Protocoles"
+			tooltip="Paramètres des protocoles">
 			<item module="protocolList" droits="consult" label="Protocoles"
 				tooltip="Liste des protocoles" />
 			<item module="operationList" droits="consult" label="Opérations"
@@ -66,16 +66,16 @@
 		</item>
 		<item module="referentList" droits="consult" label="Référents"
 			tooltip="Liste des référents des objets ou des collections" />
-		<item module="campaignList" droits="consult" label="Campagnes"
-			tooltip="Campagnes de prélèvement">
+		<item module="campaigns" droits="consult" label="Campagnes"
+			tooltip="Paramètres des campagnes de prélèvement">
 			<item module="campaignList" droits="consult" label="Campagnes"
 				tooltip="Campagnes de prélèvement" />
 			<item module="regulationList" droits="consult" label="Réglementations"
 				tooltip="Types de réglementations" />
 		</item>
 		<item divider='1' />
-		<item module="containerTypeList" droits="consult" label="Contenants"
-			tooltip="Types de contenants">
+		<item module="containerType" droits="consult" label="Contenants"
+			tooltip="Paramètres des types de contenants">
 			<item module="containerFamilyList" droits="consult" label="Familles de contenants"
 				tooltip="Familles de contenants (armoires, éprouvettes...)" />
 			<item module="containerTypeList" droits="consult" label="Types de contenants"
@@ -117,8 +117,8 @@
 			tooltip="Liste des types de datasets utilisés pour exporter les échantillons par lots"
 			droits="param" />
 		<item divider='1' />
-		<item module="dbstructureSchema" droits="collection" label="Schéma de la base de données"
-			tooltip="Schéma de la base de données">
+		<item module="dbstructure" droits="collection" label="Schéma de la base de données"
+			tooltip="Visualisation du schéma de la base de données">
 			<item module="dbstructureSchema" droits="collection"
 				label="Schéma de la base de données" tooltip="Schéma de la base de données" />
 			<item module="dbstructureHtml" droits='collection'
@@ -167,7 +167,7 @@
 	<item module="documentation_fr" label="Documentation"
 		tooltip="Documentations en ligne en français" language="fr">
 
-		<item module="default" label="Échantillons" tooltip="Gestion des échantillons">
+		<item module="echantillon_fr" label="Échantillons" tooltip="Gestion des échantillons">
 			<item module="metadatafield_fr" label="Renommer un champ de métadonnées"
 				tooltip="Comment renommer un champ de métadonnées ?" language="fr" />
 			<item module="lendingsample_fr" label="Prêter un échantillon"
@@ -180,14 +180,15 @@
 				language="fr" />
 		</item>
 
-		<item module="default" label="Fonctions d'import/export"
+		<item module="importExport_fr" label="Fonctions d'import/export"
 			tooltip="Fonctions d'importation et d'exportations de données" language="fr">
 			<item module="exportbatch_fr" label="Exporter par lot"
 				tooltip="Exporter des échantillons par lots" language="fr" />
+				<item divider='1' droits="hidden"/>
 		</item>
 		<item module="doctotp_fr" label="Comprendre la double authentification"
 			tooltip="Comprendre le mécanisme de la double authentification" language="fr" />
-		<item module="default" label="Services web" tooltip="Description des services web"
+		<item module="api_fr" label="Services web" tooltip="Description des services web"
 			language="fr">
 			<item module="swidentification_fr" label="identification"
 				tooltip="Gérer l'identification dans les services web" language="fr" />
@@ -206,7 +207,7 @@
 			<item module="swmovementWrite_fr" label="Création d'un mouvement"
 				tooltip="Créer un mouvement d'entrée ou de sortie" language="fr" />
 		</item>
-		<item module="default" label="Administration" tooltip="Administrer le logiciel">
+		<item module="administration_fr" label="Administration" tooltip="Administrer le logiciel">
 			<item module="rights_general_fr" label="Généralités sur les droits"
 				tooltip="Les droits utilisés dans le logiciel" />
 			<item module="automaticsendmail_fr" label="Activer l'envoi automatique de mails"
@@ -216,7 +217,7 @@
 	</item>
 	<item module="documentation_en" label="Documentation"
 		tooltip="Documentations en ligne en anglais" language="en">
-		<item module="default" label="Échantillons" tooltip="Gestion des échantillons">
+		<item module="echantillon_en" label="Échantillons" tooltip="Gestion des échantillons">
 			<item module="metadatafield_en" label="Renommer un champ de métadonnées"
 				tooltip="Comment renommer un champ de métadonnées ?" language="en" />
 			<item module="lendingsample_en" label="Prêter un échantillon"
@@ -228,14 +229,15 @@
 				tooltip="Paramétrer l'application pour permettre à tous les utilisateurs de consulter les métadonnées"
 				language="en" />
 		</item>
-		<item module="default" label="Fonctions d'import/export"
+		<item module="importExport_en" label="Fonctions d'import/export"
 			tooltip="Fonctions d'importation et d'exportations de données" language="en">
 			<item module="exportbatch_en" label="Exporter par lot"
 				tooltip="Exporter des échantillons par lots" language="en" />
+			<item divider='1' droits="hidden"/>
 		</item>
 		<item module="doctotp_en" label="Comprendre la double authentification"
 			tooltip="Comprendre le mécanisme de double authentification" language="en" />
-		<item module="default" label="Services web" tooltip="Description des services web"
+		<item module="api_en" label="Services web" tooltip="Description des services web"
 			language="en">
 			<item module="swidentification_en" label="identification"
 				tooltip="Gérer l'identification dans les services web" language="en" />
@@ -254,7 +256,7 @@
 			<item module="swmovementWrite_en" label="Création d'un mouvement"
 				tooltip="Créer un mouvement d'entrée ou de sortie" language="en" />
 		</item>
-		<item module="default" label="Administration" tooltip="Administrer le logiciel">
+		<item module="administration_en" label="Administration" tooltip="Administrer le logiciel">
 			<item module="rights_general_en" label="Généralités sur les droits"
 				tooltip="Les droits utilisés dans le logiciel" language="en" />
 			<item module="automaticsendmail_en" label="Activer l'envoi automatique de mails"

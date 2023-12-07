@@ -1,3 +1,14 @@
+Version 23.0.0b du 7/12/2023
+-----------------------------
+Corrections de bugs :
+- la suppression d'un écantillon ne fonctionnait plus correctement
+- l'affichage des colonnes dans la liste des échantillons n'était plus enregistré
+- l'exportation de fichiers pouvait échouer
+- la gestion des modèles d'export a été améliorée, il est maintenant possible d'intégrer des modèles créés dans d'autres instances
+
+Nouveautés :
+- les sous-menus sont affichés quand on clique dessus
+
 Version 23.0.0a du 28/11/2023
 -----------------------------
 Corrections de bugs:

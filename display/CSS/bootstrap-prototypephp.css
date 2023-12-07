@@ -355,3 +355,12 @@ tr {
     overflow-y: hidden;
 }
 /* bootstrap hack end */
+
+.submenu {
+	border-bottom: solid ;
+	border-right: solid ;
+	border-bottom-color: rgba(0,158,224);
+	border-right-color: rgba(0,158,224);
+	background-color: rgba(0,158,224, 0.1);
+	list-style: none;
+}

@@ -1,3 +1,14 @@
+Version 23.0.0b of 7/12/2023
+-----------------------------
+Bug corrections :
+- deleting a sample no longer worked correctly
+- the display of columns in the list of samples was no longer saved
+- exporting files could fail
+- management of export templates has been improved; it is now possible to integrate templates created in other instances
+
+New features:
+- sub-menus are displayed when clicked
+
 Version 23.0.0a of 28/11/2023
 -----------------------------
 Bug fixes:

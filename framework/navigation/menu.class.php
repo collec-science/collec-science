@@ -138,7 +138,7 @@ class Menu
             if (!$isfound && !empty($entry["item"])) {
                 foreach ($entry["item"] as $value) {
                     if ($value["@attributes"]["module"] == $moduleName) {
-                        printA($entry["@attributes"]["module"]);
+                        //printA($entry["@attributes"]["module"]);
                         $isfound = true;
                         $submenu = "<h2>" .
                             '<a href="index.php?module=' . $entry["@attributes"]["module"] .

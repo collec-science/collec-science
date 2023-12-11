@@ -5,6 +5,7 @@
 <script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
 
 <script type="text/javascript">
+
 	var identifier_fn = "";
 	var is_scan = false;
 	var sampling_place_init = "{$data.sampling_place_id}";
@@ -548,7 +549,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="appli" class="control-label col-md-4">{t}Identifiant ou nom :{/t}</label>
+					<label for="identifier" class="control-label col-md-4">{t}Identifiant ou nom :{/t}</label>
 					<div class="col-md-6">
 						<input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus >
 					</div>

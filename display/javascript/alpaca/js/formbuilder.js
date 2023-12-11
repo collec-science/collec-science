@@ -109,7 +109,7 @@ var baseFields = function ( index, value ) {
     if ( value.helperChoice ) {
         field.helper = value.helper;
     }
-    console.log (field);
+    //console.log (field);
     return field;
 };
 
@@ -149,7 +149,8 @@ function showForm( value, data = "" ) {
         "schema": schema,
         "options": options,
         "view": "bootstrap-edit-horizontal",
-        "allowNull": true
+        "allowNull": true,
+        "defaultFocus": false
     }
     var exists = $( "#metadata" ).alpaca( "exists" );
     if ( exists ) {

@@ -4,9 +4,9 @@
 # creation : Eric Quinton - 2017-05-04
 VERSION=2.8.3
 REPO=https://github.com/collec-science/collec-science
-PHPVER=8.1
+PHPVER=8.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
-echo "Installation of Collec-Science version " $VERSION
+echo "Installation of Collec-Science "
 echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [y/n]?" response
 if [ "$response" = "y" ]
@@ -39,24 +39,27 @@ apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVE
 
 # creation of directory
 cd /var/www/html
-mkdir collec-science
-cd collec-science
+mkdir collecApp
+cd collecApp
 
 # download software
-echo "download software"
-wget $REPO/archive/refs/heads/master.zip
-unzip master.zip
-mv collec-science-master collec-$VERSION
-ln -s collec-$VERSION collec
-
-# update rights on files
-chmod -R 755 .
-
+git clone https://github.com/collec-science/collec-science -b master
+cd collec-science
 # create param.inc.php file
-mv collec/param/param.inc.php.dist collec/param/param.inc.php
+mv param/param.inc.php.dist collec-science/param/param.inc.php
+mkdir display/templates_c
+mkdir temp
+find . -type d -exec chmod 750 {} \;
+find . -type f -exec chmod 640 {} \;
+chmod -R g+w display/templates_c
+chmod -R g+w temp
+chgrp -R www-data .
+rm -Rf test
+cd ..
+
 # creation of database
 echo "creation of the database"
-cd collec/install
+cd collec-science/install
 su postgres -c "psql -f init_by_psql.sql"
 cd ../..
 echo "you may verify the configuration of access to postgresql"
@@ -73,7 +76,7 @@ read -p "Enter to continue" answer
 # install backup program
 echo "backup configuration - dump at 20:00 into /var/lib/postgresql/backup"
 echo "please, set up a data transfert mechanism to deport them to another medium"
-cp collec/install/pgsql/backup.sh /var/lib/postgresql/
+cp collec-science/install/pgsql/backup.sh /var/lib/postgresql/
 chown postgres /var/lib/postgresql/backup.sh
 line="0 20 * * * /var/lib/postgresql/backup.sh"
 #(crontab -u postgres -l; echo "$line" ) | crontab -u postgres -
@@ -81,16 +84,16 @@ echo "$line" | crontab -u postgres -
 
 # update rights to specific software folders
 chmod -R 750 .
-mkdir collec/display/templates_c
+mkdir collec-science/display/templates_c
 chgrp -R www-data .
-chmod -R 770 collec/display/templates_c
-chmod -R 770 collec/temp
+chmod -R 770 collec-science/display/templates_c
+chmod -R 770 collec-science/temp
 
 # generate rsa key for encrypted tokens
 echo "generate encryption keys for identification tokens"
-openssl genpkey -algorithm rsa -out collec/param/id_collec -pkeyopt rsa_keygen_bits:2048
-openssl rsa -in collec/param/id_collec -pubout -out collec/param/id_collec.pub
-chown www-data collec/param/id_collec
+openssl genpkey -algorithm rsa -out collec-science/param/id_collec -pkeyopt rsa_keygen_bits:2048
+openssl rsa -in collec-science/param/id_collec -pubout -out collec-science/param/id_collec.pub
+chown www-data collec-science/param/id_collec
 
 # adjust php.ini values
 upload_max_filesize="=100M"
@@ -111,7 +114,7 @@ cp /tmp/policy.xml /etc/ImageMagick-6/
 
 # creation of virtual host
 echo "creation of virtual site"
-cp collec/install/apache2/collec-science.conf /etc/apache2/sites-available/
+cp collec-science/install/apache2/collec-science.conf /etc/apache2/sites-available/
 /usr/sbin/a2ensite collec-science
 echo "you must modify the file /etc/apache2/sites-available/collec-science.conf"
 echo "address of your instance, ssl parameters),"

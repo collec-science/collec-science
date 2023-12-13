@@ -32,3 +32,10 @@ cp install/upgradedb.sh.dist install/upgradedb.sh
 chmod 750 install/upgradedb.sh
 install/upgradedb.sh
 cd ..
+
+# add mail sender
+ln -s /var/www/html/collec-science /var/www/collecApp
+cp collec-science/collectionsGenrateMail.sh .
+echo "0 8 * * * /var/www/collecApp/collectionsGenerateMail.sh" | crontab -u www-data -
+chmod +x /var/www/collecApp/collectionsGenerateMail.sh
+

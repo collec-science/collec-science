@@ -28,7 +28,7 @@ echo "deb https://packages.sury.org/php/ $DISTRIBCODE main" | tee /etc/apt/sourc
 fi
 apt-get update
 # installing packages
-apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd fop postgresql postgresql-client postgis
+apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd php$PHPVER-curl fop postgresql postgresql-client postgis
 /usr/sbin/a2enmod ssl
 /usr/sbin/a2enmod headers
 /usr/sbin/a2enmod rewrite
@@ -38,7 +38,7 @@ apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVE
 /usr/sbin/a2ensite 000-default
 
 # creation of directory
-cd /var/www/html
+cd /var/www
 mkdir collecApp
 cd collecApp
 
@@ -81,6 +81,11 @@ chown postgres /var/lib/postgresql/backup.sh
 line="0 20 * * * /var/lib/postgresql/backup.sh"
 #(crontab -u postgres -l; echo "$line" ) | crontab -u postgres -
 echo "$line" | crontab -u postgres -
+
+# install mail sender
+cp collec-science/collectionsGenrateMail.sh .
+echo "0 8 * * * /var/www/collecApp/collectionsGenerateMail.sh" | crontab -u www-data -
+chmod +x /var/www/collecApp/collectionsGenerateMail.sh
 
 # update rights to specific software folders
 chmod -R 750 .

@@ -19,7 +19,7 @@ Ajoutez ensuite une programmation dans le serveur, en étant connecté _root_ :
 
 ~~~
 cd /var/www/collecApp
-cp collec-science/collectionsGenrateMail.sh .
+cp collec-science/collectionsGenerateMail.sh .
 echo "0 8 * * * /var/www/collecApp/collectionsGenerateMail.sh" | crontab -u www-data -
 chmod +x /var/www/collecApp/collectionsGenerateMail.sh
 ~~~

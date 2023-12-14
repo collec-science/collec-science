@@ -241,7 +241,7 @@
 		retourok="collectionList" retourko="collectionChange" modulebefore="collectionChange" />
 	<collectionGet action="modules/param/collection.php" param="getAjax" droits="consult"
 		type="ajax" />
-	<collectionsGenerateMail action="modules/param/collection.php" param="generateMails" />
+	<collectionsGenerateMail action="modules/param/collection.php" param="generateMails" nologin="1"/>
 
 	<regulationList action="modules/param/regulation.php" param="list" droits="consult"
 		retourlogin="1" type="smarty" />

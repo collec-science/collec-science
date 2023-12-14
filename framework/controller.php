@@ -206,7 +206,7 @@ try {
     /**
      * Forcage de l'identification si identification en mode HEADER
      */
-    if ($ident_type == "HEADER") {
+    if ($ident_type == "HEADER" && !$t_module["nologin"] == 1) {
       $t_module["loginrequis"] = 1;
     }
     /**

@@ -35,7 +35,7 @@ cd ..
 
 # add mail sender
 ln -s /var/www/html/collec-science /var/www/collecApp
-cp collec-science/collectionsGenrateMail.sh .
+cp collec-science/collectionsGenerateMail.sh .
 echo "0 8 * * * /var/www/collecApp/collectionsGenerateMail.sh" | crontab -u www-data -
 chmod +x /var/www/collecApp/collectionsGenerateMail.sh
 

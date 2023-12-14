@@ -387,7 +387,7 @@ class ObjectClass extends ObjetBDD
         if ($trashed != 0 && $trashed != 1) {
             $trashed = 0;
         }
-        $trashed == 0 ? $trashed = "false" : $trashed = "true";
+        $trashed == 0 ? $trashed = " is not true" : $trashed = " is true";
         $sql = "select o.uid, o.identifier, container_type_name as type_name,
 		clp_classification as clp,
 		label_id, 'container' as object_type,
@@ -404,7 +404,7 @@ class ObjectClass extends ObjetBDD
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
         left outer join object oc on (container_uid = oc.uid)
-		where o.uid in ($uids) and o.trashed = $trashed
+		where o.uid in ($uids) and o.trashed$trashed
 		UNION
 		select o.uid, o.identifier, sample_type_name as type_name, clp_classification as clp,
 		label_id, 'sample' as object_type,
@@ -425,7 +425,7 @@ class ObjectClass extends ObjetBDD
 		left outer join movement_type using (movement_type_id)
     left outer join object oc on (container_uid = oc.uid)
     left outer join country c on (sample.country_id = c.country_id)
-		where o.uid in ($uids) and o.trashed = $trashed
+		where o.uid in ($uids) and o.trashed$trashed
 		";
         if (!empty($order)) {
             $sql = "select * from (" . $sql . ") as a";

@@ -88,7 +88,7 @@ switch ($t_module["param"]) {
                 if (empty($_SESSION["notificationLastDate"])) {
                     $notification = true;
                 } else {
-                    $lastDate = date_create($_SESSION["notificationDate"]);
+                    $lastDate = date_create($_SESSION["notificationLastDate"]);
                     $interval = date_diff($lastDate, $currentDate)->format("%a");
                     if ($interval >= $_SESSION["notificationDelay"]) {
                         $notification = true;

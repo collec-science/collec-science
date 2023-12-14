@@ -39,6 +39,7 @@
 		 * Traitement de la localisation par clic sur le radar
 		 * (position approximative du terminal)
 		 */
+		$("#map").css ("cursor", "crosshair");
 		$( "#radar" ).click( function () {
 			if ( navigator && navigator.geolocation ) {
 				navigator.geolocation.getCurrentPosition( function ( position ) {

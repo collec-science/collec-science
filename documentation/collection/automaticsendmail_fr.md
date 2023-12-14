@@ -17,14 +17,14 @@ Dans les paramètres généraux de l'application, (_Administration > Paramètres
 
 Ajoutez ensuite une programmation dans le serveur, en étant connecté _root_ :
 
-```
-cd /var/www/collec-science
-cp collec-science/collectionsGenrateMail.sh .
-echo "0 8 * * * /var/www/collec-science/collectionsGenerateMail.sh" | crontab -u www-data -
-chmod +x /var/www/collec-science/collectionsGenerateMail.sh
-```
+~~~
+cd /var/www/collecApp
+cp collec-science/collectionsGenerateMail.sh .
+echo "0 8 * * * /var/www/collecApp/collectionsGenerateMail.sh" | crontab -u www-data -
+chmod +x /var/www/collecApp/collectionsGenerateMail.sh
+~~~
 
-Le script ne fonctionnera que si le chemin d'accès à l'application est `/var/www/collec-science/collec-science`. Si ce n'est pas le cas, éditez le fichier `/var/www/collec-science/collectionGenerateMail.sh` et modifiez la ligne 2 du fichier pour corriger le chemin d'accès.
+Le script ne fonctionnera que si le chemin d'accès à l'application est _/var/www/collecApp/collec-science_. Si ce n'est pas le cas, éditez le fichier _/var/www/collecApp/collectionGenerateMail.sh_ et modifiez la ligne 2 du fichier pour corriger le chemin d'accès.
 
 Le script s'exécutera tous les jours, à 8 heures. Si la date présente dans le champ **notificationLastDate** est plus ancienne que le délai indiqué précédemment, le programme recherchera les échantillons dans les collections concernées et enverra les mails s'il en trouve.
 
@@ -40,7 +40,7 @@ Dans _Paramètres > Collections_, passez en mode modification de la collection p
 
 Si vous souhaitez (re)lancer l'envoi des mails :
 
-- dans les paramètres généraux de l'application (_Administration > Paramètres de l'application_), supprimez la date qui peut être présente dans le champ ~notificationLastDate~ ;
+- dans les paramètres généraux de l'application (_Administration > Paramètres de l'application_), supprimez la date qui peut être présente dans le champ **notificationLastDate** ;
 - appelez la page [index.php?module=collectionsGenerateMail](index.php?module=collectionsGenerateMail)
 
 Aucune information ne sera affichée à l'écran (page blanche). Vous pourrez revenir dans les paramètres de l'application pour vérifier que le champ **notificationLastDate** a bien été mis à jour.

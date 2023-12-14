@@ -278,7 +278,7 @@
 			$('.timepicker').datetimepicker({
 				locale: locale,
 				format: 'HH:mm:ss'
-			})
+			});
 			$( '.date, .datepicker, .timepicker, .datetimepicker' ).attr( 'autocomplete', 'off' );
 
 			var lib = "{t}Confirmez-vous la suppression ?{/t}";

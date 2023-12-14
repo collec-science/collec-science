@@ -75,7 +75,12 @@ class Log extends ObjetBDD
             $module = "unknown";
         }
         $data["nom_module"] = $GACL_aco . "-" . $module;
-        $data["log_date"] = $this->currentDate;
+        if (empty($this->currentDate)) {
+            $data["log_date"] = date('Y-m-d H:i:s');
+            $this->auto_date = false;
+        } else {
+            $data["log_date"] = $this->currentDate;
+        }
         $data["ipaddress"] = $this->getIPClientAddress();
         return $this->ecrire($data);
     }

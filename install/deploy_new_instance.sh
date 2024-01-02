@@ -2,7 +2,6 @@
 # install a new instance into a server
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
-VERSION=2.8.3
 REPO=https://github.com/collec-science/collec-science
 PHPVER=8.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
@@ -125,6 +124,11 @@ echo "you must modify the file /etc/apache2/sites-available/collec-science.conf"
 echo "address of your instance, ssl parameters),"
 echo "then run this command:"
 echo "systemctl reload apache2"
+read -p "Enter to continue" answer
+
+echo "To activate the sending of e-mails, you must install an application as Postfix or msmtp and configure it"
+echo "The configuration is specific of each organization: this script cannot do it, sorry..."
+
 read -p "Enter to terminate" answer
 
 fi

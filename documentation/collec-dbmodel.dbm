@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="102,1308" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="923,1070" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -387,8 +387,9 @@ Congélateur;2]]>
 		<columns names="dbversion_id" ref-type="src-columns"/>
 	</constraint>
 	<initial-data>
-<![CDATA[dbversion_number;dbversion_date
-2.8;2022-09-26]]>
+<![CDATA["dbversion_number";"dbversion_date"
+"24.0";"2024-01-02"
+]]>
 	</initial-data>
 </table>
 

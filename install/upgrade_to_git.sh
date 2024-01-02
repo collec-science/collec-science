@@ -27,11 +27,9 @@ read -p "[Enter] to continue, or [ctrl C] to stop the script" answer
 echo "Upgrade the database"
 read -p "[Enter] to continue" answer
 # Database
-cd collec-science
-cp install/upgradedb.sh.dist install/upgradedb.sh
-chmod 750 install/upgradedb.sh
-install/upgradedb.sh
-cd ..
+cp collec-science/install/upgradedb.sh.dist ./upgradedb.sh
+chmod 750 upgradedb.sh
+./upgradedb.sh
 
 # add mail sender
 ln -s /var/www/html/collec-science /var/www/collecApp

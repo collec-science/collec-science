@@ -6,5 +6,6 @@ LOGIN="collec"
 PASSWORD="collecPassword"
 ADDRESS=postgresql://"$LOGIN":"$PASSWORD"@"$DBHOST"/"$DATABASE"
 VERSION=`psql $ADDRESS -c "$SQL" -t|xargs`
-SCRIPT="install/upgradedb-from-$VERSION.sh"
+FOLDERINSTALL="/var/www/html/collec-science/collec-science"
+SCRIPT="$FOLDERINSTALL/install/upgradedb-from-$VERSION.sh"
 source $SCRIPT

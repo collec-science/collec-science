@@ -79,6 +79,9 @@ switch ($t_module["param"]) {
         require_once 'modules/classes/metadata.class.php';
         $metadata = new Metadata($bdd, $ObjetBDDParam);
         $vue->set($metadata->getListe(), "metadata");
+        require_once "modules/classes/barcode.class.php";
+        $barcode = new Barcode($bdd, $ObjetBDDParam);
+        $vue->set ($barcode->getListe(1),"barcodes");
         break;
 }
 ?>

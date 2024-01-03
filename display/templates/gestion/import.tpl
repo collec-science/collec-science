@@ -1,4 +1,24 @@
-{* Objet > Import de masse > *}
+<script>
+      $(document).ready(function () {
+      var myStorage = window.localStorage;
+      var defaults = {};
+        try {
+        defaults =JSON.parse( myStorage.getItem("massImportParameters"));
+        Object.keys(defaults).forEach(key=>{
+            $("#"+key).val(defaults[key]);
+      });
+        } catch (Exception) {
+        }
+        $("#controlForm").submit(function() { 
+            defaults = {
+                  "separator": $("#separator").val(),
+                  "encoding": $("#utf8_encode").val(),
+                  "onlyCollectionSearch":$("#onlyCollectionSearch").val()
+            };
+            myStorage.setItem("massImportParameters", JSON.stringify(defaults));
+        });
+      });
+</script>
 <h2>{t}Import d'échantillons ou de contenants à partir d'un fichier CSV{/t}</h2>
 <!-- Lancement de l'import -->
 {if $controleOk == 1}
@@ -37,20 +57,21 @@
 <!-- Selection du fichier a importer -->
 <div class="row">
       <div class="col-md-6">
-            <form class="form-horizontal protoform" id="controlForm" method="post" action="index.php"
+            <form class="form-horizontal" id="controlForm" method="post" action="index.php"
                   enctype="multipart/form-data">
                   <input type="hidden" name="module" value="importControl">
                   <div class="form-group">
-                        <label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier
-                              à importer (CSV) :{/t}</label>
+                        <label for="upfile" class="control-label col-md-4"><span class="red">*</span> 
+                              {t}Nom du fichier à importer (CSV) :{/t}
+                        </label>
                         <div class="col-md-8">
-                              <input type="file" name="upfile" required>
+                              <input type="file" name="upfile" class="form-control" required>
                         </div>
                   </div>
                   <div class="form-group">
                         <label for="separator" class="control-label col-md-4">{t}Séparateur utilisé :{/t}</label>
                         <div class="col-md-8">
-                              <select id="separator" name="separator">
+                              <select id="separator" name="separator" class="form-control">
                                     <option value="," {if $separator=="," }selected{/if}>{t}Virgule{/t}</option>
                                     <option value=";" {if $separator==";" }selected{/if}>{t}Point-virgule{/t}</option>
                                     <option value="tab" {if $separator=="tab" }selected{/if}>{t}Tabulation{/t}</option>
@@ -60,16 +81,18 @@
                   <div class="form-group">
                         <label for="utf8_encode" class="control-label col-md-4">{t}Encodage du fichier :{/t}</label>
                         <div class="col-md-8">
-                              <select id="utf8_encode" name="utf8_encode">
+                              <select id="utf8_encode" name="utf8_encode" class="form-control">
                                     <option value="0" {if $utf8_encode==0}selected{/if}>UTF-8</option>
                                     <option value="1" {if $utf8_encode==1}selected{/if}>ISO-8859-x</option>
                               </select>
                         </div>
                   </div>
                   <div class="form-group">
-                        <label for="onlyCollectionSearch" class="control-label col-md-4">{t}Rechercher les échantillons parents uniquement dans la collection des enfants :{/t}</label>
+                        <label for="onlyCollectionSearch" class="control-label col-md-4">
+                              {t}Rechercher les échantillons parents uniquement dans la collection des enfants :{/t}
+                        </label>
                         <div class="col-md-8">
-                              <select id="onlyCollectionSearch" name="onlyCollectionSearch">
+                              <select id="onlyCollectionSearch" name="onlyCollectionSearch" class="form-control">
                                     <option value="0" {if $onlyCollectionSearch==0}selected{/if}>{t}non{/t}</option>
                                     <option value="1" {if $onlyCollectionSearch==1}selected{/if}>{t}oui{/t}</option>
                               </select>
@@ -95,6 +118,7 @@
                   <li><b>container_type_id / container_type_name</b> : {t}le numéro informatique du type de contenant ou son nom (obligatoire){/t} <a href="index.php?module=containerTypeList">{t}Types de conteneurs{/t}</a></li>
                   <li><b>container_status_id / container_status_name</b> : {t}le numéro informatique du statut du contenant ou son nom (obligatoire){/t} <a href="index.php?module=objectStatusList">{t}Liste des statuts{/t}</a></li>
                   <li><b>container_uuid</b> : {t}UID Universel du contenant (UUID){/t}</li>
+                  <li><b>container_collection_id / container_collection_name</b> : {t}le numéro informatique de la collection ou son nom{/t} <a href="index.php?module=collectionList">{t}Liste des collections{/t}</a></li>
                   <li><b>container_comment</b> : {t}Commentaire libre sur le contenant{/t}</li>
                   <li><b>container_location</b> : {t}l'emplacement de rangement du contenant dans son contenant (texte libre){/t}</li>
                   <li><b>container_column</b> : {t}n° de la colonne de stockage dans le contenant{/t}</li>

@@ -18,12 +18,12 @@
 <script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui/ui/i18n/datepicker-fr.js"></script>
 <script type="text/javascript" charset="utf-8"
 	src="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.js"></script>
-<script type="text/javascript" charset="utf-8"
-	src="display/javascript/jquery-timepicker-addon/i18n/jquery-ui-timepicker-fr.js"></script>
+<!--script type="text/javascript" charset="utf-8"
+	src="display/javascript/jquery-timepicker-addon/i18n/jquery-ui-timepicker-fr.js"></script-->
 <link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.theme.min.css" />
-<link rel="stylesheet" type="text/css"
-	href="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.css" />
+<!--link rel="stylesheet" type="text/css"
+	href="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.css" /-->
 
 	<link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css">
 <script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-custom/combobox.js"></script>
@@ -67,10 +67,11 @@
 <script src="display/node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
 
 <!-- Rajout du tri sur la date/heure -->
-<script type="text/javascript" src="display/node_modules/moment/min/moment.min.js"></script>
+<!--script type="text/javascript" src="display/node_modules/moment/min/moment.min.js"></script-->
+<script type="text/javascript" src="display/node_modules/moment/min/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="display/node_modules/datetime-moment/datetime-moment.js"></script>
-<!--script type="text/javascript" src="display/javascript/bootstrap/js/bootstrap-datetimepicker.js"></script-->
-<link rel="stylesheet" type="text/css" href="display/javascript/bootstrap/css/bootstrap-datetimepicker.css">
+<script type="text/javascript" src="display/node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="display/node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
 
 
 <!-- Affichage des photos -->
@@ -252,7 +253,7 @@
 		} );
 		{/literal}
 
-			$( ".date" ).datepicker( $.datepicker.regional[ '{$LANG["date"]["locale"]}' ] );
+			/*$( ".date" ).datepicker( $.datepicker.regional[ '{$LANG["date"]["locale"]}' ] );
 			$( ".datepicker" ).datepicker( $.datepicker.regional[ '{$LANG["date"]["locale"]}' ] );
 			$.datepicker.setDefaults( $.datepicker.regional[ '{$LANG["date"]["locale"]}' ] );
 			$( ".timepicker" ).timepicker( {
@@ -265,6 +266,19 @@
 				timeFormat: 'HH:mm:ss',
 				timeInput: true
 			} );
+			*/
+			$('.datepicker').datetimepicker({
+    			locale: locale,
+				format: '{$LANG["date"]["formatdate"]}'
+			});
+			$('.datetimepicker').datetimepicker({
+    			locale: locale,
+				format: '{$LANG["date"]["formatdate"]} HH:mm:ss'
+			});
+			$('.timepicker').datetimepicker({
+				locale: locale,
+				format: 'HH:mm:ss'
+			});
 			$( '.date, .datepicker, .timepicker, .datetimepicker' ).attr( 'autocomplete', 'off' );
 
 			var lib = "{t}Confirmez-vous la suppression ?{/t}";
@@ -291,7 +305,7 @@
 			 * Get a confirmation
 			 */
 			 $(".confirm").on("click keydown", function(event) {
-				 if (confirm("{t}Confirmez-vous l'opération ?{/t}") == false) {
+				 if (confirm("{t}Confirmez-vous cette opération ?{/t}") == false) {
 					 event.preventDefault();
 				 }
 			 });

@@ -1,19 +1,38 @@
-{* Objet > Import d'échantillons externes > *}
+<script>
+      $(document).ready(function () {
+      var myStorage = window.localStorage;
+      var defaults = {};
+        try {
+        defaults =JSON.parse( myStorage.getItem("sampleImportParameters"));
+        Object.keys(defaults).forEach(key=>{
+            $("#"+key).val(defaults[key]);
+      });
+        } catch (Exception) {
+        }
+        $("#sampleStage1").submit(function() { 
+            defaults = {
+                  "separator": $("#separator").val(),
+                  "encoding": $("#utf8_encode").val()
+            };
+            myStorage.setItem("massImportParameters", JSON.stringify(defaults));
+        });
+      });
+</script>
 <h2>{t}Import d'échantillons provenant d'une base externe à partir d'un fichier CSV{/t}</h2>
 
 <div class="row col-md-6">
-<form class="form-horizontal protoform" id="sampleStage1" method="post" action="index.php" enctype="multipart/form-data">
+<form class="form-horizontal" id="sampleStage1" method="post" action="index.php" enctype="multipart/form-data">
 <input type="hidden" name="module" value="sampleImportStage2">
 <div class="form-group">
 <label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (CSV) :{/t}</label>
 <div class="col-md-8">
-<input type="file" name="upfile" required>
+<input type="file" name="upfile" required class="form-control">
 </div>
 </div>
 <div class="form-group">
 <label for="separator" class="control-label col-md-4">{t}Séparateur utilisé :{/t}</label>
 <div class="col-md-8">
-<select id="separator" name="separator">
+<select id="separator" name="separator" class="form-control">
 <option value="," {if $separator == ","}selected{/if}>{t}Virgule{/t}</option>
 <option value=";" {if $separator == ";"}selected{/if}>{t}Point-virgule{/t}</option>
 <option value="tab" {if $separator == "tab"}selected{/if}>{t}Tabulation{/t}</option>
@@ -23,7 +42,7 @@
 <div class="form-group">
 <label for="utf8_encode" class="control-label col-md-4">{t}Encodage du fichier :{/t}</label>
 <div class="col-md-8">
-<select id="utf8_encode" name="utf8_encode">
+<select id="utf8_encode" name="utf8_encode" class="form-control">
 <option value="0" {if $utf8_encode == 0}selected{/if}>UTF-8</option>
 <option value="1" {if $utf8_encode == 1}selected{/if}>ISO-8859-x</option>
 </select>
@@ -78,11 +97,32 @@
 <div class="row">
 <div class="col-sm-12">
 <div class="bg-info">
-{t}Ce module permet d'importer des échantillons provenant d'une base externe, à partir d'un fichier CSV. Liste des colonnes possibles :{/t}
+{t}Ce module permet, à partir d'un fichier CSV :{/t}
+<br>
+<ul>
+      <li>{t}d'importer des échantillons provenant d'une base externe{/t}</li>
+      <li>{t}de mettre à jour des échantillons qui ont été modifiés avec une application tierce (LibreOffice, par exemple). Voici les opérations à réaliser pour cette opération :{/t}
+            <ul>
+                  <li>{t}depuis le module de recherche des échantillons, sélectionnez ceux à modifier{/t}</li>
+                  <li>{t}générez le fichier CSV à partir du bouton [Export vers une autre base]{/t}</li>
+                  <li>{t}modifiez les informations à partir d'un tableur (privilégiez LibreOffice plutôt que Excel){/t}</li>
+                  <li>{t}réimportez le fichier modifié à partir de ce module{/t}</li>
+            </ul>
+      </li>
+</ul>
+<br>
+{t}Si l'échantillon existe, il est mis à jour, sinon il est créé. La recherche des échantillons s'effectue selon l'ordre suivant :{/t}
+<br>
+<ul>
+      <li>UUID: {t}identifiant normalisé unique au niveau mondial{/t}</li>
+      <li>dbuid_origin: {t}identifiant d'origine de l'échantillon (il est généré automatiquement pendant l'opération d'exportation){/t}</li>
+</ul>
+{t}Liste des colonnes possibles :{/t}
 <br>
 <ul>
 <li><b>dbuid_origin*</b> : {t escape=no}identifiant <b>unique</b> dans la base de données d'origine, sous la forme : code_base:id{/t}</li>
 <li><b>identifier</b> : {t}identifiant métier{/t}</li>
+<li><b>uuid</b> : {t}UUID, code normalisé et unique au niveau mondial (généré avec des processus cryptographiques){/t}</li>
 <li><b>sample_type_name*</b> : {t}type d'échantillon{/t}</li>
 <li><b>collection_name*</b> : {t}nom de la collection de rattachement{/t}</li>
 <li><b>object_status_name</b> : {t}statut courant{/t}</li>

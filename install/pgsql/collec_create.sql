@@ -1,8 +1,12 @@
 -- Database generated with pgModeler (PostgreSQL Database Modeler).
--- pgModeler version: 0.9.4
--- PostgreSQL version: 11.0
+-- pgModeler version: 1.0.6
+-- PostgreSQL version: 16.0
 -- Project Site: pgmodeler.io
 -- Model Author: ---
+
+
+SET check_function_bodies = false;
+-- ddl-end --
 
 -- object: col | type: SCHEMA --
 -- DROP SCHEMA IF EXISTS col CASCADE;
@@ -113,6 +117,7 @@ CREATE TABLE col.container (
 	container_id integer NOT NULL DEFAULT nextval('col.container_container_id_seq'::regclass),
 	uid integer NOT NULL,
 	container_type_id integer NOT NULL,
+	collection_id integer,
 	CONSTRAINT container_pk PRIMARY KEY (container_id)
 );
 -- ddl-end --
@@ -232,6 +237,8 @@ CREATE TABLE col.dbparam (
 	dbparam_id serial NOT NULL,
 	dbparam_name character varying NOT NULL,
 	dbparam_value character varying,
+	dbparam_description varchar,
+	dbparam_description_en varchar,
 	CONSTRAINT dbparam_pk PRIMARY KEY (dbparam_id)
 );
 -- ddl-end --
@@ -241,20 +248,30 @@ COMMENT ON COLUMN col.dbparam.dbparam_name IS E'Name of the parameter';
 -- ddl-end --
 COMMENT ON COLUMN col.dbparam.dbparam_value IS E'Value of the parameter';
 -- ddl-end --
+COMMENT ON COLUMN col.dbparam.dbparam_description IS E'Description of the parameter';
+-- ddl-end --
+COMMENT ON COLUMN col.dbparam.dbparam_description_en IS E'Description of the parameter, in English';
+-- ddl-end --
 ALTER TABLE col.dbparam OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'APPLI_code', E'cs_code');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'APPLI_code', E'cs_code', E'Code de l''instance. Ce code figurera dans les QRcodes', E'Instance code. This code will appear in the Qrcodes');
 -- ddl-end --
-INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'APPLI_title', E'Collec-Science - instance for ');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'APPLI_title', E'Collec-Science - instance for ', E'Nom de l''instance, affiché dans l''interface', E'Instance name, displayed in the interface');
 -- ddl-end --
-INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'mapDefaultX', E'-0.70');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'mapDefaultX', E'-0.7', E'Longitude de positionnement par défaut des cartes', E'Default positioning longitude for maps');
 -- ddl-end --
-INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'mapDefaultY', E'44.77');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'mapDefaultY', E'44.77', E'Latitude de positionnement par défaut des cartes', E'Default positioning latitude for maps');
 -- ddl-end --
-INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'mapDefaultZoom', E'7');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'mapDefaultZoom', E'7', E'Niveau de zoom par défaut dans les cartes', E'Default zoom level in maps');
 -- ddl-end --
-INSERT INTO col.dbparam (dbparam_name, dbparam_value) VALUES (E'otp_issuer', E'collec-science');
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'otp_issuer', E'collec-science', E'Nom affiché dans les applications de génération de codes uniques pour l''identification à double facteur', E'Name displayed in applications generating unique codes for two-factor identification');
+-- ddl-end --
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'consultSeesAll', E'0', E'Si positionné à 1, les utilisateurs avec le droit de consultation peuvent visualiser toutes les métadonnées de tous les échantillons', E'If set to 1, users with consultation rights can view all the metadata for all the samples');
+-- ddl-end --
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'containerNameUnique', E'0', E'Si positionné à 1, le logiciel interdira la création de deux contenants avec le même nom', E'If set to 1, the software will prohibit the creation of two containers with the same name');
+-- ddl-end --
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'notificationDelay', E'7', E'Nombre de jours entre deux envois de notifications. 0 : pas de notifications', E'Number of days between two notifications. 0: no notification');
 -- ddl-end --
 
 -- object: col.dbversion_dbversion_id_seq | type: SEQUENCE --
@@ -290,7 +307,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 ALTER TABLE col.dbversion OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'2.8', E'2022-09-26');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'24.0', E'2024-01-02');
 -- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --
@@ -518,8 +535,9 @@ COMMENT ON COLUMN col.label.identifier_only IS E'true: the qrcode contains only 
 ALTER TABLE col.label OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.label (label_name, label_xsl, label_fields, barcode_id) VALUES (E'Example - Don''t use', E'<xsl:stylesheet version="1.0"\n      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"\n      xmlns:fo="http://www.w3.org/1999/XSL/Format">\n  <xsl:output method="xml" indent="yes"/>\n  <xsl:template match="objects">\n    <fo:root>\n      <fo:layout-master-set>\n        <fo:simple-page-master master-name="label"\n              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">  \n              <fo:region-body/>\n        </fo:simple-page-master>\n      </fo:layout-master-set>\n      \n      <fo:page-sequence master-reference="label">\n         <fo:flow flow-name="xsl-region-body">        \n          <fo:block>\n          <xsl:apply-templates select="object" />\n          </fo:block>\n\n        </fo:flow>\n      </fo:page-sequence>\n    </fo:root>\n   </xsl:template>\n  <xsl:template match="object">\n\n  <fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="8cm&quot; keep-together.within-page=&quot;always">\n  <fo:table-column column-width="4cm"/>\n  <fo:table-column column-width="4cm" />\n <fo:table-body  border-style="none" >\n 	<fo:table-row>\n  		<fo:table-cell> \n  		<fo:block>\n  		<fo:external-graphic>\n      <xsl:attribute name="src">\n             <xsl:value-of select="concat(uid,''.png'')" />\n       </xsl:attribute>\n       <xsl:attribute name="content-height">scale-to-fit</xsl:attribute>\n       <xsl:attribute name="height">4cm</xsl:attribute>\n        <xsl:attribute name="content-width">4cm</xsl:attribute>\n        <xsl:attribute name="scaling">uniform</xsl:attribute>\n      \n       </fo:external-graphic>\n 		</fo:block>\n   		</fo:table-cell>\n  		<fo:table-cell>\n<fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>\n  			<fo:block>uid:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;db&quot;/&gt;:&lt;xsl:value-of select=&quot;uid"/></fo:inline></fo:block>\n  			<fo:block>id:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;id"/></fo:inline></fo:block>\n  			<fo:block>prj:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;prj"/></fo:inline></fo:block>\n  			<fo:block>clp:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;clp"/></fo:inline></fo:block>\n  		</fo:table-cell>\n  	  	</fo:table-row>\n  </fo:table-body>\n  </fo:table>\n   <fo:block page-break-after="always"/>\n\n  </xsl:template>\n</xsl:stylesheet>', E'uid,id,clp,db,col', E'1');
--- ddl-end --
+/* Failed to create initial data commands! 
+
+ Malformed CSV document detected! The number of columns is `4' but the row `1' has `2' columns! */
 
 -- object: col.storage_storage_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.storage_storage_id_seq CASCADE;
@@ -539,7 +557,7 @@ ALTER SEQUENCE col.storage_storage_id_seq OWNER TO collec;
 -- object: col.last_photo | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_photo CASCADE;
 CREATE VIEW col.last_photo
-AS
+AS 
 
 SELECT d.document_id,
     d.uid
@@ -913,6 +931,11 @@ COMMENT ON COLUMN col.printer.printer_comment IS E'Comment';
 ALTER TABLE col.printer OWNER TO collec;
 -- ddl-end --
 
+INSERT INTO col.printer (printer_id, printer_name, printer_queue, printer_server, printer_user, printer_comment) VALUES (E'1', E'testprinter', DEFAULT, DEFAULT, DEFAULT, DEFAULT);
+-- ddl-end --
+INSERT INTO col.printer (printer_id, printer_name, printer_queue, printer_server, printer_user, printer_comment) VALUES (E'2', E'testprinter2', DEFAULT, DEFAULT, DEFAULT, DEFAULT);
+-- ddl-end --
+
 -- object: col.collection | type: TABLE --
 -- DROP TABLE IF EXISTS col.collection CASCADE;
 CREATE TABLE col.collection (
@@ -927,7 +950,12 @@ CREATE TABLE col.collection (
 	no_localization boolean NOT NULL DEFAULT false,
 	external_storage_enabled boolean NOT NULL DEFAULT false,
 	external_storage_root varchar,
+	sample_name_unique boolean NOT NULL DEFAULT false,
 	license_id integer,
+	notification_enabled boolean DEFAULT false,
+	notification_mails varchar,
+	expiration_delay smallint DEFAULT 0,
+	event_due_delay smallint DEFAULT 0,
 	CONSTRAINT project_pk PRIMARY KEY (collection_id)
 );
 -- ddl-end --
@@ -948,6 +976,16 @@ COMMENT ON COLUMN col.collection.no_localization IS E'True if the localization o
 COMMENT ON COLUMN col.collection.external_storage_enabled IS E'Enable the storage of sample''s documents out of the database';
 -- ddl-end --
 COMMENT ON COLUMN col.collection.external_storage_root IS E'Root path of the documents stored out of the database';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.sample_name_unique IS E'True if the sample identifier must be unique in the collection';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.notification_enabled IS E'True if notifications are sent for samples of the collection';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.notification_mails IS E'List of mails used to notify events on the collection (separator: semicolon)';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.expiration_delay IS E'Number of days before expiration of samples to notify this expiration. 0: no notification';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.event_due_delay IS E'Number of days before the due date of an event to notify this due date. 0: no notification';
 -- ddl-end --
 ALTER TABLE col.collection OWNER TO collec;
 -- ddl-end --
@@ -1318,11 +1356,11 @@ ALTER TABLE col.subsample OWNER TO collec;
 -- object: col.v_object_identifier | type: VIEW --
 -- DROP VIEW IF EXISTS col.v_object_identifier CASCADE;
 CREATE VIEW col.v_object_identifier
-AS
+AS 
 
 SELECT object_identifier.uid,
     array_to_string(array_agg((
-    case when identifier_type_code is not null then identifier_type.identifier_type_code else identifier_type_name end ::text || ':'::text) || object_identifier.object_identifier_value::text
+    case when identifier_type_code is not null then identifier_type.identifier_type_code else identifier_type_name end ::text || ':'::text) || object_identifier.object_identifier_value::text 
     ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
    FROM col.object_identifier
      JOIN col.identifier_type USING (identifier_type_id)
@@ -1614,6 +1652,7 @@ CREATE TABLE gacl.logingestion (
 	is_expired boolean DEFAULT false,
 	nbattempts smallint DEFAULT 0,
 	lastattempt timestamp,
+	locale varchar,
 	CONSTRAINT pk_logingestion PRIMARY KEY (id)
 );
 -- ddl-end --
@@ -1640,6 +1679,8 @@ COMMENT ON COLUMN gacl.logingestion.is_expired IS E'If true, the account is expi
 COMMENT ON COLUMN gacl.logingestion.nbattempts IS E'Number of connection attempts';
 -- ddl-end --
 COMMENT ON COLUMN gacl.logingestion.lastattempt IS E'last attempt of connection';
+-- ddl-end --
+COMMENT ON COLUMN gacl.logingestion.locale IS E'Preferred locale for the user';
 -- ddl-end --
 ALTER TABLE gacl.logingestion OWNER TO collec;
 -- ddl-end --
@@ -1779,24 +1820,21 @@ WITH (FILLFACTOR = 90);
 -- object: col.last_movement | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_movement CASCADE;
 CREATE VIEW col.last_movement
-AS
+AS 
 
-SELECT s.uid,
-    s.movement_id,
-    s.movement_date,
-    s.movement_type_id,
-    s.container_id,
+SELECT m.uid,
+    m.movement_id,
+    m.movement_date,
+    m.movement_type_id,
+    m.container_id,
     c.uid AS container_uid,
-    s.line_number,
-    s.column_number,
-    s.movement_reason_id
-   FROM (col.movement s
-     LEFT JOIN col.container c USING (container_id))
-  WHERE (s.movement_id = ( SELECT st.movement_id
-           FROM col.movement st
-          WHERE (s.uid = st.uid)
-          ORDER BY st.movement_date DESC
-         LIMIT 1));
+	o.identifier as container_identifier,
+    m.line_number,
+    m.column_number,
+    m.movement_reason_id
+   FROM col.object o
+   JOIN col.movement m on (m.movement_id = o.last_movement_id)
+   LEFT JOIN col.container c USING (container_id);
 -- ddl-end --
 ALTER VIEW col.last_movement OWNER TO collec;
 -- ddl-end --
@@ -1902,7 +1940,7 @@ WITH (FILLFACTOR = 90);
 -- object: col.last_borrowing | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_borrowing CASCADE;
 CREATE VIEW col.last_borrowing
-AS
+AS 
 
 SELECT b1.borrowing_id,
     b1.uid,
@@ -1922,7 +1960,7 @@ ALTER VIEW col.last_borrowing OWNER TO collec;
 -- object: col.slots_used | type: VIEW --
 -- DROP VIEW IF EXISTS col.slots_used CASCADE;
 CREATE VIEW col.slots_used
-AS
+AS 
 
 SELECT
    container_id, count(*) as nb_slots_used
@@ -1990,8 +2028,9 @@ COMMENT ON COLUMN col.request.datefields IS E'List of the date fields used in th
 ALTER TABLE col.request OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.request (create_date, last_exec, title, body, login, datefields) VALUES (now(), DEFAULT, E'Number of samples by collection', E'collection_name, count(*) as "number of samples"\nfrom sample\njoin collection using (collection_id)\ngroup by collection_name', E'admin', DEFAULT);
--- ddl-end --
+/* Failed to create initial data commands! 
+
+ Malformed CSV document detected! The number of columns is `6' but the row `1' has `4' columns! */
 
 -- object: col.export_model_export_model_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.export_model_export_model_id_seq CASCADE;
@@ -2029,9 +2068,9 @@ COMMENT ON COLUMN col.export_model.target IS E'Main table targetted';
 ALTER TABLE col.export_model OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_model', E'[{"tableName":"export_model","businessKey":"export_model_name","istable11":false,"children":[],"booleanFields":[],"istablenn":false}]');
+INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_model', E'[{tableName:export_model,businessKey:export_model_name,istable11:false,children:[],booleanFields:[],istablenn:false}]');
 -- ddl-end --
-INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_template', E'[{"tableName":"export_template","technicalKey":"export_template_id","isEmpty":false,"businessKey":"export_template_name","istable11":false,"children":[{"aliasName":"export_dataset","isStrict":true}],"parents":[],"istablenn":false},{"tableName":"export_dataset","isEmpty":false,"parentKey":"export_template_id","istable11":false,"children":[],"parents":[{"aliasName":"dataset_template","fieldName":"dataset_template_id"}],"istablenn":true,"tablenn":{"secondaryParentKey":"dataset_template_id","tableAlias":"dataset_template"}},{"tableName":"dataset_template","technicalKey":"dataset_template_id","isEmpty":true,"businessKey":"dataset_template_name","istable11":false,"children":[{"aliasName":"dataset_column","isStrict":true}],"parents":[],"istablenn":false},{"tableName":"dataset_column","technicalKey":"dataset_column_id","isEmpty":false,"parentKey":"dataset_template_id","istable11":false,"children":[],"parents":[{"aliasName":"translator","fieldName":"translator_id"}],"istablenn":false},{"tableName":"translator","technicalKey":"translator_id","isEmpty":true,"businessKey":"translator_name","istable11":false,"children":[],"parents":[],"istablenn":false}]');
+INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_template', E'[{tableName:export_template,technicalKey:export_template_id,isEmpty:false,businessKey:export_template_name,istable11:false,children:[{aliasName:export_dataset,isStrict:true}],parents:[],istablenn:false},{tableName:export_dataset,isEmpty:false,parentKey:export_template_id,istable11:false,children:[],parents:[{aliasName:dataset_template,fieldName:dataset_template_id}],istablenn:true,tablenn:{secondaryParentKey:dataset_template_id,tableAlias:dataset_template}},{tableName:dataset_template,technicalKey:dataset_template_id,isEmpty:true,businessKey:dataset_template_name,istable11:false,children:[{aliasName:dataset_column,isStrict:true}],parents:[],istablenn:false},{tableName:dataset_column,technicalKey:dataset_column_id,isEmpty:false,parentKey:dataset_template_id,istable11:false,children:[],parents:[{aliasName:translator,fieldName:translator_id}],istablenn:false},{tableName:translator,technicalKey:translator_id,isEmpty:true,businessKey:translator_name,istable11:false,children:[],parents:[],istablenn:false}]');
 -- ddl-end --
 
 -- object: movement_uid_idx | type: INDEX --
@@ -2112,6 +2151,7 @@ CREATE TABLE col.object (
 	location_accuracy float,
 	geom geography(POINT, 4326),
 	object_comment varchar,
+	last_movement_id integer,
 	CONSTRAINT object_pk PRIMARY KEY (uid)
 );
 -- ddl-end --
@@ -2137,7 +2177,13 @@ COMMENT ON COLUMN col.object.geom IS E'Geographic point generate from wgs84_x an
 -- ddl-end --
 COMMENT ON COLUMN col.object.object_comment IS E'Comment on the object (sample or container)';
 -- ddl-end --
+COMMENT ON COLUMN col.object.last_movement_id IS E'Last movement recorded to the object';
+-- ddl-end --
 ALTER TABLE col.object OWNER TO collec;
+-- ddl-end --
+
+-- Appended SQL commands --
+create index object_identifier_idx on col.object using gist (lower(identifier) gist_trgm_ops);
 -- ddl-end --
 
 -- object: object_trashed | type: INDEX --
@@ -2160,13 +2206,6 @@ USING gist
 	geom
 );
 -- ddl-end --
-create index object_identifier_idx on col.object using gist (lower(identifier) gist_trgm_ops);
-
-CREATE INDEX object_uuid_idx ON col.object
-USING btree
-(
-	uuid
-);
 
 -- object: col.campaign_campaign_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.campaign_campaign_id_seq CASCADE;
@@ -2577,13 +2616,13 @@ COMMENT ON COLUMN col.dataset_type.fields IS E'List of allowed fields of the dat
 ALTER TABLE col.dataset_type OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed","campaign_id","campaign_name","campaign_uuid"]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'[uid,uuid,identifier,wgs84_x,wgs84_y,location_accuracy,object_status_name,referent_name,referent_email,address_name,address_line2,address_line3,address_city,address_country,referent_phone,referent_firstname,academic_directory,academic_link,object_comment,identifiers,sample_creation_date,sampling_date,multiple_value,sampling_place_name,expiration_date,sample_type_name,storage_product,clp_classification,multiple_type_name,collection_name,metadata,metadata_unit,parent_uid,parent_uuid,parent_identifiers,web_address,content_type,container_uid,container_identifier,container_uuid,storage_type_name,fixed_value,country_code,country_origin_code,trashed,campaign_id,campaign_name,campaign_uuid]');
 -- ddl-end --
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'2', E'collection', E'["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academical_directory","academical_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'2', E'collection', E'[collection_name,collection_displayname,collection_keywords,referent_name,referent_firstname,academical_directory,academical_link,referent_email,address_name,address_line2,address_line3,address_city,address_country,referent_phone,fixed_value]');
 -- ddl-end --
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'3', E'document', E'["document_name","document_uuid","uid","sample_uuid","identifier","content_type","extension","size","document_creation_date","fixed_value", "web_address"]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'3', E'document', E'[document_name,document_uuid,uid,sample_uuid,identifier,content_type,extension,size,document_creation_date,fixed_value, web_address]');
 -- ddl-end --
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'4', E'arbitrary content', E'["content"]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'4', E'arbitrary content', E'[content]');
 -- ddl-end --
 
 -- object: dataset_type_fk | type: CONSTRAINT --
@@ -3328,39 +3367,12 @@ REFERENCES col.country (country_id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 -- ddl-end --
 
--- object: country_id_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.country_id_idx CASCADE;
-CREATE INDEX country_id_idx ON col.sample
-USING btree
-(
-	country_id
-);
--- ddl-end --
-
--- object: campaign_id_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.campaign_id_idx CASCADE;
-CREATE INDEX campaign_id_idx ON col.campaign_regulation
-USING btree
-(
-	campaign_id
-);
--- ddl-end --
-
--- object: sample_campaign_id_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.sample_campaign_id_idx CASCADE;
-CREATE INDEX sample_campaign_id_idx ON col.sample
-USING btree
-(
-	campaign_id
-);
--- ddl-end --
-
 -- object: col.v_subsample_quantity | type: VIEW --
 -- DROP VIEW IF EXISTS col.v_subsample_quantity CASCADE;
 CREATE VIEW col.v_subsample_quantity
-AS
+AS 
 
-select sample_id, uid, multiple_value,
+select sample_id, uid, multiple_value,  
 coalesce ((select sum(subsample_quantity) from col.subsample smore where smore.movement_type_id = 1 and smore.sample_id = s.sample_id),0) as subsample_more,
 coalesce ((select sum(subsample_quantity) from col.subsample sless where sless.movement_type_id  = 2 and sless.sample_id = s.sample_id),0) as subsample_less
 from col.sample s;
@@ -3494,7 +3506,7 @@ ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 CREATE FUNCTION col.getsampletypesfromcollection (IN collection_id integer)
 	RETURNS varchar
 	LANGUAGE sql
-	VOLATILE
+	VOLATILE 
 	CALLED ON NULL INPUT
 	SECURITY INVOKER
 	PARALLEL UNSAFE
@@ -3514,7 +3526,7 @@ ALTER FUNCTION col.getsampletypesfromcollection(integer) OWNER TO collec;
 CREATE FUNCTION col.getgroupsfromcollection (collection_id integer)
 	RETURNS varchar
 	LANGUAGE sql
-	VOLATILE
+	VOLATILE 
 	CALLED ON NULL INPUT
 	SECURITY INVOKER
 	PARALLEL UNSAFE
@@ -3561,7 +3573,7 @@ ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 CREATE FUNCTION col.geteventtypesfromcollection (IN collection_id integer)
 	RETURNS varchar
 	LANGUAGE sql
-	VOLATILE
+	VOLATILE 
 	CALLED ON NULL INPUT
 	SECURITY INVOKER
 	PARALLEL UNSAFE
@@ -3574,6 +3586,46 @@ where collection_id = $1
 $$;
 -- ddl-end --
 ALTER FUNCTION col.geteventtypesfromcollection(integer) OWNER TO collec;
+-- ddl-end --
+
+-- object: object_uuid_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.object_uuid_idx CASCADE;
+CREATE INDEX object_uuid_idx ON col.object
+USING btree
+(
+	uuid
+);
+-- ddl-end --
+
+-- object: object_change_date_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.object_change_date_idx CASCADE;
+CREATE INDEX object_change_date_idx ON col.object
+USING btree
+(
+	change_date
+);
+-- ddl-end --
+
+-- object: col.v_derivated_number | type: VIEW --
+-- DROP VIEW IF EXISTS col.v_derivated_number CASCADE;
+CREATE VIEW col.v_derivated_number
+AS 
+
+select s.uid, count(*) -1 as nb_derivated_sample
+from col.sample s
+join col.sample d on (d.parent_sample_id = s.sample_id)
+group by s.uid;
+-- ddl-end --
+COMMENT ON VIEW col.v_derivated_number IS E'Get the number of derivated samples from an uid';
+-- ddl-end --
+ALTER VIEW col.v_derivated_number OWNER TO collec;
+-- ddl-end --
+
+-- object: collection_fk | type: CONSTRAINT --
+-- ALTER TABLE col.container DROP CONSTRAINT IF EXISTS collection_fk CASCADE;
+ALTER TABLE col.container ADD CONSTRAINT collection_fk FOREIGN KEY (collection_id)
+REFERENCES col.collection (collection_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: object_booking_fk | type: CONSTRAINT --
@@ -3890,4 +3942,24 @@ ALTER TABLE col.object ADD CONSTRAINT referent_object_fk FOREIGN KEY (referent_i
 REFERENCES col.referent (referent_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
-insert into col.dbversion (dbversion_number, dbversion_date) values ('2.8.1', '2022-12-01');
+
+-- object: object_last_movement_id_fk | type: CONSTRAINT --
+-- ALTER TABLE col.object DROP CONSTRAINT IF EXISTS object_last_movement_id_fk CASCADE;
+ALTER TABLE col.object ADD CONSTRAINT object_last_movement_id_fk FOREIGN KEY (last_movement_id)
+REFERENCES col.movement (movement_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: "grant_CcT_1a8deeacb2" | type: PERMISSION --
+GRANT CREATE,CONNECT,TEMPORARY
+   ON DATABASE collec
+   TO collec;
+-- ddl-end --
+
+-- object: "grant_rawdD_a7760dbb4c" | type: PERMISSION --
+GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE
+   ON TABLE col.v_subsample_quantity
+   TO collec;
+-- ddl-end --
+
+

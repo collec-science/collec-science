@@ -1,11 +1,17 @@
 <?php
+
+class CampaignException extends Exception
+{
+}
+;
 class Campaign extends ObjetBDD
 {
     private $sql = "select campaign_id, campaign_name, campaign_from, campaign_to,
-                    referent_id, referent_name, uuid
+                    referent_id, referent_name, referent_firstname, uuid
                     from campaign
                     left outer join referent using (referent_id)";
     private $document;
+    public Referent $referent;
     /**
      * __construct
      *
@@ -119,11 +125,41 @@ class Campaign extends ObjetBDD
     function getId(string $field, string $val): ?int
     {
         $sql = "select campaign_id from campaign where $field = :name";
-        $data = $this->lireParamAsPrepared($sql, array("name" => $$val));
+        $data = $this->lireParamAsPrepared($sql, array("name" => $val));
         if (!empty($data)) {
             return $data["campaign_id"];
         } else {
             return NULL;
         }
+    }
+    function import(array $data)
+    {
+        if (empty($data["campaign_name"])) {
+            throw new CampaignException(_("Le nom de la campagne n'est pas indiqué"));
+        }
+        $id = $this->getIdFromName($data["campaign_name"]);
+        if ($id > 0) {
+            throw new CampaignException(sprintf(_("La campagne %s existe déjà dans la base de données"), $data["campaign_name"]));
+        }
+        if (!empty($data["referent_name"])) {
+            if (!isset($this->referent)) {
+                $this->referent = $this->classInstanciate("Referent", "referent.class.php");
+            }
+            $referents = $this->referent->getFromName($data["referent_name"], $data["referent_firstname"]);
+            if (empty($referents)) {
+                $referent_id = $this->referent->ecrire(
+                    array(
+                        "referent_id" => 0,
+                        "referent_name" => $data["referent_name"],
+                        "referent_firstname" => $data["referent_firstname"]
+                    )
+                );
+            } else {
+                $referent_id = $referents["referent_id"];
+            }
+            $data["referent_id"] = $referent_id;
+        }
+        $data["campaign_id"] = 0;
+        $this->ecrire($data);
     }
 }

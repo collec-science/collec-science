@@ -9,4 +9,6 @@ if (file_exists($SMARTY_template . '/main_' . $langue . '.tpl')) {
 }
 $vue->set($corps, "corps");
 
-?>
+if (file_exists("modules/default.php")) {
+    include "modules/default.php";
+}

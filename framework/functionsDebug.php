@@ -2,7 +2,7 @@
 
 /**
  * Affiche le nom et le contenu d'une variable
- * @param array $tableau
+ * @param $tableau
  */
 function printr($tableau, $mode_dump = 0, $force = false)
 {
@@ -31,7 +31,7 @@ function test($content = "")
  * Display the content of a variable
  * with a structured format
  *
- * @param any $arr
+ * @param $arr
  * @param integer $level
  * @return void
  */

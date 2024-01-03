@@ -43,7 +43,7 @@ switch ($t_module["param"]) {
                                 "nom" => $dl["nom"],
                                 "prenom" => $dl["prenom"],
                                 "expiration" => $data["expiration"],
-                                "link" => "https://".$_SERVER["HTTP_HOST"] . "/index.php?module=passwordlostReinitchange&token=" . $data["token"]
+                                ":adresse" => $APPLI_address . "/index.php?module=passwordlostReinitchange&token=" . $data["token"]
                             )
                         )) {
                             $log->setLog("unknown", "passwordlostSendmail", "email send to " . $dl["mail"]);

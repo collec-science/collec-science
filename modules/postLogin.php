@@ -12,7 +12,7 @@
  */
 if (!empty($APPLI_temp)) {
     $dureeVie = 3600 * 24; // Suppression de tous les fichiers de plus de 24 heures
-                           // $dureeVie = 30;
+    // $dureeVie = 30;
     /*
      * Ouverture du dossier
      */
@@ -24,7 +24,7 @@ if (!empty($APPLI_temp)) {
         $atime = $stat["atime"];
         fclose($file);
         $infos = pathinfo($path);
-        if (! is_dir($path) && ($infos["basename"] != ".htaccess")) {
+        if (!is_dir($path) && ($infos["basename"] != ".htaccess")) {
             $age = time() - $atime;
             if ($age > $dureeVie) {
                 unlink($path);
@@ -45,6 +45,3 @@ try {
         $message->set($e->getMessage());
     }
 }
-
-
-?>

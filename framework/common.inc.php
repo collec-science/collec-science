@@ -89,7 +89,7 @@ $_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 if (!isset($_SESSION['CREATED'])) {
     $_SESSION['CREATED'] = time();
     $_SESSION['ABSOLUTE_START'] = time();
-} else if (time() - $_SESSION['CREATED'] > $APPLI_session_ttl) {
+} elseif (time() - $_SESSION['CREATED'] > $APPLI_session_ttl) {
     /*
      * La session a demarre depuis plus du temps de la session : cookie regenere
      */
@@ -165,7 +165,7 @@ if (isset($_SESSION["LANG"]) && !$APPLI_modeDeveloppement) {
      */
     if (isset($_COOKIE["langue"])) {
         $langue = $_COOKIE["langue"];
-    } else {
+    } else {    
         /*
          * Recuperation de la langue du navigateur
          */
@@ -175,7 +175,9 @@ if (isset($_SESSION["LANG"]) && !$APPLI_modeDeveloppement) {
     /*
      * Mise a niveau du langage
      */
-    setlanguage($langue);
+    if (in_array($langue, array("fr","en", "us"))) {
+        setlanguage($langue);
+    }  
 }
 
 $SMARTY_variables["LANG"] = $_SESSION["LANG"];

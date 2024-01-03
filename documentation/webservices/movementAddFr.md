@@ -16,23 +16,24 @@ L'API doit être appelée en mode http **POST**.
 
 ### Variables à fournir
 
-| Nom de la variable | Description  | obligatoire |
-|--|--| :---: |
-| login | Login du compte utilisé pour appeler l'API | X |
-| token | Jeton d'identification associé au login | X |
-| uid | UID de l'objet sur lequel porte le mouvement | X(*) |
-| uuid | UUID de l'objet sur lequel porte le mouvement | X(*) |
-| identifier | Identifiant métier de l'objet sur lequel porte le mouvement | X(*) |
-| movement_type | 1 : entrée dans le stock / 2 : sortie du stock | X |
-| container_uid | UID du container (entrée dans le stock) | X(**) |
-| container_uuid | UUID du container (entrée dans le stock) | X(**) |
-| container_identifier | Identifiant métier du contenant | X(**) |
-| movement_reason | Motif de déstockage. Valeur numérique, correspondant à la clé de l'enregistrement de la table [Motifs de déstockage](index.php?module=movementReasonList) | |
-| column | N° de la colonne où est stocké l'objet dans le contenant | |
-| line | N° de la ligne où est stocké l'objet dans le contenant | |
-| storage_location | Texte libre permettant de préciser l'emplacement de stockage | |
-| movement_comment | Texte libre | |
 
+| Nom de la variable   | Description                                                                                                                                                   | obligatoire |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-----------: |
+| login                | Login du compte utilisé pour appeler l'API                                                                                                                   |      X      |
+| token                | Jeton d'identification associé au login                                                                                                                      |      X      |
+| locale               | Code de la langue utilisée pour les messages d'erreur ou le formatage des dates. Par défaut : fr, sinon 'en' ou 'us'                                        |             |
+| uid                  | UID de l'objet sur lequel porte le mouvement                                                                                                                  |    X(*)    |
+| uuid                 | UUID de l'objet sur lequel porte le mouvement                                                                                                                 |    X(*)    |
+| identifier           | Identifiant métier de l'objet sur lequel porte le mouvement                                                                                                  |    X(*)    |
+| movement_type        | 1 : entrée dans le stock / 2 : sortie du stock                                                                                                               |      X      |
+| container_uid        | UID du container (entrée dans le stock)                                                                                                                      |    X(**)    |
+| container_uuid       | UUID du container (entrée dans le stock)                                                                                                                     |    X(**)    |
+| container_identifier | Identifiant métier du contenant                                                                                                                              |    X(**)    |
+| movement_reason      | Motif de déstockage. Valeur numérique, correspondant à la clé de l'enregistrement de la table[Motifs de déstockage](index.php?module=movementReasonList) |             |
+| column               | N° de la colonne où est stocké l'objet dans le contenant                                                                                                   |             |
+| line                 | N° de la ligne où est stocké l'objet dans le contenant                                                                                                     |             |
+| storage_location     | Texte libre permettant de préciser l'emplacement de stockage                                                                                                 |             |
+| movement_comment     | Texte libre                                                                                                                                                   |             |
 
 {.table .table-bordered .table-hover .datatable-nopaging-nosort }
 

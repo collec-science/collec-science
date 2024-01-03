@@ -9,6 +9,7 @@
     "datatables.net-buttons-bs": "^1.6.5",
     "datatables.net-fixedheader": "^3.2.4",
     "datetime-moment": "^1.0.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.49",
     "handlebars": "^4.7.7",
     "jquery-ui": "^1.12.1",
     "jquery-ui-dist": "^1.12.1",

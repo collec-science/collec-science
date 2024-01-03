@@ -12,20 +12,26 @@
 	<loginChangePassword action="framework/identification/login.php" param="changePassword" loginrequis="1" type="smarty" />
 	<loginChangePasswordExec action="framework/identification/login.php" param="changePasswordExec" loginrequis="1" retourko="loginChangePassword" retourok="default" modulebefore="loginChangePassword" />
 
-	<administration action="modules/administration/index.php" droits="admin" retourko="" retourok="" droitko="droitko" type="smarty"></administration>
+	<administration action="framework/utils/submenu.php" droits="admin" retourko="" retourok="" droitko="droitko" type="smarty"></administration>
 	<gestion action="modules/gestion/index.php" droits="gestion" retourko="" retourok="" droitko="droitko" type="smarty"></gestion>
 	<errorbefore action="framework/errorbefore.php" retourlogin="1" type="smarty"></errorbefore>
 	<errorlogin action="framework/errorlogin.php" retourlogin="1" type="smarty"></errorlogin>
 	<test action="test/test.php" retourko="" type="smarty"></test>
 	<connexion loginrequis="1" type="smarty" />
 	<disconnect action="framework/identification/disconnect.php" type="smarty" retourok="default" retourko="default" />
-	<apropos action="framework/apropos.php" type="smarty" />
+	<apropos action="framework/utils/about.php" type="smarty" />
+	<about action="framework/utils/about.php" type="smarty" />
 	<phpinfo action="framework/phpinfo.php" droits="admin" retourlogin="1" type="smarty" />
-	<quoideneuf action="doc/quoideneuf.php" retourlogin="1" type="smarty" />
+	<quoideneuf action="framework/utils/news.php" retourlogin="1" type="smarty" />
+	<news action="framework/utils/news.php" retourlogin="1" type="smarty" />
+
 	<getLastConnections action="framework/log/log.php" param="getLastConnections" loginrequis="1" type="smarty" />
 	<setlanguage action='framework/setlanguage.php' param="" retourlogin="1" type="smarty" retourok="default" />
 	<setlanguagefr action='framework/setlanguage.php' param="fr" retourlogin="1" type="smarty" retourok="default" />
 	<setlanguageen action='framework/setlanguage.php' param="en" retourlogin="1" type="smarty" retourok="default" />
+	<setlanguageus action='framework/setlanguage.php' param="us" retourlogin="1" type="smarty" retourok="default" />
+	
+
 
 
 	<exampleList action="modules/example/example.php" param="list" droits="consult" type="smarty" />
@@ -34,8 +40,8 @@
 	<exampleWrite action="modules/example/example.php" param="write" droits="gestion" retourok="exampleList" retourko="exampleChange" modulebefore="exampleChange" />
 	<exampleDelete action="modules/example/example.php" param="delete" droits="admin" retourok="exampleList" retourko="exampleChange" />
 
-    <documentation_fr action="default" type="smarty"/>
-    <documentation_en action="default" type="smarty"/>
+    <documentation_fr action="framework/utils/submenu.php" type="smarty"/>
+    <documentation_en action="framework/utils/submenu.php" type="smarty"/>
     <documentationGetFile action="framework/utils/file.php" param="documentationGetFile" type="binaire" retourko="default"/>
 
 	<!-- gestion des droits nouvelle formule -->
@@ -94,11 +100,8 @@
     <doctotp_fr action="framework/utils/markdown.php" param="framework/documentation/totp_fr.md" type="smarty" retourko="default"/>
     <doctotp_en action="framework/utils/markdown.php" param="framework/documentation/totp_en.md" type="smarty" retourko="default"/>
 
-	<!-- System -->
-	<systemShowServer action="framework/utils/system.php" param="SERVER" droits="admin" type="smarty" retourko="default"/>
-	<systemShowSession action="framework/utils/system.php" param="SESSION" droits="admin" type="smarty" retourko="default"/>
-
-	<!-- Test Mail -->
-	<mailtest action="framework/utils/mailtest.php" droits="admin" retourok="default" retourko="default"  />
+		<!-- System -->
+		<systemShowServer action="framework/utils/system.php" param="SERVER" droits="admin" type="smarty" retourko="default"/>
+		<systemShowSession action="framework/utils/system.php" param="SESSION" droits="admin" type="smarty" retourko="default"/>
 
 </navigation>

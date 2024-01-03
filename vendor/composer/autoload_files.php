@@ -97,6 +97,7 @@ return array(
     '4af1dca6db8c527c6eed27bff85ff0e5' => $vendorDir . '/thecodingmachine/safe/generated/yaz.php',
     'fe43ca06499ac37bc2dedd823af71eb5' => $vendorDir . '/thecodingmachine/safe/generated/zip.php',
     '356736db98a6834f0a886b8d509b0ecd' => $vendorDir . '/thecodingmachine/safe/generated/zlib.php',
+    '344f11dc3484aaed5cbde58e23513be4' => $vendorDir . '/apereo/phpcas/source/CAS.php',
     'b2b3f01361f3aaeab67fde08ae76446f' => $vendorDir . '/smarty-gettext/smarty-gettext/block.t.php',
     'd3114450b53a83020e2822546c24e1ad' => $vendorDir . '/smarty-gettext/smarty-gettext/function.locale.php',
 );

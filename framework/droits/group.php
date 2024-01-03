@@ -8,7 +8,7 @@
 
 include_once 'framework/droits/droits.class.php';
 require_once "framework/droits/aclgroup.class.php";
-$dataClass = new Aclgroup($bdd_gacl,$ObjetBDDParam);
+$dataClass = new Aclgroup($bdd_gacl, $ObjetBDDParam);
 $keyName = "aclgroup_id";
 $id = $_REQUEST[$keyName];
 
@@ -17,15 +17,15 @@ switch ($t_module["param"]) {
 		/*
 		 * Display the list of all records of the table
 		 */
-		$vue->set($dataClass->getGroups() , "data");
-		$vue->set("framework/droits/groupList.tpl" , "corps");
+		$vue->set($dataClass->getGroups(), "data");
+		$vue->set("framework/droits/groupList.tpl", "corps");
 		break;
 	case "display":
 		/*
 		 * Display the detail of the record
 		 */
-		$vue->set( $dataClass->lire($id), "data");
-		$vue->set("framework/droits/groupDisplay.tpl" , "corps");
+		$vue->set($dataClass->lire($id), "data");
+		$vue->set("framework/droits/groupDisplay.tpl", "corps");
 		break;
 	case "change":
 		/*
@@ -33,14 +33,14 @@ switch ($t_module["param"]) {
 		 * If is a new record, generate a new record with default value :
 		 * $_REQUEST["idParent"] contains the identifiant of the parent record
 		 */
-		is_integer($_REQUEST["aclgroup_id_parent"])?$parent_id = $_REQUEST["aclgroup_id_parent"] : $parent_id = 0;
+		empty($_REQUEST["aclgroup_id_parent"]) ? $parent_id = 0 : $parent_id = $_REQUEST["aclgroup_id_parent"];
 		dataRead($dataClass, $id, "framework/droits/groupChange.tpl", $parent_id);
 		/*
 		 * Recuperation des logins associes
 		 */
 		include_once "framework/droits/acllogin.class.php";
 		$acllogin = new Acllogin($bdd_gacl, $ObjetBDDParam);
-		$vue->set($acllogin->getAllFromGroup($id) , "logins");
+		$vue->set($acllogin->getAllFromGroup($id), "logins");
 		/**
 		 * Get the list of the groups
 		 */

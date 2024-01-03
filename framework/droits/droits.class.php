@@ -102,11 +102,11 @@ class Aclaco extends ObjetBDD
      *
      * @param string $aco
      *            : aco a tester
-     * @return tableau : liste des logins trouves
+     * @return array : liste des logins trouves
      */
     function getLogins($aco)
     {
-        if (!empty($this->encodeData($aco))) {
+        if (!empty($aco)) {
             $sql = "with recursive first_level (login, aco, aclgroup_id, aclgroup_id_parent) as (
 					(select login, 	aco, aclgroup_id, aclgroup_id_parent
 						from acllogin
@@ -122,9 +122,9 @@ class Aclaco extends ObjetBDD
 						and g.aclgroup_id = fl.aclgroup_id_parent)
 					)
 					select distinct login from first_level
-					where aco = '" . $aco . "'
+					where aco = :aco
 					order by login";
-            return $this->getListeParam($sql);
+            return $this->getListeParamAsPrepared($sql, array("aco"=>$aco));
         }
     }
 }

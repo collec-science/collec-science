@@ -46,7 +46,7 @@ $(document).ready(function() {
 
 		<form class="form-horizontal protoform" id="requestForm" method="post" action="index.php">
 			<input type="hidden" id="moduleBase" name="moduleBase" value="request">
-			<input type="hidden" id="action" name="action" value="Write">
+			<input type="hidden" id="action" name="action" value="">
 			<input type="hidden" name="request_id" value="{$data.request_id}">
 			<input type="hidden" name="body" id="bodySent">
 			<div class="form-group">

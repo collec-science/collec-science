@@ -81,9 +81,9 @@ class Aclgroup extends ObjetBDD
              * Set the parameters
              */
             if ($conn) {
-            ldap_set_option($conn, LDAP_OPT_NETWORK_TIMEOUT, $ldapParam["timeout"]);
-            ldap_set_option($conn, LDAP_OPT_TIMELIMIT, $ldapParam["timeout"]);
-            ldap_set_option($conn, LDAP_OPT_TIMEOUT, $ldapParam["timeout"]);
+                ldap_set_option($conn, LDAP_OPT_NETWORK_TIMEOUT, $ldapParam["timeout"]);
+                ldap_set_option($conn, LDAP_OPT_TIMELIMIT, $ldapParam["timeout"]);
+                ldap_set_option($conn, LDAP_OPT_TIMEOUT, $ldapParam["timeout"]);
 
                 $attribut = array(
                     $ldapParam['commonNameAttrib'],
@@ -92,10 +92,12 @@ class Aclgroup extends ObjetBDD
                 );
                 if ($ldapParam["ldapnoanonymous"]) {
                     if (!$ldap->login($ldapParam["ldaplogin"], $ldapParam["ldappassword"])) {
-                        throw new LdapException(_("L'identification dans l'annuaire LDAP a échoué pour la récupération des groupes de l'utilisateur"));
+                        throw new LdapException(
+                            _("L'identification dans l'annuaire LDAP a échoué pour la récupération des groupes de l'utilisateur")
+                        );
                     }
                 }
-                $filtre =  "(" . $ldapParam["user_attrib"] . "=" . $_SESSION["login"] . ")";
+                $filtre = "(" . $ldapParam["user_attrib"] . "=" . $_SESSION["login"] . ")";
                 /*
                  * Attention : ne gere pas le cas de user_attrib vide lors d'une connexion a un Active Directory
                  *             avec le userPrincipalName (et eventuellement l'UPN Suffix defini)
@@ -137,7 +139,13 @@ class Aclgroup extends ObjetBDD
         global $CAS_group_attribute, $CAS_get_groups;
         if (isset($_SESSION["CAS_attributes"][$CAS_group_attribute]) && $CAS_get_groups == 1) {
             $groupesCas = array();
-            if (!is_array($_SESSION["CAS_attributes"][$CAS_group_attribute]) && !empty($_SESSION["CAS_attributes"][$CAS_group_attribute])) {
+            if (
+                !is_array(
+                    $_SESSION["CAS_attributes"][$CAS_group_attribute]
+                ) &&
+                !empty($_SESSION["CAS_attributes"][$CAS_group_attribute]
+            )
+            ) {
                 $_SESSION["CAS_attributes"][$CAS_group_attribute] = array($_SESSION["CAS_attributes"][$CAS_group_attribute]);
             }
             foreach ($_SESSION["CAS_attributes"][$CAS_group_attribute] as $value) {
@@ -261,7 +269,7 @@ class Aclgroup extends ObjetBDD
      *
      * @param int $parent_id
      * @param number $level
-     * @return array|null
+     * @return array:|NULL
      */
     private function getChildGroups($parent_id, $level = 1)
     {
@@ -382,7 +390,7 @@ class Aclgroup extends ObjetBDD
      * le groupe dispose de l'acl fourni en paramètre
      *
      * @param int $aclaco_id
-     * @return array|null
+     * @return number|NULL
      */
     function getGroupsFromAco($aclaco_id)
     {

@@ -154,7 +154,7 @@
 </div>
 <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
 <div class="row">
-  <div class="col-lg-8 col-md-12">
+  <div class="col-lg-12">
     {include file="export/datasetColumnTable.tpl"}
   </div>
 </div>

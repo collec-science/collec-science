@@ -1,0 +1,11 @@
+#!/bin/bash
+SQL="select dbversion_number from col.dbversion order by dbversion_id desc limit 1"
+DBHOST="localhost"
+DATABASE="collec"
+LOGIN="collec"
+PASSWORD="collecPassword"
+ADDRESS=postgresql://"$LOGIN":"$PASSWORD"@"$DBHOST"/"$DATABASE"
+VERSION=`psql $ADDRESS -c "$SQL" -t|xargs`
+FOLDERINSTALL="/var/www/html/collec-science/collec-science"
+SCRIPT="$FOLDERINSTALL/install/upgradedb-from-$VERSION.sh"
+source $SCRIPT

@@ -1,17 +1,10 @@
-Version 23.0.0b of 7/12/2023
+Version 24.0.0 of 3/1/2024
 -----------------------------
-Bug corrections :
+Bug fixes:
 - deleting a sample no longer worked correctly
 - the display of columns in the list of samples was no longer saved
 - exporting files could fail
 - management of export templates has been improved; it is now possible to integrate templates created in other instances
-
-New features:
-- sub-menus are displayed when clicked
-
-Version 23.0.0a of 28/11/2023
------------------------------
-Bug fixes:
 - modification API: it was possible to create stations, campaigns or referents even without having the appropriate rights to the collection concerned
 - the size of the icon in emails has been reduced
 - in sample searches: selecting a collection did not update the list of possible event types
@@ -41,6 +34,7 @@ new functionalities :
 - it is now possible to import a list of campaigns from a CSV file
 - it is now possible to force the main business identifier to be unique for each collection (set in the collection)
 - a mechanism to ensure that the main business identifier of containers is unique has been introduced (general settings)
+- sub-menus are displayed when clicked
 
 API :
 - in APIs, it is now possible to specify a 'local' variable to indicate the language in which messages are returned

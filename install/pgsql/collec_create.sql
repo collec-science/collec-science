@@ -3,8 +3,7 @@
 -- PostgreSQL version: 16.0
 -- Project Site: pgmodeler.io
 -- Model Author: ---
--- object: collec | type: ROLE --
--- DROP ROLE IF EXISTS collec;
+
 
 SET check_function_bodies = false;
 -- ddl-end --
@@ -308,7 +307,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 ALTER TABLE col.dbversion OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'2.8', E'2022-09-26');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'24.0', E'2024-01-02');
 -- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --
@@ -3482,7 +3481,7 @@ USING btree
 CREATE TABLE col.collection_sampletype (
 	collection_id integer NOT NULL,
 	sample_type_id integer NOT NULL,
-	CONSTRAINT collection_sampletype PRIMARY KEY (collection_id,sample_type_id) DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT collection_sampletype_1 PRIMARY KEY (collection_id,sample_type_id) DEFERRABLE INITIALLY IMMEDIATE
 );
 -- ddl-end --
 ALTER TABLE col.collection_sampletype OWNER TO collec;
@@ -3547,7 +3546,7 @@ ALTER FUNCTION col.getgroupsfromcollection(integer) OWNER TO postgres;
 CREATE TABLE col.collection_eventtype (
 	collection_id integer NOT NULL,
 	event_type_id integer NOT NULL,
-	CONSTRAINT collection_eventtype PRIMARY KEY (collection_id,event_type_id) DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT collection_eventtype_1 PRIMARY KEY (collection_id,event_type_id) DEFERRABLE INITIALLY IMMEDIATE
 );
 -- ddl-end --
 COMMENT ON TABLE col.collection_eventtype IS E'List of event types attached to a collection';

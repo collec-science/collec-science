@@ -126,4 +126,4 @@ CREATE INDEX container_collection_id_idx ON col.container
 USING btree(collection_id);
 
 
-insert into col.dbversion (dbversion_number, dbversion_date) values ('23.0','2023-11-28');
+insert into col.dbversion (dbversion_number, dbversion_date) values ('24.0','2024-01-02');

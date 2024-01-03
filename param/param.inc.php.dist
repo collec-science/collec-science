@@ -86,7 +86,7 @@ $MAIL_param = array(
 /*
  * Activer l'envoi de mails
  */
-//$MAIL_enabled = 1;
+$MAIL_enabled = 1;
 /*
  * Activer la fonction de reinitialisation d'un mot de passe perdu
  * identification de type BDD ou LDAP-BDD pour les comptes declares localement

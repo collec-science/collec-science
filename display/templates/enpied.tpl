@@ -1,6 +1,6 @@
   <div class="container">
     <p class="text-muted hidden-xs hidden-sm">
-    {t}Copyright © 2016-2023 - Tous droits réservés. INRAE - Logiciel diffusé sous licence AGPL{/t}
+    {t}Copyright © 2016-2024 - Tous droits réservés. INRAE - Logiciel diffusé sous licence AGPL{/t}
 <br>
 {t}Pour tout problème :{/t} <a href="{$appliAssist}">{$appliAssist}</a>
 </p>

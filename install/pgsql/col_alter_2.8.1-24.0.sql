@@ -16,6 +16,7 @@ update col.dbparam set dbparam_description = 'Nom affiché dans les applications
 update col.dbparam set dbparam_description = 'Si positionné à 1, les utilisateurs avec le droit de consultation peuvent visualiser toutes les métadonnées de tous les échantillons', dbparam_description_en = 'If set to 1, users with consultation rights can view all the metadata for all the samples' where dbparam_name = 'consultSeesAll';
 update col.dbparam set dbparam_description = 'Si positionné à 1, le logiciel interdira la création de deux contenants avec le même nom', dbparam_description_en = 'If set to 1, the software will prohibit the creation of two containers with the same name' where dbparam_name = 'containerNameUnique';
 
+alter table col.object alter column change_date set default now();
 
 alter table col.collection add column sample_name_unique boolean NOT NULL DEFAULT false;
 COMMENT ON COLUMN col.collection.sample_name_unique IS E'True if the sample identifier must be unique in the collection';

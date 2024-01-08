@@ -2145,7 +2145,7 @@ CREATE TABLE col.object (
 	wgs84_y double precision,
 	object_status_id integer,
 	referent_id integer,
-	change_date timestamp NOT NULL DEFAULT 'now',
+	change_date timestamp NOT NULL DEFAULT now(),
 	uuid uuid NOT NULL DEFAULT gen_random_uuid(),
 	trashed bool DEFAULT false,
 	location_accuracy float,

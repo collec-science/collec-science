@@ -91,7 +91,8 @@ class Sample extends ObjetBDD
     private $where = "";
     private $paramSearch = array();
     private $data = array();
-    public $object, $container, $event, $country, $collection;
+    public ObjectClass $object;
+    public $container, $event, $country, $collection;
     public Subsample $subsample;
 
     public function __construct($bdd, $param = array())
@@ -268,8 +269,10 @@ class Sample extends ObjetBDD
         }
         if ($ok) {
             $firstUid = $data["uid"];
-            $object = new ObjectClass($this->connection, $this->param);
-            $uid = $object->ecrire($data);
+            if (!isset($this->object)) {
+                $this->object = $this->classInstanciate("ObjectClass", "object.class.php");
+            }
+            $uid = $this->object->ecrire($data);
 
             if ($uid > 0) {
                 $data["uid"] = $uid;
@@ -343,8 +346,7 @@ class Sample extends ObjetBDD
              * Suppression de l'objet
              */
             if (!isset($this->object)) {
-                require_once 'modules/classes/object.class.php';
-                $this->object = new ObjectClass($this->connection, $this->paramori);
+               $this->object = $this->classInstanciate("ObjectClass", "object.class.php");
             }
             $this->object->supprimer($uid);
         } else {

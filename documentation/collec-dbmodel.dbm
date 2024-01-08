@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="923,1070" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="237,699" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -2343,7 +2343,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	<column name="referent_id">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="change_date" not-null="true" default-value="'now'">
+	<column name="change_date" not-null="true" default-value="now()">
 		<type name="timestamp" length="0"/>
 		<comment> <![CDATA[Technical date of changement of the object]]> </comment>
 	</column>

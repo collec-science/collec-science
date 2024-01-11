@@ -307,7 +307,7 @@
             {/section}
         </tbody>
     </table>
-    {if $droits.import == 1}
+    {if $droits.import == 1 || $droits.collection == 1}
     <div class="row">
         <div class="col-md-6 protoform form-horizontal">
             {t}Pour les éléments cochés :{/t}

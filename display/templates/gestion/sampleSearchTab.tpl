@@ -49,6 +49,7 @@
             if ($("#subsample_quantity_max").val().length > 0) ok = true;
             if ($("#booking_type").val() != 0) ok = true;
             if ($("#without_container").is(':checked')) ok = true;
+            if ($("#collections").val().length > 0) ok = true;
             var mf = $("#metadata_field").val();
 
             if ( mf != null) {
@@ -274,6 +275,7 @@
             $("#booking_from").datepicker("setDate", now);
             $("#booking_to").datepicker("setDate", now);
             $("#name").val("");
+            $("#collections").val("");
             $("#uidsearch").focus();
         });
         /* Management of tabs */
@@ -425,11 +427,22 @@
                     <div class="row">
                         <div class="form-group">
                             <label for="collection_id" class="col-sm-3 control-label">{t}Collection :{/t}</label>
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
                                 <select id="collection_id" name="collection_id" class="form-control">
                                 <option value="" {if $sampleSearch.collection_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
                                 {foreach $collectionsSearch as $collection}
                                 <option value="{$collection.collection_id}" {if $collection.collection_id == $sampleSearch.collection_id}selected{/if}>
+                                {$collection.collection_name}
+                                </option>
+                                {/foreach}
+                                </select>
+                            </div>
+                            <label for="collections" class="col-sm-3 control-label">{t}Ou recherche multiple :{/t}</label>
+                            <div class="col-sm-3">
+                                <select id="collections" name="collections[]" class="form-control" multiple size="2">
+                                <option value="" {if count($sampleSearch.collections) == 0}selected{/if}>{t}Choisissez...{/t}</option>
+                                {foreach $collectionsSearch as $collection}
+                                <option value="{$collection.collection_id}" {if in_array($collection.collection_id,$sampleSearch.collections)}selected{/if}>
                                 {$collection.collection_name}
                                 </option>
                                 {/foreach}

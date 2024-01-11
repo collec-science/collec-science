@@ -58,6 +58,17 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<div class="form-group">
+				<label for="collection_id" class="control-label col-md-4">{t}Collection autorisée :{/t}</label>
+				<div class="col-md-8">
+					<select class="form-control modif" id="collection_id" name="collection_id">
+						<option value="" {if $data.collection_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
+						{foreach $collections as $collection}
+							<option value="{$collection.collection_id}" {if $data.collection_id == $collection.collection_id}selected{/if}>{$collection.collection_name}</option>
+						{/foreach}
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="body" class="control-label col-md-4"><span class="red">*</span> {t}Code SQL :{/t}</label>
 				<div class="col-md-8">
 					<textarea id="body" class="form-control modif" cols="70" rows="10" wrap="soft" required>{$data.body}</textarea>

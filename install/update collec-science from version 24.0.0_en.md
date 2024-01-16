@@ -1,5 +1,4 @@
 ---
-
 title: Update Collec-Science from version 24.0.0  
 date: 02/01/2024  
 lang: en  

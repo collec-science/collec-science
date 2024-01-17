@@ -1278,7 +1278,7 @@ class Sample extends ObjetBDD
      * Get the uuid of a sample from the uuid
      *
      * @param string $uuid
-     * @return void
+     * @return int
      */
     public function getUidFromUUID($uuid)
     {

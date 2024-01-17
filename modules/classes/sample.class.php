@@ -711,12 +711,14 @@ class Sample extends ObjetBDD
                             $collections .= $comma . ":col$i";
                             $data["col$i"] = $id;
                             $comma = ",";
-                            $i ++;
+                            $i++;
                         }
                     }
                     $collections .= ")";
-                    $where .= $and . "s.collection_id in " . $collections;
-                    $and = " and ";
+                    if (!empty($comma)) {
+                        $where .= $and . "s.collection_id in " . $collections;
+                        $and = " and ";
+                    }
                 }
 
                 /**

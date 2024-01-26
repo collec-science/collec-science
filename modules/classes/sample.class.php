@@ -94,6 +94,7 @@ class Sample extends ObjetBDD
     public ObjectClass $object;
     public $container, $event, $country, $collection;
     public Subsample $subsample;
+    public Campaign $campaign;
 
     public function __construct($bdd, $param = array())
     {
@@ -368,6 +369,25 @@ class Sample extends ObjetBDD
             if ($data["collection_id"] == $value["collection_id"]) {
                 $retour = true;
                 break;
+            }
+        }
+        /**
+         * Search if the campaign has restrictions by group
+         */
+        if ($retour && $data["campaign_id"] > 0) {
+            if (!isset($this->campaign)) {
+                $this->campaign = $this->classInstanciate("Campaign", "campaign.class.php");
+                $campaignGroups = $this->campaign->getRights($data["campaign_id"]);
+                if (count($campaignGroups) > 0) {
+                    $retour = false;
+                    foreach ($campaignGroups as $cg) {
+                        foreach ($_SESSION["groupes"] as $group)
+                        if ($cg["groupe"] == $group["groupe"]) {
+                            $retour = true;
+                            break;
+                        }
+                    }
+                }
             }
         }
         return $retour;

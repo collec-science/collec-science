@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="237,699" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="235,943" last-zoom="0.75" max-obj-count="75"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -1931,13 +1931,14 @@ Autre]]>
     m.movement_type_id,
     m.container_id,
     c.uid AS container_uid,
-	o.identifier as container_identifier,
+    o2.identifier AS container_identifier,
     m.line_number,
     m.column_number,
     m.movement_reason_id
-   FROM col.object o
-   JOIN col.movement m on (m.movement_id = o.last_movement_id)
-   LEFT JOIN col.container c USING (container_id)]]> </expression>
+   FROM col.movement m
+     JOIN col.object o ON m.movement_id = o.last_movement_id
+     LEFT JOIN col.container c USING (container_id)
+     left join col.object o2 on (c.uid = o2.uid)]]> </expression>
 	<column name="uid">
 		<type name="integer" length="0"/>
 	</column>

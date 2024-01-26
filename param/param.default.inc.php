@@ -222,3 +222,4 @@ $APPLI_release_url_tag = "tag_name";
 $APPLI_release_url_date = "published_at";
 $APPLI_release_right_minimal = "gestion";
 $APPLI_release_user_agent = 'collec-science/collec-science';
+$APPLI_release_description = "body";

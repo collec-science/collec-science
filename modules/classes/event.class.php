@@ -210,5 +210,8 @@ class Event extends ObjetBDD
             )
         );
     }
+    function getDetail(int $id):array {
+        
+    }
 
 }

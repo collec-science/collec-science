@@ -1,826 +1,416 @@
 <navigation>
-	<dbstructureHtml action="framework/utils/structure.php" param="html" retourlogin="1"
-		type="smarty" schemas="col,gacl" droits="collection" maxCountByHour="60" maxCountByDay="600" />
-	<dbstructureGacl action="framework/utils/structure.php" param="gacl" retourlogin="1"
-		type="smarty" droits="admin" schemas="gacl" maxCountByHour="60" maxCountByDay="600" />
-	<dbstructureLatex action="framework/utils/structure.php" param="latex" retourlogin="1"
-		type="file" droits="collection" schemas="col,gacl" maxCountByHour="60" maxCountByDay="600" />
-	<dbstructureSchema action="framework/utils/structure.php" param="schema"
-		realfilename="documentation/collec-schema.png"
-		generatedfilename="collec-science-database.png" retourlogin="1" type="binaire"
-		droits="collection" maxCountByHour="60" maxCountByDay="600" />
+	<dbstructureHtml action="framework/utils/structure.php" param="html" retourlogin="1" type="smarty" schemas="col,gacl" droits="collection" maxCountByHour="60" maxCountByDay="600" />
+	<dbstructureGacl action="framework/utils/structure.php" param="gacl" retourlogin="1" type="smarty" droits="admin" schemas="gacl" maxCountByHour="60" maxCountByDay="600" />
+	<dbstructureLatex action="framework/utils/structure.php" param="latex" retourlogin="1" type="file" droits="collection" schemas="col,gacl" maxCountByHour="60" maxCountByDay="600" />
+	<dbstructureSchema action="framework/utils/structure.php" param="schema" realfilename="documentation/collec-schema.png" generatedfilename="collec-science-database.png" retourlogin="1" type="binaire" droits="collection" maxCountByHour="60" maxCountByDay="600" />
 	<default action="modules/default.php" type="smarty"></default>
 	<!-- Modules specifiques de l'application -->
 	<lexique action="doc/lexique.php" retourlogin="1" type="smarty" />
 	<parametre droits="consult" type="smarty" />
-	<eventTypeList action="modules/param/eventType.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<eventTypeChange action="modules/param/eventType.php" param="change" droits="param"
-		retourlogin="1" type="smarty" />
-	<eventTypeWrite action="modules/param/eventType.php" param="write" droits="param"
-		retourok="eventTypeList" retourko="eventTypeChange" modulebefore="eventTypeChange" />
-	<eventTypeDelete action="modules/param/eventType.php" param="delete" droits="param"
-		retourok="eventTypeList" retourko="eventTypeChange" modulebefore="eventTypeChange" />
-	<eventTypeGetAjax action="modules/param/eventType.php" param="getAjax" droits="consult"
-		type="ajax" />
+	<eventTypeList action="modules/param/eventType.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<eventTypeChange action="modules/param/eventType.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<eventTypeWrite action="modules/param/eventType.php" param="write" droits="param" retourok="eventTypeList" retourko="eventTypeChange" modulebefore="eventTypeChange" />
+	<eventTypeDelete action="modules/param/eventType.php" param="delete" droits="param" retourok="eventTypeList" retourko="eventTypeChange" modulebefore="eventTypeChange" />
+	<eventTypeGetAjax action="modules/param/eventType.php" param="getAjax" droits="consult" type="ajax" />
 
-	<containerFamilyList action="modules/param/containerFamily.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<containerFamilyChange action="modules/param/containerFamily.php" param="change"
-		droits="param,collection" retourlogin="1" type="smarty" />
-	<containerFamilyWrite action="modules/param/containerFamily.php" param="write"
-		droits="param,collection" retourok="containerFamilyList" retourko="containerFamilyChange"
-		modulebefore="containerFamilyChange" />
-	<containerFamilyDelete action="modules/param/containerFamily.php" param="delete"
-		droits="param,collection" retourok="containerFamilyList" retourko="containerFamilyChange"
-		modulebefore="containerFamilyChange" />
+	<containerFamilyList action="modules/param/containerFamily.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<containerFamilyChange action="modules/param/containerFamily.php" param="change" droits="param,collection" retourlogin="1" type="smarty" />
+	<containerFamilyWrite action="modules/param/containerFamily.php" param="write" droits="param,collection" retourok="containerFamilyList" retourko="containerFamilyChange" modulebefore="containerFamilyChange" />
+	<containerFamilyDelete action="modules/param/containerFamily.php" param="delete" droits="param,collection" retourok="containerFamilyList" retourko="containerFamilyChange" modulebefore="containerFamilyChange" />
 
-	<objectStatusList action="modules/param/objectStatus.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<objectStatusChange action="modules/param/objectStatus.php" param="change" droits="param"
-		retourlogin="1" type="smarty" retourko="objectStatusList" />
-	<objectStatusWrite action="modules/param/objectStatus.php" param="write" droits="param"
-		retourok="objectStatusList" retourko="objectStatusChange" modulebefore="objectStatusChange" />
-	<!--objectStatusDelete
-	action="modules/param/objectStatus.php" param="delete" droits="param"
-	retourok="objectStatusList" retourko="objectStatusChange" modulebefore="objectStatusChange"/-->
+	<objectStatusList action="modules/param/objectStatus.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<objectStatusChange action="modules/param/objectStatus.php" param="change" droits="param" retourlogin="1" type="smarty" retourko="objectStatusList" />
+	<objectStatusWrite action="modules/param/objectStatus.php" param="write" droits="param" retourok="objectStatusList" retourko="objectStatusChange" modulebefore="objectStatusChange" />
+	<!--objectStatusDelete action="modules/param/objectStatus.php" param="delete" droits="param" retourok="objectStatusList" retourko="objectStatusChange" modulebefore="objectStatusChange"/-->
 
-	<storageConditionList action="modules/param/storageCondition.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<storageConditionChange action="modules/param/storageCondition.php" param="change"
-		droits="param,collection" retourlogin="1" type="smarty" />
-	<storageConditionWrite action="modules/param/storageCondition.php" param="write"
-		droits="param,collection" retourok="storageConditionList" retourko="storageConditionChange"
-		modulebefore="storageConditionChange" />
-	<storageConditionDelete action="modules/param/storageCondition.php" param="delete"
-		droits="param,collection" retourok="storageConditionList" retourko="storageConditionChange"
-		modulebefore="storageConditionChange" />
+	<storageConditionList action="modules/param/storageCondition.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<storageConditionChange action="modules/param/storageCondition.php" param="change" droits="param,collection" retourlogin="1" type="smarty" />
+	<storageConditionWrite action="modules/param/storageCondition.php" param="write" droits="param,collection" retourok="storageConditionList" retourko="storageConditionChange" modulebefore="storageConditionChange" />
+	<storageConditionDelete action="modules/param/storageCondition.php" param="delete" droits="param,collection" retourok="storageConditionList" retourko="storageConditionChange" modulebefore="storageConditionChange" />
 
-	<containerTypeList action="modules/param/containerType.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<containerTypeChange action="modules/param/containerType.php" param="change"
-		droits="param,collection" retourlogin="1" type="smarty" />
-	<containerTypeWrite action="modules/param/containerType.php" param="write"
-		droits="param,collection" retourok="containerTypeList" retourko="containerTypeChange"
-		modulebefore="containerTypeChange" />
-	<containerTypeDelete action="modules/param/containerType.php" param="delete"
-		droits="param,collection" retourok="containerTypeList" retourko="containerTypeChange"
-		modulebefore="containerTypeChange" />
-	<containerTypeGetFromFamily action="modules/param/containerType.php" param="getFromFamily"
-		droits="consult" type="ajax" />
-	<containerTypeGetListAjax action="modules/param/containerType.php" param="listAjax"
-		droits="consult" type="ajax" />
+	<containerTypeList action="modules/param/containerType.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<containerTypeChange action="modules/param/containerType.php" param="change" droits="param,collection" retourlogin="1" type="smarty" />
+	<containerTypeWrite action="modules/param/containerType.php" param="write" droits="param,collection" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange" />
+	<containerTypeDelete action="modules/param/containerType.php" param="delete" droits="param,collection" retourok="containerTypeList" retourko="containerTypeChange" modulebefore="containerTypeChange" />
+	<containerTypeGetFromFamily action="modules/param/containerType.php" param="getFromFamily" droits="consult" type="ajax" />
+	<containerTypeGetListAjax action="modules/param/containerType.php" param="listAjax" droits="consult" type="ajax" />
 
-	<sampleTypeList action="modules/param/sampleType.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<sampleTypeChange action="modules/param/sampleType.php" param="change" droits="param,collection"
-		retourlogin="1" type="smarty" />
-	<sampleTypeWrite action="modules/param/sampleType.php" param="write" droits="param,collection"
-		retourok="sampleTypeList" retourko="sampleTypeChange" modulebefore="sampleTypeChange" />
-	<sampleTypeDelete action="modules/param/sampleType.php" param="delete" droits="param,collection"
-		retourok="sampleTypeList" retourko="sampleTypeChange" modulebefore="sampleTypeChange" />
-	<sampleTypeMetadata action="modules/param/sampleType.php" param="metadata" droits="consult"
-		type="ajax" />
-	<sampleTypeMetadataSearchable action="modules/param/sampleType.php" param="metadataSearchable"
-		droits="consult" type="ajax" />
-	<sampleTypeGenerator action="modules/param/sampleType.php" param="generator" droits="gestion"
-		type="ajax" />
-	<sampleTypeGetListAjax action="modules/param/sampleType.php" param="getListAjax"
-		droits="consult" type="ajax" />
+	<sampleTypeList action="modules/param/sampleType.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<sampleTypeChange action="modules/param/sampleType.php" param="change" droits="param,collection" retourlogin="1" type="smarty" />
+	<sampleTypeWrite action="modules/param/sampleType.php" param="write" droits="param,collection" retourok="sampleTypeList" retourko="sampleTypeChange" modulebefore="sampleTypeChange" />
+	<sampleTypeDelete action="modules/param/sampleType.php" param="delete" droits="param,collection" retourok="sampleTypeList" retourko="sampleTypeChange" modulebefore="sampleTypeChange" />
+	<sampleTypeMetadata action="modules/param/sampleType.php" param="metadata" droits="consult" type="ajax" />
+	<sampleTypeMetadataSearchable action="modules/param/sampleType.php" param="metadataSearchable" droits="consult" type="ajax" />
+	<sampleTypeGenerator action="modules/param/sampleType.php" param="generator" droits="gestion" type="ajax" />
+	<sampleTypeGetListAjax action="modules/param/sampleType.php" param="getListAjax" droits="consult" type="ajax" />
 
-	<movementReasonList action="modules/param/movementReason.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<movementReasonChange action="modules/param/movementReason.php" param="change"
-		droits="param,collection" retourlogin="1" type="smarty" />
-	<movementReasonWrite action="modules/param/movementReason.php" param="write"
-		droits="param,collection" retourok="movementReasonList" retourko="movementReasonChange"
-		modulebefore="movementReasonChange" />
-	<movementReasonDelete action="modules/param/movementReason.php" param="delete"
-		droits="param,collection" retourok="movementReasonList" retourko="movementReasonChange"
-		modulebefore="movementReasonChange" />
+	<movementReasonList action="modules/param/movementReason.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<movementReasonChange action="modules/param/movementReason.php" param="change" droits="param,collection" retourlogin="1" type="smarty" />
+	<movementReasonWrite action="modules/param/movementReason.php" param="write" droits="param,collection" retourok="movementReasonList" retourko="movementReasonChange" modulebefore="movementReasonChange" />
+	<movementReasonDelete action="modules/param/movementReason.php" param="delete" droits="param,collection" retourok="movementReasonList" retourko="movementReasonChange" modulebefore="movementReasonChange" />
 
-	<dbparamList action="framework/dbparam/dbparam.php" param="list" droits="admin" retourlogin="1"
-		type="smarty" />
-	<dbparamWriteGlobal action="framework/dbparam/dbparam.php" param="writeGlobal" droits="admin"
-		retourok="dbparamList" retourko="dbparamList" />
+	<dbparamList action="framework/dbparam/dbparam.php" param="list" droits="admin" retourlogin="1" type="smarty" />
+	<dbparamWriteGlobal action="framework/dbparam/dbparam.php" param="writeGlobal" droits="admin" retourok="dbparamList" retourko="dbparamList" />
 
-	<referentList action="modules/param/referent.php" param="list" droits="consult" retourlogin="1"
-		type="smarty" />
-	<referentChange action="modules/param/referent.php" param="change" droits="param,collection"
-		retourlogin="1" type="smarty" />
-	<referentWrite action="modules/param/referent.php" param="write" droits="param,collection"
-		retourok="referentList" retourko="referentChange" modulebefore="referentChange,referentCopy" />
-	<referentDelete action="modules/param/referent.php" param="delete" droits="param,collection"
-		retourok="referentList" retourko="referentChange" modulebefore="referentChange" />
-	<referentGetFromName action="modules/param/referent.php" param="getFromName" droits="consult"
-		type="ajax" />
-	<referentGetFromId action="modules/param/referent.php" param="getFromId" droits="consult"
-		type="ajax" />
-	<referentCopy action="modules/param/referent.php" param="copy" droits="collection,param"
-		type="smarty" />
+	<referentList action="modules/param/referent.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<referentChange action="modules/param/referent.php" param="change" droits="param,collection" retourlogin="1" type="smarty" />
+	<referentWrite action="modules/param/referent.php" param="write" droits="param,collection" retourok="referentList" retourko="referentChange" modulebefore="referentChange,referentCopy" />
+	<referentDelete action="modules/param/referent.php" param="delete" droits="param,collection" retourok="referentList" retourko="referentChange" modulebefore="referentChange" />
+	<referentGetFromName action="modules/param/referent.php" param="getFromName" droits="consult" type="ajax" />
+	<referentGetFromId action="modules/param/referent.php" param="getFromId" droits="consult" type="ajax" />
+	<referentCopy action="modules/param/referent.php" param="copy" droits="collection,param" type="smarty" />
 
 	<gestion droits="consult" />
-	<containerList action="modules/gestion/container.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<containerDisplay action="modules/gestion/container.php" param="display" droits="consult"
-		retourlogin="1" type="smarty" />
-	<containerChange action="modules/gestion/container.php" param="change" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<containerWrite action="modules/gestion/container.php" param="write" droits="gestion"
-		retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
-	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion"
-		retourok="containerList" retourko="containerChange" modulebefore="containerChange" />
-	<containerGetChildren action="modules/gestion/container.php" param="getChildren"
-		droits="consult" type="json" />
-	<containerGetFromType action="modules/gestion/container.php" param="getFromType"
-		droits="consult" type="ajax" />
-	<containerGetFromUid action="modules/gestion/container.php" param="getFromUid" droits="consult"
-		type="ajax" />
-	<containerGetOccupation action="modules/gestion/container.php" param="getOccupationAjax"
-		droits="consult" type="ajax" />
-	<containerImportStage1 action="modules/gestion/container.php" param="importStage1"
-		droits="import,collection" type="smarty" retourlogin="1" />
-	<containerImportStage2 action="modules/gestion/container.php" param="importStage2"
-		droits="import,collection" type="smarty"
-		modulebefore="containerImportStage1,containerImportStage2" />
-	<containerImportStage3 action="modules/gestion/container.php" param="importStage3"
-		droits="import,collection" type="smarty" retourok="containerImportStage1"
-		retourko="containerImportStage1" modulebefore="containerImportStage2" />
+	<containerList action="modules/gestion/container.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<containerDisplay action="modules/gestion/container.php" param="display" droits="consult" retourlogin="1" type="smarty" />
+	<containerChange action="modules/gestion/container.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
+	<containerWrite action="modules/gestion/container.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerChange" modulebefore="containerChange" />
+	<containerDelete action="modules/gestion/container.php" param="delete" droits="gestion" retourok="containerList" retourko="containerChange" modulebefore="containerChange" />
+	<containerGetChildren action="modules/gestion/container.php" param="getChildren" droits="consult" type="json" />
+	<containerGetFromType action="modules/gestion/container.php" param="getFromType" droits="consult" type="ajax" />
+	<containerGetFromUid action="modules/gestion/container.php" param="getFromUid" droits="consult" type="ajax" />
+	<containerGetOccupation action="modules/gestion/container.php" param="getOccupationAjax" droits="consult" type="ajax" />
+	<containerImportStage1 action="modules/gestion/container.php" param="importStage1" droits="import,collection" type="smarty" retourlogin="1" />
+	<containerImportStage2 action="modules/gestion/container.php" param="importStage2" droits="import,collection" type="smarty" modulebefore="containerImportStage1,containerImportStage2" />
+	<containerImportStage3 action="modules/gestion/container.php" param="importStage3" droits="import,collection" type="smarty" retourok="containerImportStage1" retourko="containerImportStage1" modulebefore="containerImportStage2" />
 
 	<!-- Actions on the list of containers -->
-	<containersLending action="modules/gestion/container.php" param="lendingMulti"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection"
-		droits="collection" retourok="containerList" retourko="containerList" />
-	<containersExit droits="collection" action="modules/gestion/container.php" param="exitMulti"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection"
-		retourok="containerList" retourko="containerList" />
-	<containersDelete action="modules/gestion/container.php" param="deleteMulti" droits="collection"
-		retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
-	<containersSetStatus action="modules/gestion/container.php" param="setStatus"
-		retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
-	<containersEntry action="modules/gestion/container.php" param="entryMulti" droits="collection"
-		retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
-	<containersSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection"
-		retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
-	<containersSetReferent action="modules/gestion/container.php" param="referentMulti"
-		droits="collection" retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
-	<containersSetCollection action="modules/gestion/container.php" param="setCollection"
-		droits="collection" retourok="containerList" retourko="containerList"
-		modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
+	<containersLending action="modules/gestion/container.php" param="lendingMulti" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" droits="collection" retourok="containerList" retourko="containerList" />
+	<containersExit droits="collection" action="modules/gestion/container.php" param="exitMulti" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" retourok="containerList" retourko="containerList" />
+	<containersDelete action="modules/gestion/container.php" param="deleteMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
+	<containersSetStatus action="modules/gestion/container.php" param="setStatus" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
+	<containersEntry action="modules/gestion/container.php" param="entryMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
+	<containersSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
+	<containersSetReferent action="modules/gestion/container.php" param="referentMulti" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
+	<containersSetCollection action="modules/gestion/container.php" param="setCollection" droits="collection" retourok="containerList" retourko="containerList" modulebefore="containerList,containersDelete,containersAssignReferent,containerDisplay,containersEntry,containersLending,containersSetStatus,containersExit,containersSetTrashed,containersSetReferent,containerSetCollection" />
 
-	<containerVerifyCyclic action="modules/gestion/container.php" param="verifyCyclic"
-		droits="param" type="smarty" />
-	<containerVerifyCyclicExec action="modules/gestion/container.php" param="verifyCyclicExec"
-		droits="param" modulebefore="containerVerifyCyclic,containerVerifyCyclicExec" type="smarty" />
+	<containerVerifyCyclic action="modules/gestion/container.php" param="verifyCyclic" droits="param" type="smarty" />
+	<containerVerifyCyclicExec action="modules/gestion/container.php" param="verifyCyclicExec" droits="param" modulebefore="containerVerifyCyclic,containerVerifyCyclicExec" type="smarty" />
 
-	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion"
-		retourok="containerDisplay" retourko="containereventChange"
-		modulebefore="containereventChange" />
-	<containereventDelete action="modules/gestion/event.php" param="delete" droits="gestion"
-		retourok="containerDisplay" retourko="containereventChange"
-		modulebefore="containereventChange" />
-	<sampleeventChange action="modules/gestion/event.php" param="change" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<sampleeventWrite action="modules/gestion/event.php" param="write" droits="gestion"
-		retourok="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange" />
-	<sampleeventDelete action="modules/gestion/event.php" param="delete" droits="gestion"
-		retourok="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange" />
+	<containereventChange action="modules/gestion/event.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
+	<containereventDisplay action="modules/gestion/event.php" param="display" droits="gestion" type="smarty" />
+	<containereventWrite action="modules/gestion/event.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />
+	<containereventDelete action="modules/gestion/event.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containereventChange" modulebefore="containereventChange" />
+	<sampleeventChange action="modules/gestion/event.php" param="change" droits="gestion" type="smarty" />
+	<sampleeventDisplay action="modules/gestion/event.php" param="display" droits="gestion" type="smarty" />
+	<sampleeventWrite action="modules/gestion/event.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange" />
+	<sampleeventDelete action="modules/gestion/event.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleeventChange" modulebefore="sampleeventChange" />
 
 	<eventSearch action="modules/gestion/event.php" param="search" droits="gestion" type="smarty" />
-	<eventsDelete action="modules/gestion/event.php" param="deleteList" droits="import"
-		moduleBefore="eventSearch,eventsDelete,eventsChange" retourok="eventSearch"
-		retourko="eventSearch" />
-	<eventsChange action="modules/gestion/event.php" param="changeList" droits="import"
-		moduleBefore="eventSearch,eventsChange,eventsDelete" retourok="eventSearch"
-		retourko="eventSearch" />
+	<eventsDelete action="modules/gestion/event.php" param="deleteList" droits="import" moduleBefore="eventSearch,eventsDelete,eventsChange" retourok="eventSearch" retourko="eventSearch" />
+	<eventsChange action="modules/gestion/event.php" param="changeList" droits="import" moduleBefore="eventSearch,eventsChange,eventsDelete" retourok="eventSearch" retourko="eventSearch" />
 
-	<eventSearcheventWrite action="modules/gestion/event.php" param="write" droits="gestion"
-		retourok="eventSearch" retourko="eventSearcheventChange"
-		modulebefore="eventSearcheventChange,sampleeventChange,containereventChange" />
-	<eventSearcheventDelete action="modules/gestion/event.php" param="delete" droits="gestion"
-		retourok="eventSearch" retourko="eventSearcheventChange"
-		modulebefore="eventSearcheventChange,sampleeventChange,containereventChange" />
+	<eventSearcheventWrite action="modules/gestion/event.php" param="write" droits="gestion" retourok="eventSearch" retourko="eventSearcheventChange" modulebefore="eventSearcheventChange,sampleeventChange,containereventChange" />
+	<eventSearcheventDelete action="modules/gestion/event.php" param="delete" droits="gestion" retourok="eventSearch" retourko="eventSearcheventChange" modulebefore="eventSearcheventChange,sampleeventChange,containereventChange" />
 
-	<movementcontainerInput action="modules/gestion/movement.php" param="input" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<movementcontainerOutput action="modules/gestion/movement.php" param="output" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<movementcontainerWrite action="modules/gestion/movement.php" param="write" droits="gestion"
-		retourok="containerDisplay" retourko="containerDisplay"
-		modulebefore="movementcontainerInput,movementcontainerOutput" />
-	<movementcontainerDelete action="modules/gestion/movement.php" param="delete" droits="gestion"
-		retourok="containerDisplay" retourko="containerDisplay"
-		modulebefore="movementcontainerInput,movementcontainerOutput" />
-	<movementInput action="modules/gestion/movement.php" param="input" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<movementsampleInput action="modules/gestion/movement.php" param="input" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<movementsampleOutput action="modules/gestion/movement.php" param="output" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<movementsampleWrite action="modules/gestion/movement.php" param="write" droits="gestion"
-		retourok="sampleDisplay" retourko="sampleDisplay"
-		modulebefore="movementsampleInput,movementsampleOutput" />
-	<movementsampleDelete action="modules/gestion/movement.php" param="delete" droits="gestion"
-		retourok="sampleDisplay" retourko="sampleDisplay"
-		modulebefore="movementsampleInput,movementsampleOutput" />
+	<movementcontainerInput action="modules/gestion/movement.php" param="input" droits="gestion" retourlogin="1" type="smarty" />
+	<movementcontainerOutput action="modules/gestion/movement.php" param="output" droits="gestion" retourlogin="1" type="smarty" />
+	<movementcontainerWrite action="modules/gestion/movement.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="movementcontainerInput,movementcontainerOutput" />
+	<movementcontainerDelete action="modules/gestion/movement.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="movementcontainerInput,movementcontainerOutput" />
+	<movementInput action="modules/gestion/movement.php" param="input" droits="gestion" retourlogin="1" type="smarty" />
+	<movementsampleInput action="modules/gestion/movement.php" param="input" droits="gestion" retourlogin="1" type="smarty" />
+	<movementsampleOutput action="modules/gestion/movement.php" param="output" droits="gestion" retourlogin="1" type="smarty" />
+	<movementsampleWrite action="modules/gestion/movement.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="movementsampleInput,movementsampleOutput" />
+	<movementsampleDelete action="modules/gestion/movement.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="movementsampleInput,movementsampleOutput" />
 
-	<collectionList action="modules/param/collection.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<collectionChange action="modules/param/collection.php" param="change" droits="param"
-		retourlogin="1" type="smarty" />
-	<collectionWrite action="modules/param/collection.php" param="write" droits="param"
-		retourok="collectionList" retourko="collectionChange" modulebefore="collectionChange" />
-	<collectionDelete action="modules/param/collection.php" param="delete" droits="param"
-		retourok="collectionList" retourko="collectionChange" modulebefore="collectionChange" />
-	<collectionGet action="modules/param/collection.php" param="getAjax" droits="consult"
-		type="ajax" />
+	<collectionList action="modules/param/collection.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<collectionChange action="modules/param/collection.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<collectionWrite action="modules/param/collection.php" param="write" droits="param" retourok="collectionList" retourko="collectionChange" modulebefore="collectionChange" />
+	<collectionDelete action="modules/param/collection.php" param="delete" droits="param" retourok="collectionList" retourko="collectionChange" modulebefore="collectionChange" />
+	<collectionGet action="modules/param/collection.php" param="getAjax" droits="consult" type="ajax" />
 	<collectionsGenerateMail action="modules/param/collection.php" param="generateMails" nologin="1"/>
 
-	<regulationList action="modules/param/regulation.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<regulationChange action="modules/param/regulation.php" param="change" droits="param"
-		retourlogin="1" type="smarty" />
-	<regulationWrite action="modules/param/regulation.php" param="write" droits="param"
-		retourok="regulationList" retourko="regulationChange" modulebefore="regulationChange" />
-	<regulationDelete action="modules/param/regulation.php" param="delete" droits="param"
-		retourok="regulationList" retourko="regulationChange" modulebefore="regulationChange" />
+	<regulationList action="modules/param/regulation.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<regulationChange action="modules/param/regulation.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<regulationWrite action="modules/param/regulation.php" param="write" droits="param" retourok="regulationList" retourko="regulationChange" modulebefore="regulationChange" />
+	<regulationDelete action="modules/param/regulation.php" param="delete" droits="param" retourok="regulationList" retourko="regulationChange" modulebefore="regulationChange" />
 
-	<campaignList action="modules/param/campaign.php" param="list" droits="consult" retourlogin="1"
-		type="smarty" />
-	<campaignChange action="modules/param/campaign.php" param="change" droits="collection"
-		retourlogin="1" type="smarty" />
-	<campaignDisplay action="modules/param/campaign.php" param="display" droits="consult"
-		retourlogin="1" type="smarty" />
-	<campaignWrite action="modules/param/campaign.php" param="write" droits="collection"
-		retourok="campaignDisplay" retourko="campaignChange" modulebefore="campaignChange" />
-	<campaignDelete action="modules/param/campaign.php" param="delete" droits="collection"
-		retourok="campaignList" retourko="campaignChange" modulebefore="campaignChange" />
-	<campaignImport action="modules/param/campaign.php" param="import" droits="collection"
-		retourok="campaignList" retourko="campaignList" modulebefore="campaignList,campaignImport" />
+	<campaignList action="modules/param/campaign.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<campaignChange action="modules/param/campaign.php" param="change" droits="collection" retourlogin="1" type="smarty" />
+	<campaignDisplay action="modules/param/campaign.php" param="display" droits="consult" retourlogin="1" type="smarty" />
+	<campaignWrite action="modules/param/campaign.php" param="write" droits="collection" retourok="campaignDisplay" retourko="campaignChange" modulebefore="campaignChange" />
+	<campaignDelete action="modules/param/campaign.php" param="delete" droits="collection" retourok="campaignList" retourko="campaignChange" modulebefore="campaignChange" />
+	<campaignImport action="modules/param/campaign.php" param="import" droits="collection" retourok="campaignList" retourko="campaignList" modulebefore="campaignList,campaignImport" />
 
-	<campaignRegulationChange action="modules/param/campaignRegulation.php" param="change"
-		droits="collection" retourlogin="1" type="smarty" />
-	<campaignRegulationWrite action="modules/param/campaignRegulation.php" param="write"
-		droits="collection" modulebefore="campaignRegulationChange" retourok="campaignDisplay"
-		retourko="campaignRegulationChange" />
-	<campaignRegulationDelete action="modules/param/campaignRegulation.php" param="delete"
-		droits="collection" retourok="campaignDisplay" retourko="campaignRegulationChange"
-		modulebefore="campaignRegulationChange" />
+	<campaignRegulationChange action="modules/param/campaignRegulation.php" param="change" droits="collection" retourlogin="1" type="smarty" />
+	<campaignRegulationWrite action="modules/param/campaignRegulation.php" param="write" droits="collection" modulebefore="campaignRegulationChange" retourok="campaignDisplay" retourko="campaignRegulationChange" />
+	<campaignRegulationDelete action="modules/param/campaignRegulation.php" param="delete" droits="collection" retourok="campaignDisplay" retourko="campaignRegulationChange" modulebefore="campaignRegulationChange" />
 
-	<labelList action="modules/param/label.php" param="list" droits="consult" retourlogin="1"
-		type="smarty" />
-	<labelChange action="modules/param/label.php" param="change" droits="collection" retourlogin="1"
-		type="smarty" />
-	<labelWrite action="modules/param/label.php" param="write" droits="collection"
-		retourok="labelList" retourko="labelChange"
-		modulebefore="labelChange,labelCopy,labelWriteStay" />
-	<labelWriteStay action="modules/param/label.php" param="write" droits="collection"
-		retourok="labelChange" retourko="labelChange"
-		modulebefore="labelChange,labelCopy,labelWriteStay" />
-	<labelDelete action="modules/param/label.php" param="delete" droits="collection"
-		retourok="labelList" retourko="labelChange" modulebefore="labelChange,labelWriteStay" />
+	<labelList action="modules/param/label.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<labelChange action="modules/param/label.php" param="change" droits="collection" retourlogin="1" type="smarty" />
+	<labelWrite action="modules/param/label.php" param="write" droits="collection" retourok="labelList" retourko="labelChange" modulebefore="labelChange,labelCopy,labelWriteStay" />
+	<labelWriteStay action="modules/param/label.php" param="write" droits="collection" retourok="labelChange" retourko="labelChange" modulebefore="labelChange,labelCopy,labelWriteStay" />
+	<labelDelete action="modules/param/label.php" param="delete" droits="collection" retourok="labelList" retourko="labelChange" modulebefore="labelChange,labelWriteStay" />
 	<labelCopy action="modules/param/label.php" param="copy" droits="collection" type="smarty" />
 
-	<metadataFormGetDetail action="modules/param/sampleType.php" param="getDetailFormAjax"
-		droits="consult" type="ajax" />
-	<sampleList action="modules/gestion/sample.php" param="list" droits="consult" retourlogin="1"
-		type="smarty" />
-	<sampleSearchAjax action="modules/gestion/sample.php" param="searchAjax" type="ajax"
-		droits="gestion" />
-	<sampleGetFromIdAjax action="modules/gestion/sample.php" param="getFromId" type="ajax"
-		droits="gestion" />
-	<sampleDisplay action="modules/gestion/sample.php" param="display" droits="consult"
-		retourlogin="1" type="smarty" />
-	<sampleChange action="modules/gestion/sample.php" param="change" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<sampleWrite action="modules/gestion/sample.php" param="write" droits="gestion"
-		retourok="sampleDisplay" retourko="sampleChange" modulebefore="sampleChange" />
-	<sampleDelete action="modules/gestion/sample.php" param="delete" droits="gestion"
-		retourok="sampleList" retourko="sampleChange" modulebefore="sampleChange" />
-	<sampleExport action="modules/gestion/sample.php" param="export" droits="gestion"
-		retourko="sampleList" type="csv" />
-	<sampleImportStage1 action="modules/gestion/sample.php" param="importStage1"
-		droits="import,collection" retourlogin="1" type="smarty" />
-	<sampleImportStage2 action="modules/gestion/sample.php" param="importStage2"
-		droits="import,collection" type="smarty" retourko="sampleImportStage1"
-		modulebefore="sampleImportStage1,sampleImportStage2" />
-	<sampleImportStage3 action="modules/gestion/import.php" param="importExterneExec"
-		droits="import,collection" type="smarty" retourok="sampleImportStage1"
-		retourko="sampleImportStage1" modulebefore="sampleImportStage2" />
+	<metadataFormGetDetail action="modules/param/sampleType.php" param="getDetailFormAjax" droits="consult" type="ajax" />
+	<sampleList action="modules/gestion/sample.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<sampleSearchAjax action="modules/gestion/sample.php" param="searchAjax" type="ajax" droits="gestion" />
+	<sampleGetFromIdAjax action="modules/gestion/sample.php" param="getFromId" type="ajax" droits="gestion" />
+	<sampleDisplay action="modules/gestion/sample.php" param="display" droits="consult" retourlogin="1" type="smarty" />
+	<sampleChange action="modules/gestion/sample.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
+	<sampleWrite action="modules/gestion/sample.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleChange" modulebefore="sampleChange" />
+	<sampleDelete action="modules/gestion/sample.php" param="delete" droits="gestion" retourok="sampleList" retourko="sampleChange" modulebefore="sampleChange" />
+	<sampleExport action="modules/gestion/sample.php" param="export" droits="gestion" retourko="sampleList" type="csv" />
+	<sampleImportStage1 action="modules/gestion/sample.php" param="importStage1" droits="import,collection" retourlogin="1" type="smarty" />
+	<sampleImportStage2 action="modules/gestion/sample.php" param="importStage2" droits="import,collection" type="smarty" retourko="sampleImportStage1" modulebefore="sampleImportStage1,sampleImportStage2" />
+	<sampleImportStage3 action="modules/gestion/import.php" param="importExterneExec" droits="import,collection" type="smarty" retourok="sampleImportStage1" retourko="sampleImportStage1" modulebefore="sampleImportStage2" />
 
 	<switch action="modules/gestion/switch.php" />
-	<samplesDelete action="modules/gestion/sample.php" param="deleteMulti"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		retourok="switch" retourko="switch" droits="collection" />
-	<samplesAssignReferent action="modules/gestion/sample.php" param="referentAssignMulti"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		droits="collection" retourok="switch" retourko="switch" />
-	<samplesCreateEvent action="modules/gestion/sample.php" param="eventAssignMulti"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		droits="collection" retourok="switch" retourko="switch" />
-	<samplesLending action="modules/gestion/sample.php" param="lendingMulti"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		droits="collection" retourok="switch" retourko="switch" />
+	<samplesDelete action="modules/gestion/sample.php" param="deleteMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" retourok="switch" retourko="switch" droits="collection" />
+	<samplesAssignReferent action="modules/gestion/sample.php" param="referentAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
+	<samplesCreateEvent action="modules/gestion/sample.php" param="eventAssignMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
+	<samplesLending action="modules/gestion/sample.php" param="lendingMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
 	<sampleDetail action="modules/gestion/sampleWs.php" type="json" param="detail" />
-	<samplesSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection"
-		retourok="switch" retourko="switch"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" />
-	<samplesExit action="modules/gestion/sample.php" param="exitMulti"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		droits="collection" retourok="switch" retourko="switch" />
-	<samplesEntry action="modules/gestion/sample.php" param="entryMulti"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		droits="collection" retourok="switch" retourko="switch" />
-	<samplesSetCountry action="modules/gestion/sample.php" param="setCountry"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		droits="collection" retourok="switch" retourko="switch" />
-	<samplesSetCollection action="modules/gestion/sample.php" param="setCollection"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		droits="collection" retourok="switch" retourko="switch" />
-	<samplesSetCampaign action="modules/gestion/sample.php" param="setCampaign"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		droits="collection" retourok="switch" retourko="switch" />
-	<samplesSetStatus action="modules/gestion/sample.php" param="setStatus"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		droits="collection" retourok="switch" retourko="switch" />
-	<samplesSetParent action="modules/gestion/sample.php" param="setParent"
-		modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent"
-		droits="collection" retourok="switch" retourko="switch" />
-	<sampleGetChildren action="modules/gestion/sample.php" param="getChildren" droits="consult"
-		type="json" />
+	<samplesSetTrashed action="modules/gestion/object.php" param="setTrashed" droits="collection" retourok="switch" retourko="switch" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" />
+	<samplesExit action="modules/gestion/sample.php" param="exitMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
+	<samplesEntry action="modules/gestion/sample.php" param="entryMulti" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
+	<samplesSetCountry action="modules/gestion/sample.php" param="setCountry" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
+	<samplesSetCollection action="modules/gestion/sample.php" param="setCollection" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
+	<samplesSetCampaign action="modules/gestion/sample.php" param="setCampaign" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
+	<samplesSetStatus action="modules/gestion/sample.php" param="setStatus" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
+	<samplesSetParent action="modules/gestion/sample.php" param="setParent" modulebefore="sampleList,samplesDelete,samplesAssignReferent,containerDisplay,samplesSetTrashed,sampleAssignReferent,samplesExit,samplesEntry,samplesSetCountry,samplesSetCollection,samplesSetCampaign,samplesSetStatus,sampleDisplay,samplesSetParent" droits="collection" retourok="switch" retourko="switch" />
+	<sampleGetChildren action="modules/gestion/sample.php" param="getChildren" droits="consult" type="json" />
 
-	<movementList droits="collection" type="smarty" action="modules/gestion/movement.php"
-		param="list" retourlogin="1" />
-	<fastInputChange action="modules/gestion/movement.php" param="fastInputChange" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<fastInputWrite action="modules/gestion/movement.php" param="fastInputWrite" droits="gestion"
-		retourok="fastInputChange" retourko="fastInputChange" modulebefore="fastInputChange" />
-	<fastOutputChange action="modules/gestion/movement.php" param="fastOutputChange"
-		droits="gestion" retourlogin="1" type="smarty" />
-	<fastOutputWrite action="modules/gestion/movement.php" param="fastOutputWrite" droits="gestion"
-		retourok="fastOutputChange" retourko="fastOutputChange" modulebefore="fastOutputChange" />
-	<objectGetLastEntry action="modules/gestion/movement.php" param="getLastEntry" droits="gestion"
-		type="ajax" />
-	<smallMovementChange action="modules/gestion/movement.php" param="smallMovementChange"
-		droits="gestion" retourlogin="1" type="smarty" />
-	<smallMovementWrite action="modules/gestion/movement.php" param="smallMovementWrite"
-		droits="gestion" type="smarty" modulebefore="smallMovementChange"
-		retourok="smallMovementChange" retourko="smallMovementChange" />
+	<movementList droits="collection" type="smarty" action="modules/gestion/movement.php" param="list" retourlogin="1" />
+	<fastInputChange action="modules/gestion/movement.php" param="fastInputChange" droits="gestion" retourlogin="1" type="smarty" />
+	<fastInputWrite action="modules/gestion/movement.php" param="fastInputWrite" droits="gestion" retourok="fastInputChange" retourko="fastInputChange" modulebefore="fastInputChange" />
+	<fastOutputChange action="modules/gestion/movement.php" param="fastOutputChange" droits="gestion" retourlogin="1" type="smarty" />
+	<fastOutputWrite action="modules/gestion/movement.php" param="fastOutputWrite" droits="gestion" retourok="fastOutputChange" retourko="fastOutputChange" modulebefore="fastOutputChange" />
+	<objectGetLastEntry action="modules/gestion/movement.php" param="getLastEntry" droits="gestion" type="ajax" />
+	<smallMovementChange action="modules/gestion/movement.php" param="smallMovementChange" droits="gestion" retourlogin="1" type="smarty" />
+	<smallMovementWrite action="modules/gestion/movement.php" param="smallMovementWrite" droits="gestion" type="smarty" modulebefore="smallMovementChange" retourok="smallMovementChange" retourko="smallMovementChange" />
 
 
-	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax"
-		type="ajax" />
-	<containerPrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel"
-		type="pdf" retourko="containerList" />
-	<containerExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV"
-		type="csv" retourko="containerList" />
-	<containerExportGlobal droits="gestion" action="modules/gestion/container.php"
-		param="exportGlobal" type="file" retourko="containerList" />
-	<containerPrintDirect droits="gestion" action="modules/gestion/object.php"
-		param="printLabelDirect" type="smarty" retourko="containerList" retourok="containerList" />
-	<samplePrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel"
-		type="pdf" retourko="sampleList" />
-	<sampleExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV"
-		type="csv" retourko="sampleList" />
-	<samplePrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect"
-		type="smarty" retourok="sampleList" retourko="sampleList" />
+	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax" type="ajax" />
+	<containerPrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="containerList" />
+	<containerExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="containerList" />
+	<containerExportGlobal droits="gestion" action="modules/gestion/container.php" param="exportGlobal" type="file" retourko="containerList" />
+	<containerPrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect" type="smarty" retourko="containerList" retourok="containerList" />
+	<samplePrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="sampleList" />
+	<sampleExportCSV droits="gestion" action="modules/gestion/object.php" param="exportCSV" type="csv" retourko="sampleList" />
+	<samplePrintDirect droits="gestion" action="modules/gestion/object.php" param="printLabelDirect" type="smarty" retourok="sampleList" retourko="sampleList" />
 
-	<importChange action="modules/gestion/import.php" param="change" droits="import,collection"
-		retourlogin="1" type="smarty" />
-	<importControl action="modules/gestion/import.php" param="control" droits="import,collection"
-		modulebefore="importChange,importControl,importImport" retourok="importChange" type="smarty" />
-	<importImport action="modules/gestion/import.php" param="import" droits="import,collection"
-		modulebefore="importControl,importChange" retourok="importChange" retourko="importChange"
-		type="smarty" />
+	<importChange action="modules/gestion/import.php" param="change" droits="import,collection" retourlogin="1" type="smarty" />
+	<importControl action="modules/gestion/import.php" param="control" droits="import,collection" modulebefore="importChange,importControl,importImport" retourok="importChange" type="smarty" />
+	<importImport action="modules/gestion/import.php" param="import" droits="import,collection" modulebefore="importControl,importChange" retourok="importChange" retourko="importChange" type="smarty" />
 
-	<containerbookingChange action="modules/gestion/booking.php" param="change" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<containerbookingWrite action="modules/gestion/booking.php" param="write" droits="gestion"
-		retourok="containerDisplay" retourko="containerbookingChange"
-		modulebefore="containerbookingChange" />
-	<containerbookingDelete action="modules/gestion/booking.php" param="delete" droits="gestion"
-		retourok="containerDisplay" retourko="containerbookingChange"
-		modulebefore="containerbookingChange" />
-	<samplebookingChange action="modules/gestion/booking.php" param="change" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<samplebookingWrite action="modules/gestion/booking.php" param="write" droits="gestion"
-		retourok="sampleDisplay" retourko="samplebookingChange" modulebefore="samplebookingChange" />
-	<samplebookingDelete action="modules/gestion/booking.php" param="delete" droits="gestion"
-		retourok="sampleDisplay" retourko="samplebookingChange" modulebefore="samplebookingChange" />
-	<bookingVerifyInterval action="modules/gestion/booking.php" param="verifyInterval"
-		droits="gestion" type="ajax" />
+	<containerbookingChange action="modules/gestion/booking.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
+	<containerbookingWrite action="modules/gestion/booking.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerbookingChange" modulebefore="containerbookingChange" />
+	<containerbookingDelete action="modules/gestion/booking.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerbookingChange" modulebefore="containerbookingChange" />
+	<samplebookingChange action="modules/gestion/booking.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
+	<samplebookingWrite action="modules/gestion/booking.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="samplebookingChange" modulebefore="samplebookingChange" />
+	<samplebookingDelete action="modules/gestion/booking.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="samplebookingChange" modulebefore="samplebookingChange" />
+	<bookingVerifyInterval action="modules/gestion/booking.php" param="verifyInterval" droits="gestion" type="ajax" />
 
-	<protocolList action="modules/param/protocol.php" param="list" droits="consult" retourlogin="1"
-		type="smarty" />
-	<protocolChange action="modules/param/protocol.php" param="change" droits="collection"
-		retourlogin="1" type="smarty" />
-	<protocolWrite action="modules/param/protocol.php" param="write" droits="collection"
-		retourok="protocolList" retourko="protocolChange" modulebefore="protocolChange" />
-	<protocolDelete action="modules/param/protocol.php" param="delete" droits="collection"
-		retourok="protocolList" retourko="protocolChange" modulebefore="protocolChange" />
-	<protocolFile action="modules/param/protocol.php" param="file" droits="consult" type="pdf"
-		retourko="protocolList" />
+	<protocolList action="modules/param/protocol.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<protocolChange action="modules/param/protocol.php" param="change" droits="collection" retourlogin="1" type="smarty" />
+	<protocolWrite action="modules/param/protocol.php" param="write" droits="collection" retourok="protocolList" retourko="protocolChange" modulebefore="protocolChange" />
+	<protocolDelete action="modules/param/protocol.php" param="delete" droits="collection" retourok="protocolList" retourko="protocolChange" modulebefore="protocolChange" />
+	<protocolFile action="modules/param/protocol.php" param="file" droits="consult" type="pdf" retourko="protocolList" />
 
-	<operationList action="modules/param/operation.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<operationChange action="modules/param/operation.php" param="change" droits="collection"
-		retourlogin="1" type="smarty" />
-	<operationCopy action="modules/param/operation.php" param="copy" droits="collection"
-		type="smarty" />
-	<operationWrite action="modules/param/operation.php" param="write" droits="collection"
-		retourok="operationList" retourko="operationChange"
-		modulebefore="operationChange,operationCopy" />
-	<operationDelete action="modules/param/operation.php" param="delete" droits="collection"
-		retourok="operationList" retourko="operationChange" modulebefore="operationChange" />
+	<operationList action="modules/param/operation.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<operationChange action="modules/param/operation.php" param="change" droits="collection" retourlogin="1" type="smarty" />
+	<operationCopy action="modules/param/operation.php" param="copy" droits="collection" type="smarty" />
+	<operationWrite action="modules/param/operation.php" param="write" droits="collection" retourok="operationList" retourko="operationChange" modulebefore="operationChange,operationCopy" />
+	<operationDelete action="modules/param/operation.php" param="delete" droits="collection" retourok="operationList" retourko="operationChange" modulebefore="operationChange" />
 
-	<multipleTypeList action="modules/param/multipleType.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<multipleTypeChange action="modules/param/multipleType.php" param="change" droits="param"
-		retourlogin="1" type="smarty" />
-	<multipleTypeWrite action="modules/param/multipleType.php" param="write" droits="param"
-		retourok="multipleTypeList" retourko="multipleTypeChange" modulebefore="multipleTypeChange" />
-	<multipleTypeDelete action="modules/param/multipleType.php" param="delete" droits="param"
-		retourok="multipleTypeList" retourko="multipleTypeChange" modulebefore="multipleTypeChange" />
+	<multipleTypeList action="modules/param/multipleType.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<multipleTypeChange action="modules/param/multipleType.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<multipleTypeWrite action="modules/param/multipleType.php" param="write" droits="param" retourok="multipleTypeList" retourko="multipleTypeChange" modulebefore="multipleTypeChange" />
+	<multipleTypeDelete action="modules/param/multipleType.php" param="delete" droits="param" retourok="multipleTypeList" retourko="multipleTypeChange" modulebefore="multipleTypeChange" />
 
-	<samplingPlaceList action="modules/param/samplingPlace.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<samplingPlaceChange action="modules/param/samplingPlace.php" param="change" droits="collection"
-		retourlogin="1" type="smarty" />
-	<samplingPlaceWrite action="modules/param/samplingPlace.php" param="write" droits="collection"
-		retourok="samplingPlaceList" retourko="samplingPlaceChange"
-		modulebefore="samplingPlaceChange" />
-	<samplingPlaceDelete action="modules/param/samplingPlace.php" param="delete" droits="collection"
-		retourok="samplingPlaceList" retourko="samplingPlaceChange"
-		modulebefore="samplingPlaceChange" />
-	<samplingPlaceImport action="modules/param/samplingPlace.php" param="import" droits="collection"
-		retourok="samplingPlaceList" retourko="samplingPlaceList"
-		modulebefore="samplingPlaceList,samplingPlaceImport" />
-	<samplingPlaceGetFromCollection action="modules/param/samplingPlace.php"
-		param="getFromCollection" droits="gestion" type="ajax" />
-	<samplingPlaceGetCoordinate action="modules/param/samplingPlace.php" param="getCoordinate"
-		droits="gestion" type="ajax" />
+	<samplingPlaceList action="modules/param/samplingPlace.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<samplingPlaceChange action="modules/param/samplingPlace.php" param="change" droits="collection" retourlogin="1" type="smarty" />
+	<samplingPlaceWrite action="modules/param/samplingPlace.php" param="write" droits="collection" retourok="samplingPlaceList" retourko="samplingPlaceChange" modulebefore="samplingPlaceChange" />
+	<samplingPlaceDelete action="modules/param/samplingPlace.php" param="delete" droits="collection" retourok="samplingPlaceList" retourko="samplingPlaceChange" modulebefore="samplingPlaceChange" />
+	<samplingPlaceImport action="modules/param/samplingPlace.php" param="import" droits="collection" retourok="samplingPlaceList" retourko="samplingPlaceList" modulebefore="samplingPlaceList,samplingPlaceImport" />
+	<samplingPlaceGetFromCollection action="modules/param/samplingPlace.php" param="getFromCollection" droits="gestion" type="ajax" />
+	<samplingPlaceGetCoordinate action="modules/param/samplingPlace.php" param="getCoordinate" droits="gestion" type="ajax" />
 
-	<countryList action="modules/param/country.php" param="list" droits="consult" retourlogin="1"
-		type="smarty" />
+	<countryList action="modules/param/country.php" param="list" droits="consult" retourlogin="1" type="smarty" />
 
-	<subsampleChange action="modules/gestion/subsample.php" param="change" droits="gestion"
-		retourlogin="1" type="smarty" />
-	<subsampleWrite action="modules/gestion/subsample.php" param="write" droits="gestion"
-		retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange" />
-	<subsampleDelete action="modules/gestion/subsample.php" param="delete" droits="gestion"
-		retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange" />
+	<subsampleChange action="modules/gestion/subsample.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
+	<subsampleWrite action="modules/gestion/subsample.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange" />
+	<subsampleDelete action="modules/gestion/subsample.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="subsampleChange" modulebefore="subsampleChange" />
 
-	<containerdocumentWrite action="modules/gestion/document.php" param="write" droits="gestion"
-		retourok="containerDisplay" retourko="containerDisplay" modulebefore="containerDisplay" />
-	<containerdocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion"
-		retourok="containerDisplay" retourko="containerDisplay" modulebefore="containerDisplay" />
-	<sampledocumentWrite action="modules/gestion/document.php" param="write" droits="gestion"
-		retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
-	<sampledocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion"
-		retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
-	<campaigndocumentWrite action="modules/gestion/document.php" param="write" droits="gestion"
-		retourok="campaignDisplay" retourko="campaignDisplay" modulebefore="campaignDisplay" />
-	<campaigndocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion"
-		retourok="campaignDisplay" retourko="campaignDisplay" modulebefore="campaignDisplay" />
+	<containerdocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="containerDisplay" />
+	<containerdocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="containerDisplay" />
+	<sampledocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
+	<sampledocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
+	<campaigndocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="campaignDisplay" retourko="campaignDisplay" modulebefore="campaignDisplay" />
+	<campaigndocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="campaignDisplay" retourko="campaignDisplay" modulebefore="campaignDisplay" />
 	<documentGet action="modules/gestion/document.php" param="get" type="binaire" droits="consult" />
-	<documentGetSW action="modules/gestion/document.php" param="getSW" type="binaire"
-		retourko="documentGetSWerror" />
+	<documentGetSW action="modules/gestion/document.php" param="getSW" type="binaire" retourko="documentGetSWerror" />
 	<documentGetSWerror action="modules/gestion/document.php" param="getSWerror" type="json" />
-	<documentExternalGetList action="modules/gestion/document.php" param="externalGetList"
-		droits="gestion" type="json" />
-	<documentExternalAdd action="modules/gestion/document.php" param="externalAdd" droits="gestion"
-		retourok="sampleDisplay" retourko="sampleDisplay" />
-	<documentGetExternal action="modules/gestion/document.php" param="getExternal" type="binaire"
-		droits="gestion" />
+	<documentExternalGetList action="modules/gestion/document.php" param="externalGetList" droits="gestion" type="json" />
+	<documentExternalAdd action="modules/gestion/document.php" param="externalAdd" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" />
+	<documentGetExternal action="modules/gestion/document.php" param="getExternal" type="binaire" droits="gestion" />
 
-	<identifierTypeList action="modules/param/identifierType.php" param="list" droits="consult"
-		retourlogin="1" type="smarty" />
-	<identifierTypeChange action="modules/param/identifierType.php" param="change" droits="param"
-		retourlogin="1" type="smarty" />
-	<identifierTypeWrite action="modules/param/identifierType.php" param="write" droits="param"
-		retourok="identifierTypeList" retourko="identifierTypeChange"
-		modulebefore="identifierTypeChange" />
-	<identifierTypeDelete action="modules/param/identifierType.php" param="delete" droits="param"
-		retourok="identifierTypeList" retourko="identifierTypeChange"
-		modulebefore="identifierTypeChange" />
+	<identifierTypeList action="modules/param/identifierType.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<identifierTypeChange action="modules/param/identifierType.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<identifierTypeWrite action="modules/param/identifierType.php" param="write" droits="param" retourok="identifierTypeList" retourko="identifierTypeChange" modulebefore="identifierTypeChange" />
+	<identifierTypeDelete action="modules/param/identifierType.php" param="delete" droits="param" retourok="identifierTypeList" retourko="identifierTypeChange" modulebefore="identifierTypeChange" />
 
-	<containerobjectIdentifierChange action="modules/gestion/objectIdentifier.php" param="change"
-		droits="gestion" retourlogin="1" type="smarty" />
-	<containerobjectIdentifierWrite action="modules/gestion/objectIdentifier.php" param="write"
-		droits="gestion" retourok="containerDisplay" retourko="containerobjectIdentifierChange"
-		modulebefore="containerobjectIdentifierChange" />
-	<containerobjectIdentifierDelete action="modules/gestion/objectIdentifier.php" param="delete"
-		droits="gestion" retourok="containerDisplay" retourko="containerobjectIdentifierChange"
-		modulebefore="containerobjectIdentifierChange" />
-	<sampleobjectIdentifierChange action="modules/gestion/objectIdentifier.php" param="change"
-		droits="gestion" retourlogin="1" type="smarty" />
-	<sampleobjectIdentifierWrite action="modules/gestion/objectIdentifier.php" param="write"
-		droits="gestion" retourok="sampleDisplay" retourko="sampleobjectIdentifierChange"
-		modulebefore="sampleobjectIdentifierChange" />
-	<sampleobjectIdentifierDelete action="modules/gestion/objectIdentifier.php" param="delete"
-		droits="gestion" retourok="sampleDisplay" retourko="sampleobjectIdentifierChange"
-		modulebefore="sampleobjectIdentifierChange" />
+	<containerobjectIdentifierChange action="modules/gestion/objectIdentifier.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
+	<containerobjectIdentifierWrite action="modules/gestion/objectIdentifier.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerobjectIdentifierChange" modulebefore="containerobjectIdentifierChange" />
+	<containerobjectIdentifierDelete action="modules/gestion/objectIdentifier.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerobjectIdentifierChange" modulebefore="containerobjectIdentifierChange" />
+	<sampleobjectIdentifierChange action="modules/gestion/objectIdentifier.php" param="change" droits="gestion" retourlogin="1" type="smarty" />
+	<sampleobjectIdentifierWrite action="modules/gestion/objectIdentifier.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleobjectIdentifierChange" modulebefore="sampleobjectIdentifierChange" />
+	<sampleobjectIdentifierDelete action="modules/gestion/objectIdentifier.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleobjectIdentifierChange" modulebefore="sampleobjectIdentifierChange" />
 
-	<movementBatchOpen action="modules/gestion/movement.php" param="batchOpen" droits="gestion"
-		type="smarty" retourlogin="1" />
-	<movementBatchRead action="modules/gestion/movement.php" param="batchRead" droits="gestion"
-		type="smarty" modulebefore="movementBatchOpen,movementBatchWrite" />
-	<movementBatchWrite action="modules/gestion/movement.php" param="batchWrite" droits="gestion"
-		modulebefore="movementBatchRead" retourok="movementBatchOpen" retourko="movementBatchRead" />
+	<movementBatchOpen action="modules/gestion/movement.php" param="batchOpen" droits="gestion" type="smarty" retourlogin="1" />
+	<movementBatchRead action="modules/gestion/movement.php" param="batchRead" droits="gestion" type="smarty" modulebefore="movementBatchOpen,movementBatchWrite" />
+	<movementBatchWrite action="modules/gestion/movement.php" param="batchWrite" droits="gestion" modulebefore="movementBatchRead" retourok="movementBatchOpen" retourko="movementBatchRead" />
 
-	<printerList action="modules/param/printer.php" param="list" droits="consult" retourlogin="1"
-		type="smarty" />
-	<printerChange action="modules/param/printer.php" param="change" droits="param" retourlogin="1"
-		type="smarty" />
-	<printerWrite action="modules/param/printer.php" param="write" droits="param"
-		retourok="printerList" retourko="printerChange" modulebefore="printerChange" />
-	<printerDelete action="modules/param/printer.php" param="delete" droits="param"
-		retourok="printerList" retourko="printerChange" modulebefore="printerChange" />
+	<printerList action="modules/param/printer.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<printerChange action="modules/param/printer.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<printerWrite action="modules/param/printer.php" param="write" droits="param" retourok="printerList" retourko="printerChange" modulebefore="printerChange" />
+	<printerDelete action="modules/param/printer.php" param="delete" droits="param" retourok="printerList" retourko="printerChange" modulebefore="printerChange" />
 
-	<metadataList action="modules/param/metadata.php" param="list" droits="consult" retourlogin="1"
-		type="smarty" />
-	<metadataDisplay action="modules/param/metadata.php" param="display" droits="consult"
-		retourlogin="1" type="smarty" />
-	<metadataChange action="modules/param/metadata.php" param="change" droits="collection"
-		retourlogin="1" type="smarty" />
-	<metadataWrite action="modules/param/metadata.php" param="write" droits="collection"
-		retourok="metadataDisplay" retourko="metadataChange"
-		modulebefore="metadataChange,metadataCopy" />
-	<metadataDelete action="modules/param/metadata.php" param="delete" droits="collection"
-		retourok="metadataList" retourko="metadataChange" modulebefore="metadataChange" />
+	<metadataList action="modules/param/metadata.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<metadataDisplay action="modules/param/metadata.php" param="display" droits="consult" retourlogin="1" type="smarty" />
+	<metadataChange action="modules/param/metadata.php" param="change" droits="collection" retourlogin="1" type="smarty" />
+	<metadataWrite action="modules/param/metadata.php" param="write" droits="collection" retourok="metadataDisplay" retourko="metadataChange" modulebefore="metadataChange,metadataCopy" />
+	<metadataDelete action="modules/param/metadata.php" param="delete" droits="collection" retourok="metadataList" retourko="metadataChange" modulebefore="metadataChange" />
 	<metadataCopy action="modules/param/metadata.php" param="copy" droits="collection" type="smarty" />
-	<metadataGetschema action="modules/param/metadata.php" param="getSchema" droits="collection"
-		type="ajax" />
+	<metadataGetschema action="modules/param/metadata.php" param="getSchema" droits="collection" type="ajax" />
 	<metadataExport action="modules/param/metadata.php" param="export" droits="consult" type="csv" />
-	<metadataImport action="modules/param/metadata.php" param="import" droits="collection"
-		retourok="metadataList" retourko="metadataList" />
+	<metadataImport action="modules/param/metadata.php" param="import" droits="collection" retourok="metadataList" retourko="metadataList" />
 
-	<borrowerList action="modules/param/borrower.php" param="list" droits="consult" retourlogin="1"
-		type="smarty" />
-	<borrowerDisplay action="modules/param/borrower.php" param="display" droits="consult"
-		retourlogin="1" type="smarty" />
-	<borrowerChange action="modules/param/borrower.php" param="change" droits="param"
-		retourlogin="1" type="smarty" />
-	<borrowerWrite action="modules/param/borrower.php" param="write" droits="param"
-		retourok="borrowerDisplay" retourko="borrowerChange" modulebefore="borrowerChange" />
-	<borrowerDelete action="modules/param/borrower.php" param="delete" droits="param"
-		retourok="borrowerList" retourko="borrowerChange" modulebefore="borrowerChange" />
-	<sampleborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion"
-		type="smarty" />
-	<sampleborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion"
-		retourok="sampleDisplay" retourko="sampleborrowingChange"
-		modulebefore="sampleborrowingChange" />
-	<sampleborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion"
-		retourok="sampleDisplay" retourko="sampleborrowingChange"
-		modulebefore="sampleborrowingChange" />
-	<containerborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion"
-		type="smarty" />
-	<containerborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion"
-		retourok="containerDisplay" retourko="containerborrowingChange"
-		modulebefore="containerborrowingChange" />
-	<containerborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion"
-		retourok="containerDisplay" retourko="containerborrowingChange"
-		modulebefore="containerborrowingChange" />
+	<borrowerList action="modules/param/borrower.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<borrowerDisplay action="modules/param/borrower.php" param="display" droits="consult" retourlogin="1" type="smarty" />
+	<borrowerChange action="modules/param/borrower.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<borrowerWrite action="modules/param/borrower.php" param="write" droits="param" retourok="borrowerDisplay" retourko="borrowerChange" modulebefore="borrowerChange" />
+	<borrowerDelete action="modules/param/borrower.php" param="delete" droits="param" retourok="borrowerList" retourko="borrowerChange" modulebefore="borrowerChange" />
+	<sampleborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion" type="smarty" />
+	<sampleborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleborrowingChange" modulebefore="sampleborrowingChange" />
+	<sampleborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleborrowingChange" modulebefore="sampleborrowingChange" />
+	<containerborrowingChange action="modules/gestion/borrowing.php" param="change" droits="gestion" type="smarty" />
+	<containerborrowingWrite action="modules/gestion/borrowing.php" param="write" droits="gestion" retourok="containerDisplay" retourko="containerborrowingChange" modulebefore="containerborrowingChange" />
+	<containerborrowingDelete action="modules/gestion/borrowing.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerborrowingChange" modulebefore="containerborrowingChange" />
 
-	<exportModelList action="modules/exportmodel/exportModel.php" param="list" droits="consult"
-		maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty" />
-	<exportModelDisplay action="modules/exportmodel/exportModel.php" param="display"
-		droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty" />
-	<exportModelChange action="modules/exportmodel/exportModel.php" param="change" droits="param"
-		maxCountByHour="60" maxCountByDay="600" type="smarty" />
-	<exportModelWrite action="modules/exportmodel/exportModel.php" param="write" droits="param"
-		maxCountByHour="60" maxCountByDay="600"
-		modulebefore="exportModelChange,exportModelDuplicate" retourko="exportModelChange"
-		retourok="exportModelDisplay" />
-	<exportModelDelete action="modules/exportmodel/exportModel.php" param="delete" droits="param"
-		maxCountByHour="60" maxCountByDay="600" modulebefore="exportModelChange"
-		retourko="exportModelChange" retourok="exportModelList" />
-	<exportModelDuplicate action="modules/exportmodel/exportModel.php" param="duplicate"
-		droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty" />
-	<exportModelExec action="modules/exportmodel/exportModelProcessing.php" param="exec"
-		droits="gestion" maxCountByHour="60" maxCountByDay="600" type="file" />
-	<exportModelImportExec action="modules/exportmodel/exportModelProcessing.php" param="importExec"
-		droits="gestion" maxCountByHour="60" maxCountByDay="600" type="smarty" retourko="default"
-		retourok="default" />
-	<mimeTypeList action="modules/param/mimeType.php" param="list" droits="consult"
-		maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty" />
-	<mimeTypeChange action="modules/param/mimeType.php" param="change" droits="param"
-		maxCountByHour="60" maxCountByDay="600" type="smarty" />
-	<mimeTypeWrite action="modules/param/mimeType.php" param="write" droits="param"
-		maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange"
-		retourko="mimeTypeChange" retourok="mimeTypeList" />
-	<mimeTypeDelete action="modules/param/mimeType.php" param="delete" droits="param"
-		maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange"
-		retourko="mimeTypeChange" retourok="mimeTypeList" />
+	<exportModelList action="modules/exportmodel/exportModel.php" param="list" droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty" />
+	<exportModelDisplay action="modules/exportmodel/exportModel.php" param="display" droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty" />
+	<exportModelChange action="modules/exportmodel/exportModel.php" param="change" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty" />
+	<exportModelWrite action="modules/exportmodel/exportModel.php" param="write" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="exportModelChange,exportModelDuplicate" retourko="exportModelChange" retourok="exportModelDisplay" />
+	<exportModelDelete action="modules/exportmodel/exportModel.php" param="delete" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="exportModelChange" retourko="exportModelChange" retourok="exportModelList" />
+	<exportModelDuplicate action="modules/exportmodel/exportModel.php" param="duplicate" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty" />
+	<exportModelExec action="modules/exportmodel/exportModelProcessing.php" param="exec" droits="gestion" maxCountByHour="60" maxCountByDay="600" type="file" />
+	<exportModelImportExec action="modules/exportmodel/exportModelProcessing.php" param="importExec" droits="gestion" maxCountByHour="60" maxCountByDay="600" type="smarty" retourko="default" retourok="default" />
+	<mimeTypeList action="modules/param/mimeType.php" param="list" droits="consult" maxCountByHour="60" maxCountByDay="600" retourlogin="1" type="smarty" />
+	<mimeTypeChange action="modules/param/mimeType.php" param="change" droits="param" maxCountByHour="60" maxCountByDay="600" type="smarty" />
+	<mimeTypeWrite action="modules/param/mimeType.php" param="write" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange" retourko="mimeTypeChange" retourok="mimeTypeList" />
+	<mimeTypeDelete action="modules/param/mimeType.php" param="delete" droits="param" maxCountByHour="60" maxCountByDay="600" modulebefore="mimeTypeChange" retourko="mimeTypeChange" retourok="mimeTypeList" />
 
-	<licenseList action="modules/param/license.php" param="list" droits="consult" retourlogin="1"
-		type="smarty" />
-	<licenseChange action="modules/param/license.php" param="change" droits="param" retourlogin="1"
-		type="smarty" />
-	<licenseWrite action="modules/param/license.php" param="write" droits="param"
-		retourok="licenseList" retourko="licenseChange" modulebefore="licenseChange" />
-	<licenseDelete action="modules/param/license.php" param="delete" droits="param"
-		retourok="licenseList" retourko="licenseChange" modulebefore="licenseChange" />
+	<licenseList action="modules/param/license.php" param="list" droits="consult" retourlogin="1" type="smarty" />
+	<licenseChange action="modules/param/license.php" param="change" droits="param" retourlogin="1" type="smarty" />
+	<licenseWrite action="modules/param/license.php" param="write" droits="param" retourok="licenseList" retourko="licenseChange" modulebefore="licenseChange" />
+	<licenseDelete action="modules/param/license.php" param="delete" droits="param" retourok="licenseList" retourko="licenseChange" modulebefore="licenseChange" />
 
 	<!-- Exports to other referentials -->
-	<datasetTypeList action="modules/export/datasetType.php" param="list" droits="collection"
-		retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTypeChange action="modules/export/datasetType.php" param="change" droits="collection"
-		type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTypeWrite action="modules/export/datasetType.php" param="write" droits="collection"
-		moduleBefore="datasetTypeChange" retourok="datasetTypeList" retourko="datasetTypeChange" />
-	<datasetTypeDelete action="modules/export/datasetType.php" param="delete" droits="collection"
-		moduleBefore="datasetTypeChange" retourok="datasetTypeList" retourko="datasetTypeChange" />
-	<datasetTemplateList action="modules/export/datasetTemplate.php" param="list"
-		droits="collection" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTemplateDisplay action="modules/export/datasetTemplate.php" param="display"
-		droits="collection" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTemplateChange action="modules/export/datasetTemplate.php" param="change"
-		droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetTemplateWrite action="modules/export/datasetTemplate.php" param="write"
-		droits="collection" moduleBefore="datasetTemplateChange" retourok="datasetTemplateDisplay"
-		retourko="datasetTemplateChange" />
-	<datasetTemplateDelete action="modules/export/datasetTemplate.php" param="delete"
-		droits="collection" moduleBefore="datasetTemplateChange" retourok="datasetTemplateList"
-		retourko="datasetTemplateChange" />
-	<datasetTemplateDuplicate action="modules/export/datasetTemplate.php" param="duplicate"
-		droits="collection"
-		moduleBefore="datasetTemplateList,datasetTemplateWrite,datasetTemplateDelete,datasetTemplateDuplicate"
-		retourok="datasetTemplateChange" retourko="datasetTemplateList" />
-	<datasetColumnChange action="modules/export/datasetColumn.php" param="change"
-		droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<datasetColumnWrite action="modules/export/datasetColumn.php" param="write" droits="collection"
-		moduleBefore="datasetColumnChange" retourok="datasetColumnChange"
-		retourko="datasetColumnChange" />
-	<datasetColumnDelete action="modules/export/datasetColumn.php" param="delete"
-		droits="collection" moduleBefore="datasetColumnChange" retourok="datasetColumnChange"
-		retourko="datasetColumnChange" />
-	<translatorList action="modules/export/translator.php" param="list" droits="collection"
-		type="smarty" maxCountByHour="60" maxCountByDay="600" retourlogin="1" />
-	<translatorChange action="modules/export/translator.php" param="change" droits="collection"
-		type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<translatorWrite action="modules/export/translator.php" param="write" droits="collection"
-		moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
-	<translatorDelete action="modules/export/translator.php" param="delete" droits="collection"
-		moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
-	<exportTemplateList action="modules/export/exportTemplate.php" param="list" droits="collection"
-		type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<exportTemplateChange action="modules/export/exportTemplate.php" param="change"
-		droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<exportTemplateWrite action="modules/export/exportTemplate.php" param="write"
-		droits="collection" moduleBefore="exportTemplateChange" retourok="exportTemplateList"
-		retourko="exportTemplateChange" />
-	<exportTemplateDelete action="modules/export/exportTemplate.php" param="delete"
-		droits="collection" moduleBefore="exportTemplateChange" retourok="exportTemplateList"
-		retourko="exportTemplateChange" />
+	<datasetTypeList action="modules/export/datasetType.php" param="list" droits="collection" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTypeChange action="modules/export/datasetType.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTypeWrite action="modules/export/datasetType.php" param="write" droits="collection" moduleBefore="datasetTypeChange" retourok="datasetTypeList" retourko="datasetTypeChange" />
+	<datasetTypeDelete action="modules/export/datasetType.php" param="delete" droits="collection" moduleBefore="datasetTypeChange" retourok="datasetTypeList" retourko="datasetTypeChange" />
+	<datasetTemplateList action="modules/export/datasetTemplate.php" param="list" droits="collection" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTemplateDisplay action="modules/export/datasetTemplate.php" param="display" droits="collection" retourlogin="1" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTemplateChange action="modules/export/datasetTemplate.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetTemplateWrite action="modules/export/datasetTemplate.php" param="write" droits="collection" moduleBefore="datasetTemplateChange" retourok="datasetTemplateDisplay" retourko="datasetTemplateChange" />
+	<datasetTemplateDelete action="modules/export/datasetTemplate.php" param="delete" droits="collection" moduleBefore="datasetTemplateChange" retourok="datasetTemplateList" retourko="datasetTemplateChange" />
+	<datasetTemplateDuplicate action="modules/export/datasetTemplate.php" param="duplicate" droits="collection" moduleBefore="datasetTemplateList,datasetTemplateWrite,datasetTemplateDelete,datasetTemplateDuplicate" retourok="datasetTemplateChange" retourko="datasetTemplateList" />
+	<datasetColumnChange action="modules/export/datasetColumn.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<datasetColumnWrite action="modules/export/datasetColumn.php" param="write" droits="collection" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
+	<datasetColumnDelete action="modules/export/datasetColumn.php" param="delete" droits="collection" moduleBefore="datasetColumnChange" retourok="datasetColumnChange" retourko="datasetColumnChange" />
+	<translatorList action="modules/export/translator.php" param="list" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" retourlogin="1" />
+	<translatorChange action="modules/export/translator.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<translatorWrite action="modules/export/translator.php" param="write" droits="collection" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
+	<translatorDelete action="modules/export/translator.php" param="delete" droits="collection" moduleBefore="translatorChange" retourok="translatorList" retourko="translatorChange" />
+	<exportTemplateList action="modules/export/exportTemplate.php" param="list" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<exportTemplateChange action="modules/export/exportTemplate.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<exportTemplateWrite action="modules/export/exportTemplate.php" param="write" droits="collection" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
+	<exportTemplateDelete action="modules/export/exportTemplate.php" param="delete" droits="collection" moduleBefore="exportTemplateChange" retourok="exportTemplateList" retourko="exportTemplateChange" />
 	<exportTemplateImport action="modules/export/exportTemplate.php" param="import" droits="collection" moduleBefore="exportTemplateList,exportTemplateWrite,exportTemplateDelete,exportTemplateImport" retourok="exportTemplateList" retourko="exportTemplateList"/>
-	<lotList action="modules/export/lot.php" param="list" droits="collection" type="smarty"
-		maxCountByHour="60" maxCountByDay="600" retourlogin="1" />
-	<lotCreate action="modules/export/lot.php" param="create" droits="collection"
-		maxCountByHour="60" maxCountByDay="600" retourok="lotDisplay" retourko="sampleList"
-		modulebefore="sampleList" />
-	<lotDisplay action="modules/export/lot.php" param="display" droits="collection"
-		maxCountByHour="60" maxCountByDay="600" type="smarty" />
-	<lotWrite action="modules/export/lot.php" param="write" droits="collection"
-		moduleBefore="lotChange" retourok="lotList" retourko="lotChange" />
-	<lotDelete action="modules/export/lot.php" param="delete" droits="collection"
-		moduleBefore="lotChange" retourok="lotList" retourko="lotDisplay" />
-	<lotDeleteSamples action="modules/export/lot.php" param="deleteSamples" droits="collection"
-		moduleBefore="lotDisplay,lotDeleteSamples" retourok="lotDisplay" retourko="lotDisplay" />
-	<exportChange action="modules/export/export.php" param="change" droits="collection"
-		type="smarty" maxCountByHour="60" maxCountByDay="600" />
-	<exportWrite action="modules/export/export.php" param="write" droits="collection"
-		moduleBefore="exportChange" retourok="lotDisplay" retourko="exportChange" />
-	<exportDelete action="modules/export/export.php" param="delete" droits="collection"
-		moduleBefore="exportChange" retourok="lotDisplay" retourko="exportChange" />
-	<exportExec action="modules/export/export.php" param="exec" droits="collection"
-		retourok="lotDisplay" retourko="lotDisplay" type="binaire" />
+	<lotList action="modules/export/lot.php" param="list" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" retourlogin="1" />
+	<lotCreate action="modules/export/lot.php" param="create" droits="collection" maxCountByHour="60" maxCountByDay="600" retourok="lotDisplay" retourko="sampleList" modulebefore="sampleList" />
+	<lotDisplay action="modules/export/lot.php" param="display" droits="collection" maxCountByHour="60" maxCountByDay="600" type="smarty" />
+	<lotWrite action="modules/export/lot.php" param="write" droits="collection" moduleBefore="lotChange" retourok="lotList" retourko="lotChange" />
+	<lotDelete action="modules/export/lot.php" param="delete" droits="collection" moduleBefore="lotChange" retourok="lotList" retourko="lotDisplay" />
+	<lotDeleteSamples action="modules/export/lot.php" param="deleteSamples" droits="collection" moduleBefore="lotDisplay,lotDeleteSamples" retourok="lotDisplay" retourko="lotDisplay" />
+	<exportChange action="modules/export/export.php" param="change" droits="collection" type="smarty" maxCountByHour="60" maxCountByDay="600" />
+	<exportWrite action="modules/export/export.php" param="write" droits="collection" moduleBefore="exportChange" retourok="lotDisplay" retourko="exportChange" />
+	<exportDelete action="modules/export/export.php" param="delete" droits="collection" moduleBefore="exportChange" retourok="lotDisplay" retourko="exportChange" />
+	<exportExec action="modules/export/export.php" param="exec" droits="collection" retourok="lotDisplay" retourko="lotDisplay" type="binaire" />
 
 	<!-- change request functions - add collections limits -->
-	<requestList action="modules/request/request.php" param="list" retourlogin="1" droits="gestion"
-		type="smarty" />
-	<requestChange action="modules/request/request.php" param="change" droits="gestion"
-		type="smarty" />
-	<requestWrite action="modules/request/request.php" param="write" droits="param"
-		modulebefore="requestChange,requestCopy,requestExec,requestWriteExec"
-		retourok="requestChange" retourko="requestChange" />
-	<requestDelete action="modules/request/request.php" param="delete" droits="param"
-		modulebefore="requestChange,requestExec,requestWriteExec,requestExecList"
-		retourok="requestList" retourko="requestChange" />
+	<requestList action="modules/request/request.php" param="list" retourlogin="1" droits="gestion" type="smarty" />
+	<requestChange action="modules/request/request.php" param="change" droits="gestion" type="smarty" />
+	<requestWrite action="modules/request/request.php" param="write" droits="param" modulebefore="requestChange,requestCopy,requestExec,requestWriteExec" retourok="requestChange" retourko="requestChange" />
+	<requestDelete action="modules/request/request.php" param="delete" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestList" retourko="requestChange" />
 	<requestExec action="modules/request/request.php" param="exec" droits="gestion" type="html" />
-	<requestExecList action="modules/request/request.php" param="execList" droits="gestion"
-		type="html" />
-	<requestWriteExec action="modules/request/request.php" param="write" droits="param"
-		modulebefore="requestChange,requestExec,requestWriteExec,requestExecList"
-		retourok="requestExec" retourko="requestChange" />
+	<requestExecList action="modules/request/request.php" param="execList" droits="gestion" type="html" />
+	<requestWriteExec action="modules/request/request.php" param="write" droits="param" modulebefore="requestChange,requestExec,requestWriteExec,requestExecList" retourok="requestExec" retourko="requestChange" />
 	<requestCopy action="modules/request/request.php" param="copy" droits="param" type="smarty" />
 
 	<!-- API -->
-	<apiv1sampleWrite action="modules/gestion/sampleWs.php" param="write" droits="gestion"
-		type="json" />
-	<apiv1sampleDelete action="modules/gestion/sampleWs.php" param="delete" droits="gestion"
-		type="json" />
-	<apiv1movementWrite action="modules/gestion/movementWs.php" param="write" droits="gestion"
-		type="json" />
-	<apiv1sampleDisplay action="modules/gestion/sampleWs.php" type="json" param="detail"
-		droits="consult" />
-	<apiv1sampleUids action="modules/gestion/sampleWs.php" param="getListUIDS" droits="consult"
-		type="json" />
-	<apiv1sampleList action="modules/gestion/sampleWs.php" param="getList" droits="consult"
-		type="json" />
+	<apiv1sampleWrite action="modules/gestion/sampleWs.php" param="write" droits="gestion" type="json" />
+	<apiv1sampleDelete action="modules/gestion/sampleWs.php" param="delete" droits="gestion" type="json" />
+	<apiv1movementWrite action="modules/gestion/movementWs.php" param="write" droits="gestion" type="json" />
+	<apiv1sampleDisplay action="modules/gestion/sampleWs.php" type="json" param="detail" droits="consult" />
+	<apiv1sampleUids action="modules/gestion/sampleWs.php" param="getListUIDS" droits="consult" type="json" />
+	<apiv1sampleList action="modules/gestion/sampleWs.php" param="getList" droits="consult" type="json" />
 	<!-- Documentation -->
-	<metadatafield_fr action="framework/utils/markdown.php"
-		param="documentation/metadata_field/metadatafield_fr.md" type="smarty" retourko="default" />
-	<metadatafield_en action="framework/utils/markdown.php"
-		param="documentation/metadata_field/metadatafield_en.md" type="smarty" retourko="default" />
-	<lendingsample_fr action="framework/utils/markdown.php"
-		param="documentation/lending_sample/lendingsample_fr.md" type="smarty" retourko="default" />
-	<lendingsample_en action="framework/utils/markdown.php"
-		param="documentation/lending_sample/lendingsample_en.md" type="smarty" retourko="default" />
-	<sampledisplay_fr action="framework/utils/markdown.php"
-		param="documentation/webservices/sampleDisplayFr.md" type="smarty" retourko="default" />
-	<sampledisplay_en action="framework/utils/markdown.php"
-		param="documentation/webservices/sampleDisplayEn.md" type="smarty" retourko="default" />
-	<documentget_fr action="framework/utils/markdown.php"
-		param="documentation/webservices/documentGetFr.md" type="smarty" retourko="default" />
-	<documentget_en action="framework/utils/markdown.php"
-		param="documentation/webservices/documentGetEn.md" type="smarty" retourko="default" />
-	<swidentification_fr action="framework/utils/markdown.php"
-		param="documentation/webservices/identificationFr.md" type="smarty" retourko="default" />
-	<swidentification_en action="framework/utils/markdown.php"
-		param="documentation/webservices/identificationEn.md" type="smarty" retourko="default" />
-	<swapi_fr action="framework/utils/markdown.php" param="documentation/webservices/apiCallFr.md"
-		type="smarty" retourko="default" />
-	<swapi_en action="framework/utils/markdown.php" param="documentation/webservices/apiCallEn.md"
-		type="smarty" retourko="default" />
-	<sampleWrite_fr action="framework/utils/markdown.php"
-		param="documentation/webservices/sampleWriteFr.md" type="smarty" retourko="default" />
-	<sampleDelete_fr action="framework/utils/markdown.php"
-		param="documentation/webservices/sampleDeleteFr.md" type="smarty" retourko="default" />
-	<sampleDelete_en action="framework/utils/markdown.php"
-		param="documentation/webservices/sampleDeleteEn.md" type="smarty" retourko="default" />
-	<sampleWrite_en action="framework/utils/markdown.php"
-		param="documentation/webservices/sampleWriteEn.md" type="smarty" retourko="default" />
-	<swmovementWrite_fr action="framework/utils/markdown.php"
-		param="documentation/webservices/movementAddFr.md" type="smarty" retourko="default" />
-	<swmovementWrite_en action="framework/utils/markdown.php"
-		param="documentation/webservices/movementAddEn.md" type="smarty" retourko="default" />
-	<swsampleList_fr action="framework/utils/markdown.php"
-		param="documentation/webservices/sampleListFr.md" type="smarty" retourko="default" />
-	<swsampleList_en action="framework/utils/markdown.php"
-		param="documentation/webservices/sampleListEn.md" type="smarty" retourko="default" />
-	<exportbatch_fr action="framework/utils/markdown.php"
-		param="documentation/import_export/batch_export_fr.md" type="smarty" retourko="default" />
-	<exportbatch_en action="framework/utils/markdown.php"
-		param="documentation/import_export/batch_export_en.md" type="smarty" retourko="default" />
-	<document_external_fr action="framework/utils/markdown.php"
-		param="documentation/document_external/document_external_fr.md" type="smarty"
-		retourko="default" />
-	<document_external_en action="framework/utils/markdown.php"
-		param="documentation/document_external/document_external_en.md" type="smarty"
-		retourko="default" />
-	<rights_general_fr action="framework/utils/markdown.php"
-		param="documentation/rights/rights_general_fr.md" type="smarty" retourko="default" />
-	<rights_general_en action="framework/utils/markdown.php"
-		param="documentation/rights/rights_general_en.md" type="smarty" retourko="default" />
-	<consult_sees_all_fr action="framework/utils/markdown.php"
-		param="documentation/consult_sees_all/consult_sees_all_fr.md" type="smarty"
-		retourko="default" />
-	<consult_sees_all_en action="framework/utils/markdown.php"
-		param="documentation/consult_sees_all/consult_sees_all_en.md" type="smarty"
-		retourko="default" />
-	<automaticsendmail_fr action="framework/utils/markdown.php"
-		param="documentation/collection/automaticsendmail_fr.md" type="smarty" retourko="default" />
-	<automaticsendmail_en action="framework/utils/markdown.php"
-		param="documentation/collection/automaticsendmail_en.md" type="smarty" retourko="default" />
+	<metadatafield_fr action="framework/utils/markdown.php" param="documentation/metadata_field/metadatafield_fr.md" type="smarty" retourko="default" />
+	<metadatafield_en action="framework/utils/markdown.php" param="documentation/metadata_field/metadatafield_en.md" type="smarty" retourko="default" />
+	<lendingsample_fr action="framework/utils/markdown.php" param="documentation/lending_sample/lendingsample_fr.md" type="smarty" retourko="default" />
+	<lendingsample_en action="framework/utils/markdown.php" param="documentation/lending_sample/lendingsample_en.md" type="smarty" retourko="default" />
+	<sampledisplay_fr action="framework/utils/markdown.php" param="documentation/webservices/sampleDisplayFr.md" type="smarty" retourko="default" />
+	<sampledisplay_en action="framework/utils/markdown.php" param="documentation/webservices/sampleDisplayEn.md" type="smarty" retourko="default" />
+	<documentget_fr action="framework/utils/markdown.php" param="documentation/webservices/documentGetFr.md" type="smarty" retourko="default" />
+	<documentget_en action="framework/utils/markdown.php" param="documentation/webservices/documentGetEn.md" type="smarty" retourko="default" />
+	<swidentification_fr action="framework/utils/markdown.php" param="documentation/webservices/identificationFr.md" type="smarty" retourko="default" />
+	<swidentification_en action="framework/utils/markdown.php" param="documentation/webservices/identificationEn.md" type="smarty" retourko="default" />
+	<swapi_fr action="framework/utils/markdown.php" param="documentation/webservices/apiCallFr.md" type="smarty" retourko="default" />
+	<swapi_en action="framework/utils/markdown.php" param="documentation/webservices/apiCallEn.md" type="smarty" retourko="default" />
+	<sampleWrite_fr action="framework/utils/markdown.php" param="documentation/webservices/sampleWriteFr.md" type="smarty" retourko="default" />
+	<sampleDelete_fr action="framework/utils/markdown.php" param="documentation/webservices/sampleDeleteFr.md" type="smarty" retourko="default" />
+	<sampleDelete_en action="framework/utils/markdown.php" param="documentation/webservices/sampleDeleteEn.md" type="smarty" retourko="default" />
+	<sampleWrite_en action="framework/utils/markdown.php" param="documentation/webservices/sampleWriteEn.md" type="smarty" retourko="default" />
+	<swmovementWrite_fr action="framework/utils/markdown.php" param="documentation/webservices/movementAddFr.md" type="smarty" retourko="default" />
+	<swmovementWrite_en action="framework/utils/markdown.php" param="documentation/webservices/movementAddEn.md" type="smarty" retourko="default" />
+	<swsampleList_fr action="framework/utils/markdown.php" param="documentation/webservices/sampleListFr.md" type="smarty" retourko="default" />
+	<swsampleList_en action="framework/utils/markdown.php" param="documentation/webservices/sampleListEn.md" type="smarty" retourko="default" />
+	<exportbatch_fr action="framework/utils/markdown.php" param="documentation/import_export/batch_export_fr.md" type="smarty" retourko="default" />
+	<exportbatch_en action="framework/utils/markdown.php" param="documentation/import_export/batch_export_en.md" type="smarty" retourko="default" />
+	<document_external_fr action="framework/utils/markdown.php" param="documentation/document_external/document_external_fr.md" type="smarty" retourko="default" />
+	<document_external_en action="framework/utils/markdown.php" param="documentation/document_external/document_external_en.md" type="smarty" retourko="default" />
+	<rights_general_fr action="framework/utils/markdown.php" param="documentation/rights/rights_general_fr.md" type="smarty" retourko="default" />
+	<rights_general_en action="framework/utils/markdown.php" param="documentation/rights/rights_general_en.md" type="smarty" retourko="default" />
+	<consult_sees_all_fr action="framework/utils/markdown.php" param="documentation/consult_sees_all/consult_sees_all_fr.md" type="smarty" retourko="default" />
+	<consult_sees_all_en action="framework/utils/markdown.php" param="documentation/consult_sees_all/consult_sees_all_en.md" type="smarty" retourko="default" />
+	<automaticsendmail_fr action="framework/utils/markdown.php" param="documentation/collection/automaticsendmail_fr.md" type="smarty" retourko="default" />
+	<automaticsendmail_en action="framework/utils/markdown.php" param="documentation/collection/automaticsendmail_en.md" type="smarty" retourko="default" />
 	<mailSmarty action="test/mailSmarty.php" />
 
 	<!-- Submenus -->
 	<objets action="framework/utils/submenu.php" type="smarty" retourlogin="1"/>
 	<movement action="framework/utils/submenu.php" type="smarty" droits="gestion" retourlogin="1"/>
 	<importExport action="framework/utils/submenu.php" type="smarty" droits="import,collection,param" retourlogin="1"/>
-	<parametre action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
-	<collections action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
-	<protocoles action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
-	<campaigns action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
-	<containerType action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
-	<dbstructure action="framework/utils/submenu.php" type="smarty" droits="consult"  retourlogin="1"/>
-	<administration action="framework/utils/submenu.php" type="smarty" droits="admin"  retourlogin="1"/>
+	<parametre action="framework/utils/submenu.php" type="smarty" droits="consult" retourlogin="1"/>
+	<collections action="framework/utils/submenu.php" type="smarty" droits="consult" retourlogin="1"/>
+	<protocoles action="framework/utils/submenu.php" type="smarty" droits="consult" retourlogin="1"/>
+	<campaigns action="framework/utils/submenu.php" type="smarty" droits="consult" retourlogin="1"/>
+	<containerType action="framework/utils/submenu.php" type="smarty" droits="consult" retourlogin="1"/>
+	<dbstructure action="framework/utils/submenu.php" type="smarty" droits="consult" retourlogin="1"/>
+	<administration action="framework/utils/submenu.php" type="smarty" droits="admin" retourlogin="1"/>
 
-	<documentation_fr retourlogin="1"  type="smarty" action="framework/utils/submenu.php" />
+	<documentation_fr retourlogin="1" type="smarty" action="framework/utils/submenu.php" />
 	<echantillon_fr action="framework/utils/submenu.php" type="smarty" />
 	<importExport_fr action="framework/utils/submenu.php" type="smarty" />
 	<api_fr action="framework/utils/submenu.php" type="smarty" />
 	<administration_fr action="framework/utils/submenu.php" type="smarty" />
 
-	<documentation_en retourlogin="1"  type="smarty" action="framework/utils/submenu.php" />
+	<documentation_en retourlogin="1" type="smarty" action="framework/utils/submenu.php" />
 	<echantillon_en action="framework/utils/submenu.php" type="smarty" />
 	<importExport_en action="framework/utils/submenu.php" type="smarty" />
 	<api_en action="framework/utils/submenu.php" type="smarty" />

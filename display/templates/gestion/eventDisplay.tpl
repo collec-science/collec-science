@@ -4,7 +4,7 @@
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
         </a>
-        <a href="index.php?module={$moduleParent}Display&uid={$object.uid}&activeTab={$activeTab}">
+        <a href="index.php?module={$moduleParentOnly}Display&uid={$object.uid}&activeTab={$activeTab}">
             <img src="display/images/display.png" height="25">
             {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
         </a>
@@ -13,7 +13,7 @@
 {if $droits.gestion == 1}
 <div class="row">
     <div class="col-md-6">
-        <a href="index.php?module={$moduleParent}eventChange&event_id={$data.event_id}&uid={$data.uid}">
+        <a href="index.php?module={$moduleParentOnly}eventChange&event_id={$data.event_id}&uid={$data.uid}">
             <img src="display/images/edit.gif" height="25">
             {t}Modifier{/t}
         </a>

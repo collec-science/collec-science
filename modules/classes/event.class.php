@@ -210,8 +210,21 @@ class Event extends ObjetBDD
             )
         );
     }
-    function getDetail(int $id):array {
-        
+    /**
+     * Get the detail of an event
+     *
+     * @param integer $id
+     * @return array
+     */
+    function getDetail(int $id): array
+    {
+        $sql = "select event_id, uid, identifier, event_type_name, still_available,
+            event_date, due_date, event_comment
+            from event
+            join object using (uid)
+            join event_type using (event_type_id)
+            where event_id = :id";
+        return $this->lireParamAsPrepared($sql, array("id" => $id));
     }
 
 }

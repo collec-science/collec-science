@@ -36,22 +36,26 @@ switch ($t_module["param"]) {
 		break;
 	case "display":
 		$data = $dataClass->getDetail($id);
-		dataRead($dataClass, $id, "gestion/eventDisplay.tpl", $_REQUEST["uid"]);
-		$vue->set($_SESSION["moduleParent"], "moduleParent");
+		$vue->set($data, "data");
+		$vue->set("gestion/eventDisplay.tpl", "corps");
+		$vue->set($_SESSION["moduleParent"], "moduleParentOnly");
+		$vue->set($_SESSION["moduleParent"]."event", "moduleParent");
 		$vue->set("tab-event", "activeTab");
 		/*
 		 * Lecture de l'object concerne
 		 */
 		require_once 'modules/classes/object.class.php';
 		$object = new ObjectClass($bdd, $ObjetBDDParam);
-		$vue->set($data = $object->lire($_REQUEST["uid"]), "object");
-
-		/*
-		 * Recherche des types d'evenement
+		$vue->set($object->lire($data["uid"]), "object");
+		/**
+		 * Recuperation des documents
 		 */
-		require_once 'modules/classes/eventType.class.php';
-		$eventType = new EventType($bdd, $ObjetBDDParam);
-		$vue->set($eventType->getListeFromCategory($_SESSION["moduleParent"], $data["collection_id"]), "eventType");
+		include_once 'modules/classes/document.class.php';
+		$document = new Document($bdd, $ObjetBDDParam);
+		$vue->set($doc = $document->getListFromField("event_id", $id), "dataDoc");
+		$vue->set($document->getMaxUploadSize(), "maxUploadSize");
+		$vue->set("event_id", "parentKeyName");
+		$vue->set(1, "modifiable");
 		break;
 	case "write":
 		/*

@@ -93,12 +93,12 @@
 			<td>{$dataDoc[lst].document_import_date}</td>
 			<td>{$dataDoc[lst].document_creation_date}</td>
 			<td>
-				{$dataDoc[lst].event_type_name} {$dataDoc[lst].event_date}
+				{$dataDoc[lst].event_type_name} {if !empty($dataDoc[lst].event_date)}{t}réalisé le{/t} {$dataDoc[lst].event_date}{else}{t}prévu le{/t}{$dataDoc[lst].due_date}{/if}
 			</td>
 			{if $droits["gestion"] == 1 && $modifiable == 1}
 			<td>
 				<div class="center">
-					<a href="index.php?module={$moduleParent}documentDelete&document_id={$dataDoc[lst].document_id}&uid={$data.uid}&campaign_id={$data.campaign_id}&activeTab=tab-document"
+					<a href="index.php?module={$moduleParent}documentDelete&document_id={$dataDoc[lst].document_id}&uid={$data.uid}&campaign_id={$data.campaign_id}&event_id={$data.event_id}&activeTab=tab-document"
 						onclick="return confirm('{t}Confirmez-vous la suppression ?{/t}');">
 						<img src="display/images/corbeille.png" height="20">
 					</a>

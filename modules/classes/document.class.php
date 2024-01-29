@@ -284,12 +284,14 @@ class Document extends ObjetBDD
       //$isExternal ? $external = "true" : $external = "false";
       $sql = "select document_id, d.uid, campaign_id, mime_type_id,
           document_import_date, document_name, document_description, size, document_creation_date, d.uuid
-          ,external_storage, external_storage_path, event_id, event_date, event_type_name
+          ,external_storage, external_storage_path, event_id, event_date, event_type_name, due_date
           from document d
           left outer join event using (event_id)
           left outer join event_type using (event_type_id)
           where $fieldName = :id";
       //and external_storage = $external";
+      $this->colonnes["event_date"] = array("type"=>2);
+      $this->colonnes["due_date"] = array("type"=>2);
       return $this->getListeParamAsPrepared($sql, array("id" => $id));
     }
   }
@@ -349,7 +351,6 @@ class Document extends ObjetBDD
             $data["uid"] = $devent["uid"];
           }
         }
-
         /**
          * Recherche pour savoir s'il s'agit d'une image ou d'un pdf pour créer une vignette
          */

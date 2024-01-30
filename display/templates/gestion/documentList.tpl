@@ -33,6 +33,9 @@
 <a href="#" id="documentChangeActivate">{t}Saisir un nouveau document...{/t}</a>
 <div id="documentChange" hidden="true">
 	{include file="gestion/documentChange.tpl"}
+	{if $externalStorageEnabled == 1}
+		{include file="gestion/documentExternalAdd.tpl"}
+	{/if}
 </div>
 {/if}
 <table id="documentList" class="table table-bordered table-hover datatable" data-order='[[5, "desc"], [4, "desc"]]'>
@@ -93,7 +96,9 @@
 			<td>{$dataDoc[lst].document_import_date}</td>
 			<td>{$dataDoc[lst].document_creation_date}</td>
 			<td>
+				{if $dataDoc[lst].event_id > 0}
 				{$dataDoc[lst].event_type_name} {if !empty($dataDoc[lst].event_date)}{t}réalisé le{/t} {$dataDoc[lst].event_date}{else}{t}prévu le{/t}{$dataDoc[lst].due_date}{/if}
+				{/if}
 			</td>
 			{if $droits["gestion"] == 1 && $modifiable == 1}
 			<td>

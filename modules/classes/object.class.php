@@ -1042,4 +1042,20 @@ class ObjectClass extends ObjetBDD
         );
         $this->ecrire($data);
     }
+
+    public function verifyCollection($data)
+    {
+        $retour = false;
+        if (empty($data["collection_id"])) {
+            $retour = true;
+        } else {
+            foreach ($_SESSION["collections"] as $value) {
+                if ($data["collection_id"] == $value["collection_id"]) {
+                    $retour = true;
+                    break;
+                }
+            }
+        }
+        return $retour;
+    }
 }

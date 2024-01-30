@@ -238,6 +238,7 @@
 	<containerdocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="containerDisplay" retourko="containerDisplay" modulebefore="containerDisplay" />
 	<sampledocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
 	<sampledocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="sampleDisplay" retourko="sampleDisplay" modulebefore="sampleDisplay" />
+	<samplesDocument action="modules/gestion/document.php" param="write" droits="collection" retourok="sampleList" retourko="sampleList" modulebefore="sampleList" />
 	<campaigndocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="campaignDisplay" retourko="campaignDisplay" modulebefore="campaignDisplay" />
 	<campaigndocumentDelete action="modules/gestion/document.php" param="delete" droits="gestion" retourok="campaignDisplay" retourko="campaignDisplay" modulebefore="campaignDisplay" />
 	<sampleeventdocumentWrite action="modules/gestion/document.php" param="write" droits="gestion" retourok="sampleeventDisplay" retourko="sampleeventDisplay" modulebefore="sampleeventDisplay,eventDisplay" />

@@ -12,7 +12,7 @@
 </script>
 
 <div class="row">
-	<form id="documentForm" class="form-horizontal protoform" method="post" action="index.php" enctype="multipart/form-data">
+	<form id="documentForm" class="form-horizontal" method="post" action="index.php" enctype="multipart/form-data">
 		<input type="hidden" name="document_id" value="0">
 		<input type="hidden" name="uid" value="{$data.uid}">
 		<input type="hidden" name="campaign_id" value="{$data.campaign_id}">
@@ -26,7 +26,7 @@
 			</label>
 			<div class="col-md-8">
 				<input id="documentName" type="file" class="form-control"
-					name="documentName[]" size="40" multiple>
+					name="documentName[]" multiple>
 			</div>
 		</div>
 		<div class="form-group">

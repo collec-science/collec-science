@@ -111,6 +111,18 @@ switch ($t_module["param"]) {
         }
         $vue->set(json_encode($dataMap), "markers");
         $vue->htmlVars[] = "markers";
+                /**
+         * Add multiple documents
+         */
+        include_once 'modules/classes/document.class.php';
+        $document = new Document($bdd, $ObjetBDDParam);
+        $vue->set($document->getMaxUploadSize(), "maxUploadSize");
+        $vue->set($_SESSION["collections"][$dataSearch["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
+        /**
+         * Get the list of authorized extensions
+         */
+        $mimeType = new MimeType($bdd, $ObjetBDDParam);
+        $vue->set($mimeType->getListExtensions(false), "extensions");
         break;
     case "searchAjax":
         $vue->set($dataClass->sampleSearch($_REQUEST));

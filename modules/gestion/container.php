@@ -123,12 +123,14 @@ switch ($t_module["param"]) {
         $document = new Document($bdd, $ObjetBDDParam);
         $vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
         $vue->set($document->getMaxUploadSize(), "maxUploadSize");
-        $vue->set(1, "modifiable");
-        /**
-         * Get the list of authorized extensions
-         */
-        $mimeType = new MimeType($bdd, $ObjetBDDParam);
-        $vue->set($mimeType->getListExtensions(false), "extensions");
+        $vue->set($_SESSION["collections"][$data["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
+		/**
+		 * Get the list of authorized extensions
+		 */
+		$mimeType = new MimeType($bdd, $ObjetBDDParam);
+		$vue->set($mimeType->getListExtensions(false), "extensions");
+		$vue->set("event_id", "parentKeyName");
+		$vue->set($dataClass->verifyCollection($data), "modifiable");
         /*
          * Ajout de la selection des modeles d'etiquettes
          */

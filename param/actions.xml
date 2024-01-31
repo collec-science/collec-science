@@ -180,7 +180,7 @@
 	<objectGetLastEntry action="modules/gestion/movement.php" param="getLastEntry" droits="gestion" type="ajax" />
 	<smallMovementChange action="modules/gestion/movement.php" param="smallMovementChange" droits="gestion" retourlogin="1" type="smarty" />
 	<smallMovementWrite action="modules/gestion/movement.php" param="smallMovementWrite" droits="gestion" type="smarty" modulebefore="smallMovementChange" retourok="smallMovementChange" retourko="smallMovementChange" />
-
+	<smallMovementWriteAjax action="modules/gestion/movement.php" param="smallMovementWriteAjax" droits="gestion" modulebefore="smallMovementChange" type="ajax" />
 
 	<objectGetDetail droits="consult" action="modules/gestion/object.php" param="getDetailAjax" type="ajax" />
 	<containerPrintLabel droits="gestion" action="modules/gestion/object.php" param="printLabel" type="pdf" retourko="containerList" />

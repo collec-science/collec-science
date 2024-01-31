@@ -43,6 +43,7 @@
 		var timer;
 		var timer_duration = 500;
 		var destination = "object";
+		var hasFoundCamera = false;
 
 		const video = document.getElementById( 'qr-video' );
 		const videoContainer = document.getElementById( 'video-container' );
@@ -55,17 +56,23 @@
 
 		function setResult( label, result ) {
 			console.log( result.data );
-			/*label.textContent = result.data;
-			label.style.color = 'teal';
-			clearTimeout( label.highlightTimeout );
-			label.highlightTimeout = setTimeout( () => label.style.color = 'inherit', 100 );
-			*/
 			$( "#" + destination ).val( result.data );
 			snd.play();
 			$( "#" + destination ).change();
 			scanner.stop();
 		}
 
+		function searchCamera() {
+			if (!hasFoundCamera) {
+				QrScanner.listCameras( true ).then( cameras => cameras.forEach( camera => {
+					const option = document.createElement( 'option' );
+					option.value = camera.id;
+					option.text = camera.label;
+					camList.add( option );
+				} ) );
+				hasFoundCamera = true;
+			}
+		}
 
 		// ####### Web Cam Scanning #######
 
@@ -160,26 +167,17 @@
 			destination = "container_search";
 			scanner.start().then( () => {
 				updateFlashAvailability();
-				QrScanner.listCameras( true ).then( cameras => cameras.forEach( camera => {
-					const option = document.createElement( 'option' );
-					option.value = camera.id;
-					option.text = camera.label;
-					camList.add( option );
-				} ) );
+				searchCamera();
 			} );
 		} );
 		$( '#start2' ).click( function () {
 			destination = "object_search";
 			scanner.start().then( () => {
 				updateFlashAvailability();
-				QrScanner.listCameras( true ).then( cameras => cameras.forEach( camera => {
-					const option = document.createElement( 'option' );
-					option.value = camera.id;
-					option.text = camera.label;
-					camList.add( option );
-				} ) );
+				searchCamera();
 			} );
 		} );
+
 
 		$( '#stop' ).click( function () {
 			scanner.stop();
@@ -305,10 +303,9 @@
 			}
 			if ( ok ) {
 				$( "#movement_type_id" ).val( "1" );
-				$( "#smallMovement" ).submit();
-			} else {
-				event.preventDefault();
-			}
+				write();
+			} 
+			event.preventDefault();
 		} );
 
 		$( "#exit" ).click( function ( event ) {
@@ -324,11 +321,43 @@
 			}
 			if ( ok ) {
 				$( "#movement_type_id" ).val( "2" );
-				$( "#smallMovement" ).submit();
-			} else {
-				event.preventDefault();
-			}
+				write();
+			} 
+			event.preventDefault();
 		} );
+
+		function write() {
+			$.ajax( {
+				url: "index.php", 
+				method: "POST", 
+				data: {
+					module: "smallMovementWriteAjax",
+					movement_type_id: $("#movement_type_id").val(),
+					object_uid: $( "#object_uid" ).val(),
+					container_uid: $( "#container_uid" ).val(),
+					movement_reason_id: $( "#movement_reason_id" ).val(),
+					column_number: $( "#column_number" ).val(),
+					line_number: $( "#line_number" ).val()
+				}
+				, success: function ( res ) {
+					var result = JSON.parse( res );
+					console.log(result);
+					if ( result.error_code == 200 ) {
+						$( "#message" ).html( "{t}Mouvement créé{/t}" );
+						$( "#message" ).toggleClass( "message", true );
+						$( "#message" ).toggleClass( "messageError", false );
+						$( "#object_search" ).val( "" );
+						$( "#object_uid" ).val("");
+						$("#position_stock").empty();
+						$( "#object_search" ).focus();
+					} else {
+						$( "#message" ).html( result.error_message );
+						$( "#message" ).toggleClass( "message", false );
+						$( "#message" ).toggleClass( "messageError", true );
+					}
+				}
+			} );
+		}
 		/*
 		 * Remise a zero des zones de recherche
 		 */
@@ -348,16 +377,15 @@
 		$( "#smallMovement" ).submit( function ( event ) {
 			var valobj = $( "#object_uid" ).val();
 			if ( valobj ) {
-				if ( valobj.length == 0 ) {
-					event.preventDefault();
+				if ( valobj.length != 0 ) {
+					write()
 				}
 			}
+			event.preventDefault();
 		} );
-
-
 	} );
 </script>
-
+<div id="message"></div>
 <div class="row">
 	<div class="col-xs-12 col-md-6">
 		<form class="form-horizontal" id="smallMovement" method="post" action="index.php"

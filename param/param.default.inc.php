@@ -7,8 +7,8 @@
  * Parametres par defaut de l'application
  * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
  */
-$APPLI_version = "24.0.0";
-$APPLI_dbversion = "24.0";
+$APPLI_version = "v24.1.0";
+$APPLI_dbversion = "24.1";
 $APPLI_versiondate = _("02/01/2024");
 $language = "fr";
 $DEFAULT_formatdate = "fr";

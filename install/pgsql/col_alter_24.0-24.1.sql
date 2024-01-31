@@ -102,3 +102,5 @@ ALTER TABLE col.document ADD CONSTRAINT event_fk FOREIGN KEY (event_id)
 REFERENCES col.event (event_id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
+
+insert into col.dbversion (dbversion_number, dbversion_date) values ('24.1','2024-01-31');

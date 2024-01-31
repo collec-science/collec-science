@@ -1,9 +1,8 @@
 -- Database generated with pgModeler (PostgreSQL Database Modeler).
 -- pgModeler version: 1.0.6
--- PostgreSQL version: 16.0
+-- PostgreSQL version: 11.0
 -- Project Site: pgmodeler.io
 -- Model Author: ---
-
 
 SET check_function_bodies = false;
 -- ddl-end --
@@ -307,7 +306,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 ALTER TABLE col.dbversion OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'24.0', E'2024-01-02');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'24.1', E'2024-01-31');
 -- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --
@@ -342,6 +341,7 @@ CREATE TABLE col.document (
 	external_storage boolean NOT NULL DEFAULT false,
 	external_storage_path varchar,
 	campaign_id integer,
+	event_id integer,
 	CONSTRAINT document_pk PRIMARY KEY (document_id)
 );
 -- ddl-end --
@@ -848,7 +848,6 @@ INSERT INTO col.object_status (object_status_id, object_status_name) VALUES (E'3
 -- ddl-end --
 INSERT INTO col.object_status (object_status_id, object_status_name) VALUES (E'6', E'Objet prêté');
 -- ddl-end --
-
 
 -- object: col.operation_operation_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.operation_operation_id_seq CASCADE;
@@ -1828,13 +1827,14 @@ SELECT m.uid,
     m.movement_type_id,
     m.container_id,
     c.uid AS container_uid,
-	o.identifier as container_identifier,
+    o2.identifier AS container_identifier,
     m.line_number,
     m.column_number,
     m.movement_reason_id
-   FROM col.object o
-   JOIN col.movement m on (m.movement_id = o.last_movement_id)
-   LEFT JOIN col.container c USING (container_id);
+   FROM col.movement m
+     JOIN col.object o ON m.movement_id = o.last_movement_id
+     LEFT JOIN col.container c USING (container_id)
+     left join col.object o2 on (c.uid = o2.uid);
 -- ddl-end --
 ALTER VIEW col.last_movement OWNER TO collec;
 -- ddl-end --
@@ -3625,6 +3625,40 @@ ALTER VIEW col.v_derivated_number OWNER TO collec;
 -- ALTER TABLE col.container DROP CONSTRAINT IF EXISTS collection_fk CASCADE;
 ALTER TABLE col.container ADD CONSTRAINT collection_fk FOREIGN KEY (collection_id)
 REFERENCES col.collection (collection_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: col.campaign_group | type: TABLE --
+-- DROP TABLE IF EXISTS col.campaign_group CASCADE;
+CREATE TABLE col.campaign_group (
+	campaign_id integer NOT NULL,
+	aclgroup_id integer NOT NULL,
+	CONSTRAINT campaign_group_pk PRIMARY KEY (campaign_id,aclgroup_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.campaign_group IS E'Rights to modify the samples sampled during a campaign';
+-- ddl-end --
+ALTER TABLE col.campaign_group OWNER TO collec;
+-- ddl-end --
+
+-- object: campaign_fk | type: CONSTRAINT --
+-- ALTER TABLE col.campaign_group DROP CONSTRAINT IF EXISTS campaign_fk CASCADE;
+ALTER TABLE col.campaign_group ADD CONSTRAINT campaign_fk FOREIGN KEY (campaign_id)
+REFERENCES col.campaign (campaign_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: aclgroup_fk | type: CONSTRAINT --
+-- ALTER TABLE col.campaign_group DROP CONSTRAINT IF EXISTS aclgroup_fk CASCADE;
+ALTER TABLE col.campaign_group ADD CONSTRAINT aclgroup_fk FOREIGN KEY (aclgroup_id)
+REFERENCES gacl.aclgroup (aclgroup_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: event_fk | type: CONSTRAINT --
+-- ALTER TABLE col.document DROP CONSTRAINT IF EXISTS event_fk CASCADE;
+ALTER TABLE col.document ADD CONSTRAINT event_fk FOREIGN KEY (event_id)
+REFERENCES col.event (event_id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 

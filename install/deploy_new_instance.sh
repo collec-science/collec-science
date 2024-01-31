@@ -82,7 +82,7 @@ line="0 20 * * * /var/lib/postgresql/backup.sh"
 echo "$line" | crontab -u postgres -
 
 # install mail sender
-cp collec-science/collectionsGenrateMail.sh .
+cp collec-science/collectionsGenerateMail.sh .
 echo "0 8 * * * /var/www/collecApp/collectionsGenerateMail.sh" | crontab -u www-data -
 chmod +x /var/www/collecApp/collectionsGenerateMail.sh
 

@@ -31,6 +31,7 @@
 	<setlanguageen action='framework/setlanguage.php' param="en" retourlogin="1" type="smarty" retourok="default" />
 	<setlanguageus action='framework/setlanguage.php' param="us" retourlogin="1" type="smarty" retourok="default" />
 	
+	<getLastRelease action="framework/utils/getLastRelease.php" loginrequis="1" type="smarty"/>
 
 
 

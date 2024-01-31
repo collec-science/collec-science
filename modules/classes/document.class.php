@@ -202,6 +202,7 @@ class Document extends ObjetBDD
 
   public $temp = "temp";
   public Mimetype $mimeType;
+  public Event $event;
 
   // Chemin de stockage des images générées à la volée
   /**
@@ -261,7 +262,8 @@ class Document extends ObjetBDD
       ),
       "uuid" => array("type" => 0, "default" => "getUUID"),
       "external_storage" => array("type" => 1),
-      "external_storage_path" => array("type" => 0)
+      "external_storage_path" => array("type" => 0),
+      "event_id" => array("type" => 1)
     );
     parent::__construct($bdd, $param);
   }
@@ -270,19 +272,26 @@ class Document extends ObjetBDD
    *
    * @param string $fieldName: name of the parent field
    * @param int $id: key of the parent
-   * @return array
+   * @return ?array
    */
-  function getListFromField($fieldName, $id/*, $isExternal = false*/)
+  function getListFromField($fieldName, $id /*, $isExternal = false*/): ?array
   {
-    $fields = array("uid", "campaign_id", "uuid");
+    $fields = array("uid", "campaign_id", "uuid", "event_id");
     if (in_array($fieldName, $fields)) {
+      if ($fieldName == "uid") {
+        $fieldName = "d.uid";
+      }
       //$isExternal ? $external = "true" : $external = "false";
-      $sql = "select document_id, uid, campaign_id, mime_type_id,
-          document_import_date, document_name, document_description, size, document_creation_date, uuid
-          ,external_storage, external_storage_path
-          from document
+      $sql = "select document_id, d.uid, campaign_id, mime_type_id,
+          document_import_date, document_name, document_description, size, document_creation_date, d.uuid
+          ,external_storage, external_storage_path, event_id, event_date, event_type_name, due_date
+          from document d
+          left outer join event using (event_id)
+          left outer join event_type using (event_type_id)
           where $fieldName = :id";
       //and external_storage = $external";
+      $this->colonnes["event_date"] = array("type"=>2);
+      $this->colonnes["due_date"] = array("type"=>2);
       return $this->getListeParamAsPrepared($sql, array("id" => $id));
     }
   }
@@ -293,9 +302,9 @@ class Document extends ObjetBDD
    */
   function getMaxUploadSize(): int
   {
-    $max_upload = (int)(ini_get('upload_max_filesize'));
-    $max_post = (int)(ini_get('post_max_size'));
-    $memory_limit = (int)(ini_get('memory_limit'));
+    $max_upload = (int) (ini_get('upload_max_filesize'));
+    $max_post = (int) (ini_get('post_max_size'));
+    $memory_limit = (int) (ini_get('memory_limit'));
     return (min($max_upload, $max_post, $memory_limit));
   }
 
@@ -330,8 +339,18 @@ class Document extends ObjetBDD
           $data["document_creation_date"] = $document_creation_date;
         }
         $dataDoc = array();
-
-
+        /**
+         * Get the uid if event_id
+         */
+        if ($parentKeyName == "event_id") {
+          if (!isset($this->event)) {
+            $this->event = $this->classInstanciate("Event", "event.class.php");
+          }
+          $devent=$this->event->lire($parentKeyValue);
+          if ($devent["uid"] > 0) {
+            $data["uid"] = $devent["uid"];
+          }
+        }
         /**
          * Recherche pour savoir s'il s'agit d'une image ou d'un pdf pour créer une vignette
          */
@@ -384,9 +403,12 @@ class Document extends ObjetBDD
 				join mime_type using (mime_type_id)
 				where document_id = :document_id";
 
-      return $this->lireParamAsPrepared($sql, array(
-        "document_id" => $id
-      ));
+      return $this->lireParamAsPrepared(
+        $sql,
+        array(
+          "document_id" => $id
+        )
+      );
     }
   }
 
@@ -471,22 +493,32 @@ class Document extends ObjetBDD
           $okgenerate = true;
           break;
         case 2:
-          if (in_array($data["mime_type_id"], array(
-            1,
-            4,
-            5,
-            6
-          ))) {
+          if (
+            in_array(
+              $data["mime_type_id"],
+              array(
+                1,
+                4,
+                5,
+                6
+              )
+            )
+          ) {
             $okgenerate = true;
           }
           $redim = true;
           break;
         case 1:
-          if (in_array($data["mime_type_id"], array(
-            4,
-            5,
-            6
-          ))) {
+          if (
+            in_array(
+              $data["mime_type_id"],
+              array(
+                4,
+                5,
+                6
+              )
+            )
+          ) {
             $okgenerate = true;
           }
           $redim = true;
@@ -501,14 +533,19 @@ class Document extends ObjetBDD
         $filename = $this->generateFileName($id, $phototype, $resolution);
         if (!empty($filename) && !file_exists($filename)) {
           /*
-                     * Recuperation des donnees concernant la photo
-                     */
+           * Recuperation des donnees concernant la photo
+           */
           $docRef = $this->getBlobReference($id, $colonne);
-          if (in_array($data["mime_type_id"], array(
-            4,
-            5,
-            6
-          )) && $docRef != NULL) {
+          if (
+            in_array(
+              $data["mime_type_id"],
+              array(
+                4,
+                5,
+                6
+              )
+            ) && $docRef != NULL
+          ) {
             try {
               $image = new Imagick();
               $image->readImageFile($docRef);

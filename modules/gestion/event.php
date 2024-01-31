@@ -33,7 +33,35 @@ switch ($t_module["param"]) {
 		require_once 'modules/classes/eventType.class.php';
 		$eventType = new EventType($bdd, $ObjetBDDParam);
 		$vue->set($eventType->getListeFromCategory($_SESSION["moduleParent"], $data["collection_id"]), "eventType");
-
+		break;
+	case "display":
+		$data = $dataClass->getDetail($id);
+		$vue->set($data, "data");
+		$vue->set("gestion/eventDisplay.tpl", "corps");
+		$vue->set($_SESSION["moduleParent"], "moduleParentOnly");
+		$vue->set($_SESSION["moduleParent"] . "event", "moduleParent");
+		$vue->set("tab-event", "activeTab");
+		/*
+		 * Lecture de l'object concerne
+		 */
+		require_once 'modules/classes/object.class.php';
+		$object = new ObjectClass($bdd, $ObjetBDDParam);
+		$vue->set($dobject = $object->lire($data["uid"]), "object");
+		/**
+		 * Recuperation des documents
+		 */
+		include_once 'modules/classes/document.class.php';
+		$document = new Document($bdd, $ObjetBDDParam);
+		$vue->set($doc = $document->getListFromField("event_id", $id), "dataDoc");
+		$vue->set($document->getMaxUploadSize(), "maxUploadSize");
+		$vue->set($_SESSION["collections"][$data["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
+		/**
+		 * Get the list of authorized extensions
+		 */
+		$mimeType = new MimeType($bdd, $ObjetBDDParam);
+		$vue->set($mimeType->getListExtensions(false), "extensions");
+		$vue->set("event_id", "parentKeyName");
+		$vue->set($object->verifyCollection($dobject), "modifiable");
 		break;
 	case "write":
 		/*

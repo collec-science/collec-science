@@ -94,6 +94,7 @@ class Sample extends ObjetBDD
     public ObjectClass $object;
     public $container, $event, $country, $collection;
     public Subsample $subsample;
+    public Campaign $campaign;
 
     public function __construct($bdd, $param = array())
     {
@@ -346,7 +347,7 @@ class Sample extends ObjetBDD
              * Suppression de l'objet
              */
             if (!isset($this->object)) {
-               $this->object = $this->classInstanciate("ObjectClass", "object.class.php");
+                $this->object = $this->classInstanciate("ObjectClass", "object.class.php");
             }
             $this->object->supprimer($uid);
         } else {
@@ -368,6 +369,25 @@ class Sample extends ObjetBDD
             if ($data["collection_id"] == $value["collection_id"]) {
                 $retour = true;
                 break;
+            }
+        }
+        /**
+         * Search if the campaign has restrictions by group
+         */
+        if ($retour && $data["campaign_id"] > 0) {
+            if (!isset($this->campaign)) {
+                $this->campaign = $this->classInstanciate("Campaign", "campaign.class.php");
+                $campaignGroups = $this->campaign->getRights($data["campaign_id"]);
+                if (count($campaignGroups) > 0) {
+                    $retour = false;
+                    foreach ($campaignGroups as $cg) {
+                        foreach ($_SESSION["groupes"] as $group)
+                        if ($cg["groupe"] == $group["groupe"]) {
+                            $retour = true;
+                            break;
+                        }
+                    }
+                }
             }
         }
         return $retour;
@@ -417,7 +437,7 @@ class Sample extends ObjetBDD
              * Verification de la presence des parametres
              */
             $searchOk = false;
-            $paramName = array("uidsearch", "name", "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity");
+            $paramName = array("uidsearch", "name", "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity", "collections");
             if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["booking_type"] != 0 || $param["without_container"] == 1) {
                 $searchOk = true;
             } else {
@@ -699,6 +719,28 @@ class Sample extends ObjetBDD
                     $where .= $and . "(lm.movement_type_id = 2 or lm.movement_type_id is null )";
                     $and = " and ";
                 }
+                /**
+                 * Search on multiple collections
+                 */
+                if (count($param["collections"]) > 0) {
+                    $collections = "(";
+                    $comma = "";
+                    $i = 0;
+                    foreach ($param["collections"] as $id) {
+                        if (!empty($id)) {
+                            $collections .= $comma . ":col$i";
+                            $data["col$i"] = $id;
+                            $comma = ",";
+                            $i++;
+                        }
+                    }
+                    $collections .= ")";
+                    if (!empty($comma)) {
+                        $where .= $and . "s.collection_id in " . $collections;
+                        $and = " and ";
+                    }
+                }
+
                 /**
                  * Fin de traitement des criteres de recherche
                  */
@@ -1256,7 +1298,7 @@ class Sample extends ObjetBDD
      * Get the uuid of a sample from the uuid
      *
      * @param string $uuid
-     * @return void
+     * @return int
      */
     public function getUidFromUUID($uuid)
     {
@@ -1606,7 +1648,8 @@ class Sample extends ObjetBDD
      * @param array $param
      * @return array
      */
-    function getListUIDS(array $param):array {
+    function getListUIDS(array $param): array
+    {
         if (empty($param["object_status_id"])) {
             $param["object_status_id"] = 1;
         }
@@ -1615,19 +1658,20 @@ class Sample extends ObjetBDD
         $order = " order by s.uid";
         /*printA($sql.$this->from.$this->where.$order);
         die;*/
-        $data = $this->_executeSearch($sql.$this->from.$this->where.$order, $this->data);
+        $data = $this->_executeSearch($sql . $this->from . $this->where . $order, $this->data);
         $uids = array();
         foreach ($data as $row) {
             $uids[] = $row["uid"];
         }
         return $uids;
     }
-    function getListFromParam (array $param):array {
+    function getListFromParam(array $param): array
+    {
         if (empty($param["object_status_id"])) {
             $param["object_status_id"] = 1;
         }
         $this->_generateSearch($param);
         $order = " order by s.uid";
-        return $this->_executeSearch($this->sql.$this->from.$this->where.$order, $this->data);
+        return $this->_executeSearch($this->sql . $this->from . $this->where . $order, $this->data);
     }
 }

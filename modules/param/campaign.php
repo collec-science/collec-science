@@ -19,6 +19,10 @@ switch ($t_module["param"]) {
         $vue->set($campaignRegulation->getListFromCampaign($id), "regulations");
         $vue->set("param/campaignDisplay.tpl", "corps");
         /**
+         * Rights
+         */
+        $vue->set($dataClass->getRights($id),"groupes");
+        /**
          * Documents
          */
         include_once 'modules/classes/document.class.php';
@@ -47,6 +51,10 @@ switch ($t_module["param"]) {
         require_once "modules/classes/referent.class.php";
         $referent = new Referent($bdd, $ObjetBDDParam);
         $vue->set($referent->getListe(2), "referents");
+                /**
+         * Recuperation des groupes
+         */
+        $vue->set($dataClass->getAllGroupsFromCampaign($id), "groupes");
         break;
     case "write":
         /*

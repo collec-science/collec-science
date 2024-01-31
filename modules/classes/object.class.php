@@ -527,7 +527,7 @@ class ObjectClass extends ObjetBDD
             /**
              * Recuperation des informations generales
              */
-            $sql = "select uid, identifier as id, clp_classification as clp, '' as pn,
+            $sql = "select o.uid, identifier as id, clp_classification as clp, '' as pn,
                             '$APPLI_code' as db,
                             '' as col, '' as prj, storage_product as prod,
                             wgs84_x as x, wgs84_y as y, movement_date as cd,
@@ -537,14 +537,14 @@ class ObjectClass extends ObjetBDD
                             null as pid,
                             uuid, null as ctry,
                             trim (referent_name || ' ' || coalesce(referent_firstname, ' ')) as ref,
-                            container_identifier as stor, line_number as lnum, column_number as cnum
-                        from object
+                            lm.container_identifier as stor, lm.line_number as lnum, lm.column_number as cnum
+                        from object o
                             join container using (uid)
                             join container_type using (container_type_id)
                             join object_status using (object_status_id)
-                            left outer join last_movement using (uid)
+                            left outer join last_movement lm on (o.last_movement_id = lm.movement_id)
                             left outer join referent using (referent_id)
-                        where uid in ($uids)
+                        where o.uid in ($uids)
                     UNION
                         select o.uid, o.identifier as id, clp_classification as clp, protocol_name as pn,
                             '$APPLI_code' as db,
@@ -1041,5 +1041,21 @@ class ObjectClass extends ObjetBDD
             "last_movement_id" => $movement_id
         );
         $this->ecrire($data);
+    }
+
+    public function verifyCollection($data)
+    {
+        $retour = false;
+        if (empty($data["collection_id"])) {
+            $retour = true;
+        } else {
+            foreach ($_SESSION["collections"] as $value) {
+                if ($data["collection_id"] == $value["collection_id"]) {
+                    $retour = true;
+                    break;
+                }
+            }
+        }
+        return $retour;
     }
 }

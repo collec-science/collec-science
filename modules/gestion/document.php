@@ -33,8 +33,8 @@ switch ($t_module["param"]) {
 		 * write record in database
 		 */
 		/*
-			 * Preparation de files
-			 */
+		 * Preparation de files
+		 */
 		$files = array();
 		$fdata = $_FILES['documentName'];
 		if (is_array($fdata['name'])) {
@@ -51,14 +51,20 @@ switch ($t_module["param"]) {
 			$files[] = $fdata;
 		}
 		!empty($_REQUEST["parentKeyName"]) ? $parentKeyName = $_REQUEST["parentKeyName"] : $parentKeyName = "uid";
-		$parentKeyValue = $_REQUEST[$parentKeyName];
-		foreach ($files as $file) {
-			$id = $dataClass->documentWrite($file, $parentKeyName, $parentKeyValue, $_REQUEST["document_description"], $_REQUEST["document_creation_date"]);
-			if ($id > 0) {
-				$_REQUEST[$keyName] = $id;
-				$module_coderetour = 1;
-			} else {
-				$module_coderetour = -1;
+		if (isset($_REQUEST["uids"]) && $parentKeyName == "uid" && count($_REQUEST["uids"]) > 0) {
+			$keys = $_REQUEST["uids"];
+		} else {
+			$keys = array($_REQUEST[$parentKeyName]);
+		}
+		foreach ($keys as $key) {
+			foreach ($files as $file) {
+				$id = $dataClass->documentWrite($file, $parentKeyName, $key, $_REQUEST["document_description"], $_REQUEST["document_creation_date"]);
+				if ($id > 0) {
+					$_REQUEST[$keyName] = $id;
+					$module_coderetour = 1;
+				} else {
+					$module_coderetour = -1;
+				}
 			}
 		}
 		break;
@@ -104,10 +110,10 @@ switch ($t_module["param"]) {
 			404 => "Not Found"
 		);
 		try {
-			if (empty($_REQUEST["uid"])  && empty($_REQUEST["uuid"])) {
+			if (empty($_REQUEST["uid"]) && empty($_REQUEST["uuid"])) {
 				throw new DocumentException("Identifier not provided", 404);
 			}
-			empty($_REQUEST["uid"] )  ? $uuid = $_REQUEST["uuid"] : $uuid = $_REQUEST["uid"];
+			empty($_REQUEST["uid"]) ? $uuid = $_REQUEST["uuid"] : $uuid = $_REQUEST["uid"];
 			$data = $dataClass->getDetail($uuid, "uuid");
 			if (count($data) == 0) {
 				throw new SampleException("$uuid not found", 404);
@@ -189,7 +195,7 @@ switch ($t_module["param"]) {
 				break;
 			}
 			if (!empty($_REQUEST["path"]) && $_REQUEST["path"] != "#") {
-				$dir .=  $_REQUEST["path"];
+				$dir .= $_REQUEST["path"];
 			}
 			$localPath = str_replace(array("..", "//"), array("", "/"), $_REQUEST["path"]);
 

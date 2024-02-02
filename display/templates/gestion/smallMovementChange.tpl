@@ -63,7 +63,7 @@
 		}
 
 		function searchCamera() {
-			if (!hasFoundCamera) {
+			if ( !hasFoundCamera ) {
 				QrScanner.listCameras( true ).then( cameras => cameras.forEach( camera => {
 					const option = document.createElement( 'option' );
 					option.value = camera.id;
@@ -73,6 +73,7 @@
 				hasFoundCamera = true;
 			}
 		}
+		$("#video-container").width($(window).width());
 
 		// ####### Web Cam Scanning #######
 
@@ -304,7 +305,7 @@
 			if ( ok ) {
 				$( "#movement_type_id" ).val( "1" );
 				write();
-			} 
+			}
 			event.preventDefault();
 		} );
 
@@ -322,17 +323,17 @@
 			if ( ok ) {
 				$( "#movement_type_id" ).val( "2" );
 				write();
-			} 
+			}
 			event.preventDefault();
 		} );
 
 		function write() {
 			$.ajax( {
-				url: "index.php", 
-				method: "POST", 
+				url: "index.php",
+				method: "POST",
 				data: {
 					module: "smallMovementWriteAjax",
-					movement_type_id: $("#movement_type_id").val(),
+					movement_type_id: $( "#movement_type_id" ).val(),
 					object_uid: $( "#object_uid" ).val(),
 					container_uid: $( "#container_uid" ).val(),
 					movement_reason_id: $( "#movement_reason_id" ).val(),
@@ -341,14 +342,14 @@
 				}
 				, success: function ( res ) {
 					var result = JSON.parse( res );
-					console.log(result);
+					console.log( result );
 					if ( result.error_code == 200 ) {
 						$( "#message" ).html( "{t}Mouvement créé{/t}" );
 						$( "#message" ).toggleClass( "message", true );
 						$( "#message" ).toggleClass( "messageError", false );
 						$( "#object_search" ).val( "" );
-						$( "#object_uid" ).val("");
-						$("#position_stock").empty();
+						$( "#object_uid" ).val( "" );
+						$( "#position_stock" ).empty();
 						$( "#object_search" ).focus();
 					} else {
 						$( "#message" ).html( result.error_message );
@@ -395,143 +396,164 @@
 			<input type="hidden" name="movement_id" value="0">
 			<input type="hidden" id="movement_type_id" name="movement_type_id" value="1">
 
-			<div class="col-xs-12 col-md-6">
-				<div class="row">
-					<div class="col-xs-9 col-md-8">
-						<input id="object_search" type="text" name="object_search"
-							placeholder="{t}Objet à entrer ou déplacer / sortir{/t}" value=""
-							class="form-control input-lg" autofocus autocomplete="off">
-					</div>
-					<div class="col-xs-3 col-md-4">
-						<button id="clear_object_search" class="btn btn-block  btn-info"
-							type="button">{t}Effacer{/t}</button>
-					</div>
-					<div class="col-xs-12 col-md-12">
-						<select id="object_uid" name="object_uid" class="form-control input-lg">
-						</select>
-					</div>
-					<div class="col-xs-3 col-md-12">
-						<input id="position_stock" class="form-control input-lg" disabled value="">
-					</div>
-					<div class="col-xs-6 col-md-8">
-						<select id="movement_reason_id" name="movement_reason_id" class="form-control input-lg">
-							<option value="" {if $movement_reason_id=="" }selected{/if}>
-								{t}Motif du déstockage...{/t}
-							</option>
-							{section name=lst loop=$movementReason}
-							<option value="{$movementReason[lst].movement_reason_id}" {if
-								$movement_reason_id==$movementReason[lst].movement_reason_id}selected{/if}>
-								{$movementReason[lst].movement_reason_name}
-							</option>
-							{/section}
-						</select>
-					</div>
-					<div class="col-xs-3 col-md-4">
-						<button id="exit" class="btn btn-block btn-danger input-lg" type="button">{t}Sortir{/t}</button>
-					</div>
-					<div class="col-xs-12 col-md-0">
-						<br />
+			<div class="row">
+				<div class="col-xs-12 col-md-6">
+					<div class="row">
+						<div class="col-xs-9 col-md-8">
+							<input id="object_search" type="text" name="object_search"
+								placeholder="{t}Objet à entrer ou déplacer / sortir{/t}" value=""
+								class="form-control input-lg" autofocus autocomplete="off">
+						</div>
+						<div class="col-xs-3 col-md-4">
+							<button id="clear_object_search" class="btn btn-block  btn-info"
+								type="button">{t}Effacer{/t}</button>
+						</div>
+						<div class="col-xs-12 col-md-12">
+							<select id="object_uid" name="object_uid" class="form-control input-lg">
+							</select>
+						</div>
+						<div class="col-xs-3 col-md-12">
+							<input id="position_stock" class="form-control input-lg" disabled value="">
+						</div>
+						<div class="col-xs-12">
+							<select id="movement_reason_id" name="movement_reason_id" class="form-control input-lg">
+								<option value="" {if $movement_reason_id=="" }selected{/if}>
+									{t}Motif du déstockage...{/t}
+								</option>
+								{section name=lst loop=$movementReason}
+								<option value="{$movementReason[lst].movement_reason_id}" {if
+									$movement_reason_id==$movementReason[lst].movement_reason_id}selected{/if}>
+									{$movementReason[lst].movement_reason_name}
+								</option>
+								{/section}
+							</select>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-xs-12 col-md-6">
-				<div class="row">
-					<div class="col-xs-9 col-md-8">
-						<input id="container_search" type="text" name="container_search"
-							placeholder="{t}Contenant de destination{/t}" value="" class="form-control input-lg"
-							autofocus autocomplete="off">
-					</div>
-					<div class="col-xs-3 col-md-4">
-						<button id="clear_container_search" class="btn btn-block btn-info"
-							type="button">{t}Effacer{/t}</button>
-					</div>
-					<div class="col-xs-12 col-md-12">
-						<select id="container_uid" name="container_uid" class="form-control input-lg">
-						</select>
-					</div>
-					<div class="col-xs-2 col-md-2">{t}Col:{/t}</div>
-					<div class="col-xs-4 col-md-4">
-						<input id="col" name="column_number" value="1" class="form-control input-lg">
-					</div>
-					<div class="col-xs-2 col-md-2">{t}Ligne:{/t}</div>
-					<div class="col-xs-4 col-md-4">
-						<input id="line" name="line_number" value="1" class="form-control input-lg">
-					</div>
-					<div class="col-xs-12 col-md-12">
-						<button id="entry" class="btn btn-block btn-info input-lg" type="button">
-							{t}Entrer ou déplacer dans le contenant{/t}
-						</button>
+				<div class="col-xs-12 col-md-6">
+					<div class="row">
+						<div class="col-xs-9 col-md-8">
+							<input id="container_search" type="text" name="container_search"
+								placeholder="{t}Contenant de destination{/t}" value="" class="form-control input-lg"
+								autofocus autocomplete="off">
+						</div>
+						<div class="col-xs-3 col-md-4">
+							<button id="clear_container_search" class="btn btn-block btn-info"
+								type="button">{t}Effacer{/t}</button>
+						</div>
+						<div class="col-xs-12 col-md-12">
+							<select id="container_uid" name="container_uid" class="form-control input-lg">
+							</select>
+						</div>
+						<div class="col-xs-2 col-md-2">{t}Col:{/t}</div>
+						<div class="col-xs-4 col-md-4">
+							<input id="col" name="column_number" value="1" class="form-control input-lg">
+						</div>
+						<div class="col-xs-2 col-md-2">{t}Ligne:{/t}</div>
+						<div class="col-xs-4 col-md-4">
+							<input id="line" name="line_number" value="1" class="form-control input-lg">
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-
+				<div class="col-xs-6">
+					<button id="entry" class="btn btn-block btn-info input-lg" type="button">
+						<span class="input-lg">
+							{t}Entrer{/t}
+						</span>
+					</button>
+				</div>
+				<div class="col-xs-6">
+					<button id="exit" class="btn btn-block btn-danger input-lg" type="button">
+						<span class="input-lg">
+							{t}Sortir{/t}
+						</span>
+					</button>
+				</div>
 			</div>
-		</form>
 	</div>
+	<div class="row">
+
+	</div>
+	</form>
+</div>
 </div>
 <!-- Rajout pour la lecture optique -->
-<div class="row" id="optical">
+<div class="row col-xs-12" id="optical">
 	<fieldset>
 		<legend>{t}Lecture par la caméra de l'ordinateur ou du smartphone{/t}</legend>
 
 		<div class="col-xs-12 col-lg-10">
 			<div class="form-horizontal protoform">
 				<div class="row">
-					<div class="form-group center">
-						<button id="start2" class="btn btn-success" type="button">
-							{t}Lecture de l'objet à entrer ou déplacer{/t}
+					<div class="col-xs-4">
+						<button id="start2" class="btn btn-success btn-block input-lg" type="button">
+							<span class="input-lg">
+								{t}Lecture de l'objet{/t}
+							</span>
 						</button>
-						<button id="start" class="btn btn-success">{t}Lecture du contenant{/t}</button>
-						<button id="stop" class="btn btn-danger">{t}Arrêter la lecture{/t}</button>
 					</div>
+					<div class="col-xs-4">
+						<button id="start" class="btn btn-success btn-block input-lg">
+							<span class="input-lg">
+								{t}Lecture du contenant{/t}
+							</span>
+						</button>
+					</div>
+					<div class="col-xs-4">
+						<button id="stop" class="btn btn-danger btn-block input-lg">
+							<span class="input-lg">
+								{t}Arrêter la lecture{/t}
+							</span>
+						</button>
+					</div>
+
 				</div>
 			</div>
 		</div>
+</div>
 
-		<div class="row">
-			<div class="col-xs-12 col-md-6 center">
-				<div id="video-container">
-					<video id="qr-video"></video>
-				</div>
-			</div>
+<div class="row">
+	<div class="col-xs-12 col-md-6 center">
+		<div id="video-container">
+			<video id="qr-video"></video>
 		</div>
+	</div>
+</div>
 
 
-		<div class="form-horizontal col-xs-12 col-lg-10">
-			<div class="form-group">
-				<div class="col-md-6">
-					<label class="col-md-4 control-label">{t}Caméra :{/t}</label>
-					<div class="col-md-8">
-						<select id="cam-list" class="form-control">
-							<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
-							<option value="user">{t}Caméra frontale{/t}</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-md-6">
-					<label class="col-md-4 control-label">{t}Mode couleur :{/t}</label>
-					<div class="col-md-8">
-						<select id="inversion-mode-select" class="form-control">
-							<option value="original">Scan original (dark QR code on bright background)</option>
-							<option value="invert">Scan with inverted colors (bright QR code on dark background)
-							</option>
-							<option value="both">Scan both</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="cam-has-flash" class="col-md-2 control-label">{t}Flash présent :{/t}</label>
-				<div class="col-md-6">
-					<span id="cam-has-flash" class="col-md-1"></span>
-					<button id="flash-toggle" class="col-md-2">📸 Flash: <span
-							id="flash-state">{t}off{/t}</span></button>
-				</div>
-			</div>
-			<span id="cam-qr-result" hidden></span>
+<div class="form-horizontal col-xs-12 col-lg-10">
+	<div class="form-group">
+		<label class="col-xs-4 control-label input-lg">{t}Caméra :{/t}</label>
+		<div class="col-xs-8">
+			<select id="cam-list" class="form-control input-lg">
+				<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
+				<option value="user">{t}Caméra frontale{/t}</option>
+			</select>
 		</div>
-	</fieldset>
+	</div>
+	<div class="form-group">
+		<label class="col-xs-4 control-label input-lg">{t}Mode couleur :{/t}</label>
+		<div class="col-xs-8">
+			<select id="inversion-mode-select" class="form-control input-lg">
+				<option value="original">Scan original (dark QR code on bright background)</option>
+				<option value="invert">Scan with inverted colors (bright QR code on dark background)
+				</option>
+				<option value="both">Scan both</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="cam-has-flash" class="col-xs-4 control-label input-lg">{t}Flash présent :{/t}</label>
+		<div class="col-xs-8">
+			<span id="cam-has-flash" class="input-lg"></span>
+			<button id="flash-toggle" class="input-lg">
+				📸 Flash: <span id="flash-state" class="input-lg">{t}off{/t}</span>
+			</button>
+		</div>
+	</div>
+	<span id="cam-qr-result" hidden></span>
+</div>
+</fieldset>
 </div>

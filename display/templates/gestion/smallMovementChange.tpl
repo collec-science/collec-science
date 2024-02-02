@@ -3,7 +3,8 @@
 <style>
 	#video-container {
 		position: relative;
-		width: max-content;
+		/*width: max-content;*/
+		width:100%;
 		height: max-content;
 		overflow: hidden;
 	}
@@ -73,7 +74,7 @@
 				hasFoundCamera = true;
 			}
 		}
-		$("#video-container").width($(window).width());
+		//$("#video-container").width($(document).width());
 
 		// ####### Web Cam Scanning #######
 
@@ -515,7 +516,7 @@
 </div>
 
 <div class="row">
-	<div class="col-xs-12 col-md-6 center">
+	<div class="col-xs-12 center">
 		<div id="video-container">
 			<video id="qr-video"></video>
 		</div>

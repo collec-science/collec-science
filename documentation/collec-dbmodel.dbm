@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="508,0" last-zoom="0.75" max-obj-count="76"
+<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="895,578" last-zoom="0.75" max-obj-count="76"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -388,7 +388,7 @@ Congélateur;2]]>
 	</constraint>
 	<initial-data>
 <![CDATA["dbversion_number";"dbversion_date"
-"24.0";"2024-01-02"
+"24.1";"2024-02-01"
 ]]>
 	</initial-data>
 </table>
@@ -4363,6 +4363,7 @@ group by s.uid]]> </expression>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_borrowing_borrower" type="relfk" layers="0"
+	 custom-color="#8ae234"
 	 src-table="col.borrowing"
 	 dst-table="col.borrower" reference-fk="borrower_fk"
 	 src-required="false" dst-required="true"/>

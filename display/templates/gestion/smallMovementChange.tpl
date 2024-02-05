@@ -1,6 +1,11 @@
 <script src='display/node_modules/qr-scanner/qr-scanner.umd.min.js'></script>
 <!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
 <style>
+	/*@media all and (max-device-width: 768px){ 
+    	.sizeBig {
+			font-size: 3vw;
+		}
+		*/
 	#video-container {
 		position: relative;
 		/*width: max-content;*/
@@ -403,21 +408,21 @@
 						<div class="col-xs-9 col-md-8">
 							<input id="object_search" type="text" name="object_search"
 								placeholder="{t}Objet à entrer ou déplacer / sortir{/t}" value=""
-								class="form-control input-lg" autofocus autocomplete="off">
+								class="form-control sizeBig" autofocus autocomplete="off">
 						</div>
 						<div class="col-xs-3 col-md-4">
-							<button id="clear_object_search" class="btn btn-block  btn-info"
+							<button id="clear_object_search" class="btn btn-block  btn-info sizeBig"
 								type="button">{t}Effacer{/t}</button>
 						</div>
 						<div class="col-xs-12 col-md-12">
-							<select id="object_uid" name="object_uid" class="form-control input-lg">
+							<select id="object_uid" name="object_uid" class="form-control sizeBig">
 							</select>
 						</div>
 						<div class="col-xs-3 col-md-12">
-							<input id="position_stock" class="form-control input-lg" disabled value="">
+							<input id="position_stock" class="form-control sizeBig" disabled value="">
 						</div>
 						<div class="col-xs-12">
-							<select id="movement_reason_id" name="movement_reason_id" class="form-control input-lg">
+							<select id="movement_reason_id" name="movement_reason_id" class="form-control sizeBig">
 								<option value="" {if $movement_reason_id=="" }selected{/if}>
 									{t}Motif du déstockage...{/t}
 								</option>
@@ -435,39 +440,39 @@
 					<div class="row">
 						<div class="col-xs-9 col-md-8">
 							<input id="container_search" type="text" name="container_search"
-								placeholder="{t}Contenant de destination{/t}" value="" class="form-control input-lg"
+								placeholder="{t}Contenant de destination{/t}" value="" class="form-control sizeBig"
 								autofocus autocomplete="off">
 						</div>
 						<div class="col-xs-3 col-md-4">
-							<button id="clear_container_search" class="btn btn-block btn-info"
+							<button id="clear_container_search" class="btn btn-block btn-info sizeBig"
 								type="button">{t}Effacer{/t}</button>
 						</div>
 						<div class="col-xs-12 col-md-12">
-							<select id="container_uid" name="container_uid" class="form-control input-lg">
+							<select id="container_uid" name="container_uid" class="form-control sizeBig">
 							</select>
 						</div>
-						<div class="col-xs-2 col-md-2">{t}Col:{/t}</div>
-						<div class="col-xs-4 col-md-4">
-							<input id="col" name="column_number" value="1" class="form-control input-lg">
+						<div class="col-xs-2 col-md-2 sizeBig">{t}Col:{/t}</div>
+						<div class="col-xs-4 col-md-4 sizeBig">
+							<input id="col" name="column_number" value="1" class="form-control sizeBig">
 						</div>
-						<div class="col-xs-2 col-md-2">{t}Ligne:{/t}</div>
+						<div class="col-xs-2 col-md-2 sizeBig">{t}Ligne:{/t}</div>
 						<div class="col-xs-4 col-md-4">
-							<input id="line" name="line_number" value="1" class="form-control input-lg">
+							<input id="line" name="line_number" value="1" class="form-control sizeBig">
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-6">
-					<button id="entry" class="btn btn-block btn-info input-lg" type="button">
-						<span class="input-lg">
+					<button id="entry" class="btn btn-block btn-info sizeBig" type="button">
+						<span class="sizeBig">
 							{t}Entrer{/t}
 						</span>
 					</button>
 				</div>
 				<div class="col-xs-6">
-					<button id="exit" class="btn btn-block btn-danger input-lg" type="button">
-						<span class="input-lg">
+					<button id="exit" class="btn btn-block btn-danger sizeBig" type="button">
+						<span class="sizeBig">
 							{t}Sortir{/t}
 						</span>
 					</button>
@@ -483,28 +488,28 @@
 <!-- Rajout pour la lecture optique -->
 <div class="row col-xs-12" id="optical">
 	<fieldset>
-		<legend>{t}Lecture par la caméra de l'ordinateur ou du smartphone{/t}</legend>
+		<legend class="sizeBig">{t}Lecture par la caméra de l'ordinateur ou du smartphone{/t}</legend>
 
 		<div class="col-xs-12 col-lg-10">
 			<div class="form-horizontal protoform">
 				<div class="row">
 					<div class="col-xs-4">
-						<button id="start2" class="btn btn-success btn-block input-lg" type="button">
-							<span class="input-lg">
+						<button id="start2" class="btn btn-success btn-block sizeBig" type="button">
+							<span class="sizeBig">
 								{t}Lecture de l'objet{/t}
 							</span>
 						</button>
 					</div>
 					<div class="col-xs-4">
-						<button id="start" class="btn btn-success btn-block input-lg">
-							<span class="input-lg">
+						<button id="start" class="btn btn-success btn-block sizeBig">
+							<span class="sizeBig">
 								{t}Lecture du contenant{/t}
 							</span>
 						</button>
 					</div>
 					<div class="col-xs-4">
-						<button id="stop" class="btn btn-danger btn-block input-lg">
-							<span class="input-lg">
+						<button id="stop" class="btn btn-danger btn-block sizeBig">
+							<span class="sizeBig">
 								{t}Arrêter la lecture{/t}
 							</span>
 						</button>
@@ -526,18 +531,18 @@
 
 <div class="form-horizontal col-xs-12 col-lg-10">
 	<div class="form-group">
-		<label class="col-xs-4 control-label input-lg">{t}Caméra :{/t}</label>
+		<label class="col-xs-4 control-label sizeBig">{t}Caméra :{/t}</label>
 		<div class="col-xs-8">
-			<select id="cam-list" class="form-control input-lg">
+			<select id="cam-list" class="form-control sizeBig">
 				<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
 				<option value="user">{t}Caméra frontale{/t}</option>
 			</select>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-xs-4 control-label input-lg">{t}Mode couleur :{/t}</label>
+		<label class="col-xs-4 control-label sizeBig">{t}Mode couleur :{/t}</label>
 		<div class="col-xs-8">
-			<select id="inversion-mode-select" class="form-control input-lg">
+			<select id="inversion-mode-select" class="form-control sizeBig">
 				<option value="original">Scan original (dark QR code on bright background)</option>
 				<option value="invert">Scan with inverted colors (bright QR code on dark background)
 				</option>
@@ -546,11 +551,11 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="cam-has-flash" class="col-xs-4 control-label input-lg">{t}Flash présent :{/t}</label>
+		<label for="cam-has-flash" class="col-xs-4 control-label sizeBig">{t}Flash présent :{/t}</label>
 		<div class="col-xs-8">
-			<span id="cam-has-flash" class="input-lg"></span>
-			<button id="flash-toggle" class="input-lg">
-				📸 Flash: <span id="flash-state" class="input-lg">{t}off{/t}</span>
+			<span id="cam-has-flash" class="sizeBig"></span>
+			<button id="flash-toggle" class="sizeBig">
+				📸 Flash: <span id="flash-state" class="sizeBig">{t}off{/t}</span>
 			</button>
 		</div>
 	</div>

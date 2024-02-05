@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-31 13:27+0100\n"
+"POT-Creation-Date: 2024-02-05 13:29+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -33,6 +33,7 @@ msgstr "Containers"
 
 #. (itstool) path: item/item@tooltip
 #: ../../../param/menu.xml:8 ../../../display/templates/main.tpl:6
+#: ../../../display/templates/main.tpl:49
 msgid "Liste des contenants"
 msgstr "List of containers"
 
@@ -48,6 +49,7 @@ msgstr "Samples"
 #: ../../../param/menu.xml:143
 #: ../../../display/templates/gestion/sampleListDetail.tpl:694
 #: ../../../display/templates/main.tpl:13
+#: ../../../display/templates/main.tpl:31
 msgid "Liste des échantillons"
 msgstr "List of samples"
 
@@ -88,7 +90,7 @@ msgstr "Creating movements in the stock"
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:16
 #: ../../../display/templates/gestion/fastInputChange.tpl:5
-#: ../../../display/templates/main.tpl:42
+#: ../../../display/templates/main.tpl:62
 msgid "Entrer ou déplacer dans un contenant"
 msgstr "Store or move into container"
 
@@ -102,7 +104,7 @@ msgstr "Move a sample / container into a container"
 #: ../../../display/templates/gestion/fastOutputChange.tpl:4
 #: ../../../display/templates/gestion/fastOutputChange.tpl:62
 #: ../../../display/templates/gestion/movementBatchConfirm.tpl:59
-#: ../../../display/templates/main.tpl:56
+#: ../../../display/templates/main.tpl:76
 msgid "Sortir du stock"
 msgstr "Remove from stock"
 
@@ -114,7 +116,7 @@ msgstr "Remove a sample / container from the stock"
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:18
 #: ../../../display/templates/gestion/movementBatchRead.tpl:20
-#: ../../../display/templates/main.tpl:49
+#: ../../../display/templates/main.tpl:69
 msgid "Entrer ou déplacer / Sortir par lots"
 msgstr "Store or move / Remove in batches"
 
@@ -125,7 +127,7 @@ msgstr "Store or move / remove by multiple scan of QR Code"
 
 #. (itstool) path: item/item@label
 #: ../../../param/menu.xml:19 ../../../display/templates/main.tpl:20
-#: ../../../display/templates/main.tpl:30
+#: ../../../display/templates/main.tpl:40
 msgid "Mouvements petit terminal"
 msgstr "Small device movements"
 
@@ -1023,8 +1025,8 @@ msgid "Impossible de lire le fichier contenant les news"
 msgstr "Unable to read the file containing the news"
 
 #: ../../../param/param.default.inc.php:12
-msgid "31/01/2024"
-msgstr "31/01/2024"
+msgid "05/02/2024"
+msgstr "05/02/2024"
 
 #: ../../../test/testapi.php:26 ../../../framework/fonctions.php:462
 msgid "Impossible d'initialiser le composant curl"
@@ -4952,7 +4954,7 @@ msgstr "Business code"
 #: ../../../display/templates/param/samplingPlaceList.tpl:16
 #: ../../../display/templates/gestion/sampleListDetail.tpl:704
 #: ../../../display/templates/gestion/containerListDetail.tpl:441
-#: ../../../display/templates/main.tpl:68
+#: ../../../display/templates/main.tpl:88
 msgid "Collection"
 msgstr "Collection"
 
@@ -5519,7 +5521,7 @@ msgid ""
 msgstr "The lots must be created from the sample search module."
 
 #: ../../../display/templates/export/lotList.tpl:55
-#: ../../../display/templates/main.tpl:69
+#: ../../../display/templates/main.tpl:89
 msgid "Nombre d'échantillons"
 msgstr "Sample number"
 
@@ -8036,7 +8038,6 @@ msgid "Date/heure :"
 msgstr "Date hour:"
 
 #: ../../../display/templates/gestion/fastInputChange.tpl:100
-#: ../../../display/templates/gestion/smallMovementChange.tpl:462
 msgid "Entrer ou déplacer dans le contenant"
 msgstr "Store or move into container"
 
@@ -8047,13 +8048,12 @@ msgstr "Scan with the barcode scanner"
 
 #: ../../../display/templates/gestion/fastInputChange.tpl:115
 #: ../../../display/templates/gestion/fastInputChange.tpl:139
-#: ../../../display/templates/gestion/smallMovementChange.tpl:483
 msgid "Lecture de l'objet à entrer ou déplacer"
 msgstr "Scan the object to store or move"
 
 #: ../../../display/templates/gestion/fastInputChange.tpl:116
 #: ../../../display/templates/gestion/fastInputChange.tpl:138
-#: ../../../display/templates/gestion/smallMovementChange.tpl:485
+#: ../../../display/templates/gestion/smallMovementChange.tpl:506
 msgid "Lecture du contenant"
 msgstr "Scan the container"
 
@@ -8075,7 +8075,7 @@ msgid ""
 msgstr "Scan with the camera from computer or smartphone (use Firefox)"
 
 #: ../../../display/templates/gestion/fastInputChange.tpl:140
-#: ../../../display/templates/gestion/smallMovementChange.tpl:486
+#: ../../../display/templates/gestion/smallMovementChange.tpl:513
 #: ../../../display/templates/gestion/fastOutputChange.tpl:96
 msgid "Arrêter la lecture"
 msgstr "Stop scanning"
@@ -8572,72 +8572,81 @@ msgstr ""
 "<i>container_identifier</i> is not filled, create the entry movement of the "
 "sample in the specified container"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:156
+#: ../../../display/templates/gestion/smallMovementChange.tpl:163
 msgid "Dans le stock"
 msgstr "In stock"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:158
+#: ../../../display/templates/gestion/smallMovementChange.tpl:165
 msgid "Hors du stock"
 msgstr "Not in stock"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:346
+#: ../../../display/templates/gestion/smallMovementChange.tpl:353
 msgid "Mouvement créé"
 msgstr "Movement generated"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:402
+#: ../../../display/templates/gestion/smallMovementChange.tpl:410
 msgid "Objet à entrer ou déplacer / sortir"
 msgstr "Object to store or move / remove"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:407
-#: ../../../display/templates/gestion/smallMovementChange.tpl:446
+#: ../../../display/templates/gestion/smallMovementChange.tpl:415
+#: ../../../display/templates/gestion/smallMovementChange.tpl:448
 msgid "Effacer"
 msgstr "Clean"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:419
+#: ../../../display/templates/gestion/smallMovementChange.tpl:427
 msgid "Motif du déstockage..."
 msgstr "Reason for removing..."
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:430
-msgid "Sortir"
-msgstr "Remove"
-
-#: ../../../display/templates/gestion/smallMovementChange.tpl:441
+#: ../../../display/templates/gestion/smallMovementChange.tpl:443
 msgid "Contenant de destination"
 msgstr "Destination container"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:452
+#: ../../../display/templates/gestion/smallMovementChange.tpl:454
 msgid "Col:"
 msgstr "Col:"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:456
+#: ../../../display/templates/gestion/smallMovementChange.tpl:458
 msgid "Ligne:"
 msgstr "Row:"
 
+#: ../../../display/templates/gestion/smallMovementChange.tpl:469
+#, fuzzy
+msgid "Entrer"
+msgstr "Entry"
+
 #: ../../../display/templates/gestion/smallMovementChange.tpl:476
+msgid "Sortir"
+msgstr "Remove"
+
+#: ../../../display/templates/gestion/smallMovementChange.tpl:491
 msgid "Lecture par la caméra de l'ordinateur ou du smartphone"
 msgstr "Reading via the computer or smartphone camera"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:504
+#: ../../../display/templates/gestion/smallMovementChange.tpl:499
+msgid "Lecture de l'objet"
+msgstr "Scan the object"
+
+#: ../../../display/templates/gestion/smallMovementChange.tpl:534
 msgid "Caméra :"
 msgstr "Camera:"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:507
+#: ../../../display/templates/gestion/smallMovementChange.tpl:537
 msgid "Caméra arrière (défaut)"
 msgstr "Environment camera (default)"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:508
+#: ../../../display/templates/gestion/smallMovementChange.tpl:538
 msgid "Caméra frontale"
 msgstr "Front camera"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:515
+#: ../../../display/templates/gestion/smallMovementChange.tpl:543
 msgid "Mode couleur :"
 msgstr "Color mode:"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:527
+#: ../../../display/templates/gestion/smallMovementChange.tpl:554
 msgid "Flash présent :"
 msgstr "Flash present:"
 
-#: ../../../display/templates/gestion/smallMovementChange.tpl:531
+#: ../../../display/templates/gestion/smallMovementChange.tpl:558
 msgid "off"
 msgstr "off"
 
@@ -9069,7 +9078,7 @@ msgstr "Value:"
 msgid "Les nouveautés..."
 msgstr "News..."
 
-#: ../../../display/templates/main.tpl:70
+#: ../../../display/templates/main.tpl:90
 msgid "Date de dernière modification d'un échantillon"
 msgstr "Date of last update of a sample"
 
@@ -9481,9 +9490,6 @@ msgstr "Date of last update of a sample"
 #~ msgid "Sortie de stock"
 #~ msgstr "Stock removal"
 
-#~ msgid "Entrée"
-#~ msgstr "Entry"
-
 #~ msgid "Sortie"
 #~ msgstr "Exit"
 
@@ -9588,9 +9594,6 @@ msgstr "Date of last update of a sample"
 
 #~ msgid "Contenant cherché"
 #~ msgstr "Wanted container"
-
-#~ msgid "Lecture de l'objet à entrer"
-#~ msgstr "Scan the object to enter"
 
 #~ msgid "Valider les lectures de la douchette"
 #~ msgstr "Validate barcode scanner readings"

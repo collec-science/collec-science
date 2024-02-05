@@ -1,4 +1,4 @@
-Version v24.1.0 du 31/1/2024
+Version v24.1.0 du 5/2/2024
 -----------------------------
 Corrections de bugs :
 - après la création d'un sous-échantillonnage, l'affichage de l'échantillon ne fonctionnait plus si la quantité prélevée n'avait pas été renseignée
@@ -6,6 +6,7 @@ Corrections de bugs :
 - dans le module de requête, la sélection de la collection n'était plus disponible
 - dans le module de création de mouvements "petit terminal", le scanner des qrcodes à partir des caméras ne fonctionnait pas
 - dans les étiquettes, l'emplacement de stockage de l'objet n'était pas correctement affiché si l'étiquette portait sur un contenant
+- l'affichage dans les terminaux portables était illisible
 
 Nouveautés :
 - il est maintenant possible de rechercher des échantillons dans plusieurs collections en même temps

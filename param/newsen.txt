@@ -1,4 +1,4 @@
-Version v24.1.0 of 31/1/2024
+Version v24.1.0 of 5/2/2024
 -----------------------------
 Bug fixes :
 - after creating a sub-sampling, the sample was no longer displayed if the quantity taken had not been entered
@@ -6,6 +6,7 @@ Bug fixes :
 - in the query module, collection selection was no longer available
 - in the 'small terminal' movement creation module, scanning qrcodes from cameras was not working
 - in labels, the object's storage location was not correctly displayed if the label related to a container
+- the display on the portable terminals was illegible
 
 New features:
 - it is now possible to search for samples in several collections at the same time

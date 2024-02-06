@@ -639,8 +639,9 @@
 				</dl>
 				{/if}
 				<dl class="dl-horizontal">
-					<dt title="{t}Date technique de dernière modification de l'échantillon{/t}">{t}Date de modification
-						:{/t}</dt>
+					<dt title="{t}Date technique de dernière modification de l'échantillon{/t}">
+						{t}Date de modification :{/t}
+					</dt>
 					<dd>{$data.change_date}</dd>
 				</dl>
 				{if $data.multiple_type_id > 0}

@@ -33,6 +33,7 @@
     "npm": "^8.5.3",
     "optimist": "^0.6.1",
     "pouchdb": "^7.2.2",
+    "qr-scanner": "^1.4.2",
     "smartmenus": "^1.1.1",
     "source-map": "^0.6.1",
     "uuid": "^8.3.2",

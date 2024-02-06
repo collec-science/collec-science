@@ -1,3 +1,19 @@
+Version v24.1.0 of 5/2/2024
+-----------------------------
+Bug fixes :
+- after creating a sub-sampling, the sample was no longer displayed if the quantity taken had not been entered
+- in the query module, SQL error messages are now displayed in the event of a problem during execution
+- in the query module, collection selection was no longer available
+- in the 'small terminal' movement creation module, scanning qrcodes from cameras was not working
+- in labels, the object's storage location was not correctly displayed if the label related to a container
+- the display on the portable terminals was illegible
+
+New features:
+- it is now possible to search for samples in several collections at the same time
+- for sample management, it is now possible to define write rights attached to sampling campaigns: in this case, a user who is not one of the authorised groups will no longer be able to modify the attached samples
+- it is now possible to attach one or more documents to an event. The documents are then also attached to the object
+- from the list of samples, it is now possible to assign the same document to several samples. Technically, the document is duplicated in each sample
+
 Version 24.0.0 of 3/1/2024
 -----------------------------
 Bug fixes:

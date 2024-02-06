@@ -12,6 +12,7 @@ class Campaign extends ObjetBDD
                     left outer join referent using (referent_id)";
     private $document;
     public Referent $referent;
+    public Aclgroup $aclgroup;
     /**
      * __construct
      *
@@ -161,5 +162,54 @@ class Campaign extends ObjetBDD
         }
         $data["campaign_id"] = 0;
         $this->ecrire($data);
+    }
+    /**
+     * Get the rights attributed to a campaign
+     *
+     * @param integer $id
+     * @return array
+     */
+    function getRights(int $id): array
+    {
+        $sql = "select aclgroup_id, groupe 
+                from campaign_group
+                join aclgroup using (aclgroup_id)
+                where campaign_id = :id";
+        return $this->getListeParamAsPrepared($sql, array("id" => $id));
+    }
+    /**
+     * Get the list of groups associated or no to the campaign
+     *
+     * @param integer $id
+     * @return array
+     */
+    function getAllGroupsFromCampaign(int $id):array
+    {
+            $data = $this->getRights($id);
+            $dataGroup = array();
+            foreach ($data as $value) {
+                $dataGroup[$value["aclgroup_id"]] = 1;
+            }
+            if (!isset($this->aclgroup)) {
+                $this->aclgroup = $this->classInstanciate("Aclgroup",'framework/droits/aclgroup.class.php', true);
+            }
+        $groupes = $this->aclgroup->getListe(2);
+        foreach ($groupes as $key => $value) {
+            $groupes[$key]["checked"] = $dataGroup[$value["aclgroup_id"]];
+        }
+        return $groupes;
+    }
+    /**
+     * add the groups when write the data
+     *
+     * @param array $data
+     * @return int
+     */
+    function ecrire($data) {
+        $id = parent::ecrire($data);
+        if ($id > 0) {
+            $this->ecrireTableNN("campaign_group","campaign_id", "aclgroup_id",$id, $data["groupes"]);
+        }
+        return $id;
     }
 }

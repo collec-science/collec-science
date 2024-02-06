@@ -42,6 +42,7 @@ switch ($t_module["param"]) {
         /*
          * write record in database
          */
+        $_REQUEST["metadata_schema"] = hex2bin($_REQUEST["metadata_schema"]);
         $id = dataWrite($dataClass, $_REQUEST);
         if ($id > 0) {
             $_REQUEST[$keyName] = $id;

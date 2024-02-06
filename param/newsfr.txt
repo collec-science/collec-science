@@ -1,3 +1,19 @@
+Version v24.1.0 du 5/2/2024
+-----------------------------
+Corrections de bugs :
+- après la création d'un sous-échantillonnage, l'affichage de l'échantillon ne fonctionnait plus si la quantité prélevée n'avait pas été renseignée
+- dans le module de requêtes, les messages d'erreurs SQL sont maintenant affichés en cas de problème lors de l'exécution
+- dans le module de requête, la sélection de la collection n'était plus disponible
+- dans le module de création de mouvements "petit terminal", le scanner des qrcodes à partir des caméras ne fonctionnait pas
+- dans les étiquettes, l'emplacement de stockage de l'objet n'était pas correctement affiché si l'étiquette portait sur un contenant
+- l'affichage dans les terminaux portables était illisible
+
+Nouveautés :
+- il est maintenant possible de rechercher des échantillons dans plusieurs collections en même temps
+- pour la gestion des échantillons, il est maintenant possible de définir des droits d'écriture attachés aux campagnes de prélèvement : dans ce cas, un utilisateur ne faisant pas partie des groupes autorisés ne pourra plus modifier les échantillons rattachés
+- il est maintenant possible d'attacher un ou plusieurs documents à un événement. Les documents sont alors également rattachés à l'objet
+- depuis la liste des échantillons, il est possible d'affecter le même document à plusieurs échantillon. Techniquement, le document est dupliqué dans chaque échantillon
+
 Version 24.0.0 du 3/1/2024
 -----------------------------
 Corrections de bugs :

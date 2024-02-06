@@ -48,6 +48,7 @@ class Request extends ObjetBDD
         if (!is_array($param)) {
             $param = array();
         }
+        $bdd->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
         parent::__construct($bdd, $param);
     }
 

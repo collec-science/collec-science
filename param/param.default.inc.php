@@ -7,9 +7,9 @@
  * Parametres par defaut de l'application
  * Si des modifications doivent etre apportees, faites-les dans le fichier param.inc.php
  */
-$APPLI_version = "24.0.0";
-$APPLI_dbversion = "24.0";
-$APPLI_versiondate = _("02/01/2024");
+$APPLI_version = "v24.1.0";
+$APPLI_dbversion = "24.1";
+$APPLI_versiondate = _("06/02/2024");
 $language = "fr";
 $DEFAULT_formatdate = "fr";
 /*
@@ -217,3 +217,9 @@ $APPLI_passwordMinLength = 12;
 $APPLI_hour_duration = 3600; // Duration of an hour for count all calls to a module
 $APPLI_day_duration = 36000; //Duration of a day for count all calls to a module
 $APPLI_external_document_path = "/dev/null";
+$APPLI_release_url = "https://api.github.com/repos/collec-science/collec-science/releases/latest";
+$APPLI_release_url_tag = "tag_name";
+$APPLI_release_url_date = "published_at";
+$APPLI_release_right_minimal = "gestion";
+$APPLI_release_user_agent = 'collec-science/collec-science';
+$APPLI_release_description = "body";

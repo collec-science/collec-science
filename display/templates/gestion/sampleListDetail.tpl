@@ -179,26 +179,32 @@
 		} );
 
 		$( "#checkedButtonSample" ).on( "keypress click", function ( event ) {
-			var action = $( "#checkedActionSample" ).val();
-			var ok = true;
-			if ( action.length > 0 ) {
-				if (action == "samplesCreateEvent") {
-					if (!$("#due_date").val()  && !$("#event_date").val()) {
-						alert(("{t}La date de réalisation ou la date prévue doit être indiquée{/t}"));
-						event.preventDefault();
-						ok = false;
+			var nbchecked = $ (".checkSample:checked").length;
+			if (nbchecked > 0) {
+				var action = $( "#checkedActionSample" ).val();
+				var ok = true;
+				if ( action.length > 0 ) {
+					if (action == "samplesCreateEvent") {
+						if (!$("#due_date").val()  && !$("#event_date").val()) {
+							alert(("{t}La date de réalisation ou la date prévue doit être indiquée{/t}"));
+							event.preventDefault();
+							ok = false;
+						}
+					} 
+					if (ok) {
+						var conf = confirm( "{t}Attention : cette opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
+						if ( conf == true ) {
+							$( this.form ).find( "input[name='module']" ).val( action );
+							$( this.form ).prop( 'target', '_self' ).submit();
+						} else {
+							event.preventDefault();
+						}
 					}
-				} 
-				if (ok) {
-					var conf = confirm( "{t}Attention : cette opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
-					if ( conf == true ) {
-						$( this.form ).find( "input[name='module']" ).val( action );
-						$( this.form ).prop( 'target', '_self' ).submit();
-					} else {
-						event.preventDefault();
-					}
+				} else {
+					event.preventDefault();
 				}
 			} else {
+				alert("{t}Aucun échantillon sélectionné !{/t}");
 				event.preventDefault();
 			}
 		} );
@@ -215,7 +221,8 @@
 			"samplesSetCollection": "collection",
 			"samplesSetCampaign": "campaign",
 			"samplesSetStatus": "status",
-			"samplesSetParent": "parentid"
+			"samplesSetParent": "parentid",
+			"samplesDocument": "document"
 		};
 		$( "#checkedActionSample" ).change( function () {
 			var action = $( this ).val();
@@ -643,7 +650,7 @@
 </script>
 <div class="col-lg-12">
 {include file="gestion/displayPhotoScript.tpl"}
-	<form method="POST" id="sampleFormListPrint" action="index.php">
+	<form method="POST" id="sampleFormListPrint" action="index.php" enctype="multipart/form-data">
 		<input type="hidden" id="samplemodule" name="module" value="samplePrintLabel">
 		<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
 		<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
@@ -837,6 +844,7 @@
 					<option value="samplesSetParent">{t}Assigner un parent aux échantillons{/t}</option>
 					<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 					<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
+					<option value="samplesDocument">{t}Ajouter les mêmes documents aux échantillons{/t}</option>
 				</select>
 				<div class="referentid" hidden>
 					<select id="referentid" name="referent_id" class="form-control">
@@ -1053,6 +1061,34 @@
 						</div>
 					</div>
 				</div>
+				<div class="document" hidden>
+					<input type="hidden" name="parentKeyName" value="uid">
+					<div class="form-group">
+						<label for="documentName" class="control-label col-md-4">
+							{t 1=$maxUploadSize}Fichier(s) à importer (taille maxi : %1 Mb):{/t} <br>({$extensions})
+						</label>
+						<div class="col-md-8">
+							<input id="documentName" type="file" class="form-control"
+								name="documentName[]" multiple>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="documentName" class="control-label col-md-4">
+							{t}Description :{/t} </label>
+						<div class="col-md-8">
+							<input id="document_description" name="document_description" class="form-control">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="document_creation_date" class="control-label col-md-4">
+							{t}Date de création du document :{/t} </label>
+						<div class="col-md-8">
+							<input id="document_creation_date" name="document_creation_date"
+								class="form-control date">
+						</div>
+					</div>
+				</div>
+
 				<div class="center">
 					<button id="checkedButtonSample" class="btn btn-danger">{t}Exécuter{/t}</button>
 				</div>

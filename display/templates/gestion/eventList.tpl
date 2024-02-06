@@ -8,6 +8,7 @@
 <table id="eventList" class="table table-bordered table-hover datatable " data-order='[[1,"desc"],[3,"desc"]]'>
 <thead>
 <tr>
+  <th class="center">{t}Détail{/t}</th>
 {if $droits.gestion == 1}
   <th class="center">
     {t}Modifier...{/t}
@@ -23,6 +24,11 @@
 <tbody>
 {section name=lst loop=$events}
 <tr>
+  <td class="center">
+    <a href="index.php?module={$moduleParent}eventDisplay&event_id={$events[lst].event_id}&uid={$events[lst].uid}">
+      <img src="display/images/events.png" height="25">
+      </a>
+  </td>
   {if $droits.gestion == 1}
     <td class="center" title="{t}Modifier...{/t}">
       <a href="index.php?module={$moduleParent}eventChange&event_id={$events[lst].event_id}&uid={$events[lst].uid}">

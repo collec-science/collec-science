@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="237,699" last-zoom="0.75" max-obj-count="75"
+<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="895,578" last-zoom="0.75" max-obj-count="76"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -388,7 +388,7 @@ Congélateur;2]]>
 	</constraint>
 	<initial-data>
 <![CDATA["dbversion_number";"dbversion_date"
-"24.0";"2024-01-02"
+"24.1";"2024-02-01"
 ]]>
 	</initial-data>
 </table>
@@ -398,7 +398,7 @@ Congélateur;2]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="document" layers="0" collapse-mode="1" max-obj-count="16" z-value="0">
+<table name="document" layers="0" collapse-mode="1" max-obj-count="18" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Numeric docs associated to an objet or a campaign]]> </comment>
@@ -1931,13 +1931,14 @@ Autre]]>
     m.movement_type_id,
     m.container_id,
     c.uid AS container_uid,
-	o.identifier as container_identifier,
+    o2.identifier AS container_identifier,
     m.line_number,
     m.column_number,
     m.movement_reason_id
-   FROM col.object o
-   JOIN col.movement m on (m.movement_id = o.last_movement_id)
-   LEFT JOIN col.container c USING (container_id)]]> </expression>
+   FROM col.movement m
+     JOIN col.object o ON m.movement_id = o.last_movement_id
+     LEFT JOIN col.container c USING (container_id)
+     left join col.object o2 on (c.uid = o2.uid)]]> </expression>
 	<column name="uid">
 		<type name="integer" length="0"/>
 	</column>
@@ -2500,7 +2501,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
-	 custom-color="#ffaa00"
+	 custom-color="#ff7800"
 	 src-table="col.regulation"
 	 dst-table="col.campaign_regulation"
 	 src-required="true" dst-required="false">
@@ -3775,6 +3776,56 @@ group by s.uid]]> </expression>
 	 dst-table="col.container"
 	 src-required="false" dst-required="false"/>
 
+<table name="campaign_group" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<comment> <![CDATA[Rights to modify the samples sampled during a campaign]]> </comment>
+	<tag name="collection"/>
+	<position x="440" y="1520"/>
+
+	<customidxs object-type="column">
+		<object name="aclgroup_id" index="1"/>
+		<object name="campaign_id" index="0"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="aclgroup_fk" index="2"/>
+		<object name="campaign_fk" index="1"/>
+		<object name="campaign_group_pk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="campaign_has_many_campaign_group" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ff7800"
+	 src-table="col.campaign"
+	 dst-table="col.campaign_group"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<relationship name="aclgroup_has_many_campaign_group" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ff7800"
+	 src-table="gacl.aclgroup"
+	 dst-table="col.campaign_group"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<relationship name="event_has_many_document" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#44f10c"
+	 src-table="col.event"
+	 dst-table="col.document"
+	 src-required="false" dst-required="false"/>
+
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
 	<columns names="uid" ref-type="src-columns"/>
@@ -4312,6 +4363,7 @@ group by s.uid]]> </expression>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_borrowing_borrower" type="relfk" layers="0"
+	 custom-color="#8ae234"
 	 src-table="col.borrowing"
 	 dst-table="col.borrower" reference-fk="borrower_fk"
 	 src-required="false" dst-required="true"/>

@@ -1,9 +1,13 @@
-{* Paramètres > Métadonnées > Nouveau > *}
-
 {include file="param/metadataFormJS.tpl"}
 
 <script type="text/javascript">
-
+function toHex(txt){
+		const encoder = new TextEncoder();
+		return Array
+			.from(encoder.encode(txt))
+			.map(b => b.toString(16).padStart(2, '0'))
+			.join('')
+	}
 $(document).ready(function() {
 
         var metadataParse= $("#metadataField").val();
@@ -26,6 +30,7 @@ $(document).ready(function() {
                 	alert("{t}La définition des métadonnées n'est pas valide.{/t}");
                 	event.preventDefault();
                 }
+                $("#schemaSent").val(toHex ($("#metadataField").val() ) );
             }
         });
     });
@@ -55,7 +60,8 @@ $(document).ready(function() {
 <input type="hidden" name="moduleBase" value="metadata">
 <input type="hidden" id="action" name="action" value="Write">
 <input type="hidden" name="metadata_id" value="{$data.metadata_id}">
-<input type="hidden" name="metadata_schema" id="metadataField" value="{$data.metadata_schema}">
+<input type="hidden" name="metadataField" id="metadataField" value="{$data.metadata_schema}">
+<input type="hidden" name="metadata_schema" id="schemaSent">
 
 <div class="form-group">
 <label for="metadataName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom du modèle :{/t}</label>

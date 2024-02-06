@@ -7,6 +7,7 @@
 {/if}
 <!-- Calcul du reste disponible -->
 {$total = $data.multiple_value}
+{if $total == ""}{$total = 0}{/if}
 <table id="subsampleList" class="table table-bordered table-hover datatable " >
 <thead>
 <tr>

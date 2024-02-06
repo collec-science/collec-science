@@ -223,4 +223,19 @@ switch ($t_module["param"]) {
             $module_coderetour = -1;
         }
         break;
+        case "smallMovementWriteAjax":
+            try {
+                $dataClass->addMovement($_POST["object_uid"], null, $_POST["movement_type_id"], $_POST["container_uid"], null, null, null, $_POST["movement_reason_id"], $_POST["column_number"], $_POST["line_number"]);
+                $data=array(
+                    "error_code" => 200,
+                    "error_message" => "processed"
+                  );
+            } catch (Exception $e) {
+                $data=array(
+                    "error_code" => 500,
+                    "error_message" => $e->getMessage()
+                  );
+            }
+            $vue->set($data);
+            break;
 }

@@ -2,7 +2,7 @@
 <!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
 <style>
 	/*@media all and (max-device-width: 768px){ 
-    	.sizeBig {
+    	. {
 			font-size: 3vw;
 		}
 		*/
@@ -339,34 +339,36 @@
 			<img src="display/images/new.png" height="25">
 			{t}Nouvel échantillon{/t}
 		</a>
-		&nbsp;
-		<a href="index.php?module=sampleChange&uid=0&last_sample_id={$data.uid}&is_duplicate=1"
-			title="{t}Nouvel échantillon avec duplication des informations, dont le parent{/t}">
-			<img src="display/images/copy.png" height="25">
-			{t}Dupliquer{/t}
-		</a>
-		{if $modifiable == 1}
-		&nbsp;
-		<a href="index.php?module=sampleChange&uid={$data.uid}">
-			<img src="display/images/edit.gif" height="25">
-			{t}Modifier{/t}
-		</a>
-		{/if}
-		<!-- Entrée ou sortie -->
-		<span id="input">
-			<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input"
-				title="{t}Entrer ou déplacer l'échantillon dans un contenant{/t}">
-				<img src="display/images/input.png" height="25">
-				{t}Entrer ou déplacer...{/t}
+		{if $data.uid > 0}
+			&nbsp;
+			<a href="index.php?module=sampleChange&uid=0&last_sample_id={$data.uid}&is_duplicate=1"
+				title="{t}Nouvel échantillon avec duplication des informations, dont le parent{/t}">
+				<img src="display/images/copy.png" height="25">
+				{t}Dupliquer{/t}
 			</a>
-		</span>
-		<span id="output">
-			<a href="index.php?module=movementsampleOutput&movement_id=0&uid={$data.uid}" id="output"
-				title="{t}Sortir l'échantillon du stock{/t}">
-				<img src="display/images/output.png" height="25">
-				{t}Sortir du stock...{/t}
+			{if $modifiable == 1}
+			&nbsp;
+			<a href="index.php?module=sampleChange&uid={$data.uid}">
+				<img src="display/images/edit.gif" height="25">
+				{t}Modifier{/t}
 			</a>
-		</span>
+			{/if}
+			<!-- Entrée ou sortie -->
+			<span id="input">
+				<a href="index.php?module=movementsampleInput&movement_id=0&uid={$data.uid}" id="input"
+					title="{t}Entrer ou déplacer l'échantillon dans un contenant{/t}">
+					<img src="display/images/input.png" height="25">
+					{t}Entrer ou déplacer...{/t}
+				</a>
+			</span>
+			<span id="output">
+				<a href="index.php?module=movementsampleOutput&movement_id=0&uid={$data.uid}" id="output"
+					title="{t}Sortir l'échantillon du stock{/t}">
+					<img src="display/images/output.png" height="25">
+					{t}Sortir du stock...{/t}
+				</a>
+			</span>
+			{/if}
 		{/if}
 		&nbsp;
 		<a href="index.php?module=sampleDisplay&uid={$data.uid}">
@@ -395,18 +397,18 @@
 
 	<div class="form-horizontal col-xs-12 col-lg-10">
 		<div class="form-group">
-			<label class="col-xs-4 control-label sizeBig">{t}Caméra :{/t}</label>
+			<label class="col-xs-4 control-label ">{t}Caméra :{/t}</label>
 			<div class="col-xs-8">
-				<select id="cam-list" class="form-control sizeBig">
+				<select id="cam-list" class="form-control ">
 					<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
 					<option value="user">{t}Caméra frontale{/t}</option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-xs-4 control-label sizeBig">{t}Mode couleur :{/t}</label>
+			<label class="col-xs-4 control-label ">{t}Mode couleur :{/t}</label>
 			<div class="col-xs-8">
-				<select id="inversion-mode-select" class="form-control sizeBig">
+				<select id="inversion-mode-select" class="form-control ">
 					<option value="original">Scan original (dark QR code on bright background)</option>
 					<option value="invert">Scan with inverted colors (bright QR code on dark background)
 					</option>
@@ -415,20 +417,23 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="cam-has-flash" class="col-xs-4 control-label sizeBig">{t}Flash présent :{/t}</label>
+			<label for="cam-has-flash" class="col-xs-4 control-label ">{t}Flash présent :{/t}</label>
 			<div class="col-xs-8">
-				<span id="cam-has-flash" class="sizeBig"></span>
-				<button id="flash-toggle" class="sizeBig">
-					📸 Flash: <span id="flash-state" class="sizeBig">{t}off{/t}</span>
+				<span id="cam-has-flash" class=""></span>
+				<button id="flash-toggle" class="">
+					📸 Flash: <span id="flash-state" class="">{t}off{/t}</span>
 				</button>
 			</div>
 		</div>
 		<span id="cam-qr-result" hidden></span>
 	</div>
 </div>
+
 <div class="row">
 	<div class="col-sm-8 col-md-8">
+		{if $data.uid > 0}
 		<h2>{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i></h2>
+		{/if}
 	</div>
 	<div id="rapidAccessForm" hidden class="col-sm-4 col-lg-offset-2 col-lg-2">
 		<form id="open" action="index.php" action="index.php" method="GET">
@@ -443,7 +448,7 @@
 		</form>
 	</div>
 </div>
-
+{if $data.uid > 0}
 
 <!-- boite d'onglets -->
 <div class="row">
@@ -825,3 +830,4 @@
 		<input type="checkbox" id="tabHoverSelect">
 	</div>
 </div>
+{/if}

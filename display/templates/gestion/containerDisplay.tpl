@@ -1,7 +1,179 @@
+<script src='display/node_modules/qr-scanner/qr-scanner.umd.min.js'></script>
+<!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
+<style>
+	/*@media all and (max-device-width: 768px){ 
+    	. {
+			font-size: 3vw;
+		}
+		*/
+	#video-container {
+		position: relative;
+		/*width: max-content;*/
+		width: 100%;
+		height: max-content;
+		overflow: hidden;
+	}
+
+	#video-container .scan-region-highlight {
+		border-radius: 30px;
+		outline: rgba(0, 0, 0, .25) solid 50vmax;
+	}
+
+	#video-container .scan-region-highlight-svg {
+		display: none;
+	}
+
+	#video-container .code-outline-highlight {
+		stroke: rgba(255, 255, 255, .5) !important;
+		stroke-width: 15 !important;
+		stroke-dasharray: none !important;
+	}
+
+	#flash-toggle {
+		display: none;
+	}
+</style>
 <script>
-	var appli_code ="{$APPLI_code}";
-	var myStorage = window.localStorage;
 	$(document).ready(function() {
+	var appli_code ="{$APPLI_code}";
+	/**
+		 * Optical read of qrcode
+		 */
+		 var is_scan = false;
+		function testScan() {
+			if ( is_scan ) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+		var snd = new Audio( "display/images/sound.ogg" );
+		var timer;
+		var timer_duration = 500;
+		var destination = "object";
+		var hasFoundCamera = false;
+
+		const video = document.getElementById( 'qr-video' );
+		const videoContainer = document.getElementById( 'video-container' );
+		const camHasCamera = document.getElementById( 'cam-has-camera' );
+		const camList = document.getElementById( 'cam-list' );
+		const camHasFlash = document.getElementById( 'cam-has-flash' );
+		const flashToggle = document.getElementById( 'flash-toggle' );
+		const flashState = document.getElementById( 'flash-state' );
+		const camQrResult = document.getElementById( 'cam-qr-result' );
+		function searchCamera() {
+			if ( !hasFoundCamera ) {
+				QrScanner.listCameras( true ).then( cameras => cameras.forEach( camera => {
+					const option = document.createElement( 'option' );
+					option.value = camera.id;
+					option.text = camera.label;
+					camList.add( option );
+				} ) );
+				hasFoundCamera = true;
+			}
+		}
+		//$("#video-container").width($(document).width());
+
+		// ####### Web Cam Scanning #######
+
+		const scanner = new QrScanner( video, result => setResult( camQrResult, result ), {
+			onDecodeError: error => {
+				camQrResult.textContent = error;
+				camQrResult.style.color = 'inherit';
+			},
+			highlightScanRegion: true,
+			highlightCodeOutline: true,
+		} );
+		const updateFlashAvailability = () => {
+			scanner.hasFlash().then( hasFlash => {
+				camHasFlash.textContent = hasFlash;
+				flashToggle.style.display = hasFlash ? 'inline-block' : 'none';
+			} );
+		};
+
+		// for debugging
+		window.scanner = scanner;
+
+		document.getElementById( 'inversion-mode-select' ).addEventListener( 'change', event => {
+			scanner.setInversionMode( event.target.value );
+		} );
+
+		camList.addEventListener( 'change', event => {
+			scanner.setCamera( event.target.value ).then( updateFlashAvailability );
+		} );
+
+		flashToggle.addEventListener( 'click', () => {
+			scanner.toggleFlash().then( () => flashState.textContent = scanner.isFlashOn() ? 'on' : 'off' );
+		} );
+
+		function setResult( label, result ) {
+			console.log( result.data );
+			$( "#search" ).val( getVal( result.data ) );
+			snd.play();
+			scanner.stop();
+			$( "#scannerDiv" ).hide();
+			$( "#open" ).submit();
+		}
+
+		function extractUidValFromJson( valeur ) {
+			/*
+			 * Extrait le contenu de la chaine json
+			 * Transformation des [] en { }
+			 */
+			// valeur = valeur.replace("[", String.fromCharCode(123));
+			//valeur = valeur.replace ("]", String.fromCharCode(125));
+			var data = JSON.parse( valeur );
+			if ( data[ "db" ] == appli_code ) {
+				return data[ "uid" ];
+			} else {
+				return data[ "db" ] + ":" + data[ "uid" ];
+			}
+		}
+
+		function getVal( val ) {
+			/*
+			 * Extraction de la valeur - cas notamment de la lecture par douchette
+			 */
+			val = val.trim();
+
+			var firstChar = val.substring( 0, 1 );
+			var lastChar = val.substring( vallength - 1, vallength );
+			if ( firstChar == "[" || firstChar == String.fromCharCode( 123 ) ) {
+				var vallength = val.length;
+				var lastChar = val.substring( vallength - 1, vallength );
+				if ( lastChar == "]" || lastChar == String.fromCharCode( 125 ) ) {
+					val = extractUidValFromJson( val );
+				} else {
+					val = "";
+				}
+			} else if ( val.substring( 0, 4 ) == "http" || val.substring( 0, 3 ) == "htp" ) {
+				var elements = valeur.split( "/" );
+				var nbelements = elements.length;
+				if ( nbelements > 0 ) {
+					val = elements[ nbelements - 1 ];
+				}
+			}
+			return val;
+		}
+		/**
+		 * read qrcode
+		 */
+		$( "#qrcode" ).on( "click", function () {
+			if ( !is_scan ) {
+				is_scan = true;
+				$( "#scannerDiv" ).show();
+				scanner.start().then( () => {
+					updateFlashAvailability();
+					searchCamera();
+				} );
+			} else {
+				is_scan = false;
+				scanner.stop();
+				$( "#scannerDiv" ).hide();
+			}
+		} );
+
+	var myStorage = window.localStorage;
 		function sleep(milliseconds) {
 			var start = new Date().getTime();
 			for (var i = 0; i < 1e7; i++) {
@@ -126,6 +298,7 @@
 </script>
 <div class="row">
 	<div class="col-md-12">
+		<img id="qrcode" src="display/images/qrcode.png" height="25" title="{t}Scan du QRCODE{/t}">
 		<a href="index.php?module={$moduleListe}">
 			<img src="display/images/list.png" height="25">
 			{t}Retour à la liste{/t}
@@ -141,6 +314,7 @@
 				<img src="display/images/new.png" height="25">
 				{t}Nouveau contenant{/t}
 			</a>
+			{if $data.uid > 0}
 			&nbsp;
 			<a href="index.php?module=containerChange&uid={$data.uid}">
 				<img src="display/images/edit.gif" height="25">
@@ -161,21 +335,69 @@
 					{t}Sortir du stock...{/t}
 				</a>
 			</span>
+			{/if}
 		{/if}
+		{if $data.uid > 0}
 		&nbsp;
 		<a href="index.php?module=containerDisplay&uid={$data.uid}&allSamples=1" title="Afficher tous les échantillons, y compris ceux stockés dans les contenants inclus">
 			<img src="display/images/sample.png" height="25">
 			{t}Afficher tous les échantillons{/t}
 		</a>
+		{/if}
 		&nbsp;
 		<a href="index.php?module=containerDisplay&uid={$data.uid}">
 			<img src="display/images/refresh.png" title="Rafraîchir la page" height="15">
 		</a>
 	</div>
 </div>
+<div id="scannerDiv" hidden>
+	<div class="row">
+		<div class="col-xs-12 center">
+			<div id="video-container">
+				<video id="qr-video"></video>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-horizontal col-xs-12 col-lg-10">
+		<div class="form-group">
+			<label class="col-xs-4 control-label ">{t}Caméra :{/t}</label>
+			<div class="col-xs-8">
+				<select id="cam-list" class="form-control ">
+					<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
+					<option value="user">{t}Caméra frontale{/t}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-4 control-label ">{t}Mode couleur :{/t}</label>
+			<div class="col-xs-8">
+				<select id="inversion-mode-select" class="form-control ">
+					<option value="original">Scan original (dark QR code on bright background)</option>
+					<option value="invert">Scan with inverted colors (bright QR code on dark background)
+					</option>
+					<option value="both">Scan both</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="cam-has-flash" class="col-xs-4 control-label ">{t}Flash présent :{/t}</label>
+			<div class="col-xs-8">
+				<span id="cam-has-flash" class=""></span>
+				<button id="flash-toggle" class="">
+					📸 Flash: <span id="flash-state" class="">{t}off{/t}</span>
+				</button>
+			</div>
+		</div>
+		<span id="cam-qr-result" hidden></span>
+	</div>
+</div>
+
 <div class="row">
 	<div class="col-md-8">
+		{if $data.uid > 0}
 		<h2>{t}Détail du contenant{/t} <i>{$data.uid} {$data.identifier}</i></h2>
+		{/if}
 	</div>
 	<div id="rapidAccessForm" hidden class="col-sm-4 col-lg-offset-2 col-lg-2">
 		<form id="open" action="index.php" action="index.php" method="GET">
@@ -191,7 +413,7 @@
 	</div>
 </div>
 
-
+{if $data.uid > 0}
 	<!-- Boite d'onglets -->
 <div class="row">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" >
@@ -430,3 +652,4 @@
 	<input type="checkbox" id="tabHoverSelect">
 	</div>
 </div>
+{/if}

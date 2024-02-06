@@ -22,13 +22,14 @@
     </div>
 </div>
 
+<!-- small terminal -->
 <div class="center-block hidden-md hidden-lg">
     <div class="col-xs-4 center">
-        <a href="index.php?module=sampleList">
+        <a href="index.php?module=sampleDisplay">
             <img src="display/images/sample.png" height="50">
             <br>
             <span class="input-lg">
-                {t}Liste des échantillons{/t}
+                {t}Échantillon{/t}
             </span>
         </a>
     </div>
@@ -42,11 +43,11 @@
         </a>
     </div>
     <div class="col-xs-4 center">
-        <a href="index.php?module=containerList">
+        <a href="index.php?module=containerDisplay">
             <img src="display/images/box.png" height="50">
             <br>
             <span class="input-lg">
-                {t}Liste des contenants{/t}
+                {t}Contenant{/t}
             </span>
         </a>
     </div>

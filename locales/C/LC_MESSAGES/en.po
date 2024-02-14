@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-06 11:31+0100\n"
+"POT-Creation-Date: 2024-02-14 16:11+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1062,8 +1062,8 @@ msgid "Impossible de lire le fichier contenant les news"
 msgstr "Unable to read the file containing the news"
 
 #: ../../../param/param.default.inc.php:12
-msgid "06/02/2024"
-msgstr "06/02/2024"
+msgid "14/02/2024"
+msgstr "14/02/2024"
 
 #: ../../../test/testapi.php:26 ../../../framework/fonctions.php:462
 msgid "Impossible d'initialiser le composant curl"
@@ -1264,6 +1264,10 @@ msgstr "An error occurred during the decryption of the secret key"
 msgid ""
 "Problème rencontré lors de l'écriture du login pour la gestion des droits"
 msgstr "Problem encountered while writing the login for the rights management"
+
+#: ../../../framework/identification/login.php:93
+msgid "Collec-Science - changement de mot de passe"
+msgstr "Collec-Science - password modified"
 
 #: ../../../framework/identification/passwordlost.class.php:79
 msgid "Le compte n'est pas actif"

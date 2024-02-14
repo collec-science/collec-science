@@ -90,7 +90,7 @@ switch ($t_module["param"]) {
              */
             $data = $dataClass->lireByLogin($_SESSION["login"]);
             if (!empty($data["mail"]) && $MAIL_enabled == 1) {
-
+                $subject = _("Collec-Science - changement de mot de passe");
                 require_once "framework/utils/mail.class.php";
                 $mail = new Mail($MAIL_param);
                 $data["APPLI_address"] = $APPLI_address;

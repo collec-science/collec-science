@@ -1,3 +1,9 @@
+Version v24.1.1 du 14/2/2024
+-----------------------------
+Corrections de bugs :
+- dans certains cas, l'affichage des échantillons ne fonctionnait pas
+- lors de la modification du mot de passe, l'envoi du mail plantait
+
 Version v24.1.0 du 5/2/2024
 -----------------------------
 Corrections de bugs :

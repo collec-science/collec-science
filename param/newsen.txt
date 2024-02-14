@@ -1,3 +1,9 @@
+Version v24.1.1 of 14/2/2024
+-----------------------------
+Bug fixes :
+- in some cases, the display of samples did not work
+- when changing the password, the e-mail was not sent correctly
+
 Version v24.1.0 of 5/2/2024
 -----------------------------
 Bug fixes :

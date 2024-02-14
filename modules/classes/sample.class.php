@@ -722,7 +722,7 @@ class Sample extends ObjetBDD
                 /**
                  * Search on multiple collections
                  */
-                if (count($param["collections"]) > 0) {
+                if (isset($param["collections"]) && count($param["collections"])>0) {
                     $collections = "(";
                     $comma = "";
                     $i = 0;

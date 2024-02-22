@@ -26,7 +26,7 @@ class ObjectClass extends ObjetBDD
 
 
     private $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id, change_date, uuid, trashed,
-                  location_accuracy, geom, object_comment,
+                  location_accuracy, st_astext(geom) as geom, object_comment,
                   sample_type_id,
                   case when s.collection_id is null then c.collection_id else s.collection_id end as collection_id,
                   container_type_id,

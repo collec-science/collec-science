@@ -1,3 +1,9 @@
+Version v24.1.2 du 22/2/2024
+-----------------------------
+Corrections de bugs :
+- Si un sous-échantillonnage n'était pas rentré avec une quantité, l'affichage de l'échantillon plantait l'application
+- la suppression d'un échantillon échouait si les coordonnées gps étaient renseignées
+
 Version v24.1.1 du 14/2/2024
 -----------------------------
 Corrections de bugs :

@@ -1,3 +1,9 @@
+Version v24.1.2 of 22/2/2024
+-----------------------------
+Bug fixes :
+- If a sub-sampling was not entered with a quantity, the display of the sample would crash the application
+- deleting a sample would fail if gps coordinates were entered
+
 Version v24.1.1 of 14/2/2024
 -----------------------------
 Bug fixes :

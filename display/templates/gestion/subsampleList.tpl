@@ -21,10 +21,12 @@
 </thead>
 <tbody>
 {section name=lst loop=$subsample}
+{if $subsample[lst].subsample_quantity > 0}
 {if $subsample[lst].movement_type_id == 1}
 {$total = $total + $subsample[lst].subsample_quantity}
 {else}
 {$total = $total - $subsample[lst].subsample_quantity}
+{/if}
 {/if}
 <tr>
 <td>

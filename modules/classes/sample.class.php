@@ -332,7 +332,8 @@ class Sample extends ObjetBDD
      */
     public function supprimer($uid)
     {
-        $data = $this->lire($uid);
+        $sql = "select sample_id, collection_id, campaign_id from sample where uid = :uid";
+        $data = $this->lireParamAsPrepared($sql, array("uid"=>$uid));
         if ($this->verifyCollection($data)) {
             /**
              * delete from subsample

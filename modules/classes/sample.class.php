@@ -270,7 +270,7 @@ class Sample extends ObjetBDD
         }
         if ($ok) {
             $firstUid = $data["uid"];
-            if (!isset($this->object)) {
+            if (!isset ($this->object)) {
                 $this->object = $this->classInstanciate("ObjectClass", "object.class.php");
             }
             $uid = $this->object->ecrire($data);
@@ -278,7 +278,7 @@ class Sample extends ObjetBDD
             if ($uid > 0) {
                 $data["uid"] = $uid;
                 if (parent::ecrire($data) > 0) {
-                    if (!empty($data["metadata"])) {
+                    if (!empty ($data["metadata"])) {
                         /**
                          * Recherche des échantillons derives pour mise a jour
                          * des metadonnees
@@ -300,7 +300,7 @@ class Sample extends ObjetBDD
                     if ($firstUid == 0 && $data["parent_sample_id"] > 0 && $data["multiple_value"] > 0) {
                         $parentData = $this->lireFromId($data["parent_sample_id"]);
                         if ($parentData["multiple_value"] > 0) {
-                            if (!isset($this->subsample)) {
+                            if (!isset ($this->subsample)) {
                                 $this->subsample = $this->classInstanciate("Subsample", "subsample.class.php");
                             }
                             $dataSubsample = $this->subsample->getDefaultValue();
@@ -333,7 +333,7 @@ class Sample extends ObjetBDD
     public function supprimer($uid)
     {
         $sql = "select sample_id, collection_id, campaign_id from sample where uid = :uid";
-        $data = $this->lireParamAsPrepared($sql, array("uid"=>$uid));
+        $data = $this->lireParamAsPrepared($sql, array("uid" => $uid));
         if ($this->verifyCollection($data)) {
             /**
              * delete from subsample
@@ -347,7 +347,7 @@ class Sample extends ObjetBDD
             /**
              * Suppression de l'objet
              */
-            if (!isset($this->object)) {
+            if (!isset ($this->object)) {
                 $this->object = $this->classInstanciate("ObjectClass", "object.class.php");
             }
             $this->object->supprimer($uid);
@@ -376,17 +376,17 @@ class Sample extends ObjetBDD
          * Search if the campaign has restrictions by group
          */
         if ($retour && $data["campaign_id"] > 0) {
-            if (!isset($this->campaign)) {
+            if (!isset ($this->campaign)) {
                 $this->campaign = $this->classInstanciate("Campaign", "campaign.class.php");
                 $campaignGroups = $this->campaign->getRights($data["campaign_id"]);
                 if (count($campaignGroups) > 0) {
                     $retour = false;
                     foreach ($campaignGroups as $cg) {
                         foreach ($_SESSION["groupes"] as $group)
-                        if ($cg["groupe"] == $group["groupe"]) {
-                            $retour = true;
-                            break;
-                        }
+                            if ($cg["groupe"] == $group["groupe"]) {
+                                $retour = true;
+                                break;
+                            }
                     }
                 }
             }
@@ -433,7 +433,7 @@ class Sample extends ObjetBDD
 
     private function _generateSearch(array $param)
     {
-        if (empty($this->where) || ($param != $this->paramSearch)) {
+        if (empty ($this->where) || ($param != $this->paramSearch)) {
             /**
              * Verification de la presence des parametres
              */
@@ -443,7 +443,7 @@ class Sample extends ObjetBDD
                 $searchOk = true;
             } else {
                 foreach ($paramName as $name) {
-                    if (!empty($param[$name])) {
+                    if (!empty ($param[$name])) {
                         $searchOk = true;
                         break;
                     }
@@ -455,7 +455,7 @@ class Sample extends ObjetBDD
             $geoFields = array("SouthWestlon", "SouthWestlat", "NorthEastlon", "NorthEastlat");
             $geoSearch = true;
             foreach ($geoFields as $field) {
-                if (empty($param[$field])) {
+                if (empty ($param[$field])) {
                     $geoSearch = false;
                 }
             }
@@ -474,7 +474,7 @@ class Sample extends ObjetBDD
                     $uidSearch = true;
                     $and = " and ";
                 }
-                if (!empty($param["name"])) {
+                if (!empty ($param["name"])) {
                     if ($uidSearch) {
                         $where .= " or ";
                     }
@@ -531,7 +531,7 @@ class Sample extends ObjetBDD
                     $and = " and ";
                     $data["object_status_id"] = $param["object_status_id"];
                 }
-                if (!empty($param["trashed"])) {
+                if (!empty ($param["trashed"])) {
                     $where .= $and . " so.trashed = :trashed";
                     $and = " and ";
                     $data["trashed"] = $param["trashed"];
@@ -552,7 +552,7 @@ class Sample extends ObjetBDD
                     $and = " and ";
                     $data["campaign_id"] = $param["campaign_id"];
                 }
-                if (!empty($param["authorization_number"])) {
+                if (!empty ($param["authorization_number"])) {
                     $where .= $and . "upper(campreg.authorization_number) like upper(:authorization_number)";
                     $and = " and ";
                     $data["authorization_number"] = "%" . $param["authorization_number"] . "%";
@@ -574,7 +574,7 @@ class Sample extends ObjetBDD
                     $data["uid_min"] = $param["uid_min"];
                     $data["uid_max"] = $param["uid_max"];
                 }
-                if (!empty($param["select_date"])) {
+                if (!empty ($param["select_date"])) {
                     $tablefield = "s";
                     switch ($param["select_date"]) {
                         case "cd":
@@ -599,7 +599,7 @@ class Sample extends ObjetBDD
                 /**
                  * Recherche dans les metadonnees
                  */
-                if (($_SESSION["consultSeesAll"] == 1 || $_SESSION["droits"]["gestion"] == 1) && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
+                if (($_SESSION["consultSeesAll"] == 1 || $_SESSION["droits"]["gestion"] == 1) && !empty ($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
                     $where .= $and . " ";
                     /**
                      * Traitement des divers champs de metadonnees (3 maxi)
@@ -611,7 +611,7 @@ class Sample extends ObjetBDD
                     } else {
                         $is_or = false;
                     }
-                    if (!empty($param["metadata_field"][1]) && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
+                    if (!empty ($param["metadata_field"][1]) && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
                         $is_or1 = true;
                     } else {
                         $is_or1 = false;
@@ -622,7 +622,7 @@ class Sample extends ObjetBDD
                     $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0)";
                     $data["metadata_field0"] = $param["metadata_field"][0];
                     $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
-                    if (!empty($param["metadata_field"][1]) && strlen($param["metadata_value"][1]) > 0) {
+                    if (!empty ($param["metadata_field"][1]) && strlen($param["metadata_value"][1]) > 0) {
                         if ($is_or) {
                             $where .= " or ";
                         } else {
@@ -640,7 +640,7 @@ class Sample extends ObjetBDD
                         $where .= " (";
                     }
 
-                    if (!empty($param["metadata_field"][2]) && strlen($param["metadata_value"][2]) > 0) {
+                    if (!empty ($param["metadata_field"][2]) && strlen($param["metadata_value"][2]) > 0) {
                         if ($is_or1) {
                             $where .= " or ";
                         } else {
@@ -697,7 +697,7 @@ class Sample extends ObjetBDD
                 /**
                  * Search on minimal subsample quantity
                  */
-                if (!empty($param["subsample_quantity_max"])) {
+                if (!empty ($param["subsample_quantity_max"])) {
                     $where .= $and . "(vsq.multiple_value + vsq.subsample_more - vsq.subsample_less) <= :subsample_quantity_max";
                     $data["subsample_quantity_max"] = $param["subsample_quantity_max"];
                     $and = " and ";
@@ -723,12 +723,12 @@ class Sample extends ObjetBDD
                 /**
                  * Search on multiple collections
                  */
-                if (isset($param["collections"]) && count($param["collections"])>0) {
+                if (isset ($param["collections"]) && count($param["collections"]) > 0) {
                     $collections = "(";
                     $comma = "";
                     $i = 0;
                     foreach ($param["collections"] as $id) {
-                        if (!empty($id)) {
+                        if (!empty ($id)) {
                             $collections .= $comma . ":col$i";
                             $data["col$i"] = $id;
                             $comma = ",";
@@ -736,7 +736,7 @@ class Sample extends ObjetBDD
                         }
                     }
                     $collections .= ")";
-                    if (!empty($comma)) {
+                    if (!empty ($comma)) {
                         $where .= $and . "s.collection_id in " . $collections;
                         $and = " and ";
                     }
@@ -776,7 +776,7 @@ class Sample extends ObjetBDD
     function sampleSearch(array $param): array
     {
         $this->_generateSearch($param);
-        if (!empty($this->where)) {
+        if (!empty ($this->where)) {
 
             if ($param["limit"] > 0) {
                 $limit = " order by s.uid desc limit " . $param["limit"];
@@ -811,7 +811,7 @@ class Sample extends ObjetBDD
          * explode metadata
          */
         foreach ($list as $k => $v) {
-            if (!empty($v["metadata"]) && ($this->verifyCollection($v) || $_SESSION["consultSeesAll"] == 1)) {
+            if (!empty ($v["metadata"]) && ($this->verifyCollection($v) || $_SESSION["consultSeesAll"] == 1)) {
                 $list[$k]["metadata_array"] = json_decode($v["metadata"], true);
             } else {
                 $list[$k]["metadata"] = "";
@@ -838,7 +838,7 @@ class Sample extends ObjetBDD
     {
         $this->_generateSearch($param);
         $number = 0;
-        if (!empty($this->where)) {
+        if (!empty ($this->where)) {
             $sql = "select count(s.sample_id) as samplenumber";
             $data = $this->lireParamAsPrepared($sql . $this->from . $this->where, $this->data);
             $number = $data["samplenumber"];
@@ -871,7 +871,7 @@ class Sample extends ObjetBDD
      */
     public function getForExport($uids)
     {
-        if (empty($uids)) {
+        if (empty ($uids)) {
             throw new SampleException("Pas d'échantillons sélectionnés");
         } else {
             $this->auto_date = 0;
@@ -905,7 +905,7 @@ class Sample extends ObjetBDD
             $data = array();
             foreach ($d as $value) {
                 if ($this->verifyCollection($value)) {
-                    if (empty($value["dbuid_origin"])) {
+                    if (empty ($value["dbuid_origin"])) {
                         $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
                     }
                     /*
@@ -963,7 +963,7 @@ class Sample extends ObjetBDD
      */
     public function generateArrayUidToString($uids)
     {
-        if (!empty($uids)) {
+        if (!empty ($uids)) {
             /*
              * Verification que les uid sont numeriques
              * preparation de la clause where
@@ -1000,8 +1000,8 @@ class Sample extends ObjetBDD
         );
         foreach ($data as $line) {
             foreach ($fields as $field) {
-                if (!empty($line[$field])) {
-                    if (empty($names[$field]) || !in_array($line[$field], $names[$field])) {
+                if (!empty ($line[$field])) {
+                    if (empty ($names[$field]) || !in_array($line[$field], $names[$field])) {
                         $names[$field][] = $line[$field];
                     }
                 }
@@ -1009,11 +1009,11 @@ class Sample extends ObjetBDD
             /*
              * Traitement des identifiants secondaires
              */
-            if (!empty($line["identifiers"])) {
+            if (!empty ($line["identifiers"])) {
                 $idents = explode(",", $line["identifiers"]);
                 foreach ($idents as $ident) {
                     $idvalue = explode(":", $ident);
-                    if (!empty($idvalue) && (empty($names["identifier_type_code"]) || !in_array($idvalue[0], $names["identifier_type_code"]))) {
+                    if (!empty ($idvalue) && (empty ($names["identifier_type_code"]) || !in_array($idvalue[0], $names["identifier_type_code"]))) {
                         $names["identifier_type_code"][] = $idvalue[0];
                     }
                 }
@@ -1032,19 +1032,19 @@ class Sample extends ObjetBDD
     public function verifyBeforeImport($row)
     {
         if (count($row) > 0) {
-            if (empty($row["dbuid_origin"])) {
+            if (empty ($row["dbuid_origin"])) {
                 throw new SampleException(_("L'identifiant de la base de données d'origine n'a pas été fourni"));
             }
             /*
              * Verification de l'existence de la collection
              */
-            if (empty($row["collection_name"])) {
+            if (empty ($row["collection_name"])) {
                 throw new SampleException(_("Le nom de la collection n'a pas été renseigné"));
             }
             /**
              * Verify if the identifier is unique
              */
-            if (!empty($row["dbuid_origin"])) {
+            if (!empty ($row["dbuid_origin"])) {
                 /**
                  * Recherche si c'est une reintegration dans la base d'origine
                  */
@@ -1061,7 +1061,7 @@ class Sample extends ObjetBDD
                     $row["uid"] = 0;
                 }
             }
-            if (!empty($row["uid"])) {
+            if (!empty ($row["uid"])) {
                 if (!$this->is_uniqueByCollectionName($row["uid"], $row["identifier"], $row["collection_name"])) {
                     throw new SampleException(_("L'identifiant de l'échantillon existe déjà dans la collection"));
                 }
@@ -1069,7 +1069,7 @@ class Sample extends ObjetBDD
             /*
              * Verification de l'existence d'un type d'echantillon
              */
-            if (empty($row["sample_type_name"])) {
+            if (empty ($row["sample_type_name"])) {
                 throw new SampleException(_("Le type d'échantillon n'a pas été renseigné"));
             }
             /*
@@ -1081,7 +1081,7 @@ class Sample extends ObjetBDD
                 "sample_creation_date",
             );
             foreach ($fieldDates as $fieldDate) {
-                if (!empty($row[$fieldDate])) {
+                if (!empty ($row[$fieldDate])) {
                     /*
                      * Verification du format de date
                      */
@@ -1127,8 +1127,8 @@ class Sample extends ObjetBDD
              * Verification du pays
              */
             foreach (array("country_code", "country_origin_code") as $field) {
-                if (!empty($row[$field])) {
-                    if (!isset($this->country)) {
+                if (!empty ($row[$field])) {
+                    if (!isset ($this->country)) {
                         $this->country = $this->classInstanciate("Country", "country.class.php");
                     }
                     $country_id = $this->country->getIdFromCode($row[$field]);
@@ -1157,7 +1157,7 @@ class Sample extends ObjetBDD
         if (strlen($data["object_status_id"]) == 0) {
             $data["object_status_id"] = 1;
         }
-        if (empty($data["sample_creation_date"])) {
+        if (empty ($data["sample_creation_date"])) {
             $data["sample_creation_date"] = date(DATE_ATOM);
         }
         /*
@@ -1174,7 +1174,7 @@ class Sample extends ObjetBDD
         /**
          * Recherche de l'uid existant a partir de dbuid_origin
          */
-        if (!empty($data["dbuid_origin"]) && !$uuidFound) {
+        if (!empty ($data["dbuid_origin"]) && !$uuidFound) {
             /**
              * Recherche si c'est une reintegration dans la base d'origine
              */
@@ -1187,6 +1187,8 @@ class Sample extends ObjetBDD
             }
             if ($uid > 0) {
                 $data["uid"] = $uid;
+            } else {
+                $data["uid"] = 0;
             }
         }
         if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
@@ -1195,11 +1197,11 @@ class Sample extends ObjetBDD
         /**
          * Reformatage des données diverses
          */
-        if (!empty($data["comment"])) {
+        if (!empty ($data["comment"])) {
             $data["object_comment"] = $data["comment"];
         }
-        if (!empty($data["country_code"])) {
-            if (!isset($this->country)) {
+        if (!empty ($data["country_code"])) {
+            if (!isset ($this->country)) {
                 $this->country = $this->classInstanciate("Country", "country.class.php");
             }
             $data["country_id"] = $this->country->getIdFromCode($data["country_code"]);
@@ -1208,7 +1210,7 @@ class Sample extends ObjetBDD
         /**
          * Recuperation de l'echantillon parent, si existant
          */
-        if (!empty($data["dbuid_parent"])) {
+        if (!empty ($data["dbuid_parent"])) {
             $dbuidparent = explode(":", $data["dbuid_parent"]);
             if ($dbuidparent[0] == $_SESSION["APPLI_code"]) {
                 $dataParent = $this->lire($dbuidparent[1]);
@@ -1250,7 +1252,7 @@ class Sample extends ObjetBDD
     public function getUidFromDbuidOrigin($dbuidorigin)
     {
         $uid = 0;
-        if (!empty($dbuidorigin)) {
+        if (!empty ($dbuidorigin)) {
             /*
              * Recherche si l'echantillon provient de la base de donnees courante
              * cas de la reintegration d'un echantillon modifie a l'exterieur
@@ -1354,7 +1356,7 @@ class Sample extends ObjetBDD
          * Get the events
          */
         if ($withEvents) {
-            if (!isset($this->event)) {
+            if (!isset ($this->event)) {
                 require_once 'modules/classes/event.class.php';
                 $this->event = new Event($this->connection, $this->paramori);
             }
@@ -1366,7 +1368,7 @@ class Sample extends ObjetBDD
          * Get the hierarchy of containers
          */
         if ($withContainers) {
-            if (!isset($this->container)) {
+            if (!isset ($this->container)) {
                 require_once "modules/classes/container.class.php";
                 $this->container = new Container($this->connection, $this->paramori);
             }
@@ -1445,7 +1447,7 @@ class Sample extends ObjetBDD
     function setParent(array $uids, int $parent_id)
     {
         $parent = $this->lire($parent_id);
-        if (empty($parent["sample_id"])) {
+        if (empty ($parent["sample_id"])) {
             throw new SampleException(_("Le parent n'existe pas"));
         }
         $sql = "update sample set parent_sample_id = :parent_id where uid = :uid";
@@ -1549,27 +1551,22 @@ class Sample extends ObjetBDD
      */
     function is_unique(int $uid, string $identifier, int $collection_id): bool
     {
-        $result = true;
-
         $sql = "select count(*) as nb
           from sample
           join object using (uid)
           join collection using (collection_id)
           where identifier = :identifier
           and collection_id = :collection_id
-          and identifier = :identifier
-          and sample_name_unique = true
-          and uid <> :uid
-          ";
-
-        $request = $this->lireParamAsPrepared(
-            $sql,
-            array(
-                "identifier" => $identifier,
-                "collection_id" => $collection_id,
-                "uid" => $uid
-            )
+          and sample_name_unique = true";
+        $data = array(
+            "identifier" => $identifier,
+            "collection_id" => $collection_id,
         );
+        if ($uid > 0) {
+            $sql .= " and uid <> :uid";
+            $data["uid"] = $uid;
+        }
+        $request = $this->lireParamAsPrepared($sql, $data);
         if ($request["nb"] >= 1) {
             return false;
         } else {
@@ -1578,27 +1575,22 @@ class Sample extends ObjetBDD
     }
     function is_uniqueByCollectionName(int $uid, string $identifier, string $collectionName): bool
     {
-        $result = true;
-
         $sql = "select count(*) as nb
           from sample
           join object using (uid)
           join collection using (collection_id)
           where identifier = :identifier
           and collection_name = :collection_name
-          and identifier = :identifier
-          and sample_name_unique = true
-          and uid <> :uid
-          ";
-
-        $request = $this->lireParamAsPrepared(
-            $sql,
-            array(
-                "identifier" => $identifier,
-                "collection_name" => $collectionName,
-                "uid" => $uid
-            )
+          and sample_name_unique = true";
+        $data = array(
+            "identifier" => $identifier,
+            "collection_name" => $collectionName,
         );
+        if ($uid > 0) {
+            $sql .= " and uid <> :uid";
+            $data["uid"] = $uid;
+        }
+        $request = $this->lireParamAsPrepared($sql, $data);
         if ($request["nb"] >= 1) {
             return false;
         } else {
@@ -1651,7 +1643,7 @@ class Sample extends ObjetBDD
      */
     function getListUIDS(array $param): array
     {
-        if (empty($param["object_status_id"])) {
+        if (empty ($param["object_status_id"])) {
             $param["object_status_id"] = 1;
         }
         $sql = "select distinct s.uid";
@@ -1668,7 +1660,7 @@ class Sample extends ObjetBDD
     }
     function getListFromParam(array $param): array
     {
-        if (empty($param["object_status_id"])) {
+        if (empty ($param["object_status_id"])) {
             $param["object_status_id"] = 1;
         }
         $this->_generateSearch($param);

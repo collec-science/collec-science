@@ -3,12 +3,13 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.0.6" use-changelog="false" last-position="895,578" last-zoom="0.75" max-obj-count="76"
+<dbmodel pgmodeler-ver="1.1.1" use-changelog="false" max-obj-count="76"
+	 last-position="0,0" last-zoom="0.8" scene-rect="0,0,3563.04,2825.12"
 	 default-owner="postgres"
 	 layers="col,gacl"
 	 active-layers="0,1"
 	 layer-name-colors="#000000,#000000"
-	 layer-rect-colors="#47f652,#ea25e1"
+	 layer-rect-colors="#99286f,#97322a"
 	 show-layer-names="false" show-layer-rects="false">
 <role name="collec"
  superuser="true"
@@ -24,14 +25,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<tablespace name="pg_default"/>
 </database>
 
-<schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+<schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
 </schema>
 
-<schema name="col" layers="0" fill-color="#589eee">
+<schema name="col" layers="0" fill-color="#589eee" name-color="#000000">
 	<role name="collec"/>
 </schema>
 
-<schema name="gacl" layers="1" rect-visible="true" fill-color="#7e32c6">
+<schema name="gacl" layers="1" rect-visible="true" fill-color="#7e32c6" name-color="#000000">
 	<role name="collec"/>
 </schema>
 
@@ -459,11 +460,9 @@ Congélateur;2]]>
 	<customidxs object-type="column">
 		<object name="campaign_id" index="13"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="campaign_fk" index="3"/>
-	</customidxs>
-</table>
+	</customidxs></table>
 
 <sequence name="event_event_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
@@ -617,11 +616,9 @@ Prélèvement pour analyse;true;false
 	<customidxs object-type="column">
 		<object name="barcode_id" index="6"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="barcode_fk" index="2"/>
-	</customidxs>
-	<initial-data>
+	</customidxs>	<initial-data>
 <![CDATA[label_name;label_xsl;label_fields;barcode_id
 Example - Don't use;<xsl:stylesheet version="1.0"
       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -689,35 +686,22 @@ Example - Don't use;<xsl:stylesheet version="1.0"
 	<role name="collec"/>
 </sequence>
 
-<view name="last_photo" layers="0" collapse-mode="1" max-obj-count="1" z-value="0">
+<view name="last_photo" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="objects"/>
 	<position x="1280" y="1060"/>
-	<reference>
-		<expression> <![CDATA[ SELECT d.document_id,
+	<simplecol name="document_id" type="integer"/>
+	<simplecol name="uid" type="integer"/>
+	<definition> <![CDATA[SELECT d.document_id,
     d.uid
    FROM col.document d
   WHERE (d.document_id = ( SELECT d1.document_id
            FROM col.document d1
           WHERE ((d1.mime_type_id = ANY (ARRAY[4, 5, 6])) AND (d.uid = d1.uid))
           ORDER BY d1.document_creation_date DESC, d1.document_import_date DESC, d1.document_id DESC
-         LIMIT 1));]]> </expression>
-	<column name="document_id">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="uid">
-		<type name="integer" length="0"/>
-	</column>
-		<reftable name="col.document"/>
-	</reference>
+         LIMIT 1));;]]> </definition>
 </view>
-
-<relationship name="rel_last_photo_document" type="reltv" layers="0"
-	 custom-color="#73d216"
-	 src-table="col.last_photo"
-	 dst-table="col.document"
-	 src-required="false" dst-required="false"/>
 
 <sequence name="metadata_metadata_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
@@ -1084,11 +1068,9 @@ Autre]]>
 	<customidxs object-type="column">
 		<object name="license_id" index="12"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="license_fk" index="2"/>
-	</customidxs>
-</table>
+	</customidxs></table>
 
 <sequence name="protocol_protocol_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
@@ -1477,42 +1459,22 @@ Autre]]>
 	</constraint>
 </table>
 
-<view name="v_object_identifier" layers="0" collapse-mode="1" max-obj-count="1" z-value="0">
+<view name="v_object_identifier" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="objects"/>
 	<position x="2520" y="460"/>
-	<reference>
-		<expression> <![CDATA[SELECT object_identifier.uid,
+	<simplecol name="uid" type="integer"/>
+	<simplecol name="identifiers" type="text"/>
+	<definition> <![CDATA[SELECT object_identifier.uid,
     array_to_string(array_agg((
     case when identifier_type_code is not null then identifier_type.identifier_type_code else identifier_type_name end ::text || ':'::text) || object_identifier.object_identifier_value::text 
     ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
    FROM col.object_identifier
      JOIN col.identifier_type USING (identifier_type_id)
   GROUP BY object_identifier.uid
-  ORDER BY object_identifier.uid;]]> </expression>
-	<column name="uid">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="identifiers">
-		<type name="text" length="0"/>
-	</column>
-		<reftable name="col.identifier_type"/>
-		<reftable name="col.object_identifier"/>
-	</reference>
+  ORDER BY object_identifier.uid;;]]> </definition>
 </view>
-
-<relationship name="rel_v_object_identifier_identifier_type" type="reltv" layers="0"
-	 custom-color="#8ae234"
-	 src-table="col.v_object_identifier"
-	 dst-table="col.identifier_type"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_v_object_identifier_object_identifier" type="reltv" layers="0"
-	 custom-color="#8ae234"
-	 src-table="col.v_object_identifier"
-	 dst-table="col.object_identifier"
-	 src-required="false" dst-required="false"/>
 
 <sequence name="aclgroup_aclgroup_id_seq" cycle="false" start="7" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
@@ -1848,7 +1810,7 @@ Autre]]>
 </table>
 
 <index name="referent_referent_name_idx" table="col.referent"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="referent_name"/>
@@ -1856,7 +1818,7 @@ Autre]]>
 </index>
 
 <index name="sample_expiration_date_idx" table="col.sample"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="expiration_date"/>
@@ -1864,7 +1826,7 @@ Autre]]>
 </index>
 
 <index name="sample_sample_creation_date_idx" table="col.sample"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="sample_creation_date"/>
@@ -1872,7 +1834,7 @@ Autre]]>
 </index>
 
 <index name="sample_sampling_date_idx" table="col.sample"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="sampling_date"/>
@@ -1880,7 +1842,7 @@ Autre]]>
 </index>
 
 <index name="log_date_idx" table="gacl.log"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="log_date"/>
@@ -1888,7 +1850,7 @@ Autre]]>
 </index>
 
 <index name="log_login_idx" table="gacl.log"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="login"/>
@@ -1896,7 +1858,7 @@ Autre]]>
 </index>
 
 <index name="log_commentaire_idx" table="gacl.log"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="commentaire"/>
@@ -1904,7 +1866,7 @@ Autre]]>
 </index>
 
 <index name="logingestion_login_idx" table="gacl.logingestion"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="login"/>
@@ -1912,20 +1874,29 @@ Autre]]>
 </index>
 
 <index name="log_ip_idx" table="gacl.log"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="ipaddress"/>
 		</idxelement>
 </index>
 
-<view name="last_movement" layers="0" collapse-mode="1" max-obj-count="1" z-value="0">
+<view name="last_movement" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="movement"/>
 	<position x="1680" y="1740"/>
-	<reference>
-		<expression> <![CDATA[SELECT m.uid,
+	<simplecol name="uid" type="integer"/>
+	<simplecol name="movement_id" type="integer"/>
+	<simplecol name="movement_date" type="timestamp"/>
+	<simplecol name="movement_type_id" type="integer"/>
+	<simplecol name="container_id" type="integer"/>
+	<simplecol name="container_uid" type="integer"/>
+	<simplecol name="container_identifier" type="varchar"/>
+	<simplecol name="line_number" type="integer"/>
+	<simplecol name="column_number" type="integer"/>
+	<simplecol name="movement_reason_id" type="integer"/>
+	<definition> <![CDATA[SELECT m.uid,
     m.movement_id,
     m.movement_date,
     m.movement_type_id,
@@ -1938,53 +1909,8 @@ Autre]]>
    FROM col.movement m
      JOIN col.object o ON m.movement_id = o.last_movement_id
      LEFT JOIN col.container c USING (container_id)
-     left join col.object o2 on (c.uid = o2.uid)]]> </expression>
-	<column name="uid">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="movement_id">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="movement_date">
-		<type name="timestamp" length="0"/>
-	</column>
-	<column name="movement_type_id">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="container_id">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="container_uid">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="container_identifier">
-		<type name="varchar" length="0"/>
-	</column>
-	<column name="line_number">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="column_number">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="movement_reason_id">
-		<type name="integer" length="0"/>
-	</column>
-		<reftable name="col.container"/>
-		<reftable name="col.movement"/>
-	</reference>
+     left join col.object o2 on (c.uid = o2.uid);;]]> </definition>
 </view>
-
-<relationship name="rel_last_movement_container" type="reltv" layers="0"
-	 custom-color="#8f5902"
-	 src-table="col.last_movement"
-	 dst-table="col.container"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_last_movement_movement" type="reltv" layers="0"
-	 custom-color="#c4a000"
-	 src-table="col.last_movement"
-	 dst-table="col.movement"
-	 src-required="false" dst-required="false"/>
 
 <sequence name="borrower_borrower_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
 	<schema name="col"/>
@@ -2062,7 +1988,7 @@ Autre]]>
 </table>
 
 <index name="borrowing_uid_idx" table="col.borrowing"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="uid"/>
@@ -2070,20 +1996,24 @@ Autre]]>
 </index>
 
 <index name="borrowing_borrower_id_idx" table="col.borrowing"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
 			<column name="borrower_id"/>
 		</idxelement>
 </index>
 
-<view name="last_borrowing" layers="0" collapse-mode="1" max-obj-count="1" z-value="0">
+<view name="last_borrowing" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="objects"/>
 	<position x="2520" y="1060"/>
-	<reference>
-		<expression> <![CDATA[ SELECT b1.borrowing_id,
+	<simplecol name="borrowing_id" type="integer"/>
+	<simplecol name="uid" type="integer"/>
+	<simplecol name="borrowing_date" type="timestamp"/>
+	<simplecol name="expected_return_date" type="timestamp"/>
+	<simplecol name="borrower_id" type="integer"/>
+	<definition> <![CDATA[SELECT b1.borrowing_id,
     b1.uid,
     b1.borrowing_date,
     b1.expected_return_date,
@@ -2093,78 +2023,31 @@ Autre]]>
            FROM col.borrowing b2
           WHERE ((b1.uid = b2.uid) AND (b2.return_date IS NULL))
           ORDER BY b2.borrowing_date DESC
-         LIMIT 1));]]> </expression>
-	<column name="borrowing_id">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="uid">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="borrowing_date">
-		<type name="timestamp" length="0"/>
-	</column>
-	<column name="expected_return_date">
-		<type name="timestamp" length="0"/>
-	</column>
-	<column name="borrower_id">
-		<type name="integer" length="0"/>
-	</column>
-		<reftable name="col.borrowing"/>
-	</reference>
+         LIMIT 1));;]]> </definition>
 </view>
-
-<relationship name="rel_last_borrowing_borrowing" type="reltv" layers="0"
-	 custom-color="#8ae234"
-	 src-table="col.last_borrowing"
-	 dst-table="col.borrowing"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="8.88169" y="-9.95168"/>
-	</label>
-</relationship>
 
 <extension name="pgcrypto">
 	<schema name="public"/>
 </extension>
 
-<view name="slots_used" layers="0" collapse-mode="1" max-obj-count="1" z-value="0">
+<view name="slots_used" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="container"/>
 	<position x="1680" y="2080"/>
-	<reference>
-		<expression> <![CDATA[SELECT
+	<simplecol name="container_id" type="integer"/>
+	<simplecol name="nb_slots_used" type="integer"/>
+	<definition> <![CDATA[SELECT
    container_id, count(*) as nb_slots_used
 FROM
    last_movement
 WHERE
    movement_type_id = 1
-   group by container_id;]]> </expression>
-	<column name="container_id">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="nb_slots_used">
-		<type name="integer" length="0"/>
-	</column>
-		<reftable name="col.movement"/>
-		<reftable name="col.container"/>
-	</reference>
+   group by container_id;;]]> </definition>
 </view>
 
-<relationship name="rel_slots_used_movement" type="reltv" layers="0"
-	 custom-color="#c4a000"
-	 src-table="col.slots_used"
-	 dst-table="col.movement"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_slots_used_container" type="reltv" layers="0"
-	 custom-color="#c17d11"
-	 src-table="col.slots_used"
-	 dst-table="col.container"
-	 src-required="false" dst-required="false"/>
-
 <index name="log_module_idx" table="gacl.log"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="nom_module"/>
@@ -2260,7 +2143,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 </table>
 
 <index name="movement_uid_idx" table="col.movement"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="uid"/>
@@ -2268,7 +2151,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 </index>
 
 <index name="movement_container_id_idx" table="col.movement"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="container_id"/>
@@ -2276,7 +2159,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 </index>
 
 <index name="movement_movement_date_desc_idx" table="col.movement"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="true" nulls-first="false" asc-order="false">
 			<column name="movement_date"/>
@@ -2284,7 +2167,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 </index>
 
 <index name="movement_login_idx" table="col.movement"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="login"/>
@@ -2292,7 +2175,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 </index>
 
 <index name="container_uid_idx" table="col.container"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="uid"/>
@@ -2300,7 +2183,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 </index>
 
 <index name="object_identifier_uid_idx" table="col.object_identifier"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="uid"/>
@@ -2308,7 +2191,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 </index>
 
 <index name="sample_uid_idx" table="col.sample"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="uid"/>
@@ -2378,7 +2261,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 </table>
 
 <index name="object_trashed" table="col.object"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 	<comment> <![CDATA[Index used when trashed is true]]> </comment>
 		<idxelement use-sorting="false">
@@ -2388,7 +2271,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 </index>
 
 <index name="col_object_geom_idx" table="col.object"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="gist" factor="0">
 		<idxelement use-sorting="false">
 			<column name="geom"/>
@@ -2481,12 +2364,10 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	<customidxs object-type="column">
 		<object name="campaign_id" index="1"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="campaign_fk" index="1"/>
 		<object name="regulation_fk" index="2"/>
-	</customidxs>
-</table>
+	</customidxs></table>
 
 <relationship name="campaign_has_many_campaign_regulation" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -2557,11 +2438,9 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	<customidxs object-type="column">
 		<object name="collection_id" index="1"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="collection_fk" index="1"/>
-	</customidxs>
-</table>
+	</customidxs></table>
 
 <relationship name="collection_has_many_lot" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -2625,12 +2504,10 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	<customidxs object-type="column">
 		<object name="lot_id" index="1"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="export_template_fk" index="2"/>
 		<object name="lot_fk" index="1"/>
-	</customidxs>
-</table>
+	</customidxs></table>
 
 <relationship name="lot_has_many_export" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -2730,12 +2607,10 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	<customidxs object-type="column">
 		<object name="export_format_id" index="2"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="dataset_type_fk" index="2"/>
 		<object name="export_format_fk" index="1"/>
-	</customidxs>
-</table>
+	</customidxs></table>
 
 <table name="export_format" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="col"/>
@@ -2850,12 +2725,10 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	<customidxs object-type="column">
 		<object name="dataset_template_id" index="1"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="dataset_template_fk" index="1"/>
 		<object name="translator_fk" index="2"/>
-	</customidxs>
-</table>
+	</customidxs></table>
 
 <relationship name="dataset_template_has_many_dataset_column" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -2965,11 +2838,9 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	<customidxs object-type="column">
 		<object name="collection_id" index="4"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="collection_fk" index="0"/>
-	</customidxs>
-</table>
+	</customidxs></table>
 
 <relationship name="collection_has_many_samplesearch" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -3019,7 +2890,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
 <index name="export_template_name_idx" table="col.export_template"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="export_template_name"/>
@@ -3027,7 +2898,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="dataset_template_name_idx" table="col.dataset_template"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="dataset_template_name"/>
@@ -3035,7 +2906,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="collection_name_idx" table="col.collection"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="collection_name"/>
@@ -3043,7 +2914,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="license_name_idx" table="col.license"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="license_name"/>
@@ -3051,7 +2922,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="sample_type_name_idx" table="col.sample_type"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="sample_type_name"/>
@@ -3059,7 +2930,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="multiple_type_name_idx" table="col.multiple_type"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="multiple_type_name"/>
@@ -3067,7 +2938,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="campaign_name_idx" table="col.campaign"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="campaign_name"/>
@@ -3075,7 +2946,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="regulation_name_idx" table="col.regulation"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="regulation_name"/>
@@ -3083,7 +2954,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="mime_type_extension_idx" table="col.mime_type"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="extension"/>
@@ -3091,7 +2962,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="event_type_name_idx" table="col.event_type"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="event_type_name"/>
@@ -3099,7 +2970,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="identifier_type_code_idx" table="col.identifier_type"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="identifier_type_code"/>
@@ -3107,7 +2978,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="object_status_name_idx" table="col.object_status"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="object_status_name"/>
@@ -3115,7 +2986,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="borrower_name_idx" table="col.borrower"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="borrower_name"/>
@@ -3123,7 +2994,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="container_family_name_idx" table="col.container_family"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="container_family_name"/>
@@ -3131,7 +3002,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </index>
 
 <index name="storage_condition_name_idx" table="col.storage_condition"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="storage_condition_name"/>
@@ -3416,7 +3287,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 </table>
 
 <index name="country_code2_idx" table="col.country"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="country_code2"/>
@@ -3443,34 +3314,17 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 src-required="false" dst-required="false"
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
-<view name="v_subsample_quantity" layers="0" collapse-mode="1" max-obj-count="1" z-value="0">
+<view name="v_subsample_quantity" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="sample"/>
 	<position x="860" y="2080"/>
-	<reference>
-		<expression> <![CDATA[
-select sample_id, uid, multiple_value,  
+	<simplecol name="select sample_id, ui..." type="text"/>
+	<definition> <![CDATA[select sample_id, uid, multiple_value,  
 coalesce ((select sum(subsample_quantity) from col.subsample smore where smore.movement_type_id = 1 and smore.sample_id = s.sample_id),0) as subsample_more,
 coalesce ((select sum(subsample_quantity) from col.subsample sless where sless.movement_type_id  = 2 and sless.sample_id = s.sample_id),0) as subsample_less
-from col.sample s
-]]> </expression>
-		<reftable name="col.sample"/>
-		<reftable name="col.subsample"/>
-	</reference>
+from col.sample s;;]]> </definition>
 </view>
-
-<relationship name="rel_v_subsample_quantity_sample" type="reltv" layers="0"
-	 custom-color="#204a87"
-	 src-table="col.v_subsample_quantity"
-	 dst-table="col.sample"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_v_subsample_quantity_subsample" type="reltv" layers="0"
-	 custom-color="#204a87"
-	 src-table="col.v_subsample_quantity"
-	 dst-table="col.subsample"
-	 src-required="false" dst-required="false"/>
 
 <relationship name="country_origin_has_many_sample" type="rel1n" layers="0"
 	 src-col-pattern="country_origin_id"
@@ -3483,7 +3337,7 @@ from col.sample s
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
 <index name="acllogin_login_idx" table="gacl.acllogin"
-	 concurrent="false" unique="true" fast-update="false" buffering="false"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="login"/>
@@ -3548,7 +3402,7 @@ EAN 128;C128]]>
 	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
 <index name="external_storage_path_idx" table="col.document"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="external_storage_path"/>
@@ -3556,7 +3410,7 @@ EAN 128;C128]]>
 </index>
 
 <index name="uid_idx" table="col.document"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="uid"/>
@@ -3564,7 +3418,7 @@ EAN 128;C128]]>
 </index>
 
 <index name="event_date_idx" table="col.event"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="event_date"/>
@@ -3572,7 +3426,7 @@ EAN 128;C128]]>
 </index>
 
 <index name="due_date_idx" table="col.event"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="due_date"/>
@@ -3589,13 +3443,11 @@ EAN 128;C128]]>
 		<object name="collection_id" index="0"/>
 		<object name="sample_type_id" index="1"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="collection" index="1"/>
 		<object name="collection_sampletype" index="0"/>
 		<object name="sample_type" index="2"/>
-	</customidxs>
-</table>
+	</customidxs></table>
 
 <relationship name="collection_has_many_collection_sampletype" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -3726,7 +3578,7 @@ where collection_id = $1]]> </definition>
 </function>
 
 <index name="object_uuid_idx" table="col.object"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="uuid"/>
@@ -3734,38 +3586,25 @@ where collection_id = $1]]> </definition>
 </index>
 
 <index name="object_change_date_idx" table="col.object"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="false">
 			<column name="change_date"/>
 		</idxelement>
 </index>
 
-<view name="v_derivated_number" layers="0" collapse-mode="2" max-obj-count="1" z-value="0">
+<view name="v_derivated_number" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment> <![CDATA[Get the number of derivated samples from an uid]]> </comment>
 	<tag name="sample"/>
 	<position x="860" y="2280"/>
-	<reference>
-		<expression> <![CDATA[select s.uid, count(*) -1 as nb_derivated_sample
+	<simplecol name="uid" type="integer"/>
+	<simplecol name="nb_derivated_sample" type="integer"/>
+	<definition> <![CDATA[select s.uid, count(*) -1 as nb_derivated_sample
 from col.sample s
 join col.sample d on (d.parent_sample_id = s.sample_id)
-group by s.uid]]> </expression>
-	<column name="uid">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="nb_derivated_sample">
-		<type name="integer" length="0"/>
-	</column>
-		<reftable name="col.sample"/>
-	</reference>
+group by s.uid;;]]> </definition>
 </view>
-
-<relationship name="rel_v_derivated_number_sample" type="reltv" layers="0"
-	 src-table="col.v_derivated_number"
-	 dst-table="col.sample"
-	 src-required="false" dst-required="false"/>
 
 <relationship name="collection_has_many_container" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -3787,13 +3626,11 @@ group by s.uid]]> </expression>
 		<object name="aclgroup_id" index="1"/>
 		<object name="campaign_id" index="0"/>
 	</customidxs>
-
 	<customidxs object-type="constraint">
 		<object name="aclgroup_fk" index="2"/>
 		<object name="campaign_fk" index="1"/>
 		<object name="campaign_group_pk" index="0"/>
-	</customidxs>
-</table>
+	</customidxs></table>
 
 <relationship name="campaign_has_many_campaign_group" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -4103,25 +3940,21 @@ group by s.uid]]> </expression>
 </constraint>
 
 <relationship name="rel_booking_object" type="relfk" layers="0"
-	 custom-color="#8ae234"
 	 src-table="col.booking"
 	 dst-table="col.object" reference-fk="object_booking_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_collection_group_aclgroup" type="relfk" layers="0"
-	 custom-color="#f57900"
 	 src-table="col.collection_group"
 	 dst-table="gacl.aclgroup" reference-fk="group_projet_aclgroup_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_collection_group_collection" type="relfk" layers="0"
-	 custom-color="#f57900"
 	 src-table="col.collection_group"
 	 dst-table="col.collection" reference-fk="project_projet_group_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_container_container_type" type="relfk" layers="0"
-	 custom-color="#c4a000"
 	 src-table="col.container"
 	 dst-table="col.container_type" reference-fk="container_type_container_fk"
 	 src-required="false" dst-required="true"/>
@@ -4132,31 +3965,26 @@ group by s.uid]]> </expression>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_container_type_container_family" type="relfk" layers="0"
-	 custom-color="#c4a000"
 	 src-table="col.container_type"
 	 dst-table="col.container_family" reference-fk="container_family_container_type_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_container_type_label" type="relfk" layers="0"
-	 custom-color="#c4a000"
 	 src-table="col.container_type"
 	 dst-table="col.label" reference-fk="label_container_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_container_type_storage_condition" type="relfk" layers="0"
-	 custom-color="#c4a000"
 	 src-table="col.container_type"
 	 dst-table="col.storage_condition" reference-fk="storage_condition_container_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_document_mime_type" type="relfk" layers="0"
-	 custom-color="#8ae234"
 	 src-table="col.document"
 	 dst-table="col.mime_type" reference-fk="mime_type_document_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_document_object" type="relfk" layers="0"
-	 custom-color="#8ae234"
 	 src-table="col.document"
 	 dst-table="col.object" reference-fk="object_document_fk"
 	 src-required="false" dst-required="false"/>
@@ -4167,13 +3995,11 @@ group by s.uid]]> </expression>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_event_object" type="relfk" layers="0"
-	 custom-color="#8ae234"
 	 src-table="col.event"
 	 dst-table="col.object" reference-fk="object_event_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_label_metadata" type="relfk" layers="0"
-	 custom-color="#c4a000"
 	 src-table="col.label"
 	 dst-table="col.metadata" reference-fk="metadata_label_fk"
 	 src-required="false" dst-required="false"/>
@@ -4184,98 +4010,80 @@ group by s.uid]]> </expression>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_object_identifier_object" type="relfk" layers="0"
-	 custom-color="#8ae234"
 	 src-table="col.object_identifier"
 	 dst-table="col.object" reference-fk="object_object_identifier_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_operation_protocol" type="relfk" layers="0"
-	 custom-color="#f57900"
 	 src-table="col.operation"
 	 dst-table="col.protocol" reference-fk="protocol_operation_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_collection_referent" type="relfk" layers="0"
-	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.referent" reference-fk="referent_collection_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_protocol_collection" type="relfk" layers="0"
-	 custom-color="#f57900"
 	 src-table="col.protocol"
 	 dst-table="col.collection" reference-fk="project_protocol_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sample_object" type="relfk" layers="0"
-	 custom-color="#204a87"
 	 src-table="col.sample"
 	 dst-table="col.object" reference-fk="object_sample_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_sample_collection" type="relfk" layers="0"
-	 custom-color="#204a87"
 	 src-table="col.sample"
 	 dst-table="col.collection" reference-fk="project_sample_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_sample_sample" type="relfk" layers="0"
-	 custom-color="#204a87"
 	 src-table="col.sample"
 	 dst-table="col.sample" reference-fk="sample_sample_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="1212.49" y="1449.97"/>
-	<position x="1212.49" y="1287"/>
-	<position x="1072.99" y="1287"/>
+		<position x="1211.49" y="1448.64"/>
+	<position x="1211.49" y="1287"/>
+	<position x="1072.33" y="1287"/>
 	</line>
 </relationship>
 
 <relationship name="rel_sample_sample_type" type="relfk" layers="0"
-	 custom-color="#204a87"
 	 src-table="col.sample"
 	 dst-table="col.sample_type" reference-fk="sample_type_sample_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_sample_sampling_place" type="relfk" layers="0"
-	 custom-color="#f57900"
 	 src-table="col.sample"
 	 dst-table="col.sampling_place" reference-fk="sampling_place_sample_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sample_type_container_type" type="relfk" layers="0"
-	 custom-color="#204a87"
 	 src-table="col.sample_type"
 	 dst-table="col.container_type" reference-fk="container_type_sample_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sample_type_metadata" type="relfk" layers="0"
-	 custom-color="#204a87"
 	 src-table="col.sample_type"
 	 dst-table="col.metadata" reference-fk="metadata_sample_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sample_type_multiple_type" type="relfk" layers="0"
-	 custom-color="#204a87"
 	 src-table="col.sample_type"
 	 dst-table="col.multiple_type" reference-fk="multiple_type_sample_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sample_type_operation" type="relfk" layers="0"
-	 custom-color="#204a87"
 	 src-table="col.sample_type"
 	 dst-table="col.operation" reference-fk="operation_sample_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sampling_place_collection" type="relfk" layers="0"
-	 custom-color="#f57900"
 	 src-table="col.sampling_place"
 	 dst-table="col.collection" reference-fk="collection_sampling_place_fk"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
+	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_movement_container" type="relfk" layers="0"
 	 src-table="col.movement"
@@ -4298,7 +4106,6 @@ group by s.uid]]> </expression>
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_subsample_movement_type" type="relfk" layers="0"
-	 custom-color="#204a87"
 	 src-table="col.subsample"
 	 dst-table="col.movement_type" reference-fk="movement_type_subsample_fk"
 	 src-required="false" dst-required="true"/>
@@ -4309,73 +4116,62 @@ group by s.uid]]> </expression>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_aclacl_aclaco" type="relfk" layers="0"
-	 custom-color="#ef2929"
 	 src-table="gacl.aclacl"
 	 dst-table="gacl.aclaco" reference-fk="aclaco_aclacl_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_aclacl_aclgroup" type="relfk" layers="0"
-	 custom-color="#ef2929"
 	 src-table="gacl.aclacl"
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_aclacl_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_aclaco_aclappli" type="relfk" layers="0"
-	 custom-color="#ef2929"
 	 src-table="gacl.aclaco"
 	 dst-table="gacl.aclappli" reference-fk="aclappli_aclaco_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_aclgroup_aclgroup" type="relfk" layers="0"
-	 custom-color="#ef2929"
 	 src-table="gacl.aclgroup"
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_aclgroup_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="392.747" y="279.575"/>
-	<position x="392.747" y="207"/>
-	<position x="246.498" y="207"/>
+		<position x="391.747" y="278.241"/>
+	<position x="391.747" y="207"/>
+	<position x="245.831" y="207"/>
 	</line>
 </relationship>
 
 <relationship name="rel_acllogingroup_aclgroup" type="relfk" layers="0"
-	 custom-color="#ef2929"
 	 src-table="gacl.acllogingroup"
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_acllogingroup_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_acllogingroup_acllogin" type="relfk" layers="0"
-	 custom-color="#ef2929"
 	 src-table="gacl.acllogingroup"
 	 dst-table="gacl.acllogin" reference-fk="acllogin_acllogingroup_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_passwordlost_logingestion" type="relfk" layers="0"
-	 custom-color="#ef2929"
 	 src-table="gacl.passwordlost"
 	 dst-table="gacl.logingestion" reference-fk="logingestion_passwordlost_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_borrowing_object" type="relfk" layers="0"
-	 custom-color="#8ae234"
 	 src-table="col.borrowing"
 	 dst-table="col.object" reference-fk="object_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_borrowing_borrower" type="relfk" layers="0"
-	 custom-color="#8ae234"
 	 src-table="col.borrowing"
 	 dst-table="col.borrower" reference-fk="borrower_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_object_object_status" type="relfk" layers="0"
-	 custom-color="#8ae234"
 	 src-table="col.object"
 	 dst-table="col.object_status" reference-fk="object_status_object_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_object_referent" type="relfk" layers="0"
-	 custom-color="#8ae234"
 	 src-table="col.object"
 	 dst-table="col.referent" reference-fk="referent_object_fk"
 	 src-required="false" dst-required="false"/>

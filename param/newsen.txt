@@ -1,7 +1,8 @@
 Version v24.1.3 of 26/3/2024
 ----------------------------
-Bug fix :
+Bug fixes:
 - when importing externally, creating a new sample did not work
+- in the list of samples, the storage conditions were not indicated
 
 Version v24.1.2 of 22/2/2024
 -----------------------------

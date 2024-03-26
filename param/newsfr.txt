@@ -2,6 +2,7 @@ Version v24.1.3 du 26/3/2024
 ----------------------------
 Correction d'un bug :
 - en import externe, la création d'un nouvel échantillon ne fonctionnait pas
+- dans la liste des échantillons, les conditions de stockage n'apparaissaient pas
 
 Version v24.1.2 du 22/2/2024
 -----------------------------

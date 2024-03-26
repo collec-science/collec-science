@@ -54,7 +54,8 @@ class Sample extends ObjetBDD
           case when ro.referent_name is not null then ro.referent_organization else cr.referent_organization end as referent_organization,
           borrowing_date, expected_return_date, borrower_id, borrower_name,
           vsq.multiple_value + vsq.subsample_more - vsq.subsample_less as subsample_quantity,
-          vdn.nb_derivated_sample";
+          vdn.nb_derivated_sample,
+          storcond.storage_condition_name";
     private $from = " from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join collection p on (p.collection_id = s.collection_id)
@@ -70,11 +71,12 @@ class Sample extends ObjetBDD
 					left outer join last_photo on (so.uid = last_photo.uid)
           left outer join v_object_identifier voi on  (s.uid = voi.uid)
           left outer join v_object_identifier voip on (pso.uid = voip.uid)
-					left outer join last_movement lm on (s.uid = lm.uid)
+		  left outer join last_movement lm on (s.uid = lm.uid)
           left outer join object oc on (container_uid = oc.uid)
           left outer join container lmc on (oc.uid = lmc.uid)
           left outer join container_type lmct on (lmc.container_type_id = lmct.container_type_id)
-					left outer join movement_type using (movement_type_id)
+          left outer join storage_condition storcond on (lmct.storage_condition_id = storcond.storage_condition_id)
+		  left outer join movement_type using (movement_type_id)
           left outer join metadata using (metadata_id)
           left outer join referent ro on (so.referent_id = ro.referent_id)
           left outer join referent cr on (p.referent_id = cr.referent_id)

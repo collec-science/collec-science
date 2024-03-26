@@ -16,7 +16,7 @@
         }
 		var scrolly = "2000pt";
 		var isGestion = "{$droits['gestion']}";
-		var maxcol = 20;
+		var maxcol = 21;
 		/*if (limit < 5 && limit > 0 || totalNumber < 5 && totalNumber > 0) {
 			scrolly = "20vh";
 		}*/
@@ -24,18 +24,18 @@
 			var hb = JSON.parse(myStorageSample.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
 				if (isGestion == 1) {
-					hb = [11,12,13,14,15,16,17,18,19,20];
+					hb = [11,12,13,14,15,16,17,18,19,20,21];
 				} else {
-					hb = [10,11,12,13,14,15,16,17,18,19];
-					maxcol = 19;
+					hb = [10,11,12,13,14,15,16,17,18,19,20];
+					maxcol = 20;
 				}
 			}
 		} catch {
 			if (isGestion == 1) {
-					var hb = [11,12,13,14,15,16,17,18,19,20];
+					var hb = [11,12,13,14,15,16,17,18,19,20,21];
 				} else {
-					var hb = [10,11,12,13,14,15,16,17,18,19];
-					maxcol = 19;
+					var hb = [10,11,12,13,14,15,16,17,18,19,20];
+					maxcol = 20;
 				}
 		}
 		var buttons = [
@@ -48,12 +48,12 @@
 					text: 'csv',
 					filename: 'samples',
 					exportOptions: {
-						columns: [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17]
+						columns: [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18]
 					},
 					customize: function (csv) {
 						var split_csv = csv.split("\n");
 						//set headers
-						split_csv[0] = '"uid","identifier","other_identifiers","collection","type","status","sample_parent","last_movement","place","referent","campaign","sampling_place","sampling_date","creation_date","expiration_date","available_quantity"';
+						split_csv[0] = '"uid","identifier","other_identifiers","collection","type","status","sample_parent","last_movement","place","storage_condition_name","referent","campaign","sampling_place","sampling_date","creation_date","expiration_date","available_quantity"';
 						csv = split_csv.join("\n");
             return csv;
 					}
@@ -62,12 +62,12 @@
 					extend: 'copy',
 					text: '{t}Copier{/t}',
 					exportOptions: {
-						columns: [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17]
+						columns: [1,2,3,4,5,6,7,9,10,11,12,13,14,15,16,17,18]
 					},
 					customize: function (csv) {
 						var split_csv = csv.split("\n");
 						//set headers
-						split_csv[3] = 'uid\tidentifier\tother_identifiers\tcollection\ttype\tstatus\tsample_parent\tlast_movement\tplace\treferent\tcampaign\tsampling_place\tsampling_date\tcreation_date\texpiration_date\tavailable_quantity';
+						split_csv[3] = 'uid\tidentifier\tother_identifiers\tcollection\ttype\tstatus\tsample_parent\tlast_movement\tplace\tstorage_condition_name\treferent\tcampaign\tsampling_place\tsampling_date\tcreation_date\texpiration_date\tavailable_quantity';
 						split_csv.shift();
 						split_csv.shift();
 						split_csv.shift();
@@ -708,6 +708,7 @@
 					<th>{t}Photo{/t}</th>
 					<th>{t}Dernier mouvement{/t}</th>
 					<th>{t}Emplacement{/t}</th>
+					<th>{t}Condition de stockage{/t}</th>
 					<th>{t}Référent{/t}</th>
 					<th>{t}Campagne{/t}</th>
 					<th>{t}Lieu de prélèvement{/t}</th>
@@ -783,6 +784,7 @@
 						<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
 						{/if}
 					</td>
+					<td>{$samples[lst].storage_condition_name}</td>
 					<td class="nowrap">{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
 					<td class="nowrap">{$samples[lst].campaign_name}</td>
 					<td class="nowrap">{$samples[lst].sampling_place_name}</td>

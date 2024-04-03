@@ -757,6 +757,9 @@ class ObjectClass extends ObjetBDD
                             }
                         }
                         $val = trim($val);
+                        if (is_numeric($val)) {
+                            $uid = $val;
+                        }
                         if (!empty($val) && $uid == 0) {
                             $valobject = $this->lireParamAsPrepared(
                                 $sql . $whereIdent,

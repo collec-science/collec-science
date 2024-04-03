@@ -1,5 +1,13 @@
 <script>
 	$( document ).ready( function () {
+		function toHex(txt){
+		const encoder = new TextEncoder();
+		return Array
+			.from(encoder.encode(txt))
+			.map(b => b.toString(16).padStart(2, '0'))
+			.join('')
+	}
+	var form = $("#labelForm");
 		function getMetadata() {
 			$( "#list_metadata" ).empty();
 			var schema;
@@ -24,10 +32,11 @@
 		getMetadata();
 		$( "#stay" ).click( function () {
 			$( this.form ).find( "input[name='action']" ).val( "WriteStay" );
-			if ($ (this.form).valid()) {
-				$( this.form ).submit();
-			}
 		} );
+
+		$("#labelForm").submit(function (event) { 
+			$("#labelSent").val(toHex($("#label_xsl").val()));
+		});
 		function setTypeLabel( barcodeId ) {
 
 			if ( barcodeId > 1 ) {
@@ -45,6 +54,7 @@
 			setTypeLabel( $( this ).val() );
 		} );
 		setTypeLabel( $( "#barcode_id" ).val() );
+
 	} );
 
 </script>
@@ -59,6 +69,7 @@
 			<input type="hidden" name="action" value="Write">
 			<input type="hidden" name="label_id" value="{$data.label_id}">
 			<input type="hidden" name="metadata_id" value="{$metadata_id}">
+			<input type="hidden" id="labelSent" name="label_xsl">
 			<div class="form-group">
 				<label for="labelName" class="control-label col-md-4"><span class="red">*</span> 
 					{t}Nom de l'étiquette :{/t}</label>
@@ -71,7 +82,7 @@
 				<label for="xsl" class="control-label col-md-4"><span class="red">*</span> 
 					{t}Transformation XSL :{/t}</label>
 				<div class="col-md-8">
-					<textarea id="label_xsl" name="label_xsl" class="form-control textarea-edit" rows="20"
+					<textarea id="label_xsl" class="form-control textarea-edit" rows="20"
 						required>{$data.label_xsl}</textarea>
 				</div>
 			</div>
@@ -139,9 +150,9 @@
 
 			<div class="form-group center">
 				<button type="submit" id="stay" class="btn btn-primary">{t}Valider{/t}</button>
-				<button type="submit" class="btn btn-primary button-valid">{t}Valider et retour{/t}</button>
+				<button type="submit" id="write" class="btn btn-primary button-valid">{t}Valider et retour{/t}</button>
 				{if $data.label_id > 0 }
-				<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+				<button id="delete" class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
 				{/if}
 			</div>
 		</form>

@@ -785,13 +785,13 @@ class Sample extends ObjetBDD
             } else {
                 $limit = "";
             }
-            return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data);
+            return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data, $param["metadatafilter"]);
         } else {
             return array();
         }
     }
 
-    private function _executeSearch(string $sql, array $data): array
+    private function _executeSearch(string $sql, array $data, string $metadatafilter = ""): array
     {
         /**
          * Rajout de la date de dernier mouvement pour l'affichage
@@ -814,7 +814,12 @@ class Sample extends ObjetBDD
          */
         foreach ($list as $k => $v) {
             if (!empty ($v["metadata"]) && ($this->verifyCollection($v) || $_SESSION["consultSeesAll"] == 1)) {
-                $list[$k]["metadata_array"] = json_decode($v["metadata"], true);
+                $metadata_array = json_decode($v["metadata"], true);
+                if (empty($metadatafilter)) {
+                    $list[$k]["metadata_array"] = $metadata_array;
+                } else {
+                    $list[$k]["metadata"] = $metadata_array[$metadatafilter];
+                }               
             } else {
                 $list[$k]["metadata"] = "";
             }

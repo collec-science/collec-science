@@ -716,7 +716,7 @@
 					<th>{t}Date de création dans la base{/t}</th>
 					<th>{t}Date d'expiration{/t}</th>
 					<th>{t}Quantité restante{/t}</th>
-					<th>{t}Métadonnées{/t}</th>
+					<th>{t}Métadonnées{/t}&nbsp;{$sampleSearch.metadatafilter}</th>
 					<th>{t}Commentaires{/t}</th>
 					<th>{t}Tri technique{/t}</th>
 				</tr>
@@ -793,6 +793,7 @@
 					<td class="nowrap">{$samples[lst].expiration_date}</td>
 					<td>{$samples[lst].subsample_quantity}</td>
 					<td>
+						{if empty($sampleSearch.metadatafilter)}
 						{$l = 0}
 						{foreach $samples[lst].metadata_array as $k => $v}
 							{if $l > 0}<br>{/if}
@@ -806,6 +807,9 @@
 								{$v}
 							{/if}
 						{/foreach}
+						{else}
+						{$samples[lst].metadata}
+						{/if}
 					</td>
 					<td class="textareaDisplay">{$samples[lst].object_comment}</td>
 					<td>{$samples[lst].uid + 9000000}</td>

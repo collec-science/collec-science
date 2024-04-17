@@ -303,7 +303,8 @@ class SearchSample extends SearchParam
             "subsample_quantity_max" => "",
             "booking_type" => 0,
             "without_container" => 0,
-            "collections" => array()
+            "collections" => array(),
+            "metadatafilter" => ""
         );
         /**
          * Ajout des dates

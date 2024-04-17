@@ -50,6 +50,7 @@
             if ($("#booking_type").val() != 0) ok = true;
             if ($("#without_container").is(':checked')) ok = true;
             if ($("#collections").val().length > 0) ok = true;
+            if ($("#metadatafilter").val().length > 0) ok = true;
             var mf = $("#metadata_field").val();
 
             if ( mf != null) {
@@ -103,6 +104,7 @@
                 metadataFieldInitial.push ( "{$val}" );
             {/foreach}
         }
+        var metadatafilter = "{$sampleSearch.metadatafilter}";
         $("#sample_type_id").change(function () {
             regenerateMetadata();
         });
@@ -123,6 +125,7 @@
                         $("#metadata_field").empty();
                         $("#metadata_field1").empty();
                         $("#metadata_field2").empty();
+                        $("#metadatafilter").empty();
                         $("#metadatarow1").hide();
                         $("#metadatarow2").hide();
                         $("#metadatarow").show();
@@ -131,6 +134,7 @@
                         $("#metadata_field").append(option);
                         $("#metadata_field1").append(option);
                         $("#metadata_field2").append(option);
+                        $("#metadatafilter").append('<option value="">{t}Métadonnée à afficher :{/t}</option>');
                         $.each(JSON.parse(value), function(i, obj) {
                             var nom = obj.fieldname.replace(/ /g,"_");
                             if (nom == metadataFieldInitial[0]) {
@@ -155,6 +159,14 @@
                             option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
                             $("#metadata_field2").append(option);
                             selected = "";
+                            /*
+                             * metadatafilter
+                             */
+                            if (nom == metadatafilter) {
+                                selected = "selected";
+                            }
+                            option = '<option value="'+nom+'" '+selected+'>'+nom+'</option>';
+                            $("#metadatafilter").append(option);                           
                         })
                     }
                 });
@@ -254,6 +266,7 @@
             $("#metadata_field").prop("selectedIndex",0).change();
             $("#metadata_field1").prop("selectedIndex",0).change();
             $("#metadata_field2").prop("selectedIndex",0).change();
+            $("#metadatafilter").prop("selectedIndex",0).change();
             $("#metadata_value").val("");
             $("#metadata_value_1").val("");
             $("#metadata_value_2").val("");
@@ -563,6 +576,23 @@
                                 <div class="col-sm-3">
                                     <input class="form-control metadatavalue" id="metadata_value_2" name="metadata_value[]" value="{$sampleSearch.metadata_value.2}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par % (cela peut ralentir la requête){/t}">
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="metadatafilter" class="col-sm-3 control-label">
+                                {t}N'afficher qu'une métadonnée :{/t}
+                            </label>
+                            <div class="col-sm-3">
+                                <select class="form-control" id="metadatafilter" name="metadatafilter">
+                                    <option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>{t}Métadonnée à afficher :{/t}</option>
+                                    {foreach $metadatas as $value}
+                                    <option value="{$value.fieldname}" {if $sampleSearch.metadatafilter == $value.fieldname}selected{/if}>
+                                    {$value.fieldname}
+                                    </option>
+                                    {/foreach}
+                                </select>
                             </div>
                         </div>
                     </div>

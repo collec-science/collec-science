@@ -127,6 +127,9 @@ class SearchParam
         }
         return $this->param;
     }
+    function getParamAsString($paramName) {
+        return $this->param[$paramName];
+    }
 
     /**
      * Indique si la recherche a ete deja lancee

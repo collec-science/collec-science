@@ -471,7 +471,7 @@ class Sample extends ObjetBDD
                 $uidSearch = false;
 
                 if ($param["uidsearch"] > 0) {
-                    $where .= "( s.uid = :uid";
+                    $where .= " ( s.uid = :uid";
                     $data["uid"] = $param["uidsearch"];
                     $uidSearch = true;
                     $and = " and ";
@@ -495,7 +495,7 @@ class Sample extends ObjetBDD
                         $where .= ")";
                         $and = " and ";
                     } else {
-                        $where .= "( ";
+                        $where .= " ( ";
                         $or = "";
                         if (strlen($param["name"]) == 36) {
                             $where .= "so.uuid = :uuid";
@@ -519,7 +519,7 @@ class Sample extends ObjetBDD
                     $where .= ")";
                 }
                 if ($param["sample_type_id"] > 0) {
-                    $where .= " s.sample_type_id = :sample_type_id";
+                    $where .= $and." s.sample_type_id = :sample_type_id";
                     $data["sample_type_id"] = $param["sample_type_id"];
                     $and = " and ";
                 }
@@ -1639,7 +1639,8 @@ class Sample extends ObjetBDD
     function getChildren(int $uid): array
     {
         $where = " where ps.uid = :uid";
-        $data = $this->_executeSearch($this->sql . $this->from . $where, array("uid" => $uid));
+        $metadatafilter = $_SESSION["searchSample"]->getParamAsString("metadatafilter");
+        $data = $this->_executeSearch($this->sql . $this->from . $where, array("uid" => $uid), $metadatafilter);
         return $data;
     }
     /**

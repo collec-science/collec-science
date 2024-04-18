@@ -126,7 +126,7 @@ class Samplews
             }
         }
         if (empty($collection_id)) {
-            throw new SampleException(_("La collection n'a pas été fournie ou n'est pas autorisée"), 403);
+            throw new SampleException(_("129La collection n'a pas été fournie ou n'est pas autorisée"), 403);
         }
         /**
          * Search for the parent
@@ -258,7 +258,7 @@ class Samplews
                 "dbuid_origin" => $dataSent["dbuid_origin"]
             );
             if (empty($data["collection_id"])) {
-                throw new SampleException(_("La collection n'a pas été fournie ou n'est pas autorisée"), 403);
+                throw new SampleException(_("261La collection n'a pas été fournie ou n'est pas autorisée"), 403);
             }
         }
         /**

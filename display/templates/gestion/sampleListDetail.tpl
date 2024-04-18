@@ -6,6 +6,7 @@
 		var sliderValue = 2000;
 		var searchByColumn = 0;
 		var myStorageSample = window.localStorage;
+		var metadatafilter = "{$sampleSearch['metadatafilter']}";
         try {
         sliderValue = myStorageSample.getItem("sampleSliderValue");
 		searchByColumn = myStorageSample.getItem("searchByColumn");
@@ -537,6 +538,8 @@
 						samples = JSON.parse( d );
 						var table = $("#sampleList").DataTable();
 						for (var lst = 0; lst < samples.length; lst++) {
+							console.log(metadatafilter);
+							console.log(samples[lst]);
 							var row = "";
 							if (isGestion == 1) {
 								row += '<td class="center"> <input type="checkbox" class="checkSample" name="uids[]" value="' + samples[lst].uid +'"></td>';
@@ -607,6 +610,7 @@
 								row += '<br>{t}col:{/t}'+samples[lst].column_number+' {t}ligne:{/t}'+samples[lst].line_number;
 							}
 							row += '</td>';
+							row += '<td class="nowrap">' + samples[lst].storage_condition_name + '</td>';
 							row += '<td class="nowrap">'+samples[lst].referent_name + ' ' + samples[lst].referent_firstname + '</td>';
 							row += '<td class="nowrap">'+samples[lst].campaign_name + '</td>';
 							row += '<td class="nowrap">'+samples[lst].sampling_place_name+'</td>';
@@ -615,21 +619,24 @@
 							row += '<td class="nowrap">'+samples[lst].expiration_date+'</td>';
 							row += '<td>'+samples[lst].subsample_quantity+'</td>';
 							row += '<td>';
-						
-							var l = 0;
-							var metadata =  samples[lst].metadata_array;
-							for (const meta in metadata) {
-								if (l > 0) {
-									row += '<br>';
-								}
-								l ++;
-								row += meta+':';
-								if (Array.isArray(metadata[meta])) {
-									for (const item in metadata[meta]){
-										row += metatdata[meta].item + '&nbsp;';
+							if (metadatafilter.length > 0) {
+								row += samples[lst].metadata;
+							} else {
+								var l = 0;
+								var metadata =  samples[lst].metadata_array;
+								for (const meta in metadata) {
+									if (l > 0) {
+										row += '<br>';
 									}
-								} else {
-									row += metadata[meta];
+									l ++;
+									row += meta+':';
+									if (Array.isArray(metadata[meta])) {
+										for (const item in metadata[meta]){
+											row += metatdata[meta].item + '&nbsp;';
+										}
+									} else {
+										row += metadata[meta];
+									}
 								}
 							}
 							row += '</td>';
@@ -716,7 +723,7 @@
 					<th>{t}Date de création dans la base{/t}</th>
 					<th>{t}Date d'expiration{/t}</th>
 					<th>{t}Quantité restante{/t}</th>
-					<th>{t}Métadonnées{/t}</th>
+					<th>{t}Métadonnées{/t}&nbsp;{$sampleSearch.metadatafilter}</th>
 					<th>{t}Commentaires{/t}</th>
 					<th>{t}Tri technique{/t}</th>
 				</tr>
@@ -793,6 +800,7 @@
 					<td class="nowrap">{$samples[lst].expiration_date}</td>
 					<td>{$samples[lst].subsample_quantity}</td>
 					<td>
+						{if empty($sampleSearch.metadatafilter)}
 						{$l = 0}
 						{foreach $samples[lst].metadata_array as $k => $v}
 							{if $l > 0}<br>{/if}
@@ -806,9 +814,13 @@
 								{$v}
 							{/if}
 						{/foreach}
+						{else}
+						{$samples[lst].metadata}
+						{/if}
 					</td>
 					<td class="textareaDisplay">{$samples[lst].object_comment}</td>
 					<td>{$samples[lst].uid + 9000000}</td>
+					{if $droits.gestion != 1}<td></td>{/if}
 				</tr>
 				{/section}
 			</tbody>

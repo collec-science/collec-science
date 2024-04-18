@@ -200,3 +200,4 @@ sympy-plots-for-*.tex/
 *l_fixed.dbm
 /.scannerwork*
 install/upgradedb.sh
+display/templates/test/test.html

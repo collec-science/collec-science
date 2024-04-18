@@ -41,6 +41,7 @@ switch ($t_module["param"]) {
         /*
          * write record in database
          */
+        $_REQUEST["label_xsl"] = hex2bin($_REQUEST["label_xsl"]);
         $id = dataWrite($dataClass, $_REQUEST);
         if ($id > 0) {
             $_REQUEST[$keyName] = $id;

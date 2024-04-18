@@ -103,6 +103,9 @@ class ObjectClass extends ObjetBDD
      */
     function ecrire($data)
     {
+        if (empty($_SESSION["MASKDATELONG"])) {
+            $_SESSION["MASKDATELONG"] = 'd/m/Y H:i:s';
+        }
         $data["change_date"] = date($_SESSION["MASKDATELONG"]);
         /**
          * Operations on status change
@@ -757,6 +760,9 @@ class ObjectClass extends ObjetBDD
                             }
                         }
                         $val = trim($val);
+                        if (is_numeric($val)) {
+                            $uid = $val;
+                        }
                         if (!empty($val) && $uid == 0) {
                             $valobject = $this->lireParamAsPrepared(
                                 $sql . $whereIdent,

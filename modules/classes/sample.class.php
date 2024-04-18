@@ -368,11 +368,8 @@ class Sample extends ObjetBDD
     public function verifyCollection($data)
     {
         $retour = false;
-        foreach ($_SESSION["collections"] as $value) {
-            if ($data["collection_id"] == $value["collection_id"]) {
-                $retour = true;
-                break;
-            }
+        if (array_key_exists($data["collection_id"], $_SESSION["collections"])) {
+            $retour = true;
         }
         /**
          * Search if the campaign has restrictions by group
@@ -471,7 +468,7 @@ class Sample extends ObjetBDD
                 $uidSearch = false;
 
                 if ($param["uidsearch"] > 0) {
-                    $where .= "( s.uid = :uid";
+                    $where .= " ( s.uid = :uid";
                     $data["uid"] = $param["uidsearch"];
                     $uidSearch = true;
                     $and = " and ";
@@ -495,7 +492,7 @@ class Sample extends ObjetBDD
                         $where .= ")";
                         $and = " and ";
                     } else {
-                        $where .= "( ";
+                        $where .= " ( ";
                         $or = "";
                         if (strlen($param["name"]) == 36) {
                             $where .= "so.uuid = :uuid";
@@ -519,7 +516,7 @@ class Sample extends ObjetBDD
                     $where .= ")";
                 }
                 if ($param["sample_type_id"] > 0) {
-                    $where .= " s.sample_type_id = :sample_type_id";
+                    $where .= $and." s.sample_type_id = :sample_type_id";
                     $data["sample_type_id"] = $param["sample_type_id"];
                     $and = " and ";
                 }
@@ -785,13 +782,13 @@ class Sample extends ObjetBDD
             } else {
                 $limit = "";
             }
-            return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data);
+            return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data, $param["metadatafilter"]);
         } else {
             return array();
         }
     }
 
-    private function _executeSearch(string $sql, array $data): array
+    private function _executeSearch(string $sql, array $data, string $metadatafilter = ""): array
     {
         /**
          * Rajout de la date de dernier mouvement pour l'affichage
@@ -814,7 +811,12 @@ class Sample extends ObjetBDD
          */
         foreach ($list as $k => $v) {
             if (!empty ($v["metadata"]) && ($this->verifyCollection($v) || $_SESSION["consultSeesAll"] == 1)) {
-                $list[$k]["metadata_array"] = json_decode($v["metadata"], true);
+                $metadata_array = json_decode($v["metadata"], true);
+                if (empty($metadatafilter)) {
+                    $list[$k]["metadata_array"] = $metadata_array;
+                } else {
+                    $list[$k]["metadata"] = $metadata_array[$metadatafilter];
+                }               
             } else {
                 $list[$k]["metadata"] = "";
             }
@@ -1634,7 +1636,8 @@ class Sample extends ObjetBDD
     function getChildren(int $uid): array
     {
         $where = " where ps.uid = :uid";
-        $data = $this->_executeSearch($this->sql . $this->from . $where, array("uid" => $uid));
+        $metadatafilter = $_SESSION["searchSample"]->getParamAsString("metadatafilter");
+        $data = $this->_executeSearch($this->sql . $this->from . $where, array("uid" => $uid), $metadatafilter);
         return $data;
     }
     /**

@@ -7,25 +7,26 @@ $(document).ready(function () {
 		dataOrder = [1, 'asc'];
 	}
 	var myStorageContainer = window.localStorage;
-	var maxcol = 16;
+	var maxcol = 15;
 	try {
-			var hb = JSON.parse(myStorageContainer.getItem("sampleSearchColumns"));
-			if (hb.length == 0) {
-				if (gestion == 1) {
-					hb = [16];
-				} else {
-					hb = [15];
-					maxcol = 15;
-				}
-			}
-		} catch {
+		var hb = JSON.parse(myStorageContainer.getItem("sampleSearchColumns"));
+		if (hb.length == 0) {
 			if (gestion == 1) {
-					var hb = [16];
-				} else {
-					var hb = [15];
-					maxcol = 15;
-				}
+				hb = [16];
+			} else {
+				hb = [15];
+			}
 		}
+	} catch {
+		if (gestion == 1) {
+				var hb = [16];
+			} else {
+				var hb = [15];
+			}
+	}
+	if (gestion == 1) {
+		maxcol = 16;
+	}
 	var table = $("#containerList").DataTable( {
 			dom: 'Bfrtip',
 			"language": dataTableLanguage,

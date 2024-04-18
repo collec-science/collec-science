@@ -96,7 +96,7 @@ class Samplews
          * Collection
          */
         if ($isUpdate) {
-            if (in_array($data["collection_id"], $_SESSION["collections"])) {
+            if (array_key_exists($data["collection_id"], $_SESSION["collections"])) {
                 $collection = $_SESSION["collections"][$data["collection_id"]];
                 if (!$collection["allowed_import_flow"]) {
                     throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
@@ -126,8 +126,7 @@ class Samplews
             }
         }
         if (empty($collection_id)) {
-            $isUpdate ? $m = "update" : $m = "insert";
-            throw new SampleException(_("La collection n'a pas été fournie ou n'est pas autorisée $m"), 403);
+            throw new SampleException(_("La collection n'a pas été fournie ou n'est pas autorisée"), 403);
         }
         /**
          * Search for the parent

@@ -59,16 +59,30 @@ class Samplews
                 $dataSent[$k] = "";
             }
         }
+
+        /**
+         * Search for existent sample
+         */
+        $data = [];
+        $isUpdate = false;
+        foreach ($searchOrder as $field) {
+            if (!empty($dataSent[$field])) {
+                $data = $this->sample->getFromField($field, $dataSent[$field]);
+                if (!empty($data)) {
+                    $isUpdate = true;
+                    break;
+                }
+            }
+        }
         /**
          * Default values
          */
-        if (empty($dataSent["trashed"])) {
+        if (empty($dataSent["trashed"] && !$isUpdate)) {
             $dataSent["trashed"] = 0;
         }
-        if (empty($dataSent["object_status_id"])) {
+        if (empty($dataSent["object_status_id"]) && !$isUpdate) {
             $dataSent["object_status_id"] = 1;
         }
-
         /**
          * metadata
          */
@@ -79,20 +93,18 @@ class Samplews
             }
         }
         /**
-         * Search for existent sample
-         */
-        foreach ($searchOrder as $field) {
-            if (!empty($dataSent[$field])) {
-                $data = $this->sample->getFromField($field, $dataSent[$field]);
-                if (!empty($data)) {
-                    break;
-                }
-            }
-        }
-        /**
          * Collection
          */
-        if (!empty($dataSent["collection_name"])) {
+        if ($isUpdate) {
+            if (in_array($data["collection_id"], $_SESSION["collections"])) {
+                $collection = $_SESSION["collections"][$data["collection_id"]];
+                if (!$collection["allowed_import_flow"]) {
+                    throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
+                } else {
+                    $collection_id = $data["collection_id"];
+                }
+            }
+        } else if (!empty($dataSent["collection_name"])) {
             foreach ($_SESSION["collections"] as $collection) {
                 if ($dataSent["collection_name"] == $collection["collection_name"]) {
                     if (!$collection["allowed_import_flow"]) {
@@ -103,7 +115,7 @@ class Samplews
                 }
             }
         } else {
-            if (count($_SESSION["collections"]) == 1) {
+            if (count($_SESSION["collections"]) == 1 && !$isUpdate) {
                 /**
                  * default collection
                  */
@@ -147,11 +159,16 @@ class Samplews
          * Search for sample_type
          */
         if (empty($dataSent["sample_type_name"])) {
-            throw new SampleException(_("Le type d'échantillon n'a pas été fourni"), 400);
-        }
-        $dataSent["sample_type_id"] = $this->sampleType->getIdFromName($dataSent["sample_type_name"]);
-        if (empty($dataSent["sample_type_id"])) {
-            throw new SampleException(_("Le type d'échantillon est inconnu ou n'a pas été fourni"), 400);
+            if ($isUpdate) {
+                $dataSent["sample_type_id"] = $data["sample_type_id"];
+            } else {
+                throw new SampleException(_("Le type d'échantillon n'a pas été fourni"), 400);
+            }
+        } else {
+            $dataSent["sample_type_id"] = $this->sampleType->getIdFromName($dataSent["sample_type_name"]);
+            if (empty($dataSent["sample_type_id"])) {
+                throw new SampleException(_("Le type d'échantillon est inconnu ou n'a pas été fourni"), 400);
+            }
         }
 
         /**

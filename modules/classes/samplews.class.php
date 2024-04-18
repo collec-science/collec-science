@@ -210,13 +210,10 @@ class Samplews
                 $dataSent["referent_id"] = $this->referent->ecrire(array("referent_id" => 0, "referent_name" => $dataSent["referent_name"], "referent_firstname" => $dataSent["referent_firstname"]));
             }
         }
-        if (!empty($data)) {
+        if ($isUpdate) {
             /**
              * Update
              */
-            if (!$this->sample->verifyCollection($data)) {
-                throw new SampleException(_("Droits insuffisants pour modifier l'échantillon"), 403);
-            }
             unset($dataSent["collection_id"]);
             foreach ($dataSent as $key => $content) {
                 if (array_key_exists($key, $data)) {

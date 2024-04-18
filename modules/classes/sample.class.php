@@ -368,11 +368,8 @@ class Sample extends ObjetBDD
     public function verifyCollection($data)
     {
         $retour = false;
-        foreach ($_SESSION["collections"] as $value) {
-            if ($data["collection_id"] == $value["collection_id"]) {
-                $retour = true;
-                break;
-            }
+        if (array_key_exists($data["collection_id"], $_SESSION["collections"])) {
+            $retour = true;
         }
         /**
          * Search if the campaign has restrictions by group

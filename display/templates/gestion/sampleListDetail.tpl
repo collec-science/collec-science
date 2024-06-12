@@ -167,7 +167,7 @@
 		$( "#samplelabels" ).on( "keypress click", function () {
 			$( "#samplemodule" ).val( "samplePrintLabel" );
 			$("#sampleSpinner").show();
-			$( this.form ).prop( 'target', '_self' ).submit();
+			$( this.form ).submit();
 		} );
 		$( "#sampledirect" ).on( "keypress click", function () {
 			$( "#samplemodule" ).val( "samplePrintDirect" );
@@ -657,7 +657,7 @@
 </script>
 <div class="col-lg-12">
 {include file="gestion/displayPhotoScript.tpl"}
-	<form method="POST" id="sampleFormListPrint" action="index.php" enctype="multipart/form-data">
+	<form method="POST" id="sampleFormListPrint" target="_blank" "index.php" enctype="multipart/form-data">
 		<input type="hidden" id="samplemodule" name="module" value="samplePrintLabel">
 		<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
 		<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">

@@ -32,6 +32,9 @@ switch ($t_module["param"]) {
                 $dataSent = $datasetTemplate->formatDataForImport($dataset["dataset_template_id"], $dataSent);
                 $searchOrder = $datasetTemplate->getSearchOrder($dataset["dataset_template_id"]);
             }
+            if (!empty($dataSent["search_order"])) {
+                $searchOrder = explode(",",$dataSent["search_order"]);
+            }
             if (empty($searchOrder)) {
                 $searchOrder = array("uid", "uuid", "identifier");
             }

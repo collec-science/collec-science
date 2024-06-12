@@ -538,8 +538,6 @@
 						samples = JSON.parse( d );
 						var table = $("#sampleList").DataTable();
 						for (var lst = 0; lst < samples.length; lst++) {
-							console.log(metadatafilter);
-							console.log(samples[lst]);
 							var row = "";
 							if (isGestion == 1) {
 								row += '<td class="center"> <input type="checkbox" class="checkSample" name="uids[]" value="' + samples[lst].uid +'"></td>';
@@ -631,8 +629,11 @@
 									l ++;
 									row += meta+':';
 									if (Array.isArray(metadata[meta])) {
-										for (const item in metadata[meta]){
-											row += metatdata[meta].item + '&nbsp;';
+										const iterator = metadata[meta].values();
+										for (const item of iterator){
+											if (item) {
+											row += item + '&nbsp;';
+											}
 										}
 									} else {
 										row += metadata[meta];
@@ -740,7 +741,7 @@
 						<a href="index.php?module=sampleDisplay&uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
 							{$samples[lst].uid}
 						</a>
-						{if $samples[lst].nb_derivated_sample > 0}
+						{if $samples[lst].nb_derivated_sample > -1}
 						<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
 						{/if}
 					</td>

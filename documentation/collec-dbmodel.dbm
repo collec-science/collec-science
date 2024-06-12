@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.1.1" use-changelog="false" max-obj-count="76"
+<dbmodel pgmodeler-ver="1.1.3" use-changelog="false" max-obj-count="76"
 	 last-position="0,0" last-zoom="0.8" scene-rect="0,0,3563.04,2825.12"
 	 default-owner="postgres"
 	 layers="col,gacl"
@@ -1609,7 +1609,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="acllogin" layers="1" collapse-mode="1" max-obj-count="4" z-value="0">
+<table name="acllogin" layers="1" collapse-mode="1" max-obj-count="6" z-value="0">
 	<schema name="gacl"/>
 	<role name="collec"/>
 	<comment> <![CDATA[List of logins granted to access to the modules of the application]]> </comment>
@@ -1629,6 +1629,9 @@ Autre]]>
 	<column name="totp_key">
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[TOTP secret key for the user]]> </comment>
+	</column>
+	<column name="email">
+		<type name="varchar" length="0"/>
 	</column>
 	<constraint name="acllogin_pk" type="pk-constr" table="gacl.acllogin">
 		<columns names="acllogin_id" ref-type="src-columns"/>

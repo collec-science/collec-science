@@ -820,7 +820,7 @@
 					</td>
 					<td class="textareaDisplay">{$samples[lst].object_comment}</td>
 					<td>{$samples[lst].uid + 9000000}</td>
-					{if $droits.gestion != 1}<td></td>{/if}
+					
 				</tr>
 				{/section}
 			</tbody>

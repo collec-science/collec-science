@@ -453,7 +453,7 @@ class ApiCurlException extends Exception
  * @param string $method
  * @param string $url
  * @param array $data
- * @return void
+ * @return 
  */
 function apiCall($method, $url, $certificate_path = "", $data = array(), $modeDebug = false)
 {

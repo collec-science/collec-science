@@ -19,7 +19,6 @@ switch ($t_module["param"]) {
     $object = new ObjectClass($bdd, $ObjetBDDParam);
     try {
       $dataSent = $_POST;
-      $data = array();
       /**
        * Search the object to move
        */
@@ -57,6 +56,7 @@ switch ($t_module["param"]) {
         null,
         $dataSent["movement_type"],
         $container["uid"],
+        null,
         $dataSent["storage_location"],
         $dataSent["comment"],
         $dataSent["movement_reason"],

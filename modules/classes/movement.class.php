@@ -202,15 +202,14 @@ class Movement extends ObjetBDD
             throw new MovementException(sprintf(_("L'UID n'est pas numérique (%s). "), $uid));
         }
         if ($uid == $container_uid) {
-            $controle = false;
             throw new MovementException(_("Création du mouvement impossible : le numéro de l'objet est égal au numéro du contenant. "));
         }
         $date = $this->encodeData($date);
         if (empty($date)) {
-            $date = date($_SESSION["MASKDATELONG"]);
+            $this->auto_date = 0;
+            $date = date('Y-m-d H:i:s');
         }
         if ($type != 1 && $type != 2) {
-            $controle = false;
             throw new MovementException(_("Le type de mouvement n'est pas correct. "));
         }
         $container_uid = $this->encodeData($container_uid);

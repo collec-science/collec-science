@@ -1,3 +1,17 @@
+Version v24.1.5 du 13/06/2024
+-----------------------------
+Corrections de bugs :
+- dans la liste des échantillons, le + n'était pas affiché s'il n'existait qu'un seul échantillon dérivé
+- les étiquettes sont maintenant affichées dans un nouvel onglet (réintégration du fonctionnement initial)
+- API : la création des mouvements ne fonctionnait pas
+- API d'écriture d'un échantillon, la recherche de l'échantillon (par identifier) ne prenait pas en compte la collection courante. L'utilisation d'un modèle de dataset ne fonctionnait pas
+- liste des échantillons : un popup d'erreur s'affichait en mode consultation
+
+Nouveautés :
+- en création d'un mouvement d'entrée (depuis le détail d'un contenant ou d'un échantillon), le contenu du contenant est affiché, et il est possible de sélectionner à la souris l'emplacement où insérer l'objet
+- API de récupération d'une liste d'échantillons : il est maintenant possible d'indiquer un modèle de dataset pour formater les informations
+- API d'écriture d'un échantillon : il est maintenant possible d'indiquer l'ordre de recherche des échantillons
+
 Version v24.1.4 du 18/04/2024
 -----------------------------
 Corrections de bugs :

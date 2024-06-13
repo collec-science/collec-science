@@ -23,12 +23,11 @@ switch ($t_module["param"]) {
         try {
             $bdd->beginTransaction();
             $dataSent = $_POST;
-            //$dataSent = $_GET;
-            if (!empty($_POST["template"])) {
+            if (!empty($_POST["template_name"])) {
                 /**
                  * Format the data with the dataset template
                  */
-                $dataset = $datasetTemplate->getTemplateFromName($_POST["template"]);
+                $dataset = $datasetTemplate->getTemplateFromName($_POST["template_name"]);
                 $dataSent = $datasetTemplate->formatDataForImport($dataset["dataset_template_id"], $dataSent);
                 $searchOrder = $datasetTemplate->getSearchOrder($dataset["dataset_template_id"]);
             }
@@ -227,6 +226,18 @@ switch ($t_module["param"]) {
             }
             $_SESSION["searchSample"]->setParam($_REQUEST);
             $data = $samplews->sample->getListFromParam($_SESSION["searchSample"]->getParam());
+            if (isset($_REQUEST["template_name"])) {
+                require_once "modules/classes/export/datasetTemplate.class.php";
+                $datasetTemplate = new DatasetTemplate($bdd, $ObjetBDDParam);
+                try {
+                    $ddataset = $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
+                    $withTemplate = true;
+                } catch (DatasetTemplateException $dte) {
+                    throw new SampleException($dte->getMessage());
+                }
+                $data = $datasetTemplate->formatData($data);
+            }
+
         } catch (Exception $e) {
             $error_code = $e->getCode();
             if ($error_code == 0) {

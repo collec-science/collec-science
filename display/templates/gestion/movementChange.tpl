@@ -2,6 +2,7 @@
 $(document).ready(function() {
 var options;
 var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}0{/if}";
+var type_movement = "{$data.movement_type_id}";
 	/*
 	 * Recherche du type a partir de la famille
 	 */
@@ -28,6 +29,7 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 	function searchContainer () {
 		var containerType = $("#container_type_id").val();
 		var url = "index.php";
+		var uid = 0;
 		$.getJSON ( url, { "module":"containerGetFromType", "container_type_id":containerType } , function( data ) {
 			if (data != null) {
 			options = '';
@@ -37,10 +39,14 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 					options += ' selected ';
 					$("#container_id").val(data[i].container_id);
 					$("#container_uid").val(data[i].uid);
+					uid = data[i].uid;
 				}
 			    options += '>' + data[i].uid + " " + data[i].identifier + " ("+data[i].object_status_name + ")</option>";
 			}
 			$("#containers").html(options);
+			if (uid > 0) {
+				getOccupation(uid);
+			}
 			}
 			});
 	}
@@ -58,6 +64,7 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 		var a_texte = texte.split(" ");
 
 		$("#container_uid").val(a_texte[0]);
+		getOccupation(a_texte[0]);
 	});
 	if($("#movement_type_id").val() == 1 )
 		$("#container_uid").attr("required");
@@ -70,7 +77,6 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 			alert("{t}L'UID de l'objet et du contenant sont identiques : vous ne pouvez pas déplacer un objet dans lui même{/t}");
 		}
 	});
-
 	/*
 	 * Recherche du libelle du container en saisie directe
 	 */
@@ -83,10 +89,107 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 				$("#container_id").val(data.container_id);
 				$("#containers").html(options);
 				}
-				});
-
+			/**
+			 * Generate the grid of occupation of container
+			 */
+			 if (uid > 0) {
+				getOccupation(uid);
+			}
+		});
 	 });
-
+	 function getOccupation(uid) {
+		var url = "index.php";
+		var data = { "module":"containerGetOccupation", "uid": uid };
+		$.ajax ( { url:url, data: data})
+		.done (function( d ) {
+			if (d ) {
+				d = JSON.parse(d);
+				if (!d.error_code) {
+					/* Create the grid */
+					var lineNumber = parseInt(d.lineNumber);
+					var columnNumber = parseInt(d.columnNumber);
+					var lines = d.lines;
+					var firstLine = d.firstLine;
+					var firstColumn = d.firstColumn;
+					var line_in_char = d.line_in_char;
+					var column_in_char = d.column_in_char;
+					var ln = 1;
+					var incr = 1;
+					var cl = 1;
+					var clIncr = 1;
+					var realln = 1;
+					var realcl = 1;
+					if (firstLine != "T") {
+						ln = lineNumber;
+						incr = -1;
+						realln = lineNumber;
+					}
+					if (firstColumn != "L") {
+						cl = columnNumber;
+						clIncr = -1;
+						realcl = columnNumber;
+					}
+					var content = '<table class="table table-bordered"><tr><th class="center">{t}Ligne/colonne{/t}</th>';
+					for (var col = 1 ; col <= columnNumber; col ++) {
+						content += '<th class="center"><b>';
+						if (column_in_char == 1) {
+							content += String.fromCharCode (cl + 64);
+						} else {
+							content += cl;
+						}
+						content += '</b></th>';
+						cl = cl + clIncr;
+					}
+					content += '</tr>';
+					var nb = 0;
+					var currentLine = realln;
+					lines.forEach(function(line) {
+						content += '<tr><td class="table table-bordered"><b>';
+						if (line_in_char == 1) {
+							content += String.fromCharCode (ln + 64);
+						} else {
+							content += ln;
+						}
+						content += '</b></td>';
+						ln = ln + incr;
+						var currentCol = realcl;
+						line.forEach(function (cell) {
+							nb = 0;
+							content += '<td class="center cell" ';
+							content += 'data-line="'+currentLine+'" data-column="'+ currentCol+'">';
+							// content += ' onclick="setLineCol('+currentLine+','+currentCol+')">';
+							if (cell.length > 5) {
+								content += cell.length + " {t}objets{/t}";
+							} else {
+								cell.forEach(function (item) {
+									if (parseInt(item.uid) > 0) {
+									if (nb > 0) {
+										content += "<br>";
+									}
+									content += item.uid + " " + item.identifier;
+									nb ++;
+									}
+								});
+							}
+							content += '</td>';
+							currentCol = currentCol + clIncr;
+						});
+						content += '</tr>';
+						currentLine = currentLine + incr;
+					});
+					content += '</table>';
+					/* Display */
+					$("#container-content").html(content);
+				}
+			}
+		});
+	 }
+	 $(document).on("click", ".cell", function(event){ 
+		$("#line_number").val( $(this).data("line"));
+		$("#column_number").val( $(this).data("column"));
+		$(".cell").removeClass("itemSelected");
+		$(this).addClass("itemSelected");
+	 });
 });
 
 </script>
@@ -140,7 +243,7 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 						<select id="container_type_id" name="container_type_id" class="form-control">
 							<option value=""></option>
 						</select>
-						<select id="containers" name="containers">
+						<select id="containers" name="containers" class="form-control">
 							<option value=""></option>
 						</select>
 					</div>
@@ -213,6 +316,8 @@ var type_init = "{if $data.container_type_id > 0}{$data.container_type_id}{else}
 		</div>
 	</form>
 	</div>
+	<div class="col-md-6">
+		<div id="container-content"></div>	
+	</div>
 </div>
-
 <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>

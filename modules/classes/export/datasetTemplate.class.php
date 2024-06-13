@@ -15,7 +15,9 @@ class DatasetTemplate extends ObjetBDD
     public $classPath = "modules/classes/";
     public $classPathExport = "modules/classes/export/";
     public $datasetColumn, $sample, $collection, $document;
-    private $content, $currentId;
+    private $content = [];
+    private int $currentId = 0;
+    private int $currentIdForColumns = 0;
     private $columns = array(), $columnsByExportName = array();
     /**
      * Constructor
@@ -336,7 +338,7 @@ class DatasetTemplate extends ObjetBDD
      */
     private function getColumns($dataset_template_id)
     {
-        if ($dataset_template_id != $this->currentId) {
+        if ($dataset_template_id != $this->currentIdForColumns) {
             $this->columns = array();
             $this->columnsByExportName = array();
             if (!is_object($this->datasetColumn)) {
@@ -354,6 +356,7 @@ class DatasetTemplate extends ObjetBDD
                 $this->columnsByExportName[$column["export_name"]] = $column;
                 $this->columns[$column["column_name"]] = $column;
             }
+            $this->currentIdForColumns = $dataset_template_id;
         }
     }
     /**
@@ -397,6 +400,9 @@ class DatasetTemplate extends ObjetBDD
                     $value = $cbe["translations_reverse"][$value];
                 }
                 if (empty($cbe["subfield_name"])) {
+                    /**
+                     * Classical field
+                     */
                     $data[$cbe["column_name"]] = $value;
                 } else {
                     /**

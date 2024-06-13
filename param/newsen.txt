@@ -1,3 +1,17 @@
+Version v24.1.5 of 13/06/2024
+-----------------------------
+Bug fixes:
+- in the list of samples, the + was not displayed if there was only one sample derived
+- labels are now displayed in a new tab (reinstatement of initial functionality)
+- API: creating movements did not work
+- API for writing a sample: the sample search (by identifier) did not take into account the current collection. Using a dataset model did not work
+- sample list: an error popup was displayed in view mode
+
+New features:
+- when creating an input movement (from the details of a container or sample), the contents of the container are displayed, and it is possible to select the location where to insert the object using the mouse.
+- API for retrieving a list of samples: it is now possible to specify a dataset model for formatting the information
+- API for writing a sample: it is now possible to specify the sample search order
+
 Version v24.1.4 of 18/04/2024
 -----------------------------
 Bug fixes :

@@ -167,7 +167,7 @@
 		$( "#samplelabels" ).on( "keypress click", function () {
 			$( "#samplemodule" ).val( "samplePrintLabel" );
 			$("#sampleSpinner").show();
-			$( this.form ).prop( 'target', '_self' ).submit();
+			$( this.form ).submit();
 		} );
 		$( "#sampledirect" ).on( "keypress click", function () {
 			$( "#samplemodule" ).val( "samplePrintDirect" );
@@ -538,8 +538,6 @@
 						samples = JSON.parse( d );
 						var table = $("#sampleList").DataTable();
 						for (var lst = 0; lst < samples.length; lst++) {
-							console.log(metadatafilter);
-							console.log(samples[lst]);
 							var row = "";
 							if (isGestion == 1) {
 								row += '<td class="center"> <input type="checkbox" class="checkSample" name="uids[]" value="' + samples[lst].uid +'"></td>';
@@ -631,8 +629,11 @@
 									l ++;
 									row += meta+':';
 									if (Array.isArray(metadata[meta])) {
-										for (const item in metadata[meta]){
-											row += metatdata[meta].item + '&nbsp;';
+										const iterator = metadata[meta].values();
+										for (const item of iterator){
+											if (item) {
+											row += item + '&nbsp;';
+											}
 										}
 									} else {
 										row += metadata[meta];
@@ -657,7 +658,7 @@
 </script>
 <div class="col-lg-12">
 {include file="gestion/displayPhotoScript.tpl"}
-	<form method="POST" id="sampleFormListPrint" action="index.php" enctype="multipart/form-data">
+	<form method="POST" id="sampleFormListPrint" target="_blank" "index.php" enctype="multipart/form-data">
 		<input type="hidden" id="samplemodule" name="module" value="samplePrintLabel">
 		<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
 		<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
@@ -740,7 +741,7 @@
 						<a href="index.php?module=sampleDisplay&uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
 							{$samples[lst].uid}
 						</a>
-						{if $samples[lst].nb_derivated_sample > 0}
+						{if $samples[lst].nb_derivated_sample > -1}
 						<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
 						{/if}
 					</td>
@@ -820,7 +821,7 @@
 					</td>
 					<td class="textareaDisplay">{$samples[lst].object_comment}</td>
 					<td>{$samples[lst].uid + 9000000}</td>
-					{if $droits.gestion != 1}<td></td>{/if}
+					
 				</tr>
 				{/section}
 			</tbody>

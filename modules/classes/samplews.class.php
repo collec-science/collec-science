@@ -59,7 +59,33 @@ class Samplews
                 $dataSent[$k] = "";
             }
         }
-
+        /**
+         * Collection
+         */
+        if (!empty($dataSent["collection_name"])) {
+            foreach ($_SESSION["collections"] as $collection) {
+                if ($dataSent["collection_name"] == $collection["collection_name"]) {
+                    if (!$collection["allowed_import_flow"]) {
+                        throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
+                    }
+                    $collection_id = $collection["collection_id"];
+                    break;
+                }
+            }
+        } else {
+            if (count($_SESSION["collections"]) == 1) {
+                /**
+                 * default collection
+                 */
+                if (!$_SESSION["collections"][0]["allowed_import_flow"]) {
+                    throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
+                }
+                $collection_id = $_SESSION["collections"][0]["collection_id"];
+            }
+        }
+        if (empty($collection_id)) {
+            throw new SampleException(_("La collection n'a pas été fournie ou n'est pas autorisée"), 403);
+        }
         /**
          * Search for existent sample
          */
@@ -67,7 +93,7 @@ class Samplews
         $isUpdate = false;
         foreach ($searchOrder as $field) {
             if (!empty($dataSent[$field])) {
-                $data = $this->sample->getFromField($field, $dataSent[$field]);
+                $data = $this->sample->getFromField($field, $dataSent[$field], $collection_id);
                 if (!empty($data)) {
                     $isUpdate = true;
                     break;
@@ -91,42 +117,6 @@ class Samplews
             if (substr($key, 0, 3) == "md_") {
                 $metadata[substr($key, 3)] = $value;
             }
-        }
-        /**
-         * Collection
-         */
-        if ($isUpdate) {
-            if (array_key_exists($data["collection_id"], $_SESSION["collections"])) {
-                $collection = $_SESSION["collections"][$data["collection_id"]];
-                if (!$collection["allowed_import_flow"]) {
-                    throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
-                } else {
-                    $collection_id = $data["collection_id"];
-                }
-            }
-        } else if (!empty($dataSent["collection_name"])) {
-            foreach ($_SESSION["collections"] as $collection) {
-                if ($dataSent["collection_name"] == $collection["collection_name"]) {
-                    if (!$collection["allowed_import_flow"]) {
-                        throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
-                    }
-                    $collection_id = $collection["collection_id"];
-                    break;
-                }
-            }
-        } else {
-            if (count($_SESSION["collections"]) == 1 && !$isUpdate) {
-                /**
-                 * default collection
-                 */
-                if (!$_SESSION["collections"][0]["allowed_import_flow"]) {
-                    throw new SampleException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
-                }
-                $collection_id = $_SESSION["collections"][0]["collection_id"];
-            }
-        }
-        if (empty($collection_id)) {
-            throw new SampleException(_("La collection n'a pas été fournie ou n'est pas autorisée"), 403);
         }
         /**
          * Search for the parent

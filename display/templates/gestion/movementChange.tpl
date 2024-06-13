@@ -157,7 +157,6 @@ var type_movement = "{$data.movement_type_id}";
 							nb = 0;
 							content += '<td class="center cell" ';
 							content += 'data-line="'+currentLine+'" data-column="'+ currentCol+'">';
-							// content += ' onclick="setLineCol('+currentLine+','+currentCol+')">';
 							if (cell.length > 5) {
 								content += cell.length + " {t}objets{/t}";
 							} else {
@@ -166,7 +165,7 @@ var type_movement = "{$data.movement_type_id}";
 									if (nb > 0) {
 										content += "<br>";
 									}
-									content += item.uid + " " + item.identifier;
+									content += '<span class="nowrap">' + item.uid + " " + item.identifier+'</span>';
 									nb ++;
 									}
 								});
@@ -287,7 +286,7 @@ var type_movement = "{$data.movement_type_id}";
 				<div class="form-group">
 					<label for="movement_reason_id" class="control-label col-sm-4">{t}Motif du déstockage :{/t}</label>
 					<div class="col-sm-8">
-						<select id="movement_reason_id" name="movement_reason_id">
+						<select id="movement_reason_id" name="movement_reason_id" class="form-control">
 							<option value="" {if $data.movement_reason_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							{section name=lst loop=$movementReason}
 								<option value="{$movementReason[lst].movement_reason_id}" {if $data.movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>

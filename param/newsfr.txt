@@ -1,3 +1,10 @@
+Version v24.1.6 du 1/7/2024
+-----------------------------
+Corrections de bugs :
+- il n'était plus possible de rajouter un parent à un échantillon
+- dans un contexte multi-instances, la création d'un nouveau compte avec l'identification Mellon (fédération d'identités), couplée avec la reconnaissance implicite de l'organisme, ne fonctionnait pas
+- l'API d'écriture d'un échantillon ne renvoyait pas de message d'erreur si un échantillon était en doublon au niveau de l'identifiant métier, pour une collection où ces identifiants doivent être uniques
+
 Version v24.1.5 du 13/06/2024
 -----------------------------
 Corrections de bugs :

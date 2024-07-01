@@ -1,3 +1,10 @@
+Version v24.1.6 of 1/7/2024
+-----------------------------
+Bug fixes :
+- it was no longer possible to add a parent to a sample
+- in a multi-instance context, the creation of a new account with Mellon identification (identity federation), coupled with implicit recognition of the organisation, was not working
+- the API for writing a sample did not return an error message if a sample was duplicated at the business identifier level, for a collection where these identifiers must be unique
+
 Version v24.1.5 of 13/06/2024
 -----------------------------
 Bug fixes:

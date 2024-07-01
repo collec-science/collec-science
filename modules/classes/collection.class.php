@@ -84,6 +84,7 @@ class Collection extends ObjetBDD
                 ,license_id, license_name, license_url, no_localization
                 ,external_storage_enabled, external_storage_root
                 ,notification_enabled, notification_mails, expiration_delay, event_due_delay
+                ,sample_name_unique
 				    from collection
                 left outer join referent using (referent_id)
                 left outer join license using (license_id)

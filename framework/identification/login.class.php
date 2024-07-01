@@ -144,7 +144,6 @@ class Login
                             } else {
                                 if ($userparams[$ident_header_vars["organization"]] == $ident_header_vars["organizationGranted"]) {
                                     $createUser = true;
-                                    break;
                                 }
                             }
                         }

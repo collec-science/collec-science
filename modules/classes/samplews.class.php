@@ -259,7 +259,7 @@ class Samplews
          */
         try {
             $uid = $this->sample->ecrire($data);
-        } catch (ObjetBDDException $oe) {
+        } catch (ObjetBDDException|SampleException $oe) {
             throw new SampleException($oe->getMessage(), 520);
         }
         /**

@@ -503,7 +503,7 @@
 						<input id="parent_search" class="form-control" placeholder="{t}UID ou identifiant{/t}">
 					</div>
 					<div class="col-md-4">
-						<select id="parent_sample_id" name="parent_sample_id">
+						<select id="parent_sample_id" name="parent_sample_id" class="form-control">
 							{if $data.parent_sample_id > 0}
 								<option value="{$data.parent_sample_id}">
 									{$parent_sample.uid} {$parent_sample.identifier}

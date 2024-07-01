@@ -763,6 +763,7 @@ switch ($t_module["param"]) {
             $message->set($oe->getMessage());
             $module_coderetour = -1;
         }
+        break;
     case "getChildren":
         $vue->set($dataClass->getChildren($_REQUEST["uid"]));
         break;

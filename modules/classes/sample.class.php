@@ -788,7 +788,7 @@ class Sample extends ObjetBDD
         }
     }
 
-    private function _executeSearch(string $sql, array $data, string $metadatafilter = ""): array
+    private function _executeSearch(string $sql, array $data, $metadatafilter = ""): array
     {
         /**
          * Rajout de la date de dernier mouvement pour l'affichage

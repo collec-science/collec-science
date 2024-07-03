@@ -157,6 +157,9 @@ class Login
                             "login" => $login,
                             "actif" => 0
                         );
+                        if (!empty($ident_header_vars["groupsGranted"]) && !is_array($ident_header_vars["groupsGranted"])) {
+                            $ident_header_vars["groupsGranted"] = [$ident_header_vars["groupsGranted"]];
+                        }
                         if (!empty($userparams["groupAttribute"]) && !empty($ident_header_vars["groupsGranted"])) {
                             if (is_array($userparams["groupAttribute"])) {
                                 foreach ($userparams["groupAttribute"] as $group) {

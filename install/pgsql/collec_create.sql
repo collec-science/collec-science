@@ -1816,29 +1816,6 @@ USING btree
 WITH (FILLFACTOR = 90);
 -- ddl-end --
 
--- object: col.last_movement | type: VIEW --
--- DROP VIEW IF EXISTS col.last_movement CASCADE;
-CREATE VIEW col.last_movement
-AS 
-
-SELECT m.uid,
-    m.movement_id,
-    m.movement_date,
-    m.movement_type_id,
-    m.container_id,
-    c.uid AS container_uid,
-    o2.identifier AS container_identifier,
-    m.line_number,
-    m.column_number,
-    m.movement_reason_id
-   FROM col.movement m
-     JOIN col.object o ON m.movement_id = o.last_movement_id
-     LEFT JOIN col.container c USING (container_id)
-     left join col.object o2 on (c.uid = o2.uid);
--- ddl-end --
-ALTER VIEW col.last_movement OWNER TO collec;
--- ddl-end --
-
 -- object: col.borrower_borrower_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.borrower_borrower_id_seq CASCADE;
 CREATE SEQUENCE col.borrower_borrower_id_seq
@@ -3378,6 +3355,29 @@ coalesce ((select sum(subsample_quantity) from col.subsample sless where sless.m
 from col.sample s;
 -- ddl-end --
 ALTER VIEW col.v_subsample_quantity OWNER TO collec;
+-- ddl-end --
+
+-- object: col.last_movement | type: VIEW --
+-- DROP VIEW IF EXISTS col.last_movement CASCADE;
+CREATE VIEW col.last_movement
+AS 
+
+SELECT m.uid,
+    m.movement_id,
+    m.movement_date,
+    m.movement_type_id,
+    m.container_id,
+    c.uid AS container_uid,
+    o2.identifier AS container_identifier,
+    m.line_number,
+    m.column_number,
+    m.movement_reason_id
+   FROM col.movement m
+     JOIN col.object o ON m.movement_id = o.last_movement_id
+     LEFT JOIN col.container c USING (container_id)
+     left join col.object o2 on (c.uid = o2.uid);
+-- ddl-end --
+ALTER VIEW col.last_movement OWNER TO collec;
 -- ddl-end --
 
 -- object: country_fk1 | type: CONSTRAINT --

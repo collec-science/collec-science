@@ -3996,4 +3996,17 @@ GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE
    TO collec;
 -- ddl-end --
 
-
+-- object: col.slots_used | type: VIEW --
+-- DROP VIEW IF EXISTS col.slots_used CASCADE;
+CREATE VIEW col.slots_used
+AS 
+SELECT
+   container_id, count(*) as nb_slots_used
+FROM
+   last_movement
+WHERE
+   movement_type_id = 1
+   group by container_id;
+-- ddl-end --
+ALTER VIEW col.slots_used OWNER TO collec;
+-- ddl-end --

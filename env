@@ -1,0 +1,289 @@
+#--------------------------------------------------------------------
+# Example Environment Configuration file
+#
+# This file can be used as a starting point for your own
+# custom .env files, and contains most of the possible settings
+# available in a default install.
+#
+# By default, all of the settings are commented out. If you want
+# to override the setting, you must un-comment it by removing the '#'
+# at the beginning of the line.
+#--------------------------------------------------------------------
+
+#--------------------------------------------------------------------
+# ENVIRONMENT
+#--------------------------------------------------------------------
+
+CI_ENVIRONMENT = development
+# disable totp identification in admin mode
+# Only for first connection in development mode
+Ppci\Config\IdentificationConfig.disableTotpToAdmin=1
+
+#--------------------------------------------------------------------
+# Ppci configuration
+#--------------------------------------------------------------------
+app.baseURL = 'https://myapp.mysociety.com'
+BASE_DIR = "/var/webroot/project-root"
+FRONT_DIR = "${BASE_DIR}/public"
+# If you have trouble with `.`, you could also use `_`.
+app.CSPEnabled = true
+# Duration of conservation of logs in table gacl.log
+# logDuration = 365
+
+# Duration of the session (4 hours)
+session.expiration = 14400
+
+#--------------------------------------------------------------------
+# DATABASE with PPCI
+#--------------------------------------------------------------------
+
+database.default.hostname = localhost
+database.default.database = dbname
+database.default.username = login
+database.default.password = password
+database.default.DBDriver = Postgre
+database.default.DBPrefix =
+database.default.port = 5432
+database.default.searchpath = public,app,gacl
+database.default.charset = utf8
+
+# Ppci\Config\Ppci.language = fr
+
+#--------------------------------------------------------------------
+# Encryption
+#--------------------------------------------------------------------
+# privateKey = ${BASE_DIR}/id_app
+# pubKey = ${BASE_DIR}/id_app.pub
+
+#--------------------------------------------------------------------
+# Ppci identification
+#--------------------------------------------------------------------
+# Identification mode
+# BDD : logins in database
+# LDAP : login in LDAP xxx
+# CAS : use a CAS server
+# HEADER : use the login transmitted by the web server (identification SAML with Mellon)
+# LDAP-BDD : test first LDAP, then BDD
+# CAS-BDD : a button to use CAS identification
+# OIDC : OIDC identification
+# OIDC-BDD : a button to use OIDC identification
+
+Ppci\Config\IdentificationConfig.identificationMode = BDD
+# APP_passwordMinLength = 12
+
+# List of parameters to use SAML identification with apache2-mellon
+#
+# Ppci\Config\IdentificationConfig.HEADER.login = 'MELLON_MAIL'
+# Ppci\Config\IdentificationConfig.HEADER.email = 'MELLON_MAIL'
+# Ppci\Config\IdentificationConfig.HEADER.name = 'MELLON_CN'
+# Ppci\Config\IdentificationConfig.HEADER.firstname = 'MELLON_GIVENNAME'
+# Ppci\Config\IdentificationConfig.HEADER.lastname = 'MELLON_SN'
+# Ppci\Config\IdentificationConfig.HEADER.organization = 'MELLON_SHACHOMEORGANIZATION'
+
+
+# Organizations granted for Header connection
+# each organization must be separated by a comma
+# Ppci\Config\IdentificationConfig.organizationGranted = 
+
+# Groups that users are automatically activated
+# each group must be separated by a comma
+# Ppci\Config\IdentificationConfig\groupsGranted = 
+
+
+# CAS parameters
+# Ppci\Config\IdentificationConfig.CAS.address = "address.without.https"
+# Ppci\Config\IdentificationConfig.CAS.uri = "/cas"
+# Ppci\Config\IdentificationConfig.CAS.Port = 443
+# Ppci\Config\IdentificationConfig.CAS.debug = false
+# Ppci\Config\IdentificationConfig.CAS.getGroups = 1
+# Ppci\Config\IdentificationConfig.CAS.groups = "supannEntiteAffectation"
+# Ppci\Config\IdentificationConfig.CAS.email = 'mail'
+# Ppci\Config\IdentificationConfig.CAS.name = 'cn'
+# Ppci\Config\IdentificationConfig.CAS.firstname = 'givenName'
+# Ppci\Config\IdentificationConfig.CAS.lastname = 'sn'
+
+# OIDC parameters
+# Ppci\Config\IdentificationConfig.OIDC.name = INRAE
+# Ppci\Config\IdentificationConfig.OIDC.provider =
+# Ppci\Config\IdentificationConfig.OIDC.clientId =
+# Ppci\Config\IdentificationConfig.OIDC.clientSecret =
+# Ppci\Config\IdentificationConfig.OIDC.email = 'email'
+# Ppci\Config\IdentificationConfig.OIDC.name = 'name'
+# Ppci\Config\IdentificationConfig.OIDC.firstname = 'given_name'
+# Ppci\Config\IdentificationConfig.OIDC.lastname = 'family_name'
+# Ppci\Config\IdentificationConfig.OIDC.groups = "supannEntiteAffectationPrincipale"
+
+# Logo displayed on the button for CAS or OIDC
+Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
+
+# Ppci\Config\IdentificationConfig.CONNECTION_max_attempts = 5
+# Ppci\Config\IdentificationConfig.CAS.CONNECTION_blocking_duration = 600
+# Time to resend an email to the administrator if an account is blocked
+# Ppci\Config\IdentificationConfig.CAS.APPLI_maiToAdminPeriod = 7200
+# Maximum period of inactivity for accessing an administration module
+# Ppci\Config\IdentificationConfig.CAS.APPLI_admin_ttl = 600
+
+# Ppci\Config\IdentificationConfig.CAS.APPLI_passwordMinLength = 12
+# If set to 1, authorises recovery of a new password in the event of loss
+# Ppci\Config\IdentificationConfig.CAS.APPLI_lostPassword = 1
+
+# LDAP parameters
+# Ppci\Config\IdentificationConfig.LDAP.address = 
+# Ppci\Config\IdentificationConfig.LDAP.port = 389
+# Ppci\Config\IdentificationConfig.LDAP.rdn = "cn=manager,dc=example,dc=com"
+# Ppci\Config\IdentificationConfig.LDAP.basedn = "ou=people,ou=example,o=societe,c=fr"
+# Ppci\Config\IdentificationConfig.LDAP.user_attrib = "uid"
+# Ppci\Config\IdentificationConfig.LDAP.v3 = true
+# Ppci\Config\IdentificationConfig.LDAP.tls = false
+# Ppci\Config\IdentificationConfig.LDAP.upn_suffix = 
+# Ppci\Config\IdentificationConfig.LDAP.groupSupport = false
+# Ppci\Config\IdentificationConfig.LDAP.commonNameAttribute = "displayname"
+# Ppci\Config\IdentificationConfig.LDAP.mailAttribute = "mail"
+# Ppci\Config\IdentificationConfig.LDAP.groupnameAttribute = "cn"
+# Ppci\Config\IdentificationConfig.LDAP.loginnameAttribute = "memberuid"
+# Ppci\Config\IdentificationConfig.LDAP.basedngroup = 'ou=example,o=societe,c=fr'
+# Ppci\Config\IdentificationConfig.LDAP.timeout = 2
+# Ppci\Config\IdentificationConfig.LDAP.ldapnoanonymous = false
+# Ppci\Config\IdentificationConfig.LDAP.ldaplogin = 
+# Ppci\Config\IdentificationConfig.LDAP.ldappassword = 
+
+#--------------------------------------------------------------------
+# Ppci Rights
+#--------------------------------------------------------------------
+# Name of the application in the right module
+# app.GACL_aco = app
+
+# Set 1 to disable the creation of new rights in table aclaco
+#
+# Ppci\Config\Rights.GACL_disable_new_right = 1
+
+
+#--------------------------------------------------------------------
+# Ppci OSM cache
+#--------------------------------------------------------------------
+
+# Ppci\Config\OsmMap.mapSeedMinZoom = 12
+# Ppci\Config\OsmMap.mapSeedMaxZoom = 16
+# Ppci\Config\OsmMap.mapSeedMaxAge = 120
+# Ppci\Config\OsmMap.mapCacheMaxAge = 10368000000
+
+#--------------------------------------------------------------------
+# Ppci miscellaneous
+#--------------------------------------------------------------------
+# Max duration of a session
+#APPLI_absolute_session = 36000
+
+#--------------------------------------------------------------------
+# LOGGER
+#--------------------------------------------------------------------
+
+ logger.threshold = 4
+
+#--------------------------------------------------------------------
+# PPCI MAILS
+#--------------------------------------------------------------------
+
+#APP_mail = mail@mysociety.com
+#MAIL_enabled = 1
+# MAIL_param.from = mail@mysociety.com
+# MAIL_param.mailDebug = 0
+
+# Duration before resend a mail to administrators for the same event (in seconds)
+# APP_mailToAdminPeriod = 7200
+
+
+#--------------------------------------------------------------------
+# CONTENT SECURITY POLICY
+#--------------------------------------------------------------------
+
+# contentsecuritypolicy.reportOnly = false
+# contentsecuritypolicy.defaultSrc = 'none'
+# contentsecuritypolicy.scriptSrc = 'self'
+# contentsecuritypolicy.styleSrc = 'self'
+# contentsecuritypolicy.imageSrc = 'self'
+# contentsecuritypolicy.baseURI = null
+# contentsecuritypolicy.childSrc = null
+# contentsecuritypolicy.connectSrc = 'self'
+# contentsecuritypolicy.fontSrc = null
+# contentsecuritypolicy.formAction = null
+# contentsecuritypolicy.frameAncestors = null
+# contentsecuritypolicy.frameSrc = null
+# contentsecuritypolicy.mediaSrc = null
+# contentsecuritypolicy.objectSrc = null
+# contentsecuritypolicy.pluginTypes = null
+# contentsecuritypolicy.reportURI = null
+# contentsecuritypolicy.sandbox = false
+# contentsecuritypolicy.upgradeInsecureRequests = false
+# contentsecuritypolicy.styleNonceTag = '{csp-style-nonce}'
+# contentsecuritypolicy.scriptNonceTag = '{csp-script-nonce}'
+# contentsecuritypolicy.autoNonce = true
+
+#--------------------------------------------------------------------
+# COOKIE
+#--------------------------------------------------------------------
+
+# cookie.prefix = ''
+# cookie.expires = 0
+# cookie.path = '/'
+# cookie.domain = ''
+# cookie.secure = false
+# cookie.httponly = false
+# cookie.samesite = 'Lax'
+# cookie.raw = false
+
+#--------------------------------------------------------------------
+# ENCRYPTION
+#--------------------------------------------------------------------
+
+# encryption.key =
+# encryption.driver = OpenSSL
+# encryption.blockSize = 16
+# encryption.digest = SHA512
+
+#--------------------------------------------------------------------
+# HONEYPOT
+#--------------------------------------------------------------------
+
+# honeypot.hidden = 'true'
+# honeypot.label = 'Fill This Field'
+# honeypot.name = 'honeypot'
+# honeypot.template = '<label>{label}</label><input type="text" name="{name}" value=""/>'
+# honeypot.container = '<div style="display:none">{template}</div>'
+
+#--------------------------------------------------------------------
+# SECURITY
+#--------------------------------------------------------------------
+
+# security.csrfProtection = 'cookie'
+# security.tokenRandomize = false
+# security.tokenName = 'csrf_token_name'
+# security.headerName = 'X-CSRF-TOKEN'
+# security.cookieName = 'csrf_cookie_name'
+# security.expires = 7200
+# security.regenerate = true
+# security.redirect = false
+# security.samesite = 'Lax'
+
+#--------------------------------------------------------------------
+# SESSION
+#--------------------------------------------------------------------
+
+# session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
+# session.cookieName = 'ci_session'
+# session.expiration = 7200
+# session.savePath = null
+# session.matchIP = false
+# session.timeToUpdate = 300
+# session.regenerateDestroy = false
+
+#--------------------------------------------------------------------
+# LOGGER
+#--------------------------------------------------------------------
+
+# logger.threshold = 4
+
+#--------------------------------------------------------------------
+# CURLRequest
+#--------------------------------------------------------------------
+
+# curlrequest.shareOptions = false

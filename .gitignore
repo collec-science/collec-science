@@ -1,203 +1,117 @@
-*.pydevproject
-.metadata
-.gradle
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.settings/
-.loadpath
-sonar-scanner.sh
+#-------------------------
+# Operating Specific Junk Files
+#-------------------------
 
-# Eclipse Core
-.project
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
 
-# External tool builders
-.externalToolBuilders/
+# OS X Thumbnails
+._*
 
-# Locally stored "Eclipse launch configurations"
-*.launch
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# CDT-specific
-.cproject
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
-# JDT-specific (Eclipse Java Development Tools)
-.classpath
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
 
-# Java annotation processor (APT)
-.factorypath
+# Windows shortcuts
+*.lnk
 
-# PDT-specific
-.buildpath
-
-# sbteclipse plugin
-.target
-
-# TeXlipse plugin
-.texlipse
-
-# programmes bases sur PrototypePHP
-templates_c/
+# Linux
 *~
-clear_templates_c.sh
-param.inc.php
-temp/
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+#-------------------------
+# Environment Files
+#-------------------------
+# These should never be under version control,
+# as it poses a security risk.
+.env
+.vagrant
+Vagrantfile
+
+#-------------------------
+# Temporary Files
+#-------------------------
+writable/cache/*
+!writable/cache/index.html
+
+writable/logs/*
+!writable/logs/index.html
+
+writable/session/*
+!writable/session/index.html
+
+writable/uploads/*
+!writable/uploads/index.html
+
+writable/debugbar/*
+!writable/debugbar/.gitkeep
+
+writable/temp/*
+!writable/temp/.gitkeep
+
+php_errors.log
+
+#-------------------------
+# User Guide Temp Files
+#-------------------------
+user_guide_src/build/*
+user_guide_src/cilexer/build/*
+user_guide_src/cilexer/dist/*
+user_guide_src/cilexer/pycilexer.egg-info/*
+
+#-------------------------
+# Test Files
+#-------------------------
+tests/coverage*
+
+# Don't save phpunit under version control.
+#phpunit
+
+#-------------------------
+# Composer
+#-------------------------
+#vendor/
+
+#-------------------------
+# IDE / Development Files
+#-------------------------
+
+# Modules Testing
+_modules/*
+
+# phpenv local config
+.php-version
+
+# Jetbrains editors (PHPStorm, etc)
+.idea/
+*.iml
 
 
-## Core latex/pdflatex auxiliary files:
-*.aux
-*.lof
-*.log
-*.lot
-*.fls
-*.out
-*.toc
+# Visual Studio Code
+.vscode/
 
-## Intermediate documents:
-*.dvi
-*-converted-to.*
-# these rules might exclude image files for figures etc.
-# *.ps
-# *.eps
-# *.pdf
+/results/
+/phpunit*.xml
 
-## Bibliography auxiliary files (bibtex/biblatex/biber):
-*.bbl
-*.bcf
-*.blg
-*-blx.aux
-*-blx.bib
-*.brf
-*.run.xml
-
-## Build tool auxiliary files:
-*.fdb_latexmk
-*.synctex
-*.synctex.gz
-*.synctex.gz(busy)
-*.pdfsync
-
-## Auxiliary and intermediate files from other packages:
-
-
-# algorithms
-*.alg
-*.loa
-
-# achemso
-acs-*.bib
-
-# amsthm
-*.thm
-
-# beamer
-*.nav
-*.snm
-*.vrb
-
-#(e)ledmac/(e)ledpar
-*.end
-*.[1-9]
-*.[1-9][0-9]
-*.[1-9][0-9][0-9]
-*.[1-9]R
-*.[1-9][0-9]R
-*.[1-9][0-9][0-9]R
-*.eledsec[1-9]
-*.eledsec[1-9]R
-*.eledsec[1-9][0-9]
-*.eledsec[1-9][0-9]R
-*.eledsec[1-9][0-9][0-9]
-*.eledsec[1-9][0-9][0-9]R
-
-# glossaries
-*.acn
-*.acr
-*.glg
-*.glo
-*.gls
-
-# gnuplottex
-*-gnuplottex-*
-
-# hyperref
-*.brf
-
-# knitr
-*-concordance.tex
-*.tikz
-*-tikzDictionary
-
-# listings
-*.lol
-
-# makeidx
-*.idx
-*.ilg
-*.ind
-*.ist
-
-# minitoc
-*.maf
-*.mtc
-*.mtc[0-9]
-*.mtc[1-9][0-9]
-
-# minted
-_minted*
-*.pyg
-
-# morewrites
-*.mw
-
-# mylatexformat
-*.fmt
-
-# nomencl
-*.nlo
-
-# sagetex
-*.sagetex.sage
-*.sagetex.py
-*.sagetex.scmd
-
-# sympy
-*.sout
-*.sympy
-sympy-plots-for-*.tex/
-
-# TikZ & PGF
-*.dpth
-*.md5
-*.auxlock
-
-# todonotes
-*.tdo
-
-# xindy
-*.xdy
-
-# WinEdt
-*.bak
-*.sav
-/param/param.inc.test.php
-/install/.Rhistory
-/.scannerwork/.sonar_lock
-/.scannerwork/report-task.txt
-/nbproject/private/
-/.vscode/settings.json
-/database/test_import_metadata.csv
-/display/bower_components/vue/*
-/install/gacltest.sql
-/install/pgsql/collec-diff.sql
-/locales/C/LC_MESSAGES/_old.po
-/nbproject/*
-/test/*
-/param/id_collec*
-*l_fixed.dbm
-/.scannerwork*
-install/upgradedb.sh
-display/templates/test/test.html
+# PPCI configuration
+id_app
+id_app.pub
+writable/templates_c/*
+!writable/templates_c/.gitkeep

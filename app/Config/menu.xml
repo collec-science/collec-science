@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:its="http://www.w3.org/2005/11/its" its:version="2.0">
+	<its:rules version="2.0">
+		<its:translateRule selector="//item/@label" translate="yes" />
+		<its:translateRule selector="//item/@tooltip" translate="yes" />
+	</its:rules>
+
+	<item module="manage" label="Gestion" tooltip="Gestion">
+		<item divider='1' droits="param" />
+		<item module="requestList" label="Requêtes SQL" tooltip="Exécution de requêtes SQL dans la base de données" droits="param" />
+	</item>
+
+	<item module="parametre" label="Paramètres" tooltip="Paramètres de l'application" droits="gestion">
+		<item divider='1' />
+		<item module="dbstructureSchema" droits="admin" label="Schéma de la base de données" tooltip="Schéma de la base de données" />
+		<item module="dbstructureHtml" droits='admin' label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes" />
+		<item module="dbstructureLatex" droits='admin' label="Structure de la base de données (Latex)" tooltip="Liste des tables et des colonnes sous forme de tableaux Latex" />
+	</item>
+	<item module="administration" label="Administration" tooltip="Administration de l'application" droits="admin">
+		<item module="loginGestionList" droits="admin" label="Liste des comptes locaux" tooltip="Liste des logins - identification via la base de données" />
+		<item module="appliList" drsoits="admin" label="ACL - droits" tooltip="applications et droits gérés" />
+		<item module="aclloginList" droits="admin" label="ACL - logins" tooltip="Logins déclarés dans le module de gestion des droits" />
+		<item module="groupList" droits="admin" label="ACL - groupes de logins" tooltip="Groupes de logins et logins rattachés aux groupes" />
+		<item module="dbparamList" droits="admin" label="Paramètres de l'application" tooltip="Liste des paramètres pérennes de l'application" />
+		<item divider="1" />
+		<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP" />
+		<item module="logList" droits="admin" label="Logs" tooltip="Consultation des logs enregistrées" />
+		<item module="systemShowServer" droits="admin" label="Variables SERVER" tooltip="Affichage des variables fournies par le serveur"/>
+		<item module="systemShowSession" droits="admin" label="Variables SESSION" tooltip="Affichage des variables de session"/>
+		<item divider="1"/>
+		<item module="backupDisplay" droits="admin" label="Backup" tooltip="Sauvegarde de la base de données" />
+	</item>
+	<item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1" />
+	<item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1">
+		<item module="totpCreate" label="Activer la double authentification" tooltip="Activer la double authentification pour votre compte" loginrequis="1" />
+		<item module="getLastRelease" label="Nouvelle version ?" tooltip="Rechercher s'il existe une nouvelle version disponible de l'application"/>
+		<item module="getLastConnections" label="Dernières connexions" tooltip="Liste des dernières connexions réalisées" loginrequis="1" />
+		<item module="loginChangePassword" loginrequis="1" label="Modifier le mot de passe" tooltip="Modifiez votre mot de passe (identification locale uniquement)" />
+	</item>
+	<item module="aide" label="?" tooltip="Aide">
+		<item module="about" label="A propos" tooltip="A propos de Metabo" />
+		<item module="quoideneuf" label="Nouveautés" tooltip="Quoi de neuf dans l'application ?" />
+		<item module="lexique" label="Lexique" tooltip="Lexique des termes utilisés dans le logiciel" />
+		<item module="setlanguagefr" label="Français" tooltip="Libellés en français" />
+		<item module="setlanguageen" label="English" tooltip="Labels in English" />
+	</item>
+</menu>

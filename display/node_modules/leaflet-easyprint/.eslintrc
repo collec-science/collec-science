@@ -1,8 +1,0 @@
-{
-  "extends": "mourner",
-  rules: {
-      "globals": {
-        "L": false,
-        }
-    }
-}

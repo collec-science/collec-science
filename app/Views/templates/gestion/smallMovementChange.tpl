@@ -231,7 +231,7 @@
 				if ( value.length > 0 ) {
 					value = value.replace( /]C1/g, "" );
 				}
-				var url = "index.php";
+				var url = "";
 				var chaine;
 				var options = "";
 				if ( is_container == true ) {
@@ -335,7 +335,7 @@
 
 		function write() {
 			$.ajax( {
-				url: "index.php",
+				url: "",
 				method: "POST",
 				data: {
 					module: "smallMovementWriteAjax",
@@ -395,10 +395,9 @@
 <div id="message"></div>
 <div class="row">
 	<div class="col-xs-12 col-md-6">
-		<form class="form-horizontal" id="smallMovement" method="post" action="index.php"
+		<form class="form-horizontal" id="smallMovement" method="post" action="smallMovementWrite"
 			onsubmit="return(testScan());">
 			<input type="hidden" name="moduleBase" value="smallMovement">
-			<input type="hidden" name="action" value="Write">
 			<input type="hidden" name="movement_id" value="0">
 			<input type="hidden" id="movement_type_id" name="movement_type_id" value="1">
 
@@ -491,7 +490,7 @@
 		<legend >{t}Lecture par la caméra de l'ordinateur ou du smartphone{/t}</legend>
 
 		<div class="col-xs-12 col-lg-10">
-			<div class="form-horizontal protoform">
+			<div class="form-horizontal ">
 				<div class="row">
 					<div class="col-xs-4">
 						<button id="start2" class="btn btn-success btn-block " type="button">

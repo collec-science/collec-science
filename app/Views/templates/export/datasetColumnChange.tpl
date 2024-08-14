@@ -53,9 +53,8 @@
         <img src="display/images/new.png" height="25">
         {t}Nouvelle colonne{/t}
       </a>
-    <form class="form-horizontal protoform" id="datasetColumnForm" method="post" action="index.php">
+    <form class="form-horizontal " id="datasetColumnForm" method="post" action="datasetColumnWrite">
       <input type="hidden" name="moduleBase" value="datasetColumn">
-      <input type="hidden" name="action" value="Write">
       <input type="hidden" name="dataset_template_id" value="{$data.dataset_template_id}">
       <input type="hidden" name="dataset_column_id" value="{$data.dataset_column_id}">
       <div class="form-group">

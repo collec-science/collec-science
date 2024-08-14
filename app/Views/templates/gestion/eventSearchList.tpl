@@ -62,7 +62,7 @@
         $( ".typeEventSearch" ).change( function () {
             var collection_id = $( "#collection_id" ).val();
             var object_type = $( "#object_type" ).val();
-            var url = "index.php";
+            var url = "";
             var data = { "module": "eventTypeGetAjax", "collection_id": collection_id, "object_type": object_type };
             $.ajax( { url: url, data: { "module": "eventTypeGetAjax", "collection_id": collection_id, "object_type": object_type } } )
                 .done( function ( d ) {
@@ -139,7 +139,7 @@
             if ( action.length > 0 ) {
                 var conf = confirm( "{t}Attention : cette opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}" );
                 if ( conf == true ) {
-                    $( this.form ).find( "input[name='module']" ).val( action );
+                    $( this.form ).attr( "action", action );
                     $( this.form ).prop( 'target', '_self' ).submit();
                 } else {
                     event.preventDefault();
@@ -151,8 +151,7 @@
     } );
 </script>
 <div class="row col-md-12">
-    <form class="form-horizontal protoform" id="eventSearch" action="index.php" method="GET">
-        <input type="hidden" name="module" value="eventSearch">
+    <form class="form-horizontal " id="eventSearch" action="eventSearch" method="GET">
         <input type="hidden" name="isSearch" value="1">
         <div class="row">
             <label for="search_type" class="col-sm-2 control-label">{t}Recherche par :{/t}</label>
@@ -248,8 +247,7 @@
 </div>
 
 {if $isSearch == 1}
-<form action="index.php" method="post">
-    <input type="hidden" id="module" name="module" value="">
+<form action="" method="post">
     <table id="eventList" class="table table-bordered table-hover " data-order='[[1,"asc"]]'>
         <thead>
             <tr>
@@ -309,7 +307,7 @@
     </table>
     {if $rights.import == 1 || $rights.collection == 1}
     <div class="row">
-        <div class="col-md-6 protoform form-horizontal">
+        <div class="col-md-6  form-horizontal">
             {t}Pour les éléments cochés :{/t}
             <input type="hidden" name="is_action" value="1">
             <select id="checkedActionEvent" class="form-control">

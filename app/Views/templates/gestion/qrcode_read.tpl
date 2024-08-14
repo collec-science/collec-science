@@ -23,7 +23,7 @@ $(document).ready(function() {
 		/*
 		 * Retourne le detail d'un objet, par interrogation ajax
 		 */
-		var url = "index.php";
+		var url = "";
 		var chaine ;
 		var is_container = 0;
 		if (champ == "container") {

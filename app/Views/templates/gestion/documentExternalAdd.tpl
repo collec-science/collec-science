@@ -11,7 +11,7 @@
     function getList(object) {
       var folder = $("#"+object).val();
       $.ajax( {
-        url: "index.php",
+        url: "",
         data: { "module": "documentExternalGetList", "uid": "{$data.uid}", "path": folder },
         method: "POST",
 
@@ -122,9 +122,8 @@
 </script>
 <fieldset>
   <legend>{t}Fichiers externes à associer avec l'échantillon{/t}</legend>
-  <form id="fileExternal" class="form-horizontal" method="post" action="index.php">
+  <form id="fileExternal" class="form-horizontal" method="post" action="documentExternalAdd">
     <input type="hidden" name="uid" value="{$data.uid}">
-    <input type="hidden" name="module" value="documentExternalAdd">
     <div class="form-group fields" hidden>
 			<label for="document_description_external" class="control-label col-md-4">
 				{t}Description :{/t} </label>

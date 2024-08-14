@@ -18,9 +18,8 @@ $(document).ready ( function() {
 <h2>Liste des lots d'export</h2>
 <div class="row">
   <div class="col-md-6 form-horizontal">
-    <form id="lotSearch" action="index.php" method="GET">
+    <form id="lotSearch" action="lotList" method="GET">
       <input type="hidden" name="moduleBase" value="lot">
-      <input type="hidden" name="action" value="List">
       <div class="row">
         <div class="form-group">
           <label for="collection_id" class= "col-sm-3 control-label">{t}Collection :{/t}</label>

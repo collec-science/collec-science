@@ -3,9 +3,8 @@
     <div class="col-md-6">
         <a href="objectStatusList">{t}Retour à la liste{/t}</a>
 
-        <form class="form-horizontal protoform" id="objectStatusForm" method="post" action="index.php">
+        <form class="form-horizontal " id="objectStatusForm" method="post" action="objectStatusWrite">
             <input type="hidden" name="moduleBase" value="objectStatus">
-            <input type="hidden" name="action" value="Write">
             <input type="hidden" name="object_status_id" value="{$data.object_status_id}">
             <div class="form-group">
                 <label for="objectStatusName" class="control-label col-md-4"><span class="red">*</span>

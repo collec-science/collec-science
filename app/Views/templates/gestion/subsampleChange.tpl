@@ -11,11 +11,10 @@
 <img src="display/images/edit.gif" height="25">
 {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
 </a>
-<form class="form-horizontal protoform" id="subsampleForm" method="post" action="index.php">
+<form class="form-horizontal " id="subsampleForm" method="post" action="subsampleWrite">
 <input type="hidden" name="subsample_id" value="{$data.subsample_id}">
 <input type="hidden" name="sample_id" value="{$data.sample_id}">
 <input type="hidden" name="moduleBase" value="subsample">
-<input type="hidden" name="action" value="Write">
 <input type="hidden" name="uid" value="{$object.uid}">
 <input type="hidden" name="subsample_login" value="{$data.subsample_login}">
 

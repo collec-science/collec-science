@@ -21,7 +21,7 @@
 </div>
 <div class="row">
   <div class="col-md-6">
-    <form class="form-horizontal protoform" id="exportForm" method="post" action="index.php">
+    <form class="form-horizontal " id="exportForm" method="post" action="index.php">
       <input type="hidden" name="moduleBase" value="export">
       <input type="hidden" name="action" value="Write">
       <input type="hidden" name="export_id" value="{$data.export_id}">

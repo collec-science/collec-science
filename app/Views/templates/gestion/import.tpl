@@ -23,8 +23,7 @@
 <!-- Lancement de l'import -->
 {if $controleOk == 1}
 <div class="row col-md-8">
-      <form id="importForm" method="post" action="index.php">
-            <input type="hidden" name="module" value="importImport">
+      <form id="importForm" method="post" action="importImport">
             <input type="hidden" name="onlyCollectionSearch" value="{$onlyCollectionSearch}">
             {t}Contrôles OK.{/t} {t 1=$filename}Vous pouvez réaliser l'import du fichier (%1) :{/t}
             <button type="submit" class="btn btn-danger">{t}Déclencher l'import{/t}</button>
@@ -57,9 +56,8 @@
 <!-- Selection du fichier a importer -->
 <div class="row">
       <div class="col-md-6">
-            <form class="form-horizontal" id="controlForm" method="post" action="index.php"
+            <form class="form-horizontal" id="controlForm" method="post" action="importControl"
                   enctype="multipart/form-data">
-                  <input type="hidden" name="module" value="importControl">
                   <div class="form-group">
                         <label for="upfile" class="control-label col-md-4"><span class="red">*</span> 
                               {t}Nom du fichier à importer (CSV) :{/t}

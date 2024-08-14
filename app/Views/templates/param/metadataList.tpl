@@ -21,8 +21,7 @@
 			</a>
 		{/if}
 
-		<form method="POST" id="metadataExport" action="index.php">
-			<input type="hidden" id="module" name="module" value="metadataExport">
+		<form method="POST" id="metadataExport" action="metadataExport">
 			<div class="row">
 				<div class="center">
 					{t}Exporter les métadonnées :{/t} <label id="lmetadatacheck" for="checkMetadata">{t}Tout décocher{/t}</label> <input
@@ -79,8 +78,7 @@
 	<div class="row col-md-6">
 		<fieldset>
 			<legend>{t}Importer des métadonnées provenant d'une autre base de données Collec-Science{/t}</legend>
-			<form class="form-horizontal protoform" id="metadataImport" method="post" action="index.php" enctype="multipart/form-data">
-				<input type="hidden" name="module" value="metadataImport">
+			<form class="form-horizontal" id="metadataImport" method="post" action="metadataImport" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (CSV) :{/t}</label>
 					<div class="col-md-8">

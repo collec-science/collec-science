@@ -9,21 +9,21 @@ $(document).ready(function() {
 	}
 	$("#suppr").bind("click keyup", function (event) {
 		if (confirm("{t}Confirmez la suppression de la requête{/t}")) {
-			$("#action").val("Delete");
+			$("#requestForm").attr("action", "requestDelete");
 			$("#requestForm").submit();
 		}
 	});
 	$("#exec").bind("click keyup", function (event) {
-		$("#action").val("Exec");
+		$("#requestForm").attr("action", "requestExec");
 		$("#requestForm").submit();
 	});
 	$("#saveExec").bind("click keyup", function (event) {
-		$("#action").val("WriteExec");
+		$("#requestForm").attr("action", "requestWriteExec");
 		$("#bodySent").val(toHex ($("#body").val() ) );
 		$("#requestForm").submit();
 	});
 	$("#save").bind("click keyup", function (event) {
-		$("#action").val("Write");
+		$("#requestForm").attr("action", "requestWrite");
 		$("#bodySent").val(toHex ($("#body").val() ) );
 		$("#requestForm").submit();
 	});
@@ -44,9 +44,8 @@ $(document).ready(function() {
 			{t}Structure de la base de données{/t}</a>
 
 
-		<form class="form-horizontal protoform" id="requestForm" method="post" action="index.php">
+		<form class="form-horizontal " id="requestForm" method="post" action="">
 			<input type="hidden" id="moduleBase" name="moduleBase" value="request">
-			<input type="hidden" id="action" name="action" value="">
 			<input type="hidden" name="request_id" value="{$data.request_id}">
 			<input type="hidden" name="body" id="bodySent">
 			<div class="form-group">

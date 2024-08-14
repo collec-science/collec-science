@@ -4,9 +4,8 @@
     <div class="col-md-6">
         <a href="printerList">{t}Retour à la liste{/t}</a>
 
-        <form class="form-horizontal protoform" id="printerForm" method="post" action="index.php">
+        <form class="form-horizontal " id="printerForm" method="post" action="printerWrite">
         <input type="hidden" name="moduleBase" value="printer">
-        <input type="hidden" name="action" value="Write">
         <input type="hidden" name="printer_id" value="{$data.printer_id}">
         <div class="form-group">
             <label for="printer_name"  class="control-label col-md-4"><span class="red">*</span> {t}Nom usuel :{/t}</label>

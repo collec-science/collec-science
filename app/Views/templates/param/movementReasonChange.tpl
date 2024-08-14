@@ -4,9 +4,8 @@
 <div class="col-md-6">
 <a href="movementReasonList">{t}Retour à la liste{/t}</a>
 
-<form class="form-horizontal protoform" id="movementReasonForm" method="post" action="index.php">
+<form class="form-horizontal " id="movementReasonForm" method="post" action="movementReasonWrite">
 <input type="hidden" name="moduleBase" value="movementReason">
-<input type="hidden" name="action" value="Write">
 <input type="hidden" name="movement_reason_id" value="{$data.movement_reason_id}">
 <div class="form-group">
 <label for="movementReasonName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>

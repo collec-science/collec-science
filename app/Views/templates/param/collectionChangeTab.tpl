@@ -27,9 +27,8 @@
     <div class="col-md-10 col-lg-8">
         <a href="collectionList">{t}Retour à la liste{/t}</a>
 
-        <form class="form-horizontal protoform" id="collectionForm" method="post" action="index.php">
+        <form class="form-horizontal " id="collectionForm" method="post" action="collectionWrite">
             <input type="hidden" name="moduleBase" value="collection">
-            <input type="hidden" name="action" value="Write">
             <input type="hidden" name="collection_id" value="{$data.collection_id}">
             <div class="row">
                 <div class="form-group center">

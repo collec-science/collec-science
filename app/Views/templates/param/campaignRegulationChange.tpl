@@ -4,9 +4,8 @@
 <h3>{t}Création/modification d'une réglementation associée à la campagne {/t}{$campaign.campaign_name}</h3>
 <div class="row">
   <div class="col-md-8">
-    <form class="form-horizontal protoform" id="campaignRegulationChange" method="post" action="index.php">
+    <form class="form-horizontal " id="campaignRegulationChange" method="post" action="campaignRegulationWrite">
       <input type="hidden" name="moduleBase" value="campaignRegulation">
-      <input type="hidden" name="action" value="Write">
       <input type="hidden" name="campaign_id" value="{$data.campaign_id}">
       <input type="hidden" name="campaign_regulation_id" value="{$data.campaign_regulation_id}">
       <div class="form-group">

@@ -14,7 +14,7 @@
 			var oi = $( "#metadata_id" ).val();
 			if ( oi.length > 0 ) {
 				$.ajax( {
-					url: "index.php",
+					url: "",
 					data: { "module": "metadataGetschema", "metadata_id": oi }
 				} )
 					.done( function ( value ) {
@@ -64,9 +64,8 @@
 	<div class="col-md-12">
 		<a href="labelList">{t}Retour à la liste{/t}</a>
 
-		<form class="form-horizontal" id="labelForm" method="post" action="index.php">
+		<form class="form-horizontal" id="labelForm" method="post" action="labelWrite">
 			<input type="hidden" name="moduleBase" value="label">
-			<input type="hidden" name="action" value="Write">
 			<input type="hidden" name="label_id" value="{$data.label_id}">
 			<input type="hidden" name="metadata_id" value="{$metadata_id}">
 			<input type="hidden" id="labelSent" name="label_xsl">

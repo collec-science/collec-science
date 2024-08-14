@@ -50,7 +50,7 @@ $(document).ready(function() {
     </a>
 {/if}
 
-<form class="form-horizontal protoform" id="metadataForm" method="post" action="index.php" enctype="multipart/form-data">
+<form class="form-horizontal " id="metadataForm" method="post" action="metadataWrite" enctype="multipart/form-data">
     {if $nbSample < 1}
         <div class="form-group center">
             <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
@@ -58,7 +58,6 @@ $(document).ready(function() {
     {/if}
 {if $nbSample > 0}<fieldset disabled>{/if}
 <input type="hidden" name="moduleBase" value="metadata">
-<input type="hidden" id="action" name="action" value="Write">
 <input type="hidden" name="metadata_id" value="{$data.metadata_id}">
 <input type="hidden" name="metadataField" id="metadataField" value="{$data.metadata_schema}">
 <input type="hidden" name="metadata_schema" id="schemaSent">

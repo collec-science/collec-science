@@ -14,9 +14,8 @@
 <div class="row">
 	<div class="col-sm-12">
 
-		<form id="movementConfirm" class="form-horizontal" method="post" action="index.php">
+		<form id="movementConfirm" class="form-horizontal" method="post" action="movementBatchWrite">
 			<input type="hidden" name="moduleBase" value="movementBatch">
-			<input type="hidden" name="action" value="Write">
 			<div class="form-group">
 				<label for="movement_reason_id" class="control-label col-sm-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-sm-8">

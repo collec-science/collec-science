@@ -30,10 +30,9 @@
             <img src="display/images/edit.gif" height="25">
             {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
         </a>
-        <form class="form-horizontal" id="{$moduleParent}Form" method="post" action="index.php">
+        <form class="form-horizontal" id="{$moduleParent}Form" method="post" action="{$moduleParent}eventWrite">
             <input type="hidden" name="event_id" value="{$data.event_id}">
             <input type="hidden" name="moduleBase" value="{$moduleParent}event">
-            <input type="hidden" name="action" value="Write">
             <input type="hidden" name="uid" value="{$object.uid}">
             <input type="hidden" name="activeTab" value="{$activeTab}">
 

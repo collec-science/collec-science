@@ -4,9 +4,8 @@
 <div class="col-md-6">
 <a href="samplingPlaceList">{t}Retour à la liste{/t}</a>
 
-<form class="form-horizontal protoform" id="samplingPlaceForm" method="post" action="index.php">
+<form class="form-horizontal " id="samplingPlaceForm" method="post" action="samplingPlaceWrite">
 <input type="hidden" name="moduleBase" value="samplingPlace">
-<input type="hidden" name="action" value="Write">
 <input type="hidden" name="sampling_place_id" value="{$data.sampling_place_id}">
 <div class="form-group">
 <label for="samplingPlaceName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>

@@ -3,9 +3,8 @@
 <div class="col-md-6">
 <a href="mimeTypeList">{t}Retour à la liste{/t}</a>
 
-<form class="form-horizontal protoform" id="mimeTypeForm" method="post" action="index.php">
+<form class="form-horizontal " id="mimeTypeForm" method="post" action="mimeTypeWrite">
 <input type="hidden" name="moduleBase" value="mimeType">
-<input type="hidden" name="action" value="Write">
 <input type="hidden" name="mime_type_id" value="{$data.mime_type_id}">
 <div class="form-group">
 <label for="extension"  class="control-label col-md-4"><span class="red">*</span> {t}Extension :{/t}</label>

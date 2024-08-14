@@ -17,7 +17,7 @@
 
 <h2>{t}Liste des modèles d'exportation des données{/t}</h2>
 
-<form id="exportForm" method="post" action="index.php">
+<form id="exportForm" method="post" action="exportModelExec">
     <div class="row">
         <div class="col-md-6">
             {if $rights.param == 1}
@@ -26,9 +26,7 @@
                     {t}Nouveau...{/t}
                 </a>
             {/if}
-
             <input type="hidden" name="moduleBase" value="exportModel">
-            <input type="hidden" name="action" value="Exec">
             <input type="hidden" name="export_model_name" value="export_model">
             <input type="hidden" name="returnko" value="exportModelList">
             <table id="paramList" class="table table-bordered table-hover datatable-nopaging" data-order='[["1","asc"]]'>
@@ -88,8 +86,8 @@
 <div class="row">
     <fieldset class="col-md-6">
         <legend>{t}Importer des modèles depuis un fichier JSON{/t}</legend>
-        <form id="importForm" class="form-horizontal protoform" method="post"
-        action="index.php" enctype="multipart/form-data">
+        <form id="importForm" class="form-horizontal " method="post"
+        action="exportModelImport" enctype="multipart/form-data">
         <input type="hidden" name="export_model_name" value="export_model">
         <div class="form-group">
             <label for="fileName" class="control-label col-md-4">
@@ -97,7 +95,7 @@
             </label>
             <div class="col-md-8">
                 <input id="fileName" type="file" class="form-control"
-                    name="fileName" size="40" required>
+                    name="fileName" required>
             </div>
         </div>
         <div class="form-group center">

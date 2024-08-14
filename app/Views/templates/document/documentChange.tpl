@@ -1,9 +1,5 @@
-{* TODO vérifier que ce fichier est bien utilisé
-   semble être un doublon de  ../gestion/documentChange.tpl
-*}
 <div class="formSaisie">
-<form id="documentForm" method="post" action="index.php"  enctype="multipart/form-data">
-<input type="hidden" name="module" value="documentWrite">
+<form id="documentForm" method="post" action="documentWrite"  enctype="multipart/form-data">
 <input type="hidden" name="document_id" value="0">
 <input type="hidden" name="parent_id" value="{$parent_id}">
 <input type="hidden" name="parentIdName" value="{$parentIdName}">

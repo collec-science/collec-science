@@ -4,9 +4,8 @@
 <div class="col-md-6">
 <a href="multipleTypeList">{t}Retour à la liste{/t}</a>
 
-<form class="form-horizontal protoform" id="multipleTypeForm" method="post" action="index.php">
+<form class="form-horizontal " id="multipleTypeForm" method="post" action="multipleTypeWrite">
 <input type="hidden" name="moduleBase" value="multipleType">
-<input type="hidden" name="action" value="Write">
 <input type="hidden" name="multiple_type_id" value="{$data.multiple_type_id}">
 <div class="form-group">
 <label for="multipleTypeName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>

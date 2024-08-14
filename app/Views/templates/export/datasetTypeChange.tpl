@@ -6,7 +6,7 @@
       <img src="display/images/list.png" height="25">
       {t}Retour à la liste{/t}
     </a>
-    <form class="form-horizontal protoform" id="datasetTypeForm" method="post" action="index.php">
+    <form class="form-horizontal " id="datasetTypeForm" method="post" action="index.php">
       <input type="hidden" name="moduleBase" value="datasetType">
       <input type="hidden" name="action" value="Write">
       <input type="hidden" name="dataset_type_id" value="{$data.dataset_type_id}">

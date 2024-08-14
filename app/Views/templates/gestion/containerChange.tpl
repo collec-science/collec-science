@@ -57,7 +57,7 @@ if (container_type_id > 0) {
 }
 	function searchType() {
 	var family = $("#container_family_id").val();
-	var url = "index.php";
+	var url = "";
 	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
 		if (data != null) {
 			options = '';
@@ -120,10 +120,9 @@ if (container_type_id > 0) {
 			<img src="display/images/box.png" height="25">{t 1=$container_parent_uid 2=$container_parent_identifier }Retour au parent (%1 %2){/t}
 		</a>
 	{/if}
-	<form class="form-horizontal protoform" id="containerForm" method="post" action="index.php">
+	<form class="form-horizontal " id="containerForm" method="post" action="containerWrite">
 		<input type="hidden" name="container_id" value="{$data.container_id}">
 		<input type="hidden" name="moduleBase" value="container">
-		<input type="hidden" name="action" value="Write">
 		<input type="hidden" name="container_parent_uid" value="{$container_parent_uid}">
 		<div class="form-group">
 			<label for="uid" class="control-label col-md-4">{t}UID :{/t}</label>

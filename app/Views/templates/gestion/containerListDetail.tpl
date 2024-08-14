@@ -146,7 +146,7 @@ $(document).ready(function () {
 			var uid = objet.data("uid");
 			if (! objet.is(':ui-tooltip') ) {
 				if (uid > 0) {
-					var url = "index.php";
+					var url = "";
 					var data = { "module":"containerGetOccupation", "uid": uid };
 					$.ajax ( { url:url, data: data})
 					.done (function( d ) {
@@ -241,7 +241,7 @@ $(document).ready(function () {
 	 */
 	 function searchTypes() {
 		var family = $("#containers_family_id").val();
-		var url = "index.php";
+		var url = "";
 		$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
 			if (data != null) {
 				options = '<option value="" selected>{t}Choisissez...{/t}</option>';
@@ -257,7 +257,7 @@ $(document).ready(function () {
 		}
 		function searchContainer () {
 			var containerType = $("#containers_type_id").val();
-			var url = "index.php";
+			var url = "";
 			$.getJSON ( url, { "module":"containerGetFromType", "container_type_id":containerType } , function( data ) {
 				if (data != null) {
 				options = '';
@@ -282,7 +282,7 @@ $(document).ready(function () {
 			$("#container_uid").val(a_texte[0]);
 		});
 		$("#container_uid").change(function () {
-			var url = "index.php";
+			var url = "";
 			var uid = $(this).val();
 			$.getJSON ( url, { "module":"containerGetFromUid", "uid":uid } , function( data ) {
 				if (data.container_id ) {
@@ -307,7 +307,7 @@ $(document).ready(function () {
 		 });
 		function addChildren(objet) {	
 			var uid = objet.data( "uid" );
-			var url = "index.php";
+			var url = "";
 			var data = { "module": "containerGetChildren", "uid": uid };
 			objet.hide();
 			var id = objet.attr('id');
@@ -387,8 +387,7 @@ $(document).ready(function () {
 </script>
 {include file="gestion/displayPhotoScript.tpl"}
 {if $rights.manage == 1}
-	<form method="POST" id="containerFormListPrint" action="index.php">
-		<input type="hidden" id="module" name="module" value="containerPrintLabel">
+	<form method="POST" id="containerFormListPrint" action="containerPrintLabel">
 		<input type="hidden" name="lastModule" value="{$lastModule}">
 		<div class="row">
 			<div class="center">
@@ -510,7 +509,7 @@ $(document).ready(function () {
 		</table>
 		{if $rights.collection == 1}
 			<div class="row">
-				<div class="col-md-6 protoform form-horizontal">
+				<div class="col-md-6  form-horizontal">
 					{t}Pour les éléments cochés :{/t}
 					<input type="hidden" name="lastModule" value="{$lastModule}">
 					<input type="hidden" name="uid" value="{$data.uid}">

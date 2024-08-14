@@ -4,9 +4,7 @@
       <div class="col-md-6">
             <a href="containerTypeList">{t}Retour à la liste{/t}</a>
 
-            <form class="form-horizontal protoform" id="containerTypeForm" method="post" action="index.php">
-                  <input type="hidden" name="moduleBase" value="containerType">
-                  <input type="hidden" name="action" value="Write">
+            <form class="form-horizontal " id="containerTypeForm" method="post" action="containerTypeWrite">
                   <input type="hidden" name="container_type_id" value="{$data.container_type_id}">
                   <div class="form-group">
                         <label for="containerTypeName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>

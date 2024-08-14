@@ -12,12 +12,11 @@
 </script>
 
 <div class="row">
-	<form id="documentForm" class="form-horizontal" method="post" action="index.php" enctype="multipart/form-data">
+	<form id="documentForm" class="form-horizontal" method="post" action="{$moduleParent}documentWrite" enctype="multipart/form-data">
 		<input type="hidden" name="document_id" value="0">
 		<input type="hidden" name="uid" value="{$data.uid}">
 		<input type="hidden" name="campaign_id" value="{$data.campaign_id}">
 		<input type="hidden" name="event_id" value="{$data.event_id}">
-		<input type="hidden" name="module" value="{$moduleParent}documentWrite">
 		<input type="hidden" name="parentKeyName" value="{$parentKeyName}">
 		<input type="hidden" name="activeTab" value="tab-document">
 		<div class="form-group">

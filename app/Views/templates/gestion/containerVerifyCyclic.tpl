@@ -9,8 +9,7 @@
 <br>
 <div class="row">
   <div class="col-md-6">
-    <form class="form-horizontal" method="post" action="index.php">
-      <input type="hidden" name="module" value="containerVerifyCyclicExec">
+    <form class="form-horizontal" method="post" action="containerVerifyCyclicExec">
       <div class="center">
         <button type="submit" class="button btn-primary">{t}Déclencher la recherche{/t}</button>
       </div>

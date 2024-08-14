@@ -11,9 +11,8 @@ $(document).ready(function () {
 <div class="col-md-6">
 <a href="sampleTypeList">{t}Retour à la liste{/t}</a>
 
-<form class="form-horizontal protoform" id="sampleTypeForm" method="post" action="index.php">
+<form class="form-horizontal " id="sampleTypeForm" method="post" action="sampleTypeWrite">
 <input type="hidden" name="moduleBase" value="sampleType">
-<input type="hidden" name="action" value="Write">
 <input type="hidden" name="sample_type_id" value="{$data.sample_type_id}">
 <div class="form-group">
 <label for="sampleTypeName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>

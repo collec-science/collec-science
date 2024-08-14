@@ -9,7 +9,7 @@ $(document).ready( function () {
 		var id = $("#booking_id").val();
 		$("#overlaps").text("");
 		if (from.length > 0 && to.length > 0 && uid > 0) {
-			var url = "index.php";
+			var url = "";
 			$.getJSON ( url, {
 				"module":"bookingVerifyInterval",
 				"uid":uid,
@@ -62,10 +62,9 @@ $(document).ready( function () {
 {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
 </a>
 <div class="red" id="overlaps"></div>
-<form class="form-horizontal protoform" id="bookingForm" method="post" action="index.php">
+<form class="form-horizontal " id="bookingForm" method="post" action="{$moduleParent}bookingWrite">
 <input type="hidden" id="booking_id" name="booking_id" value="{$data.booking_id}">
 <input type="hidden" name="moduleBase" value="{$moduleParent}booking">
-<input type="hidden" name="action" value="Write">
 <input type="hidden" id="uid" name="uid" value="{$object.uid}">
 <input type="hidden" name="activeTab" value="{$activeTab}">
 

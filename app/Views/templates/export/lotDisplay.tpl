@@ -72,12 +72,11 @@
                                 <dd>{$data.sample_number}</dd>
                             </dl>
                             <div class="center">
-                                <form id="lotForm" action="index.php" method="POST">
+                                <form id="lotForm" action="lotdelete" method="POST">
                                     <input type="hidden" name="moduleBase" value="lot">
                                     <button class="btn btn-danger button-delete">
                                         {t}Supprimer{/t}
                                     </button>
-                                    <input type="hidden" name="action" value="delete">
                                 {$csrf}</form>
                             </div>
                         </div>
@@ -122,8 +121,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="navcols" role="tabpanel" aria-labelledby="tabcols">
-                <form action="index.php" method="post">
-                    <input type="hidden" name="module" value="lotDeleteSamples">
+                <form action="lotDeleteSamples" method="post">
                     <input type="hidden" name="lot_id" value="{$data.lot_id}">
                     <div class="row">
                         <div class="col-lg-6 col-md-8">

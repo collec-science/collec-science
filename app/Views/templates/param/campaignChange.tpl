@@ -10,9 +10,8 @@
 <h3>{t}Création/modification d'une campagne{/t}</h3>
 <div class="row">
     <div class="col-md-8">
-        <form class="form-horizontal protoform" id="campaignChange" method="post" action="index.php">
+        <form class="form-horizontal " id="campaignChange" method="post" action="campaignWrite">
             <input type="hidden" name="moduleBase" value="campaign">
-            <input type="hidden" name="action" value="Write">
             <input type="hidden" name="campaign_id" value="{$data.campaign_id}">
             <div class="form-group">
                 <label for="campaign_name" class="control-label col-md-4"><span class="red">*</span> 

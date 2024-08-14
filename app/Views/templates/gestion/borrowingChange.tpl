@@ -37,10 +37,9 @@
             <img src="display/images/edit.gif" height="25">
             {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
             </a>
-        <form class="form-horizontal protoform" id="borrowingForm" method="post" action="index.php">
+        <form class="form-horizontal " id="borrowingForm" method="post" action="{$moduleParent}borrowingWrite">
             <input type="hidden" name="moduleBase" value="borrowing">
             <input type="hidden" name="moduleBase" value="{$moduleParent}borrowing">
-            <input type="hidden" name="action" value="Write">
             <input type="hidden" name="borrowing_id" value="{$data.borrowing_id}">
             <input type="hidden" name="uid" value="{$data.uid}">
             <input type="hidden" name="activeTab" value="{$activeTab}">

@@ -4,9 +4,8 @@
 <div class="col-md-6">
 <a href="operationList">{t}Retour à la liste{/t}</a>
 
-<form class="form-horizontal protoform" id="operationForm" method="post" action="index.php">
+<form class="form-horizontal " id="operationForm" method="post" action="operationWrite">
 <input type="hidden" name="moduleBase" value="operation">
-<input type="hidden" id="action" name="action" value="Write">
 <input type="hidden" name="operation_id" value="{$data.operation_id}">
 <div class="form-group">
 <label for="protocolId"  class="control-label col-md-4"><span class="red">*</span> {t}Protocole :{/t}</label>

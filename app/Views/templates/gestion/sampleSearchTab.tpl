@@ -117,7 +117,7 @@
                 }
                 lastSampletypeId = sampleTypeId;
                 $.ajax( {
-                    url: "index.php",
+                    url: "",
                     data: { "module": "sampleTypeMetadataSearchable", "sample_type_id": sampleTypeId }
                 })
                 .done (function (value) {
@@ -175,7 +175,7 @@
         }
         function getSamplingPlace () {
             var colid = $("#collection_id").val();
-            var url = "index.php";
+            var url = "";
             var data = { "module":"samplingPlaceGetFromCollection", "collection_id": colid };
             $.ajax ( { url:url, data: data})
             .done (function( d ) {
@@ -207,7 +207,7 @@
             if (!colid > 0) {
                 colid = 0;
             }
-            var url = "index.php";
+            var url = "";
             var data = { 
                 "module":"eventTypeGetAjax", 
                 "collection_id": colid,
@@ -367,9 +367,8 @@
 </script>
 <div class="col-md-12">
     <div class="row">
-        <form class="" id="sample_search" action="index.php" method="GET">
+        <form class="" id="sample_search" action="{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}{if strlen($action)>0}{$action}{else}List{/if}" method="GET">
             <input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}">
-            <input id="action" type="hidden" name="action" value="{if strlen($action)>0}{$action}{else}List{/if}">
             <input id="isSearch" type="hidden" name="isSearch" value="1">
             <input type="hidden" id="SouthWestlon" name="SouthWestlon" value="{$sampleSearch.SouthWestlon}">
             <input type="hidden" id="SouthWestlat" name="SouthWestlat" value="{$sampleSearch.SouthWestlat}">

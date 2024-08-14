@@ -4,7 +4,7 @@
 		var type_init = "{if $containerSearch.container_type_id > 0}{$containerSearch.container_type_id}{else}0{/if}";
 		function searchType() {
 			var family = $("#container_family_id").val();
-			var url = "index.php";
+			var url = "";
 			$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
 				if (data != null) {
 					options = '<option value="">{t}Choisissez...{/t}</option>';
@@ -97,9 +97,8 @@
 
 </script>
 <div class="row col-lg-10 col-md-12">
-	<form class="" id="container_search" action="index.php" method="GET">
+	<form class="" id="container_search" action="{if strlen($moduleBase)>0}{$moduleBase}{else}container{/if}{if strlen($action)>0}{$action}{else}List{/if}" method="GET">
 		<input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}container{/if}">
-		<input id="action" type="hidden" name="action" value="{if strlen($action)>0}{$action}{else}List{/if}">
 		<input id="isSearch" type="hidden" name="isSearch" value="1">
     <!-- Tab box -->
     <ul class="nav nav-tabs" id="searchTab" role="tablist" >

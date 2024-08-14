@@ -23,10 +23,9 @@ $(document).ready(function() {
 
 
 
-		<form class="form-horizontal protoform" id="movementBatchForm"
-			method="post" action="index.php">
+		<form class="form-horizontal " id="movementBatchForm"
+			method="post" action="movementBatchRead">
 			<input type="hidden" name="moduleBase" value="movementBatch">
-			<input	type="hidden" name="action" value="Read">
 			<div class="bg-info">
 {t}Pour entrer ou déplacer des objets dans un contenant, commencez toujours par scanner/saisir le contenant puis les objets.{/t}
 </div>

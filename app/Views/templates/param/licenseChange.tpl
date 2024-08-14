@@ -3,7 +3,7 @@
   <div class="col-md-6">
     <a href="licenseList">{t}Retour à la liste{/t}</a>
 
-    <form class="form-horizontal protoform" id="licenseForm" method="post" action="index.php">
+    <form class="form-horizontal " id="licenseForm" method="post" action="licenseWrite">
       <input type="hidden" name="moduleBase" value="license">
       <input type="hidden" name="action" value="Write">
       <input type="hidden" name="license_id" value="{$data.license_id}">

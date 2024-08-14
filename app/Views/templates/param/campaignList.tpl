@@ -70,9 +70,8 @@
 <div class="row">
     <fieldset class="col-md-6">
         <legend>{t}Importer une liste de campagnes à partir d'un fichier CSV{/t}</legend>
-        <form class="form-horizontal" id="campaignImport" method="post" action="index.php"
+        <form class="form-horizontal" id="campaignImport" method="post" action="campaignImport"
             enctype="multipart/form-data">
-            <input type="hidden" name="module" value="campaignImport" required>
             <div class="form-group">
                 <label for="upfile" class="control-label col-md-4"><span class="red">*</span> 
                     {t}Nom du fichier à importer :{/t}

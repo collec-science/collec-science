@@ -23,9 +23,8 @@
 </div>
 <div class="row">
   <div class="col-md-6">
-    <form id="translatorId" class="form-horizontal" action="index.php" method="POST">
+    <form id="translatorId" class="form-horizontal" action="translatorWrite" method="POST">
       <input type="hidden" name="moduleBase" value="translator">
-      <input type="hidden" name="action" value="Write">
       <input type="hidden" name="translator_id" value="{$data.translator_id}">
       <div class="form-group center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>

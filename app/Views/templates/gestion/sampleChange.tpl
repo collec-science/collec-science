@@ -92,7 +92,7 @@
        	    var sti = $("#sample_type_id").val();
        	    if (sti) {
        	    	$.ajax( {
-       	    		url: "index.php",
+       	    		url: "",
        	    		data: { "module": "sampleTypeMetadata", "sample_type_id": sti }
        	    	})
        	    	.done (function (value) {
@@ -113,7 +113,7 @@
     		 * Recuperation de la liste des lieux de prelevement rattaches a la collection
     		 */
     		var colid = $("#collection_id").val();
-    		var url = "index.php";
+    		var url = "";
     		var data = { "module":"samplingPlaceGetFromCollection", "collection_id": colid };
     		$.ajax ( { url:url, data: data})
     		.done (function( d ) {
@@ -147,7 +147,7 @@
     			var x = $("#wgs84_x").val();
     			var y = $("#wgs84_y").val();
     			if ( x.length == 0 && y.length == 0 ) {
-    				var url = "index.php";
+    				var url = "";
     	    		var data = { "module":"samplingPlaceGetCoordinate", "sampling_place_id": locid };
     	    		$.ajax ( { url:url, data: data})
     	    		.done (function( data ) {
@@ -169,7 +169,7 @@
     		var sti = $("#sample_type_id").val();
        	    if (sti) {
        	    	$.ajax( {
-       	    		url: "index.php",
+       	    		url: "",
        	    		data: { "module": "sampleTypeGenerator", "sample_type_id": sti }
        	    	})
        	    	.done (function (value) {
@@ -186,7 +186,7 @@
 		function setGeographicVisibility() {
 			var collection_id = $("#collection_id").val();
 			$.ajax( {
-				url: "index.php",
+				url: "",
 				data: { "module": "collectionGet", "collection_id": collection_id}
 			})
 			.done (function (value) {
@@ -203,7 +203,7 @@
 		function getSampletype() {
 			var collection_id = $("#collection_id").val();
 			$.ajax( {
-				url: "index.php",
+				url: "",
 				data: { "module": "sampleTypeGetListAjax", "collection_id": collection_id}
 			})
 			.done (function (value) {
@@ -373,7 +373,7 @@
 		$("#parent_search").on("focusout", function() {
 			var chaine = $("#parent_search").val();
 			if (chaine.length > 0) {
-				var url = "index.php";
+				var url = "";
 				var is_container = 2;
 				var sample_id = $("#sample_id").val();
 				var collection = "";
@@ -417,7 +417,7 @@
 			var id = $(this).val();
 			var sample_id = $("#sample_id").val();
 			if ( id != null && sample_id == 0) {
-				$.ajax( { url:"index.php", method:"GET", data : { module: "sampleGetFromIdAjax", sample_id:id},
+				$.ajax( { url:"", method:"GET", data : { module: "sampleGetFromIdAjax", sample_id:id},
 				success : function (djs) {
 					var collection = "";
 					var type = "";
@@ -483,11 +483,9 @@
 {/if}
 <div class="row">
 	<div class="col-md-6">
-		<form class="form-horizontal protoform" id="sampleForm" method="post" action="index.php" onsubmit="return(testScan());">
+		<form class="form-horizontal " id="sampleForm" method="post" action="sampleWrite" onsubmit="return(testScan());">
 			<input type="hidden" id="sample_id" name="sample_id" value="{$data.sample_id}">
 			<input type="hidden" name="moduleBase" value="sample">
-			<input type="hidden" id="action" name="action" value="Write">
-			<!--input type="hidden" name="parent_sample_id" value="{$data.parent_sample_id}"-->
 			<input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
 			<div class="form-group center">
 				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>

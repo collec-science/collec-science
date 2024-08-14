@@ -8,7 +8,7 @@ var type_movement = "{$data.movement_type_id}";
 	 */
 	function searchType() {
 	var family = $("#container_family_id").val();
-	var url = "index.php";
+	var url = "";
 	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
 		if (data != null) {
 			options = '<option value="" selected>{t}Choisissez...{/t}</option>';
@@ -28,7 +28,7 @@ var type_movement = "{$data.movement_type_id}";
 	 */
 	function searchContainer () {
 		var containerType = $("#container_type_id").val();
-		var url = "index.php";
+		var url = "";
 		var uid = 0;
 		$.getJSON ( url, { "module":"containerGetFromType", "container_type_id":containerType } , function( data ) {
 			if (data != null) {
@@ -81,7 +81,7 @@ var type_movement = "{$data.movement_type_id}";
 	 * Recherche du libelle du container en saisie directe
 	 */
 	 $("#container_uid").change(function () {
-			var url = "index.php";
+			var url = "";
 			var uid = $(this).val();
 			$.getJSON ( url, { "module":"containerGetFromUid", "uid":uid } , function( data ) {
 				if (data != null) {
@@ -98,7 +98,7 @@ var type_movement = "{$data.movement_type_id}";
 		});
 	 });
 	 function getOccupation(uid) {
-		var url = "index.php";
+		var url = "";
 		var data = { "module":"containerGetOccupation", "uid": uid };
 		$.ajax ( { url:url, data: data})
 		.done (function( d ) {
@@ -204,10 +204,9 @@ var type_movement = "{$data.movement_type_id}";
 			{t}Retour au détail{/t}
 		</a>
 	{/if}
-	<form class="form-horizontal protoform" id="movement{$moduleParent}Form" method="post" action="index.php">
+	<form class="form-horizontal " id="movement{$moduleParent}Form" method="post" action="movement{$moduleParent}Write">
 		<input type="hidden" name="movement_id" value="{$data.movement_id}">
 		<input type="hidden" name="moduleBase" value="movement{$moduleParent}">
-		<input type="hidden" name="action" value="Write">
 		<input type="hidden" name="movement_type_id" id="movement_type_id" value="{$data.movement_type_id}">
 		<input type="hidden" name="container_id" id="container_id" value="{$data.container_id}">
 		<input type="hidden" name="activeTab" value="{$activeTab}">

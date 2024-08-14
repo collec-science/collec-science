@@ -46,8 +46,7 @@
 	<div class="row col-md-6">
 		<fieldset>
 			<legend>{t}Importer d'un modèle d'export provenant d'une autre base de données Collec-Science{/t}</legend>
-			<form class="form-horizontal" id="exportTemplateImport" method="post" action="index.php" enctype="multipart/form-data">
-				<input type="hidden" name="module" value="exportTemplateImport">
+			<form class="form-horizontal" id="exportTemplateImport" method="post" action="exportTemplateImport" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
 					<div class="col-md-8">

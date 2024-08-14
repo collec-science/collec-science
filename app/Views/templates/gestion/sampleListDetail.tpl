@@ -258,7 +258,7 @@
 				if ( !objet.is( ':ui-tooltip' ) ) {
 					if ( uid > 0 && ajaxDone ) {
 						ajaxDone = false;
-						var url = "index.php";
+						var url = "";
 						var data = { "module": "sampleDetail", "uid": uid };
 						$.ajax( { url: url, data: data } )
 							.done( function ( d ) {
@@ -410,7 +410,7 @@
 		 */
 		function searchType() {
 			var family = $( "#container_family_id" ).val();
-			var url = "index.php";
+			var url = "";
 			$.getJSON( url, { "module": "containerTypeGetFromFamily", "container_family_id": family }, function ( data ) {
 				if ( data != null ) {
 					options = '<option value="" selected>{t}Choisissez...{/t}</option>';
@@ -426,7 +426,7 @@
 		}
 		function searchContainer() {
 			var containerType = $( "#container_type_id" ).val();
-			var url = "index.php";
+			var url = "";
 			$.getJSON( url, { "module": "containerGetFromType", "container_type_id": containerType }, function ( data ) {
 				if ( data != null ) {
 					options = '';
@@ -446,7 +446,7 @@
 		function getTypeEvents() {
 			var col_id = $("#collection_id").val();
 			if (col_id > 0) {
-				var url="index.php";
+				var url="";
 				$.getJSON( url, { "module": "eventTypeGetAjax", "object_type": "1", "collection_id" : col_id }, function ( data ) {
 				if ( data != null ) {
 					options = '';
@@ -469,7 +469,7 @@
 			$( "#container_uidChange" ).val( a_texte[ 0 ] );
 		} );
 		$( "#container_uidChange" ).change( function () {
-			var url = "index.php";
+			var url = "";
 			var uid = $( this ).val();
 			$.getJSON( url, { "module": "containerGetFromUid", "uid": uid }, function ( data ) {
 				if ( data.container_id ) {
@@ -494,7 +494,7 @@
 		$("#parent_search").on("focusout", function() {
 			var chaine = $("#parent_search").val();
 			if (chaine.length > 0) {
-				var url = "index.php";
+				var url = "";
 				var is_container = 2;
 				var sample_id = $("#sample_id").val();
 				var collection = "";
@@ -528,7 +528,7 @@
 		 });
 		function addChildren(objet) {
 			var uid = objet.data( "uid" );
-			var url = "index.php";
+			var url = "";
 			var data = { "module": "sampleGetChildren", "uid": uid };
 			objet.hide();
 			var id = objet.attr('id');
@@ -658,7 +658,7 @@
 </script>
 <div class="col-lg-12">
 {include file="gestion/displayPhotoScript.tpl"}
-	<form method="POST" id="sampleFormListPrint" target="_blank" "index.php" enctype="multipart/form-data">
+	<form method="POST" id="sampleFormListPrint" target="_blank" "" enctype="multipart/form-data">
 		<input type="hidden" id="samplemodule" name="module" value="samplePrintLabel">
 		<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
 		<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">

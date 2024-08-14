@@ -13,7 +13,7 @@
             </a>
         {/if}
 
-        <form class="form-horizontal protoform" id="borrowerForm" method="post" action="index.php">
+        <form class="form-horizontal " id="borrowerForm" method="post" action="borrowerWrite">
         <input type="hidden" name="moduleBase" value="borrower">
         <input type="hidden" name="action" value="Write">
         <input type="hidden" name="borrower_id" value="{$data.borrower_id}">

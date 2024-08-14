@@ -1,8 +1,7 @@
 <h2>{t}Import de containers et d'échantillons inclus provenant d'une base externe à partir d'un fichier JSON{/t}</h2>
 <div class="row">
     <div class="col-md-6">
-        <form class="form-horizontal protoform" id="containerStage1" method="post" action="index.php" enctype="multipart/form-data">
-            <input type="hidden" name="module" value="containerImportStage2">
+        <form class="form-horizontal " id="containerStage1" method="post" action="containerImportStage2" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
                 <div class="col-md-8">
@@ -31,8 +30,7 @@
 {if $stage > 1}
     <fieldset class="row col-md-12">
         <legend>{t}Tableau de correspondance entre les libellés fournis et ceux de la base de données locale{/t}</legend>
-        <form class="form-horizontal protoform" id="containerStage2" method="post" action="index.php" enctype="multipart/form-data">
-            <input type="hidden" name="module" value="containerImportStage3">
+        <form class="form-horizontal " id="containerStage2" method="post" action="containerImportStage3" enctype="multipart/form-data">
             <input type="hidden" name="realfilename" value="{$realfilename}">
             <input type="hidden" name="separator" value="{$separator}">
             <input type="hidden" name="utf8_encode" value="{$utf8_encode}">

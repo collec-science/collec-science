@@ -246,7 +246,7 @@
 			if ( referentId > 0 && !isReferentDisplayed ) {
 				isReferentDisplayed = true;
 				$.ajax( {
-					url: "index.php",
+					url: "",
 					data: { "module": "referentGetFromId", "referent_id": referentId }
 				} )
 					.done( function ( value ) {
@@ -267,7 +267,7 @@
 			* Recherche si un sample existe
 			*/
 			var form = $( this );
-			var url = "index.php";
+			var url = "";
 			var uid = $( "#search" ).val();
 			if ( $( "#search" ).val().length > 0 ) {
 				try {
@@ -436,9 +436,8 @@
 		{/if}
 	</div>
 	<div id="rapidAccessForm" hidden class="col-sm-4 col-lg-offset-2 col-lg-2">
-		<form id="open" action="index.php" action="index.php" method="GET">
+		<form id="open" action="sampleDisplay" method="GET">
 			<input id="moduleBase" type="hidden" name="moduleBase" value="sample">
-			<input id="action" type="hidden" name="action" value="Display">
 			<div class="form-group">
 				<div class="col-md-6 col-sm-offset-2 col-md-offset-0 col-sm-4">
 					<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required>
@@ -518,8 +517,7 @@
 		<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
 			<div class="form-display col-md-6">
 				{if $rights.manage == 1}
-				<form method="GET" id="SampleDisplayFormListPrint" action="index.php">
-					<input type="hidden" id="modulePrint" name="module" value="sampleUniquePrintLabel">
+				<form method="GET" id="SampleDisplayFormListPrint" action="sampleUniquePrintLabel">
 					<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
 					<input type="hidden" name="uid" value="{$data.uid}">
 					<input type="hidden" name="lastModule" value="sampleDisplay">

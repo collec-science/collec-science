@@ -22,11 +22,10 @@ Ppci\Config\IdentificationConfig.disableTotpToAdmin=1
 #--------------------------------------------------------------------
 # Ppci configuration
 #--------------------------------------------------------------------
-app.baseURL = 'https://myapp.mysociety.com'
-BASE_DIR = "/var/webroot/project-root"
+app.baseURL = 'https://collec.mysociety.com'
+BASE_DIR = "/var/www/collecApp/collec2"
 FRONT_DIR = "${BASE_DIR}/public"
 # If you have trouble with `.`, you could also use `_`.
-app.CSPEnabled = true
 # Duration of conservation of logs in table gacl.log
 # logDuration = 365
 
@@ -38,13 +37,13 @@ session.expiration = 14400
 #--------------------------------------------------------------------
 
 database.default.hostname = localhost
-database.default.database = dbname
-database.default.username = login
-database.default.password = password
+database.default.database = collec
+database.default.username = collec
+database.default.password = collecPassword
 database.default.DBDriver = Postgre
 database.default.DBPrefix =
 database.default.port = 5432
-database.default.searchpath = public,app,gacl
+database.default.searchpath = col,gacl,public
 database.default.charset = utf8
 
 # Ppci\Config\Ppci.language = fr
@@ -52,8 +51,8 @@ database.default.charset = utf8
 #--------------------------------------------------------------------
 # Encryption
 #--------------------------------------------------------------------
-# privateKey = ${BASE_DIR}/id_app
-# pubKey = ${BASE_DIR}/id_app.pub
+app.privateKey = ${BASE_DIR}/id_collec
+app.pubKey = ${BASE_DIR}/id_collec.pub
 
 #--------------------------------------------------------------------
 # Ppci identification
@@ -151,7 +150,7 @@ Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
 # Ppci Rights
 #--------------------------------------------------------------------
 # Name of the application in the right module
-# app.GACL_aco = app
+app.GACL_aco = col
 
 # Set 1 to disable the creation of new rights in table aclaco
 #

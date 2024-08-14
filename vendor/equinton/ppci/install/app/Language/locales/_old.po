@@ -1,0 +1,3650 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-21 12:01+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. (itstool) path: menu/item@label
+#: ../../Config/menu.xml:7
+msgid "Lectures"
+msgstr "Readings"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../Config/menu.xml:7
+msgid "Lectures des pièces calcifiées"
+msgstr "Reading calcified parts"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:8
+msgid "Poissons"
+msgstr "Fish"
+
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:8 ../../Views/templates/gestion/individuListe.tpl:1
+msgid "Liste des poissons"
+msgstr "List of fish"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:9
+msgid "Lectures réalisées"
+msgstr "Performed readings"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:9
+msgid "Liste des lectures réalisées"
+msgstr "List of performed readings"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:10 ../../Config/menu.xml:18
+msgid "Pièces"
+msgstr "Parts"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:10
+msgid "Liste des pièces"
+msgstr "List of pieces"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:12
+msgid "Import"
+msgstr "Import"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:12
+msgid "Importer des poissons"
+msgstr "Import fish"
+
+#. (itstool) path: menu/item@label
+#: ../../Config/menu.xml:15
+msgid "Paramètres"
+msgstr "Settings"
+
+#. (itstool) path: menu/item@tooltip
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:15 ../../Config/menu.xml:31
+msgid "Paramètres de l'application"
+msgstr "Application Settings"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:16
+msgid "Expérimentations"
+msgstr "Experiments"
+
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:16
+#: ../../Views/templates/gestion/experimentationList.tpl:1
+msgid "Liste des expérimentations"
+msgstr "Experiment list"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:17
+msgid "Lecteurs"
+msgstr "Readers"
+
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:17 ../../Views/templates/gestion/lecteurListe.tpl:1
+msgid "Liste des lecteurs"
+msgstr "List of readers"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:18
+msgid "Liste des types de pièces calcifiées"
+msgstr "List of types of calcified pieces"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:19
+msgid "Espèces"
+msgstr "Species"
+
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:19 ../../Views/templates/gestion/especeList.tpl:1
+msgid "Liste des espèces"
+msgstr "List of species"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:20
+msgid "Métadonnées"
+msgstr "Metadata"
+
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:20 ../../Views/templates/param/metadatatypeList.tpl:15
+msgid "Modèles de métadonnées"
+msgstr "Metadata templates"
+
+#. (itstool) path: item/item@label
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:22
+msgid "Schéma de la base de données"
+msgstr "Database structure"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:23
+msgid "Structure de la base de données (HTML)"
+msgstr "Database structure (HTML)"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:23
+msgid "Liste des tables et des colonnes"
+msgstr "List of tables and columns"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:24
+msgid "Structure de la base de données (Latex)"
+msgstr "Database structure (Latex)"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:24
+msgid "Liste des tables et des colonnes sous forme de tableaux Latex"
+msgstr "List of tables and columns in Latex format"
+
+#. (itstool) path: menu/item@label
+#: ../../Config/menu.xml:26
+msgid "Administration"
+msgstr "Administration"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../Config/menu.xml:26
+msgid "Administration de l'application"
+msgstr "Application administration"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:27
+msgid "Liste des comptes locaux"
+msgstr "Local accounts list"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:27
+msgid "Liste des logins - identification via la base de données"
+msgstr "List of logins - identification via the database"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:28
+msgid "ACL - droits"
+msgstr "ACL - rights"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:28
+msgid "applications et droits gérés"
+msgstr "applications and rights managed"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:29
+msgid "ACL - logins"
+msgstr "ACL - logins"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:29
+msgid "Logins déclarés dans le module de manage des droits"
+msgstr "Logins declared in the rights management module"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:30
+msgid "ACL - groupes de logins"
+msgstr "ACL - login groups"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:30
+msgid "Groupes de logins et logins rattachés aux groupes"
+msgstr "Groups of logins and logins attached to groups"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:31
+msgid "Liste des paramètres pérennes de l'application"
+msgstr "List of long-term parameters of the application"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:33
+msgid "PHP info"
+msgstr "PHP info"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:33
+msgid "configuration générale du serveur PHP"
+msgstr "general configuration of the PHP server"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:34
+msgid "Logs"
+msgstr "Logs"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:34
+msgid "Consultation des logs enregistrées"
+msgstr "Consultation of recorded logs"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:35
+msgid "Variables SERVER"
+msgstr "SERVER variables"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:35
+msgid "Affichage des variables fournies par le serveur"
+msgstr "Display of variables supplied by the server"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:36
+msgid "Variables SESSION"
+msgstr "SESSION variables"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:36
+msgid "Affichage des variables de session"
+msgstr "Display of the session variables"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:38
+msgid "Backup"
+msgstr "Backup"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:38
+msgid "Sauvegarde de la base de données"
+msgstr "Backup of the database"
+
+#. (itstool) path: menu/item@label
+#: ../../Config/menu.xml:40
+msgid "Connexion"
+msgstr "Sign in"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../Config/menu.xml:40
+msgid "S'identifier dans l'application"
+msgstr "Sign in to the app"
+
+#. (itstool) path: menu/item@label
+#: ../../Config/menu.xml:41
+msgid "Déconnexion"
+msgstr "Sign out"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../Config/menu.xml:41
+msgid "Déconnexion de l'application"
+msgstr "Sign out of the app"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:42
+msgid "Activer la double authentification"
+msgstr "Enable dual authentication"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:42
+msgid "Activer la double authentification pour votre compte"
+msgstr "Enabling dual authentication for your account"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:43
+msgid "Nouvelle version ?"
+msgstr "New version?"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:43
+msgid "Rechercher s'il existe une nouvelle version disponible de l'application"
+msgstr "Find out if there is a new version of the application available"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:44
+msgid "Dernières connexions"
+msgstr "Last connections"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:44
+msgid "Liste des dernières connexions réalisées"
+msgstr "List of last connections"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:45
+msgid "Modifier le mot de passe"
+msgstr "Change your password"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:45
+msgid "Modifiez votre mot de passe (identification locale uniquement)"
+msgstr "Change your password (local identification only)"
+
+#. (itstool) path: menu/item@label
+#: ../../Config/menu.xml:47
+msgid "?"
+msgstr "?"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../Config/menu.xml:47
+msgid "Aide"
+msgstr "Help"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:48
+msgid "A propos"
+msgstr "About"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:48
+msgid "A propos de Metabo"
+msgstr "About Otolith"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:49
+msgid "Nouveautés"
+msgstr "What's new?"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:49
+msgid "Quoi de neuf dans l'application ?"
+msgstr "What's new in the app?"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:50
+msgid "Lexique"
+msgstr "Glossary"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:50
+msgid "Lexique des termes utilisés dans le logiciel"
+msgstr "Glossary of terms used in the software"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:51
+msgid "Français"
+msgstr "French"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:51
+msgid "Libellés en français"
+msgstr "Labels in French"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:52
+msgid "English"
+msgstr "English"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:52
+msgid "Labels in English"
+msgstr "Labels in English"
+
+#: ../../../app/Libraries/Piece.php:96
+msgid "Problème lors de la lecture des métadonnées rattachées à la pièce"
+msgstr "An error occurred when reading the metadata associated with the piece"
+
+#: ../../../app/Libraries/Piece.php:187
+msgid "Le nom de l'expérimentation n'a pas été fournie"
+msgstr "The name of the experimentation has not been filled out"
+
+#: ../../../app/Libraries/Piece.php:190
+msgid "Pas de pièces à exporter"
+msgstr "No pieces to export"
+
+#: ../../../app/Libraries/Piece.php:201
+msgid "Aucune pièce n'a été sélectionnée dans la base de données"
+msgstr "No pieces have been selected from the database"
+
+#: ../../../app/Libraries/Piece.php:207
+msgid "L'exportation n'a pas été réalisée"
+msgstr "The export was not realized"
+
+#: ../../../app/Libraries/Piecemetadata.php:123
+msgid "Importation du jeu de métadonnées effectué"
+msgstr "Metadata set import done"
+
+#: ../../../app/Libraries/Piecemetadata.php:128
+#: ../../../app/Libraries/Metadatatype.php:140
+msgid "Impossible de charger le fichier à importer"
+msgstr "Unable to load the file to import"
+
+#: ../../../app/Libraries/Photolecture.php:164
+msgid ""
+"Vous n'êtes pas le lecteur initial : vous ne pouvez modifier cette lecture"
+msgstr "You are not the initial reader: you cannot modify this reading"
+
+#: ../../../app/Libraries/Photolecture.php:169
+msgid "Vous ne disposez pas des droits nécessaires pour réaliser une lecture"
+msgstr "You are not granted to read"
+
+#: ../../../app/Libraries/Photolecture.php:372
+msgid "Vous ne disposez pas des droits suffisants pour supprimer la lecture"
+msgstr "You are not granted to delete this reading"
+
+#: ../../../app/Libraries/Individu.php:176
+msgid "Au moins une expérimentation doit être associée avec le poisson"
+msgstr "At least one experiment must be associated with the fish"
+
+#: ../../../app/Libraries/Metadatatype.php:132
+#, php-format
+msgid "%s description(s) de métadonnée(s) importée(s)"
+msgstr "%s imported metadata description"
+
+#: ../../../app/Libraries/Metadatatype.php:135
+msgid "Impossible d'importer les métadonnées"
+msgstr "Can not import metadata"
+
+#: ../../../app/Libraries/Photo.php:124
+msgid "La taille de la photo excède la taille autorisée"
+msgstr "The size of the photo exceeds the size allowed"
+
+#: ../../../app/Libraries/Photo.php:132
+msgid ""
+"Une erreur s'est produite lors du chargement de la photo. Si le problème "
+"persiste, contactez votre support technique"
+msgstr ""
+"An error occurred while loading the photo. If the problem persists, contact "
+"your technical support"
+
+#: ../../../app/Models/Piece.php:109 ../../../app/Models/Photo.php:219
+msgid "La suppression d'une clé nulle ou non numérique n'est pas possible"
+msgstr "Deleting a null or non-numeric key is not possible"
+
+#: ../../../app/Models/Import.php:121
+#, php-format
+msgid "L'entête de colonne %1$s n'est pas reconnue (%2$s)"
+msgstr "Column header %1$s is not recognized (%2$s)"
+
+#: ../../../app/Models/Import.php:125
+#, php-format
+msgid "%s non trouvé ou non lisible"
+msgstr "%s not found or not readable"
+
+#: ../../../app/Models/Import.php:341
+msgid "Aucun code (codeindividu ou tag) n'a été indiqué."
+msgstr "No code (individual code or tag) has been specified."
+
+#: ../../../app/Models/Import.php:355
+msgid "Le numéro de l'expérimentation est manquant, inconnu ou non autorisé."
+msgstr "Experiment number is missing, unknown or unautorized."
+
+#: ../../../app/Models/Import.php:369
+msgid "Le numéro d'espèce est manquant ou non connu."
+msgstr "Specie number is missing or unknown"
+
+#: ../../../app/Models/Import.php:385
+msgid "Le sexe indiqué n'existe pas dans la base de données."
+msgstr "The specified sex don't exist in the database."
+
+#: ../../../app/Models/Import.php:393
+msgid "L'UUID de l'individu n'est pas correct."
+msgstr "Individual UUID is not correct."
+
+#: ../../../app/Models/Import.php:402
+msgid "La pièce dispose d'un code, mais son type n'a pas été indiqué."
+msgstr "The piece has a code, but its type has not been specified"
+
+#: ../../../app/Models/Import.php:417
+msgid "Le type de pièce indiqué n'est pas connu."
+msgstr "The type of piece is unknown"
+
+#: ../../../app/Models/Import.php:424
+msgid "L'UUID de la pièce n'est pas correct."
+msgstr "Piece UUID is not correct."
+
+#: ../../../app/Models/Import.php:455
+msgid ""
+"Le type de métadonnées (metadatatype_id) n'est pas renseigné ou inconnu."
+msgstr "The metadata type (metadatatype_id) is unknown or empty."
+
+#: ../../../app/Models/Import.php:467
+#, php-format
+msgid "Le champ %s n'est pas numérique."
+msgstr "The field %1$s is not numeric."
+
+#: ../../../app/Models/Import.php:477
+msgid "La date de pêche est mal formatée"
+msgstr "The date of fishing is poorly formatted"
+
+#: ../../../app/Models/Import.php:486
+msgid "La date associée aux méta-données est mal formatée"
+msgstr "The date related with the metadata is poorly formatted"
+
+#: ../../../app/Models/Individu.php:240
+msgid "Des photos sont rattachées au poisson, sa suppression est impossible"
+msgstr "Photos are attached to the fish, its removable is impossible"
+
+#: ../../../app/Models/Photo.php:130
+msgid "Imagick - impossible de charger la photo "
+msgstr "Imagick - impossible to load the photo"
+
+#: ../../../app/Models/Photo.php:146
+msgid "Imagick - impossible de redimensionner la photo"
+msgstr "Imagick - impossible to resize the photo"
+
+#: ../../../app/Models/Photo.php:153
+msgid "Imagick - impossible de définir le format de la photo"
+msgstr "Imagick - impossible to define the format of the photo"
+
+#: ../../../app/Models/Photo.php:186
+msgid ""
+"Problème rencontré lors du parcours des photos existantes ou de leur "
+"suppression"
+msgstr "An error occurred when browsing existing photos or deleting them"
+
+#: ../../../app/Models/Photo.php:294
+msgid "La photo demandée n'existe pas"
+msgstr "The requested picture does not exist"
+
+#: ../../../app/Models/Photo.php:334
+msgid "Problème d'écriture de la photo dans le dossier temporaire"
+msgstr "Problem of writing the photo in the temporary folder"
+
+#: ../../../app/Models/Experimentation.php:76
+#, php-format
+msgid ""
+"%s individus sont rattachés à l'expérimentation, elle ne peut pas être "
+"supprimée"
+msgstr "%s individuals are attached to the experiment, it cannot be deleted"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Views/PdfView.php:71
+msgid "Le fichier ne peut pas être envoyé au navigateur"
+msgstr "The file cannot be sent to the browser"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Views/PdfView.php:74
+msgid "Aucun contenu disponible"
+msgstr "No content available"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Views/BinaryView.php:59
+msgid "Problème rencontré lors de l'ouverture de finfo"
+msgstr "Problem encountered when opening finfo"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Views/SmartyPpci.php:93
+#, php-format
+msgid ""
+"Mode développement - base de données : pgsql:host=%1s;dbname=%2s - schema : "
+"%3s"
+msgstr "Development mode - database: pgsql:host=%1s;dbname=%2s - schema: %3s"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Views/FileView.php:38
+msgid ""
+"Le nom du fichier à exporter n'a pas été renseigné et aucune donnée n'est "
+"disponible pour l'exportation"
+msgstr ""
+"The name of the file to be exported has not been entered and no data is "
+"available for export."
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:42
+msgid "Erreur de lecture des informations dans la base de données"
+msgstr "Error reading information in the database"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:59
+#: ../../../vendor/equinton/ppci/src/Libraries/Dbparam.php:22
+msgid "Enregistrement effectué"
+msgstr "Saved"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:65
+msgid ""
+"Un problème est survenu lors de l'enregistrement. Si le problème persiste, "
+"contactez votre support"
+msgstr ""
+"A problem is occurred during the registration. If it persist, contact your "
+"support"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:71
+#, php-format
+msgid "La clé n'a pas été retournée lors de l'enregistrement dans %s"
+msgstr "The key was not returned during registration in %s"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:80
+msgid ""
+"Un enregistrement portant déjà ce nom existe déjà dans la base de données."
+msgstr "A record with this name already exists into the database."
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:97
+msgid "Suppression effectuée"
+msgstr "Deletion done"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:108
+msgid ""
+"La suppression n'est pas possible : des informations sont référencées par "
+"cet enregistrement"
+msgstr "Delete is not possible: some data as referenced by this item"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:113
+msgid "Problème lors de la suppression"
+msgstr "Problem when deleting"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/LastRelease.php:35
+msgid "Impossible de récupérer la dernière version publiée de l'application"
+msgstr "Unable to retrieve the latest published version of the application"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Totp.php:52
+msgid ""
+"Les informations fournies sont insuffisantes pour valider la création de la "
+"double identification"
+msgstr ""
+"The information provided is insufficient to validate the creation of double "
+"identification"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Totp.php:62
+msgid "La double authentification est maintenant activée."
+msgstr "The dual authentication is activate now."
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Totp.php:71
+msgid "Le code fourni n'a pu être vérifié"
+msgstr "The code provided could not be verified"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Totp.php:103
+msgid "Vous êtes maintenant connecté"
+msgstr "You are now logged in"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Totp.php:129
+msgid "Le code TOTP rentré n'a pas été reconnu"
+msgstr "The TOTP code entered was not recognised"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Markdown.php:16
+#, php-format
+msgid "Le fichier %s n'existe pas"
+msgstr "The file %s don't exist"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Markdown.php:23
+#, php-format
+msgid "Le fichier %s est vide ou ne peut être lu"
+msgstr "File %s not found or not readable"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Dbparam.php:30
+msgid "Problème lors de l'écriture dans la base de données"
+msgstr "Problem writing to the database"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Mail.php:101
+msgid "Fac-similé de l'envoi d'un mail - mode debug"
+msgstr "Facsimile of sending an email - debug mode"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Mail.php:102
+msgid "Paramètres du mail :"
+msgstr "Email settings:"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Mail.php:104
+msgid "Données transmises :"
+msgstr "Data transmitted :"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Mail.php:120
+msgid "Un problème a été rencontré lors de l'envoi du mail"
+msgstr "A problem was encountered when sending the email"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Structure.php:75
+msgid "Le fichier contenant le schéma de la base de données n'a pas été trouvé"
+msgstr "The file containing the database schema was not found"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Backup.php:37
+msgid "Fichier généré. Vérifiez son contenu !"
+msgstr "File generated. Check its contents!"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Backup.php:40
+msgid "Le fichier de backup n'a pas été généré"
+msgstr "The backup file was not generated"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:35
+msgid "Réinitialisation du mot de passe"
+msgstr "Reset password"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:45
+msgid ""
+"Un mail vient de vous être envoyé. Veuillez copier le lien transmis dans "
+"votre navigateur pour pouvoir créer un nouveau mot de passe"
+msgstr ""
+"An email has just been sent to you. Please copy the link sent to your "
+"browser to create a new password"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:48
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:53
+msgid "Impossible d'envoyer le mail"
+msgstr "Could not send email"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:59
+msgid ""
+"La réinitialisation du mot de passe n'est pas possible, contactez le cas "
+"échéant l'administrateur de l'application"
+msgstr ""
+"Resetting the password is not possible, contact the application "
+"administrator if necessary"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:62
+msgid ""
+"La réinitialisation du mot de passe n'est pas activée pour cette application"
+msgstr "Password reset is not enabled for this application"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:82
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:107
+#: ../../../vendor/equinton/ppci/src/Libraries/LoginGestionLib.php:84
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:441
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:494
+msgid ""
+"Le mode d'identification utilisé pour votre compte n'autorise pas la "
+"modification du mot de passe depuis cette application"
+msgstr ""
+"The login method used for your account does not allow changing the password "
+"from this app"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:86
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:74
+msgid "Le jeton fourni n'est pas valide"
+msgstr "Token provided is not valid"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:91
+msgid ""
+"La réinitialisation du mot de passe n'est pas activée pour cette "
+"application, ou le jeton n'a pas été fourni"
+msgstr ""
+"Password reset is not enabled for this application, or the token has not "
+"been supplied"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/LoginGestionLib.php:62
+msgid "Problème rencontré lors de l'enregistrement"
+msgstr "Problem encountered during recording"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/LoginGestionLib.php:98
+#, php-format
+msgid "%s - changement de mot de passe"
+msgstr "%s - change password"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/LoginGestionLib.php:108
+msgid "La modification du mot de passe a été enregistrée"
+msgstr "The password change has been saved"
+
+#: ../../../vendor/equinton/ppci/src/Filters/DbversioncheckFilter.php:42
+#, php-format
+msgid ""
+"La base de données n'est pas dans la version attendue (%1$s). Version "
+"actuelle : %2$s"
+msgstr ""
+"The database is not in the expected version (%1$s). Current version: %2$s"
+
+#: ../../../vendor/equinton/ppci/src/Filters/AdminFilter.php:42
+msgid ""
+"Vous devez vous ré-identifier avec votre code TOTP pour accéder aux modules "
+"d'administration"
+msgstr ""
+"You must re-identify with your TOTP code to access the administration "
+"modules."
+
+#: ../../../vendor/equinton/ppci/src/Filters/AdminFilter.php:45
+msgid ""
+"Vous devez activer la double identification TOTP pour accéder aux modules "
+"d'administration"
+msgstr ""
+"You must activate dual TOTP identification to access the administration "
+"modules"
+
+#: ../../../vendor/equinton/ppci/src/Filters/StartcallFilter.php:24
+msgid "La session a expiré, vous devez vous reconnecter"
+msgstr "The session has expired, you need to reconnect"
+
+#: ../../../vendor/equinton/ppci/src/Filters/RightFilter.php:47
+msgid ""
+"Vous ne disposez pas des droits nécessaires pour exécuter cette fonction"
+msgstr "You do not have the necessary rights to perform this function"
+
+#: ../../../vendor/equinton/ppci/src/Controllers/Login.php:28
+msgid "Identification refusée"
+msgstr "Authentication failed"
+
+#: ../../../vendor/equinton/ppci/src/Controllers/Login.php:39
+msgid ""
+"Le mode d'identification dans l'application ne vous permet pas d'accéder à "
+"la page de connexion"
+msgstr ""
+"The identification mode in the application does not allow you to access the "
+"login page"
+
+#: ../../../vendor/equinton/ppci/src/Controllers/Login.php:96
+msgid "Vous avez été déconnecté"
+msgstr "You have been disconnected"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:189
+msgid ""
+"Votre mot de passe a expiré. Veuillez contacter l'administrateur de "
+"l'application pour le renouveler"
+msgstr ""
+"Your password has expired. Please contact the application administrator to "
+"renew it"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:192
+msgid "Votre mot de passe va expirer. Veuillez le changer immédiatement"
+msgstr "Your password is about to expire. Please, change it immediately"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:263
+msgid "Mot de passe insuffisamment complexe ou trop petit"
+msgstr "Password not enough complex or too small"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:277
+msgid ""
+"Une erreur est survenue pendant le chiffrement du jeton d'identification"
+msgstr "An error occurred during the encryption of the token"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:303
+msgid "Activation de votre compte"
+msgstr "Activating your account"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:316
+msgid ""
+"Un message vient d'être envoyé à l'utilisateur pour l'informer de "
+"l'activation de son compte"
+msgstr ""
+"A message has just been sent to the user to inform them that their account "
+"has been activated."
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:332
+msgid ""
+"Une erreur est survenue pendant le déchiffrement du jeton d'identification"
+msgstr "An error occurred during the decryption of the token"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:435
+msgid "La modification du mot de passe a échoué"
+msgstr "Password change failed"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:438
+msgid "L'ancien mot de passe est incorrect"
+msgstr "The old password is incorrect"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:459
+msgid ""
+"Le mot de passe que vous avez indiqué n'est pas assez complexe, ou un "
+"problème est survenu lors de l'enregistrement"
+msgstr ""
+"The password you entered is not complex enough, or a problem has occurred "
+"during registration."
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:489
+msgid "Le mot de passe a été modifié"
+msgstr "The password has been changed"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:491
+msgid ""
+"Echec de la modification du mot de passe pour une raison inconnue. Si le "
+"problème persiste, contactez l'assistance"
+msgstr ""
+"Failed to change the password for an unknown reason. If the problem "
+"persists, contact support"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:543
+msgid "Le mot de passe n'est pas assez fort"
+msgstr "Password not strong enough"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:546
+msgid "Le mot de passe n'est pas assez complexe"
+msgstr ""
+"The password is not complex enough (mix 3 character sets among lowercase, "
+"uppercase, numbers, and punctuation)"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:549
+msgid "Le mot de passe est trop court"
+msgstr "The password is too short (minimum: 10 characters)"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:552
+msgid "Le mot de passe n'est pas identique dans les deux zones"
+msgstr "Passwords don't match in both fields"
+
+#: ../../../vendor/equinton/ppci/src/Models/Passwordlost.php:79
+msgid "Le compte n'est pas actif"
+msgstr "The account is not active"
+
+#: ../../../vendor/equinton/ppci/src/Models/Passwordlost.php:82
+msgid ""
+"Le compte n'est pas autorisé à réinitialiser son mot de passe, la dernière "
+"connexion réussie n'ayant pas été réalisée dans un mode compatible"
+msgstr ""
+"The account is not allowed to reset its password because the last successful "
+"login was not done in a compatible mode"
+
+#: ../../../vendor/equinton/ppci/src/Models/Passwordlost.php:85
+msgid "Aucun compte n'a été trouvé pour le mail considéré"
+msgstr "No account has been found for the considered mail"
+
+#: ../../../vendor/equinton/ppci/src/Models/Passwordlost.php:88
+msgid "Le mail n'a pas été renseigné"
+msgstr "The email has not been filled in"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:77
+msgid "L'identification par jeton n'a pas abouti"
+msgstr "Token identification was unsuccessful"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:120
+msgid ""
+"L'identification n'a pas abouti. Vérifiez votre login et votre mot de passe"
+msgstr "The identification was not successful. Check your login and password"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:207
+msgid "Nouvel utilisateur"
+msgstr "New user:"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:217
+msgid ""
+"Votre compte a été créé, mais est inactif. Un mail a été adressé aux "
+"administrateurs pour son activation"
+msgstr ""
+"Your account was create, but it's inactive. An email was send to the "
+"administrators for its activation"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:227
+msgid "Aucun login n'a été fourni, identification refusée"
+msgstr "No login provided, identification refused"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:384
+#: ../../../vendor/equinton/ppci/src/Models/Ldap.php:74
+msgid "Impossible de se connecter au serveur LDAP"
+msgstr "Unable to connect to LDAP server"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:410
+#, php-format
+msgid "La connexion auprès de l'annuaire LDAP pour l'utilisateur %s a échoué"
+msgstr "Connection to the LDAP directory for user %s has failed"
+
+#: ../../../vendor/equinton/ppci/src/Models/Aclgroup.php:99
+msgid ""
+"L'identification dans l'annuaire LDAP a échoué pour la récupération des "
+"groupes de l'utilisateur"
+msgstr ""
+"Identification in the LDAP directory failed to retrieve the user's groups"
+
+#: ../../../vendor/equinton/ppci/src/Models/Aclgroup.php:136
+msgid "Connexion à l'annuaire LDAP impossible"
+msgstr "Cannot connect to the LDAP directory"
+
+#: ../../../vendor/equinton/ppci/src/Models/Aclgroup.php:321
+msgid "Un groupe ne peut être son propre parent"
+msgstr "A group can't be its own parent"
+
+#: ../../../vendor/equinton/ppci/src/Models/Aclgroup.php:365
+msgid "Suppression du groupe impossible : d'autres groupes lui sont rattachés"
+msgstr "Can not delete group: other groups are attached to it"
+
+#: ../../../vendor/equinton/ppci/src/Models/Aclgroup.php:381
+msgid ""
+"La suppression du groupe a échoué. Consultez les logs pour en connaître la "
+"raison"
+msgstr "Deleting the group failed. Check the logs to find out the reason"
+
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:89
+msgid "Une erreur est survenue pendant le chiffrement de la clé secrète"
+msgstr "An error occurred during the encryption of the secret key"
+
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:104
+msgid "Une erreur est survenue pendant le déchiffrement de la clé secrète"
+msgstr "An error occurred during the decryption of the secret key"
+
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:150
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:155
+msgid "Une erreur est survenue pendant le chiffrement"
+msgstr "An error occurred during the encryption"
+
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:173
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:178
+msgid "Une erreur est survenue pendant le déchiffrement"
+msgstr "An error occurred during the decryption"
+
+#: ../../../vendor/equinton/ppci/src/Models/Import.php:72
+#, php-format
+msgid "%s n'est pas un champ reconnu utilisable lors de l'importation"
+msgstr "%s is not a recognized field that can be used during import"
+
+#: ../../../vendor/equinton/ppci/src/Models/Import.php:76
+#, php-format
+msgid "Fichier %s non trouvé ou non lisible"
+msgstr "File %s not found or not readable"
+
+#: ../../../vendor/equinton/ppci/src/Models/Request.php:57
+msgid ""
+"La requête ne peut pas contenir d'ordres de modification de la base de "
+"données ni porter sur des tables contenant des informations confidentielles"
+msgstr ""
+"The request must not contain any database modification commands or relate to "
+"tables containing confidential information"
+
+#: ../../../vendor/equinton/ppci/src/Models/PpciModel.php:145
+#, php-format
+msgid "Le champ %s est obligatoire mais n'a pas été renseigné"
+msgstr "The field %s is required, but has not been filled out"
+
+#: ../../../vendor/equinton/ppci/src/Models/PpciModel.php:263
+#, php-format
+msgid "La clé principale %s n'est pas renseignée ou vaut zéro"
+msgstr "The primary key %s is not filled in or is zero"
+
+#: ../../../vendor/equinton/ppci/src/Models/PpciModel.php:267
+#, php-format
+msgid "Une valeur fournie n'est pas numérique (%s)"
+msgstr "A value supplied is not numeric (%s)"
+
+#: ../../../vendor/equinton/ppci/src/Models/Log.php:206
+msgid "Dernières connexions :"
+msgstr "Last connections:"
+
+#: ../../../vendor/equinton/ppci/src/Models/Log.php:208
+#, php-format
+msgid "Le %1s depuis l'adresse IP %2s"
+msgstr "The %1s from the IP address %2s"
+
+#: ../../../vendor/equinton/ppci/src/Models/Log.php:335
+#, php-format
+msgid "%s - Compte bloqué"
+msgstr "%s - Account blocked"
+
+#: ../../../vendor/equinton/ppci/src/Models/Log.php:379
+msgid ""
+"Le nombre d'accès autorisés pour le module demandé a été atteint. Si vous "
+"considérez que la valeur est trop faible, veuillez contacter "
+"l'administrateur de l'application"
+msgstr ""
+"The number of authorized accesses for the requested module has been reached. "
+"If you consider that the value is too low, please contact the application "
+"administrator"
+
+#: ../../../vendor/equinton/ppci/src/Models/Log.php:381
+#, php-format
+msgid "%s - Trop d'accès à un module"
+msgstr "%s - Too many accesses to a module"
+
+#: ../../../vendor/equinton/ppci/src/Models/Acllogin.php:120
+msgid ""
+"L'ajout d'un login à la table des comptes (gestion des droits) n'est pas "
+"possible : le login n'est pas fourni"
+msgstr ""
+"Adding a login to the account table (rights management) is not possible: "
+"login is not provided"
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:22
+msgid "La définition des métadonnées n'est pas valide."
+msgstr "The metadata definition is not valid."
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:30
+msgid "Création - Modification d'un modèle de métadonnées"
+msgstr "Create / Edit a metadata template"
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:34
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:8
+#: ../../Views/templates/photolecture/photolectureChange.tpl:231
+#: ../../Views/templates/gestion/individuDisplay.tpl:4
+#: ../../Views/templates/gestion/pieceChange.tpl:4
+#: ../../Views/templates/gestion/especeChange.tpl:4
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:91
+#: ../../Views/templates/gestion/piecemetadataDisplay.tpl:80
+#: ../../Views/templates/gestion/piecetypeChange.tpl:3
+#: ../../Views/templates/gestion/photoDisplay.tpl:29
+#: ../../Views/templates/gestion/pieceDisplay.tpl:4
+#: ../../Views/templates/gestion/photoChange.tpl:7
+#: ../../Views/templates/gestion/individuChange.tpl:30
+msgid "Retour à la liste"
+msgstr "Back to the list"
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:46
+msgid "Nom du modèle :"
+msgstr "Model name:"
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:54
+#: ../../Views/templates/gestion/photoDisplay.tpl:61
+#: ../../Views/templates/gestion/experimentationChange.tpl:18
+#: ../../Views/templates/gestion/photoChange.tpl:46
+msgid "Description :"
+msgstr "Description:"
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:62
+msgid "Les données sont-elles en tableau (multivaleurs) ?"
+msgstr "Is the data tabulated (multi-values) ?"
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:68
+#: ../../Views/templates/param/metadatatypeList.tpl:59
+#: ../../Views/templates/photolecture/lectureSearch.tpl:153
+#: ../../Views/templates/photolecture/photolectureChange.tpl:323
+#: ../../Views/templates/photolecture/photolectureChange.tpl:360
+#: ../../Views/templates/gestion/individuSearch.tpl:139
+#: ../../Views/templates/gestion/photoDisplay.tpl:274
+msgid "oui"
+msgstr "yes"
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:72
+#: ../../Views/templates/param/metadatatypeList.tpl:59
+#: ../../Views/templates/photolecture/lectureSearch.tpl:152
+#: ../../Views/templates/photolecture/photolectureChange.tpl:326
+#: ../../Views/templates/photolecture/photolectureChange.tpl:363
+#: ../../Views/templates/gestion/individuSearch.tpl:138
+msgid "non"
+msgstr "no"
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:77
+#: ../../Views/templates/param/metadatatypeChange.tpl:90
+#: ../../Views/templates/photolecture/photolectureChange.tpl:255
+#: ../../Views/templates/photolecture/photolectureChange.tpl:387
+#: ../../Views/templates/gestion/pieceChange.tpl:69
+#: ../../Views/templates/gestion/especeChange.tpl:33
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:114
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:162
+#: ../../Views/templates/gestion/piecetypeChange.tpl:21
+#: ../../Views/templates/gestion/experimentationChange.tpl:52
+#: ../../Views/templates/gestion/photoChange.tpl:157
+#: ../../Views/templates/gestion/individuChange.tpl:45
+#: ../../Views/templates/gestion/individuChange.tpl:212
+#: ../../Views/templates/gestion/lecteurChange.tpl:48
+msgid "Valider"
+msgstr "Save and return"
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:79
+#: ../../Views/templates/param/metadatatypeChange.tpl:92
+#: ../../Views/templates/gestion/pieceChange.tpl:71
+#: ../../Views/templates/gestion/especeChange.tpl:35
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:116
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:164
+#: ../../Views/templates/gestion/piecetypeChange.tpl:23
+#: ../../Views/templates/gestion/photoDisplay.tpl:195
+#: ../../Views/templates/gestion/experimentationChange.tpl:54
+#: ../../Views/templates/gestion/photoChange.tpl:159
+#: ../../Views/templates/gestion/individuChange.tpl:214
+#: ../../Views/templates/gestion/lecteurChange.tpl:50
+msgid "Supprimer"
+msgstr "Delete..."
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:84
+msgid "Jeu de métadonnées"
+msgstr "Metadata set"
+
+#: ../../Views/templates/param/metadatatypeChange.tpl:101
+msgid "Donnée obligatoire"
+msgstr "Mandatory data"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:6
+msgid "Tout cocher"
+msgstr "Check all"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:8
+#: ../../Views/templates/param/metadatatypeList.tpl:29
+msgid "Tout décocher"
+msgstr "Uncheck all"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:21
+#: ../../Views/templates/gestion/lecteurListe.tpl:4
+#: ../../Views/templates/gestion/pieceDisplay.tpl:107
+msgid "Nouveau..."
+msgstr "New..."
+
+#: ../../Views/templates/param/metadatatypeList.tpl:28
+msgid "Exporter les métadonnées :"
+msgstr "Export metadata:"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:31
+msgid "Déclencher l'export"
+msgstr "Start export"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:39
+msgid "Identifiant"
+msgstr "Identifier"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:40
+msgid "Nom du modèle"
+msgstr "Model name"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:41
+msgid "Résumé"
+msgstr "Abstract"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:42
+msgid "Données en tableau ?"
+msgstr "Data in table?"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:44
+msgid "Modifier"
+msgstr "Edit"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:45
+msgid "Dupliquer"
+msgstr "Duplicate"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:47
+msgid "Exporter"
+msgstr "Export"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:64
+msgid "Modifier le modèle de métadonnées"
+msgstr "Change the metadata template"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:69
+msgid "Dupliquer le modèle de métadonnées"
+msgstr "Duplicate the metadata template"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:90
+msgid ""
+"Importer des modèles de métadonnées provenant d'une autre base de données "
+"Otolithe"
+msgstr "Import metadata templates from another Otolithe database"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:95
+#: ../../Views/templates/gestion/import.tpl:29
+msgid "Nom du fichier à importer (CSV) :"
+msgstr "Name of the file to import (CSV):"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:101
+#: ../../Views/templates/gestion/pieceDisplay.tpl:202
+msgid "Importer les métadonnées"
+msgstr "Import metadata"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:104
+msgid ""
+"L'importation est basée sur un fichier exporté depuis une autre instance "
+"d'Otolithe."
+msgstr "Import is based on a file generate by another instance of Otolithe."
+
+#: ../../Views/templates/param/metadatatypeList.tpl:106
+msgid "Description du fichier :"
+msgstr "File description:"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:108
+msgid "metadatatype_name : nom de la métadonnée"
+msgstr "metadatatype_name: metadata template name"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:109
+msgid "metadatatype_comment : commentaire"
+msgstr "metadatatype_comment: comment"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:110
+msgid "is_array : 1 si les données sont multilignes (multivaleurs)"
+msgstr "is_array: 1 if data are multiline (multivalued)"
+
+#: ../../Views/templates/param/metadatatypeList.tpl:111
+msgid "metadatatype_schema : Description, au format JSON, de la métadonnée"
+msgstr ""
+"metadatatype_schema: description in JSON format of the metadata template"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:19
+msgid ""
+"Ce fichier contient plus de 50 entrées. Etes-vous sûr de vouloir l'importer ?"
+msgstr ""
+"This file contains more than 50 entries. Are you sure you want to import it?"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:47
+msgid "Nom du champ (sans espace, sans accent, en minuscule)"
+msgstr "Field name (no space, no accent, lowercase)"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:52
+msgid "Type du champ"
+msgstr "Field type"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:63
+msgid "Choix possibles"
+msgstr "Possible choices"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:70
+msgid "Le champ est-il obligatoire ?"
+msgstr "Is the field mandatory?"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:73
+msgid "Valeur par défaut"
+msgstr "Default value"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:76
+msgid "Affichage d'un message d'aide ?"
+msgstr "Display a help message?"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:80
+#: ../../Views/templates/param/metadataFormJS.tpl:143
+msgid "Message d'aide"
+msgstr "Help message"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:83
+msgid "Description du champ"
+msgstr "Field description"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:87
+msgid "Unité de mesure (ou modalités) - N/A si non applicable"
+msgstr "Unit of measure (or modalities) - N/A if not applicable"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:103
+msgid "Nombre"
+msgstr "Number"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:103
+msgid "Texte (une ligne)"
+msgstr "Text (one line)"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:103
+msgid "Texte (multi-ligne)"
+msgstr "Text (multi-line)"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:103
+msgid "Case à cocher"
+msgstr "Checkbox"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:103
+msgid "Liste à choix multiple"
+msgstr "Multiple choice list"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:103
+msgid "Boutons Radio"
+msgstr "Radio Buttons"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:103
+msgid "Lien vers un site externe (URL)"
+msgstr "Link to an external site (URL)"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:117
+msgid "Importer un fichier CSV"
+msgstr "Import a CSV file"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:136
+msgid "Obligatoire"
+msgstr "Mandatory"
+
+#: ../../Views/templates/param/metadataFormJS.tpl:146
+msgid "Vous pouvez copier ici la description et l'unité de mesure"
+msgstr "You can copy here the description and the unit of measure"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:1
+msgid "Consultation de la lecture de pièces"
+msgstr "Viewing pieces reading"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:9
+#: ../../Views/templates/gestion/individuChange.tpl:48
+msgid "Individu"
+msgstr "Fish"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:10
+msgid "Pièce"
+msgstr "Piece"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:10
+msgid "traitement"
+msgstr "traitment"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:11
+msgid "Photo"
+msgstr "Photo"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:11
+msgid "Couleur/NB"
+msgstr "Color/BW"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:12
+msgid "Résolution de prise de vue"
+msgstr "Shooting resolution"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:13
+msgid "Date de prise de vue"
+msgstr "Shooting date"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:14
+msgid "Longueur de référence"
+msgstr "Reference length"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:15
+#: ../../Views/templates/gestion/photoDisplay.tpl:179
+msgid "Lecteur"
+msgstr "Reader"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:16
+#: ../../Views/templates/gestion/photoDisplay.tpl:180
+msgid "Date de lecture"
+msgstr "Reading date"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:17
+msgid "Résolution de lecture"
+msgstr "Reading resolution"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:18
+#: ../../Views/templates/gestion/photoDisplay.tpl:189
+msgid "Longueur de référence mesurée"
+msgstr "Mesured reference length"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:19
+msgid "Longueur réelle totale de la mesure"
+msgstr "Total actual length of measurement"
+
+#: ../../Views/templates/photolecture/photolectureList.tpl:20
+#: ../../Views/templates/gestion/individuListe.tpl:17
+msgid "Age"
+msgstr "Age"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:7
+msgid "Affichage des mesures d'une pièce"
+msgstr "Display of the measurements of a piece"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:9
+#: ../../Views/templates/photolecture/photolectureChange.tpl:232
+#: ../../Views/templates/gestion/pieceChange.tpl:8
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:92
+#: ../../Views/templates/gestion/piecemetadataDisplay.tpl:83
+#: ../../Views/templates/gestion/photoDisplay.tpl:32
+msgid "Retour au détail du poisson"
+msgstr "Back to the detail of the fish"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:10
+#: ../../Views/templates/photolecture/photolectureChange.tpl:233
+#: ../../Views/templates/gestion/pieceChange.tpl:13
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:93
+#: ../../Views/templates/gestion/piecemetadataDisplay.tpl:86
+#: ../../Views/templates/gestion/photoDisplay.tpl:35
+#: ../../Views/templates/gestion/photoChange.tpl:15
+msgid "Retour au détail de la pièce"
+msgstr "Back to the detail of the piece"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:11
+#: ../../Views/templates/photolecture/photolectureChange.tpl:234
+msgid "Retour à la photo"
+msgstr "Back to the photo"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:21
+msgid "Résolution d'affichage :"
+msgstr "Display resolution:"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:43
+#: ../../Views/templates/photolecture/photolectureChange.tpl:419
+msgid "Légende"
+msgstr "Legend"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:49
+#: ../../Views/templates/photolecture/photolectureChange.tpl:425
+msgid "lecture du"
+msgstr "Reading of"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:50
+#: ../../Views/templates/photolecture/photolectureChange.tpl:426
+#: ../../Views/templates/gestion/photoDisplay.tpl:181
+msgid "Résolution"
+msgstr "Resolution"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:51
+#: ../../Views/templates/photolecture/photolectureChange.tpl:331
+msgid "Nature de la strie finale :"
+msgstr "Nature of final streak:"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:52
+#: ../../Views/templates/photolecture/photolectureChange.tpl:345
+msgid "Fiabilité de la lecture :"
+msgstr "Reading fiability:"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:53
+#: ../../Views/templates/gestion/photoDisplay.tpl:192
+msgid "Lecture consensuelle"
+msgstr "Consensual reading"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:54
+#: ../../Views/templates/photolecture/photolectureChange.tpl:366
+msgid "Année de naissance estimée :"
+msgstr "Estimated birth year:"
+
+#: ../../Views/templates/photolecture/photolectureDisplay.tpl:55
+#: ../../Views/templates/photolecture/photolectureChange.tpl:427
+msgid "Points remarquables :"
+msgstr "Remarkable points:"
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:30
+#: ../../Views/templates/photolecture/lectureSearch.tpl:55
+#: ../../Views/templates/gestion/individuSearch.tpl:42
+#: ../../Views/templates/gestion/individuChange.tpl:68
+msgid "Sélectionnez..."
+msgstr "Choose..."
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:84
+#: ../../Views/templates/gestion/individuSearch.tpl:72
+msgid "Code ou TAG de l'individu :"
+msgstr "Code or tag of fish:"
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:91
+#: ../../Views/templates/gestion/individuSearch.tpl:93
+#: ../../Views/templates/gestion/pieceListe.tpl:14
+msgid "Expérimentation :"
+msgstr "Experimentation:"
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:107
+#: ../../Views/templates/gestion/individuSearch.tpl:107
+msgid "Site de pêche :"
+msgstr "Fishing site:"
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:111
+#: ../../Views/templates/gestion/individuSearch.tpl:111
+msgid "Sélectionnez le site global de pêche"
+msgstr "Select the global fishing site"
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:121
+#: ../../Views/templates/gestion/individuSearch.tpl:120
+msgid "Zone précise de pêche :"
+msgstr "Precise fishing area:"
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:125
+#: ../../Views/templates/gestion/individuSearch.tpl:124
+msgid "Sélectionnez le site précis de pêche"
+msgstr "Select the precise fishing site"
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:137
+msgid "Lecteur :"
+msgstr "Reader:"
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:144
+#: ../../Views/templates/gestion/individuSearch.tpl:149
+#: ../../Views/templates/gestion/individuDisplay.tpl:24
+#: ../../Views/templates/gestion/individuChange.tpl:51
+msgid "Espèce :"
+msgstr "Species:"
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:150
+msgid "Lecture consensuelle ?"
+msgstr "Consensual reading:"
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:157
+#: ../../Views/templates/gestion/individuSearch.tpl:155
+#: ../../Views/templates/gestion/pieceListe.tpl:26
+msgid "Rechercher..."
+msgstr "Search..."
+
+#: ../../Views/templates/photolecture/lectureSearch.tpl:161
+msgid "Exporter la liste"
+msgstr "Export the list at CSV format"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:147
+msgid "Supprimer le point courant"
+msgstr "Delete the current point"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:230
+msgid "Mesure d'un otolithe ou d'une pièce calcifiée"
+msgstr "Measurement of an otolith or calcified piece"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:231
+#: ../../Views/templates/photolecture/photolectureChange.tpl:232
+#: ../../Views/templates/photolecture/photolectureChange.tpl:233
+#: ../../Views/templates/photolecture/photolectureChange.tpl:234
+msgid ""
+"Les modifications apportées dans cette page vont être perdues. Confirmez-"
+"vous cette opération ?"
+msgstr "Changes made on this page will be lost. Do you confirm this operation?"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:252
+#: ../../Views/templates/photolecture/photolectureChange.tpl:385
+msgid "Enregistrez les points positionnés :"
+msgstr "Record positionned points:"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:260
+msgid "Si tous les points ont été supprimés, vous pouvez :"
+msgstr "If all points have been deleted, you can:"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:262
+msgid "Uniquement si tous les points ont été supprimés"
+msgstr "Only if all points have been deleted"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:263
+msgid "Réinitialiser le compteur"
+msgstr "Reset counter"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:280
+msgid "Type de lecture pour le prochain point :"
+msgstr "type of reading for the next point:"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:283
+msgid "Point initial avec cercle élargi"
+msgstr "Initial point with enlarged circle"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:284
+msgid "Lecture des points"
+msgstr "Reading of points"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:285
+msgid "Mesure de la longueur de référence"
+msgstr "Reference length measurement"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:286
+msgid "Tracé d'une ligne sur la photo (aide à la mesure)"
+msgstr "Plot of a line on the picture (help at the measure)"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:290
+msgid "Taille originale de la photo :"
+msgstr "Original size of the photo:"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:298
+msgid "Taille de lecture de la photo :"
+msgstr "Reading size of the photo:"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:306
+msgid "Coefficient de correction de la taille :"
+msgstr "Coefficient of correction of the size:"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:312
+msgid "Rayon (en pixels) du cercle élargi :"
+msgstr "Radius (in pixels) of the enlarged circle:"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:319
+msgid "Recalcul automatique de l'ordre des points ?"
+msgstr "Automatic recalculation of the order of points?"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:356
+msgid "Lecture consensuelle :"
+msgstr "Consensual reading:"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:371
+#: ../../Views/templates/gestion/photoDisplay.tpl:193
+msgid "Commentaires"
+msgstr "Comment"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:380
+msgid "Points sélectionnés"
+msgstr "Selected points"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:391
+msgid "N°"
+msgstr "#"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:394
+msgid "Ordre de lecture"
+msgstr "Reading order"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:395
+msgid "Point remarquable"
+msgstr "Remarkable point"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:396
+msgid "Point de mesure de la longueur de référence"
+msgstr "Point of measure of reference length"
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:405
+msgid "Pour supprimer un point, réalisez un double-clic sur celui-ci."
+msgstr "To delete a point, double-click on it."
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:408
+msgid ""
+"Vous pouvez modifier manuellement l'ordre de lecture d'un point, si "
+"nécessaire."
+msgstr "You can manualy change the reading order of a point, if necessary."
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:411
+msgid ""
+"Pour tracer une ligne, positionnez le premier point, puis le second. Pour "
+"supprimer la ligne, supprimez d'abord le second point, avant de toucher au "
+"premier point."
+msgstr ""
+"To draw a line, position the first point, then the second point. To delete "
+"the line, first delete the second point before the first point."
+
+#: ../../Views/templates/photolecture/photolectureChange.tpl:414
+msgid ""
+"Le recalcul automatique de l'ordre des points ne fonctionne que si le "
+"premier point (origine) est saisi en premier (valeur \"ordre de lecture\" la "
+"plus faible de la série)."
+msgstr ""
+"Automatic recalculation of the order of the points only works if the first "
+"point (origin) is entered first (value \"reading order\" the lowest of the "
+"series)."
+
+#: ../../Views/templates/gestion/lecteurListe.tpl:12
+#: ../../Views/templates/gestion/experimentationList.tpl:13
+#: ../../Views/templates/gestion/piecetypeList.tpl:13
+#: ../../Views/templates/gestion/pieceDisplay.tpl:63
+msgid "Nom"
+msgstr "Name"
+
+#: ../../Views/templates/gestion/lecteurListe.tpl:13
+msgid "Prénom"
+msgstr "First name"
+
+#: ../../Views/templates/gestion/lecteurListe.tpl:14
+msgid "Login de connexion"
+msgstr "Connection login"
+
+#: ../../Views/templates/gestion/individuSearch.tpl:80
+msgid "Sexe de l'animal :"
+msgstr "Fish sex:"
+
+#: ../../Views/templates/gestion/individuSearch.tpl:84
+msgid "Sélectionnez le sexe recherché"
+msgstr "Select the sex"
+
+#: ../../Views/templates/gestion/individuSearch.tpl:135
+msgid "Lectures non réalisées :"
+msgstr "Not performed readings:"
+
+#: ../../Views/templates/gestion/individuSearch.tpl:142
+msgid "pour :"
+msgstr "For:"
+
+#: ../../Views/templates/gestion/experimentationList.tpl:4
+msgid "Nouvelle experimentation..."
+msgstr "New experimentation..."
+
+#: ../../Views/templates/gestion/experimentationList.tpl:12
+#: ../../Views/templates/gestion/piecetypeList.tpl:12
+#: ../../Views/templates/gestion/especeList.tpl:14
+msgid "Id"
+msgstr "Id"
+
+#: ../../Views/templates/gestion/experimentationList.tpl:14
+#: ../../Views/templates/gestion/pieceDisplay.tpl:64
+msgid "Description"
+msgstr "Description"
+
+#: ../../Views/templates/gestion/experimentationList.tpl:15
+msgid "Date de début"
+msgstr "Begining date"
+
+#: ../../Views/templates/gestion/experimentationList.tpl:16
+msgid "Date de fin"
+msgstr "End date"
+
+#: ../../Views/templates/gestion/piecetypeList.tpl:1
+msgid "Liste des types de pièces"
+msgstr "List of types of pieces"
+
+#: ../../Views/templates/gestion/piecetypeList.tpl:4
+msgid "Nouveau type de pièce..."
+msgstr "New type of piece..."
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:1
+msgid "Affichage du détail d'un individu"
+msgstr "Viewing the detail of a fish"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:8
+msgid "Données générales"
+msgstr "General data"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:12
+#: ../../Views/templates/gestion/piecemetadataDisplay.tpl:102
+#: ../../Views/templates/gestion/pieceDisplay.tpl:20
+#: ../../Views/templates/gestion/pieceDisplay.tpl:75
+msgid "Modifier..."
+msgstr "Edit"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:16
+#: ../../Views/templates/gestion/individuChange.tpl:79
+msgid "Code de l'individu :"
+msgstr "Fish code:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:20
+#: ../../Views/templates/gestion/individuChange.tpl:87
+#: ../../Views/templates/gestion/individuCartouche.tpl:18
+msgid "Tag :"
+msgstr "Tag:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:28
+#: ../../Views/templates/gestion/individuChange.tpl:64
+msgid "Sexe :"
+msgstr "Sex:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:32
+msgid "Longueur (mm):"
+msgstr "Length (mm):"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:36
+msgid "Poids (g):"
+msgstr "Weight (g):"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:40
+#: ../../Views/templates/gestion/individuChange.tpl:111
+msgid "Remarque :"
+msgstr "Remarks:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:44
+#: ../../Views/templates/gestion/individuChange.tpl:119
+msgid "Parasite :"
+msgstr "Parasite:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:48
+#: ../../Views/templates/gestion/individuChange.tpl:127
+msgid "Age :"
+msgstr "Age:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:53
+#: ../../Views/templates/gestion/individuChange.tpl:135
+msgid "Coordonnées du point de capture (long/lat) :"
+msgstr "Coordinates of catch point (lon/lat):"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:59
+#: ../../Views/templates/gestion/pieceChange.tpl:61
+#: ../../Views/templates/gestion/pieceDisplay.tpl:41
+#: ../../Views/templates/gestion/individuChange.tpl:145
+msgid "UUID :"
+msgstr "UUID:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:65
+msgid "Pièces rattachées"
+msgstr "Related pieces"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:69
+msgid "Nouvelle pièce"
+msgstr "New piece"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:74
+#: ../../Views/templates/gestion/pieceListe.tpl:50
+#: ../../Views/templates/gestion/pieceDisplay.tpl:119
+msgid "Type"
+msgstr "Type"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:75
+msgid "Code"
+msgstr "Code"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:76
+msgid "Traitement réalisé"
+msgstr "Processing done"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:77
+msgid "Nbre photos rattachées"
+msgstr "Number of related photos"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:96
+msgid "Expérimentation(s)"
+msgstr "Experimentation(s)"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:109
+#: ../../Views/templates/gestion/individuChange.tpl:153
+msgid "Données concernant la pêche"
+msgstr "Fishing data"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:112
+#: ../../Views/templates/gestion/individuChange.tpl:156
+msgid "Site :"
+msgstr "Site:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:116
+#: ../../Views/templates/gestion/individuChange.tpl:164
+msgid "Zone précise :"
+msgstr "Precise fishing area:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:120
+#: ../../Views/templates/gestion/individuChange.tpl:172
+#: ../../Views/templates/gestion/individuCartouche.tpl:15
+msgid "Date de pêche :"
+msgstr "Fishing date:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:124
+#: ../../Views/templates/gestion/individuChange.tpl:180
+msgid "Campagne :"
+msgstr "Campaign:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:128
+#: ../../Views/templates/gestion/individuChange.tpl:188
+msgid "Engin :"
+msgstr "Fishing gear:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:132
+#: ../../Views/templates/gestion/individuChange.tpl:196
+msgid "Pêcheur :"
+msgstr "Fishman:"
+
+#: ../../Views/templates/gestion/individuDisplay.tpl:136
+#: ../../Views/templates/gestion/individuChange.tpl:204
+msgid "Opérateur :"
+msgstr "Operator:"
+
+#: ../../Views/templates/gestion/pieceChange.tpl:1
+msgid "Modification d'une pièce"
+msgstr "Edit a piece"
+
+#: ../../Views/templates/gestion/pieceChange.tpl:23
+msgid "Caractéristiques"
+msgstr "Characteristics"
+
+#: ../../Views/templates/gestion/pieceChange.tpl:30
+#: ../../Views/templates/gestion/pieceDisplay.tpl:25
+msgid "Type de pièce :"
+msgstr "Piece type:"
+
+#: ../../Views/templates/gestion/pieceChange.tpl:42
+#: ../../Views/templates/gestion/pieceDisplay.tpl:32
+msgid "Code de la pièce :"
+msgstr "Piece code:"
+
+#: ../../Views/templates/gestion/pieceChange.tpl:48
+#: ../../Views/templates/gestion/pieceDisplay.tpl:37
+msgid "Traitement effectué :"
+msgstr "Treatment performed:"
+
+#: ../../Views/templates/gestion/especeChange.tpl:1
+msgid "Modification d'une espèce"
+msgstr "Edit a species"
+
+#: ../../Views/templates/gestion/especeChange.tpl:10
+msgid "Description de l'espèce"
+msgstr "Species description"
+
+#: ../../Views/templates/gestion/especeChange.tpl:18
+msgid "Nom latin :"
+msgstr "Latin name:"
+
+#: ../../Views/templates/gestion/especeChange.tpl:25
+msgid "Nom français :"
+msgstr "French name:"
+
+#: ../../Views/templates/gestion/especeChange.tpl:45
+#: ../../Views/templates/gestion/piecetypeChange.tpl:30
+#: ../../Views/templates/gestion/import.tpl:114
+#: ../../Views/templates/gestion/experimentationChange.tpl:62
+#: ../../Views/templates/gestion/photoChange.tpl:167
+#: ../../Views/templates/gestion/individuChange.tpl:243
+#: ../../Views/templates/gestion/lecteurChange.tpl:59
+msgid "Champ obligatoire"
+msgstr "Mandatory data"
+
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:88
+#: ../../Views/templates/gestion/piecemetadataDisplay.tpl:76
+msgid "Métadonnées associées à la pièce"
+msgstr "Metadata related to the piece"
+
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:121
+#: ../../Views/templates/gestion/pieceDisplay.tpl:175
+msgid "Date d'acquisition des données :"
+msgstr "date of obtaining data:"
+
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:128
+#: ../../Views/templates/gestion/pieceDisplay.tpl:181
+msgid "Commentaire :"
+msgstr "Comment:"
+
+#: ../../Views/templates/gestion/piecemetadataChange.tpl:136
+#: ../../Views/templates/gestion/pieceDisplay.tpl:188
+msgid "Modèle de métadonnées à utiliser :"
+msgstr "Metadata template to use:"
+
+#: ../../Views/templates/gestion/piecemetadataDisplay.tpl:106
+msgid "Exporter les métadonnées au format CSV"
+msgstr "Export the metadata in CSV format"
+
+#: ../../Views/templates/gestion/piecemetadataDisplay.tpl:111
+msgid "Type de métadonnées :"
+msgstr "Metadata type:"
+
+#: ../../Views/templates/gestion/piecemetadataDisplay.tpl:116
+msgid "Date d'obtention :"
+msgstr "Obtaining date:"
+
+#: ../../Views/templates/gestion/piecemetadataDisplay.tpl:120
+msgid "Commentaires :"
+msgstr "Comments:"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:37
+msgid ""
+"Création d'un fichier utilisable pour importer les pièces dans le logiciel "
+"Collec-Science - import externe"
+msgstr ""
+"Create a file usable to import pieces in Collec-Science software - external "
+"import"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:37
+msgid "Export des pièces pour Collec-Science"
+msgstr "Export of pieces for Collec-Science"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:46
+msgid "Poisson"
+msgstr "Fish"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:47
+#: ../../Views/templates/gestion/individuListe.tpl:15
+msgid "Tag"
+msgstr "Tag"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:48
+msgid "Taxon"
+msgstr "Taxon"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:49
+msgid "Code pièce"
+msgstr "Piece code:"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:51
+msgid "Traitement"
+msgstr "traitment"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:52
+msgid "Poids"
+msgstr "Weight"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:53
+msgid "Longueur"
+msgstr "Length:"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:54
+#: ../../Views/templates/gestion/individuListe.tpl:18
+msgid "Sexe"
+msgstr "Sex"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:55
+msgid "UUID pièce"
+msgstr "UUID piece"
+
+#: ../../Views/templates/gestion/pieceListe.tpl:56
+msgid "UUID poisson"
+msgstr "UUID of the fish"
+
+#: ../../Views/templates/gestion/piecetypeChange.tpl:1
+msgid "Modification d'un type de pièce"
+msgstr "Edit a type of piece"
+
+#: ../../Views/templates/gestion/piecetypeChange.tpl:14
+msgid "Nom du type de pièce :"
+msgstr "Name of the type of the piece:"
+
+#: ../../Views/templates/gestion/import.tpl:1
+msgid "Import d'individus dans la base de données"
+msgstr "Import fish in the database"
+
+#: ../../Views/templates/gestion/import.tpl:8
+msgid "N° de ligne"
+msgstr "Line number"
+
+#: ../../Views/templates/gestion/import.tpl:9
+msgid "Anomalie(s) détectée(s)"
+msgstr "Detected anomalies"
+
+#: ../../Views/templates/gestion/import.tpl:35
+msgid "Séparateur utilisé :"
+msgstr "Used separator:"
+
+#: ../../Views/templates/gestion/import.tpl:38
+msgid "Point-virgule"
+msgstr "Semicolon"
+
+#: ../../Views/templates/gestion/import.tpl:39
+msgid "Virgule"
+msgstr "Comma"
+
+#: ../../Views/templates/gestion/import.tpl:40
+#: ../../Views/templates/gestion/pieceDisplay.tpl:168
+msgid "Tabulation"
+msgstr "Tabulation"
+
+#: ../../Views/templates/gestion/import.tpl:45
+msgid "Encodage du fichier :"
+msgstr "File encoding:"
+
+#: ../../Views/templates/gestion/import.tpl:54
+msgid "Lancer les contrôles"
+msgstr "Start the controls"
+
+#: ../../Views/templates/gestion/import.tpl:65
+msgid "Contrôles OK. Vous pouvez réaliser l'import du fichier"
+msgstr "Checks OK. You can import the file"
+
+#: ../../Views/templates/gestion/import.tpl:66
+msgid "Déclencher l'import"
+msgstr "Start import"
+
+#: ../../Views/templates/gestion/import.tpl:74
+msgid ""
+"Pour importer des individus dans la base, préparez un fichier CSV avec les "
+"informations suivantes :"
+msgstr ""
+"For import fish in the database, prepare a CSV file with theses informations:"
+
+#: ../../Views/templates/gestion/import.tpl:76
+msgid "code de l'expérimentation (obligatoire)"
+msgstr "Experimentation code (mandatory)"
+
+#: ../../Views/templates/gestion/import.tpl:76
+msgid "Consultez la liste des expérimentations"
+msgstr "Show the list of experiments"
+
+#: ../../Views/templates/gestion/import.tpl:77
+msgid "code de l'espèce (obligatoire)"
+msgstr "Species code (mandatory)"
+
+#: ../../Views/templates/gestion/import.tpl:77
+msgid "Consultez la liste des espèces"
+msgstr "Show the list of species"
+
+#: ../../Views/templates/gestion/import.tpl:78
+msgid ""
+"N° de l'étiquette posée sur le poisson (le codeindividu ou le tag sont "
+"obligatoires)"
+msgstr "Label number placed on the fish (codeindividu or tag are mandatory)"
+
+#: ../../Views/templates/gestion/import.tpl:79
+msgid "identifiant du poisson ou hptag"
+msgstr "fish identifier or hptag"
+
+#: ../../Views/templates/gestion/import.tpl:80
+msgid ""
+"sexe du poisson (1 : mâle, 2 : femelle, 3 : juvénile, 4 : indifférencié)"
+msgstr "Fish sex (1: male, 2: female, 3: juvenile, 4: undifferentiated)"
+
+#: ../../Views/templates/gestion/import.tpl:81
+msgid "longueur du poisson (mm)"
+msgstr "filsh length (mm)"
+
+#: ../../Views/templates/gestion/import.tpl:82
+msgid "poids du poisson (g)"
+msgstr "fish weight (g)"
+
+#: ../../Views/templates/gestion/import.tpl:83
+msgid "remarques concernant le poisson"
+msgstr "Fish remarks"
+
+#: ../../Views/templates/gestion/import.tpl:84
+msgid "parasites éventuels rencontrés"
+msgstr "possible parasites encountered"
+
+#: ../../Views/templates/gestion/import.tpl:85
+msgid "âge du poisson"
+msgstr "Fish age"
+
+#: ../../Views/templates/gestion/import.tpl:86
+msgid "Longitude du point de capture, en WGS84"
+msgstr "Longitude of catch point, in WGS84"
+
+#: ../../Views/templates/gestion/import.tpl:87
+msgid "Latitude du point de capture, en WGS84"
+msgstr "Latitude of the catch point, in WGS84"
+
+#: ../../Views/templates/gestion/import.tpl:88
+msgid "UUID de l'individu"
+msgstr "UUID of the fish"
+
+#: ../../Views/templates/gestion/import.tpl:89
+msgid "code du type de pièce calcifiée à analyser"
+msgstr "Code of the type of the calcified piece to analyse"
+
+#: ../../Views/templates/gestion/import.tpl:89
+msgid "Consultez la liste des types de pièces"
+msgstr "Show the list of the types of pieces"
+
+#: ../../Views/templates/gestion/import.tpl:90
+msgid ""
+"si le type de pièce est indiqué, vous pouvez renseigner un code spécifique "
+"attaché à la pièce"
+msgstr ""
+"If the type of the piece is specified, you can enter a specific code "
+"attached to the piece"
+
+#: ../../Views/templates/gestion/import.tpl:91
+msgid "UUID de la pièce"
+msgstr "UUID of the piece"
+
+#: ../../Views/templates/gestion/import.tpl:92
+msgid "date de la pêche, au format aaaa-mm-dd ou dd/mm/aaaa"
+msgstr "Fishing date, at format aaaa-mm-dd"
+
+#: ../../Views/templates/gestion/import.tpl:93
+msgid "site de la pêche"
+msgstr "Fishing site"
+
+#: ../../Views/templates/gestion/import.tpl:94
+msgid "zone précise de la pêche (précision concernant le site)"
+msgstr "precise area of fishing"
+
+#: ../../Views/templates/gestion/import.tpl:95
+msgid "campagne de pêche"
+msgstr "Fishing campaign"
+
+#: ../../Views/templates/gestion/import.tpl:96
+msgid "engin utilisé"
+msgstr "Engine used"
+
+#: ../../Views/templates/gestion/import.tpl:97
+msgid "références du pêcheur"
+msgstr "references of the fisherman"
+
+#: ../../Views/templates/gestion/import.tpl:98
+msgid "références de l'opérateur ayant traité le poisson"
+msgstr "reference of the operator who treated the fish"
+
+#: ../../Views/templates/gestion/import.tpl:99
+msgid "code du type de méta-données importées"
+msgstr "Code of the type of metadata imported"
+
+#: ../../Views/templates/gestion/import.tpl:99
+msgid "Consultez la liste des types de méta-données"
+msgstr "Show the list of the types of metadata"
+
+#: ../../Views/templates/gestion/import.tpl:100
+msgid "Date d'obtention des métadonnées"
+msgstr "Date of obtaining metadata"
+
+#: ../../Views/templates/gestion/import.tpl:101
+msgid "Commentaires associés aux méta-données"
+msgstr "Comments related to metadata"
+
+#: ../../Views/templates/gestion/import.tpl:102
+msgid ""
+"Méta-données, au format JSON. Peut prendre la forme d'un tableau ou des "
+"valeurs uniques. Les champs doivent être identiques à ceux décrits dans le "
+"type de métadonnées (cf. metadatatype_id)"
+msgstr ""
+"Metadata, in JSON format. They can take the form of a table or unique "
+"values. The fields must be identical to those described in the type of "
+"metadata (see metadatatype_id)."
+
+#: ../../Views/templates/gestion/import.tpl:103
+msgid ""
+"Pour des métadonnées uniques (pas en tableau), chaque champ peut être "
+"indiqué dans une colonne pré-fixée par md_. Le programme reconstituera les "
+"données pour les stocker au format JSON."
+msgstr ""
+"For single metadata (not in table), each field can be specified in a pre-"
+"fixed column by md_. The program will restore the data to store in JSON "
+"format."
+
+#: ../../Views/templates/gestion/import.tpl:107
+msgid "Téléchargez un modèle de fichier CSV"
+msgstr "Download a model of CSV file"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:25
+msgid "Affichage d'une photo"
+msgstr "Display a photo"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:48
+msgid "Modifier la photo..."
+msgstr "Edit the photo..."
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:57
+#: ../../Views/templates/gestion/photoChange.tpl:39
+msgid "Nom de la photo :"
+msgstr "Photo name:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:65
+#: ../../Views/templates/gestion/photoChange.tpl:64
+msgid "Nom du fichier :"
+msgstr "File name:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:69
+#: ../../Views/templates/gestion/photoChange.tpl:71
+msgid "Date de prise de vue :"
+msgstr "Shooting date:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:73
+#: ../../Views/templates/gestion/photoChange.tpl:78
+msgid "Couleur :"
+msgstr "Color:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:75
+#: ../../Views/templates/gestion/photoChange.tpl:82
+msgid "Noir et blanc"
+msgstr "Black and white"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:75
+#: ../../Views/templates/gestion/photoChange.tpl:86
+msgid "Couleur"
+msgstr "Color"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:79
+#: ../../Views/templates/gestion/photoChange.tpl:91
+msgid "Type de lumière :"
+msgstr "Light type:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:83
+#: ../../Views/templates/gestion/photoChange.tpl:104
+msgid "Grossissement :"
+msgstr "Magnification:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:87
+#: ../../Views/templates/gestion/photoChange.tpl:111
+msgid "Repère :"
+msgstr "Mark:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:91
+msgid "URI :"
+msgstr "URI:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:95
+#: ../../Views/templates/gestion/photoChange.tpl:127
+msgid "Repère de mesure - longueur de référence :"
+msgstr "Measurement mark - reference length:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:99
+#: ../../Views/templates/gestion/photoChange.tpl:136
+msgid "Taille en pixels de la longueur de référence dans la photo :"
+msgstr "Size in pixels of the reference length into the photo:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:103
+#: ../../Views/templates/gestion/photoChange.tpl:145
+msgid "Dimensions de la photo :"
+msgstr "Size of the photo:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:110
+msgid ""
+"Attention : le temps de chargement peut être (très) long, selon la taille "
+"originale de la photo !"
+msgstr ""
+"Warning: the loading time can be very long, depending on the original size "
+"of the photo!"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:114
+msgid "Télécharger la photo dans le format original"
+msgstr "Download the photo in the original format"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:123
+msgid "Créer une nouvelle lecture"
+msgstr "Make a new reading"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:132
+msgid "Résolution (approximative) de lecture :"
+msgstr "(Approximate) reading resolution:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:139
+#: ../../Views/templates/gestion/photoDisplay.tpl:315
+msgid "format initial"
+msgstr "initial format"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:142
+msgid "Réaliser une nouvelle lecture"
+msgstr "Make a new reading"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:157
+msgid ""
+"Consultations individuelles, globales, modifications avec visualisation des "
+"points déjà tracés"
+msgstr ""
+"Individual, global consultations, modifications with visualization of "
+"already marked points"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:162
+msgid ""
+"Afficher l'age calculé (nbre de points positionnés - 1) par chaque lecteur"
+msgstr "Display the calculated age (number of points set -1) by each reader"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:166
+msgid ""
+"Masquer l'age calculé (nbre de points positionnés - 1) par chaque lecteur"
+msgstr "Hide the calculated age (number of points set -1) by each reader"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:177
+msgid "Modification unique"
+msgstr "Unique edit"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:183
+msgid "Age ou nb de segments positionnés (nb points - 1)"
+msgstr "Age or number of segments ( number of points - 1)"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:184
+msgid "Strie finale"
+msgstr "Final streak"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:185
+msgid "Année de naissance estimée"
+msgstr "Birthdate estimated"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:186
+msgid "Fiabilité de la lecture"
+msgstr "Reading fiability"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:187
+msgid "Points remarquables"
+msgstr "Remarkable points:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:190
+msgid "Longueur totale lue"
+msgstr "Total length read"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:191
+msgid "Longueur réelle calculée"
+msgstr "Real length calculated"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:197
+msgid "Consulter..."
+msgstr "Show..."
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:199
+msgid "Si coché, la lecture sélectionnée pourra être modifiée"
+msgstr "If checked, the selected reading can be edited"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:200
+msgid "Lecture à modifier"
+msgstr "Reading to edit"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:308
+msgid "Résolution (approximative) d'affichage :"
+msgstr "(Approximate) display resolution:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:318
+msgid "Facteur de transparence des cercles affichés :"
+msgstr "Transparency factor of the displayed circles:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:321
+msgid "Transparent"
+msgstr "Transparent"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:322
+msgid "Légèrement ombré"
+msgstr "Slighty shaded"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:323
+msgid "Ombré"
+msgstr "Shaded"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:324
+msgid "Semi-opaque"
+msgstr "Semi-opaque"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:325
+msgid "Opaque"
+msgstr "Opaque"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:333
+msgid "Avec création d'une nouvelle lecture :"
+msgstr "With creation of a new reading:"
+
+#: ../../Views/templates/gestion/photoDisplay.tpl:339
+msgid ""
+"Déclencher l'affichage des lectures sélectionnées, avec ou sans création/"
+"modification d'une lecture"
+msgstr ""
+"Trigger the display of selected readings, with or without creation/edit of a "
+"reading"
+
+#: ../../Views/templates/gestion/experimentationChange.tpl:1
+msgid "Modification d'une expérimentation"
+msgstr "Edit a experimentation"
+
+#: ../../Views/templates/gestion/experimentationChange.tpl:3
+msgid "Retour à la liste des expérimentations"
+msgstr "Back to the list of experiments"
+
+#: ../../Views/templates/gestion/experimentationChange.tpl:12
+#: ../../Views/templates/gestion/lecteurChange.tpl:14
+msgid "Nom :"
+msgstr "Name:"
+
+#: ../../Views/templates/gestion/experimentationChange.tpl:23
+msgid "Date de début  :"
+msgstr "Begining date:"
+
+#: ../../Views/templates/gestion/experimentationChange.tpl:30
+msgid "Date de fin :"
+msgstr "End date:"
+
+#: ../../Views/templates/gestion/experimentationChange.tpl:36
+msgid "Liste des lecteurs rattachés"
+msgstr "List of related readers"
+
+#: ../../Views/templates/gestion/individuListe.tpl:7
+msgid "Nouveau poisson..."
+msgstr "New fish..."
+
+#: ../../Views/templates/gestion/individuListe.tpl:14
+msgid "Code individu"
+msgstr "Fish code"
+
+#: ../../Views/templates/gestion/individuListe.tpl:16
+msgid "Espèce"
+msgstr "Species"
+
+#: ../../Views/templates/gestion/individuListe.tpl:19
+msgid "Nbre de pièces"
+msgstr "Number of pieces"
+
+#: ../../Views/templates/gestion/individuListe.tpl:20
+msgid "Date de pêche"
+msgstr "Fishing date"
+
+#: ../../Views/templates/gestion/individuListe.tpl:21
+msgid "Zone de pêche"
+msgstr "Fishing zone"
+
+#: ../../Views/templates/gestion/individuListe.tpl:22
+msgid "Expérimentation"
+msgstr "Experimentation"
+
+#: ../../Views/templates/gestion/individuListe.tpl:23
+msgid "UUID"
+msgstr "UUID"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:1
+msgid "Affichage d'une pièce"
+msgstr "Piece display"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:8
+#: ../../Views/templates/gestion/photoChange.tpl:11
+#: ../../Views/templates/gestion/individuChange.tpl:35
+msgid "Retour au poisson"
+msgstr "Back to the fish"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:17
+msgid "Détail de la pièce"
+msgstr "Detail of the piece"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:50
+msgid "Photos rattachées"
+msgstr "Related photos"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:54
+msgid "Nouvelle photo"
+msgstr "New photo"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:65
+#: ../../Views/templates/gestion/pieceDisplay.tpl:122
+msgid "Date"
+msgstr "Date"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:66
+msgid "Couleur ?"
+msgstr "Color?"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:67
+msgid "Dimensions"
+msgstr "Sizes"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:68
+msgid "Miniature"
+msgstr "Thumbnail"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:103
+msgid "Liste des métadonnées rattachées"
+msgstr "List of related metadata"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:124
+msgid "Commentaire"
+msgstr "Comment"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:154
+msgid "Importer des métadonnées"
+msgstr "Import metadata"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:159
+msgid "Sélectionnez le fichier à importer (CSV) :"
+msgstr "Name of the file to import (CSV):"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:165
+msgid "Séparateur de champ :"
+msgstr "Field separator:"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:169
+msgid "virgule"
+msgstr "comma"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:170
+msgid "point-virgule"
+msgstr "semicolon"
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:205
+msgid ""
+"Le module d'importation va vérifier que le fichier CSV comprenne les mêmes "
+"colonnes que celles attendues dans le modèle de métadonnées."
+msgstr ""
+"The import module will verify that the CSV file contains the same columns as "
+"expected in the metadata template."
+
+#: ../../Views/templates/gestion/pieceDisplay.tpl:207
+msgid ""
+"Si le fichier contient des colonnes supplémentaires, l'importation échouera."
+msgstr "If the file contains additional columns, the import will fail."
+
+#: ../../Views/templates/gestion/especeList.tpl:8
+msgid "Nouvelle espèce..."
+msgstr "New species..."
+
+#: ../../Views/templates/gestion/especeList.tpl:15
+msgid "Nom latin"
+msgstr "Latin name"
+
+#: ../../Views/templates/gestion/especeList.tpl:16
+msgid "Nom français"
+msgstr "French name"
+
+#: ../../Views/templates/gestion/photoChange.tpl:1
+msgid "Modification d'une photo"
+msgstr "Edit a photo"
+
+#: ../../Views/templates/gestion/photoChange.tpl:54
+msgid "Fichier JPG ou TIFF contenant la photo :"
+msgstr "JPG or TIFF file containing the photo:"
+
+#: ../../Views/templates/gestion/photoChange.tpl:119
+msgid "Adresse de stockage (fichiers dans arborescence) :"
+msgstr "Storage address (files in the tree):"
+
+#: ../../Views/templates/gestion/individuChange.tpl:26
+msgid "Modification d'un poisson"
+msgstr "Edit a fish"
+
+#: ../../Views/templates/gestion/individuChange.tpl:54
+msgid "espèce à chercher"
+msgstr "Species to search"
+
+#: ../../Views/templates/gestion/individuChange.tpl:54
+msgid "Tapez au moins 3 caractères..."
+msgstr "Type at least 3 characters..."
+
+#: ../../Views/templates/gestion/individuChange.tpl:95
+msgid "Longueur (mm) :"
+msgstr "Length (mm):"
+
+#: ../../Views/templates/gestion/individuChange.tpl:103
+msgid "Poids (g) :"
+msgstr "Weight (g):"
+
+#: ../../Views/templates/gestion/individuChange.tpl:138
+msgid "Longitude :"
+msgstr "Longitude:"
+
+#: ../../Views/templates/gestion/individuChange.tpl:140
+msgid "Latitude :"
+msgstr "Latitude:"
+
+#: ../../Views/templates/gestion/individuChange.tpl:220
+msgid "Liste des expérimentations de rattachement"
+msgstr "List of related experiments"
+
+#: ../../Views/templates/gestion/lecteurChange.tpl:1
+msgid "Modification d'un lecteur"
+msgstr "Edit a reader"
+
+#: ../../Views/templates/gestion/lecteurChange.tpl:3
+msgid "Retour à la liste des lecteurs"
+msgstr "Back to the list of readers"
+
+#: ../../Views/templates/gestion/lecteurChange.tpl:20
+msgid "Prénom :"
+msgstr "First name:"
+
+#: ../../Views/templates/gestion/lecteurChange.tpl:26
+msgid "Login de connexion :"
+msgstr "Connection login:"
+
+#: ../../Views/templates/gestion/lecteurChange.tpl:33
+msgid "Expérimentations autorisées :"
+msgstr "Granted experimentations:"
+
+#: ../../Views/templates/gestion/individuCartouche.tpl:9
+msgid "Code :"
+msgstr "Code:"
+
+#~ msgid "Nom du module :"
+#~ msgstr "Module name:"
+
+#~ msgid "Login concerné :"
+#~ msgstr "Related login:"
+
+#~ msgid "Rechercher"
+#~ msgstr "Search"
+
+#~ msgid "du :"
+#~ msgstr "from :"
+
+#~ msgid "au :"
+#~ msgstr "to:"
+
+#~ msgid "Module"
+#~ msgstr "Module"
+
+#~ msgid "Login"
+#~ msgstr "Login"
+
+#~ msgid "Adresse IP"
+#~ msgstr "IP address"
+
+#~ msgid "Traitement en cours..."
+#~ msgstr "Processing..."
+
+#~ msgid "Rechercher :"
+#~ msgstr "Search:"
+
+#~ msgid "Afficher _MENU_ éléments"
+#~ msgstr "Show _MENU_ entries"
+
+#~ msgid "Affichage de l'élément _START_ à _END_ sur _TOTAL_ éléments"
+#~ msgstr "Showing _START_ to _END_ of _TOTAL_ entries"
+
+#~ msgid "Affichage de l'élément 0 à 0 sur 0 élément"
+#~ msgstr "Showing 0 to 0 of 0 entries"
+
+#~ msgid "(filtré de _MAX_ éléments au total)"
+#~ msgstr "(filtered from _MAX_ total entries)"
+
+#~ msgid "Chargement en cours..."
+#~ msgstr "Loading..."
+
+#~ msgid "Aucun élément à afficher"
+#~ msgstr "No matching records found"
+
+#~ msgid "Aucune donnée disponible dans le tableau"
+#~ msgstr "No data available in table"
+
+#~ msgid "Premier"
+#~ msgstr "First"
+
+#~ msgid "Précédent"
+#~ msgstr "Previous"
+
+#~ msgid "Suivant"
+#~ msgstr "Next"
+
+#~ msgid "Dernier"
+#~ msgstr "Last"
+
+#~ msgid ": activer pour trier la colonne par ordre croissant"
+#~ msgstr ": activate to sort column ascending"
+
+#~ msgid ": activer pour trier la colonne par ordre décroissant"
+#~ msgstr ": activate to sort column descending"
+
+#~ msgid "Afficher %d éléments"
+#~ msgstr "Show %d entries"
+
+#~ msgid "Tout afficher"
+#~ msgstr "Display All"
+
+#~ msgid "Valeur numérique..."
+#~ msgstr "Numerical value..."
+
+#~ msgid "Confirmez-vous la suppression ?"
+#~ msgstr "Do you confirm the deletion?"
+
+#~ msgid "Confirmez-vous cette opération ?"
+#~ msgstr "Do you confirm this operation?"
+
+#~ msgid "Structure de la base de données"
+#~ msgstr "Database structure"
+
+#~ msgid "Le pire"
+#~ msgstr "The worst"
+
+#~ msgid "Ajoutez un mot ou deux. Les mots inconnus sont meilleurs."
+#~ msgstr "add one or two words. Unknown words are better."
+
+#~ msgid "Mauvais"
+#~ msgstr "Bad"
+
+#~ msgid "Faible"
+#~ msgstr "Weak"
+
+#~ msgid "Bon"
+#~ msgstr "Good"
+
+#~ msgid ""
+#~ "Ajoutez un ou deux autres mots. Les mots peu communs sont meilleurs, les "
+#~ "mots inversés ne sont pas beaucoup plus difficiles à deviner."
+#~ msgstr ""
+#~ "Add one or two words. Uncommon words are better, inverted words are not "
+#~ "much harder to guess."
+
+#~ msgid "Robuste"
+#~ msgstr "Robust"
+
+#~ msgid "Force du mot de passe :"
+#~ msgstr "Password strength:"
+
+#~ msgid "Les mots de passe ne sont pas identiques"
+#~ msgstr "Passwords don't match"
+
+#~ msgid "Le mot de passe est trop court. Minimum : "
+#~ msgstr "The password is too short. Minimum: "
+
+#~ msgid "caractères"
+#~ msgstr "characters"
+
+#~ msgid ""
+#~ "Le mot de passe n'est pas assez complexe (mixez 3 jeux de caractères "
+#~ "parmi les minuscules, majuscules, chiffres et signes de ponctuation)"
+#~ msgstr ""
+#~ "The password is not complex enough (mix 3 character sets among lowercase, "
+#~ "uppercase, numbers, and punctuation)"
+
+#~ msgid "Ancien mot de passe :"
+#~ msgstr "Old password:"
+
+#~ msgid "Nouveau mot de passe :"
+#~ msgstr "New Password:"
+
+#~ msgid "Répétez le mot de passe :"
+#~ msgstr "Repeat password:"
+
+#~ msgid "Longueur minimale du mot de passe :"
+#~ msgstr "Minimum length of the password:"
+
+#~ msgid ""
+#~ "Il doit comprendre au minimum 3 types de caractères différents\n"
+#~ "(minuscule, majuscule, chiffre, ponctuation et autre symboles)"
+#~ msgstr ""
+#~ "It must include at least 3 different types of characters\n"
+#~ "(lowercase, uppercase, number, punctuation and other symbols)"
+
+#~ msgid "Login :"
+#~ msgstr "Login:"
+
+#~ msgid "Mot de passe :"
+#~ msgstr "Password:"
+
+#~ msgid "Conserver la connexion pendant"
+#~ msgstr "Keep me signed in for"
+
+#~ msgid "heures"
+#~ msgstr "hours"
+
+#~ msgid "Mot de passe oublié ?"
+#~ msgstr "Forgot your password?"
+
+#~ msgid "Se connecter"
+#~ msgstr "Sign in"
+
+#~ msgid "ou :"
+#~ msgstr "or:"
+
+#~ msgid "Se connecter avec l'identification centralisée"
+#~ msgstr "Log in withe the central identification"
+
+#~ msgid "Vérification du compte avec la double authentification"
+#~ msgstr "Account verification with dual authentication"
+
+#~ msgid ""
+#~ "Pour vérifier votre identification, veuillez taper le code TOTP que vous "
+#~ "avez configuré dans votre smartphone"
+#~ msgstr ""
+#~ "To verify your identification, please enter the TOTP code that you have "
+#~ "set up in your smartphone"
+
+#~ msgid "Code généré par le logiciel TOTP :"
+#~ msgstr "TOTP software generated code:"
+
+#~ msgid "Faire confiance à ce navigateur :"
+#~ msgstr "Trust this browser :"
+
+#~ msgid ""
+#~ "En cochant cette case, vous désactiverez la demande du code TOTP pour ce "
+#~ "navigateur, sauf pour accéder aux fonctions d'administration, le cas "
+#~ "échéant"
+#~ msgstr ""
+#~ "By ticking this box, you will disable the TOTP code request for this "
+#~ "browser, except for access to the administration functions, where "
+#~ "applicable."
+
+#~ msgid "Saisie/modification d'un compte"
+#~ msgstr "Add / edit an account"
+
+#~ msgid "Retour à la liste des logins"
+#~ msgstr "Back to the list of logins"
+
+#~ msgid "Nom de famille :"
+#~ msgstr "Last name :"
+
+#~ msgid "Adresse e-mail :"
+#~ msgstr "Email address:"
+
+#~ msgid "Date :"
+#~ msgstr "Date:"
+
+#~ msgid "Compte utilisé pour service web :"
+#~ msgstr "Account used for web service:"
+
+#~ msgid "Jeton d'identification du service web :"
+#~ msgstr "Identification token of the web service:"
+
+#~ msgid "Copier dans le presse-papier"
+#~ msgstr "Copy to clipboard"
+
+#~ msgid "Réinitialiser..."
+#~ msgstr "Reset ..."
+
+#~ msgid ""
+#~ "Le compte est verrouillé, le mot de passe n'a pas été changé après 3 "
+#~ "connexions"
+#~ msgstr ""
+#~ "The account is blocked, the password was not changed after 3 connections"
+
+#~ msgid "Générez un mot de passe aléatoire"
+#~ msgstr "Generate a random password"
+
+#~ msgid "Générez"
+#~ msgstr "Generate"
+
+#~ msgid "Mot de passe généré"
+#~ msgstr "Password generated"
+
+#~ msgid "Caractéristiques du mot de passe :"
+#~ msgstr "Password characteristics:"
+
+#~ msgid "Longueur minimale : "
+#~ msgstr "Minimum length:"
+
+#~ msgid "Au minimum 3 types de caractères différents parmi :"
+#~ msgstr "At least 3 different types of characters among:"
+
+#~ msgid "des minuscules"
+#~ msgstr "lowercase characters"
+
+#~ msgid "des majuscules"
+#~ msgstr "uppercase characters"
+
+#~ msgid "des chiffres"
+#~ msgstr "numbers"
+
+#~ msgid "des caractères de ponctuation ou spéciaux"
+#~ msgstr "punctuation or special characters"
+
+#~ msgid "Actif"
+#~ msgstr "Active"
+
+#~ msgid "Essais de connexion infructueux et date du dernier essai :"
+#~ msgstr "Unsuccessful connection attempts and date of last attempt :"
+
+#~ msgid "Adresses enregistrées dans le presse-papiers"
+#~ msgstr "Addresses saved in the clipboard"
+
+#~ msgid "Liste des logins déclarés dans la base de données"
+#~ msgstr "List of logins declared in the database"
+
+#~ msgid "Nouveau login"
+#~ msgstr "New login"
+
+#~ msgid "Nom - Prénom"
+#~ msgstr "Last name - First name"
+
+#~ msgid "Adresse e-mail"
+#~ msgstr "Email address"
+
+#~ msgid "Compte utilisé pour service web"
+#~ msgstr "Account used for web service"
+
+#~ msgid "Mot de passe en attente de changement"
+#~ msgstr "Password waiting to be change"
+
+#~ msgid "Nombre d'essais de connexion infructueux"
+#~ msgstr "Number of unsuccessful connection attempts"
+
+#~ msgid "Heure du dernier essai infructueux"
+#~ msgstr "Time of last unsuccessful attempt"
+
+#~ msgid "Compte bloqué"
+#~ msgstr "Account blocked"
+
+#~ msgid "Adresses mails :"
+#~ msgstr "Email addresses:"
+
+#~ msgid "lancement de la procédure de récupération"
+#~ msgstr "start the recovery procedure"
+
+#~ msgid "Entrez votre adresse e-mail :"
+#~ msgstr "Enter your email address:"
+
+#~ msgid "Recevoir un mail de récupération"
+#~ msgstr "Receive a recovery email"
+
+#~ msgid "Problème potentiel de sécurité"
+#~ msgstr "Potential safety problem"
+
+#~ msgid ""
+#~ "Le compte %1 a essayé d'accéder au module %2 le %3 en dépassant le nombre "
+#~ "autorisé soit en une heure, soit en une journée."
+#~ msgstr ""
+#~ "Account %1 tried to access module %2 on %3, exceeding the authorised "
+#~ "number in either one hour or one day."
+
+#~ msgid ""
+#~ "Vous recevez ce message parce que vous êtes administrateur de "
+#~ "l'application"
+#~ msgstr ""
+#~ "You are receiving this message because you are the administrator of the "
+#~ "application"
+
+#~ msgid ""
+#~ "Le compte %1 a essayé d'accéder au module %2 le %3 sans disposer des "
+#~ "droits adéquats."
+#~ msgstr ""
+#~ "Account %1 tried to access module %2 on %3, exceeding the authorised "
+#~ "number in either one hour or one day."
+
+#~ msgid "Adresse IP du poste concerné : %1"
+#~ msgstr "IP address of the workstation concerned: %1"
+
+#~ msgid "Activation ou réactivation de votre compte"
+#~ msgstr "Activating or reactivating your account"
+
+#~ msgid "Bonjour %1 %2,"
+#~ msgstr "Hello %1 %2,"
+
+#~ msgid "Votre compte vient d'être activé ou réactivé dans l'application %1"
+#~ msgstr ""
+#~ "Your account has just been activated or reactivated in the application %1"
+
+#~ msgid ""
+#~ "Si vous n'êtes pas à l'origine de cette demande, veuillez contacter le "
+#~ "responsable de l'application."
+#~ msgstr ""
+#~ "If you did not initiate this request, please contact the person "
+#~ "responsible for the application."
+
+#~ msgid "Ne répondez pas à ce mail, qui est généré automatiquement"
+#~ msgstr "Do not reply to this e-mail, which is generated automatically"
+
+#~ msgid ""
+#~ "Vous avez demandé à réinitialiser votre mot de passe pour l'application "
+#~ "%1. Si ce n'était pas le cas, contactez l'administrateur de l'application."
+#~ msgstr ""
+#~ "You asked to reset your password for the %1 application. If this was not "
+#~ "the case, contact the application administrator."
+
+#~ msgid ""
+#~ "Pour réinitaliser votre mot de passe, recopiez le lien suivant dans votre "
+#~ "navigateur :"
+#~ msgstr "To reset your password, copy the following link into your browser:"
+
+#~ msgid "Le lien restera valable jusqu'au %1."
+#~ msgstr "The link will remain valid until %1."
+
+#~ msgid ""
+#~ "Le compte %1 a été bloqué le %2 après trop de tentatives de connexion."
+#~ msgstr "Account %1 was blocked on %2 after too many connection attempts."
+
+#~ msgid "Modification du mot de passe"
+#~ msgstr "Password change"
+
+#~ msgid "Votre mot de passe vient d'être modifié dans l'application %1"
+#~ msgstr "Your password has just been changed in the application %1"
+
+#~ msgid ""
+#~ "Si vous n'êtes pas à l'origine de cette opération, veuillez contacter le "
+#~ "responsable de l'application."
+#~ msgstr ""
+#~ "If you did not initiate this operation, please contact the person "
+#~ "responsible for the application."
+
+#~ msgid ""
+#~ "%2 a créé son compte avec le login %1 dans l'application %3. Le compte "
+#~ "est actuellement inactif."
+#~ msgstr ""
+#~ "%2 has created an account with login %1 in application %3. The account is "
+#~ "currently inactive."
+
+#~ msgid "La personne est rattachée à l'organisation %1."
+#~ msgstr "The person is attached to the %1 organization."
+
+#~ msgid "Pour activer le compte, connectez-vous à l'application :"
+#~ msgstr "To activate your account, log in to the :"
+
+#~ msgid ""
+#~ "Vous recevez ce message parce que vous êtes administrateur de "
+#~ "l'application."
+#~ msgstr ""
+#~ "You are receiving this message because you are the application "
+#~ "administrator."
+
+#~ msgid "Mot de passe"
+#~ msgstr "Password"
+
+#~ msgid "Pour tout problème :"
+#~ msgstr "For any problem:"
+
+#~ msgid "Dernières connexions enregistrées"
+#~ msgstr "Last connections recorded"
+
+#~ msgid "Paramètres pérennes de l'application"
+#~ msgstr "List of long-term parameters of the application"
+
+#~ msgid "Paramètre"
+#~ msgstr "Setting"
+
+#~ msgid "Valeur"
+#~ msgstr "Value"
+
+#~ msgid "Liste des logins déclarés dans le module de gestion des droits"
+#~ msgstr "List of logins declared in the rights management module"
+
+#~ msgid "Nouveau login..."
+#~ msgstr "New login"
+
+#~ msgid "Utilisateur"
+#~ msgstr "User"
+
+#~ msgid "Login employé"
+#~ msgstr "Login used"
+
+#~ msgid "Email"
+#~ msgstr "Email"
+
+#~ msgid "Double identification activée ?"
+#~ msgstr "Dual authentication activate?"
+
+#~ msgid ""
+#~ "Modification du droit d'une application (module de gestion des droits)"
+#~ msgstr "Modify the right of an application (rights management module)"
+
+#~ msgid "Retour à la liste des applications"
+#~ msgstr "Back to the list of applications"
+
+#~ msgid "Retour à"
+#~ msgstr "Back to"
+
+#~ msgid "Nom du droit utilisé dans l'application :"
+#~ msgstr "Name of the right used in the application:"
+
+#~ msgid "Groupes disposant du droit :"
+#~ msgstr "Groups with the right:"
+
+#~ msgid "Modification d'un groupe et rattachement des logins"
+#~ msgstr "Edit the group and its attachments to the logins"
+
+#~ msgid "Retour à la liste des groupes"
+#~ msgstr "Back to the list of groups"
+
+#~ msgid "Nom du groupe :"
+#~ msgstr "Name of the group:"
+
+#~ msgid "Groupe de rattachement"
+#~ msgstr "Group of attachment"
+
+#~ msgid "Logins rattachés"
+#~ msgstr "Logins attached"
+
+#~ msgid "Activation de la double authentification"
+#~ msgstr "Enabling dual authentication"
+
+#~ msgid ""
+#~ "La double identification limite les risques d'usurpation de votre compte."
+#~ msgstr ""
+#~ "The double identification limits the risks of usurpation of your account."
+
+#~ msgid ""
+#~ "Pour l'activer, vous devrez installer dans votre smartphone une "
+#~ "application compatible avec l'identificationTOTP, par exemple FreeOTP, "
+#~ "Google Authenticator, etc."
+#~ msgstr ""
+#~ "To activate it, you will need to install in your smartphone an "
+#~ "application that is compatible with the identification TOTP, e.g. "
+#~ "FreeOTP, Google Authenticator, etc."
+
+#~ msgid ""
+#~ "Une fois l'application installée, scannez le QRCODE, puis tapez le code "
+#~ "généré par l'application pour valider votre double identification."
+#~ msgstr ""
+#~ "Once the application has been installed, scan the QRCODE, then enter the "
+#~ "code generated by the application to validate your dual identification."
+
+#~ msgid "Modification d'une application (module de gestion des droits)"
+#~ msgstr "Modify the application (rights management module)"
+
+#~ msgid "Nom de l'application :"
+#~ msgstr "Name of the application:"
+
+#~ msgid "Modification d'un login (module de gestion des droits)"
+#~ msgstr "Edit login (rights management module)"
+
+#~ msgid "Nom de l'utilisateur :"
+#~ msgstr "Username:"
+
+#~ msgid "Login utilisé :"
+#~ msgstr "Login used:"
+
+#~ msgid "Adresse email :"
+#~ msgstr "Email address:"
+
+#~ msgid "Désactiver l'identification à double facteur :"
+#~ msgstr "Disable dual-factor identification:"
+
+#~ msgid "Droits attribués"
+#~ msgstr "Rights granted"
+
+#~ msgid "Liste des droits disponibles pour l'application"
+#~ msgstr "List of available rights for the application"
+
+#~ msgid "Nouveau droit..."
+#~ msgstr "New right"
+
+#~ msgid "Nom du droit d'accès"
+#~ msgstr "Name of the access right"
+
+#~ msgid "Liste des groupes de logins"
+#~ msgstr "List of groups of logins"
+
+#~ msgid "Nouveau groupe racine..."
+#~ msgstr "New root group"
+
+#~ msgid "Nom du groupe"
+#~ msgstr "Name of the group"
+
+#~ msgid "Nombre de logins déclarés"
+#~ msgstr "Number of logins declared"
+
+#~ msgid "Rajouter un groupe fils"
+#~ msgstr "Add a child group"
+
+#~ msgid ""
+#~ "Liste des applications disponibles dans le module de gestion des droits"
+#~ msgstr "List of applications available in the rights management module"
+
+#~ msgid "Nouvelle application..."
+#~ msgstr "New application"
+
+#~ msgid "Nom de l'application"
+#~ msgstr "Name of the application"
+
+#~ msgid "Liste des requêtes SQL"
+#~ msgstr "List of SQL requests"
+
+#~ msgid "Nouvelle requête..."
+#~ msgstr "New request..."
+
+#~ msgid "Date de création"
+#~ msgstr "Date of creation"
+
+#~ msgid "Date de dernière exécution"
+#~ msgstr "Date of last execution"
+
+#~ msgid "Créateur (login)"
+#~ msgstr "Creator (login)"
+
+#~ msgid "Exécuter la requête"
+#~ msgstr "Run the request"
+
+#~ msgid "Dupliquer la requête"
+#~ msgstr "Duplicate the request"
+
+#~ msgid "Confirmez la suppression de la requête"
+#~ msgstr "Do you confirm the deletion of the request?"
+
+#~ msgid "Description de la requête"
+#~ msgstr "Description of the request"
+
+#~ msgid "Code SQL :"
+#~ msgstr "SQL code:"
+
+#~ msgid "Champs dates de la requête (séparés par une virgule) :"
+#~ msgstr "Date fields of the request (separated by a comma):"
+
+#~ msgid "date de création :"
+#~ msgstr "Date of creation:"
+
+#~ msgid "par :"
+#~ msgstr "by:"
+
+#~ msgid "Date de dernière exécution :"
+#~ msgstr "Date of last execution:"
+
+#~ msgid "Enregistrer"
+#~ msgstr "Save"
+
+#~ msgid "Enregistrer et exécuter"
+#~ msgstr "Save and run"
+
+#~ msgid "Exécuter"
+#~ msgstr "Run"
+
+#~ msgid "Aucun résultat n'a été retourné par la requête"
+#~ msgstr "No results were returned by the query"
+
+#~ msgid ""
+#~ "Ce module est destiné à réaliser une sauvegarde exceptionnelle de la base "
+#~ "de données"
+#~ msgstr ""
+#~ "This module is designed to realize an exceptional backup of the database"
+
+#~ msgid ""
+#~ "En aucun cas, il se substitue à la procédure de sauvegarde automatique "
+#~ "qui doit avoir été implémentée dans le serveur"
+#~ msgstr ""
+#~ "In no case does it replace the automated backup procedure that must have "
+#~ "been implemented in the server"
+
+#~ msgid ""
+#~ "La sauvegarde peut échouer si la taille de la base de données est trop "
+#~ "importante."
+#~ msgstr "The backup may fail if the size of the database is too large."
+
+#~ msgid ""
+#~ "Après avoir récupéré le fichier généré, assurez-vous qu'il contient bien "
+#~ "les informations (fichier .sql dans le fichier compressé au format gzip)"
+#~ msgstr ""
+#~ "After downloading the generated file, make sure it contains the "
+#~ "information (.sql file in the gzip compressed file)."
+
+#~ msgid "Déclencher la sauvegarde"
+#~ msgstr "Process to the backup"
+
+#~ msgid "Liste des nouveautés"
+#~ msgstr "List of news"
+
+#~ msgid "Dernière version publiée"
+#~ msgstr "Last published version"
+
+#~ msgid "Version actuelle : "
+#~ msgstr "Current version:"
+
+#~ msgid "Dernière version publiée : "
+#~ msgstr "Last version published:"
+
+#~ msgid ""
+#~ "Vous pouvez demander la mise à jour de votre plate-forme à vos "
+#~ "administrateurs !"
+#~ msgstr "You can ask your administrators to update your platform!"
+
+#~ msgid "Nom de la variable"
+#~ msgstr "Variable name"
+
+#~ msgid "Contenu"
+#~ msgstr "Content"
+
+#, fuzzy
+#~ msgid ""
+#~ "Modèle de métadonnées à utiliser\n"
+#~ "                        :"
+#~ msgstr "Metadata template to use:"
+
+#~ msgid "Paramètres généraux de l'application"
+#~ msgstr "Application Settings"
+
+#~ msgid "Requêtes SQL"
+#~ msgstr "SQL requests"
+
+#~ msgid "Exécution de requêtes SQL dans la base de données"
+#~ msgstr "Run SQL requests on the database"
+
+#~ msgid "Structure de la base de données des droits (HTML)"
+#~ msgstr "Right management database structure (HTML)"
+
+#~ msgid ""
+#~ "Liste des tables et des colonnes de la base de données de gestion des "
+#~ "droits"
+#~ msgstr "List of tables and columns of the right management database"
+
+#~ msgid "05/08/2022"
+#~ msgstr "2020-08-05"
+
+#~ msgid "Module administration"
+#~ msgstr "Administration"
+
+#~ msgid "Impossible de lire le fichier contenant les news"
+#~ msgstr "Unable to read the file containing the news"
+
+#~ msgid "Problème lors de la mise en fichier..."
+#~ msgstr "Writing problem..."
+
+#, php-format
+#~ msgid "le champ %1$s  n'est pas numerique. Valeur saisie : %2$s"
+#~ msgstr "The field %1$s is not numeric. Entered value: %2$s"
+
+#, php-format
+#~ msgid ""
+#~ "Le champ %1$s est trop grand. Longueur maximale autorisée : %2$s. Valeur "
+#~ "saisie : %3$s (%4$s caracteres)"
+#~ msgstr ""
+#~ "The %1$s field is too big. Maximum length allowed: %2$s. Entered value: "
+#~ "%3$s (%4$s characters)"
+
+#, php-format
+#~ msgid ""
+#~ "Le contenu du champ %1$s ne correspond pas au format attendu. Masque "
+#~ "autorisé : %2$s. Valeur saisie : %3$s"
+#~ msgstr ""
+#~ "The content of the field %1$s does not match the expected format. "
+#~ "Authorized mask: %2$s. Entered value: %3$s"
+
+#, php-format
+#~ msgid ""
+#~ "La connexion à la base de données n'est pas disponible pour instancier la "
+#~ "classe %s"
+#~ msgstr "The database connection is not available to instance the class %s"
+
+#~ msgid "Aucun nom de fichier n'a été fourni"
+#~ msgstr "No file name has been provided"
+
+#, php-format
+#~ msgid "Le fichier %s n'existe pas ou n'est pas lisible"
+#~ msgstr "File %s not found or not readable"
+
+#~ msgid ""
+#~ "Problème dans les données fournies : l'encodage des caractères n'est pas "
+#~ "celui attendu"
+#~ msgstr ""
+#~ "Problem in the provided data: the character encoding is not the one "
+#~ "expected"
+
+#~ msgid ""
+#~ "Message technique : la vue n'a pas été initialisée lors de la création de "
+#~ "la page de login"
+#~ msgstr ""
+#~ "Technical message: the view was not initialized for the creation of the "
+#~ "login page"
+
+#~ msgid ""
+#~ "Veuillez utiliser le login qui vous a été fourni pour vous identifier"
+#~ msgstr ""
+#~ "Please use the login that has been provided to you to identify yourself"
+
+#~ msgid "Identification réussie !"
+#~ msgstr "Authentication successful!"
+
+#~ msgid "Connexions précédentes récentes :"
+#~ msgstr "Recent previous connections:"
+
+#, php-format
+#~ msgid ""
+#~ "Dernière connexion le %1$s depuis l'adresse IP %2$s. Si ce n'était pas "
+#~ "vous, modifiez votre mot de passe ou contactez l'administrateur de "
+#~ "l'application."
+#~ msgstr ""
+#~ "Last connection on %1$s from the IP address %2$s. If it was not you, "
+#~ "change your password or contact the administrator of the application."
+
+#, php-format
+#~ msgid "Module précédent enregistré : %s"
+#~ msgstr "Previous module: %s"
+
+#~ msgid ""
+#~ "L'accès au module demandé nécessite une ré-identification. Veuillez "
+#~ "saisir votre login et votre mot de passe"
+#~ msgstr ""
+#~ "Access to the requested module requires re-identification. Please enter "
+#~ "your login and password"
+
+#~ msgid "Erreur d'écriture dans le fichier de traces"
+#~ msgstr "Error writing to the log file"
+
+#~ msgid ""
+#~ "Une erreur indéterminée s'est produite pendant le traitement de la "
+#~ "requête. Si le problème persiste, consultez l'administrateur de "
+#~ "l'application"
+#~ msgstr ""
+#~ "An unidentified error occurred during the processing of the request. If "
+#~ "the problem persists, please contact the application administrator"
+
+#~ msgid ""
+#~ "Vous n'avez pas accès à cette fonction. Veuillez vous identifier, le cas "
+#~ "échéant"
+#~ msgstr ""
+#~ "You do not have access to this function. Please identify yourself, if "
+#~ "applicable"
+
+#~ msgid "Vous n'êtes pas identifié."
+#~ msgstr "You are not signed in."
+
+#~ msgid "Echec de connexion à la base de données de gestion des droits (GACL)"
+#~ msgstr "Failed to connect to rights management database (GACL)"
+
+#~ msgid "Echec de connexion à la base de données principale"
+#~ msgstr "Failed to connect to the main database"
+
+#~ msgid ""
+#~ "Vous avez été déconnecté, votre session était ouverte depuis trop "
+#~ "longtemps"
+#~ msgstr "You have been disconnected, your session has been open for too long"
+
+#~ msgid ""
+#~ "Une erreur a été détectée lors de la création de l'écran. Si le problème "
+#~ "persiste, contactez l'administrateur de l'application."
+#~ msgstr ""
+#~ "An error was detected when creating the screen. If the problem persists, "
+#~ "please contact the application administrator."
+
+#~ msgid ""
+#~ "Vous avez déjà activé l'identification à double facteur : contactez un "
+#~ "administrateur de l'application pour réinitialiser cette fonction"
+#~ msgstr ""
+#~ "You have already activated the two-factor identification: contact an "
+#~ "application administrator to reset this function."
+
+#~ msgid ""
+#~ ":prenom :nom,<br>\n"
+#~ "                            <br>Vous avez demandé à réinitialiser votre "
+#~ "mot de passe pour l'application :appli. Si ce n'était pas le cas, "
+#~ "contactez l'administrateur de l'application.\n"
+#~ "                            <br>Pour réinitaliser votre mot de passe, "
+#~ "recopiez le lien suivant dans votre navigateur :<br><a href=':"
+#~ "adresse'>Réinitialisez votre mot de passe</a>\n"
+#~ "                            <br>Ne répondez pas à ce mail, qui est généré "
+#~ "automatiquement"
+#~ msgstr ""
+#~ ":prenom :nom, <br>\n"
+#~ "<br> You have asked to reset your password for the :appli application. If "
+#~ "this is not the case, contact the administrator of the application.\n"
+#~ "<br> To reinitialize your password, copy the following link into your "
+#~ "browser: <br> <a href=':adresse'>Reset your password</a>\n"
+#~ "<br> Do not reply to this mail, which was automatically generated."
+
+#~ msgid ""
+#~ "Problème rencontré lors de l'écriture du login pour la gestion des droits"
+#~ msgstr ""
+#~ "Problem encountered while writing the login for the rights management"
+
+#~ msgid ""
+#~ "Vous venez de modifier votre mot de passe. Si vous n'êtes pas à l'origine "
+#~ "de cette opération, contactez l'administrateur de l'application, et "
+#~ "activez également la double authentification pour mieux protéger votre "
+#~ "compte."
+#~ msgstr ""
+#~ "You have just changed your password. If you did not initiate this "
+#~ "operation, contact the application administrator, and also enable dual "
+#~ "authentication to better protect your account."
+
+#~ msgid "Envoi du message de modification du mot de passe par mail en échec"
+#~ msgstr "Sending the password change message by email in failure"
+
+#, php-format
+#~ msgid ""
+#~ "%1$s a créé son compte avec le login %2$s dans l'application %3$s.\n"
+#~ "                          <br>Il est rattaché à l'organisation %5$s.\n"
+#~ "                          <br>Le compte est inactif jusqu'à ce que vous "
+#~ "l'activiez.\n"
+#~ "                          <br>Pour activer le compte, connectez-vous à "
+#~ "l'application\n"
+#~ "                              <a href=\"%4$s\">%4$s</a>\n"
+#~ "                          <br>Ne répondez pas à ce mail, qui est généré "
+#~ "automatiquement"
+#~ msgstr ""
+#~ "%1$s created his account with the login %2$s in the application %3$s.\n"
+#~ "                          <br>He is attached to the organization %5$s.\n"
+#~ "                          <br>The account is inactive until you activate "
+#~ "it.\n"
+#~ "                          <br>To activate the account, login to the "
+#~ "application\n"
+#~ "                              <a href=\"%4$s\">%4$s</a>\n"
+#~ "                          <br>Don't answer this mail, which is generated "
+#~ "automatically."
+
+#~ msgid ""
+#~ "L'accès au module que vous demandez ne respecte pas la cinématique de "
+#~ "l'application. Peut-être avez-vous essayé de rafraîchir la page ?"
+#~ msgstr ""
+#~ "The access to the module does not respect the order of the sequences in "
+#~ "the application. Maybe you tried to refresh the page?"
+
+#, php-format
+#~ msgid "Erreur: type d'affichage non défini pour le module demandé : %s"
+#~ msgstr "Error: display type not defined for the requested module: %s"
+
+#~ msgid ""
+#~ "Suppression impossible : la clé n'est pas numérique ou n'a pas été fournie"
+#~ msgstr "Can't to delete: the key is not numeric or was not provided"
+
+#~ msgid "Impossible d'initialiser le composant curl"
+#~ msgstr "Unable to initiate the curl component"
+
+#, php-format
+#~ msgid ""
+#~ "Une erreur est survenue lors de l'exécution de la requête vers le serveur "
+#~ "distant. Code d'erreur CURL : %s"
+#~ msgstr ""
+#~ "An error occurred while executing the request to the remote server. CURL "
+#~ "error code: %s"
+
+#~ msgid ""
+#~ "Bienvenue dans l'application de lecture des otolithes et autres pièces "
+#~ "calcifiées !"
+#~ msgstr "Welcome to the Otoliths and Calcified Pieces Reading App!"
+
+#~ msgid ""
+#~ "Le logiciel Otolithe permet à différents lecteurs de positionner des "
+#~ "points sur une photo, notamment pour déterminer l'emplacement de stries "
+#~ "de croissance"
+#~ msgstr ""
+#~ "Otolithe software allows different readers to position points on a photo, "
+#~ "including determining the location of growth streaks"
+
+#~ msgid ""
+#~ "Les différentes lectures peuvent être comparées pour déterminer une "
+#~ "lecture consensuelle"
+#~ msgstr ""
+#~ "The different readings can be compared to determine a consensual reading"
+
+#~ msgid "Pour toute demande d'évolution, ou pour signaler une anomalie :"
+#~ msgstr "For any evolution request, or to report an anomaly:"
+
+#~ msgid "Pour les personnels IRSTEA : déclarez un ticket dans"
+#~ msgstr "for Irstea staff: declare a ticket into"
+
+#~ msgid "la forge IRSTEA"
+#~ msgstr "Irstea Forge"
+
+#~ msgid ""
+#~ "Pour les autres personnes : envoyez une demande par courriel à l'adresse"
+#~ msgstr "For others, send a request at "
+
+#~ msgid "Code de l'individu"
+#~ msgstr "Code of the fish"
+
+#~ msgid "Création d'une nouvelle lecture simple"
+#~ msgstr "Create a new simple reading"
+
+#~ msgid "Les nouveautés..."
+#~ msgstr "What's new?"
+
+#~ msgid ""
+#~ "Copyright © 2016-2022 - Tous droits réservés. Auteur : Éric Quinton, pour "
+#~ "INRAE - Logiciel diffusé sous licence AGPL"
+#~ msgstr ""
+#~ "Copyright © 2016-2022 - All rights reserved. Author: Eric Quinton, for "
+#~ "INRAE - Software released under AGPL license"
+
+#~ msgid "Le mot de passe est trop court (minimum : 10 caractères)"
+#~ msgstr "The password is too short (minimum: 10 characters)"
+
+#~ msgid "Le mot de passe doit :"
+#~ msgstr "The password must:"
+
+#~ msgid "avoir une longueur minimale de 10 caractères"
+#~ msgstr "have a minimum length of 10 characters"
+
+#~ msgid "être composé d'au minimum 3 types de caractères différents parmi :"
+#~ msgstr "be composed of at least 3 different types of characters among:"
+
+#~ msgid ""
+#~ "Le mot de passe doit avoir une longueur minimale de 10 caractères\n"
+#~ "Il doit comprendre au minimum 3 types de caractères différents\n"
+#~ "(minuscule, majuscule, chiffre, ponctuation et autre symboles)"
+#~ msgstr ""
+#~ "The password must be at least 10 characters long\n"
+#~ "It must include at least 3 different types of characters\n"
+#~ "(lowercase, uppercase, number, punctuation and other symbols)"
+
+#~ msgid "Suppression non réalisée"
+#~ msgstr "Unrealized deletion"
+
+#~ msgid "Créer une nouvelle requête"
+#~ msgstr "Create a new request"
+
+#~ msgid "Le mot de passe a déjà été utilisé"
+#~ msgstr "The password has already been used"
+
+#~ msgid "22/02/2019"
+#~ msgstr "2019-02-22"
+
+#~ msgid "Sélectionnez le lecteur"
+#~ msgstr "Select the reader"
+
+#~ msgid ""
+#~ "Impossible de vérifier la version de la base de données, échec de lecture "
+#~ "de la table"
+#~ msgstr "Unable to check the database version, read table failed"
+
+#~ msgid "Séparateur : tabulation, UTF-8, chiffres décimaux avec points"
+#~ msgstr "Separator: tabulation, UTF-8, decimal digits with points"
+
+#~ msgid "Gestion"
+#~ msgstr "Modules"
+
+#~ msgid "Modules de l'application"
+#~ msgstr "Application modules"
+
+#~ msgid "Exemple"
+#~ msgstr "Example"
+
+#~ msgid "Exemple de module"
+#~ msgstr "Module example"
+
+#~ msgid "Page d'accueil de l'application"
+#~ msgstr "Application home page"

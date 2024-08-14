@@ -1,0 +1,57 @@
+{
+  "name": "magnific-popup",
+  "version": "1.2.0",
+  "title": "Magnific Popup",
+  "description": "Lightbox and modal dialog plugin. Can display inline HTML, iframes (YouTube video, Vimeo, Google Maps), or an image gallery. Animation effects are added with CSS3 transitions. For jQuery or Zepto.",
+  "keywords": [
+    "ecosystem:jquery",
+    "jquery-plugin",
+    "zepto",
+    "lightbox",
+    "popup",
+    "modal",
+    "window",
+    "dialog",
+    "gallery",
+    "jquery",
+    "photo",
+    "responsive",
+    "mobile"
+  ],
+  "author": {
+    "name": "Dmytro Semenov",
+    "email": "diiiimaaaa@gmail.com",
+    "web": "http://dimsemenov.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dimsemenov/Magnific-Popup/issues"
+  },
+  "main": "dist/jquery.magnific-popup.js",
+  "style": "dist/magnific-popup.css",
+  "homepage": "http://dimsemenov.com/plugins/magnific-popup/",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt jshint",
+    "prod": "grunt production"
+  },
+  "devDependencies": {
+    "dart-sass": "^1.25.0",
+    "grunt": "~1.6.1",
+    "grunt-contrib-clean": "~2.0.1",
+    "grunt-contrib-concat": "^2.1.0",
+    "grunt-contrib-copy": "~1.0.0",
+    "grunt-contrib-cssmin": "^5.0.0",
+    "grunt-contrib-jshint": "~3.2.0",
+    "grunt-contrib-uglify": "~5.2.2",
+    "grunt-contrib-watch": "~1.1.0",
+    "grunt-jekyll": "~1.0.1",
+    "grunt-sass": "~3.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dimsemenov/Magnific-Popup.git"
+  }
+}

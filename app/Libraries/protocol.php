@@ -71,7 +71,8 @@ $this->vue=service('Smarty');
          * write record in database
          */
         try {
-            $bdd->beginTransaction();
+            $db = $this->dataClass->db;
+$db->transBegin();
             $this->id = $this->dataWrite( $_POST, true);
             if ($this->id > 0) {
                 if ($_FILES["protocol_file"]["error"] == 1) {
@@ -95,11 +96,13 @@ $this->vue=service('Smarty');
                 }
                 $_REQUEST[$this->keyName] = $this->id;
                 $module_coderetour = 1;
-                $bdd->commit();
+                
                 $this->message->set(_("Enregistrement effectué"));
             }
         } catch (Exception $e) {
-            $bdd->rollback();
+            if ($db->transEnabled) {
+    $db->transRollback();
+}
             $module_coderetour = -1;
             $this->message->set($e->getMessage(), true);
         }

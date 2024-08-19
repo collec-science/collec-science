@@ -57,7 +57,7 @@ $export->modeDebug = false;
                 if ($export->modeDebug) {
                     throw new ExportException("Debug mode: no file generated");
                 }
-                $this->vue->setParam(array("filename" => $_SESSION["APPLI_code"] . '-' . date('YmdHis') . ".json"));
+                $this->vue->setParam(array("filename" => $_SESSION["dbparams"]["APPLI_code"] . '-' . date('YmdHis') . ".json"));
                 $this->vue->set(json_encode($data));
             } else {
                 throw new ExportException(_("Le modèle d'export n'est pas défini ou n'a pas été trouvé"));
@@ -115,7 +115,8 @@ $export->modeDebug = false;
                 fclose($handle);
                 $data = json_decode($contents, true);
                 try {
-                    $bdd->beginTransaction();
+                    $db = $this->dataClass->db;
+$db->transBegin();
                     $firstTable = true;
                     foreach ($data as $tableName => $values) {
                         if ($firstTable && !empty($_REQUEST["parentKeyName"])) {
@@ -126,11 +127,13 @@ $export->modeDebug = false;
                             $export->importDataTable($tableName, $values);
                         }
                     }
-                    $bdd->commit();
+                    
                     $this->message->set(sprintf(_("Importation effectuée, fichier %s traité."), $realFilename));
                     $module_coderetour = 1;
                 } catch (ExportException $e) {
-                    $bdd->rollback();
+                    if ($db->transEnabled) {
+    $db->transRollback();
+}
                     $this->message->set($e->getMessage(), true);
                     $module_coderetour = -1;
                 }

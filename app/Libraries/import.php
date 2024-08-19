@@ -112,7 +112,7 @@ $this->vue=service('Smarty');
                     /*
                      * Deplacement du fichier dans le dossier temporaire
                      */
-                    $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
+                    $filename =  $this->appConfig->APP_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
                     if (!copy($_FILES['upfile']['tmp_name'], $filename)) {
                         $this->message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"), true);
                     } else {
@@ -143,7 +143,8 @@ $this->vue=service('Smarty');
                     /*
                      * Demarrage d'une transaction
                      */
-                    $bdd->beginTransaction();
+                    $db = $this->dataClass->db;
+$db->transBegin();
                     $import->initFile($_SESSION["filename"], $_SESSION["separator"], $_SESSION["utf8_encode"]);
                     $import->importAll();
                     $this->message->set(sprintf(_("Import effectué. %s lignes traitées"), $import->nbTreated));
@@ -151,14 +152,18 @@ $this->vue=service('Smarty');
                     $this->message->set(sprintf(_("Dernier UID généré : %s"), $import->maxuid));
                     $log->setLog($_SESSION["login"], "massImportDone", "first UID:" . $import->minuid . ",last UID:" . $import->maxuid . ", Nb treated lines:" . $import->nbTreated);
                     $module_coderetour = 1;
-                    $bdd->commit();
+                    
                 } catch (ImportObjectException $ie) {
-                    $bdd->rollBack();
+                    if ($db->transEnabled) {
+    $db->transRollback();
+}
                     $this->message->set(_("Une erreur s'est produite pendant l'importation."), true);
                     $this->message->set($ie->getMessage(), true);
                     $module_coderetour = -1;
                 } catch (Exception $e) {
-                    $bdd->rollBack();
+                    if ($db->transEnabled) {
+    $db->transRollback();
+}
                     $this->message->set(_("Une erreur s'est produite pendant l'importation."), true);
                     $this->message->set($e->getMessage(), true);
                     $module_coderetour = -1;
@@ -217,20 +222,25 @@ $this->vue=service('Smarty');
                     /*
                      * Demarrage d'une transaction
                      */
-                    $bdd->beginTransaction();
+                    $db = $this->dataClass->db;
+$db->transBegin();
                     $import->importExterneExec($data, $sic, $_POST);
                     $this->message->set(sprintf(_("Import effectué. %s lignes traitées"), $import->nbTreated));
                     $this->message->set(sprintf(_("Premier UID généré : %s"), $import->minuid));
                     $this->message->set(sprintf(_("Dernier UID généré : %s"), $import->maxuid));
                     $module_coderetour = 1;
                     $log->setLog($_SESSION["login"], "externalImportDone", "first UID:" . $import->minuid . ",last UID:" . $import->maxuid . ", Nb treated lines:" . $import->nbTreated);
-                    $bdd->commit();
+                    
                 } catch (ImportObjectException $ie) {
-                    $bdd->rollBack();
+                    if ($db->transEnabled) {
+    $db->transRollback();
+}
                     $this->message->set($ie->getMessage(), true);
                     $module_coderetour = -1;
                 } catch (Exception $e) {
-                    $bdd->rollBack();
+                    if ($db->transEnabled) {
+    $db->transRollback();
+}
                     $this->message->set($e->getMessage(), true);
                     $module_coderetour = -1;
                 }

@@ -238,6 +238,13 @@ class App extends BaseConfig
         ]
     ];
     /**
+     * Root of the storage of external documents for the instance
+     * Each collection must be in a specific subfolder ot this path
+     *
+     * @var string
+     */
+    public $external_document_path = "/dev/null";
+    /**
      * List of locales used in the app. The second parameter must be declared in 
      * /etc/locale.gen (locale-gen en-GB.UTF-8 to generate it)
      *

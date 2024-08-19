@@ -89,9 +89,10 @@ $this->id = $_REQUEST[$this->keyName];
          * write record in database
          */
         try {
-            $bdd->beginTransaction();
+            $db = $this->dataClass->db;
+$db->transBegin();
             $this->dataclass->addMovement($_REQUEST["uid"], $_REQUEST["movement_date"], $_REQUEST["movement_type_id"], $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"], $_REQUEST["column_number"], $_REQUEST["line_number"]);
-            $bdd->commit();
+            
             $module_coderetour = 1;
             $this->message->set(_("Mouvement généré"));
         } catch (MovementException $me) {
@@ -99,11 +100,15 @@ $this->id = $_REQUEST[$this->keyName];
             $this->message->set(_("Erreur lors de la génération du mouvement"), true);
             $this->message->set($me->getMessage());
             $module_coderetour = -1;
-            $bdd->rollback();
+            if ($db->transEnabled) {
+    $db->transRollback();
+}
         } catch (Exception $e) {
             $module_coderetour = -1;
             $this->message->setSyslog($e->getMessage());
-            $bdd->rollback();
+            if ($db->transEnabled) {
+    $db->transRollback();
+}
         }
         }
     function delete(){
@@ -129,7 +134,7 @@ $this->id = $_REQUEST[$this->keyName];
         /*
          * Assignation du nom de la base
          */
-        $this->vue->set($_SESSION["APPLI_code"], "db");
+        $this->vue->set($_SESSION["dbparams"]["APPLI_code"], "db");
 
         }
     function fastInputWrite() {
@@ -151,7 +156,7 @@ $this->id = $_REQUEST[$this->keyName];
         /*
          * Assignation du nom de la base
          */
-        $this->vue->set($_SESSION["APPLI_code"], "db");
+        $this->vue->set($_SESSION["dbparams"]["APPLI_code"], "db");
         /*
          * Recherche des motifs de sortie
          */
@@ -243,7 +248,7 @@ $this->vue=service('Smarty');
         /*
          * Assignation du nom de la base
          */
-        $this->vue->set($_SESSION["APPLI_code"], "db");
+        $this->vue->set($_SESSION["dbparams"]["APPLI_code"], "db");
         /*
          * Recherche des motifs de sortie
          */

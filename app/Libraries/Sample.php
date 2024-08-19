@@ -1,65 +1,73 @@
-<?php 
+<?php
+
 namespace App\Libraries;
 
+use App\Models\Booking;
+use App\Models\Borrower;
+use App\Models\Borrowing;
+use App\Models\Campaign;
+use App\Models\Collection;
+use App\Models\Container;
+use App\Models\ContainerFamily;
+use App\Models\Country;
+use App\Models\Document;
+use App\Models\Event;
+use App\Models\EventType;
+use App\Models\ExportModel;
+use App\Models\Import;
+use App\Models\Metadata;
+use App\Models\MimeType;
+use App\Models\Movement;
+use App\Models\MovementReason;
+use App\Models\ObjectClass;
+use App\Models\ObjectIdentifier;
+use App\Models\ObjectStatus;
+use App\Models\Referent;
+use App\Models\Sample as ModelsSample;
+use App\Models\SampleInitClass;
+use App\Models\Samplesearch;
+use App\Models\SampleType;
+use App\Models\SamplingPlace;
+use App\Models\Subsample;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
 
-class Xx extends PpciLibrary { 
+class Sample extends PpciLibrary
+{
     /**
-     * @var xx
+     * @var ModelsSample
      */
     protected PpciModel $dataclass;
 
     private $keyName;
+    private $isDelete = false;
 
-function __construct()
+    function __construct()
     {
         parent::__construct();
-        $this->dataClass = new XXX();
-        $this->keyName = "xxx_id";
+        $this->dataClass = new ModelsSample();
+        $this->keyName = "uid";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
+        $_SESSION["moduleParent"] = "sample";
     }
 
-/**
- * Created : 30 juin 2016
- * Creator : quinton
- * Encoding : UTF-8
- * Copyright 2016 - All rights reserved
- */
-require_once 'modules/classes/sample.class.php';
-require_once 'modules/classes/object.class.php';
-require_once 'modules/gestion/sample.functions.php';
-$this->dataclass = new Sample();
-$this->keyName = "uid";
-if (isset($_SESSION["uid"])) {
-    $this->id = $_SESSION["uid"];
-    unset($_SESSION["uid"]);
-} else {
-    $this->id = $_REQUEST[$this->keyName];
-}
-$_SESSION["moduleParent"] = "sample";
-if (isset($_REQUEST["activeTab"])) {
-    $activeTab = $_REQUEST["activeTab"];
-}
-
-
-    function list(){
-$this->vue=service('Smarty');
+    function list()
+    {
+        $this->vue = service('Smarty');
         $_SESSION["moduleListe"] = "sampleList";
         /**
          * Display the list of all records of the table
          */
-        if (!isset($isDelete) && !isset($_REQUEST["is_action"])) {
+        if (!isset($this->isDelete) && !isset($_REQUEST["is_action"])) {
             $_SESSION["searchSample"]->setParam($_REQUEST);
         }
         $this->vue->set("sampleList", "moduleFrom");
         /**
          * Get the content of a recorded request
          */
-        require_once "modules/classes/utils/samplesearch.class.php";
         $samplesearch = new Samplesearch();
         $samplesearch_id = $_REQUEST["samplesearch_id"];
         if ($samplesearch_id > 0) {
@@ -77,7 +85,7 @@ $this->vue=service('Smarty');
                 "samplesearch_data" => json_encode($dataSearch),
                 "samplesearch_login" => $_SESSION["login"]
             );
-            if ($_REQUEST["samplesearch_collection"] == 1 /*&& $this->dataclass->verifyCollection($_REQUEST["collection_id"])*/) {
+            if ($_REQUEST["samplesearch_collection"] == 1) {
                 $dsamplesearch["collection_id"] = $_REQUEST["collection_id"];
             }
             $samplesearch_id = $samplesearch->ecrire($dsamplesearch, $dsamplesearch["collection_id"]);
@@ -104,7 +112,7 @@ $this->vue=service('Smarty');
                 $this->vue->set($this->dataclass->getNbSamples($dataSearch), "totalNumber");
                 $this->vue->set($data, "samples");
                 $this->vue->set(1, "isSearch");
-            } catch (Exception $e) {
+            } catch (PpciException $e) {
                 $this->message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
                 $this->message->setSyslog($e->getMessage());
             }
@@ -115,7 +123,7 @@ $this->vue=service('Smarty');
         /**
          * Ajout des listes deroulantes
          */
-        sampleInitDatEntry();
+        $this->setRelatedTablesToView($this->vue);
         /**
          * Ajout de la selection des modeles d'etiquettes
          */
@@ -135,10 +143,9 @@ $this->vue=service('Smarty');
         }
         $this->vue->set(json_encode($dataMap), "markers");
         $this->vue->htmlVars[] = "markers";
-                /**
+        /**
          * Add multiple documents
          */
-        include_once 'modules/classes/document.class.php';
         $document = new Document();
         $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
         $this->vue->set($_SESSION["collections"][$dataSearch["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
@@ -147,15 +154,23 @@ $this->vue=service('Smarty');
          */
         $mimeType = new MimeType();
         $this->vue->set($mimeType->getListExtensions(false), "extensions");
-        }
-    function searchAjax() {
+        return $this->vue->send();
+    }
+    function searchAjax()
+    {
+        $this->vue = service('AjaxView');
         $this->vue->set($this->dataclass->sampleSearch($_REQUEST));
-        }
-    function getFromId() {
+        return $this->vue->send();
+    }
+    function getFromId()
+    {
+        $this->vue = service('AjaxView');
         $this->vue->set($this->dataclass->lireFromId($_REQUEST["sample_id"]));
-        }
-    function display(){
-$this->vue=service('Smarty');
+        return $this->vue->send();
+    }
+    function display()
+    {
+        $this->vue = service('Smarty');
         /**
          * Display the detail of the record
          */
@@ -173,28 +188,23 @@ $this->vue=service('Smarty');
         /**
          * Recuperation des identifiants associes
          */
-        include_once 'modules/classes/objectIdentifier.class.php';
         $oi = new ObjectIdentifier();
         $this->vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
         /**
          * Recuperation des contenants parents
          */
-        include_once 'modules/classes/container.class.php';
         $container = new Container();
         $this->vue->set($container->getAllParents($data["uid"]), "parents");
         /**
          * Recuperation des evenements
          */
-        include_once 'modules/classes/event.class.php';
         $event = new Event();
         $this->vue->set($event->getListeFromUid($data["uid"]), "events");
-        include_once 'modules/classes/eventType.class.php';
         $eventType = new EventType();
         $this->vue->set($eventType->getListeFromCategory("sample", $data["collection_id"]), "eventType");
         /**
          * Recuperation des mouvements
          */
-        include_once 'modules/classes/movement.class.php';
         $movement = new Movement();
         $this->vue->set($movement->getAllMovements($this->id), "movements");
         /**
@@ -204,21 +214,18 @@ $this->vue=service('Smarty');
         /**
          * Recuperation des reservations
          */
-        include_once 'modules/classes/booking.class.php';
         $booking = new Booking();
         $this->vue->set($booking->getListFromParent($data["uid"], 'date_from desc'), "bookings");
         /**
          * Recuperation des sous-echantillonnages
          */
         if ($data["multiple_type_id"] > 0) {
-            include_once 'modules/classes/subsample.class.php';
             $subSample = new Subsample();
             $this->vue->set($subSample->getListFromSample($data["sample_id"]), "subsample");
         }
         /**
          * Get the list of borrowings
          */
-        include_once "modules/classes/borrowing.class.php";
         $borrowing = new Borrowing();
         $this->vue->set($borrowing->getFromUid($data["uid"]), "borrowings");
         /**
@@ -227,13 +234,12 @@ $this->vue=service('Smarty');
         if ($is_modifiable) {
             $this->vue->set(1, "modifiable");
         }
-        $this->vue->set($_SESSION["APPLI_code"], "APPLI_code");
+        $this->vue->set($_SESSION["dbparams"]["APPLI_code"], "APPLI_code");
         /**
          *
          * Recuperation des documents
          */
         if ($is_modifiable || $_SESSION["consultSeesAll"] == 1) {
-            include_once 'modules/classes/document.class.php';
             $document = new Document();
             $this->vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
             $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
@@ -248,7 +254,8 @@ $this->vue=service('Smarty');
         /**
          * Ajout de la selection des modeles d'etiquettes
          */
-        include 'modules/gestion/label.functions.php';
+        $label = new Label;
+        $label->setRelatedTablesToView($this->vue);
         /**
          * Affichage
          */
@@ -256,18 +263,20 @@ $this->vue=service('Smarty');
         include 'modules/gestion/mapInit.php';
         $this->vue->set("sample", "moduleParent");
         $this->vue->set("gestion/sampleDisplay.tpl", "corps");
-        }
-    function change(){
-$this->vue=service('Smarty');
+        return $this->vue->send();
+    }
+    function change()
+    {
+        $this->vue = service('Smarty');
         /**
          * open the form to modify the record
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
          */
-        $data = $this->dataRead( $this->id, "gestion/sampleChange.tpl");
+        $data = $this->dataRead($this->id, "gestion/sampleChange.tpl");
         if ($data["sample_id"] > 0 && !$this->dataclass->verifyCollection($data)) {
             $this->message->set(_("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"), true);
-            $module_coderetour = -1;
+            return $this->display();
         } else {
             /**
              * Recuperation des informations concernant l'echantillon parent
@@ -341,18 +350,23 @@ $this->vue=service('Smarty');
                     $this->vue->set($data, "data");
                 }
             }
-
-            sampleInitDatEntry();
-
-            include 'modules/gestion/mapInit.php';
+            $this->setRelatedTablesToView($this->vue);
             $this->vue->set(1, "mapIsChange");
+            MapInit::setDefault($this->vue);
+            return $this->vue->send();
         }
-        }
-        function write() {
-    try {
+    }
+    function write()
+    {
+        try {
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
+                /**
+                 * Stockage en session du dernier echantillon modifie,
+                 * pour recuperation des informations rattachees pour duplication ou autre
+                 */
+                $_SESSION["last_sample_id"] = $this->id;
                 return $this->display();
             } else {
                 return $this->change();
@@ -361,143 +375,136 @@ $this->vue=service('Smarty');
             return $this->change();
         }
     }
-        /**
-         * write record in database
-         */
-        $this->id = $this->dataWrite( $_REQUEST);
-        if ($this->id > 0) {
-            $_REQUEST[$this->keyName] = $this->id;
-            /**
-             * Stockage en session du dernier echantillon modifie,
-             * pour recuperation des informations rattachees pour duplication ou autre
-             */
-            $_SESSION["last_sample_id"] = $this->id;
+    function delete()
+    {
+        /*
+     * delete record
+     */
+        try {
+            $this->dataDelete($_REQUEST["uid"]);
+            $this->isDelete = true;
+            return $this->list();
+        } catch (PpciException $e) {
+            return $this->change();
         }
-        }
-    function delete(){
-        /**
-         * delete record
-         */
-        $this->dataDelete( $_REQUEST["uid"]);
-        $isDelete = true;
-        }
-    function deleteMulti() {
+    }
+    function deleteMulti()
+    {
         /**
          * Delete all records in uid array
          */
         if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            $bdd->beginTransaction();
+            $db = $this->dataClass->db;
+            $db->transBegin();
             try {
                 foreach ($uids as $uid) {
-                    $this->dataDelete( $uid, true);
+                    $this->dataDelete($uid, true);
                 }
-                $bdd->commit();
-                $module_coderetour = 1;
+
                 $this->message->set(_("Suppression effectuée"));
-            } catch (Exception $e) {
+            } catch (PpciException $e) {
                 $this->message->set(_("La suppression des échantillons a échoué"), true);
                 $this->message->set($e->getMessage());
-                $bdd->rollback();
-                $module_coderetour = -1;
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
             }
         } else {
             $this->message->set(_("Pas d'échantillons sélectionnés"), true);
-            $module_coderetour = -1;
         }
-        }
-    function referentAssignMulti() {
+        return $this->generateReturn();
+    }
+    function referentAssignMulti()
+    {
         /**
          * change all referents for records in uid array
          */
         if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            include_once 'modules/classes/object.class.php';
             $object = new ObjectClass();
-            $bdd->beginTransaction();
+            $db = $this->dataClass->db;
+            $db->transBegin();
             try {
                 foreach ($uids as $uid) {
                     $this->dataclass->setReferent($uid, $object, $_REQUEST["referent_id"]);
                 }
-                $bdd->commit();
+
                 $this->message->set(_("Affectation effectuée"));
-                $module_coderetour = 1;
                 /**
                  * Forçage du retour
                  */
                 $t_module["retourok"] = $_POST["lastModule"];
-            } catch (ObjectException $oe) {
+            } catch (PpciException|\Exception $oe) {
                 $this->message->set(_("Erreur d'écriture dans la base de données"), true);
-                $bdd->rollback();
-                $module_coderetour = -1;
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
                 $t_module["retourko"] = $_POST["lastModule"];
-            } catch (Exception $e) {
-                $this->message->set(
-                    _("L'affectation des référents aux échantillons a échoué"),
-                    true
-                );
-                $this->message->set($e->getMessage());
-                $t_module["retourko"] = $_POST["lastModule"];
-                $module_coderetour = -1;
-                $bdd->rollback();
             }
+        } else {
+            $this->message->set(_("Aucun échantillon n'a été sélectionné"), true);
         }
-        }
-    function eventAssignMulti() {
+        return $this->generateReturn();
+    }
+    function eventAssignMulti()
+    {
         /**
          * Create an event for all selected samples
          */
         if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            include_once 'modules/classes/event.class.php';
             $event = new Event();
             $de = $event->getDefaultValue();
             $de["event_date"] = $_POST["event_date"];
             $de["due_date"] = $_POST["due_date"];
             $de["event_type_id"] = $_POST["event_type_id"];
             $de["event_comment"] = $_POST["event_comment"];
-            $bdd->beginTransaction();
+            $db = $this->dataClass->db;
+            $db->transBegin();
             try {
                 foreach ($uids as $uid) {
                     $de["uid"] = $uid;
                     $event->ecrire($de);
                 }
-                $bdd->commit();
+
                 $this->message->set(_("Création des événements effectuée"));
-                $module_coderetour = 1;
                 /**
                  * Forçage du retour
                  */
                 $t_module["retourok"] = $_POST["lastModule"];
-            } catch (ObjectException $oe) {
+            } catch (PpciException $oe) {
                 $this->message->set(_("Erreur d'écriture dans la base de données"), true);
-                $bdd->rollback();
-                $module_coderetour = -1;
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
                 $t_module["retourko"] = $_REQUEST["lastModule"];
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->message->set(
                     _("La création des événements a échoué"),
                     true
                 );
                 $this->message->set($e->getMessage());
                 $t_module["retourko"] = $_REQUEST["lastModule"];
-                $module_coderetour = -1;
-                $bdd->rollback();
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
             }
         }
-        }
-    function lendingMulti() {
+        return $this->generateReturn();
+    }
+    function lendingMulti()
+    {
         /**
          * Lend the samples to a borrower
          */
         if (count($_POST["uids"]) > 0 && $_POST["borrower_id"] > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            include_once "modules/classes/borrowing.class.php";
             $borrowing = new Borrowing();
-            include_once "modules/classes/movement.class.php";
             $movement = new Movement();
             try {
-                $bdd->beginTransaction();
+                $db = $this->dataClass->db;
+                $db->transBegin();
                 $datejour = date($_SESSION["date"]["maskdate"]);
                 foreach ($uids as $uid) {
                     $borrowing->setBorrowing(
@@ -511,78 +518,88 @@ $this->vue=service('Smarty');
                      */
                     $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, _("Objet prêté"));
                 }
-                $module_coderetour = 1;
                 $this->message->set(_("Opération de prêt enregistrée"));
-                $bdd->commit();
-            } catch (MovementException $me) {
+            } catch (PpciException $me) {
                 $this->message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
                 $this->message->set($me->getMessage());
-                $bdd->rollback();
-            } catch (Exception $e) {
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
+            } catch (\Exception $e) {
                 $this->message->set(_("Un problème est survenu lors de l'enregistrement du prêt"), true);
                 $this->message->set($e->getMessage());
-                $bdd->rollback();
-                $module_coderetour = -1;
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
             }
         } else {
-            $module_coderetour = -1;
+            $this->message->set(_("Aucun échantillon n'a été sélectionné, ou l'emprunteur n'a pas été renseigné"), true);
         }
-
-        }
-    function exitMulti() {
+        return $this->generateReturn();
+    }
+    function exitMulti()
+    {
         if (count($_POST["uids"]) > 0) {
             include_once "modules/classes/movement.class.php";
             $movement = new Movement();
             try {
-                $bdd->beginTransaction();
+                $db = $this->dataClass->db;
+                $db->transBegin();
                 foreach ($_POST["uids"] as $uid) {
                     $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null);
                 }
-                $module_coderetour = 1;
-                $bdd->commit();
-            } catch (MovementException $me) {
+            } catch (PpciException $me) {
                 $this->message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
                 $this->message->set($me->getMessage());
-                $bdd->rollback();
-            } catch (Exception $e) {
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
+            } catch (\Exception $e) {
                 $this->message->set(_("Un problème est survenu lors de la génération des mouvements"), true);
                 $this->message->set($e->getMessage());
-                $bdd->rollback();
-                $module_coderetour = -1;
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
             }
         } else {
-            $module_coderetour = -1;
+            $this->message->set(_("Aucun échantillon n'a été sélectionné"), true);
         }
-        }
-    function entryMulti() {
+        return $this->generateReturn();
+    }
+    function entryMulti()
+    {
         if (count($_POST["uids"]) > 0 && $_POST["container_uid"] > 0) {
-            include_once "modules/classes/movement.class.php";
             $movement = new Movement();
             try {
-                $bdd->beginTransaction();
+                $db = $this->dataClass->db;
+                $db->transBegin();
                 foreach ($_POST["uids"] as $uid) {
                     if ($_POST["container_uid"] == $uid) {
-                        throw new MovementException(sprintf(_("L'objet %s ne peut être stocké dans lui-même", $uid)));
+                        throw new PpciException(sprintf(_("L'objet %s ne peut être stocké dans lui-même", $uid)));
                     }
                     $movement->addMovement($uid, null, 1, $_POST["container_uid"], $_SESSION["login"], $_POST["storage_location"], null, null, $_POST["column_number"], $_POST["line_number"]);
                 }
-                $module_coderetour = 1;
-                $bdd->commit();
-            } catch (MovementException $me) {
+            } catch (PpciException $me) {
                 $this->message->set(_("Erreur lors de la génération du mouvement d'entrée"), true);
                 $this->message->set($me->getMessage());
-                $bdd->rollback();
-            } catch (Exception $e) {
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
+            } catch (\Exception $e) {
                 $this->message->set(_("Un problème est survenu lors de la génération des mouvements"), true);
                 $this->message->set($e->getMessage());
-                $bdd->rollback();
-                $module_coderetour = -1;
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
             }
         } else {
-            $module_coderetour = -1;
+            $this->message->set(_("Aucun échantillon n'a été sélectionné"), true);
         }
-        }
-    function export() {
+        return $this->generateReturn();
+    }
+    function export()
+    {
+        $this->vue = service ("CsvView");
         try {
             $this->vue->set(
                 $this->dataclass->getForExport(
@@ -590,18 +607,25 @@ $this->vue=service('Smarty');
                 )
             );
             $this->vue->regenerateHeader();
-        } catch (Exception $e) {
+            return $this->vue->send();
+        } catch (PpciException $e) {
             unset($this->vue);
+            $this->vue = service ("Smarty");
             $this->message->set($e->getMessage(), true);
-            $module_coderetour = -1;
+            return $this->generateReturn();
         }
-        }
-    function importStage1() {
+    }
+    function importStage1()
+    {
+        $this->vue = service ("Smarty");
         $this->vue->set("gestion/sampleImport.tpl", "corps");
         $this->vue->set(";", "separator");
         $this->vue->set(0, "utf8_encode");
-        }
-    function importStage2() {
+        return $this->vue->send();
+    }
+    function importStage2()
+    {
+        $this->vue = service ("Smarty");
         unset($_SESSION["filename"]);
         if (file_exists($_FILES['upfile']['tmp_name'])) {
             try {
@@ -611,15 +635,14 @@ $this->vue=service('Smarty');
                 $encodings = array("UTF-8", "iso-8859-1", "iso-8859-15");
                 $currentEncoding = mb_detect_encoding(file_get_contents($_FILES['upfile']['tmp_name']), $encodings, true);
                 if ($currentEncoding != "UTF-8" && $_REQUEST["utf8_encode"] == 0 || $currentEncoding == "UTF-8" && $_REQUEST["utf8_encode"] == 1) {
-                    throw new Exception(_("L'encodage du fichier ne correspond pas à celui que vous avez indiqué"));
+                    throw new PpciException(_("L'encodage du fichier ne correspond pas à celui que vous avez indiqué"));
                 }
                 /**
                  * Deplacement du fichier dans le dossier temporaire
                  */
-                $filename = $APPLI_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
+                $filename =  $this->appConfig->APP_temp . '/' . bin2hex(openssl_random_pseudo_bytes(4));
                 $_SESSION["realfilename"] = $filename;
                 if (copy($_FILES['upfile']['tmp_name'], $filename)) {
-                    include_once 'modules/classes/import.class.php';
                     try {
                         $fields = array(
                             "dbuid_origin",
@@ -657,8 +680,7 @@ $this->vue=service('Smarty');
                             if (count($row) > 0) {
                                 try {
                                     $this->dataclass->verifyBeforeImport($row);
-                                } catch (Exception $e) {
-                                    // traduction: bien conserver inchangées les chaînes %1$s, %2$s
+                                } catch (PpciException $e) {
                                     $this->message->set(sprintf(_('Ligne %1$s : %2$s'), $line, $e->getMessage()), true);
                                     $module_coderetour = -1;
                                 }
@@ -689,122 +711,162 @@ $this->vue=service('Smarty');
                             $this->vue->set($_FILES['upfile']['name'], "filename");
                             $this->vue->set("gestion/sampleImport.tpl", "corps");
                         }
-                    } catch (ImportException $e) {
-                        $module_coderetour = -1;
+                    } catch (PpciException $e) {
                         $this->message->set($e->getMessage(), true);
                     }
                 } else {
                     $this->message->set(_("Impossible de recopier le fichier importé dans le dossier temporaire"), true);
-                    $module_coderetour = -1;
                 }
-            } catch (Exception $e) {
-                $module_coderetour = -1;
+            } catch (\Exception $e) {
                 $this->message->set($e->getMessage(), true);
             }
         }
-        }
-    
-    function setCountry() {
+        return $this->importStage1();
+    }
+
+    function setCountry()
+    {
         try {
             if (count($_POST["uids"]) == 0) {
-                throw new ObjectException(_("Pas d'échantillons sélectionnés"));
+                throw new PpciException(_("Pas d'échantillons sélectionnés"));
             }
             if (empty($_POST["country_id"])) {
-                throw new ObjectException(_("Pas de pays sélectionné"));
+                throw new PpciException(_("Pas de pays sélectionné"));
             }
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $this->dataclass->setCountry($_POST["uids"], $_POST["country_id"]);
             $this->message->set(_("Opération effectuée"));
-            $module_coderetour = 1;
-        } catch (ObjectException $oe) {
+        } catch (PpciException $oe) {
             $this->message->setSyslog($oe->getMessage());
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du pays"), true);
             $this->message->set($oe->getMessage());
-            $module_coderetour = -1;
         }
-        }
-    function setCollection() {
+        return $this->generateReturn();
+    }
+    function setCollection()
+    {
         try {
             if (count($_POST["uids"]) == 0) {
-                throw new ObjectException(_("Pas d'échantillons sélectionnés"));
+                throw new PpciException(_("Pas d'échantillons sélectionnés"));
             }
             if (empty($_POST["collection_id_change"])) {
-                throw new ObjectException(_("Pas de collection sélectionnée"));
+                throw new PpciException(_("Pas de collection sélectionnée"));
             }
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $this->dataclass->setCollection($_POST["uids"], $_POST["collection_id_change"]);
             $this->message->set(_("Opération effectuée"));
-            $module_coderetour = 1;
-        } catch (ObjectException $oe) {
+        } catch (PpciException $oe) {
             $this->message->setSyslog($oe->getMessage());
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la collection"), true);
             $this->message->set($oe->getMessage());
-            $module_coderetour = -1;
         }
-        }
-    function setCampaign() {
+        return $this->generateReturn();
+    }
+    function setCampaign()
+    {
         try {
             if (count($_POST["uids"]) == 0) {
-                throw new ObjectException(_("Pas d'échantillons sélectionnés"));
+                throw new PpciException(_("Pas d'échantillons sélectionnés"));
             }
             if (empty($_POST["campaign_id"])) {
-                throw new ObjectException(_("Pas de campagne sélectionnée"));
+                throw new PpciException(_("Pas de campagne sélectionnée"));
             }
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
 
             $this->dataclass->setCampaign($_POST["uids"], $_POST["campaign_id"]);
             $this->message->set(_("Opération effectuée"));
-            $module_coderetour = 1;
-        } catch (ObjectException $oe) {
+        } catch (PpciException $oe) {
             $this->message->setSyslog($oe->getMessage());
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la campagne"), true);
             $this->message->set($oe->getMessage());
-            $module_coderetour = -1;
         }
-        }
-    function setStatus() {
+        return $this->generateReturn();
+    }
+    function setStatus()
+    {
         try {
             if (count($_POST["uids"]) == 0) {
-                throw new ObjectException(_("Pas d'échantillons sélectionnés"));
+                throw new PpciException(_("Pas d'échantillons sélectionnés"));
             }
             if (empty($_POST["object_status_id"])) {
-                throw new ObjectException(_("Pas de statut sélectionné"));
+                throw new PpciException(_("Pas de statut sélectionné"));
             }
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             require_once "modules/classes/object.class.php";
             $object = new ObjectClass();
             $object->setStatus($uids, $_POST["object_status_id"]);
             $this->message->set(_("Opération effectuée"));
-            $module_coderetour = 1;
-        } catch (ObjectException $oe) {
+        } catch (PpciException $oe) {
             $this->message->setSyslog($oe->getMessage());
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du statut"), true);
             $this->message->set($oe->getMessage());
-            $module_coderetour = -1;
         }
-        }
-    function setParent() {
+        return $this->generateReturn();
+    }
+    function setParent()
+    {
         try {
             if (count($_POST["uids"]) == 0) {
-                throw new ObjectException(_("Pas d'échantillons sélectionnés"));
+                throw new PpciException(_("Pas d'échantillons sélectionnés"));
             }
             if (empty($_POST["parent_sample_id"])) {
-                throw new ObjectException(_("Pas de parent sélectionné"));
+                throw new PpciException(_("Pas de parent sélectionné"));
             }
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $this->dataclass->setParent($uids, $_POST["parent_sample_id"]);
             $this->message->set(_("Opération effectuée"));
-            $module_coderetour = 1;
-        } catch (ObjectException $oe) {
+        } catch (PpciException $oe) {
             $this->message->setSyslog($oe->getMessage());
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du parent"), true);
             $this->message->set($oe->getMessage());
-            $module_coderetour = -1;
         }
-        }
-    function getChildren() {
+        return $this->generateReturn();
+    }
+    function getChildren()
+    {
+        $this->vue = service ("AjaxView");
         $this->vue->set($this->dataclass->getChildren($_REQUEST["uid"]));
-        }
-    default:
-        }
+        return $this->vue->send();
+    }
+
+    function setRelatedTablesToView($vue)
+    {
+        $vue->set($_SESSION["collections"], "collections");
+        $collection = new Collection();
+        $vue->set($collection->getAllCollections(), "collectionsSearch");
+        /*
+     * Recherche des types d'échantillons
+     */
+        $sampleType = new SampleType();
+        $vue->set($sampleType->getListe(2), "sample_type");
+        $objectStatus = new ObjectStatus();
+        $vue->set($objectStatus->getListe(1), "objectStatus");
+        $samplingPlace = new SamplingPlace();
+        $vue->set($samplingPlace->getListFromCollection(), "samplingPlace");
+        $metadata = new Metadata();
+        $vue->set($metadata->getListSearchable(), "metadatas");
+        $referent = new Referent();
+        $vue->set($referent->getListe(2), "referents");
+        $mv = new MovementReason();
+        $vue->set($mv->getListe(2), "movementReason");
+        $vue->set($_SESSION["dbparams"]["APPLI_code"], "APPLI_code");
+        $borrower = new Borrower();
+        $vue->set($borrower->getListe(2), "borrowers");
+        $vue->set(date($_SESSION["date"]["maskdate"]), "borrowing_date");
+        $vue->set(date($_SESSION["date"]["maskdate"]), "expected_return_date");
+        $exportModel = new ExportModel();
+        $vue->set($exportModel->getListFromTarget("sample"), "exportModels");
+        $eventType = new EventType();
+        $vue->set($eventType->getListeFromCategory("sample"), "eventType");
+        $campaign = new Campaign();
+        $vue->set($campaign->getListe(2), "campaigns");
+        $cf = new ContainerFamily();
+        $vue->set($cf->getListe(2), "containerFamily");
+        $country = new Country();
+        $vue->set($country->getListe(2), "countries");
+    }
+
+    function generateReturn() {
+
+    }
 }

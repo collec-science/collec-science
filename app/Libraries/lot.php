@@ -62,16 +62,19 @@ $this->vue=service('Smarty');
             }
             if ($ok) {
                 try {
-                    $bdd->beginTransaction();
+                    $db = $this->dataClass->db;
+$db->transBegin();
                     $_REQUEST["lot_id"] = $this->dataclass->createLot($_POST["collection_id"], $_POST["uids"]);
-                    $bdd->commit();
+                    
                     $this->message->set(_("Lot créé"));
                     $module_coderetour = 1;
                 } catch (Exception $e) {
                     $this->message->set(_("Une erreur est survenue pendant la création du lot"), true);
                     $this->message->setSyslog($e->getMessage());
                     $module_coderetour = -1;
-                    $bdd->rollback();
+                    if ($db->transEnabled) {
+    $db->transRollback();
+}
                 }
             } else {
                 $this->message->set(_("Vous ne disposez pas des droits suffisants pour créer le lot"), true);
@@ -136,17 +139,20 @@ $this->vue=service('Smarty');
         }
     function deleteSamples() {
         try {
-            $bdd->beginTransaction();
+            $db = $this->dataClass->db;
+$db->transBegin();
             if (empty($_POST["samples"])) {
                 throw new ExportException(_("Aucun échantillon n'a été sélectionné"));
             }
             $this->dataclass->deleteSamples($this->id, $_POST["samples"]);
-            $bdd->commit();
+            
             $module_coderetour = 1;
             $this->message->set(_("Suppression des échantillons sélectionnés effectuée"));
         } catch (Exception $e) {
             $this->message->set($e->getMessage(), true);
-            $bdd->rollBack();
+            if ($db->transEnabled) {
+    $db->transRollback();
+}
             $module_coderetour = -1;
         }
         }

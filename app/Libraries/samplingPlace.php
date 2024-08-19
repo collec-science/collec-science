@@ -95,7 +95,8 @@ $this->vue=service('Smarty');
             require_once 'modules/classes/import.class.php';
             $i = 0;
             try {
-                $bdd->beginTransaction();
+                $db = $this->dataClass->db;
+$db->transBegin();
                 $import = new Import($_FILES['upfile']['tmp_name'], $_POST["separator"], false, array(
                     "name",
                     "code",
@@ -126,14 +127,16 @@ $this->vue=service('Smarty');
                         $i++;
                     }
                 }
-                $bdd->commit();
+                
                 $this->message->set(sprintf(_("%d lieu(x) importé(s)"), $i));
                 $module_coderetour = 1;
             } catch (ImportException|Exception $e) {
                 $this->message->set(_("Impossible d'importer les lieux de prélèvement"));
                 $this->message->set($e->getMessage());
                 $module_coderetour = -1;
-                $bdd->rollback();
+                if ($db->transEnabled) {
+    $db->transRollback();
+}
             }
         } else {
             $this->message->set(_("Impossible de charger le fichier à importer"));

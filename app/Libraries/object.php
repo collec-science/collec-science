@@ -89,7 +89,7 @@ if (isset($_REQUEST["uids"])) {
                     }
                     $commande .= SPACE . $destination . SPACE . $server . SPACE . $user . SPACE . $options . SPACE . $pdffile;
                     exec($commande, $retour, $retour);
-                    $this->dataclass->eraseQrcode($APPLI_temp);
+                    $this->dataclass->eraseQrcode( $this->appConfig->APP_temp);
                     $this->dataclass->eraseXslfile();
                     if ($retour == 0) {
                         $this->message->set(_("Impression lancée"));
@@ -124,7 +124,7 @@ if (isset($_REQUEST["uids"])) {
             }
             $this->vue->setFilename($this->dataclass->generatePdf($uids));
             $this->vue->setDisposition("inline");
-            $this->dataclass->eraseQrcode($APPLI_temp);
+            $this->dataclass->eraseQrcode( $this->appConfig->APP_temp);
             $this->dataclass->eraseXslfile();
             $module_coderetour = 1;
         } catch (Exception $e) {
@@ -161,12 +161,13 @@ if (isset($_REQUEST["uids"])) {
         $trashed = $_POST["settrashed"];
         if (count($_POST["uids"]) > 0 && ($trashed == 0 || $trashed == 1)) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            $bdd->beginTransaction();
+            $db = $this->dataClass->db;
+$db->transBegin();
             try {
                 foreach ($uids as $uid) {
                     $this->dataclass->setTrashed($uid, $trashed);
                 }
-                $bdd->commit();
+                
                 $module_coderetour = 1;
                 if ($_POST["trashed"] == 1) {
                     $this->message->set(_("Mise à la corbeille effectuée"));
@@ -176,7 +177,9 @@ if (isset($_REQUEST["uids"])) {
             } catch (Exception $e) {
                 $this->message->set(_("L'opération sur la corbeille a échoué"), true);
                 $this->message->set($e->getMessage());
-                $bdd->rollback();
+                if ($db->transEnabled) {
+    $db->transRollback();
+}
                 $module_coderetour = -1;
             }
         } else {

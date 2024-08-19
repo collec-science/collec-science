@@ -1,39 +1,37 @@
-<?php 
+<?php
+
 namespace App\Libraries;
 
-use Ppci\Libraries\PpciException;
+use App\Models\Country as ModelsCountry;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
 
-class Xx extends PpciLibrary { 
+class Country extends PpciLibrary
+{
     /**
-     * @var xx
+     * @var ModelsCountry
      */
     protected PpciModel $dataclass;
 
     private $keyName;
 
-function __construct()
+    function __construct()
     {
         parent::__construct();
-        $this->dataClass = new XXX();
-        $this->keyName = "xxx_id";
+        $this->dataClass = new ModelsCountry();
+        $this->keyName = "country_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
     }
-require_once 'modules/classes/country.class.php';
-$this->dataclass = new Country();
-$this->keyName = "country_id";
-$this->id = $_REQUEST[$this->keyName];
-
-
-    function list(){
-$this->vue=service('Smarty');
+    function list()
+    {
+        $this->vue = service('Smarty');
         /*
          * Display the list of all records of the table
          */
         $this->vue->set($this->dataclass->getListe(2), "countries");
         $this->vue->set("param/countryList.tpl", "corps");
-        }
+        return $this->vue->send();
+    }
 }

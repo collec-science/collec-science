@@ -5,7 +5,7 @@ use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
 
-class Xx extends PpciLibrary { 
+class CollectionsGenerateMail extends PpciLibrary { 
     /**
      * @var xx
      */
@@ -22,17 +22,5 @@ function __construct()
             $this->id = $_REQUEST[$this->keyName];
         }
     }
-
-/**
- * Created : 17 janv. 2017
- * Creator : quinton
- * Encoding : UTF-8
- * Copyright 2017 - All rights reserved
- * Initialisation des variables necessaires a l'affichage des cartes Openstreetmap
- */
-
-foreach (array("mapDefaultX", "mapDefaultY", "mapDefaultZoom") as $field) {
-    $this->vue->set($_SESSION[$field], $field);
-}
-
-?>
+$_REQUEST["module"] = "collectionsGenerateMail";
+include "framework/controller.php";

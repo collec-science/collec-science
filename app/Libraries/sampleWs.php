@@ -56,7 +56,8 @@ if (isset($_REQUEST["locale"])) {
     }
         $searchOrder = "";
         try {
-            $bdd->beginTransaction();
+            $db = $this->dataClass->db;
+$db->transBegin();
             $dataSent = $_POST;
             if (!empty($_POST["template_name"])) {
                 /**
@@ -107,7 +108,7 @@ if (isset($_REQUEST["locale"])) {
                     $ln
                 );
             }
-            $bdd->commit();
+            
             $retour = array(
                 "error_code" => 200,
                 "uid" => $uid,
@@ -115,7 +116,9 @@ if (isset($_REQUEST["locale"])) {
             );
             http_response_code(200);
         } catch (Exception $e) {
-            $bdd->rollBack();
+            if ($db->transEnabled) {
+    $db->transRollback();
+}
             $error_code = $e->getCode();
             if (!isset($errors[$error_code])) {
                 $error_code = 520;
@@ -300,7 +303,8 @@ if (isset($_REQUEST["locale"])) {
             $retour = array();
             try {
                 $uid = $_POST["uid"];
-                $bdd->beginTransaction();
+                $db = $this->dataClass->db;
+$db->transBegin();
             if (!empty($uid)) {
                 $data = $samplews->sample->lire($uid);
                 if (empty($data["sample_id"])) {
@@ -320,14 +324,16 @@ if (isset($_REQUEST["locale"])) {
                 throw new SampleException(sprintf(_("Les flux de mise à jour ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
             }
             $samplews->sample->supprimer($uid);
-            $bdd->commit();
+            
             $retour = array(
                 "error_code" => 200,
                 "error_message" => "processed"
             );
             http_response_code(200);
         } catch (Exception $e) {
-            $bdd->rollBack();
+            if ($db->transEnabled) {
+    $db->transRollback();
+}
             $error_code = $e->getCode();
             if ($error_code == 0) {
                 $error_code = 520;

@@ -147,6 +147,15 @@ Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
 # Ppci\Config\IdentificationConfig.LDAP.ldappassword = 
 
 #--------------------------------------------------------------------
+# Collec-Science specific parameters
+#--------------------------------------------------------------------
+#
+# Root of the storage of external documents for the instance
+# Each collection must be in a specific subfolder ot this path
+#
+#app.external_document_path = "/dev/null"
+
+#--------------------------------------------------------------------
 # Ppci Rights
 #--------------------------------------------------------------------
 # Name of the application in the right module

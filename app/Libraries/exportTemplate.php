@@ -98,7 +98,8 @@ $this->vue=service('Smarty');
         $translator = new Translator();
         $insertExportDataset = "insert into export_dataset (export_template_id, dataset_template_id) 
                                 values (:export_template_id, :dataset_template_id)";
-        $bdd->beginTransaction();
+        $db = $this->dataClass->db;
+$db->transBegin();
         try {
             if (file_exists($_FILES['upfile']['tmp_name'])) {
                 $json = file_get_contents($_FILES["upfile"]["tmp_name"]);
@@ -172,11 +173,13 @@ $this->vue=service('Smarty');
             }
 
             $module_coderetour = 1;
-            $bdd->commit();
+            
             $this->message->set(_("Importation du modèle effectuée"));
         } catch (Exception $e) {
             $this->message->set($e->getMessage(), true);
             $module_coderetour = -1;
-            $bdd->rollBack();
+            if ($db->transEnabled) {
+    $db->transRollback();
+}
         }
 }

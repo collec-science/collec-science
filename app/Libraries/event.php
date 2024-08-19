@@ -169,18 +169,21 @@ $this->vue=service('Smarty');
 		}
 	function deleteList() {
 		if (!empty($_POST["events"])) {
-			$bdd->beginTransaction();
+			$db = $this->dataClass->db;
+$db->transBegin();
 			try {
 				foreach ($_POST["events"] as $event_id) {
 					$this->dataclass->supprimer($event_id);
 				}
-				$bdd->commit();
+				
 				$this->message->set(_("Événements supprimés"));
 				$module_coderetour = 1;
 			} catch (Exception $e) {
 				$this->message->set(_("Un problème est survenu pendant la suppression d'un événement"), true);
 				$this->message->setSyslog($e->getMessage());
-				$bdd->rollBack();
+				if ($db->transEnabled) {
+    $db->transRollback();
+}
 				$module_coderetour = -1;
 			}
 		} else {
@@ -200,19 +203,22 @@ $this->vue=service('Smarty');
 			if (!empty($data)) {
 				$this->dataclass->colonnes["uid"]["requis"] = 0;
 				$this->dataclass->colonnes["event_type_id"]["requis"] = 0;
-				$bdd->beginTransaction();
+				$db = $this->dataClass->db;
+$db->transBegin();
 				try {
 					foreach ($_POST["events"] as $event_id) {
 						$data["event_id"] = $event_id;
 						$this->dataclass->ecrire($data);
 					}
-					$bdd->commit();
+					
 					$this->message->set(_("Événements modifiés"));
 					$module_coderetour = 1;
 				} catch (Exception $e) {
 					$this->message->set(_("Un problème est survenu pendant la modification d'un événement"), true);
 					$this->message->setSyslog($e->getMessage());
-					$bdd->rollBack();
+					if ($db->transEnabled) {
+    $db->transRollback();
+}
 					$module_coderetour = -1;
 				}
 			} else {

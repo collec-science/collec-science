@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Created : 11 déc. 2017
- * Creator : quinton
- * Encoding : UTF-8
- * Copyright 2017 - All rights reserved
- */
+namespace App\Models;
 
 use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
@@ -21,7 +16,7 @@ class Request extends PpciModel
             collection_id, collection_name
             from request
             left outer join collection using (collection_id)";
-    function __construct($bdd, $param = null)
+    function __construct()
     {
         $this->table = "request";
         $this->useAutoIncrement = false;
@@ -54,10 +49,7 @@ class Request extends PpciModel
             ),
             "collection_id" => array("type" => 1)
         );
-        if (!is_array($param)) {
-            $param = array();
-        }
-        parent::__construct($bdd, $param);
+        parent::__construct();
     }
 
     /**
@@ -68,7 +60,7 @@ class Request extends PpciModel
      * @param integer $parent_id
      * @return array
      */
-    function lire($id, $getDefault = true, $parent_id = 0):array
+    function lire($id, $getDefault = true, $parent_id = 0): array
     {
         if ($id > 0) {
             $where = " where request_id = :request_id:";
@@ -89,13 +81,13 @@ class Request extends PpciModel
      * @param string $order
      * @return array
      */
-    function getListe($order = ""):array
+    function getListe($order = ""): array
     {
         !empty($order) ? $orderby = " order by " . $order : $orderby = "";
         return $this->getListeParam($this->sql . $orderby);
     }
 
-    function ecrire($data):int
+    function ecrire($data): int
     {
         /**
          * Search the terms forbiden into the request

@@ -58,7 +58,7 @@ class Campaign extends PpciLibrary
         $document = new Document();
         $this->vue->set($document->getListFromField("campaign_id", $this->id), "dataDoc");
         $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
-        if ($_SESSION["droits"]["param"] == 1) {
+        if ($_SESSION["userRights"]["param"] == 1) {
             $this->vue->set(1, "modifiable");
         }
         $this->vue->set("campaign", "moduleParent");

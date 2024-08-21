@@ -71,7 +71,7 @@ class Samplesearch extends PpciModel
         if ($data["samplesearch_login"] == $_SESSION["login"]) {
             $ok = true;
         } else if (!empty($data["collection_id"])) {
-            if ((collectionVerify($data["collection_id"]) && $_SESSION["droits"]["collection"] == 1) || $_SESSION["droits"]["param"] == 1) {
+            if ((collectionVerify($data["collection_id"]) && $_SESSION["userRights"]["collection"] == 1) || $_SESSION["userRights"]["param"] == 1) {
                 $ok = true;
             }
         }
@@ -95,12 +95,12 @@ class Samplesearch extends PpciModel
         $newId = 0;
         $sql = "select samplesearch_id from samplesearch";
         $sqldata = array("name" => $data["samplesearch_name"]);
-        $where = " where samplesearch_name = :name";
+        $where = " where samplesearch_name = :name:";
         if ($collection_id > 0) {
-            $where .= " and collection_id = :collection_id";
+            $where .= " and collection_id = :collection_id:";
             $sqldata["collection_id"] = $collection_id;
         } else {
-            $where .= " and samplesearch_login = :login and collection_id is null";
+            $where .= " and samplesearch_login = :login: and collection_id is null";
             $sqldata["login"] = $_SESSION["login"];
         }
         $exist = $this->lireParamAsPrepared($sql . $where, $sqldata);

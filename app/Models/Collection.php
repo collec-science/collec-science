@@ -339,7 +339,7 @@ class Collection extends PpciModel
          * Attribution des droits de gestion si attache a un projet
          */
         if (count($_SESSION["collections"]) > 0) {
-            $_SESSION["droits"]["manage"] = 1;
+            $_SESSION["userRights"]["manage"] = 1;
         }
     }
     /**

@@ -1,63 +1,58 @@
-<?php 
+<?php
+
 namespace App\Libraries;
 
+use App\Models\MultipleType as ModelsMultipleType;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
 
-class Xx extends PpciLibrary { 
+class MultipleType extends PpciLibrary
+{
     /**
-     * @var xx
+     * @var ModelsMultipleType
      */
     protected PpciModel $dataclass;
 
     private $keyName;
 
-function __construct()
+    function __construct()
     {
         parent::__construct();
-        $this->dataClass = new XXX();
-        $this->keyName = "xxx_id";
+        $this->dataClass = new ModelsMultipleType();
+        $this->keyName = "multiple_type_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
     }
-
-/**
- * Created : 6 oct. 2016
- * Creator : quinton
- * Encoding : UTF-8
- * Copyright 2016 - All rights reserved
- */
-require_once 'modules/classes/movementReason.class.php';
-$this->dataclass = new MovementReason();
-$this->keyName = "movement_reason_id";
-$this->id = $_REQUEST[$this->keyName];
-
-
-    function list(){
-$this->vue=service('Smarty');
+    function list()
+    {
+        $this->vue = service('Smarty');
         /*
          * Display the list of all records of the table
          */
         $this->vue->set($this->dataclass->getListe(2), "data");
-        $this->vue->set("param/movementReasonList.tpl", "corps");
-        }
-    function change(){
-$this->vue=service('Smarty');
+        $this->vue->set("param/multipleTypeList.tpl", "corps");
+        return $this->vue->send();
+    }
+    function change()
+    {
+        $this->vue = service('Smarty');
         /*
          * open the form to modify the record
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
          */
-        $this->dataRead( $this->id, "param/movementReasonChange.tpl");
-        }
-        function write() {
-    try {
+        $this->dataRead($this->id, "param/multipleTypeChange.tpl");
+        return $this->vue->send();
+    }
+    function write()
+    {
+        try {
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->display();
+                return $this->list();
             } else {
                 return $this->change();
             }
@@ -65,24 +60,17 @@ $this->vue=service('Smarty');
             return $this->change();
         }
     }
-        /*
-         * write record in database
-         */
-        $this->id = $this->dataWrite( $_REQUEST);
-        if ($this->id > 0) {
-            $_REQUEST[$this->keyName] = $this->id;
-        }
-        }
-    function delete(){
+
+    function delete()
+    {
         /*
          * delete record
          */
-         try {
+        try {
             $this->dataDelete($this->id);
             return $this->list();
-        } catch (PpciException $e) {
+        } catch (PpciException) {
             return $this->change();
         }
-        }
+    }
 }
-?>

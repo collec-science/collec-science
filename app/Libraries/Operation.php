@@ -1,56 +1,45 @@
-<?php 
+<?php
+
 namespace App\Libraries;
 
+use App\Models\Operation as ModelsOperation;
+use App\Models\Protocol;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
 
-class Xx extends PpciLibrary { 
+class Operation extends PpciLibrary
+{
     /**
-     * @var xx
+     * @var ModelsOperation
      */
     protected PpciModel $dataclass;
 
     private $keyName;
 
-function __construct()
+    function __construct()
     {
         parent::__construct();
-        $this->dataClass = new XXX();
-        $this->keyName = "xxx_id";
+        $this->dataClass = new ModelsOperation();
+        $this->keyName = "operation_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
     }
-
-/**
- * Created : 14 sept. 2016
- * Creator : quinton
- * Encoding : UTF-8
- * Copyright 2016 - All rights reserved
- */
-require_once 'modules/classes/operation.class.php';
-$this->dataclass = new Operation();
-$this->keyName = "operation_id";
-$this->id = $_REQUEST[$this->keyName];
-
-    function list(){
-$this->vue=service('Smarty');
+    function list()
+    {
+        $this->vue = service('Smarty');
         $this->vue->set($this->dataclass->getListe(), "data");
         $this->vue->set("param/operationList.tpl", "corps");
-        }
-    function change(){
-$this->vue=service('Smarty');
-        /*
-         * open the form to modify the record
-         * If is a new record, generate a new record with default value :
-         * $_REQUEST["idParent"] contains the identifiant of the parent record
-         */
-        $this->dataRead( $this->id, "param/operationChange.tpl", $_REQUEST["protocol_id"]);
+        return $this->vue->send();
+    }
+    function change()
+    {
+        $this->vue = service('Smarty');
+        $this->dataRead($this->id, "param/operationChange.tpl", $_REQUEST["protocol_id"]);
         /*
          * Recuperation de la liste des protocoles
          */
-        require_once 'modules/classes/protocol.class.php';
         $protocol = new Protocol();
         $this->vue->set($protocol->getListe("protocol_year desc, protocol_name, protocol_version desc"), "protocol");
         /*
@@ -65,13 +54,15 @@ $this->vue=service('Smarty');
          * Recuperation de l'opération père
          */
         $this->vue->set($_REQUEST["operation_pere_id"], "operation_pere_id");
-        }
-        function write() {
-    try {
+        return $this->vue->send();
+    }
+    function write()
+    {
+        try {
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->display();
+                return $this->list();
             } else {
                 return $this->change();
             }
@@ -79,26 +70,21 @@ $this->vue=service('Smarty');
             return $this->change();
         }
     }
-        /*
-         * write record in database
-         */
-        $this->id = $this->dataWrite( $_REQUEST);
-        if ($this->id > 0) {
-            $_REQUEST[$this->keyName] = $this->id;
-        }
-        }
-    function delete(){
+    function delete()
+    {
         /*
          * delete record
          */
-         try {
+        try {
             $this->dataDelete($this->id);
             return $this->list();
         } catch (PpciException $e) {
             return $this->change();
         }
-        }
-    function copy() {
+    }
+    function copy()
+    {
+        $this->vue = service('Smarty');
         /*
          * Duplique une operation
          */
@@ -110,11 +96,8 @@ $this->vue=service('Smarty');
         /*
          * Recuperation de la liste des protocoles
          */
-        require_once 'modules/classes/protocol.class.php';
         $protocol = new Protocol();
         $this->vue->set($protocol->getListe("protocol_year desc, protocol_name, protocol_version desc"), "protocol");
-        }
-
+        return $this->vue->send();
+    }
 }
-
-?>

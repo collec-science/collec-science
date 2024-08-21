@@ -227,6 +227,7 @@ class Movement extends PpciLibrary
 
     function smallMovementChange()
     {
+        $this->vue=service('Smarty');
         $this->vue->set("gestion/smallMovementChange.tpl", "corps");
         /*
          * Assignation du nom de la base
@@ -235,23 +236,22 @@ class Movement extends PpciLibrary
         /*
          * Recherche des motifs de sortie
          */
-        require_once 'modules/classes/movementReason.class.php';
         $movementReason = new MovementReason();
         $this->vue->set($movementReason->getListe(2), "movementReason");
         $this->vue->set($_POST["movement_reason_id"], "movement_reason_id");
+        return $this->vue->send();
     }
 
     function smallMovementWrite()
     {
         try {
             $this->dataclass->addMovement($_POST["object_uid"], null, $_POST["movement_type_id"], $_POST["container_uid"], null, null, null, $_POST["movement_reason_id"], $_POST["column_number"], $_POST["line_number"]);
-            $module_coderetour = 1;
             $this->message->set(_("Mouvement enregistré"));
         } catch (PpciException $e) {
             $this->message->setSyslog($e->getMessage());
             $this->message->set(_("Impossible d'enregistrer le mouvement"), true);
-            $module_coderetour = -1;
         }
+        return $this->smallMovementChange();
     }
     function smallMovementWriteAjax()
     {
@@ -267,6 +267,8 @@ class Movement extends PpciLibrary
                 "error_message" => $e->getMessage()
             );
         }
+        $this->vue = service ("AjaxView");
         $this->vue->set($data);
+        return $this->vue->send();
     }
 }

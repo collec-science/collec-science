@@ -1,69 +1,59 @@
-<?php 
+<?php
+
 namespace App\Libraries;
 
+use App\Models\MovementReason as ModelsMovementReason;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
 
-class Xx extends PpciLibrary { 
+class MovementReason extends PpciLibrary
+{
     /**
-     * @var xx
+     * @var ModelsMovementReason
      */
     protected PpciModel $dataclass;
 
     private $keyName;
 
-function __construct()
+    function __construct()
     {
         parent::__construct();
-        $this->dataClass = new XXX();
-        $this->keyName = "xxx_id";
+        $this->dataClass = new ModelsMovementReason();
+        $this->keyName = "movement_reason_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
     }
 
-/**
- * Created : 15 juin 2016
- * Creator : quinton
- * Encoding : UTF-8
- * Copyright 2016 - All rights reserved
- */
-require_once 'modules/classes/objectStatus.class.php';
-$this->dataclass = new ObjectStatus();
-$this->keyName = "object_status_id";
-$this->id = $_REQUEST[$this->keyName];
-
-
-    function list(){
-$this->vue=service('Smarty');
+    function list()
+    {
+        $this->vue = service('Smarty');
         /*
          * Display the list of all records of the table
          */
         $this->vue->set($this->dataclass->getListe(2), "data");
-        $this->vue->set("param/objectStatusList.tpl", "corps");
-        }
-    function change(){
-$this->vue=service('Smarty');
+        $this->vue->set("param/movementReasonList.tpl", "corps");
+        return $this->vue->send();
+    }
+    function change()
+    {
+        $this->vue = service('Smarty');
         /*
          * open the form to modify the record
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
          */
-        if ($this->id > 0) {
-            $this->dataRead( $this->id, "param/objectStatusChange.tpl");
-        } else {
-            $module_coderetour = -1;
-            $this->message->set(_("La création d'un nouveau statut est interdite"), true);
-        }
-
-        }
-        function write() {
-    try {
+        $this->dataRead($this->id, "param/movementReasonChange.tpl");
+        return $this->vue->send();
+    }
+    function write()
+    {
+        try {
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->display();
+                return $this->list();
             } else {
                 return $this->change();
             }
@@ -71,24 +61,17 @@ $this->vue=service('Smarty');
             return $this->change();
         }
     }
-        /*
-         * write record in database
-         */
-        $this->id = $this->dataWrite( $_REQUEST);
-        if ($this->id > 0) {
-            $_REQUEST[$this->keyName] = $this->id;
-        }
-        }
-    function delete(){
+
+    function delete()
+    {
         /*
          * delete record
          */
-         try {
+        try {
             $this->dataDelete($this->id);
             return $this->list();
         } catch (PpciException $e) {
             return $this->change();
         }
-        }
+    }
 }
-?>

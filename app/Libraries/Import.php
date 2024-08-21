@@ -33,10 +33,6 @@ use Ppci\Models\PpciModel;
 
 class Import extends PpciLibrary
 {
-    /**
-     * @var xx
-     */
-    protected PpciModel $dataclass;
 
     private $import, $sample, $sampleType, $containerType, $objectStatus, $samplingPlace, $referent, $campaign;
 

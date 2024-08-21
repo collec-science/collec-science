@@ -1,58 +1,53 @@
-<?php 
+<?php
+
 namespace App\Libraries;
 
+use App\Models\Referent as ModelsReferent;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
 
-class Xx extends PpciLibrary { 
+class Referent extends PpciLibrary
+{
     /**
-     * @var xx
+     * @var ModelsReferent
      */
     protected PpciModel $dataclass;
 
     private $keyName;
 
-function __construct()
+    function __construct()
     {
         parent::__construct();
-        $this->dataClass = new XXX();
-        $this->keyName = "xxx_id";
+        $this->dataClass = new ModelsReferent();
+        $this->keyName = "referent_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
     }
-
-
-require_once 'modules/classes/referent.class.php';
-$this->dataclass = new Referent();
-$this->keyName = "referent_id";
-$this->id = $_REQUEST[$this->keyName];
-
-
-    function list(){
-$this->vue=service('Smarty');
+    function list()
+    {
+        $this->vue = service('Smarty');
         /*
          * Display the list of all records of the table
          */
         $this->vue->set($this->dataclass->getListe(3), "data");
         $this->vue->set("param/referentList.tpl", "corps");
-        }
-    function change(){
-$this->vue=service('Smarty');
-        /*
-         * open the form to modify the record
-         * If is a new record, generate a new record with default value :
-         * $_REQUEST["idParent"] contains the identifiant of the parent record
-         */
-        $this->dataRead( $this->id, "param/referentChange.tpl");
-        }
-        function write() {
-    try {
+        return $this->vue->send();
+    }
+    function change()
+    {
+        $this->vue = service('Smarty');
+        $this->dataRead($this->id, "param/referentChange.tpl");
+        return $this->vue->send();
+    }
+    function write()
+    {
+        try {
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->display();
+                return $this->list();
             } else {
                 return $this->change();
             }
@@ -60,40 +55,42 @@ $this->vue=service('Smarty');
             return $this->change();
         }
     }
-        /*
-         * write record in database
-         */
-        $this->id = $this->dataWrite( $_REQUEST);
-        if ($this->id > 0) {
-            $_REQUEST[$this->keyName] = $this->id;
-        }
-        }
-    function delete(){
+    function delete()
+    {
         /*
          * delete record
          */
-         try {
+        try {
             $this->dataDelete($this->id);
             return $this->list();
         } catch (PpciException $e) {
             return $this->change();
         }
-        }
-    function getFromName() {
+    }
+    function getFromName()
+    {
         /*
          * Recherche un referent a partir de son nom,
          * et retourne le tableau sous forme Ajax
          */
+        $this->vue = service("AjaxView");
         $this->vue->set($this->dataclass->getFromName($_REQUEST["referent_name"]));
-        }
-    function getFromId() {
+        return $this->vue->send();
+    }
+    function getFromId()
+    {
+        $this->vue = service("AjaxView");
         $this->vue->set($this->dataclass->lire($_REQUEST["referent_id"]));
-        }
-    function copy() {
+        return $this->vue->send();
+    }
+    function copy()
+    {
         $data = $this->dataclass->lire($this->id);
         $data["referent_id"] = 0;
         $data["referent_name"] = "";
+        $this->vue = service('Smarty');
         $this->vue->set($data, "data");
         $this->vue->set("param/referentChange.tpl", "corps");
-        }
+        return $this->vue->send();
+    }
 }

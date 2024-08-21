@@ -154,7 +154,7 @@ class Protocol extends PpciModel
     function verifyCollection($data)
     {
         $retour = false;
-        if ($_SESSION["droits"]["collection"] == 1) {
+        if ($_SESSION["userRights"]["collection"] == 1) {
             $retour = true;
         } else {
             foreach ($_SESSION["collections"] as $value) {

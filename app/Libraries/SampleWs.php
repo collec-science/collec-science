@@ -1,83 +1,66 @@
-<?php 
+<?php
+
 namespace App\Libraries;
 
+use App\Models\Collection;
+use App\Models\Container;
+use App\Models\DatasetTemplate;
+use App\Models\Movement;
+use App\Models\Samplews as ModelsSamplews;
+use Ppci\Libraries\Locale;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
 
-class Xx extends PpciLibrary { 
-    /**
-     * @var xx
-     */
-    protected PpciModel $dataclass;
+class SampleWs extends PpciLibrary
+{
 
-    private $keyName;
-
-function __construct()
+    private $datasetTemplate;
+    private $errors = array(
+        500 => "Internal Server Error",
+        400 => "Bad request",
+        401 => "Unauthorized",
+        403 => "Forbidden",
+        520 => "Unknown error",
+        404 => "Not Found"
+    );
+    private $samplews;
+    function __construct()
     {
         parent::__construct();
-        $this->dataClass = new XXX();
-        $this->keyName = "xxx_id";
-        if (isset($_REQUEST[$this->keyName])) {
-            $this->id = $_REQUEST[$this->keyName];
+        $this->samplews = new ModelsSamplews();
+        $this->datasetTemplate = new DatasetTemplate();
+        if (isset($_REQUEST["locale"])) {
+            $localeLib = new Locale();
+            $localeLib->setLocale($_REQUEST["locale"]);
         }
     }
 
-require_once 'modules/classes/samplews.class.php';
-require_once "modules/classes/export/datasetTemplate.class.php";
-$samplews = new Samplews();
-$datasetTemplate = new DatasetTemplate();
-
-$errors = array(
-    500 => "Internal Server Error",
-    400 => "Bad request",
-    401 => "Unauthorized",
-    403 => "Forbidden",
-    520 => "Unknown error",
-    404 => "Not Found"
-);
-if (isset($_REQUEST["locale"])) {
-    setlanguage($_REQUEST["locale"]);
-}
-
-
-        function write() {
-    try {
-            $this->id = $this->dataWrite($_REQUEST);
-            if ($this->id > 0) {
-                $_REQUEST[$this->keyName] = $this->id;
-                return $this->display();
-            } else {
-                return $this->change();
-            }
-        } catch (PpciException) {
-            return $this->change();
-        }
-    }
+    function write()
+    {
         $searchOrder = "";
         try {
             $db = $this->dataClass->db;
-$db->transBegin();
+            $db->transBegin();
             $dataSent = $_POST;
             if (!empty($_POST["template_name"])) {
                 /**
                  * Format the data with the dataset template
                  */
-                $dataset = $datasetTemplate->getTemplateFromName($_POST["template_name"]);
-                $dataSent = $datasetTemplate->formatDataForImport($dataset["dataset_template_id"], $dataSent);
-                $searchOrder = $datasetTemplate->getSearchOrder($dataset["dataset_template_id"]);
+                $dataset = $this->datasetTemplate->getTemplateFromName($_POST["template_name"]);
+                $dataSent = $this->datasetTemplate->formatDataForImport($dataset["dataset_template_id"], $dataSent);
+                $searchOrder = $this->datasetTemplate->getSearchOrder($dataset["dataset_template_id"]);
             }
             if (!empty($dataSent["search_order"])) {
-                $searchOrder = explode(",",$dataSent["search_order"]);
+                $searchOrder = explode(",", $dataSent["search_order"]);
             }
             if (empty($searchOrder)) {
                 $searchOrder = array("uid", "uuid", "identifier");
             }
-            $uid = $samplews->write($dataSent, $searchOrder);
+            $uid = $this->samplews->write($dataSent, $searchOrder);
             /* check for the creation of a movement */
-           $cuid = 0;
+            $cuid = 0;
             if (!empty($_POST["container_name"])) {
-                require_once "modules/classes/container.class.php";
                 $container = new Container();
                 $cuid = $container->getUidFromIdentifier($_POST["container_name"]);
             }
@@ -85,10 +68,9 @@ $db->transBegin();
                 $cuid = $_POST["container_uid"];
             }
             if ($cuid > 0) {
-                require_once "modules/classes/movement.class.php";
                 $cn = 1;
                 $ln = 1;
-                if (!empty ($_POST["column_number"])){
+                if (!empty($_POST["column_number"])) {
                     $cn = $_POST["column_number"];
                 }
                 if (!empty($_POST["line_number"])) {
@@ -108,33 +90,36 @@ $db->transBegin();
                     $ln
                 );
             }
-            
+
             $retour = array(
                 "error_code" => 200,
                 "uid" => $uid,
                 "error_message" => "processed"
             );
             http_response_code(200);
-        } catch (Exception $e) {
+        } catch (PpciException $e) {
             if ($db->transEnabled) {
-    $db->transRollback();
-}
+                $db->transRollback();
+            }
             $error_code = $e->getCode();
             if (!isset($errors[$error_code])) {
                 $error_code = 520;
             }
             $retour = array(
                 "error_code" => $error_code,
-                "error_message" => $errors[$error_code],
+                "error_message" => $this->errors[$error_code],
                 "error_detail" => $e->getMessage()
             );
             http_response_code($error_code);
             $this->message->setSyslog($e->getMessage());
         } finally {
+            $this->vue = service("AjaxView");
             $this->vue->setJson(json_encode($retour));
+            return $this->vue->send();
         }
-        }
-    function detail() {
+    }
+    function detail()
+    {
         /**
          * Get all data for a sample in raw format
          */
@@ -145,24 +130,19 @@ $db->transBegin();
                 $this->id = $_REQUEST["uid"];
             }
             if (empty($this->id)) {
-                throw new SampleException(_("L'UID n'est pas fourni ou n'a pas été retrouvé à partir de l'UUID"), 404);
+                throw new PpciException(_("L'UID n'est pas fourni ou n'a pas été retrouvé à partir de l'UUID"), 404);
             }
             $withContainer = true;
             $withEvent = true;
             $withTemplate = false;
             if (isset($_REQUEST["template_name"])) {
-                require_once "modules/classes/export/datasetTemplate.class.php";
                 $datasetTemplate = new DatasetTemplate();
-                try {
-                    $ddataset = $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
-                    $withTemplate = true;
-                } catch (DatasetTemplateException $dte) {
-                    throw new SampleException($dte->getMessage());
-                }
+                $ddataset = $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
+                $withTemplate = true;
             }
-            $data = $samplews->sample->getRawDetail($this->id, $withContainer, $withEvent);
+            $data = $this->samplews->sample->getRawDetail($this->id, $withContainer, $withEvent);
             if (count($data) == 0) {
-                throw new SampleException(sprintf(_("Échantillon %s not trouvé"), $this->id), 404);
+                throw new PpciException(sprintf(_("Échantillon %s not trouvé"), $this->id), 404);
             }
             /**
              * purge the technical fields
@@ -176,20 +156,19 @@ $db->transBegin();
              */
             if (isset($_SESSION["login"])) {
                 if (!collectionVerify($data["collection_id"])) {
-                    throw new SampleException(sprintf(_("Droits insuffisants pour %s"), $this->id), 401);
+                    throw new PpciException(sprintf(_("Droits insuffisants pour %s"), $this->id), 401);
                 }
             } else {
                 /**
                  * Verify if the collection is public
                  */
-                require_once "modules/classes/collection.class.php";
                 $collection = new Collection();
                 $dcollection = $collection->lire($data["collection_id"]);
                 if (!$dcollection["public_collection"]) {
-                    throw new SampleException(sprintf(_("La collection n'est pas publique pour "), $this->id), 401);
+                    throw new PpciException(sprintf(_("La collection n'est pas publique pour "), $this->id), 401);
                 }
                 if (!$withTemplate) {
-                    throw new SampleException(_("Le nom du modèle d'export n'est pas indiqué dans la requête"), 400);
+                    throw new PpciException(_("Le nom du modèle d'export n'est pas indiqué dans la requête"), 400);
                 }
             }
             /**
@@ -198,85 +177,85 @@ $db->transBegin();
             if ($withTemplate) {
                 $data = $datasetTemplate->formatData(array(0 => $data))[0];
             }
-        } catch (Exception $e) {
+        } catch (PpciException $e) {
             $error_code = $e->getCode();
             if ($error_code == 0) {
                 $error_code = 520;
             }
             $data = array(
                 "error_code" => $error_code,
-                "error_message" => $errors[$error_code]
+                "error_message" => $this->errors[$error_code]
             );
-            if ($APPLI_modeDeveloppement) {
+            if (env("CI_ENVIRONMENT") == "development") {
                 $data["error_content"] = $e->getMessage();
             }
             $this->message->setSyslog($e->getMessage());
         } finally {
+            $this->vue = service("AjaxView");
             $this->vue->setJson(json_encode($data));
+            return $this->vue->send();
         }
-        }
-    function getListUIDS() {
+    }
+    function getListUIDS()
+    {
         try {
             if (empty($_REQUEST["collection_id"])) {
-                throw new SampleException(_("Le numéro de la collection est obligatoire"), 400);
+                throw new PpciException(_("Le numéro de la collection est obligatoire"), 400);
             }
             require_once "modules/classes/collection.class.php";
             $collection = new Collection();
             $dcollection = $collection->lire($_REQUEST["collection_id"]);
             if (!collectionVerify($dcollection["collection_id"])) {
-                throw new SampleException(sprintf(_("Droits insuffisants pour la collection %s"), $dcollection["collection_name"]), 401);
+                throw new PpciException(sprintf(_("Droits insuffisants pour la collection %s"), $dcollection["collection_name"]), 401);
             }
             if (!$dcollection["allowed_export_flow"]) {
-                throw new SampleException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
+                throw new PpciException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
             }
             $_SESSION["searchSample"]->setParam($_REQUEST);
             $data = $samplews->sample->getListUIDS($_SESSION["searchSample"]->getParam());
-        } catch (Exception $e) {
+        } catch (PpciException $e) {
             $error_code = $e->getCode();
             if ($error_code == 0) {
                 $error_code = 520;
             }
             $data = array(
                 "error_code" => $error_code,
-                "error_message" => $errors[$error_code]
+                "error_message" => $this->errors[$error_code]
             );
-            if ($APPLI_modeDeveloppement) {
+            if (env("CI_ENVIRONMENT") == "development") {
                 $data["error_content"] = $e->getMessage();
             }
             $this->message->setSyslog($e->getMessage());
         } finally {
+            $this->vue = service("AjaxView");
             $this->vue->setJson(json_encode($data));
+            return $this->vue->send();
         }
-        }
-    function getList() {
+    }
+    function getList()
+    {
         try {
             if (empty($_REQUEST["collection_id"])) {
-                throw new SampleException(_("Le numéro de la collection est obligatoire"), 400);
+                throw new PpciException(_("Le numéro de la collection est obligatoire"), 400);
             }
             require_once "modules/classes/collection.class.php";
             $collection = new Collection();
             $dcollection = $collection->lire($_REQUEST["collection_id"]);
             if (!collectionVerify($dcollection["collection_id"])) {
-                throw new SampleException(sprintf(_("Droits insuffisants pour la collection %s"), $dcollection["collection_name"]), 401);
+                throw new PpciException(sprintf(_("Droits insuffisants pour la collection %s"), $dcollection["collection_name"]), 401);
             }
             if (!$dcollection["allowed_export_flow"]) {
-                throw new SampleException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
+                throw new PpciException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
             }
             $_SESSION["searchSample"]->setParam($_REQUEST);
             $data = $samplews->sample->getListFromParam($_SESSION["searchSample"]->getParam());
             if (isset($_REQUEST["template_name"])) {
-                require_once "modules/classes/export/datasetTemplate.class.php";
                 $datasetTemplate = new DatasetTemplate();
-                try {
-                    $ddataset = $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
-                    $withTemplate = true;
-                } catch (DatasetTemplateException $dte) {
-                    throw new SampleException($dte->getMessage());
-                }
+                $ddataset = $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
+                $withTemplate = true;
                 $data = $datasetTemplate->formatData($data);
             }
-
-        } catch (Exception $e) {
+        } catch (PpciException $e) {
             $error_code = $e->getCode();
             if ($error_code == 0) {
                 $error_code = 520;
@@ -296,44 +275,47 @@ $db->transBegin();
                         $item = "";
                 });
             }
+            $this->vue = service("AjaxView");
             $this->vue->setJson(json_encode($data));
+            return $this->vue->send();
         }
-        }
-        function delete(){
-            $retour = array();
-            try {
-                $uid = $_POST["uid"];
-                $db = $this->dataClass->db;
-$db->transBegin();
+    }
+    function delete()
+    {
+        $retour = array();
+        try {
+            $uid = $_POST["uid"];
+            $db = $this->dataClass->db;
+            $db->transBegin();
             if (!empty($uid)) {
-                $data = $samplews->sample->lire($uid);
+                $data = $this->samplews->sample->lire($uid);
                 if (empty($data["sample_id"])) {
-                    throw new SampleException(sprintf(_("L'UID %s ne correspond pas à un échantillon"), $uid));
+                    throw new PpciException(sprintf(_("L'UID %s ne correspond pas à un échantillon"), $uid));
                 }
             } else {
-                throw new SampleException(sprintf(_("L'UID %s n'a pas été trouvé"), $uid),400);
+                throw new PpciException(sprintf(_("L'UID %s n'a pas été trouvé"), $uid), 400);
             }
             /* check the collection */
             require_once "modules/classes/collection.class.php";
             $collection = new Collection();
             $dcollection = $collection->lire($data["collection_id"]);
             if (!collectionVerify($dcollection["collection_id"])) {
-                throw new SampleException(sprintf(_("Droits insuffisants pour la collection %s"), $dcollection["collection_name"]), 401);
+                throw new PpciException(sprintf(_("Droits insuffisants pour la collection %s"), $dcollection["collection_name"]), 401);
             }
             if (!$dcollection["allowed_import_flow"]) {
-                throw new SampleException(sprintf(_("Les flux de mise à jour ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
+                throw new PpciException(sprintf(_("Les flux de mise à jour ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
             }
             $samplews->sample->supprimer($uid);
-            
+
             $retour = array(
                 "error_code" => 200,
                 "error_message" => "processed"
             );
             http_response_code(200);
-        } catch (Exception $e) {
+        } catch (PpciException $e) {
             if ($db->transEnabled) {
-    $db->transRollback();
-}
+                $db->transRollback();
+            }
             $error_code = $e->getCode();
             if ($error_code == 0) {
                 $error_code = 520;
@@ -341,14 +323,15 @@ $db->transBegin();
             $this->message->setSyslog($e->getMessage());
             $retour = array(
                 "error_code" => $error_code,
-                "error_message" => $errors[$error_code],
+                "error_message" => $this->errors[$error_code],
                 "error_detail" => $e->getMessage()
             );
             http_response_code($error_code);
             $this->message->setSyslog($e->getMessage());
         } finally {
-            $this->vue->setJson(json_encode($retour));
+            $this->vue = service("AjaxView");
+            $this->vue->setJson(json_encode($data));
+            return $this->vue->send();
         }
-            }
-
+    }
 }

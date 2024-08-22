@@ -49,7 +49,6 @@ class Metadata extends PpciModel
     {
         $metadata_id = parent::write($data);
         if ($metadata_id > 0) {
-            $data = $this->encodeData($data);
             /*
              * Generation des index si un champ est searchable
              */

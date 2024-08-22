@@ -17,7 +17,7 @@ $(document).ready(function() {
         }
         renderForm(metadataParse);
         $('#metadataForm').submit(function(event) {
-        	if ($("#action").val() == "Write") {
+        	if ($("#metadataForm").attr("action") == "metadataWrite") {
                 $('#metadata').alpaca().refreshValidationState(true);
                 var reserved = ["sampling_date", "expiration_date", "sample_creation_date", "change_date"];
                 $(".alpaca-control").each(function (i, e) {

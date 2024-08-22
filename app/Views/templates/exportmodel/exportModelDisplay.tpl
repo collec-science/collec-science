@@ -6,7 +6,7 @@
     </a>
     {if $rights.param == 1}
         &nbsp;
-        <a href="exportModelChange&export_model_id={$data.export_model_id}">
+        <a href="exportModelChange?export_model_id={$data.export_model_id}">
             <img src="display/images/edit.gif" height="25">
             {t}Modifier{/t}
         </a>

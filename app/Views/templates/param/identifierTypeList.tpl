@@ -31,7 +31,7 @@
 {$data[lst].identifier_type_code}
 </td>
 <td>
-{if $data[lst].used_for_search == 1}{t}oui{/t}{else}{t}non{/t}{/if}
+{if $data[lst].used_for_search == 't'}{t}oui{/t}{else}{t}non{/t}{/if}
 </td>
 </tr>
 {/section}

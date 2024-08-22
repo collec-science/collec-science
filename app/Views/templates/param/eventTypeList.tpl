@@ -28,10 +28,10 @@
 {/if}
 </td>
 <td class="center">
-{if $data[lst].is_sample == 1}{t}oui{/t}{else}{t}non{/t}{/if}
+{if $data[lst].is_sample == 't'}{t}oui{/t}{else}{t}non{/t}{/if}
 </td>
 <td class="center">
-{if $data[lst].is_container == 1}{t}oui{/t}{else}{t}non{/t}{/if}
+{if $data[lst].is_container == 't'}{t}oui{/t}{else}{t}non{/t}{/if}
 </td>
 </tr>
 {/section}

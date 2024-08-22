@@ -15,3 +15,6 @@ alter table gacl.logingestion add column if not exists lastattempt datetime;
 
 update gacl.aclgroup set groupe = 'manage' where groupe = 'gestion';
 update gacl.aclaco set aco = 'manage' where aco = 'gestion';
+
+select setval('mime_type_mime_type_id_seq', (select max(mime_type_id) from mime_type));
+select setval('dataset_type_dataset_type_id_seq', (select max(dataset_type_id) from dataset_type));

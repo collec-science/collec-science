@@ -22,7 +22,7 @@ class Metadata extends PpciLibrary
         parent::__construct();
         $this->dataclass = new ModelsMetadata();
         $this->keyName = "metadata_id";
-        if (isset($_REQUEST[$this->keyName])) {
+        if (isset($_REQUEST[$this->keyName])&&!is_array($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
     }
@@ -110,7 +110,7 @@ class Metadata extends PpciLibrary
     }
     function export()
     {
-        $this->vue = service('Smarty');
+        $this->vue = service('CsvView');
         $this->vue->set($this->dataclass->getListFromIds($_POST["metadata_id"]));
         return $this->vue->send();
     }

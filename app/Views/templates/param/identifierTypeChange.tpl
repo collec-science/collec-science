@@ -37,13 +37,13 @@
         <div class="col-md-8" id="search">
           <div class="radio">
             <label>
-              <input type="radio" name="used_for_search" id="ufs1" value="1" {if $data.used_for_search==1}checked{/if}>
+              <input type="radio" name="used_for_search" id="ufs1" value="1" {if $data.used_for_search=='t'}checked{/if}>
               {t}oui{/t}
             </label>
           </div>
           <div class="radio">
             <label>
-              <input type="radio" name="used_for_search" id="ufs2" value="0" {if $data.used_for_search==0}checked{/if}>
+              <input type="radio" name="used_for_search" id="ufs2" value="0" {if $data.used_for_search!='t'}checked{/if}>
               {t}non{/t}
             </label>
           </div>

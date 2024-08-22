@@ -17,11 +17,11 @@
         <label for="is_sample" class="control-label col-md-4">{t}Utilisable pour les échantillons :{/t}</label>
         <div id="is_sample" class="col-md-8">
           <label class="radio-inline">
-            <input type="radio" name="is_sample" id="isSample1" value="t" {if $data.is_sample==1}checked {/if}>
+            <input type="radio" name="is_sample" id="isSample1" value="t" {if $data.is_sample=='t'}checked {/if}>
             {t}oui{/t}
           </label>
           <label class="radio-inline">
-            <input type="radio" name="is_sample" id="isSample2" value="f" {if $data.is_sample=="" }checked {/if}>
+            <input type="radio" name="is_sample" id="isSample2" value="f" {if $data.is_sample!="t" }checked {/if}>
             {t}non{/t}
           </label>
         </div>
@@ -30,11 +30,11 @@
         <label for="is_container" class="control-label col-md-4">{t}Utilisable pour les contenants :{/t}</label>
         <div id="is_container" class="col-md-8">
           <label class="radio-inline">
-            <input type="radio" name="is_container" id="isContainer1" value="t" {if $data.is_container==1}checked {/if}>
+            <input type="radio" name="is_container" id="isContainer1" value="t" {if $data.is_container=='t'}checked {/if}>
             {t}oui{/t}
           </label>
           <label class="radio-inline">
-            <input type="radio" name="is_container" id="isContainer2" value="f" {if $data.is_container=="" }checked
+            <input type="radio" name="is_container" id="isContainer2" value="f" {if $data.is_container!="t" }checked
               {/if}> {t}non{/t}
           </label>
         </div>

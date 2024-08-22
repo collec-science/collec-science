@@ -9,7 +9,7 @@
 		{/if}
 	</div>
 	<div class="col-md-12">
-		<table id="containerTypeList" class="table table-bordered table-hover datatable " >
+		<table id="containerTypeList" class="table table-bordered table-hover datatable-searching " >
 			<thead>
 				<tr>
 					<th>{t}Nom{/t}</th>

@@ -90,7 +90,7 @@ class ObjectClass extends PpciModel
     function read($id, $getDefault = true, $parentValue = 0): array
     {
         if ($id == 0 && $getDefault) {
-            $data = $this->getDefaultValue($parentValue);
+            $data = $this->getDefaultValues($parentValue);
         } else {
             $data = $this->lireParamAsPrepared($this->sql . " where uid =:uid", array("uid" => $id));
         }

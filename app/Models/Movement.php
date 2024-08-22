@@ -325,9 +325,6 @@ class Movement extends PpciModel
         } else {
             $searchByLogin = false;
         }
-
-        $dateStart = $this->encodeData($values["date_start"]);
-        $dateEnd = $this->encodeData($values["date_end"]);
         $data = array();
         $sql = "select s.login, s.uid, identifier, movement_date, movement_type_id, movement_type_name, storage_location, line_number, column_number, movement_comment,
         case when sample_type_name is not null then sample_type_name else container_type_name end as type_name,
@@ -345,8 +342,8 @@ class Movement extends PpciModel
         }
         $sql .= "movement_date::date between :date_start: and :date_end:
         order by movement_date desc";
-        $data["date_start"] = $this->formatDateLocaleVersDB($dateStart, 2);
-        $data["date_end"] = $this->formatDateLocaleVersDB($dateEnd, 2);
+        $data["date_start"] = $this->formatDateLocaleVersDB($values["date_start"], 2);
+        $data["date_end"] = $this->formatDateLocaleVersDB($values["date_end"], 2);
         return $this->getListeParamAsPrepared($sql, $data);
     }
 

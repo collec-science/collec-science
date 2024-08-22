@@ -63,7 +63,7 @@ class Borrowing extends PpciModel
     function read(int $id, bool $getDefault = false, $parentValue = 0): array
     {
         if ($id == 0 && $getDefault) {
-            $data = $this->getDefaultValue($parentValue);
+            $data = $this->getDefaultValues($parentValue);
         } else {
             $data = $this->lireParamAsPrepared(
                 $this->sql . " where borrowing_id = :borrowing_id:",

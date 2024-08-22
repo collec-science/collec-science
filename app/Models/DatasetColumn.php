@@ -54,7 +54,7 @@ class DatasetColumn extends PpciModel
     function read($id, $getDefault = true, $parentValue = 0): array
     {
         if ($id == 0) {
-            $data = $this->getDefaultValue($parentValue);
+            $data = $this->getDefaultValues($parentValue);
             /**
              * Search for last order
              */

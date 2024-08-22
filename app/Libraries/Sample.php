@@ -455,7 +455,7 @@ class Sample extends PpciLibrary
         if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $event = new Event();
-            $de = $event->getDefaultValue();
+            $de = $event->getDefaultValues();
             $de["event_date"] = $_POST["event_date"];
             $de["due_date"] = $_POST["due_date"];
             $de["event_type_id"] = $_POST["event_type_id"];

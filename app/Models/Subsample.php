@@ -80,7 +80,7 @@ class Subsample extends PpciModel
         if (is_numeric($subsample_id) && $subsample_id > 0) {
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
-            $retour = parent::getDefaultValue($parentValue);
+            $retour = parent::getDefaultValues($parentValue);
             /*
              * Recherche de l'unite des sous-échantillons
              */

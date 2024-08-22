@@ -6,6 +6,7 @@ use App\Models\ContainerFamily;
 use App\Models\Movement as ModelsMovement;
 use App\Models\MovementReason;
 use App\Models\ObjectClass;
+use App\Models\SearchMovement;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
@@ -96,7 +97,7 @@ class Movement extends PpciLibrary
         if (isset($_REQUEST["container_uid"]) && is_numeric($_REQUEST["container_uid"])) {
             $this->vue->set($_REQUEST["container_uid"], "container_uid");
         }
-        $this->vue->set($this->dataclass->getDefaultValue(), "data");
+        $this->vue->set($this->dataclass->getDefaultValues(), "data");
         $this->vue->set("gestion/fastInputChange.tpl", "corps");
         if (isset($_REQUEST["read_optical"])) {
             $this->vue->set($_REQUEST["read_optical"], "read_optical");
@@ -120,7 +121,7 @@ class Movement extends PpciLibrary
     function fastOutputChange()
     {
         $this->vue=service('Smarty');
-        $this->vue->set($this->dataclass->getDefaultValue(), "data");
+        $this->vue->set($this->dataclass->getDefaultValues(), "data");
         $this->vue->set("gestion/fastOutputChange.tpl", "corps");
         if (isset($_REQUEST["read_optical"])) {
             $this->vue->set($_REQUEST["read_optical"], "read_optical");
@@ -206,6 +207,9 @@ class Movement extends PpciLibrary
     {
         $this->vue = service('Smarty');
         $_SESSION["moduleListe"] = "movementList";
+        if (!isset($_SESSION["searchMovement"])){
+            $_SESSION["searchMovement"] = new SearchMovement;
+        }
         $_SESSION["searchMovement"]->setParam($_REQUEST);
         $dataSearch = $_SESSION["searchMovement"]->getParam();
         if ($_SESSION["searchMovement"]->isSearch() == 1) {

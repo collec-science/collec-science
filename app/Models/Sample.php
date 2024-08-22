@@ -306,7 +306,7 @@ class Sample extends PpciModel
                             if (!isset($this->subsample)) {
                                 $this->subsample = new Subsample;
                             }
-                            $dataSubsample = $this->subsample->getDefaultValue();
+                            $dataSubsample = $this->subsample->getDefaultValues();
                             $dataSubsample["movement_type_id"] = 2;
                             $dataSubsample["subsample_quantity"] = $data["multiple_value"];
                             $dataSubsample["sample_id"] = $parentData["sample_id"];

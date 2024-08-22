@@ -91,7 +91,7 @@ class Container extends PpciModel
         if (is_numeric($uid) && $uid > 0) {
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
-            $retour = parent::getDefaultValue($parentValue);
+            $retour = parent::getDefaultValues($parentValue);
         }
         return $retour;
     }

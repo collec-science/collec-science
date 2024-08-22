@@ -83,7 +83,7 @@ class Label extends PpciModel
         if (is_numeric($label_id) && $label_id > 0) {
             return parent::lireParamAsPrepared($sql, $data);
         } else {
-            return $this->getDefaultValue();
+            return $this->getDefaultValues();
         }
     }
     /**

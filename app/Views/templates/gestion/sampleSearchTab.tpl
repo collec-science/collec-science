@@ -175,8 +175,8 @@
         }
         function getSamplingPlace () {
             var colid = $("#collection_id").val();
-            var url = "";
-            var data = { "module":"samplingPlaceGetFromCollection", "collection_id": colid };
+            var url = "samplingPlaceGetFromCollection";
+            var data = { "collection_id": colid };
             $.ajax ( { url:url, data: data})
             .done (function( d ) {
                     if (d ) {
@@ -207,9 +207,8 @@
             if (!colid > 0) {
                 colid = 0;
             }
-            var url = "";
+            var url = "eventTypeGetAjax";
             var data = { 
-                "module":"eventTypeGetAjax", 
                 "collection_id": colid,
                 "object_type" : 1
             };

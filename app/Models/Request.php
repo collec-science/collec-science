@@ -67,7 +67,7 @@ class Request extends PpciModel
             $data = $this->lireParamAsPrepared($this->sql . $where, array("request_id" => $id));
         } else {
             if ($getDefault) {
-                $data = $this->getDefaultValue();
+                $data = $this->getDefaultValues();
             } else {
                 $data = array();
             }

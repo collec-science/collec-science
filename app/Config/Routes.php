@@ -6,10 +6,9 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 //$routes->get('/', 'Home::index');
-$routes->add('dbstructureHtml', '\Ppci\Controllers\Structure::html');
-$routes->add('dbstructureGacl', '\Ppci\Controllers\Structure::gacl');
-$routes->add('dbstructureLatex', '\Ppci\Controllers\Structure::latex');
-$routes->add('dbstructureSchema', '\Ppci\Controllers\Structure::schema');
+$routes->add('dbstructureHtml', '\Ppci\Controllers\Miscellaneous::structureHtml');
+$routes->add('dbstructureLatex', '\Ppci\Controllers\Miscellaneous::structureLatex');
+$routes->add('dbstructureSchema', '\Ppci\Controllers\Miscellaneous::structureSchema');
 $routes->add('default', 'Default::index');
 $routes->add('lexique', 'Lexique::index');
 $routes->add('eventTypeList', 'EventType::list');

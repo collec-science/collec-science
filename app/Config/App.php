@@ -200,7 +200,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public string $databaseSchemaFile = ROOTPATH . "documentation/schema.png";
+    public string $databaseSchemaFile = ROOTPATH . "documentation/collec-schema.png";
     /**
      * Duration of conservation of logs in table log
      *

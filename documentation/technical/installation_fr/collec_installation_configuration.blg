@@ -1,0 +1,103 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: collec_installation_configuration.aux
+The style file: unsrtnat.bst
+A level-1 auxiliary file: presentation.aux
+A level-1 auxiliary file: installation.aux
+A level-1 auxiliary file: administration.aux
+A level-1 auxiliary file: comment-faire.aux
+A level-1 auxiliary file: replication.aux
+A level-1 auxiliary file: dbstructure.aux
+A level-1 auxiliary file: databaseStructure.aux
+A level-1 auxiliary file: lastPage.aux
+Database file #1: collec.bib
+Warning--entry type for "prototypephp" isn't style-file defined
+--line 2 of file collec.bib
+Warning--entry type for "pphp-doc" isn't style-file defined
+--line 10 of file collec.bib
+Warning--entry type for "tls" isn't style-file defined
+--line 19 of file collec.bib
+Warning--entry type for "fop" isn't style-file defined
+--line 27 of file collec.bib
+Warning--entry type for "jquery" isn't style-file defined
+--line 35 of file collec.bib
+Warning--entry type for "smarty" isn't style-file defined
+--line 43 of file collec.bib
+Warning--entry type for "bootstrap" isn't style-file defined
+--line 51 of file collec.bib
+Warning--entry type for "asvs" isn't style-file defined
+--line 59 of file collec.bib
+Warning--entry type for "owasp" isn't style-file defined
+--line 67 of file collec.bib
+Warning--entry type for "zaproxy" isn't style-file defined
+--line 75 of file collec.bib
+Warning--entry type for "token" isn't style-file defined
+--line 83 of file collec.bib
+Warning--entry type for "phpgacl" isn't style-file defined
+--line 91 of file collec.bib
+Warning--entry type for "agpl" isn't style-file defined
+--line 99 of file collec.bib
+Warning--entry type for "pgadmin" isn't style-file defined
+--line 107 of file collec.bib
+Warning--entry type for "clamav" isn't style-file defined
+--line 115 of file collec.bib
+Warning--entry type for "clamavarchlinux" isn't style-file defined
+--line 123 of file collec.bib
+Warning--entry type for "clamaveq" isn't style-file defined
+--line 131 of file collec.bib
+Warning--entry type for "mozillagenerator" isn't style-file defined
+--line 138 of file collec.bib
+Warning--entry type for "app" isn't style-file defined
+--line 146 of file collec.bib
+Warning--entry type for "digitOcean" isn't style-file defined
+--line 154 of file collec.bib
+Warning--entry type for "zeroPostgres" isn't style-file defined
+--line 161 of file collec.bib
+Warning--entry type for "replicationPostgres" isn't style-file defined
+--line 168 of file collec.bib
+Warning--entry type for "replicationTutorial" isn't style-file defined
+--line 175 of file collec.bib
+Warning--entry type for "debphp7" isn't style-file defined
+--line 182 of file collec.bib
+You've used 24 entries,
+            2481 wiz_defined-function locations,
+            659 strings with 7525 characters,
+and the built_in function-call counts, 6255 in all, are:
+= -- 531
+> -- 176
+< -- 24
++ -- 102
+- -- 50
+* -- 284
+:= -- 951
+add.period$ -- 72
+call.type$ -- 24
+change.case$ -- 48
+chr.to.int$ -- 20
+cite$ -- 24
+duplicate$ -- 336
+empty$ -- 721
+format.name$ -- 76
+if$ -- 1378
+int.to.chr$ -- 5
+int.to.str$ -- 25
+missing$ -- 0
+newline$ -- 128
+num.names$ -- 72
+pop$ -- 288
+preamble$ -- 1
+purify$ -- 24
+quote$ -- 0
+skip$ -- 282
+stack$ -- 0
+substring$ -- 48
+swap$ -- 54
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 168
+warning$ -- 0
+while$ -- 48
+width$ -- 0
+write$ -- 295
+(There were 24 warnings)

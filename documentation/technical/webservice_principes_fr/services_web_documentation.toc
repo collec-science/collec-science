@@ -1,0 +1,52 @@
+\select@language {french}
+\contentsline {chapter}{\numberline {1}Besoins n\IeC {\'e}cessitant l'utilisation de services web}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}D\IeC {\'e}finitions}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Pr\IeC {\'e}sentation}{1}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Technique employ\IeC {\'e}e}{2}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Forme des URL}{2}{subsection.1.2.2}
+\contentsline {section}{\numberline {1.3}D\IeC {\'e}finition des cas d'utilisation couverts par les services web}{3}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Recherche d'\IeC {\'e}chantillons}{3}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Liste des tables de r\IeC {\'e}f\IeC {\'e}rence}{4}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.3}Contenu des tables de r\IeC {\'e}f\IeC {\'e}rence}{4}{subsection.1.3.3}
+\contentsline {subsection}{\numberline {1.3.4}R\IeC {\'e}cup\IeC {\'e}ration des donn\IeC {\'e}es d'un \IeC {\'e}chantillon}{4}{subsection.1.3.4}
+\contentsline {subsection}{\numberline {1.3.5}R\IeC {\'e}cup\IeC {\'e}ration des donn\IeC {\'e}es d'une liste d'\IeC {\'e}chantillons}{4}{subsection.1.3.5}
+\contentsline {section}{\numberline {1.4}Contraintes li\IeC {\'e}es \IeC {\`a} la s\IeC {\'e}curit\IeC {\'e}}{5}{section.1.4}
+\contentsline {section}{\numberline {1.5}Pr\IeC {\'e}sentation du logiciel Collec}{5}{section.1.5}
+\contentsline {chapter}{\numberline {2}Gestion des habilitations -- principes retenus pour le logiciel Collec}{6}{chapter.2}
+\contentsline {section}{\numberline {2.1}Op\IeC {\'e}rations pr\IeC {\'e}alables \IeC {\`a} l'interrogation d'une \\base de donn\IeC {\'e}es distante}{7}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Identification r\IeC {\'e}ciproque des applications}{7}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Identification des utilisateurs}{7}{subsection.2.1.2}
+\contentsline {chapter}{\numberline {3}Description des services web}{9}{chapter.3}
+\contentsline {section}{\numberline {3.1}Remarques g\IeC {\'e}n\IeC {\'e}rales}{9}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Format des donn\IeC {\'e}es transmises ou re\IeC {\c c}ues}{9}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Codes d'erreur}{9}{subsection.3.1.2}
+\contentsline {section}{\numberline {3.2}Table des listes techniques}{10}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}url type}{10}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Donn\IeC {\'e}es en entr\IeC {\'e}e}{10}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Donn\IeC {\'e}es en retour}{10}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Listes techniques}{11}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}url type}{11}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Donn\IeC {\'e}es en retour}{11}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Rechercher des \IeC {\'e}chantillons}{12}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}url type}{12}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Variables de recherche}{12}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Donn\IeC {\'e}es en retour}{13}{subsection.3.4.3}
+\contentsline {section}{\numberline {3.5}Lire un \IeC {\'e}chantillon}{14}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}url type}{14}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Variables de recherche}{14}{subsection.3.5.2}
+\contentsline {subsection}{\numberline {3.5.3}Donn\IeC {\'e}es en retour}{14}{subsection.3.5.3}
+\contentsline {section}{\numberline {3.6}Lire un jeu d'\IeC {\'e}chantillons}{15}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}url type}{15}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Variables de recherche}{15}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}Donn\IeC {\'e}es en retour}{15}{subsection.3.6.3}
+\contentsline {chapter}{\numberline {4}Impl\IeC {\'e}mentation technique dans Collec}{16}{chapter.4}
+\contentsline {section}{\numberline {4.1}Transformation des URL et appel aux modules}{16}{section.4.1}
+\contentsline {section}{\numberline {4.2}Emplacement du code}{16}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Donn\IeC {\'e}es d'identification des instances distantes}{16}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Codification des services web}{17}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Structure des tables correspondantes}{18}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Modules et fonctions n\IeC {\'e}cessaires}{18}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Enregistrement d'une instance distante cliente}{18}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Enregistrement d'une instance distante serveur}{19}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Identification d'un utilisateur distant}{19}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Module d'interrogation d'un serveur distant}{19}{subsection.4.3.4}

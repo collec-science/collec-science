@@ -55,7 +55,7 @@ class Campaign extends PpciModel
      */
     function getDetail($id)
     {
-        $where = " where campaign_id = :id";
+        $where = " where campaign_id = :id:";
         return $this->lireParamAsPrepared($this->sql . $where, array("id" => $id));
     }
 
@@ -147,7 +147,7 @@ class Campaign extends PpciModel
         }
         if (!empty($data["referent_name"])) {
             if (!isset($this->referent)) {
-                $this->referent = $this->classInstanciate("Referent", "referent.class.php");
+                $this->referent = new Referent;
             }
             $referents = $this->referent->getFromName($data["referent_name"], $data["referent_firstname"]);
             if (empty($referents)) {

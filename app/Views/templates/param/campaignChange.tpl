@@ -60,7 +60,7 @@
             </div>
             <div class="form-group">
                 <label for="groupes" class="control-label col-md-4">
-                    {t}rights de modification attribués aux groupes :{/t}
+                    {t}Droits de modification attribués aux groupes :{/t}
                 </label>
                 <div class="col-md-7">
                     {section name=lst loop=$groupes}

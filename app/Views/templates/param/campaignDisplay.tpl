@@ -39,7 +39,7 @@
     <li class="nav-item">
         <a class="nav-link" id="tabGroups" href="#navGroups" data-toggle="tab" role="tab" aria-controls="navGroups"
             aria-selected="false">
-            {t}rights attribués{/t}
+            {t}Droits attribués{/t}
         </a>
     </li>
     <li class="nav-item">

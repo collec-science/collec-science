@@ -130,7 +130,7 @@ class Campaign extends PpciLibrary
                 $import = new Import(
                     $_FILES['upfile']['tmp_name'],
                     ";",
-                    false,
+                    $_REQUEST["utf8_encode"],
                     array(
                         "campaign_name",
                         "campaign_from",

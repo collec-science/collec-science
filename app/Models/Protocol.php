@@ -138,7 +138,7 @@ class Protocol extends PpciModel
 				from protocol
                 left outer join collection using (collection_id)";
         if (!empty($order)) {
-            $sql .= " order by " . $this->encodeData($order);
+            $sql .= " order by " . $order;
         }
         return $this->getListeParam($sql);
     }

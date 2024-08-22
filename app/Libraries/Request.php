@@ -34,7 +34,7 @@ class Request extends PpciLibrary
          */
         if ($_SESSION["userRights"]["param"] == 1) {
             $this->vue->set($this->dataclass->getListe(2), "data");
-        } else if ($_SESSION["userRights"]["gestion"] == 1) {
+        } else if ($_SESSION["userRights"]["manage"] == 1) {
             $this->vue->set($this->dataclass->getListFromCollections($_SESSION["collections"]), "data");
         }
         $this->vue->set("request/requestList.tpl", "corps");

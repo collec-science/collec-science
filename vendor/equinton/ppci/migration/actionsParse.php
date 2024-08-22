@@ -13,7 +13,7 @@
  */
 try {
     $filename = $argv[1];
-    if (empty ($filename)) {
+    if (empty($filename)) {
         throw new Exception("You must add the name of the xml file to execute this program, as: php actionsParse.php actions.xml");
     }
     if (!file_exists($filename)) {
@@ -35,7 +35,7 @@ try {
                 $g_module[$noeud->tagName][$attname] = $noeud->getAttribute($attname);
             }*/
             $right = $node->getAttribute("droits");
-            if (!empty ($right)) {
+            if (!empty($right)) {
                 $rights .= '"' . $node->tagName . '"=>[';
                 $aRight = explode(',', $right);
                 $i = 0;
@@ -44,7 +44,7 @@ try {
                         $rights .= ",";
                     }
                     $i++;
-                    if ($r == "gestion" ) {
+                    if ($r == "gestion") {
                         $r = "manage";
                     }
                     $rights .= '"' . $r . '"';
@@ -55,11 +55,11 @@ try {
              * Treatment of routes
              */
             $action = $node->getAttribute("action");
-            if (!empty ($action)) {
+            if (!empty($action)) {
                 $action = str_replace(".php", "", $action);
                 $aAction = explode("/", $action);
                 $param = $node->getAttribute("param");
-                if (empty ($param)) {
+                if (empty($param)) {
                     $param = "index";
                 }
                 $verb = "add";
@@ -69,13 +69,15 @@ try {
                 $aAction[0] == "framework" ? $radical = "\Ppci\Controllers\\" : $radical = "";
                 //$action = str_replace(["modules/","ppci/", ".php"], ["","",""], $action);
 
-                $routes .= '$routes->'.$verb."('" . lcfirst($node->tagName) . "', '" . $radical;
-                for ($i = 1; $i < count($aAction); $i++) {
+                $routes .= '$routes->' . $verb . "('" . lcfirst($node->tagName) . "', '" . $radical;
+                /*for ($i = 1; $i < count($aAction); $i++) {
                     if ($i > 1) {
                         $routes .= "\\";
                     }
                     $routes .= ucfirst($aAction[$i]);
                 }
+                */
+                $routes .= ucfirst($aAction[count($aAction) - 1]);
                 $routes .= "::" . $param . "');" . PHP_EOL;
             }
         }
@@ -87,8 +89,6 @@ try {
     echo PHP_EOL;
 
     echo $routes;
-
 } catch (Exception $e) {
     echo $e->getMessage() . PHP_EOL;
 }
-

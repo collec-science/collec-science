@@ -45,6 +45,11 @@ try {
     fclose($handle);
     $i = 0;
     foreach ($routes as $route => $fonctions) {
+        /**
+         * Delete root folder
+         */
+        $aroute = explode("\\",$route);
+        $route = $aroute[count($aroute) -1];
         $librarieName = "Libraries" . $route;
         $corps = "<?php" . PHP_EOL
             . "namespace App\Controllers;" . PHP_EOL . PHP_EOL

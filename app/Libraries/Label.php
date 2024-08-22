@@ -22,12 +22,11 @@ class Label extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsLabel();
+        $this->dataclass = new ModelsLabel();
         $this->keyName = "label_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
-        require_once 'modules/classes/label.class.php';
         $this->dataclass = new Label();
         $this->keyName = "label_id";
         $this->id = $_REQUEST[$this->keyName];

@@ -22,7 +22,7 @@ class ObjectLib extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ObjectClass();
+        $this->dataclass = new ObjectClass();
         $this->keyName = "uid";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
@@ -161,7 +161,7 @@ class ObjectLib extends PpciLibrary
         $trashed = $_POST["settrashed"];
         if (count($_POST["uids"]) > 0 && ($trashed == 0 || $trashed == 1)) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             try {
                 foreach ($uids as $uid) {

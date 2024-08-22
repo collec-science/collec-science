@@ -22,7 +22,7 @@ class Movement extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsMovement();
+        $this->dataclass = new ModelsMovement();
         $this->keyName = "movement_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
@@ -71,7 +71,7 @@ class Movement extends PpciLibrary
     function write()
     {
         try {
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             $this->dataclass->addMovement($_REQUEST["uid"], $_REQUEST["movement_date"], $_REQUEST["movement_type_id"], $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"], $_REQUEST["column_number"], $_REQUEST["line_number"]);
             $this->message->set(_("Mouvement généré"));
@@ -189,7 +189,7 @@ class Movement extends PpciLibrary
                     }
                     if (($sens == 1 && $uid_container > 0) || $sens == 2) {
                         $sens == 1 ? $uic = $uid_container : $uic = "";
-                        $this->dataClass->addMovement($uid, $date, $sens, $uic, $_SESSION["login"], null, null, $_REQUEST["movement_reason_id"], $_REQUEST["column" . $uid], $_REQUEST["line" . $uid]);
+                        $this->dataclass->addMovement($uid, $date, $sens, $uic, $_SESSION["login"], null, null, $_REQUEST["movement_reason_id"], $_REQUEST["column" . $uid], $_REQUEST["line" . $uid]);
                         $nb++;
                     }
                 }

@@ -22,7 +22,7 @@ class DatasetColumn extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsDatasetColumn();
+        $this->dataclass = new ModelsDatasetColumn();
         $this->keyName = "dataset_column_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

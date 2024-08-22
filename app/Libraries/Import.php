@@ -142,7 +142,7 @@ class Import extends PpciLibrary
                     /*
                      * Demarrage d'une transaction
                      */
-                    $db = $this->dataClass->db;
+                    $db = $this->dataclass->db;
                     $db->transBegin();
                     $this->import->initFile($_SESSION["filename"], $_SESSION["separator"], $_SESSION["utf8_encode"]);
                     $this->import->importAll();
@@ -210,7 +210,7 @@ class Import extends PpciLibrary
                     /*
                      * Demarrage d'une transaction
                      */
-                    $db = $this->dataClass->db;
+                    $db = $this->dataclass->db;
                     $db->transBegin();
                     $this->import->importExterneExec($data, $sic, $_POST);
                     $this->message->set(sprintf(_("Import effectué. %s lignes traitées"), $this->import->nbTreated));

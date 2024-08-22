@@ -19,7 +19,7 @@ class Regulation extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsRegulation();
+        $this->dataclass = new ModelsRegulation();
         $this->keyName = "regulation_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

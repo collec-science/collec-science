@@ -26,7 +26,7 @@ class Event extends PpciLibrary
 	function __construct()
 	{
 		parent::__construct();
-		$this->dataClass = new ModelsEvent();
+		$this->dataclass = new ModelsEvent();
 		$this->keyName = "event_id";
 		if (isset($_REQUEST[$this->keyName])) {
 			$this->id = $_REQUEST[$this->keyName];
@@ -162,7 +162,7 @@ class Event extends PpciLibrary
 	function deleteList()
 	{
 		if (!empty($_POST["events"])) {
-			$db = $this->dataClass->db;
+			$db = $this->dataclass->db;
 			$db->transBegin();
 			try {
 				foreach ($_POST["events"] as $event_id) {
@@ -194,7 +194,7 @@ class Event extends PpciLibrary
 			if (!empty($data)) {
 				$this->dataclass->colonnes["uid"]["requis"] = 0;
 				$this->dataclass->colonnes["event_type_id"]["requis"] = 0;
-				$db = $this->dataClass->db;
+				$db = $this->dataclass->db;
 				$db->transBegin();
 				try {
 					foreach ($_POST["events"] as $event_id) {

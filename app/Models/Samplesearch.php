@@ -22,7 +22,7 @@ class Samplesearch extends PpciModel
             ),
             "samplesearch_name" => array("requis" => 1),
             "samplesearch_data" => array("type" => 0),
-            "samplesearch_login" => array("type" => 0, "defaultValue" => "getLogin"),
+            "samplesearch_login" => array("type" => 0, "defaultValue" => $_SESSION["login"]),
             "collection_id" => array("type" => 1)
         );
         parent::__construct();
@@ -36,7 +36,7 @@ class Samplesearch extends PpciModel
     function getListFromCollections(array $collections = array())
     {
         $where = " where samplesearch_login = :login:";
-        $param = array("login" => $this->getLogin());
+        $param = array("login" => $_SESSION["login"]);
         $i = 1;
         if (!empty($collections)) {
             $where .= " or collection_id in (";
@@ -44,7 +44,7 @@ class Samplesearch extends PpciModel
                 if ($i > 1) {
                     $where .= ",";
                 }
-                $where .= ":col$i";
+                $where .= ":col$i:";
                 $param["col$i"] = $collection["collection_id"];
                 $i++;
             }

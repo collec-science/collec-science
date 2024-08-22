@@ -10,7 +10,7 @@ class PasswordLost extends PpciLibrary {
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsPasswordlost();
+        $this->dataclass = new ModelsPasswordlost();
         if (!$this->appConfig->MAIL_enabled) {
             $this->isAvailable =false;
         }
@@ -23,7 +23,7 @@ class PasswordLost extends PpciLibrary {
     function sendMail() {
         if ($this->isAvailable && isset($_REQUEST["mail"])) {
             try {
-                $data = $this->dataClass->createTokenFromMail($_REQUEST["mail"]);
+                $data = $this->dataclass->createTokenFromMail($_REQUEST["mail"]);
                 if ($data["id"] > 0) {    
                     $loginGestion = new LoginGestion();
                     $dl = $loginGestion->lire($data["id"]);
@@ -69,7 +69,7 @@ class PasswordLost extends PpciLibrary {
              * Verification de la validite du token
              */
             try {
-                $data = $this->dataClass->verifyToken($_REQUEST["token"]);
+                $data = $this->dataclass->verifyToken($_REQUEST["token"]);
                 /*
                  * Verification que la derniere connexion soit une connexion de type db
                  */
@@ -94,14 +94,14 @@ class PasswordLost extends PpciLibrary {
     }
     function reinitWrite() {
         try {
-            $data = $this->dataClass->verifyToken($_REQUEST["token"]);
+            $data = $this->dataclass->verifyToken($_REQUEST["token"]);
             /*
              * Verification que la derniere connexion soit une connexion de type db
              */
             if ($this->log->getLastConnexionType($data["login"]) == "db") {
                 $loginGestion = new LoginGestion();
                 if ($loginGestion->changePasswordAfterLost($data["login"], $_REQUEST["pass1"], $_REQUEST["pass2"]) == 1) {
-                    $this->dataClass->disableToken($_REQUEST["token"]);
+                    $this->dataclass->disableToken($_REQUEST["token"]);
                 }
             } else {
                 $this->message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"), true);

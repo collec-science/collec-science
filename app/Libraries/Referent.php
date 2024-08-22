@@ -19,7 +19,7 @@ class Referent extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsReferent();
+        $this->dataclass = new ModelsReferent();
         $this->keyName = "referent_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

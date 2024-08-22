@@ -5,15 +5,6 @@ namespace App\Models;
 use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
 
-/**
- * Created : 2 juin 2016
- * Creator : quinton
- * Encoding : UTF-8
- * Copyright 2016 - All rights reserved
- */
-//require_once 'modules/classes/object.class.php';
-class ContainerException extends Exception {};
-
 class Container extends PpciModel
 {
 
@@ -116,7 +107,7 @@ class Container extends PpciModel
     function write($data): int
     {
         if (!$this->is_unique($data["uid"], $data["identifier"])) {
-            throw new ObjectException(sprintf(_("L'identifiant du contenant %s existe déjà dans la base de données"), $data["identifier"]));
+            throw new PpciException(sprintf(_("L'identifiant du contenant %s existe déjà dans la base de données"), $data["identifier"]));
         }
         $object = new ObjectClass();
         $uid = $object->ecrire($data);

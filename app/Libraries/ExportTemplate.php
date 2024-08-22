@@ -22,7 +22,7 @@ class ExportTemplate extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsExportTemplate();
+        $this->dataclass = new ModelsExportTemplate();
         $this->keyName = "export_template_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
@@ -96,7 +96,7 @@ class ExportTemplate extends PpciLibrary
         $translator = new Translator();
         $insertExportDataset = "insert into export_dataset (export_template_id, dataset_template_id) 
                                 values (:export_template_id:, :dataset_template_id:)";
-        $db = $this->dataClass->db;
+        $db = $this->dataclass->db;
         $db->transBegin();
         try {
             if (file_exists($_FILES['upfile']['tmp_name'])) {

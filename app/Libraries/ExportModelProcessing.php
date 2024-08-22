@@ -108,7 +108,7 @@ class ExportModelProcessing extends PpciLibrary
                 fclose($handle);
                 $data = json_decode($contents, true);
                 try {
-                    $db = $this->dataClass->db;
+                    $db = $this->dataclass->db;
                     $db->transBegin();
                     $firstTable = true;
                     foreach ($data as $tableName => $values) {

@@ -40,7 +40,7 @@ class Container extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsContainer();
+        $this->dataclass = new ModelsContainer();
         $this->keyName = "uid";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
@@ -271,7 +271,7 @@ class Container extends PpciLibrary
         if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             try {
-                $db = $this->dataClass->db;
+                $db = $this->dataclass->db;
                 $db->transBegin();
                 foreach ($uids as $uid) {
                     $this->dataDelete($uid, true);
@@ -420,7 +420,7 @@ class Container extends PpciLibrary
 
                 $data = json_decode($jdata, true);
                 $sic = new SampleInitClass();
-                $db = $this->dataClass->db;
+                $db = $this->dataclass->db;
                 $db->transBegin();
                 $this->dataclass->importExternal($data, $sic, $_POST);
                 $result = $this->dataclass->getUidMinMax();
@@ -448,7 +448,7 @@ class Container extends PpciLibrary
             $borrowing = new Borrowing();
             $movement = new Movement();
             try {
-                $db = $this->dataClass->db;
+                $db = $this->dataclass->db;
                 $db->transBegin();
                 $datejour = date($_SESSION["date"]["maskdate"]);
                 foreach ($uids as $uid) {
@@ -480,7 +480,7 @@ class Container extends PpciLibrary
         if (count($_POST["uids"]) > 0) {
             $movement = new Movement();
             try {
-                $db = $this->dataClass->db;
+                $db = $this->dataclass->db;
                 $db->transBegin();
                 foreach ($_POST["uids"] as $uid) {
                     $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null);
@@ -502,7 +502,7 @@ class Container extends PpciLibrary
         if (count($_POST["uids"]) > 0 && $_POST["container_uid"] > 0) {
             $movement = new Movement();
             try {
-                $db = $this->dataClass->db;
+                $db = $this->dataclass->db;
                 $db->transBegin();
                 foreach ($_POST["uids"] as $uid) {
                     if ($_POST["container_uid"] == $uid) {
@@ -602,7 +602,7 @@ class Container extends PpciLibrary
             }
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $object = new ObjectClass();
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             foreach ($uids as $uid) {
                 $object->setReferent($uid, $_POST["referent_id"]);

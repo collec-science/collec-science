@@ -19,7 +19,7 @@ class EventType extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsEventType();
+        $this->dataclass = new ModelsEventType();
         $this->keyName = "event_type_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

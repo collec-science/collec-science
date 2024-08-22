@@ -175,7 +175,7 @@ class Sample extends PpciModel
             $this->fields["change_date"] = array("type" => 3);
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
-            $retour = parent::getDefaultValue($parentValue);
+            $retour = parent::getDefaultValues($parentValue);
         }
         unset($this->fields["borrowing_date"]);
         unset($this->fields["expected_return_date"]);

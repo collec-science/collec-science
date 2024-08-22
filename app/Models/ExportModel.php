@@ -43,7 +43,7 @@ class ExportModel extends PpciModel
   {
     $sql = "select export_model_id, export_model_name, target
                 from export_model
-                where target = :target";
+                where target = :target:";
     return $this->getListeParamAsPrepared($sql, array("target" => $target));
   }
 }

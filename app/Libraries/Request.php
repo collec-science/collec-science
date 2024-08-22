@@ -20,7 +20,7 @@ class Request extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsRequest;
+        $this->dataclass = new ModelsRequest;
         $this->keyName = "request_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

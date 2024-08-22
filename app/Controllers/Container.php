@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\Container as LibrariesContainer;
+use App\Models\SearchContainer;
 
 class Container extends PpciController
 {
@@ -11,6 +12,9 @@ class Container extends PpciController
     function __construct()
     {
         $this->lib = new LibrariesContainer();
+        if (!isset ($_SESSION["searchContainer"])) {
+            $_SESSION["searchContainer"] = new SearchContainer;
+        }
     }
     function list()
     {

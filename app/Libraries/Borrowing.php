@@ -22,7 +22,7 @@ class Borrowing extends PpciLibrary
 	function __construct()
 	{
 		parent::__construct();
-		$this->dataClass = new ModelsBorrowing();
+		$this->dataclass = new ModelsBorrowing();
 		$this->keyName = "borrowing_id";
 		if (isset($_REQUEST[$this->keyName])) {
 			$this->id = $_REQUEST[$this->keyName];
@@ -61,7 +61,7 @@ class Borrowing extends PpciLibrary
 		 */
 			//$this->dataclass->debug_mode = 2;
 			$this->id == 0 ? $isNew = true : $isNew = false;
-			$db = $this->dataClass->db;
+			$db = $this->dataclass->db;
 			$db->transBegin();
 			if ($isNew) {
 				$this->id = $this->dataclass->setBorrowing(

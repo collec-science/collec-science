@@ -24,7 +24,7 @@ class Campaign extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsCampaign();
+        $this->dataclass = new ModelsCampaign();
         $this->keyName = "campaign_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
@@ -143,7 +143,7 @@ class Campaign extends PpciLibrary
                 $rows = $import->getContentAsArray();
                 $nb = 0;
                 $this->dataclass->autoFormatDate = false;
-                $db = $this->dataClass->db;
+                $db = $this->dataclass->db;
                 $db->transBegin();
                 foreach ($rows as $row) {
                     if (!empty($row)) {

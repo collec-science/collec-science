@@ -19,7 +19,7 @@ class MimeType extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsMimeType();
+        $this->dataclass = new ModelsMimeType();
         $this->keyName = "mime_type_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

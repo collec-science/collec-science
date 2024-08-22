@@ -23,7 +23,7 @@ function __construct()
 		/**
 		 * @var ModelsBooking
 		 */
-		$this->dataClass = new ModelsBooking();
+		$this->dataclass = new ModelsBooking();
 		$this->keyName = "booking_id";
 		if (isset($_REQUEST[$this->keyName])) {
 			$this->id = $_REQUEST[$this->keyName];

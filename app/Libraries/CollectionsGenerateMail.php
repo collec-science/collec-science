@@ -16,7 +16,7 @@ class CollectionsGenerateMail extends PpciLibrary {
 function __construct()
     {
         parent::__construct();
-        $this->dataClass = new XXX();
+        $this->dataclass = new XXX();
         $this->keyName = "xxx_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

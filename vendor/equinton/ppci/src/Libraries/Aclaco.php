@@ -10,7 +10,7 @@ class Aclaco extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new \Ppci\Models\Aclaco();
+        $this->dataclass = new \Ppci\Models\Aclaco();
         $keyName = "aclaco_id";
         if (isset($_REQUEST[$keyName])) {
             $this->id = $_REQUEST[$keyName];
@@ -20,7 +20,7 @@ class Aclaco extends PpciLibrary
     function display()
     {
         $vue = service("Smarty");
-        $vue->set($this->dataClass->lire($this->id), "data");
+        $vue->set($this->dataclass->lire($this->id), "data");
         $vue->set("ppci/droits/appliDisplay.tpl", "corps");
         $aclAco = new \Ppci\Models\Aclaco();
         $vue->set($aclAco->getListFromParent($this->id, 3), "dataAco");

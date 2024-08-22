@@ -23,7 +23,7 @@ class SampleType extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsSampleType();
+        $this->dataclass = new ModelsSampleType();
         $this->keyName = "sample_type_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

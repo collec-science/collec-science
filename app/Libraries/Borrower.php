@@ -20,7 +20,7 @@ class Borrower extends PpciLibrary
 function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsBorrower();
+        $this->dataclass = new ModelsBorrower();
         $this->keyName = "borrower_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

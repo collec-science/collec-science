@@ -9,7 +9,7 @@ class Request extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new RequestModel();
+        $this->dataclass = new RequestModel();
         $keyName = "request_id";
         if (!empty($_REQUEST[$keyName])) {
             $this->id = $_REQUEST[$keyName];
@@ -20,7 +20,7 @@ class Request extends PpciLibrary
     function list()
     {
         $vue = service("Smarty");
-        $vue->set($this->dataClass->getList(2), "data");
+        $vue->set($this->dataclass->getList(2), "data");
         $vue->set("ppci/request/requestList.tpl", "corps");
         return $vue->send();
     }
@@ -37,10 +37,10 @@ class Request extends PpciLibrary
     function exec()
     {
         $vue = service("Smarty");
-        $vue->set($this->dataClass->lire($this->id), "data");
+        $vue->set($this->dataclass->lire($this->id), "data");
         $vue->set("ppci/request/requestChange.tpl", "corps");
         try {
-            $vue->set($this->dataClass->exec($this->id), "result");
+            $vue->set($this->dataclass->exec($this->id), "result");
             return $vue->send();
         } catch (\Exception $e) {
             $this->message->set($e->getMessage());
@@ -78,7 +78,7 @@ class Request extends PpciLibrary
     function copy() {
         $data = $this->dataRead(0, "ppci/request/requestChange.tpl");
         if ($this->id > 0) {
-            $dinit = $this->dataClass->lire($this->id);
+            $dinit = $this->dataclass->lire($this->id);
             if ($dinit["request_id"] > 0) {
                 $data["body"] = $dinit["body"];
                 $data["datefields"] = $dinit["datefields"];

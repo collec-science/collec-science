@@ -18,7 +18,7 @@ class Country extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsCountry();
+        $this->dataclass = new ModelsCountry();
         $this->keyName = "country_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

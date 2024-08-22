@@ -19,7 +19,7 @@ class Translator extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsTranslator();
+        $this->dataclass = new ModelsTranslator();
         $this->keyName = "translator_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

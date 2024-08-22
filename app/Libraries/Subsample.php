@@ -21,7 +21,7 @@ class Subsample extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsSubsample();
+        $this->dataclass = new ModelsSubsample();
         $this->keyName = "subsample_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

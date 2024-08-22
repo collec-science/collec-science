@@ -46,7 +46,7 @@ class Sample extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsSample();
+        $this->dataclass = new ModelsSample();
         $this->keyName = "uid";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
@@ -395,7 +395,7 @@ class Sample extends PpciLibrary
          */
         if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             try {
                 foreach ($uids as $uid) {
@@ -423,7 +423,7 @@ class Sample extends PpciLibrary
         if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $object = new ObjectClass();
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             try {
                 foreach ($uids as $uid) {
@@ -460,7 +460,7 @@ class Sample extends PpciLibrary
             $de["due_date"] = $_POST["due_date"];
             $de["event_type_id"] = $_POST["event_type_id"];
             $de["event_comment"] = $_POST["event_comment"];
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             try {
                 foreach ($uids as $uid) {
@@ -503,7 +503,7 @@ class Sample extends PpciLibrary
             $borrowing = new Borrowing();
             $movement = new Movement();
             try {
-                $db = $this->dataClass->db;
+                $db = $this->dataclass->db;
                 $db->transBegin();
                 $datejour = date($_SESSION["date"]["maskdate"]);
                 foreach ($uids as $uid) {
@@ -543,7 +543,7 @@ class Sample extends PpciLibrary
             include_once "modules/classes/movement.class.php";
             $movement = new Movement();
             try {
-                $db = $this->dataClass->db;
+                $db = $this->dataclass->db;
                 $db->transBegin();
                 foreach ($_POST["uids"] as $uid) {
                     $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null);
@@ -571,7 +571,7 @@ class Sample extends PpciLibrary
         if (count($_POST["uids"]) > 0 && $_POST["container_uid"] > 0) {
             $movement = new Movement();
             try {
-                $db = $this->dataClass->db;
+                $db = $this->dataclass->db;
                 $db->transBegin();
                 foreach ($_POST["uids"] as $uid) {
                     if ($_POST["container_uid"] == $uid) {

@@ -9,7 +9,7 @@ class Acllogin extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new \Ppci\Models\Acllogin();
+        $this->dataclass = new \Ppci\Models\Acllogin();
         $keyName = "acllogin_id";
         if (isset($_REQUEST[$keyName])) {
             $this->id = $_REQUEST[$keyName];
@@ -18,7 +18,7 @@ class Acllogin extends PpciLibrary
     function list()
     {
         $vue = service("Smarty");
-        $vue->set($this->dataClass->getListLogins(), "data");
+        $vue->set($this->dataclass->getListLogins(), "data");
         $vue->set("ppci/droits/loginList.tpl", "corps");
         return $vue->send();
     }
@@ -28,7 +28,7 @@ class Acllogin extends PpciLibrary
         $data = $this->dataRead($this->id, "ppci/droits/loginChange.tpl");
         if (!empty($data["login"])) {
             $conf = service("IdentificationConfig");
-            $vue->set($this->dataClass->getListDroits($data["login"], $this->appConfig->GACL_aco, $conf->LDAP), "loginDroits");
+            $vue->set($this->dataclass->getListDroits($data["login"], $this->appConfig->GACL_aco, $conf->LDAP), "loginDroits");
         }
         return $vue->send();
     }

@@ -21,7 +21,7 @@ class SamplingPlace extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsSamplingPlace();
+        $this->dataclass = new ModelsSamplingPlace();
         $this->keyName = "sampling_place_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
@@ -79,7 +79,7 @@ class SamplingPlace extends PpciLibrary
         if (file_exists($_FILES['upfile']['tmp_name'])) {
             $i = 0;
             try {
-                $db = $this->dataClass->db;
+                $db = $this->dataclass->db;
                 $db->transBegin();
                 $import = new Import($_FILES['upfile']['tmp_name'], $_POST["separator"], false, array(
                     "name",

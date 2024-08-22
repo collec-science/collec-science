@@ -20,7 +20,7 @@ class Metadata extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsMetadata();
+        $this->dataclass = new ModelsMetadata();
         $this->keyName = "metadata_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

@@ -19,7 +19,7 @@ class MovementReason extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsMovementReason();
+        $this->dataclass = new ModelsMovementReason();
         $this->keyName = "movement_reason_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

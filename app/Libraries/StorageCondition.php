@@ -19,7 +19,7 @@ class StorageCondition extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsStorageCondition();
+        $this->dataclass = new ModelsStorageCondition();
         $this->keyName = "storage_condition_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

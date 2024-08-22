@@ -29,7 +29,7 @@ class MovementWs extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new Movement();
+        $this->dataclass = new Movement();
         $this->keyName = "movement_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

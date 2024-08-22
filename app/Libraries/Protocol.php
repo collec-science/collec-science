@@ -20,7 +20,7 @@ class Protocol extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsProtocol();
+        $this->dataclass = new ModelsProtocol();
         $this->keyName = "protocol_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
@@ -49,7 +49,7 @@ class Protocol extends PpciLibrary
          * write record in database
          */
         try {
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             $this->id = $this->dataWrite($_POST, true);
             if ($this->id > 0) {

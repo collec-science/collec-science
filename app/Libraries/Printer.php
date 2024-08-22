@@ -19,7 +19,7 @@ class Printer extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsPrinter();
+        $this->dataclass = new ModelsPrinter();
         $this->keyName = "printer_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

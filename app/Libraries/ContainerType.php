@@ -22,7 +22,7 @@ class ContainerType extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsContainerType();
+        $this->dataclass = new ModelsContainerType();
         $this->keyName = "container_type_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

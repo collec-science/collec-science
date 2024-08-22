@@ -23,7 +23,7 @@ class Export extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsExport();
+        $this->dataclass = new ModelsExport();
         $this->keyName = "export_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

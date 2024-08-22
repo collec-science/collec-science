@@ -19,7 +19,7 @@ class ContainerFamily extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsContainerFamily();
+        $this->dataclass = new ModelsContainerFamily();
         $this->keyName = "container_family_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

@@ -19,7 +19,7 @@ class IdentifierType extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsIdentifierType();
+        $this->dataclass = new ModelsIdentifierType();
         $this->keyName = "identifier_type_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

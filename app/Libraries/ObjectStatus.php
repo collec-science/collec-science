@@ -19,7 +19,7 @@ class ObjectStatus extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsObjectStatus();
+        $this->dataclass = new ModelsObjectStatus();
         $this->keyName = "object_status_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

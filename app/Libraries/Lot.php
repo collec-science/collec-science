@@ -20,7 +20,7 @@ class Lot extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsLot();
+        $this->dataclass = new ModelsLot();
         $this->keyName = "lot_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
@@ -62,7 +62,7 @@ class Lot extends PpciLibrary
             }
             if ($ok) {
                 try {
-                    $db = $this->dataClass->db;
+                    $db = $this->dataclass->db;
                     $db->transBegin();
                     $_REQUEST["lot_id"] = $this->dataclass->createLot($_POST["collection_id"], $_POST["uids"]);
 
@@ -135,7 +135,7 @@ class Lot extends PpciLibrary
     function deleteSamples()
     {
         try {
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             if (empty($_POST["samples"])) {
                 throw new PpciException(_("Aucun échantillon n'a été sélectionné"));

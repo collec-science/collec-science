@@ -22,7 +22,7 @@ class DatasetTemplate extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsDatasetTemplate();
+        $this->dataclass = new ModelsDatasetTemplate();
         $this->keyName = "dataset_template_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
@@ -96,7 +96,7 @@ class DatasetTemplate extends PpciLibrary
     function duplicate()
     {
         try {
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             $_REQUEST[$this->keyName] = $this->dataclass->duplicate($this->id);
             return $this->change();

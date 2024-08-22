@@ -78,7 +78,7 @@ class Collection extends PpciModel
      *
      * @see ObjetBDD::getListe()
      */
-    function getListe(string $order = 1): array
+    function getListe(string $order = "1"): array
     {
         $sql = "select collection_id, collection_name,
                 getgroupsfromcollection(collection_id) as groupe,
@@ -423,6 +423,9 @@ class Collection extends PpciModel
         }
         $sql .= " order by collection_name";
         $newCollections = $this->getListeParam($sql);
+        if (empty($collections)) {
+            $collections = array();
+        }
         return array_merge($collections, $newCollections);
     }
     /**

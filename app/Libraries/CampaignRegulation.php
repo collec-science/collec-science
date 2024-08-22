@@ -21,7 +21,7 @@ class CampaignRegulation extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsCampaignRegulation();
+        $this->dataclass = new ModelsCampaignRegulation();
         $this->keyName = "campaign_regulation_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

@@ -37,7 +37,7 @@ class PpciLibrary
     {
         $this->vue = service("Smarty");
         try {
-            $data = $this->dataClass->read($id, true, $idParent);
+            $data = $this->dataclass->read($id, true, $idParent);
         } catch (\Exception $e) {
             $this->message->set(_("Erreur de lecture des informations dans la base de données"), true);
             $this->message->setSyslog($e->getMessage());
@@ -53,11 +53,11 @@ class PpciLibrary
     function dataWrite(array $data, bool $isPartOfTransaction = false)
     {
         try {
-            $id = $this->dataClass->write($data);
+            $id = $this->dataclass->write($data);
             if ($id > 0) {
                 if (!$isPartOfTransaction) {
                     $this->message->set(_("Enregistrement effectué"));
-                    $this->log->setLog($_SESSION["login"], get_class($this->dataClass) . "-write", $id);
+                    $this->log->setLog($_SESSION["login"], get_class($this->dataclass) . "-write", $id);
                 }
             } else {
                 $this->message->set(
@@ -69,7 +69,7 @@ class PpciLibrary
                 $this->message->setSyslog(
                     sprintf(
                         _("La clé n'a pas été retournée lors de l'enregistrement dans %s"),
-                        get_class($this->dataClass)
+                        get_class($this->dataclass)
                     )
                 );
                 throw new PpciException();
@@ -92,11 +92,11 @@ class PpciLibrary
     function dataDelete($id, bool $isPartOfTransaction = false)
     {
         try {
-            $ret = $this->dataClass->delete($id);
+            $ret = $this->dataclass->delete($id);
             if (!$isPartOfTransaction) {
                 $this->message->set(_("Suppression effectuée"));
             }
-            $this->log->setLog($_SESSION["login"], get_class($this->dataClass) . "-delete", $id);
+            $this->log->setLog($_SESSION["login"], get_class($this->dataclass) . "-delete", $id);
             return true;
         } catch (\Exception $e) {
             $this->message->setSyslog($e->getMessage());

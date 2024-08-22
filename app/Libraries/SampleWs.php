@@ -40,7 +40,7 @@ class SampleWs extends PpciLibrary
     {
         $searchOrder = "";
         try {
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             $dataSent = $_POST;
             if (!empty($_POST["template_name"])) {
@@ -285,7 +285,7 @@ class SampleWs extends PpciLibrary
         $retour = array();
         try {
             $uid = $_POST["uid"];
-            $db = $this->dataClass->db;
+            $db = $this->dataclass->db;
             $db->transBegin();
             if (!empty($uid)) {
                 $data = $this->samplews->sample->lire($uid);

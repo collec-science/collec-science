@@ -20,7 +20,7 @@ class Operation extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataClass = new ModelsOperation();
+        $this->dataclass = new ModelsOperation();
         $this->keyName = "operation_id";
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];

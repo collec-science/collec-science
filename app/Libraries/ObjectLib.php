@@ -167,7 +167,7 @@ class ObjectLib extends PpciLibrary
                 foreach ($uids as $uid) {
                     $this->dataclass->setTrashed($uid, $trashed);
                 }
-
+                $db->transCommit();
                 if ($_POST["trashed"] == 1) {
                     $this->message->set(_("Mise à la corbeille effectuée"));
                 } else {

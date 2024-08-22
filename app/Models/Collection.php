@@ -193,7 +193,7 @@ class Collection extends PpciModel
             if ($sample->getNbFromCollection($id) == 0) {
                 $sql = "delete from collection_group where collection_id = :collection_id:";
                 $data["collection_id"] = $id;
-                $this->executeAsPrepared($sql, $data);
+                $this->executeQuery($sql, $data, true);
                 return parent::supprimer($id);
             }
         }

@@ -40,6 +40,7 @@ class Protocol extends PpciLibrary
         $this->dataRead($this->id, "param/protocolChange.tpl");
         $collection = new Collection();
         $this->vue->set($collection->getListe(2), "collections");
+        helper('appfunctions');
         $this->vue->set(getMaximumFileUploadSize(), "maxFileSize");
         return $this->vue->send();
     }
@@ -73,6 +74,7 @@ class Protocol extends PpciLibrary
                     $this->dataclass->documentDelete($this->id);
                 }
                 $_REQUEST[$this->keyName] = $this->id;
+                $db->transCommit();
                 $this->message->set(_("Enregistrement effectué"));
                 return $this->list();
             }

@@ -151,6 +151,7 @@ class Campaign extends PpciLibrary
                         $nb++;
                     }
                 }
+                $db->transCommit();
                 $this->message->set(sprintf(_("%s campagnes importées"), $nb));
             } catch (PpciException $e) {
                 $this->message->set(_("Impossible d'importer les campagnes"), true);

@@ -110,7 +110,7 @@ class SamplingPlace extends PpciLibrary
                         $i++;
                     }
                 }
-
+                $db->transCommit();
                 $this->message->set(sprintf(_("%d lieu(x) importé(s)"), $i));
             } catch (PpciException $e) {
                 $this->message->set(_("Impossible d'importer les lieux de prélèvement"));

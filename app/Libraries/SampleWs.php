@@ -40,7 +40,8 @@ class SampleWs extends PpciLibrary
     {
         $searchOrder = "";
         try {
-            $db = $this->dataclass->db;
+            $container = new Container();
+            $db = $container->db;
             $db->transBegin();
             $dataSent = $_POST;
             if (!empty($_POST["template_name"])) {
@@ -61,7 +62,6 @@ class SampleWs extends PpciLibrary
             /* check for the creation of a movement */
             $cuid = 0;
             if (!empty($_POST["container_name"])) {
-                $container = new Container();
                 $cuid = $container->getUidFromIdentifier($_POST["container_name"]);
             }
             if ($cuid ==  0 && !empty($_POST["container_uid"])) {
@@ -90,7 +90,7 @@ class SampleWs extends PpciLibrary
                     $ln
                 );
             }
-
+            $db->transCommit();
             $retour = array(
                 "error_code" => 200,
                 "uid" => $uid,
@@ -285,7 +285,7 @@ class SampleWs extends PpciLibrary
         $retour = array();
         try {
             $uid = $_POST["uid"];
-            $db = $this->dataclass->db;
+            $db = $this->samplews->sample->db;
             $db->transBegin();
             if (!empty($uid)) {
                 $data = $this->samplews->sample->lire($uid);
@@ -306,7 +306,7 @@ class SampleWs extends PpciLibrary
                 throw new PpciException(sprintf(_("Les flux de mise à jour ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
             }
             $samplews->sample->supprimer($uid);
-
+            $db->transCommit();
             $retour = array(
                 "error_code" => 200,
                 "error_message" => "processed"

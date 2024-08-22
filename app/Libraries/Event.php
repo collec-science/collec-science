@@ -168,6 +168,7 @@ class Event extends PpciLibrary
 				foreach ($_POST["events"] as $event_id) {
 					$this->dataclass->supprimer($event_id);
 				}
+				$db->transCommit();
 				$this->message->set(_("Événements supprimés"));
 			} catch (PpciException $e) {
 				$this->message->set(_("Un problème est survenu pendant la suppression d'un événement"), true);
@@ -201,7 +202,7 @@ class Event extends PpciLibrary
 						$data["event_id"] = $event_id;
 						$this->dataclass->ecrire($data);
 					}
-
+					$db->transCommit();
 					$this->message->set(_("Événements modifiés"));
 				} catch (PpciException $e) {
 					$this->message->set(_("Un problème est survenu pendant la modification d'un événement"), true);

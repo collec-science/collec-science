@@ -65,7 +65,7 @@ class Lot extends PpciLibrary
                     $db = $this->dataclass->db;
                     $db->transBegin();
                     $_REQUEST["lot_id"] = $this->dataclass->createLot($_POST["collection_id"], $_POST["uids"]);
-
+                    $db->transCommit();
                     $this->message->set(_("Lot créé"));
                     return $this->display();
                 } catch (PpciException $e) {
@@ -141,6 +141,7 @@ class Lot extends PpciLibrary
                 throw new PpciException(_("Aucun échantillon n'a été sélectionné"));
             }
             $this->dataclass->deleteSamples($this->id, $_POST["samples"]);
+            $db->transCommit();
             $this->message->set(_("Suppression des échantillons sélectionnés effectuée"));
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);

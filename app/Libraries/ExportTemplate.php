@@ -168,6 +168,7 @@ class ExportTemplate extends PpciLibrary
             } else {
                 throw new PpciException(_("Le fichier contenant le modèle à importer n'a pas été téléchargé"));
             }
+            $db->transCommit();
             $this->message->set(_("Importation du modèle effectuée"));
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);

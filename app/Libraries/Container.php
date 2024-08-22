@@ -276,6 +276,7 @@ class Container extends PpciLibrary
                 foreach ($uids as $uid) {
                     $this->dataDelete($uid, true);
                 }
+                $db->transCommit();
                 $this->message->set(_("Suppression effectuée"));
                 return $this->list();
             } catch (PpciException $e) {
@@ -424,6 +425,7 @@ class Container extends PpciLibrary
                 $db->transBegin();
                 $this->dataclass->importExternal($data, $sic, $_POST);
                 $result = $this->dataclass->getUidMinMax();
+                $db->transCommit();
                 $this->message->set(sprintf(_("Import effectué. %s objets traités"), $result["number"]));
                 $this->message->set(sprintf(_("Premier UID généré : %s"), $result["min"]));
                 $this->message->set(sprintf(_("Dernier UID généré : %s"), $result["max"]));
@@ -463,6 +465,7 @@ class Container extends PpciLibrary
                      */
                     $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, _("Objet prêté"));
                 }
+                $db->transCommit();
                 $this->message->set(_("Opération de prêt enregistrée"));
             } catch (PpciException | \Exception $me) {
                 $this->message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
@@ -485,6 +488,7 @@ class Container extends PpciLibrary
                 foreach ($_POST["uids"] as $uid) {
                     $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null);
                 }
+                $db->transCommit();
             } catch (PpciException | \Exception $me) {
                 $this->message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
                 $this->message->set($me->getMessage());
@@ -510,6 +514,7 @@ class Container extends PpciLibrary
                     }
                     $movement->addMovement($uid, null, 1, $_POST["container_uid"], $_SESSION["login"], $_POST["storage_location"], null, null, $_POST["column_number"], $_POST["line_number"]);
                 }
+                $db->transCommit();
             } catch (PpciException $me) {
                 $this->message->set(_("Erreur lors de la génération du mouvement d'entrée"), true);
                 $this->message->set($me->getMessage());
@@ -607,7 +612,7 @@ class Container extends PpciLibrary
             foreach ($uids as $uid) {
                 $object->setReferent($uid, $_POST["referent_id"]);
             }
-
+            $db->transCommit();
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
             $this->message->setSyslog($oe->getMessage());

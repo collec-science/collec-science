@@ -91,9 +91,11 @@ class Collection extends PpciLibrary
          * delete record
          */
         try {
-            $this->dataDelete($this->id);
+            $this->dataclass->supprimer($this->id);
+            $this->message->set(_("Suppression effectuée"));
             return $this->list();
         } catch (PpciException $e) {
+            $this->message->set($e->getMessage(), true);
             return $this->change();
         }
     }

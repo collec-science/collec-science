@@ -83,7 +83,7 @@ class Autoload extends AutoloadConfig
      *
      * @var list<string>
      */
-    public $files = ["app/ThirdParty/functions.php"];
+    public $files = [];
 
     /**
      * -------------------------------------------------------------------
@@ -96,5 +96,5 @@ class Autoload extends AutoloadConfig
      *
      * @var list<string>
      */
-    public $helpers = [];
+    public $helpers = ["appfunctions"];
 }

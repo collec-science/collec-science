@@ -401,7 +401,7 @@ class Sample extends PpciLibrary
                 foreach ($uids as $uid) {
                     $this->dataDelete($uid, true);
                 }
-
+                $db->transCommit();
                 $this->message->set(_("Suppression effectuée"));
             } catch (PpciException $e) {
                 $this->message->set(_("La suppression des échantillons a échoué"), true);
@@ -429,7 +429,7 @@ class Sample extends PpciLibrary
                 foreach ($uids as $uid) {
                     $this->dataclass->setReferent($uid, $object, $_REQUEST["referent_id"]);
                 }
-
+                $db->transCommit();
                 $this->message->set(_("Affectation effectuée"));
                 /**
                  * Forçage du retour
@@ -467,7 +467,7 @@ class Sample extends PpciLibrary
                     $de["uid"] = $uid;
                     $event->ecrire($de);
                 }
-
+                $db->transCommit();
                 $this->message->set(_("Création des événements effectuée"));
                 /**
                  * Forçage du retour
@@ -518,6 +518,7 @@ class Sample extends PpciLibrary
                      */
                     $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, _("Objet prêté"));
                 }
+                $db->transCommit();
                 $this->message->set(_("Opération de prêt enregistrée"));
             } catch (PpciException $me) {
                 $this->message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
@@ -548,6 +549,7 @@ class Sample extends PpciLibrary
                 foreach ($_POST["uids"] as $uid) {
                     $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null);
                 }
+                $db->transCommit();
             } catch (PpciException $me) {
                 $this->message->set(_("Erreur lors de la génération du mouvement de sortie"), true);
                 $this->message->set($me->getMessage());
@@ -579,6 +581,7 @@ class Sample extends PpciLibrary
                     }
                     $movement->addMovement($uid, null, 1, $_POST["container_uid"], $_SESSION["login"], $_POST["storage_location"], null, null, $_POST["column_number"], $_POST["line_number"]);
                 }
+                $db->transCommit();
             } catch (PpciException $me) {
                 $this->message->set(_("Erreur lors de la génération du mouvement d'entrée"), true);
                 $this->message->set($me->getMessage());

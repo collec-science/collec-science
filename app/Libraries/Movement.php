@@ -75,6 +75,7 @@ class Movement extends PpciLibrary
             $db = $this->dataclass->db;
             $db->transBegin();
             $this->dataclass->addMovement($_REQUEST["uid"], $_REQUEST["movement_date"], $_REQUEST["movement_type_id"], $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"], $_REQUEST["column_number"], $_REQUEST["line_number"]);
+            $db->transCommit();
             $this->message->set(_("Mouvement généré"));
         } catch (PpciException $me) {
             $this->message->set(_("Erreur lors de la génération du mouvement"), true);

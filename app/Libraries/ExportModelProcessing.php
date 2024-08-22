@@ -108,7 +108,7 @@ class ExportModelProcessing extends PpciLibrary
                 fclose($handle);
                 $data = json_decode($contents, true);
                 try {
-                    $db = $this->dataclass->db;
+                    $db = $this->exportModel->db;
                     $db->transBegin();
                     $firstTable = true;
                     foreach ($data as $tableName => $values) {
@@ -120,7 +120,7 @@ class ExportModelProcessing extends PpciLibrary
                             $this->export->importDataTable($tableName, $values);
                         }
                     }
-
+                    $db->transCommit();
                     $this->message->set(sprintf(_("Importation effectuée, fichier %s traité."), $realFilename));
                     return ZZZ;
                 } catch (PpciException $e) {

@@ -99,6 +99,7 @@ class DatasetTemplate extends PpciLibrary
             $db = $this->dataclass->db;
             $db->transBegin();
             $_REQUEST[$this->keyName] = $this->dataclass->duplicate($this->id);
+            $db->transCommit();
             return $this->change();
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);

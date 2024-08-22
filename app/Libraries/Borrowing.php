@@ -87,6 +87,7 @@ class Borrowing extends PpciLibrary
 			if ($this->id > 0) {
 				$_REQUEST[$this->keyName] = $this->id;
 			}
+			$db->transCommit();
 			return ZZZ;
 		} catch (PpciException $e) {
 			$this->message->set(_("Problème rencontré lors de l'enregistrement du prêt"), true);

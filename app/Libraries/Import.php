@@ -142,10 +142,11 @@ class Import extends PpciLibrary
                     /*
                      * Demarrage d'une transaction
                      */
-                    $db = $this->dataclass->db;
+                    $db = $this->sample->db;
                     $db->transBegin();
                     $this->import->initFile($_SESSION["filename"], $_SESSION["separator"], $_SESSION["utf8_encode"]);
                     $this->import->importAll();
+                    $db->transCommit();
                     $this->message->set(sprintf(_("Import effectué. %s lignes traitées"), $this->import->nbTreated));
                     $this->message->set(sprintf(_("Premier UID généré : %s"), $this->import->minuid));
                     $this->message->set(sprintf(_("Dernier UID généré : %s"), $this->import->maxuid));
@@ -210,9 +211,10 @@ class Import extends PpciLibrary
                     /*
                      * Demarrage d'une transaction
                      */
-                    $db = $this->dataclass->db;
+                    $db = $this->sample->db;
                     $db->transBegin();
                     $this->import->importExterneExec($data, $sic, $_POST);
+                    $db->transCommit();
                     $this->message->set(sprintf(_("Import effectué. %s lignes traitées"), $this->import->nbTreated));
                     $this->message->set(sprintf(_("Premier UID généré : %s"), $this->import->minuid));
                     $this->message->set(sprintf(_("Dernier UID généré : %s"), $this->import->maxuid));

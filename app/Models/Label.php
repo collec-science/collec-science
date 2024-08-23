@@ -43,8 +43,7 @@ class Label extends PpciModel
                 "defaultValue" => 'uid,id,clp,db'
             ),
             "metadata_id" => array(
-                "type" => 1,
-                "requis" => 0
+                "type" => 1
             ),
             "identifier_only" => array(
                 "type" => 1,
@@ -78,7 +77,7 @@ class Label extends PpciModel
      */
     function read($label_id, $getDefault = true, $parentValue = 0): array
     {
-        $sql = $this->sql . " where label_id = :label_id";
+        $sql = $this->sql . " where label_id = :label_id:";
         $data["label_id"] = $label_id;
         if (is_numeric($label_id) && $label_id > 0) {
             return parent::lireParamAsPrepared($sql, $data);
@@ -97,6 +96,6 @@ class Label extends PpciModel
                 from container_type
                 where label_id = :label_id:
                 order by container_type_name";
-        return $this->executeAsPrepared($sql, array("label_id" => $label_id));
+        return $this->getListeParam($sql, array("label_id" => $label_id));
     }
 }

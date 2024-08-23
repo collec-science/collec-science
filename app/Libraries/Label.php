@@ -27,9 +27,6 @@ class Label extends PpciLibrary
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
-        $this->dataclass = new Label();
-        $this->keyName = "label_id";
-        $this->id = $_REQUEST[$this->keyName];
     }
 
     /**
@@ -69,12 +66,12 @@ class Label extends PpciLibrary
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->list();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
     function delete()
@@ -101,7 +98,7 @@ class Label extends PpciLibrary
             try {
                 $this->dataDelete($this->id);
                 return $this->list();
-            } catch (PpciException $e) {
+            } catch (PpciException) {
                 return $this->change();
             }
         }

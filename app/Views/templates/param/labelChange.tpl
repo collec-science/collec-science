@@ -31,7 +31,7 @@
 		} );
 		getMetadata();
 		$( "#stay" ).click( function () {
-			$( this.form ).find( "input[name='action']" ).val( "WriteStay" );
+			$( this.form ).attr("action", "labelWriteStay" );
 		} );
 
 		$("#labelForm").submit(function (event) { 
@@ -99,20 +99,20 @@
 			</div>
 			<div class="form-group">
 				<label for="identifiers_only" class="control-label col-md-4">
-					{t}Étiquette ne comprenant qu'un identifiant métier ?{/t}{$data.identifier_only}
+					{t}Étiquette ne comprenant qu'un identifiant métier ?{/t}
 				</label>
 				<div class="col-md-8" id="identifiers_only">
 					<div class="radio-inline">
 						<label>
 							<input type="radio" name="identifier_only" id="identifier_only1" value="1" {if
-								$data.identifier_only==1}checked{/if}>
+								$data.identifier_only=='t'}checked{/if}>
 							{t}oui{/t}
 						</label>
 					</div>
 					<div class="radio-inline">
 						<label>
 							<input type="radio" name="identifier_only" id="identifier_only0" value="0" {if
-								$data.identifier_only != 1}checked{/if}>
+								$data.identifier_only != 't'}checked{/if}>
 							{t}non{/t}
 						</label>
 					</div>

@@ -38,7 +38,7 @@
 <td class="center">{$data[lst].label_id}</td>
 <td class="center">{$data[lst].barcode_name}</td>
 <td class="center">
-{if $data[lst].identifier_only == 1}{t}oui{/t}{else}{t}non{/t}{/if}
+{if $data[lst].identifier_only == 't'}{t}oui{/t}{else}{t}non{/t}{/if}
 </td>
 <td>{$data[lst].label_fields}</td>
 <td>{$data[lst].metadata_name}</td>

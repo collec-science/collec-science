@@ -120,7 +120,7 @@ $routes->post('campaignRegulationDelete', 'CampaignRegulation::delete');
 $routes->add('labelList', 'Label::list');
 $routes->add('labelChange', 'Label::change');
 $routes->post('labelWrite', 'Label::write');
-$routes->post('labelWriteStay', 'Label::write');
+$routes->post('labelWriteStay', 'Label::writeStay');
 $routes->post('labelDelete', 'Label::delete');
 $routes->add('labelCopy', 'Label::copy');
 $routes->add('metadataFormGetDetail', 'SampleType::getDetailFormAjax');

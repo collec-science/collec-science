@@ -22,7 +22,15 @@ class Label extends PpciController
     }
     function write()
     {
-        return $this->lib->write();
+        if ($this->lib->write()) {
+            return $this->lib->list();
+        } else {
+            return $this->lib->change();
+        }
+    }
+    function writeStay() {
+        $this->lib->write();
+        return $this->lib->change();
     }
     function delete()
     {

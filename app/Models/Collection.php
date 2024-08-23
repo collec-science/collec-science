@@ -362,7 +362,7 @@ class Collection extends PpciModel
                 $comma = ",";
             }
             $where .= ")";
-            $this->fields["last_change"] = array("type" => 2);
+            $this->dateFields[] = "last_change";
             return ($this->getListParam($sql . $where . $groupby));
         }
     }

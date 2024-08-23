@@ -258,8 +258,8 @@
 				if ( !objet.is( ':ui-tooltip' ) ) {
 					if ( uid > 0 && ajaxDone ) {
 						ajaxDone = false;
-						var url = "";
-						var data = { "module": "sampleDetail", "uid": uid };
+						var url = "sampleDetail";
+						var data = { "uid": uid };
 						$.ajax( { url: url, data: data } )
 							.done( function ( d ) {
 								ajaxDone = true;
@@ -410,8 +410,8 @@
 		 */
 		function searchType() {
 			var family = $( "#container_family_id" ).val();
-			var url = "";
-			$.getJSON( url, { "module": "containerTypeGetFromFamily", "container_family_id": family }, function ( data ) {
+			var url = "containerTypeGetFromFamily";
+			$.getJSON( url, { "container_family_id": family }, function ( data ) {
 				if ( data != null ) {
 					options = '<option value="" selected>{t}Choisissez...{/t}</option>';
 					for ( var i = 0; i < data.length; i++ ) {
@@ -426,8 +426,8 @@
 		}
 		function searchContainer() {
 			var containerType = $( "#container_type_id" ).val();
-			var url = "";
-			$.getJSON( url, { "module": "containerGetFromType", "container_type_id": containerType }, function ( data ) {
+			var url = "containerGetFromType";
+			$.getJSON( url, {  "container_type_id": containerType }, function ( data ) {
 				if ( data != null ) {
 					options = '';
 					for ( var i = 0; i < data.length; i++ ) {
@@ -446,8 +446,8 @@
 		function getTypeEvents() {
 			var col_id = $("#collection_id").val();
 			if (col_id > 0) {
-				var url="";
-				$.getJSON( url, { "module": "eventTypeGetAjax", "object_type": "1", "collection_id" : col_id }, function ( data ) {
+				var url="eventTypeGetAjax";
+				$.getJSON( url, { "object_type": "1", "collection_id" : col_id }, function ( data ) {
 				if ( data != null ) {
 					options = '';
 					for ( var i = 0; i < data.length; i++ ) {
@@ -469,9 +469,9 @@
 			$( "#container_uidChange" ).val( a_texte[ 0 ] );
 		} );
 		$( "#container_uidChange" ).change( function () {
-			var url = "";
+			var url = "containerGetFromUid";
 			var uid = $( this ).val();
-			$.getJSON( url, { "module": "containerGetFromUid", "uid": uid }, function ( data ) {
+			$.getJSON( url, {  "uid": uid }, function ( data ) {
 				if ( data.container_id ) {
 					var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " (" + data.object_status_name + ")</option>";
 					$( "#container_id" ).val( data.container_id );
@@ -494,12 +494,12 @@
 		$("#parent_search").on("focusout", function() {
 			var chaine = $("#parent_search").val();
 			if (chaine.length > 0) {
-				var url = "";
+				var url = "sampleSearchAjax";
 				var is_container = 2;
 				var sample_id = $("#sample_id").val();
 				var collection = "";
 				var type = "";
-				$.ajax ( { url:url, method:"GET", data : { module:"sampleSearchAjax", name:chaine, uidsearch:chaine }, success : function ( djs ) {
+				$.ajax ( { url:url, method:"GET", data : { name:chaine, uidsearch:chaine }, success : function ( djs ) {
 					var options = "";
 					try {
 						var data = JSON.parse(djs);
@@ -528,8 +528,8 @@
 		 });
 		function addChildren(objet) {
 			var uid = objet.data( "uid" );
-			var url = "";
-			var data = { "module": "sampleGetChildren", "uid": uid };
+			var url = "sampleGetChildren";
+			var data = { "uid": uid };
 			objet.hide();
 			var id = objet.attr('id');
 			$.ajax( { url: url, data: data } )
@@ -678,7 +678,7 @@
 				<button id="samplelabels" class="btn btn-primary">{t}Étiquettes{/t}</button>
 				<img id="sampleSpinner" src="display/images/spinner.gif" height="25">
 
-				{if count($printers) > 0}
+				{if !empty($printers)}
 				<select id="printers" name="printer_id">
 					{section name=lst loop=$printers}
 					<option value="{$printers[lst].printer_id}">
@@ -768,9 +768,9 @@
 						{/if}
 					</td>
 					<td class="center">{if $samples[lst].document_id > 0} <a class="image-popup-no-margins"
-							href="documentGet&document_id={$samples[lst].document_id}&attached=0&phototype=1"
+							href="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=1"
 							title="{t}aperçu de la photo{/t}"> <img
-								src="documentGet&document_id={$samples[lst].document_id}&attached=0&phototype=2"
+								src="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=2"
 								height="30">
 						</a> {/if}
 					</td>

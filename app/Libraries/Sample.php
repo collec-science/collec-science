@@ -61,7 +61,7 @@ class Sample extends PpciLibrary
         /**
          * Display the list of all records of the table
          */
-        if (!isset($this->isDelete) && !isset($_REQUEST["is_action"])) {
+        if (!$this->isDelete && !isset($_REQUEST["is_action"])) {
             $_SESSION["searchSample"]->setParam($_REQUEST);
         }
         $this->vue->set("sampleList", "moduleFrom");

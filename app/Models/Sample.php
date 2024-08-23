@@ -351,7 +351,7 @@ class Sample extends PpciModel
              * Suppression de l'objet
              */
             if (!isset($this->object)) {
-                $this->object = $this->classInstanciate("ObjectClass", "object.class.php");
+                $this->object = new ObjectClass;
             }
             $this->object->supprimer($uid);
         } else {
@@ -377,7 +377,7 @@ class Sample extends PpciModel
          */
         if ($retour && $data["campaign_id"] > 0) {
             if (!isset($this->campaign)) {
-                $this->campaign = $this->classInstanciate("Campaign", "campaign.class.php");
+                $this->campaign = new Campaign;
                 $campaignGroups = $this->campaign->getRights($data["campaign_id"]);
                 if (count($campaignGroups) > 0) {
                     $retour = false;
@@ -1134,7 +1134,7 @@ class Sample extends PpciModel
             foreach (array("country_code", "country_origin_code") as $field) {
                 if (!empty($row[$field])) {
                     if (!isset($this->country)) {
-                        $this->country = $this->classInstanciate("Country", "country.class.php");
+                        $this->country = new Country;
                     }
                     $country_id = $this->country->getIdFromCode($row[$field]);
                     if (!$country_id > 0) {

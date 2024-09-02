@@ -23,6 +23,7 @@ class ObjectClass extends PpciModel
     public Document $document;
     public Booking $booking;
     public ObjectIdentifier $oi;
+    private $temp = "writable/temp";
 
 
     private $barcode;
@@ -76,6 +77,8 @@ class ObjectClass extends PpciModel
             "last_movement_id" => array("type" => 1)
         );
         $this->srid = 4326;
+        $appConfig = service ("AppConfig");
+        $this->temp = $appConfig->APP_temp;
         parent::__construct();
     }
 
@@ -500,7 +503,6 @@ class ObjectClass extends PpciModel
     {
         if ($labelId > 0) {
             $uids = $this->generateArrayUidToString($list);
-            global $APPLI_temp;
             $oi = new ObjectIdentifier();
             $label = new Label();
             /**
@@ -638,7 +640,7 @@ class ObjectClass extends PpciModel
                 /**
                  * Generation du qrcode
                  */
-                $filename = $APPLI_temp . '/' . $row["uid"] . ".png";
+                $filename = $this->temp . '/' . $row["uid"] . ".png";
                 if ($dlabel["barcode_id"] == 1) {
                     if ($dlabel["identifier_only"]) {
                         QRcode::png($rowq[$dlabel["label_fields"]], $filename);
@@ -796,7 +798,7 @@ class ObjectClass extends PpciModel
 
     function generatePdf($id)
     {
-        global $message, $APPLI_temp, $APPLI_fop;
+        global $message, $APPLI_fop;
         $pdffile = "";
         /*
          * Recuperation du numero d'etiquettes
@@ -853,7 +855,7 @@ class ObjectClass extends PpciModel
                     $doc->appendChild($objects);
 
                     if ($label_id > 0) {
-                        $xmlfile = $APPLI_temp . '/' . $xml_id . ".xml";
+                        $xmlfile = $this->temp . '/' . $xml_id . ".xml";
                         if (!$doc->save($xmlfile)) {
                             throw new PpciException("Impossible de générer le fichier XML");
                         }
@@ -863,7 +865,7 @@ class ObjectClass extends PpciModel
                         /*
                          * Recuperation du fichier xsl
                          */
-                        $xslfile = $APPLI_temp . '/' . $label_id . ".xsl";
+                        $xslfile = $this->temp . '/' . $label_id . ".xsl";
                         if (!file_exists($xslfile)) {
                             try {
                                 $label = new Label;
@@ -882,7 +884,7 @@ class ObjectClass extends PpciModel
                         /*
                          * Generation de la commande de creation du fichier pdf
                          */
-                        $pdffile = $APPLI_temp . '/' . $xml_id . ".pdf";
+                        $pdffile = $this->temp . '/' . $xml_id . ".pdf";
                         $command = $APPLI_fop . " -xsl $xslfile -xml $xmlfile -pdf $pdffile";
                         exec($command);
                         if (!file_exists($pdffile)) {

@@ -14,6 +14,7 @@ class Export extends PpciModel
                   join lot using (lot_id)
                   join export_template using (export_template_id)";
     public $lot, $exportTemplate, $datasetTemplate;
+    private $temp = "writable/temp";
 
     /**
      * Constructor
@@ -30,6 +31,8 @@ class Export extends PpciModel
             "export_date" => array("type" => 3, "defaultValue" => "getDateHeure"),
             "export_template_id" => array("type" => 1, "requis" => 1)
         );
+        $appConfig = service ("AppConfig");
+        $this->temp= $appConfig->APP_temp;
         parent::__construct();
     }
     /**
@@ -52,7 +55,6 @@ class Export extends PpciModel
      */
     function generate(int $export_id): array
     {
-        global $APPLI_temp;
         $dexport = $this->lire($export_id);
         /**
          * Get the list of dataset templates
@@ -94,7 +96,7 @@ class Export extends PpciModel
              * Generate the file
              */
             if (count($data) > 0) {
-                $filetmp = tempnam($APPLI_temp, $ddataset["export_format_name"]);
+                $filetmp = tempnam($this->temp, $ddataset["export_format_name"]);
                 $handle = fopen($filetmp, 'w');
                 if ($ddataset["dataset_type_id"] == 4) {
                     fwrite($handle, $data[0]);
@@ -159,7 +161,7 @@ class Export extends PpciModel
          */
         if ($dtemplate["is_zipped"] == 1 || count($files) > 1) {
             $zip = new \ZipArchive;
-            $zipname = tempnam($APPLI_temp, $dtemplate["filename"]);
+            $zipname = tempnam($$this->temp, $dtemplate["filename"]);
             if ($zip->open($zipname, \ZipArchive::CREATE) === true) {
                 foreach ($files as $file) {
                     $zip->addFile($file["filetmp"], $file["filename"]);

@@ -88,14 +88,14 @@ class Borrowing extends PpciLibrary
 				$_REQUEST[$this->keyName] = $this->id;
 			}
 			$db->transCommit();
-			return ZZZ;
+			return true;
 		} catch (PpciException $e) {
 			$this->message->set(_("Problème rencontré lors de l'enregistrement du prêt"), true);
 			$this->message->set($e->getMessage());
 			if ($db->transEnabled) {
 				$db->transRollback();
 			}
-			return ZZZ;
+			return false;
 		}
 	}
 	function delete()
@@ -105,9 +105,9 @@ class Borrowing extends PpciLibrary
 		 */
 		try {
 			$this->dataDelete($this->id);
-			return ZZZ;
+			return true;
 		} catch (PpciException) {
-			return $this->change();
+			return false;
 		}
 	}
 }

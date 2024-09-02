@@ -20,13 +20,15 @@ class Event extends PpciController
     {
         return $this->lib->display();
     }
-    function write()
+    function write($origin)
     {
-        return $this->lib->write();
+        $res = $this->lib->write();
+        $this->returnToOrigin($origin, $res);
     }
-    function delete()
+    function delete($origin)
     {
-        return $this->lib->delete();
+        $res = $this->lib->delete();
+        $this->returnToOrigin($origin, $res);
     }
     function search()
     {
@@ -39,5 +41,29 @@ class Event extends PpciController
     function changeList()
     {
         return $this->lib->changeList();
+    }
+    function returnToOrigin($origin, $res)
+    {
+        $isSearch = false;
+        if ($origin == "sample") {
+            $lib = new Sample;
+        } elseif ($origin == "container") {
+            $lib = new Container;
+        } else {
+            $isSearch = true;
+        }
+        if ($isSearch) {
+            if ($res) {
+                return $this->search();
+            } else {
+                return $this->lib->change();
+            }
+        } else {
+            if ($res) {
+                return $lib->display();
+            } else {
+                return $this->lib->change();
+            }
+        }
     }
 }

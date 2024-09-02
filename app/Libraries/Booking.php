@@ -17,7 +17,7 @@ class Booking extends PpciLibrary
 
 	private $keyName;
 
-function __construct()
+	function __construct()
 	{
 		parent::__construct();
 		/**
@@ -49,10 +49,10 @@ function __construct()
 			$this->id = $this->dataWrite($_REQUEST);
 			if ($this->id > 0) {
 				$_REQUEST["booking_id"] = $this->id;
-				return ZZZ;
+				return true;
 			}
 		} catch (PpciException) {
-			return ZZZ;
+			return false;
 		}
 	}
 	function delete()
@@ -62,9 +62,9 @@ function __construct()
 		 */
 		try {
 			$this->dataDelete($this->id);
-			return ZZZ;
+			return true;
 		} catch (PpciException $e) {
-			return $this->change();
+			return false;
 		}
 	}
 	function verifyInterval()

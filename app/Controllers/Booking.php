@@ -16,16 +16,31 @@ class Booking extends PpciController
     {
         return $this->lib->change();
     }
-    function write()
+    function write($origin)
     {
-        return $this->lib->write();
+        $res = $this->lib->write();
+        $this->returnToOrigin($origin, $res);
     }
-    function delete()
+    function delete($origin)
     {
-        return $this->lib->delete();
+        $res = $this->lib->delete();
+        $this->returnToOrigin($origin, $res);
     }
     function verifyInterval()
     {
         return $this->lib->verifyInterval();
+    }
+    function returnToOrigin($origin, $res)
+    {
+        if ($origin == "sample") {
+            $lib = new Sample;
+        } else {
+            $lib = new Container;
+        }
+        if ($res) {
+            return $lib->display();
+        } else {
+            return $this->lib->change();
+        }
     }
 }

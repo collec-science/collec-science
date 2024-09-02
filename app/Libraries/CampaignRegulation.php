@@ -2,6 +2,7 @@
 
 namespace App\Libraries;
 
+use App\Libraries\Campaign as LibrariesCampaign;
 use App\Models\Campaign;
 use App\Models\CampaignRegulation as ModelsCampaignRegulation;
 use App\Models\Regulation;
@@ -32,8 +33,6 @@ class CampaignRegulation extends PpciLibrary
     {
         $this->vue = service('Smarty');
         $data = $this->dataRead($this->id, "param/campaignRegulationChange.tpl", $_REQUEST["campaign_id"]);
-        require_once "modules/classes/regulation.class.php";
-        require_once "modules/classes/campaign.class.php";
         $regulation = new Regulation();
         $campaign = new Campaign();
         $this->vue->set($regulation->getListe("regulation_name"), "regulations");
@@ -46,12 +45,13 @@ class CampaignRegulation extends PpciLibrary
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return ZZZ;
+                $campaign = new LibrariesCampaign;
+                return $campaign->display();
             } else {
                 return $this->change();
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
 
@@ -59,7 +59,8 @@ class CampaignRegulation extends PpciLibrary
     {
         try {
             $this->dataDelete($this->id);
-            return ZZZ;
+            $campaign = new LibrariesCampaign;
+            return $campaign->display();
         } catch (PpciException $e) {
             return $this->change();
         }

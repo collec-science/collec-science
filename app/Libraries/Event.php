@@ -93,12 +93,12 @@ class Event extends PpciLibrary
 			$this->id = $this->dataWrite($_REQUEST);
 			if ($this->id > 0) {
 				$_REQUEST[$this->keyName] = $this->id;
-				return ZZZ;
+				return true;
 			} else {
-				return $this->change();
+				return false;
 			}
 		} catch (PpciException) {
-			return $this->change();
+			return false;
 		}
 	}
 	function delete()
@@ -108,9 +108,9 @@ class Event extends PpciLibrary
 		 */
 		try {
 			$this->dataDelete($this->id);
-			return ZZZ;
+			return true;
 		} catch (PpciException $e) {
-			return $this->change();
+			return false;
 		}
 	}
 

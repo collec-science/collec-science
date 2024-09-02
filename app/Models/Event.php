@@ -37,7 +37,7 @@ class Event extends PpciModel
             ),
             "event_date" => array(
                 "type" => 2,
-                "defaultValue" => "getDateJour"
+                "defaultValue" => $this->getDateJour()
             ),
             "event_type_id" => array(
                 "type" => 1,

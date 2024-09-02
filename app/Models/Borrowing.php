@@ -41,7 +41,7 @@ class Borrowing extends PpciModel
             "borrowing_date" => array(
                 "type" => 2,
                 "requis" => 1,
-                "defaultValue" => "getDateJour"
+                "defaultValue" => $this->getDateJour()
             ),
             "expected_return_date" => array(
                 "type" => 2

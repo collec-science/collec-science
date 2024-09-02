@@ -689,7 +689,7 @@
 				<button id="sampledirect" class="btn btn-primary">{t}Impression directe{/t}</button>
 				{/if}
 				<button id="samplecsvfile" class="btn btn-primary">{t}Fichier CSV pour impression externe{/t}</button>
-				{if $rights["gestion"] == 1}
+				{if $rights["manage"] == 1}
 				<button id="sampleExport" class="btn btn-primary"
 					title="{t}Export pour import dans une autre base Collec-Science{/t}">
 					{t}Export vers autre base{/t}</button>

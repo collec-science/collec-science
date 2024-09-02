@@ -5,15 +5,14 @@
 
     $( ".folder" ).on( "click", function() {
       var id = $(this).attr("id");
-      console.log(this);
       getList(id);
     });
     function getList(object) {
       var folder = $("#"+object).val();
       $.ajax( {
-        url: "",
-        data: { "module": "documentExternalGetList", "uid": "{$data.uid}", "path": folder },
-        method: "POST",
+        url: "documentExternalGetList",
+        data: { "uid": "{$data.uid}", "path": folder },
+        method: "GET",
 
       } ).done( function ( content ) {
         if ( content && content.length > 2){

@@ -23,7 +23,7 @@ class PpciModel extends Model
      */
     public bool $autoFormatDate = true;
     public string $dateFormatMask = 'd/m/Y';
-    public string $datetimeFormat = 'd/m/Y h:i:s';
+    public string $datetimeFormat = 'd/m/Y H:i:s';
     /**
      * If true, for numbers, the comma is transformed in point before write in database
      *

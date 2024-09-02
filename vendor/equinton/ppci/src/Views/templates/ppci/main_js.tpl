@@ -238,7 +238,7 @@
         });
         {/literal}
 
-            $('.datepicker').datetimepicker({
+            $('.date, .datepicker').datetimepicker({
                 locale: locale,
                 format: '{$LANG["date"]["formatdate"]}'
             });

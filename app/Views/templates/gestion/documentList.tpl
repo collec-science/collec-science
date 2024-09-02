@@ -1,4 +1,3 @@
-{* Objets > échantillons > Rechercher > UID d'un échantillon > section Documents associés *}
 <script>
 	$( document ).ready( function () {
 		$( '.image-popup-no-margins' ).magnificPopup( {
@@ -29,11 +28,11 @@
 		} );
 	} );
 </script>
-{if $rights["gestion"] == 1 && $modifiable == 1 }
+{if $rights["manage"] == 1 && $modifiable == 1 }
 <a href="#" id="documentChangeActivate">{t}Saisir un nouveau document...{/t}</a>
 <div id="documentChange" hidden="true">
 	{include file="gestion/documentChange.tpl"}
-	{if $externalStorageEnabled == 1}
+	{if $externalStorageEnabled == "t"}
 		{include file="gestion/documentExternalAdd.tpl"}
 	{/if}
 </div>
@@ -48,7 +47,7 @@
 			<th>{t}Date d'import{/t}</th>
 			<th>{t}Date de création{/t}</th>
 			<th>{t}Événement concerné{/t}</th>
-			{if $rights["gestion"] == 1 && $modifiable == 1 }
+			{if $rights["manage"] == 1 && $modifiable == 1 }
 			<th>{t}Supprimer{/t}</th>
 			{/if}
 		</tr>
@@ -57,23 +56,23 @@
 		{section name=lst loop=$dataDoc}
 		<tr>
 			<td class="center">
-				{if in_array($dataDoc[lst].mime_type_id, array(4, 5, 6)) && $dataDoc[lst].external_storage != 1}
+				{if in_array($dataDoc[lst].mime_type_id, array(4, 5, 6)) && $dataDoc[lst].external_storage != 't'}
 				<a class="image-popup-no-margins"
-					href="documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].photo_preview}&attached=0&phototype=1"
+					href="documentGet?document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].photo_preview}&attached=0&phototype=1"
 					title="{t}aperçu de la photo :{/t} {substr($dataDoc[lst].photo_name, strrpos($dataDoc[lst].photo_name, '/') + 1)}">
-					<img src="documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2"
+					<img src="documentGet?document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2"
 						height="30">
 				</a>
-				{elseif $dataDoc[lst].mime_type_id == 1 && $dataDoc[lst].external_storage != 1}
+				{elseif $dataDoc[lst].mime_type_id == 1 && $dataDoc[lst].external_storage != 't'}
 				<a class="image-popup-no-margins"
-					href="documentGet&document_id={$dataDoc[lst].document_id}&&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2"
+					href="documentGet?document_id={$dataDoc[lst].document_id}&&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2"
 					title="{t}aperçu du document :{/t} {substr($dataDoc[lst].thumbnail_name, strrpos($dataDoc[lst].thumbnail_name, '/') + 1)}">
-					<img src="documentGet&document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2"
+					<img src="documentGet?document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2"
 						height="30">
 				</a>
 				{/if}
 			<td>
-				{if $dataDoc[lst].external_storage == 1}
+				{if $dataDoc[lst].external_storage == 't'}
 				<a href="documentGetExternal?document_id={$dataDoc[lst].document_id}"
 					title="{t}Téléchargez le fichier{/t}">
 
@@ -100,7 +99,7 @@
 				{$dataDoc[lst].event_type_name} {if !empty($dataDoc[lst].event_date)}{t}réalisé le{/t} {$dataDoc[lst].event_date}{else}{t}prévu le{/t}{$dataDoc[lst].due_date}{/if}
 				{/if}
 			</td>
-			{if $rights["gestion"] == 1 && $modifiable == 1}
+			{if $rights["manage"] == 1 && $modifiable == 1}
 			<td>
 				<div class="center">
 					<a href="{$moduleParent}documentDelete?document_id={$dataDoc[lst].document_id}&uid={$data.uid}&campaign_id={$data.campaign_id}&event_id={$data.event_id}&activeTab=tab-document"

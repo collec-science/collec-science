@@ -517,7 +517,7 @@
 		<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
 			<div class="form-display col-md-6">
 				{if $rights.manage == 1}
-				<form method="GET" id="SampleDisplayFormListPrint" action="sampleUniquePrintLabel">
+				<form method="GET" id="SampleDisplayFormListPrint" action="samplePrintLabel">
 					<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
 					<input type="hidden" name="uid" value="{$data.uid}">
 					<input type="hidden" name="lastModule" value="sampleDisplay">

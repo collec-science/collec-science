@@ -5,7 +5,6 @@ namespace App\Libraries;
 use App\Models\ObjectClass;
 use App\Models\Printer;
 use Ppci\Libraries\PpciException;
-use Ppci\Libraries\PpciPpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
 
@@ -50,13 +49,13 @@ class ObjectLib extends PpciLibrary
         if ($_REQUEST["printer_id"]) {
             try {
                 $pdffile = $this->dataclass->generatePdf($this->uids);
-                require_once 'modules/classes/printer.class.php';
+
                 $printer = new Printer();
                 $dp = $printer->lire($_REQUEST["printer_id"]);
                 if (!empty($dp["printer_queue"])) {
                     $options = " -o fit-to-page";
                     define("SPACE", " ");
-                    $commande = $APPLI_print_direct_command;
+                    $commande = $this->appConfig->print_direct_command;
                     if ($commande == "lpr") {
                         $cmdopt = array(
                             "destination" => "-P ",
@@ -91,30 +90,27 @@ class ObjectLib extends PpciLibrary
                     $this->dataclass->eraseXslfile();
                     if ($retour == 0) {
                         $this->message->set(_("Impression lancée"));
+                        return true;
                     } else {
                         $this->message->set(_("L'impression a échoué pour un problème technique"), true);
                         $this->message->setSyslog("print command error : $commande");
+                        return false;
                     }
                 } else {
                     $this->message->set(_("Imprimante non connue"), true);
+                    return false;
                 }
-                $t_module["retourko"] = $_REQUEST["lastModule"];
-                $t_module["retourok"] = $_REQUEST["lastModule"];
             } catch (PpciException $e) {
                 $this->message->set($e->getMessage(), true);
-                $t_module["retourko"] = $_REQUEST["lastModule"];
+                return false;
             }
         } else {
             $this->message->set(_("Imprimante non définie"), true);
-            $module_coderetour = -1;
-            $t_module["retourko"] = $_REQUEST["lastModule"];
+            return false;
         }
-        return ZZZ;
     }
     function printLabel()
     {
-        $t_module["retourko"] = $_REQUEST["lastModule"];
-        $t_module["retourok"] = $_REQUEST["lastModule"];
         $this->vue = service("PdfView");
         try {
             if (! $this->uids[0] > 0) {
@@ -124,19 +120,12 @@ class ObjectLib extends PpciLibrary
             $this->vue->setDisposition("inline");
             $this->dataclass->eraseQrcode($this->appConfig->APP_temp);
             $this->dataclass->eraseXslfile();
-            $module_coderetour = 1;
+            $this->vue->send();
+            return true;
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);
-            $module_coderetour = -1;
+            return false;
         }
-
-        if ($module_coderetour == -1) {
-            /*
-             * Reinitialisation de la vue
-             */
-            unset($this->vue);
-        }
-        return ZZZ;
     }
     function exportCSV()
     {
@@ -147,14 +136,16 @@ class ObjectLib extends PpciLibrary
                 $this->vue->set($data);
                 $this->vue->regenerateHeader();
                 $this->vue->setFilename("printlabel.csv");
-                return $this->vue->send();
+                $this->vue->send();
+                return true;
             } else {
                 $this->message->set(_("Pas d'objets à exporter"), true);
+                return false;
             }
         } else {
             $this->message->set(_("Pas d'objet sélectionné pour la génération du fichier"), true);
+            return false;
         }
-        return ZZZ;
     }
     function setTrashed()
     {
@@ -173,16 +164,18 @@ class ObjectLib extends PpciLibrary
                 } else {
                     $this->message->set(_("Sortie de la corbeille effectuée"));
                 }
+                return true;
             } catch (PpciException $e) {
                 $this->message->set(_("L'opération sur la corbeille a échoué"), true);
                 $this->message->set($e->getMessage());
                 if ($db->transEnabled) {
                     $db->transRollback();
                 }
+                return false;
             }
         } else {
             $this->message->set(_("Opération sur la corbeille impossible à exécuter"), true);
+            return false;
         }
-        return ZZZ;
     }
 }

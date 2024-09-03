@@ -12,9 +12,10 @@ class ObjectController extends PpciController
     {
         $this->lib = new ObjectLib();
     }
-    function setTrashed()
+    function setTrashed($origin)
     {
-        return $this->lib->setTrashed();
+        $res = $this->lib->setTrashed();
+        return $this->returnToOrigin($origin, $res);
     }
     function getDetailAjax()
     {
@@ -31,5 +32,20 @@ class ObjectController extends PpciController
     function printLabelDirect()
     {
         return $this->lib->printLabelDirect();
+    }
+
+    function returnToOrigin($origin, $res)
+    {
+        if ($origin == "sample") {
+            $lib = new Sample;
+        } else {
+            $lib = new Container;
+        }
+        $lastModule = $_GET["lastModule"];
+        if (in_array($lastModule, ["sampleDisplay", "containerDisplay"])) {
+            return $lib->display();
+        } else {
+            return $lib->list();
+        }
     }
 }

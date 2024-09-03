@@ -21,12 +21,12 @@ class Borrowing extends PpciController
     function write($origin)
     {
         $res = $this->lib->write();
-        $this->returnToOrigin($origin, $res);
+        return $this->returnToOrigin($origin, $res);
     }
     function delete($origin)
     {
         $res = $this->lib->delete();
-        $this->returnToOrigin($origin, $res);
+        return $this->returnToOrigin($origin, $res);
     }
     function returnToOrigin($origin, $res)
     {

@@ -18,11 +18,11 @@ class Document extends PpciController
     }
     function write($origin)
     {
-        return $this->result($origin,  $this->lib->write());
+        return $this->returnToOrigin($origin,  $this->lib->write());
     }
     function delete($origin)
     {
-        return $this->result($origin,  $this->lib->delete());
+        return $this->returnToOrigin($origin,  $this->lib->delete());
     }
     function get()
     {
@@ -48,7 +48,7 @@ class Document extends PpciController
     {
         return $this->lib->getExternal();
     }
-    function result($origin, $res)
+    function returnToOrigin($origin, $res)
     {
         $isEvent = false;
         if ($origin == "sample") {

@@ -12,7 +12,8 @@
     "require": {
         "php": "^8.1",
         "codeigniter4/framework": "^4.0",
-        "equinton/ppci": "^1.0"
+        "equinton/ppci": "^1.0",
+        "picqer/php-barcode-generator": "^2.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",

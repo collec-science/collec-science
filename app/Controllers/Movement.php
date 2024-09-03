@@ -20,9 +20,10 @@ class Movement extends PpciController
     {
         return $this->lib->output();
     }
-    function write()
+    function write($origin)
     {
-        return $this->lib->write();
+        $res = $this->lib->write();
+        return $this->returnToOrigin($origin, $res);
     }
     function list()
     {
@@ -71,5 +72,22 @@ class Movement extends PpciController
     function batchWrite()
     {
         return $this->lib->batchWrite();
+    }
+    function returnToOrigin($origin, $res)
+    {
+        if ($origin == "sample") {
+            $lib = new Sample;
+        } else {
+            $lib = new Container;
+        }
+        if ($res) {
+            return $lib->display();
+        } else {
+            if ($_POST["movement_type_id"] == 1) {
+                return $this->lib->input();
+            } else {
+                return $this->lib->output();
+            }
+        }
     }
 }

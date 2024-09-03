@@ -71,30 +71,27 @@ class Movement extends PpciLibrary
     }
     function write()
     {
+        $db = $this->dataclass->db;
         try {
-            $db = $this->dataclass->db;
             $db->transBegin();
             $this->dataclass->addMovement($_REQUEST["uid"], $_REQUEST["movement_date"], $_REQUEST["movement_type_id"], $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"], $_REQUEST["column_number"], $_REQUEST["line_number"]);
             $db->transCommit();
             $this->message->set(_("Mouvement généré"));
+            return true;
         } catch (PpciException $me) {
             $this->message->set(_("Erreur lors de la génération du mouvement"), true);
             $this->message->set($me->getMessage());
+            $this->message->setSyslog($me->getMessage());
             if ($db->transEnabled) {
                 $db->transRollback();
             }
-        } catch (PpciException $e) {
-            $this->message->setSyslog($e->getMessage());
-            if ($db->transEnabled) {
-                $db->transRollback();
-            }
+            return false;
         }
-        return ZZZ;
     }
 
     function fastInputChange()
     {
-        $this->vue=service('Smarty');
+        $this->vue = service('Smarty');
         if (isset($_REQUEST["container_uid"]) && is_numeric($_REQUEST["container_uid"])) {
             $this->vue->set($_REQUEST["container_uid"], "container_uid");
         }
@@ -121,7 +118,7 @@ class Movement extends PpciLibrary
     }
     function fastOutputChange()
     {
-        $this->vue=service('Smarty');
+        $this->vue = service('Smarty');
         $this->vue->set($this->dataclass->getDefaultValues(), "data");
         $this->vue->set("gestion/fastOutputChange.tpl", "corps");
         if (isset($_REQUEST["read_optical"])) {
@@ -151,13 +148,13 @@ class Movement extends PpciLibrary
     }
     function batchOpen()
     {
-        $this->vue=service('Smarty');
+        $this->vue = service('Smarty');
         $this->vue->set("gestion/movementBatchRead.tpl", "corps");
         return $this->vue->send();
     }
     function batchRead()
     {
-        $this->vue=service('Smarty');
+        $this->vue = service('Smarty');
         $object = new ObjectClass();
         $this->vue->set($object->batchRead($_REQUEST["reads"]), "data");
         $this->vue->set("gestion/movementBatchConfirm.tpl", "corps");
@@ -208,7 +205,7 @@ class Movement extends PpciLibrary
     {
         $this->vue = service('Smarty');
         $_SESSION["moduleListe"] = "movementList";
-        if (!isset($_SESSION["searchMovement"])){
+        if (!isset($_SESSION["searchMovement"])) {
             $_SESSION["searchMovement"] = new SearchMovement;
         }
         $_SESSION["searchMovement"]->setParam($_REQUEST);
@@ -225,14 +222,14 @@ class Movement extends PpciLibrary
 
     function getLastEntry()
     {
-        $this->vue=service('Smarty');
+        $this->vue = service('Smarty');
         $this->vue->set($this->dataclass->getLastEntry($_REQUEST["uid"]));
         return $this->vue->send();
     }
 
     function smallMovementChange()
     {
-        $this->vue=service('Smarty');
+        $this->vue = service('Smarty');
         $this->vue->set("gestion/smallMovementChange.tpl", "corps");
         /*
          * Assignation du nom de la base
@@ -272,7 +269,7 @@ class Movement extends PpciLibrary
                 "error_message" => $e->getMessage()
             );
         }
-        $this->vue = service ("AjaxView");
+        $this->vue = service("AjaxView");
         $this->vue->set($data);
         return $this->vue->send();
     }

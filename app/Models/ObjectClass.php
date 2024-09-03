@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use chillerlan\QRCode\QRCode;
+use Picqer\Barcode\BarcodeGeneratorPNG;
+use Picqer\Barcode\Exceptions\BarcodeException;
 use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
 
@@ -24,6 +27,7 @@ class ObjectClass extends PpciModel
     public Booking $booking;
     public ObjectIdentifier $oi;
     private $temp = "writable/temp";
+    public $appConfig;
 
 
     private $barcode;
@@ -77,8 +81,8 @@ class ObjectClass extends PpciModel
             "last_movement_id" => array("type" => 1)
         );
         $this->srid = 4326;
-        $appConfig = service ("AppConfig");
-        $this->temp = $appConfig->APP_temp;
+        $this->appConfig = service ("AppConfig");
+        $this->temp = $this->appConfig->APP_temp;
         parent::__construct();
     }
 
@@ -518,9 +522,9 @@ class ObjectClass extends PpciModel
                 /**
                  * QRcode
                  */
-                include_once 'plugins/phpqrcode/qrlib.php';
+                $qrcode = new QRCode();
             } else {
-                $this->barcode = new Picqer\Barcode\BarcodeGeneratorPNG();
+                $this->barcode = new BarcodeGeneratorPNG;
             }
             $fields = explode(",", $dlabel["label_fields"]);
             $APPLI_code = $_SESSION["APPLI_code"];
@@ -643,9 +647,9 @@ class ObjectClass extends PpciModel
                 $filename = $this->temp . '/' . $row["uid"] . ".png";
                 if ($dlabel["barcode_id"] == 1) {
                     if ($dlabel["identifier_only"]) {
-                        QRcode::png($rowq[$dlabel["label_fields"]], $filename);
+                        $qrcode->render($rowq[$dlabel["label_fields"]], $filename);
                     } else {
-                        QRcode::png(json_encode($rowq), $filename);
+                        $qrcode->render(json_encode($rowq), $filename);
                     }
                 } else {
                     try {
@@ -653,7 +657,7 @@ class ObjectClass extends PpciModel
                             $filename,
                             $this->barcode->getBarcode($rowq[$dlabel["label_fields"]], $dlabel["barcode_code"])
                         );
-                    } catch (Picqer\Barcode\Exceptions\BarcodeException $e) {
+                    } catch (BarcodeException $e) {
                         throw new PpciException($e->getMessage());
                     }
                 }
@@ -798,7 +802,6 @@ class ObjectClass extends PpciModel
 
     function generatePdf($id)
     {
-        global $message, $APPLI_fop;
         $pdffile = "";
         /*
          * Recuperation du numero d'etiquettes
@@ -885,7 +888,7 @@ class ObjectClass extends PpciModel
                          * Generation de la commande de creation du fichier pdf
                          */
                         $pdffile = $this->temp . '/' . $xml_id . ".pdf";
-                        $command = $APPLI_fop . " -xsl $xslfile -xml $xmlfile -pdf $pdffile";
+                        $command = $this->appConfig->fop . " -xsl $xslfile -xml $xmlfile -pdf $pdffile";
                         exec($command);
                         if (!file_exists($pdffile)) {
                             throw new PpciException("Fichier PDF non généré");

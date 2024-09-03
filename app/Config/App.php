@@ -326,6 +326,20 @@ class App extends BaseConfig
     public $copyright = "Copyright © 2024 - All rights reserved. Author : Éric Quinton - Software distributed under AGPL license";
 
     /**
+     * Linux command used to print directly to a printer
+     *
+     * @var string
+     */
+    public $print_direct_command = "lpr";
+    
+    /**
+     * Fop program to generate labels
+     *
+     * @var string
+     */
+    public $fop = "/usr/bin/fop";
+    
+    /**
      * Max duration of a session
      *
      * @var integer

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use chillerlan\QRCode\Output\QROutputInterface;
 use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 use Picqer\Barcode\Exceptions\BarcodeException;
 use Ppci\Libraries\PpciException;
@@ -81,7 +83,7 @@ class ObjectClass extends PpciModel
             "last_movement_id" => array("type" => 1)
         );
         $this->srid = 4326;
-        $this->appConfig = service ("AppConfig");
+        $this->appConfig = service("AppConfig");
         $this->temp = $this->appConfig->APP_temp;
         parent::__construct();
     }
@@ -523,11 +525,12 @@ class ObjectClass extends PpciModel
                  * QRcode
                  */
                 $qrcode = new QRCode();
+                $options = new QROptions();
             } else {
                 $this->barcode = new BarcodeGeneratorPNG;
             }
             $fields = explode(",", $dlabel["label_fields"]);
-            $APPLI_code = $_SESSION["APPLI_code"];
+            $APPLI_code = $_SESSION["dbparams"]["APPLI_code"];
             /**
              * Recuperation des informations generales
              */
@@ -604,7 +607,6 @@ class ObjectClass extends PpciModel
              * Traitement de chaque ligne, et generation
              * du qrcode
              */
-
             foreach ($data as $row) {
                 /**
                  * Generation du dbuid_origin si non existant
@@ -646,7 +648,7 @@ class ObjectClass extends PpciModel
                  */
                 $filename = $this->temp . '/' . $row["uid"] . ".png";
                 if ($dlabel["barcode_id"] == 1) {
-                    if ($dlabel["identifier_only"]) {
+                    if ($dlabel["identifier_only"] == 't') {
                         $qrcode->render($rowq[$dlabel["label_fields"]], $filename);
                     } else {
                         $qrcode->render(json_encode($rowq), $filename);
@@ -894,7 +896,7 @@ class ObjectClass extends PpciModel
                             throw new PpciException("Fichier PDF non généré");
                         }
                     } else {
-                        $message->set(_("Pas de modèle d'étiquettes disponible"));
+                        $this->message->set(_("Pas de modèle d'étiquettes disponible"));
                     }
                 } catch (\Exception $e) {
                     $this->message->set("Erreur lors de la génération du fichier xml");

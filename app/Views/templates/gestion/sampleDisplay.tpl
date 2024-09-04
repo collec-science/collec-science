@@ -534,7 +534,7 @@
 							</select>
 							<button id="samplelabels2" class="btn btn-primary">{t}Étiquettes{/t}</button>
 							<img id="sampleSpinner2" src="display/images/spinner.gif" height="25">
-							{if count($printers) > 0}
+							{if !empty($printers)}
 							<select id="printers2" name="printer_id">
 								{section name=lst loop=$printers}
 								<option value="{$printers[lst].printer_id}">

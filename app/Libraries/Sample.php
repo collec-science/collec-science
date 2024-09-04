@@ -15,6 +15,7 @@ use App\Models\Event;
 use App\Models\EventType;
 use App\Models\ExportModel;
 use App\Models\Import;
+use App\Models\Label;
 use App\Models\Metadata;
 use App\Models\MimeType;
 use App\Models\Movement;
@@ -48,8 +49,8 @@ class Sample extends PpciLibrary
         parent::__construct();
         $this->dataclass = new ModelsSample();
         $this->keyName = "uid";
-        if (isset($_REQUEST[$this->keyName])) {
-            $this->id = $_REQUEST[$this->keyName];
+        if (isset($_REQUEST["uid"]) && !empty($_REQUEST["uid"])) {
+            $this->id = $_REQUEST["uid"];
         }
         $_SESSION["moduleParent"] = "sample";
     }
@@ -252,10 +253,9 @@ class Sample extends PpciLibrary
         }
 
         /**
-         * Ajout de la selection des modeles d'etiquettes
+         * Ajout des listes complémentaires
          */
-        $label = new Label;
-        $label->setRelatedTablesToView($this->vue);
+        $this->setRelatedTablesToView($this->vue);
         /**
          * Affichage
          */
@@ -837,9 +837,6 @@ class Sample extends PpciLibrary
         $vue->set($_SESSION["collections"], "collections");
         $collection = new Collection();
         $vue->set($collection->getAllCollections(), "collectionsSearch");
-        /*
-     * Recherche des types d'échantillons
-     */
         $sampleType = new SampleType();
         $vue->set($sampleType->getListe(2), "sample_type");
         $objectStatus = new ObjectStatus();
@@ -867,6 +864,8 @@ class Sample extends PpciLibrary
         $vue->set($cf->getListe(2), "containerFamily");
         $country = new Country();
         $vue->set($country->getListe(2), "countries");
+        $label = new Label;
+        $vue->set($label->getListe(2), "labels");
     }
 
     function generateReturn() {

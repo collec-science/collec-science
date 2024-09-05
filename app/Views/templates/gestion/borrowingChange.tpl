@@ -38,7 +38,6 @@
             {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
             </a>
         <form class="form-horizontal " id="borrowingForm" method="post" action="{$moduleParent}borrowingWrite">
-            <input type="hidden" name="moduleBase" value="borrowing">
             <input type="hidden" name="moduleBase" value="{$moduleParent}borrowing">
             <input type="hidden" name="borrowing_id" value="{$data.borrowing_id}">
             <input type="hidden" name="uid" value="{$data.uid}">

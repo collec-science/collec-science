@@ -91,7 +91,9 @@ class ContainerType extends PpciLibrary
          * Recherche la liste a partir de la famille
          */
         $this->vue = service("AjaxView");
-        $this->vue->set($this->dataclass->getListFromParent($_REQUEST["container_family_id"], 2));
+        if (!empty($_REQUEST["container_family_id"])) {
+            $this->vue->set($this->dataclass->getListFromParent($_REQUEST["container_family_id"], 2));
+        }
         return $this->vue->send();
     }
     function listAjax()

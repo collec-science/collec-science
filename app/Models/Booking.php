@@ -33,7 +33,7 @@ class Booking extends PpciModel
 			),
 			"booking_login" => array(
 				"requis" => 1,
-				"defaultValue" => "getLogin"
+				"defaultValue" => $_SESSION["login"]
 			),
 			"date_from" => array(
 				"type" => 3,

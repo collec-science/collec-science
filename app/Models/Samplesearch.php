@@ -61,7 +61,7 @@ class Samplesearch extends PpciModel
      * @param bool $purge
      * @return void
      */
-    function delete($id = null, bool $purge = false)
+    function supprimer($id = null, bool $purge = false)
     {
         $data = $this->lire($id);
         /**

@@ -328,12 +328,8 @@ class Sample extends PpciModel
 
     /**
      * Surcharge de la fonction supprimer pour verifier si l'utilisateur peut supprimer l'echantillon
-     *
-     * {@inheritdoc}
-     *
-     * @see ObjetBDD::supprimer()
      */
-    public function supprimer($uid)
+    public function supprimer($uid = null, bool $purge = false )
     {
         $sql = "select sample_id, collection_id, campaign_id from sample where uid = :uid:";
         $data = $this->lireParamAsPrepared($sql, array("uid" => $uid));
@@ -342,7 +338,7 @@ class Sample extends PpciModel
              * delete from subsample
              */
             $sql = "delete from subsample where sample_id = :sample_id:";
-            $this->executeAsPrepared($sql, array("sample_id" => $data["sample_id"]), true);
+            $this->executeSQL($sql, array("sample_id" => $data["sample_id"]), true);
             /**
              * suppression de l'echantillon
              */

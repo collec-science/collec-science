@@ -12,5 +12,8 @@ class BeforeDisplay extends PpciLibrary
         if (!empty($_SESSION["moduleListe"])){
             $vue->set($_SESSION["moduleListe"], "moduleListe");
         }
+        if (isset($_REQUEST["activeTab"])) {
+            $vue->set($_REQUEST["activeTab"], "activeTab");
+        }
     }
 }

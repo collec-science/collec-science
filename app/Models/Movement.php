@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Ppci\Libraries\PpciException;
+use Ppci\Models\Log;
 use Ppci\Models\PpciModel;
 
 /**
@@ -73,7 +74,7 @@ class Movement extends PpciModel
             ),
             "login" => array(
                 "requis" => 1,
-                "defaultValue" => "getLogin"
+                "defaultValue" => $_SESSION["login"]
             ),
             "storage_location" => array(
                 "type" => 0
@@ -190,7 +191,7 @@ class Movement extends PpciModel
      * @param int $uid
      * @param DateTime $date
      * @param int $type: 1:entry, 2:exit
-     * @param number $container_uid
+     * @param int $container_uid
      * @param string $login
      * @param string $storage_location
      * @param string $comment
@@ -207,7 +208,6 @@ class Movement extends PpciModel
         if ($uid == $container_uid) {
             throw new PpciException(_("Création du mouvement impossible : le numéro de l'objet est égal au numéro du contenant. "));
         }
-        $date = $this->encodeData($date);
         if (empty($date)) {
             $this->autoFormatDate = false;
             $date = date('Y-m-d H:i:s');
@@ -215,7 +215,6 @@ class Movement extends PpciModel
         if ($type != 1 && $type != 2) {
             throw new PpciException(_("Le type de mouvement n'est pas correct. "));
         }
-        $container_uid = $this->encodeData($container_uid);
         if (!is_numeric($container_uid) && strlen($container_uid) > 0) {
             throw new PpciException(_("L'UID du contenant n'est pas numérique. "));
         }
@@ -226,15 +225,12 @@ class Movement extends PpciModel
                 throw new PpciException(_("Le login de l'utilisateur n'est pas connu."));
             }
         }
-        $storage_location = $this->encodeData($storage_location);
-        $comment = $this->encodeData($comment);
-        $movement_reason_id = $this->encodeData($movement_reason_id);
         if ($type == 1) {
             /*
              * Recherche de container_id a partir de uid
              */
             if (!isset($this->container)) {
-                $this->container = $this->classInstanciate("Container", "container.class.php");
+                $this->container = new Container;
             }
             $container_id = $this->container->getIdFromUid($container_uid);
             if ($container_id > 0) {
@@ -291,7 +287,11 @@ class Movement extends PpciModel
         /**
          * generate log event
          */
-        $this->log->setLog($_SESSION["login"], "movement-write", $movement_id);
+        /**
+         * @var Log
+         */
+        $log = service ("Log");
+        $log->setLog($_SESSION["login"], "movement-write", $movement_id);
         return $movement_id;
     }
 

@@ -58,7 +58,7 @@ class Subsample extends PpciModel
             ),
             "subsample_login" => array(
                 "type" => 0,
-                "defaultValue" => "getLogin",
+                "defaultValue" => $_SESSION["login"],
             ),
             "borrower_id" => array(
                 "type" => 1

@@ -146,8 +146,8 @@ $(document).ready(function () {
 			var uid = objet.data("uid");
 			if (! objet.is(':ui-tooltip') ) {
 				if (uid > 0) {
-					var url = "";
-					var data = { "module":"containerGetOccupation", "uid": uid };
+					var url = "containerGetOccupation";
+					var data = { "uid": uid };
 					$.ajax ( { url:url, data: data})
 					.done (function( d ) {
 						if (d ) {
@@ -241,8 +241,8 @@ $(document).ready(function () {
 	 */
 	 function searchTypes() {
 		var family = $("#containers_family_id").val();
-		var url = "";
-		$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
+		var url = "containerTypeGetFromFamily";
+		$.getJSON ( url, {  "container_family_id":family } , function( data ) {
 			if (data != null) {
 				options = '<option value="" selected>{t}Choisissez...{/t}</option>';
 				for (var i = 0; i < data.length; i++) {
@@ -257,8 +257,8 @@ $(document).ready(function () {
 		}
 		function searchContainer () {
 			var containerType = $("#containers_type_id").val();
-			var url = "";
-			$.getJSON ( url, { "module":"containerGetFromType", "container_type_id":containerType } , function( data ) {
+			var url = "containerGetFromType";
+			$.getJSON ( url, { "container_type_id":containerType } , function( data ) {
 				if (data != null) {
 				options = '';
 				for (var i = 0; i < data.length; i++) {
@@ -307,8 +307,8 @@ $(document).ready(function () {
 		 });
 		function addChildren(objet) {	
 			var uid = objet.data( "uid" );
-			var url = "";
-			var data = { "module": "containerGetChildren", "uid": uid };
+			var url = "containerGetChildren";
+			var data = { "uid": uid };
 			objet.hide();
 			var id = objet.attr('id');
 			$.ajax( { url: url, data: data } )

@@ -42,7 +42,7 @@ class Request extends PpciModel
             ),
             "login" => array(
                 "requis" => 1,
-                "defaultValue" => "getLogin"
+                "defaultValue" => $_SESSION["login"]
             ),
             "datefields" => array(
                 "type" => 0

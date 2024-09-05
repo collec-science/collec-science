@@ -49,7 +49,7 @@ class Sample extends PpciLibrary
         parent::__construct();
         $this->dataclass = new ModelsSample();
         $this->keyName = "uid";
-        if (isset($_REQUEST["uid"]) && !empty($_REQUEST["uid"])) {
+        if (isset($_REQUEST["uid"]) && strlen($_REQUEST["uid"]) > 0) {
             $this->id = $_REQUEST["uid"];
         }
         $_SESSION["moduleParent"] = "sample";
@@ -177,7 +177,6 @@ class Sample extends PpciLibrary
          */
         $data = $this->dataclass->lire($this->id);
         $this->vue->set($data, "data");
-        $this->vue->set($activeTab, "activeTab");
         /*
          * Récupération des métadonnées dans un tableau pour l'affichage
          */
@@ -435,7 +434,7 @@ class Sample extends PpciLibrary
                  * Forçage du retour
                  */
                 $t_module["retourok"] = $_POST["lastModule"];
-            } catch (PpciException|\Exception $oe) {
+            } catch (PpciException | \Exception $oe) {
                 $this->message->set(_("Erreur d'écriture dans la base de données"), true);
                 if ($db->transEnabled) {
                     $db->transRollback();
@@ -602,7 +601,7 @@ class Sample extends PpciLibrary
     }
     function export()
     {
-        $this->vue = service ("CsvView");
+        $this->vue = service("CsvView");
         try {
             $this->vue->set(
                 $this->dataclass->getForExport(
@@ -613,14 +612,14 @@ class Sample extends PpciLibrary
             return $this->vue->send();
         } catch (PpciException $e) {
             unset($this->vue);
-            $this->vue = service ("Smarty");
+            $this->vue = service("Smarty");
             $this->message->set($e->getMessage(), true);
             return $this->generateReturn();
         }
     }
     function importStage1()
     {
-        $this->vue = service ("Smarty");
+        $this->vue = service("Smarty");
         $this->vue->set("gestion/sampleImport.tpl", "corps");
         $this->vue->set(";", "separator");
         $this->vue->set(0, "utf8_encode");
@@ -628,7 +627,7 @@ class Sample extends PpciLibrary
     }
     function importStage2()
     {
-        $this->vue = service ("Smarty");
+        $this->vue = service("Smarty");
         unset($_SESSION["filename"]);
         if (file_exists($_FILES['upfile']['tmp_name'])) {
             try {
@@ -827,7 +826,7 @@ class Sample extends PpciLibrary
     }
     function getChildren()
     {
-        $this->vue = service ("AjaxView");
+        $this->vue = service("AjaxView");
         $this->vue->set($this->dataclass->getChildren($_REQUEST["uid"]));
         return $this->vue->send();
     }
@@ -868,7 +867,5 @@ class Sample extends PpciLibrary
         $vue->set($label->getListe(2), "labels");
     }
 
-    function generateReturn() {
-
-    }
+    function generateReturn() {}
 }

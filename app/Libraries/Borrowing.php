@@ -48,9 +48,9 @@ class Borrowing extends PpciLibrary
 		/*
 		 * Lecture de l'object concerne
 		 */
-		require_once 'modules/classes/object.class.php';
 		$object = new ObjectClass();
 		$this->vue->set($object->lire($_REQUEST["uid"]), "object");
+		return $this->vue->send();
 	}
 	function write()
 	{

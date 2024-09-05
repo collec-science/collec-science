@@ -36,6 +36,7 @@ class Container extends PpciLibrary
 
     private $keyName;
     private $isDelete = false;
+    private $activeTab;
 
     function __construct()
     {
@@ -46,9 +47,6 @@ class Container extends PpciLibrary
             $this->id = $_REQUEST[$this->keyName];
         }
         $_SESSION["moduleParent"] = "container";
-        if (isset($_REQUEST["activeTab"])) {
-            $activeTab = $_REQUEST["activeTab"];
-        }
     }
 
 
@@ -59,10 +57,9 @@ class Container extends PpciLibrary
         /*
          * Display the list of all records of the table
          */
-        if (!isset($this->isDelete) && !isset($_REQUEST["is_action"])) {
+        if (!($this->isDelete) && !isset($_REQUEST["is_action"])) {
             $_SESSION["searchContainer"]->setParam($_REQUEST);
         }
-
         $dataSearch = $_SESSION["searchContainer"]->getParam();
         if ($_SESSION["searchContainer"]->isSearch() == 1) {
             $data = $this->dataclass->containerSearch($dataSearch);
@@ -95,7 +92,7 @@ class Container extends PpciLibrary
          */
         $data = $this->dataclass->lire($this->id);
         $this->vue->set($data, "data");
-        $this->vue->set($activeTab, "activeTab");
+        //$this->vue->set($this->activeTab, "activeTab");
         $this->vue->set("containerDisplay", "moduleFrom");
         $this->vue->set($this->id, "containerUid");
         /*
@@ -626,7 +623,7 @@ class Container extends PpciLibrary
     }
     function getChildren()
     {
-        $this->vue = service('Smarty');
+        $this->vue = service('AjaxView');
         $this->vue->set($this->dataclass->getChildrenContainer($_REQUEST["uid"]));
         return $this->vue->send();
     }

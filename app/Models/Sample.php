@@ -301,7 +301,7 @@ class Sample extends PpciModel
                      * Add the creation of the subsample movement on new sample from parent sample
                      */
                     if ($firstUid == 0 && $data["parent_sample_id"] > 0 && $data["multiple_value"] > 0) {
-                        $parentData = $this->lireFromId($data["parent_sample_id"]);
+                        $parentData = $this->readFromId($data["parent_sample_id"]);
                         if ($parentData["multiple_value"] > 0) {
                             if (!isset($this->subsample)) {
                                 $this->subsample = new Subsample;
@@ -469,7 +469,7 @@ class Sample extends PpciModel
                 $uidSearch = false;
 
                 if ($param["uidsearch"] > 0) {
-                    $where .= " ( s.uid = :uid";
+                    $where .= " ( s.uid = :uid:";
                     $data["uid"] = $param["uidsearch"];
                     $uidSearch = true;
                     $and = " and ";
@@ -917,7 +917,7 @@ class Sample extends PpciModel
                      * Generation du dbuid du parent dans le cas d'un echantillon derive
                      */
                     if ($value["parent_sample_id"] > 0) {
-                        $dparent = $this->lireFromId($value["parent_sample_id"]);
+                        $dparent = $this->readFromId($value["parent_sample_id"]);
                         $value["dbuid_parent"] = $_SESSION["APPLI_code"] . ":" . $dparent["uid"];
                     }
                     unset($value["parent_sample_id"]);
@@ -1634,7 +1634,7 @@ class Sample extends PpciModel
      */
     function getChildren(int $uid): array
     {
-        $where = " where ps.uid = :uid";
+        $where = " where ps.uid = :uid:";
         $metadatafilter = $_SESSION["searchSample"]->getParamAsString("metadatafilter");
         $data = $this->_executeSearch($this->sql . $this->from . $where, array("uid" => $uid), $metadatafilter);
         return $data;

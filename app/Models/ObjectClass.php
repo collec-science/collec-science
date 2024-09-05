@@ -101,7 +101,7 @@ class ObjectClass extends PpciModel
         if ($id == 0 && $getDefault) {
             $data = $this->getDefaultValues($parentValue);
         } else {
-            $data = $this->lireParamAsPrepared($this->sql . " where uid =:uid", array("uid" => $id));
+            $data = $this->lireParamAsPrepared($this->sql . " where uid =:uid:", array("uid" => $id));
         }
         return $data;
     }
@@ -998,7 +998,7 @@ class ObjectClass extends PpciModel
      */
     function setTrashed($uid, $trashed = 0)
     {
-        $sql = "update object set trashed = :trashed where uid = :uid";
+        $sql = "update object set trashed = :trashed where uid = :uid:";
         $this->executeAsPrepared($sql, array("uid" => $uid, "trashed" => $trashed));
     }
 

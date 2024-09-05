@@ -85,7 +85,7 @@ class Subsample extends PpciModel
              * Recherche de l'unite des sous-échantillons
              */
             $sample = new Sample;
-            $dataSample = $sample->lireFromId($parentValue);
+            $dataSample = $sample->readFromId($parentValue);
             $retour["multiple_unit"] = $dataSample["multiple_unit"];
         }
         return $retour;

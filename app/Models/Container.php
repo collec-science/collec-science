@@ -375,7 +375,7 @@ class Container extends PpciModel
                 $and = " and ";
             }
             if ($param["uidsearch"] > 0) {
-                $where .= $and . " o.uid = :uid";
+                $where .= $and . " o.uid = :uid:";
                 $data["uid"] = $param["uidsearch"];
                 $and = " and ";
             }
@@ -995,7 +995,7 @@ class Container extends PpciModel
     from object
     join container using (uid)
     where identifier = :identifier:
-    and uid <> :uid";
+    and uid <> :uid:";
             $res = $this->lireParamAsPrepared(
                 $sql,
                 array(

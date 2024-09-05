@@ -166,12 +166,13 @@ class Sample extends PpciLibrary
     function getFromId()
     {
         $this->vue = service('AjaxView');
-        $this->vue->set($this->dataclass->lireFromId($_REQUEST["sample_id"]));
+        $this->vue->set($this->dataclass->readFromId($_REQUEST["sample_id"]));
         return $this->vue->send();
     }
     function display()
     {
         $this->vue = service('Smarty');
+        $this->vue->set($_SESSION["moduleListe"], "moduleListe");
         /**
          * Display the detail of the record
          */
@@ -282,7 +283,7 @@ class Sample extends PpciLibrary
              * Recuperation des informations concernant l'echantillon parent
              */
             if ($data["parent_sample_id"] > 0) {
-                $dataParent = $this->dataclass->lireFromId($data["parent_sample_id"]);
+                $dataParent = $this->dataclass->readFromId($data["parent_sample_id"]);
             } else {
                 if ($_REQUEST["parent_uid"] > 0) {
                     $dataParent = $this->dataclass->lire($_REQUEST["parent_uid"]);
@@ -343,7 +344,7 @@ class Sample extends PpciLibrary
                         $data["identifier"] = $dl["identifier"];
                         $data["uuid"] = $this->dataclass->getUUID();
                         if ($data["parent_sample_id"] > 0) {
-                            $dataParent = $this->dataclass->lireFromId($data["parent_sample_id"]);
+                            $dataParent = $this->dataclass->readFromId($data["parent_sample_id"]);
                             $this->vue->set($dataParent, "parent_sample");
                         }
                     }

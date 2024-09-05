@@ -172,7 +172,6 @@ class Sample extends PpciLibrary
     function display()
     {
         $this->vue = service('Smarty');
-        $this->vue->set($_SESSION["moduleListe"], "moduleListe");
         /**
          * Display the detail of the record
          */

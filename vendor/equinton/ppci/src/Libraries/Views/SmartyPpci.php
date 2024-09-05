@@ -5,6 +5,7 @@ use Config\App;
 use \Smarty\Smarty;
 use \Ppci\Config\SmartyParam;
 use \Ppci\Models\Menu;
+use \App\Libraries\BeforeDisplay;
 
 
 class SmartyPpci
@@ -130,6 +131,10 @@ class SmartyPpci
                 $this->set(1, "messageError");
             }
             $this->set($_SESSION["userRights"], "rights");
+            /**
+             * Add specific variables
+             */
+            BeforeDisplay::setGeneric($this);
             /**
              * Encode data before send
              */

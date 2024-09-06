@@ -6,7 +6,7 @@ namespace Ppci\Models;
  * Encoding : UTF-8
  * Copyright 2017 - All rights reserved
  */
-class DbParam extends PpciModel
+class Dbparam extends PpciModel
 {
     public $params = [];
     /**
@@ -37,7 +37,7 @@ class DbParam extends PpciModel
                 "type"=>0
             )
         );
-        $this->id_auto = 0;
+        $this->useAutoIncrement = false;
         parent::__construct();
         $this->readParams();
     }

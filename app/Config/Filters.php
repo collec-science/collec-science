@@ -51,7 +51,7 @@ class Filters extends BaseConfig
             'invalidchars',
             'legacyRoute',
             'startcall',
-            'dbversioncheck',
+            'dbversioncheck'=>['except' => 'CollectionsGenerateMail'],
             'rights',
             'admin'
         ],

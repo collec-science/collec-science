@@ -32,8 +32,4 @@ class Collection extends PpciController
     {
         return $this->lib->getAjax();
     }
-    function generateMails()
-    {
-        return $this->lib->generateMails();
-    }
 }

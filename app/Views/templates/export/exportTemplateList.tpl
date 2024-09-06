@@ -31,7 +31,7 @@
         <td>{$row.filename}</td>
         <td class="textareaDisplay">{$row.datasets}</td>
         <td class="center">
-          <a href="exportModelExec?export_model_name=export_template&keys[]={$row.export_template_id}">
+          <a href="exportModelExec?export_model_name=export_template&export_template_id={$row.export_template_id}">
             <img src="display/images/output.png" height="25">
           </a>
         </td>

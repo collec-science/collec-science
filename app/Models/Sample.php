@@ -1610,8 +1610,8 @@ class Sample extends PpciModel
                 from sample
                 join object using (uid)
                 join sample_type using (sample_type_id)
-                where collection_id = :collection_id
-                and expiration_date between :date_from and :date_to
+                where collection_id = :collection_id:
+                and expiration_date between :date_from: and :date_to:
                 order by expiration_date, identifier";
         return $this->getListeParamAsPrepared(
             $sql,

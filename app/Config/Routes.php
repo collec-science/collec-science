@@ -102,7 +102,7 @@ $routes->add('collectionChange', 'Collection::change');
 $routes->post('collectionWrite', 'Collection::write');
 $routes->post('collectionDelete', 'Collection::delete');
 $routes->add('collectionGet', 'Collection::getAjax');
-$routes->add('collectionsGenerateMail', 'Collection::generateMails');
+$routes->cli('collectionsGenerateMail', 'CollectionsGenerateMail::index');
 $routes->add('regulationList', 'Regulation::list');
 $routes->add('regulationChange', 'Regulation::change');
 $routes->post('regulationWrite', 'Regulation::write');

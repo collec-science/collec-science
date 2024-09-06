@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\ExportModelProcessing as LibrariesExportModelProcessing;
+use App\Models\ExportModel;
 
 class ExportModelProcessing extends PpciController
 {
@@ -18,6 +19,8 @@ class ExportModelProcessing extends PpciController
     }
     function importExec()
     {
-        return $this->lib->importExec();
+        $this->lib->importExec();
+        $em = new ExportModel;
+        return $em->display();
     }
 }

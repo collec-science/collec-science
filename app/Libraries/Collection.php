@@ -10,7 +10,7 @@ use App\Models\Sample;
 use Ppci\Libraries\Mail;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
-use Ppci\Models\DbParam;
+use Ppci\Models\Dbparam;
 use Ppci\Models\PpciModel;
 
 class Collection extends PpciLibrary
@@ -105,12 +105,20 @@ class Collection extends PpciLibrary
         $this->vue->set($this->dataclass->lire($_REQUEST["collection_id"]));
         return $this->vue->send();
     }
+    /**
+     * Function used to generate emails for collections
+     * This function must be executed as client (CLI)
+     *
+     * @return void
+     */
     function generateMails()
     {
         /**
          * Search if it's necessary to generate notifications
          */
         if ($this->appConfig->MAIL_enabled) {
+            $dbparam = new Dbparam;
+            $dbparam->readParams();
             $notification = false;
             $currentDate = date_create();
             if ($_SESSION["dbparams"]["notificationDelay"] > 0) {
@@ -163,9 +171,6 @@ class Collection extends PpciLibrary
                 /**
                  * Update the date of the last mail send
                  */
-                if (!isset($dbparam)) {
-                    $dbparam = new DbParam();
-                }
                 $dbparam->setParameter("notificationLastDate", date('Y-m-d'));
             }
         }

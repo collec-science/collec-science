@@ -59,27 +59,15 @@ class ExportModelProcessing extends PpciLibrary
                 throw new PpciException(_("Le modèle d'export n'est pas défini ou n'a pas été trouvé"));
             }
         } catch (PpciException $e) {
-            if (isset($_REQUEST["returnko"])) {
-                $t_module["retourko"] = $_REQUEST["returnko"];
-            }
             $this->message->set($e->getMessage(), true);
             $this->message->setSyslog($e->getMessage());
+            $em = new LibrariesExportModel;
+            return $em->list();
         }
-        $em = new LibrariesExportModel;
-        return $em->display();
     }
 
     function importExec()
     {
-        /**
-         * set the return values
-         */
-        if (isset($_REQUEST["returnok"])) {
-            $t_module["retourok"] = $_REQUEST["returnok"];
-        }
-        if (isset($_REQUEST["returnko"])) {
-            $t_module["retourko"] = $_REQUEST["returnok"];
-        }
         /**
          * Verify the project, if it's specified
          */
@@ -102,7 +90,6 @@ class ExportModelProcessing extends PpciLibrary
             $handle = fopen($filename, 'r');
             if (!$handle) {
                 $this->message->set(sprintf(_("Fichier %s non trouvé ou non lisible"), $filename), true);
-                return ZZZ;
             } else {
                 $contents = fread($handle, filesize($filename));
                 fclose($handle);
@@ -122,18 +109,15 @@ class ExportModelProcessing extends PpciLibrary
                     }
                     $db->transCommit();
                     $this->message->set(sprintf(_("Importation effectuée, fichier %s traité."), $realFilename));
-                    return ZZZ;
                 } catch (PpciException $e) {
                     if ($db->transEnabled) {
                         $db->transRollback();
                     }
                     $this->message->set($e->getMessage(), true);
-                    return ZZZ;
                 }
             }
         } else {
             $this->message->set(_("Paramètres d'importation manquants ou droits insuffisants"), true);
-            return ZZZ;
         }
     }
 }

@@ -144,48 +144,6 @@ class Movement extends PpciModel
     }
 
     /**
-     * Retourne la liste de tous les contenants parents
-     *
-     * @param int $uid
-     * @throws Exception
-     * @return array
-     */
-    function getParents($uid)
-    {
-        if (is_numeric($uid) && $uid > 0) {
-            $retour = array();
-            $data["uid"] = $uid;
-            $continue = true;
-            try {
-                /*
-                 * Preparation de la requete
-                 */
-                $stmt = $this->connection->prepare($this->sql . $this->where . $this->order . " limit 1");
-                while ($continue) {
-                    if ($stmt->execute($data)) {
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        $retour[] = $result;
-                        if ($result["parent_uid"] > 0) {
-                            $data["uid"] = $result["parent_uid"];
-                        } else {
-                            $continue = false;
-                        }
-                    } else {
-                        $continue = false;
-                    }
-                }
-                return $retour;
-            } catch (\Exception $e) {
-                $this->lastResultExec = false;
-                if ($this->debug_mode > 0) {
-                    $this->addMessage($e->getMessage());
-                }
-                throw new PpciException($e->getMessage());
-            }
-        }
-    }
-
-    /**
      * Fonction generique permettant de rajouter des mouvements
      *
      * @param int $uid

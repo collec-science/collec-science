@@ -15,7 +15,14 @@ class ExportModelProcessing
   public $structure = array();
   public $quote = '"';
   public $binaryFolder = "binary";
+  private PpciModel $datatable;
 
+  function __construct()
+  {
+    $this->datatable = new PpciModel;
+    $this->db = $this->datatable->db;
+    $this->datatable->table("unknown");
+  }
   /**
    * Set the used model
    *
@@ -137,7 +144,7 @@ class ExportModelProcessing
       $sql .= " and schemaname = :schema:";
       $data["schema"] = $schemaname;
     }
-    $res = $this->execute($sql, $data);
+    $res = $this->datatable->getli($sql, $data);
     $description = $res[0]["description"];
     if ($description) {
       return $description;
@@ -524,44 +531,7 @@ class ExportModelProcessing
       printA($sql);
       printA($data);
     }
-    $result = null;
-    try {
-      $this->prepare($sql);
-      $this->lastResultExec = $this->stmt->execute($data);
-      if ($this->lastResultExec) {
-        $result = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-      } else {
-        $sdata = "";
-        foreach ($data as $key => $value) {
-          $sdata .= "$key:$value" . PHP_EOL;
-        }
-        throw new PpciException("Error when execute the request" . PHP_EOL
-          . $sql . PHP_EOL
-          . $sdata
-          . $this->stmt->errorInfo()[2]);
-      }
-    } catch (\Exception $e) {
-      $this->lastResultExec = false;
-      throw new PpciException($e->getMessage());
-    }
-    return $result;
-  }
-  /**
-   * Prepare the statement of PDO connection
-   * only if the sql value change
-   *
-   * @param string $sql
-   * @return void
-   */
-  private function prepare(string $sql)
-  {
-    if ($this->lastSql != $sql) {
-      $this->stmt = $this->db->prepare($sql);
-      if (!$this->stmt) {
-        throw new PpciException("This request can't be prepared:" . PHP_EOL . $sql);
-      }
-      $this->lastSql = $sql;
-    }
+    return $this->datatable->executeQuery($sql,$data);
   }
 
   /**
@@ -598,21 +568,21 @@ class ExportModelProcessing
    */
   function importData(array $data)
   {
-    $this->db->beginTransaction();
+    $this->db->transBegin();
     try {
       foreach ($data as $tableName => $values) {
         $this->importDataTable($tableName, $values);
       }
     } catch (\Exception $e) {
       $messageError = $this->stmt->errorInfo()[2];
-      $this->db->rollBack();
+      $this->db->transRollback();
       throw new PpciException(
         "An error occurred during the database import:" . PHP_EOL .
           $messageError . PHP_EOL .
           $e->getMessage()
       );
     }
-    $this->db->commit();
+    $this->db->transCommit();
   }
 
   /**

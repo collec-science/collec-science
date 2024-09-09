@@ -9,13 +9,13 @@ class LoginGestionLib extends PpciLibrary
     function __construct()
     {
         parent::__construct();
-        $this->dataclass = new LoginGestion();
+        $this->dataClass = new LoginGestion();
     }
 
     function index()
     {
         $vue = service("Smarty");
-        $data = $this->dataclass->getlist();
+        $data = $this->dataClass->getlist();
         $vue->set($data, "data");
         $vue->set("ppci/ident/loginliste.tpl", "corps");
         return $vue->send();
@@ -31,7 +31,7 @@ class LoginGestionLib extends PpciLibrary
              * Add dbconnect_provisional_nb
              */
             if (!empty($data["login"])) {
-                $data["dbconnect_provisional_nb"] = $this->dataclass->getDbconnectProvisionalNb($data["login"]);
+                $data["dbconnect_provisional_nb"] = $this->dataClass->getDbconnectProvisionalNb($data["login"]);
             }
             $vue->set($data, "data");
             return $vue->send();
@@ -43,7 +43,7 @@ class LoginGestionLib extends PpciLibrary
     function write()
     {
         try {
-            $id = $this->dataclass->write($_REQUEST);
+            $id = $this->dataClass->write($_REQUEST);
             if ($id > 0) {
                 /*
                  * Ecriture du compte dans la table acllogin
@@ -88,11 +88,11 @@ class LoginGestionLib extends PpciLibrary
     function changePasswordExec()
     {
         try {
-            $this->dataclass->changePassword($_REQUEST["oldPassword"], $_REQUEST["pass1"], $_REQUEST["pass2"]);
+            $this->dataClass->changePassword($_REQUEST["oldPassword"], $_REQUEST["pass1"], $_REQUEST["pass2"]);
             /**
              * Send mail to the user
              */
-            $data = $this->dataclass->lireByLogin($_SESSION["login"]);
+            $data = $this->dataClass->lireByLogin($_SESSION["login"]);
             if (!empty($data["mail"]) && $this->appConfig->MAIL_enabled) {
                 $dbparam = service("Dbparam");
                 $subject = sprintf(_("%s - changement de mot de passe"), $dbparam->getParam("APPLI_title"));

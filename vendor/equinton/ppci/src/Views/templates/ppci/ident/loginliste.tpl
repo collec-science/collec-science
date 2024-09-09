@@ -51,7 +51,7 @@
 								<div class="mail">{$data[lst].mail}</div>&nbsp;
 							</td>
 							<td class="center">{if $data[lst].actif == 1}{t}oui{/t}{/if}</td>
-							<td class="center">{if $data[lst].is_clientws == 1}{t}oui{/t}{/if}</td>
+							<td class="center">{if $data[lst].is_clientws == 't'}{t}oui{/t}{/if}</td>
 							<td class="center">
 								{if $data[lst].dbconnect_provisional_nb > 3 }{t}Compte bloqué{/t}
 								{else if $data[lst].dbconnect_provisional_nb > 3 }{t}oui{/t}

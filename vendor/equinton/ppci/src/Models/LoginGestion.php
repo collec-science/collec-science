@@ -1,6 +1,7 @@
 <?php
 namespace Ppci\Models;
 
+use Config\App;
 use ZxcvbnPhp\Zxcvbn;
 use Ppci\Config\SmartyParam;
 use Ppci\Libraries\Mail;
@@ -76,7 +77,12 @@ class LoginGestion extends PpciModel
             "nbattempts" => array("type" => 1),
             "lastattempt" => array("type" => 3)
         );
+        /**
+         * @var App
+         */
         $this->paramApp = config("App");
+        $this->privateKey = $this->paramApp->privateKey;
+        $this->publicKey = $this->paramApp->pubKey;
         parent::__construct();
     }
 
@@ -319,9 +325,9 @@ class LoginGestion extends PpciModel
         return $id;
     }
 
-    function lire(int $id, bool $getDefault = true, $parentValue = 0): array
+    function read(int $id, bool $getDefault = true, $parentValue = 0): array
     {
-        $data = parent::lire($id, $getDefault, $parentValue);
+        $data = parent::read($id, $getDefault, $parentValue);
         if (!empty($data["tokenws"])) {
             /**
              * decode the token

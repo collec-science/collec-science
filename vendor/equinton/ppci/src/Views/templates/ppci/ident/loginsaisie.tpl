@@ -120,11 +120,11 @@ $(document).ready(function() {
 <label for="is_clientws_group" class="col-md-4 control-label">{t}Compte utilisé pour service web :{/t} </label>
 <div class="col-md-8 input-group">
 <div id="is_clientws_group" class="form-check form-check-inline">
-<input type="radio" class="form-check-input" id="is_clientws1" name="is_clientws" value="1" {if $data.is_clientws == 1}checked{/if} >
+<input type="radio" class="form-check-input" id="is_clientws1" name="is_clientws" value="1" {if $data.is_clientws == 't'}checked{/if} >
 <label class="form-check-label" for="inlineRadio1">{t}oui{/t}</label>
 </div>
 <div id="is_clientws_group2" class="form-check form-check-inline">
-<input type="radio" class="form-check-input" id="is_clientws2" name="is_clientws" value="0" {if $data.is_clientws == 0}checked{/if}>
+<input type="radio" class="form-check-input" id="is_clientws2" name="is_clientws" value="0" {if $data.is_clientws != "t"}checked{/if}>
 <label class="form-check-label" for="inlineRadio1">{t}non{/t}</label>
 </div>
 </div>

@@ -55,7 +55,7 @@ class ExportModel extends PpciLibrary
         $data["export_model_id"] = 0;
         $data["export_model_name"] .= " - copy";
         $this->vue->set($data, "data");
-        $this->vue->set("param/exportModelChange.tpl", "corps");
+        $this->vue->set("exportmodel/exportModelChange.tpl", "corps");
         return $this->vue->send();
     }
     function write()
@@ -79,6 +79,102 @@ class ExportModel extends PpciLibrary
             return $this->list();
         } catch (PpciException) {
             return $this->change();
+        }
+    }
+    function exportExec() {
+        try {
+            $model = array();
+            if ($_REQUEST["export_model_id"] > 0) {
+                $model = $this->dataclass->lire($_REQUEST["export_model_id"]);
+            } else if (!empty($_REQUEST["export_model_name"])) {
+                $model = $this->dataclass->getModelFromName($_REQUEST["export_model_name"]);
+            }
+            if ($model["export_model_id"] > 0) {
+                $this->dataclass->initModel(json_decode($model["pattern"], true));
+                //$this->dataclass->modeDebug = true;
+                /**
+                 * Generate the structure of the database
+                 */
+                $this->dataclass->generateStructure();
+                $data = array();
+                foreach ($this->dataclass->getListPrimaryTables() as $key => $table) {
+                    if ($key == 0 && count($_REQUEST["keys"]) > 0) {
+                        $keys = $_REQUEST["keys"];
+                        /**
+                         * set the list of records for the first item
+                         */
+                        $data[$table] = $this->dataclass->getTableContent($table, $keys);
+                    } else {
+                        $data[$table] = $this->dataclass->getTableContent($table);
+                    }
+                }
+                if ($this->dataclass->modeDebug) {
+                    throw new PpciException("Debug mode: no file generated");
+                }
+                $this->vue = service("FileView");
+                $this->vue->setParam(array("filename" => $_SESSION["dbparams"]["APPLI_code"] . '-' . date('YmdHis') . ".json"));
+                $this->vue->set(json_encode($data));
+                return $this->vue->send();
+            } else {
+                throw new PpciException(_("Le modèle d'export n'est pas défini ou n'a pas été trouvé"));
+            }
+        } catch (PpciException $e) {
+            $this->message->set($e->getMessage(), true);
+            $this->message->setSyslog($e->getMessage());
+            return $this->list();
+        }
+    }
+    function importExec()
+    {
+        /**
+         * Verify the project, if it's specified
+         */
+        if (($_REQUEST["export_model_id"] > 0 || !empty($_REQUEST["export_model_name"])) && $_FILES["filename"]["size"] > 0 ) {
+            if ($_REQUEST["export_model_id"]) {
+                $model = $this->dataclass->lire($_REQUEST["export_model_id"]);
+            } else {
+                $model = $this->dataclass->getModelFromName($_REQUEST["export_model_name"]);
+            }
+            $this->dataclass->initModel(json_decode($model["pattern"], true));
+            /**
+             * Generate the structure of the database
+             */
+            $this->dataclass->generateStructure();
+            //$this->dataclass->modeDebug = true;
+            $filename = $_FILES["filename"]["tmp_name"];
+            $realFilename = $_FILES["filename"]["name"];
+            $filename = str_replace("../", "", $filename);
+            $handle = fopen($filename, 'r');
+            if (!$handle) {
+                $this->message->set(sprintf(_("Fichier %s non trouvé ou non lisible"), $filename), true);
+            } else {
+                $contents = fread($handle, filesize($filename));
+                fclose($handle);
+                $data = json_decode($contents, true);
+                try {
+                    $db = $this->dataclass->db;
+                    $db->transBegin();
+                    $firstTable = true;
+                    foreach ($data as $tableName => $values) {
+                        if ($firstTable && !empty($_REQUEST["parentKeyName"])) {
+                            $key = $_REQUEST["parentKey"];
+                            $this->dataclass->importDataTable($tableName, $values, 0, array($_REQUEST["parentKeyName"] => $key));
+                            $firstTable = false;
+                        } else {
+                            $this->dataclass->importDataTable($tableName, $values);
+                        }
+                    }
+                    $db->transCommit();
+                    $this->message->set(sprintf(_("Importation effectuée, fichier %s traité."), $realFilename));
+                } catch (PpciException $e) {
+                    if ($db->transEnabled) {
+                        $db->transRollback();
+                    }
+                    $this->message->set($e->getMessage(), true);
+                }
+            }
+        } else {
+            $this->message->set(_("Paramètres d'importation manquants ou droits insuffisants"), true);
         }
     }
 }

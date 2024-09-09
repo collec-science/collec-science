@@ -36,4 +36,12 @@ class ExportModel extends PpciController
     {
         return $this->lib->duplicate();
     }
+    function exportExec() {
+        return $this->lib->exportExec();
+    }
+    function importExec()
+    {
+        $this->lib->importExec();
+        return $this->list();
+    }
 }

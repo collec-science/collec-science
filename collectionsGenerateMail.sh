@@ -1,4 +1,4 @@
 #!/bin/bash
-export envPath="/home/equinton/web/collec2"
+export envPath="/var/www/collecApp/collec2"
 cd $envPath/public
 php index.php collectionsGenerateMail

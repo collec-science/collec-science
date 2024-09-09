@@ -38,7 +38,7 @@ class Country extends PpciModel
      */
     function getIdFromCode(string $code, int $codelength = 2): ?int
     {
-        $sql = "select country_id from country where upper(country_code$codelength) = upper (:code)";
+        $sql = "select country_id from country where upper(country_code$codelength) = upper (:code:)";
         $data = $this->lireParamAsPrepared($sql, array("code" => $code));
         if ($data["country_id"] > 0) {
             return $data["country_id"];

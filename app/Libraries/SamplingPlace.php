@@ -46,6 +46,7 @@ class SamplingPlace extends PpciLibrary
         $this->vue->set($_SESSION["collections"], "collections");
         $country = new Country();
         $this->vue->set($country->getListe(2), "countries");
+        $this->vue->set(1,"mapIsChange");
         return $this->vue->send();
     }
     function write()
@@ -113,7 +114,7 @@ class SamplingPlace extends PpciLibrary
                 $db->transCommit();
                 $this->message->set(sprintf(_("%d lieu(x) importé(s)"), $i));
             } catch (PpciException $e) {
-                $this->message->set(_("Impossible d'importer les lieux de prélèvement"));
+                $this->message->set(_("Impossible d'importer les lieux de prélèvement"),true);
                 $this->message->set($e->getMessage());
                 if ($db->transEnabled) {
                     $db->transRollback();

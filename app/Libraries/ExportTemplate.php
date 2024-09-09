@@ -68,7 +68,7 @@ class ExportTemplate extends PpciLibrary
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->display();
+                return $this->list();
             } else {
                 return $this->change();
             }
@@ -162,7 +162,7 @@ class ExportTemplate extends PpciLibrary
                             "export_template_id" => $et["export_template_id"],
                             "dataset_template_id" => $dt["dataset_template_id"]
                         );
-                        $this->dataclass->executeAsPrepared($insertExportDataset, $dtnew, true);
+                        $this->dataclass->executeSQL($insertExportDataset, $dtnew, true);
                     }
                 }
             } else {

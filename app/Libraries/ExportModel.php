@@ -98,7 +98,7 @@ class ExportModel extends PpciLibrary
                 $this->dataclass->generateStructure();
                 $data = array();
                 foreach ($this->dataclass->getListPrimaryTables() as $key => $table) {
-                    if ($key == 0 && count($_REQUEST["keys"]) > 0) {
+                    if ($key == 0 && !empty($_REQUEST["keys"])) {
                         $keys = $_REQUEST["keys"];
                         /**
                          * set the list of records for the first item

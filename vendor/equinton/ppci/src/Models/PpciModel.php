@@ -116,7 +116,7 @@ class PpciModel extends Model
             return $query;
         }
     }
-    protected function executeSQL(string $sql, array $data = null, $onlyExecute = false)
+    public function executeSQL(string $sql, array $data = null, $onlyExecute = false)
     {
         return $this->executeQuery($sql, $data, $onlyExecute);
     }

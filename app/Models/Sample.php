@@ -492,7 +492,7 @@ class Sample extends PpciModel
                         $where .= " ( ";
                         $or = "";
                         if (strlen($param["name"]) == 36) {
-                            $where .= "so.uuid = :uuid";
+                            $where .= "so.uuid = :uuid:";
                             $data["uuid"] = $param["name"];
                             $or = " or ";
                         }

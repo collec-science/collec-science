@@ -2,7 +2,7 @@
 <h2>{t}Collections{/t}</h2>
 <div class="row">
 	<div class="col-md-12">
-		{if $rights.param == 1}
+		{if $rights.param == 't'}
 		<a href="collectionChange?collection_id=0">
 			{t}Nouveau...{/t}
 		</a>
@@ -58,30 +58,30 @@
 					<td>{$data[lst].sampletypes}</td>
 					<td>{$data[lst].eventtypes}</td>
 					<td class="center">
-						{if $data[lst].sample_name_unique == 1}
+						{if $data[lst].sample_name_unique == 't'}
 						{t}oui{/t}
 						{/if}
 					</td>
 					<td class="center">
-						{if $data[lst].public_collection == 1}
+						{if $data[lst].public_collection == 't'}
 						{t}oui{/t}
 						{/if}
 					</td>
 					<td>{$data[lst].license_name}</td>
-					<td class="center">{if $data[lst].no_localization == 1}{t}oui{/t}{/if}</td>
-					<td class="center">{if $data[lst].external_storage_enabled == 1}{t}oui{/t}{/if}</td>
+					<td class="center">{if $data[lst].no_localization == 't'}{t}oui{/t}{/if}</td>
+					<td class="center">{if $data[lst].external_storage_enabled == 't'}{t}oui{/t}{/if}</td>
 					<td>{$data[lst].external_storage_root}</td>
 					<td class="center">
-						{if $data[lst].allowed_import_flow == 1}
+						{if $data[lst].allowed_import_flow == 't'}
 						{t}oui{/t}
 						{/if}
 					</td>
 					<td class="center">
-						{if $data[lst].allowed_export_flow == 1}
+						{if $data[lst].allowed_export_flow == 't'}
 						{t}oui{/t}
 						{/if}
 					</td>
-					<td class="center">{if $data[lst].notification_enabled == 1}{t}oui{/t}{/if}</td>
+					<td class="center">{if $data[lst].notification_enabled == 't'}{t}oui{/t}{/if}</td>
 					<td>{$data[lst].notification_mails}</td>
 					<td class="center">{$data[lst].expiration_delay}</td>
 					<td class="center">{$data[lst].event_due_delay}</td>

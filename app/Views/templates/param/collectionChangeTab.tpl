@@ -131,7 +131,7 @@
                                 </label>
                                 <label>
                                     <input type="radio" name="sample_name_unique" id="sau1" value="t" {if
-                                        $data.sample_name_unique==1}checked{/if}>
+                                        $data.sample_name_unique== 't'}checked{/if}>
                                     {t}oui{/t}
                                 </label>
                             </div>
@@ -150,7 +150,7 @@
                                 </label>
                                 <label>
                                     <input type="radio" name="allowed_import_flow" id="aif_2" value="t" {if
-                                        $data.allowed_import_flow==1}checked{/if}>
+                                        $data.allowed_import_flow== 't'}checked{/if}>
                                     {t}oui{/t}
                                 </label>
                             </div>
@@ -169,7 +169,7 @@
                                 </label>
                                 <label>
                                     <input type="radio" name="allowed_export_flow" id="aef_2" value="t" {if
-                                        $data.allowed_export_flow==1}checked{/if}>
+                                        $data.allowed_export_flow== 't'}checked{/if}>
                                     {t}oui{/t}
                                 </label>
                             </div>
@@ -188,7 +188,7 @@
                                 </label>
                                 <label>
                                     <input type="radio" name="public_collection" id="pub2" value="t" {if
-                                        $data.public_collection==1}checked{/if}>
+                                        $data.public_collection== 't'}checked{/if}>
                                     {t}oui{/t}
                                 </label>
                             </div>
@@ -217,15 +217,16 @@
                         <div class="col-md-8">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="no_localization" id="no_localization1" value="t" {if
-                                        $data.no_localization== 1 }checked{/if}>
-                                    {t}oui{/t}
-                                </label>
-                                <label>
                                     <input type="radio" name="no_localization" id="no_localization0" value="f" {if
-                                        $data.no_localization != 1}checked{/if}>
+                                        $data.no_localization != 't'}checked{/if}>
                                     {t}non{/t}
                                 </label>
+                                <label>
+                                    <input type="radio" name="no_localization" id="no_localization1" value="t" {if
+                                        $data.no_localization== 't' }checked{/if}>
+                                    {t}oui{/t}
+                                </label>
+                                
                             </div>
                         </div>
                     </div>
@@ -236,15 +237,16 @@
                         <div class="col-md-8">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="external_storage_enabled" id="external_storage_enabled1"
-                                        value="t" {if $data.external_storage_enabled=="1" }checked{/if}>
-                                    {t}oui{/t}
-                                </label>
-                                <label>
                                     <input type="radio" name="external_storage_enabled" id="external_storage_enabled0"
                                        value="f" {if $data.external_storage_enabled!=1}checked{/if}>
                                     {t}non{/t}
                                 </label>
+                                <label>
+                                    <input type="radio" name="external_storage_enabled" id="external_storage_enabled1"
+                                        value="t" {if $data.external_storage_enabled=="1" }checked{/if}>
+                                    {t}oui{/t}
+                                </label>
+                                
                             </div>
                         </div>
                     </div>
@@ -270,7 +272,7 @@
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="groupes[]" value="{$groupes[lst].aclgroup_id}" {if
-                                            $groupes[lst].checked==1}checked{/if}>
+                                            $groupes[lst].checked== 't'}checked{/if}>
                                         {$groupes[lst].groupe}
                                     </label>
                                 </div>
@@ -292,7 +294,7 @@
                                     <label>
                                         <input type="checkbox" name="sampletypes[]"
                                             value="{$sampletypes[lst].sample_type_id}" {if
-                                            $sampletypes[lst].checked==1}checked{/if}>
+                                            $sampletypes[lst].checked== 't'}checked{/if}>
                                         {$sampletypes[lst].sample_type_name}
                                     </label>
                                 </div>
@@ -314,7 +316,7 @@
                                     <label>
                                         <input type="checkbox" name="eventtypes[]"
                                             value="{$eventtypes[lst].event_type_id}" {if
-                                            $eventtypes[lst].checked==1}checked{/if}>
+                                            $eventtypes[lst].checked== 't'}checked{/if}>
                                         {$eventtypes[lst].event_type_name}
                                     </label>
                                 </div>
@@ -338,7 +340,7 @@
                                 </label>
                                 <label>
                                     <input type="radio" class="notificationEnabled" name="notification_enabled"
-                                        id="ne1" value="t" {if $data.notification_enabled==1}checked{/if}>
+                                        id="ne1" value="t" {if $data.notification_enabled== 't'}checked{/if}>
                                     {t}oui{/t}
                                 </label>
                             </div>

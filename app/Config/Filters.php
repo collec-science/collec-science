@@ -47,7 +47,11 @@ class Filters extends BaseConfig
     public array $globals = [
         'before' => [
             // 'honeypot',
-            'csrf',
+            'csrf'=>['except'=>[
+                'apiv1sampleWrite',
+                'apiv1sampleDelete',
+                'apiv1movementWrite'
+            ]],
             'invalidchars',
             'legacyRoute',
             'startcall',

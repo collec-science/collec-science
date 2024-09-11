@@ -2,7 +2,7 @@
 <h2>{t}Modification d'une application (module de gestion des droits){/t}</h2>
 <div class="row">
 <div class="col-md-6">
-<a href="index.php?module=appliList">{t}Retour à la liste des applications{/t}</a>
+<a href="appliList">{t}Retour à la liste des applications{/t}</a>
 <form class="form-horizontal protoform" id="appliForm" method="post" action="index.php">
 <input type="hidden" name="aclappli_id" value="{$data.aclappli_id}">
 <input type="hidden" name="moduleBase" value="appli">

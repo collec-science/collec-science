@@ -52,7 +52,7 @@
 			{/if}
 			{if $lostPassword == 1 }
 			<div class="form-group center col-sm-12 input-lg">
-				<a href="index.php?module=passwordlostIslost">
+				<a href="passwordlostIslost">
 					{t}Mot de passe oublié ?{/t}</a>
 			</div>
 			{/if}

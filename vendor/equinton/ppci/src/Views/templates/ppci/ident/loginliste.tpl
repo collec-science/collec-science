@@ -24,7 +24,7 @@
 </script>
 <h2>{t}Liste des logins déclarés dans la base de données{/t}</h2>
 
-<a href="index.php?module=loginChange&id=0">{t}Nouveau login{/t}</a>
+<a href="loginChange?id=0">{t}Nouveau login{/t}</a>
 <div class="row">
 	<div class="col-lg-8">
 		<div class="row">
@@ -45,7 +45,7 @@
 					<tbody>
 						{section name=lst loop=$data}
 						<tr>
-							<td><a href="index.php?module=loginChange&id={$data[lst].id}">{$data[lst].login}</a></td>
+							<td><a href="loginChange&id={$data[lst].id}">{$data[lst].login}</a></td>
 							<td>{$data[lst].nom}&nbsp;{$data[lst].prenom}</td>
 							<td>
 								<div class="mail">{$data[lst].mail}</div>&nbsp;

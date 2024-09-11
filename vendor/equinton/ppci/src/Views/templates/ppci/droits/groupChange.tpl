@@ -1,8 +1,7 @@
-{* Administration > ACL - groupes de logins > Nom du groupe > *}
 <h2>{t}Modification d'un groupe et rattachement des logins{/t}</h2>
 <div class="row">
 <div class="col-lg-6">
-<a href="index.php?module=groupList">{t}Retour à la liste des groupes{/t}</a>
+<a href="groupList">{t}Retour à la liste des groupes{/t}</a>
 
 <form id="groupForm" method="post"  class="form-horizontal protoform"  action="index.php">
 <input type="hidden" name="moduleBase" value="group">

@@ -78,7 +78,7 @@ $(document).ready(function() {
 <h2>{t}Saisie/modification d'un compte{/t}</h2>
 <div class="row">
 <div class="col-lg-6">
-<a href="index.php?module=loginList">{t}Retour à la liste des logins{/t}</a>
+<a href="loginList">{t}Retour à la liste des logins{/t}</a>
 
 <form class="form-horizontal" id="formLogin" method="post" action="index.php">
 <input type="hidden" name="moduleBase" value="login">

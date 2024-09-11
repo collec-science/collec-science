@@ -34,12 +34,12 @@ $(document).ready(function() {
 </script>
 <div class="row">
 	<div class="col-lg-8 col-md-12">
-		<a href="index.php?module=requestList">
+		<a href="requestList">
 			<img src="display/images/list.png" height="25">
 			{t}Retour à la liste{/t}
 		</a>
 		&nbsp;
-		<a href="index.php?module=dbstructureSchema" target="_blank">
+		<a href="dbstructureSchema" target="_blank">
 			<img src="display/images/pdf.png" height="25">
 			{t}Structure de la base de données{/t}
 		</a>

@@ -1,7 +1,7 @@
 <h2>{t}Modification d'un login (module de gestion des droits){/t}</h2>
 <div class="row">
       <div class="col-md-6">
-            <a href="index.php?module=aclloginList">{t}Retour à la liste des logins{/t}</a>
+            <a href="aclloginList">{t}Retour à la liste des logins{/t}</a>
 
             <form class="form-horizontal protoform" id="loginForm" method="post" action="index.php">
                   <input type="hidden" name="moduleBase" value="acllogin">

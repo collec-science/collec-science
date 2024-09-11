@@ -2,7 +2,7 @@
 <h2>{t}Liste des groupes de logins{/t}</h2>
 	<div class="row">
 	<div class="col-md-6">
-<a href="index.php?module=groupChange&aclgroup_id=0">
+<a href="groupChange?aclgroup_id=0">
 {t}Nouveau groupe racine...{/t}
 </a>
 
@@ -18,7 +18,7 @@
 {section name=lst loop=$data}
 <tr>
 <td>
-<a href="index.php?module=groupChange&aclgroup_id={$data[lst].aclgroup_id}&aclgroup_id_parent={$data[lst].aclgroup_id_parent}">
+<a href="groupChange?aclgroup_id={$data[lst].aclgroup_id}&aclgroup_id_parent={$data[lst].aclgroup_id_parent}">
 {for $boucle = 1 to $data[lst].level}
 &nbsp;&nbsp;&nbsp;
 {/for}
@@ -27,7 +27,7 @@
 </td>
 <td class="center">{$data[lst].nblogin}</td>
 <td class="center">
-<a href="index.php?module=groupChange&aclgroup_id=0&aclgroup_id_parent={$data[lst].aclgroup_id}">
+<a href="groupChange?aclgroup_id=0&aclgroup_id_parent={$data[lst].aclgroup_id}">
 <img src="display/images/droits/list-add.png" height="20">
 </a>
 </tr>

@@ -27,20 +27,14 @@ class Samplews
         /**
          * init the orm classes
          */
-        $classes = array(
-            "sample",
-            "identifierType",
-            "objectIdentifier",
-            "samplingPlace",
-            "country",
-            "campaign",
-            "referent",
-            "sampleType"
-        );
-        foreach ($classes as $classe) {
-            $className = ucfirst($classe);
-            $this->$classe = new $className;
-        }
+        $this->sample = new Sample;
+        $this->identifierType = new IdentifierType;
+        $this->objectIdentifier = new ObjectIdentifier;
+        $this->samplingPlace = new SamplingPlace;
+        $this->country = new Country;
+        $this->campaign = new Campaign;
+        $this->referent = new Referent;
+        $this->sampleType = new SampleType;
     }
     /**
      * insert or update a sample

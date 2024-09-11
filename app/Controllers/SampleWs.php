@@ -1,30 +1,61 @@
 <?php
+
 namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\SampleWs as LibrariesSampleWs;
+use App\Models\SearchSample;
+use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\RESTful\ResourceController;
 
-class SampleWs extends PpciController {
-protected $lib;
-function __construct() {
-$this->lib = new LibrariesSampleWs();
-}
-function detail() {
-return $this->lib->detail();
-}
-function write() {
-return $this->lib->write();
-}
-function delete() {
-return $this->lib->delete();
-}
-function detail() {
-return $this->lib->detail();
-}
-function getListUIDS() {
-return $this->lib->getListUIDS();
-}
-function getList() {
-return $this->lib->getList();
-}
+class SampleWs extends ResourceController
+{
+    use ResponseTrait;
+    protected $lib;
+    function __construct()
+    {
+        $this->lib = new LibrariesSampleWs();
+        if (!isset($_SESSION["searchSample"])) {
+            $_SESSION["searchSample"] = new SearchSample;
+        }
+        if (!empty($_SESSION["lastGet"])) {
+            foreach ($_SESSION["lastGet"] as $k => $v) {
+                if (!isset($_REQUEST[$k])) {
+                    $_REQUEST[$k] = $v;
+                }
+                if (!isset($_GET[$k])) {
+                    $_GET[$k] = $v;
+                }
+            }
+        }
+    }
+    function detail()
+    {
+        ob_clean();
+        return $this->respond($this->lib->detail());
+    }
+    function write()
+    {
+        ob_clean();
+        return $this->respond($this->lib->write());
+    }
+    function supprimer()
+    {
+        ob_clean();
+        return $this->respond($this->lib->delete());
+    }
+    function getListUIDS()
+    {
+        ob_clean();
+        return $this->respond($this->lib->getListUIDS());
+    }
+    function getList()
+    {
+        $data = $this->lib->getList();
+        ob_clean();
+        $vue = service("AjaxView");
+        $vue->set($data);
+        return $vue->send();
+        //return $this->respond($data);
+    }
 }

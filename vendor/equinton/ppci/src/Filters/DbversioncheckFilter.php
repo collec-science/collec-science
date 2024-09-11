@@ -18,11 +18,12 @@ class DbversioncheckFilter implements FilterInterface
     public bool $isDbversionOk = false;
     public function before(RequestInterface $request, $arguments = null)
     {
-        /**
-         * @var Message
-         */
-        $message = service('MessagePpci');
+
         try {
+            /**
+             * @var Message
+             */
+            $message = service('MessagePpci');
             if (!isset($_SESSION["dbversionCheck"])) {
                 /**
                  * @var App
@@ -36,6 +37,8 @@ class DbversioncheckFilter implements FilterInterface
                 $dbversion = new Dbversion();
                 if ($dbversion->verifyVersion($paramApp->dbversion)) {
                     $this->isDbversionOk = true;
+                    $_SESSION["dbversionCheck"] = true;
+                    $message->set("ok");
                 } else {
                     $message->set(
                         sprintf(
@@ -45,10 +48,9 @@ class DbversioncheckFilter implements FilterInterface
                         ),
                         true
                     );
+                    $defaultPage = new \Ppci\Libraries\DefaultPage();
+                    return ($defaultPage->display());
                 }
-                $_SESSION["dbversionCheck"] = true;
-                $defaultPage = new \Ppci\Libraries\DefaultPage();
-                return ($defaultPage->display());
             }
         } catch (\Exception $e) {
             $message->set($e->getMessage());
@@ -56,7 +58,5 @@ class DbversioncheckFilter implements FilterInterface
             return ($defaultPage->display());
         }
     }
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
-    }
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {}
 }

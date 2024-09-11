@@ -48,6 +48,9 @@ class PpciController extends \App\Controllers\BaseController
                 if (!isset($_REQUEST[$k])) {
                     $_REQUEST[$k] = $v;
                 }
+                if (!isset($_GET[$k])) {
+                    $_GET[$k] = $v;
+                }
             }
         }
     }

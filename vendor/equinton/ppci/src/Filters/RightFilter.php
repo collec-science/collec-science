@@ -1,4 +1,5 @@
 <?php
+
 namespace Ppci\Filters;
 
 use CodeIgniter\Filters\FilterInterface;
@@ -25,14 +26,16 @@ class RightFilter implements FilterInterface
                 $requiredRights = $ppciRights->getRights($moduleName);
             }
             if (!empty($requiredRights)) {
+                $hasRedirect = true;
                 $ok = false;
                 if (!isset($_SESSION["isLogged"])) {
                     if ($request->is("get")) {
                         $_SESSION["moduleRequired"] = $moduleName;
+                        $hasRedirect = false;
                     }
                     $login = new \Ppci\Libraries\Login();
                     $retour = $login->getLogin();
-                    if (isset($retour)) {
+                    if (!empty($retour)) {
                         return redirect()->to(site_url($retour));
                     }
                 }
@@ -50,9 +53,9 @@ class RightFilter implements FilterInterface
                     $defaultPage = new \Ppci\Libraries\DefaultPage();
                     return ($defaultPage->display());
                 } else {
-                    if (isset($_SESSION["moduleRequired"])) {
+                    if (isset($_SESSION["moduleRequired"]) && $hasRedirect) {
                         $retour = $_SESSION["moduleRequired"];
-                        unset ($_SESSION["moduleRequired"]);
+                        unset($_SESSION["moduleRequired"]);
                         return redirect($retour);
                     }
                 }
@@ -60,7 +63,5 @@ class RightFilter implements FilterInterface
         }
     }
 
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
-    }
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {}
 }

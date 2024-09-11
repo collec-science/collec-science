@@ -1,20 +1,20 @@
 <div class="center-block hidden-xs hidden-sm ">
     <div class="col-md-offset-1 col-md-2 center">
-        <a href="index.php?module=containerList">
+        <a href="containerList">
             <img src="display/images/box.png" height="50">
             <br>
             {t}Liste des contenants{/t}
         </a>
     </div>
     <div class="col-md-2 center">
-        <a href="index.php?module=sampleList">
+        <a href="sampleList">
             <img src="display/images/sample.png" height="50">
             <br>
             {t}Liste des échantillons{/t}
         </a>
     </div>
     <div class="col-md-2 center">
-        <a href="index.php?module=smallMovementChange">
+        <a href="smallMovementChange">
             <img src="display/images/tablet.png" height="50">
             <br>
             {t}Mouvements petit terminal{/t}
@@ -25,7 +25,7 @@
 <!-- small terminal -->
 <div class="center-block hidden-md hidden-lg">
     <div class="col-xs-4 center">
-        <a href="index.php?module=sampleDisplay">
+        <a href="sampleDisplay">
             <img src="display/images/sample.png" height="50">
             <br>
             <span class="input-lg">
@@ -34,7 +34,7 @@
         </a>
     </div>
     <div class="col-xs-4 center">
-        <a href="index.php?module=smallMovementChange">
+        <a href="smallMovementChange">
             <img src="display/images/tablet.png" height="50">
             <br>
             <span class="input-lg">
@@ -43,7 +43,7 @@
         </a>
     </div>
     <div class="col-xs-4 center">
-        <a href="index.php?module=containerDisplay">
+        <a href="containerDisplay">
             <img src="display/images/box.png" height="50">
             <br>
             <span class="input-lg">
@@ -57,21 +57,21 @@
 <div class="row top10">&nbsp;</div>
 <div class="hidden-xs hidden-sm center-block">
     <div class="col-md-offset-1 col-md-2 center">
-        <a href="index.php?module=fastInputChange">
+        <a href="fastInputChange">
             <img src="display/images/input.png" height="50">
             <br>
             {t}Entrer ou déplacer dans un contenant{/t}
         </a>
     </div>
     <div class="col-md-2 center">
-        <a href="index.php?module=movementBatchOpen">
+        <a href="movementBatchOpen">
             <img src="display/images/barcode-scanner.png" height="50">
             <br>
             {t}Entrer ou déplacer / Sortir par lots{/t}
         </a>
     </div>
     <div class="col-md-2 center">
-        <a href="index.php?module=fastOutputChange">
+        <a href="fastOutputChange">
             <img src="display/images/output.png" height="50">
             <br>
             {t}Sortir du stock{/t}

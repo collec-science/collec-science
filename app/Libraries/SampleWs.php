@@ -212,7 +212,7 @@ class SampleWs extends PpciLibrary
                 throw new PpciException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
             }
             $_SESSION["searchSample"]->setParam($_REQUEST);
-            $data = $samplews->sample->getListUIDS($_SESSION["searchSample"]->getParam());
+            $data = $this->samplews->sample->getListUIDS($_SESSION["searchSample"]->getParam());
         } catch (PpciException $e) {
             $error_code = $e->getCode();
             if ($error_code == 0) {
@@ -238,17 +238,16 @@ class SampleWs extends PpciLibrary
             if (empty($_REQUEST["collection_id"])) {
                 throw new PpciException(_("Le numéro de la collection est obligatoire"), 400);
             }
-            require_once "modules/classes/collection.class.php";
             $collection = new Collection();
             $dcollection = $collection->lire($_REQUEST["collection_id"]);
             if (!collectionVerify($dcollection["collection_id"])) {
                 throw new PpciException(sprintf(_("Droits insuffisants pour la collection %s"), $dcollection["collection_name"]), 401);
             }
             if (!$dcollection["allowed_export_flow"]) {
-                throw new PpciException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
+                throw new PpciException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $dcollection["collection_name"]), 401);
             }
             $_SESSION["searchSample"]->setParam($_REQUEST);
-            $data = $samplews->sample->getListFromParam($_SESSION["searchSample"]->getParam());
+            $data = $this->samplews->sample->getListFromParam($_SESSION["searchSample"]->getParam());
             if (isset($_REQUEST["template_name"])) {
                 $datasetTemplate = new DatasetTemplate();
                 $ddataset = $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
@@ -262,11 +261,8 @@ class SampleWs extends PpciLibrary
             }
             $data = array(
                 "error_code" => $error_code,
-                "error_message" => $errors[$error_code]
+                "error_message" => $this->errors[$error_code]. " - ".$e->getMessage()
             );
-            if ($APPLI_modeDeveloppement) {
-                $data["error_content"] = $e->getMessage();
-            }
             $this->message->setSyslog($e->getMessage());
         } finally {
             if ($_REQUEST["nullAsEmpty"] == 1) {
@@ -275,9 +271,7 @@ class SampleWs extends PpciLibrary
                         $item = "";
                 });
             }
-            $this->vue = service("AjaxView");
-            $this->vue->setJson(json_encode($data));
-            return $this->vue->send();
+           return $data;
         }
     }
     function delete()

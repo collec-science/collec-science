@@ -8,8 +8,8 @@ var type_movement = "{$data.movement_type_id}";
 	 */
 	function searchType() {
 	var family = $("#container_family_id").val();
-	var url = "";
-	$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
+	var url = "containerTypeGetFromFamily";
+	$.getJSON ( url, { "container_family_id":family } , function( data ) {
 		if (data != null) {
 			options = '<option value="" selected>{t}Choisissez...{/t}</option>';
 			 for (var i = 0; i < data.length; i++) {
@@ -28,9 +28,9 @@ var type_movement = "{$data.movement_type_id}";
 	 */
 	function searchContainer () {
 		var containerType = $("#container_type_id").val();
-		var url = "";
+		var url = "containerGetFromType";
 		var uid = 0;
-		$.getJSON ( url, { "module":"containerGetFromType", "container_type_id":containerType } , function( data ) {
+		$.getJSON ( url, { "container_type_id":containerType } , function( data ) {
 			if (data != null) {
 			options = '';
 			for (var i = 0; i < data.length; i++) {
@@ -81,9 +81,9 @@ var type_movement = "{$data.movement_type_id}";
 	 * Recherche du libelle du container en saisie directe
 	 */
 	 $("#container_uid").change(function () {
-			var url = "";
+			var url = "containerGetFromUid";
 			var uid = $(this).val();
-			$.getJSON ( url, { "module":"containerGetFromUid", "uid":uid } , function( data ) {
+			$.getJSON ( url, { "uid":uid } , function( data ) {
 				if (data != null) {
 				var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " ("+data.object_status_name + ")</option>";
 				$("#container_id").val(data.container_id);
@@ -98,8 +98,8 @@ var type_movement = "{$data.movement_type_id}";
 		});
 	 });
 	 function getOccupation(uid) {
-		var url = "";
-		var data = { "module":"containerGetOccupation", "uid": uid };
+		var url = "containerGetOccupation";
+		var data = { "uid": uid };
 		$.ajax ( { url:url, data: data})
 		.done (function( d ) {
 			if (d ) {

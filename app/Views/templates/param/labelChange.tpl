@@ -14,8 +14,8 @@
 			var oi = $( "#metadata_id" ).val();
 			if ( oi.length > 0 ) {
 				$.ajax( {
-					url: "",
-					data: { "module": "metadataGetschema", "metadata_id": oi }
+					url: "metadataGetschema",
+					data: {  "metadata_id": oi }
 				} )
 					.done( function ( value ) {
 						$.each( JSON.parse( value ), function ( i, obj ) {

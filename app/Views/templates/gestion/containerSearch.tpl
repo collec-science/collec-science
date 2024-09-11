@@ -1,11 +1,11 @@
 <script>
 	var appli_code ="{$APPLI_code}";
 	$(document).ready(function() {
-		var type_init = {if $containerSearch.container_type_id > 0}{$containerSearch.container_type_id}{else}0{/if};
+		var type_init = "{if $containerSearch.container_type_id > 0}{$containerSearch.container_type_id}{else}0{/if}";
 		function searchType() {
 			var family = $("#container_family_id").val();
-			var url = "";
-			$.getJSON ( url, { "module":"containerTypeGetFromFamily", "container_family_id":family } , function( data ) {
+			var url = "containerTypeGetFromFamily";
+			$.getJSON ( url, { "container_family_id":family } , function( data ) {
 				if (data != null) {
 					options = '<option value="">{t}Choisissez...{/t}</option>';
 					for (var i = 0; i < data.length; i++) {

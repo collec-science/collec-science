@@ -9,9 +9,8 @@ $(document).ready( function () {
 		var id = $("#booking_id").val();
 		$("#overlaps").text("");
 		if (from.length > 0 && to.length > 0 && uid > 0) {
-			var url = "";
+			var url = "bookingVerifyInterval";
 			$.getJSON ( url, {
-				"module":"bookingVerifyInterval",
 				"uid":uid,
 				"booking_id":id,
 				"date_from":from,

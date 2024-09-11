@@ -202,7 +202,7 @@ class SampleWs extends PpciLibrary
             if (empty($_REQUEST["collection_id"])) {
                 throw new PpciException(_("Le numéro de la collection est obligatoire"), 400);
             }
-            require_once "modules/classes/collection.class.php";
+            printA($_SESSION);die;
             $collection = new Collection();
             $dcollection = $collection->lire($_REQUEST["collection_id"]);
             if (!collectionVerify($dcollection["collection_id"])) {

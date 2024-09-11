@@ -23,15 +23,14 @@ $(document).ready(function() {
 		/*
 		 * Retourne le detail d'un objet, par interrogation ajax
 		 */
-		var url = "";
+		var url = "objectGetDetail";
 		var chaine ;
 		var is_container = 0;
 		if (champ == "container") {
 			is_container = 1;
 		}
-		//$.getJSON ( url, { "module":"objectGetDetail", "container_family_id":family } , function( data ) {
 
-		$.ajax ( { url:url, method:"GET", data : { module:"objectGetDetail", uid:uid, is_container:is_container }, success : function ( djs ) {
+		$.ajax ( { url:url, method:"GET", data : { uid:uid, is_container:is_container }, success : function ( djs ) {
 			var data = JSON.parse(djs);
 			if (data.length > 0) {
 				if (!isNaN(data[0].uid)) {

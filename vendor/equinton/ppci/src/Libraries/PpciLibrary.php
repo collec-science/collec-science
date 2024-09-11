@@ -8,7 +8,7 @@ class PpciLibrary
 {
     protected $session;
     protected $message;
-    protected PpciModel $dataClass;
+    protected PpciModel $dataclass;
     protected App $appConfig;
     protected $log;
     protected int $id;

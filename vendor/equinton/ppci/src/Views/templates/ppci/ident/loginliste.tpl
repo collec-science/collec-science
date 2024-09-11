@@ -45,7 +45,7 @@
 					<tbody>
 						{section name=lst loop=$data}
 						<tr>
-							<td><a href="loginChange&id={$data[lst].id}">{$data[lst].login}</a></td>
+							<td><a href="loginChange?id={$data[lst].id}">{$data[lst].login}</a></td>
 							<td>{$data[lst].nom}&nbsp;{$data[lst].prenom}</td>
 							<td>
 								<div class="mail">{$data[lst].mail}</div>&nbsp;

@@ -92,8 +92,8 @@
        	    var sti = $("#sample_type_id").val();
        	    if (sti) {
        	    	$.ajax( {
-       	    		url: "",
-       	    		data: { "module": "sampleTypeMetadata", "sample_type_id": sti }
+       	    		url: "sampleTypeMetadata",
+       	    		data: { "sample_type_id": sti }
        	    	})
        	    	.done (function (value) {
        	    		if (value) {
@@ -113,8 +113,8 @@
     		 * Recuperation de la liste des lieux de prelevement rattaches a la collection
     		 */
     		var colid = $("#collection_id").val();
-    		var url = "";
-    		var data = { "module":"samplingPlaceGetFromCollection", "collection_id": colid };
+    		var url = "samplingPlaceGetFromCollection";
+    		var data = { "collection_id": colid };
     		$.ajax ( { url:url, data: data})
     		.done (function( d ) {
    				if (d ) {
@@ -147,8 +147,8 @@
     			var x = $("#wgs84_x").val();
     			var y = $("#wgs84_y").val();
     			if ( x.length == 0 && y.length == 0 ) {
-    				var url = "";
-    	    		var data = { "module":"samplingPlaceGetCoordinate", "sampling_place_id": locid };
+    				var url = "samplingPlaceGetCoordinate";
+    	    		var data = { "sampling_place_id": locid };
     	    		$.ajax ( { url:url, data: data})
     	    		.done (function( data ) {
     	    			data = JSON.parse(data);
@@ -169,8 +169,8 @@
     		var sti = $("#sample_type_id").val();
        	    if (sti) {
        	    	$.ajax( {
-       	    		url: "",
-       	    		data: { "module": "sampleTypeGenerator", "sample_type_id": sti }
+       	    		url: "sampleTypeGenerator",
+       	    		data: { "sample_type_id": sti }
        	    	})
        	    	.done (function (value) {
        	    		if (value.length > 0) {
@@ -186,8 +186,8 @@
 		function setGeographicVisibility() {
 			var collection_id = $("#collection_id").val();
 			$.ajax( {
-				url: "",
-				data: { "module": "collectionGet", "collection_id": collection_id}
+				url: "collectionGet",
+				data: { "collection_id": collection_id}
 			})
 			.done (function (value) {
 				value = JSON.parse(value);
@@ -203,8 +203,8 @@
 		function getSampletype() {
 			var collection_id = $("#collection_id").val();
 			$.ajax( {
-				url: "",
-				data: { "module": "sampleTypeGetListAjax", "collection_id": collection_id}
+				url: "sampleTypeGetListAjax",
+				data: { "collection_id": collection_id}
 			})
 			.done (function (value) {
 				d = JSON.parse(value);

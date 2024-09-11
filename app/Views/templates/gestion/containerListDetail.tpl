@@ -282,9 +282,9 @@ $(document).ready(function () {
 			$("#container_uid").val(a_texte[0]);
 		});
 		$("#container_uid").change(function () {
-			var url = "";
+			var url = "containerGetFromUid";
 			var uid = $(this).val();
-			$.getJSON ( url, { "module":"containerGetFromUid", "uid":uid } , function( data ) {
+			$.getJSON ( url, { "uid":uid } , function( data ) {
 				if (data.container_id ) {
 				var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " ("+data.object_status_name + ")</option>";
 				$("#container_id").val(data.container_id);

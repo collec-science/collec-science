@@ -658,8 +658,7 @@
 </script>
 <div class="col-lg-12">
 {include file="gestion/displayPhotoScript.tpl"}
-	<form method="POST" id="sampleFormListPrint" target="_blank" "" enctype="multipart/form-data">
-		<input type="hidden" id="samplemodule" name="module" value="samplePrintLabel">
+	<form method="POST" id="sampleFormListPrint" target="_blank" action="samplePrintLabel" enctype="multipart/form-data">
 		<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
 		<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
 		{if $rights.manage == 1}

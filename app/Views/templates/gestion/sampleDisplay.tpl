@@ -246,8 +246,8 @@
 			if ( referentId > 0 && !isReferentDisplayed ) {
 				isReferentDisplayed = true;
 				$.ajax( {
-					url: "",
-					data: { "module": "referentGetFromId", "referent_id": referentId }
+					url: "referentGetFromId",
+					data: {  "referent_id": referentId }
 				} )
 					.done( function ( value ) {
 						value = JSON.parse( value );

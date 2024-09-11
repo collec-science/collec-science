@@ -117,8 +117,8 @@
                 }
                 lastSampletypeId = sampleTypeId;
                 $.ajax( {
-                    url: "",
-                    data: { "module": "sampleTypeMetadataSearchable", "sample_type_id": sampleTypeId }
+                    url: "sampleTypeMetadataSearchable",
+                    data: { "sample_type_id": sampleTypeId }
                 })
                 .done (function (value) {
                     if (value.length > 0) {

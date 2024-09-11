@@ -62,9 +62,9 @@
         $( ".typeEventSearch" ).change( function () {
             var collection_id = $( "#collection_id" ).val();
             var object_type = $( "#object_type" ).val();
-            var url = "";
-            var data = { "module": "eventTypeGetAjax", "collection_id": collection_id, "object_type": object_type };
-            $.ajax( { url: url, data: { "module": "eventTypeGetAjax", "collection_id": collection_id, "object_type": object_type } } )
+            var url = "eventTypeGetAjax";
+            var data = {  "collection_id": collection_id, "object_type": object_type };
+            $.ajax( { url: url, data: data } )
                 .done( function ( d ) {
                     if ( d ) {
                         d = JSON.parse( d );
@@ -78,7 +78,8 @@
                     }
                 } );
             if ( object_type == 1 ) {
-                var data = { "module": "sampleTypeGetListAjax", "collection_id": collection_id };
+                url = "sampleTypeGetListAjax";
+                var data = { "collection_id": collection_id };
                 $.ajax( { url: url, data: data } )
                     .done( function ( d ) {
                         if ( d ) {
@@ -95,8 +96,8 @@
                 $( "#collection_id" ).prop( "disabled", false );
                 $( "#object_type_id_label" ).html( "{t}Type d'échantillon :{/t}" );
             } else {
-                var data = { "module": "containerTypeGetListAjax" };
-                $.ajax( { url: url, data: data } )
+                url = "containerTypeGetListAjax";
+                $.ajax( { url: url } )
                     .done( function ( d ) {
                         if ( d ) {
                             d = JSON.parse( d );

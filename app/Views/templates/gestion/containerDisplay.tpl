@@ -223,8 +223,8 @@
 			var referentId = "{$data.referent_id}";
 			if (referentId > 0) {
 			$.ajax( {
-				url: "",
-				data: { "module": "referentGetFromId", "referent_id": referentId }
+				url: "referentGetFromId",
+				data: { "referent_id": referentId }
 			})
 			.done (function (value) {
 				value = JSON.parse(value);

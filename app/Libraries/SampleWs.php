@@ -202,14 +202,13 @@ class SampleWs extends PpciLibrary
             if (empty($_REQUEST["collection_id"])) {
                 throw new PpciException(_("Le numéro de la collection est obligatoire"), 400);
             }
-            printA($_SESSION);die;
             $collection = new Collection();
             $dcollection = $collection->lire($_REQUEST["collection_id"]);
             if (!collectionVerify($dcollection["collection_id"])) {
                 throw new PpciException(sprintf(_("Droits insuffisants pour la collection %s"), $dcollection["collection_name"]), 401);
             }
             if (!$dcollection["allowed_export_flow"]) {
-                throw new PpciException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
+                throw new PpciException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $dcollection["collection_name"]), 401);
             }
             $_SESSION["searchSample"]->setParam($_REQUEST);
             $data = $this->samplews->sample->getListUIDS($_SESSION["searchSample"]->getParam());

@@ -8,14 +8,14 @@ use CodeIgniter\Cookie\Cookie;
 
 class Login extends PpciLibrary
 {
-    protected $dataclass;
+    protected $datalogin;
     public $identificationConfig;
     protected $acllogin;
     protected $gacltotp;
     function __construct()
     {
         parent::__construct();
-        $this->dataclass = new \Ppci\Models\Login();
+        $this->datalogin = new \Ppci\Models\Login();
         $this->identificationConfig = service('IdentificationConfig');
         $this->acllogin = new \Ppci\Models\Acllogin();
         $this->gacltotp = new Gacltotp($this->appConfig->privateKey, $this->appConfig->pubKey);
@@ -30,7 +30,10 @@ class Login extends PpciLibrary
         try {
             if (!empty($_REQUEST["token"]) && !empty($_REQUEST["login"])) {
                 $ident_type = "ws";
-                $_SESSION["login"] = strtolower($this->dataclass->getLogin($ident_type));
+                $_SESSION["login"] = strtolower($this->datalogin->getLogin($ident_type));
+                if (!empty($_SESSION["login"])) {
+                    $this->postLogin("ws");
+                }
                 return;
             } else {
                 $ident_type = $this->identificationConfig->identificationMode;
@@ -55,7 +58,7 @@ class Login extends PpciLibrary
                  */
                 if (empty($_SESSION["login"])) {
 
-                    $_SESSION["login"] = strtolower($this->dataclass->getLogin($ident_type));
+                    $_SESSION["login"] = strtolower($this->datalogin->getLogin($ident_type));
                 }
             }
             if (!empty($_SESSION["login"])) {

@@ -483,9 +483,10 @@ class Container extends PpciModel
     function getFromType($container_type_id, $trashed = 0)
     {
         if (is_numeric($container_type_id) && $container_type_id > 0) {
-            $where = " where container_type_id = :container_type_id: and o.trashed = :trashed";
+            $where = " where container_type_id = :container_type_id: and o.trashed = :trashed:";
             $order = " order by o.identifier,o.uid";
-            return $this->getListeParamAsPrepared($this->sql . $where . $order, array("container_type_id" => $container_type_id, "trashed" => $trashed));
+            $trashed == 0 ? $trash = "false" : $trash = "true";
+            return $this->getListeParamAsPrepared($this->sql . $where . $order, array("container_type_id" => $container_type_id, "trashed" => $trash));
         }
     }
 

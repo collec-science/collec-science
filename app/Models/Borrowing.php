@@ -173,6 +173,9 @@ class Borrowing extends PpciModel
     function setReturn($uid, $return_date, ObjectClass $object = null, Container $container = null)
     {
         if ($uid > 0 && !empty($return_date)) {
+            if (str_contains($return_date, '-')) {
+                $return_date = $this->formatDateDBtoLocal($return_date);
+            }
             $borrowing_id = $this->getLastborrowing($uid);
             if ($borrowing_id > 0) {
                 $db = $this->lire($borrowing_id);

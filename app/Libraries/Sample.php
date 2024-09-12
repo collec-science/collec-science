@@ -23,6 +23,7 @@ use App\Models\MovementReason;
 use App\Models\ObjectClass;
 use App\Models\ObjectIdentifier;
 use App\Models\ObjectStatus;
+use App\Models\Printer;
 use App\Models\Referent;
 use App\Models\Sample as ModelsSample;
 use App\Models\SampleInitClass;
@@ -128,11 +129,23 @@ class Sample extends PpciLibrary
         /**
          * Ajout de la selection des modeles d'etiquettes
          */
-        include 'modules/gestion/label.functions.php';
+        if (isset($_REQUEST["label_id"])) {
+            $this->vue->set($_REQUEST["label_id"], "label_id");
+        }
+        $label = new Label;
+        $this->vue->set($label->getListe(2), "labels");
+
+        $printer = new Printer;
+        $this->vue->set($printer->getListe(2), "printers");
+        if (isset($_REQUEST["printer_id"])) {
+            $this->vue->set($_REQUEST["printer_id"], "printer_id");
+        }
         /**
          * Map default data
          */
-        include "modules/gestion/mapInit.php";
+        foreach (array("mapDefaultX", "mapDefaultY", "mapDefaultZoom") as $field) {
+            $this->vue->set($_SESSION["dbparams"][$field], $field);
+        }
         /**
          * Generate data for markers on the map
          */
@@ -172,6 +185,7 @@ class Sample extends PpciLibrary
     function display()
     {
         $this->vue = service('Smarty');
+        $this->vue->set("sampleDisplay", "moduleFrom");
         /**
          * Display the detail of the record
          */
@@ -259,7 +273,12 @@ class Sample extends PpciLibrary
          * Affichage
          */
         $this->vue->set($_SESSION["consultSeesAll"], "consultSeesAll");
-        include 'modules/gestion/mapInit.php';
+        /**
+         * Map default data
+         */
+        foreach (array("mapDefaultX", "mapDefaultY", "mapDefaultZoom") as $field) {
+            $this->vue->set($_SESSION["dbparams"][$field], $field);
+        }
         $this->vue->set("sample", "moduleParent");
         $this->vue->set("gestion/sampleDisplay.tpl", "corps");
         return $this->vue->send();
@@ -412,7 +431,6 @@ class Sample extends PpciLibrary
         } else {
             $this->message->set(_("Pas d'échantillons sélectionnés"), true);
         }
-        return $this->generateReturn();
     }
     function referentAssignMulti()
     {
@@ -444,7 +462,6 @@ class Sample extends PpciLibrary
         } else {
             $this->message->set(_("Aucun échantillon n'a été sélectionné"), true);
         }
-        return $this->generateReturn();
     }
     function eventAssignMulti()
     {
@@ -490,7 +507,6 @@ class Sample extends PpciLibrary
                 }
             }
         }
-        return $this->generateReturn();
     }
     function lendingMulti()
     {
@@ -535,12 +551,10 @@ class Sample extends PpciLibrary
         } else {
             $this->message->set(_("Aucun échantillon n'a été sélectionné, ou l'emprunteur n'a pas été renseigné"), true);
         }
-        return $this->generateReturn();
     }
     function exitMulti()
     {
         if (count($_POST["uids"]) > 0) {
-            include_once "modules/classes/movement.class.php";
             $movement = new Movement();
             try {
                 $db = $this->dataclass->db;
@@ -565,7 +579,6 @@ class Sample extends PpciLibrary
         } else {
             $this->message->set(_("Aucun échantillon n'a été sélectionné"), true);
         }
-        return $this->generateReturn();
     }
     function entryMulti()
     {
@@ -597,7 +610,6 @@ class Sample extends PpciLibrary
         } else {
             $this->message->set(_("Aucun échantillon n'a été sélectionné"), true);
         }
-        return $this->generateReturn();
     }
     function export()
     {
@@ -614,7 +626,6 @@ class Sample extends PpciLibrary
             unset($this->vue);
             $this->vue = service("Smarty");
             $this->message->set($e->getMessage(), true);
-            return $this->generateReturn();
         }
     }
     function importStage1()
@@ -743,7 +754,6 @@ class Sample extends PpciLibrary
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du pays"), true);
             $this->message->set($oe->getMessage());
         }
-        return $this->generateReturn();
     }
     function setCollection()
     {
@@ -762,7 +772,6 @@ class Sample extends PpciLibrary
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la collection"), true);
             $this->message->set($oe->getMessage());
         }
-        return $this->generateReturn();
     }
     function setCampaign()
     {
@@ -782,7 +791,6 @@ class Sample extends PpciLibrary
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la campagne"), true);
             $this->message->set($oe->getMessage());
         }
-        return $this->generateReturn();
     }
     function setStatus()
     {
@@ -803,7 +811,6 @@ class Sample extends PpciLibrary
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du statut"), true);
             $this->message->set($oe->getMessage());
         }
-        return $this->generateReturn();
     }
     function setParent()
     {
@@ -822,7 +829,6 @@ class Sample extends PpciLibrary
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du parent"), true);
             $this->message->set($oe->getMessage());
         }
-        return $this->generateReturn();
     }
     function getChildren()
     {
@@ -866,6 +872,4 @@ class Sample extends PpciLibrary
         $label = new Label;
         $vue->set($label->getListe(2), "labels");
     }
-
-    function generateReturn() {}
 }

@@ -58,27 +58,33 @@ class Sample extends PpciController
     }
     function deleteMulti()
     {
-        return $this->lib->deleteMulti();
+        $this->lib->deleteMulti();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function referentAssignMulti()
     {
-        return $this->lib->referentAssignMulti();
+        $this->lib->referentAssignMulti();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function eventAssignMulti()
     {
-        return $this->lib->eventAssignMulti();
+        $this->lib->eventAssignMulti();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function lendingMulti()
     {
-        return $this->lib->lendingMulti();
+        $this->lib->lendingMulti();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function exitMulti()
     {
-        return $this->lib->exitMulti();
+        $this->lib->exitMulti();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function entryMulti()
     {
-        return $this->lib->entryMulti();
+        $this->lib->entryMulti();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function setCountry()
     {
@@ -103,5 +109,18 @@ class Sample extends PpciController
     function getChildren()
     {
         return $this->lib->getChildren();
+    }
+    function returnToOrigin($origin)
+    {
+        if (!empty($_REQUEST["moduleFrom"])) {
+            return redirect()->route($_REQUEST["moduleFrom"])->withHeaders()->withInput()->withCookies();
+        } else {
+            if ($origin == "sample") {
+                $lib = $this;
+            } else {
+                $lib = new Container;
+            }
+            return $lib->list();
+        }
     }
 }

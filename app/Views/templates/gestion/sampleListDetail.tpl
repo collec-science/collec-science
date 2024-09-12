@@ -234,6 +234,7 @@
 					value = actions[ key ];
 					if ( value == actionClass ) {
 						$( "." + value ).show();
+						$("#sampleFormListPrint").attr("action", action);
 					} else {
 						$( "." + value ).hide();
 					}

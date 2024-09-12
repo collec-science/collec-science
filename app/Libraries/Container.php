@@ -53,6 +53,7 @@ class Container extends PpciLibrary
     function list()
     {
         $this->vue = service('Smarty');
+        $this->vue->set("containerList", "moduleFrom");
         $_SESSION["moduleListe"] = "containerList";
         /*
          * Display the list of all records of the table
@@ -92,7 +93,6 @@ class Container extends PpciLibrary
          */
         $data = $this->dataclass->lire($this->id);
         $this->vue->set($data, "data");
-        //$this->vue->set($this->activeTab, "activeTab");
         $this->vue->set("containerDisplay", "moduleFrom");
         $this->vue->set($this->id, "containerUid");
         /*

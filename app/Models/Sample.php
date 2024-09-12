@@ -1399,7 +1399,7 @@ class Sample extends PpciModel
         $data = array("country_id" => $country_id);
         foreach ($uids as $uid) {
             $data["uid"] = $uid;
-            $this->executeAsPrepared($sql, $data);
+            $this->executeSql($sql, $data, true);
         }
     }
     /**
@@ -1415,7 +1415,7 @@ class Sample extends PpciModel
         $data = array("collection_id" => $collection_id);
         foreach ($uids as $uid) {
             $data["uid"] = $uid;
-            $this->executeAsPrepared($sql, $data);
+            $this->executeSQL($sql, $data, true);
         }
     }
     /**
@@ -1431,7 +1431,7 @@ class Sample extends PpciModel
         $data = array("campaign_id" => $campaign_id);
         foreach ($uids as $uid) {
             $data["uid"] = $uid;
-            $this->executeAsPrepared($sql, $data);
+            $this->executeSql($sql, $data, true);
         }
     }
     /**
@@ -1449,7 +1449,7 @@ class Sample extends PpciModel
         }
         $sql = "update sample set parent_sample_id = :parent_id: where uid = :uid:";
         foreach ($uids as $uid) {
-            $this->executeAsPrepared($sql, array("parent_id" => $parent_id, "uid" => $uid), true);
+            $this->executeSql($sql, array("parent_id" => $parent_id, "uid" => $uid), true);
         }
     }
 

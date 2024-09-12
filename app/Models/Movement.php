@@ -238,7 +238,7 @@ class Movement extends PpciModel
                 if (!isset($this->borrowing)) {
                     $this->borrowing = new Borrowing;
                 }
-                $this->borrowing->setReturn($uid, $data["movement_date"], $this->object);
+                $this->borrowing->setReturn($uid, array_shift(explode(" ", $data["movement_date"])), $this->object);
                 $this->object->setStatus($uid, 1);
             }
         }

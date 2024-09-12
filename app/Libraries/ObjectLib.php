@@ -23,7 +23,7 @@ class ObjectLib extends PpciLibrary
         parent::__construct();
         $this->dataclass = new ObjectClass();
         $this->keyName = "uid";
-        if (isset($_REQUEST[$this->keyName])) {
+        if (!empty($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
         if (isset($_REQUEST["uids"])) {

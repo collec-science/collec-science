@@ -998,8 +998,8 @@ class ObjectClass extends PpciModel
      */
     function setTrashed($uid, $trashed = 0)
     {
-        $sql = "update object set trashed = :trashed where uid = :uid:";
-        $this->executeAsPrepared($sql, array("uid" => $uid, "trashed" => $trashed));
+        $sql = "update object set trashed = :trashed: where uid = :uid:";
+        $this->executeSQL($sql, array("uid" => $uid, "trashed" => $trashed), true);
     }
 
     /**

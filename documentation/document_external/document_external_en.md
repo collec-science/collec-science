@@ -24,9 +24,10 @@ As soon as you give access to files that are stored in a server tree, a certain 
 
 The whole tree must be accessible by the account used by the web server (*www-data* for an *Apache2* implementation). It is not necessary for the account to have write access - in fact it is strongly discouraged.
 
-A base folder must be created in the server, which will serve as the root for all the tree structures described for the collections. The full path must be described in the *param/param.inc.php* file:
+A base folder must be created in the server, which will serve as the root for all the tree structures described for the collections. The full path must be described in the *.env* file:
 
-$APPLI_external_document_path = "/mnt/collec-science";
+> app.external_document_path = "/mnt/collec-science"
+
 By default, the variable is set to */dev/null* to prevent its use without prior agreement from the server administrator.
 
 The trees corresponding to each collection must start from this path. These may be mounts to other data servers, depending on the protocols appropriate to the local situation.
@@ -36,7 +37,7 @@ The trees corresponding to each collection must start from this path. These may 
 To activate the support of external files for a collection, you have to modify the corresponding form (*Settings > Collections*, then edit the collection). Here is the information to indicate:
 
 - "Is the storage of documents attached to samples possible outside the database?" check the box *yes*.
-- "Access path to external files" : indicate the relative path to the storage root (variable *$APPLI_external_document_path*).
+- "Access path to external files" : indicate the relative path to the storage root (variable *app.external_document_path*).
 
 From then on, it will be possible to browse the tree from a sample to reference a document.
 
@@ -57,6 +58,6 @@ If you want to change a description or a date for a document, just do the same o
 
 You just have to recreate the montages and modify the parameters of the collection in the application, if necessary.
 
-*Editor: Éric Quinton - 2022-03-30*
+*Editor: Éric Quinton - 30/03/2022 - update: 12/09/2024*
 
 *Translated with www.DeepL.com/Translator (free version)*

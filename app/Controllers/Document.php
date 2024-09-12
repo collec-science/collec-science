@@ -28,14 +28,6 @@ class Document extends PpciController
     {
         return $this->lib->get();
     }
-    function getSW()
-    {
-        return $this->lib->getSW();
-    }
-    function getSWerror()
-    {
-        return $this->lib->getSWerror();
-    }
     function externalGetList()
     {
         return $this->lib->externalGetList();

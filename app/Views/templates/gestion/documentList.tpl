@@ -47,6 +47,7 @@
 			<th>{t}Date d'import{/t}</th>
 			<th>{t}Date de création{/t}</th>
 			<th>{t}Événement concerné{/t}</th>
+			<th>{t}UUID{/t}</th>
 			{if $rights["manage"] == 1 && $modifiable == 1 }
 			<th>{t}Supprimer{/t}</th>
 			{/if}
@@ -92,13 +93,14 @@
 			</td>
 			<td>{$dataDoc[lst].document_description}</td>
 			<td>{$dataDoc[lst].size}</td>
-			<td>{$dataDoc[lst].document_import_date}</td>
+			<td class="nowrap">{$dataDoc[lst].document_import_date}</td>
 			<td>{$dataDoc[lst].document_creation_date}</td>
 			<td>
 				{if $dataDoc[lst].event_id > 0}
 				{$dataDoc[lst].event_type_name} {if !empty($dataDoc[lst].event_date)}{t}réalisé le{/t} {$dataDoc[lst].event_date}{else}{t}prévu le{/t}{$dataDoc[lst].due_date}{/if}
 				{/if}
 			</td>
+			<td class="nowrap">{$dataDoc[lst].uuid}</td>
 			{if $rights["manage"] == 1 && $modifiable == 1}
 			<td>
 				<div class="center">

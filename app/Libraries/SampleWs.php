@@ -226,9 +226,7 @@ class SampleWs extends PpciLibrary
             }
             $this->message->setSyslog($e->getMessage());
         } finally {
-            $this->vue = service("AjaxView");
-            $this->vue->setJson(json_encode($data));
-            return $this->vue->send();
+            return $data;
         }
     }
     function getList()
@@ -275,7 +273,6 @@ class SampleWs extends PpciLibrary
     }
     function delete()
     {
-        $retour = array();
         try {
             $uid = $_POST["uid"];
             $db = $this->samplews->sample->db;
@@ -289,16 +286,15 @@ class SampleWs extends PpciLibrary
                 throw new PpciException(sprintf(_("L'UID %s n'a pas été trouvé"), $uid), 400);
             }
             /* check the collection */
-            require_once "modules/classes/collection.class.php";
             $collection = new Collection();
             $dcollection = $collection->lire($data["collection_id"]);
             if (!collectionVerify($dcollection["collection_id"])) {
                 throw new PpciException(sprintf(_("Droits insuffisants pour la collection %s"), $dcollection["collection_name"]), 401);
             }
             if (!$dcollection["allowed_import_flow"]) {
-                throw new PpciException(sprintf(_("Les flux de mise à jour ne sont pas autorisés pour la collection %s"), $d_collection["collection_name"]), 401);
+                throw new PpciException(sprintf(_("Les flux de mise à jour ne sont pas autorisés pour la collection %s"), $dcollection["collection_name"]), 401);
             }
-            $samplews->sample->supprimer($uid);
+            $this->samplews->sample->supprimer($uid);
             $db->transCommit();
             $retour = array(
                 "error_code" => 200,
@@ -322,9 +318,7 @@ class SampleWs extends PpciLibrary
             http_response_code($error_code);
             $this->message->setSyslog($e->getMessage());
         } finally {
-            $this->vue = service("AjaxView");
-            $this->vue->setJson(json_encode($data));
-            return $this->vue->send();
+            return $retour;
         }
     }
 }

@@ -272,7 +272,7 @@
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="groupes[]" value="{$groupes[lst].aclgroup_id}" {if
-                                            $groupes[lst].checked== 't'}checked{/if}>
+                                            $groupes[lst].checked== 1}checked{/if}>
                                         {$groupes[lst].groupe}
                                     </label>
                                 </div>
@@ -294,7 +294,7 @@
                                     <label>
                                         <input type="checkbox" name="sampletypes[]"
                                             value="{$sampletypes[lst].sample_type_id}" {if
-                                            $sampletypes[lst].checked== 't'}checked{/if}>
+                                            $sampletypes[lst].checked== 1}checked{/if}>
                                         {$sampletypes[lst].sample_type_name}
                                     </label>
                                 </div>
@@ -316,7 +316,7 @@
                                     <label>
                                         <input type="checkbox" name="eventtypes[]"
                                             value="{$eventtypes[lst].event_type_id}" {if
-                                            $eventtypes[lst].checked== 't'}checked{/if}>
+                                            $eventtypes[lst].checked== 1}checked{/if}>
                                         {$eventtypes[lst].event_type_name}
                                     </label>
                                 </div>

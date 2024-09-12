@@ -301,7 +301,6 @@ class Document extends PpciModel
         if ($id > 0 && is_numeric($id) && is_numeric($phototype) && is_numeric($resolution)) {
             $data = $this->getData($id);
             $okgenerate = false;
-            $redim = false;
             /**
              * Recherche si la photo doit etre generee (en fonction du phototype ou du mimetype)
              */
@@ -323,7 +322,6 @@ class Document extends PpciModel
                     ) {
                         $okgenerate = true;
                     }
-                    $redim = true;
                     break;
                 case 1:
                     if (
@@ -338,11 +336,9 @@ class Document extends PpciModel
                     ) {
                         $okgenerate = true;
                     }
-                    $redim = true;
                     break;
             }
             if ($okgenerate) {
-                $writeOk = false;
                 /**
                  * Selection de la colonne contenant la photo
                  */
@@ -406,7 +402,7 @@ class Document extends PpciModel
     {
         $sql = "select collection_id from document
             join sample using (uid)
-            where uuid = :uuid";
+            where uuid = :uuid:";
         $data = $this->lireParamAsPrepared($sql, array("uuid" => $uuid));
         return ($data["collection_id"]);
     }
@@ -419,7 +415,8 @@ class Document extends PpciModel
      */
     function getDocument(string $id)
     {
-        return $this->getBlobReference($id, "data");
+        $filename = $this->prepareDocument($id);
+
     }
 
     /**

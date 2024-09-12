@@ -788,14 +788,12 @@ class Sample extends PpciModel
     private function _executeSearch(string $sql, array $data, $metadatafilter = ""): array
     {
         /**
-         * Rajout de la date de dernier mouvement pour l'affichage
+         * add date format for external fields
          */
-        $this->fields["movement_date"] = array(
-            "type" => 3,
-        );
-        $this->fields["borrowing_date"] = array("type" => 2);
-        $this->fields["expected_return_date"] = array("type" => 2);
-        $this->fields["change_date"] = array("type" => 3);
+        $this->datetimeFields[] = "movement_date";
+        $this->datetimeFields[] ="change_date";
+        $this->dateFields[] = "borrowing_date";
+        $this->dateFields[] ="expected_return_date";
         /**
          * Execute the request
          */

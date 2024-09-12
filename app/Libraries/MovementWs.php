@@ -106,7 +106,7 @@ class MovementWs extends PpciLibrary
             http_response_code($error_code);
             $this->message->setSyslog($e->getMessage());
         } finally {
-            $this->vue->setJson(json_encode($retour));
+           return $retour;
         }
     }
 }

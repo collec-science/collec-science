@@ -136,10 +136,10 @@ class Document extends PpciLibrary
 			404 => "Not Found"
 		);
 		try {
-			if (empty($_REQUEST["uid"]) && empty($_REQUEST["uuid"])) {
-				throw new PpciException("Identifier not provided", 404);
+			if ( empty($_REQUEST["uuid"])) {
+				throw new PpciException("UUID of the document not provided", 404);
 			}
-			empty($_REQUEST["uid"]) ? $uuid = $_REQUEST["uuid"] : $uuid = $_REQUEST["uid"];
+			$uuid = $_REQUEST["uuid"];
 			$data = $this->dataclass->getDetail($uuid, "uuid");
 			if (count($data) == 0) {
 				throw new PpciException("$uuid not found", 404);
@@ -152,6 +152,7 @@ class Document extends PpciLibrary
 				foreach ($_SESSION["collections"] as $value) {
 					if ($data["collection_id"] == $value["collection_id"]) {
 						$collectionOk = true;
+						break;
 					}
 				}
 				if (!$collectionOk) {
@@ -163,26 +164,40 @@ class Document extends PpciLibrary
 				 */
 				$collection = new Collection();
 				$dcollection = $collection->lire($data["collection_id"]);
-				if (!$dcollection["public_collection"]) {
+				if ($dcollection["public_collection"] != 't') {
 					throw new PpciException("Not a public collection for $uuid", 401);
 				}
 			}
 			/**
 			 * Get the content of the document
 			 */
-			$handle = $this->dataclass->getDocument($data["document_id"]);
+			if ($data["external_storage"] == 't') {
+				/**
+				 * External storage
+				 */
+				$dir = $this->appConfig->external_document_path . "/" . $_SESSION["collections"][$data["collection_id"]]["external_storage_root"] . $data["external_storage_path"];
+				$filename = end(explode("/", $data["external_storage_path"]));
+			} else {
+				/**
+				 * DB storage
+				 */
+				$filename = $data["document_name"];
+				$dir = $this->dataclass->writeFileImage($data["document_id"]);
+			}
+			$handle = fopen($dir, 'r' );
 			isset($_REQUEST["mode"]) ? $mode = $_REQUEST["mode"] : $mode = "inline";
 			$this->vue = service("BinaryView");
 			$this->vue->setParam(
 				array(
-					"filename" => $data["document_name"],
-					"tmp_name" => $handle,
+					"filename" => $filename,
+					//"tmp_name" => $handle,
 					"content_type" => $data["content_type"],
 					"disposition" => $mode,
 					"is_reference" => true,
 					"handle" => $handle
 				)
 			);
+			return $this->vue->send();
 		} catch (\Exception $e) {
 			$error_code = $e->getCode();
 			if ($error_code == 0) {

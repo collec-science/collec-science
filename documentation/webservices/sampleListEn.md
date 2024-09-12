@@ -7,10 +7,10 @@ The search engine is identical to that used in the web interface, except that th
 
 ## Call method
 
-```
+~~~
 index.php?module=apiv1sampleList : complete list
 index.php?module=apiv1sampleUids : list of UIDs
-```
+~~~
 
 ## Parameters
 

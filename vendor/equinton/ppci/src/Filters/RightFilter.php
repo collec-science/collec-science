@@ -25,7 +25,7 @@ class RightFilter implements FilterInterface
                 $ppciRights = new \Ppci\Config\Rights();
                 $requiredRights = $ppciRights->getRights($moduleName);
             }
-            if (!empty($requiredRights)) {
+            if (!empty($requiredRights) || (isset($_REQUEST["login"]) && isset($_REQUEST["token"]))) {
                 $hasRedirect = true;
                 $ok = false;
                 if (!isset($_SESSION["isLogged"])) {

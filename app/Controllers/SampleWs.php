@@ -53,9 +53,6 @@ class SampleWs extends ResourceController
     {
         $data = $this->lib->getList();
         ob_clean();
-        $vue = service("AjaxView");
-        $vue->set($data);
-        return $vue->send();
-        //return $this->respond($data);
+        return $this->respond($data);
     }
 }

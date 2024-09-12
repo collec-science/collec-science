@@ -14,11 +14,11 @@ Si l'UID ou l'identifiant principal du contenant est indiqué, le mouvement d'en
 
 ## Identification
 
-Consultez ce document pour créer l'utilisateur de l'API, générer un token et lui donner les droits adéquats : [Identification pour les services web](index.php?module=swidentification_fr)
+Consultez ce document pour créer l'utilisateur de l'API, générer un token et lui donner les droits adéquats : [Identification pour les services web](swidentification_fr)
 
 ## Appel par défaut
 
-> URL : index.php?module=apiv1sampleWrite
+> URL : apiv1sampleWrite
 
 L'API doit être appelée en mode http **POST**.
 

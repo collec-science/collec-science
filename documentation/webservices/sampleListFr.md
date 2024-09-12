@@ -8,8 +8,8 @@ Le moteur de recherche est identique à celui utilisé dans l'interface web, à 
 ## Méthode d'appel
 
 ~~~
-index.php?module=apiv1sampleList : liste complète
-index.php?module=apiv1sampleUids : liste des UID
+apiv1sampleList : liste complète
+apiv1sampleUids : liste des UID
 ~~~
 
 ## Paramètres

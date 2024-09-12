@@ -2,10 +2,11 @@
 
 Certaines API peuvent être disponibles, notamment pour modifier des informations depuis une application tierce.
 
-L'identification est gérée par un login et un token, à fournir lors de l'appel parmi les variables. Pour plus d'informations concernant la création d'un compte dédié et la génération du token, consultez le document suivant : [Identification pour les services web](index.php?module=swidentification_fr) 
+L'identification est gérée par un login et un token, à fournir lors de l'appel parmi les variables. Pour plus d'informations concernant la création d'un compte dédié et la génération du token, consultez le document suivant : [Identification pour les services web](swidentification_fr) 
 
 ## Exemple d'appel en PHP
 
+~~~php
 	class ApiCurlException extends Exception{};
 	/**
 	 * call a api with curl
@@ -64,11 +65,13 @@ L'identification est gérée par un login et un token, à fournir lors de l'appe
 	  curl_close($curl);
 	  return $res;
 	}
+~~~
+
 
 ### Paramètres
 
-- method : GET, POST, PUT, DELETE (non implémenté dans la fonction). Pour les écritures, il est préférable d'indiquer POST, et de ne conserver GET que pour obtenir des informations sur un item. La méthode PUT est traitée comme la méthode POST.
-- url : adresse de l'API, par exemple *collec.mysociety.com/index.php?module=apiv1sampleWrite*
+- method : GET, POST, PUT, DELETE (non implémenté dans la fonction). Pour les écritures, il est préférable d'indiquer POST, et de ne conserver GET que pour obtenir des informations sur un item. La méthode PUT est traitée comme la méthode POST, mais il est probable qu'elle soit interdite au niveau de la configuration de l'hôte virtuel Apache.
+- url : adresse de l'API, par exemple *collec.mysociety.com/apiv1sampleWrite*
 - certificate_path : chemin d'accès au certificat du serveur distant. En production, le certificat doit être valide et être généré par une autorité de certification reconnue par votre serveur
 - data : tableau contenant l'ensemble des variables à transmettre au serveur. Ce tableau doit impérativement contenir :
 	- login : le login du compte autorisé à utiliser l'API
@@ -79,6 +82,7 @@ L'identification est gérée par un login et un token, à fournir lors de l'appe
 
 Cet exemple est utilisé dans l'application *metabo*, et permet de créer un échantillon dans une instance Collec-Science.
 
+~~~php
 	$uidMin = 99999999;
 	      $uidMax = 0;
 	      try {
@@ -136,5 +140,6 @@ Cet exemple est utilisé dans l'application *metabo*, et permet de créer un éc
 	          $message->set(sprintf(_("UID max traité : %s"), $uidMax));
 	        }
 	      }
+~~~
 
 

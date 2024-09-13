@@ -47,7 +47,6 @@ function __construct()
         /**
          * Get the list of borrows of subsamples
          */
-        include_once "modules/classes/subsample.class.php";
         $subsample = new Subsample();
         $this->vue->set($subsample->getListFromBorrower($this->id), "subsamples");
         return $this->vue->send();

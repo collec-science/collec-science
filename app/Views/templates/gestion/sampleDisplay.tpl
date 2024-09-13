@@ -611,7 +611,7 @@
 						{if $data.object_status_id == 6}
 						&nbsp;{t}le{/t}&nbsp;{$data.borrowing_date}
 						&nbsp;{t}à{/t}&nbsp;
-						<a href="borrowerDisplay&borrower_id={$data.borrower_id}">
+						<a href="borrowerDisplay?borrower_id={$data.borrower_id}">
 							{$data.borrower_name}
 						</a>
 
@@ -664,8 +664,9 @@
 				{if $data.campaign_id > 0}
 				<dl class="dl-horizontal">
 					<dt>{t}Campagne de prélèvement :{/t}</dt>
-					<dd><a
-							href="campaignDisplay&campaign_id={$data.campaign_id}">{$data.campaign_name}</a>
+					<dd><a href="campaignDisplay?campaign_id={$data.campaign_id}">
+						{$data.campaign_name}
+					</a>
 					</dd>
 				</dl>
 				{/if}

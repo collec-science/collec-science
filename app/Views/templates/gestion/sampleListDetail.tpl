@@ -223,7 +223,9 @@
 			"samplesSetCampaign": "campaign",
 			"samplesSetStatus": "status",
 			"samplesSetParent": "parentid",
-			"samplesDocument": "document"
+			"samplesDocument": "document",
+			"samplesExit": "samplesExit",
+			"lotCreate":"lotCreate"
 		};
 		$( "#checkedActionSample" ).change( function () {
 			var action = $( this ).val();

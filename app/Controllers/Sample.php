@@ -88,23 +88,28 @@ class Sample extends PpciController
     }
     function setCountry()
     {
-        return $this->lib->setCountry();
+        $this->lib->setCountry();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function setCollection()
     {
-        return $this->lib->setCollection();
+        $this->lib->setCollection();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function setCampaign()
     {
-        return $this->lib->setCampaign();
+        $this->lib->setCampaign();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function setStatus()
     {
-        return $this->lib->setStatus();
+        $this->lib->setStatus();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function setParent()
     {
-        return $this->lib->setParent();
+        $this->lib->setParent();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function getChildren()
     {

@@ -43,9 +43,9 @@ class Document extends PpciController
     function returnToOrigin($origin, $res)
     {
         $isEvent = false;
-        if ($origin == "sample") {
+        if ($origin == "sample" or $origin == "samples") {
             $lib = new Sample;
-        } elseif ($origin == "container") {
+        } elseif ($origin == "container" or $origin == "containers") {
             $lib = new Container;
         } elseif ($origin == "campaign") {
             $lib = new Campaign;
@@ -63,7 +63,11 @@ class Document extends PpciController
                 return $lib->change();
             }
         } else {
-            return $lib->display();
+            if ($origin == "samples" || $origin == "containers") {
+                return $lib->list();
+            } else {
+                return $lib->display();
+            }
         }
     }
 }

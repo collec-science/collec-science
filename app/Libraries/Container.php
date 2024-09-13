@@ -69,7 +69,6 @@ class Container extends PpciLibrary
         }
         $this->vue->set($dataSearch, "containerSearch");
         $this->vue->set("gestion/containerList.tpl", "corps");
-        include_once "modules/classes/borrower.class.php";
         $borrower = new Borrower();
         $this->vue->set($borrower->getListe(2), "borrowers");
         $this->vue->set(date($_SESSION["date"]["maskdate"]), "borrowing_date");
@@ -236,7 +235,6 @@ class Container extends PpciLibrary
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
                 if ($_REQUEST["container_parent_uid"] > 0 && is_numeric($_REQUEST["container_parent_uid"])) {
-                    include_once 'modules/classes/movement.class.php';
                     $movement = new Movement();
                     $data = array(
                         "uid" => $this->id,

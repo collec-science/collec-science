@@ -28,7 +28,7 @@ class Lot extends PpciModel
         $this->fields = array(
             "lot_id" => array("type" => 1, "key" => 1, "requis" => 1, "defaultValue" => 0),
             "collection_id" => array("type" => 1, "requis" => 1),
-            "lot_date" => array("type" => 3, "defaultValue" => "getDateHeure")
+            "lot_date" => array("type" => 3, "defaultValue" => date($this->datetimeFormat))
         );
         parent::__construct();
     }
@@ -37,7 +37,10 @@ class Lot extends PpciModel
     {
         $id = 0;
         if (count($uids) > 0) {
-            $id = $this->ecrire(array("collection_id" => $collection_id));
+            $id = $this->ecrire([
+                "collection_id" => $collection_id,
+                "lot_date"=>date($this->datetimeFormat)
+            ]);
 
             if ($id > 0) {
                 if (!is_object($this->sample)) {
@@ -69,7 +72,7 @@ class Lot extends PpciModel
          * Delete samples reference
          */
         $sql = "delete from lot_sample where lot_id = :lot_id:";
-        $this->executeAsPrepared($sql, array("lot_id" => $lot_id));
+        $this->executeSql($sql, array("lot_id" => $lot_id),true);
         return parent::supprimer($lot_id);
     }
 
@@ -145,11 +148,11 @@ class Lot extends PpciModel
     {
         $sql = "delete from lot_sample
             where lot_id =:lot_id:
-            and sample_id = :sample_id";
+            and sample_id = :sample_id:";
         $data = array("lot_id" => $lot_id);
         foreach ($samples as $sample_id) {
             $data["sample_id"] = $sample_id;
-            $this->executeAsPrepared($sql, $data, true);
+            $this->executeSql($sql, $data, true);
         }
     }
 }

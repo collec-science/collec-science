@@ -802,7 +802,6 @@ class Sample extends PpciLibrary
                 throw new PpciException(_("Pas de statut sélectionné"));
             }
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            require_once "modules/classes/object.class.php";
             $object = new ObjectClass();
             $object->setStatus($uids, $_POST["object_status_id"]);
             $this->message->set(_("Opération effectuée"));

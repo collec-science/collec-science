@@ -65,6 +65,7 @@ class Lot extends PpciLibrary
                     $db = $this->dataclass->db;
                     $db->transBegin();
                     $_REQUEST["lot_id"] = $this->dataclass->createLot($_POST["collection_id"], $_POST["uids"]);
+                    $this->id = $_REQUEST["lot_id"];
                     $db->transCommit();
                     $this->message->set(_("Lot créé"));
                     return $this->display();
@@ -104,6 +105,7 @@ class Lot extends PpciLibrary
          * Get the list of samples
          */
         $this->vue->set($this->dataclass->getSamples($this->id), "samples");
+        return $this->vue->send();
     }
     function write()
     {

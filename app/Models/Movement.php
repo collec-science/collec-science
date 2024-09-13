@@ -315,7 +315,7 @@ class Movement extends PpciModel
     {
         $sql = "delete from movement where container_id = :container_id:";
         try {
-            $this->executeAsPrepared($sql, array("container_id" => $container_id));
+            $this->executeSql($sql, array("container_id" => $container_id),true);
         } catch (\Exception $e) {
             global $message;
             $message->setSyslog($e->getMessage());

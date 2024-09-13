@@ -119,7 +119,7 @@ class Protocol extends PpciModel
     {
         if ($this->verifyCollection($this->lire($id))) {
             $sql = "update protocol set protocol_file = null where protocol_id = :id:";
-            $this->executeAsPrepared($sql, array("id" => $id));
+            $this->executeSql($sql, array("id" => $id),true);
         }
     }
 

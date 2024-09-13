@@ -780,7 +780,7 @@ class Container extends PpciModel
                     $objectIdentifier->ecrire($didentifiers);
                 }
             } else {
-                throw new ContainerException(sprintf(_("Échec d'écriture de l'objet dans Container.importData : l'UID n'a pas été généré (identifier : %s)"), $data["identifier"]));
+                throw new PpciException(sprintf(_("Échec d'écriture de l'objet dans Container.importData : l'UID n'a pas été généré (identifier : %s)"), $data["identifier"]));
             }
             /**
              * Generate the movement if necessary
@@ -1048,7 +1048,7 @@ class Container extends PpciModel
         $data = array("collection_id" => $collection_id);
         foreach ($uids as $uid) {
             $data["uid"] = $uid;
-            $this->executeAsPrepared($sql, $data);
+            $this->executeSql($sql, $data,true);
         }
     }
 }

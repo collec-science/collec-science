@@ -161,7 +161,6 @@ class Movement extends PpciLibrary
         /*
          * Recherche des motifs de sortie
          */
-        require_once 'modules/classes/movementReason.class.php';
         $movementReason = new MovementReason();
         $this->vue->set($movementReason->getListe(2), "movementReason");
         return $this->vue->send();

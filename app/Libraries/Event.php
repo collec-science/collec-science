@@ -149,7 +149,6 @@ class Event extends PpciLibrary
 			$this->vue->set($sampleType->getListFromCollection($dataSearch["collection_id"]), "objectTypes");
 		} else {
 			$category = "container";
-			include_once "modules/classes/containerType.class.php";
 			$ct = new ContainerType();
 			$this->vue->set($ct->getListe("container_type_name"), "objectTypes");
 		}

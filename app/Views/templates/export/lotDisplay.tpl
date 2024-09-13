@@ -74,6 +74,7 @@
                             <div class="center">
                                 <form id="lotForm" action="lotdelete" method="POST">
                                     <input type="hidden" name="moduleBase" value="lot">
+                                    <input type="hidden" name="lot_id" value="{$data.lot_id}">
                                     <button class="btn btn-danger button-delete">
                                         {t}Supprimer{/t}
                                     </button>
@@ -100,7 +101,7 @@
                                     <tr>
                                         <td class="center">
                                             <a
-                                                href="exportChange&export_id={$export.export_id}&lot_id={$export.lot_id}">
+                                                href="exportChange?export_id={$export.export_id}&lot_id={$export.lot_id}">
                                                 <img src="display/images/edit.gif" height="25">
                                             </a>
                                         </td>
@@ -108,7 +109,7 @@
                                         <td>{$export.export_template_name}</td>
                                         <td class="center">
                                             <a
-                                                href="exportExec&export_id={$export.export_id}&lot_id={$export.lot_id}">
+                                                href="exportExec?export_id={$export.export_id}&lot_id={$export.lot_id}">
                                                 <img src="display/images/exec.png" height="25">
                                             </a>
                                         </td>

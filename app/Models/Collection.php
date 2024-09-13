@@ -397,7 +397,7 @@ class Collection extends PpciModel
     function deleteGroup(int $group_id)
     {
         $sql = "delete from collection_group where aclgroup_id = :group_id:";
-        $this->executeAsPrepared($sql, array("group_id" => $group_id));
+        $this->executeSql($sql, array("group_id" => $group_id),true);
     }
     /**
      * Get all collections, the attributed first

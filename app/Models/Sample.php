@@ -266,7 +266,7 @@ class Sample extends PpciModel
          * Verification complementaire par rapport aux donnees deja stockees
          */
         if ($ok && $data["uid"] > 0) {
-            $ok = $this->verifyCollection($this->lire($data["uid"]));
+            $ok = $this->verifyCollection($this->read($data["uid"]));
         }
         if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
             throw new PpciException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));

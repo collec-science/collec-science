@@ -50,4 +50,15 @@ class IdentifierType extends PpciModel
             order by identifier_type_code";
         return $this->getListeParam($sql);
     }
+    function getIdFromCode(string $code): int
+    {
+        $sql = "select identifier_type_id from identifier_type
+                where identifier_type_code = :code:";
+        $res = $this->lireParam($sql, ["code" => $code]);
+        if (!empty($res["identifier_type_id"])) {
+            return $res["identifier_type_id"];
+        } else {
+            return 0;
+        }
+    }
 }

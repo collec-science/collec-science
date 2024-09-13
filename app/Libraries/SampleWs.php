@@ -6,6 +6,7 @@ use App\Models\Collection;
 use App\Models\Container;
 use App\Models\DatasetTemplate;
 use App\Models\Movement;
+use App\Models\ObjectIdentifier;
 use App\Models\Samplews as ModelsSamplews;
 use Ppci\Libraries\Locale;
 use Ppci\Libraries\PpciException;
@@ -39,11 +40,14 @@ class SampleWs extends PpciLibrary
     function write()
     {
         $searchOrder = "";
+        $retour = [];
+
         try {
+            $dataSent = $_POST;
             $container = new Container();
             $db = $container->db;
             $db->transBegin();
-            $dataSent = $_POST;
+
             if (!empty($_POST["template_name"])) {
                 /**
                  * Format the data with the dataset template
@@ -59,6 +63,20 @@ class SampleWs extends PpciLibrary
                 $searchOrder = array("uid", "uuid", "identifier");
             }
             $uid = $this->samplews->write($dataSent, $searchOrder);
+            /**
+             * Add or update a secondary identifier
+             */
+            if (!empty($dataSent["identifiers"])) {
+                $identifier = new ObjectIdentifier;
+                $dataIdentifier = ["uid" => $uid];
+                $identifiers = explode(",", $dataSent["identifiers"]);
+                foreach ($identifiers as $v) {
+                    $i = explode(":", $v);
+                    $dataIdentifier["identifier_type_code"] = $i[0];
+                    $dataIdentifier["object_identifier_value"] = $i[1];
+                    $identifier->writeOrReplace($dataIdentifier);
+                }
+            }
             /* check for the creation of a movement */
             $cuid = 0;
             if (!empty($_POST["container_name"])) {
@@ -112,11 +130,12 @@ class SampleWs extends PpciLibrary
             );
             http_response_code($error_code);
             $this->message->setSyslog($e->getMessage());
-        } finally {
+        } /*finally {
             $this->vue = service("AjaxView");
             $this->vue->setJson(json_encode($retour));
             return $this->vue->send();
-        }
+        }*/
+        return $retour;
     }
     function detail()
     {
@@ -258,7 +277,7 @@ class SampleWs extends PpciLibrary
             }
             $data = array(
                 "error_code" => $error_code,
-                "error_message" => $this->errors[$error_code]. " - ".$e->getMessage()
+                "error_message" => $this->errors[$error_code] . " - " . $e->getMessage()
             );
             $this->message->setSyslog($e->getMessage());
         } finally {
@@ -268,7 +287,7 @@ class SampleWs extends PpciLibrary
                         $item = "";
                 });
             }
-           return $data;
+            return $data;
         }
     }
     function delete()

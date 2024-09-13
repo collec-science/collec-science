@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
 
 /**
@@ -50,6 +51,16 @@ class ObjectIdentifier extends PpciModel
         /*
          * Recherche si l'identifiant existe deja pour l'uid considere
          */
+        if (empty($data["identifier_type_id"])) {
+            if (empty ($data["identifier_type_code"])) {
+                throw new PpciException(sprintf(_("Il manque le code de l'identifiant secondaire pour pouvoir l'ajouter à l'échantillon %s"),$data["uid"]));
+            }
+            $identifierType = new IdentifierType;
+            $data["identifier_type_id"] = $identifierType->getIdFromCode($data["identifier_type_code"]);
+        }
+        if (empty($data["identifier_type_id"])) {
+            throw new PpciException(_("Le code de l'identifiant secondaire n'a pas été fourni, ou est inconnu dans la base de données"));
+        }
         $sql = "select object_identifier_id from object_identifier where uid =:uid:
              and identifier_type_id = :typeid:";
         $dorigin = $this->lireParamAsPrepared($sql, array(

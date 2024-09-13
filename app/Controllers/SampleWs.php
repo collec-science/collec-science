@@ -11,6 +11,9 @@ use CodeIgniter\RESTful\ResourceController;
 class SampleWs extends ResourceController
 {
     use ResponseTrait;
+    /**
+     * @var SampleWs
+     */
     protected $lib;
     function __construct()
     {

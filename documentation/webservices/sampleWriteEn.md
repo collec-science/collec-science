@@ -24,8 +24,9 @@ The API must be called in http **POST** mode.
 
 ### Variables to provide
 
+
 | Variable name              | Description                                                                                                                                                                    | required                                                           |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | login                      | Login of the account used to call the API                                                                                                                                      | X                                                                  |
 | token                      | token of identification associated with the login                                                                                                                              | X                                                                  |
 | locale                     | Language code used for error messages or date formatting. Default: fr, otherwise 'en' or 'us'                                                                                  |                                                                    |
@@ -51,7 +52,7 @@ The API must be called in http **POST** mode.
 | referent_firstname         | First name of referent                                                                                                                                                         |                                                                    |
 | location_accuracy          | Accuracy of the location of the sampling site                                                                                                                                  |                                                                    |
 | object_comment             | free comment                                                                                                                                                                   |                                                                    |
-| secondary identifier code  | If secondary identifiers can be used, specify the code for them and the associated value (e.g., IGSN:125)                                                                      |                                                                    |
+| identifiers                | Secondary identifiers, formatted as follows: ‘code1:val1,code2:val2’                                                                                                         |                                                                    |
 | parent_uid                 | uid of parent sample, if known                                                                                                                                                 |                                                                    |
 | parent_uuid                | uuid of parent sample, if known                                                                                                                                                |                                                                    |
 | parent_identifier          | business identifier of parent sample, if known                                                                                                                                 |                                                                    |
@@ -65,6 +66,6 @@ The API must be called in http **POST** mode.
 
 By default, unless a dataset template is used or search_order is filled in, samples are searched in the following order:
 
-1.  uid: internal identifier in Collec-Science
-2.  uuid: universal identifier
-3.  identifier: business identifier. It is searched only in the considered collection.
+1. uid: internal identifier in Collec-Science
+2. uuid: universal identifier
+3. identifier: business identifier. It is searched only in the considered collection.

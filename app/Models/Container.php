@@ -9,7 +9,7 @@ class Container extends PpciModel
 {
 
     private $sql = "select c.container_id, o.uid, o.identifier, o.wgs84_x, o.wgs84_y,
-                    o.change_date, o.uuid, o.trashed, o.location_accuracy, o.object_comment,
+                    o.change_date::timestamp(0), o.uuid, o.trashed, o.location_accuracy, o.object_comment,
 					container_type_id, container_type_name, nb_slots_max,
 					container_family_id, container_family_name, os.object_status_id, object_status_name,
 					storage_product, clp_classification, storage_condition_name,
@@ -85,9 +85,9 @@ class Container extends PpciModel
     {
         $sql = $this->sql . " where o.uid = :uid:";
         $data["uid"] = $uid;
-        $this->fields["borrowing_date"] = array("type" => 2);
-        $this->fields["expected_return_date"] = array("type" => 2);
-        $this->fields["change_date"] = array("type" => 3);
+        $this->datetimeFields[] = "change_date";
+        $this->dateFields[] = "borrowing_date";
+        $this->dateFields[] = "expected_return_date";
         if (is_numeric($uid) && $uid > 0) {
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
@@ -193,15 +193,9 @@ class Container extends PpciModel
 					order by o.identifier, o.uid
 					";
             $data["uid"] = $uid;
-            $this->fields["sample_creation_date"] = array(
-                "type" => 2
-            );
-            $this->fields["sampling_date"] = array(
-                "type" => 2
-            );
-            $this->fields["movement_date"] = array(
-                "type" => 3
-            );
+            $this->dateFields[] = "sample_creation_date";
+            $this->dateFields[] = "sampling_date";
+            $this->datetimeFields[] = "movement_date";
             return $this->getListeParamAsPrepared($sql, $data);
         }
     }
@@ -242,9 +236,7 @@ class Container extends PpciModel
         /*
          * Rajout de la date de dernier mouvement pour l'affichage
          */
-        $this->fields["movement_date"] = array(
-            "type" => 3
-        );
+        $this->datetimeFields[] = "movement_date";
         return $this->getListeParamAsPrepared($sql, $data);
     }
 
@@ -461,14 +453,8 @@ class Container extends PpciModel
             if ($and == "") {
                 $where = "";
             }
-
-            /**
-             * Rajout de la date de dernier mouvement pour l'affichage
-             */
-            $this->fields["movement_date"] = array(
-                "type" => 3
-            );
-            $this->fields["change_date"] = array("type" => 3);
+            $this->datetimeFields[] = "movement_date";
+            $this->datetimeFields[] = "change_date";
             return $this->getListeParamAsPrepared($this->sql . $where /*. $order*/, $data);
         } else {
             return array();

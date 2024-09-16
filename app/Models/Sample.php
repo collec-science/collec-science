@@ -29,12 +29,11 @@ class Sample extends PpciModel
           case when s.country_id is not null then sc.country_code2 else csp.country_code2 end as country_code2,
           s.country_origin_id, sco.country_name as country_origin_name, sco.country_code2 as country_origin_code2,
           so.object_status_id, object_status_name,so.referent_id,
-          so.change_date, so.uuid, so.trashed, so.location_accuracy, so.object_comment,
+          so.change_date::timestamp(0), so.uuid, so.trashed, so.location_accuracy, so.object_comment,
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
           voip.identifiers as parent_identifiers,
 					ct.container_type_name, ct.clp_classification,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
-					/*metadata_schema,*/
 					document_id, voi.identifiers,
 					movement_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,

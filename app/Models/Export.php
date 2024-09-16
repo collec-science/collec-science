@@ -14,7 +14,7 @@ class Export extends PpciModel
                   join lot using (lot_id)
                   join export_template using (export_template_id)";
     public $lot, $exportTemplate, $datasetTemplate;
-    private $temp = "writable/temp";
+    private $temp = WRITEPATH."temp";
 
     /**
      * Constructor

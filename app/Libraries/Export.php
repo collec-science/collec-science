@@ -105,24 +105,22 @@ class Export extends PpciLibrary
                              * Update the export date
                              */
                             $this->dataclass->updateExportDate($this->id);
+                            return $this->vue->send();
                         } else {
                             throw new PpciException(sprintf(_("Le type mime pour l'extension %s n'a pas été décrit dans la base de données"), $files[0]["filetype"]));
                         }
                     } else {
                         $this->message->set(_("Une erreur indéterminée s'est produite lors de la génération du fichier"), true);
-                        return $llot->display();
                     }
                 } catch (PpciException $e) {
                     $this->message->set($e->getMessage(), true);
-                    return $llot->display();
                 }
             } else {
                 $this->message->set(_("Vous ne disposez pas des droits suffisants sur la collection pour exporter le lot"), true);
-                return $llot->display();
             }
         } else {
             $this->message->set(_("Le lot indiqué n'existe pas"), true);
-            return $llot->display();
         }
+        return $llot->display();
     }
 }

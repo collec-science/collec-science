@@ -660,6 +660,12 @@
 					</dd>
 				</dl>
 				{/if}
+				{if strlen($data.sample_parents) > 0}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="composite">{t}Parents (échantillon composé){/t}</dt>
+					<dd>{$data.sample_parents}</dd>
+				</dl>
+				{/if}
 				{if $data.no_localization != 1}
 				{if $data.campaign_id > 0}
 				<dl class="dl-horizontal">

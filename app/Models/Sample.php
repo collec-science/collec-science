@@ -55,7 +55,8 @@ class Sample extends PpciModel
           borrowing_date, expected_return_date, borrower_id, borrower_name,
           vsq.multiple_value + vsq.subsample_more - vsq.subsample_less as subsample_quantity,
           vdn.nb_derivated_sample,
-          storcond.storage_condition_name";
+          storcond.storage_condition_name,
+          sample_parents";
     private $from = " from sample s
 					join sample_type st on (st.sample_type_id = s.sample_type_id)
 					join collection p on (p.collection_id = s.collection_id)
@@ -89,6 +90,7 @@ class Sample extends PpciModel
           left outer join country sco on (s.country_origin_id = sco.country_id)
           left outer join v_subsample_quantity vsq on (s.sample_id = vsq.sample_id)
           left outer join v_derivated_number vdn on (vdn.uid = s.uid)
+          left outer join v_sample_parents vsp on (vsp.sample_id = s.sample_id)
           ";
     private $where = "";
     private $paramSearch = array();

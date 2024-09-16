@@ -12,17 +12,20 @@ use Ppci\Models\PpciModel;
  */
 class Subsample extends PpciModel
 {
-    private $sql = "select subsample_id, sample_id, subsample_date,
+    private $sql = "select subsample_id, s.sample_id, subsample_date,
                     movement_type_id, subsample_quantity, subsample_comment,
                     subsample_login,
                     multiple_unit,
                     borrower_id, borrower_name
-                    , uid, identifier
-            from subsample
-            join sample using (sample_id)
-            join object using (uid)
-            join sample_type using (sample_type_id)
+                    , s.uid, o.identifier
+                    ,co.uid as created_uid, co.identifier as created_identifier
+            from subsample ss
+            join sample s on (s.sample_id = ss.sample_id)
+            join object o on (o.uid = s.uid)
+            join sample_type st on (st.sample_type_id = s.sample_type_id)
             left outer join borrower using (borrower_id)
+            left outer join sample cs on (cs.sample_id = ss.createdsample_id)
+            left outer join object co on (cs.uid = co.uid)
             ";
 
     public function __construct()
@@ -112,7 +115,7 @@ class Subsample extends PpciModel
      */
     function getListFromSample(int $sample_id): ?array
     {
-        $where = " where sample_id = :sample_id:";
+        $where = " where s.sample_id = :sample_id:";
         return $this->getListeParamAsPrepared($this->sql . $where, array("sample_id" => $sample_id));
     }
 }

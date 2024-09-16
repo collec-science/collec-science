@@ -762,11 +762,17 @@
 					<td class="nowrap">{$samples[lst].sample_type_name}</td>
 					<td {if $samples[lst].trashed==1}class="trashed" title="{t}Échantillon mis à la corbeille{/t}" {/if}>
 						{$samples[lst].object_status_name}</td>
-					<td class="nowrap">{if strlen($samples[lst].parent_uid) > 0}
-						<a class="sample" data-uid="{$samples[lst].parent_uid}"
-							href="sampleDisplay?uid={$samples[lst].parent_uid}">
-							<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
-						</a>
+					<td>
+						{if strlen($samples[lst].parent_uid) > 0}
+						<span class="nowrap">
+							<a class="sample" data-uid="{$samples[lst].parent_uid}"
+								href="sampleDisplay?uid={$samples[lst].parent_uid}">
+								<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
+							</a>
+						</span>
+						{/if}
+						{if strlen($samples[lst].sample_parents) > 0}
+						{$samples[lst].sample_parents}
 						{/if}
 					</td>
 					<td class="center">{if $samples[lst].document_id > 0} <a class="image-popup-no-margins"

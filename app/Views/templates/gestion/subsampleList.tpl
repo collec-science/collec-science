@@ -14,6 +14,9 @@
 <th>{t}Date{/t}</th>
 <th>{t}Mouvement{/t}</th>
 <th>{t}Quantité{/t}</th>
+<th class="lexical" data-lexical="composite">
+	{t}Échantillon créé{/t}
+</th>
 <th>{t}Emprunteur{/t}</th>
 <th>{t}Commentaire{/t}</th>
 <th>{t}Réalisé par{/t}</th>
@@ -43,6 +46,13 @@
 {$subsample[lst].subsample_quantity}
 </td>
 <td>
+	{if $subsample[lst].created_uid > 0}
+	<a href="sampleDisplay?uid={$subsample[lst].created_uid}">
+		{$subsample[lst].created_uid}&nbsp;{$subsample[lst].created_identifier}
+	</a>
+	{/if}
+	</td>
+<td>
 	<a href="borrowerDisplay?borrower_id={$subsample[lst].borrower_id}">
 	{$subsample[lst].borrower_name}
 	</a>
@@ -55,7 +65,7 @@
 {/section}
 </tbody>
 <tfoot>
-<tr><td colspan="6">{t 1=$total}Quantité restante : %1{/t}</td></tr>
+<tr><td colspan="7">{t 1=$total}Quantité restante : %1{/t}</td></tr>
 </table>
 <script>
 $(document).ready(function() {

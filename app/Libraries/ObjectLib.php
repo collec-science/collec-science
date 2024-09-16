@@ -159,7 +159,7 @@ class ObjectLib extends PpciLibrary
                     $this->dataclass->setTrashed($uid, $trashed);
                 }
                 $db->transCommit();
-                if ($_POST["trashed"] == 1) {
+                if ($trashed == 1) {
                     $this->message->set(_("Mise à la corbeille effectuée"));
                 } else {
                     $this->message->set(_("Sortie de la corbeille effectuée"));

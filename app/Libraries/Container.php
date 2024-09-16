@@ -43,7 +43,7 @@ class Container extends PpciLibrary
         parent::__construct();
         $this->dataclass = new ModelsContainer();
         $this->keyName = "uid";
-        if (isset($_REQUEST[$this->keyName])) {
+        if (isset($_REQUEST["uid"]) && strlen($_REQUEST["uid"]) > 0) {
             $this->id = $_REQUEST[$this->keyName];
         }
         $_SESSION["moduleParent"] = "container";

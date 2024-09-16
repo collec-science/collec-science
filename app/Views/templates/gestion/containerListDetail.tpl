@@ -118,7 +118,9 @@ $(document).ready(function () {
 			"containersEntry":"entry",
 			"containersSetStatus":"status",
 			"containersSetReferent":"referent",
-			"containersSetCollection":"collection"
+			"containersSetCollection":"collection",
+			"containersExit":"containersExit",
+			"containersDelete":"containersDelete"
 			};
 		$("#checkedActionContainer").change(function () {
 			var action = $(this).val();
@@ -129,6 +131,7 @@ $(document).ready(function () {
 						value = actions[key];
 						if ( value == actionClass) {
 							$("."+value).show();
+							$("#containerFormListPrint").attr("action", action);
 						} else {
 							$("."+value).hide();
 						}

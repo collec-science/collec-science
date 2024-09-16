@@ -403,10 +403,11 @@ class Container extends PpciModel
                 $and = " and ";
                 $data["object_status_id"] = $param["object_status_id"];
             }
-            if (!empty($param["trashed"])) {
+            if (strlen($param["trashed"]) > 0) {
+                $param["trashed"] == 1 ? $trashed = true : $trashed = false;
                 $where .= $and . " o.trashed = :trashed:";
                 $and = " and ";
-                $data["trashed"] = $param["trashed"];
+                $data["trashed"] = $trashed;
             }
             if ($param["referent_id"] > 0) {
                 $where .= $and . "o.referent_id = :referent_id:";
@@ -1048,7 +1049,7 @@ class Container extends PpciModel
         $data = array("collection_id" => $collection_id);
         foreach ($uids as $uid) {
             $data["uid"] = $uid;
-            $this->executeSql($sql, $data,true);
+            $this->executeSql($sql, $data, true);
         }
     }
 }

@@ -24,7 +24,7 @@ class Label extends PpciLibrary
         parent::__construct();
         $this->dataclass = new ModelsLabel();
         $this->keyName = "label_id";
-        if (isset($_REQUEST[$this->keyName])) {
+        if (isset($_REQUEST[$this->keyName]) && strlen($_REQUEST[$this->keyName]) > 0) {
             $this->id = $_REQUEST[$this->keyName];
         }
     }

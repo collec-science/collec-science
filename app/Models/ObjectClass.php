@@ -714,7 +714,7 @@ class ObjectClass extends PpciModel
                 $value = trim($value, " \t\n\r");
                 $datajson = json_decode($value, true);
                 if (is_array($datajson)) {
-                    if ($datajson["uid"] > 0 && $datajson["db"] == $_SESSION["APPLI_code"]) {
+                    if ($datajson["uid"] > 0 && $datajson["db"] == $_SESSION["dbparams"]["APPLI_code"]) {
                         $uid = $datajson["uid"];
                     } else if ($datajson["uid"] > 0 && !empty($datajson["db"])) {
                         $valobject = $this->lireParamAsPrepared(

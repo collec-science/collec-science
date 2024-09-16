@@ -462,8 +462,9 @@ class Login
         foreach ($vars as $var) {
             unset($_SESSION[$var]);
         }
+        $oidcIdtoken = $_SESSION["oidcIdToken"];
         // Finalement, on détruit la session.
-        //session()->destroy();
+        session()->destroy();
         //session_unset();
         session_regenerate_id();
         if ($identificationMode == "cas") {
@@ -488,7 +489,7 @@ class Login
                 $this->identificationConfig->OIDC["clientSecret"]
             );
             $redirect = $this->paramApp->baseURL;
-            $oidc->signOut($_SESSION["oidcIdToken"], $redirect);
+            $oidc->signOut($oidcIdtoken, $redirect);
         }
     }
     /**

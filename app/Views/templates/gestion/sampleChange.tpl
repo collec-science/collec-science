@@ -597,16 +597,6 @@
 					<label for="sample_type_id" class="control-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
 					<div class="col-md-8">
 						<select id="sample_type_id" name="sample_type_id" class="form-control">
-						<!--
-							{section name=lst loop=$sample_type}
-								<option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id == $data.sample_type_id}selected{/if}>
-									{$sample_type[lst].sample_type_name}
-									{if $sample_type[lst].multiple_type_id > 0}
-										/{$sample_type[lst].multiple_type_name} : {$sample_type[lst].multiple_unit}
-									{/if}
-								</option>
-							{/section}
-							-->
 						</select>
 					</div>
 				</div>

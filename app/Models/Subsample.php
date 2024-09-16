@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
 
 /**
@@ -117,5 +118,19 @@ class Subsample extends PpciModel
     {
         $where = " where s.sample_id = :sample_id:";
         return $this->getListeParamAsPrepared($this->sql . $where, array("sample_id" => $sample_id));
+    }
+    function writeSubsample($data) {
+        $this->db->transBegin();
+        /**
+         * Treatment of attachment to a sample
+         */
+        
+        try {
+            $this->db->transCommit();
+            return true;
+        }catch (PpciException $e) {
+            $this->db->transRollback();
+            return false;
+        }
     }
 }

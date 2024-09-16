@@ -4,6 +4,7 @@ namespace App\Libraries;
 
 use App\Models\Borrower;
 use App\Models\ObjectClass;
+use App\Models\Sample;
 use App\Models\Subsample as ModelsSubsample;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
@@ -40,13 +41,18 @@ class Subsample extends PpciLibrary
         /*
          * Lecture de l'object concerne
          */
-        $object = new ObjectClass();
-        $this->vue->set($object->lire($_REQUEST["uid"]), "object");
+        $sample = new Sample;
+
+        $this->vue->set($sample->read($_REQUEST["uid"]), "sample");
         /**
          * Get the list of borrowers
          */
         $borrower = new Borrower();
         $this->vue->set($borrower->getListe(), "borrowers");
+        /**
+         * Get the list of collections
+         */
+        $this->vue->set($_SESSION["collections"], "collections");
         return $this->vue->send();
     }
     function write()

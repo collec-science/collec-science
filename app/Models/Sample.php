@@ -330,7 +330,7 @@ class Sample extends PpciModel
     /**
      * Surcharge de la fonction supprimer pour verifier si l'utilisateur peut supprimer l'echantillon
      */
-    public function supprimer($uid = null, bool $purge = false )
+    public function supprimer($uid = null, bool $purge = false)
     {
         $sql = "select sample_id, collection_id, campaign_id from sample where uid = :uid:";
         $data = $this->lireParamAsPrepared($sql, array("uid" => $uid));
@@ -435,7 +435,7 @@ class Sample extends PpciModel
              * Verification de la presence des parametres
              */
             $searchOk = false;
-            $paramName = array("uidsearch", "name", "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity", "collections");
+            $paramName = array("uidsearch", "name", "sample_type_id", "collection_id", "sampling_place_id", "referent_id", "movement_reason_id", "select_date", "campaign_id", "country_id", "event_type_id", "subsample_quantity", "collections", "sample_id");
             if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["booking_type"] != 0 || $param["without_container"] == 1) {
                 $searchOk = true;
             } else {
@@ -512,6 +512,11 @@ class Sample extends PpciModel
                 }
                 if ($uidSearch) {
                     $where .= ")";
+                }
+                if ($param["sample_id"] > 0) {
+                    $where .= $and . " s.sample_id = :sample_id:";
+                    $data["sample_id"] = $param["sample_id"];
+                    $and = " and ";
                 }
                 if ($param["sample_type_id"] > 0) {
                     $where .= $and . " s.sample_type_id = :sample_type_id:";
@@ -792,9 +797,9 @@ class Sample extends PpciModel
          * add date format for external fields
          */
         $this->datetimeFields[] = "movement_date";
-        $this->datetimeFields[] ="change_date";
+        $this->datetimeFields[] = "change_date";
         $this->dateFields[] = "borrowing_date";
-        $this->dateFields[] ="expected_return_date";
+        $this->dateFields[] = "expected_return_date";
         /**
          * Execute the request
          */

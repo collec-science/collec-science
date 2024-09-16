@@ -38,7 +38,6 @@ class DbversioncheckFilter implements FilterInterface
                 if ($dbversion->verifyVersion($paramApp->dbversion)) {
                     $this->isDbversionOk = true;
                     $_SESSION["dbversionCheck"] = true;
-                    $message->set("ok");
                 } else {
                     $message->set(
                         sprintf(

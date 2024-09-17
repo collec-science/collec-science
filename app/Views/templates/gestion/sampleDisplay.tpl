@@ -660,10 +660,16 @@
 					</dd>
 				</dl>
 				{/if}
-				{if strlen($data.sample_parents) > 0}
+				{if !empty($sampleparents)}
 				<dl class="dl-horizontal">
 					<dt class="lexical" data-lexical="composite">{t}Parents (échantillon composé){/t}</dt>
-					<dd>{$data.sample_parents}</dd>
+					<dd>
+						{foreach $sampleparents as $p}
+						<a href="sampleDisplay?uid={$p.uid}">
+							{$p.uid}&nbsp;{$p.identifier}
+						</a><br>
+						{/foreach}
+					</dd>
 				</dl>
 				{/if}
 				{if $data.no_localization != 1}

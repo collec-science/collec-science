@@ -2,6 +2,7 @@
 
 namespace App\Libraries;
 
+use App\Libraries\Sample as LibrariesSample;
 use App\Models\Borrower;
 use App\Models\ObjectClass;
 use App\Models\Sample;
@@ -58,15 +59,15 @@ class Subsample extends PpciLibrary
     function write()
     {
         try {
-            $this->id = $this->dataWrite($_REQUEST);
-            if ($this->id > 0) {
-                $_REQUEST[$this->keyName] = $this->id;
-                $sample = new Sample;
+            $res = $this->dataclass->writeSubsample($_REQUEST);
+            if ($res) {
+                $sample = new LibrariesSample;
                 return $sample->display();
             } else {
                 return $this->change();
             }
-        } catch (PpciException) {
+        } catch (PpciException $e) {
+            $this->message->set($e->getMessage(), true);
             return $this->change();
         }
     }
@@ -77,9 +78,9 @@ class Subsample extends PpciLibrary
          */
         try {
             $this->dataDelete($this->id);
-            $sample = new Sample;
+            $sample = new LibrariesSample;
             return $sample->display();
-        } catch (PpciException $e) {
+        } catch (PpciException) {
             return $this->change();
         }
     }

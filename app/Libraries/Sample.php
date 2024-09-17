@@ -233,10 +233,14 @@ class Sample extends PpciLibrary
         /**
          * Recuperation des sous-echantillonnages
          */
-        if ($data["multiple_type_id"] > 0) {
-            $subSample = new Subsample();
+        $subSample = new Subsample();
+        if ($data["multiple_type_id"] > 0) { 
             $this->vue->set($subSample->getListFromSample($data["sample_id"]), "subsample");
         }
+        /**
+         * For composite samples, get the parents
+         */
+        $this->vue->set($subSample->getParents($data["sample_id"]), "sampleparents");
         /**
          * Get the list of borrowings
          */

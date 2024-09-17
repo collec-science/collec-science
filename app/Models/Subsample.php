@@ -19,6 +19,7 @@ class Subsample extends PpciModel
                     multiple_unit,
                     borrower_id, borrower_name
                     , s.uid, o.identifier
+                    ,createdsample_id
                     ,co.uid as created_uid, co.identifier as created_identifier
             from subsample ss
             join sample s on (s.sample_id = ss.sample_id)
@@ -28,6 +29,13 @@ class Subsample extends PpciModel
             left outer join sample cs on (cs.sample_id = ss.createdsample_id)
             left outer join object co on (cs.uid = co.uid)
             ";
+    public Sample $sample;
+    /**
+     * UID of the sample created - composite sample
+     *
+     * @var integer
+     */
+    public int $createuid;
 
     public function __construct()
     {
@@ -66,7 +74,8 @@ class Subsample extends PpciModel
             ),
             "borrower_id" => array(
                 "type" => 1
-            )
+            ),
+            "createdsample_id" => array("type" => 1)
         );
         parent::__construct();
     }
@@ -119,18 +128,62 @@ class Subsample extends PpciModel
         $where = " where s.sample_id = :sample_id:";
         return $this->getListeParamAsPrepared($this->sql . $where, array("sample_id" => $sample_id));
     }
-    function writeSubsample($data) {
+    function writeSubsample($data)
+    {
+        $this->createuid = 0;
         $this->db->transBegin();
         /**
          * Treatment of attachment to a sample
          */
-        
         try {
+            if (isset($data["composite_create"]) && $data["composite_create"] == 1) {
+                /**
+                 * create a new sample
+                 */
+                if (!isset($this->sample)) {
+                    $this->sample = new Sample;
+                }
+                if (empty($data["createdsample_id"]) && !empty($data["identifier"])) {
+                    /**
+                     * Get the current sample
+                     */
+                    $ds = $this->sample->read($data["uid"]);
+                    $ds["uid"] = 0;
+                    $ds["sample_id"] = 0;
+                    $ds["identifier"] = $data["identifier"];
+                    $ds["collection_id"] = $data["collection_id"];
+                    $ds["sample_type_id"] = $data["sample_type_id"];
+                    $ds["multiple_value"] = $data["multiple_value"];
+                    $ds["sample_creation_date"] = date($this->datetimeFormat);
+                    $ds["dbuid_origin"] = "";
+                    $this->createuid = $this->sample->write($ds);
+                    $dsample = $this->sample->read($this->createuid);
+                    $data["createdsample_id"] = $dsample["sample_id"];
+                } else if ($data["createdsample_id"] > 0 && $data["subsample_id"] == 0 && $data["multiple_value"] > 0) {
+                    /**
+                     * new subsample: increase the quantity of composite sample
+                     */
+                    $ds = $this->sample->readFromId($data["createdsample_id"]);
+                    $ds["multiple_value"] += $data["multiple_value"];
+                    $this->sample->write($ds);
+                }
+            }
+            $this->write($data);
             $this->db->transCommit();
             return true;
-        }catch (PpciException $e) {
+        } catch (PpciException $e) {
             $this->db->transRollback();
             return false;
         }
+    }
+    function getParents($sample_id): array
+    {
+        $sql = "select sample_id, uid, identifier
+                from subsample
+                join sample using (sample_id)
+                join object using (uid)
+                where createdsample_id = :id:
+                order by identifier";
+        return $this->getListParam($sql, ["id" => $sample_id]);
     }
 }

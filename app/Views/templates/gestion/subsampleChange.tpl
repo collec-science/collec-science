@@ -92,6 +92,9 @@
         $("#namesearch").change(function () {
             searchSample();
         });
+        $("#subsample_quantity").change(function () {
+            $("#multiple_value").val($(this).val());
+        });
         /**
          * Default
          */
@@ -99,6 +102,11 @@
         getSampletype();
         $("#sample_type_id").val("{$sample.sample_type_id}");
         searchSample();
+        var createdsample = "{$data.createdsample_id}";
+        if (createdsample.length > 0) {
+            $("#with_create").prop("checked", true);
+            $("#created").show();
+        }
     });
 </script>
 <h2>{t}Création - modification d'un prélèvement ou d'une restitution de sous-échantillon{/t}</h2>
@@ -223,14 +231,17 @@
                     <label for="uidsearch" class="col-md-4 control-label">{t}Échantillon déjà existant - UID
                         :{/t}</label>
                     <div class="col-md-2">
-                        <input id="uidsearch" name="uidsearch" class="form-control nombre">
+                        <input id="uidsearch" name="uidsearch" class="form-control nombre" value="{$data.created_uid}">
                     </div>
                     <label for="namesearch" class="col-md-2 control-label">
                         {t}ou identifiant ou UUID :{/t}
                     </label>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <input id="namesearch" type="text" class="form-control" name="name"
                             title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
+                    </div>
+                    <div class="col-md-1">
+                        <img src="display/images/zoom.png" height="25">
                     </div>
                 </div>
                 <div class="form-group">
@@ -246,8 +257,7 @@
                     <label for="multiple_value" class="control-label col-md-4">
                         {t 1=$data.multiple_unit}Quantité affectée à l'échantillon (%1):{/t}</label>
                     <div class="col-md-8">
-                        <input id="multiple_value" class="form-control taux" name="multiple_value"
-                            value="{$data.multiple_value}">
+                        <input id="multiple_value" class="form-control taux" name="multiple_value">
                     </div>
                 </div>
             </div>

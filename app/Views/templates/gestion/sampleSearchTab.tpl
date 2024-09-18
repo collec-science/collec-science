@@ -5,7 +5,7 @@
     var eventTypeInit = "{$sampleSearch.event_type_id}";
     var appli_code ="{$APPLI_code}";
     $(document).ready(function () {
-        var isGestion = "{$rights['gestion']}";
+        var isGestion = "{$rights.manage}";
         var consultSeesAll = "{$consultSeesAll}";
         /*
          * Verification que des criteres de selection soient saisis

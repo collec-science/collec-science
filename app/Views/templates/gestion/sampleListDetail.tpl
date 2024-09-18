@@ -16,7 +16,7 @@
         } catch (Exception) {
         }
 		var scrolly = "2000pt";
-		var isGestion = "{$rights['gestion']}";
+		var isGestion = "{$rights.manage}";
 		var maxcol = 21;
 		/*if (limit < 5 && limit > 0 || totalNumber < 5 && totalNumber > 0) {
 			scrolly = "20vh";

@@ -2,7 +2,7 @@
 	var locale = '{$LANG["date"]["locale"]}';
 	var formatDate = '{$LANG["date"]["formatdate"]}';
 </script>
-<script type="text/javascript" src="display/javascript/alpaca/js/formbuilder.js"></script>
+<script type="text/javascript" src="display/javascript/formbuilder.js"></script>
 
 <script type="text/javascript">
 
@@ -726,6 +726,11 @@
 					</div>
 				</div>
 			</fieldset>
+			<script>
+				$(document).ready(function () { 
+
+				});
+			</script>
 			<fieldset>
 				<legend>{t}Sous-échantillonnage (si le type le permet){/t}</legend>
 				<div class="form-group">
@@ -735,6 +740,23 @@
 						<input id="multiple_value" class="form-control taux" name="multiple_value" value="{$data.multiple_value}">
 					</div>
 				</div>
+				{if $data.parent_sample_id > 0 && $data.sample_id == 0}
+				<script>
+					$(document).ready(function () { 
+						$("#multiple_value").change(function () { 
+							$("#subsample_quantity").val($("#multiple_value").val());
+						});
+					});
+				</script>
+				<!-- record quantity extracted from parent-->
+				<div class="form-group">
+					<label for="subsample_quantity"  class="control-label col-md-4">
+					{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité retirée au parent (%1:%2) :{/t}</label>
+					<div class="col-md-8">
+						<input id="subsample_quantity" class="form-control taux" name="subsample_quantity">
+					</div>
+				</div>
+				{/if}
 			</fieldset>
 			<fieldset>
 				<legend>{t}Jeu de métadonnées{/t}</legend>

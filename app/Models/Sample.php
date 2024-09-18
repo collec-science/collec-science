@@ -301,7 +301,7 @@ class Sample extends PpciModel
                     /**
                      * Add the creation of the subsample movement on new sample from parent sample
                      */
-                    if ($firstUid == 0 && $data["parent_sample_id"] > 0 && $data["multiple_value"] > 0) {
+                    if ($data["sample_id"] == 0 && $data["parent_sample_id"] > 0 && $data["multiple_value"] > 0) {
                         $parentData = $this->readFromId($data["parent_sample_id"]);
                         if ($parentData["multiple_value"] > 0) {
                             if (!isset($this->subsample)) {
@@ -309,7 +309,7 @@ class Sample extends PpciModel
                             }
                             $dataSubsample = $this->subsample->getDefaultValues();
                             $dataSubsample["movement_type_id"] = 2;
-                            $dataSubsample["subsample_quantity"] = $data["multiple_value"];
+                            $dataSubsample["subsample_quantity"] = $data["subsample_quantity"];
                             $dataSubsample["sample_id"] = $parentData["sample_id"];
                             $dataSubsample["subsample_comment"] = sprintf(_("Création de l'échantillon dérivé %s"), $uid);
                             $this->subsample->ecrire($dataSubsample);

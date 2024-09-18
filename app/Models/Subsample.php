@@ -60,7 +60,7 @@ class Subsample extends PpciModel
             "movement_type_id" => array(
                 "type" => 1,
                 "requis" => 1,
-                "defaultValue" => 1,
+                "defaultValue" => 2,
             ),
             "subsample_quantity" => array(
                 "type" => 1,
@@ -150,6 +150,7 @@ class Subsample extends PpciModel
                     $ds = $this->sample->read($data["uid"]);
                     $ds["uid"] = 0;
                     $ds["sample_id"] = 0;
+                    $ds["parent_sample_id"] = "";
                     $ds["identifier"] = $data["identifier"];
                     $ds["collection_id"] = $data["collection_id"];
                     $ds["sample_type_id"] = $data["sample_type_id"];

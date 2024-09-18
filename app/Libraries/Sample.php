@@ -234,7 +234,7 @@ class Sample extends PpciLibrary
          * Recuperation des sous-echantillonnages
          */
         $subSample = new Subsample();
-        if ($data["multiple_type_id"] > 0) { 
+        if ($data["multiple_type_id"] > 0) {
             $this->vue->set($subSample->getListFromSample($data["sample_id"]), "subsample");
         }
         /**
@@ -874,5 +874,69 @@ class Sample extends PpciLibrary
         $vue->set($country->getListe(2), "countries");
         $label = new Label;
         $vue->set($label->getListe(2), "labels");
+    }
+    function createComposite()
+    {
+        $subSample = new Subsample;
+        try {
+            $db = $this->dataclass->db;
+            $db->transBegin();
+            if (count($_POST["uids"]) == 0) {
+                throw new PpciException(_("Pas d'échantillons sélectionnés"));
+            }
+            $uidComposite = $_REQUEST["uidComposite"];
+            if (empty($uidComposite)) {
+                /**
+                 * Create a new sample
+                 */
+                if (empty($_REQUEST["identifierComposite"]) || empty($_REQUEST["collection_idComposite"]) || empty($_REQUEST["sample_type_idComposite"])) {
+                    throw new PpciException(_("Il manque des informations pour pouvoir créer un nouvel échantillon (identifiant, collection ou type)"));
+                }
+                /**
+                 * get the first sample selected
+                 */
+                $firstUid = $_POST["uids"][0];
+                if (empty($firstUid)) {
+                    throw new PpciException(_("Un problème est apparu pour lire le premier UID des échantillons sélectionnés"));
+                }
+                $dsample = $this->dataclass->read($firstUid);
+                $dsample["sample_id"] = 0;
+                $dsample["uid"] = 0;
+                $dsample["identifier"] = $_POST["identifierComposite"];
+                $dsample["parent_sample_id"] = "";
+                $dsample["collection_id"] = $_POST["collection_idComposite"];
+                $dsample["sample_type_id"] = $_POST["sample_type_idComposite"];
+                $dsample["sample_creation_date"] = date($this->dataclass->datetimeFormat);
+                $dsample["dbuid_origin"] = "";
+                $dsample["multiple_value"] = $_POST["multiple_valueComposite"];
+                $uidComposite = $this->dataclass->write($dsample);
+            }
+            /**
+             * Read the composite record
+             */
+            $dcomposite = $this->dataclass->read($uidComposite);
+            /**
+             * Create the subsamples
+             */
+            $dsubsample = [
+                "subsample_id" => 0,
+                "subsample_date" => date($this->dataclass->datetimeFormat),
+                "subsample_login" => $_SESSION["login"],
+                "movement_type_id" => 2,
+                "subsample_quantity" => $_POST["subsample_quantity"],
+                "createdsample_id" => $dcomposite["sample_id"]
+            ];
+            foreach ($_POST["uids"] as $uid) {
+                $ds = $this->dataclass->read($uid);
+                $dsubsample["sample_id"] = $ds["sample_id"];
+                $subSample->write($dsubsample);
+            }
+            $db->transCommit();
+            $this->message->set(sprintf(_("L'échantillon composé %s a été créé ou mis à jour"), $uidComposite));
+        } catch (PpciException $e) {
+            $this->message->set($e->getMessage(), true);
+            $db->transRollback();
+        }
+        return $this->list();
     }
 }

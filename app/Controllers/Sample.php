@@ -115,6 +115,10 @@ class Sample extends PpciController
     {
         return $this->lib->getChildren();
     }
+    function createComposite() {
+        $this->lib->createComposite();
+        return $this->list();   
+    }
     function returnToOrigin($origin)
     {
         if (!empty($_REQUEST["moduleFrom"])) {

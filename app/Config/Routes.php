@@ -148,6 +148,7 @@ $routes->add('samplesSetCollection', 'Sample::setCollection');
 $routes->add('samplesSetCampaign', 'Sample::setCampaign');
 $routes->add('samplesSetStatus', 'Sample::setStatus');
 $routes->add('samplesSetParent', 'Sample::setParent');
+$routes->add('samplesCreateComposite', 'Sample::createComposite');
 $routes->add('sampleGetChildren', 'Sample::getChildren');
 $routes->add('movementList', 'Movement::list');
 $routes->add('fastInputChange', 'Movement::fastInputChange');
@@ -348,6 +349,8 @@ $routes->add('consult_sees_all_fr', '\Ppci\Controllers\Utils::markdown/documenta
 $routes->add('consult_sees_all_en', '\Ppci\Controllers\Utils::markdown/documentation/consult_sees_all/consult_sees_all_en.md');
 $routes->add('automaticsendmail_fr', '\Ppci\Controllers\Utils::markdown/documentation/collection/automaticsendmail_fr.md');
 $routes->add('automaticsendmail_en', '\Ppci\Controllers\Utils::markdown/documentation/collection/automaticsendmail_en.md');
+$routes->add('composite_fr', '\Ppci\Controllers\Utils::markdown/documentation/sample/composite_fr.md');
+$routes->add('composite_en', '\Ppci\Controllers\Utils::markdown/documentation/sample/composite_en.md');
 $routes->add('mailSmarty', 'MailSmarty::index');
 $routes->add('objets', '\Ppci\Controllers\Utils::submenu/objets');
 $routes->add('movement', '\Ppci\Controllers\Utils::submenu/movement');

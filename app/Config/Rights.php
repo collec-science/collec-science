@@ -203,6 +203,7 @@ class Rights extends RightsPpci
         "subsampleChange" => ["manage"],
         "subsampleWrite" => ["manage"],
         "subsampleDelete" => ["manage"],
+        "samplesCreateComposite" => ["collection"],
         "containerdocumentWrite" => ["manage"],
         "containerdocumentDelete" => ["manage"],
         "sampledocumentWrite" => ["manage"],

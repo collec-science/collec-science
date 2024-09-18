@@ -209,13 +209,23 @@ class ImportObject
 
     function initAllClasses()
     {
-        $classes = array("sample", "container", "movement", "samplingPlace", "identifierType", "sampleType", "referent", "campaign", "country", "objectIdentifier");
+        /* $classes = array("sample", "container", "movement", "samplingPlace", "identifierType", "sampleType", "referent", "campaign", "country", "objectIdentifier");
         foreach ($classes as $classe) {
             if (!isset($this->$classe)) {
                 $className = ucfirst($classe);
                 $this->$classe = new $className;
             }
-        }
+        } */
+        $this->sample = new Sample;
+        $this->container = new Container;
+        $this->movement = new Movement;
+        $this->samplingPlace = new SamplingPlace;
+        $this->identifierType = new IdentifierType;
+        $this->sampleType = new SampleType;
+        $this->referent = new Referent;
+        $this->campaign = new Campaign;
+        $this->country = new Country;
+        $this->objectIdentifier = new ObjectIdentifier;
     }
 
 

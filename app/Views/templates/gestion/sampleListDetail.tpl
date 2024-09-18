@@ -225,7 +225,8 @@
 			"samplesSetParent": "parentid",
 			"samplesDocument": "document",
 			"samplesExit": "samplesExit",
-			"lotCreate":"lotCreate"
+			"lotCreate":"lotCreate",
+			"samplesCreateComposite":"createComposite"
 		};
 		$( "#checkedActionSample" ).change( function () {
 			var action = $( this ).val();
@@ -865,6 +866,7 @@
 					<option value="samplesEntry">{t}Entrer ou déplacer les échantillons au même emplacement{/t}</option>
 					<option value="samplesSetCollection">{t}Modifier la collection d'affectation{/t}</option>
 					<option value="samplesSetParent">{t}Assigner un parent aux échantillons{/t}</option>
+					<option value="samplesCreateComposite">{t}Créer un échantillon composé à partir des échantillons sélectionnés{/t}</option>
 					<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 					<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
 					<option value="samplesDocument">{t}Ajouter les mêmes documents aux échantillons{/t}</option>
@@ -1108,6 +1110,157 @@
 						<div class="col-md-8">
 							<input id="document_creation_date" name="document_creation_date"
 								class="form-control date">
+						</div>
+					</div>
+				</div>
+				<!-- Create a composite sample-->
+				<script>
+					$(document).ready(function () {
+
+						function getSampletypeComposite() {
+							var collection_id = $("#collection_idComposite").val();
+							$.ajax({
+								url: "sampleTypeGetListAjax",
+								data: { "collection_id": collection_id }
+							})
+								.done(function (value) {
+									d = JSON.parse(value);
+									var options = '';
+									for (var i = 0; i < d.length; i++) {
+										options += '<option value="' + d[i].sample_type_id + '"';
+										options += '>' + d[i].sample_type_name;
+										if (d[i].multiple_type_id > 0) {
+											options += ' / ' + d[i].multiple_type_name + ' : ' + d[i].multiple_unit;
+										}
+										options += '</option>';
+									};
+									$("#sample_type_idComposite").html(options);
+								});
+						}
+						function searchSampleComposite() {
+							var uid = $("#uidsearchComposite").val();
+							var name = $("#namesearchComposite").val();
+							var createdsample = "{$data.created_sample_id}";
+							var mode = "none";
+							var val = "";
+							if (uid > 0) {
+								mode = "uid";
+							} else if (name.length > 3) {
+								mode = "name";
+							}
+							var options = '';
+							/**
+							 * clean select field
+							 */
+							$("#createdsample_id").html(options);
+							if (mode != "none") {
+								$.ajax({
+									url: "sampleSearchAjax",
+									data: {
+										uidsearch: uid,
+										name: name
+									}
+								}).done(function (value) {
+				
+									d = JSON.parse(value);
+									if (d.length > 0) {
+										for (var i = 0; i < d.length; i++) {
+											options += '<option value="' + d[i].uid + '"' + '>';
+											options += d[i].uid + " " + d[i].identifier;
+											options += '</option>';
+										}
+										$("#uidComposite").html(options);
+										$(".tocreate").prop("disabled", true);
+									} else {
+										$(".tocreate").prop("disabled", false);
+									}
+								});
+							}
+						}
+						$("#collection_idComposite").change(function () {
+							getSampletypeComposite();
+						});
+						/**
+						 * Search for existent sample
+						 */
+						$("#uidsearchComposite").change(function () {
+							searchSampleComposite();
+						});
+						$("#namesearchComposite").change(function () {
+							searchSampleComposite();
+						});
+						getSampletypeComposite();
+					});
+				</script>
+				<div class="createComposite" hidden>
+					<div class="form-group">
+						<label for="subsample_quantity" class="control-label col-md-4"><span class="red">*</span>
+							{t}Quantité à retirer de chacun des échantillons sélectionnés :{/t}
+						</label>
+						<div class="col-md-8">
+							<input id="subsample_quantity" name="subsample_quantity" value="{$data.subsample_quantity}"
+								class="form-control taux">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="identifierComposite" class="control-label col-md-4">{t}Identifiant ou nom :{/t}</label>
+						<div class="col-md-8">
+							<input id="identifierComposite" type="text" name="identifierComposite" class="form-control tocreate">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="collection_idComposite" class="control-label col-md-4"><span class="red">*</span>
+							{t}Collection :{/t}</label>
+						<div class="col-md-8">
+							<select id="collection_idComposite" name="collection_idComposite" class="form-control tocreate" autofocus>
+								{foreach $collections as $collection}
+								<option value="{$collection.collection_id}" {if $sampleSearch.collection_id == $collection.collection_id}selected{/if}>
+									{$collection.collection_name}
+								</option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="sample_type_idComposite" class="control-label col-md-4"><span class="red">*</span>
+							{t}Type :{/t}
+						</label>
+						<div class="col-md-8">
+							<select id="sample_type_idComposite" name="sample_type_idComposite" class="form-control tocreate">
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="uidsearchComposite" class="col-md-4 control-label">{t}Échantillon déjà existant - UID
+							:{/t}</label>
+						<div class="col-md-2">
+							<input id="uidsearchComposite" name="uidsearchComposite" class="form-control nombre" value="{$data.created_uid}">
+						</div>
+						<label for="namesearchComposite" class="col-md-2 control-label">
+							{t}ou identifiant ou UUID :{/t}
+						</label>
+						<div class="col-md-3">
+							<input id="namesearchComposite" type="text" class="form-control" name="nameComposite"
+								title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
+						</div>
+						<div class="col-md-1">
+							<img src="display/images/zoom.png" height="25">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="uidComposite" class="col-md-4 control-label">
+							{t}Échantillon composé correspondant :{/t}
+						</label>
+						<div class="col-md-8">
+							<select id="uidComposite" name="uidComposite" class="form-control">
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="multiple_valueComposite" class="control-label col-md-4">
+							{t 1=$data.multiple_unit}Quantité à affecter à l'échantillon (en création uniquement):{/t}</label>
+						<div class="col-md-8">
+							<input id="multiple_valueComposite" class="form-control taux tocreate" name="multiple_valueComposite">
 						</div>
 					</div>
 				</div>

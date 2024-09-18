@@ -9,7 +9,7 @@ class Borrowing extends PpciModel
 
     private $sql = "select uid, identifier, object_status_id, object_status_name,
                 borrowing_id, borrowing_date, expected_return_date, return_date,
-                borrower_id, borrower_name
+                borrower_id, borrower_name, borrowing_comment
                 from borrowing
                 join object using (uid)
                 join borrower using (borrower_id)
@@ -48,7 +48,8 @@ class Borrowing extends PpciModel
             ),
             "return_date" => array(
                 "type" => 2
-            )
+            ),
+            "borrowing_comment" => ["type" => 0]
         );
         parent::__construct();
     }

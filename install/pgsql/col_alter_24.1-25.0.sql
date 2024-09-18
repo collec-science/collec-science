@@ -36,3 +36,7 @@ join sample p on (ss.sample_id = p.sample_id)
 join object po on (p.uid = po.uid)
 group by ss.createdsample_id
 );
+
+alter table borrowing add column borrowing_comment varchar;
+
+insert into dbversion (dbversion_date, dbversion_number) values ('2024-09-18','25.0');

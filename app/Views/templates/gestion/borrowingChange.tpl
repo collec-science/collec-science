@@ -69,6 +69,12 @@
                     <input id="expected_return_date" name="expected_return_date" value="{$data.expected_return_date}" class="form-control datepicker" >
                 </div>
             </div>
+            <div class="form-group">
+                <label for="borrowing_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+                <div class="col-md-8">
+                <textarea id="borrowing_comment" name="borrowing_comment"  class="form-control" rows="3">{$data.borrowing_comment}</textarea>
+                </div>
+                </div>
             <div class="form-group" >
                     <label for="return_date" class="control-label col-md-4">{t}Date de retour réelle :{/t}</label>
                     <div class="col-md-8">

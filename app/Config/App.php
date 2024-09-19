@@ -182,19 +182,19 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public string $version = "v24.0.0";
+    public string $version = "v25.0.0";
     /**
      * versionDate - don't change here, but in function setParameters() below
      *
      * @var string
      */
-    public string $versionDate = "30/06/2024";
+    public string $versionDate = "20/09/2024";
     /**
      * Number of the database version
      *
      * @var string
      */
-    public string $dbversion = "24.0";
+    public string $dbversion = "25.0";
     /**
      * Location of the database schema
      *
@@ -317,13 +317,13 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $APP_help_address = "https://github.com/equinton/ppci/issues/new";
+    public $APP_help_address = "https://github.com/collec-science/collec-science/issues/new";
     /**
      * Copyright - don't change directly here, but in setParameters function
      *
      * @var string
      */
-    public $copyright = "Copyright © 2024 - All rights reserved. Author : Éric Quinton - Software distributed under AGPL license";
+    public $copyright = "Copyright © 2016-2024 - All rights reserved. Author : Éric Quinton - Software distributed under AGPL license";
 
     /**
      * Linux command used to print directly to a printer
@@ -362,10 +362,10 @@ class App extends BaseConfig
      */
     public $APPLI_release = [
         "provider" => "github",
-        "url" => "https://api.github.com/repos/equinton/ppci/releases/latest",
+        "url" => "https://api.github.com/repos/collec-science/collec-science/releases/latest",
         "tag" => "tag_name",
         "date" => "published_at",
-        "user_agent" => 'equinton/ppci',
+        "user_agent" => 'collec-science/collec-science',
         "description" => "body",
     ];
     /**

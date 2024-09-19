@@ -1,5 +1,7 @@
 <?php
 
+use App\Libraries\DefaultLibrary;
+
 if (!function_exists('cmp')) {
     /**
      * Sort list files on name
@@ -74,4 +76,14 @@ if (!function_exists('getMaximumfileUploadSize')) {
     {
         return min(convertPHPSizeToBytes(ini_get('post_max_size')), convertPHPSizeToBytes(ini_get('upload_max_filesize')));
     }
+}
+/**
+ * Go to the default page
+ *
+ * @return void
+ */
+function defaultPage()
+{
+    $default = new DefaultLibrary;
+    $default->index();
 }

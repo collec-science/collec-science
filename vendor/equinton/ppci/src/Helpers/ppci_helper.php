@@ -105,16 +105,19 @@ function htmlDecode($data)
     }
     return $data;
 }
-/**
- * Go to the default page
- *
- * @return void
- */
-function defaultPage()
-{
-    $default = new \Ppci\Libraries\DefaultPage();
-    $default->display();
+if (!function_exists('defaultPage')) {
+    /**
+     * Go to the default page
+     *
+     * @return void
+     */
+    function defaultPage()
+    {
+        $default = new \Ppci\Libraries\DefaultPage();
+        $default->display();
+    }
 }
+
 
 /**
  * Set locale

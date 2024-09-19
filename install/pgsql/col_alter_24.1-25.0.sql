@@ -47,4 +47,6 @@ create or replace view v_derivated_number as (
 
 alter table borrowing add column borrowing_comment varchar;
 
+alter table container_type add column nbobject_by_slot integer DEFAULT 0;
+
 insert into dbversion (dbversion_date, dbversion_number) values ('2024-09-18','25.0');

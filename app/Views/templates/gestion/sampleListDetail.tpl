@@ -957,11 +957,37 @@
 					</div>
 				</div>
 				<!-- create an entry movement -->
+				<script>
+					$(document).ready(function() {
+						$(".slotFull").change (function () { 
+							var uid = $("#container_uidChange").val();
+							var line = $("#line_number").val();
+							var column = $("#column_number").val();
+							if (uid > 0 && line > 0 && column > 0) {
+								$.getJSON( 
+									"containerIsSlotFull", 
+									{  "uid": uid,
+										"line": line,
+										"column": column
+									}, 
+									function ( data ) {
+										if (data != null) {
+											var res = data["isFull"];
+											if (res == 1) {
+												alert("{t}Cet emplacement dans le contenant est plein !{/t}");
+											}
+										}
+									}
+								);
+							}
+						});
+					});
+				</script>
 				<div class="entry" hidden>
 					<div class="form-group ">
 						<label for="container_uidChange" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
 						<div class="col-md-8">
-							<input id="container_uidChange" name="container_uid" value="" type="number" class="form-control">
+							<input id="container_uidChange" name="container_uid" value="" type="number" class="form-control slotFull">
 						</div>
 					</div>
 					<div class="form-group ">
@@ -995,14 +1021,14 @@
 					<div class="form-group ">
 						<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
 						<div class="col-sm-8">
-							<input id="line_number" name="line_number" value="" class="form-control nombre"
+							<input id="line_number" name="line_number" value="" class="form-control nombre slotFull"
 								title="{t}N° de la ligne de rangement dans le contenant{/t}">
 						</div>
 					</div>
 					<div class="form-group ">
 						<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
 						<div class="col-sm-8">
-							<input id="column_number" name="column_number" value="" class="form-control nombre"
+							<input id="column_number" name="column_number" value="" class="form-control nombre slotFull"
 								title="{t}N° de la colonne de rangement dans le contenant{/t}">
 						</div>
 					</div>

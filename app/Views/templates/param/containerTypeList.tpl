@@ -18,6 +18,7 @@
 					<th>{t}Description{/t}</th>
 					<th>{t}Nombre de lignes et de colonnes{/t}</th>
 					<th>{t}Nombre maxi d'emplacements de stockage{/t}</th>
+					<th>{t}Nombre maxi d'objets par slot (ligne/colonne){/t}</th>
 					<th>{t}Condition de stockage{/t}</th>
 					<th>{t}Produit utilisé{/t}</th>
 					<th>{t}Code CLP (risque){/t}</th>
@@ -65,6 +66,7 @@
 							{/if}
 						</td>
 						<td class="center">{$data[lst].nb_slots_max}</td>
+						<td class="center">{$data[lst].nbobject_by_slot}</td>
 						<td>{$data[lst].storage_condition_name}</td>
 						<td>{$data[lst].storage_product}</td>
 						<td>{$data[lst].clp_classification}</td>

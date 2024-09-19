@@ -67,6 +67,7 @@ $routes->add('containerGetOccupation', 'Container::getOccupationAjax');
 $routes->add('containerImportStage1', 'Container::importStage1');
 $routes->add('containerImportStage2', 'Container::importStage2');
 $routes->add('containerImportStage3', 'Container::importStage3');
+$routes->add('containerIsSlotFull', 'Container::isSlotFull');
 $routes->add('containersLending', 'Container::lendingMulti');
 $routes->add('containersExit', 'Container::exitMulti');
 $routes->add('containersDelete', 'Container::deleteMulti');

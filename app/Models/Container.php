@@ -16,7 +16,7 @@ class Container extends PpciModel
 					document_id, identifiers,
 					movement_date, movement_type_name, movement_type_id,
           lines, columns, first_line, first_column, line_in_char, column_in_char,
-          column_number, line_number, container_uid, oc.identifier as container_identifier,
+          column_number, line_number, nbobject_by_slot, container_uid, oc.identifier as container_identifier,
           o.referent_id, referent_name, referent_firstname, referent_email, address_name, address_line2, address_line3, address_city, address_country, referent_phone, academical_directory, academical_link,
           borrowing_date, expected_return_date, borrower_id, borrower_name,
           nb_slots_used
@@ -1037,5 +1037,50 @@ class Container extends PpciModel
             $data["uid"] = $uid;
             $this->executeSql($sql, $data, true);
         }
+    }
+    /**
+     * get the number of objects into a slot
+     *
+     * @param integer $uid
+     * @param integer $line
+     * @param integer $column
+     * @return integer
+     */
+    function getNumberObjectsBySlot(int $uid, int $line, int $column): int
+    {
+        $number = 0;
+        $sql = "select count(*) as number 
+                from last_movement
+                where movement_type_id = 1
+                and container_uid = :uid:
+                and line_number = :line:
+                and column_number = :column:";
+        $res = $this->lireParam($sql, ["uid" => $uid, "line" => $line, "column" => $column]);
+        if (!empty($res)) {
+            $number = $res["number"];
+        }
+        return $number;
+    }
+    /**
+     * Verify if a slot is full
+     *
+     * @param integer $uid
+     * @param integer $line
+     * @param integer $column
+     * @return integer
+     */
+    function isSlotFull(int $uid, int $line, int $column): int{
+        $retour = 0;
+        /**
+         * search if the type of container has a limit by slot
+         */
+        $dcontainer = $this->read($uid);
+        if ($dcontainer["nbobject_by_slot"] > 0) {
+            $actual = $this->getNumberObjectsBySlot($uid, $line, $column);
+            if ($actual >= $dcontainer["nbobject_by_slot"]) {
+                $retour = 1;
+            }
+        }
+        return $retour;
     }
 }

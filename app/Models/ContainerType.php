@@ -80,7 +80,8 @@ class ContainerType extends PpciModel
                 "defaultValue" => "L"
             ),
             "line_in_char" => array("type" => 1, "defaultValue" => 0),
-            "column_in_char" => array("type" => 1, "defaultValue" => 0)
+            "column_in_char" => array("type" => 1, "defaultValue" => 0),
+            "nbobject_by_slot" => array("type"=>1, "defaultValue" => 0)
         );
         parent::__construct();
     }

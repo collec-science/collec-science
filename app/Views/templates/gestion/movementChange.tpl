@@ -65,6 +65,7 @@ var type_movement = "{$data.movement_type_id}";
 
 		$("#container_uid").val(a_texte[0]);
 		getOccupation(a_texte[0]);
+		isSlotFull();
 	});
 	if($("#movement_type_id").val() == 1 )
 		$("#container_uid").attr("required");
@@ -94,6 +95,7 @@ var type_movement = "{$data.movement_type_id}";
 			 */
 			 if (uid > 0) {
 				getOccupation(uid);
+				isSlotFull();
 			}
 		});
 	 });
@@ -183,12 +185,39 @@ var type_movement = "{$data.movement_type_id}";
 			}
 		});
 	 }
+	 function isSlotFull() {
+		var uid = $("#container_uid").val();
+		var line = $("#line_number").val();
+		var column = $("#column_number").val();
+		if (type_movement == 1 && uid > 0 && line > 0 && column > 0) {
+			
+			$.getJSON( 
+				"containerIsSlotFull", 
+				{  "uid": uid,
+					"line": line,
+					"column": column
+				}, 
+				function ( data ) {
+					if (data != null) {
+						var res = data["isFull"];
+						if (res == 1) {
+							alert("{t}Cet emplacement dans le contenant est plein !{/t}");
+						}
+					}
+				}
+			);
+		}
+	 }
 	 $(document).on("click", ".cell", function(event){ 
 		$("#line_number").val( $(this).data("line"));
 		$("#column_number").val( $(this).data("column"));
 		$(".cell").removeClass("itemSelected");
 		$(this).addClass("itemSelected");
+		isSlotFull();
 	 });
+	 $(".slotFull").change (function () { 
+		isSlotFull();
+	});
 });
 
 </script>
@@ -224,7 +253,7 @@ var type_movement = "{$data.movement_type_id}";
 				<div class="form-group">
 					<label for="container_uid" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
 					<div class="col-md-8">
-						<input id="container_uid" name="container_uid" value="{$data.container_uid}" type="number" class="form-control">
+						<input id="container_uid" name="container_uid" value="{$data.container_uid}" type="number" class="form-control slotFull">
 					</div>
 				</div>
 				<div class="form-group">
@@ -268,14 +297,14 @@ var type_movement = "{$data.movement_type_id}";
 					<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
 					<div class="col-sm-8">
 						<input id="line_number" name="line_number"
-							value="{$data.line_number}" class="form-control nombre" title="{t}N° de la ligne de rangement dans le contenant{/t}">
+							value="{$data.line_number}" class="form-control nombre slotFull" title="{t}N° de la ligne de rangement dans le contenant{/t}">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
 					<div class="col-sm-8">
 						<input id="column_number" name="column_number"
-							value="{$data.column_number}" class="form-control nombre" title="{t}N° de la colonne de rangement dans le contenant{/t}">
+							value="{$data.column_number}" class="form-control nombre slotFull" title="{t}N° de la colonne de rangement dans le contenant{/t}">
 					</div>
 				</div>
 			{/if}

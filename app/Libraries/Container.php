@@ -25,6 +25,7 @@ use App\Models\Sample;
 use App\Models\SampleInitClass;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
+use Ppci\Libraries\Views\AjaxView;
 use Ppci\Models\PpciModel;
 
 class Container extends PpciLibrary
@@ -662,5 +663,22 @@ class Container extends PpciLibrary
         $this->vue->set($_SESSION["collections"], "collections");
         $collection = new Collection();
         $this->vue->set($collection->getAllCollections(), "collectionsSearch");
+    }
+    /**
+     * Verify if a slot is full - ajax service
+     *
+     */
+    function isSlotFull()
+    {
+        /**
+         * @var AjaxView
+         */
+        $this->vue = service("AjaxView");
+        if (!empty($_REQUEST["uid"]) && !empty($_REQUEST["line"]) && !empty($_REQUEST["column"])) {
+            $this->vue->set(["isFull" => $this->dataclass->isSlotFull($_REQUEST["uid"], $_REQUEST["line"], $_REQUEST["column"])]);
+        } else {
+            $this->vue->set(["isFull" => 0]);
+        }
+        return $this->vue->send();
     }
 }

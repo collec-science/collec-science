@@ -103,9 +103,15 @@
                         </div>
                   </div>
                   <div class="form-group">
-                        <label for="lines"  class="control-label col-md-4">{t}Nombre d'emplacements maximum :{/t}</label>
+                        <label for="nb_slots_max"  class="control-label col-md-4">{t}Nombre d'emplacements maximum :{/t}</label>
                         <div class="col-md-8">
                               <input id="nb_slots_max" name="nb_slots_max" value="{$data.nb_slots_max}" class="nombre form-control">
+                        </div>
+                  </div>
+                  <div class="form-group">
+                        <label for="nbobject_by_slot"  class="control-label col-md-4">{t}Nombre maxi d'objets par slot (ligne/colonne) :{/t}</label>
+                        <div class="col-md-8">
+                              <input id="nbobject_by_slot" name="nbobject_by_slot" value="{$data.nbobject_by_slot}" class="nombre form-control">
                         </div>
                   </div>
                   <div class="form-group">

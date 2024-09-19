@@ -104,4 +104,7 @@ class Container extends PpciController
     {
         return $this->lib->exportGlobal();
     }
+    function isSlotFull() {
+        return $this->lib->isSlotFull();
+    }
 }

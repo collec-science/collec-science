@@ -1,6 +1,31 @@
-{* Mouvements > Entrer un échantillon > *}
 <!-- Ajout rapide d'un échantillon dans un container -->
 {include file="gestion/qrcode_read.tpl"}
+<script>
+	$(document).ready(function() {
+		$(".slotFull").change (function () { 
+			var uid = $("#container_uid").val();
+			var line = $("#line_number").val();
+			var column = $("#column_number").val();
+			if (uid > 0 && line > 0 && column > 0) {
+				$.getJSON( 
+					"containerIsSlotFull", 
+					{  "uid": uid,
+						"line": line,
+						"column": column
+					}, 
+					function ( data ) {
+						if (data != null) {
+							var res = data["isFull"];
+							if (res == 1) {
+								alert("{t}Cet emplacement dans le contenant est plein !{/t}");
+							}
+						}
+					}
+				);
+			}
+		});
+	});
+</script>
 
 <h2>{t}Entrer ou déplacer dans un contenant{/t}</h2>
 <div class="row">
@@ -17,7 +42,7 @@
 				<div class="col-sm-8" id="container_groupe">
 					<div class="col-sm-3">
 						<input id="container_uid" type="text" name="container_uid" required value="{$container_uid}"
-							class="form-control" autocomplete="off">
+							class="form-control slotFull" autocomplete="off">
 					</div>
 					<div class="col-sm-3 col-sm-offset-1">
 						<button type="button" id="container_search" class="btn btn-default">{t}Chercher...{/t}</button>
@@ -58,7 +83,7 @@
 			<div class="form-group">
 				<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
 				<div class="col-sm-8">
-					<input id="line_number" name="line_number" value="{$data.line_number}" class="form-control nombre"
+					<input id="line_number" name="line_number" value="{$data.line_number}" class="form-control nombre slotFull"
 						title="{t}N° de la ligne de rangement dans le container{/t}">
 				</div>
 			</div>
@@ -66,7 +91,7 @@
 				<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
 				<div class="col-sm-8">
 					<input id="column_number" name="column_number" value="{$data.column_number}"
-						class="form-control nombre" title="{t}N° de la colonne de rangement dans le container{/t}">
+						class="form-control nombre slotFull" title="{t}N° de la colonne de rangement dans le container{/t}">
 				</div>
 			</div>
 

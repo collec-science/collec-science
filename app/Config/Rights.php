@@ -71,6 +71,7 @@ class Rights extends RightsPpci
         "containerImportStage1" => ["import", "collection"],
         "containerImportStage2" => ["import", "collection"],
         "containerImportStage3" => ["import", "collection"],
+        "containerIsSlotFull" => ["manage"],
         "containersLending" => ["collection"],
         "containersExit" => ["collection"],
         "containersDelete" => ["collection"],

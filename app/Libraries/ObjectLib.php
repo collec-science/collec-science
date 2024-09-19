@@ -40,9 +40,11 @@ class ObjectLib extends PpciLibrary
         if (isset($_REQUEST["is_partial"])) {
             $is_partial = $_REQUEST["is_partial"];
         }
+        if (!empty($_REQUEST["uid"])) {
         $this->vue = service("AjaxView");
-        $this->vue->set($this->dataclass->getDetail($this->id, $_REQUEST["is_container"], $is_partial));
+        $this->vue->set($this->dataclass->getDetail($_REQUEST["uid"], $_REQUEST["is_container"], $is_partial));
         return $this->vue->send();
+        }
     }
     function printLabelDirect()
     {

@@ -288,7 +288,7 @@ class ObjectClass extends PpciModel
             }
             if ($is_container != 1) {
                 if (!$searchUUID) {
-                    $where .= " or upper(dbuid_origin) $operator upper(:dbuid_origin)";
+                    $where .= " or upper(dbuid_origin) $operator upper(:dbuid_origin:)";
                     $data["dbuid_origin"] = $uid;
                 }
                 $sql .= "select uid, identifier, wgs84_x, wgs84_y,

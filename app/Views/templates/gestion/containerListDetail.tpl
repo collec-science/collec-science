@@ -436,7 +436,7 @@ $(document).ready(function () {
 					<th>{t}Type{/t}</th>
 					<th>{t}Dernier mouvement{/t}</th>
 					<th>{t}Emplacement{/t}</th>
-					<th>{t}Nbre de slots utilisés/Nbre total{/t}</th>
+					<th>{t}Nbre d'emplacements utilisés/Nbre total{/t}</th>
 					<th>{t}Condition de stockage{/t}</th>
 					<th>{t}Produit utilisé{/t}</th>
 					<th>{t}Code CLP{/t}</th>

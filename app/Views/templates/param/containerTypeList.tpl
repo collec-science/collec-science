@@ -18,7 +18,7 @@
 					<th>{t}Description{/t}</th>
 					<th>{t}Nombre de lignes et de colonnes{/t}</th>
 					<th>{t}Nombre maxi d'emplacements de stockage{/t}</th>
-					<th>{t}Nombre maxi d'objets par slot (ligne/colonne){/t}</th>
+					<th>{t}Nombre maxi d'objets par emplacement (ligne/colonne){/t}</th>
 					<th>{t}Condition de stockage{/t}</th>
 					<th>{t}Produit utilisé{/t}</th>
 					<th>{t}Code CLP (risque){/t}</th>

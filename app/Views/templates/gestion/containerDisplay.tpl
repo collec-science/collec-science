@@ -578,7 +578,7 @@
 					</dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt>{t}Nbre de slots utilisés / Nbre total :{/t}</dt>
+					<dt>{t}Nbre d'emplacements utilisés / Nbre total :{/t}</dt>
 					<dd>{$data.nb_slots_used} / {$data.nb_slots_max}</dd>
 				</dl>
 				<dl class="dl-horizontal">

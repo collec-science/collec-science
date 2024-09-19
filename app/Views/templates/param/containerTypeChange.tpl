@@ -109,7 +109,7 @@
                         </div>
                   </div>
                   <div class="form-group">
-                        <label for="nbobject_by_slot"  class="control-label col-md-4">{t}Nombre maxi d'objets par slot (ligne/colonne) :{/t}</label>
+                        <label for="nbobject_by_slot"  class="control-label col-md-4">{t}Nombre maxi d'objets par emplacement (ligne/colonne) :{/t}</label>
                         <div class="col-md-8">
                               <input id="nbobject_by_slot" name="nbobject_by_slot" value="{$data.nbobject_by_slot}" class="nombre form-control">
                         </div>

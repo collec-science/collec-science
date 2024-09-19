@@ -49,4 +49,15 @@ alter table borrowing add column borrowing_comment varchar;
 
 alter table container_type add column nbobject_by_slot integer DEFAULT 0;
 
+create or replace view slots_used as (
+with req as (
+select container_id, line_number, column_number, count(*) as qty_by_slot
+from last_movement
+where movement_type_id = 1
+group by container_id, line_number, column_number)
+select container_id, sum (qty_by_slot)::bigint as nb_slots_used
+from req
+group by container_id
+);
+
 insert into dbversion (dbversion_date, dbversion_number) values ('2024-09-18','25.0');

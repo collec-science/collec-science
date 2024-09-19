@@ -110,6 +110,11 @@ class ImportObject
 
     private $sample;
 
+    /**
+     * Undocumented variable
+     *
+     * @var Container
+     */
     private $container;
 
     private $movement;
@@ -1037,6 +1042,33 @@ class ImportObject
                     $retour["code"] = false;
                     $retour["message"] .= sprintf(_("Le champ %s n'est pas numérique."), $key);
                 }
+            }
+        }
+        /**
+         * Vérification du slot pour la création du mouvement d'entrée
+         */
+        if (
+            (!empty($data["container_parent_uid"]) || !empty($data["container_parent_identifier"]))
+            && (
+                (!empty($data["container_line"]) && !empty($data["container_column"]))
+                || (!empty($data["sample_line"]) && !empty($data["sample_column"]))
+            )
+        ) {
+            if (empty($data["container_line"])) {
+                $line = $data["sample_line"];
+                $column = $data["sample_column"];
+            } else {
+                $line = $data["container_line"];
+                $column = $data["container_column"];
+            }
+            if (empty($data["container_parent_uid"])) {
+                $cuid = $this->container->getUidFromIdentifier($data["container_parent_identifier"]);
+            } else {
+                $cuid = $data["container_parent_uid"];
+            }
+            if ($this->container->isSlotFull($cuid, $line, $column) == 1) {
+                $retour["code"] = false;
+                $retour["message"] .= (sprintf(_("L'emplacement choisi dans le contenant %s est déjà plein."), $cuid));
             }
         }
         /**

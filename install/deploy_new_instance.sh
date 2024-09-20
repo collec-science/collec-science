@@ -2,12 +2,12 @@
 # install a new instance into a server
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
-REPO=https://github.com/inrae/sturwild
+REPO=https://github.com/collec-science/collec-science
 PHPVER=8.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
-echo "Installation of Sturwild app "
+echo "Installation of collec app "
 echo "This script is available for Debian or Ubuntu server"
-echo "this script will install apache server and php, postgresql and deploy the current version of STURWILD"
+echo "this script will install apache server and php, postgresql and deploy the current version of collec"
 read -p "Do you want to continue [y/n]?" response
 if [ "$response" = "y" ]
 then
@@ -39,18 +39,19 @@ apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVE
 
 # creation of directory
 cd /var/www
-mkdir sturwildApp
-cd sturwildApp
+mkdir collec2App
+cd collec2App
 
 # download software
 echo "download software"
-git clone https://github.com/inrae/sturwild.git -b main
+git clone https://github.com/collec-science/collec-science.git -b main
 
 # update rights on files
-chmod -R 755 sturwild/
-cd sturwild
+chmod -R 755 collec-science/
+cd collec-science
 # create .env file
 cp env .env
+chgrp www-data .env
 # creation of database
 echo "creation of the database"
 cd install
@@ -78,15 +79,15 @@ echo "$line" | crontab -u postgres -
 
 # generate rsa key for encrypted tokens
 echo "generate encryption keys for identification tokens"
-openssl genpkey -algorithm rsa -out id_sturwild -pkeyopt rsa_keygen_bits:2048
-openssl rsa -in id_sturwild -pubout -out id_sturwild.pub
-chown www-data id_sturwild
+openssl genpkey -algorithm rsa -out id_collec -pkeyopt rsa_keygen_bits:2048
+openssl rsa -in id_collec -pubout -out id_collec.pub
+chown www-data id_collec
 
 # update rights to specific software folders
+chgrp -R www-data .
 find . -type d -exec chmod 750 {} \;
 find . -type f -exec chmod 640 {} \;
-chgrp -R www-data .
-chmod -R g+w writable
+find writable -type d -exec chmod 770 {} \;
 
 # adjust php.ini values
 upload_max_filesize="=100M"
@@ -111,9 +112,9 @@ sed -i "s/# en_GB.UTF-8/en_GB.UTF-8/" /etc/locale.gen
 
 # creation of virtual host
 echo "creation of virtual site"
-cp install/apache2/sturwild.conf /etc/apache2/sites-available/
-/usr/sbin/a2ensite sturwild
-echo "you must modify the file /etc/apache2/sites-available/sturwild.conf"
+cp install/apache2/collec2.conf /etc/apache2/sites-available/
+/usr/sbin/a2ensite collec2
+echo "you must modify the file /etc/apache2/sites-available/collec2.conf"
 echo "address of your instance, ssl parameters),"
 echo "then run this command:"
 echo "systemctl reload apache2"

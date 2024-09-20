@@ -182,7 +182,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public string $version = "v25.0.0";
+    public string $version = "v25.0.0a";
     /**
      * versionDate - don't change here, but in function setParameters() below
      *
@@ -213,8 +213,8 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $privateKey = ROOTPATH . "id_app";
-    public $pubKey = ROOTPATH . "id_app.pub";
+    public $privateKey = ROOTPATH . "id_collec";
+    public $pubKey = ROOTPATH . "id_collec.pub";
     /**
      * List of locales date formats
      *
@@ -259,7 +259,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $GACL_aco = "app";
+    public $GACL_aco = "col";
     /**
      * Generic mail used to send messages to the administrators
      *
@@ -319,7 +319,6 @@ class App extends BaseConfig
      */
     public $APP_help_address = "https://github.com/collec-science/collec-science/issues/new";
     /**
-     * Copyright - don't change directly here, but in setParameters function
      *
      * @var string
      */

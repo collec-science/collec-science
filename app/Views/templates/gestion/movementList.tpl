@@ -1,4 +1,3 @@
-{* Mouvements > Liste des mouvements > *}
 <div class="row">
     <div class="col-md-6">
         <form class="form-horizontal " id="movement_search" action="movementList" method="GET">
@@ -38,11 +37,9 @@
                 <tr>
                     <th>{t}Login{/t}</th>
                     <th>{t}Date{/t}</th>
-                    <th>{t}Type de
-                        mouvement{/t}</th>
+                    <th>{t}Type de mouvement{/t}</th>
                     <th>{t}UID{/t}</th>
-                    <th>{t}Identifiant
-                        métier{/t}</th>
+                    <th>{t}Identifiant métier{/t}</th>
                     <th>{t}Type{/t}</th>
                     <th>{t}Emplacement{/t}</th>
                     <th>{t}Commentaire{/t}</th>

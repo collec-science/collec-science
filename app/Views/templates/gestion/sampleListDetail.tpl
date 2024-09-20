@@ -1257,8 +1257,8 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="uidsearchComposite" class="col-md-4 control-label">{t}Échantillon déjà existant - UID
-							:{/t}</label>
+						<label for="uidsearchComposite" class="col-md-4 control-label">
+							{t}Échantillon déjà existant - UID :{/t}</label>
 						<div class="col-md-2">
 							<input id="uidsearchComposite" name="uidsearchComposite" class="form-control nombre" value="{$data.created_uid}">
 						</div>

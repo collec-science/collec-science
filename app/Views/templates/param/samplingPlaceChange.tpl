@@ -16,8 +16,9 @@
                   <input type="hidden" name="moduleBase" value="samplingPlace">
                   <input type="hidden" name="sampling_place_id" value="{$data.sampling_place_id}">
                   <div class="form-group">
-                        <label for="samplingPlaceName" class="control-label col-md-4"><span class="red">*</span> {t}Nom
-                              :{/t}</label>
+                        <label for="samplingPlaceName" class="control-label col-md-4"><span class="red">*</span> 
+                              {t}Nom :{/t}
+                        </label>
                         <div class="col-md-8">
                               <input id="samplingPlaceName" type="text" class="form-control" name="sampling_place_name"
                                     value="{$data.sampling_place_name}" autofocus required>
@@ -31,8 +32,8 @@
                         </div>
                   </div>
                   <div class="form-group">
-                        <label for="collection_id" class="control-label col-md-4">{t}Collection de rattachement
-                              :{/t}</label>
+                        <label for="collection_id" class="control-label col-md-4">
+                              {t}Collection de rattachement :{/t}</label>
                         <div class="col-md-8">
                               <select id="collection_id" name="collection_id" class="form-control">
                                     <option value="" {if $data["collection_id"]=="" } selected{/if}>{t}Choisissez...{/t}

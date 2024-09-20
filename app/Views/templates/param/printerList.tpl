@@ -11,8 +11,7 @@
         <thead>
         <tr>
         <th>{t}Nom usuel{/t}</th>
-        <th>{t}Nom de la
-file d'impression{/t}</th>
+        <th>{t}Nom de la file d'impression{/t}</th>
         <th>{t}Serveur{/t}</th>
         <th>{t}Utilisateur{/t}</th>
         <th>{t}Commentaire{/t}</th>

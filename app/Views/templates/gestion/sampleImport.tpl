@@ -148,7 +148,7 @@
                         <li><b>sampling_place_name</b> : {t}lieu de prélèvement de l'échantillon{/t}</li>
                         <li><b>country_code</b> : {t}code du pays, sur deux caractères{/t}</li>
                         <li><b>comment</b> : {t}Commentaire sur l'échantillon{/t}</li>
-                        <li><b>metadata</b> : {t}liste des métadonnées associées, au format JSON. Il est également possible de définir des  métadonnées au format texte, en respectant les règles suivantes :{/t}
+                        <li><b>metadata</b> : {t}liste des métadonnées associées, au format JSON. Il est également possible de définir des métadonnées au format texte, en respectant les règles suivantes :{/t}
                               <ul>
                                     <li>{t}un champ par métadonnée{/t}</li>
                                     <li>{t escape=no}chaque champ doit être préfixé par <b>md_</b> pour pouvoir être reconnu comme tel par le logiciel{/t}</li>

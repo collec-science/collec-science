@@ -6,8 +6,7 @@
       <th>{t}Taille{/t}</th>
       <th>{t}Date
         d'import{/t}</th>
-      <th>{t}Date
-        de création{/t}</th>
+      <th>{t}Date de création{/t}</th>
       {if $rights["manage"] == 1 && $modifiable == 1 }
       <th>{t}Supprimer{/t}</th>
       {/if}

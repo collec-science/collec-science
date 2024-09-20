@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu xmlns:its="http://www.w3.org/2005/11/its" its:version="2.0">
+	<its:rules version="2.0">
+		<its:translateRule selector="//item/@label" translate="yes" />
+		<its:translateRule selector="//item/@tooltip" translate="yes" />
+	</its:rules>
+	<item module="objets" label="Objets" tooltip="Opérations sur les échantillons ou les contenants">
+		<item module="containerList" label="Contenants" tooltip="Liste des contenants" />
+		<item module="sampleList" label="Échantillons" tooltip="Liste des échantillons" />
+		<item module="eventSearch" label="Événements" tooltip="Recherche des événements" />
+		<item divider='1' droits="manage" />
+		<item module="requestList" label="Requêtes SQL" tooltip="Exécution de requêtes SQL dans la base de données" droits="manage" />
+	</item>
+
+	<item module="movement" label="Mouvements" tooltip="Création de mouvements dans le stock" droits="manage">
+		<item module="fastInputChange" label="Entrer ou déplacer dans un contenant" tooltip="Déplacer un échantillon/contenant dans un contenant" droits="manage" />
+		<item module="fastOutputChange" label="Sortir du stock" tooltip="Sortir un échantillon/contenant du stock" droits="manage" />
+		<item module="movementBatchOpen" label="Entrer ou déplacer / Sortir par lots" tooltip="Entrer ou déplacer / Sortir par scan multiple de QR Code" droits="manage" />
+		<item module="smallMovementChange" label="Mouvements petit terminal" tooltip="Lecture d'objets et génération de mouvements sur petits terminaux" droits="manage" />
+		<item divider='1' droits="collection" />
+		<item module="movementList" label="Liste des mouvements" tooltip="Recherche des mouvements sur une période donnée" droits="collection" />
+	</item>
+
+	<item module="importExport" label="Imports/Exports" tooltip="Opérations d'importation ou d'exportation" droits="import,collection,param">
+		<item module="importChange" label="Import de masse" tooltip="Import de plusieurs échantillons ou contenants" droits="import,collection" />
+		<item module="sampleImportStage1" label="Import d'échantillons externes" tooltip="Import d'un lot d'échantillons provenant d'une base externe" droits="import,collection" />
+		<item module="containerImportStage1" label="Import de contenants externes" tooltip="Import d'un lot de containers avec les objets associés provenant d'une base externe" droits="import,collection" />
+		<item divider="1" />
+		<item module="lotList" label="Lots d'export" tooltip="Liste des lots d'exportation des échantillons" droits="collection" />
+		<item module="exportTemplateList" label="Modèles d'exports" tooltip="Liste des modèles d'exports" droits="collection" />
+		<item module="datasetTemplateList" label="Modèles de datasets" tooltip="Liste des modèles de datasets" droits="collection" />
+		<item module="translatorList" label="Traducteurs" tooltip="Liste des traducteurs de libellés" droits="collection" />
+	</item>
+	<item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
+		<item module="collections" droits="consult" label="Collections" tooltip="Liste des collections">
+			<item module="collectionList" droits="consult" label="Collections" tooltip="Paramètres pour les collections" />
+			<item module="licenseList" droits="consult" label="Licences" tooltip="Liste des licences utilisables pour publier les collections" />
+		</item>
+		<item module="protocoles" droits="consult" label="Protocoles" tooltip="Paramètres des protocoles">
+			<item module="protocolList" droits="consult" label="Protocoles" tooltip="Liste des protocoles" />
+			<item module="operationList" droits="consult" label="Opérations" tooltip="Liste des opérations rattachées à un protocole" />
+		</item>
+		<item module="referentList" droits="consult" label="Référents" tooltip="Liste des référents des objets ou des collections" />
+		<item module="campaigns" droits="consult" label="Campagnes" tooltip="Paramètres des campagnes de prélèvement">
+			<item module="campaignList" droits="consult" label="Campagnes" tooltip="Campagnes de prélèvement" />
+			<item module="regulationList" droits="consult" label="Réglementations" tooltip="Types de réglementations" />
+		</item>
+		<item divider='1' />
+		<item module="containerType" droits="consult" label="Contenants" tooltip="Paramètres des types de contenants">
+			<item module="containerFamilyList" droits="consult" label="Familles de contenants" tooltip="Familles de contenants (armoires, éprouvettes...)" />
+			<item module="containerTypeList" droits="consult" label="Types de contenants" tooltip="Liste des types de contenants" />
+		</item>
+		<item module="sampleTypeList" droits="consult" label="Types d'échantillons" tooltip="Liste des types d'échantillons gérés" />
+		<item module="identifierTypeList" droits="consult" label="Types d'identifiants" tooltip="Liste des types d'identifiants rattachables à un objet" />
+		<item module="multipleTypeList" droits="consult" label="Types de sous-échantillonnage" tooltip="Types de sous-échantillonnage" />
+		<item module="metadataList" droits="consult" label="Métadonnées" tooltip="Modèles de métadonnées" />
+		<item module="samplingPlaceList" droits="consult" label="Lieux de prélèvement" tooltip="Liste des lieux de prélèvement des échantillons" />
+		<item module="countryList" droits="consult" label="Liste des pays" tooltip="Liste officielle des pays" />
+		<item divider='1' />
+		<item module="eventTypeList" droits="consult" label="Types d'événement" tooltip="Types d'événement" />
+		<item module="storageConditionList" droits="consult" label="Conditions de stockage" tooltip="Liste des conditions de stockage" />
+		<item module="movementReasonList" droits="consult" label="Motifs de déstockage" tooltip="Motifs de sortie du stock" />
+		<item module="objectStatusList" droits="consult" label="Statuts des objets" tooltip="Liste des statuts possibles pour les objets" />
+		<item module="borrowerList" droits="consult" label="Emprunteurs" tooltip="Liste des emprunteurs d'objets" />
+		<item divider='1' />
+		<item module="labelList" droits="consult" label="Étiquettes" tooltip="Modèles d'étiquettes" />
+		<item module="printerList" droits="param" label="Imprimantes" tooltip="Liste des imprimantes" />
+		<item divider='1' />
+		<item module="mimeTypeList" label="Types de fichiers" tooltip="Types de fichiers autorisés en téléchargement" />
+		<item module="exportModelList" label="Imports/exports techniques" tooltip="Exportations ou importations de données au format JSON" />
+		<item module="datasetTypeList" label="Types de datasets" tooltip="Liste des types de datasets utilisés pour exporter les échantillons par lots" droits="param" />
+		<item divider='1' />
+		<item module="dbstructure" droits="collection" label="Schéma de la base de données" tooltip="Visualisation du schéma de la base de données">
+			<item module="dbstructureSchema" droits="collection" label="Schéma de la base de données" tooltip="Schéma de la base de données" />
+			<item module="dbstructureHtml" droits='collection' label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes" />
+			<item module="dbstructureLatex" droits='collection' label="Structure de la base de données (Latex)" tooltip="Liste des tables et des colonnes sous forme de tableaux Latex" />
+		</item>
+	</item>
+
+	<item module="administration" label="Administration" tooltip="Administration de l'application" droits="admin">
+		<item module="loginList" droits="admin" label="Liste des comptes locaux" tooltip="Liste des logins - identification via la base de données" />
+		<item module="appliList" droits="admin" label="ACL - droits" tooltip="applications et droits gérés" />
+		<item module="aclloginList" droits="admin" label="ACL - logins" tooltip="Logins déclarés dans le module de gestion des droits" />
+		<item module="groupList" droits="admin" label="ACL - groupes de logins" tooltip="Groupes de logins et logins rattachés aux groupes" />
+		<item divider='1' />
+		<item module="dbparamList" droits="admin" label="Paramètres de l'application" tooltip="Liste des paramètres pérennes de l'application" />
+		<item module="containerVerifyCyclic" label="Recherche des mouvements cycliques" tooltip="Recherche des contenants contenus dans un contenant qu'ils contiennent" />
+		<item divider='1' />
+		<item module="logList" droits="admin" label="Logs" tooltip="Consultation des logs enregistrées" />
+		<item module="dbstructureGacl" droits="admin" label="Structure de la base de données des droits (HTML)" tooltip="Liste des tables et des colonnes de la base de données de gestion des droits" />
+		<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP" />
+		<item divider="1" />
+		<item module="systemShowServer" droits="admin" label="Variables SERVER" tooltip="Affichage des variables fournies par le serveur" />
+		<item module="systemShowSession" droits="admin" label="Variables SESSION" tooltip="Affichage des variables de session" />
+		<item divider="1" />
+		<item module="backupDisplay" droits="admin" label="Backup" tooltip="Sauvegarde de la base de données" />
+	</item>
+
+	<item module="documentation_fr" label="Documentation" tooltip="Documentations en ligne en français" language="fr">
+		<item module="echantillon_fr" label="Échantillons" tooltip="Gestion des échantillons">
+			<item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr" />
+			<item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr" />
+			<item module="document_external_fr" label="Documents externes" tooltip="Associer des documents externes à un échantillon" language="fr" />
+			<item module="consult_sees_all_fr" label="Permettre au droit consult de visualiser les métadonnées" tooltip="Paramétrer l'application pour permettre à tous les utilisateurs de consulter les métadonnées" language="fr" />
+			<item module="composite_fr" label="Les échantillons composés" tooltip="Créer des échantillons composés" language="fr"/>
+		</item>
+
+		<item module="importExport_fr" label="Fonctions d'import/export" tooltip="Fonctions d'importation et d'exportations de données" language="fr">
+			<item module="exportbatch_fr" label="Exporter par lot" tooltip="Exporter des échantillons par lots" language="fr" />
+			<item divider='1' droits="hidden"/>
+		</item>
+		<item module="doctotp_fr" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de la double authentification" language="fr" />
+		<item module="api_fr" label="Services web" tooltip="Description des services web" language="fr">
+			<item module="swidentification_fr" label="identification" tooltip="Gérer l'identification dans les services web" language="fr" />
+			<item module="swapi_fr" label="API web" tooltip="Utilisation des API web" language="fr" />
+			<item module="sampledisplay_fr" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="fr" />
+			<item module="swsampleList_fr" label="Liste des échantillons" tooltip="Service web permettant de rechercher une liste d'échantillons" language="fr" />
+			<item module="documentget_fr" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr" />
+			<item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
+			<item module="sampleDelete_fr" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="fr" />
+			<item module="swmovementWrite_fr" label="Création d'un mouvement" tooltip="Créer un mouvement d'entrée ou de sortie" language="fr" />
+		</item>
+		<item module="administration_fr" label="Administration" tooltip="Administrer le logiciel">
+			<item module="rights_general_fr" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" />
+			<item module="automaticsendmail_fr" label="Activer l'envoi automatique de mails" tooltip="Informer les gestionnaires des événements à échéance ou des échantillons qui vont expirer" language="fr" />
+		</item>
+	</item>
+	<item module="documentation_en" label="Documentation" tooltip="Documentations en ligne en anglais" language="en">
+		<item module="echantillon_en" label="Échantillons" tooltip="Gestion des échantillons">
+			<item module="metadatafield_en" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="en" />
+			<item module="lendingsample_en" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="en" />
+			<item module="document_external_en" label="Documents externes" tooltip="Associer des documents externes à un échantillon" language="en" />
+			<item module="consult_sees_all_en" label="Permettre au droit consult de visualiser les métadonnées" tooltip="Paramétrer l'application pour permettre à tous les utilisateurs de consulter les métadonnées" language="en" />
+			<item module="composite_en" label="Les échantillons composés" tooltip="Créer un échantillon composé" language="en" />
+		</item>
+		<item module="importExport_en" label="Fonctions d'import/export" tooltip="Fonctions d'importation et d'exportations de données" language="en">
+			<item module="exportbatch_en" label="Exporter par lot" tooltip="Exporter des échantillons par lots" language="en" />
+			<item divider='1' droits="hidden"/>
+		</item>
+		<item module="doctotp_en" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de double authentification" language="en" />
+		<item module="api_en" label="Services web" tooltip="Description des services web" language="en">
+			<item module="swidentification_en" label="identification" tooltip="Gérer l'identification dans les services web" language="en" />
+			<item module="swapi_en" label="API web" tooltip="Utilisation des API web" language="en" />
+			<item module="sampledisplay_en" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="en" />
+			<item module="swsampleList_en" label="Liste des échantillons" tooltip="Service web permettant de rechercher une liste d'échantillons" language="en" />
+			<item module="documentget_en" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="en" />
+			<item module="sampleWrite_en" label="Créer un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="en" />
+			<item module="sampleDelete_en" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="en" />
+			<item module="swmovementWrite_en" label="Création d'un mouvement" tooltip="Créer un mouvement d'entrée ou de sortie" language="en" />
+		</item>
+		<item module="administration_en" label="Administration" tooltip="Administrer le logiciel">
+			<item module="rights_general_en" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" language="en" />
+			<item module="automaticsendmail_en" label="Activer l'envoi automatique de mails" tooltip="Informer les gestionnaires des événements à échéance ou des échantillons qui vont expirer" language="en" />
+		</item>
+	</item>
+	<item module="connexion" label="Connexion" tooltip="S'identifier dans l'application" onlynoconnect="1" />
+	<item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1">
+		<item module="disconnect" label="Déconnexion" tooltip="Déconnexion de l'application" loginrequis="1" />
+		<item module="getLastConnections" label="Dernières connexions" tooltip="Liste des dernières connexions réalisées" loginrequis="1" />
+		<item module="loginChangePassword" loginrequis="1" label="Modifier le mot de passe" tooltip="Modifiez votre mot de passe (identification locale uniquement)" />
+	</item>
+	<item module="apropos" label="?" tooltip="À propos">
+		<item module="apropos" label="À propos" tooltip="À propos de Collec-Science" />
+		<item module="quoideneuf" label="Nouveautés" tooltip="Quoi de neuf dans l'application ?" />
+		<item module="getLastRelease" label="Nouvelle version ?" tooltip="Rechercher s'il existe une nouvelle version disponible de l'application"/>
+		<item divider='1' />
+		<item module="lexique" label="Lexique" tooltip="Lexique des termes utilisés dans le logiciel" />
+		<item module="setlanguagefr" label="Français" tooltip="Libellés en français" />
+		<item module="setlanguageen" label="English" tooltip="Labels in English" />
+	</item>
+</menu>

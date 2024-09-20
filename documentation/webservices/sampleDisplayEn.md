@@ -3,8 +3,7 @@
 ## Call method
 
 ~~~
-index.php?module=apiv1sampleDisplay&uid=xxx&uuid=yyy&token=zzz&template_name=aaa
-index.php?module=sampleDetail&uid=xxx&uuid=yyy&token=zzz&template_name=aaa
+apiv1sampleDisplay?uid=xxx&uuid=yyy&token=zzz&template_name=aaa
 ~~~
 
 ## Parameters
@@ -12,7 +11,7 @@ index.php?module=sampleDetail&uid=xxx&uuid=yyy&token=zzz&template_name=aaa
 
 
 | Parameter     | Content                                                                                                                                     |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
 | uid           | Sample UID (required if UUID not filled in)                                                                                                 |
 | uuid          | UUID of the sample (required if UID not filled in)                                                                                          |
 | token         | identification token. Information required if the collection is not public                                                                  |
@@ -36,7 +35,7 @@ By default, i.e. if no *template_name* is defined, the following information is 
 
 
 | Field                | Description                                                      |
-| ---------------------- | ------------------------------------------------------------------ |
+| -------------------- | ---------------------------------------------------------------- |
 | uid                  | sample uid                                                       |
 | dbuid_origin         | initial sample identifier, if entered in another database        |
 | collection_name      | collection name                                                  |
@@ -108,7 +107,7 @@ The content depends exclusively on the settings made in the template.
 
 
 | Error code | Meaning               |
-| ------------ | ----------------------- |
+| ---------- | --------------------- |
 | 500        | Internal Server Error |
 | 401        | Unauthorized          |
 | 520        | Unknown error         |

@@ -1,85 +1,68 @@
-COLLEC-SCIENCE  
-© INRAE, 2016-2024 - All rights reserved  
-Published under AGPL license
+# CodeIgniter 4 Application Starter
 
-**WARNING**: Collec-Science is now hosted here: [https://github.com/collec-science/collec-science](https://github.com/collec-science/collec-science)
+## What is CodeIgniter?
 
-# Install
+CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
+More information can be found at the [official site](https://codeigniter.com).
 
-For install a new instance in Ubuntu or Debian server:
+This repository holds a composer-installable app starter.
+It has been built from the
+[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
-```
-wget https://github.com/collec-science/collec-science/raw/master/install/deploy_new_instance.sh
-sudo -s
-./deploy_new_instance.sh
-```
+More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
 
-GENERAL INSTALLATION AND CONFIGURATION DOCUMENTATION (in french):  
-[https://github.com/collec-science/collec-science/raw/master/documentation/technical/installation_fr/collec_installation_configuration.pdf](https://github.com/collec-science/collec-science/raw/master/documentation/technical/installation_fr/collec_installation_configuration.pdf)
+You can read the [user guide](https://codeigniter.com/user_guide/)
+corresponding to the latest version of the framework.
 
-# Upgrade
+## Installation & updates
 
-From version 24.0.0, the technology used to upgrade the application change. Consult this doc: [https://github.com/collec-science/collec-science/blob/master/install/update%20collec-science%20from%20version%2024.0.0_en.md](https://github.com/collec-science/collec-science/blob/master/install/update%20collec-science%20from%20version%2024.0.0_en.md)
+`composer create-project codeigniter4/appstarter` then `composer update` whenever
+there is a new release of the framework.
 
-# COLLEC-SCIENCE
+When updating, check the release notes to see if there are any changes you might need to apply
+to your `app` folder. The affected files can be copied or merged from
+`vendor/codeigniter4/framework/app`.
 
-Collec-science est un logiciel destiné à gérer les collections d'échantillons prélevés sur le terrain.
+## Setup
 
-Écrit en PHP, il fonctionne avec une base de données Postgresql. Il est bâti autour de la notion d'objets, qui sont identifiés par un numéro unique. Un objet peut être de deux types : soit un container (aussi bien un site, un bâtiment, une pièce, un congélateur, une caisse...) qu'un échantillon.  
-Un type d'échantillon peut être rattaché à un type de container, quand les deux notions se superposent (le flacon contenant le résultat d'une pêche est à la fois un container et l'échantillon lui-même).  
-Un objet peut se voir attacher plusieurs identifiants métiers différents, des événements, ou des réservations.  
-Un échantillon peut être subdivisé en d'autres échantillons (du même type ou non). Il peut contenir plusieurs éléments identiques (notion de sous-échantillonnage), comme des écailles de poisson indifférenciées.  
-Un échantillon est obligatoirement rattaché à une collection. Les droits de modification sont attribués au niveau de la collection.
+Copy `env` to `.env` and tailor for your app, specifically the baseURL
+and any database settings.
 
-Collec-science is a software designed to manage collections of samples collected in the field.
+## Important Change with index.php
 
-Written in PHP, it works with a Postgresql database. It is built around the concept of objects, which are identified by a unique number. An object can be of two types: a container (both a site, a building, a room, a freezer, a cashier ...) than a sample.  
-A type of sample can be attached to a type of container, when the two notions are superimposed (the bottle containing the result of a fishing is both a container and the sample itself).  
-An object can be attached to several different business identifiers, events, or reservations.  
-A sample can be subdivided into other samples (of the same type or not). It can contain several identical elements (notion of subsampling), like undifferentiated fish scales.  
-A sample is necessarily attached to a collection. Modification rights are assigned at the collection.
+`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
+for better security and separation of components.
 
-## Fonctionnalités principales
+This means that you should configure your web server to "point" to your project's *public* folder, and
+not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
+framework are exposed.
 
-- Entrée/sortie du stock de tout objet (un container peut être placé dans un autre container, comme une boite dans une armoire, une armoire dans une pièce, etc)
-- possibilité de générer des étiquettes avec ou sans QRCODE
-- gestion d'événements pour tout objet
-- réservation de tout objet
-- lecture par scanner (douchette) des QRCODE, soit objet par objet, soit en mode batch (lecture multiple, puis intégration des mouvements en une seule opération)
-- lecture individuelle des QRCODES par tablette ou smartphone (testé, mais pas très pratique pour des raisons de performance)
-- ajout de photos ou de pièces jointes à tout objet
+**Please** read the user guide for a better explanation of how CI4 works!
 
-## Main features
+## Repository Management
 
-- Entry / exit of the stock of any object (a container can be placed in another container, such as a box in a cupboard, a cupboard in a room, etc.)
-- possibility to generate labels with or without QRCODE
-- event management for any object
-- reservation of any object
-- scanner reading (handheld) QRCODE, object by object, or in batch mode (multiple reading, then integration of movements in a single operation)
-- individual reading of QRCODES by tablet or smartphone (tested, but not very practical for performance reasons)
-- adding photos or attachments to any object
+We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
+We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
+FEATURE REQUESTS.
 
-## Sécurité
+This repository is a "distribution" one, built by our release preparation script.
+Problems with it can be raised on our forum, or as issues in the main repository.
 
-- logiciel homologué à Irstea, résistance à des attaques opportunistes selon la nomenclature de l'OWASP (projet ASVS), mais probablement capable de répondre aux besoins du niveau standard
-- identification possible selon plusieurs modalités : base de comptes interne, annuaire ldap, ldap - base de données (identification mixte), via serveur CAS, ou par délégation à un serveur proxy d'identification, comme LemonLDAP, par exemple
-- gestion des droits pouvant s'appuyer sur les groupes d'un annuaire LDAP
+## Server Requirements
 
-## Security
+PHP version 8.1 or higher is required, with the following extensions installed:
 
-- software approved by Irstea, resistant to opportunistic attacks according to the nomenclature of OWASP (ASVS project), but probably capable of meeting the needs of the standard level
-- possible identification according to several modalities: internal account database, ldap directory, ldap - database (mixed identification), via CAS server, or by delegation to an identification proxy server, such as LemonLDAP, for example
-- rights management that can rely on groups in an LDAP directory
+- [intl](http://php.net/manual/en/intl.requirements.php)
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
 
-## Licence /license
+> [!WARNING]
+> - The end of life date for PHP 7.4 was November 28, 2022.
+> - The end of life date for PHP 8.0 was November 26, 2023.
+> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
+> - The end of life date for PHP 8.1 will be December 31, 2025.
 
-Logiciel diffusé sous licence AGPL  
-Software diffused under AGPL License
+Additionally, make sure that the following extensions are enabled in your PHP:
 
-## Copyright
-
-La version 1.0 a été déposée auprès de l'Agence de Protection des Programmes sous le numéro IDDN.FR.001.470013.000.S.C.2016.000.31500
-
-# Online documentation
-
-Technical documentation will available in next months here : [https://collec-science.github.io/docs/](https://collec-science.github.io/docs/)
+- json (enabled by default - don't turn it off)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
+- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library

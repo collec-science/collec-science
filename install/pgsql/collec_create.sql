@@ -1816,29 +1816,6 @@ USING btree
 WITH (FILLFACTOR = 90);
 -- ddl-end --
 
--- object: col.last_movement | type: VIEW --
--- DROP VIEW IF EXISTS col.last_movement CASCADE;
-CREATE VIEW col.last_movement
-AS 
-
-SELECT m.uid,
-    m.movement_id,
-    m.movement_date,
-    m.movement_type_id,
-    m.container_id,
-    c.uid AS container_uid,
-    o2.identifier AS container_identifier,
-    m.line_number,
-    m.column_number,
-    m.movement_reason_id
-   FROM col.movement m
-     JOIN col.object o ON m.movement_id = o.last_movement_id
-     LEFT JOIN col.container c USING (container_id)
-     left join col.object o2 on (c.uid = o2.uid);
--- ddl-end --
-ALTER VIEW col.last_movement OWNER TO collec;
--- ddl-end --
-
 -- object: col.borrower_borrower_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.borrower_borrower_id_seq CASCADE;
 CREATE SEQUENCE col.borrower_borrower_id_seq
@@ -3380,6 +3357,29 @@ from col.sample s;
 ALTER VIEW col.v_subsample_quantity OWNER TO collec;
 -- ddl-end --
 
+-- object: col.last_movement | type: VIEW --
+-- DROP VIEW IF EXISTS col.last_movement CASCADE;
+CREATE VIEW col.last_movement
+AS 
+
+SELECT m.uid,
+    m.movement_id,
+    m.movement_date,
+    m.movement_type_id,
+    m.container_id,
+    c.uid AS container_uid,
+    o2.identifier AS container_identifier,
+    m.line_number,
+    m.column_number,
+    m.movement_reason_id
+   FROM col.movement m
+     JOIN col.object o ON m.movement_id = o.last_movement_id
+     LEFT JOIN col.container c USING (container_id)
+     left join col.object o2 on (c.uid = o2.uid);
+-- ddl-end --
+ALTER VIEW col.last_movement OWNER TO collec;
+-- ddl-end --
+
 -- object: country_fk1 | type: CONSTRAINT --
 -- ALTER TABLE col.sample DROP CONSTRAINT IF EXISTS country_fk1 CASCADE;
 ALTER TABLE col.sample ADD CONSTRAINT country_fk1 FOREIGN KEY (country_origin_id)
@@ -3996,4 +3996,17 @@ GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE
    TO collec;
 -- ddl-end --
 
-
+-- object: col.slots_used | type: VIEW --
+-- DROP VIEW IF EXISTS col.slots_used CASCADE;
+CREATE VIEW col.slots_used
+AS 
+SELECT
+   container_id, count(*) as nb_slots_used
+FROM
+   last_movement
+WHERE
+   movement_type_id = 1
+   group by container_id;
+-- ddl-end --
+ALTER VIEW col.slots_used OWNER TO collec;
+-- ddl-end --

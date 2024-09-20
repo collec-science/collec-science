@@ -3,7 +3,8 @@
 ## Call method
 
 ~~~
-	index.php?module=documentGetSW&uuid=xxx&token=yyyy&mode=inline
+	documentGetSW?uuid=xxx&token=yyyy&mode=inline
+	apiv1documentGet?uuid=xxx&token=yyyy&mode=inline
 ~~~
 
 Parameters :

@@ -1,1 +1,0 @@
-<h2>Welcome into this application !</h2>

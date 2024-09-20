@@ -7,10 +7,10 @@ The search engine is identical to that used in the web interface, except that th
 
 ## Call method
 
-```
-index.php?module=apiv1sampleList : complete list
-index.php?module=apiv1sampleUids : list of UIDs
-```
+~~~
+apiv1sampleList : complete list
+apiv1sampleUids : list of UIDs
+~~~
 
 ## Parameters
 
@@ -47,7 +47,7 @@ Parameters are cumulative, except for metadata, which is multi-valued.
 | sampling_place_id                                                                                         | Identifier of the sampling place                                                                                        |
 | metadata_field                                                                                            | Metadata field to search. The field is multi-valued, the criteria being of the "or" type. Only three fields can be used |
 | metadata_value                                                                                            | Search value . Multi-valued field (idem)                                                                                |
-| cd: creation date, sd: sampling date, ed: expiry date, ch: date of change of information in the database. |                                                                                                                         |
+| cd: creation date, sd: sampling date, ed: expiry date, ch: date of change of information in the database. |                                                                                                                         |
 | date_from                                                                                                 | Search start date, in the locale form                                                                                   |
 | date_to                                                                                                   | End date of search, in the locale form                                                                                  |
 | movement_reason_id                                                                                        | Reason for movement                                                                                                     |
@@ -118,9 +118,9 @@ The complete search returns the following information:
 
 | Error code                | Meaning      |
 | ------------------------- | ------------ |
-| 500 Internal Server Error |              |
+| 500 Internal Server Error |              |
 | 401                       | Unauthorized |
-| 520 Unknown error         |              |
+| 520 Unknown error         |              |
 | 404                       | Not Found    |
 
 {.table .table-bordered .table-hover}

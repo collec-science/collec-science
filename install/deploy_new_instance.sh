@@ -2,11 +2,12 @@
 # install a new instance into a server
 # must be executed with login root
 # creation : Eric Quinton - 2017-05-04
-REPO=https://github.com/collec-science/collec-science
+REPO=https://github.com/inrae/sturwild
 PHPVER=8.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
-echo "Installation of Collec-Science "
-echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
+echo "Installation of Sturwild app "
+echo "This script is available for Debian or Ubuntu server"
+echo "this script will install apache server and php, postgresql and deploy the current version of STURWILD"
 read -p "Do you want to continue [y/n]?" response
 if [ "$response" = "y" ]
 then
@@ -27,7 +28,7 @@ echo "deb https://packages.sury.org/php/ $DISTRIBCODE main" | tee /etc/apt/sourc
 fi
 apt-get update
 # installing packages
-apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd php$PHPVER-curl fop postgresql postgresql-client postgis
+apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd php$PHPVER-curl postgresql postgresql-client postgis git
 /usr/sbin/a2enmod ssl
 /usr/sbin/a2enmod headers
 /usr/sbin/a2enmod rewrite
@@ -38,31 +39,25 @@ apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVE
 
 # creation of directory
 cd /var/www
-mkdir collecApp
-cd collecApp
+mkdir sturwildApp
+cd sturwildApp
 
 # download software
-git clone https://github.com/collec-science/collec-science -b master
-cd collec-science
-# create param.inc.php file
-mv param/param.inc.php.dist collec-science/param/param.inc.php
-mkdir display/templates_c
-mkdir temp
-find . -type d -exec chmod 750 {} \;
-find . -type f -exec chmod 640 {} \;
-chmod -R g+w display/templates_c
-chmod -R g+w temp
-chgrp -R www-data .
-rm -Rf test
-cd ..
+echo "download software"
+git clone https://github.com/inrae/sturwild.git -b main
 
+# update rights on files
+chmod -R 755 sturwild/
+cd sturwild
+# create .env file
+cp env .env
 # creation of database
 echo "creation of the database"
-cd collec-science/install
+cd install
 su postgres -c "psql -f init_by_psql.sql"
-cd ../..
+cd ..
 echo "you may verify the configuration of access to postgresql"
-echo "look at /etc/postgresql/11/main/pg_hba.conf (verify your version). Only theses lines must be activate:"
+echo "look at /etc/postgresql/13/main/pg_hba.conf (verify your version). Only theses lines must be activate:"
 echo '# "local" is for Unix domain socket connections only
 local   all             all                                     peer
 # IPv4 local connections:
@@ -75,29 +70,23 @@ read -p "Enter to continue" answer
 # install backup program
 echo "backup configuration - dump at 20:00 into /var/lib/postgresql/backup"
 echo "please, set up a data transfert mechanism to deport them to another medium"
-cp collec-science/install/pgsql/backup.sh /var/lib/postgresql/
+cp install/pgsql/backup.sh /var/lib/postgresql/
 chown postgres /var/lib/postgresql/backup.sh
 line="0 20 * * * /var/lib/postgresql/backup.sh"
 #(crontab -u postgres -l; echo "$line" ) | crontab -u postgres -
 echo "$line" | crontab -u postgres -
 
-# install mail sender
-cp collec-science/collectionsGenerateMail.sh .
-echo "0 8 * * * /var/www/collecApp/collectionsGenerateMail.sh" | crontab -u www-data -
-chmod +x /var/www/collecApp/collectionsGenerateMail.sh
-
-# update rights to specific software folders
-chmod -R 750 .
-mkdir collec-science/display/templates_c
-chgrp -R www-data .
-chmod -R 770 collec-science/display/templates_c
-chmod -R 770 collec-science/temp
-
 # generate rsa key for encrypted tokens
 echo "generate encryption keys for identification tokens"
-openssl genpkey -algorithm rsa -out collec-science/param/id_collec -pkeyopt rsa_keygen_bits:2048
-openssl rsa -in collec-science/param/id_collec -pubout -out collec-science/param/id_collec.pub
-chown www-data collec-science/param/id_collec
+openssl genpkey -algorithm rsa -out id_sturwild -pkeyopt rsa_keygen_bits:2048
+openssl rsa -in id_sturwild -pubout -out id_sturwild.pub
+chown www-data id_sturwild
+
+# update rights to specific software folders
+find . -type d -exec chmod 750 {} \;
+find . -type f -exec chmod 640 {} \;
+chgrp -R www-data .
+chmod -R g+w writable
 
 # adjust php.ini values
 upload_max_filesize="=100M"
@@ -116,16 +105,20 @@ sed -i "s/; max_input_vars = .*/max_input_vars=$max_input_vars/" $PHPINIFILE
 sed -e "s/  <policy domain=\"coder\" rights=\"none\" pattern=\"PDF\" \/>/  <policy domain=\"coder\" rights=\"read|write\" pattern=\"PDF\" \/>/" /etc/ImageMagick-6/policy.xml > /tmp/policy.xml
 cp /tmp/policy.xml /etc/ImageMagick-6/
 
+# adjust locale support
+sed -i "s/# en_GB.UTF-8/en_GB.UTF-8/" /etc/locale.gen
+/usr/sbin/locale-gen
+
 # creation of virtual host
 echo "creation of virtual site"
-cp collec-science/install/apache2/collec-science.conf /etc/apache2/sites-available/
-/usr/sbin/a2ensite collec-science
-echo "you must modify the file /etc/apache2/sites-available/collec-science.conf"
+cp install/apache2/sturwild.conf /etc/apache2/sites-available/
+/usr/sbin/a2ensite sturwild
+echo "you must modify the file /etc/apache2/sites-available/sturwild.conf"
 echo "address of your instance, ssl parameters),"
 echo "then run this command:"
 echo "systemctl reload apache2"
-read -p "Enter to continue" answer
 
+echo ""
 echo "To activate the sending of e-mails, you must install an application as Postfix or msmtp and configure it"
 echo "The configuration is specific of each organization: this script cannot do it, sorry..."
 

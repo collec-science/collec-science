@@ -1,0 +1,829 @@
+Nouveautés
+============
+Version v25.0.0 du 20/09/2024
+-----------------------------
+Nouveautés :
+- réécriture complète de l'application pour la porter vers le framework CodeIgniter
+- une zone commentaire a été rajoutée pour les prêts d'échantillons
+- en création des échantillons dérivés, il est maintenant possible d'indiquer une quantité prélevée différente de la quantité attribuée à l'échantillon créé
+- il est maintenant possible d'indiquer un nombre maximum d'objets dans un emplacement d'un contenant (ligne/colonne). Si un mouvement d'entrée pourrait aboutir à dépasser ce nombre, un message est affiché à l'écran. En importation de masse, l'importation échouera si c'est le cas.
+- ajout de la notion d'échantillon composé, c'est à dire créé à partir de plusieurs échantillons. Cette fonctionnalité est une extension du sous-échantillonnage.
+
+Corrections de bugs :
+- Dans la liste des échantillons, le + n'était pas affiché s'il n'y avait qu'un seul échantillon dérivé rattaché
+- l'API apiv1sampleWrite ne prenait pas en compte les identifiants secondaires
+
+Version v24.1.6 du 1/7/2024
+-----------------------------
+Corrections de bugs :
+- il n'était plus possible de rajouter un parent à un échantillon
+- dans un contexte multi-instances, la création d'un nouveau compte avec l'identification Mellon (fédération d'identités), couplée avec la reconnaissance implicite de l'organisme, ne fonctionnait pas
+- l'API d'écriture d'un échantillon ne renvoyait pas de message d'erreur si un échantillon était en doublon au niveau de l'identifiant métier, pour une collection où ces identifiants doivent être uniques
+
+Version v24.1.5 du 13/06/2024
+-----------------------------
+Corrections de bugs :
+- dans la liste des échantillons, le + n'était pas affiché s'il n'existait qu'un seul échantillon dérivé
+- les étiquettes sont maintenant affichées dans un nouvel onglet (réintégration du fonctionnement initial)
+- API : la création des mouvements ne fonctionnait pas
+- API d'écriture d'un échantillon, la recherche de l'échantillon (par identifier) ne prenait pas en compte la collection courante. L'utilisation d'un modèle de dataset ne fonctionnait pas
+- liste des échantillons : un popup d'erreur s'affichait en mode consultation
+
+Nouveautés :
+- en création d'un mouvement d'entrée (depuis le détail d'un contenant ou d'un échantillon), le contenu du contenant est affiché, et il est possible de sélectionner à la souris l'emplacement où insérer l'objet
+- API de récupération d'une liste d'échantillons : il est maintenant possible d'indiquer un modèle de dataset pour formater les informations
+- API d'écriture d'un échantillon : il est maintenant possible d'indiquer l'ordre de recherche des échantillons
+
+Version v24.1.4 du 18/04/2024
+-----------------------------
+Corrections de bugs :
+- avec uniquement les droits de consultation, un message d'erreur était généré lors de l'affichage de la liste des échantillons
+- en création des modèles d'étiquettes, l'application plantait si le serveur est protégé par un reverse-proxy utilisant mod_security et filtrant les données XML
+- la recherche des échantillons en passant par la zone identifiants plantait l'application
+- dans les listes des échantillons et des contenants, l'affichage des échantillons ou des contenants enfants ne fonctionnait plus en mode consultation
+- l'API d'écriture des échantillons ne fonctionnait pas correctement en mode mise à jour
+- dans les mouvements par lots, les étiquettes ne comprenant que l'UID n'étaient pas traitées correctement
+
+Nouveautés :
+- en sélection des échantillons (onglet métadonnées), il est maintenant possible de rajouter un filtre pour n'afficher qu'une métadonnée dans la colonne des métadonnées. Ne fonctionne que pour les métadonnées marquées comme "utilisables pour la recherche"
+
+Version v24.1.3 du 26/3/2024
+-----------------------------
+Correction d'un bug :
+- en import externe, la création d'un nouvel échantillon ne fonctionnait pas
+- dans la liste des échantillons, les conditions de stockage n'apparaissaient pas
+
+Version v24.1.2 du 22/2/2024
+-----------------------------
+Corrections de bugs :
+- Si un sous-échantillonnage n'était pas rentré avec une quantité, l'affichage de l'échantillon plantait l'application
+- la suppression d'un échantillon échouait si les coordonnées gps étaient renseignées
+
+Version v24.1.1 du 14/2/2024
+-----------------------------
+Corrections de bugs :
+- dans certains cas, l'affichage des échantillons ne fonctionnait pas
+- lors de la modification du mot de passe, l'envoi du mail plantait
+
+Version v24.1.0 du 5/2/2024
+-----------------------------
+Corrections de bugs :
+- après la création d'un sous-échantillonnage, l'affichage de l'échantillon ne fonctionnait plus si la quantité prélevée n'avait pas été renseignée
+- dans le module de requêtes, les messages d'erreurs SQL sont maintenant affichés en cas de problème lors de l'exécution
+- dans le module de requête, la sélection de la collection n'était plus disponible
+- dans le module de création de mouvements "petit terminal", le scanner des qrcodes à partir des caméras ne fonctionnait pas
+- dans les étiquettes, l'emplacement de stockage de l'objet n'était pas correctement affiché si l'étiquette portait sur un contenant
+- l'affichage dans les terminaux portables était illisible
+
+Nouveautés :
+- il est maintenant possible de rechercher des échantillons dans plusieurs collections en même temps
+- pour la gestion des échantillons, il est maintenant possible de définir des droits d'écriture attachés aux campagnes de prélèvement : dans ce cas, un utilisateur ne faisant pas partie des groupes autorisés ne pourra plus modifier les échantillons rattachés
+- il est maintenant possible d'attacher un ou plusieurs documents à un événement. Les documents sont alors également rattachés à l'objet
+- depuis la liste des échantillons, il est possible d'affecter le même document à plusieurs échantillon. Techniquement, le document est dupliqué dans chaque échantillon
+
+Version 24.0.0 du 3/1/2024
+-----------------------------
+Corrections de bugs :
+- la suppression d'un écantillon ne fonctionnait plus correctement
+- l'affichage des colonnes dans la liste des échantillons n'était plus enregistré
+- l'exportation de fichiers pouvait échouer
+- la gestion des modèles d'export a été améliorée, il est maintenant possible d'intégrer des modèles créés dans d'autres instances
+- API de modification : il était possible de créer des stations, des campagnes ou des référents même sans posséder les droits adéquats sur la collection concernée
+- la taille de l'icone, dans les mails, a été réduite
+- en recherche des échantillons : la sélection d'une collection ne mettait pas à jour la liste des types d'événements possibles
+- les comptes d'administration recevaient les mails, même s'ils étaient désactivés
+- après modification d'un modèle de métadonnées, une page blanche était affichée
+- en duplication d'un modèle d'étiquettes, le type de code-barre était vide
+- lors de l'importation de données, si l'encodage du fichier ne semble pas correspondre à celui qui est sélectionné, un message d'alerte est affiché
+- depuis le détail d'un échantillon, la création d'événements pour les échantillons dérivés ne fonctionnait pas
+- en création d'un échantillon, si le formulaire de saisie des métadonnées était affiché, il ne disparaissait pas si on sélectionnait un autre type d'échantillons sans métadonnées associées
+- il n'est plus possible de créer un événement sans date de réalisation ou date d'échéance
+- l'export des contenants avec objets inclus ne fonctionnait pas si rien n'était sélectionné
+- dans certains cas, certaines métadonnées étaient positionnées comme obligatoire, mais il était possible d'enregistrer sans qu'elles soient renseignées
+- dans l'API de création, il était possible de créer des stations, des campagnes ou des référents même si la création de l'échantillon n'était pas possible (droits insuffisants du compte utilisé)
+- le calcul des coordonnées gps (transformation depuis les degrés/minutes) n'était pas correct dans certains cas de figure
+- la gestion des métadonnées a été corrigée pour mieux prendre en compte les checkbox et les boutons-radios
+- la modification du statut des échantillons à partir de la liste ne fonctionnait plus
+- la recherche par métadonnées ne fonctionnait pas dans certains cas
+- en importation externe, les métadonnées n'étaient pas mises à jour
+
+Nouveautés :
+
+fonctionnelles :
+- il est maintenant possible d'indiquer une collection pour un contenant, et de rechercher les contenants appartenant à une collection
+- des mails de rappel peuvent être envoyés automatiquement pour informer de l'expiration d'échantillons ou de la date d'échéance d'événements (consultez la doc)
+- les libellés des statuts peuvent être modifiés (attention à ne pas en changer le sens)
+- liste des événements : le tableau d'affichage a été amélioré pour faciliter les filtres, et il est maintenant possible de modifier ou supprimer des événements en masse
+- il est maintenant possible d'importer une liste de campagnes à partir d'un fichier CSV
+- il est maintenant possible de forcer l'identifiant métier principal à être unique par collection (paramétrage dans la collection)
+- un mécanisme permettant de s'assurer que l'identifiant métier principal des contenants est bien unique a été introduit (paramétrage général)
+- les sous-menus sont affichés quand on clique dessus
+
+API :
+- dans les API, il est maintenant possible d'indiquer une variable "locale" pour indiquer dans quelle langue les messages sont renvoyés
+- une API de suppression des échantillons est maintenant disponible
+- l'API de création d'un échantillon permet maintenant de générer automatiquement le mouvement d'entrée
+- il est possible de récupérer une liste d'échantillons (UID seulement, ou liste complète) à partir des critères de recherche utilisés dans le module de recherche des échantillons
+
+Système :
+- diverses améliorations et corrections du framework
+- le composant de gestion des dates a été remplacé par celui de bootstrap
+- les messages d'alerte vers les administrateurs intègrent maintenant l'adresse IP du poste concerné
+- le champ "last_movement_id" a été rajouté dans la table object, pour accélerer les requêtes
+
+Version 2.8.3 du 13/03/2023
+---------------------------
+Corrections de bugs:
+- la recherche à partir d'un type d'événement n'aboutissait plus
+- la recherche par uid ne fonctionnait plus
+- augmentation de la largeur de la zone de recherche des échantillons pour afficher correctement l'UID saisi
+- réactivation de la recherche des échantillons par colonne (case à cocher pour choisir le mode souhaité)
+- diverses corrections liées au support de la version 8.1 de PHP
+
+
+Version 2.8.2 du 23/01/2023
+---------------------------
+Correction de bugs :
+- dans certains cas, la suppression d'une étiquette ne fonctionnait pas, sans que l'utilisateur sache pourquoi. Un message d'erreur explicatif est maintenant affiché
+- avec le droit de consultation, un message d'erreur était généré quand on affichait la liste échantillons
+- avec le droit de consultation, il était possible de rechercher les échantillons à partir des métadonnées, alors que celles-ci n'étaient pas visibles
+- si les métadonnées ont été créées avec un champ de type date, elles ne sont plus modifiables (plantage du composant). Il faut remplacer le type "date" par le type "texte" dans la description des métadonnées. Le type "date" a été momentanément désactivé
+- en modification d'un échantillon, le rattachement à un parent ne fonctionnait plus. Les métadonnées étaient, de plus, écrasées
+
+Nouveautés :
+- il est maintenant possible d'affecter un parent à tout un lot d'échantillons (fonction rajoutée depuis la liste des échantillons)
+- il est possible de paramétrer le logiciel pour donner à tout utilisateur disposant du droit "consult" la possibilité de consulter les métadonnées ou de réaliser des recherches à partir de celles-ci (consultez la documentation directement dans le logiciel)
+- l'affichage de la liste des échantillons a été revu : elle a été agrandie, et un curseur permet de réduire sa taille rapidement
+- il est possible de rechercher plusieurs échantillons à partir de leur identifiant métier principal, en séparant la liste des identifiants par une virgule
+
+Version 2.8.1 du 14/11/2022
+----------------------------
+Corrections de bugs :
+- la création d'un mouvement par l'interface "petit terminal" ne fonctionnait plus
+- liste des échantillons : la liste des colonnes affichée n'était pas correctement sauvegardée
+- quand la double identification était activée, un mail d'alerte était envoyé systématiquement lors de l'accès aux fonctions d'administration
+- les mails concernant les anomalies d'accès à des modules ne contenaient pas des informations cohérentes
+- dans la liste des contenants, le commentaire n'était pas affiché
+- dans les API, l'initialisation de la langue ne fonctionnait pas correctement et pouvait bloquer leur fonctionnement
+- dans la liste des collections, la liste des types d'échantillons disponibles n'était pas triée. C'était également le cas pour les types d'événements associés
+- il était possible de requêter des tables contenant des informations confidentielles
+- dans certains cas (boites d'onglets), les listes étaient mal formatées, avec un décalage entre l'entête et la liste des informations
+- en modification des échantillons, les métadonnées n'étaient pas affichées
+- l'impression des étiquettes ne fonctionnait plus avec un navigateur Chrome. Pour corriger ce problème, les étiquettes sont maintenant affichées dans la fenêtre courante du navigateur
+- dans la liste des échantillons, le formulaire permettant la création d'un événement de masse ne contenait pas la date d'échéance
+- dans certains cas, l'appel à un module admin ne demandait pas la réidentification de l'utilisateur
+- avec les versions récentes de postgresql (à partir de la version 13), les sauvegardes en mode SQL peuvent ne plus fonctionner, en raison d'index qui utilisaient un type ancien.
+- l'import d'échantillons provenant d'une autre instance (import externe) ne fonctionnait plus avec la version 8.1 de PHP
+
+Nouveautés :
+- il est possible de limiter le nombre d'échantillons ramenés lors d'une sélection. Un message d'information est alors affiché, précisant le nombre total d'échantillons concernés par la requête
+- l'envoi des mails a été revu. Ils sont maintenant formatés en HTML et intègrent le logo de l'application
+- lors du déblocage d'un compte verrouillé, un mail est maintenant envoyé automatiquement vers son possesseur
+- l'affichage de la liste des échantillons et des contenants a été revu : l'entête est fixe, et la liste peut être scrollée indépendamment de la fenêtre (expérimental)
+- diverses améliorations ont été apportées à l'identification en mode HEADER (fédération d'identités - SAML)
+- dans l'identification en mode HEADER, il est possible de définir un groupe qui permettra, si l'utilisateur appartient à celui-ci, de l'affecter directement et de lui permettre de se connecter sans avoir besoin d'une activation par un administrateur
+
+Version 2.8.0 du 26/09/2022
+----------------------------
+Corrections de bugs :
+- depuis le détail d'un contenant, l'impression des étiquettes pour les échantillons présents ne fonctionnait pas si l'utilisateur ne disposait pas des droits "collection"
+- la modification des paramètres généraux (table dbparam) ne fonctionnait plus (corrigé en 2.7.1)
+- une erreur survenait à la déconnexion dans certains cas de figure (corrigé en 2.7.1)
+- le mécanisme de blocage des comptes a été modifié, le mécanisme précédemment utilisé n'était pas satisfaisant
+- lors de la création des échantillons dérivés, toutes les informations n'étaient pas forcément répliquées dans l'échantillon enfant à partir du parent
+- lorsque l'identification est en mode HEADER, la création des jetons d'identification restait activée et engendrait alors un plantage de l'application
+- dans certains cas, la liste des collections accessible à un utilisateur, lors des opérations de modification ou de création, était incomplète (corrigé, mais non testé en cas réel)
+
+Nouveautés :
+- il est maintenant possible d'indiquer un champ de type "date" dans les métadonnées, avec affichage d'un calendrier
+- une API permettant de créer des mouvements est maintenant disponible
+- un nouveau mécanisme d'identification est maintenant possible : CAS-BDD. Depuis l'écran de connexion, si ce mode est activé, un bouton permet d'appeler le serveur CAS
+- il est possible de définir, pour une collection, des types d'échantillons particuliers. Dès lors, ces types d'échantillons ne seront plus proposés pour les collections auxquelles ils n'appartiennent pas. Le même mécanisme a été implémenté pour les types d'événements
+- il est maintenant possible de définir une date d'échéance pour un événement, et une nouvelle interface permet de rechercher les événements à venir, réalisés ou non, etc.
+- dans l'import de masse, il est maintenant possible d'indiquer le nom complet du pays plutôt que son code
+- dans la carte de recherche des échantillons, l'identifiant métier est maintenant affiché en sus de l'UID
+- il est maintenant possible de rechercher les échantillons qui ne sont pas placés dans un contenant
+- dans l'interface de recherche des échantillons ou des contenants, la zone UID a été séparée de la zone IDENTIFIANT, pour éviter de ramener des objets non pertinents
+
+Technique :
+- l'application fonctionne maintenant avec PHP 8.1, mais reste compatible avec la version 7.4
+
+Version 2.7.0 du 20/06/2022
+---------------------------
+Correction de bugs :
+- la réinitialisation des mots de passe ne fonctionnait plus
+- liste des échantillons : la barre verticale, à gauche de la liste, a été supprimée, pour éviter qu'elle ne se retrouve au milieu d'une colonne quand on rajoutait des colonnes dans l'affichage. La liste des colonnes sélectionnée est maintenant correctement enregistrée dans le navigateur
+- affichage des logs : la liste des comptes a été déplacée vers une nouvelle ligne, pour éviter qu'elle ne soit masquée par un libellé trop long dans la liste déroulante précédente
+- dans le menu, le module ? n'aboutissait à rien
+- dans le module de gestion des droits, la suppression d'un groupe ne fonctionnait pas
+- correction d'un lien cassé dans le fichier readme.md
+- module de gestion des droits : la liste des droits attribués à une application ne s'affichait plus
+- les fonctions de groupes sur les échantillons, depuis le détail des containers, ne fonctionnaient pas
+- la suppression d'un échantillon échouait si du sous-échantillonnage avait été réalisé
+- depuis la liste des échantillons, le bouton "export CSV" ne remplissait pas la colonne correspondant aux parents
+
+Nouveautés :
+- l'organisme du référent a été rajouté dans la table referent
+- il est maintenant possible de réaliser une recherche des échantillons par collection, même si l'utilisateur dispose uniquement du droit de consultation ou s'il ne fait pas partie d'une collection
+- une fiche expliquant les droits utilisables dans le logiciel a été rajoutée dans le menu documentation > administration
+- ajout du numéro UUID de la campagne dans les exports par lot
+- les requêtes SQL manuelles peuvent être exécutées par les utilisateurs (droits attribués par collection), mais ils ne peuvent pas les modifier pour des raisons de sécurité
+- il est maintenant possible d'exécuter des requêtes manuelles complexes, le "SELECT" d'origine ayant été supprimé. Seules les requêtes d'interrogation restent toutefois accessibles
+- lors d'un sous-échantillonnage, il est possible d'indiquer quel laboratoire reçoit l'extrait
+- dans le module d'import de masse, il est maintenant possible d'importer un commentaire
+- certaines options réalisables sur la liste des échantillons étaient masquées, comme l'export par lot si la collection n'est pas renseignée. Ces options sont maintenant visibles mais non sélectionnables
+- il est maintenant possible de générer des étiquettes avec des codes-barres 1D (EAN 128)
+- ajout de la documentation sur l'export par lot
+- en importation de masse, les parents ne sont recherchés maintenant par défaut que dans la collection de l'enfant
+- il est maintenant possible d'associer à un échantillon des fichiers stockés dans une arborescence accessible au serveur (consultez la doc)
+- dans le détail d'un échantillon le lien "nouvel échantillon" a été dupliqué à droite, pour qu'il soit plus visible et plus accessible
+- dans le formulaire d'ajout des documents, la taille maxi des fichiers, déterminée par le paramétrage du serveur, est maintenant affichée
+
+Version 2.6.1 du 11/2/2022
+--------------------------
+Correction de bugs :
+- la saisie des comptes utilisés pour les services web ne pouvaient pas être réenregistrés sans générer une erreur
+- l'interrogation des échantillons par le service web ne fonctionnait plus correctement
+- l'ajout d'un échantillon par le service web ne fonctionnait plus, en raison d'une erreur sur le point géographique
+
+Version 2.6.0a du 4/8/2021
+--------------------------
+Correction de bugs :
+- l'identification via un serveur CAS ne fonctionnait pas correctement (fichier à changer : framework/identification/login.class.php)
+
+Version 2.6.0 du 24 juin 2021
+-----------------------------
+Nouveautés :
+Échantillons :
+- il est maintenant possible d'indiquer le pays de provenance, en sus du pays de collecte (information utile dans le cadre de la réglementation APA)
+- il est maintenant possible de rechercher les échantillons qui ont été réservés pendant une période ou par type d'événement rencontré, ou par pays de provenance
+- dans le module de recherche des échantillons, le pays peut être recherché en tapant son nom.
+- dans la liste des échantillons, en survol d'un échantillon, le reste disponible est affiché. Il est possible de rechercher des échantillons en fonction de la quantité disponible (sous-échantillonnage)
+- dans la liste des échantillons, il est maintenant possible de choisir la liste des colonnes à afficher
+- les métadonnées sont maintenant affichées dans la liste des échantillons
+- dans l'écran d'affichage de la liste des échantillons, le nombre total d'enregistrements est maintenant affiché en début de liste, et non en bas de la liste
+- il est possible de modifier en masse le statut des échantillons
+- lors de l'affichage des métadonnées, l'unité est maintenant affichée pour les types numériques
+
+Import de masse :
+- il est possible d'utiliser le nom des paramètres à la place de leur valeur (p. e., sample_type_name à la place de sample_type_id)
+- il est maintenant possible de créer les parents et les enfants en une seule importation, en utilisant la colonne sample_parent_identifier (l'échantillon parent doit exister au préalable ou être présent plus haut dans le fichier). Idem pour créer le mouvement d'entrée, avec le champ container_parent_identifier
+
+Divers :
+- une API web de création/mise à jour est maintenant disponible (expérimental)
+- l'identification des utilisateurs peut être complétée par une double identification (TOTP)
+- il est possible d'affecter un référent à une liste de contenants
+- dans la liste des mouvements, le commentaire est maintenant affiché, ainsi que le lien vers l'échantillon concerné
+- de la documentation est maintenant disponible en ligne
+
+Corrections de bugs :
+- modifications de messages d'erreur
+- la suppression d'une liste de contenants n'entraîne plus d'erreur si aucun contenant n'est sélectionné
+- restructuration de l'écran d'affichage des réglementations : certaines informations n'étaient pas visibles
+- correction des droits pour la modification des collections
+- le prénom du référent n'était pas affiché partout
+- ajout d'un message d'erreur en importation, si la lecture des métadonnées n'aboutit pas
+- ajout d'un message d'erreur si la suppression d'un statut n'aboutit pas
+- depuis le détail d'un échantillon, il n'était pas possible de supprimer un échantillon dérivé depuis la liste
+- lors de l'importation d'une liste de stations, en cas d'erreur sur un nom de colonne, une erreur indéterminée était affichée au lieu du nom de la colonne en erreur
+- le bouton RAZ, dans la fenêtre de recherche des échantillons, ne réinitialisait pas correctement les métadonnées
+- le bouton d'export en CSV des données, depuis le tableau, n'affichait pas correctement le nom des colonnes
+- en import de masse, le code pays n'était pas pris en compte
+- l'importation des lieux de prélèvement était en erreur si le code pays n'était pas renseigné
+- lors de la création d'une nouvelle instance, les index de type GIN n'étaient pas créés (syntaxe erronée)
+- dans le module de requêtes SQL, si la requête ne retournait aucun enregistrement, le logiciel ne le signalait pas et l'utilisateur pouvait avoir un doute quant à son fonctionnement
+- Les logins sont maintenant traités systématiquement en minuscules, pour limiter les problèmes liés à des serveurs CAS qui fonctionnent différemment pour les mêmes utilisateurs (cas rencontré avec la fédération Renater)
+- lors de la modification d'un échantillon parent contenant des métadonnées, les échantillons enfants disparaissaient de la liste : l'attribut "trashed" n'était plus positionné correctement
+
+Version 2.5.0 du 13 novembre 2020
+---------------------------------
+Nouveautés :
+- la structure de la base de données affiche maintenant les vues
+- réorganisation du menu, pour avoir une entrée principale dédiée aux imports/exports
+- il est maintenant possible d'indiquer un pays de collecte pour un échantillon (table complète fournie). Le pays peut être affecté pour un ensemble d'échantillons
+- dans le module de gestion des droits, il est maintenant possible de déplacer un groupe dans l'arborescence
+- dans les étiquettes, il est maintenant possible d'insérer le référent
+- il est maintenant possible de rechercher les contenants par référent
+- en affichage d'un échantillon, si le code d'un identifiant secondaire n'est pas renseigné, c'est le nom de l'identifiant secondaire qui est affiché. Le code devient non obligatoire, si l'identifiant n'est pas utilisé en recherche
+- pour les campagnes de collecte, il est possible, pour chaque réglementation appliquée, d'indiquer le numéro d'autorisation et la date. Les échantillons peuvent être recherchés par numéro d'autorisation
+- ajout d'une fonction permettant de rechercher les contenants contenus dans ceux qu'ils contiennent
+- lors de la création d'un échantillon dérivé contenant des sous-échantillons, création du sous-échantillonnage si l'échantillon dérivé contient lui-même des sous-échantillons
+- ajout de contraintes d'unicité sur les libellés d'un certain nombre de tables de paramètres
+- modification de l'affichage d'un échantillon : ajout d'un lien "accès rapide", qui permet d'afficher la boite de recherche à partir de IUD ou IDENTIFIER
+- corrections de quelques libellés
+- ajout de la table license pour indiquer la licence de diffusion d'une collection
+- ajout de la saisie de tabulations dans les textareas (zones multilignes de saisie). Implémenté en saisie des transformations xsl (datasets d'exportation et modèles d'étiquettes)
+- il est maintenant possible d'enregistrer les recherches effectuées sur les échantillons, disponibles soit pour l'utilisateur, soit au niveau des collections
+- il est maintenant possible de préciser des mots clés ou un libellé explicite pour une collection (utilisé pour les exportations)
+- la saisie du prénom du référent est maintenant possible, ainsi que le lien vers sa fiche académique
+- ajout de contrôles de cohérence sur les dates de prêt et de retour d'échantillons, ainsi que pour les réservations
+- dans le menu, quand il existe un sous-menu, l'entrée du menu est dupliquée dans le sous-menu
+- ajout d'un lexique au survol : dans les libellés, le survol d'une icone représentant un point d'interrogation (quand elle existe), affiche l'entrée du lexique correspondante
+- les administrateurs peuvent maintenant déclencher une sauvegarde manuelle de la base de données, qui est téléchargée dans le navigateur (limitations possibles en fonction de la taille de la base de données)
+- il est maintenant possible de rajouter un commentaire à un objet
+- ajout d'une fonctionnalité d'exportation des échantillons d'une collection vers des systèmes d'information tiers (contenu et format paramétrables)
+
+Corrections de bugs :
+- dans le détail d'un container, dans la liste des containers, le nombre de slots n'était pas affiché
+- dans le détail d'un contenant, le référent était mal affiché
+- dans le module de gestion des droits, la suppression d'un groupe n'aboutissait pas si le groupe était affecté à une collection
+- l'affichage de la grille des échantillons, dans le détail, était erroné si la première colonne était à gauche
+- en importation de masse, l'import des UUID ne fonctionnait pas
+- dans la liste des contenants, l'affichage de la grille des objets contenus était mal dessiné
+- suppression de la fonction lc_messages, qui aurait dû permettre de modifier le langage des messages d'erreur Postgresql : elle ne fonctionnait que si le compte collec était super-administrateur du serveur de bases de données
+- le lien d'accès rapide, disponible pour les échantillons, a été rajouté pour les containers
+- si l'adresse internet du poste de travail changeait pendant la journée, il n'était plus possible de se réidentifier sans supprimer manuellement le cookie d'identification ou fermer le navigateur
+- correction du module de génération du menu : dans certains cas, le symbole >, qui permet de savoir qu'il y a des sous-menus, n'était pas affiché
+- l'export de la structure de la base de données ne fonctionnait pas correctement
+
+
+Version 2.4.1 du 15 juin 2020
+-----------------------------
+Correction de bugs :
+- la génération du fichier des échantillons au format CSV n'aboutissait plus
+- depuis le tableau des échantillons, le lancement de l'impression des étiquettes générait une erreur si aucun échantillon n'était sélectionné
+- en recherche des échantillons à partir de la carte, la relance de la recherche perdait les critères précédents
+- le changement du mot de passe risquait de ne pas aboutir en anglais
+- le message indiquant que le mot de passe allait expirer n'était pas réinitialisé correctement le jour de son changement
+- l'onglet d'affichage de la carte de l'emplacement des échantillons n'était pas sélectionné par défaut si c'était le dernier onglet sélectionné
+- refonte de l'affichage des onglets pour qu'ils soient plus lisibles
+
+Version 2.4.0 du 1er avril 2020
+--------------------------------
+Corrections de bugs :
+- en modification d'un mot de passe, le message d'information sur la longueur de celui-ci était erroné
+- le libellé concernant le référent d'un contenant était erroné
+- la création d'un mouvement de sortie depuis le détail d'un échantillon ne fonctionnait pas
+- la réinitialisation du formulaire de recherche des échantillons était incomplète
+- la saisie de métadonnées multi-valuées ne fonctionnait pas. Le mécanisme de gestion a été repris
+- la suppression des échantillons pouvait aboutir à des messages peu clairs ou ne reflétant pas les problèmes rencontrés
+- en recherche d'échantillons, dans certains cas de figure, la liste retournée pouvait être trop importante et saturer le navigateur
+- la création d'événements par lot d'échantillons n'était pas possible, la liste des types d'événements n'étant pas disponible
+- dans la liste des échantillons, les zones "date-heure" sont affichées maintenant sur une seule ligne, sans retour chariot
+- dans les protocoles, il n'était pas possible de supprimer le document téléchargé
+- correction des scripts d'installation et de sauvegarde de la base de données
+
+Nouveautés
+
+Contenants :
+- il est possible de définir un nombre maximum d'emplacements disponibles. La liste des contenants permet de visualiser le nombre d'emplacements disponibles
+- l'affichage de la grille d'objets contenus permet de visualiser tous les objets contenus, et pas seulement le dernier
+- le point de départ du nombre de lignes et de colonnes peut maintenant être positionné à droite (uniquement à gauche dans les versions précédentes)
+- dans la liste des contenants, le survol de l'identifiant avec la souris affiche la grille des objets contenus
+- il est maintenant possible de supprimer un lot de contenants
+
+Échantillons :
+- il est maintenant possible d'ajouter une description à un type d'échantillons
+- la liste des types d'échantillons peut être exportée en CSV
+- quand on positionne le statut "détruit" sur un objet, un mouvement de sortie est généré automatiquement
+- l'appel à la fonction https://collec.local/index.php?module=sampleDetail&uid=928 permet de récupérer le détail d'un échantillon au format JSON, sans identification préalable, si la collection a été définie comme publique (préfiguration des services web)
+- dans la liste des échantillons, le survol avec la souris de l'identifiant permet d'afficher un résumé de l'échantillon
+- dans le détail d'un échantillon, la liste des identifiants secondaires est affichée, sans avoir besoin de se positionner dans l'onglet ad-hoc pour les visualiser
+- lors de la création d'un échantillon dérivé, l'identifiant métier est dupliqué
+- dans la liste des échantillons, chaque colonne peut faire l'objet d'un filtre automatique dédié
+- les différentes possibilités de recherche d'un échantillon sont maintenant organisées en onglets thématiques
+- il est possible de réaliser une recherche spatiale des échantillons, en dessinant un rectangle sur une carte
+- sur la page d'accueil, le nombre d'échantillons par collection et la date de dernière modification est affichée. La liste est limitée aux collections pour lesquelles les utilisateurs disposent des droits de gestion
+- la liste des échantillons est complétée par une visualisation sur une carte de leur emplacement
+- il est possible de rattacher un échantillon à une campagne de prélèvement. Celle-ci peut être associée à une ou plusieurs réglementations, et il est possible d'y attacher des documents complémentaires
+- il est maintenant possible de rechercher les échantillons par métadonnées sans sélectionner le type d'échantillons au préalable
+
+Objets :
+- un objet peut être mis à la corbeille (fonctionnalité prévue dans le cadre des échanges automatiques)
+- la précision de la localisation d'un objet peut être définie à partir d'une table
+- les objets sont maintenant dotés d'un champ Postgis, facilitant la recherche spatiale ou à la visualisation avec des outils tiers comme QGIS
+- la date de la dernière modification d'un objet est enregistrée
+- ajout d'un champ de type UUID, pour faciliter les échanges
+- depuis les listes d'échantillons ou de contenants, il est maintenant possible de générer les mouvements d'entrée ou de sortie pour les objets sélectionnés
+
+Importations/exportations/téléchargements :
+- le résultat des importations (UID générés, nombre de lignes traitées) est maintenant enregistré dans la table des logs
+- il est possible d'importer des données multi-valuées dans les champs de métadonnées individuels (md_)
+- à titre expérimental, ajout d'un module permettant d'exporter une partie de la base de données au format JSON. L'importation d'un tel fichier dans une autre instance permet de reconstruire les enregistrements concernés.
+- les types mime des fichiers téléchargeables sont maintenant modifiables ou extensibles
+
+Divers :
+- les administrateurs peuvent maintenant consulter directement la table des logs
+- un module permettant l'écriture et l'exécution de requêtes de sélection SQL est disponibles (droit nécessaire : param)
+- pour une collection, il est possible de définir si des flux entrants ou sortants sont autorisés. De même, une collection peut être définie comme publique : tous les échantillons pourraient être visualisés sans identification préalable. C'est une fonctionnalité préfigurant les services web
+- les fenêtres d'affichage des contenants et des échantillons ont été repris, pour en faciliter la compréhension
+- il est possible d'affecter un numéro de laboratoire à un emprunteur
+- le tri dans les tableaux est maintenant indépendant de la casse et des accents
+- la structure de la base de données peut être visualisée depuis l'interface
+- le logiciel supporte maintenant l'identification Shibboleth (mode HEADER)
+- en création des modèles d'étiquettes, il est maintenant possible d'enregistrer les modifications et de rester sur la page courante, pour faciliter la mise au point (affichage de l'étiquette dans un autre navigateur, par exemple)
+- le site web https://wwww.collec-science.org a été mis à jour
+- les commentaires dans la base de données ont été basculés en anglais
+- pour les utilisateurs identifiés depuis la base de données locale, leur compte est bloqué après trois connexions sans changement du mot de passe. L'état de leur compte est maintenant affiché.
+
+Version 2.3.1 du 6 septembre 2019
+---------------------------------
+Corrections de bugs :
+- en importation de masse, les dates étaient refusées si elles étaient sous le format hh:mm (pas de secondes)
+- la recherche des échantillons échouait si le seul critère de recherche était basé sur les dates
+- la suppressions des échantillons, depuis le détail d'un conteneur, ne fonctionnait pas
+- après création d'un mouvement, le logiciel pouvait se bloquer pendant plusieurs secondes
+- le détail des objets (contenants ou échantillons) a été amélioré : le dernier onglet visité est maintenant affiché par défaut, et il est possible d'activer une fonction de visualisation du contenu des onglets lors du survol avec la souris
+- dans la liste des objets contenus, le numéro de ligne et de colonne n'était pas affiché
+- la recherche par référent tient maintenant compte du référent déclaré globalement pour la collection considérée
+- depuis le détail d'un contenant ou d'un échantillon, l'ouverture d'un nouvel objet ne fonctionnait pas avec l'utilisation de l'identifiant métier
+- corrections ergonomiques : suppression des trois-points dans certains libellés avec les navigateurs Chrome, correction de quelques autres libellés
+
+Nouveautés :
+- ajout de l'installation de mod_evasive dans Apache2 pour les nouveaux déploiements, pour limiter les attaques par force brute
+- ajout d'un pré-paramétrage de la configuration de PHP pour les nouveaux déploiements.
+
+Version 2.3 du 14 août 2019
+---------------------------------
+Corrections de bugs :
+- harmonisation de certains libellés dans l'application (Enregistrer/valider ou Sélectionnez/Choisissez p. e.)
+- dans le détail d'un contenant, les contenus et produits utilisés étaient mal affichés
+- les tableaux fonctionnaient mal, notamment pour afficher les pages à partir des boutons de navigation
+- correction lors de la recherche par date : la date du jour n'était pas systématiquement prise en compte
+- lors des imports, certaines dates erronées passaient au travers des contrôles de cohérence
+- la recherche des contenants uniquement par statut (hors état normal) ne fonctionnait pas
+
+Évolutions des fonctionnalités existantes :
+- mise à niveau du framework pour ajouter des contrôles de sécurité. Le Framework répond maintenant aux exigences de l'ASVS v4 (niveau 1 total, niveau 2 partiel).
+- ergonomie : les écrans d'affichage des échantillons et des contenants ont été redessinés en partie : les données sont maintenant organisées par onglets. Il est également possible d'ouvrir un nouvel objet directement depuis la page de détail, sans revenir à la liste
+- il est maintenant possible de rattacher un échantillon à un parent a posteriori
+- une fonction de duplication d'un échantillon avec son parent est maintenant disponible
+- dans le module d'administration, il n'est plus possible de créer un nouveau droit (mais cela peut être réactivé avec une option dans le fichier param.inc.php)
+- lors de la saisie des modèles de métadonnées, le champ "Unité de mesure" est proposé par défaut avec la valeur N/A
+- les modèles de métadonnées peuvent maintenant être visualisés sans passer en mode modification
+- il est maintenant possible de rechercher un échantillon par motif de déstockage
+- dans la description d'un protocole, il est possible d'indiquer le numéro et la date de l'autorisation de prélèvement
+- recherche d'un échantillon : il est maintenant possible de scanner une étiquette
+
+Nouvelles fonctionnalités :
+- il est possible de générer un export d'un ou plusieurs contenants, qui comprennent à la fois les contenants et les échantillons inclus, pour les importer dans une autre base de données
+- gestion du prêt des échantillons : il est possible d'enregistrer le prêt de containers ou d'échantillons vers des emprunteurs
+
+
+Version 2.2.3 du 22 février 2019
+---------------------------------
+Corrections de bugs :
+- la suppression d'un groupe d'utilisateurs n'était pas possible dans certaines conditions
+- il n'était pas possible d'imprimer une étiquette depuis le détail d'un échantillon
+- la cinématique de l'application n'était pas correcte en suppression d'un échantillon
+- la suppression d'un échantillon échouait si des identifiants secondaires, des réservations, ... existaient
+- dans la saisie des types d'échantillons, les types de contenants n'étaient pas triés
+- dans le tableau des logins stockés dans la base de données, l'information "compte utilisé pour un service web" n'était pas affichée
+- la transformation des coordonnées GPS sexagésimales en coordonnées décimales échouait si elles n'étaient pas saisies complètes. De plus, l'algorithme utilisé était erroné
+- lors de la création d'un échantillon dérivé, le référent n'était pas récupéré
+
+Évolutions :
+- lors de la saisie des coordonnées GPS d'un échantillon ou d'un contenant, le point est généré automatiquement sur la carte, et celle-ci est centrée sur le point
+- il est maintenant possible de rajouter le référent lors d'une importation de masse
+- dans les tableaux affichés par page, le nombre d'éléments affiché est maintenant stocké, et devient la valeur proposée par défaut pour les futurs affichages
+- le nom des scripts utilisés pour créer la base de données est maintenant générique, pour faciliter l'installation automatique (composants docker notamment)
+- dans les modèles d'étiquettes, il est maintenant possible de faire figurer l'identifiant de l'échantillon parent
+
+
+Version 2.2.2 du 26 novembre 2018
+---------------------------------
+Corrections de bugs :
+- l'identification en mode CAS ne fonctionnait pas, en raison d'une évolution de la bibliothèque utilisée
+- les fonctions d'assignation globale pour une liste d'échantillons ne fonctionnaient pas depuis le détail d'un contenant
+
+Évolutions :
+- il est possible de créer un événement pour une série d'échantillons et non plus individuellement. Fonction utilisable pour indiquer un événement qui s'est produit pour un contenant (panne de frigo, par exemple)
+- dans les listes de contenants ou d'échantillons, les cases à cocher, qui permettent de sélectionner ou déselectionner des objets, ont été déplacées en première colonne : elles sont ainsi plus visibles
+- ajout d'un bouton "modifier" dans les listes des types de métadonnées ou des modèles d'étiquettes, pour éviter de fausses manipulations (duplication à la place de la modification)
+
+Version 2.2.1 du 5 octobre 2018
+-------------------------------
+Correction de bugs :
+- en importation de masse, si l'échantillon devait être associé à un container, la création du mouvement échouait ainsi que l'importation de l'ensemble du fichier
+- une requête d'interrogation de la base de données échouait lors de la consultation d'un mouvement de sous-échantillonnage
+- si la table contenant les numéros de version n'était pas accessible, l'application affichait un message erroné
+- si la table des paramètres n'était pas accessible, l'application plantait avec un message d'erreur
+- l'exportation, puis l'importation d'une liste d'échantillons (pour échange avec d'autres bases de données) ne prenait pas en compte le référent
+- en consultation d'un échantillon, après avoir cliqué une seconde fois dans la zone référent, l'affichage était remplacé par le libellé undefined
+
+Version 2.2 du 6 septembre 2018
+----------------------------
+Correction de bugs :
+- l'ajout de fichiers PDF aux protocoles pouvait échouer en raison de limitations positionnées dans le serveur quant à la taille des fichiers. Dans ce cas, aucun message d'erreur n'était affiché
+- le titre de l'application, qui s'affiche à côté de l'icone, disparaissait juste après la déconnexion
+- si le titre de l'application était mis à jour, il fallait attendre la reconnexion pour que la nouvelle valeur soit prise en compte
+- la suppression d'une famille de contenants pouvait donner l'impression qu'elle se déroulait correctement, mais ce n'était pas le cas si des types de contenants y étaient rattachés
+- l'application ne fonctionnait plus avec la version 7.2 de PHP
+
+Évolutions :
+- de nouvelles variables de paramétrage sont maintenant rattachées à la base de données et écrasent les données présentes dans les fichiers param.xxx : mapDefaultX, mapDefaultY, mapDefaultZoom
+- les messages d'erreur sont maintenant affichés en rouge. Les anomalies liées à la base de données (notamment les suppressions en échec pour des raisons de contraintes d'intégrité) sont maintenant mieux expliquées
+- il est maintenant possible de décrire un champ de métadonnées de type URL. Le lien est directement affiché dans le navigateur lors de la consultation de l'échantillon
+- les champs de métadonnées acceptent maintenant des valeurs par défaut
+- suppression multiple d'échantillons : depuis la liste des échantillons, il est maintenant possible de réaliser diverses opérations sur ceux qui sont cochés, dont leur suppression. La fonction nécessite un droit "collection"
+- ajout de la notion de référent dans l'application. Un référent peut être rattaché à une collection dans son ensemble, ou a un objet particulier (échantillon ou contenant). Pour les échantillons, le référent affiché est soit celui de la collection, soit celui assigné en particulier.
+- assignation multiple d'un référent : depuis la liste des échantillons, il est possible d'affecter automatiquement un référent à ceux qui sont cochés
+- les administrateurs peuvent afficher la structure de la base de données soit au format HTML, soit au format LATEX
+
+Version 2.1 du 3 juillet 2018
+-----------------------------
+Corrections de bugs :
+- lors de l'édition d'un contenant, le type de contenant n'était pas affiché s'il contenait une apostrophe
+- lors de la création du mail de récupération du mot de passe, le nom de l'application n'était pas correctement initialisé
+
+Évolutions :
+- support complet de l'anglais dans l'ensemble du logiciel
+- une nouvelle variable doit être renseignée dans Administration > Paramètres de l'application : APPLI_title, qui doit contenir le titre de l'application qui est affichée
+
+Version 2.0.1 du 25 mai 2018
+--------------------------
+Corrections de bugs :
+- les listes de choix étaient illisibles sur de petits terminaux
+- quand l'interface était positionnée en anglais, la création d'un nouvel utilisateur générait une erreur de gestion de dates
+- la génération du fichier pour imprimer des étiquettes (export CSV) ne traitait pas correctement les métadonnées, qui étaient mal positionnées dans les colonnes
+- le script col_alter_1.2-1.2.3.sql pouvait générer des erreurs dans certains cas de figure
+- si une requête de recherche des échantillons déclenchait une erreur de la base de données, l'écran restait blanc sans pouvoir savoir ce qu'il se passait
+
+Évolutions :
+- ajout d'un mode d'affichage restreint de la liste des échantillons, soit pour des usages spécifiques, soit pour les petits écrans (seuls quelques colonnes sont affichées). La bascule s'opère via un bouton
+- ajout d'une précision pour gérer correctement les droits dans col_alter_1.2.3-2.0.sql
+- l'export des échantillons vers une autre base crée des colonnes dédiées pour chaque métadonnée, préfixée par md_
+
+Version 2.0 du 4 mai 2018
+--------------------------
+Évolutions :
+- mise à jour du framework et de la base de données
+- possibilité de générer l'étiquette de l'échantillon en cours de visualisation
+- lors de la création d'un nouvel échantillon, les informations présentes dans l'étiquette pré-existante (format Json) sont récupérées automatiquement après son scannage
+- ajout d'un filtre pour supprimer les caractères parasites lors de la lecture des codes barres 1D de type EAN128
+- lors de la saisie d'un mouvement à partir d'un petit terminal, ajout du dernier statut de l'objet scanné (présent/absent) et d'une temporisation pour limiter les interrogations du serveur
+- ajout d'auto-complétion dans quelques boites déroulantes
+- en recherche d'échantillon, il est maintenant possible de rechercher jusqu'à 3 critères de métadonnées, qui fonctionnent soit en mode "et" (champs différents), soit en mode "ou" (champs identiques). Pour des questions de performance, les champs utilisables pour la recherche doivent avoir été décrits comme tels (création d'index)
+- le terme "projet" a été renommé en "collection", tant dans l'application que dans la base de données
+- meilleure définition des dates associées aux échantillons : création dans la base de données, prélèvement, et ajout d'une date d'expiration
+- il est maintenant possible de rechercher un échantillon par date (de création, de prélèvement, d'expiration)
+- il est possible de générer automatiquement l'identifiant métier à partir des informations saisies (code à définir par type d'échantillon)
+- les informations liées aux lieux de prélèvement ont été complétées par des coordonnées GPS et un code. Les coordonnées sont reportées dans l'échantillon si celui-ci n'en dispose pas.
+- il est possible de définir des lieux de prélèvement qui sont uniquement attachés à une collection
+- lors de l'importation externe, les champs de métadonnées peuvent être indiqués dans des colonnes séparées, préfixées par "md_"
+- l'importation externe fonctionne maintenant en mode "remplace ou crée", ce qui permet de mettre à jour des échantillons manipulés dans des bases externes
+- lors de l'importation externe, la filiation d'un échantillon est maintenant conservée (si le parent a été créé au préalable)
+- en génération des étiquettes, il est maintenant possible d'imprimer le champ dbuid-origin
+- il est possible d'accéder directement à un échantillon à partir de son lien d'accès
+- de nouveaux scripts sont disponibles pour faciliter l'installation d'un nouveau serveur ou mettre à jour une base de données
+
+Corrections de bugs :
+- en recherche d'échantillons, correction de la recherche sur les métadonnées
+- en création des étiquettes, un bug empêchait l'affichage des champs de métadonnées
+- l'importation de métadonnées externes ne récupérait pas correctement le champ Json
+- correction du message de réinitialisation du mot de passe
+- harmonisation des libellés concernant les conteneurs
+- ajout de contrôles supplémentaires lors de l'importation externe, avec test de cohérence des dates
+- la sortie des échantillons, depuis le détail d'un échantillon, n'aboutissait pas
+- en création de mouvements de masse, les échantillons externes n'étaient pas reconnus
+- lors de la procédure d'importation externe, l'appariement était fait en tenant compte de la casse, ce qui a été supprimé
+- en création de mouvements de masse, le logiciel ne savait pas gérer correctement le fait que le même container était scanné plusieurs fois
+- le lien "retour à la liste" ne ramenait pas toujours à la liste d'origine, si l'utilisateur avait basculé de la consultation d'un échantillon à un conteneur et vice-versa
+- le basculement entre le français et l'anglais posait des problèmes de gestion de la date
+
+Version 1.2.4 du 5/12/2017
+---------------------------
+Correction de bugs :
+- la création d'un compte de connexion ne fonctionnait plus : le mot de passe n'était jamais enregistré
+
+Version 1.2.3 du 22/11/2017
+---------------------------
+Évolutions :
+- l'import de masse accepte maintenant l'UID de l'échantillon parent
+- le droit "import" est créé, il permet d'autoriser un utilisateur à importer les informations via des fichiers csv (import de masse ou d'une autre instance)
+- l'écran d'import de masse a été remanié, en affichant les boîtes de dialogue en haut d'écran
+- les performances lors de la recherche d'un échantillon sont optimisées par l'utilisation d'un nouveau type d'index
+
+Corrections de bugs :
+- lors de l'import de masse, les métadonnées n'étaient pas correctement reconnues (bug introduit en version 1.2)
+- la suppression d'un login ou d'un compte dans la gestion des droits a été améliorée, elle supprime également les dépendances croisées (login, compte déclaré, présence dans les groupes)
+- dans certains cas, la recherche globale de mouvements ne permettait pas de visualiser les mouvements créés dans la journée (borne haute)
+
+Version 1.2.2 du 15/11/2017
+---------------------------
+- corrections de bugs divers concernant les métadonnées
+- amélioration des performances en recherche des échantillons
+
+Version 1.2.1 du 03/11/2017
+---------------------------
+Évolutions et nouvelles fonctionnalités :
+- la taille de la police est augmentée pour les terminaux de petite taille (smartphones)
+- le menu disparait sur les smartphones et est remplacé par le bouton de sélection du menu
+- le module de création des mouvements sur petit terminal comprend maintenant la lecture optique par l'intermédiaire de la caméra
+
+Version 1.2 du 20/10/2017
+---------------------------
+Mise à jour du schéma de la base de données nécessaire (schéma COL, contenant les données, par défaut). Script à utiliser :
+- col_alter_1.1-1.2.sql si vous êtes déjà en version 1.1 ou 1.1.0. Si ce n'est pas le cas, exécutez les scripts de montée de version successivement
+- gacl_create_1.1.sql et col_create_1.2.sql successivement pour créer un nouveau jeu de données, ou bien init_by_psql.sql en ligne de commande dans un serveur Linux, qui exécutera les deux scripts automatiquement
+
+Corrections de bugs :
+- une erreur SQL survenait lors de la validation des scans multiples
+- la fenêtre permettant les scans multiples était mal dessinée
+- la recherche d'échantillons était déclenchée, même si aucun critère n'était renseigné
+- en affichage des mouvements, l'emplacement de rangement était affiché même pour les mouvements de sortie
+- les libellés étaient incohérents sur les pages de modification des motifs de déstockage
+- les libellés ont été harmonisés en containers, le logiciel affichait soit conteneur, soit container au gré des pages
+- lors de la création d'un utilisateur, la saisie du mot de passe était entachée de quelques bugs qui pouvaient aboutir à l'absence de la création du mot de passe
+- dans la saisie des modèles de métadonnées, certains noms de champs utilisés pour les déclarer étaient soit en français, soit présentaient des fautes d'orthographe
+- la documentation d'installation a été revue pour mieux isoler le cas d'un serveur mono-instance
+
+Évolutions et nouvelles fonctionnalités :
+- le code de l'instance est maintenant stockable dans la base de données
+- en scan de code-barre, le programme peut lancer la recherche sur des identifiants secondaires (pré-sélection nécessaire)
+- il est possible d'importer une liste des lieux de prélèvement plutôt que de les saisir manuellement
+- il est possible de visualiser les entrées-sorties réalisées par un opérateur
+- un lexique a été rajouté dans le menu d'aide
+- il est possible de générer des QR-codes ne contenant qu'un identifiant métier (QR-codes de très petite taille)
+- l'impression des étiquettes vers une imprimante reliée au serveur fonctionnait avec la commande linux lpr. Pour les Raspberry (entre autres), le programme supporte maintenant la commande lp
+- un nouveau module de scan a été rajouté. Il permet de visualiser où est un échantillon, où il était avant d'être sorti du stock, et autorise la création d'un nouveau mouvement d'entrée (à l'ancien emplacement ou non) ou de sortie
+
+Version 1.1 du 01/09/2017
+---------------------------
+Collec devient Collec-Science.
+
+Mise à jour des schémas de la base de données nécessaire (schémas GACL et COL par défaut). Scripts à utiliser :
+- col_alter_1.0.8-1.1.sql, si vous êtes déjà en version 1.0.8. Si ce n'est pas le cas, vérifiez votre version et exécutez les scripts de montée de version successivement
+- gacl_create-1.1.sql et col_create_1.1.sql successivement, pour toute nouvelle installation.
+
+Corrections de bugs :
+- le script col_alter_1.0-1.0.4.sql contenait un nom de schéma en dur
+
+Évolutions et nouvelles fonctionnalités :
+Import de masse :
+- il est possible d'indiquer maintenant des informations complémentaires, comme les coordonnées géographiques ou les métadonnées associées à un échantillon
+
+Gestion du stockage :
+- il est maintenant possible d'indiquer, pour un type de container, le nombre de lignes et de colonnes disponibles
+- lors d'un mouvement d'entrée, il est possible d'indiquer le n° de ligne et de colonne de rangement
+- la visualisation d'un container permet d'afficher la grille d'occupation
+
+Gestion des échantillons :
+- il est possible d'exporter une liste d'échantillons, pour pouvoir la réimporter dans une autre base. L'interface permet d'indiquer les valeurs à appliquer localement par rapport aux données initiale (projet, type d'échantillon, localisation...)
+
+Impression des étiquettes :
+- il est possible d'intégrer la localisation (lieu de prélèvement des échantillons)
+
+Gestion des métadonnées associées à un échantillon :
+- il est possible de décrire des métadonnées, et les associer avec des types d'échantillons
+- en modification d'un échantillon, il est possible de saisir les métadonnées
+- celles-ci peuvent être intégrées à un modèle d'étiquette, et figurent dans le fichier CSV exporté pour impression hors collec-science
+- les descriptions de métadonnées peuvent être exportées pour être réimportées dans une autre base
+
+Consultation des protocoles :
+- les protocoles doivent maintenant être associés à des projets
+- seuls les membres du projet (et les administrateurs de l'application) peuvent télécharger le fichier PDF contenant sa description
+
+Gestion des droits et des habilitations :
+- installation d'une nouvelle version du moteur de l'application
+- pour les utilisateurs identifiés dans la base de données locale, il est maintenant possible pour eux de demander une réinitialisation du mot de passe (nécessite au préalable que l'adresse mail a été renseignée, et que le serveur supporte l'envoi des mails)
+- l'accès aux modules d'administration nécessite une réidentification
+- en cas d'échecs répétés de connexion, un mail d'alerte est envoyé aux administrateurs (leur mail doit avoir été déclaré préalablement, le serveur doit autoriser l'envoi des mails)
+- la connexion auprès d'un serveur CAS a été corrigée. L'ensemble de la procédure d'identification a été revue
+
+
+Version 1.0.8 du 02/06/2017
+---------------------------
+Mise à jour de la base de données nécessaire
+
+Correction de bugs :
+- en modification d'un type d'opération, le protocole déjà saisi n'était pas affiché correctement
+- dans la liste des opérations, le tri ne fonctionnait pas
+- une fois un container ou un échantillon supprimé, la boite de recherche prenait comme arguments les paramètres de l'objet supprimé
+- en codage standard de la base de données (utf-8), dans les boites de recherche des échantillons ou des containers, si une liste déroulante était utilisée, le temps de recherche était très long. Le problème a été réglé en supprimant le nombre maxi d'objets affichés et en obligeant à indiquer au moins un critère de recherche
+
+Nouvelle fonctionnalité :
+- au lancement de l'application, la version de la base de données est maintenant vérifiée
+- un script de génération automatique de la base de données est maintenant disponible, pour les nouvelles installations
+
+Version 1.0.7a du 12/05/2017
+---------------------------
+Correction de bugs :
+- les étiquettes générées n'étaient pas triées
+- si l'échantillon provenait d'une autre base de données, le tri sur l'UID dans le tableau n'était plus numérique, mais alphabétique (déplacement de l'UID d'origine dans la colonne Autres identifiants)
+
+Version 1.0.7 du 10/05/2017
+---------------------------
+Corrections de bugs :
+- dans l'import de masse, les statuts des containers ou des échantillons sont obligatoires, mais ce n'était pas précisé
+- depuis le détail d'un container, la liste des échantillons n'affichait pas les données pour l'ensemble des colonnes, dont les identifiants secondaires
+- en génération d'étiquettes, si un champ n'était pas indiqué dans le QRcode, il n'était pas disponible pour l'affichage dans le corps de l'étiquette
+
+Nouvelles fonctionnalités ou améliorations :
+- il est maintenant possible de créer un nouvel échantillon ou un nouveau container sans lancer une recherche préalable (cela perturbait les utilisateurs)
+- étiquettes : il est possible d'afficher le produit utilisé pour la conservation (colonne storage_product)
+- impression des étiquettes : il est maintenant possible d'utiliser un autre modèle que celui qui est associé au type de container
+
+Version 1.0.6a du 03/04/2017
+---------------------------
+Correction d'un bug :
+- en saisie d'un mouvement depuis le détail d'un objet, la liste des containers associés à un type n'était pas affichée
+
+Version 1.0.6 du 03/03/2017
+---------------------------
+Mise à jour de la base de données nécessaire (script install/col_alter_1.0.5-1.0.6.sql)
+Corrections d'anomalies :
+- la modification des sous-échantillonnages ne fonctionnait pas
+- plusieurs anomalies empêchaient le changement d'un mot de passe par l'utilisateur. Après modification, l'écran était vierge.
+- en import de masse, si le champ container_parent_id était renseigné, et qu'aucun container n'était indiqué, le mouvement n'était pas généré
+- le programme permettant la lecture des scans supprime les espaces potentiellement rajoutés par la douchette avant le libellé lu
+- la colonne storage/range a été renommée en storage/storage_location
+
+Nouvelles fonctionnalités et améliorations :
+- dans le tableau des échantillons, l'échantillon parent est maintenant affiché
+- le tableau des échantillons peut maintenant être exporté dans divers formats
+- il est maintenant possible d'indiquer l'identifiant de la base de données d'origine d'un échantillon. Cela permet de scanner une étiquette générée par une autre implémentation de l'application, pour faciliter les échanges. Champ rajouté : sample/dbuid_origin, format attendu : db:uid
+- dans le détail d'un échantillon ou d'un container, l'utilisateur a maintenant accès simultanément à la saisie des mouvements d'entrée ou de sortie (auparavant, seule l'opération inverse était possible)
+- en saisie d'un mouvement d'entrée depuis le détail d'un objet, le nom du container est affiché si son uid est saisi manuellement
+
+Version 1.0.5a du 08/02/2017
+----------------------------
+Correction d'un bug empêchant la suppression d'un container
+
+Version 1.0.5 du 02/02/2017
+---------------------------
+Mise à jour de la base de données nécessaire (script install/col_alter_1.0.4-1.0.5.sql)
+Correction d'anomalies :
+- lors de l'attribution des droits de gestion aux projets, les groupes LDAP ou hérités n'étaient pas correctement traités
+- en entrée rapide d'échantillons, le container n'était pas correctement relu après le premier mouvement. En cas d'erreur de code, l'uid n'était pas correctement effacé
+- le modèle d'étiquettes n'était pas supprimé après génération dans le dossier temporaire, ce qui interdisait les phases de mise au point
+
+Améliorations :
+- rajout d'une table des zones de prélèvement : il est maintenant possible de rattacher un échantillon à une zone géographique définie préalablement (utilisable en recherche d'échantillons)
+- il est maintenant possible de scanner des codes-barres qui contiennent des identifiants métiers, et qui n'ont pas été générés par l'application (soit code barre 1D avec l'identifiant, soit qrcode avec l'identifiant ou une adresse http)
+- l'export csv (pour générer les étiquettes avec un logiciel tiers) comprend maintenant les coordonnées xy
+
+Documentation :
+- rajout de la procédure d'installation de PHP7 avec Debian 8
+
+Version 1.0.4 du 18/01/2017
+---------------------------
+Mise à jour de la base de données nécessaire (script install/col_alter_1.0-1.0.4.sql)
+Corrections d'anomalies :
+- la lecture d'un QRCODE à partir d'une caméra ne fonctionnait pas si l'appareil utilisé ne disposait pas d'une caméra arrière (caméra d'environnement)
+- la sélection du type de container ne fonctionnait pas s'il n'y en avait qu'un dans une famille de containers
+- la recherche de containers ne fonctionnait pas en saisie d'un mouvement
+- en saisie d'un échantillon, le type de container n'était pas assez explicite
+
+Améliorations :
+- la date du dernier mouvement des objets est affichée dans les listes
+- la date de création des objets a été passée en date/heure
+- il est maintenant possible d'intégrer la position gps d'un objet dans une étiquette ou dans le QRCODE
+- il est maintenant possible d'intégrer la date de création d'un objet dans une étiquette ou dans le QRCODE
+- en modification d'un objet, la carte est maintenant affichée, et il est possible de positionner l'emplacement de l'objet en cliquant dessus
+- en modification d'un objet, il est possible de positionner l'objet à partir de la position estimée du terminal (soit en utilisant les coordonnées GPS pour les smartphones ou tablettes, soit l'emplacement calculé à partir du réseau informatique)
+
+Paramétrage :
+- 3 nouveaux paramètres peuvent être définis, qui concernent le pré-positionnement de la carte quand aucune coordonnée n'a été rentrée : $mapDefaultX et $mapDefaultY centrent la carte sur le point indiqué, $mapDefaultZoom est le facteur de zoom par défaut
+
+Documentation :
+- le manuel d'installation et de configuration contient une nouvelle annexe qui explique comment mettre en place la synchronisation de deux serveurs postgresql, pour éviter de perdre des informations
+- une nouvelle section a été rédigée, pour expliquer les opérations à réaliser lors d'une mise à jour du logiciel
+
+Version 1.0.3 du 08/12/2016
+---------------------------
+Corrections :
+- script de génération des tables : la table project_group était mal nommée
+- fichier param.inc.php.dist : les schémas pour la connexion à la base de données principale étaient incomplets (variable $BDD_schema)
+
+Version 1.0.2 du 02/12/2016
+---------------------------
+Documentation :
+- correction des paramètres à indiquer pour une bonne gestion du multi-bases (accès au fichier param.ini)
+- ajout de la configuration pour une identification en mode HEADER
+
+Améliorations :
+- le titre de l'onglet est maintenant configuré à partir du titre donné à l'application dans les variables (fonction nécessaire pour le multi-bases)
+- ajout de la possibilité de connexion en mode HEADER (login transmis dans une variable d'entête HTML par un serveur proxy d'identification, comme LemonLdap, par exemple)
+
+Corrections :
+- il est maintenant possible de déclarer plusieurs fois le même groupe LDAP pour lui donner des droits différents
+
+Version 1.0.1 du 24/11/2016
+---------------------------
+Améliorations :
+- affichage de la dernière connexion de l'utilisateur
+- ajout d'un contrôle sur la durée absolue de la session
+- ajout de logs dans syslog pour la connexion et la déconnexion
+
+Corrections :
+- ajout de l'enregistrement des logs lors de la reconnexion par token
+- correction d'un bug d'affichage du menu en mode production
+- le lien vers les réservations ne fonctionnait pas dans le détail d'un conteneur ou d'un échantillon
+
+Divers :
+- remplacement de la version de Smarty par la 3.1.30
+
+Version 1.0 du 25/10/2016
+-------------------------
+Première version de production
+Fonctionnalités intégrées :
+- saisie des objets (containers, échantillons)
+- création des mouvements avec motif de sortie du stock si nécessaire
+- réservation d'un objet
+- création d'un échantillon issu d'un autre échantillon (pièces extraites, p. e.)
+- gestion de sous-échantillons : entrée, sortie de sous-échantillons d'un échantillon
+- ajout de pièces jointes à un objet (photos p.e.), affichage de la photo la plus récente dans la liste des objets
+- import de masse
+- génération des étiquettes intégrant un QRCODE, scan à partir d'une douchette ou d'un terminal de type tablette ou smartphone et génération rapide d'un mouvement d'entrée ou de sortie
+- génération en masse des mouvements d'entrée ou de sortie (scan par douchette en mode différé)

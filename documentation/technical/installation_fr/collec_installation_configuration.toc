@@ -1,0 +1,247 @@
+\babel@toc {french}{}\relax 
+\contentsline {chapter}{\numberline {1}Le logiciel Collec-Science}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Historique}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Fonctionnalit\IeC {\'e}s g\IeC {\'e}n\IeC {\'e}rales}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Technologie employ\IeC {\'e}e}{3}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Base de donn\IeC {\'e}es}{3}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Langage de d\IeC {\'e}veloppement et framework utilis\IeC {\'e}}{3}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Liste des composants externes utilis\IeC {\'e}s}{3}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}S\IeC {\'e}curit\IeC {\'e}}{5}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Licence}{6}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Copyright}{6}{section.1.6}%
+\contentsline {chapter}{\numberline {2}Installer le logiciel}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Consultez la documentation du framework !}{7}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Installation automatique}{7}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Mode op\IeC {\'e}ratoire}{7}{subsection.2.2.1}%
+\contentsline {section}{\numberline {2.3}Installation manuelle}{8}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Configurer le serveur}{8}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Configurer Apache}{8}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}Modules PHP n\IeC {\'e}cessaires}{8}{subsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.3.4}Installer et configurer php}{8}{subsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.3.5}Configurer l'h\IeC {\^o}te virtuel et SSL}{9}{subsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.3.6}Configurer Apache pour l'identification \IeC {\`a} partir d'une f\IeC {\'e}d\IeC {\'e}ration}{10}{subsection.2.3.6}%
+\contentsline {subsubsection}{Installation du module Mellon}{10}{subsection.2.3.6}%
+\contentsline {subsubsection}{G\IeC {\'e}n\IeC {\'e}ration des fichiers de configuration de l'application}{11}{lstnumber.-7.1}%
+\contentsline {subsubsection}{Configurer le site virtuel}{11}{lstnumber.-8.4}%
+\contentsline {subsubsection}{Configurer le logiciel}{12}{lstnumber.-10.1}%
+\contentsline {subsubsection}{Enregistrer le site dans la f\IeC {\'e}d\IeC {\'e}ration Renater}{12}{lstnumber.-11.2}%
+\contentsline {subsection}{\numberline {2.3.7}Comprendre la double identification}{12}{subsection.2.3.7}%
+\contentsline {paragraph}{Principe :}{12}{subsection.2.3.7}%
+\contentsline {paragraph}{M\IeC {\'e}canisme d'\IeC {\'e}change de la cl\IeC {\'e} secr\IeC {\`e}te :}{13}{subsection.2.3.7}%
+\contentsline {paragraph}{Quand faut-il activer la double authentification ?}{13}{subsection.2.3.7}%
+\contentsline {paragraph}{Quels logiciels peut-on utiliser dans le smartphone ?}{13}{subsection.2.3.7}%
+\contentsline {paragraph}{En cas de perte de la cl\IeC {\'e} secr\IeC {\`e}te ou du smartphone :}{13}{subsection.2.3.7}%
+\contentsline {subsection}{\numberline {2.3.8}Configurer le dossier d'installation}{13}{subsection.2.3.8}%
+\contentsline {subsubsection}{Cas g\IeC {\'e}n\IeC {\'e}ral : une seule instance h\IeC {\'e}berg\IeC {\'e}e dans le serveur}{14}{subsection.2.3.8}%
+\contentsline {subsubsection}{Cas particulier : faire cohabiter plusieurs instances avec le m\IeC {\^e}me code}{14}{subsection.2.3.8}%
+\contentsline {subsection}{\numberline {2.3.9}Droits \IeC {\`a} attribuer au serveur web}{15}{subsection.2.3.9}%
+\contentsline {section}{\numberline {2.4}Configurer l'application}{15}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Connexion \IeC {\`a} la base de donn\IeC {\'e}es}{16}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Identification des utilisateurs}{16}{subsection.2.4.2}%
+\contentsline {subsubsection}{R\IeC {\'e}-identification par jeton}{18}{table.2.2}%
+\contentsline {subsection}{\numberline {2.4.3}Configurer l'acc\IeC {\`e}s \IeC {\`a} l'annuaire LDAP}{18}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Param\IeC {\`e}tres sp\IeC {\'e}cifiques}{19}{subsection.2.4.4}%
+\contentsline {subsection}{\numberline {2.4.5}Param\IeC {\`e}tres stock\IeC {\'e}s en base de donn\IeC {\'e}es}{19}{subsection.2.4.5}%
+\contentsline {section}{\numberline {2.5}Cr\IeC {\'e}er la base de donn\IeC {\'e}es}{20}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Cr\IeC {\'e}er la base de donn\IeC {\'e}es et ajouter les extensions}{20}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Compte par d\IeC {\'e}faut}{21}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Scripts de modification}{21}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.6}Mise en production}{21}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Installer une nouvelle version}{21}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Faites une sauvegarde de la base de donn\IeC {\'e}es}{21}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Sauvegarder le fichier contenant les param\IeC {\`e}tres de l'application}{21}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}Consultez le fichier news.txt}{22}{subsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.7.4}Mise \IeC {\`a} jour de la structure de la base de donn\IeC {\'e}es}{22}{subsection.2.7.4}%
+\contentsline {subsection}{\numberline {2.7.5}Reconfigurer les droits d'acc\IeC {\`e}s au serveur web}{22}{subsection.2.7.5}%
+\contentsline {subsection}{\numberline {2.7.6}Supprimer les dossiers inutiles}{22}{subsection.2.7.6}%
+\contentsline {subsection}{\numberline {2.7.7}V\IeC {\'e}rifier la configuration du chiffrement}{22}{subsection.2.7.7}%
+\contentsline {chapter}{\numberline {3}Administrer l'application}{23}{chapter.3}%
+\contentsline {section}{\numberline {3.1}G\IeC {\'e}rer les droits}{23}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Principe g\IeC {\'e}n\IeC {\'e}ral}{23}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Cr\IeC {\'e}er un nouvel utilisateur}{25}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Cr\IeC {\'e}er un login utilis\IeC {\'e} dans la gestion des droits}{26}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}D\IeC {\'e}finir les groupes d'utilisateur}{26}{subsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.1.5}Cr\IeC {\'e}er une application}{27}{subsection.3.1.5}%
+\contentsline {subsection}{\numberline {3.1.6}D\IeC {\'e}finir les droits utilisables dans l'application}{28}{subsection.3.1.6}%
+\contentsline {subsection}{\numberline {3.1.7}Cas particulier des groupes et des logins issus d'un annuaire LDAP ou d'un serveur CAS}{28}{subsection.3.1.7}%
+\contentsline {subsubsection}{Droits attribu\IeC {\'e}s \IeC {\`a} un groupe LDAP ou un groupe CAS}{29}{subsection.3.1.7}%
+\contentsline {subsubsection}{Droits attribu\IeC {\'e}s \IeC {\`a} un utilisateur particulier de l'annuaire LDAP ou du serveur CAS}{29}{subsection.3.1.7}%
+\contentsline {section}{\numberline {3.2}Droits sp\IeC {\'e}cifiques de l'application COLLEC-SCIENCE}{29}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Droits \IeC {\`a} positionner}{29}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Gestion des collections}{29}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Configurer les param\IeC {\`e}tres g\IeC {\'e}n\IeC {\'e}raux}{30}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Cr\IeC {\'e}er ou modifier un mod\IeC {\`e}le d'\IeC {\'e}tiquettes}{31}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}D\IeC {\'e}finir le contenu du QRcode}{32}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Configuration du fichier XSL}{33}{subsection.3.4.2}%
+\contentsline {subsubsection}{Ent\IeC {\^e}te du fichier}{33}{subsection.3.4.2}%
+\contentsline {subsubsection}{Format de l'\IeC {\'e}tiquette}{34}{lstnumber.-24.29}%
+\contentsline {subsubsection}{Insertion du QRcode}{34}{lstnumber.-26.1}%
+\contentsline {subsubsection}{Contenu textuel}{34}{lstnumber.-27.15}%
+\contentsline {subsubsection}{Fin de l'\IeC {\'e}tiquette}{35}{lstnumber.-29.18}%
+\contentsline {section}{\numberline {3.5}Gestion des traces}{35}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Comment faire pour ?}{37}{chapter.4}%
+\contentsline {section}{\numberline {4.1}G\IeC {\'e}n\IeC {\'e}rer une liste d'\IeC {\'e}chantillons vides}{37}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Structure du fichier CSV}{37}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Proc\IeC {\'e}dure d'import}{38}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Autre usage}{39}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Exemple de fichier}{40}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Export de donn\IeC {\'e}es au format JSON}{40}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Description des mod\IeC {\`e}les d'export}{40}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Importer un fichier JSON}{41}{subsection.4.2.2}%
+\contentsline {chapter}{\numberline {A}Mettre en place une r\IeC {\'e}plication de la base postgresql vers un autre serveur}{43}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Pr\IeC {\'e}sentation}{43}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Besoins exprim\IeC {\'e}s}{43}{subsection.A.1.1}%
+\contentsline {subsection}{\numberline {A.1.2}Principe}{43}{subsection.A.1.2}%
+\contentsline {subsection}{\numberline {A.1.3}Limitations et pr\IeC {\'e}cautions}{43}{subsection.A.1.3}%
+\contentsline {section}{\numberline {A.2}Mise \IeC {\`a} jour du serveur (version 9.3) en version 9.4 dans \textit {citerne-8:}}{44}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Installation de postgreSQL sur \textit {chappie} et mise en place des cl\IeC {\'e}s ssh}{44}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Mise en place de la r\IeC {\'e}plication}{44}{section.A.4}%
+\contentsline {subsection}{\numberline {A.4.1} Ma\IeC {\^\i }tre}{44}{subsection.A.4.1}%
+\contentsline {subsection}{\numberline {A.4.2}Esclave}{45}{subsection.A.4.2}%
+\contentsline {section}{\numberline {A.5}Informations de monitoring}{45}{section.A.5}%
+\contentsline {section}{\numberline {A.6}Pour tester le failover ou g\IeC {\'e}rer un interruption}{46}{section.A.6}%
+\contentsline {chapter}{\numberline {B}Structure de la base de donn\IeC {\'e}es}{47}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Description des tables}{48}{section.B.1}%
+\contentsline {subsection}{\numberline {B.1.1}Schema col}{48}{subsection.B.1.1}%
+\contentsline {subsubsection}{Tables}{48}{subsection.B.1.1}%
+\contentsline {paragraph}{barcode}{48}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{48}{subsection.B.1.1}%
+\contentsline {paragraph}{booking}{48}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{48}{subsection.B.1.1}%
+\contentsline {paragraph}{borrower}{48}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{49}{subsection.B.1.1}%
+\contentsline {paragraph}{borrowing}{49}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{49}{subsection.B.1.1}%
+\contentsline {paragraph}{campaign}{49}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{49}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{49}{subsection.B.1.1}%
+\contentsline {paragraph}{campaign\_regulation}{49}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{50}{subsection.B.1.1}%
+\contentsline {paragraph}{collection}{50}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{50}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{50}{subsection.B.1.1}%
+\contentsline {paragraph}{collection\_group}{50}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{50}{subsection.B.1.1}%
+\contentsline {paragraph}{container}{50}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{50}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{51}{subsection.B.1.1}%
+\contentsline {paragraph}{container\_family}{51}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{51}{subsection.B.1.1}%
+\contentsline {paragraph}{container\_type}{51}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{51}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{51}{subsection.B.1.1}%
+\contentsline {paragraph}{country}{51}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{52}{subsection.B.1.1}%
+\contentsline {paragraph}{dataset\_column}{52}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{52}{subsection.B.1.1}%
+\contentsline {paragraph}{dataset\_template}{52}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{53}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{53}{subsection.B.1.1}%
+\contentsline {paragraph}{dataset\_type}{53}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{53}{subsection.B.1.1}%
+\contentsline {paragraph}{dbparam}{53}{subsection.B.1.1}%
+\contentsline {paragraph}{dbversion}{53}{subsection.B.1.1}%
+\contentsline {paragraph}{document}{54}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{54}{subsection.B.1.1}%
+\contentsline {paragraph}{event}{54}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{54}{subsection.B.1.1}%
+\contentsline {paragraph}{event\_type}{55}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{55}{subsection.B.1.1}%
+\contentsline {paragraph}{export}{55}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{55}{subsection.B.1.1}%
+\contentsline {paragraph}{export\_dataset}{55}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{55}{subsection.B.1.1}%
+\contentsline {paragraph}{export\_format}{55}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{55}{subsection.B.1.1}%
+\contentsline {paragraph}{export\_model}{55}{subsection.B.1.1}%
+\contentsline {paragraph}{export\_template}{56}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{56}{subsection.B.1.1}%
+\contentsline {paragraph}{identifier\_type}{56}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{56}{subsection.B.1.1}%
+\contentsline {paragraph}{label}{56}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{57}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{57}{subsection.B.1.1}%
+\contentsline {paragraph}{license}{57}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{57}{subsection.B.1.1}%
+\contentsline {paragraph}{lot}{57}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{57}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{57}{subsection.B.1.1}%
+\contentsline {paragraph}{lot\_sample}{57}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{58}{subsection.B.1.1}%
+\contentsline {paragraph}{metadata}{58}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{58}{subsection.B.1.1}%
+\contentsline {paragraph}{mime\_type}{58}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{58}{subsection.B.1.1}%
+\contentsline {paragraph}{movement}{58}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{58}{subsection.B.1.1}%
+\contentsline {paragraph}{movement\_reason}{59}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{59}{subsection.B.1.1}%
+\contentsline {paragraph}{movement\_type}{59}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{59}{subsection.B.1.1}%
+\contentsline {paragraph}{multiple\_type}{59}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{59}{subsection.B.1.1}%
+\contentsline {paragraph}{object}{59}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{60}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{60}{subsection.B.1.1}%
+\contentsline {paragraph}{object\_identifier}{60}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{60}{subsection.B.1.1}%
+\contentsline {paragraph}{object\_status}{61}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{61}{subsection.B.1.1}%
+\contentsline {paragraph}{operation}{61}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{61}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{61}{subsection.B.1.1}%
+\contentsline {paragraph}{printer}{61}{subsection.B.1.1}%
+\contentsline {paragraph}{protocol}{61}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{62}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{62}{subsection.B.1.1}%
+\contentsline {paragraph}{referent}{62}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{63}{subsection.B.1.1}%
+\contentsline {paragraph}{regulation}{63}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{63}{subsection.B.1.1}%
+\contentsline {paragraph}{request}{63}{subsection.B.1.1}%
+\contentsline {paragraph}{sample}{63}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{64}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{64}{subsection.B.1.1}%
+\contentsline {paragraph}{sample\_type}{64}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{65}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{65}{subsection.B.1.1}%
+\contentsline {paragraph}{samplesearch}{65}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{65}{subsection.B.1.1}%
+\contentsline {paragraph}{sampling\_place}{65}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{66}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{66}{subsection.B.1.1}%
+\contentsline {paragraph}{storage\_condition}{66}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{66}{subsection.B.1.1}%
+\contentsline {paragraph}{subsample}{66}{subsection.B.1.1}%
+\contentsline {paragraph}{References}{66}{subsection.B.1.1}%
+\contentsline {paragraph}{translator}{66}{subsection.B.1.1}%
+\contentsline {paragraph}{Referenced by}{67}{subsection.B.1.1}%
+\contentsline {subsubsection}{Views}{67}{subsection.B.1.1}%
+\contentsline {paragraph}{last\_borrowing}{67}{subsection.B.1.1}%
+\contentsline {paragraph}{last\_movement}{67}{subsection.B.1.1}%
+\contentsline {paragraph}{last\_photo}{67}{subsection.B.1.1}%
+\contentsline {paragraph}{slots\_used}{68}{subsection.B.1.1}%
+\contentsline {paragraph}{v\_object\_identifier}{68}{subsection.B.1.1}%
+\contentsline {paragraph}{v\_subsample\_quantity}{68}{subsection.B.1.1}%
+\contentsline {subsection}{\numberline {B.1.2}Schema gacl}{68}{subsection.B.1.2}%
+\contentsline {subsubsection}{Tables}{68}{subsection.B.1.2}%
+\contentsline {paragraph}{aclacl}{68}{subsection.B.1.2}%
+\contentsline {paragraph}{References}{68}{subsection.B.1.2}%
+\contentsline {paragraph}{aclaco}{69}{subsection.B.1.2}%
+\contentsline {paragraph}{References}{69}{subsection.B.1.2}%
+\contentsline {paragraph}{Referenced by}{69}{subsection.B.1.2}%
+\contentsline {paragraph}{aclappli}{69}{subsection.B.1.2}%
+\contentsline {paragraph}{Referenced by}{69}{subsection.B.1.2}%
+\contentsline {paragraph}{aclgroup}{69}{subsection.B.1.2}%
+\contentsline {paragraph}{References}{69}{subsection.B.1.2}%
+\contentsline {paragraph}{Referenced by}{69}{subsection.B.1.2}%
+\contentsline {paragraph}{acllogin}{69}{subsection.B.1.2}%
+\contentsline {paragraph}{Referenced by}{69}{subsection.B.1.2}%
+\contentsline {paragraph}{acllogingroup}{70}{subsection.B.1.2}%
+\contentsline {paragraph}{References}{70}{subsection.B.1.2}%
+\contentsline {paragraph}{log}{70}{subsection.B.1.2}%
+\contentsline {paragraph}{logingestion}{70}{subsection.B.1.2}%
+\contentsline {paragraph}{Referenced by}{71}{subsection.B.1.2}%
+\contentsline {paragraph}{passwordlost}{71}{subsection.B.1.2}%
+\contentsline {paragraph}{References}{71}{subsection.B.1.2}%
+\contentsline {chapter}{Bibliographie}{73}{appendix*.2}%

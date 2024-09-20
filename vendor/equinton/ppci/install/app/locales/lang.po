@@ -1,0 +1,770 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-21 11:12+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#. (itstool) path: item/item@label
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:22
+msgid "Schéma de la base de données"
+msgstr "Database structure"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:23
+msgid "Structure de la base de données (HTML)"
+msgstr "Database structure (HTML)"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:23
+msgid "Liste des tables et des colonnes"
+msgstr "List of tables and columns"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:24
+msgid "Structure de la base de données (Latex)"
+msgstr "Database structure (Latex)"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:24
+msgid "Liste des tables et des colonnes sous forme de tableaux Latex"
+msgstr "List of tables and columns in Latex format"
+
+#. (itstool) path: menu/item@label
+#: ../../Config/menu.xml:26
+msgid "Administration"
+msgstr "Administration"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../Config/menu.xml:26
+msgid "Administration de l'application"
+msgstr "Application administration"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:27
+msgid "Liste des comptes locaux"
+msgstr "Local accounts list"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:27
+msgid "Liste des logins - identification via la base de données"
+msgstr "List of logins - identification via the database"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:28
+msgid "ACL - droits"
+msgstr "ACL - rights"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:28
+msgid "applications et droits gérés"
+msgstr "applications and rights managed"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:29
+msgid "ACL - logins"
+msgstr "ACL - logins"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:29
+msgid "Logins déclarés dans le module de manage des droits"
+msgstr "Logins declared in the rights management module"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:30
+msgid "ACL - groupes de logins"
+msgstr "ACL - login groups"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:30
+msgid "Groupes de logins et logins rattachés aux groupes"
+msgstr "Groups of logins and logins attached to groups"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:31
+msgid "Liste des paramètres pérennes de l'application"
+msgstr "List of long-term parameters of the application"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:33
+msgid "PHP info"
+msgstr "PHP info"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:33
+msgid "configuration générale du serveur PHP"
+msgstr "general configuration of the PHP server"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:34
+msgid "Logs"
+msgstr "Logs"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:34
+msgid "Consultation des logs enregistrées"
+msgstr "Consultation of recorded logs"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:35
+msgid "Variables SERVER"
+msgstr "SERVER variables"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:35
+msgid "Affichage des variables fournies par le serveur"
+msgstr "Display of variables supplied by the server"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:36
+msgid "Variables SESSION"
+msgstr "SESSION variables"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:36
+msgid "Affichage des variables de session"
+msgstr "Display of the session variables"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:38
+msgid "Backup"
+msgstr "Backup"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:38
+msgid "Sauvegarde de la base de données"
+msgstr "Backup of the database"
+
+#. (itstool) path: menu/item@label
+#: ../../Config/menu.xml:40
+msgid "Connexion"
+msgstr "Sign in"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../Config/menu.xml:40
+msgid "S'identifier dans l'application"
+msgstr "Sign in to the app"
+
+#. (itstool) path: menu/item@label
+#: ../../Config/menu.xml:41
+msgid "Déconnexion"
+msgstr "Sign out"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../Config/menu.xml:41
+msgid "Déconnexion de l'application"
+msgstr "Sign out of the app"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:42
+msgid "Activer la double authentification"
+msgstr "Enable dual authentication"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:42
+msgid "Activer la double authentification pour votre compte"
+msgstr "Enabling dual authentication for your account"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:43
+msgid "Nouvelle version ?"
+msgstr "New version?"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:43
+msgid "Rechercher s'il existe une nouvelle version disponible de l'application"
+msgstr "Find out if there is a new version of the application available"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:44
+msgid "Dernières connexions"
+msgstr "Last connections"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:44
+msgid "Liste des dernières connexions réalisées"
+msgstr "List of last connections"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:45
+msgid "Modifier le mot de passe"
+msgstr "Change your password"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:45
+msgid "Modifiez votre mot de passe (identification locale uniquement)"
+msgstr "Change your password (local identification only)"
+
+#. (itstool) path: menu/item@label
+#: ../../Config/menu.xml:47
+msgid "?"
+msgstr "?"
+
+#. (itstool) path: menu/item@tooltip
+#: ../../Config/menu.xml:47
+msgid "Aide"
+msgstr "Help"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:48
+msgid "A propos"
+msgstr "About"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:49
+msgid "Nouveautés"
+msgstr "What's new?"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:49
+msgid "Quoi de neuf dans l'application ?"
+msgstr "What's new in the app?"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:50
+msgid "Lexique"
+msgstr "Glossary"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:50
+msgid "Lexique des termes utilisés dans le logiciel"
+msgstr "Glossary of terms used in the software"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:51
+msgid "Français"
+msgstr "French"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:51
+msgid "Libellés en français"
+msgstr "Labels in French"
+
+#. (itstool) path: item/item@label
+#: ../../Config/menu.xml:52
+msgid "English"
+msgstr "English"
+
+#. (itstool) path: item/item@tooltip
+#: ../../Config/menu.xml:52
+msgid "Labels in English"
+msgstr "Labels in English"
+
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Views/PdfView.php:71
+msgid "Le fichier ne peut pas être envoyé au navigateur"
+msgstr "The file cannot be sent to the browser"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Views/PdfView.php:74
+msgid "Aucun contenu disponible"
+msgstr "No content available"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Views/BinaryView.php:59
+msgid "Problème rencontré lors de l'ouverture de finfo"
+msgstr "Problem encountered when opening finfo"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Views/SmartyPpci.php:93
+#, php-format
+msgid ""
+"Mode développement - base de données : pgsql:host=%1s;dbname=%2s - schema : "
+"%3s"
+msgstr "Development mode - database: pgsql:host=%1s;dbname=%2s - schema: %3s"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Views/FileView.php:38
+msgid ""
+"Le nom du fichier à exporter n'a pas été renseigné et aucune donnée n'est "
+"disponible pour l'exportation"
+msgstr ""
+"The name of the file to be exported has not been entered and no data is "
+"available for export."
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:42
+msgid "Erreur de lecture des informations dans la base de données"
+msgstr "Error reading information in the database"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:59
+#: ../../../vendor/equinton/ppci/src/Libraries/Dbparam.php:22
+msgid "Enregistrement effectué"
+msgstr "Saved"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:65
+msgid ""
+"Un problème est survenu lors de l'enregistrement. Si le problème persiste, "
+"contactez votre support"
+msgstr ""
+"A problem is occurred during the registration. If it persist, contact your "
+"support"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:71
+#, php-format
+msgid "La clé n'a pas été retournée lors de l'enregistrement dans %s"
+msgstr "The key was not returned during registration in %s"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:80
+msgid ""
+"Un enregistrement portant déjà ce nom existe déjà dans la base de données."
+msgstr "A record with this name already exists into the database."
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:97
+msgid "Suppression effectuée"
+msgstr "Deletion done"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:108
+msgid ""
+"La suppression n'est pas possible : des informations sont référencées par "
+"cet enregistrement"
+msgstr "Delete is not possible: some data as referenced by this item"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:113
+msgid "Problème lors de la suppression"
+msgstr "Problem when deleting"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/LastRelease.php:35
+msgid "Impossible de récupérer la dernière version publiée de l'application"
+msgstr "Unable to retrieve the latest published version of the application"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Totp.php:52
+msgid ""
+"Les informations fournies sont insuffisantes pour valider la création de la "
+"double identification"
+msgstr ""
+"The information provided is insufficient to validate the creation of double "
+"identification"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Totp.php:62
+msgid "La double authentification est maintenant activée."
+msgstr "The dual authentication is activate now."
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Totp.php:71
+msgid "Le code fourni n'a pu être vérifié"
+msgstr "The code provided could not be verified"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Totp.php:103
+msgid "Vous êtes maintenant connecté"
+msgstr "You are now logged in"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Totp.php:129
+msgid "Le code TOTP rentré n'a pas été reconnu"
+msgstr "The TOTP code entered was not recognised"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Markdown.php:16
+#, php-format
+msgid "Le fichier %s n'existe pas"
+msgstr "The file %s don't exist"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Markdown.php:23
+#, php-format
+msgid "Le fichier %s est vide ou ne peut être lu"
+msgstr "File %s not found or not readable"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Dbparam.php:30
+msgid "Problème lors de l'écriture dans la base de données"
+msgstr "Problem writing to the database"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Mail.php:101
+msgid "Fac-similé de l'envoi d'un mail - mode debug"
+msgstr "Facsimile of sending an email - debug mode"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Mail.php:102
+msgid "Paramètres du mail :"
+msgstr "Email settings:"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Mail.php:104
+msgid "Données transmises :"
+msgstr "Data transmitted :"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Mail.php:120
+msgid "Un problème a été rencontré lors de l'envoi du mail"
+msgstr "A problem was encountered when sending the email"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Structure.php:75
+msgid "Le fichier contenant le schéma de la base de données n'a pas été trouvé"
+msgstr "The file containing the database schema was not found"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Backup.php:37
+msgid "Fichier généré. Vérifiez son contenu !"
+msgstr "File generated. Check its contents!"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/Backup.php:40
+msgid "Le fichier de backup n'a pas été généré"
+msgstr "The backup file was not generated"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:35
+msgid "Réinitialisation du mot de passe"
+msgstr "Reset password"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:45
+msgid ""
+"Un mail vient de vous être envoyé. Veuillez copier le lien transmis dans "
+"votre navigateur pour pouvoir créer un nouveau mot de passe"
+msgstr ""
+"An email has just been sent to you. Please copy the link sent to your "
+"browser to create a new password"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:48
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:53
+msgid "Impossible d'envoyer le mail"
+msgstr "Could not send email"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:59
+msgid ""
+"La réinitialisation du mot de passe n'est pas possible, contactez le cas "
+"échéant l'administrateur de l'application"
+msgstr ""
+"Resetting the password is not possible, contact the application "
+"administrator if necessary"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:62
+msgid ""
+"La réinitialisation du mot de passe n'est pas activée pour cette application"
+msgstr "Password reset is not enabled for this application"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:82
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:107
+#: ../../../vendor/equinton/ppci/src/Libraries/LoginGestionLib.php:84
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:441
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:494
+msgid ""
+"Le mode d'identification utilisé pour votre compte n'autorise pas la "
+"modification du mot de passe depuis cette application"
+msgstr ""
+"The login method used for your account does not allow changing the password "
+"from this app"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:86
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:74
+msgid "Le jeton fourni n'est pas valide"
+msgstr "Token provided is not valid"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:91
+msgid ""
+"La réinitialisation du mot de passe n'est pas activée pour cette "
+"application, ou le jeton n'a pas été fourni"
+msgstr ""
+"Password reset is not enabled for this application, or the token has not "
+"been supplied"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/LoginGestionLib.php:62
+msgid "Problème rencontré lors de l'enregistrement"
+msgstr "Problem encountered during recording"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/LoginGestionLib.php:98
+#, php-format
+msgid "%s - changement de mot de passe"
+msgstr "%s - change password"
+
+#: ../../../vendor/equinton/ppci/src/Libraries/LoginGestionLib.php:108
+msgid "La modification du mot de passe a été enregistrée"
+msgstr "The password change has been saved"
+
+#: ../../../vendor/equinton/ppci/src/Filters/DbversioncheckFilter.php:42
+#, php-format
+msgid ""
+"La base de données n'est pas dans la version attendue (%1$s). Version "
+"actuelle : %2$s"
+msgstr ""
+"The database is not in the expected version (%1$s). Current version: %2$s"
+
+#: ../../../vendor/equinton/ppci/src/Filters/AdminFilter.php:42
+msgid ""
+"Vous devez vous ré-identifier avec votre code TOTP pour accéder aux modules "
+"d'administration"
+msgstr ""
+"You must re-identify with your TOTP code to access the administration "
+"modules."
+
+#: ../../../vendor/equinton/ppci/src/Filters/AdminFilter.php:45
+msgid ""
+"Vous devez activer la double identification TOTP pour accéder aux modules "
+"d'administration"
+msgstr ""
+"You must activate dual TOTP identification to access the administration "
+"modules"
+
+#: ../../../vendor/equinton/ppci/src/Filters/StartcallFilter.php:24
+msgid "La session a expiré, vous devez vous reconnecter"
+msgstr "The session has expired, you need to reconnect"
+
+#: ../../../vendor/equinton/ppci/src/Filters/RightFilter.php:47
+msgid ""
+"Vous ne disposez pas des droits nécessaires pour exécuter cette fonction"
+msgstr "You do not have the necessary rights to perform this function"
+
+#: ../../../vendor/equinton/ppci/src/Controllers/Login.php:28
+msgid "Identification refusée"
+msgstr "Authentication failed"
+
+#: ../../../vendor/equinton/ppci/src/Controllers/Login.php:39
+msgid ""
+"Le mode d'identification dans l'application ne vous permet pas d'accéder à "
+"la page de connexion"
+msgstr ""
+"The identification mode in the application does not allow you to access the "
+"login page"
+
+#: ../../../vendor/equinton/ppci/src/Controllers/Login.php:96
+msgid "Vous avez été déconnecté"
+msgstr "You have been disconnected"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:189
+msgid ""
+"Votre mot de passe a expiré. Veuillez contacter l'administrateur de "
+"l'application pour le renouveler"
+msgstr ""
+"Your password has expired. Please contact the application administrator to "
+"renew it"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:192
+msgid "Votre mot de passe va expirer. Veuillez le changer immédiatement"
+msgstr "Your password is about to expire. Please, change it immediately"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:263
+msgid "Mot de passe insuffisamment complexe ou trop petit"
+msgstr "Password not enough complex or too small"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:277
+msgid ""
+"Une erreur est survenue pendant le chiffrement du jeton d'identification"
+msgstr "An error occurred during the encryption of the token"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:303
+msgid "Activation de votre compte"
+msgstr "Activating your account"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:316
+msgid ""
+"Un message vient d'être envoyé à l'utilisateur pour l'informer de "
+"l'activation de son compte"
+msgstr ""
+"A message has just been sent to the user to inform them that their account "
+"has been activated."
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:332
+msgid ""
+"Une erreur est survenue pendant le déchiffrement du jeton d'identification"
+msgstr "An error occurred during the decryption of the token"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:435
+msgid "La modification du mot de passe a échoué"
+msgstr "Password change failed"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:438
+msgid "L'ancien mot de passe est incorrect"
+msgstr "The old password is incorrect"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:459
+msgid ""
+"Le mot de passe que vous avez indiqué n'est pas assez complexe, ou un "
+"problème est survenu lors de l'enregistrement"
+msgstr ""
+"The password you entered is not complex enough, or a problem has occurred "
+"during registration."
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:489
+msgid "Le mot de passe a été modifié"
+msgstr "The password has been changed"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:491
+msgid ""
+"Echec de la modification du mot de passe pour une raison inconnue. Si le "
+"problème persiste, contactez l'assistance"
+msgstr ""
+"Failed to change the password for an unknown reason. If the problem "
+"persists, contact support"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:543
+msgid "Le mot de passe n'est pas assez fort"
+msgstr "Password not strong enough"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:546
+msgid "Le mot de passe n'est pas assez complexe"
+msgstr ""
+"The password is not complex enough (mix 3 character sets among lowercase, "
+"uppercase, numbers, and punctuation)"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:549
+msgid "Le mot de passe est trop court"
+msgstr "The password is too short (minimum: 10 characters)"
+
+#: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:552
+msgid "Le mot de passe n'est pas identique dans les deux zones"
+msgstr "Passwords don't match in both fields"
+
+#: ../../../vendor/equinton/ppci/src/Models/Passwordlost.php:79
+msgid "Le compte n'est pas actif"
+msgstr "The account is not active"
+
+#: ../../../vendor/equinton/ppci/src/Models/Passwordlost.php:82
+msgid ""
+"Le compte n'est pas autorisé à réinitialiser son mot de passe, la dernière "
+"connexion réussie n'ayant pas été réalisée dans un mode compatible"
+msgstr ""
+"The account is not allowed to reset its password because the last successful "
+"login was not done in a compatible mode"
+
+#: ../../../vendor/equinton/ppci/src/Models/Passwordlost.php:85
+msgid "Aucun compte n'a été trouvé pour le mail considéré"
+msgstr "No account has been found for the considered mail"
+
+#: ../../../vendor/equinton/ppci/src/Models/Passwordlost.php:88
+msgid "Le mail n'a pas été renseigné"
+msgstr "The email has not been filled in"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:77
+msgid "L'identification par jeton n'a pas abouti"
+msgstr "Token identification was unsuccessful"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:120
+msgid ""
+"L'identification n'a pas abouti. Vérifiez votre login et votre mot de passe"
+msgstr "The identification was not successful. Check your login and password"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:207
+msgid "Nouvel utilisateur"
+msgstr "New user:"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:217
+msgid ""
+"Votre compte a été créé, mais est inactif. Un mail a été adressé aux "
+"administrateurs pour son activation"
+msgstr ""
+"Your account was create, but it's inactive. An email was send to the "
+"administrators for its activation"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:227
+msgid "Aucun login n'a été fourni, identification refusée"
+msgstr "No login provided, identification refused"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:384
+#: ../../../vendor/equinton/ppci/src/Models/Ldap.php:74
+msgid "Impossible de se connecter au serveur LDAP"
+msgstr "Unable to connect to LDAP server"
+
+#: ../../../vendor/equinton/ppci/src/Models/Login.php:410
+#, php-format
+msgid "La connexion auprès de l'annuaire LDAP pour l'utilisateur %s a échoué"
+msgstr "Connection to the LDAP directory for user %s has failed"
+
+#: ../../../vendor/equinton/ppci/src/Models/Aclgroup.php:99
+msgid ""
+"L'identification dans l'annuaire LDAP a échoué pour la récupération des "
+"groupes de l'utilisateur"
+msgstr ""
+"Identification in the LDAP directory failed to retrieve the user's groups"
+
+#: ../../../vendor/equinton/ppci/src/Models/Aclgroup.php:136
+msgid "Connexion à l'annuaire LDAP impossible"
+msgstr "Cannot connect to the LDAP directory"
+
+#: ../../../vendor/equinton/ppci/src/Models/Aclgroup.php:321
+msgid "Un groupe ne peut être son propre parent"
+msgstr "A group can't be its own parent"
+
+#: ../../../vendor/equinton/ppci/src/Models/Aclgroup.php:365
+msgid "Suppression du groupe impossible : d'autres groupes lui sont rattachés"
+msgstr "Can not delete group: other groups are attached to it"
+
+#: ../../../vendor/equinton/ppci/src/Models/Aclgroup.php:381
+msgid ""
+"La suppression du groupe a échoué. Consultez les logs pour en connaître la "
+"raison"
+msgstr "Deleting the group failed. Check the logs to find out the reason"
+
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:89
+msgid "Une erreur est survenue pendant le chiffrement de la clé secrète"
+msgstr "An error occurred during the encryption of the secret key"
+
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:104
+msgid "Une erreur est survenue pendant le déchiffrement de la clé secrète"
+msgstr "An error occurred during the decryption of the secret key"
+
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:150
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:155
+msgid "Une erreur est survenue pendant le chiffrement"
+msgstr "An error occurred during the encryption"
+
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:173
+#: ../../../vendor/equinton/ppci/src/Models/Gacltotp.php:178
+msgid "Une erreur est survenue pendant le déchiffrement"
+msgstr "An error occurred during the decryption"
+
+#: ../../../vendor/equinton/ppci/src/Models/Import.php:72
+#, php-format
+msgid "%s n'est pas un champ reconnu utilisable lors de l'importation"
+msgstr "%s is not a recognized field that can be used during import"
+
+#: ../../../vendor/equinton/ppci/src/Models/Import.php:76
+#, php-format
+msgid "Fichier %s non trouvé ou non lisible"
+msgstr "File %s not found or not readable"
+
+#: ../../../vendor/equinton/ppci/src/Models/Request.php:57
+msgid ""
+"La requête ne peut pas contenir d'ordres de modification de la base de "
+"données ni porter sur des tables contenant des informations confidentielles"
+msgstr ""
+"The request must not contain any database modification commands or relate to "
+"tables containing confidential information"
+
+#: ../../../vendor/equinton/ppci/src/Models/PpciModel.php:145
+#, php-format
+msgid "Le champ %s est obligatoire mais n'a pas été renseigné"
+msgstr "The field %s is required, but has not been filled out"
+
+#: ../../../vendor/equinton/ppci/src/Models/PpciModel.php:263
+#, php-format
+msgid "La clé principale %s n'est pas renseignée ou vaut zéro"
+msgstr "The primary key %s is not filled in or is zero"
+
+#: ../../../vendor/equinton/ppci/src/Models/PpciModel.php:267
+#, php-format
+msgid "Une valeur fournie n'est pas numérique (%s)"
+msgstr "A value supplied is not numeric (%s)"
+
+#: ../../../vendor/equinton/ppci/src/Models/Log.php:206
+msgid "Dernières connexions :"
+msgstr "Last connections:"
+
+#: ../../../vendor/equinton/ppci/src/Models/Log.php:208
+#, php-format
+msgid "Le %1s depuis l'adresse IP %2s"
+msgstr "The %1s from the IP address %2s"
+
+#: ../../../vendor/equinton/ppci/src/Models/Log.php:335
+#, php-format
+msgid "%s - Compte bloqué"
+msgstr "%s - Account blocked"
+
+#: ../../../vendor/equinton/ppci/src/Models/Log.php:379
+msgid ""
+"Le nombre d'accès autorisés pour le module demandé a été atteint. Si vous "
+"considérez que la valeur est trop faible, veuillez contacter "
+"l'administrateur de l'application"
+msgstr ""
+"The number of authorized accesses for the requested module has been reached. "
+"If you consider that the value is too low, please contact the application "
+"administrator"
+
+#: ../../../vendor/equinton/ppci/src/Models/Log.php:381
+#, php-format
+msgid "%s - Trop d'accès à un module"
+msgstr "%s - Too many accesses to a module"
+
+#: ../../../vendor/equinton/ppci/src/Models/Acllogin.php:120
+msgid ""
+"L'ajout d'un login à la table des comptes (gestion des droits) n'est pas "
+"possible : le login n'est pas fourni"
+msgstr ""
+"Adding a login to the account table (rights management) is not possible: "
+"login is not provided"
+
+#, fuzzy

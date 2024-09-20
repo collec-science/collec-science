@@ -24,9 +24,9 @@ Dès lors que l'on donne accès à des fichiers qui sont stockés dans une arbor
 
 L'ensemble de l'arborescence doit être accessible par le compte utilisé par le serveur web (*www-data* pour une implémentation *Apache2*). Il n'est pas nécessaire que le compte dispose d'un accès en écriture - c'est même fortement déconseillé.
 
-Un dossier de base doit être créé dans le serveur, qui servira de racine à l'ensemble des arborescences décrites pour les collections. Le chemin complet doit être décrit dans le fichier *param/param.inc.php* :
+Un dossier de base doit être créé dans le serveur, qui servira de racine à l'ensemble des arborescences décrites pour les collections. Le chemin complet doit être décrit dans le fichier *.env* :
 
-    $APPLI_external_document_path = "/mnt/collec-science";
+   > app.external_document_path = "/mnt/collec-science"
 
 Par défaut, la variable est positionnée à */dev/null* pour empêcher son utilisation sans accord préalable de l'administrateur du serveur.
 
@@ -34,10 +34,10 @@ Les arborescences correspondant à chaque collection doivent commencer à partir
 
 ### Paramétrage des collections
 
-Pour activer le support des fichiers externes pour une collection, il faut modifier la fiche correspondante (*Paramétrage > Collections*, puis édition de la collection). Voici les informations à indiquer :
+Pour activer le support des fichiers externes pour une collection, il faut modifier la fiche correspondante (*Paramétrage > Collections*, puis *édition de la collection*). Voici les informations à indiquer :
 
 - "Le stockage de documents attachés aux échantillons est-il possible hors base de données ?" : coucher la case *oui*
-- "Chemin d'accès aux fichiers externes" : indiquez le chemin relatif par rapport à la racine de stockage (variable *$APPLI_external_document_path*).
+- "Chemin d'accès aux fichiers externes" : indiquez le chemin relatif par rapport à la racine de stockage (variable *app.external_document_path*).
 
 Dès lors, il sera possible de parcourir l'arborescence depuis un échantillon pour référencer un document.
 
@@ -58,5 +58,5 @@ Si vous souhaitez modifier une description ou une date pour un document, il suff
 
 Il suffit simplement de recréer les montages et de modifier les paramètres de la collection dans l'application, si nécessaire.
 
-Rédaction : Éric Quinton - 30/03/2022
+Rédaction : Éric Quinton - 30/03/2022. Mise à jour : 12/09/2024
 

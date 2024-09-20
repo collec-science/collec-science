@@ -1,0 +1,51 @@
+\BOOKMARK [0][-]{chapter.1}{Besoins n\351cessitant l'utilisation de services web}{}% 1
+\BOOKMARK [1][-]{section.1.1}{D\351finitions}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Pr\351sentation}{chapter.1}% 3
+\BOOKMARK [2][-]{subsection.1.2.1}{Technique employ\351e}{section.1.2}% 4
+\BOOKMARK [2][-]{subsection.1.2.2}{Forme des URL}{section.1.2}% 5
+\BOOKMARK [1][-]{section.1.3}{D\351finition des cas d'utilisation couverts par les services web}{chapter.1}% 6
+\BOOKMARK [2][-]{subsection.1.3.1}{Recherche d'\351chantillons}{section.1.3}% 7
+\BOOKMARK [2][-]{subsection.1.3.2}{Liste des tables de r\351f\351rence}{section.1.3}% 8
+\BOOKMARK [2][-]{subsection.1.3.3}{Contenu des tables de r\351f\351rence}{section.1.3}% 9
+\BOOKMARK [2][-]{subsection.1.3.4}{R\351cup\351ration des donn\351es d'un \351chantillon}{section.1.3}% 10
+\BOOKMARK [2][-]{subsection.1.3.5}{R\351cup\351ration des donn\351es d'une liste d'\351chantillons}{section.1.3}% 11
+\BOOKMARK [1][-]{section.1.4}{Contraintes li\351es \340 la s\351curit\351}{chapter.1}% 12
+\BOOKMARK [1][-]{section.1.5}{Pr\351sentation du logiciel Collec}{chapter.1}% 13
+\BOOKMARK [0][-]{chapter.2}{Gestion des habilitations \205 principes retenus pour le logiciel Collec}{}% 14
+\BOOKMARK [1][-]{section.2.1}{Op\351rations pr\351alables \340 l'interrogation d'une base de donn\351es distante}{chapter.2}% 15
+\BOOKMARK [2][-]{subsection.2.1.1}{Identification r\351ciproque des applications}{section.2.1}% 16
+\BOOKMARK [2][-]{subsection.2.1.2}{Identification des utilisateurs}{section.2.1}% 17
+\BOOKMARK [0][-]{chapter.3}{Description des services web}{}% 18
+\BOOKMARK [1][-]{section.3.1}{Remarques g\351n\351rales}{chapter.3}% 19
+\BOOKMARK [2][-]{subsection.3.1.1}{Format des donn\351es transmises ou re\347ues}{section.3.1}% 20
+\BOOKMARK [2][-]{subsection.3.1.2}{Codes d'erreur}{section.3.1}% 21
+\BOOKMARK [1][-]{section.3.2}{Table des listes techniques}{chapter.3}% 22
+\BOOKMARK [2][-]{subsection.3.2.1}{url type}{section.3.2}% 23
+\BOOKMARK [2][-]{subsection.3.2.2}{Donn\351es en entr\351e}{section.3.2}% 24
+\BOOKMARK [2][-]{subsection.3.2.3}{Donn\351es en retour}{section.3.2}% 25
+\BOOKMARK [1][-]{section.3.3}{Listes techniques}{chapter.3}% 26
+\BOOKMARK [2][-]{subsection.3.3.1}{url type}{section.3.3}% 27
+\BOOKMARK [2][-]{subsection.3.3.2}{Donn\351es en retour}{section.3.3}% 28
+\BOOKMARK [1][-]{section.3.4}{Rechercher des \351chantillons}{chapter.3}% 29
+\BOOKMARK [2][-]{subsection.3.4.1}{url type}{section.3.4}% 30
+\BOOKMARK [2][-]{subsection.3.4.2}{Variables de recherche}{section.3.4}% 31
+\BOOKMARK [2][-]{subsection.3.4.3}{Donn\351es en retour}{section.3.4}% 32
+\BOOKMARK [1][-]{section.3.5}{Lire un \351chantillon}{chapter.3}% 33
+\BOOKMARK [2][-]{subsection.3.5.1}{url type}{section.3.5}% 34
+\BOOKMARK [2][-]{subsection.3.5.2}{Variables de recherche}{section.3.5}% 35
+\BOOKMARK [2][-]{subsection.3.5.3}{Donn\351es en retour}{section.3.5}% 36
+\BOOKMARK [1][-]{section.3.6}{Lire un jeu d'\351chantillons}{chapter.3}% 37
+\BOOKMARK [2][-]{subsection.3.6.1}{url type}{section.3.6}% 38
+\BOOKMARK [2][-]{subsection.3.6.2}{Variables de recherche}{section.3.6}% 39
+\BOOKMARK [2][-]{subsection.3.6.3}{Donn\351es en retour}{section.3.6}% 40
+\BOOKMARK [0][-]{chapter.4}{Impl\351mentation technique dans Collec}{}% 41
+\BOOKMARK [1][-]{section.4.1}{Transformation des URL et appel aux modules}{chapter.4}% 42
+\BOOKMARK [1][-]{section.4.2}{Emplacement du code}{chapter.4}% 43
+\BOOKMARK [2][-]{subsection.4.2.1}{Donn\351es d'identification des instances distantes}{section.4.2}% 44
+\BOOKMARK [2][-]{subsection.4.2.2}{Codification des services web}{section.4.2}% 45
+\BOOKMARK [2][-]{subsection.4.2.3}{Structure des tables correspondantes}{section.4.2}% 46
+\BOOKMARK [1][-]{section.4.3}{Modules et fonctions n\351cessaires}{chapter.4}% 47
+\BOOKMARK [2][-]{subsection.4.3.1}{Enregistrement d'une instance distante cliente}{section.4.3}% 48
+\BOOKMARK [2][-]{subsection.4.3.2}{Enregistrement d'une instance distante serveur}{section.4.3}% 49
+\BOOKMARK [2][-]{subsection.4.3.3}{Identification d'un utilisateur distant}{section.4.3}% 50
+\BOOKMARK [2][-]{subsection.4.3.4}{Module d'interrogation d'un serveur distant}{section.4.3}% 51

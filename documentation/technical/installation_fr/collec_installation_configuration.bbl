@@ -1,0 +1,143 @@
+\begin{thebibliography}{24}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Quinton(2016{\natexlab{a}})]{prototypephp}
+Eric Quinton.
+\newblock Prototypephp, 2016{\natexlab{a}}.
+\newblock URL \url{https://github.com/equinton/prototypephp/tree/bootstrap}.
+
+\bibitem[smarty(2016)]{smarty}
+smarty.
+\newblock Smarty, php template engine, 2016.
+\newblock URL \url{http://www.smarty.net}.
+
+\bibitem[JQuery(2015)]{jquery}
+JQuery.
+\newblock Site officiel, 2015.
+\newblock URL \url{http://jquery.com/}.
+
+\bibitem[bootstrap(2016)]{bootstrap}
+bootstrap.
+\newblock Bootstrap is the most popular html, css, and js framework for
+  developing responsive, mobile first projects on the web, 2016.
+\newblock URL \url{http://getbootstrap.com}.
+
+\bibitem[Apache-FOP(2016)]{fop}
+Apache-FOP.
+\newblock The apache fop project, 2016.
+\newblock URL \url{http://xmlgraphics.apache.org/fop/}.
+
+\bibitem[OWASP(2014)]{asvs}
+OWASP.
+\newblock Application security verification standard (2014), 2014.
+\newblock URL \url{https://www.owasp.org/images/5/58/OWASP_ASVS_Version_2.pdf}.
+
+\bibitem[OWASP(2015{\natexlab{a}})]{owasp}
+OWASP.
+\newblock Site institutionnel, 2015{\natexlab{a}}.
+\newblock URL \url{https://www.owasp.org}.
+
+\bibitem[OWASP(2015{\natexlab{b}})]{zaproxy}
+OWASP.
+\newblock Zed attack proxy project, 2015{\natexlab{b}}.
+\newblock URL
+  \url{https://www.owasp.org/index.php/OWASP\_Zed\_Attack\_Proxy\_Project}.
+
+\bibitem[Fundation(2007)]{agpl}
+Free~Software Fundation.
+\newblock Gnu affero general public license, 2007.
+\newblock URL \url{https://www.gnu.org/licenses/agpl.html}.
+
+\bibitem[APP(2016)]{app}
+APP.
+\newblock Agence pour la protection des programmes, 2016.
+\newblock URL \url{http://www.app.asso.fr}.
+
+\bibitem[Quinton(2016{\natexlab{b}})]{pphp-doc}
+Eric Quinton.
+\newblock Documentation d'utilisation du framework prototype php,
+  2016{\natexlab{b}}.
+\newblock URL
+  \url{https://github.com/equinton/prototypephp/blob/bootstrap/database/documentation/prototypephp-documentation.pdf}.
+
+\bibitem[Cisco(2015)]{clamav}
+Cisco.
+\newblock Clamav® is an open source antivirus engine for detecting trojans,
+  viruses, malware and other malicious threats, 2015.
+\newblock URL \url{http://www.clamav.net/}.
+
+\bibitem[ArchLinux(2016)]{clamavarchlinux}
+ArchLinux.
+\newblock Clamav, 2016.
+\newblock URL \url{https://wiki.archlinux.org/index.php/ClamAV}.
+
+\bibitem[Mozilla(2016)]{mozillagenerator}
+Mozilla.
+\newblock Mozilla ssl configuration generator, 2016.
+\newblock URL
+  \url{https://mozilla.github.io/server-side-tls/ssl-config-generator/}.
+
+\bibitem[ANSSI(2016)]{tls}
+ANSSI.
+\newblock Recommandations de sécurité relatives à tls, 2016.
+\newblock URL \url{http://www.ssi.gouv.fr/uploads/2016/09/guide_tls_v1.1.pdf}.
+
+\bibitem[Quinton(2016{\natexlab{c}})]{token}
+Eric Quinton.
+\newblock Ré-identification par jeton, 2016{\natexlab{c}}.
+\newblock URL
+  \url{http://www.linux-professionnel.net/programmation/php---codes-divers/re-identification-par-jeton}.
+
+\bibitem[Benoit and Cech(2006)]{phpgacl}
+Mike Benoit and Dan Cech.
+\newblock Phpgacl, generic access control lists, 2006.
+\newblock URL \url{http://phpgacl.sourceforge.net}.
+
+\bibitem[Ellingwood(2013)]{digitOcean}
+Justin Ellingwood.
+\newblock How to set up master slave replication on postgresql on an ubuntu
+  12.04 vps, 2013.
+\newblock URL
+  \url{https://www.digitalocean.com/community/tutorials/how-to-set-up-master-slave-replication-on-postgresql-on-an-ubuntu-12-04-vps}.
+
+\bibitem[Reinacker(2013)]{zeroPostgres}
+Greg Reinacker.
+\newblock Zero to postgresql streaming replication in 10 mins, 2013.
+\newblock URL
+  \url{http://www.rassoc.com/gregr/weblog/2013/02/16/zero-to-postgresql-streaming-replication-in-10-mins}.
+
+\bibitem[Hamerlinck(2015)]{replicationPostgres}
+Nils Hamerlinck.
+\newblock Configurer la rÉplication d'un serveur postgresql, 2015.
+\newblock URL
+  \url{http://connect.ed-diamond.com/GNU-Linux-Magazine/GLMF-184/Configurer-la-replication-d-un-serveur-PostgreSQL}.
+
+\bibitem[postgresql(2015)]{replicationTutorial}
+postgresql.
+\newblock Binary replication tutorial, 2015.
+\newblock URL
+  \url{https://wiki.postgresql.org/wiki/Binary_Replication_Tutorial}.
+
+\bibitem[pgAdmin(2016)]{pgadmin}
+pgAdmin.
+\newblock pgadmin postgresql tools, 2016.
+\newblock URL \url{https://pgadmin.org}.
+
+\bibitem[Quinton(2016{\natexlab{d}})]{clamaveq}
+Eric Quinton.
+\newblock Php - utiliser clamav pour rechercher les virus dans les documents
+  téléversés, 2016{\natexlab{d}}.
+\newblock URL
+  \url{http://www.linux-professionnel.net/programmation/php---codes-divers/php---utiliser-clamav-pour-rechercher-les-virus-dans-les-documents-televerses}.
+
+\bibitem[Lange(2016)]{debphp7}
+Stanislas Lange.
+\newblock Installer php 7 sous debian 8 jessie via le dépôt dotdeb, 2016.
+\newblock URL
+  \url{https://angristan.fr/installer-php-7-debian-8-jessie-depot-dotdeb/}.
+
+\end{thebibliography}

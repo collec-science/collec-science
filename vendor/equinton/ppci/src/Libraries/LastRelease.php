@@ -7,6 +7,20 @@ class LastRelease extends PpciLibrary
 {
     function index()
     {
+        $release = $this->getRelease();
+        if (!empty($result)) {
+            $vue = service('Smarty');
+            $vue->set("ppci/utils/lastRelease.tpl", "corps");
+            $vue->set($this->appConfig->version, "currentVersion");
+            $vue->set($release, "release");
+            return $vue->send();
+        } else {
+            $this->message->set(_("Impossible de récupérer la dernière version publiée de l'application"), true);
+            return  defaultPage();
+        }
+    }
+    function getRelease(): array
+    {
         $params = $this->appConfig->APPLI_release;
         $release = array();
         if (!empty($params["url"])) {
@@ -21,21 +35,19 @@ class LastRelease extends PpciLibrary
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $result = curl_exec($ch);
             curl_close($ch);
-            if ($result) {
-                $res = json_decode($result, true);
-                $release["tag"] = $res[$params["tag"]];
-                $release["description"] = $res[$params["description"]];
-                $release["date"] = date_format(date_create($res[$params["date"]]), $_SESSION["date"]["maskdate"]);
-                $vue = service('Smarty');
-                $vue->set("ppci/utils/lastRelease.tpl", "corps");
-                $vue->set($this->appConfig->version, "currentVersion");
-                $vue->set($release, "release");
-                return $vue->send();
-            } else {
-                $this->message->set(_("Impossible de récupérer la dernière version publiée de l'application"), true);
-                $default = new DefaultPage();
-                return  $default->display();
-            }
+            $res = json_decode($result, true);
+            $release["tag"] = $res[$params["tag"]];
+            $release["description"] = $res[$params["description"]];
+            $release["date"] = date_format(date_create($res[$params["date"]]), $_SESSION["date"]["maskdate"]);
+        }
+        return $release;
+    }
+    function check()
+    {
+        $release = $this->getRelease();
+        if (!empty($release) && $this->appConfig->version != $release["tag"]) {
+            $date = date_create($release["date"]);
+            $this->message->set(sprintf(_("La nouvelle version %1s du %2s a été publiée !"), $release["tag"], date_format($date, $_SESSION["date"]["maskdate"])));
         }
     }
 }

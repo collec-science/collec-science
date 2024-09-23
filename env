@@ -208,3 +208,8 @@ Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
 #----------------------------------------------------------------
 
 # app.print_direct_command = "lpr"
+
+#----------------------------------------------------------------
+# Check new release - 0 to disable
+#----------------------------------------------------------------
+#app.checkRelease = 1

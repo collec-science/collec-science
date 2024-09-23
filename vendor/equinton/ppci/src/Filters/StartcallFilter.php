@@ -24,8 +24,7 @@ class StartcallFilter implements FilterInterface
             $_SESSION["filterMessages"][] = _("La session a expiré, vous devez vous reconnecter");
             $login = new \Ppci\Models\Login();
             $login->disconnect();
-            $defaultPage = new \Ppci\Libraries\DefaultPage();
-            return ($defaultPage->display());
+            return (defaultPage());
         }
         setLogRequest($request);
         /**

@@ -15,6 +15,7 @@ use Ppci\Filters\RightFilter;
 use Ppci\Filters\LegacyRouteFilter;
 use Ppci\Filters\StartcallFilter;
 use Ppci\Filters\DbversioncheckFilter;
+use Ppci\Filters\VersionCheckFilter;
 
 class Filters extends BaseConfig
 {
@@ -34,8 +35,9 @@ class Filters extends BaseConfig
         'rights'        => RightFilter::class,
         /*'legacyRoute'   => LegacyRouteFilter::class,*/
         'startcall'     => StartCallFilter::class,
-        'dbversioncheck'=> DbversioncheckFilter::class,
-        "admin"         => AdminFilter::class
+        'dbversioncheck' => DbversioncheckFilter::class,
+        "admin"         => AdminFilter::class,
+        "versioncheck"  => VersionCheckFilter::class
     ];
 
     /**
@@ -47,7 +49,7 @@ class Filters extends BaseConfig
     public array $globals = [
         'before' => [
             // 'honeypot',
-            'csrf'=>['except'=>[
+            'csrf' => ['except' => [
                 'apiv1sampleWrite',
                 'apiv1sampleDelete',
                 'apiv1movementWrite',
@@ -56,14 +58,29 @@ class Filters extends BaseConfig
             'invalidchars',
             /*'legacyRoute',*/
             'startcall',
-            'dbversioncheck'=>['except' => 'CollectionsGenerateMail'],
+            'dbversioncheck' => [
+                'except' => [
+                    'CollectionsGenerateMail',
+                    'apiv1sampleWrite',
+                    'apiv1sampleDelete',
+                    'apiv1movementWrite',
+                    'apiv1sampleList'
+                ]
+            ],
+            'versioncheck' => ['except' => [
+                'CollectionsGenerateMail',
+                'apiv1sampleWrite',
+                'apiv1sampleDelete',
+                'apiv1movementWrite',
+                'apiv1sampleList'
+            ]],
             'rights',
             'admin'
         ],
         'after' => [
             'toolbar',
             // 'honeypot',
-             'secureheaders',
+            'secureheaders',
         ],
     ];
 

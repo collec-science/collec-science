@@ -32,7 +32,7 @@ class PasswordLost extends PpciLibrary {
                         $mail = new Mail($this->appConfig->MAIL_param);
                         if ($mail->SendMailSmarty(
                             $dl["mail"],
-                            $_SESSION["APPLI_title"] . " - " . _("Réinitialisation du mot de passe"),
+                            $_SESSION["APP_title"] . " - " . _("Réinitialisation du mot de passe"),
                             "ppci/mail/passwordLost.tpl",
                             array(
                                 "nom" => $dl["nom"],

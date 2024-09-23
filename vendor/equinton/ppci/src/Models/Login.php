@@ -196,7 +196,7 @@ class Login
                                  * Send mail to administrators
                                  */
                                 $APPLI_address = base_url();
-                                $dbparam = service("Dbparam");
+                                $dbparam = $_SESSION["dbparams"];
                                 $subject = $dbparam->params["APP_title"] . " - " . _("Nouvel utilisateur");
                                 $template = "ppci/mail/newUser.tpl";
                                 $data = array(

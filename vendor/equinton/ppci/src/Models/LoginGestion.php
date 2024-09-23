@@ -41,7 +41,7 @@ class LoginGestion extends PpciModel
             ),
             "datemodif" => array(
                 "type" => 3,
-                "defaultValue" => "getDateHeure",
+                "defaultValue" => date($this->datetimeFormat),
             ),
             "mail" => array(
                 "pattern" => "#^.+@.+\.[a-zA-Z]{2,6}$#",
@@ -414,6 +414,8 @@ class LoginGestion extends PpciModel
         if (!empty($login)) {
             $sql = "select * from logingestion where login = :login:";
             return $this->lireParamAsPrepared($sql, array("login" => $login));
+        } else {
+            return [];
         }
     }
 

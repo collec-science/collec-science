@@ -161,7 +161,7 @@ class Collection extends PpciLibrary
 
                         $mail->SendMailSmarty(
                             $col["notification_mails"],
-                            $_SESSION["dbparams"]["APPLI_title"] . " - " . _(sprintf("Notifications concernant la collection %s", $col["collection_name"])),
+                            $_SESSION["dbparams"]["APP_title"] . " - " . _(sprintf("Notifications concernant la collection %s", $col["collection_name"])),
                             "param/collectionMail.tpl",
                             $data,
                             $_SESSION["locale"]

@@ -267,11 +267,11 @@ class App extends BaseConfig
      */
     public $APP_mail = "mail@society.com";
     /**
-     * Set true if send mails is enabled
+     * Set 1 if send mails is enabled
      *
      * @var boolean
      */
-    public $MAIL_enabled = true;
+    public $MAIL_enabled = 1;
 
     /**
      * Parameters to send mails

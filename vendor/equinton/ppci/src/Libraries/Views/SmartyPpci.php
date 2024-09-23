@@ -85,7 +85,7 @@ class SmartyPpci
          * Assign variables from dbparam table
          */
         $dbparam = service("Dbparam");
-        $this->set($dbparam->getParam("APPLI_title"), "APP_title");
+        $this->set($dbparam->getParam("APP_title"), "APP_title");
         /**
          * Development mode
          */

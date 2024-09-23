@@ -59,5 +59,6 @@ select container_id, sum (qty_by_slot)::bigint as nb_slots_used
 from req
 group by container_id
 );
+update dbparam set dbparam_name = 'APP_title' where dbparam_name = 'APPLI_title';
 
 insert into dbversion (dbversion_date, dbversion_number) values ('2024-09-18','25.0');

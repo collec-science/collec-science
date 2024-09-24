@@ -32,11 +32,11 @@ class AdminFilter implements FilterInterface
                             /**
                              * Store the module called
                              */
-                            if ($request->is("get")) {
+                            /*if ($request->is("get")) {
                                 $_SESSION["moduleRequired"] = $moduleName;
                                 $_SESSION["get"] = $_GET;
                                 $_SESSION["request"] = $_REQUEST;
-                            }
+                            }*/
                             $aclLogin = new Acllogin();
                             $vue = service("Smarty");
                             if ($aclLogin->isTotp()) {

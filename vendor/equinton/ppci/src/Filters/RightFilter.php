@@ -31,6 +31,8 @@ class RightFilter implements FilterInterface
                 if (!isset($_SESSION["isLogged"])) {
                     if ($request->is("get")) {
                         $_SESSION["moduleRequired"] = $moduleName;
+                        $_SESSION["get"] = $_GET;
+                        $_SESSION["request"] = $_REQUEST;
                         $hasRedirect = false;
                     }
                     $login = new \Ppci\Libraries\Login();
@@ -50,12 +52,15 @@ class RightFilter implements FilterInterface
                     $message->set(_("Vous ne disposez pas des droits nécessaires pour exécuter cette fonction"), true);
                     helper("ppci");
                     setLogRequest($request, "ko: insufficient rights");
-                    $defaultPage = new \Ppci\Libraries\DefaultPage();
-                    return ($defaultPage->display());
+                    return defaultPage();
                 } else {
                     if (isset($_SESSION["moduleRequired"]) && $hasRedirect) {
                         $retour = $_SESSION["moduleRequired"];
                         unset($_SESSION["moduleRequired"]);
+                        $_GET = $_SESSION["get"];
+                        $_REQUEST = $_SESSION["request"];
+                        unset($_SESSION["get"]);
+                        unset($_SESSION["request"]);
                         return redirect($retour);
                     }
                 }

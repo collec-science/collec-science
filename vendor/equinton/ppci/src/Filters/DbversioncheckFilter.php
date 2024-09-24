@@ -47,14 +47,12 @@ class DbversioncheckFilter implements FilterInterface
                         ),
                         true
                     );
-                    $defaultPage = new \Ppci\Libraries\DefaultPage();
-                    return ($defaultPage->display());
+                    return defaultPage();
                 }
             }
         } catch (\Exception $e) {
             $message->set($e->getMessage());
-            $defaultPage = new \Ppci\Libraries\DefaultPage();
-            return ($defaultPage->display());
+            return defaultPage();
         }
     }
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {}

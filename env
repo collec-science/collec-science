@@ -88,6 +88,23 @@ Ppci\Config\IdentificationConfig.identificationMode = BDD
 # each group must be separated by a comma
 # Ppci\Config\IdentificationConfig\groupsGranted = 
 
+# Try number to connect
+# Ppci\Config\IdentificationConfig.CONNECTION_max_attempts = 5
+
+# Duration of blocking
+# Ppci\Config\IdentificationConfig.CONNECTION_blocking_duration = 600
+
+# Time to resend an email to the administrator if an account is blocked
+# Ppci\Config\IdentificationConfig.APPLI_maiToAdminPeriod = 7200
+
+# Maximum period of inactivity for accessing an administration module
+# Ppci\Config\IdentificationConfig.adminSessionDuration = 600
+
+# Minimum length of password
+# Ppci\Config\IdentificationConfig.APPLI_passwordMinLength = 12
+
+# If set to 1, authorises recovery of a new password in the event of loss
+# Ppci\Config\IdentificationConfig.APPLI_lostPassword = 1
 
 # CAS parameters
 # Ppci\Config\IdentificationConfig.CAS.address = "address.without.https"
@@ -114,17 +131,6 @@ Ppci\Config\IdentificationConfig.identificationMode = BDD
 
 # Logo displayed on the button for CAS or OIDC
 Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
-
-# Ppci\Config\IdentificationConfig.CONNECTION_max_attempts = 5
-# Ppci\Config\IdentificationConfig.CAS.CONNECTION_blocking_duration = 600
-# Time to resend an email to the administrator if an account is blocked
-# Ppci\Config\IdentificationConfig.CAS.APPLI_maiToAdminPeriod = 7200
-# Maximum period of inactivity for accessing an administration module
-# Ppci\Config\IdentificationConfig.CAS.APPLI_admin_ttl = 600
-
-# Ppci\Config\IdentificationConfig.CAS.APPLI_passwordMinLength = 12
-# If set to 1, authorises recovery of a new password in the event of loss
-# Ppci\Config\IdentificationConfig.CAS.APPLI_lostPassword = 1
 
 # LDAP parameters
 # Ppci\Config\IdentificationConfig.LDAP.address = 

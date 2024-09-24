@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Config\App;
 use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
 
@@ -484,8 +485,11 @@ class Document extends PpciModel
         $retour = null;
         $collection = $_SESSION["collections"][$collection_id];
         if ($collection["external_storage_enabled"]) {
-            global $APPLI_external_document_path;
-            $path = $APPLI_external_document_path . "/" . $collection["external_storage_root"] . "/" . $data["external_storage_path"];
+            /**
+             * @var App
+             */
+            $app = service ("AppConfig");
+            $path = $app->external_document_path . "/" . $collection["external_storage_root"] . "/" . $data["external_storage_path"];
             /**
              * Search for the file to associate
              */

@@ -318,8 +318,7 @@ class LoginGestion extends PpciModel
                         "APPLI_address" => $APPLI_address
                     )
                 );
-                global $message;
-                $message->set(_("Un message vient d'être envoyé à l'utilisateur pour l'informer de l'activation de son compte"));
+                $this->message->set(_("Un message vient d'être envoyé à l'utilisateur pour l'informer de l'activation de son compte"));
             }
         }
         return $id;

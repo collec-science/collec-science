@@ -207,7 +207,7 @@ class Login
                                     "link" => $APPLI_address
                                 );
                                 $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
-                                $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"), true);
+                                $_SESSION["filterMessage"][] = _("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation");
                             }
                         } else {
                             $verify = false;
@@ -283,8 +283,8 @@ class Login
         } else if (empty($dacllogin["logindetail"])) {
             $dacllogin["logindetail"] = $login;
         }
-        if (!empty($params["mail"])) {
-            $dacllogin["email"] = $params["mail"];
+        if (!empty(trim($params["mail"]))) {
+            $dacllogin["email"] = trim($params["mail"]);
         }
         $id = $this->acllogin->ecrire($dacllogin);
         $this->dacllogin = $dacllogin;

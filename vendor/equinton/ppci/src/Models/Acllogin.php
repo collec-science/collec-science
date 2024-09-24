@@ -114,7 +114,9 @@ class Acllogin extends PpciModel
                 }
             }
             $data["login"] = strtolower($login);
-            $data["email"] = strtolower($email);
+            if (!empty($email)) {
+                 $data["email"] = strtolower($email);
+            }
             return $this->ecrire($data);
         } else {
             throw new \Ppci\Libraries\PpciException(_("L'ajout d'un login à la table des comptes (gestion des droits) n'est pas possible : le login n'est pas fourni"));

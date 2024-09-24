@@ -434,7 +434,6 @@ class Log extends PpciModel
             foreach ($logins as $value) {
                 $admin = $value["login"];
                 $dataLogin = $acllogin->getFromLogin($admin);
-                test($dataLogin);exit;
                 if (!empty($dataLogin["email"])) {
                     /**
                      * search if a mail has been send to this admin for the same event and the same user recently

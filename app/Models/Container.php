@@ -535,8 +535,8 @@ class Container extends PpciModel
      */
     function generateExportGlobal($uids)
     {
-        global $APPLI_version;
         $data = array();
+        $app = service ("AppConfig");
         if (!empty($uids)) {
             /**
              * Inhibit the date encoding
@@ -545,7 +545,7 @@ class Container extends PpciModel
             /**
              * Add reference of the export
              */
-            $data["collec-science_version"] = $APPLI_version;
+            $data["collec-science_version"] = $app->version;
             $data["export_version"] = 1.0;
             if (!is_array($uids)) {
                 $uids = array($uids);

@@ -317,8 +317,7 @@ class Movement extends PpciModel
         try {
             $this->executeSql($sql, array("container_id" => $container_id),true);
         } catch (\Exception $e) {
-            global $message;
-            $message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage());
             throw new PpciException(sprintf(_("La suppression des mouvements associés au container %s a échoué"), $container_id));
         }
     }

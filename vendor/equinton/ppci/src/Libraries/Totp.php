@@ -132,15 +132,11 @@ class Totp extends PpciLibrary
             $this->message->setSyslog($pe->getMessage());
             $this->message->set($pe->getMessage(), true);
         }
-        /*if (!empty($_SESSION["moduleRequired"])) {
+        if (!empty($_SESSION["moduleRequired"])) {
             $retour = $_SESSION["moduleRequired"];
             unset($_SESSION["moduleRequired"]);
-            $_GET = $_SESSION["get"];
-            $_REQUEST = $_SESSION["request"];
-            unset ($_SESSION["get"]);
-            unset ($_SESSION["request"]);
             return redirect()->to($retour);
-        }*/
-        return $this->defaultPage->display();
+        }
+        return defaultPage();
     }
 }

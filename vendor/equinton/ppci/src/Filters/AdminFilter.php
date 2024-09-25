@@ -1,4 +1,5 @@
 <?php
+
 namespace Ppci\Filters;
 
 use CodeIgniter\Filters\FilterInterface;
@@ -32,20 +33,21 @@ class AdminFilter implements FilterInterface
                             /**
                              * Store the module called
                              */
-                            /*if ($request->is("get")) {
+
+                            if ($request->is("get") && empty($_GET)) {
                                 $_SESSION["moduleRequired"] = $moduleName;
-                                $_SESSION["get"] = $_GET;
-                                $_SESSION["request"] = $_REQUEST;
-                            }*/
+                            } else {
+                                $_SESSION["moduleRequired"] = "";
+                            }
                             $aclLogin = new Acllogin();
                             $vue = service("Smarty");
                             if ($aclLogin->isTotp()) {
                                 $vue->set(1, "isAdmin");
                                 $_SESSION["filterMessages"][] = _("Vous devez vous ré-identifier avec votre code TOTP pour accéder aux modules d'administration");
-                                return redirect("totpAdmin");
+                                return redirect()->to("totpAdmin")->withInput();
                             } else {
                                 $_SESSION["filterMessages"][] = _("Vous devez activer la double identification TOTP pour accéder aux modules d'administration");
-                                return redirect("totpCreate");
+                                return redirect()->to("totpCreate")->withInput();
                             }
                         }
                     }
@@ -54,7 +56,5 @@ class AdminFilter implements FilterInterface
         }
     }
 
-    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
-    {
-    }
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {}
 }

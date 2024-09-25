@@ -54,7 +54,7 @@ class RightFilter implements FilterInterface
                     setLogRequest($request, "ko: insufficient rights");
                     return defaultPage();
                 } else {
-                    if (isset($_SESSION["moduleRequired"]) && $hasRedirect) {
+                    if (!empty($_SESSION["moduleRequired"]) && $hasRedirect) {
                         $retour = $_SESSION["moduleRequired"];
                         unset($_SESSION["moduleRequired"]);
                         $_GET = $_SESSION["get"];

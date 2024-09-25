@@ -10,7 +10,7 @@ class Rights extends RightsPpci
      * List of rights by module
      */
     protected array $rights = [
-        "loginGestionList" => ["admin"],
+        "loginList" => ["admin"],
         "loginChange" => ["admin"],
         "loginWrite" => ["admin"],
         "loginDelete" => ["admin"],

@@ -117,3 +117,7 @@ And the content of the variable, after transform to JSON :
 ~~~javascript
 [{"identifier":"CAL_999-5","container_name":"Content1","column_number":2,"line_number":3,"collection_name":"test","sample_type_code":"TEST:1","movement_type":1},{"identifier":"CAL_999-6","container_name":"Content1","column_number":2,"line_number":4,"collection_name":"test","sample_type_code":"TEST:1","movement_type":1}]
 ~~~
+
+## Return
+
+The API returns the number of the UID processed or created or, in the case of a sample list, the list of UIDs processed or created.

@@ -191,7 +191,7 @@
                             options += '<option value="'+d[i].sampling_place_id + '"';
                             if (d[i].sampling_place_id == sampling_place_init ) {
                                 options += ' selected="selected" ';
-                                $("#sampling_place_id").next().find(".custom-combobox-input").val(libelle);
+                                //$("#sampling_place_id").next().find(".custom-combobox-input").val(libelle);
                             }
                             options += '>';
                             options += libelle;
@@ -249,11 +249,8 @@
             $("#referent_id").prop("selectedIndex", 0).change();
             $("#sample_type_id").prop("selectedIndex", 0).change();
             sampling_place_init = "";
-            $("#sampling_place_id").combobox("select", "").change();
             $("#sampling_place_id").prop("selectedIndex", 0).change();
-            $("#country_id_search").combobox("select", "").change();
             $("#country_id_search").prop("selectedIndex", 0).change();
-            $("#country_origin_id_search").combobox("select", "").change();
             $("#country_origin_id_search").prop("selectedIndex", 0).change();
             $("#movement_reason_id").prop("selectedIndex", 0).change();
             $("#select_date").prop("selectedIndex", 0).change();
@@ -725,7 +722,7 @@
                                 <div class="form-group">
                                     <label for="sampling_place_id" class="col-sm-4 control-label">{t}Lieu de prélèvement :{/t}</label>
                                     <div class="col-sm-8">
-                                        <select id="sampling_place_id" name="sampling_place_id" class="form-control combobox">
+                                        <select id="sampling_place_id" name="sampling_place_id" class="form-control ">
                                             <option value="0" {if $sampleSearch.sampling_place_id == "0"}selected{/if}></option>
                                             {section name=lst loop=$samplingPlace}
                                                 <option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id == $sampleSearch.sampling_place_id}selected{/if}>
@@ -741,7 +738,7 @@
                                 <div class="form-group">
                                     <label for="country_id_search" class="col-sm-4 control-label">{t}Pays de collecte :{/t}</label>
                                     <div class="col-sm-8">
-                                        <select id="country_id_search" name="country_id" class="form-control combobox">
+                                        <select id="country_id_search" name="country_id" class="form-control ">
                                             <option value="0" {if $country.country_id == "0"}selected{/if}></option>
                                             {section name=lst loop=$countries}
                                                 <option value="{$countries[lst].country_id}" {if $countries[lst].country_id == $sampleSearch.country_id}selected{/if}>
@@ -754,7 +751,7 @@
                                 <div class="form-group">
                                     <label for="country_origin_id_search" class="col-sm-4 control-label">{t}Pays de provenance :{/t}</label>
                                     <div class="col-sm-8">
-                                        <select id="country_origin_id_search" name="country_origin_id" class="form-control combobox">
+                                        <select id="country_origin_id_search" name="country_origin_id" class="form-control ">
                                             <option value="0" {if $country.country_id == "0"}selected{/if}></option>
                                             {section name=lst loop=$countries}
                                                 <option value="{$countries[lst].country_id}" {if $countries[lst].country_id == $sampleSearch.country_origin_id}selected{/if}>

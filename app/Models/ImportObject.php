@@ -62,6 +62,7 @@ class ImportObject
         "container_status_name",
         "collection_name",
         "sample_type_name",
+        "sample_type_code",
         "sample_status_name",
         "campaign_name",
         "campaign_uuid",
@@ -107,16 +108,22 @@ class ImportObject
     private $referent;
 
     private $referents = array();
-
+    /**
+     *
+     * @var Sample
+     */
     private $sample;
 
     /**
-     * Undocumented variable
      *
      * @var Container
      */
     private $container;
 
+    /**
+     *
+     * @var Movement
+     */
     private $movement;
 
     private $samplingPlace;
@@ -654,7 +661,16 @@ class ImportObject
                 }
             }
         }
-        if (!empty($values["sample_type_name"])) {
+        if (!empty($values["sample_type_code"])) {
+            $values["sample_type_id"] = -1;
+            foreach ($this->sample_type as $value) {
+                if ($values["sample_type_code"] == $value["sample_type_code"]) {
+                    $values["sample_type_id"] = $value["sample_type_id"];
+                    break;
+                }
+            }
+        } 
+        if ( !($values["sample_type_id"] > -1) && !empty($values["sample_type_name"])) {
             $values["sample_type_id"] = -1;
             foreach ($this->sample_type as $value) {
                 if ($values["sample_type_name"] == $value["sample_type_name"]) {

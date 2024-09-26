@@ -61,4 +61,7 @@ group by container_id
 );
 update dbparam set dbparam_name = 'APP_title' where dbparam_name = 'APPLI_title';
 
+alter table sample_type add column sample_type_code varchar;
+comment on column sample_type.sample_type_code is 'Code used to exchange information with others providers without use the name of the sample type';
+
 insert into dbversion (dbversion_date, dbversion_number) values ('2024-09-18','25.0');

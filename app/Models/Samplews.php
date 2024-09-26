@@ -144,16 +144,20 @@ class Samplews
         /**
          * Search for sample_type
          */
-        if (empty($dataSent["sample_type_name"])) {
+        if (empty($dataSent["sample_type_name"]) && empty($dataSent["sample_type_code"])) {
             if ($isUpdate) {
                 $dataSent["sample_type_id"] = $data["sample_type_id"];
             } else {
                 throw new PpciException(_("Le type d'échantillon n'a pas été fourni"), 400);
             }
         } else {
-            $dataSent["sample_type_id"] = $this->sampleType->getIdFromName($dataSent["sample_type_name"]);
+            if (!empty($dataSent["sample_type_code"])) {
+                $dataSent["sample_type_id"] = $this->sampleType->getIdFromCode($dataSent["sample_type_code"]);
+            } else {
+                $dataSent["sample_type_id"] = $this->sampleType->getIdFromName($dataSent["sample_type_name"]);
+            }
             if (empty($dataSent["sample_type_id"])) {
-                throw new PpciException(_("Le type d'échantillon est inconnu ou n'a pas été fourni"), 400);
+                throw new PpciException(_("Le type d'échantillon est inconnu"), 400);
             }
         }
 

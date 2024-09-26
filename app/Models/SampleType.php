@@ -19,7 +19,7 @@ class SampleType extends PpciModel
      * @param array $param
      */
     private $sql = "select sample_type_id, sample_type_name,
-					container_type_name, sample_type_description,
+					container_type_name, sample_type_description, sample_type_code,
 					operation_id, operation_name ,operation_version, protocol_name, protocol_year, protocol_version,
 					multiple_type_id, multiple_unit, multiple_type_name,
                     metadata_id, metadata_name,
@@ -66,7 +66,8 @@ class SampleType extends PpciModel
             ),
             "sample_type_description" => array(
                 "type" => 0
-            )
+            ),
+            "sample_type_code" => ["type" => 0]
         );
         parent::__construct();
     }
@@ -92,7 +93,7 @@ class SampleType extends PpciModel
      */
     function getListFromCollection(int $collection_id = 0): array
     {
-        $sql = "select distinct sample_type_id, sample_type_name, multiple_type_id, multiple_type_name, multiple_unit
+        $sql = "select distinct sample_type_id, sample_type_name, multiple_type_id, multiple_type_name, multiple_unit, sample_type_code
                 from sample_type
                 left outer join multiple_type using (multiple_type_id)";
         $order = " order by sample_type_name";
@@ -173,6 +174,18 @@ class SampleType extends PpciModel
         if (!empty($name)) {
             $sql = "select sample_type_id from sample_type where sample_type_name = :name:";
             $data = $this->lireParamAsPrepared($sql, array("name" => $name));
+        }
+        if (!empty($data["sample_type_id"])) {
+            return ($data["sample_type_id"]);
+        } else {
+            return (null);
+        }
+    }
+    function getIdFromCode(string $code): ?int
+    {
+        if (!empty($code)) {
+            $sql = "select sample_type_id from sample_type where sample_type_code = :code:";
+            $data = $this->lireParam($sql, ["code" => $code]);
         }
         if (!empty($data["sample_type_id"])) {
             return ($data["sample_type_id"]);

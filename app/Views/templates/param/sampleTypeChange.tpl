@@ -14,7 +14,14 @@
                                     value="{$data.sample_type_name}" autofocus required>
                         </div>
                   </div>
-
+                  <div class="form-group">
+                        <label for="sampleTypeCode" class="control-label col-md-4">
+                              {t}Code utilisé pour les échanges d'informations avec d'autres organismes :{/t}</label>
+                        <div class="col-md-8">
+                              <input id="sampleTypeCode" type="text" class="form-control" name="sample_type_code"
+                                    value="{$data.sample_type_code}">
+                        </div>
+                  </div>
                   <div class="form-group">
                         <label for="container_type_id" class="control-label col-md-4">{t}Type de contenant :{/t}</label>
                         <div class="col-md-8">

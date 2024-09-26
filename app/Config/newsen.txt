@@ -1,6 +1,6 @@
 News
 ====================
-Version v25.0.0 of 20/09/2024
+Version v25.0.0 of 26/09/2024
 -----------------------------
 New features :
 - complete rewrite of the application to port it to the CodeIgniter framework
@@ -8,6 +8,8 @@ New features :
 - when creating derived samples, it is now possible to indicate a quantity taken that is different from the quantity allocated to the sample created
 - it is now possible to indicate a maximum number of objects in a container slot (row/column). If an input movement could result in this number being exceeded, a message is displayed on the screen. In mass import, the import will fail if this is the case.
 - addition of the notion of composite sample, i.e. created from several samples. This feature is an extension of sub-sampling.
+- sample types can be associated with a code for exchanges with external information systems
+- the apiv1sampleWrite API now accepts a list of samples to be processed in a single call
 
 Bug fixes:
 - In the list of samples, the + was not displayed if only one derived sample was attached.

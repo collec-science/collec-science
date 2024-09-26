@@ -1,6 +1,6 @@
 Nouveautés
 ============
-Version v25.0.0 du 20/09/2024
+Version v25.0.0 du 26/09/2024
 -----------------------------
 Nouveautés :
 - réécriture complète de l'application pour la porter vers le framework CodeIgniter
@@ -8,6 +8,8 @@ Nouveautés :
 - en création des échantillons dérivés, il est maintenant possible d'indiquer une quantité prélevée différente de la quantité attribuée à l'échantillon créé
 - il est maintenant possible d'indiquer un nombre maximum d'objets dans un emplacement d'un contenant (ligne/colonne). Si un mouvement d'entrée pourrait aboutir à dépasser ce nombre, un message est affiché à l'écran. En importation de masse, l'importation échouera si c'est le cas.
 - ajout de la notion d'échantillon composé, c'est à dire créé à partir de plusieurs échantillons. Cette fonctionnalité est une extension du sous-échantillonnage.
+- les types d'échantillons peuvent se voir associés à un code pour les échanges avec les systèmes d'informations externes
+- l'API apiv1sampleWrite accepte maintenant une liste d'échantillons à traiter en un seul appel
 
 Corrections de bugs :
 - Dans la liste des échantillons, le + n'était pas affiché s'il n'y avait qu'un seul échantillon dérivé rattaché

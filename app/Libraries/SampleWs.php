@@ -26,6 +26,11 @@ class SampleWs extends PpciLibrary
         404 => "Not Found"
     );
     private $samplews;
+    /**
+     *
+     * @var Container
+     */
+    private $container;
     function __construct()
     {
         parent::__construct();
@@ -41,19 +46,18 @@ class SampleWs extends PpciLibrary
     {
         $searchOrder = "";
         $retour = [];
-
+        $uids = [];
         try {
             $dataSent = $_POST;
-            $container = new Container();
-            $db = $container->db;
-            $db->transBegin();
-
+            $this->container = new Container();
+            $db = $this->container->db;
+            $dataset = [];
             if (!empty($_POST["template_name"])) {
                 /**
                  * Format the data with the dataset template
                  */
                 $dataset = $this->datasetTemplate->getTemplateFromName($_POST["template_name"]);
-                $dataSent = $this->datasetTemplate->formatDataForImport($dataset["dataset_template_id"], $dataSent);
+                //$dataSent = $this->datasetTemplate->formatDataForImport($dataset["dataset_template_id"], $dataSent);
                 $searchOrder = $this->datasetTemplate->getSearchOrder($dataset["dataset_template_id"]);
             }
             if (!empty($dataSent["search_order"])) {
@@ -62,58 +66,33 @@ class SampleWs extends PpciLibrary
             if (empty($searchOrder)) {
                 $searchOrder = array("uid", "uuid", "identifier");
             }
-            $uid = $this->samplews->write($dataSent, $searchOrder);
-            /**
-             * Add or update a secondary identifier
-             */
-            if (!empty($dataSent["identifiers"])) {
-                $identifier = new ObjectIdentifier;
-                $dataIdentifier = ["uid" => $uid];
-                $identifiers = explode(",", $dataSent["identifiers"]);
-                foreach ($identifiers as $v) {
-                    $i = explode(":", $v);
-                    $dataIdentifier["identifier_type_code"] = $i[0];
-                    $dataIdentifier["object_identifier_value"] = $i[1];
-                    $identifier->writeOrReplace($dataIdentifier);
+            $db->transBegin();
+            if (!empty($_POST["samples"])) {
+                /**
+                 * Treatment of a list of samples
+                 */
+                $samples = json_decode($_POST["samples"], true);
+                if (!$samples) {
+                    throw new PpciException(_("La liste des échantillons à traiter n'a pas pu être lue correctement"), 520);
                 }
-            }
-            /* check for the creation of a movement */
-            $cuid = 0;
-            if (!empty($_POST["container_name"])) {
-                $cuid = $container->getUidFromIdentifier($_POST["container_name"]);
-            }
-            if ($cuid ==  0 && !empty($_POST["container_uid"])) {
-                $cuid = $_POST["container_uid"];
-            }
-            if ($cuid > 0) {
-                $cn = 1;
-                $ln = 1;
-                if (!empty($_POST["column_number"])) {
-                    $cn = $_POST["column_number"];
+                foreach ($samples as $sample) {
+                    $uids[] = $this->writeUniqueSample($sample, $searchOrder, $dataset);
                 }
-                if (!empty($_POST["line_number"])) {
-                    $ln = $_POST["line_number"];
-                }
-                $movement = new Movement();
-                $movement->addMovement(
-                    $uid,
-                    null,
-                    1,
-                    $cuid,
-                    null,
-                    null,
-                    null,
-                    null,
-                    $cn,
-                    $ln
-                );
+            } else {
+                $uids[] = $this->writeUniqueSample($dataSent, $searchOrder, $dataset);
             }
+
+
             $db->transCommit();
             $retour = array(
                 "error_code" => 200,
-                "uid" => $uid,
                 "error_message" => "processed"
             );
+            if (count($uids) > 1) {
+                $retour["uid"] = $uids;
+            } else {
+                $retour["uid"] = $uids[0];
+            }
             http_response_code(200);
         } catch (PpciException $e) {
             if ($db->transEnabled) {
@@ -137,6 +116,68 @@ class SampleWs extends PpciLibrary
         }*/
         return $retour;
     }
+    /**
+     * Write the sample
+     *
+     * @param array $dataSent
+     * @param array $searchOrder
+     * @param array $dataset
+     * @return integer
+     */
+    function writeUniqueSample(array $dataSent, $searchOrder, $dataset = []) :int
+    {
+        if (!empty($dataset)) {
+            $dataSent = $this->datasetTemplate->formatDataForImport($dataset["dataset_template_id"], $dataSent);
+        }
+        $uid = $this->samplews->write($dataSent, $searchOrder);
+        /**
+         * Add or update a secondary identifier
+         */
+        if (!empty($dataSent["identifiers"])) {
+            $identifier = new ObjectIdentifier;
+            $dataIdentifier = ["uid" => $uid];
+            $identifiers = explode(",", $dataSent["identifiers"]);
+            foreach ($identifiers as $v) {
+                $i = explode(":", $v);
+                $dataIdentifier["identifier_type_code"] = $i[0];
+                $dataIdentifier["object_identifier_value"] = $i[1];
+                $identifier->writeOrReplace($dataIdentifier);
+            }
+        }
+        /* check for the creation of a movement */
+        $cuid = 0;
+        if (!empty($dataSent["container_name"])) {
+            $cuid = $this->container->getUidFromIdentifier($dataSent["container_name"]);
+        }
+        if ($cuid ==  0 && !empty($dataSent["container_uid"])) {
+            $cuid = $dataSent["container_uid"];
+        }
+        if ($cuid > 0) {
+            $cn = 1;
+            $ln = 1;
+            if (!empty($dataSent["column_number"])) {
+                $cn = $dataSent["column_number"];
+            }
+            if (!empty($dataSent["line_number"])) {
+                $ln = $dataSent["line_number"];
+            }
+            $movement = new Movement();
+            $movement->addMovement(
+                $uid,
+                null,
+                1,
+                $cuid,
+                null,
+                null,
+                null,
+                null,
+                $cn,
+                $ln
+            );
+        }
+        return $uid;
+    }
+
     function detail()
     {
         /**

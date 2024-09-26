@@ -2,7 +2,7 @@
 
 ## Principle
 
-This API allows, from a third party application, to create or modify a sample in a collection.
+This API allows, from a third party application, to create or modify one or multiple samples in a collection.
 
 Two modes are available: either the third-party application provides columns that are in accordance with what is expected by Collec-Science, or it calls (in the variables provided) a _dataset_ model that will rename the columns, or even the contents of the reference tables.
 
@@ -22,7 +22,9 @@ Consult this document to create the API user, generate a token and give him the 
 
 The API must be called in http **POST** mode.
 
-### Variables to provide
+## Variables to provide
+
+The list of variables shown here corresponds to the processing of a single sample. To process several samples in a single operation, see the paragraph dealing with this question (at the end of the page).
 
 | Variable name | Description | required |
 | --- | --- | --- |
@@ -69,3 +71,49 @@ By default, unless a dataset template is used or search\_order is filled in, sam
 1.  uid: internal identifier in Collec-Science
 2.  uuid: universal identifier
 3.  identifier: business identifier. It is searched only in the considered collection.
+
+### To process a list of samples in a single call
+
+You need to format your submission differently, with the following columns:
+
+| Variable name | Description | required |
+| --- | --- | --- |
+| login | Login of the account used to call the API | X |
+| token | token of identification associated with the login | X |
+| locale | Language code used for error messages or date formatting. Default: fr, otherwise 'en' or 'us' |   |
+| template\_name | Name of the dataset template to format the data beforehand. In this case, the following columns may be different (they will be translated by the dataset template application) |   |
+| samples | JSON formatted field, which includes all the information presented in the previous table from the _uid_ variable | X |
+
+{.table .table-bordered .table-hover .datatable-nopaging-nosort }
+
+here an example of format of variable _sample_, in PHP : 
+
+~~~php
+$samples = [
+  [
+    "identifier" => "CAL_999-5",
+    "container_name" => "Content1",
+    "column_number" => 2,
+    "line_number" => 3,
+    "collection_name" => "test",
+    "sample_type_code" => "TEST:1",
+    "movement_type" => 1
+  ],
+  [
+    "identifier" => "CAL_999-6",
+    "container_name" => "Content1",
+    "column_number" => 2,
+    "line_number" => 4,
+    "collection_name" => "test",
+    "sample_type_code" => "TEST:1",
+    "movement_type" => 1
+  ]
+];
+$params["samples"] = json_encode($samples);
+~~~
+
+And the content of the variable, after transform to JSON :
+
+~~~javascript
+[{"identifier":"CAL_999-5","container_name":"Content1","column_number":2,"line_number":3,"collection_name":"test","sample_type_code":"TEST:1","movement_type":1},{"identifier":"CAL_999-6","container_name":"Content1","column_number":2,"line_number":4,"collection_name":"test","sample_type_code":"TEST:1","movement_type":1}]
+~~~

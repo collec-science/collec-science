@@ -2,7 +2,7 @@
 
 ## Principe
 
-Cette API permet, depuis une application tierce, de créer ou modifier un échantillon dans une collection.
+Cette API permet, depuis une application tierce, de créer ou modifier un ou plusieurs échantillons dans une collection.
 
 Deux modes sont disponibles : soit l'application tierce fournit des colonnes conformes à ce qui est attendu par Collec-Science, soit elle fait appel (dans les variables fournies) à un modèle de _dataset_ qui renommera les colonnes, voire les contenus des tables de référence.
 
@@ -22,7 +22,9 @@ Consultez ce document pour créer l'utilisateur de l'API, générer un token et 
 
 L'API doit être appelée en mode http **POST**.
 
-### Variables à fournir
+## Variables à fournir
+
+La liste des variables indiquées ici correspond au traitement d'un seul échantillon. Pour traiter plusieurs échantillons en une seule opération, consultez le paragraphe traitant de cette question (en fin de page).
 
 | Nom de la variable | Description | obligatoire |
 | --- | --- | --- |
@@ -70,3 +72,49 @@ Par défaut, sauf si _search\_order_ est renseigné ou si un modèle de dataset 
 1.  uid : identifiant interne dans Collec-Science
 2.  uuid : identifiant universel
 3.  identifier : identifiant métier. Il est recherché uniquement dans la collection considérée.
+
+## Pour traiter une liste d'échantillons en un seul appel
+
+Vous devez formater votre envoi différemment, avec les colonnes suivantes :
+
+| Nom de la variable | Description | obligatoire |
+| --- | --- | --- |
+| login | Login du compte utilisé pour appeler l'API | X |
+| token | Jeton d'identification associé au login | X |
+| locale | Code de la langue utilisée pour les messages d'erreur ou le formatage des dates. Par défaut : fr, sinon 'en' ou 'us' |   |
+| template\_name | Nom du modèle de dataset pour formater les données au préalable. Dans ce cas, les colonnes suivantes peuvent être différentes (elles seront traduites par l'application du modèle de dataset) |   |
+| samples | Champ formaté en JSON, qui comprend l'ensemble des informations présentées dans le tableau précédent à partir de la variable _uid_ | X |
+
+{.table .table-bordered .table-hover .datatable-nopaging-nosort }
+
+Voici un exemple de formatage de la variable _sample_, en PHP : 
+
+~~~php
+$samples = [
+  [
+    "identifier" => "CAL_999-5",
+    "container_name" => "Content1",
+    "column_number" => 2,
+    "line_number" => 3,
+    "collection_name" => "test",
+    "sample_type_code" => "TEST:1",
+    "movement_type" => 1
+  ],
+  [
+    "identifier" => "CAL_999-6",
+    "container_name" => "Content1",
+    "column_number" => 2,
+    "line_number" => 4,
+    "collection_name" => "test",
+    "sample_type_code" => "TEST:1",
+    "movement_type" => 1
+  ]
+];
+$params["samples"] = json_encode($samples);
+~~~
+
+Et le contenu de la variable, une fois transformée en JSON :
+
+~~~javascript
+[{"identifier":"CAL_999-5","container_name":"Content1","column_number":2,"line_number":3,"collection_name":"test","sample_type_code":"TEST:1","movement_type":1},{"identifier":"CAL_999-6","container_name":"Content1","column_number":2,"line_number":4,"collection_name":"test","sample_type_code":"TEST:1","movement_type":1}]
+~~~

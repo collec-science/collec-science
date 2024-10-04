@@ -651,6 +651,7 @@ class ObjectClass extends PpciModel
                     if ($dlabel["identifier_only"] == 't') {
                         $qrcode->render($rowq[$dlabel["label_fields"]], $filename);
                     } else {
+                        $qrcode->clearSegments();
                         $qrcode->render(json_encode($rowq), $filename);
                     }
                 } else {

@@ -5,7 +5,6 @@ namespace Ppci\Libraries;
 use Config\App;
 use \Ppci\Models\Log;
 use \Ppci\Libraries\PpciException;
-use \Ppci\Models\Dbversion;
 use App\Libraries\BeforeSession;
 
 class PpciInit

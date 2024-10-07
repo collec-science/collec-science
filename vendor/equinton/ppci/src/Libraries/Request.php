@@ -10,9 +10,9 @@ class Request extends PpciLibrary
     {
         parent::__construct();
         $this->dataclass = new RequestModel();
-        $keyName = "request_id";
-        if (!empty($_REQUEST[$keyName])) {
-            $this->id = $_REQUEST[$keyName];
+        $this->keyName = "request_id";
+        if (!empty($_REQUEST[$this->keyName])) {
+            $this->id = $_REQUEST[$this->keyName];
         } else {
             $this->id = 0;
         }

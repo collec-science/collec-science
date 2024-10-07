@@ -21,7 +21,7 @@ class SmartyPpci
         "corps" => "main.tpl",
         "display" => "/display",
         "favicon" => "/favicon.png",
-        "APP_title" => "Ppci",
+        "APPLI_title" => "Ppci",
         "APPLI_titre" => "Ppci",
         "LANG" => array(
             "date" => array(
@@ -85,7 +85,7 @@ class SmartyPpci
          * Assign variables from dbparam table
          */
         $dbparam = service("Dbparam");
-        $this->set($dbparam->getParam("APP_title"), "APP_title");
+        $this->set($dbparam->getParam("APPLI_title"), "APPLI_title");
         /**
          * Development mode
          */

@@ -31,9 +31,6 @@ class Login extends PpciLibrary
             if (!empty($_REQUEST["token"]) && !empty($_REQUEST["login"])) {
                 $ident_type = "ws";
                 $_SESSION["login"] = strtolower($this->datalogin->getLogin($ident_type));
-                if (!empty($_SESSION["login"])) {
-                    $this->postLogin("ws");
-                }
                 return;
             } else {
                 $ident_type = $this->identificationConfig->identificationMode;
@@ -91,7 +88,7 @@ class Login extends PpciLibrary
                     /*http_response_code(401);
                     $vue->set(array("error_code" => 401, "error_message" => _("Identification refusée")));*/
                 } else {
-                    return "";
+                    return "login";
                 }
             }
         } catch (\Exception $e) {

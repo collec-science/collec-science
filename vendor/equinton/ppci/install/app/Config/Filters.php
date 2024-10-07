@@ -10,11 +10,10 @@ use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
 
 use Ppci\Filters\AdminFilter;
-use Ppci\Filters\Dbversioncheck;
 use Ppci\Filters\RightFilter;
-use Ppci\Filters\LegacyRouteFilter;
 use Ppci\Filters\StartcallFilter;
 use Ppci\Filters\DbversioncheckFilter;
+use Ppci\Filters\VersionCheckFilter;
 
 class Filters extends BaseConfig
 {
@@ -32,10 +31,10 @@ class Filters extends BaseConfig
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'rights'        => RightFilter::class,
-        'legacyRoute'   => LegacyRouteFilter::class,
         'startcall'     => StartCallFilter::class,
         'dbversioncheck'=> DbversioncheckFilter::class,
-        "admin"         => AdminFilter::class
+        "admin"         => AdminFilter::class,
+        "versioncheck"  => VersionCheckFilter::class
     ];
 
     /**
@@ -47,16 +46,16 @@ class Filters extends BaseConfig
     public array $globals = [
         'before' => [
             // 'honeypot',
-            'csrf',
+            'csrf'=>['except'=>[]],
             'invalidchars',
-            'legacyRoute',
             'startcall',
-            'dbversioncheck',
+            'dbversioncheck'=>['except' => []],
+            'versioncheck' =>['except' => []],
             'rights',
             'admin'
         ],
         'after' => [
-            //'toolbar',
+            'toolbar',
             // 'honeypot',
              'secureheaders',
         ],

@@ -10,9 +10,9 @@ class Acllogin extends PpciLibrary
     {
         parent::__construct();
         $this->dataclass = new \Ppci\Models\Acllogin();
-        $keyName = "acllogin_id";
-        if (isset($_REQUEST[$keyName])) {
-            $this->id = $_REQUEST[$keyName];
+        $this->keyName = "acllogin_id";
+        if (isset($_REQUEST[$this->keyName])) {
+            $this->id = $_REQUEST[$this->keyName];
         }
     }
     function list()

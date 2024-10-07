@@ -16,10 +16,11 @@
 	});
 </script>
 <div class="col-sm-12 col-md-6">
-	<form id="login" method="POST" action="loginExec">
+	<form id="login" method="POST" action="index.php">
+		<input type="hidden" name="module" value="loginExec">
 		<input type="hidden" name="moduleCalled" value="{$moduleCalled}">
 		<input type="hidden" name="loginAdmin" value="1">
-		<div class="form-horizontal">
+		<div class="form-horizontal protoform">
 			<div class="form-group">
 				<label for="login" class="control-label col-sm-4">
 					{t}Login :{/t}

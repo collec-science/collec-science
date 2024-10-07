@@ -11,9 +11,9 @@ class Aclaco extends PpciLibrary
     {
         parent::__construct();
         $this->dataclass = new \Ppci\Models\Aclaco();
-        $keyName = "aclaco_id";
-        if (isset($_REQUEST[$keyName])) {
-            $this->id = $_REQUEST[$keyName];
+        $this->keyName = "aclaco_id";
+        if (isset($_REQUEST[$this->keyName])) {
+            $this->id = $_REQUEST[$this->keyName];
         }
         
     }

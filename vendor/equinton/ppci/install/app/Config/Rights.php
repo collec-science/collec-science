@@ -10,6 +10,6 @@ use Ppci\Config\RightsPpci;
 class Rights extends RightsPpci
 {
     protected array $rights = [
-        "manage" => ["management"]
+        "gestion" => ["management"]
     ];
 }

@@ -7,9 +7,9 @@ class Aclgroup extends PpciLibrary
     {
         parent::__construct();
         $this->dataclass = new \Ppci\Models\Aclgroup();
-        $keyName = "aclgroup_id";
-        if (isset($_REQUEST[$keyName])) {
-            $this->id = $_REQUEST[$keyName];
+        $this->keyName = "aclgroup_id";
+        if (isset($_REQUEST[$this->keyName])) {
+            $this->id = $_REQUEST[$this->keyName];
         }
         
     }

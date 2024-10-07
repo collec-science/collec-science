@@ -336,6 +336,7 @@ class App extends BaseConfig
      * Get last release informations
      * Ask Github or Gitlab to obtains informations on the last published release
      */
+    public $checkRelease = 1;
     /**
      * Github server
      */

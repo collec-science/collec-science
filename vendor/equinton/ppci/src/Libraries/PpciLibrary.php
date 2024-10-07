@@ -14,6 +14,7 @@ class PpciLibrary
     protected int $id;
     public $vue;
     protected PpciInit $init;
+    public $keyName;
 
     function __construct()
     {

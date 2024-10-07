@@ -7,9 +7,9 @@ class Aclappli extends PpciLibrary
     {
         parent::__construct();
         $this->dataclass = new \Ppci\Models\Aclappli();
-        $keyName = "aclappli_id";
-        if (isset($_REQUEST[$keyName])) {
-            $this->id = $_REQUEST[$keyName];
+        $this->keyName = "aclappli_id";
+        if (isset($_REQUEST[$this->keyName])) {
+            $this->id = $_REQUEST[$this->keyName];
         }
         
     }

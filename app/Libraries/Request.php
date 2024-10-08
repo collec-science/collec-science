@@ -14,7 +14,7 @@ class Request extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    private $keyName;
+    
     private $requestForm = "request/requestChange.tpl";
 
     function __construct()

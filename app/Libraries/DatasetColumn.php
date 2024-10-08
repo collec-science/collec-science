@@ -16,7 +16,7 @@ class DatasetColumn extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    private $keyName;
+    
     private $parentId;
 
     function __construct()

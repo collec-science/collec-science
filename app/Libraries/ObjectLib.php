@@ -15,7 +15,7 @@ class ObjectLib extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    private $keyName;
+    
     private $uids;
 
     function __construct()

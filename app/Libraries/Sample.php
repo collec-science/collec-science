@@ -42,7 +42,7 @@ class Sample extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    private $keyName;
+    
     private $isDelete = false;
 
     function __construct()

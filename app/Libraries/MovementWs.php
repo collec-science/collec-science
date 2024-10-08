@@ -17,7 +17,7 @@ class MovementWs extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    private $keyName;
+    
     private $errors = array(
         500 => "Internal Server Error",
         400 => "Bad request",

@@ -15,7 +15,7 @@ class Booking extends PpciLibrary
 	 */
 	protected ModelsBooking $dataclass;
 
-	private $keyName;
+	
 
 	function __construct()
 	{

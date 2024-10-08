@@ -14,7 +14,7 @@ class ContainerFamily extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    private $keyName;
+    
 
     function __construct()
     {

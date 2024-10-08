@@ -35,7 +35,7 @@ class Container extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    private $keyName;
+    
     private $isDelete = false;
     private $activeTab;
 

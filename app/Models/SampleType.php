@@ -154,6 +154,25 @@ class SampleType extends PpciModel
         return $val;
     }
 
+    /**
+     * Get the metadata form formated as array,
+     * with the key of each row is the name of the field
+     *
+     * @param int $sample_type_id
+     * @return array
+     */
+    function getMetadataAsArray(int $sample_type_id):array {
+        $metadata = $this->getMetadataForm($sample_type_id);
+        $res = [];
+        if (!empty($metadata)) {
+            $ma = json_decode($metadata, true);
+            foreach ($ma as $v) {
+                $res[$v["name"]] = $v;
+            }
+        }
+        return $res;
+    }
+
     function getIdentifierJs($sample_type_id)
     {
         if ($sample_type_id > 0) {

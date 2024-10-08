@@ -378,8 +378,9 @@ class ImportObject
                 } else {
                     $md_array = array();
                 }
+                $metadataTemplate = $this->sampleType->getMetadataAsArray($values["sample_type_id"]);
                 foreach ($this->md_columns as $md_col) {
-                    if (!empty($values[$md_col])) {
+                    if (strlen($values[$md_col]) > 0) {
                         $colname = substr($md_col, 3);
                         if (!array_key_exists($colname, $md_array)) {
                             if (in_array(substr($values[$md_col], 0, 1), $jsonFirstCharArray)) {
@@ -388,14 +389,19 @@ class ImportObject
                                     throw new PpciException(sprintf(_("Ligne %1s : le décodage du champ JSON %2s n'a pas abouti"), $num, $md_col));
                                 }
                             } else {
-                                $md_col_array = explode(",", $values[$md_col]);
-                            }
-                            if (count($md_col_array) > 1) {
-                                foreach ($md_col_array as $val) {
-                                    $md_array[$colname][] = trim($val);
+                                if ($metadataTemplate[$colname]["type"] == "array") {
+                                    $md_col_array = explode(",", $values[$md_col]);
+                                    if (count($md_col_array) > 1) {
+                                        $md_array[$colname] = [];
+                                        foreach ($md_col_array as $val) {
+                                            $md_array[$colname][] = trim($val);
+                                        }
+                                    } else {
+                                        $md_array[$colname] = trim($md_col_array[0]);
+                                    }
+                                } else {
+                                    $md_array[$colname] = trim($values[$md_col]);
                                 }
-                            } else {
-                                $md_array[$colname] = trim($md_col_array[0]);
                             }
                         }
                     }
@@ -669,8 +675,8 @@ class ImportObject
                     break;
                 }
             }
-        } 
-        if ( !($values["sample_type_id"] > -1) && !empty($values["sample_type_name"])) {
+        }
+        if (!($values["sample_type_id"] > -1) && !empty($values["sample_type_name"])) {
             $values["sample_type_id"] = -1;
             foreach ($this->sample_type as $value) {
                 if ($values["sample_type_name"] == $value["sample_type_name"]) {

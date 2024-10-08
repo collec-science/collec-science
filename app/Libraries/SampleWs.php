@@ -124,7 +124,7 @@ class SampleWs extends PpciLibrary
      * @param array $dataset
      * @return integer
      */
-    function writeUniqueSample(array $dataSent, $searchOrder, $dataset = []) :int
+    function writeUniqueSample(array $dataSent, $searchOrder, $dataset = []) //:int
     {
         if (!empty($dataset)) {
             $dataSent = $this->datasetTemplate->formatDataForImport($dataset["dataset_template_id"], $dataSent);

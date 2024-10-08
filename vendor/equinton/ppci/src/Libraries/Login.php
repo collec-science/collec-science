@@ -31,6 +31,9 @@ class Login extends PpciLibrary
             if (!empty($_REQUEST["token"]) && !empty($_REQUEST["login"])) {
                 $ident_type = "ws";
                 $_SESSION["login"] = strtolower($this->datalogin->getLogin($ident_type));
+                if (!empty($_SESSION["login"])) {
+                    $this->postLogin($ident_type);
+                }
                 return;
             } else {
                 $ident_type = $this->identificationConfig->identificationMode;

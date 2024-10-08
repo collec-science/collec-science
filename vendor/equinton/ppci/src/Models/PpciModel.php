@@ -201,7 +201,7 @@ class PpciModel extends Model
              * Remove all empty fields
              */
             foreach ($row as $k => $v) {
-                if (strlen($v) == 0) {
+                if (!is_array($v) && strlen($v) == 0) {
                     unset($row[$k]);
                 }
             }

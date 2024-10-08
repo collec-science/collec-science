@@ -15,6 +15,7 @@ class Samplews
     public Campaign $campaign;
     public Referent $referent;
     public SampleType $sampleType;
+    public $result;
 
     /**
      * Constructor
@@ -69,7 +70,7 @@ class Samplews
                 }
             }
         } else {
-            if (count($_SESSION["collections"]) == 1) {
+            if (!empty($_SESSION["collections"]) && count($_SESSION["collections"]) == 1) {
                 /**
                  * default collection
                  */
@@ -104,15 +105,6 @@ class Samplews
         }
         if (empty($dataSent["object_status_id"]) && !$isUpdate) {
             $dataSent["object_status_id"] = 1;
-        }
-        /**
-         * metadata
-         */
-        empty($dataSent["metadata"]) ? $metadata = array() : $metadata = json_decode($dataSent["metadata"], true);
-        foreach ($dataSent as $key => $value) {
-            if (substr($key, 0, 3) == "md_") {
-                $metadata[substr($key, 3)] = $value;
-            }
         }
         /**
          * Search for the parent
@@ -160,6 +152,32 @@ class Samplews
                 throw new PpciException(_("Le type d'échantillon est inconnu"), 400);
             }
         }
+        /**
+         * metadata
+         */
+        $metadataTemplate = $this->sampleType->getMetadataAsArray($dataSent["sample_type_id"]);
+        empty($dataSent["metadata"]) ? $metadata = array() : $metadata = json_decode($dataSent["metadata"], true);
+        foreach ($dataSent as $key => $value) {
+            if (substr($key, 0, 3) == "md_") {
+                $metadata[substr($key, 3)] = $value;
+            }
+        }
+        /**
+         * Search for multiple values in metadata
+         */
+        foreach ($metadataTemplate as $k=>$v) {
+            if ($v["type"] == "array" && strlen($metadata[$k]) > 0) {
+                $md_col_array = explode(",", $metadata[$k]);
+                if (count($md_col_array) > 1) {
+                    $metadata[$k] = [];
+                    foreach ($md_col_array as $val) {
+                        $metadata[$k][] = trim($val);
+                    }
+                } else {
+                    $metadata[$k] = trim($md_col_array[0]);
+                }
+            }
+        } 
 
         /**
          * Search for country

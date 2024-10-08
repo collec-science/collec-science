@@ -29,7 +29,7 @@
             <input type="hidden" name="moduleBase" value="exportModel">
             <input type="hidden" name="export_model_name" value="export_model">
             <input type="hidden" name="returnko" value="exportModelList">
-            <table id="paramList" class="table table-bordered table-hover datatable-nopaging"
+            <table id="paramList" class="table table-bordered table-hover datatable-nopaging display"
                 data-order='[["1","asc"]]'>
                 <thead>
                     <tr>

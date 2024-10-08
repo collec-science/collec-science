@@ -35,7 +35,7 @@
           <input id="translatorName" type="text" class="form-control" name="translator_name" value="{$data.translator_name}" autofocus required>
         </div>
       </div>
-      <table class="table table-bordered datatable-nopaging" id="tableitems">
+      <table class="table table-bordered datatable-nopaging display" id="tableitems">
         <thead>
           <tr>
             <th>{t}Libellé dans la base de données{/t}</th>

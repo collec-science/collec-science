@@ -31,7 +31,7 @@
 <div class="row">
     <div class="col-md-12">
         {if $movementSearch.isSearch > 0}
-        <table id="movementList" class="table table-bordered table-hover datatable-export"
+        <table id="movementList" class="table table-bordered table-hover datatable-export display"
             data-order='[[1,"desc"],[3,"asc"]]'>
             <thead>
                 <tr>

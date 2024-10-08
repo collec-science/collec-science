@@ -7,7 +7,7 @@
 			{t}Nouveau...{/t}
 		</a>
 		{/if}
-		<table id="collectionList" class="table table-bordered table-hover datatable-nopaging ">
+		<table id="collectionList" class="table table-bordered table-hover datatable-nopaging display">
 			<thead>
 				<tr>
 					<th colspan="14">{t}Informations générales{/t}</th>

@@ -114,7 +114,7 @@ $(document).ready(function() {
 {if !empty($result)}
 	<div class="row">
 		<div class="col-lg-12">
-			<table id="crequestList" class="table table-bordered table-hover datatable-export">
+			<table id="crequestList" class="table table-bordered table-hover datatable-export display">
 				<thead>
 					<tr>
 					{foreach $result[0] as $key=>$value}

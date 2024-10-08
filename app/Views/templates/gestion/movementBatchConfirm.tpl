@@ -43,7 +43,7 @@
 			</div>
 			<div class="row col-sm-12">
 			<table id="movementList"
-				class="table table-bordered table-hover datatable-nopaging-nosort">
+				class="table table-bordered table-hover datatable-nopaging-nosort display"">
 				<thead>
 					<tr>
 						<th>{t}UID{/t}</th>

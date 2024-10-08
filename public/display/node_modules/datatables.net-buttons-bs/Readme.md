@@ -1,6 +1,6 @@
 # Buttons for DataTables with styling for [Bootstrap](https://getbootstrap.com/docs/3.3/)
 
-This package contains a built distribution of the [Buttons extension](https://datatables.net/extensions/Buttons) for [DataTables](https://datatables.net/) with styling for [Bootstrap](https://getbootstrap.com/docs/3.3/).
+This package contains a built distribution of the [Buttons extension](https://datatables.net/extensions/buttons) for [DataTables](https://datatables.net/) with styling for [Bootstrap](https://getbootstrap.com/docs/3.3/).
 
 The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. It also provides plug-ins for file export (HTML5 and Flash), print view and column visibility. Other libraries, such as Editor and Select also provide buttons specific to their use cases.
 

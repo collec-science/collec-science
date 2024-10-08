@@ -139,7 +139,7 @@
                     </a>
                 </div>
                 {/if}
-                <table class="table table-bordered table-hover datatable-nopaging-nosearching">
+                <table class="table table-bordered table-hover datatable-nopaging-nosearching display">
                     <thead>
                         <tr>
                             <th>

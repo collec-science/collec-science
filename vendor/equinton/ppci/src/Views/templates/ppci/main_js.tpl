@@ -31,8 +31,8 @@
     type="text/javascript"></script>
 
 <!-- Datatables -->
-<script src="display/node_modules/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="display/node_modules/datatables.net-bs/js/dataTables.bootstrap.js"></script>
+<script src="display/node_modules/datatables.net/js/dataTables.min.js"></script>
+<script src="display/node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="display/node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css" />
 <script src="display/javascript/intl.js"></script>
 
@@ -111,15 +111,19 @@
         $.fn.dataTable.ext.order.htmlIntl(locale, { "sensitivity": "base" });
         $.fn.dataTable.moment('{$LANG["date"]["formatdatetime"]}');
         $.fn.dataTable.moment('{$LANG["date"]["formatdate"]}');
+        var lengthMenu = [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]];
         $('.datatable').DataTable({
             "language": dataTableLanguage,
             "searching": false,
-            dom: 'Bfrtip',
+            //dom: 'Bfrtip',
+            layout: { 
+                topStart: {
+                    buttons: ['pageLength']
+                } 
+            },
             "pageLength": pageLength,
-            "lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
-            buttons: [
-                "pageLength"
-            ]
+            "lengthMenu": lengthMenu,
+            //buttons
         });
         $('.datatable-nopaging-nosearching').DataTable({
             "language": dataTableLanguage,
@@ -135,12 +139,14 @@
         $('.datatable-searching').DataTable({
             "language": dataTableLanguage,
             "searching": true,
-            dom: 'Bfrtip',
+            //dom: 'Bfrtip',
+            layout: { 
+                topStart: {
+                    buttons: ['pageLength']
+                } 
+            },
             "pageLength": pageLength,
-            "lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
-            buttons: [
-                "pageLength"
-            ]
+            "lengthMenu": lengthMenu,
         });
         $('.datatable-nopaging').DataTable({
             "language": dataTableLanguage,
@@ -150,8 +156,9 @@
             "scrollX": true,
             fixedHeader: {
                 header: true,
-                footer: true
-            }
+                footer: true,
+            },
+            
         });
         $('.datatable-nopaging-nosort').DataTable({
             "language": dataTableLanguage,
@@ -168,15 +175,27 @@
             "language": dataTableLanguage,
             "searching": false,
             "ordering": false,
-            dom: 'Bfrtip',
+            //dom: 'Bfrtip',
+            layout: { 
+                topStart: {
+                    buttons: ['pageLength']
+                } 
+            },
             "pageLength": pageLength,
-            "lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
-            buttons: [
-                "pageLength"
-            ]
+            "lengthMenu": lengthMenu,
         });
         $('.datatable-export').DataTable({
-            dom: 'Bfrtip',
+            //dom: 'Bfrtip',
+            layout: { 
+                topStart: {
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'print'
+                    ]
+                } 
+            },
             "language": dataTableLanguage,
             "paging": false,
             /*"scrollY": scroll,*/
@@ -186,34 +205,28 @@
                 footer: true
             },
             "searching": true,
-            buttons: [
-                'copyHtml5',
-                'excelHtml5',
-                'csvHtml5',
-                /* {
-                     extend: 'pdfHtml5',
-                     orientation: 'landscape'
-                 },*/
-                'print'
-            ]
         });
         $('.datatable-export-paging').DataTable({
-            dom: 'Bfrtip',
+            //dom: 'Bfrtip',
+            layout: { 
+                topStart: {
+                    buttons: [
+                        'pageLength',
+                        'copyHtml5',
+                        'excelHtml5',
+                            {
+                            extend: 'csvHtml5',
+                            filename: 'export_' + new Date().toISOString()
+                            },
+                        'print'
+                    ]
+                } 
+            },
             "language": dataTableLanguage,
             "paging": true,
             "searching": true,
             "pageLength": pageLength,
-            "lengthMenu": [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
-            buttons: [
-                'pageLength',
-                'copyHtml5',
-                'excelHtml5',
-                {
-                    extend: 'csvHtml5',
-                    filename: 'export_' + new Date().toISOString()
-                },
-                'print'
-            ]
+            "lengthMenu": lengthMenu,
         });
 
         $(".datatable, .datatable-export-paging, .datatable-searching, .datatable-nosort").on('length.dt', function (e, settings, len) {

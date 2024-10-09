@@ -378,8 +378,8 @@ $(document).ready(function () {
 							row += '<td>'+containers[lst].clp_classification+'</td>';
 							row += '<td class="center">';
 							if (containers[lst].document_id > 0) {
-								row += '<a class="image-popup-no-margins" href="documentGet&document_id='+containers[lst].document_id+'&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">';
-								row += '<img src="documentGet&document_id='+containers[lst].document_id+'&attached=0&phototype=2" height="30"></a>';
+								row += '<a class="image-popup-no-margins" href="documentGet?document_id='+containers[lst].document_id+'&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">';
+								row += '<img src="documentGet?document_id='+containers[lst].document_id+'&attached=0&phototype=2" height="30"></a>';
 							}
 							row += '</td>';
 							row += '<td>'+containers[lst].collection_name + '</td>';
@@ -507,8 +507,8 @@ $(document).ready(function () {
 						<td>{$containers[lst].clp_classification}</td>
 						<td class="center">
 							{if $containers[lst].document_id > 0}
-								<a class="image-popup-no-margins" href="documentGet&document_id={$containers[lst].document_id}&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">
-									<img src="documentGet&document_id={$containers[lst].document_id}&attached=0&phototype=2" height="30">
+								<a class="image-popup-no-margins" href="documentGet?document_id={$containers[lst].document_id}&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">
+									<img src="documentGet?document_id={$containers[lst].document_id}&attached=0&phototype=2" height="30">
 								</a>
 							{/if}
 						</td>

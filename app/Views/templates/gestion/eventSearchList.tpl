@@ -31,13 +31,22 @@
             }
         ];
         var tableList = $( '#eventList' ).DataTable( {
-            dom: 'Birtp',
+            //dom: 'Birtp',
             "language": dataTableLanguage,
             "paging": false,
             "searching": true,
             "stateSave": false,
             "stateDuration": 60 * 60 * 24 * 30,
-            "buttons": buttons
+            //"buttons": buttons,
+            fixedHeader: {
+                header: true,
+                footer: true
+            },
+            layout: {
+                topStart: {
+                    buttons: buttons
+                }
+            }
         } );
         $( '#eventList thead th' ).each( function () {
             var title = $( this ).text();
@@ -151,7 +160,8 @@
         } );
     } );
 </script>
-<div class="row col-md-12">
+<div class="row">
+    <div class="col-md-12">
     <form class="form-horizontal " id="eventSearch" action="eventSearch" method="GET">
         <input type="hidden" name="isSearch" value="1">
         <div class="row">
@@ -246,10 +256,12 @@
         </div>
     {$csrf}</form>
 </div>
+</div>
 
 {if $isSearch == 1}
 <form action="" method="post">
-    <table id="eventList" class="table table-bordered table-hover " data-order='[[1,"asc"]]'>
+    <div class="row">
+    <table id="eventList" class="table table-bordered table-hover display" data-order='[[1,"asc"]]'>
         <thead>
             <tr>
                 <th class="center">
@@ -280,7 +292,7 @@
                 </td>
                 <td>
                     <a
-                        href="{$events[lst].object_type}eventChange&event_id={$events[lst].event_id}&uid={$events[lst].uid}">
+                        href="{$events[lst].object_type}eventChange?event_id={$events[lst].event_id}&uid={$events[lst].uid}">
                         {$events[lst].event_id}
                     </a>
                 </td>
@@ -306,6 +318,7 @@
             {/section}
         </tbody>
     </table>
+    </div>
     {if $rights.import == 1 || $rights.collection == 1}
     <div class="row">
         <div class="col-md-6  form-horizontal">

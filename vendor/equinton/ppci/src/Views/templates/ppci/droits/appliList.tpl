@@ -4,7 +4,7 @@
 <a href="appliChange?aclappli_id=0">
 {t}Nouvelle application...{/t}
 </a>
-<table id="appliListe" class="table table-bordered table-hover datatable" data-order='[[ 0, "asc" ]]' data-page-length='25'>
+<table id="appliListe" class="table table-bordered table-hover datatable display" data-order='[[ 0, "asc" ]]' data-page-length='25'>
 <thead>
 <tr>
 <th>{t}Modifier{/t}</th>

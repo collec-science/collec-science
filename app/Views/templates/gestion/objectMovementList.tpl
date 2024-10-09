@@ -1,6 +1,6 @@
 {* Objets > échantillons > Rechercher > UID d'un échantillon > section Mouvements *}
 <!-- Liste des mouvements -->
-<table id="movementList" class="table table-bordered table-hover datatable" data-order='[[0,"desc"]]'>
+<table id="movementList" class="table table-bordered table-hover datatable display" data-order='[[0,"desc"]]'>
 <thead>
 <tr>
 <th>{t}Date{/t}</th>

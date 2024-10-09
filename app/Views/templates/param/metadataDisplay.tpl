@@ -13,7 +13,7 @@
     {/if}
 </div>
 <div class="row">
-    <table id="metadataList" class="table table-bordered table-hover datatable" >
+    <table id="metadataList" class="table table-bordered table-hover datatable display" >
         <thead>
             <tr>
                 <th>{t}N° d'ordre{/t}</th>

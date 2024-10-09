@@ -5,7 +5,7 @@
     {t}Nouvelle requête...{/t}
 </a>
 {/if}
-<table id="crequestList" class="table table-bordered table-hover datatable" >
+<table id="crequestList" class="table table-bordered table-hover datatable display" >
     <thead>
         <tr>
             <th>{t}Id{/t}</th>

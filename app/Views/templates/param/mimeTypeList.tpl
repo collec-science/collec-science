@@ -6,7 +6,7 @@
             {t}Nouveau...{/t}
             </a>
         {/if}
-        <table id="mimeTypeList" class="table table-bordered table-hover datatable" >
+        <table id="mimeTypeList" class="table table-bordered table-hover datatable display" >
             <thead>
                 <tr>
                     <th>{t}Extension{/t}</th>

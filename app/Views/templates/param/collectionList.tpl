@@ -1,4 +1,3 @@
-{* Paramètres > Collections > *}
 <h2>{t}Collections{/t}</h2>
 <div class="row">
 	<div class="col-md-12">
@@ -7,7 +6,7 @@
 			{t}Nouveau...{/t}
 		</a>
 		{/if}
-		<table id="collectionList" class="table table-bordered table-hover datatable-nopaging display">
+		<table id="collectionList" class="table table-bordered table-hover datatable-searching display">
 			<thead>
 				<tr>
 					<th colspan="14">{t}Informations générales{/t}</th>

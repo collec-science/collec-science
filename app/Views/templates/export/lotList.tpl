@@ -46,7 +46,7 @@ $(document).ready ( function() {
 {if !empty($lots) }
 <div class="row">
   <div class="col-md-6">
-    <table class="table table-bordered table-hover datatable" data-order='[[1, "desc"]]'>
+    <table class="table table-bordered table-hover datatable display" data-order='[[1, "desc"]]'>
       <thead>
         <tr>
           <th class="center"><img src="display/images/display.png" height="25"></th>

@@ -101,8 +101,9 @@
         }
     };
     var scroll = "50vh";
+    var myStorage = window.localStorage;
     $(document).ready(function () {
-        var pageLength = Cookies.get("pageLength");
+        var pageLength = myStorage.getItem("pageLength");
         if (!pageLength) {
             pageLength = 10;
         }
@@ -123,13 +124,17 @@
             },
             "pageLength": pageLength,
             "lengthMenu": lengthMenu,
+            fixedHeader: {
+                header: true,
+                footer: true
+            }
             //buttons
         });
         $('.datatable-nopaging-nosearching').DataTable({
             "language": dataTableLanguage,
             "searching": false,
             "paging": false,
-            "scrollY": scroll,
+            //"scrollY": scroll,
             "scrollX": true,
             fixedHeader: {
                 header: true,
@@ -147,6 +152,10 @@
             },
             "pageLength": pageLength,
             "lengthMenu": lengthMenu,
+            fixedHeader: {
+                header: true,
+                footer: true
+            }
         });
         $('.datatable-nopaging').DataTable({
             "language": dataTableLanguage,
@@ -183,6 +192,10 @@
             },
             "pageLength": pageLength,
             "lengthMenu": lengthMenu,
+            fixedHeader: {
+                header: true,
+                footer: true
+            }
         });
         $('.datatable-export').DataTable({
             //dom: 'Bfrtip',
@@ -227,10 +240,14 @@
             "searching": true,
             "pageLength": pageLength,
             "lengthMenu": lengthMenu,
+            fixedHeader: {
+                header: true,
+                footer: true
+            }
         });
 
         $(".datatable, .datatable-export-paging, .datatable-searching, .datatable-nosort").on('length.dt', function (e, settings, len) {
-            Cookies.set('pageLength', len, { expires: 180, secure: true });
+            myStorage.setItem('pageLength', len);
         });
         /* Initialisation for paging datatables */
         $(".datatable, .datatable-export-paging, .datatable-searching, .datatable-nosort").DataTable().page.len(pageLength).draw();

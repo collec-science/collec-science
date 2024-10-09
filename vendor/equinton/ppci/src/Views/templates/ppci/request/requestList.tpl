@@ -3,7 +3,7 @@
     <img src="display/images/new.png" height="25">
     {t}Nouvelle requête...{/t}
 </a>
-<table id="crequestList" class="table table-bordered table-hover datatable" >
+<table id="crequestList" class="table table-bordered table-hover datatable display" >
     <thead>
         <tr>
             <th>{t}Id{/t}</th>

@@ -87,7 +87,7 @@
                                 {t}Nouvel export...{/t}</a>
                         </div>
                         <div class="row">
-                            <table class="table table-bordered table-hover datatable" data-order='[[1,"desc"]]'>
+                            <table class="table table-bordered table-hover datatable display" data-order='[[1,"desc"]]'>
                                 <thead>
                                     <tr>
                                         <th class="center"><img src="display/images/edit.gif" height="25"></th>

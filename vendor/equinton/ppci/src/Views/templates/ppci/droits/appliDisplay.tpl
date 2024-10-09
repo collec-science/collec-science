@@ -18,7 +18,7 @@
             {t}Nouveau droit...{/t}
         </a>
     {/if}
-    <table id="acoliste" class="table table-bordered table-hover datatable">
+    <table id="acoliste" class="table table-bordered table-hover datatable display">
         <thead>
             <tr>
                 <th>{t}Nom du droit d'accès{/t}</th>

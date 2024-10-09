@@ -1,4 +1,4 @@
-<table id="documentList" class="table table-bordered table-hover datatable" data-order='[[5, "desc"], [4, "desc"]]'>
+<table id="documentList" class="table table-bordered table-hover datatable display" data-order='[[5, "desc"], [4, "desc"]]'>
   <thead>
     <tr>
       <th>{t}Nom du document{/t}</th>

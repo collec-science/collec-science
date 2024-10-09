@@ -10,6 +10,7 @@ use App\Models\EventType;
 use App\Models\MimeType;
 use App\Models\ObjectClass;
 use App\Models\SampleType;
+use App\Models\SearchEvent;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
@@ -30,6 +31,9 @@ class Event extends PpciLibrary
 		$this->keyName = "event_id";
 		if (isset($_REQUEST[$this->keyName])) {
 			$this->id = $_REQUEST[$this->keyName];
+		}
+		if (!isset($_SESSION["searchEvent"])) {
+			$_SESSION["searchEvent"] = new SearchEvent;
 		}
 	}
 

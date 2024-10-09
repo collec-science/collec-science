@@ -22,7 +22,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <a href="{$moduleListe}">
+        <a href="{$moduleParent}">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
         </a>

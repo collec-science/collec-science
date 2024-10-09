@@ -3,18 +3,21 @@
 	$( document ).ready( function () {
 		var totalNumber = "{$totalNumber}";
 		var limit = "{$sampleSearch['limit']}";
-		var sliderValue = 2000;
 		var searchByColumn = 0;
 		var myStorageSample = window.localStorage;
 		var metadatafilter = "{$sampleSearch['metadatafilter']}";
         try {
-        sliderValue = myStorageSample.getItem("sampleSliderValue");
 		searchByColumn = myStorageSample.getItem("searchByColumn");
 		if (!searchByColumn) {
 			searchByColumn = 0;
 		}
         } catch (Exception) {
         }
+		var pageLength = 10;
+		try {
+			pageLength = myStorageSample.getItem("samplePageLength");
+		} catch (Exception) {
+		}
 		var scrolly = "2000pt";
 		var isGestion = "{$rights.manage}";
 		var maxcol = 21;
@@ -39,7 +42,9 @@
 					maxcol = 20;
 				}
 		}
+		var lengthMenu = [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]];
 		var buttons = [
+				'pageLength',
 				{
 					extend: 'colvis',
 					text: '{t}Colonnes affichées{/t}'
@@ -79,9 +84,9 @@
 			];
 			if (searchByColumn == 1) { 
 				var tableList = $( '#sampleList' ).DataTable( {
-					dom: 'Birtp',
+					//dom: 'Birtp',
 					"language": dataTableLanguage,
-					"paging": false,
+					"paging": true,
 					"searching": true,
 					"stateSave": false,
 					"stateDuration": 60 * 60 * 24 * 30,
@@ -91,21 +96,31 @@
 						"visible": false
 						}
 					],
-					"buttons":buttons
+					layout: {
+						topStart: {
+							buttons: buttons
+						}
+					},
+					lengthMenu: lengthMenu,
+					pageLength: pageLength,
+					fixedHeader: {
+						header: false,
+						footer: true
+					},
 				});
 			} else {
 				var tableList = $( '#sampleList' ).DataTable( {
 					"order": [[1, "asc"]],
-					dom: 'Bfirtp',
+					//dom: 'Bfirtp',
 					"language": dataTableLanguage,
-					"paging": false,
+					"paging": true,
 					"searching": true,
-					scrollY:scrolly,
+					//scrollY:scrolly,
 					scrollX:true,
-					/*fixedHeader: {
-					header: false,
-					footer: true
-				},*/
+					fixedHeader: {
+						header: true,
+						footer: true
+					},
 					"stateDuration": 60 * 60 * 24 * 30,
 					"columnDefs" : [
 						{
@@ -113,7 +128,13 @@
 						"visible": false
 						}
 					],
-					"buttons": buttons
+					layout: {
+						topStart: {
+							buttons: buttons
+						}
+					},
+					lengthMenu: lengthMenu,
+					pageLength: pageLength
 				} );
 			}
 		tableList.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
@@ -125,25 +146,9 @@
 				myStorageSample.setItem("sampleSearchColumns", JSON.stringify(hb));
 			});
 		} );
-
-		if (searchByColumn == 0) {
-			try {
-			$(".dataTables_scrollBody").height(sliderValue + "pt");
-			} catch (Exception) {
-			}
-			$( "#slider-vertical" ).slider({
-			orientation: "vertical",
-			range: "max",
-			min: 100,
-			max: 2000,
-			value: sliderValue,
-			slide: function( event, ui ) {
-				$(".dataTables_scrollBody").height(ui.value + "pt");
-				myStorageSample.setItem("sampleSliderValue", ui.value);
-			}
-			});
-			$( "#amount" ).val( $( "#slider-vertical" ).slider( "value" ) );
-		}
+		$("#sampleList").on('length.dt', function (e, settings, len) {
+            myStorage.setItem('samplePageLength', len);
+        });
 		/**
 		 * select or unselect samples
 		 */
@@ -701,146 +706,141 @@
 		</div>
 		{/if}
 		<div class="row">
-			<div class="col-md-11">
-		<table id="sampleList" class="table table-bordered table-hover" title="{t}Liste des échantillons{/t}">
-			<thead class="nowrap">
-				<tr>{if $rights.manage == 1}
-					<th class="center">
-						<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample">
-					</th>
-					{/if}
-					<th>{t}UID{/t}</th>
-					<th>{t}Identifiant ou nom{/t}</th>
-					<th>{t}Autres identifiants{/t}</th>
-					<th class="d-none d-lg-table-cell">{t}Collection{/t}</th>
-					<th>{t}Type{/t}</th>
-					<th>{t}Statut{/t}</th>
-					<th>{t}Parent{/t}</th>
-					<th>{t}Photo{/t}</th>
-					<th>{t}Dernier mouvement{/t}</th>
-					<th>{t}Emplacement{/t}</th>
-					<th>{t}Condition de stockage{/t}</th>
-					<th>{t}Référent{/t}</th>
-					<th>{t}Campagne{/t}</th>
-					<th>{t}Lieu de prélèvement{/t}</th>
-					<th>{t}Date d'échantillonnage{/t}</th>
-					<th>{t}Date de création dans la base{/t}</th>
-					<th>{t}Date d'expiration{/t}</th>
-					<th>{t}Quantité restante{/t}</th>
-					<th>{t}Métadonnées{/t}&nbsp;{$sampleSearch.metadatafilter}</th>
-					<th>{t}Commentaires{/t}</th>
-					<th>{t}Tri technique{/t}</th>
-				</tr>
-			</thead>
-			<tbody>
-				{section name=lst loop=$samples}
-				<tr>
-					{if $rights.manage == 1}
-					<td class="center">
-						<input type="checkbox" class="checkSample" name="uids[]" value="{$samples[lst].uid}">
-					</td>
-					{/if}
-					<td class="text-center">
-						<a href="sampleDisplay?uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
-							{$samples[lst].uid}
-						</a>
-						{if $samples[lst].nb_derivated_sample > -1}
-						<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
-						{/if}
-					</td>
-					<td class="sample nowrap" data-uid="{$samples[lst].uid}" title="">
-						<a class="tooltiplink" href="sampleDisplay?uid={$samples[lst].uid}" title="">
-							{$samples[lst].identifier}
-						</a>
-					</td>
-					<td class="nowrap">{$samples[lst].identifiers}
-						{if strlen($samples[lst].dbuid_origin) > 0}
-						{if strlen($samples[lst].identifiers) > 0}<br>{/if}
-						<span title="{t}UID de la base de données d'origine{/t}">{$samples[lst].dbuid_origin}</span>
-						{/if}
-					</td>
-					<td class="nowrap">{$samples[lst].collection_name}</td>
-					<td class="nowrap">{$samples[lst].sample_type_name}</td>
-					<td {if $samples[lst].trashed==1}class="trashed" title="{t}Échantillon mis à la corbeille{/t}" {/if}>
-						{$samples[lst].object_status_name}</td>
-					<td>
-						{if strlen($samples[lst].parent_uid) > 0}
-						<span class="nowrap">
-							<a class="sample" data-uid="{$samples[lst].parent_uid}"
-								href="sampleDisplay?uid={$samples[lst].parent_uid}">
-								<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
-							</a>
-						</span>
-						{/if}
-						{if strlen($samples[lst].sample_parents) > 0}
-						{$samples[lst].sample_parents}
-						{/if}
-					</td>
-					<td class="center">{if $samples[lst].document_id > 0} <a class="image-popup-no-margins"
-							href="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=1"
-							title="{t}aperçu de la photo{/t}"> <img
-								src="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=2"
-								height="30">
-						</a> {/if}
-					</td>
-					<td class="nowrap">
-						{if strlen($samples[lst].movement_date) > 0 }
-						{if $samples[lst].movement_type_id == 1}
-						<span class="green">{else}
-							<span class="red">
+			<div class="col-md-12">
+				<table id="sampleList" class="table table-bordered table-hover display" title="{t}Liste des échantillons{/t}">
+					<thead class="nowrap">
+						<tr>{if $rights.manage == 1}
+							<th class="center">
+								<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample">
+							</th>
+							{/if}
+							<th>{t}UID{/t}</th>
+							<th>{t}Identifiant ou nom{/t}</th>
+							<th>{t}Autres identifiants{/t}</th>
+							<th class="d-none d-lg-table-cell">{t}Collection{/t}</th>
+							<th>{t}Type{/t}</th>
+							<th>{t}Statut{/t}</th>
+							<th>{t}Parent{/t}</th>
+							<th>{t}Photo{/t}</th>
+							<th>{t}Dernier mouvement{/t}</th>
+							<th>{t}Emplacement{/t}</th>
+							<th>{t}Condition de stockage{/t}</th>
+							<th>{t}Référent{/t}</th>
+							<th>{t}Campagne{/t}</th>
+							<th>{t}Lieu de prélèvement{/t}</th>
+							<th>{t}Date d'échantillonnage{/t}</th>
+							<th>{t}Date de création dans la base{/t}</th>
+							<th>{t}Date d'expiration{/t}</th>
+							<th>{t}Quantité restante{/t}</th>
+							<th>{t}Métadonnées{/t}&nbsp;{$sampleSearch.metadatafilter}</th>
+							<th>{t}Commentaires{/t}</th>
+							<th>{t}Tri technique{/t}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{section name=lst loop=$samples}
+						<tr>
+							{if $rights.manage == 1}
+							<td class="center">
+								<input type="checkbox" class="checkSample" name="uids[]" value="{$samples[lst].uid}">
+							</td>
+							{/if}
+							<td class="text-center">
+								<a href="sampleDisplay?uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
+									{$samples[lst].uid}
+								</a>
+								{if $samples[lst].nb_derivated_sample > -1}
+								<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
 								{/if}
-								{$samples[lst].movement_date}
-							</span>
-							{/if}
-					</td>
-					<td class="nowrap">
-						{if $samples[lst].container_uid > 0}
-						<a href="containerDisplay?uid={$samples[lst].container_uid}">
-							{$samples[lst].container_identifier}
-						</a>
-						<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
-						{/if}
-					</td>
-					<td>{$samples[lst].storage_condition_name}</td>
-					<td class="nowrap">{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
-					<td class="nowrap">{$samples[lst].campaign_name}</td>
-					<td class="nowrap">{$samples[lst].sampling_place_name}</td>
-					<td class="nowrap">{$samples[lst].sampling_date}</td>
-					<td class="nowrap">{$samples[lst].sample_creation_date}</td>
-					<td class="nowrap">{$samples[lst].expiration_date}</td>
-					<td>{$samples[lst].subsample_quantity}</td>
-					<td>
-						{if empty($sampleSearch.metadatafilter)}
-						{$l = 0}
-						{foreach $samples[lst].metadata_array as $k => $v}
-							{if $l > 0}<br>{/if}
-							{$l = $l+1}
-							{$k}:
-							{if is_array($v)}
-								{foreach $v as $val}
-									{$val}&nbsp;
+							</td>
+							<td class="sample nowrap" data-uid="{$samples[lst].uid}" title="">
+								<a class="tooltiplink" href="sampleDisplay?uid={$samples[lst].uid}" title="">
+									{$samples[lst].identifier}
+								</a>
+							</td>
+							<td class="nowrap">{$samples[lst].identifiers}
+								{if strlen($samples[lst].dbuid_origin) > 0}
+								{if strlen($samples[lst].identifiers) > 0}<br>{/if}
+								<span title="{t}UID de la base de données d'origine{/t}">{$samples[lst].dbuid_origin}</span>
+								{/if}
+							</td>
+							<td class="nowrap">{$samples[lst].collection_name}</td>
+							<td class="nowrap">{$samples[lst].sample_type_name}</td>
+							<td {if $samples[lst].trashed==1}class="trashed" title="{t}Échantillon mis à la corbeille{/t}" {/if}>
+								{$samples[lst].object_status_name}</td>
+							<td>
+								{if strlen($samples[lst].parent_uid) > 0}
+								<span class="nowrap">
+									<a class="sample" data-uid="{$samples[lst].parent_uid}"
+										href="sampleDisplay?uid={$samples[lst].parent_uid}">
+										<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
+									</a>
+								</span>
+								{/if}
+								{if strlen($samples[lst].sample_parents) > 0}
+								{$samples[lst].sample_parents}
+								{/if}
+							</td>
+							<td class="center">{if $samples[lst].document_id > 0} <a class="image-popup-no-margins"
+									href="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=1"
+									title="{t}aperçu de la photo{/t}"> <img
+										src="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=2"
+										height="30">
+								</a> {/if}
+							</td>
+							<td class="nowrap">
+								{if strlen($samples[lst].movement_date) > 0 }
+								{if $samples[lst].movement_type_id == 1}
+								<span class="green">{else}
+									<span class="red">
+										{/if}
+										{$samples[lst].movement_date}
+									</span>
+									{/if}
+							</td>
+							<td class="nowrap">
+								{if $samples[lst].container_uid > 0}
+								<a href="containerDisplay?uid={$samples[lst].container_uid}">
+									{$samples[lst].container_identifier}
+								</a>
+								<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
+								{/if}
+							</td>
+							<td>{$samples[lst].storage_condition_name}</td>
+							<td class="nowrap">{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
+							<td class="nowrap">{$samples[lst].campaign_name}</td>
+							<td class="nowrap">{$samples[lst].sampling_place_name}</td>
+							<td class="nowrap">{$samples[lst].sampling_date}</td>
+							<td class="nowrap">{$samples[lst].sample_creation_date}</td>
+							<td class="nowrap">{$samples[lst].expiration_date}</td>
+							<td>{$samples[lst].subsample_quantity}</td>
+							<td>
+								{if empty($sampleSearch.metadatafilter)}
+								{$l = 0}
+								{foreach $samples[lst].metadata_array as $k => $v}
+									{if $l > 0}<br>{/if}
+									{$l = $l+1}
+									{$k}:
+									{if is_array($v)}
+										{foreach $v as $val}
+											{$val}&nbsp;
+										{/foreach}
+									{else}
+										{$v}
+									{/if}
 								{/foreach}
-							{else}
-								{$v}
-							{/if}
-						{/foreach}
-						{else}
-						{$samples[lst].metadata}
-						{/if}
-					</td>
-					<td class="textareaDisplay">{$samples[lst].object_comment}</td>
-					<td>{$samples[lst].uid + 9000000}</td>
-					
-				</tr>
-				{/section}
-			</tbody>
-		</table>
-		</div>
-		<div class="col-md-1">
-			<div style="margin-top: 100px;">
-			<div id="slider-vertical" style="height:200px;"></div>
+								{else}
+								{$samples[lst].metadata}
+								{/if}
+							</td>
+							<td class="textareaDisplay">{$samples[lst].object_comment}</td>
+							<td>{$samples[lst].uid + 9000000}</td>
+							
+						</tr>
+						{/section}
+					</tbody>
+				</table>
 			</div>
-		</div>
 		</div>
 
 

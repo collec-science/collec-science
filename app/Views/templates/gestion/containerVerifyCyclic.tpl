@@ -20,7 +20,7 @@
 {if $exec == 1}
 <div class="row">
   <div class="col-md-6">
-    <table class="table table-bordered table-hover datatable">
+    <table class="table table-bordered table-hover datatable display">
       <tr>
         <th>{t}Premier UID{/t}</th>
         <th>{t}Second UID{/t}</th>

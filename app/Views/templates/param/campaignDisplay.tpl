@@ -1,24 +1,24 @@
 <script>
-    $( document ).ready( function () {
+    $(document).ready(function () {
         /* Management of tabs */
         var activeTab = "";
         var myStorage = window.localStorage;
         try {
-            activeTab = myStorage.getItem( "campaignDetailTab" );
-        } catch ( Exception ) {
+            activeTab = myStorage.getItem("campaignDetailTab");
+        } catch (Exception) {
         }
         try {
-            if ( activeTab.length > 0 ) {
-                $( "#" + activeTab ).tab( 'show' );
+            if (activeTab.length > 0) {
+                $("#" + activeTab).tab('show');
             }
-        } catch ( Exception ) { }
-        $( '.nav-tabs > li > a' ).hover( function () {
+        } catch (Exception) { }
+        $('.nav-tabs > li > a').hover(function () {
             //$(this).tab('show');
-        } );
-        $( '.nav-link' ).on( 'shown.bs.tab', function () {
-            myStorage.setItem( "campaignDetailTab", $( this ).attr( "id" ) );
-        } );
-    } );
+        });
+        $('.nav-link').on('shown.bs.tab', function () {
+            myStorage.setItem("campaignDetailTab", $(this).attr("id"));
+        });
+    });
 </script>
 <a href="campaignList"><img src="display/images/list.png" height="25">{t}Retour à la liste{/t}</a>
 <h2>{t}Campagne{/t} {$data.campaign_name}</h2>
@@ -88,13 +88,12 @@
     </div>
     <div class="tab-pane fade" id="navRules" role="tabpanel" aria-labelledby="tabRules">
         <div class="row">
-            <a
-                href="campaignRegulationChange&campaign_regulation_id=0&campaign_id={$data.campaign_id}">
+            <a href="campaignRegulationChange&campaign_regulation_id=0&campaign_id={$data.campaign_id}">
                 {t}Nouvelle réglementation{/t}</a>
         </div>
         <div class="row">
             <div class="col-md-8 col-lg-6">
-                <table class="table table-bordered table-hover datatable">
+                <table class="table table-bordered table-hover datatable display">
                     <thead>
                         <tr>
                             <th>{t}Nom{/t}</th>
@@ -143,7 +142,7 @@
                     <thead>
                         <tr>
                             <th>
-                            {t}Groupes disposant du droit de modification des échantillons de la campagne{/t}
+                                {t}Groupes disposant du droit de modification des échantillons de la campagne{/t}
                             </th>
                         </tr>
                     </thead>
@@ -155,12 +154,13 @@
                         {/foreach}
                     </tbody>
                 </table>
-            
-
-            <div class="bg-info">
-                {t}Si aucun groupe n'est défini, les échantillons pourront être modifiés par tous les membres des collections rattachées{/t}
             </div>
         </div>
+
+        <div class="bg-info">
+            {t}Si aucun groupe n'est défini, les échantillons pourront être modifiés par tous les membres des collections rattachées{/t}
         </div>
     </div>
+</div>
+</div>
 </div>

@@ -27,36 +27,46 @@ $(document).ready(function () {
 	if (gestion == 1) {
 		maxcol = 16;
 	}
+	var lengthMenu = [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]];
+	var pageLength = 10;
+		try {
+			pageLength = myStorageSample.getItem("containerPageLength");
+		} catch (Exception) {
+		}
 	var table = $("#containerList").DataTable( {
-			dom: 'Bfrtip',
+			//dom: 'Bfrtip',
 			"language": dataTableLanguage,
-			"paging": false,
+			"paging": true,
 			"searching": true,
 			"stateSave": true,
-			"scrollY":"50vh",
+			//"scrollY":"50vh",
 			"scrollX":true,
 			fixedHeader: {
             header: true,
             footer: true
-        },
-			/*"columnDefs" : [
-				{
-				"targets": hb,
-				"visible": false
-				}
-			],*/
-			"buttons": [
-				{
-					extend: 'colvis',
-					text: '{t}Colonnes affichées{/t}'
-				},
-				'copyHtml5',
-				'excelHtml5',
-				'csvHtml5',
-				'pdfHtml5',
-				'print'
-			]
+        	},
+			layout: {
+                topStart: {
+                    buttons: [
+						'pageLength',
+						{
+							extend: 'colvis',
+							text: '{t}Colonnes affichées{/t}'
+						},
+						'copyHtml5',
+						'excelHtml5',
+						'csvHtml5',
+						'pdfHtml5',
+						'print'
+					]
+                }
+            },
+			"lengthMenu": lengthMenu,
+			pageLength: pageLength
 		} );
+	table.on('length.dt', function (e, settings, len) {
+		myStorage.setItem('containerPageLength', len);
+	});
 	table.order(dataOrder).draw();
 	table.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
 			var hb = [];
@@ -421,7 +431,7 @@ $(document).ready(function () {
 			</div>
 		</div>
 {/if}
-		<table id="containerList" class="table table-bordered table-hover " >
+		<table id="containerList" class="table table-bordered table-hover display" >
 			<thead class="nowrap">
 				<tr>
 					{if $rights.manage == 1}

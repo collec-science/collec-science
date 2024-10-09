@@ -59,7 +59,7 @@ $(document).ready(function() {
 {if $nbSample > 0}<fieldset disabled>{/if}
 <input type="hidden" name="moduleBase" value="metadata">
 <input type="hidden" name="metadata_id" value="{$data.metadata_id}">
-<input type="hidden" name="metadataField" id="metadataField" value="{$data.metadata_schema}">
+<input type="hidden" id="metadataField" value="{$data.metadata_schema}">
 <input type="hidden" name="metadata_schema" id="schemaSent">
 
 <div class="form-group">

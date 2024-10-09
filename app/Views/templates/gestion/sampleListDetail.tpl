@@ -593,8 +593,8 @@
 							row += '<td class="center">';
 							if (samples[lst].document_id > 0){
 								row += '<a class="image-popup-no-margins"';
-								row += 'href="documentGet&document_id='+samples[lst].document_id+'&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">';
-								row += ' <img src="documentGet&document_id='+samples[lst].document_id+'&attached=0&phototype=2" height="30">';
+								row += 'href="documentGet?document_id='+samples[lst].document_id+'&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">';
+								row += ' <img src="documentGet?document_id='+samples[lst].document_id+'&attached=0&phototype=2" height="30">';
 								row += '</a>';
 							}
 							row += '</td>';

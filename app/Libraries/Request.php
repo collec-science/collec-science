@@ -50,6 +50,10 @@ class Request extends PpciLibrary
         $this->vue->set($_SESSION["collections"], "collections");
         return $this->vue->send();
     }
+    function execList()
+    {
+        return $this->exec();
+    }
     function exec()
     {
         $this->vue = service('Smarty');
@@ -84,9 +88,11 @@ class Request extends PpciLibrary
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
             }
+            return true;
         } catch (PpciException) {
+            return false;
         }
-        return $this->change();
+        //return $this->change();
     }
     function delete()
     {

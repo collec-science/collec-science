@@ -52,9 +52,9 @@ class Request extends PpciLibrary
         try {
             $_REQUEST["body"] = hex2bin($_REQUEST["body"]);
             $this->id = $this->dataWrite($_REQUEST);
-            return $this->change();
+            return true;
         } catch (\Exception $e) {
-            return $this->change();
+            return false;
         }
     }
     function writeExec()

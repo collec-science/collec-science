@@ -26,14 +26,20 @@ class Request extends PpciController
     function change() {
         return $this->lib->change();
     }
-    function write() {
-        return $this->lib->write();
+    function write()
+    {
+        $this->lib->write();
+        return $this->change();
+    }
+    function writeExec() {
+        if ($this->lib->write()) {
+            return $this->exec();
+        } else {
+            return $this->change();
+        }
     }
     function delete() {
         return $this->lib->delete();
-    }
-    function writeExec() {
-        return $this->lib->writeExec();
     }
     function exec() {
         return $this->lib->exec();

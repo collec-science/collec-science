@@ -312,7 +312,7 @@ $routes->post('requestWrite', 'Request::write');
 $routes->post('requestDelete', 'Request::delete');
 $routes->add('requestExec', 'Request::exec');
 $routes->add('requestExecList', 'Request::execList');
-$routes->post('requestWriteExec', 'Request::write');
+$routes->post('requestWriteExec', 'Request::writeExec');
 $routes->add('requestCopy', 'Request::copy');
 $routes->post('apiv1sampleWrite', 'SampleWs::write');
 $routes->post('apiv1sampleDelete', 'SampleWs::supprimer');

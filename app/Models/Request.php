@@ -19,12 +19,12 @@ class Request extends PpciModel
     function __construct()
     {
         $this->table = "request";
-        $this->useAutoIncrement = false;
         $this->fields = array(
             "request_id" => array(
                 "key" => 1,
                 "type" => 1,
-                "requis" => 1
+                "requis" => 1,
+                "defaultValue" => 0
             ),
             "create_date" => array(
                 "type" => 3,
@@ -87,7 +87,7 @@ class Request extends PpciModel
         return $this->getListeParam($this->sql . $orderby);
     }
 
-    function ecrire($data): int
+    function write($data): int
     {
         /**
          * Search the terms forbiden into the request
@@ -101,7 +101,7 @@ class Request extends PpciModel
         $data["body"] = str_replace(";", "", $data["body"]);
         $data["body"] = str_replace("--", "", $data["body"]);
         $data["body"] = str_replace("/*", "", $data["body"]);
-        return parent::ecrire($data);
+        return parent::write($data);
     }
 
     /**

@@ -334,34 +334,36 @@ class Sample extends PpciModel
     {
         $sql = "select sample_id, collection_id, campaign_id from sample where uid = :uid:";
         $data = $this->lireParamAsPrepared($sql, array("uid" => $uid));
-        if ($this->verifyCollection($data)) {
-            /**
-             * Delete children
-             */
-            if ($purge) {
-                $children = $this->getChildren($uid);
-                foreach ($children as $child) {
-                    $this->supprimer($child["uid"]);
+        if ($data["sample_id"] > 0) {
+            if ($this->verifyCollection($data)) {
+                /**
+                 * Delete children
+                 */
+                if ($purge) {
+                    $children = $this->getChildren($uid);
+                    foreach ($children as $child) {
+                        $this->supprimer($child["uid"]);
+                    }
                 }
+                /**
+                 * delete from subsample
+                 */
+                $sql = "delete from subsample where sample_id = :sample_id:";
+                $this->executeSQL($sql, array("sample_id" => $data["sample_id"]), true);
+                /**
+                 * suppression de l'echantillon
+                 */
+                parent::supprimer($data["sample_id"]);
+                /**
+                 * Suppression de l'objet
+                 */
+                if (!isset($this->object)) {
+                    $this->object = new ObjectClass;
+                }
+                $this->object->supprimer($uid);
+            } else {
+                throw new PpciException(sprintf(_("Vous ne disposez pas des droits nécessaires pour supprimer l'échantillon %1s"), $uid));
             }
-            /**
-             * delete from subsample
-             */
-            $sql = "delete from subsample where sample_id = :sample_id:";
-            $this->executeSQL($sql, array("sample_id" => $data["sample_id"]), true);
-            /**
-             * suppression de l'echantillon
-             */
-            parent::supprimer($data["sample_id"]);
-            /**
-             * Suppression de l'objet
-             */
-            if (!isset($this->object)) {
-                $this->object = new ObjectClass;
-            }
-            $this->object->supprimer($uid);
-        } else {
-            throw new PpciException(sprintf(_("Vous ne disposez pas des droits nécessaires pour supprimer l'échantillon %1s"), $uid));
         }
     }
 

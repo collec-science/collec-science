@@ -7,7 +7,7 @@
 {t}Nouveau...{/t}
 </a>
 {/if}
-<table id="eventTypeList" class="table table-bordered table-hover datatable " >
+<table id="eventTypeList" class="table table-bordered table-hover datatable display" >
 <thead>
 <tr>
 <th>{t}Nom{/t}</th>

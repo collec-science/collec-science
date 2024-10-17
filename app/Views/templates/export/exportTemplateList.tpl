@@ -5,7 +5,7 @@
     <img src="display/images/new.png" height="25">
   {t}Nouveau...{/t}
   </a>
-  <table id="exportTemplateList" class="table table-bordered table-hover datatable " >
+  <table id="exportTemplateList" class="table table-bordered table-hover datatable display" >
     <thead>
       <tr>
         <th>{t}Nom{/t}</th>

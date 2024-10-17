@@ -29,7 +29,7 @@
 	<div class="col-lg-8">
 		<div class="row">
 			<div class="col-lg-12">
-				<table class="table table-bordered table-hover datatable-searching" data-order='[[ 1, "asc" ]]'>
+				<table class="table table-bordered table-hover datatable-searching display" data-order='[[ 1, "asc" ]]'>
 					<thead>
 						<tr>
 							<th>{t}Login{/t}</th>

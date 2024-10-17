@@ -28,7 +28,7 @@
 		<a href="aclloginChange?acllogin_id=0">
 			{t}Nouveau login...{/t}
 		</a>
-		<table id="loginListe" class="table table-bordered table-hover datatable-searching" id="table_id" data-order='[[ 0, "asc" ]]'
+		<table id="loginListe" class="table table-bordered table-hover datatable-searching display" id="table_id" data-order='[[ 0, "asc" ]]'
 			data-page-length='25'>
 			<thead>
 				<tr>

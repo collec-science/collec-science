@@ -7,7 +7,7 @@
 {t}Nouveau...{/t}
 </a>
 {/if}
-<table id="labelList" class="table table-bordered table-hover datatable " >
+<table id="labelList" class="table table-bordered table-hover datatable display" >
 <thead>
 <tr>
 <th>{t}Nom de l'étiquette{/t}</th>

@@ -6,7 +6,7 @@
 			{t}Nouveau...{/t}
 		</a>
 		{/if}
-		<table id="protocolList" class="table table-bordered table-hover datatable ">
+		<table id="protocolList" class="table table-bordered table-hover datatable display">
 			<thead>
 				<tr>
 					<th>{t}Nom du protocole{/t}</th>

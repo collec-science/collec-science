@@ -447,17 +447,17 @@
         },
         {
             "name": "equinton/ppci",
-            "version": "v1.0.5",
-            "version_normalized": "1.0.5.0",
+            "version": "1.0.7",
+            "version_normalized": "1.0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/equinton/ppci.git",
-                "reference": "697bfd99901adbbe1fd6997658d29d06c7901565"
+                "reference": "50be0718415defa3dafbdbb7ab75636d30e8ef1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/equinton/ppci/zipball/697bfd99901adbbe1fd6997658d29d06c7901565",
-                "reference": "697bfd99901adbbe1fd6997658d29d06c7901565",
+                "url": "https://api.github.com/repos/equinton/ppci/zipball/50be0718415defa3dafbdbb7ab75636d30e8ef1e",
+                "reference": "50be0718415defa3dafbdbb7ab75636d30e8ef1e",
                 "shasum": ""
             },
             "require": {
@@ -470,7 +470,7 @@
                 "smarty/smarty": "^4.0",
                 "spomky-labs/otphp": "~10.0"
             },
-            "time": "2024-10-07T12:48:47+00:00",
+            "time": "2024-10-17T13:43:23+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -491,7 +491,7 @@
             "description": "PrototypePHP to CodeIgniter",
             "support": {
                 "issues": "https://github.com/equinton/ppci/issues",
-                "source": "https://github.com/equinton/ppci/tree/v1.0.5"
+                "source": "https://github.com/equinton/ppci/tree/1.0.7"
             },
             "install-path": "../equinton/ppci"
         },
@@ -791,17 +791,17 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.3.0",
-            "version_normalized": "5.3.0.0",
+            "version": "v5.3.1",
+            "version_normalized": "5.3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a"
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/3abf7425cd284141dc5d8d14a9ee444de3345d1a",
-                "reference": "3abf7425cd284141dc5d8d14a9ee444de3345d1a",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/8eea230464783aa9671db8eea6f8c6ac5285794b",
+                "reference": "8eea230464783aa9671db8eea6f8c6ac5285794b",
                 "shasum": ""
             },
             "require": {
@@ -814,7 +814,7 @@
                 "ircmaxell/php-yacc": "^0.0.7",
                 "phpunit/phpunit": "^9.0"
             },
-            "time": "2024-09-29T13:56:26+00:00",
+            "time": "2024-10-08T18:51:32+00:00",
             "bin": [
                 "bin/php-parse"
             ],
@@ -846,7 +846,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.1"
             },
             "install-path": "../nikic/php-parser"
         },
@@ -1548,17 +1548,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.35",
-            "version_normalized": "10.5.35.0",
+            "version": "10.5.36",
+            "version_normalized": "10.5.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "7ac8b4e63f456046dcb4c9787da9382831a1874b"
+                "reference": "aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/7ac8b4e63f456046dcb4c9787da9382831a1874b",
-                "reference": "7ac8b4e63f456046dcb4c9787da9382831a1874b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870",
+                "reference": "aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870",
                 "shasum": ""
             },
             "require": {
@@ -1592,7 +1592,7 @@
             "suggest": {
                 "ext-soap": "To be able to generate mocks based on WSDL files"
             },
-            "time": "2024-09-19T10:52:21+00:00",
+            "time": "2024-10-08T15:36:51+00:00",
             "bin": [
                 "phpunit"
             ],
@@ -1632,7 +1632,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.35"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.36"
             },
             "funding": [
                 {

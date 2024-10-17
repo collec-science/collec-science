@@ -30,7 +30,7 @@
 				</div>
 			</div>
 
-			<table id="metadataList" class="table table-bordered table-hover datatable " >
+			<table id="metadataList" class="table table-bordered table-hover datatable display" >
 				<thead>
 					<tr>
 						<th>{t}Nom du modèle{/t}</th>

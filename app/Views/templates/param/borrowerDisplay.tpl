@@ -67,7 +67,7 @@
 </fieldset>
 <fieldset class="row col-lg-6">
     <legend>{t}Emprunts de sous-échantillons{/t}</legend>
-    <table id="subsampleList" class="table table-bordered table-hover datatable " data-order='[[0,"asc"]]' >
+    <table id="subsampleList" class="table table-bordered table-hover datatable display" data-order='[[0,"asc"]]' >
         <thead>
             <tr>
                 <th>{t}Date{/t}</th>

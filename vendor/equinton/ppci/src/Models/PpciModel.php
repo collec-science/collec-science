@@ -644,10 +644,15 @@ class PpciModel extends Model
     }
     function getBinaryField(int $id, string $fieldName)
     {
-        $sql = "select " . $this->db->escape($fieldName) .
-            "from " . $this->db->escape($this->tablename) .
-            " where " . $this->db->escape($this->key) . " = :id:";
-        return $this->executeQuery($sql, ["id" => $id]);
+        $sql = "select " . $this->escapeField($fieldName) .
+            " as binarycontent from " . $this->escapeField($this->table) .
+            " where " . $this->escapeField($this->primaryKey) . " = :id:";
+        $data = $this->executeQuery($sql, ["id" => $id]);
+        if (!empty($data[0]["binarycontent"])) {
+            return pg_unescape_bytea($data[0]["binarycontent"]);
+        } else {
+            return null;
+        }
     }
 
     /**************************
@@ -716,5 +721,15 @@ class PpciModel extends Model
                 break;
             }
         }
+    }
+
+    /**
+     * surround the name of a column or a table with "
+     *
+     * @param string $name
+     * @return string
+     */
+    private function escapeField($name) {
+        return $this->qi.$name.$this->qi;
     }
 }

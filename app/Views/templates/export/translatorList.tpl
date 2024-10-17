@@ -10,7 +10,7 @@
     <img src="display/images/new.png" height="25">
   {t}Nouveau...{/t}
   </a>
-  <table id="translatorList" class="table table-bordered table-hover datatable " >
+  <table id="translatorList" class="table table-bordered table-hover datatable display" >
     <thead>
       <tr>
         <th>{t}Nom{/t}</th>

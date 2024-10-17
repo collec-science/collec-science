@@ -7,7 +7,7 @@
 {t}Nouveau...{/t}
 </a>
 {/if}
-<table id="referentList" class="table table-bordered table-hover datatable " >
+<table id="referentList" class="table table-bordered table-hover datatable display" >
 <thead>
 <tr>
 <th>{t}Nom du référent{/t}</th>

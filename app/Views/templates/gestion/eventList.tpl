@@ -5,7 +5,7 @@
 <img src="display/images/new.png" height="25">{t}Nouveau...{/t}
 </a>
 {/if}
-<table id="eventList" class="table table-bordered table-hover datatable " data-order='[[1,"desc"],[3,"desc"]]'>
+<table id="eventList" class="table table-bordered table-hover datatable display" data-order='[[1,"desc"],[3,"desc"]]'>
 <thead>
 <tr>
   <th class="center">{t}Détail{/t}</th>

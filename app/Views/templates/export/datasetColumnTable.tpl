@@ -1,4 +1,4 @@
-<table id="datasetColumnList" class="table table-bordered table-hover datatable-nopaging " data-order='[[7,"asc"]]'>
+<table id="datasetColumnList" class="table table-bordered table-hover datatable-nopaging display" data-order='[[7,"asc"]]'>
   <thead>
     <tr>
       <th>{t}Nom de la colonne{/t}</th>

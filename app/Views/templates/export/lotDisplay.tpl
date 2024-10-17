@@ -126,7 +126,7 @@
                     <input type="hidden" name="lot_id" value="{$data.lot_id}">
                     <div class="row">
                         <div class="col-lg-6 col-md-8">
-                            <table class="table table-bordered table-hover datatable " data-order='[[1,"asc"]]'>
+                            <table class="table table-bordered table-hover datatable display" data-order='[[1,"asc"]]'>
                                 <thead>
                                     <tr>
                                         <th class="center">

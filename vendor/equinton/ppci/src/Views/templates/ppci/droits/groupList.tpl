@@ -6,7 +6,7 @@
 {t}Nouveau groupe racine...{/t}
 </a>
 
-<table id="groupListe" class="table table-bordered table-hover " >
+<table id="groupListe" class="table table-bordered table-hover display" >
 <thead>
 <tr>
 <th>{t}Nom du groupe{/t}</th>

@@ -5,7 +5,7 @@
 <img src="display/images/crossed-calendar.png" height="25">{t}Nouveau...{/t}
 </a>
 {/if}
-<table id="bookingList" class="table table-bordered table-hover datatable " data-order='[0,"desc"]' >
+<table id="bookingList" class="table table-bordered table-hover datatable display" data-order='[0,"desc"]' >
 <thead>
 <tr>
 <th>{t}Du{/t}</th>

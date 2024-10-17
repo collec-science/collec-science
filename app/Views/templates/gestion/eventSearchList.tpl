@@ -39,8 +39,8 @@
             "stateDuration": 60 * 60 * 24 * 30,
             //"buttons": buttons,
             fixedHeader: {
-                header: true,
-                footer: true
+                header: false,
+                footer: false
             },
             layout: {
                 topStart: {
@@ -273,13 +273,7 @@
                 <th>{t}Date prévue{/t}</th>
                 <th>{t}UID de l'objet concerné{/t}</th>
                 <th>{t}Identifiant métier{/t}</th>
-                <th id="object_type_label_in_array">
-                    {if $eventSearch.object_type == 1}
-                    {t}Type d'échantillon{/t}
-                    {else}
-                    {t}Type de contenant{/t}
-                    {/if}
-                </th>
+                <th id="object_type_label_in_array">{if $eventSearch.object_type == 1}{t}Type d'échantillon{/t}{else}{t}Type de contenant{/t}{/if}</th>
                 <th>{t}Reste disponible (échantillons){/t}</th>
                 <th>{t}Commentaire{/t}</th>
             </tr>

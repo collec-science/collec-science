@@ -34,7 +34,7 @@
 <!-- Affichage des erreurs decouvertes -->
 {if $erreur == 1}
 <div class="row col-md-12">
-      <table id="containerList" class="table table-bordered table-hover datatable ">
+      <table id="containerList" class="table table-bordered table-hover datatable display">
             <thead>
                   <tr>
                         <th>{t}N° de ligne{/t}</th>

@@ -5,7 +5,7 @@
     <img src="display/images/new.png" height="25">
   {t}Nouveau...{/t}
   </a>
-  <table id="datasetTemplateList" class="table table-bordered table-hover datatable " >
+  <table id="datasetTemplateList" class="table table-bordered table-hover datatable display" >
     <thead>
       <tr>
         <th class="center">

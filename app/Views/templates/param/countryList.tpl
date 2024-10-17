@@ -1,7 +1,7 @@
 <h2>{t}Liste des pays{/t}</h2>
 <div class="row">
 	<div class="col-md-8">
-		<table id="countryList" class="table table-bordered table-hover datatable-searching " data-order='[[1,"asc"]]'>
+		<table id="countryList" class="table table-bordered table-hover datatable-searching display" data-order='[[1,"asc"]]'>
 			<thead>
 				<tr>
 					<th>{t}Code numérique{/t}</th>

@@ -3,7 +3,7 @@
 </script>
 <div class="col-md-12">
   <div class="row">
-  <table class="datatable-nopaging table table-bordered table-hover">
+  <table class="datatable-nopaging display table table-bordered table-hover">
     <thead>
       <th>{t}Nom de la variable{/t}</th>
       <th>{t}Contenu{/t}</th>

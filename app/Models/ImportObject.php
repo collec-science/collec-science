@@ -317,7 +317,7 @@ class ImportObject
             /**
              * Controle de la ligne
              */
-            $resControle = $this->controlLine($values);
+            $resControle = $this->controlLine($values, "import");
             if (!$resControle["code"]) {
                 throw new PpciException("Line $num : " . $resControle["message"]);
             }
@@ -771,9 +771,10 @@ class ImportObject
      * Controle une ligne
      *
      * @param array $data
+     * @param string $mode : control|import
      * @return array ["code"=>boolean,"message"=>string]
      */
-    function controlLine($data)
+    function controlLine($data, $mode = "control")
     {
         $retour = array(
             "code" => true,
@@ -903,6 +904,19 @@ class ImportObject
                     $retour["message"] .= _("La campagne de prélèvement de l'échantillon n'est pas connue.");
                 }
             }
+            /**
+             * Control of parent
+             */
+            if ($mode == "import") {
+                if (
+                    ($data["sample_parent_uid"] > 0 || !empty($data["sample_parent_identifier"]))
+                    && empty($data["parent_sample_id"])
+                ) {
+                    $retour["code"] = false;
+                    $retour["message"] .= _("Le parent de l'échantillon n'existe pas");
+                }
+            }
+
             /**
              * Verification des dates
              */

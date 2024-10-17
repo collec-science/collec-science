@@ -42,7 +42,7 @@ class Sample extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
     private $isDelete = false;
 
     function __construct()
@@ -410,7 +410,7 @@ class Sample extends PpciLibrary
             return $this->change();
         }
     }
-    function deleteMulti()
+    function deleteMulti(bool $withChildren = false)
     {
         /**
          * Delete all records in uid array
@@ -421,7 +421,8 @@ class Sample extends PpciLibrary
             $db->transBegin();
             try {
                 foreach ($uids as $uid) {
-                    $this->dataDelete($uid, true);
+                    $this->dataclass->supprimer($uid, $withChildren);
+                    $this->log->setLog($_SESSION["login"], get_class($this->dataclass) . "-delete", $uid);
                 }
                 $db->transCommit();
                 $this->message->set(_("Suppression effectuée"));

@@ -137,6 +137,7 @@ $routes->add('sampleImportStage2', 'Sample::importStage2');
 $routes->add('sampleImportStage3', 'Import::importExterneExec');
 $routes->add('switch', 'Switch::index');
 $routes->add('samplesDelete', 'Sample::deleteMulti');
+$routes->add('samplesDeleteWithChildren', 'Sample::deleteMultiWithChildren');
 $routes->add('samplesAssignReferent', 'Sample::referentAssignMulti');
 $routes->add('samplesCreateEvent', 'Sample::eventAssignMulti');
 $routes->add('samplesLending', 'Sample::lendingMulti');

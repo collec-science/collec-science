@@ -58,7 +58,12 @@ class Sample extends PpciController
     }
     function deleteMulti()
     {
-        $this->lib->deleteMulti();
+        $this->lib->deleteMulti(false);
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
+    }
+    function deleteMultiWithChildren()
+    {
+        $this->lib->deleteMulti(true);
         return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function referentAssignMulti()
@@ -122,6 +127,7 @@ class Sample extends PpciController
     function returnToOrigin($origin)
     {
         if (!empty($_REQUEST["moduleFrom"])) {
+            $_SESSION["filterMessages"] = $this->message->get();
             return redirect()->route($_REQUEST["moduleFrom"])->withHeaders()->withInput()->withCookies();
         } else {
             if ($origin == "sample") {

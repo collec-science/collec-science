@@ -336,6 +336,15 @@ class Sample extends PpciModel
         $data = $this->lireParamAsPrepared($sql, array("uid" => $uid));
         if ($this->verifyCollection($data)) {
             /**
+             * Delete children
+             */
+            if ($purge) {
+                $children = $this->getChildren($uid);
+                foreach ($children as $child) {
+                    $this->supprimer($child["uid"]);
+                }
+            }
+            /**
              * delete from subsample
              */
             $sql = "delete from subsample where sample_id = :sample_id:";

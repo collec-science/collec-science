@@ -237,12 +237,12 @@
 			var action = $( this ).val();
 			var actionClass = actions[ action ];
 			var value;
+			$("#sampleFormListPrint").attr("action", action);
 			for ( const key in actions ) {
 				if ( actions.hasOwnProperty( key ) ) {
 					value = actions[ key ];
 					if ( value == actionClass ) {
 						$( "." + value ).show();
-						$("#sampleFormListPrint").attr("action", action);
 					} else {
 						$( "." + value ).hide();
 					}
@@ -869,6 +869,7 @@
 					<option value="samplesCreateComposite">{t}Créer un échantillon composé à partir des échantillons sélectionnés{/t}</option>
 					<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 					<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
+					<option value="samplesDeleteWithChildren">{t}Supprimer les échantillons et tous les échantillons dérivés{/t}</option>
 					<option value="samplesDocument">{t}Ajouter les mêmes documents aux échantillons{/t}</option>
 				</select>
 				<div class="referentid" hidden>

@@ -27,10 +27,13 @@ $(document).ready(function () {
 	if (gestion == 1) {
 		maxcol = 16;
 	}
-	var lengthMenu = [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]];
+	var lengthMenu = [10, 25, 50, 100, 500, { label:'all',value: -1}];
 	var pageLength = 10;
 		try {
 			pageLength = myStorageSample.getItem("containerPageLength");
+			if (pageLength == -1) {
+				pageLength = 10;
+			} 
 		} catch (Exception) {
 		}
 	var table = $("#containerList").DataTable( {
@@ -65,7 +68,9 @@ $(document).ready(function () {
 			pageLength: pageLength
 		} );
 	table.on('length.dt', function (e, settings, len) {
-		myStorage.setItem('containerPageLength', len);
+		if (len > -1) {
+			myStorage.setItem('containerPageLength', len);
+		}
 	});
 	table.order(dataOrder).draw();
 	table.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {

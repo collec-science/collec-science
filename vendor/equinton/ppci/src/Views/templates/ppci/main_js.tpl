@@ -112,7 +112,7 @@
         $.fn.dataTable.ext.order.htmlIntl(locale, { "sensitivity": "base" });
         $.fn.dataTable.moment('{$LANG["date"]["formatdatetime"]}');
         $.fn.dataTable.moment('{$LANG["date"]["formatdate"]}');
-        var lengthMenu = [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]];
+        var lengthMenu = [10, 25, 50, 100, 500, { label:'all',value: -1}];
         $('.datatable').DataTable({
             "language": dataTableLanguage,
             "searching": false,
@@ -247,8 +247,13 @@
         });
 
         $(".datatable, .datatable-export-paging, .datatable-searching, .datatable-nosort").on('length.dt', function (e, settings, len) {
-            myStorage.setItem('pageLength', len);
+            if (len > -1) {
+                myStorage.setItem('pageLength', len);
+            }
         });
+        if (pageLength == -1) {
+            pageLength = 10;
+        }
         /* Initialisation for paging datatables */
         $(".datatable, .datatable-export-paging, .datatable-searching, .datatable-nosort").DataTable().page.len(pageLength).draw();
 

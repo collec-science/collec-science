@@ -16,6 +16,9 @@
 		var pageLength = 10;
 		try {
 			pageLength = myStorageSample.getItem("samplePageLength");
+			if (pageLength == -1) {
+				pageLength = 10;
+			}
 		} catch (Exception) {
 		}
 		var scrolly = "2000pt";
@@ -42,7 +45,7 @@
 					maxcol = 20;
 				}
 		}
-		var lengthMenu = [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]];
+		var lengthMenu = [10, 25, 50, 100, 500, { label:'all',value: -1}];
 		var buttons = [
 				'pageLength',
 				{
@@ -147,7 +150,9 @@
 			});
 		} );
 		$("#sampleList").on('length.dt', function (e, settings, len) {
-            myStorage.setItem('samplePageLength', len);
+			if (len > -1) {
+				myStorage.setItem('samplePageLength', len);
+			}
         });
 		/**
 		 * select or unselect samples

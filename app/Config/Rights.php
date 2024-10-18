@@ -140,6 +140,7 @@ class Rights extends RightsPpci
         "sampleImportStage2" => ["import", "collection"],
         "sampleImportStage3" => ["import", "collection"],
         "samplesDelete" => ["collection"],
+        "samplesDeleteWithChildren" => ["collection"],
         "samplesAssignReferent" => ["collection"],
         "samplesCreateEvent" => ["collection"],
         "samplesLending" => ["collection"],

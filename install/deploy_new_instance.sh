@@ -5,9 +5,9 @@
 REPO=https://github.com/collec-science/collec-science
 PHPVER=8.3
 PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
-echo "Installation of collec app "
+echo "Installation of Collec-Science app "
 echo "This script is available for Debian or Ubuntu server"
-echo "this script will install apache server and php, postgresql and deploy the current version of collec"
+echo "this script will install apache server and php, postgresql and deploy the current version of Collec-Science"
 read -p "Do you want to continue [y/n]?" response
 if [ "$response" = "y" ]
 then
@@ -28,12 +28,10 @@ echo "deb https://packages.sury.org/php/ $DISTRIBCODE main" | tee /etc/apt/sourc
 fi
 apt-get update
 # installing packages
-apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd php$PHPVER-curl postgresql postgresql-client postgis git
+apt-get -y install unzip apache2 libapache2-mod-evasive libapache2-mod-php$PHPVER php$PHPVER php$PHPVER-ldap php$PHPVER-pgsql php$PHPVER-mbstring php$PHPVER-xml php$PHPVER-zip php$PHPVER-imagick php$PHPVER-gd php$PHPVER-curl php$PHPVER-intl postgresql postgresql-client postgis git
 /usr/sbin/a2enmod ssl
 /usr/sbin/a2enmod headers
 /usr/sbin/a2enmod rewrite
-# chmod -R g+r /etc/ssl/private
-# usermod www-data -a -G ssl-cert
 /usr/sbin/a2ensite default-ssl
 /usr/sbin/a2ensite 000-default
 
@@ -87,7 +85,7 @@ chown www-data id_collec
 chgrp -R www-data .
 find . -type d -exec chmod 750 {} \;
 find . -type f -exec chmod 640 {} \;
-find writable -type d -exec chmod 770 {} \;
+chmod -R g+w writable
 
 # adjust php.ini values
 upload_max_filesize="=100M"
@@ -110,14 +108,18 @@ cp /tmp/policy.xml /etc/ImageMagick-6/
 sed -i "s/# en_GB.UTF-8/en_GB.UTF-8/" /etc/locale.gen
 /usr/sbin/locale-gen
 
+# Activation of automatic emails
+line="0 8 * * * /var/www/collec2App/collec-science/collectionsGenerateMail.sh"
+echo "$line" | crontab -u www-data -
+
 # creation of virtual host
 echo "creation of virtual site"
 cp install/apache2/collec2.conf /etc/apache2/sites-available/
 /usr/sbin/a2ensite collec2
 echo "you must modify the file /etc/apache2/sites-available/collec2.conf"
-echo "address of your instance, ssl parameters),"
+echo "as address of your instance, ssl parameters,"
 echo "then run this command:"
-echo "systemctl reload apache2"
+echo "systemctl restart apache2"
 
 echo ""
 echo "To activate the sending of e-mails, you must install an application as Postfix or msmtp and configure it"

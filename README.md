@@ -1,68 +1,62 @@
-# CodeIgniter 4 Application Starter
+# COLLEC-SCIENCE  
 
-## What is CodeIgniter?
+© INRAE, 2016-2024 - All rights reserved  
+Published under AGPL license
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+**WARNING**: Collec-Science is now hosted here: [https://github.com/collec-science/collec-science](https://github.com/collec-science/collec-science)
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Collec-Science is written with PHP, use the CodeIgniter framework and the complementary module [https://github.com/equinton/ppci](equinton/ppci). The documentation of *ppci* is available here: [https://equinton.github.io/ppcidocs](https://equinton.github.io/ppcidocs).
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Install
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+To install a new instance in Ubuntu or Debian server:
 
-## Installation & updates
+```
+wget https://github.com/collec-science/collec-science/raw/main/install/deploy_new_instance.sh
+sudo -s
+./deploy_new_instance.sh
+```
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## Upgrade
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+From version 24.0.0, the technology used to upgrade the application change. Consult this doc: [https://github.com/collec-science/collec-science/blob/main/install/update%20collec-science%20from%20version%2024.0.0_en.md](https://github.com/collec-science/collec-science/blob/main/install/update%20collec-science%20from%20version%2024.0.0_en.md)
 
-## Setup
+## What is it?
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+Collec-science is a software designed to manage collections of samples collected in the field.
 
-## Important Change with index.php
+Written in PHP, it works with a Postgresql database. It is built around the concept of objects, which are identified by a unique number. An object can be of two types: a container (both a site, a building, a room, a freezer, a cashier ...) than a sample.  
+A type of sample can be attached to a type of container, when the two notions are superimposed (the bottle containing the result of a fishing is both a container and the sample itself).  
+An object can be attached to several different business identifiers, events, or reservations.  
+A sample can be subdivided into other samples (of the same type or not). It can contain several identical elements (notion of subsampling), like undifferentiated fish scales.  
+A sample is necessarily attached to a collection. Modification rights are assigned at the collection.
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+## Main features
 
-**Please** read the user guide for a better explanation of how CI4 works!
+- Entry / exit of the stock of any object (a container can be placed in another container, such as a box in a cupboard, a cupboard in a room, etc.)
+- possibility to generate labels with or without QRCODE
+- event management for any object
+- reservation of any object
+- scanner reading (handheld) QRCODE, object by object, or in batch mode (multiple reading, then integration of movements in a single operation)
+- individual reading of QRCODES by tablet or smartphone (tested, but not very practical for performance reasons)
+- adding photos or attachments to any object
+- each sample can be derivated in others samples of the same type or not. It is possible to record the sampling of a part of the sample, to create or not a new sample. From v25.0.0 release, a sample can be created from multiple samples (composite samples).
 
-## Repository Management
+## Security
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+- software approved in 2019 by Irstea, resistant to opportunistic attacks according to the nomenclature of OWASP (ASVS project), but probably capable of meeting the needs of the standard level
+- possible identification according to several modalities: internal account database, ldap directory, ldap - database (mixed identification), via CAS server, or by delegation to an identification proxy server, such as LemonLDAP, for example
+- rights management that can rely on groups in an LDAP directory
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## License
 
-## Server Requirements
+Software diffused under AGPL License
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+## Copyright
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+Version 1.0 has been recorded with the French Agence de Protection des Programmes under the number IDDN.FR.001.470013.000.S.C.2016.000.31500
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+# Online documentation
 
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+Technical documentation will available in next months here : [https://collec-science.github.io/docs/](https://collec-science.github.io/docs/)

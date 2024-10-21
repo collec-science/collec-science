@@ -23,7 +23,7 @@
 # Ppci configuration
 #--------------------------------------------------------------------
 app.baseURL = 'https://collec.mysociety.com'
-BASE_DIR = "/var/www/collecApp/collec2"
+BASE_DIR = "/var/www/collec2App/collec-science"
 FRONT_DIR = "${BASE_DIR}/public"
 # If you have trouble with `.`, you could also use `_`.
 # Duration of conservation of logs in table gacl.log

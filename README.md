@@ -5,7 +5,7 @@ Published under AGPL license
 
 **WARNING**: Collec-Science is now hosted here: [https://github.com/collec-science/collec-science](https://github.com/collec-science/collec-science)
 
-Collec-Science is written with PHP, use the CodeIgniter framework and the complementary module [https://github.com/equinton/ppci](equinton/ppci). The documentation of *ppci* is available here: [https://equinton.github.io/ppcidocs](https://equinton.github.io/ppcidocs).
+Collec-Science is written with PHP, use the CodeIgniter framework and the complementary module [equinton/ppci](https://github.com/equinton/ppci). The documentation of *ppci* is available here: [https://equinton.github.io/ppcidocs](https://equinton.github.io/ppcidocs).
 
 ## Install
 
@@ -59,4 +59,4 @@ Version 1.0 has been recorded with the French Agence de Protection des Programme
 
 # Online documentation
 
-Technical documentation will available in next months here : [https://collec-science.github.io/docs/](https://collec-science.github.io/docs/)
+Technical documentation is available here : [https://collec-science.github.io/docs/](https://collec-science.github.io/docs/)

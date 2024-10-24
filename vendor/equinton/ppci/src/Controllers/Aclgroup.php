@@ -25,10 +25,6 @@ class Aclgroup extends PpciController
     {
         return $this->lib->list();
     }
-    function display()
-    {
-        return $this->lib->display();
-    }
     function change()
     {
         return $this->lib->change();
@@ -36,7 +32,7 @@ class Aclgroup extends PpciController
     function write()
     {
         if ($this->lib->write()) {
-            return $this->display();
+            return $this->list();
         } else {
             return $this->change();
         }
@@ -44,7 +40,7 @@ class Aclgroup extends PpciController
     function delete()
     {
         if ($this->lib->delete()) {
-            return $this->display();
+            return $this->list();
         } else {
             return $this->change();
         }

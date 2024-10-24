@@ -1,32 +1,56 @@
 <?php
+
 namespace Ppci\Controllers;
 
+use Psr\Log\LoggerInterface;
+use Ppci\Controllers\PpciController;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
+use Ppci\Libraries\LoginGestionLib as Lib;
 
-use \Ppci\Controllers\PpciController;
-use \Ppci\Libraries\LoginGestionLib;
+class LoginGestion extends PpciController
+{
+    protected Lib $lib;
 
-class LoginGestion extends PpciController {
-
-    protected $lib;
-    function __construct() {
-        $this->lib = new LoginGestionLib();
+    public function initController(
+        RequestInterface $request,
+        ResponseInterface $response,
+        LoggerInterface $logger
+    ) {
+        parent::initController($request, $response, $logger);
+        $this->lib = new Lib;
     }
-    function index() {
-        return $this->lib->index();
+
+    function list()
+    {
+        return $this->lib->list();
     }
-    function change() {
+    function change()
+    {
         return $this->lib->change();
     }
-    function write() {
-        return $this->lib->write();
+    function write()
+    {
+        if ($this->lib->write()) {
+            return $this->list();
+        } else {
+            return $this->change();
+        }
     }
-    function delete() {
-        return $this->lib->delete();
+    function delete()
+    {
+        if ($this->lib->delete()) {
+            return $this->list();
+        } else {
+            return $this->change();
+        }
     }
-    function changePassword() {
+    function changePassword()
+    {
         return $this->lib->changePassword();
     }
-    function changePasswordExec() {
+    function changePasswordExec()
+    {
         return $this->lib->changePasswordExec();
     }
 }

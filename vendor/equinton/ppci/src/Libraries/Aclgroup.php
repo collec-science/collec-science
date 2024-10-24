@@ -20,11 +20,6 @@ class Aclgroup extends PpciLibrary
 		$vue->set("ppci/droits/groupList.tpl", "corps");
         return $vue->send();
     }
-    function display() {
-        $vue = service("Smarty");
-        $vue->set($this->dataclass->lire($this->id), "data");
-		$vue->set("ppci/droits/groupDisplay.tpl", "corps");
-    }
     function change()
     {
         $vue = service("Smarty");

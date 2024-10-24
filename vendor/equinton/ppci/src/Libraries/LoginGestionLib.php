@@ -1,4 +1,5 @@
 <?php
+
 namespace Ppci\Libraries;
 
 use \Ppci\Models\LoginGestion;
@@ -12,7 +13,7 @@ class LoginGestionLib extends PpciLibrary
         $this->dataclass = new LoginGestion();
     }
 
-    function index()
+    function list()
     {
         $vue = service("Smarty");
         $data = $this->dataclass->getlist();
@@ -34,11 +35,10 @@ class LoginGestionLib extends PpciLibrary
                 $data["dbconnect_provisional_nb"] = $this->dataclass->getDbconnectProvisionalNb($data["login"]);
             }
             $vue->set($data, "data");
-            return $vue->send();
         } catch (\Exception $e) {
             $this->message->set($e->getMessage(), true);
-            return $this->index();
         }
+        return $vue->send();
     }
     function write()
     {
@@ -56,20 +56,20 @@ class LoginGestionLib extends PpciLibrary
                     $nom = $_REQUEST["login"];
                 }
                 $acllogin->addLoginByLoginAndName($_REQUEST["login"], $nom, $_REQUEST["mail"]);
-                return $this->index();
+                return true;
             }
         } catch (\Exception $e) {
             $this->message->set(_("Problème rencontré lors de l'enregistrement"), true);
             $this->message->setSyslog($e->getMessage());
-            return $this->change();
+            return false;
         }
     }
     function delete()
     {
         if ($this->dataDelete($_REQUEST["id"])) {
-            return $this->index();
+            return true;
         } else {
-            return $this->change();
+            return false;
         }
     }
 
@@ -99,7 +99,7 @@ class LoginGestionLib extends PpciLibrary
                 $mail = new Mail($this->appConfig->MAIL_param);
                 $data["APPLI_address"] = $this->appConfig->baseURL;
                 $data["applicationName"] = $_SESSION["dbparams"]["APPLI_title"];
-                if ($mail->SendMailSmarty( $data["mail"], $subject, "ppci/mail/passwordChanged.tpl", $data)) {
+                if ($mail->SendMailSmarty($data["mail"], $subject, "ppci/mail/passwordChanged.tpl", $data)) {
                     $this->log->setLog($_SESSION["login"], "password mail confirm", "ok");
                 } else {
                     $this->log->setLog($_SESSION["login"], "password mail confirm", "ko");
@@ -107,7 +107,7 @@ class LoginGestionLib extends PpciLibrary
             }
             $this->message->set(_("La modification du mot de passe a été enregistrée"));
         } catch (PpciException $e) {
-            $this->message->set($e->getMessage(),true);
+            $this->message->set($e->getMessage(), true);
         } finally {
             defaultPage();
         }

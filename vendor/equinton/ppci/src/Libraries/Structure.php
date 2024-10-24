@@ -1,6 +1,8 @@
 <?php
 namespace Ppci\Libraries;
 
+use Config\Database;
+
 class Structure extends PpciLibrary
 {
     /**
@@ -11,6 +13,9 @@ class Structure extends PpciLibrary
     function html($schemas = "")
     {
         if (empty ($schemas)) {
+            /**
+             * @var Database
+             */
             $dbconf = config("Database");
             $schemas = $dbconf->default["searchpath"];
         }
@@ -36,6 +41,9 @@ class Structure extends PpciLibrary
     function latex($schemas = "")
     {
         if (empty ($schemas)) {
+            /**
+             * @var Database
+             */
             $dbconf = config("Database");
             $schemas = $dbconf->default["searchpath"];
         }

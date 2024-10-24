@@ -19,8 +19,8 @@ $routes->add('disconnect', '\Ppci\Controllers\Login::disconnect');
 /**
  * Manage loginGestion
  */
-$routes->add('loginGestionList', '\Ppci\Controllers\LoginGestion::index');
-$routes->add('loginList', '\Ppci\Controllers\LoginGestion::index');
+$routes->add('loginGestionList', '\Ppci\Controllers\LoginGestion::list');
+$routes->add('loginList', '\Ppci\Controllers\LoginGestion::list');
 $routes->add('loginChange', '\Ppci\Controllers\LoginGestion::change');
 $routes->post('loginWrite', '\Ppci\Controllers\LoginGestion::write');
 $routes->post('loginDelete', '\Ppci\Controllers\LoginGestion::delete');

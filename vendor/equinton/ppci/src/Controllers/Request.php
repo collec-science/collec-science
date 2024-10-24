@@ -38,8 +38,13 @@ class Request extends PpciController
             return $this->change();
         }
     }
-    function delete() {
-        return $this->lib->delete();
+    function delete()
+    {
+        if ($this->lib->delete()) {
+            return $this->list();
+        } else {
+            return $this->change();
+        }
     }
     function exec() {
         return $this->lib->exec();

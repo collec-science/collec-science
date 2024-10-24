@@ -70,9 +70,9 @@ class Request extends PpciLibrary
     function delete()
     {
         if ($this->dataDelete($this->id)) {
-            return $this->list();
+            return true;
         } else {
-            return $this->change();
+            return false;
         }
     }
     function copy() {

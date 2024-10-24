@@ -1,24 +1,39 @@
 <?php
+
 namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\Translator as LibrariesTranslator;
 
-class Translator extends PpciController {
-protected $lib;
-function __construct() {
-$this->lib = new LibrariesTranslator();
-}
-function list() {
-return $this->lib->list();
-}
-function change() {
-return $this->lib->change();
-}
-function write() {
-return $this->lib->write();
-}
-function delete() {
-return $this->lib->delete();
-}
+class Translator extends PpciController
+{
+    protected $lib;
+    function __construct()
+    {
+        $this->lib = new LibrariesTranslator();
+    }
+    function list()
+    {
+        return $this->lib->list();
+    }
+    function change()
+    {
+        return $this->lib->change();
+    }
+    function write()
+    {
+        if ($this->lib->write()) {
+            return $this->list();
+        } else {
+            return $this->change();
+        }
+    }
+    function delete()
+    {
+        if ($this->lib->delete()) {
+            return $this->list();
+        } else {
+            return $this->change();
+        }
+    }
 }

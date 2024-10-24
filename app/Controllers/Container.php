@@ -12,7 +12,7 @@ class Container extends PpciController
     function __construct()
     {
         $this->lib = new LibrariesContainer();
-        if (!isset ($_SESSION["searchContainer"])) {
+        if (!isset($_SESSION["searchContainer"])) {
             $_SESSION["searchContainer"] = new SearchContainer;
         }
     }
@@ -30,11 +30,19 @@ class Container extends PpciController
     }
     function write()
     {
-        return $this->lib->write();
+        if ($this->lib->write()) {
+            return $this->display();
+        } else {
+            return $this->change();
+        }
     }
     function delete()
     {
-        return $this->lib->delete();
+        if ($this->lib->delete()) {
+            return $this->list();
+        } else {
+            return $this->change();
+        }
     }
     function getChildren()
     {
@@ -62,35 +70,43 @@ class Container extends PpciController
     }
     function importStage3()
     {
-        return $this->lib->importStage3();
+        $this->lib->importStage3();
+        return $this->lib->importStage1();
     }
     function lendingMulti()
     {
-        return $this->lib->lendingMulti();
+        $this->lib->lendingMulti();
+        return $this->lib->list();
     }
     function exitMulti()
     {
-        return $this->lib->exitMulti();
+        $this->lib->exitMulti();
+        return $this->lib->list();
     }
     function deleteMulti()
     {
-        return $this->lib->deleteMulti();
+        $this->lib->deleteMulti();
+        return $this->lib->list();
     }
     function setStatus()
     {
-        return $this->lib->setStatus();
+        $this->lib->setStatus();
+        return $this->lib->list();
     }
     function entryMulti()
     {
-        return $this->lib->entryMulti();
+        $this->lib->entryMulti();
+        return $this->lib->list();
     }
     function referentMulti()
     {
-        return $this->lib->referentMulti();
+        $this->lib->referentMulti();
+        return $this->lib->list();
     }
     function setCollection()
     {
-        return $this->lib->setCollection();
+        $this->lib->setCollection();
+        return $this->lib->list();
     }
     function verifyCyclic()
     {
@@ -104,7 +120,8 @@ class Container extends PpciController
     {
         return $this->lib->exportGlobal();
     }
-    function isSlotFull() {
+    function isSlotFull()
+    {
         return $this->lib->isSlotFull();
     }
 }

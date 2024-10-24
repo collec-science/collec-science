@@ -76,14 +76,14 @@ class Protocol extends PpciLibrary
                 $_REQUEST[$this->keyName] = $this->id;
                 $db->transCommit();
                 $this->message->set(_("Enregistrement effectué"));
-                return $this->list();
+                return true;
             }
         } catch (PpciException $e) {
             if ($db->transEnabled) {
                 $db->transRollback();
             }
             $this->message->set($e->getMessage(), true);
-            return $this->change();
+            return false;
         }
     }
     function delete()
@@ -93,9 +93,9 @@ class Protocol extends PpciLibrary
          */
         try {
             $this->dataDelete($this->id);
-            return $this->list();
+            return true;
         } catch (PpciException $e) {
-            return $this->change();
+            return false;
         }
     }
     function file()
@@ -108,7 +108,7 @@ class Protocol extends PpciLibrary
             return $this->vue->send();
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);
-            return $this->list();
+            return true;
         }
     }
 }

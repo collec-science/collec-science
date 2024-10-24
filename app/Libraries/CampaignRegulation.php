@@ -45,10 +45,9 @@ class CampaignRegulation extends PpciLibrary
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                $campaign = new LibrariesCampaign;
-                return $campaign->display();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
             return false;
@@ -62,7 +61,7 @@ class CampaignRegulation extends PpciLibrary
             $campaign = new LibrariesCampaign;
             return $campaign->display();
         } catch (PpciException $e) {
-            return $this->change();
+            return false;
         }
     }
 }

@@ -61,14 +61,13 @@ class Subsample extends PpciLibrary
         try {
             $res = $this->dataclass->writeSubsample($_REQUEST);
             if ($res) {
-                $sample = new LibrariesSample;
-                return $sample->display();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);
-            return $this->change();
+            return false;
         }
     }
     function delete()
@@ -78,10 +77,9 @@ class Subsample extends PpciLibrary
          */
         try {
             $this->dataDelete($this->id);
-            $sample = new LibrariesSample;
-            return $sample->display();
+            return true;
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
 }

@@ -68,7 +68,7 @@ class Lot extends PpciLibrary
                     $this->id = $_REQUEST["lot_id"];
                     $db->transCommit();
                     $this->message->set(_("Lot créé"));
-                    return $this->display();
+                    return true;
                 } catch (PpciException $e) {
                     $this->message->set(_("Une erreur est survenue pendant la création du lot"), true);
                     $this->message->setSyslog($e->getMessage());
@@ -114,12 +114,12 @@ class Lot extends PpciLibrary
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->display();
+                return true;
             } else {
-                return $sample->list();
+                return false;
             }
         } catch (PpciException) {
-            return $sample->list();
+            return false;
         }
     }
     function delete()
@@ -129,9 +129,9 @@ class Lot extends PpciLibrary
          */
         try {
             $this->dataDelete($this->id);
-            return $this->list();
+            return true;
         } catch (PpciException $e) {
-            return $this->display();
+            return true;
         }
     }
     function deleteSamples()
@@ -151,6 +151,5 @@ class Lot extends PpciLibrary
                 $db->transRollback();
             }
         }
-        return $this->display();
     }
 }

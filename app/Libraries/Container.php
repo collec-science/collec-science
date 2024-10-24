@@ -250,12 +250,12 @@ class Container extends PpciLibrary
                     );
                     $movement->ecrire($data);
                 }
-                return $this->display();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
 
@@ -274,17 +274,17 @@ class Container extends PpciLibrary
                 }
                 $db->transCommit();
                 $this->message->set(_("Suppression effectuée"));
-                return $this->list();
+                return true;
             } catch (PpciException $e) {
                 $this->message->set($e->getMessage() . " ($uid)");
                 if ($db->transEnabled) {
                     $db->transRollback();
                 }
-                return $this->list();
+                return true;
             }
         } else {
             $this->message->set(_("Pas de contenants sélectionnés"), true);
-            return $this->list();
+            return true;
         }
     }
     function delete()
@@ -295,9 +295,10 @@ class Container extends PpciLibrary
         try {
             $this->dataDelete($this->id);
             $this->isDelete = true;
+            return true;
         } catch (PpciException $e) {
+            return false;
         }
-        return $this->list();
     }
 
 
@@ -471,7 +472,7 @@ class Container extends PpciLibrary
                 }
             }
         }
-        return $this->list();
+        return true;
     }
 
     function exitMulti()
@@ -495,7 +496,7 @@ class Container extends PpciLibrary
         } else {
             $this->message->set(_("Aucun contenant n'a été sélectionné"), true);
         }
-        return $this->list();
+        return true;
     }
     function entryMulti()
     {
@@ -527,7 +528,7 @@ class Container extends PpciLibrary
         } else {
             $this->message->set(_("Aucun objet n'a été sélectionné, ou aucun contenant pour le stockage n'a été indiqué"), true);
         }
-        return $this->list();
+        return true;
     }
 
     function getOccupationAjax()
@@ -590,7 +591,7 @@ class Container extends PpciLibrary
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du statut"), true);
             $this->message->set($oe->getMessage());
         }
-        return $this->list();
+        return true;
     }
     function referentMulti()
     {
@@ -618,7 +619,7 @@ class Container extends PpciLibrary
                 $db->transRollback();
             }
         }
-        return $this->list();
+        return true;
     }
     function getChildren()
     {
@@ -642,7 +643,7 @@ class Container extends PpciLibrary
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la collection"), true);
             $this->message->set($oe->getMessage());
         }
-        return $this->list();
+        return true;
     }
 
     function setRelatedTablesToView()

@@ -22,10 +22,18 @@ class DatasetType extends PpciController
     }
     function write()
     {
-        return $this->lib->write();
+        if ($this->lib->write()) {
+            return $this->list();
+        } else {
+            return $this->change();
+        }
     }
     function delete()
     {
-        return $this->lib->delete();
+        if ($this->lib->delete()) {
+            return $this->list();
+        } else {
+            return $this->change();
+        }
     }
 }

@@ -18,10 +18,12 @@ class DatasetColumn extends PpciController
     }
     function write()
     {
-        return $this->lib->write();
+        $this->lib->write();
+        return $this->lib->change();
     }
     function delete()
     {
-        return $this->lib->delete();
+        $this->lib->delete();
+        return $this->change();
     }
 }

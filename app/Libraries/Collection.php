@@ -77,12 +77,12 @@ class Collection extends PpciLibrary
 
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->list();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
     function delete()
@@ -93,10 +93,10 @@ class Collection extends PpciLibrary
         try {
             $this->dataclass->supprimer($this->id);
             $this->message->set(_("Suppression effectuée"));
-            return $this->list();
+            return true;
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);
-            return $this->change();
+            return false;
         }
     }
     function getAjax()

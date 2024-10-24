@@ -4,13 +4,16 @@ namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\Export as LibrariesExport;
+use App\Libraries\Lot;
 
 class Export extends PpciController
 {
     protected $lib;
+    protected Lot $lot;
     function __construct()
     {
         $this->lib = new LibrariesExport();
+        $this->lot = new Lot;
     }
     function change()
     {
@@ -18,14 +21,23 @@ class Export extends PpciController
     }
     function write()
     {
-        return $this->lib->write();
+        if ($this->lib->write()) {
+            return $this->lot->display();
+        } else {
+            return $this->change();
+        }
     }
     function delete()
     {
-        return $this->lib->delete();
+        if ($this->lib->delete()) {
+            return $this->lot->display();
+        } else {
+            return $this->change();
+        }
     }
     function exec()
     {
-        return $this->lib->exec();
+        $this->lib->exec();
+        return $this->lot->display();
     }
 }

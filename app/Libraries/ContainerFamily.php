@@ -49,12 +49,12 @@ class ContainerFamily extends PpciLibrary
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->list();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
 
@@ -65,9 +65,9 @@ class ContainerFamily extends PpciLibrary
          */
         try {
             $this->dataDelete($this->id);
-            return $this->list();
+            return true;
         } catch (PpciException $e) {
-            return $this->change();
+            return false;
         }
     }
 }

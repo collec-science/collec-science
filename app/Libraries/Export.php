@@ -51,13 +51,12 @@ class Export extends PpciLibrary
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                $lot = new LibrariesLot;
-                return $lot->display();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
     function delete()
@@ -67,10 +66,9 @@ class Export extends PpciLibrary
 		 */
         try {
             $this->dataDelete($this->id);
-            $lot = new LibrariesLot;
-            return $lot->display();
+            return true;
         } catch (PpciException $e) {
-            return $this->change();
+            return false;
         }
     }
     function exec()
@@ -121,6 +119,5 @@ class Export extends PpciLibrary
         } else {
             $this->message->set(_("Le lot indiqué n'existe pas"), true);
         }
-        return $llot->display();
     }
 }

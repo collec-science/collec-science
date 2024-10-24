@@ -64,21 +64,21 @@ class ExportModel extends PpciLibrary
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->display();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
     function delete()
     {
         try {
             $this->dataDelete($this->id);
-            return $this->list();
+            return true;
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
     function exportExec() {
@@ -121,7 +121,7 @@ class ExportModel extends PpciLibrary
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);
             $this->message->setSyslog($e->getMessage());
-            return $this->list();
+            return $this->display();
         }
     }
     function importExec()

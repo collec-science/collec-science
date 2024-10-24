@@ -66,9 +66,9 @@ class DatasetColumn extends PpciLibrary
                 $_REQUEST[$this->keyName] = $this->id;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
-        return $this->change();
+        return false;
     }
 
     function delete()
@@ -81,6 +81,6 @@ class DatasetColumn extends PpciLibrary
             $_REQUEST[$this->keyName] = 0;
         } catch (PpciException) {
         }
-        return $this->change();
+        return false;
     }
 }

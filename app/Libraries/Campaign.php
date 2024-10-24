@@ -93,12 +93,12 @@ class Campaign extends PpciLibrary
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->display();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
 
@@ -109,9 +109,9 @@ class Campaign extends PpciLibrary
          */
         try {
             $this->dataDelete($this->id);
-            return $this->list();
+            return true;
         } catch (PpciException $e) {
-            return $this->change();
+            return false;
         }
     }
 
@@ -161,11 +161,11 @@ class Campaign extends PpciLibrary
                 }
             } finally {
                 $this->dataclass->autoFormatDate = true;
-                return $this->list();
+                return true;
             }
         } else {
             $this->message->set(_("Impossible de charger le fichier à importer"));
-            return $this->list();
+            return true;
         }
     }
 }

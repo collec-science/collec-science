@@ -72,12 +72,12 @@ class DatasetTemplate extends PpciLibrary
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->display();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
 
@@ -88,9 +88,9 @@ class DatasetTemplate extends PpciLibrary
 		 */
         try {
             $this->dataDelete($this->id);
-            return $this->list();
+            return true;
         } catch (PpciException $e) {
-            return $this->change();
+            return false;
         }
     }
     function duplicate()
@@ -100,13 +100,13 @@ class DatasetTemplate extends PpciLibrary
             $db->transBegin();
             $_REQUEST[$this->keyName] = $this->dataclass->duplicate($this->id);
             $db->transCommit();
-            return $this->change();
+            return false;
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);
             if ($db->transEnabled) {
                 $db->transRollback();
             }
-            return $this->list();
+            return true;
         }
     }
 }

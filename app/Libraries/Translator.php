@@ -81,12 +81,12 @@ class Translator extends PpciLibrary
             $this->id = $this->dataWrite($data);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return $this->change();
+                return false;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
     function delete()
@@ -96,9 +96,9 @@ class Translator extends PpciLibrary
 		 */
         try {
             $this->dataDelete($this->id);
-            return $this->list();
+            return true;
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
 }

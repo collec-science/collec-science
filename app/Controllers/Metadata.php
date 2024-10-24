@@ -26,11 +26,19 @@ class Metadata extends PpciController
     }
     function write()
     {
-        return $this->lib->write();
+        if ($this->lib->write()) {
+            return $this->display();
+        } else {
+            return $this->change();
+        }
     }
     function delete()
     {
-        return $this->lib->delete();
+        if ($this->lib->delete()) {
+            return $this->list();
+        } else {
+            return $this->change();
+        }
     }
     function copy()
     {
@@ -46,6 +54,7 @@ class Metadata extends PpciController
     }
     function import()
     {
-        return $this->lib->import();
+        $this->lib->import();
+        return $this->list();
     }
 }

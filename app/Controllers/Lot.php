@@ -26,14 +26,23 @@ class Lot extends PpciController
     }
     function write()
     {
-        return $this->lib->write();
+        if ($this->lib->write()) {
+            return $this->display();
+        } else {
+            return $this->list();
+        }
     }
     function delete()
     {
-        return $this->lib->delete();
+        if ($this->lib->delete()) {
+            return $this->list();
+        } else {
+            return $this->list();
+        }
     }
     function deleteSamples()
     {
-        return $this->lib->deleteSamples();
+        $this->lib->deleteSamples();
+        return $this->list();
     }
 }

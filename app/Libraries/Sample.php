@@ -298,7 +298,7 @@ class Sample extends PpciLibrary
         $data = $this->dataRead($this->id, "gestion/sampleChange.tpl");
         if ($data["sample_id"] > 0 && !$this->dataclass->verifyCollection($data)) {
             $this->message->set(_("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"), true);
-            return $this->display();
+            return $this->list();
         } else {
             /**
              * Recuperation des informations concernant l'echantillon parent
@@ -389,12 +389,12 @@ class Sample extends PpciLibrary
                  * pour recuperation des informations rattachees pour duplication ou autre
                  */
                 $_SESSION["last_sample_id"] = $this->id;
-                return $this->display();
+                return true;
             } else {
-                return $this->change();
+                return false;
             }
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
     function delete()
@@ -405,9 +405,9 @@ class Sample extends PpciLibrary
         try {
             $this->dataDelete($_REQUEST["uid"]);
             $this->isDelete = true;
-            return $this->list();
+            return true;
         } catch (PpciException $e) {
-            return $this->change();
+            return false;
         }
     }
     function deleteMulti(bool $withChildren = false)
@@ -938,6 +938,5 @@ class Sample extends PpciLibrary
             $this->message->set($e->getMessage(), true);
             $db->transRollback();
         }
-        return $this->list();
     }
 }

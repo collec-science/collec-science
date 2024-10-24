@@ -92,7 +92,7 @@ class Request extends PpciLibrary
         } catch (PpciException) {
             return false;
         }
-        //return $this->change();
+        //return false;
     }
     function delete()
     {
@@ -101,9 +101,9 @@ class Request extends PpciLibrary
          */
         try {
             $this->dataDelete($this->id);
-            return $this->list();
+            return true;
         } catch (PpciException) {
-            return $this->change();
+            return false;
         }
     }
     function copy()
@@ -117,5 +117,6 @@ class Request extends PpciLibrary
                 $this->vue->set($data, "data");
             }
         }
+        return $this->vue->send();
     }
 }

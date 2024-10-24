@@ -93,13 +93,13 @@ class Label extends PpciLibrary
                     true
                 );
             }
-            return $this->change();
+            return false;
         } else {
             try {
                 $this->dataDelete($this->id);
-                return $this->list();
+                return true;
             } catch (PpciException) {
-                return $this->change();
+                return false;
             }
         }
     }

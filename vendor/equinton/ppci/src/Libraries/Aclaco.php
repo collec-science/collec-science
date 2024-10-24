@@ -42,18 +42,17 @@ class Aclaco extends PpciLibrary
     {
         try {
             $this->id = $this->dataWrite( $_POST);
-            $appli = new LibrariesAclappli();
-            return $appli->display();
+            return true;
         } catch (\Exception) {
-            return $this->change();
+            return false;
         }
     }
     function delete()
     {
         if ($this->dataDelete($this->id)) {
-            return $this->display();
+            return true;
         } else {
-            return $this->change();
+            return false;
         }
     }
 }

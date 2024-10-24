@@ -70,23 +70,23 @@ $routes->add("getLastRelease", '\Ppci\Controllers\Miscellaneous::getLastRelease'
 /**
  * GACL configuration
  */
-$routes->add('appliList', '\Ppci\Controllers\Gacl::appliindex');
-$routes->add('appliDisplay', '\Ppci\Controllers\Gacl::applidisplay');
-$routes->add('appliChange', '\Ppci\Controllers\Gacl::applichange');
-$routes->post('appliWrite', '\Ppci\Controllers\Gacl::appliwrite');
-$routes->post('appliDelete', '\Ppci\Controllers\Gacl::applidelete');
-$routes->add('aclloginList', '\Ppci\Controllers\Gacl::loginindex');
-$routes->add('aclloginChange', '\Ppci\Controllers\Gacl::loginchange');
-$routes->post('aclloginWrite', '\Ppci\Controllers\Gacl::loginwrite');
-$routes->post('aclloginDelete', '\Ppci\Controllers\Gacl::logindelete');
-$routes->add('groupList', '\Ppci\Controllers\Gacl::groupindex');
-$routes->add('groupChange', '\Ppci\Controllers\Gacl::groupchange');
-$routes->post('groupWrite', '\Ppci\Controllers\Gacl::groupwrite');
-$routes->post('groupDelete', '\Ppci\Controllers\Gacl::groupdelete');
-$routes->add('acoDisplay', '\Ppci\Controllers\Gacl::acodisplay');
-$routes->add('acoChange', '\Ppci\Controllers\Gacl::acochange');
-$routes->post('acoWrite', '\Ppci\Controllers\Gacl::acowrite');
-$routes->post('acoDelete', '\Ppci\Controllers\Gacl::acodelete');
+$routes->add('appliList', '\Ppci\Controllers\Aclappli::list');
+$routes->add('appliDisplay', '\Ppci\Controllers\Aclappli::display');
+$routes->add('appliChange', '\Ppci\Controllers\Aclappli::change');
+$routes->post('appliWrite', '\Ppci\Controllers\Aclappli::write');
+$routes->post('appliDelete', '\Ppci\Controllers\Aclappli::delete');
+$routes->add('aclloginList', '\Ppci\Controllers\Acllogin::list');
+$routes->add('aclloginChange', '\Ppci\Controllers\Acllogin::change');
+$routes->post('aclloginWrite', '\Ppci\Controllers\Acllogin::write');
+$routes->post('aclloginDelete', '\Ppci\Controllers\Acllogin::delete');
+$routes->add('groupList', '\Ppci\Controllers\Aclgroup::list');
+$routes->add('groupChange', '\Ppci\Controllers\Aclgroup::change');
+$routes->post('groupWrite', '\Ppci\Controllers\Aclgroup::write');
+$routes->post('groupDelete', '\Ppci\Controllers\Aclgroup::delete');
+$routes->add('acoDisplay', '\Ppci\Controllers\Aclaco::display');
+$routes->add('acoChange', '\Ppci\Controllers\Aclaco::change');
+$routes->post('acoWrite', '\Ppci\Controllers\Aclaco::write');
+$routes->post('acoDelete', '\Ppci\Controllers\Aclaco::delete');
 
 /**
  * SQL requests

@@ -2,7 +2,7 @@
 <div class="row">
       <div class="col-md-6">
             <a href="appliList">{t}Retour à la liste des applications{/t}</a>
-            <form class="form-horizontal" id="appliForm" method="post" action="appliChange">
+            <form class="form-horizontal" id="appliForm" method="post" action="appliWrite">
                   <input type="hidden" name="aclappli_id" value="{$data.aclappli_id}">
                   <input type="hidden" name="moduleBase" value="appli">
                   <div class="form-group">

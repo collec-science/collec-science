@@ -36,17 +36,17 @@ class Acllogin extends PpciLibrary
     {
         try {
             $this->id = $this->dataWrite($_REQUEST);
-            return $this->list();
+            return true;
         } catch (\Exception $e) {
-            return $this->change();
+            return false;
         }
     }
     function delete()
     {
         if ($this->dataDelete($this->id)) {
-            return $this->list();
+            return true;
         } else {
-            return $this->change();
+            return false;
         }
     }
 }

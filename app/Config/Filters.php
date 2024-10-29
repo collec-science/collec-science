@@ -50,7 +50,8 @@ class Filters extends BaseConfig
                 'apiv1sampleWrite',
                 'apiv1sampleDelete',
                 'apiv1movementWrite',
-                'apiv1sampleList'
+                'apiv1sampleList',
+                'samplePrintLabel'
             ]],
             'invalidchars',
             /*'legacyRoute',*/

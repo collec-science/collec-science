@@ -88,7 +88,7 @@
     </div>
     <div class="tab-pane fade" id="navRules" role="tabpanel" aria-labelledby="tabRules">
         <div class="row">
-            <a href="campaignRegulationChange&campaign_regulation_id=0&campaign_id={$data.campaign_id}">
+            <a href="campaignRegulationChange?campaign_regulation_id=0&campaign_id={$data.campaign_id}">
                 {t}Nouvelle réglementation{/t}</a>
         </div>
         <div class="row">
@@ -106,7 +106,7 @@
                         <tr>
                             <td>
                                 <a
-                                    href="campaignRegulationChange&campaign_regulation_id={$regulation.campaign_regulation_id}&campaign_id={$regulation.campaign_id}">
+                                    href="campaignRegulationChange?campaign_regulation_id={$regulation.campaign_regulation_id}&campaign_id={$regulation.campaign_id}">
                                     {$regulation.regulation_name}
                                 </a>
                             </td>

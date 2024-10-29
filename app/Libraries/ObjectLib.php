@@ -15,8 +15,8 @@ class ObjectLib extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
-    private $uids;
+
+    private $uids = [];
 
     function __construct()
     {
@@ -41,15 +41,18 @@ class ObjectLib extends PpciLibrary
             $is_partial = $_REQUEST["is_partial"];
         }
         if (!empty($_REQUEST["uid"])) {
-        $this->vue = service("AjaxView");
-        $this->vue->set($this->dataclass->getDetail($_REQUEST["uid"], $_REQUEST["is_container"], $is_partial));
-        return $this->vue->send();
+            $this->vue = service("AjaxView");
+            $this->vue->set($this->dataclass->getDetail($_REQUEST["uid"], $_REQUEST["is_container"], $is_partial));
+            return $this->vue->send();
         }
     }
     function printLabelDirect()
     {
         if ($_REQUEST["printer_id"]) {
             try {
+                if (count($this->uids) == 0) {
+                    throw new PpciException(_("Aucune ligne sélectionnée, impression impossible"));
+                }
                 $pdffile = $this->dataclass->generatePdf($this->uids);
 
                 $printer = new Printer();

@@ -35,9 +35,8 @@ class ObjectController extends PpciController
     }
     function printLabelDirect($origin)
     {
-        if (! $this->lib->printLabelDirect()) {
-            return $this->returnToOrigin($origin);
-        }
+        $this->lib->printLabelDirect();
+        return $this->returnToOrigin($origin);
     }
 
     function returnToOrigin($origin, $res = true)

@@ -166,7 +166,6 @@
 			$( "#lsamplechek" ).text( libelle );
 		} );
 
-		$( "#sampleSpinner" ).hide();
 		/**
 		 * Actions on the list, for export and print
 		 */
@@ -176,12 +175,10 @@
 		} );
 		$( "#samplelabels" ).on( "keypress click", function () {
 			$( "#samplemodule" ).val( "samplePrintLabel" );
-			$("#sampleSpinner").show();
 			$( this.form ).submit();
 		} );
 		$( "#sampledirect" ).on( "keypress click", function () {
 			$( "#samplemodule" ).val( "samplePrintDirect" );
-			$( "#sampleSpinner" ).show();
 			$( this.form ).prop( 'target', '_self' ).submit();
 		} );
 		$( "#sampleExport" ).on( "keypress click", function () {
@@ -689,7 +686,6 @@
 					{/section}
 				</select>
 				<button id="samplelabels" class="btn btn-primary">{t}Étiquettes{/t}</button>
-				<img id="sampleSpinner" src="display/images/spinner.gif" height="25">
 
 				{if !empty($printers)}
 				<select id="printers" name="printer_id">

@@ -91,20 +91,16 @@ $(document).ready(function () {
 		}
 		$("#lcheckContainer").text(libelle);
 	});
-
-	$("#containerSpinner").hide();
 	$('#containercsvfile').on('keypress click',function() {
 		$(this.form).find("input[name='module']").val("containerExportCSV");
 		$(this.form).prop('target', '_self').submit();
 	});
 	$("#containerlabels").on('click keypress', function() {
 		$(this.form).find("input[name='module']").val("containerPrintLabel");
-		$("#containerSpinner").show();
 		$(this.form).prop('target', '_self').submit();
 	});
 	$("#containerdirect").on('keypress click', function() {
 		$(this.form).find("input[name='module']").val("containerPrintDirect");
-		$("#containerSpinner").show();
 		$(this.form).prop('target', '_self').submit();
 	});
 	$("#containerExport").on("keypress click", function () {
@@ -420,7 +416,6 @@ $(document).ready(function () {
 					{/section}
 				</select>
 				<button id="containerlabels" class="btn btn-primary">{t}Étiquettes{/t}</button>
-				<img id="containerSpinner" src="display/images/spinner.gif" height="25">
 				<button id="containercsvfile" class="btn btn-primary">{t}Fichier CSV{/t}</button>
 				{if count($printers) > 0}
 					<select id="printers" name="printer_id">

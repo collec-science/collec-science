@@ -92,19 +92,24 @@ $(document).ready(function () {
 		$("#lcheckContainer").text(libelle);
 	});
 	$('#containercsvfile').on('keypress click',function() {
-		$(this.form).find("input[name='module']").val("containerExportCSV");
+		//$(this.form).find("input[name='module']").val("containerExportCSV");
+		$(this.form).attr("action", "containerExportCSV");
 		$(this.form).prop('target', '_self').submit();
 	});
 	$("#containerlabels").on('click keypress', function() {
-		$(this.form).find("input[name='module']").val("containerPrintLabel");
+		//$(this.form).find("input[name='module']").val("containerPrintLabel");
+		$(this.form).attr("action", "containerPrintLabel");
 		$(this.form).prop('target', '_self').submit();
 	});
 	$("#containerdirect").on('keypress click', function() {
-		$(this.form).find("input[name='module']").val("containerPrintDirect");
+		//$(this.form).find("input[name='module']").val("containerPrintDirect");
+		$(this.form).attr("action", "containerPrintDirect");
 		$(this.form).prop('target', '_self').submit();
 	});
 	$("#containerExport").on("keypress click", function () {
-		$(this.form).find("input[name='module']").val("containerExportGlobal");
+		//$(this.form).find("input[name='module']").val("containerExportGlobal");
+		$(this.form).attr("action", "containerExportGlobal");
+		$(this.form).prop('target', '_self').submit();
 	});
 	$("#checkedButtonContainer").on ("keypress click", function(event) {
 		var action = $("#checkedActionContainer").val();

@@ -170,19 +170,23 @@
 		 * Actions on the list, for export and print
 		 */
 		$( '#samplecsvfile' ).on( 'keypress click', function () {
-			$( this.form ).find( "input[name='module']" ).val( "sampleExportCSV" );
+			//$( this.form ).find( "input[name='module']" ).val( "sampleExportCSV" );
+			$(this.form).attr("action", "sampleExportCSV");
 			$( this.form ).prop( 'target', '_self' ).submit();
 		} );
 		$( "#samplelabels" ).on( "keypress click", function () {
-			$( "#samplemodule" ).val( "samplePrintLabel" );
+			//$( "#samplemodule" ).val( "samplePrintLabel" );
+			$(this.form).attr("action", "samplePrintLabel");
 			$( this.form ).submit();
 		} );
 		$( "#sampledirect" ).on( "keypress click", function () {
-			$( "#samplemodule" ).val( "samplePrintDirect" );
+			//$( "#samplemodule" ).val( "samplePrintDirect" );
+			$(this.form).attr("action", "samplePrintDirect");
 			$( this.form ).prop( 'target', '_self' ).submit();
 		} );
 		$( "#sampleExport" ).on( "keypress click", function () {
-			$( "#samplemodule" ).val( "sampleExport" );
+			//$( "#samplemodule" ).val( "sampleExport" );
+			$(this.form).attr("action", "sampleExport");
 			$( this.form ).prop( 'target', '_self' ).submit();
 		} );
 

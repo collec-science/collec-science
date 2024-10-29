@@ -21,20 +21,26 @@ class ObjectController extends PpciController
     {
         return $this->lib->getDetailAjax();
     }
-    function printLabel()
+    function printLabel($origin)
     {
-        return $this->lib->printLabel();
+        if (! $this->lib->printLabel()) {
+            return $this->returnToOrigin($origin);
+        }
     }
-    function exportCSV()
+    function exportCSV($origin)
     {
-        return $this->lib->exportCSV();
+        if (! $this->lib->exportCSV()) {
+            return $this->returnToOrigin($origin);
+        }
     }
-    function printLabelDirect()
+    function printLabelDirect($origin)
     {
-        return $this->lib->printLabelDirect();
+        if (! $this->lib->printLabelDirect()) {
+            return $this->returnToOrigin($origin);
+        }
     }
 
-    function returnToOrigin($origin, $res)
+    function returnToOrigin($origin, $res = true)
     {
         if ($origin == "sample") {
             $lib = new Sample;

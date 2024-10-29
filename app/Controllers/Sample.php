@@ -54,7 +54,9 @@ class Sample extends PpciController
     }
     function export()
     {
-        return $this->lib->export();
+        if (! $this->lib->export()) {
+            return $this->returnToOrigin($_SESSION["moduleParent"]);
+        }
     }
     function importStage1()
     {

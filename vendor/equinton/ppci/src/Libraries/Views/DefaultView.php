@@ -3,7 +3,7 @@ namespace Ppci\Libraries\Views;
 
 class DefaultView 
     {
-
+        public array $param = [];
         /**
          * Donnees a envoyer (cas hors html)
          *
@@ -23,6 +23,12 @@ class DefaultView
                 $this->data[$variable] = $value;
             } else {
                 $this->data = $value;
+            }
+        }
+
+        function setParam(array $param) {
+            foreach ($param as $k => $v) {
+                $this->param[$k] = $v;
             }
         }
     

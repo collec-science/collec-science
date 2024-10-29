@@ -51,7 +51,14 @@ class Filters extends BaseConfig
                 'apiv1sampleDelete',
                 'apiv1movementWrite',
                 'apiv1sampleList',
-                'samplePrintLabel'
+                'samplePrintLabel',
+                'sampleExport',
+                'sampleExportCSV',
+                'samplePrintDirect',
+                'containerExportCSV',
+                'containerPrintLabel',
+                'containerPrintDirect',
+                'containerExportGlobal'
             ]],
             'invalidchars',
             /*'legacyRoute',*/

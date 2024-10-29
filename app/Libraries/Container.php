@@ -331,7 +331,7 @@ class Container extends PpciLibrary
                     "filename" => "export-" . date('Y-m-d-His') . ".json"
                 )
             );
-            $this->vue->set(json_encode($data));
+            $this->vue->set($data);
             return $this->vue->send();
         } else {
             $this->message->set(_("Aucun contenant n'a été sélectionné, l'exportation n'est pas possible"), true);

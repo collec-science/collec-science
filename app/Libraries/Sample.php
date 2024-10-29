@@ -618,6 +618,7 @@ class Sample extends PpciLibrary
     }
     function export()
     {
+        if (isset($_REQUEST["uids"]) && count($_REQUEST["uids"])>0) {
         $this->vue = service("CsvView");
         try {
             $this->vue->set(
@@ -628,10 +629,13 @@ class Sample extends PpciLibrary
             $this->vue->regenerateHeader();
             return $this->vue->send();
         } catch (PpciException $e) {
-            unset($this->vue);
-            $this->vue = service("Smarty");
             $this->message->set($e->getMessage(), true);
+            return false;
         }
+    } else {
+        $this->message->set(_("Aucun échantillon n'a été sélectionné"), true);
+        return false;
+    }
     }
     function importStage1()
     {

@@ -49,7 +49,7 @@ class JsonFileView extends DefaultView
                 $filename = $this->filename;
             }
             if (empty($filename)) {
-                $filename = "export-" . date('Y-m-d-His') . ".csv";
+                $filename = "export-" . date('Y-m-d-His') . ".json";
             }
             /*
              * Encodage des donnees
@@ -57,11 +57,11 @@ class JsonFileView extends DefaultView
             if ($this->is_json) {
                 $json = $this->json;
             } else {
-                $data = array();
+                /*$data = array();
                 foreach ($this->data as $key => $value) {
                     $data[$key] = $this->encodehtml($value);
-                }
-                $json = json_encode($data);
+                }*/
+                $json = json_encode($this->data);
             }
             /*
              * Send

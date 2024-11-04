@@ -129,7 +129,7 @@ Ppci\Config\IdentificationConfig.identificationMode = BDD
 # Ppci\Config\IdentificationConfig.OIDC.lastname = 'family_name'
 # Ppci\Config\IdentificationConfig.OIDC.groups = "supannEntiteAffectationPrincipale"
 
-# Logo displayed on the button for CAS or OIDC
+# Logo displayed on the button for CAS-BDD or OIDC-BDD
 Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
 
 # LDAP parameters
@@ -155,11 +155,6 @@ Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
 #--------------------------------------------------------------------
 # Collec-Science specific parameters
 #--------------------------------------------------------------------
-#
-# Root of the storage of external documents for the instance
-# Each collection must be in a specific subfolder ot this path
-#
-# app.external_document_path = "/dev/null"
 
 #--------------------------------------------------------------------
 # Ppci Rights
@@ -174,8 +169,10 @@ Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
 #--------------------------------------------------------------------
 # Documents - storage external
 #--------------------------------------------------------------------
+#
+# Root of the storage of external documents for the instance
+# Each collection must be in a specific subfolder ot this path
 # app.external_document_path = /dev/null
-
 #--------------------------------------------------------------------
 # Ppci OSM cache
 #--------------------------------------------------------------------

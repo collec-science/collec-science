@@ -1,0 +1,29 @@
+html,
+body {
+  height: 99%;
+}
+red {
+	color: #D1041D;
+}
+.blue {
+	color: #003A80;
+}
+.green {
+	color: #A4C400;
+}
+.message {
+	font-style: italic;
+	color: #003A80;
+}
+.messageError {
+	color: #D1041D;
+}
+h1{
+	font-size:x-large;
+}
+h2 {
+	font-size:x-large;
+}
+h3 {
+	font-size:large;
+}

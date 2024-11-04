@@ -189,99 +189,102 @@ class Sample extends PpciLibrary
         /**
          * Display the detail of the record
          */
-        $data = $this->dataclass->lire($this->id);
-        $this->vue->set($data, "data");
-        /*
+        if (isset($this->id)) {
+            $data = $this->dataclass->lire($this->id);
+            $this->vue->set($data, "data");
+
+            /*
          * Récupération des métadonnées dans un tableau pour l'affichage
          */
-        $metadata = json_decode($data["metadata"], true);
-        $is_modifiable = $this->dataclass->verifyCollection($data);
-        if (!empty($metadata) && ($is_modifiable || $_SESSION["consultSeesAll"] == 1)) {
-            $this->vue->set($metadata, "metadata");
-        }
-        /**
-         * Recuperation des identifiants associes
-         */
-        $oi = new ObjectIdentifier();
-        $this->vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
-        /**
-         * Recuperation des contenants parents
-         */
-        $container = new Container();
-        $this->vue->set($container->getAllParents($data["uid"]), "parents");
-        /**
-         * Recuperation des evenements
-         */
-        $event = new Event();
-        $this->vue->set($event->getListeFromUid($data["uid"]), "events");
-        $eventType = new EventType();
-        $this->vue->set($eventType->getListeFromCategory("sample", $data["collection_id"]), "eventType");
-        /**
-         * Recuperation des mouvements
-         */
-        $movement = new Movement();
-        $this->vue->set($movement->getAllMovements($this->id), "movements");
-        /**
-         * Recuperation des echantillons associes
-         */
-        $this->vue->set($this->dataclass->getSampleassociated($data["uid"]), "samples");
-        /**
-         * Recuperation des reservations
-         */
-        $booking = new Booking();
-        $this->vue->set($booking->getListFromParent($data["uid"], 'date_from desc'), "bookings");
-        /**
-         * Recuperation des sous-echantillonnages
-         */
-        $subSample = new Subsample();
-        if ($data["multiple_type_id"] > 0) {
-            $this->vue->set($subSample->getListFromSample($data["sample_id"]), "subsample");
-        }
-        /**
-         * For composite samples, get the parents
-         */
-        $this->vue->set($subSample->getParents($data["sample_id"]), "sampleparents");
-        /**
-         * Get the list of borrowings
-         */
-        $borrowing = new Borrowing();
-        $this->vue->set($borrowing->getFromUid($data["uid"]), "borrowings");
-        /**
-         * Verification que l'echantillon peut etre modifie
-         */
-        if ($is_modifiable) {
-            $this->vue->set(1, "modifiable");
-        }
-        $this->vue->set($_SESSION["dbparams"]["APPLI_code"], "APPLI_code");
-        /**
-         *
-         * Recuperation des documents
-         */
-        if ($is_modifiable || $_SESSION["consultSeesAll"] == 1) {
-            $document = new Document();
-            $this->vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
-            $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
-            $this->vue->set($_SESSION["collections"][$data["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
+            $metadata = json_decode($data["metadata"], true);
+            $is_modifiable = $this->dataclass->verifyCollection($data);
+            if (!empty($metadata) && ($is_modifiable || $_SESSION["consultSeesAll"] == 1)) {
+                $this->vue->set($metadata, "metadata");
+            }
             /**
-             * Get the list of authorized extensions
+             * Recuperation des identifiants associes
              */
-            $mimeType = new MimeType();
-            $this->vue->set($mimeType->getListExtensions(false), "extensions");
-        }
+            $oi = new ObjectIdentifier();
+            $this->vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
+            /**
+             * Recuperation des contenants parents
+             */
+            $container = new Container();
+            $this->vue->set($container->getAllParents($data["uid"]), "parents");
+            /**
+             * Recuperation des evenements
+             */
+            $event = new Event();
+            $this->vue->set($event->getListeFromUid($data["uid"]), "events");
+            $eventType = new EventType();
+            $this->vue->set($eventType->getListeFromCategory("sample", $data["collection_id"]), "eventType");
+            /**
+             * Recuperation des mouvements
+             */
+            $movement = new Movement();
+            $this->vue->set($movement->getAllMovements($this->id), "movements");
+            /**
+             * Recuperation des echantillons associes
+             */
+            $this->vue->set($this->dataclass->getSampleassociated($data["uid"]), "samples");
+            /**
+             * Recuperation des reservations
+             */
+            $booking = new Booking();
+            $this->vue->set($booking->getListFromParent($data["uid"], 'date_from desc'), "bookings");
+            /**
+             * Recuperation des sous-echantillonnages
+             */
+            $subSample = new Subsample();
+            if ($data["multiple_type_id"] > 0) {
+                $this->vue->set($subSample->getListFromSample($data["sample_id"]), "subsample");
+            }
+            /**
+             * For composite samples, get the parents
+             */
+            $this->vue->set($subSample->getParents($data["sample_id"]), "sampleparents");
+            /**
+             * Get the list of borrowings
+             */
+            $borrowing = new Borrowing();
+            $this->vue->set($borrowing->getFromUid($data["uid"]), "borrowings");
+            /**
+             * Verification que l'echantillon peut etre modifie
+             */
+            if ($is_modifiable) {
+                $this->vue->set(1, "modifiable");
+            }
+            $this->vue->set($_SESSION["dbparams"]["APPLI_code"], "APPLI_code");
+            /**
+             *
+             * Recuperation des documents
+             */
+            if ($is_modifiable || $_SESSION["consultSeesAll"] == 1) {
+                $document = new Document();
+                $this->vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
+                $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
+                $this->vue->set($_SESSION["collections"][$data["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
+                /**
+                 * Get the list of authorized extensions
+                 */
+                $mimeType = new MimeType();
+                $this->vue->set($mimeType->getListExtensions(false), "extensions");
+            }
 
-        /**
-         * Ajout des listes complémentaires
-         */
-        $this->setRelatedTablesToView($this->vue);
-        /**
-         * Affichage
-         */
-        $this->vue->set($_SESSION["consultSeesAll"], "consultSeesAll");
-        /**
-         * Map default data
-         */
-        foreach (array("mapDefaultX", "mapDefaultY", "mapDefaultZoom") as $field) {
-            $this->vue->set($_SESSION["dbparams"][$field], $field);
+            /**
+             * Ajout des listes complémentaires
+             */
+            $this->setRelatedTablesToView($this->vue);
+            /**
+             * Affichage
+             */
+            $this->vue->set($_SESSION["consultSeesAll"], "consultSeesAll");
+            /**
+             * Map default data
+             */
+            foreach (array("mapDefaultX", "mapDefaultY", "mapDefaultZoom") as $field) {
+                $this->vue->set($_SESSION["dbparams"][$field], $field);
+            }
         }
         $this->vue->set("sample", "moduleParent");
         $this->vue->set("gestion/sampleDisplay.tpl", "corps");
@@ -618,24 +621,24 @@ class Sample extends PpciLibrary
     }
     function export()
     {
-        if (isset($_REQUEST["uids"]) && count($_REQUEST["uids"])>0) {
-        $this->vue = service("CsvView");
-        try {
-            $this->vue->set(
-                $this->dataclass->getForExport(
-                    $this->dataclass->generateArrayUidToString($_REQUEST["uids"])
-                )
-            );
-            $this->vue->regenerateHeader();
-            return $this->vue->send();
-        } catch (PpciException $e) {
-            $this->message->set($e->getMessage(), true);
+        if (isset($_REQUEST["uids"]) && count($_REQUEST["uids"]) > 0) {
+            $this->vue = service("CsvView");
+            try {
+                $this->vue->set(
+                    $this->dataclass->getForExport(
+                        $this->dataclass->generateArrayUidToString($_REQUEST["uids"])
+                    )
+                );
+                $this->vue->regenerateHeader();
+                return $this->vue->send();
+            } catch (PpciException $e) {
+                $this->message->set($e->getMessage(), true);
+                return false;
+            }
+        } else {
+            $this->message->set(_("Aucun échantillon n'a été sélectionné"), true);
             return false;
         }
-    } else {
-        $this->message->set(_("Aucun échantillon n'a été sélectionné"), true);
-        return false;
-    }
     }
     function importStage1()
     {

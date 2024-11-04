@@ -291,11 +291,11 @@
 			var is_container = 2;
 			event.preventDefault();
 			$.ajax( {
-				url: url,
+				url: "objectGetDetail",
 				method: "GET",
 				//async: "false",
 				//cache: "false",
-				data: { module: "objectGetDetail", uid: uid, is_container: is_container },
+				data: { uid: uid, is_container: is_container },
 				success: function ( djs ) {
 					try {
 						var data = JSON.parse( djs );
@@ -437,7 +437,6 @@
 	</div>
 	<div id="rapidAccessForm" hidden class="col-sm-4 col-lg-offset-2 col-lg-2">
 		<form id="open" action="sampleDisplay" method="GET">
-			<input id="moduleBase" type="hidden" name="moduleBase" value="sample">
 			<div class="form-group">
 				<div class="col-md-6 col-sm-offset-2 col-md-offset-0 col-sm-4">
 					<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required>

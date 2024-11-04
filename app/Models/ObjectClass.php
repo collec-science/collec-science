@@ -263,7 +263,7 @@ class ObjectClass extends PpciModel
                         $operator = 'like';
                     }
                     $data["identifier"] = $uid;
-                    $data["trashed"] = $trashed;
+                    $trashed == 0 ? $data["trashed"] = 'f' : $data["trashed"] = 't';
                     $where = " where (upper(identifier) $operator upper(:identifier:)
                         or (upper(object_identifier_value) $operator upper (:identifier:)
                         and used_for_search = 't')) and trashed = :trashed:";

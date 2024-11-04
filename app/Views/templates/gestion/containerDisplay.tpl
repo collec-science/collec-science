@@ -242,7 +242,7 @@
 			* Recherche si un container existe
 			*/
 			var form = $(this);
-			var url = "";
+			var url = "objectGetDetail";
 			var uid = $("#search").val();
 			if ($("#search").val().length > 0) {
 			 try {
@@ -269,7 +269,7 @@
 			$.ajax ( {
 				url:url,
 			method:"GET",
-			data : { module:"objectGetDetail", uid:uid, is_container:is_container },
+			data : { uid:uid, is_container:is_container },
 			success : function ( djs ) {
 				try {
 					var data = JSON.parse(djs);

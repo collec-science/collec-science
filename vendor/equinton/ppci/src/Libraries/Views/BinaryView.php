@@ -4,7 +4,7 @@ namespace Ppci\Libraries\Views;
 class BinaryView extends DefaultView
 {
 
-    private $param = array(
+    public array $param = array(
         "filename" => "", /* nom du fichier tel qu'il apparaitra dans le navigateur */
         "disposition" => "attachment", /* attachment : le fichier est telecharge, inline : le fichier est affiche */
         "tmp_name" => "", /* emplacement du fichier dans le serveur */

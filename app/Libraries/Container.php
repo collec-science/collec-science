@@ -35,7 +35,7 @@ class Container extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
     private $isDelete = false;
     private $activeTab;
 
@@ -91,118 +91,119 @@ class Container extends PpciLibrary
         /*
          * Display the detail of the record
          */
-        $data = $this->dataclass->lire($this->id);
-        $this->vue->set($data, "data");
-        $this->vue->set("containerDisplay", "moduleFrom");
-        $this->vue->set($this->id, "containerUid");
-        /*
+        if (isset($this->id)) {
+            $data = $this->dataclass->lire($this->id);
+            $this->vue->set($data, "data");
+            $this->vue->set("containerDisplay", "moduleFrom");
+            $this->vue->set($this->id, "containerUid");
+            /*
          * Recuperation des identifiants associes
          */
-        $oi = new ObjectIdentifier();
-        $this->vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
-        /*
+            $oi = new ObjectIdentifier();
+            $this->vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
+            /*
          * Recuperation des contenants parents
          */
-        $this->vue->set($this->dataclass->getAllParents($data["uid"]), "parents");
-        /*
+            $this->vue->set($this->dataclass->getAllParents($data["uid"]), "parents");
+            /*
          * Recuperation des contenants et des échantillons contenus
          */
-        $dcontainer = $this->dataclass->getContentContainer($data["uid"]);
-        if ($_REQUEST["allSamples"] == 1) {
-            $sample = new Sample();
-            $dsample = $sample->getAllSamplesFromContainer($data["uid"]);
-            $this->message->set(_("Affichage avec la liste de tous les échantillons présents dans le contenant, y compris dans les contenants inclus"));
-        } else {
-            $dsample = $this->dataclass->getContentSample($data["uid"]);
-        }
-        $this->vue->set($dcontainer, "containers");
-        $this->vue->set($dsample, "samples");
-        /*
+            $dcontainer = $this->dataclass->getContentContainer($data["uid"]);
+            if ($_REQUEST["allSamples"] == 1) {
+                $sample = new Sample();
+                $dsample = $sample->getAllSamplesFromContainer($data["uid"]);
+                $this->message->set(_("Affichage avec la liste de tous les échantillons présents dans le contenant, y compris dans les contenants inclus"));
+            } else {
+                $dsample = $this->dataclass->getContentSample($data["uid"]);
+            }
+            $this->vue->set($dcontainer, "containers");
+            $this->vue->set($dsample, "samples");
+            /*
          * Preparation du tableau d'occupation du container
          */
-        $this->vue->set($this->dataclass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"], $data["first_column"]), "containerOccupation");
-        $this->vue->set($data["lines"], "nblignes");
-        $this->vue->set($data["columns"], "nbcolonnes");
-        $this->vue->set($data["first_line"], "first_line");
-        $this->vue->set($data["first_column"], "first_column");
-        $this->vue->set($data["line_in_char"], "line_in_char");
-        $this->vue->set($data["column_in_char"], "column_in_char");
-        /*
+            $this->vue->set($this->dataclass->generateOccupationArray($dcontainer, $dsample, $data["columns"], $data["lines"], $data["first_line"], $data["first_column"]), "containerOccupation");
+            $this->vue->set($data["lines"], "nblignes");
+            $this->vue->set($data["columns"], "nbcolonnes");
+            $this->vue->set($data["first_line"], "first_line");
+            $this->vue->set($data["first_column"], "first_column");
+            $this->vue->set($data["line_in_char"], "line_in_char");
+            $this->vue->set($data["column_in_char"], "column_in_char");
+            /*
          * Recuperation des evenements
          */
-        $event = new Event();
-        $this->vue->set($event->getListeFromUid($data["uid"]), "events");
-        /*
+            $event = new Event();
+            $this->vue->set($event->getListeFromUid($data["uid"]), "events");
+            /*
          * Recuperation des mouvements
          */
-        $movement = new Movement();
-        $this->vue->set($movement->getAllMovements($this->id), "movements");
-        /*
+            $movement = new Movement();
+            $this->vue->set($movement->getAllMovements($this->id), "movements");
+            /*
          * Recuperation des reservations
          */
-        $booking = new Booking();
-        $this->vue->set($booking->getListFromParent($data["uid"], 'date_from desc'), "bookings");
-        /*
+            $booking = new Booking();
+            $this->vue->set($booking->getListFromParent($data["uid"], 'date_from desc'), "bookings");
+            /*
          * Recuperation des documents
          */
-        $document = new Document();
-        $this->vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
-        $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
-        $this->vue->set($_SESSION["collections"][$data["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
-        /**
-         * Get the list of authorized extensions
-         */
-        $mimeType = new MimeType();
-        $this->vue->set($mimeType->getListExtensions(false), "extensions");
-        $this->vue->set("event_id", "parentKeyName");
-        $this->vue->set($this->dataclass->verifyCollection($data), "modifiable");
-        /*
+            $document = new Document();
+            $this->vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
+            $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
+            $this->vue->set($_SESSION["collections"][$data["collection_id"]]["external_storage_enabled"], "externalStorageEnabled");
+            /**
+             * Get the list of authorized extensions
+             */
+            $mimeType = new MimeType();
+            $this->vue->set($mimeType->getListExtensions(false), "extensions");
+            $this->vue->set("event_id", "parentKeyName");
+            $this->vue->set($this->dataclass->verifyCollection($data), "modifiable");
+            /*
          * Ajout de la selection des modeles d'etiquettes
          */
-        $label = new Label;
-        $label->setRelatedTablesToView($this->vue);
-        /*
+            $label = new Label;
+            $label->setRelatedTablesToView($this->vue);
+            /*
          * Ajout de la liste des referents, pour operations de masse sur les echantillons
          */
-        $referent = new Referent();
-        $this->vue->set($referent->getListe(2), "referents");
-        /**
-         * Recuperation des types d'evenements
-         */
-        $eventType = new EventType();
-        $this->vue->set($eventType->getListe(1), "eventType");
-        /**
-         * Get the list of borrowings
-         */
-        $borrowing = new Borrowing();
-        $this->vue->set($borrowing->getFromUid($data["uid"]), "borrowings");
-        /**
-         * Get the list of borrowers
-         */
-        $borrower = new Borrower();
-        $this->vue->set($borrower->getListe(2), "borrowers");
-        $this->vue->set(date($_SESSION["date"]["maskdate"]), "borrowing_date");
-        $this->vue->set(date($_SESSION["date"]["maskdate"]), "expected_return_date");
+            $referent = new Referent();
+            $this->vue->set($referent->getListe(2), "referents");
+            /**
+             * Recuperation des types d'evenements
+             */
+            $eventType = new EventType();
+            $this->vue->set($eventType->getListe(1), "eventType");
+            /**
+             * Get the list of borrowings
+             */
+            $borrowing = new Borrowing();
+            $this->vue->set($borrowing->getFromUid($data["uid"]), "borrowings");
+            /**
+             * Get the list of borrowers
+             */
+            $borrower = new Borrower();
+            $this->vue->set($borrower->getListe(2), "borrowers");
+            $this->vue->set(date($_SESSION["date"]["maskdate"]), "borrowing_date");
+            $this->vue->set(date($_SESSION["date"]["maskdate"]), "expected_return_date");
 
-        /**
-         * Lists for actions on samples
-         */
-        $this->vue->set($_SESSION["collections"], "collections");
-        $campaign = new Campaign();
-        $this->vue->set($campaign->getListe(2), "campaigns");
-        $cf = new ContainerFamily();
-        $this->vue->set($cf->getListe(2), "containerFamily");
-        $country = new Country();
-        $this->vue->set($country->getListe(2), "countries");
-        $objectStatus = new ObjectStatus();
-        $this->vue->set($objectStatus->getListe(1), "objectStatus");
+            /**
+             * Lists for actions on samples
+             */
+            $this->vue->set($_SESSION["collections"], "collections");
+            $campaign = new Campaign();
+            $this->vue->set($campaign->getListe(2), "campaigns");
+            $cf = new ContainerFamily();
+            $this->vue->set($cf->getListe(2), "containerFamily");
+            $country = new Country();
+            $this->vue->set($country->getListe(2), "countries");
+            $objectStatus = new ObjectStatus();
+            $this->vue->set($objectStatus->getListe(1), "objectStatus");
+            MapInit::setDefault($this->vue);
+        }
         /**
          * Affichage
          */
-        $this->vue->set($_SESSION["dbparams"]["APPLI_code"], "APPLI_code");
         $this->vue->set("container", "moduleParent");
         $this->vue->set("gestion/containerDisplay.tpl", "corps");
-        MapInit::setDefault($this->vue);
         return $this->vue->send();
     }
     function change()

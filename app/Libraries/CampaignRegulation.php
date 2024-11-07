@@ -36,7 +36,7 @@ class CampaignRegulation extends PpciLibrary
         $regulation = new Regulation();
         $campaign = new Campaign();
         $this->vue->set($regulation->getListe("regulation_name"), "regulations");
-        $this->vue->set($campaign->getListe($data["campaign_id"]), "campaign");
+        $this->vue->set($campaign->getDetail($data["campaign_id"]), "campaign");
         return $this->vue->send();
     }
     function write()

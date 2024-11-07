@@ -100,7 +100,6 @@
             }
         }
     };
-    var scroll = "50vh";
     var myStorage = window.localStorage;
     $(document).ready(function () {
         var pageLength = myStorage.getItem("pageLength");
@@ -134,8 +133,6 @@
             "language": dataTableLanguage,
             "searching": false,
             "paging": false,
-            //"scrollY": scroll,
-            "scrollX": true,
             fixedHeader: {
                 header: true,
                 footer: true
@@ -161,8 +158,6 @@
             "language": dataTableLanguage,
             "paging": false,
             "searching": true,
-            /*"scrollY": scroll,*/
-            "scrollX": true,
             fixedHeader: {
                 header: true,
                 footer: true,
@@ -174,7 +169,6 @@
             "paging": false,
             "searching": false,
             "ordering": false,
-            /*"scrollY": scroll,*/
             fixedHeader: {
                 header: true,
                 footer: true
@@ -184,7 +178,6 @@
             "language": dataTableLanguage,
             "searching": false,
             "ordering": false,
-            //dom: 'Bfrtip',
             layout: { 
                 topStart: {
                     buttons: ['pageLength']
@@ -198,7 +191,6 @@
             }
         });
         $('.datatable-export').DataTable({
-            //dom: 'Bfrtip',
             layout: { 
                 topStart: {
                     buttons: [
@@ -211,8 +203,6 @@
             },
             "language": dataTableLanguage,
             "paging": false,
-            /*"scrollY": scroll,*/
-            "scrollX": true,
             fixedHeader: {
                 header: true,
                 footer: true

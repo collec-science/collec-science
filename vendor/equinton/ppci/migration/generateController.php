@@ -61,9 +61,23 @@ try {
             . '$this->lib = new ' . $librarieName . "();" . PHP_EOL
             . "}" . PHP_EOL;
         foreach ($fonctions as $fonction) {
-            $corps .= "function " . $fonction . "() {" . PHP_EOL
-                . 'return $this->lib->' . $fonction . "();" . PHP_EOL
+            $corps .= "function " . $fonction . "() {" . PHP_EOL;
+            if ($fonction == "write") {
+                $corps .= 'if ($this->lib->write()) {'.PHP_EOL
+                    . 'return $this->display();'.PHP_EOL
+                    . '} else {'.PHP_EOL
+                    . 'return $this->change();'.PHP_EOL
+                    . '}'.PHP_EOL.'}'.PHP_EOL;
+                }elseif ($fonction == "delete") {
+                    $corps .= 'if ($this->lib->delete()) {'.PHP_EOL
+                    . 'return $this->list();'.PHP_EOL
+                    . '} else {'.PHP_EOL
+                    . 'return $this->change();'.PHP_EOL
+                    . '}'.PHP_EOL.'}'.PHP_EOL;
+            } else {
+                $corps .= 'return $this->lib->' . $fonction . "();" . PHP_EOL
                 . "}" . PHP_EOL;
+            }
         }
         $corps .= "}" . PHP_EOL;
         /**

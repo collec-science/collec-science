@@ -312,7 +312,6 @@ class App extends BaseConfig
      */
     public $APP_help_address = "https://github.com/equinton/ppci/issues/new";
     /**
-     * Copyright - don't change directly here, but in setParameters function
      *
      * @var string
      */

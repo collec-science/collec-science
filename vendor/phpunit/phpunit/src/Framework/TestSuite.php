@@ -174,29 +174,31 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
     {
         $class = new ReflectionClass($test);
 
-        if (!$class->isAbstract()) {
-            $this->tests[] = $test;
-            $this->clearCaches();
+        if ($class->isAbstract()) {
+            return;
+        }
 
-            if ($test instanceof self && empty($groups)) {
-                $groups = $test->groups();
-            }
+        $this->tests[] = $test;
+        $this->clearCaches();
 
-            if ($this->containsOnlyVirtualGroups($groups)) {
-                $groups[] = 'default';
-            }
+        if ($test instanceof self && empty($groups)) {
+            $groups = $test->groups();
+        }
 
-            foreach ($groups as $group) {
-                if (!isset($this->groups[$group])) {
-                    $this->groups[$group] = [$test];
-                } else {
-                    $this->groups[$group][] = $test;
-                }
-            }
+        if ($this->containsOnlyVirtualGroups($groups)) {
+            $groups[] = 'default';
+        }
 
-            if ($test instanceof TestCase) {
-                $test->setGroups($groups);
+        foreach ($groups as $group) {
+            if (!isset($this->groups[$group])) {
+                $this->groups[$group] = [$test];
+            } else {
+                $this->groups[$group][] = $test;
             }
+        }
+
+        if ($test instanceof TestCase) {
+            $test->setGroups($groups);
         }
     }
 
@@ -241,22 +243,14 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
      */
     public function addTestFile(string $filename): void
     {
-        if (str_ends_with($filename, '.phpt') && is_file($filename)) {
-            try {
+        try {
+            if (str_ends_with($filename, '.phpt') && is_file($filename)) {
                 $this->addTest(new PhptTestCase($filename));
-            } catch (RunnerException $e) {
-                Event\Facade::emitter()->testRunnerTriggeredWarning(
-                    $e->getMessage(),
+            } else {
+                $this->addTestSuite(
+                    (new TestSuiteLoader)->load($filename),
                 );
             }
-
-            return;
-        }
-
-        try {
-            $this->addTestSuite(
-                (new TestSuiteLoader)->load($filename),
-            );
         } catch (RunnerException $e) {
             Event\Facade::emitter()->testRunnerTriggeredWarning(
                 $e->getMessage(),

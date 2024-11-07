@@ -40,7 +40,7 @@ class Template extends PpciController
     function delete()
     {
         if ($this->lib->delete()) {
-            return $this->display();
+            return $this->list();
         } else {
             return $this->change();
         }

@@ -11,6 +11,7 @@ cp -f $PPCI/.gitignore .
 cp -f $PPCI/upgradedb.sh .
 mkdir app/Views/templates
 cp -Rf $PPCI/app/Views/templates/* app/Views/templates/
+cp -Rf $PPCI/app/Views/errors/html/* app/Views/errors/html/
 echo "add javascript components"
 cd public/display
 npm update

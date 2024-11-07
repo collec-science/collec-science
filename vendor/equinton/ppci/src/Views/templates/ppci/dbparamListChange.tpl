@@ -1,6 +1,6 @@
 <h2>{t}Paramètres pérennes de l'application{/t}</h2>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-md-12">
 		<form id="dbparam" class="form-horizontal protoform" method="post" action="index.php">
 			<input type="hidden" name="moduleBase" value="dbparam">
 			<input type="hidden" name="action" value="WriteGlobal">

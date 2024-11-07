@@ -76,17 +76,17 @@
         },
         {
             "name": "beberlei/assert",
-            "version": "v3.3.2",
-            "version_normalized": "3.3.2.0",
+            "version": "v3.3.3",
+            "version_normalized": "3.3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/assert.git",
-                "reference": "cb70015c04be1baee6f5f5c953703347c0ac1655"
+                "reference": "b5fd8eacd8915a1b627b8bfc027803f1939734dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/cb70015c04be1baee6f5f5c953703347c0ac1655",
-                "reference": "cb70015c04be1baee6f5f5c953703347c0ac1655",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/b5fd8eacd8915a1b627b8bfc027803f1939734dd",
+                "reference": "b5fd8eacd8915a1b627b8bfc027803f1939734dd",
                 "shasum": ""
             },
             "require": {
@@ -94,7 +94,7 @@
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-simplexml": "*",
-                "php": "^7.0 || ^8.0"
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "*",
@@ -105,7 +105,7 @@
             "suggest": {
                 "ext-intl": "Needed to allow Assertion::count(), Assertion::isCountable(), Assertion::minCount(), and Assertion::maxCount() to operate on ResourceBundles"
             },
-            "time": "2021-12-16T21:41:27+00:00",
+            "time": "2024-07-15T13:18:35+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -140,7 +140,7 @@
             ],
             "support": {
                 "issues": "https://github.com/beberlei/assert/issues",
-                "source": "https://github.com/beberlei/assert/tree/v3.3.2"
+                "source": "https://github.com/beberlei/assert/tree/v3.3.3"
             },
             "install-path": "../beberlei/assert"
         },
@@ -447,17 +447,17 @@
         },
         {
             "name": "equinton/ppci",
-            "version": "1.0.7",
-            "version_normalized": "1.0.7.0",
+            "version": "v1.0.8",
+            "version_normalized": "1.0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/equinton/ppci.git",
-                "reference": "50be0718415defa3dafbdbb7ab75636d30e8ef1e"
+                "reference": "d0596a71f92eb5e10d9601cff1a291bc682f9c72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/equinton/ppci/zipball/50be0718415defa3dafbdbb7ab75636d30e8ef1e",
-                "reference": "50be0718415defa3dafbdbb7ab75636d30e8ef1e",
+                "url": "https://api.github.com/repos/equinton/ppci/zipball/d0596a71f92eb5e10d9601cff1a291bc682f9c72",
+                "reference": "d0596a71f92eb5e10d9601cff1a291bc682f9c72",
                 "shasum": ""
             },
             "require": {
@@ -470,7 +470,7 @@
                 "smarty/smarty": "^4.0",
                 "spomky-labs/otphp": "~10.0"
             },
-            "time": "2024-10-17T13:43:23+00:00",
+            "time": "2024-11-07T11:01:06+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -491,7 +491,7 @@
             "description": "PrototypePHP to CodeIgniter",
             "support": {
                 "issues": "https://github.com/equinton/ppci/issues",
-                "source": "https://github.com/equinton/ppci/tree/1.0.7"
+                "source": "https://github.com/equinton/ppci/tree/v1.0.8"
             },
             "install-path": "../equinton/ppci"
         },
@@ -608,36 +608,36 @@
         },
         {
             "name": "laminas/laminas-escaper",
-            "version": "2.13.0",
-            "version_normalized": "2.13.0.0",
+            "version": "2.14.0",
+            "version_normalized": "2.14.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-escaper.git",
-                "reference": "af459883f4018d0f8a0c69c7a209daef3bf973ba"
+                "reference": "0f7cb975f4443cf22f33408925c231225cfba8cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-escaper/zipball/af459883f4018d0f8a0c69c7a209daef3bf973ba",
-                "reference": "af459883f4018d0f8a0c69c7a209daef3bf973ba",
+                "url": "https://api.github.com/repos/laminas/laminas-escaper/zipball/0f7cb975f4443cf22f33408925c231225cfba8cb",
+                "reference": "0f7cb975f4443cf22f33408925c231225cfba8cb",
                 "shasum": ""
             },
             "require": {
                 "ext-ctype": "*",
                 "ext-mbstring": "*",
-                "php": "~8.1.0 || ~8.2.0 || ~8.3.0"
+                "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0"
             },
             "conflict": {
                 "zendframework/zend-escaper": "*"
             },
             "require-dev": {
-                "infection/infection": "^0.27.0",
-                "laminas/laminas-coding-standard": "~2.5.0",
+                "infection/infection": "^0.27.9",
+                "laminas/laminas-coding-standard": "~3.0.0",
                 "maglnet/composer-require-checker": "^3.8.0",
-                "phpunit/phpunit": "^9.6.7",
-                "psalm/plugin-phpunit": "^0.18.4",
-                "vimeo/psalm": "^5.9"
+                "phpunit/phpunit": "^9.6.16",
+                "psalm/plugin-phpunit": "^0.19.0",
+                "vimeo/psalm": "^5.21.1"
             },
-            "time": "2023-10-10T08:35:13+00:00",
+            "time": "2024-10-24T10:12:53+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1548,17 +1548,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "10.5.36",
-            "version_normalized": "10.5.36.0",
+            "version": "10.5.38",
+            "version_normalized": "10.5.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870"
+                "reference": "a86773b9e887a67bc53efa9da9ad6e3f2498c132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870",
-                "reference": "aa0a8ce701ea7ee314b0dfaa8970dc94f3f8c870",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/a86773b9e887a67bc53efa9da9ad6e3f2498c132",
+                "reference": "a86773b9e887a67bc53efa9da9ad6e3f2498c132",
                 "shasum": ""
             },
             "require": {
@@ -1579,7 +1579,7 @@
                 "phpunit/php-timer": "^6.0.0",
                 "sebastian/cli-parser": "^2.0.1",
                 "sebastian/code-unit": "^2.0.0",
-                "sebastian/comparator": "^5.0.2",
+                "sebastian/comparator": "^5.0.3",
                 "sebastian/diff": "^5.1.1",
                 "sebastian/environment": "^6.1.0",
                 "sebastian/exporter": "^5.1.2",
@@ -1592,7 +1592,7 @@
             "suggest": {
                 "ext-soap": "To be able to generate mocks based on WSDL files"
             },
-            "time": "2024-10-08T15:36:51+00:00",
+            "time": "2024-10-28T13:06:21+00:00",
             "bin": [
                 "phpunit"
             ],
@@ -1632,7 +1632,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.36"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/10.5.38"
             },
             "funding": [
                 {
@@ -2028,17 +2028,17 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "5.0.2",
-            "version_normalized": "5.0.2.0",
+            "version": "5.0.3",
+            "version_normalized": "5.0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53"
+                "reference": "a18251eb0b7a2dcd2f7aa3d6078b18545ef0558e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53",
-                "reference": "2d3e04c3b4c1e84a5e7382221ad8883c8fbc4f53",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/a18251eb0b7a2dcd2f7aa3d6078b18545ef0558e",
+                "reference": "a18251eb0b7a2dcd2f7aa3d6078b18545ef0558e",
                 "shasum": ""
             },
             "require": {
@@ -2049,9 +2049,9 @@
                 "sebastian/exporter": "^5.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.4"
+                "phpunit/phpunit": "^10.5"
             },
-            "time": "2024-08-12T06:03:08+00:00",
+            "time": "2024-10-18T14:56:07+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2096,7 +2096,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/comparator/issues",
                 "security": "https://github.com/sebastianbergmann/comparator/security/policy",
-                "source": "https://github.com/sebastianbergmann/comparator/tree/5.0.2"
+                "source": "https://github.com/sebastianbergmann/comparator/tree/5.0.3"
             },
             "funding": [
                 {

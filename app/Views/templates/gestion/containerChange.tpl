@@ -268,13 +268,13 @@ if (container_type_id > 0) {
 				<div class="col-md-8" id="trashed">
 					<div class="radio-inline">
 					<label>
-						<input type="radio" name="trashed" id="trashed1" value="1" {if $data.trashed == 1}checked{/if}>
+						<input type="radio" name="trashed" id="trashed1" value="1" {if $data.trashed == 't'}checked{/if}>
 						{t}oui{/t}
 					</label>
 					</div>
 					<div class="radio-inline">
 						<label>
-							<input type="radio" name="trashed" id="trashed0" value="0" {if $data.trashed == 0}checked{/if}>
+							<input type="radio" name="trashed" id="trashed0" value="0" {if $data.trashed != 't'}checked{/if}>
 							{t}non{/t}
 						</label>
 					</div>

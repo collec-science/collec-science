@@ -350,7 +350,7 @@ $(document).ready(function () {
 							row += '</a></td>';
 							row += '<td>'+containers[lst].identifiers+'</td>';	
 							row += '<td';
-							if (containers[lst].trashed == 1) {
+							if (containers[lst].trashed == 't') {
 								row += ' class="trashed" title="{t}Contenant mis à la corbeille{/t}"';
 							}
 							row += '>'+containers[lst].object_status_name+'</td>';
@@ -482,7 +482,7 @@ $(document).ready(function () {
 							</a>
 						</td>
 						<td>{$containers[lst].identifiers}</td>
-						<td {if $containers[lst].trashed == 1}class="trashed" title="{t}Contenant mis à la corbeille{/t}"{/if}>{$containers[lst].object_status_name}</td>
+						<td {if $containers[lst].trashed == 't'}class="trashed" title="{t}Contenant mis à la corbeille{/t}"{/if}>{$containers[lst].object_status_name}</td>
 						<td>
 							{$containers[lst].container_family_name}/
 							{$containers[lst].container_type_name}

@@ -228,17 +228,14 @@
 		$( 'a[data-toggle="tab"]' ).on( "click", function () {
 			tabHover = 0;
 		} );
-		$( "#sampleSpinner2" ).hide();
 		var isReferentDisplayed = false;
 
 		$( "#samplelabels2" ).on( "keypress click", function () {
 			$( this.form ).find( "input[name='module']" ).val( "samplePrintLabel" );
-			$( "#sampleSpinner2" ).show();
 			$( this.form ).submit();
 		} );
 		$( "#sampledirect2" ).on( "keypress click", function () {
 			$( this.form ).find( "input[name='module']" ).val( "samplePrintDirect" );
-			$( "#sampleSpinner2" ).show();
 			$( this.form ).submit();
 		} );
 		$( "#referent_name" ).click( function () {
@@ -516,7 +513,7 @@
 		<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
 			<div class="form-display col-md-6">
 				{if $rights.manage == 1}
-				<form method="GET" id="SampleDisplayFormListPrint" action="samplePrintLabel">
+				<form method="GET" id="SampleDisplayFormListPrint" action="samplePrintLabel" target="_blank">
 					<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
 					<input type="hidden" name="uid" value="{$data.uid}">
 					<input type="hidden" name="lastModule" value="sampleDisplay">
@@ -532,7 +529,6 @@
 								{/section}
 							</select>
 							<button id="samplelabels2" class="btn btn-primary">{t}Étiquettes{/t}</button>
-							<img id="sampleSpinner2" src="display/images/spinner.gif" height="25">
 							{if !empty($printers)}
 							<select id="printers2" name="printer_id">
 								{section name=lst loop=$printers}
@@ -604,7 +600,7 @@
 				<dl class="dl-horizontal">
 					<dt class="lexical" data-lexical="status">{t}Statut :{/t}</dt>
 					<dd>{$data.object_status_name}
-						{if $data.trashed == 1}
+						{if $data.trashed == 't'}
 						<span class="red">&nbsp;{t}Échantillon mis à la corbeille{/t}</span>
 						{/if}
 						{if $data.object_status_id == 6}

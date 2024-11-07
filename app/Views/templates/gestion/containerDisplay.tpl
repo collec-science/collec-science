@@ -525,7 +525,7 @@
 					<dt class="lexical" data-lexical="status">{t}Statut :{/t}</dt>
 					<dd>
 						{$data.object_status_name}
-						{if $data.trashed == 1}
+						{if $data.trashed == 't'}
 							<span class="red">&nbsp;{t}Contenant mis à la corbeille{/t}</span>
 						{/if}
 						{if $data.object_status_id == 6}

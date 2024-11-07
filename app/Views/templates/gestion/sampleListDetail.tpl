@@ -583,7 +583,7 @@
 							row += '<td class="nowrap">'+samples[lst].collection_name+'</td>';
 							row += '<td class="nowrap">'+samples[lst].sample_type_name+'</td>';
 							row += '<td';
-							if (samples[lst].trashed==1) {
+							if (samples[lst].trashed=='t') {
 								row += 'class="trashed" title="{t}Échantillon mis à la corbeille{/t}"';
 							}
 							row += '>';
@@ -771,7 +771,7 @@
 							</td>
 							<td class="nowrap">{$samples[lst].collection_name}</td>
 							<td class="nowrap">{$samples[lst].sample_type_name}</td>
-							<td {if $samples[lst].trashed==1}class="trashed" title="{t}Échantillon mis à la corbeille{/t}" {/if}>
+							<td {if $samples[lst].trashed=='t'}class="trashed" title="{t}Échantillon mis à la corbeille{/t}" {/if}>
 								{$samples[lst].object_status_name}</td>
 							<td>
 								{if strlen($samples[lst].parent_uid) > 0}

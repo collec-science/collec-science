@@ -53,6 +53,9 @@
 		var destination = "object";
 		var hasFoundCamera = false;
 
+		$("#video-container").width(videosize);
+		$("#video-container").height(videosize);
+		
 		const video = document.getElementById( 'qr-video' );
 		const videoContainer = document.getElementById( 'video-container' );
 		const camHasCamera = document.getElementById( 'cam-has-camera' );

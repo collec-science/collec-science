@@ -6,14 +6,20 @@
 			font-size: 3vw;
 		}
 		*/
-	#video-container {
+	/*#video-container {
 		position: relative;
 		/*width: max-content;*/
-		width: 100%;
+		/*width: 100%;
 		height: max-content;
 		overflow: hidden;
-	}
-
+	}*/
+	#video-container {
+  line-height: 0;
+  position: relative;
+  width: inherit !important;
+  height: inherit !important;
+  overflow: hidden;
+}
 	#video-container .scan-region-highlight {
 		border-radius: 30px;
 		outline: rgba(0, 0, 0, .25) solid 50vmax;
@@ -32,6 +38,20 @@
 	#flash-toggle {
 		display: none;
 	}
+
+	#qr-video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding: auto;
+  height: inherit;
+  width: inherit;
+  object-fit: cover;
+  overflow: hidden;
+}
 </style>
 <script>
 	$( document ).ready( function () {
@@ -72,7 +92,9 @@
 				hasFoundCamera = true;
 			}
 		}
-		//$("#video-container").width($(document).width());
+		var videosize = Math.min (window.screen.height, window.screen.width) ;
+		$("#video-container").width(videosize);
+		$("#video-container").height(videosize);
 
 		// ####### Web Cam Scanning #######
 
@@ -83,6 +105,7 @@
 			},
 			highlightScanRegion: true,
 			highlightCodeOutline: true,
+
 		} );
 		const updateFlashAvailability = () => {
 			scanner.hasFlash().then( hasFlash => {
@@ -107,7 +130,7 @@
 		} );
 
 		function setResult( label, result ) {
-			console.log( result.data );
+			//console.log( result.data );
 			$( "#search" ).val( getVal( result.data ) );
 			snd.play();
 			scanner.stop();

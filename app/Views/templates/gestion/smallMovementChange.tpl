@@ -83,6 +83,9 @@
 
 		// ####### Web Cam Scanning #######
 
+		$("#video-container").width(videosize);
+		$("#video-container").height(videosize);
+		
 		const scanner = new QrScanner( video, result => setResult( camQrResult, result ), {
 			onDecodeError: error => {
 				camQrResult.textContent = error;

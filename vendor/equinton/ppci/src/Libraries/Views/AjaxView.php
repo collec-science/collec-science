@@ -25,7 +25,7 @@ class AjaxView extends DefaultView
             foreach ($this->data as $key => $value) {
                 $data[$key] = $this->encodehtml($value);
             }
-            $json = json_encode($data);
+            $json = json_encode($data, JSON_UNESCAPED_UNICODE);
         }
         /**
          * Send

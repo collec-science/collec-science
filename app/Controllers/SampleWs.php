@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use \Ppci\Controllers\PpciController;
 use App\Libraries\SampleWs as LibrariesSampleWs;
 use App\Models\SearchSample;
 use CodeIgniter\API\ResponseTrait;

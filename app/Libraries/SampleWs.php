@@ -11,7 +11,6 @@ use App\Models\Samplews as ModelsSamplews;
 use Ppci\Libraries\Locale;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
-use Ppci\Models\PpciModel;
 
 class SampleWs extends PpciLibrary
 {
@@ -185,11 +184,11 @@ class SampleWs extends PpciLibrary
          */
         try {
             if (strlen($_REQUEST["uuid"]) == 36) {
-                $this->id = $_REQUEST["uuid"];
+                $id = $_REQUEST["uuid"];
             } else {
-                $this->id = $_REQUEST["uid"];
+                $id = $_REQUEST["uid"];
             }
-            if (empty($this->id)) {
+            if (empty($id)) {
                 throw new PpciException(_("L'UID n'est pas fourni ou n'a pas été retrouvé à partir de l'UUID"), 404);
             }
             $withContainer = true;
@@ -200,9 +199,9 @@ class SampleWs extends PpciLibrary
                 $ddataset = $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
                 $withTemplate = true;
             }
-            $data = $this->samplews->sample->getRawDetail($this->id, $withContainer, $withEvent);
-            if (count($data) == 0) {
-                throw new PpciException(sprintf(_("Échantillon %s not trouvé"), $this->id), 404);
+            $data = $this->samplews->sample->getRawDetail($id, $withContainer, $withEvent);
+            if (empty($data)) {
+                throw new PpciException(sprintf(_("Échantillon %s non trouvé"), $id), 404);
             }
             /**
              * purge the technical fields
@@ -216,7 +215,7 @@ class SampleWs extends PpciLibrary
              */
             if (isset($_SESSION["login"])) {
                 if (!collectionVerify($data["collection_id"])) {
-                    throw new PpciException(sprintf(_("Droits insuffisants pour %s"), $this->id), 401);
+                    throw new PpciException(sprintf(_("Droits insuffisants pour %s"), $id), 401);
                 }
             } else {
                 /**
@@ -225,7 +224,7 @@ class SampleWs extends PpciLibrary
                 $collection = new Collection();
                 $dcollection = $collection->lire($data["collection_id"]);
                 if (!$dcollection["public_collection"]) {
-                    throw new PpciException(sprintf(_("La collection n'est pas publique pour "), $this->id), 401);
+                    throw new PpciException(sprintf(_("La collection n'est pas publique pour "), $id), 401);
                 }
                 if (!$withTemplate) {
                     throw new PpciException(_("Le nom du modèle d'export n'est pas indiqué dans la requête"), 400);
@@ -252,7 +251,7 @@ class SampleWs extends PpciLibrary
             $this->message->setSyslog($e->getMessage());
         } finally {
             $this->vue = service("AjaxView");
-            $this->vue->setJson(json_encode($data));
+            $this->vue->setJson(json_encode($data, JSON_UNESCAPED_UNICODE));
             return $this->vue->send();
         }
     }

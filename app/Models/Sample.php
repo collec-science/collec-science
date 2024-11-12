@@ -1348,45 +1348,47 @@ class Sample extends PpciModel
             $where = " where s.uid = :uid:";
         }
         $data = $this->lireParamAsPrepared($this->sql . $this->from . $where, array("uid" => $uid));
-        /**
-         * Purge the metadata_schema to keep the type and the unit
-         */
-        $metadata_schema = json_decode($data["metadata_schema"], true);
+        if (!empty($data)) {
+            /**
+             * Purge the metadata_schema to keep the type and the unit
+             */
+            $metadata_schema = json_decode($data["metadata_schema"], true);
 
-        unset($data["metadata_schema"]);
-        /**
-         * Encode in array the metadata content
-         */
-        $data["metadata"] = json_decode($data["metadata"], true);
-        foreach ($data["metadata"] as $k => $v) {
-            foreach ($metadata_schema as $schema) {
-                if ($schema["name"] == $k) {
-                    if ($schema["type"] == "number") {
-                        $data["md_" . $schema["name"] . "_unit"] = $schema["measureUnit"];
+            unset($data["metadata_schema"]);
+            /**
+             * Encode in array the metadata content
+             */
+            $data["metadata"] = json_decode($data["metadata"], true);
+            foreach ($data["metadata"] as $k => $v) {
+                foreach ($metadata_schema as $schema) {
+                    if ($schema["name"] == $k) {
+                        if ($schema["type"] == "number") {
+                            $data["md_" . $schema["name"] . "_unit"] = $schema["measureUnit"];
+                        }
+                        break;
                     }
-                    break;
                 }
             }
-        }
-        /**
-         * Get the events
-         */
-        if ($withEvents) {
-            if (!isset($this->event)) {
-                $this->event = new Event;
+            /**
+             * Get the events
+             */
+            if ($withEvents) {
+                if (!isset($this->event)) {
+                    $this->event = new Event;
+                }
+                $this->event->autoFormatDate = false;
+                $data["events"] = $this->event->getListeFromUid($data["uid"]);
+                $this->event->autoFormatDate = false;
             }
-            $this->event->autoFormatDate = false;
-            $data["events"] = $this->event->getListeFromUid($data["uid"]);
-            $this->event->autoFormatDate = false;
-        }
-        /**
-         * Get the hierarchy of containers
-         */
-        if ($withContainers) {
-            if (!isset($this->container)) {
-                $this->container = new Container;
+            /**
+             * Get the hierarchy of containers
+             */
+            if ($withContainers) {
+                if (!isset($this->container)) {
+                    $this->container = new Container;
+                }
+                $data["container"] = $this->container->getAllParents($data["uid"]);
             }
-            $data["container"] = $this->container->getAllParents($data["uid"]);
         }
         $this->autoFormatDate = true;
         return $data;

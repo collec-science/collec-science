@@ -307,7 +307,7 @@ class LoginGestion extends PpciModel
                     $this->mail = new Mail($this->paramApp->MAIL_param);
                 }
                 $APPLI_address = "https://" . $_SERVER["HTTP_HOST"];
-                $subject = $_SESSION["dbparams"]["APP_title"] . " - " . _("Activation de votre compte");
+                $subject = $_SESSION["dbparams"]["APPLI_title"] . " - " . _("Activation de votre compte");
                 $this->mail->SendMailSmarty(
                     $data["mail"],
                     $subject,
@@ -315,7 +315,7 @@ class LoginGestion extends PpciModel
                     array(
                         "prenom" => $data["prenom"],
                         "nom" => $data["nom"],
-                        "applicationName" => $_SESSION["dbparams"]["APP_title"],
+                        "applicationName" => $_SESSION["dbparams"]["APPLI_title"],
                         "APPLI_address" => $APPLI_address
                     )
                 );

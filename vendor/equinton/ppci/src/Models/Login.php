@@ -196,13 +196,12 @@ class Login
                                  * Send mail to administrators
                                  */
                                 $APPLI_address = base_url();
-                                $dbparam = $_SESSION["dbparams"];
-                                $subject = $dbparam->params["APPLI_title"] . " - " . _("Nouvel utilisateur");
+                                $subject = $_SESSION["dbparams"]["APPLI_title"] . " - " . _("Nouvel utilisateur");
                                 $template = "ppci/mail/newUser.tpl";
                                 $data = array(
                                     "login" => $login,
                                     "name" => $this->dacllogin["logindetail"],
-                                    "appName" => $dbparam->params["APPLI_title"],
+                                    "appName" => $_SESSION["dbparams"]["APPLI_title"],
                                     "organization" => $userparams["organization"],
                                     "link" => $APPLI_address
                                 );

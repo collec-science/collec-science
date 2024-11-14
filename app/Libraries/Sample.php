@@ -121,7 +121,7 @@ class Sample extends PpciLibrary
         }
         $this->vue->set($dataSearch, "sampleSearch");
         $this->vue->set("gestion/sampleList.tpl", "corps");
-        $this->vue->set($_SESSION["consultSeesAll"], "consultSeesAll");
+        $this->vue->set($_SESSION["dbparams"]["consultseesall"], "consultSeesAll");
         /**
          * Ajout des listes deroulantes
          */
@@ -198,7 +198,7 @@ class Sample extends PpciLibrary
          */
             $metadata = json_decode($data["metadata"], true);
             $is_modifiable = $this->dataclass->verifyCollection($data);
-            if (!empty($metadata) && ($is_modifiable || $_SESSION["consultSeesAll"] == 1)) {
+            if (!empty($metadata) && ($is_modifiable || $_SESSION["dbparams"]["consultseesall"] == 1)) {
                 $this->vue->set($metadata, "metadata");
             }
             /**
@@ -259,7 +259,7 @@ class Sample extends PpciLibrary
              *
              * Recuperation des documents
              */
-            if ($is_modifiable || $_SESSION["consultSeesAll"] == 1) {
+            if ($is_modifiable || $_SESSION["dbparams"]["consultseesall"] == 1) {
                 $document = new Document();
                 $this->vue->set($document->getListFromField("uid", $data["uid"]), "dataDoc");
                 $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
@@ -278,7 +278,7 @@ class Sample extends PpciLibrary
             /**
              * Affichage
              */
-            $this->vue->set($_SESSION["consultSeesAll"], "consultSeesAll");
+            $this->vue->set($_SESSION["dbparams"]["consultseesall"], "consultSeesAll");
             /**
              * Map default data
              */

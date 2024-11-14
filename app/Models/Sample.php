@@ -612,7 +612,7 @@ class Sample extends PpciModel
                 /**
                  * Recherche dans les metadonnees
                  */
-                if (($_SESSION["consultSeesAll"] == 1 || $_SESSION["userRights"]["manage"] == 1) && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
+                if (($_SESSION["dbparams"]["consultseesall"] == 1 || $_SESSION["userRights"]["manage"] == 1) && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
                     $where .= $and . " ";
                     /**
                      * Traitement des divers champs de metadonnees (3 maxi)
@@ -822,7 +822,7 @@ class Sample extends PpciModel
          * explode metadata
          */
         foreach ($list as $k => $v) {
-            if (!empty($v["metadata"]) && ($this->verifyCollection($v) || $_SESSION["consultSeesAll"] == 1)) {
+            if (!empty($v["metadata"]) && ($this->verifyCollection($v) || $_SESSION["dbparams"]["consultseesall"] == 1)) {
                 $metadata_array = json_decode($v["metadata"], true);
                 if (empty($metadatafilter)) {
                     $list[$k]["metadata_array"] = $metadata_array;

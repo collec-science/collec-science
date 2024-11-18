@@ -1597,7 +1597,7 @@ ALTER SEQUENCE gacl.log_log_id_seq OWNER TO collec;
 -- DROP TABLE IF EXISTS gacl.log CASCADE;
 CREATE TABLE gacl.log (
 	log_id integer NOT NULL DEFAULT nextval('gacl.log_log_id_seq'::regclass),
-	login character varying(32) NOT NULL,
+	login character varying NOT NULL,
 	nom_module character varying,
 	log_date timestamp NOT NULL,
 	commentaire character varying,

@@ -66,4 +66,6 @@ comment on column sample_type.sample_type_code is 'Code used to exchange informa
 
 update dbparam set dbparam_name = 'APPLI_title' where dbparam_name = 'APP_title';
 
+alter table log alter column login type varchar;
+
 insert into dbversion (dbversion_date, dbversion_number) values ('2024-09-18','25.0');

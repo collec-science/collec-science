@@ -49,7 +49,7 @@
             if ($("#subsample_quantity_max").val().length > 0) ok = true;
             if ($("#booking_type").val() != 0) ok = true;
             if ($("#without_container").is(':checked')) ok = true;
-            if ($("#collections").val().length > 0) ok = true;
+            if ($("#collections").val() > 0) ok = true;
             if ($("#metadatafilter").val().length > 0) ok = true;
             var mf = $("#metadata_field").val();
 

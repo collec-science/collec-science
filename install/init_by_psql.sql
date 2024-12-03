@@ -1,29 +1,27 @@
 
-CREATE USER sturwild WITH
+CREATE USER collec WITH
   LOGIN
   NOSUPERUSER
   INHERIT
   NOCREATEDB
   NOCREATEROLE
   NOREPLICATION
- PASSWORD 'sturwildPassword'
+ PASSWORD 'collecPassword'
 ;
 
 /*
  * Database creation
  */
-create database sturwild owner sturwild;
-\c "dbname=sturwild"
+create database collec owner collec;
+\c "dbname=collec"
  create extension if not exists postgis schema public;
  create extension if not exists pgcrypto schema public;
+ create extension if not exists pg_trgm schema pg_catalog;
 
 
-\c "dbname=sturwild user=sturwild password=sturwildPassword host=localhost"
+\c "dbname=collec user=collec password=collecPassword host=localhost"
 
 /**
  * create structure
  */
-\ir pgsql/createtables.sql
-\ir translatedb/comment_sql.sql
-\ir translatedb/param_en.sql
-
+\ir pgsql/collec_create.sql

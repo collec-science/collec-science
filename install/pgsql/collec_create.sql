@@ -930,10 +930,6 @@ COMMENT ON COLUMN col.printer.printer_comment IS E'Comment';
 ALTER TABLE col.printer OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.printer (printer_id, printer_name, printer_queue, printer_server, printer_user, printer_comment) VALUES (E'1', E'testprinter', DEFAULT, DEFAULT, DEFAULT, DEFAULT);
--- ddl-end --
-INSERT INTO col.printer (printer_id, printer_name, printer_queue, printer_server, printer_user, printer_comment) VALUES (E'2', E'testprinter2', DEFAULT, DEFAULT, DEFAULT, DEFAULT);
--- ddl-end --
 
 -- object: col.collection | type: TABLE --
 -- DROP TABLE IF EXISTS col.collection CASCADE;
@@ -1934,6 +1930,99 @@ SELECT b1.borrowing_id,
 ALTER VIEW col.last_borrowing OWNER TO collec;
 -- ddl-end --
 
+
+-- object: col.object | type: TABLE --
+-- DROP TABLE IF EXISTS col.object CASCADE;
+CREATE TABLE col.object (
+	uid integer NOT NULL DEFAULT nextval('col.object_uid_seq'::regclass),
+	identifier character varying,
+	wgs84_x double precision,
+	wgs84_y double precision,
+	object_status_id integer,
+	referent_id integer,
+	change_date timestamp NOT NULL DEFAULT now(),
+	uuid uuid NOT NULL DEFAULT gen_random_uuid(),
+	trashed bool DEFAULT false,
+	location_accuracy float,
+	geom geography(POINT, 4326),
+	object_comment varchar,
+	last_movement_id integer,
+	CONSTRAINT object_pk PRIMARY KEY (uid)
+);
+-- ddl-end --
+COMMENT ON TABLE col.object IS E'Table of objects';
+-- ddl-end --
+COMMENT ON COLUMN col.object.uid IS E'Unique identifier in the database of all objects';
+-- ddl-end --
+COMMENT ON COLUMN col.object.identifier IS E'Main working identifier';
+-- ddl-end --
+COMMENT ON COLUMN col.object.wgs84_x IS E'GPS longitude, in decimal form';
+-- ddl-end --
+COMMENT ON COLUMN col.object.wgs84_y IS E'GPS latitude, in decimal form';
+-- ddl-end --
+COMMENT ON COLUMN col.object.change_date IS E'Technical date of changement of the object';
+-- ddl-end --
+COMMENT ON COLUMN col.object.uuid IS E'UUID of the object';
+-- ddl-end --
+COMMENT ON COLUMN col.object.trashed IS E'If the object is trashed before completly destroyed ?';
+-- ddl-end --
+COMMENT ON COLUMN col.object.location_accuracy IS E'Location accuracy of the object, in meters';
+-- ddl-end --
+COMMENT ON COLUMN col.object.geom IS E'Geographic point generate from wgs84_x and wgs84_y';
+-- ddl-end --
+COMMENT ON COLUMN col.object.object_comment IS E'Comment on the object (sample or container)';
+-- ddl-end --
+COMMENT ON COLUMN col.object.last_movement_id IS E'Last movement recorded to the object';
+-- ddl-end --
+ALTER TABLE col.object OWNER TO collec;
+-- ddl-end --
+
+-- Appended SQL commands --
+create index object_identifier_idx on col.object using gist (lower(identifier) gist_trgm_ops);
+-- ddl-end --
+
+-- object: object_trashed | type: INDEX --
+-- DROP INDEX IF EXISTS col.object_trashed CASCADE;
+CREATE INDEX object_trashed ON col.object
+USING btree
+(
+	trashed
+)
+WHERE (trashed = true);
+-- ddl-end --
+COMMENT ON INDEX col.object_trashed IS E'Index used when trashed is true';
+-- ddl-end --
+
+-- object: col_object_geom_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.col_object_geom_idx CASCADE;
+CREATE INDEX col_object_geom_idx ON col.object
+USING gist
+(
+	geom
+);
+-- ddl-end --
+
+-- object: col.last_movement | type: VIEW --
+-- DROP VIEW IF EXISTS col.last_movement CASCADE;
+CREATE VIEW col.last_movement
+AS 
+
+SELECT m.uid,
+    m.movement_id,
+    m.movement_date,
+    m.movement_type_id,
+    m.container_id,
+    c.uid AS container_uid,
+    o2.identifier AS container_identifier,
+    m.line_number,
+    m.column_number,
+    m.movement_reason_id
+   FROM col.movement m
+     JOIN col.object o ON m.movement_id = o.last_movement_id
+     LEFT JOIN col.container c USING (container_id)
+     left join col.object o2 on (c.uid = o2.uid);
+-- ddl-end --
+
 -- object: col.slots_used | type: VIEW --
 -- DROP VIEW IF EXISTS col.slots_used CASCADE;
 CREATE VIEW col.slots_used
@@ -2045,9 +2134,9 @@ COMMENT ON COLUMN col.export_model.target IS E'Main table targetted';
 ALTER TABLE col.export_model OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_model', E'[{tableName:export_model,businessKey:export_model_name,istable11:false,children:[],booleanFields:[],istablenn:false}]');
+INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_model', '[{"tableName":"export_model","businessKey":"export_model_name","istable11":false,"children":[],"booleanFields":[],"istablenn":false}]');
 -- ddl-end --
-INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_template', E'[{tableName:export_template,technicalKey:export_template_id,isEmpty:false,businessKey:export_template_name,istable11:false,children:[{aliasName:export_dataset,isStrict:true}],parents:[],istablenn:false},{tableName:export_dataset,isEmpty:false,parentKey:export_template_id,istable11:false,children:[],parents:[{aliasName:dataset_template,fieldName:dataset_template_id}],istablenn:true,tablenn:{secondaryParentKey:dataset_template_id,tableAlias:dataset_template}},{tableName:dataset_template,technicalKey:dataset_template_id,isEmpty:true,businessKey:dataset_template_name,istable11:false,children:[{aliasName:dataset_column,isStrict:true}],parents:[],istablenn:false},{tableName:dataset_column,technicalKey:dataset_column_id,isEmpty:false,parentKey:dataset_template_id,istable11:false,children:[],parents:[{aliasName:translator,fieldName:translator_id}],istablenn:false},{tableName:translator,technicalKey:translator_id,isEmpty:true,businessKey:translator_name,istable11:false,children:[],parents:[],istablenn:false}]');
+INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_template', '[{"tableName":"export_template","technicalKey":"export_template_id","isEmpty":false,"businessKey":"export_template_name","istable11":false,"children":[{"aliasName":"export_dataset","isStrict":true}],"parents":[],"istablenn":false},{"tableName":"export_dataset","isEmpty":false,"parentKey":"export_template_id","istable11":false,"children":[],"parents":[{"aliasName":"dataset_template","fieldName":"dataset_template_id"}],"istablenn":true,"tablenn":{"secondaryParentKey":"dataset_template_id","tableAlias":"dataset_template"}},{"tableName":"dataset_template","technicalKey":"dataset_template_id","isEmpty":true,"businessKey":"dataset_template_name","istable11":false,"children":[{"aliasName":"dataset_column","isStrict":true}],"parents":[],"istablenn":false},{"tableName":"dataset_column","technicalKey":"dataset_column_id","isEmpty":false,"parentKey":"dataset_template_id","istable11":false,"children":[],"parents":[{"aliasName":"translator","fieldName":"translator_id"}],"istablenn":false},{"tableName":"translator","technicalKey":"translator_id","isEmpty":true,"businessKey":"translator_name","istable11":false,"children":[],"parents":[],"istablenn":false}]');
 -- ddl-end --
 
 -- object: movement_uid_idx | type: INDEX --
@@ -2113,76 +2202,6 @@ USING btree
 );
 -- ddl-end --
 
--- object: col.object | type: TABLE --
--- DROP TABLE IF EXISTS col.object CASCADE;
-CREATE TABLE col.object (
-	uid integer NOT NULL DEFAULT nextval('col.object_uid_seq'::regclass),
-	identifier character varying,
-	wgs84_x double precision,
-	wgs84_y double precision,
-	object_status_id integer,
-	referent_id integer,
-	change_date timestamp NOT NULL DEFAULT now(),
-	uuid uuid NOT NULL DEFAULT gen_random_uuid(),
-	trashed bool DEFAULT false,
-	location_accuracy float,
-	geom geography(POINT, 4326),
-	object_comment varchar,
-	last_movement_id integer,
-	CONSTRAINT object_pk PRIMARY KEY (uid)
-);
--- ddl-end --
-COMMENT ON TABLE col.object IS E'Table of objects';
--- ddl-end --
-COMMENT ON COLUMN col.object.uid IS E'Unique identifier in the database of all objects';
--- ddl-end --
-COMMENT ON COLUMN col.object.identifier IS E'Main working identifier';
--- ddl-end --
-COMMENT ON COLUMN col.object.wgs84_x IS E'GPS longitude, in decimal form';
--- ddl-end --
-COMMENT ON COLUMN col.object.wgs84_y IS E'GPS latitude, in decimal form';
--- ddl-end --
-COMMENT ON COLUMN col.object.change_date IS E'Technical date of changement of the object';
--- ddl-end --
-COMMENT ON COLUMN col.object.uuid IS E'UUID of the object';
--- ddl-end --
-COMMENT ON COLUMN col.object.trashed IS E'If the object is trashed before completly destroyed ?';
--- ddl-end --
-COMMENT ON COLUMN col.object.location_accuracy IS E'Location accuracy of the object, in meters';
--- ddl-end --
-COMMENT ON COLUMN col.object.geom IS E'Geographic point generate from wgs84_x and wgs84_y';
--- ddl-end --
-COMMENT ON COLUMN col.object.object_comment IS E'Comment on the object (sample or container)';
--- ddl-end --
-COMMENT ON COLUMN col.object.last_movement_id IS E'Last movement recorded to the object';
--- ddl-end --
-ALTER TABLE col.object OWNER TO collec;
--- ddl-end --
-
--- Appended SQL commands --
-create index object_identifier_idx on col.object using gist (lower(identifier) gist_trgm_ops);
--- ddl-end --
-
--- object: object_trashed | type: INDEX --
--- DROP INDEX IF EXISTS col.object_trashed CASCADE;
-CREATE INDEX object_trashed ON col.object
-USING btree
-(
-	trashed
-)
-WHERE (trashed = true);
--- ddl-end --
-COMMENT ON INDEX col.object_trashed IS E'Index used when trashed is true';
--- ddl-end --
-
--- object: col_object_geom_idx | type: INDEX --
--- DROP INDEX IF EXISTS col.col_object_geom_idx CASCADE;
-CREATE INDEX col_object_geom_idx ON col.object
-USING gist
-(
-	geom
-);
--- ddl-end --
 
 -- object: col.campaign_campaign_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.campaign_campaign_id_seq CASCADE;
@@ -2593,13 +2612,13 @@ COMMENT ON COLUMN col.dataset_type.fields IS E'List of allowed fields of the dat
 ALTER TABLE col.dataset_type OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'[uid,uuid,identifier,wgs84_x,wgs84_y,location_accuracy,object_status_name,referent_name,referent_email,address_name,address_line2,address_line3,address_city,address_country,referent_phone,referent_firstname,academic_directory,academic_link,object_comment,identifiers,sample_creation_date,sampling_date,multiple_value,sampling_place_name,expiration_date,sample_type_name,storage_product,clp_classification,multiple_type_name,collection_name,metadata,metadata_unit,parent_uid,parent_uuid,parent_identifiers,web_address,content_type,container_uid,container_identifier,container_uuid,storage_type_name,fixed_value,country_code,country_origin_code,trashed,campaign_id,campaign_name,campaign_uuid]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed,campaign_id","campaign_name","campaign_uuid"]');
 -- ddl-end --
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'2', E'collection', E'[collection_name,collection_displayname,collection_keywords,referent_name,referent_firstname,academical_directory,academical_link,referent_email,address_name,address_line2,address_line3,address_city,address_country,referent_phone,fixed_value]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'2', E'collection', '["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academical_directory","academical_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]');
 -- ddl-end --
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'3', E'document', E'[document_name,document_uuid,uid,sample_uuid,identifier,content_type,extension,size,document_creation_date,fixed_value, web_address]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'3', E'document', '["document_name","document_uuid","uid","sample_uuid","identifier","content_type","extension","size","document_creation_date","fixed_value","web_address"]');
 -- ddl-end --
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'4', E'arbitrary content', E'[content]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'4', E'arbitrary content', '["content"]');
 -- ddl-end --
 
 -- object: dataset_type_fk | type: CONSTRAINT --
@@ -3357,29 +3376,6 @@ from col.sample s;
 ALTER VIEW col.v_subsample_quantity OWNER TO collec;
 -- ddl-end --
 
--- object: col.last_movement | type: VIEW --
--- DROP VIEW IF EXISTS col.last_movement CASCADE;
-CREATE VIEW col.last_movement
-AS 
-
-SELECT m.uid,
-    m.movement_id,
-    m.movement_date,
-    m.movement_type_id,
-    m.container_id,
-    c.uid AS container_uid,
-    o2.identifier AS container_identifier,
-    m.line_number,
-    m.column_number,
-    m.movement_reason_id
-   FROM col.movement m
-     JOIN col.object o ON m.movement_id = o.last_movement_id
-     LEFT JOIN col.container c USING (container_id)
-     left join col.object o2 on (c.uid = o2.uid);
--- ddl-end --
-ALTER VIEW col.last_movement OWNER TO collec;
--- ddl-end --
-
 -- object: country_fk1 | type: CONSTRAINT --
 -- ALTER TABLE col.sample DROP CONSTRAINT IF EXISTS country_fk1 CASCADE;
 ALTER TABLE col.sample ADD CONSTRAINT country_fk1 FOREIGN KEY (country_origin_id)
@@ -3537,8 +3533,6 @@ from col.collection_group
 join gacl.aclgroup using (aclgroup_id)
 where collection_id = $1
 $$;
--- ddl-end --
-ALTER FUNCTION col.getgroupsfromcollection(integer) OWNER TO postgres;
 -- ddl-end --
 
 -- object: col.collection_eventtype | type: TABLE --
@@ -3984,29 +3978,3 @@ REFERENCES col.movement (movement_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
--- object: "grant_CcT_1a8deeacb2" | type: PERMISSION --
-GRANT CREATE,CONNECT,TEMPORARY
-   ON DATABASE collec
-   TO collec;
--- ddl-end --
-
--- object: "grant_rawdD_a7760dbb4c" | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE
-   ON TABLE col.v_subsample_quantity
-   TO collec;
--- ddl-end --
-
--- object: col.slots_used | type: VIEW --
--- DROP VIEW IF EXISTS col.slots_used CASCADE;
-CREATE VIEW col.slots_used
-AS 
-SELECT
-   container_id, count(*) as nb_slots_used
-FROM
-   last_movement
-WHERE
-   movement_type_id = 1
-   group by container_id;
--- ddl-end --
-ALTER VIEW col.slots_used OWNER TO collec;
--- ddl-end --

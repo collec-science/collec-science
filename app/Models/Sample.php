@@ -1135,7 +1135,7 @@ class Sample extends PpciModel
              */
             if (strlen($row["metadata"]) > 2) {
                 $a_m = json_decode($row["metadata"], true);
-                if (count($a_m) == 0) {
+                if (!is_array($a_m) || count($a_m) == 0) {
                     throw new PpciException(_("Les métadonnées ne sont pas correctement formatées (champ metadata)"));
                 }
             }

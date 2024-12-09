@@ -201,3 +201,4 @@ sympy-plots-for-*.tex/
 /.scannerwork*
 install/upgradedb.sh
 display/templates/test/test.html
+install/createtest.sql

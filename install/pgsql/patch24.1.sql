@@ -50,7 +50,7 @@ AS
 SELECT
    container_id, count(*) as nb_slots_used
 FROM
-   last_movement
+   col.last_movement
 WHERE
    movement_type_id = 1
    group by container_id;

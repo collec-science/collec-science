@@ -414,7 +414,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="form-horizontal col-xs-12 col-lg-10">
 		<div class="form-group">
 			<label class="col-xs-4 control-label ">{t}Caméra :{/t}</label>
@@ -790,11 +789,11 @@
 				</fieldset>
 				{/if}
 			</div>
-			{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}
 			<div class="col-md-6">
+			{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}
 				{include file="gestion/objectMapDisplay.tpl"}
-			</div>
 			{/if}
+			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="tab-event">
 			<div class="col-md-12">

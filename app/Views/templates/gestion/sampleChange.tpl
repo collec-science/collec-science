@@ -4,6 +4,7 @@
 </script>
 <script type="text/javascript" src="display/javascript/formbuilder.js"></script>
 
+
 <script type="text/javascript">
 
 	var identifier_fn = "";
@@ -241,7 +242,7 @@
         });
 
         $('#sampleForm').submit(function(event) {
-            if($("#action").val()=="Write"){
+            if($("#sampleForm").attr("action")=="sampleWrite"){
             	var error = false;
             	var sample_type_id = $("#sample_type_id").val();
             	if (sample_type_id) {
@@ -271,9 +272,7 @@
                 if (error) {
                 	event.preventDefault();
                 }
-
             }
-
     	});
         $("#reinit").click(function() {
         	$("#wgs84_x").val("");

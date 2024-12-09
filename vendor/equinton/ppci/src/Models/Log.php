@@ -337,7 +337,7 @@ class Log extends PpciModel
             array(
                 "login" => $login,
                 "date" => date($_SESSION["MASKDATELONG"]),
-                "ipaddress" => getIPClientAddress()
+                "ipaddress" => $this->getIPClientAddress()
             ),
             "",
             $login
@@ -490,7 +490,7 @@ class Log extends PpciModel
     function getTimestampFromLastCall($login)
     {
         $login = strtolower($login);
-        $ip = getIPClientAddress();
+        $ip = $this->getIPClientAddress();
         $sql = "select extract (epoch from now() - log_date) as ts from log
                 where login = :login: and ipaddress = :ip:
                 order by log_date desc limit 1";

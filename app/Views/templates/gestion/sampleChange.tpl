@@ -100,7 +100,7 @@
        	    		if (value) {
        	    		var schema = value.replace(/&quot;/g,'"');
        	    		showForm(JSON.parse(schema),dataParse);
-       	    		$(".alpaca-field-select").combobox();
+       	    		//$(".alpaca-field-select").combobox();
        	    		} else {
 						$("#metadata").alpaca("destroy");
 					}

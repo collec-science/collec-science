@@ -23,18 +23,23 @@ function getSchema( formdef ) {
         };
 
         if ( value.type == "select" || value.type == "radio") {
-            prop.enum = value.choiceList;
+            prop.enum = value.choiceList;   
             if ( value.required && prop.enum && prop.enum.length > 0 ) {
                 prop.default = prop.enum[ 0 ];
                 prop.emptySelectFirst = true;
             }
         }
         if ( value.type == "checkbox" ) {
-            prop.type = "array";
-            prop.items = {};
-            prop.items.enum = value.choiceList;
+            prop.type = "string";
+            prop.enum = value.choiceList;
+        }
+        if ( value.type == "radio" ) {
+            prop.type = "string";
         }
 
+        if ( value.type == "select" ) {
+            prop.type = "string";
+        }
         if ( value.required == "true" || value.required ) {
             prop.required = true;
         }

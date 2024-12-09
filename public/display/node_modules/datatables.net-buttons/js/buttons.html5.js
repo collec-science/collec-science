@@ -1117,7 +1117,9 @@ DataTable.ext.buttons.csvHtml5 = {
 
 	extension: '.csv',
 
-	exportOptions: {},
+	exportOptions: {
+		escapeExcelFormula: true
+	},
 
 	fieldSeparator: ',',
 

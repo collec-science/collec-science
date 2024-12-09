@@ -205,6 +205,11 @@ div.dt-buttons div.dt-button-collection .dropdown-menu {
 div.dt-buttons div.dt-button-collection .dropdown-menu li {
   position: relative;
 }
+div.dt-buttons div.dt-button-collection .dropdown-menu li span.caret {
+  position: absolute;
+  right: 9px;
+  top: 14px;
+}
 div.dt-buttons div.dt-button-collection .dropdown-menu div.dt-button-split {
   display: flex;
   flex-direction: row;
@@ -283,10 +288,6 @@ div.dt-buttons div.dt-button-collection.fixed > :last-child {
 }
 div.dt-buttons div.dt-button-collection.two-column > :last-child, div.dt-buttons div.dt-button-collection.three-column > :last-child, div.dt-buttons div.dt-button-collection.four-column > :last-child {
   display: block !important;
-  -webkit-column-gap: 8px;
-  -moz-column-gap: 8px;
-  -ms-column-gap: 8px;
-  -o-column-gap: 8px;
   column-gap: 8px;
 }
 div.dt-buttons div.dt-button-collection.two-column > :last-child > *, div.dt-buttons div.dt-button-collection.three-column > :last-child > *, div.dt-buttons div.dt-button-collection.four-column > :last-child > * {

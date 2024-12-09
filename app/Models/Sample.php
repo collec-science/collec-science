@@ -171,16 +171,14 @@ class Sample extends PpciModel
         $sql = $this->sql . $this->from . " where s.uid = :uid:";
         $data["uid"] = $uid;
         if (is_numeric($uid) && $uid > 0) {
-            $this->fields["borrowing_date"] = array("type" => 2);
-            $this->fields["expected_return_date"] = array("type" => 2);
-            $this->fields["change_date"] = array("type" => 3);
+            $this->datetimeFields[] = "movement_date";
+            $this->datetimeFields[] = "change_date";
+            $this->dateFields[] = "borrowing_date";
+            $this->dateFields[] = "expected_return_date";
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
             $retour = parent::getDefaultValues($parentValue);
         }
-        unset($this->fields["borrowing_date"]);
-        unset($this->fields["expected_return_date"]);
-        unset($this->fields["change_date"]);
         return $retour;
     }
 
@@ -188,13 +186,11 @@ class Sample extends PpciModel
     {
         $sql = $this->sql . $this->from . " where s.sample_id = :sample_id:";
         $data["sample_id"] = $sample_id;
-        $this->fields["borrowing_date"] = array("type" => 2);
-        $this->fields["exepected_return_date"] = array("type" => 2);
-        $this->fields["change_date"] = array("type" => 3);
+        $this->datetimeFields[] = "movement_date";
+        $this->datetimeFields[] = "change_date";
+        $this->dateFields[] = "borrowing_date";
+        $this->dateFields[] = "expected_return_date";
         $list = parent::lireParamAsPrepared($sql, $data);
-        unset($this->fields["borrowing_date"]);
-        unset($this->fields["expected_return_date"]);
-        unset($this->fields["change_date"]);
         return $list;
     }
 

@@ -97,7 +97,6 @@ on conflict do nothing;
 -- DROP VIEW IF EXISTS col.last_movement CASCADE;
 CREATE or replace VIEW col.last_movement
 AS 
-
 SELECT m.uid,
     m.movement_id,
     m.movement_date,
@@ -118,11 +117,10 @@ SELECT m.uid,
 -- DROP VIEW IF EXISTS col.slots_used CASCADE;
 CREATE or replace VIEW col.slots_used
 AS 
-
 SELECT
    container_id, count(*) as nb_slots_used
 FROM
-   last_movement
+   col.last_movement
 WHERE
    movement_type_id = 1
    group by container_id;

@@ -13,15 +13,15 @@
 		}
         } catch (Exception) {
         }
-		var pageLength = 10;
+		/*var pageLength = 10;
 		try {
 			pageLength = myStorageSample.getItem("samplePageLength");
 			if (pageLength == -1) {
 				pageLength = 10;
 			}
 		} catch (Exception) {
-		}
-		var scrolly = "2000pt";
+		}*/
+		//var scrolly = "2000pt";
 		var isGestion = "{$rights.manage}";
 		var maxcol = 21;
 		/*if (limit < 5 && limit > 0 || totalNumber < 5 && totalNumber > 0) {
@@ -45,9 +45,9 @@
 					maxcol = 20;
 				}
 		}
-		var lengthMenu = [10, 25, 50, 100, 500, { label:'all',value: -1}];
+		//var lengthMenu = [10, 25, 50, 100, 500, { label:'all',value: -1}];
 		var buttons = [
-				'pageLength',
+				//'pageLength',
 				{
 					extend: 'colvis',
 					text: '{t}Colonnes affichées{/t}'
@@ -89,7 +89,7 @@
 				var tableList = $( '#sampleList' ).DataTable( {
 					//dom: 'Birtp',
 					"language": dataTableLanguage,
-					"paging": true,
+					"paging": false,
 					"searching": true,
 					"stateSave": false,
 					"stateDuration": 60 * 60 * 24 * 30,
@@ -104,8 +104,8 @@
 							buttons: buttons
 						}
 					},
-					lengthMenu: lengthMenu,
-					pageLength: pageLength,
+					//lengthMenu: lengthMenu,
+					//pageLength: pageLength,
 					fixedHeader: {
 						header: false,
 						footer: true
@@ -116,7 +116,7 @@
 					"order": [[1, "asc"]],
 					//dom: 'Bfirtp',
 					"language": dataTableLanguage,
-					"paging": true,
+					"paging": false,
 					"searching": true,
 					//scrollY:scrolly,
 					scrollX:true,
@@ -136,8 +136,8 @@
 							buttons: buttons
 						}
 					},
-					lengthMenu: lengthMenu,
-					pageLength: pageLength
+					//lengthMenu: lengthMenu,
+					//pageLength: pageLength
 				} );
 			}
 		tableList.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
@@ -149,11 +149,11 @@
 				myStorageSample.setItem("sampleSearchColumns", JSON.stringify(hb));
 			});
 		} );
-		$("#sampleList").on('length.dt', function (e, settings, len) {
+		/*$("#sampleList").on('length.dt', function (e, settings, len) {
 			if (len > -1) {
 				myStorage.setItem('samplePageLength', len);
 			}
-        });
+        });*/
 		/**
 		 * select or unselect samples
 		 */

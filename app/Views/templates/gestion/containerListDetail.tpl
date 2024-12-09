@@ -27,7 +27,7 @@ $(document).ready(function () {
 	if (gestion == 1) {
 		maxcol = 16;
 	}
-	var lengthMenu = [10, 25, 50, 100, 500, { label:'all',value: -1}];
+	/*var lengthMenu = [10, 25, 50, 100, 500, { label:'all',value: -1}];
 	var pageLength = 10;
 		try {
 			pageLength = myStorageSample.getItem("containerPageLength");
@@ -35,11 +35,11 @@ $(document).ready(function () {
 				pageLength = 10;
 			} 
 		} catch (Exception) {
-		}
+		}*/
 	var table = $("#containerList").DataTable( {
 			//dom: 'Bfrtip',
 			"language": dataTableLanguage,
-			"paging": true,
+			"paging": false,
 			"searching": true,
 			"stateSave": true,
 			//"scrollY":"50vh",
@@ -51,7 +51,7 @@ $(document).ready(function () {
 			layout: {
                 topStart: {
                     buttons: [
-						'pageLength',
+						//'pageLength',
 						{
 							extend: 'colvis',
 							text: '{t}Colonnes affichées{/t}'
@@ -64,14 +64,14 @@ $(document).ready(function () {
 					]
                 }
             },
-			"lengthMenu": lengthMenu,
-			pageLength: pageLength
+			//"lengthMenu": lengthMenu,
+			//pageLength: pageLength
 		} );
-	table.on('length.dt', function (e, settings, len) {
+	/*table.on('length.dt', function (e, settings, len) {
 		if (len > -1) {
 			myStorage.setItem('containerPageLength', len);
 		}
-	});
+	});*/
 	table.order(dataOrder).draw();
 	table.on( 'buttons-action', function ( e, buttonApi, dataTable, node, config ) {
 			var hb = [];

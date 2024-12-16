@@ -19,6 +19,13 @@
 		 $('.nav-link').on('shown.bs.tab', function () {
 			myStorage.setItem("collectionChangeTab", $(this).attr("id"));
 		});
+        $("#sampletypecheck").change(function () { 
+            if ($("#sampletypecheck").prop("checked")) {
+                $(".sampletypecheck").prop("checked",true);
+            } else {
+                $(".sampletypecheck").prop("checked",false);
+            }
+        });
     } );
 </script>
 
@@ -286,13 +293,16 @@
                     <div class="form-group">
                         <label for="sampletypes" class="control-label col-md-4">
                             {t}Types d'échantillons spécifiques de la collection :{/t}
+                            <br>
+                            {t}(dé)sélectionnez tous :{/t}
+                            <input type="checkbox" id="sampletypecheck">
                         </label>
                         <div class="col-md-7">
                             {section name=lst loop=$sampletypes}
                             <div class="col-md-6 ">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" name="sampletypes[]"
+                                        <input class="sampletypecheck" type="checkbox" name="sampletypes[]"
                                             value="{$sampletypes[lst].sample_type_id}" {if
                                             $sampletypes[lst].checked== 1}checked{/if}>
                                         {$sampletypes[lst].sample_type_name}

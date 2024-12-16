@@ -263,7 +263,7 @@ class ImportObject
     function readLine()
     {
         if ($this->handle) {
-            $data = fgetcsv($this->handle, 1000, $this->separator);
+            $data = fgetcsv($this->handle, null, $this->separator);
             if ($data !== false) {
                 if ($this->utf8_encode) {
                     $data = mb_convert_encoding($data, 'UTF-8', 'ISO-8859-15, ISO-8859-1, Windows-1252');

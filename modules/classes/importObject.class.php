@@ -266,7 +266,7 @@ class ImportObject
     function readLine()
     {
         if ($this->handle) {
-            $data = fgetcsv($this->handle, 1000, $this->separator);
+            $data = fgetcsv($this->handle, null, $this->separator);
             if ($data !== false) {
                 if ($this->utf8_encode) {
                     foreach ($data as $key => $value) {

@@ -39,6 +39,10 @@ class Event extends PpciLibrary
 
 	function change()
 	{
+		if (empty($_SESSION["moduleParent"])) {
+			$this->message->set(_("L'accès direct à ce module n'est pas possible"), true);
+			return defaultPage();
+		}
 		$this->vue = service('Smarty');
 		/*
 		 * open the form to modify the record

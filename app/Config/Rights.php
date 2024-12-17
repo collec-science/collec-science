@@ -90,6 +90,7 @@ class Rights extends RightsPpci
         "sampleeventWrite" => ["manage"],
         "sampleeventDelete" => ["manage"],
         "eventSearch" => ["manage"],
+        "eventSearchDisplay" => ["manage"],
         "eventsDelete" => ["import"],
         "eventsChange" => ["import"],
         "eventSearcheventWrite" => ["manage"],

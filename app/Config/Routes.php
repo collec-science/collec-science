@@ -91,6 +91,7 @@ $routes->add('eventsDelete', 'Event::deleteList');
 $routes->add('eventsChange', 'Event::changeList');
 $routes->post('eventSearcheventWrite', 'Event::write/eventSearch');
 $routes->post('eventSearcheventDelete', 'Event::delete/eventSearch');
+$routes->add('eventSearchDisplay', 'Event::search');
 $routes->add('movementcontainerInput', 'Movement::input');
 $routes->add('movementcontainerOutput', 'Movement::output');
 $routes->post('movementcontainerWrite', 'Movement::write/container');

@@ -11,6 +11,7 @@ New features :
 - sample types can be associated with a code for exchanges with external information systems
 - the apiv1sampleWrite API now accepts a list of samples to be processed in a single call. It now accepts multiple values in metadata
 - it is now possible to delete samples and all associated derived samples
+- in the description of a collection, it is possible to select all sample types with a single click
 
 Bug fixes:
 - In the list of samples, the + was not displayed if only one derived sample was attached.
@@ -420,8 +421,6 @@ Miscellaneous:
 - the website https://wwww.collec-science.org has been updated
 - the comments in the database have been switched to English
 - for users identified from the local database, their account is blocked after three logins without changing the password. The status of their account is now displayed.
-
-Translated with www.DeepL.com/Translator (free version)
 
 Version 2.3.1 of September 6, 2019
 ---------------------------------

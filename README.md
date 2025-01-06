@@ -1,6 +1,6 @@
 # COLLEC-SCIENCE  
 
-© INRAE, 2016-2024 - All rights reserved  
+© INRAE, 2016-2025 - All rights reserved  
 Published under AGPL license
 
 **WARNING**: Collec-Science is now hosted here: [https://github.com/collec-science/collec-science](https://github.com/collec-science/collec-science)
@@ -19,7 +19,23 @@ sudo -s
 
 ## Upgrade
 
-From version 24.0.0, the technology used to upgrade the application change. Consult this doc: [https://github.com/collec-science/collec-science/blob/main/install/update%20collec-science%20from%20version%2024.0.0_en.md](https://github.com/collec-science/collec-science/blob/main/install/update%20collec-science%20from%20version%2024.0.0_en.md)
+Before each upgrade, verify if you have a recent backup of your database!
+
+From version 25.0.0 or later: 
+
+```
+/var/www/collec2App/collec-science/upgrade.sh
+```
+
+From version 24.0.0 or previous, you must install a new version of the application in a new folder, and create a new virtual host Apache. Your php version must be 8.3 or later.
+
+A script is furnished to help you to install the new release:
+
+```
+wget https://github.com/collec-science/collec-science/raw/main/install/migrate-to-25.0.sh
+sudo -s
+./migrate-to-25.0.sh
+```
 
 ## What is it?
 

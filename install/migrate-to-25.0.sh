@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 REPO=https://github.com/collec-science/collec-science
 PHPVER=`php -version|grep "cli"| cut -f 2 -d " "|cut -f 1-2 -d "."`
 OLDINSTALL=/var/www/collecApp/collec-science

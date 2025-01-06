@@ -1,6 +1,6 @@
 Nouveautés
 ============
-Version v25.0.0 du 18/10/2024
+Version v25.0.0 du 06/01/2025
 -----------------------------
 Nouveautés :
 - réécriture complète de l'application pour la porter vers le framework CodeIgniter
@@ -11,6 +11,8 @@ Nouveautés :
 - les types d'échantillons peuvent se voir associés à un code pour les échanges avec les systèmes d'informations externes
 - l'API apiv1sampleWrite accepte maintenant une liste d'échantillons à traiter en un seul appel. Elle accepte maintenant les multivaleurs dans les métadonnées
 - il est maintenant possible de supprimer des échantillons ainsi que tous les échantillons dérivés associés
+- dans la description d'une collection, il est possible de sélectionner tous les types d'échantillon en un clic
+
 
 Corrections de bugs :
 - Dans la liste des échantillons, le + n'était pas affiché s'il n'y avait qu'un seul échantillon dérivé rattaché

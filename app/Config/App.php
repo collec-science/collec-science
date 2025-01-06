@@ -182,13 +182,13 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public string $version = "v25.0.0b";
+    public string $version = "v25.0.0";
     /**
      * versionDate - don't change here, but in function setParameters() below
      *
      * @var string
      */
-    public string $versionDate = "26/09/2024";
+    public string $versionDate = "06/01/2025";
     /**
      * Number of the database version
      *
@@ -322,7 +322,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $copyright = "Copyright © 2016-2024 - All rights reserved. Author : Éric Quinton - Software distributed under AGPL license";
+    public $copyright = "Copyright © 2016-2025 - All rights reserved. Main author : Éric Quinton, for INRAE-EABX - Software distributed under AGPL license";
 
     /**
      * Linux command used to print directly to a printer

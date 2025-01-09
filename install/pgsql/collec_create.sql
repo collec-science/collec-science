@@ -1539,6 +1539,7 @@ CREATE TABLE gacl.acllogin (
 	login character varying NOT NULL,
 	logindetail character varying NOT NULL,
 	totp_key varchar,
+	email varchar
 	CONSTRAINT acllogin_pk PRIMARY KEY (acllogin_id)
 );
 -- ddl-end --

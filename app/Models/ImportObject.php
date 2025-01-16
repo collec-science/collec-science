@@ -565,7 +565,7 @@ class ImportObject
              * Regenerate the date
              */
             $date = $date1[0] . " " . $date1[1];
-            $mask = $_SESSION["MASKDATELONG"];
+            $mask = $_SESSION["date"]["maskdatelong"];
         } else {
             $mask = $_SESSION["date"]["maskdate"];
         }
@@ -1230,6 +1230,7 @@ class ImportObject
                      * pour tenir compte du transcodage opere par le navigateur
                      */
                     $fieldHtml = str_replace(" ", "_", $value);
+                    $fieldHtml = str_replace(".", "_", $fieldHtml);
                     $newval = $post[$field . "-" . $fieldHtml];
                     /**
                      * Recherche de la cle correspondante
@@ -1278,7 +1279,7 @@ class ImportObject
              * Declenchement de l'ecriture en base
              */
             try {
-                $uid = $this->sample->ecrireImport($dataSample);
+                $uid = $this->sample->writeImport($dataSample);
                 if ($uid > 0) {
                     if ($uid < $this->minuid) {
                         $this->minuid = $uid;

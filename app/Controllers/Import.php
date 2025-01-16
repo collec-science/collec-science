@@ -14,7 +14,9 @@ class Import extends PpciController
     }
     function importExterneExec()
     {
-        return $this->lib->importExterneExec();
+        $this->lib->importExterneExec();
+        $sample = new Sample;
+        return $sample->importStage1();
     }
     function change()
     {

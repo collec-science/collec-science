@@ -651,7 +651,7 @@ class Sample extends PpciLibrary
     function importStage2()
     {
         $this->vue = service("Smarty");
-        unset($_SESSION["filename"]);
+        unset($_SESSION["realfilename"]);
         if (file_exists($_FILES['upfile']['tmp_name'])) {
             try {
                 /**

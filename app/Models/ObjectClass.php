@@ -758,7 +758,7 @@ class ObjectClass extends PpciModel
                              */
                             $aval = explode(":", $value);
                             if (count($aval) == 2) {
-                                if ($aval[0] == $_SESSION["APPLI_code"]) {
+                                if ($aval[0] == $_SESSION["dbparams"]["APPLI_code"]) {
                                     $uid = $aval[1];
                                 }
                             }

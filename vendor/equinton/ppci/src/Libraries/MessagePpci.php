@@ -67,7 +67,7 @@ class MessagePpci
         /**
          * Write log in system log
          */
-        openlog("[$date] [" . $_SESSION["APPLI_code"] . ":$level]", LOG_PID | LOG_PERROR, LOG_LOCAL7);
+        openlog("[$date] [" . $_SESSION["dbparams"]["APPLI_code"] . ":$level]", LOG_PID | LOG_PERROR, LOG_LOCAL7);
         syslog($priority, $message);
         closelog();
     }

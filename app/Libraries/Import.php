@@ -168,69 +168,64 @@ class Import extends PpciLibrary
         /*
          * Traitement de l'importation des echantillons provenant d'autres bases de donnees
          */
-        if (isset($_SESSION["realfilename"])) {
-            if (file_exists($_SESSION["realfilename"])) {
-                try {
-                    $fields = array(
-                        "dbuid_origin",
-                        "identifier",
-                        "sample_type_name",
-                        "collection_name",
-                        "object_status_name",
-                        "wgs84_x",
-                        "wgs84_y",
-                        "sample_creation_date",
-                        "sampling_date",
-                        "expiration_date",
-                        "multiple_value",
-                        "sampling_place_name",
-                        "metadata",
-                        "identifiers",
-                        "dbuid_parent",
-                        "referent_name",
-                        "uuid",
-                        "location_accuracy",
-                        "campaign_name",
-                        "comment",
-                        "country_code",
-                        "country_origin_code"
-                    );
-                    $importFile = new ModelsImport($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
-                    $data = $importFile->getContentAsArray();
-                } catch (PpciException $ie) {
-                    $this->message->set($ie->getMessage(), true);
-                }
+        if (isset($_SESSION["realfilename"]) && file_exists($_SESSION["realfilename"])) {
+            try {
+                $fields = array(
+                    "dbuid_origin",
+                    "identifier",
+                    "sample_type_name",
+                    "collection_name",
+                    "object_status_name",
+                    "wgs84_x",
+                    "wgs84_y",
+                    "sample_creation_date",
+                    "sampling_date",
+                    "expiration_date",
+                    "multiple_value",
+                    "sampling_place_name",
+                    "metadata",
+                    "identifiers",
+                    "dbuid_parent",
+                    "referent_name",
+                    "uuid",
+                    "location_accuracy",
+                    "campaign_name",
+                    "comment",
+                    "country_code",
+                    "country_origin_code"
+                );
+                $importFile = new ModelsImport($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
+                $data = $importFile->getContentAsArray();
+            } catch (PpciException $ie) {
+                $this->message->set($ie->getMessage(), true);
+            }
 
-                /*
+            /*
                  * Recuperation des classes secondaires necessaires pour les tables de references
                  */
-                $sic = new SampleInitClass();
-                $this->import->initClass("sample", $this->sample);
+            $sic = new SampleInitClass();
+            $this->import->initClass("sample", $this->sample);
 
-                try {
-                    /*
+            try {
+                /*
                      * Demarrage d'une transaction
                      */
-                    $db = $this->sample->db;
-                    $db->transBegin();
-                    $this->import->importExterneExec($data, $sic, $_POST);
-                    $db->transCommit();
-                    $this->message->set(sprintf(_("Import effectué. %s lignes traitées"), $this->import->nbTreated));
-                    $this->message->set(sprintf(_("Premier UID généré : %s"), $this->import->minuid));
-                    $this->message->set(sprintf(_("Dernier UID généré : %s"), $this->import->maxuid));
-                    $module_coderetour = 1;
-                    $this->log->setLog($_SESSION["login"], "externalImportDone", "first UID:" . $this->import->minuid . ",last UID:" . $this->import->maxuid . ", Nb treated lines:" . $this->import->nbTreated);
-                } catch (PpciException $ie) {
-                    if ($db->transEnabled) {
-                        $db->transRollback();
-                    }
-                    $this->message->set($ie->getMessage(), true);
-                    $module_coderetour = -1;
+                $db = $this->sample->db;
+                $db->transBegin();
+                $this->import->importExterneExec($data, $sic, $_POST);
+                $db->transCommit();
+                $this->message->set(sprintf(_("Import effectué. %s lignes traitées"), $this->import->nbTreated));
+                $this->message->set(sprintf(_("Premier UID généré : %s"), $this->import->minuid));
+                $this->message->set(sprintf(_("Dernier UID généré : %s"), $this->import->maxuid));
+                $this->log->setLog($_SESSION["login"], "externalImportDone", "first UID:" . $this->import->minuid . ",last UID:" . $this->import->maxuid . ", Nb treated lines:" . $this->import->nbTreated);
+            } catch (PpciException $ie) {
+                if ($db->transEnabled) {
+                    $db->transRollback();
                 }
-                unlink($_SESSION["realfilename"]);
-                unset($_SESSION["realfilename"]);
+                $this->message->set($ie->getMessage(), true);
             }
+            unlink($_SESSION["realfilename"]);
+            unset($_SESSION["realfilename"]);
         }
-        return $this->vue->send();
     }
 }

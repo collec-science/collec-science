@@ -9,15 +9,17 @@
 # to override the setting, you must un-comment it by removing the '#'
 # at the beginning of the line.
 #--------------------------------------------------------------------
-
+# If you have trouble with `.`, you could also use `_`.
 #--------------------------------------------------------------------
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
 # CI_ENVIRONMENT = development
+CI_ENVIRONMENT = production
+
 # disable totp identification in admin mode
 # Only for first connection when installing new instance
-# Ppci\Config\IdentificationConfig.disableTotpToAdmin=1
+Ppci\Config\IdentificationConfig.disableTotpToAdmin=1
 
 #--------------------------------------------------------------------
 # Ppci configuration
@@ -25,7 +27,10 @@
 app.baseURL = 'https://collec.mysociety.com'
 BASE_DIR = "/var/www/collec2App/collec-science"
 FRONT_DIR = "${BASE_DIR}/public"
-# If you have trouble with `.`, you could also use `_`.
+
+# folder of temporary storage
+# app.APP_temp = "${BASE_DIR}/writable/temp"
+
 # Duration of conservation of logs in table gacl.log
 # logDuration = 365
 

@@ -306,7 +306,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 ALTER TABLE col.dbversion OWNER TO collec;
 -- ddl-end --
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'24.1', E'2024-01-31');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'25.0', E'2025-01-06');
 -- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --
@@ -1539,6 +1539,7 @@ CREATE TABLE gacl.acllogin (
 	login character varying NOT NULL,
 	logindetail character varying NOT NULL,
 	totp_key varchar,
+	email varchar,
 	CONSTRAINT acllogin_pk PRIMARY KEY (acllogin_id)
 );
 -- ddl-end --

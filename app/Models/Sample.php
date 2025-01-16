@@ -918,14 +918,14 @@ class Sample extends PpciModel
             foreach ($d as $value) {
                 if ($this->verifyCollection($value)) {
                     if (empty($value["dbuid_origin"])) {
-                        $value["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $value["uid"];
+                        $value["dbuid_origin"] = $_SESSION["dbparams"]["APPLI_code"] . ":" . $value["uid"];
                     }
                     /*
                      * Generation du dbuid du parent dans le cas d'un echantillon derive
                      */
                     if ($value["parent_sample_id"] > 0) {
                         $dparent = $this->readFromId($value["parent_sample_id"]);
-                        $value["dbuid_parent"] = $_SESSION["APPLI_code"] . ":" . $dparent["uid"];
+                        $value["dbuid_parent"] = $_SESSION["dbparams"]["APPLI_code"] . ":" . $dparent["uid"];
                     }
                     unset($value["parent_sample_id"]);
                     unset($value["collection_id"]);
@@ -1061,7 +1061,7 @@ class Sample extends PpciModel
                  * Recherche si c'est une reintegration dans la base d'origine
                  */
                 $field = explode(":", $row["dbuid_origin"]);
-                if ($field[0] == $_SESSION["APPLI_code"]) {
+                if ($field[0] == $_SESSION["dbparams"]["APPLI_code"]) {
                     $uid = $field[1];
                     $row["dbuid_origin"] = "";
                 } else {
@@ -1191,7 +1191,7 @@ class Sample extends PpciModel
              * Recherche si c'est une reintegration dans la base d'origine
              */
             $field = explode(":", $data["dbuid_origin"]);
-            if ($field[0] == $_SESSION["APPLI_code"]) {
+            if ($field[0] == $_SESSION["dbparams"]["APPLI_code"]) {
                 $uid = $field[1];
                 $data["dbuid_origin"] = "";
             } else {
@@ -1202,6 +1202,8 @@ class Sample extends PpciModel
             } else {
                 $data["uid"] = 0;
             }
+        }
+        if (empty($data["uid"]) || empty($data["collection_id"])) {
         }
         if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
             throw new PpciException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));
@@ -1224,7 +1226,7 @@ class Sample extends PpciModel
          */
         if (!empty($data["dbuid_parent"])) {
             $dbuidparent = explode(":", $data["dbuid_parent"]);
-            if ($dbuidparent[0] == $_SESSION["APPLI_code"]) {
+            if ($dbuidparent[0] == $_SESSION["dbparams"]["APPLI_code"]) {
                 $dataParent = $this->lire($dbuidparent[1]);
             } else {
                 $dataParent = $this->lireParamAsPrepared(

@@ -83,7 +83,7 @@ class Totp extends PpciLibrary
         $vue->setParam(
             array(
                 "disposition" => "inline",
-                "tmp_name" => WRITEPATH . "temp/" . $_SESSION["login"] . "_totp.png"
+                "tmp_name" => $this->appConfig->APP_temp . "/" . $_SESSION["login"] . "_totp.png"
             )
         );
         return $vue->send();

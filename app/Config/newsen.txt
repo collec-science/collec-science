@@ -1,5 +1,11 @@
 News
 ====================
+Version v25.0.1 of 16/01/2025
+-----------------------------
+Bug fixes :
+- importing external samples did not work
+- retrieving the latest published version did not work
+
 Version v25.0.0 of 18/10/2024
 -----------------------------
 New features :

@@ -1,2 +1,3 @@
 #!/bin/bash
-echo "Your database is already in version 24.1"
+ROOT=install/pgsql
+psql $ADDRESS -f "$ROOT/col_alter_24.1-25.0.sql"

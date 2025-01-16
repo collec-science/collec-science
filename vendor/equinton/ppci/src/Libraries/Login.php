@@ -91,12 +91,13 @@ class Login extends PpciLibrary
                     /*http_response_code(401);
                     $vue->set(array("error_code" => 401, "error_message" => _("Identification refusée")));*/
                 } else {
-                    return "login";
+                    defaultPage();
                 }
             }
         } catch (\Exception $e) {
             $message = service("MessagePpci");
             $message->set($e->getMessage(), true);
+            defaultPage();
         }
         if ($_SESSION["isLogged"]) {
             $this->postLogin($ident_type);

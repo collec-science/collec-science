@@ -582,7 +582,7 @@ class Container extends PpciModel
              */
             foreach ($dataSamples as $dataSample) {
                 if (empty($dataSample["dbuid_origin"])) {
-                    $dataSample["dbuid_origin"] = $_SESSION["APPLI_code"] . ":" . $dataSample["uid"];
+                    $dataSample["dbuid_origin"] = $_SESSION["dbparams"]["APPLI_code"] . ":" . $dataSample["uid"];
                 }
                 /**
                  * Explode the list of secondary identifiers

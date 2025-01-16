@@ -8,7 +8,7 @@ class LastRelease extends PpciLibrary
     function index()
     {
         $release = $this->getRelease();
-        if (!empty($result)) {
+        if (!empty($release)) {
             $vue = service('Smarty');
             $vue->set("ppci/utils/lastRelease.tpl", "corps");
             $vue->set($this->appConfig->version, "currentVersion");
@@ -24,8 +24,7 @@ class LastRelease extends PpciLibrary
         $params = $this->appConfig->APPLI_release;
         $release = array();
         if (!empty($params["url"])) {
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $params["url"]);
+            $ch = curl_init($params["url"]);
             /*if (!empty($headers)) {
                 curl_setopt($ch, CURLOPT_HEADER, $headers);
             }*/
@@ -35,10 +34,14 @@ class LastRelease extends PpciLibrary
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $result = curl_exec($ch);
             curl_close($ch);
-            $res = json_decode($result, true);
-            $release["tag"] = $res[$params["tag"]];
-            $release["description"] = $res[$params["description"]];
-            $release["date"] = date_format(date_create($res[$params["date"]]), $_SESSION["date"]["maskdate"]);
+            if (!$result) {
+                $this->message->set(_("Impossible de récupérer la dernière version publiée de l'application"), true);
+            } else {
+                $res = json_decode($result, true);
+                $release["tag"] = $res[$params["tag"]];
+                $release["description"] = $res[$params["description"]];
+                $release["date"] = date_format(date_create($res[$params["date"]]), $_SESSION["date"]["maskdate"]);
+            }
         }
         return $release;
     }

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\Metadata as LibrariesMetadata;
+use Ppci\Libraries\PpciException;
 
 class Metadata extends PpciController
 {
@@ -56,5 +57,21 @@ class Metadata extends PpciController
     {
         $this->lib->import();
         return $this->list();
+    }
+    function fieldChange() {
+        try {
+            return $this->lib->fieldChange();
+        } catch (PpciException $e) {
+            $this->message->set($e->getMessage(),true);
+            return $this->lib->display();
+        }
+        
+    }
+    function fieldWrite() {
+        if ( $this->lib->fieldWrite()) {
+            return $this->lib->display();
+        } else {
+            return $this->lib->change();
+        }
     }
 }

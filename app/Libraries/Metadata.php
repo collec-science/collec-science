@@ -141,4 +141,13 @@ class Metadata extends PpciLibrary
             $this->message->set(_("Impossible de charger le fichier à importer"));
         }
     }
+    function fieldChange() {
+        $this->vue = service('Smarty');
+        $this->vue->set('param/metadataFieldChange.tpl','corps');
+        $this->vue->set($this->dataclass->getField($_GET["metadata_id"],$_GET["name"]), "data");
+        return $this->vue->send();
+    }
+    function fieldWrite () {
+
+    }
 }

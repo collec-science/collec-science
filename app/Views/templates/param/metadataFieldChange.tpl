@@ -32,6 +32,15 @@
                 $("#helper").prop("required", false);
             }
         });
+
+        /**
+         * Delete a multiple value
+         */
+         $(".removeMultiple").click(function () {
+            if ($(this).data("ligne") != $("#multiples tr:last-child").data("ligne") ) {
+                $("#multiple" + $(this).data("ligne")).remove();
+            }
+		});
         /**
          * Operations when loading page
          */
@@ -119,13 +128,13 @@
     </div>
     <div class="form-group" id="multipleGroup" hidden>
         <label for="multipleNo" class="control-label col-md-4"><span class="red">*</span>
-            {t}Valeurs multiples{/t}
+            {t}Valeurs multiples ?{/t}
         </label>
         <div class="col-md-8">
-            <input type="radio" name="multiple" id="multipleNo" {if $data.multiple !="yes" }checked{/if}
-                value="no">&nbsp;{t}non{/t}
-            <input type="radio" name="multiple" id="multipleYes" {if $data.multiple=="yes" }checked{/if}
-                value="yes">&nbsp;{t}oui{/t}
+            <input class="multiple" type="radio" name="multiple" id="multipleNo" {if $data.multiple !="yes"
+                }checked{/if} value="no">&nbsp;{t}non{/t}
+            <input type="radio" class="multiple" name="multiple" id="multipleYes" {if $data.multiple=="yes"
+                }checked{/if} value="yes">&nbsp;{t}oui{/t}
         </div>
     </div>
     <div class="form-group" id="choiceListGroup" hidden>
@@ -133,10 +142,31 @@
             {t}Valeurs{/t}
         </label>
         <div class="col-md-8">
-            {foreach $data.choiceList as $choice}
-            <input type="text" name="choiceList[]" class="form-control" value="{$choice}">
-            {/foreach}
-            <input type="text" name="choiceList[]" class="form-control choiceList" id="choiceList0">
+            <table id="multiples">
+                {$numligne = 1000}
+                {foreach $data.choiceList as $choice}
+                <tr id="multiple{$numligne}" data-ligne="{$numligne}">
+                    <td>
+                        <input type="text" name="choiceList[]" class="form-control" value="{$choice}">
+                    </td>
+                    <td class="center">
+                        <img class="removeMultiple" src="display/images/remove-red-24.png" height="25"
+                            data-ligne="{$numligne}">
+                    </td>
+                </tr>
+                {$numligne = $numligne + 1}
+                {/foreach}
+                <tr id="multiple{$numligne}" data-ligne="{$numligne}">
+                    <td>
+                        <input type="text" name="choiceList[]" class="form-control" value="">
+                    </td>
+                    <td>
+                        <img class="removeMultiple" src="display/images/remove-red-24.png" height="25"
+                            data-ligne="{$numligne}">
+                    </td>
+                </tr>
+            </table>
+
         </div>
     </div>
     <div class="form-group">

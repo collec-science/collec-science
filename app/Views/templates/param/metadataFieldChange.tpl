@@ -36,6 +36,7 @@
          * Operations when loading page
          */
         var val = "{$data.type}";
+        console.log(val);
         if (val == "select") {
             $("#multipleGroup").show();
         } else {
@@ -78,8 +79,7 @@
             {t}Nom du champ (sans espace, sans accent, en minuscule){/t}
         </label>
         <div class="col-md-8">
-            <input id="name" type="text" class="form-control" name="name" value="{$data.name}" autofocus
-                required>
+            <input id="name" type="text" class="form-control" name="name" value="{$data.name}" autofocus required>
         </div>
     </div>
     <div class="form-group">
@@ -122,13 +122,12 @@
             {t}Valeurs multiples{/t}
         </label>
         <div class="col-md-8">
-            <input type="checkbox" name="multiple" id="multipleNo" {if $data.multiple !="yes" }checked{/if}
-                value="no">{t}non{/t}
-            <input type="checkbox" name="multiple" id="multipleYes" {if $data.multiple=="yes" }checked{/if}
-                value="yes">{t}oui{/t}
+            <input type="radio" name="multiple" id="multipleNo" {if $data.multiple !="yes" }checked{/if}
+                value="no">&nbsp;{t}non{/t}
+            <input type="radio" name="multiple" id="multipleYes" {if $data.multiple=="yes" }checked{/if}
+                value="yes">&nbsp;{t}oui{/t}
         </div>
     </div>
-
     <div class="form-group" id="choiceListGroup" hidden>
         <label for="name" class="control-label col-md-4">
             {t}Valeurs{/t}
@@ -162,11 +161,11 @@
             {t}Champ utilisé pour rechercher un échantillon ?{/t}
         </label>
         <div class="col-md-8">
-            <input type="checkbox" name="isSearchable" id="isSearchable0" {if $data.isSearchable !="yes" }checked{/if}
+            <input type="radio" name="isSearchable" id="isSearchable0" {if $data.isSearchable !="yes" }checked{/if}
                 value="no">
             {t}non{/t}
-            <input type="checkbox" name="isSearchable" id="isSearchable1" {if $data.isSearchable=="yes" }checked{/if}
-                value="yes">{t}oui{/t}
+            <input type="radio" name="isSearchable" id="isSearchable1" {if $data.isSearchable=="yes" }checked{/if}
+                value="yes">&nbsp;{t}oui{/t}
         </div>
     </div>
     <div class="form-group">
@@ -174,11 +173,11 @@
             {t}Champ obligatoire ?{/t}
         </label>
         <div class="col-md-8">
-            <input type="checkbox" name="required" id="required0" {if $data.required !="true" }checked{/if}
-                value="false">
+            <input type="radio" name="required" id="required0" {if $data.required !="true" }checked{/if}
+                value="false">&nbsp;
             {t}non{/t}
-            <input type="checkbox" name="required" id="required1" {if $data.required=="true" }checked{/if}
-                value="true">{t}oui{/t}
+            <input type="radio" name="required" id="required1" {if $data.required=="true" }checked{/if}
+                value="true">&nbsp;{t}oui{/t}
         </div>
     </div>
     <div class="form-group">
@@ -194,11 +193,11 @@
             {t}Affichage d'un message d'aide ?{/t}
         </label>
         <div class="col-md-8">
-            <input type="checkbox" name="helperChoice" id="helperChoice0" {if $data.helperChoice !="true" }checked{/if}
-                value="false" class="helperChoice">
+            <input type="radio" name="helperChoice" id="helperChoice0" {if $data.helperChoice !="true" }checked{/if}
+                value="false" class="helperChoice">&nbsp;
             {t}non{/t}
-            <input type="checkbox" name="helperChoice" id="helperChoice1" {if $data.helperChoice=="true" }checked{/if}
-                value="true" class="helperChoice">{t}oui{/t}
+            <input type="radio" name="helperChoice" id="helperChoice1" {if $data.helperChoice=="true" }checked{/if}
+                value="true" class="helperChoice">&nbsp;{t}oui{/t}
         </div>
     </div>
     <div class="form-group" id="helperGroup" hidden>

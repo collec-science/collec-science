@@ -15,14 +15,14 @@ class Metadata extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
 
     function __construct()
     {
         parent::__construct();
         $this->dataclass = new ModelsMetadata();
         $this->keyName = "metadata_id";
-        if (isset($_REQUEST[$this->keyName])&&!is_array($_REQUEST[$this->keyName])) {
+        if (isset($_REQUEST[$this->keyName]) && !is_array($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
     }
@@ -141,48 +141,82 @@ class Metadata extends PpciLibrary
             $this->message->set(_("Impossible de charger le fichier à importer"));
         }
     }
-    function fieldChange() {
+    function fieldChange()
+    {
         $this->vue = service('Smarty');
-        $this->vue->set('param/metadataFieldChange.tpl','corps');
-        $this->vue->set($this->dataclass->getField($_GET["metadata_id"],$_GET["name"]), "data");
+        $this->vue->set('param/metadataFieldChange.tpl', 'corps');
+        $this->vue->set($this->dataclass->getField($_GET["metadata_id"], $_GET["name"]), "data");
         return $this->vue->send();
     }
-    function fieldWrite () {
+    function fieldWrite()
+    {
         try {
+            $data = $this->dataclass->read($this->id);
+            $metadata = json_decode($data["metadata_schema"], true);
+            $i = 0;
+            foreach ($metadata as $field) {
+                if ($field["name"] == $_POST["oldname"]) {
+                    $current = $field;
+                    break;
+                } else {
+                    $i++;
+                }
+            }
+            $fields = [
+                "name",
+                "type",
+                "multiple",
+                "description",
+                "measureUnit",
+                "isSearchable",
+                "required",
+                "defaultValue",
+                "helperChoice",
+                "helper"
+            ];
+            foreach ($fields as $field) {
+                $current[$field] = $_POST[$field];
+            }
+            /**
+             * Treatment of choicelist
+             */
+            $current["choicelist"] = [];
+            foreach ($_POST["choicelist"] as $choice) {
+                if (strlen($choice) > 0) {
+                    $current["choicelist"][] = $choice;
+                }
+            }
+            $metadata[$i] = $current;
+            $new = [];
+            foreach ($metadata as $item) {
+                $new[] = $item;
+            }
+            $data["metadata_schema"] = json_encode($new);
+            $this->dataclass->write($data);
+            return true;
+        } catch (PpciException $e) {
+            $this->message->set(_("Une erreur est survenue pendant l'enregistrement du champ de métadonnées"), true);
+            return false;
+        }
+    }
+    function fieldDelete()
+    {
         $data = $this->dataclass->read($this->id);
-        $metadata = json_decode($data["metadata_schema"],true);
+        $metadata = json_decode($data["metadata_schema"], true);
         $i = 0;
-        foreach( $metadata as $field) {
-            if ($field["name"] == $_POST["oldname"]) {
-                $current = $field;
+        $isFound = false;
+        foreach ($metadata as $field) {
+            if ($field["name"] == $_POST["name"]) {
+                $isFound = true;
                 break;
             } else {
-                $i ++;
+                $i++;
             }
         }
-        $fields = [
-            "name",
-            "type",
-            "multiple",
-            "choicelist",
-            "description",
-            "measureUnit",
-            "isSearchable",
-            "required",
-            "defaultValue",
-            "helperChoice",
-            "helper"
-        ];
-        foreach ($fields as $field) {
-            $current[$field] = $_POST[$field];
+        if ($isFound) {
+            unset($metadata[$i]);
+            $data["metadata_schema"] = json_encode($metadata);
+            $this->dataclass->write($data);
         }
-        $metadata[$i] = $current;
-        $data["metadata_schema"] = json_encode($metadata);
-        $this->dataclass->write($data);
-        return true;
-    } catch (PpciException $e) {
-        $this->message->set(_("Une erreur est survenue pendant l'enregistrement du champ de métadonnées"), true);
-        return false;
-    }
     }
 }

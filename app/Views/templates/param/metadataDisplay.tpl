@@ -61,6 +61,7 @@
                 <th>{t}Description{/t}</th>
                 <th>{t}Obligatoire ?{/t}</th>
                 <th>{t}Sélection multiple possible ?{/t}</th>
+                <th>{t}Valeur par défaut{/t}</th>
                 <th>{t}Unité de mesure{/t}</th>
                 <th>{t}Message d'aide{/t}</th>
                 <th>{t}Utilisable pour les recherches ?{/t}</th>
@@ -87,6 +88,7 @@
                 <td>{$row.description}</td>
                 <td class="center">{if $row.required == true}{t}oui{/t}{/if}</td>
                 <td class="center">{if $row.multiple == "yes"}{t}oui{/t}{/if}</td>
+                <td>{$row.defaultValue}</td>
                 <td>{$row.measureUnit}</td>
                 <td>{$row.helper}</td>
                 <td class="center">{if $row.isSearchable == "yes"}{t}oui{/t}{/if}</td>

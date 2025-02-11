@@ -6,12 +6,47 @@
     </a>
     {if $rights.collection == 1}
     &nbsp;
-    <a href="metadataChange?metadata_id={$data.metadata_id}">
-        <img src="display/images/edit.gif" height="25">
-        {t}Modifier{/t}
+    <a href="metadataFieldChange?metadata_id={$data.metadata_id}&name=">
+        <img src="display/images/new.png" height="25">
+        {t}Nouveau champ{/t}
     </a>
     {/if}
 </div>
+{if $rights.collection == 1}
+<div class="row">
+    <div class="col-md-6">
+        <form id="metadataNameChange" class="form-horizontal" method="post" action="metadataNameWrite">
+            <input type="hidden" name="moduleBase" value="metadata">
+            <input type="hidden" name="metadata_id" value="{$data.metadata_id}">
+            <div class="form-group">
+                <label for="metadata_name" class="control-label col-md-2"><span class="red">*</span>
+                    {t}Nom du modèle :{/t}
+                </label>
+                <div class="col-md-6">
+                    <input id="metadata_name" class="form-control" name="metadata_name"
+                        value="{$data.metadata_name}" required>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+                </div>
+                {if $data.metadata_id > 0 }
+                <div class="col-md-2">
+                    <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+                </div>
+                {/if}
+            </div>
+            {$csrf}
+        </form>
+    </div>
+</div>
+
+<!--<a href="metadataChange?metadata_id={$data.metadata_id}">
+        <img src="display/images/edit.gif" height="25">
+        {t}Modifier{/t}
+    </a>-->
+{/if}
+</div>
+{if $data.metadata_id > 0}
 <div class="row">
     <table id="metadataList" class="table table-bordered table-hover datatable display" {if
         $rights.collection==1}data-order='[[1,"asc"]]' {/if}>
@@ -27,6 +62,7 @@
                 <th>{t}Obligatoire ?{/t}</th>
                 <th>{t}Sélection multiple possible ?{/t}</th>
                 <th>{t}Unité de mesure{/t}</th>
+                <th>{t}Message d'aide{/t}</th>
                 <th>{t}Utilisable pour les recherches ?{/t}</th>
                 {if $rights.collection == 1}
                 <th><img src="display/images/up.png" height="25"></th>
@@ -52,6 +88,7 @@
                 <td class="center">{if $row.required == true}{t}oui{/t}{/if}</td>
                 <td class="center">{if $row.multiple == "yes"}{t}oui{/t}{/if}</td>
                 <td>{$row.measureUnit}</td>
+                <td>{$row.helper}</td>
                 <td class="center">{if $row.isSearchable == "yes"}{t}oui{/t}{/if}</td>
                 {if $rights.collection == 1}
                 <td class="center">
@@ -70,7 +107,7 @@
                 </td>
                 <td class="center">
                     <a href="metadataFieldDelete?metadata_id={$data.metadata_id}&name={$row.name}" class="confirm"
-                    title="{t}Supprimer le champ{/t}">
+                        title="{t}Supprimer le champ{/t}">
                         <img src="display/images/eraser.png" height="25">
                     </a>
                 </td>
@@ -80,3 +117,4 @@
         </tbody>
     </table>
 </div>
+{/if}

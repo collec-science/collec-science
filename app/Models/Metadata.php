@@ -34,8 +34,7 @@ class Metadata extends PpciModel
                 "requis" => 1
             ),
             "metadata_schema" => array(
-                "type" => 0,
-                "requis" => 0
+                "type" => 0
             )
         );
         parent::__construct();

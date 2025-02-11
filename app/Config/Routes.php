@@ -251,6 +251,7 @@ $routes->add('metadataExport', 'Metadata::export');
 $routes->add('metadataImport', 'Metadata::import');
 $routes->add('metadataFieldChange','Metadata::fieldChange');
 $routes->post('metadataFieldWrite', 'Metadata::fieldWrite');
+$routes->post('metadataNameWrite', 'Metadata::write');
 $routes->add("metadataFieldDelete", "metadata::fieldDelete");
 $routes->add("metadataFieldMove", "metadata::fieldMove");
 $routes->add('borrowerList', 'Borrower::list');

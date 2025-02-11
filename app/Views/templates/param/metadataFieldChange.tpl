@@ -7,20 +7,34 @@
             } else {
                 $("#multipleGroup").hide();
             }
-            if (val == "select" || val == "radio") {
+            if (val == "select" || val == "radio" || val == "checkbox") {
                 $("#choiceListGroup").show();
             } else {
                 $("#choiceListGroup").hide();
             }
         });
-        $(".choiceList").change(function () {
-            for (let i = 99; i > -1; i--) {
-                if ($("#choiceList" + i).length) {
-                    var val = $("#choiceList" + i).val();
-                    if (val.length > 0) {
-                        $("#choiceList" + i).after('<input type="text" name="choiceList[]" class="form-control choiceList" id="choiceList' + (i + 1) + '">');
-                    }
-                }
+        var numligne = 1;
+        $(document).on("keyup", function (e) {
+            var target = $(e.target);
+            /**
+             * Add a new line in multiple values
+             */
+            if (target.is('.choiceList') && $(target).val().length && $(target).data("ligne") == $("#multiples tr:last-child").data("ligne")) {
+                var ligne = '<tr id="multiple' + numligne + '" data-ligne="' + numligne + '">';
+                ligne += '<td><input type="text" name="choiceList[]" class="form-control choiceList"' + '" data-ligne="' + numligne + '"></td>';
+                ligne += '<td class="center"><img class="removeMultiple" src="display/images/remove-red-24.png" height="25"data-ligne="' + numligne + '">';
+                ligne += '</td></tr>';
+                $("#multiples").last().append(ligne);
+                numligne++;
+            }
+        });
+        $(document).on("click", function (e) {
+            var target = $(e.target);
+            /**
+             * Delete a multiple value
+             */
+            if (target.is('.removeMultiple') && $(target).data("ligne") != $("#multiples tr:last-child").data("ligne")) {
+                $("#multiple" + $(target).data("ligne")).remove();
             }
         });
         $(".helperChoice").change(function () {
@@ -33,25 +47,17 @@
             }
         });
 
-        /**
-         * Delete a multiple value
-         */
-         $(".removeMultiple").click(function () {
-            if ($(this).data("ligne") != $("#multiples tr:last-child").data("ligne") ) {
-                $("#multiple" + $(this).data("ligne")).remove();
-            }
-		});
+
         /**
          * Operations when loading page
          */
         var val = "{$data.type}";
-        console.log(val);
         if (val == "select") {
             $("#multipleGroup").show();
         } else {
             $("#multipleGroup").hide();
         }
-        if (val == "select" || val == "radio") {
+        if (val == "select" || val == "radio" || val == "checkbox") {
             $("#choiceListGroup").show();
         } else {
             $("#choiceListGroup").hide();
@@ -67,7 +73,6 @@
     });
 
 </script>
-
 <h2>{t}Modification du modèle de métadonnées{/t} <i>{$data.metadata_name}</i> - {t}champ{/t} <i>{$data.name}</i></h2>
 <div class="row">
     <a href="metadataList">
@@ -124,16 +129,17 @@
                 <option value="array" {if $data.type=="array" }selected{/if}>
                     {t}Valeurs multiples{/t}
                 </option>
+            </select>
         </div>
     </div>
-    <div class="form-group" id="multipleGroup" hidden>
+    <div class="form-group" id="multipleGroup">
         <label for="multipleNo" class="control-label col-md-4"><span class="red">*</span>
             {t}Valeurs multiples ?{/t}
         </label>
         <div class="col-md-8">
-            <input class="multiple" type="radio" name="multiple" id="multipleNo" {if $data.multiple !="yes"
+            <input class="multiple" type="radio" name="multiple" id="multipleNo" {if $data.multiple !='yes'
                 }checked{/if} value="no">&nbsp;{t}non{/t}
-            <input type="radio" class="multiple" name="multiple" id="multipleYes" {if $data.multiple=="yes"
+            <input type="radio" class="multiple" name="multiple" id="multipleYes" {if $data.multiple=='yes'
                 }checked{/if} value="yes">&nbsp;{t}oui{/t}
         </div>
     </div>
@@ -147,7 +153,8 @@
                 {foreach $data.choiceList as $choice}
                 <tr id="multiple{$numligne}" data-ligne="{$numligne}">
                     <td>
-                        <input type="text" name="choiceList[]" class="form-control" value="{$choice}">
+                        <input type="text" name="choiceList[]" class="form-control choiceList" value="{$choice}"
+                            data-ligne="{$numligne}">
                     </td>
                     <td class="center">
                         <img class="removeMultiple" src="display/images/remove-red-24.png" height="25"
@@ -158,9 +165,10 @@
                 {/foreach}
                 <tr id="multiple{$numligne}" data-ligne="{$numligne}">
                     <td>
-                        <input type="text" name="choiceList[]" class="form-control" value="">
+                        <input type="text" name="choiceList[]" class="form-control choiceList" value=""
+                            data-ligne="{$numligne}">
                     </td>
-                    <td>
+                    <td class="center">
                         <img class="removeMultiple" src="display/images/remove-red-24.png" height="25"
                             data-ligne="{$numligne}">
                     </td>
@@ -237,6 +245,9 @@
         <div class="col-md-8">
             <input id="helper" type="text" class="form-control" name="helper" value="{$data.helper}">
         </div>
+    </div>
+    <div class="form-group center">
+        <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
     </div>
     {$csrf}
 </form>

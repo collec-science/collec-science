@@ -58,13 +58,13 @@ class Metadata extends PpciLibrary
          * If is a new record, generate a new record with default value :
          * $_REQUEST["idParent"] contains the identifiant of the parent record
          */
-        $this->dataRead($this->id, "param/metadataChange.tpl");
+        $this->dataRead($this->id, "param/metadataDisplay.tpl");
         return $this->vue->send();
     }
     function write()
     {
         try {
-            $_REQUEST["metadata_schema"] = hex2bin($_REQUEST["metadata_schema"]);
+            //$_REQUEST["metadata_schema"] = hex2bin($_REQUEST["metadata_schema"]);
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
@@ -148,6 +148,41 @@ class Metadata extends PpciLibrary
         return $this->vue->send();
     }
     function fieldWrite () {
-
+        try {
+        $data = $this->dataclass->read($this->id);
+        $metadata = json_decode($data["metadata_schema"],true);
+        $i = 0;
+        foreach( $metadata as $field) {
+            if ($field["name"] == $_POST["oldname"]) {
+                $current = $field;
+                break;
+            } else {
+                $i ++;
+            }
+        }
+        $fields = [
+            "name",
+            "type",
+            "multiple",
+            "choicelist",
+            "description",
+            "measureUnit",
+            "isSearchable",
+            "required",
+            "defaultValue",
+            "helperChoice",
+            "helper"
+        ];
+        foreach ($fields as $field) {
+            $current[$field] = $_POST[$field];
+        }
+        $metadata[$i] = $current;
+        $data["metadata_schema"] = json_encode($metadata);
+        $this->dataclass->write($data);
+        return true;
+    } catch (PpciException $e) {
+        $this->message->set(_("Une erreur est survenue pendant l'enregistrement du champ de métadonnées"), true);
+        return false;
+    }
     }
 }

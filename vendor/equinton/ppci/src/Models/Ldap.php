@@ -1,4 +1,5 @@
 <?php
+namespace Ppci\Models;
 
 /**
  * @author Eric Quinton
@@ -25,7 +26,7 @@ class Ldap
     /**
      * Identifiant de connexion de l'annuaire ldap
      *
-     * @var LDAP\Connection
+     * @var \LDAP\Connection
      */
     var $idldap;
 
@@ -52,7 +53,7 @@ class Ldap
      * Fonction realisant la connexion a l'annuaire
      * Retourne -1 en cas d'echec
      *
-     * @return LDAP\Connection
+     * @return \LDAP\Connection
      */
     function connect()
     {

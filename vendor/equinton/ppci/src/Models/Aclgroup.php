@@ -5,6 +5,7 @@ namespace Ppci\Models;
 use App\Libraries\PpciExtends;
 use Ldap;
 use Ppci\Libraries\PpciException;
+use Ppci\Models\Ldap as ModelsLdap;
 
 /**
  * ORM de gestion de la table aclgroup
@@ -79,7 +80,7 @@ class Aclgroup extends PpciModel
              * Recuperation des attributs depuis l'annuaire LDAP
              */
             $groupesLdap = array();
-            $ldap = new Ldap($ldapParam);
+            $ldap = new ModelsLdap($ldapParam);
             $conn = $ldap->connect();
 
             /**
@@ -268,7 +269,7 @@ class Aclgroup extends PpciModel
      * Fonction récursive permettant de récupérer la liste des groupes inclus dans le groupe fourni
      *
      * @param int $parent_id
-     * @param number $level
+     * @param int $level
      * @return array
      */
     private function getChildGroups($parent_id, $level = 1)

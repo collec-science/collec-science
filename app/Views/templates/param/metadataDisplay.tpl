@@ -86,7 +86,7 @@
                 <td>{$row.name}</td>
                 <td>{$row.type}</td>
                 <td>{$row.description}</td>
-                <td class="center">{if $row.required == true}{t}oui{/t}{/if}</td>
+                <td class="center">{if $row.required == "true"}{t}oui{/t}{/if}</td>
                 <td class="center">{if $row.multiple == "yes"}{t}oui{/t}{/if}</td>
                 <td>{$row.defaultValue}</td>
                 <td>{$row.measureUnit}</td>

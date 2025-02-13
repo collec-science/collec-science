@@ -111,14 +111,14 @@
                 <option value="date" {if $data.type=="date" }selected{/if}>
                     {t}Date{/t}
                 </option>
-                <option value="textarea" {if $data.type=="textarea" || $data.type=="" }selected{/if}>
+                <option value="textarea" {if $data.type=="textarea" }selected{/if}>
                     {t}Texte (multi-ligne){/t}
                 </option>
                 <option value="checkbox" {if $data.type=="checkbox" }selected{/if}>
                     {t}Case à cocher{/t}
                 </option>
                 <option value="select" {if $data.type=="select" }selected{/if}>
-                    {t}Liste à choix multiple{/t}
+                    {t}Liste de choix{/t}
                 </option>
                 <option value="radio" {if $data.type=="radio" }selected{/if}>
                     {t}Boutons Radio{/t}

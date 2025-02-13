@@ -4,7 +4,7 @@
 </script>
 <script type="text/javascript" src="display/javascript/formbuilder.js"></script>
 
-
+{include file="gestion/metadataForm.tpl"}
 <script type="text/javascript">
 
 	var identifier_fn = "";
@@ -99,10 +99,11 @@
        	    	.done (function (value) {
        	    		if (value) {
        	    		var schema = value.replace(/&quot;/g,'"');
-       	    		showForm(JSON.parse(schema),dataParse);
-       	    		//$(".alpaca-field-select").combobox();
+       	    		//showForm(JSON.parse(schema),dataParse);
+					   generateMetadataForm(JSON.parse(schema), dataParse);
        	    		} else {
-						$("#metadata").alpaca("destroy");
+						//$("#metadata").alpaca("destroy");
+						document.getElementById('metadata').innerHTML = "";
 					}
        	    	})
        	    	;

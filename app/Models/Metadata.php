@@ -120,7 +120,6 @@ class Metadata extends PpciModel
             }
             $metafield ["metadata_id"] = $data["metadata_id"];
             $metafield["metadata_name"] = $data["metadata_name"];
-            printA($metafield);
         } else {
             throw new PpciException(_("Les métadonnées demandées n'existent pas"));
         }

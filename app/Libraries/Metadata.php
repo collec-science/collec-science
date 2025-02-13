@@ -187,11 +187,7 @@ class Metadata extends PpciLibrary
                 }
             }
             $metadata[$i] = $current;
-            $new = [];
-            foreach ($metadata as $item) {
-                $new[] = $item;
-            }
-            $data["metadata_schema"] = json_encode($new);
+            $data["metadata_schema"] = json_encode($this->normalize($metadata));
             $this->dataclass->write($data);
             return true;
         } catch (PpciException $e) {
@@ -218,5 +214,43 @@ class Metadata extends PpciLibrary
             $data["metadata_schema"] = json_encode($metadata);
             $this->dataclass->write($data);
         }
+    }
+    function move()
+    {
+        try {
+            $data = $this->dataclass->read($this->id);
+            $mold = json_decode($data["metadata_schema"], true);
+            $i = 0;
+            $metadata = [];
+            foreach ($mold as $m) {
+                $metadata[$i] = $m;
+                $i++;
+            }
+            $from = $metadata[$_REQUEST["from"]];
+            $to = $metadata[$_REQUEST["to"]];
+            $metadata[$_REQUEST["to"]] = $from;
+            $metadata[$_REQUEST["from"]] = $to;
+            $data["metadata_schema"] = json_encode($this->normalize($metadata));
+            $this->dataclass->write($data);
+            return true;
+        } catch (PpciException $e) {
+            $this->message->set(_("Une erreur est survenue pendant le déplacement du champ de métadonnées"), true);
+            return false;
+        }
+    }
+
+    /**
+     * Rewrite the metadata array with deleting the number of the row
+     *
+     * @param array $metadata
+     * @return array
+     */
+    function normalize(array $metadata): array
+    {
+        $new = [];
+        foreach ($metadata as $item) {
+            $new[] = $item;
+        }
+        return $new;
     }
 }

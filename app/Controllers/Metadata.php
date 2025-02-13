@@ -78,4 +78,9 @@ class Metadata extends PpciController
         $this->lib->fieldDelete();
         return $this->lib->display();
     }
+
+    function fieldMove() {
+        $this->lib->move();
+        return $this->lib->display();
+    }
 }

@@ -66,9 +66,9 @@
                 <th>{t}Message d'aide{/t}</th>
                 <th>{t}Utilisable pour les recherches ?{/t}</th>
                 {if $rights.collection == 1}
-                <th><img src="display/images/up.png" height="25"></th>
-                <th><img src="display/images/down.png" height="25"></th>
-                <th><img src="display/images/eraser.png" height="25"></th>
+                <th><img src="display/images/up.png" height="25" title="{t}Remonter le champ dans la liste{/t}"></th>
+                <th><img src="display/images/down.png" height="25" title="{t}Descendre le champ dans la liste{/t}"></th>
+                <th><img src="display/images/remove-red-24.png" height="25"></th>
                 {/if}
             </tr>
         </thead>
@@ -95,14 +95,14 @@
                 {if $rights.collection == 1}
                 <td class="center">
                     {if $row@iteration > 1}
-                    <a href="metadataFieldMove?metadata_id={$data.metadata_id}&name={$row.name}&movement=up">
+                    <a href="metadataFieldMove?metadata_id={$data.metadata_id}&name={$row.name}&from={$row@index}&to={$row@index - 1}">
                         <img src="display/images/up.png" height="25">
                     </a>
                     {/if}
                 </td>
                 <td class="center">
                     {if $row@last != true}
-                    <a href="metadataFieldMove?metadata_id={$data.metadata_id}&name={$row.name}&movement=down">
+                    <a href="metadataFieldMove?metadata_id={$data.metadata_id}&name={$row.name}&from={$row@index}&to={$row@index + 1}">
                         <img src="display/images/down.png" height="25">
                     </a>
                     {/if}
@@ -110,7 +110,7 @@
                 <td class="center">
                     <a href="metadataFieldDelete?metadata_id={$data.metadata_id}&name={$row.name}" class="confirm"
                         title="{t}Supprimer le champ{/t}">
-                        <img src="display/images/eraser.png" height="25">
+                        <img src="display/images/remove-red-24.png" height="25">
                     </a>
                 </td>
                 {/if}

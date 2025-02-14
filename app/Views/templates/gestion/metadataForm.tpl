@@ -78,19 +78,21 @@
                     newOption.innerHTML = "{t}Choisissez{/t}";
                     newInput.appendChild(newOption);
                 }
-                field.choicelist.forEach(function (choice) {
-                    var newOption = document.createElement("option");
-                    newOption.value = choice;
-                    newOption.innerHTML = choice;
-                    if (Array.isArray(currentValue)) {
-                        if (currentValue.includes(choice)) {
+                if (field.choicelist) {
+                    field.choiceList.forEach(function (choice) {
+                        var newOption = document.createElement("option");
+                        newOption.value = choice;
+                        newOption.innerHTML = choice;
+                        if (Array.isArray(currentValue)) {
+                            if (currentValue.includes(choice)) {
+                                newOption.selected = true;
+                            }
+                        } else if (choice == currentValue) {
                             newOption.selected = true;
                         }
-                    } else if (choice == currentValue) {
-                        newOption.selected = true;
-                    }
-                    newInput.appendChild(newOption);
-                });
+                        newInput.appendChild(newOption);
+                    });
+                }
 
             } else if (field.type == "textarea") {
                 var newInput = document.createElement("textarea");
@@ -102,36 +104,38 @@
             } else if (field.type == "checkbox" || field.type == "radio") {
                 isUnique = false;
                 var newInput = document.createElement("div");
-                field.choicelist.forEach(function (choice) {
-                    var divcb = document.createElement("div");
-                    divcb.classList.add(field.type);
-                    newInput.appendChild(divcb);
-                    var cblabel = document.createElement("label");
-                    var cbinput = document.createElement("input");
-                    cbinput.type = field.type;
-                    cbinput.value = choice;
-                    if (field.type == "checkbox") {
-                        cbinput.name = newId + [];
-                        if (Array.isArray(currentValue)) {
-                            if (currentValue.includes(choice)) {
+                if (field.choiceList) {
+                    field.choiceList.forEach(function (choice) {
+                        var divcb = document.createElement("div");
+                        divcb.classList.add(field.type);
+                        newInput.appendChild(divcb);
+                        var cblabel = document.createElement("label");
+                        var cbinput = document.createElement("input");
+                        cbinput.type = field.type;
+                        cbinput.value = choice;
+                        if (field.type == "checkbox") {
+                            cbinput.name = newId + [];
+                            if (Array.isArray(currentValue)) {
+                                if (currentValue.includes(choice)) {
+                                    newOption.checked = true;
+                                }
+                            } else if (choice == currentValue) {
                                 newOption.checked = true;
                             }
-                        } else if (choice == currentValue) {
-                            newOption.checked = true;
+                        } else {
+                            cbinput.name = newId;
+                            if (choice == currentValue) {
+                                cbinput.checked = true;
+                            }
                         }
-                    } else {
-                        cbinput.name = newId;
-                        if (choice == currentValue) {
-                            cbinput.checked = true;
-                        }
-                    }
-                    cblabel.appendChild(cbinput);
-                    var cbspan = document.createElement("span");
-                    cbspan.innerHTML = choice;
-                    cblabel.appendChild(cbspan);
-                    divcb.appendChild(cblabel);
-                    newInput.appendChild(divcb);
-                });
+                        cblabel.appendChild(cbinput);
+                        var cbspan = document.createElement("span");
+                        cbspan.innerHTML = choice;
+                        cblabel.appendChild(cbspan);
+                        divcb.appendChild(cblabel);
+                        newInput.appendChild(divcb);
+                    });
+                }
             } else if (field.type == "array") {
                 var newInput = document.createElement("div");
                 if (data[field.name]) {
@@ -212,7 +216,7 @@
         if (!listArrays[id]) {
             listArrays[id] = 0;
         }
-        var lastElem = document.getElementById( id + (listArrays[id] - 1));
+        var lastElem = document.getElementById(id + (listArrays[id] - 1));
         var create = false;
         if (!lastElem || lastElem.value.length > 0) {
             create = true;
@@ -230,8 +234,6 @@
             }
             parent.appendChild(newInput);
             listArrays[id]++;
-            console.log(listArrays);
-            console.log(newInput);
         }
     }
 </script>

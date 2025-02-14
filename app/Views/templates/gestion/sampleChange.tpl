@@ -2,7 +2,6 @@
 	var locale = '{$LANG["date"]["locale"]}';
 	var formatDate = '{$LANG["date"]["formatdate"]}';
 </script>
-<script type="text/javascript" src="display/javascript/formbuilder.js"></script>
 
 {include file="gestion/metadataForm.tpl"}
 <script type="text/javascript">
@@ -99,10 +98,8 @@
        	    	.done (function (value) {
        	    		if (value) {
        	    		var schema = value.replace(/&quot;/g,'"');
-       	    		//showForm(JSON.parse(schema),dataParse);
 					   generateMetadataForm(JSON.parse(schema), dataParse);
        	    		} else {
-						//$("#metadata").alpaca("destroy");
 						document.getElementById('metadata').innerHTML = "";
 					}
        	    	})
@@ -261,15 +258,6 @@
             	} else {
             		error = true;
             	}
-
-                $('#metadata').alpaca().refreshValidationState(true);
-                if($('#metadata').alpaca().isValid(true)){
-                	var value = $('#metadata').alpaca().getValue();
-                	 // met les metadata en JSON dans le champ (name="metadata") qui sera sauvegardé en base
-                	 $("#metadataField").val(JSON.stringify(value));
-                } else {
-                   	error = true;
-                }
                 if (error) {
                 	event.preventDefault();
                 }
@@ -284,7 +272,7 @@
         	$("#sampling_place_id").val("");
         	$("#multiple_value").val("");
         	$("#metadataField").val("");
-        	showForm([],"");
+        	$("#metadata").html("");
         	point.setCoordinates ([]);
 
         });

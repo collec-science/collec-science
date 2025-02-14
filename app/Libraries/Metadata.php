@@ -178,12 +178,12 @@ class Metadata extends PpciLibrary
                 $current[$field] = $_POST[$field];
             }
             /**
-             * Treatment of choicelist
+             * Treatment of choiceList
              */
-            $current["choicelist"] = [];
-            foreach ($_POST["choicelist"] as $choice) {
+            $current["choiceList"] = [];
+            foreach ($_POST["choiceList"] as $choice) {
                 if (strlen($choice) > 0) {
-                    $current["choicelist"][] = $choice;
+                    $current["choiceList"][] = $choice;
                 }
             }
             $metadata[$i] = $current;

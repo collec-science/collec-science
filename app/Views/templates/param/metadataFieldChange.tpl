@@ -21,7 +21,7 @@
              */
             if (target.is('.choiceList') && $(target).val().length && $(target).data("ligne") == $("#multiples tr:last-child").data("ligne")) {
                 var ligne = '<tr id="multiple' + numligne + '" data-ligne="' + numligne + '">';
-                ligne += '<td><input type="text" name="choicelist[]" class="form-control choiceList"' + '" data-ligne="' + numligne + '"></td>';
+                ligne += '<td><input type="text" name="choiceList[]" class="form-control choiceList"' + '" data-ligne="' + numligne + '"></td>';
                 ligne += '<td class="center"><img class="removeMultiple" src="display/images/remove-red-24.png" height="25"data-ligne="' + numligne + '">';
                 ligne += '</td></tr>';
                 $("#multiples").last().append(ligne);
@@ -150,10 +150,10 @@
         <div class="col-md-8">
             <table id="multiples">
                 {$numligne = 1000}
-                {foreach $data.choicelist as $choice}
+                {foreach $data.choiceList as $choice}
                 <tr id="multiple{$numligne}" data-ligne="{$numligne}">
                     <td>
-                        <input type="text" name="choicelist[]" class="form-control choiceList" value="{$choice}"
+                        <input type="text" name="choiceList[]" class="form-control choiceList" value="{$choice}"
                             data-ligne="{$numligne}">
                     </td>
                     <td class="center">
@@ -165,7 +165,7 @@
                 {/foreach}
                 <tr id="multiple{$numligne}" data-ligne="{$numligne}">
                     <td>
-                        <input type="text" name="choicelist[]" class="form-control choiceList" value=""
+                        <input type="text" name="choiceList[]" class="form-control choiceList" value=""
                             data-ligne="{$numligne}">
                     </td>
                     <td class="center">

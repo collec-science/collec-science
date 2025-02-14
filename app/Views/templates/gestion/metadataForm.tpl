@@ -1,8 +1,9 @@
 <script>
+    var listArrays = new Object();
     function generateMetadataForm(schema, data) {
         var metadata = document.getElementById('metadata');
         metadata.innerHTML = "";
-        var inputs = new Array("string", "url", "date", "array", "number");
+        var inputs = new Array("string", "url", "date", "number");
         schema.forEach(function (field, id) {
             var newId = "md_" + field.name;
             /**
@@ -132,34 +133,36 @@
                     newInput.appendChild(divcb);
                 });
             } else if (field.type == "array") {
-                if (Array.isArray(data[field.name])) {
-                    data[field.name].forEach(function (val) {
-                        var newInput = document.createElement("input");
-                        newInput.classList.add("formControl");
-                        newInput.name = newId + "[]";
-                        newInput.value = val;
-                        divInput.appendChild (newInput);
-                    });
-                } else {
-                    if (data[field.name]) {
-                        var newInput = document.createElement("input");
-                        newInput.classList.add("formControl");
-                        newInput.name = newId + "[]";
-                        newInput.value = data[field.name];
-                        divInput.appendChild (newInput);
+                var newInput = document.createElement("div");
+                if (data[field.name]) {
+                    if (Array.isArray(data[field.name])) {
+                        var i = 0;
+                        data[field.name].forEach(function (val) {
+                            var newArray = document.createElement("input");
+                            newArray.classList.add("formControl", newId);
+                            newArray.name = newId + "[]";
+                            newArray.value = val;
+                            if (i > 0) {
+                                divInput.appendChild(document.createElement("br"));
+                            }
+                            newInput.appendChild(newArray);
+                            i++;
+                        });
+                    } else {
+                        var newArray = document.createElement("input");
+                        newArray.classList.add("formControl", newId);
+                        newArray.name = newId + "[]";
+                        newArray.value = data[field.name];
+                        newInput.appendChild(newArray);
                     }
                 }
+                divInput.appendChild(newInput);
                 /**
                  * add a new empty line and generate an event
                  * to add others lines
                  */
-                var newInput = document.createElement("input");
-                newInput.name = newId + "[]";
-                newInput.classList.add("formControl");
-                input.addEventListener("keyup", function (e) {
-
-                });
-                //document.querySelectorAll(".some-element:last-child"))
+                addArrayElement(newId, divInput);
+                isUnique = false;
             }
             if (isUnique) {
                 if (field.required) {
@@ -204,5 +207,31 @@
             divInput.appendChild(br);
             divInput.appendChild(newDescription);
         });
+    }
+    function addArrayElement(id, parent) {
+        if (!listArrays[id]) {
+            listArrays[id] = 0;
+        }
+        var lastElem = document.getElementById( id + (listArrays[id] - 1));
+        var create = false;
+        if (!lastElem || lastElem.value.length > 0) {
+            create = true;
+        }
+        if (create) {
+            var newInput = document.createElement("input");
+            newInput.name = id + "[]";
+            newInput.id = id + listArrays[id];
+            newInput.classList.add("formControl", id);
+            newInput.addEventListener("keyup", function (e) {
+                addArrayElement(id, parent);
+            });
+            if (listArrays[id] > 0) {
+                parent.appendChild(document.createElement("br"));
+            }
+            parent.appendChild(newInput);
+            listArrays[id]++;
+            console.log(listArrays);
+            console.log(newInput);
+        }
     }
 </script>

@@ -177,6 +177,11 @@ class Metadata extends PpciLibrary
             foreach ($fields as $field) {
                 $current[$field] = $_POST[$field];
             }
+            if ($current["required"] == "true") {
+                $current["required"] = true;
+            } else {
+                $current["required"] = false;
+            }
             /**
              * Treatment of choiceList
              */

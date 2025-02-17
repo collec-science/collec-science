@@ -19,19 +19,18 @@
             var newLabel = document.createElement("label");
             newLabel.htmlFor = newId;
             newLabel.classList.add("control-label", "col-md-4");
-            var labelContent = "";
-            if (field.required) {
-                var mandatory = document.createElement("span");
-                mandatory.classList.add("red");
-                mandatory.innerHTML = "*";
-                newLabel.append(mandatory);
-            }
             var labelContent = field.name;
             if (field.measureUnit) {
                 labelContent += '&nbsp;(' + field.measureUnit + ')';
             }
-            newLabel.innerHTML = labelContent;
+            if (field.required) {
+                var fr = '<span class="red">*</span>';
+            } else {
+                var fr = "";
+            }
+            newLabel.innerHTML = fr+labelContent;
             newDiv.appendChild(newLabel);
+            
 
             /**
              * add secondary div for field
@@ -56,6 +55,12 @@
             var isUnique = true;
             if (inputs.includes(field.type)) {
                 var newInput = document.createElement("input");
+                if (field.type == "url" || field.type=="date") {
+                   newInput.type = field.type; 
+                }
+                if (field.type == "number") {
+                    newInput.setAttribute("pattern", "^-?[0-9]+([\.,][0-9]+)?");
+                }
                 if (data[field.name]) {
                     newInput.value = data[field.name];
                 } else if (field.defaultValue) {
@@ -189,13 +194,13 @@
                 /**
                  * add specific classes
                  */
-                if (field.type == "date") {
+                /*if (field.type == "date") {
                     newInput.classList.add("datepicker");
                 } else if (field.type == "url") {
                     newInput.type = "url";
                 } else if (field.type == "number") {
                     newInput.classList.add("taux");
-                }
+                }*/
             }
 
 

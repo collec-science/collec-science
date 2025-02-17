@@ -389,9 +389,22 @@ class Sample extends PpciLibrary
              */
             $metadata = [];
             foreach ($_REQUEST as $fieldname => $content) {
-                if (substr($fieldname, 0, 3) == "md_" && strlen($content) > 0) {
-                    $name = substr($fieldname, 3);
-                    $metadata[$name] = $content;
+                if (substr($fieldname, 0, 3) == "md_") {
+                    $metadataOk = false;
+                    if (is_array($content)) {
+                        foreach ($content as $elem) {
+                            if (strlen($elem) > 0) {
+                                $metadataOk = true;
+                                break;
+                            }
+                        }
+                    } else if (strlen($content) > 0) {
+                        $metadataOk = true;
+                    }
+                    if ($metadataOk) {
+                        $name = substr($fieldname, 3);
+                        $metadata[$name] = $content;
+                    }
                 }
             }
             $_REQUEST["metadata"] = json_encode($metadata);

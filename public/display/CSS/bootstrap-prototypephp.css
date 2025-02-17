@@ -373,3 +373,9 @@ tr {
 	display: block;
 	height: 5em;
 }
+
+input:invalid {
+	border: 1px solid red;
+  }
+
+  

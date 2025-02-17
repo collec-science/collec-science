@@ -1,3 +1,44 @@
+<script src="display/node_modules/datatables.net-rowreorder/js/dataTables.rowReorder.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var myStorage = window.localStorage;
+        var pageLength = myStorage.getItem("pageLength");
+        if (!pageLength) {
+            pageLength = 10;
+        }
+        var lengthMenu = [10, 25, 50, 100, 500, { label: 'all', value: -1 }];
+        let table = $("#metadataList").DataTable({
+            "language": dataTableLanguage,
+            "searching": false,
+            //dom: 'Bfrtip',
+            layout: {
+                topStart: {
+                    buttons: ['pageLength']
+                }
+            },
+            "pageLength": pageLength,
+            "lengthMenu": lengthMenu,
+            fixedHeader: {
+                header: true,
+                footer: true
+            },
+            rowReorder: true
+        });
+        table.on('row-reorder', function (e, details, edit) {
+            var from = details[0].oldData - 1;
+            var to = details[0].newData - 1;
+            const a = document.createElement('a');
+            a.href = 'metadataFieldMove?metadata_id={$data.metadata_id}&from=' + from + '&to=' + to;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+    });
+
+</script>
+
 <h2>{t}Détail du modèle de métadonnées{/t} <i>{$data.metadata_name}</i></h2>
 <div class="row">
     <a href="metadataList">
@@ -23,8 +64,8 @@
                     {t}Nom du modèle :{/t}
                 </label>
                 <div class="col-md-6">
-                    <input id="metadata_name" class="form-control" name="metadata_name"
-                        value="{$data.metadata_name}" required>
+                    <input id="metadata_name" class="form-control" name="metadata_name" value="{$data.metadata_name}"
+                        required>
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
@@ -48,13 +89,10 @@
 </div>
 {if $data.metadata_id > 0}
 <div class="row">
-    <table id="metadataList" class="table table-bordered table-hover datatable display" {if
-        $rights.collection==1}data-order='[[1,"asc"]]' {/if}>
+    <table id="metadataList" class="table table-bordered table-hover display" {if
+        $rights.collection==1}data-order='[[0,"asc"]]' {/if}>
         <thead>
             <tr>
-                {if $rights.collection == 1}
-                <th><img src="display/images/edit.gif" height="25"></th>
-                {/if}
                 <th>{t}N° d'ordre{/t}</th>
                 <th>{t}Nom du champ{/t}</th>
                 <th>{t}Type{/t}</th>
@@ -66,6 +104,7 @@
                 <th>{t}Message d'aide{/t}</th>
                 <th>{t}Utilisable pour les recherches ?{/t}</th>
                 {if $rights.collection == 1}
+                <th><img src="display/images/edit.gif" height="25"></th>
                 <th><img src="display/images/up.png" height="25" title="{t}Remonter le champ dans la liste{/t}"></th>
                 <th><img src="display/images/down.png" height="25" title="{t}Descendre le champ dans la liste{/t}"></th>
                 <th><img src="display/images/remove-red-24.png" height="25"></th>
@@ -75,13 +114,6 @@
         <tbody>
             {foreach $metadata as $row}
             <tr>
-                {if $rights.collection == 1}
-                <td class="center">
-                    <a href="metadataFieldChange?metadata_id={$data.metadata_id}&name={$row.name}">
-                        <img src="display/images/edit.gif" height="25">
-                    </a>
-                </td>
-                {/if}
                 <td class="center">{$row@iteration}</td>
                 <td>{$row.name}</td>
                 <td>{$row.type}</td>
@@ -94,15 +126,22 @@
                 <td class="center">{if $row.isSearchable == "yes"}{t}oui{/t}{/if}</td>
                 {if $rights.collection == 1}
                 <td class="center">
+                    <a href="metadataFieldChange?metadata_id={$data.metadata_id}&name={$row.name}">
+                        <img src="display/images/edit.gif" height="25">
+                    </a>
+                </td>
+                <td class="center">
                     {if $row@iteration > 1}
-                    <a href="metadataFieldMove?metadata_id={$data.metadata_id}&name={$row.name}&from={$row@index}&to={$row@index - 1}">
+                    <a
+                        href="metadataFieldMove?metadata_id={$data.metadata_id}&name={$row.name}&from={$row@index}&to={$row@index - 1}">
                         <img src="display/images/up.png" height="25">
                     </a>
                     {/if}
                 </td>
                 <td class="center">
                     {if $row@last != true}
-                    <a href="metadataFieldMove?metadata_id={$data.metadata_id}&name={$row.name}&from={$row@index}&to={$row@index + 1}">
+                    <a
+                        href="metadataFieldMove?metadata_id={$data.metadata_id}&name={$row.name}&from={$row@index}&to={$row@index + 1}">
                         <img src="display/images/down.png" height="25">
                     </a>
                     {/if}

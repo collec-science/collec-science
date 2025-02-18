@@ -182,7 +182,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public string $version = "v25.0.1";
+    public string $version = "v25.1.0";
     /**
      * versionDate - don't change here, but in function setParameters() below
      *

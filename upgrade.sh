@@ -2,5 +2,5 @@
 cd /var/www/collec2App/collec-science
 git restore .
 git pull origin main
-./upgradeb.sh
+./upgradedb.sh
 systemctl restart apache2

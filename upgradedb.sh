@@ -1,6 +1,6 @@
 #!/bin/bash
 # read .env parameters
-SQL="select dbversion_number from sturwild.dbversion order by dbversion_id desc limit 1"
+SQL="select dbversion_number from col.dbversion order by dbversion_id desc limit 1"
 DBENV=.envdb
 echo "" > .envdb
 sed 's/ = /=/g' .env |grep -v '^#' |grep -v '\\' |

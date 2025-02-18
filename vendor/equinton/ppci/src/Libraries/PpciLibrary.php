@@ -2,15 +2,16 @@
 namespace Ppci\Libraries;
 
 use Config\App;
+use Ppci\Models\Log;
 use Ppci\Models\PpciModel;
 
 class PpciLibrary
 {
     protected $session;
-    protected $message;
+    protected MessagePpci $message;
     protected PpciModel $dataclass;
     protected App $appConfig;
-    protected $log;
+    protected Log $log;
     protected int $id;
     public $vue;
     protected PpciInit $init;

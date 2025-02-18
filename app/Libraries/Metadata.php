@@ -196,6 +196,7 @@ class Metadata extends PpciLibrary
             $this->dataclass->write($data);
             return true;
         } catch (PpciException $e) {
+            $this->message->setSyslog($e->getMessage());
             $this->message->set(_("Une erreur est survenue pendant l'enregistrement du champ de métadonnées"), true);
             return false;
         }
@@ -239,6 +240,7 @@ class Metadata extends PpciLibrary
             $this->dataclass->write($data);
             return true;
         } catch (PpciException $e) {
+            $this->message->setSyslog($e->getMessage());
             $this->message->set(_("Une erreur est survenue pendant le déplacement du champ de métadonnées"), true);
             return false;
         }

@@ -378,4 +378,7 @@ input:invalid {
 	border: 1px solid red;
   }
 
+.move:hover {
+	cursor: move;
+}
   

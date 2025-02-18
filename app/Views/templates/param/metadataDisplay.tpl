@@ -114,7 +114,7 @@
         <tbody>
             {foreach $metadata as $row}
             <tr>
-                <td class="center">{$row@iteration}</td>
+                <td class="center move">{$row@iteration}</td>
                 <td>{$row.name}</td>
                 <td>{$row.type}</td>
                 <td>{$row.description}</td>
@@ -158,4 +158,10 @@
         </tbody>
     </table>
 </div>
+<div class="row">
+    <div class="bg-info col-md-offset-3 col-md-6 center">
+        {t}Vous pouvez également modifier l'ordre des champs en cliquant-déplaçant avec la souris sur la première colonne{/t}
+    </div>
+</div>
+
 {/if}

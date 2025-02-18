@@ -25,8 +25,11 @@
 		<form method="POST" id="metadataExport" action="metadataExport">
 			<div class="row">
 				<div class="center">
-					{t}Exporter les métadonnées :{/t} <label id="lmetadatacheck" for="checkMetadata">{t}Tout
-						décocher{/t}</label> <input type="checkbox" id="checkMetadata" checked>
+					{t}Exporter les métadonnées :{/t} 
+					<label id="lmetadatacheck" for="checkMetadata">
+						{t}Tout décocher{/t}
+					</label> 
+					<input type="checkbox" id="checkMetadata" checked>
 					<button type="submit" class="btn btn-primary">{t}Déclencher l'export{/t}</button>
 				</div>
 			</div>
@@ -80,8 +83,9 @@
 		<form class="form-horizontal" id="metadataImport" method="post" action="metadataImport"
 			enctype="multipart/form-data">
 			<div class="form-group">
-				<label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à
-					importer (CSV) :{/t}</label>
+				<label for="upfile" class="control-label col-md-4"><span class="red">*</span> 
+					{t}Nom du fichier à importer (CSV) :{/t}
+				</label>
 				<div class="col-md-8">
 					<input class="form-control" type="file" name="upfile" required>
 				</div>

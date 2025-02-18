@@ -384,6 +384,30 @@ class Sample extends PpciLibrary
     function write()
     {
         try {
+            /**
+             * generate metadata
+             */
+            $metadata = [];
+            foreach ($_REQUEST as $fieldname => $content) {
+                if (substr($fieldname, 0, 3) == "md_") {
+                    $metadataOk = false;
+                    if (is_array($content)) {
+                        foreach ($content as $elem) {
+                            if (strlen($elem) > 0) {
+                                $metadataOk = true;
+                                break;
+                            }
+                        }
+                    } else if (strlen($content) > 0) {
+                        $metadataOk = true;
+                    }
+                    if ($metadataOk) {
+                        $name = substr($fieldname, 3);
+                        $metadata[$name] = $content;
+                    }
+                }
+            }
+            $_REQUEST["metadata"] = json_encode($metadata);
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;

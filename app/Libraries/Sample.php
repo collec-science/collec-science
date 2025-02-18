@@ -116,7 +116,7 @@ class Sample extends PpciLibrary
                 $this->vue->set(1, "isSearch");
             } catch (PpciException $e) {
                 $this->message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
-                $this->message->setSyslog($e->getMessage());
+                $this->message->setSyslog($e->getMessage(),true);
             }
         }
         $this->vue->set($dataSearch, "sampleSearch");
@@ -786,7 +786,7 @@ class Sample extends PpciLibrary
             $this->dataclass->setCountry($_POST["uids"], $_POST["country_id"]);
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage());
+            $this->message->setSyslog($oe->getMessage(),true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du pays"), true);
             $this->message->set($oe->getMessage());
         }
@@ -804,7 +804,7 @@ class Sample extends PpciLibrary
             $this->dataclass->setCollection($_POST["uids"], $_POST["collection_id_change"]);
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage());
+            $this->message->setSyslog($oe->getMessage(),true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la collection"), true);
             $this->message->set($oe->getMessage());
         }
@@ -823,7 +823,7 @@ class Sample extends PpciLibrary
             $this->dataclass->setCampaign($_POST["uids"], $_POST["campaign_id"]);
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage());
+            $this->message->setSyslog($oe->getMessage(),true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la campagne"), true);
             $this->message->set($oe->getMessage());
         }
@@ -842,7 +842,7 @@ class Sample extends PpciLibrary
             $object->setStatus($uids, $_POST["object_status_id"]);
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage());
+            $this->message->setSyslog($oe->getMessage(),true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du statut"), true);
             $this->message->set($oe->getMessage());
         }
@@ -860,7 +860,7 @@ class Sample extends PpciLibrary
             $this->dataclass->setParent($uids, $_POST["parent_sample_id"]);
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage());
+            $this->message->setSyslog($oe->getMessage(),true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du parent"), true);
             $this->message->set($oe->getMessage());
         }

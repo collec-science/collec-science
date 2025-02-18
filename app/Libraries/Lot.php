@@ -71,7 +71,7 @@ class Lot extends PpciLibrary
                     return true;
                 } catch (PpciException $e) {
                     $this->message->set(_("Une erreur est survenue pendant la création du lot"), true);
-                    $this->message->setSyslog($e->getMessage());
+                    $this->message->setSyslog($e->getMessage(),true);
                     if ($db->transEnabled) {
                         $db->transRollback();
                     }

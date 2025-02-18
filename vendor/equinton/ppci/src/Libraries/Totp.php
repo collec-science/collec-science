@@ -129,7 +129,7 @@ class Totp extends PpciLibrary
                 $this->message->set(_("Le code TOTP rentré n'a pas été reconnu"), true);
             }
         } catch (PpciException $pe) {
-            $this->message->setSyslog($pe->getMessage());
+            $this->message->setSyslog($pe->getMessage(),true);
             $this->message->set($pe->getMessage(), true);
         }
         if (!empty($_SESSION["moduleRequired"])) {

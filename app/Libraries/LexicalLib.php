@@ -39,8 +39,8 @@ class LexicalLib extends PpciLibrary
             }
             $this->vue->set($this->content, "lexique");
         } catch (PpciException $e) {
-            $this->message->setSyslog("Error when parsing lexical");
-            $this->message->setSyslog(($e->getMessage()));
+            $this->message->setSyslog("Error when parsing lexical",true);
+            $this->message->setSyslog($e->getMessage(),true);
         }
         $this->vue->set('documentation/lexique.tpl', 'corps');
         return $this->vue->send();

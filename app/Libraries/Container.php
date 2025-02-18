@@ -588,7 +588,7 @@ class Container extends PpciLibrary
             $object = new ObjectClass();
             $object->setStatus($_POST["uids"], $_POST["object_status_id"]);
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage());
+            $this->message->setSyslog($oe->getMessage(),true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du statut"), true);
             $this->message->set($oe->getMessage());
         }
@@ -613,7 +613,7 @@ class Container extends PpciLibrary
             $db->transCommit();
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage());
+            $this->message->setSyslog($oe->getMessage(),true);
             $this->message->set(_("Une erreur est survenue pendant l'assignation du référent"), true);
             $this->message->set($oe->getMessage());
             if ($db->transEnabled) {
@@ -640,7 +640,7 @@ class Container extends PpciLibrary
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $this->dataclass->setCollection($_POST["uids"], $_POST["collection_id_change"]);
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage());
+            $this->message->setSyslog($oe->getMessage(),true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la collection"), true);
             $this->message->set($oe->getMessage());
         }

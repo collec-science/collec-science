@@ -179,7 +179,7 @@ class Event extends PpciLibrary
 				$this->message->set(_("Événements supprimés"));
 			} catch (PpciException $e) {
 				$this->message->set(_("Un problème est survenu pendant la suppression d'un événement"), true);
-				$this->message->setSyslog($e->getMessage());
+				$this->message->setSyslog($e->getMessage(),true);
 				if ($db->transEnabled) {
 					$db->transRollback();
 				}
@@ -213,7 +213,7 @@ class Event extends PpciLibrary
 					$this->message->set(_("Événements modifiés"));
 				} catch (PpciException $e) {
 					$this->message->set(_("Un problème est survenu pendant la modification d'un événement"), true);
-					$this->message->setSyslog($e->getMessage());
+					$this->message->setSyslog($e->getMessage(),true);
 					if ($db->transEnabled) {
 						$db->transRollback();
 					}

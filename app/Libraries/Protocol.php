@@ -63,10 +63,8 @@ class Protocol extends PpciLibrary
                 if ($_FILES["protocol_file"]["size"] > 0) {
                     try {
                         $this->dataclass->ecrire_document($this->id, $_FILES["protocol_file"]);
-                    } catch (PpciException $fe) {
-                        throw new PpciException($fe->getMessage());
                     } catch (PpciException $e) {
-                        $this->message->setSyslog($e->getMessage());
+                        $this->message->setSyslog($e->getMessage(),true);
                         throw new PpciException(_("impossible d'enregistrer la pièce jointe"));
                     }
                 }

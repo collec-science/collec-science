@@ -120,7 +120,7 @@ class ExportModel extends PpciLibrary
             }
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(),true);
             return $this->display();
         }
     }

@@ -191,6 +191,7 @@ CREATE TABLE col.container_type (
 	first_column varchar DEFAULT 'L',
 	line_in_char boolean NOT NULL DEFAULT false,
 	column_in_char boolean NOT NULL DEFAULT false,
+	nbobject_by_slot integer DEFAULT 0,
 	CONSTRAINT container_type_pk PRIMARY KEY (container_type_id)
 );
 -- ddl-end --
@@ -1172,6 +1173,7 @@ CREATE TABLE col.sample_type (
 	operation_id integer,
 	identifier_generator_js character varying,
 	sample_type_description varchar,
+	sample_type_code varchar,
 	CONSTRAINT sample_type_pk PRIMARY KEY (sample_type_id)
 );
 -- ddl-end --
@@ -1184,6 +1186,7 @@ COMMENT ON COLUMN col.sample_type.multiple_unit IS E'Name of the unit used  to q
 COMMENT ON COLUMN col.sample_type.identifier_generator_js IS E'Javascript function code used to automaticaly generate a working identifier from the intered information';
 -- ddl-end --
 COMMENT ON COLUMN col.sample_type.sample_type_description IS E'Description of the type of sample';
+comment on column col.sample_type.sample_type_code is 'Code used to exchange information with others providers without use the name of the sample type';
 -- ddl-end --
 ALTER TABLE col.sample_type OWNER TO collec;
 -- ddl-end --
@@ -1332,6 +1335,7 @@ CREATE TABLE col.subsample (
 	subsample_comment character varying,
 	subsample_login character varying NOT NULL,
 	borrower_id integer,
+	createdsample_id integer,
 	CONSTRAINT subsample_pk PRIMARY KEY (subsample_id)
 );
 -- ddl-end --
@@ -1877,6 +1881,7 @@ CREATE TABLE col.borrowing (
 	uid integer NOT NULL,
 	borrower_id integer NOT NULL,
 	return_date timestamp,
+	borrowing_comment varchar,
 	CONSTRAINT borrowing_pk PRIMARY KEY (borrowing_id)
 );
 -- ddl-end --
@@ -2028,11 +2033,10 @@ SELECT m.uid,
 -- DROP VIEW IF EXISTS col.slots_used CASCADE;
 CREATE VIEW col.slots_used
 AS 
-
 SELECT
    container_id, count(*) as nb_slots_used
 FROM
-   last_movement
+   col.last_movement
 WHERE
    movement_type_id = 1
    group by container_id;
@@ -3979,3 +3983,28 @@ REFERENCES col.movement (movement_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
+ALTER TABLE subsample ADD CONSTRAINT sample_id FOREIGN KEY (createdsample_id)
+REFERENCES sample (sample_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+CREATE INDEX subsample_createdsample_id_idx ON subsample
+USING btree
+(
+	createdsample_id
+);
+
+create view v_sample_parents as 
+(select ss.createdsample_id as sample_id,
+array_to_string (array_agg((p.uid::text || ' '|| po.identifier::text) order by p.uid), ', ') as sample_parents
+from subsample ss
+join sample p on (ss.sample_id = p.sample_id)
+join object po on (p.uid = po.uid)
+group by ss.createdsample_id
+);
+
+create or replace view v_derivated_number as (
+	SELECT s.uid,
+	count(*) AS nb_derivated_sample
+	FROM col.sample s
+	JOIN col.sample d ON d.parent_sample_id = s.sample_id
+	GROUP BY s.uid
+);

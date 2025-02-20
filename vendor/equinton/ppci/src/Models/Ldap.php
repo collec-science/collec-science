@@ -170,7 +170,7 @@ class Ldap
             return ldap_get_entries($this->idldap, $sr);
         } else {
             global $message;
-            $message->setSyslog(ldap_error($this->idldap));
+            $message->setSyslog(ldap_error($this->idldap),true);
             return array();
         }
     }

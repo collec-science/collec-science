@@ -117,7 +117,7 @@ class Acllogin extends PpciModel
             if (!empty($email)) {
                  $data["email"] = strtolower($email);
             }
-            return $this->ecrire($data);
+            return $this->write($data);
         } else {
             throw new \Ppci\Libraries\PpciException(_("L'ajout d'un login à la table des comptes (gestion des droits) n'est pas possible : le login n'est pas fourni"));
         }
@@ -128,12 +128,12 @@ class Acllogin extends PpciModel
      * @param array $data
      * @return int
      */
-    function ecrire(array $data): int
+    function write(array $data): int
     {
         if ($data["totp_reset"] == 1) {
             $data["totp_key"] = "";
         }
-        return parent::ecrire($data);
+        return parent::write($data);
     }
 
     /**

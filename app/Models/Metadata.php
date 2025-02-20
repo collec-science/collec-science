@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
 
 /**
@@ -33,8 +34,7 @@ class Metadata extends PpciModel
                 "requis" => 1
             ),
             "metadata_schema" => array(
-                "type" => 0,
-                "requis" => 0
+                "type" => 0
             )
         );
         parent::__construct();
@@ -96,5 +96,33 @@ class Metadata extends PpciModel
                 where elements->>'isSearchable' = 'yes'
                 order by fieldname";
         return $this->getListeParam($sql);
+    }
+    /**
+     * Extract a field from the metadata
+     *
+     * @param integer $metadata_id
+     * @param string $name
+     * @return array
+     */
+    function getField(int $metadata_id, string $name) :array {
+        $data = $this->read($metadata_id);
+        $metafield = [];
+        if (!empty($data)) {
+            $fields = json_decode($data["metadata_schema"],true);
+            foreach($fields as $field) {
+                if ($field["name"] == $name) {
+                    $metafield = $field;
+                    break;
+                } 
+            }
+            if (empty($metafield)) {
+                $metafield["name"] = _("nouveau_champ");
+            }
+            $metafield ["metadata_id"] = $data["metadata_id"];
+            $metafield["metadata_name"] = $data["metadata_name"];
+        } else {
+            throw new PpciException(_("Les métadonnées demandées n'existent pas"));
+        }
+        return $metafield;
     }
 }

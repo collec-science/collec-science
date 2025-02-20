@@ -147,15 +147,18 @@ Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
 # Ppci\Config\IdentificationConfig.LDAP.tls = false
 # Ppci\Config\IdentificationConfig.LDAP.upn_suffix = 
 # Ppci\Config\IdentificationConfig.LDAP.groupSupport = false
+# Ppci\Config\IdentificationConfig.LDAP.groupAttrib = "supannentiteaffectation"
 # Ppci\Config\IdentificationConfig.LDAP.commonNameAttribute = "displayname"
-# Ppci\Config\IdentificationConfig.LDAP.mailAttribute = "mail"
-# Ppci\Config\IdentificationConfig.LDAP.groupnameAttribute = "cn"
-# Ppci\Config\IdentificationConfig.LDAP.loginnameAttribute = "memberuid"
+# Ppci\Config\IdentificationConfig.LDAP.mailAttrib = "mail"
+# Ppci\Config\IdentificationConfig.LDAP.attributgroupname = "cn"
+# Ppci\Config\IdentificationConfig.LDAP.attributloginname = "memberuid"
 # Ppci\Config\IdentificationConfig.LDAP.basedngroup = 'ou=example,o=societe,c=fr'
 # Ppci\Config\IdentificationConfig.LDAP.timeout = 2
 # Ppci\Config\IdentificationConfig.LDAP.ldapnoanonymous = false
 # Ppci\Config\IdentificationConfig.LDAP.ldaplogin = 
 # Ppci\Config\IdentificationConfig.LDAP.ldappassword = 
+
+
 
 #--------------------------------------------------------------------
 # Collec-Science specific parameters

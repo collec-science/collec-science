@@ -98,7 +98,7 @@ class ObjectLib extends PpciLibrary
                         return true;
                     } else {
                         $this->message->set(_("L'impression a échoué pour un problème technique"), true);
-                        $this->message->setSyslog("print command error : $commande");
+                        $this->message->setSyslog("print command error : $commande",true);
                         return false;
                     }
                 } else {

@@ -1,16 +1,18 @@
 <?php
+
 namespace Ppci\Libraries;
 
 use Config\App;
+use Ppci\Models\Log;
 use Ppci\Models\PpciModel;
 
 class PpciLibrary
 {
     protected $session;
-    protected $message;
+    protected MessagePpci $message;
     protected PpciModel $dataclass;
     protected App $appConfig;
-    protected $log;
+    protected Log $log;
     protected int $id;
     public $vue;
     protected PpciInit $init;
@@ -41,7 +43,7 @@ class PpciLibrary
             $data = $this->dataclass->read($id, true, $idParent);
         } catch (\Exception $e) {
             $this->message->set(_("Erreur de lecture des informations dans la base de données"), true);
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(), true);
             throw new PpciException($e->getMessage());
         }
         /*
@@ -71,7 +73,8 @@ class PpciLibrary
                     sprintf(
                         _("La clé n'a pas été retournée lors de l'enregistrement dans %s"),
                         get_class($this->dataclass)
-                    )
+                    ),
+                    true
                 );
                 throw new PpciException();
             }
@@ -84,7 +87,7 @@ class PpciLibrary
             } else {
                 $this->message->set($e->getMessage(), true);
             }
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(),true);
             throw new PpciException();
         }
         return $id;
@@ -93,14 +96,14 @@ class PpciLibrary
     function dataDelete($id, bool $isPartOfTransaction = false)
     {
         try {
-             $this->dataclass->supprimer($id);
+            $this->dataclass->supprimer($id);
             if (!$isPartOfTransaction) {
                 $this->message->set(_("Suppression effectuée"));
             }
             $this->log->setLog($_SESSION["login"], get_class($this->dataclass) . "-delete", $id);
             return true;
         } catch (\Exception $e) {
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(),true);
             /**
              * recherche des erreurs liees a une violation de cle etrangere
              */
@@ -113,7 +116,7 @@ class PpciLibrary
             if ($this->message->getMessageNumber() == 0) {
                 $this->message->set(_("Problème lors de la suppression"), true);
             }
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(),true);
             if ($isPartOfTransaction) {
                 throw new PpciException(sprintf("Suppression impossible de l'enregistrement %s"), $id);
             }

@@ -79,7 +79,7 @@ class Login
                     $_SESSION["filterMessages"][] = $e->getMessage();
                 }
                 //$this->message->set(_("L'identification par jeton n'a pas abouti"), true);
-                $this->message->setSyslog($e->getMessage());
+                $this->message->setSyslog($e->getMessage(),true);
                 /**
                  * Destroy the token
                  */

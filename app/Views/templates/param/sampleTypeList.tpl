@@ -44,7 +44,7 @@
 {$data[lst].multiple_type_name} : {$data[lst].multiple_unit}
 {/if}
 </td>
-<td>{$data[lst].metadata_name}</td>
+<td><a href="metadataDisplay?metadata_id={$data[lst].metadata_id}">{$data[lst].metadata_name}</a></td>
 <td class="textareaDisplay">{$data[lst].sample_type_description}</td>
 <td class="center">
 {if strlen($data[lst].identifier_generator_js) > 0}

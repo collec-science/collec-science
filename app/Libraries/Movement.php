@@ -81,7 +81,7 @@ class Movement extends PpciLibrary
         } catch (PpciException $me) {
             $this->message->set(_("Erreur lors de la génération du mouvement"), true);
             $this->message->set($me->getMessage());
-            $this->message->setSyslog($me->getMessage());
+            $this->message->setSyslog($me->getMessage(),true);
             if ($db->transEnabled) {
                 $db->transRollback();
             }
@@ -141,7 +141,7 @@ class Movement extends PpciLibrary
             $this->dataclass->addMovement($_REQUEST["object_uid"], $_REQUEST["movement_date"], 2, 0, $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"]);
             $this->message->set(_("Enregistrement effectué"));
         } catch (PpciException $e) {
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(),true);
             $this->message->set(_("Impossible d'enregistrer le mouvement"), true);
         }
         return $this->fastOutputChange();
@@ -249,7 +249,7 @@ class Movement extends PpciLibrary
             $this->dataclass->addMovement($_POST["object_uid"], null, $_POST["movement_type_id"], $_POST["container_uid"], null, null, null, $_POST["movement_reason_id"], $_POST["column_number"], $_POST["line_number"]);
             $this->message->set(_("Mouvement enregistré"));
         } catch (PpciException $e) {
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(),true);
             $this->message->set(_("Impossible d'enregistrer le mouvement"), true);
         }
         return $this->smallMovementChange();

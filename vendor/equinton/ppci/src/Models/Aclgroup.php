@@ -376,7 +376,7 @@ class Aclgroup extends PpciModel
                 } catch (PpciException $e) {
                     $message = service('MessagePpci');;
                     $message->set(_("La suppression du groupe a échoué. Consultez les logs pour en connaître la raison"), true);
-                    $message->setSyslog($e->getMessage());
+                    $message->setSyslog($e->getMessage(),true);
                     return false;
                 }
             }

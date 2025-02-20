@@ -104,7 +104,7 @@ class MovementWs extends PpciLibrary
                 "error_detail" => $e->getMessage()
             );
             http_response_code($error_code);
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(),true);
         } finally {
            return $retour;
         }

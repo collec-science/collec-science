@@ -81,7 +81,7 @@ class Document extends PpciLibrary
 		} catch (PpciException $e) {
 			$this->message->set(_("Une erreur est survenue lors de l'écriture du document"), true);
 			$this->message->set($e->getMessage());
-			$this->message->setSyslog($e->getMessage());
+			$this->message->setSyslog($e->getMessage(),true);
 		}
 		return $writeOk;
 	}
@@ -207,7 +207,7 @@ class Document extends PpciLibrary
 				"error_code" => $error_code,
 				"error_message" => $e->getMessage()
 			);
-			$this->message->setSyslog($e->getMessage());
+			$this->message->setSyslog($e->getMessage(),true);
 			return $this->getSWerror($data);
 		}
 	}

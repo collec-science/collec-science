@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-06 17:06+0100\n"
+"POT-Creation-Date: 2025-02-18 09:50+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. (itstool) path: menu/item@label
@@ -23,12 +23,14 @@ msgstr "Objects"
 msgid "Opérations sur les échantillons ou les contenants"
 msgstr "Operations on samples or containers"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:8 ../../Config/menu.xml:49
 #: ../../../app/Views/templates/gestion/containerList.tpl:2
 msgid "Contenants"
 msgstr "Containers"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:8 ../../../app/Views/templates/main.tpl:6
 msgid "Liste des contenants"
@@ -39,6 +41,7 @@ msgstr "List of containers"
 msgid "Échantillons"
 msgstr "Samples"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:9 ../../Config/menu.xml:117 ../../Config/menu.xml:145
@@ -47,6 +50,7 @@ msgstr "Samples"
 msgid "Liste des échantillons"
 msgstr "List of samples"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:10
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:601
@@ -69,6 +73,7 @@ msgstr "SQL requests"
 msgid "Exécution de requêtes SQL dans la base de données"
 msgstr "Execution of SQL queries in the database"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../Config/menu.xml:15
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:443
@@ -81,6 +86,7 @@ msgstr "Movements"
 msgid "Création de mouvements dans le stock"
 msgstr "Creating movements in the stock"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:16
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:30
@@ -93,6 +99,7 @@ msgstr "Store or move into container"
 msgid "Déplacer un échantillon/contenant dans un contenant"
 msgstr "Move a sample / container into a container"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:17
 #: ../../../app/Views/templates/gestion/fastOutputChange.tpl:4
@@ -107,6 +114,7 @@ msgstr "Remove from stock"
 msgid "Sortir un échantillon/contenant du stock"
 msgstr "Remove a sample / container from the stock"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:18
 #: ../../../app/Views/templates/gestion/movementBatchRead.tpl:20
@@ -119,6 +127,7 @@ msgstr "Store or move / Remove in batches"
 msgid "Entrer ou déplacer / Sortir par scan multiple de QR Code"
 msgstr "Store or move / remove by multiple scan of QR Code"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:19 ../../../app/Views/templates/main.tpl:20
 #: ../../../app/Views/templates/main.tpl:41
@@ -193,6 +202,7 @@ msgstr "Lot of export"
 msgid "Liste des lots d'exportation des échantillons"
 msgstr "List of sampling export lots"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:30
 #: ../../../app/Views/templates/export/exportTemplateList.tpl:1
@@ -204,6 +214,7 @@ msgstr "Export models"
 msgid "Liste des modèles d'exports"
 msgstr "List of export templates"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:31
 #: ../../../app/Views/templates/export/datasetTemplateList.tpl:1
@@ -231,12 +242,14 @@ msgstr "List of translators of labels"
 msgid "Paramètres"
 msgstr "Settings"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:35 ../../Config/menu.xml:36
 #: ../../../app/Views/templates/param/collectionList.tpl:1
 msgid "Collections"
 msgstr "Collections"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:35 ../../../app/Views/templates/gestion/import.tpl:119
 #: ../../../app/Views/templates/gestion/import.tpl:131
@@ -258,6 +271,7 @@ msgstr "Licenses"
 msgid "Liste des licences utilisables pour publier les collections"
 msgstr "List of available licenses to publish collections"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:39 ../../Config/menu.xml:40
 #: ../../../app/Views/templates/param/protocolList.tpl:1
@@ -284,6 +298,7 @@ msgstr "Operations"
 msgid "Liste des opérations rattachées à un protocole"
 msgstr "List of operations attached to a protocol"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:43
 #: ../../../app/Views/templates/param/referentList.tpl:2
@@ -305,6 +320,7 @@ msgstr "Campaigns"
 msgid "Paramètres des campagnes de prélèvement"
 msgstr "Settings for sampling campaigns"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:45
 #: ../../../app/Views/templates/param/campaignList.tpl:21
@@ -316,6 +332,7 @@ msgstr "Sampling campaigns"
 msgid "Réglementations"
 msgstr "Regulations"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:46
 #: ../../../app/Views/templates/param/regulationList.tpl:1
@@ -327,6 +344,7 @@ msgstr "Date of rules"
 msgid "Paramètres des types de contenants"
 msgstr "Container type parameters"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:50
 #: ../../../app/Views/templates/param/containerFamilyList.tpl:2
@@ -338,6 +356,7 @@ msgstr "Families of containers"
 msgid "Familles de contenants (armoires, éprouvettes...)"
 msgstr "Families of containers (cabinets, test tubes ...)"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:51
 #: ../../../app/Views/templates/param/containerTypeList.tpl:2
@@ -349,6 +368,7 @@ msgstr "Container types"
 msgid "Liste des types de contenants"
 msgstr "List of container types"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:53
 #: ../../../app/Views/templates/param/sampleTypeList.tpl:2
@@ -361,6 +381,7 @@ msgstr "Sample types"
 msgid "Liste des types d'échantillons gérés"
 msgstr "List of sample types managed"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:54
 #: ../../../app/Views/templates/param/identifierTypeList.tpl:2
@@ -372,6 +393,7 @@ msgstr "Identifier types"
 msgid "Liste des types d'identifiants rattachables à un objet"
 msgstr "List of identifier types that can be attached to an object"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:55
@@ -379,18 +401,21 @@ msgstr "List of identifier types that can be attached to an object"
 msgid "Types de sous-échantillonnage"
 msgstr "Subsampling types"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:56
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:740
 msgid "Métadonnées"
 msgstr "Metadata"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:56
 #: ../../../app/Views/templates/param/metadataList.tpl:15
 msgid "Modèles de métadonnées"
 msgstr "Metadata templates"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:57
 #: ../../../app/Views/templates/param/samplingPlaceList.tpl:1
@@ -402,6 +427,7 @@ msgstr "Locations of sampling"
 msgid "Liste des lieux de prélèvement des échantillons"
 msgstr "List of sampling locations"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:58
 #: ../../../app/Views/templates/param/countryList.tpl:1
@@ -415,6 +441,7 @@ msgstr "List of countries"
 msgid "Liste officielle des pays"
 msgstr "Official countries list"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:60
@@ -422,6 +449,7 @@ msgstr "Official countries list"
 msgid "Types d'événement"
 msgstr "Event types"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:61
 #: ../../../app/Views/templates/param/storageConditionList.tpl:2
@@ -433,6 +461,7 @@ msgstr "Storage conditions"
 msgid "Liste des conditions de stockage"
 msgstr "List of storage conditions"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:62
 #: ../../../app/Views/templates/param/movementReasonList.tpl:1
@@ -454,6 +483,7 @@ msgstr "Object statuses"
 msgid "Liste des statuts possibles pour les objets"
 msgstr "List of available status for objects"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:64
 #: ../../../app/Views/templates/param/borrowerList.tpl:1
@@ -465,6 +495,7 @@ msgstr "Borrowers"
 msgid "Liste des emprunteurs d'objets"
 msgstr "List of borrowers of objects"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:66
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:692
@@ -478,6 +509,7 @@ msgstr "Labels"
 msgid "Modèles d'étiquettes"
 msgstr "Label templates"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:67
 #: ../../../app/Views/templates/param/printerList.tpl:2
@@ -509,6 +541,7 @@ msgstr "Technical imports/exports"
 msgid "Exportations ou importations de données au format JSON"
 msgstr "Data exports or imports in JSON format"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:71
 #: ../../../app/Views/templates/export/datasetTypeList.tpl:1
@@ -646,6 +679,7 @@ msgstr ""
 "List of tables and columns of the database available in the rights "
 "management module"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:91
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/phpinfo.tpl:1
@@ -682,6 +716,7 @@ msgstr "Display of the session variables"
 msgid "Backup"
 msgstr "Backup"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:96
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/backup.tpl:1
@@ -913,6 +948,7 @@ msgstr "Understanding the dual authentication mechanism"
 msgid "Créer un échantillon"
 msgstr "Create a sample"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../Config/menu.xml:156
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/header.tpl:21
@@ -926,6 +962,7 @@ msgstr "Sign in"
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:157 ../../Config/menu.xml:158
@@ -950,6 +987,7 @@ msgstr "Last connections"
 msgid "Liste des dernières connexions réalisées"
 msgstr "List of last connections"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:160
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginChangePassword.tpl:86
@@ -999,6 +1037,7 @@ msgstr "New version?"
 msgid "Rechercher s'il existe une nouvelle version disponible de l'application"
 msgstr "Find out if there is a new version of the application available"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:167
 #: ../../../app/Views/templates/documentation/lexique.tpl:1
@@ -1052,7 +1091,7 @@ msgstr ""
 "in the included containers"
 
 #: ../../../app/Libraries/Container.php:277
-#: ../../../app/Libraries/Sample.php:431
+#: ../../../app/Libraries/Sample.php:455
 #: ../../../app/Libraries/Collection.php:95
 #: ../../../vendor/equinton/ppci/src/Libraries/PpciLibrary.php:98
 msgid "Suppression effectuée"
@@ -1070,7 +1109,7 @@ msgid "Aucun contenant n'a été sélectionné, l'exportation n'est pas possible
 msgstr "No container has been selected, export is not possible"
 
 #: ../../../app/Libraries/Container.php:367
-#: ../../../app/Libraries/Sample.php:663 ../../../app/Libraries/Import.php:96
+#: ../../../app/Libraries/Sample.php:687 ../../../app/Libraries/Import.php:96
 #: ../../../app/Libraries/Campaign.php:128
 msgid "L'encodage du fichier ne correspond pas à celui que vous avez indiqué"
 msgstr ""
@@ -1082,7 +1121,7 @@ msgstr ""
 "The version of the imported file don't correspond to the expected version"
 
 #: ../../../app/Libraries/Container.php:397
-#: ../../../app/Libraries/Sample.php:743 ../../../app/Libraries/Import.php:115
+#: ../../../app/Libraries/Sample.php:767 ../../../app/Libraries/Import.php:115
 msgid "Impossible de recopier le fichier importé dans le dossier temporaire"
 msgstr "Can not copy the imported file to the temporary folder"
 
@@ -1096,31 +1135,31 @@ msgid "Import effectué. %s objets traités"
 msgstr "Import done. %s objects treated"
 
 #: ../../../app/Libraries/Container.php:428
-#: ../../../app/Libraries/Import.php:151 ../../../app/Libraries/Import.php:219
+#: ../../../app/Libraries/Import.php:151 ../../../app/Libraries/Import.php:218
 #, php-format
 msgid "Premier UID généré : %s"
 msgstr "First UID generated: %s"
 
 #: ../../../app/Libraries/Container.php:429
-#: ../../../app/Libraries/Import.php:152 ../../../app/Libraries/Import.php:220
+#: ../../../app/Libraries/Import.php:152 ../../../app/Libraries/Import.php:219
 #, php-format
 msgid "Dernier UID généré : %s"
 msgstr "Last UID generated: %s"
 
 #: ../../../app/Libraries/Container.php:464
-#: ../../../app/Libraries/Sample.php:542
+#: ../../../app/Libraries/Sample.php:566
 #: ../../../app/Libraries/Borrowing.php:77
 msgid "Objet prêté"
 msgstr "Object loaned"
 
 #: ../../../app/Libraries/Container.php:467
-#: ../../../app/Libraries/Sample.php:545
+#: ../../../app/Libraries/Sample.php:569
 msgid "Opération de prêt enregistrée"
 msgstr "Borrowing operation recorded"
 
 #: ../../../app/Libraries/Container.php:469
 #: ../../../app/Libraries/Container.php:491
-#: ../../../app/Libraries/Sample.php:547 ../../../app/Libraries/Sample.php:575
+#: ../../../app/Libraries/Sample.php:571 ../../../app/Libraries/Sample.php:599
 msgid "Erreur lors de la génération du mouvement de sortie"
 msgstr "Error while generating the exit movement"
 
@@ -1129,18 +1168,18 @@ msgid "Aucun contenant n'a été sélectionné"
 msgstr "No container was selected"
 
 #: ../../../app/Libraries/Container.php:511
-#: ../../../app/Libraries/Sample.php:600
+#: ../../../app/Libraries/Sample.php:624
 #, php-format
 msgid "L'objet %s ne peut être stocké dans lui-même"
 msgstr "The object %s can't be stored in itself"
 
 #: ../../../app/Libraries/Container.php:517
-#: ../../../app/Libraries/Sample.php:606
+#: ../../../app/Libraries/Sample.php:630
 msgid "Erreur lors de la génération du mouvement d'entrée"
 msgstr "Error while generating the entry movement"
 
 #: ../../../app/Libraries/Container.php:523
-#: ../../../app/Libraries/Sample.php:581 ../../../app/Libraries/Sample.php:612
+#: ../../../app/Libraries/Sample.php:605 ../../../app/Libraries/Sample.php:636
 msgid "Un problème est survenu lors de la génération des mouvements"
 msgstr "Error while generating movements"
 
@@ -1152,12 +1191,12 @@ msgstr ""
 "No object has been selected, or no container for storage has been indicated"
 
 #: ../../../app/Libraries/Container.php:585
-#: ../../../app/Libraries/Sample.php:814
+#: ../../../app/Libraries/Sample.php:838
 msgid "Pas de statut sélectionné"
 msgstr "No selected status"
 
 #: ../../../app/Libraries/Container.php:592
-#: ../../../app/Libraries/Sample.php:822
+#: ../../../app/Libraries/Sample.php:846
 msgid "Une erreur est survenue pendant la mise à jour du statut"
 msgstr "An error occurred during the status update"
 
@@ -1166,9 +1205,9 @@ msgid "Pas de référent sélectionné"
 msgstr "No selected referent"
 
 #: ../../../app/Libraries/Container.php:614
-#: ../../../app/Libraries/Sample.php:763 ../../../app/Libraries/Sample.php:781
-#: ../../../app/Libraries/Sample.php:800 ../../../app/Libraries/Sample.php:819
-#: ../../../app/Libraries/Sample.php:837
+#: ../../../app/Libraries/Sample.php:787 ../../../app/Libraries/Sample.php:805
+#: ../../../app/Libraries/Sample.php:824 ../../../app/Libraries/Sample.php:843
+#: ../../../app/Libraries/Sample.php:861
 msgid "Opération effectuée"
 msgstr "Done"
 
@@ -1177,12 +1216,12 @@ msgid "Une erreur est survenue pendant l'assignation du référent"
 msgstr "An error occurred when assigning the referrer"
 
 #: ../../../app/Libraries/Container.php:638
-#: ../../../app/Libraries/Sample.php:777
+#: ../../../app/Libraries/Sample.php:801
 msgid "Pas de collection sélectionnée"
 msgstr "No selected collection"
 
 #: ../../../app/Libraries/Container.php:644
-#: ../../../app/Libraries/Sample.php:784
+#: ../../../app/Libraries/Sample.php:808
 msgid "Une erreur est survenue pendant la mise à jour de la collection"
 msgstr "An error occurred during the collection update"
 
@@ -1199,78 +1238,78 @@ msgid ""
 "Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"
 msgstr "You do not have the necessary rights to modify this sample"
 
-#: ../../../app/Libraries/Sample.php:433
+#: ../../../app/Libraries/Sample.php:457
 msgid "La suppression des échantillons a échoué"
 msgstr "Deletion of samples failed"
 
-#: ../../../app/Libraries/Sample.php:440 ../../../app/Libraries/Sample.php:756
-#: ../../../app/Libraries/Sample.php:774 ../../../app/Libraries/Sample.php:792
-#: ../../../app/Libraries/Sample.php:811 ../../../app/Libraries/Sample.php:830
-#: ../../../app/Libraries/Sample.php:893
+#: ../../../app/Libraries/Sample.php:464 ../../../app/Libraries/Sample.php:780
+#: ../../../app/Libraries/Sample.php:798 ../../../app/Libraries/Sample.php:816
+#: ../../../app/Libraries/Sample.php:835 ../../../app/Libraries/Sample.php:854
+#: ../../../app/Libraries/Sample.php:917
 msgid "Pas d'échantillons sélectionnés"
 msgstr "No selected samples"
 
-#: ../../../app/Libraries/Sample.php:458
+#: ../../../app/Libraries/Sample.php:482
 msgid "Affectation effectuée"
 msgstr "Assignment made"
 
-#: ../../../app/Libraries/Sample.php:464 ../../../app/Libraries/Sample.php:501
+#: ../../../app/Libraries/Sample.php:488 ../../../app/Libraries/Sample.php:525
 msgid "Erreur d'écriture dans la base de données"
 msgstr "Database write error"
 
-#: ../../../app/Libraries/Sample.php:471 ../../../app/Libraries/Sample.php:588
-#: ../../../app/Libraries/Sample.php:619 ../../../app/Libraries/Sample.php:639
+#: ../../../app/Libraries/Sample.php:495 ../../../app/Libraries/Sample.php:612
+#: ../../../app/Libraries/Sample.php:643 ../../../app/Libraries/Sample.php:663
 #: ../../../app/Libraries/Lot.php:85 ../../../app/Libraries/Lot.php:143
 msgid "Aucun échantillon n'a été sélectionné"
 msgstr "No sample was selected"
 
-#: ../../../app/Libraries/Sample.php:495
+#: ../../../app/Libraries/Sample.php:519
 msgid "Création des événements effectuée"
 msgstr "Creating events performed"
 
-#: ../../../app/Libraries/Sample.php:508
+#: ../../../app/Libraries/Sample.php:532
 msgid "La création des événements a échoué"
 msgstr "Enable to create events"
 
-#: ../../../app/Libraries/Sample.php:553
+#: ../../../app/Libraries/Sample.php:577
 msgid "Un problème est survenu lors de l'enregistrement du prêt"
 msgstr "Problem encountered when recording borrowing"
 
-#: ../../../app/Libraries/Sample.php:560
+#: ../../../app/Libraries/Sample.php:584
 msgid ""
 "Aucun échantillon n'a été sélectionné, ou l'emprunteur n'a pas été renseigné"
 msgstr "No sample selected, or borrower not specified"
 
-#: ../../../app/Libraries/Sample.php:709
+#: ../../../app/Libraries/Sample.php:733
 #, php-format
 msgid "Ligne %1$s : %2$s"
 msgstr "Row %1$s: %2$s"
 
-#: ../../../app/Libraries/Sample.php:759
+#: ../../../app/Libraries/Sample.php:783
 msgid "Pas de pays sélectionné"
 msgstr "No selected country"
 
-#: ../../../app/Libraries/Sample.php:766
+#: ../../../app/Libraries/Sample.php:790
 msgid "Une erreur est survenue pendant la mise à jour du pays"
 msgstr "An error occurred during the country update"
 
-#: ../../../app/Libraries/Sample.php:795
+#: ../../../app/Libraries/Sample.php:819
 msgid "Pas de campagne sélectionnée"
 msgstr "No selected campaign"
 
-#: ../../../app/Libraries/Sample.php:803
+#: ../../../app/Libraries/Sample.php:827
 msgid "Une erreur est survenue pendant la mise à jour de la campagne"
 msgstr "An error occurred during the campaign update"
 
-#: ../../../app/Libraries/Sample.php:833
+#: ../../../app/Libraries/Sample.php:857
 msgid "Pas de parent sélectionné"
 msgstr "No selected parent"
 
-#: ../../../app/Libraries/Sample.php:840
+#: ../../../app/Libraries/Sample.php:864
 msgid "Une erreur est survenue pendant la mise à jour du parent"
 msgstr "An error occurred during the parent update"
 
-#: ../../../app/Libraries/Sample.php:901
+#: ../../../app/Libraries/Sample.php:925
 msgid ""
 "Il manque des informations pour pouvoir créer un nouvel échantillon "
 "(identifiant, collection ou type)"
@@ -1278,13 +1317,13 @@ msgstr ""
 "Information is missing to create a new sample (identifier, collection or "
 "type)"
 
-#: ../../../app/Libraries/Sample.php:908
+#: ../../../app/Libraries/Sample.php:932
 msgid ""
 "Un problème est apparu pour lire le premier UID des échantillons sélectionnés"
 msgstr ""
 "A problem was encountered when reading the first UID of the selected samples"
 
-#: ../../../app/Libraries/Sample.php:943
+#: ../../../app/Libraries/Sample.php:967
 #, php-format
 msgid "L'échantillon composé %s a été créé ou mis à jour"
 msgstr "The %s composite sample has been created or updated"
@@ -1303,7 +1342,16 @@ msgstr "Unable to import metadata"
 msgid "Impossible de charger le fichier à importer"
 msgstr "Unable to load the file to import"
 
-#: ../../../app/Libraries/Import.php:150 ../../../app/Libraries/Import.php:218
+#: ../../../app/Libraries/Metadata.php:199
+msgid ""
+"Une erreur est survenue pendant l'enregistrement du champ de métadonnées"
+msgstr "An error occurred during the record of the metadata field"
+
+#: ../../../app/Libraries/Metadata.php:242
+msgid "Une erreur est survenue pendant le déplacement du champ de métadonnées"
+msgstr "An error occurred during the move of the metadata field"
+
+#: ../../../app/Libraries/Import.php:150 ../../../app/Libraries/Import.php:217
 #, php-format
 msgid "Import effectué. %s lignes traitées"
 msgstr "Import done. %s processed line(s)"
@@ -1590,7 +1638,7 @@ msgstr "Update feeds are not allowed for the %s collection"
 
 #: ../../../app/Libraries/Event.php:43
 msgid "L'accès direct à ce module n'est pas possible"
-msgstr ""
+msgstr "This module cannot be accessed directly"
 
 #: ../../../app/Libraries/Event.php:179
 msgid "Événements supprimés"
@@ -1659,7 +1707,7 @@ msgstr "Import error of sample %s. "
 msgid "Message d'erreur : "
 msgstr "Error message: "
 
-#: ../../../app/Models/Sample.php:269 ../../../app/Models/Sample.php:1207
+#: ../../../app/Models/Sample.php:269 ../../../app/Models/Sample.php:1209
 #, php-format
 msgid ""
 "L'identifiant de l'échantillon %s existe déjà dans la base de données pour "
@@ -1735,23 +1783,31 @@ msgstr "Metadata is not formatted correctly (metadata field)"
 msgid "Le code de pays %s n'est pas connu"
 msgstr "The %s country code is not known"
 
-#: ../../../app/Models/Sample.php:1254
+#: ../../../app/Models/Sample.php:1256
 msgid "Impossible d'écrire dans la table Object"
 msgstr "Can not write to the Object table"
 
-#: ../../../app/Models/Sample.php:1305
+#: ../../../app/Models/Sample.php:1307
 #, php-format
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour modifier l'échantillon %1s"
 msgstr "You do not have the necessary rights to change the sample %1s"
 
-#: ../../../app/Models/Sample.php:1463
+#: ../../../app/Models/Sample.php:1465
 msgid "Le parent n'existe pas"
 msgstr "The parent does not exist"
 
 #: ../../../app/Models/Collection.php:165
 msgid "La racine des documents externes ne peut pas contenir .."
 msgstr "The root of external documents can not contain .."
+
+#: ../../../app/Models/Metadata.php:119
+msgid "nouveau_champ"
+msgstr "new_field"
+
+#: ../../../app/Models/Metadata.php:124
+msgid "Les métadonnées demandées n'existent pas"
+msgstr "The requested metadata does not exist"
 
 #: ../../../app/Models/Import.php:75
 #, php-format
@@ -2172,10 +2228,11 @@ msgid "Problème lors de la suppression"
 msgstr "Problem when deleting"
 
 #: ../../../vendor/equinton/ppci/src/Libraries/LastRelease.php:18
+#: ../../../vendor/equinton/ppci/src/Libraries/LastRelease.php:38
 msgid "Impossible de récupérer la dernière version publiée de l'application"
 msgstr "Unable to retrieve the latest published version of the application"
 
-#: ../../../vendor/equinton/ppci/src/Libraries/LastRelease.php:50
+#: ../../../vendor/equinton/ppci/src/Libraries/LastRelease.php:53
 #, php-format
 msgid "La nouvelle version %1s du %2s a été publiée !"
 msgstr "The last release %1s of %2s is available!"
@@ -2629,10 +2686,11 @@ msgstr "Detail of the export template"
 #: ../../../app/Views/templates/param/referentChange.tpl:4
 #: ../../../app/Views/templates/param/protocolChange.tpl:24
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:4
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:80
 #: ../../../app/Views/templates/param/containerFamilyChange.tpl:4
 #: ../../../app/Views/templates/param/labelChange.tpl:65
 #: ../../../app/Views/templates/param/campaignChange.tpl:2
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:5
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:46
 #: ../../../app/Views/templates/param/storageConditionChange.tpl:4
 #: ../../../app/Views/templates/param/borrowerChange.tpl:6
 #: ../../../app/Views/templates/param/regulationChange.tpl:4
@@ -2668,9 +2726,8 @@ msgstr "Back to the list"
 #: ../../../app/Views/templates/param/campaignList.tpl:59
 #: ../../../app/Views/templates/param/campaignList.tpl:60
 #: ../../../app/Views/templates/param/labelList.tpl:21
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:11
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:86
 #: ../../../app/Views/templates/param/borrowerList.tpl:20
-#: ../../../app/Views/templates/param/metadataList.tpl:39
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:324
 #: ../../../app/Views/templates/gestion/eventDisplay.tpl:18
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:373
@@ -2782,8 +2839,8 @@ msgstr "Add / edit a template of data export"
 #: ../../../app/Views/templates/gestion/borrowingChange.tpl:38
 #: ../../../app/Views/templates/gestion/eventDisplay.tpl:9
 #: ../../../app/Views/templates/gestion/eventChange.tpl:31
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:471
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:475
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:460
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:464
 #: ../../../app/Views/templates/gestion/objectIdentifierChange.tpl:11
 msgid "Retour au détail"
 msgstr "Back to the detail"
@@ -2801,9 +2858,11 @@ msgstr "Back to the detail"
 #: ../../../app/Views/templates/param/referentChange.tpl:104
 #: ../../../app/Views/templates/param/protocolChange.tpl:103
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:43
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:250
 #: ../../../app/Views/templates/param/containerFamilyChange.tpl:20
 #: ../../../app/Views/templates/param/labelChange.tpl:151
 #: ../../../app/Views/templates/param/campaignChange.tpl:80
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:71
 #: ../../../app/Views/templates/param/storageConditionChange.tpl:19
 #: ../../../app/Views/templates/param/borrowerChange.tpl:51
 #: ../../../app/Views/templates/param/campaignRegulationChange.tpl:36
@@ -2830,8 +2889,8 @@ msgstr "Back to the detail"
 #: ../../../app/Views/templates/gestion/eventChange.tpl:88
 #: ../../../app/Views/templates/gestion/movementBatchConfirm.tpl:41
 #: ../../../app/Views/templates/gestion/movementBatchConfirm.tpl:95
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:490
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:797
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:479
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:786
 #: ../../../app/Views/templates/gestion/objectIdentifierChange.tpl:47
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginChangePassword.tpl:133
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/totp.tpl:36
@@ -2846,6 +2905,7 @@ msgid "Valider"
 msgstr "Save and return"
 
 #: ../../../app/Views/templates/exportmodel/exportModelChange.tpl:41
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:64
 #: ../../../app/Views/templates/param/metadataChange.tpl:66
 msgid "Nom du modèle :"
 msgstr "Model name:"
@@ -2864,6 +2924,7 @@ msgstr "Model name:"
 #: ../../../app/Views/templates/param/containerFamilyChange.tpl:22
 #: ../../../app/Views/templates/param/labelChange.tpl:154
 #: ../../../app/Views/templates/param/campaignChange.tpl:82
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:75
 #: ../../../app/Views/templates/param/storageConditionChange.tpl:21
 #: ../../../app/Views/templates/param/borrowerChange.tpl:53
 #: ../../../app/Views/templates/param/campaignRegulationChange.tpl:38
@@ -2891,8 +2952,8 @@ msgstr "Model name:"
 #: ../../../app/Views/templates/gestion/borrowingChange.tpl:87
 #: ../../../app/Views/templates/gestion/eventChange.tpl:90
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:789
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:492
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:799
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:481
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:788
 #: ../../../app/Views/templates/gestion/objectIdentifierChange.tpl:49
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginsaisie.tpl:222
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/droits/acoChange.tpl:18
@@ -3021,8 +3082,8 @@ msgid ""
 "enregistrement sera créé"
 msgstr ""
 "If the business key is filled in, the program will search for a pre-existing "
-"record in the table that corresponds to the specified value. If it exists,"
-"this record will be updated, otherwise, a new record will be created"
+"record in the table that corresponds to the specified value. If it "
+"exists,this record will be updated, otherwise, a new record will be created"
 
 #: ../../../app/Views/templates/exportmodel/exportModelChange.tpl:78
 msgid ""
@@ -3064,6 +3125,7 @@ msgstr ""
 #: ../../../app/Views/templates/param/referentChange.tpl:113
 #: ../../../app/Views/templates/param/protocolChange.tpl:113
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:52
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:254
 #: ../../../app/Views/templates/param/containerFamilyChange.tpl:29
 #: ../../../app/Views/templates/param/labelChange.tpl:211
 #: ../../../app/Views/templates/param/storageConditionChange.tpl:28
@@ -3090,7 +3152,7 @@ msgstr ""
 #: ../../../app/Views/templates/gestion/import.tpl:194
 #: ../../../app/Views/templates/gestion/containerImport.tpl:26
 #: ../../../app/Views/templates/gestion/eventChange.tpl:97
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:809
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:798
 #: ../../../app/Views/templates/gestion/objectIdentifierChange.tpl:57
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginsaisie.tpl:234
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/droits/acoChange.tpl:51
@@ -3126,7 +3188,7 @@ msgstr "List of data export templates"
 #: ../../../app/Views/templates/param/samplingPlaceList.tpl:6
 #: ../../../app/Views/templates/param/eventTypeList.tpl:7
 #: ../../../app/Views/templates/param/borrowerList.tpl:7
-#: ../../../app/Views/templates/param/metadataList.tpl:20
+#: ../../../app/Views/templates/param/metadataList.tpl:21
 #: ../../../app/Views/templates/param/licenseList.tpl:6
 #: ../../../app/Views/templates/param/storageConditionList.tpl:7
 #: ../../../app/Views/templates/param/regulationList.tpl:6
@@ -3181,7 +3243,7 @@ msgstr "Name"
 #: ../../../app/Views/templates/param/operationList.tpl:18
 #: ../../../app/Views/templates/param/labelList.tpl:22
 #: ../../../app/Views/templates/param/referentList.tpl:23
-#: ../../../app/Views/templates/param/metadataList.tpl:40
+#: ../../../app/Views/templates/param/metadataList.tpl:43
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:367
 msgid "Dupliquer"
 msgstr "Duplicate"
@@ -3281,7 +3343,8 @@ msgstr "Campaign"
 #: ../../../app/Views/templates/param/campaignDisplay.tpl:30
 #: ../../../app/Views/templates/param/containerTypeList.tpl:18
 #: ../../../app/Views/templates/param/sampleTypeList.tpl:20
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:22
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:191
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:99
 #: ../../../app/Views/templates/param/regulationList.tpl:14
 #: ../../../app/Views/templates/export/exportTemplateList.tpl:12
 #: ../../../app/Views/templates/request/requestList.tpl:12
@@ -3513,10 +3576,14 @@ msgstr "Automatic generation of the business identifier?"
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:34
 #: ../../../app/Views/templates/param/identifierTypeList.tpl:34
 #: ../../../app/Views/templates/param/labelList.tpl:41
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:143
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:206
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:218
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:238
 #: ../../../app/Views/templates/param/labelChange.tpl:109
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:36
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:37
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:39
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:121
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:122
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:126
 #: ../../../app/Views/templates/param/collectionList.tpl:61
 #: ../../../app/Views/templates/param/collectionList.tpl:66
 #: ../../../app/Views/templates/param/collectionList.tpl:70
@@ -3546,7 +3613,7 @@ msgstr "Automatic generation of the business identifier?"
 #: ../../../app/Views/templates/gestion/containerChange.tpl:272
 #: ../../../app/Views/templates/gestion/import.tpl:95
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:809
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:783
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:772
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginsaisie.tpl:124
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginsaisie.tpl:199
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginliste.tpl:53
@@ -3621,7 +3688,7 @@ msgstr "Import the new campaigns"
 
 #: ../../../app/Views/templates/param/campaignList.tpl:106
 #: ../../../app/Views/templates/param/samplingPlaceList.tpl:91
-#: ../../../app/Views/templates/param/metadataList.tpl:94
+#: ../../../app/Views/templates/param/metadataList.tpl:99
 msgid "Description du fichier :"
 msgstr "File description:"
 
@@ -3671,7 +3738,7 @@ msgid "Version"
 msgstr "Version"
 
 #: ../../../app/Views/templates/param/operationList.tpl:16
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:19
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:96
 msgid "N° d'ordre"
 msgstr "Order number"
 
@@ -3750,10 +3817,10 @@ msgstr "Collection of attachment:"
 #: ../../../app/Views/templates/gestion/containerSearchTab.tpl:231
 #: ../../../app/Views/templates/gestion/containerSearchTab.tpl:244
 #: ../../../app/Views/templates/gestion/containerSearchTab.tpl:259
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:123
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:612
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:625
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:638
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:121
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:601
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:614
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:627
 msgid "Choisissez..."
 msgstr "Select ..."
 
@@ -3761,7 +3828,7 @@ msgstr "Select ..."
 #: ../../../app/Views/templates/gestion/containerChange.tpl:214
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:556
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:726
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:689
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:678
 msgid "Longitude :"
 msgstr "Longitude:"
 
@@ -3769,7 +3836,7 @@ msgstr "Longitude:"
 #: ../../../app/Views/templates/gestion/containerChange.tpl:205
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:552
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:722
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:680
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:669
 msgid "Latitude :"
 msgstr "Latitude:"
 
@@ -3809,6 +3876,10 @@ msgstr "Identifier used in searches?"
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:38
 #: ../../../app/Views/templates/param/identifierTypeList.tpl:34
 #: ../../../app/Views/templates/param/labelList.tpl:41
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:141
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:204
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:216
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:236
 #: ../../../app/Views/templates/param/labelChange.tpl:116
 #: ../../../app/Views/templates/param/collectionChange.tpl:47
 #: ../../../app/Views/templates/param/collectionChange.tpl:62
@@ -3828,7 +3899,7 @@ msgstr "Identifier used in searches?"
 #: ../../../app/Views/templates/gestion/containerChange.tpl:278
 #: ../../../app/Views/templates/gestion/import.tpl:94
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:806
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:789
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:778
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginsaisie.tpl:128
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginsaisie.tpl:202
 msgid "non"
@@ -3886,7 +3957,7 @@ msgstr "User name for identification (if required):"
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:738
 #: ../../../app/Views/templates/gestion/fastOutputChange.tpl:54
 #: ../../../app/Views/templates/gestion/eventChange.tpl:80
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:722
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:711
 msgid "Commentaire :"
 msgstr "Comment:"
 
@@ -4175,6 +4246,122 @@ msgstr "Change the label"
 msgid "Dupliquer l'étiquette"
 msgstr "Duplicate the label"
 
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:76
+msgid "Modification du modèle de métadonnées"
+msgstr "Edit a metadata template"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:76
+msgid "champ"
+msgstr "field"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:84
+msgid "Retour au détail des métadonnées"
+msgstr "Back to detail of the metadata"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:93
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:42
+msgid "Nom du champ (sans espace, sans accent, en minuscule)"
+msgstr "Field name (no space, no accent, lowercase)"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:101
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:47
+msgid "Type du champ"
+msgstr "Field type"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:106
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
+msgid "Texte (une ligne)"
+msgstr "Text (one line)"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:109
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
+msgid "Nombre"
+msgstr "Number"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:112
+#: ../../../app/Views/templates/param/borrowerDisplay.tpl:73
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
+#: ../../../app/Views/templates/gestion/eventList.tpl:17
+#: ../../../app/Views/templates/gestion/movementList.tpl:39
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:271
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:899
+#: ../../../app/Views/templates/gestion/subsampleList.tpl:14
+#: ../../../app/Views/templates/gestion/storageList.tpl:8
+#: ../../../app/Views/templates/gestion/objectMovementList.tpl:6
+#: ../../../vendor/equinton/ppci/src/Views/templates/ppci/logList.tpl:50
+#: ../../../vendor/equinton/ppci/src/Views/templates/ppci/lastConnections.tpl:7
+msgid "Date"
+msgstr "Date"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:115
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
+msgid "Texte (multi-ligne)"
+msgstr "Text (multi-line)"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:118
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
+msgid "Case à cocher"
+msgstr "Checkbox"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:121
+msgid "Liste de choix"
+msgstr "List of selection"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:124
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
+msgid "Boutons Radio"
+msgstr "Radio Buttons"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:127
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
+msgid "Lien vers un site externe (URL)"
+msgstr "Link to an external site (URL)"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:130
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
+msgid "Valeurs multiples"
+msgstr "Multiple values"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:137
+msgid "Valeurs multiples ?"
+msgstr "Multiple values?"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:148
+msgid "Valeurs"
+msgstr "Values"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:182
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:102
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:80
+#: ../../../app/Views/templates/export/datasetColumnTable.tpl:9
+msgid "Valeur par défaut"
+msgstr "Default value"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:199
+msgid "Champ utilisé pour rechercher un échantillon ?"
+msgstr "Is this field used to search for a sample?"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:211
+msgid "Champ obligatoire ?"
+msgstr "Is the field mandatory?"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:223
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:103
+msgid "Unité de mesure"
+msgstr "Measure unit"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:231
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:83
+msgid "Affichage d'un message d'aide ?"
+msgstr "Display a help message?"
+
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:243
+msgid ""
+"Message d'aide - vous pouvez copier ici la description de l'unité de mesure, "
+"par exemple"
+msgstr ""
+"Help message - You can copy here the description and the unit of measure"
+
 #: ../../../app/Views/templates/param/containerFamilyChange.tpl:1
 msgid "Création - Modification d'une famille de contenants"
 msgstr "Create / Edit a container family"
@@ -4368,13 +4555,14 @@ msgstr "Responsible of referent of the campaign:"
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:322
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:342
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:862
+#: ../../../app/Views/templates/gestion/metadataForm.tpl:83
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:536
 msgid "Choisissez"
 msgstr "Select"
 
 #: ../../../app/Views/templates/param/campaignChange.tpl:56
 #: ../../../app/Views/templates/gestion/containerChange.tpl:260
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:771
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:760
 msgid "UID universel (UUID) :"
 msgstr "Universal UID (UUID):"
 
@@ -4414,15 +4602,19 @@ msgstr "User"
 msgid "Commentaire"
 msgstr "Comment"
 
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:1
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:42
 msgid "Détail du modèle de métadonnées"
 msgstr "Metadata template detail"
 
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:20
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:52
+msgid "Nouveau champ"
+msgstr "New field"
+
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:97
 msgid "Nom du champ"
 msgstr "Name of the field"
 
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:21
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:98
 #: ../../../app/Views/templates/param/collectionMail.tpl:9
 #: ../../../app/Views/templates/param/borrowerDisplay.tpl:46
 #: ../../../app/Views/templates/export/datasetTemplateList.tpl:15
@@ -4437,22 +4629,44 @@ msgstr "Name of the field"
 msgid "Type"
 msgstr "Type"
 
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:23
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:100
 msgid "Obligatoire ?"
 msgstr "Mandatory data?"
 
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:24
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:101
 #: ../../../app/Views/templates/param/metadataFormJS.tpl:61
 msgid "Sélection multiple possible ?"
 msgstr "Multiple selection allowed?"
 
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:25
-msgid "Unité de mesure"
-msgstr "Measure unit"
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:104
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:87
+#: ../../../app/Views/templates/param/metadataFormJS.tpl:169
+msgid "Message d'aide"
+msgstr "Help message"
 
-#: ../../../app/Views/templates/param/metadataDisplay.tpl:26
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:105
 msgid "Utilisable pour les recherches ?"
 msgstr "Usable for search?"
+
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:108
+msgid "Remonter le champ dans la liste"
+msgstr "Move the field up the list"
+
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:109
+msgid "Descendre le champ dans la liste"
+msgstr "Move the field down the list"
+
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:151
+msgid "Supprimer le champ"
+msgstr "Delete the field"
+
+#: ../../../app/Views/templates/param/metadataDisplay.tpl:163
+msgid ""
+"Vous pouvez également modifier l'ordre des champs en cliquant-déplaçant avec "
+"la souris sur la première colonne"
+msgstr ""
+"You can also change the order of the fields by clicking and dragging the "
+"mouse over the first column"
 
 #: ../../../app/Views/templates/param/storageConditionChange.tpl:1
 msgid "Création - Modification d'une condition de stockage"
@@ -4907,7 +5121,7 @@ msgid "Importer des emplacements depuis un fichier CSV"
 msgstr "Import locations from a CSV file"
 
 #: ../../../app/Views/templates/param/samplingPlaceList.tpl:54
-#: ../../../app/Views/templates/param/metadataList.tpl:83
+#: ../../../app/Views/templates/param/metadataList.tpl:87
 #: ../../../app/Views/templates/gestion/sampleImport.tpl:28
 #: ../../../app/Views/templates/gestion/import.tpl:63
 msgid "Nom du fichier à importer (CSV) :"
@@ -5000,20 +5214,6 @@ msgstr "Date of return"
 msgid "Emprunts de sous-échantillons"
 msgstr "Sub-samples borrowings"
 
-#: ../../../app/Views/templates/param/borrowerDisplay.tpl:73
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
-#: ../../../app/Views/templates/gestion/eventList.tpl:17
-#: ../../../app/Views/templates/gestion/movementList.tpl:39
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:271
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:899
-#: ../../../app/Views/templates/gestion/subsampleList.tpl:14
-#: ../../../app/Views/templates/gestion/storageList.tpl:8
-#: ../../../app/Views/templates/gestion/objectMovementList.tpl:6
-#: ../../../vendor/equinton/ppci/src/Views/templates/ppci/logList.tpl:50
-#: ../../../vendor/equinton/ppci/src/Views/templates/ppci/lastConnections.tpl:7
-msgid "Date"
-msgstr "Date"
-
 #: ../../../app/Views/templates/param/borrowerDisplay.tpl:74
 msgid "Échantillon concerné"
 msgstr "Related sample"
@@ -5071,50 +5271,47 @@ msgid "Tout cocher"
 msgstr "Check all"
 
 #: ../../../app/Views/templates/param/metadataList.tpl:8
-#: ../../../app/Views/templates/param/metadataList.tpl:27
+#: ../../../app/Views/templates/param/metadataList.tpl:30
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:163
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:90
 msgid "Tout décocher"
 msgstr "Uncheck All"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:27
+#: ../../../app/Views/templates/param/metadataList.tpl:28
 msgid "Exporter les métadonnées :"
 msgstr "Export metadata:"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:29
+#: ../../../app/Views/templates/param/metadataList.tpl:33
 msgid "Déclencher l'export"
 msgstr "Process to the export"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:36
+#: ../../../app/Views/templates/param/metadataList.tpl:40
 msgid "Nom du modèle"
 msgstr "Template name"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:37
-msgid "Détail des champs"
-msgstr "Fields details"
+#: ../../../app/Views/templates/param/metadataList.tpl:41
+#: ../../../app/Views/templates/gestion/eventList.tpl:11
+msgid "Détail"
+msgstr "Detail"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:42
+#: ../../../app/Views/templates/param/metadataList.tpl:45
 msgid "Exporter"
 msgstr "Export"
-
-#: ../../../app/Views/templates/param/metadataList.tpl:56
-msgid "Modifier le modèle de métadonnées"
-msgstr "Metadata template change"
 
 #: ../../../app/Views/templates/param/metadataList.tpl:60
 msgid "Dupliquer le modèle de métadonnées"
 msgstr "Duplicate the metadata template"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:80
+#: ../../../app/Views/templates/param/metadataList.tpl:82
 msgid ""
 "Importer des métadonnées provenant d'une autre base de données Collec-Science"
 msgstr "Import metadata from another Collec-Science database"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:89
+#: ../../../app/Views/templates/param/metadataList.tpl:94
 msgid "Importer les métadonnées"
 msgstr "Import metadata"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:92
+#: ../../../app/Views/templates/param/metadataList.tpl:97
 #: ../../../app/Views/templates/export/exportTemplateList.tpl:60
 msgid ""
 "L'importation est basée sur un fichier exporté depuis une autre instance de "
@@ -5123,11 +5320,11 @@ msgstr ""
 "The import is based on a file exported from another instance of Collec-"
 "Science."
 
-#: ../../../app/Views/templates/param/metadataList.tpl:96
+#: ../../../app/Views/templates/param/metadataList.tpl:101
 msgid "metadata_name : nom de la métadonnée"
 msgstr "metadata_name: name of the metadata"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:97
+#: ../../../app/Views/templates/param/metadataList.tpl:102
 msgid "metadata_schema : Description, au format JSON, de la métadonnée"
 msgstr "metadata_schema: Description, in JSON format, of the metadata"
 
@@ -5242,7 +5439,7 @@ msgid "Création - Modification d'un modèle de métadonnées"
 msgstr "Add / edit a metadata template"
 
 #: ../../../app/Views/templates/param/metadataChange.tpl:73
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:761
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:750
 msgid "Jeu de métadonnées"
 msgstr "Metadata set"
 
@@ -5251,14 +5448,6 @@ msgid ""
 "Ce fichier contient plus de 50 entrées. Etes-vous sûr de vouloir l'importer ?"
 msgstr ""
 "This file contains more than 50 entries. Are you sure you want to import it?"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:42
-msgid "Nom du champ (sans espace, sans accent, en minuscule)"
-msgstr "Field name (no space, no accent, lowercase)"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:47
-msgid "Type du champ"
-msgstr "Field type"
 
 #: ../../../app/Views/templates/param/metadataFormJS.tpl:64
 msgid "Choix possibles"
@@ -5272,20 +5461,6 @@ msgstr "Is this field used to search for a sample?"
 msgid "Le champ est-il obligatoire ?"
 msgstr "Is the field mandatory?"
 
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:80
-#: ../../../app/Views/templates/export/datasetColumnTable.tpl:9
-msgid "Valeur par défaut"
-msgstr "Default value"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:83
-msgid "Affichage d'un message d'aide ?"
-msgstr "Display a help message?"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:87
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:169
-msgid "Message d'aide"
-msgstr "Help message"
-
 #: ../../../app/Views/templates/param/metadataFormJS.tpl:90
 msgid "Description du champ"
 msgstr "Field description"
@@ -5295,36 +5470,8 @@ msgid "Unité de mesure (ou modalités) - N/A si non applicable"
 msgstr "Unit of measure (or modalities) - N/A if not applicable"
 
 #: ../../../app/Views/templates/param/metadataFormJS.tpl:113
-msgid "Nombre"
-msgstr "Number"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
-msgid "Texte (une ligne)"
-msgstr "Text (one line)"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
-msgid "Texte (multi-ligne)"
-msgstr "Text (multi-line)"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
-msgid "Case à cocher"
-msgstr "Checkbox"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
 msgid "Liste à choix multiple"
 msgstr "Multiple choice list"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
-msgid "Boutons Radio"
-msgstr "Radio Buttons"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
-msgid "Lien vers un site externe (URL)"
-msgstr "Link to an external site (URL)"
-
-#: ../../../app/Views/templates/param/metadataFormJS.tpl:113
-msgid "Valeurs multiples"
-msgstr "Multiple values"
 
 #: ../../../app/Views/templates/param/metadataFormJS.tpl:138
 msgid "Importer un fichier CSV"
@@ -5415,8 +5562,8 @@ msgstr "Back to detail of the lot"
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:593
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:437
 #: ../../../app/Views/templates/gestion/containerSearchTab.tpl:198
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:519
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:571
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:508
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:560
 msgid "Collection :"
 msgstr "Collection:"
 
@@ -5486,8 +5633,8 @@ msgstr "Model detail"
 #: ../../../app/Views/templates/gestion/containerSearch.tpl:160
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:602
 #: ../../../app/Views/templates/gestion/containerSearchTab.tpl:158
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:525
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:596
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:514
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:585
 msgid "Type :"
 msgstr "Type:"
 
@@ -5917,10 +6064,6 @@ msgstr "No results were returned by the query"
 msgid "Fichier(s) à importer (taille maxi : %1 Mb):"
 msgstr "File(s) to import (max size: %1 Mb):"
 
-#: ../../../app/Views/templates/gestion/eventList.tpl:11
-msgid "Détail"
-msgstr "Detail"
-
 #: ../../../app/Views/templates/gestion/eventList.tpl:19
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:273
 msgid "Date prévue"
@@ -5947,19 +6090,19 @@ msgstr "Back to parent (%1 %2)"
 #: ../../../app/Views/templates/gestion/containerChange.tpl:128
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:411
 #: ../../../app/Views/templates/gestion/containerSearchTab.tpl:120
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:543
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:532
 msgid "UID :"
 msgstr "UID:"
 
 #: ../../../app/Views/templates/gestion/containerChange.tpl:130
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:545
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:534
 msgid "identifiant unique dans la base de données"
 msgstr "Unique identifier into the database"
 
 #: ../../../app/Views/templates/gestion/containerChange.tpl:134
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1238
 #: ../../../app/Views/templates/gestion/subsampleChange.tpl:203
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:549
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:538
 msgid "Identifiant ou nom :"
 msgstr "Identifier or name:"
 
@@ -5976,49 +6119,49 @@ msgstr "Container referent:"
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:675
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:463
 #: ../../../app/Views/templates/gestion/containerSearchTab.tpl:173
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:559
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:548
 msgid "Statut :"
 msgstr "Status:"
 
 #: ../../../app/Views/templates/gestion/containerChange.tpl:181
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:656
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:645
 msgid "Mode de calcul des coordonnées GPS :"
 msgstr "GPS coordinates calculation mode:"
 
 #: ../../../app/Views/templates/gestion/containerChange.tpl:187
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:662
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:651
 msgid "Données initiales en degrés/minutes décimales"
 msgstr "Initial data in decimal degrees/minutes"
 
 #: ../../../app/Views/templates/gestion/containerChange.tpl:195
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:670
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:659
 msgid "Données initiales en degrés/minutes/secondes"
 msgstr "Initial data in degrees/minutes/seconds"
 
 #: ../../../app/Views/templates/gestion/containerChange.tpl:207
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:682
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:671
 msgid "Format sexagesimal (45°01,234N) :"
 msgstr "Sexagesimal format (45°01,234N):"
 
 #: ../../../app/Views/templates/gestion/containerChange.tpl:209
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:684
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:673
 msgid "Format décimal (45.081667) :"
 msgstr "Decimal format (45.081667):"
 
 #: ../../../app/Views/templates/gestion/containerChange.tpl:216
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:691
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:680
 msgid "Format sexagesimal (0°01,234W) :"
 msgstr "Sexagesimal format (0°01,234W):"
 
 #: ../../../app/Views/templates/gestion/containerChange.tpl:218
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:693
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:682
 msgid "Format décimal (-0.081667) :"
 msgstr "Decimal format (-0.081667):"
 
 #: ../../../app/Views/templates/gestion/containerChange.tpl:223
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:561
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:731
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:698
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:687
 msgid "Précision de la localisation (en mètres) :"
 msgstr "Localization accuracy (in meters):"
 
@@ -6705,12 +6848,12 @@ msgstr "Date of creation\tof sample (sampling):"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:312
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:646
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:710
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:699
 msgid "Date d'import dans la base de données :"
 msgstr "Date of import into the database:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:314
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:716
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:705
 msgid "Date d'expiration de l'échantillon :"
 msgstr "Expiry date of the sample:"
 
@@ -6726,21 +6869,21 @@ msgstr "Parent sample:"
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:324
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:704
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:723
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:648
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:637
 msgid "Lieu de prélèvement :"
 msgstr "Sampling place:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:327
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:710
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:739
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:622
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:611
 msgid "Pays de collecte :"
 msgstr "Sampling country:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:330
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:716
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:752
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:635
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:624
 msgid "Pays de provenance :"
 msgstr "Country of origin:"
 
@@ -7064,7 +7207,7 @@ msgid "Recherchez le parent :"
 msgstr "Search the parent:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1107
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:500
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:489
 msgid "UID ou identifiant"
 msgstr "UID or identifier"
 
@@ -7219,7 +7362,7 @@ msgid "objets"
 msgstr "objects"
 
 #: ../../../app/Views/templates/gestion/movementChange.tpl:228
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:467
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:456
 msgid "Retour à la liste des échantillons"
 msgstr "Back to the list of samples"
 
@@ -7409,7 +7552,7 @@ msgstr "Read value:"
 
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:143
 #: ../../../app/Views/templates/gestion/fastOutputChange.tpl:80
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:536
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:525
 msgid "Placez le curseur dans cette zone et scannez l'étiquette"
 msgstr "Place the cursor in this area and scan the label"
 
@@ -7546,7 +7689,7 @@ msgid "Qté de sous-échantillons (%1) :"
 msgstr "Qty of subsamples (%1):"
 
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:672
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:496
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:485
 msgid "Échantillon parent"
 msgstr "Parent sample"
 
@@ -7556,7 +7699,7 @@ msgstr "Parents (composite sample)"
 
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:695
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:662
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:609
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:598
 msgid "Campagne de prélèvement :"
 msgstr "Sampling campaign:"
 
@@ -7857,13 +8000,13 @@ msgstr ""
 msgid ""
 "Dans le cas de multi-valeurs, celles-ci doivent être séparées par une "
 "virgule dans la colonne md_ (exemple : valeur1,valeur2), et entourées de "
-"crochets dans la colonne sample_metadata_json (exemple : &#123;\"valeurs\":"
-"&#91;valeur1,valeur2&#93;&#125;)"
+"crochets dans la colonne sample_metadata_json (exemple : "
+"&#123;\"valeurs\":&#91;valeur1,valeur2&#93;&#125;)"
 msgstr ""
 "In case of multi-values, these must be separated by a comma in the md_ "
 "column (example: value1,value2), and surrounded by square brackets in the "
-"sample_metadata_json column (example: &#123;\"values\":&#91;value1,"
-"value2&#93;&#125;)"
+"sample_metadata_json column (example: "
+"&#123;\"values\":&#91;value1,value2&#93;&#125;)"
 
 #: ../../../app/Views/templates/gestion/import.tpl:171
 msgid ""
@@ -8318,79 +8461,79 @@ msgstr "Other information"
 msgid "Identifiant ou UUID :"
 msgstr "Identifier or UUID:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:463
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:452
 msgid "Création - modification d'un échantillon"
 msgstr "Add / edit a sample"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:481
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:470
 msgid "Réinitialiser les champs"
 msgstr "Reinit the fields"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:498
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:487
 msgid "Parent :"
 msgstr "Parent:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:512
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:501
 msgid "Afficher le parent"
 msgstr "Display the parent"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:515
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:504
 msgid "Supprimer le parent"
 msgstr "Delete the parent"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:532
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:521
 msgid "Données générales"
 msgstr "General data"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:534
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:523
 msgid "Scannez l'étiquette existante :"
 msgstr "Scan the existing label:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:539
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:528
 msgid "Mettre à jour les champs"
 msgstr "Update fields"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:555
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:544
 msgid "Générez l'identifiant à partir des informations saisies"
 msgstr "Generate the identifier from the information entered"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:555
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:544
 msgid "Générer"
 msgstr "Generate"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:583
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:572
 msgid "Référent de l'échantillon :"
 msgstr "Sample referent:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:603
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:592
 msgid "Base de données et UID d'origine :"
 msgstr "Database and UID of origin:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:605
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:594
 msgid "db:uid. Exemple: col:125"
 msgstr "db:uid. Example: col:125"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:704
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:693
 msgid "Date de création/échantillonnage de l'échantillon :"
 msgstr "Date of creation / sampling of the sample:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:734
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:723
 msgid "Sous-échantillonnage (si le type le permet)"
 msgstr "Subsampling (if the type allows it)"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:737
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:726
 msgid "Quantité initiale de sous-échantillons (%1:%2) :"
 msgstr "Initial quantity of subsamples (%1:%2):"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:753
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:742
 msgid "Quantité retirée au parent (%1:%2) :"
 msgstr "Quantity taken from parent (%1:%2) :"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:769
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:758
 msgid "Informations diverses"
 msgstr "Miscellaneous informations"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:778
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:767
 msgid "Échantillon en attente de suppression (mis à la corbeille) :"
 msgstr "Sample awaiting deletion (trashed):"
 
@@ -9193,6 +9336,24 @@ msgstr "Variable name"
 msgid "Contenu"
 msgstr "Content"
 
+#, fuzzy
+#~ msgid ""
+#~ "Tout\n"
+#~ "\t\t\t\t\t\tdécocher"
+#~ msgstr "Uncheck All"
+
+#, fuzzy
+#~ msgid ""
+#~ "Nom du fichier à\n"
+#~ "\t\t\t\t\timporter (CSV) :"
+#~ msgstr "Name of the file to import (CSV):"
+
+#~ msgid "Détail des champs"
+#~ msgstr "Fields details"
+
+#~ msgid "Modifier le modèle de métadonnées"
+#~ msgstr "Metadata template change"
+
 #~ msgid "Le type d'échantillon est inconnu ou n'a pas été fourni"
 #~ msgstr "The sample type has not been filled out or is unknown"
 
@@ -9499,8 +9660,8 @@ msgstr "Content"
 #~ "mot de passe pour l'application :appli. Si ce n'était pas le cas, "
 #~ "contactez l'administrateur de l'application.\n"
 #~ "                            <br>Pour réinitaliser votre mot de passe, "
-#~ "recopiez le lien suivant dans votre navigateur :<br><a href=':"
-#~ "adresse'>Réinitialisez votre mot de passe</a>\n"
+#~ "recopiez le lien suivant dans votre navigateur :<br><a "
+#~ "href=':adresse'>Réinitialisez votre mot de passe</a>\n"
 #~ "                            <br>Ne répondez pas à ce mail, qui est généré "
 #~ "automatiquement"
 #~ msgstr ""
@@ -9534,8 +9695,8 @@ msgstr "Content"
 #~ "automatically."
 
 #~ msgid ""
-#~ "les métadonnées rattachées à l'échantillon (au format json, p. e. : &#123;"
-#~ "\"taxon\":\"Alosa alosa\"&#125;)"
+#~ "les métadonnées rattachées à l'échantillon (au format json, p. e. : "
+#~ "&#123;\"taxon\":\"Alosa alosa\"&#125;)"
 #~ msgstr ""
 #~ "metadata attached to the sample (in json format, eg: &#123;\"taxon\":"
 #~ "\"Alosa alosa\"&#125;)"

@@ -330,7 +330,7 @@ class Log extends PpciModel
         global $message;
         $login = strtolower($login);
         $this->setLog($login, "connectionBlocking");
-        $message->setSyslog("connectionBlocking for login $login");
+        $message->setSyslog("connectionBlocking for login $login",true);
         $this->sendMailToAdmin(
             sprintf(_("%s - Compte bloqué"), $_SESSION["APPLI_title"]),
             "ppci/mail/accountBlocked.tpl",
@@ -375,7 +375,7 @@ class Log extends PpciModel
         if ($data["nombre"] > $maxNumber) {
             $messageLog = $moduleName . "-Duration:" . $duration . "-nbCalls:" . $data["nombre"] . "-nbMax:" . $maxNumber;
             $this->setLog($_SESSION["login"], "nbMaxCallReached", $messageLog);
-            $message->setSyslog($GACL_aco . "-" . $APPLI_address . ":nbMaxCallReached-" . $messageLog);
+            $message->setSyslog($GACL_aco . "-" . $APPLI_address . ":nbMaxCallReached-" . $messageLog,true);
             $message->set(_("Le nombre d'accès autorisés pour le module demandé a été atteint. Si vous considérez que la valeur est trop faible, veuillez contacter l'administrateur de l'application"), true);
             $this->sendMailToAdmin(
                 sprintf(_("%s - Trop d'accès à un module"), $_SESSION["APPLI_title"]),
@@ -457,7 +457,7 @@ class Log extends PpciModel
                         if ($mail->SendMailSmarty( $dataLogin["email"], $subject, $templateName, $data)) {
                             $this->setLog($login, $moduleName, $value["login"]);
                         } else {
-                            $this->message->setSyslog("error_sendmail_to_admin:" . $dataLogin["mail"]);
+                            $this->message->setSyslog("error_sendmail_to_admin:" . $dataLogin["mail"],true);
                         }
                     }
                 }

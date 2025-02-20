@@ -1,5 +1,13 @@
 Nouveautés
 ============
+Version v25.1 du 18/02/2025
+-----------------------------
+Corrections de bugs:
+- la désactivation de l'identification TOTP ne fonctionnait plus
+
+Nouveautés :
+- remplacement de la bibliothèque AlpacaJS pour la saisie des métadonnées
+
 Version v25.0.1 du 16/01/2025
 -----------------------------
 Corrections de bugs :

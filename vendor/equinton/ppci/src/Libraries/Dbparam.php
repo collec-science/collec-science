@@ -28,7 +28,7 @@ class Dbparam extends PpciLibrary
             return $this->list();
         } catch (\Exception $e) {
             $this->message->set(_("Problème lors de l'écriture dans la base de données"),true);
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(),true);
             return $this->list();
         }
     }

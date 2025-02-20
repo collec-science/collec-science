@@ -55,7 +55,7 @@ class PasswordLost extends PpciLibrary {
                 }
             } catch (PpciException $e) {
                 $this->log->setLog("unknown", "passwordlostSendmail-ko", $dl["mail"]);
-                $this->message->setSyslog($e->getMessage());
+                $this->message->setSyslog($e->getMessage(),true);
                 $this->message->set(_("La réinitialisation du mot de passe n'est pas possible, contactez le cas échéant l'administrateur de l'application"), true);
             }
         } else {
@@ -84,7 +84,7 @@ class PasswordLost extends PpciLibrary {
                 }
             } catch (PpciException $e) {
                 $this->message->set(_("Le jeton fourni n'est pas valide"));
-                $this->message->setSyslog("token " . $_REQUEST["token"] . " not valid. " . $e->getMessage());
+                $this->message->setSyslog("token " . $_REQUEST["token"] . " not valid. " . $e->getMessage(),true);
                 defaultPage();
             }
         } else {
@@ -108,7 +108,7 @@ class PasswordLost extends PpciLibrary {
             }
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(),true);
         } finally {
             defaultPage();
         }

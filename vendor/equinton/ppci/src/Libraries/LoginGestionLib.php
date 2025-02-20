@@ -60,7 +60,7 @@ class LoginGestionLib extends PpciLibrary
             }
         } catch (\Exception $e) {
             $this->message->set(_("Problème rencontré lors de l'enregistrement"), true);
-            $this->message->setSyslog($e->getMessage());
+            $this->message->setSyslog($e->getMessage(),true);
             return false;
         }
     }

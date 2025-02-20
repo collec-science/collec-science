@@ -1,5 +1,13 @@
 News
 ====================
+Version v25.1 of 18/02/2025
+-----------------------------
+Bug fixes:
+- TOTP identification deactivation was no longer working
+
+New features :
+- replacement of the AlpacaJS library for metadata entry
+
 Version v25.0.1 of 16/01/2025
 -----------------------------
 Bug fixes :

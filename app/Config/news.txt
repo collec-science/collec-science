@@ -1,18 +1,20 @@
 Nouveautés
 ============
-Version v25.1 du 18/02/2025
+Version v25.0.2 du 21/02/2025
 -----------------------------
 Corrections de bugs:
 - la désactivation de l'identification TOTP ne fonctionnait plus
+- l'identification LDAP ne fonctionnait pas
+- la récupération de la dernière version publiée ne fonctionnait pas
 
 Nouveautés :
 - remplacement de la bibliothèque AlpacaJS pour la saisie des métadonnées
+- ajout d'une navigation par page dans le module de recherche des échantillons
 
 Version v25.0.1 du 16/01/2025
 -----------------------------
 Corrections de bugs :
 - l'import d'échantillons externes ne fonctionnait pas
-- la récupération de la dernière version publiée ne fonctionnait pas
 
 Version v25.0.0 du 06/01/2025
 -----------------------------

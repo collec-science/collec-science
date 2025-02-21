@@ -40,7 +40,12 @@ class LastRelease extends PpciLibrary
                 $res = json_decode($result, true);
                 $release["tag"] = $res[$params["tag"]];
                 $release["description"] = $res[$params["description"]];
-                $release["date"] = date_format(date_create($res[$params["date"]]), $_SESSION["date"]["maskdate"]);
+                if (isset($_SESSION["date"]["maskdate"])) {
+                    $maskdate = $_SESSION["date"]["maskdate"];
+                } else {
+                    $maskdate = 'd/m/Y';
+                }
+                $release["date"] = date_create($res[$params["date"]])->format($maskdate);
             }
         }
         return $release;
@@ -50,7 +55,7 @@ class LastRelease extends PpciLibrary
         $release = $this->getRelease();
         if (!empty($release) && $this->appConfig->version != $release["tag"]) {
             $date = date_create($release["date"]);
-            $this->message->set(sprintf(_("La nouvelle version %1s du %2s a été publiée !"), $release["tag"], date_format($date, $_SESSION["date"]["maskdate"])));
+            $this->message->set(sprintf(_("La nouvelle version %1s du %2s a été publiée !"), $release["tag"], $release["date"]));
         }
     }
 }

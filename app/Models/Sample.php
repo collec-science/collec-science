@@ -789,6 +789,9 @@ class Sample extends PpciModel
 
             if ($param["limit"] > 0) {
                 $limit = " order by s.uid desc limit " . $param["limit"];
+                if ($param["page"] > 0 && is_numeric($param["page"])) {
+                    $limit .= " offset ".(($param["page"] - 1) * $param["limit"]) + 1;
+                }
             } else {
                 $limit = "";
             }

@@ -309,7 +309,9 @@
         try {
             var localLimit = myStorage.getItem("sampleSearchLimit");
             $("#limit").val(localLimit);
-        } catch (Exception) { }
+        } catch (Exception) { 
+            $("#limit").val(100);
+        }
 
         /*$('.nav-tabs > li > a').hover(function() {
             //$(this).tab('show');
@@ -816,11 +818,17 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <label for="limit"class="col-sm-3 control-label">{t}Nombre maxi à lire depuis la base de données (0 pour tous) :{/t}</label>
+                        <label for="limit" class="col-sm-3 control-label">{t}Nombre maxi à lire depuis la base de données (0 pour tous) :{/t}</label>
                         <div class="col-sm-1">
                             <input id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control nombre">
                         </div>
-                        <div class="col-sm-4 center">
+                        <label for="page" class="col-sm-1 control-label">
+                            {t}À partir de la page{/t}
+                        </label>
+                        <div class="col-sm-1">
+                            <input id="page" name="page" value="{$sampleSearch.page}" class="form-control nombre" type="number">
+                        </div>
+                        <div class="col-sm-2 center">
                             <input type="submit" id="samplesearch_button" class="btn btn-success" value="{t}Rechercher{/t}">
                             <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
                         </div>

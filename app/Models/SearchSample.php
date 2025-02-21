@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Models;
 
 class SearchSample extends SearchParam
@@ -11,6 +12,7 @@ class SearchSample extends SearchParam
             "sample_type_id" => "",
             "collection_id" => "",
             "limit" => 100,
+            "page" => 1,
             "object_status_id" => 1,
             "uidsearch" => "",
             "uid_min" => 0,

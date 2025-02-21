@@ -1,18 +1,23 @@
 News
 ====================
-Version v25.1 of 18/02/2025
+Translated with DeepL.com (free version)
+
+Version v25.0.2 of 21/02/2025
 -----------------------------
 Bug fixes:
-- TOTP identification deactivation was no longer working
+- disabling TOTP identification no longer worked
+- LDAP identification did not work
+- retrieving the latest published version did not work
 
 New features :
-- replacement of the AlpacaJS library for metadata entry
+- replaced the AlpacaJS library for entering metadata
+- addition of page navigation in the sample search module
 
 Version v25.0.1 of 16/01/2025
 -----------------------------
 Bug fixes :
 - importing external samples did not work
-- retrieving the latest published version did not work
+
 
 Version v25.0.0 of 18/10/2024
 -----------------------------
@@ -31,8 +36,6 @@ Bug fixes:
 - In the list of samples, the + was not displayed if only one derived sample was attached.
 - the apiv1sampleWrite API did not take secondary identifiers into account
 - in mass import, samples were created even if the parent indicated did not exist
-
-Translated with DeepL.com (free version)
 
 Version v24.1.6 of 1/7/2024
 -----------------------------

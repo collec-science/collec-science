@@ -208,7 +208,7 @@ class Metadata extends PpciLibrary
         $i = 0;
         $isFound = false;
         foreach ($metadata as $field) {
-            if ($field["name"] == $_POST["name"]) {
+            if ($field["name"] == $_REQUEST["name"]) {
                 $isFound = true;
                 break;
             } else {

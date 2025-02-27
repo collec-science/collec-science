@@ -1206,7 +1206,8 @@ class Sample extends PpciModel
                 $data["uid"] = 0;
             }
         }
-        if (empty($data["uid"]) || empty($data["collection_id"])) {
+        if ( empty($data["collection_id"])) {
+            throw new PpciException(sprintf(_("La collection n'a pas été spécifiée pour l'échantillon %s, ou est inconnue"), $data["identifier"]));
         }
         if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
             throw new PpciException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));

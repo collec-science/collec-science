@@ -1,5 +1,8 @@
 # Rename a metadata field
 
+**This documentation is partly obsolete, as the renaming of metadata fields is now integrated into the template entry process**.
+It is still relevant if you have integrated external models and associated them with pre-existing sample types.
+
 ## Presentation
 
 The metadata describing the samples are stored in a field in JSON format. If it allows a great flexibility (possibility of adding fields very easily), it also has its own limits.

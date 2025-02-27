@@ -58,28 +58,28 @@ class Metadata extends PpciController
         $this->lib->import();
         return $this->list();
     }
-    function fieldChange() {
+    function fieldChange()
+    {
         try {
             return $this->lib->fieldChange();
         } catch (PpciException $e) {
-            $this->message->set($e->getMessage(),true);
+            $this->message->set($e->getMessage(), true);
             return $this->lib->display();
         }
-        
     }
-    function fieldWrite() {
-        if ( $this->lib->fieldWrite()) {
-            return $this->lib->display();
-        } else {
-            return $this->lib->change();
-        }
+    function fieldWrite()
+    {
+        $this->lib->fieldWrite();
+        return $this->lib->display();
     }
-    function fieldDelete() {
+    function fieldDelete()
+    {
         $this->lib->fieldDelete();
         return $this->lib->display();
     }
 
-    function fieldMove() {
+    function fieldMove()
+    {
         $this->lib->move();
         return $this->lib->display();
     }

@@ -2,6 +2,17 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v25.0.3 of 27/02/2025
+-----------------------------
+Bug fixes :
+- deleting metadata in templates did not work
+- metadata of the 'checkbox' type was not correctly saved or displayed in the modification form
+- in the event search module, the query did not succeed when a sample type was selected
+- importing external samples did not work if the file encoding was not in UTF-8
+
+New features:
+- If the name of a metadata element is modified in the model, this modification is propagated to all samples using the model
+
 Version v25.0.2 of 21/02/2025
 -----------------------------
 Bug fixes:

@@ -4,6 +4,7 @@ namespace App\Libraries;
 
 use App\Models\Import;
 use App\Models\Metadata as ModelsMetadata;
+use App\Models\Sample;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
@@ -194,9 +195,16 @@ class Metadata extends PpciLibrary
             $metadata[$i] = $current;
             $data["metadata_schema"] = json_encode($this->normalize($metadata));
             $this->dataclass->write($data);
+            /**
+             * Rename samples metadata fields, if change
+             */
+            if (strlen($_POST["oldname"]) > 0 && $_POST["oldname"] != $_POST["name"]) {
+                $sample = new Sample;
+                $sample->renameMetadataField($_POST["metadata_id"], $_POST["oldname"], $_POST["name"]);
+            }
             return true;
         } catch (PpciException $e) {
-            $this->message->setSyslog($e->getMessage(),true);
+            $this->message->setSyslog($e->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant l'enregistrement du champ de métadonnées"), true);
             return false;
         }
@@ -240,7 +248,7 @@ class Metadata extends PpciLibrary
             $this->dataclass->write($data);
             return true;
         } catch (PpciException $e) {
-            $this->message->setSyslog($e->getMessage(),true);
+            $this->message->setSyslog($e->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant le déplacement du champ de métadonnées"), true);
             return false;
         }

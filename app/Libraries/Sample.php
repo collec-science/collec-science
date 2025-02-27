@@ -668,8 +668,10 @@ class Sample extends PpciLibrary
     {
         $this->vue = service("Smarty");
         $this->vue->set("gestion/sampleImport.tpl", "corps");
-        $this->vue->set(";", "separator");
-        $this->vue->set(0, "utf8_encode");
+        isset($_REQUEST["separator"]) ? $separator = $_REQUEST["separator"] : $separator = ";";
+        $this->vue->set($separator, "separator");
+        isset($_REQUEST["utf8_encode"]) ? $encode = $_REQUEST["utf8_encode"] : $encode = 0;
+        $this->vue->set($encode, "utf8_encode");
         return $this->vue->send();
     }
     function importStage2()

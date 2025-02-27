@@ -128,7 +128,7 @@ class Event extends PpciModel
             $and = "and";
         }
         if ($object_type_id > 0) {
-            $where .= " $and $fieldName = :object_type_id";
+            $where .= " $and $fieldName = :object_type_id:";
             $data["object_type_id"] = $object_type_id;
             $and = "and";
         }

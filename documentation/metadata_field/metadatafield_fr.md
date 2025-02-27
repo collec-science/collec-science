@@ -1,5 +1,8 @@
 # Renommer un champ de métadonnées
 
+**Cette documentation est en partie obsolète, le renommage des champs de métadonnées est maintenant intégré lors de la saisie des modèles.**
+Elle reste pertinente si vous avez intégré des modèles externes et que vous les avez associé à des types d'échantillons déjà pré-existants.
+
 ## Présentation
 
 Les métadonnées décrivant les échantillons sont stockées dans un champ au format JSON. S'il permet une grande souplesse (possibilité de rajouter des champs très facilement), il a également ses propres limites.

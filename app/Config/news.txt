@@ -1,5 +1,16 @@
 Nouveautés
 ============
+Version v25.0.3 du 27/02/2025
+-----------------------------
+Corrections de bugs :
+- la suppression d'une métadonnée, dans les modèles, ne fonctionnait pas
+- les métadonnées de type "checkbox" n'étaient pas correctement enregistrées ni affichées dans le formulaire de modification
+- dans le module de recherche des événements, la requête n'aboutissait pas lorsqu'un type d'échantillon était sélectionné
+- l'importation d'échantillons externes ne fonctionnait pas si le codage du fichier n'était pas en UTF-8
+
+Nouveautés :
+- Si le nom d'une métadonnée est modifié dans le modèle, cette modification est propagée à l'ensemble des échantillons qui utilisent le modèle
+
 Version v25.0.2 du 21/02/2025
 -----------------------------
 Corrections de bugs:

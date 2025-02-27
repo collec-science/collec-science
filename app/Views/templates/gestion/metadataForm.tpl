@@ -1,6 +1,7 @@
 <script>
     var listArrays = new Object();
     function generateMetadataForm(schema, data) {
+        console.log(data);
         var metadata = document.getElementById('metadata');
         metadata.innerHTML = "";
         var inputs = new Array("string", "url", "date", "number");
@@ -119,13 +120,13 @@
                         cbinput.type = field.type;
                         cbinput.value = choice;
                         if (field.type == "checkbox") {
-                            cbinput.name = newId + [];
+                            cbinput.name = newId + "[]";
                             if (Array.isArray(currentValue)) {
                                 if (currentValue.includes(choice)) {
-                                    newOption.checked = true;
+                                    cbinput.checked = true;
                                 }
                             } else if (choice == currentValue) {
-                                newOption.checked = true;
+                                cbinput.checked = true;
                             }
                         } else {
                             cbinput.name = newId;

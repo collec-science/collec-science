@@ -116,7 +116,7 @@ class Metadata extends PpciModel
                 } 
             }
             if (empty($metafield)) {
-                $metafield["name"] = _("nouveau_champ");
+                $metafield["name"] = "";
             }
             $metafield ["metadata_id"] = $data["metadata_id"];
             $metafield["metadata_name"] = $data["metadata_name"];

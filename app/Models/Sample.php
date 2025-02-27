@@ -790,7 +790,7 @@ class Sample extends PpciModel
             if ($param["limit"] > 0) {
                 $limit = " order by s.uid desc limit " . $param["limit"];
                 if ($param["page"] > 0 && is_numeric($param["page"])) {
-                    $limit .= " offset ".(($param["page"] - 1) * $param["limit"]);
+                    $limit .= " offset " . (($param["page"] - 1) * $param["limit"]);
                 }
             } else {
                 $limit = "";
@@ -1684,5 +1684,28 @@ class Sample extends PpciModel
         $this->_generateSearch($param);
         $order = " order by s.uid";
         return $this->_executeSearch($this->sql . $this->from . $this->where . $order, $this->data);
+    }
+
+    /**
+     * Rename a field of metadata in samples
+     *
+     * @param integer $metadata_id
+     * @param string $old
+     * @param string $new
+     * @return void
+     */
+    function renameMetadataField(int $metadata_id, $old, $new)
+    {
+        $old = addslashes( $old);
+        $new = addslashes($new);
+        $sql = " UPDATE sample s
+                set metadata = jsonb_insert(metadata::jsonb, '{" . '"' . $new . '"' . "}'::text[],  
+                (metadata->'$old' )::jsonb) - '$old'
+                FROM sample_type st
+                where metadata ->> '$old' is not null
+                and st.sample_type_id = s.sample_type_id
+                and st.metadata_id = :id:
+        ";
+        $this->executeQuery($sql, ["id" => $metadata_id], true);
     }
 }

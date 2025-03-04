@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-21 09:00+0100\n"
+"POT-Creation-Date: 2025-02-27 16:37+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1070,7 +1070,7 @@ msgid "Aucun contenant n'a été sélectionné, l'exportation n'est pas possible
 msgstr "No container has been selected, export is not possible"
 
 #: ../../../app/Libraries/Container.php:367
-#: ../../../app/Libraries/Sample.php:687 ../../../app/Libraries/Import.php:96
+#: ../../../app/Libraries/Sample.php:689 ../../../app/Libraries/Import.php:96
 #: ../../../app/Libraries/Campaign.php:128
 msgid "L'encodage du fichier ne correspond pas à celui que vous avez indiqué"
 msgstr ""
@@ -1082,7 +1082,7 @@ msgstr ""
 "The version of the imported file don't correspond to the expected version"
 
 #: ../../../app/Libraries/Container.php:397
-#: ../../../app/Libraries/Sample.php:767 ../../../app/Libraries/Import.php:115
+#: ../../../app/Libraries/Sample.php:769 ../../../app/Libraries/Import.php:115
 msgid "Impossible de recopier le fichier importé dans le dossier temporaire"
 msgstr "Can not copy the imported file to the temporary folder"
 
@@ -1152,12 +1152,12 @@ msgstr ""
 "No object has been selected, or no container for storage has been indicated"
 
 #: ../../../app/Libraries/Container.php:585
-#: ../../../app/Libraries/Sample.php:838
+#: ../../../app/Libraries/Sample.php:840
 msgid "Pas de statut sélectionné"
 msgstr "No selected status"
 
 #: ../../../app/Libraries/Container.php:592
-#: ../../../app/Libraries/Sample.php:846
+#: ../../../app/Libraries/Sample.php:848
 msgid "Une erreur est survenue pendant la mise à jour du statut"
 msgstr "An error occurred during the status update"
 
@@ -1166,9 +1166,9 @@ msgid "Pas de référent sélectionné"
 msgstr "No selected referent"
 
 #: ../../../app/Libraries/Container.php:614
-#: ../../../app/Libraries/Sample.php:787 ../../../app/Libraries/Sample.php:805
-#: ../../../app/Libraries/Sample.php:824 ../../../app/Libraries/Sample.php:843
-#: ../../../app/Libraries/Sample.php:861
+#: ../../../app/Libraries/Sample.php:789 ../../../app/Libraries/Sample.php:807
+#: ../../../app/Libraries/Sample.php:826 ../../../app/Libraries/Sample.php:845
+#: ../../../app/Libraries/Sample.php:863
 msgid "Opération effectuée"
 msgstr "Done"
 
@@ -1177,12 +1177,12 @@ msgid "Une erreur est survenue pendant l'assignation du référent"
 msgstr "An error occurred when assigning the referrer"
 
 #: ../../../app/Libraries/Container.php:638
-#: ../../../app/Libraries/Sample.php:801
+#: ../../../app/Libraries/Sample.php:803
 msgid "Pas de collection sélectionnée"
 msgstr "No selected collection"
 
 #: ../../../app/Libraries/Container.php:644
-#: ../../../app/Libraries/Sample.php:808
+#: ../../../app/Libraries/Sample.php:810
 msgid "Une erreur est survenue pendant la mise à jour de la collection"
 msgstr "An error occurred during the collection update"
 
@@ -1203,10 +1203,10 @@ msgstr "You do not have the necessary rights to modify this sample"
 msgid "La suppression des échantillons a échoué"
 msgstr "Deletion of samples failed"
 
-#: ../../../app/Libraries/Sample.php:464 ../../../app/Libraries/Sample.php:780
-#: ../../../app/Libraries/Sample.php:798 ../../../app/Libraries/Sample.php:816
-#: ../../../app/Libraries/Sample.php:835 ../../../app/Libraries/Sample.php:854
-#: ../../../app/Libraries/Sample.php:917
+#: ../../../app/Libraries/Sample.php:464 ../../../app/Libraries/Sample.php:782
+#: ../../../app/Libraries/Sample.php:800 ../../../app/Libraries/Sample.php:818
+#: ../../../app/Libraries/Sample.php:837 ../../../app/Libraries/Sample.php:856
+#: ../../../app/Libraries/Sample.php:919
 msgid "Pas d'échantillons sélectionnés"
 msgstr "No selected samples"
 
@@ -1241,36 +1241,36 @@ msgid ""
 "Aucun échantillon n'a été sélectionné, ou l'emprunteur n'a pas été renseigné"
 msgstr "No sample selected, or borrower not specified"
 
-#: ../../../app/Libraries/Sample.php:733
+#: ../../../app/Libraries/Sample.php:735
 #, php-format
 msgid "Ligne %1$s : %2$s"
 msgstr "Row %1$s: %2$s"
 
-#: ../../../app/Libraries/Sample.php:783
+#: ../../../app/Libraries/Sample.php:785
 msgid "Pas de pays sélectionné"
 msgstr "No selected country"
 
-#: ../../../app/Libraries/Sample.php:790
+#: ../../../app/Libraries/Sample.php:792
 msgid "Une erreur est survenue pendant la mise à jour du pays"
 msgstr "An error occurred during the country update"
 
-#: ../../../app/Libraries/Sample.php:819
+#: ../../../app/Libraries/Sample.php:821
 msgid "Pas de campagne sélectionnée"
 msgstr "No selected campaign"
 
-#: ../../../app/Libraries/Sample.php:827
+#: ../../../app/Libraries/Sample.php:829
 msgid "Une erreur est survenue pendant la mise à jour de la campagne"
 msgstr "An error occurred during the campaign update"
 
-#: ../../../app/Libraries/Sample.php:857
+#: ../../../app/Libraries/Sample.php:859
 msgid "Pas de parent sélectionné"
 msgstr "No selected parent"
 
-#: ../../../app/Libraries/Sample.php:864
+#: ../../../app/Libraries/Sample.php:866
 msgid "Une erreur est survenue pendant la mise à jour du parent"
 msgstr "An error occurred during the parent update"
 
-#: ../../../app/Libraries/Sample.php:925
+#: ../../../app/Libraries/Sample.php:927
 msgid ""
 "Il manque des informations pour pouvoir créer un nouvel échantillon "
 "(identifiant, collection ou type)"
@@ -1278,37 +1278,37 @@ msgstr ""
 "Information is missing to create a new sample (identifier, collection or "
 "type)"
 
-#: ../../../app/Libraries/Sample.php:932
+#: ../../../app/Libraries/Sample.php:934
 msgid ""
 "Un problème est apparu pour lire le premier UID des échantillons sélectionnés"
 msgstr ""
 "A problem was encountered when reading the first UID of the selected samples"
 
-#: ../../../app/Libraries/Sample.php:967
+#: ../../../app/Libraries/Sample.php:969
 #, php-format
 msgid "L'échantillon composé %s a été créé ou mis à jour"
 msgstr "The %s composite sample has been created or updated"
 
-#: ../../../app/Libraries/Metadata.php:135
+#: ../../../app/Libraries/Metadata.php:136
 msgid "Métadonnée(s) importée(s)"
 msgstr "Metadata imported"
 
-#: ../../../app/Libraries/Metadata.php:137
+#: ../../../app/Libraries/Metadata.php:138
 msgid "Impossible d'importer les métadonnées"
 msgstr "Unable to import metadata"
 
-#: ../../../app/Libraries/Metadata.php:141
+#: ../../../app/Libraries/Metadata.php:142
 #: ../../../app/Libraries/Campaign.php:167
 #: ../../../app/Libraries/SamplingPlace.php:124
 msgid "Impossible de charger le fichier à importer"
 msgstr "Unable to load the file to import"
 
-#: ../../../app/Libraries/Metadata.php:200
+#: ../../../app/Libraries/Metadata.php:208
 msgid ""
 "Une erreur est survenue pendant l'enregistrement du champ de métadonnées"
 msgstr "An error occurred during the record of the metadata field"
 
-#: ../../../app/Libraries/Metadata.php:244
+#: ../../../app/Libraries/Metadata.php:252
 msgid "Une erreur est survenue pendant le déplacement du champ de métadonnées"
 msgstr "An error occurred during the move of the metadata field"
 
@@ -1668,7 +1668,7 @@ msgstr "Import error of sample %s. "
 msgid "Message d'erreur : "
 msgstr "Error message: "
 
-#: ../../../app/Models/Sample.php:269 ../../../app/Models/Sample.php:1212
+#: ../../../app/Models/Sample.php:269 ../../../app/Models/Sample.php:1213
 #, php-format
 msgid ""
 "L'identifiant de l'échantillon %s existe déjà dans la base de données pour "
@@ -1744,27 +1744,29 @@ msgstr "Metadata is not formatted correctly (metadata field)"
 msgid "Le code de pays %s n'est pas connu"
 msgstr "The %s country code is not known"
 
-#: ../../../app/Models/Sample.php:1259
+#: ../../../app/Models/Sample.php:1210
+#, php-format
+msgid ""
+"La collection n'a pas été spécifiée pour l'échantillon %s, ou est inconnue"
+msgstr "The collection was not provided or is unknown for the sample %s"
+
+#: ../../../app/Models/Sample.php:1260
 msgid "Impossible d'écrire dans la table Object"
 msgstr "Can not write to the Object table"
 
-#: ../../../app/Models/Sample.php:1310
+#: ../../../app/Models/Sample.php:1311
 #, php-format
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour modifier l'échantillon %1s"
 msgstr "You do not have the necessary rights to change the sample %1s"
 
-#: ../../../app/Models/Sample.php:1468
+#: ../../../app/Models/Sample.php:1469
 msgid "Le parent n'existe pas"
 msgstr "The parent does not exist"
 
 #: ../../../app/Models/Collection.php:165
 msgid "La racine des documents externes ne peut pas contenir .."
 msgstr "The root of external documents can not contain .."
-
-#: ../../../app/Models/Metadata.php:119
-msgid "nouveau_champ"
-msgstr "new_field"
 
 #: ../../../app/Models/Metadata.php:124
 msgid "Les métadonnées demandées n'existent pas"
@@ -4493,7 +4495,7 @@ msgstr "Responsible of referent of the campaign:"
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:322
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:342
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:862
-#: ../../../app/Views/templates/gestion/metadataForm.tpl:83
+#: ../../../app/Views/templates/gestion/metadataForm.tpl:84
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:536
 msgid "Choisissez"
 msgstr "Select"
@@ -9218,6 +9220,9 @@ msgstr "Variable name"
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/utils/system.tpl:9
 msgid "Contenu"
 msgstr "Content"
+
+#~ msgid "nouveau_champ"
+#~ msgstr "new_field"
 
 #~ msgid ""
 #~ "Le nom suivant ne peut pas être utilisé (mot réservé dans la base de "

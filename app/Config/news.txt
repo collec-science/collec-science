@@ -1,5 +1,12 @@
 Nouveautés
 ============
+Version v25.0.4 du 4/3/2025
+-----------------------------
+Corrections de bugs :
+- la saisie des mouvements à partir de la fonction "petit terminal" ne fonctionnait plus
+
+
+
 Version v25.0.3 du 27/02/2025
 -----------------------------
 Corrections de bugs :

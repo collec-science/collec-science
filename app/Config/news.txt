@@ -5,7 +5,8 @@ Version v25.0.4 du 4/3/2025
 Corrections de bugs :
 - la saisie des mouvements à partir de la fonction "petit terminal" ne fonctionnait plus
 
-
+Nouveautés :
+- ajout d'un contrôle de structure du nom des métadonnées
 
 Version v25.0.3 du 27/02/2025
 -----------------------------

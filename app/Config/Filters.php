@@ -58,7 +58,9 @@ class Filters extends BaseConfig
                 'containerExportCSV',
                 'containerPrintLabel',
                 'containerPrintDirect',
-                'containerExportGlobal'
+                'containerExportGlobal',
+                'smallMovementWriteAjax',
+                'smallMovementChange'
             ]],
             'invalidchars',
             /*'legacyRoute',*/

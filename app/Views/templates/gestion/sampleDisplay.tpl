@@ -130,7 +130,6 @@
 		} );
 
 		function setResult( label, result ) {
-			//console.log( result.data );
 			$( "#search" ).val( getVal( result.data ) );
 			snd.play();
 			scanner.stop();

@@ -61,7 +61,6 @@
 		const camQrResult = document.getElementById( 'cam-qr-result' );
 
 		function setResult( label, result ) {
-			console.log( result.data );
 			$( "#" + destination ).val( result.data );
 			snd.play();
 			$( "#" + destination ).change();
@@ -82,7 +81,7 @@
 		//$("#video-container").width($(document).width());
 
 		// ####### Web Cam Scanning #######
-
+		var videosize = Math.min (window.screen.height, window.screen.width) ;
 		$("#video-container").width(videosize);
 		$("#video-container").height(videosize);
 		
@@ -234,7 +233,7 @@
 				if ( value.length > 0 ) {
 					value = value.replace( /]C1/g, "" );
 				}
-				var url = "";
+				var url = module;
 				var chaine;
 				var options = "";
 				if ( is_container == true ) {
@@ -243,7 +242,7 @@
 					objets = {};
 				}
 				$.ajax( {
-					url: url, method: "GET", data: { module: module, uid: value, is_container: is_container, is_partial: true }, success: function ( djs ) {
+					url: url, method: "GET", data: { uid: value, is_container: is_container, is_partial: true }, success: function ( djs ) {
 						var data = JSON.parse( djs );
 						for ( var i = 0; i < data.length; i++ ) {
 							var uid = data[ i ].uid;
@@ -351,7 +350,6 @@
 				}
 				, success: function ( res ) {
 					var result = JSON.parse( res );
-					console.log( result );
 					if ( result.error_code == 200 ) {
 						$( "#message" ).html( "{t}Mouvement créé{/t}" );
 						$( "#message" ).toggleClass( "message", true );

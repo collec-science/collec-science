@@ -221,7 +221,7 @@ class Movement extends PpciLibrary
 
     function getLastEntry()
     {
-        $this->vue = service('Smarty');
+        $this->vue = service('AjaxView');
         $this->vue->set($this->dataclass->getLastEntry($_REQUEST["uid"]));
         return $this->vue->send();
     }

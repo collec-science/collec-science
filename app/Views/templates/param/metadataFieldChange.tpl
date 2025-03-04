@@ -90,10 +90,12 @@
     <input type="hidden" name="oldname" value="{$data.name}">
     <div class="form-group">
         <label for="name" class="control-label col-md-4"><span class="red">*</span>
-            {t}Nom du champ (sans espace, sans accent, en minuscule){/t}
+            {t}Nom du champ (minuscules, chiffres ou _, sans espace, sans tiret){/t}
         </label>
         <div class="col-md-8">
-            <input id="name" type="text" class="form-control" name="name" value="{$data.name}" autofocus required>
+            <input id="name" type="text" class="form-control" name="name" value="{$data.name}" pattern="[a-z0-9_]*" 
+            title="{t}Uniquement des minuscules, des chiffres, ou le caractère _{/t}"
+            required>
         </div>
     </div>
     <div class="form-group">

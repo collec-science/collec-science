@@ -2,6 +2,14 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v25.0.4 of 4/3/2025
+-----------------------------
+Bug fixes:
+- entering movements using the ‘small terminal’ function no longer worked
+
+New features :
+- addition of a metadata name structure check
+
 Version v25.0.3 of 27/02/2025
 -----------------------------
 Bug fixes :

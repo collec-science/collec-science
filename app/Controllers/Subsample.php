@@ -13,7 +13,7 @@ class Subsample extends PpciController
     function __construct()
     {
         $this->lib = new LibrariesSubsample();
-        $sample = new Sample;
+        $this->sample = new Sample;
     }
     function change()
     {

@@ -285,8 +285,9 @@ if (container_type_id > 0) {
 		<fieldset>
 			<legend>{t}Position dans le contenant parent{/t}</legend>
 			<div class="form-group">
-				<label for="storage_location" class="control-label col-md-4">{t}Emplacement dans le contenant
-				(format libre) :{/t}</label>
+				<label for="storage_location" class="control-label col-md-4">
+					{t}Emplacement dans le contenant (format libre) :{/t}
+			</label>
 				<div class="col-md-8">
 					<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 				</div>

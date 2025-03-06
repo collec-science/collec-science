@@ -281,6 +281,32 @@ if (container_type_id > 0) {
 				</div>
 			</div>
 		{/if}
+		{if $container_parent_uid > 0 && $data.container_id == 0} 
+		<fieldset>
+			<legend>{t}Position dans le contenant parent{/t}</legend>
+			<div class="form-group">
+				<label for="storage_location" class="control-label col-md-4">{t}Emplacement dans le contenant
+				(format libre) :{/t}</label>
+				<div class="col-md-8">
+					<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
+				<div class="col-sm-8">
+					<input id="line_number" name="line_number"
+						value="{$data.line_number}" class="form-control nombre slotFull" title="{t}N° de la ligne de rangement dans le contenant{/t}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
+				<div class="col-sm-8">
+					<input id="column_number" name="column_number"
+						value="{$data.column_number}" class="form-control nombre slotFull" title="{t}N° de la colonne de rangement dans le contenant{/t}">
+				</div>
+			</div>
+		</fieldset>
+		{/if}
 		<div class="form-group center">
 			<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 			{if $data.container_id > 0 }

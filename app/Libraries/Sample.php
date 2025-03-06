@@ -103,6 +103,9 @@ class Sample extends PpciLibrary
         /**
          * Get the list of recorded researches
          */
+        if (is_null($_SESSION["collections"])) {
+            $_SESSION["collections"] = [];
+        }
         $this->vue->set($samplesearch->getListFromCollections($_SESSION["collections"]), "samplesearches");
         /**
          * Search samples

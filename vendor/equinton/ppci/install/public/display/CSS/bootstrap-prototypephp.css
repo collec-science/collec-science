@@ -364,3 +364,21 @@ tr {
 	background-color: rgba(0,158,224, 0.1);
 	list-style: none;
 }
+.metadataDescription{
+    color: #aaa;
+    font-size: 12px;
+}
+.brmetadata {
+	content: "";
+	display: block;
+	height: 5em;
+}
+
+input:invalid {
+	border: 1px solid red;
+  }
+
+.move:hover {
+	cursor: move;
+}
+  

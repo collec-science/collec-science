@@ -25,7 +25,6 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\I18n\Time;
-use Config\Services;
 use Config\Toolbar as ToolbarConfig;
 use Kint\Kint;
 
@@ -59,7 +58,7 @@ class Toolbar
                 log_message(
                     'critical',
                     'Toolbar collector does not exist (' . $collector . ').'
-                    . ' Please check $collectors in the app/Config/Toolbar.php file.'
+                    . ' Please check $collectors in the app/Config/Toolbar.php file.',
                 );
 
                 continue;
@@ -386,13 +385,13 @@ class Toolbar
                 return;
             }
 
-            $toolbar = Services::toolbar(config(ToolbarConfig::class));
+            $toolbar = service('toolbar', config(ToolbarConfig::class));
             $stats   = $app->getPerformanceStats();
             $data    = $toolbar->run(
                 $stats['startTime'],
                 $stats['totalTime'],
                 $request,
-                $response
+                $response,
             );
 
             helper('filesystem');
@@ -440,8 +439,8 @@ class Toolbar
                         '/<head>/',
                         '<head>' . $script,
                         $response->getBody(),
-                        1
-                    )
+                        1,
+                    ),
                 );
 
                 return;
@@ -517,7 +516,7 @@ class Toolbar
             $history = new History();
             $history->setFiles(
                 $debugbarTime[0],
-                $this->config->maxHistory
+                $this->config->maxHistory,
             );
 
             $data['collectors'][] = $history->getAsArray();
@@ -529,7 +528,7 @@ class Toolbar
             case 'html':
                 $data['styles'] = [];
                 extract($data);
-                $parser = Services::parser($this->config->viewsPath, null, false);
+                $parser = service('parser', $this->config->viewsPath, null, false);
                 ob_start();
                 include $this->config->viewsPath . 'toolbar.tpl.php';
                 $output = ob_get_clean();

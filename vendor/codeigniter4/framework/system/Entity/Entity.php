@@ -138,7 +138,7 @@ class Entity implements JsonSerializable
             array_merge($this->defaultCastHandlers, $this->castHandlers),
             null,
             null,
-            false
+            false,
         );
 
         $this->syncOriginal();
@@ -181,11 +181,11 @@ class Entity implements JsonSerializable
     {
         $this->_cast = $cast;
 
-        $keys = array_filter(array_keys($this->attributes), static fn ($key) => ! str_starts_with($key, '_'));
+        $keys = array_filter(array_keys($this->attributes), static fn ($key): bool => ! str_starts_with($key, '_'));
 
         if (is_array($this->datamap)) {
             $keys = array_unique(
-                [...array_diff($keys, $this->datamap), ...array_keys($this->datamap)]
+                [...array_diff($keys, $this->datamap), ...array_keys($this->datamap)],
             );
         }
 

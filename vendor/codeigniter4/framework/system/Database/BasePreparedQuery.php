@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace CodeIgniter\Database;
 
 use ArgumentCountError;
-use BadMethodCallException;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\Events\Events;
+use CodeIgniter\Exceptions\BadMethodCallException;
 use ErrorException;
 
 /**
@@ -258,5 +258,13 @@ abstract class BasePreparedQuery implements PreparedQueryInterface
     public function getErrorMessage(): string
     {
         return $this->errorString;
+    }
+
+    /**
+     * Whether the input contain binary data.
+     */
+    protected function isBinary(string $input): bool
+    {
+        return mb_detect_encoding($input, 'UTF-8', true) === false;
     }
 }

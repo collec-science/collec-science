@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Helpers\Array;
 
-use InvalidArgumentException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 
 /**
  * @interal This is internal implementation for the framework.
@@ -54,12 +54,12 @@ final class ArrayHelper
             '/(?<!\\\\)\./',
             rtrim($index, '* '),
             0,
-            PREG_SPLIT_NO_EMPTY
+            PREG_SPLIT_NO_EMPTY,
         );
 
         return array_map(
-            static fn ($key) => str_replace('\.', '.', $key),
-            $segments
+            static fn ($key): string => str_replace('\.', '.', $key),
+            $segments,
         );
     }
 
@@ -96,7 +96,7 @@ final class ArrayHelper
                 $answer[] = self::arraySearchDot($indexes, $value);
             }
 
-            $answer = array_filter($answer, static fn ($value) => $value !== null);
+            $answer = array_filter($answer, static fn ($value): bool => $value !== null);
 
             if ($answer !== []) {
                 // If array only has one element, we return that element for BC.
@@ -130,7 +130,7 @@ final class ArrayHelper
     {
         if (str_ends_with($index, '*') || str_contains($index, '*.*')) {
             throw new InvalidArgumentException(
-                'You must set key right after "*". Invalid index: "' . $index . '"'
+                'You must set key right after "*". Invalid index: "' . $index . '"',
             );
         }
 
@@ -210,7 +210,7 @@ final class ArrayHelper
         array $result,
         array $row,
         array $indexes,
-        bool $includeEmpty
+        bool $includeEmpty,
     ): array {
         if (($index = array_shift($indexes)) === null) {
             $result[] = $row;
@@ -307,7 +307,7 @@ final class ArrayHelper
      */
     public static function sortValuesByNatural(array &$array, $sortByIndex = null): bool
     {
-        return usort($array, static function ($currentValue, $nextValue) use ($sortByIndex) {
+        return usort($array, static function ($currentValue, $nextValue) use ($sortByIndex): int {
             if ($sortByIndex !== null) {
                 return strnatcmp((string) $currentValue[$sortByIndex], (string) $nextValue[$sortByIndex]);
             }

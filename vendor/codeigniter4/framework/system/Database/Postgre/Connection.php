@@ -16,6 +16,7 @@ namespace CodeIgniter\Database\Postgre;
 use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\Database\RawSql;
+use CodeIgniter\Database\TableName;
 use ErrorException;
 use PgSql\Connection as PgSqlConnection;
 use PgSql\Result as PgSqlResult;
@@ -74,11 +75,11 @@ class Connection extends BaseConnection
             $this->convertDSN();
         }
 
-        $this->connID = $persistent === true ? pg_pconnect($this->DSN) : pg_connect($this->DSN);
+        $this->connID = $persistent ? pg_pconnect($this->DSN) : pg_connect($this->DSN);
 
         if ($this->connID !== false) {
             if (
-                $persistent === true
+                $persistent
                 && pg_connection_status($this->connID) === PGSQL_CONNECTION_BAD
                 && pg_ping($this->connID) === false
             ) {
@@ -149,8 +150,9 @@ class Connection extends BaseConnection
      */
     public function reconnect()
     {
-        if (pg_ping($this->connID) === false) {
-            $this->connID = false;
+        if ($this->connID === false || pg_ping($this->connID) === false) {
+            $this->close();
+            $this->initialize();
         }
     }
 
@@ -226,6 +228,10 @@ class Connection extends BaseConnection
      */
     public function affectedRows(): int
     {
+        if ($this->resultID === false) {
+            return 0;
+        }
+
         return pg_affected_rows($this->resultID);
     }
 
@@ -289,7 +295,7 @@ class Connection extends BaseConnection
             return $sql . ' AND "table_name" LIKE ' . $this->escape($tableName);
         }
 
-        if ($prefixLimit !== false && $this->DBPrefix !== '') {
+        if ($prefixLimit && $this->DBPrefix !== '') {
             return $sql . ' AND "table_name" LIKE \''
                 . $this->escapeLikeString($this->DBPrefix) . "%' "
                 . sprintf($this->likeEscapeStr, $this->likeEscapeChar);
@@ -300,13 +306,20 @@ class Connection extends BaseConnection
 
     /**
      * Generates a platform-specific query string so that the column names can be fetched.
+     *
+     * @param string|TableName $table
      */
-    protected function _listColumns(string $table = ''): string
+    protected function _listColumns($table = ''): string
     {
+        if ($table instanceof TableName) {
+            $tableName = $this->escape($table->getActualTableName());
+        } else {
+            $tableName = $this->escape($this->DBPrefix . strtolower($table));
+        }
+
         return 'SELECT "column_name"
 			FROM "information_schema"."columns"
-			WHERE LOWER("table_name") = '
-                . $this->escape($this->DBPrefix . strtolower($table))
+			WHERE LOWER("table_name") = ' . $tableName
                 . ' ORDER BY "ordinal_position"';
     }
 
@@ -370,7 +383,7 @@ class Connection extends BaseConnection
             $obj         = new stdClass();
             $obj->name   = $row->indexname;
             $_fields     = explode(',', preg_replace('/^.*\((.+?)\)$/', '$1', trim($row->indexdef)));
-            $obj->fields = array_map(static fn ($v) => trim($v), $_fields);
+            $obj->fields = array_map(static fn ($v): string => trim($v), $_fields);
 
             if (str_starts_with($row->indexdef, 'CREATE UNIQUE INDEX pk')) {
                 $obj->type = 'PRIMARY';
@@ -462,7 +475,7 @@ class Connection extends BaseConnection
     {
         return [
             'code'    => '',
-            'message' => pg_last_error($this->connID) ?: '',
+            'message' => pg_last_error($this->connID),
         ];
     }
 

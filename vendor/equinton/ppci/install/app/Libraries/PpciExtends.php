@@ -1,9 +1,8 @@
 <?php
+
 namespace App\Libraries;
 
-class PpciExtends {
-
-    function deleteChildrenForGroup(int $id) {
-
-    }
+class PpciExtends
+{
+    function deleteChildrenForGroup(int $id) {}
 }

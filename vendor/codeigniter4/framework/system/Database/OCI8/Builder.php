@@ -89,13 +89,13 @@ class Builder extends BaseBuilder
             $data = implode(
                 " FROM DUAL UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    static fn ($value): string => 'SELECT ' . implode(', ', array_map(
+                        static fn ($key, $index): string => $index . ' ' . $key,
                         $keys,
-                        $value
+                        $value,
                     )),
-                    $values
-                )
+                    $values,
+                ),
             ) . " FROM DUAL\n";
         }
 
@@ -107,14 +107,14 @@ class Builder extends BaseBuilder
      */
     protected function _replace(string $table, array $keys, array $values): string
     {
-        $fieldNames = array_map(static fn ($columnName) => trim($columnName, '"'), $keys);
+        $fieldNames = array_map(static fn ($columnName): string => trim($columnName, '"'), $keys);
 
-        $uniqueIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames) {
+        $uniqueIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames): bool {
             $hasAllFields = count(array_intersect($index->fields, $fieldNames)) === count($index->fields);
 
             return ($index->type === 'PRIMARY') && $hasAllFields;
         });
-        $replaceableFields = array_filter($keys, static function ($columnName) use ($uniqueIndexes) {
+        $replaceableFields = array_filter($keys, static function ($columnName) use ($uniqueIndexes): bool {
             foreach ($uniqueIndexes as $index) {
                 if (in_array(trim($columnName, '"'), $index->fields, true)) {
                     return false;
@@ -126,7 +126,7 @@ class Builder extends BaseBuilder
 
         $sql = 'MERGE INTO ' . $table . "\n USING (SELECT ";
 
-        $sql .= implode(', ', array_map(static fn ($columnName, $value) => $value . ' ' . $columnName, $keys, $values));
+        $sql .= implode(', ', array_map(static fn ($columnName, $value): string => $value . ' ' . $columnName, $keys, $values));
 
         $sql .= ' FROM DUAL) "_replace" ON ( ';
 
@@ -134,16 +134,16 @@ class Builder extends BaseBuilder
         $onList[] = '1 != 1';
 
         foreach ($uniqueIndexes as $index) {
-            $onList[] = '(' . implode(' AND ', array_map(static fn ($columnName) => $table . '."' . $columnName . '" = "_replace"."' . $columnName . '"', $index->fields)) . ')';
+            $onList[] = '(' . implode(' AND ', array_map(static fn ($columnName): string => $table . '."' . $columnName . '" = "_replace"."' . $columnName . '"', $index->fields)) . ')';
         }
 
         $sql .= implode(' OR ', $onList) . ') WHEN MATCHED THEN UPDATE SET ';
 
-        $sql .= implode(', ', array_map(static fn ($columnName) => $columnName . ' = "_replace".' . $columnName, $replaceableFields));
+        $sql .= implode(', ', array_map(static fn ($columnName): string => $columnName . ' = "_replace".' . $columnName, $replaceableFields));
 
         $sql .= ' WHEN NOT MATCHED THEN INSERT (' . implode(', ', $replaceableFields) . ') VALUES ';
 
-        return $sql . (' (' . implode(', ', array_map(static fn ($columnName) => '"_replace".' . $columnName, $replaceableFields)) . ')');
+        return $sql . (' (' . implode(', ', array_map(static fn ($columnName): string => '"_replace".' . $columnName, $replaceableFields)) . ')');
     }
 
     /**
@@ -287,8 +287,8 @@ class Builder extends BaseBuilder
                         )
                     ),
                     array_keys($constraints),
-                    $constraints
-                )
+                    $constraints,
+                ),
             ) . ")\n";
 
             $sql .= "WHEN MATCHED THEN UPDATE\n";
@@ -298,12 +298,12 @@ class Builder extends BaseBuilder
             $sql .= implode(
                 ",\n",
                 array_map(
-                    static fn ($key, $value) => $table . '.' . $key . ($value instanceof RawSql ?
+                    static fn ($key, $value): string => $table . '.' . $key . ($value instanceof RawSql ?
                     ' = ' . $value :
                     ' = ' . $alias . '.' . $value),
                     array_keys($updateFields),
-                    $updateFields
-                )
+                    $updateFields,
+                ),
             );
 
             $this->QBOptions['sql'] = $sql;
@@ -315,13 +315,13 @@ class Builder extends BaseBuilder
             $data = implode(
                 " UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    static fn ($value): string => 'SELECT ' . implode(', ', array_map(
+                        static fn ($key, $index): string => $index . ' ' . $key,
                         $keys,
-                        $value
+                        $value,
                     )) . ' FROM DUAL',
-                    $values
-                )
+                    $values,
+                ),
             ) . "\n";
         }
 
@@ -342,9 +342,9 @@ class Builder extends BaseBuilder
             $constraints = $this->QBOptions['constraints'] ?? [];
 
             if (empty($constraints)) {
-                $fieldNames = array_map(static fn ($columnName) => trim($columnName, '"'), $keys);
+                $fieldNames = array_map(static fn ($columnName): string => trim($columnName, '"'), $keys);
 
-                $uniqueIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames) {
+                $uniqueIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames): bool {
                     $hasAllFields = count(array_intersect($index->fields, $fieldNames)) === count($index->fields);
 
                     return ($index->type === 'PRIMARY' || $index->type === 'UNIQUE') && $hasAllFields;
@@ -392,8 +392,8 @@ class Builder extends BaseBuilder
                         )
                     ),
                     array_keys($constraints),
-                    $constraints
-                )
+                    $constraints,
+                ),
             ) . ")\n";
 
             $sql .= "WHEN MATCHED THEN UPDATE SET\n";
@@ -401,18 +401,18 @@ class Builder extends BaseBuilder
             $sql .= implode(
                 ",\n",
                 array_map(
-                    static fn ($key, $value) => $key . ($value instanceof RawSql ?
+                    static fn ($key, $value): string => $key . ($value instanceof RawSql ?
                     " = {$value}" :
                     " = {$alias}.{$value}"),
                     array_keys($updateFields),
-                    $updateFields
-                )
+                    $updateFields,
+                ),
             );
 
             $sql .= "\nWHEN NOT MATCHED THEN INSERT (" . implode(', ', $keys) . ")\nVALUES ";
 
             $sql .= (' ('
-                . implode(', ', array_map(static fn ($columnName) => "{$alias}.{$columnName}", $keys))
+                . implode(', ', array_map(static fn ($columnName): string => "{$alias}.{$columnName}", $keys))
                 . ')');
 
             $this->QBOptions['sql'] = $sql;
@@ -424,13 +424,13 @@ class Builder extends BaseBuilder
             $data = implode(
                 " FROM DUAL UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    static fn ($value): string => 'SELECT ' . implode(', ', array_map(
+                        static fn ($key, $index): string => $index . ' ' . $key,
                         $keys,
-                        $value
+                        $value,
                     )),
-                    $values
-                )
+                    $values,
+                ),
             ) . " FROM DUAL\n";
         }
 
@@ -477,8 +477,8 @@ class Builder extends BaseBuilder
                         )
                     ),
                     array_keys($constraints),
-                    $constraints
-                )
+                    $constraints,
+                ),
             );
 
             // convert binds in where
@@ -491,7 +491,7 @@ class Builder extends BaseBuilder
             $sql .= ' ' . str_replace(
                 'WHERE ',
                 'AND ',
-                $this->compileWhereHaving('QBWhere')
+                $this->compileWhereHaving('QBWhere'),
             ) . ')';
 
             $this->QBOptions['sql'] = $sql;
@@ -503,13 +503,13 @@ class Builder extends BaseBuilder
             $data = implode(
                 " FROM DUAL UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    static fn ($value): string => 'SELECT ' . implode(', ', array_map(
+                        static fn ($key, $index): string => $index . ' ' . $key,
                         $keys,
-                        $value
+                        $value,
                     )),
-                    $values
-                )
+                    $values,
+                ),
             ) . " FROM DUAL\n";
         }
 

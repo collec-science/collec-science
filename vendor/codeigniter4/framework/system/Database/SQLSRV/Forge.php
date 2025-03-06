@@ -134,12 +134,12 @@ class Forge extends BaseForge
             $sql = sprintf(
                 $this->createDatabaseIfStr,
                 $dbName,
-                $this->db->escapeIdentifier($dbName)
+                $this->db->escapeIdentifier($dbName),
             );
         } else {
             $sql = sprintf(
                 $this->createDatabaseStr,
-                $this->db->escapeIdentifier($dbName)
+                $this->db->escapeIdentifier($dbName),
             );
         }
 
@@ -212,10 +212,10 @@ class Forge extends BaseForge
 
             $sql = <<<SQL
                 SELECT name
-                FROM SYS.DEFAULT_CONSTRAINTS
-                WHERE PARENT_OBJECT_ID = OBJECT_ID('{$fullTable}')
-                AND PARENT_COLUMN_ID IN (
-                SELECT column_id FROM sys.columns WHERE NAME IN ({$fields}) AND object_id = OBJECT_ID(N'{$fullTable}')
+                FROM sys.default_constraints
+                WHERE parent_object_id = OBJECT_ID('{$fullTable}')
+                AND parent_column_id IN (
+                SELECT column_id FROM sys.columns WHERE name IN ({$fields}) AND object_id = OBJECT_ID(N'{$fullTable}')
                 )
                 SQL;
 
@@ -225,7 +225,7 @@ class Forge extends BaseForge
 
             $sql = 'ALTER TABLE ' . $fullTable . ' DROP ';
 
-            $fields = array_map(static fn ($item) => 'COLUMN [' . trim($item) . ']', (array) $columnNamesToDrop);
+            $fields = array_map(static fn ($item): string => 'COLUMN [' . trim($item) . ']', (array) $columnNamesToDrop);
 
             return $sql . implode(',', $fields);
         }
@@ -263,7 +263,7 @@ class Forge extends BaseForge
                 $nullable = false;
             }
             $sqls[] = $sql . ' ALTER COLUMN ' . $this->db->escapeIdentifiers($field['name'])
-                . " {$field['type']}{$field['length']} " . ($nullable === true ? '' : 'NOT') . ' NULL';
+                . " {$field['type']}{$field['length']} " . ($nullable ? '' : 'NOT') . ' NULL';
 
             if (! empty($field['comment'])) {
                 $sqls[] = 'EXEC sys.sp_addextendedproperty '
@@ -360,7 +360,7 @@ class Forge extends BaseForge
     protected function _attributeType(array &$attributes)
     {
         // Reset field lengths for data types that don't support it
-        if (isset($attributes['CONSTRAINT']) && stripos($attributes['TYPE'], 'int') !== false) {
+        if (isset($attributes['CONSTRAINT']) && str_contains(strtolower($attributes['TYPE']), 'int')) {
             $attributes['CONSTRAINT'] = null;
         }
 
@@ -380,9 +380,9 @@ class Forge extends BaseForge
                 // https://learn.microsoft.com/en-us/sql/t-sql/data-types/char-and-varchar-transact-sql?view=sql-server-ver16#remarks
                 $maxLength = max(
                     array_map(
-                        static fn ($value) => strlen($value),
-                        $attributes['CONSTRAINT']
-                    )
+                        static fn ($value): int => strlen($value),
+                        $attributes['CONSTRAINT'],
+                    ),
                 );
 
                 $attributes['TYPE']       = 'VARCHAR';
@@ -397,6 +397,11 @@ class Forge extends BaseForge
                 $attributes['TYPE'] = 'BIT';
                 break;
 
+            case 'BLOB':
+                $attributes['TYPE'] = 'VARBINARY';
+                $attributes['CONSTRAINT'] ??= 'MAX';
+                break;
+
             default:
                 break;
         }
@@ -407,7 +412,7 @@ class Forge extends BaseForge
      */
     protected function _attributeAutoIncrement(array &$attributes, array &$field)
     {
-        if (! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === true && stripos($field['type'], 'INT') !== false) {
+        if (! empty($attributes['AUTO_INCREMENT']) && $attributes['AUTO_INCREMENT'] === true && str_contains(strtolower($field['type']), strtolower('INT'))) {
             $field['auto_increment'] = ' IDENTITY(1,1)';
         }
     }

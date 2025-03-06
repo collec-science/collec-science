@@ -20,6 +20,8 @@ use CodeIgniter\Cookie\Exceptions\CookieException;
 use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Debug\Timer;
+use CodeIgniter\Exceptions\InvalidArgumentException;
+use CodeIgniter\Exceptions\RuntimeException;
 use CodeIgniter\Files\Exceptions\FileNotFoundException;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
@@ -146,7 +148,7 @@ if (! function_exists('command')) {
                 // @codeCoverageIgnoreStart
                 throw new InvalidArgumentException(sprintf(
                     'Unable to parse input near "... %s ...".',
-                    substr($command, $cursor, 10)
+                    substr($command, $cursor, 10),
                 ));
                 // @codeCoverageIgnoreEnd
             }
@@ -441,7 +443,7 @@ if (! function_exists('esc')) {
                 $escaper = new Escaper($encoding);
             }
 
-            if ($encoding && $escaper->getEncoding() !== $encoding) {
+            if ($encoding !== null && $escaper->getEncoding() !== $encoding) {
                 $escaper = new Escaper($encoding);
             }
 
@@ -470,7 +472,7 @@ if (! function_exists('force_https')) {
     function force_https(
         int $duration = 31_536_000,
         ?RequestInterface $request = null,
-        ?ResponseInterface $response = null
+        ?ResponseInterface $response = null,
     ): void {
         $request ??= service('request');
 
@@ -580,8 +582,8 @@ if (! function_exists('helper')) {
         foreach ($filenames as $filename) {
             // Store our system and application helper
             // versions so that we can control the load ordering.
-            $systemHelper  = null;
-            $appHelper     = null;
+            $systemHelper  = '';
+            $appHelper     = '';
             $localIncludes = [];
 
             if (! str_contains($filename, '_helper')) {
@@ -598,7 +600,7 @@ if (! function_exists('helper')) {
             if (str_contains($filename, '\\')) {
                 $path = $loader->locateFile($filename, 'Helpers');
 
-                if (empty($path)) {
+                if ($path === false) {
                     throw FileNotFoundException::forFileNotFound($filename);
                 }
 
@@ -620,7 +622,7 @@ if (! function_exists('helper')) {
                 }
 
                 // App-level helpers should override all others
-                if (! empty($appHelper)) {
+                if ($appHelper !== '') {
                     $includes[] = $appHelper;
                     $loaded[]   = $filename;
                 }
@@ -629,7 +631,7 @@ if (! function_exists('helper')) {
                 $includes = [...$includes, ...$localIncludes];
 
                 // And the system default one should be added in last.
-                if (! empty($systemHelper)) {
+                if ($systemHelper !== '') {
                     $includes[] = $systemHelper;
                     $loaded[]   = $filename;
                 }
@@ -739,13 +741,13 @@ if (! function_exists('lang')) {
         // Get active locale
         $activeLocale = $language->getLocale();
 
-        if ($locale && $locale !== $activeLocale) {
+        if ((string) $locale !== '' && $locale !== $activeLocale) {
             $language->setLocale($locale);
         }
 
         $lines = $language->getLine($line, $args);
 
-        if ($locale && $locale !== $activeLocale) {
+        if ((string) $locale !== '' && $locale !== $activeLocale) {
             // Reset to active locale
             $language->setLocale($activeLocale);
         }
@@ -849,7 +851,7 @@ if (! function_exists('redirect')) {
     {
         $response = service('redirectresponse');
 
-        if ($route !== null) {
+        if ((string) $route !== '') {
             return $response->route($route);
         }
 
@@ -869,7 +871,7 @@ if (! function_exists('_solidus')) {
     {
         static $docTypes = null;
 
-        if ($docTypesConfig !== null) {
+        if ($docTypesConfig instanceof DocTypes) {
             $docTypes = $docTypesConfig;
         }
 
@@ -1065,7 +1067,7 @@ if (! function_exists('slash_item')) {
                 'Cannot convert "%s::$%s" of type "%s" to type "string".',
                 App::class,
                 $item,
-                gettype($configItem)
+                gettype($configItem),
             ));
         }
 
@@ -1092,7 +1094,7 @@ if (! function_exists('stringify_attributes')) {
     {
         $atts = '';
 
-        if (empty($attributes)) {
+        if ($attributes === '' || $attributes === [] || $attributes === null) {
             return $atts;
         }
 

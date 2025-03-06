@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CodeIgniter\HTTP;
 
-use InvalidArgumentException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 
 /**
  * An HTTP message
@@ -119,7 +119,7 @@ class Message implements MessageInterface
         if ($this->hasMultipleHeaders($name)) {
             throw new InvalidArgumentException(
                 'The header "' . $name . '" already has multiple headers.'
-                . ' You cannot use getHeaderLine().'
+                . ' You cannot use getHeaderLine().',
             );
         }
 

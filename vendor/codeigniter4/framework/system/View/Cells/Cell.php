@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace CodeIgniter\View\Cells;
 
+use CodeIgniter\Exceptions\LogicException;
 use CodeIgniter\Traits\PropertiesTrait;
-use LogicException;
 use ReflectionClass;
 use Stringable;
 
@@ -97,13 +97,13 @@ class Cell implements Stringable
 
         $candidateViews = array_filter(
             [$view, $possibleView1 ?? '', $possibleView2 ?? ''],
-            static fn (string $path): bool => $path !== '' && is_file($path)
+            static fn (string $path): bool => $path !== '' && is_file($path),
         );
 
         if ($candidateViews === []) {
             throw new LogicException(sprintf(
                 'Cannot locate the view file for the "%s" cell.',
-                static::class
+                static::class,
             ));
         }
 

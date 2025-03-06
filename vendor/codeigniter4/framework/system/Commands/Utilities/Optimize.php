@@ -17,8 +17,8 @@ use CodeIgniter\Autoloader\FileLocator;
 use CodeIgniter\Autoloader\FileLocatorCached;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
+use CodeIgniter\Exceptions\RuntimeException;
 use CodeIgniter\Publisher\Publisher;
-use RuntimeException;
 
 /**
  * Optimize for production.
@@ -110,13 +110,13 @@ final class Optimize extends BaseCommand
             [
                 'public bool $configCacheEnabled = false;'  => 'public bool $configCacheEnabled = true;',
                 'public bool $locatorCacheEnabled = false;' => 'public bool $locatorCacheEnabled = true;',
-            ]
+            ],
         );
 
         if ($result) {
             CLI::write(
                 'Config Caching and FileLocator Caching are enabled in "app/Config/Optimize.php".',
-                'green'
+                'green',
             );
 
             return;

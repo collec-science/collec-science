@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Config;
 
-use InvalidArgumentException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 
 /**
  * Environment-specific configuration
@@ -94,7 +94,7 @@ class DotEnv
      */
     protected function setVariable(string $name, string $value = '')
     {
-        if (! getenv($name, true)) {
+        if (getenv($name, true) === false) {
             putenv("{$name}={$value}");
         }
 
@@ -164,7 +164,7 @@ class DotEnv
                 %1$s          # and the closing quote
                 .*$           # and discard any string after the closing quote
                 /mx',
-                $quote
+                $quote,
             );
 
             $value = preg_replace($regexPattern, '$1', $value);
@@ -206,7 +206,7 @@ class DotEnv
 
                     return $nestedVariable;
                 },
-                $value
+                $value,
             );
         }
 

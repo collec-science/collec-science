@@ -15,9 +15,10 @@ namespace CodeIgniter\Cache\Handlers;
 
 use Closure;
 use CodeIgniter\Cache\CacheInterface;
+use CodeIgniter\Exceptions\BadMethodCallException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use Config\Cache;
 use Exception;
-use InvalidArgumentException;
 
 /**
  * Base class for cache handling
@@ -67,7 +68,7 @@ abstract class BaseHandler implements CacheInterface
         }
 
         $reserved = config(Cache::class)->reservedCharacters ?? self::RESERVED_CHARACTERS;
-        if ($reserved && strpbrk($key, $reserved) !== false) {
+        if ($reserved !== '' && strpbrk($key, $reserved) !== false) {
             throw new InvalidArgumentException('Cache key contains reserved characters ' . $reserved);
         }
 
@@ -108,6 +109,6 @@ abstract class BaseHandler implements CacheInterface
      */
     public function deleteMatching(string $pattern)
     {
-        throw new Exception('The deleteMatching method is not implemented.');
+        throw new BadMethodCallException('The deleteMatching method is not implemented.');
     }
 }

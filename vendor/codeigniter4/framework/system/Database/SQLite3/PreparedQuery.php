@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Database\SQLite3;
 
-use BadMethodCallException;
 use CodeIgniter\Database\BasePreparedQuery;
 use CodeIgniter\Database\Exceptions\DatabaseException;
+use CodeIgniter\Exceptions\BadMethodCallException;
 use Exception;
 use SQLite3;
 use SQLite3Result;
@@ -75,6 +75,8 @@ class PreparedQuery extends BasePreparedQuery
                 $bindType = SQLITE3_INTEGER;
             } elseif (is_float($item)) {
                 $bindType = SQLITE3_FLOAT;
+            } elseif (is_string($item) && $this->isBinary($item)) {
+                $bindType = SQLITE3_BLOB;
             } else {
                 $bindType = SQLITE3_TEXT;
             }

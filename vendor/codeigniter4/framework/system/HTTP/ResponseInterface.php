@@ -15,10 +15,10 @@ namespace CodeIgniter\HTTP;
 
 use CodeIgniter\Cookie\Cookie;
 use CodeIgniter\Cookie\CookieStore;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
 use CodeIgniter\Pager\PagerInterface;
 use DateTime;
-use InvalidArgumentException;
 
 /**
  * Representation of an outgoing, server-side response.
@@ -136,16 +136,6 @@ interface ResponseInterface extends MessageInterface
     public function setStatusCode(int $code, string $reason = '');
 
     /**
-     * Gets the response phrase associated with the status code.
-     *
-     * @see http://tools.ietf.org/html/rfc7231#section-6
-     * @see http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
-     *
-     * @deprecated Use getReasonPhrase()
-     */
-    public function getReason(): string;
-
-    /**
      * Gets the response reason phrase associated with the status code.
      *
      * Because a reason phrase is not a required element in a response
@@ -210,7 +200,7 @@ interface ResponseInterface extends MessageInterface
     /**
      * Converts the $body into JSON and sets the Content Type header.
      *
-     * @param array|string $body
+     * @param array|object|string $body
      *
      * @return $this
      */
@@ -341,7 +331,7 @@ interface ResponseInterface extends MessageInterface
         $prefix = '',
         $secure = false,
         $httponly = false,
-        $samesite = null
+        $samesite = null,
     );
 
     /**

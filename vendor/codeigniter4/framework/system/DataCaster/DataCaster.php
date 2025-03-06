@@ -26,7 +26,7 @@ use CodeIgniter\DataCaster\Cast\TimestampCast;
 use CodeIgniter\DataCaster\Cast\URICast;
 use CodeIgniter\Entity\Cast\CastInterface as EntityCastInterface;
 use CodeIgniter\Entity\Exceptions\CastException;
-use InvalidArgumentException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 
 final class DataCaster
 {
@@ -68,7 +68,7 @@ final class DataCaster
         ?array $castHandlers = null,
         ?array $types = null,
         private readonly ?object $helper = null,
-        private readonly bool $strict = true
+        private readonly bool $strict = true,
     ) {
         $this->castHandlers = array_merge($this->castHandlers, $castHandlers);
 
@@ -83,7 +83,7 @@ final class DataCaster
                     && ! is_subclass_of($handler, EntityCastInterface::class)
                 ) {
                     throw new InvalidArgumentException(
-                        'Invalid class type. It must implement CastInterface. class: ' . $handler
+                        'Invalid class type. It must implement CastInterface. class: ' . $handler,
                     );
                 }
             }
@@ -169,7 +169,7 @@ final class DataCaster
 
         if (! isset($handlers[$type])) {
             throw new InvalidArgumentException(
-                'No such handler for "' . $field . '". Invalid type: ' . $type
+                'No such handler for "' . $field . '". Invalid type: ' . $type,
             );
         }
 

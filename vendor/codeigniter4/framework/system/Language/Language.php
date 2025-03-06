@@ -206,11 +206,11 @@ class Language
 
             $argsString = implode(
                 ', ',
-                array_map(static fn ($element) => '"' . $element . '"', $args)
+                array_map(static fn ($element): string => '"' . $element . '"', $args),
             );
             $argsUrlEncoded = implode(
                 ', ',
-                array_map(static fn ($element) => '"' . rawurlencode($element) . '"', $args)
+                array_map(static fn ($element): string => '"' . rawurlencode($element) . '"', $args),
             );
 
             log_message(
@@ -218,7 +218,7 @@ class Language
                 'Language.invalidMessageFormat: $message: "' . $message
                 . '", $args: ' . $argsString
                 . ' (urlencoded: ' . $argsUrlEncoded . '),'
-                . ' MessageFormatter Error: ' . $fmtError
+                . ' MessageFormatter Error: ' . $fmtError,
             );
 
             return $message . "\n【Warning】Also, invalid string(s) was passed to the Language class. See log file for details.";
@@ -232,7 +232,7 @@ class Language
      * will return the file's contents, otherwise will merge with
      * the existing language lines.
      *
-     * @return array|void
+     * @return list<mixed>|null
      */
     protected function load(string $file, string $locale, bool $return = false)
     {
@@ -265,6 +265,8 @@ class Language
 
         // Merge our string
         $this->language[$locale][$file] = $lang;
+
+        return null;
     }
 
     /**

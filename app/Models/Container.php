@@ -88,7 +88,7 @@ class Container extends PpciModel
         $this->datetimeFields[] = "change_date";
         $this->dateFields[] = "borrowing_date";
         $this->dateFields[] = "expected_return_date";
-        if (is_numeric($uid) && $uid > 0) {
+        if ( $uid > 0) {
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
             $retour = parent::getDefaultValues($parentValue);
@@ -536,7 +536,7 @@ class Container extends PpciModel
     function generateExportGlobal($uids)
     {
         $data = array();
-        $app = service ("AppConfig");
+        $app = service("AppConfig");
         if (!empty($uids)) {
             /**
              * Inhibit the date encoding
@@ -1069,7 +1069,8 @@ class Container extends PpciModel
      * @param integer $column
      * @return integer
      */
-    function isSlotFull(int $uid, int $line, int $column): int{
+    function isSlotFull(int $uid, int $line, int $column): int
+    {
         $retour = 0;
         /**
          * search if the type of container has a limit by slot

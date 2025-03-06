@@ -2,6 +2,15 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v25.0.5 of 10/3/2025
+-----------------------------
+Bug fixes :
+- the creation of search indexes when importing metadata templates could fail if the field names included spaces or hyphens
+- searching for samples by metadata no longer worked
+- the creation of associated containers did not generate an input movement
+- modifying sub-samples triggered a post-save display error
+- in some cases, displaying the sample search page triggered an error
+
 Version v25.0.4 of 4/3/2025
 -----------------------------
 Bug fixes:

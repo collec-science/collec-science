@@ -342,7 +342,7 @@ class Query implements QueryInterface, Stringable
      */
     protected function matchSimpleBinds(string $sql, array $binds, int $bindCount, int $ml): string
     {
-        if ($c = preg_match_all("/'[^']*'/", $sql, $matches)) {
+        if ($c = preg_match_all("/'[^']*'/", $sql, $matches) >= 1) {
             $c = preg_match_all('/' . preg_quote($this->bindMarker, '/') . '/i', str_replace($matches[0], str_replace($this->bindMarker, str_repeat(' ', $ml), $matches[0]), $sql, $c), $matches, PREG_OFFSET_CAPTURE);
 
             // Bind values' count must match the count of markers in the query
@@ -418,7 +418,7 @@ class Query implements QueryInterface, Stringable
          */
         $search = '/\b(?:' . implode('|', $highlight) . ')\b(?![^(&#039;)]*&#039;(?:(?:[^(&#039;)]*&#039;){2})*[^(&#039;)]*$)/';
 
-        return preg_replace_callback($search, static fn ($matches) => '<strong>' . str_replace(' ', '&nbsp;', $matches[0]) . '</strong>', $sql);
+        return preg_replace_callback($search, static fn ($matches): string => '<strong>' . str_replace(' ', '&nbsp;', $matches[0]) . '</strong>', $sql);
     }
 
     /**

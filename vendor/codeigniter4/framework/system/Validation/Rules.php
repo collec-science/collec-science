@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Validation;
 
+use CodeIgniter\Database\BaseBuilder;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use CodeIgniter\Helpers\Array\ArrayHelper;
 use Config\Database;
-use InvalidArgumentException;
 
 /**
  * Validation Rules.
@@ -110,6 +111,7 @@ class Rules
      * accept only one filter).
      *
      * Example:
+     *    is_not_unique[dbGroup.table.field,where_field,where_value]
      *    is_not_unique[table.field,where_field,where_value]
      *    is_not_unique[menu.id,active,1]
      *
@@ -117,35 +119,17 @@ class Rules
      */
     public function is_not_unique($str, string $field, array $data): bool
     {
-        if (! is_string($str) && $str !== null) {
-            $str = (string) $str;
-        }
-
-        // Grab any data for exclusion of a single row.
-        [$field, $whereField, $whereValue] = array_pad(
-            explode(',', $field),
-            3,
-            null
-        );
-
-        // Break the table and field apart
-        sscanf($field, '%[^.].%[^.]', $table, $field);
-
-        $row = Database::connect($data['DBGroup'] ?? null)
-            ->table($table)
-            ->select('1')
-            ->where($field, $str)
-            ->limit(1);
+        [$builder, $whereField, $whereValue] = $this->prepareUniqueQuery($str, $field, $data);
 
         if (
             $whereField !== null && $whereField !== ''
             && $whereValue !== null && $whereValue !== ''
-            && ! preg_match('/^\{(\w+)\}$/', $whereValue)
+            && preg_match('/^\{(\w+)\}$/', $whereValue) !== 1
         ) {
-            $row = $row->where($whereField, $whereValue);
+            $builder = $builder->where($whereField, $whereValue);
         }
 
-        return $row->get()->getRow() !== null;
+        return $builder->get()->getRow() !== null;
     }
 
     /**
@@ -170,6 +154,7 @@ class Rules
      * record updates.
      *
      * Example:
+     *    is_unique[dbGroup.table.field,ignore_field,ignore_value]
      *    is_unique[table.field,ignore_field,ignore_value]
      *    is_unique[users.email,id,5]
      *
@@ -177,33 +162,58 @@ class Rules
      */
     public function is_unique($str, string $field, array $data): bool
     {
-        if (! is_string($str) && $str !== null) {
-            $str = (string) $str;
-        }
-
-        [$field, $ignoreField, $ignoreValue] = array_pad(
-            explode(',', $field),
-            3,
-            null
-        );
-
-        sscanf($field, '%[^.].%[^.]', $table, $field);
-
-        $row = Database::connect($data['DBGroup'] ?? null)
-            ->table($table)
-            ->select('1')
-            ->where($field, $str)
-            ->limit(1);
+        [$builder, $ignoreField, $ignoreValue] = $this->prepareUniqueQuery($str, $field, $data);
 
         if (
             $ignoreField !== null && $ignoreField !== ''
             && $ignoreValue !== null && $ignoreValue !== ''
-            && ! preg_match('/^\{(\w+)\}$/', $ignoreValue)
+            && preg_match('/^\{(\w+)\}$/', $ignoreValue) !== 1
         ) {
-            $row = $row->where("{$ignoreField} !=", $ignoreValue);
+            $builder = $builder->where("{$ignoreField} !=", $ignoreValue);
         }
 
-        return $row->get()->getRow() === null;
+        return $builder->get()->getRow() === null;
+    }
+
+    /**
+     * Prepares the database query for uniqueness checks.
+     *
+     * @param mixed                $value The value to check.
+     * @param string               $field The field parameters.
+     * @param array<string, mixed> $data  Additional data.
+     *
+     * @return array{0: BaseBuilder, 1: string|null, 2: string|null}
+     */
+    private function prepareUniqueQuery($value, string $field, array $data): array
+    {
+        if (! is_string($value) && $value !== null) {
+            $value = (string) $value;
+        }
+
+        // Split the field parameters and pad the array to ensure three elements.
+        [$field, $extraField, $extraValue] = array_pad(explode(',', $field), 3, null);
+
+        // Parse the field string to extract dbGroup, table, and field.
+        $parts    = explode('.', $field, 3);
+        $numParts = count($parts);
+
+        if ($numParts === 3) {
+            [$dbGroup, $table, $field] = $parts;
+        } elseif ($numParts === 2) {
+            [$table, $field] = $parts;
+        } else {
+            throw new InvalidArgumentException('The field must be in the format "table.field" or "dbGroup.table.field".');
+        }
+
+        // Connect to the database.
+        $dbGroup ??= $data['DBGroup'] ?? null;
+        $builder = Database::connect($dbGroup)
+            ->table($table)
+            ->select('1')
+            ->where($field, $value)
+            ->limit(1);
+
+        return [$builder, $extraField, $extraValue];
     }
 
     /**
@@ -359,10 +369,8 @@ class Rules
 
         foreach (explode(',', $fields) as $field) {
             if (
-                (array_key_exists($field, $data)
-                    && ! empty($data[$field]))  // @phpstan-ignore-line Use empty()
-                || (str_contains($field, '.')
-                    && ! empty(dot_array_search($field, $data)))  // @phpstan-ignore-line Use empty()
+                (array_key_exists($field, $data) && ! empty($data[$field]))
+                || (str_contains($field, '.') && ! empty(dot_array_search($field, $data)))
             ) {
                 $requiredFields[] = $field;
             }
@@ -388,7 +396,7 @@ class Rules
         ?string $otherFields = null,
         array $data = [],
         ?string $error = null,
-        ?string $field = null
+        ?string $field = null,
     ): bool {
         if ($otherFields === null || $data === []) {
             throw new InvalidArgumentException('You must supply the parameters: otherFields, data.');
@@ -409,7 +417,7 @@ class Rules
             if (
                 (! str_contains($otherField, '.'))
                 && (! array_key_exists($otherField, $data)
-                    || empty($data[$otherField])) // @phpstan-ignore-line Use empty()
+                    || empty($data[$otherField]))
             ) {
                 return false;
             }
@@ -424,7 +432,7 @@ class Rules
                 $fieldKey        = $fieldSplitArray[1];
 
                 if (is_array($fieldData)) {
-                    return ! empty(dot_array_search($otherField, $data)[$fieldKey]);  // @phpstan-ignore-line Use empty()
+                    return ! empty(dot_array_search($otherField, $data)[$fieldKey]);
                 }
                 $nowField      = str_replace('*', $fieldKey, $otherField);
                 $nowFieldVaule = dot_array_search($nowField, $data);
@@ -449,7 +457,7 @@ class Rules
         ?string $param = null,
         array $data = [],
         ?string $error = null,
-        ?string $field = null
+        ?string $field = null,
     ): bool {
         if (str_contains($field, '.')) {
             return ArrayHelper::dotKeyExists($field, $data);

@@ -49,10 +49,10 @@ if (! function_exists('form_open')) {
 
         $attributes = stringify_attributes($attributes);
 
-        if (stripos($attributes, 'method=') === false) {
+        if (! str_contains(strtolower($attributes), 'method=')) {
             $attributes .= ' method="post"';
         }
-        if (stripos($attributes, 'accept-charset=') === false) {
+        if (! str_contains(strtolower($attributes), 'accept-charset=')) {
             $config = config(App::class);
             $attributes .= ' accept-charset="' . strtolower($config->charset) . '"';
         }
@@ -62,7 +62,7 @@ if (! function_exists('form_open')) {
         // Add CSRF field if enabled, but leave it out for GET requests and requests to external websites
         $before = service('filters')->getFilters()['before'];
 
-        if ((in_array('csrf', $before, true) || array_key_exists('csrf', $before)) && str_contains($action, base_url()) && ! stripos($form, 'method="get"')) {
+        if ((in_array('csrf', $before, true) || array_key_exists('csrf', $before)) && str_contains($action, base_url()) && ! str_contains(strtolower($form), strtolower('method="get"'))) {
             $form .= csrf_field($csrfId ?? null);
         }
 
@@ -223,11 +223,11 @@ if (! function_exists('form_textarea')) {
         }
 
         // Unsets default rows and cols if defined in extra field as array or string.
-        if ((is_array($extra) && array_key_exists('rows', $extra)) || (is_string($extra) && stripos(preg_replace('/\s+/', '', $extra), 'rows=') !== false)) {
+        if ((is_array($extra) && array_key_exists('rows', $extra)) || (is_string($extra) && str_contains(strtolower(preg_replace('/\s+/', '', $extra)), 'rows='))) {
             unset($defaults['rows']);
         }
 
-        if ((is_array($extra) && array_key_exists('cols', $extra)) || (is_string($extra) && stripos(preg_replace('/\s+/', '', $extra), 'cols=') !== false)) {
+        if ((is_array($extra) && array_key_exists('cols', $extra)) || (is_string($extra) && str_contains(strtolower(preg_replace('/\s+/', '', $extra)), 'cols='))) {
             unset($defaults['cols']);
         }
 
@@ -248,7 +248,7 @@ if (! function_exists('form_multiselect')) {
     {
         $extra = stringify_attributes($extra);
 
-        if (stripos($extra, 'multiple') === false) {
+        if (! str_contains(strtolower($extra), strtolower('multiple'))) {
             $extra .= ' multiple="multiple"';
         }
 
@@ -305,7 +305,7 @@ if (! function_exists('form_dropdown')) {
         }
 
         $extra    = stringify_attributes($extra);
-        $multiple = (count($selected) > 1 && stripos($extra, 'multiple') === false) ? ' multiple="multiple"' : '';
+        $multiple = (count($selected) > 1 && ! str_contains(strtolower($extra), 'multiple')) ? ' multiple="multiple"' : '';
         $form     = '<select ' . rtrim(parse_form_attributes($data, $defaults)) . $extra . $multiple . ">\n";
 
         foreach ($options as $key => $val) {
@@ -582,7 +582,7 @@ if (! function_exists('set_select')) {
         }
 
         if ($input === null) {
-            return ($default === true) ? ' selected="selected"' : '';
+            return $default ? ' selected="selected"' : '';
         }
 
         if (is_array($input)) {
@@ -636,7 +636,7 @@ if (! function_exists('set_checkbox')) {
             return ($input === $value) ? ' checked="checked"' : '';
         }
 
-        return ($default === true) ? ' checked="checked"' : '';
+        return $default ? ' checked="checked"' : '';
     }
 }
 
@@ -673,7 +673,7 @@ if (! function_exists('set_radio')) {
             return ((string) $input === $value) ? ' checked="checked"' : '';
         }
 
-        return ($default === true) ? ' checked="checked"' : '';
+        return $default ? ' checked="checked"' : '';
     }
 }
 
@@ -739,10 +739,10 @@ if (! function_exists('validation_show_error')) {
         $config = config(Validation::class);
         $view   = service('renderer');
 
-        $errors = array_filter(validation_errors(), static fn ($key) => preg_match(
+        $errors = array_filter(validation_errors(), static fn ($key): bool => preg_match(
             '/^' . str_replace(['\.\*', '\*\.'], ['\..+', '.+\.'], preg_quote($field, '/')) . '$/',
-            $key
-        ), ARRAY_FILTER_USE_KEY);
+            $key,
+        ) === 1, ARRAY_FILTER_USE_KEY);
 
         if ($errors === []) {
             return '';
@@ -788,7 +788,7 @@ if (! function_exists('parse_form_attributes')) {
             if (! is_bool($val)) {
                 if ($key === 'value') {
                     $val = esc($val);
-                } elseif ($key === 'name' && ! strlen($default['name'])) {
+                } elseif ($key === 'name' && $default['name'] === '') {
                     continue;
                 }
                 $att .= $key . '="' . $val . '"' . ($key === array_key_last($default) ? '' : ' ');

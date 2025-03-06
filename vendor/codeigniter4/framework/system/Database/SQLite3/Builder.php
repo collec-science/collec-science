@@ -16,7 +16,7 @@ namespace CodeIgniter\Database\SQLite3;
 use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\Database\RawSql;
-use InvalidArgumentException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 
 /**
  * Builder for SQLite3
@@ -143,9 +143,9 @@ class Builder extends BaseBuilder
             $constraints = $this->QBOptions['constraints'] ?? [];
 
             if (empty($constraints)) {
-                $fieldNames = array_map(static fn ($columnName) => trim($columnName, '`'), $keys);
+                $fieldNames = array_map(static fn ($columnName): string => trim($columnName, '`'), $keys);
 
-                $allIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames) {
+                $allIndexes = array_filter($this->db->getIndexData($table), static function ($index) use ($fieldNames): bool {
                     $hasAllFields = count(array_intersect($index->fields, $fieldNames)) === count($index->fields);
 
                     return ($index->type === 'PRIMARY' || $index->type === 'UNIQUE') && $hasAllFields;
@@ -179,7 +179,7 @@ class Builder extends BaseBuilder
 
             $sql = 'INSERT INTO ' . $table . ' (';
 
-            $sql .= implode(', ', array_map(static fn ($columnName) => $columnName, $keys));
+            $sql .= implode(', ', array_map(static fn ($columnName): string => $columnName, $keys));
 
             $sql .= ")\n";
 
@@ -192,12 +192,12 @@ class Builder extends BaseBuilder
             $sql .= implode(
                 ",\n",
                 array_map(
-                    static fn ($key, $value) => $key . ($value instanceof RawSql ?
+                    static fn ($key, $value): string => $key . ($value instanceof RawSql ?
                         " = {$value}" :
                         " = {$alias}.{$value}"),
                     array_keys($updateFields),
-                    $updateFields
-                )
+                    $updateFields,
+                ),
             );
 
             $this->QBOptions['sql'] = $sql;
@@ -265,13 +265,13 @@ class Builder extends BaseBuilder
             $data = implode(
                 " UNION ALL\n",
                 array_map(
-                    static fn ($value) => 'SELECT ' . implode(', ', array_map(
-                        static fn ($key, $index) => $index . ' ' . $key,
+                    static fn ($value): string => 'SELECT ' . implode(', ', array_map(
+                        static fn ($key, $index): string => $index . ' ' . $key,
                         $keys,
-                        $value
+                        $value,
                     )),
-                    $values
-                )
+                    $values,
+                ),
             ) . "\n";
         }
 

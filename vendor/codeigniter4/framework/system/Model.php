@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace CodeIgniter;
 
-use BadMethodCallException;
 use Closure;
 use CodeIgniter\Database\BaseBuilder;
 use CodeIgniter\Database\BaseConnection;
@@ -23,6 +22,7 @@ use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\Database\Exceptions\DataException;
 use CodeIgniter\Database\Query;
 use CodeIgniter\Entity\Entity;
+use CodeIgniter\Exceptions\BadMethodCallException;
 use CodeIgniter\Exceptions\ModelException;
 use CodeIgniter\Validation\ValidationInterface;
 use Config\Database;
@@ -317,13 +317,13 @@ class Model extends BaseModel
 
         if ($this->tempUseSoftDeletes) {
             $builder->where($this->table . '.' . $this->deletedField, null);
-        } elseif ($this->useSoftDeletes && ($builder->QBGroupBy === []) && $this->primaryKey) {
+        } elseif ($this->useSoftDeletes && ($builder->QBGroupBy === []) && $this->primaryKey !== '') {
             $builder->groupBy($this->table . '.' . $this->primaryKey);
         }
 
         // Some databases, like PostgreSQL, need order
         // information to consistently return correct results.
-        if ($builder->QBGroupBy && ($builder->QBOrderBy === []) && $this->primaryKey) {
+        if ($builder->QBGroupBy !== [] && ($builder->QBOrderBy === []) && $this->primaryKey !== '') {
             $builder->orderBy($this->table . '.' . $this->primaryKey, 'asc');
         }
 
@@ -373,17 +373,17 @@ class Model extends BaseModel
                 $allFields = $this->db->protectIdentifiers(
                     array_map(
                         static fn ($row) => $row->name,
-                        $this->db->getFieldData($this->table)
+                        $this->db->getFieldData($this->table),
                     ),
                     false,
-                    true
+                    true,
                 );
 
                 $sql = sprintf(
                     'INSERT INTO %s (%s) VALUES (%s)',
                     $table,
                     implode(',', $allFields),
-                    substr(str_repeat(',DEFAULT', count($allFields)), 1)
+                    substr(str_repeat(',DEFAULT', count($allFields)), 1),
                 );
             } else {
                 $sql = 'INSERT INTO ' . $table . ' DEFAULT VALUES';
@@ -443,7 +443,7 @@ class Model extends BaseModel
 
         $builder = $this->builder();
 
-        if ($id) {
+        if (! in_array($id, [null, '', 0, '0', []], true)) {
             $builder = $builder->whereIn($this->table . '.' . $this->primaryKey, $id);
         }
 
@@ -454,7 +454,7 @@ class Model extends BaseModel
 
         if ($builder->getCompiledQBWhere() === []) {
             throw new DatabaseException(
-                'Updates are not allowed unless they contain a "where" or "like" clause.'
+                'Updates are not allowed unless they contain a "where" or "like" clause.',
             );
         }
 
@@ -496,14 +496,14 @@ class Model extends BaseModel
         $set     = [];
         $builder = $this->builder();
 
-        if ($id) {
+        if (! in_array($id, [null, '', 0, '0', []], true)) {
             $builder = $builder->whereIn($this->primaryKey, $id);
         }
 
         if ($this->useSoftDeletes && ! $purge) {
             if ($builder->getCompiledQBWhere() === []) {
                 throw new DatabaseException(
-                    'Deletes are not allowed unless they contain a "where" or "like" clause.'
+                    'Deletes are not allowed unless they contain a "where" or "like" clause.',
                 );
             }
 
@@ -592,9 +592,9 @@ class Model extends BaseModel
      */
     public function getIdValue($row)
     {
-        if (is_object($row) && isset($row->{$this->primaryKey})) {
-            // Get the raw primary key value of the Entity.
-            if ($row instanceof Entity) {
+        if (is_object($row)) {
+            // Get the raw or mapped primary key value of the Entity.
+            if ($row instanceof Entity && $row->{$this->primaryKey} !== null) {
                 $cast = $row->cast();
 
                 // Disable Entity casting, because raw primary key value is needed for database.
@@ -608,7 +608,9 @@ class Model extends BaseModel
                 return $primaryKey;
             }
 
-            return $row->{$this->primaryKey};
+            if (! $row instanceof Entity && isset($row->{$this->primaryKey})) {
+                return $row->{$this->primaryKey};
+            }
         }
 
         if (is_array($row) && isset($row[$this->primaryKey])) {
@@ -623,10 +625,6 @@ class Model extends BaseModel
      * Works with $this->builder to get the Compiled select to
      * determine the rows to operate on.
      * This method works only with dbCalls.
-     *
-     * @return void
-     *
-     * @throws DataException
      */
     public function chunk(int $size, Closure $userFunc)
     {
@@ -692,7 +690,7 @@ class Model extends BaseModel
         // Check for an existing Builder
         if ($this->builder instanceof BaseBuilder) {
             // Make sure the requested table matches the builder
-            if ($table && $this->builder->getTable() !== $table) {
+            if ((string) $table !== '' && $this->builder->getTable() !== $table) {
                 return $this->db->table($table);
             }
 
@@ -706,7 +704,7 @@ class Model extends BaseModel
             throw ModelException::forNoPrimaryKey(static::class);
         }
 
-        $table = ($table === null || $table === '') ? $this->table : $table;
+        $table = ((string) $table === '') ? $this->table : $table;
 
         // Ensure we have a good db connection
         if (! $this->db instanceof BaseConnection) {

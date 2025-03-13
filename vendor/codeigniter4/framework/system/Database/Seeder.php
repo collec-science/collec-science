@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace CodeIgniter\Database;
 
 use CodeIgniter\CLI\CLI;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use Config\Database;
 use Faker\Factory;
 use Faker\Generator;
-use InvalidArgumentException;
 
 /**
  * Class Seeder
@@ -105,7 +105,7 @@ class Seeder
      */
     public static function faker(): ?Generator
     {
-        if (self::$faker === null && class_exists(Factory::class)) {
+        if (! self::$faker instanceof Generator && class_exists(Factory::class)) {
             self::$faker = Factory::create();
         }
 

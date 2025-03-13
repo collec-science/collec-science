@@ -15,9 +15,9 @@ use function array_keys;
 use function array_merge;
 use function assert;
 use function explode;
-use function file_exists;
 use function file_get_contents;
 use function ini_get_all;
+use function is_file;
 use function restore_error_handler;
 use function set_error_handler;
 use function trim;
@@ -140,7 +140,7 @@ abstract class AbstractPhpProcess
 
         $processResult = '';
 
-        if (file_exists($processResultFile)) {
+        if (is_file($processResultFile)) {
             $processResult = file_get_contents($processResultFile);
 
             @unlink($processResultFile);
@@ -296,10 +296,6 @@ abstract class AbstractPhpProcess
         }
 
         if ($childResult !== false) {
-            if (!empty($childResult['output'])) {
-                $output = $childResult['output'];
-            }
-
             Facade::instance()->forward($childResult['events']);
             PassedTests::instance()->import($childResult['passedTests']);
 
@@ -313,10 +309,6 @@ abstract class AbstractPhpProcess
                     $childResult['codeCoverage'],
                 );
             }
-        }
-
-        if (!empty($output)) {
-            print $output;
         }
     }
 }

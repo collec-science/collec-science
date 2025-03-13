@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace CodeIgniter\HTTP;
 
-use BadMethodCallException;
+use CodeIgniter\Exceptions\BadMethodCallException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
 use Config\App;
-use InvalidArgumentException;
 use Stringable;
 
 /**
@@ -163,7 +163,7 @@ class URI implements Stringable
         ?string $authority = null,
         ?string $path = null,
         ?string $query = null,
-        ?string $fragment = null
+        ?string $fragment = null,
     ): string {
         $uri = '';
         if ($scheme !== null && $scheme !== '') {
@@ -638,7 +638,7 @@ class URI implements Stringable
             $this->getAuthority(),
             $path, // Absolute URIs should use a "/" for an empty path
             $this->getQuery(),
-            $this->getFragment()
+            $this->getFragment(),
         );
     }
 
@@ -1021,8 +1021,8 @@ class URI implements Stringable
         // Encode characters
         $path = preg_replace_callback(
             '/(?:[^' . static::CHAR_UNRESERVED . ':@&=\+\$,\/;%]+|%(?![A-Fa-f0-9]{2}))/',
-            static fn (array $matches) => rawurlencode($matches[0]),
-            $path
+            static fn (array $matches): string => rawurlencode($matches[0]),
+            $path,
         );
 
         return $path;
@@ -1167,17 +1167,18 @@ class URI implements Stringable
         $return = [];
         $query  = explode('&', $query);
 
-        $params = array_map(static fn (string $chunk) => preg_replace_callback(
+        $params = array_map(static fn (string $chunk): ?string => preg_replace_callback(
             '/^(?<key>[^&=]+?)(?:\[[^&=]*\])?=(?<value>[^&=]+)/',
-            static fn (array $match) => str_replace($match['key'], bin2hex($match['key']), $match[0]),
-            urldecode($chunk)
+            static fn (array $match): string => str_replace($match['key'], bin2hex($match['key']), $match[0]),
+            urldecode($chunk),
         ), $query);
 
         $params = implode('&', $params);
         parse_str($params, $result);
 
         foreach ($result as $key => $value) {
-            $return[hex2bin($key)] = $value;
+            // Array key might be int
+            $return[hex2bin((string) $key)] = $value;
         }
 
         return $return;

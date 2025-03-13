@@ -234,27 +234,12 @@ class Container extends PpciLibrary
     {
         try {
             $this->id = $this->dataWrite($_REQUEST);
-            if ($this->id > 0) {
-                $_REQUEST[$this->keyName] = $this->id;
-                if ($_REQUEST["container_parent_uid"] > 0 && is_numeric($_REQUEST["container_parent_uid"])) {
-                    $movement = new Movement();
-                    $data = array(
-                        "uid" => $this->id,
-                        "movement_date" => date($_SESSION["MASKDATELONG"]),
-                        "movement_type_id" => 1,
-                        "login" => $_SESSION["login"],
-                        "container_id" => $this->dataclass->getIdFromUid($_REQUEST["container_parent_uid"]),
-                        "movement_id" => 0,
-                        "line_number" => 1,
-                        "column_number" => 1,
-
-                    );
-                    $movement->ecrire($data);
-                }
-                return true;
-            } else {
-                return false;
+            $_REQUEST[$this->keyName] = $this->id;
+            if ($_REQUEST["container_parent_uid"] > 0 && $_REQUEST["container_id"] == 0) {
+                $movement = new Movement();
+                $movement->addMovement($this->id, "", 1, $_REQUEST["container_parent_uid"], null, $_REQUEST["storage_location"], null, null, $_REQUEST["line_number"], $_REQUEST["column_number"]);
             }
+            return true;
         } catch (PpciException) {
             return false;
         }
@@ -588,7 +573,7 @@ class Container extends PpciLibrary
             $object = new ObjectClass();
             $object->setStatus($_POST["uids"], $_POST["object_status_id"]);
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage(),true);
+            $this->message->setSyslog($oe->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du statut"), true);
             $this->message->set($oe->getMessage());
         }
@@ -613,7 +598,7 @@ class Container extends PpciLibrary
             $db->transCommit();
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage(),true);
+            $this->message->setSyslog($oe->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant l'assignation du référent"), true);
             $this->message->set($oe->getMessage());
             if ($db->transEnabled) {
@@ -640,7 +625,7 @@ class Container extends PpciLibrary
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $this->dataclass->setCollection($_POST["uids"], $_POST["collection_id_change"]);
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage(),true);
+            $this->message->setSyslog($oe->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la collection"), true);
             $this->message->set($oe->getMessage());
         }

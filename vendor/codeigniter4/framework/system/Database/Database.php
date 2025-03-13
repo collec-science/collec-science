@@ -15,7 +15,7 @@ namespace CodeIgniter\Database;
 
 use CodeIgniter\Exceptions\ConfigException;
 use CodeIgniter\Exceptions\CriticalError;
-use InvalidArgumentException;
+use CodeIgniter\Exceptions\InvalidArgumentException;
 
 /**
  * Database Connection Factory
@@ -96,7 +96,7 @@ class Database
     {
         $dsn = parse_url($params['DSN']);
 
-        if (! $dsn) {
+        if ($dsn === 0 || $dsn === '' || $dsn === '0' || $dsn === [] || $dsn === false || $dsn === null) {
             throw new InvalidArgumentException('Your DSN connection string is invalid.');
         }
 

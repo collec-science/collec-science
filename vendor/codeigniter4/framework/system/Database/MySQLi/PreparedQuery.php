@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Database\MySQLi;
 
-use BadMethodCallException;
 use CodeIgniter\Database\BasePreparedQuery;
 use CodeIgniter\Database\Exceptions\DatabaseException;
+use CodeIgniter\Exceptions\BadMethodCallException;
 use mysqli;
 use mysqli_result;
 use mysqli_sql_exception;
@@ -66,15 +66,19 @@ class PreparedQuery extends BasePreparedQuery
             throw new BadMethodCallException('You must call prepare before trying to execute a prepared statement.');
         }
 
-        // First off -bind the parameters
-        $bindTypes = '';
+        // First off - bind the parameters
+        $bindTypes  = '';
+        $binaryData = [];
 
         // Determine the type string
-        foreach ($data as $item) {
+        foreach ($data as $key => $item) {
             if (is_int($item)) {
                 $bindTypes .= 'i';
             } elseif (is_numeric($item)) {
                 $bindTypes .= 'd';
+            } elseif (is_string($item) && $this->isBinary($item)) {
+                $bindTypes .= 'b';
+                $binaryData[$key] = $item;
             } else {
                 $bindTypes .= 's';
             }
@@ -82,6 +86,11 @@ class PreparedQuery extends BasePreparedQuery
 
         // Bind it
         $this->statement->bind_param($bindTypes, ...$data);
+
+        // Stream binary data
+        foreach ($binaryData as $key => $value) {
+            $this->statement->send_long_data($key, $value);
+        }
 
         try {
             return $this->statement->execute();

@@ -2,6 +2,62 @@
 
 All notable changes of the PHPUnit 10.5 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [10.5.45] - 2025-02-06
+
+### Changed
+
+* [#6117](https://github.com/sebastianbergmann/phpunit/issues/6117): Include source location information for issues triggered during test in `--debug` output
+* [#6119](https://github.com/sebastianbergmann/phpunit/issues/6119): Improve message for errors that occur while parsing attributes
+
+## [10.5.44] - 2025-01-31
+
+### Fixed
+
+* [#6115](https://github.com/sebastianbergmann/phpunit/issues/6115): Backed enumerations with values not of type `string` cannot be used in customized TestDox output
+
+## [10.5.43] - 2025-01-29
+
+### Changed
+
+* Do not skip execution of test that depends on a test that is larger than itself
+
+## [10.5.42] - 2025-01-28
+
+### Fixed
+
+* [#6103](https://github.com/sebastianbergmann/phpunit/issues/6103): Output from test run in separate process is printed twice
+* [#6109](https://github.com/sebastianbergmann/phpunit/issues/6109): Skipping a test in a before-class method crashes JUnit XML logger
+* [#6111](https://github.com/sebastianbergmann/phpunit/issues/6111): Deprecations cause `SourceMapper` to scan all `<source/>` files
+
+## [10.5.41] - 2025-01-13
+
+### Added
+
+* `Test\AfterLastTestMethodErrored`, `Test\AfterTestMethodErrored`, `Test\BeforeTestMethodErrored`, `Test\PostConditionErrored`, and `Test\PreConditionErrored` events
+
+### Fixed
+
+* [#6094](https://github.com/sebastianbergmann/phpunit/issues/6094): Errors in after-last-test methods are not reported
+* [#6095](https://github.com/sebastianbergmann/phpunit/issues/6095): Expectation is not counted correctly when a doubled method is called more often than is expected
+* [#6098](https://github.com/sebastianbergmann/phpunit/issues/6098): No `system-out` element in JUnit XML logfile
+
+## [10.5.40] - 2024-12-21
+
+### Fixed
+
+* [#6082](https://github.com/sebastianbergmann/phpunit/issues/6082): `assertArrayHasKey()`, `assertArrayNotHasKey()`, `arrayHasKey()`, and `ArrayHasKey::__construct()` do not support all possible key types
+* [#6087](https://github.com/sebastianbergmann/phpunit/issues/6087): `--migrate-configuration` does not remove `beStrictAboutTodoAnnotatedTests` attribute from XML configuration file
+
+## [10.5.39] - 2024-12-11
+
+### Added
+
+* [#6081](https://github.com/sebastianbergmann/phpunit/pull/6081): `DefaultResultCache::mergeWith()` for merging result cache instances
+
+### Fixed
+
+* [#6066](https://github.com/sebastianbergmann/phpunit/pull/6066): TeamCity logger does not handle error/skipped events in before-class methods correctly
+
 ## [10.5.38] - 2024-10-28
 
 ### Changed
@@ -346,6 +402,13 @@ All notable changes of the PHPUnit 10.5 release series are documented in this fi
 
 * [#5563](https://github.com/sebastianbergmann/phpunit/issues/5563): `createMockForIntersectionOfInterfaces()` does not automatically register mock object for expectation verification
 
+[10.5.45]: https://github.com/sebastianbergmann/phpunit/compare/10.5.44...10.5.45
+[10.5.44]: https://github.com/sebastianbergmann/phpunit/compare/10.5.43...10.5.44
+[10.5.43]: https://github.com/sebastianbergmann/phpunit/compare/10.5.42...10.5.43
+[10.5.42]: https://github.com/sebastianbergmann/phpunit/compare/10.5.41...10.5.42
+[10.5.41]: https://github.com/sebastianbergmann/phpunit/compare/10.5.40...10.5.41
+[10.5.40]: https://github.com/sebastianbergmann/phpunit/compare/10.5.39...10.5.40
+[10.5.39]: https://github.com/sebastianbergmann/phpunit/compare/10.5.38...10.5.39
 [10.5.38]: https://github.com/sebastianbergmann/phpunit/compare/10.5.37...10.5.38
 [10.5.37]: https://github.com/sebastianbergmann/phpunit/compare/10.5.36...10.5.37
 [10.5.36]: https://github.com/sebastianbergmann/phpunit/compare/10.5.35...10.5.36

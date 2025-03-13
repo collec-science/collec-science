@@ -59,7 +59,7 @@ trait RequestTrait
      */
     public function getIPAddress(): string
     {
-        if ($this->ipAddress) {
+        if ($this->ipAddress !== '') {
             return $this->ipAddress;
         }
 
@@ -72,7 +72,7 @@ trait RequestTrait
 
         if (! empty($proxyIPs) && (! is_array($proxyIPs) || is_int(array_key_first($proxyIPs)))) {
             throw new ConfigException(
-                'You must set an array with Proxy IP address key and HTTP header name value in Config\App::$proxyIPs.'
+                'You must set an array with Proxy IP address key and HTTP header name value in Config\App::$proxyIPs.',
             );
         }
 
@@ -249,7 +249,7 @@ trait RequestTrait
      *
      * @param         string                                   $name   Supergrlobal name (lowercase)
      * @phpstan-param 'get'|'post'|'request'|'cookie'|'server' $name
-     * @param         array|string|null                        $index
+     * @param         array|int|string|null                    $index
      * @param         int|null                                 $filter Filter constant
      * @param         array|int|null                           $flags  Options
      *
@@ -290,7 +290,7 @@ trait RequestTrait
         }
 
         // Does the index contain array notation?
-        if (($count = preg_match_all('/(?:^[^\[]+)|\[[^]]*\]/', $index, $matches)) > 1) {
+        if (is_string($index) && ($count = preg_match_all('/(?:^[^\[]+)|\[[^]]*\]/', $index, $matches)) > 1) {
             $value = $this->globals[$name];
 
             for ($i = 0; $i < $count; $i++) {

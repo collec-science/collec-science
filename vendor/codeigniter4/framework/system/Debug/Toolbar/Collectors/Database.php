@@ -148,7 +148,7 @@ class Database extends BaseCollector
     public function display(): array
     {
         $data            = [];
-        $data['queries'] = array_map(static function (array $query) {
+        $data['queries'] = array_map(static function (array $query): array {
             $isDuplicate = $query['duplicate'] === true;
 
             $firstNonSystemLine = '';
@@ -218,7 +218,7 @@ class Database extends BaseCollector
         $this->getConnections();
 
         $queryCount      = count(static::$queries);
-        $uniqueCount     = count(array_filter(static::$queries, static fn ($query) => $query['duplicate'] === false));
+        $uniqueCount     = count(array_filter(static::$queries, static fn ($query): bool => $query['duplicate'] === false));
         $connectionCount = count($this->connections);
 
         return sprintf(
@@ -228,7 +228,7 @@ class Database extends BaseCollector
             $uniqueCount,
             $uniqueCount > 1 ? 'of them' : '',
             $connectionCount,
-            $connectionCount > 1 ? 's' : ''
+            $connectionCount > 1 ? 's' : '',
         );
     }
 

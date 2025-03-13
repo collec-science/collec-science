@@ -1,5 +1,14 @@
 Nouveautés
 ============
+Version v25.0.5 du 10/3/2025
+-----------------------------
+Corrections de bugs :
+- la création des index de recherche lors de l'importation des modèles de métadonnées pouvait échouer si les noms des champs comprenaient des espaces ou des tirets
+- la recherche des échantillons par métadonnées ne fonctionnait plus, notamment en mode "consultation"
+- la création des contenants associés ne générait pas de mouvement d'entrée
+- la modification des sous-échantillonnages déclenchait une erreur d'affichage après enregistrement
+- dans certains cas, l'affichage de la page de recherche des échantillons déclenchait une erreur
+
 Version v25.0.4 du 4/3/2025
 -----------------------------
 Corrections de bugs :

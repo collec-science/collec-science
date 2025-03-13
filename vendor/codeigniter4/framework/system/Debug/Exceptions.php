@@ -22,7 +22,6 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Exceptions as ExceptionsConfig;
 use Config\Paths;
-use Config\Services;
 use ErrorException;
 use Psr\Log\LogLevel;
 use Throwable;
@@ -126,7 +125,7 @@ class Exceptions
 
         [$statusCode, $exitCode] = $this->determineCodes($exception);
 
-        $this->request = Services::request();
+        $this->request = service('request');
 
         if ($this->config->log === true && ! in_array($statusCode, $this->config->ignoreCodes, true)) {
             $uri       = $this->request->getPath() === '' ? '/' : $this->request->getPath();
@@ -155,7 +154,7 @@ class Exceptions
             }
         }
 
-        $this->response = Services::response();
+        $this->response = service('response');
 
         if (method_exists($this->config, 'handler')) {
             // Use new ExceptionHandler
@@ -165,7 +164,7 @@ class Exceptions
                 $this->request,
                 $this->response,
                 $statusCode,
-                $exitCode
+                $exitCode,
             );
 
             return;
@@ -209,6 +208,14 @@ class Exceptions
     public function errorHandler(int $severity, string $message, ?string $file = null, ?int $line = null)
     {
         if ($this->isDeprecationError($severity)) {
+            if ($this->isSessionSidDeprecationError($message, $file, $line)) {
+                return true;
+            }
+
+            if ($this->isImplicitNullableDeprecationError($message, $file, $line)) {
+                return true;
+            }
+
             if (! $this->config->logDeprecations || (bool) env('CODEIGNITER_SCREAM_DEPRECATIONS')) {
                 throw new ErrorException($message, 0, $severity, $file, $line);
             }
@@ -221,6 +228,64 @@ class Exceptions
         }
 
         return false; // return false to propagate the error to PHP standard error handler
+    }
+
+    /**
+     * Handles session.sid_length and session.sid_bits_per_character deprecations
+     * in PHP 8.4.
+     */
+    private function isSessionSidDeprecationError(string $message, ?string $file = null, ?int $line = null): bool
+    {
+        if (
+            PHP_VERSION_ID >= 80400
+            && str_contains($message, 'session.sid_')
+        ) {
+            log_message(
+                LogLevel::WARNING,
+                '[DEPRECATED] {message} in {errFile} on line {errLine}.',
+                [
+                    'message' => $message,
+                    'errFile' => clean_path($file ?? ''),
+                    'errLine' => $line ?? 0,
+                ],
+            );
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Workaround to implicit nullable deprecation errors in PHP 8.4.
+     *
+     * "Implicitly marking parameter $xxx as nullable is deprecated,
+     *  the explicit nullable type must be used instead"
+     *
+     * @TODO remove this before v4.6.0 release
+     */
+    private function isImplicitNullableDeprecationError(string $message, ?string $file = null, ?int $line = null): bool
+    {
+        if (
+            PHP_VERSION_ID >= 80400
+            && str_contains($message, 'the explicit nullable type must be used instead')
+            // Only Kint and Faker, which cause this error, are logged.
+            && (str_starts_with($message, 'Kint\\') || str_starts_with($message, 'Faker\\'))
+        ) {
+            log_message(
+                LogLevel::WARNING,
+                '[DEPRECATED] {message} in {errFile} on line {errLine}.',
+                [
+                    'message' => $message,
+                    'errFile' => clean_path($file ?? ''),
+                    'errLine' => $line ?? 0,
+                ],
+            );
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -271,7 +336,7 @@ class Exceptions
             in_array(
                 strtolower(ini_get('display_errors')),
                 ['1', 'true', 'on', 'yes'],
-                true
+                true,
             )
         ) {
             $view = 'error_exception.php';
@@ -463,7 +528,7 @@ class Exceptions
                 'errFile' => clean_path($file ?? ''),
                 'errLine' => $line ?? 0,
                 'trace'   => self::renderBacktrace($trace),
-            ]
+            ],
         );
 
         return true;
@@ -568,7 +633,7 @@ class Exceptions
                     "<span class='line highlight'><span class='number'>{$format}</span> %s\n</span>%s",
                     $n + $start + 1,
                     strip_tags($row),
-                    implode('', $tags[0])
+                    implode('', $tags[0]),
                 );
             } else {
                 $out .= sprintf('<span class="line"><span class="number">' . $format . '</span> %s', $n + $start + 1, $row) . "\n";
@@ -612,7 +677,7 @@ class Exceptions
                 $frame['class'],
                 $frame['type'],
                 $frame['function'],
-                $args
+                $args,
             );
         }
 

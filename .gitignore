@@ -116,5 +116,6 @@ id_app.pub
 writable/templates_c/*
 !writable/templates_c/.gitkeep
 id_collec*
+id_collab*
 tests/testapi.php
 writable/cache/*

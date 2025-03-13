@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace CodeIgniter\Test\Mock;
 
 use CodeIgniter\CLI\InputOutput;
+use CodeIgniter\Exceptions\InvalidArgumentException;
+use CodeIgniter\Exceptions\LogicException;
 use CodeIgniter\Test\Filters\CITestStreamFilter;
 use CodeIgniter\Test\PhpStreamWrapper;
-use InvalidArgumentException;
-use LogicException;
 
 final class MockInputOutput extends InputOutput
 {
@@ -74,7 +74,7 @@ final class MockInputOutput extends InputOutput
 
         throw new InvalidArgumentException(
             'No such index in output: ' . $index . ', the last index is: '
-            . (count($this->outputs) - 1)
+            . (count($this->outputs) - 1),
         );
     }
 
@@ -103,7 +103,7 @@ final class MockInputOutput extends InputOutput
     {
         if ($this->inputs === []) {
             throw new LogicException(
-                'No input data. Specifiy input data with `MockInputOutput::setInputs()`.'
+                'No input data. Specifiy input data with `MockInputOutput::setInputs()`.',
             );
         }
 

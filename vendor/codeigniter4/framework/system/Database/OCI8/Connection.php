@@ -16,6 +16,7 @@ namespace CodeIgniter\Database\OCI8;
 use CodeIgniter\Database\BaseConnection;
 use CodeIgniter\Database\Exceptions\DatabaseException;
 use CodeIgniter\Database\Query;
+use CodeIgniter\Database\TableName;
 use ErrorException;
 use stdClass;
 
@@ -274,7 +275,7 @@ class Connection extends BaseConnection
             return $sql . ' WHERE "TABLE_NAME" LIKE ' . $this->escape($tableName);
         }
 
-        if ($prefixLimit !== false && $this->DBPrefix !== '') {
+        if ($prefixLimit && $this->DBPrefix !== '') {
             return $sql . ' WHERE "TABLE_NAME" LIKE \'' . $this->escapeLikeString($this->DBPrefix) . "%' "
                     . sprintf($this->likeEscapeStr, $this->likeEscapeChar);
         }
@@ -284,18 +285,25 @@ class Connection extends BaseConnection
 
     /**
      * Generates a platform-specific query string so that the column names can be fetched.
+     *
+     * @param string|TableName $table
      */
-    protected function _listColumns(string $table = ''): string
+    protected function _listColumns($table = ''): string
     {
-        if (str_contains($table, '.')) {
-            sscanf($table, '%[^.].%s', $owner, $table);
+        if ($table instanceof TableName) {
+            $tableName = $this->escape(strtoupper($table->getActualTableName()));
+            $owner     = $this->username;
+        } elseif (str_contains($table, '.')) {
+            sscanf($table, '%[^.].%s', $owner, $tableName);
+            $tableName = $this->escape(strtoupper($this->DBPrefix . $tableName));
         } else {
-            $owner = $this->username;
+            $owner     = $this->username;
+            $tableName = $this->escape(strtoupper($this->DBPrefix . $table));
         }
 
         return 'SELECT COLUMN_NAME FROM ALL_TAB_COLUMNS
 			WHERE UPPER(OWNER) = ' . $this->escape(strtoupper($owner)) . '
-				AND UPPER(TABLE_NAME) = ' . $this->escape(strtoupper($this->DBPrefix . $table));
+				AND UPPER(TABLE_NAME) = ' . $tableName;
     }
 
     /**
@@ -523,7 +531,7 @@ class Connection extends BaseConnection
         $sql = sprintf(
             'BEGIN %s (' . substr(str_repeat(',%s', count($params)), 1) . '); END;',
             $procedureName,
-            ...array_map(static fn ($row) => $row['name'], $params)
+            ...array_map(static fn ($row) => $row['name'], $params),
         );
 
         $this->resetStmtId = false;
@@ -554,7 +562,7 @@ class Connection extends BaseConnection
                 $param['name'],
                 $param['value'],
                 $param['length'] ?? -1,
-                $param['type'] ?? SQLT_CHR
+                $param['type'] ?? SQLT_CHR,
             );
         }
     }

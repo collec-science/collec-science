@@ -608,7 +608,7 @@ class Sample extends PpciModel
                 /**
                  * Recherche dans les metadonnees
                  */
-                if (($_SESSION["dbparams"]["consultseesall"] == 1 || $_SESSION["userRights"]["manage"] == 1) && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
+                if (($_SESSION["dbparams"]["consultSeesAll"] == 1 || $_SESSION["userRights"]["manage"] == 1) && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
                     $where .= $and . " ";
                     /**
                      * Traitement des divers champs de metadonnees (3 maxi)
@@ -628,7 +628,7 @@ class Sample extends PpciModel
                     if ($is_or) {
                         $where .= "(";
                     }
-                    $where .= "lower(s.metadata->>:metadata_field0) like lower (:metadata_value0:)";
+                    $where .= "lower(s.metadata->>:metadata_field0:) like lower (:metadata_value0:)";
                     $data["metadata_field0"] = $param["metadata_field"][0];
                     $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
                     if (!empty($param["metadata_field"][1]) && strlen($param["metadata_value"][1]) > 0) {
@@ -637,7 +637,7 @@ class Sample extends PpciModel
                         } else {
                             $where .= " and ";
                         }
-                        $where .= " lower(s.metadata->>:metadata_field1) like lower (:metadata_value1:)";
+                        $where .= " lower(s.metadata->>:metadata_field1:) like lower (:metadata_value1:)";
                         $data["metadata_field1"] = $param["metadata_field"][1];
                         $data["metadata_value1"] = "%" . $param["metadata_value"][1] . "%";
                     }
@@ -655,7 +655,7 @@ class Sample extends PpciModel
                         } else {
                             $where .= " and ";
                         }
-                        $where .= " lower(s.metadata->>:metadata_field2) like lower (:metadata_value2:)";
+                        $where .= " lower(s.metadata->>:metadata_field2:) like lower (:metadata_value2:)";
                         $data["metadata_field2"] = $param["metadata_field"][2];
                         $data["metadata_value2"] = "%" . $param["metadata_value"][2] . "%";
                     }
@@ -813,7 +813,8 @@ class Sample extends PpciModel
         /**
          * Execute the request
          */
-        $list = $this->getListeParamAsPrepared($sql, $data);
+        
+        $list = $this->getListParam($sql, $data);
         /**
          * Purge metadata if necessary
          */
@@ -821,7 +822,7 @@ class Sample extends PpciModel
          * explode metadata
          */
         foreach ($list as $k => $v) {
-            if (!empty($v["metadata"]) && ($this->verifyCollection($v) || $_SESSION["dbparams"]["consultseesall"] == 1)) {
+            if (!empty($v["metadata"]) && ($this->verifyCollection($v) || $_SESSION["dbparams"]["consultSeesAll"] == 1)) {
                 $metadata_array = json_decode($v["metadata"], true);
                 if (empty($metadatafilter)) {
                     $list[$k]["metadata_array"] = $metadata_array;

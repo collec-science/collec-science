@@ -51,7 +51,7 @@ final class AutoRouter implements AutoRouterInterface
          * Whether dashes in URI's should be converted
          * to underscores when determining method names.
          */
-        private bool $translateURIDashes
+        private bool $translateURIDashes,
     ) {
     }
 
@@ -105,7 +105,7 @@ final class AutoRouter implements AutoRouterInterface
         if ($httpVerb !== 'CLI') {
             $controller = '\\' . $this->defaultNamespace;
 
-            $controller .= $this->directory ? str_replace('/', '\\', $this->directory) : '';
+            $controller .= $this->directory !== null ? str_replace('/', '\\', $this->directory) : '';
             $controller .= $controllerName;
 
             $controller = strtolower($controller);
@@ -118,19 +118,19 @@ final class AutoRouter implements AutoRouterInterface
                     // Like $routes->cli('hello/(:segment)', 'Home::$1')
                     if (str_contains($handler, '::$')) {
                         throw new PageNotFoundException(
-                            'Cannot access CLI Route: ' . $uri
+                            'Cannot access CLI Route: ' . $uri,
                         );
                     }
 
                     if (str_starts_with($handler, $controller . '::' . $methodName)) {
                         throw new PageNotFoundException(
-                            'Cannot access CLI Route: ' . $uri
+                            'Cannot access CLI Route: ' . $uri,
                         );
                     }
 
                     if ($handler === $controller) {
                         throw new PageNotFoundException(
-                            'Cannot access CLI Route: ' . $uri
+                            'Cannot access CLI Route: ' . $uri,
                         );
                     }
                 }
@@ -153,9 +153,9 @@ final class AutoRouter implements AutoRouterInterface
                 str_replace(
                     '/',
                     '\\',
-                    $this->defaultNamespace . $this->directory . $controllerName
+                    $this->defaultNamespace . $this->directory . $controllerName,
                 ),
-                '\\'
+                '\\',
             );
         }
 
@@ -184,7 +184,7 @@ final class AutoRouter implements AutoRouterInterface
      */
     private function scanControllers(array $segments): array
     {
-        $segments = array_filter($segments, static fn ($segment) => $segment !== '');
+        $segments = array_filter($segments, static fn ($segment): bool => $segment !== '');
         // numerically reindex the array, removing gaps
         $segments = array_values($segments);
 
@@ -199,7 +199,7 @@ final class AutoRouter implements AutoRouterInterface
 
         while ($c-- > 0) {
             $segmentConvert = ucfirst(
-                $this->translateURIDashes ? str_replace('-', '_', $segments[0]) : $segments[0]
+                $this->translateURIDashes ? str_replace('-', '_', $segments[0]) : $segments[0],
             );
             // as soon as we encounter any segment that is not PSR-4 compliant, stop searching
             if (! $this->isValidSegment($segmentConvert)) {
@@ -244,7 +244,7 @@ final class AutoRouter implements AutoRouterInterface
      */
     public function setDirectory(?string $dir = null, bool $append = false, bool $validate = true)
     {
-        if ($dir === null || $dir === '') {
+        if ((string) $dir === '') {
             $this->directory = null;
 
             return;
@@ -260,7 +260,7 @@ final class AutoRouter implements AutoRouterInterface
             }
         }
 
-        if ($append !== true || ($this->directory === null || $this->directory === '')) {
+        if (! $append || ((string) $this->directory === '')) {
             $this->directory = trim($dir, '/') . '/';
         } else {
             $this->directory .= trim($dir, '/') . '/';
@@ -275,7 +275,7 @@ final class AutoRouter implements AutoRouterInterface
      */
     public function directory(): string
     {
-        return ($this->directory !== null && $this->directory !== '') ? $this->directory : '';
+        return ((string) $this->directory !== '') ? $this->directory : '';
     }
 
     private function controllerName(): string

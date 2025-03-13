@@ -58,10 +58,14 @@ class Metadata extends PpciModel
                     /*
                      * Generation de l'index correspondant
                      */
-                    $sql = "
-                    CREATE INDEX if not exists sample_metadata_lower_" . $item["name"] . "_idx
-                    ON sample using gist(lower(metadata->>'" . $item["name"] . "') gist_trgm_ops)";
-                    $this->executeSQL($sql, null, true);
+                    $sql = 'CREATE INDEX if not exists "sample_metadata_lower_' . $item["name"] . '_idx"'.
+                    " ON sample using gist(lower(metadata->>'" . $item["name"] . "') gist_trgm_ops)";
+                    try {
+                        $this->executeSQL($sql, null, true);
+                    } catch (PpciException) {
+                        throw new PpciException (sprintf(_("La création de l'index de recherche pour le champ %s a échoué"), $item["name"]));
+                    }
+                    
                 }
             }
         }

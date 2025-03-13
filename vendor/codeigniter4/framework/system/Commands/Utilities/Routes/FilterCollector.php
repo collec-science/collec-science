@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Commands\Utilities\Routes;
 
-use CodeIgniter\Config\Services;
 use CodeIgniter\Filters\Filters;
 use CodeIgniter\HTTP\Method;
 use CodeIgniter\HTTP\Request;
@@ -33,7 +32,7 @@ final class FilterCollector
          *
          * If set to true, route filters are not found.
          */
-        private readonly bool $resetRoutes = false
+        private readonly bool $resetRoutes = false,
     ) {
     }
 
@@ -43,7 +42,7 @@ final class FilterCollector
      * @param string $method HTTP verb like `GET`,`POST` or `CLI`.
      * @param string $uri    URI path to find filters for
      *
-     * @return array{before: list<string>, after: list<string>} array of filter alias or classname
+     * @return array{before: list<string>, after: list<string>} array of alias/classname:args
      */
     public function get(string $method, string $uri): array
     {
@@ -51,7 +50,7 @@ final class FilterCollector
             @trigger_error(
                 'Passing lowercase HTTP method "' . $method . '" is deprecated.'
                 . ' Use uppercase HTTP method like "' . strtoupper($method) . '".',
-                E_USER_DEPRECATED
+                E_USER_DEPRECATED,
             );
         }
 
@@ -68,7 +67,7 @@ final class FilterCollector
             ];
         }
 
-        $request = Services::incomingrequest(null, false);
+        $request = service('incomingrequest', null, false);
         $request->setMethod($method);
 
         $router  = $this->createRouter($request);
@@ -80,13 +79,55 @@ final class FilterCollector
     }
 
     /**
+     * Returns filter classes for the URI
+     *
+     * @param string $method HTTP verb like `GET`,`POST` or `CLI`.
+     * @param string $uri    URI path to find filters for
+     *
+     * @return array{before: list<string>, after: list<string>} array of classname:args
+     */
+    public function getClasses(string $method, string $uri): array
+    {
+        if ($method === strtolower($method)) {
+            @trigger_error(
+                'Passing lowercase HTTP method "' . $method . '" is deprecated.'
+                . ' Use uppercase HTTP method like "' . strtoupper($method) . '".',
+                E_USER_DEPRECATED,
+            );
+        }
+
+        /**
+         * @deprecated 4.5.0
+         * @TODO Remove this in the future.
+         */
+        $method = strtoupper($method);
+
+        if ($method === 'CLI') {
+            return [
+                'before' => [],
+                'after'  => [],
+            ];
+        }
+
+        $request = service('incomingrequest', null, false);
+        $request->setMethod($method);
+
+        $router  = $this->createRouter($request);
+        $filters = $this->createFilters($request);
+
+        $finder = new FilterFinder($router, $filters);
+
+        return $finder->findClasses($uri);
+    }
+
+    /**
      * Returns Required Filters
      *
-     * @return array{before: list<string>, after: list<string>} array of filter alias or classname
+     * @return array{before: list<string>, after: list<string>} array of aliases
      */
     public function getRequiredFilters(): array
     {
-        $request = Services::incomingrequest(null, false);
+        $request = service('incomingrequest', null, false);
         $request->setMethod(Method::GET);
 
         $router  = $this->createRouter($request);
@@ -95,6 +136,24 @@ final class FilterCollector
         $finder = new FilterFinder($router, $filters);
 
         return $finder->getRequiredFilters();
+    }
+
+    /**
+     * Returns Required Filter class list
+     *
+     * @return array{before: list<string>, after: list<string>} array of classnames
+     */
+    public function getRequiredFilterClasses(): array
+    {
+        $request = service('incomingrequest', null, false);
+        $request->setMethod(Method::GET);
+
+        $router  = $this->createRouter($request);
+        $filters = $this->createFilters($request);
+
+        $finder = new FilterFinder($router, $filters);
+
+        return $finder->getRequiredFilterClasses();
     }
 
     private function createRouter(Request $request): Router

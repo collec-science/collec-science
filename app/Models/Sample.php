@@ -813,7 +813,8 @@ class Sample extends PpciModel
         /**
          * Execute the request
          */
-        $list = $this->getListeParamAsPrepared($sql, $data);
+        
+        $list = $this->getListParam($sql, $data);
         /**
          * Purge metadata if necessary
          */

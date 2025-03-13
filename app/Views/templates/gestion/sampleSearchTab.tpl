@@ -130,7 +130,7 @@
                         $("#metadatarow2").hide();
                         $("#metadatarow").show();
                         var selected = "";
-                        var option = '<option value="">{t}Métadonnée :{/t}</option>';
+                        var option = '<option value="" selected>{t}Métadonnée :{/t}</option>';
                         $("#metadata_field").append(option);
                         $("#metadata_field1").append(option);
                         $("#metadata_field2").append(option);
@@ -509,8 +509,8 @@
                                     <label for="metadata_field" class= "col-sm-3 control-label">{t}Rechercher dans les métadonnées :{/t}</label>
                                 <div class="col-sm-3">
                                     <select class="form-control" id="metadata_field" name="metadata_field[]">
-                                    <option value="" {if $sampleSearch.metadata_field.0 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
-                                    {if $rights.manage == 1}
+                                        <option value="" {if $sampleSearch.metadata_field.0 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
+                                    {if $rights.manage == 1 || consultSeesAll == 1}
                                     {foreach $metadatas as $value}
                                     <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.0 == $value.fieldname}selected{/if}>
                                     {$value.fieldname}
@@ -536,7 +536,7 @@
                                 <div class="col-sm-3">
                                     <select class="form-control"  id="metadata_field1" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.1 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
-                                    {if $rights.manage == 1}
+                                    {if $rights.manage == 1 || consultSeesAll == 1}
                                     {foreach $metadatas as $value}
                                     <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.1 == $value.fieldname}selected{/if}>
                                     {$value.fieldname}
@@ -561,7 +561,7 @@
                                 <div class="col-sm-3">
                                     <select class="form-control"  id="metadata_field2" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
-                                    {if $rights.manage == 1}
+                                    {if $rights.manage == 1 || consultSeesAll == 1}
                                     {foreach $metadatas as $value}
                                     <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.2 == $value.fieldname}selected{/if}>
                                     {$value.fieldname}

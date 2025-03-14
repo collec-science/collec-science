@@ -127,7 +127,8 @@
             $( ".events" ).prop( "checked", $( "#events" ).prop( "checked" ) );
         } );
         var actions = {
-            "eventsChange": "eventsChange"
+            "eventsChange": "eventsChange",
+            "eventsDuplicate": "eventsDuplicate"
         };
         $( "#checkedActionEvent" ).change( function () {
             var action = $( this ).val();
@@ -322,6 +323,7 @@
                 <option value="" selected>{t}Choisissez{/t}</option>
                 <option value="eventsChange">{t}Modifier les événements{/t}</option>
                 <option value="eventsDelete">{t}Supprimer les événements{/t}</option>
+                <option value="eventsDuplicate">{t}Reprogrammer les événements{/t}</option>
             </select>
 
             <div class="eventsChange" hidden>
@@ -380,7 +382,19 @@
                     {t}Seules les données non vides seront mises à jour dans les événements !{/t}
                 </div>
             </div>
-
+            <div class="eventsDuplicate" hidden>
+                <div class="form-group">
+                    <label for="eventDueDelay" class="control-label col-md-4">
+                        {t}Délai en jours pour reprogrammer les événements :{/t}
+                    </label>
+                    <div class="col-md-8">
+                        <input id="eventDueDelay" class="form-control" value="365">
+                    </div>
+                </div>
+                <div class="bg-info">
+                    {t}Les événements sélectionnés vont être reprogrammés avec une date d'échéance recalculée à partir de la date de réalisation{/t}
+                </div>
+            </div>
             <div class="center">
                 <button id="checkedButtonEvent" class="btn btn-danger">{t}Exécuter{/t}</button>
             </div>

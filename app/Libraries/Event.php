@@ -200,8 +200,8 @@ class Event extends PpciLibrary
 				}
 			}
 			if (!empty($data)) {
-				$this->dataclass->colonnes["uid"]["requis"] = 0;
-				$this->dataclass->colonnes["event_type_id"]["requis"] = 0;
+				$this->dataclass->disableMandatoryField("uid");
+				$this->dataclass->disableMandatoryField("event_type_id");
 				$db = $this->dataclass->db;
 				$db->transBegin();
 				try {

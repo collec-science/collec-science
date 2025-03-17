@@ -6,10 +6,8 @@
 <script src="display/node_modules/leaflet.polyline.snakeanim/L.Polyline.SnakeAnim.js"></script>
 <script src="display/node_modules/leaflet-mouse-position/src/L.Control.MousePosition.js"></script>
 <script src="display/node_modules/leaflet-easyprint/dist/bundle.js"></script>
-<!--
 <script src="display/node_modules/pdfmake/build/pdfmake.min.js"></script>
 <script src="display/node_modules/pdfmake/build/vfs_fonts.js"></script>
--->
 <script>
     /**
      * Generate a popup for lexical entries, when mouse is over a question icon

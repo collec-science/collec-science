@@ -42,6 +42,11 @@ class Event extends PpciController
     {
         return $this->lib->changeList();
     }
+    function duplicate($origin) {
+
+        $this->lib->duplicate();
+        return $this->returnToOrigin($origin, true);
+    }
     function returnToOrigin($origin, $res)
     {
         $isSearch = false;

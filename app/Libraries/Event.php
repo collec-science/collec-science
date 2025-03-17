@@ -11,6 +11,7 @@ use App\Models\MimeType;
 use App\Models\ObjectClass;
 use App\Models\SampleType;
 use App\Models\SearchEvent;
+use DateInterval;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
@@ -22,7 +23,7 @@ class Event extends PpciLibrary
 	 */
 	protected PpciModel $dataclass;
 
-	
+
 
 	function __construct()
 	{
@@ -179,7 +180,7 @@ class Event extends PpciLibrary
 				$this->message->set(_("Événements supprimés"));
 			} catch (PpciException $e) {
 				$this->message->set(_("Un problème est survenu pendant la suppression d'un événement"), true);
-				$this->message->setSyslog($e->getMessage(),true);
+				$this->message->setSyslog($e->getMessage(), true);
 				if ($db->transEnabled) {
 					$db->transRollback();
 				}
@@ -213,7 +214,7 @@ class Event extends PpciLibrary
 					$this->message->set(_("Événements modifiés"));
 				} catch (PpciException $e) {
 					$this->message->set(_("Un problème est survenu pendant la modification d'un événement"), true);
-					$this->message->setSyslog($e->getMessage(),true);
+					$this->message->setSyslog($e->getMessage(), true);
 					if ($db->transEnabled) {
 						$db->transRollback();
 					}
@@ -225,5 +226,55 @@ class Event extends PpciLibrary
 			$this->message->set(_("Aucun événement n'a été sélectionné"), true);
 		}
 		return $this->search();
+	}
+	/**
+	 * Duplicate one or multiple events,
+	 * if the date of realization is filled in
+	 *
+	 * @return void
+	 */
+	function duplicate()
+	{
+		if ($_REQUEST["event_id"] > 0) {
+			$events[] = $_REQUEST["event_id"];
+		} else {
+			$events = $_POST["events"];
+		}
+		if (empty($events)) {
+			$this->message->set(_("Aucun événement n'a été sélectionné"), true);
+		} else {
+			$eventDueDelay = $_REQUEST["eventDueDelay"];
+			if (empty($eventDueDelay)) {
+				$this->message->set(_("Le délai de reprogrammation des événements n'a pas été indiqué"), true);
+			} else {
+				$db = $this->dataclass->db;
+				$this->dataclass->autoFormatDate = false;
+				$db->transBegin();
+				try {
+					$delay = new DateInterval('P' . $eventDueDelay . 'D');
+					foreach ($events as $event_id) {
+						if (!$this->dataclass->verifyCollection("event_id", ["id" => $event_id])) {
+							throw new PpciException(sprintf(_("Vous ne disposez pas des droits suffisants pour modifier l'événement %s"), $event_id));
+						}
+						$devent = $this->dataclass->read($event_id);
+						if (empty($devent["event_date"])) {
+							throw new PpciException(sprintf(_("La date de réalisation del l'événement %s n'a pas été renseignée"), $event_id));
+						}
+						$devent["event_id"] = 0;
+						$devent["event_comment"] = "";
+						$devent["still_available"] = "";
+						$currentdate = date_create($devent["event_date"]);
+						$devent["due_date"] = date_format(date_add($currentdate, $delay),'Y-m-d');
+						$devent["event_date"] = "";
+						$this->dataclass->write($devent);
+					}
+					$db->transcommit();
+				} catch (PpciException $e) {
+					$this->message->set($e->getMessage(), true);
+					$db->transRollback();
+				}
+				$this->dataclass->autoFormatDate = true;
+			}
+		}
 	}
 }

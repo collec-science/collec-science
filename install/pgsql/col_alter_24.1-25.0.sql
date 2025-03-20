@@ -28,7 +28,7 @@ USING btree
 (
 	createdsample_id
 );
-create view v_sample_parents as 
+create view col.v_sample_parents as 
 (select ss.createdsample_id as sample_id,
 array_to_string (array_agg((p.uid::text || ' '|| po.identifier::text) order by p.uid), ', ') as sample_parents
 from subsample ss
@@ -37,7 +37,7 @@ join object po on (p.uid = po.uid)
 group by ss.createdsample_id
 );
 
-create or replace view v_derivated_number as (
+create or replace view col.v_derivated_number as (
 	SELECT s.uid,
 	count(*) AS nb_derivated_sample
 	FROM col.sample s

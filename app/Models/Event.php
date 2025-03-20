@@ -171,14 +171,19 @@ class Event extends PpciModel
     function verifyCollection(string $field, array $param): bool
     {
         $ret = false;
-        $sql = "select collection_id from object join sample using (uid) ";
+        $sql = "select s.collection_id as samplecollection, c.collection_id as containercollection
+        from object ";
         if ($field = "event_id") {
             $sql .= " join event using (uid)";
         }
-        $sql .= " where $field = :id:";
-        $data = $this->lireParamAsPrepared($sql, $param);
-        if (!empty($data["collection_id"])) {
-            if (array_key_exists($data["collection_id"], $_SESSION["collections"])) {
+        $sql .= "
+        left outer join sample s using (uid) 
+        left outer join container c using (uid)
+         where $field = :id:";
+        $data = $this->readParam($sql, $param);
+        empty($data["samplecollection"]) ? $collection_id = $data["containercollection"]: $collection_id = $data["samplecollection"];
+        if (!empty($collection_id)) {
+            if (array_key_exists($collection_id, $_SESSION["collections"])) {
                 $ret = true;
             }
         } else {

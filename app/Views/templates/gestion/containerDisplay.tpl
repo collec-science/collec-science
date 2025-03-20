@@ -52,7 +52,7 @@
 		var timer_duration = 500;
 		var destination = "object";
 		var hasFoundCamera = false;
-
+		var videosize = Math.min (window.screen.height, window.screen.width) ;
 		$("#video-container").width(videosize);
 		$("#video-container").height(videosize);
 		

@@ -38,11 +38,21 @@ else
 	  max_input_time="=240"
 	  memory_limit="=1024M"
 	  max_input_vars="10000"
+	  short_open_tag="Off"
+	  expose_php="Off"
+	  display_errors="Off"
+	  display_startup_errors="Off"
+	  log_errors="On"
 	  for key in upload_max_filesize post_max_size max_execution_time max_input_time memory_limit
 	  do
 	    sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $PHPINIFILE
 	  done
 	  sed -i "s/; max_input_vars = .*/max_input_vars=$max_input_vars/" $PHPINIFILE
+	  sed -i "s/; short_open_tag = .*/short_open_tag=$short_open_tag/" $PHPINIFILE
+	  sed -i "s/; expose_php = .*/expose_php=$expose_php/" $PHPINIFILE
+	  sed -i "s/; display_errors = .*/display_errors=$display_errors/" $PHPINIFILE
+	  sed -i "s/; display_startup_errors = .*/display_startup_errors=$display_startup_errors/" $PHPINIFILE
+	  sed -i "s/; log_errors = .*/log_errors=$log_errors/" $PHPINIFILE
 	  systemctl restart apache2
 	fi
 fi

@@ -88,18 +88,28 @@ find . -type f -exec chmod 640 {} \;
 chmod -R g+w writable
 
 # adjust php.ini values
+PHPINIFILE="/etc/php/$PHPVER/apache2/php.ini"
 upload_max_filesize="=100M"
 post_max_size="=50M"
 max_execution_time="=120"
 max_input_time="=240"
 memory_limit="=1024M"
 max_input_vars="10000"
+short_open_tag="Off"
+expose_php="Off"
+display_errors="Off"
+display_startup_errors="Off"
+log_errors="On"
 for key in upload_max_filesize post_max_size max_execution_time max_input_time memory_limit
 do
- sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $PHPINIFILE
+sed -i "s/^\($key\).*/\1 $(eval echo \${$key})/" $PHPINIFILE
 done
 sed -i "s/; max_input_vars = .*/max_input_vars=$max_input_vars/" $PHPINIFILE
-
+sed -i "s/; short_open_tag = .*/short_open_tag=$short_open_tag/" $PHPINIFILE
+sed -i "s/; expose_php = .*/expose_php=$expose_php/" $PHPINIFILE
+sed -i "s/; display_errors = .*/display_errors=$display_errors/" $PHPINIFILE
+sed -i "s/; display_startup_errors = .*/display_startup_errors=$display_startup_errors/" $PHPINIFILE
+sed -i "s/; log_errors = .*/log_errors=$log_errors/" $PHPINIFILE
 # adjust imagick policy
 sed -e "s/  <policy domain=\"coder\" rights=\"none\" pattern=\"PDF\" \/>/  <policy domain=\"coder\" rights=\"read|write\" pattern=\"PDF\" \/>/" /etc/ImageMagick-6/policy.xml > /tmp/policy.xml
 cp /tmp/policy.xml /etc/ImageMagick-6/

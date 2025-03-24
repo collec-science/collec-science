@@ -122,6 +122,12 @@ sed -i "s/# en_GB.UTF-8/en_GB.UTF-8/" /etc/locale.gen
 line="0 8 * * * /var/www/collec2App/collec-science/collectionsGenerateMail.sh"
 echo "$line" | crontab -u www-data -
 
+# Adjust Apache2 security
+A2SECFILE="/etc/apache2/conf-available/security.conf"
+sed -i "s/#ServerTokens Full/ServerTokens Prod/" $A2SECFILE
+sed -i "s/#TraceEnable On/TraceEnable Off/" $A2SECFILE
+sed -i "s/#ServerSignature On/ServerSignature Off/" $A2SECFILE
+
 # creation of virtual host
 echo "creation of virtual site"
 cp install/apache2/collec2.conf /etc/apache2/sites-available/

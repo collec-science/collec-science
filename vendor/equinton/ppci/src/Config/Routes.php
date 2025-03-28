@@ -42,6 +42,7 @@ $routes->post('totpCreateVerify', '\Ppci\Controllers\Totp::createVerify');
 $routes->add('totpGetQrcode', '\Ppci\Controllers\Totp::getQrcode');
 $routes->post('totpVerifyExec', '\Ppci\Controllers\Totp::verify');
 $routes->add('totpAdmin', '\Ppci\Controllers\Totp::admin');
+$routes->add('totpShowCode', '\Ppci\Controllers\Totp::showCode');
 /**
  * Miscellaneous
  */

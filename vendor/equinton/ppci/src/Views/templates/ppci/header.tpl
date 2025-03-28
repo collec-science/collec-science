@@ -30,6 +30,7 @@
 							</a> </li>
 {if $isLogged}
 						<li><a href="totpCreate" title="{t}Activer la double authentification pour votre compte{/t}">{t}Activer la double authentification{/t}</a></li>
+						<li><a href="totpShowCode" title="{t}Afficher le code TOTP pour configurer un autre appareil{/t}">{t}Afficher le code TOTP{/t}</a></li>
 				    <li><a href='loginChangePassword' title="{t}Modifier le mot de passe{/t}"> <img
 								src='display/images/key.png' width='16' border='0' title="{t}Modifier le mot de passe{/t}">
 							{t}Mot de passe{/t}</a></li>

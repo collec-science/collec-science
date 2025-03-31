@@ -253,9 +253,13 @@
                         <option value="1" {if $eventSearch["is_done"]==1}selected{/if}>{t}réalisé{/t}</option>
                     </select>
                 </div>
-                <label id="object_type_id_label" for="object_type_id" class="col-sm-2 control-label">{if
-                    $eventSearch.object_type == 1}{t}Type d'échantillon :{/t}{else}{t}Type de contenant
-                    :{/t}{/if}</label>
+                <label id="object_type_id_label" for="object_type_id" class="col-sm-2 control-label">
+                    {if $eventSearch.object_type == 1}
+                    {t}Type d'échantillon :{/t}
+                    {else}
+                    {t}Type de contenant :{/t}
+                    {/if}
+                </label>
                 <div class="col-sm-2">
                     <select class="form-control" name="object_type_id" id="object_type_id">
                         <option value="0" {if $eventSearch["object_type_id"]==0}selected{/if}>{t}Indifférent{/t}

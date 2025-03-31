@@ -1,5 +1,17 @@
 Nouveautés
 ============
+Version v25.0.6 du 31/3/2025
+----------------------------
+Corrections de bugs :
+- la modification en masse des événements ne fonctionnait plus
+- correction effectuée dans l'affichage du détail d'un container
+- installation : correction des scripts de création de la base de données et ajout de paramètres de sécurité pour php et Apache
+- corrections diverses dans le module d'exécution des requêtes SQL
+
+Nouveautés :
+- il est maintenant possible de reprogrammer des événements
+- l'affichage de la clé TOTP est maintenant possible, pour pouvoir utiliser un second appareil
+
 Version v25.0.5 du 10/3/2025
 -----------------------------
 Corrections de bugs :

@@ -39,5 +39,8 @@ class Totp extends PpciController
     {
         return $this->lib->verify();
     }
+    function showCode() {
+        return $this->lib->showCode();
+    }
 
 }

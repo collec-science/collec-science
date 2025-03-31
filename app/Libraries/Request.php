@@ -75,7 +75,7 @@ class Request extends PpciLibrary
             try {
                 $this->vue->set($this->dataclass->exec($this->id), "result");
             } catch (PpciException $e) {
-                $this->message->set($e->getMessage());
+                $this->message->set($e->getMessage(),true);
             }
         }
         return $this->vue->send();

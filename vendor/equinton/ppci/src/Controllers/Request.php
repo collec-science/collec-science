@@ -33,17 +33,17 @@ class Request extends PpciController
     }
     function writeExec() {
         if ($this->lib->write()) {
-            return $this->exec();
+            return $this->lib->exec();
         } else {
-            return $this->change();
+            return $this->lib->change();
         }
     }
     function delete()
     {
         if ($this->lib->delete()) {
-            return $this->list();
+            return $this->lib->list();
         } else {
-            return $this->change();
+            return $this->lib->change();
         }
     }
     function exec() {

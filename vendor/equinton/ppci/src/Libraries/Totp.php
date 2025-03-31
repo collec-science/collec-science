@@ -42,6 +42,9 @@ class Totp extends PpciLibrary
         $_SESSION["totpSecret"] = $this->gacltotp->createSecret();
         $this->gacltotp->createQrCode();
         $vue = service("Smarty");
+        $vue->set($_SESSION["totpSecret"], "secret");
+        $vue->set($_SESSION["dbparams"]["otp_issuer"], "issuer");
+        $vue->set($_SESSION["login"], "label");
         $vue->set("ppci/droits/otpCreate.tpl", "corps");
         return $vue->Send();
     }
@@ -129,7 +132,7 @@ class Totp extends PpciLibrary
                 $this->message->set(_("Le code TOTP rentré n'a pas été reconnu"), true);
             }
         } catch (PpciException $pe) {
-            $this->message->setSyslog($pe->getMessage(),true);
+            $this->message->setSyslog($pe->getMessage(), true);
             $this->message->set($pe->getMessage(), true);
         }
         if (!empty($_SESSION["moduleRequired"])) {
@@ -138,5 +141,31 @@ class Totp extends PpciLibrary
             return redirect()->to($retour);
         }
         return defaultPage();
+    }
+    function showCode()
+    {
+        $this->vue = service('Smarty');
+        try {
+            $crypted = $this->acllogin->getTotpKey($_SESSION["login"]);
+            if (empty($crypted)) {
+                throw new PpciException(_("L'identification TOTP n'a pas été activée"), true);
+            }
+            if (!empty($_POST["otpcode"])) {
+                $key = $this->gacltotp->decodeTotpKey($crypted);
+                if ($this->gacltotp->verifyOtp($key, $_POST["otpcode"])) {
+                    $this->gacltotp->createQrCode($key);
+                    $this->vue->set($key, "secret");
+                    $this->vue->set($_SESSION["dbparams"]["otp_issuer"], "issuer");
+                    $this->vue->set($_SESSION["login"], "label");
+                } else {
+                    throw new PpciException(_("Le code TOTP rentré n'a pas été reconnu"));
+                }
+            }
+            $this->vue->set("ppci/ident/totpShowCode.tpl", "corps");
+            return $this->vue->send();
+        } catch (PpciException $e) {
+            $this->message->set($e->getMessage(), true);
+            return defaultPage();
+        }
     }
 }

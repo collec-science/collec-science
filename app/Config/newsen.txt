@@ -2,6 +2,18 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v25.0.6 of 31/3/2025
+----------------------------
+Bug fixes :
+- mass modification of events no longer worked
+- correction made to the display of container details
+- installation: database creation scripts corrected and security parameters added for php and Apache
+- various corrections to the SQL query execution module
+
+New features:
+- events can now be reprogrammed
+- the TOTP key can now be displayed, so that a second device can be used
+
 Version v25.0.5 of 13/3/2025
 -----------------------------
 Bug fixes :

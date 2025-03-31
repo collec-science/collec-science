@@ -87,23 +87,6 @@ class Request extends PpciModel
         return $this->getListeParam($this->sql . $orderby);
     }
 
-    function write($data): int
-    {
-        /**
-         * Search the terms forbiden into the request
-         */
-        if (preg_match("/(insert)|(update)|(delete)|(grant)|(revoke)|(create)|(drop)|(alter)|(analyze)|(call)|(copy)|(cluster)|(comment)|(describe)|(execute)|(import)|(load)|(lock)|(prepare)|(reassign)|(reindex)|(refresh)|(security)|(set)|(show)|(vacuum)|(explain)|(truncate)|(log)|(logingestion)|(passwordlost)|(acllogin)/i", $data["body"]) == 1) {
-            throw new PpciException(_("La requête ne peut pas contenir d'ordres de modification de la base de données ni porter sur des tables contenant des informations confidentielles"));
-        }
-        /*
-         * Suppression des contenus dangereux dans la commande SQL
-         */
-        $data["body"] = str_replace(";", "", $data["body"]);
-        $data["body"] = str_replace("--", "", $data["body"]);
-        $data["body"] = str_replace("/*", "", $data["body"]);
-        return parent::write($data);
-    }
-
     /**
      * Get the list of requests attached to the list of authorized collections
      *
@@ -132,25 +115,71 @@ class Request extends PpciModel
      * @param int $request_id
      * @return array
      */
-    function exec($request_id)
+    function exec(int $request_id)
     {
-        if ($request_id > 0 && is_numeric($request_id)) {
+        $result = array();
+        if ($request_id > 0) {
             $req = $this->lire($request_id);
+
+            $body = trim($req["body"]);
+            $body = preg_replace("/[\t\s]+/", " ", $body);
+            $words = [
+                'insert',
+                'update',
+                'delete',
+                'grant',
+                'revoke',
+                'create',
+                'drop',
+                'alter',
+                'analyze',
+                'call',
+                'copy',
+                'cluster',
+                'comment on',
+                'describe',
+                'execute',
+                'import',
+                'load',
+                'lock',
+                'prepare',
+                'reassign',
+                'reindex',
+                'refresh',
+                'security',
+                'set',
+                'show',
+                'vacuum',
+                'explain',
+                'truncate',
+                'gacl\.log',
+                ' log',
+                ',log',
+                'logingestion',
+                'passwordlost',
+                'acllogin'
+            ];
+            foreach ($words as $word) {
+                if (preg_match("/$word/i", $body) == 1) {
+                    throw new PpciException(sprintf(_("La requête ne peut pas contenir le terme %s"), $word));
+                }
+            }
             if (!empty($req["body"])) {
                 /*
                  * Preparation des dates pour encodage
                  */
                 $df = explode(",", $req["datefields"]);
                 foreach ($df as $val) {
-                    $this->colonnes[$val]["type"] = 3;
+                    $this->datetimeFields[] = $val;
                 }
                 /*
                  * Ecriture de l'heure d'execution
                  */
-                $req["last_exec"] = $this->getDateHeure();
-                $this->ecrire($req);
-                return $this->getListeParam($req["body"]);
+                $req["last_exec"] = $this->getDateTime();
+                $this->write($req);
+                $result = $this->getListParam($req["body"]);
             }
         }
+        return $result;
     }
 }

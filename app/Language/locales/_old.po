@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 11:24+0100\n"
+"POT-Creation-Date: 2025-03-28 11:38+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,12 +23,14 @@ msgstr "Objects"
 msgid "Opérations sur les échantillons ou les contenants"
 msgstr "Operations on samples or containers"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:8 ../../Config/menu.xml:49
 #: ../../../app/Views/templates/gestion/containerList.tpl:2
 msgid "Contenants"
 msgstr "Containers"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:8 ../../../app/Views/templates/main.tpl:6
 msgid "Liste des contenants"
@@ -39,6 +41,7 @@ msgstr "List of containers"
 msgid "Échantillons"
 msgstr "Samples"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:9 ../../Config/menu.xml:117 ../../Config/menu.xml:145
@@ -47,6 +50,7 @@ msgstr "Samples"
 msgid "Liste des échantillons"
 msgstr "List of samples"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:10
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:601
@@ -69,6 +73,7 @@ msgstr "SQL requests"
 msgid "Exécution de requêtes SQL dans la base de données"
 msgstr "Execution of SQL queries in the database"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../Config/menu.xml:15
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:443
@@ -81,6 +86,7 @@ msgstr "Movements"
 msgid "Création de mouvements dans le stock"
 msgstr "Creating movements in the stock"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:16
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:30
@@ -93,6 +99,7 @@ msgstr "Store or move into container"
 msgid "Déplacer un échantillon/contenant dans un contenant"
 msgstr "Move a sample / container into a container"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:17
 #: ../../../app/Views/templates/gestion/fastOutputChange.tpl:4
@@ -107,6 +114,7 @@ msgstr "Remove from stock"
 msgid "Sortir un échantillon/contenant du stock"
 msgstr "Remove a sample / container from the stock"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:18
 #: ../../../app/Views/templates/gestion/movementBatchRead.tpl:20
@@ -119,6 +127,7 @@ msgstr "Store or move / Remove in batches"
 msgid "Entrer ou déplacer / Sortir par scan multiple de QR Code"
 msgstr "Store or move / remove by multiple scan of QR Code"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:19 ../../../app/Views/templates/main.tpl:20
 #: ../../../app/Views/templates/main.tpl:41
@@ -193,6 +202,7 @@ msgstr "Lot of export"
 msgid "Liste des lots d'exportation des échantillons"
 msgstr "List of sampling export lots"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:30
 #: ../../../app/Views/templates/export/exportTemplateList.tpl:1
@@ -204,6 +214,7 @@ msgstr "Export models"
 msgid "Liste des modèles d'exports"
 msgstr "List of export templates"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:31
 #: ../../../app/Views/templates/export/datasetTemplateList.tpl:1
@@ -231,12 +242,14 @@ msgstr "List of translators of labels"
 msgid "Paramètres"
 msgstr "Settings"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:35 ../../Config/menu.xml:36
 #: ../../../app/Views/templates/param/collectionList.tpl:1
 msgid "Collections"
 msgstr "Collections"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:35 ../../../app/Views/templates/gestion/import.tpl:119
 #: ../../../app/Views/templates/gestion/import.tpl:131
@@ -258,6 +271,7 @@ msgstr "Licenses"
 msgid "Liste des licences utilisables pour publier les collections"
 msgstr "List of available licenses to publish collections"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:39 ../../Config/menu.xml:40
 #: ../../../app/Views/templates/param/protocolList.tpl:1
@@ -284,6 +298,7 @@ msgstr "Operations"
 msgid "Liste des opérations rattachées à un protocole"
 msgstr "List of operations attached to a protocol"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:43
 #: ../../../app/Views/templates/param/referentList.tpl:2
@@ -305,6 +320,7 @@ msgstr "Campaigns"
 msgid "Paramètres des campagnes de prélèvement"
 msgstr "Settings for sampling campaigns"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:45
 #: ../../../app/Views/templates/param/campaignList.tpl:21
@@ -316,6 +332,7 @@ msgstr "Sampling campaigns"
 msgid "Réglementations"
 msgstr "Regulations"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:46
 #: ../../../app/Views/templates/param/regulationList.tpl:1
@@ -327,6 +344,7 @@ msgstr "Date of rules"
 msgid "Paramètres des types de contenants"
 msgstr "Container type parameters"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:50
 #: ../../../app/Views/templates/param/containerFamilyList.tpl:2
@@ -338,6 +356,7 @@ msgstr "Families of containers"
 msgid "Familles de contenants (armoires, éprouvettes...)"
 msgstr "Families of containers (cabinets, test tubes ...)"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:51
 #: ../../../app/Views/templates/param/containerTypeList.tpl:2
@@ -349,6 +368,7 @@ msgstr "Container types"
 msgid "Liste des types de contenants"
 msgstr "List of container types"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:53
 #: ../../../app/Views/templates/param/sampleTypeList.tpl:2
@@ -361,6 +381,7 @@ msgstr "Sample types"
 msgid "Liste des types d'échantillons gérés"
 msgstr "List of sample types managed"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:54
 #: ../../../app/Views/templates/param/identifierTypeList.tpl:2
@@ -372,6 +393,7 @@ msgstr "Identifier types"
 msgid "Liste des types d'identifiants rattachables à un objet"
 msgstr "List of identifier types that can be attached to an object"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:55
@@ -379,18 +401,21 @@ msgstr "List of identifier types that can be attached to an object"
 msgid "Types de sous-échantillonnage"
 msgstr "Subsampling types"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:56
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:740
 msgid "Métadonnées"
 msgstr "Metadata"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:56
 #: ../../../app/Views/templates/param/metadataList.tpl:15
 msgid "Modèles de métadonnées"
 msgstr "Metadata templates"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:57
 #: ../../../app/Views/templates/param/samplingPlaceList.tpl:1
@@ -402,6 +427,7 @@ msgstr "Locations of sampling"
 msgid "Liste des lieux de prélèvement des échantillons"
 msgstr "List of sampling locations"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:58
 #: ../../../app/Views/templates/param/countryList.tpl:1
@@ -415,6 +441,7 @@ msgstr "List of countries"
 msgid "Liste officielle des pays"
 msgstr "Official countries list"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:60
@@ -422,6 +449,7 @@ msgstr "Official countries list"
 msgid "Types d'événement"
 msgstr "Event types"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:61
 #: ../../../app/Views/templates/param/storageConditionList.tpl:2
@@ -433,6 +461,7 @@ msgstr "Storage conditions"
 msgid "Liste des conditions de stockage"
 msgstr "List of storage conditions"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:62
 #: ../../../app/Views/templates/param/movementReasonList.tpl:1
@@ -454,6 +483,7 @@ msgstr "Object statuses"
 msgid "Liste des statuts possibles pour les objets"
 msgstr "List of available status for objects"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:64
 #: ../../../app/Views/templates/param/borrowerList.tpl:1
@@ -465,6 +495,7 @@ msgstr "Borrowers"
 msgid "Liste des emprunteurs d'objets"
 msgstr "List of borrowers of objects"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:66
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:692
@@ -478,6 +509,7 @@ msgstr "Labels"
 msgid "Modèles d'étiquettes"
 msgstr "Label templates"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:67
 #: ../../../app/Views/templates/param/printerList.tpl:2
@@ -509,6 +541,7 @@ msgstr "Technical imports/exports"
 msgid "Exportations ou importations de données au format JSON"
 msgstr "Data exports or imports in JSON format"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:71
 #: ../../../app/Views/templates/export/datasetTypeList.tpl:1
@@ -646,6 +679,7 @@ msgstr ""
 "List of tables and columns of the database available in the rights "
 "management module"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:91
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/phpinfo.tpl:1
@@ -682,6 +716,7 @@ msgstr "Display of the session variables"
 msgid "Backup"
 msgstr "Backup"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:96
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/backup.tpl:1
@@ -913,6 +948,7 @@ msgstr "Understanding the dual authentication mechanism"
 msgid "Créer un échantillon"
 msgstr "Create a sample"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../Config/menu.xml:156
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/header.tpl:21
@@ -926,6 +962,7 @@ msgstr "Sign in"
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:157 ../../Config/menu.xml:158
@@ -950,6 +987,7 @@ msgstr "Last connections"
 msgid "Liste des dernières connexions réalisées"
 msgstr "List of last connections"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:160
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginChangePassword.tpl:86
@@ -999,6 +1037,7 @@ msgstr "New version?"
 msgid "Rechercher s'il existe une nouvelle version disponible de l'application"
 msgstr "Find out if there is a new version of the application available"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:167
 #: ../../../app/Views/templates/documentation/lexique.tpl:1
@@ -3523,7 +3562,7 @@ msgid "Code utilisé pour les échanges"
 msgstr "Code used to exchange data"
 
 #: ../../../app/Views/templates/param/sampleTypeList.tpl:16
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:354
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:358
 msgid "Type de contenant"
 msgstr "Container type"
 
@@ -3924,7 +3963,7 @@ msgstr "User name for identification (if required):"
 #: ../../../app/Views/templates/param/printerChange.tpl:35
 #: ../../../app/Views/templates/gestion/containerChange.tpl:254
 #: ../../../app/Views/templates/gestion/bookingChange.tpl:100
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:454
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:458
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:567
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:917
 #: ../../../app/Views/templates/gestion/movementChange.tpl:329
@@ -4261,7 +4300,7 @@ msgstr "Number"
 #: ../../../app/Views/templates/param/borrowerDisplay.tpl:73
 #: ../../../app/Views/templates/gestion/eventList.tpl:44
 #: ../../../app/Views/templates/gestion/movementList.tpl:39
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:348
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:352
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:899
 #: ../../../app/Views/templates/gestion/subsampleList.tpl:14
 #: ../../../app/Views/templates/gestion/storageList.tpl:8
@@ -4523,8 +4562,8 @@ msgid "Responsable ou référent de la campagne :"
 msgstr "Responsible of referent of the campaign:"
 
 #: ../../../app/Views/templates/param/campaignChange.tpl:31
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:401
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:422
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:405
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:426
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:862
 #: ../../../app/Views/templates/gestion/metadataForm.tpl:84
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:536
@@ -4564,7 +4603,7 @@ msgstr "User"
 #: ../../../app/Views/templates/param/borrowerDisplay.tpl:77
 #: ../../../app/Views/templates/gestion/eventList.tpl:48
 #: ../../../app/Views/templates/gestion/movementList.tpl:45
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:357
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:361
 #: ../../../app/Views/templates/gestion/bookingList.tpl:13
 #: ../../../app/Views/templates/gestion/subsampleList.tpl:21
 #: ../../../app/Views/templates/gestion/storageList.tpl:12
@@ -4591,7 +4630,7 @@ msgstr "Name of the field"
 #: ../../../app/Views/templates/export/datasetTemplateList.tpl:15
 #: ../../../app/Views/templates/gestion/eventList.tpl:45
 #: ../../../app/Views/templates/gestion/movementList.tpl:43
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:349
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:353
 #: ../../../app/Views/templates/gestion/objectIdentifierList.tpl:13
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:726
 #: ../../../app/Views/templates/gestion/objectMovementList.tpl:7
@@ -4828,6 +4867,7 @@ msgstr "Used code to exchange with other organisms:"
 
 #: ../../../app/Views/templates/param/sampleTypeChange.tpl:26
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:188
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:260
 msgid "Type de contenant :"
 msgstr "Container type:"
 
@@ -4992,7 +5032,7 @@ msgstr "Sample UID"
 
 #: ../../../app/Views/templates/param/collectionMail.tpl:36
 #: ../../../app/Views/templates/export/lotDisplay.tpl:138
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:354
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:358
 msgid "Type d'échantillon"
 msgstr "Sample type"
 
@@ -5002,7 +5042,7 @@ msgid "Date d'échéance"
 msgstr "Due date"
 
 #: ../../../app/Views/templates/param/collectionMail.tpl:38
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:298
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:302
 msgid "Type d'événement"
 msgstr "Event type"
 
@@ -5461,7 +5501,7 @@ msgstr "Back to detail of the lot"
 #: ../../../app/Views/templates/export/lotList.tpl:25
 #: ../../../app/Views/templates/export/lotDisplay.tpl:63
 #: ../../../app/Views/templates/gestion/containerChange.tpl:153
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:310
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:314
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:295
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1245
 #: ../../../app/Views/templates/gestion/subsampleChange.tpl:210
@@ -5498,7 +5538,7 @@ msgstr "Exportable fields"
 
 #: ../../../app/Views/templates/export/lotList.tpl:36
 #: ../../../app/Views/templates/gestion/movementList.tpl:12
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:331
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:335
 #: ../../../app/Views/templates/gestion/containerSearch.tpl:156
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:341
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:832
@@ -5697,7 +5737,7 @@ msgstr "uid"
 
 #: ../../../app/Views/templates/export/lotDisplay.tpl:137
 #: ../../../app/Views/templates/gestion/movementList.tpl:42
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:352
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:356
 msgid "Identifiant métier"
 msgstr "Business identifier"
 
@@ -5952,7 +5992,7 @@ msgid "Enregistrer et exécuter"
 msgstr "Save and run"
 
 #: ../../../app/Views/templates/request/requestChange.tpl:106
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:477
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:481
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1301
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:702
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/request/requestChange.tpl:93
@@ -5979,12 +6019,12 @@ msgid "Délai pour reprogrammer un événement :"
 msgstr "Delay to reprogram an event:"
 
 #: ../../../app/Views/templates/gestion/eventList.tpl:46
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:350
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:354
 msgid "Date prévue"
 msgstr "Expected date"
 
 #: ../../../app/Views/templates/gestion/eventList.tpl:47
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:356
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:360
 msgid "Reste disponible (échantillons)"
 msgstr "Remains available (samples)"
 
@@ -6140,7 +6180,7 @@ msgstr "Login to search:"
 
 #: ../../../app/Views/templates/gestion/movementList.tpl:16
 #: ../../../app/Views/templates/gestion/bookingChange.tpl:71
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:280
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:284
 msgid "Du :"
 msgstr "From:"
 
@@ -6470,12 +6510,12 @@ msgstr "List of events"
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:145
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:161
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:178
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:261
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:265
 msgid "Indifférent"
 msgstr "Indifferent"
 
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:171
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:257
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:258
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:490
 msgid "Type d'échantillon :"
 msgstr "Sample type:"
@@ -6501,8 +6541,8 @@ msgid "non réalisé"
 msgstr "not realized"
 
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:252
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:301
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:314
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:305
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:318
 msgid "indifférent"
 msgstr "indifferent"
 
@@ -6510,14 +6550,7 @@ msgstr "indifferent"
 msgid "réalisé"
 msgstr "done"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:257
-#, fuzzy
-msgid ""
-"Type de contenant\n"
-"                    :"
-msgstr "Event type:"
-
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:285
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:289
 #: ../../../app/Views/templates/gestion/containerSearch.tpl:114
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:615
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:635
@@ -6526,50 +6559,50 @@ msgstr "Event type:"
 msgid "au :"
 msgstr "to:"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:289
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:293
 msgid "Type d'objet :"
 msgstr "Type of the object:"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:292
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:296
 #: ../../../app/Views/templates/main.tpl:32
 msgid "Échantillon"
 msgstr "Sample"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:293
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:297
 #: ../../../app/Views/templates/gestion/storageList.tpl:10
 #: ../../../app/Views/templates/gestion/objectMovementList.tpl:8
 #: ../../../app/Views/templates/main.tpl:50
 msgid "Contenant"
 msgstr "Container"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:323
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:327
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:835
 msgid "Activer la recherche par colonne :"
 msgstr "Activate the search by column:"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:351
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:355
 msgid "UID de l'objet concerné"
 msgstr "UID of the object"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:398
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:402
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:856
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:531
 msgid "Pour les éléments cochés :"
 msgstr "For checked items:"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:402
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:406
 msgid "Modifier les événements"
 msgstr "Event change"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:403
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:407
 msgid "Supprimer les événements"
 msgstr "Delete events"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:404
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:408
 msgid "Reprogrammer les événements"
 msgstr "Reprogram events"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:409
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:413
 #: ../../../app/Views/templates/gestion/movementChange.tpl:283
 #: ../../../app/Views/templates/gestion/subsampleChange.tpl:133
 #: ../../../app/Views/templates/gestion/eventChange.tpl:40
@@ -6577,33 +6610,33 @@ msgstr "Reprogram events"
 msgid "Date :"
 msgstr "Date:"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:418
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:422
 #: ../../../app/Views/templates/gestion/eventChange.tpl:49
 msgid "Type d'évenement :"
 msgstr "Event type:"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:436
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:440
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:318
 #: ../../../app/Views/templates/gestion/eventDisplay.tpl:39
 #: ../../../app/Views/templates/gestion/eventChange.tpl:64
 msgid "Reste disponible :"
 msgstr "Still available:"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:446
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:450
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:893
 #: ../../../app/Views/templates/gestion/eventChange.tpl:73
 msgid "Date d'échéance :"
 msgstr "Due date:"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:460
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:464
 msgid "Seules les données non vides seront mises à jour dans les événements !"
 msgstr "Only non-empty data will be updated in events!"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:466
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:470
 msgid "Délai en jours pour reprogrammer les événements :"
 msgstr "Delay in days to reprogram events:"
 
-#: ../../../app/Views/templates/gestion/eventSearchList.tpl:473
+#: ../../../app/Views/templates/gestion/eventSearchList.tpl:477
 msgid ""
 "Les événements sélectionnés vont être reprogrammés avec une date d'échéance "
 "recalculée à partir de la date de réalisation"
@@ -9363,6 +9396,12 @@ msgstr "Variable name"
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/utils/system.tpl:9
 msgid "Contenu"
 msgstr "Content"
+
+#, fuzzy
+#~ msgid ""
+#~ "Type de contenant\n"
+#~ "                    :"
+#~ msgstr "Event type:"
 
 #, fuzzy
 #~ msgid ""

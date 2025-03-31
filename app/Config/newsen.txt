@@ -8,6 +8,7 @@ Bug fixes :
 - mass modification of events no longer worked
 - correction made to the display of container details
 - installation: database creation scripts corrected and security parameters added for php and Apache
+- various corrections to the SQL query execution module
 
 New features:
 - events can now be reprogrammed

@@ -98,6 +98,7 @@ class Request extends PpciModel
                 'gacl\.log',
                 ' log',
                 ',log',
+                '"log',
                 'logingestion',
                 'passwordlost',
                 'acllogin'

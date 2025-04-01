@@ -84,7 +84,7 @@
                     newOption.innerHTML = "{t}Choisissez{/t}";
                     newInput.appendChild(newOption);
                 }
-                if (field.choicelist) {
+                if (field.choiceList) {
                     field.choiceList.forEach(function (choice) {
                         var newOption = document.createElement("option");
                         newOption.value = choice;

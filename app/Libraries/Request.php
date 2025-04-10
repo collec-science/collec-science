@@ -80,6 +80,20 @@ class Request extends PpciLibrary
         }
         return $this->vue->send();
     }
+    function execCsv() {
+        $this->vue = service('CsvView');
+        $requestItem = $this->dataclass->lire($this->id);
+        if ($_SESSION["userRights"]["param"] != 1) {
+            /**
+             * Verify the rights of execution
+             */
+            if (empty($requestItem["collection_id"]) || !collectionVerify($requestItem["collection_id"])) {
+                throw new PpciException (_("Vous ne disposez pas des droits requis pour exécuter la requête"));
+            }
+        }
+        $this->vue->set($this->dataclass->exec($this->id));
+        return $this->vue->send($_SESSION["dbparams"]["APPLI_code"]."-".date("Y-m-d-Hi"), "\t");
+    }
     function write()
     {
         try {

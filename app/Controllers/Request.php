@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\Request as LibrariesRequest;
+use Ppci\Libraries\PpciException;
 
 class Request extends PpciController
 {
@@ -43,6 +44,14 @@ class Request extends PpciController
     function exec()
     {
         return $this->lib->exec();
+    }
+    function execCsv(){
+        try {
+            return $this->lib->execCsv();
+        } catch (PpciException $e) {
+            $this->message->set($e->getMessage(), true);
+            return $this->lib->list();
+        } 
     }
     function execList()
     {

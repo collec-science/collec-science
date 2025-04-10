@@ -321,6 +321,7 @@ $routes->add('requestChange', 'Request::change');
 $routes->post('requestWrite', 'Request::write');
 $routes->post('requestDelete', 'Request::delete');
 $routes->add('requestExec', 'Request::exec');
+$routes->add('requestExecCsv', 'Request::execCsv');
 $routes->add('requestExecList', 'Request::execList');
 $routes->post('requestWriteExec', 'Request::writeExec');
 $routes->add('requestCopy', 'Request::copy');

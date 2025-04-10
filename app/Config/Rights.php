@@ -321,6 +321,7 @@ class Rights extends RightsPpci
         "requestDelete" => ["param"],
         "requestExec" => ["manage"],
         "requestExecList" => ["manage"],
+        "requestExecCsv" => ["manage"],
         "requestWriteExec" => ["param"],
         "requestCopy" => ["param"],
         "apiv1sampleWrite" => ["manage"],

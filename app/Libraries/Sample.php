@@ -119,7 +119,7 @@ class Sample extends PpciLibrary
                 $this->vue->set(1, "isSearch");
             } catch (PpciException $e) {
                 $this->message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
-                $this->message->setSyslog($e->getMessage(),true);
+                $this->message->setSyslog($e->getMessage(), true);
             }
         }
         $this->vue->set($dataSearch, "sampleSearch");
@@ -667,6 +667,31 @@ class Sample extends PpciLibrary
             return false;
         }
     }
+    function exportCsv()
+    {
+        $_SESSION["searchSample"]->setParam($_REQUEST);
+        $params = $_SESSION["searchSample"]->getParam();
+        $params["limit"] = 0;
+        $uids = $this->dataclass->getListUIDS($params);
+        if (!empty($uids)) {
+            $this->vue = service("CsvView");
+            try {
+                $this->vue->set(
+                    $this->dataclass->getForExport(
+                        $this->dataclass->generateArrayUidToString($uids)
+                    )
+                );
+                $this->vue->regenerateHeader();
+                return $this->vue->send();
+            } catch (PpciException $e) {
+                $this->message->set($e->getMessage(), true);
+                return false;
+            }
+        } else {
+            $this->message->set(_("Aucun échantillon ne répond aux critères de recherche"), true);
+            return false;
+        }
+    }
     function importStage1()
     {
         $this->vue = service("Smarty");
@@ -791,7 +816,7 @@ class Sample extends PpciLibrary
             $this->dataclass->setCountry($_POST["uids"], $_POST["country_id"]);
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage(),true);
+            $this->message->setSyslog($oe->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du pays"), true);
             $this->message->set($oe->getMessage());
         }
@@ -809,7 +834,7 @@ class Sample extends PpciLibrary
             $this->dataclass->setCollection($_POST["uids"], $_POST["collection_id_change"]);
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage(),true);
+            $this->message->setSyslog($oe->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la collection"), true);
             $this->message->set($oe->getMessage());
         }
@@ -828,7 +853,7 @@ class Sample extends PpciLibrary
             $this->dataclass->setCampaign($_POST["uids"], $_POST["campaign_id"]);
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage(),true);
+            $this->message->setSyslog($oe->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour de la campagne"), true);
             $this->message->set($oe->getMessage());
         }
@@ -847,7 +872,7 @@ class Sample extends PpciLibrary
             $object->setStatus($uids, $_POST["object_status_id"]);
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage(),true);
+            $this->message->setSyslog($oe->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du statut"), true);
             $this->message->set($oe->getMessage());
         }
@@ -865,7 +890,7 @@ class Sample extends PpciLibrary
             $this->dataclass->setParent($uids, $_POST["parent_sample_id"]);
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
-            $this->message->setSyslog($oe->getMessage(),true);
+            $this->message->setSyslog($oe->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du parent"), true);
             $this->message->set($oe->getMessage());
         }

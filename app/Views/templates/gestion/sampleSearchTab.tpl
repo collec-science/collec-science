@@ -7,6 +7,23 @@
     $(document).ready(function () {
         var isGestion = "{$rights.manage}";
         var consultSeesAll = "{$consultSeesAll}";
+        /**
+         * Declenchement de l'export CSV
+         */
+        $("#exportCsv").on("click keyUp", function () { 
+            if (confirm("{t}Attention : l'export peut être long, évitez d'exporter plus de 10000 échantillons à la fois (vous pouvez sélectionner par plage d'UID). Confirmez-vous l'opération ?{/t}")) {
+                $("#sample_search").attr("action","sampleExportCsv");
+                $("#sample_search").submit();
+            }
+        });
+        /**
+         * Declenchement de la recherche
+         */
+         $("#samplesearch_button").on("click keyUp", function () { 
+            var action = "{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}{if strlen($action)>0}{$action}{else}List{/if}";
+            $("#sample_search").attr("action",action);
+            $("#sample_search").submit();
+        });
         /*
          * Verification que des criteres de selection soient saisis
          */
@@ -828,11 +845,17 @@
                         <div class="col-sm-1">
                             <input id="page" name="page" value="{$sampleSearch.page}" class="form-control nombre" type="number">
                         </div>
-                        <div class="col-sm-2 center">
-                            <input type="submit" id="samplesearch_button" class="btn btn-success" value="{t}Rechercher{/t}">
+                        <div class="col-sm-3 center">
+                            <button type="button" id="samplesearch_button" class="btn btn-success">{t}Rechercher{/t}</button>
                             <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
+                            {if $rights.manage == 1}
+                            <button type="button" id="exportCsv" class="btn btn-success"
+                            title="{t}Export sans tenir compte de la pagination et sans affichage de la liste - format : export vers une autre base{/t}">
+                            {t}Export CSV direct{/t}
+                            </button>
+                        {/if}
                         </div>
-                            <label for="activateSearchByColumn" class="control-label col-sm-3">{t}Activer la recherche par colonne :{/t}</label>
+                            <label for="activateSearchByColumn" class="control-label col-sm-2">{t}Activer la recherche par colonne :{/t}</label>
                             <div class="col-sm-1">
                                 <input type="checkbox" id="activateSearchByColumn" class="form-control" >
                             </div>

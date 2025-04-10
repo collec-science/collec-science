@@ -136,6 +136,7 @@ $routes->add('sampleChange', 'Sample::change');
 $routes->post('sampleWrite', 'Sample::write');
 $routes->post('sampleDelete', 'Sample::delete');
 $routes->add('sampleExport', 'Sample::export');
+$routes->add('sampleExportCsv', 'Sample::exportCsv');
 $routes->add('sampleImportStage1', 'Sample::importStage1');
 $routes->add('sampleImportStage2', 'Sample::importStage2');
 $routes->add('sampleImportStage3', 'Import::importExterneExec');

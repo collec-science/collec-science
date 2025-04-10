@@ -141,6 +141,7 @@ class Rights extends RightsPpci
         "sampleWrite" => ["manage"],
         "sampleDelete" => ["manage"],
         "sampleExport" => ["manage"],
+        "sampleExportCsv" => ["manage"],
         "sampleImportStage1" => ["import", "collection"],
         "sampleImportStage2" => ["import", "collection"],
         "sampleImportStage3" => ["import", "collection"],

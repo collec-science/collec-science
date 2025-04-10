@@ -11,7 +11,7 @@
          * Declenchement de l'export CSV
          */
         $("#exportCsv").on("click keyUp", function () { 
-            if (confirm("{t}Attention : l'export peut être long, évitez d'exporter plus de 10000 échantillons à la fois (vous pouvez sélectionner par plage d'UID). Confirmez-vous l'opération ?{/t}")) {
+            if (confirm("{t}Attention : cet export peut être long, évitez de traiter plus de 10000 échantillons à la fois (vous pouvez sélectionner en utilisant les UID). Confirmez-vous cette opération ?{/t}")) {
                 $("#sample_search").attr("action","sampleExportCsv");
                 $("#sample_search").submit();
             }

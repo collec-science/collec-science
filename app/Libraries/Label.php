@@ -108,6 +108,7 @@ class Label extends PpciLibrary
         /*
          * Duplication d'une etiquette
          */
+        $this->vue=service('Smarty');
         $data = $this->dataclass->lire($this->id);
         $data["label_id"] = 0;
         $data["label_name"] = "";

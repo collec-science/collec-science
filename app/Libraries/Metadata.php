@@ -98,8 +98,9 @@ class Metadata extends PpciLibrary
         $data = $this->dataclass->lire($this->id);
         $data["metadata_id"] = 0;
         $data["metadata_name"] .= " - new version";
+        $data["metadata_id"] = $this->dataclass->ecrire($data);
         $this->vue->set($data, "data");
-        $this->vue->set("param/metadataChange.tpl", "corps");
+        $this->vue->set("param/metadataDisplay.tpl", "corps");
         return $this->vue->send();
     }
     function getSchema()

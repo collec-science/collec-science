@@ -608,23 +608,28 @@ class Sample extends PpciModel
                 /**
                  * Recherche dans les metadonnees
                  */
-                if (($_SESSION["dbparams"]["consultSeesAll"] == 1 || $_SESSION["userRights"]["manage"] == 1) && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
-                    $where .= $and . " (";
-                    $where .= "lower(s.metadata->>:metadata_field0:) like lower (:metadata_value0:)";
-                    $data["metadata_field0"] = $param["metadata_field"][0];
-                    $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
-                    if (!empty($param["metadata_field"][1]) && strlen($param["metadata_value"][1]) > 0) {
-                        $where .= " or lower(s.metadata->>:metadata_field1:) like lower (:metadata_value1:)";
-                        $data["metadata_field1"] = $param["metadata_field"][1];
-                        $data["metadata_value1"] = "%" . $param["metadata_value"][1] . "%";
+                if ($_SESSION["dbparams"]["consultSeesAll"] == 1 || $_SESSION["userRights"]["manage"] == 1){
+                    $mi = 0;
+                    $mcounter = 0;
+                    foreach ($param["metadata_field"] as $field) {
+                        if (!empty($field) && strlen($param["metadata_value"][$mi]) > 0) {
+                            $where .= $and . " (";
+                            $mvs = explode (',', $param["metadata_value"][$mi]);
+                            $multiple = false;
+                            foreach ($mvs as $mv) {
+                                if (strlen($mv) > 0) {
+                                    $multiple ? $where .= " or " : $multiple = true;
+                                    $where .= "lower(s.metadata->>:metadata_field$mcounter:) like lower (:metadata_value$mcounter:)";
+                                    $data["metadata_field$mcounter"] = $field;
+                                    $data["metadata_value$mcounter"] = "%" . $mv . "%";
+                                    $mcounter ++;
+                                }
+                            }
+                            $where .= ")";
+                            $and = " and ";
+                        }
+                        $mi ++;
                     }
-                    if (!empty($param["metadata_field"][2]) && strlen($param["metadata_value"][2]) > 0) {
-                        $where .= " or lower(s.metadata->>:metadata_field2:) like lower (:metadata_value2:)";
-                        $data["metadata_field2"] = $param["metadata_field"][2];
-                        $data["metadata_value2"] = "%" . $param["metadata_value"][2] . "%";
-                    }
-                    $where .= ")";
-                    $and = " and ";
                 }
                 /**
                  * Recherche sur le motif de destockage

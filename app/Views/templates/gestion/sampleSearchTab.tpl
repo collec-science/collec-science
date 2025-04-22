@@ -537,7 +537,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control metadatavalue" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
+                                    <input class="form-control metadatavalue" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
                                 </div>
                                 <div class="col-sm-1">
                                     <img src="display/images/plus.png" height="25" id="showmetadata1">
@@ -549,7 +549,7 @@
                         <div class="form-group">
                             <!--  metadonnees supplementaires -->
                             <div id="metadatarow1" hidden>
-                                <label for="metadata_field1" class="col-sm-3 control-label">{t}ou{/t}</label>
+                                <label for="metadata_field1" class="col-sm-3 control-label">{t}et{/t}</label>
                                 <div class="col-sm-3">
                                     <select class="form-control"  id="metadata_field1" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.1 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
@@ -563,7 +563,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control metadatavalue" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
+                                    <input class="form-control metadatavalue" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
                                 </div>
                                 <div class="col-sm-1">
                                     <img src="display/images/plus.png" height="25" id="showmetadata2">
@@ -574,7 +574,7 @@
                     <div class="row">
                         <div class="form-group">
                             <div id="metadatarow2" hidden>
-                                <label for="metadata_field2" class="col-sm-3 control-label">{t}ou{/t}</label>
+                                <label for="metadata_field2" class="col-sm-3 control-label">{t}et{/t}</label>
                                 <div class="col-sm-3">
                                     <select class="form-control"  id="metadata_field2" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
@@ -588,7 +588,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control metadatavalue" id="metadata_value_2" name="metadata_value[]" value="{$sampleSearch.metadata_value.2}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par % (cela peut ralentir la requête){/t}">
+                                    <input class="form-control metadatavalue" id="metadata_value_2" name="metadata_value[]" value="{$sampleSearch.metadata_value.2}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
                                 </div>
                             </div>
                         </div>

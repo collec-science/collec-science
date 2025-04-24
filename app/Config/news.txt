@@ -1,5 +1,17 @@
 Nouveautés
 ============
+Version v25.0.7 du 24/4/2025
+----------------------------
+Corrections de bugs :
+- la duplication d'un modèle de métadonnées ne fonctionnait plus
+- la duplication d'un modèle d'étiquettes ne fonctionnait plus
+- la saisie des métadonnées n'était pas possible pour les champs de type "select"
+
+Nouveautés :
+- la recherche par l'intermédiaire des métadonnées a été optimisée, avec la possibilité de recherche de plusieurs valeurs (en les séparant par une virgule). Chaque type de métadonnée recherché est cumulatif ("et" entre chaque type de métadonnée)
+- depuis le module de recherche des échantillons, il est maintenant possible de générer un export en CSV (format "export vers une autre base") sans passer par l'affichage et sans tenir compte de la pagination
+- depuis le module de requêtes, il est maintenant possible de générer un fichier csv contenant le résultat sans afficher le contenu de la liste, notamment quand plusieurs milliers de lignes sont retournées
+
 Version v25.0.6 du 31/3/2025
 ----------------------------
 Corrections de bugs :

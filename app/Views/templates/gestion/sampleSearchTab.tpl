@@ -7,6 +7,23 @@
     $(document).ready(function () {
         var isGestion = "{$rights.manage}";
         var consultSeesAll = "{$consultSeesAll}";
+        /**
+         * Declenchement de l'export CSV
+         */
+        $("#exportCsv").on("click keyUp", function () { 
+            if (confirm("{t}Attention : cet export peut être long, évitez de traiter plus de 10000 échantillons à la fois (vous pouvez sélectionner en utilisant les UID). Confirmez-vous cette opération ?{/t}")) {
+                $("#sample_search").attr("action","sampleExportCsv");
+                $("#sample_search").submit();
+            }
+        });
+        /**
+         * Declenchement de la recherche
+         */
+         $("#samplesearch_button").on("click keyUp", function () { 
+            var action = "{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}{if strlen($action)>0}{$action}{else}List{/if}";
+            $("#sample_search").attr("action",action);
+            $("#sample_search").submit();
+        });
         /*
          * Verification que des criteres de selection soient saisis
          */
@@ -520,7 +537,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control metadatavalue" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
+                                    <input class="form-control metadatavalue" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
                                 </div>
                                 <div class="col-sm-1">
                                     <img src="display/images/plus.png" height="25" id="showmetadata1">
@@ -532,7 +549,7 @@
                         <div class="form-group">
                             <!--  metadonnees supplementaires -->
                             <div id="metadatarow1" hidden>
-                                <label for="metadata_field1" class="col-sm-3 control-label">{t}ou{/t}</label>
+                                <label for="metadata_field1" class="col-sm-3 control-label">{t}et{/t}</label>
                                 <div class="col-sm-3">
                                     <select class="form-control"  id="metadata_field1" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.1 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
@@ -546,7 +563,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control metadatavalue" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par %{/t}">
+                                    <input class="form-control metadatavalue" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
                                 </div>
                                 <div class="col-sm-1">
                                     <img src="display/images/plus.png" height="25" id="showmetadata2">
@@ -557,7 +574,7 @@
                     <div class="row">
                         <div class="form-group">
                             <div id="metadatarow2" hidden>
-                                <label for="metadata_field2" class="col-sm-3 control-label">{t}ou{/t}</label>
+                                <label for="metadata_field2" class="col-sm-3 control-label">{t}et{/t}</label>
                                 <div class="col-sm-3">
                                     <select class="form-control"  id="metadata_field2" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.2 == ""}selected{/if}>{t}Métadonnée :{/t}</option>
@@ -571,7 +588,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-3">
-                                    <input class="form-control metadatavalue" id="metadata_value_2" name="metadata_value[]" value="{$sampleSearch.metadata_value.2}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si recherche en milieu de texte, préfixez par % (cela peut ralentir la requête){/t}">
+                                    <input class="form-control metadatavalue" id="metadata_value_2" name="metadata_value[]" value="{$sampleSearch.metadata_value.2}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
                                 </div>
                             </div>
                         </div>
@@ -828,11 +845,17 @@
                         <div class="col-sm-1">
                             <input id="page" name="page" value="{$sampleSearch.page}" class="form-control nombre" type="number">
                         </div>
-                        <div class="col-sm-2 center">
-                            <input type="submit" id="samplesearch_button" class="btn btn-success" value="{t}Rechercher{/t}">
+                        <div class="col-sm-3 center">
+                            <button type="button" id="samplesearch_button" class="btn btn-success">{t}Rechercher{/t}</button>
                             <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
+                            {if $rights.manage == 1}
+                            <button type="button" id="exportCsv" class="btn btn-success"
+                            title="{t}Export sans tenir compte de la pagination et sans affichage de la liste - format : export vers une autre base{/t}">
+                            {t}Export CSV direct{/t}
+                            </button>
+                        {/if}
                         </div>
-                            <label for="activateSearchByColumn" class="control-label col-sm-3">{t}Activer la recherche par colonne :{/t}</label>
+                            <label for="activateSearchByColumn" class="control-label col-sm-2">{t}Activer la recherche par colonne :{/t}</label>
                             <div class="col-sm-1">
                                 <input type="checkbox" id="activateSearchByColumn" class="form-control" >
                             </div>

@@ -608,61 +608,28 @@ class Sample extends PpciModel
                 /**
                  * Recherche dans les metadonnees
                  */
-                if (($_SESSION["dbparams"]["consultSeesAll"] == 1 || $_SESSION["userRights"]["manage"] == 1) && !empty($param["metadata_field"][0]) && strlen($param["metadata_value"][0]) > 0) {
-                    $where .= $and . " ";
-                    /**
-                     * Traitement des divers champs de metadonnees (3 maxi)
-                     * ajout des parentheses si necessaire
-                     * si le meme field est utilise, operateur or, sinon operateur and
-                     */
-                    if ($param["metadata_field"][0] == $param["metadata_field"][1]) {
-                        $is_or = true;
-                    } else {
-                        $is_or = false;
-                    }
-                    if (!empty($param["metadata_field"][1]) && $param["metadata_field"][2] == $param["metadata_field"][1] && strlen($param["metadata_value"][2]) > 0) {
-                        $is_or1 = true;
-                    } else {
-                        $is_or1 = false;
-                    }
-                    if ($is_or) {
-                        $where .= "(";
-                    }
-                    $where .= "lower(s.metadata->>:metadata_field0:) like lower (:metadata_value0:)";
-                    $data["metadata_field0"] = $param["metadata_field"][0];
-                    $data["metadata_value0"] = "%" . $param["metadata_value"][0] . "%";
-                    if (!empty($param["metadata_field"][1]) && strlen($param["metadata_value"][1]) > 0) {
-                        if ($is_or) {
-                            $where .= " or ";
-                        } else {
-                            $where .= " and ";
+                if ($_SESSION["dbparams"]["consultSeesAll"] == 1 || $_SESSION["userRights"]["manage"] == 1){
+                    $mi = 0;
+                    $mcounter = 0;
+                    foreach ($param["metadata_field"] as $field) {
+                        if (!empty($field) && strlen($param["metadata_value"][$mi]) > 0) {
+                            $where .= $and . " (";
+                            $mvs = explode (',', $param["metadata_value"][$mi]);
+                            $multiple = false;
+                            foreach ($mvs as $mv) {
+                                if (strlen($mv) > 0) {
+                                    $multiple ? $where .= " or " : $multiple = true;
+                                    $where .= "lower(s.metadata->>:metadata_field$mcounter:) like lower (:metadata_value$mcounter:)";
+                                    $data["metadata_field$mcounter"] = $field;
+                                    $data["metadata_value$mcounter"] = "%" . $mv . "%";
+                                    $mcounter ++;
+                                }
+                            }
+                            $where .= ")";
+                            $and = " and ";
                         }
-                        $where .= " lower(s.metadata->>:metadata_field1:) like lower (:metadata_value1:)";
-                        $data["metadata_field1"] = $param["metadata_field"][1];
-                        $data["metadata_value1"] = "%" . $param["metadata_value"][1] . "%";
+                        $mi ++;
                     }
-                    if ($is_or && !$is_or1) {
-                        $where .= ")";
-                        $is_or = false;
-                    }
-                    if (!$is_or && $is_or1) {
-                        $where .= " (";
-                    }
-
-                    if (!empty($param["metadata_field"][2]) && strlen($param["metadata_value"][2]) > 0) {
-                        if ($is_or1) {
-                            $where .= " or ";
-                        } else {
-                            $where .= " and ";
-                        }
-                        $where .= " lower(s.metadata->>:metadata_field2:) like lower (:metadata_value2:)";
-                        $data["metadata_field2"] = $param["metadata_field"][2];
-                        $data["metadata_value2"] = "%" . $param["metadata_value"][2] . "%";
-                    }
-                    if ($is_or || $is_or1) {
-                        $where .= ")";
-                    }
-                    $and = " and ";
                 }
                 /**
                  * Recherche sur le motif de destockage

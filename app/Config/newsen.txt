@@ -2,6 +2,18 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v25.0.7 of 24/4/2025
+----------------------------
+Bug fixes :
+- duplicating a metadata template no longer worked
+- duplicating a label template no longer worked
+- metadata entry was not possible for ‘select’ type fields
+
+New features:
+- the metadata search has been optimised, with the possibility of searching for several values (separated by a comma). Each type of metadata searched for is cumulative (‘and’ between each type of metadata)
+- from the sample search module, it is now possible to generate a CSV export (‘export to another database’ format) without going through the display and without taking pagination into account
+- from the query module, it is now possible to generate a csv file containing the result without displaying the contents of the list, particularly when several thousand lines are returned
+
 Version v25.0.6 of 31/3/2025
 ----------------------------
 Bug fixes :

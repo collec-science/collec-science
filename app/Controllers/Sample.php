@@ -58,6 +58,11 @@ class Sample extends PpciController
             return $this->returnToOrigin($_SESSION["moduleParent"]);
         }
     }
+    function exportCsv() {
+        if (! $this->lib->exportCsv()) {
+            return $this->lib->list();
+        }
+    }
     function importStage1()
     {
         return $this->lib->importStage1();

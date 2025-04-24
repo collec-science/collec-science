@@ -137,7 +137,7 @@ class PpciModel extends Model
         /**
          * Verify mandatory fields
          */
-        if (!isset($row[$this->primaryKey])) {
+        if (!isset($row[$this->primaryKey]) or strlen($row[$this->primaryKey]) == 0) {
             $row[$this->primaryKey] = 0;
         }
         foreach ($this->mandatoryFields as $fieldName) {

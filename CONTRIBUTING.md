@@ -23,6 +23,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 - [Styleguides](#styleguides)
   - [Commit Messages](#commit-messages)
 - [Join The Project Team](#join-the-project-team)
+- [Attribution](#attribution)
 
 
 
@@ -63,12 +64,12 @@ A good bug report shouldn't leave others needing to chase you up for more inform
   - the called module (the complete address in the browser)
   - type of used browser (Mozilla, Chrome, etc.)
   - Possibly your input and the output
-  - Can you reliably reproduce the issue? And can you also reproduce it with older versions?
+  - Can you reliably reproduce the issue?
 
 <!-- omit in toc -->
 #### How Do I Submit a Good Bug Report?
 
-> You must never report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to <>.
+> You must never report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to <collec-science@inrae.fr> or <collec-science@proton.me>.
 <!-- You may add a PGP key to allow the messages to be sent encrypted as well. -->
 
 We use GitHub issues to track bugs and errors. If you run into an issue with the project:
@@ -84,8 +85,6 @@ Once it's filed:
 - A team member will try to reproduce the issue with your provided steps. If there are no reproduction steps or no obvious way to reproduce the issue, the team will ask you for those steps and mark the issue as `needs-repro`. Bugs with the `needs-repro` tag will not be addressed until they are reproduced.
 - If the team is able to reproduce the issue, it will be marked `needs-fix`, as well as possibly other tags (such as `critical`), and the issue will be left to be [implemented by someone](#your-first-code-contribution).
 
-<!-- You might want to create an issue template for bugs and errors that can be used as a guide and that defines the structure of the information to be included. If you do so, reference it here in the description. -->
-
 
 ### Suggesting Enhancements
 
@@ -97,7 +96,7 @@ This section guides you through submitting an enhancement suggestion for Collec-
 - Make sure that you are using the latest version.
 - Read the [documentation](https://collec-science.github.io/docs/) carefully and find out if the functionality is already covered, maybe by an individual configuration.
 - Perform a [search](https://github.com/collec-science/collec-science/issues) to see if the enhancement has already been suggested. If it has, add a comment to the existing issue instead of opening a new one.
-- Find out whether your idea fits with the scope and aims of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. Keep in mind that we want features that will be useful to the majority of our users and not just a small subset. If you're just targeting a minority of users, consider writing an add-on/plugin library.
+- Find out whether your idea fits with the scope and aims of the project. It's up to you to make a strong case to convince the project's developers of the merits of this feature. Keep in mind that we want features that will be useful to the majority of our users and not just a small subset. 
 
 <!-- omit in toc -->
 #### How Do I Submit a Good Enhancement Suggestion?
@@ -107,7 +106,7 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/collec
 - Use a **clear and descriptive title** for the issue to identify the suggestion.
 - Provide a **step-by-step description of the suggested enhancement** in as many details as possible.
 - **Describe the current behavior** and **explain which behavior you expected to see instead** and why. At this point you can also tell which alternatives do not work for you.
-- You may want to **include screenshots or screen recordings** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [LICEcap](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and the built-in [screen recorder in GNOME](https://help.gnome.org/users/gnome-help/stable/screen-shot-record.html.en) or [SimpleScreenRecorder](https://github.com/MaartenBaert/ssr) on Linux. <!-- this should only be included if the project has a GUI -->
+- You may want to **include screenshots or screen recordings** which help you demonstrate the steps or point out the part which the suggestion is related to. You can use [LICEcap](https://www.cockos.com/licecap/) to record GIFs on macOS and Windows, and the built-in [screen recorder in GNOME](https://help.gnome.org/users/gnome-help/stable/screen-shot-record.html.en) or [SimpleScreenRecorder](https://github.com/MaartenBaert/ssr) on Linux. 
 - **Explain why this enhancement would be useful** to most Collec-Science users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
 
 <!-- You might want to create an issue template for enhancement suggestions that can be used as a guide and that defines the structure of the information to be included. If you do so, reference it here in the description. -->
@@ -117,22 +116,40 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/collec
 include Setup of env, IDE and typical getting started instructions?
 
 -->
+Collec-Science uses the [CodeIgniter](https://codeigniter.com/) framework associated with the [ppci](https://github.com/equinton/ppci) plug-in. Before you start coding, consult the plugin documentation available here : [https://equinton.github.io/ppcidocs](https://equinton.github.io/ppcidocs).
 
 ### Improving The Documentation
-<!-- TODO
-Updating, improving and correcting the documentation
 
--->
+To contribute to the documentation, see the instructions on the first page of the site [https://collec-science.github.io/docs/](https://collec-science.github.io/docs/).
 
 ## Styleguides
 ### Commit Messages
-<!-- TODO
 
--->
+The commit messages must be constructed as follows:
+
+```
+:type object: action
+
+description
+issue #123
+```
+
+where *type* can be: 
+- **feat** for feature
+- **fix** to fix bugs
+- **doc** to upgrade online documentation
+- **rel** (release) for all changes made in preparation for a new release
+- **deps** for changes in external packages (npm or composer)
+
+*object* must be the component targeted, as *sample*, *container*, *event*, etc.
+
+*action* is the title of the change made.
+
+The number of issue treated must be indicated.
 
 ## Join The Project Team
-<!-- TODO -->
 
-<!-- omit in toc -->
+If you would like to join the Project Team, send an email to [collec-science@inrae.fr](mailto:collec-science@inrae.fr).
+
 ## Attribution
 This guide is based on the [contributing.md](https://contributing.md/generator)!

@@ -332,12 +332,17 @@ $routes->post('apiv1movementWrite', 'MovementWs::write');
 $routes->add('apiv1sampleDisplay', 'SampleWs::detail');
 $routes->add('apiv1sampleUids', 'SampleWs::getListUIDS');
 $routes->add('apiv1sampleList', 'SampleWs::getList');
+/**
+ * Documentation
+ */
 $routes->add('metadatafield_fr', '\Ppci\Controllers\Utils::markdown/documentation/metadata_field/metadatafield_fr.md');
 $routes->add('metadatafield_en', '\Ppci\Controllers\Utils::markdown/documentation/metadata_field/metadatafield_en.md');
 $routes->add('lendingsample_fr', '\Ppci\Controllers\Utils::markdown/documentation/lending_sample/lendingsample_fr.md');
 $routes->add('lendingsample_en', '\Ppci\Controllers\Utils::markdown/documentation/lending_sample/lendingsample_en.md');
 $routes->add('sampledisplay_fr', '\Ppci\Controllers\Utils::markdown/documentation/webservices/sampleDisplayFr.md');
 $routes->add('sampledisplay_en', '\Ppci\Controllers\Utils::markdown/documentation/webservices/sampleDisplayEn.md');
+$routes->add('label_fr', '\Ppci\Controllers\Utils::markdown/documentation/parameters/labels/label_fr.md');
+$routes->add('label_en', '\Ppci\Controllers\Utils::markdown/documentation/parameters/labels/label_en.md');
 $routes->add('documentget_fr', '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentGetFr.md');
 $routes->add('documentget_en', '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentGetEn.md');
 $routes->add('swidentification_fr', '\Ppci\Controllers\Utils::markdown/documentation/webservices/identificationFr.md');

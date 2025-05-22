@@ -358,6 +358,8 @@ $routes->add('swmovementWrite_fr', '\Ppci\Controllers\Utils::markdown/documentat
 $routes->add('swmovementWrite_en', '\Ppci\Controllers\Utils::markdown/documentation/webservices/movementAddEn.md');
 $routes->add('swsampleList_fr', '\Ppci\Controllers\Utils::markdown/documentation/webservices/sampleListFr.md');
 $routes->add('swsampleList_en', '\Ppci\Controllers\Utils::markdown/documentation/webservices/sampleListEn.md');
+$routes->add("documents_fr", '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentsFr.md');
+$routes->add("documents_en", '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentsEn.md');
 $routes->add('exportbatch_fr', '\Ppci\Controllers\Utils::markdown/documentation/import_export/batch_export_fr.md');
 $routes->add('exportbatch_en', '\Ppci\Controllers\Utils::markdown/documentation/import_export/batch_export_en.md');
 $routes->add('document_external_fr', '\Ppci\Controllers\Utils::markdown/documentation/document_external/document_external_fr.md');

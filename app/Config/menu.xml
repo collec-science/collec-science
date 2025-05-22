@@ -116,6 +116,7 @@
 			<item module="swapi_fr" label="API web" tooltip="Utilisation des API web" language="fr" />
 			<item module="sampledisplay_fr" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="fr" />
 			<item module="swsampleList_fr" label="Liste des échantillons" tooltip="Service web permettant de rechercher une liste d'échantillons" language="fr" />
+			<item module="documents_fr" label="Liste des documents" tooltip="Service web d'obtention de la liste des documents attachés à un objet" language="fr" />
 			<item module="documentget_fr" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr" />
 			<item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
 			<item module="sampleDelete_fr" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="fr" />
@@ -145,6 +146,7 @@
 			<item module="swapi_en" label="API web" tooltip="Utilisation des API web" language="en" />
 			<item module="sampledisplay_en" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="en" />
 			<item module="swsampleList_en" label="Liste des échantillons" tooltip="Service web permettant de rechercher une liste d'échantillons" language="en" />
+			<item module="documents_en" label="Liste des documents" tooltip="Service web d'obtention de la liste des documents attachés à un objet" language="en" />
 			<item module="documentget_en" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="en" />
 			<item module="sampleWrite_en" label="Créer un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="en" />
 			<item module="sampleDelete_en" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="en" />

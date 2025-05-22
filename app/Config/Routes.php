@@ -223,6 +223,7 @@ $routes->add('containereventdocumentDelete', 'Document::delete/containerevent');
 $routes->add('documentGet', 'Document::get');
 $routes->add('apiv1documentGet','DocumentWs::getDocument');
 $routes->add('documentGetSW', 'DocumentWs::getDocument');
+$routes->add('apiv1documents', 'DocumentWs::getListDocuments');
 //$routes->add('documentGetSWerror', 'DocumentWs::getSWerror');
 $routes->add('documentExternalGetList', 'Document::externalGetList');
 $routes->post('documentExternalAdd', 'Document::externalAdd');

@@ -992,16 +992,21 @@ class ObjectClass extends PpciModel
      * @param [type] $uid
      * @return void
      */
-    function readWithType($uid)
+    function readWithType($id, $field = "uid")
     {
+        if (in_array($field, ["uid","uuid"])) {
         $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id,
                 case when sample_id > 0 then 'sample' else 'container' end as type_name,
                 sample_id, container_id, uuid, location_accuracy, object_comment
+                ,case when sample_id is not null then sample.collection_id else container.collection_id end as collection_id
                 from object
                 left outer join sample using (uid)
                 left outer join container using (uid)
-                where uid = :uid:";
-        return $this->lireParamAsPrepared($sql, array("uid" => $uid));
+                where $field = :id:";
+        return $this->lireParamAsPrepared($sql, array("id" => $id));
+        } else {
+            return [];
+        }
     }
     /**
      * Set the trashed status for an object

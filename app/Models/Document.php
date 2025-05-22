@@ -110,6 +110,8 @@ class Document extends PpciModel
             $this->fields["event_date"] = array("type" => 2);
             $this->fields["due_date"] = array("type" => 2);
             return $this->getListeParamAsPrepared($sql, array("id" => $id));
+        } else {
+            return [];
         }
     }
     /**
@@ -526,5 +528,20 @@ class Document extends PpciModel
             throw new PpciException(_("La collection n'est pas paramétrée pour accepter des fichiers externes"));
         }
         return $retour;
+    }
+    /**
+     * Rxtract the list of documents for a UID
+     * to API research
+     *
+     * @param int $uid
+     * @return array
+     */
+    function getListFromUid ($uid) :array {
+         $sql = "select uuid, document_name, document_import_date, document_creation_date, document_description
+         ,size, content_type, extension
+          from document d
+          left outer join mime_type using (mime_type_id)
+          where uid = :id:";
+          return $this->getListParam($sql, ["id"=>$uid]);
     }
 }

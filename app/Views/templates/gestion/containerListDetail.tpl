@@ -90,7 +90,16 @@ $(document).ready(function () {
 			libelle = "{t}Tout décocher{/t}";
 		}
 		$("#lcheckContainer").text(libelle);
+		nbCheckedCount();
 	});
+	$(".checkContainer").on ("click keypress", function () {
+		nbCheckedCount();
+	});
+	function nbCheckedCount() {
+		var nbchecked = $ (".checkContainerList:checked").length;
+		var nbCheckedContent = nbchecked + " {t}contenants(s) sélectionné(s){/t}";
+		$("#nbContainerChecked").html(nbCheckedContent);
+	}
 	$('#containercsvfile').on('keypress click',function() {
 		//$(this.form).find("input[name='module']").val("containerExportCSV");
 		$(this.form).attr("action", "containerExportCSV");
@@ -467,7 +476,7 @@ $(document).ready(function () {
 					<tr>
 						{if $rights.manage == 1}
 							<td class="center">
-								<input type="checkbox" class="checkContainer" name="uids[]" value="{$containers[lst].uid}" >
+								<input type="checkbox" class="checkContainer checkContainerList" name="uids[]" value="{$containers[lst].uid}" >
 							</td>
 						{/if}
 						<td class="center">
@@ -526,6 +535,9 @@ $(document).ready(function () {
 			</tbody>
 		</table>
 		{if $rights.collection == 1}
+			<div class="row">
+				<div id="nbContainerChecked"></div>
+			</div>
 			<div class="row">
 				<div class="col-md-6  form-horizontal">
 					{t}Pour les éléments cochés :{/t}

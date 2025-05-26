@@ -2,6 +2,18 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v25.0.8 of 26/5/2025
+----------------------------
+Bug fixes :
+- in some cases, mass operations on samples were not completed, forcing the browser to be closed.
+
+New features:
+- the AUTHORS file has been added to the code repository, to make the application easier to reference
+- it is now possible to create a label with a QRCODE containing only the UUID of the object. This solution is preferable if it is not essential to include additional data in the QRCODE.
+- the file generated for printing labels with third-party software now includes the date the samples were created and the referent
+- the number of samples or containers selected in the lists is now displayed at the bottom of the list
+- two APIs for documents have been added: the first allows you to obtain the list of documents associated with an object, and the second allows you to upload a document to the server and associate it with an object
+
 Version v25.0.7 of 24/4/2025
 ----------------------------
 Bug fixes :

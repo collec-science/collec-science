@@ -103,6 +103,7 @@
 			<item module="document_external_fr" label="Documents externes" tooltip="Associer des documents externes à un échantillon" language="fr" />
 			<item module="consult_sees_all_fr" label="Permettre au droit consult de visualiser les métadonnées" tooltip="Paramétrer l'application pour permettre à tous les utilisateurs de consulter les métadonnées" language="fr" />
 			<item module="composite_fr" label="Les échantillons composés" tooltip="Créer des échantillons composés" language="fr"/>
+			<item module="label_fr" label="Créer un modèle d'étiquette" tooltip="Créer un modèle d'étiquette avec son QRCODE ou son code-barre" language="fr"/>
 		</item>
 
 		<item module="importExport_fr" label="Fonctions d'import/export" tooltip="Fonctions d'importation et d'exportations de données" language="fr">
@@ -115,10 +116,12 @@
 			<item module="swapi_fr" label="API web" tooltip="Utilisation des API web" language="fr" />
 			<item module="sampledisplay_fr" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="fr" />
 			<item module="swsampleList_fr" label="Liste des échantillons" tooltip="Service web permettant de rechercher une liste d'échantillons" language="fr" />
+			<item module="documents_fr" label="Liste des documents" tooltip="Service web d'obtention de la liste des documents attachés à un objet" language="fr" />
 			<item module="documentget_fr" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr" />
 			<item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
 			<item module="sampleDelete_fr" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="fr" />
 			<item module="swmovementWrite_fr" label="Création d'un mouvement" tooltip="Créer un mouvement d'entrée ou de sortie" language="fr" />
+			<item module="documentSet_fr" label="Créer un document" tooltip="Créer un document et l'associer à un objet" language="fr"/>
 		</item>
 		<item module="administration_fr" label="Administration" tooltip="Administrer le logiciel">
 			<item module="rights_general_fr" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" />
@@ -132,6 +135,7 @@
 			<item module="document_external_en" label="Documents externes" tooltip="Associer des documents externes à un échantillon" language="en" />
 			<item module="consult_sees_all_en" label="Permettre au droit consult de visualiser les métadonnées" tooltip="Paramétrer l'application pour permettre à tous les utilisateurs de consulter les métadonnées" language="en" />
 			<item module="composite_en" label="Les échantillons composés" tooltip="Créer un échantillon composé" language="en" />
+			<item module="label_en" label="Créer un modèle d'étiquette" tooltip="Créer un modèle d'étiquette avec son QRCODE ou son code-barre" language="en"/>
 		</item>
 		<item module="importExport_en" label="Fonctions d'import/export" tooltip="Fonctions d'importation et d'exportations de données" language="en">
 			<item module="exportbatch_en" label="Exporter par lot" tooltip="Exporter des échantillons par lots" language="en" />
@@ -143,10 +147,12 @@
 			<item module="swapi_en" label="API web" tooltip="Utilisation des API web" language="en" />
 			<item module="sampledisplay_en" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="en" />
 			<item module="swsampleList_en" label="Liste des échantillons" tooltip="Service web permettant de rechercher une liste d'échantillons" language="en" />
+			<item module="documents_en" label="Liste des documents" tooltip="Service web d'obtention de la liste des documents attachés à un objet" language="en" />
 			<item module="documentget_en" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="en" />
 			<item module="sampleWrite_en" label="Créer un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="en" />
 			<item module="sampleDelete_en" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="en" />
 			<item module="swmovementWrite_en" label="Création d'un mouvement" tooltip="Créer un mouvement d'entrée ou de sortie" language="en" />
+			<item module="documentSet_en" label="Créer un document" tooltip="Créer un document et l'associer à un objet" language="en"/>
 		</item>
 		<item module="administration_en" label="Administration" tooltip="Administrer le logiciel">
 			<item module="rights_general_en" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" language="en" />

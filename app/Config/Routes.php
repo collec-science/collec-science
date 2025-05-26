@@ -223,6 +223,8 @@ $routes->add('containereventdocumentDelete', 'Document::delete/containerevent');
 $routes->add('documentGet', 'Document::get');
 $routes->add('apiv1documentGet','DocumentWs::getDocument');
 $routes->add('documentGetSW', 'DocumentWs::getDocument');
+$routes->add('apiv1documents', 'DocumentWs::getListDocuments');
+$routes->post('apiv1documentWrite', 'DocumentWs::write');
 //$routes->add('documentGetSWerror', 'DocumentWs::getSWerror');
 $routes->add('documentExternalGetList', 'Document::externalGetList');
 $routes->post('documentExternalAdd', 'Document::externalAdd');
@@ -332,12 +334,17 @@ $routes->post('apiv1movementWrite', 'MovementWs::write');
 $routes->add('apiv1sampleDisplay', 'SampleWs::detail');
 $routes->add('apiv1sampleUids', 'SampleWs::getListUIDS');
 $routes->add('apiv1sampleList', 'SampleWs::getList');
+/**
+ * Documentation
+ */
 $routes->add('metadatafield_fr', '\Ppci\Controllers\Utils::markdown/documentation/metadata_field/metadatafield_fr.md');
 $routes->add('metadatafield_en', '\Ppci\Controllers\Utils::markdown/documentation/metadata_field/metadatafield_en.md');
 $routes->add('lendingsample_fr', '\Ppci\Controllers\Utils::markdown/documentation/lending_sample/lendingsample_fr.md');
 $routes->add('lendingsample_en', '\Ppci\Controllers\Utils::markdown/documentation/lending_sample/lendingsample_en.md');
 $routes->add('sampledisplay_fr', '\Ppci\Controllers\Utils::markdown/documentation/webservices/sampleDisplayFr.md');
 $routes->add('sampledisplay_en', '\Ppci\Controllers\Utils::markdown/documentation/webservices/sampleDisplayEn.md');
+$routes->add('label_fr', '\Ppci\Controllers\Utils::markdown/documentation/parameters/labels/label_fr.md');
+$routes->add('label_en', '\Ppci\Controllers\Utils::markdown/documentation/parameters/labels/label_en.md');
 $routes->add('documentget_fr', '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentGetFr.md');
 $routes->add('documentget_en', '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentGetEn.md');
 $routes->add('swidentification_fr', '\Ppci\Controllers\Utils::markdown/documentation/webservices/identificationFr.md');
@@ -352,6 +359,10 @@ $routes->add('swmovementWrite_fr', '\Ppci\Controllers\Utils::markdown/documentat
 $routes->add('swmovementWrite_en', '\Ppci\Controllers\Utils::markdown/documentation/webservices/movementAddEn.md');
 $routes->add('swsampleList_fr', '\Ppci\Controllers\Utils::markdown/documentation/webservices/sampleListFr.md');
 $routes->add('swsampleList_en', '\Ppci\Controllers\Utils::markdown/documentation/webservices/sampleListEn.md');
+$routes->add("documents_fr", '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentsFr.md');
+$routes->add("documents_en", '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentsEn.md');
+$routes->add("documentSet_fr", '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentSetFr.md');
+$routes->add("documentSet_en", '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentSetEn.md');
 $routes->add('exportbatch_fr', '\Ppci\Controllers\Utils::markdown/documentation/import_export/batch_export_fr.md');
 $routes->add('exportbatch_en', '\Ppci\Controllers\Utils::markdown/documentation/import_export/batch_export_en.md');
 $routes->add('document_external_fr', '\Ppci\Controllers\Utils::markdown/documentation/document_external/document_external_fr.md');

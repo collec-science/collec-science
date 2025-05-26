@@ -194,6 +194,7 @@
 			<ul>
 				<li>id</li>
 				<li>uid</li>
+				<li>uuid</li>
 				<li>{t}tout identifiant secondaire non numérique - cf. paramètres > Types d'identifiants{/t}</li>
 				<li>{t 1='dbuid_origin' escape=no}%1 : identifiant de la base de données d'origine. Pour un échantillon créé dans la base courante, la valeur sera de type <i>db:uid</i>{/t}</li>
 			</ul>

@@ -407,12 +407,15 @@ class ObjectClass extends PpciModel
         oc.identifier as container_identifier, container_uid, line_number, column_number,
         o.uuid, o.location_accuracy, o.object_comment
         ,null as country_code, null as country_name
+        ,null as sampling_date, null as expiration_date
+        ,trim (referent_name || ' ' || coalesce(referent_firstname, ' ')) as referent
 		from object o
 		join container using (uid)
 		join container_type using (container_type_id)
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
         left outer join object oc on (container_uid = oc.uid)
+        left outer join referent r on (o.referent_id = r.referent_id)
 		where o.uid in ($uids) and o.trashed$trashed
 		UNION
 		select o.uid, o.identifier, sample_type_name as type_name, clp_classification as clp,
@@ -423,23 +426,33 @@ class ObjectClass extends PpciModel
         metadata::varchar,
         oc.identifier as container_identifier, container_uid, line_number, column_number,
         o.uuid, o.location_accuracy, o.object_comment
-        ,c.country_code2 as country_code, c.country_name
+        ,ctry.country_code2 as country_code, ctry.country_name
+        ,sampling_date, expiration_date
+        ,case when o.referent_id is not null then
+        trim (sr.referent_name || ' ' || coalesce(sr.referent_firstname, ' '))
+        else
+        trim (cr.referent_firstname || ' ' || coalesce(cr.referent_firstname, ' '))
+        end as referent
 		from object o
 		join sample using (uid)
-		join collection using (collection_id)
+		join collection c using (collection_id)
 		join sample_type using (sample_type_id)
     left outer join sampling_place using (sampling_place_id)
 		left outer join container_type using (container_type_id)
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
     left outer join object oc on (container_uid = oc.uid)
-    left outer join country c on (sample.country_id = c.country_id)
+    left outer join country ctry on (sample.country_id = ctry.country_id)
+    left outer join referent sr on (o.referent_id = sr.referent_id)
+    left outer join referent cr on (c.referent_id = cr.referent_id)
 		where o.uid in ($uids) and o.trashed$trashed
 		";
         if (!empty($order)) {
             $sql = "select * from (" . $sql . ") as a";
             $order = " order by $order";
         }
+        $this->dateFields[] = "sampling_date";
+        $this->datefields[] = "expiration_date";
         return $this->getListeParam($sql . $order);
     }
 
@@ -901,7 +914,7 @@ class ObjectClass extends PpciModel
                     }
                 } catch (\Exception $e) {
                     $this->message->set("Erreur lors de la génération du fichier xml");
-                    $this->message->setSyslog($e->getMessage(),true);
+                    $this->message->setSyslog($e->getMessage(), true);
                 }
             } else {
                 $this->message->set(_("Pas d'étiquettes à imprimer"));
@@ -979,16 +992,21 @@ class ObjectClass extends PpciModel
      * @param [type] $uid
      * @return void
      */
-    function readWithType($uid)
+    function readWithType($id, $field = "uid")
     {
+        if (in_array($field, ["uid","uuid", "identifier"])) {
         $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id,
                 case when sample_id > 0 then 'sample' else 'container' end as type_name,
                 sample_id, container_id, uuid, location_accuracy, object_comment
+                ,case when sample_id is not null then sample.collection_id else container.collection_id end as collection_id
                 from object
                 left outer join sample using (uid)
                 left outer join container using (uid)
-                where uid = :uid:";
-        return $this->lireParamAsPrepared($sql, array("uid" => $uid));
+                where $field = :id:";
+        return $this->lireParamAsPrepared($sql, array("id" => $id));
+        } else {
+            return [];
+        }
     }
     /**
      * Set the trashed status for an object

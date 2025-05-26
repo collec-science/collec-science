@@ -1,5 +1,20 @@
 Nouveautés
 ============
+Version v25.0.8 du 26/5/2025
+----------------------------
+Corrections de bugs :
+- dans certains cas de figure, les opérations de masse sur les échantillons ne se finissaient pas, obligeant à fermer le navigateur
+
+Nouveautés :
+- le fichier AUTHORS a été rajouté dans le dépôt du code, pour faciliter le référencement de l'application
+- il est possible de créer une étiquette avec un QRCODE ne contenant que l'UUID de l'objet. Cette solution est à privilégier si l'intégration de données complémentaires dans le QRCODE n'est pas essentielle
+- le fichier généré pour imprimer des étiquettes avec un logiciel tiers comprend maintenant la date de création des échantillons et le référent
+- le nombre d'échantillons ou de contenants sélectionnés dans les listes est maintenant affiché en bas de liste
+- deux API concernant les documents ont été rajoutées : la première permet d'obtenir la liste des documents associés à un objet, et la seconde de télécharger vers le serveur un document et l'associer à un objet
+
+Documentation :
+- la documentation concernant la création des modèles d'étiquettes a été ajoutée à l'application
+
 Version v25.0.7 du 24/4/2025
 ----------------------------
 Corrections de bugs :

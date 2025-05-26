@@ -58,7 +58,8 @@ class Sample extends PpciController
             return $this->returnToOrigin($_SESSION["moduleParent"]);
         }
     }
-    function exportCsv() {
+    function exportCsv()
+    {
         if (! $this->lib->exportCsv()) {
             return $this->lib->list();
         }
@@ -135,22 +136,33 @@ class Sample extends PpciController
     {
         return $this->lib->getChildren();
     }
-    function createComposite() {
+    function createComposite()
+    {
         $this->lib->createComposite();
-        return $this->list();   
+        return $this->list();
     }
     function returnToOrigin($origin)
     {
+        $action = "list";
         if (!empty($_REQUEST["moduleFrom"])) {
-            $_SESSION["filterMessages"] = $this->message->get();
-            return redirect()->route($_REQUEST["moduleFrom"])->withHeaders()->withInput()->withCookies();
+            if ($_REQUEST["moduleFrom"] == "containerDisplay") {
+                $lib = new Container;
+                $action = "display";
+            } else if ($_REQUEST["moduleFrom"] == "containerList") {
+                $lib = new Container;
+            } else if ($_REQUEST["moduleFrom"] == "sampleDisplay") {
+                $lib = $this;
+                $action = "display";
+            } else {
+                $lib = $this;
+            }
         } else {
             if ($origin == "sample") {
                 $lib = $this;
             } else {
                 $lib = new Container;
             }
-            return $lib->list();
         }
+        return $lib->$action();
     }
 }

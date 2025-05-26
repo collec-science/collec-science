@@ -119,3 +119,4 @@ id_collec*
 id_collab*
 tests/testapi.php
 writable/cache/*
+tests/*

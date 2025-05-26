@@ -42,6 +42,7 @@ class Movement extends PpciModel
     public object $object;
     public Borrowing $borrowing;
     public Container $container;
+    public Log $log;
 
     function __construct()
     {
@@ -93,6 +94,7 @@ class Movement extends PpciModel
                 "defaultValue" => 1
             )
         );
+        $this->log = service ("Log");
         parent::__construct();
     }
 
@@ -245,11 +247,7 @@ class Movement extends PpciModel
         /**
          * generate log event
          */
-        /**
-         * @var Log
-         */
-        $log = service ("Log");
-        $log->setLog($_SESSION["login"], "movement-write", $movement_id);
+        $this->log->setLog($_SESSION["login"], "movement-write", $movement_id);
         return $movement_id;
     }
 

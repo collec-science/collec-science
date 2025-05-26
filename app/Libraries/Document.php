@@ -315,7 +315,7 @@ class Document extends PpciLibrary
 		$data = $this->dataclass->getDetail($this->id);
 		helper("appfunctions");
 		if (collectionVerify($data["collection_id"]) && $data["external_storage"] == 't') {
-			$dir = $this->appConfig->external_document_path . "/" . $_SESSION["collections"][$data["collection_id"]]["external_storage_root"] . $data["external_storage_path"];
+			$dir = $this->appConfig->external_document_path . "/" . $_SESSION["collections"][$data["collection_id"]]["external_storage_root"] .'/'. $data["external_storage_path"];
 			$this->vue = service("BinaryView");
 			$this->vue->setParam(
 				array(

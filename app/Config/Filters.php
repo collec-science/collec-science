@@ -60,7 +60,8 @@ class Filters extends BaseConfig
                 'containerPrintDirect',
                 'containerExportGlobal',
                 'smallMovementWriteAjax',
-                'smallMovementChange'
+                'smallMovementChange',
+                'apiv1documentWrite'
             ]],
             'invalidchars',
             /*'legacyRoute',*/

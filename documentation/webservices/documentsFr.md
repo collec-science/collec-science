@@ -11,7 +11,7 @@ Paramètres :
 
 | Paramètre  | Contenu                                                                                                                 |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| uid ou uuid | UID ou UUID de l'objet considéré (obligatoire)                                                                        |
+| uid, uuid ou identifier | UID, UUID ou identifiant métier (déconseillé) de l'objet considéré (obligatoire)                                                                        |
 | token       | jeton d'identification. Information obligatoire si la collection n'est pas publique                                     |
 | login       | login associé au jeton (token). Les deux informations doivent être fournies pour que l'identification soit réalisée |
 

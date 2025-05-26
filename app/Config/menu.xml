@@ -121,6 +121,7 @@
 			<item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
 			<item module="sampleDelete_fr" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="fr" />
 			<item module="swmovementWrite_fr" label="Création d'un mouvement" tooltip="Créer un mouvement d'entrée ou de sortie" language="fr" />
+			<item module="documentSet_fr" label="Créer un document" tooltip="Créer un document et l'associer à un objet" language="fr"/>
 		</item>
 		<item module="administration_fr" label="Administration" tooltip="Administrer le logiciel">
 			<item module="rights_general_fr" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" />
@@ -151,6 +152,7 @@
 			<item module="sampleWrite_en" label="Créer un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="en" />
 			<item module="sampleDelete_en" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="en" />
 			<item module="swmovementWrite_en" label="Création d'un mouvement" tooltip="Créer un mouvement d'entrée ou de sortie" language="en" />
+			<item module="documentSet_en" label="Créer un document" tooltip="Créer un document et l'associer à un objet" language="en"/>
 		</item>
 		<item module="administration_en" label="Administration" tooltip="Administrer le logiciel">
 			<item module="rights_general_en" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" language="en" />

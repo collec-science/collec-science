@@ -331,6 +331,7 @@ class Rights extends RightsPpci
         "apiv1sampleDisplay" => ["consult"],
         "apiv1sampleUids" => ["consult"],
         "apiv1sampleList" => ["consult"],
+        "apiv1documentWrite" => ["manage"],
         //"apiv1documentGet" => ["consult"],
         //"documentGetSW" => ["consult"],
         "movement" => ["manage"],

@@ -522,6 +522,8 @@ class Document extends PpciModel
             $verif = $this->lireParamAsPrepared($sql, array("uid" => $data["uid"], "esp" => $data["external_storage_path"]));
             if ($verif["document_id"] > 0) {
                 $data["document_id"] = $verif["document_id"];
+            } else {
+                $data["document_id"] = 0;
             }
             $retour = parent::write($data);
         } else {

@@ -24,4 +24,9 @@ class DocumentWs extends ResourceController
         $documentWS = new LibrariesDocumentWs;
         return $this->respond($documentWS->getListFromObject());
     }
+    function write() {
+        ob_clean();
+        $documentWS = new LibrariesDocumentWs;
+        return $this->respond($documentWS->documentSet());
+    }
 }

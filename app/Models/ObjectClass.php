@@ -994,7 +994,7 @@ class ObjectClass extends PpciModel
      */
     function readWithType($id, $field = "uid")
     {
-        if (in_array($field, ["uid","uuid"])) {
+        if (in_array($field, ["uid","uuid", "identifier"])) {
         $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id,
                 case when sample_id > 0 then 'sample' else 'container' end as type_name,
                 sample_id, container_id, uuid, location_accuracy, object_comment

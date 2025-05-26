@@ -224,6 +224,7 @@ $routes->add('documentGet', 'Document::get');
 $routes->add('apiv1documentGet','DocumentWs::getDocument');
 $routes->add('documentGetSW', 'DocumentWs::getDocument');
 $routes->add('apiv1documents', 'DocumentWs::getListDocuments');
+$routes->post('apiv1documentWrite', 'DocumentWs::write');
 //$routes->add('documentGetSWerror', 'DocumentWs::getSWerror');
 $routes->add('documentExternalGetList', 'Document::externalGetList');
 $routes->post('documentExternalAdd', 'Document::externalAdd');
@@ -360,6 +361,8 @@ $routes->add('swsampleList_fr', '\Ppci\Controllers\Utils::markdown/documentation
 $routes->add('swsampleList_en', '\Ppci\Controllers\Utils::markdown/documentation/webservices/sampleListEn.md');
 $routes->add("documents_fr", '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentsFr.md');
 $routes->add("documents_en", '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentsEn.md');
+$routes->add("documentSet_fr", '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentSetFr.md');
+$routes->add("documentSet_en", '\Ppci\Controllers\Utils::markdown/documentation/webservices/documentSetEn.md');
 $routes->add('exportbatch_fr', '\Ppci\Controllers\Utils::markdown/documentation/import_export/batch_export_fr.md');
 $routes->add('exportbatch_en', '\Ppci\Controllers\Utils::markdown/documentation/import_export/batch_export_en.md');
 $routes->add('document_external_fr', '\Ppci\Controllers\Utils::markdown/documentation/document_external/document_external_fr.md');

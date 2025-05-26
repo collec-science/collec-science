@@ -164,8 +164,16 @@
 			}
 			$( '.checkSample' ).prop( 'checked', this.checked );
 			$( "#lsamplechek" ).text( libelle );
+			nbCheckedCount();
 		} );
-
+		$(".checkSample").on ("click keypress", function () {
+			nbCheckedCount();
+		});
+		function nbCheckedCount() {
+			var nbchecked = $ (".checkSampleList:checked").length;
+			var nbCheckedContent = nbchecked + " {t}échantillon(s) sélectionné(s){/t}";
+			$("#nbSampleChecked").html(nbCheckedContent);
+		}
 		/**
 		 * Actions on the list, for export and print
 		 */
@@ -747,7 +755,7 @@
 						<tr>
 							{if $rights.manage == 1}
 							<td class="center">
-								<input type="checkbox" class="checkSample" name="uids[]" value="{$samples[lst].uid}">
+								<input type="checkbox" class="checkSample checkSampleList" name="uids[]" value="{$samples[lst].uid}">
 							</td>
 							{/if}
 							<td class="text-center">
@@ -851,6 +859,9 @@
 
 		<!-- form at the bottom of the list-->
 		{if $rights.collection == 1}
+		<div class="row">
+			<div id="nbSampleChecked"></div>
+		</div>
 		<div class="row">
 			<div class="col-md-6 form-horizontal">
 				{t}Pour les éléments cochés :{/t}

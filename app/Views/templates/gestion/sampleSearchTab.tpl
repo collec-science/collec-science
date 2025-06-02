@@ -237,7 +237,7 @@
                     for (var i = 0; i < d.length; i++) {
                         var libelle = "";
                         options += '<option value="'+d[i].event_type_id + '"';
-                        if (d[i].event_type_id = eventTypeInit) {
+                        if (d[i].event_type_id == eventTypeInit) {
                             options += 'selected';
                         }
                         options += '>'+ d[i].event_type_name+'</option>';

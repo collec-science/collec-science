@@ -657,8 +657,8 @@ class Sample extends PpciModel
                  * Search on an event_type
                  */
                 if ($param["event_type_id"] > 0) {
-                    $this->from .= " left outer join event oe on (so.uid = oe.uid:) ";
-                    $where .= $and . " event_type_id = :event_type_id";
+                    $this->from .= " left outer join event oe on (so.uid = oe.uid) ";
+                    $where .= $and . " event_type_id = :event_type_id:";
                     $data["event_type_id"] = $param["event_type_id"];
                     $and = " and ";
                 }

@@ -4,6 +4,7 @@
     var sampling_place_init = "{$sampleSearch.sampling_place_id}";
     var eventTypeInit = "{$sampleSearch.event_type_id}";
     var appli_code ="{$APPLI_code}";
+    var razRequired = false;
     $(document).ready(function () {
         var isGestion = "{$rights.manage}";
         var consultSeesAll = "{$consultSeesAll}";
@@ -233,11 +234,16 @@
             .done (function( d ) {
                     if (d ) {
                     d = JSON.parse(d);
-                    options = '<option value="">{t}Choisissez...{/t}</option>';
+                    
+                    options = '<option value=""';
+                    if (razRequired) {
+                        options += " selected";
+                    }
+                    options+='>{t}Choisissez...{/t}</option>';
                     for (var i = 0; i < d.length; i++) {
                         var libelle = "";
                         options += '<option value="'+d[i].event_type_id + '"';
-                        if (d[i].event_type_id == eventTypeInit) {
+                        if (d[i].event_type_id == eventTypeInit && !razRequired) {
                             options += 'selected';
                         }
                         options += '>'+ d[i].event_type_name+'</option>';
@@ -249,8 +255,12 @@
 
         $("#collection_id").change ( function () {
             getSamplingPlace();
-            getEventTypes();
-
+            var colId = $(this).val();
+            if (colId > 0) {
+               getEventTypes(); 
+            } else {
+                $("#event_type_id").prop("selectedIndex", 0).change();
+            }
         });
         /*
           * Initialisation a l'ouverture de la page
@@ -260,6 +270,7 @@
 
 
         $("#razid").on ("click keyup", function () {
+            razRequired = true;
             metadataFieldInitial = [];
             $("#object_status_id").prop("selectedIndex", 1).change();
             $("#collection_id").prop("selectedIndex", 0).change();
@@ -272,7 +283,6 @@
             $("#movement_reason_id").prop("selectedIndex", 0).change();
             $("#select_date").prop("selectedIndex", 0).change();
             $("#campaign_id").prop("selectedIndex", 0).change();
-            $("#event_type_id").prop("selectedIndex", 0).change();
             $("#uidsearch").val("");
             $("#uid_min").val("0");
             $("#uid_max").val("0");
@@ -302,7 +312,9 @@
             $("#booking_to").datepicker("setDate", now);
             $("#name").val("");
             $("#collections").val("");
+            $("#event_type_id").prop("selectedIndex", 0).change();
             $("#uidsearch").focus();
+            razRequired = false;
         });
         /* Management of tabs */
         var activeTab = "";

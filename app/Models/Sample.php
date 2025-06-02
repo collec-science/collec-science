@@ -1482,6 +1482,17 @@ class Sample extends PpciModel
         return $this->lireParamAsPrepared($sql, $param);
     }
     /**
+     * Get the sample_id from uid
+     *
+     * @param integer $uid
+     * @return int|null
+     */
+    function getIdFromUid(int $uid) {
+        $sql = "select sample_id from sample where uid = :uid:";
+        $data = $this->readParam($sql, ["uid"=>$uid]);
+        return $data["sample_id"];
+    }
+    /**
      * Get the list of samples contained into a container and its children
      *
      * @param integer $uid

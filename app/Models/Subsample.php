@@ -187,4 +187,28 @@ class Subsample extends PpciModel
                 order by identifier";
         return $this->getListParam($sql, ["id" => $sample_id]);
     }
+    /**
+     * Add a subsampling directly
+     *
+     * @param integer $sample_id
+     * @param float $qty
+     * @param integer $movement_type_id
+     * @param string $subSampleDate
+     * @return void
+     */
+    function addSubsample(int $sample_id, float $qty, int $movement_type_id = 2, $subSampleDate = null)
+    {
+        if (is_null($subSampleDate)) {
+            $subSampleDate = date($_SESSION["date"]["maskdatelong"]);
+        }
+        $data =  [
+            "subsample_id" => 0,
+            "sample_id" => $sample_id,
+            "subsample_date" => $subSampleDate,
+            "subsample_quantity" => $qty,
+            "movement_type_id" => $movement_type_id,
+            "subsample_login" => $_SESSION["login"]
+        ];
+        $this->write($data);
+    }
 }

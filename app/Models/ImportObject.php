@@ -35,6 +35,7 @@ class ImportObject
         "sampling_date",
         "expiration_date",
         "sample_multiple_value",
+        "sample_multiple_real",
         "sample_metadata_json",
         "sample_parent_uid",
         "sampling_place_id",
@@ -77,6 +78,7 @@ class ImportObject
 
     private $colnum = array(
         "sample_multiple_value",
+        "sample_multiple_real",
         "sample_column",
         "sample_line",
         "container_column",
@@ -105,7 +107,6 @@ class ImportObject
     private $sampling_place = array();
     private $campaign;
     private $country;
-    private $referent;
 
     private $referents = array();
     /**
@@ -126,13 +127,13 @@ class ImportObject
      */
     private $movement;
 
-    private $samplingPlace;
-
     private $identifierType;
 
     private $sampleType;
 
     private $objectIdentifier;
+
+    private Subsample $subSample;
 
     private $initIdentifiers = false;
 
@@ -211,10 +212,8 @@ class ImportObject
         $this->sample = $sample;
         $this->container = $container;
         $this->movement = $movement;
-        $this->samplingPlace = $samplingPlace;
         $this->identifierType = $identifierType;
         $this->sampleType = $sampleType;
-        $this->referent = $referent;
         $this->campaign = $campaign;
         $this->country = $country;
     }
@@ -231,13 +230,12 @@ class ImportObject
         $this->sample = new Sample;
         $this->container = new Container;
         $this->movement = new Movement;
-        $this->samplingPlace = new SamplingPlace;
         $this->identifierType = new IdentifierType;
         $this->sampleType = new SampleType;
-        $this->referent = new Referent;
         $this->campaign = new Campaign;
         $this->country = new Country;
         $this->objectIdentifier = new ObjectIdentifier;
+        $this->subSample = new Subsample;
     }
 
 
@@ -431,6 +429,14 @@ class ImportObject
                             );
                             $this->objectIdentifier->ecrire($dataCode);
                         }
+                    }
+                    /**
+                     * management of subsampling
+                     */
+                    if (!empty($values["sample_multiple_value"]) && !empty($values["sample_multiple_real"]) && (float) $values["sample_multiple_real"] < (float)$values["sample_multiple_value"]) {
+                        $qty = (float) $values["sample_multiple_value"] - (float) $values["sample_multiple_real"];
+                        $sample_id = $this->sample->getIdFromUid($sample_uid);
+                        $this->subSample->addSubsample($sample_id, $qty, 2);
                     }
                     /**
                      * Mise a jour des bornes de l'uid

@@ -657,8 +657,8 @@ class Sample extends PpciModel
                  * Search on an event_type
                  */
                 if ($param["event_type_id"] > 0) {
-                    $this->from .= " left outer join event oe on (so.uid = oe.uid:) ";
-                    $where .= $and . " event_type_id = :event_type_id";
+                    $this->from .= " left outer join event oe on (so.uid = oe.uid) ";
+                    $where .= $and . " event_type_id = :event_type_id:";
                     $data["event_type_id"] = $param["event_type_id"];
                     $and = " and ";
                 }
@@ -1480,6 +1480,17 @@ class Sample extends PpciModel
                 break;
         }
         return $this->lireParamAsPrepared($sql, $param);
+    }
+    /**
+     * Get the sample_id from uid
+     *
+     * @param integer $uid
+     * @return int|null
+     */
+    function getIdFromUid(int $uid) {
+        $sql = "select sample_id from sample where uid = :uid:";
+        $data = $this->readParam($sql, ["uid"=>$uid]);
+        return $data["sample_id"];
     }
     /**
      * Get the list of samples contained into a container and its children

@@ -142,8 +142,8 @@
                   <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                   <li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy{/t}</li>
                   <li><b>expiration_date</b> : {t}la date d'expiration de l'échantillon, au format dd/mm/yyyy{/t}</li>
-                  <li><b>sample_multiple_value</b> : {t}le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon
-                  si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point){/t}</li>
+                  <li><b>sample_multiple_value</b> : {t}le nombre total de sous-échantillons (ou le volume total, ou le pourcentage...) contenu dans l'échantillon si le type d'échantillons utilisé le permet (valeur numérique, séparateur décimal : point){/t}</li>
+                  <li><b>sample_multiple_real</b> : {t}le nombre réel de sous-échantillons (ou le volume total, le pourcentage...) qu'il reste dans l'échantillon au moment de l'importation. Un sous-échantillonnage sera généré (différence entre sample_multiple_value et sample_multiple_real){/t}</li>
                   <li><b>sample_comment</b> : {t}Commentaire libre sur l'échantillon{/t}</li>
                   <li><b>sample_parent_uid</b> : {t}UID du parent (création d'échantillons rattachés){/t}</li>
                   <li><b>sample_parent_identifier</b> : {t}identifiant métier du parent (doit être créé avant l'échantillon courant ou figurer plus haut dans le fichier, et l'identifiant doit être unique){/t}</li>

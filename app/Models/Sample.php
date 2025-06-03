@@ -490,7 +490,7 @@ class Sample extends PpciModel
                             if ($i > 1) {
                                 $where .= ",";
                             }
-                            $where .= ":id" . $i;
+                            $where .= ":id" . $i.':';
                             $data["id$i"] = strtoupper(trim($v));
                             $i++;
                         }

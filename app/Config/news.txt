@@ -1,5 +1,15 @@
 Nouveautés
 ============
+Version v25.0.9 du 12/6/2025
+----------------------------
+Corrections de bugs :
+- la sélection de plusieurs échantillons en saisissant leur code (en les séparant par une virgule) ne fonctionnait plus
+- la recherche d'échantillons à partir d'un type d'événement ne fonctionnait plus
+- en import de masse, la création des échantillons dérivés ne générait pas le sous-échantillonnage dans l'échantillon parent
+
+Nouveautés :
+- en importation de masse, il est maintenant possible d'indiquer, en sus de la quantité initiale de l'échantillon, la quantité restante au moment de l'importation. Un mouvement de sous-échantillonnage est alors généré
+
 Version v25.0.8 du 26/5/2025
 ----------------------------
 Corrections de bugs :

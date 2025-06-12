@@ -304,6 +304,12 @@ class Sample extends PpciModel
                                 $this->subsample = new Subsample;
                             }
                             $dataSubsample = $this->subsample->getDefaultValues();
+                            /**
+                             * Management of import: creation of movement from subsample
+                             */
+                            if (!empty($data["sample_multiple_value"]) && empty($data["subsample_quantity"])) {
+                                $data["subsample_quantity"] = $data["sample_multiple_value"];
+                            }
                             $dataSubsample["movement_type_id"] = 2;
                             $dataSubsample["subsample_quantity"] = $data["subsample_quantity"];
                             $dataSubsample["sample_id"] = $parentData["sample_id"];

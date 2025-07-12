@@ -101,7 +101,7 @@
             </div>
             <div class="tab-pane fade" id="navcols" role="tabpanel" aria-labelledby="tabcols">
                 <a
-                    href="datasetColumnChange&dataset_column_id=0&dataset_template_id={$data.dataset_template_id}">
+                    href="datasetColumnChange?dataset_column_id=0&dataset_template_id={$data.dataset_template_id}">
                     <img src="display/images/new.png" height="25">
                     {t}Nouvelle colonne{/t}
                 </a>

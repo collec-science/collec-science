@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-02 13:49+0200\n"
+"POT-Creation-Date: 2025-06-12 15:27+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -23,12 +23,14 @@ msgstr "Objects"
 msgid "Opérations sur les échantillons ou les contenants"
 msgstr "Operations on samples or containers"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:8 ../../Config/menu.xml:49
 #: ../../../app/Views/templates/gestion/containerList.tpl:2
 msgid "Contenants"
 msgstr "Containers"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:8 ../../../app/Views/templates/main.tpl:6
 msgid "Liste des contenants"
@@ -39,6 +41,7 @@ msgstr "List of containers"
 msgid "Échantillons"
 msgstr "Samples"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:9 ../../Config/menu.xml:118 ../../Config/menu.xml:149
@@ -47,6 +50,7 @@ msgstr "Samples"
 msgid "Liste des échantillons"
 msgstr "List of samples"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:10
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:601
@@ -69,6 +73,7 @@ msgstr "SQL requests"
 msgid "Exécution de requêtes SQL dans la base de données"
 msgstr "Execution of SQL queries in the database"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../Config/menu.xml:15
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:443
@@ -81,6 +86,7 @@ msgstr "Movements"
 msgid "Création de mouvements dans le stock"
 msgstr "Creating movements in the stock"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:16
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:30
@@ -93,6 +99,7 @@ msgstr "Store or move into container"
 msgid "Déplacer un échantillon/contenant dans un contenant"
 msgstr "Move a sample / container into a container"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:17
 #: ../../../app/Views/templates/gestion/fastOutputChange.tpl:4
@@ -107,6 +114,7 @@ msgstr "Remove from stock"
 msgid "Sortir un échantillon/contenant du stock"
 msgstr "Remove a sample / container from the stock"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:18
 #: ../../../app/Views/templates/gestion/movementBatchRead.tpl:20
@@ -119,6 +127,7 @@ msgstr "Store or move / Remove in batches"
 msgid "Entrer ou déplacer / Sortir par scan multiple de QR Code"
 msgstr "Store or move / remove by multiple scan of QR Code"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:19 ../../../app/Views/templates/main.tpl:20
 #: ../../../app/Views/templates/main.tpl:41
@@ -193,6 +202,7 @@ msgstr "Lot of export"
 msgid "Liste des lots d'exportation des échantillons"
 msgstr "List of sampling export lots"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:30
 #: ../../../app/Views/templates/export/exportTemplateList.tpl:1
@@ -204,6 +214,7 @@ msgstr "Export models"
 msgid "Liste des modèles d'exports"
 msgstr "List of export templates"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:31
 #: ../../../app/Views/templates/export/datasetTemplateList.tpl:1
@@ -231,12 +242,14 @@ msgstr "List of translators of labels"
 msgid "Paramètres"
 msgstr "Settings"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:35 ../../Config/menu.xml:36
 #: ../../../app/Views/templates/param/collectionList.tpl:1
 msgid "Collections"
 msgstr "Collections"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:35 ../../../app/Views/templates/gestion/import.tpl:119
 #: ../../../app/Views/templates/gestion/import.tpl:131
@@ -258,6 +271,7 @@ msgstr "Licenses"
 msgid "Liste des licences utilisables pour publier les collections"
 msgstr "List of available licenses to publish collections"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:39 ../../Config/menu.xml:40
 #: ../../../app/Views/templates/param/protocolList.tpl:1
@@ -284,6 +298,7 @@ msgstr "Operations"
 msgid "Liste des opérations rattachées à un protocole"
 msgstr "List of operations attached to a protocol"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:43
 #: ../../../app/Views/templates/param/referentList.tpl:2
@@ -305,6 +320,7 @@ msgstr "Campaigns"
 msgid "Paramètres des campagnes de prélèvement"
 msgstr "Settings for sampling campaigns"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:45
 #: ../../../app/Views/templates/param/campaignList.tpl:21
@@ -316,6 +332,7 @@ msgstr "Sampling campaigns"
 msgid "Réglementations"
 msgstr "Regulations"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:46
 #: ../../../app/Views/templates/param/regulationList.tpl:1
@@ -327,6 +344,7 @@ msgstr "Date of rules"
 msgid "Paramètres des types de contenants"
 msgstr "Container type parameters"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:50
 #: ../../../app/Views/templates/param/containerFamilyList.tpl:2
@@ -338,6 +356,7 @@ msgstr "Families of containers"
 msgid "Familles de contenants (armoires, éprouvettes...)"
 msgstr "Families of containers (cabinets, test tubes ...)"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:51
 #: ../../../app/Views/templates/param/containerTypeList.tpl:2
@@ -349,6 +368,7 @@ msgstr "Container types"
 msgid "Liste des types de contenants"
 msgstr "List of container types"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:53
 #: ../../../app/Views/templates/param/sampleTypeList.tpl:2
@@ -361,6 +381,7 @@ msgstr "Sample types"
 msgid "Liste des types d'échantillons gérés"
 msgstr "List of sample types managed"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:54
 #: ../../../app/Views/templates/param/identifierTypeList.tpl:2
@@ -372,6 +393,7 @@ msgstr "Identifier types"
 msgid "Liste des types d'identifiants rattachables à un objet"
 msgstr "List of identifier types that can be attached to an object"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:55
@@ -379,18 +401,21 @@ msgstr "List of identifier types that can be attached to an object"
 msgid "Types de sous-échantillonnage"
 msgstr "Subsampling types"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:56
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:748
 msgid "Métadonnées"
 msgstr "Metadata"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:56
 #: ../../../app/Views/templates/param/metadataList.tpl:15
 msgid "Modèles de métadonnées"
 msgstr "Metadata templates"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:57
 #: ../../../app/Views/templates/param/samplingPlaceList.tpl:1
@@ -402,6 +427,7 @@ msgstr "Locations of sampling"
 msgid "Liste des lieux de prélèvement des échantillons"
 msgstr "List of sampling locations"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:58
 #: ../../../app/Views/templates/param/countryList.tpl:1
@@ -415,6 +441,7 @@ msgstr "List of countries"
 msgid "Liste officielle des pays"
 msgstr "Official countries list"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:60
@@ -422,6 +449,7 @@ msgstr "Official countries list"
 msgid "Types d'événement"
 msgstr "Event types"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:61
 #: ../../../app/Views/templates/param/storageConditionList.tpl:2
@@ -433,6 +461,7 @@ msgstr "Storage conditions"
 msgid "Liste des conditions de stockage"
 msgstr "List of storage conditions"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:62
 #: ../../../app/Views/templates/param/movementReasonList.tpl:1
@@ -454,6 +483,7 @@ msgstr "Object statuses"
 msgid "Liste des statuts possibles pour les objets"
 msgstr "List of available status for objects"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:64
 #: ../../../app/Views/templates/param/borrowerList.tpl:1
@@ -465,6 +495,7 @@ msgstr "Borrowers"
 msgid "Liste des emprunteurs d'objets"
 msgstr "List of borrowers of objects"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:66
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:700
@@ -478,6 +509,7 @@ msgstr "Labels"
 msgid "Modèles d'étiquettes"
 msgstr "Label templates"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:67
 #: ../../../app/Views/templates/param/printerList.tpl:2
@@ -509,6 +541,7 @@ msgstr "Technical imports/exports"
 msgid "Exportations ou importations de données au format JSON"
 msgstr "Data exports or imports in JSON format"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:71
 #: ../../../app/Views/templates/export/datasetTypeList.tpl:1
@@ -646,6 +679,7 @@ msgstr ""
 "List of tables and columns of the database available in the rights "
 "management module"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:91
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/phpinfo.tpl:1
@@ -682,6 +716,7 @@ msgstr "Display of the session variables"
 msgid "Backup"
 msgstr "Backup"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@tooltip
 #: ../../Config/menu.xml:96
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/backup.tpl:1
@@ -943,6 +978,7 @@ msgstr "Understanding the dual authentication mechanism"
 msgid "Créer un échantillon"
 msgstr "Create a sample"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #: ../../Config/menu.xml:162
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/header.tpl:21
@@ -956,6 +992,7 @@ msgstr "Sign in"
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: menu/item@label
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:163 ../../Config/menu.xml:164
@@ -980,6 +1017,7 @@ msgstr "Last connections"
 msgid "Liste des dernières connexions réalisées"
 msgstr "List of last connections"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:166
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginChangePassword.tpl:86
@@ -1029,6 +1067,7 @@ msgstr "New version?"
 msgid "Rechercher s'il existe une nouvelle version disponible de l'application"
 msgstr "Find out if there is a new version of the application available"
 
+#. #-#-#-#-#  _xml.pot (PACKAGE VERSION)  #-#-#-#-#
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:173
 #: ../../../app/Views/templates/documentation/lexique.tpl:1
@@ -1754,7 +1793,7 @@ msgstr "Import error of sample %s. "
 msgid "Message d'erreur : "
 msgstr "Error message: "
 
-#: ../../../app/Models/Sample.php:269 ../../../app/Models/Sample.php:1181
+#: ../../../app/Models/Sample.php:269 ../../../app/Models/Sample.php:1187
 #, php-format
 msgid ""
 "L'identifiant de l'échantillon %s existe déjà dans la base de données pour "
@@ -1763,90 +1802,90 @@ msgstr ""
 "The sample identifier %s already exists in the database for the collection "
 "in question"
 
-#: ../../../app/Models/Sample.php:310
+#: ../../../app/Models/Sample.php:316
 #, php-format
 msgid "Création de l'échantillon dérivé %s"
 msgstr "Create the derivative sample %s"
 
-#: ../../../app/Models/Sample.php:316
+#: ../../../app/Models/Sample.php:322
 msgid "Un problème est survenu lors de l'écriture de l'échantillon"
 msgstr "A problem was encountered when writing sample"
 
-#: ../../../app/Models/Sample.php:319
+#: ../../../app/Models/Sample.php:325
 msgid "Un problème est survenu lors de l'écriture de l'objet"
 msgstr "Problem encountered when writing object"
 
-#: ../../../app/Models/Sample.php:322
+#: ../../../app/Models/Sample.php:328
 msgid "Vous ne disposez pas des droits pour modifier cet échantillon"
 msgstr "You do not have the necessary rights to change this sample"
 
-#: ../../../app/Models/Sample.php:361
+#: ../../../app/Models/Sample.php:367
 #, php-format
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour supprimer l'échantillon %1s"
 msgstr "You do not have the necessary rights to delete the sample %1s"
 
-#: ../../../app/Models/Sample.php:935
+#: ../../../app/Models/Sample.php:941
 msgid "Droits insuffisants pour exporter les échantillons"
 msgstr "Insufficient rights to export samples"
 
-#: ../../../app/Models/Sample.php:1019
+#: ../../../app/Models/Sample.php:1025
 msgid "L'identifiant de la base de données d'origine n'a pas été fourni"
 msgstr "The identifier of the original database has not been supplied"
 
-#: ../../../app/Models/Sample.php:1025
+#: ../../../app/Models/Sample.php:1031
 msgid "Le nom de la collection n'a pas été renseigné"
 msgstr "The collection name has not been filled in"
 
-#: ../../../app/Models/Sample.php:1049
+#: ../../../app/Models/Sample.php:1055
 msgid "L'identifiant de l'échantillon existe déjà dans la collection"
 msgstr "The sample identifier already exists in the collection"
 
-#: ../../../app/Models/Sample.php:1056
+#: ../../../app/Models/Sample.php:1062
 msgid "Le type d'échantillon n'a pas été renseigné"
 msgstr "The sample type has not been filled in"
 
-#: ../../../app/Models/Sample.php:1078
+#: ../../../app/Models/Sample.php:1084
 #, php-format
 msgid "Le format de date de %s n'est pas reconnu. "
 msgstr "The date format %s is not recognized. "
 
-#: ../../../app/Models/Sample.php:1086
+#: ../../../app/Models/Sample.php:1092
 #, php-format
 msgid "La date de %s est incomplète ou incohérente. "
 msgstr "The date of %s is incomplete or inconsistent. "
 
-#: ../../../app/Models/Sample.php:1097
+#: ../../../app/Models/Sample.php:1103
 #, php-format
 msgid "Le champ %s n'est pas numérique"
 msgstr "The %s field is not numeric"
 
-#: ../../../app/Models/Sample.php:1106
+#: ../../../app/Models/Sample.php:1112
 msgid "Les métadonnées ne sont pas correctement formatées (champ metadata)"
 msgstr "Metadata is not formatted correctly (metadata field)"
 
-#: ../../../app/Models/Sample.php:1119
+#: ../../../app/Models/Sample.php:1125
 #, php-format
 msgid "Le code de pays %s n'est pas connu"
 msgstr "The %s country code is not known"
 
-#: ../../../app/Models/Sample.php:1178
+#: ../../../app/Models/Sample.php:1184
 #, php-format
 msgid ""
 "La collection n'a pas été spécifiée pour l'échantillon %s, ou est inconnue"
 msgstr "The collection was not provided or is unknown for the sample %s"
 
-#: ../../../app/Models/Sample.php:1228
+#: ../../../app/Models/Sample.php:1234
 msgid "Impossible d'écrire dans la table Object"
 msgstr "Can not write to the Object table"
 
-#: ../../../app/Models/Sample.php:1279
+#: ../../../app/Models/Sample.php:1285
 #, php-format
 msgid ""
 "Vous ne disposez pas des droits nécessaires pour modifier l'échantillon %1s"
 msgstr "You do not have the necessary rights to change the sample %1s"
 
-#: ../../../app/Models/Sample.php:1437
+#: ../../../app/Models/Sample.php:1443
 msgid "Le parent n'existe pas"
 msgstr "The parent does not exist"
 

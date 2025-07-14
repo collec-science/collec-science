@@ -6,6 +6,7 @@
 
             <form class="form-horizontal " id="containerTypeForm" method="post" action="containerTypeWrite">
                   <input type="hidden" name="container_type_id" value="{$data.container_type_id}">
+                  <input type="hidden" name="moduleBase" value="containerType">
                   <div class="form-group">
                         <label for="containerTypeName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
                         <div class="col-md-8">
@@ -77,11 +78,11 @@
                         <div class="col-md-8">
                               <div class="radio">
                                     <label>
-                                          <input type="radio" name="line_in_char" id="line_in_char1" value="1" {if $data.line_in_char == "1"}checked{/if}>
+                                          <input type="radio" name="line_in_char" id="line_in_char1" value="1" {if $data.line_in_char == "t"}checked{/if}>
                                           {t}oui{/t}
                                     </label>
                                     <label>
-                                          <input type="radio" name="line_in_char" id="line_in_char0" value="0" {if $data.line_in_char == 0}checked{/if}>
+                                          <input type="radio" name="line_in_char" id="line_in_char0" value="0" {if $data.line_in_char != "t"}checked{/if}>
                                           {t}non{/t}
                                     </label>
                               </div>
@@ -92,11 +93,11 @@
                         <div class="col-md-8">
                               <div class="radio">
                                     <label>
-                                          <input type="radio" name="column_in_char" id="column_in_char1" value="1" {if $data.column_in_char == "1"}checked{/if}>
+                                          <input type="radio" name="column_in_char" id="column_in_char1" value="1" {if $data.column_in_char == "t"}checked{/if}>
                                           {t}oui{/t}
                                     </label>
                                     <label>
-                                          <input type="radio" name="column_in_char" id="column_in_char0" value="0" {if $data.column_in_char == 0}checked{/if}>
+                                          <input type="radio" name="column_in_char" id="column_in_char0" value="0" {if $data.column_in_char != "t"}checked{/if}>
                                           {t}non{/t}
                                     </label>
                               </div>

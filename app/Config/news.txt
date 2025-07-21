@@ -1,5 +1,13 @@
 Nouveautés
 ============
+Version v25.0.10 du 21/7/2025
+----------------------------
+Corrections de bugs :
+- la suppression des campagnes de prélèvement ne fonctionnait plus
+- dans les modèles de datasets, le clic sur le lien "Nouvelle colonne", depuis le récapitulatif du dataset, ne fonctionnait plus
+- en modification des types de contenants, les contenus des champs "Lignes identifiées par une lettre" et "Colonnes identifiées par une lettre" n'étaient pas affichés
+- la suppression d'un type de contenant ne fonctionnait plus
+
 Version v25.0.9 du 12/6/2025
 ----------------------------
 Corrections de bugs :

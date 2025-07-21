@@ -2,6 +2,13 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v25.0.10 of 21/7/2025
+----------------------------
+Bug fixes :
+- deletion of sampling campaigns no longer worked
+- in dataset templates, clicking on the "New column" link in the dataset summary no longer worked
+- when modifying container types, the contents of the "Lines identified by a letter" and "Columns identified by a letter" fields were not displayed
+
 Version v25.0.9 of 12/6/2025
 ----------------------------
 Bug fixes :

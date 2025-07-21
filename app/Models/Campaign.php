@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Libraries\Document;
+use App\Models\Document as ModelsDocument;
 use Ppci\Libraries\PpciException;
 use Ppci\Models\Aclgroup;
 use Ppci\Models\PpciModel;
@@ -14,7 +14,7 @@ class Campaign extends PpciModel
                     referent_id, referent_name, referent_firstname, uuid
                     from campaign
                     left outer join referent using (referent_id)";
-    private $document;
+    private ModelsDocument $document;
     public Referent $referent;
     public Aclgroup $aclgroup;
     /**
@@ -87,12 +87,12 @@ class Campaign extends PpciModel
              */
             $sql = "delete from campaign_regulation
                     where campaign_id = :campaign_id:";
-            $this->executeSql($sql, array("campaign_id" => $id));
+            $this->executeSql($sql, array("campaign_id" => $id),true);
             /**
              * Documents
              */
             if (!isset($this->document)) {
-                $this->document = new Document;
+                $this->document = new ModelsDocument;
             }
             $this->document->deleteFromField($id, "campaign_id");
             parent::supprimer($id);

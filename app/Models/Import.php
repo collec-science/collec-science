@@ -1,8 +1,10 @@
-<?php 
+<?php
+
 namespace App\Models;
 
 use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
+
 /**
  * Created : 5 sept. 2017
  * Creator : quinton
@@ -29,6 +31,7 @@ class Import
     private $header = array();
 
     public $minuid, $maxuid;
+
 
     /**
      * Constructeur
@@ -63,20 +66,23 @@ class Import
          * Ouverture du fichier
          */
         if ($this->handle = fopen($filename, 'r')) {
+            if (bomEraser($this->handle)) {
+                $this->utf8_encode = false;
+            }
             $data = $this->readLine();
             $range = 0;
             /*
              * Preparation des entetes
              */
-            for ($range = 0; $range < count($data); $range ++) {
+            for ($range = 0; $range < count($data); $range++) {
                 if (in_array($data[$range], $fields) || substr($data[$range], 0, 3) == "md_") {
-                    $this->header[$range] = $data[$range] ;
+                    $this->header[$range] = $data[$range];
                 } else {
-                    throw new PpciException(sprintf(_("L'entête de colonne %1\$s n'est pas reconnue (%2\$s)"),$range + 1,$data[$range]));
+                    throw new PpciException(sprintf(_("L'entête de colonne %1\$s n'est pas reconnue (%2\$s)"), $range + 1, $data[$range]));
                 }
             }
         } else {
-            throw new PpciException(sprintf(_("%s non trouvé ou non lisible"),$filename));
+            throw new PpciException(sprintf(_("%s non trouvé ou non lisible"), $filename));
         }
     }
 
@@ -89,8 +95,8 @@ class Import
     {
         if ($this->handle) {
             $data = fgetcsv($this->handle, 0, $this->separator);
-            if ($data !== false && $this->utf8_encode) {  
-                    $data =  mb_convert_encoding($data, 'UTF-8', 'ISO-8859-15, ISO-8859-1, Windows-1252');;
+            if ($data !== false && $this->utf8_encode) {
+                $data =  mb_convert_encoding($data, 'UTF-8', 'ISO-8859-15, ISO-8859-1, Windows-1252');;
             }
             return $data;
         } else {
@@ -109,7 +115,7 @@ class Import
         $nb = count($this->header);
         while (($line = $this->readLine()) !== false) {
             $dl = array();
-            for ($i = 0; $i < $nb; $i ++) {
+            for ($i = 0; $i < $nb; $i++) {
                 $dl[$this->header[$i]] = $line[$i];
             }
             $data[] = $dl;

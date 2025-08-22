@@ -858,7 +858,7 @@
                             <input id="page" name="page" value="{$sampleSearch.page}" class="form-control nombre" type="number">
                         </div>
                         <div class="col-sm-3 center">
-                            <button type="button" id="samplesearch_button" class="btn btn-success">{t}Rechercher{/t}</button>
+                            <button type="submit" id="samplesearch_button" class="btn btn-success">{t}Rechercher{/t}</button>
                             <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
                             {if $rights.manage == 1}
                             <button type="button" id="exportCsv" class="btn btn-success"

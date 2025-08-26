@@ -29,7 +29,13 @@ class RedisHandler extends BaseHandler
     /**
      * Default config
      *
-     * @var array
+     * @var array{
+     *   host: string,
+     *   password: string|null,
+     *   port: int,
+     *   timeout: int,
+     *   database: int,
+     * }
      */
     protected $config = [
         'host'     => '127.0.0.1',
@@ -181,7 +187,7 @@ class RedisHandler extends BaseHandler
         $iterator    = null;
 
         do {
-            /** @var false|list<string>|Redis $keys */
+            /** @var false|list<string> $keys */
             $keys = $this->redis->scan($iterator, $pattern);
 
             if (is_array($keys)) {

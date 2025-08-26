@@ -37,9 +37,9 @@ try {
              * Treatment of the line
              */
             $functionContent = explode(",", substr($line, strpos("(", $line), -2));
-            $functionContent = str_replace (["'", '"', " ",")"], ["","","",""], $functionContent);
+            $functionContent = str_replace(["'", '"', " ", ")"], ["", "", "", ""], $functionContent);
             $content = explode("::", $functionContent[1]);
-            $routes[$content[0]][] = $content[1];
+            $routes[$content[0]][$content[1]] = $content[1];
         }
     }
     fclose($handle);
@@ -48,13 +48,13 @@ try {
         /**
          * Delete root folder
          */
-        $aroute = explode("\\",$route);
-        $route = $aroute[count($aroute) -1];
+        $aroute = explode("\\", $route);
+        $route = $aroute[count($aroute) - 1];
         $librarieName = "Libraries" . $route;
         $corps = "<?php" . PHP_EOL
             . "namespace App\Controllers;" . PHP_EOL . PHP_EOL
             . "use \Ppci\Controllers\PpciController;" . PHP_EOL
-            . "use App\Libraries\\" . $route . " as " . $librarieName .";". PHP_EOL . PHP_EOL
+            . "use App\Libraries\\" . $route . " as " . $librarieName . ";" . PHP_EOL . PHP_EOL
             . "class " . $route . " extends PpciController {" . PHP_EOL
             . 'protected $lib;' . PHP_EOL
             . "function __construct() {" . PHP_EOL
@@ -63,20 +63,24 @@ try {
         foreach ($fonctions as $fonction) {
             $corps .= "function " . $fonction . "() {" . PHP_EOL;
             if ($fonction == "write") {
-                $corps .= 'if ($this->lib->write()) {'.PHP_EOL
-                    . 'return $this->display();'.PHP_EOL
-                    . '} else {'.PHP_EOL
-                    . 'return $this->change();'.PHP_EOL
-                    . '}'.PHP_EOL.'}'.PHP_EOL;
-                }elseif ($fonction == "delete") {
-                    $corps .= 'if ($this->lib->delete()) {'.PHP_EOL
-                    . 'return $this->list();'.PHP_EOL
-                    . '} else {'.PHP_EOL
-                    . 'return $this->change();'.PHP_EOL
-                    . '}'.PHP_EOL.'}'.PHP_EOL;
+                $corps .= 'if ($this->lib->write()) {' . PHP_EOL;
+                if (key_exists("display", $fonctions)) {
+                    $corps .= 'return $this->display();' . PHP_EOL;
+                } else {
+                    $corps .= 'return $this->list();' . PHP_EOL;
+                }
+                $corps .= '} else {' . PHP_EOL
+                    . 'return $this->change();' . PHP_EOL
+                    . '}' . PHP_EOL . '}' . PHP_EOL;
+            } elseif ($fonction == "delete") {
+                $corps .= 'if ($this->lib->delete()) {' . PHP_EOL
+                    . 'return $this->list();' . PHP_EOL
+                    . '} else {' . PHP_EOL
+                    . 'return $this->change();' . PHP_EOL
+                    . '}' . PHP_EOL . '}' . PHP_EOL;
             } else {
                 $corps .= 'return $this->lib->' . $fonction . "();" . PHP_EOL
-                . "}" . PHP_EOL;
+                    . "}" . PHP_EOL;
             }
         }
         $corps .= "}" . PHP_EOL;

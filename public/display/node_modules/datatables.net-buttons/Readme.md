@@ -27,7 +27,7 @@ import DataTable from 'datatables.net';
 import 'datatables.net-buttons'
 
 new DataTable('#myTable', {
-    // initalisation options
+    // initialisation options
 });
 ```
 

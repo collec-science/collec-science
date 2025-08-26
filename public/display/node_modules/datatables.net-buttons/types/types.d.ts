@@ -490,7 +490,13 @@ declare module 'datatables.net' {
 
 	type FunctionButtonInit = (dt: Api<any>, node: JQuery, config: any) => void;
 
-	type FunctionButtonAction = (e: any, dt: Api<any>, node: JQuery, config: ButtonConfig) => void;
+	type FunctionButtonAction = (
+		e: JQuery.Event,
+		dt: Api<any>,
+		node: JQuery,
+		config: ButtonConfig,
+		callback: () => {}
+	) => void;
 
 	type FunctionButtonCustomize = (win: Window|string) => void;
 
@@ -576,6 +582,7 @@ declare module 'datatables.net' {
 		/** Create a CSV file with the table data */
 		csv: {
 			extend: 'csv',
+			bom?: boolean;
 			filename?: string;
 			extension?: string;
 			exportOptions?: ButtonExportOptions,
@@ -684,6 +691,7 @@ declare module 'datatables.net' {
 	interface ButtonExportOptions {
 		rows?: any;
 		columns?: ButtonSelectorTypes | ButtonSelectorTypes[];
+		customizeData?: FunctionButtonCustomizeData;
 		modifier?: any;
 		orthogonal?: string;
 		stripHtml?: boolean;
@@ -694,7 +702,6 @@ declare module 'datatables.net' {
 			header?: any;
 			footer?: any;
 			body?: any;
-			customizeData?: any;
 		}
 	}
 

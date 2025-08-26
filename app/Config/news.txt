@@ -1,5 +1,15 @@
 Nouveautés
 ============
+Version v25.0.11 du 1/9/2025
+----------------------------
+Corrections de bugs :
+- les utilisateurs gérés en base de données ne pouvaient plus changer leur mot de passe
+- l'ajout de documents à un contenant ne fonctionnait plus
+
+Nouveauté :
+- dans la boite de recherche des échantillons, l'appui sur la touche Entrée déclenche la recherche. Il fallait auparavant utiliser la souris
+- lors des opérations d'importation des échantillons, le logiciel prend maintenant en charge le codage UTF-8 BOM, imposé par Excel
+
 Version v25.0.10 du 21/7/2025
 ----------------------------
 Corrections de bugs :

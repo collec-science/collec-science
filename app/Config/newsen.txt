@@ -2,6 +2,16 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v25.0.11 of 1/9/2025
+----------------------------
+Bug fixes:
+- Database-managed users could no longer change their passwords
+- Adding documents to a container no longer worked
+
+New feature:
+- In the sample search box, pressing the Enter key triggers the search. Previously, you had to use the mouse
+- When importing samples, the software now supports UTF-8 BOM encoding, required by Excel
+
 Version v25.0.10 of 21/7/2025
 ----------------------------
 Bug fixes :

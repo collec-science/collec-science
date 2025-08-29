@@ -535,9 +535,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="identifier" class="control-label col-md-4">{t}Identifiant ou nom :{/t}</label>
+					<label for="identifier" class="control-label col-md-4"><span class="red">*</span> {t}Identifiant ou nom :{/t}</label>
 					<div class="col-md-6">
-						<input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus >
+						<input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus required>
 					</div>
 					<div class="col-md-2">
 						<button class="btn btn-info" type="button" id="identifier_generate" disabled

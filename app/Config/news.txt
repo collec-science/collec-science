@@ -5,10 +5,14 @@ Version v25.0.11 du 1/9/2025
 Corrections de bugs :
 - les utilisateurs gérés en base de données ne pouvaient plus changer leur mot de passe
 - l'ajout de documents à un contenant ne fonctionnait plus
+- la création d'une réservation ne fonctionnait plus
+- il n'était plus possible d'ajouter un document PDF à un protocole, ni de le consulter
+- la recherche des parents potentiels lors de la modification d'un échantillon ne fonctionnait plus
 
-Nouveauté :
+Nouveautés :
 - dans la boite de recherche des échantillons, l'appui sur la touche Entrée déclenche la recherche. Il fallait auparavant utiliser la souris
 - lors des opérations d'importation des échantillons, le logiciel prend maintenant en charge le codage UTF-8 BOM, imposé par Excel
+- l'identifiant métier est maintenant obligatoire : il était jusqu'alors possible de créer des contenants ou des échantillons sans identifiant
 
 Version v25.0.10 du 21/7/2025
 ----------------------------

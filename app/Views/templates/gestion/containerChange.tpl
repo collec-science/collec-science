@@ -131,9 +131,9 @@ if (container_type_id > 0) {
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="appli" class="control-label col-md-4">{t}Identifiant ou nom :{/t}</label>
+			<label for="appli" class="control-label col-md-4"><span class="red">*</span> {t}Identifiant ou nom :{/t}</label>
 			<div class="col-md-8">
-				<input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus >
+				<input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus required>
 			</div>
 		</div>
 		<div class="form-group">

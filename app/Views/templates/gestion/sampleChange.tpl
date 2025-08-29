@@ -361,12 +361,12 @@
 		$("#parent_search").on("focusout", function() {
 			var chaine = $("#parent_search").val();
 			if (chaine.length > 0) {
-				var url = "";
+				var url = "sampleSearchAjax";
 				var is_container = 2;
 				var sample_id = $("#sample_id").val();
 				var collection = "";
 				var type = "";
-				$.ajax ( { url:url, method:"GET", data : { module:"sampleSearchAjax", name:chaine, uidsearch:chaine }, success : function ( djs ) {
+				$.ajax ( { url:url, method:"GET", data : {  name:chaine, uidsearch:chaine }, success : function ( djs ) {
 					var options = "";
 					try {
 						var data = JSON.parse(djs);

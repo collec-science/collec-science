@@ -70,12 +70,14 @@ class Protocol extends PpciModel
                 /*
                  * Ecriture du fichier
                  */
-                $fp = fopen($file['tmp_name'], 'rb');
-                if (!$fp > 0) {
+                $content = fread(fopen($file['tmp_name'], 'rb'), $file["size"]);
+                if (!$content) {
                     throw new PpciException(_("Erreur technique : le fichier téléchargé n'est pas accessible par l'application"));
                 }
                 try {
-                    $this->updateBinaire($id, "protocol_file", $fp);
+                    $binary = pg_escape_bytea($this->db->connID, $content);
+                    $sql = "UPDATE protocol set protocol_file = '" . $binary . "' where protocol_id = :id:";
+                    $this->executeQuery($sql, ["id" => $id], true);
                 } catch (\Exception $e) {
                     throw new PpciException($e->getMessage());
                 }
@@ -91,19 +93,23 @@ class Protocol extends PpciModel
      * @param int $id
      * @return reference|NULL
      */
-    function getProtocolFile($id)
+    function getProtocolFile(int $id)
     {
-        if ($id > 0 && is_numeric($id)) {
+        if ($id > 0) {
             /*
              * Verification si l'utilisateur peut charger le fichier
              */
             if ($this->verifyCollection($this->lire($id))) {
-                $ref = $this->getBlobReference($id, "protocol_file");
-                if (!$ref) {
-                    throw new PpciException(_("Pas de fichier à afficher"));
-                } else {
-                    return $ref;
+                $sql = "SELECT protocol_file from protocol where protocol_id = :id:";
+                $row = $this->readParam($sql, ["id" => $id]);
+                if (strlen($row["protocol_file"]) > 0) {
+                    $app = service('AppConfig');
+                    $filename = $app->APP_temp . "/protocol_file$id.pdf";
+                    $handle = fopen($filename, 'wb');
+                    fwrite($handle, pg_unescape_bytea($row["protocol_file"]));
+                    fclose($handle);
                 }
+                return $filename;
             } else {
                 throw new PpciException(_("Droits insuffisants pour lire le fichier"));
             }
@@ -118,8 +124,8 @@ class Protocol extends PpciModel
     function documentDelete($id)
     {
         if ($this->verifyCollection($this->lire($id))) {
-            $sql = "update protocol set protocol_file = null where protocol_id = :id:";
-            $this->executeSql($sql, array("id" => $id),true);
+            $sql = "UPDATE protocol set protocol_file = null where protocol_id = :id:";
+            $this->executeSql($sql, array("id" => $id), true);
         }
     }
 

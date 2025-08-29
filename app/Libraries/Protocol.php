@@ -62,7 +62,7 @@ class Protocol extends PpciLibrary
                  */
                 if ($_FILES["protocol_file"]["size"] > 0) {
                     try {
-                        $this->dataclass->ecrire_document($this->id, $_FILES["protocol_file"]);
+                        $this->dataclass->write_document($this->id, $_FILES["protocol_file"]);
                     } catch (PpciException $e) {
                         $this->message->setSyslog($e->getMessage(),true);
                         throw new PpciException(_("impossible d'enregistrer la pièce jointe"));
@@ -99,10 +99,8 @@ class Protocol extends PpciLibrary
     function file()
     {
         try {
-            $ref = $this->dataclass->getProtocolFile($this->id);
-            //$this->vue->setDisposition("inline");
             $this->vue = service("PdfView");
-            $this->vue->setFileReference($ref);
+            $this->vue->setFileName ($this->dataclass->getProtocolFile($this->id));
             return $this->vue->send();
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);

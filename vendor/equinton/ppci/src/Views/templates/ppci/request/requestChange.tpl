@@ -17,6 +17,10 @@ $(document).ready(function() {
 		$(this.form).attr("action", "requestExec");
 		$("#requestForm").submit();
 	});
+	$("#execcsv").bind("click keyup", function (event) {
+		$("#requestForm").attr("action", "requestExecCsv");
+		$("#requestForm").submit();
+	});
 	$("#saveExec").on("click keyup", function () {
 		$(this.form).attr("action", "requestWriteExec");
 		$("#bodySent").val(toHex ($("#body").val() ) );
@@ -91,6 +95,7 @@ $(document).ready(function() {
 					{if $data.request_id > 0}
 						<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>
 						<button type="submit" class="btn btn-primary button-valid" id="exec">{t}Exécuter{/t}</button>
+						<button type="submit" class="btn btn-primary button-valid" id="execcsv">{t}Exécuter avec export CSV direct{/t}</button>
 						<button type="submit" class="btn btn-danger" id="suppr">{t}Supprimer{/t}</button>
 					{/if}
 				</div>

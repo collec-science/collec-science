@@ -13,7 +13,7 @@ class Booking extends PpciLibrary
 	/**
 	 * @var ModelsBooking
 	 */
-	protected ModelsBooking $dataclass;
+	protected PpciModel $dataclass;
 
 	
 

@@ -40,6 +40,7 @@ class Rights extends RightsPpci
         "requestWrite" => ["param"],
         "requestDelete" => ["param"],
         "requestExec" => ["param"],
+        "requestExecCsv" => ["param"],
         "requestExecList" => ["param"],
         "requestWriteExec" => ["param"],
         "requestCopy" => ["param"],

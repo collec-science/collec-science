@@ -24,6 +24,7 @@ final class PHPUnit
     private readonly int|string $columns;
     private readonly string $colors;
     private readonly bool $stderr;
+    private readonly bool $displayDetailsOnAllIssues;
     private readonly bool $displayDetailsOnIncompleteTests;
     private readonly bool $displayDetailsOnSkippedTests;
     private readonly bool $displayDetailsOnTestsThatTriggerDeprecations;
@@ -35,8 +36,10 @@ final class PHPUnit
     private readonly bool $requireCoverageMetadata;
     private readonly ?string $bootstrap;
     private readonly bool $processIsolation;
+    private readonly bool $failOnAllIssues;
     private readonly bool $failOnDeprecation;
     private readonly bool $failOnPhpunitDeprecation;
+    private readonly bool $failOnPhpunitWarning;
     private readonly bool $failOnEmptyTestSuite;
     private readonly bool $failOnIncomplete;
     private readonly bool $failOnNotice;
@@ -80,7 +83,7 @@ final class PHPUnit
     /**
      * @psalm-param ?non-empty-string $extensionsDirectory
      */
-    public function __construct(?string $cacheDirectory, bool $cacheResult, ?string $cacheResultFile, int|string $columns, string $colors, bool $stderr, bool $displayDetailsOnIncompleteTests, bool $displayDetailsOnSkippedTests, bool $displayDetailsOnTestsThatTriggerDeprecations, bool $displayDetailsOnPhpunitDeprecations, bool $displayDetailsOnTestsThatTriggerErrors, bool $displayDetailsOnTestsThatTriggerNotices, bool $displayDetailsOnTestsThatTriggerWarnings, bool $reverseDefectList, bool $requireCoverageMetadata, ?string $bootstrap, bool $processIsolation, bool $failOnDeprecation, bool $failOnPhpunitDeprecation, bool $failOnEmptyTestSuite, bool $failOnIncomplete, bool $failOnNotice, bool $failOnRisky, bool $failOnSkipped, bool $failOnWarning, bool $stopOnDefect, bool $stopOnDeprecation, bool $stopOnError, bool $stopOnFailure, bool $stopOnIncomplete, bool $stopOnNotice, bool $stopOnRisky, bool $stopOnSkipped, bool $stopOnWarning, ?string $extensionsDirectory, bool $beStrictAboutChangesToGlobalState, bool $beStrictAboutOutputDuringTests, bool $beStrictAboutTestsThatDoNotTestAnything, bool $beStrictAboutCoverageMetadata, bool $enforceTimeLimit, int $defaultTimeLimit, int $timeoutForSmallTests, int $timeoutForMediumTests, int $timeoutForLargeTests, ?string $defaultTestSuite, int $executionOrder, bool $resolveDependencies, bool $defectsFirst, bool $backupGlobals, bool $backupStaticProperties, bool $registerMockObjectsFromTestArgumentsRecursively, bool $testdoxPrinter, bool $controlGarbageCollector, int $numberOfTestsBeforeGarbageCollection)
+    public function __construct(?string $cacheDirectory, bool $cacheResult, ?string $cacheResultFile, int|string $columns, string $colors, bool $stderr, bool $displayDetailsOnAllIssues, bool $displayDetailsOnIncompleteTests, bool $displayDetailsOnSkippedTests, bool $displayDetailsOnTestsThatTriggerDeprecations, bool $displayDetailsOnPhpunitDeprecations, bool $displayDetailsOnTestsThatTriggerErrors, bool $displayDetailsOnTestsThatTriggerNotices, bool $displayDetailsOnTestsThatTriggerWarnings, bool $reverseDefectList, bool $requireCoverageMetadata, ?string $bootstrap, bool $processIsolation, bool $failOnAllIssues, bool $failOnDeprecation, bool $failOnPhpunitDeprecation, bool $failOnPhpunitWarning, bool $failOnEmptyTestSuite, bool $failOnIncomplete, bool $failOnNotice, bool $failOnRisky, bool $failOnSkipped, bool $failOnWarning, bool $stopOnDefect, bool $stopOnDeprecation, bool $stopOnError, bool $stopOnFailure, bool $stopOnIncomplete, bool $stopOnNotice, bool $stopOnRisky, bool $stopOnSkipped, bool $stopOnWarning, ?string $extensionsDirectory, bool $beStrictAboutChangesToGlobalState, bool $beStrictAboutOutputDuringTests, bool $beStrictAboutTestsThatDoNotTestAnything, bool $beStrictAboutCoverageMetadata, bool $enforceTimeLimit, int $defaultTimeLimit, int $timeoutForSmallTests, int $timeoutForMediumTests, int $timeoutForLargeTests, ?string $defaultTestSuite, int $executionOrder, bool $resolveDependencies, bool $defectsFirst, bool $backupGlobals, bool $backupStaticProperties, bool $registerMockObjectsFromTestArgumentsRecursively, bool $testdoxPrinter, bool $controlGarbageCollector, int $numberOfTestsBeforeGarbageCollection)
     {
         $this->cacheDirectory                                  = $cacheDirectory;
         $this->cacheResult                                     = $cacheResult;
@@ -88,6 +91,7 @@ final class PHPUnit
         $this->columns                                         = $columns;
         $this->colors                                          = $colors;
         $this->stderr                                          = $stderr;
+        $this->displayDetailsOnAllIssues                       = $displayDetailsOnAllIssues;
         $this->displayDetailsOnIncompleteTests                 = $displayDetailsOnIncompleteTests;
         $this->displayDetailsOnSkippedTests                    = $displayDetailsOnSkippedTests;
         $this->displayDetailsOnTestsThatTriggerDeprecations    = $displayDetailsOnTestsThatTriggerDeprecations;
@@ -99,8 +103,10 @@ final class PHPUnit
         $this->requireCoverageMetadata                         = $requireCoverageMetadata;
         $this->bootstrap                                       = $bootstrap;
         $this->processIsolation                                = $processIsolation;
+        $this->failOnAllIssues                                 = $failOnAllIssues;
         $this->failOnDeprecation                               = $failOnDeprecation;
         $this->failOnPhpunitDeprecation                        = $failOnPhpunitDeprecation;
+        $this->failOnPhpunitWarning                            = $failOnPhpunitWarning;
         $this->failOnEmptyTestSuite                            = $failOnEmptyTestSuite;
         $this->failOnIncomplete                                = $failOnIncomplete;
         $this->failOnNotice                                    = $failOnNotice;
@@ -202,6 +208,11 @@ final class PHPUnit
         return $this->stderr;
     }
 
+    public function displayDetailsOnAllIssues(): bool
+    {
+        return $this->displayDetailsOnAllIssues;
+    }
+
     public function displayDetailsOnIncompleteTests(): bool
     {
         return $this->displayDetailsOnIncompleteTests;
@@ -272,6 +283,11 @@ final class PHPUnit
         return $this->processIsolation;
     }
 
+    public function failOnAllIssues(): bool
+    {
+        return $this->failOnAllIssues;
+    }
+
     public function failOnDeprecation(): bool
     {
         return $this->failOnDeprecation;
@@ -280,6 +296,11 @@ final class PHPUnit
     public function failOnPhpunitDeprecation(): bool
     {
         return $this->failOnPhpunitDeprecation;
+    }
+
+    public function failOnPhpunitWarning(): bool
+    {
+        return $this->failOnPhpunitWarning;
     }
 
     public function failOnEmptyTestSuite(): bool
@@ -366,9 +387,9 @@ final class PHPUnit
     }
 
     /**
-     * @psalm-return non-empty-string
-     *
      * @throws Exception
+     *
+     * @psalm-return non-empty-string
      */
     public function extensionsDirectory(): string
     {

@@ -22,6 +22,7 @@ use function sys_get_temp_dir;
 use function tempnam;
 use function unlink;
 use function var_export;
+use function xdebug_is_debugger_active;
 use AssertionError;
 use PHPUnit\Event;
 use PHPUnit\Event\NoPreviousThrowableException;
@@ -232,7 +233,7 @@ final class TestRunner
             Event\Facade::emitter()->testConsideredRisky(
                 $test->valueObjectForEvents(),
                 sprintf(
-                    'This test printed output: %s',
+                    'Test code or tested code printed unexpected output: %s',
                     $test->output(),
                 ),
             );

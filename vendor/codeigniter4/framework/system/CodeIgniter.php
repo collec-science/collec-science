@@ -55,7 +55,7 @@ class CodeIgniter
     /**
      * The current version of CodeIgniter Framework
      */
-    public const CI_VERSION = '4.6.0';
+    public const CI_VERSION = '4.6.3';
 
     /**
      * App startup time.
@@ -141,7 +141,7 @@ class CodeIgniter
      *  web:     Invoked by HTTP request
      *  php-cli: Invoked by CLI via `php public/index.php`
      *
-     * @phpstan-var 'php-cli'|'web'
+     * @var 'php-cli'|'web'|null
      */
     protected ?string $context = null;
 
@@ -948,7 +948,9 @@ class CodeIgniter
         $this->response->setStatusCode($e->getCode());
 
         // Is there a 404 Override available?
-        if ($override = $this->router->get404Override()) {
+        $override = $this->router->get404Override();
+
+        if ($override !== null) {
             $returned = null;
 
             if ($override instanceof Closure) {
@@ -1126,7 +1128,7 @@ class CodeIgniter
     /**
      * Sets the app context.
      *
-     * @phpstan-param 'php-cli'|'web' $context
+     * @param 'php-cli'|'web' $context
      *
      * @return $this
      */

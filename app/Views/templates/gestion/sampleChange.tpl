@@ -361,12 +361,12 @@
 		$("#parent_search").on("focusout", function() {
 			var chaine = $("#parent_search").val();
 			if (chaine.length > 0) {
-				var url = "";
+				var url = "sampleSearchAjax";
 				var is_container = 2;
 				var sample_id = $("#sample_id").val();
 				var collection = "";
 				var type = "";
-				$.ajax ( { url:url, method:"GET", data : { module:"sampleSearchAjax", name:chaine, uidsearch:chaine }, success : function ( djs ) {
+				$.ajax ( { url:url, method:"GET", data : {  name:chaine, uidsearch:chaine }, success : function ( djs ) {
 					var options = "";
 					try {
 						var data = JSON.parse(djs);
@@ -535,9 +535,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="identifier" class="control-label col-md-4">{t}Identifiant ou nom :{/t}</label>
+					<label for="identifier" class="control-label col-md-4"><span class="red">*</span> {t}Identifiant ou nom :{/t}</label>
 					<div class="col-md-6">
-						<input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus >
+						<input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus required>
 					</div>
 					<div class="col-md-2">
 						<button class="btn btn-info" type="button" id="identifier_generate" disabled

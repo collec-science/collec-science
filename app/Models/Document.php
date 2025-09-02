@@ -205,6 +205,8 @@ class Document extends PpciModel
                 }
                 return $id;
             }
+        } else {
+            throw new PpciException(_("L'ajout du document a échoué pour une raison inconnue"));
         }
     }
 

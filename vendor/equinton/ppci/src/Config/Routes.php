@@ -98,6 +98,7 @@ $routes->post('requestWrite', '\Ppci\Controllers\Request::write');
 $routes->post('requestDelete', '\Ppci\Controllers\Request::delete');
 $routes->post('requestExec', '\Ppci\Controllers\Request::exec');
 $routes->add('requestExecList', '\Ppci\Controllers\Request::execList');
+$routes->add('requestExecCsv', '\Ppci\Controllers\Request::execCsv');
 $routes->post('requestWriteExec', '\Ppci\Controllers\Request::writeExec');
 $routes->add('requestCopy', '\Ppci\Controllers\Request::copy');
 

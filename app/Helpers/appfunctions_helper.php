@@ -2,6 +2,8 @@
 
 use App\Libraries\DefaultLibrary;
 
+const UTF8_BOM = "\xEF\xBB\xBF";
+
 if (!function_exists('cmp')) {
     /**
      * Sort list files on name
@@ -75,6 +77,34 @@ if (!function_exists('getMaximumfileUploadSize')) {
     function getMaximumFileUploadSize()
     {
         return min(convertPHPSizeToBytes(ini_get('post_max_size')), convertPHPSizeToBytes(ini_get('upload_max_filesize')));
+    }
+}
+
+if (!function_exists('bomEraser')) {
+    /**
+     * Delete the first 3 chars of a file, if they are the BOM chars
+     * 
+     * @param resource: opened file
+     * @return bool: true if bom was at the beginning of the file
+     */
+    function bomEraser($handle): bool
+    {
+        $is_bom = false;
+        if ($handle) {
+            $bom = fread($handle, 3);
+            if ($bom == UTF8_BOM) {
+                /**
+                 * the file contains the BOM: the cursor is positionned after the first 3 chars
+                 */
+                $is_bom = true;
+            } else {
+                /**
+                 * go back to the begin of the file
+                 */
+                rewind($handle);
+            }
+        }
+        return $is_bom;
     }
 }
 /**

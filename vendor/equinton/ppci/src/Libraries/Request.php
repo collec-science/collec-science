@@ -47,6 +47,11 @@ class Request extends PpciLibrary
             return $this->change();
         }
     }
+    function execCsv() {
+        $this->vue = service('CsvView');
+        $this->vue->set($this->dataclass->exec($this->id));
+        return $this->vue->send($_SESSION["dbparams"]["APPLI_code"]."-".date("Y-m-d-Hi"), "\t");
+    }    
     function write()
     {
         try {

@@ -155,7 +155,7 @@ class Container extends PpciLibrary
              */
             $mimeType = new MimeType();
             $this->vue->set($mimeType->getListExtensions(false), "extensions");
-            $this->vue->set("event_id", "parentKeyName");
+            $this->vue->set("uid", "parentKeyName");
             $this->vue->set($this->dataclass->verifyCollection($data), "modifiable");
             /*
          * Ajout de la selection des modeles d'etiquettes

@@ -488,11 +488,8 @@ class LoginGestion extends PpciModel
         if ($log->getLastConnexionType($login) == "db") {
             $data = $oldData;
             $data["password"] = $this->_encryptPassword($pass);
-            $this->autoFormatDate = false;
-            $data["datemodif"] = date("Y-m-d");
             $data["is_expired"] = 0;
-            if ($this->ecrire($data) > 0) {
-                $this->autoFormatDate = true;
+            if ($this->write($data) > 0) {
                 $retour = true;
                 $log->setLog($login, "password_change", "ip:" . $_SESSION["remoteIP"]);
                 $message->set(_("Le mot de passe a été modifié"));

@@ -28,6 +28,11 @@ class PdfView extends DefaultView
      */
     function send($param = "")
     {
+        if (is_array($param)) {
+            foreach ($param as $k => $v) {
+                $this->$k = $v;
+            }
+        }
         if (!is_null($this->reference)) {
             header("Content-Type: application/pdf");
             if (!empty($this->filename)) {

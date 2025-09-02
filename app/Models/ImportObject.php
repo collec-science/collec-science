@@ -143,6 +143,7 @@ class ImportObject
 
     public $minuid, $maxuid;
     public $onlyCollectionSearch = 1;
+    private const UTF8_BOM = "\xEF\xBB\xBF";
 
     /**
      * Initialise la lecture du fichier, et lit la ligne d'entete
@@ -164,6 +165,9 @@ class ImportObject
          * Ouverture du fichier
          */
         if ($this->handle = fopen($filename, 'r')) {
+            if (bomEraser($this->handle)) {
+                $this->utf8_encode = false;
+            }
             $this->initIdentifiers();
             /**
              * Lecture de la premiere ligne et affectation des colonnes

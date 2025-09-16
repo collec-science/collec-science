@@ -204,6 +204,8 @@ class Document extends PpciModel
                     $this->executeSQL($sql, [], true);
                 }
                 return $id;
+            } else {
+                throw new PpciException (_("Le type de fichier n'est pas autorisé"));
             }
         } else {
             throw new PpciException(_("L'ajout du document a échoué pour une raison inconnue"));

@@ -1,12 +1,23 @@
-{*pour accéder à ce formulaire :
-	consulter le détail d'un échantillon /sampleDisplay&uid=1 ou d'un contenant
-	puis dans la section "Documents associés" > Saisir un nouveau document
-*}
 <script>
 	$(document).ready(function() {
-		$("#documentSpinner").hide();
-		$("#documentForm").submit(function(event) {
-			$("#documentSpinner").show();
+		var maxUploadSize = "{$maxUploadSize}" * 1024 *1024;
+		$("#documentName").on ("change", function() {
+			var totalSize = 0;
+			var docs = document.getElementById("documentName");
+			for (file of docs.files) {
+				totalSize += file.size;
+			}
+			if (totalSize > maxUploadSize) {
+				alert ("{t}La taille du ou des fichiers dépasse celle autorisée{/t}");
+				docs.value = "";
+			}
+		});
+		$("#documentForm").on("submit", function (e) {
+			if (!$("#documentName").val()) {
+				e.preventDefault();
+			} else {
+				$("#documentSpinner").show();
+			}
 		});
 	});
 </script>
@@ -29,7 +40,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="documentName" class="control-label col-md-4">
+			<label for="document_description" class="control-label col-md-4">
 				{t}Description :{/t} </label>
 			<div class="col-md-8">
 				<input id="document_description" name="document_description" class="form-control">
@@ -40,12 +51,12 @@
 				{t}Date de création du document :{/t} </label>
 			<div class="col-md-8">
 				<input id="document_creation_date" name="document_creation_date"
-					class="form-control date">
+					class="form-control datepicker">
 			</div>
 		</div>
 		<div class="form-group center">
 			<button type="submit" class="btn btn-primary">{t}Envoyer le fichier{/t}</button>
-			<img id="documentSpinner" src="display/images/spinner.gif" height="25" >
+			<img id="documentSpinner" src="display/images/spinner.gif" height="25" hidden>
 		</div>
 	{$csrf}</form>
 </div>

@@ -20,7 +20,7 @@ class Document extends PpciLibrary
 	 */
 	protected PpciModel $dataclass;
 
-	
+
 
 	function __construct()
 	{
@@ -40,7 +40,7 @@ class Document extends PpciLibrary
 		 * Get the list of authorized extensions
 		 */
 		$mimeType = new MimeType();
-		$this->vue->set($data = $mimeType->getListExtensions(false), "extensions");
+		$this->vue->set($mimeType->getListExtensions(false), "extensions");
 		return $this->vue->send();
 	}
 	function write()
@@ -81,7 +81,7 @@ class Document extends PpciLibrary
 		} catch (PpciException $e) {
 			$this->message->set(_("Une erreur est survenue lors de l'écriture du document"), true);
 			$this->message->set($e->getMessage());
-			$this->message->setSyslog($e->getMessage(),true);
+			$this->message->setSyslog($e->getMessage(), true);
 		}
 		return $writeOk;
 	}
@@ -136,7 +136,7 @@ class Document extends PpciLibrary
 			404 => "Not Found"
 		);
 		try {
-			if ( empty($_REQUEST["uuid"])) {
+			if (empty($_REQUEST["uuid"])) {
 				throw new PpciException("UUID of the document not provided", 404);
 			}
 			$uuid = $_REQUEST["uuid"];
@@ -184,7 +184,7 @@ class Document extends PpciLibrary
 				$filename = $data["document_name"];
 				$dir = $this->dataclass->writeFileImage($data["document_id"]);
 			}
-			$handle = fopen($dir, 'r' );
+			$handle = fopen($dir, 'r');
 			isset($_REQUEST["mode"]) ? $mode = $_REQUEST["mode"] : $mode = "inline";
 			$this->vue = service("BinaryView");
 			$this->vue->setParam(
@@ -207,7 +207,7 @@ class Document extends PpciLibrary
 				"error_code" => $error_code,
 				"error_message" => $e->getMessage()
 			);
-			$this->message->setSyslog($e->getMessage(),true);
+			$this->message->setSyslog($e->getMessage(), true);
 			return $this->getSWerror($data);
 		}
 	}
@@ -315,7 +315,7 @@ class Document extends PpciLibrary
 		$data = $this->dataclass->getDetail($this->id);
 		helper("appfunctions");
 		if (collectionVerify($data["collection_id"]) && $data["external_storage"] == 't') {
-			$dir = $this->appConfig->external_document_path . "/" . $_SESSION["collections"][$data["collection_id"]]["external_storage_root"] .'/'. $data["external_storage_path"];
+			$dir = $this->appConfig->external_document_path . "/" . $_SESSION["collections"][$data["collection_id"]]["external_storage_root"] . '/' . $data["external_storage_path"];
 			$this->vue = service("BinaryView");
 			$this->vue->setParam(
 				array(

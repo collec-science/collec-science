@@ -79,9 +79,9 @@ class Borrower extends PpciModel
         /**
          * Add the dates of borrowings
          */
-        $this->fields["borrowing_date"] = array("type" => 2);
-        $this->fields["expected_return_date"] = array("type" => 2);
-        $this->fields["return_date"] = array("type" => 2);
+        $this->dateFields[] = "borrowing_date";
+        $this->dateFields[] = "expected_return_date";
+        $this->dateFields[] = "return_date";
         return $this->getListeParamAsPrepared($sql . $where, array("borrower_id" => $borrower_id));
     }
 }

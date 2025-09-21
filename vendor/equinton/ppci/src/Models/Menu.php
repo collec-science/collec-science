@@ -1,5 +1,9 @@
 <?php
+
 namespace PPCI\Models;
+
+use Config\App;
+
 /**
  * @author Eric Quinton
  * @copyright Copyright (c) 2015, IRSTEA / Eric Quinton
@@ -10,7 +14,7 @@ class Menu
 {
 
     public $menuList;
-
+    public App $app;
     private $menuArray;
 
     /**
@@ -25,6 +29,7 @@ class Menu
          */
         $xml = simplexml_load_file($filename);
         $this->menuArray = json_decode(json_encode($xml), true);
+        $this->app = config("App");
     }
 
     /**
@@ -59,7 +64,7 @@ class Menu
             $ok = false;
             $tdroits = explode(",", $attributes["droits"]);
             foreach ($tdroits as $droit) {
-                if (isset ($_SESSION["userRights"][$droit])) {
+                if (isset($_SESSION["userRights"][$droit])) {
                     $ok = true;
                 }
             }
@@ -73,7 +78,7 @@ class Menu
         /*
          * Recherche si l'utilisateur n'est pas connecte
          */
-        if (isset ($attributes["onlynoconnect"]) && $_SESSION["isLogged"]) {
+        if (isset($attributes["onlynoconnect"]) && $_SESSION["isLogged"]) {
             $ok = false;
         }
         /**
@@ -96,7 +101,19 @@ class Menu
                 if ($level == 0) {
                     $level = 1;
                 }
-                $texte = '<li><a href="' . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '">' . $label . '</a>';
+                $target = "self";
+                $url = "";
+                if (isset($attributes["isdoc"]) && isset($this->app->docroot)) {
+                    /**
+                     * treatment of external doc
+                     */
+                    $url = $this->app->docroot . "/";
+                    $target = "blank";
+                }
+                $texte = '<li>
+                <a href="' . $url . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '" target="' . $target . '">'
+                    . $label .
+                    '</a>';
                 if (isset($valeur["item"])) {
                     /*
                      * Il s'agit d'un tableau imbrique
@@ -111,7 +128,6 @@ class Menu
                     }
                     $texte .= "</ul>";
                 }
-
                 $texte .= "</li>";
             }
         }
@@ -156,5 +172,4 @@ class Menu
         }
         return $submenu;
     }
-
 }

@@ -96,7 +96,7 @@
 		<item module="backupDisplay" droits="admin" label="Backup" tooltip="Sauvegarde de la base de données" />
 	</item>
 
-	<item module="documentation_fr" label="Documentation" tooltip="Documentations en ligne en français" language="fr">
+	<item module="" isdoc="1" label="Documentation" tooltip="Documentations en ligne en français" language="fr">
 		<item module="echantillon_fr" label="Échantillons" tooltip="Gestion des échantillons">
 			<item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr" />
 			<item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr" />
@@ -111,17 +111,17 @@
 			<item divider='1' droits="hidden"/>
 		</item>
 		<item module="doctotp_fr" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de la double authentification" language="fr" />
-		<item module="api_fr" label="Services web" tooltip="Description des services web" language="fr">
-			<item module="swidentification_fr" label="identification" tooltip="Gérer l'identification dans les services web" language="fr" />
-			<item module="swapi_fr" label="API web" tooltip="Utilisation des API web" language="fr" />
-			<item module="sampledisplay_fr" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="fr" />
-			<item module="swsampleList_fr" label="Liste des échantillons" tooltip="Service web permettant de rechercher une liste d'échantillons" language="fr" />
-			<item module="documents_fr" label="Liste des documents" tooltip="Service web d'obtention de la liste des documents attachés à un objet" language="fr" />
-			<item module="documentget_fr" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr" />
-			<item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
-			<item module="sampleDelete_fr" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="fr" />
-			<item module="swmovementWrite_fr" label="Création d'un mouvement" tooltip="Créer un mouvement d'entrée ou de sortie" language="fr" />
-			<item module="documentSet_fr" label="Créer un document" tooltip="Créer un document et l'associer à un objet" language="fr"/>
+		<item module="api/les-api.html" isdoc="1" label="Services web" tooltip="Description des services web" language="fr">
+			<item module="api/identification-pour-les-api.html"  isdoc="1" label="identification" tooltip="Gérer l'identification dans les services web" language="fr" />
+			<item module="api/appeler-une-api.html" isdoc="1" label="API web" tooltip="Utilisation des API web" language="fr" />
+			<item module="api/lire-un-échantillon.html" isdoc="1" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="fr" />
+			<item module="api/récupérer-une-liste-d'échantillons.html" isdoc="1" label="Liste des échantillons" tooltip="Service web permettant de rechercher une liste d'échantillons" language="fr" />
+			<item module="api/récupérer-la-liste-des-fichiers-attachés-à-un-objet.html" isdoc="1" label="Liste des documents" tooltip="Service web d'obtention de la liste des documents attachés à un objet" language="fr" />
+			<item module="api/récupérer-un-fichier-attaché-à-un-objet.html" isdoc="1" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr" />
+			<item module="api/créer-modifier-un-échantillon.html" isdoc="1" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
+			<item module="api/supprimer-un-échantillon.html" isdoc="1" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="fr" />
+			<item module="api/créer-un-mouvement.html" isdoc="1" label="Création d'un mouvement" tooltip="Créer un mouvement d'entrée ou de sortie" language="fr" />
+			<item module="api/ajouter-un-document-à-un-objet.html" isdoc="1" label="Créer un document" tooltip="Créer un document et l'associer à un objet" language="fr"/>
 		</item>
 		<item module="administration_fr" label="Administration" tooltip="Administrer le logiciel">
 			<item module="rights_general_fr" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" />

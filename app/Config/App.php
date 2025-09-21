@@ -325,6 +325,10 @@ class App extends BaseConfig
     public $copyright = "Copyright © 2016-2025 - All rights reserved. Main author : Éric Quinton, for INRAE-EABX - Software distributed under AGPL license";
 
     /**
+     * root of the doc (url)
+     */
+    public $docroot = "https://collec-science.github.io/userdocs";
+    /**
      * Linux command used to print directly to a printer
      *
      * @var string

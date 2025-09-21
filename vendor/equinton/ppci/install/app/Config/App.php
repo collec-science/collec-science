@@ -312,6 +312,10 @@ class App extends BaseConfig
      */
     public $APP_help_address = "https://github.com/equinton/ppci/issues/new";
     /**
+     * root of the doc (url)
+     */
+    public $docroot = "https://equinton.github.io/ppcidocs";
+    /**
      *
      * @var string
      */

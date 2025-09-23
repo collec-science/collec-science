@@ -4,6 +4,7 @@ namespace App\Libraries;
 
 use App\Models\Barcode;
 use App\Models\Label as ModelsLabel;
+use App\Models\LabelOptical;
 use App\Models\Metadata;
 use App\Models\Printer;
 use Ppci\Libraries\PpciException;
@@ -55,8 +56,10 @@ class Label extends PpciLibrary
         $this->dataRead($this->id, "param/labelChange.tpl");
         $metadata = new Metadata();
         $barcode = new Barcode();
+        $optical = new LabelOptical;
         $this->vue->set($barcode->getListe(1), "barcodes");
         $this->vue->set($metadata->getListe(), "metadata");
+        $this->vue->set($optical->getListFromParent($this->id),"opticals");
         return $this->vue->send();
     }
     function write()
@@ -64,12 +67,10 @@ class Label extends PpciLibrary
         try {
             $_REQUEST["label_xsl"] = hex2bin($_REQUEST["label_xsl"]);
             $this->id = $this->dataWrite($_REQUEST);
-            if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
-                return true;
-            } else {
-                return false;
-            }
+                $optical = new LabelOptical;
+                // TODO record optical
+            return true;
         } catch (PpciException) {
             return false;
         }

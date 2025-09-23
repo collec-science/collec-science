@@ -1,61 +1,61 @@
 <script>
-	$( document ).ready( function () {
-		function toHex(txt){
-		const encoder = new TextEncoder();
-		return Array
-			.from(encoder.encode(txt))
-			.map(b => b.toString(16).padStart(2, '0'))
-			.join('')
-	}
-	var form = $("#labelForm");
+	$(document).ready(function () {
+		function toHex(txt) {
+			const encoder = new TextEncoder();
+			return Array
+				.from(encoder.encode(txt))
+				.map(b => b.toString(16).padStart(2, '0'))
+				.join('')
+		}
+		var form = $("#labelForm");
 		function getMetadata() {
-			$( "#list_metadata" ).empty();
+			$("#list_metadata").empty();
 			var schema;
-			var oi = $( "#metadata_id" ).val();
-			if ( oi.length > 0 ) {
-				$.ajax( {
+			var oi = $("#metadata_id").val();
+			if (oi.length > 0) {
+				$.ajax({
 					url: "metadataGetschema",
-					data: {  "metadata_id": oi }
-				} )
-					.done( function ( value ) {
-						$.each( JSON.parse( value ), function ( i, obj ) {
-							var name = obj.name.replace( / /g, "_" );
-							$( "#list_metadata" ).append( $( "<li>" ).text( name ) );
-						} )
-					} )
+					data: { "metadata_id": oi }
+				})
+					.done(function (value) {
+						$.each(JSON.parse(value), function (i, obj) {
+							var name = obj.name.replace(/ /g, "_");
+							$("#list_metadata").append($("<li>").text(name));
+						})
+					})
 					;
 			}
 		}
-		$( "#metadata_id" ).change( function () {
+		$("#metadata_id").change(function () {
 			getMetadata();
-		} );
+		});
 		getMetadata();
-		$( "#stay" ).click( function () {
-			$( this.form ).attr("action", "labelWriteStay" );
-		} );
+		$("#stay").click(function () {
+			$(this.form).attr("action", "labelWriteStay");
+		});
 
-		$("#labelForm").submit(function (event) { 
+		$("#labelForm").submit(function (event) {
 			$("#labelSent").val(toHex($("#label_xsl").val()));
 		});
-		function setTypeLabel( barcodeId ) {
+		function setTypeLabel(barcodeId) {
 
-			if ( barcodeId > 1 ) {
-				$( "#identifier_only1" ).prop( "checked", true );
-				$( "#identifier_only0" ).prop( "disabled", true );
-				$( ".multipleFields" ).hide();
-				$( ".monoField" ).show();
+			if (barcodeId > 1) {
+				$("#identifier_only1").prop("checked", true);
+				$("#identifier_only0").prop("disabled", true);
+				$(".multipleFields").hide();
+				$(".monoField").show();
 			} else {
-				$( "#identifier_only0" ).prop( "disabled", false );
-				$( ".multipleFields" ).show();
-				$( ".monoField" ).hide();
+				$("#identifier_only0").prop("disabled", false);
+				$(".multipleFields").show();
+				$(".monoField").hide();
 			}
 		}
-		$( "#barcode_id" ).change( function () {
-			setTypeLabel( $( this ).val() );
-		} );
-		setTypeLabel( $( "#barcode_id" ).val() );
+		$("#barcode_id").change(function () {
+			setTypeLabel($(this).val());
+		});
+		setTypeLabel($("#barcode_id").val());
 
-	} );
+	});
 
 </script>
 
@@ -70,7 +70,7 @@
 			<input type="hidden" name="metadata_id" value="{$metadata_id}">
 			<input type="hidden" id="labelSent" name="label_xsl">
 			<div class="form-group">
-				<label for="labelName" class="control-label col-md-4"><span class="red">*</span> 
+				<label for="labelName" class="control-label col-md-4"><span class="red">*</span>
 					{t}Nom de l'étiquette :{/t}</label>
 				<div class="col-md-8">
 					<input id="labelName" type="text" class="form-control" name="label_name" value="{$data.label_name}"
@@ -78,58 +78,11 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="xsl" class="control-label col-md-4"><span class="red">*</span> 
+				<label for="xsl" class="control-label col-md-4"><span class="red">*</span>
 					{t}Transformation XSL :{/t}</label>
 				<div class="col-md-8">
 					<textarea id="label_xsl" class="form-control textarea-edit" rows="20"
 						required>{$data.label_xsl}</textarea>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="barcode_id" class="control-label col-md-4">{t}Type de code-barre :{/t}</label>
-				<div class="col-md-8">
-					<select id="barcode_id" name="barcode_id" class="form-control">
-						{foreach $barcodes as $barcode}
-						<option value="{$barcode.barcode_id}" {if $barcode.barcode_id==$data.barcode_id}selected{/if}>
-							{$barcode.barcode_name}
-						</option>
-						{/foreach}
-					</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="identifiers_only" class="control-label col-md-4">
-					{t}Étiquette ne comprenant qu'un identifiant métier ?{/t}
-				</label>
-				<div class="col-md-8" id="identifiers_only">
-					<div class="radio-inline">
-						<label>
-							<input type="radio" name="identifier_only" id="identifier_only1" value="1" {if
-								$data.identifier_only=='t'}checked{/if}>
-							{t}oui{/t}
-						</label>
-					</div>
-					<div class="radio-inline">
-						<label>
-							<input type="radio" name="identifier_only" id="identifier_only0" value="0" {if
-								$data.identifier_only != 't'}checked{/if}>
-							{t}non{/t}
-						</label>
-					</div>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="label_fields" class="control-label col-md-4"><span class="red">*</span>
-					<span class="multipleFields">
-						{t}Champs à insérer dans le QR Code (séparés par une virgule, sans espace) :{/t}
-					</span>
-					<span class="monoField" hidden>{t}Champ à insérer dans le code-barre :{/t}
-					</span>
-				</label>
-				<div class="col-md-8">
-					<input id="label_fields" type="text" class="form-control" name="label_fields"
-						value="{$data.label_fields}" required>
 				</div>
 			</div>
 			<div class="form-group multipleFields" id="metadataDisplay">
@@ -146,6 +99,106 @@
 					</select>
 				</div>
 			</div>
+			<fieldset>
+				<legend>{t}Premier code optique{/t}</legend>
+				<div class="form-group">
+					<label for="barcode_id" class="control-label col-md-4">{t}Type de code-barre :{/t}</label>
+					<div class="col-md-8">
+						<select id="barcode_id" name="barcode_id" class="form-control">
+							{foreach $barcodes as $barcode}
+							<option value="{$barcode.barcode_id}" {if
+								$barcode.barcode_id==$optical[0].barcode_id}selected{/if}>
+								{$barcode.barcode_name}
+							</option>
+							{/foreach}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="content_type" class="control-label col-md-4">{t}Type de contenu :{/t}</label>
+					<div class="col-md-8">
+						<select id="content_type" class="form-control" name="content_type">
+							<option value="1" {if $opticals[0].content_type==1}selected{/if}>
+								{t}plusieurs valeurs différentes au format JSON (historique){/t}
+							</option>
+							<option value="2" {if $opticals[0].content_type==2}selected{/if}>
+								{t}Un seul identifiant, type UUID{/t}
+							</option>
+							<option value="3" {if $opticals[0].content_type==3}selected{/if}>
+								{t}Une URI (radical + identifiant){/t}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group radical">
+					<label for="radical" class="control-label col-md-4">
+						{t}Texte inséré dans le code optique, avant l'attribut (pour les URI, notamment) :{/t}
+					</label>
+					<div class="col-md-8">
+						<input id="radical" type="text" class="form-control" name="radical"
+							value="{$optical[0].radical}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="optical_content" class="control-label col-md-4"><span class="red">*</span>
+						{t}Contenu du code optique (si plusieurs attributs, séparés par une virgule, sans espace) :{/t}
+					</label>
+					<div class="col-md-8">
+						<input id="optical_content" type="text" class="form-control" name="optical_content"
+							value="{$optical[0].optical_content}" required>
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>{t}Second code optique{/t}</legend>
+				<div class="form-group">
+					<label for="barcode_id_2" class="control-label col-md-4">{t}Type de code-barre :{/t}</label>
+					<div class="col-md-8">
+						<select id="barcode_id_2" name="barcode_id_2" class="form-control">
+							{foreach $barcodes as $barcode}
+							<option value="{$barcode.barcode_id}" {if
+								$barcode.barcode_id==$optical[1].barcode_id}selected{/if}>
+								{$barcode.barcode_name}
+							</option>
+							{/foreach}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="content_type" class="control-label col-md-4">{t}Type de contenu :{/t}</label>
+					<div class="col-md-8">
+						<select id="content_type" class="form-control" name="content_type">
+							<option value="1" {if $opticals[1].content_type==1}selected{/if}>
+								{t}plusieurs valeurs différentes au format JSON (historique){/t}
+							</option>
+							<option value="2" {if $opticals[1].content_type==2}selected{/if}>
+								{t}Un seul identifiant, type UUID{/t}
+							</option>
+							<option value="3" {if $opticals[1].content_type==3}selected{/if}>
+								{t}Une URI (radical + identifiant){/t}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group radical">
+					<label for="radical" class="control-label col-md-4">
+						{t}Texte inséré dans le code optique, avant l'attribut (pour les URI, notamment) :{/t}
+					</label>
+					<div class="col-md-8">
+						<input id="radical" type="text" class="form-control" name="radical"
+							value="{$optical[1].radical}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="optical_content" class="control-label col-md-4"><span class="red">*</span>
+						{t}Contenu du code optique (si plusieurs attributs, séparés par une virgule, sans espace) :{/t}
+					</label>
+					<div class="col-md-8">
+						<input id="optical_content" type="text" class="form-control" name="optical_content"
+							value="{$optical[1].optical_content}" required>
+					</div>
+				</div>
+			</fieldset>
 
 			<div class="form-group center">
 				<button type="submit" id="stay" class="btn btn-primary">{t}Valider{/t}</button>
@@ -154,7 +207,8 @@
 				<button id="delete" class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
 				{/if}
 			</div>
-		{$csrf}</form>
+			{$csrf}
+		</form>
 	</div>
 </div>
 <div class="bg-info">
@@ -163,7 +217,8 @@
 		<li>{t}Cas général : QR Code au format JSON, avec plusieurs informations stockées{/t}
 			<ul>
 				<li>{t 1='uid'}%1 (obligatoire) : identifiant unique{/t}</li>
-				<li>{t 1='db'}%1 (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les échantillons entre plusieurs bases){/t}</li>
+				<li>{t 1='db'}%1 (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les
+					échantillons entre plusieurs bases){/t}</li>
 				<li>{t 1='id'}%1 : identifiant général{/t}</li>
 				<li>{t 1='col'}%1 : code de la collection{/t}</li>
 				<li>{t 1='pid'}%1 : identifiant de l'échantillon parent{/t}</li>
@@ -196,7 +251,8 @@
 				<li>uid</li>
 				<li>uuid</li>
 				<li>{t}tout identifiant secondaire non numérique - cf. paramètres > Types d'identifiants{/t}</li>
-				<li>{t 1='dbuid_origin' escape=no}%1 : identifiant de la base de données d'origine. Pour un échantillon créé dans la base courante, la valeur sera de type <i>db:uid</i>{/t}</li>
+				<li>{t 1='dbuid_origin' escape=no}%1 : identifiant de la base de données d'origine. Pour un échantillon
+					créé dans la base courante, la valeur sera de type <i>db:uid</i>{/t}</li>
 			</ul>
 		</li>
 	</ul>

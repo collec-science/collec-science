@@ -97,13 +97,13 @@
 	</item>
 
 	<item module="" isdoc="1" label="Documentation" tooltip="Documentations en ligne en français" language="fr">
-		<item module="echantillon_fr" label="Échantillons" tooltip="Gestion des échantillons">
+		<item module="objets/les-échantillons.html" isdoc="1" label="Échantillons" tooltip="Gestion des échantillons">
 			<item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr" />
-			<item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr" />
-			<item module="document_external_fr" label="Documents externes" tooltip="Associer des documents externes à un échantillon" language="fr" />
+			<item module="gestion/prêter-un-ou-plusieurs-échantillons.html" isdoc="1" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr" />
+			<item module="administration/associer-des-documents-externes-à-un-échantillon.html" isdoc="1" label="Documents externes" tooltip="Associer des documents externes à un échantillon" language="fr" />
 			<item module="consult_sees_all_fr" label="Permettre au droit consult de visualiser les métadonnées" tooltip="Paramétrer l'application pour permettre à tous les utilisateurs de consulter les métadonnées" language="fr" />
 			<item module="composite_fr" label="Les échantillons composés" tooltip="Créer des échantillons composés" language="fr"/>
-			<item module="label_fr" label="Créer un modèle d'étiquette" tooltip="Créer un modèle d'étiquette avec son QRCODE ou son code-barre" language="fr"/>
+			<item module="parametres/créer-ou-modifier-un-modèle-d’étiquettes.html" isdoc="1" label="Créer un modèle d'étiquette" tooltip="Créer un modèle d'étiquette avec son QRCODE ou son code-barre" language="fr"/>
 		</item>
 
 		<item module="importExport_fr" label="Fonctions d'import/export" tooltip="Fonctions d'importation et d'exportations de données" language="fr">
@@ -124,8 +124,8 @@
 			<item module="api/ajouter-un-document-à-un-objet.html" isdoc="1" label="Créer un document" tooltip="Créer un document et l'associer à un objet" language="fr"/>
 		</item>
 		<item module="administration_fr" label="Administration" tooltip="Administrer le logiciel">
-			<item module="rights_general_fr" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" />
-			<item module="automaticsendmail_fr" label="Activer l'envoi automatique de mails" tooltip="Informer les gestionnaires des événements à échéance ou des échantillons qui vont expirer" language="fr" />
+			<item module="droits/gérer-les-droits.html" isdoc="1" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" />
+			<item module="administration/automatiser-l'envoi-de-mails.html" isdoc="1" label="Activer l'envoi automatique de mails" tooltip="Informer les gestionnaires des événements à échéance ou des échantillons qui vont expirer" language="fr" />
 		</item>
 	</item>
 	<item module="documentation_en" label="Documentation" tooltip="Documentations en ligne en anglais" language="en">

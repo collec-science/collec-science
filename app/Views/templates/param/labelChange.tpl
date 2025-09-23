@@ -37,24 +37,25 @@
 		$("#labelForm").submit(function (event) {
 			$("#labelSent").val(toHex($("#label_xsl").val()));
 		});
-		function setTypeLabel(barcodeId) {
 
-			if (barcodeId > 1) {
-				$("#identifier_only1").prop("checked", true);
-				$("#identifier_only0").prop("disabled", true);
-				$(".multipleFields").hide();
-				$(".monoField").show();
-			} else {
-				$("#identifier_only0").prop("disabled", false);
-				$(".multipleFields").show();
-				$(".monoField").hide();
-			}
+		var optical2id = "{$opticals[1].label_optical_id}";
+		if (optical2id > 0) {
+			$("#optical2Enabled").attr("checked",true);
+			$("#optical2").show();
+			$("#optical2").attr("disabled",false);
+			$("#optical_content2").prop("required",true);
 		}
-		$("#barcode_id").change(function () {
-			setTypeLabel($(this).val());
+		$("#optical2Enabled").change(function () {
+			if ($(this).prop("checked") ) {
+				$("#optical2").show();
+				$("#optical2").prop("disabled",false);
+				$("#optical_content2").prop("required",true);
+			} else {
+				$("#optical2").hide();
+				$("#optical2").prop("disabled",true);
+				$("#optical_content2").prop("required",false);
+			}
 		});
-		setTypeLabel($("#barcode_id").val());
-
 	});
 
 </script>
@@ -101,13 +102,14 @@
 			</div>
 			<fieldset>
 				<legend>{t}Premier code optique{/t}</legend>
+				<input type="hidden" name="label_optical_id" value="{$opticals[0].label_optical_id}">
 				<div class="form-group">
 					<label for="barcode_id" class="control-label col-md-4">{t}Type de code-barre :{/t}</label>
 					<div class="col-md-8">
 						<select id="barcode_id" name="barcode_id" class="form-control">
 							{foreach $barcodes as $barcode}
 							<option value="{$barcode.barcode_id}" {if
-								$barcode.barcode_id==$optical[0].barcode_id}selected{/if}>
+								$barcode.barcode_id==$opticals[0].barcode_id}selected{/if}>
 								{$barcode.barcode_name}
 							</option>
 							{/foreach}
@@ -136,7 +138,7 @@
 					</label>
 					<div class="col-md-8">
 						<input id="radical" type="text" class="form-control" name="radical"
-							value="{$optical[0].radical}">
+							value="{$opticals[0].radical}">
 					</div>
 				</div>
 				<div class="form-group">
@@ -145,57 +147,64 @@
 					</label>
 					<div class="col-md-8">
 						<input id="optical_content" type="text" class="form-control" name="optical_content"
-							value="{$optical[0].optical_content}" required>
+							value="{$opticals[0].optical_content}" required>
 					</div>
 				</div>
 			</fieldset>
 			<fieldset>
-				<legend>{t}Second code optique{/t}</legend>
-				<div class="form-group">
-					<label for="barcode_id_2" class="control-label col-md-4">{t}Type de code-barre :{/t}</label>
-					<div class="col-md-8">
-						<select id="barcode_id_2" name="barcode_id_2" class="form-control">
-							{foreach $barcodes as $barcode}
-							<option value="{$barcode.barcode_id}" {if
-								$barcode.barcode_id==$optical[1].barcode_id}selected{/if}>
-								{$barcode.barcode_name}
-							</option>
-							{/foreach}
-						</select>
+				<legend>{t}Second code optique : activer{/t}
+					<input id="optical2Enabled" name="optical2enabled" value="1" type="checkbox" class="" {if $opticals[1].label_optical_id>
+					0}checked{/if}>
+				</legend>
+				<input type="hidden" name="label_optical_id2" value="{$opticals[1].label_optical_id}">
+				<div id="optical2" disabled hidden>
+					<div class="form-group">
+						<label for="barcode_id2" class="control-label col-md-4">{t}Type de code-barre :{/t}</label>
+						<div class="col-md-8">
+							<select id="barcode_id2" name="barcode_id2" class="form-control">
+								{foreach $barcodes as $barcode}
+								<option value="{$barcode.barcode_id}" {if
+									$barcode.barcode_id==$opticals[1].barcode_id}selected{/if}>
+									{$barcode.barcode_name}
+								</option>
+								{/foreach}
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="content_type" class="control-label col-md-4">{t}Type de contenu :{/t}</label>
-					<div class="col-md-8">
-						<select id="content_type" class="form-control" name="content_type">
-							<option value="1" {if $opticals[1].content_type==1}selected{/if}>
-								{t}plusieurs valeurs différentes au format JSON (historique){/t}
-							</option>
-							<option value="2" {if $opticals[1].content_type==2}selected{/if}>
-								{t}Un seul identifiant, type UUID{/t}
-							</option>
-							<option value="3" {if $opticals[1].content_type==3}selected{/if}>
-								{t}Une URI (radical + identifiant){/t}
-							</option>
-						</select>
+					<div class="form-group">
+						<label for="content_type2" class="control-label col-md-4">{t}Type de contenu :{/t}</label>
+						<div class="col-md-8">
+							<select id="content_type2" class="form-control" name="content_type2">
+								<option value="1" {if $opticals[1].content_type==1}selected{/if}>
+									{t}plusieurs valeurs différentes au format JSON (historique){/t}
+								</option>
+								<option value="2" {if $opticals[1].content_type==2}selected{/if}>
+									{t}Un seul identifiant, type UUID{/t}
+								</option>
+								<option value="3" {if $opticals[1].content_type==3}selected{/if}>
+									{t}Une URI (radical + identifiant){/t}
+								</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="form-group radical">
-					<label for="radical" class="control-label col-md-4">
-						{t}Texte inséré dans le code optique, avant l'attribut (pour les URI, notamment) :{/t}
-					</label>
-					<div class="col-md-8">
-						<input id="radical" type="text" class="form-control" name="radical"
-							value="{$optical[1].radical}">
+					<div class="form-group radical">
+						<label for="radical2" class="control-label col-md-4">
+							{t}Texte inséré dans le code optique, avant l'attribut (pour les URI, notamment) :{/t}
+						</label>
+						<div class="col-md-8">
+							<input id="radical2" type="text" class="form-control" name="radical2"
+								value="{$opticals[1].radical}">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label for="optical_content" class="control-label col-md-4"><span class="red">*</span>
-						{t}Contenu du code optique (si plusieurs attributs, séparés par une virgule, sans espace) :{/t}
-					</label>
-					<div class="col-md-8">
-						<input id="optical_content" type="text" class="form-control" name="optical_content"
-							value="{$optical[1].optical_content}" required>
+					<div class="form-group">
+						<label for="optical_content2" class="control-label col-md-4"><span class="red">*</span>
+							{t}Contenu du code optique (si plusieurs attributs, séparés par une virgule, sans espace)
+							:{/t}
+						</label>
+						<div class="col-md-8">
+							<input id="optical_content2" type="text" class="form-control" name="optical_content2"
+								value="{$opticals[1].optical_content}">
+						</div>
 					</div>
 				</div>
 			</fieldset>

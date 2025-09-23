@@ -18,7 +18,7 @@ class Label extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
 
     function __construct()
     {
@@ -42,6 +42,7 @@ class Label extends PpciLibrary
     function list()
     {
         $this->vue = service('Smarty');
+        # TODO : modifier l'affichage de la liste, en rajoutant le nombre de codes optiques
         /*
          * Display the list of all records of the table
          */
@@ -59,7 +60,7 @@ class Label extends PpciLibrary
         $optical = new LabelOptical;
         $this->vue->set($barcode->getListe(1), "barcodes");
         $this->vue->set($metadata->getListe(), "metadata");
-        $this->vue->set($optical->getListFromParent($this->id),"opticals");
+        $this->vue->set($optical->getListToChange($this->id), "opticals");
         return $this->vue->send();
     }
     function write()
@@ -67,9 +68,28 @@ class Label extends PpciLibrary
         try {
             $_REQUEST["label_xsl"] = hex2bin($_REQUEST["label_xsl"]);
             $this->id = $this->dataWrite($_REQUEST);
-                $_REQUEST[$this->keyName] = $this->id;
-                $optical = new LabelOptical;
-                // TODO record optical
+            $_REQUEST[$this->keyName] = $this->id;
+            $optical = new LabelOptical;
+            $optical->write($_REQUEST);
+            /**
+             * Second label
+             */
+            if ($_POST["optical2enabled"] == 1) {
+                $content = [
+                    "label_optical_id" => $_POST["label_optical_id2"],
+                    "label_id" => $this->id,
+                    "barcode_id" => $_POST["barcode_id2"],
+                    "content_type" => $_POST["content_type2"],
+                    "radical" => $_POST["radical2"],
+                    "optical_content" => $_POST["optical_content2"]
+                ];
+                $optical->write($content);
+            } elseif ($_POST["label_optical_id2"] > 0) {
+                /**
+                 * delete the second optical
+                 */
+                $optical->supprimer($_POST["label_optical_id2"]);
+            }
             return true;
         } catch (PpciException) {
             return false;
@@ -97,6 +117,8 @@ class Label extends PpciLibrary
             return false;
         } else {
             try {
+                $optical = new LabelOptical;
+                $optical->deleteFromField($this->id, "label_id");
                 $this->dataDelete($this->id);
                 return true;
             } catch (PpciException) {
@@ -106,10 +128,11 @@ class Label extends PpciLibrary
     }
     function copy()
     {
+        # TODO : intégrer label_optical
         /*
          * Duplication d'une etiquette
          */
-        $this->vue=service('Smarty');
+        $this->vue = service('Smarty');
         $data = $this->dataclass->lire($this->id);
         $data["label_id"] = 0;
         $data["label_name"] = "";

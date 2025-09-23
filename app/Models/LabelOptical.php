@@ -34,11 +34,19 @@ class LabelOptical extends PpciModel
             "radical" => array(
                 "type" => 0
             ),
-            "label_content" => array(
+            "optical_content" => array(
                 "requis" => 1,
                 "defaultValue" => 'uuid'
             ),
         );
         parent::__construct();
+    }
+    function getListToChange(int $label_id)
+    {
+        $list = $this->getListFromParent($label_id, "label_optical_id");
+        for ($i = count($list); $i < 2; $i++) {
+            $list[] = $this->getDefaultValues($label_id);
+        }
+        return $list;
     }
 }

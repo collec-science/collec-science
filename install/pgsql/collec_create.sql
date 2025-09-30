@@ -3,7 +3,7 @@
 -- PostgreSQL version: 11.0
 -- Project Site: pgmodeler.io
 -- Model Author: ---
-
+# TODO : modifier la génération des tables label
 SET check_function_bodies = false;
 -- ddl-end --
 

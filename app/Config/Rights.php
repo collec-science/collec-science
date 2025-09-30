@@ -132,6 +132,7 @@ class Rights extends RightsPpci
         "labelWriteStay" => ["collection"],
         "labelDelete" => ["collection"],
         "labelCopy" => ["collection"],
+        "labelGetLogo" => ["consult"],
         "metadataFormGetDetail" => ["consult"],
         "sampleList" => ["consult"],
         "sampleSearchAjax" => ["manage"],

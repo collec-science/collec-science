@@ -9,6 +9,8 @@ use App\Models\Metadata;
 use App\Models\Printer;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
+use Ppci\Libraries\Views\BinaryView;
+use Ppci\Libraries\Views\DisplayView;
 use Ppci\Models\PpciModel;
 
 class Label extends PpciLibrary
@@ -90,6 +92,12 @@ class Label extends PpciLibrary
                  */
                 $optical->supprimer($_POST["label_optical_id2"]);
             }
+            /**
+             * Treatment of the logo
+             */
+            if ($_FILES["logo"]["error"]== 0) {
+                $this->dataclass->writeLogo($this->id, $_FILES["logo"]);
+            }
             return true;
         } catch (PpciException) {
             return false;
@@ -155,6 +163,15 @@ class Label extends PpciLibrary
         $vue->set($printer->getListe(2), "printers");
         if (isset($_REQUEST["printer_id"])) {
             $vue->set($_REQUEST["printer_id"], "printer_id");
+        }
+    }
+
+    function getLogo() {
+        $data = $this->dataclass->getLogo($this->id);
+        if ($data) {
+            $vue = new DisplayView();
+            $vue->set($data);
+            $vue->send();
         }
     }
 }

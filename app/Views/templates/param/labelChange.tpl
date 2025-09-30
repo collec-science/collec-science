@@ -65,7 +65,7 @@
 	<div class="col-md-12">
 		<a href="labelList">{t}Retour à la liste{/t}</a>
 
-		<form class="form-horizontal" id="labelForm" method="post" action="labelWrite">
+		<form class="form-horizontal" id="labelForm" method="post" action="labelWrite" enctype="multipart/form-data">
 			<input type="hidden" name="moduleBase" value="label">
 			<input type="hidden" name="label_id" value="{$data.label_id}">
 			<input type="hidden" name="metadata_id" value="{$metadata_id}">
@@ -126,15 +126,12 @@
 							<option value="2" {if $opticals[0].content_type==2}selected{/if}>
 								{t}Un seul identifiant, type UUID{/t}
 							</option>
-							<option value="3" {if $opticals[0].content_type==3}selected{/if}>
-								{t}Une URI (radical + identifiant){/t}
-							</option>
 						</select>
 					</div>
 				</div>
 				<div class="form-group radical">
 					<label for="radical" class="control-label col-md-4">
-						{t}Texte inséré dans le code optique, avant l'attribut (pour les URI, notamment) :{/t}
+						{t}Un seul identifiant, type UUID, ou URI avec un radical{/t}
 					</label>
 					<div class="col-md-8">
 						<input id="radical" type="text" class="form-control" name="radical"
@@ -143,7 +140,7 @@
 				</div>
 				<div class="form-group">
 					<label for="optical_content" class="control-label col-md-4"><span class="red">*</span>
-						{t}Contenu du code optique (si plusieurs attributs, séparés par une virgule, sans espace) :{/t}
+						{t}Attribut inséré dans le code optique (si plusieurs attributs dans le format JSON, les séparer par une virgule, sans espace) :{/t}
 					</label>
 					<div class="col-md-8">
 						<input id="optical_content" type="text" class="form-control" name="optical_content"
@@ -179,17 +176,14 @@
 									{t}plusieurs valeurs différentes au format JSON (historique){/t}
 								</option>
 								<option value="2" {if $opticals[1].content_type==2}selected{/if}>
-									{t}Un seul identifiant, type UUID{/t}
-								</option>
-								<option value="3" {if $opticals[1].content_type==3}selected{/if}>
-									{t}Une URI (radical + identifiant){/t}
+									{t}Un seul identifiant, type UUID, ou URI avec un radical{/t}
 								</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group radical">
 						<label for="radical2" class="control-label col-md-4">
-							{t}Texte inséré dans le code optique, avant l'attribut (pour les URI, notamment) :{/t}
+							{t}Attribut inséré dans le code optique (si plusieurs attributs dans le format JSON, les séparer par une virgule, sans espace) :{/t}
 						</label>
 						<div class="col-md-8">
 							<input id="radical2" type="text" class="form-control" name="radical2"
@@ -207,8 +201,18 @@
 						</div>
 					</div>
 				</div>
-			</fieldset>
-
+			</fieldset>			
+			<div class="form-group">
+				<label for="logo" class="control-label col-md-4">
+					{t}Logo à insérer dans l'étiquette (jpg, png) :{/t}
+				</label>
+				<div class="col-md-8">
+					{if $data.has_logo == 1}
+					<img src="labelGetLogo?label_id={$data.label_id}" height="30">
+					{/if}
+					<input id="logo" type="file" class="form-control" name="logo">
+				</div>
+			</div>
 			<div class="form-group center">
 				<button type="submit" id="stay" class="btn btn-primary">{t}Valider{/t}</button>
 				<button type="submit" id="write" class="btn btn-primary button-valid">{t}Valider et retour{/t}</button>
@@ -223,7 +227,7 @@
 <div class="bg-info">
 	{t}Champs utilisables dans le QR Code et dans le texte de l'étiquette :{/t}
 	<ul>
-		<li>{t}Cas général : QR Code au format JSON, avec plusieurs informations stockées{/t}
+		<li>{t}Champs affichables sur l'étiquette et dans le QRCODE au format JSON :{/t}
 			<ul>
 				<li>{t 1='uid'}%1 (obligatoire) : identifiant unique{/t}</li>
 				<li>{t 1='db'}%1 (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les
@@ -245,16 +249,16 @@
 				<li>{t 1='uuid'}%1 : UID Universel (UUID){/t}</li>
 				<li>{t 1="ref"}%1 : référent de l'objet{/t}</li>
 				<li>{t}et tous les codes d'identifiants secondaires - cf. paramètres > Types d'identifiants{/t}</li>
+				<li>{t}Si l'objet est toujours stocké au même endroit, pour pouvoir le replacer à son emplacement initial :{/t}
+					<ul>
+						<li>{t 1='stor'}%1 : nom du contenant{/t}</li>
+						<li>{t 1='cnum'}%1 : numéro de la colonne{/t}</li>
+						<li>{t 1='lnum'}%1 : numéro de la ligne{/t}</li>
+					</ul>
+				</li>
 			</ul>
 		</li>
-		<li>{t}Si l'objet est toujours stocké au même endroit, pour pouvoir le replacer à son emplacement initial :{/t}
-			<ul>
-				<li>{t 1='stor'}%1 : nom du contenant{/t}</li>
-				<li>{t 1='cnum'}%1 : numéro de la colonne{/t}</li>
-				<li>{t 1='lnum'}%1 : numéro de la ligne{/t}</li>
-			</ul>
-		</li>
-		<li>{t}Cas particulier : code-barre avec un seul identifiant, au format texte :{/t}
+		<li>{t}Champs utilisables dans un code optique avec un seul identifiant, au format texte, avec ou sans radical :{/t}
 			<ul>
 				<li>id</li>
 				<li>uid</li>
@@ -264,7 +268,15 @@
 					créé dans la base courante, la valeur sera de type <i>db:uid</i>{/t}</li>
 			</ul>
 		</li>
+		<li>{t}Graphismes à insérer dans l'étiquette :{/t}
+			<ul>
+				<li>{t}xsl:value-of select="concat(uid,'.png')" : premier code optique{/t}</li>
+				<li>{t}xsl:value-of select="concat(uid,'-2.png')" : second code optique{/t}</li>
+				<li>{t}xsl:value-of select="concat(uid,'-logo.png')" : logo{/t}</li>
+			</ul>
+		</li>
 	</ul>
+
 </div>
 
 <div class="bg-info">

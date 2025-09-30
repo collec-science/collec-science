@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.1" use-changelog="false" author="Éric Quinton" max-obj-count="78"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="742,1447" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
+	 last-position="390,1447" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
 	 default-schema="col" default-owner="collec"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -590,7 +590,7 @@ Prélèvement pour analyse;true;false
 	<role name="collec"/>
 </sequence>
 
-<table name="label" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
+<table name="label" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of label models]]> </comment>
@@ -607,28 +607,14 @@ Prélèvement pour analyse;true;false
 		<type name="character varying" length="0"/>
 		<comment> <![CDATA[XSL content used by FOP transformation (https://xmlgraphics.apache.org/fop/)]]> </comment>
 	</column>
-	<column name="label_fields" not-null="true" default-value="'uid,id,clp,db'">
-		<type name="character varying" length="0"/>
-		<comment> <![CDATA[List of fields incorporated in the QRCODE]]> </comment>
-	</column>
 	<column name="metadata_id">
 		<type name="integer" length="0"/>
 		<comment> <![CDATA[Model of the metadata template associated with this label]]> </comment>
 	</column>
-	<column name="identifier_only" not-null="true" default-value="false">
-		<type name="boolean" length="0"/>
-		<comment> <![CDATA[true: the qrcode contains only a business identifier]]> </comment>
-	</column>
 	<constraint name="label_pk" type="pk-constr" table="col.label">
 		<columns names="label_id" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="barcode_id" index="6"/>
-	</customidxs>
-	<customidxs object-type="constraint">
-		<object name="barcode_fk" index="2"/>
-	</customidxs>	<initial-data>
+	<initial-data>
 <![CDATA[label_name;label_xsl;label_fields;barcode_id
 Example - Don't use;<xsl:stylesheet version="1.0"
       xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -969,7 +955,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of printers directly managed by the server]]> </comment>
 	<tag name="label-printer"/>
-	<position x="2120" y="2600"/>
+	<position x="2100" y="2280"/>
 	<column name="printer_id" not-null="true" sequence="col.printer_printer_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -3383,7 +3369,7 @@ from col.sample s;;]]> </definition>
 	<role name="collec"/>
 	<comment> <![CDATA[Models of barcodes usable]]> </comment>
 	<tag name="label-printer"/>
-	<position x="2120" y="2440"/>
+	<position x="2100" y="2600"/>
 	<column name="barcode_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -3404,17 +3390,6 @@ QRCode;QR
 EAN 128;C128]]>
 	</initial-data>
 </table>
-
-<relationship name="barcode_type_has_many_label" type="rel1n" layers="0"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
-	 fk-idx-pattern="{st}_idx"
-	 custom-color="#ff00ff"
-	 src-table="col.barcode"
-	 dst-table="col.label"
-	 src-required="true" dst-required="false"
-	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
 
 <relationship name="borrower_has_many_subsample" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -3712,7 +3687,7 @@ group by s.uid;;]]> </definition>
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="label-printer"/>
-	<position x="1680" y="2440"/>
+	<position x="1680" y="2600"/>
 	<column name="label_optical_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -4068,6 +4043,7 @@ group by s.uid;;]]> </definition>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_container_type_label" type="relfk" layers="0"
+	 custom-color="#ff00ff"
 	 src-table="col.container_type"
 	 dst-table="col.label" reference-fk="label_container_type_fk"
 	 src-required="false" dst-required="false"/>
@@ -4098,6 +4074,7 @@ group by s.uid;;]]> </definition>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_label_metadata" type="relfk" layers="0"
+	 custom-color="#ff00ff"
 	 src-table="col.label"
 	 dst-table="col.metadata" reference-fk="metadata_label_fk"
 	 src-required="false" dst-required="false"/>

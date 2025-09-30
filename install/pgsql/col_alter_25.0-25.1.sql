@@ -15,7 +15,7 @@ set metadata_schema = regexp_replace(metadata_schema::varchar, 'N\\/A', '','ig')
 	optical_content varchar NOT NULL,
 	CONSTRAINT label_optical_pk PRIMARY KEY (label_optical_id)
 );
-COMMENT ON COLUMN col.label_optical.content_type IS E'1: json\n2: identifier\n3: radical and identifier, as uri';
+COMMENT ON COLUMN col.label_optical.content_type IS E'1: json\n2: identifier with or without radical';
 COMMENT ON COLUMN col.label_optical.radical IS E'Radical in the optical code, as base of uri';
 COMMENT ON COLUMN col.label_optical.optical_content IS E'Content of the optical code, as list of fields if type 1, used identifier if type 2 or 3';
 ALTER TABLE col.label_optical OWNER TO collec;
@@ -36,3 +36,5 @@ ALTER TABLE col.label DROP CONSTRAINT IF EXISTS barcode_fk CASCADE;
 alter table col.label drop column barcode_id;
 alter table col.label drop column identifier_only;
 alter table col.label drop column label_fields;
+alter table col.label add column logo bytea;
+comment on column col.label.logo is 'Logo added to the label';

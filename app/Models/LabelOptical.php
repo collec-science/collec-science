@@ -48,5 +48,22 @@ class LabelOptical extends PpciModel
             $list[] = $this->getDefaultValues($label_id);
         }
         return $list;
+    }    
+    /**
+     * Method getListForPrint
+     * Get the list to prepare printing of labels
+     *
+     * @param int $label_id
+     *
+     * @return array
+     */
+    function getListForPrint(int $label_id) {
+        $sql = "SELECT label_optical_id, label_id, barcode_id, content_type, radical, optical_content,
+                barcode_name, barcode_code
+                FROM label_optical
+                join barcode using (barcode_id)
+                WHERE label_id = :id:
+                ORDER BY label_optical_id";
+        return $this->getListParam($sql, ["id"=>$label_id]);
     }
 }

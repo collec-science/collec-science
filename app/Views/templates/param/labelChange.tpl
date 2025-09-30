@@ -56,6 +56,44 @@
 				$("#optical_content2").prop("required",false);
 			}
 		});
+		$("#barcode_id").change(function () { 
+			var type = $(this).val();
+			if (type == 2) {
+				$("#radical").prop("disabled",true);
+				$("#radical").val("");
+				$("content_type").val(2);
+			} else {
+				$("#radical").prop("disabled",false);
+			}
+		});
+		$("#barcode_id2").change(function () { 
+			var type = $(this).val();
+			if (type == 2) {
+				$("#radical2").prop("disabled",true);
+				$("#radical2").val("");
+				$("content_type2").val(2);
+			} else {
+				$("#radical2").prop("disabled",false);
+			}
+		});
+		$("#content_type").change(function() {
+			var type = $(this).val();
+			if (type == 1) {
+				$("#radical").prop("disabled",true);
+				$("#radical").val("");
+			} else {
+				$("#radical").prop("disabled",false);
+			}
+		});
+		$("#content_type2").change(function() {
+			var type = $(this).val();
+			if (type == 1) {
+				$("#radical2").prop("disabled",true);
+				$("#radical2").val("");
+			} else {
+				$("#radical2").prop("disabled",false);
+			}
+		});
 	});
 
 </script>
@@ -129,9 +167,9 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group radical">
+				<div class="form-group">
 					<label for="radical" class="control-label col-md-4">
-						{t}Un seul identifiant, type UUID, ou URI avec un radical{/t}
+						{t}Radical inséré avant l'attribut :{/t}
 					</label>
 					<div class="col-md-8">
 						<input id="radical" type="text" class="form-control" name="radical"
@@ -181,9 +219,9 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group radical">
+					<div class="form-group">
 						<label for="radical2" class="control-label col-md-4">
-							{t}Attribut inséré dans le code optique (si plusieurs attributs dans le format JSON, les séparer par une virgule, sans espace) :{/t}
+							{t}Radical inséré avant l'attribut :{/t}
 						</label>
 						<div class="col-md-8">
 							<input id="radical2" type="text" class="form-control" name="radical2"
@@ -192,8 +230,7 @@
 					</div>
 					<div class="form-group">
 						<label for="optical_content2" class="control-label col-md-4"><span class="red">*</span>
-							{t}Contenu du code optique (si plusieurs attributs, séparés par une virgule, sans espace)
-							:{/t}
+							{t}Attribut inséré dans le code optique (si plusieurs attributs dans le format JSON, les séparer par une virgule, sans espace) :{/t}
 						</label>
 						<div class="col-md-8">
 							<input id="optical_content2" type="text" class="form-control" name="optical_content2"
@@ -272,7 +309,7 @@
 			<ul>
 				<li>{t}xsl:value-of select="concat(uid,'.png')" : premier code optique{/t}</li>
 				<li>{t}xsl:value-of select="concat(uid,'-2.png')" : second code optique{/t}</li>
-				<li>{t}xsl:value-of select="concat(uid,'-logo.png')" : logo{/t}</li>
+				<li>{t}xsl:value-of select="concat(label_id,'-logo.png')" : logo{/t}</li>
 			</ul>
 		</li>
 	</ul>

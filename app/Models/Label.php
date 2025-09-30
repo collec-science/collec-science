@@ -40,6 +40,7 @@ class Label extends PpciModel
             "metadata_id" => array(
                 "type" => 1
             ),
+            "logo" => ["type" => 0]
         );
         parent::__construct();
     }
@@ -81,6 +82,9 @@ class Label extends PpciModel
             return $this->getDefaultValues();
         }
     }
+    function readRaw(int $label_id) {
+        return $this->readParam("select * from label where label_id = :id:", ["id"=>$label_id]);
+    }
     /**
      * Get the list of types of containers referenced by the label
      * @param int $label_id
@@ -94,8 +98,6 @@ class Label extends PpciModel
                 order by container_type_name";
         return $this->getListeParam($sql, array("label_id" => $label_id));
     }
-
-    
     /**
      * Method writeLogo
      *

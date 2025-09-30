@@ -44,7 +44,6 @@ class Label extends PpciLibrary
     function list()
     {
         $this->vue = service('Smarty');
-        # TODO : modifier l'affichage de la liste, en rajoutant le nombre de codes optiques
         /*
          * Display the list of all records of the table
          */
@@ -68,34 +67,36 @@ class Label extends PpciLibrary
     function write()
     {
         try {
-            $_REQUEST["label_xsl"] = hex2bin($_REQUEST["label_xsl"]);
-            $this->id = $this->dataWrite($_REQUEST);
+            $data = $_POST;
+            unset($data["logo"]);
+            $data["label_xsl"] = hex2bin($data["label_xsl"]);
+            $this->id = $this->dataWrite($data);
             $_REQUEST[$this->keyName] = $this->id;
             $optical = new LabelOptical;
-            $optical->write($_REQUEST);
+            $optical->write($data);
             /**
              * Second label
              */
-            if ($_POST["optical2enabled"] == 1) {
+            if ($data["optical2enabled"] == 1) {
                 $content = [
-                    "label_optical_id" => $_POST["label_optical_id2"],
+                    "label_optical_id" => $data["label_optical_id2"],
                     "label_id" => $this->id,
-                    "barcode_id" => $_POST["barcode_id2"],
-                    "content_type" => $_POST["content_type2"],
-                    "radical" => $_POST["radical2"],
-                    "optical_content" => $_POST["optical_content2"]
+                    "barcode_id" => $data["barcode_id2"],
+                    "content_type" => $data["content_type2"],
+                    "radical" => $data["radical2"],
+                    "optical_content" => $data["optical_content2"]
                 ];
                 $optical->write($content);
-            } elseif ($_POST["label_optical_id2"] > 0) {
+            } elseif ($data["label_optical_id2"] > 0) {
                 /**
                  * delete the second optical
                  */
-                $optical->supprimer($_POST["label_optical_id2"]);
+                $optical->supprimer($data["label_optical_id2"]);
             }
             /**
              * Treatment of the logo
              */
-            if ($_FILES["logo"]["error"]== 0) {
+            if ($_FILES["logo"]["error"] == 0) {
                 $this->dataclass->writeLogo($this->id, $_FILES["logo"]);
             }
             return true;
@@ -136,23 +137,31 @@ class Label extends PpciLibrary
     }
     function copy()
     {
-        # TODO : intégrer label_optical
-        /*
-         * Duplication d'une etiquette
-         */
-        $this->vue = service('Smarty');
-        $data = $this->dataclass->lire($this->id);
-        $data["label_id"] = 0;
-        $data["label_name"] = "";
-        $this->vue->set($data, "data");
-        $this->vue->set("param/labelChange.tpl", "corps");
-        $metadata = new Metadata();
-        $this->vue->set($metadata->getListe(), "metadata");
-        $barcode = new Barcode();
-        $this->vue->set($barcode->getListe(1), "barcodes");
-        return $this->vue->send();
+        try {
+            $data = $this->dataclass->readRaw($this->id);
+            $new = $data;
+            $new["label_id"] = 0;
+            $new["label_name"] = _("Copie de ") . $data["label_name"];
+            $id = $this->dataclass->write($new);
+            /**
+             * Treatment of each optical code
+             */
+            $optical = new LabelOptical;
+            $opticals = $optical->getListFromParent($this->id, "label_optical_id");
+            foreach ($opticals as $opt) {
+                $opt["label_optical_id"] = 0;
+                $opt["label_id"] = $id;
+                $optical->write($opt);
+            }
+            $this->id = $id;
+            return true;
+        } catch (PpciException $e) {
+            $this->message->set(_("Une erreur s'est produite pendant la copie de l'étiquette"), true);
+            $this->message->set($e->getMessage());
+            $this->message->setSyslog($e->getMessage());
+            return false;
+        }
     }
-
     function setRelatedTablesToView($vue)
     {
         if (isset($_REQUEST["label_id"])) {
@@ -166,7 +175,8 @@ class Label extends PpciLibrary
         }
     }
 
-    function getLogo() {
+    function getLogo()
+    {
         $data = $this->dataclass->getLogo($this->id);
         if ($data) {
             $vue = new DisplayView();

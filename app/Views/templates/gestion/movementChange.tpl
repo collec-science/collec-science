@@ -67,8 +67,8 @@ var type_movement = "{$data.movement_type_id}";
 		getOccupation(a_texte[0]);
 		isSlotFull();
 	});
-	if($("#movement_type_id").val() == 1 )
-		$("#container_uid").attr("required");
+	if(type_movement == 1 )
+		$("#container_uid").attr("required", true);
 
 	$("#movement{$moduleParent}Form").submit(function (event ) {
 		var uid = $("#uid").val();

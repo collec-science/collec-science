@@ -122,7 +122,7 @@
                               <div class="col-md-8">
                                     <input id="identifier_generator_js" type="text" class="form-control"
                                           name="identifier_generator_js" value="{$data.identifier_generator_js}"
-                                          placeholder='$("#collection_id option:selected").text()+"-"+$("#uid").val()'>
+                                          placeholder='$("#collection_id option:selected").text().trim()+$("#md_taxon").val()+"-"+$("#uid").val()'>
                               </div>
                         </div>
 
@@ -153,19 +153,21 @@
                                     <li>{t}pour les champs simples :{/t} $("#uid").val()</li>
                                     <li>{t}pour récupérer le contenu d'une boite de sélection :{/t} $("#collection_id option:selected").text()</li>
                                     <li>{t}pour récupérer le contenu d'une variable simple issue des métadonnées :{/t}
-                                          $("input[name={t}nom_de_la_metadonnee{/t}]").val()</li>
+                                          $("#{t}md_nom_de_la_metadonnee{/t}").val()
+                                          {t}(le nom de la métadonnée doit être préfixé par md_){/t}
+                                    </li>
                                     <li>
                                           {t}pour récupérer le contenu d'une métadonnée sélectionnée par bouton-radio :{/t}
-                                           $("input[name={t}nom_de_la_metadonnee{/t}]:checked").val()
+                                           $("#{t}md_nom_de_la_metadonnee{/t}:checked").val()
                                     </li>
                               </ul>
                         </li>
-                        <li>{t}Exemple : pour générer cet identifiant : nom_collection-uid-valeur_metadonnee :{/t}
+                        <li>{t}Exemple : pour générer cet identifiant : nom_collection-valeur_metadonnee-uid :{/t}
                               <ul>
                                     <li>
-                                          $("#collection_id option:selected").text()+"-"+$("#uid").val()+"-"+$("input[name={t}espece{/t}]").val()
+                                          $("#collection_id option:selected").text().trim()+$("#md_taxon").val()+"-"+$("#uid").val()
                                     </li>
-                                    {t}(espece est le champ de métadonnées recherché){/t}
+                                    {t}(taxon est le champ de métadonnées recherché, qui doit être préfixé par md_){/t}
                               </ul>
                         </li>
                         <li>{t}Liste des champs utilisables :{/t}

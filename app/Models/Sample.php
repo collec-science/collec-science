@@ -277,6 +277,23 @@ class Sample extends PpciModel
 
             if ($uid > 0) {
                 $data["uid"] = $uid;
+                /**
+                 * Treatment of metadata
+                 * delete empty multiple values 
+                 */
+                $metadata = json_decode($data["metadata"], true);
+                foreach ($metadata as $k=> $v) {
+                    if (is_array($v)) {
+                        $new = [];
+                        foreach ($v as $value) {
+                            if (!empty($value)) {
+                                $new[] = $value;
+                            }
+                        }
+                        $metadata[$k] = $new;
+                    }
+                }
+                $data["metadata"] = json_encode($metadata);
                 if (parent::write($data) > 0) {
                     if (!empty($data["metadata"])) {
                         /**

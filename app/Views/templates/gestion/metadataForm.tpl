@@ -148,6 +148,7 @@
                     if (Array.isArray(data[field.name])) {
                         var i = 0;
                         data[field.name].forEach(function (val) {
+                            console.log(val);
                             var newArray = document.createElement("input");
                             newArray.classList.add("formControl", newId);
                             newArray.name = newId + "[]";
@@ -158,7 +159,7 @@
                             newInput.appendChild(newArray);
                             i++;
                         });
-                    } else {
+                    }else {
                         var newArray = document.createElement("input");
                         newArray.classList.add("formControl", newId);
                         newArray.name = newId + "[]";
@@ -166,12 +167,11 @@
                         newInput.appendChild(newArray);
                     }
                 }
-                divInput.appendChild(newInput);
                 /**
                  * add a new empty line and generate an event
                  * to add others lines
                  */
-                addArrayElement(newId, divInput);
+                addArrayElement(newId, newInput);
                 isUnique = false;
             }
             if (isUnique) {

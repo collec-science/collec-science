@@ -941,7 +941,7 @@ class ObjectClass extends PpciModel
                     }
                 } catch (\Exception $e) {
                     $this->message->set("Erreur lors de la génération du fichier xml");
-                    $this->message->setSyslog($e->getMessage(), true);
+                    $this->message->setSyslog($e->getMessage());
                 }
             } else {
                 $this->message->set(_("Pas d'étiquettes à imprimer"));

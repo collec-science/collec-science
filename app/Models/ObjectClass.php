@@ -683,7 +683,7 @@ class ObjectClass extends PpciModel
                         if ($opt["content_type"] == 2) {
                             $qrcode = (new QRCode($options))->render($opt["radical"] . $rowq[$opt["optical_content"]]);
                         } else {
-                            $qrcode = (new QRCode)->render(json_encode($rowq));
+                            $qrcode = (new QRCode($options))->render(json_encode($rowq));
                         }
                         $imagick = new \Imagick;
                         $imagick->readImageBlob($qrcode);

@@ -102,6 +102,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<a href="labelList">{t}Retour à la liste{/t}</a>
+		{$help}
 
 		<form class="form-horizontal" id="labelForm" method="post" action="labelWrite" enctype="multipart/form-data">
 			<input type="hidden" name="moduleBase" value="label">

@@ -62,6 +62,7 @@ class Label extends PpciLibrary
         $this->vue->set($barcode->getListe(1), "barcodes");
         $this->vue->set($metadata->getListe(), "metadata");
         $this->vue->set($optical->getListToChange($this->id), "opticals");
+        $this->vue->help(_("parametres/créer-ou-modifier-un-modèle-d’étiquettes.html"));
         return $this->vue->send();
     }
     function write()

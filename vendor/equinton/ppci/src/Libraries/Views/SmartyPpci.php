@@ -1,4 +1,5 @@
 <?php
+
 namespace Ppci\Libraries\Views;
 
 use Config\App;
@@ -55,6 +56,10 @@ class SmartyPpci
     public $templateMain;
     protected \Smarty $smarty;
     protected $isSent = false;
+    /**
+     * var @App
+     */
+    public $app;
     public function __construct()
     {
         if (!isset($this->smarty)) {
@@ -78,9 +83,9 @@ class SmartyPpci
         /**
          * @var App
          */
-        $appConfig = config("App");
-        $this->set($appConfig->copyright, "copyright");
-        $this->set($appConfig->APP_help_address, "APP_help_address");
+        $this->app = config("App");
+        $this->set($this->app->copyright, "copyright");
+        $this->set($this->app->APP_help_address, "APP_help_address");
         /**
          * Assign variables from dbparam table
          */
@@ -100,7 +105,7 @@ class SmartyPpci
         }
         /** Add the menu */
         if (!isset($_SESSION["menu"]) || $_ENV["CI_ENVIRONMENT"] == "development") {
-            $menu = new Menu($appConfig->APP_menufile);
+            $menu = new Menu($this->app->APP_menufile);
             $_SESSION["menu"] = $menu->generateMenu();
         }
         $this->set($_SESSION["menu"], "menu");
@@ -189,5 +194,28 @@ class SmartyPpci
     function fetch(string $template)
     {
         return $this->smarty->fetch($template);
+    }    
+    /**
+     * Method help: add a link to open inline help
+     *
+     * @param string $address : end of the url of the help page
+     *
+     * @return void
+     */
+    function help(string $address)
+    {
+        if (!empty($address)) {
+
+            $link = '<a href="' . $this->app->docroot . "/" . $address . '" target="_blank">' .
+                '<img src="display/images/framework/help.png" height="25">' .
+                _("Aide en ligne") .
+                '</a>';
+            /**
+             * var SmartyPpci
+             */
+
+            $this->htmlVars[] = "help";
+            $this->smarty->assign("help", $link);
+        }
     }
 }

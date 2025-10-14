@@ -194,7 +194,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public string $dbversion = "25.0";
+    public string $dbversion = "25.1";
     /**
      * Location of the database schema
      *

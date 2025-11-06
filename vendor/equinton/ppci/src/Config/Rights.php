@@ -51,6 +51,8 @@ class Rights extends RightsPpci
         "systemShowSession" => ["admin"],
         "administration" => ["admin"],
         "totpShowCode" => ["consult"],
+        "getLogFiles" => ["admin"],
+        "getLogContent" => ["admin"]
     ];
 
 }

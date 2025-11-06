@@ -87,6 +87,7 @@
 		<item module="containerVerifyCyclic" label="Recherche des mouvements cycliques" tooltip="Recherche des contenants contenus dans un contenant qu'ils contiennent" />
 		<item divider='1' />
 		<item module="logList" droits="admin" label="Logs" tooltip="Consultation des logs enregistrées" />
+		<item module="getLogFiles" droits="admin" label="Traces des erreurs" tooltip="Liste des fichiers enregistrant les erreurs applicatives"/>
 		<item module="dbstructureGacl" droits="admin" label="Structure de la base de données des droits (HTML)" tooltip="Liste des tables et des colonnes de la base de données de gestion des droits" />
 		<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP" />
 		<item divider="1" />

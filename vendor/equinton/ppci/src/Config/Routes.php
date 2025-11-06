@@ -68,6 +68,9 @@ $routes->add('dbstructureSchema', '\Ppci\Controllers\Miscellaneous::structureSch
 
 $routes->add("getLastRelease", '\Ppci\Controllers\Miscellaneous::getLastRelease');
 
+$routes->add("getLogFiles", '\Ppci\Controllers\ErrorLogs::getListFiles');
+$routes->add("getLogContent", '\Ppci\Controllers\ErrorLogs::getLogContent');
+
 /**
  * GACL configuration
  */
@@ -133,4 +136,3 @@ $routes->add('documentation_en', '\Ppci\Controllers\Utils::submenu/documentation
  */
 $routes->add('doctotp_fr', '\Ppci\Controllers\Utils::markdown/vendor/equinton/ppci/Documentation/totp_fr.md');
 $routes->add('doctotp_en', '\Ppci\Controllers\Utils::markdown/vendor/equinton/ppci/Documentation/totp_en.md');
-

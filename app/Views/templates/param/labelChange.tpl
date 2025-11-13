@@ -270,8 +270,7 @@
 		<li>{t}Champs affichables sur l'étiquette et dans le QRCODE au format JSON :{/t}
 			<ul>
 				<li>{t 1='uid'}%1 (obligatoire) : identifiant unique{/t}</li>
-				<li>{t 1='db'}%1 (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les
-					échantillons entre plusieurs bases){/t}</li>
+				<li>{t 1='db'}%1 (obligatoire) : code de la base de données (utilisé pour éviter de mélanger les échantillons entre plusieurs bases){/t}</li>
 				<li>{t 1='id'}%1 : identifiant général{/t}</li>
 				<li>{t 1='col'}%1 : code de la collection{/t}</li>
 				<li>{t 1='pid'}%1 : identifiant de l'échantillon parent{/t}</li>
@@ -304,8 +303,7 @@
 				<li>uid</li>
 				<li>uuid</li>
 				<li>{t}tout identifiant secondaire non numérique - cf. paramètres > Types d'identifiants{/t}</li>
-				<li>{t 1='dbuid_origin' escape=no}%1 : identifiant de la base de données d'origine. Pour un échantillon
-					créé dans la base courante, la valeur sera de type <i>db:uid</i>{/t}</li>
+				<li>{t 1='dbuid_origin' escape=no}%1 : identifiant de la base de données d'origine. Pour un échantillon créé dans la base courante, la valeur sera de type <i>db:uid</i>{/t}</li>
 			</ul>
 		</li>
 		<li>{t}Graphismes à insérer dans l'étiquette :{/t}

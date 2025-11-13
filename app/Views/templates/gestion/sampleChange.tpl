@@ -574,8 +574,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="collection_id" class="control-label col-md-4"><span class="red">*</span> {t}Collection
-						:{/t}</label>
+					<label for="collection_id" class="control-label col-md-4"><span class="red">*</span> 
+						{t}Collection :{/t}
+					</label>
 					<div class="col-md-8">
 						<select id="collection_id" name="collection_id" class="form-control" autofocus>
 							{foreach $collections as $collection}

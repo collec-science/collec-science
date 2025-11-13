@@ -140,6 +140,7 @@ return array(
     'App\\Models\\Import' => $baseDir . '/app/Models/Import.php',
     'App\\Models\\ImportObject' => $baseDir . '/app/Models/ImportObject.php',
     'App\\Models\\Label' => $baseDir . '/app/Models/Label.php',
+    'App\\Models\\LabelOptical' => $baseDir . '/app/Models/LabelOptical.php',
     'App\\Models\\License' => $baseDir . '/app/Models/License.php',
     'App\\Models\\Lot' => $baseDir . '/app/Models/Lot.php',
     'App\\Models\\Metadata' => $baseDir . '/app/Models/Metadata.php',

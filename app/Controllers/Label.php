@@ -42,6 +42,14 @@ class Label extends PpciController
     }
     function copy()
     {
-        return $this->lib->copy();
+       if ( $this->lib->copy()) {
+        return $this->lib->change();
+       } else {
+        return $this->lib->list();
+       }
+    }
+
+    function getLogo() {
+        return $this->lib->getLogo();
     }
 }

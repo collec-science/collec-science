@@ -393,6 +393,7 @@ class ComposerStaticInit657ac079313fab046eb8c29fe1d6992b
         'App\\Models\\Import' => __DIR__ . '/../..' . '/app/Models/Import.php',
         'App\\Models\\ImportObject' => __DIR__ . '/../..' . '/app/Models/ImportObject.php',
         'App\\Models\\Label' => __DIR__ . '/../..' . '/app/Models/Label.php',
+        'App\\Models\\LabelOptical' => __DIR__ . '/../..' . '/app/Models/LabelOptical.php',
         'App\\Models\\License' => __DIR__ . '/../..' . '/app/Models/License.php',
         'App\\Models\\Lot' => __DIR__ . '/../..' . '/app/Models/Lot.php',
         'App\\Models\\Metadata' => __DIR__ . '/../..' . '/app/Models/Metadata.php',

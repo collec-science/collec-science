@@ -127,6 +127,7 @@ $routes->post('labelWrite', 'Label::write');
 $routes->post('labelWriteStay', 'Label::writeStay');
 $routes->post('labelDelete', 'Label::delete');
 $routes->add('labelCopy', 'Label::copy');
+$routes->add("labelGetLogo", 'Label::getLogo');
 $routes->add('metadataFormGetDetail', 'SampleType::getDetailFormAjax');
 $routes->add('sampleList', 'Sample::list');
 $routes->add('sampleSearchAjax', 'Sample::searchAjax');

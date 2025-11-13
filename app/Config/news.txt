@@ -15,6 +15,8 @@ Corrections de bugs :
 Nouveautés : 
 - les administrateurs peuvent maintenant consulter directement depuis l'application les fichiers contenant les messages d'erreur, pour faciliter le diagnostic des incidents
 - il est maintenant possible de générer des étiquettes contenant deux codes-barres (qrcode ou EAN128) et un logo
+- les premières pages de la documentation à destination préférentielle des utilisateurs ont été publiées (https://collec-science.github.io/userdocs/). De nouvelles pages seront rajoutées dans les prochains mois.
+- un mécanisme d'appel de l'aide en ligne (pages de la documentation) a été ajouté. Il a été implémenté pour la modification d'une collection ou pour la création d'un modèle d'étiquettes
 
 Version v25.0.11 du 1/9/2025
 ----------------------------

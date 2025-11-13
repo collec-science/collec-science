@@ -32,7 +32,10 @@
 <h2>{t}Création - Modification d'une collection{/t}</h2>
 <div class="row">
     <div class="col-md-10 col-lg-8">
-        <a href="collectionList">{t}Retour à la liste{/t}</a>
+        <a href="collectionList">
+            <img src="display/images/list.png" height="25">
+            {t}Retour à la liste{/t}
+        </a> {$help}
 
         <form class="form-horizontal " id="collectionForm" method="post" action="collectionWrite">
             <input type="hidden" name="moduleBase" value="collection">

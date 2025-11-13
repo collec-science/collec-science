@@ -67,6 +67,7 @@ class Collection extends PpciLibrary
         $this->vue->set($referent->getListe(2), "referents");
         $license = new License();
         $this->vue->set($license->getListe(2), "licenses");
+        $this->vue->help(_("parametres/les-collections.html"));
         return $this->vue->send();
     }
     function write()

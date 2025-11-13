@@ -101,7 +101,9 @@
 <h2>{t}Création - Modification d'une étiquette{/t}</h2>
 <div class="row">
 	<div class="col-md-12">
-		<a href="labelList">{t}Retour à la liste{/t}</a>
+		<a href="labelList">
+			<img src="display/images/list.png" height="25">
+			{t}Retour à la liste{/t}</a>
 		{$help}
 
 		<form class="form-horizontal" id="labelForm" method="post" action="labelWrite" enctype="multipart/form-data">

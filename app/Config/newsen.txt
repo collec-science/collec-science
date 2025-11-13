@@ -2,7 +2,7 @@ News
 ====================
 Translated with DeepL.com (free version)
 
-Version v26.0.0 dated 11/13/2025
+Version v26.0.0 of 13/11/2025
 -----------------------------
 Bug fixes:
 - When creating export batches, the procedure ended on a blank page.
@@ -17,6 +17,8 @@ Bug fixes:
 New features:
 - Administrators can now view files containing error messages directly from the application, to facilitate incident diagnosis
 - It is now possible to generate labels containing two barcodes (QR code or EAN128) and a logo
+- The first pages of the documentation intended primarily for users have been published (https://collec-science.github.io/userdocs/), currently only in French. New pages will be added in the coming months.
+- An online help mechanism (documentation pages) has been added. It has been implemented for modifying a collection or creating a label template.
 
 Version v25.0.11 of 1/9/2025
 ----------------------------

@@ -47,4 +47,4 @@ INSERT INTO col.label (label_name, label_xsl, metadata_id) VALUES (E'Example', E
 INSERT INTO col.label_optical (label_id, content_type, radical, optical_content, barcode_id) VALUES ((select max(label_id) from label), E'2', DEFAULT, E'uuid', E'1');
 INSERT INTO col.label_optical (label_id, content_type, radical, optical_content, barcode_id) VALUES ((select max(label_id) from label), E'2', DEFAULT, E'uid', E'2');
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'25.1', E'2025-11-1');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.0', E'2025-11-1');

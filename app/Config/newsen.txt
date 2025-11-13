@@ -2,6 +2,22 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v26.0.0 dated 11/13/2025
+-----------------------------
+Bug fixes:
+- When creating export batches, the procedure ended on a blank page.
+- In the list of borrowings, the dates were not formatted correctly.
+- Entering a date when importing a document could cause an error.
+- It was possible to trigger the creation of an export batch even without a collection selected, which caused an error message regarding insufficient rights.
+- When creating an entry transaction, it was possible to validate the operation without filling in the container.
+- When entering metadata, if one of the fields contained multiple values, the interface could become erratic.
+- When creating a sample, the automatic generation of the business identifier from the information entered no longer worked.
+- The display of the database schema structure containing the rights management tables has been removed; it remains available when viewing the entire database structure
+
+New features:
+- Administrators can now view files containing error messages directly from the application, to facilitate incident diagnosis
+- It is now possible to generate labels containing two barcodes (QR code or EAN128) and a logo
+
 Version v25.0.11 of 1/9/2025
 ----------------------------
 Bug fixes:

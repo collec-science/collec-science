@@ -9,7 +9,6 @@ use App\Models\Metadata;
 use App\Models\Printer;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
-use Ppci\Libraries\Views\BinaryView;
 use Ppci\Libraries\Views\DisplayView;
 use Ppci\Models\PpciModel;
 

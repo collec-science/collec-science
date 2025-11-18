@@ -544,8 +544,8 @@ class ObjectClass extends PpciModel
              * QRcode
              */
             $options = new QROptions;
-            $options->version             = 7;
-            $options->outputInterface = \chillerlan\QRCode\Output\QRGdImagePNG::class;
+            /*$options->version             = 7;
+            $options->outputInterface = \chillerlan\QRCode\Output\QRGdImagePNG::class;*/
             $options->outputBase64        = false;
             $this->barcode = new BarcodeGeneratorPNG;
             /**

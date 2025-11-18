@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use chillerlan\QRCode\{QRCode, QROptions};
+use chillerlan\QRCode\Output\QROutputInterface;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 use Picqer\Barcode\Exceptions\BarcodeException;
 use Ppci\Libraries\PpciException;
@@ -543,10 +544,12 @@ class ObjectClass extends PpciModel
              * Instanciate code generators
              * QRcode
              */
+            $qrcode = new QRCode;
+            $qrcode2 = new QRCode;
             $options = new QROptions;
             /*$options->version             = 7;
-            $options->outputInterface = \chillerlan\QRCode\Output\QRGdImagePNG::class;*/
-            $options->outputBase64        = false;
+            $options->outputInterface = \chillerlan\QRCode\Output\QRGdImagePNG::class;
+            $options->outputBase64        = false;*/
             $this->barcode = new BarcodeGeneratorPNG;
             /**
              * Get the list of opticals
@@ -680,15 +683,25 @@ class ObjectClass extends PpciModel
                     $filename .= ".png";
                     if ($opt["barcode_id"] == 1) {
                         //QRCODE
-                        if ($opt["content_type"] == 2) {
-                            $qrcode = (new QRCode($options))->render($opt["radical"] . $rowq[$opt["optical_content"]]);
+                        if (!$second) {
+                            if ($opt["content_type"] == 2) {
+                                $qrcode->render($opt["radical"] . $rowq[$opt["optical_content"]], $filename);
+                            } else {
+                                $qrcode->render(json_encode($rowq), $filename);
+                            }
                         } else {
-                            $qrcode = (new QRCode($options))->render(json_encode($rowq));
+                            if ($opt["content_type"] == 2) {
+
+                                $qrcode2->render($opt["radical"] . $rowq[$opt["optical_content"]], $filename);
+                            } else {
+                                $qrcode2->render(json_encode($rowq), $filename);
+                            }
                         }
-                        $imagick = new \Imagick;
+
+                        /*$imagick = new \Imagick;
                         $imagick->readImageBlob($qrcode);
                         $imagick->setformat("png");
-                        file_put_contents($filename, $imagick->getImageBlob());
+                        file_put_contents($filename, $imagick->getImageBlob());*/
                     } else {
                         //EAN 128
                         try {

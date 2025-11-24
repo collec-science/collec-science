@@ -77,4 +77,20 @@ class ErrorLogs extends PpciLibrary
         $vue->set("ppci/utils/logerrorlist.tpl", "corps");
         return $vue->send();
     }
+    function purgeLogs(int $duration = 365)
+    {
+        $this->getErrorFiles();
+        $liveDuration = 3600 * 24 * $duration;
+        foreach ($this->files as $filename) {
+            $path = $this->path . "/" . $filename;
+            $file = fopen($path, 'r');
+            $stat = fstat($file);
+            $atime = $stat["atime"];
+            fclose($file);
+            $age = time() - $atime;
+            if ($age > $liveDuration) {
+                unlink($path);
+            }
+        }
+    }
 }

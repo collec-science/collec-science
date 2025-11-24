@@ -115,6 +115,11 @@ class PpciInit
                         }
                     }
                     closedir($folder);
+                    /**
+                     * purge log files in writable/logs
+                     */
+                    $errorLogs = new ErrorLogs;
+                    $errorLogs->purgeLogs($appConfig->logDuration);
                     $_SESSION["log_purged"] = true;
                 }
             } catch (PpciException $e) {

@@ -107,7 +107,7 @@ class SampleWs extends PpciLibrary
                 "error_detail" => $e->getMessage()
             );
             http_response_code($error_code);
-            $this->message->setSyslog($e->getMessage(),true);
+            $this->message->setSyslog($e->getMessage(), true);
         } /*finally {
             $this->vue = service("AjaxView");
             $this->vue->setJson(json_encode($retour));
@@ -248,7 +248,7 @@ class SampleWs extends PpciLibrary
             if (env("CI_ENVIRONMENT") == "development") {
                 $data["error_content"] = $e->getMessage();
             }
-            $this->message->setSyslog($e->getMessage(),true);
+            $this->message->setSyslog($e->getMessage(), true);
         } finally {
             $this->vue = service("AjaxView");
             $this->vue->setJson(json_encode($data, JSON_UNESCAPED_UNICODE));
@@ -269,6 +269,9 @@ class SampleWs extends PpciLibrary
             if (!$dcollection["allowed_export_flow"]) {
                 throw new PpciException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $dcollection["collection_name"]), 401);
             }
+            if (!isset($_REQUEST["limit"])) {
+                $_REQUEST["limit"] = 0;
+            }
             $_SESSION["searchSample"]->setParam($_REQUEST);
             $data = $this->samplews->sample->getListUIDS($_SESSION["searchSample"]->getParam());
         } catch (PpciException $e) {
@@ -283,7 +286,7 @@ class SampleWs extends PpciLibrary
             if (env("CI_ENVIRONMENT") == "development") {
                 $data["error_content"] = $e->getMessage();
             }
-            $this->message->setSyslog($e->getMessage(),true);
+            $this->message->setSyslog($e->getMessage(), true);
         } finally {
             return $data;
         }
@@ -302,12 +305,15 @@ class SampleWs extends PpciLibrary
             if (!$dcollection["allowed_export_flow"]) {
                 throw new PpciException(sprintf(_("Les flux d'interrogation ne sont pas autorisés pour la collection %s"), $dcollection["collection_name"]), 401);
             }
+            if (!isset($_REQUEST["limit"])) {
+                $_REQUEST["limit"] = 0;
+            }
             $_SESSION["searchSample"]->setParam($_REQUEST);
             $data = $this->samplews->sample->getListFromParam($_SESSION["searchSample"]->getParam());
             if (isset($_REQUEST["template_name"])) {
                 $datasetTemplate = new DatasetTemplate();
-                $ddataset = $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
-                $withTemplate = true;
+                $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
+                // $withTemplate = true;
                 $data = $datasetTemplate->formatData($data);
             }
         } catch (PpciException $e) {
@@ -319,7 +325,7 @@ class SampleWs extends PpciLibrary
                 "error_code" => $error_code,
                 "error_message" => $this->errors[$error_code] . " - " . $e->getMessage()
             );
-            $this->message->setSyslog($e->getMessage(),true);
+            $this->message->setSyslog($e->getMessage(), true);
         } finally {
             if ($_REQUEST["nullAsEmpty"] == 1) {
                 array_walk_recursive($data, function (&$item, $key) {
@@ -368,14 +374,14 @@ class SampleWs extends PpciLibrary
             if ($error_code == 0) {
                 $error_code = 520;
             }
-            $this->message->setSyslog($e->getMessage(),true);
+            $this->message->setSyslog($e->getMessage(), true);
             $retour = array(
                 "error_code" => $error_code,
                 "error_message" => $this->errors[$error_code],
                 "error_detail" => $e->getMessage()
             );
             http_response_code($error_code);
-            $this->message->setSyslog($e->getMessage(),true);
+            $this->message->setSyslog($e->getMessage(), true);
         } finally {
             return $retour;
         }

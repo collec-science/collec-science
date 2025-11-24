@@ -2,6 +2,32 @@
 
 All notable changes of the PHPUnit 10.5 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [10.5.58] - 2025-09-28
+
+### Fixed
+
+* [#6368](https://github.com/sebastianbergmann/phpunit/issues/6368): `failOnPhpunitWarning="false"` has no effect
+
+## [10.5.57] - 2025-09-24
+
+* No changes; `phpunit.phar` rebuilt with updated dependencies
+
+## [10.5.56] - 2025-09-23
+
+* No changes; `phpunit.phar` rebuilt with updated dependencies
+
+## [10.5.55] - 2025-09-14
+
+### Changed
+
+* [#6366](https://github.com/sebastianbergmann/phpunit/issues/6366): Exclude `__sleep()` and `__wakeup()` from test double code generation on PHP >= 8.5
+
+## [10.5.54] - 2025-09-11
+
+### Changed
+
+* Do not use `__sleep()` method (which will be deprecated in PHP 8.5)
+
 ## [10.5.53] - 2025-08-20
 
 ### Changed
@@ -472,6 +498,11 @@ All notable changes of the PHPUnit 10.5 release series are documented in this fi
 
 * [#5563](https://github.com/sebastianbergmann/phpunit/issues/5563): `createMockForIntersectionOfInterfaces()` does not automatically register mock object for expectation verification
 
+[10.5.58]: https://github.com/sebastianbergmann/phpunit/compare/10.5.57...10.5.58
+[10.5.57]: https://github.com/sebastianbergmann/phpunit/compare/10.5.56...10.5.57
+[10.5.56]: https://github.com/sebastianbergmann/phpunit/compare/10.5.55...10.5.56
+[10.5.55]: https://github.com/sebastianbergmann/phpunit/compare/10.5.54...10.5.55
+[10.5.54]: https://github.com/sebastianbergmann/phpunit/compare/10.5.53...10.5.54
 [10.5.53]: https://github.com/sebastianbergmann/phpunit/compare/10.5.52...10.5.53
 [10.5.52]: https://github.com/sebastianbergmann/phpunit/compare/10.5.51...10.5.52
 [10.5.51]: https://github.com/sebastianbergmann/phpunit/compare/10.5.50...10.5.51

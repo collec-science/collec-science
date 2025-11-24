@@ -65,8 +65,7 @@ $routes->post('dbparamWriteGlobal', '\Ppci\Controllers\Miscellaneous::dbparamWri
 $routes->add('dbstructureHtml', '\Ppci\Controllers\Miscellaneous::structureHtml');
 $routes->add('dbstructureLatex', '\Ppci\Controllers\Miscellaneous::structureLatex');
 $routes->add('dbstructureSchema', '\Ppci\Controllers\Miscellaneous::structureSchema');
-$routes->add('dbstructureAdmin', '\Ppci\Controllers\Miscellaneous::structureHtml');
-$routes->add('dbstructureSchemaAdmin', '\Ppci\Controllers\Miscellaneous::structureSchema');
+
 $routes->add("getLastRelease", '\Ppci\Controllers\Miscellaneous::getLastRelease');
 
 $routes->add("getLogFiles", '\Ppci\Controllers\ErrorLogs::getListFiles');

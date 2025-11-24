@@ -1362,8 +1362,9 @@ DataTable.ext.buttons.excelHtml5 = {
 						_sheetname(config).replace(/'/g, '\'\'') +
 						'\'!$A$' +
 						dataStartRow +
-						':' +
+						':$' +
 						createCellPos(data.header.length - 1) +
+						'$' +
 						dataEndRow
 				})
 			);
@@ -1519,8 +1520,12 @@ DataTable.ext.buttons.pdfHtml5 = {
 				{
 					style: 'table',
 					table: {
-						headerRows: data.headerStructure.length,
-						footerRows: data.footerStructure.length, // Used for styling, doesn't do anything in pdfmake
+						headerRows: config.header
+							? data.headerStructure.length
+							: 0,
+						footerRows: config.footer // Used for styling, doesn't do anything in pdfmake
+							? data.footerStructure.length
+							: 0,
 						body: rows
 					},
 					layout: {

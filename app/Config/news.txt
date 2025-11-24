@@ -12,6 +12,7 @@ Corrections de bugs :
 - en création d'un échantillon, la génération automatique de l'identifiant métier à partir des informations renseignées ne fonctionnait plus
 - la visualisation de la structure du schéma de la base de données contenant les tables de gestion des droits a été retirée ; elle reste disponible quand on consulte l'ensemble de la structure de la base de données
 - la recherche de la liste des mouvements opérés par un login échouait
+- la recherche d'un échantillon par son uid d'origine ne fonctionnait pas
 
 Nouveautés : 
 - les administrateurs peuvent maintenant consulter directement depuis l'application les fichiers contenant les messages d'erreur, pour faciliter le diagnostic des incidents

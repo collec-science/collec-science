@@ -14,6 +14,7 @@ Bug fixes:
 - When creating a sample, the automatic generation of the business identifier from the information entered no longer worked.
 - The display of the database schema structure containing the rights management tables has been removed; it remains available when viewing the entire database structure
 - Searching for the list of transactions carried out by a login failed
+- Searching for a sample by its original uid did not work.
 
 New features:
 - Administrators can now view files containing error messages directly from the application, to facilitate incident diagnosis

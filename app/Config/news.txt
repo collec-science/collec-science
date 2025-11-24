@@ -11,12 +11,14 @@ Corrections de bugs :
 - lors de la saisie des métadonnées, si l'une d'entre elles contenait des multivaleurs, l'interface pouvait devenir erratique
 - en création d'un échantillon, la génération automatique de l'identifiant métier à partir des informations renseignées ne fonctionnait plus
 - la visualisation de la structure du schéma de la base de données contenant les tables de gestion des droits a été retirée ; elle reste disponible quand on consulte l'ensemble de la structure de la base de données
+- la recherche de la liste des mouvements opérés par un login échouait
 
 Nouveautés : 
 - les administrateurs peuvent maintenant consulter directement depuis l'application les fichiers contenant les messages d'erreur, pour faciliter le diagnostic des incidents
 - il est maintenant possible de générer des étiquettes contenant deux codes-barres (qrcode ou EAN128) et un logo
 - les premières pages de la documentation à destination préférentielle des utilisateurs ont été publiées (https://collec-science.github.io/userdocs/). De nouvelles pages seront rajoutées dans les prochains mois.
 - un mécanisme d'appel de l'aide en ligne (pages de la documentation) a été ajouté. Il a été implémenté pour la modification d'une collection ou pour la création d'un modèle d'étiquettes
+- dans les API de listage des échantillons, il est possible d'activer un mécanisme de pagination pour limiter le nombre d'enregistrements retournés à chaque requête
 
 Version v25.0.11 du 1/9/2025
 ----------------------------

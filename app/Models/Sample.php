@@ -531,7 +531,7 @@ class Sample extends PpciModel
                         $where .= "$or upper(so.identifier) like :identifier: or upper(s.dbuid_origin) = upper(:dbuid_origin:)";
                         $and = " and ";
                         $data["identifier"] = $identifier;
-                        $data["dbuid_origin"] = $name;
+                        $data["dbuid_origin"] = $param["name"];
                         /*
                          * Recherche sur les identifiants externes
                          * possibilite de recherche sur cab:valeur, p. e.

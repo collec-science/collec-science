@@ -52,7 +52,9 @@ class Rights extends RightsPpci
         "administration" => ["admin"],
         "totpShowCode" => ["consult"],
         "getLogFiles" => ["admin"],
-        "getLogContent" => ["admin"]
+        "getLogContent" => ["admin"],
+        "dbstructureAdmin" => ["admin"],
+        "dbstructureSchemaAdmin" => ["admin"]
     ];
 
 }

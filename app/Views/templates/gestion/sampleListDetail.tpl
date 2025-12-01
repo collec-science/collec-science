@@ -1132,26 +1132,26 @@
 				<div class="document" hidden>
 					<input type="hidden" name="parentKeyName" value="uid">
 					<div class="form-group">
-						<label for="documentName" class="control-label col-md-4">
+						<label for="documentName2" class="control-label col-md-4">
 							{t 1=$maxUploadSize}Fichier(s) à importer (taille maxi : %1 Mb):{/t} <br>({$extensions})
 						</label>
 						<div class="col-md-8">
-							<input id="documentName" type="file" class="form-control"
+							<input id="documentName2" type="file" class="form-control"
 								name="documentName[]" multiple>
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="documentName" class="control-label col-md-4">
+						<label for="documentDescription2" class="control-label col-md-4">
 							{t}Description :{/t} </label>
 						<div class="col-md-8">
-							<input id="document_description" name="document_description" class="form-control">
+							<input id="documentDescription2" name="document_description" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="document_creation_date" class="control-label col-md-4">
+						<label for="document_creation_date2" class="control-label col-md-4">
 							{t}Date de création du document :{/t} </label>
 						<div class="col-md-8">
-							<input id="document_creation_date" name="document_creation_date"
+							<input id="document_creation_date2" name="document_creation_date"
 								class="form-control date">
 						</div>
 					</div>

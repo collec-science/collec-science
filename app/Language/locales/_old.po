@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-13 15:03+0100\n"
+"POT-Creation-Date: 2025-11-13 15:19+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2864,6 +2864,7 @@ msgstr "DB and UID of origin:"
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:303
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1256
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:513
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:578
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:468
 #: ../../../app/Views/templates/gestion/containerChange.tpl:153
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:592
@@ -2888,7 +2889,7 @@ msgstr "Referent:"
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:305
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1269
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:520
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:608
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:609
 #: ../../../app/Views/templates/gestion/containerSearch.tpl:160
 #: ../../../app/Views/templates/gestion/containerChange.tpl:242
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:601
@@ -2931,13 +2932,13 @@ msgid "Date de création\tde l'échantillon (d'échantillonnage) :"
 msgstr "Date of creation\tof sample (sampling):"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:320
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:747
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:748
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:645
 msgid "Date d'import dans la base de données :"
 msgstr "Date of import into the database:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:322
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:756
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:757
 msgid "Date d'expiration de l'échantillon :"
 msgstr "Expiry date of the sample:"
 
@@ -2958,21 +2959,21 @@ msgid "Échantillon parent :"
 msgstr "Parent sample:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:332
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:676
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:677
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:754
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:703
 msgid "Lieu de prélèvement :"
 msgstr "Sampling place:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:335
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:642
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:643
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:770
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:709
 msgid "Pays de collecte :"
 msgstr "Sampling country:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:338
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:659
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:660
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:783
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:715
 msgid "Pays de provenance :"
@@ -3005,9 +3006,9 @@ msgstr "Events:"
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1091
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1105
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:121
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:630
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:646
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:663
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:631
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:647
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:664
 #: ../../../app/Views/templates/gestion/movementBatchConfirm.tpl:23
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:202
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:242
@@ -3359,7 +3360,7 @@ msgid "Type d'événement :"
 msgstr "Event type:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:928
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:764
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:765
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:110
 #: ../../../app/Views/templates/gestion/bookingChange.tpl:100
 #: ../../../app/Views/templates/gestion/eventDisplay.tpl:43
@@ -3593,7 +3594,7 @@ msgid "Réinitialiser les champs"
 msgstr "Reinit the fields"
 
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:484
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:845
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:846
 #: ../../../app/Views/templates/gestion/objectIdentifierChange.tpl:47
 #: ../../../app/Views/templates/gestion/movementBatchConfirm.tpl:41
 #: ../../../app/Views/templates/gestion/movementBatchConfirm.tpl:95
@@ -3651,7 +3652,7 @@ msgid "Valider"
 msgstr "Save and return"
 
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:486
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:847
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:848
 #: ../../../app/Views/templates/gestion/objectIdentifierChange.tpl:49
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:820
 #: ../../../app/Views/templates/gestion/bookingChange.tpl:109
@@ -3758,47 +3759,40 @@ msgstr "Generate the identifier from the information entered"
 msgid "Générer"
 msgstr "Generate"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:577
-#, fuzzy
-msgid ""
-"Collection\n"
-"\t\t\t\t\t\t:"
-msgstr "Collection:"
-
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:592
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:593
 msgid "Référent de l'échantillon :"
 msgstr "Sample referent:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:617
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:618
 msgid "Base de données et UID d'origine :"
 msgstr "Database and UID of origin:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:621
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:622
 msgid "db:uid. Exemple: col:125"
 msgstr "db:uid. Example: col:125"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:626
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:627
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:693
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:694
 msgid "Campagne de prélèvement :"
 msgstr "Sampling campaign:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:685
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:686
 #: ../../../app/Views/templates/gestion/containerChange.tpl:181
 msgid "Mode de calcul des coordonnées GPS :"
 msgstr "GPS coordinates calculation mode:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:691
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:692
 #: ../../../app/Views/templates/gestion/containerChange.tpl:187
 msgid "Données initiales en degrés/minutes décimales"
 msgstr "Initial data in decimal degrees/minutes"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:699
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:700
 #: ../../../app/Views/templates/gestion/containerChange.tpl:195
 msgid "Données initiales en degrés/minutes/secondes"
 msgstr "Initial data in degrees/minutes/seconds"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:709
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:710
 #: ../../../app/Views/templates/gestion/containerChange.tpl:205
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:721
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:552
@@ -3806,17 +3800,17 @@ msgstr "Initial data in degrees/minutes/seconds"
 msgid "Latitude :"
 msgstr "Latitude:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:711
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:712
 #: ../../../app/Views/templates/gestion/containerChange.tpl:207
 msgid "Format sexagesimal (45°01,234N) :"
 msgstr "Sexagesimal format (45°01,234N):"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:713
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:714
 #: ../../../app/Views/templates/gestion/containerChange.tpl:209
 msgid "Format décimal (45.081667) :"
 msgstr "Decimal format (45.081667):"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:719
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:720
 #: ../../../app/Views/templates/gestion/containerChange.tpl:214
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:725
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:556
@@ -3824,58 +3818,58 @@ msgstr "Decimal format (45.081667):"
 msgid "Longitude :"
 msgstr "Longitude:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:721
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:722
 #: ../../../app/Views/templates/gestion/containerChange.tpl:216
 msgid "Format sexagesimal (0°01,234W) :"
 msgstr "Sexagesimal format (0°01,234W):"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:723
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:724
 #: ../../../app/Views/templates/gestion/containerChange.tpl:218
 msgid "Format décimal (-0.081667) :"
 msgstr "Decimal format (-0.081667):"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:730
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:731
 #: ../../../app/Views/templates/gestion/containerChange.tpl:223
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:730
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:561
 msgid "Précision de la localisation (en mètres) :"
 msgstr "Localization accuracy (in meters):"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:738
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:739
 msgid "Date de création/échantillonnage de l'échantillon :"
 msgstr "Date of creation / sampling of the sample:"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:777
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:778
 msgid "Sous-échantillonnage (si le type le permet)"
 msgstr "Subsampling (if the type allows it)"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:780
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:781
 msgid "Quantité initiale de sous-échantillons (%1:%2) :"
 msgstr "Initial quantity of subsamples (%1:%2):"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:797
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:798
 msgid "Quantité retirée au parent (%1:%2) :"
 msgstr "Quantity taken from parent (%1:%2) :"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:805
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:806
 msgid "Jeu de métadonnées"
 msgstr "Metadata set"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:813
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:814
 msgid "Informations diverses"
 msgstr "Miscellaneous informations"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:815
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:816
 #: ../../../app/Views/templates/gestion/containerChange.tpl:260
 #: ../../../app/Views/templates/param/campaignChange.tpl:56
 msgid "UID universel (UUID) :"
 msgstr "Universal UID (UUID):"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:823
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:824
 msgid "Échantillon en attente de suppression (mis à la corbeille) :"
 msgstr "Sample awaiting deletion (trashed):"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:830
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:831
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:840
 #: ../../../app/Views/templates/gestion/import.tpl:95
 #: ../../../app/Views/templates/gestion/containerChange.tpl:272
@@ -3931,7 +3925,7 @@ msgstr "Sample awaiting deletion (trashed):"
 msgid "oui"
 msgstr "yes"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:837
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:838
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:837
 #: ../../../app/Views/templates/gestion/import.tpl:94
 #: ../../../app/Views/templates/gestion/containerChange.tpl:278
@@ -3968,7 +3962,7 @@ msgstr "yes"
 msgid "non"
 msgstr "no"
 
-#: ../../../app/Views/templates/gestion/sampleChange.tpl:858
+#: ../../../app/Views/templates/gestion/sampleChange.tpl:859
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:123
 #: ../../../app/Views/templates/gestion/objectIdentifierChange.tpl:57
 #: ../../../app/Views/templates/gestion/movementBatchRead.tpl:45
@@ -3994,7 +3988,7 @@ msgstr "no"
 #: ../../../app/Views/templates/param/collectionChange.tpl:188
 #: ../../../app/Views/templates/param/referentChange.tpl:113
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:52
-#: ../../../app/Views/templates/param/labelChange.tpl:329
+#: ../../../app/Views/templates/param/labelChange.tpl:327
 #: ../../../app/Views/templates/param/regulationChange.tpl:34
 #: ../../../app/Views/templates/param/samplingPlaceChange.tpl:93
 #: ../../../app/Views/templates/param/protocolChange.tpl:113
@@ -7455,9 +7449,8 @@ msgstr "Type of bare-code:"
 
 #: ../../../app/Views/templates/param/labelChange.tpl:161
 #: ../../../app/Views/templates/param/labelChange.tpl:213
-#, fuzzy
 msgid "Type de contenu :"
-msgstr "Container type:"
+msgstr "Content type:"
 
 #: ../../../app/Views/templates/param/labelChange.tpl:165
 #: ../../../app/Views/templates/param/labelChange.tpl:217
@@ -7512,36 +7505,34 @@ msgid "%1 (obligatoire) : identifiant unique"
 msgstr "%1 (required): unique identifier"
 
 #: ../../../app/Views/templates/param/labelChange.tpl:273
-#, fuzzy
 msgid ""
 "%1 (obligatoire) : code de la base de données (utilisé pour éviter de "
-"mélanger les\n"
-"\t\t\t\t\téchantillons entre plusieurs bases)"
+"mélanger les échantillons entre plusieurs bases)"
 msgstr ""
 "%1 (required): database code (used to avoid mixing samples between multiple "
 "databases)"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:275
+#: ../../../app/Views/templates/param/labelChange.tpl:274
 msgid "%1 : identifiant général"
 msgstr "%1: general identifier"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:276
+#: ../../../app/Views/templates/param/labelChange.tpl:275
 msgid "%1 : code de la collection"
 msgstr "%1: collection code"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:277
+#: ../../../app/Views/templates/param/labelChange.tpl:276
 msgid "%1 : identifiant de l'échantillon parent"
 msgstr "%1: identifier of the parent sample"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:278
+#: ../../../app/Views/templates/param/labelChange.tpl:277
 msgid "%1 : code de risque"
 msgstr "%1: risk code"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:279
+#: ../../../app/Views/templates/param/labelChange.tpl:278
 msgid "%1 : nom du protocole"
 msgstr "%1: name of the protocol"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:280
+#: ../../../app/Views/templates/param/labelChange.tpl:279
 msgid ""
 "%1 : coordonnée wgs84_x de l'objet (lieu de prélèvement ou de stockage "
 "suivant le cas)"
@@ -7549,51 +7540,51 @@ msgstr ""
 "%1: wgs84_x coordinate of the object (place of picking or storage as "
 "appropriate)"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:282
+#: ../../../app/Views/templates/param/labelChange.tpl:281
 msgid "%1 : coordonnée wgs84_y de l'objet"
 msgstr "%1: wgs84_y coordinate of the object"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:283
+#: ../../../app/Views/templates/param/labelChange.tpl:282
 msgid "%1 : localisation du prélèvement (table des lieux de prélèvement)"
 msgstr "%1: location of the sample (collection site table)"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:284
+#: ../../../app/Views/templates/param/labelChange.tpl:283
 msgid "%1 : code du pays de collecte"
 msgstr "%1: sampling country code"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:285
+#: ../../../app/Views/templates/param/labelChange.tpl:284
 msgid "%1 : produit utilisé pour la conservation"
 msgstr "%1: product used for conservation"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:286
+#: ../../../app/Views/templates/param/labelChange.tpl:285
 msgid "%1 : date de création de l'échantillon dans la base de données"
 msgstr "%1: date the sample was created in the database"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:287
+#: ../../../app/Views/templates/param/labelChange.tpl:286
 #: ../../../app/Views/templates/param/sampleTypeChange.tpl:180
 msgid "%1 : date d'échantillonnage"
 msgstr "%1: sampling date"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:288
+#: ../../../app/Views/templates/param/labelChange.tpl:287
 #: ../../../app/Views/templates/param/sampleTypeChange.tpl:181
 msgid "%1 : date d'expiration de l'échantillon"
 msgstr "%1: expiry date of the sample"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:289
+#: ../../../app/Views/templates/param/labelChange.tpl:288
 msgid "%1 : UID Universel (UUID)"
 msgstr "%1: Universal UID (UUID)"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:290
+#: ../../../app/Views/templates/param/labelChange.tpl:289
 msgid "%1 : référent de l'objet"
 msgstr "%1: referent of the object"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:291
+#: ../../../app/Views/templates/param/labelChange.tpl:290
 msgid ""
 "et tous les codes d'identifiants secondaires - cf. paramètres > Types "
 "d'identifiants"
 msgstr "and all secondary identifier codes - see settings> Identifier types"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:292
+#: ../../../app/Views/templates/param/labelChange.tpl:291
 msgid ""
 "Si l'objet est toujours stocké au même endroit, pour pouvoir le replacer à "
 "son emplacement initial :"
@@ -7601,19 +7592,19 @@ msgstr ""
 "If the object is always stored in the same place, so that it can be returned "
 "to its original location:"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:294
+#: ../../../app/Views/templates/param/labelChange.tpl:293
 msgid "%1 : nom du contenant"
 msgstr "%1: name of the container"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:295
+#: ../../../app/Views/templates/param/labelChange.tpl:294
 msgid "%1 : numéro de la colonne"
 msgstr "%1: number of the column"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:296
+#: ../../../app/Views/templates/param/labelChange.tpl:295
 msgid "%1 : numéro de la ligne"
 msgstr "%1: number of the line"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:301
+#: ../../../app/Views/templates/param/labelChange.tpl:300
 msgid ""
 "Champs utilisables dans un code optique avec un seul identifiant, au format "
 "texte, avec ou sans radical :"
@@ -7621,38 +7612,37 @@ msgstr ""
 "Fields that can be used in an optical code with a single identifier, in text "
 "format, with or without a root:"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:306
+#: ../../../app/Views/templates/param/labelChange.tpl:305
 msgid ""
 "tout identifiant secondaire non numérique - cf. paramètres > Types "
 "d'identifiants"
 msgstr "any non-numeric secondary identifier - see Settings > Identifier types"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:307
-#, fuzzy
+#: ../../../app/Views/templates/param/labelChange.tpl:306
 msgid ""
-"%1 : identifiant de la base de données d'origine. Pour un échantillon\n"
-"\t\t\t\t\tcréé dans la base courante, la valeur sera de type <i>db:uid</i>"
+"%1 : identifiant de la base de données d'origine. Pour un échantillon créé "
+"dans la base courante, la valeur sera de type <i>db:uid</i>"
 msgstr ""
 "%1: identifier of the original database. For a sample created in the current "
 "database, the value will be of type <i>db:uid</i>"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:311
+#: ../../../app/Views/templates/param/labelChange.tpl:309
 msgid "Graphismes à insérer dans l'étiquette :"
 msgstr "Graphisms to insert in the label:"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:313
+#: ../../../app/Views/templates/param/labelChange.tpl:311
 msgid "xsl:value-of select=\"concat(uid,'.png')\" : premier code optique"
 msgstr "xsl:value-of select=\"concat(uid,'.png')\" : first optical code"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:314
+#: ../../../app/Views/templates/param/labelChange.tpl:312
 msgid "xsl:value-of select=\"concat(uid,'-2.png')\" : second code optique"
 msgstr "xsl:value-of select=\"concat(uid,'-2.png')\" : second optical code"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:315
+#: ../../../app/Views/templates/param/labelChange.tpl:313
 msgid "xsl:value-of select=\"concat(label_id,'-logo.png')\" : logo"
 msgstr "xsl:value-of select=\"concat(label_id,'-logo.png')\" : logo"
 
-#: ../../../app/Views/templates/param/labelChange.tpl:323
+#: ../../../app/Views/templates/param/labelChange.tpl:321
 msgid ""
 "Métadonnées utilisables dans le QR Code et dans le texte de l'étiquette :"
 msgstr ""
@@ -8136,7 +8126,6 @@ msgid ""
 msgstr "to retrieve the content of a metadata selected by radio button:"
 
 #: ../../../app/Views/templates/param/sampleTypeChange.tpl:165
-#, fuzzy
 msgid ""
 "Exemple : pour générer cet identifiant : nom_collection-valeur_metadonnee-"
 "uid :"
@@ -9592,6 +9581,12 @@ msgstr "Setting"
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/dbparamListChange.tpl:10
 msgid "Valeur"
 msgstr "Value"
+
+#, fuzzy
+#~ msgid ""
+#~ "Collection\n"
+#~ "\t\t\t\t\t\t:"
+#~ msgstr "Collection:"
 
 #~ msgid "Créer des échantillons composés"
 #~ msgstr "Add composite samples"

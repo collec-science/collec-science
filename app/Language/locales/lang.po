@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-13 15:19+0100\n"
+"POT-Creation-Date: 2025-12-02 14:33+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -35,13 +35,13 @@ msgid "Liste des contenants"
 msgstr "List of containers"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:9 ../../Config/menu.xml:106
+#: ../../Config/menu.xml:9 ../../Config/menu.xml:107
 msgid "Échantillons"
 msgstr "Samples"
 
 #. (itstool) path: item/item@tooltip
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:9 ../../Config/menu.xml:123
+#: ../../Config/menu.xml:9 ../../Config/menu.xml:124
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:723
 #: ../../../app/Views/templates/main.tpl:13
 msgid "Liste des échantillons"
@@ -521,7 +521,7 @@ msgstr "List of dataset types used to export the samples by lot"
 
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:73 ../../Config/menu.xml:74
+#: ../../Config/menu.xml:73 ../../Config/menu.xml:74 ../../Config/menu.xml:91
 msgid "Schéma de la base de données"
 msgstr "Database structure"
 
@@ -531,12 +531,12 @@ msgid "Visualisation du schéma de la base de données"
 msgstr "Show the database structure"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:75
+#: ../../Config/menu.xml:75 ../../Config/menu.xml:92
 msgid "Structure de la base de données (HTML)"
 msgstr "Database structure (HTML)"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:75
+#: ../../Config/menu.xml:75 ../../Config/menu.xml:92
 msgid "Liste des tables et des colonnes"
 msgstr "List of tables and columns"
 
@@ -552,7 +552,7 @@ msgstr "List of tables and columns in Latex format"
 
 #. (itstool) path: menu/item@label
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:80 ../../Config/menu.xml:131
+#: ../../Config/menu.xml:80 ../../Config/menu.xml:132
 msgid "Administration"
 msgstr "Administration"
 
@@ -642,332 +642,319 @@ msgid "Liste des fichiers enregistrant les erreurs applicatives"
 msgstr "List of files recording bugs"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:91
-msgid "Structure de la base de données des droits (HTML)"
-msgstr "Database right structure (HTML)"
-
-#. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:91
-msgid ""
-"Liste des tables et des colonnes de la base de données de gestion des droits"
-msgstr ""
-"List of tables and columns of the database available in the rights "
-"management module"
-
-#. (itstool) path: item/item@label
-#: ../../Config/menu.xml:92
+#: ../../Config/menu.xml:93
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/phpinfo.tpl:1
 msgid "PHP info"
 msgstr "PHP info"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:92
+#: ../../Config/menu.xml:93
 msgid "configuration générale du serveur PHP"
 msgstr "general configuration of the PHP server"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:94
+#: ../../Config/menu.xml:95
 msgid "Variables SERVER"
 msgstr "SERVER variables"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:94
+#: ../../Config/menu.xml:95
 msgid "Affichage des variables fournies par le serveur"
 msgstr "Display of variables supplied by the server"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:95
+#: ../../Config/menu.xml:96
 msgid "Variables SESSION"
 msgstr "SESSION variables"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:95
+#: ../../Config/menu.xml:96
 msgid "Affichage des variables de session"
 msgstr "Display of the session variables"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:97
+#: ../../Config/menu.xml:98
 msgid "Backup"
 msgstr "Backup"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:97
+#: ../../Config/menu.xml:98
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/backup.tpl:1
 msgid "Sauvegarde de la base de données"
 msgstr "Backup of the database"
 
 #. (itstool) path: menu/item@label
-#: ../../Config/menu.xml:100 ../../Config/menu.xml:105
+#: ../../Config/menu.xml:101 ../../Config/menu.xml:106
 msgid "Documentation"
 msgstr "Documentation"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../Config/menu.xml:100
+#: ../../Config/menu.xml:101
 msgid "Documentations en ligne en français"
 msgstr "Documentations in french"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:101
+#: ../../Config/menu.xml:102
 msgid "Pour les utilisateurs"
 msgstr "For users"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:101
+#: ../../Config/menu.xml:102
 msgid "La documentation pour les utilisateurs du logiciel"
 msgstr "Documentation for software users"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:102
+#: ../../Config/menu.xml:103
 msgid "Pour les administrateurs fonctionnels"
 msgstr "For functionnal administrators"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:102
+#: ../../Config/menu.xml:103
 msgid "Documentation pour les responsables de l'application"
 msgstr "Documentation for application managers"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:103
+#: ../../Config/menu.xml:104
 msgid "Administration technique"
 msgstr "Technical administration"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:103
+#: ../../Config/menu.xml:104
 msgid "Opérations d'administration"
 msgstr "Administrative operations"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../Config/menu.xml:105
+#: ../../Config/menu.xml:106
 msgid "Documentations en ligne en anglais"
 msgstr "Documentation in english"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:106
+#: ../../Config/menu.xml:107
 msgid "Gestion des échantillons"
 msgstr "List of samples"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:107
+#: ../../Config/menu.xml:108
 msgid "Renommer un champ de métadonnées"
 msgstr "Rename a metadata field"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:107
+#: ../../Config/menu.xml:108
 msgid "Comment renommer un champ de métadonnées ?"
 msgstr "How to rename a metadata field?"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:108
+#: ../../Config/menu.xml:109
 msgid "Prêter un échantillon"
 msgstr "Lend a sample"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:108
+#: ../../Config/menu.xml:109
 msgid "Prêter un ou plusieurs échantillons ou contenants"
 msgstr "Lend one or several samples or containers"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:109
+#: ../../Config/menu.xml:110
 msgid "Documents externes"
 msgstr "External documents"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:109
+#: ../../Config/menu.xml:110
 msgid "Associer des documents externes à un échantillon"
 msgstr "Associate external documents with a sample"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:110
+#: ../../Config/menu.xml:111
 msgid "Permettre au droit consult de visualiser les métadonnées"
 msgstr "Enable the consult right to visualize metadata"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:110
+#: ../../Config/menu.xml:111
 msgid ""
 "Paramétrer l'application pour permettre à tous les utilisateurs de consulter "
 "les métadonnées"
 msgstr "Set up the application so that all users can view the metadata"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:111
+#: ../../Config/menu.xml:112
 msgid "Les échantillons composés"
 msgstr "Composite samples"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:111
+#: ../../Config/menu.xml:112
 msgid "Créer un échantillon composé"
 msgstr "Create a composite sample"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:112
+#: ../../Config/menu.xml:113
 msgid "Créer un modèle d'étiquette"
 msgstr "Create a label template"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:112
+#: ../../Config/menu.xml:113
 msgid "Créer un modèle d'étiquette avec son QRCODE ou son code-barre"
 msgstr "Create a label template with its QRCODE or barcode"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:114
+#: ../../Config/menu.xml:115
 msgid "Fonctions d'import/export"
 msgstr "Import/export functions"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:114
+#: ../../Config/menu.xml:115
 msgid "Fonctions d'importation et d'exportations de données"
 msgstr "Import/export operations"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:115
+#: ../../Config/menu.xml:116
 msgid "Exporter par lot"
 msgstr "Batch export"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:115
+#: ../../Config/menu.xml:116
 msgid "Exporter des échantillons par lots"
 msgstr "Export samples by batchs"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:118
+#: ../../Config/menu.xml:119
 msgid "Comprendre la double authentification"
 msgstr "Understand dual authentication"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:118
+#: ../../Config/menu.xml:119
 msgid "Comprendre le mécanisme de double authentification"
 msgstr "Understanding the dual authentication mechanism"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:119
+#: ../../Config/menu.xml:120
 msgid "Services web"
 msgstr "Web API"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:119
+#: ../../Config/menu.xml:120
 msgid "Description des services web"
 msgstr "Description of the web services"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:120
+#: ../../Config/menu.xml:121
 msgid "identification"
 msgstr "Identification"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:120
+#: ../../Config/menu.xml:121
 msgid "Gérer l'identification dans les services web"
 msgstr "Managing identification in web services"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:121
+#: ../../Config/menu.xml:122
 msgid "API web"
 msgstr "Web API"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:121
+#: ../../Config/menu.xml:122
 msgid "Utilisation des API web"
 msgstr "Use web API"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:122
+#: ../../Config/menu.xml:123
 msgid "Détail d'un échantillon"
 msgstr "Detail of a sample"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:122
+#: ../../Config/menu.xml:123
 msgid "Service web d'affichage du détail d'un échantillon"
 msgstr "Web API to display the detail of a sample"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:123
+#: ../../Config/menu.xml:124
 msgid "Service web permettant de rechercher une liste d'échantillons"
 msgstr "Web API to search a list of samples"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:124
+#: ../../Config/menu.xml:125
 msgid "Liste des documents"
 msgstr "List of documents"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:124
+#: ../../Config/menu.xml:125
 msgid "Service web d'obtention de la liste des documents attachés à un objet"
 msgstr "Web service for obtaining the list of documents attached to an object"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:125
+#: ../../Config/menu.xml:126
 msgid "Afficher un document"
 msgstr "Display a document"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:125
+#: ../../Config/menu.xml:126
 msgid "Service web de téléchargement d'un document"
 msgstr "Web API to download a document"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:126
+#: ../../Config/menu.xml:127
 msgid "Créer un échantillon"
 msgstr "Create a sample"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:126
+#: ../../Config/menu.xml:127
 msgid "Ajouter ou mettre à jour un échantillon"
 msgstr "Add or update a sample"
 
 #. (itstool) path: item/item@label
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:127
+#: ../../Config/menu.xml:128
 msgid "Supprimer un échantillon"
 msgstr "Delete a sample"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:128
+#: ../../Config/menu.xml:129
 msgid "Création d'un mouvement"
 msgstr "Creating a movement"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:128
+#: ../../Config/menu.xml:129
 msgid "Créer un mouvement d'entrée ou de sortie"
 msgstr "Create a entry or exit movement"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:129
+#: ../../Config/menu.xml:130
 msgid "Créer un document"
 msgstr "Create a document"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:129
+#: ../../Config/menu.xml:130
 msgid "Créer un document et l'associer à un objet"
 msgstr "Create a document and associate it to an object"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:131
+#: ../../Config/menu.xml:132
 msgid "Administrer le logiciel"
 msgstr "Manage the application"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:132
+#: ../../Config/menu.xml:133
 msgid "Généralités sur les droits"
 msgstr "Generality on rights"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:132
+#: ../../Config/menu.xml:133
 msgid "Les droits utilisés dans le logiciel"
 msgstr "Rights used into the application"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:133
+#: ../../Config/menu.xml:134
 msgid "Activer l'envoi automatique de mails"
 msgstr "Enable automatic emailing"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:133
+#: ../../Config/menu.xml:134
 msgid ""
 "Informer les gestionnaires des événements à échéance ou des échantillons qui "
 "vont expirer"
 msgstr "Inform managers of expiring events or samples that are about to expire"
 
 #. (itstool) path: menu/item@label
-#: ../../Config/menu.xml:136
+#: ../../Config/menu.xml:137
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/header.tpl:21
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/header.tpl:42
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/header.tpl:43
@@ -975,13 +962,13 @@ msgid "Connexion"
 msgstr "Sign in"
 
 #. (itstool) path: menu/item@tooltip
-#: ../../Config/menu.xml:136
+#: ../../Config/menu.xml:137
 msgid "S'identifier dans l'application"
 msgstr "Sign in to the app"
 
 #. (itstool) path: menu/item@label
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:137 ../../Config/menu.xml:138
+#: ../../Config/menu.xml:138 ../../Config/menu.xml:139
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/header.tpl:38
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/header.tpl:39
 msgid "Déconnexion"
@@ -989,22 +976,22 @@ msgstr "Sign out"
 
 #. (itstool) path: menu/item@tooltip
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:137 ../../Config/menu.xml:138
+#: ../../Config/menu.xml:138 ../../Config/menu.xml:139
 msgid "Déconnexion de l'application"
 msgstr "Sign out of the app"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:139
+#: ../../Config/menu.xml:140
 msgid "Dernières connexions"
 msgstr "Last connections"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:139
+#: ../../Config/menu.xml:140
 msgid "Liste des dernières connexions réalisées"
 msgstr "List of last connections"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:140
+#: ../../Config/menu.xml:141
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/header.tpl:34
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/header.tpl:35
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/ident/loginChangePassword.tpl:86
@@ -1012,82 +999,82 @@ msgid "Modifier le mot de passe"
 msgstr "Change your password"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:140
+#: ../../Config/menu.xml:141
 msgid "Modifiez votre mot de passe (identification locale uniquement)"
 msgstr "Change your password (local identification only)"
 
 #. (itstool) path: menu/item@label
-#: ../../Config/menu.xml:142
+#: ../../Config/menu.xml:143
 msgid "?"
 msgstr "?"
 
 #. (itstool) path: menu/item@tooltip
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:142 ../../Config/menu.xml:143
+#: ../../Config/menu.xml:143 ../../Config/menu.xml:144
 msgid "À propos"
 msgstr "About"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:143
+#: ../../Config/menu.xml:144
 msgid "À propos de Collec-Science"
 msgstr "About Collec-Science"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:144
+#: ../../Config/menu.xml:145
 msgid "Nouveautés"
 msgstr "What's new?"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:144
+#: ../../Config/menu.xml:145
 msgid "Quoi de neuf dans l'application ?"
 msgstr "What's new in the app?"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:145
+#: ../../Config/menu.xml:146
 msgid "Nouvelle version ?"
 msgstr "New version?"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:145
+#: ../../Config/menu.xml:146
 msgid "Rechercher s'il existe une nouvelle version disponible de l'application"
 msgstr "Find out if there is a new version of the application available"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:147
+#: ../../Config/menu.xml:148
 #: ../../../app/Views/templates/documentation/lexique.tpl:1
 msgid "Lexique"
 msgstr "Glossary"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:147
+#: ../../Config/menu.xml:148
 msgid "Lexique des termes utilisés dans le logiciel"
 msgstr "Glossary of terms used in the software"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:148
+#: ../../Config/menu.xml:149
 msgid "Français"
 msgstr "French"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:148
+#: ../../Config/menu.xml:149
 msgid "Libellés en français"
 msgstr "Labels in French"
 
 #. (itstool) path: item/item@label
-#: ../../Config/menu.xml:149
+#: ../../Config/menu.xml:150
 msgid "English"
 msgstr "English"
 
 #. (itstool) path: item/item@tooltip
-#: ../../Config/menu.xml:149
+#: ../../Config/menu.xml:150
 msgid "Labels in English"
 msgstr "Labels in English"
 
-#: ../../../tests/testapi.php:192
+#: ../../../tests/testapi.php:278
 msgid "Impossible d'initialiser le composant curl"
 msgstr "Unable to initialize the CURL component"
 
-#: ../../../tests/testapi.php:239
+#: ../../../tests/testapi.php:325
 #, php-format
 msgid ""
 "Une erreur est survenue lors de l'exécution de la requête vers le serveur "
@@ -1570,58 +1557,62 @@ msgstr "The destocking reason code was not found"
 msgid "La liste des échantillons à traiter n'a pas pu être lue correctement"
 msgstr "The list of samples to be processed could not be read correctly"
 
-#: ../../../app/Libraries/SampleWs.php:192
+#: ../../../app/Libraries/SampleWs.php:119
+msgid "Erreur inconnue"
+msgstr "Unknown error"
+
+#: ../../../app/Libraries/SampleWs.php:199
 msgid "L'UID n'est pas fourni ou n'a pas été retrouvé à partir de l'UUID"
 msgstr "The UID is not supplied or has not been retrieved from the UUID"
 
-#: ../../../app/Libraries/SampleWs.php:204
+#: ../../../app/Libraries/SampleWs.php:211
 #, php-format
 msgid "Échantillon %s non trouvé"
 msgstr "Sample %s not found"
 
-#: ../../../app/Libraries/SampleWs.php:218
+#: ../../../app/Libraries/SampleWs.php:225
 #, php-format
 msgid "Droits insuffisants pour %s"
 msgstr "Insufficient rights to %s"
 
-#: ../../../app/Libraries/SampleWs.php:227
+#: ../../../app/Libraries/SampleWs.php:234
 #, php-format
 msgid "La collection n'est pas publique pour "
 msgstr "The collection is not public to "
 
-#: ../../../app/Libraries/SampleWs.php:230
+#: ../../../app/Libraries/SampleWs.php:237
 msgid "Le nom du modèle d'export n'est pas indiqué dans la requête"
 msgstr "The name of the export template is not indicated in the request"
 
-#: ../../../app/Libraries/SampleWs.php:262
-#: ../../../app/Libraries/SampleWs.php:295
+#: ../../../app/Libraries/SampleWs.php:269
+#: ../../../app/Libraries/SampleWs.php:305
 msgid "Le numéro de la collection est obligatoire"
 msgstr "the number of the collection is required"
 
-#: ../../../app/Libraries/SampleWs.php:267
-#: ../../../app/Libraries/SampleWs.php:300
-#: ../../../app/Libraries/SampleWs.php:351
+#: ../../../app/Libraries/SampleWs.php:274
+#: ../../../app/Libraries/SampleWs.php:310
+#: ../../../app/Libraries/SampleWs.php:364
 #, php-format
 msgid "Droits insuffisants pour la collection %s"
 msgstr "Insufficient rights to the collection %s"
 
-#: ../../../app/Libraries/SampleWs.php:270
-#: ../../../app/Libraries/SampleWs.php:303
+#: ../../../app/Libraries/SampleWs.php:277
+#: ../../../app/Libraries/SampleWs.php:313
 #, php-format
 msgid "Les flux d'interrogation ne sont pas autorisés pour la collection %s"
 msgstr "External query flows are not allowed for the collection %s"
 
-#: ../../../app/Libraries/SampleWs.php:342
+#: ../../../app/Libraries/SampleWs.php:355
 #, php-format
 msgid "L'UID %s ne correspond pas à un échantillon"
 msgstr "The UID %s does no correspond to a sample"
 
-#: ../../../app/Libraries/SampleWs.php:345
+#: ../../../app/Libraries/SampleWs.php:358
 #, php-format
 msgid "L'UID %s n'a pas été trouvé"
 msgstr "The UID %s was not found"
 
-#: ../../../app/Libraries/SampleWs.php:354
+#: ../../../app/Libraries/SampleWs.php:367
 #, php-format
 msgid "Les flux de mise à jour ne sont pas autorisés pour la collection %s"
 msgstr "Update feeds are not allowed for the %s collection"
@@ -1684,11 +1675,11 @@ msgstr "An error occurred when writing the document"
 msgid "Les droits ne sont pas suffisants pour l'échantillon considéré"
 msgstr "Insufficient rights to the current sample"
 
-#: ../../../app/Libraries/Label.php:65
+#: ../../../app/Libraries/Label.php:64
 msgid "parametres/créer-ou-modifier-un-modèle-d’étiquettes.html"
-msgstr ""
+msgstr "parametres/créer-ou-modifier-un-modèle-d’étiquettes.html"
 
-#: ../../../app/Libraries/Label.php:121
+#: ../../../app/Libraries/Label.php:120
 #, php-format
 msgid ""
 "La suppression du modèle d'étiquette n'est pas possible, il est référencé "
@@ -1697,11 +1688,11 @@ msgstr ""
 "The label template cannot be deleted, as it is referenced by the %s "
 "container type."
 
-#: ../../../app/Libraries/Label.php:145
+#: ../../../app/Libraries/Label.php:144
 msgid "Copie de "
 msgstr "Copy of "
 
-#: ../../../app/Libraries/Label.php:160
+#: ../../../app/Libraries/Label.php:159
 msgid "Une erreur s'est produite pendant la copie de l'étiquette"
 msgstr "An error occurred while copying the label"
 
@@ -2125,49 +2116,56 @@ msgstr ", "
 msgid "La collection n'est pas paramétrée pour accepter les flux entrants"
 msgstr "The collection is not parameterized to accept the entrance flux"
 
-#: ../../../app/Models/Samplews.php:84 ../../../app/Models/Samplews.php:266
+#: ../../../app/Models/Samplews.php:84 ../../../app/Models/Samplews.php:269
 msgid "La collection n'a pas été fournie ou n'est pas autorisée"
 msgstr "The collection was not provided or is unauthorized"
 
-#: ../../../app/Models/Samplews.php:124
+#: ../../../app/Models/Samplews.php:101
+msgid ""
+"L'identifiant métier doit être fourni pour pouvoir créer un nouvel "
+"échantillon"
+msgstr ""
+"The business identifier must be provider in order to create a new sample"
+
+#: ../../../app/Models/Samplews.php:127
 msgid "Le parent n'a pas été trouvé"
 msgstr "The parent was not been found"
 
-#: ../../../app/Models/Samplews.php:143
+#: ../../../app/Models/Samplews.php:146
 msgid "Le type d'échantillon n'a pas été fourni"
 msgstr "The sample type has not been filled in"
 
-#: ../../../app/Models/Samplews.php:152
+#: ../../../app/Models/Samplews.php:155
 msgid "Le type d'échantillon est inconnu"
 msgstr "The type of sample is not recognized"
 
-#: ../../../app/Models/Samplews.php:188 ../../../app/Models/Samplews.php:194
+#: ../../../app/Models/Samplews.php:191 ../../../app/Models/Samplews.php:197
 #, php-format
 msgid "Le code pays %s est inconnu"
 msgstr "The country code %s is unknown"
 
-#: ../../../app/Models/Samplews.php:203
+#: ../../../app/Models/Samplews.php:206
 #, php-format
 msgid "Aucune campagne ne correspond à l'UUID %s"
 msgstr "No campaign matching to UUID %s"
 
-#: ../../../app/Models/ObjectClass.php:940
+#: ../../../app/Models/ObjectClass.php:953
 msgid "Pas de modèle d'étiquettes disponible"
 msgstr "No label template available"
 
-#: ../../../app/Models/ObjectClass.php:947
+#: ../../../app/Models/ObjectClass.php:960
 msgid "Pas d'étiquettes à imprimer"
 msgstr "No labels to print"
 
-#: ../../../app/Models/ObjectClass.php:1008
+#: ../../../app/Models/ObjectClass.php:1021
 msgid "Le statut n'a pas été fourni"
 msgstr "The status has not been filled in"
 
-#: ../../../app/Models/ObjectClass.php:1012
+#: ../../../app/Models/ObjectClass.php:1025
 msgid "L'identifiant de l'objet n'a pas été fourni"
 msgstr "The object identifier has not been supplied"
 
-#: ../../../app/Models/ObjectClass.php:1064
+#: ../../../app/Models/ObjectClass.php:1077
 msgid "Aucun identifiant n'a été fourni pour rechercher l'objet"
 msgstr "No identifier has been provided to search for the object"
 
@@ -2257,7 +2255,7 @@ msgstr "The login of the user is not known."
 msgid "Pas de contenant correspondant à l'UID %s. "
 msgstr "No container matching to UID %s. "
 
-#: ../../../app/Models/Movement.php:319
+#: ../../../app/Models/Movement.php:315
 #, php-format
 msgid "La suppression des mouvements associés au container %s a échoué"
 msgstr "The deletion of associated movements with the container %s failed"
@@ -2344,7 +2342,7 @@ msgstr "The file %s don't exist"
 msgid "Le fichier %s est vide ou ne peut être lu"
 msgstr "File %s not found or not readable"
 
-#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:35
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:34
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/mail/passwordLost.tpl:1
 msgid "Réinitialisation du mot de passe"
 msgstr "Reset password"
@@ -2375,8 +2373,8 @@ msgid ""
 "La réinitialisation du mot de passe n'est pas activée pour cette application"
 msgstr "Password reset is not enabled for this application"
 
-#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:82
-#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:107
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:84
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:109
 #: ../../../vendor/equinton/ppci/src/Libraries/LoginGestionLib.php:84
 #: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:450
 #: ../../../vendor/equinton/ppci/src/Models/LoginGestion.php:500
@@ -2387,12 +2385,12 @@ msgstr ""
 "The login method used for your account does not allow changing the password "
 "from this app"
 
-#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:86
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:88
 #: ../../../vendor/equinton/ppci/src/Models/Login.php:74
 msgid "Le jeton fourni n'est pas valide"
 msgstr "Token provided is not valid"
 
-#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:91
+#: ../../../vendor/equinton/ppci/src/Libraries/PasswordLost.php:93
 msgid ""
 "La réinitialisation du mot de passe n'est pas activée pour cette "
 "application, ou le jeton n'a pas été fourni"
@@ -9581,6 +9579,16 @@ msgstr "Setting"
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/dbparamListChange.tpl:10
 msgid "Valeur"
 msgstr "Value"
+
+#~ msgid "Structure de la base de données des droits (HTML)"
+#~ msgstr "Database right structure (HTML)"
+
+#~ msgid ""
+#~ "Liste des tables et des colonnes de la base de données de gestion des "
+#~ "droits"
+#~ msgstr ""
+#~ "List of tables and columns of the database available in the rights "
+#~ "management module"
 
 #, fuzzy
 #~ msgid ""

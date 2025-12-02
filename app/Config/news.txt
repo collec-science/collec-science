@@ -1,6 +1,6 @@
 Nouveautés
 ============
-Version v26.0.0 du 13/11/2025
+Version v26.0.0 du 02/12/2025
 -----------------------------
 Corrections de bugs :
 - lors de la création des lots d'export, la procédure s'achevait sur une page blanche
@@ -15,6 +15,7 @@ Corrections de bugs :
 - la recherche d'un échantillon par son uid d'origine ne fonctionnait pas
 - l'ajout de pièces jointes, depuis le détail d'un échantillon, ne fonctionnait plus
 - l'api d'écriture d'un échantillon échouait sans message d'erreur si aucun identifiant principal (uid, uuid ou identifier) n'était fourni
+- la réinitialisation du mot de passe perdu ne fonctionnait plus
 
 Nouveautés : 
 - les administrateurs peuvent maintenant consulter directement depuis l'application les fichiers contenant les messages d'erreur, pour faciliter le diagnostic des incidents

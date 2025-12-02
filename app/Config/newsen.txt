@@ -2,7 +2,7 @@ News
 ====================
 Translated with DeepL.com (free version)
 
-Version v26.0.0 of 13/11/2025
+Version v26.0.0 of 02/12/2025
 -----------------------------
 Bug fixes:
 - When creating export batches, the procedure ended on a blank page.
@@ -17,6 +17,7 @@ Bug fixes:
 - Searching for a sample by its original uid did not work
 - Adding attachments from a sample detail no longer worked
 - The sample writing API failed without an error message if no primary identifier (uid, uuid, or identifier) was provided
+- Resetting a lost password no longer worked
 
 New features:
 - Administrators can now view files containing error messages directly from the application, to facilitate incident diagnosis

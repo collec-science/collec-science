@@ -59,9 +59,9 @@ class Samplews
         /**
          * Collection
          */
-        if (!empty($dataSent["collection_name"])) {
+        if (!empty($dataSent["collection_name"]) || !empty($dataSent["collection_id"])) {
             foreach ($_SESSION["collections"] as $collection) {
-                if ($dataSent["collection_name"] == $collection["collection_name"]) {
+                if ($dataSent["collection_name"] == $collection["collection_name"] || $dataSent["collection_id"] == $collection["collection_id"]) {
                     if (!$collection["allowed_import_flow"]) {
                         throw new PpciException(_("La collection n'est pas paramétrée pour accepter les flux entrants"), 403);
                     }
@@ -96,6 +96,9 @@ class Samplews
                     break;
                 }
             }
+        }
+        if (empty($dataSent["identifier"])) {
+            throw new PpciException(_("L'identifiant métier doit être fourni pour pouvoir créer un nouvel échantillon"), 400);
         }
         /**
          * Default values
@@ -165,7 +168,7 @@ class Samplews
         /**
          * Search for multiple values in metadata
          */
-        foreach ($metadataTemplate as $k=>$v) {
+        foreach ($metadataTemplate as $k => $v) {
             if ($v["type"] == "array" && strlen($metadata[$k]) > 0) {
                 $md_col_array = explode(",", $metadata[$k]);
                 if (count($md_col_array) > 1) {
@@ -177,7 +180,7 @@ class Samplews
                     $metadata[$k] = trim($md_col_array[0]);
                 }
             }
-        } 
+        }
 
         /**
          * Search for country

@@ -98,7 +98,7 @@ class SampleWs extends PpciLibrary
                 $db->transRollback();
             }
             $error_code = $e->getCode();
-            if (!isset($errors[$error_code])) {
+            if (!isset($this->errors[$error_code])) {
                 $error_code = 520;
             }
             $retour = array(
@@ -113,6 +113,13 @@ class SampleWs extends PpciLibrary
             $this->vue->setJson(json_encode($retour));
             return $this->vue->send();
         }*/
+            if (empty($retour)) {
+                $retour = array(
+                "error_code" => 520,
+                "error_message" => _("Erreur inconnue"),
+                "error_detail" => ""
+            );
+            }
         return $retour;
     }
     /**

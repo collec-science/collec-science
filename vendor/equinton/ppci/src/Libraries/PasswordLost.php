@@ -28,17 +28,17 @@ class PasswordLost extends PpciLibrary {
                     $loginGestion = new LoginGestion();
                     $dl = $loginGestion->lire($data["id"]);
                     if (!empty($dl["mail"])) {
-    
                         $mail = new Mail($this->appConfig->MAIL_param);
                         if ($mail->SendMailSmarty(
                             $dl["mail"],
-                            $_SESSION["APPLI_title"] . " - " . _("Réinitialisation du mot de passe"),
+                            $_SESSION["dbparams"]["APPLI_title"] . " - " . _("Réinitialisation du mot de passe"),
                             "ppci/mail/passwordLost.tpl",
                             array(
                                 "nom" => $dl["nom"],
                                 "prenom" => $dl["prenom"],
                                 "expiration" => $data["expiration"],
-                                ":adresse" => $this->appConfig->baseURL . "/passwordlostReinitchange&token=" . $data["token"]
+                                "link" => $this->appConfig->baseURL . "/passwordlostReinitchange?token=" . $data["token"],
+                                "applicationName" => $this->appConfig->applicationName
                             )
                         )) {
                             $this->log->setLog("unknown", "passwordlostSendmail", "email send to " . $dl["mail"]);
@@ -77,7 +77,9 @@ class PasswordLost extends PpciLibrary {
                     $vue = service ("Smarty");
                     $vue->set("ppci/ident/loginChangePassword.tpl", "corps");
                     $vue->set("1", "passwordLost");
+                    $vue->set($this->appConfig->APP_passwordMinLength, "passwordMinLength");
                     $vue->set($_REQUEST["token"], "token");
+                    return $vue->send();
                 } else {  
                     $this->message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"));
                     defaultPage();

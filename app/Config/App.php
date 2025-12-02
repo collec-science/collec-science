@@ -179,12 +179,15 @@ class App extends BaseConfig
      * --------------------------------------------------------------------------
      * PPCI parameters
      * --------------------------------------------------------------------------
-     *
+     */
+    public string $applicationName = "Collec-Science";
+    /**
+     * Number of version
      * @var string
      */
     public string $version = "v26.0.0a";
     /**
-     * versionDate - don't change here, but in function setParameters() below
+     * Date of version
      *
      * @var string
      */

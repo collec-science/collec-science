@@ -252,8 +252,8 @@ class Container extends PpciLibrary
          */
         if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            $db = $this->dataclass->db;
             try {
-                $db = $this->dataclass->db;
                 $db->transBegin();
                 foreach ($uids as $uid) {
                     $this->dataDelete($uid, true);
@@ -302,9 +302,11 @@ class Container extends PpciLibrary
         /*
          * Lecture d'un container a partir de son uid
          */
-        $this->vue = service('AjaxView');
-        $this->vue->set($this->dataclass->lire($_REQUEST["uid"]));
-        return $this->vue->send();
+        if (is_int($_REQUEST["uid"])) {
+            $this->vue = service('AjaxView');
+            $this->vue->set($this->dataclass->lire($_REQUEST["uid"]));
+            return $this->vue->send();
+        }
     }
     function exportGlobal()
     {

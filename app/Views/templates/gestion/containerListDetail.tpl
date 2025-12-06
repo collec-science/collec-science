@@ -312,13 +312,15 @@ $(document).ready(function () {
 		$("#container_uid").change(function () {
 			var url = "containerGetFromUid";
 			var uid = $(this).val();
-			$.getJSON ( url, { "uid":uid } , function( data ) {
-				if (data.container_id ) {
-				var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " ("+data.object_status_name + ")</option>";
-				$("#container_id").val(data.container_id);
-				$("#containers").html(options);
-				}
-			});
+			if (Number.isInteger(uid)) {
+				$.getJSON ( url, { "uid":uid } , function( data ) {
+					if (data.container_id ) {
+					var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " ("+data.object_status_name + ")</option>";
+					$("#container_id").val(data.container_id);
+					$("#containers").html(options);
+					}
+				});
+			}
 	 	});
 		$("#containers_family_id").change(function () {
 			searchTypes();

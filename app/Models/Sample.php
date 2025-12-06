@@ -263,7 +263,14 @@ class Sample extends PpciModel
          * Verification complementaire par rapport aux donnees deja stockees
          */
         if ($ok && $data["uid"] > 0) {
-            $ok = $this->verifyCollection($this->read($data["uid"]));
+            $dataUid = $this->read($data["uid"]);
+            $ok = $this->verifyCollection($dataUid);
+            if (empty ($data["identifier"])) {
+                $data["identifier"] = $dataUid["identifier"];
+            }
+        }
+        if (empty($data["identifier"])) {
+            throw new PpciException(_("L'identifiant métier n'a pas été fourni"));
         }
         if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
             throw new PpciException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));
@@ -1570,7 +1577,7 @@ class Sample extends PpciModel
      * @param integer $collection_id
      * @return boolean
      */
-    function is_unique(int $uid, string $identifier, int $collection_id): bool
+    function is_unique(int $uid, string $identifier , int $collection_id): bool
     {
         $sql = "select count(*) as nb
           from sample

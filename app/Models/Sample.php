@@ -495,7 +495,7 @@ class Sample extends PpciModel
                 $and = "";
                 $uidSearch = false;
 
-                if ($param["uidsearch"] > 0) {
+                if (is_int ($param["uidsearch"]) && $param["uidsearch"] > 0) {
                     $where .= " ( s.uid = :uid:";
                     $data["uid"] = $param["uidsearch"];
                     $uidSearch = true;

@@ -3,9 +3,9 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.2.1" use-changelog="false" author="Éric Quinton" max-obj-count="78"
+<dbmodel pgmodeler-ver="1.2.2" use-changelog="false" author="Éric Quinton" max-obj-count="78"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="1085,772" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
+	 last-position="296,607" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
 	 default-schema="col" default-owner="collec"
 	 layers="col,gacl"
 	 active-layers="0,1"

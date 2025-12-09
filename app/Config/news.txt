@@ -16,6 +16,9 @@ Corrections de bugs :
 - l'ajout de pièces jointes, depuis le détail d'un échantillon, ne fonctionnait plus
 - l'api d'écriture d'un échantillon échouait sans message d'erreur si aucun identifiant principal (uid, uuid ou identifier) n'était fourni
 - la réinitialisation du mot de passe perdu ne fonctionnait plus
+- lors de la recherche d'un container, si l'UID était remplacé par l'identifiant métier, cela entraînait un plantage de l'application
+- Lors de la recherche d'un échantillon, si l'UID était remplacé par l'identifiant métier, une erreur était générée dans les logs de l'application
+- une erreur était générée si aucun échantillon n'était sélectionné lors de l'appel de la suppression multiple, depuis la liste des échantillons
 
 Nouveautés : 
 - les administrateurs peuvent maintenant consulter directement depuis l'application les fichiers contenant les messages d'erreur, pour faciliter le diagnostic des incidents

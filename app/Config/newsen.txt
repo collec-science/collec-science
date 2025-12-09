@@ -18,6 +18,9 @@ Bug fixes:
 - Adding attachments from a sample detail no longer worked
 - The sample writing API failed without an error message if no primary identifier (uid, uuid, or identifier) was provided
 - Resetting a lost password no longer worked
+- When searching for a container, if the UID was replaced by the business identifier, this caused the application to crash.
+- When searching for a sample, if the UID was replaced by the business identifier, an error was generated in the application logs
+- An error was generated if no sample was selected when calling multiple deletions from the sample list
 
 New features:
 - Administrators can now view files containing error messages directly from the application, to facilitate incident diagnosis

@@ -269,4 +269,26 @@ class Metadata extends PpciLibrary
         }
         return $new;
     }
+
+    function regenerate()
+    {
+        $id = 0;
+        try {
+            $db = $this->dataclass->db;
+            $db->transBegin();
+            $metadatas = $this->dataclass->getList();
+            foreach ($metadatas as $metadata) {
+                $id = $metadata["metadata_id"];
+                $metadata["metadata_schema"] = json_encode($this->normalize(json_decode($metadata["metadata_schema"], true)));
+                $this->dataclass->write($metadata);
+            }
+            $db->transCommit();
+        } catch (PpciException $e) {
+            if ($db->transEnabled) {
+                $db->transRollback();
+                $this->message->set(sprintf(_("Une erreur est survenue pendant le traitement du modèle %s"), $id), true);
+                $this->message->setSyslog($e->getMessage());
+            }
+        }
+    }
 }

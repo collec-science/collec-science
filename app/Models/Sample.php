@@ -1731,4 +1731,8 @@ class Sample extends PpciModel
         ";
         $this->executeQuery($sql, ["id" => $metadata_id], true);
     }
+    function reindex() {
+        $sql = "reindex table sample";
+        $this->executeQuery($sql, null, true);
+    }
 }

@@ -21,6 +21,7 @@ Bug fixes:
 - When searching for a container, if the UID was replaced by the business identifier, this caused the application to crash.
 - When searching for a sample, if the UID was replaced by the business identifier, an error was generated in the application logs
 - An error was generated if no sample was selected when calling multiple deletions from the sample list
+- A metadata model regeneration function has been added (from the model list), as well as reindexing of the sample table, to resolve certain issues encountered with older models
 
 New features:
 - Administrators can now view files containing error messages directly from the application, to facilitate incident diagnosis

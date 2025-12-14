@@ -1000,4 +1000,7 @@ class Sample extends PpciLibrary
             $db->transRollback();
         }
     }
+    function reindex() {
+        $this->dataclass->reindex();
+    }
 }

@@ -1,4 +1,3 @@
-{* Paramètres > Métadonnées > Nouveau > *}
 <script>
 	$(document).ready(function () {
 		$("#checkMetadata").change(function () {
@@ -9,6 +8,11 @@
 			}
 			$("#lmetadatachek").text(libelle);
 		});
+		$("#metadataRegenerate").submit(function (event) {
+			if ($("#regenerateType").val() == 0 ) {
+				event.preventDefault();
+			}
+		})
 	});
 </script>
 
@@ -101,6 +105,40 @@
 					<li>{t}metadata_name : nom de la métadonnée{/t}</li>
 					<li>{t}metadata_schema : Description, au format JSON, de la métadonnée{/t}</li>
 				</ul>
+			</div>
+			{$csrf}
+		</form>
+	</fieldset>
+</div>
+<div class="col-md-5 col-md-offset-1">
+	<fieldset>
+		<legend>{t}Régénérer les modèles{/t}</legend>
+		<form class="form-horizontal" id="metadataRegenerate" method="post" action="metadataRegenerate">
+			<div class="bg-info">
+				{t}La régénération consiste à reformater les modèles de métadonnées, pour les rendre compatibles avec la version v25.0.0 ou ultérieure de l'application{/t}
+				<br>
+				{t}La première option permet de reformater les modèles, la seconde recrée les index sur la table des échantillons{/t}
+				<div class="form-group">
+					<label for="regenerateType" class="control-label col-md-4">
+						{t}Type d'opération à exécuter :{/t}
+					</label>
+					<div class="col-md-8">
+						<select id="regenerateType" name="regenerateType" class="form-control">
+							<option value="0" selected>
+								{t}Choisissez{/t}
+							</option>
+							<option value="1">
+								{t}Régénérer les modèles{/t}
+							</option>
+							<option value="2">
+								{t}Régénérer les index de la table des échantillons{/t}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group center">
+					<button type="submit" class="btn btn-primary">{t}Lancer l'opération{/t}</button>
+				</div>
 			</div>
 			{$csrf}
 		</form>

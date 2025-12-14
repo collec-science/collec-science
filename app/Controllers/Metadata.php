@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\Metadata as LibrariesMetadata;
+use App\Libraries\Sample;
 use Ppci\Libraries\PpciException;
 
 class Metadata extends PpciController
@@ -82,5 +83,20 @@ class Metadata extends PpciController
     {
         $this->lib->move();
         return $this->lib->display();
+    }
+
+    function regenerate()
+    {
+        if ($_POST["regenerateType"] == 1) {
+            $this->lib->regenerate();
+            $this->message->set(_("Normalisation des modèles de métadonnées terminée. Vous pourriez compléter l'opération en régénérant les index de la table des échantillons"));
+        } elseif ($_POST["regenerateType"] == 2) {
+            $sample = new Sample;
+            $sample->reindex();
+            $this->message->set(_("Régénération des index de la table des échantillons terminée"));
+        } else {
+            $this->message->set(_("L'opération demandée n'est pas disponible"), true);
+        }
+        return $this->list();
     }
 }

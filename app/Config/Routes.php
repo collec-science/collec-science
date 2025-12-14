@@ -261,6 +261,7 @@ $routes->post('metadataFieldWrite', 'Metadata::fieldWrite');
 $routes->post('metadataNameWrite', 'Metadata::write');
 $routes->add("metadataFieldDelete", "Metadata::fieldDelete");
 $routes->add("metadataFieldMove", "Metadata::fieldMove");
+$routes->add("metadataRegenerate", "Metadata::regenerate");
 $routes->add('borrowerList', 'Borrower::list');
 $routes->add('borrowerDisplay', 'Borrower::display');
 $routes->add('borrowerChange', 'Borrower::change');

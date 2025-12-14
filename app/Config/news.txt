@@ -19,6 +19,7 @@ Corrections de bugs :
 - lors de la recherche d'un container, si l'UID était remplacé par l'identifiant métier, cela entraînait un plantage de l'application
 - Lors de la recherche d'un échantillon, si l'UID était remplacé par l'identifiant métier, une erreur était générée dans les logs de l'application
 - une erreur était générée si aucun échantillon n'était sélectionné lors de l'appel de la suppression multiple, depuis la liste des échantillons
+- une fonction de régénération des modèles de métadonnées a été ajoutée (depuis la liste des modèles), ainsi que la réindexation de la table sample, pour régler certains soucis rencontrés avec d'anciens modèles
 
 Nouveautés : 
 - les administrateurs peuvent maintenant consulter directement depuis l'application les fichiers contenant les messages d'erreur, pour faciliter le diagnostic des incidents

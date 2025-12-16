@@ -89,14 +89,17 @@ class Metadata extends PpciController
     {
         if ($_POST["regenerateType"] == 1) {
             $this->lib->regenerate();
-            $this->message->set(_("Normalisation des modèles de métadonnées terminée. Vous pourriez compléter l'opération en régénérant les index de la table des échantillons"));
-        } elseif ($_POST["regenerateType"] == 2) {
+                    } elseif ($_POST["regenerateType"] == 2) {
             $sample = new Sample;
             $sample->reindex();
             $this->message->set(_("Régénération des index de la table des échantillons terminée"));
         } else {
             $this->message->set(_("L'opération demandée n'est pas disponible"), true);
         }
+        return $this->list();
+    }
+    function rename () {
+        $this->lib->renameField();
         return $this->list();
     }
 }

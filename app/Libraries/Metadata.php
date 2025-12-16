@@ -283,12 +283,34 @@ class Metadata extends PpciLibrary
                 $this->dataclass->write($metadata);
             }
             $db->transCommit();
+            $this->message->set(_("Normalisation des modèles de métadonnées terminée. Vous pourriez compléter l'opération en régénérant les index de la table des échantillons"));
         } catch (PpciException $e) {
             if ($db->transEnabled) {
                 $db->transRollback();
                 $this->message->set(sprintf(_("Une erreur est survenue pendant le traitement du modèle %s"), $id), true);
                 $this->message->setSyslog($e->getMessage());
             }
+        }
+    }
+
+    function renameField() {
+        if (!empty($_POST["oldName"]) && !empty($_POST["newName"])) {
+            try {
+            $db = $this->dataclass->db;
+            $db->transBegin();
+            $this->dataclass->renameField($_POST["oldName"], $_POST["newName"]);
+            $sample = new Sample;
+            $sample->renameMetadataFieldGlobal($_POST["oldName"], $_POST["newName"]);
+            $db->transCommit();
+            $this->message->set(sprintf(_("Renommage du champ %1s en %2s terminé"), $_POST["oldName"], $_POST["newName"]));
+             } catch (PpciException $e) {
+                $this->message->set(_("Une erreur est survenue pendant l'opération"), true);
+                $this->message->set($e->getMessage());
+                $this->message->setSyslog($e->getMessage());
+                return false;
+             }
+        } else {
+            $this->message->set(_("Le renommage n'est pas possible si un des deux noms n'est pas fourni"), true);
         }
     }
 }

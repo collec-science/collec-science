@@ -58,14 +58,13 @@ class Metadata extends PpciModel
                     /*
                      * Generation de l'index correspondant
                      */
-                    $sql = 'CREATE INDEX if not exists "sample_metadata_lower_' . $item["name"] . '_idx"'.
-                    " ON sample using gist(lower(metadata->>'" . $item["name"] . "') gist_trgm_ops)";
+                    $sql = 'CREATE INDEX if not exists "sample_metadata_lower_' . $item["name"] . '_idx"' .
+                        " ON sample using gist(lower(metadata->>'" . $item["name"] . "') gist_trgm_ops)";
                     try {
                         $this->executeSQL($sql, null, true);
                     } catch (PpciException) {
-                        throw new PpciException (sprintf(_("La création de l'index de recherche pour le champ %s a échoué"), $item["name"]));
+                        throw new PpciException(sprintf(_("La création de l'index de recherche pour le champ %s a échoué"), $item["name"]));
                     }
-                    
                 }
             }
         }
@@ -108,25 +107,36 @@ class Metadata extends PpciModel
      * @param string $name
      * @return array
      */
-    function getField(int $metadata_id, string $name) :array {
+    function getField(int $metadata_id, string $name): array
+    {
         $data = $this->read($metadata_id);
         $metafield = [];
         if (!empty($data)) {
-            $fields = json_decode($data["metadata_schema"],true);
-            foreach($fields as $field) {
+            $fields = json_decode($data["metadata_schema"], true);
+            foreach ($fields as $field) {
                 if ($field["name"] == $name) {
                     $metafield = $field;
                     break;
-                } 
+                }
             }
             if (empty($metafield)) {
                 $metafield["name"] = "";
             }
-            $metafield ["metadata_id"] = $data["metadata_id"];
+            $metafield["metadata_id"] = $data["metadata_id"];
             $metafield["metadata_name"] = $data["metadata_name"];
         } else {
             throw new PpciException(_("Les métadonnées demandées n'existent pas"));
         }
         return $metafield;
+    }
+
+    function renameField($old, $new)
+    {
+        $old = addslashes($old);
+        $new = addslashes($new);
+        $sql = "UPDATE metadata
+        set metadata_schema = replace(metadata_schema::text,'\"name\":\"" . $old . "\"','\"name\":\"" . $new . "\"')::json
+        where metadata_schema::text like '%\"name\":\"" . $old . "\"%'";
+        $this->executeQuery($sql, null, true);
     }
 }

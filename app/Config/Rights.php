@@ -259,6 +259,7 @@ class Rights extends RightsPpci
         "metadataFieldDelete" => ["collection"],
         "metadataFieldMove" => ["collection"],
         "metadataRegenerate" => ["param"],
+        "metadataRename" => ["param"],
         "borrowerList" => ["consult"],
         "borrowerDisplay" => ["consult"],
         "borrowerChange" => ["param"],

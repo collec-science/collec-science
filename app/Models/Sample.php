@@ -265,7 +265,7 @@ class Sample extends PpciModel
         if ($ok && $data["uid"] > 0) {
             $dataUid = $this->read($data["uid"]);
             $ok = $this->verifyCollection($dataUid);
-            if (empty ($data["identifier"])) {
+            if (empty($data["identifier"])) {
                 $data["identifier"] = $dataUid["identifier"];
             }
         }
@@ -502,7 +502,7 @@ class Sample extends PpciModel
                 $and = "";
                 $uidSearch = false;
 
-                if (is_int ($param["uidsearch"]) && $param["uidsearch"] > 0) {
+                if (is_int($param["uidsearch"]) && $param["uidsearch"] > 0) {
                     $where .= " ( s.uid = :uid:";
                     $data["uid"] = $param["uidsearch"];
                     $uidSearch = true;
@@ -1577,7 +1577,7 @@ class Sample extends PpciModel
      * @param integer $collection_id
      * @return boolean
      */
-    function is_unique(int $uid, string $identifier , int $collection_id): bool
+    function is_unique(int $uid, string $identifier, int $collection_id): bool
     {
         $sql = "select count(*) as nb
           from sample
@@ -1731,8 +1731,17 @@ class Sample extends PpciModel
         ";
         $this->executeQuery($sql, ["id" => $metadata_id], true);
     }
-    function reindex() {
+    function reindex()
+    {
         $sql = "reindex table sample";
+        $this->executeQuery($sql, null, true);
+    }
+    function renameMetadataFieldGlobal($old, $new)
+    {
+        $old = addslashes($old);
+        $new = addslashes($new);
+        $sql = "UPDATE sample set metadata = replace(metadata::text,'\"".$old."\":','\"".$new."\":')::json
+                where metadata::text like '%\"".$old."\":%'";
         $this->executeQuery($sql, null, true);
     }
 }

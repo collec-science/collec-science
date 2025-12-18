@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-14 15:12+0100\n"
+"POT-Creation-Date: 2025-12-18 18:32+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1398,10 +1398,31 @@ msgstr "An error occurred during the record of the metadata field"
 msgid "Une erreur est survenue pendant le déplacement du champ de métadonnées"
 msgstr "An error occurred during the move of the metadata field"
 
-#: ../../../app/Libraries/Metadata.php:289
+#: ../../../app/Libraries/Metadata.php:286
+msgid ""
+"Normalisation des modèles de métadonnées terminée. Vous pourriez compléter "
+"l'opération en régénérant les index de la table des échantillons"
+msgstr ""
+"Metadata model standardisation complete. You can complete the operation by "
+"regenerating the sample table indexes."
+
+#: ../../../app/Libraries/Metadata.php:290
 #, php-format
 msgid "Une erreur est survenue pendant le traitement du modèle %s"
 msgstr "An error occurred when the model %s was treated"
+
+#: ../../../app/Libraries/Metadata.php:305
+#, php-format
+msgid "Renommage du champ %1s en %2s terminé"
+msgstr "Renaming of field %1s to %2s completed"
+
+#: ../../../app/Libraries/Metadata.php:307
+msgid "Une erreur est survenue pendant l'opération"
+msgstr "An error occurred during the operation"
+
+#: ../../../app/Libraries/Metadata.php:313
+msgid "Le renommage n'est pas possible si un des deux noms n'est pas fourni"
+msgstr "Renaming is not possible if one of the two names is not provided."
 
 #: ../../../app/Libraries/Event.php:44
 msgid "L'accès direct à ce module n'est pas possible"
@@ -2269,17 +2290,11 @@ msgstr "No container matching to UID %s. "
 msgid "La suppression des mouvements associés au container %s a échoué"
 msgstr "The deletion of associated movements with the container %s failed"
 
-#: ../../../app/Controllers/Metadata.php:92
-msgid ""
-"Normalisation des modèles de métadonnées terminée. Vous pourriez compléter "
-"l'opération en régénérant les index de la table des échantillons"
-msgstr ""
-
-#: ../../../app/Controllers/Metadata.php:96
+#: ../../../app/Controllers/Metadata.php:95
 msgid "Régénération des index de la table des échantillons terminée"
-msgstr ""
+msgstr "Regeneration of sample table indexes completed"
 
-#: ../../../app/Controllers/Metadata.php:98
+#: ../../../app/Controllers/Metadata.php:97
 msgid "L'opération demandée n'est pas disponible"
 msgstr "The requested operation is unavailable"
 
@@ -3278,7 +3293,7 @@ msgstr "For checked items:"
 #: ../../../app/Views/templates/gestion/metadataForm.tpl:84
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:405
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:426
-#: ../../../app/Views/templates/param/metadataList.tpl:128
+#: ../../../app/Views/templates/param/metadataList.tpl:133
 #: ../../../app/Views/templates/param/campaignChange.tpl:31
 msgid "Choisissez"
 msgstr "Select"
@@ -4811,7 +4826,7 @@ msgstr "Anomaly(s) detected"
 
 #: ../../../app/Views/templates/gestion/import.tpl:63
 #: ../../../app/Views/templates/gestion/sampleImport.tpl:28
-#: ../../../app/Views/templates/param/metadataList.tpl:91
+#: ../../../app/Views/templates/param/metadataList.tpl:94
 #: ../../../app/Views/templates/param/samplingPlaceList.tpl:54
 msgid "Nom du fichier à importer (CSV) :"
 msgstr "Name of the file to import (CSV):"
@@ -5674,7 +5689,7 @@ msgstr "New sample with duplicate information, including parent"
 
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:366
 #: ../../../app/Views/templates/exportmodel/exportModelList.tpl:40
-#: ../../../app/Views/templates/param/metadataList.tpl:47
+#: ../../../app/Views/templates/param/metadataList.tpl:48
 #: ../../../app/Views/templates/param/operationList.tpl:18
 #: ../../../app/Views/templates/param/labelList.tpl:19
 #: ../../../app/Views/templates/param/referentList.tpl:23
@@ -5918,7 +5933,7 @@ msgid "Délai pour reprogrammer un événement :"
 msgstr "Delay to reprogram an event:"
 
 #: ../../../app/Views/templates/gestion/eventList.tpl:38
-#: ../../../app/Views/templates/param/metadataList.tpl:45
+#: ../../../app/Views/templates/param/metadataList.tpl:46
 msgid "Détail"
 msgstr "Detail"
 
@@ -5979,30 +5994,39 @@ msgstr ""
 msgid ""
 "Si un contenant a été placé dans un contenant qu'il contient lui-même, au "
 "premier niveau ou dans la hiérarchie des contenants, certaines requêtes "
-"peuvent tourner indéfiniment. En cas de détection d'un problème de ce type, "
-"vous devrez créer un mouvement de sortie pour l'un des deux contenants, sans "
-"jamais chercher à ouvrir son détail. Passez par le menu Mouvement>sortir du "
-"stock."
+"peuvent tourner indéfiniment."
 msgstr ""
 "If a container has been placed in a container that it contains itself, at "
 "the first level or in the container hierarchy, some queries can run "
-"indefinitely. If a problem of this type is detected, you will have to create "
-"an exit movement for one of the two containers, without ever trying to open "
-"its detail. Go to the menu Movements>Remove from stock."
+"indefinitely. "
 
 #: ../../../app/Views/templates/gestion/containerVerifyCyclic.tpl:6
+msgid ""
+"En cas de détection d'un problème de ce type, vous devrez créer un mouvement "
+"de sortie pour l'un des deux contenants, sans jamais chercher à ouvrir son "
+"détail. Passez par le menu : "
+msgstr ""
+"If a problem of this type is detected, you will have to create an exit "
+"movement for one of the two containers, without ever trying to open its "
+"detail. Go to the menu: "
+
+#: ../../../app/Views/templates/gestion/containerVerifyCyclic.tpl:8
+msgid "Mouvement>sortir du stock."
+msgstr "Movements>Remove from stock"
+
+#: ../../../app/Views/templates/gestion/containerVerifyCyclic.tpl:10
 msgid "Attention : la recherche peut être longue !"
 msgstr "Warning: the research may be long!"
 
-#: ../../../app/Views/templates/gestion/containerVerifyCyclic.tpl:14
+#: ../../../app/Views/templates/gestion/containerVerifyCyclic.tpl:18
 msgid "Déclencher la recherche"
 msgstr "Process to the search"
 
-#: ../../../app/Views/templates/gestion/containerVerifyCyclic.tpl:25
+#: ../../../app/Views/templates/gestion/containerVerifyCyclic.tpl:31
 msgid "Premier UID"
 msgstr "First UID"
 
-#: ../../../app/Views/templates/gestion/containerVerifyCyclic.tpl:26
+#: ../../../app/Views/templates/gestion/containerVerifyCyclic.tpl:32
 msgid "Second UID"
 msgstr "Second UID"
 
@@ -6614,6 +6638,7 @@ msgid "Liste des modèles d'exportation des données"
 msgstr "List of data export templates"
 
 #: ../../../app/Views/templates/exportmodel/exportModelList.tpl:36
+#: ../../../app/Views/templates/param/metadataList.tpl:45
 #: ../../../app/Views/templates/param/samplingPlaceList.tpl:12
 #: ../../../app/Views/templates/param/campaignList.tpl:33
 #: ../../../app/Views/templates/param/collectionList.tpl:18
@@ -6796,24 +6821,24 @@ msgstr "Process to the export"
 msgid "Nom du modèle"
 msgstr "Template name"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:49
+#: ../../../app/Views/templates/param/metadataList.tpl:50
 msgid "Exporter"
 msgstr "Export"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:64
+#: ../../../app/Views/templates/param/metadataList.tpl:66
 msgid "Dupliquer le modèle de métadonnées"
 msgstr "Duplicate the metadata template"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:86
+#: ../../../app/Views/templates/param/metadataList.tpl:89
 msgid ""
 "Importer des métadonnées provenant d'une autre base de données Collec-Science"
 msgstr "Import metadata from another Collec-Science database"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:98
+#: ../../../app/Views/templates/param/metadataList.tpl:101
 msgid "Importer les métadonnées"
 msgstr "Import metadata"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:101
+#: ../../../app/Views/templates/param/metadataList.tpl:104
 #: ../../../app/Views/templates/export/exportTemplateList.tpl:60
 msgid ""
 "L'importation est basée sur un fichier exporté depuis une autre instance de "
@@ -6822,48 +6847,85 @@ msgstr ""
 "The import is based on a file exported from another instance of Collec-"
 "Science."
 
-#: ../../../app/Views/templates/param/metadataList.tpl:103
+#: ../../../app/Views/templates/param/metadataList.tpl:106
 #: ../../../app/Views/templates/param/samplingPlaceList.tpl:91
 #: ../../../app/Views/templates/param/campaignList.tpl:106
 msgid "Description du fichier :"
 msgstr "File description:"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:105
+#: ../../../app/Views/templates/param/metadataList.tpl:108
 msgid "metadata_name : nom de la métadonnée"
 msgstr "metadata_name: name of the metadata"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:106
+#: ../../../app/Views/templates/param/metadataList.tpl:109
 msgid "metadata_schema : Description, au format JSON, de la métadonnée"
 msgstr "metadata_schema: Description, in JSON format, of the metadata"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:115
-#: ../../../app/Views/templates/param/metadataList.tpl:131
+#: ../../../app/Views/templates/param/metadataList.tpl:120
+#: ../../../app/Views/templates/param/metadataList.tpl:136
 msgid "Régénérer les modèles"
 msgstr "Regenerate the templates"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:118
+#: ../../../app/Views/templates/param/metadataList.tpl:123
 msgid ""
 "La régénération consiste à reformater les modèles de métadonnées, pour les "
 "rendre compatibles avec la version v25.0.0 ou ultérieure de l'application"
 msgstr ""
+"Regeneration involves reformatting metadata models to make them compatible "
+"with version v25.0.0 or later of the application."
 
-#: ../../../app/Views/templates/param/metadataList.tpl:120
+#: ../../../app/Views/templates/param/metadataList.tpl:125
 msgid ""
 "La première option permet de reformater les modèles, la seconde recrée les "
 "index sur la table des échantillons"
 msgstr ""
+"The first option allows you to reformat the templates, while the second "
+"recreates the indexes on the sample table."
 
-#: ../../../app/Views/templates/param/metadataList.tpl:123
+#: ../../../app/Views/templates/param/metadataList.tpl:128
 msgid "Type d'opération à exécuter :"
 msgstr "Type of operation to execute:"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:134
+#: ../../../app/Views/templates/param/metadataList.tpl:139
 msgid "Régénérer les index de la table des échantillons"
 msgstr "Regenerate the index of the table of samples"
 
-#: ../../../app/Views/templates/param/metadataList.tpl:140
+#: ../../../app/Views/templates/param/metadataList.tpl:145
+#: ../../../app/Views/templates/param/metadataList.tpl:183
 msgid "Lancer l'opération"
 msgstr "Run the operation"
+
+#: ../../../app/Views/templates/param/metadataList.tpl:156
+msgid "Renommer un champ de métadonnées globalement"
+msgstr "Rename globaly a metadata field"
+
+#: ../../../app/Views/templates/param/metadataList.tpl:159
+msgid ""
+"Le renommage d'un champ de métadonnées est une opération qui se déroule en "
+"deux temps. Le programme va :"
+msgstr "Renaming a metadata field is a two-step process. The programme will:"
+
+#: ../../../app/Views/templates/param/metadataList.tpl:161
+msgid "renommer le nom de la métadonnée concerné dans tous les échantillons"
+msgstr "rename the name of the metadata concerned in all samples"
+
+#: ../../../app/Views/templates/param/metadataList.tpl:162
+msgid "Modifier tous les modèles qui contiennent l'ancien nom"
+msgstr "Modify all templates that contain the old name"
+
+#: ../../../app/Views/templates/param/metadataList.tpl:167
+msgid "Ancien nom de la métadonnée :"
+msgstr "Old name of the metadata:"
+
+#: ../../../app/Views/templates/param/metadataList.tpl:175
+msgid "Nouveau nom de la métadonnée :"
+msgstr "New name of the metadata:"
+
+#: ../../../app/Views/templates/param/metadataList.tpl:179
+#: ../../../app/Views/templates/param/metadataFieldChange.tpl:97
+msgid ""
+"Uniquement des minuscules (sans accents), des chiffres, ou le caractère _"
+msgstr "Only lower case letters (without accents), numbers, or _ character"
 
 #: ../../../app/Views/templates/param/identifierTypeList.tpl:14
 #: ../../../app/Views/templates/param/licenseList.tpl:12
@@ -7003,10 +7065,6 @@ msgstr "Back to detail of the metadata"
 msgid "Nom du champ (minuscules, chiffres ou _, sans espace, sans tiret)"
 msgstr ""
 "Field name (no space, no accent, lower case letters, numbers or _, no dash)"
-
-#: ../../../app/Views/templates/param/metadataFieldChange.tpl:97
-msgid "Uniquement des minuscules, des chiffres, ou le caractère _"
-msgstr "Only lower case letters, numbers, or _ character"
 
 #: ../../../app/Views/templates/param/metadataFieldChange.tpl:103
 msgid "Type du champ"

@@ -1,6 +1,6 @@
 Nouveautés
 ============
-Version v26.0.0 du 02/12/2025
+Version v26.0.0 du 02/01/2026
 -----------------------------
 Corrections de bugs :
 - lors de la création des lots d'export, la procédure s'achevait sur une page blanche

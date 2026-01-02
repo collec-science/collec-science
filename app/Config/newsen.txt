@@ -2,7 +2,7 @@ News
 ====================
 Translated with DeepL.com (free version)
 
-Version v26.0.0 of 02/12/2025
+Version v26.0.0 of 02/01/2026
 -----------------------------
 Bug fixes:
 - When creating export batches, the procedure ended on a blank page.

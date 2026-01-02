@@ -25,6 +25,7 @@
 		<item divider="1" />
 		<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP" />
 		<item module="logList" droits="admin" label="Logs" tooltip="Consultation des logs enregistrées" />
+		<item module="getLogFiles" droits="admin" label="Traces des erreurs" tooltip="Liste des fichiers enregistrant les erreurs applicatives"/>
 		<item module="systemShowServer" droits="admin" label="Variables SERVER" tooltip="Affichage des variables fournies par le serveur"/>
 		<item module="systemShowSession" droits="admin" label="Variables SESSION" tooltip="Affichage des variables de session"/>
 		<item divider="1"/>

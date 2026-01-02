@@ -3,9 +3,10 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.1.3" use-changelog="false" max-obj-count="76"
-	 last-position="0,0" last-zoom="0.8" scene-rect="0,0,3563.04,2825.12"
-	 default-owner="postgres"
+<dbmodel pgmodeler-ver="1.2.2" use-changelog="false" author="Éric Quinton" max-obj-count="78"
+	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
+	 last-position="296,607" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
+	 default-schema="col" default-owner="collec"
 	 layers="col,gacl"
 	 active-layers="0,1"
 	 layer-name-colors="#000000,#000000"
@@ -116,6 +117,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-title" colors="#55aaff,#55aaff,#20486f"/>
 	<style id="table-toggler-body" colors="#ffffff,#ffffff,#000000"/>
 	<style id="table-toggler-btns" colors="#ffffff,#ffffff,#000000"/>
+</tag>
+<tag name="label-printer">
+	<style id="table-body" colors="#fcfcfc,#fcfcfc,#d7d7d7"/>
+	<style id="table-ext-body" colors="#fcfcfc,#fcfcfc,#d7d7d7"/>
+	<style id="table-name" colors="#000000"/>
+	<style id="table-schema-name" colors="#000000"/>
+	<style id="table-title" colors="#ff00ff,#ff00ff,#3175b0"/>
+	<style id="table-toggler-body" colors="#fcfcfc,#fcfcfc,#d7d7d7"/>
+	<style id="table-toggler-btns" colors="#f3f3f3,#e1e1e1,#bebebe"/>
 </tag>
 <extension name="pg_trgm" cur-version="1.4">
 	<schema name="pg_catalog"/>
@@ -389,7 +399,7 @@ Congélateur;2]]>
 	</constraint>
 	<initial-data>
 <![CDATA["dbversion_number";"dbversion_date"
-"24.1";"2024-02-01"
+"25.1";"2025-11-1"
 ]]>
 	</initial-data>
 </table>
@@ -580,11 +590,11 @@ Prélèvement pour analyse;true;false
 	<role name="collec"/>
 </sequence>
 
-<table name="label" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
+<table name="label" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of label models]]> </comment>
-	<tag name="container"/>
+	<tag name="label-printer"/>
 	<position x="1280" y="2600"/>
 	<column name="label_id" not-null="true" sequence="col.label_label_id_seq">
 		<type name="integer" length="0"/>
@@ -597,87 +607,94 @@ Prélèvement pour analyse;true;false
 		<type name="character varying" length="0"/>
 		<comment> <![CDATA[XSL content used by FOP transformation (https://xmlgraphics.apache.org/fop/)]]> </comment>
 	</column>
-	<column name="label_fields" not-null="true" default-value="'uid,id,clp,db'">
-		<type name="character varying" length="0"/>
-		<comment> <![CDATA[List of fields incorporated in the QRCODE]]> </comment>
-	</column>
 	<column name="metadata_id">
 		<type name="integer" length="0"/>
 		<comment> <![CDATA[Model of the metadata template associated with this label]]> </comment>
 	</column>
-	<column name="identifier_only" not-null="true" default-value="false">
-		<type name="boolean" length="0"/>
-		<comment> <![CDATA[true: the qrcode contains only a business identifier]]> </comment>
-	</column>
 	<constraint name="label_pk" type="pk-constr" table="col.label">
 		<columns names="label_id" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="barcode_id" index="6"/>
-	</customidxs>
-	<customidxs object-type="constraint">
-		<object name="barcode_fk" index="2"/>
-	</customidxs>	<initial-data>
-<![CDATA[label_name;label_xsl;label_fields;barcode_id
-Example - Don't use;<xsl:stylesheet version="1.0"
-      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-      xmlns:fo="http://www.w3.org/1999/XSL/Format">
-  <xsl:output method="xml" indent="yes"/>
-  <xsl:template match="objects">
-    <fo:root>
-      <fo:layout-master-set>
-        <fo:simple-page-master master-name="label"
-              page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">  
-              <fo:region-body/>
-        </fo:simple-page-master>
-      </fo:layout-master-set>
-      
-      <fo:page-sequence master-reference="label">
-         <fo:flow flow-name="xsl-region-body">        
-          <fo:block>
-          <xsl:apply-templates select="object" />
-          </fo:block>
-
-        </fo:flow>
-      </fo:page-sequence>
-    </fo:root>
-   </xsl:template>
-  <xsl:template match="object">
-
-  <fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="8cm&quot; keep-together.within-page=&quot;always">
-  <fo:table-column column-width="4cm"/>
-  <fo:table-column column-width="4cm" />
- <fo:table-body  border-style="none" >
- 	<fo:table-row>
-  		<fo:table-cell> 
-  		<fo:block>
-  		<fo:external-graphic>
-      <xsl:attribute name="src">
-             <xsl:value-of select="concat(uid,'.png')" />
-       </xsl:attribute>
-       <xsl:attribute name="content-height">scale-to-fit</xsl:attribute>
-       <xsl:attribute name="height">4cm</xsl:attribute>
-        <xsl:attribute name="content-width">4cm</xsl:attribute>
-        <xsl:attribute name="scaling">uniform</xsl:attribute>
-      
-       </fo:external-graphic>
- 		</fo:block>
-   		</fo:table-cell>
-  		<fo:table-cell>
-<fo:block><fo:inline font-weight="bold">IRSTEA</fo:inline></fo:block>
-  			<fo:block>uid:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;db&quot;/&gt;:&lt;xsl:value-of select=&quot;uid"/></fo:inline></fo:block>
-  			<fo:block>id:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;id"/></fo:inline></fo:block>
-  			<fo:block>prj:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;prj"/></fo:inline></fo:block>
-  			<fo:block>clp:<fo:inline font-weight="bold&quot;&gt;&lt;xsl:value-of select=&quot;clp"/></fo:inline></fo:block>
-  		</fo:table-cell>
-  	  	</fo:table-row>
-  </fo:table-body>
-  </fo:table>
-   <fo:block page-break-after="always"/>
-
-  </xsl:template>
-</xsl:stylesheet>;uid,id,clp,db,col;1]]>
+	<initial-data>
+<![CDATA["label_name";"label_xsl";"metadata_id"
+"Example";"<?xml version=""1.0"" encoding=""utf-8""?>
+<xsl:stylesheet version=""1.0""
+	xmlns:xsl=""http://www.w3.org/1999/XSL/Transform""
+	xmlns:fo=""http://www.w3.org/1999/XSL/Format"">
+	<xsl:output method=""xml"" indent=""yes""/>
+	<xsl:template match=""objects"">
+		<fo:root>
+			<fo:layout-master-set>
+				<fo:simple-page-master master-name=""label""
+					  page-height=""5cm"" page-width=""10cm"" margin-left=""0.5cm"" margin-top=""0.5cm"" margin-bottom=""0cm"" margin-right=""0.5cm"">  
+					  <fo:region-body/>
+				</fo:simple-page-master>
+			</fo:layout-master-set>
+			<fo:page-sequence master-reference=""label"">
+				<fo:flow flow-name=""xsl-region-body"">        
+					<fo:block>
+						<xsl:apply-templates select=""object"" />
+					</fo:block>
+				</fo:flow>
+			</fo:page-sequence>
+		</fo:root>
+	</xsl:template>
+	<xsl:template match=""object"">
+		<fo:table table-layout=""fixed"" border-collapse=""collapse""  border-style=""none"" width=""9cm"" keep-together.within-page=""always"">
+			<fo:table-column column-width=""6cm""/>
+			<fo:table-column column-width=""3cm"" />
+			<fo:table-body border-style=""none"" >
+				<fo:table-row>
+					<fo:table-cell>
+						<fo:block>
+							<fo:external-graphic>
+								<xsl:attribute name=""src"">
+									<xsl:value-of select=""concat(label_id,'-logo.png')""/>
+								</xsl:attribute>
+								<xsl:attribute name=""content-height"">scale-to-fit</xsl:attribute>
+									<xsl:attribute name=""height"">1cm</xsl:attribute>
+									<xsl:attribute name=""content-width"">1cm</xsl:attribute>
+									<xsl:attribute name=""scaling"">uniform</xsl:attribute>
+								</fo:external-graphic>
+								<fo:inline> Labo Collec-Science</fo:inline>
+						</fo:block>
+						<fo:block><fo:inline font-weight=""bold""><xsl:value-of select=""db""/>:<xsl:value-of select=""uid""/></fo:inline></fo:block>
+						<fo:block>id:<fo:inline font-weight=""bold""><xsl:value-of select=""id""/></fo:inline></fo:block>
+					</fo:table-cell>
+					<fo:table-cell> 
+						<fo:block>
+							<fo:external-graphic>
+								 <xsl:attribute name=""src"">
+										<xsl:value-of select=""concat(uid,'.png')"" />
+								 </xsl:attribute>
+								<xsl:attribute name=""content-height"">scale-to-fit</xsl:attribute>
+								<xsl:attribute name=""height"">2.5cm</xsl:attribute>
+								<xsl:attribute name=""content-width"">2.5cm</xsl:attribute>
+								<xsl:attribute name=""scaling"">uniform</xsl:attribute>     
+							</fo:external-graphic>
+						</fo:block>
+					</fo:table-cell>
+				</fo:table-row>
+		</fo:table-body>
+	</fo:table>
+	<fo:block text-align=""center"">
+		<fo:external-graphic>
+				 <xsl:attribute name=""src"">
+						<xsl:value-of select=""concat(uid,'-2.png')"" />
+				 </xsl:attribute>
+				<xsl:attribute name=""content-height"">scale-to-fit</xsl:attribute>
+				<xsl:attribute name=""content-width"">9cm</xsl:attribute>
+				<xsl:attribute name=""height"">1cm</xsl:attribute>
+				<xsl:attribute name=""scaling"">uniform</xsl:attribute>     
+			</fo:external-graphic>
+	</fo:block>
+	<fo:block text-align=""center"">
+		Risque:<fo:inline font-weight=""bold""><xsl:value-of select=""clp""/></fo:inline>
+	</fo:block>
+	   <fo:block page-break-after=""always""/>
+	  </xsl:template>
+</xsl:stylesheet>
+";""
+]]>
 	</initial-data>
 </table>
 
@@ -958,8 +975,8 @@ Autre]]>
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of printers directly managed by the server]]> </comment>
-	<tag name="container"/>
-	<position x="2120" y="2600"/>
+	<tag name="label-printer"/>
+	<position x="2100" y="2280"/>
 	<column name="printer_id" not-null="true" sequence="col.printer_printer_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -986,12 +1003,6 @@ Autre]]>
 	<constraint name="printer_pk" type="pk-constr" table="col.printer">
 		<columns names="printer_id" ref-type="src-columns"/>
 	</constraint>
-	<initial-data>
-<![CDATA["printer_id";"printer_name";"printer_queue";"printer_server";"printer_user";"printer_comment"
-"1";"testprinter";"";"";"";""
-"2";"testprinter2";"";"";"";""
-]]>
-	</initial-data>
 </table>
 
 <table name="collection" layers="0" collapse-mode="1" max-obj-count="20" z-value="0">
@@ -2139,9 +2150,10 @@ Structure:
 		<columns names="export_model_id" ref-type="src-columns"/>
 	</constraint>
 	<initial-data>
-<![CDATA[export_model_name;pattern
-export_model;[{"tableName":"export_model","businessKey":"export_model_name","istable11":false,"children":[],"booleanFields":[],"istablenn":false}]
-export_template;[{"tableName":"export_template","technicalKey":"export_template_id","isEmpty":false,"businessKey":"export_template_name","istable11":false,"children":[{"aliasName":"export_dataset","isStrict":true}],"parents":[],"istablenn":false},{"tableName":"export_dataset","isEmpty":false,"parentKey":"export_template_id","istable11":false,"children":[],"parents":[{"aliasName":"dataset_template","fieldName":"dataset_template_id"}],"istablenn":true,"tablenn":{"secondaryParentKey":"dataset_template_id","tableAlias":"dataset_template"}},{"tableName":"dataset_template","technicalKey":"dataset_template_id","isEmpty":true,"businessKey":"dataset_template_name","istable11":false,"children":[{"aliasName":"dataset_column","isStrict":true}],"parents":[],"istablenn":false},{"tableName":"dataset_column","technicalKey":"dataset_column_id","isEmpty":false,"parentKey":"dataset_template_id","istable11":false,"children":[],"parents":[{"aliasName":"translator","fieldName":"translator_id"}],"istablenn":false},{"tableName":"translator","technicalKey":"translator_id","isEmpty":true,"businessKey":"translator_name","istable11":false,"children":[],"parents":[],"istablenn":false}]]]>
+<![CDATA["export_model_name";"pattern"
+"export_model";"[{""tableName"":""export_model"",""businessKey"":""export_model_name"",""istable11"":false,""children"":[],""booleanFields"":[],""istablenn"":false}]"
+"export_template";"[{""tableName"":""export_template"",""technicalKey"":""export_template_id"",""isEmpty"":false,""businessKey"":""export_template_name"",""istable11"":false,""children"":[{""aliasName"":""export_dataset"",""isStrict"":true}],""parents"":[],""istablenn"":false},{""tableName"":""export_dataset"",""isEmpty"":false,""parentKey"":""export_template_id"",""istable11"":false,""children"":[],""parents"":[{""aliasName"":""dataset_template"",""fieldName"":""dataset_template_id""}],""istablenn"":true,""tablenn"":{""secondaryParentKey"":""dataset_template_id"",""tableAlias"":""dataset_template""}},{""tableName"":""dataset_template"",""technicalKey"":""dataset_template_id"",""isEmpty"":true,""businessKey"":""dataset_template_name"",""istable11"":false,""children"":[{""aliasName"":""dataset_column"",""isStrict"":true}],""parents"":[],""istablenn"":false},{""tableName"":""dataset_column"",""technicalKey"":""dataset_column_id"",""isEmpty"":false,""parentKey"":""dataset_template_id"",""istable11"":false,""children"":[],""parents"":[{""aliasName"":""translator"",""fieldName"":""translator_id""}],""istablenn"":false},{""tableName"":""translator"",""technicalKey"":""translator_id"",""isEmpty"":true,""businessKey"":""translator_name"",""istable11"":false,""children"":[],""parents"":[],""istablenn"":false}]"
+]]>
 	</initial-data>
 </table>
 
@@ -2376,6 +2388,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.campaign"
 	 dst-table="col.campaign_regulation"
@@ -2385,6 +2398,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#ff7800"
 	 src-table="col.regulation"
 	 dst-table="col.campaign_regulation"
@@ -2398,6 +2412,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.campaign"
 	 dst-table="col.sample"
@@ -2407,6 +2422,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.referent"
 	 dst-table="col.campaign"
@@ -2416,6 +2432,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.campaign"
 	 dst-table="col.document"
@@ -2449,6 +2466,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.lot"
@@ -2467,6 +2485,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#550000"
 	 src-table="col.lot"
 	 dst-table="col.lot_sample"
@@ -2479,6 +2498,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#204a87"
 	 src-table="col.sample"
 	 dst-table="col.lot_sample"
@@ -2516,6 +2536,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#550000"
 	 src-table="col.lot"
 	 dst-table="col.export"
@@ -2560,6 +2581,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#550000"
 	 src-table="col.export_template"
 	 dst-table="col.export"
@@ -2642,6 +2664,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#550000"
 	 src-table="col.export_format"
 	 dst-table="col.dataset_template"
@@ -2660,6 +2683,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#550000"
 	 src-table="col.export_template"
 	 dst-table="col.export_dataset"
@@ -2672,6 +2696,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#550000"
 	 src-table="col.dataset_template"
 	 dst-table="col.export_dataset"
@@ -2737,6 +2762,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#550000"
 	 src-table="col.dataset_template"
 	 dst-table="col.dataset_column"
@@ -2768,6 +2794,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#550000"
 	 src-table="col.translator"
 	 dst-table="col.dataset_column"
@@ -2794,11 +2821,12 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 		<columns names="dataset_type_id" ref-type="src-columns"/>
 	</constraint>
 	<initial-data>
-<![CDATA[dataset_type_id;dataset_type_name;fields
-1;sample;["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed","campaign_id","campaign_name","campaign_uuid"]
-2;collection;["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academical_directory","academical_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]
-3;document;["document_name","document_uuid","uid","sample_uuid","identifier","content_type","extension","size","document_creation_date","fixed_value", "web_address"]
-4;arbitrary content;["content"]]]>
+<![CDATA["dataset_type_id";"dataset_type_name";"fields"
+"1";"sample";"[""uid"",""uuid"",""identifier"",""wgs84_x"",""wgs84_y"",""location_accuracy"",""object_status_name"",""referent_name"",""referent_email"",""address_name"",""address_line2"",""address_line3"",""address_city"",""address_country"",""referent_phone"",""referent_firstname"",""academic_directory"",""academic_link"",""object_comment"",""identifiers"",""sample_creation_date"",""sampling_date"",""multiple_value"",""sampling_place_name"",""expiration_date"",""sample_type_name"",""storage_product"",""clp_classification"",""multiple_type_name"",""collection_name"",""metadata"",""metadata_unit"",""parent_uid"",""parent_uuid"",""parent_identifiers"",""web_address"",""content_type"",""container_uid"",""container_identifier"",""container_uuid"",""storage_type_name"",""fixed_value"",""country_code"",""country_origin_code"",""trashed"",""campaign_id"",""campaign_name"",""campaign_uuid""]"
+"2";"collection";"[""collection_name"",""collection_displayname"",""collection_keywords"",""referent_name"",""referent_firstname"",""academical_directory"",""academical_link"",""referent_email"",""address_name"",""address_line2"",""address_line3"",""address_city"",""address_country"",""referent_phone"",""fixed_value""]"
+"3";"document";"[""document_name"",""document_uuid"",""uid"",""sample_uuid"",""identifier"",""content_type"",""extension"",""size"",""document_creation_date"",""fixed_value"", ""web_address""]"
+"4";"arbitrary content";"[""content""]"
+]]>
 	</initial-data>
 </table>
 
@@ -2806,6 +2834,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#550000"
 	 src-table="col.dataset_type"
 	 dst-table="col.dataset_template"
@@ -2849,6 +2878,7 @@ export_template;[{"tableName":"export_template","technicalKey":"export_template_
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.samplesearch"
@@ -2886,6 +2916,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.license"
 	 dst-table="col.collection"
@@ -3301,6 +3332,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.country"
 	 dst-table="col.sample"
@@ -3311,6 +3343,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.country"
 	 dst-table="col.sampling_place"
@@ -3333,6 +3366,7 @@ from col.sample s;;]]> </definition>
 	 src-col-pattern="country_origin_id"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.country"
 	 dst-table="col.sample"
@@ -3351,8 +3385,8 @@ from col.sample s;;]]> </definition>
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Models of barcodes usable]]> </comment>
-	<tag name="container"/>
-	<position x="1700" y="2600"/>
+	<tag name="label-printer"/>
+	<position x="2100" y="2600"/>
 	<column name="barcode_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -3374,20 +3408,11 @@ EAN 128;C128]]>
 	</initial-data>
 </table>
 
-<relationship name="barcode_type_has_many_label" type="rel1n" layers="0"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
-	 custom-color="#c17d11"
-	 src-table="col.barcode"
-	 dst-table="col.label"
-	 src-required="true" dst-required="false"
-	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
-
 <relationship name="borrower_has_many_subsample" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#8ae234"
 	 src-table="col.borrower"
 	 dst-table="col.subsample"
@@ -3398,6 +3423,7 @@ EAN 128;C128]]>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.request"
@@ -3456,6 +3482,7 @@ EAN 128;C128]]>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.collection_sampletype"
@@ -3468,6 +3495,7 @@ EAN 128;C128]]>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#3465a4"
 	 src-table="col.sample_type"
 	 dst-table="col.collection_sampletype"
@@ -3510,7 +3538,7 @@ where collection_id = $1]]> </definition>
 		execution-cost="1"
 		row-amount="0">
 	<schema name="col"/>
-	<role name="postgres"/>
+	<role name="collec"/>
 	<language name="sql"/>
 	<return-type>
 	<type name="varchar" length="0"/>
@@ -3536,6 +3564,7 @@ where collection_id = $1]]> </definition>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.collection_eventtype"
@@ -3548,6 +3577,7 @@ where collection_id = $1]]> </definition>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#73d216"
 	 src-table="col.event_type"
 	 dst-table="col.collection_eventtype"
@@ -3613,6 +3643,7 @@ group by s.uid;;]]> </definition>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#865e3c"
 	 src-table="col.collection"
 	 dst-table="col.container"
@@ -3639,6 +3670,7 @@ group by s.uid;;]]> </definition>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#ff7800"
 	 src-table="col.campaign"
 	 dst-table="col.campaign_group"
@@ -3650,6 +3682,7 @@ group by s.uid;;]]> </definition>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#ff7800"
 	 src-table="gacl.aclgroup"
 	 dst-table="col.campaign_group"
@@ -3661,10 +3694,72 @@ group by s.uid;;]]> </definition>
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
 	 custom-color="#44f10c"
 	 src-table="col.event"
 	 dst-table="col.document"
 	 src-required="false" dst-required="false"/>
+
+<table name="label_optical" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<tag name="label-printer"/>
+	<position x="1680" y="2600"/>
+	<column name="label_optical_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="content_type" not-null="true" default-value="1">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[1: json
+2: identifier
+3: radical and identifier, as uri]]> </comment>
+	</column>
+	<column name="radical">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Radical in the optical code, as base of uri]]> </comment>
+	</column>
+	<column name="optical_content" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Content of the optical code, as list of fields if type 1, used identifier if type 2 or 3]]> </comment>
+	</column>
+	<constraint name="label_optical_pk" type="pk-constr" table="col.label_optical">
+		<columns names="label_optical_id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="barcode_id" index="5"/>
+		<object name="label_id" index="1"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="barcode_fk" index="2"/>
+		<object name="label_fk" index="1"/>
+	</customidxs>	<initial-data>
+<![CDATA["label_id";"content_type";"radical";"optical_content";"barcode_id"
+"1";"2";"";"uuid";"1"
+"1";"2";"";"uid";"2"
+]]>
+	</initial-data>
+</table>
+
+<relationship name="label_has_many_label_optical" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#ff00ff"
+	 src-table="col.label"
+	 dst-table="col.label_optical"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="barcode_has_many_label_optical" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#ff00ff"
+	 src-table="col.barcode"
+	 dst-table="col.label_optical"
+	 src-required="true" dst-required="false"/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
@@ -3973,6 +4068,7 @@ group by s.uid;;]]> </definition>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_container_type_label" type="relfk" layers="0"
+	 custom-color="#ff00ff"
 	 src-table="col.container_type"
 	 dst-table="col.label" reference-fk="label_container_type_fk"
 	 src-required="false" dst-required="false"/>
@@ -4003,6 +4099,7 @@ group by s.uid;;]]> </definition>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_label_metadata" type="relfk" layers="0"
+	 custom-color="#ff00ff"
 	 src-table="col.label"
 	 dst-table="col.metadata" reference-fk="metadata_label_fk"
 	 src-required="false" dst-required="false"/>
@@ -4047,9 +4144,9 @@ group by s.uid;;]]> </definition>
 	 dst-table="col.sample" reference-fk="sample_sample_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="1211.49" y="1448.64"/>
-	<position x="1211.49" y="1287"/>
-	<position x="1072.33" y="1287"/>
+		<position x="1211.54" y="1448.64"/>
+	<position x="1211.54" y="1287"/>
+	<position x="1072.36" y="1287"/>
 	</line>
 </relationship>
 
@@ -4138,9 +4235,9 @@ group by s.uid;;]]> </definition>
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_aclgroup_fk"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="391.747" y="278.241"/>
-	<position x="391.747" y="207"/>
-	<position x="245.831" y="207"/>
+		<position x="391.796" y="278.241"/>
+	<position x="391.796" y="207"/>
+	<position x="245.864" y="207"/>
 	</line>
 </relationship>
 

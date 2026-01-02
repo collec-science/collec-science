@@ -1,5 +1,33 @@
 Nouveautés
 ============
+Version v26.0.0 du 02/01/2026
+-----------------------------
+Corrections de bugs :
+- lors de la création des lots d'export, la procédure s'achevait sur une page blanche
+- dans la liste des emprunts, les dates n'étaient pas formatées correctement
+- la saisie d'une date lors de l'importation d'un document pouvait créer une erreur
+- il était possible de déclencher la création d'un lot d'export même sans collection sélectionnée, ce qui occasionnait un message d'erreur concernant des droits insuffisants
+- lors de la création d'un mouvement d'entrée, il était possible de valider l'opération sans avoir renseigné le contenant
+- lors de la saisie des métadonnées, si l'une d'entre elles contenait des multivaleurs, l'interface pouvait devenir erratique
+- en création d'un échantillon, la génération automatique de l'identifiant métier à partir des informations renseignées ne fonctionnait plus
+- la visualisation de la structure du schéma de la base de données contenant les tables de gestion des droits a été retirée ; elle reste disponible quand on consulte l'ensemble de la structure de la base de données
+- la recherche de la liste des mouvements opérés par un login échouait
+- la recherche d'un échantillon par son uid d'origine ne fonctionnait pas
+- l'ajout de pièces jointes, depuis le détail d'un échantillon, ne fonctionnait plus
+- l'api d'écriture d'un échantillon échouait sans message d'erreur si aucun identifiant principal (uid, uuid ou identifier) n'était fourni
+- la réinitialisation du mot de passe perdu ne fonctionnait plus
+- lors de la recherche d'un container, si l'UID était remplacé par l'identifiant métier, cela entraînait un plantage de l'application
+- Lors de la recherche d'un échantillon, si l'UID était remplacé par l'identifiant métier, une erreur était générée dans les logs de l'application
+- une erreur était générée si aucun échantillon n'était sélectionné lors de l'appel de la suppression multiple, depuis la liste des échantillons
+- une fonction de régénération des modèles de métadonnées a été ajoutée (depuis la liste des modèles), ainsi que la réindexation de la table sample, pour régler certains soucis rencontrés avec d'anciens modèles
+
+Nouveautés : 
+- les administrateurs peuvent maintenant consulter directement depuis l'application les fichiers contenant les messages d'erreur, pour faciliter le diagnostic des incidents
+- il est maintenant possible de générer des étiquettes contenant deux codes-barres (qrcode ou EAN128) et un logo
+- les premières pages de la documentation à destination préférentielle des utilisateurs ont été publiées (https://collec-science.github.io/userdocs/). De nouvelles pages seront rajoutées dans les prochains mois.
+- un mécanisme d'appel de l'aide en ligne (pages de la documentation) a été ajouté. Il a été implémenté pour la modification d'une collection ou pour la création d'un modèle d'étiquettes
+- dans les API de listage des échantillons, il est possible d'activer un mécanisme de pagination pour limiter le nombre d'enregistrements retournés à chaque requête
+
 Version v25.0.11 du 1/9/2025
 ----------------------------
 Corrections de bugs :

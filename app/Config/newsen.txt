@@ -2,6 +2,34 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v26.0.0 of 02/01/2026
+-----------------------------
+Bug fixes:
+- When creating export batches, the procedure ended on a blank page.
+- In the list of borrowings, the dates were not formatted correctly.
+- Entering a date when importing a document could cause an error.
+- It was possible to trigger the creation of an export batch even without a collection selected, which caused an error message regarding insufficient rights.
+- When creating an entry transaction, it was possible to validate the operation without filling in the container.
+- When entering metadata, if one of the fields contained multiple values, the interface could become erratic.
+- When creating a sample, the automatic generation of the business identifier from the information entered no longer worked.
+- The display of the database schema structure containing the rights management tables has been removed; it remains available when viewing the entire database structure
+- Searching for the list of transactions carried out by a login failed
+- Searching for a sample by its original uid did not work
+- Adding attachments from a sample detail no longer worked
+- The sample writing API failed without an error message if no primary identifier (uid, uuid, or identifier) was provided
+- Resetting a lost password no longer worked
+- When searching for a container, if the UID was replaced by the business identifier, this caused the application to crash.
+- When searching for a sample, if the UID was replaced by the business identifier, an error was generated in the application logs
+- An error was generated if no sample was selected when calling multiple deletions from the sample list
+- A metadata model regeneration function has been added (from the model list), as well as reindexing of the sample table, to resolve certain issues encountered with older models
+
+New features:
+- Administrators can now view files containing error messages directly from the application, to facilitate incident diagnosis
+- It is now possible to generate labels containing two barcodes (QR code or EAN128) and a logo
+- The first pages of the documentation intended primarily for users have been published (https://collec-science.github.io/userdocs/), currently only in French. New pages will be added in the coming months.
+- An online help mechanism (documentation pages) has been added. It has been implemented for modifying a collection or creating a label template.
+- In sample listing APIs, it is possible to activate a pagination mechanism to limit the number of records returned for each query.
+
 Version v25.0.11 of 1/9/2025
 ----------------------------
 Bug fixes:

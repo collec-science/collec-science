@@ -179,22 +179,25 @@ class App extends BaseConfig
      * --------------------------------------------------------------------------
      * PPCI parameters
      * --------------------------------------------------------------------------
-     *
-     * @var string
      */
-    public string $version = "v25.0.11";
+    public string $applicationName = "Collec-Science";
     /**
-     * versionDate - don't change here, but in function setParameters() below
+     * Number of version
+     * @var string
+     */
+    public string $version = "v26.0.0";
+    /**
+     * Date of version
      *
      * @var string
      */
-    public string $versionDate = "01/09/2025";
+    public string $versionDate = "02/01/2026";
     /**
      * Number of the database version
      *
      * @var string
      */
-    public string $dbversion = "25.0";
+    public string $dbversion = "26.0";
     /**
      * Location of the database schema
      *
@@ -322,8 +325,12 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $copyright = "Copyright © 2016-2025 - All rights reserved. Main author : Éric Quinton, for INRAE-EABX - Software distributed under AGPL license";
+    public $copyright = "Copyright © 2016-2026 - All rights reserved. Main author : Éric Quinton, for INRAE-EABX - Software distributed under AGPL license";
 
+    /**
+     * root of the doc (url)
+     */
+    public $docroot = "https://collec-science.github.io/userdocs";
     /**
      * Linux command used to print directly to a printer
      *

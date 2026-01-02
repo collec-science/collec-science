@@ -15,7 +15,7 @@ class Lot extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
 
     function __construct()
     {
@@ -42,6 +42,7 @@ class Lot extends PpciLibrary
         }
         if ($collection_id > 0) {
             $this->vue->set($this->dataclass->getLotsFromCollection($collection_id), "lots");
+            $this->vue->set($collection_id, "collection_id");
         }
         $this->vue->set($_SESSION["collections"], "collections");
         $this->vue->set("export/lotList.tpl", "corps");
@@ -68,10 +69,11 @@ class Lot extends PpciLibrary
                     $this->id = $_REQUEST["lot_id"];
                     $db->transCommit();
                     $this->message->set(_("Lot créé"));
-                    return true;
+                    $_GET["collection_id"] = $_POST["collection_id"];
+                    return $this->list();
                 } catch (PpciException $e) {
                     $this->message->set(_("Une erreur est survenue pendant la création du lot"), true);
-                    $this->message->setSyslog($e->getMessage(),true);
+                    $this->message->setSyslog($e->getMessage(), true);
                     if ($db->transEnabled) {
                         $db->transRollback();
                     }

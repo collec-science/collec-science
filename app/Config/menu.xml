@@ -87,7 +87,9 @@
 		<item module="containerVerifyCyclic" label="Recherche des mouvements cycliques" tooltip="Recherche des contenants contenus dans un contenant qu'ils contiennent" />
 		<item divider='1' />
 		<item module="logList" droits="admin" label="Logs" tooltip="Consultation des logs enregistrées" />
-		<item module="dbstructureGacl" droits="admin" label="Structure de la base de données des droits (HTML)" tooltip="Liste des tables et des colonnes de la base de données de gestion des droits" />
+		<item module="getLogFiles" droits="admin" label="Traces des erreurs" tooltip="Liste des fichiers enregistrant les erreurs applicatives" />
+		<item module="dbstructureSchemaAdmin" droits="admin" label="Schéma de la base de données" tooltip="Schéma de la base de données" />
+		<item module="dbstructureAdmin" droits="admin" label="Structure de la base de données (HTML)" tooltip="Liste des tables et des colonnes" />
 		<item module="phpinfo" droits="admin" label="PHP info" tooltip="configuration générale du serveur PHP" />
 		<item divider="1" />
 		<item module="systemShowServer" droits="admin" label="Variables SERVER" tooltip="Affichage des variables fournies par le serveur" />
@@ -96,37 +98,10 @@
 		<item module="backupDisplay" droits="admin" label="Backup" tooltip="Sauvegarde de la base de données" />
 	</item>
 
-	<item module="documentation_fr" label="Documentation" tooltip="Documentations en ligne en français" language="fr">
-		<item module="echantillon_fr" label="Échantillons" tooltip="Gestion des échantillons">
-			<item module="metadatafield_fr" label="Renommer un champ de métadonnées" tooltip="Comment renommer un champ de métadonnées ?" language="fr" />
-			<item module="lendingsample_fr" label="Prêter un échantillon" tooltip="Prêter un ou plusieurs échantillons ou contenants" language="fr" />
-			<item module="document_external_fr" label="Documents externes" tooltip="Associer des documents externes à un échantillon" language="fr" />
-			<item module="consult_sees_all_fr" label="Permettre au droit consult de visualiser les métadonnées" tooltip="Paramétrer l'application pour permettre à tous les utilisateurs de consulter les métadonnées" language="fr" />
-			<item module="composite_fr" label="Les échantillons composés" tooltip="Créer des échantillons composés" language="fr"/>
-			<item module="label_fr" label="Créer un modèle d'étiquette" tooltip="Créer un modèle d'étiquette avec son QRCODE ou son code-barre" language="fr"/>
-		</item>
-
-		<item module="importExport_fr" label="Fonctions d'import/export" tooltip="Fonctions d'importation et d'exportations de données" language="fr">
-			<item module="exportbatch_fr" label="Exporter par lot" tooltip="Exporter des échantillons par lots" language="fr" />
-			<item divider='1' droits="hidden"/>
-		</item>
-		<item module="doctotp_fr" label="Comprendre la double authentification" tooltip="Comprendre le mécanisme de la double authentification" language="fr" />
-		<item module="api_fr" label="Services web" tooltip="Description des services web" language="fr">
-			<item module="swidentification_fr" label="identification" tooltip="Gérer l'identification dans les services web" language="fr" />
-			<item module="swapi_fr" label="API web" tooltip="Utilisation des API web" language="fr" />
-			<item module="sampledisplay_fr" label="Détail d'un échantillon" tooltip="Service web d'affichage du détail d'un échantillon" language="fr" />
-			<item module="swsampleList_fr" label="Liste des échantillons" tooltip="Service web permettant de rechercher une liste d'échantillons" language="fr" />
-			<item module="documents_fr" label="Liste des documents" tooltip="Service web d'obtention de la liste des documents attachés à un objet" language="fr" />
-			<item module="documentget_fr" label="Afficher un document" tooltip="Service web de téléchargement d'un document" language="fr" />
-			<item module="sampleWrite_fr" label="Mise à jour d'un échantillon" tooltip="Ajouter ou mettre à jour un échantillon" language="fr" />
-			<item module="sampleDelete_fr" label="Supprimer un échantillon" tooltip="Supprimer un échantillon" language="fr" />
-			<item module="swmovementWrite_fr" label="Création d'un mouvement" tooltip="Créer un mouvement d'entrée ou de sortie" language="fr" />
-			<item module="documentSet_fr" label="Créer un document" tooltip="Créer un document et l'associer à un objet" language="fr"/>
-		</item>
-		<item module="administration_fr" label="Administration" tooltip="Administrer le logiciel">
-			<item module="rights_general_fr" label="Généralités sur les droits" tooltip="Les droits utilisés dans le logiciel" />
-			<item module="automaticsendmail_fr" label="Activer l'envoi automatique de mails" tooltip="Informer les gestionnaires des événements à échéance ou des échantillons qui vont expirer" language="fr" />
-		</item>
+	<item module="" isdoc="1" label="Documentation" tooltip="Documentations en ligne en français" language="fr">
+		<item module="gestion/pour-les-utilisateurs.html" label="Pour les utilisateurs" tooltip="La documentation pour les utilisateurs du logiciel" isdoc="1" language="fr" />
+		<item module ="gestion/pour-les-administrateurs-métiers.html" label="Pour les administrateurs fonctionnels" tooltip="Documentation pour les responsables de l'application" isdoc="1" language="fr" />
+		<item module ="administration/administration-technique.html" label="Administration technique" tooltip="Opérations d'administration" isdoc="1" language="fr" />
 	</item>
 	<item module="documentation_en" label="Documentation" tooltip="Documentations en ligne en anglais" language="en">
 		<item module="echantillon_en" label="Échantillons" tooltip="Gestion des échantillons">

@@ -263,7 +263,14 @@ class Sample extends PpciModel
          * Verification complementaire par rapport aux donnees deja stockees
          */
         if ($ok && $data["uid"] > 0) {
-            $ok = $this->verifyCollection($this->read($data["uid"]));
+            $dataUid = $this->read($data["uid"]);
+            $ok = $this->verifyCollection($dataUid);
+            if (empty($data["identifier"])) {
+                $data["identifier"] = $dataUid["identifier"];
+            }
+        }
+        if (empty($data["identifier"])) {
+            throw new PpciException(_("L'identifiant métier n'a pas été fourni"));
         }
         if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
             throw new PpciException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));
@@ -277,6 +284,23 @@ class Sample extends PpciModel
 
             if ($uid > 0) {
                 $data["uid"] = $uid;
+                /**
+                 * Treatment of metadata
+                 * delete empty multiple values 
+                 */
+                $metadata = json_decode($data["metadata"], true);
+                foreach ($metadata as $k => $v) {
+                    if (is_array($v)) {
+                        $new = [];
+                        foreach ($v as $value) {
+                            if (!empty($value)) {
+                                $new[] = $value;
+                            }
+                        }
+                        $metadata[$k] = $new;
+                    }
+                }
+                $data["metadata"] = json_encode($metadata);
                 if (parent::write($data) > 0) {
                     if (!empty($data["metadata"])) {
                         /**
@@ -478,7 +502,7 @@ class Sample extends PpciModel
                 $and = "";
                 $uidSearch = false;
 
-                if ($param["uidsearch"] > 0) {
+                if (is_int($param["uidsearch"]) && $param["uidsearch"] > 0) {
                     $where .= " ( s.uid = :uid:";
                     $data["uid"] = $param["uidsearch"];
                     $uidSearch = true;
@@ -496,7 +520,7 @@ class Sample extends PpciModel
                             if ($i > 1) {
                                 $where .= ",";
                             }
-                            $where .= ":id" . $i.':';
+                            $where .= ":id" . $i . ':';
                             $data["id$i"] = strtoupper(trim($v));
                             $i++;
                         }
@@ -514,7 +538,7 @@ class Sample extends PpciModel
                         $where .= "$or upper(so.identifier) like :identifier: or upper(s.dbuid_origin) = upper(:dbuid_origin:)";
                         $and = " and ";
                         $data["identifier"] = $identifier;
-                        $data["dbuid_origin"] = $name;
+                        $data["dbuid_origin"] = $param["name"];
                         /*
                          * Recherche sur les identifiants externes
                          * possibilite de recherche sur cab:valeur, p. e.
@@ -614,13 +638,13 @@ class Sample extends PpciModel
                 /**
                  * Recherche dans les metadonnees
                  */
-                if ($_SESSION["dbparams"]["consultSeesAll"] == 1 || $_SESSION["userRights"]["manage"] == 1){
+                if ($_SESSION["dbparams"]["consultSeesAll"] == 1 || $_SESSION["userRights"]["manage"] == 1) {
                     $mi = 0;
                     $mcounter = 0;
                     foreach ($param["metadata_field"] as $field) {
                         if (!empty($field) && strlen($param["metadata_value"][$mi]) > 0) {
                             $where .= $and . " (";
-                            $mvs = explode (',', $param["metadata_value"][$mi]);
+                            $mvs = explode(',', $param["metadata_value"][$mi]);
                             $multiple = false;
                             foreach ($mvs as $mv) {
                                 if (strlen($mv) > 0) {
@@ -628,13 +652,13 @@ class Sample extends PpciModel
                                     $where .= "lower(s.metadata->>:metadata_field$mcounter:) like lower (:metadata_value$mcounter:)";
                                     $data["metadata_field$mcounter"] = $field;
                                     $data["metadata_value$mcounter"] = "%" . $mv . "%";
-                                    $mcounter ++;
+                                    $mcounter++;
                                 }
                             }
                             $where .= ")";
                             $and = " and ";
                         }
-                        $mi ++;
+                        $mi++;
                     }
                 }
                 /**
@@ -786,7 +810,7 @@ class Sample extends PpciModel
         /**
          * Execute the request
          */
-        
+
         $list = $this->getListParam($sql, $data);
         /**
          * Purge metadata if necessary
@@ -1180,7 +1204,7 @@ class Sample extends PpciModel
                 $data["uid"] = 0;
             }
         }
-        if ( empty($data["collection_id"])) {
+        if (empty($data["collection_id"])) {
             throw new PpciException(sprintf(_("La collection n'a pas été spécifiée pour l'échantillon %s, ou est inconnue"), $data["identifier"]));
         }
         if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
@@ -1493,9 +1517,10 @@ class Sample extends PpciModel
      * @param integer $uid
      * @return int|null
      */
-    function getIdFromUid(int $uid) {
+    function getIdFromUid(int $uid)
+    {
         $sql = "select sample_id from sample where uid = :uid:";
-        $data = $this->readParam($sql, ["uid"=>$uid]);
+        $data = $this->readParam($sql, ["uid" => $uid]);
         return $data["sample_id"];
     }
     /**
@@ -1652,9 +1677,14 @@ class Sample extends PpciModel
         }
         $sql = "select distinct s.uid";
         $this->_generateSearch($param);
-        $order = " order by s.uid";
-        /*printA($sql.$this->from.$this->where.$order);
-        die;*/
+        if ($param["limit"] > 0) {
+            $order = " order by s.uid limit " . $param["limit"];
+            if ($param["page"] > 0 && is_numeric($param["page"])) {
+                $order .= " offset " . (($param["page"] - 1) * $param["limit"]);
+            }
+        } else {
+            $order = " order by s.uid";
+        }
         $data = $this->_executeSearch($sql . $this->from . $this->where . $order, $this->data);
         $uids = array();
         foreach ($data as $row) {
@@ -1668,7 +1698,14 @@ class Sample extends PpciModel
             $param["object_status_id"] = 1;
         }
         $this->_generateSearch($param);
-        $order = " order by s.uid";
+        if ($param["limit"] > 0) {
+            $order = " order by s.uid limit " . $param["limit"];
+            if ($param["page"] > 0 && is_numeric($param["page"])) {
+                $order .= " offset " . (($param["page"] - 1) * $param["limit"]);
+            }
+        } else {
+            $order = " order by s.uid";
+        }
         return $this->_executeSearch($this->sql . $this->from . $this->where . $order, $this->data);
     }
 
@@ -1682,7 +1719,7 @@ class Sample extends PpciModel
      */
     function renameMetadataField(int $metadata_id, $old, $new)
     {
-        $old = addslashes( $old);
+        $old = addslashes($old);
         $new = addslashes($new);
         $sql = " UPDATE sample s
                 set metadata = jsonb_insert(metadata::jsonb, '{" . '"' . $new . '"' . "}'::text[],  
@@ -1693,5 +1730,18 @@ class Sample extends PpciModel
                 and st.metadata_id = :id:
         ";
         $this->executeQuery($sql, ["id" => $metadata_id], true);
+    }
+    function reindex()
+    {
+        $sql = "reindex table sample";
+        $this->executeQuery($sql, null, true);
+    }
+    function renameMetadataFieldGlobal($old, $new)
+    {
+        $old = addslashes($old);
+        $new = addslashes($new);
+        $sql = "UPDATE sample set metadata = replace(metadata::text,'\"".$old."\":','\"".$new."\":')::json
+                where metadata::text like '%\"".$old."\":%'";
+        $this->executeQuery($sql, null, true);
     }
 }

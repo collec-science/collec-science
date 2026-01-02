@@ -4,10 +4,12 @@ namespace App\Libraries;
 
 use App\Models\Barcode;
 use App\Models\Label as ModelsLabel;
+use App\Models\LabelOptical;
 use App\Models\Metadata;
 use App\Models\Printer;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
+use Ppci\Libraries\Views\DisplayView;
 use Ppci\Models\PpciModel;
 
 class Label extends PpciLibrary
@@ -17,7 +19,7 @@ class Label extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
 
     function __construct()
     {
@@ -55,21 +57,49 @@ class Label extends PpciLibrary
         $this->dataRead($this->id, "param/labelChange.tpl");
         $metadata = new Metadata();
         $barcode = new Barcode();
+        $optical = new LabelOptical;
         $this->vue->set($barcode->getListe(1), "barcodes");
         $this->vue->set($metadata->getListe(), "metadata");
+        $this->vue->set($optical->getListToChange($this->id), "opticals");
+        $this->vue->help(_("parametres/créer-ou-modifier-un-modèle-d’étiquettes.html"));
         return $this->vue->send();
     }
     function write()
     {
         try {
-            $_REQUEST["label_xsl"] = hex2bin($_REQUEST["label_xsl"]);
-            $this->id = $this->dataWrite($_REQUEST);
-            if ($this->id > 0) {
-                $_REQUEST[$this->keyName] = $this->id;
-                return true;
-            } else {
-                return false;
+            $data = $_POST;
+            unset($data["logo"]);
+            $data["label_xsl"] = hex2bin($data["label_xsl"]);
+            $this->id = $this->dataWrite($data);
+            $_REQUEST[$this->keyName] = $this->id;
+            $optical = new LabelOptical;
+            $optical->write($data);
+            /**
+             * Second label
+             */
+            if ($data["optical2enabled"] == 1) {
+                $content = [
+                    "label_optical_id" => $data["label_optical_id2"],
+                    "label_id" => $this->id,
+                    "barcode_id" => $data["barcode_id2"],
+                    "content_type" => $data["content_type2"],
+                    "radical" => $data["radical2"],
+                    "optical_content" => $data["optical_content2"]
+                ];
+                $optical->write($content);
+            } elseif ($data["label_optical_id2"] > 0) {
+                /**
+                 * delete the second optical
+                 */
+                $optical->supprimer($data["label_optical_id2"]);
             }
+            /**
+             * Treatment of the logo
+             */
+            if ($_FILES["logo"]["error"] == 0) {
+                $this->dataclass->writeLogo($this->id, $_FILES["logo"]);
+            }
+            return true;
         } catch (PpciException) {
             return false;
         }
@@ -96,6 +126,8 @@ class Label extends PpciLibrary
             return false;
         } else {
             try {
+                $optical = new LabelOptical;
+                $optical->deleteFromField($this->id, "label_id");
                 $this->dataDelete($this->id);
                 return true;
             } catch (PpciException) {
@@ -105,22 +137,31 @@ class Label extends PpciLibrary
     }
     function copy()
     {
-        /*
-         * Duplication d'une etiquette
-         */
-        $this->vue=service('Smarty');
-        $data = $this->dataclass->lire($this->id);
-        $data["label_id"] = 0;
-        $data["label_name"] = "";
-        $this->vue->set($data, "data");
-        $this->vue->set("param/labelChange.tpl", "corps");
-        $metadata = new Metadata();
-        $this->vue->set($metadata->getListe(), "metadata");
-        $barcode = new Barcode();
-        $this->vue->set($barcode->getListe(1), "barcodes");
-        return $this->vue->send();
+        try {
+            $data = $this->dataclass->readRaw($this->id);
+            $new = $data;
+            $new["label_id"] = 0;
+            $new["label_name"] = _("Copie de ") . $data["label_name"];
+            $id = $this->dataclass->write($new);
+            /**
+             * Treatment of each optical code
+             */
+            $optical = new LabelOptical;
+            $opticals = $optical->getListFromParent($this->id, "label_optical_id");
+            foreach ($opticals as $opt) {
+                $opt["label_optical_id"] = 0;
+                $opt["label_id"] = $id;
+                $optical->write($opt);
+            }
+            $this->id = $id;
+            return true;
+        } catch (PpciException $e) {
+            $this->message->set(_("Une erreur s'est produite pendant la copie de l'étiquette"), true);
+            $this->message->set($e->getMessage());
+            $this->message->setSyslog($e->getMessage());
+            return false;
+        }
     }
-
     function setRelatedTablesToView($vue)
     {
         if (isset($_REQUEST["label_id"])) {
@@ -131,6 +172,16 @@ class Label extends PpciLibrary
         $vue->set($printer->getListe(2), "printers");
         if (isset($_REQUEST["printer_id"])) {
             $vue->set($_REQUEST["printer_id"], "printer_id");
+        }
+    }
+
+    function getLogo()
+    {
+        $data = $this->dataclass->getLogo($this->id);
+        if ($data) {
+            $vue = new DisplayView();
+            $vue->set($data);
+            $vue->send();
         }
     }
 }

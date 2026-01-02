@@ -445,8 +445,8 @@ class Sample extends PpciLibrary
         /**
          * Delete all records in uid array
          */
-        if (count($_POST["uids"]) > 0) {
-            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+        is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+        if (!empty($uids) && count($uids) > 0) {
             $db = $this->dataclass->db;
             $db->transBegin();
             try {
@@ -999,5 +999,8 @@ class Sample extends PpciLibrary
             $this->message->set($e->getMessage(), true);
             $db->transRollback();
         }
+    }
+    function reindex() {
+        $this->dataclass->reindex();
     }
 }

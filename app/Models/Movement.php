@@ -94,7 +94,7 @@ class Movement extends PpciModel
                 "defaultValue" => 1
             )
         );
-        $this->log = service ("Log");
+        $this->log = service("Log");
         parent::__construct();
     }
 
@@ -275,12 +275,7 @@ class Movement extends PpciModel
      */
     function search($values)
     {
-        if (!empty($values["login"])) {
-            $login = "%" . strtolower($this->encodeData($values["login"])) . "%";
-            $searchByLogin = true;
-        } else {
-            $searchByLogin = false;
-        }
+
         $data = array();
         $sql = "select s.login, s.uid, identifier, movement_date, movement_type_id, movement_type_name, storage_location, line_number, column_number, movement_comment,
         case when sample_type_name is not null then sample_type_name else container_type_name end as type_name,
@@ -292,7 +287,8 @@ class Movement extends PpciModel
         left outer join sample_type using (sample_type_id)
         left outer join container c on (c.uid = s.uid)
         left outer join container_type ct on (ct.container_type_id = c.container_type_id) where ";
-        if ($searchByLogin) {
+        if (!empty($values["login"])) {
+            $login = "%" . strtolower($values["login"]) . "%";
             $sql .= "login like :login: and ";
             $data["login"] = $login;
         }
@@ -313,9 +309,9 @@ class Movement extends PpciModel
     {
         $sql = "delete from movement where container_id = :container_id:";
         try {
-            $this->executeSql($sql, array("container_id" => $container_id),true);
+            $this->executeSql($sql, array("container_id" => $container_id), true);
         } catch (\Exception $e) {
-            $this->message->setSyslog($e->getMessage(),true);
+            $this->message->setSyslog($e->getMessage(), true);
             throw new PpciException(sprintf(_("La suppression des mouvements associés au container %s a échoué"), $container_id));
         }
     }

@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use chillerlan\QRCode\{QRCode, QROptions};
 use chillerlan\QRCode\Output\QROutputInterface;
-use chillerlan\QRCode\QRCode;
-use chillerlan\QRCode\QROptions;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 use Picqer\Barcode\Exceptions\BarcodeException;
 use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
+
 
 /**
  * Created : 2016-06-02
@@ -30,6 +30,7 @@ class ObjectClass extends PpciModel
     public ObjectIdentifier $oi;
     private $temp = "writable/temp";
     public $appConfig;
+    private $logoFile;
 
 
     private $barcode;
@@ -529,20 +530,33 @@ class ObjectClass extends PpciModel
              */
             $fields = array();
 
-            $dlabel = $label->lire($labelId);
+            $dlabel = $label->readRaw($labelId);
             /**
-             * Select the type of barcode
+             * Generate the logo
              */
-            if ($dlabel["barcode_id"] == 1) {
-                /**
-                 * QRcode
-                 */
-                $qrcode = new QRCode();
-                $options = new QROptions();
-            } else {
-                $this->barcode = new BarcodeGeneratorPNG;
+            $this->logoFile = $this->temp . '/' . $dlabel["label_id"] . "-logo.png";
+            if (!empty($dlabel["logo"])) {
+                $flogo = fopen($this->logoFile, 'w');
+                fwrite($flogo, pg_unescape_bytea($dlabel["logo"]));
+                fclose($flogo);
             }
-            $fields = explode(",", $dlabel["label_fields"]);
+            /**
+             * Instanciate code generators
+             * QRcode
+             */
+            $qrcode = new QRCode;
+            $qrcode2 = new QRCode;
+            $options = new QROptions;
+            /*$options->version             = 7;
+            $options->outputInterface = \chillerlan\QRCode\Output\QRGdImagePNG::class;
+            $options->outputBase64        = false;*/
+            $this->barcode = new BarcodeGeneratorPNG;
+            /**
+             * Get the list of opticals
+             */
+            $optical = new LabelOptical;
+            $opticals = $optical->getListForPrint($labelId);
+
             $APPLI_code = $_SESSION["dbparams"]["APPLI_code"];
             /**
              * Recuperation des informations generales
@@ -622,6 +636,10 @@ class ObjectClass extends PpciModel
              */
             foreach ($data as $row) {
                 /**
+                 * add the number of the label
+                 */
+                $row["label_id"] = $dlabel["label_id"];
+                /**
                  * Generation du dbuid_origin si non existant
                  */
                 if (empty($row["dbuid_origin"])) {
@@ -631,18 +649,8 @@ class ObjectClass extends PpciModel
                  * Recuperation des identifiants complementaires
                  */
                 $doi = $oi->getListFromUid($row["uid"]);
-                $rowq = array();
-                foreach ($row as $key => $value) {
-
-                    if (!empty($value) && in_array($key, $fields)) {
-                        $rowq[$key] = $value;
-                    }
-                }
                 foreach ($doi as $value) {
                     $row[$value["identifier_type_code"]] = $value["object_identifier_value"];
-                    if (in_array($value["identifier_type_code"], $fields)) {
-                        $rowq[$value["identifier_type_code"]] = $value["object_identifier_value"];
-                    }
                 }
                 /**
                  * Recuperation des metadonnees associees
@@ -652,31 +660,63 @@ class ObjectClass extends PpciModel
                     // on remplace les espaces qui ne sont pas gérés par le xml
                     $newKey = str_replace(" ", "_", $key);
                     $row[$newKey] = $value;
-                    if (!empty($value) && in_array($newKey, $fields)) {
-                        $rowq[$newKey] = $value;
-                    }
                 }
                 /**
                  * Generation du qrcode
                  */
-                $filename = $this->temp . '/' . $row["uid"] . ".png";
-                if ($dlabel["barcode_id"] == 1) {
-                    if ($dlabel["identifier_only"] == 't') {
-                        $qrcode->render($rowq[$dlabel["label_fields"]], $filename);
+                $second = false;
+                foreach ($opticals as $opt) {
+                    $fields = explode(",", $opt["optical_content"]);
+                    /**
+                     * generate the content of the optical
+                     */
+                    $rowq = [];
+                    foreach ($row as $k => $v) {
+                        if (!empty($v) && in_array($k, $fields)) {
+                            $rowq[$k] = $v;
+                        }
+                    }
+                    $filename = $this->temp . '/' . $row["uid"];
+                    if ($second) {
+                        $filename .= "-2";
+                    }
+                    $filename .= ".png";
+                    if ($opt["barcode_id"] == 1) {
+                        //QRCODE
+                        if (!$second) {
+                            if ($opt["content_type"] == 2) {
+                                $qrcode->render($opt["radical"] . $rowq[$opt["optical_content"]], $filename);
+                            } else {
+                                $qrcode->render(json_encode($rowq), $filename);
+                            }
+                        } else {
+                            if ($opt["content_type"] == 2) {
+
+                                $qrcode2->render($opt["radical"] . $rowq[$opt["optical_content"]], $filename);
+                            } else {
+                                $qrcode2->render(json_encode($rowq), $filename);
+                            }
+                        }
+
+                        /*$imagick = new \Imagick;
+                        $imagick->readImageBlob($qrcode);
+                        $imagick->setformat("png");
+                        file_put_contents($filename, $imagick->getImageBlob());*/
                     } else {
-                        $qrcode->clearSegments();
-                        $qrcode->render(json_encode($rowq), $filename);
+                        //EAN 128
+                        try {
+                            file_put_contents(
+                                $filename,
+                                $this->barcode->getBarcode($rowq[$opt["optical_content"]], $opt["barcode_code"])
+                            );
+                        } catch (BarcodeException $e) {
+                            throw new PpciException($e->getMessage());
+                        }
                     }
-                } else {
-                    try {
-                        file_put_contents(
-                            $filename,
-                            $this->barcode->getBarcode($rowq[$dlabel["label_fields"]], $dlabel["barcode_code"])
-                        );
-                    } catch (BarcodeException $e) {
-                        throw new PpciException($e->getMessage());
-                    }
+                    $second = true;
                 }
+
+
                 /**
                  * Stockage des donnees pour la suite du traitement
                  */
@@ -914,7 +954,7 @@ class ObjectClass extends PpciModel
                     }
                 } catch (\Exception $e) {
                     $this->message->set("Erreur lors de la génération du fichier xml");
-                    $this->message->setSyslog($e->getMessage(), true);
+                    $this->message->setSyslog($e->getMessage());
                 }
             } else {
                 $this->message->set(_("Pas d'étiquettes à imprimer"));
@@ -937,6 +977,7 @@ class ObjectClass extends PpciModel
     {
         foreach ($this->dataPrint as $value) {
             unlink($path . "/" . $value["uid"] . ".png");
+            unlink($path . "/" . $value["uid"] . "-2.png");
         }
     }
 
@@ -946,6 +987,7 @@ class ObjectClass extends PpciModel
     function eraseXslfile()
     {
         unlink($this->xslFile);
+        unlink($this->logoFile);
     }
 
     /**
@@ -994,8 +1036,8 @@ class ObjectClass extends PpciModel
      */
     function readWithType($id, $field = "uid")
     {
-        if (in_array($field, ["uid","uuid", "identifier"])) {
-        $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id,
+        if (in_array($field, ["uid", "uuid", "identifier"])) {
+            $sql = "select uid, identifier, wgs84_x, wgs84_y, object_status_id, referent_id,
                 case when sample_id > 0 then 'sample' else 'container' end as type_name,
                 sample_id, container_id, uuid, location_accuracy, object_comment
                 ,case when sample_id is not null then sample.collection_id else container.collection_id end as collection_id
@@ -1003,7 +1045,7 @@ class ObjectClass extends PpciModel
                 left outer join sample using (uid)
                 left outer join container using (uid)
                 where $field = :id:";
-        return $this->lireParamAsPrepared($sql, array("id" => $id));
+            return $this->lireParamAsPrepared($sql, array("id" => $id));
         } else {
             return [];
         }

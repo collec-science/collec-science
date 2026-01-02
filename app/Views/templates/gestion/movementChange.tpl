@@ -67,8 +67,8 @@ var type_movement = "{$data.movement_type_id}";
 		getOccupation(a_texte[0]);
 		isSlotFull();
 	});
-	if($("#movement_type_id").val() == 1 )
-		$("#container_uid").attr("required");
+	if(type_movement == 1 )
+		$("#container_uid").attr("required", true);
 
 	$("#movement{$moduleParent}Form").submit(function (event ) {
 		var uid = $("#uid").val();
@@ -84,20 +84,22 @@ var type_movement = "{$data.movement_type_id}";
 	 $("#container_uid").change(function () {
 			var url = "containerGetFromUid";
 			var uid = $(this).val();
-			$.getJSON ( url, { "uid":uid } , function( data ) {
-				if (data != null) {
-				var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " ("+data.object_status_name + ")</option>";
-				$("#container_id").val(data.container_id);
-				$("#containers").html(options);
-				}
-			/**
-			 * Generate the grid of occupation of container
-			 */
-			 if (uid > 0) {
-				getOccupation(uid);
-				isSlotFull();
+			if (Number.isInteger(uid)) {
+				$.getJSON ( url, { "uid":uid } , function( data ) {
+					if (data != null) {
+						var options = '<option value="' + data.container_id + '" selected>' + data.uid + " " + data.identifier + " ("+data.object_status_name + ")</option>";
+						$("#container_id").val(data.container_id);
+						$("#containers").html(options);
+					}
+					/**
+					 * Generate the grid of occupation of container
+					 */
+					if (uid > 0) {
+						getOccupation(uid);
+						isSlotFull();
+					}
+				});
 			}
-		});
 	 });
 	 function getOccupation(uid) {
 		var url = "containerGetOccupation";

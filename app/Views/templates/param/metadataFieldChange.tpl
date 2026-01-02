@@ -94,7 +94,7 @@
         </label>
         <div class="col-md-8">
             <input id="name" type="text" class="form-control" name="name" value="{$data.name}" pattern="[a-z0-9_]*" 
-            title="{t}Uniquement des minuscules, des chiffres, ou le caractère _{/t}"
+            title="{t}Uniquement des minuscules (sans accents), des chiffres, ou le caractère _{/t}"
             required>
         </div>
     </div>

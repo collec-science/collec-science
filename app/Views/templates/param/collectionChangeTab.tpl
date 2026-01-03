@@ -104,6 +104,14 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="collection_description" class="control-label col-md-4">
+                            {t}Description de la collection :{/t}
+                        </label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" name="collection_description" id="collection_description">{$data.collection_description}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="collectionDisplayname" class="control-label col-md-4">
                             {t}Mots clés, séparés par une virgule :{/t}
                         </label>

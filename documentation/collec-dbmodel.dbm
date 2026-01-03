@@ -3,9 +3,9 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.2.2" use-changelog="false" author="Éric Quinton" max-obj-count="78"
+<dbmodel pgmodeler-ver="1.2.2" use-changelog="false" author="Éric Quinton" max-obj-count="79"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="296,607" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
+	 last-position="-6,407" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
 	 default-schema="col" default-owner="collec"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -409,7 +409,7 @@ Congélateur;2]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="document" layers="0" collapse-mode="1" max-obj-count="18" z-value="0">
+<table name="document" layers="0" collapse-mode="1" max-obj-count="19" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Numeric docs associated to an objet or a campaign]]> </comment>
@@ -469,9 +469,13 @@ Congélateur;2]]>
 
 	<customidxs object-type="column">
 		<object name="campaign_id" index="13"/>
+		<object name="collection_id" index="15"/>
+		<object name="event_id" index="14"/>
 	</customidxs>
 	<customidxs object-type="constraint">
 		<object name="campaign_fk" index="3"/>
+		<object name="collection_fk" index="5"/>
+		<object name="event_fk" index="4"/>
 	</customidxs></table>
 
 <sequence name="event_event_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
@@ -707,7 +711,7 @@ Prélèvement pour analyse;true;false
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="objects"/>
-	<position x="1280" y="1060"/>
+	<position x="1280" y="1080"/>
 	<simplecol name="document_id" type="integer"/>
 	<simplecol name="uid" type="integer"/>
 	<definition> <![CDATA[SELECT d.document_id,
@@ -901,7 +905,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of types of status]]> </comment>
 	<tag name="objects"/>
-	<position x="1680" y="1060"/>
+	<position x="1680" y="1080"/>
 	<column name="object_status_id" not-null="true" sequence="col.object_status_object_status_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1005,7 +1009,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<table name="collection" layers="0" collapse-mode="1" max-obj-count="20" z-value="0">
+<table name="collection" layers="0" collapse-mode="1" max-obj-count="21" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[List of all collections into the database]]> </comment>
@@ -1071,6 +1075,10 @@ Autre]]>
 	<column name="event_due_delay" default-value="0">
 		<type name="smallint" length="0"/>
 		<comment> <![CDATA[Number of days before the due date of an event to notify this due date. 0: no notification]]> </comment>
+	</column>
+	<column name="collection_description">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Description of the collection]]> </comment>
 	</column>
 	<constraint name="project_pk" type="pk-constr" table="col.collection">
 		<columns names="collection_id" ref-type="src-columns"/>
@@ -1311,7 +1319,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of sampling places]]> </comment>
 	<tag name="collection"/>
-	<position x="20" y="1060"/>
+	<position x="20" y="1080"/>
 	<column name="sampling_place_id" not-null="true" sequence="col.sampling_place_sampling_place_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -1974,7 +1982,7 @@ Autre]]>
 	<role name="collec"/>
 	<comment> <![CDATA[List of borrowings]]> </comment>
 	<tag name="objects"/>
-	<position x="2100" y="1060"/>
+	<position x="2100" y="1080"/>
 	<column name="borrowing_id" not-null="true" sequence="col.borrowing_borrowing_id_seq">
 		<type name="integer" length="0"/>
 	</column>
@@ -2021,7 +2029,7 @@ Autre]]>
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="objects"/>
-	<position x="2520" y="1060"/>
+	<position x="2520" y="1080"/>
 	<simplecol name="borrowing_id" type="integer"/>
 	<simplecol name="uid" type="integer"/>
 	<simplecol name="borrowing_date" type="timestamp"/>
@@ -2298,7 +2306,7 @@ Structure:
 	<role name="collec"/>
 </sequence>
 
-<table name="campaign" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
+<table name="campaign" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[List of sampling campaigns]]> </comment>
@@ -2322,6 +2330,10 @@ Structure:
 	<column name="uuid" not-null="true" default-value="gen_random_uuid()">
 		<type name="uuid" length="0"/>
 		<comment> <![CDATA[UUID of the campaign]]> </comment>
+	</column>
+	<column name="campaign_description">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Description of the campaign]]> </comment>
 	</column>
 	<constraint name="campaign_pk" type="pk-constr" table="col.campaign">
 		<columns names="campaign_id" ref-type="src-columns"/>
@@ -2413,7 +2425,7 @@ Structure:
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 fk-idx-pattern="{st}_idx"
-	 custom-color="#f57900"
+	 custom-color="#20486f"
 	 src-table="col.campaign"
 	 dst-table="col.sample"
 	 src-required="false" dst-required="false"/>
@@ -2642,7 +2654,7 @@ Structure:
 	<role name="collec"/>
 	<comment> <![CDATA[List of formats of export]]> </comment>
 	<tag name="export"/>
-	<position x="2920" y="1060"/>
+	<position x="2920" y="1080"/>
 	<column name="export_format_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -2774,7 +2786,7 @@ Structure:
 	<role name="collec"/>
 	<comment> <![CDATA[Table of translator of values]]> </comment>
 	<tag name="export"/>
-	<position x="3260" y="1060"/>
+	<position x="3260" y="1080"/>
 	<column name="translator_id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -3333,7 +3345,7 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 fk-idx-pattern="{st}_idx"
-	 custom-color="#f57900"
+	 custom-color="#20486f"
 	 src-table="col.country"
 	 dst-table="col.sample"
 	 src-required="false" dst-required="false"
@@ -3367,7 +3379,7 @@ from col.sample s;;]]> </definition>
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_uq"
 	 fk-idx-pattern="{st}_idx"
-	 custom-color="#f57900"
+	 custom-color="#20486f"
 	 src-table="col.country"
 	 dst-table="col.sample"
 	 src-required="false" dst-required="false"
@@ -3761,6 +3773,92 @@ group by s.uid;;]]> </definition>
 	 dst-table="col.label_optical"
 	 src-required="true" dst-required="false"/>
 
+<table name="samplehisto" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<tag name="sample"/>
+	<position x="860" y="1080"/>
+	<column name="samplehisto_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="samplehisto_login">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Login of the user that made the change]]> </comment>
+	</column>
+	<column name="samplehisto_date" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="oldvalues">
+		<type name="json" length="0"/>
+		<comment> <![CDATA[Old values changed at this date, in a multiple field in json format. The value "new" says that the value is created]]> </comment>
+	</column>
+	<constraint name="samplehisto_pk" type="pk-constr" table="col.samplehisto">
+		<columns names="samplehisto_id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="sample_id" index="4"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="sample_fk" index="1"/>
+	</customidxs></table>
+
+<relationship name="sample_has_many_samplehisto" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#204a87"
+	 src-table="col.sample"
+	 dst-table="col.samplehisto"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="106.382" y="12.147"/>
+	</label>
+</relationship>
+
+<relationship name="collection_has_many_document" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#f57900"
+	 src-table="col.collection"
+	 dst-table="col.document"
+	 src-required="false" dst-required="false"/>
+
+<index name="collection_id_idx" table="col.document"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="collection_id"/>
+		</idxelement>
+</index>
+
+<index name="campaign_id_idx" table="col.document"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="campaign_id"/>
+		</idxelement>
+</index>
+
+<index name="event_id_dx" table="col.document"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="event_id"/>
+		</idxelement>
+</index>
+
+<index name="sample_id_idx" table="col.samplehisto"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="sample_id"/>
+		</idxelement>
+</index>
+
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
 	<columns names="uid" ref-type="src-columns"/>
@@ -4038,21 +4136,25 @@ group by s.uid;;]]> </definition>
 </constraint>
 
 <relationship name="rel_booking_object" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.booking"
 	 dst-table="col.object" reference-fk="object_booking_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_collection_group_aclgroup" type="relfk" layers="0"
+	 custom-color="#f57900"
 	 src-table="col.collection_group"
 	 dst-table="gacl.aclgroup" reference-fk="group_projet_aclgroup_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_collection_group_collection" type="relfk" layers="0"
+	 custom-color="#f57900"
 	 src-table="col.collection_group"
 	 dst-table="col.collection" reference-fk="project_projet_group_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_container_container_type" type="relfk" layers="0"
+	 custom-color="#c17d11"
 	 src-table="col.container"
 	 dst-table="col.container_type" reference-fk="container_type_container_fk"
 	 src-required="false" dst-required="true"/>
@@ -4063,6 +4165,7 @@ group by s.uid;;]]> </definition>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_container_type_container_family" type="relfk" layers="0"
+	 custom-color="#c17d11"
 	 src-table="col.container_type"
 	 dst-table="col.container_family" reference-fk="container_family_container_type_fk"
 	 src-required="false" dst-required="true"/>
@@ -4074,26 +4177,35 @@ group by s.uid;;]]> </definition>
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_container_type_storage_condition" type="relfk" layers="0"
+	 custom-color="#c17d11"
 	 src-table="col.container_type"
 	 dst-table="col.storage_condition" reference-fk="storage_condition_container_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_document_mime_type" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.document"
 	 dst-table="col.mime_type" reference-fk="mime_type_document_fk"
-	 src-required="false" dst-required="true"/>
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <relationship name="rel_document_object" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.document"
 	 dst-table="col.object" reference-fk="object_document_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_event_event_type" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.event"
 	 dst-table="col.event_type" reference-fk="event_type_event_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_event_object" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.event"
 	 dst-table="col.object" reference-fk="object_event_fk"
 	 src-required="false" dst-required="true"/>
@@ -4105,41 +4217,53 @@ group by s.uid;;]]> </definition>
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_object_identifier_identifier_type" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.object_identifier"
 	 dst-table="col.identifier_type" reference-fk="identifier_type_object_identifier_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_object_identifier_object" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.object_identifier"
 	 dst-table="col.object" reference-fk="object_object_identifier_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_operation_protocol" type="relfk" layers="0"
+	 custom-color="#f57900"
 	 src-table="col.operation"
 	 dst-table="col.protocol" reference-fk="protocol_operation_fk"
-	 src-required="false" dst-required="true"/>
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <relationship name="rel_collection_referent" type="relfk" layers="0"
+	 custom-color="#f57900"
 	 src-table="col.collection"
 	 dst-table="col.referent" reference-fk="referent_collection_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_protocol_collection" type="relfk" layers="0"
+	 custom-color="#f57900"
 	 src-table="col.protocol"
 	 dst-table="col.collection" reference-fk="project_protocol_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sample_object" type="relfk" layers="0"
+	 custom-color="#20486f"
 	 src-table="col.sample"
 	 dst-table="col.object" reference-fk="object_sample_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_sample_collection" type="relfk" layers="0"
+	 custom-color="#20486f"
 	 src-table="col.sample"
 	 dst-table="col.collection" reference-fk="project_sample_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_sample_sample" type="relfk" layers="0"
+	 custom-color="#20486f"
 	 src-table="col.sample"
 	 dst-table="col.sample" reference-fk="sample_sample_fk"
 	 src-required="false" dst-required="false">
@@ -4151,41 +4275,53 @@ group by s.uid;;]]> </definition>
 </relationship>
 
 <relationship name="rel_sample_sample_type" type="relfk" layers="0"
+	 custom-color="#204a87"
 	 src-table="col.sample"
 	 dst-table="col.sample_type" reference-fk="sample_type_sample_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_sample_sampling_place" type="relfk" layers="0"
+	 custom-color="#20486f"
 	 src-table="col.sample"
 	 dst-table="col.sampling_place" reference-fk="sampling_place_sample_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sample_type_container_type" type="relfk" layers="0"
+	 custom-color="#204a87"
 	 src-table="col.sample_type"
 	 dst-table="col.container_type" reference-fk="container_type_sample_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sample_type_metadata" type="relfk" layers="0"
+	 custom-color="#204a87"
 	 src-table="col.sample_type"
 	 dst-table="col.metadata" reference-fk="metadata_sample_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sample_type_multiple_type" type="relfk" layers="0"
+	 custom-color="#204a87"
 	 src-table="col.sample_type"
 	 dst-table="col.multiple_type" reference-fk="multiple_type_sample_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sample_type_operation" type="relfk" layers="0"
+	 custom-color="#204a87"
 	 src-table="col.sample_type"
 	 dst-table="col.operation" reference-fk="operation_sample_type_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_sampling_place_collection" type="relfk" layers="0"
+	 custom-color="#f57900"
 	 src-table="col.sampling_place"
 	 dst-table="col.collection" reference-fk="collection_sampling_place_fk"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <relationship name="rel_movement_container" type="relfk" layers="0"
+	 custom-color="#c17d11"
 	 src-table="col.movement"
 	 dst-table="col.container" reference-fk="container_storage_fk"
 	 src-required="false" dst-required="false"/>
@@ -4196,6 +4332,7 @@ group by s.uid;;]]> </definition>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_movement_object" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.movement"
 	 dst-table="col.object" reference-fk="object_storage_fk"
 	 src-required="false" dst-required="true"/>
@@ -4216,21 +4353,25 @@ group by s.uid;;]]> </definition>
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_aclacl_aclaco" type="relfk" layers="0"
+	 custom-color="#ef2929"
 	 src-table="gacl.aclacl"
 	 dst-table="gacl.aclaco" reference-fk="aclaco_aclacl_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_aclacl_aclgroup" type="relfk" layers="0"
+	 custom-color="#ef2929"
 	 src-table="gacl.aclacl"
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_aclacl_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_aclaco_aclappli" type="relfk" layers="0"
+	 custom-color="#ef2929"
 	 src-table="gacl.aclaco"
 	 dst-table="gacl.aclappli" reference-fk="aclappli_aclaco_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_aclgroup_aclgroup" type="relfk" layers="0"
+	 custom-color="#ef2929"
 	 src-table="gacl.aclgroup"
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_aclgroup_fk"
 	 src-required="false" dst-required="false">
@@ -4242,26 +4383,31 @@ group by s.uid;;]]> </definition>
 </relationship>
 
 <relationship name="rel_acllogingroup_aclgroup" type="relfk" layers="0"
+	 custom-color="#ef2929"
 	 src-table="gacl.acllogingroup"
 	 dst-table="gacl.aclgroup" reference-fk="aclgroup_acllogingroup_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_acllogingroup_acllogin" type="relfk" layers="0"
+	 custom-color="#ef2929"
 	 src-table="gacl.acllogingroup"
 	 dst-table="gacl.acllogin" reference-fk="acllogin_acllogingroup_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_passwordlost_logingestion" type="relfk" layers="0"
+	 custom-color="#ef2929"
 	 src-table="gacl.passwordlost"
 	 dst-table="gacl.logingestion" reference-fk="logingestion_passwordlost_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_borrowing_object" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.borrowing"
 	 dst-table="col.object" reference-fk="object_fk"
 	 src-required="false" dst-required="true"/>
 
 <relationship name="rel_borrowing_borrower" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.borrowing"
 	 dst-table="col.borrower" reference-fk="borrower_fk"
 	 src-required="false" dst-required="true"/>
@@ -4272,11 +4418,13 @@ group by s.uid;;]]> </definition>
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_object_referent" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.object"
 	 dst-table="col.referent" reference-fk="referent_object_fk"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_object_movement" type="relfk" layers="0"
+	 custom-color="#55aa00"
 	 src-table="col.object"
 	 dst-table="col.movement" reference-fk="object_last_movement_id_fk"
 	 src-required="false" dst-required="false"/>

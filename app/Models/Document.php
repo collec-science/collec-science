@@ -80,7 +80,8 @@ class Document extends PpciModel
             "uuid" => array("type" => 0),
             "external_storage" => array("type" => 1),
             "external_storage_path" => array("type" => 0),
-            "event_id" => array("type" => 1)
+            "event_id" => array("type" => 1),
+            "collection_id" => ["type" => 1]
         );
         parent::__construct();
     }

@@ -9,11 +9,16 @@
 		<table id="collectionList" class="table table-bordered table-hover datatable-searching display">
 			<thead>
 				<tr>
-					<th colspan="15">{t}Informations générales{/t}</th>
+					<th colspan="16">{t}Informations générales{/t}</th>
 					<th colspan="2" class="center">{t}Flux externes autorisés{/t}</th>
 					<th colspan="4">{t}Notifications{/t}</th>
 				</tr>
 				<tr>
+					{if $rights.param == 1}
+					<th class="center">
+						<img src="display/images/edit.gif" height="25">
+					</th>
+					{/if}
 					<th>{t}Nom de la collection{/t}</th>
 					<th>{t}Id{/t}</th>
 					<th>{t}Nom public{/t}</th>
@@ -35,20 +40,22 @@
 					<th>{t}Mails de notification{/t}</th>
 					<th>{t}Nbre de jours avant l'expiration des échantillons{/t}</th>
 					<th>{t}Nbre de jours avant la date d'échéance des événements{/t}</th>
-
 				</tr>
 			</thead>
 			<tbody>
 				{section name=lst loop=$data}
 				<tr>
-					<td>
-						{if $rights.param == 1}
+					{if $rights.param == 1}
+					<td class="center">
 						<a href="collectionChange?collection_id={$data[lst].collection_id}">
+							<img src="display/images/edit.gif" height="25">
+						</a>
+					</td>
+					{/if}
+					<td>
+						<a href="collectionDisplay?collection_id={$data[lst].collection_id}">
 							{$data[lst].collection_name}
 						</a>
-						{else}
-						{$data[lst].collection_name}
-						{/if}
 					</td>
 					<td class="center">{$data[lst].collection_id}</td>
 					<td>{$data[lst].collection_displayname}</td>

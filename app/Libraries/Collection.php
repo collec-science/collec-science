@@ -69,7 +69,11 @@ class Collection extends PpciLibrary
     function display()
     {
         $this->vue = service('Smarty');
-        $this->dataRead($this->id, "param/collectionDisplay.tpl");
+        $this->vue->set( "param/collectionDisplay.tpl", "corps");
+        $this->vue->set($this->dataclass->getDetail($this->id), "data");
+        $this->vue->set($this->dataclass->getSampletypesFromCollection($this->id),"sampletypes");
+        $this->vue->set($this->dataclass->getEventtypesFromCollection($this->id),"eventtypes");
+        $this->vue->set($this->dataclass->getGroupsFromCollection($this->id), "groups");
         /**
          * Documents
          */

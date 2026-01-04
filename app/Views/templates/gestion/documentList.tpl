@@ -104,7 +104,7 @@
 			{if $rights["manage"] == 1 && $modifiable == 1}
 			<td>
 				<div class="center">
-					<a href="{$moduleParent}documentDelete?document_id={$dataDoc[lst].document_id}&uid={$data.uid}&campaign_id={$data.campaign_id}&event_id={$data.event_id}&activeTab=tab-document"
+					<a href="{$moduleParent}documentDelete?document_id={$dataDoc[lst].document_id}&uid={$data.uid}&campaign_id={$data.campaign_id}&event_id={$data.event_id}&collection_id={$data.collection_id}&activeTab=tab-document"
 						onclick="return confirm('{t}Confirmez-vous la suppression ?{/t}');">
 						<img src="display/images/corbeille.png" height="20">
 					</a>

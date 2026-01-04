@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Libraries\Campaign;
+use App\Libraries\Collection;
 use App\Libraries\Container;
 use \Ppci\Controllers\PpciController;
 use App\Libraries\Document as LibrariesDocument;
@@ -55,6 +56,8 @@ class Document extends PpciController
         } elseif ($origin == "containerevent") {
             $lib = new Event;
             $isEvent = true;
+        } elseif ($origin == "collection") {
+            $lib = new Collection;
         }
         if ($isEvent) {
             if ($res) {

@@ -112,7 +112,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="collectionDisplayname" class="control-label col-md-4">
+                        <label for="collectionKeywords" class="control-label col-md-4">
                             {t}Mots clés, séparés par une virgule :{/t}
                         </label>
                         <div class="col-md-8">

@@ -100,6 +100,22 @@ class Collection extends PpciModel
         return $this->getListeParam($sql);
     }
 
+    function getDetail(int $collection_id):array {
+        $sql = "select collection_id, collection_name, referent_name,
+                allowed_import_flow, allowed_export_flow, public_collection
+                ,collection_keywords,collection_displayname
+                ,license_id, license_name, license_url, no_localization
+                ,external_storage_enabled, external_storage_root
+                ,notification_enabled, notification_mails, expiration_delay, event_due_delay
+                ,sample_name_unique
+                ,collection_description
+                from collection
+                left outer join referent using (referent_id)
+                left outer join license using (license_id)
+                where collection_id = :id:";
+                return $this->readParam($sql, ["id"=>$collection_id]);
+    } 
+
     /**
      * Retourne la liste des collections autorises pour un login
      *

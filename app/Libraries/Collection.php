@@ -3,6 +3,7 @@
 namespace App\Libraries;
 
 use App\Models\Collection as ModelsCollection;
+use App\Models\Document;
 use App\Models\Event;
 use App\Models\License;
 use App\Models\Referent;
@@ -20,7 +21,7 @@ class Collection extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
 
     function __construct()
     {
@@ -45,11 +46,6 @@ class Collection extends PpciLibrary
     function change()
     {
         $this->vue = service('Smarty');
-        /***
-         * open the form to modify the record
-         * If is a new record, generate a new record with default value :
-         * $_REQUEST["idParent"] contains the identifiant of the parent record
-         */
         $this->dataRead($this->id, "param/collectionChangeTab.tpl");
         /**
          * Recuperation des groupes
@@ -68,6 +64,23 @@ class Collection extends PpciLibrary
         $license = new License();
         $this->vue->set($license->getListe(2), "licenses");
         $this->vue->help(_("parametres/les-collections.html"));
+        return $this->vue->send();
+    }
+    function display()
+    {
+        $this->vue = service('Smarty');
+        $this->dataRead($this->id, "param/collectionDisplay.tpl");
+        /**
+         * Documents
+         */
+        $document = new Document;
+        $this->vue->set($document->getListFromField("collection_id", $this->id), "dataDoc");
+        $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
+        if ($_SESSION["userRights"]["param"] == 1) {
+            $this->vue->set(1, "modifiable");
+        }
+        $this->vue->set("collection", "moduleParent");
+        $this->vue->set("collection_id", "parentKeyName");
         return $this->vue->send();
     }
     function write()

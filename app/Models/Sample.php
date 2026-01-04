@@ -16,9 +16,9 @@ class Sample extends PpciModel
 {
 
     private $sql = "select distinct on (s.uid) s.sample_id, s.uid,
-					s.collection_id, collection_name, no_localization, s.sample_type_id, s.dbuid_origin,
+					s.collection_id, collection_name, collection_description, no_localization, s.sample_type_id, s.dbuid_origin,
                     sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
-                    s.campaign_id, campaign_name,camp.uuid as campaign_uuid,
+                    s.campaign_id, campaign_name,camp.uuid as campaign_uuid, campaign_description,
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
           so.identifier,

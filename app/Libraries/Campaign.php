@@ -137,7 +137,8 @@ class Campaign extends PpciLibrary
                         "campaign_to",
                         "referent_name",
                         "referent_firstname",
-                        "uuid"
+                        "uuid",
+                        "campaign_description"
                     )
                 );
                 $rows = $import->getContentAsArray();

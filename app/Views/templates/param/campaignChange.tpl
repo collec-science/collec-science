@@ -23,6 +23,14 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="campaign_description" class="control-label col-md-4">
+                    {t}Description de la campagne :{/t}
+                </label>
+                <div class="col-md-8">
+                    <textarea class="form-control" name="campaign_description" id="campaign_description">{$data.campaign_description}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="referent_id" class="control-label col-md-4">
                     {t}Responsable ou référent de la campagne :{/t}
                 </label>

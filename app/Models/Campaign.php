@@ -11,7 +11,7 @@ use Ppci\Models\PpciModel;
 class Campaign extends PpciModel
 {
     private $sql = "select campaign_id, campaign_name, campaign_from, campaign_to,
-                    referent_id, referent_name, referent_firstname, uuid
+                    referent_id, referent_name, referent_firstname, uuid, campaign_description
                     from campaign
                     left outer join referent using (referent_id)";
     private ModelsDocument $document;
@@ -42,7 +42,8 @@ class Campaign extends PpciModel
             ),
             "campaign_from" => array("type" => 2),
             "campaign_to" => array("type" => 2),
-            "uuid" => array("type" => 0, "default" => "getUUID")
+            "uuid" => array("type" => 0),
+            "campaign_description" => ["type" => 0]
         );
         parent::__construct();
     }

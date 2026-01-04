@@ -590,7 +590,7 @@
 				{/if}
 				<dl class="dl-horizontal">
 					<dt>{t}Collection :{/t}</dt>
-					<dd>{$data.collection_name}</dd>
+					<dd title="{$data.collection_description}">{$data.collection_name}</dd>
 				</dl>
 				<dl class="dl-horizontal">
 					<dt class="lexical" data-lexical="referent">{t}Référent :{/t}</dt>
@@ -692,7 +692,7 @@
 				{if $data.campaign_id > 0}
 				<dl class="dl-horizontal">
 					<dt>{t}Campagne de prélèvement :{/t}</dt>
-					<dd><a href="campaignDisplay?campaign_id={$data.campaign_id}">
+					<dd title="{$data.campaign_description}"><a href="campaignDisplay?campaign_id={$data.campaign_id}">
 						{$data.campaign_name}
 					</a>
 					</dd>

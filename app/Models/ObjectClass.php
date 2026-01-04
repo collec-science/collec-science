@@ -76,7 +76,7 @@ class ObjectClass extends PpciModel
             ),
             "referent_id" => array("type" => 1),
             "change_date" => array("type" => 3),
-            "uuid" => array("type" => 0, "default" => "getUUID"),
+            "uuid" => array("type" => 0),
             "trashed" => array("type" => 1, "default" => 0),
             "location_accuracy" => array("type" => 1),
             "geom" => array("type" => 4),

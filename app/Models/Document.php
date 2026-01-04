@@ -77,7 +77,7 @@ class Document extends PpciModel
                 "type" => 2,
                 "defaultValue" => $this->getDateJour()
             ),
-            "uuid" => array("type" => 0, "default" => "getUUID"),
+            "uuid" => array("type" => 0),
             "external_storage" => array("type" => 1),
             "external_storage_path" => array("type" => 0),
             "event_id" => array("type" => 1)

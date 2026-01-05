@@ -521,7 +521,7 @@
 				{if $data.collection_id > 0}
 					<dl class="dl-horizontal">
 						<dt class="lexical" data-lexical="collection">{t}Collection de rattachement :{/t}</dt>
-						<dd>{$data.collection_name}</dd>
+						<dd title="{$data.collection_description}">{$data.collection_name}</dd>
 					</dl>
 				{/if}
 				<dl class="dl-horizontal">

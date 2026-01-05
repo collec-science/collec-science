@@ -590,7 +590,7 @@
 								row += "<span title='{t}UID de la base de données d'origine{/t}''>" + samples[lst].dbuid_origin + '</span>';
 							}
 							row += '</td>';
-							row += '<td class="nowrap">'+samples[lst].collection_name+'</td>';
+							row += '<td class="nowrap" title="'+samples[lst].collection_description+'">'+samples[lst].collection_name+'</td>';
 							row += '<td class="nowrap">'+samples[lst].sample_type_name+'</td>';
 							row += '<td';
 							if (samples[lst].trashed=='t') {
@@ -635,7 +635,7 @@
 							row += '</td>';
 							row += '<td class="nowrap">' + samples[lst].storage_condition_name + '</td>';
 							row += '<td class="nowrap">'+samples[lst].referent_name + ' ' + samples[lst].referent_firstname + '</td>';
-							row += '<td class="nowrap">'+samples[lst].campaign_name + '</td>';
+							row += '<td class="nowrap" title="'+samples[lst].campaign_description+'">'+samples[lst].campaign_name + '</td>';
 							row += '<td class="nowrap">'+samples[lst].sampling_place_name+'</td>';
 							row += '<td class="nowrap">'+samples[lst].sampling_date+'</td>';
 							row += '<td class="nowrap">'+samples[lst].sample_creation_date+'</td>';
@@ -779,7 +779,7 @@
 								<span title="{t}UID de la base de données d'origine{/t}">{$samples[lst].dbuid_origin}</span>
 								{/if}
 							</td>
-							<td class="nowrap">{$samples[lst].collection_name}</td>
+							<td class="nowrap" title="{$samples[lst].collection_description}">{$samples[lst].collection_name}</td>
 							<td class="nowrap">{$samples[lst].sample_type_name}</td>
 							<td {if $samples[lst].trashed=='t'}class="trashed" title="{t}Échantillon mis à la corbeille{/t}" {/if}>
 								{$samples[lst].object_status_name}</td>
@@ -823,7 +823,7 @@
 							</td>
 							<td>{$samples[lst].storage_condition_name}</td>
 							<td class="nowrap">{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
-							<td class="nowrap">{$samples[lst].campaign_name}</td>
+							<td class="nowrap" title="{$samples[lst].campaign_description}">{$samples[lst].campaign_name}</td>
 							<td class="nowrap">{$samples[lst].sampling_place_name}</td>
 							<td class="nowrap">{$samples[lst].sampling_date}</td>
 							<td class="nowrap">{$samples[lst].sample_creation_date}</td>

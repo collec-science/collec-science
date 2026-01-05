@@ -20,7 +20,7 @@ class Container extends PpciModel
           o.referent_id, referent_name, referent_firstname, referent_email, address_name, address_line2, address_line3, address_city, address_country, referent_phone, academical_directory, academical_link,
           borrowing_date, expected_return_date, borrower_id, borrower_name,
           nb_slots_used
-          ,collection_id, collection_name
+          ,collection_id, collection_name, collection_description
 					from container c
 					join object o using (uid)
 					join container_type using (container_type_id)

@@ -399,7 +399,7 @@ $(document).ready(function () {
 								row += '<img src="documentGet?document_id='+containers[lst].document_id+'&attached=0&phototype=2" height="30"></a>';
 							}
 							row += '</td>';
-							row += '<td>'+containers[lst].collection_name + '</td>';
+							row += '<td title="'+containers[lst].collection_description+'">'+containers[lst].collection_name + '</td>';
 							row +='<td>'+containers[lst].referent_name+' ' +containers[lst].referent_firstname + '</td>' ;
 							row += '<td class="textareaDisplay">'+containers[lst].object_comment+'</td>';
 							row += '<td>'+ id + '-' + (9000000 + parseFloat(containers[lst].uid))+'</td>';
@@ -528,7 +528,7 @@ $(document).ready(function () {
 								</a>
 							{/if}
 						</td>
-						<td>{$containers[lst].collection_name}</td>
+						<td title="{$containers[lst].collection_description}">{$containers[lst].collection_name}</td>
 						<td>{$containers[lst].referent_name} {$containers[lst].referent_firstname}</td>
 						<td class="textareaDisplay">{$containers[lst].object_comment}</td>
 						<td>{$containers[lst].uid + 9000000}</td>

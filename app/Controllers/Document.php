@@ -19,6 +19,15 @@ class Document extends PpciController
     }
     function write($origin)
     {
+        if (!(
+            $origin == "collection" &&
+            ($_SESSION["userRights"]["param"] == 1 || ($_SESSION["userRights"]["collection"] == 1 && !empty($_SESSION["collections"][$_REQUEST["collection_id"]]))
+            )
+        )) {
+            $this->message->set(_("Vous ne disposez pas des droits suffisants pour cette opération"), true);
+            $lib = new Collection;
+            return $lib->display();
+        }
         return $this->returnToOrigin($origin,  $this->lib->write());
     }
     function delete($origin)

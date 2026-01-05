@@ -69,22 +69,23 @@ class Collection extends PpciLibrary
     function display()
     {
         $this->vue = service('Smarty');
-        $this->vue->set( "param/collectionDisplay.tpl", "corps");
+        $this->vue->set("param/collectionDisplay.tpl", "corps");
         $this->vue->set($this->dataclass->getDetail($this->id), "data");
-        $this->vue->set($this->dataclass->getSampletypesFromCollection($this->id),"sampletypes");
-        $this->vue->set($this->dataclass->getEventtypesFromCollection($this->id),"eventtypes");
+        $this->vue->set($this->dataclass->getSampletypesFromCollection($this->id), "sampletypes");
+        $this->vue->set($this->dataclass->getEventtypesFromCollection($this->id), "eventtypes");
         $this->vue->set($this->dataclass->getGroupsFromCollection($this->id), "groups");
         /**
          * Documents
          */
+
         $document = new Document;
         $this->vue->set($document->getListFromField("collection_id", $this->id), "dataDoc");
-        $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
-        if ($_SESSION["userRights"]["param"] == 1) {
+        if ($_SESSION["userRights"]["param"] == 1 || ($_SESSION["userRights"]["collection"] == 1 && !empty($_SESSION["collections"][$this->id]))) {
+            $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
             $this->vue->set(1, "modifiable");
-        }
-        $this->vue->set("collection", "moduleParent");
+            $this->vue->set("collection", "moduleParent");
         $this->vue->set("collection_id", "parentKeyName");
+        }
         return $this->vue->send();
     }
     function write()

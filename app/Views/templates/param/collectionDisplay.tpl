@@ -136,7 +136,7 @@
                             </fieldset>
                             <div class="row">
                                 {foreach $sampletypes as $row}
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     {$row.sample_type_name}
                                 </div>
                                 {/foreach}
@@ -147,7 +147,7 @@
                             </fieldset>
                             <div class="row">
                                 {foreach $eventtypes as $row}
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     {$row.event_type_name}
                                 </div>
                                 {/foreach}
@@ -164,7 +164,7 @@
                             <fieldset>
                                 <legend>{t}Groupes autorisés à modifier les échantillons{/t}</legend>
                                 {foreach $groups as $row}
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     {$row.groupe}
                                 </div>
                                 {/foreach}

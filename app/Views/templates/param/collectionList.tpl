@@ -6,13 +6,8 @@
 			{t}Nouveau...{/t}
 		</a>
 		{/if}
-		<table id="collectionList" class="table table-bordered table-hover datatable-searching display">
+		<table id="collectionList" class="table table-bordered table-hover datatable-searching display" data-order='[[{if $rights.param == 1}1{else}0{/if},"asc"]]'>
 			<thead>
-				<tr>
-					<th colspan="16">{t}Informations générales{/t}</th>
-					<th colspan="2" class="center">{t}Flux externes autorisés{/t}</th>
-					<th colspan="4">{t}Notifications{/t}</th>
-				</tr>
 				<tr>
 					{if $rights.param == 1}
 					<th class="center">
@@ -23,23 +18,14 @@
 					<th>{t}Id{/t}</th>
 					<th>{t}Nom public{/t}</th>
 					<th>{t}Description{/t}</th>
-					<th>{t}Mots clés{/t}</th>
 					<th>{t}Référent{/t}</th>
-					<th>{t}Groupes de login autorisés{/t}</th>
-					<th>{t}types d'échantillons rattachés{/t}</th>
-					<th>{t}Types d'événements rattachés{/t}</th>
-					<th>{t}Identifiants des échantillons uniques{/t}</th>
-					<th>{t}Collection publique{/t}</th>
-					<th>{t}Licence de diffusion{/t}</th>
-					<th>{t}Collection sans gestion de la localisation des échantillons{/t}</th>
-					<th>{t}Stockage des documents hors base de données ?{/t}</th>
-					<th>{t}Chemin d'accès{/t}</th>
-					<th>{t}Flux de mise à jour{/t}</th>
-					<th>{t}Flux de consultation{/t}</th>
+					<th>{t}Types d'échantillons rattachés ?{/t}</th>
+					<th>{t}Types d'événements rattachés ?{/t}</th>
+					<th>{t}Identifiants des échantillons uniques ?{/t}</th>
+					<th>{t}Collection publique ?{/t}</th>
+					<th>{t}Collection sans gestion de la localisation des échantillons ?{/t}</th>
+					<th>{t}API de mise à jour autorisée ?{/t}</th>
 					<th>{t}Notifications activées ?{/t}</th>
-					<th>{t}Mails de notification{/t}</th>
-					<th>{t}Nbre de jours avant l'expiration des échantillons{/t}</th>
-					<th>{t}Nbre de jours avant la date d'échéance des événements{/t}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -60,11 +46,9 @@
 					<td class="center">{$data[lst].collection_id}</td>
 					<td>{$data[lst].collection_displayname}</td>
 					<td class="textareaDisplay">{$data[lst].collection_description}</td>
-					<td>{$data[lst].collection_keywords}</td>
 					<td>{$data[lst].referent_name}</td>
-					<td>{$data[lst].groupe}</td>
-					<td>{$data[lst].sampletypes}</td>
-					<td>{$data[lst].eventtypes}</td>
+					<td class="center">{if strlen($data[lst].sampletypes) > 1}{t}oui{/t}{/if}</td>
+					<td class="center">{if strlen($data[lst].eventtypes) > 1}{t}oui{/t}{/if}</td>
 					<td class="center">
 						{if $data[lst].sample_name_unique == 't'}
 						{t}oui{/t}
@@ -75,24 +59,13 @@
 						{t}oui{/t}
 						{/if}
 					</td>
-					<td>{$data[lst].license_name}</td>
 					<td class="center">{if $data[lst].no_localization == 't'}{t}oui{/t}{/if}</td>
-					<td class="center">{if $data[lst].external_storage_enabled == 't'}{t}oui{/t}{/if}</td>
-					<td>{$data[lst].external_storage_root}</td>
 					<td class="center">
 						{if $data[lst].allowed_import_flow == 't'}
 						{t}oui{/t}
 						{/if}
 					</td>
-					<td class="center">
-						{if $data[lst].allowed_export_flow == 't'}
-						{t}oui{/t}
-						{/if}
-					</td>
 					<td class="center">{if $data[lst].notification_enabled == 't'}{t}oui{/t}{/if}</td>
-					<td>{$data[lst].notification_mails}</td>
-					<td class="center">{$data[lst].expiration_delay}</td>
-					<td class="center">{$data[lst].event_due_delay}</td>
 				</tr>
 				{/section}
 			</tbody>

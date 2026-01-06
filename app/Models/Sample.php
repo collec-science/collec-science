@@ -99,6 +99,7 @@ class Sample extends PpciModel
     public $container, $event, $country, $collection;
     public Subsample $subsample;
     public Campaign $campaign;
+    public Samplehisto $samplehisto;
 
     public function __construct()
     {
@@ -276,7 +277,13 @@ class Sample extends PpciModel
             throw new PpciException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));
         }
         if ($ok) {
-            $firstUid = $data["uid"];
+            if (!isset($this->samplehisto)) {
+                $this->samplehisto = new Samplehisto;
+            }
+            if (empty($data["uid"])) {
+                $data["uid"] = 0;
+            }
+            $this->samplehisto->initOldValues($data["uid"]);
             if (!isset($this->object)) {
                 $this->object = new ObjectClass;
             }
@@ -341,6 +348,7 @@ class Sample extends PpciModel
                             $this->subsample->ecrire($dataSubsample);
                         }
                     }
+                    
                     return $uid;
                 } else {
                     throw new PpciException(_("Un problème est survenu lors de l'écriture de l'échantillon"));

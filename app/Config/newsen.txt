@@ -2,6 +2,13 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v26.0.1 of 08/01/2026
+-----------------------------
+Bug fixes:
+- Searching for a sample by its UID no longer worked.
+- In the sample modification API, it was no longer possible to modify it if the business identifier was not provided.
+- In multi-instance mode, access to the folder containing the logs did not work and generated an error message on all pages.
+
 Version v26.0.0 of 02/01/2026
 -----------------------------
 Bug fixes:

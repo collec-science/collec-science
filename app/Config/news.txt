@@ -9,6 +9,13 @@ Nouveautés :
 - il est maintenant possible de rajouter une description à une collection, ainsi que des documents associés. La description est affichée au survol du nom de la collection dans le détail des échantillons ou des contenants et sur le panneau d'accueil avec le nombre d'échantillons par collection
 - il est maintenant possible de rajouter une description à une campagne. La description est affichée au survol du nom de la campagne dans le détail d'un échantillon
 
+Version v26.0.1 du 08/01/2026
+-----------------------------
+Corrections de bugs :
+- la recherche d'un échantillon par son UID ne fonctionnait plus
+- dans l'API de modification de l'échantillon, il n'était plus possible de le modifier si l'identifiant métier n'était pas fourni
+- en mode multi-instances, l'accès au dossier contenant les logs ne fonctionnait pas et générait un message d'erreur sur toutes les pages
+
 Version v26.0.0 du 02/01/2026
 -----------------------------
 Corrections de bugs :

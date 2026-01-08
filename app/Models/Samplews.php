@@ -97,7 +97,7 @@ class Samplews
                 }
             }
         }
-        if (empty($dataSent["identifier"])) {
+        if (empty($dataSent["identifier"]) && !$isUpdate) {
             throw new PpciException(_("L'identifiant métier doit être fourni pour pouvoir créer un nouvel échantillon"), 400);
         }
         /**

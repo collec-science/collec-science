@@ -12,12 +12,14 @@ class ErrorLogs extends PpciLibrary
 
     function __construct()
     {
-        if (isset($_SERVER["envPath"])) {
+        /*if (isset($_SERVER["envPath"])) {
             $this->path = $_SERVER["envPath"] . "/writable/logs";
         } else {
-            $ciPaths = new Paths;
-            $this->path = $ciPaths->writableDirectory . "/logs";
-        }
+           
+            
+        }*/
+        $ciPaths = new Paths;
+        $this->path = $ciPaths->writableDirectory . "/logs";
     }
 
     function getErrorFiles()

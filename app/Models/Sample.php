@@ -388,6 +388,11 @@ class Sample extends PpciModel
                 $sql = "delete from subsample where sample_id = :sample_id:";
                 $this->executeSQL($sql, array("sample_id" => $data["sample_id"]), true);
                 /**
+                 * delete from samplehisto
+                 */
+                $sql = "delete from samplehisto where sample_id = :sample_id:";
+                $this->executeSQL($sql, array("sample_id" => $data["sample_id"]), true);
+                /**
                  * suppression de l'echantillon
                  */
                 parent::supprimer($data["sample_id"]);
@@ -512,7 +517,7 @@ class Sample extends PpciModel
                 $where = "where";
                 $and = "";
                 $uidSearch = false;
-                if ( is_numeric ($param["uidsearch"]) && $param["uidsearch"] > 0) {
+                if (is_numeric($param["uidsearch"]) && $param["uidsearch"] > 0) {
                     $where .= " ( s.uid = :uid:";
                     $data["uid"] = $param["uidsearch"];
                     $uidSearch = true;
@@ -1173,7 +1178,9 @@ class Sample extends PpciModel
      */
     public function writeImport($data)
     {
-        $object = new ObjectClass();
+        if (!isset($this->object)) {
+            $this->object = new ObjectClass();
+        }
         /*
          * Ajout des informations manquantes
          */
@@ -1252,7 +1259,11 @@ class Sample extends PpciModel
                 $data["parent_sample_id"] = $dataParent["sample_id"];
             }
         }
-        $uid = $object->ecrire($data);
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
+        $this->samplehisto->initOldValues($data["uid"]);
+        $uid = $this->object->ecrire($data);
         if ($uid > 0) {
             $data["uid"] = $uid;
             /**
@@ -1263,6 +1274,10 @@ class Sample extends PpciModel
                 $data["sample_id"] = $dataOrigine["sample_id"];
             }
             parent::write($data);
+            /**
+             * write changes in historical
+             */
+            $this->samplehisto->generateHisto($data);
             return $uid;
         } else {
             throw new PpciException(_("Impossible d'écrire dans la table Object"));
@@ -1750,8 +1765,8 @@ class Sample extends PpciModel
     {
         $old = addslashes($old);
         $new = addslashes($new);
-        $sql = "UPDATE sample set metadata = replace(metadata::text,'\"".$old."\":','\"".$new."\":')::json
-                where metadata::text like '%\"".$old."\":%'";
+        $sql = "UPDATE sample set metadata = replace(metadata::text,'\"" . $old . "\":','\"" . $new . "\":')::json
+                where metadata::text like '%\"" . $old . "\":%'";
         $this->executeQuery($sql, null, true);
     }
 }

@@ -348,7 +348,10 @@ class Sample extends PpciModel
                             $this->subsample->ecrire($dataSubsample);
                         }
                     }
-                    
+                    /**
+                     * write changes in historical
+                     */
+                    $this->samplehisto->generateHisto($data);
                     return $uid;
                 } else {
                     throw new PpciException(_("Un problème est survenu lors de l'écriture de l'échantillon"));

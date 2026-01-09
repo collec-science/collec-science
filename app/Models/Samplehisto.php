@@ -58,13 +58,17 @@ class Samplehisto extends PpciModel
     function initOldValues(int $uid = 0)
     {
         if ($uid > 0) {
-            $sql = "SELECT sample_id, identifier, wgs84_x, wgs84_y, object_status_id, referent_id, uuid, trashed, 
+            $sql = "SELECT sample_id, identifier, wgs84_x, wgs84_y, object_status_id, referent_id, uuid, 
+                    case when trashed = 't' then '1' else '0' end as trashed, 
                     location_accuracy, object_comment,
                     collection_id, sample_type_id, sample_creation_date, sampling_date,parent_sample_id, multiple_value,
                     sampling_place_id, dbuid_origin, metadata, expiration_date, campaign_id, country_id, country_origin_id
                     FROM object
                     JOIN sample using (uid)
                     where uid = :uid:";
+            /*$this->datetimeFields[] = "sample_creation_date";
+            $this->datetimeFields[] = "sampling_date";
+            $this->datetimeFields[] = "expiration_date";*/
             $this->oldValues = $this->readParam($sql, ["uid" => $uid]);
         } else {
             $this->oldValues = [];
@@ -75,6 +79,14 @@ class Samplehisto extends PpciModel
     {
         if ($this->uid > 0) {
             $new = [];
+            /**
+             * Format dates in db format
+             */
+            foreach (["sample_creation_date","sampling_date","expiration_date"] as $field) {
+                if (!empty($field)) {
+                    $data[$field] = $this->formatDateTimeLocaleToDB($data[$field]);
+                }
+            }
             /**
              * general columns
              */
@@ -87,6 +99,7 @@ class Samplehisto extends PpciModel
                     }
                 }
             }
+
             /**
              * metadata columns
              */
@@ -97,28 +110,34 @@ class Samplehisto extends PpciModel
                     $oldm = [];
                 }
                 $newm = json_decode($data["metadata"], true);
+                $metadata = [];
                 foreach ($newm as $k => $v) {
                     if ($oldm[$k] != $v) {
                         if (empty($oldm[$k] && !empty($v))) {
-                            $new[$k] = "new";
+                            $metadata[$k] = "new";
                         } else {
-                            $new[$k] = $oldm[$k];
+                            $metadata[$k] = $oldm[$k];
                         }
                     }
                 }
                 /**
                  * Treatment of deletion
                  */
-                foreach ($oldm as $k=>$v) {
-                    if (!empty ($v) && !isset($newm[$k])) {
-                        $new[$k] = "deleted";
+                foreach ($oldm as $k => $v) {
+                    if (!empty($v) && !isset($newm[$k])) {
+                        $metadata[$k] = "deleted";
                     }
                 }
+                if (!empty($metadata)) {
+                    $new["metadata"] = $metadata;
+                }
             }
-            $row = $this->getDefaultValues($data["sample_id"]);
-            $row["samplehisto_login"] = $_SESSION["login"];
-            $row["oldvalues"] = json_encode($new);
-            parent::write($row);
+            if (!empty($new)) {
+                $row = $this->getDefaultValues($data["sample_id"]);
+                $row["samplehisto_login"] = $_SESSION["login"];
+                $row["oldvalues"] = json_encode($new);
+                parent::write($row);
+            }
         }
     }
 }

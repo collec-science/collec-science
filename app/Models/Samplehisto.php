@@ -21,7 +21,6 @@ class Samplehisto extends PpciModel
         "sample_type_id",
         "multiple_value",
         "referent_id",
-        "sample_creation_date",
         "sampling_date",
         "expiration_date",
         "parent_sample_id",
@@ -38,13 +37,14 @@ class Samplehisto extends PpciModel
         "trashed",
     ];
     public $header = [
+        "date",
+        "login",
         "identifier",
         "collection_name",
         "object_status_name",
         "sample_type_name",
         "multiple_value",
         "referent_name",
-        "sample_creation_date",
         "sampling_date",
         "expiration_date",
         "parent_uid",
@@ -189,7 +189,10 @@ class Samplehisto extends PpciModel
         $campaign = new Campaign;
         $country = new Country;
         $referent = new Referent;
-        $row = ["date" => date($_SESSION["date"]["maskdatelong"])];
+        $row = [
+            "date" => date($_SESSION["date"]["maskdatelong"]),
+            "login" => _("Valeurs actuelles")
+        ];
         foreach ($this->cols as $col) {
             if (!str_ends_with($col, "_id")) {
                 $row[$col] = $currentData[$col];
@@ -201,13 +204,13 @@ class Samplehisto extends PpciModel
          * Add metadata
          */
         if (!empty($currentData["metadata"])) {
-            $metadata = json_decode($currentData, true);
+            $metadata = json_decode($currentData["metadata"], true);
             foreach ($metadata as $k => $v) {
                 $row[$k] = $v;
             }
         }
         $data[] = $row;
-        $sql = "SELECT samplehisto_login, samplehisto_date, oldvalues
+        $sql = "SELECT samplehisto_login, date_trunc('second',samplehisto_date) as samplehisto_date, oldvalues
                 from samplehisto
                 where sample_id = :id:";
         $histos = $this->getListParam($sql, ["id" => $currentData["sample_id"]]);
@@ -219,8 +222,15 @@ class Samplehisto extends PpciModel
             $histodata = json_decode($histo["oldvalues"], true);
             foreach ($histodata as $k => $v) {
                 if ($v == "new") {
-                    $row[$k] = _("Donnée créée");
+                    if (array_key_exists($k, $colsRef)) {
+                        $row[$colsRef[$k]] = _("Donnée créée");
+                    } else {
+                        $row[$k] = _("Donnée créée");
+                    }
                 } else {
+                    if (in_array($k, ["sample_creation_date", "sampling_date", "expiration_date"])) {
+                        $v = $this->formatDatetimeDBversLocal($v);
+                    }
                     if (array_key_exists($k, $colsRef)) {
                         if ($k == "object_status_id") {
                             $tbcontent = $objectStatus->read($v);
@@ -263,6 +273,7 @@ class Samplehisto extends PpciModel
                     }
                 }
             }
+            $data[] = $row;
         }
         return $data;
     }

@@ -512,6 +512,7 @@
 				{t}Documents associés{/t}
 			</a>
 		</li>
+
 		{/if}
 		<li class="nav-item">
 			<a class="nav-link" id="tab-booking" href="#nav-booking" data-toggle="tab" role="tab"
@@ -526,6 +527,15 @@
 				aria-controls="nav-subsample" aria-selected="false">
 				<img src="display/images/subsample.png" height="25">
 				{t}Sous-échantillonnage{/t}
+			</a>
+		</li>
+		{/if}
+		{if $modifiable == 1 || $consultSeesAll == 1}
+		<li class="nav-item">
+			<a class="nav-link" id="tab-histo" href="#nav-histo" data-toggle="tab" role="tab"
+				aria-controls="nav-histo" aria-selected="false">
+				<img src="display/images/history.png" height="25">
+				{t}Historique des modifications{/t}
 			</a>
 		</li>
 		{/if}
@@ -847,6 +857,13 @@
 		<div class="tab-pane fade" id="nav-subsample" role="tabpanel" aria-labelledby="tab-subsample">
 			<div class="col-md-12">
 				{include file="gestion/subsampleList.tpl"}
+			</div>
+		</div>
+		{/if}
+		{if $modifiable == 1 || $consultSeesAll == 1 }
+		<div class="tab-pane fade" id="nav-histo" role="tabpanel" aria-labelledby="tab-histo">
+			<div class="col-md-12">
+				{include file="gestion/sampleHistory.tpl"}
 			</div>
 		</div>
 		{/if}

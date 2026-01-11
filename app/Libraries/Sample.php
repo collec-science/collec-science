@@ -26,6 +26,7 @@ use App\Models\ObjectStatus;
 use App\Models\Printer;
 use App\Models\Referent;
 use App\Models\Sample as ModelsSample;
+use App\Models\Samplehisto;
 use App\Models\SampleInitClass;
 use App\Models\Samplesearch;
 use App\Models\SampleType;
@@ -274,6 +275,14 @@ class Sample extends PpciLibrary
                 $this->vue->set($mimeType->getListExtensions(false), "extensions");
             }
 
+            /**
+             * Get history
+             */
+            if ($is_modifiable || $_SESSION["dbparams"]["consultSeesAll"] == 1) {
+                $sampleHisto = new Samplehisto;
+                $this->vue->set($sampleHisto->getHisto($data), "histo");
+                $this->vue->set($sampleHisto->header, "histoheader");
+            }
             /**
              * Ajout des listes complémentaires
              */

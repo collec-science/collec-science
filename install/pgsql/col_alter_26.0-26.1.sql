@@ -94,3 +94,8 @@ COMMENT ON COLUMN col.collection.collection_description IS E'Description of the 
 
 alter table col.object add column object_login varchar;
 comment on column col.object.object_login is E'Login that created the object';
+CREATE INDEX object_login_idx ON col.object
+USING btree
+(
+	object_login
+);

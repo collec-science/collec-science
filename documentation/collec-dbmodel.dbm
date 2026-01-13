@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.2" use-changelog="false" author="Éric Quinton" max-obj-count="79"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="-6,407" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
+	 last-position="-6,767" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
 	 default-schema="col" default-owner="collec"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -2221,7 +2221,7 @@ Structure:
 		</idxelement>
 </index>
 
-<table name="object" layers="0" collapse-mode="1" max-obj-count="15" z-value="0">
+<table name="object" layers="0" collapse-mode="1" max-obj-count="16" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of objects]]> </comment>
@@ -2277,6 +2277,10 @@ Structure:
 	<column name="last_movement_id">
 		<type name="integer" length="0"/>
 		<comment> <![CDATA[Last movement recorded to the object]]> </comment>
+	</column>
+	<column name="object_login">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Login that created the object]]> </comment>
 	</column>
 	<constraint name="object_pk" type="pk-constr" table="col.object">
 		<columns names="uid" ref-type="src-columns"/>

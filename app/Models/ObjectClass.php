@@ -81,7 +81,8 @@ class ObjectClass extends PpciModel
             "location_accuracy" => array("type" => 1),
             "geom" => array("type" => 4),
             "object_comment" => array("type" => 0),
-            "last_movement_id" => array("type" => 1)
+            "last_movement_id" => array("type" => 1),
+            "object_login" => array("type" => 0)
         );
         $this->srid = 4326;
         $this->appConfig = service("AppConfig");
@@ -138,6 +139,11 @@ class ObjectClass extends PpciModel
                     $this->movement->addMovement($data["uid"], date($_SESSION["date"]["maskdatelong"]), 2);
                 }
             }
+        } else {
+            /**
+             * add login for creation
+             */
+            $data["object_login"] = $_SESSION["login"];
         }
         /**
          * Generate the geom object

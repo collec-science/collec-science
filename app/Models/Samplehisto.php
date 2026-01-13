@@ -166,9 +166,6 @@ class Samplehisto extends PpciModel
     }
     function getHisto($currentData): array
     {
-        /**
-         * TODO ajouter le header du tableau
-         */
         $data = [];
         /**
          * generate the first line, with current data
@@ -207,6 +204,7 @@ class Samplehisto extends PpciModel
             $metadata = json_decode($currentData["metadata"], true);
             foreach ($metadata as $k => $v) {
                 $row[$k] = $v;
+                $this->header[] = $k;
             }
         }
         $data[] = $row;

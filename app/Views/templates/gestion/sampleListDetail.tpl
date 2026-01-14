@@ -275,7 +275,7 @@
 		 */
 		var delay = 1000, timer, ajaxDone = true;
 		$( ".sample" ).mouseenter( function () {
-			var objet = $( this );
+			var objet = $( this );			
 			timer = setTimeout( function () {
 				var uid = objet.data( "uid" );
 				if ( !objet.is( ':ui-tooltip' ) ) {
@@ -393,14 +393,16 @@
 		} ).mouseleave( function () {
 			clearTimeout( timer );
 			if($(this).is(':ui-tooltip')) {
-				$(this).tooltip("close");
+				try {
+					$(this).tooltip("close");
+				} catch {}
 			}
 		} );
 		function tooltipDisplay( object ) {
 			object.tooltip( {
 				content: tooltipContent,
 			} );
-			object.attr( "title", tooltipContent );
+			//object.attr( "title", tooltipContent );
 			object.tooltip( "open" );
 		}
 		/**
@@ -768,8 +770,8 @@
 								<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
 								{/if}
 							</td>
-							<td class="sample nowrap" data-uid="{$samples[lst].uid}" title="">
-								<a class="tooltiplink" href="sampleDisplay?uid={$samples[lst].uid}" title="">
+							<td class="nowrap"  title="">
+								<a class="tooltiplink sample" href="sampleDisplay?uid={$samples[lst].uid}" title="" data-uid="{$samples[lst].uid}">
 									{$samples[lst].identifier}
 								</a>
 							</td>

@@ -355,8 +355,8 @@ $(document).ready(function () {
 							var localId = parseFloat(9000000) + parseFloat( containers[lst].uid);
 								row += '<img class="plus hover" id="' + id + '-' + localId.toString() +'" data-uid="'+containers[lst].uid+'" src="display/images/plus.png" height="15">';
 							row += '</td>';
-							row += '<td class="container" data-uid="'+containers[lst].uid+'" title="">';
-							row += '<a class="tooltiplink"  href="containerDisplay?uid='+containers[lst].uid+'" title="">';
+							row += '<td title="">';
+							row += '<a class="tooltiplink container" data-uid="'+containers[lst].uid+'" href="containerDisplay?uid='+containers[lst].uid+'" title="">';
 							row += containers[lst].identifier;
 							row += '</a></td>';
 							row += '<td>'+containers[lst].identifiers+'</td>';	
@@ -487,8 +487,8 @@ $(document).ready(function () {
 							</a>
 						<img class="plus hover" id="{$containers[lst].uid + 9000000}" data-uid="{$containers[lst].uid}" src="display/images/plus.png" height="15">
 						</td>
-						<td class="container" data-uid="{$containers[lst].uid}" title="">
-							<a class="tooltiplink"  href="containerDisplay?uid={$containers[lst].uid}" title="">
+						<td title="">
+							<a class="tooltiplink container"  href="containerDisplay?uid={$containers[lst].uid}" data-uid="{$containers[lst].uid}" title="">
 								{$containers[lst].identifier}
 							</a>
 						</td>

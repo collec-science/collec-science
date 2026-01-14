@@ -393,8 +393,9 @@
 		<a href="sampleDisplay?uid={$data.uid}">
 			<img src="display/images/refresh.png" title="{t}Rafraîchir la page{/t}" height="15">
 		</a>
+		
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4">{$help}
 		<div class="pull-right bg-info">
 			{if $rights.manage == 1}
 			<a href="sampleChange?uid=0">

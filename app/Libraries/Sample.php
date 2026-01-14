@@ -298,6 +298,10 @@ class Sample extends PpciLibrary
                 $this->vue->set($_SESSION["dbparams"][$field], $field);
             }
         }
+        /**
+         * add help link
+         */
+        $this->vue->help(_("objets/les-échantillons.html"));
         $this->vue->set("sample", "moduleParent");
         $this->vue->set("gestion/sampleDisplay.tpl", "corps");
         return $this->vue->send();

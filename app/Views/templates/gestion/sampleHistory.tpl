@@ -2,6 +2,7 @@
     <div class="col-md-12">
         <div class="bg-info">
             {t}Les valeurs dans le tableau sont celles qui existaient auparavant et qui ont été modifiées à la date indiquée, et non les valeurs saisies ce jour-là.{/t}
+            {t}Les métadonnées sont en fin de tableau, après la colonne trashed.{/t}
             <br>
             {t}L'échantillon a été créé le {/t}{$data.sample_creation_date}
             {if strlen($data.object_login) > 0}{t} par le compte {/t}{$data.object_login}{/if}

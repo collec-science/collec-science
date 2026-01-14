@@ -166,6 +166,7 @@ class Samplehisto extends PpciModel
     }
     function getHisto($currentData): array
     {
+        //date_default_timezone_set('Europe/Paris');
         $data = [];
         /**
          * generate the first line, with current data
@@ -175,6 +176,7 @@ class Samplehisto extends PpciModel
             "referent_id" => "referent_name",
             "collection_id" => "collection_name",
             "parent_sample_id" => "parent_uid",
+            "sample_type_id" => "sample_type_name",
             "sampling_place_id" => "sampling_place_name",
             "campaign_id" => "campaign_name",
             "country_id" => "country_name",

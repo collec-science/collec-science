@@ -3,11 +3,13 @@ Nouveautés
 Version v26.1.0 du
 -----------------------------
 Corrections de bugs :
+- depuis la liste des échantillons, les boites d'information avaient tendance à rester ouvertes
 
 Nouveautés :
 - l'affichage des collections a été restructuré, avec une fiche détail
 - il est maintenant possible de rajouter une description à une collection, ainsi que des documents associés. La description est affichée au survol du nom de la collection dans le détail des échantillons ou des contenants et sur le panneau d'accueil avec le nombre d'échantillons par collection
 - il est maintenant possible de rajouter une description à une campagne. La description est affichée au survol du nom de la campagne dans le détail d'un échantillon
+- les modifications apportées aux échantillons sont maintenant tracées
 
 Version v26.0.1 du 08/01/2026
 -----------------------------

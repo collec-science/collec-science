@@ -16,6 +16,7 @@ class Samplehisto extends PpciModel
     public int $uid = 0;
     private array $cols = [
         "identifier",
+        "identifiers",
         "collection_id",
         "object_status_id",
         "sample_type_id",
@@ -40,6 +41,7 @@ class Samplehisto extends PpciModel
         "date",
         "login",
         "identifier",
+        "identifiers",
         "collection_name",
         "object_status_name",
         "sample_type_name",
@@ -90,10 +92,12 @@ class Samplehisto extends PpciModel
                     FROM object
                     JOIN sample using (uid)
                     where uid = :uid:";
-            /*$this->datetimeFields[] = "sample_creation_date";
-            $this->datetimeFields[] = "sampling_date";
-            $this->datetimeFields[] = "expiration_date";*/
             $this->oldValues = $this->readParam($sql, ["uid" => $uid]);
+            /**
+             * Get secondary identifiers
+             */
+            $identifier = new ObjectIdentifier;
+            $this->oldValues["identifiers"] = $identifier->getIdentifiers($uid);
         } else {
             $this->oldValues = [];
         }
@@ -107,7 +111,7 @@ class Samplehisto extends PpciModel
              * Format dates in db format
              */
             foreach (["sample_creation_date", "sampling_date", "expiration_date"] as $field) {
-                if (!empty($field)) {
+                if (!empty($data[$field])) {
                     $data[$field] = $this->formatDateTimeLocaleToDB($data[$field]);
                 }
             }
@@ -123,7 +127,18 @@ class Samplehisto extends PpciModel
                     }
                 }
             }
-
+            /**
+             * Secundary identifiers
+             */
+            $identifier = new ObjectIdentifier;
+            $ids = $identifier->getIdentifiers($this->uid);
+            if ($ids != $this->oldValues["identifiers"]) {
+                if (empty($this->oldValues["identifiers"])) {
+                    $new["identifiers"] = "new";
+                } else {
+                    $new["identifiers"] =$this->oldValues["identifiers"];
+                }
+            }
             /**
              * metadata columns
              */
@@ -157,13 +172,28 @@ class Samplehisto extends PpciModel
                 }
             }
             if (!empty($new)) {
-                $row = $this->getDefaultValues($data["sample_id"]);
-                $row["samplehisto_login"] = $_SESSION["login"];
-                $row["oldvalues"] = json_encode($new);
-                parent::write($row);
+                if (empty($data["sample_id"])) {
+                    $sql = "select sample_id from sample where uid = :uid:";
+                    $res = $this->readParam($sql, ["uid" => $this->uid]);
+                    $data["sample_id"] = $res["sample_id"];
+                }
+                if (!empty($data["sample_id"])) {
+                    $row = $this->getDefaultValues($data["sample_id"]);
+                    $row["samplehisto_login"] = $_SESSION["login"];
+                    $row["oldvalues"] = json_encode($new);
+                    parent::write($row);
+                }
             }
         }
     }
+
+    /**
+     * Method getHisto: get the content of history from a sample
+     *
+     * @param array $currentData 
+     *
+     * @return array
+     */
     function getHisto($currentData): array
     {
         //date_default_timezone_set('Europe/Paris');
@@ -209,6 +239,11 @@ class Samplehisto extends PpciModel
                 $this->header[] = $k;
             }
         }
+        /**
+         * Add secondary identifiers
+         */
+        $objectIdentifier = new ObjectIdentifier;
+        $row["identifiers"] = $objectIdentifier->getIdentifiers($currentData["uid"]);
         $data[] = $row;
         $sql = "SELECT samplehisto_login, date_trunc('second',samplehisto_date) as samplehisto_date, oldvalues
                 from samplehisto

@@ -30,6 +30,7 @@ FRONT_DIR = "${BASE_DIR}/public"
 
 # directory to store temp files and sessions
 TEMP = "${BASE_DIR}/writable/temp"
+#TEMP for multinstance
 app.APP_temp = "${TEMP}"
 session.savePath = "{$TEMP}/sessions"
 

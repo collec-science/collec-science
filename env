@@ -28,8 +28,10 @@ app.baseURL = 'https://collec.mysociety.com'
 BASE_DIR = "/var/www/collec2App/collec-science"
 FRONT_DIR = "${BASE_DIR}/public"
 
-# folder of temporary storage
-# app.APP_temp = "${BASE_DIR}/writable/temp"
+# directory to store temp files and sessions
+TEMP = "${BASE_DIR}/writable/temp"
+app.APP_temp = "${TEMP}"
+session.savePath = "{$TEMP}/sessions"
 
 # Duration of conservation of logs in table gacl.log
 # logDuration = 365

@@ -5,8 +5,7 @@ namespace Ppci\Libraries;
 use Config\App;
 use \Ppci\Models\Log;
 use \Ppci\Libraries\PpciException;
-use \Ppci\Models\Dbversion;
-use App\Libraries\BeforeSession;
+
 
 class PpciInit
 {
@@ -15,16 +14,6 @@ class PpciInit
     static function init()
     {
         if (!self::$isInitialized) {
-            /**
-             * Before session
-             */
-            if (class_exists("App\Libraries\BeforeSession")) {
-                BeforeSession::index();
-            }
-            /**
-             * Start the session
-             */
-            session();
             /**
              * Add generic functions
              */
@@ -84,7 +73,7 @@ class PpciInit
                 $db = db_connect();
                 $db->query("set search_path = " . $paramDb->default["searchpath"]);
                 /**
-                 * purge logs
+                 * purge logs in database
                  */
                 if (!isset($_SESSION["log_purged"]) || !$_SESSION["log_purged"]) {
                     /**
@@ -96,25 +85,15 @@ class PpciInit
                      * Delete old files in temp folder
                      */
                     $liveDuration = 3600 * 24; // delete all files longer than 24 hours
-                    /*
-                     * open the folder
+                    /**
+                     * purge temp directory
                      */
-                    $folder = opendir($appConfig->APP_temp);
-                    while (false !== ($entry = readdir($folder))) {
-                        $path = $appConfig->APP_temp . "/" . $entry;
-                        $file = fopen($path, 'r');
-                        $stat = fstat($file);
-                        $atime = $stat["atime"];
-                        fclose($file);
-                        $infos = pathinfo($path);
-                        if (!is_dir($path) && ($infos["basename"] != ".gitkeep")) {
-                            $age = time() - $atime;
-                            if ($age > $liveDuration) {
-                                unlink($path);
-                            }
-                        }
-                    }
-                    closedir($folder);
+                    self::folderPurge($appConfig->APP_temp, $liveDuration);
+                    /**
+                     * purge session directory
+                     */
+                    $sessionParam = config("session");
+                    self::folderPurge($sessionParam->savePath, $liveDuration);
                     /**
                      * purge log files in writable/logs
                      */
@@ -127,6 +106,26 @@ class PpciInit
             }
 
             self::$isInitialized = true;
+        }
+    }
+    static function folderPurge($directory, $liveDuration)
+    {
+        $folder = opendir($directory);
+        while (false !== ($entry = readdir($folder))) {
+            $path = $directory . "/" . $entry;
+            $file = fopen($path, 'r');
+            if ($file) {
+                $stat = fstat($file);
+                $atime = $stat["atime"];
+                fclose($file);
+                $infos = pathinfo($path);
+                if (!is_dir($path) && ($infos["basename"] != ".gitkeep") && ($infos["basename"] != "index.html")) {
+                    $age = time() - $atime;
+                    if ($age > $liveDuration) {
+                        unlink($path);
+                    }
+                }
+            }
         }
     }
 }

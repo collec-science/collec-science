@@ -13,6 +13,7 @@ use Ppci\Filters\AdminFilter;
 use Ppci\Filters\RightFilter;
 use Ppci\Filters\StartcallFilter;
 use Ppci\Filters\DbversioncheckFilter;
+use Ppci\Filters\SessionHijackingFilter;
 use Ppci\Filters\VersionCheckFilter;
 
 class Filters extends BaseConfig
@@ -34,7 +35,8 @@ class Filters extends BaseConfig
         'startcall'     => StartCallFilter::class,
         'dbversioncheck' => DbversioncheckFilter::class,
         "admin"         => AdminFilter::class,
-        "versioncheck"  => VersionCheckFilter::class
+        "versioncheck"  => VersionCheckFilter::class,
+        "sessionHijacking" => SessionHijackingFilter::class
     ];
 
     /**
@@ -66,6 +68,7 @@ class Filters extends BaseConfig
             'invalidchars',
             /*'legacyRoute',*/
             'startcall',
+            'sessionHijacking',
             'dbversioncheck' => [
                 'except' => [
                     'CollectionsGenerateMail',

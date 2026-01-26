@@ -140,6 +140,7 @@ class Rights extends RightsPpci
         "sampleGetFromIdAjax" => ["manage"],
         "sampleDisplay" => ["consult"],
         "sampleChange" => ["manage"],
+        "sampleChangeTab" => ["manage"],
         "sampleWrite" => ["manage"],
         "sampleDelete" => ["manage"],
         "sampleExport" => ["manage"],

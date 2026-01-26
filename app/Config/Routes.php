@@ -135,6 +135,7 @@ $routes->add('sampleSearchAjax', 'Sample::searchAjax');
 $routes->add('sampleGetFromIdAjax', 'Sample::getFromId');
 $routes->add('sampleDisplay', 'Sample::display');
 $routes->add('sampleChange', 'Sample::change');
+$routes->add('sampleChangeTab', 'Sample::changeTab');
 $routes->post('sampleWrite', 'Sample::write');
 $routes->post('sampleDelete', 'Sample::delete');
 $routes->add('sampleExport', 'Sample::export');

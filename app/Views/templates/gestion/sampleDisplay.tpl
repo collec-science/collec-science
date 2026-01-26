@@ -367,9 +367,13 @@
 			</a>
 			{if $modifiable == 1}
 			&nbsp;
+			<a href="sampleChangeTab?uid={$data.uid}">
+				<img src="display/images/edit.gif" height="25">
+				{t}Modifier (version avec boite d'onglets){/t}
+			</a>
 			<a href="sampleChange?uid={$data.uid}">
 				<img src="display/images/edit.gif" height="25">
-				{t}Modifier{/t}
+				{t}Modifier (version originale){/t}
 			</a>
 			{/if}
 			<!-- Entrée ou sortie -->

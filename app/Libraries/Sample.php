@@ -306,15 +306,11 @@ class Sample extends PpciLibrary
         $this->vue->set("gestion/sampleDisplay.tpl", "corps");
         return $this->vue->send();
     }
-    function change()
+    function change($withTab = 0)
     {
         $this->vue = service('Smarty');
-        /**
-         * open the form to modify the record
-         * If is a new record, generate a new record with default value :
-         * $_REQUEST["idParent"] contains the identifiant of the parent record
-         */
-        $data = $this->dataRead($this->id, "gestion/sampleChange.tpl");
+        $withTab == 1 ? $template = "gestion/sampleChangeTab.tpl" : $template = "gestion/sampleChange.tpl";
+        $data = $this->dataRead($this->id, $template);
         if ($data["sample_id"] > 0 && !$this->dataclass->verifyCollection($data)) {
             $this->message->set(_("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"), true);
             return $this->list();

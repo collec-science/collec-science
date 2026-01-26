@@ -1,10 +1,13 @@
 <?php
+
 namespace Ppci\Filters;
 
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\App;
+use Ppci\Libraries\Dbparam;
+use Ppci\Models\Dbparam as ModelsDbparam;
 use Ppci\Models\Log;
 
 class SessionHijackingFilter implements FilterInterface
@@ -32,17 +35,42 @@ class SessionHijackingFilter implements FilterInterface
                         "sessionHijacking",
                         "server of origin:" . $_SESSION["hostOrigin"]
                     );
+                    /**
+                     * @var App
+                     */
+                    $app = service("AppConfig");
+                    /**
+                     * @var ModelsDbparam
+                     */
+                    $dbparam = service("Dbparam");
+                    $log->sendMailToAdmin(
+                        sprintf(
+                            _("%1s - %2s : tentative d'usurpation de session"),
+                            $app->applicationName,
+                            $dbparam->getParam("APPLI_title")
+                        ),
+                        "ppci/mail/sessionhijacking.tpl",
+                        [
+                            "ip" => $log->getIPClientAddress(),
+                            "login" => $_SESSION["login"],
+                            "date" => date($_SESSION["date"]["maskdatelong"])
+                        ],
+                        "sessionHijacking",
+                        $_SESSION["login"]
+                    );
                     $session->destroy();
                     $_SESSION = [];
+                    $_SESSION["hostOrigin"] = $_SERVER["HTTP_HOST"];
+                    helper('cookie');
+                    setcookie('tokenIdentity', "", time() - 36000);
                     /**
                      * @var Message
                      */
-                    $_SESSION["filterMessages"][] = _("Pour des raisons de sécurité, la session de travail a été réinitialisée");
-                    defaultPage();
+                    $message = service("MessagePpci");
+                    $message->set(_("Pour des raisons de sécurité, la session de travail a été réinitialisée"), true);
                 }
             }
         }
     }
-public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {}
-
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null) {}
 }

@@ -424,12 +424,12 @@ class Log extends PpciModel
             /*
              * Envoi des mails aux administrateurs
              */
-            if (isset($APP_mailToAdminPeriod)) {
+            /*if (isset($APP_mailToAdminPeriod)) {
                 $period = $APP_mailToAdminPeriod;
             } else {
                 $period = 7200;
             }
-            $lastDate = date('Y-m-d H:i:s', time() - $period);
+            $lastDate = date('Y-m-d H:i:s', time() - $period);*/
             $mail = new Mail($MAIL_param);
             $acllogin = new Acllogin();
             foreach ($logins as $value) {
@@ -439,7 +439,7 @@ class Log extends PpciModel
                     /**
                      * search if a mail has been send to this admin for the same event and the same user recently
                      */
-                    $sql = 'select log_id, log_date from log 
+                    /*$sql = 'select log_id, log_date from log 
                     where nom_module = :moduleName: 
                     and login = :login: and commentaire = :admin: 
                     and log_date > :lastdate: 
@@ -455,14 +455,13 @@ class Log extends PpciModel
                         $dataSql
                     );
 
-                    if (!$logval["log_id"] > 0) {
-                        $this->setLog($login, $moduleName, $value["login"]);
-                        try {
-                            $mail->SendMailSmarty($dataLogin["email"], $subject, $templateName, $data);
-                        } catch (PpciException) {
-                            $this->message->setSyslog("error_sendmail_to_admin:" . $dataLogin["email"]);
-                        }
+                    if (!$logval["log_id"] > 0) {*/
+                    try {
+                        $mail->SendMailSmarty($dataLogin["email"], $subject, $templateName, $data);
+                    } catch (PpciException) {
+                        $this->message->setSyslog("error_sendmail_to_admin:" . $dataLogin["email"]);
                     }
+                    //}
                 }
             }
         }

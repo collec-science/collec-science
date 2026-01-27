@@ -64,36 +64,6 @@
 			tabHover = 0;
 		});
 
-		$('#tab-location').on('shown.bs.tab', function () {
-			// Trigger Leaflet to recalculate dimensions
-			map.invalidateSize();
-		});
-
-		function convertGPSSecondeToDD(valeur) {
-			var parts = valeur.split(/[^\d]+/);
-			var dd = parseFloat(parts[0]) + parseFloat(parseFloat(parts[1]) / 60) + parseFloat(parseFloat(parts[2]) / 3600);
-			//dd = parseFloat(dd);
-			var lastChar = valeur.substr(-1).toUpperCase();
-			dd = Math.round(dd * 1000000) / 1000000;
-			if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
-				dd *= -1;
-			};
-			return dd;
-		}
-
-		function convertGPSDecimalToDD(valeur) {
-			var parts = valeur.split(/[^\d]+/);
-			var dd = parseFloat(parts[0])
-				+ parseFloat((parts[1] + "." + parts[2]) / 60);
-			var lastChar = valeur.substr(-1).toUpperCase();
-			dd = Math.round(dd * 1000000) / 1000000;
-			if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
-				dd *= -1;
-			}
-			;
-			return dd;
-		}
-
 		$("#latitude").change(function () {
 			var value = $(this).val();
 			if (value.length > 0) {
@@ -126,153 +96,10 @@
 			is_scan = false;
 		});
 
-		function getMetadata() {
-			/*
-			 * Recuperation du modele de metadonnees rattache au type d'echantillon
-			 */
-			var dataParse = $("#metadataField").val();
-			dataParse = dataParse.replace(/&quot;/g, '"');
-			dataParse = dataParse.replace(/\n/g, "\\n");
-			if (dataParse.length > 2) {
-				dataParse = JSON.parse(dataParse);
-			}
-			var schema;
-			var sti = $("#sample_type_id").val();
-			if (sti) {
-				$.ajax({
-					url: "sampleTypeMetadata",
-					data: { "sample_type_id": sti }
-				})
-					.done(function (value) {
-						if (value) {
-							var schema = value.replace(/&quot;/g, '"');
-							generateMetadataForm(JSON.parse(schema), dataParse);
-						} else {
-							document.getElementById('metadata').innerHTML = "";
-						}
-					})
-					;
-			}
-		}
-
-		function getSamplingPlace() {
-			/*
-			 * Recuperation de la liste des lieux de prelevement rattaches a la collection
-			 */
-			var colid = $("#collection_id").val();
-			var url = "samplingPlaceGetFromCollection";
-			var data = { "collection_id": colid };
-			$.ajax({ url: url, data: data })
-				.done(function (d) {
-					if (d) {
-						d = JSON.parse(d);
-						options = '<option value="">{t}Choisissez...{/t}</option>';
-						for (var i = 0; i < d.length; i++) {
-							options += '<option value="' + d[i].sampling_place_id + '"';
-							if (d[i].sampling_place_id == sampling_place_init) {
-								options += ' selected ';
-							}
-							options += '>';
-							if (d[i].sampling_place_code) {
-								options += d[i].sampling_place_code;
-							} else {
-								options += d[i].sampling_place_name;
-							}
-							options += '</option>';
-						};
-						$("#sampling_place_id").html(options);
-					}
-				});
-		}
-
-		function getCoordinatesFromLocalisation() {
-			/*
-			 * Recuperation des coordonnees geographiques a partir du lieu de prelevement
-			 */
-			var locid = $("#sampling_place_id").val();
-			if (locid > 0) {
-				var x = $("#wgs84_x").val();
-				var y = $("#wgs84_y").val();
-				if (x.length == 0 && y.length == 0) {
-					var url = "samplingPlaceGetCoordinate";
-					var data = { "sampling_place_id": locid };
-					$.ajax({ url: url, data: data })
-						.done(function (data) {
-							data = JSON.parse(data);
-							if (data["sampling_place_x"].length > 0 && data["sampling_place_y"].length > 0) {
-								$("#wgs84_x").val(data["sampling_place_x"]);
-								$("#wgs84_y").val(data["sampling_place_y"]);
-								$("#wgs84_x").trigger("change");
-							}
-						});
-				}
-			}
-		}
-
-		function getGenerator(sti) {
-			/*
-			 * Recuperation du script utilisable pour generer l'identifiant metier
-			 */
-			if (!sti) {
-				var sti = $("#sample_type_id").val();
-			}
-			if (sti) {
-				$.ajax({
-					url: "sampleTypeGenerator",
-					data: { "sample_type_id": sti }
-				})
-					.done(function (value) {
-						if (value.length > 0) {
-							identifier_fn = value;
-							$("#identifier_generate").prop("disabled", false);
-						} else {
-							$("#identifier_generate").prop("disabled", true);
-						}
-					})
-			}
-		}
-
-		function setGeographicVisibility() {
-			var collection_id = $("#collection_id").val();
-			$.ajax({
-				url: "collectionGet",
-				data: { "collection_id": collection_id }
-			})
-				.done(function (value) {
-					value = JSON.parse(value);
-					if (value.no_localization == 1) {
-						$(".geographic").hide();
-					} else {
-						$(".geographic").show();
-					}
-				})
-				;
-		}
-
-		function getSampletype() {
-			var collection_id = $("#collection_id").val();
-			$.ajax({
-				url: "sampleTypeGetListAjax",
-				data: { "collection_id": collection_id }
-			})
-				.done(function (value) {
-					d = JSON.parse(value);
-					var options = '';
-					for (var i = 0; i < d.length; i++) {
-						options += '<option value="' + d[i].sample_type_id + '"';
-						if (d[i].sample_type_id == sample_type_init) {
-							options += ' selected ';
-						}
-						options += '>' + d[i].sample_type_name;
-						if (d[i].multiple_type_id > 0) {
-							options += ' / ' + d[i].multiple_type_name + ' : ' + d[i].multiple_unit;
-						}
-						options += '</option>';
-					};
-					$("#sample_type_id").html(options);
-					getMetadata();
-				});
-		}
+		$('#tab-location').on('shown.bs.tab', function () {
+			// Trigger Leaflet to recalculate dimensions
+			map.invalidateSize();
+		});
 
 		$("#sample_type_id").change(function () {
 			getMetadata();
@@ -281,7 +108,7 @@
 
 		$("#collection_id").change(function () {
 			getSamplingPlace();
-			setGeographicVisibility();
+			setVisibility();
 			getSampletype();
 		});
 
@@ -332,7 +159,6 @@
 			}
 		});
 
-
 		$("#scan_label_action").click(function () {
 			var contenu = $("#scan_label").val();
 			if (contenu.length > 0) {
@@ -375,10 +201,7 @@
 								break;
 							default:
 								$('input[name=' + key + ']').val(data[key]);
-
 								break;
-
-
 						}
 					}
 				} catch (e) {
@@ -387,16 +210,6 @@
 			}
 
 		});
-
-		function setLocalisation() {
-			var lon = $("#wgs84_x").val();
-			var lat = $("#wgs84_y").val();
-			if (lon.length > 0 && lat.length > 0) {
-				setPosition(lat, lon);
-			}
-		}
-
-
 		/*
 		* call to parent
 		*/
@@ -491,13 +304,224 @@
 				});
 			}
 		});
+
+		/**
+		 * Add icone when a required field is empty
+		 */
+		function verifyRequired() {
+			$(".tab-pane").each(function () {
+				var ok = true;
+				var id = $(this).attr("id");
+				$("#" + id + " :input").each(function () {
+					if ($(this).prop('required') && $(this).val().length == 0) {
+						ok = false;
+					}
+				});
+				var icone = $(this).data("error");
+				if (!ok) {
+					$("#" + icone).show();
+				} else {
+					$("#" + icone).hide();
+				}
+			});
+		}
+		verifyRequired();
+		$(":input").change(function () {
+			verifyRequired();
+		});
 		/*
 		 * Lecture initiale
 		 */
 		getSamplingPlace();
-		setGeographicVisibility();
+		setVisibility();
 		getSampletype();
 		getGenerator(sample_type_init);
+		/**
+		 * Functions
+		 */
+		function convertGPSSecondeToDD(valeur) {
+			var parts = valeur.split(/[^\d]+/);
+			var dd = parseFloat(parts[0]) + parseFloat(parseFloat(parts[1]) / 60) + parseFloat(parseFloat(parts[2]) / 3600);
+			//dd = parseFloat(dd);
+			var lastChar = valeur.substr(-1).toUpperCase();
+			dd = Math.round(dd * 1000000) / 1000000;
+			if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
+				dd *= -1;
+			};
+			return dd;
+		}
+
+		function convertGPSDecimalToDD(valeur) {
+			var parts = valeur.split(/[^\d]+/);
+			var dd = parseFloat(parts[0])
+				+ parseFloat((parts[1] + "." + parts[2]) / 60);
+			var lastChar = valeur.substr(-1).toUpperCase();
+			dd = Math.round(dd * 1000000) / 1000000;
+			if (lastChar == "S" || lastChar == "W" || lastChar == "O") {
+				dd *= -1;
+			}
+			;
+			return dd;
+		}
+		function getMetadata() {
+			/*
+			 * Recuperation du modele de metadonnees rattache au type d'echantillon
+			 */
+			var dataParse = $("#metadataField").val();
+			dataParse = dataParse.replace(/&quot;/g, '"');
+			dataParse = dataParse.replace(/\n/g, "\\n");
+			if (dataParse.length > 2) {
+				dataParse = JSON.parse(dataParse);
+			}
+			var schema;
+			var sti = $("#sample_type_id").val();
+			if (sti) {
+				$.ajax({
+					url: "sampleTypeMetadata",
+					data: { "sample_type_id": sti }
+				})
+					.done(function (value) {
+						if (value) {
+							var schema = value.replace(/&quot;/g, '"');
+							generateMetadataForm(JSON.parse(schema), dataParse);
+							$("#tab-metadata").removeClass("disabled");
+							$("#identifier").change();
+						} else {
+							$("#tab-metadata").addClass("disabled");
+							document.getElementById('metadata').innerHTML = "";
+							$("#metadata-error").hide();
+						}
+					})
+					;
+			}
+		}
+
+		function getSamplingPlace() {
+			/*
+			 * Recuperation de la liste des lieux de prelevement rattaches a la collection
+			 */
+			var colid = $("#collection_id").val();
+			var url = "samplingPlaceGetFromCollection";
+			var data = { "collection_id": colid };
+			$.ajax({ url: url, data: data })
+				.done(function (d) {
+					if (d) {
+						d = JSON.parse(d);
+						options = '<option value="">{t}Choisissez...{/t}</option>';
+						for (var i = 0; i < d.length; i++) {
+							options += '<option value="' + d[i].sampling_place_id + '"';
+							if (d[i].sampling_place_id == sampling_place_init) {
+								options += ' selected ';
+							}
+							options += '>';
+							if (d[i].sampling_place_code) {
+								options += d[i].sampling_place_code;
+							} else {
+								options += d[i].sampling_place_name;
+							}
+							options += '</option>';
+						};
+						$("#sampling_place_id").html(options);
+					}
+				});
+		}
+
+		function getCoordinatesFromLocalisation() {
+			/*
+			 * Recuperation des coordonnees geographiques a partir du lieu de prelevement
+			 */
+			var locid = $("#sampling_place_id").val();
+			if (locid > 0) {
+				var x = $("#wgs84_x").val();
+				var y = $("#wgs84_y").val();
+				if (x.length == 0 && y.length == 0) {
+					var url = "samplingPlaceGetCoordinate";
+					var data = { "sampling_place_id": locid };
+					$.ajax({ url: url, data: data })
+						.done(function (data) {
+							data = JSON.parse(data);
+							if (data["sampling_place_x"].length > 0 && data["sampling_place_y"].length > 0) {
+								$("#wgs84_x").val(data["sampling_place_x"]);
+								$("#wgs84_y").val(data["sampling_place_y"]);
+								$("#wgs84_x").trigger("change");
+							}
+						});
+				}
+			}
+		}
+
+		function getGenerator(sti) {
+			/*
+			 * Recuperation du script utilisable pour generer l'identifiant metier
+			 */
+			if (!sti) {
+				var sti = $("#sample_type_id").val();
+			}
+			if (sti) {
+				$.ajax({
+					url: "sampleTypeGenerator",
+					data: { "sample_type_id": sti }
+				})
+					.done(function (value) {
+						if (value.length > 0) {
+							identifier_fn = value;
+							$("#identifier_generate").prop("disabled", false);
+						} else {
+							$("#identifier_generate").prop("disabled", true);
+						}
+					})
+			}
+		}
+
+		function setVisibility() {
+			var collection_id = $("#collection_id").val();
+			$.ajax({
+				url: "collectionGet",
+				data: { "collection_id": collection_id }
+			})
+				.done(function (value) {
+					value = JSON.parse(value);
+					if (value.no_localization == 't') {
+						$("#tab-location").addClass('disabled');
+					} else {
+						$("#tab-location").removeClass('disabled');
+					}
+				})
+				;
+		}
+
+		function getSampletype() {
+			var collection_id = $("#collection_id").val();
+			$.ajax({
+				url: "sampleTypeGetListAjax",
+				data: { "collection_id": collection_id }
+			})
+				.done(function (value) {
+					d = JSON.parse(value);
+					var options = '';
+					for (var i = 0; i < d.length; i++) {
+						options += '<option value="' + d[i].sample_type_id + '"';
+						if (d[i].sample_type_id == sample_type_init) {
+							options += ' selected ';
+						}
+						options += '>' + d[i].sample_type_name;
+						if (d[i].multiple_type_id > 0) {
+							options += ' / ' + d[i].multiple_type_name + ' : ' + d[i].multiple_unit;
+						}
+						options += '</option>';
+					};
+					$("#sample_type_id").html(options);
+					getMetadata();
+				});
+		}
+
+		function setLocalisation() {
+			var lon = $("#wgs84_x").val();
+			var lat = $("#wgs84_y").val();
+			if (lon.length > 0 && lat.length > 0) {
+				setPosition(lat, lon);
+			}
+		}
 	});
 </script>
 
@@ -507,7 +531,7 @@
 	<input type="hidden" name="moduleBase" value="sample">
 	<input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-12">
 			<a href="{$moduleListe}">
 				<img src="display/images/list.png" height="25">
 				{t}Retour à la liste des échantillons{/t}
@@ -521,8 +545,7 @@
 				<img src="display/images/box.png" height="25">{t}Retour au détail{/t}
 			</a>
 			{/if}
-		</div>
-		<div class="col-md-8">
+			&nbsp;
 			<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 			{if $data.sample_id > 0 }
 			<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
@@ -537,36 +560,35 @@
 
 	<!-- boite d'onglets -->
 	<div class="row">
-		<div class="form-group center">
-
-		</div>
-	</div>
-	<div class="row">
 		<ul class="nav nav-tabs" id="changeTab" role="tablist">
 			<li class="nav-item active">
 				<a class="nav-link" id="tab-general" data-toggle="tab" role="tab" aria-controls="nav-general"
 					aria-selected="true" href="#nav-general">
 					<img src="display/images/zoom.png" height="25">
 					{t}Données générales{/t}
+					<img src="display/images/cross.png" id="general-error" height="25" hidden>
 				</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item  ">
 				<a class="nav-link" id="tab-location" href="#nav-location" data-toggle="tab" role="tab"
 					aria-controls="nav-location" aria-selected="false">
-					<img src="display/images/label.png" height="25">
+					<img src="display/images/gps.png" height="25">
 					{t}Localisation{/t}
+					<img src="display/images/cross.png" id="location-error" height="25" hidden>
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" id="tab-metadata" href="#nav-metadata" data-toggle="tab" role="tab"
 					aria-controls="nav-metadata" aria-selected="false">
-					<img src="display/images/label.png" height="25">
+					<img src="display/images/display-red.png" height="25">
 					{t}Métadonnées{/t}
+					<img src="display/images/cross.png" height="25" id="metadata-error" hidden>
 				</a>
 			</li>
 		</ul>
 		<div class="tab-content" id="nav-tabContent">
-			<div class="tab-pane active in" id="nav-general" role="tabpanel" aria-labelledby="tab-general">
+			<div class="tab-pane active in" id="nav-general" role="tabpanel" aria-labelledby="tab-general"
+				data-error="general-error">
 				<div class="col-md-6 form-horizontal">
 					<fieldset>
 						<legend>{t}Échantillon parent{/t}</legend>
@@ -809,7 +831,7 @@
 			</div>
 			<div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="tab-location">
 				<div class="col-md-6 form-horizontal">
-					<div class="form-group geographic">
+					<div class="form-group ">
 						<label for="campaign_id" class="control-label col-md-4">
 							{t}Campagne de prélèvement :{/t}
 						</label>
@@ -826,7 +848,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group geographic">
+					<div class="form-group ">
 						<label for="country_id" class="control-label col-md-4 lexical" data-lexical="country">
 							{t}Pays de collecte :{/t}
 						</label>
@@ -843,7 +865,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group geographic">
+					<div class="form-group ">
 						<label for="country_origin_id" class="control-label col-md-4 lexical"
 							data-lexical="country_origin">
 							{t}Pays de provenance :{/t}
@@ -861,7 +883,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group geographic">
+					<div class="form-group ">
 						<label for="sampling_place_id" class="control-label col-md-4">
 							{t}Lieu de prélèvement :{/t}
 						</label>
@@ -895,7 +917,7 @@
 							</table>
 						</div>
 					</div>
-					<div class="form-group geographic">
+					<div class="form-group ">
 						<label for="wy" class="control-label col-md-4">{t}Latitude :{/t}</label>
 						<div class="col-md-8" id="wy">
 							{t}Format sexagesimal (45°01,234N) :{/t}
@@ -905,7 +927,7 @@
 								class="form-control taux position" value="{$data.wgs84_y}">
 						</div>
 					</div>
-					<div class="form-group geographic">
+					<div class="form-group ">
 						<label for="wx" class="control-label col-md-4">{t}Longitude :{/t}</label>
 						<div class="col-md-8" id="wx">
 							{t}Format sexagesimal (0°01,234W) :{/t}
@@ -915,7 +937,7 @@
 								class="form-control taux position" value="{$data.wgs84_x}">
 						</div>
 					</div>
-					<div class="form-group geographic">
+					<div class="form-group ">
 						<label for="location_accuracy" class="control-label col-md-4 lexical"
 							data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</label>
 						<div class="col-md-8">
@@ -924,11 +946,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6 geographic">
+				<div class="col-md-6 ">
 					{include file="gestion/objectMapDisplay.tpl"}
 				</div>
 			</div>
-			<div class="tab-pane fade" id="nav-metadata" role="tabpanel" aria-labelledby="tab-metadata">
+			<div class="tab-pane fade" id="nav-metadata" role="tabpanel" aria-labelledby="tab-metadata"
+				data-error="metadata-error">
 				<div class="form-group form-horizontal">
 					<div class="col-md-6 form-horizontal">
 						<div id="metadata"></div>

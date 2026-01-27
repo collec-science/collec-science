@@ -1,7 +1,6 @@
 <script>
     var listArrays = new Object();
     function generateMetadataForm(schema, data) {
-        console.log(data);
         var metadata = document.getElementById('metadata');
         metadata.innerHTML = "";
         var inputs = new Array("string", "url", "date", "number");
@@ -29,9 +28,9 @@
             } else {
                 var fr = "";
             }
-            newLabel.innerHTML = fr+labelContent;
+            newLabel.innerHTML = fr + labelContent;
             newDiv.appendChild(newLabel);
-            
+
 
             /**
              * add secondary div for field
@@ -56,8 +55,8 @@
             var isUnique = true;
             if (inputs.includes(field.type)) {
                 var newInput = document.createElement("input");
-                if (field.type == "url" || field.type=="date") {
-                   newInput.type = field.type; 
+                if (field.type == "url" || field.type == "date") {
+                    newInput.type = field.type;
                 }
                 if (field.type == "number") {
                     newInput.setAttribute("pattern", "^-?[0-9]+([\.,][0-9]+)?");
@@ -67,6 +66,7 @@
                 } else if (field.defaultValue) {
                     newInput.value = field.defaultValue;
                 }
+                newInput.classList.add("metadata-input");
             } else if (field.type == "select") {
                 var newInput = document.createElement("select");
                 if (field.multiple == "yes") {
@@ -159,7 +159,7 @@
                             newInput.appendChild(newArray);
                             i++;
                         });
-                    }else {
+                    } else {
                         var newArray = document.createElement("input");
                         newArray.classList.add("formControl", newId);
                         newArray.name = newId + "[]";
@@ -203,8 +203,6 @@
                     newInput.classList.add("taux");
                 }*/
             }
-
-
             /**
              * Add description
              */

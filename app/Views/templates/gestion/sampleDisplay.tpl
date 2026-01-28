@@ -703,7 +703,7 @@
 					</dd>
 				</dl>
 				{/if}
-				{if $data.no_localization != 1}
+				{if $data.no_localization != 't'}
 				{if $data.campaign_id > 0}
 				<dl class="dl-horizontal">
 					<dt>{t}Campagne de prélèvement :{/t}</dt>

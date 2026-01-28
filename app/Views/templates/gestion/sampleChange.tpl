@@ -192,7 +192,7 @@
 			})
 				.done(function (value) {
 					value = JSON.parse(value);
-					if (value.no_localization == 1) {
+					if (value.no_localization == 't') {
 						$(".geographic").hide();
 					} else {
 						$(".geographic").show();

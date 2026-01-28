@@ -402,7 +402,7 @@
 	<div class="col-md-4">{$help}
 		<div class="pull-right bg-info">
 			{if $rights.manage == 1}
-			<a href="sampleChange?uid=0">
+			<a href="sampleChangeTab?uid=0">
 				<img src="display/images/new.png" height="25">
 				{t}Nouvel échantillon{/t}
 			</a>
@@ -835,7 +835,7 @@
 		<div class="tab-pane fade" id="nav-sample" role="tabpanel" aria-labelledby="tab-sample">
 			<div class="col-md-12">
 				{if $rights.manage == 1 && $modifiable == 1}
-				<a href="sampleChange?uid=0&parent_uid={$data.uid}">
+				<a href="sampleChangeTab?uid=0&parent_uid={$data.uid}">
 					<img src="display/images/new.png" height="25">
 					{t}Nouvel échantillon dérivé...{/t}
 				</a>

@@ -117,6 +117,7 @@
 		});
 
 		$('#sampleForm').submit(function (event) {
+			verifyRequired();
 			if ($("#sampleForm").attr("action") == "sampleWrite") {
 				var error = false;
 				var sample_type_id = $("#sample_type_id").val();
@@ -305,6 +306,9 @@
 			}
 		});
 
+		$("#verifyRequired").on("click enter", function () {
+			verifyRequired();
+		})
 		/**
 		 * Add icone when a required field is empty
 		 */
@@ -548,13 +552,21 @@
 			&nbsp;
 			<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 			{if $data.sample_id > 0 }
+			&nbsp;
 			<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
 			{/if}
+			{if $data.sample_id == 0}
+			&nbsp;
+			<button type="button" class="btn btn-warning" id="reinit">{t}Réinitialiser les champs{/t}</button>
+			{/if}
+			&nbsp;
+			<button type="button" class="btn btn-info" id="verifyRequired">
+				<img src="display/images/cross.png" height="15">
+				{t}Vérifier{/t}
+			</button>
 		</div>
 	</div>
-	{if $data.sample_id == 0}
-	<button type="button" class="btn btn-warning" id="reinit">{t}Réinitialiser les champs{/t}</button>
-	{/if}
+
 
 
 

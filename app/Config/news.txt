@@ -5,12 +5,14 @@ Version v26.1.0 du
 Corrections de bugs :
 - depuis la liste des échantillons, les boites d'information avaient tendance à rester ouvertes
 - en mode "multi-instances", il était possible d'usurper la session d'une autre instance et élever son niveau de privilèges
+- les informations de localisation des échantillons n'étaient plus masquées si la collection avait été paramétrée pour ne pas gérer les localisations
 
 Nouveautés :
 - l'affichage des collections a été restructuré, avec l'ajout d'une page détail
 - il est maintenant possible de rajouter une description à une collection, ainsi que des documents associés. La description est affichée au survol du nom de la collection dans le détail des échantillons ou des contenants et sur le panneau d'accueil avec le nombre d'échantillons par collection
 - il est maintenant possible de rajouter une description à une campagne. La description est affichée au survol du nom de la campagne dans le détail d'un échantillon
 - les modifications apportées aux échantillons sont maintenant tracées
+- la page de modification d'un échantillon a été réorganisée en utilisant une boite d'onglets
 - technique : les fichiers des sessions PHP sont stockés dans un sous-dossier de TEMP et sont maintenant systématiquement purgés
 
 Version v26.0.1 du 08/01/2026

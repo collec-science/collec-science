@@ -731,6 +731,23 @@
 								</select>
 							</div>
 						</div>
+						<div class="form-group ">
+							<label for="campaign_id" class="control-label col-md-4">
+								{t}Campagne de prélèvement :{/t}
+							</label>
+							<div class="col-md-8">
+								<select id="campaign_id" name="campaign_id" class="form-control">
+									<option value="" {if $data.campaign_id=="" }selected{/if}>{t}Choisissez...{/t}
+									</option>
+									{foreach $campaigns as $campaign}
+									<option value="{$campaign.campaign_id}" {if
+										$data.campaign_id==$campaign.campaign_id}selected{/if}>
+										{$campaign.campaign_name}
+									</option>
+									{/foreach}
+								</select>
+							</div>
+						</div>
 						<div class="form-group">
 							<label for="dbuid_origin" class="control-label col-md-4">
 								{t}Base de données et UID d'origine :{/t}
@@ -843,23 +860,6 @@
 			</div>
 			<div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="tab-location">
 				<div class="col-md-6 form-horizontal">
-					<div class="form-group ">
-						<label for="campaign_id" class="control-label col-md-4">
-							{t}Campagne de prélèvement :{/t}
-						</label>
-						<div class="col-md-8">
-							<select id="campaign_id" name="campaign_id" class="form-control">
-								<option value="" {if $data.campaign_id=="" }selected{/if}>{t}Choisissez...{/t}
-								</option>
-								{foreach $campaigns as $campaign}
-								<option value="{$campaign.campaign_id}" {if
-									$data.campaign_id==$campaign.campaign_id}selected{/if}>
-									{$campaign.campaign_name}
-								</option>
-								{/foreach}
-							</select>
-						</div>
-					</div>
 					<div class="form-group ">
 						<label for="country_id" class="control-label col-md-4 lexical" data-lexical="country">
 							{t}Pays de collecte :{/t}

@@ -111,18 +111,20 @@ class PpciInit
     static function folderPurge($directory, $liveDuration)
     {
         $folder = opendir($directory);
-        while (false !== ($entry = readdir($folder))) {
-            $path = $directory . "/" . $entry;
-            $file = fopen($path, 'r');
-            if ($file) {
-                $stat = fstat($file);
-                $atime = $stat["atime"];
-                fclose($file);
-                $infos = pathinfo($path);
-                if (!is_dir($path) && ($infos["basename"] != ".gitkeep") && ($infos["basename"] != "index.html")) {
-                    $age = time() - $atime;
-                    if ($age > $liveDuration) {
-                        unlink($path);
+        if ($folder) {
+            while (false !== ($entry = readdir($folder))) {
+                $path = $directory . "/" . $entry;
+                $file = fopen($path, 'r');
+                if ($file) {
+                    $stat = fstat($file);
+                    $atime = $stat["atime"];
+                    fclose($file);
+                    $infos = pathinfo($path);
+                    if (!is_dir($path) && ($infos["basename"] != ".gitkeep") && ($infos["basename"] != "index.html")) {
+                        $age = time() - $atime;
+                        if ($age > $liveDuration) {
+                            unlink($path);
+                        }
                     }
                 }
             }

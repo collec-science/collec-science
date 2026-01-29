@@ -36,7 +36,7 @@ class Totp extends PpciLibrary
     {
         if ($this->acllogin->isTotp()) {
             $_SESSION["filterMessages"][] = "Vous avez déjà activé l'identification à double facteur : contactez un administrateur de l'application pour réinitialiser cette fonction";
-            return redirect("default");
+            return redirect("default", "refresh");
         }
         unset($_SESSION["totpSecret"]);
         $_SESSION["totpSecret"] = $this->gacltotp->createSecret();
@@ -138,7 +138,7 @@ class Totp extends PpciLibrary
         if (!empty($_SESSION["moduleRequired"])) {
             $retour = $_SESSION["moduleRequired"];
             unset($_SESSION["moduleRequired"]);
-            return redirect()->to($retour);
+            return redirect($retour, "refresh");
         }
         return defaultPage();
     }

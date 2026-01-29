@@ -38,7 +38,7 @@ class RightFilter implements FilterInterface
                     $login = new \Ppci\Libraries\Login();
                     $retour = $login->getLogin();
                     if (!empty($retour)) {
-                        return redirect()->to(site_url($retour));
+                        return redirect($retour, "refresh");
                     }
                 }
                 foreach ($requiredRights as $r) {
@@ -61,7 +61,7 @@ class RightFilter implements FilterInterface
                         $_REQUEST = $_SESSION["request"];
                         unset($_SESSION["get"]);
                         unset($_SESSION["request"]);
-                        return redirect($retour);
+                        return redirect($retour, "refresh");
                     }
                 }
             }

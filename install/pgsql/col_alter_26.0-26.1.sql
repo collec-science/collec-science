@@ -99,3 +99,4 @@ USING btree
 (
 	object_login
 );
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.1', E'2026-02-01');

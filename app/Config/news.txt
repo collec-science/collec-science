@@ -6,6 +6,7 @@ Corrections de bugs :
 - depuis la liste des échantillons, les boites d'information avaient tendance à rester ouvertes
 - en mode "multi-instances", il était possible d'usurper la session d'une autre instance et élever son niveau de privilèges
 - les informations de localisation des échantillons n'étaient plus masquées si la collection avait été paramétrée pour ne pas gérer les localisations
+- l'appel à certaines actions ouvrait un nouvel onglet
 
 Nouveautés :
 - l'affichage des collections a été restructuré, avec l'ajout d'une page détail

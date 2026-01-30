@@ -18,7 +18,11 @@ class Label extends PpciController
     }
     function change()
     {
-        return $this->lib->change();
+        if (isset($_REQUEST["label_id"])) {
+            return $this->lib->change();
+        } else {
+            return $this->lib->list();
+        }
     }
     function write()
     {

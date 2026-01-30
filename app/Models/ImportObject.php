@@ -800,22 +800,28 @@ class ImportObject
              * Verification de la collection
              */
             $ok = false;
-            foreach ($this->collection as $value) {
-                if ($data["collection_id"] == $value["collection_id"]) {
-                    $ok = true;
-                    break;
+            if (!empty($data["collection_id"]) && !is_numeric($data["collection_id"])) {
+                $retour["code"] = false;
+                $retour["message"] .= _("Le numéro de la collection n'a pas été correctement renseigné dans la colonne collection_id. ");
+            } else {
+                foreach ($this->collection as $value) {
+                    if ($data["collection_id"] == $value["collection_id"]) {
+                        $ok = true;
+                        break;
+                    }
                 }
-            }
-            /**
-             * Verify if the identifier is unique from the collection
-             */
-            if (!$this->sample->is_unique(0, $data["sample_identifier"], $data["collection_id"])) {
-                $retour["code"] = false;
-                $retour["message"] .= _("L'identifiant de l'échantillon existe déjà dans la collection.");
-            }
-            if (!$ok) {
-                $retour["code"] = false;
-                $retour["message"] .= _("Le numéro de la collection indiqué n'est pas reconnu ou autorisé.");
+                /**
+                 * Verify if the identifier is unique from the collection
+                 */
+                if (!$this->sample->is_unique(0, $data["sample_identifier"], $data["collection_id"])) {
+                    $retour["code"] = false;
+                    $retour["message"] .= _("L'identifiant de l'échantillon existe déjà dans la collection.");
+                }
+
+                if (!$ok) {
+                    $retour["code"] = false;
+                    $retour["message"] .= _("Le numéro de la collection indiqué n'est pas reconnu ou autorisé.");
+                }
             }
             /**
              * Verification du type d'echantillon
@@ -991,7 +997,7 @@ class ImportObject
                 /**
                  * Verification de la colonne metadata
                  */
-                if (count($valuesMetadataJson) == 0) {
+                if (is_null($valuesMetadataJson) || count($valuesMetadataJson) == 0) {
                     $retour["code"] = false;
                     $retour["message"] .= _("Les métadonnées ne sont pas correctement formatées (champ sample_metadata_json)");
                 }

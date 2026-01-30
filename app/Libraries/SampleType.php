@@ -108,7 +108,9 @@ class SampleType extends PpciLibrary
     function getListAjax()
     {
         $this->vue = service("AjaxView");
-        $this->vue->set($this->dataclass->getListFromCollection($_REQUEST["collection_id"]));
+        if (!empty($_REQUEST["collection_id"]) && is_numeric($_REQUEST["collection_id"])) {
+             $this->vue->set($this->dataclass->getListFromCollection($_REQUEST["collection_id"]));
         return $this->vue->send();
+        }
     }
 }

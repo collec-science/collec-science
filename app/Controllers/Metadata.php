@@ -20,11 +20,19 @@ class Metadata extends PpciController
     }
     function display()
     {
-        return $this->lib->display();
+        if (!empty($_REQUEST["metadata_id"])) {
+            return $this->lib->display();
+        } else {
+            return $this->lib->list();
+        }
     }
     function change()
     {
-        return $this->lib->change();
+        if (!empty($_REQUEST["metadata_id"])) {
+            return $this->lib->change();
+        } else {
+            return $this->lib->list();
+        }
     }
     function write()
     {
@@ -36,7 +44,7 @@ class Metadata extends PpciController
     }
     function delete()
     {
-        if ($this->lib->delete()) {
+        if (!empty($_REQUEST["metadata_id"]) && $this->lib->delete()) {
             return $this->list();
         } else {
             return $this->change();
@@ -89,7 +97,7 @@ class Metadata extends PpciController
     {
         if ($_POST["regenerateType"] == 1) {
             $this->lib->regenerate();
-                    } elseif ($_POST["regenerateType"] == 2) {
+        } elseif ($_POST["regenerateType"] == 2) {
             $sample = new Sample;
             $sample->reindex();
             $this->message->set(_("Régénération des index de la table des échantillons terminée"));
@@ -98,7 +106,8 @@ class Metadata extends PpciController
         }
         return $this->list();
     }
-    function rename () {
+    function rename()
+    {
         $this->lib->renameField();
         return $this->list();
     }

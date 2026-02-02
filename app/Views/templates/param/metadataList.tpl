@@ -25,7 +25,7 @@
 			{t}Nouveau...{/t}
 		</a>
 		{/if}
-
+		{$help}
 		<form method="POST" id="metadataExport" action="metadataExport">
 			<div class="row">
 				<div class="center">

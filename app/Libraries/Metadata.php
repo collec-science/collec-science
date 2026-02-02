@@ -39,6 +39,7 @@ class Metadata extends PpciLibrary
         } catch (PpciException $e) {
             $this->message->set($e->getMessage());
         }
+        $this->vue->help(_("objets/les-métadonnées.html"));
         return $this->vue->send();
     }
     function display()

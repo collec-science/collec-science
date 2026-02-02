@@ -49,6 +49,7 @@ class Label extends PpciLibrary
         $this->vue->set($this->dataclass->getListe(2), "data");
         $this->vue->set("param/labelList.tpl", "corps");
         $this->setRelatedTablesToView($this->vue);
+        $this->vue->help(_("parametres/créer-ou-modifier-un-modèle-d’étiquettes.html"));
         return $this->vue->send();
     }
     function change()

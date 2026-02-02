@@ -302,6 +302,7 @@ class Sample extends PpciLibrary
          * add help link
          */
         $this->vue->help(_("objets/les-échantillons.html"));
+        $this->vue->help(_("gestion/prêter-un-ou-plusieurs-échantillons.html"),"helpborrowing");
         $this->vue->set("sample", "moduleParent");
         $this->vue->set("gestion/sampleDisplay.tpl", "corps");
         return $this->vue->send();

@@ -23,9 +23,11 @@
     <div class="col-md-6">
         {if $rights.param == 1}
         <a href="campaignChange?campaign_id=0">
+            <img src="display/images/new.png" height="25">
             {t}Nouveau...{/t}
         </a>
         {/if}
+        {$help}
         <table id="campaignList" class="table table-bordered table-hover datatable display">
             <thead>
                 <tr>

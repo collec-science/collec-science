@@ -179,12 +179,15 @@ class App extends BaseConfig
      * --------------------------------------------------------------------------
      * PPCI parameters
      * --------------------------------------------------------------------------
-     *
+     */
+    public string $applicationName = "PrototypePHP for CodeIgniter";
+    /**
+     * Release 
      * @var string
      */
     public string $version = "v24.0.0";
     /**
-     * versionDate - don't change here, but in function setParameters() below
+     * Date of release
      *
      * @var string
      */
@@ -228,7 +231,8 @@ class App extends BaseConfig
             "maskdatelong" => "d/m/Y H:i:s",
             "maskdate" => "d/m/Y",
             "maskdateexport" => 'd-m-Y'
-        ], "en" => [
+        ],
+        "en" => [
             "formatdate" => "DD/MM/YYYY",
             "formatdatetime" => "DD/MM/YYYY HH:mm:ss",
             "formatdatecourt" => "dd/mm/yy",

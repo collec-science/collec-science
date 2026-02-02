@@ -202,7 +202,7 @@ class SmartyPpci
      *
      * @return void
      */
-    function help(string $address)
+    function help(string $address, $varname = "help")
     {
         if (!empty($address)) {
 
@@ -214,8 +214,8 @@ class SmartyPpci
              * var SmartyPpci
              */
 
-            $this->htmlVars[] = "help";
-            $this->smarty->assign("help", $link);
+            $this->htmlVars[] = $varname;
+            $this->smarty->assign($varname, $link);
         }
     }
 }

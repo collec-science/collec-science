@@ -226,7 +226,7 @@ class Sample extends PpciLibrary
              * Recuperation des mouvements
              */
             $movement = new Movement();
-            $this->vue->set($movement->getAllMovements($this->id), "movements");
+            $this->vue->set($movements = $movement->getAllMovements($this->id), "movements");
             /**
              * Recuperation des echantillons associes
              */
@@ -280,7 +280,7 @@ class Sample extends PpciLibrary
              */
             if ($is_modifiable || $_SESSION["dbparams"]["consultSeesAll"] == 1) {
                 $sampleHisto = new Samplehisto;
-                $this->vue->set($sampleHisto->getHisto($data), "histo");
+                $this->vue->set($sampleHisto->getHisto($data,$movements), "histo");
                 $this->vue->set($sampleHisto->header, "histoheader");
             }
             /**

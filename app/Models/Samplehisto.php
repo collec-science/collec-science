@@ -221,7 +221,8 @@ class Samplehisto extends PpciModel
         $referent = new Referent;
         $row = [
             "date" => date($_SESSION["date"]["maskdatelong"]),
-            "login" => _("Valeurs actuelles")
+            "login" => _("Valeurs actuelles"),
+            "movements" => $currentData["container_identifier"]
         ];
         foreach ($this->cols as $col) {
             if (!str_ends_with($col, "_id")) {

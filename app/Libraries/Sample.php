@@ -172,6 +172,12 @@ class Sample extends PpciLibrary
          */
         $mimeType = new MimeType();
         $this->vue->set($mimeType->getListExtensions(false), "extensions");
+
+        /**
+         * online help
+         */
+
+        $this->vue->help(_("objets/les-opérations-de-groupe-sur-les-échantillons.html"),"helpsamplegroup");
         return $this->vue->send();
     }
     function searchAjax()

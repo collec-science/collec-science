@@ -1316,6 +1316,9 @@
 					<button id="checkedButtonSample" class="btn btn-danger">{t}Exécuter{/t}</button>
 				</div>
 			</div>
+			<div class="col-md-2">
+				{$helpsamplegroup}
+			</div>
 		</div>
 		{/if}
 	{$csrf}</form>

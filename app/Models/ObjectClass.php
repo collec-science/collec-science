@@ -1008,7 +1008,7 @@ class ObjectClass extends PpciModel
     {
         if ($uid > 0) {
             $data = array("uid" => $uid, "referent_id" => $referent_id);
-            $this->ecrire($data);
+            $this->write($data);
         }
     }
     /**
@@ -1031,7 +1031,7 @@ class ObjectClass extends PpciModel
                 throw new PpciException(_("L'identifiant de l'objet n'a pas été fourni"));
             }
             $data = array("uid" => $uid, "object_status_id" => $status_id);
-            $this->ecrire($data);
+            $this->write($data);
         }
     }
     /**
@@ -1106,7 +1106,7 @@ class ObjectClass extends PpciModel
             "uid" => $uid,
             "last_movement_id" => $movement_id
         );
-        $this->ecrire($data);
+        $this->write($data);
     }
 
     public function verifyCollection($data)

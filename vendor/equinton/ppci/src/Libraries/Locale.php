@@ -23,12 +23,26 @@ class Locale
         ]
     );
 
-    function setLocale(string $locale)
+    function setLocale(string $locale = "")
     {
         /**
          * @var App
          */
         $appConfig = service("AppConfig");
+        if (empty($locale)) {
+            if (isset($_COOKIE["locale"])) {
+                $locale = $_COOKIE["locale"];
+            } else {
+                /**
+                 * Get the locale of the browser
+                 */
+                $locale = explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+                $locale = substr($locale[0], 0, 2);
+            }
+            if (empty($locale)) {
+                $locale = array_key_first($appConfig->locales);
+            }
+        }
         if (!array_key_exists($locale, $appConfig->locales)) {
             $locale = array_key_first($appConfig->locales);
         }
@@ -42,5 +56,4 @@ class Locale
          */
         set_translation_language($locale);
     }
-
 }

@@ -47,22 +47,12 @@ class PpciInit
                 /**
                  * Set the locale
                  */
-                if (!isset($_SESSION["locale"])) {
+                if (empty($_SESSION["locale"])) {
                     $locale = new Locale();
-                    if (isset($_COOKIE["locale"])) {
-                        $language = $_COOKIE["locale"];
-                    } else {
-                        /**
-                         * Recuperation de la langue du navigateur
-                         */
-                        $language = explode(';', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-                        $language = substr($language[0], 0, 2);
-                    }
-                    $locale->setLocale($language);
+                    $locale->setLocale();
                 } else {
                     set_translation_language($_SESSION["locale"]);
                 }
-
                 /**
                  * @var Database
                  */

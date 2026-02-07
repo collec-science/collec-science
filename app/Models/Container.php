@@ -110,7 +110,7 @@ class Container extends PpciModel
             throw new PpciException(sprintf(_("L'identifiant du contenant %s existe déjà dans la base de données"), $data["identifier"]));
         }
         $object = new ObjectClass();
-        $uid = $object->ecrire($data);
+        $uid = $object->write($data);
         if ($uid > 0) {
             $data["uid"] = $uid;
             parent::write($data);
@@ -748,7 +748,7 @@ class Container extends PpciModel
              * Writing the container
              */
             $dcontainer["uid"] = 0;
-            $uid = $object->ecrire($dcontainer);
+            $uid = $object->write($dcontainer);
             if ($uid > 0) {
                 $dcontainer["uid"] = $uid;
                 parent::write($dcontainer);

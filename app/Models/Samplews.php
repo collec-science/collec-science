@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Ppci\Libraries\Locale;
 use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
 
@@ -36,6 +37,14 @@ class Samplews
         $this->campaign = new Campaign;
         $this->referent = new Referent;
         $this->sampleType = new SampleType;
+
+        /**
+         * set the locale, if not exists
+         */
+        if (empty($_SESSION["locale"])) {
+            $locale = new Locale;
+            $locale->setLocale();
+        }
     }
     /**
      * insert or update a sample
@@ -279,7 +288,7 @@ class Samplews
          * write
          */
         try {
-            $uid = $this->sample->ecrire($data);
+            $uid = $this->sample->write($data);
         } catch (\Exception $oe) {
             throw new PpciException($oe->getMessage(), 520);
         }

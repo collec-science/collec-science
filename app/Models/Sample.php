@@ -288,7 +288,7 @@ class Sample extends PpciModel
             if (!isset($this->object)) {
                 $this->object = new ObjectClass;
             }
-            $uid = $this->object->ecrire($data);
+            $uid = $this->object->write($data);
 
             if ($uid > 0) {
                 $data["uid"] = $uid;
@@ -323,7 +323,7 @@ class Sample extends PpciModel
                                 $cmd[$k] = $v;
                             }
                             $child["metadata"] = json_encode($cmd);
-                            $this->ecrire($child);
+                            $this->write($child);
                         }
                     }
                     /**
@@ -1264,7 +1264,7 @@ class Sample extends PpciModel
             $this->samplehisto = new Samplehisto;
         }
         $this->samplehisto->initOldValues($data["uid"]);
-        $uid = $this->object->ecrire($data);
+        $uid = $this->object->write($data);
         if ($uid > 0) {
             $data["uid"] = $uid;
             /**

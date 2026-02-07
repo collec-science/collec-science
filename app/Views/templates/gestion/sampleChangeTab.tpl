@@ -626,8 +626,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="parent_collection" class="control-label col-md-4">{t}Collection
-								:{/t}</label>
+							<label for="parent_collection" class="control-label col-md-4">
+								{t}Collection :{/t}
+							</label>
 							<div class="col-md-8">
 								<input id="parent_collection" class="form-control" readonly
 									value="{$parent_sample.collection_name}">
@@ -796,9 +797,7 @@
 						<legend>{t}Sous-échantillonnage (si le type le permet){/t}</legend>
 						<div class="form-group">
 							<label for="multiple_value" class="control-label col-md-4">
-								{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité initiale de
-								sous-échantillons
-								(%1:%2) :{/t}</label>
+								{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité initiale de sous-échantillons (%1:%2) :{/t}</label>
 							<div class="col-md-8">
 								<input id="multiple_value" class="form-control taux" name="multiple_value"
 									value="{$data.multiple_value}">
@@ -815,9 +814,7 @@
 						<!-- record quantity extracted from parent-->
 						<div class="form-group">
 							<label for="subsample_quantity" class="control-label col-md-4">
-								{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité retirée au parent
-								(%1:%2)
-								:{/t}</label>
+								{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité retirée au parent (%1:%2) :{/t}</label>
 							<div class="col-md-8">
 								<input id="subsample_quantity" class="form-control taux" name="subsample_quantity">
 							</div>

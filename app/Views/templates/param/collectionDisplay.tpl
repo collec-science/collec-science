@@ -24,6 +24,12 @@
     <img src="display/images/list.png" height="25">
     {t}Retour à la liste{/t}
 </a>
+{if $rights.param == 1}
+<a href="collectionChange?collection_id={$data.collection_id}">
+    <img src="display/images/edit.gif" height="25">
+    {t}Modifier...{/t}
+</a>
+{/if}
 <div class="row">
     <div class="col-lg-12">
         <!-- Tab box -->
@@ -57,14 +63,6 @@
         <div class="tab-content col-lg-12" id="tabcontent">
             <!-- donnees generales-->
             <div class="tab-pane active in" id="navGeneral" role="tabpanel" aria-labelledby="tabGeneral">
-                {if $rights.param == 1}
-                <div class="row">
-                    <a href="collectionChange?collection_id={$data.collection_id}">
-                        <img src="display/images/edit.gif" height="25">
-                        {t}Modifier...{/t}
-                    </a>
-                </div>
-                {/if}
                 <div class="row">
                     <div class="col-md-8 col-lg-6">
                         <div class="form-display">
@@ -113,7 +111,8 @@
                                 <dd>{if $data.no_localization=='t'}{t}oui{/t}{else}{t}non{/t}{/if}</dd>
                             </dl>
                             <dl class="dl-horizontal">
-                                <dt>{t}Le stockage de documents attachés aux échantillons est-il possible hors base de données ?{/t}</dt>
+                                <dt>{t}Le stockage de documents attachés aux échantillons est-il possible hors base de
+                                    données ?{/t}</dt>
                                 <dd>{if $data.external_storage_enabled=='t'}{t}oui{/t}{else}{t}non{/t}{/if}</dd>
                             </dl>
                             {if $data.external_storage_enabled=='t'}

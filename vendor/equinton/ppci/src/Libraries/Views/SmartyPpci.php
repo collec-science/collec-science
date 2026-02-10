@@ -206,7 +206,7 @@ class SmartyPpci
     {
         if (!empty($address)) {
 
-            $link = '<a href="' . $this->app->docroot . "/" . $address . '" target="_blank">' .
+            $link = '<a href="' . $this->app->docroot . "/" . $address . '" target="online-help">' .
                 '<img src="display/images/framework/help.png" height="25">&nbsp;' .
                 _("Aide en ligne") .
                 '</a>';

@@ -248,8 +248,8 @@ class App extends BaseConfig
      * @var array
      */
     public $localesGettext = [
-        "en" => "en_GB.UTF-8",
-        "fr" => "C.UTF-8"
+        "en" => "en_GB.utf8",
+        "fr" => "fr_FR.utf8"
     ];
     /**
      * Domain of defined rights

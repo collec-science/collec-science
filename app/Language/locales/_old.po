@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-07 19:02+0100\n"
+"POT-Creation-Date: 2026-02-07 19:03+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -3787,7 +3787,7 @@ msgstr "Reinit the fields"
 #: ../../../app/Views/templates/param/mimeTypeChange.tpl:21
 #: ../../../app/Views/templates/param/licenseChange.tpl:23
 #: ../../../app/Views/templates/param/operationChange.tpl:46
-#: ../../../app/Views/templates/param/collectionChange.tpl:180
+#: ../../../app/Views/templates/param/collectionChange.tpl:182
 #: ../../../app/Views/templates/param/referentChange.tpl:104
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:43
 #: ../../../app/Views/templates/param/labelChange.tpl:257
@@ -3843,7 +3843,7 @@ msgstr "Save and return"
 #: ../../../app/Views/templates/param/mimeTypeChange.tpl:23
 #: ../../../app/Views/templates/param/licenseChange.tpl:25
 #: ../../../app/Views/templates/param/operationChange.tpl:48
-#: ../../../app/Views/templates/param/collectionChange.tpl:182
+#: ../../../app/Views/templates/param/collectionChange.tpl:184
 #: ../../../app/Views/templates/param/referentChange.tpl:106
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:45
 #: ../../../app/Views/templates/param/labelChange.tpl:260
@@ -4095,7 +4095,7 @@ msgstr "Sample awaiting deletion (trashed):"
 #: ../../../app/Views/templates/param/collectionChange.tpl:66
 #: ../../../app/Views/templates/param/collectionChange.tpl:81
 #: ../../../app/Views/templates/param/collectionChange.tpl:103
-#: ../../../app/Views/templates/param/collectionChange.tpl:118
+#: ../../../app/Views/templates/param/collectionChange.tpl:120
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:21
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:34
 #: ../../../app/Views/templates/param/collectionList.tpl:50
@@ -4119,8 +4119,8 @@ msgstr "Sample awaiting deletion (trashed):"
 #: ../../../app/Views/templates/param/collectionDisplay.tpl:99
 #: ../../../app/Views/templates/param/collectionDisplay.tpl:103
 #: ../../../app/Views/templates/param/collectionDisplay.tpl:111
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:116
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:175
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:115
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:174
 #: ../../../app/Views/templates/export/datasetTemplateDisplay.tpl:78
 #: ../../../app/Views/templates/export/datasetTemplateChange.tpl:69
 #: ../../../app/Views/templates/export/datasetColumnTable.tpl:26
@@ -4156,7 +4156,7 @@ msgstr "yes"
 #: ../../../app/Views/templates/param/collectionChange.tpl:62
 #: ../../../app/Views/templates/param/collectionChange.tpl:77
 #: ../../../app/Views/templates/param/collectionChange.tpl:107
-#: ../../../app/Views/templates/param/collectionChange.tpl:122
+#: ../../../app/Views/templates/param/collectionChange.tpl:124
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:25
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:38
 #: ../../../app/Views/templates/param/collectionChangeTab.tpl:148
@@ -4172,8 +4172,8 @@ msgstr "yes"
 #: ../../../app/Views/templates/param/collectionDisplay.tpl:99
 #: ../../../app/Views/templates/param/collectionDisplay.tpl:103
 #: ../../../app/Views/templates/param/collectionDisplay.tpl:111
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:116
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:175
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:115
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:174
 #: ../../../app/Views/templates/export/datasetTemplateDisplay.tpl:78
 #: ../../../app/Views/templates/export/datasetTemplateChange.tpl:63
 #: ../../../app/Views/templates/export/datasetColumnChange.tpl:103
@@ -4207,7 +4207,7 @@ msgstr "no"
 #: ../../../app/Views/templates/param/mimeTypeChange.tpl:35
 #: ../../../app/Views/templates/param/licenseChange.tpl:32
 #: ../../../app/Views/templates/param/operationChange.tpl:55
-#: ../../../app/Views/templates/param/collectionChange.tpl:188
+#: ../../../app/Views/templates/param/collectionChange.tpl:190
 #: ../../../app/Views/templates/param/referentChange.tpl:113
 #: ../../../app/Views/templates/param/eventTypeChange.tpl:52
 #: ../../../app/Views/templates/param/labelChange.tpl:327
@@ -7604,31 +7604,32 @@ msgstr "Broadcast license:"
 msgid "Collection sans gestion de la localisation des échantillons ?"
 msgstr "Collection without sample location management?"
 
-#: ../../../app/Views/templates/param/collectionChange.tpl:113
+#: ../../../app/Views/templates/param/collectionChange.tpl:114
 #: ../../../app/Views/templates/param/collectionChangeTab.tpl:253
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:114
 msgid ""
 "Le stockage de documents attachés aux échantillons est-il possible hors base "
 "de données ?"
 msgstr ""
 "Is it possible to store documents attached to samples outside the database?"
 
-#: ../../../app/Views/templates/param/collectionChange.tpl:128
+#: ../../../app/Views/templates/param/collectionChange.tpl:130
 #: ../../../app/Views/templates/param/collectionChangeTab.tpl:273
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:120
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:119
 msgid "Chemin d'accès aux fichiers externes :"
 msgstr "Path to external files:"
 
-#: ../../../app/Views/templates/param/collectionChange.tpl:135
+#: ../../../app/Views/templates/param/collectionChange.tpl:137
 #: ../../../app/Views/templates/param/collectionChangeTab.tpl:285
 msgid "Groupes :"
 msgstr "Groups:"
 
-#: ../../../app/Views/templates/param/collectionChange.tpl:150
+#: ../../../app/Views/templates/param/collectionChange.tpl:152
 #: ../../../app/Views/templates/param/collectionChangeTab.tpl:306
 msgid "Types d'échantillons spécifiques de la collection :"
 msgstr "Specific event types for the collection:"
 
-#: ../../../app/Views/templates/param/collectionChange.tpl:165
+#: ../../../app/Views/templates/param/collectionChange.tpl:167
 #: ../../../app/Views/templates/param/collectionChangeTab.tpl:331
 msgid "Types d'événements spécifiques de la collection :"
 msgstr "Specific event types for the collection:"
@@ -8088,7 +8089,7 @@ msgid "API de mise à jour autorisée ?"
 msgstr "Update flow autorized?"
 
 #: ../../../app/Views/templates/param/collectionList.tpl:28
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:174
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:173
 msgid "Notifications activées ?"
 msgstr "Notifications activate?"
 
@@ -8209,12 +8210,12 @@ msgid "Groupes d'utilisateurs autorisés"
 msgstr "Allowed login groups"
 
 #: ../../../app/Views/templates/param/collectionChangeTab.tpl:68
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:134
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:133
 msgid "Types d'échantillons rattachés"
 msgstr "Attached sample types"
 
 #: ../../../app/Views/templates/param/collectionChangeTab.tpl:74
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:145
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:144
 msgid "Types d'événements rattachés"
 msgstr "Attached event types"
 
@@ -8566,32 +8567,23 @@ msgstr "Public name:"
 msgid "Mots clés :"
 msgstr "Keywords:"
 
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:114
-#, fuzzy
-msgid ""
-"Le stockage de documents attachés aux échantillons est-il possible hors base "
-"de\n"
-"                                    données ?"
-msgstr ""
-"Is it possible to store documents attached to samples outside the database?"
-
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:164
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:163
 msgid "Groupes autorisés à modifier les échantillons"
 msgstr "Groups allowed to modify the samples"
 
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:172
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:171
 msgid "Notifications automatiques"
 msgstr "Automatic notifications"
 
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:178
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:177
 msgid "Mails des destinataires :"
 msgstr "Email of recipients"
 
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:182
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:181
 msgid "Délai avant l'expiration des échantillons, en jours :"
 msgstr "Time to expiry of samples, in days:"
 
-#: ../../../app/Views/templates/param/collectionDisplay.tpl:186
+#: ../../../app/Views/templates/param/collectionDisplay.tpl:185
 msgid "Délai avant la date d'échéance d'un événement, en jours :"
 msgstr "Time to event due date, in days:"
 
@@ -9942,6 +9934,15 @@ msgstr "Setting"
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/dbparamListChange.tpl:10
 msgid "Valeur"
 msgstr "Value"
+
+#, fuzzy
+#~ msgid ""
+#~ "Le stockage de documents attachés aux échantillons est-il possible hors "
+#~ "base de\n"
+#~ "                                    données ?"
+#~ msgstr ""
+#~ "Is it possible to store documents attached to samples outside the "
+#~ "database?"
 
 #, fuzzy
 #~ msgid ""

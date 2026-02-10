@@ -30,8 +30,8 @@ class Locale
          */
         $appConfig = service("AppConfig");
         if (empty($locale)) {
-            if (isset($_COOKIE["locale"])) {
-                $locale = $_COOKIE["locale"];
+            if (isset($_REQUEST["locale"])) {
+                $locale = $_REQUEST["locale"];
             } else {
                 /**
                  * Get the locale of the browser

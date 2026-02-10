@@ -101,6 +101,7 @@ class Sample extends PpciModel
     public Subsample $subsample;
     public Campaign $campaign;
     public Samplehisto $samplehisto;
+    public Metadata $metadata;
 
     public function __construct()
     {
@@ -306,6 +307,18 @@ class Sample extends PpciModel
                             }
                         }
                         $metadata[$k] = $new;
+                    }
+                }
+                /**
+                 * Search if a mandatory metadata field is empty
+                 */
+                if (!isset($this->metadata)) {
+                    $this->metadata = new Metadata;
+                }
+                $metamodel = $this->metadata->getModelAsArrayFromSampleId($data["sample_type_id"]);
+                foreach ($metamodel as $mfield) {
+                    if ($mfield["required"] && empty($metadata[$mfield["name"]])) {
+                        throw new PpciException(sprintf(_("La métadonnée %s est obligatoire, mais n'a pas été renseignée"), $mfield["name"]));
                     }
                 }
                 $data["metadata"] = json_encode($metadata);

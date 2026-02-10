@@ -177,7 +177,7 @@ class Sample extends PpciLibrary
          * online help
          */
 
-        $this->vue->help(_("objets/les-opérations-de-groupe-sur-les-échantillons.html"),"helpsamplegroup");
+        $this->vue->help(_("objets/les-opérations-de-groupe-sur-les-échantillons.html"), "helpsamplegroup");
         return $this->vue->send();
     }
     function searchAjax()
@@ -286,7 +286,7 @@ class Sample extends PpciLibrary
              */
             if ($is_modifiable || $_SESSION["dbparams"]["consultSeesAll"] == 1) {
                 $sampleHisto = new Samplehisto;
-                $this->vue->set($sampleHisto->getHisto($data,$movements), "histo");
+                $this->vue->set($sampleHisto->getHisto($data, $movements), "histo");
                 $this->vue->set($sampleHisto->header, "histoheader");
             }
             /**
@@ -308,7 +308,7 @@ class Sample extends PpciLibrary
          * add help link
          */
         $this->vue->help(_("objets/les-échantillons.html"));
-        $this->vue->help(_("gestion/prêter-un-ou-plusieurs-échantillons.html"),"helpborrowing");
+        $this->vue->help(_("gestion/prêter-un-ou-plusieurs-échantillons.html"), "helpborrowing");
         $this->vue->set("sample", "moduleParent");
         $this->vue->set("gestion/sampleDisplay.tpl", "corps");
         return $this->vue->send();
@@ -403,6 +403,8 @@ class Sample extends PpciLibrary
     function write()
     {
         try {
+            $db = $this->dataclass->db;
+            $db->transBegin();
             /**
              * generate metadata
              */
@@ -428,18 +430,19 @@ class Sample extends PpciLibrary
             }
             $_REQUEST["metadata"] = json_encode($metadata);
             $this->id = $this->dataWrite($_REQUEST);
-            if ($this->id > 0) {
-                $_REQUEST[$this->keyName] = $this->id;
-                /**
-                 * Stockage en session du dernier echantillon modifie,
-                 * pour recuperation des informations rattachees pour duplication ou autre
-                 */
-                $_SESSION["last_sample_id"] = $this->id;
-                return true;
-            } else {
-                return false;
+            $db->transCommit();
+            $_REQUEST[$this->keyName] = $this->id;
+            /**
+             * Stockage en session du dernier echantillon modifie,
+             * pour recuperation des informations rattachees pour duplication ou autre
+             */
+            $_SESSION["last_sample_id"] = $this->id;
+            return true;
+        } catch (PpciException $e) {
+            if ($db->transEnabled) {
+                $db->transRollback();
             }
-        } catch (PpciException) {
+            $this->message->set($e->getMessage(), true);
             return false;
         }
     }
@@ -1016,7 +1019,8 @@ class Sample extends PpciLibrary
             $db->transRollback();
         }
     }
-    function reindex() {
+    function reindex()
+    {
         $this->dataclass->reindex();
     }
 }

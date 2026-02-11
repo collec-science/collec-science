@@ -51,8 +51,10 @@ class Sample extends PpciLibrary
         parent::__construct();
         $this->dataclass = new ModelsSample();
         $this->keyName = "uid";
-        if (isset($_REQUEST["uid"]) && strlen($_REQUEST["uid"]) > 0) {
+        if (strlen($_REQUEST["uid"]) > 0) {
             $this->id = $_REQUEST["uid"];
+        } else {
+            $this->id = 0;
         }
         $_SESSION["moduleParent"] = "sample";
     }

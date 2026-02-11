@@ -219,6 +219,7 @@ class Samplehisto extends PpciModel
         $campaign = new Campaign;
         $country = new Country;
         $referent = new Referent;
+        $collection = new Collection;
         $row = [
             "date" => date($_SESSION["date"]["maskdatelong"]),
             "login" => _("Valeurs actuelles"),
@@ -292,7 +293,10 @@ class Samplehisto extends PpciModel
                                 $this->sample = new Sample;
                             }
                             $tbcontent = $this->sample->readFromId($v);
-                            $row[$colsRef[$k]] = $tbcontent["uid"];
+                            $row[$colsRef[$k]] = $tbcontent["uid"]." (".$tbcontent["identifier"].")";
+                        } elseif ($k == "collection_id") {
+                            $tbcontent = $collection->read($v);
+                            $row[$colsRef[$k]] = $tbcontent[$colsRef[$k]];
                         }
                     } elseif ($k != "metadata") {
                         $row[$k] = $v;
@@ -302,7 +306,7 @@ class Samplehisto extends PpciModel
                          */
                         foreach ($v["metadata"] as $km => $vm) {
                             if ($v == "new") {
-                                $row[$k] = _("Donnée créée");
+                                $row[$km] = _("Donnée créée");
                             } else {
                                 $row[$km] = $vm;
                             }

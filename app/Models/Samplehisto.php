@@ -89,7 +89,7 @@ class Samplehisto extends PpciModel
                     case when trashed = 't' then '1' else '0' end as trashed, 
                     location_accuracy, object_comment,
                     collection_id, sample_type_id, sample_creation_date, sampling_date,parent_sample_id, multiple_value,
-                    sampling_place_id, dbuid_origin, metadata, expiration_date, campaign_id, country_id, country_origin_id
+                    sampling_place_id, dbuid_origin, metadata, expiration_date::date, campaign_id, country_id, country_origin_id
                     FROM object
                     JOIN sample using (uid)
                     where uid = :uid:";
@@ -111,10 +111,13 @@ class Samplehisto extends PpciModel
             /**
              * Format dates in db format
              */
-            foreach (["sample_creation_date", "sampling_date", "expiration_date"] as $field) {
+            foreach (["sample_creation_date", "sampling_date"] as $field) {
                 if (!empty($data[$field])) {
                     $data[$field] = $this->formatDateTimeLocaleToDB($data[$field]);
                 }
+            }
+            if (!empty($data["expiration_date"])) {
+                $data["expiration_date"] = $this->formatDateLocaleToDB($data["expiration_date"]);
             }
             /**
              * general columns
@@ -252,6 +255,9 @@ class Samplehisto extends PpciModel
                 from samplehisto
                 where sample_id = :id:";
         $histos = $this->getListParam($sql, ["id" => $currentData["sample_id"]]);
+        /**
+         * Treatment of each line of historical
+         */
         foreach ($histos as $histo) {
             $row = [
                 "date" => $histo["samplehisto_date"],
@@ -266,8 +272,11 @@ class Samplehisto extends PpciModel
                         $row[$k] = _("Donnée créée");
                     }
                 } else {
-                    if (in_array($k, ["sample_creation_date", "sampling_date", "expiration_date"])) {
-                        $v = $this->formatDatetimeDBversLocal($v);
+                    if (in_array($k, ["sample_creation_date", "sampling_date"])) {
+                        $v = $this->formatDateTimeDBtoLocal($v);
+                    }
+                    if ($k == "expiration_date") {
+                        $v = $this->formatDateDBtoLocal($v);
                     }
                     if (array_key_exists($k, $colsRef)) {
                         if ($k == "object_status_id") {
@@ -293,20 +302,20 @@ class Samplehisto extends PpciModel
                                 $this->sample = new Sample;
                             }
                             $tbcontent = $this->sample->readFromId($v);
-                            $row[$colsRef[$k]] = $tbcontent["uid"]." (".$tbcontent["identifier"].")";
+                            $row[$colsRef[$k]] = $tbcontent["uid"] . " (" . $tbcontent["identifier"] . ")";
                         } elseif ($k == "collection_id") {
                             $tbcontent = $collection->read($v);
                             $row[$colsRef[$k]] = $tbcontent[$colsRef[$k]];
                         }
-                    } elseif ($k != "metadata") {
-                        $row[$k] = $v;
-                    } else {
+                    } elseif ($k == "metadata") {
                         /**
                          * Treatment of metadata
                          */
-                        foreach ($v["metadata"] as $km => $vm) {
-                            if ($v == "new") {
+                        foreach ($v as $km => $vm) {
+                            if ($vm == "new") {
                                 $row[$km] = _("Donnée créée");
+                            } elseif ($vm == "deleted") {
+                                $row[$km] = _("Donnée supprimée");
                             } else {
                                 $row[$km] = $vm;
                             }
@@ -314,6 +323,8 @@ class Samplehisto extends PpciModel
                                 $this->header[] = $km;
                             }
                         }
+                    } else {
+                        $row[$k] = $v;
                     }
                 }
             }

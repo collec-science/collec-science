@@ -7,6 +7,8 @@ Corrections de bugs :
 - en mode "multi-instances", il était possible d'usurper la session d'une autre instance et élever son niveau de privilèges
 - les informations de localisation des échantillons n'étaient plus masquées si la collection avait été paramétrée pour ne pas gérer les localisations
 - l'appel à certaines actions ouvrait un nouvel onglet
+- il était possible de créer des échantillons alors que des métadonnées obligatoires n'étaient pas renseignées
+- dans les API, la variable "locale" n'était pas prise en compte, et les messages restaient systématiquement en français
 
 Nouveautés :
 - l'affichage des collections a été restructuré, avec l'ajout d'une page détail

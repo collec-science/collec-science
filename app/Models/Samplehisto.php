@@ -288,6 +288,9 @@ class Samplehisto extends PpciModel
                             $tbcontent = $country->read($v);
                             $row[$colsRef[$k]] = $tbcontent[$colsRef[$k]];
                         } elseif ($k == "parent_sample_id") {
+                            if (!isset($this->sample)) {
+                                $this->sample = new Sample;
+                            }
                             $tbcontent = $this->sample->readFromId($v);
                             $row[$colsRef[$k]] = $tbcontent["uid"];
                         }

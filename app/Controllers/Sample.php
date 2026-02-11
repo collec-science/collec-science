@@ -34,7 +34,7 @@ class Sample extends PpciController
     }
     function change()
     {
-        return $this->lib->change();
+        return $this->lib->change(1);
     }
     function changeTab()
     {

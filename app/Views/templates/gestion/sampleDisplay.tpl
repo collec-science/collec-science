@@ -369,11 +369,7 @@
 			&nbsp;
 			<a href="sampleChangeTab?uid={$data.uid}">
 				<img src="display/images/edit.gif" height="25">
-				{t}Modifier (version avec boite d'onglets){/t}
-			</a>
-			<a href="sampleChange?uid={$data.uid}">
-				<img src="display/images/edit.gif" height="25">
-				{t}Modifier (version originale){/t}
+				{t}Modifier{/t}
 			</a>
 			{/if}
 			<!-- Entrée ou sortie -->

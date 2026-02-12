@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "Your database is already in version 26.0"
+echo "Your database is already in version 26.1"

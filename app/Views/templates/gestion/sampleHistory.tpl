@@ -4,9 +4,10 @@
             {t}Les valeurs dans le tableau sont celles qui existaient auparavant et qui ont été modifiées à la date indiquée, et non les valeurs saisies ce jour-là.{/t}
             {t}Les métadonnées sont en fin de tableau, après la colonne trashed.{/t}
             <br>
+            {t}La ligne surlignée en bleu correspond aux valeurs courantes de l'échantillon{/t}
+            </div>
             {t}L'échantillon a été créé le {/t}{$data.sample_creation_date}
-            {if strlen($data.object_login) > 0}{t} par le compte {/t}{$data.object_login}{/if}
-        </div>
+            {if strlen($data.object_login) > 0}{t} par le compte {/t}<span class="blue">{$data.object_login}</span>{/if}
         <table class="table table-bordered table-hover datatable-nopaging display" data-order='[[0,"desc"]]'>
             <thead>
                 <tr>
@@ -19,7 +20,7 @@
                 {foreach $histo as $row}
                 <tr>
                     {foreach $histoheader as $h}
-                    <td>
+                    <td {if $row@index == 0} class="bg-info"{/if}>
                         {$row[$h]}
                     </td>
                     {/foreach}

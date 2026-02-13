@@ -225,7 +225,6 @@ class Samplehisto extends PpciModel
         $collection = new Collection;
         $row = [
             "date" => date($_SESSION["date"]["maskdatelong"]),
-            "login" => _("Valeurs actuelles"),
             "movements" => $currentData["container_identifier"]
         ];
         foreach ($this->cols as $col) {

@@ -333,8 +333,11 @@ class Samplehisto extends PpciModel
          * Treatment of movements
          */
         foreach ($movements as $m) {
-            $row = ["date" => $m["movement_date"]];
-            $m["movement_type_id"] == 1 ? $content = _("Déplacement") : $content = _("Sortie du stock");
+            $row = [
+                "date" => $m["movement_date"],
+                "login" => $m["login"]
+            ];
+            $m["movement_type_id"] == 1 ? $content = $m["parent_identifier"] : $content = _("Sortie du stock");
             $row["movements"] = $content;
             $data[] = $row;
         }

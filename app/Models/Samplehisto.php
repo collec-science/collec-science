@@ -169,7 +169,7 @@ class Samplehisto extends PpciModel
                  */
                 foreach ($oldm as $k => $v) {
                     if (!empty($v) && !isset($newm[$k])) {
-                        $metadata[$k] = "deleted";
+                        $metadata[$k] = $v;
                     }
                 }
                 if (!empty($metadata)) {

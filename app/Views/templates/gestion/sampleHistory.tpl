@@ -4,7 +4,7 @@
             {t}Les valeurs dans le tableau sont celles qui existaient auparavant et qui ont été modifiées à la date indiquée, et non les valeurs saisies ce jour-là.{/t}
             {t}Les métadonnées sont en fin de tableau, après la colonne trashed.{/t}
             <br>
-            {t}La ligne surlignée en bleu correspond aux valeurs courantes de l'échantillon{/t}
+            {t}La ligne surlignée en bleu correspond aux valeurs courantes de l'échantillon{/t}.
             </div>
             {t}L'échantillon a été créé le {/t}{$data.sample_creation_date}
             {if strlen($data.object_login) > 0}{t} par le compte {/t}<span class="blue">{$data.object_login}</span>{/if}

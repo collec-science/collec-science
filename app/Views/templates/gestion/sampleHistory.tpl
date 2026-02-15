@@ -8,7 +8,7 @@
             </div>
             {t}L'échantillon a été créé le {/t}{$data.sample_creation_date}
             {if strlen($data.object_login) > 0}{t} par le compte {/t}<span class="blue">{$data.object_login}</span>{/if}
-        <table class="table table-bordered table-hover datatable-nopaging display" data-order='[[0,"desc"]]'>
+        <table class="table table-bordered table-hover datatable-export display" data-order='[[0,"desc"]]'>
             <thead>
                 <tr>
                     {foreach $histoheader as $h}

@@ -227,7 +227,7 @@ class Sample extends PpciLibrary
              * Recuperation des evenements
              */
             $event = new Event();
-            $this->vue->set($event->getListeFromUid($data["uid"]), "events");
+            $this->vue->set($events = $event->getListeFromUid($data["uid"]), "events");
             $eventType = new EventType();
             $this->vue->set($eventType->getListeFromCategory("sample", $data["collection_id"]), "eventType");
             /**
@@ -288,7 +288,7 @@ class Sample extends PpciLibrary
              */
             if ($is_modifiable || $_SESSION["dbparams"]["consultSeesAll"] == 1) {
                 $sampleHisto = new Samplehisto;
-                $this->vue->set($sampleHisto->getHisto($data, $movements), "histo");
+                $this->vue->set($sampleHisto->getHisto($data, $movements, $events), "histo");
                 $this->vue->set($sampleHisto->header, "histoheader");
             }
             /**

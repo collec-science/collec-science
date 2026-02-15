@@ -43,6 +43,7 @@ class Samplehisto extends PpciModel
         "identifier",
         "identifiers",
         "movements",
+        "events",
         "collection_name",
         "object_status_name",
         "sample_type_name",
@@ -198,7 +199,7 @@ class Samplehisto extends PpciModel
      *
      * @return array
      */
-    function getHisto($currentData, array $movements = []): array
+    function getHisto($currentData, array $movements = [], array $events = []): array
     {
         //date_default_timezone_set('Europe/Paris');
         $data = [];
@@ -340,6 +341,17 @@ class Samplehisto extends PpciModel
             $m["movement_type_id"] == 1 ? $content = $m["parent_identifier"] : $content = _("Sortie du stock");
             $row["movements"] = $content;
             $data[] = $row;
+        }
+        /**
+         * add events
+         */
+        foreach ($events as $e) {
+            if (!empty($e["event_date"])) {
+                $data[] = [
+                    "date" => $e["event_date"] . " 00:00:00",
+                    "events" => $e["event_type_name"]
+                ];
+            }
         }
         return $data;
     }

@@ -9,6 +9,7 @@ Corrections de bugs :
 - l'appel à certaines actions ouvrait un nouvel onglet
 - il était possible de créer des échantillons alors que des métadonnées obligatoires n'étaient pas renseignées
 - dans les API, la variable "locale" n'était pas prise en compte, et les messages restaient systématiquement en français
+- la recherche par zone géographique ne fonctionnait pas
 
 Nouveautés :
 - l'affichage des collections a été restructuré, avec l'ajout d'une page détail

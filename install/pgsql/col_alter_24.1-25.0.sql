@@ -8,7 +8,7 @@ values (
 'Code of the application, to export data'
 ) 
 on conflict do nothing;
-alter table gacl.acllogin add column email varchar;
+alter table gacl.acllogin add column if not exists email varchar;
 alter table gacl.logingestion add column if not exists is_expired boolean;
 alter table gacl.logingestion add column if not exists nbattempts integer;
 alter table gacl.logingestion add column if not exists lastattempt timestamp;

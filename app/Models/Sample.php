@@ -703,8 +703,8 @@ class Sample extends PpciModel
                  */
                 if ($geoSearch) {
                     $where .= $and . " st_contains (st_setsrid (st_makebox2d(
-                    st_makepoint(:southwestlon, :southwestlat),
-                    st_makepoint(:northeastlon, :northeastlat))
+                    st_makepoint(:southwestlon:, :southwestlat:),
+                    st_makepoint(:northeastlon:, :northeastlat:))
                     ,4326), so.geom::geometry) = true ";
                     $data["southwestlon"] = $param["SouthWestlon"];
                     $data["southwestlat"] = $param["SouthWestlat"];

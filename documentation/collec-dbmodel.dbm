@@ -3,9 +3,9 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.2.2" use-changelog="false" author="Éric Quinton" max-obj-count="79"
+<dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="79"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="-6,767" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
+	 last-position="6,1072" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
 	 default-schema="col" default-owner="collec"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -24,6 +24,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <database name="collec" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true">
 	<role name="collec"/>
 	<tablespace name="pg_default"/>
+	<comment> <![CDATA[Version v25.0 ?]]> </comment>
 </database>
 
 <schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
@@ -762,8 +763,8 @@ Prélèvement pour analyse;true;false
 	<comment> <![CDATA[Mime types of imported files]]> </comment>
 	<tag name="objects"/>
 	<position x="860" y="460"/>
-	<column name="mime_type_id" not-null="true" sequence="col.mime_type_mime_type_id_seq">
-		<type name="integer" length="0"/>
+	<column name="mime_type_id" not-null="true">
+		<type name="serial" length="0"/>
 	</column>
 	<column name="extension" not-null="true">
 		<type name="character varying" length="0"/>
@@ -1442,7 +1443,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="subsample" layers="0" collapse-mode="1" max-obj-count="9" z-value="0">
+<table name="subsample" layers="0" collapse-mode="1" max-obj-count="10" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of sub-sample takes and returns]]> </comment>
@@ -1473,10 +1474,19 @@ Autre]]>
 		<type name="character varying" length="0"/>
 		<comment> <![CDATA[Login of the user who perform this operation]]> </comment>
 	</column>
+	<column name="createdsample_id">
+		<type name="integer" length="0"/>
+	</column>
 	<constraint name="subsample_pk" type="pk-constr" table="col.subsample">
 		<columns names="subsample_id" ref-type="src-columns"/>
 	</constraint>
-</table>
+
+	<customidxs object-type="column">
+		<object name="borrower_id" index="7"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="borrower" index="3"/>
+	</customidxs></table>
 
 <view name="v_object_identifier" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
 	<schema name="col"/>
@@ -1551,13 +1561,14 @@ Autre]]>
 		<columns names="aclaco_id" ref-type="src-columns"/>
 	</constraint>
 	<initial-data>
-<![CDATA[aclaco_id;aclappli_id;aco
-1;1;admin
-5;1;consult
-2;1;param
-6;1;import
-3;1;collection
-4;1;gestion]]>
+<![CDATA["aclaco_id";"aclappli_id";"aco"
+"1";"1";"admin"
+"5";"1";"consult"
+"2";"1";"param"
+"6";"1";"import"
+"3";"1";"collection"
+"4";"1";"manage"
+]]>
 	</initial-data>
 </table>
 
@@ -1613,13 +1624,14 @@ Autre]]>
 		<columns names="aclgroup_id" ref-type="src-columns"/>
 	</constraint>
 	<initial-data>
-<![CDATA[aclgroup_id;groupe;aclgroup_id_parent
-1;admin;
-2;consult;
-3;gestion;2
-4;collection;3
-5;param;4
-6;import;3]]>
+<![CDATA["aclgroup_id";"groupe";"aclgroup_id_parent"
+"1";"admin";""
+"2";"consult";""
+"3";"manage";"2"
+"4";"collection";"3"
+"5";"param";"4"
+"6";"import";"3"
+]]>
 	</initial-data>
 </table>
 
@@ -3863,6 +3875,14 @@ group by s.uid;;]]> </definition>
 		</idxelement>
 </index>
 
+<index name="subsample_createdsample_id_idx" table="col.subsample"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="createdsample_id"/>
+		</idxelement>
+</index>
+
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
 	<columns names="uid" ref-type="src-columns"/>
@@ -4064,6 +4084,12 @@ group by s.uid;;]]> </definition>
 <constraint name="sample_subsample_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.sample" table="col.subsample">
 	<columns names="sample_id" ref-type="src-columns"/>
+	<columns names="sample_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="sample_id" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.sample" table="col.subsample">
+	<columns names="createdsample_id" ref-type="src-columns"/>
 	<columns names="sample_id" ref-type="dst-columns"/>
 </constraint>
 
@@ -4432,6 +4458,11 @@ group by s.uid;;]]> </definition>
 	 src-table="col.object"
 	 dst-table="col.movement" reference-fk="object_last_movement_id_fk"
 	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_subsample_sample1" type="relfk" layers="0"
+	 src-table="col.subsample"
+	 dst-table="col.sample" reference-fk="sample_id"
+	 src-required="false" dst-required="true"/>
 
 <permission>
 	<object name="collec" type="database"/>

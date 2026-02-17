@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="79"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="6,1072" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
+	 last-position="76,1447" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
 	 default-schema="col" default-owner="collec"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -254,7 +254,7 @@ Mobilier]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="container_type" layers="0" collapse-mode="1" max-obj-count="18" z-value="0">
+<table name="container_type" layers="0" collapse-mode="1" max-obj-count="19" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of types of containers]]> </comment>
@@ -318,6 +318,9 @@ R: Right]]> </comment>
 	<column name="column_in_char" not-null="true" default-value="false">
 		<type name="boolean" length="0"/>
 		<comment> <![CDATA[Is the number of the column is displayed in character?]]> </comment>
+	</column>
+	<column name="nbobject_by_slot" default-value="0">
+		<type name="integer" length="0"/>
 	</column>
 	<constraint name="container_type_pk" type="pk-constr" table="col.container_type">
 		<columns names="container_type_id" ref-type="src-columns"/>
@@ -1268,7 +1271,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="sample_type" layers="0" collapse-mode="1" max-obj-count="10" z-value="0">
+<table name="sample_type" layers="0" collapse-mode="1" max-obj-count="12" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of the types of samples]]> </comment>
@@ -1304,6 +1307,10 @@ Autre]]>
 	<column name="sample_type_description">
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[Description of the type of sample]]> </comment>
+	</column>
+	<column name="sample_type_code">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Code used to exchange information with others providers without use the name of the sample type]]> </comment>
 	</column>
 	<constraint name="sample_type_pk" type="pk-constr" table="col.sample_type">
 		<columns names="sample_type_id" ref-type="src-columns"/>
@@ -1710,7 +1717,7 @@ Autre]]>
 		<type name="integer" length="0"/>
 	</column>
 	<column name="login" not-null="true">
-		<type name="character varying" length="32"/>
+		<type name="varchar" length="0"/>
 		<comment> <![CDATA[Code of the login who performs the operation]]> </comment>
 	</column>
 	<column name="nom_module">
@@ -1943,7 +1950,7 @@ Autre]]>
    FROM col.movement m
      JOIN col.object o ON m.movement_id = o.last_movement_id
      LEFT JOIN col.container c USING (container_id)
-     left join col.object o2 on (c.uid = o2.uid);;]]> </definition>
+     left join col.object o2 on (c.uid = o2.uid)]]> </definition>
 </view>
 
 <sequence name="borrower_borrower_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
@@ -1989,7 +1996,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="borrowing" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
+<table name="borrowing" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[List of borrowings]]> </comment>
@@ -2015,6 +2022,9 @@ Autre]]>
 	<column name="return_date">
 		<type name="timestamp" length="0"/>
 		<comment> <![CDATA[Date of return of the object]]> </comment>
+	</column>
+	<column name="borrowing_comment">
+		<type name="varchar" length="0"/>
 	</column>
 	<constraint name="borrowing_pk" type="pk-constr" table="col.borrowing">
 		<columns names="borrowing_id" ref-type="src-columns"/>
@@ -2070,14 +2080,14 @@ Autre]]>
 	<tag name="container"/>
 	<position x="1680" y="2080"/>
 	<simplecol name="container_id" type="integer"/>
-	<simplecol name="nb_slots_used" type="integer"/>
+	<simplecol name="nb_slots_used" type="bigint"/>
 	<definition> <![CDATA[SELECT
    container_id, count(*) as nb_slots_used
 FROM
-   last_movement
+   col.last_movement
 WHERE
    movement_type_id = 1
-   group by container_id;;]]> </definition>
+   group by container_id]]> </definition>
 </view>
 
 <index name="log_module_idx" table="gacl.log"
@@ -3661,10 +3671,11 @@ where collection_id = $1]]> </definition>
 	<position x="860" y="2280"/>
 	<simplecol name="uid" type="integer"/>
 	<simplecol name="nb_derivated_sample" type="integer"/>
-	<definition> <![CDATA[select s.uid, count(*) -1 as nb_derivated_sample
-from col.sample s
-join col.sample d on (d.parent_sample_id = s.sample_id)
-group by s.uid;;]]> </definition>
+	<definition> <![CDATA[SELECT s.uid,
+	count(*) AS nb_derivated_sample
+	FROM col.sample s
+	JOIN col.sample d ON d.parent_sample_id = s.sample_id
+	GROUP BY s.uid]]> </definition>
 </view>
 
 <relationship name="collection_has_many_container" type="rel1n" layers="0"
@@ -3882,6 +3893,21 @@ group by s.uid;;]]> </definition>
 			<column name="createdsample_id"/>
 		</idxelement>
 </index>
+
+<view name="v_sample_parents" layers="0" collapse-mode="2" max-obj-count="0" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<tag name="sample"/>
+	<position x="860" y="2180"/>
+	<simplecol name="sample_id" type="integer"/>
+	<simplecol name="sample_parents" type="varchar"/>
+	<definition> <![CDATA[select ss.createdsample_id as sample_id,
+array_to_string (array_agg((p.uid::text || ' '|| po.identifier::text) order by p.uid), ', ') as sample_parents
+from subsample ss
+join sample p on (ss.sample_id = p.sample_id)
+join object po on (p.uid = po.uid)
+group by ss.createdsample_id]]> </definition>
+</view>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

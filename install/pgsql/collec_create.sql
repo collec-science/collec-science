@@ -3998,21 +3998,6 @@ SELECT m.uid,
 ALTER VIEW col.last_movement OWNER TO collec;
 -- ddl-end --
 
--- object: col.slots_used | type: VIEW --
--- DROP VIEW IF EXISTS col.slots_used CASCADE;
-CREATE OR REPLACE VIEW col.slots_used
-AS 
-SELECT
-   container_id, count(*) as nb_slots_used
-FROM
-   last_movement
-WHERE
-   movement_type_id = 1
-   group by container_id;
--- ddl-end --
-ALTER VIEW col.slots_used OWNER TO collec;
--- ddl-end --
-
 -- patch version 24.1-25.0
 
 create unique index if not exists dbparamname_idx on dbparam (dbparam_name);
@@ -4064,17 +4049,6 @@ create or replace view col.v_derivated_number as (
 alter table borrowing add column borrowing_comment varchar;
 
 alter table container_type add column nbobject_by_slot integer DEFAULT 0;
-
-create or replace view slots_used as (
-with req as (
-select container_id, line_number, column_number, count(*) as qty_by_slot
-from last_movement
-where movement_type_id = 1
-group by container_id, line_number, column_number)
-select container_id, sum (qty_by_slot)::bigint as nb_slots_used
-from req
-group by container_id
-);
 
 alter table sample_type add column sample_type_code varchar;
 comment on column sample_type.sample_type_code is 'Code used to exchange information with others providers without use the name of the sample type';

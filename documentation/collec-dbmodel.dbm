@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="79"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="76,1447" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
+	 last-position="1276,1087" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
 	 default-schema="col" default-owner="collec"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -18,13 +18,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
  createrole="true"
  inherit="true"
  login="true"
- password="collecPassword">
+ password="collecPassword"
+ sql-disabled="true">
 </role>
 
-<database name="collec" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true">
+<database name="collec" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true" sql-disabled="true">
 	<role name="collec"/>
 	<tablespace name="pg_default"/>
-	<comment> <![CDATA[Version v25.0 ?]]> </comment>
+	<comment> <![CDATA[Version v26.1]]> </comment>
 </database>
 
 <schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
@@ -128,7 +129,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-toggler-body" colors="#fcfcfc,#fcfcfc,#d7d7d7"/>
 	<style id="table-toggler-btns" colors="#f3f3f3,#e1e1e1,#bebebe"/>
 </tag>
-<extension name="pg_trgm" cur-version="1.4">
+<extension name="pg_trgm" cur-version="1.4" sql-disabled="true">
 	<schema name="pg_catalog"/>
 	<comment> <![CDATA[text similarity measurement and index searching based on trigrams]]> </comment>
 </extension>
@@ -403,7 +404,7 @@ Congélateur;2]]>
 	</constraint>
 	<initial-data>
 <![CDATA["dbversion_number";"dbversion_date"
-"25.1";"2025-11-1"
+"26.1";"2026-02-01"
 ]]>
 	</initial-data>
 </table>
@@ -598,7 +599,7 @@ Prélèvement pour analyse;true;false
 	<role name="collec"/>
 </sequence>
 
-<table name="label" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
+<table name="label" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of label models]]> </comment>
@@ -618,6 +619,10 @@ Prélèvement pour analyse;true;false
 	<column name="metadata_id">
 		<type name="integer" length="0"/>
 		<comment> <![CDATA[Model of the metadata template associated with this label]]> </comment>
+	</column>
+	<column name="logo">
+		<type name="bytea" length="0"/>
+		<comment> <![CDATA[Logo added to the label]]> </comment>
 	</column>
 	<constraint name="label_pk" type="pk-constr" table="col.label">
 		<columns names="label_id" ref-type="src-columns"/>
@@ -721,11 +726,14 @@ Prélèvement pour analyse;true;false
 	<definition> <![CDATA[SELECT d.document_id,
     d.uid
    FROM col.document d
-  WHERE (d.document_id = ( SELECT d1.document_id
-           FROM col.document d1
-          WHERE ((d1.mime_type_id = ANY (ARRAY[4, 5, 6])) AND (d.uid = d1.uid))
-          ORDER BY d1.document_creation_date DESC, d1.document_import_date DESC, d1.document_id DESC
-         LIMIT 1));;]]> </definition>
+  WHERE (d.document_id = (
+		SELECT d1.document_id
+  		FROM col.document d1
+		WHERE (d1.mime_type_id = ANY (ARRAY[4, 5, 6]) AND (d.uid = d1.uid))
+        ORDER BY d1.document_creation_date DESC, 
+				d1.document_import_date DESC, 
+				d1.document_id DESC
+         LIMIT 1))]]> </definition>
 </view>
 
 <sequence name="metadata_metadata_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
@@ -930,7 +938,7 @@ Autre]]>
 	</initial-data>
 </table>
 
-<extension name="postgis">
+<extension name="postgis" sql-disabled="true">
 	<schema name="public"/>
 </extension>
 
@@ -1028,15 +1036,15 @@ Autre]]>
 	<column name="referent_id">
 		<type name="integer" length="0"/>
 	</column>
-	<column name="allowed_import_flow" default-value="'f'">
+	<column name="allowed_import_flow" default-value="false">
 		<type name="boolean" length="0"/>
 		<comment> <![CDATA[Allow an external source to update a collection]]> </comment>
 	</column>
-	<column name="allowed_export_flow" default-value="'f'">
+	<column name="allowed_export_flow" default-value="false">
 		<type name="boolean" length="0"/>
 		<comment> <![CDATA[Allow interrogation requests from external sources]]> </comment>
 	</column>
-	<column name="public_collection" default-value="'f'">
+	<column name="public_collection" default-value="false">
 		<type name="boolean" length="0"/>
 		<comment> <![CDATA[Set if a collection can be requested without authentication]]> </comment>
 	</column>
@@ -1503,13 +1511,19 @@ Autre]]>
 	<simplecol name="uid" type="integer"/>
 	<simplecol name="identifiers" type="text"/>
 	<definition> <![CDATA[SELECT object_identifier.uid,
-    array_to_string(array_agg((
-    case when identifier_type_code is not null then identifier_type.identifier_type_code else identifier_type_name end ::text || ':'::text) || object_identifier.object_identifier_value::text 
-    ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
+    array_to_string(
+		array_agg(
+        CASE
+            WHEN identifier_type.identifier_type_code IS NOT NULL THEN identifier_type.identifier_type_code
+            ELSE identifier_type.identifier_type_name
+        END::text 
+		|| ':'::text || object_identifier.object_identifier_value::text ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value
+		), ','::text
+	) AS identifiers
    FROM col.object_identifier
      JOIN col.identifier_type USING (identifier_type_id)
   GROUP BY object_identifier.uid
-  ORDER BY object_identifier.uid;;]]> </definition>
+  ORDER BY object_identifier.uid]]> </definition>
 </view>
 
 <sequence name="aclgroup_aclgroup_id_seq" cycle="false" start="7" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
@@ -1950,7 +1964,7 @@ Autre]]>
    FROM col.movement m
      JOIN col.object o ON m.movement_id = o.last_movement_id
      LEFT JOIN col.container c USING (container_id)
-     left join col.object o2 on (c.uid = o2.uid)]]> </definition>
+     LEFT JOIN col.object o2 ON c.uid = o2.uid]]> </definition>
 </view>
 
 <sequence name="borrower_borrower_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
@@ -2058,19 +2072,20 @@ Autre]]>
 	<simplecol name="expected_return_date" type="timestamp"/>
 	<simplecol name="borrower_id" type="integer"/>
 	<definition> <![CDATA[SELECT b1.borrowing_id,
-    b1.uid,
-    b1.borrowing_date,
-    b1.expected_return_date,
-    b1.borrower_id
-   FROM col.borrowing b1
-  WHERE (b1.borrowing_id = ( SELECT b2.borrowing_id
+    	b1.uid,
+    	b1.borrowing_date,
+    	b1.expected_return_date,
+    	b1.borrower_id
+	FROM col.borrowing b1
+	WHERE (b1.borrowing_id = ( SELECT b2.borrowing_id
            FROM col.borrowing b2
           WHERE ((b1.uid = b2.uid) AND (b2.return_date IS NULL))
           ORDER BY b2.borrowing_date DESC
-         LIMIT 1));;]]> </definition>
+         LIMIT 1)
+		)]]> </definition>
 </view>
 
-<extension name="pgcrypto">
+<extension name="pgcrypto" sql-disabled="true">
 	<schema name="public"/>
 </extension>
 
@@ -2081,13 +2096,11 @@ Autre]]>
 	<position x="1680" y="2080"/>
 	<simplecol name="container_id" type="integer"/>
 	<simplecol name="nb_slots_used" type="bigint"/>
-	<definition> <![CDATA[SELECT
-   container_id, count(*) as nb_slots_used
-FROM
-   col.last_movement
-WHERE
-   movement_type_id = 1
-   group by container_id]]> </definition>
+	<definition> <![CDATA[SELECT container_id,
+    count(*) AS nb_slots_used
+   FROM col.last_movement
+  WHERE movement_type_id = 1
+  GROUP BY container_id]]> </definition>
 </view>
 
 <index name="log_module_idx" table="gacl.log"
@@ -2285,7 +2298,7 @@ Structure:
 		<comment> <![CDATA[If the object is trashed before completly destroyed ?]]> </comment>
 	</column>
 	<column name="location_accuracy">
-		<type name="float" length="0"/>
+		<type name="float8" length="0"/>
 		<comment> <![CDATA[Location accuracy of the object, in meters]]> </comment>
 	</column>
 	<column name="geom">
@@ -2768,7 +2781,7 @@ Structure:
 		<type name="smallint" length="0"/>
 		<comment> <![CDATA[order of displaying in the exported file]]> </comment>
 	</column>
-	<column name="mandatory" default-value="'f'">
+	<column name="mandatory" default-value="false">
 		<type name="boolean" length="0"/>
 		<comment> <![CDATA[Is the content of the column is mandatory to export data?]]> </comment>
 	</column>
@@ -2790,6 +2803,7 @@ Structure:
 
 	<customidxs object-type="column">
 		<object name="dataset_template_id" index="1"/>
+		<object name="translator_id" index="10"/>
 	</customidxs>
 	<customidxs object-type="constraint">
 		<object name="dataset_template_fk" index="1"/>
@@ -3392,12 +3406,22 @@ CCBY;https:\/\/creativecommons.org\/licenses\/by\/4.0\/]]>
 	<schema name="col"/>
 	<role name="collec"/>
 	<tag name="sample"/>
-	<position x="860" y="2080"/>
-	<simplecol name="select sample_id, ui..." type="text"/>
-	<definition> <![CDATA[select sample_id, uid, multiple_value,  
-coalesce ((select sum(subsample_quantity) from col.subsample smore where smore.movement_type_id = 1 and smore.sample_id = s.sample_id),0) as subsample_more,
-coalesce ((select sum(subsample_quantity) from col.subsample sless where sless.movement_type_id  = 2 and sless.sample_id = s.sample_id),0) as subsample_less
-from col.sample s;;]]> </definition>
+	<position x="860" y="2000"/>
+	<simplecol name="sample_id" type="integer"/>
+	<simplecol name="uid" type="integer"/>
+	<simplecol name="multiple_value" type="float8"/>
+	<simplecol name="subsample_more" type="float8"/>
+	<simplecol name="subsample_less" type="float8"/>
+	<definition> <![CDATA[SELECT sample_id,
+    uid,
+    multiple_value,
+    COALESCE(( SELECT sum(smore.subsample_quantity) AS sum
+           FROM col.subsample smore
+          WHERE smore.movement_type_id = 1 AND smore.sample_id = s.sample_id), 0::double precision) AS subsample_more,
+    COALESCE(( SELECT sum(sless.subsample_quantity) AS sum
+           FROM col.subsample sless
+          WHERE sless.movement_type_id = 2 AND sless.sample_id = s.sample_id), 0::double precision) AS subsample_less
+   FROM col.sample s]]> </definition>
 </view>
 
 <relationship name="country_origin_has_many_sample" type="rel1n" layers="0"
@@ -3526,8 +3550,7 @@ EAN 128;C128]]>
 	 dst-table="col.collection_sampletype"
 	 src-required="true" dst-required="false"
 	 identifier="true"
-
-	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+/>
 
 <relationship name="sample_type_has_many_collection_sampletype" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -3539,8 +3562,7 @@ EAN 128;C128]]>
 	 dst-table="col.collection_sampletype"
 	 src-required="true" dst-required="false"
 	 identifier="true"
-
-	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+/>
 
 <function name="getsampletypesfromcollection"
 		window-func="false"
@@ -3598,7 +3620,7 @@ where collection_id = $1]]> </definition>
 	<position x="1280" y="460"/>
 </table>
 
-<relationship name="collection_has_many_collection_eventtype" type="rel1n" layers="0"
+<relationship name="collection_has_many_collection_eventtype" type="rel1n" layers="0" alias="collection_eventtype_1"
 	 src-col-pattern="{sc}"
 	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
@@ -3608,8 +3630,7 @@ where collection_id = $1]]> </definition>
 	 dst-table="col.collection_eventtype"
 	 src-required="true" dst-required="false"
 	 identifier="true"
-
-	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+/>
 
 <relationship name="event_type_has_many_collection_eventtype" type="rel1n" layers="0"
 	 src-col-pattern="{sc}"
@@ -3621,8 +3642,7 @@ where collection_id = $1]]> </definition>
 	 dst-table="col.collection_eventtype"
 	 src-required="true" dst-required="false"
 	 identifier="true"
-
-	 deferrable="true" defer-type="INITIALLY IMMEDIATE"/>
+/>
 
 <function name="geteventtypesfromcollection"
 		window-func="false"
@@ -3908,6 +3928,22 @@ join sample p on (ss.sample_id = p.sample_id)
 join object po on (p.uid = po.uid)
 group by ss.createdsample_id]]> </definition>
 </view>
+
+<index name="dbparamname_idx" table="col.dbparam"
+	 concurrent="false" unique="true" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="dbparam_name"/>
+		</idxelement>
+</index>
+
+<index name="object_identifier_idx" table="col.object"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="identifier"/>
+		</idxelement>
+</index>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
@@ -4494,10 +4530,5 @@ group by ss.createdsample_id]]> </definition>
 	<object name="collec" type="database"/>
 	<roles names="collec"/>
 	<privileges create="true" connect="true" temporary="true"/>
-</permission>
-<permission>
-	<object name="col.v_subsample_quantity" type="view"/>
-	<roles names="collec"/>
-	<privileges select="true" delete="true" insert="true" update="true" truncate="true"/>
 </permission>
 </dbmodel>

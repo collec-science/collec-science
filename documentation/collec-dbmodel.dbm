@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="79"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="1276,1087" last-zoom="0.8" scene-rect="-8,-10,3571.12,2835.12"
+	 last-position="357,846" last-zoom="0.8" scene-rect="-8,-10,3571.12,2812.52"
 	 default-schema="col" default-owner="collec"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -132,6 +132,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <extension name="pg_trgm" cur-version="1.4" sql-disabled="true">
 	<schema name="pg_catalog"/>
 	<comment> <![CDATA[text similarity measurement and index searching based on trigrams]]> </comment>
+	<object name="gist_trgm_ops" type="usertype"/>
 </extension>
 
 <sequence name="booking_booking_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
@@ -1936,36 +1937,71 @@ Autre]]>
 		</idxelement>
 </index>
 
-<view name="last_movement" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
+<table name="object" layers="0" collapse-mode="1" max-obj-count="16" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
-	<tag name="movement"/>
-	<position x="1680" y="1740"/>
-	<simplecol name="uid" type="integer"/>
-	<simplecol name="movement_id" type="integer"/>
-	<simplecol name="movement_date" type="timestamp"/>
-	<simplecol name="movement_type_id" type="integer"/>
-	<simplecol name="container_id" type="integer"/>
-	<simplecol name="container_uid" type="integer"/>
-	<simplecol name="container_identifier" type="varchar"/>
-	<simplecol name="line_number" type="integer"/>
-	<simplecol name="column_number" type="integer"/>
-	<simplecol name="movement_reason_id" type="integer"/>
-	<definition> <![CDATA[SELECT m.uid,
-    m.movement_id,
-    m.movement_date,
-    m.movement_type_id,
-    m.container_id,
-    c.uid AS container_uid,
-    o2.identifier AS container_identifier,
-    m.line_number,
-    m.column_number,
-    m.movement_reason_id
-   FROM col.movement m
-     JOIN col.object o ON m.movement_id = o.last_movement_id
-     LEFT JOIN col.container c USING (container_id)
-     LEFT JOIN col.object o2 ON c.uid = o2.uid]]> </definition>
-</view>
+	<comment> <![CDATA[Table of objects]]> </comment>
+	<tag name="objects"/>
+	<appended-sql> <![CDATA[CREATE INDEX object_identifier_idx ON col.object USING gist (lower((identifier)::text) gist_trgm_ops);]]> </appended-sql>
+	<position x="1280" y="1320"/>
+	<column name="uid" not-null="true" sequence="col.object_uid_seq">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Unique identifier in the database of all objects]]> </comment>
+	</column>
+	<column name="identifier">
+		<type name="character varying" length="0"/>
+		<comment> <![CDATA[Main working identifier]]> </comment>
+	</column>
+	<column name="wgs84_x">
+		<type name="double precision" length="0"/>
+		<comment> <![CDATA[GPS longitude, in decimal form]]> </comment>
+	</column>
+	<column name="wgs84_y">
+		<type name="double precision" length="0"/>
+		<comment> <![CDATA[GPS latitude, in decimal form]]> </comment>
+	</column>
+	<column name="object_status_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="referent_id">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="change_date" not-null="true" default-value="now()">
+		<type name="timestamp" length="0"/>
+		<comment> <![CDATA[Technical date of changement of the object]]> </comment>
+	</column>
+	<column name="uuid" not-null="true" default-value="gen_random_uuid()">
+		<type name="uuid" length="0"/>
+		<comment> <![CDATA[UUID of the object]]> </comment>
+	</column>
+	<column name="trashed" default-value="false">
+		<type name="bool" length="0"/>
+		<comment> <![CDATA[If the object is trashed before completly destroyed ?]]> </comment>
+	</column>
+	<column name="location_accuracy">
+		<type name="float8" length="0"/>
+		<comment> <![CDATA[Location accuracy of the object, in meters]]> </comment>
+	</column>
+	<column name="geom">
+		<type name="geography" length="0" spatial-type="POINT" variation="0" srid="4326"/>
+		<comment> <![CDATA[Geographic point generate from wgs84_x and wgs84_y]]> </comment>
+	</column>
+	<column name="object_comment">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Comment on the object (sample or container)]]> </comment>
+	</column>
+	<column name="last_movement_id">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Last movement recorded to the object]]> </comment>
+	</column>
+	<column name="object_login">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Login that created the object]]> </comment>
+	</column>
+	<constraint name="object_pk" type="pk-constr" table="col.object">
+		<columns names="uid" ref-type="src-columns"/>
+	</constraint>
+</table>
 
 <sequence name="borrower_borrower_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
 	<schema name="col"/>
@@ -2089,18 +2125,35 @@ Autre]]>
 	<schema name="public"/>
 </extension>
 
-<view name="slots_used" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
+<view name="last_movement" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
-	<tag name="container"/>
-	<position x="1680" y="2080"/>
+	<tag name="movement"/>
+	<position x="1680" y="1740"/>
+	<simplecol name="uid" type="integer"/>
+	<simplecol name="movement_id" type="integer"/>
+	<simplecol name="movement_date" type="timestamp"/>
+	<simplecol name="movement_type_id" type="integer"/>
 	<simplecol name="container_id" type="integer"/>
-	<simplecol name="nb_slots_used" type="bigint"/>
-	<definition> <![CDATA[SELECT container_id,
-    count(*) AS nb_slots_used
-   FROM col.last_movement
-  WHERE movement_type_id = 1
-  GROUP BY container_id]]> </definition>
+	<simplecol name="container_uid" type="integer"/>
+	<simplecol name="container_identifier" type="varchar"/>
+	<simplecol name="line_number" type="integer"/>
+	<simplecol name="column_number" type="integer"/>
+	<simplecol name="movement_reason_id" type="integer"/>
+	<definition> <![CDATA[SELECT m.uid,
+    m.movement_id,
+    m.movement_date,
+    m.movement_type_id,
+    m.container_id,
+    c.uid AS container_uid,
+    o2.identifier AS container_identifier,
+    m.line_number,
+    m.column_number,
+    m.movement_reason_id
+   FROM col.movement m
+     JOIN col.object o ON m.movement_id = o.last_movement_id
+     LEFT JOIN col.container c USING (container_id)
+     LEFT JOIN col.object o2 ON c.uid = o2.uid]]> </definition>
 </view>
 
 <index name="log_module_idx" table="gacl.log"
@@ -2256,71 +2309,19 @@ Structure:
 		</idxelement>
 </index>
 
-<table name="object" layers="0" collapse-mode="1" max-obj-count="16" z-value="0">
+<view name="slots_used" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
-	<comment> <![CDATA[Table of objects]]> </comment>
-	<tag name="objects"/>
-	<appended-sql> <![CDATA[create index object_identifier_idx on col.object using gist (lower(identifier) gist_trgm_ops);]]> </appended-sql>
-	<position x="1280" y="1320"/>
-	<column name="uid" not-null="true" sequence="col.object_uid_seq">
-		<type name="integer" length="0"/>
-		<comment> <![CDATA[Unique identifier in the database of all objects]]> </comment>
-	</column>
-	<column name="identifier">
-		<type name="character varying" length="0"/>
-		<comment> <![CDATA[Main working identifier]]> </comment>
-	</column>
-	<column name="wgs84_x">
-		<type name="double precision" length="0"/>
-		<comment> <![CDATA[GPS longitude, in decimal form]]> </comment>
-	</column>
-	<column name="wgs84_y">
-		<type name="double precision" length="0"/>
-		<comment> <![CDATA[GPS latitude, in decimal form]]> </comment>
-	</column>
-	<column name="object_status_id">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="referent_id">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="change_date" not-null="true" default-value="now()">
-		<type name="timestamp" length="0"/>
-		<comment> <![CDATA[Technical date of changement of the object]]> </comment>
-	</column>
-	<column name="uuid" not-null="true" default-value="gen_random_uuid()">
-		<type name="uuid" length="0"/>
-		<comment> <![CDATA[UUID of the object]]> </comment>
-	</column>
-	<column name="trashed" default-value="false">
-		<type name="bool" length="0"/>
-		<comment> <![CDATA[If the object is trashed before completly destroyed ?]]> </comment>
-	</column>
-	<column name="location_accuracy">
-		<type name="float8" length="0"/>
-		<comment> <![CDATA[Location accuracy of the object, in meters]]> </comment>
-	</column>
-	<column name="geom">
-		<type name="geography" length="0" spatial-type="POINT" variation="0" srid="4326"/>
-		<comment> <![CDATA[Geographic point generate from wgs84_x and wgs84_y]]> </comment>
-	</column>
-	<column name="object_comment">
-		<type name="varchar" length="0"/>
-		<comment> <![CDATA[Comment on the object (sample or container)]]> </comment>
-	</column>
-	<column name="last_movement_id">
-		<type name="integer" length="0"/>
-		<comment> <![CDATA[Last movement recorded to the object]]> </comment>
-	</column>
-	<column name="object_login">
-		<type name="varchar" length="0"/>
-		<comment> <![CDATA[Login that created the object]]> </comment>
-	</column>
-	<constraint name="object_pk" type="pk-constr" table="col.object">
-		<columns names="uid" ref-type="src-columns"/>
-	</constraint>
-</table>
+	<tag name="container"/>
+	<position x="1680" y="2080"/>
+	<simplecol name="container_id" type="integer"/>
+	<simplecol name="nb_slots_used" type="bigint"/>
+	<definition> <![CDATA[SELECT container_id,
+    count(*) AS nb_slots_used
+   FROM col.last_movement
+  WHERE movement_type_id = 1
+  GROUP BY container_id]]> </definition>
+</view>
 
 <index name="object_trashed" table="col.object"
 	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
@@ -3529,40 +3530,16 @@ EAN 128;C128]]>
 	<role name="collec"/>
 	<tag name="sample"/>
 	<position x="440" y="2080"/>
-
-	<customidxs object-type="column">
-		<object name="collection_id" index="0"/>
-		<object name="sample_type_id" index="1"/>
-	</customidxs>
-	<customidxs object-type="constraint">
-		<object name="collection" index="1"/>
-		<object name="collection_sampletype" index="0"/>
-		<object name="sample_type" index="2"/>
-	</customidxs></table>
-
-<relationship name="collection_has_many_collection_sampletype" type="rel1n" layers="0"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
-	 fk-idx-pattern="{st}_idx"
-	 custom-color="#f57900"
-	 src-table="col.collection"
-	 dst-table="col.collection_sampletype"
-	 src-required="true" dst-required="false"
-	 identifier="true"
-/>
-
-<relationship name="sample_type_has_many_collection_sampletype" type="rel1n" layers="0"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
-	 fk-idx-pattern="{st}_idx"
-	 custom-color="#3465a4"
-	 src-table="col.sample_type"
-	 dst-table="col.collection_sampletype"
-	 src-required="true" dst-required="false"
-	 identifier="true"
-/>
+	<column name="collection_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="sample_type_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="collection_sampletype_pk" type="pk-constr" table="col.collection_sampletype">
+		<columns names="collection_id,sample_type_id" ref-type="src-columns"/>
+	</constraint>
+</table>
 
 <function name="getsampletypesfromcollection"
 		window-func="false"
@@ -3618,31 +3595,16 @@ where collection_id = $1]]> </definition>
 	<comment> <![CDATA[List of event types attached to a collection]]> </comment>
 	<tag name="objects"/>
 	<position x="1280" y="460"/>
+	<column name="collection_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="event_type_id" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="collection_eventtype_pk" type="pk-constr" table="col.collection_eventtype">
+		<columns names="collection_id,event_type_id" ref-type="src-columns"/>
+	</constraint>
 </table>
-
-<relationship name="collection_has_many_collection_eventtype" type="rel1n" layers="0" alias="collection_eventtype_1"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
-	 fk-idx-pattern="{st}_idx"
-	 custom-color="#f57900"
-	 src-table="col.collection"
-	 dst-table="col.collection_eventtype"
-	 src-required="true" dst-required="false"
-	 identifier="true"
-/>
-
-<relationship name="event_type_has_many_collection_eventtype" type="rel1n" layers="0"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}" dst-fk-pattern="{dt}_uq"
-	 fk-idx-pattern="{st}_idx"
-	 custom-color="#73d216"
-	 src-table="col.event_type"
-	 dst-table="col.collection_eventtype"
-	 src-required="true" dst-required="false"
-	 identifier="true"
-/>
 
 <function name="geteventtypesfromcollection"
 		window-func="false"
@@ -3939,9 +3901,9 @@ group by ss.createdsample_id]]> </definition>
 
 <index name="object_identifier_idx" table="col.object"
 	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
-	 index-type="btree" factor="0">
+	 index-type="gist" factor="0" sql-disabled="true">
 		<idxelement use-sorting="false">
-			<column name="identifier"/>
+			<expression> <![CDATA[lower(identifier) gist_trgm_ops]]> </expression>
 		</idxelement>
 </index>
 
@@ -4225,6 +4187,30 @@ group by ss.createdsample_id]]> </definition>
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement" table="col.object">
 	<columns names="last_movement_id" ref-type="src-columns"/>
 	<columns names="movement_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="collection_sampletype_collection_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.collection" table="col.collection_sampletype">
+	<columns names="collection_id" ref-type="src-columns"/>
+	<columns names="collection_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="collection_sampletype_sample_type_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="CASCADE" del-action="NO ACTION" ref-table="col.sample_type" table="col.collection_sampletype">
+	<columns names="sample_type_id" ref-type="src-columns"/>
+	<columns names="sample_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="collection_eventtype_event_type_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="CASCADE" del-action="NO ACTION" ref-table="col.event_type" table="col.collection_eventtype">
+	<columns names="event_type_id" ref-type="src-columns"/>
+	<columns names="event_type_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="collection_eventtype_collection_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="CASCADE" del-action="NO ACTION" ref-table="col.collection" table="col.collection_eventtype">
+	<columns names="collection_id" ref-type="src-columns"/>
+	<columns names="collection_id" ref-type="dst-columns"/>
 </constraint>
 
 <relationship name="rel_booking_object" type="relfk" layers="0"
@@ -4526,9 +4512,28 @@ group by ss.createdsample_id]]> </definition>
 	 dst-table="col.sample" reference-fk="sample_id"
 	 src-required="false" dst-required="true"/>
 
-<permission>
-	<object name="collec" type="database"/>
-	<roles names="collec"/>
-	<privileges create="true" connect="true" temporary="true"/>
-</permission>
+<relationship name="rel_collection_eventtype_event_type" type="relfk" layers="0"
+	 custom-color="#55aa00"
+	 src-table="col.collection_eventtype"
+	 dst-table="col.event_type" reference-fk="collection_eventtype_event_type_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_collection_eventtype_collection" type="relfk" layers="0"
+	 custom-color="#ff5500"
+	 src-table="col.collection_eventtype"
+	 dst-table="col.collection" reference-fk="collection_eventtype_collection_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_collection_sampletype_collection" type="relfk" layers="0"
+	 custom-color="#ff5500"
+	 src-table="col.collection_sampletype"
+	 dst-table="col.collection" reference-fk="collection_sampletype_collection_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_collection_sampletype_sample_type" type="relfk" layers="0"
+	 custom-color="#00007f"
+	 src-table="col.collection_sampletype"
+	 dst-table="col.sample_type" reference-fk="collection_sampletype_sample_type_fk"
+	 src-required="false" dst-required="true"/>
+
 </dbmodel>

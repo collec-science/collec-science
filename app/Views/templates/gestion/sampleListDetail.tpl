@@ -719,6 +719,7 @@
 					title="{t}Export pour import dans une autre base Collec-Science{/t}">
 					{t}Export vers autre base{/t}</button>
 				{/if}
+				{$helpsamplelist}
 			</div>
 		</div>
 		{/if}

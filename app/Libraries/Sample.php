@@ -179,7 +179,9 @@ class Sample extends PpciLibrary
          * online help
          */
 
-        $this->vue->help(_("objets/les-opérations-de-groupe-sur-les-échantillons.html"), "helpsamplegroup");
+        $this->vue->help(_("objets/les-opérations-globales-sur-les-échantillons.html"), "helpsamplegroup");
+        $this->vue->help(_("gestion/chercher-les-échantillons.html"), "helpsamplesearch");
+        $this->vue->help(_("gestion/la-liste-des-échantillons.html"), "helpsamplelist");
         return $this->vue->send();
     }
     function searchAjax()
@@ -311,6 +313,7 @@ class Sample extends PpciLibrary
          */
         $this->vue->help(_("objets/les-échantillons.html"));
         $this->vue->help(_("gestion/prêter-un-ou-plusieurs-échantillons.html"), "helpborrowing");
+        $this->vue->help(_("gestion/la-liste-des-échantillons.html"), "helpsamplelist");
         $this->vue->set("sample", "moduleParent");
         $this->vue->set("gestion/sampleDisplay.tpl", "corps");
         return $this->vue->send();

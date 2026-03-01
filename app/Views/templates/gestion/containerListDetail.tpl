@@ -108,7 +108,7 @@ $(document).ready(function () {
 	$("#containerlabels").on('click keypress', function() {
 		//$(this.form).find("input[name='module']").val("containerPrintLabel");
 		$(this.form).attr("action", "containerPrintLabel");
-		$(this.form).prop('target', '_self').submit();
+		$(this.form).prop('target', 'labels').submit();
 	});
 	$("#containerdirect").on('keypress click', function() {
 		//$(this.form).find("input[name='module']").val("containerPrintDirect");

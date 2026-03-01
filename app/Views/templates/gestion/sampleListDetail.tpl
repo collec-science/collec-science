@@ -185,7 +185,7 @@
 		$( "#samplelabels" ).on( "keypress click", function () {
 			//$( "#samplemodule" ).val( "samplePrintLabel" );
 			$(this.form).attr("action", "samplePrintLabel");
-			$( this.form ).submit();
+			$( this.form ).prop('target','labels').submit();
 		} );
 		$( "#sampledirect" ).on( "keypress click", function () {
 			//$( "#samplemodule" ).val( "samplePrintDirect" );

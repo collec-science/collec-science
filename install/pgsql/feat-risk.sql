@@ -10,7 +10,6 @@ COMMENT ON TABLE col.risk IS E'Risks attached to a sample or a container';
 -- ddl-end --
 COMMENT ON COLUMN col.risk.risk_name IS E'Risk classification according to the European CLP directive';
 -- ddl-end --
-ALTER TABLE col.risk OWNER TO collec;
 
 alter table col.sample_type add column risk_id integer;
 alter table col.container_type add column risk_id integer;
@@ -26,8 +25,6 @@ CREATE TABLE col.product (
 COMMENT ON TABLE col.product IS E'List of products used with samples or containers';
 -- ddl-end --
 COMMENT ON COLUMN col.product.product_name IS E'Name of the product';
--- ddl-end --
-ALTER TABLE col.product OWNER TO collec;
 -- ddl-end --
 
 alter table col.sample_type add column product_id integer;
@@ -82,14 +79,14 @@ alter table col.container_type drop column clp_classification;
 -- ALTER TABLE col.sample_type DROP CONSTRAINT IF EXISTS product_fk CASCADE;
 ALTER TABLE col.sample_type ADD CONSTRAINT product_fk FOREIGN KEY (product_id)
 REFERENCES col.product (product_id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
+ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: product_fk | type: CONSTRAINT --
 -- ALTER TABLE col.container_type DROP CONSTRAINT IF EXISTS product_fk CASCADE;
 ALTER TABLE col.container_type ADD CONSTRAINT product_fk FOREIGN KEY (product_id)
 REFERENCES col.product (product_id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
+ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 
@@ -97,12 +94,12 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 -- ALTER TABLE col.sample_type DROP CONSTRAINT IF EXISTS risk_fk CASCADE;
 ALTER TABLE col.sample_type ADD CONSTRAINT risk_fk FOREIGN KEY (risk_id)
 REFERENCES col.risk (risk_id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
+ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: risk_fk | type: CONSTRAINT --
 -- ALTER TABLE col.container_type DROP CONSTRAINT IF EXISTS risk_fk CASCADE;
 ALTER TABLE col.container_type ADD CONSTRAINT risk_fk FOREIGN KEY (risk_id)
 REFERENCES col.risk (risk_id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
+ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
